@@ -45,6 +45,8 @@ jobs:
           echo "SSH_TARGET=${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" >> "$GITHUB_ENV"
 
       - name: Deploy Laravel
+        env:
+          API_PATH: ${{ secrets.API_PATH }}
         run: |
           rsync -az --delete \
             -e "ssh -i ~/.ssh/id_deploy" \
@@ -52,15 +54,18 @@ jobs:
             --exclude 'storage/' \
             --exclude 'node_modules/' \
             --exclude 'tests/' \
-            apps/api/ "$SSH_TARGET:${{ secrets.API_PATH }}/"
+            apps/api/ "$SSH_TARGET:$API_PATH/"
 
       - name: Write .env and run artisan
+        env:
+          API_PATH: ${{ secrets.API_PATH }}
+          ENV_FILE: ${{ secrets.ENV_FILE }}
         run: |
-          printf '%s' "${{ secrets.ENV_FILE }}" | \
-            ssh -i ~/.ssh/id_deploy "$SSH_TARGET" "cat > '${{ secrets.API_PATH }}/.env'"
+          printf '%s' "$ENV_FILE" | \
+            ssh -i ~/.ssh/id_deploy "$SSH_TARGET" "cat > '$API_PATH/.env'"
           ssh -i ~/.ssh/id_deploy "$SSH_TARGET" "
             set -e
-            cd '${{ secrets.API_PATH }}'
+            cd '$API_PATH'
             mkdir -p storage/logs storage/app/public storage/framework/cache storage/framework/sessions storage/framework/views
             $PHP_BIN artisan storage:link || true
             $PHP_BIN artisan migrate --force
@@ -70,7 +75,9 @@ jobs:
           "
 
       - name: Deploy Stencil app
+        env:
+          WEB_PATH: ${{ secrets.WEB_PATH }}
         run: |
           rsync -az --delete \
             -e "ssh -i ~/.ssh/id_deploy" \
-            apps/web/www/ "$SSH_TARGET:${{ secrets.WEB_PATH }}/"
+            apps/web/www/ "$SSH_TARGET:$WEB_PATH/"
