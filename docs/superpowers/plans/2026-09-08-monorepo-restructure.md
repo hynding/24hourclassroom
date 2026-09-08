@@ -1319,15 +1319,20 @@ git commit -m "feat: docker compose dev environment with opt-in localdb profile"
 
 - [ ] **Step 1: Write the workflow**
 
-Create `.github/workflows/ci.yml`:
+Create `.github/workflows/ci.yml`. Note: this workflow was later consolidated (see Task 11) to also
+carry the deploy job, so the `name:`, `permissions:`, and job list below reflect the final state
+rather than the original CI-only version:
 
 ```yaml
-name: CI
+name: CI & Deploy
 
 on:
   pull_request:
   push:
     branches: [dev, master]
+
+permissions:
+  contents: read
 
 jobs:
   api:
@@ -1374,6 +1379,17 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm test
+
+  deploy:
+    needs: [api, web]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == 'master' && 'production' || 'staging' }}
+    concurrency: deploy-${{ github.ref_name }}
+    env:
+      PHP_BIN: ${{ vars.PHP_BIN || 'php' }}
+    steps:
+      # ...see Task 11 for the deploy job's steps (build, SSH, rsync, remote artisan).
 ```
 
 - [ ] **Step 2: Lint the workflow**
@@ -1401,93 +1417,13 @@ git commit -m "ci: test and build both stacks on PRs and pushes"
 
 - [ ] **Step 1: Write the workflow**
 
-Create `.github/workflows/deploy.yml`:
-
-```yaml
-name: Deploy
-
-on:
-  push:
-    branches: [dev, master]
-
-concurrency: deploy-${{ github.ref_name }}
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    environment: ${{ github.ref_name == 'master' && 'production' || 'staging' }}
-    env:
-      PHP_BIN: ${{ vars.PHP_BIN || 'php' }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
-          extensions: pdo_mysql, mbstring, bcmath
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Build Laravel (vendor + Vite assets)
-        working-directory: apps/api
-        run: |
-          composer install --no-dev --optimize-autoloader --no-interaction
-          npm ci
-          npm run build
-
-      - name: Build Stencil app
-        env:
-          API_BASE_URL: ${{ vars.API_BASE_URL }}
-        run: |
-          npm ci
-          npm run build
-
-      - name: Set up SSH
-        run: |
-          mkdir -p ~/.ssh
-          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_deploy
-          chmod 600 ~/.ssh/id_deploy
-          ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
-          echo "SSH_TARGET=${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" >> "$GITHUB_ENV"
-
-      - name: Deploy Laravel
-        env:
-          API_PATH: ${{ secrets.API_PATH }}
-        run: |
-          rsync -az --delete \
-            -e "ssh -i ~/.ssh/id_deploy" \
-            --exclude '.env' \
-            --exclude 'storage/' \
-            --exclude 'node_modules/' \
-            --exclude 'tests/' \
-            apps/api/ "$SSH_TARGET:$API_PATH/"
-
-      - name: Write .env and run artisan
-        env:
-          API_PATH: ${{ secrets.API_PATH }}
-          ENV_FILE: ${{ secrets.ENV_FILE }}
-        run: |
-          printf '%s' "$ENV_FILE" | \
-            ssh -i ~/.ssh/id_deploy "$SSH_TARGET" "cat > '$API_PATH/.env'"
-          ssh -i ~/.ssh/id_deploy "$SSH_TARGET" "
-            set -e
-            cd '$API_PATH'
-            mkdir -p storage/logs storage/app/public storage/framework/cache storage/framework/sessions storage/framework/views
-            $PHP_BIN artisan storage:link || true
-            $PHP_BIN artisan migrate --force
-            $PHP_BIN artisan config:cache
-            $PHP_BIN artisan route:cache
-            $PHP_BIN artisan view:cache
-          "
-
-      - name: Deploy Stencil app
-        env:
-          WEB_PATH: ${{ secrets.WEB_PATH }}
-        run: |
-          rsync -az --delete \
-            -e "ssh -i ~/.ssh/id_deploy" \
-            apps/web/www/ "$SSH_TARGET:$WEB_PATH/"
-```
+The deploy job does not live in its own `deploy.yml`. It was consolidated into
+`.github/workflows/ci.yml` (see Task 10) as the `deploy` job, gated by `needs: [api, web]` and
+`if: github.event_name == 'push'` so it only runs after CI's `api`/`web` jobs pass on a push to
+`dev`/`master` — never on `pull_request` — keeping a single workflow (`CI & Deploy`) as the one
+source of truth instead of a separate ungated `deploy.yml` that could deploy without CI having
+run. Its `concurrency: deploy-${{ github.ref_name }}` is job-level (on the `deploy` job), not
+workflow-level, so PR runs of `api`/`web` are never serialized by it.
 
 - [ ] **Step 2: Document the one-time Dreamhost + GitHub setup**
 
