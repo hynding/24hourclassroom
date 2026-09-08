@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Support;
+
+class FrontendRedirect
+{
+    /**
+     * Return $url when its origin is on the FRONTEND_URLS allowlist, else null.
+     */
+    public static function validate(?string $url): ?string
+    {
+        if ($url === null || $url === '') {
+            return null;
+        }
+
+        $origin = self::origin($url);
+
+        if ($origin === null) {
+            return null;
+        }
+
+        $allowed = array_filter(explode(',', (string) config('app.frontend_urls')));
+
+        return in_array($origin, $allowed, true) ? $url : null;
+    }
+
+    private static function origin(string $url): ?string
+    {
+        $parts = parse_url($url);
+
+        if (! isset($parts['scheme'], $parts['host']) || ! in_array($parts['scheme'], ['http', 'https'], true)) {
+            return null;
+        }
+
+        $origin = $parts['scheme'].'://'.$parts['host'];
+
+        if (isset($parts['port'])) {
+            $origin .= ':'.$parts['port'];
+        }
+
+        return $origin;
+    }
+}
