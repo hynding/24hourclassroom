@@ -55,7 +55,7 @@ docker/         Dockerfiles + related config
 
 ## Stencil app (`apps/web`)
 
-- Scaffolded from Stencil's app starter: TypeScript SPA with stencil-router, builds static output to `www/`.
+- Hand-scaffolded Stencil 4 TypeScript SPA (Stencil's official app starter and `stencil-router` are deprecated/unmaintained), building static output to `www/`. Routing is a minimal History-API switch inside the root component — no router dependency until real multi-page features need one.
 - Initial surface: landing page, app shell (header/nav/footer), and a "Sign in" link that hands off to the Laravel-hosted auth pages.
 - Authenticated API calls go through `packages/api-client` using Laravel Sanctum cookie (SPA) auth. The client owns the Sanctum handshake: it requests `GET /sanctum/csrf-cookie` before the first mutating call, sends every request with `credentials: 'include'`, and echoes the `XSRF-TOKEN` cookie back as the `X-XSRF-TOKEN` header.
 - An `.htaccess` with rewrite-to-`index.html` enables SPA routing on Dreamhost's Apache. It lives in the repo (`apps/web/src/assets/.htaccess`, listed in Stencil's `copy` config) so every build emits it into `www/` and the deploy rsyncs it with the rest of the output.
