@@ -75,8 +75,14 @@ export class PageProfile {
   };
 
   async removeAvatar() {
-    await profileStore.removeAvatar();
-    this.avatarUrl = null;
+    this.errors = {};
+    this.saved = false;
+    try {
+      await profileStore.removeAvatar();
+      this.avatarUrl = null;
+    } catch (e) {
+      this.errors = e instanceof ApiError ? (e.errors ?? { avatar: [e.message] }) : { avatar: ['Removal failed.'] };
+    }
   }
 
   private fieldError(field: string) {

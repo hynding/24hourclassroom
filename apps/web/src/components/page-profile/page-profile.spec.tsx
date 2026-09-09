@@ -37,6 +37,7 @@ describe('page-profile', () => {
 
     myProfile.mockResolvedValue({ ...emptyProfile, school: 'Rivet High' });
     save.mockResolvedValue({ ...emptyProfile, school: 'Rivet High' });
+    removeAvatar.mockResolvedValue(undefined);
   });
 
   it('loads the current profile into the form', async () => {
@@ -82,6 +83,20 @@ describe('page-profile', () => {
 
     expect(removeAvatar).toHaveBeenCalled();
     expect(spec.rootInstance.avatarUrl).toBeNull();
+  });
+
+  it('surfaces an error and keeps the avatar displayed when removal fails', async () => {
+    myProfile.mockResolvedValue({ ...emptyProfile, avatar_url: 'https://api.test/storage/avatars/x.jpg' });
+    removeAvatar.mockRejectedValue(new ApiError(500, 'Server Error'));
+
+    const spec = await newSpecPage({ components: [PageProfile], html: '<page-profile></page-profile>' });
+    await spec.waitForChanges();
+
+    await spec.rootInstance.removeAvatar();
+    await spec.waitForChanges();
+
+    expect(spec.root.shadowRoot.textContent).toContain('Server Error');
+    expect(spec.rootInstance.avatarUrl).toBe('https://api.test/storage/avatars/x.jpg');
   });
 
   it('toggles a subject on and off', async () => {
