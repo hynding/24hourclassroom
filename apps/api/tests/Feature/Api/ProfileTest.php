@@ -40,13 +40,29 @@ test('put lazily creates the profile row', function () {
 
 test('put updates an existing profile without creating a second row', function () {
     $user = User::factory()->create();
-    Profile::factory()->for($user)->create(['school' => 'Old']);
+    Profile::factory()->for($user)->create([
+        'school' => 'Old',
+        'subjects' => ['math'],
+        'grade_levels' => ['9-12'],
+    ]);
     $this->actingAs($user);
 
     $this->putJson('/api/profile', ['school' => 'New'])->assertOk();
 
     expect(Profile::where('user_id', $user->id)->count())->toBe(1)
-        ->and($user->fresh()->profile->school)->toBe('New');
+        ->and($user->fresh()->profile->school)->toBe('New')
+        ->and($user->fresh()->profile->subjects)->toBe(['math'])
+        ->and($user->fresh()->profile->grade_levels)->toBe(['9-12']);
+});
+
+test('put with an explicit null wipes the field instead of leaving it untouched', function () {
+    $user = User::factory()->create();
+    Profile::factory()->for($user)->create(['school' => 'Old']);
+    $this->actingAs($user);
+
+    $this->putJson('/api/profile', ['school' => null])->assertOk();
+
+    expect($user->fresh()->profile->school)->toBeNull();
 });
 
 test('put rejects values outside the curated taxonomy', function () {
