@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationNotificationController;
 use App\Http\Controllers\Api\ProfileAvatarController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\PublicProfileController;
 use App\Http\Controllers\Api\TeacherDirectoryController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
@@ -35,4 +36,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 Route::middleware('throttle:60,1')->group(function () {
     Route::get('teachers', TeacherDirectoryController::class);
+    Route::get('users/{user}', PublicProfileController::class);
 });
