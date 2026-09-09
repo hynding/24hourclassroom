@@ -99,6 +99,40 @@ describe('page-profile', () => {
     expect(spec.rootInstance.avatarUrl).toBe('https://api.test/storage/avatars/x.jpg');
   });
 
+  it('uploads an avatar and reports the new url', async () => {
+    uploadAvatar.mockResolvedValue({ ...emptyProfile, avatar_url: 'https://api.test/storage/avatars/new.jpg' });
+
+    const spec = await newSpecPage({ components: [PageProfile], html: '<page-profile></page-profile>' });
+    await spec.waitForChanges();
+
+    const file = new File(['data'], 'avatar.png', { type: 'image/png' });
+    await spec.rootInstance.onAvatar({ target: { files: [file] } } as unknown as Event);
+    await spec.waitForChanges();
+
+    expect(uploadAvatar).toHaveBeenCalledWith(file);
+    expect(spec.rootInstance.avatarUrl).toBe('https://api.test/storage/avatars/new.jpg');
+  });
+
+  it('surfaces an avatar upload error and clears a stale Saved indicator', async () => {
+    uploadAvatar.mockRejectedValue(new ApiError(422, 'invalid', { avatar: ['The avatar must be an image.'] }));
+
+    const spec = await newSpecPage({ components: [PageProfile], html: '<page-profile></page-profile>' });
+    await spec.waitForChanges();
+
+    // Simulate a prior successful save so a stale "Saved." indicator would
+    // still be on screen if the upload failure didn't clear it.
+    spec.rootInstance.saved = true;
+    await spec.waitForChanges();
+    expect(spec.root.shadowRoot.textContent).toContain('Saved.');
+
+    const file = new File(['data'], 'avatar.png', { type: 'image/png' });
+    await spec.rootInstance.onAvatar({ target: { files: [file] } } as unknown as Event);
+    await spec.waitForChanges();
+
+    expect(spec.root.shadowRoot.textContent).toContain('The avatar must be an image.');
+    expect(spec.root.shadowRoot.textContent).not.toContain('Saved.');
+  });
+
   it('toggles a subject on and off', async () => {
     const spec = await newSpecPage({ components: [PageProfile], html: '<page-profile></page-profile>' });
     await spec.waitForChanges();

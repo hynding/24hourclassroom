@@ -66,6 +66,7 @@ export class PageProfile {
     }
 
     this.errors = {};
+    this.saved = false;
     try {
       const profile = await profileStore.uploadAvatar(file);
       this.avatarUrl = profile.avatar_url;
