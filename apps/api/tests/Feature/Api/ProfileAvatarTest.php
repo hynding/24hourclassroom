@@ -24,6 +24,10 @@ test('a user uploads an avatar and gets an absolute url back', function () {
     expect($path)->toStartWith('avatars/');
     Storage::disk('public')->assertExists($path);
     $response->assertJsonPath('avatar_url', Storage::disk('public')->url($path));
+
+    $avatarUrl = $response->json('avatar_url');
+    expect($avatarUrl)->toStartWith('http')
+        ->and($avatarUrl)->toContain($path);
 });
 
 test('uploading a second avatar deletes the first file', function () {
@@ -83,6 +87,18 @@ test('deleting when there is no avatar is a no-op', function () {
     $this->actingAs($user);
 
     $this->deleteJson('/api/profile/avatar')->assertNoContent();
+});
+
+test('deleting when there is no profile row at all is a no-op and creates no row', function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    expect($user->profile)->toBeNull();
+
+    $this->deleteJson('/api/profile/avatar')->assertNoContent();
+
+    expect($user->fresh()->profile)->toBeNull();
+    $this->assertDatabaseMissing('profiles', ['user_id' => $user->id]);
 });
 
 test('unverified users cannot upload', function () {
