@@ -32,6 +32,7 @@ test('registration redirects back to an allowlisted frontend url', function () {
         'email' => 'test@example.com',
         'password' => 'password',
         'password_confirmation' => 'password',
+        'role' => 'teacher',
     ])->assertRedirect('https://24hourclassroom.com/plans');
 });
 
@@ -43,5 +44,6 @@ test('registration ignores a non-allowlisted redirect and lands on the dashboard
         'email' => 'test@example.com',
         'password' => 'password',
         'password_confirmation' => 'password',
+        'role' => 'teacher',
     ])->assertRedirect(route('dashboard', absolute: false));
 });

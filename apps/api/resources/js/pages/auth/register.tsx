@@ -14,6 +14,7 @@ type RegisterForm = {
     email: string;
     password: string;
     password_confirmation: string;
+    role: string;
 };
 
 export default function Register() {
@@ -22,6 +23,7 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
+        role: 'teacher',
     });
 
     const submit: FormEventHandler = (e) => {
@@ -51,6 +53,22 @@ export default function Register() {
                             placeholder="Full name"
                         />
                         <InputError message={errors.name} className="mt-2" />
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label htmlFor="role">I am a</Label>
+                        <select
+                            id="role"
+                            required
+                            value={data.role}
+                            onChange={(e) => setData('role', e.target.value)}
+                            disabled={processing}
+                            className="border-input h-9 rounded-md border bg-transparent px-3 py-1 text-sm shadow-xs"
+                        >
+                            <option value="teacher">Teacher</option>
+                            <option value="student">Student</option>
+                        </select>
+                        <InputError message={errors.role} />
                     </div>
 
                     <div className="grid gap-2">
