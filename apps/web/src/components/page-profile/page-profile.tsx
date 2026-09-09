@@ -12,6 +12,7 @@ export class PageProfile {
   @State() gradeLevels: GradeLevel[] = [];
   @State() avatarUrl: string | null = null;
   @State() errors: Record<string, string[]> = {};
+  @State() generalError: string | null = null;
   @State() saved = false;
   @State() busy = false;
 
@@ -37,10 +38,25 @@ export class PageProfile {
       : [...this.gradeLevels, value];
   }
 
+  /**
+   * Routes a caught failure to either the per-field `errors` map (genuine
+   * 422 validation errors) or `generalError` (everything else — a 500, a
+   * network drop, etc.). Field errors read like "this field is invalid";
+   * a general failure is not that, and must not be mislabeled as one.
+   */
+  private reportFailure(e: unknown, fallback: string) {
+    if (e instanceof ApiError && e.errors) {
+      this.errors = e.errors;
+    } else {
+      this.generalError = e instanceof ApiError ? e.message : fallback;
+    }
+  }
+
   submit = async (event: Event) => {
     event.preventDefault();
     this.busy = true;
     this.errors = {};
+    this.generalError = null;
     this.saved = false;
 
     try {
@@ -53,7 +69,7 @@ export class PageProfile {
       });
       this.saved = true;
     } catch (e) {
-      this.errors = e instanceof ApiError ? (e.errors ?? { bio: [e.message] }) : { bio: ['Something went wrong.'] };
+      this.reportFailure(e, 'Something went wrong.');
     } finally {
       this.busy = false;
     }
@@ -66,23 +82,25 @@ export class PageProfile {
     }
 
     this.errors = {};
+    this.generalError = null;
     this.saved = false;
     try {
       const profile = await profileStore.uploadAvatar(file);
       this.avatarUrl = profile.avatar_url;
     } catch (e) {
-      this.errors = e instanceof ApiError ? (e.errors ?? { avatar: [e.message] }) : { avatar: ['Upload failed.'] };
+      this.reportFailure(e, 'Upload failed.');
     }
   };
 
   async removeAvatar() {
     this.errors = {};
+    this.generalError = null;
     this.saved = false;
     try {
       await profileStore.removeAvatar();
       this.avatarUrl = null;
     } catch (e) {
-      this.errors = e instanceof ApiError ? (e.errors ?? { avatar: [e.message] }) : { avatar: ['Removal failed.'] };
+      this.reportFailure(e, 'Removal failed.');
     }
   }
 
@@ -94,6 +112,7 @@ export class PageProfile {
     return (
       <section>
         <h1>My profile</h1>
+        {this.generalError && <p class="error">{this.generalError}</p>}
         {this.saved && <p>Saved.</p>}
 
         {this.avatarUrl && [

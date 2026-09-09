@@ -71,6 +71,19 @@ describe('page-profile', () => {
     expect(spec.root.shadowRoot.textContent).toContain('The bio is too long.');
   });
 
+  it('shows a general error for a non-field save failure and does not attach it to bio', async () => {
+    save.mockRejectedValue(new Error('network drop'));
+
+    const spec = await newSpecPage({ components: [PageProfile], html: '<page-profile></page-profile>' });
+    await spec.waitForChanges();
+
+    await spec.rootInstance.submit(new Event('submit'));
+    await spec.waitForChanges();
+
+    expect(spec.root.shadowRoot.textContent).toContain('Something went wrong.');
+    expect(spec.rootInstance.errors.bio).toBeUndefined();
+  });
+
   it('removes the avatar', async () => {
     myProfile.mockResolvedValue({ ...emptyProfile, avatar_url: 'https://api.test/storage/avatars/x.jpg' });
 
