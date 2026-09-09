@@ -18,11 +18,27 @@ describe('resolveRoute', () => {
   it('leaves teacherId undefined for a non-numeric segment', () => {
     expect(resolveRoute('/teachers/abc')).toEqual({ tag: 'page-teacher-profile', teacherId: undefined });
   });
+
+  it('leaves teacherId undefined for negative, non-integer, and missing segments', () => {
+    // page-teacher-profile (Task 10) renders its not-found state off teacherId === undefined,
+    // so rejecting bad input here is load-bearing for the next task, not just polish.
+    expect(resolveRoute('/teachers/-1')).toEqual({ tag: 'page-teacher-profile', teacherId: undefined });
+    expect(resolveRoute('/teachers/1.5')).toEqual({ tag: 'page-teacher-profile', teacherId: undefined });
+    expect(resolveRoute('/teachers/')).toEqual({ tag: 'page-teacher-profile', teacherId: undefined });
+  });
 });
 
 describe('redirectFor', () => {
   it('bounces signed-in users off guest-only pages', () => {
     expect(redirectFor('/login', verified)).toBe('/');
+  });
+
+  it('does not bounce signed-out visitors off guest-only pages', () => {
+    // Guards a severe mutant: dropping the `user &&` prefix on the guest-only check
+    // would bounce signed-out visitors off /login too, making the app permanently
+    // unreachable for anyone who isn't already signed in.
+    expect(redirectFor('/login', null)).toBeNull();
+    expect(redirectFor('/register', null)).toBeNull();
   });
 
   it('sends signed-out users away from auth-only pages', () => {
@@ -33,12 +49,25 @@ describe('redirectFor', () => {
     expect(redirectFor('/', unverified)).toBe('/verify-email');
   });
 
+  it('steers a signed-in unverified user off an auth-only page too', () => {
+    // Auth-only does not fire (a user exists), so the verification gate is what
+    // actually redirects here — a real guard axis next to the auth-only check.
+    expect(redirectFor('/profile', unverified)).toBe('/verify-email');
+  });
+
   it('lets unverified users browse the public directory', () => {
+    // user is truthy here, so this is the test that actually reaches isPublic()
+    // inside the verification-gate branch.
     expect(redirectFor('/teachers', unverified)).toBeNull();
     expect(redirectFor('/teachers/42', unverified)).toBeNull();
   });
 
-  it('lets signed-out visitors browse the public directory', () => {
+  it('does not treat public paths as guest-only or auth-only', () => {
+    // NOTE: with user = null, the verification gate's `user &&` prefix short-circuits
+    // before isPublic() is ever evaluated, so this test cannot exercise the /teachers
+    // exemption mechanism — that's covered by 'lets unverified users browse the public
+    // directory' above, where user is truthy. This test only proves /teachers and
+    // /teachers/:id are absent from GUEST_ONLY/AUTH_ONLY.
     expect(redirectFor('/teachers', null)).toBeNull();
     expect(redirectFor('/teachers/42', null)).toBeNull();
   });
