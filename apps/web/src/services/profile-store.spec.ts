@@ -53,12 +53,16 @@ describe('profile-store', () => {
 
   it('removeAvatar clears the cached avatar without refetching', async () => {
     const client = clientMock();
+    // Sentinel distinct from null: if removeAvatar refetched via getProfile,
+    // the cache would pick up this value instead of being cleared locally.
+    client.getProfile.mockResolvedValue({ ...profile, avatar_url: 'https://api.test/storage/avatars/refetched.jpg' });
     const store = new ProfileStore(client as any);
     await store.uploadAvatar(new File(['x'], 'me.jpg'));
 
     await store.removeAvatar();
 
     expect(client.deleteAvatar).toHaveBeenCalled();
+    expect(client.getProfile).not.toHaveBeenCalled();
     expect((await store.myProfile()).avatar_url).toBeNull();
   });
 
