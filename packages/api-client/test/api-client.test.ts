@@ -97,3 +97,76 @@ describe('auth methods', () => {
     expect(await client.forgotPassword('a@b.c')).toEqual({ message: 'Sent.' });
   });
 });
+
+describe('ApiClient profile methods', () => {
+  it('fetches the CSRF cookie before a PUT', async () => {
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(200, {}));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.put('/api/profile', { school: 'Rivet High' });
+
+    const urls = fetchFn.mock.calls.map((c) => c[0]);
+    expect(urls[0]).toBe('https://api.test/sanctum/csrf-cookie');
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/profile',
+      expect.objectContaining({ method: 'PUT' }),
+    );
+  });
+
+  it('fetches the CSRF cookie before a DELETE', async () => {
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(204, null));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.deleteAvatar();
+
+    const urls = fetchFn.mock.calls.map((c) => c[0]);
+    expect(urls[0]).toBe('https://api.test/sanctum/csrf-cookie');
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/profile/avatar',
+      expect.objectContaining({ method: 'DELETE' }),
+    );
+  });
+
+  it('sends an avatar as FormData without a Content-Type header', async () => {
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(200, { avatar_url: 'u' }));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+    const file = new File(['x'], 'me.jpg', { type: 'image/jpeg' });
+
+    await client.uploadAvatar(file);
+
+    const init = fetchFn.mock.calls.at(-1)![1];
+    expect(init.body).toBeInstanceOf(FormData);
+    expect((init.body as FormData).get('avatar')).toBe(file);
+    expect(init.headers).not.toHaveProperty('Content-Type');
+  });
+
+  it('builds the teacher directory query string from filters', async () => {
+    const fetchFn = vi.fn().mockResolvedValue(jsonResponse(200, { data: [], meta: {} }));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.getTeachers({ subject: 'math', grade: '9-12', q: 'hopper', page: 2 });
+
+    expect(fetchFn.mock.calls[0][0]).toBe(
+      'https://api.test/api/teachers?subject=math&grade=9-12&q=hopper&page=2',
+    );
+  });
+
+  it('omits absent filters entirely', async () => {
+    const fetchFn = vi.fn().mockResolvedValue(jsonResponse(200, { data: [], meta: {} }));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.getTeachers();
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/teachers');
+  });
+
+  it('fetches a public profile by id', async () => {
+    const fetchFn = vi.fn().mockResolvedValue(jsonResponse(200, { id: 7, name: 'Ada' }));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    const profile = await client.getPublicProfile(7);
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/users/7');
+    expect(profile.name).toBe('Ada');
+  });
+});

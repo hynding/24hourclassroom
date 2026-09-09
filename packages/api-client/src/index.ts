@@ -1,4 +1,13 @@
-import type { Role, User } from '@24hc/shared';
+import type {
+  GradeLevel,
+  Paginated,
+  Profile,
+  PublicProfile,
+  Role,
+  Subject,
+  TeacherSummary,
+  User,
+} from '@24hc/shared';
 
 export interface ApiClientOptions {
   baseUrl: string;
@@ -31,6 +40,21 @@ export interface ResetPasswordData {
   password_confirmation: string;
 }
 
+export interface ProfileInput {
+  bio?: string | null;
+  school?: string | null;
+  specialties?: string | null;
+  subjects?: Subject[];
+  grade_levels?: GradeLevel[];
+}
+
+export interface TeacherFilters {
+  subject?: Subject;
+  grade?: GradeLevel;
+  q?: string;
+  page?: number;
+}
+
 export class ApiClient {
   private csrfReady = false;
 
@@ -47,6 +71,21 @@ export class ApiClient {
   async post<T>(path: string, body?: unknown): Promise<T> {
     await this.ensureCsrf();
     return this.request<T>('POST', path, body);
+  }
+
+  async put<T>(path: string, body?: unknown): Promise<T> {
+    await this.ensureCsrf();
+    return this.request<T>('PUT', path, body);
+  }
+
+  async delete<T>(path: string): Promise<T> {
+    await this.ensureCsrf();
+    return this.request<T>('DELETE', path);
+  }
+
+  async postForm<T>(path: string, form: FormData): Promise<T> {
+    await this.ensureCsrf();
+    return this.request<T>('POST', path, form);
   }
 
   async currentUser(): Promise<User | null> {
@@ -88,6 +127,40 @@ export class ApiClient {
     await this.post('/api/auth/oauth/complete', { role });
   }
 
+  async getTeachers(filters: TeacherFilters = {}): Promise<Paginated<TeacherSummary>> {
+    const params = new URLSearchParams();
+    if (filters.subject) params.set('subject', filters.subject);
+    if (filters.grade) params.set('grade', filters.grade);
+    if (filters.q) params.set('q', filters.q);
+    if (filters.page) params.set('page', String(filters.page));
+    const query = params.toString();
+
+    return this.get<Paginated<TeacherSummary>>(`/api/teachers${query ? `?${query}` : ''}`);
+  }
+
+  async getPublicProfile(id: number): Promise<PublicProfile> {
+    return this.get<PublicProfile>(`/api/users/${id}`);
+  }
+
+  async getProfile(): Promise<Profile> {
+    return this.get<Profile>('/api/profile');
+  }
+
+  async updateProfile(data: ProfileInput): Promise<Profile> {
+    return this.put<Profile>('/api/profile', data);
+  }
+
+  async uploadAvatar(file: File): Promise<Profile> {
+    const form = new FormData();
+    form.append('avatar', file);
+
+    return this.postForm<Profile>('/api/profile/avatar', form);
+  }
+
+  async deleteAvatar(): Promise<void> {
+    await this.delete('/api/profile/avatar');
+  }
+
   private async ensureCsrf(): Promise<void> {
     if (this.csrfReady) {
       return;
@@ -105,8 +178,10 @@ export class ApiClient {
   }
 
   private async request<T>(method: string, path: string, body?: unknown): Promise<T> {
+    const isForm = typeof FormData !== 'undefined' && body instanceof FormData;
     const headers: Record<string, string> = { Accept: 'application/json' };
-    if (body !== undefined) {
+    // FormData must set its own Content-Type so the browser can add the multipart boundary.
+    if (body !== undefined && !isForm) {
       headers['Content-Type'] = 'application/json';
     }
     const token = this.readXsrfToken();
@@ -118,7 +193,7 @@ export class ApiClient {
       method,
       credentials: 'include',
       headers,
-      body: body === undefined ? undefined : JSON.stringify(body),
+      body: body === undefined ? undefined : isForm ? (body as FormData) : JSON.stringify(body),
     });
 
     if (!res.ok) {
