@@ -21,7 +21,11 @@ test('a teacher with no profile row returns an empty profile, not an error', fun
     $this->getJson("/api/users/{$teacher->id}")
         ->assertOk()
         ->assertJsonPath('profile.bio', null)
-        ->assertJsonPath('profile.subjects', []);
+        ->assertJsonPath('profile.school', null)
+        ->assertJsonPath('profile.specialties', null)
+        ->assertJsonPath('profile.subjects', [])
+        ->assertJsonPath('profile.grade_levels', [])
+        ->assertJsonPath('profile.avatar_url', null);
 });
 
 test('student profiles are 404 to a logged-out visitor', function () {
@@ -47,6 +51,11 @@ test('a student cannot see their own profile through the public endpoint', funct
 });
 
 test('an unknown user is 404', function () {
+    // Self-contained: proves the route exists (200 for a real teacher) and
+    // still 404s for an unknown id, so this can't pass against a missing route.
+    $teacher = User::factory()->create(['role' => 'teacher']);
+    $this->getJson("/api/users/{$teacher->id}")->assertOk();
+
     $this->getJson('/api/users/999999')->assertStatus(404);
 });
 
