@@ -1,8 +1,7 @@
 import { Component, h, State } from '@stencil/core';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
-
-const GUEST_ONLY = ['/login', '/register', '/forgot-password', '/reset-password'];
+import { redirectFor, resolveRoute } from '../../services/router';
 
 @Component({ tag: 'app-root', shadow: true })
 export class AppRoot {
@@ -24,13 +23,9 @@ export class AppRoot {
   }
 
   private applyGuards() {
-    const user = authStore.currentUser;
-    if (user && GUEST_ONLY.includes(this.path)) {
-      navigate('/');
-      return;
-    }
-    if (user && !user.email_verified_at && this.path !== '/verify-email') {
-      navigate('/verify-email');
+    const target = redirectFor(this.path, authStore.currentUser);
+    if (target) {
+      navigate(target);
     }
   }
 
@@ -45,18 +40,26 @@ export class AppRoot {
   }
 
   private renderPage() {
-    switch (this.path) {
-      case '/login':
+    const route = resolveRoute(this.path);
+
+    switch (route.tag) {
+      case 'page-teachers':
+        return <page-teachers></page-teachers>;
+      case 'page-teacher-profile':
+        return <page-teacher-profile teacherId={route.teacherId}></page-teacher-profile>;
+      case 'page-profile':
+        return <page-profile></page-profile>;
+      case 'page-login':
         return <page-login></page-login>;
-      case '/register':
+      case 'page-register':
         return <page-register></page-register>;
-      case '/register/role':
+      case 'page-register-role':
         return <page-register-role></page-register-role>;
-      case '/forgot-password':
+      case 'page-forgot-password':
         return <page-forgot-password></page-forgot-password>;
-      case '/reset-password':
+      case 'page-reset-password':
         return <page-reset-password></page-reset-password>;
-      case '/verify-email':
+      case 'page-verify-email':
         return <page-verify-email></page-verify-email>;
       default:
         return <page-home></page-home>;
