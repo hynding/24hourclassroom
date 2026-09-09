@@ -48,4 +48,15 @@ describe('page-teachers', () => {
 
     expect(searchTeachers).toHaveBeenLastCalledWith({ subject: 'math' });
   });
+
+  it('shows a distinct error state on failure instead of claiming no matches', async () => {
+    searchTeachers.mockRejectedValue(new Error('network down'));
+
+    const spec = await newSpecPage({ components: [PageTeachers], html: '<page-teachers></page-teachers>' });
+    await spec.waitForChanges();
+
+    const text = spec.root.shadowRoot.textContent;
+    expect(text).toContain('We could not load teachers.');
+    expect(text).not.toContain('No teachers match');
+  });
 });

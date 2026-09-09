@@ -11,6 +11,7 @@ export class PageTeachers {
   @State() q = '';
   @State() busy = false;
   @State() loaded = false;
+  @State() error = false;
 
   async componentWillLoad() {
     await this.search();
@@ -18,6 +19,9 @@ export class PageTeachers {
 
   async search() {
     this.busy = true;
+    // Clear any previous failure so a retry that succeeds doesn't leave a
+    // stale error message on screen.
+    this.error = false;
     try {
       const page = await profileStore.searchTeachers({
         ...(this.subject ? { subject: this.subject } : {}),
@@ -25,6 +29,13 @@ export class PageTeachers {
         ...(this.q ? { q: this.q } : {}),
       });
       this.teachers = page.data;
+    } catch {
+      // A failed search must not be presented as "no teachers match" -- that
+      // would tell the user a confident, wrong answer. Render a distinct
+      // error state instead, and don't re-throw: this is the right level to
+      // handle the rejection rather than letting it escape as an unhandled
+      // promise rejection.
+      this.error = true;
     } finally {
       this.busy = false;
       this.loaded = true;
@@ -66,7 +77,11 @@ export class PageTeachers {
           <button type="submit" disabled={this.busy}>Search</button>
         </form>
 
-        {this.loaded && this.teachers.length === 0 && <p>No teachers match those filters yet.</p>}
+        {this.busy && <p>Searching…</p>}
+
+        {this.error && <p>We could not load teachers. Please try again.</p>}
+
+        {this.loaded && !this.busy && !this.error && this.teachers.length === 0 && <p>No teachers match those filters yet.</p>}
 
         <ul>
           {this.teachers.map((teacher) => (
