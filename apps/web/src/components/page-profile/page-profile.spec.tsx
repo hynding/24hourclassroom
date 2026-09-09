@@ -146,14 +146,27 @@ describe('page-profile', () => {
     expect(spec.root.shadowRoot.textContent).not.toContain('Saved.');
   });
 
-  it('toggles a subject on and off', async () => {
+  it('toggles a subject through the rendered checkbox', async () => {
     const spec = await newSpecPage({ components: [PageProfile], html: '<page-profile></page-profile>' });
     await spec.waitForChanges();
 
-    spec.rootInstance.toggleSubject('math');
-    expect(spec.rootInstance.subjects).toEqual(['math']);
+    // The Subjects fieldset is rendered first, so the first checkbox in the
+    // document is Math's — going through the real DOM node (rather than
+    // calling toggleSubject() on the instance) verifies the rendered
+    // checkbox's checked/onChange binding, not just the underlying method.
+    const checkbox = spec.root.shadowRoot.querySelector('input[type="checkbox"]') as HTMLInputElement;
+    expect(checkbox.checked).toBe(false);
 
-    spec.rootInstance.toggleSubject('math');
+    checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+    await spec.waitForChanges();
+
+    expect(spec.rootInstance.subjects).toEqual(['math']);
+    expect(checkbox.checked).toBe(true);
+
+    checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+    await spec.waitForChanges();
+
     expect(spec.rootInstance.subjects).toEqual([]);
+    expect(checkbox.checked).toBe(false);
   });
 });
