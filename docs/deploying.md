@@ -47,3 +47,17 @@ Base it on `apps/api/.env.example` with per-environment values. Critical entries
 - `SANCTUM_STATEFUL_DOMAINS=24hourclassroom.com` (staging: `dev.24hourclassroom.com`)
 - `QUEUE_CONNECTION=sync`
 - `MAIL_*` — production: real SMTP (Dreamhost mail or transactional provider); staging: `MAIL_MAILER=log`.
+
+## Google OAuth + SMTP (added with SPA-native auth)
+
+1. **Google Cloud Console** → Credentials → OAuth 2.0 Client ID (Web application) with authorized
+   redirect URIs:
+   - `http://localhost:8000/auth/google/callback`
+   - `https://api-dev.24hourclassroom.com/auth/google/callback`
+   - `https://api.24hourclassroom.com/auth/google/callback`
+   Put the client id/secret into `apps/api/.env` (local) and both deployment env files.
+2. **Dreamhost mailbox**: create `no-reply@24hourclassroom.com` (Panel → Mail). Its SMTP password
+   goes into `apps/api/.env.production`.
+3. Re-upload both secrets after filling values:
+   `gh secret set ENV_FILE --env staging < apps/api/.env.staging`
+   `gh secret set ENV_FILE --env production < apps/api/.env.production`

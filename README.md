@@ -27,6 +27,7 @@ docker compose up --build
 
 - Web app: http://localhost:3333
 - API + auth pages: http://localhost:8000 (health check at `/up`)
+- Auth lives in the SPA (`/login`, `/register`); Google OAuth requires `GOOGLE_*` values in `apps/api/.env`.
 
 Run the API test suite (needs MySQL on 127.0.0.1:3306, e.g. the localdb container):
 
