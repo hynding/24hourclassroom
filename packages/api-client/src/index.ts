@@ -1,4 +1,4 @@
-import type { User } from '@24hc/shared';
+import type { Role, User } from '@24hc/shared';
 
 export interface ApiClientOptions {
   baseUrl: string;
@@ -9,10 +9,26 @@ export class ApiError extends Error {
   constructor(
     public readonly status: number,
     message: string,
+    public readonly errors?: Record<string, string[]>,
   ) {
     super(message);
     this.name = 'ApiError';
   }
+}
+
+export interface RegisterData {
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+  role: Role;
+}
+
+export interface ResetPasswordData {
+  token: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
 }
 
 export class ApiClient {
@@ -42,6 +58,34 @@ export class ApiClient {
       }
       throw e;
     }
+  }
+
+  async register(data: RegisterData): Promise<void> {
+    await this.post('/api/auth/register', data);
+  }
+
+  async login(data: { email: string; password: string }): Promise<void> {
+    await this.post('/api/auth/login', data);
+  }
+
+  async logout(): Promise<void> {
+    await this.post('/api/auth/logout');
+  }
+
+  async forgotPassword(email: string): Promise<{ message: string }> {
+    return this.post('/api/auth/forgot-password', { email });
+  }
+
+  async resetPassword(data: ResetPasswordData): Promise<void> {
+    await this.post('/api/auth/reset-password', data);
+  }
+
+  async resendVerification(): Promise<void> {
+    await this.post('/api/auth/verification-notification');
+  }
+
+  async completeOauth(role: Role): Promise<void> {
+    await this.post('/api/auth/oauth/complete', { role });
   }
 
   private async ensureCsrf(): Promise<void> {
@@ -78,7 +122,14 @@ export class ApiClient {
     });
 
     if (!res.ok) {
-      throw new ApiError(res.status, `${method} ${path} failed with status ${res.status}`);
+      const body = (await res.json().catch(() => null)) as
+        | { message?: string; errors?: Record<string, string[]> }
+        | null;
+      throw new ApiError(
+        res.status,
+        body?.message ?? `${method} ${path} failed with status ${res.status}`,
+        body?.errors,
+      );
     }
 
     return res.status === 204 ? (undefined as T) : ((await res.json()) as T);
