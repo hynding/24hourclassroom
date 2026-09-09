@@ -40,4 +40,14 @@ class FrontendRedirect
 
         return $origin;
     }
+
+    /**
+     * The SPA origin: first FRONTEND_URLS entry, falling back to app.url.
+     */
+    public static function spaOrigin(): string
+    {
+        $allowed = array_values(array_filter(explode(',', (string) config('app.frontend_urls'))));
+
+        return $allowed[0] ?? config('app.url');
+    }
 }
