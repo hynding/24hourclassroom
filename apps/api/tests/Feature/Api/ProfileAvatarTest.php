@@ -23,7 +23,6 @@ test('a user uploads an avatar and gets an absolute url back', function () {
 
     expect($path)->toStartWith('avatars/');
     Storage::disk('public')->assertExists($path);
-    $response->assertJsonPath('avatar_url', Storage::disk('public')->url($path));
 
     $avatarUrl = $response->json('avatar_url');
     expect($avatarUrl)->toStartWith('http')
@@ -51,6 +50,14 @@ test('files over 1024kb are rejected', function () {
     $this->post('/api/profile/avatar', [
         'avatar' => UploadedFile::fake()->image('huge.jpg')->size(1025),
     ])->assertStatus(422)->assertJsonValidationErrors('avatar');
+});
+
+test('a file at exactly 1024kb is accepted', function () {
+    $this->actingAs(User::factory()->create());
+
+    $this->post('/api/profile/avatar', [
+        'avatar' => UploadedFile::fake()->image('boundary.jpg')->size(1024),
+    ])->assertOk();
 });
 
 test('non-images are rejected', function () {

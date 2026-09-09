@@ -106,6 +106,24 @@ test('put rejects an over-long bio', function () {
         ->assertJsonValidationErrors('bio');
 });
 
+test('put rejects a subjects/grade_levels array longer than 20 entries', function () {
+    $this->actingAs(User::factory()->create());
+
+    $this->putJson('/api/profile', [
+        'subjects' => array_fill(0, 21, 'math'),
+        'grade_levels' => array_fill(0, 21, '9-12'),
+    ])->assertStatus(422)->assertJsonValidationErrors(['subjects', 'grade_levels']);
+});
+
+test('put rejects duplicate values within subjects/grade_levels', function () {
+    $this->actingAs(User::factory()->create());
+
+    $this->putJson('/api/profile', [
+        'subjects' => ['math', 'math'],
+        'grade_levels' => ['9-12', '9-12'],
+    ])->assertStatus(422)->assertJsonValidationErrors(['subjects.0', 'subjects.1', 'grade_levels.0', 'grade_levels.1']);
+});
+
 test('unverified users are blocked from the profile endpoints with 403', function () {
     $this->actingAs(User::factory()->unverified()->create());
 

@@ -41,13 +41,22 @@ class TeacherDirectoryController extends Controller
             )
             ->when(
                 $filters['q'] ?? null,
-                fn ($query, $term) => $query->where(
-                    fn ($group) => $group
-                        ->where('name', 'like', "%{$term}%")
-                        ->orWhereHas('profile', fn ($profile) => $profile->where('school', 'like', "%{$term}%")),
-                ),
+                function ($query, $term) {
+                    // Escape LIKE's own wildcard characters (and the escape
+                    // character itself) before interpolating a user-supplied
+                    // search term, so a literal "%" or "_" in `q` is matched
+                    // literally instead of acting as a wildcard.
+                    $escaped = addcslashes($term, '\\%_');
+
+                    return $query->where(
+                        fn ($group) => $group
+                            ->where('name', 'like', "%{$escaped}%")
+                            ->orWhereHas('profile', fn ($profile) => $profile->where('school', 'like', "%{$escaped}%")),
+                    );
+                },
             )
             ->orderBy('name')
+            ->orderBy('id')
             ->paginate(15)
             ->withQueryString();
 

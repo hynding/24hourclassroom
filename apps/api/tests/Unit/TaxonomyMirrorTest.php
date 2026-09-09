@@ -26,7 +26,7 @@ test('the taxonomy has the exact curated membership the spec calls for', functio
     ]);
 });
 
-test('every TypeScript taxonomy value has a matching PHP enum case', function () {
+test('the TypeScript SUBJECTS/GRADE_LEVELS const arrays exactly mirror the PHP enums, in both directions', function () {
     $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
 
     // Extract SUBJECTS array values
@@ -51,15 +51,14 @@ test('every TypeScript taxonomy value has a matching PHP enum case', function ()
     expect($tsSubjects)->not->toBeEmpty();
     expect($tsGradeLevels)->not->toBeEmpty();
 
-    // Assert every TS value exists in PHP enums
+    // Assert the two lists are identical, not just one-way containment. A
+    // value present in the PHP enum (and even in the TS union type) but
+    // missing from the TS SUBJECTS/GRADE_LEVELS const array would previously
+    // slip through here undetected, even though it would silently vanish
+    // from the SPA's checkbox lists and filters.
     $phpSubjects = array_column(Subject::cases(), 'value');
     $phpGradeLevels = array_column(GradeLevel::cases(), 'value');
 
-    foreach ($tsSubjects as $value) {
-        expect($phpSubjects)->toContain($value);
-    }
-
-    foreach ($tsGradeLevels as $value) {
-        expect($phpGradeLevels)->toContain($value);
-    }
+    expect($tsSubjects)->toBe($phpSubjects);
+    expect($tsGradeLevels)->toBe($phpGradeLevels);
 });

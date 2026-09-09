@@ -55,6 +55,15 @@ test('q matches on name or school', function () {
         ->toEqualCanonicalizing([$byName->id, $bySchool->id]);
 });
 
+test('a literal percent in q is escaped and does not match every teacher', function () {
+    User::factory()->create(['role' => 'teacher', 'name' => 'Alice']);
+    User::factory()->create(['role' => 'teacher', 'name' => 'Bob']);
+
+    $this->getJson('/api/teachers?'.http_build_query(['q' => '%']))
+        ->assertOk()
+        ->assertJsonCount(0, 'data');
+});
+
 test('an unknown subject is a validation error, not a silent empty list', function () {
     $this->getJson('/api/teachers?subject=wizardry')
         ->assertStatus(422)
