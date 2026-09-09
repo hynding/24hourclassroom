@@ -9,7 +9,7 @@ const clientMock = () => ({
   getTeachers: jest.fn().mockResolvedValue({ data: [], meta: {} }),
   getPublicProfile: jest.fn().mockResolvedValue({ id: 1, name: 'Ada', role: 'teacher', profile }),
   getProfile: jest.fn().mockResolvedValue(profile),
-  updateProfile: jest.fn().mockResolvedValue({ ...profile, school: 'New' }),
+  updateProfile: jest.fn().mockResolvedValue({ ...profile, school: 'Rivet High (saved)' }),
   uploadAvatar: jest.fn().mockResolvedValue({ ...profile, avatar_url: 'u' }),
   deleteAvatar: jest.fn().mockResolvedValue(undefined),
 });
@@ -34,8 +34,10 @@ describe('profile-store', () => {
     const saved = await store.save({ school: 'New' });
 
     expect(client.updateProfile).toHaveBeenCalledWith({ school: 'New' });
-    expect(saved.school).toBe('New');
-    expect((await store.myProfile()).school).toBe('New');
+    // The mock's resolved value is distinguishable from the input so this
+    // assertion can only pass if save() returns the client's response.
+    expect(saved.school).toBe('Rivet High (saved)');
+    expect((await store.myProfile()).school).toBe('Rivet High (saved)');
     expect(client.getProfile).toHaveBeenCalledTimes(1);
   });
 
