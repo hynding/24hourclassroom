@@ -43,8 +43,14 @@ test('q matches on name or school', function () {
     Profile::factory()->for($byName)->create(['school' => 'Nowhere']);
     $bySchool = User::factory()->create(['role' => 'teacher', 'name' => 'Someone Else']);
     Profile::factory()->for($bySchool)->create(['school' => 'Hopper Academy']);
+    $nonMatching = User::factory()->create(['role' => 'teacher', 'name' => 'Totally Different']);
+    Profile::factory()->for($nonMatching)->create(['school' => 'Elsewhere']);
+    User::factory()->create(['role' => 'student', 'name' => 'Hopper Student']);
 
-    $this->getJson('/api/teachers?q=Hopper')->assertOk()->assertJsonCount(2, 'data');
+    $response = $this->getJson('/api/teachers?q=Hopper')->assertOk()->assertJsonCount(2, 'data');
+
+    expect(collect($response->json('data'))->pluck('id')->all())
+        ->toEqualCanonicalizing([$byName->id, $bySchool->id]);
 });
 
 test('an unknown subject is a validation error, not a silent empty list', function () {
