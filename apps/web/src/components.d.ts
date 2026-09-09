@@ -12,7 +12,19 @@ export namespace Components {
     }
     interface AppRoot {
     }
+    interface PageForgotPassword {
+    }
     interface PageHome {
+    }
+    interface PageLogin {
+    }
+    interface PageRegister {
+    }
+    interface PageRegisterRole {
+    }
+    interface PageResetPassword {
+    }
+    interface PageVerifyEmail {
     }
 }
 declare global {
@@ -34,17 +46,59 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLPageForgotPasswordElement extends Components.PageForgotPassword, HTMLStencilElement {
+    }
+    var HTMLPageForgotPasswordElement: {
+        prototype: HTMLPageForgotPasswordElement;
+        new (): HTMLPageForgotPasswordElement;
+    };
     interface HTMLPageHomeElement extends Components.PageHome, HTMLStencilElement {
     }
     var HTMLPageHomeElement: {
         prototype: HTMLPageHomeElement;
         new (): HTMLPageHomeElement;
     };
+    interface HTMLPageLoginElement extends Components.PageLogin, HTMLStencilElement {
+    }
+    var HTMLPageLoginElement: {
+        prototype: HTMLPageLoginElement;
+        new (): HTMLPageLoginElement;
+    };
+    interface HTMLPageRegisterElement extends Components.PageRegister, HTMLStencilElement {
+    }
+    var HTMLPageRegisterElement: {
+        prototype: HTMLPageRegisterElement;
+        new (): HTMLPageRegisterElement;
+    };
+    interface HTMLPageRegisterRoleElement extends Components.PageRegisterRole, HTMLStencilElement {
+    }
+    var HTMLPageRegisterRoleElement: {
+        prototype: HTMLPageRegisterRoleElement;
+        new (): HTMLPageRegisterRoleElement;
+    };
+    interface HTMLPageResetPasswordElement extends Components.PageResetPassword, HTMLStencilElement {
+    }
+    var HTMLPageResetPasswordElement: {
+        prototype: HTMLPageResetPasswordElement;
+        new (): HTMLPageResetPasswordElement;
+    };
+    interface HTMLPageVerifyEmailElement extends Components.PageVerifyEmail, HTMLStencilElement {
+    }
+    var HTMLPageVerifyEmailElement: {
+        prototype: HTMLPageVerifyEmailElement;
+        new (): HTMLPageVerifyEmailElement;
+    };
     interface HTMLElementTagNameMap {
         "app-footer": HTMLAppFooterElement;
         "app-header": HTMLAppHeaderElement;
         "app-root": HTMLAppRootElement;
+        "page-forgot-password": HTMLPageForgotPasswordElement;
         "page-home": HTMLPageHomeElement;
+        "page-login": HTMLPageLoginElement;
+        "page-register": HTMLPageRegisterElement;
+        "page-register-role": HTMLPageRegisterRoleElement;
+        "page-reset-password": HTMLPageResetPasswordElement;
+        "page-verify-email": HTMLPageVerifyEmailElement;
     }
 }
 declare namespace LocalJSX {
@@ -54,13 +108,31 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
+    interface PageForgotPassword {
+    }
     interface PageHome {
+    }
+    interface PageLogin {
+    }
+    interface PageRegister {
+    }
+    interface PageRegisterRole {
+    }
+    interface PageResetPassword {
+    }
+    interface PageVerifyEmail {
     }
     interface IntrinsicElements {
         "app-footer": AppFooter;
         "app-header": AppHeader;
         "app-root": AppRoot;
+        "page-forgot-password": PageForgotPassword;
         "page-home": PageHome;
+        "page-login": PageLogin;
+        "page-register": PageRegister;
+        "page-register-role": PageRegisterRole;
+        "page-reset-password": PageResetPassword;
+        "page-verify-email": PageVerifyEmail;
     }
 }
 export { LocalJSX as JSX };
@@ -70,7 +142,13 @@ declare module "@stencil/core" {
             "app-footer": LocalJSX.IntrinsicElements["app-footer"] & JSXBase.HTMLAttributes<HTMLAppFooterElement>;
             "app-header": LocalJSX.IntrinsicElements["app-header"] & JSXBase.HTMLAttributes<HTMLAppHeaderElement>;
             "app-root": LocalJSX.IntrinsicElements["app-root"] & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "page-forgot-password": LocalJSX.IntrinsicElements["page-forgot-password"] & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
+            "page-login": LocalJSX.IntrinsicElements["page-login"] & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
+            "page-register": LocalJSX.IntrinsicElements["page-register"] & JSXBase.HTMLAttributes<HTMLPageRegisterElement>;
+            "page-register-role": LocalJSX.IntrinsicElements["page-register-role"] & JSXBase.HTMLAttributes<HTMLPageRegisterRoleElement>;
+            "page-reset-password": LocalJSX.IntrinsicElements["page-reset-password"] & JSXBase.HTMLAttributes<HTMLPageResetPasswordElement>;
+            "page-verify-email": LocalJSX.IntrinsicElements["page-verify-email"] & JSXBase.HTMLAttributes<HTMLPageVerifyEmailElement>;
         }
     }
 }
