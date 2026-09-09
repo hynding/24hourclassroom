@@ -160,6 +160,33 @@ describe('ApiClient profile methods', () => {
     expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/teachers');
   });
 
+  it('omits an explicitly empty search string rather than sending q=', async () => {
+    const fetchFn = vi.fn().mockResolvedValue(jsonResponse(200, { data: [], meta: {} }));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.getTeachers({ q: '' });
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/teachers');
+  });
+
+  it('includes a provided page value', async () => {
+    const fetchFn = vi.fn().mockResolvedValue(jsonResponse(200, { data: [], meta: {} }));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.getTeachers({ page: 3 });
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/teachers?page=3');
+  });
+
+  it('sends page: 0 rather than dropping it as falsy', async () => {
+    const fetchFn = vi.fn().mockResolvedValue(jsonResponse(200, { data: [], meta: {} }));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.getTeachers({ page: 0 });
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/teachers?page=0');
+  });
+
   it('fetches a public profile by id', async () => {
     const fetchFn = vi.fn().mockResolvedValue(jsonResponse(200, { id: 7, name: 'Ada' }));
     const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
