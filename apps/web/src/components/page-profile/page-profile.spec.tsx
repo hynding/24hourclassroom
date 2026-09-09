@@ -146,6 +146,29 @@ describe('page-profile', () => {
     expect(spec.root.shadowRoot.textContent).not.toContain('Saved.');
   });
 
+  it('renders a load error instead of the form when the initial profile load fails, so nothing can be saved over unloaded data', async () => {
+    myProfile.mockRejectedValue(new ApiError(500, 'Server Error'));
+
+    const spec = await newSpecPage({ components: [PageProfile], html: '<page-profile></page-profile>' });
+    await spec.waitForChanges();
+
+    expect(spec.root.shadowRoot.textContent).toContain('We could not load your profile');
+    // Both halves matter: a banner alone would still leave a live form a
+    // user could type into and save over their never-loaded data.
+    expect(spec.root.shadowRoot.querySelector('form')).toBeNull();
+    expect(spec.root.shadowRoot.querySelector('button[type="submit"]')).toBeNull();
+  });
+
+  it('does not render the load-error banner for a 401 (guest mid-redirect)', async () => {
+    myProfile.mockRejectedValue(new ApiError(401, 'Unauthenticated.'));
+
+    const spec = await newSpecPage({ components: [PageProfile], html: '<page-profile></page-profile>' });
+    await spec.waitForChanges();
+
+    expect(spec.root.shadowRoot.textContent).not.toContain('We could not load your profile');
+    expect(spec.root.shadowRoot.querySelector('form')).toBeNull();
+  });
+
   it('toggles a subject through the rendered checkbox', async () => {
     const spec = await newSpecPage({ components: [PageProfile], html: '<page-profile></page-profile>' });
     await spec.waitForChanges();

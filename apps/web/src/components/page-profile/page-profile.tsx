@@ -15,16 +15,46 @@ export class PageProfile {
   @State() generalError: string | null = null;
   @State() saved = false;
   @State() busy = false;
+  @State() loaded = false;
+  @State() loadError = false;
 
   async componentWillLoad() {
-    const profile = await profileStore.myProfile();
-    this.bio = profile.bio ?? '';
-    this.school = profile.school ?? '';
-    this.specialties = profile.specialties ?? '';
-    this.subjects = profile.subjects;
-    this.gradeLevels = profile.grade_levels;
-    this.avatarUrl = profile.avatar_url;
+    await this.load();
   }
+
+  /**
+   * Loads the profile and only then allows the editable form to render. A
+   * failed load must never fall through to a form pre-filled with the
+   * initializer defaults ('', [], null) -- that is indistinguishable from a
+   * legitimately empty profile, and saving over it would silently wipe the
+   * user's real data (see UpdateProfileRequest's explicit-null semantics).
+   * So on failure we set loadError and leave `loaded` false, which keeps
+   * render() from ever reaching the <form>.
+   */
+  private async load() {
+    this.loadError = false;
+    try {
+      const profile = await profileStore.myProfile();
+      this.bio = profile.bio ?? '';
+      this.school = profile.school ?? '';
+      this.specialties = profile.specialties ?? '';
+      this.subjects = profile.subjects;
+      this.gradeLevels = profile.grade_levels;
+      this.avatarUrl = profile.avatar_url;
+      this.loaded = true;
+    } catch (e) {
+      // A logged-out visitor hitting /profile directly fires this same GET
+      // before app-root's auth check redirects them away -- that 401 is
+      // expected mid-redirect and must not flash an error banner. Any other
+      // failure (500, network drop, etc.) is a real, reportable load failure.
+      if (e instanceof ApiError && e.status === 401) {
+        return;
+      }
+      this.loadError = true;
+    }
+  }
+
+  private retry = () => this.load();
 
   toggleSubject(value: Subject) {
     this.subjects = this.subjects.includes(value)
@@ -45,7 +75,7 @@ export class PageProfile {
    * a general failure is not that, and must not be mislabeled as one.
    */
   private reportFailure(e: unknown, fallback: string) {
-    if (e instanceof ApiError && e.errors) {
+    if (e instanceof ApiError && e.errors && Object.keys(e.errors).length > 0) {
       this.errors = e.errors;
     } else {
       this.generalError = e instanceof ApiError ? e.message : fallback;
@@ -109,6 +139,26 @@ export class PageProfile {
   }
 
   render() {
+    if (this.loadError) {
+      return (
+        <section>
+          <h1>My profile</h1>
+          <p class="error">We could not load your profile. Please try again.</p>
+          <button type="button" onClick={this.retry}>Retry</button>
+        </section>
+      );
+    }
+
+    if (!this.loaded) {
+      // Covers both the still-loading state and the guest-mid-redirect 401
+      // case -- neither should render the editable form.
+      return (
+        <section>
+          <h1>My profile</h1>
+        </section>
+      );
+    }
+
     return (
       <section>
         <h1>My profile</h1>
