@@ -26,7 +26,7 @@ test('subjects and grade levels round-trip as arrays', function () {
 });
 
 test('avatar_url is an absolute url and avatar_path is never serialized', function () {
-    Storage::fake('public');
+    Storage::fake('public', ['url' => config('filesystems.disks.public.url')]);
 
     $profile = Profile::factory()->for(User::factory())->create([
         'avatar_path' => 'avatars/x.jpg',
@@ -35,6 +35,8 @@ test('avatar_url is an absolute url and avatar_path is never serialized', functi
     $array = $profile->toArray();
 
     expect($array['avatar_url'])->toBe(Storage::disk('public')->url('avatars/x.jpg'))
+        ->and($array['avatar_url'])->toStartWith('http')
+        ->and($array['avatar_url'])->toContain('avatars/x.jpg')
         ->and($array)->not->toHaveKey('avatar_path');
 });
 
