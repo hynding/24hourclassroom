@@ -1,4 +1,5 @@
 import { Component, h, Prop, State } from '@stencil/core';
+import { ApiError } from '@24hc/api-client';
 import { GRADE_LEVELS, PublicProfile, SUBJECTS } from '@24hc/shared';
 import { profileStore } from '../../services/profile-store';
 
@@ -8,6 +9,7 @@ export class PageTeacherProfile {
 
   @State() teacher: PublicProfile | null = null;
   @State() notFound = false;
+  @State() loadError = false;
 
   async componentWillLoad() {
     if (!this.teacherId) {
@@ -17,8 +19,15 @@ export class PageTeacherProfile {
 
     try {
       this.teacher = await profileStore.teacher(this.teacherId);
-    } catch {
-      this.notFound = true;
+    } catch (err) {
+      // A genuine 404 means the teacher doesn't exist; anything else (network
+      // failure, 500, etc.) is transient and should not be reported to the
+      // user as "this teacher does not exist".
+      if (err instanceof ApiError && err.status === 404) {
+        this.notFound = true;
+      } else {
+        this.loadError = true;
+      }
     }
   }
 
@@ -32,6 +41,15 @@ export class PageTeacherProfile {
         <section>
           <h1>Not found</h1>
           <p>We could not find that teacher.</p>
+        </section>
+      );
+    }
+
+    if (this.loadError) {
+      return (
+        <section>
+          <h1>Something went wrong</h1>
+          <p>We could not load that teacher's profile. Please try again.</p>
         </section>
       );
     }

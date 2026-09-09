@@ -1,4 +1,5 @@
 import { newSpecPage } from '@stencil/core/testing';
+import { ApiError } from '@24hc/api-client';
 
 const teacher = jest.fn();
 
@@ -43,7 +44,7 @@ describe('page-teacher-profile', () => {
   });
 
   it('renders a not-found state when the api 404s', async () => {
-    teacher.mockRejectedValue(new Error('nope'));
+    teacher.mockRejectedValue(new ApiError(404, 'Not Found'));
 
     const spec = await newSpecPage({
       components: [PageTeacherProfile],
@@ -51,7 +52,21 @@ describe('page-teacher-profile', () => {
     });
     await spec.waitForChanges();
 
-    expect(spec.root.shadowRoot.textContent).toContain ('We could not find that teacher.');
+    expect(spec.root.shadowRoot.textContent).toContain('We could not find that teacher.');
+  });
+
+  it('renders a distinct error state when the api fails for a non-404 reason', async () => {
+    teacher.mockRejectedValue(new ApiError(500, 'Server Error'));
+
+    const spec = await newSpecPage({
+      components: [PageTeacherProfile],
+      html: '<page-teacher-profile teacher-id="7"></page-teacher-profile>',
+    });
+    await spec.waitForChanges();
+
+    const text = spec.root.shadowRoot.textContent;
+    expect(text).toContain("We could not load that teacher's profile.");
+    expect(text).not.toContain('We could not find that teacher.');
   });
 
   it('renders a not-found state when the id is missing', async () => {
