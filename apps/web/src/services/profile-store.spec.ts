@@ -1,4 +1,4 @@
-import { ProfileStore } from './profile-store';
+import { ProfileStore, attachAuthInvalidation } from './profile-store';
 
 const profile = {
   bio: 'hi', school: 'Rivet High', specialties: null,
@@ -73,5 +73,34 @@ describe('profile-store', () => {
     await store.searchTeachers({ subject: 'math' });
 
     expect(client.getTeachers).toHaveBeenCalledWith({ subject: 'math' });
+  });
+
+  it('teacher fetches a public profile by id', async () => {
+    const client = clientMock();
+    const store = new ProfileStore(client as any);
+
+    const result = await store.teacher(1);
+
+    expect(client.getPublicProfile).toHaveBeenCalledWith(1);
+    expect(result).toEqual({ id: 1, name: 'Ada', role: 'teacher', profile });
+  });
+
+  it('drops the cache when the auth store notifies (e.g. logout or user switch)', async () => {
+    const client = clientMock();
+    const store = new ProfileStore(client as any);
+    let listener: (user: unknown) => void = () => {};
+    const fakeAuth = {
+      subscribe: jest.fn((fn: (user: unknown) => void) => {
+        listener = fn;
+        return () => {};
+      }),
+    };
+    attachAuthInvalidation(fakeAuth as any, store);
+
+    await store.myProfile();
+    listener(null);
+    await store.myProfile();
+
+    expect(client.getProfile).toHaveBeenCalledTimes(2);
   });
 });

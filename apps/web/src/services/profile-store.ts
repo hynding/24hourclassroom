@@ -1,6 +1,7 @@
 import { ApiClient, ProfileInput, TeacherFilters } from '@24hc/api-client';
-import type { Paginated, Profile, PublicProfile, TeacherSummary } from '@24hc/shared';
+import type { Paginated, Profile, PublicProfile, TeacherSummary, User } from '@24hc/shared';
 import { Env } from '@stencil/core';
+import { authStore } from './auth-store';
 
 export class ProfileStore {
   private cached: Profile | null = null;
@@ -38,8 +39,21 @@ export class ProfileStore {
       this.cached = { ...this.cached, avatar_url: null };
     }
   }
+
+  clear(): void {
+    this.cached = null;
+  }
+}
+
+export function attachAuthInvalidation(
+  auth: { subscribe(fn: (user: User | null) => void): () => void },
+  profile: ProfileStore,
+): () => void {
+  return auth.subscribe(() => profile.clear());
 }
 
 export const profileStore = new ProfileStore(
   new ApiClient({ baseUrl: Env?.apiBaseUrl ?? 'http://localhost:8000' }),
 );
+
+attachAuthInvalidation(authStore, profileStore);
