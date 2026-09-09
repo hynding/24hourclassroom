@@ -18,4 +18,16 @@ export const config: Config = {
       copy: [{ src: 'assets/.htaccess', dest: '.htaccess' }],
     },
   ],
+  testing: {
+    // @24hc/api-client and @24hc/shared publish ESM ("type": "module") dist
+    // output. Jest's default transform only matches ts/tsx/jsx/css/mjs and
+    // ignores all of node_modules, so their compiled `export class ...`
+    // syntax fails to parse under jest's CommonJS runtime. Route .js through
+    // Stencil's own preprocessor too, and stop ignoring our workspace scope,
+    // so those two packages get transpiled like first-party source.
+    transform: {
+      '^.+\\.(ts|tsx|jsx|css|mjs|js)$': require.resolve('@stencil/core/testing/jest-preprocessor.js'),
+    },
+    transformIgnorePatterns: ['/node_modules/(?!@24hc)'],
+  },
 };
