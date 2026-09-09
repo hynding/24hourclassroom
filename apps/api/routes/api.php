@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\NewPasswordController;
+use App\Http\Controllers\Api\Auth\OAuthCompletionController;
 use App\Http\Controllers\Api\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationNotificationController;
@@ -19,4 +20,5 @@ Route::prefix('auth')->group(function () {
     Route::post('reset-password', NewPasswordController::class)->middleware('throttle:6,1');
     Route::post('verification-notification', VerificationNotificationController::class)
         ->middleware(['auth:sanctum', 'throttle:6,1']);
+    Route::post('oauth/complete', OAuthCompletionController::class)->middleware('throttle:6,1');
 });
