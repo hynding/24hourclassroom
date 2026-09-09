@@ -5,6 +5,14 @@ import { authStore } from './auth-store';
 
 export class ProfileStore {
   private cached: Profile | null = null;
+  // Bumped by clear(). myProfile() captures the value before its await and
+  // only writes to `cached` if it's unchanged when the request resolves --
+  // this closes the window where clear() (e.g. from an auth-invalidation
+  // listener) lands while a fetch for the *previous* identity is in flight:
+  // without the check, that stale response would land in the cache right
+  // after clear() emptied it, leaking the old identity's profile into the
+  // new one.
+  private generation = 0;
 
   constructor(private readonly client: ApiClient) {}
 
@@ -18,7 +26,12 @@ export class ProfileStore {
 
   async myProfile(): Promise<Profile> {
     if (!this.cached) {
-      this.cached = await this.client.getProfile();
+      const generation = this.generation;
+      const profile = await this.client.getProfile();
+      if (generation === this.generation) {
+        this.cached = profile;
+      }
+      return profile;
     }
     return this.cached;
   }
@@ -42,6 +55,7 @@ export class ProfileStore {
 
   clear(): void {
     this.cached = null;
+    this.generation++;
   }
 }
 

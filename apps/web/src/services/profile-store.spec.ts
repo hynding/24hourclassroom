@@ -87,6 +87,31 @@ describe('profile-store', () => {
     expect(result).toEqual({ id: 1, name: 'Ada', role: 'teacher', profile });
   });
 
+  it('does not let an in-flight fetch win a race against a clear() that lands before it resolves', async () => {
+    const client = clientMock();
+    let resolveFetch: (value: typeof profile) => void;
+    client.getProfile.mockImplementationOnce(
+      () => new Promise((resolve) => { resolveFetch = resolve; }),
+    );
+    const store = new ProfileStore(client as any);
+
+    // Start a fetch for the current identity, then invalidate (as the
+    // auth-invalidation listener would on logout/user switch) before that
+    // fetch resolves.
+    const inFlight = store.myProfile();
+    store.clear();
+    resolveFetch!(profile);
+    await inFlight;
+
+    // A subsequent myProfile() must re-fetch rather than serving the stale
+    // response the in-flight call just tried to cache.
+    client.getProfile.mockResolvedValueOnce({ ...profile, school: 'Refetched' });
+    const second = await store.myProfile();
+
+    expect(client.getProfile).toHaveBeenCalledTimes(2);
+    expect(second.school).toBe('Refetched');
+  });
+
   it('drops the cache when the auth store notifies (e.g. logout or user switch)', async () => {
     const client = clientMock();
     const store = new ProfileStore(client as any);
