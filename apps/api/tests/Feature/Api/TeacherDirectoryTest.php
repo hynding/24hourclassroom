@@ -20,7 +20,9 @@ test('a teacher with no profile row is still listed and still matches a name sea
 
     $this->getJson('/api/teachers')->assertOk()->assertJsonCount(1, 'data')
         ->assertJsonPath('data.0.school', null)
-        ->assertJsonPath('data.0.subjects', []);
+        ->assertJsonPath('data.0.subjects', [])
+        ->assertJsonPath('data.0.grade_levels', [])
+        ->assertJsonPath('data.0.avatar_url', null);
 
     $this->getJson('/api/teachers?q=Blank')->assertOk()->assertJsonCount(1, 'data');
 });
