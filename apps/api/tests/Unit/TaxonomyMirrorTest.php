@@ -32,7 +32,7 @@ test('every TypeScript taxonomy value has a matching PHP enum case', function ()
     // Extract SUBJECTS array values
     if (preg_match('/export const SUBJECTS:.*?\];/s', $shared, $subjectsMatch)) {
         $subjectsBlock = $subjectsMatch[0];
-        preg_match_all("/value:\s*'([^']+)'/", $subjectsBlock, $subjectsMatches);
+        preg_match_all('/value:\s*[\'"]([^\'"]+)[\'"]/', $subjectsBlock, $subjectsMatches);
         $tsSubjects = $subjectsMatches[1];
     } else {
         $tsSubjects = [];
@@ -41,7 +41,7 @@ test('every TypeScript taxonomy value has a matching PHP enum case', function ()
     // Extract GRADE_LEVELS array values
     if (preg_match('/export const GRADE_LEVELS:.*?\];/s', $shared, $gradeLevelsMatch)) {
         $gradeLevelsBlock = $gradeLevelsMatch[0];
-        preg_match_all("/value:\s*'([^']+)'/", $gradeLevelsBlock, $gradeLevelsMatches);
+        preg_match_all('/value:\s*[\'"]([^\'"]+)[\'"]/', $gradeLevelsBlock, $gradeLevelsMatches);
         $tsGradeLevels = $gradeLevelsMatches[1];
     } else {
         $tsGradeLevels = [];
