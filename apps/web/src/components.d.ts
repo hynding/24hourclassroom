@@ -18,11 +18,18 @@ export namespace Components {
     }
     interface PageLogin {
     }
+    interface PageProfile {
+    }
     interface PageRegister {
     }
     interface PageRegisterRole {
     }
     interface PageResetPassword {
+    }
+    interface PageTeacherProfile {
+        "teacherId"?: number;
+    }
+    interface PageTeachers {
     }
     interface PageVerifyEmail {
     }
@@ -64,6 +71,12 @@ declare global {
         prototype: HTMLPageLoginElement;
         new (): HTMLPageLoginElement;
     };
+    interface HTMLPageProfileElement extends Components.PageProfile, HTMLStencilElement {
+    }
+    var HTMLPageProfileElement: {
+        prototype: HTMLPageProfileElement;
+        new (): HTMLPageProfileElement;
+    };
     interface HTMLPageRegisterElement extends Components.PageRegister, HTMLStencilElement {
     }
     var HTMLPageRegisterElement: {
@@ -82,6 +95,18 @@ declare global {
         prototype: HTMLPageResetPasswordElement;
         new (): HTMLPageResetPasswordElement;
     };
+    interface HTMLPageTeacherProfileElement extends Components.PageTeacherProfile, HTMLStencilElement {
+    }
+    var HTMLPageTeacherProfileElement: {
+        prototype: HTMLPageTeacherProfileElement;
+        new (): HTMLPageTeacherProfileElement;
+    };
+    interface HTMLPageTeachersElement extends Components.PageTeachers, HTMLStencilElement {
+    }
+    var HTMLPageTeachersElement: {
+        prototype: HTMLPageTeachersElement;
+        new (): HTMLPageTeachersElement;
+    };
     interface HTMLPageVerifyEmailElement extends Components.PageVerifyEmail, HTMLStencilElement {
     }
     var HTMLPageVerifyEmailElement: {
@@ -95,9 +120,12 @@ declare global {
         "page-forgot-password": HTMLPageForgotPasswordElement;
         "page-home": HTMLPageHomeElement;
         "page-login": HTMLPageLoginElement;
+        "page-profile": HTMLPageProfileElement;
         "page-register": HTMLPageRegisterElement;
         "page-register-role": HTMLPageRegisterRoleElement;
         "page-reset-password": HTMLPageResetPasswordElement;
+        "page-teacher-profile": HTMLPageTeacherProfileElement;
+        "page-teachers": HTMLPageTeachersElement;
         "page-verify-email": HTMLPageVerifyEmailElement;
     }
 }
@@ -114,14 +142,26 @@ declare namespace LocalJSX {
     }
     interface PageLogin {
     }
+    interface PageProfile {
+    }
     interface PageRegister {
     }
     interface PageRegisterRole {
     }
     interface PageResetPassword {
     }
+    interface PageTeacherProfile {
+        "teacherId"?: number;
+    }
+    interface PageTeachers {
+    }
     interface PageVerifyEmail {
     }
+
+    interface PageTeacherProfileAttributes {
+        "teacherId": number;
+    }
+
     interface IntrinsicElements {
         "app-footer": AppFooter;
         "app-header": AppHeader;
@@ -129,9 +169,12 @@ declare namespace LocalJSX {
         "page-forgot-password": PageForgotPassword;
         "page-home": PageHome;
         "page-login": PageLogin;
+        "page-profile": PageProfile;
         "page-register": PageRegister;
         "page-register-role": PageRegisterRole;
         "page-reset-password": PageResetPassword;
+        "page-teacher-profile": Omit<PageTeacherProfile, keyof PageTeacherProfileAttributes> & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes]?: PageTeacherProfile[K] } & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes as `attr:${K}`]?: PageTeacherProfileAttributes[K] } & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes as `prop:${K}`]?: PageTeacherProfile[K] };
+        "page-teachers": PageTeachers;
         "page-verify-email": PageVerifyEmail;
     }
 }
@@ -145,9 +188,12 @@ declare module "@stencil/core" {
             "page-forgot-password": LocalJSX.IntrinsicElements["page-forgot-password"] & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-login": LocalJSX.IntrinsicElements["page-login"] & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
+            "page-profile": LocalJSX.IntrinsicElements["page-profile"] & JSXBase.HTMLAttributes<HTMLPageProfileElement>;
             "page-register": LocalJSX.IntrinsicElements["page-register"] & JSXBase.HTMLAttributes<HTMLPageRegisterElement>;
             "page-register-role": LocalJSX.IntrinsicElements["page-register-role"] & JSXBase.HTMLAttributes<HTMLPageRegisterRoleElement>;
             "page-reset-password": LocalJSX.IntrinsicElements["page-reset-password"] & JSXBase.HTMLAttributes<HTMLPageResetPasswordElement>;
+            "page-teacher-profile": LocalJSX.IntrinsicElements["page-teacher-profile"] & JSXBase.HTMLAttributes<HTMLPageTeacherProfileElement>;
+            "page-teachers": LocalJSX.IntrinsicElements["page-teachers"] & JSXBase.HTMLAttributes<HTMLPageTeachersElement>;
             "page-verify-email": LocalJSX.IntrinsicElements["page-verify-email"] & JSXBase.HTMLAttributes<HTMLPageVerifyEmailElement>;
         }
     }

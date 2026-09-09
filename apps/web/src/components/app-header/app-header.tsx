@@ -34,8 +34,10 @@ export class AppHeader {
       <header>
         <a href="/" onClick={(e) => this.onNav(e, '/')}>24 Hour Classroom</a>
         <nav>
+          <a href="/teachers" onClick={(e) => this.onNav(e, '/teachers')}>Teachers</a>
           {this.user
             ? [
+                <a href="/profile" onClick={(e) => this.onNav(e, '/profile')}>My profile</a>,
                 <span>{this.user.name}</span>,
                 <a href="/" onClick={this.onLogout}>Log out</a>,
               ]
