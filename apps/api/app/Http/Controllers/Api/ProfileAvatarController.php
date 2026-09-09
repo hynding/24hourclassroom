@@ -23,13 +23,14 @@ class ProfileAvatarController extends Controller
         );
 
         $profile = $request->user()->profile()->firstOrNew();
-
-        if ($profile->avatar_path) {
-            Storage::disk('public')->delete($profile->avatar_path);
-        }
+        $previous = $profile->avatar_path;
 
         $profile->avatar_path = $request->file('avatar')->store('avatars', 'public');
         $profile->save();
+
+        if ($previous) {
+            Storage::disk('public')->delete($previous);
+        }
 
         return response()->json(ProfilePayload::for($profile));
     }
