@@ -132,7 +132,7 @@ export class ApiClient {
     if (filters.subject) params.set('subject', filters.subject);
     if (filters.grade) params.set('grade', filters.grade);
     if (filters.q) params.set('q', filters.q);
-    if (filters.page) params.set('page', String(filters.page));
+    if (filters.page != null) params.set('page', String(filters.page));
     const query = params.toString();
 
     return this.get<Paginated<TeacherSummary>>(`/api/teachers${query ? `?${query}` : ''}`);
