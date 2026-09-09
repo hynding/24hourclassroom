@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\GradeLevel;
+use App\Enums\Subject;
 use App\Models\Profile;
 use App\Models\User;
 
@@ -63,6 +65,28 @@ test('put with an explicit null wipes the field instead of leaving it untouched'
     $this->putJson('/api/profile', ['school' => null])->assertOk();
 
     expect($user->fresh()->profile->school)->toBeNull();
+});
+
+test('put accepts every Subject and every GradeLevel case', function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    $subjects = array_column(Subject::cases(), 'value');
+    $gradeLevels = array_column(GradeLevel::cases(), 'value');
+
+    // Guard against an empty enum silently making this test vacuous.
+    expect($subjects)->not->toBeEmpty()
+        ->and($gradeLevels)->not->toBeEmpty();
+
+    $this->putJson('/api/profile', [
+        'subjects' => $subjects,
+        'grade_levels' => $gradeLevels,
+    ])->assertOk()
+        ->assertJsonPath('subjects', $subjects)
+        ->assertJsonPath('grade_levels', $gradeLevels);
+
+    expect($user->fresh()->profile->subjects)->toBe($subjects)
+        ->and($user->fresh()->profile->grade_levels)->toBe($gradeLevels);
 });
 
 test('put rejects values outside the curated taxonomy', function () {
