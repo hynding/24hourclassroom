@@ -1,6 +1,6 @@
 import { Component, h, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
-import type { Role } from '@24hc/shared';
+import type { RegistrationRole } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
 
@@ -10,7 +10,7 @@ export class PageRegister {
   @State() email = '';
   @State() password = '';
   @State() passwordConfirmation = '';
-  @State() role: Role = 'teacher';
+  @State() role: RegistrationRole = 'teacher';
   @State() errors: Record<string, string[]> = {};
   @State() busy = false;
 

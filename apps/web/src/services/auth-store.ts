@@ -1,5 +1,5 @@
 import { ApiClient, RegisterData, ResetPasswordData } from '@24hc/api-client';
-import type { Role, User } from '@24hc/shared';
+import type { RegistrationRole, User } from '@24hc/shared';
 import { Env } from '@stencil/core';
 
 type Listener = (user: User | null) => void;
@@ -45,7 +45,7 @@ export class AuthStore {
     this.notify();
   }
 
-  async completeOauth(role: Role): Promise<void> {
+  async completeOauth(role: RegistrationRole): Promise<void> {
     await this.client.completeOauth(role);
     await this.refresh();
   }

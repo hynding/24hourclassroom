@@ -3,7 +3,7 @@ import type {
   Paginated,
   Profile,
   PublicProfile,
-  Role,
+  RegistrationRole,
   Subject,
   TeacherSummary,
   User,
@@ -30,7 +30,7 @@ export interface RegisterData {
   email: string;
   password: string;
   password_confirmation: string;
-  role: Role;
+  role: RegistrationRole;
 }
 
 export interface ResetPasswordData {
@@ -123,7 +123,7 @@ export class ApiClient {
     await this.post('/api/auth/verification-notification');
   }
 
-  async completeOauth(role: Role): Promise<void> {
+  async completeOauth(role: RegistrationRole): Promise<void> {
     await this.post('/api/auth/oauth/complete', { role });
   }
 

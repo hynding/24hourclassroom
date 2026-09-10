@@ -15,7 +15,7 @@ class OAuthCompletionController extends Controller
 {
     public function __invoke(Request $request): Response
     {
-        $request->validate(['role' => ['required', Rule::enum(Role::class)]]);
+        $request->validate(['role' => ['required', Rule::in([Role::Teacher->value, Role::Student->value])]]);
 
         $google = $request->session()->get('oauth.google');
 

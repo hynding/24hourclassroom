@@ -1,4 +1,7 @@
-export type Role = 'teacher' | 'student';
+export type Role = 'teacher' | 'student' | 'admin';
+
+/** Roles a user may choose for themselves. Admin is assigned, never requested. */
+export type RegistrationRole = Exclude<Role, 'admin'>;
 
 export interface User {
   id: number;

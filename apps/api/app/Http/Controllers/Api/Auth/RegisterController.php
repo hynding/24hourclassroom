@@ -21,7 +21,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', Rule::enum(Role::class)],
+            'role' => ['required', Rule::in([Role::Teacher->value, Role::Student->value])],
         ]);
 
         $user = User::create([
