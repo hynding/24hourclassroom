@@ -12,6 +12,8 @@ export class PageTeachers {
   @State() busy = false;
   @State() loaded = false;
   @State() error = false;
+  @State() page = 1;
+  @State() lastPage = 1;
 
   async componentWillLoad() {
     await this.search();
@@ -23,12 +25,15 @@ export class PageTeachers {
     // stale error message on screen.
     this.error = false;
     try {
-      const page = await profileStore.searchTeachers({
+      const result = await profileStore.searchTeachers({
         ...(this.subject ? { subject: this.subject } : {}),
         ...(this.grade ? { grade: this.grade } : {}),
         ...(this.q ? { q: this.q } : {}),
+        // Omitted on page 1 so the common case sends no page param at all.
+        ...(this.page > 1 ? { page: this.page } : {}),
       });
-      this.teachers = page.data;
+      this.teachers = result.data;
+      this.lastPage = result.meta.last_page;
     } catch {
       // A failed search must not be presented as "no teachers match" -- that
       // would tell the user a confident, wrong answer. Render a distinct
@@ -42,9 +47,36 @@ export class PageTeachers {
     }
   }
 
+  /**
+   * Every filter change restarts at page 1. Searching from page 2 with a new
+   * filter would request page 2 of a result set that often has only one page,
+   * and an out-of-range page comes back empty -- which renders identically to
+   * "no teachers match", telling the user a confident, wrong answer.
+   */
+  async submitSearch() {
+    this.page = 1;
+    await this.search();
+  }
+
+  async nextPage() {
+    if (this.page >= this.lastPage) {
+      return;
+    }
+    this.page += 1;
+    await this.search();
+  }
+
+  async previousPage() {
+    if (this.page <= 1) {
+      return;
+    }
+    this.page -= 1;
+    await this.search();
+  }
+
   private onSubmit = async (event: Event) => {
     event.preventDefault();
-    await this.search();
+    await this.submitSearch();
   };
 
   render() {
@@ -99,6 +131,20 @@ export class PageTeachers {
             </li>
           ))}
         </ul>
+
+        {this.lastPage > 1 && (
+          <nav aria-label="Directory pages">
+            <button type="button" disabled={this.page <= 1 || this.busy} onClick={() => this.previousPage()}>
+              Previous
+            </button>
+            <span>
+              Page {this.page} of {this.lastPage}
+            </span>
+            <button type="button" disabled={this.page >= this.lastPage || this.busy} onClick={() => this.nextPage()}>
+              Next
+            </button>
+          </nav>
+        )}
       </section>
     );
   }
