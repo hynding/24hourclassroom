@@ -5,13 +5,16 @@ import { authStore } from './auth-store';
 
 export class ProfileStore {
   private cached: Profile | null = null;
-  // Bumped by clear(). myProfile() captures the value before its await and
-  // only writes to `cached` if it's unchanged when the request resolves --
-  // this closes the window where clear() (e.g. from an auth-invalidation
-  // listener) lands while a fetch for the *previous* identity is in flight:
-  // without the check, that stale response would land in the cache right
-  // after clear() emptied it, leaking the old identity's profile into the
-  // new one.
+  // Bumped by clear(). EVERY method that writes to `cached` captures this
+  // before its await and only writes if it's unchanged when the request
+  // resolves -- closing the window where clear() (e.g. from the
+  // auth-invalidation listener) lands while a request for the *previous*
+  // identity is in flight. Without the check, that stale response lands in
+  // the cache right after clear() emptied it, leaking the old identity's
+  // profile into the new one. removeAvatar() needs it for a second reason:
+  // its write is a mutation of whatever happens to be cached, so a stale
+  // removal would blank the *next* user's avatar rather than the one it was
+  // issued against.
   private generation = 0;
 
   constructor(private readonly client: ApiClient) {}
@@ -37,18 +40,27 @@ export class ProfileStore {
   }
 
   async save(data: ProfileInput): Promise<Profile> {
-    this.cached = await this.client.updateProfile(data);
-    return this.cached;
+    const generation = this.generation;
+    const profile = await this.client.updateProfile(data);
+    if (generation === this.generation) {
+      this.cached = profile;
+    }
+    return profile;
   }
 
   async uploadAvatar(file: File): Promise<Profile> {
-    this.cached = await this.client.uploadAvatar(file);
-    return this.cached;
+    const generation = this.generation;
+    const profile = await this.client.uploadAvatar(file);
+    if (generation === this.generation) {
+      this.cached = profile;
+    }
+    return profile;
   }
 
   async removeAvatar(): Promise<void> {
+    const generation = this.generation;
     await this.client.deleteAvatar();
-    if (this.cached) {
+    if (generation === this.generation && this.cached) {
       this.cached = { ...this.cached, avatar_url: null };
     }
   }

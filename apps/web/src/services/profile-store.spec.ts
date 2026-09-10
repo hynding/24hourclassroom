@@ -130,4 +130,64 @@ describe('profile-store', () => {
 
     expect(client.getProfile).toHaveBeenCalledTimes(2);
   });
+
+  it('does not let an in-flight save win a race against a clear()', async () => {
+    const client = clientMock();
+    let resolveSave: (value: typeof profile) => void;
+    client.updateProfile.mockImplementationOnce(
+      () => new Promise((resolve) => { resolveSave = resolve; }),
+    );
+    const store = new ProfileStore(client as any);
+
+    const inFlight = store.save({ school: 'New' });
+    store.clear();
+    resolveSave!({ ...profile, school: 'Stale identity' });
+    await inFlight;
+
+    client.getProfile.mockResolvedValueOnce({ ...profile, school: 'Refetched' });
+    const after = await store.myProfile();
+
+    expect(after.school).toBe('Refetched');
+  });
+
+  it('does not let an in-flight avatar upload win a race against a clear()', async () => {
+    const client = clientMock();
+    let resolveUpload: (value: typeof profile) => void;
+    client.uploadAvatar.mockImplementationOnce(
+      () => new Promise((resolve) => { resolveUpload = resolve; }),
+    );
+    const store = new ProfileStore(client as any);
+
+    const inFlight = store.uploadAvatar(new File(['x'], 'me.jpg'));
+    store.clear();
+    resolveUpload!({ ...profile, avatar_url: 'stale-identity-avatar' });
+    await inFlight;
+
+    client.getProfile.mockResolvedValueOnce({ ...profile, avatar_url: 'fresh-avatar' });
+    const after = await store.myProfile();
+
+    expect(after.avatar_url).toBe('fresh-avatar');
+  });
+
+  it('does not let an in-flight avatar removal blank a newly cached profile', async () => {
+    const client = clientMock();
+    let resolveRemoval: () => void;
+    client.deleteAvatar.mockImplementationOnce(
+      () => new Promise<void>((resolve) => { resolveRemoval = resolve; }),
+    );
+    const store = new ProfileStore(client as any);
+    await store.myProfile();
+
+    // Removal starts for the current identity, then the identity changes and a
+    // new profile is cached before the removal resolves.
+    const inFlight = store.removeAvatar();
+    store.clear();
+    client.getProfile.mockResolvedValueOnce({ ...profile, avatar_url: 'next-users-avatar' });
+    await store.myProfile();
+    resolveRemoval!();
+    await inFlight;
+
+    // The stale removal must not blank the avatar it never applied to.
+    expect((await store.myProfile()).avatar_url).toBe('next-users-avatar');
+  });
 });
