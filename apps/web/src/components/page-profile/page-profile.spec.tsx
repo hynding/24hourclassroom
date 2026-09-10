@@ -6,6 +6,17 @@ const save = jest.fn();
 const uploadAvatar = jest.fn();
 const removeAvatar = jest.fn().mockResolvedValue(undefined);
 
+const sessionExpired = jest.fn();
+const navigate = jest.fn();
+
+jest.mock('../../services/auth-store', () => ({
+  authStore: { sessionExpired: (...a: unknown[]) => sessionExpired(...a) },
+}));
+
+jest.mock('../../services/navigate', () => ({
+  navigate: (...a: unknown[]) => navigate(...a),
+}));
+
 jest.mock('../../services/profile-store', () => ({
   profileStore: {
     myProfile: (...a: unknown[]) => myProfile(...a),
@@ -191,5 +202,17 @@ describe('page-profile', () => {
 
     expect(spec.rootInstance.subjects).toEqual([]);
     expect(checkbox.checked).toBe(false);
+  });
+
+  it('recovers from an expired session instead of stranding the user on a blank page', async () => {
+    myProfile.mockRejectedValue(new ApiError(401, 'Unauthenticated.'));
+
+    const spec = await newSpecPage({ components: [PageProfile], html: '<page-profile></page-profile>' });
+    await spec.waitForChanges();
+
+    // The stale cached user must be dropped BEFORE navigating, or the
+    // guest-only guard on /login bounces the user straight back to '/'.
+    expect(sessionExpired).toHaveBeenCalled();
+    expect(navigate).toHaveBeenCalledWith('/login');
   });
 });

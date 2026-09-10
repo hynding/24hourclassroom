@@ -36,4 +36,20 @@ describe('auth-store', () => {
     await store.logout();
     expect(store.currentUser).toBeNull();
   });
+
+  it('sessionExpired clears the user and notifies subscribers', async () => {
+    const client = clientMock();
+    const store = new AuthStore(client as any);
+    await store.load();
+    const seen: unknown[] = [];
+    store.subscribe((u) => seen.push(u));
+
+    store.sessionExpired();
+
+    expect(store.currentUser).toBeNull();
+    expect(seen).toEqual([null]);
+    // The server already rejected the session; re-asking it would be a
+    // wasted round trip that can only return null.
+    expect(client.currentUser).toHaveBeenCalledTimes(1);
+  });
 });

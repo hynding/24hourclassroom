@@ -1,6 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
 import { GRADE_LEVELS, GradeLevel, SUBJECTS, Subject } from '@24hc/shared';
+import { authStore } from '../../services/auth-store';
+import { navigate } from '../../services/navigate';
 import { profileStore } from '../../services/profile-store';
 
 @Component({ tag: 'page-profile', shadow: true })
@@ -43,11 +45,18 @@ export class PageProfile {
       this.avatarUrl = profile.avatar_url;
       this.loaded = true;
     } catch (e) {
-      // A logged-out visitor hitting /profile directly fires this same GET
-      // before app-root's auth check redirects them away -- that 401 is
-      // expected mid-redirect and must not flash an error banner. Any other
-      // failure (500, network drop, etc.) is a real, reportable load failure.
+      // A 401 means the session is gone -- either a logged-out visitor hit
+      // /profile directly (app-root's auth check is still resolving), or a
+      // signed-in user's session expired mid-session. Both must end up at
+      // /login rather than on a bare page: returning early here used to leave
+      // `loaded` false and `loadError` false, rendering a heading and nothing
+      // else, with no message and no way out short of a hard reload.
+      // sessionExpired() must run BEFORE navigate() -- the guest-only guard
+      // reads authStore.currentUser, and a stale user there bounces /login
+      // back to '/'.
       if (e instanceof ApiError && e.status === 401) {
+        authStore.sessionExpired();
+        navigate('/login');
         return;
       }
       this.loadError = true;

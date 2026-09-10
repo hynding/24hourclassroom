@@ -62,6 +62,17 @@ export class AuthStore {
     return this.client.resendVerification();
   }
 
+  /**
+   * Drop the cached user because the server rejected the session (a 401),
+   * without asking the server again -- it just told us. Callers navigate
+   * afterwards; clearing first is what stops the guest-only guard on /login
+   * from reading a stale user and bouncing the request straight back to '/'.
+   */
+  sessionExpired(): void {
+    this.user = null;
+    this.notify();
+  }
+
   private async refresh(): Promise<void> {
     this.user = await this.client.currentUser();
     this.loaded = true;
