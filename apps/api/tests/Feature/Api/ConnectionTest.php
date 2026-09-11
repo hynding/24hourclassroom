@@ -338,3 +338,25 @@ test('accepting twice is idempotent in side effects, not just in status', functi
     expect($requester->notifications()->count())->toBe(1)
         ->and($connection->fresh()->status->value)->toBe('accepted');
 });
+
+test('the connections list gives an accepted student the same payload the profile endpoint does', function () {
+    // End to end rather than at the helper: /api/users/{id} and
+    // /api/connections must agree about a student counterpart.
+    $me = teacher();
+    $s = student();
+    $s->profile()->create(['bio' => null]);
+    $s->profile->forceFill(['avatar_path' => 'avatars/secret.png'])->save();
+
+    $this->actingAs($me);
+    $this->postJson("/api/connections/{$s->id}");
+    $this->actingAs($s);
+    $this->patchJson('/api/connections/'.Connection::firstOrFail()->id);
+
+    $this->actingAs($me);
+    $summary = $this->getJson('/api/connections')->assertOk()->json('data.0.user');
+    $profile = $this->getJson("/api/users/{$s->id}")->assertOk()->json();
+
+    expect($summary['avatar_url'])->toBeNull()
+        ->and($summary['name'])->toBe($profile['name'])
+        ->and($profile)->not->toHaveKey('avatar_url');
+});

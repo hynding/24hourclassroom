@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Enums\Role;
 use App\Models\User;
 
 final class UserSummary
@@ -19,7 +20,15 @@ final class UserSummary
             'id' => $user->id,
             'name' => $user->name,
             'role' => $user->role,
-            'avatar_url' => $user->profile?->avatar_url,
+            // No avatar for a student. Decision 5 says an accepted connection
+            // sees a student NAME ONLY, and PublicProfileController honours
+            // that literally -- it omits the `profile` key altogether. This
+            // helper disagreed, so the same accepted student came back as
+            // {id,name,role} from /api/users/{id} and {id,name,role,
+            // avatar_url} from /api/connections. The key stays (@24hc/shared
+            // declares `string | null`) so the payload's shape does not
+            // itself announce the role.
+            'avatar_url' => $user->role === Role::Student ? null : $user->profile?->avatar_url,
         ];
     }
 }
