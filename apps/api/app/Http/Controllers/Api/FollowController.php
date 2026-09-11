@@ -33,6 +33,10 @@ class FollowController extends Controller
 
     public function destroy(Request $request, User $user): Response
     {
+        // The same guard store() carries. Without it, 204-for-anything vs
+        // 404-for-nonexistent made this a complete user-table census.
+        $this->guard($request, $user);
+
         Follow::where('follower_id', $request->user()->id)
             ->where('followed_id', $user->id)
             ->delete();
@@ -49,6 +53,11 @@ class FollowController extends Controller
         // 404, never a validation error — a distinguishable status would let an
         // authenticated user classify ids as "real student" vs "nonexistent".
         // Matches PublicProfileController's existence-oracle guard exactly.
-        abort_unless($user->role === Role::Teacher, 404);
+        //
+        // isActive() is part of the same rule, not an extra: a deactivated
+        // account whose profile 404s and who is absent from the directory must
+        // not be confirmed by a 204 here -- and must not receive a NewFollower
+        // notification on an account the platform claims is gone.
+        abort_unless($user->role === Role::Teacher && $user->isActive(), 404);
     }
 }

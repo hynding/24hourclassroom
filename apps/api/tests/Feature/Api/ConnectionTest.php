@@ -236,3 +236,54 @@ test('an accepted student connection is named in the connections list', function
 
     expect($data[0]['user']['name'])->toBe('Accepted Ash');
 });
+
+test('a deactivated target cannot be connected with and 404s like a nonexistent id', function () {
+    // 204 here created a pending row that pending() then filtered out, so the
+    // requester could neither see nor cancel it while every retry answered
+    // 422 "already exists" -- a row no UI can clear. The 204-vs-404 split was
+    // also an oracle for the set of deactivated accounts.
+    config(['app.debug' => false]);
+
+    $me = teacher();
+    $deactivated = User::factory()->create(['role' => 'teacher', 'deactivated_at' => now()]);
+    $this->actingAs($me);
+
+    $response = $this->postJson("/api/connections/{$deactivated->id}");
+    $missing = $this->postJson('/api/connections/999999');
+
+    expect($response->status())->toBe(404)
+        ->and($response->status())->toBe($missing->status())
+        ->and($response->json())->toBe($missing->json());
+
+    $this->assertDatabaseCount('connections', 0);
+    expect($deactivated->notifications()->count())->toBe(0);
+});
+
+test('a deactivated student target 404s too, not 422', function () {
+    // Reached as a student caller, so the student-student branch would
+    // otherwise answer first and leak the target's role.
+    config(['app.debug' => false]);
+
+    $me = student();
+    $deactivated = User::factory()->create(['role' => 'student', 'deactivated_at' => now()]);
+    $this->actingAs($me);
+
+    $response = $this->postJson("/api/connections/{$deactivated->id}");
+    $missing = $this->postJson('/api/connections/999999');
+
+    expect($response->status())->toBe($missing->status())
+        ->and($response->json())->toBe($missing->json());
+
+    $this->assertDatabaseCount('connections', 0);
+});
+
+test('an active target can still be connected with', function () {
+    // Counter-test for the isActive() guard.
+    $me = teacher();
+    $live = User::factory()->create(['role' => 'teacher', 'deactivated_at' => null]);
+    $this->actingAs($me);
+
+    $this->postJson("/api/connections/{$live->id}")->assertNoContent();
+
+    $this->assertDatabaseCount('connections', 1);
+});

@@ -87,6 +87,13 @@ class ConnectionController extends Controller
             throw ValidationException::withMessages(['user' => __('You cannot connect with yourself.')]);
         }
 
+        // Before the role branch, or that branch becomes the oracle instead:
+        // a deactivated account must answer exactly as a nonexistent id.
+        // A 204 here also created a pending row that pending() filters out,
+        // leaving the requester with a row they can neither see nor cancel
+        // while every retry answers 422 "already exists".
+        abort_unless($user->isActive(), 404);
+
         if ($me->role === Role::Student && $user->role === Role::Student) {
             throw ValidationException::withMessages(['user' => __('Students cannot connect with each other.')]);
         }

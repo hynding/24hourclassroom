@@ -92,3 +92,72 @@ test('a guest cannot follow', function () {
 
     $this->postJson("/api/users/{$teacher->id}/follow")->assertStatus(401);
 });
+
+test('unfollow is guarded exactly like follow: student, admin and deactivated targets all 404', function () {
+    // destroy() called no guard at all, so it answered 204 for any id route
+    // binding resolved and 404 only for ids that do not exist -- a complete,
+    // unthrottled census of the user table.
+    config(['app.debug' => false]);
+
+    $me = User::factory()->create();
+    $student = User::factory()->create(['role' => 'student']);
+    $admin = User::factory()->create(['role' => 'admin']);
+    $deactivated = User::factory()->create(['role' => 'teacher', 'deactivated_at' => now()]);
+    $this->actingAs($me);
+
+    $missing = $this->deleteJson('/api/users/999999/follow');
+    expect($missing->status())->toBe(404);
+
+    foreach (['student' => $student, 'admin' => $admin, 'deactivated teacher' => $deactivated] as $label => $target) {
+        $response = $this->deleteJson("/api/users/{$target->id}/follow");
+
+        expect($response->status())->toBe($missing->status())
+            ->and($response->json())->toBe($missing->json());
+    }
+});
+
+test('unfollowing a real teacher still works', function () {
+    // The counter-test for the guard above: it must reject hidden targets,
+    // not every target.
+    $me = User::factory()->create();
+    $teacher = User::factory()->create(['role' => 'teacher']);
+    $this->actingAs($me);
+    $this->postJson("/api/users/{$teacher->id}/follow")->assertNoContent();
+
+    $this->deleteJson("/api/users/{$teacher->id}/follow")->assertNoContent();
+
+    $this->assertDatabaseCount('follows', 0);
+});
+
+test('a deactivated teacher cannot be followed and is indistinguishable from a nonexistent id', function () {
+    // 204 here was an oracle for the set of deactivated accounts, and it also
+    // delivered a NewFollower notification to an account the platform claims
+    // is gone.
+    config(['app.debug' => false]);
+
+    $me = User::factory()->create();
+    $deactivated = User::factory()->create(['role' => 'teacher', 'deactivated_at' => now()]);
+    $this->actingAs($me);
+
+    $response = $this->postJson("/api/users/{$deactivated->id}/follow");
+    $missing = $this->postJson('/api/users/999999/follow');
+
+    expect($response->status())->toBe(404)
+        ->and($response->status())->toBe($missing->status())
+        ->and($response->json())->toBe($missing->json());
+
+    $this->assertDatabaseCount('follows', 0);
+    expect($deactivated->notifications()->count())->toBe(0);
+});
+
+test('an active teacher can still be followed and is notified', function () {
+    // Proves the isActive() guard rejects only deactivated targets.
+    $me = User::factory()->create();
+    $teacher = User::factory()->create(['role' => 'teacher', 'deactivated_at' => null]);
+    $this->actingAs($me);
+
+    $this->postJson("/api/users/{$teacher->id}/follow")->assertNoContent();
+
+    $this->assertDatabaseCount('follows', 1);
+    expect($teacher->notifications()->count())->toBe(1);
+});
