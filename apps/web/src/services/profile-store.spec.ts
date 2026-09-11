@@ -12,6 +12,16 @@ const clientMock = () => ({
   updateProfile: jest.fn().mockResolvedValue({ ...profile, school: 'Rivet High (saved)' }),
   uploadAvatar: jest.fn().mockResolvedValue({ ...profile, avatar_url: 'u' }),
   deleteAvatar: jest.fn().mockResolvedValue(undefined),
+  getConnections: jest.fn().mockResolvedValue({ data: [] }),
+  getPendingConnections: jest.fn().mockResolvedValue({ incoming: [], outgoing: [] }),
+  followTeacher: jest.fn().mockResolvedValue(undefined),
+  unfollowTeacher: jest.fn().mockResolvedValue(undefined),
+  requestConnection: jest.fn().mockResolvedValue(undefined),
+  acceptConnection: jest.fn().mockResolvedValue(undefined),
+  removeConnection: jest.fn().mockResolvedValue(undefined),
+  getNotifications: jest.fn().mockResolvedValue({ data: [], meta: {} }),
+  getUnreadCount: jest.fn().mockResolvedValue(3),
+  markNotificationsRead: jest.fn().mockResolvedValue(undefined),
 });
 
 describe('profile-store', () => {
@@ -189,5 +199,60 @@ describe('profile-store', () => {
 
     // The stale removal must not blank the avatar it never applied to.
     expect((await store.myProfile()).avatar_url).toBe('next-users-avatar');
+  });
+
+  it('caches the unread count and clears it on auth change', async () => {
+    const client = clientMock();
+    const store = new ProfileStore(client as any);
+
+    await store.unreadCount();
+    await store.unreadCount();
+    expect(client.getUnreadCount).toHaveBeenCalledTimes(1);
+
+    store.clear();
+    await store.unreadCount();
+    expect(client.getUnreadCount).toHaveBeenCalledTimes(2);
+  });
+
+  it('does not let an in-flight unread count win a race against a clear()', async () => {
+    const client = clientMock();
+    let resolveCount: (value: number) => void;
+    client.getUnreadCount.mockImplementationOnce(
+      () => new Promise((resolve) => { resolveCount = resolve; }),
+    );
+    const store = new ProfileStore(client as any);
+
+    const inFlight = store.unreadCount();
+    store.clear();
+    resolveCount!(9);
+    await inFlight;
+
+    client.getUnreadCount.mockResolvedValueOnce(0);
+    expect(await store.unreadCount()).toBe(0);
+  });
+
+  it('refreshes the unread count after marking read', async () => {
+    const client = clientMock();
+    const store = new ProfileStore(client as any);
+    await store.unreadCount();
+
+    client.getUnreadCount.mockResolvedValueOnce(0);
+    await store.markRead();
+
+    expect(client.markNotificationsRead).toHaveBeenCalled();
+    expect(await store.unreadCount()).toBe(0);
+  });
+
+  it('passes connection ids through unchanged', async () => {
+    const client = clientMock();
+    const store = new ProfileStore(client as any);
+
+    await store.acceptConnection(42);
+    await store.requestConnection(7);
+
+    // Different id spaces on similar-looking URLs -- a swap deletes the
+    // wrong row.
+    expect(client.acceptConnection).toHaveBeenCalledWith(42);
+    expect(client.requestConnection).toHaveBeenCalledWith(7);
   });
 });

@@ -1,10 +1,20 @@
 import { ApiClient, ProfileInput, TeacherFilters } from '@24hc/api-client';
-import type { Paginated, Profile, PublicProfile, TeacherSummary, User } from '@24hc/shared';
+import type {
+  AppNotification,
+  Connection,
+  Paginated,
+  PendingConnections,
+  Profile,
+  PublicProfile,
+  TeacherSummary,
+  User,
+} from '@24hc/shared';
 import { Env } from '@stencil/core';
 import { authStore } from './auth-store';
 
 export class ProfileStore {
   private cached: Profile | null = null;
+  private cachedUnread: number | null = null;
   // Bumped by clear(). EVERY method that writes to `cached` captures this
   // before its await and only writes if it's unchanged when the request
   // resolves -- closing the window where clear() (e.g. from the
@@ -65,8 +75,58 @@ export class ProfileStore {
     }
   }
 
+  connections(): Promise<{ data: Connection[] }> {
+    return this.client.getConnections();
+  }
+
+  pendingConnections(): Promise<PendingConnections> {
+    return this.client.getPendingConnections();
+  }
+
+  follow(userId: number): Promise<void> {
+    return this.client.followTeacher(userId);
+  }
+
+  unfollow(userId: number): Promise<void> {
+    return this.client.unfollowTeacher(userId);
+  }
+
+  requestConnection(userId: number): Promise<void> {
+    return this.client.requestConnection(userId);
+  }
+
+  acceptConnection(connectionId: number): Promise<void> {
+    return this.client.acceptConnection(connectionId);
+  }
+
+  removeConnection(connectionId: number): Promise<void> {
+    return this.client.removeConnection(connectionId);
+  }
+
+  notifications(page?: number): Promise<Paginated<AppNotification>> {
+    return this.client.getNotifications(page);
+  }
+
+  async unreadCount(): Promise<number> {
+    if (this.cachedUnread === null) {
+      const generation = this.generation;
+      const count = await this.client.getUnreadCount();
+      if (generation === this.generation) {
+        this.cachedUnread = count;
+      }
+      return count;
+    }
+    return this.cachedUnread;
+  }
+
+  async markRead(ids?: string[]): Promise<void> {
+    await this.client.markNotificationsRead(ids);
+    this.cachedUnread = null;
+  }
+
   clear(): void {
     this.cached = null;
+    this.cachedUnread = null;
     this.generation++;
   }
 }
