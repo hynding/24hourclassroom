@@ -46,8 +46,16 @@ test('students cannot be followed', function () {
     $student = User::factory()->create(['role' => 'student']);
     $this->actingAs($follower);
 
-    $this->postJson("/api/users/{$student->id}/follow")
-        ->assertStatus(422)->assertJsonValidationErrors('user');
+    $this->postJson("/api/users/{$student->id}/follow")->assertStatus(404);
+
+    $this->assertDatabaseCount('follows', 0);
+});
+
+test('a nonexistent user id also returns 404, indistinguishable from a student', function () {
+    $follower = User::factory()->create();
+    $this->actingAs($follower);
+
+    $this->postJson('/api/users/999999/follow')->assertStatus(404);
 
     $this->assertDatabaseCount('follows', 0);
 });

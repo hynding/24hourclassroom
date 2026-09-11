@@ -41,8 +41,9 @@ class FollowController extends Controller
             throw ValidationException::withMessages(['user' => __('You cannot follow yourself.')]);
         }
 
-        if ($user->role !== Role::Teacher) {
-            throw ValidationException::withMessages(['user' => __('Only teachers can be followed.')]);
-        }
+        // 404, never a validation error — a distinguishable status would let an
+        // authenticated user classify ids as "real student" vs "nonexistent".
+        // Matches PublicProfileController's existence-oracle guard exactly.
+        abort_unless($user->role === Role::Teacher, 404);
     }
 }
