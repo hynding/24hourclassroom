@@ -77,3 +77,27 @@ describe('redirectFor', () => {
     expect(redirectFor('/profile', verified)).toBeNull();
   });
 });
+
+describe('router B2 routes', () => {
+  it('resolves the connections and notifications pages', () => {
+    expect(resolveRoute('/connections').tag).toBe('page-connections');
+    expect(resolveRoute('/notifications').tag).toBe('page-notifications');
+  });
+
+  it('sends signed-out visitors away from both', () => {
+    expect(redirectFor('/connections', null)).toBe('/login');
+    expect(redirectFor('/notifications', null)).toBe('/login');
+  });
+
+  it('lets a verified user reach both', () => {
+    // Proves the guard is signed-out-only rather than blocking everyone.
+    const verified = { id: 1, email_verified_at: '2026-01-01' } as any;
+    expect(redirectFor('/connections', verified)).toBeNull();
+    expect(redirectFor('/notifications', verified)).toBeNull();
+  });
+
+  it('still steers an unverified user to verification', () => {
+    const unverified = { id: 1, email_verified_at: null } as any;
+    expect(redirectFor('/connections', unverified)).toBe('/verify-email');
+  });
+});

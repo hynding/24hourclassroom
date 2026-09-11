@@ -49,6 +49,10 @@ export class AppRoot {
         return <page-teacher-profile teacherId={route.teacherId}></page-teacher-profile>;
       case 'page-profile':
         return <page-profile></page-profile>;
+      case 'page-connections':
+        return <page-connections></page-connections>;
+      case 'page-notifications':
+        return <page-notifications></page-notifications>;
       case 'page-login':
         return <page-login></page-login>;
       case 'page-register':

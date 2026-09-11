@@ -1,9 +1,8 @@
 import { Component, h, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
 import { GRADE_LEVELS, GradeLevel, SUBJECTS, Subject } from '@24hc/shared';
-import { authStore } from '../../services/auth-store';
-import { navigate } from '../../services/navigate';
 import { profileStore } from '../../services/profile-store';
+import { recoverFromExpiredSession } from '../../services/session-recovery';
 
 @Component({ tag: 'page-profile', shadow: true })
 export class PageProfile {
@@ -51,12 +50,7 @@ export class PageProfile {
       // /login rather than on a bare page: returning early here used to leave
       // `loaded` false and `loadError` false, rendering a heading and nothing
       // else, with no message and no way out short of a hard reload.
-      // sessionExpired() must run BEFORE navigate() -- the guest-only guard
-      // reads authStore.currentUser, and a stale user there bounces /login
-      // back to '/'.
-      if (e instanceof ApiError && e.status === 401) {
-        authStore.sessionExpired();
-        navigate('/login');
+      if (recoverFromExpiredSession(e)) {
         return;
       }
       this.loadError = true;

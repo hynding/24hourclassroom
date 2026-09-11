@@ -6,7 +6,7 @@ export interface ResolvedRoute {
 }
 
 const GUEST_ONLY = ['/login', '/register', '/forgot-password', '/reset-password'];
-const AUTH_ONLY = ['/profile'];
+const AUTH_ONLY = ['/profile', '/connections', '/notifications'];
 const TEACHER_PREFIX = '/teachers/';
 
 /** Teacher profiles are public even logged out, so they are exempt from the verification gate. */
@@ -39,6 +39,10 @@ export function resolveRoute(path: string): ResolvedRoute {
       return { tag: 'page-verify-email' };
     case '/profile':
       return { tag: 'page-profile' };
+    case '/connections':
+      return { tag: 'page-connections' };
+    case '/notifications':
+      return { tag: 'page-notifications' };
     default:
       return { tag: 'page-home' };
   }
