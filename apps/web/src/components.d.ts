@@ -12,11 +12,15 @@ export namespace Components {
     }
     interface AppRoot {
     }
+    interface PageConnections {
+    }
     interface PageForgotPassword {
     }
     interface PageHome {
     }
     interface PageLogin {
+    }
+    interface PageNotifications {
     }
     interface PageProfile {
     }
@@ -53,6 +57,12 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLPageConnectionsElement extends Components.PageConnections, HTMLStencilElement {
+    }
+    var HTMLPageConnectionsElement: {
+        prototype: HTMLPageConnectionsElement;
+        new (): HTMLPageConnectionsElement;
+    };
     interface HTMLPageForgotPasswordElement extends Components.PageForgotPassword, HTMLStencilElement {
     }
     var HTMLPageForgotPasswordElement: {
@@ -70,6 +80,12 @@ declare global {
     var HTMLPageLoginElement: {
         prototype: HTMLPageLoginElement;
         new (): HTMLPageLoginElement;
+    };
+    interface HTMLPageNotificationsElement extends Components.PageNotifications, HTMLStencilElement {
+    }
+    var HTMLPageNotificationsElement: {
+        prototype: HTMLPageNotificationsElement;
+        new (): HTMLPageNotificationsElement;
     };
     interface HTMLPageProfileElement extends Components.PageProfile, HTMLStencilElement {
     }
@@ -117,9 +133,11 @@ declare global {
         "app-footer": HTMLAppFooterElement;
         "app-header": HTMLAppHeaderElement;
         "app-root": HTMLAppRootElement;
+        "page-connections": HTMLPageConnectionsElement;
         "page-forgot-password": HTMLPageForgotPasswordElement;
         "page-home": HTMLPageHomeElement;
         "page-login": HTMLPageLoginElement;
+        "page-notifications": HTMLPageNotificationsElement;
         "page-profile": HTMLPageProfileElement;
         "page-register": HTMLPageRegisterElement;
         "page-register-role": HTMLPageRegisterRoleElement;
@@ -136,11 +154,15 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
+    interface PageConnections {
+    }
     interface PageForgotPassword {
     }
     interface PageHome {
     }
     interface PageLogin {
+    }
+    interface PageNotifications {
     }
     interface PageProfile {
     }
@@ -166,9 +188,11 @@ declare namespace LocalJSX {
         "app-footer": AppFooter;
         "app-header": AppHeader;
         "app-root": AppRoot;
+        "page-connections": PageConnections;
         "page-forgot-password": PageForgotPassword;
         "page-home": PageHome;
         "page-login": PageLogin;
+        "page-notifications": PageNotifications;
         "page-profile": PageProfile;
         "page-register": PageRegister;
         "page-register-role": PageRegisterRole;
@@ -185,9 +209,11 @@ declare module "@stencil/core" {
             "app-footer": LocalJSX.IntrinsicElements["app-footer"] & JSXBase.HTMLAttributes<HTMLAppFooterElement>;
             "app-header": LocalJSX.IntrinsicElements["app-header"] & JSXBase.HTMLAttributes<HTMLAppHeaderElement>;
             "app-root": LocalJSX.IntrinsicElements["app-root"] & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "page-connections": LocalJSX.IntrinsicElements["page-connections"] & JSXBase.HTMLAttributes<HTMLPageConnectionsElement>;
             "page-forgot-password": LocalJSX.IntrinsicElements["page-forgot-password"] & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-login": LocalJSX.IntrinsicElements["page-login"] & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
+            "page-notifications": LocalJSX.IntrinsicElements["page-notifications"] & JSXBase.HTMLAttributes<HTMLPageNotificationsElement>;
             "page-profile": LocalJSX.IntrinsicElements["page-profile"] & JSXBase.HTMLAttributes<HTMLPageProfileElement>;
             "page-register": LocalJSX.IntrinsicElements["page-register"] & JSXBase.HTMLAttributes<HTMLPageRegisterElement>;
             "page-register-role": LocalJSX.IntrinsicElements["page-register-role"] & JSXBase.HTMLAttributes<HTMLPageRegisterRoleElement>;
