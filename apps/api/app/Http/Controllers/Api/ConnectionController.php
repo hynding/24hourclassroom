@@ -94,9 +94,15 @@ class ConnectionController extends Controller
         // while every retry answers 422 "already exists".
         abort_unless($user->isActive(), 404);
 
-        if ($me->role === Role::Student && $user->role === Role::Student) {
-            throw ValidationException::withMessages(['user' => __('Students cannot connect with each other.')]);
-        }
+        // 404, not the 422 the spec's endpoint table asks for. That table
+        // predates the enumeration lesson this branch learned twice (9ab122a,
+        // then 7b46f1c when the first fix closed the status and left the leak
+        // in the body); decision 5's "404, never 403" is the higher authority
+        // and the table is downstream of it. A 422 naming the reason let a
+        // student walk the id space and rebuild the student directory the
+        // spec deliberately omits. Nothing is lost: students cannot discover
+        // other students, so the only way to reach this branch is the attack.
+        abort_if($me->role === Role::Student && $user->role === Role::Student, 404);
 
         try {
             Connection::create([

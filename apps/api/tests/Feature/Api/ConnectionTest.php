@@ -60,15 +60,38 @@ test('a third party gets 404, not 403, for someone elses connection', function (
     expect($connection->fresh())->not->toBeNull();
 });
 
-test('students cannot connect to each other', function () {
+test('students cannot connect to each other, and get 404 rather than a 422 that names the reason', function () {
+    // The 422 was an enumeration oracle: walk the id space as a student and
+    // every "Students cannot connect with each other." confirms an existing
+    // student account, reconstructing the directory the spec deliberately
+    // omits. Decision 5's "404, never 403" outranks the spec's endpoint
+    // table here, and FollowController already made the same call.
+    config(['app.debug' => false]);
+
     $s1 = student();
     $s2 = student();
     $this->actingAs($s1);
 
-    $this->postJson("/api/connections/{$s2->id}")
-        ->assertStatus(422)->assertJsonValidationErrors('user');
+    $response = $this->postJson("/api/connections/{$s2->id}");
+    $missing = $this->postJson('/api/connections/999999');
+
+    expect($response->status())->toBe(404)
+        ->and($response->status())->toBe($missing->status())
+        ->and($response->json())->toBe($missing->json());
 
     $this->assertDatabaseCount('connections', 0);
+});
+
+test('a teacher may still connect with a student', function () {
+    // The 404 is scoped to a student caller: a teacher reaching a student is
+    // the normal path and must keep working.
+    $t = teacher();
+    $s = student();
+    $this->actingAs($t);
+
+    $this->postJson("/api/connections/{$s->id}")->assertNoContent();
+
+    $this->assertDatabaseCount('connections', 1);
 });
 
 test('a teacher and a student may connect in either direction', function () {
