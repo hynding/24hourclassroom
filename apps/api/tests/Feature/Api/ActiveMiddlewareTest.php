@@ -190,3 +190,81 @@ test('a deactivated session loses its viewer privileges on the public profile en
     auth()->logout();
     $this->getJson("/api/users/{$other->id}")->assertOk()->assertJsonPath('role', 'teacher');
 });
+
+test('the active middleware answers 401 rather than 500 when the request carries no session', function () {
+    // EnsureUserIsActive called $request->session() unguarded, so a
+    // deactivated user authenticated WITHOUT a session got a hard 500
+    // "Session store not set on request" instead of the 401 the whole
+    // contract is built on -- and a 500 is exactly the status that takes down
+    // the SPA shell, which is why the 401 was chosen in the first place.
+    //
+    // Not reachable today: Sanctum only authenticates /api/* once
+    // EnsureFrontendRequestsAreStateful has matched the frontend origin, and
+    // that is the same middleware that prepends StartSession; User has no
+    // HasApiTokens, so there is no token path either. It goes live the moment
+    // token auth is added or a route moves off the stateful group. Driven
+    // through the middleware directly, since no route can currently produce
+    // the state.
+    $user = User::factory()->create(['deactivated_at' => now()]);
+
+    $request = Illuminate\Http\Request::create('/api/user', 'GET');
+    $request->headers->set('Accept', 'application/json');
+    $request->setUserResolver(fn () => $user);
+
+    // The precondition under test. If a session ever appears here by default
+    // this test would be exercising the ordinary path instead.
+    expect($request->hasSession())->toBeFalse();
+
+    $reached = false;
+
+    try {
+        (new App\Http\Middleware\EnsureUserIsActive)->handle(
+            $request,
+            function () use (&$reached) {
+                $reached = true;
+
+                return new Illuminate\Http\Response('next');
+            },
+        );
+
+        $this->fail('the middleware was expected to abort');
+    } catch (Symfony\Component\HttpKernel\Exception\HttpException $e) {
+        expect($e->getStatusCode())->toBe(401);
+    }
+
+    // And it must still refuse: degrading to "pass through when there is no
+    // session" would be a worse bug than the 500.
+    expect($reached)->toBeFalse();
+});
+
+test('the active middleware still invalidates the session when there is one', function () {
+    // The counter-test for the hasSession() guard: skipping the invalidation
+    // altogether -- or guarding it so tightly it never runs -- would also
+    // make the test above pass.
+    $user = User::factory()->create(['deactivated_at' => now()]);
+
+    $session = app('session')->driver();
+    $session->put('sentinel', 'still here');
+    $originalToken = $session->token();
+
+    $request = Illuminate\Http\Request::create('/api/user', 'GET');
+    $request->headers->set('Accept', 'application/json');
+    $request->setUserResolver(fn () => $user);
+    $request->setLaravelSession($session);
+
+    expect($request->hasSession())->toBeTrue();
+
+    try {
+        (new App\Http\Middleware\EnsureUserIsActive)->handle(
+            $request,
+            fn () => new Illuminate\Http\Response('next'),
+        );
+
+        $this->fail('the middleware was expected to abort');
+    } catch (Symfony\Component\HttpKernel\Exception\HttpException $e) {
+        expect($e->getStatusCode())->toBe(401);
+    }
+
+    expect($session->get('sentinel'))->toBeNull()
+        ->and($session->token())->not->toBe($originalToken);
+});
