@@ -51,9 +51,32 @@ class ConnectionController extends Controller
                 ->map(fn (Connection $c) => ['id' => $c->id, 'user' => UserSummary::for($c->requester)])
                 ->values(),
             'outgoing' => $rows->where('requester_id', $me->id)
-                ->map(fn (Connection $c) => ['id' => $c->id, 'user' => UserSummary::for($c->addressee)])
+                ->map(fn (Connection $c) => ['id' => $c->id, 'user' => $this->outgoingSummary($c->addressee)])
                 ->values(),
         ]);
+    }
+
+    /**
+     * The counterpart of an OUTGOING pending request.
+     *
+     * Decision 5: a student's identity is revealed to an ACCEPTED connection,
+     * and a pending request is not one. Sending a request is unilateral, so a
+     * full summary here let any teacher harvest the whole student roster --
+     * the exact list GET /api/users/{student} 404s to protect -- by POSTing
+     * over the id space and reading this endpoint once.
+     *
+     * The incoming direction is deliberately untouched: an addressee has to
+     * know who is asking in order to decide.
+     *
+     * @return array<string, mixed>
+     */
+    private function outgoingSummary(User $user): array
+    {
+        if ($user->role === Role::Student) {
+            return ['id' => $user->id];
+        }
+
+        return UserSummary::for($user);
     }
 
     public function store(Request $request, User $user): Response

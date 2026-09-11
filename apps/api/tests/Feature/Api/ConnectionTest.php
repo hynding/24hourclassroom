@@ -164,3 +164,75 @@ test('an unverified user cannot request a connection', function () {
 
     $this->postJson('/api/connections/'.teacher()->id)->assertStatus(403);
 });
+
+test('an outgoing pending request to a student discloses the id and nothing else', function () {
+    // GET /api/users/{student} is 404 to anyone without an ACCEPTED
+    // connection, but pending() handed back the full UserSummary for a person
+    // who had agreed to nothing. Three requests -- 404, POST, read the list --
+    // and an unthrottled teacher harvests every student's name and avatar.
+    $me = teacher();
+    $s = student();
+    $s->profile()->create(['bio' => null]);
+    $s->profile->forceFill(['avatar_path' => 'avatars/secret.png'])->save();
+    $this->actingAs($me);
+
+    $this->getJson("/api/users/{$s->id}")->assertStatus(404);
+    $this->postJson("/api/connections/{$s->id}")->assertNoContent();
+
+    $outgoing = $this->getJson('/api/connections/pending')->assertOk()->json('outgoing');
+
+    expect($outgoing)->toHaveCount(1)
+        ->and($outgoing[0]['user'])->toBe(['id' => $s->id]);
+});
+
+test('an outgoing pending request to a teacher still carries the full summary', function () {
+    // The exclusion above must be scoped to students, not applied to every
+    // outgoing row: teachers are publicly discoverable by design.
+    $me = teacher();
+    $t = teacher();
+    $t->forceFill(['name' => 'Open Olly'])->save();
+    $t->profile()->create(['bio' => null]);
+    $t->profile->forceFill(['avatar_path' => 'avatars/public.png'])->save();
+    $this->actingAs($me);
+    $this->postJson("/api/connections/{$t->id}")->assertNoContent();
+
+    $outgoing = $this->getJson('/api/connections/pending')->assertOk()->json('outgoing');
+
+    expect($outgoing[0]['user']['id'])->toBe($t->id)
+        ->and($outgoing[0]['user']['name'])->toBe('Open Olly')
+        ->and($outgoing[0]['user']['avatar_url'])->toContain('avatars/public.png');
+});
+
+test('an incoming pending request from a student still names the student', function () {
+    // The addressee has to know who is asking in order to decide. The leak
+    // was the outgoing direction, where the counterpart never opted in.
+    $me = teacher();
+    $s = student();
+    $s->forceFill(['name' => 'Asking Amy'])->save();
+
+    $this->actingAs($s);
+    $this->postJson("/api/connections/{$me->id}")->assertNoContent();
+
+    $this->actingAs($me);
+    $incoming = $this->getJson('/api/connections/pending')->assertOk()->json('incoming');
+
+    expect($incoming[0]['user']['name'])->toBe('Asking Amy');
+});
+
+test('an accepted student connection is named in the connections list', function () {
+    // Decision 5's line: identity is revealed to an ACCEPTED connection. The
+    // pending redaction must not survive acceptance.
+    $me = teacher();
+    $s = student();
+    $s->forceFill(['name' => 'Accepted Ash'])->save();
+    $this->actingAs($me);
+    $this->postJson("/api/connections/{$s->id}");
+
+    $this->actingAs($s);
+    $this->patchJson('/api/connections/'.Connection::firstOrFail()->id)->assertNoContent();
+
+    $this->actingAs($me);
+    $data = $this->getJson('/api/connections')->assertOk()->json('data');
+
+    expect($data[0]['user']['name'])->toBe('Accepted Ash');
+});
