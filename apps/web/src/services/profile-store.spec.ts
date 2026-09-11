@@ -243,6 +243,28 @@ describe('profile-store', () => {
     expect(await store.unreadCount()).toBe(0);
   });
 
+  it('does not let an in-flight unread count win a race against a markRead() that lands before it resolves', async () => {
+    const client = clientMock();
+    let resolveCount: (value: number) => void;
+    client.getUnreadCount.mockImplementationOnce(
+      () => new Promise((resolve) => { resolveCount = resolve; }),
+    );
+    const store = new ProfileStore(client as any);
+
+    // Start a fetch for the current unread count, then mark everything read
+    // (as opening the notifications page does) before that fetch resolves.
+    const inFlight = store.unreadCount();
+    await store.markRead();
+    resolveCount!(9);
+    await inFlight;
+
+    // A subsequent unreadCount() must re-fetch rather than serving the
+    // stale pre-read count the in-flight call just tried to cache.
+    client.getUnreadCount.mockResolvedValueOnce(0);
+    expect(await store.unreadCount()).toBe(0);
+    expect(client.getUnreadCount).toHaveBeenCalledTimes(2);
+  });
+
   it('passes connection ids through unchanged', async () => {
     const client = clientMock();
     const store = new ProfileStore(client as any);

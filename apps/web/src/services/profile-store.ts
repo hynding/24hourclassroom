@@ -122,6 +122,11 @@ export class ProfileStore {
   async markRead(ids?: string[]): Promise<void> {
     await this.client.markNotificationsRead(ids);
     this.cachedUnread = null;
+    // Invalidate any unreadCount() that started before this landed, the same
+    // way clear() does -- otherwise it can resolve afterward and write the
+    // pre-read stale count back into the cache, leaving the bell showing
+    // notifications the user just read.
+    this.generation++;
   }
 
   clear(): void {
