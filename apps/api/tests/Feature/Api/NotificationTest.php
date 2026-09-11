@@ -134,3 +134,52 @@ test('marking read with explicit ids marks those and leaves the rest unread', fu
 test('a guest cannot read notifications', function () {
     $this->getJson('/api/notifications')->assertStatus(401);
 });
+
+test('the index returns the same paginated envelope /api/teachers returns', function () {
+    // Regression for the cross-layer defect where every mock asserted a `meta`
+    // key the server never sent. Asserted against the real endpoint, not a
+    // fixture: `meta.last_page` is what page-notifications reads, and a flat
+    // paginator puts `last_page` at the top level instead.
+    $me = User::factory()->create(['role' => 'teacher']);
+    $me->notify(new NewFollower(User::factory()->create(['name' => 'Ada'])));
+    $this->actingAs($me);
+
+    $response = $this->getJson('/api/notifications')->assertOk();
+
+    $response->assertJsonStructure([
+        'data' => [['id', 'type', 'read_at', 'created_at', 'data']],
+        'meta' => ['current_page', 'last_page', 'per_page', 'total'],
+    ]);
+
+    // The flat shape must be gone, not merely accompanied by a nested one --
+    // both present would let the next reader pick the wrong key again.
+    expect($response->json())->not->toHaveKey('last_page')
+        ->and($response->json())->not->toHaveKey('current_page')
+        ->and($response->json('meta.last_page'))->toBe(1)
+        ->and($response->json('meta.total'))->toBe(1);
+
+    // The row itself carries only the keys @24hc/shared's AppNotification
+    // declares -- notifiable_id/notifiable_type/sequence are internals.
+    expect(array_keys($response->json('data.0')))
+        ->toBe(['id', 'type', 'read_at', 'created_at', 'data']);
+});
+
+test('the index paginates at 15 and reports the real last page', function () {
+    // Proves meta.last_page is computed rather than hard-coded to 1: the page
+    // component's Next button is driven entirely by this number.
+    $me = User::factory()->create(['role' => 'teacher']);
+    foreach (range(1, 16) as $i) {
+        $me->notify(new NewFollower(User::factory()->create(['name' => "F{$i}"])));
+    }
+    $this->actingAs($me);
+
+    $first = $this->getJson('/api/notifications')->assertOk();
+    expect($first->json('meta.last_page'))->toBe(2)
+        ->and($first->json('meta.current_page'))->toBe(1)
+        ->and($first->json('data'))->toHaveCount(15);
+
+    $second = $this->getJson('/api/notifications?page=2')->assertOk();
+    expect($second->json('meta.current_page'))->toBe(2)
+        ->and($second->json('data'))->toHaveCount(1)
+        ->and($second->json('data.0.data.user.name'))->toBe('F1');
+});

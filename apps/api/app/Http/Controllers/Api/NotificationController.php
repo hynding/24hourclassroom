@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\NotificationResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class NotificationController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function index(Request $request): AnonymousResourceCollection
     {
         // reorder(): the notifiable relation's default `latest()` sorts only
         // by created_at, which MySQL stores at whole-second precision no
@@ -17,7 +19,10 @@ class NotificationController extends Controller
         // within the same second -- routine, not an edge case -- would tie
         // and then sort by the random `id` UUID, i.e. arbitrarily. `sequence`
         // is a monotonic auto-increment column added for exactly this.
-        return response()->json(
+        // A Resource collection, not response()->json($paginator): the latter
+        // serialises flat, and the SPA reads `meta.last_page` like it does on
+        // every other paginated endpoint.
+        return NotificationResource::collection(
             $request->user()->notifications()->reorder('sequence', 'desc')->paginate(15)
         );
     }
