@@ -6,6 +6,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -31,5 +33,16 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        // A ModelNotFoundException (route-model-binding miss) and an explicit
+        // abort(404) both surface as NotFoundHttpException by the time they
+        // reach here, but Laravel's default message for the former embeds the
+        // model class and id -- an existence oracle for any 404-guarded
+        // endpoint. Normalise every JSON 404 body to one constant so a
+        // missing record and a deliberately-hidden one are indistinguishable.
+        // Web/Inertia 404s are untouched.
+        $exceptions->render(function (NotFoundHttpException $e, Request $request) {
+            if ($request->expectsJson()) {
+                return response()->json(['message' => 'Not found.'], 404);
+            }
+        });
     })->create();

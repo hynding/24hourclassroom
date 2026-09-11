@@ -59,6 +59,21 @@ test('an unknown user is 404', function () {
     $this->getJson('/api/users/999999')->assertStatus(404);
 });
 
+test('a nonexistent user id is indistinguishable from a student: same status, same body', function () {
+    // Reflect the deployed config, not the dev default -- with debug on,
+    // a route-model-binding miss's exception message differs from an
+    // explicit abort(404), which would itself be an oracle.
+    config(['app.debug' => false]);
+
+    $student = User::factory()->create(['role' => 'student']);
+
+    $studentResponse = $this->getJson("/api/users/{$student->id}");
+    $missingResponse = $this->getJson('/api/users/999999');
+
+    expect($missingResponse->status())->toBe($studentResponse->status());
+    expect($missingResponse->json())->toBe($studentResponse->json());
+});
+
 test('the response never leaks email or avatar_path', function () {
     $teacher = User::factory()->create(['role' => 'teacher']);
     Profile::factory()->for($teacher)->create(['avatar_path' => 'avatars/x.jpg']);

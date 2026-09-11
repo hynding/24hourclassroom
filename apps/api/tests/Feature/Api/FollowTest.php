@@ -51,11 +51,21 @@ test('students cannot be followed', function () {
     $this->assertDatabaseCount('follows', 0);
 });
 
-test('a nonexistent user id also returns 404, indistinguishable from a student', function () {
+test('a nonexistent user id is indistinguishable from a student: same status, same body', function () {
+    // Reflect the deployed config, not the dev default -- with debug on,
+    // a route-model-binding miss's exception message differs from an
+    // explicit abort(404), which would itself be an oracle.
+    config(['app.debug' => false]);
+
     $follower = User::factory()->create();
+    $student = User::factory()->create(['role' => 'student']);
     $this->actingAs($follower);
 
-    $this->postJson('/api/users/999999/follow')->assertStatus(404);
+    $studentResponse = $this->postJson("/api/users/{$student->id}/follow");
+    $missingResponse = $this->postJson('/api/users/999999/follow');
+
+    expect($missingResponse->status())->toBe($studentResponse->status());
+    expect($missingResponse->json())->toBe($studentResponse->json());
 
     $this->assertDatabaseCount('follows', 0);
 });
