@@ -1,11 +1,17 @@
 import { newSpecPage } from '@stencil/core/testing';
+import { ApiError } from '@24hc/api-client';
 
 const unreadCount = jest.fn();
+const recoverFromExpiredSession = jest.fn();
 let listener: (user: unknown) => void = () => {};
 const currentUser = { value: null as unknown };
 
 jest.mock('../../services/profile-store', () => ({
   profileStore: { unreadCount: (...a: unknown[]) => unreadCount(...a) },
+}));
+
+jest.mock('../../services/session-recovery', () => ({
+  recoverFromExpiredSession: (...a: unknown[]) => recoverFromExpiredSession(...a),
 }));
 
 jest.mock('../../services/auth-store', () => ({
@@ -24,6 +30,7 @@ const unverified = { id: 2, name: 'Sam', email_verified_at: null, role: 'teacher
 describe('app-header bell', () => {
   beforeEach(() => {
     unreadCount.mockReset().mockResolvedValue(3);
+    recoverFromExpiredSession.mockReset().mockReturnValue(false);
     currentUser.value = null;
     listener = () => {};
   });
@@ -87,5 +94,17 @@ describe('app-header bell', () => {
     expect(unreadCount).toHaveBeenCalledTimes(2);
     expect(spec.root.shadowRoot.textContent).toContain('7');
     expect(spec.root.shadowRoot.textContent).not.toContain('3');
+  });
+
+  it('delegates a 401 from unreadCount to session recovery without throwing', async () => {
+    currentUser.value = verified;
+    unreadCount.mockRejectedValue(new ApiError(401, 'Unauthenticated.'));
+    recoverFromExpiredSession.mockReturnValue(true);
+
+    const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    await spec.waitForChanges();
+
+    expect(recoverFromExpiredSession).toHaveBeenCalled();
+    expect(spec.root.shadowRoot.querySelector('[data-testid="unread-badge"]')).toBeNull();
   });
 });

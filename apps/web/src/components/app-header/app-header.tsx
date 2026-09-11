@@ -2,6 +2,7 @@ import { Component, h, Listen, State } from '@stencil/core';
 import type { User } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { profileStore } from '../../services/profile-store';
+import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { navigate } from '../../services/navigate';
 
 @Component({ tag: 'app-header', shadow: true })
@@ -43,7 +44,17 @@ export class AppHeader {
       this.unread = 0;
       return;
     }
-    this.unread = await profileStore.unreadCount();
+    try {
+      this.unread = await profileStore.unreadCount();
+    } catch (e) {
+      if (recoverFromExpiredSession(e)) {
+        return;
+      }
+      // A persistent chrome element is the wrong place to surface a
+      // transient fetch failure -- leave the badge off rather than adding
+      // an error banner to the header.
+      this.unread = 0;
+    }
   }
 
   private onNav = (event: MouseEvent, path: string) => {
