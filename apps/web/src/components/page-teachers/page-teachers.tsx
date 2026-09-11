@@ -2,6 +2,7 @@ import { Component, h, State } from '@stencil/core';
 import { GRADE_LEVELS, GradeLevel, SUBJECTS, Subject, TeacherSummary } from '@24hc/shared';
 import { profileStore } from '../../services/profile-store';
 import { navigate } from '../../services/navigate';
+import { recoverFromExpiredSession } from '../../services/session-recovery';
 
 @Component({ tag: 'page-teachers', shadow: true })
 export class PageTeachers {
@@ -34,16 +35,27 @@ export class PageTeachers {
       });
       this.teachers = result.data;
       this.lastPage = result.meta.last_page;
-    } catch {
-      // A failed search must not be presented as "no teachers match" -- that
-      // would tell the user a confident, wrong answer. Render a distinct
-      // error state instead, and don't re-throw: this is the right level to
-      // handle the rejection rather than letting it escape as an unhandled
-      // promise rejection.
+      this.loaded = true;
+    } catch (e) {
+      // `active` sits on the api host's PUBLIC throttle group, so a
+      // DEACTIVATED session gets 401 from /api/teachers where a guest gets
+      // 200 (R-F3). Swallowing that into the error state below would strand
+      // the user on a dead public page with no explanation and no way out;
+      // send them to /login, where ?error=deactivated says why.
+      if (recoverFromExpiredSession(e)) {
+        return;
+      }
+      // Any other failure must not be presented as "no teachers match" --
+      // that would tell the user a confident, wrong answer. Render a
+      // distinct error state instead, and don't re-throw: this is the right
+      // level to handle the rejection rather than letting it escape as an
+      // unhandled promise rejection.
       this.error = true;
     } finally {
+      // `loaded` deliberately stays false on the recovery path -- it only
+      // gates the "no teachers match" empty state, and recovery has already
+      // navigated away. `busy` must clear either way.
       this.busy = false;
-      this.loaded = true;
     }
   }
 

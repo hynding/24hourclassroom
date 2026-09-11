@@ -1,11 +1,17 @@
 import { newSpecPage } from '@stencil/core/testing';
+import { ApiError } from '@24hc/api-client';
 
 const searchTeachers = jest.fn();
+const recoverFromExpiredSession = jest.fn();
 
 jest.mock('../../services/profile-store', () => ({
   profileStore: {
     searchTeachers: (...args: unknown[]) => searchTeachers(...args),
   },
+}));
+
+jest.mock('../../services/session-recovery', () => ({
+  recoverFromExpiredSession: (...a: unknown[]) => recoverFromExpiredSession(...a),
 }));
 
 // Imported after jest.mock(): Stencil's Jest preprocessor transpiles via the
@@ -34,6 +40,7 @@ describe('page-teachers', () => {
   // the resolved value each test sets via page() survives.
   beforeEach(() => {
     searchTeachers.mockClear();
+    recoverFromExpiredSession.mockReset().mockReturnValue(false);
   });
 
   it('renders a row per teacher', async () => {
@@ -118,5 +125,40 @@ describe('page-teachers', () => {
     await spec.waitForChanges();
 
     expect(spec.root.shadowRoot.textContent).not.toContain('Page 1 of');
+  });
+
+  // B9 / R-F3. `active` now sits on the api host's PUBLIC throttle group, so
+  // a DEACTIVATED session gets 401 from GET /api/teachers where a guest
+  // gets 200. The blanket `catch {}` here swallowed it into "We could not
+  // load teachers", stranding that user on a dead page they can read while
+  // signed out, with no explanation and no way to /login.
+  it('routes a 401 from the public directory through session recovery', async () => {
+    searchTeachers.mockRejectedValue(new ApiError(401, 'Unauthenticated.'));
+    recoverFromExpiredSession.mockReturnValue(true);
+
+    const spec = await newSpecPage({ components: [PageTeachers], html: '<page-teachers></page-teachers>' });
+    await spec.waitForChanges();
+
+    expect(recoverFromExpiredSession).toHaveBeenCalled();
+    const text = spec.root.shadowRoot.textContent;
+    expect(text).not.toContain('We could not load teachers.');
+    // And not the empty state either: recovery has navigated away, so this
+    // page must not assert "no teachers match" on its way out.
+    expect(text).not.toContain('No teachers match');
+  });
+
+  it('still shows the error state when recovery declines the failure', async () => {
+    // The exclusion side: only a 401 is handed to the router. A 500 or a
+    // network failure must still produce the distinct error state, not a
+    // silent redirect.
+    searchTeachers.mockRejectedValue(new ApiError(500, 'Server Error'));
+    recoverFromExpiredSession.mockReturnValue(false);
+
+    const spec = await newSpecPage({ components: [PageTeachers], html: '<page-teachers></page-teachers>' });
+    await spec.waitForChanges();
+
+    const text = spec.root.shadowRoot.textContent;
+    expect(text).toContain('We could not load teachers.');
+    expect(text).not.toContain('No teachers match');
   });
 });
