@@ -31,6 +31,25 @@ return Application::configure(basePath: dirname(__DIR__))
             'active' => App\Http\Middleware\EnsureUserIsActive::class,
             'admin' => App\Http\Middleware\EnsureUserIsAdmin::class,
         ]);
+
+        // SubstituteBindings is in the framework's priority list; a custom
+        // alias is not, so both of these ran AFTER route-model binding. That
+        // made /admin/users/{user}/* an existence oracle: a plain teacher got
+        // 404 for an id that does not exist and 403 for one that does -- the
+        // one place on this branch where the non-member received the MORE
+        // informative status. Authorization gates belong in front of the
+        // binding they guard.
+        //
+        // `active` is listed first so it still wins over `admin`: a
+        // deactivated non-admin is redirected to login rather than told 403.
+        $middleware->prependToPriorityList(
+            Illuminate\Routing\Middleware\SubstituteBindings::class,
+            App\Http\Middleware\EnsureUserIsAdmin::class,
+        );
+        $middleware->prependToPriorityList(
+            App\Http\Middleware\EnsureUserIsAdmin::class,
+            App\Http\Middleware\EnsureUserIsActive::class,
+        );
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // A ModelNotFoundException (route-model-binding miss) and an explicit

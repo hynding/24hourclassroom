@@ -145,3 +145,49 @@ test('a role change leaves existing follows and connections intact', function ()
     // creation rules. The demoted user drops out of the directory instead.
     expect(Follow::count())->toBe(1)->and(Connection::count())->toBe(1);
 });
+
+test('a non-admin cannot tell an existing user id from a nonexistent one on the admin routes', function () {
+    // SubstituteBindings is in the framework's priority list and a custom
+    // alias is not, so route-model binding resolved -- and 404'd -- before
+    // EnsureUserIsAdmin ever ran. A plain teacher iterating
+    // PATCH /admin/users/{id}/deactivate read 403 = "this id exists",
+    // 404 = "it does not", silently and without changing any state.
+    //
+    // The invariant is "existing and nonexistent ids are indistinguishable",
+    // not "must be 404": the admin surface's existence is not the secret,
+    // which ids exist is. 403 for both satisfies it.
+    config(['app.debug' => false]);
+
+    $victim = User::factory()->create(['role' => 'teacher']);
+    $this->actingAs(User::factory()->create(['role' => 'teacher']));
+
+    $probes = [
+        ['patch', "/admin/users/%d/role", ['role' => 'student']],
+        ['patch', "/admin/users/%d/deactivate", []],
+        ['patch', "/admin/users/%d/reactivate", []],
+        ['delete', "/admin/users/%d/profile-content", []],
+    ];
+
+    foreach ($probes as [$verb, $template, $payload]) {
+        $existing = $this->{$verb}(sprintf($template, $victim->id), $payload);
+        $missing = $this->{$verb}(sprintf($template, 999999), $payload);
+
+        expect($existing->status())->toBe(403)
+            ->and($missing->status())->toBe($existing->status())
+            ->and($missing->getContent())->toBe($existing->getContent());
+    }
+
+    // The probe must also be a no-op, or the oracle is the least of it.
+    expect($victim->fresh()->isActive())->toBeTrue()
+        ->and($victim->fresh()->role->value)->toBe('teacher');
+});
+
+test('an admin still gets 404 for a user id that does not exist', function () {
+    // The counter-test for the priority change: EnsureUserIsAdmin now runs
+    // before SubstituteBindings, so this proves binding still happens (and
+    // still 404s) for a caller who passes the role check, rather than every
+    // request collapsing to 403.
+    $this->actingAs(admin());
+
+    $this->patch('/admin/users/999999/deactivate')->assertStatus(404);
+});
