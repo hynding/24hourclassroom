@@ -19,6 +19,18 @@ jest.mock('../../services/profile-store', () => ({
   },
 }));
 
+// mockCurrentUser is read lazily through the getter below, so it can be
+// reassigned per test without re-registering the mock module.
+let mockCurrentUser: { id: number } | null = null;
+
+jest.mock('../../services/auth-store', () => ({
+  authStore: {
+    get currentUser() {
+      return mockCurrentUser;
+    },
+  },
+}));
+
 // Imported after jest.mock(): Stencil's Jest preprocessor transpiles via the
 // TypeScript compiler, not babel-jest, so jest.mock() calls are not hoisted
 // above static imports the way they are under babel-jest. Without this
@@ -39,6 +51,7 @@ describe('page-teacher-profile', () => {
     requestConnection.mockClear();
     acceptConnection.mockClear();
     removeConnection.mockClear();
+    mockCurrentUser = null;
   });
 
   it('renders the teacher and their profile', async () => {
@@ -206,5 +219,31 @@ describe('page-teacher-profile', () => {
 
     expect(unfollow).toHaveBeenCalledWith(7);
     expect(follow).not.toHaveBeenCalled();
+  });
+
+  // A teacher can reach their own /teachers/<id> through ordinary navigation
+  // (the directory has no self-exclusion), and the payload they get back
+  // for themself is state-identical to "unconnected other teacher"
+  // (is_following: false, connection: null). Without a viewer/subject
+  // comparison, that renders Follow/Connect controls a click on which the
+  // API rejects (follow and connect both refuse self-targeting).
+  it('shows no controls on the viewer\'s own profile', async () => {
+    mockCurrentUser = { id: 7 };
+    const spec = await withViewerState({});
+    await spec.waitForChanges();
+    const text = spec.root.shadowRoot.textContent;
+
+    expect(text).not.toContain('Follow');
+    expect(text).not.toContain('Connect');
+  });
+
+  it('still offers controls to a signed-in viewer looking at someone else', async () => {
+    mockCurrentUser = { id: 999 };
+    const spec = await withViewerState({});
+    await spec.waitForChanges();
+    const text = spec.root.shadowRoot.textContent;
+
+    expect(text).toContain('Follow');
+    expect(text).toContain('Connect');
   });
 });

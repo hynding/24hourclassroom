@@ -1,6 +1,7 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
 import { GRADE_LEVELS, PublicProfile, SUBJECTS } from '@24hc/shared';
+import { authStore } from '../../services/auth-store';
 import { profileStore } from '../../services/profile-store';
 
 @Component({ tag: 'page-teacher-profile', shadow: true })
@@ -145,8 +146,12 @@ export class PageTeacherProfile {
         {/*
           Loose check: is_following/connection are absent (undefined), not
           null, on the name-only student payload -- see the comment above.
+          The viewer/subject id comparison hides the controls on a teacher's
+          own profile, which the directory's lack of self-exclusion makes
+          reachable through ordinary navigation, not just a hand-typed URL;
+          both follow and connect reject self-targeting server-side.
         */}
-        {is_following != null && (
+        {is_following != null && authStore.currentUser?.id !== this.teacher.id && (
           <div>
             <button type="button" disabled={this.busy} onClick={() => this.toggleFollow()}>
               {is_following ? 'Unfollow' : 'Follow'}
