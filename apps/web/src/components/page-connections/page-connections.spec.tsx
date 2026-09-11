@@ -77,7 +77,10 @@ describe('page-connections', () => {
     expect(spec.root.shadowRoot.textContent).not.toContain('We could not load your connections.');
   });
 
-  it('accepts an incoming request by connection id and refreshes', async () => {
+  it('accepts a rendered incoming request by connection id, not the user id', async () => {
+    // Connection id (2) and user id (20) are deliberately distinct numbers
+    // so a bug that wired the button to connection.user.id would show up as
+    // a wrong-argument assertion failure instead of passing by coincidence.
     pendingConnections.mockResolvedValue({
       incoming: [{ id: 2, user: peer(20, 'Incoming Ida') }],
       outgoing: [],
@@ -85,21 +88,34 @@ describe('page-connections', () => {
     const spec = await mount();
     await spec.waitForChanges();
 
-    await spec.rootInstance.accept(2);
+    const button = spec.root.shadowRoot.querySelector('[data-testid="accept-2"]') as HTMLButtonElement;
+    expect(button).not.toBeNull();
+    button.click();
+    await spec.waitForChanges();
+    await spec.waitForChanges();
 
     expect(acceptConnection).toHaveBeenCalledWith(2);
+    expect(acceptConnection).not.toHaveBeenCalledWith(20);
     // Refreshed rather than mutated locally, so the accepted row moves from
     // pending to accepted without a stale copy in both lists.
     expect(connections).toHaveBeenCalledTimes(2);
   });
 
-  it('removes a connection by connection id and refreshes', async () => {
+  it('removes a rendered connection by connection id, not the user id', async () => {
+    // Connection id (5) and user id (50) are deliberately distinct numbers,
+    // for the same reason as above.
+    connections.mockResolvedValue({ data: [{ id: 5, user: peer(50, 'Accepted Anna') }] });
     const spec = await mount();
     await spec.waitForChanges();
 
-    await spec.rootInstance.remove(5);
+    const button = spec.root.shadowRoot.querySelector('[data-testid="disconnect-5"]') as HTMLButtonElement;
+    expect(button).not.toBeNull();
+    button.click();
+    await spec.waitForChanges();
+    await spec.waitForChanges();
 
     expect(removeConnection).toHaveBeenCalledWith(5);
+    expect(removeConnection).not.toHaveBeenCalledWith(50);
     expect(connections).toHaveBeenCalledTimes(2);
   });
 
