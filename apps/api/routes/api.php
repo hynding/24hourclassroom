@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Auth\OAuthCompletionController;
 use App\Http\Controllers\Api\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationNotificationController;
+use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\ProfileAvatarController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicProfileController;
@@ -32,6 +33,9 @@ Route::middleware(['auth:sanctum', 'verified', 'active'])->group(function () {
     Route::put('profile', [ProfileController::class, 'update']);
     Route::post('profile/avatar', [ProfileAvatarController::class, 'store']);
     Route::delete('profile/avatar', [ProfileAvatarController::class, 'destroy']);
+
+    Route::post('users/{user}/follow', [FollowController::class, 'store']);
+    Route::delete('users/{user}/follow', [FollowController::class, 'destroy']);
 });
 
 Route::middleware('throttle:60,1')->group(function () {
