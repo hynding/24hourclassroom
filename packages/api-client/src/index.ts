@@ -1,6 +1,9 @@
 import type {
+  AppNotification,
+  Connection,
   GradeLevel,
   Paginated,
+  PendingConnections,
   Profile,
   PublicProfile,
   RegistrationRole,
@@ -76,6 +79,11 @@ export class ApiClient {
   async put<T>(path: string, body?: unknown): Promise<T> {
     await this.ensureCsrf();
     return this.request<T>('PUT', path, body);
+  }
+
+  async patch<T>(path: string, body?: unknown): Promise<T> {
+    await this.ensureCsrf();
+    return this.request<T>('PATCH', path, body);
   }
 
   async delete<T>(path: string): Promise<T> {
@@ -159,6 +167,52 @@ export class ApiClient {
 
   async deleteAvatar(): Promise<void> {
     await this.delete('/api/profile/avatar');
+  }
+
+  async followTeacher(userId: number): Promise<void> {
+    await this.post(`/api/users/${userId}/follow`);
+  }
+
+  async unfollowTeacher(userId: number): Promise<void> {
+    await this.delete(`/api/users/${userId}/follow`);
+  }
+
+  async getConnections(): Promise<{ data: Connection[] }> {
+    return this.get<{ data: Connection[] }>('/api/connections');
+  }
+
+  async getPendingConnections(): Promise<PendingConnections> {
+    return this.get<PendingConnections>('/api/connections/pending');
+  }
+
+  /** Takes the id of the USER being asked. */
+  async requestConnection(userId: number): Promise<void> {
+    await this.post(`/api/connections/${userId}`);
+  }
+
+  /** Takes the id of the CONNECTION row, not the user. */
+  async acceptConnection(connectionId: number): Promise<void> {
+    await this.patch(`/api/connections/${connectionId}`);
+  }
+
+  /** Takes the id of the CONNECTION row, not the user. */
+  async removeConnection(connectionId: number): Promise<void> {
+    await this.delete(`/api/connections/${connectionId}`);
+  }
+
+  async getNotifications(page?: number): Promise<Paginated<AppNotification>> {
+    // Page 1 sends no param, matching getTeachers.
+    const query = page && page > 1 ? `?page=${page}` : '';
+    return this.get<Paginated<AppNotification>>(`/api/notifications${query}`);
+  }
+
+  async getUnreadCount(): Promise<number> {
+    const body = await this.get<{ count: number }>('/api/notifications/unread-count');
+    return body.count;
+  }
+
+  async markNotificationsRead(ids?: string[]): Promise<void> {
+    await this.post('/api/notifications/read', ids ? { ids } : {});
   }
 
   private async ensureCsrf(): Promise<void> {

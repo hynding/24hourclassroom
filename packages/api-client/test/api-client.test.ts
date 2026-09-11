@@ -197,3 +197,103 @@ describe('ApiClient profile methods', () => {
     expect(profile.name).toBe('Ada');
   });
 });
+
+describe('ApiClient connection and notification methods', () => {
+  it('fetches the CSRF cookie before a PATCH', async () => {
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(204, null));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.acceptConnection(7);
+
+    const urls = fetchFn.mock.calls.map((c) => c[0]);
+    expect(urls[0]).toBe('https://api.test/sanctum/csrf-cookie');
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/connections/7',
+      expect.objectContaining({ method: 'PATCH' }),
+    );
+  });
+
+  it('follows and unfollows by user id on the same path', async () => {
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(204, null));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.followTeacher(3);
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/users/3/follow',
+      expect.objectContaining({ method: 'POST' }),
+    );
+
+    await client.unfollowTeacher(3);
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/users/3/follow',
+      expect.objectContaining({ method: 'DELETE' }),
+    );
+  });
+
+  it('requests a connection by target user id, not connection id', async () => {
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(204, null));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.requestConnection(9);
+
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/connections/9',
+      expect.objectContaining({ method: 'POST' }),
+    );
+  });
+
+  it('removes a connection by connection id, not user id', async () => {
+    // These two take different id spaces and the URLs look alike; a swap
+    // would delete the wrong row.
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(204, null));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.removeConnection(42);
+
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/connections/42',
+      expect.objectContaining({ method: 'DELETE' }),
+    );
+  });
+
+  it('marks all notifications read when given no ids', async () => {
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(204, null));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.markNotificationsRead();
+
+    const init = fetchFn.mock.calls.at(-1)![1];
+    expect(JSON.parse(init.body as string)).toEqual({});
+  });
+
+  it('marks only the given notifications read when ids are supplied', async () => {
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(204, null));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.markNotificationsRead(['a', 'b']);
+
+    const init = fetchFn.mock.calls.at(-1)![1];
+    expect(JSON.parse(init.body as string)).toEqual({ ids: ['a', 'b'] });
+  });
+
+  it('omits the page param on page 1 and sends it beyond', async () => {
+    // mockResolvedValue would hand back the same single-use Response object
+    // to both calls below; mockImplementation gives each call a fresh one.
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(200, { data: [], meta: {} }));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.getNotifications();
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/notifications');
+
+    await client.getNotifications(3);
+    expect(fetchFn.mock.calls.at(-1)![0]).toBe('https://api.test/api/notifications?page=3');
+  });
+
+  it('reads the unread count', async () => {
+    const fetchFn = vi.fn().mockResolvedValue(jsonResponse(200, { count: 4 }));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    expect(await client.getUnreadCount()).toBe(4);
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/notifications/unread-count');
+  });
+});

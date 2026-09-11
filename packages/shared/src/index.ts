@@ -75,7 +75,10 @@ export interface PublicProfile {
   id: number;
   name: string;
   role: Role;
-  profile: Profile;
+  /** Absent entirely for a student seen by an accepted connection. */
+  profile?: Profile;
+  is_following: boolean | null;
+  connection: ViewerConnectionState | null;
 }
 
 export interface Paginated<T> {
@@ -86,4 +89,40 @@ export interface Paginated<T> {
     per_page: number;
     total: number;
   };
+}
+
+export interface UserSummary {
+  id: number;
+  name: string;
+  role: Role;
+  avatar_url: string | null;
+}
+
+export type ConnectionStatus = 'pending' | 'accepted';
+
+/** From the viewer's point of view: did they ask, or were they asked? */
+export type ConnectionDirection = 'incoming' | 'outgoing';
+
+export interface Connection {
+  id: number;
+  user: UserSummary;
+}
+
+export interface PendingConnections {
+  incoming: Connection[];
+  outgoing: Connection[];
+}
+
+export interface ViewerConnectionState {
+  id: number;
+  status: ConnectionStatus;
+  direction: ConnectionDirection;
+}
+
+export interface AppNotification {
+  id: string;
+  type: string;
+  read_at: string | null;
+  created_at: string;
+  data: { user?: UserSummary; message?: string };
 }
