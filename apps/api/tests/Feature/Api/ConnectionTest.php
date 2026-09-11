@@ -310,3 +310,31 @@ test('an active target can still be connected with', function () {
 
     $this->assertDatabaseCount('connections', 1);
 });
+
+test('accepting twice is idempotent in side effects, not just in status', function () {
+    // update() wrote Accepted unconditionally and then always notified, so a
+    // double-tap on Accept -- or a second click racing the reload accept()
+    // triggers -- delivered two "X accepted your request" notifications and
+    // bumped the unread badge twice for one event. Follow guards its notify
+    // with wasRecentlyCreated; connect had no equivalent. With no throttle on
+    // the authenticated API group, an addressee could fill a requester's feed.
+    $requester = teacher();
+    $addressee = teacher();
+    $this->actingAs($requester);
+    $this->postJson("/api/connections/{$addressee->id}")->assertNoContent();
+    $connection = Connection::firstOrFail();
+
+    $this->actingAs($addressee);
+    $this->patchJson("/api/connections/{$connection->id}")->assertNoContent();
+
+    // The first accept must still notify -- otherwise this test would pass
+    // with the notify removed entirely.
+    expect($requester->notifications()->count())->toBe(1);
+
+    // Idempotent 204 stays (spec line 62); only the side effect is guarded.
+    $this->patchJson("/api/connections/{$connection->id}")->assertNoContent();
+    $this->patchJson("/api/connections/{$connection->id}")->assertNoContent();
+
+    expect($requester->notifications()->count())->toBe(1)
+        ->and($connection->fresh()->status->value)->toBe('accepted');
+});

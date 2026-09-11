@@ -132,9 +132,17 @@ class ConnectionController extends Controller
         abort_unless($connection->involves($me), 404);
         abort_if($connection->requester_id === $me->id, 403);
 
-        $connection->update(['status' => ConnectionStatus::Accepted]);
+        // Notify only on the pending -> accepted transition. The status write
+        // was unconditional and the notify unguarded, so three PATCHes made
+        // three ConnectionAccepted rows and bumped the unread badge three
+        // times for one event -- the same double-tap FollowController already
+        // guards with wasRecentlyCreated. The 204 stays idempotent either way
+        // (spec line 62); it is the side effect that was not.
+        if ($connection->status === ConnectionStatus::Pending) {
+            $connection->update(['status' => ConnectionStatus::Accepted]);
 
-        $connection->requester->notify(new ConnectionAccepted($me));
+            $connection->requester->notify(new ConnectionAccepted($me));
+        }
 
         return response()->noContent();
     }
