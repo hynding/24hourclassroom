@@ -58,25 +58,32 @@ export class PageTeacherProfile {
       return <p>Loading…</p>;
     }
 
+    // `profile` is absent entirely for a student seen by an accepted
+    // connection: name-only, not an empty object. Every profile-dependent
+    // field below must be guarded on its presence.
     const { name, profile } = this.teacher;
 
     return (
       <section>
-        {profile.avatar_url && <img src={profile.avatar_url} alt={`${name}'s avatar`} />}
+        {profile?.avatar_url && <img src={profile.avatar_url} alt={`${name}'s avatar`} />}
         <h1>{name}</h1>
-        {profile.school && <p>{profile.school}</p>}
-        {profile.bio && <p>{profile.bio}</p>}
-        {profile.specialties && <p>{profile.specialties}</p>}
-        <ul>
-          {profile.subjects.map((subject) => (
-            <li>{this.label(SUBJECTS, subject)}</li>
-          ))}
-        </ul>
-        <ul>
-          {profile.grade_levels.map((grade) => (
-            <li>{this.label(GRADE_LEVELS, grade)}</li>
-          ))}
-        </ul>
+        {profile?.school && <p>{profile.school}</p>}
+        {profile?.bio && <p>{profile.bio}</p>}
+        {profile?.specialties && <p>{profile.specialties}</p>}
+        {profile && (
+          <ul>
+            {profile.subjects.map((subject) => (
+              <li>{this.label(SUBJECTS, subject)}</li>
+            ))}
+          </ul>
+        )}
+        {profile && (
+          <ul>
+            {profile.grade_levels.map((grade) => (
+              <li>{this.label(GRADE_LEVELS, grade)}</li>
+            ))}
+          </ul>
+        )}
       </section>
     );
   }

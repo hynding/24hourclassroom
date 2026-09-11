@@ -79,4 +79,26 @@ describe('page-teacher-profile', () => {
     expect(teacher).not.toHaveBeenCalled();
     expect(spec.root.shadowRoot.textContent).toContain ('We could not find that teacher.');
   });
+
+  // A student viewed by an accepted connection comes back name-only: no
+  // `profile` key at all (not an empty object -- the absence is the case).
+  // page-teacher-profile previously destructured `profile` off the payload
+  // unguarded and dereferenced `profile.avatar_url` etc., which throws when
+  // `profile` is undefined. This is reachable: the SPA only links teachers,
+  // but a teacher who is an accepted connection of a student can hand-type
+  // `/teachers/<student-id>`.
+  it('renders a name-only profile without crashing when profile is absent', async () => {
+    teacher.mockResolvedValue({
+      id: 9, name: 'Sam Student', role: 'student',
+      is_following: false, connection: null,
+    });
+
+    const spec = await newSpecPage({
+      components: [PageTeacherProfile],
+      html: '<page-teacher-profile teacher-id="9"></page-teacher-profile>',
+    });
+    await spec.waitForChanges();
+
+    expect(spec.root.shadowRoot.textContent).toContain('Sam Student');
+  });
 });
