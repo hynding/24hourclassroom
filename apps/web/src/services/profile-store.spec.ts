@@ -1,4 +1,5 @@
 import { ProfileStore, attachAuthInvalidation } from './profile-store';
+import { StaleIdentityError } from './stale-identity';
 
 const profile = {
   bio: 'hi', school: 'Rivet High', specialties: null,
@@ -111,7 +112,12 @@ describe('profile-store', () => {
     const inFlight = store.myProfile();
     store.clear();
     resolveFetch!(profile);
-    await inFlight;
+
+    // The generation guard protected the cache write but returned the
+    // pre-clear() value anyway, so the CALLER still received the previous
+    // identity's profile and assigned it. The guard has to reject, not
+    // just decline to cache.
+    await expect(inFlight).rejects.toBeInstanceOf(StaleIdentityError);
 
     // A subsequent myProfile() must re-fetch rather than serving the stale
     // response the in-flight call just tried to cache.
@@ -152,7 +158,7 @@ describe('profile-store', () => {
     const inFlight = store.save({ school: 'New' });
     store.clear();
     resolveSave!({ ...profile, school: 'Stale identity' });
-    await inFlight;
+    await expect(inFlight).rejects.toBeInstanceOf(StaleIdentityError);
 
     client.getProfile.mockResolvedValueOnce({ ...profile, school: 'Refetched' });
     const after = await store.myProfile();
@@ -171,7 +177,7 @@ describe('profile-store', () => {
     const inFlight = store.uploadAvatar(new File(['x'], 'me.jpg'));
     store.clear();
     resolveUpload!({ ...profile, avatar_url: 'stale-identity-avatar' });
-    await inFlight;
+    await expect(inFlight).rejects.toBeInstanceOf(StaleIdentityError);
 
     client.getProfile.mockResolvedValueOnce({ ...profile, avatar_url: 'fresh-avatar' });
     const after = await store.myProfile();
@@ -225,7 +231,11 @@ describe('profile-store', () => {
     const inFlight = store.unreadCount();
     store.clear();
     resolveCount!(9);
-    await inFlight;
+
+    // Not just "don't cache 9" -- don't HAND 9 BACK. app-header assigns
+    // whatever unreadCount() returns straight into its badge, so a
+    // returned-but-uncached 9 renders user A's count in user B's header.
+    await expect(inFlight).rejects.toBeInstanceOf(StaleIdentityError);
 
     client.getUnreadCount.mockResolvedValueOnce(0);
     expect(await store.unreadCount()).toBe(0);
@@ -256,7 +266,12 @@ describe('profile-store', () => {
     const inFlight = store.unreadCount();
     await store.markRead();
     resolveCount!(9);
-    await inFlight;
+
+    // markRead() bumps the same generation counter clear() does, so the
+    // pre-read count is refused to the caller as well as to the cache --
+    // otherwise app-header would render the notifications the user has
+    // just read.
+    await expect(inFlight).rejects.toBeInstanceOf(StaleIdentityError);
 
     // A subsequent unreadCount() must re-fetch rather than serving the
     // stale pre-read count the in-flight call just tried to cache.
@@ -276,5 +291,17 @@ describe('profile-store', () => {
     // wrong row.
     expect(client.acceptConnection).toHaveBeenCalledWith(42);
     expect(client.requestConnection).toHaveBeenCalledWith(7);
+  });
+
+  it('still returns the value to a caller when no clear() intervenes', async () => {
+    // The exclusion side of the four staleness tests above: the rejection
+    // must be scoped to a raced call, not applied to every call.
+    const client = clientMock();
+    const store = new ProfileStore(client as any);
+
+    await expect(store.unreadCount()).resolves.toBe(3);
+    await expect(store.myProfile()).resolves.toMatchObject({ school: 'Rivet High' });
+    await expect(store.save({ school: 'New' })).resolves.toMatchObject({ school: 'Rivet High (saved)' });
+    await expect(store.uploadAvatar(new File(['x'], 'me.jpg'))).resolves.toMatchObject({ avatar_url: 'u' });
   });
 });

@@ -22,6 +22,11 @@ jest.mock('../../services/auth-store', () => ({
   },
 }));
 
+// Deliberately NOT mocked: app-header does a real `instanceof` against it,
+// and it lives outside profile-store precisely so the mock above cannot
+// replace the constructor with an impostor.
+import { StaleIdentityError } from '../../services/stale-identity';
+
 import { AppHeader } from './app-header';
 
 const verified = { id: 1, name: 'Ada', email_verified_at: '2026-01-01', role: 'teacher' };
@@ -102,6 +107,51 @@ describe('app-header bell', () => {
     recoverFromExpiredSession.mockReturnValue(true);
 
     const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    await spec.waitForChanges();
+
+    expect(recoverFromExpiredSession).toHaveBeenCalled();
+    expect(spec.root.shadowRoot.querySelector('[data-testid="unread-badge"]')).toBeNull();
+  });
+
+  it('leaves the badge alone when a previous identity\'s count resolves late', async () => {
+    // B2: an unreadCount() issued for user A, landing after user B has
+    // signed in. The store now rejects it rather than handing A's number
+    // back -- but the store half is only half the fix, because the header
+    // is what assigns. Treating the rejection as a generic failure would
+    // blank B's badge with the `this.unread = 0` fallback; the header must
+    // write nothing at all and let B's own fetch stand.
+    currentUser.value = verified;
+    unreadCount.mockResolvedValueOnce(7);
+    const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    await spec.waitForChanges();
+    expect(spec.root.shadowRoot.textContent).toContain('7');
+
+    unreadCount.mockRejectedValueOnce(new StaleIdentityError());
+    window.dispatchEvent(new CustomEvent('notifications:read'));
+    await Promise.resolve();
+    await Promise.resolve();
+    await spec.waitForChanges();
+
+    expect(unreadCount).toHaveBeenCalledTimes(2);
+    expect(spec.root.shadowRoot.textContent).toContain('7');
+    // A stale response is not a session expiry and must not be reported as
+    // one -- routing it through recovery would bounce the user to /login.
+    expect(recoverFromExpiredSession).not.toHaveBeenCalled();
+  });
+
+  it('still blanks the badge when the fetch fails for an ordinary reason', async () => {
+    // The exclusion side: the leave-it-alone branch is scoped to
+    // StaleIdentityError, not applied to every rejection.
+    currentUser.value = verified;
+    unreadCount.mockResolvedValueOnce(7);
+    const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    await spec.waitForChanges();
+    expect(spec.root.shadowRoot.textContent).toContain('7');
+
+    unreadCount.mockRejectedValueOnce(new ApiError(500, 'Server Error'));
+    window.dispatchEvent(new CustomEvent('notifications:read'));
+    await Promise.resolve();
+    await Promise.resolve();
     await spec.waitForChanges();
 
     expect(recoverFromExpiredSession).toHaveBeenCalled();

@@ -4,6 +4,7 @@ import { authStore } from '../../services/auth-store';
 import { profileStore } from '../../services/profile-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { navigate } from '../../services/navigate';
+import { StaleIdentityError } from '../../services/stale-identity';
 
 @Component({ tag: 'app-header', shadow: true })
 export class AppHeader {
@@ -47,6 +48,15 @@ export class AppHeader {
     try {
       this.unread = await profileStore.unreadCount();
     } catch (e) {
+      if (e instanceof StaleIdentityError) {
+        // This response was issued for a previous identity and the store
+        // refused to hand it back. Write NOTHING: the current identity's
+        // own loadUnread() -- fired by the same auth change that
+        // invalidated this one -- is the only call entitled to this
+        // field, and it may already have landed. Falling through would
+        // blank a badge that is correct.
+        return;
+      }
       if (recoverFromExpiredSession(e)) {
         return;
       }

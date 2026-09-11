@@ -11,17 +11,23 @@ import type {
 } from '@24hc/shared';
 import { Env } from '@stencil/core';
 import { authStore } from './auth-store';
+import { StaleIdentityError } from './stale-identity';
 
 export class ProfileStore {
   private cached: Profile | null = null;
   private cachedUnread: number | null = null;
   // Bumped by clear(). EVERY method that writes to `cached` captures this
-  // before its await and only writes if it's unchanged when the request
-  // resolves -- closing the window where clear() (e.g. from the
-  // auth-invalidation listener) lands while a request for the *previous*
-  // identity is in flight. Without the check, that stale response lands in
+  // before its await and, if it has changed by the time the request
+  // resolves, throws StaleIdentityError rather than writing OR returning
+  // -- closing the window where clear() (e.g. from the auth-invalidation
+  // listener) lands while a request for the *previous* identity is in
+  // flight. Without the check, that stale response lands in
   // the cache right after clear() emptied it, leaking the old identity's
-  // profile into the new one. removeAvatar() needs it for a second reason:
+  // profile into the new one. Rejecting rather than merely declining to
+  // cache is load-bearing: consumers assign what the store returns
+  // (app-header writes unreadCount() into its badge), so a
+  // returned-but-uncached value renders the old identity's data anyway.
+  // removeAvatar() needs the guard for a second reason:
   // its write is a mutation of whatever happens to be cached, so a stale
   // removal would blank the *next* user's avatar rather than the one it was
   // issued against.
@@ -41,9 +47,10 @@ export class ProfileStore {
     if (!this.cached) {
       const generation = this.generation;
       const profile = await this.client.getProfile();
-      if (generation === this.generation) {
-        this.cached = profile;
+      if (generation !== this.generation) {
+        throw new StaleIdentityError();
       }
+      this.cached = profile;
       return profile;
     }
     return this.cached;
@@ -52,18 +59,20 @@ export class ProfileStore {
   async save(data: ProfileInput): Promise<Profile> {
     const generation = this.generation;
     const profile = await this.client.updateProfile(data);
-    if (generation === this.generation) {
-      this.cached = profile;
+    if (generation !== this.generation) {
+      throw new StaleIdentityError();
     }
+    this.cached = profile;
     return profile;
   }
 
   async uploadAvatar(file: File): Promise<Profile> {
     const generation = this.generation;
     const profile = await this.client.uploadAvatar(file);
-    if (generation === this.generation) {
-      this.cached = profile;
+    if (generation !== this.generation) {
+      throw new StaleIdentityError();
     }
+    this.cached = profile;
     return profile;
   }
 
@@ -111,9 +120,10 @@ export class ProfileStore {
     if (this.cachedUnread === null) {
       const generation = this.generation;
       const count = await this.client.getUnreadCount();
-      if (generation === this.generation) {
-        this.cachedUnread = count;
+      if (generation !== this.generation) {
+        throw new StaleIdentityError();
       }
+      this.cachedUnread = count;
       return count;
     }
     return this.cachedUnread;
