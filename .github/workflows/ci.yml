@@ -120,7 +120,13 @@ jobs:
             set -e
             cd '$API_PATH'
             mkdir -p storage/logs storage/app/public storage/framework/cache storage/framework/sessions storage/framework/views
-            $PHP_BIN artisan storage:link || true
+            # --force, not `|| true`: rsync --delete above removes the
+            # public/storage symlink on every deploy (the --exclude
+            # 'storage/' pattern matches directories only, and the link
+            # is not a directory), so this recreates it each time.
+            # `|| true` was masking genuine failures -- a permissions
+            # error here 404s every avatar behind a green deploy.
+            $PHP_BIN artisan storage:link --force
             $PHP_BIN artisan migrate --force
             $PHP_BIN artisan config:cache
             $PHP_BIN artisan route:cache
