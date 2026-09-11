@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -53,9 +54,16 @@ class ProfileController extends Controller
 
         Auth::logout();
 
-        $user->notifications()->delete();
+        // One unit, as the spec's data-model section requires. The
+        // notifications table's notifiable_id is polymorphic and carries no
+        // foreign key, so nothing else ties these two writes together: a
+        // failure between them would lose the user's notifications while
+        // leaving the account standing.
+        DB::transaction(function () use ($user) {
+            $user->notifications()->delete();
 
-        $user->delete();
+            $user->delete();
+        });
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
