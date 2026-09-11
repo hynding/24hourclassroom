@@ -34,7 +34,10 @@ Route::middleware('guest')->group(function () {
         ->name('password.store');
 });
 
-Route::middleware('auth')->group(function () {
+// `active` on every authenticated route here, with logout deliberately
+// outside the group: guarding logout protects nothing (it only invalidates the
+// session) and would strand a deactivated session in a signed-in state.
+Route::middleware(['auth', 'active'])->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
@@ -50,7 +53,7 @@ Route::middleware('auth')->group(function () {
         ->name('password.confirm');
 
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
-
-    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-        ->name('logout');
 });
+
+Route::middleware('auth')->post('logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout');

@@ -105,3 +105,29 @@ test('email match with a different existing google_id is not relinked', function
     $this->assertGuest();
     expect($user->fresh()->google_id)->toBe('g-original');
 });
+
+test('a deactivated account cannot be re-admitted through Continue with Google', function () {
+    // The password path refuses a deactivated user (Api\Auth\LoginController);
+    // the OAuth path called Auth::login() with no check at all, handing back a
+    // fresh session on the api host.
+    $user = User::factory()->create(['deactivated_at' => now()]);
+    $user->forceFill(['google_id' => 'g-dead'])->save();
+    mockCallback(fakeGoogleUser('g-dead', $user->email));
+
+    $this->get('/auth/google/callback')
+        ->assertRedirect('https://24hourclassroom.com/login?error=deactivated');
+
+    $this->assertGuest();
+});
+
+test('a deactivated account is not auto-linked by a verified google email either', function () {
+    // The auto-link branch is a second way in: it writes google_id and then
+    // falls into the same Auth::login().
+    $user = User::factory()->create(['deactivated_at' => now()]);
+    mockCallback(fakeGoogleUser('g-dead-2', $user->email));
+
+    $this->get('/auth/google/callback')
+        ->assertRedirect('https://24hourclassroom.com/login?error=deactivated');
+
+    $this->assertGuest();
+});

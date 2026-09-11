@@ -50,7 +50,11 @@ Route::middleware(['auth:sanctum', 'verified', 'active'])->group(function () {
     Route::post('notifications/read', [NotificationController::class, 'read']);
 });
 
-Route::middleware('throttle:60,1')->group(function () {
+// `active` here too. These two routes are reachable by guests -- the
+// middleware passes a null user straight through -- but a DEACTIVATED session
+// must not keep the authenticated-viewer privileges the payload carries
+// (a student's name behind an accepted connection, is_following, connection).
+Route::middleware(['throttle:60,1', 'active'])->group(function () {
     Route::get('teachers', TeacherDirectoryController::class);
     Route::get('users/{user}', PublicProfileController::class);
 });

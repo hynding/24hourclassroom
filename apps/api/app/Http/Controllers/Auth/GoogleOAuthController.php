@@ -41,6 +41,12 @@ class GoogleOAuthController extends Controller
         }
 
         if ($user) {
+            // "Continue with Google" is a login, and a deactivated account is
+            // refused at login on every other path.
+            if (! $user->isActive()) {
+                return redirect(FrontendRedirect::spaOrigin().'/login?error=deactivated');
+            }
+
             Auth::guard('web')->login($user);
             $request->session()->regenerate();
 

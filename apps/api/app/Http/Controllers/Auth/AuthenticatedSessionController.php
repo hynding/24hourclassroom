@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -35,6 +36,17 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
+
+        // Same refusal Api\Auth\LoginController makes. Without it the api
+        // host's own login form hands a deactivated account a full Inertia
+        // session -- dashboard, settings, password change, self-deletion.
+        if (! $request->user()->isActive()) {
+            Auth::guard('web')->logout();
+
+            throw ValidationException::withMessages([
+                'email' => __('This account has been deactivated.'),
+            ]);
+        }
 
         $request->session()->regenerate();
 
