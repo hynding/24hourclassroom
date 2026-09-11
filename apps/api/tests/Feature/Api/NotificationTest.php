@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Notifications\ConnectionAccepted;
 use App\Notifications\ConnectionRequested;
 use App\Notifications\NewFollower;
+use App\Notifications\ProfileModerated;
 
 beforeEach(function () {
     $this->withHeader('Referer', 'http://localhost:3333');
@@ -182,4 +183,61 @@ test('the index paginates at 15 and reports the real last page', function () {
     expect($second->json('meta.current_page'))->toBe(2)
         ->and($second->json('data'))->toHaveCount(1)
         ->and($second->json('data.0.data.user.name'))->toBe('F1');
+});
+
+test('the index drops notifications whose actor is now deactivated or gone', function () {
+    // UserSummary is snapshotted into notifications.data at send time and
+    // index() applied no filter, unlike every other list endpoint. Reproduced:
+    // student requests -> teacher declines -> student deactivated, and the
+    // teacher's feed still returned "Vanishing Val" with an avatar while
+    // GET /api/users/{id} 404'd for that same viewer in the same session.
+    // Filtered at READ time, not write time: the data was legitimately
+    // captured; what changed is who may see it now.
+    $me = User::factory()->create(['role' => 'teacher']);
+    $live = User::factory()->create(['name' => 'Still Here']);
+    $gone = User::factory()->create(['name' => 'Vanishing Val']);
+    $deleted = User::factory()->create(['name' => 'Deleted Dana']);
+
+    $me->notify(new NewFollower($live));
+    $me->notify(new NewFollower($gone));
+    $me->notify(new NewFollower($deleted));
+    $me->notify(new ProfileModerated);
+
+    $gone->forceFill(['deactivated_at' => now()])->save();
+    $deleted->delete();
+
+    $this->actingAs($me);
+    $body = $this->getJson('/api/notifications')->assertOk()->json();
+
+    $names = collect($body['data'])->pluck('data.user.name')->filter()->values()->all();
+
+    // Inclusion and exclusion together: the live actor survives, both hidden
+    // ones are gone, and the actorless ProfileModerated row is untouched.
+    expect($names)->toBe(['Still Here'])
+        ->and(collect($body['data'])->pluck('data.message')->filter()->count())->toBe(1)
+        ->and($body['data'])->toHaveCount(2)
+        // The envelope has to agree, or the pager offers pages of hidden rows.
+        ->and($body['meta']['total'])->toBe(2);
+
+    // And the unread badge must not count what the list will not show.
+    $this->getJson('/api/notifications/unread-count')->assertExactJson(['count' => 2]);
+});
+
+test('reactivating the actor brings their notification back', function () {
+    // Proves the filter is evaluated at read time against current state,
+    // rather than the rows being destroyed on deactivation.
+    $me = User::factory()->create(['role' => 'teacher']);
+    $actor = User::factory()->create(['name' => 'Returning Rae']);
+    $me->notify(new NewFollower($actor));
+
+    $actor->forceFill(['deactivated_at' => now()])->save();
+    $this->actingAs($me);
+    expect($this->getJson('/api/notifications')->json('data'))->toHaveCount(0);
+
+    $actor->forceFill(['deactivated_at' => null])->save();
+    expect(collect($this->getJson('/api/notifications')->json('data'))->pluck('data.user.name')->all())
+        ->toBe(['Returning Rae']);
+
+    // The row was never deleted -- only hidden.
+    expect($me->notifications()->count())->toBe(1);
 });
