@@ -2,12 +2,13 @@
 
 use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Auth\GoogleOAuthController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
 });
 
 Route::middleware(['auth', 'verified', 'active', 'admin'])->prefix('admin')->group(function () {
