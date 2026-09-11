@@ -22,7 +22,13 @@ class PublicProfileController extends Controller
 
         $viewer = $request->user();
 
-        if ($user->role === Role::Student) {
+        // An allowlist, not a denylist. This used to read
+        // `if (role === Student) { restricted } else { public }`, so the day
+        // Role::Admin was added it fell straight into the public branch and
+        // an anonymous visitor could read a named administrator's bio. A
+        // denylist over an open enum breaks every time the enum grows; only
+        // teachers are public figures here.
+        if ($user->role !== Role::Teacher) {
             abort_unless($viewer && $this->hasAcceptedConnection($viewer, $user), 404);
 
             // Name only. No profile key at all -- an empty profile object

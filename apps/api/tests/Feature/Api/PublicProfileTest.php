@@ -151,3 +151,43 @@ test('a student profile is still 404 to a merely pending connection', function (
     // read someone's profile.
     $this->getJson("/api/users/{$student->id}")->assertStatus(404);
 });
+
+test('an admin account is not publicly discoverable and 404s like a nonexistent id', function () {
+    // The controller branched `if (role === Student) { restricted } else
+    // { public }`. Role::Admin is new on this branch, so it fell through to
+    // the public branch the day it was added: an ANONYMOUS GET returned 200
+    // with "role":"admin", the name and the bio -- a named administrator list
+    // for phishing, on the accounts whose compromise is worth the most.
+    // FollowController already 404s the same accounts, so the two disagreed.
+    config(['app.debug' => false]);
+
+    $admin = User::factory()->create(['role' => 'admin', 'name' => 'Root Rita']);
+    $admin->profile()->create(['bio' => 'secret admin bio', 'school' => 'HQ']);
+
+    $response = $this->getJson("/api/users/{$admin->id}");
+    $missing = $this->getJson('/api/users/999999');
+
+    expect($response->status())->toBe(404)
+        ->and($response->status())->toBe($missing->status())
+        ->and($response->json())->toBe($missing->json());
+});
+
+test('an admin account is 404 to an authenticated teacher too', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $this->actingAs(User::factory()->create(['role' => 'teacher']));
+
+    $this->getJson("/api/users/{$admin->id}")->assertStatus(404);
+});
+
+test('the public branch is an allowlist: only teachers reach it', function () {
+    // The defect was the SHAPE of the test, not a missing case -- a denylist
+    // over an open enum breaks again every time the enum grows. This asserts
+    // the inclusion side so the allowlist cannot degenerate into 404 for all.
+    $teacher = User::factory()->create(['role' => 'teacher', 'name' => 'Open Olly']);
+    $teacher->profile()->create(['bio' => 'public bio', 'school' => 'PS 1']);
+
+    $this->getJson("/api/users/{$teacher->id}")->assertOk()
+        ->assertJsonPath('role', 'teacher')
+        ->assertJsonPath('name', 'Open Olly')
+        ->assertJsonPath('profile.bio', 'public bio');
+});
