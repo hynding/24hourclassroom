@@ -43,6 +43,15 @@ export class PageConnections {
     try {
       await profileStore.acceptConnection(connectionId);
       await this.load();
+    } catch (e) {
+      // Both parties hold this page open, so a row can go stale between
+      // render and click -- the other side cancels, and Accept now 404s.
+      // Delegate a session expiry the way every other action-bearing page
+      // does; otherwise resync so the dead row disappears instead of
+      // surviving until a hard refresh. Same pattern as 55a99cf.
+      if (!recoverFromExpiredSession(e)) {
+        await this.load();
+      }
     } finally {
       this.busy = false;
     }
@@ -53,6 +62,10 @@ export class PageConnections {
     try {
       await profileStore.removeConnection(connectionId);
       await this.load();
+    } catch (e) {
+      if (!recoverFromExpiredSession(e)) {
+        await this.load();
+      }
     } finally {
       this.busy = false;
     }

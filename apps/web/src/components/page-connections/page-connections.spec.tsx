@@ -142,4 +142,66 @@ describe('page-connections', () => {
 
     expect(spec.root.shadowRoot.textContent).toContain('You have no connections yet.');
   });
+
+  it('resyncs instead of leaving a failed accept unhandled', async () => {
+    pendingConnections.mockResolvedValue({
+      incoming: [{ id: 2, user: peer(20, 'Incoming Ida') }],
+      outgoing: [],
+    });
+    const spec = await mount();
+    await spec.waitForChanges();
+
+    // The other party cancelled the request from their own tab, so this
+    // still-rendered Accept button now 404s.
+    const gone = new ApiError(404, 'Not Found');
+    acceptConnection.mockRejectedValue(gone);
+
+    (spec.root.shadowRoot.querySelector('[data-testid="accept-2"]') as HTMLButtonElement).click();
+    await spec.waitForChanges();
+    await spec.waitForChanges();
+
+    // The rejection is handled rather than escaping as an unhandled promise
+    // rejection: offered to session recovery first...
+    expect(recoverFromExpiredSession).toHaveBeenCalledWith(gone);
+    // ...and, because 404 is not a recovery case, the page resyncs so the
+    // dead row disappears instead of surviving until a hard refresh.
+    expect(connections).toHaveBeenCalledTimes(2);
+  });
+
+  it('delegates a 401 from accept to session recovery and does not resync over the redirect', async () => {
+    pendingConnections.mockResolvedValue({
+      incoming: [{ id: 2, user: peer(20, 'Incoming Ida') }],
+      outgoing: [],
+    });
+    const spec = await mount();
+    await spec.waitForChanges();
+
+    acceptConnection.mockRejectedValue(new ApiError(401, 'Unauthenticated.'));
+    recoverFromExpiredSession.mockReturnValue(true);
+
+    (spec.root.shadowRoot.querySelector('[data-testid="accept-2"]') as HTMLButtonElement).click();
+    await spec.waitForChanges();
+    await spec.waitForChanges();
+
+    expect(recoverFromExpiredSession).toHaveBeenCalled();
+    // The exclusion side: a handled 401 has already navigated to /login, so
+    // reloading the list would fire a second doomed request at it.
+    expect(connections).toHaveBeenCalledTimes(1);
+  });
+
+  it('resyncs instead of leaving a failed remove unhandled', async () => {
+    connections.mockResolvedValue({ data: [{ id: 5, user: peer(50, 'Accepted Anna') }] });
+    const spec = await mount();
+    await spec.waitForChanges();
+
+    const gone = new ApiError(404, 'Not Found');
+    removeConnection.mockRejectedValue(gone);
+
+    (spec.root.shadowRoot.querySelector('[data-testid="disconnect-5"]') as HTMLButtonElement).click();
+    await spec.waitForChanges();
+    await spec.waitForChanges();
+
+    expect(recoverFromExpiredSession).toHaveBeenCalledWith(gone);
+    expect(connections).toHaveBeenCalledTimes(2);
+  });
 });
