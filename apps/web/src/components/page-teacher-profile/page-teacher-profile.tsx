@@ -3,6 +3,7 @@ import { ApiError } from '@24hc/api-client';
 import { GRADE_LEVELS, PublicProfile, SUBJECTS } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { profileStore } from '../../services/profile-store';
+import { recoverFromExpiredSession } from '../../services/session-recovery';
 
 @Component({ tag: 'page-teacher-profile', shadow: true })
 export class PageTeacherProfile {
@@ -50,6 +51,15 @@ export class PageTeacherProfile {
         ? profileStore.unfollow(this.teacher.id)
         : profileStore.follow(this.teacher.id));
       await this.load();
+    } catch (e) {
+      // A stale tab whose connection state changed elsewhere can still
+      // click a now-invalid action and get a rejection back. Delegate a
+      // session expiry the same way every other action-bearing page does;
+      // otherwise resync by reloading so the controls reflect what the
+      // server now believes rather than leaving the click unhandled.
+      if (!recoverFromExpiredSession(e)) {
+        await this.load();
+      }
     } finally {
       this.busy = false;
     }
@@ -72,6 +82,10 @@ export class PageTeacherProfile {
         await profileStore.removeConnection(connection.id);
       }
       await this.load();
+    } catch (e) {
+      if (!recoverFromExpiredSession(e)) {
+        await this.load();
+      }
     } finally {
       this.busy = false;
     }

@@ -7,6 +7,7 @@ const unfollow = jest.fn();
 const requestConnection = jest.fn();
 const acceptConnection = jest.fn();
 const removeConnection = jest.fn();
+const recoverFromExpiredSession = jest.fn();
 
 jest.mock('../../services/profile-store', () => ({
   profileStore: {
@@ -31,6 +32,10 @@ jest.mock('../../services/auth-store', () => ({
   },
 }));
 
+jest.mock('../../services/session-recovery', () => ({
+  recoverFromExpiredSession: (...a: unknown[]) => recoverFromExpiredSession(...a),
+}));
+
 // Imported after jest.mock(): Stencil's Jest preprocessor transpiles via the
 // TypeScript compiler, not babel-jest, so jest.mock() calls are not hoisted
 // above static imports the way they are under babel-jest. Without this
@@ -51,6 +56,7 @@ describe('page-teacher-profile', () => {
     requestConnection.mockClear();
     acceptConnection.mockClear();
     removeConnection.mockClear();
+    recoverFromExpiredSession.mockReset().mockReturnValue(false);
     mockCurrentUser = null;
   });
 
@@ -245,5 +251,40 @@ describe('page-teacher-profile', () => {
 
     expect(text).toContain('Follow');
     expect(text).toContain('Connect');
+  });
+
+  // A stale tab whose connection state changed elsewhere (e.g. accepted or
+  // cancelled from another tab) can still click a now-invalid action button
+  // and get a 422 back. toggleFollow/connectAction must not let that reject
+  // unhandled -- they should recover the same way every other action-bearing
+  // page in this app does: delegate a session-expiry (401) to
+  // recoverFromExpiredSession, and otherwise resync by reloading so the
+  // controls reflect what the server now believes.
+  it('recovers from a failed follow action by resyncing rather than throwing', async () => {
+    const spec = await withViewerState({});
+    await spec.waitForChanges();
+    follow.mockRejectedValueOnce(new ApiError(422, 'Unprocessable'));
+
+    await expect(spec.rootInstance.toggleFollow()).resolves.toBeUndefined();
+
+    expect(recoverFromExpiredSession).toHaveBeenCalled();
+    // Initial load in withViewerState() + a resync reload after the failed
+    // action: the controls must reflect server truth, not the stale local
+    // state the click assumed.
+    expect(teacher).toHaveBeenCalledTimes(2);
+  });
+
+  it('delegates a 401 from a failed action to session recovery without resyncing again', async () => {
+    const spec = await withViewerState({});
+    await spec.waitForChanges();
+    follow.mockRejectedValueOnce(new ApiError(401, 'Unauthenticated.'));
+    recoverFromExpiredSession.mockReturnValue(true);
+
+    await expect(spec.rootInstance.toggleFollow()).resolves.toBeUndefined();
+
+    expect(recoverFromExpiredSession).toHaveBeenCalled();
+    // Session recovery already navigates away; reloading this now-invalid
+    // session's data on top of that would be wasted work at best.
+    expect(teacher).toHaveBeenCalledTimes(1);
   });
 });
