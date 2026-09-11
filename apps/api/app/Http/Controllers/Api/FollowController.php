@@ -6,6 +6,7 @@ use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Models\Follow;
 use App\Models\User;
+use App\Notifications\NewFollower;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -18,10 +19,14 @@ class FollowController extends Controller
 
         // firstOrCreate rather than create: a double-tap is a duplicate click,
         // not an error worth showing anyone.
-        Follow::firstOrCreate([
+        $follow = Follow::firstOrCreate([
             'follower_id' => $request->user()->id,
             'followed_id' => $user->id,
         ]);
+
+        if ($follow->wasRecentlyCreated) {
+            $user->notify(new NewFollower($request->user()));
+        }
 
         return response()->noContent();
     }

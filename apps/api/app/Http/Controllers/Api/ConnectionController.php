@@ -7,6 +7,8 @@ use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Models\Connection;
 use App\Models\User;
+use App\Notifications\ConnectionAccepted;
+use App\Notifications\ConnectionRequested;
 use App\Support\UserSummary;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
@@ -78,6 +80,8 @@ class ConnectionController extends Controller
             throw ValidationException::withMessages(['user' => __('A connection with this person already exists.')]);
         }
 
+        $user->notify(new ConnectionRequested($me));
+
         return response()->noContent();
     }
 
@@ -91,6 +95,8 @@ class ConnectionController extends Controller
         abort_if($connection->requester_id === $me->id, 403);
 
         $connection->update(['status' => ConnectionStatus::Accepted]);
+
+        $connection->requester->notify(new ConnectionAccepted($me));
 
         return response()->noContent();
     }

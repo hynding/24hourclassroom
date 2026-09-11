@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationNotificationController;
 use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\FollowController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ProfileAvatarController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicProfileController;
@@ -43,6 +44,10 @@ Route::middleware(['auth:sanctum', 'verified', 'active'])->group(function () {
     Route::post('connections/{user}', [ConnectionController::class, 'store']);
     Route::patch('connections/{connection}', [ConnectionController::class, 'update']);
     Route::delete('connections/{connection}', [ConnectionController::class, 'destroy']);
+
+    Route::get('notifications', [NotificationController::class, 'index']);
+    Route::get('notifications/unread-count', [NotificationController::class, 'unreadCount']);
+    Route::post('notifications/read', [NotificationController::class, 'read']);
 });
 
 Route::middleware('throttle:60,1')->group(function () {
