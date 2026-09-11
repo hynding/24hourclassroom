@@ -26,6 +26,7 @@ class ConnectionController extends Controller
             ->where('status', ConnectionStatus::Accepted)
             ->where(fn ($q) => $q->where('requester_id', $me->id)->orWhere('addressee_id', $me->id))
             ->get()
+            ->filter(fn (Connection $c) => $c->counterpart($me)->isActive())
             ->map(fn (Connection $c) => [
                 'id' => $c->id,
                 'user' => UserSummary::for($c->counterpart($me)),
@@ -42,7 +43,8 @@ class ConnectionController extends Controller
         $rows = Connection::with(['requester.profile', 'addressee.profile'])
             ->where('status', ConnectionStatus::Pending)
             ->where(fn ($q) => $q->where('requester_id', $me->id)->orWhere('addressee_id', $me->id))
-            ->get();
+            ->get()
+            ->filter(fn (Connection $c) => $c->counterpart($me)->isActive());
 
         return response()->json([
             'incoming' => $rows->where('addressee_id', $me->id)

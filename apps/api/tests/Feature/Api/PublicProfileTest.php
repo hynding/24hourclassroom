@@ -83,3 +83,71 @@ test('the response never leaks email or avatar_path', function () {
     expect($response->json())->not->toHaveKey('email');
     expect($response->json('profile'))->not->toHaveKey('avatar_path');
 });
+
+test('an authenticated viewer sees their follow state on a teacher profile', function () {
+    $this->withHeader('Referer', 'http://localhost:3333');
+    $viewer = User::factory()->create();
+    $teacher = User::factory()->create(['role' => 'teacher']);
+    $this->actingAs($viewer);
+
+    expect($this->getJson("/api/users/{$teacher->id}")->json('is_following'))->toBeFalse();
+
+    $this->postJson("/api/users/{$teacher->id}/follow");
+
+    expect($this->getJson("/api/users/{$teacher->id}")->json('is_following'))->toBeTrue();
+});
+
+test('a logged-out visitor gets no viewer state at all', function () {
+    $teacher = User::factory()->create(['role' => 'teacher']);
+
+    $body = $this->getJson("/api/users/{$teacher->id}")->assertOk()->json();
+
+    expect($body['is_following'])->toBeNull()
+        ->and($body['connection'])->toBeNull();
+});
+
+test('connection state carries the direction from the viewers point of view', function () {
+    $this->withHeader('Referer', 'http://localhost:3333');
+    $viewer = User::factory()->create(['role' => 'teacher']);
+    $other = User::factory()->create(['role' => 'teacher']);
+    $this->actingAs($viewer);
+    $this->postJson("/api/connections/{$other->id}");
+
+    $mine = $this->getJson("/api/users/{$other->id}")->json('connection');
+    expect($mine['status'])->toBe('pending')->and($mine['direction'])->toBe('outgoing');
+
+    $this->actingAs($other);
+    $theirs = $this->getJson("/api/users/{$viewer->id}")->json('connection');
+    expect($theirs['direction'])->toBe('incoming');
+});
+
+test('a student profile is name-only to an accepted connection', function () {
+    $this->withHeader('Referer', 'http://localhost:3333');
+    $teacher = User::factory()->create(['role' => 'teacher']);
+    $student = User::factory()->create(['role' => 'student', 'name' => 'Sam Student']);
+    Profile::factory()->for($student)->create(['bio' => 'secret bio', 'school' => 'Secret School']);
+
+    $this->actingAs($teacher);
+    $this->postJson("/api/connections/{$student->id}");
+    $this->actingAs($student);
+    $this->patchJson('/api/connections/'.App\Models\Connection::firstOrFail()->id);
+
+    $this->actingAs($teacher);
+    $body = $this->getJson("/api/users/{$student->id}")->assertOk()->json();
+
+    expect($body['name'])->toBe('Sam Student')
+        // Name only: the profile must not travel with it.
+        ->and($body)->not->toHaveKey('profile');
+});
+
+test('a student profile is still 404 to a merely pending connection', function () {
+    $this->withHeader('Referer', 'http://localhost:3333');
+    $teacher = User::factory()->create(['role' => 'teacher']);
+    $student = User::factory()->create(['role' => 'student']);
+    $this->actingAs($teacher);
+    $this->postJson("/api/connections/{$student->id}");
+
+    // Pending is not accepted. Requesting a connection must not be a way to
+    // read someone's profile.
+    $this->getJson("/api/users/{$student->id}")->assertStatus(404);
+});

@@ -24,6 +24,7 @@ class TeacherDirectoryController extends Controller
 
         $teachers = User::query()
             ->where('role', Role::Teacher)
+            ->whereNull('deactivated_at')
             ->with('profile')
             ->when(
                 $filters['subject'] ?? null,
