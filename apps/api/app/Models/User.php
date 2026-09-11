@@ -35,6 +35,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'remember_token',
         'google_id',
+        'deactivated_at',
     ];
 
     /**
@@ -48,11 +49,17 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'role' => Role::class,
+            'deactivated_at' => 'datetime',
         ];
     }
 
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function isActive(): bool
+    {
+        return $this->deactivated_at === null;
     }
 }

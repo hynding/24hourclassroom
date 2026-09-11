@@ -14,7 +14,7 @@ use App\Http\Controllers\Api\TeacherDirectoryController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum')->get('/user', UserController::class);
+Route::middleware(['auth:sanctum', 'active'])->get('/user', UserController::class);
 
 Route::prefix('auth')->group(function () {
     Route::post('register', RegisterController::class)->middleware('throttle:6,1');
@@ -23,11 +23,11 @@ Route::prefix('auth')->group(function () {
     Route::post('forgot-password', PasswordResetLinkController::class)->middleware('throttle:6,1');
     Route::post('reset-password', NewPasswordController::class)->middleware('throttle:6,1');
     Route::post('verification-notification', VerificationNotificationController::class)
-        ->middleware(['auth:sanctum', 'throttle:6,1']);
+        ->middleware(['auth:sanctum', 'active', 'throttle:6,1']);
     Route::post('oauth/complete', OAuthCompletionController::class)->middleware('throttle:6,1');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'active'])->group(function () {
     Route::get('profile', [ProfileController::class, 'show']);
     Route::put('profile', [ProfileController::class, 'update']);
     Route::post('profile/avatar', [ProfileAvatarController::class, 'store']);
