@@ -2,10 +2,20 @@ import { newSpecPage } from '@stencil/core/testing';
 import { ApiError } from '@24hc/api-client';
 
 const teacher = jest.fn();
+const follow = jest.fn();
+const unfollow = jest.fn();
+const requestConnection = jest.fn();
+const acceptConnection = jest.fn();
+const removeConnection = jest.fn();
 
 jest.mock('../../services/profile-store', () => ({
   profileStore: {
     teacher: (...args: unknown[]) => teacher(...args),
+    follow: (...args: unknown[]) => follow(...args),
+    unfollow: (...args: unknown[]) => unfollow(...args),
+    requestConnection: (...args: unknown[]) => requestConnection(...args),
+    acceptConnection: (...args: unknown[]) => acceptConnection(...args),
+    removeConnection: (...args: unknown[]) => removeConnection(...args),
   },
 }));
 
@@ -24,6 +34,11 @@ describe('page-teacher-profile', () => {
   // would fail from calls made by earlier tests, not from real behavior.
   beforeEach(() => {
     teacher.mockClear();
+    follow.mockClear();
+    unfollow.mockClear();
+    requestConnection.mockClear();
+    acceptConnection.mockClear();
+    removeConnection.mockClear();
   });
 
   it('renders the teacher and their profile', async () => {
@@ -100,5 +115,86 @@ describe('page-teacher-profile', () => {
     await spec.waitForChanges();
 
     expect(spec.root.shadowRoot.textContent).toContain('Sam Student');
+  });
+
+  const withViewerState = (state: Record<string, unknown>) => {
+    teacher.mockResolvedValue({
+      id: 7, name: 'Ada Teacher', role: 'teacher',
+      profile: { bio: null, school: null, specialties: null, subjects: [], grade_levels: [], avatar_url: null },
+      is_following: false, connection: null, ...state,
+    });
+    return newSpecPage({
+      components: [PageTeacherProfile],
+      html: '<page-teacher-profile teacher-id="7"></page-teacher-profile>',
+    });
+  };
+
+  it('offers Connect when there is no connection', async () => {
+    const spec = await withViewerState({});
+    await spec.waitForChanges();
+    const text = spec.root.shadowRoot.textContent;
+
+    expect(text).toContain('Connect');
+    expect(text).not.toContain('Accept');
+    expect(text).not.toContain('Disconnect');
+  });
+
+  it('offers Cancel request on an outgoing pending connection', async () => {
+    const spec = await withViewerState({ connection: { id: 3, status: 'pending', direction: 'outgoing' } });
+    await spec.waitForChanges();
+    const text = spec.root.shadowRoot.textContent;
+
+    expect(text).toContain('Cancel request');
+    // Offering Accept here would send a PATCH the API answers with 403.
+    expect(text).not.toContain('Accept');
+  });
+
+  it('offers Accept on an incoming pending connection', async () => {
+    const spec = await withViewerState({ connection: { id: 3, status: 'pending', direction: 'incoming' } });
+    await spec.waitForChanges();
+    const text = spec.root.shadowRoot.textContent;
+
+    expect(text).toContain('Accept');
+    expect(text).not.toContain('Cancel request');
+  });
+
+  it('offers Disconnect on an accepted connection', async () => {
+    const spec = await withViewerState({ connection: { id: 3, status: 'accepted', direction: 'outgoing' } });
+    await spec.waitForChanges();
+    const text = spec.root.shadowRoot.textContent;
+
+    expect(text).toContain('Disconnect');
+    expect(text).not.toContain('Connect ');
+  });
+
+  it('shows no controls at all to a logged-out visitor', async () => {
+    const spec = await withViewerState({ is_following: null, connection: null });
+    await spec.waitForChanges();
+    const text = spec.root.shadowRoot.textContent;
+
+    expect(text).not.toContain('Follow');
+    expect(text).not.toContain('Connect');
+  });
+
+  it('follows and refetches so the button reflects server state', async () => {
+    const spec = await withViewerState({});
+    await spec.waitForChanges();
+
+    await spec.rootInstance.toggleFollow();
+
+    expect(follow).toHaveBeenCalledWith(7);
+    // Refetched rather than toggled locally: the button must show what the
+    // server believes, not what the click assumed.
+    expect(teacher).toHaveBeenCalledTimes(2);
+  });
+
+  it('unfollows when already following', async () => {
+    const spec = await withViewerState({ is_following: true });
+    await spec.waitForChanges();
+
+    await spec.rootInstance.toggleFollow();
+
+    expect(unfollow).toHaveBeenCalledWith(7);
+    expect(follow).not.toHaveBeenCalled();
   });
 });

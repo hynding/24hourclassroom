@@ -10,8 +10,13 @@ export class PageTeacherProfile {
   @State() teacher: PublicProfile | null = null;
   @State() notFound = false;
   @State() loadError = false;
+  @State() busy = false;
 
   async componentWillLoad() {
+    await this.load();
+  }
+
+  private async load() {
     if (!this.teacherId) {
       this.notFound = true;
       return;
@@ -31,8 +36,56 @@ export class PageTeacherProfile {
     }
   }
 
+  async toggleFollow() {
+    if (!this.teacher || this.teacher.is_following === null) {
+      return;
+    }
+    this.busy = true;
+    try {
+      await (this.teacher.is_following
+        ? profileStore.unfollow(this.teacher.id)
+        : profileStore.follow(this.teacher.id));
+      await this.load();
+    } finally {
+      this.busy = false;
+    }
+  }
+
+  async connectAction() {
+    if (!this.teacher || this.teacher.is_following === null) {
+      return;
+    }
+    const connection = this.teacher.connection;
+    this.busy = true;
+    try {
+      if (!connection) {
+        await profileStore.requestConnection(this.teacher.id);
+      } else if (connection.status === 'pending' && connection.direction === 'incoming') {
+        await profileStore.acceptConnection(connection.id);
+      } else {
+        await profileStore.removeConnection(connection.id);
+      }
+      await this.load();
+    } finally {
+      this.busy = false;
+    }
+  }
+
   private label(options: { value: string; label: string }[], value: string): string {
     return options.find((option) => option.value === value)?.label ?? value;
+  }
+
+  private connectLabel(connection: PublicProfile['connection']): string {
+    if (!connection) {
+      return 'Connect';
+    }
+    if (connection.status === 'pending' && connection.direction === 'outgoing') {
+      return 'Cancel request';
+    }
+    if (connection.status === 'pending' && connection.direction === 'incoming') {
+      return 'Accept';
+    }
+    return 'Disconnect';
   }
 
   render() {
@@ -61,7 +114,7 @@ export class PageTeacherProfile {
     // `profile` is absent entirely for a student seen by an accepted
     // connection: name-only, not an empty object. Every profile-dependent
     // field below must be guarded on its presence.
-    const { name, profile } = this.teacher;
+    const { name, profile, is_following, connection } = this.teacher;
 
     return (
       <section>
@@ -83,6 +136,16 @@ export class PageTeacherProfile {
               <li>{this.label(GRADE_LEVELS, grade)}</li>
             ))}
           </ul>
+        )}
+        {is_following !== null && (
+          <div>
+            <button type="button" disabled={this.busy} onClick={() => this.toggleFollow()}>
+              {is_following ? 'Unfollow' : 'Follow'}
+            </button>
+            <button type="button" disabled={this.busy} onClick={() => this.connectAction()}>
+              {this.connectLabel(connection)}
+            </button>
+          </div>
         )}
       </section>
     );
