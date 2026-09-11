@@ -166,6 +166,7 @@ describe('page-teacher-profile', () => {
     expect(text).toContain('Connect');
     expect(text).not.toContain('Accept');
     expect(text).not.toContain('Disconnect');
+    expect(text).not.toContain('Cancel request');
   });
 
   it('offers Cancel request on an outgoing pending connection', async () => {
@@ -193,7 +194,11 @@ describe('page-teacher-profile', () => {
     const text = spec.root.shadowRoot.textContent;
 
     expect(text).toContain('Disconnect');
-    expect(text).not.toContain('Connect ');
+    // Plain 'Connect' (no trailing space): 'Disconnect'.includes('Connect')
+    // is already false since the substring's leading 'c' is lowercase, so
+    // this loses nothing against the real "Disconnect" label while still
+    // catching a stray, always-rendered "Connect" button next to it.
+    expect(text).not.toContain('Connect');
   });
 
   it('shows no controls at all to a logged-out visitor', async () => {
