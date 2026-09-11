@@ -96,16 +96,23 @@ describe('page-teacher-profile', () => {
   });
 
   // A student viewed by an accepted connection comes back name-only: no
-  // `profile` key at all (not an empty object -- the absence is the case).
-  // page-teacher-profile previously destructured `profile` off the payload
-  // unguarded and dereferenced `profile.avatar_url` etc., which throws when
-  // `profile` is undefined. This is reachable: the SPA only links teachers,
-  // but a teacher who is an accepted connection of a student can hand-type
-  // `/teachers/<student-id>`.
-  it('renders a name-only profile without crashing when profile is absent', async () => {
+  // `profile`, `is_following`, or `connection` keys at all -- not an empty
+  // object or explicit nulls, the absence is the case. Confirmed against
+  // PublicProfileController's student branch, which returns exactly
+  // {id, name, role}. page-teacher-profile previously destructured `profile`
+  // off the payload unguarded and dereferenced `profile.avatar_url` etc.,
+  // which throws when `profile` is undefined. This is reachable: the SPA
+  // only links teachers, but a teacher who is an accepted connection of a
+  // student can hand-type `/teachers/<student-id>`.
+  //
+  // The fixture below deliberately omits is_following/connection (rather
+  // than setting them to null, as an earlier version of this test did) so
+  // it also exercises the render guard: a strict `!== null` check treats
+  // `undefined` as present and would render Follow/Connect controls on this
+  // exact name-only payload, offering actions the API then rejects.
+  it('renders a name-only profile without crashing, and with no controls, when the viewer state is absent', async () => {
     teacher.mockResolvedValue({
       id: 9, name: 'Sam Student', role: 'student',
-      is_following: false, connection: null,
     });
 
     const spec = await newSpecPage({
@@ -114,7 +121,10 @@ describe('page-teacher-profile', () => {
     });
     await spec.waitForChanges();
 
-    expect(spec.root.shadowRoot.textContent).toContain('Sam Student');
+    const text = spec.root.shadowRoot.textContent;
+    expect(text).toContain('Sam Student');
+    expect(text).not.toContain('Follow');
+    expect(text).not.toContain('Connect');
   });
 
   const withViewerState = (state: Record<string, unknown>) => {

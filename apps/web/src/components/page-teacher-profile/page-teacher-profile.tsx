@@ -37,7 +37,10 @@ export class PageTeacherProfile {
   }
 
   async toggleFollow() {
-    if (!this.teacher || this.teacher.is_following === null) {
+    // Loose check: the name-only payload for a student seen by an accepted
+    // connection omits is_following entirely rather than setting it to
+    // null, and undefined must be treated the same as null here.
+    if (!this.teacher || this.teacher.is_following == null) {
       return;
     }
     this.busy = true;
@@ -52,7 +55,9 @@ export class PageTeacherProfile {
   }
 
   async connectAction() {
-    if (!this.teacher || this.teacher.is_following === null) {
+    // See toggleFollow(): loose check catches the name-only payload's
+    // omitted is_following as well as an explicit null.
+    if (!this.teacher || this.teacher.is_following == null) {
       return;
     }
     const connection = this.teacher.connection;
@@ -137,7 +142,11 @@ export class PageTeacherProfile {
             ))}
           </ul>
         )}
-        {is_following !== null && (
+        {/*
+          Loose check: is_following/connection are absent (undefined), not
+          null, on the name-only student payload -- see the comment above.
+        */}
+        {is_following != null && (
           <div>
             <button type="button" disabled={this.busy} onClick={() => this.toggleFollow()}>
               {is_following ? 'Unfollow' : 'Follow'}

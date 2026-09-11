@@ -77,8 +77,10 @@ export interface PublicProfile {
   role: Role;
   /** Absent entirely for a student seen by an accepted connection. */
   profile?: Profile;
-  is_following: boolean | null;
-  connection: ViewerConnectionState | null;
+  /** Absent (not null) on the same name-only student payload as `profile`. */
+  is_following?: boolean | null;
+  /** Absent (not null) on the same name-only student payload as `profile`. */
+  connection?: ViewerConnectionState | null;
 }
 
 export interface Paginated<T> {
