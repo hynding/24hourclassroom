@@ -14,8 +14,23 @@ export class PageLogin {
     return `${Env.apiBaseUrl}/auth/google/redirect`;
   }
 
+  /**
+   * GoogleOAuthController redirects to {spaOrigin}/login?error=... rather
+   * than rendering anything itself, so this page is the only place these
+   * can be explained. `deactivated` is new in wave A: the OAuth callback
+   * now refuses a deactivated account instead of re-admitting it, and
+   * without this branch the user landed on a bare form with no clue why.
+   */
+  private get errorParam(): string | null {
+    return new URLSearchParams(window.location.search).get('error');
+  }
+
   private get oauthFailed(): boolean {
-    return new URLSearchParams(window.location.search).get('error') === 'oauth';
+    return this.errorParam === 'oauth';
+  }
+
+  private get accountDeactivated(): boolean {
+    return this.errorParam === 'deactivated';
   }
 
   private onSubmit = async (event: Event) => {
@@ -42,6 +57,16 @@ export class PageLogin {
       <section>
         <h1>Sign in</h1>
         {this.oauthFailed && <p class="error">Google sign-in didn't complete. Please try again.</p>}
+        {/*
+          Deliberately not "please try again": retrying is guaranteed to
+          fail identically, so the only useful next step is contacting
+          support.
+        */}
+        {this.accountDeactivated && (
+          <p class="error" data-testid="deactivated-error">
+            This account has been deactivated. Contact support if you think that's a mistake.
+          </p>
+        )}
         <form onSubmit={this.onSubmit}>
           <label>
             Email
