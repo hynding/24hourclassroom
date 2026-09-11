@@ -108,6 +108,23 @@ export class PageTeacherProfile {
     return !!authStore.currentUser?.email_verified_at;
   }
 
+  /**
+   * The server enforces connections as teacher<->teacher or
+   * teacher<->student (spec line 14), guarding the ACTOR as well as the
+   * target, so an admin's Connect click 404s. 404 is not a recovery case,
+   * so connectAction() resyncs to the identical state and the button looks
+   * live while doing nothing -- the same dead affordance as B3's
+   * unverified viewer.
+   *
+   * Scoped to INITIATING, deliberately. The role rules are enforced at
+   * creation time only, so an admin may still accept, cancel or disconnect
+   * a pre-existing row; those labels stay. Follow is unaffected too -- the
+   * spec permits "anyone -> teachers" there.
+   */
+  private get viewerMayInitiateConnection(): boolean {
+    return authStore.currentUser?.role !== 'admin';
+  }
+
   private connectLabel(connection: PublicProfile['connection']): string {
     if (!connection) {
       return 'Connect';
@@ -185,9 +202,19 @@ export class PageTeacherProfile {
               <button type="button" disabled={this.busy} onClick={() => this.toggleFollow()}>
                 {is_following ? 'Unfollow' : 'Follow'}
               </button>
-              <button type="button" disabled={this.busy} onClick={() => this.connectAction()}>
-                {this.connectLabel(connection)}
-              </button>
+              {connection || this.viewerMayInitiateConnection ? (
+                <button type="button" disabled={this.busy} onClick={() => this.connectAction()}>
+                  {this.connectLabel(connection)}
+                </button>
+              ) : (
+                // `connection` being falsy is exactly the case
+                // connectLabel() renders as "Connect", i.e. the initiate
+                // affordance -- so an existing row keeps its
+                // Accept/Cancel/Disconnect button.
+                <p data-testid="admin-connect-hint">
+                  Only teachers and students can start a connection.
+                </p>
+              )}
             </div>
           ) : (
             // Inside the same branch the controls are in, so a viewer who

@@ -22,7 +22,7 @@ jest.mock('../../services/profile-store', () => ({
 
 // mockCurrentUser is read lazily through the getter below, so it can be
 // reassigned per test without re-registering the mock module.
-let mockCurrentUser: { id: number; email_verified_at: string | null } | null = null;
+let mockCurrentUser: { id: number; email_verified_at: string | null; role: string } | null = null;
 
 jest.mock('../../services/auth-store', () => ({
   authStore: {
@@ -63,7 +63,7 @@ describe('page-teacher-profile', () => {
     // and the controls now also require a verified email (B3), so the
     // default has to carry one or every one of them hides for the wrong
     // reason.
-    mockCurrentUser = { id: 999, email_verified_at: '2026-01-01T00:00:00Z' };
+    mockCurrentUser = { id: 999, email_verified_at: '2026-01-01T00:00:00Z', role: 'teacher' };
   });
 
   it('renders the teacher and their profile', async () => {
@@ -246,7 +246,7 @@ describe('page-teacher-profile', () => {
   // comparison, that renders Follow/Connect controls a click on which the
   // API rejects (follow and connect both refuse self-targeting).
   it('shows no controls on the viewer\'s own profile', async () => {
-    mockCurrentUser = { id: 7, email_verified_at: '2026-01-01T00:00:00Z' };
+    mockCurrentUser = { id: 7, email_verified_at: '2026-01-01T00:00:00Z', role: 'teacher' };
     const spec = await withViewerState({});
     await spec.waitForChanges();
     const text = spec.root.shadowRoot.textContent;
@@ -256,7 +256,7 @@ describe('page-teacher-profile', () => {
   });
 
   it('still offers controls to a signed-in viewer looking at someone else', async () => {
-    mockCurrentUser = { id: 999, email_verified_at: '2026-01-01T00:00:00Z' };
+    mockCurrentUser = { id: 999, email_verified_at: '2026-01-01T00:00:00Z', role: 'teacher' };
     const spec = await withViewerState({});
     await spec.waitForChanges();
     const text = spec.root.shadowRoot.textContent;
@@ -311,7 +311,7 @@ describe('page-teacher-profile', () => {
   // resynced to the identical state. No error, no explanation, a button
   // that just looks broken.
   it('tells an unverified viewer to verify instead of offering controls that 403', async () => {
-    mockCurrentUser = { id: 999, email_verified_at: null };
+    mockCurrentUser = { id: 999, email_verified_at: null, role: 'teacher' };
     const spec = await withViewerState({});
     await spec.waitForChanges();
     const text = spec.root.shadowRoot.textContent;
@@ -325,10 +325,77 @@ describe('page-teacher-profile', () => {
     // The hint belongs inside the same branch the controls do, so a
     // self-viewer -- who gets no controls for a different reason -- is not
     // told to verify an address they have already verified.
-    mockCurrentUser = { id: 7, email_verified_at: '2026-01-01T00:00:00Z' };
+    mockCurrentUser = { id: 7, email_verified_at: '2026-01-01T00:00:00Z', role: 'teacher' };
     const spec = await withViewerState({});
     await spec.waitForChanges();
 
     expect(spec.root.shadowRoot.querySelector('[data-testid="verify-hint"]')).toBeNull();
+  });
+
+  // N4. The server enforces connections as teacher<->teacher or
+  // teacher<->student (spec line 14), guarding the ACTOR as well as the
+  // target, so an admin's Connect click 404s. 404 is not a recovery case,
+  // so connectAction() resyncs to the identical state and the button just
+  // looks live while doing nothing -- the same dead affordance B3 fixed for
+  // unverified viewers.
+  const admin = { id: 999, email_verified_at: '2026-01-01T00:00:00Z', role: 'admin' };
+
+  it('does not offer Connect to an admin viewer, but still offers Follow', async () => {
+    mockCurrentUser = admin;
+    const spec = await withViewerState({});
+    await spec.waitForChanges();
+    const text = spec.root.shadowRoot.textContent;
+
+    expect(text).not.toContain('Connect');
+    expect(spec.root.shadowRoot.querySelector('[data-testid="admin-connect-hint"]')).not.toBeNull();
+    // Load-bearing: the spec permits "anyone -> teachers" for follow, and a
+    // promoted admin can still follow. Hiding both controls would break a
+    // working feature to fix a dead one.
+    expect(text).toContain('Follow');
+  });
+
+  it('still offers Connect to a teacher viewer on the identical payload', async () => {
+    // The discriminator: same profile, same viewer state, same verified
+    // email, same id -- only `role` differs. Without it this pair would
+    // prove nothing about roles.
+    mockCurrentUser = { ...admin, role: 'teacher' };
+    const spec = await withViewerState({});
+    await spec.waitForChanges();
+
+    expect(spec.root.shadowRoot.textContent).toContain('Connect');
+    expect(spec.root.shadowRoot.querySelector('[data-testid="admin-connect-hint"]')).toBeNull();
+  });
+
+  it('still offers Disconnect to an admin on a pre-existing connection', async () => {
+    // The role rules are enforced at CREATION time only, and the verifier
+    // confirmed an admin can still read, accept, cancel and delete existing
+    // rows. Only the initiate affordance is dead, so this must not
+    // degenerate into "admins get no connection controls".
+    mockCurrentUser = admin;
+    const spec = await withViewerState({ connection: { id: 3, status: 'accepted', direction: 'outgoing' } });
+    await spec.waitForChanges();
+
+    expect(spec.root.shadowRoot.textContent).toContain('Disconnect');
+    expect(spec.root.shadowRoot.querySelector('[data-testid="admin-connect-hint"]')).toBeNull();
+  });
+
+  it('still offers Accept to an admin on an incoming pending connection', async () => {
+    mockCurrentUser = admin;
+    const spec = await withViewerState({ connection: { id: 3, status: 'pending', direction: 'incoming' } });
+    await spec.waitForChanges();
+
+    expect(spec.root.shadowRoot.textContent).toContain('Accept');
+    expect(spec.root.shadowRoot.querySelector('[data-testid="admin-connect-hint"]')).toBeNull();
+  });
+
+  it('does not show the admin hint to an unverified admin, who sees the verify hint', async () => {
+    // The two hints are mutually exclusive: verification is the outer
+    // question, and telling someone both at once is noise.
+    mockCurrentUser = { ...admin, email_verified_at: null };
+    const spec = await withViewerState({});
+    await spec.waitForChanges();
+
+    expect(spec.root.shadowRoot.querySelector('[data-testid="verify-hint"]')).not.toBeNull();
+    expect(spec.root.shadowRoot.querySelector('[data-testid="admin-connect-hint"]')).toBeNull();
   });
 });
