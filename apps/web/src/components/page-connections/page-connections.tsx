@@ -81,7 +81,28 @@ export class PageConnections {
     return connection.user.name ?? 'Pending request';
   }
 
-  private personLink(connection: Connection) {
+  /**
+   * A PENDING counterpart is only reachable at /teachers/{id} if they are
+   * a teacher. GET /api/users/{student} 404s for anyone who is not an
+   * ACCEPTED connection, so linking a pending student sends the user to a
+   * Not Found page for somebody plainly listed on the row above it.
+   *
+   * Strict equality is deliberate: `role` is absent entirely on the
+   * redacted outgoing row, and absent must read as "not a teacher" rather
+   * than falling through to a link.
+   *
+   * Accepted rows are always linkable -- acceptance is exactly what makes
+   * a student reachable (decision 5) -- so this is scoped to the two
+   * pending sections, not applied to every student.
+   */
+  private pendingIsLinkable(connection: Connection): boolean {
+    return connection.user.role === 'teacher';
+  }
+
+  private person(connection: Connection, linkable: boolean) {
+    if (!linkable) {
+      return <span>{this.personName(connection)}</span>;
+    }
     return (
       <a
         href={`/teachers/${connection.user.id}`}
@@ -125,7 +146,7 @@ export class PageConnections {
             <ul>
               {this.incoming.map((connection) => (
                 <li key={connection.id}>
-                  {this.personLink(connection)}
+                  {this.person(connection, this.pendingIsLinkable(connection))}
                   <button
                     type="button"
                     data-testid={`accept-${connection.id}`}
@@ -154,7 +175,7 @@ export class PageConnections {
             <ul>
               {this.outgoing.map((connection) => (
                 <li key={connection.id}>
-                  {this.personLink(connection)}
+                  {this.person(connection, this.pendingIsLinkable(connection))}
                   <button
                     type="button"
                     data-testid={`cancel-${connection.id}`}
@@ -176,7 +197,7 @@ export class PageConnections {
             <ul>
               {this.accepted.map((connection) => (
                 <li key={connection.id}>
-                  {this.personLink(connection)}
+                  {this.person(connection, true)}
                   <button
                     type="button"
                     data-testid={`disconnect-${connection.id}`}

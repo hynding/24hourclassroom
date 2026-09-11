@@ -25,6 +25,7 @@ jest.mock('../../services/session-recovery', () => ({
 import { PageConnections } from './page-connections';
 
 const peer = (id: number, name: string) => ({ id, name, role: 'teacher', avatar_url: null });
+const student = (id: number, name: string) => ({ id, name, role: 'student', avatar_url: null });
 
 describe('page-connections', () => {
   beforeEach(() => {
@@ -240,5 +241,71 @@ describe('page-connections', () => {
     const outgoing = spec.root.shadowRoot.querySelector('[data-testid="outgoing-section"]');
     expect(outgoing.textContent).toContain('Outgoing Otto');
     expect(outgoing.textContent).not.toContain('Pending request');
+  });
+
+  it('does not link a pending student counterpart, whose profile 404s', async () => {
+    // GET /api/users/{student} is 404 to anyone who is not an ACCEPTED
+    // connection, so a link on a PENDING student row lands the user on a
+    // Not Found page for someone who is plainly listed right above it.
+    pendingConnections.mockResolvedValue({
+      incoming: [{ id: 2, user: student(20, 'Sam Student') }],
+      outgoing: [],
+    });
+
+    const spec = await mount();
+    await spec.waitForChanges();
+
+    const incoming = spec.root.shadowRoot.querySelector('[data-testid="incoming-section"]');
+    // The name still shows -- the addressee has to know who is asking.
+    expect(incoming.textContent).toContain('Sam Student');
+    expect(incoming.querySelector('a')).toBeNull();
+  });
+
+  it('does not link a redacted outgoing row either', async () => {
+    // No `role` at all on the redacted payload, which must read as
+    // "not a teacher" rather than falling through to a link.
+    pendingConnections.mockResolvedValue({
+      incoming: [],
+      outgoing: [{ id: 3, user: { id: 30 } }],
+    });
+
+    const spec = await mount();
+    await spec.waitForChanges();
+
+    expect(
+      spec.root.shadowRoot.querySelector('[data-testid="outgoing-section"]').querySelector('a'),
+    ).toBeNull();
+  });
+
+  it('still links a pending teacher counterpart', async () => {
+    // The inclusion side: teachers are publicly reachable at
+    // /api/users/{id}, so their pending rows keep the link.
+    pendingConnections.mockResolvedValue({
+      incoming: [{ id: 2, user: peer(20, 'Pending Pat') }],
+      outgoing: [],
+    });
+
+    const spec = await mount();
+    await spec.waitForChanges();
+
+    const link = spec.root.shadowRoot
+      .querySelector('[data-testid="incoming-section"]')
+      .querySelector('a');
+    expect(link.getAttribute('href')).toBe('/teachers/20');
+  });
+
+  it('still links an ACCEPTED student counterpart', async () => {
+    // The other exclusion side: acceptance is exactly what makes a student
+    // reachable (decision 5), so the rule must be scoped to pending rows
+    // and not degenerate into "never link a student".
+    connections.mockResolvedValue({ data: [{ id: 4, user: student(40, 'Accepted Ann') }] });
+
+    const spec = await mount();
+    await spec.waitForChanges();
+
+    const link = spec.root.shadowRoot
+      .querySelector('[data-testid="accepted-section"]')
+      .querySelector('a');
+    expect(link.getAttribute('href')).toBe('/teachers/40');
   });
 });
