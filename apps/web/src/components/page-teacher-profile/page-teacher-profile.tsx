@@ -95,6 +95,19 @@ export class PageTeacherProfile {
     return options.find((option) => option.value === value)?.label ?? value;
   }
 
+  /**
+   * Follow and connect are both behind `verified` on the server, but
+   * /teachers/{id} is exempt from the verification redirect (isPublic() in
+   * router.ts) and PublicProfileController is not behind `verified` -- so
+   * an unverified viewer receives `is_following: false`, a boolean rather
+   * than null, and the render guard below let the controls through. The
+   * click then 403s; 403 is not a recovery case, so the page resynced to
+   * the identical state and the button simply looked broken.
+   */
+  private get viewerIsVerified(): boolean {
+    return !!authStore.currentUser?.email_verified_at;
+  }
+
   private connectLabel(connection: PublicProfile['connection']): string {
     if (!connection) {
       return 'Connect';
@@ -165,16 +178,26 @@ export class PageTeacherProfile {
           reachable through ordinary navigation, not just a hand-typed URL;
           both follow and connect reject self-targeting server-side.
         */}
-        {is_following != null && authStore.currentUser?.id !== this.teacher.id && (
-          <div>
-            <button type="button" disabled={this.busy} onClick={() => this.toggleFollow()}>
-              {is_following ? 'Unfollow' : 'Follow'}
-            </button>
-            <button type="button" disabled={this.busy} onClick={() => this.connectAction()}>
-              {this.connectLabel(connection)}
-            </button>
-          </div>
-        )}
+        {is_following != null &&
+          authStore.currentUser?.id !== this.teacher.id &&
+          (this.viewerIsVerified ? (
+            <div>
+              <button type="button" disabled={this.busy} onClick={() => this.toggleFollow()}>
+                {is_following ? 'Unfollow' : 'Follow'}
+              </button>
+              <button type="button" disabled={this.busy} onClick={() => this.connectAction()}>
+                {this.connectLabel(connection)}
+              </button>
+            </div>
+          ) : (
+            // Inside the same branch the controls are in, so a viewer who
+            // is hidden the controls for another reason -- their own
+            // profile, or a payload with no viewer state -- is not told to
+            // verify an address they may already have verified.
+            <p data-testid="verify-hint">
+              Verify your email address to follow or connect with teachers.
+            </p>
+          ))}
       </section>
     );
   }

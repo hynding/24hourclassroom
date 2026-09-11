@@ -22,7 +22,7 @@ jest.mock('../../services/profile-store', () => ({
 
 // mockCurrentUser is read lazily through the getter below, so it can be
 // reassigned per test without re-registering the mock module.
-let mockCurrentUser: { id: number } | null = null;
+let mockCurrentUser: { id: number; email_verified_at: string | null } | null = null;
 
 jest.mock('../../services/auth-store', () => ({
   authStore: {
@@ -57,7 +57,13 @@ describe('page-teacher-profile', () => {
     acceptConnection.mockClear();
     removeConnection.mockClear();
     recoverFromExpiredSession.mockReset().mockReturnValue(false);
-    mockCurrentUser = null;
+    // A VERIFIED viewer who is not the subject, by default. The server only
+    // sends a boolean `is_following` to an authenticated viewer, so the
+    // control-rendering tests below were never really exercising a guest;
+    // and the controls now also require a verified email (B3), so the
+    // default has to carry one or every one of them hides for the wrong
+    // reason.
+    mockCurrentUser = { id: 999, email_verified_at: '2026-01-01T00:00:00Z' };
   });
 
   it('renders the teacher and their profile', async () => {
@@ -202,6 +208,7 @@ describe('page-teacher-profile', () => {
   });
 
   it('shows no controls at all to a logged-out visitor', async () => {
+    mockCurrentUser = null;
     const spec = await withViewerState({ is_following: null, connection: null });
     await spec.waitForChanges();
     const text = spec.root.shadowRoot.textContent;
@@ -239,7 +246,7 @@ describe('page-teacher-profile', () => {
   // comparison, that renders Follow/Connect controls a click on which the
   // API rejects (follow and connect both refuse self-targeting).
   it('shows no controls on the viewer\'s own profile', async () => {
-    mockCurrentUser = { id: 7 };
+    mockCurrentUser = { id: 7, email_verified_at: '2026-01-01T00:00:00Z' };
     const spec = await withViewerState({});
     await spec.waitForChanges();
     const text = spec.root.shadowRoot.textContent;
@@ -249,13 +256,16 @@ describe('page-teacher-profile', () => {
   });
 
   it('still offers controls to a signed-in viewer looking at someone else', async () => {
-    mockCurrentUser = { id: 999 };
+    mockCurrentUser = { id: 999, email_verified_at: '2026-01-01T00:00:00Z' };
     const spec = await withViewerState({});
     await spec.waitForChanges();
     const text = spec.root.shadowRoot.textContent;
 
     expect(text).toContain('Follow');
     expect(text).toContain('Connect');
+    // The verification hint is scoped to an UNVERIFIED viewer, not shown
+    // alongside working controls.
+    expect(spec.root.shadowRoot.querySelector('[data-testid="verify-hint"]')).toBeNull();
   });
 
   // A stale tab whose connection state changed elsewhere (e.g. accepted or
@@ -291,5 +301,34 @@ describe('page-teacher-profile', () => {
     // Session recovery already navigates away; reloading this now-invalid
     // session's data on top of that would be wasted work at best.
     expect(teacher).toHaveBeenCalledTimes(1);
+  });
+
+  // B3. /teachers/{id} is exempt from the verification redirect (isPublic()
+  // in router.ts) and PublicProfileController is not behind `verified`, so
+  // an unverified viewer gets `is_following: false` -- a boolean, not null
+  // -- and the `!= null` render guard let the controls through. The click
+  // then hits `verified` and 403s; 403 is not a recovery case, so the page
+  // resynced to the identical state. No error, no explanation, a button
+  // that just looks broken.
+  it('tells an unverified viewer to verify instead of offering controls that 403', async () => {
+    mockCurrentUser = { id: 999, email_verified_at: null };
+    const spec = await withViewerState({});
+    await spec.waitForChanges();
+    const text = spec.root.shadowRoot.textContent;
+
+    expect(spec.root.shadowRoot.querySelector('[data-testid="verify-hint"]')).not.toBeNull();
+    expect(text).not.toContain('Follow');
+    expect(text).not.toContain('Connect');
+  });
+
+  it('does not nag a verified viewer looking at their own profile to verify', async () => {
+    // The hint belongs inside the same branch the controls do, so a
+    // self-viewer -- who gets no controls for a different reason -- is not
+    // told to verify an address they have already verified.
+    mockCurrentUser = { id: 7, email_verified_at: '2026-01-01T00:00:00Z' };
+    const spec = await withViewerState({});
+    await spec.waitForChanges();
+
+    expect(spec.root.shadowRoot.querySelector('[data-testid="verify-hint"]')).toBeNull();
   });
 });
