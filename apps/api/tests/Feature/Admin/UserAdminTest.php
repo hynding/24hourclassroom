@@ -21,6 +21,20 @@ test('a guest is redirected, not 403d', function () {
     $this->get('/admin/users')->assertRedirect('/login');
 });
 
+test('a deactivated non-admin is redirected by the active middleware, not 403d', function () {
+    // User::factory() is verified by default (email_verified_at => now()), so
+    // this exercises `active`'s redirect branch specifically -- not `verified`,
+    // which would fire first for an unverified account and mask the branch
+    // under test.
+    $user = User::factory()->create(['role' => 'teacher']);
+    // forceFill, not update(): `deactivated_at` is deliberately absent from
+    // User::$fillable, so update() would silently no-op here.
+    $user->forceFill(['deactivated_at' => now()])->save();
+    $this->actingAs($user);
+
+    $this->get('/admin/users')->assertRedirect('/login');
+});
+
 test('an admin sees the user list', function () {
     $this->actingAs(admin());
     User::factory()->create(['name' => 'Findable Fred']);
