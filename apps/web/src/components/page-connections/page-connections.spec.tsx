@@ -47,11 +47,28 @@ describe('page-connections', () => {
 
     const spec = await mount();
     await spec.waitForChanges();
-    const text = spec.root.shadowRoot.textContent;
 
-    expect(text).toContain('Accepted Ada');
-    expect(text).toContain('Incoming Ida');
-    expect(text).toContain('Outgoing Otto');
+    // Scoped to each section rather than the flattened textContent: the
+    // page's entire job is keeping incoming (Accept/Decline), outgoing
+    // (Cancel) and accepted (Disconnect) apart, since a misrouted row offers
+    // the wrong action -- most visibly an Accept button on the user's own
+    // outgoing request, which the API rejects with a 403. Presence alone
+    // would not catch a row rendering in the wrong section, or in two.
+    const incomingText = spec.root.shadowRoot.querySelector('[data-testid="incoming-section"]').textContent;
+    const outgoingText = spec.root.shadowRoot.querySelector('[data-testid="outgoing-section"]').textContent;
+    const acceptedText = spec.root.shadowRoot.querySelector('[data-testid="accepted-section"]').textContent;
+
+    expect(incomingText).toContain('Incoming Ida');
+    expect(incomingText).not.toContain('Outgoing Otto');
+    expect(incomingText).not.toContain('Accepted Ada');
+
+    expect(outgoingText).toContain('Outgoing Otto');
+    expect(outgoingText).not.toContain('Incoming Ida');
+    expect(outgoingText).not.toContain('Accepted Ada');
+
+    expect(acceptedText).toContain('Accepted Ada');
+    expect(acceptedText).not.toContain('Incoming Ida');
+    expect(acceptedText).not.toContain('Outgoing Otto');
   });
 
   it('shows an error and no empty-state copy when the load fails', async () => {

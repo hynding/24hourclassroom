@@ -97,11 +97,11 @@ export class PageConnections {
         <h1>Connections</h1>
 
         {this.incoming.length > 0 && (
-          <section>
+          <section data-testid="incoming-section">
             <h2>Requests for you</h2>
             <ul>
               {this.incoming.map((connection) => (
-                <li>
+                <li key={connection.id}>
                   {this.personLink(connection)}
                   <button
                     type="button"
@@ -126,11 +126,11 @@ export class PageConnections {
         )}
 
         {this.outgoing.length > 0 && (
-          <section>
+          <section data-testid="outgoing-section">
             <h2>Requests you sent</h2>
             <ul>
               {this.outgoing.map((connection) => (
-                <li>
+                <li key={connection.id}>
                   {this.personLink(connection)}
                   <button
                     type="button"
@@ -146,25 +146,27 @@ export class PageConnections {
           </section>
         )}
 
-        {this.accepted.length === 0 ? (
-          <p>You have no connections yet.</p>
-        ) : (
-          <ul>
-            {this.accepted.map((connection) => (
-              <li>
-                {this.personLink(connection)}
-                <button
-                  type="button"
-                  data-testid={`disconnect-${connection.id}`}
-                  disabled={this.busy}
-                  onClick={() => this.remove(connection.id)}
-                >
-                  Disconnect
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+        <section data-testid="accepted-section">
+          {this.accepted.length === 0 ? (
+            <p>You have no connections yet.</p>
+          ) : (
+            <ul>
+              {this.accepted.map((connection) => (
+                <li key={connection.id}>
+                  {this.personLink(connection)}
+                  <button
+                    type="button"
+                    data-testid={`disconnect-${connection.id}`}
+                    disabled={this.busy}
+                    onClick={() => this.remove(connection.id)}
+                  >
+                    Disconnect
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
       </section>
     );
   }
