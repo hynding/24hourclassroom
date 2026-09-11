@@ -93,11 +93,26 @@ export interface Paginated<T> {
   };
 }
 
+/**
+ * The counterpart in a connection or notification.
+ *
+ * Everything but `id` is OPTIONAL because the server genuinely omits it:
+ * `GET /api/connections/pending` reduces an OUTGOING request addressed to a
+ * student to `{ id }` alone, so a teacher cannot harvest student identities
+ * by walking the id space with connection requests (decision 5 -- student
+ * identity is revealed to an ACCEPTED connection, and a pending request is
+ * not one).
+ *
+ * Declaring them required would be the type lying about the payload, which
+ * is how the `profile` and `is_following` bugs got onto this branch.
+ * apps/web sets no `"strict"`, so the compiler will NOT flag an unguarded
+ * dereference of these -- guard them by hand.
+ */
 export interface UserSummary {
   id: number;
-  name: string;
-  role: Role;
-  avatar_url: string | null;
+  name?: string;
+  role?: Role;
+  avatar_url?: string | null;
 }
 
 export type ConnectionStatus = 'pending' | 'accepted';

@@ -204,4 +204,41 @@ describe('page-connections', () => {
     expect(recoverFromExpiredSession).toHaveBeenCalledWith(gone);
     expect(connections).toHaveBeenCalledTimes(2);
   });
+
+  it('labels a redacted outgoing pending row rather than rendering it blank', async () => {
+    // Wave A's A3: an outgoing pending request addressed to a STUDENT now
+    // carries `user: { id }` only -- no name, no role, no avatar_url --
+    // so the student's identity is not disclosed by a request the teacher
+    // sent. `connection.user.name` is undefined here, and tsconfig sets no
+    // "strict", so nothing but this test catches the blank row.
+    pendingConnections.mockResolvedValue({
+      incoming: [],
+      outgoing: [{ id: 3, user: { id: 30 } }],
+    });
+
+    const spec = await mount();
+    await spec.waitForChanges();
+
+    const outgoing = spec.root.shadowRoot.querySelector('[data-testid="outgoing-section"]');
+    expect(outgoing.textContent).toContain('Pending request');
+    // And it stays cancellable: an unlabelled row the user cannot clear is
+    // exactly the unclearable-row bug wave A fixed server-side.
+    expect(outgoing.querySelector('[data-testid="cancel-3"]')).not.toBeNull();
+  });
+
+  it('does not label a named row as a pending request', async () => {
+    // The exclusion side: the placeholder is scoped to a missing name, not
+    // applied to every outgoing row.
+    pendingConnections.mockResolvedValue({
+      incoming: [],
+      outgoing: [{ id: 3, user: peer(30, 'Outgoing Otto') }],
+    });
+
+    const spec = await mount();
+    await spec.waitForChanges();
+
+    const outgoing = spec.root.shadowRoot.querySelector('[data-testid="outgoing-section"]');
+    expect(outgoing.textContent).toContain('Outgoing Otto');
+    expect(outgoing.textContent).not.toContain('Pending request');
+  });
 });

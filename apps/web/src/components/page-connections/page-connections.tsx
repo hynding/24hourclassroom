@@ -71,6 +71,16 @@ export class PageConnections {
     }
   }
 
+  /**
+   * `name` is absent -- not empty -- on an outgoing pending request
+   * addressed to a student, which the API deliberately reduces to
+   * `{ id }`. Rendering it raw leaves a blank row carrying only a Cancel
+   * button, so label it instead.
+   */
+  private personName(connection: Connection): string {
+    return connection.user.name ?? 'Pending request';
+  }
+
   private personLink(connection: Connection) {
     return (
       <a
@@ -80,7 +90,7 @@ export class PageConnections {
           navigate(`/teachers/${connection.user.id}`);
         }}
       >
-        {connection.user.name}
+        {this.personName(connection)}
       </a>
     );
   }
