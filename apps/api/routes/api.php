@@ -30,7 +30,13 @@ Route::prefix('auth')->group(function () {
     Route::post('oauth/complete', OAuthCompletionController::class)->middleware('throttle:6,1');
 });
 
-Route::middleware(['auth:sanctum', 'verified', 'active'])->group(function () {
+// throttle:60,1 -- deliberately the same limit the public group below already
+// carries, so this is a consistency fix rather than a new product decision.
+// The group had none, which is what let the review's enumeration sweeps run at
+// full speed; each POST /api/connections/{id} probe also writes a row and
+// fires a notification, so an uncapped census doubled as inbox spam. The
+// limiter keys on the user id, so it caps an individual rather than the host.
+Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->group(function () {
     Route::get('profile', [ProfileController::class, 'show']);
     Route::put('profile', [ProfileController::class, 'update']);
     Route::post('profile/avatar', [ProfileAvatarController::class, 'store']);
