@@ -1,4 +1,4 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h, Listen, State } from '@stencil/core';
 import type { User } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { profileStore } from '../../services/profile-store';
@@ -22,6 +22,17 @@ export class AppHeader {
 
   disconnectedCallback() {
     this.unsubscribe();
+  }
+
+  // app-header is mounted once, persistently, outside the route switch --
+  // app-root's renderPage() swaps only <main>'s content -- so navigating to
+  // /notifications never re-mounts the header or re-fires the auth
+  // subscription. page-notifications announces its markRead() with this
+  // event so the header's own `unread` copy doesn't go stale until the next
+  // login/logout.
+  @Listen('notifications:read', { target: 'window' })
+  onNotificationsRead() {
+    this.loadUnread();
   }
 
   private async loadUnread() {

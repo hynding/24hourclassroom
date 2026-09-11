@@ -106,4 +106,53 @@ describe('page-notifications', () => {
 
     expect(spec.root.shadowRoot.textContent).not.toContain('Page 1 of');
   });
+
+  // @stencil/core/testing wipes every listener registered on `window`
+  // (mock-doc's resetEventListeners, run from resetPlatform() at the very
+  // start of every newSpecPage() call) before the component under test ever
+  // mounts, so a listener attached before `mount()` can never observe the
+  // dispatch from that first componentWillLoad -- it is gone before the
+  // component runs. These tests instead mount once, attach the listener
+  // once mount has settled (nothing wipes it again until the *next*
+  // newSpecPage() call), and trigger a second, real load via nextPage() --
+  // exercising the exact same dispatch line in load() without racing the
+  // test harness's own reset.
+  it('announces a read after a successful load so a persistently-mounted header can refetch', async () => {
+    notifications.mockResolvedValue({
+      data: [item('a', 'Ada')],
+      meta: { current_page: 1, last_page: 2, per_page: 15, total: 20 },
+    });
+    const spec = await mount();
+    await spec.waitForChanges();
+
+    const onRead = jest.fn();
+    window.addEventListener('notifications:read', onRead);
+    try {
+      await spec.rootInstance.nextPage();
+
+      expect(onRead).toHaveBeenCalledTimes(1);
+    } finally {
+      window.removeEventListener('notifications:read', onRead);
+    }
+  });
+
+  it('does not announce a read when the load failed', async () => {
+    notifications.mockResolvedValueOnce({
+      data: [item('a', 'Ada')],
+      meta: { current_page: 1, last_page: 2, per_page: 15, total: 20 },
+    });
+    const spec = await mount();
+    await spec.waitForChanges();
+
+    notifications.mockRejectedValueOnce(new ApiError(500, 'Server Error'));
+    const onRead = jest.fn();
+    window.addEventListener('notifications:read', onRead);
+    try {
+      await spec.rootInstance.nextPage();
+
+      expect(onRead).not.toHaveBeenCalled();
+    } finally {
+      window.removeEventListener('notifications:read', onRead);
+    }
+  });
 });

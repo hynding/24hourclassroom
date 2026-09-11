@@ -25,6 +25,7 @@ describe('app-header bell', () => {
   beforeEach(() => {
     unreadCount.mockReset().mockResolvedValue(3);
     currentUser.value = null;
+    listener = () => {};
   });
 
   it('shows the unread badge for a signed-in verified user', async () => {
@@ -62,5 +63,29 @@ describe('app-header bell', () => {
     await spec.waitForChanges();
 
     expect(spec.root.shadowRoot.querySelector('[data-testid="unread-badge"]')).toBeNull();
+  });
+
+  it('refetches and updates the badge when notifications:read fires', async () => {
+    // app-header is mounted once, persistently, outside the route switch, so
+    // navigating to /notifications never re-fires the auth subscription --
+    // the header must react to the event page-notifications dispatches
+    // instead, or its local `unread` copy goes stale.
+    currentUser.value = verified;
+    unreadCount.mockResolvedValueOnce(3).mockResolvedValueOnce(7);
+    const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    await spec.waitForChanges();
+
+    expect(spec.root.shadowRoot.textContent).toContain('3');
+
+    window.dispatchEvent(new CustomEvent('notifications:read'));
+    // The @Listen handler kicks off an async fetch that isn't awaited by
+    // dispatchEvent itself; give its promise chain a turn before flushing
+    // the render Stencil schedules once state actually changes.
+    await Promise.resolve();
+    await spec.waitForChanges();
+
+    expect(unreadCount).toHaveBeenCalledTimes(2);
+    expect(spec.root.shadowRoot.textContent).toContain('7');
+    expect(spec.root.shadowRoot.textContent).not.toContain('3');
   });
 });

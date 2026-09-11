@@ -27,6 +27,11 @@ export class PageNotifications {
       // Opening the page is what clears the badge -- mark everything read
       // now that the list has actually loaded.
       await profileStore.markRead();
+      // app-header is mounted once, persistently, outside the route switch,
+      // so navigating here never re-fires its auth subscription and its
+      // local `unread` copy would otherwise go stale. Announce the read so
+      // it can refetch.
+      window.dispatchEvent(new CustomEvent('notifications:read'));
     } catch (e) {
       if (recoverFromExpiredSession(e)) {
         return;
