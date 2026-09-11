@@ -68,11 +68,22 @@ class ConnectionController extends Controller
      * The incoming direction is deliberately untouched: an addressee has to
      * know who is asking in order to decide.
      *
+     * An ALLOWLIST, not a denylist. This first shipped as `=== Role::Student`,
+     * which meant Role::Admin -- added in this same milestone -- took the
+     * full-summary branch, and the student-roster attack ran verbatim against
+     * administrators instead. Only a teacher is publicly discoverable (they
+     * are in GET /api/teachers), so only a teacher is named here.
+     *
+     * Read time, not write time: store() now refuses a non-teacher/student
+     * target, but a row created while both parties were teachers survives one
+     * of them being promoted -- the spec enforces role rules at creation time
+     * only -- so the current role is what counts.
+     *
      * @return array<string, mixed>
      */
     private function outgoingSummary(User $user): array
     {
-        if ($user->role === Role::Student) {
+        if ($user->role !== Role::Teacher) {
             return ['id' => $user->id];
         }
 
@@ -102,6 +113,19 @@ class ConnectionController extends Controller
         // student walk the id space and rebuild the student directory the
         // spec deliberately omits. Nothing is lost: students cannot discover
         // other students, so the only way to reach this branch is the attack.
+        // An ALLOWLIST over Role, for the same reason PublicProfileController
+        // has one: spec line 14 defines the valid pairs as teacher<->teacher
+        // and teacher<->student, so anyone who is neither a teacher nor a
+        // student is not a connection partner -- in EITHER direction. Written
+        // as a denylist, Role::Admin (new in this milestone) became a
+        // permitted addressee for every authenticated user, which rebuilt the
+        // named-administrator list through pending() and spammed the admin
+        // with a ConnectionRequested per probe. A role added later is invalid
+        // by default rather than silently permitted.
+        $partners = [Role::Teacher, Role::Student];
+        abort_unless(in_array($user->role, $partners, true), 404);
+        abort_unless(in_array($me->role, $partners, true), 404);
+
         abort_if($me->role === Role::Student && $user->role === Role::Student, 404);
 
         try {

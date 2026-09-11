@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\ConnectionStatus;
+use App\Enums\Role;
 use App\Models\Connection;
 use App\Models\User;
 
@@ -359,4 +361,146 @@ test('the connections list gives an accepted student the same payload the profil
     expect($summary['avatar_url'])->toBeNull()
         ->and($summary['name'])->toBe($profile['name'])
         ->and($profile)->not->toHaveKey('avatar_url');
+});
+
+test('only teachers and students are valid connection targets; every other role 404s like a nonexistent id', function () {
+    // A3's reproduction runs verbatim with Admin substituted for Student:
+    // GET /api/users/{admin} -> 404, POST /api/connections/{admin} -> 204,
+    // then one read of pending() hands back the name, the literal
+    // "role":"admin" and the avatar URL. That rebuilds the named
+    // administrator list A8 closed, through a different endpoint, and fires a
+    // ConnectionRequested at the admin on every probe.
+    //
+    // Driven off Role::cases() on purpose: the allowlist is spec line 14
+    // (teacher<->teacher and teacher<->student), so a role added later is
+    // invalid by default and this test starts covering it for free. It fails
+    // the moment someone widens the allowlist without widening the spec.
+    config(['app.debug' => false]);
+
+    $this->actingAs(teacher());
+    $missing = $this->postJson('/api/connections/999999');
+    expect($missing->status())->toBe(404);
+
+    $valid = [Role::Teacher, Role::Student];
+    $rowsExpected = 0;
+
+    foreach (Role::cases() as $role) {
+        $target = User::factory()->create(['role' => $role->value]);
+        $response = $this->postJson("/api/connections/{$target->id}");
+
+        if (in_array($role, $valid, true)) {
+            // The inclusion half: the allowlist must not refuse everyone.
+            expect($response->status())->toBe(204);
+            $rowsExpected++;
+
+            continue;
+        }
+
+        // Status AND body -- this branch has already shipped a fix that closed
+        // an oracle at the status level and left it open in the body.
+        expect($response->status())->toBe($missing->status())
+            ->and($response->json())->toBe($missing->json())
+            ->and($target->notifications()->count())->toBe(0);
+    }
+
+    expect(Connection::count())->toBe($rowsExpected)
+        ->and($rowsExpected)->toBe(2);
+});
+
+test('a student attacker learns nothing about an admin from the connect endpoint', function () {
+    // The reported reproduction, run as the reported attacker. The three-way
+    // classifier was: 404 on the profile + 404 on follow + 204 on connect
+    // uniquely identifies an admin. All three must now answer alike.
+    config(['app.debug' => false]);
+
+    $admin = User::factory()->create(['role' => 'admin', 'name' => 'Ada Administrator']);
+    $admin->profile()->create(['bio' => null]);
+    $admin->profile->forceFill(['avatar_path' => 'avatars/admin.png'])->save();
+
+    $this->actingAs(student());
+
+    $missing = $this->postJson('/api/connections/999999');
+    $probe = $this->postJson("/api/connections/{$admin->id}");
+
+    expect($probe->status())->toBe($missing->status())
+        ->and($probe->json())->toBe($missing->json());
+
+    $pending = $this->getJson('/api/connections/pending')->assertOk()->json();
+
+    expect($pending['outgoing'])->toBe([])
+        ->and($admin->notifications()->count())->toBe(0);
+});
+
+test('an admin cannot initiate a connection either', function () {
+    // Spec line 14 makes admin<->anyone an invalid pair in BOTH directions.
+    // Left open, an admin-initiated request puts their name, role and avatar
+    // into the addressee's incoming list and into a ConnectionRequested
+    // payload -- the same disclosure from the other end.
+    config(['app.debug' => false]);
+
+    $t = teacher();
+    $this->actingAs(User::factory()->create(['role' => 'admin']));
+
+    $response = $this->postJson("/api/connections/{$t->id}");
+    $missing = $this->postJson('/api/connections/999999');
+
+    expect($response->status())->toBe($missing->status())
+        ->and($response->json())->toBe($missing->json());
+
+    $this->assertDatabaseCount('connections', 0);
+    expect($t->notifications()->count())->toBe(0);
+});
+
+test('an outgoing pending counterpart is named only when they are a teacher', function () {
+    // outgoingSummary() was a denylist (=== Student), so every non-student
+    // including Admin got the full summary. Rows for non-teacher counterparts
+    // still arise legitimately after store()'s guard -- a teacher who is
+    // promoted to admin while a request is pending keeps the row, because the
+    // spec enforces role rules at creation time only -- so the redaction has
+    // to be evaluated at read time against the CURRENT role.
+    //
+    // Also driven off Role::cases(): a role added later reduces to {id} by
+    // default, and widening that requires changing this test.
+    $me = teacher();
+
+    $counterparts = [];
+    foreach (Role::cases() as $role) {
+        $other = teacher();
+        $other->profile()->create(['bio' => null]);
+        $other->profile->forceFill(['avatar_path' => "avatars/{$role->value}.png"])->save();
+
+        // Requested while both parties were teachers, i.e. a legitimate row...
+        Connection::create([
+            'requester_id' => $me->id,
+            'addressee_id' => $other->id,
+            'status' => ConnectionStatus::Pending,
+            'pair_key' => Connection::pairKey($me->id, $other->id),
+        ]);
+
+        // ...and then the counterpart's role changes underneath it.
+        $other->update(['role' => $role->value]);
+        $counterparts[$role->value] = $other;
+    }
+
+    $this->actingAs($me);
+    $outgoing = collect($this->getJson('/api/connections/pending')->assertOk()->json('outgoing'))
+        ->keyBy(fn ($row) => $row['user']['id']);
+
+    expect($outgoing)->toHaveCount(count(Role::cases()));
+
+    foreach ($counterparts as $roleValue => $other) {
+        $user = $outgoing[$other->id]['user'];
+
+        if ($roleValue === Role::Teacher->value) {
+            // Inclusion: teachers are publicly discoverable via the directory,
+            // so the redaction must not swallow them too.
+            expect($user['name'])->toBe($other->name)
+                ->and($user['role'])->toBe('teacher')
+                ->and($user['avatar_url'])->toContain('avatars/teacher.png');
+
+            continue;
+        }
+
+        expect($user)->toBe(['id' => $other->id]);
+    }
 });
