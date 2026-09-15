@@ -87,9 +87,38 @@ describe('palette files', () => {
   }
 });
 
+// Matches every colour/font-bearing longhand and shorthand, not just the
+// handful the branch happened to ship first: border-top/-right/-bottom/
+// -left and their -color variants, border-inline-*, box-shadow,
+// background-image, the font shorthand, text-decoration-color,
+// caret-color, accent-color and stroke all fall under this.
+const GUARDED_PROP = /^(color|background|border|outline|fill|stroke|box-shadow|font|font-family|text-decoration-color|caret-color|accent-color)/;
+const ALLOWED = /^(var\(--[\w-]+\)|transparent|currentColor|inherit|none|solid|dashed|auto|[\d.]+(px|rem|em|%)?)$/;
+
+/** Every literal piece of every colour/font-bearing declaration in `css`
+ * that is not a token reference or a bare keyword/length. */
+export function offendingPieces(css: string): string[] {
+  const stripped = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  const out: string[] = [];
+  for (const m of stripped.matchAll(/([\w-]+)\s*:\s*([^;{}]+);/g)) {
+    if (!GUARDED_PROP.test(m[1])) continue;
+    for (const piece of m[2].trim().split(/[\s,]+/)) {
+      if (!ALLOWED.test(piece)) out.push(piece);
+    }
+  }
+  return out;
+}
+
 describe('no literal colours or fonts outside tokens.css, palettes/, typesets/', () => {
-  const PROPS = ['color', 'background', 'background-color', 'border', 'border-color', 'outline', 'outline-color', 'fill', 'font-family'];
-  const ALLOWED = /^(var\(--[\w-]+\)|transparent|currentColor|inherit|none|solid|dashed|auto|[\d.]+(px|rem|em|%)?)$/;
+  describe('offendingPieces()', () => {
+    it('reports a literal colour in a border longhand the old PROPS list never looked at', () => {
+      expect(offendingPieces("li { border-bottom: 1px solid #ff0000; }")).toContain('#ff0000');
+    });
+
+    it('does not report a token in the same property', () => {
+      expect(offendingPieces("li { border-bottom: 1px solid var(--color-line); }")).toEqual([]);
+    });
+  });
 
   function cssFiles(dir: string): string[] {
     return readdirSync(dir).flatMap((name) => {
@@ -107,14 +136,7 @@ describe('no literal colours or fonts outside tokens.css, palettes/, typesets/',
 
   for (const file of files) {
     it(`${file.split('/src/')[1]} uses tokens only`, () => {
-      // Strip comments, then check each guarded declaration token by token.
-      const css = read(file).replace(/\/\*[\s\S]*?\*\//g, '');
-      for (const m of css.matchAll(/([\w-]+)\s*:\s*([^;{}]+);/g)) {
-        if (!PROPS.includes(m[1])) continue;
-        for (const piece of m[2].trim().split(/[\s,]+/)) {
-          expect({ file, declaration: m[0], piece }).toEqual(expect.objectContaining({ piece: expect.stringMatching(ALLOWED) }));
-        }
-      }
+      expect(offendingPieces(read(file))).toEqual([]);
     });
   }
 });
