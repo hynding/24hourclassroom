@@ -53,6 +53,49 @@ export const GRADE_LEVELS: TaxonomyOption<GradeLevel>[] = [
   { value: 'higher-ed', label: 'Higher Ed' },
 ];
 
+export type Layout = 'stacked' | 'rail';
+export type Palette = 'noon' | 'evening' | 'slate' | 'afternoon';
+export type Typeset = 'editorial' | 'modern';
+
+/**
+ * `scheme` and `surface` are NOT tokens. They exist so the SPA's inline boot
+ * script can paint the canvas from the cache before any CSS has arrived. A
+ * spec asserts each entry matches its palette file, so they cannot drift.
+ */
+export interface PaletteOption extends TaxonomyOption<Palette> {
+  scheme: 'light' | 'dark';
+  surface: string;
+}
+
+export const LAYOUTS: TaxonomyOption<Layout>[] = [
+  { value: 'stacked', label: 'Stacked' },
+  { value: 'rail', label: 'Rail' },
+];
+
+export const PALETTES: PaletteOption[] = [
+  { value: 'noon', label: 'Noon', scheme: 'light', surface: '#fdfcf8' },
+  { value: 'evening', label: 'Evening', scheme: 'dark', surface: '#15191e' },
+  { value: 'slate', label: 'Slate', scheme: 'light', surface: '#ffffff' },
+  { value: 'afternoon', label: 'Afternoon', scheme: 'light', surface: '#f6f9f4' },
+];
+
+export const TYPESETS: TaxonomyOption<Typeset>[] = [
+  { value: 'editorial', label: 'Editorial' },
+  { value: 'modern', label: 'Modern' },
+];
+
+export interface SiteTheme {
+  layout: Layout;
+  palette: Palette;
+  typeset: Typeset;
+}
+
+export const DEFAULT_THEME: SiteTheme = { layout: 'stacked', palette: 'noon', typeset: 'editorial' };
+
+export interface SiteConfig {
+  theme: SiteTheme;
+}
+
 export interface Profile {
   bio: string | null;
   school: string | null;
