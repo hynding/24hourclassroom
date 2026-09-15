@@ -11,6 +11,11 @@ export namespace Components {
     interface AppFooter {
     }
     interface AppHeader {
+        /**
+          * reflect: true is load-bearing -- app-header.css keys on :host([orientation]).
+          * @default 'horizontal'
+         */
+        "orientation": 'horizontal' | 'vertical';
     }
     /**
      * One component for every layout, switched by a reflected prop. A wrapper
@@ -181,6 +186,11 @@ declare namespace LocalJSX {
     interface AppFooter {
     }
     interface AppHeader {
+        /**
+          * reflect: true is load-bearing -- app-header.css keys on :host([orientation]).
+          * @default 'horizontal'
+         */
+        "orientation"?: 'horizontal' | 'vertical';
     }
     /**
      * One component for every layout, switched by a reflected prop. A wrapper
@@ -224,6 +234,9 @@ declare namespace LocalJSX {
     interface PageVerifyEmail {
     }
 
+    interface AppHeaderAttributes {
+        "orientation": 'horizontal' | 'vertical';
+    }
     interface AppLayoutAttributes {
         "layout": Layout;
     }
@@ -233,7 +246,7 @@ declare namespace LocalJSX {
 
     interface IntrinsicElements {
         "app-footer": AppFooter;
-        "app-header": AppHeader;
+        "app-header": Omit<AppHeader, keyof AppHeaderAttributes> & { [K in keyof AppHeader & keyof AppHeaderAttributes]?: AppHeader[K] } & { [K in keyof AppHeader & keyof AppHeaderAttributes as `attr:${K}`]?: AppHeaderAttributes[K] } & { [K in keyof AppHeader & keyof AppHeaderAttributes as `prop:${K}`]?: AppHeader[K] };
         "app-layout": Omit<AppLayout, keyof AppLayoutAttributes> & { [K in keyof AppLayout & keyof AppLayoutAttributes]?: AppLayout[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `attr:${K}`]?: AppLayoutAttributes[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `prop:${K}`]?: AppLayout[K] };
         "app-root": AppRoot;
         "page-connections": PageConnections;

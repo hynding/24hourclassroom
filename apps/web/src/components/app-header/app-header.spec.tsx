@@ -157,4 +157,20 @@ describe('app-header bell', () => {
     expect(recoverFromExpiredSession).toHaveBeenCalled();
     expect(spec.root.shadowRoot.querySelector('[data-testid="unread-badge"]')).toBeNull();
   });
+
+  it('reflects the default orientation so app-header.css can key on it', async () => {
+    const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    expect(spec.root.getAttribute('orientation')).toBe('horizontal');
+  });
+
+  it('reflects a vertical orientation', async () => {
+    const spec = await newSpecPage({ components: [AppHeader], html: '<app-header orientation="vertical"></app-header>' });
+    expect(spec.root.getAttribute('orientation')).toBe('vertical');
+    expect(spec.root.getAttribute('orientation')).not.toBe('horizontal');
+  });
+
+  it('marks the brand link as the wordmark', async () => {
+    const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    expect(spec.root.shadowRoot.querySelector('a.wordmark')?.textContent).toContain('24 Hour Classroom');
+  });
 });
