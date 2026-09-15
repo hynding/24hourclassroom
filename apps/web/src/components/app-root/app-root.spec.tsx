@@ -6,6 +6,7 @@ const cachedTheme = jest.fn();
 const loadTheme = jest.fn();
 const releaseInlineCanvas = jest.fn();
 const navigate = jest.fn();
+const authLoad = jest.fn();
 
 jest.mock('../../services/theme-store', () => ({
   cachedTheme: (...a: unknown[]) => cachedTheme(...a),
@@ -13,7 +14,7 @@ jest.mock('../../services/theme-store', () => ({
   releaseInlineCanvas: (...a: unknown[]) => releaseInlineCanvas(...a),
 }));
 jest.mock('../../services/auth-store', () => ({
-  authStore: { load: jest.fn().mockResolvedValue(null), currentUser: null, subscribe: () => () => {} },
+  authStore: { load: (...a: unknown[]) => authLoad(...a), currentUser: null, subscribe: () => () => {} },
 }));
 jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a) }));
 
@@ -46,6 +47,7 @@ describe('app-root theme wiring', () => {
     loadTheme.mockReset().mockImplementation(() => new Promise((res, rej) => { resolveLoad = res; rejectLoad = rej; }));
     releaseInlineCanvas.mockReset();
     navigate.mockReset();
+    authLoad.mockReset().mockResolvedValue(null);
   });
 
   it('renders the cached layout on the first frame', async () => {
@@ -107,6 +109,19 @@ describe('app-root theme wiring', () => {
     await spec.waitForChanges();
 
     expect(releaseInlineCanvas).not.toHaveBeenCalled();
+  });
+
+  it('calls auth-store.load and applies guards without waiting on the theme fetch', async () => {
+    // F7/T11: loadTheme is left pending for the whole test (the default
+    // beforeEach mock, which never resolves or rejects). The real hazard of
+    // an accidental `await loadTheme()` in connectedCallback is that
+    // authStore.load() and applyGuards() would be deferred behind it, so a
+    // hanging /api/site would render every visitor as a signed-out guest
+    // with route guards never applied.
+    await mountAt('/profile');
+
+    expect(authLoad).toHaveBeenCalledTimes(1);
+    expect(navigate).toHaveBeenCalledWith('/login');
   });
 
   it('slots the page inside app-layout, not beside it', async () => {
