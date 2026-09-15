@@ -1,9 +1,14 @@
-:root {
-  --color-ink: #1c2733;
-  --color-paper: #fdfcf8;
-  --color-accent: #1f6f54;
-  font-family: Georgia, 'Times New Roman', serif;
-}
+@import './tokens.css';
+@import './typesets/editorial.css';
+
+/*
+ * Delivered twice: linked from index.html (the copy that makes :root, body
+ * and @font-face work) and adopted into every shadow root by Stencil (the
+ * copy that makes element and class rules reach components). Every rule
+ * below is evaluated inside every shadow root, so keep this file to base
+ * styles and shared variants; page layout lives in each component's CSS.
+ * Values are tokens and keywords only -- never a literal colour or font.
+ */
 
 * {
   box-sizing: border-box;
@@ -12,10 +17,13 @@
 body {
   margin: 0;
   color: var(--color-ink);
-  background: var(--color-paper);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.5;
 }
 
 .error {
-  color: #b3261e;
-  font-size: 0.875rem;
+  color: var(--color-danger);
+  font-size: var(--text-sm);
 }
