@@ -3,7 +3,7 @@ import type { Layout } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
 import { redirectFor, resolveRoute } from '../../services/router';
-import { cachedTheme, loadTheme } from '../../services/theme-store';
+import { cachedTheme, loadTheme, releaseInlineCanvas } from '../../services/theme-store';
 
 @Component({ tag: 'app-root', shadow: true })
 export class AppRoot {
@@ -27,7 +27,11 @@ export class AppRoot {
     // one. app-layout switches by prop, so a late change remounts nothing.
     loadTheme()
       .then((theme) => { this.layout = theme.layout; })
-      .catch(() => undefined);
+      // A failed fetch never reaches applyTheme, so nothing else would hand
+      // the boot script's inline canvas back to the stylesheet; without
+      // this, an unreachable /api/site leaves a stale dark canvas under the
+      // Noon tokens the CSS falls back to.
+      .catch(() => releaseInlineCanvas());
     await authStore.load();
     this.applyGuards();
   }

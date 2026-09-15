@@ -4,11 +4,13 @@ import { newSpecPage } from '@stencil/core/testing';
 // import: jest.mock() is not hoisted under Stencil's TS transpiler.
 const cachedTheme = jest.fn();
 const loadTheme = jest.fn();
+const releaseInlineCanvas = jest.fn();
 const navigate = jest.fn();
 
 jest.mock('../../services/theme-store', () => ({
   cachedTheme: (...a: unknown[]) => cachedTheme(...a),
   loadTheme: (...a: unknown[]) => loadTheme(...a),
+  releaseInlineCanvas: (...a: unknown[]) => releaseInlineCanvas(...a),
 }));
 jest.mock('../../services/auth-store', () => ({
   authStore: { load: jest.fn().mockResolvedValue(null), currentUser: null, subscribe: () => () => {} },
@@ -42,6 +44,7 @@ describe('app-root theme wiring', () => {
   beforeEach(() => {
     cachedTheme.mockReset().mockReturnValue({ layout: 'stacked', palette: 'noon', typeset: 'editorial' });
     loadTheme.mockReset().mockImplementation(() => new Promise((res, rej) => { resolveLoad = res; rejectLoad = rej; }));
+    releaseInlineCanvas.mockReset();
     navigate.mockReset();
   });
 
@@ -83,6 +86,27 @@ describe('app-root theme wiring', () => {
     await spec.waitForChanges();
 
     expect(spec.root.shadowRoot.querySelector('app-layout')!.getAttribute('layout')).toBe('rail');
+  });
+
+  it('releases the inline boot canvas when the fetch fails', async () => {
+    // F6/T8b: a failed loadTheme() never reaches applyTheme, so nothing else
+    // would hand the boot script's inline canvas back to the stylesheet.
+    const spec = await mountAt('/teachers');
+
+    rejectLoad(new Error('down'));
+    await spec.waitForChanges();
+
+    expect(releaseInlineCanvas).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not release the inline canvas on the resolution path -- applyTheme owns that', async () => {
+    const spec = await mountAt('/teachers');
+
+    resolveLoad({ layout: 'rail', palette: 'evening', typeset: 'modern' });
+    await spec.waitForChanges();
+    await spec.waitForChanges();
+
+    expect(releaseInlineCanvas).not.toHaveBeenCalled();
   });
 
   it('slots the page inside app-layout, not beside it', async () => {

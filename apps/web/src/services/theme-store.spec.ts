@@ -3,7 +3,7 @@ import { join } from 'path';
 
 // Imported FIRST so the "no side effects on import" test is meaningful: the
 // module must not have touched the document by the time we look.
-import { THEME_CACHE_KEY, applyTheme, cachedTheme, loadTheme, normalizeTheme } from './theme-store';
+import { THEME_CACHE_KEY, applyTheme, cachedTheme, loadTheme, normalizeTheme, releaseInlineCanvas } from './theme-store';
 
 const html = () => document.documentElement;
 
@@ -109,6 +109,32 @@ describe('theme-store', () => {
     });
   });
 
+  describe('releaseInlineCanvas', () => {
+    // F6/T8b: direct cases for the extracted function, not just through
+    // applyTheme -- app-root's failed-fetch catch calls this without ever
+    // reaching applyTheme.
+    it('clears color-scheme and background-color once the stylesheet has arrived', () => {
+      html().style.colorScheme = 'dark';
+      html().style.backgroundColor = '#15191e';
+
+      releaseInlineCanvas();
+
+      expect(html().style.colorScheme).toBe('');
+      expect(html().style.backgroundColor).toBe('');
+    });
+
+    it('keeps the inline canvas when --color-surface has not resolved', () => {
+      stubSurface('');
+      html().style.colorScheme = 'dark';
+      html().style.backgroundColor = '#15191e';
+
+      releaseInlineCanvas();
+
+      expect(html().style.colorScheme).toBe('dark');
+      expect(html().style.backgroundColor).toBe('#15191e');
+    });
+  });
+
   describe('loadTheme', () => {
     it('fetches, applies, caches and resolves the applied theme', async () => {
       const client = { getSite: jest.fn().mockResolvedValue({ theme: { layout: 'rail', palette: 'slate', typeset: 'modern' } }) };
@@ -143,5 +169,12 @@ describe('the inline boot script in index.html', () => {
 
   it('never writes markup', () => {
     expect(html).not.toMatch(/document\.write|innerHTML/);
+  });
+
+  it('guards against a cached value that parses but is not an object, so it never writes data-palette="undefined"', () => {
+    // F6/T8a: a bare `typeof t === 'object'` also rejects `null`, which is
+    // why the guard is written as `t && typeof t === 'object'`, not just
+    // `typeof t === 'object'` alone.
+    expect(html).toMatch(/typeof t === 'object'/);
   });
 });

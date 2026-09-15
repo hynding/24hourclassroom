@@ -49,6 +49,21 @@ export function cachedTheme(): SiteTheme {
   }
 }
 
+// The boot script painted the canvas inline before any CSS existed. Hand it
+// back to the stylesheet only once the stylesheet has actually arrived; if
+// app.css 404'd, clearing would turn a correctly dark canvas white. Exported
+// so a failed theme fetch can release the canvas too -- applyTheme is only
+// ever reached through a successful loadTheme(), and a fetch failure still
+// hands the page to Noon tokens rather than leaving a stale dark canvas
+// under a cream body.
+export function releaseInlineCanvas(): void {
+  const root = document.documentElement;
+  if (window.getComputedStyle(root).getPropertyValue('--color-surface').trim() !== '') {
+    root.style.removeProperty('color-scheme');
+    root.style.removeProperty('background-color');
+  }
+}
+
 export function applyTheme(input: unknown): SiteTheme {
   const theme = normalizeTheme(input);
   const root = document.documentElement;
@@ -65,13 +80,7 @@ export function applyTheme(input: unknown): SiteTheme {
     // Private mode: the theme still applies, it just won't be remembered.
   }
 
-  // The boot script painted the canvas inline before any CSS existed. Hand it
-  // back to the stylesheet only once the stylesheet has actually arrived; if
-  // app.css 404'd, clearing would turn a correctly dark canvas white.
-  if (window.getComputedStyle(root).getPropertyValue('--color-surface').trim() !== '') {
-    root.style.removeProperty('color-scheme');
-    root.style.removeProperty('background-color');
-  }
+  releaseInlineCanvas();
 
   return theme;
 }

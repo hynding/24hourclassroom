@@ -11,7 +11,7 @@
       // must match THEME_CACHE_KEY in services/theme-store.ts (a spec checks).
       try {
         var t = JSON.parse(localStorage.getItem('24hc.theme.v1'));
-        if (t) {
+        if (t && typeof t === 'object') {
           document.documentElement.dataset.palette = t.palette;
           document.documentElement.dataset.typeset = t.typeset;
           if (t.scheme) document.documentElement.style.colorScheme = t.scheme;
