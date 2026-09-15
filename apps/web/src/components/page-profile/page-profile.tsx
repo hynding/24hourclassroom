@@ -4,7 +4,7 @@ import { GRADE_LEVELS, GradeLevel, SUBJECTS, Subject } from '@24hc/shared';
 import { profileStore } from '../../services/profile-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 
-@Component({ tag: 'page-profile', shadow: true })
+@Component({ tag: 'page-profile', styleUrl: 'page-profile.css', shadow: true })
 export class PageProfile {
   @State() bio = '';
   @State() school = '';

@@ -2,7 +2,7 @@ import { Component, h, State } from '@stencil/core';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
 
-@Component({ tag: 'page-verify-email', shadow: true })
+@Component({ tag: 'page-verify-email', styleUrl: 'page-verify-email.css', shadow: true })
 export class PageVerifyEmail {
   @State() sent = false;
 

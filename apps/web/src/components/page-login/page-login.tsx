@@ -3,7 +3,7 @@ import { ApiError } from '@24hc/api-client';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
 
-@Component({ tag: 'page-login', shadow: true })
+@Component({ tag: 'page-login', styleUrl: 'page-login.css', shadow: true })
 export class PageLogin {
   @State() email = '';
   @State() password = '';

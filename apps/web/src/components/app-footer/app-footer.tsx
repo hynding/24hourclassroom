@@ -1,6 +1,6 @@
 import { Component, h } from '@stencil/core';
 
-@Component({ tag: 'app-footer', shadow: true })
+@Component({ tag: 'app-footer', styleUrl: 'app-footer.css', shadow: true })
 export class AppFooter {
   render() {
     return (

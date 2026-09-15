@@ -3,7 +3,7 @@ import type { AppNotification } from '@24hc/shared';
 import { profileStore } from '../../services/profile-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 
-@Component({ tag: 'page-notifications', shadow: true })
+@Component({ tag: 'page-notifications', styleUrl: 'page-notifications.css', shadow: true })
 export class PageNotifications {
   @State() notifications: AppNotification[] = [];
   @State() loaded = false;

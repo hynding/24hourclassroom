@@ -5,7 +5,7 @@ import { authStore } from '../../services/auth-store';
 import { profileStore } from '../../services/profile-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 
-@Component({ tag: 'page-teacher-profile', shadow: true })
+@Component({ tag: 'page-teacher-profile', styleUrl: 'page-teacher-profile.css', shadow: true })
 export class PageTeacherProfile {
   @Prop() teacherId?: number;
 

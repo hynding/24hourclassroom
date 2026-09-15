@@ -3,7 +3,7 @@ import { ApiError } from '@24hc/api-client';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
 
-@Component({ tag: 'page-reset-password', shadow: true })
+@Component({ tag: 'page-reset-password', styleUrl: 'page-reset-password.css', shadow: true })
 export class PageResetPassword {
   @State() password = '';
   @State() passwordConfirmation = '';

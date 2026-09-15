@@ -4,7 +4,7 @@ import { profileStore } from '../../services/profile-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { navigate } from '../../services/navigate';
 
-@Component({ tag: 'page-connections', shadow: true })
+@Component({ tag: 'page-connections', styleUrl: 'page-connections.css', shadow: true })
 export class PageConnections {
   @State() accepted: Connection[] = [];
   @State() incoming: Connection[] = [];

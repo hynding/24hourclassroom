@@ -2,7 +2,7 @@ import { Component, h, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
 import { authStore } from '../../services/auth-store';
 
-@Component({ tag: 'page-forgot-password', shadow: true })
+@Component({ tag: 'page-forgot-password', styleUrl: 'page-forgot-password.css', shadow: true })
 export class PageForgotPassword {
   @State() email = '';
   @State() message = '';

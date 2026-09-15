@@ -4,7 +4,7 @@ import type { RegistrationRole } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
 
-@Component({ tag: 'page-register', shadow: true })
+@Component({ tag: 'page-register', styleUrl: 'page-register.css', shadow: true })
 export class PageRegister {
   @State() name = '';
   @State() email = '';

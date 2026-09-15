@@ -4,7 +4,7 @@ import { profileStore } from '../../services/profile-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 
-@Component({ tag: 'page-teachers', shadow: true })
+@Component({ tag: 'page-teachers', styleUrl: 'page-teachers.css', shadow: true })
 export class PageTeachers {
   @State() teachers: TeacherSummary[] = [];
   @State() subject: Subject | '' = '';

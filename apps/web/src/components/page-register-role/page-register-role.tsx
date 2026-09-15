@@ -4,7 +4,7 @@ import type { RegistrationRole } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
 
-@Component({ tag: 'page-register-role', shadow: true })
+@Component({ tag: 'page-register-role', styleUrl: 'page-register-role.css', shadow: true })
 export class PageRegisterRole {
   @State() role: RegistrationRole = 'teacher';
   @State() error = '';
