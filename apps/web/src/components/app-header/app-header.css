@@ -64,6 +64,10 @@ nav {
   }
   :host([orientation='vertical']) nav {
     flex-direction: row;
+    /* Mirrors the sibling `header` rule above: the vertical rule set
+     * align-items: stretch, which otherwise survives the collapse (same
+     * (0,2,1) specificity, later source only resets flex-direction/margin). */
+    align-items: center;
     margin-left: auto;
   }
 }
