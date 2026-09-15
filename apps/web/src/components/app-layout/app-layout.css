@@ -1,0 +1,39 @@
+:host {
+  display: block;
+}
+
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-4);
+}
+
+/* Rail: header becomes a left column spanning both rows. */
+:host([layout='rail']) .shell {
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+  grid-template-rows: 1fr auto;
+}
+:host([layout='rail']) ::slotted([slot='header']) {
+  grid-row: 1 / -1;
+}
+
+/* Breakpoint literal is duplicated in app-header.css (custom properties
+ * cannot drive media queries); a spec asserts the two match. */
+@media (max-width: 767px) {
+  :host([layout='rail']) .shell {
+    display: flex;
+    flex-direction: column;
+  }
+  :host([layout='rail']) ::slotted([slot='header']) {
+    grid-row: auto;
+  }
+}
