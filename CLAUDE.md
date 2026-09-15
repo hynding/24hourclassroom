@@ -74,6 +74,31 @@ Enforced by specs in `src/global/`. These fail CI, not review:
 - Page layout lives in each component's CSS. Keep `app.css` to base styles and
   shared variants — every rule in it is evaluated inside every shadow root.
 
+## Admin accounts
+
+**Nothing in the application can create an admin.** All four role-accepting
+entry points allowlist teacher/student only — SPA registration, web
+registration, OAuth completion, *and the admin UI's own role editor*. That is
+deliberate: a stolen admin session cannot mint persistent admins. It also means
+provisioning always needs shell access.
+
+```bash
+php artisan user:promote you@example.com --verify
+```
+
+`--verify` also sets `email_verified_at` and clears `deactivated_at`, because
+the admin surface is gated on `['auth','verified','active','admin']` and the
+role alone won't get you in. Without the flag those gates are left untouched and
+the command warns you which one is still closed.
+
+The admin UI is Inertia on the **API host** (`/admin/users`, `/admin/site-theme`),
+not the Stencil SPA. Log in there, not on the SPA host.
+
+Middleware order in `bootstrap/app.php` is load-bearing: `EnsureUserIsAdmin` is
+prepended ahead of `SubstituteBindings` so `/admin/users/{user}` isn't an
+existence oracle, and `active` ahead of `admin` so a deactivated non-admin is
+redirected rather than told 403. Don't add admin routes that bypass those aliases.
+
 ## Gotchas
 
 **Denylist over the `Role` enum — the recurring defect class.** Writing
