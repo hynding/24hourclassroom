@@ -2,9 +2,10 @@ import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import { mainNavItems } from '@/lib/main-nav';
 import { type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Palette, Users } from 'lucide-react';
+import { BookOpen, Folder } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const footerNavItems: NavItem[] = [
@@ -16,17 +17,7 @@ export function AppSidebar() {
     // Optional chaining is deliberate: `Auth.user` is typed non-null but
     // HandleInertiaRequests shares `null` for guests.
     const { auth } = usePage<SharedData>().props;
-    const isAdmin = auth.user?.role === 'admin';
-
-    const mainNavItems: NavItem[] = [
-        { title: 'Dashboard', href: '/dashboard', icon: LayoutGrid },
-        ...(isAdmin
-            ? [
-                  { title: 'Users', href: '/admin/users', icon: Users },
-                  { title: 'Site theme', href: '/admin/site-theme', icon: Palette },
-              ]
-            : []),
-    ];
+    const navItems = mainNavItems(auth.user?.role);
 
     return (
         <Sidebar collapsible="icon" variant="inset">
@@ -43,7 +34,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={navItems} />
             </SidebarContent>
 
             <SidebarFooter>
