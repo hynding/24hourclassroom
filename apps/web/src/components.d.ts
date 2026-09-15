@@ -5,10 +5,26 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Layout } from "@24hc/shared";
+export { Layout } from "@24hc/shared";
 export namespace Components {
     interface AppFooter {
     }
     interface AppHeader {
+    }
+    /**
+     * One component for every layout, switched by a reflected prop. A wrapper
+     * TAG change (<layout-stacked> -> <layout-rail>) would make Stencil's vdom
+     * rebuild the subtree, remounting the slotted header/page/footer and
+     * re-firing their fetches; a prop change re-renders only this shadow tree
+     * and the light-DOM children stay put.
+     */
+    interface AppLayout {
+        /**
+          * reflect: true is load-bearing -- app-layout.css keys on :host([layout]).
+          * @default 'stacked'
+         */
+        "layout": Layout;
     }
     interface AppRoot {
     }
@@ -50,6 +66,19 @@ declare global {
     var HTMLAppHeaderElement: {
         prototype: HTMLAppHeaderElement;
         new (): HTMLAppHeaderElement;
+    };
+    /**
+     * One component for every layout, switched by a reflected prop. A wrapper
+     * TAG change (<layout-stacked> -> <layout-rail>) would make Stencil's vdom
+     * rebuild the subtree, remounting the slotted header/page/footer and
+     * re-firing their fetches; a prop change re-renders only this shadow tree
+     * and the light-DOM children stay put.
+     */
+    interface HTMLAppLayoutElement extends Components.AppLayout, HTMLStencilElement {
+    }
+    var HTMLAppLayoutElement: {
+        prototype: HTMLAppLayoutElement;
+        new (): HTMLAppLayoutElement;
     };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
@@ -132,6 +161,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "app-footer": HTMLAppFooterElement;
         "app-header": HTMLAppHeaderElement;
+        "app-layout": HTMLAppLayoutElement;
         "app-root": HTMLAppRootElement;
         "page-connections": HTMLPageConnectionsElement;
         "page-forgot-password": HTMLPageForgotPasswordElement;
@@ -151,6 +181,20 @@ declare namespace LocalJSX {
     interface AppFooter {
     }
     interface AppHeader {
+    }
+    /**
+     * One component for every layout, switched by a reflected prop. A wrapper
+     * TAG change (<layout-stacked> -> <layout-rail>) would make Stencil's vdom
+     * rebuild the subtree, remounting the slotted header/page/footer and
+     * re-firing their fetches; a prop change re-renders only this shadow tree
+     * and the light-DOM children stay put.
+     */
+    interface AppLayout {
+        /**
+          * reflect: true is load-bearing -- app-layout.css keys on :host([layout]).
+          * @default 'stacked'
+         */
+        "layout"?: Layout;
     }
     interface AppRoot {
     }
@@ -180,6 +224,9 @@ declare namespace LocalJSX {
     interface PageVerifyEmail {
     }
 
+    interface AppLayoutAttributes {
+        "layout": Layout;
+    }
     interface PageTeacherProfileAttributes {
         "teacherId": number;
     }
@@ -187,6 +234,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "app-footer": AppFooter;
         "app-header": AppHeader;
+        "app-layout": Omit<AppLayout, keyof AppLayoutAttributes> & { [K in keyof AppLayout & keyof AppLayoutAttributes]?: AppLayout[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `attr:${K}`]?: AppLayoutAttributes[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `prop:${K}`]?: AppLayout[K] };
         "app-root": AppRoot;
         "page-connections": PageConnections;
         "page-forgot-password": PageForgotPassword;
@@ -208,6 +256,14 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "app-footer": LocalJSX.IntrinsicElements["app-footer"] & JSXBase.HTMLAttributes<HTMLAppFooterElement>;
             "app-header": LocalJSX.IntrinsicElements["app-header"] & JSXBase.HTMLAttributes<HTMLAppHeaderElement>;
+            /**
+             * One component for every layout, switched by a reflected prop. A wrapper
+             * TAG change (<layout-stacked> -> <layout-rail>) would make Stencil's vdom
+             * rebuild the subtree, remounting the slotted header/page/footer and
+             * re-firing their fetches; a prop change re-renders only this shadow tree
+             * and the light-DOM children stay put.
+             */
+            "app-layout": LocalJSX.IntrinsicElements["app-layout"] & JSXBase.HTMLAttributes<HTMLAppLayoutElement>;
             "app-root": LocalJSX.IntrinsicElements["app-root"] & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "page-connections": LocalJSX.IntrinsicElements["page-connections"] & JSXBase.HTMLAttributes<HTMLPageConnectionsElement>;
             "page-forgot-password": LocalJSX.IntrinsicElements["page-forgot-password"] & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
