@@ -118,7 +118,7 @@ export class PageTeachers {
             Search
             <input type="search" placeholder="Name or school" value={this.q} onInput={(e) => (this.q = (e.target as HTMLInputElement).value)} />
           </label>
-          <button type="submit" disabled={this.busy}>Search</button>
+          <button type="submit" class="btn-primary" disabled={this.busy}>Search</button>
         </form>
 
         {this.busy && <p>Searching…</p>}
@@ -146,13 +146,13 @@ export class PageTeachers {
 
         {this.lastPage > 1 && (
           <nav aria-label="Directory pages">
-            <button type="button" disabled={this.page <= 1 || this.busy} onClick={() => this.previousPage()}>
+            <button type="button" class="btn" disabled={this.page <= 1 || this.busy} onClick={() => this.previousPage()}>
               Previous
             </button>
             <span>
               Page {this.page} of {this.lastPage}
             </span>
-            <button type="button" disabled={this.page >= this.lastPage || this.busy} onClick={() => this.nextPage()}>
+            <button type="button" class="btn" disabled={this.page >= this.lastPage || this.busy} onClick={() => this.nextPage()}>
               Next
             </button>
           </nav>

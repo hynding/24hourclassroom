@@ -147,7 +147,7 @@ export class PageProfile {
         <section>
           <h1>My profile</h1>
           <p class="error">We could not load your profile. Please try again.</p>
-          <button type="button" onClick={this.retry}>Retry</button>
+          <button type="button" class="btn" onClick={this.retry}>Retry</button>
         </section>
       );
     }
@@ -166,11 +166,11 @@ export class PageProfile {
       <section>
         <h1>My profile</h1>
         {this.generalError && <p class="error">{this.generalError}</p>}
-        {this.saved && <p>Saved.</p>}
+        {this.saved && <p class="success">Saved.</p>}
 
         {this.avatarUrl && [
           <img src={this.avatarUrl} alt="Your avatar" />,
-          <button type="button" onClick={() => this.removeAvatar()}>Remove avatar</button>,
+          <button type="button" class="btn" onClick={() => this.removeAvatar()}>Remove avatar</button>,
         ]}
         <label>
           Avatar
@@ -225,7 +225,7 @@ export class PageProfile {
             ))}
           </fieldset>
 
-          <button type="submit" disabled={this.busy}>Save profile</button>
+          <button type="submit" class="btn-primary" disabled={this.busy}>Save profile</button>
         </form>
       </section>
     );

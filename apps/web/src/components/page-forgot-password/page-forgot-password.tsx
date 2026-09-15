@@ -36,7 +36,7 @@ export class PageForgotPassword {
               Email
               <input type="email" required value={this.email} onInput={(e) => (this.email = (e.target as HTMLInputElement).value)} />
             </label>
-            <button type="submit" disabled={this.busy}>Send reset link</button>
+            <button type="submit" class="btn-primary" disabled={this.busy}>Send reset link</button>
           </form>
         )}
       </section>

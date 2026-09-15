@@ -122,7 +122,7 @@ export class PageConnections {
         <section>
           <h1>Connections</h1>
           <p class="error">We could not load your connections.</p>
-          <button type="button" onClick={() => this.load()}>Retry</button>
+          <button type="button" class="btn" onClick={() => this.load()}>Retry</button>
         </section>
       );
     }
@@ -149,6 +149,7 @@ export class PageConnections {
                   {this.person(connection, this.pendingIsLinkable(connection))}
                   <button
                     type="button"
+                    class="btn-primary"
                     data-testid={`accept-${connection.id}`}
                     disabled={this.busy}
                     onClick={() => this.accept(connection.id)}
@@ -157,6 +158,7 @@ export class PageConnections {
                   </button>
                   <button
                     type="button"
+                    class="btn"
                     data-testid={`decline-${connection.id}`}
                     disabled={this.busy}
                     onClick={() => this.remove(connection.id)}
@@ -178,6 +180,7 @@ export class PageConnections {
                   {this.person(connection, this.pendingIsLinkable(connection))}
                   <button
                     type="button"
+                    class="btn"
                     data-testid={`cancel-${connection.id}`}
                     disabled={this.busy}
                     onClick={() => this.remove(connection.id)}
@@ -200,6 +203,7 @@ export class PageConnections {
                   {this.person(connection, true)}
                   <button
                     type="button"
+                    class="btn"
                     data-testid={`disconnect-${connection.id}`}
                     disabled={this.busy}
                     onClick={() => this.remove(connection.id)}

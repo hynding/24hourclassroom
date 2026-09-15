@@ -29,7 +29,7 @@ export class PageVerifyEmail {
       <section>
         <h1>Check your email</h1>
         <p>We sent you a verification link. Click it to activate your account.</p>
-        {this.sent ? <p>Sent — check your inbox.</p> : <button onClick={this.resend}>Resend email</button>}
+        {this.sent ? <p>Sent — check your inbox.</p> : <button class="btn-primary" onClick={this.resend}>Resend email</button>}
       </section>
     );
   }

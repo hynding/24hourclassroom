@@ -398,4 +398,21 @@ describe('page-teacher-profile', () => {
     expect(spec.root.shadowRoot.querySelector('[data-testid="verify-hint"]')).not.toBeNull();
     expect(spec.root.shadowRoot.querySelector('[data-testid="admin-connect-hint"]')).toBeNull();
   });
+
+  it('renders every subject and grade as a pill', async () => {
+    teacher.mockResolvedValue({
+      id: 7, name: 'Ada Teacher', role: 'teacher', is_following: false, connection: null,
+      profile: { bio: null, school: null, specialties: null, subjects: ['math', 'science'], grade_levels: ['9-12'], avatar_url: null },
+    });
+
+    const spec = await newSpecPage({
+      components: [PageTeacherProfile],
+      html: '<page-teacher-profile teacher-id="7"></page-teacher-profile>',
+    });
+    await spec.waitForChanges();
+
+    // Exact count: a pill class on the <ul> instead of each <li>, or a
+    // missing grade, both fail.
+    expect(spec.root.shadowRoot.querySelectorAll('.pill')).toHaveLength(3);
+  });
 });

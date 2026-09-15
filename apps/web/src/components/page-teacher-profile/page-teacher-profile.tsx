@@ -176,14 +176,14 @@ export class PageTeacherProfile {
         {profile && (
           <ul>
             {profile.subjects.map((subject) => (
-              <li>{this.label(SUBJECTS, subject)}</li>
+              <li class="pill">{this.label(SUBJECTS, subject)}</li>
             ))}
           </ul>
         )}
         {profile && (
           <ul>
             {profile.grade_levels.map((grade) => (
-              <li>{this.label(GRADE_LEVELS, grade)}</li>
+              <li class="pill">{this.label(GRADE_LEVELS, grade)}</li>
             ))}
           </ul>
         )}
@@ -199,11 +199,11 @@ export class PageTeacherProfile {
           authStore.currentUser?.id !== this.teacher.id &&
           (this.viewerIsVerified ? (
             <div>
-              <button type="button" disabled={this.busy} onClick={() => this.toggleFollow()}>
+              <button type="button" class="btn-primary" disabled={this.busy} onClick={() => this.toggleFollow()}>
                 {is_following ? 'Unfollow' : 'Follow'}
               </button>
               {connection || this.viewerMayInitiateConnection ? (
-                <button type="button" disabled={this.busy} onClick={() => this.connectAction()}>
+                <button type="button" class="btn" disabled={this.busy} onClick={() => this.connectAction()}>
                   {this.connectLabel(connection)}
                 </button>
               ) : (

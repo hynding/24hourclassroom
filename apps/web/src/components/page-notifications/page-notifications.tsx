@@ -71,7 +71,7 @@ export class PageNotifications {
         <section>
           <h1>Notifications</h1>
           <p class="error">We could not load your notifications.</p>
-          <button type="button" onClick={() => this.load()}>Retry</button>
+          <button type="button" class="btn" onClick={() => this.load()}>Retry</button>
         </section>
       );
     }
@@ -101,13 +101,13 @@ export class PageNotifications {
 
         {this.lastPage > 1 && (
           <nav aria-label="Notification pages">
-            <button type="button" disabled={this.page <= 1} onClick={() => this.previousPage()}>
+            <button type="button" class="btn" disabled={this.page <= 1} onClick={() => this.previousPage()}>
               Previous
             </button>
             <span>
               Page {this.page} of {this.lastPage}
             </span>
-            <button type="button" disabled={this.page >= this.lastPage} onClick={() => this.nextPage()}>
+            <button type="button" class="btn" disabled={this.page >= this.lastPage} onClick={() => this.nextPage()}>
               Next
             </button>
           </nav>

@@ -39,7 +39,7 @@ export class PageRegisterRole {
             <input type="radio" name="role" checked={this.role === 'student'} onInput={() => (this.role = 'student')} />
             Student
           </label>
-          <button type="submit" disabled={this.busy}>Finish</button>
+          <button type="submit" class="btn-primary" disabled={this.busy}>Finish</button>
         </form>
       </section>
     );

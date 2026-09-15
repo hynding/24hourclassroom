@@ -50,7 +50,7 @@ export class PageResetPassword {
             Confirm password
             <input type="password" required value={this.passwordConfirmation} onInput={(e) => (this.passwordConfirmation = (e.target as HTMLInputElement).value)} />
           </label>
-          <button type="submit" disabled={this.busy}>Reset password</button>
+          <button type="submit" class="btn-primary" disabled={this.busy}>Reset password</button>
         </form>
       </section>
     );

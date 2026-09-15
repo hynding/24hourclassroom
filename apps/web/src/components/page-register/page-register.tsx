@@ -74,7 +74,7 @@ export class PageRegister {
             Confirm password
             <input type="password" required value={this.passwordConfirmation} onInput={(e) => (this.passwordConfirmation = (e.target as HTMLInputElement).value)} />
           </label>
-          <button type="submit" disabled={this.busy}>Sign up</button>
+          <button type="submit" class="btn-primary" disabled={this.busy}>Sign up</button>
         </form>
       </section>
     );

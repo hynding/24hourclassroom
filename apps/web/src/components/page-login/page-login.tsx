@@ -78,7 +78,7 @@ export class PageLogin {
             <input type="password" required value={this.password} onInput={(e) => (this.password = (e.target as HTMLInputElement).value)} />
           </label>
           {this.fieldError('password')}
-          <button type="submit" disabled={this.busy}>Sign in</button>
+          <button type="submit" class="btn-primary" disabled={this.busy}>Sign in</button>
         </form>
         <a href={this.googleUrl}>Continue with Google</a>
         <p>

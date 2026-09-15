@@ -215,4 +215,16 @@ describe('page-profile', () => {
     expect(sessionExpired).toHaveBeenCalled();
     expect(navigate).toHaveBeenCalledWith('/login');
   });
+
+  it('marks the saved confirmation with the success class', async () => {
+    const spec = await newSpecPage({ components: [PageProfile], html: '<page-profile></page-profile>' });
+    await spec.waitForChanges();
+
+    spec.rootInstance.saved = true;
+    await spec.waitForChanges();
+
+    const el = spec.root.shadowRoot.querySelector('.success');
+    // Removing the class (or rendering "Saved." in a plain <p>) fails this.
+    expect(el?.textContent).toContain('Saved');
+  });
 });
