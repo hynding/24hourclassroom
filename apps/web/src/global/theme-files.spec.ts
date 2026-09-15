@@ -1,7 +1,7 @@
-import { readdirSync, readFileSync, statSync } from 'fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { join } from 'path';
-import { PALETTES } from '@24hc/shared';
-import { COLOR_TOKENS } from './token-names';
+import { PALETTES, TYPESETS } from '@24hc/shared';
+import { COLOR_TOKENS, FONT_TOKENS } from './token-names';
 
 const G = (rel: string) => join(__dirname, rel);
 const read = (abs: string) => readFileSync(abs, 'utf8');
@@ -16,6 +16,53 @@ export function declarations(css: string): Record<string, string> {
   const out: Record<string, string> = {};
   for (const m of body.matchAll(/([\w-]+)\s*:\s*([^;]+);/g)) out[m[1]] = m[2].trim();
   return out;
+}
+
+/** `--name: value;` pairs inside an arbitrary block body string (as opposed
+ * to `declarations()`, which always takes the FIRST `{…}` block of a whole
+ * file -- needed for typeset files, whose FIRST block is `@font-face`, not
+ * the `:root[data-typeset=...]` override). */
+function declarationsInBody(body: string): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const m of body.matchAll(/([\w-]+)\s*:\s*([^;]+);/g)) out[m[1]] = m[2].trim();
+  return out;
+}
+
+/** The selector text before the first `{` in a file, comments stripped and
+ * trimmed. Palette files have exactly one block, so this is their selector;
+ * typeset files are handled separately below (see `overrideSelector`). */
+export function firstSelector(css: string): string {
+  const stripped = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  return stripped.slice(0, stripped.indexOf('{')).trim();
+}
+
+/** The selector of the `:root[data-typeset=...]` override block, wherever it
+ * falls in the file (Modern's is the SECOND block, after `@font-face`).
+ * `undefined` when the file has no such block (Editorial). */
+function overrideSelector(css: string): string | undefined {
+  const stripped = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  return stripped.match(/(:root\[[^{]*)\{/)?.[1].trim();
+}
+
+/** The body of the `:root[data-typeset=...]` override block. Empty string
+ * when there is no such block. */
+function overrideBody(css: string): string {
+  const stripped = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  const at = stripped.search(/:root\[/);
+  if (at === -1) return '';
+  const openAt = stripped.indexOf('{', at);
+  const closeAt = stripped.indexOf('}', openAt);
+  return stripped.slice(openAt + 1, closeAt);
+}
+
+function fontFaceFamily(css: string): string | undefined {
+  const stripped = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  return stripped.match(/@font-face\s*\{[^}]*font-family:\s*'([^']+)'/)?.[1];
+}
+
+function fontUrl(css: string): string | undefined {
+  const stripped = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  return stripped.match(/url\('\/assets\/fonts\/([^']+)'\)/)?.[1];
 }
 
 // WCAG 2.x relative luminance and contrast ratio.
@@ -51,10 +98,10 @@ describe('declarations()', () => {
 
 const TEXT_TOKENS = ['--color-ink', '--color-ink-muted', '--color-accent', '--color-link', '--color-danger', '--color-success'];
 
-/** Noon's values are the base; every other palette is its own file. */
+/** Every palette file's values, layered over the tokens.css base -- Noon
+ * included, so its (empty) file is actually read rather than assumed empty. */
 function paletteValues(name: string): Record<string, string> {
   const base = declarations(read(G('tokens.css')));
-  if (name === 'noon') return base;
   return { ...base, ...declarations(read(G(`palettes/${name}.css`))) };
 }
 
@@ -82,6 +129,58 @@ describe('palette files', () => {
       it('matches the PALETTES metadata the boot script paints from', () => {
         expect(v['--color-surface']).toBe(option.surface);
         expect(v['color-scheme']).toBe(option.scheme);
+      });
+
+      it(`has the selector :root[data-palette='${option.value}']`, () => {
+        // The contrast/token/mirror checks above all parse the block BODY
+        // and never look at what selects it -- a misspelled selector here
+        // would still pass every one of them while matching nothing at
+        // runtime, silently rendering as Noon.
+        expect(firstSelector(read(G(`palettes/${option.value}.css`)))).toBe(`:root[data-palette='${option.value}']`);
+      });
+    });
+  }
+});
+
+describe('typeset files', () => {
+  for (const option of TYPESETS) {
+    describe(option.value, () => {
+      const css = read(G(`typesets/${option.value}.css`));
+      const family = fontFaceFamily(css);
+
+      if (option.value === 'editorial') {
+        it('has no :root[ override block -- editorial IS the tokens.css base', () => {
+          expect(css).not.toMatch(/:root\[/);
+        });
+
+        it("the @font-face family appears in tokens.css's --font-heading and --font-body", () => {
+          const v = declarations(read(G('tokens.css')));
+          expect(family).toBeDefined();
+          expect(v['--font-heading']).toContain(family);
+          expect(v['--font-body']).toContain(family);
+        });
+      } else {
+        it(`overrides :root[data-typeset='${option.value}']`, () => {
+          expect(overrideSelector(css)).toBe(`:root[data-typeset='${option.value}']`);
+        });
+
+        it('defines all four font tokens', () => {
+          const v = declarationsInBody(overrideBody(css));
+          for (const t of FONT_TOKENS) expect(v[t]).toBeDefined();
+        });
+
+        it('the @font-face family appears in --font-heading and --font-body', () => {
+          const v = declarationsInBody(overrideBody(css));
+          expect(family).toBeDefined();
+          expect(v['--font-heading']).toContain(family);
+          expect(v['--font-body']).toContain(family);
+        });
+      }
+
+      it('the referenced font file exists on disk', () => {
+        const file = fontUrl(css);
+        expect(file).toBeDefined();
+        expect(existsSync(G(`../assets/fonts/${file}`))).toBe(true);
       });
     });
   }
