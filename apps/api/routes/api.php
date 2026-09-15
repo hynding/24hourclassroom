@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ProfileAvatarController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicProfileController;
+use App\Http\Controllers\Api\SiteController;
 use App\Http\Controllers\Api\TeacherDirectoryController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
@@ -64,3 +65,11 @@ Route::middleware(['throttle:60,1', 'active'])->group(function () {
     Route::get('teachers', TeacherDirectoryController::class);
     Route::get('users/{user}', PublicProfileController::class);
 });
+
+// Site configuration: no `auth`, no `active`. The public group above carries
+// `active` because its payloads hold viewer-dependent privileges; this one
+// has none, and the SPA fetches it at boot -- it must never be the request
+// that 401s a deactivated session. Sanctum's stateful pipeline still runs on
+// the whole api group, which is fine: AuthenticateSession only ends a session
+// whose password changed, correct on any route.
+Route::middleware('throttle:60,1')->get('site', SiteController::class);
