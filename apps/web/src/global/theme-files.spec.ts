@@ -6,9 +6,13 @@ import { COLOR_TOKENS } from './token-names';
 const G = (rel: string) => join(__dirname, rel);
 const read = (abs: string) => readFileSync(abs, 'utf8');
 
-/** `--name: value;` pairs inside the first `{…}` block of a file. */
-function declarations(css: string): Record<string, string> {
-  const body = css.match(/\{([\s\S]*?)\}/)?.[1] ?? '';
+/** `--name: value;` pairs inside the first `{…}` block of a file. Comments
+ * are stripped first -- otherwise a colon inside a rationale comment (e.g.
+ * "on purpose: it has to hit 4.5:1") reads as a bogus `word: value;` pair
+ * whose greedy capture swallows the real declaration that follows it. */
+export function declarations(css: string): Record<string, string> {
+  const stripped = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  const body = stripped.match(/\{([\s\S]*?)\}/)?.[1] ?? '';
   const out: Record<string, string> = {};
   for (const m of body.matchAll(/([\w-]+)\s*:\s*([^;]+);/g)) out[m[1]] = m[2].trim();
   return out;
@@ -25,6 +29,25 @@ export function contrast(a: string, b: string): number {
   const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
   return (hi + 0.05) / (lo + 0.05);
 }
+
+describe('declarations()', () => {
+  it('ignores a colon inside a comment and still parses the declaration that follows it', () => {
+    // Mirrors the shape that actually broke evening.css/slate.css/afternoon.css:
+    // a rationale comment containing "word: ..." sitting between two real
+    // declarations, with no semicolon of its own before the real one's.
+    const css = [
+      ":root[data-palette='x'] {",
+      '  --color-ink-muted: #111111;',
+      '  /* on purpose: it has to hit 4.5:1 on a near-black surface */',
+      '  --color-accent: #123456;',
+      '}',
+    ].join('\n');
+    const v = declarations(css);
+    expect(v['--color-accent']).toBe('#123456');
+    expect(v['--color-ink-muted']).toBe('#111111');
+    expect(Object.keys(v)).not.toContain('purpose');
+  });
+});
 
 const TEXT_TOKENS = ['--color-ink', '--color-ink-muted', '--color-accent', '--color-link', '--color-danger', '--color-success'];
 
