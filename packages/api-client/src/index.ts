@@ -7,6 +7,7 @@ import type {
   Profile,
   PublicProfile,
   RegistrationRole,
+  SiteConfig,
   Subject,
   TeacherSummary,
   User,
@@ -209,6 +210,10 @@ export class ApiClient {
   async getUnreadCount(): Promise<number> {
     const body = await this.get<{ count: number }>('/api/notifications/unread-count');
     return body.count;
+  }
+
+  async getSite(): Promise<SiteConfig> {
+    return this.get<SiteConfig>('/api/site');
   }
 
   async markNotificationsRead(ids?: string[]): Promise<void> {

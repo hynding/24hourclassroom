@@ -296,4 +296,18 @@ describe('ApiClient connection and notification methods', () => {
     expect(await client.getUnreadCount()).toBe(4);
     expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/notifications/unread-count');
   });
+
+  it('getSite GETs /api/site and returns the typed theme', async () => {
+    const fetchFn = vi.fn().mockResolvedValue(
+      jsonResponse(200, { theme: { layout: 'rail', palette: 'evening', typeset: 'modern' } }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    const site = await client.getSite();
+
+    expect(fetchFn).toHaveBeenCalledWith('https://api.test/api/site', expect.objectContaining({ method: 'GET' }));
+    // Distinguishable from the defaults, so this only passes if the response
+    // is returned rather than a hard-coded theme.
+    expect(site).toEqual({ theme: { layout: 'rail', palette: 'evening', typeset: 'modern' } });
+  });
 });
