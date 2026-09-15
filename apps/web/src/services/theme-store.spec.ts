@@ -107,6 +107,29 @@ describe('theme-store', () => {
       expect(html().style.colorScheme).toBe('dark');
       expect(html().style.backgroundColor).toBe('#15191e');
     });
+
+    it('still writes both attributes and clears the inline canvas when localStorage.setItem throws', () => {
+      // F8/T8a: the try/catch wraps only setItem. A refactor that widened it
+      // to also cover the clear below would leave a private-mode visitor on
+      // the boot script's stale inline canvas even after the theme
+      // reconciled -- this proves the ordering, not just that nothing throws.
+      const original = window.localStorage.setItem;
+      window.localStorage.setItem = () => { throw new Error('QuotaExceededError'); };
+      html().style.colorScheme = 'dark';
+      html().style.backgroundColor = '#15191e';
+
+      try {
+        const theme = applyTheme({ layout: 'stacked', palette: 'evening', typeset: 'editorial' });
+
+        expect(theme).toEqual({ layout: 'stacked', palette: 'evening', typeset: 'editorial' });
+        expect(html().dataset.palette).toBe('evening');
+        expect(html().dataset.typeset).toBe('editorial');
+        expect(html().style.colorScheme).toBe('');
+        expect(html().style.backgroundColor).toBe('');
+      } finally {
+        window.localStorage.setItem = original;
+      }
+    });
   });
 
   describe('releaseInlineCanvas', () => {
