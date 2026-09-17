@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AnswerGradeController;
 use App\Http\Controllers\Api\AssignmentController;
 use App\Http\Controllers\Api\AttemptController;
 use App\Http\Controllers\Api\Auth\LoginController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicProfileController;
 use App\Http\Controllers\Api\SiteController;
 use App\Http\Controllers\Api\TeacherDirectoryController;
+use App\Http\Controllers\Api\TestAttemptsController;
 use App\Http\Controllers\Api\TestController;
 use App\Http\Controllers\Api\TestCopyController;
 use App\Http\Controllers\Api\TestPublishController;
@@ -82,6 +84,8 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
     Route::get('attempts/{attempt}', [AttemptController::class, 'show']);
     Route::put('attempts/{attempt}', [AttemptController::class, 'update']);
     Route::post('attempts/{attempt}/submit', [AttemptController::class, 'submit']);
+    Route::put('attempts/{attempt}/answers/{answer}', AnswerGradeController::class);
+    Route::get('tests/{test}/attempts', TestAttemptsController::class);
 });
 
 // `active` here too. These two routes are reachable by guests -- the
