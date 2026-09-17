@@ -20,6 +20,14 @@ class Connection extends Model
         return min($a, $b).'-'.max($a, $b);
     }
 
+    /** One accepted row exists for the pair, in either direction. */
+    public static function acceptedBetween(User $a, User $b): bool
+    {
+        return static::where('pair_key', static::pairKey($a->id, $b->id))
+            ->where('status', ConnectionStatus::Accepted)
+            ->exists();
+    }
+
     public function requester(): BelongsTo
     {
         return $this->belongsTo(User::class, 'requester_id');
