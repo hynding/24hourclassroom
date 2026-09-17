@@ -25,6 +25,33 @@ describe('auth-store', () => {
     expect(seen).toEqual([user]);
   });
 
+  it('load shares one request between concurrent callers', async () => {
+    const client = clientMock();
+    let release: (u: unknown) => void;
+    client.currentUser.mockImplementation(() => new Promise((r) => { release = r; }));
+    const store = new AuthStore(client as any);
+
+    // app-root starts the load and does not await it before the route renders;
+    // the page then awaits the same load. One /api/user, not two.
+    const first = store.load();
+    const second = store.load();
+    release(user);
+
+    expect(await first).toEqual(user);
+    expect(await second).toEqual(user);
+    expect(client.currentUser).toHaveBeenCalledTimes(1);
+  });
+
+  it('load can be retried after the request fails', async () => {
+    const client = clientMock();
+    client.currentUser.mockRejectedValueOnce(new Error('offline'));
+    const store = new AuthStore(client as any);
+
+    await expect(store.load()).rejects.toThrow('offline');
+    expect(await store.load()).toEqual(user);
+    expect(client.currentUser).toHaveBeenCalledTimes(2);
+  });
+
   it('login refreshes the user; logout clears it', async () => {
     const client = clientMock();
     const store = new AuthStore(client as any);

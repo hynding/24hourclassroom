@@ -173,4 +173,19 @@ describe('app-header bell', () => {
     const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
     expect(spec.root.shadowRoot.querySelector('a.wordmark')?.textContent).toContain('24 Hour Classroom');
   });
+
+  it('shows Tests for teachers and students only, and Library for everyone', async () => {
+    for (const [role, expected] of [['teacher', true], ['student', true], ['admin', false]] as const) {
+      currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role };
+      const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+      const links = Array.from(spec.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+      expect(links.includes('/tests')).toBe(expected);
+      expect(links).toContain('/library');
+    }
+    currentUser.value = null;
+    const guest = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    const links = Array.from(guest.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+    expect(links).toContain('/library');
+    expect(links).not.toContain('/tests');
+  });
 });

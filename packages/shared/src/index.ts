@@ -53,6 +53,169 @@ export const GRADE_LEVELS: TaxonomyOption<GradeLevel>[] = [
   { value: 'higher-ed', label: 'Higher Ed' },
 ];
 
+export type TestVisibility = 'private' | 'public';
+
+export const TEST_VISIBILITIES: TaxonomyOption<TestVisibility>[] = [
+  { value: 'private', label: 'Private' },
+  { value: 'public', label: 'Public' },
+];
+
+export type QuestionType = 'multiple_choice' | 'multi_select' | 'true_false' | 'short_answer' | 'numeric';
+
+export const QUESTION_TYPES: TaxonomyOption<QuestionType>[] = [
+  { value: 'multiple_choice', label: 'Multiple choice' },
+  { value: 'multi_select', label: 'Select all that apply' },
+  { value: 'true_false', label: 'True / false' },
+  { value: 'short_answer', label: 'Short answer' },
+  { value: 'numeric', label: 'Numeric' },
+];
+
+export interface TestAuthor {
+  id: number;
+  name: string;
+}
+
+export interface NumericAnswer {
+  value: number;
+  tolerance?: number;
+}
+
+/** `answer` and `explanation` are ABSENT (not null) unless the viewer is the author. */
+export interface Question {
+  id: number;
+  position: number;
+  type: QuestionType;
+  prompt: string;
+  options: string[] | null;
+  points: number;
+  partial_credit: boolean;
+  answer?: unknown;
+  explanation?: string | null;
+}
+
+export interface QuestionInput {
+  id?: number;
+  type: QuestionType;
+  prompt: string;
+  options?: string[];
+  answer: unknown;
+  points?: number;
+  partial_credit?: boolean;
+  explanation?: string | null;
+}
+
+export interface TestSummary {
+  id: number;
+  title: string;
+  subject: Subject;
+  grade_level: GradeLevel;
+  visibility: TestVisibility;
+  published_at: string | null;
+  question_count: number;
+  author: TestAuthor;
+  /** Only on GET /api/tests (the author's own list). */
+  assignment_count?: number;
+}
+
+export interface Test extends TestSummary {
+  description: string | null;
+  copied_from_id: number | null;
+  questions: Question[];
+  created_at: string;
+  updated_at: string;
+}
+
+/** GET /api/tests/{id}: the test plus the viewer's relationship to it. */
+export interface TestView extends Test {
+  is_author: boolean;
+  assignment: { id: number; due_at: string | null } | null;
+  open_attempt_id: number | null;
+  can_copy: boolean;
+}
+
+export interface TestInput {
+  title: string;
+  description?: string | null;
+  subject: Subject;
+  grade_level: GradeLevel;
+  questions: QuestionInput[];
+}
+
+/** Decimals arrive as strings ("2.00") from Laravel's decimal cast. */
+export interface AttemptSummary {
+  id: number;
+  test_id: number;
+  assignment_id: number | null;
+  started_at: string;
+  submitted_at: string | null;
+  score: string | null;
+  max_score: string | null;
+  graded_at: string | null;
+  ungraded_count: number;
+}
+
+export interface AttemptQuestion extends Question {
+  response: unknown;
+  /** Present after submit. */
+  answer_id?: number;
+  awarded?: string | null;
+  graded_answer?: { answer: unknown; points: number } | null;
+}
+
+export interface AttemptTestRef {
+  id: number;
+  title: string;
+  subject: Subject;
+  grade_level: GradeLevel;
+}
+
+export interface Attempt extends AttemptSummary {
+  student: TestAuthor;
+  test: AttemptTestRef;
+  questions: AttemptQuestion[];
+}
+
+export interface MyAttempt extends AttemptSummary {
+  test: AttemptTestRef;
+}
+
+export interface MyAssignment {
+  id: number;
+  due_at: string | null;
+  test: AttemptTestRef & { question_count: number; author: TestAuthor };
+  latest: AttemptSummary | null;
+  best: AttemptSummary | null;
+}
+
+export interface AssignmentRow {
+  id: number;
+  student: TestAuthor;
+  due_at: string | null;
+  latest: AttemptSummary | null;
+  best: AttemptSummary | null;
+}
+
+export interface AssignmentResult {
+  assignment_id: number;
+  student: TestAuthor;
+  due_at: string | null;
+  attempts: AttemptSummary[];
+  latest: AttemptSummary | null;
+  best: AttemptSummary | null;
+}
+
+export interface AssignResult {
+  id: number;
+  status: 'assigned' | 'not_found';
+}
+
+export interface LibraryFilters {
+  subject?: Subject;
+  grade?: GradeLevel;
+  q?: string;
+  page?: number;
+}
+
 export type Layout = 'stacked' | 'rail';
 export type Palette = 'noon' | 'evening' | 'slate' | 'afternoon';
 export type Typeset = 'editorial' | 'modern';
@@ -184,5 +347,16 @@ export interface AppNotification {
   type: string;
   read_at: string | null;
   created_at: string;
-  data: { user?: UserSummary; message?: string };
+  data: {
+    user?: UserSummary;
+    message?: string;
+    test_id?: number;
+    test_title?: string;
+    assignment_id?: number;
+    attempt_id?: number;
+    due_at?: string | null;
+    score?: string | null;
+    max_score?: string | null;
+    ungraded_count?: number;
+  };
 }

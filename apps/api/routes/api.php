@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\AnswerGradeController;
+use App\Http\Controllers\Api\AssignmentController;
+use App\Http\Controllers\Api\AttemptController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\NewPasswordController;
@@ -9,12 +12,19 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationNotificationController;
 use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\FollowController;
+use App\Http\Controllers\Api\LibraryController;
+use App\Http\Controllers\Api\MyAssignmentsController;
+use App\Http\Controllers\Api\MyAttemptsController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ProfileAvatarController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicProfileController;
 use App\Http\Controllers\Api\SiteController;
 use App\Http\Controllers\Api\TeacherDirectoryController;
+use App\Http\Controllers\Api\TestAttemptsController;
+use App\Http\Controllers\Api\TestController;
+use App\Http\Controllers\Api\TestCopyController;
+use App\Http\Controllers\Api\TestPublishController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +65,27 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
     Route::get('notifications', [NotificationController::class, 'index']);
     Route::get('notifications/unread-count', [NotificationController::class, 'unreadCount']);
     Route::post('notifications/read', [NotificationController::class, 'read']);
+
+    Route::get('tests', [TestController::class, 'index']);
+    Route::post('tests', [TestController::class, 'store']);
+    Route::put('tests/{test}', [TestController::class, 'update']);
+    Route::delete('tests/{test}', [TestController::class, 'destroy']);
+    Route::post('tests/{test}/publish', [TestPublishController::class, 'publish']);
+    Route::post('tests/{test}/unpublish', [TestPublishController::class, 'unpublish']);
+    Route::post('tests/{test}/copy', TestCopyController::class);
+
+    Route::get('tests/{test}/assignments', [AssignmentController::class, 'index']);
+    Route::post('tests/{test}/assignments', [AssignmentController::class, 'store']);
+    Route::delete('tests/{test}/assignments/{assignment}', [AssignmentController::class, 'destroy']);
+    Route::get('assignments', MyAssignmentsController::class);
+
+    Route::get('attempts', MyAttemptsController::class);
+    Route::post('tests/{test}/attempts', [AttemptController::class, 'store']);
+    Route::get('attempts/{attempt}', [AttemptController::class, 'show']);
+    Route::put('attempts/{attempt}', [AttemptController::class, 'update']);
+    Route::post('attempts/{attempt}/submit', [AttemptController::class, 'submit']);
+    Route::put('attempts/{attempt}/answers/{answer}', AnswerGradeController::class);
+    Route::get('tests/{test}/attempts', TestAttemptsController::class);
 });
 
 // `active` here too. These two routes are reachable by guests -- the
@@ -64,6 +95,8 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
 Route::middleware(['throttle:60,1', 'active'])->group(function () {
     Route::get('teachers', TeacherDirectoryController::class);
     Route::get('users/{user}', PublicProfileController::class);
+    Route::get('library', LibraryController::class);
+    Route::get('tests/{test}', [TestController::class, 'show']);
 });
 
 // Site configuration: no `auth`, no `active`. The public group above carries

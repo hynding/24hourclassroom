@@ -155,4 +155,22 @@ describe('page-notifications', () => {
       window.removeEventListener('notifications:read', onRead);
     }
   });
+
+  it('describes test notifications with a link', async () => {
+    notifications.mockResolvedValue({
+      data: [
+        { id: 'a', type: 'App\\Notifications\\TestAssigned', read_at: null, created_at: '', data: { user: { id: 1, name: 'Ms K' }, test_id: 4, test_title: 'Cells' } },
+        { id: 'b', type: 'App\\Notifications\\AttemptSubmitted', read_at: null, created_at: '', data: { user: { id: 2, name: 'Sam' }, test_id: 4, test_title: 'Cells', ungraded_count: 2 } },
+        { id: 'c', type: 'App\\Notifications\\TestModerated', read_at: null, created_at: '', data: { message: 'Unpublished.' } },
+      ],
+      meta: { current_page: 1, last_page: 1, per_page: 15, total: 3 },
+    });
+    const page = await mount();
+    await page.waitForChanges();
+    const text = page.root.shadowRoot.textContent;
+    expect(text).toContain('Ms K assigned you "Cells"');
+    expect(text).toContain('Sam submitted "Cells" (2 to grade)');
+    expect(text).toContain('Unpublished.');
+    expect(page.root.shadowRoot.querySelector('a[href="/tests/4/results"]')).not.toBeNull();
+  });
 });
