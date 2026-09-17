@@ -69,6 +69,22 @@ final class AttemptGrader
     /** Submit-time pass. */
     public function grade(Attempt $attempt): void
     {
+        // Idempotency guard: `max_score` is only ever set at the end of a
+        // completed grade() run, so its presence means this attempt has
+        // already been graded once. Without this, a second call (the submit
+        // endpoint's own conditional update is the primary guard against
+        // that, but this service must be safe to call on its own too) would
+        // re-run score() over every row and stomp a teacher's manual
+        // `awarded` on short-answer questions, since score() returns null
+        // for that type. A transaction that rolled back on the first
+        // attempt leaves max_score null, so a genuinely incomplete grade
+        // stays retryable. Deliberately whole-attempt, not per-row: per-row
+        // skipping on existing `awarded` would silently leave freshly
+        // re-answered auto-graded questions ungraded.
+        if ($attempt->max_score !== null) {
+            return;
+        }
+
         DB::transaction(function () use ($attempt) {
             $questions = $attempt->test->questions()->get();
             $liveIds = $questions->pluck('id')->all();

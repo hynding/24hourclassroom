@@ -111,3 +111,31 @@ test('grade() snapshots, creates missing rows, drops trashed-question rows, and 
         ->and($attempt->graded_at)->not->toBeNull()
         ->and(AttemptGrader::ungradedCount($attempt))->toBe(0);
 });
+
+test('grade() is idempotent and never overwrites a manual grade on a second call', function () {
+    $author = aTeacher();
+    $test = aTestWithQuestions($author, 0);
+    $sa = Question::factory()->for($test)->shortAnswer()->create(['position' => 0, 'points' => 2]);
+    $student = aStudent();
+    $attempt = Attempt::create(['test_id' => $test->id, 'student_id' => $student->id, 'started_at' => now()]);
+    $attempt->answers()->create(['question_id' => $sa->id, 'response' => 'photosynthesis']);
+
+    (new AttemptGrader)->grade($attempt);
+    $attempt->refresh();
+
+    $saRow = $attempt->answers->firstWhere('question_id', $sa->id);
+    $saRow->forceFill(['awarded' => 1.5, 'graded_by' => $author->id])->save();
+    (new AttemptGrader)->recompute($attempt);
+    $attempt->refresh();
+    expect((float) $attempt->score)->toBe(1.5)
+        ->and($attempt->graded_at)->not->toBeNull();
+
+    (new AttemptGrader)->grade($attempt);
+    $attempt->refresh();
+
+    $saRow->refresh();
+    expect((float) $saRow->awarded)->toBe(1.5)
+        ->and((float) $attempt->score)->toBe(1.5)
+        ->and($attempt->graded_at)->not->toBeNull()
+        ->and($attempt->answers)->toHaveCount(1);
+});
