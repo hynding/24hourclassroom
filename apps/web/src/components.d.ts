@@ -66,10 +66,16 @@ export namespace Components {
     interface PageTest {
         "testId"?: number;
     }
+    interface PageTestAssign {
+        "testId"?: number;
+    }
     interface PageTestEditor {
         /**
           * Undefined = creating a new test.
          */
+        "testId"?: number;
+    }
+    interface PageTestResults {
         "testId"?: number;
     }
     interface PageTests {
@@ -199,11 +205,23 @@ declare global {
         prototype: HTMLPageTestElement;
         new (): HTMLPageTestElement;
     };
+    interface HTMLPageTestAssignElement extends Components.PageTestAssign, HTMLStencilElement {
+    }
+    var HTMLPageTestAssignElement: {
+        prototype: HTMLPageTestAssignElement;
+        new (): HTMLPageTestAssignElement;
+    };
     interface HTMLPageTestEditorElement extends Components.PageTestEditor, HTMLStencilElement {
     }
     var HTMLPageTestEditorElement: {
         prototype: HTMLPageTestEditorElement;
         new (): HTMLPageTestEditorElement;
+    };
+    interface HTMLPageTestResultsElement extends Components.PageTestResults, HTMLStencilElement {
+    }
+    var HTMLPageTestResultsElement: {
+        prototype: HTMLPageTestResultsElement;
+        new (): HTMLPageTestResultsElement;
     };
     interface HTMLPageTestsElement extends Components.PageTests, HTMLStencilElement {
     }
@@ -254,7 +272,9 @@ declare global {
         "page-teacher-profile": HTMLPageTeacherProfileElement;
         "page-teachers": HTMLPageTeachersElement;
         "page-test": HTMLPageTestElement;
+        "page-test-assign": HTMLPageTestAssignElement;
         "page-test-editor": HTMLPageTestEditorElement;
+        "page-test-results": HTMLPageTestResultsElement;
         "page-tests": HTMLPageTestsElement;
         "page-verify-email": HTMLPageVerifyEmailElement;
         "test-question-editor": HTMLTestQuestionEditorElement;
@@ -319,10 +339,16 @@ declare namespace LocalJSX {
     interface PageTest {
         "testId"?: number;
     }
+    interface PageTestAssign {
+        "testId"?: number;
+    }
     interface PageTestEditor {
         /**
           * Undefined = creating a new test.
          */
+        "testId"?: number;
+    }
+    interface PageTestResults {
         "testId"?: number;
     }
     interface PageTests {
@@ -354,7 +380,13 @@ declare namespace LocalJSX {
     interface PageTestAttributes {
         "testId": number;
     }
+    interface PageTestAssignAttributes {
+        "testId": number;
+    }
     interface PageTestEditorAttributes {
+        "testId": number;
+    }
+    interface PageTestResultsAttributes {
         "testId": number;
     }
     interface TestQuestionEditorAttributes {
@@ -380,7 +412,9 @@ declare namespace LocalJSX {
         "page-teacher-profile": Omit<PageTeacherProfile, keyof PageTeacherProfileAttributes> & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes]?: PageTeacherProfile[K] } & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes as `attr:${K}`]?: PageTeacherProfileAttributes[K] } & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes as `prop:${K}`]?: PageTeacherProfile[K] };
         "page-teachers": PageTeachers;
         "page-test": Omit<PageTest, keyof PageTestAttributes> & { [K in keyof PageTest & keyof PageTestAttributes]?: PageTest[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `attr:${K}`]?: PageTestAttributes[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `prop:${K}`]?: PageTest[K] };
+        "page-test-assign": Omit<PageTestAssign, keyof PageTestAssignAttributes> & { [K in keyof PageTestAssign & keyof PageTestAssignAttributes]?: PageTestAssign[K] } & { [K in keyof PageTestAssign & keyof PageTestAssignAttributes as `attr:${K}`]?: PageTestAssignAttributes[K] } & { [K in keyof PageTestAssign & keyof PageTestAssignAttributes as `prop:${K}`]?: PageTestAssign[K] };
         "page-test-editor": Omit<PageTestEditor, keyof PageTestEditorAttributes> & { [K in keyof PageTestEditor & keyof PageTestEditorAttributes]?: PageTestEditor[K] } & { [K in keyof PageTestEditor & keyof PageTestEditorAttributes as `attr:${K}`]?: PageTestEditorAttributes[K] } & { [K in keyof PageTestEditor & keyof PageTestEditorAttributes as `prop:${K}`]?: PageTestEditor[K] };
+        "page-test-results": Omit<PageTestResults, keyof PageTestResultsAttributes> & { [K in keyof PageTestResults & keyof PageTestResultsAttributes]?: PageTestResults[K] } & { [K in keyof PageTestResults & keyof PageTestResultsAttributes as `attr:${K}`]?: PageTestResultsAttributes[K] } & { [K in keyof PageTestResults & keyof PageTestResultsAttributes as `prop:${K}`]?: PageTestResults[K] };
         "page-tests": PageTests;
         "page-verify-email": PageVerifyEmail;
         "test-question-editor": Omit<TestQuestionEditor, keyof TestQuestionEditorAttributes> & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes]?: TestQuestionEditor[K] } & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes as `attr:${K}`]?: TestQuestionEditorAttributes[K] } & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes as `prop:${K}`]?: TestQuestionEditor[K] };
@@ -414,7 +448,9 @@ declare module "@stencil/core" {
             "page-teacher-profile": LocalJSX.IntrinsicElements["page-teacher-profile"] & JSXBase.HTMLAttributes<HTMLPageTeacherProfileElement>;
             "page-teachers": LocalJSX.IntrinsicElements["page-teachers"] & JSXBase.HTMLAttributes<HTMLPageTeachersElement>;
             "page-test": LocalJSX.IntrinsicElements["page-test"] & JSXBase.HTMLAttributes<HTMLPageTestElement>;
+            "page-test-assign": LocalJSX.IntrinsicElements["page-test-assign"] & JSXBase.HTMLAttributes<HTMLPageTestAssignElement>;
             "page-test-editor": LocalJSX.IntrinsicElements["page-test-editor"] & JSXBase.HTMLAttributes<HTMLPageTestEditorElement>;
+            "page-test-results": LocalJSX.IntrinsicElements["page-test-results"] & JSXBase.HTMLAttributes<HTMLPageTestResultsElement>;
             "page-tests": LocalJSX.IntrinsicElements["page-tests"] & JSXBase.HTMLAttributes<HTMLPageTestsElement>;
             "page-verify-email": LocalJSX.IntrinsicElements["page-verify-email"] & JSXBase.HTMLAttributes<HTMLPageVerifyEmailElement>;
             "test-question-editor": LocalJSX.IntrinsicElements["test-question-editor"] & JSXBase.HTMLAttributes<HTMLTestQuestionEditorElement>;
