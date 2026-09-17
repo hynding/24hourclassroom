@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\ConnectionStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AssignmentResultResource;
 use App\Models\Connection;
@@ -20,11 +19,7 @@ class TestAttemptsController extends Controller
 
         // `pair_key` cannot be expressed as a subquery on student_id, so
         // resolve the teacher's accepted counterparts first.
-        $acceptedIds = Connection::where('status', ConnectionStatus::Accepted)
-            ->where(fn ($q) => $q->where('requester_id', $teacher->id)->orWhere('addressee_id', $teacher->id))
-            ->get()
-            ->map(fn (Connection $c) => $c->requester_id === $teacher->id ? $c->addressee_id : $c->requester_id)
-            ->all();
+        $acceptedIds = Connection::acceptedCounterpartIds($teacher);
 
         // Paginate by ASSIGNMENT (one row per student). Self-practice attempts
         // have no assignment and never appear here (decision 4).

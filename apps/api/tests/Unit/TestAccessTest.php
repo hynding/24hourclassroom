@@ -20,6 +20,31 @@ test('acceptedBetween is symmetric and ignores pending rows', function () {
     expect(Connection::acceptedBetween($a, $b))->toBeFalse();
 });
 
+test('acceptedCounterpartIds folds both directions and excludes pending rows', function () {
+    $teacher = aTeacher();
+    $outbound = aStudent();   // teacher is the requester
+    $inbound = aStudent();    // teacher is the addressee
+    $pending = aStudent();
+    $stranger = aTeacher();
+
+    connectAccepted($teacher, $outbound);
+    connectAccepted($inbound, $teacher);
+    Connection::create([
+        'requester_id' => $teacher->id,
+        'addressee_id' => $pending->id,
+        'status' => 'pending',
+        'pair_key' => Connection::pairKey($teacher->id, $pending->id),
+    ]);
+
+    $ids = Connection::acceptedCounterpartIds($teacher);
+
+    expect($ids)->toHaveCount(2)
+        ->and($ids)->toContain($outbound->id)
+        ->and($ids)->toContain($inbound->id)
+        ->and($ids)->not->toContain($pending->id)
+        ->and(Connection::acceptedCounterpartIds($stranger))->toBe([]);
+});
+
 test('a private test is visible to its author and assigned students only', function () {
     $author = aTeacher();
     $test = aTestWithQuestions($author);

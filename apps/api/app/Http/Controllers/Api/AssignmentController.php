@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\ConnectionStatus;
 use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Models\Assignment;
@@ -25,13 +24,8 @@ class AssignmentController extends Controller
         TestAccess::assertAuthor($teacher, $test);
 
         // Resolved once rather than per-row (Connection::acceptedBetween per
-        // assignment made this endpoint N+1): every counterpart the teacher
-        // currently has an accepted connection with, in either direction.
-        $acceptedIds = Connection::where('status', ConnectionStatus::Accepted)
-            ->where(fn ($q) => $q->where('requester_id', $teacher->id)->orWhere('addressee_id', $teacher->id))
-            ->get()
-            ->map(fn (Connection $c) => $c->requester_id === $teacher->id ? $c->addressee_id : $c->requester_id)
-            ->all();
+        // assignment made this endpoint N+1).
+        $acceptedIds = Connection::acceptedCounterpartIds($teacher);
 
         $rows = $test->assignments()->with(['student', 'attempts.answers'])->get()
             // Decision 3: the results view needs a CURRENTLY accepted connection.
