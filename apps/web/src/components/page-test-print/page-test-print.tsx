@@ -85,7 +85,7 @@ export class PageTestPrint {
               {q.options && (
                 <ol class="options">{q.options.map((opt) => <li>{opt}</li>)}</ol>
               )}
-              {q.type === 'true_false' && <p>☐ True &nbsp;&nbsp; ☐ False</p>}
+              {q.type === 'true_false' && <p class="tf"><span>☐ True</span><span>☐ False</span></p>}
               {(q.type === 'short_answer' || q.type === 'numeric') && <div class="answer-line"></div>}
             </li>
           ))}
