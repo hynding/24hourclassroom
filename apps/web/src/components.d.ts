@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Layout } from "@24hc/shared";
-export { Layout } from "@24hc/shared";
+import { Layout, QuestionInput } from "@24hc/shared";
+export { Layout, QuestionInput } from "@24hc/shared";
 export namespace Components {
     interface AppFooter {
     }
@@ -66,8 +66,28 @@ export namespace Components {
     interface PageTest {
         "testId"?: number;
     }
+    interface PageTestEditor {
+        /**
+          * Undefined = creating a new test.
+         */
+        "testId"?: number;
+    }
+    interface PageTests {
+    }
     interface PageVerifyEmail {
     }
+    interface TestQuestionEditor {
+        "error"?: string;
+        /**
+          * @default 0
+         */
+        "index": number;
+        "question": QuestionInput;
+    }
+}
+export interface TestQuestionEditorCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLTestQuestionEditorElement;
 }
 declare global {
     interface HTMLAppFooterElement extends Components.AppFooter, HTMLStencilElement {
@@ -179,11 +199,42 @@ declare global {
         prototype: HTMLPageTestElement;
         new (): HTMLPageTestElement;
     };
+    interface HTMLPageTestEditorElement extends Components.PageTestEditor, HTMLStencilElement {
+    }
+    var HTMLPageTestEditorElement: {
+        prototype: HTMLPageTestEditorElement;
+        new (): HTMLPageTestEditorElement;
+    };
+    interface HTMLPageTestsElement extends Components.PageTests, HTMLStencilElement {
+    }
+    var HTMLPageTestsElement: {
+        prototype: HTMLPageTestsElement;
+        new (): HTMLPageTestsElement;
+    };
     interface HTMLPageVerifyEmailElement extends Components.PageVerifyEmail, HTMLStencilElement {
     }
     var HTMLPageVerifyEmailElement: {
         prototype: HTMLPageVerifyEmailElement;
         new (): HTMLPageVerifyEmailElement;
+    };
+    interface HTMLTestQuestionEditorElementEventMap {
+        "questionChange": QuestionInput;
+        "questionRemove": void;
+        "questionMove": -1 | 1;
+    }
+    interface HTMLTestQuestionEditorElement extends Components.TestQuestionEditor, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLTestQuestionEditorElementEventMap>(type: K, listener: (this: HTMLTestQuestionEditorElement, ev: TestQuestionEditorCustomEvent<HTMLTestQuestionEditorElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLTestQuestionEditorElementEventMap>(type: K, listener: (this: HTMLTestQuestionEditorElement, ev: TestQuestionEditorCustomEvent<HTMLTestQuestionEditorElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLTestQuestionEditorElement: {
+        prototype: HTMLTestQuestionEditorElement;
+        new (): HTMLTestQuestionEditorElement;
     };
     interface HTMLElementTagNameMap {
         "app-footer": HTMLAppFooterElement;
@@ -203,7 +254,10 @@ declare global {
         "page-teacher-profile": HTMLPageTeacherProfileElement;
         "page-teachers": HTMLPageTeachersElement;
         "page-test": HTMLPageTestElement;
+        "page-test-editor": HTMLPageTestEditorElement;
+        "page-tests": HTMLPageTestsElement;
         "page-verify-email": HTMLPageVerifyEmailElement;
+        "test-question-editor": HTMLTestQuestionEditorElement;
     }
 }
 declare namespace LocalJSX {
@@ -265,7 +319,26 @@ declare namespace LocalJSX {
     interface PageTest {
         "testId"?: number;
     }
+    interface PageTestEditor {
+        /**
+          * Undefined = creating a new test.
+         */
+        "testId"?: number;
+    }
+    interface PageTests {
+    }
     interface PageVerifyEmail {
+    }
+    interface TestQuestionEditor {
+        "error"?: string;
+        /**
+          * @default 0
+         */
+        "index"?: number;
+        "onQuestionChange"?: (event: TestQuestionEditorCustomEvent<QuestionInput>) => void;
+        "onQuestionMove"?: (event: TestQuestionEditorCustomEvent<-1 | 1>) => void;
+        "onQuestionRemove"?: (event: TestQuestionEditorCustomEvent<void>) => void;
+        "question"?: QuestionInput;
     }
 
     interface AppHeaderAttributes {
@@ -280,6 +353,13 @@ declare namespace LocalJSX {
     }
     interface PageTestAttributes {
         "testId": number;
+    }
+    interface PageTestEditorAttributes {
+        "testId": number;
+    }
+    interface TestQuestionEditorAttributes {
+        "index": number;
+        "error": string;
     }
 
     interface IntrinsicElements {
@@ -300,7 +380,10 @@ declare namespace LocalJSX {
         "page-teacher-profile": Omit<PageTeacherProfile, keyof PageTeacherProfileAttributes> & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes]?: PageTeacherProfile[K] } & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes as `attr:${K}`]?: PageTeacherProfileAttributes[K] } & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes as `prop:${K}`]?: PageTeacherProfile[K] };
         "page-teachers": PageTeachers;
         "page-test": Omit<PageTest, keyof PageTestAttributes> & { [K in keyof PageTest & keyof PageTestAttributes]?: PageTest[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `attr:${K}`]?: PageTestAttributes[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `prop:${K}`]?: PageTest[K] };
+        "page-test-editor": Omit<PageTestEditor, keyof PageTestEditorAttributes> & { [K in keyof PageTestEditor & keyof PageTestEditorAttributes]?: PageTestEditor[K] } & { [K in keyof PageTestEditor & keyof PageTestEditorAttributes as `attr:${K}`]?: PageTestEditorAttributes[K] } & { [K in keyof PageTestEditor & keyof PageTestEditorAttributes as `prop:${K}`]?: PageTestEditor[K] };
+        "page-tests": PageTests;
         "page-verify-email": PageVerifyEmail;
+        "test-question-editor": Omit<TestQuestionEditor, keyof TestQuestionEditorAttributes> & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes]?: TestQuestionEditor[K] } & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes as `attr:${K}`]?: TestQuestionEditorAttributes[K] } & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes as `prop:${K}`]?: TestQuestionEditor[K] };
     }
 }
 export { LocalJSX as JSX };
@@ -331,7 +414,10 @@ declare module "@stencil/core" {
             "page-teacher-profile": LocalJSX.IntrinsicElements["page-teacher-profile"] & JSXBase.HTMLAttributes<HTMLPageTeacherProfileElement>;
             "page-teachers": LocalJSX.IntrinsicElements["page-teachers"] & JSXBase.HTMLAttributes<HTMLPageTeachersElement>;
             "page-test": LocalJSX.IntrinsicElements["page-test"] & JSXBase.HTMLAttributes<HTMLPageTestElement>;
+            "page-test-editor": LocalJSX.IntrinsicElements["page-test-editor"] & JSXBase.HTMLAttributes<HTMLPageTestEditorElement>;
+            "page-tests": LocalJSX.IntrinsicElements["page-tests"] & JSXBase.HTMLAttributes<HTMLPageTestsElement>;
             "page-verify-email": LocalJSX.IntrinsicElements["page-verify-email"] & JSXBase.HTMLAttributes<HTMLPageVerifyEmailElement>;
+            "test-question-editor": LocalJSX.IntrinsicElements["test-question-editor"] & JSXBase.HTMLAttributes<HTMLTestQuestionEditorElement>;
         }
     }
 }
