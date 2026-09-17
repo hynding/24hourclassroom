@@ -57,6 +57,18 @@ describe('page-test-assign', () => {
     expect(listAssignments).toHaveBeenCalledTimes(2);
   });
 
+  it('leaves an existing due date alone when the date field is empty', async () => {
+    assignTest.mockResolvedValue({ results: [{ id: 20, status: 'assigned' }] });
+    const page = await mount();
+    const cmp = page.rootInstance as PageTestAssign;
+    cmp.selected = new Set([20]);
+    cmp.dueAt = '';
+    await cmp.assign();
+    // undefined, not null: null CLEARS the due date server-side, so a
+    // re-assign made without retyping the date would wipe it.
+    expect(assignTest).toHaveBeenCalledWith(5, [20], undefined);
+  });
+
   it('unassigns from the assigned list', async () => {
     unassign.mockResolvedValue(undefined);
     const page = await mount();

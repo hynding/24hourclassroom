@@ -67,7 +67,10 @@ export class PageTestAssign {
     this.busy = true;
     this.error = '';
     try {
-      const res = await testsStore.assignTest(this.testId, Array.from(this.selected), this.dueAt || null);
+      // `undefined`, not null: an empty date field means "say nothing about
+      // the due date", which leaves an existing one alone. Sending null would
+      // CLEAR it on every re-assign made without retyping the date.
+      const res = await testsStore.assignTest(this.testId, Array.from(this.selected), this.dueAt ? this.dueAt : undefined);
       this.results = res.results;
       this.selected = new Set();
       await this.refresh();
