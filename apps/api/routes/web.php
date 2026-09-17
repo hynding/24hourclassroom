@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\SiteThemeController;
+use App\Http\Controllers\Admin\TestAdminController;
 use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Auth\GoogleOAuthController;
 use App\Http\Controllers\DashboardController;
@@ -23,6 +24,10 @@ Route::middleware(['auth', 'verified', 'active', 'admin'])->prefix('admin')->gro
     // (per-user light/dark for the admin UI) and the route name `appearance`.
     Route::get('site-theme', [SiteThemeController::class, 'edit'])->name('admin.site-theme');
     Route::patch('site-theme', [SiteThemeController::class, 'update']);
+
+    Route::get('tests', [TestAdminController::class, 'index'])->name('admin.tests');
+    Route::post('tests/{test}/unpublish', [TestAdminController::class, 'unpublish']);
+    Route::delete('tests/{test}', [TestAdminController::class, 'destroy']);
 });
 
 Route::get('auth/google/redirect', [GoogleOAuthController::class, 'redirect'])->name('oauth.google.redirect');
