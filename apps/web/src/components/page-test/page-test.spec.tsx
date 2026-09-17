@@ -19,7 +19,13 @@ jest.mock('../../services/tests-store', () => ({
     deleteTest: jest.fn(),
   },
 }));
-jest.mock('../../services/auth-store', () => ({ authStore: { get currentUser() { return currentUser; } } }));
+// app-root leaves authStore.load() in flight while it renders the route, so
+// the user only appears once the page awaits it; `pending` models that.
+let pending: unknown = null;
+const authLoad = jest.fn(async () => { currentUser = pending; return currentUser; });
+jest.mock('../../services/auth-store', () => ({
+  authStore: { get currentUser() { return currentUser; }, load: () => authLoad() },
+}));
 jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a) }));
 jest.mock('../../services/session-recovery', () => ({ recoverFromExpiredSession: () => false }));
 
@@ -40,7 +46,7 @@ const mount = async (view: unknown) => {
 };
 
 describe('page-test', () => {
-  beforeEach(() => { getTest.mockReset(); startAttempt.mockReset(); copyTest.mockReset(); navigate.mockReset(); currentUser = null; });
+  beforeEach(() => { getTest.mockReset(); startAttempt.mockReset(); copyTest.mockReset(); navigate.mockReset(); authLoad.mockClear(); currentUser = null; pending = null; });
 
   it('renders the public view without answers for a guest', async () => {
     const page = await mount(base);
@@ -59,7 +65,7 @@ describe('page-test', () => {
   });
 
   it('shows author controls and answers to the author', async () => {
-    currentUser = { id: 1, role: 'teacher', email_verified_at: 'x' };
+    pending = { id: 1, role: 'teacher', email_verified_at: 'x' };
     const page = await mount({ ...base, is_author: true, questions: [{ ...base.questions[0], answer: 1, explanation: 'ATP.' }] });
     const text = page.root.shadowRoot.textContent;
     expect(text).toContain('Mitochondria');
@@ -70,7 +76,7 @@ describe('page-test', () => {
   });
 
   it('lets a student start an attempt and navigates to it', async () => {
-    currentUser = { id: 3, role: 'student', email_verified_at: 'x' };
+    pending = { id: 3, role: 'student', email_verified_at: 'x' };
     startAttempt.mockResolvedValue({ id: 77 });
     const page = await mount(base);
     const button = Array.from(page.root.shadowRoot.querySelectorAll('button')).find((b) => b.textContent?.includes('Start'));
@@ -81,7 +87,7 @@ describe('page-test', () => {
   });
 
   it('offers Copy only when can_copy and navigates to the copy', async () => {
-    currentUser = { id: 9, role: 'teacher', email_verified_at: 'x' };
+    pending = { id: 9, role: 'teacher', email_verified_at: 'x' };
     copyTest.mockResolvedValue({ id: 81 });
     const page = await mount({ ...base, can_copy: true });
     const button = Array.from(page.root.shadowRoot.querySelectorAll('button')).find((b) => b.textContent?.includes('Copy'));

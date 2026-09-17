@@ -19,6 +19,9 @@ export class PageTest {
   @State() actionError = '';
 
   async componentWillLoad() {
+    // Same reason as page-tests: `viewer` is a plain getter, so the role has
+    // to be known before isStudent decides whether to offer Start attempt.
+    await authStore.load();
     await this.load();
   }
 

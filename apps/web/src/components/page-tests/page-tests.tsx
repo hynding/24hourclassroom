@@ -23,6 +23,10 @@ export class PageTests {
   }
 
   async componentWillLoad() {
+    // app-root does not await authStore.load() before it renders the route,
+    // and `role` is a plain getter, so reading it first would latch the
+    // signed-out empty state on any hard load of /tests and never recover.
+    await authStore.load();
     await this.load();
   }
 
