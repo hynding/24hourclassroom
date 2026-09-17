@@ -47,9 +47,17 @@ final class AttemptPayload
     {
         $submitted = $attempts->filter(fn (Attempt $a) => $a->isSubmitted());
 
+        // `submitted_at` is a second-precision timestamp, so two attempts
+        // submitted within the same second tie exactly. Pre-sort by id
+        // descending so the stable secondary sort below resolves any tie
+        // (on submitted_at, or on score for `best`) toward the more recent
+        // attempt, regardless of the order the caller's collection arrived
+        // in.
+        $byRecency = $submitted->sortByDesc('id');
+
         return [
-            'latest' => self::summary($submitted->sortByDesc('submitted_at')->first()),
-            'best' => self::summary($submitted->sortByDesc(fn (Attempt $a) => (float) $a->score)->first()),
+            'latest' => self::summary($byRecency->sortByDesc('submitted_at')->first()),
+            'best' => self::summary($byRecency->sortByDesc(fn (Attempt $a) => (float) $a->score)->first()),
         ];
     }
 
