@@ -170,11 +170,7 @@ export class PageTestEditor {
           <h2>Questions</h2>
           {this.fieldError('questions')}
           <div class="questions">
-            {this.questions.map((q, i) => [
-              // Rendered here too, not only passed to the child: the child
-              // has its own shadow root, so its own display of this text
-              // is invisible to anything that inspects this page's DOM.
-              this.fieldError(`questions.${i}`),
+            {this.questions.map((q, i) => (
               <test-question-editor
                 question={q}
                 index={i}
@@ -182,8 +178,8 @@ export class PageTestEditor {
                 onQuestionChange={(e: CustomEvent<QuestionInput>) => this.update(i, e.detail)}
                 onQuestionRemove={() => this.remove(i)}
                 onQuestionMove={(e: CustomEvent<-1 | 1>) => this.move(i, e.detail)}
-              ></test-question-editor>,
-            ])}
+              ></test-question-editor>
+            ))}
           </div>
           <button type="button" class="btn" onClick={() => this.add()} disabled={this.questions.length >= 100}>Add question</button>
 

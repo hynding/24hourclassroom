@@ -47,7 +47,8 @@ describe('page-test-editor', () => {
     await cmp.save();
     await page.waitForChanges();
     expect(updateTest).toHaveBeenCalledWith(5, expect.objectContaining({ title: 'Cells' }));
-    expect(page.root.shadowRoot.textContent).toContain('non-empty expected answer');
+    const editor = page.root.shadowRoot.querySelector('test-question-editor');
+    expect(editor.shadowRoot.textContent).toContain('non-empty expected answer');
   });
 
   it('bounces a non-author to the test page', async () => {
