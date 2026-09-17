@@ -48,6 +48,29 @@ describe('page-test-results', () => {
     expect(gradeAnswer).toHaveBeenCalledWith(2, 55, 1.5);
   });
 
+  it('shows a note, not literal undefined, when an in-progress attempt is expanded', async () => {
+    const inProgress = { id: 3, test_id: 5, assignment_id: 9, started_at: '2026-09-02T09:00:00Z', submitted_at: null, score: null, max_score: null, graded_at: null, ungraded_count: 0 };
+    getTest.mockResolvedValue({ id: 5, title: 'Cells', is_author: true, questions: [] });
+    listTestAttempts.mockReset();
+    listTestAttempts.mockResolvedValue({ data: [{ assignment_id: 9, student: { id: 20, name: 'Sam' }, due_at: null, attempts: [inProgress], latest: null, best: null }], meta: { current_page: 1, last_page: 1, per_page: 15, total: 1 } });
+    // An unsubmitted payload carries no answer / graded_answer / awarded.
+    getAttempt.mockResolvedValue({ ...inProgress, student: { id: 20, name: 'Sam' }, test: { id: 5, title: 'Cells' }, questions: [
+      { id: 10, position: 0, type: 'multiple_choice', prompt: 'Powerhouse?', options: ['Nucleus', 'Mitochondria'], points: 1, partial_credit: false, response: 1 },
+      { id: 11, position: 1, type: 'short_answer', prompt: 'Why?', options: null, points: 2, partial_credit: false, response: null },
+    ] });
+
+    const page = await newSpecPage({ components: [PageTestResults], html: '<page-test-results test-id="5"></page-test-results>' });
+    await page.waitForChanges();
+    await (page.rootInstance as PageTestResults).open(3);
+    await page.waitForChanges();
+
+    const text = page.root.shadowRoot.textContent;
+    expect(text).toContain('In progress \u2014 not yet submitted.');
+    // "Expected: undefined \u00b7 \u2014 / 1" was the defect.
+    expect(text).not.toContain('undefined');
+    expect(text).not.toContain('Expected:');
+  });
+
   it('guards paging so a failed page load surfaces as an error instead of an unhandled rejection', async () => {
     getTest.mockResolvedValue({ id: 5, title: 'Cells', is_author: true, questions: [] });
     listTestAttempts.mockReset();

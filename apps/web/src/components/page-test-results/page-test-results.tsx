@@ -125,6 +125,12 @@ export class PageTestResults {
   }
 
   private renderAttempt(attempt: Attempt) {
+    // An unsubmitted attempt carries no `answer`/`graded_answer`/`awarded`,
+    // so the answers list rendered a literal "Expected: undefined". There is
+    // nothing to grade until the student submits -- say so instead.
+    if (!attempt.submitted_at) {
+      return <p class="meta">In progress — not yet submitted.</p>;
+    }
     return (
       <ol class="answers">
         {attempt.questions.map((q) => (
