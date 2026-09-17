@@ -357,6 +357,27 @@ describe('tests endpoints', () => {
     expect(JSON.parse(call?.[1].body)).toEqual({ student_ids: [2], due_at: '2026-10-01T00:00:00Z' });
   });
 
+  it('assignTest sends due_at: null to clear a due date and omits the key when it is unspecified', async () => {
+    const fetchFn = vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? okJson({}) : okJson({ results: [] }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.assignTest(9, [2], null);
+    await client.assignTest(9, [2]);
+
+    // The server only touches due_at when the key is PRESENT, so `null` has to
+    // survive as a key (clear) while `undefined` must drop out (leave alone).
+    const bodies = fetchFn.mock.calls
+      .filter((c) => c[0] === 'https://api.test/api/tests/9/assignments')
+      .map((c) => JSON.parse(c[1].body));
+
+    expect(bodies).toHaveLength(2);
+    expect(bodies[0]).toEqual({ student_ids: [2], due_at: null });
+    expect(bodies[1]).toEqual({ student_ids: [2] });
+    expect('due_at' in bodies[1]).toBe(false);
+  });
+
   it('saveAttempt PUTs responses keyed by question id and gradeAnswer PUTs awarded', async () => {
     const fetchFn = vi.fn().mockImplementation((url: string) => (url.endsWith('/sanctum/csrf-cookie') ? okJson({}) : okJson({ id: 4 })));
     const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });

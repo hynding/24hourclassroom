@@ -268,10 +268,15 @@ export class ApiClient {
     return this.get<{ data: AssignmentRow[] }>(`/api/tests/${testId}/assignments`);
   }
 
+  /**
+   * Assigns a test. `dueAt` distinguishes three cases, because the server only
+   * touches `due_at` when the key is present: a date sets it, `null` CLEARS an
+   * existing due date, and `undefined` (omitted) leaves it untouched.
+   */
   async assignTest(testId: number, studentIds: number[], dueAt?: string | null): Promise<{ results: AssignResult[] }> {
     return this.post<{ results: AssignResult[] }>(`/api/tests/${testId}/assignments`, {
       student_ids: studentIds,
-      ...(dueAt ? { due_at: dueAt } : {}),
+      ...(dueAt !== undefined ? { due_at: dueAt } : {}),
     });
   }
 
