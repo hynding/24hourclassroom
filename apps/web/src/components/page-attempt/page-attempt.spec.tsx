@@ -41,6 +41,15 @@ const deferred = <T,>() => {
   return { promise, resolve };
 };
 
+// Pumps the microtask queue without touching fake timers, so an in-progress
+// chain of `await`s (not gated on any timer) gets a chance to settle before
+// an assertion inspects an intermediate state.
+const tick = async (times = 10) => {
+  for (let i = 0; i < times; i++) {
+    await Promise.resolve();
+  }
+};
+
 describe('page-attempt', () => {
   // Fake timers are switched on AFTER mount in the tests that need them:
   // newSpecPage/waitForChanges must run on real timers.
@@ -120,6 +129,39 @@ describe('page-attempt', () => {
     await submitPromise;
     expect(saveAttempt).toHaveBeenCalledTimes(1);
     expect(submitAttempt.mock.invocationCallOrder[0]).toBeGreaterThan(saveAttempt.mock.invocationCallOrder[0]);
+  });
+
+  it('sends at most one follow-on save when two flush() callers wait on the same in-flight request', async () => {
+    const first = deferred<typeof open>();
+    const second = deferred<typeof open>();
+    saveAttempt.mockReset().mockReturnValueOnce(first.promise).mockReturnValueOnce(second.promise).mockResolvedValue(open);
+    submitAttempt.mockResolvedValue(open);
+    const page = await mount(open);
+    // newSpecPage resets the mock window (win.close()), which strips any
+    // override set before mount -- so confirm is stubbed after, as elsewhere.
+    window.confirm = () => true;
+    jest.useFakeTimers();
+    const cmp = page.rootInstance as PageAttempt;
+
+    cmp.setResponse(10, 0);
+    jest.advanceTimersByTime(2100); // first save (D1) in flight
+    cmp.setResponse(10, 1);
+    jest.advanceTimersByTime(2100); // the debounced flush becomes waiter #1 on D1
+
+    const submitPromise = cmp.submit(); // submit()'s flush becomes waiter #2 on D1
+
+    first.resolve(open);
+    await tick();
+    // Both waiters woke on the same settlement: exactly one of them should
+    // have started a follow-on save (the second joins it instead of firing
+    // its own), not two.
+    expect(saveAttempt).toHaveBeenCalledTimes(2);
+
+    second.resolve(open);
+    await submitPromise;
+    expect(saveAttempt).toHaveBeenCalledTimes(2);
+    expect(submitAttempt).toHaveBeenCalledTimes(1);
+    expect(submitAttempt.mock.invocationCallOrder[0]).toBeGreaterThan(saveAttempt.mock.invocationCallOrder[1]);
   });
 
   it('submits after a flush and renders the review with answers and explanations', async () => {

@@ -72,7 +72,17 @@ export class PageAttempt {
     // a change made while the request was in the air both starts a second,
     // overlapping save AND gets its own `dirty = false` clobbered by the
     // first request's completion.
-    if (this.inflight) {
+    //
+    // This has to be a loop, not a single await: when two callers (e.g. a
+    // timer flush and submit()'s flush) are both parked on the same
+    // `inflight`, they both resume the instant it settles. `this.inflight =
+    // (async () => { ... })()` assigns synchronously -- the IIFE runs up to
+    // its first await before flush() returns control -- so whichever waiter
+    // resumes first and finds itself still dirty starts a new save and
+    // publishes a NEW `inflight` before the second waiter's loop re-checks.
+    // The second waiter then joins THAT promise instead of racing it, and
+    // wakes up to find `dirty` already false, so it sends nothing.
+    while (this.inflight) {
       await this.inflight;
     }
     if (!this.dirty || !this.attempt) {
@@ -108,6 +118,18 @@ export class PageAttempt {
     await this.inflight;
   }
 
+  // A keystroke that raced the submit (typed after flush() sent its last
+  // save, before submitAttempt settled) must not fire a save against an
+  // attempt that is already graded server-side -- whether submit() itself
+  // succeeded or a 409 revealed it was already submitted elsewhere.
+  private settle() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = null;
+    }
+    this.dirty = false;
+  }
+
   async submit() {
     // Bare `confirm` is unusable here: Stencil's spec testing wipes any
     // override set before mount() (newSpecPage resets the mock window), and
@@ -121,17 +143,11 @@ export class PageAttempt {
     try {
       await this.flush();
       this.attempt = await testsStore.submitAttempt(this.attempt.id);
-      // A keystroke that raced the submit (typed after flush() sent its
-      // last save, before submitAttempt returned) must not fire a save
-      // against an attempt that is already graded.
-      if (this.timer) {
-        clearTimeout(this.timer);
-        this.timer = null;
-      }
-      this.dirty = false;
+      this.settle();
     } catch (e) {
       if (e instanceof ApiError && e.status === 409) {
         await this.load();
+        this.settle();
       } else if (!recoverFromExpiredSession(e)) {
         this.error = 'We could not submit this attempt. Please try again.';
       }
