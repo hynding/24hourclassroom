@@ -44,6 +44,8 @@ export namespace Components {
     }
     interface PageHome {
     }
+    interface PageLibrary {
+    }
     interface PageLogin {
     }
     interface PageNotifications {
@@ -60,6 +62,9 @@ export namespace Components {
         "teacherId"?: number;
     }
     interface PageTeachers {
+    }
+    interface PageTest {
+        "testId"?: number;
     }
     interface PageVerifyEmail {
     }
@@ -114,6 +119,12 @@ declare global {
         prototype: HTMLPageHomeElement;
         new (): HTMLPageHomeElement;
     };
+    interface HTMLPageLibraryElement extends Components.PageLibrary, HTMLStencilElement {
+    }
+    var HTMLPageLibraryElement: {
+        prototype: HTMLPageLibraryElement;
+        new (): HTMLPageLibraryElement;
+    };
     interface HTMLPageLoginElement extends Components.PageLogin, HTMLStencilElement {
     }
     var HTMLPageLoginElement: {
@@ -162,6 +173,12 @@ declare global {
         prototype: HTMLPageTeachersElement;
         new (): HTMLPageTeachersElement;
     };
+    interface HTMLPageTestElement extends Components.PageTest, HTMLStencilElement {
+    }
+    var HTMLPageTestElement: {
+        prototype: HTMLPageTestElement;
+        new (): HTMLPageTestElement;
+    };
     interface HTMLPageVerifyEmailElement extends Components.PageVerifyEmail, HTMLStencilElement {
     }
     var HTMLPageVerifyEmailElement: {
@@ -176,6 +193,7 @@ declare global {
         "page-connections": HTMLPageConnectionsElement;
         "page-forgot-password": HTMLPageForgotPasswordElement;
         "page-home": HTMLPageHomeElement;
+        "page-library": HTMLPageLibraryElement;
         "page-login": HTMLPageLoginElement;
         "page-notifications": HTMLPageNotificationsElement;
         "page-profile": HTMLPageProfileElement;
@@ -184,6 +202,7 @@ declare global {
         "page-reset-password": HTMLPageResetPasswordElement;
         "page-teacher-profile": HTMLPageTeacherProfileElement;
         "page-teachers": HTMLPageTeachersElement;
+        "page-test": HTMLPageTestElement;
         "page-verify-email": HTMLPageVerifyEmailElement;
     }
 }
@@ -224,6 +243,8 @@ declare namespace LocalJSX {
     }
     interface PageHome {
     }
+    interface PageLibrary {
+    }
     interface PageLogin {
     }
     interface PageNotifications {
@@ -241,6 +262,9 @@ declare namespace LocalJSX {
     }
     interface PageTeachers {
     }
+    interface PageTest {
+        "testId"?: number;
+    }
     interface PageVerifyEmail {
     }
 
@@ -254,6 +278,9 @@ declare namespace LocalJSX {
     interface PageTeacherProfileAttributes {
         "teacherId": number;
     }
+    interface PageTestAttributes {
+        "testId": number;
+    }
 
     interface IntrinsicElements {
         "app-footer": AppFooter;
@@ -263,6 +290,7 @@ declare namespace LocalJSX {
         "page-connections": PageConnections;
         "page-forgot-password": PageForgotPassword;
         "page-home": PageHome;
+        "page-library": PageLibrary;
         "page-login": PageLogin;
         "page-notifications": PageNotifications;
         "page-profile": PageProfile;
@@ -271,6 +299,7 @@ declare namespace LocalJSX {
         "page-reset-password": PageResetPassword;
         "page-teacher-profile": Omit<PageTeacherProfile, keyof PageTeacherProfileAttributes> & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes]?: PageTeacherProfile[K] } & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes as `attr:${K}`]?: PageTeacherProfileAttributes[K] } & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes as `prop:${K}`]?: PageTeacherProfile[K] };
         "page-teachers": PageTeachers;
+        "page-test": Omit<PageTest, keyof PageTestAttributes> & { [K in keyof PageTest & keyof PageTestAttributes]?: PageTest[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `attr:${K}`]?: PageTestAttributes[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `prop:${K}`]?: PageTest[K] };
         "page-verify-email": PageVerifyEmail;
     }
 }
@@ -292,6 +321,7 @@ declare module "@stencil/core" {
             "page-connections": LocalJSX.IntrinsicElements["page-connections"] & JSXBase.HTMLAttributes<HTMLPageConnectionsElement>;
             "page-forgot-password": LocalJSX.IntrinsicElements["page-forgot-password"] & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
+            "page-library": LocalJSX.IntrinsicElements["page-library"] & JSXBase.HTMLAttributes<HTMLPageLibraryElement>;
             "page-login": LocalJSX.IntrinsicElements["page-login"] & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
             "page-notifications": LocalJSX.IntrinsicElements["page-notifications"] & JSXBase.HTMLAttributes<HTMLPageNotificationsElement>;
             "page-profile": LocalJSX.IntrinsicElements["page-profile"] & JSXBase.HTMLAttributes<HTMLPageProfileElement>;
@@ -300,6 +330,7 @@ declare module "@stencil/core" {
             "page-reset-password": LocalJSX.IntrinsicElements["page-reset-password"] & JSXBase.HTMLAttributes<HTMLPageResetPasswordElement>;
             "page-teacher-profile": LocalJSX.IntrinsicElements["page-teacher-profile"] & JSXBase.HTMLAttributes<HTMLPageTeacherProfileElement>;
             "page-teachers": LocalJSX.IntrinsicElements["page-teachers"] & JSXBase.HTMLAttributes<HTMLPageTeachersElement>;
+            "page-test": LocalJSX.IntrinsicElements["page-test"] & JSXBase.HTMLAttributes<HTMLPageTestElement>;
             "page-verify-email": LocalJSX.IntrinsicElements["page-verify-email"] & JSXBase.HTMLAttributes<HTMLPageVerifyEmailElement>;
         }
     }
