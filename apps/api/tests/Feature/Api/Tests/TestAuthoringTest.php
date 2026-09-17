@@ -185,3 +185,20 @@ test('delete cascades questions', function () {
     $this->deleteJson("/api/tests/{$test->id}")->assertNoContent();
     expect(Test::count())->toBe(0)->and(Question::withTrashed()->count())->toBe(0);
 });
+
+test('an associative options object is rejected so array_values cannot re-point the answer', function () {
+    $this->actingAs(aTeacher());
+
+    // TestWriter array_values() the options: {"1":"a","0":"b"} would be stored
+    // as ['a', 'b'], so answer 0 -- sent meaning "b" -- would silently become
+    // "a". The shape has to be refused at the door.
+    $body = validTestBody(['questions' => [
+        ['type' => 'multiple_choice', 'prompt' => 'Which?', 'options' => ['1' => 'a', '0' => 'b'], 'answer' => 0],
+    ]]);
+
+    $this->postJson('/api/tests', $body)
+        ->assertStatus(422)
+        ->assertJsonValidationErrors(['questions.0']);
+
+    expect(Test::count())->toBe(0);
+});

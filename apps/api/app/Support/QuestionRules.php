@@ -42,6 +42,13 @@ final class QuestionRules
             if (! is_array($options) || count($options) < 2 || count($options) > 8) {
                 return 'This question type needs between 2 and 8 options.';
             }
+            // TestWriter array_values() the options, so an associative object
+            // ({"1":"a","0":"b"}) would be silently re-ordered and the answer
+            // index would then point at a DIFFERENT option than the author
+            // sent. Reject the shape instead of storing a wrong answer key.
+            if (! array_is_list($options)) {
+                return 'Options must be a list.';
+            }
             foreach ($options as $option) {
                 if (! is_string($option) || trim($option) === '') {
                     return 'Every option must be a non-empty string.';
