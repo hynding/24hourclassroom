@@ -4,6 +4,7 @@ import { authStore } from '../../services/auth-store';
 import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
+import { formatDueDate } from '../../services/format';
 
 @Component({ tag: 'page-tests', styleUrl: 'page-tests.css', shadow: true })
 export class PageTests {
@@ -94,7 +95,7 @@ export class PageTests {
             <li>
               {this.link(`/tests/${a.test.id}`, a.test.title)}
               <span class="meta">
-                by {a.test.author.name} · {a.test.question_count} questions{a.due_at ? ` · due ${new Date(a.due_at).toLocaleDateString()}` : ''}
+                by {a.test.author.name} · {a.test.question_count} questions{a.due_at ? ` · due ${formatDueDate(a.due_at)}` : ''}
               </span>
               {this.score(a.latest, 'Latest')}
               {this.score(a.best, 'Best')}

@@ -5,6 +5,7 @@ import { authStore } from '../../services/auth-store';
 import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
+import { formatDueDate } from '../../services/format';
 
 @Component({ tag: 'page-test', styleUrl: 'page-test.css', shadow: true })
 export class PageTest {
@@ -166,7 +167,7 @@ export class PageTest {
 
         {!t.is_author && this.isStudent && (
           <div class="actions">
-            {t.assignment?.due_at && <p>Due {new Date(t.assignment.due_at).toLocaleDateString()}</p>}
+            {t.assignment?.due_at && <p>Due {formatDueDate(t.assignment.due_at)}</p>}
             <button type="button" class="btn-primary" disabled={this.busy} onClick={this.start}>
               {t.open_attempt_id ? 'Continue attempt' : 'Start attempt'}
             </button>

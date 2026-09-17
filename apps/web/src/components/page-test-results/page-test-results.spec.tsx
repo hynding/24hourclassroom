@@ -47,4 +47,23 @@ describe('page-test-results', () => {
     await cmp.grade(2, 55, 1.5);
     expect(gradeAnswer).toHaveBeenCalledWith(2, 55, 1.5);
   });
+
+  it('guards paging so a failed page load surfaces as an error instead of an unhandled rejection', async () => {
+    getTest.mockResolvedValue({ id: 5, title: 'Cells', is_author: true, questions: [] });
+    listTestAttempts.mockReset();
+    listTestAttempts.mockResolvedValueOnce({ data: [], meta: { current_page: 1, last_page: 2, per_page: 15, total: 2 } });
+    listTestAttempts.mockRejectedValueOnce(new Error('boom'));
+
+    const page = await newSpecPage({ components: [PageTestResults], html: '<page-test-results test-id="5"></page-test-results>' });
+    await page.waitForChanges();
+
+    const next = Array.from(page.root.shadowRoot.querySelectorAll('button')).find((b) => b.textContent?.includes('Next')) as HTMLButtonElement;
+    expect(next).toBeTruthy();
+    next.click();
+    await page.waitForChanges();
+    await page.waitForChanges();
+
+    expect(listTestAttempts).toHaveBeenCalledTimes(2);
+    expect(page.root.shadowRoot.textContent).toContain('We could not load results.');
+  });
 });

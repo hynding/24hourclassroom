@@ -5,6 +5,7 @@ import { profileStore } from '../../services/profile-store';
 import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
+import { formatDueDate } from '../../services/format';
 
 @Component({ tag: 'page-test-assign', styleUrl: 'page-test-assign.css', shadow: true })
 export class PageTestAssign {
@@ -137,7 +138,7 @@ export class PageTestAssign {
         <ul class="rows">
           {this.assigned.map((a) => (
             <li>
-              <span>{a.student.name}{a.due_at ? ` · due ${new Date(a.due_at).toLocaleDateString()}` : ''}</span>
+              <span>{a.student.name}{a.due_at ? ` · due ${formatDueDate(a.due_at)}` : ''}</span>
               {this.score(a.latest, 'Latest')}
               {this.score(a.best, 'Best')}
               <button type="button" class="btn" disabled={this.busy} onClick={() => this.remove(a.id)}>Unassign</button>

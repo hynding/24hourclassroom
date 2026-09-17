@@ -45,6 +45,22 @@ export class PageTestResults {
     this.lastPage = result.meta.last_page;
   }
 
+  private async changePage(delta: -1 | 1) {
+    const next = this.page + delta;
+    if (next < 1 || next > this.lastPage) {
+      return;
+    }
+    this.page = next;
+    this.error = '';
+    try {
+      await this.load();
+    } catch (e) {
+      if (!recoverFromExpiredSession(e)) {
+        this.error = 'We could not load results.';
+      }
+    }
+  }
+
   async open(attemptId: number) {
     if (this.opened[attemptId]) {
       this.opened = Object.fromEntries(Object.entries(this.opened).filter(([k]) => Number(k) !== attemptId));
@@ -170,9 +186,9 @@ export class PageTestResults {
         </ul>
         {this.lastPage > 1 && (
           <nav aria-label="Result pages">
-            <button type="button" class="btn" disabled={this.page <= 1} onClick={() => { this.page -= 1; this.load(); }}>Previous</button>
+            <button type="button" class="btn" disabled={this.page <= 1} onClick={() => this.changePage(-1)}>Previous</button>
             <span>Page {this.page} of {this.lastPage}</span>
-            <button type="button" class="btn" disabled={this.page >= this.lastPage} onClick={() => { this.page += 1; this.load(); }}>Next</button>
+            <button type="button" class="btn" disabled={this.page >= this.lastPage} onClick={() => this.changePage(1)}>Next</button>
           </nav>
         )}
         <a href={`/tests/${this.test.id}`} onClick={(e) => { e.preventDefault(); navigate(`/tests/${this.test.id}`); }}>Back to test</a>
