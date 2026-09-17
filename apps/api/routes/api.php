@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationNotificationController;
 use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\FollowController;
+use App\Http\Controllers\Api\LibraryController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ProfileAvatarController;
 use App\Http\Controllers\Api\ProfileController;
@@ -16,6 +17,8 @@ use App\Http\Controllers\Api\PublicProfileController;
 use App\Http\Controllers\Api\SiteController;
 use App\Http\Controllers\Api\TeacherDirectoryController;
 use App\Http\Controllers\Api\TestController;
+use App\Http\Controllers\Api\TestCopyController;
+use App\Http\Controllers\Api\TestPublishController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +64,9 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
     Route::post('tests', [TestController::class, 'store']);
     Route::put('tests/{test}', [TestController::class, 'update']);
     Route::delete('tests/{test}', [TestController::class, 'destroy']);
+    Route::post('tests/{test}/publish', [TestPublishController::class, 'publish']);
+    Route::post('tests/{test}/unpublish', [TestPublishController::class, 'unpublish']);
+    Route::post('tests/{test}/copy', TestCopyController::class);
 });
 
 // `active` here too. These two routes are reachable by guests -- the
@@ -70,6 +76,8 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
 Route::middleware(['throttle:60,1', 'active'])->group(function () {
     Route::get('teachers', TeacherDirectoryController::class);
     Route::get('users/{user}', PublicProfileController::class);
+    Route::get('library', LibraryController::class);
+    Route::get('tests/{test}', [TestController::class, 'show']);
 });
 
 // Site configuration: no `auth`, no `active`. The public group above carries

@@ -6,6 +6,7 @@ use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveTestRequest;
 use App\Http\Resources\TestSummaryResource;
+use App\Models\Attempt;
 use App\Models\Test;
 use App\Support\TestAccess;
 use App\Support\TestPayload;
@@ -32,6 +33,25 @@ class TestController extends Controller
                 ->paginate(15)
                 ->withQueryString()
         );
+    }
+
+    public function show(Request $request, Test $test): JsonResponse
+    {
+        $viewer = $request->user();
+        TestAccess::assertViewer($viewer, $test);
+
+        $payload = TestPayload::for($test, TestAccess::canSeeAnswers($viewer, $test));
+        $assignment = $viewer ? $test->assignments()->where('student_id', $viewer->id)->first() : null;
+
+        return response()->json($payload + [
+            'is_author' => TestAccess::canAuthor($viewer, $test),
+            'assignment' => $assignment ? ['id' => $assignment->id, 'due_at' => $assignment->due_at] : null,
+            'open_attempt_id' => $viewer
+                ? Attempt::where('test_id', $test->id)->where('student_id', $viewer->id)->whereNull('submitted_at')->value('id')
+                : null,
+            // Allowlist: a teacher who is not the author may copy a public test.
+            'can_copy' => $viewer !== null && $viewer->role === Role::Teacher && $test->isPublic() && ! TestAccess::canAuthor($viewer, $test),
+        ]);
     }
 
     public function store(SaveTestRequest $request): JsonResponse
