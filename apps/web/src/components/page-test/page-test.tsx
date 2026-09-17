@@ -85,13 +85,19 @@ export class PageTest {
     this.test = { ...this.test, ...updated };
   });
 
-  private remove = () => this.run(async () => {
-    if (!confirm('Delete this test and every student attempt on it? This cannot be undone.')) {
+  private remove = () => {
+    // Ask BEFORE run(): entering run() flips `busy` (disabling every action
+    // button) for a dialog the teacher may still cancel. And it has to be
+    // `window.confirm`, not the bare global -- Stencil's newSpecPage resets
+    // the mock window, so a spec can only stub the property after mount.
+    if (!window.confirm('Delete this test and every student attempt on it? This cannot be undone.')) {
       return;
     }
-    await testsStore.deleteTest(this.test.id);
-    navigate('/tests');
-  });
+    return this.run(async () => {
+      await testsStore.deleteTest(this.test.id);
+      navigate('/tests');
+    });
+  };
 
   private link(path: string, text: string) {
     return <a href={path} onClick={(e) => { e.preventDefault(); navigate(path); }}>{text}</a>;

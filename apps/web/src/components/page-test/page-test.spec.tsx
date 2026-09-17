@@ -5,6 +5,9 @@ const getTest = jest.fn();
 const startAttempt = jest.fn();
 const copyTest = jest.fn();
 const myAttempts = jest.fn();
+const publishTest = jest.fn();
+const unpublishTest = jest.fn();
+const deleteTest = jest.fn();
 const navigate = jest.fn();
 let currentUser: unknown = null;
 
@@ -14,9 +17,9 @@ jest.mock('../../services/tests-store', () => ({
     startAttempt: (...a: unknown[]) => startAttempt(...a),
     copyTest: (...a: unknown[]) => copyTest(...a),
     myAttempts: (...a: unknown[]) => myAttempts(...a),
-    publishTest: jest.fn(),
-    unpublishTest: jest.fn(),
-    deleteTest: jest.fn(),
+    publishTest: (...a: unknown[]) => publishTest(...a),
+    unpublishTest: (...a: unknown[]) => unpublishTest(...a),
+    deleteTest: (...a: unknown[]) => deleteTest(...a),
   },
 }));
 // app-root leaves authStore.load() in flight while it renders the route, so
@@ -46,7 +49,15 @@ const mount = async (view: unknown) => {
 };
 
 describe('page-test', () => {
-  beforeEach(() => { getTest.mockReset(); startAttempt.mockReset(); copyTest.mockReset(); navigate.mockReset(); authLoad.mockClear(); currentUser = null; pending = null; });
+  beforeEach(() => { getTest.mockReset(); startAttempt.mockReset(); copyTest.mockReset(); publishTest.mockReset(); unpublishTest.mockReset(); deleteTest.mockReset(); navigate.mockReset(); authLoad.mockClear(); currentUser = null; pending = null; });
+
+  const clickButton = async (page: Awaited<ReturnType<typeof mount>>, label: string) => {
+    const button = Array.from(page.root.shadowRoot.querySelectorAll('button')).find((b) => b.textContent?.includes(label));
+    expect(button).toBeTruthy();
+    button.click();
+    await page.waitForChanges();
+    await page.waitForChanges();
+  };
 
   it('renders the public view without answers for a guest', async () => {
     const page = await mount(base);
@@ -94,6 +105,55 @@ describe('page-test', () => {
     button.click();
     await page.waitForChanges();
     expect(navigate).toHaveBeenCalledWith('/tests/81/edit');
+  });
+
+  it('publishes a private test and flips the visibility line', async () => {
+    pending = { id: 1, role: 'teacher', email_verified_at: 'x' };
+    publishTest.mockResolvedValue({ ...base, visibility: 'public' });
+    const page = await mount({ ...base, is_author: true, visibility: 'private', published_at: null });
+    expect(page.root.shadowRoot.textContent).toContain('Private');
+
+    await clickButton(page, 'Publish to library');
+
+    expect(publishTest).toHaveBeenCalledWith(5);
+    expect(page.root.shadowRoot.textContent).toContain('Public');
+  });
+
+  it('unpublishes a public test and flips the visibility line back', async () => {
+    pending = { id: 1, role: 'teacher', email_verified_at: 'x' };
+    unpublishTest.mockResolvedValue({ ...base, visibility: 'private', published_at: null });
+    const page = await mount({ ...base, is_author: true, visibility: 'public' });
+    expect(page.root.shadowRoot.textContent).toContain('Public');
+
+    await clickButton(page, 'Unpublish');
+
+    expect(unpublishTest).toHaveBeenCalledWith(5);
+    expect(page.root.shadowRoot.textContent).toContain('Private');
+  });
+
+  it('deletes the test once confirmed and returns to the list', async () => {
+    pending = { id: 1, role: 'teacher', email_verified_at: 'x' };
+    deleteTest.mockResolvedValue(undefined);
+    const page = await mount({ ...base, is_author: true });
+    // newSpecPage resets the mock window, so the stub only lands after mount --
+    // which is exactly why the component calls `window.confirm`, not `confirm`.
+    window.confirm = () => true;
+
+    await clickButton(page, 'Delete');
+
+    expect(deleteTest).toHaveBeenCalledWith(5);
+    expect(navigate).toHaveBeenCalledWith('/tests');
+  });
+
+  it('does not delete when the confirm dialog is cancelled', async () => {
+    pending = { id: 1, role: 'teacher', email_verified_at: 'x' };
+    const page = await mount({ ...base, is_author: true });
+    window.confirm = () => false;
+
+    await clickButton(page, 'Delete');
+
+    expect(deleteTest).not.toHaveBeenCalled();
+    expect(navigate).not.toHaveBeenCalled();
   });
 
   it('renders not found on 404', async () => {
