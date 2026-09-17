@@ -80,6 +80,20 @@ describe('page-attempt', () => {
     expect(saveAttempt).toHaveBeenCalledWith(7, { 10: 1, 11: [0], 13: 'energy', 14: 4 });
   });
 
+  it('flushes the pending autosave when the page is disposed inside the debounce window', async () => {
+    const page = await mount(open);
+    jest.useFakeTimers();
+    const cmp = page.rootInstance as PageAttempt;
+    cmp.setResponse(10, 1);
+    expect(saveAttempt).not.toHaveBeenCalled(); // still inside the 2s debounce
+
+    page.root.remove(); // navigating away before the timer fires
+
+    // disconnectedCallback used to only clearTimeout(), dropping the edit.
+    expect(saveAttempt).toHaveBeenCalledTimes(1);
+    expect(saveAttempt).toHaveBeenCalledWith(7, { 10: 1, 11: [0], 13: 'energy' });
+  });
+
   it('swallows a 429 on autosave and retries on the next change', async () => {
     saveAttempt.mockRejectedValueOnce(new ApiError(429, 'slow down')).mockResolvedValue(open);
     const page = await mount(open);

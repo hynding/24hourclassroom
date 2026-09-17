@@ -27,9 +27,11 @@ export class PageAttempt {
   }
 
   disconnectedCallback() {
-    if (this.timer) {
-      clearTimeout(this.timer);
-    }
+    // Clearing the timer alone DISCARDS the last edit: navigating away inside
+    // the 2s debounce window left the pending change unsent. flush() already
+    // clears the timer, no-ops when nothing is dirty, and swallows its own
+    // failures, so firing it is safe from a teardown path that cannot await.
+    void this.flush();
   }
 
   private async load() {
