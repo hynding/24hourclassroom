@@ -67,6 +67,21 @@ test('only the author sees answers, and authorship survives a role change', func
     expect(TestAccess::canAuthor($author->fresh(), $test))->toBeTrue();
 });
 
+test('canCopy is true only for another teacher on a public test', function () {
+    $author = aTeacher();
+    $public = aTestWithQuestions($author, 1, ['visibility' => 'public', 'published_at' => now()]);
+    $private = aTestWithQuestions($author);
+
+    foreach (Role::cases() as $role) {
+        $other = User::factory()->create(['role' => $role->value]);
+        expect(TestAccess::canCopy($other, $public))->toBe($role === Role::Teacher);
+    }
+
+    expect(TestAccess::canCopy($author, $public))->toBeFalse()
+        ->and(TestAccess::canCopy(null, $public))->toBeFalse()
+        ->and(TestAccess::canCopy(aTeacher(), $private))->toBeFalse();
+});
+
 test('assertAuthor is 404 on a private test and 403 on a public one for a non-author', function () {
     $author = aTeacher();
     $private = aTestWithQuestions($author);

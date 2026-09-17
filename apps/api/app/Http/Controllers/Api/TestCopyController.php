@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\Role;
 use App\Enums\TestVisibility;
 use App\Http\Controllers\Controller;
 use App\Models\Test;
@@ -18,10 +17,12 @@ class TestCopyController extends Controller
     {
         // Visibility first (404), then "is it public" (404 -- a private test
         // is not copyable even by its author, and saying so would classify
-        // it), then the role gate (403 -- existence is already public).
+        // it), then TestAccess::canCopy (403 -- existence is already public,
+        // and this covers both a non-teacher and the author copying their
+        // own test, since a self-copy is excluded by canCopy).
         TestAccess::assertViewer($request->user(), $test);
         abort_unless($test->isPublic(), 404);
-        abort_unless($request->user()->role === Role::Teacher, 403);
+        abort_unless(TestAccess::canCopy($request->user(), $test), 403);
 
         $copy = DB::transaction(function () use ($request, $test) {
             $copy = $request->user()->tests()->create([

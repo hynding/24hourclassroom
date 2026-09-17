@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Enums\Role;
 use App\Models\Test;
 use App\Models\User;
 
@@ -38,6 +39,16 @@ final class TestAccess
     public static function canAuthor(?User $user, Test $test): bool
     {
         return $user !== null && $user->id === $test->user_id;
+    }
+
+    /**
+     * Copying is for OTHER teachers -- an author already owns the original,
+     * so a self-copy is excluded even though the author can view and see
+     * answers. Allowlist: only `Role::Teacher` may copy.
+     */
+    public static function canCopy(?User $viewer, Test $test): bool
+    {
+        return $viewer !== null && $viewer->role === Role::Teacher && $test->isPublic() && ! self::canAuthor($viewer, $test);
     }
 
     public static function assertViewer(?User $viewer, Test $test): void

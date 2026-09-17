@@ -38,6 +38,15 @@ test('copy is 404 on a private source, including the authors own', function () {
     $this->postJson("/api/tests/{$private->id}/copy")->assertStatus(404);
 });
 
+test('the author cannot copy their own public test', function () {
+    $author = aTeacher();
+    $test = aTestWithQuestions($author, 1, ['visibility' => 'public', 'published_at' => now()]);
+    $this->actingAs($author);
+
+    $this->postJson("/api/tests/{$test->id}/copy")->assertStatus(403);
+    $this->getJson("/api/tests/{$test->id}")->assertOk()->assertJsonPath('can_copy', false);
+});
+
 test('every non-teacher role gets 403 on a public source', function () {
     $source = aTestWithQuestions(aTeacher(), 1, ['visibility' => 'public', 'published_at' => now()]);
     foreach (Role::cases() as $role) {

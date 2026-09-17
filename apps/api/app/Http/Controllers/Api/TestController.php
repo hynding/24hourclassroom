@@ -49,8 +49,7 @@ class TestController extends Controller
             'open_attempt_id' => $viewer
                 ? Attempt::where('test_id', $test->id)->where('student_id', $viewer->id)->whereNull('submitted_at')->value('id')
                 : null,
-            // Allowlist: a teacher who is not the author may copy a public test.
-            'can_copy' => $viewer !== null && $viewer->role === Role::Teacher && $test->isPublic() && ! TestAccess::canAuthor($viewer, $test),
+            'can_copy' => TestAccess::canCopy($viewer, $test),
         ]);
     }
 
