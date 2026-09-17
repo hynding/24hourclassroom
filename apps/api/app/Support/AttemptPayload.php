@@ -83,12 +83,28 @@ final class AttemptPayload
             // submission (soft-deleted) still renders, with answers revealed.
             $questions = $attempt->answers
                 ->sortBy(fn ($row) => $row->question->position)
-                ->map(fn ($row) => QuestionPayload::for($row->question, withAnswers: true) + [
-                    'answer_id' => $row->id,
-                    'response' => $row->response,
-                    'awarded' => $row->awarded,
-                    'graded_answer' => $row->graded_answer,
-                ])
+                ->map(function ($row) {
+                    $payload = QuestionPayload::for($row->question, withAnswers: true);
+
+                    // `awarded`/`max_score` were computed from the frozen
+                    // `graded_answer` snapshot, not the live question -- if
+                    // the author edits the question afterward, the LIVE
+                    // answer/points would contradict what was actually
+                    // graded. Override with the snapshot when one exists;
+                    // prompt/options/explanation are not part of the
+                    // snapshot (decision 7) and stay live.
+                    if (is_array($row->graded_answer) && array_key_exists('answer', $row->graded_answer) && array_key_exists('points', $row->graded_answer)) {
+                        $payload['answer'] = $row->graded_answer['answer'];
+                        $payload['points'] = $row->graded_answer['points'];
+                    }
+
+                    return $payload + [
+                        'answer_id' => $row->id,
+                        'response' => $row->response,
+                        'awarded' => $row->awarded,
+                        'graded_answer' => $row->graded_answer,
+                    ];
+                })
                 ->values()->all();
         } else {
             $questions = $attempt->test->questions()->get()

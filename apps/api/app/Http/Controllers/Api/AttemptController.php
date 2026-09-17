@@ -22,12 +22,20 @@ class AttemptController extends Controller
         TestAccess::assertViewer($me, $test);
         abort_unless($me->role === Role::Student, 403);
 
+        $assignment = $test->assignments()->where('student_id', $me->id)->first();
+
         $open = Attempt::where('test_id', $test->id)->where('student_id', $me->id)->whereNull('submitted_at')->first();
         if ($open) {
+            // A self-practice attempt started before the teacher assigned
+            // this test must pick up the link once one exists, or submit
+            // would never notify the teacher.
+            if ($open->assignment_id === null && $assignment !== null) {
+                $open->update(['assignment_id' => $assignment->id]);
+            }
+
             return response()->json(AttemptPayload::for($open));
         }
 
-        $assignment = $test->assignments()->where('student_id', $me->id)->first();
         $attempt = Attempt::create([
             'test_id' => $test->id,
             'student_id' => $me->id,

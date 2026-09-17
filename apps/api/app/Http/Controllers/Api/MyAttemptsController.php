@@ -17,7 +17,7 @@ class MyAttemptsController extends Controller
         abort_unless($me->role === Role::Student, 403);
 
         $rows = Attempt::where('student_id', $me->id)
-            ->with('test')
+            ->with(['test', 'answers'])
             ->latest('id')
             ->get()
             ->map(fn (Attempt $a) => AttemptPayload::summary($a) + [

@@ -30,5 +30,8 @@ test('editing or removing a question after grading leaves the attempt untouched'
         ->and($res->json('max_score'))->toBe('2.00')
         ->and($res->json('questions'))->toHaveCount(2)
         ->and($res->json('questions.0.graded_answer'))->toBe(['answer' => 0, 'points' => 1])
+        ->and($res->json('questions.0.answer'))->toBe(0)
+        ->and($res->json('questions.0.points'))->toBe(1)
+        ->and($res->json('questions.0.prompt'))->toBe('changed')
         ->and($res->json('questions.1.id'))->toBe($q2->id);
 });

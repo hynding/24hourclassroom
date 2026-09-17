@@ -85,6 +85,26 @@ test('a self-practice attempt on a public test has no assignment and is invisibl
     $this->postJson("/api/tests/{$test->id}/attempts")->assertStatus(404);
 });
 
+test('starting again after being assigned backfills the assignment onto the open self-practice attempt', function () {
+    $teacher = aTeacher();
+    $test = aTestWithQuestions($teacher, 1, ['visibility' => 'public', 'published_at' => now()]);
+    $student = aStudent();
+    connectAccepted($teacher, $student);
+    $this->actingAs($student);
+
+    $first = $this->postJson("/api/tests/{$test->id}/attempts")->assertCreated();
+    $id = $first->json('id');
+    expect($first->json('assignment_id'))->toBeNull();
+
+    $assignment = Assignment::create(['test_id' => $test->id, 'student_id' => $student->id, 'teacher_id' => $teacher->id]);
+
+    $again = $this->postJson("/api/tests/{$test->id}/attempts")->assertOk();
+    expect($again->json('id'))->toBe($id)->and($again->json('assignment_id'))->toBe($assignment->id);
+
+    $this->postJson("/api/attempts/{$id}/submit")->assertOk();
+    expect($teacher->notifications()->count())->toBe(1);
+});
+
 test('only students start attempts; a private unassigned test is 404', function () {
     $test = aTestWithQuestions(aTeacher(), 1, ['visibility' => 'public', 'published_at' => now()]);
     foreach (Role::cases() as $role) {
@@ -133,12 +153,18 @@ test('a student lists all their attempts including self-practice', function () {
     ['test' => $assigned, 'student' => $student] = assignedSetup();
     $public = aTestWithQuestions(aTeacher(), 1, ['visibility' => 'public', 'published_at' => now()]);
     $this->actingAs($student);
-    $this->postJson("/api/tests/{$assigned->id}/attempts");
+    $assignedId = $this->postJson("/api/tests/{$assigned->id}/attempts")->json('id');
     $this->postJson("/api/tests/{$public->id}/attempts");
+    // Leaves the short-answer question ungraded, exercising the eager-loaded
+    // `answers` branch of AttemptPayload::summary on a list endpoint.
+    $this->postJson("/api/attempts/{$assignedId}/submit")->assertOk();
 
-    $this->getJson('/api/attempts')->assertOk()->assertJsonCount(2, 'data')
+    $res = $this->getJson('/api/attempts')->assertOk()->assertJsonCount(2, 'data')
         ->assertJsonPath('data.0.test.id', $public->id)
         ->assertJsonPath('data.0.assignment_id', null);
+
+    $assignedRow = collect($res->json('data'))->firstWhere('id', $assignedId);
+    expect($assignedRow['ungraded_count'])->toBe(1);
 
     foreach (Role::cases() as $role) {
         if ($role === Role::Student) {
