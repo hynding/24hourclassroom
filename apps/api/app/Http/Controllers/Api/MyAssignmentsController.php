@@ -18,7 +18,7 @@ class MyAssignmentsController extends Controller
 
         $rows = Assignment::where('student_id', $me->id)
             ->with(['test.author', 'test' => fn ($q) => $q->withCount('questions')])
-            ->with(['attempts' => fn ($q) => $q->where('student_id', $me->id)])
+            ->with(['attempts' => fn ($q) => $q->where('student_id', $me->id)->with('answers')])
             ->latest('id')
             ->get()
             ->map(fn (Assignment $a) => [

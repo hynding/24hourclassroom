@@ -24,7 +24,13 @@ final class AttemptPayload
             'score' => $attempt->score,
             'max_score' => $attempt->max_score,
             'graded_at' => $attempt->graded_at,
-            'ungraded_count' => $attempt->isSubmitted() ? AttemptGrader::ungradedCount($attempt) : 0,
+            // Reuse an eager-loaded `answers` relation when the caller already
+            // brought one (list endpoints do, to avoid a query per attempt);
+            // only fall back to AttemptGrader's own query when it isn't there.
+            'ungraded_count' => ! $attempt->isSubmitted() ? 0
+                : ($attempt->relationLoaded('answers')
+                    ? $attempt->answers->whereNull('awarded')->count()
+                    : AttemptGrader::ungradedCount($attempt)),
         ];
     }
 

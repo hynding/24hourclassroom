@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\ConnectionStatus;
 use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Models\Assignment;
@@ -23,9 +24,18 @@ class AssignmentController extends Controller
         $teacher = $request->user();
         TestAccess::assertAuthor($teacher, $test);
 
-        $rows = $test->assignments()->with(['student', 'attempts'])->get()
+        // Resolved once rather than per-row (Connection::acceptedBetween per
+        // assignment made this endpoint N+1): every counterpart the teacher
+        // currently has an accepted connection with, in either direction.
+        $acceptedIds = Connection::where('status', ConnectionStatus::Accepted)
+            ->where(fn ($q) => $q->where('requester_id', $teacher->id)->orWhere('addressee_id', $teacher->id))
+            ->get()
+            ->map(fn (Connection $c) => $c->requester_id === $teacher->id ? $c->addressee_id : $c->requester_id)
+            ->all();
+
+        $rows = $test->assignments()->with(['student', 'attempts.answers'])->get()
             // Decision 3: the results view needs a CURRENTLY accepted connection.
-            ->filter(fn (Assignment $a) => $a->student->isActive() && Connection::acceptedBetween($teacher, $a->student))
+            ->filter(fn (Assignment $a) => $a->student->isActive() && in_array($a->student_id, $acceptedIds, true))
             ->map(fn (Assignment $a) => [
                 'id' => $a->id,
                 'student' => ['id' => $a->student->id, 'name' => $a->student->name],
@@ -74,6 +84,11 @@ class AssignmentController extends Controller
             );
             if ($assignment->wasRecentlyCreated) {
                 $student->notify(new TestAssigned($assignment));
+            } elseif (array_key_exists('due_at', $data)) {
+                // Re-assigning an already-assigned student updates the due
+                // date (a request that omits the key leaves it alone) but
+                // never re-notifies -- status stays 'assigned' either way.
+                $assignment->update(['due_at' => $data['due_at']]);
             }
             $results[] = ['id' => $id, 'status' => 'assigned'];
         }
