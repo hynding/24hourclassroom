@@ -78,6 +78,9 @@ export namespace Components {
          */
         "testId"?: number;
     }
+    interface PageTestPrint {
+        "testId"?: number;
+    }
     interface PageTestResults {
         "testId"?: number;
     }
@@ -226,6 +229,12 @@ declare global {
         prototype: HTMLPageTestEditorElement;
         new (): HTMLPageTestEditorElement;
     };
+    interface HTMLPageTestPrintElement extends Components.PageTestPrint, HTMLStencilElement {
+    }
+    var HTMLPageTestPrintElement: {
+        prototype: HTMLPageTestPrintElement;
+        new (): HTMLPageTestPrintElement;
+    };
     interface HTMLPageTestResultsElement extends Components.PageTestResults, HTMLStencilElement {
     }
     var HTMLPageTestResultsElement: {
@@ -284,6 +293,7 @@ declare global {
         "page-test": HTMLPageTestElement;
         "page-test-assign": HTMLPageTestAssignElement;
         "page-test-editor": HTMLPageTestEditorElement;
+        "page-test-print": HTMLPageTestPrintElement;
         "page-test-results": HTMLPageTestResultsElement;
         "page-tests": HTMLPageTestsElement;
         "page-verify-email": HTMLPageVerifyEmailElement;
@@ -361,6 +371,9 @@ declare namespace LocalJSX {
          */
         "testId"?: number;
     }
+    interface PageTestPrint {
+        "testId"?: number;
+    }
     interface PageTestResults {
         "testId"?: number;
     }
@@ -402,6 +415,9 @@ declare namespace LocalJSX {
     interface PageTestEditorAttributes {
         "testId": number;
     }
+    interface PageTestPrintAttributes {
+        "testId": number;
+    }
     interface PageTestResultsAttributes {
         "testId": number;
     }
@@ -431,6 +447,7 @@ declare namespace LocalJSX {
         "page-test": Omit<PageTest, keyof PageTestAttributes> & { [K in keyof PageTest & keyof PageTestAttributes]?: PageTest[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `attr:${K}`]?: PageTestAttributes[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `prop:${K}`]?: PageTest[K] };
         "page-test-assign": Omit<PageTestAssign, keyof PageTestAssignAttributes> & { [K in keyof PageTestAssign & keyof PageTestAssignAttributes]?: PageTestAssign[K] } & { [K in keyof PageTestAssign & keyof PageTestAssignAttributes as `attr:${K}`]?: PageTestAssignAttributes[K] } & { [K in keyof PageTestAssign & keyof PageTestAssignAttributes as `prop:${K}`]?: PageTestAssign[K] };
         "page-test-editor": Omit<PageTestEditor, keyof PageTestEditorAttributes> & { [K in keyof PageTestEditor & keyof PageTestEditorAttributes]?: PageTestEditor[K] } & { [K in keyof PageTestEditor & keyof PageTestEditorAttributes as `attr:${K}`]?: PageTestEditorAttributes[K] } & { [K in keyof PageTestEditor & keyof PageTestEditorAttributes as `prop:${K}`]?: PageTestEditor[K] };
+        "page-test-print": Omit<PageTestPrint, keyof PageTestPrintAttributes> & { [K in keyof PageTestPrint & keyof PageTestPrintAttributes]?: PageTestPrint[K] } & { [K in keyof PageTestPrint & keyof PageTestPrintAttributes as `attr:${K}`]?: PageTestPrintAttributes[K] } & { [K in keyof PageTestPrint & keyof PageTestPrintAttributes as `prop:${K}`]?: PageTestPrint[K] };
         "page-test-results": Omit<PageTestResults, keyof PageTestResultsAttributes> & { [K in keyof PageTestResults & keyof PageTestResultsAttributes]?: PageTestResults[K] } & { [K in keyof PageTestResults & keyof PageTestResultsAttributes as `attr:${K}`]?: PageTestResultsAttributes[K] } & { [K in keyof PageTestResults & keyof PageTestResultsAttributes as `prop:${K}`]?: PageTestResults[K] };
         "page-tests": PageTests;
         "page-verify-email": PageVerifyEmail;
@@ -468,6 +485,7 @@ declare module "@stencil/core" {
             "page-test": LocalJSX.IntrinsicElements["page-test"] & JSXBase.HTMLAttributes<HTMLPageTestElement>;
             "page-test-assign": LocalJSX.IntrinsicElements["page-test-assign"] & JSXBase.HTMLAttributes<HTMLPageTestAssignElement>;
             "page-test-editor": LocalJSX.IntrinsicElements["page-test-editor"] & JSXBase.HTMLAttributes<HTMLPageTestEditorElement>;
+            "page-test-print": LocalJSX.IntrinsicElements["page-test-print"] & JSXBase.HTMLAttributes<HTMLPageTestPrintElement>;
             "page-test-results": LocalJSX.IntrinsicElements["page-test-results"] & JSXBase.HTMLAttributes<HTMLPageTestResultsElement>;
             "page-tests": LocalJSX.IntrinsicElements["page-tests"] & JSXBase.HTMLAttributes<HTMLPageTestsElement>;
             "page-verify-email": LocalJSX.IntrinsicElements["page-verify-email"] & JSXBase.HTMLAttributes<HTMLPageVerifyEmailElement>;
