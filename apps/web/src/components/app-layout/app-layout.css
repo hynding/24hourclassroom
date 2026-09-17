@@ -42,6 +42,9 @@ main {
 :host([bare]) .shell,
 :host([bare][layout='rail']) .shell {
   display: block;
+  /* 100vh is a full viewport of filler on a printed page -- enough to push a
+   * trailing blank sheet out of the printer. Print has no viewport to fill. */
+  min-height: auto;
 }
 :host([bare]) ::slotted([slot='header']),
 :host([bare]) ::slotted([slot='footer']) {
