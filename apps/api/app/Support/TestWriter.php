@@ -40,7 +40,15 @@ final class TestWriter
                 'explanation' => $q['explanation'] ?? null,
             ];
 
-            $existing = isset($q['id']) ? $test->questions()->whereKey($q['id'])->first() : null;
+            // A repeated id must not collapse two submitted rows into one: the
+            // first occurrence claims the existing row; a later occurrence of
+            // the SAME id is treated as a new row instead of re-fetching (and
+            // overwriting) what the first occurrence already claimed, which
+            // would leave $keep with a duplicate and soft-delete everything
+            // else on the sweep below.
+            $existing = (isset($q['id']) && ! in_array($q['id'], $keep, true))
+                ? $test->questions()->whereKey($q['id'])->first()
+                : null;
             if ($existing) {
                 $existing->update($attrs);
                 $keep[] = $existing->id;

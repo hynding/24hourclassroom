@@ -36,7 +36,12 @@ class TestController extends Controller
 
     public function store(SaveTestRequest $request): JsonResponse
     {
-        abort_unless($request->user()->role === Role::Teacher, 403);
+        // Role gate lives in SaveTestRequest::authorize() now, not here: that
+        // hook runs before the validation rules, so a non-teacher's malformed
+        // body still gets 403, not the 422 a controller-side check would let
+        // through. A second copy here would only invite the two drifting
+        // apart -- exactly the denylist/allowlist mismatch this codebase has
+        // hit before -- so this is the one place the check lives.
         $data = $request->validated();
 
         $test = DB::transaction(function () use ($request, $data) {

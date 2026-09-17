@@ -53,6 +53,9 @@ test('only a teacher may create or list tests', function () {
         $this->actingAs(User::factory()->create(['role' => $role->value]));
         $this->postJson('/api/tests', validTestBody())->assertStatus(403);
         $this->getJson('/api/tests')->assertStatus(403);
+        // The role gate must win even when the body is malformed: it must
+        // never fall through to validation and answer 422 instead of 403.
+        $this->postJson('/api/tests', ['title' => ''])->assertStatus(403);
     }
 });
 
@@ -144,6 +147,27 @@ test('an id from another test is ignored, not hijacked', function () {
 
     expect($foreign->fresh()->prompt)->not->toBe('stolen?')
         ->and($foreign->fresh()->test_id)->toBe($theirs->id);
+});
+
+test('a repeated id updates the first occurrence and creates a fresh row for the second', function () {
+    $author = aTeacher();
+    $test = aTestWithQuestions($author, 1);
+    $original = $test->questions->first();
+    $this->actingAs($author);
+
+    $res = $this->putJson("/api/tests/{$test->id}", validTestBody(['questions' => [
+        ['id' => $original->id, 'type' => 'true_false', 'prompt' => 'first', 'answer' => true],
+        ['id' => $original->id, 'type' => 'true_false', 'prompt' => 'second', 'answer' => false],
+    ]]))->assertOk();
+
+    $res->assertJsonCount(2, 'questions')
+        ->assertJsonPath('questions.0.id', $original->id)
+        ->assertJsonPath('questions.0.prompt', 'first')
+        ->assertJsonPath('questions.1.prompt', 'second');
+
+    expect($res->json('questions.1.id'))->not->toBe($original->id)
+        ->and($test->fresh()->questions)->toHaveCount(2)
+        ->and($original->fresh()->prompt)->toBe('first');
 });
 
 test('a non-author gets 404 on update and delete of a private test', function () {
