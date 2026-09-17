@@ -41,7 +41,37 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+use App\Models\Connection;
+use App\Models\Question;
+use App\Models\Test;
+use App\Models\User;
+
+function aTeacher(array $attrs = []): User
 {
-    // ..
+    return User::factory()->create(['role' => 'teacher', ...$attrs]);
+}
+
+function aStudent(array $attrs = []): User
+{
+    return User::factory()->create(['role' => 'student', ...$attrs]);
+}
+
+function connectAccepted(User $a, User $b): Connection
+{
+    return Connection::create([
+        'requester_id' => $a->id,
+        'addressee_id' => $b->id,
+        'status' => 'accepted',
+        'pair_key' => Connection::pairKey($a->id, $b->id),
+    ]);
+}
+
+function aTestWithQuestions(User $author, int $count = 2, array $attrs = []): Test
+{
+    $test = Test::factory()->for($author, 'author')->create($attrs);
+    for ($i = 0; $i < $count; $i++) {
+        Question::factory()->for($test)->create(['position' => $i]);
+    }
+
+    return $test;
 }

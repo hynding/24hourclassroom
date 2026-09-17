@@ -83,3 +83,22 @@ test('the theme enums (Layout, Palette, Typeset) mirror the shared TypeScript ar
         expect($values[1])->toBe(array_column($enumClass::cases(), 'value'));
     }
 });
+
+use App\Enums\QuestionType;
+use App\Enums\TestVisibility;
+
+test('TestVisibility and QuestionType mirror the shared package in both directions', function () {
+    $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
+
+    foreach ([TestVisibility::class => 'TEST_VISIBILITIES', QuestionType::class => 'QUESTION_TYPES'] as $enum => $const) {
+        $php = array_column($enum::cases(), 'value');
+        expect(preg_match('/export const '.$const.':.*?\];/s', $shared, $m))->toBe(1);
+        preg_match_all('/value:\s*[\'"]([^\'"]+)[\'"]/', $m[0], $found);
+        expect($found[1])->toBe($php);
+    }
+
+    expect(array_column(QuestionType::cases(), 'value'))->toBe([
+        'multiple_choice', 'multi_select', 'true_false', 'short_answer', 'numeric',
+    ]);
+    expect(array_column(TestVisibility::cases(), 'value'))->toBe(['private', 'public']);
+});

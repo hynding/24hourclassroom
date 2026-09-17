@@ -53,6 +53,23 @@ export const GRADE_LEVELS: TaxonomyOption<GradeLevel>[] = [
   { value: 'higher-ed', label: 'Higher Ed' },
 ];
 
+export type TestVisibility = 'private' | 'public';
+
+export const TEST_VISIBILITIES: TaxonomyOption<TestVisibility>[] = [
+  { value: 'private', label: 'Private' },
+  { value: 'public', label: 'Public' },
+];
+
+export type QuestionType = 'multiple_choice' | 'multi_select' | 'true_false' | 'short_answer' | 'numeric';
+
+export const QUESTION_TYPES: TaxonomyOption<QuestionType>[] = [
+  { value: 'multiple_choice', label: 'Multiple choice' },
+  { value: 'multi_select', label: 'Select all that apply' },
+  { value: 'true_false', label: 'True / false' },
+  { value: 'short_answer', label: 'Short answer' },
+  { value: 'numeric', label: 'Numeric' },
+];
+
 export type Layout = 'stacked' | 'rail';
 export type Palette = 'noon' | 'evening' | 'slate' | 'afternoon';
 export type Typeset = 'editorial' | 'modern';
