@@ -49,6 +49,13 @@ describe('page-test', () => {
     expect(text).toContain('Powerhouse?');
     expect(text).not.toContain('Correct answer');
     expect(page.root.shadowRoot.querySelector('button')).toBeNull();
+    // Pins the manual "{index + 1}." prefix rendered once in .prompt, not
+    // the <ol> marker itself -- jsdom (and jest-dom's textContent) doesn't
+    // render CSS list markers, so this can't see a doubled "1.  1." caused
+    // by a missing `list-style: none` on .questions. That regression is a
+    // visual-only defect this assertion cannot catch; it only guards the
+    // text-content half of the fix.
+    expect(text.match(/1\. Powerhouse\?/g)).toHaveLength(1);
   });
 
   it('shows author controls and answers to the author', async () => {
