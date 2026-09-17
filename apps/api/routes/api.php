@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicProfileController;
 use App\Http\Controllers\Api\SiteController;
 use App\Http\Controllers\Api\TeacherDirectoryController;
+use App\Http\Controllers\Api\TestController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +56,11 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
     Route::get('notifications', [NotificationController::class, 'index']);
     Route::get('notifications/unread-count', [NotificationController::class, 'unreadCount']);
     Route::post('notifications/read', [NotificationController::class, 'read']);
+
+    Route::get('tests', [TestController::class, 'index']);
+    Route::post('tests', [TestController::class, 'store']);
+    Route::put('tests/{test}', [TestController::class, 'update']);
+    Route::delete('tests/{test}', [TestController::class, 'destroy']);
 });
 
 // `active` here too. These two routes are reachable by guests -- the
