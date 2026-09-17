@@ -38,6 +38,9 @@ export namespace Components {
     }
     interface AppRoot {
     }
+    interface PageAttempt {
+        "attemptId"?: number;
+    }
     interface PageConnections {
     }
     interface PageForgotPassword {
@@ -126,6 +129,12 @@ declare global {
     var HTMLAppRootElement: {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
+    };
+    interface HTMLPageAttemptElement extends Components.PageAttempt, HTMLStencilElement {
+    }
+    var HTMLPageAttemptElement: {
+        prototype: HTMLPageAttemptElement;
+        new (): HTMLPageAttemptElement;
     };
     interface HTMLPageConnectionsElement extends Components.PageConnections, HTMLStencilElement {
     }
@@ -259,6 +268,7 @@ declare global {
         "app-header": HTMLAppHeaderElement;
         "app-layout": HTMLAppLayoutElement;
         "app-root": HTMLAppRootElement;
+        "page-attempt": HTMLPageAttemptElement;
         "page-connections": HTMLPageConnectionsElement;
         "page-forgot-password": HTMLPageForgotPasswordElement;
         "page-home": HTMLPageHomeElement;
@@ -310,6 +320,9 @@ declare namespace LocalJSX {
         "layout"?: Layout;
     }
     interface AppRoot {
+    }
+    interface PageAttempt {
+        "attemptId"?: number;
     }
     interface PageConnections {
     }
@@ -374,6 +387,9 @@ declare namespace LocalJSX {
         "layout": Layout;
         "bare": boolean;
     }
+    interface PageAttemptAttributes {
+        "attemptId": number;
+    }
     interface PageTeacherProfileAttributes {
         "teacherId": number;
     }
@@ -399,6 +415,7 @@ declare namespace LocalJSX {
         "app-header": Omit<AppHeader, keyof AppHeaderAttributes> & { [K in keyof AppHeader & keyof AppHeaderAttributes]?: AppHeader[K] } & { [K in keyof AppHeader & keyof AppHeaderAttributes as `attr:${K}`]?: AppHeaderAttributes[K] } & { [K in keyof AppHeader & keyof AppHeaderAttributes as `prop:${K}`]?: AppHeader[K] };
         "app-layout": Omit<AppLayout, keyof AppLayoutAttributes> & { [K in keyof AppLayout & keyof AppLayoutAttributes]?: AppLayout[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `attr:${K}`]?: AppLayoutAttributes[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `prop:${K}`]?: AppLayout[K] };
         "app-root": AppRoot;
+        "page-attempt": Omit<PageAttempt, keyof PageAttemptAttributes> & { [K in keyof PageAttempt & keyof PageAttemptAttributes]?: PageAttempt[K] } & { [K in keyof PageAttempt & keyof PageAttemptAttributes as `attr:${K}`]?: PageAttemptAttributes[K] } & { [K in keyof PageAttempt & keyof PageAttemptAttributes as `prop:${K}`]?: PageAttempt[K] };
         "page-connections": PageConnections;
         "page-forgot-password": PageForgotPassword;
         "page-home": PageHome;
@@ -435,6 +452,7 @@ declare module "@stencil/core" {
              */
             "app-layout": LocalJSX.IntrinsicElements["app-layout"] & JSXBase.HTMLAttributes<HTMLAppLayoutElement>;
             "app-root": LocalJSX.IntrinsicElements["app-root"] & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "page-attempt": LocalJSX.IntrinsicElements["page-attempt"] & JSXBase.HTMLAttributes<HTMLPageAttemptElement>;
             "page-connections": LocalJSX.IntrinsicElements["page-connections"] & JSXBase.HTMLAttributes<HTMLPageConnectionsElement>;
             "page-forgot-password": LocalJSX.IntrinsicElements["page-forgot-password"] & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
