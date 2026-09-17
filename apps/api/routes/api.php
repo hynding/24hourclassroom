@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AssignmentController;
+use App\Http\Controllers\Api\AttemptController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\NewPasswordController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\LibraryController;
 use App\Http\Controllers\Api\MyAssignmentsController;
+use App\Http\Controllers\Api\MyAttemptsController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ProfileAvatarController;
 use App\Http\Controllers\Api\ProfileController;
@@ -74,6 +76,12 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
     Route::post('tests/{test}/assignments', [AssignmentController::class, 'store']);
     Route::delete('tests/{test}/assignments/{assignment}', [AssignmentController::class, 'destroy']);
     Route::get('assignments', MyAssignmentsController::class);
+
+    Route::get('attempts', MyAttemptsController::class);
+    Route::post('tests/{test}/attempts', [AttemptController::class, 'store']);
+    Route::get('attempts/{attempt}', [AttemptController::class, 'show']);
+    Route::put('attempts/{attempt}', [AttemptController::class, 'update']);
+    Route::post('attempts/{attempt}/submit', [AttemptController::class, 'submit']);
 });
 
 // `active` here too. These two routes are reachable by guests -- the
