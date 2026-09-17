@@ -31,6 +31,16 @@ const mount = async (attempt: unknown) => {
   return page;
 };
 
+// A manually-resolved promise so a test can hold a saveAttempt() call open
+// while it drives further state changes, then resolve it on its own schedule.
+const deferred = <T,>() => {
+  let resolve!: (value: T) => void;
+  const promise = new Promise<T>((res) => {
+    resolve = res;
+  });
+  return { promise, resolve };
+};
+
 describe('page-attempt', () => {
   // Fake timers are switched on AFTER mount in the tests that need them:
   // newSpecPage/waitForChanges must run on real timers.
@@ -73,6 +83,43 @@ describe('page-attempt', () => {
     cmp.setResponse(10, 1);
     jest.advanceTimersByTime(2100);
     expect(saveAttempt).toHaveBeenCalledTimes(2);
+  });
+
+  it('keeps a change made during an in-flight save', async () => {
+    const first = deferred<typeof open>();
+    saveAttempt.mockReset().mockReturnValueOnce(first.promise).mockResolvedValue(open);
+    const page = await mount(open);
+    jest.useFakeTimers();
+    const cmp = page.rootInstance as PageAttempt;
+    cmp.setResponse(10, 0);
+    jest.advanceTimersByTime(2100); // flush starts; saveAttempt is in flight
+    cmp.setResponse(10, 1); // an edit lands while the first save is pending
+    first.resolve(open);
+    await Promise.resolve();
+    await Promise.resolve();
+    jest.advanceTimersByTime(2100);
+    await Promise.resolve();
+    expect(saveAttempt).toHaveBeenCalledTimes(2);
+    expect(saveAttempt).toHaveBeenLastCalledWith(7, expect.objectContaining({ 10: 1 }));
+  });
+
+  it('submit waits for an in-flight save and does not double-send', async () => {
+    const first = deferred<typeof open>();
+    saveAttempt.mockReset().mockReturnValueOnce(first.promise).mockResolvedValue(open);
+    submitAttempt.mockResolvedValue(open);
+    const page = await mount(open);
+    // newSpecPage resets the mock window (win.close()), which strips any
+    // override set before mount -- so confirm is stubbed after, as elsewhere.
+    window.confirm = () => true;
+    jest.useFakeTimers();
+    const cmp = page.rootInstance as PageAttempt;
+    cmp.setResponse(10, 1);
+    jest.advanceTimersByTime(2100); // flush starts; saveAttempt is in flight
+    const submitPromise = cmp.submit();
+    first.resolve(open);
+    await submitPromise;
+    expect(saveAttempt).toHaveBeenCalledTimes(1);
+    expect(submitAttempt.mock.invocationCallOrder[0]).toBeGreaterThan(saveAttempt.mock.invocationCallOrder[0]);
   });
 
   it('submits after a flush and renders the review with answers and explanations', async () => {

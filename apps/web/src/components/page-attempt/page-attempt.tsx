@@ -20,6 +20,7 @@ export class PageAttempt {
 
   private timer: ReturnType<typeof setTimeout> | null = null;
   private dirty = false;
+  private inflight: Promise<void> | null = null;
 
   async componentWillLoad() {
     await this.load();
@@ -66,25 +67,45 @@ export class PageAttempt {
       clearTimeout(this.timer);
       this.timer = null;
     }
+    // A save already in flight must finish (and clear/keep `dirty`) before
+    // this call decides whether there is anything left to send -- otherwise
+    // a change made while the request was in the air both starts a second,
+    // overlapping save AND gets its own `dirty = false` clobbered by the
+    // first request's completion.
+    if (this.inflight) {
+      await this.inflight;
+    }
     if (!this.dirty || !this.attempt) {
       return;
     }
+    const attempt = this.attempt;
+    // Responses is replaced wholesale on every setResponse(), so capturing
+    // the reference here gives a sound "nothing changed since I started"
+    // token: if `this.responses` still IS `sent` when the request resolves,
+    // no edit landed while it was in flight and it is safe to clear dirty.
+    const sent = this.responses;
     this.saving = true;
-    try {
-      await testsStore.saveAttempt(this.attempt.id, this.responses);
-      this.dirty = false;
-    } catch (e) {
-      // A 429 (or any transient failure) is retried on the next change; the
-      // student is never told their autosave failed mid-question. A 409
-      // means the attempt was submitted elsewhere -- reload to show it.
-      if (e instanceof ApiError && e.status === 409) {
-        await this.load();
-      } else {
-        recoverFromExpiredSession(e);
+    this.inflight = (async () => {
+      try {
+        await testsStore.saveAttempt(attempt.id, sent);
+        if (this.responses === sent) {
+          this.dirty = false;
+        }
+      } catch (e) {
+        // A 429 (or any transient failure) is retried on the next change;
+        // the student is never told their autosave failed mid-question. A
+        // 409 means the attempt was submitted elsewhere -- reload to show it.
+        if (e instanceof ApiError && e.status === 409) {
+          await this.load();
+        } else {
+          recoverFromExpiredSession(e);
+        }
+      } finally {
+        this.saving = false;
+        this.inflight = null;
       }
-    } finally {
-      this.saving = false;
-    }
+    })();
+    await this.inflight;
   }
 
   async submit() {
@@ -100,6 +121,14 @@ export class PageAttempt {
     try {
       await this.flush();
       this.attempt = await testsStore.submitAttempt(this.attempt.id);
+      // A keystroke that raced the submit (typed after flush() sent its
+      // last save, before submitAttempt returned) must not fire a save
+      // against an attempt that is already graded.
+      if (this.timer) {
+        clearTimeout(this.timer);
+        this.timer = null;
+      }
+      this.dirty = false;
     } catch (e) {
       if (e instanceof ApiError && e.status === 409) {
         await this.load();
