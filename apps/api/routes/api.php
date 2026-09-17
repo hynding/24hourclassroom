@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AssignmentController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\NewPasswordController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Api\Auth\VerificationNotificationController;
 use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\LibraryController;
+use App\Http\Controllers\Api\MyAssignmentsController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ProfileAvatarController;
 use App\Http\Controllers\Api\ProfileController;
@@ -67,6 +69,11 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
     Route::post('tests/{test}/publish', [TestPublishController::class, 'publish']);
     Route::post('tests/{test}/unpublish', [TestPublishController::class, 'unpublish']);
     Route::post('tests/{test}/copy', TestCopyController::class);
+
+    Route::get('tests/{test}/assignments', [AssignmentController::class, 'index']);
+    Route::post('tests/{test}/assignments', [AssignmentController::class, 'store']);
+    Route::delete('tests/{test}/assignments/{assignment}', [AssignmentController::class, 'destroy']);
+    Route::get('assignments', MyAssignmentsController::class);
 });
 
 // `active` here too. These two routes are reachable by guests -- the
