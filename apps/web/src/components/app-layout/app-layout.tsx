@@ -13,6 +13,9 @@ export class AppLayout {
   /** reflect: true is load-bearing -- app-layout.css keys on :host([layout]). */
   @Prop({ reflect: true }) layout: Layout = 'stacked';
 
+  /** reflect: true is load-bearing -- app-layout.css keys on :host([bare]). Set by app-root for the print page. */
+  @Prop({ reflect: true }) bare = false;
+
   render() {
     return (
       <div class="shell">

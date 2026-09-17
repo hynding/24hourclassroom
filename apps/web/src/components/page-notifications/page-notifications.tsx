@@ -2,6 +2,7 @@ import { Component, h, State } from '@stencil/core';
 import type { AppNotification } from '@24hc/shared';
 import { profileStore } from '../../services/profile-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
+import { navigate } from '../../services/navigate';
 
 @Component({ tag: 'page-notifications', styleUrl: 'page-notifications.css', shadow: true })
 export class PageNotifications {
@@ -59,10 +60,26 @@ export class PageNotifications {
   }
 
   private describe(notification: AppNotification) {
-    if (notification.type.endsWith('ProfileModerated')) {
-      return notification.data.message;
+    const { type, data } = notification;
+    if (type.endsWith('TestAssigned')) {
+      return (
+        <a href={`/tests/${data.test_id}`} onClick={(e) => { e.preventDefault(); navigate(`/tests/${data.test_id}`); }}>
+          {data.user?.name ?? 'A teacher'} assigned you "{data.test_title}"
+        </a>
+      );
     }
-    return notification.data.user?.name;
+    if (type.endsWith('AttemptSubmitted')) {
+      return (
+        <a href={`/tests/${data.test_id}/results`} onClick={(e) => { e.preventDefault(); navigate(`/tests/${data.test_id}/results`); }}>
+          {data.user?.name ?? 'A student'} submitted "{data.test_title}"
+          {data.ungraded_count ? ` (${data.ungraded_count} to grade)` : ''}
+        </a>
+      );
+    }
+    if (type.endsWith('ProfileModerated') || type.endsWith('TestModerated')) {
+      return data.message;
+    }
+    return data.user?.name;
   }
 
   render() {

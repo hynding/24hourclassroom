@@ -131,4 +131,18 @@ describe('app-root theme wiring', () => {
     expect(layout.querySelector('app-header')!.getAttribute('slot')).toBe('header');
     expect(layout.querySelector('app-footer')!.getAttribute('slot')).toBe('footer');
   });
+
+  it('mounts the print page bare and every other page with chrome', async () => {
+    cachedTheme.mockReturnValue({ layout: 'stacked', palette: 'noon', typeset: 'editorial' });
+    loadTheme.mockResolvedValue({ layout: 'stacked', palette: 'noon', typeset: 'editorial' });
+    authLoad.mockResolvedValue(undefined);
+
+    const print = await mountAt('/tests/3/print');
+    expect(print.root.shadowRoot.querySelector('app-layout').hasAttribute('bare')).toBe(true);
+    expect(print.root.shadowRoot.querySelector('page-test-print')).not.toBeNull();
+
+    const tests = await mountAt('/tests');
+    expect(tests.root.shadowRoot.querySelector('app-layout').hasAttribute('bare')).toBe(false);
+    expect(tests.root.shadowRoot.querySelector('page-tests')).not.toBeNull();
+  });
 });

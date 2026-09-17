@@ -26,6 +26,11 @@ export namespace Components {
      */
     interface AppLayout {
         /**
+          * reflect: true is load-bearing -- app-layout.css keys on :host([bare]). Set by app-root for the print page.
+          * @default false
+         */
+        "bare": boolean;
+        /**
           * reflect: true is load-bearing -- app-layout.css keys on :host([layout]).
           * @default 'stacked'
          */
@@ -201,6 +206,11 @@ declare namespace LocalJSX {
      */
     interface AppLayout {
         /**
+          * reflect: true is load-bearing -- app-layout.css keys on :host([bare]). Set by app-root for the print page.
+          * @default false
+         */
+        "bare"?: boolean;
+        /**
           * reflect: true is load-bearing -- app-layout.css keys on :host([layout]).
           * @default 'stacked'
          */
@@ -239,6 +249,7 @@ declare namespace LocalJSX {
     }
     interface AppLayoutAttributes {
         "layout": Layout;
+        "bare": boolean;
     }
     interface PageTeacherProfileAttributes {
         "teacherId": number;

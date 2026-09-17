@@ -37,3 +37,17 @@ main {
     grid-row: auto;
   }
 }
+
+/* Print view: no chrome, no column, no max-width. */
+:host([bare]) .shell,
+:host([bare][layout='rail']) .shell {
+  display: block;
+}
+:host([bare]) ::slotted([slot='header']),
+:host([bare]) ::slotted([slot='footer']) {
+  display: none;
+}
+:host([bare]) main {
+  max-width: none;
+  padding: 0;
+}

@@ -101,3 +101,38 @@ describe('router B2 routes', () => {
     expect(redirectFor('/connections', unverified)).toBe('/verify-email');
   });
 });
+
+describe('test and attempt routes', () => {
+  it('resolves the static test pages', () => {
+    expect(resolveRoute('/tests')).toEqual({ tag: 'page-tests' });
+    expect(resolveRoute('/tests/new')).toEqual({ tag: 'page-test-editor', testId: undefined });
+    expect(resolveRoute('/library')).toEqual({ tag: 'page-library' });
+  });
+
+  it('parses /tests/:id and its sub-pages', () => {
+    expect(resolveRoute('/tests/5')).toEqual({ tag: 'page-test', testId: 5 });
+    expect(resolveRoute('/tests/5/edit')).toEqual({ tag: 'page-test-editor', testId: 5 });
+    expect(resolveRoute('/tests/5/assign')).toEqual({ tag: 'page-test-assign', testId: 5 });
+    expect(resolveRoute('/tests/5/results')).toEqual({ tag: 'page-test-results', testId: 5 });
+    expect(resolveRoute('/tests/5/print')).toEqual({ tag: 'page-test-print', testId: 5 });
+    expect(resolveRoute('/tests/abc')).toEqual({ tag: 'page-test', testId: undefined });
+    expect(resolveRoute('/tests/5/nope').tag).toBe('page-home');
+    expect(resolveRoute('/tests/5/edit/extra').tag).toBe('page-home');
+  });
+
+  it('parses /attempts/:id', () => {
+    expect(resolveRoute('/attempts/9')).toEqual({ tag: 'page-attempt', attemptId: 9 });
+    expect(resolveRoute('/attempts/x')).toEqual({ tag: 'page-attempt', attemptId: undefined });
+  });
+
+  it('guards the authenticated test pages and leaves the public ones open', () => {
+    for (const path of ['/tests', '/tests/new', '/tests/5/edit', '/tests/5/assign', '/tests/5/results', '/attempts/9']) {
+      expect(redirectFor(path, null)).toBe('/login');
+      expect(redirectFor(path, unverified)).toBe('/verify-email');
+    }
+    for (const path of ['/library', '/tests/5', '/tests/5/print']) {
+      expect(redirectFor(path, null)).toBeNull();
+      expect(redirectFor(path, unverified)).toBeNull();
+    }
+  });
+});
