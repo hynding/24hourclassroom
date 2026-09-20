@@ -228,6 +228,135 @@ test('the size cap is inclusive: 10240 KB passes and 10241 KB does not', functio
     expect(Material::count())->toBe(1);
 });
 
+test('the file-count quota rejects at the boundary and is freed by deleting', function () {
+    config(['materials.max_files_per_teacher' => 2]);
+    $teacher = aTeacher();
+    $this->actingAs($teacher);
+
+    $this->post('/api/materials', uploadBody(['title' => 'One']))->assertCreated();
+    $this->post('/api/materials', uploadBody(['title' => 'Two']))->assertCreated();
+
+    $this->post('/api/materials', uploadBody(['title' => 'Three']))
+        ->assertStatus(422)
+        ->assertJsonPath('errors.file.0', 'You have reached the limit of 2 materials.');
+
+    expect(Material::count())->toBe(2)
+        ->and(Storage::disk(config('materials.disk'))->allFiles())->toHaveCount(2);
+
+    // Deleting frees the quota immediately -- materials are hard-deleted.
+    $this->deleteJson('/api/materials/'.Material::first()->id)->assertNoContent();
+    $this->post('/api/materials', uploadBody(['title' => 'Three, now that there is room']))->assertCreated();
+});
+
+test('the byte quota rejects at the boundary and counts only the callers own materials', function () {
+    $teacher = aTeacher();
+    $fixtureBytes = filesize(base_path('tests/Fixtures/materials/sample.pdf'));
+    // Room for exactly one more fixture, minus a byte.
+    config(['materials.max_bytes_per_teacher' => (2 * $fixtureBytes) - 1]);
+
+    // Another teacher's usage must not count against this one.
+    aMaterial(aTeacher(), ['size_bytes' => 250 * 1048576]);
+
+    $this->actingAs($teacher);
+    $this->post('/api/materials', uploadBody(['title' => 'Fits']))->assertCreated();
+
+    $mb = intdiv((2 * $fixtureBytes) - 1, 1048576);
+    $this->post('/api/materials', uploadBody(['title' => 'One byte too many']))
+        ->assertStatus(422)
+        ->assertJsonPath('errors.file.0', "This file would take your materials over {$mb} MB.");
+
+    expect(Material::where('user_id', $teacher->id)->count())->toBe(1);
+});
+
+test('the locked re-check inside the transaction catches a row that landed after the friendly check', function () {
+    config(['materials.max_files_per_teacher' => 1]);
+    $teacher = aTeacher();
+    $this->actingAs($teacher);
+
+    // Simulate the parallel upload: DB::listen fires AFTER each query, so
+    // slipping the row in when the lockForUpdate select runs places it
+    // exactly between the request's friendly check (which saw 0 rows and
+    // passed) and the transaction's authoritative count.
+    $inserted = false;
+    \Illuminate\Support\Facades\DB::listen(function ($query) use (&$inserted, $teacher) {
+        if ($inserted || ! str_contains(strtolower($query->sql), 'for update')) {
+            return;
+        }
+        $inserted = true;
+        \Illuminate\Support\Facades\DB::table('materials')->insert([
+            'user_id' => $teacher->id,
+            'title' => 'Raced in',
+            'description' => null,
+            'subject' => 'math',
+            'grade_level' => '3-5',
+            'visibility' => 'private',
+            'original_name' => 'raced.pdf',
+            'path' => 'materials/'.$teacher->id.'/raced.pdf',
+            'mime_type' => 'application/pdf',
+            'size_bytes' => 10,
+            'published_at' => null,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+    });
+
+    $this->post('/api/materials', uploadBody(['title' => 'Loses the race']))
+        ->assertStatus(422)
+        ->assertJsonPath('errors.file.0', 'You have reached the limit of 1 materials.');
+
+    expect($inserted)->toBeTrue()
+        ->and(Material::where('title', 'Loses the race')->exists())->toBeFalse()
+        // The just-stored file is removed again when the transaction throws.
+        ->and(Storage::disk(config('materials.disk'))->allFiles())->toBe([]);
+});
+
+test('a storeAs that returns false is a 500 with no row written', function () {
+    $this->actingAs(aTeacher());
+
+    // The disk is throw => false: a failed write RETURNS false. Without the
+    // abort_if, a row with an empty path would commit and 201.
+    $mocked = Mockery::mock(Storage::disk(config('materials.disk')))->makePartial();
+    $mocked->shouldReceive('putFileAs')->andReturn(false);
+    Storage::set(config('materials.disk'), $mocked);
+
+    $this->post('/api/materials', uploadBody())->assertStatus(500);
+
+    expect(Material::count())->toBe(0);
+});
+
+test('a row insert that throws leaves no file behind', function () {
+    $this->actingAs(aTeacher());
+
+    // The model event dispatcher is rebuilt per test, so this listener dies
+    // with the application instance.
+    Material::creating(fn () => throw new RuntimeException('insert exploded'));
+
+    $this->post('/api/materials', uploadBody())->assertStatus(500);
+
+    expect(Material::count())->toBe(0)
+        ->and(Storage::disk(config('materials.disk'))->allFiles())->toBe([]);
+});
+
+test('a client filename with no stem falls back to the full name as the title', function () {
+    $this->actingAs(aTeacher());
+
+    $this->post('/api/materials', array_diff_key(uploadBody([
+        'file' => materialFixture('sample.pdf', '.pdf'),
+    ]), ['title' => null]))->assertCreated()->assertJsonPath('title', '.pdf');
+});
+
+test('a 300-character client filename is stored truncated to 255 with the extension kept', function () {
+    $this->actingAs(aTeacher());
+    $name = str_repeat('a', 296).'.pdf';
+    expect(strlen($name))->toBe(300);
+
+    $this->post('/api/materials', uploadBody(['file' => materialFixture('sample.pdf', $name)]))->assertCreated();
+
+    $stored = Material::sole()->original_name;
+    expect(strlen($stored))->toBe(255)
+        ->and($stored)->toEndWith('.pdf');
+});
+
 test('a body larger than post_max_size is a 413 before validation ever runs', function () {
     $limit = ini_get('post_max_size');
     $bytes = (int) $limit * match (strtoupper(substr($limit, -1))) {

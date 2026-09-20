@@ -53,7 +53,14 @@ class MaterialController extends Controller
         $ext = strtolower($file->getClientOriginalExtension());
         // basename + truncate BEFORE the insert: MySQL strict mode would
         // otherwise 500 on a long name with the file already on disk.
-        $originalName = Str::limit(basename($file->getClientOriginalName()), 255, '');
+        $name = basename($file->getClientOriginalName());
+        // Truncate from the stem, not the right edge, so a long name keeps
+        // its extension -- `path` already has one; `original_name` should too.
+        $nameExt = pathinfo($name, PATHINFO_EXTENSION);
+        $stem = pathinfo($name, PATHINFO_FILENAME);
+        $originalName = $nameExt === ''
+            ? Str::limit($stem, 255, '')
+            : Str::limit($stem, 255 - strlen($nameExt) - 1, '').'.'.$nameExt;
 
         $path = $file->storeAs("materials/{$user->id}", Str::random(40).'.'.$ext, config('materials.disk'));
         // The disk is throw => false, so a failed write returns false rather
@@ -74,7 +81,14 @@ class MaterialController extends Controller
                 return $user->materials()->create([
                     'title' => filled($data['title'] ?? null)
                         ? $data['title']
-                        : Str::limit(pathinfo($originalName, PATHINFO_FILENAME), 160, ''),
+                        // A stemless name like ".pdf" has no PATHINFO_FILENAME
+                        // (''); fall back to the full original name rather
+                        // than an empty title.
+                        : Str::limit(
+                            filled(pathinfo($originalName, PATHINFO_FILENAME)) ? pathinfo($originalName, PATHINFO_FILENAME) : $originalName,
+                            160,
+                            ''
+                        ),
                     'description' => $data['description'] ?? null,
                     'subject' => $data['subject'],
                     'grade_level' => $data['grade_level'],
