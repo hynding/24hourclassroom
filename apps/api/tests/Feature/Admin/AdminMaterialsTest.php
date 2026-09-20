@@ -16,12 +16,20 @@ function materialsAdmin(): User
 }
 
 test('non-admin roles cannot reach the materials moderation page', function () {
+    $author = aTeacher();
+    $material = aMaterial($author, ['visibility' => 'public', 'published_at' => now()]);
+
     foreach (Role::cases() as $role) {
         if ($role === Role::Admin) {
             continue;
         }
         $this->actingAs(User::factory()->create(['role' => $role->value]));
         $this->get('/admin/materials')->assertStatus(403);
+        $this->post("/admin/materials/{$material->id}/unpublish")->assertStatus(403);
+        $this->delete("/admin/materials/{$material->id}")->assertStatus(403);
+
+        expect($material->fresh()->visibility->value)->toBe('public')
+            ->and(Material::find($material->id))->not->toBeNull();
     }
 
     $this->app['auth']->forgetGuards();
