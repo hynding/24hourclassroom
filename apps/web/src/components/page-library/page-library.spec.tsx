@@ -125,7 +125,8 @@ describe('page-library', () => {
 
     expect(library).not.toHaveBeenCalled();
     expect(materialsLibrary).not.toHaveBeenCalled();
-    expect(page.root.shadowRoot.textContent).toContain('No tests match');
+    expect(page.root.shadowRoot.textContent).toContain('Nothing to show.');
+    expect(page.root.shadowRoot.textContent).not.toContain('No tests match');
   });
 
   it('offers both segments as links', async () => {

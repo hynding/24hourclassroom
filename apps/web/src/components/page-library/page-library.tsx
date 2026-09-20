@@ -148,7 +148,7 @@ export class PageLibrary {
         {this.busy && <p>Searching…</p>}
         {this.error && <p>We could not load the library. Please try again.</p>}
         {this.loaded && !this.busy && !this.error && this.count === 0 && (
-          <p>{this.isMaterials ? 'No materials match those filters yet.' : 'No tests match those filters yet.'}</p>
+          <p>{this.kind === 'materials' ? 'No materials match those filters yet.' : this.kind === 'tests' ? 'No tests match those filters yet.' : 'Nothing to show.'}</p>
         )}
 
         <ul class="cards">
