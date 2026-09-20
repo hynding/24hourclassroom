@@ -182,3 +182,8 @@ test('the 31st download in a minute is 429 while JSON requests still pass', func
 
     $this->getJson('/api/connections')->assertOk();
 });
+
+test('the framework serve route for the private disk is not registered', function () {
+    // config('filesystems.disks.local.serve') is false: MaterialFileController must be the only route to material bytes.
+    expect(\Illuminate\Support\Facades\Route::has('storage.local'))->toBeFalse();
+});
