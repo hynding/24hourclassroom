@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\MaterialController;
 use App\Http\Controllers\Api\MaterialFileController;
 use App\Http\Controllers\Api\MaterialPublishController;
 use App\Http\Controllers\Api\MaterialShareController;
+use App\Http\Controllers\Api\SharedMaterialController;
 use App\Http\Controllers\Api\MaterialShowController;
 use App\Http\Controllers\Api\MyAssignmentsController;
 use App\Http\Controllers\Api\MyAttemptsController;
@@ -94,6 +95,9 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
 
     Route::get('materials', [MaterialController::class, 'index']);
     Route::post('materials', [MaterialController::class, 'store']);
+    // Registered before the {material} routes for readability; Route::pattern
+    // in AppServiceProvider is what actually guarantees the literal wins.
+    Route::get('materials/shared', SharedMaterialController::class);
     Route::put('materials/{material}', [MaterialController::class, 'update']);
     Route::delete('materials/{material}', [MaterialController::class, 'destroy']);
     Route::post('materials/{material}/publish', [MaterialPublishController::class, 'publish']);

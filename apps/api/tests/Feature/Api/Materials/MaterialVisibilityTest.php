@@ -116,4 +116,4 @@ test('/materials/shared is never swallowed by the {material} route', function ()
     // Route::pattern('material', '[0-9]+') is what guarantees this; without it
     // the public show route would match the literal path and 404 it.
     $this->getJson('/api/materials/shared')->assertStatus(401);
-})->skip('SharedMaterialController lands in Task 12');
+});

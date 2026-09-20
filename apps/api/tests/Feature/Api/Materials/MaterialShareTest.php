@@ -168,3 +168,90 @@ test('the share list body is validated', function () {
     $this->postJson("/api/materials/{$material->id}/shares", ['user_ids' => range(1, 101)])->assertStatus(422)->assertJsonValidationErrors('user_ids');
     $this->postJson("/api/materials/{$material->id}/shares", ['user_ids' => ['abc']])->assertStatus(422)->assertJsonValidationErrors('user_ids.0');
 });
+
+test('the shared list is filtered by accepted connection IN SQL, so meta.total cannot lie', function () {
+    $author = aTeacher();
+    $me = aStudent();
+    $connection = connectAccepted($author, $me);
+
+    // 16 shares from a connected author, plus one from an author I am not
+    // connected to. An in-memory filter after paginate(15) would short the first
+    // page and report 17 in meta.total.
+    foreach (range(1, 16) as $i) {
+        shareWith(aMaterial($author, ['title' => "Shared {$i}"]), $me);
+    }
+    $unconnected = aTeacher();
+    shareWith(aMaterial($unconnected, ['title' => 'Not connected']), $me);
+
+    $this->actingAs($me);
+
+    $page = $this->getJson('/api/materials/shared')->assertOk()
+        ->assertJsonCount(15, 'data')
+        ->assertJsonPath('meta.total', 16)
+        ->assertJsonPath('data.0.title', 'Shared 16');
+
+    expect(array_keys($page->json('data.0')))->toBe([
+        'id', 'title', 'subject', 'grade_level', 'visibility', 'published_at',
+        'original_name', 'mime_type', 'size_bytes', 'author', 'shared_at',
+    ]);
+
+    // `id` is the MATERIAL id, not the share id: the two tables' id and
+    // created_at columns would otherwise clobber each other in the join.
+    $material = \App\Models\Material::where('title', 'Shared 16')->sole();
+    expect($page->json('data.0.id'))->toBe($material->id)
+        ->and($page->json('data.0.author.id'))->toBe($author->id);
+
+    $this->getJson('/api/materials/shared?page=2')->assertOk()->assertJsonCount(1, 'data');
+
+    // Disconnecting hides them all; reconnecting brings them back.
+    $connection->delete();
+    $this->getJson('/api/materials/shared')->assertOk()->assertJsonCount(0, 'data')->assertJsonPath('meta.total', 0);
+    connectAccepted($author, $me);
+    $this->getJson('/api/materials/shared')->assertOk()->assertJsonPath('meta.total', 16);
+});
+
+test('a deactivated author does not hide the shared path', function () {
+    $author = aTeacher();
+    $me = aStudent();
+    connectAccepted($author, $me);
+    shareWith(aMaterial($author, ['title' => 'Still mine to read']), $me);
+    $author->forceFill(['deactivated_at' => now()])->save();
+    $this->actingAs($me);
+
+    // C1 precedent: assigned tests outlive the teacher's deactivation; only
+    // the PUBLIC path is gated on an active author.
+    $this->getJson('/api/materials/shared')->assertOk()
+        ->assertJsonCount(1, 'data')
+        ->assertJsonPath('data.0.title', 'Still mine to read');
+});
+
+test('the shared list is ordered newest share first', function () {
+    $author = aTeacher();
+    $me = aTeacher();
+    connectAccepted($author, $me);
+
+    $older = aMaterial($author, ['title' => 'Older']);
+    $newer = aMaterial($author, ['title' => 'Newer']);
+    shareWith($older, $me)->forceFill(['created_at' => now()->subDay()])->save();
+    shareWith($newer, $me)->forceFill(['created_at' => now()])->save();
+
+    $this->actingAs($me);
+    $this->getJson('/api/materials/shared')->assertOk()
+        ->assertJsonPath('data.0.title', 'Newer')
+        ->assertJsonPath('data.1.title', 'Older');
+});
+
+test('only teachers and students may list shared materials', function () {
+    foreach (Role::cases() as $role) {
+        if (in_array($role, [Role::Teacher, Role::Student], true)) {
+            continue;
+        }
+        $this->actingAs(User::factory()->create(['role' => $role->value]));
+        $this->getJson('/api/materials/shared')->assertStatus(403);
+    }
+
+    $this->actingAs(aTeacher());
+    $this->getJson('/api/materials/shared')->assertOk();
+    $this->actingAs(aStudent());
+    $this->getJson('/api/materials/shared')->assertOk();
+});
