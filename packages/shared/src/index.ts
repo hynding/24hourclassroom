@@ -53,9 +53,10 @@ export const GRADE_LEVELS: TaxonomyOption<GradeLevel>[] = [
   { value: 'higher-ed', label: 'Higher Ed' },
 ];
 
-export type TestVisibility = 'private' | 'public';
+/** Shared by tests (C1) and materials (C2). Mirrors App\Enums\Visibility. */
+export type Visibility = 'private' | 'public';
 
-export const TEST_VISIBILITIES: TaxonomyOption<TestVisibility>[] = [
+export const VISIBILITIES: TaxonomyOption<Visibility>[] = [
   { value: 'private', label: 'Private' },
   { value: 'public', label: 'Public' },
 ];
@@ -109,7 +110,7 @@ export interface TestSummary {
   title: string;
   subject: Subject;
   grade_level: GradeLevel;
-  visibility: TestVisibility;
+  visibility: Visibility;
   published_at: string | null;
   question_count: number;
   author: TestAuthor;

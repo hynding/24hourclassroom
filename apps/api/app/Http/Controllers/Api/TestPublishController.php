@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\TestVisibility;
+use App\Enums\Visibility;
 use App\Http\Controllers\Controller;
 use App\Models\Test;
 use App\Support\TestAccess;
@@ -22,7 +22,7 @@ class TestPublishController extends Controller
         }
 
         if (! $test->isPublic()) {
-            $test->update(['visibility' => TestVisibility::Public, 'published_at' => now()]);
+            $test->update(['visibility' => Visibility::Public, 'published_at' => now()]);
         }
 
         return response()->json(TestPayload::for($test->fresh(), withAnswers: true));
@@ -31,7 +31,7 @@ class TestPublishController extends Controller
     public function unpublish(Request $request, Test $test): JsonResponse
     {
         TestAccess::assertAuthor($request->user(), $test);
-        $test->update(['visibility' => TestVisibility::Private]);
+        $test->update(['visibility' => Visibility::Private]);
 
         return response()->json(TestPayload::for($test->fresh(), withAnswers: true));
     }

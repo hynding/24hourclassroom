@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\TestVisibility;
+use App\Enums\Visibility;
 use App\Http\Controllers\Controller;
 use App\Models\Test;
 use App\Support\TestAccess;
@@ -30,7 +30,7 @@ class TestCopyController extends Controller
                 'description' => $test->description,
                 'subject' => $test->subject,
                 'grade_level' => $test->grade_level,
-                'visibility' => TestVisibility::Private,
+                'visibility' => Visibility::Private,
                 'copied_from_id' => $test->id,
             ]);
             foreach ($test->questions as $q) {

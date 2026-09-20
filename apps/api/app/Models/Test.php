@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Enums\GradeLevel;
 use App\Enums\Subject;
-use App\Enums\TestVisibility;
+use App\Enums\Visibility;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,7 +22,7 @@ class Test extends Model
         return [
             'subject' => Subject::class,
             'grade_level' => GradeLevel::class,
-            'visibility' => TestVisibility::class,
+            'visibility' => Visibility::class,
             'published_at' => 'datetime',
         ];
     }
@@ -50,6 +50,6 @@ class Test extends Model
 
     public function isPublic(): bool
     {
-        return $this->visibility === TestVisibility::Public;
+        return $this->visibility === Visibility::Public;
     }
 }

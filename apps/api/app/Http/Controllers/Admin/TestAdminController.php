@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\TestVisibility;
+use App\Enums\Visibility;
 use App\Http\Controllers\Controller;
 use App\Models\Test;
 use App\Notifications\TestModerated;
@@ -19,7 +19,7 @@ class TestAdminController extends Controller
         $term = $filters['q'] ?? null;
 
         $tests = Test::query()
-            ->where('visibility', TestVisibility::Public)
+            ->where('visibility', Visibility::Public)
             ->with('author')
             ->withCount('questions')
             ->when($term, fn ($query, $q) => $query->where('title', 'like', '%'.addcslashes($q, '\\%_').'%'))
@@ -43,7 +43,7 @@ class TestAdminController extends Controller
     public function unpublish(Test $test): RedirectResponse
     {
         if ($test->isPublic()) {
-            $test->update(['visibility' => TestVisibility::Private]);
+            $test->update(['visibility' => Visibility::Private]);
             $test->author->notify(new TestModerated($test));
         }
 
