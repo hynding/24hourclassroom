@@ -279,3 +279,12 @@ test('only teachers and students may list shared materials', function () {
     $this->actingAs(aStudent());
     $this->getJson('/api/materials/shared')->assertOk();
 });
+
+test('a non-numeric share id is a router 404, never a type error', function () {
+    $author = aTeacher();
+    $material = aMaterial($author);
+    $this->actingAs($author);
+
+    $this->deleteJson("/api/materials/{$material->id}/shares/abc")->assertStatus(404);
+    $this->deleteJson("/api/materials/{$material->id}/shares/-1")->assertStatus(404);
+});

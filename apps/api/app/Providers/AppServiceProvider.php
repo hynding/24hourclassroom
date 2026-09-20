@@ -37,6 +37,11 @@ class AppServiceProvider extends ServiceProvider
         // on registration order or what the route cache produced.
         Route::pattern('material', '[0-9]+');
 
+        // {share} is resolved by hand inside MaterialShareController::destroy
+        // (after the author check, so share ids are not an oracle); without a
+        // pattern a non-numeric segment would reach `int $share` as a string.
+        Route::pattern('share', '[0-9]+');
+
         // A top-level <a href> navigation to the API host sends that host's
         // session cookie (SameSite=Lax allows top-level GET), so Sanctum
         // resolves the user and a throttle:60,1 download would draw on the
