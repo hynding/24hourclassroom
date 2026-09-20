@@ -260,7 +260,8 @@ export interface MaterialView extends Material {
 
 /** An item of GET /api/materials/shared: a summary plus when it was shared. */
 export interface SharedMaterial extends MaterialSummary {
-  shared_at: string;
+  /** Null when the share-time alias is absent from the row. */
+  shared_at: string | null;
 }
 
 /** A row of GET /api/materials/{id}/shares. `id` is the SHARE id, not the user's. */
