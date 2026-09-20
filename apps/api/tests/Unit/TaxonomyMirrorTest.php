@@ -110,3 +110,16 @@ test('the old TestVisibility names are gone from both sides', function () {
     $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
     expect($shared)->not->toContain('TestVisibility')->not->toContain('TEST_VISIBILITIES');
 });
+
+test('the per-file upload cap in config/materials.php mirrors MAX_MATERIAL_BYTES', function () {
+    // The SPA's pre-flight size check and the server's `max:` rule have to
+    // agree or a user sees one limit and hits another. The TS side is a
+    // LITERAL (not 10 * 1024 * 1024) so this digit-capturing regex can read
+    // it the same way the enum tests read `value:` entries.
+    $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
+
+    expect(preg_match('/export const MAX_MATERIAL_BYTES\s*=\s*(\d+);/', $shared, $m))
+        ->toBe(1, 'MAX_MATERIAL_BYTES literal not found in packages/shared');
+    expect((int) $m[1])->toBe(config('materials.max_file_kb') * 1024);
+    expect((int) $m[1])->toBe(10485760);
+});
