@@ -162,6 +162,30 @@ describe('page-material-form', () => {
     expect(page.root.shadowRoot.textContent).toContain('You have reached the limit of 100 materials.');
   });
 
+  it('keeps a pending title error when a new file is chosen to clear the file error', async () => {
+    uploadMaterial.mockRejectedValue(new ApiError(422, 'The given data was invalid.', { title: ['Required'], file: ['Too big'] }));
+    const page = await mountNew();
+    await page.waitForChanges();
+    const cmp = page.rootInstance as PageMaterialForm;
+    const big = pick(2048);
+
+    page.rootInstance.onFile(big.event);
+    cmp.subject = 'science';
+    cmp.grade = '6-8';
+    await cmp.save();
+    await page.waitForChanges();
+    expect(page.root.shadowRoot.textContent).toContain('Required');
+    expect(page.root.shadowRoot.textContent).toContain('Too big');
+
+    const small = pick(1024, 'smaller.pdf');
+    page.rootInstance.onFile(small.event);
+    await page.waitForChanges();
+    const text = page.root.shadowRoot.textContent;
+
+    expect(text).toContain('Required');
+    expect(text).not.toContain('Too big');
+  });
+
   it('maps a 413 to the cap copy rather than the generic message', async () => {
     // A body over post_max_size is rejected before validation, so the error
     // carries no `errors` and only a generic message -- the 413 branch has

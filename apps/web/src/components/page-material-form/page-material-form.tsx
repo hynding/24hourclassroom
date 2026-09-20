@@ -66,13 +66,17 @@ export class PageMaterialForm {
    */
   onFile(event: Event) {
     this.file = (event.target as HTMLInputElement).files?.[0] ?? null;
-    // Clear a stale size error so re-picking a smaller file re-enables submit.
-    this.errors = {};
+    // Clear a stale size error so re-picking a smaller file re-enables
+    // submit -- but only the file key: a pending title/subject server
+    // error must survive choosing a new file.
+    const { file: _file, ...rest } = this.errors;
+    this.errors = rest;
     this.message = '';
   }
 
   async save() {
-    this.errors = {};
+    const { file: _file, ...rest } = this.errors;
+    this.errors = rest;
     this.message = '';
 
     if (!this.materialId) {
