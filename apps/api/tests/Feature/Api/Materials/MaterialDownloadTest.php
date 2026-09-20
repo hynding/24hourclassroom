@@ -5,6 +5,7 @@ use App\Models\Material;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 beforeEach(function () {
     $this->withHeader('Referer', 'http://localhost:3333');
@@ -186,4 +187,50 @@ test('the 31st download in a minute is 429 while JSON requests still pass', func
 test('the framework serve route for the private disk is not registered', function () {
     // config('filesystems.disks.local.serve') is false: MaterialFileController must be the only route to material bytes.
     expect(\Illuminate\Support\Facades\Route::has('storage.local'))->toBeFalse();
+});
+
+test('download_url is an APP_URL-prefixed relative-signed link that still verifies from another host', function () {
+    $author = aTeacher();
+    $material = aMaterial($author, ['visibility' => 'public', 'published_at' => now()]);
+
+    $url = $this->getJson("/api/materials/{$material->id}")->assertOk()->json('download_url');
+
+    expect($url)->toStartWith(rtrim(config('app.url'), '/').'/api/materials/'.$material->id.'/file')
+        ->and($url)->toContain('viewer=0')
+        ->and($url)->toContain('expires=')
+        ->and($url)->toContain('signature=');
+
+    $relative = Str::after($url, rtrim(config('app.url'), '/'));
+
+    // The signature covers path and query only, so a request arriving with a
+    // different Host header -- what the shared host's proxy actually presents
+    // to PHP -- still verifies.
+    $this->get($relative, ['Host' => 'proxy.example.com'])->assertOk();
+});
+
+test('an APP_URL with a trailing slash still produces a single-slash download_url', function () {
+    config(['app.url' => 'http://localhost/']);
+    $author = aTeacher();
+    $material = aMaterial($author, ['visibility' => 'public', 'published_at' => now()]);
+
+    $url = $this->getJson("/api/materials/{$material->id}")->assertOk()->json('download_url');
+
+    expect($url)->toStartWith('http://localhost/api/materials/')
+        ->and($url)->not->toContain('localhost//api');
+
+    $this->get(Str::after($url, 'http://localhost'))->assertOk();
+});
+
+test('an authenticated viewer gets their own id in the link, and it downloads as them', function () {
+    $author = aTeacher();
+    $material = aMaterial($author);
+    $recipient = aStudent();
+    shareWith($material, $recipient);
+    connectAccepted($author, $recipient);
+    $this->actingAs($recipient);
+
+    $url = $this->getJson("/api/materials/{$material->id}")->assertOk()->json('download_url');
+    expect($url)->toContain("viewer={$recipient->id}");
+
+    $this->get(Str::after($url, rtrim(config('app.url'), '/')))->assertOk();
 });

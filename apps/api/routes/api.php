@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\LibraryController;
 use App\Http\Controllers\Api\MaterialFileController;
+use App\Http\Controllers\Api\MaterialShowController;
 use App\Http\Controllers\Api\MyAssignmentsController;
 use App\Http\Controllers\Api\MyAttemptsController;
 use App\Http\Controllers\Api\NotificationController;
@@ -98,6 +99,7 @@ Route::middleware(['throttle:60,1', 'active'])->group(function () {
     Route::get('users/{user}', PublicProfileController::class);
     Route::get('library', LibraryController::class);
     Route::get('tests/{test}', [TestController::class, 'show']);
+    Route::get('materials/{material}', MaterialShowController::class);
 });
 
 // Site configuration: no `auth`, no `active`. The public group above carries
