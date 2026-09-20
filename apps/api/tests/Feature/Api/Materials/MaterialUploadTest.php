@@ -357,6 +357,17 @@ test('a 300-character client filename is stored truncated to 255 with the extens
         ->and($stored)->toEndWith('.pdf');
 });
 
+test('a control character in the client filename is stripped so downloads never 500', function () {
+    $this->actingAs(aTeacher());
+
+    $response = $this->post('/api/materials', uploadBody([
+        'file' => materialFixture('sample.pdf', "bad\there.pdf"),
+    ]))->assertCreated();
+
+    expect(Material::sole()->original_name)->toBe('badhere.pdf');
+    $this->get($response->json('download_url'))->assertOk();
+});
+
 test('a body larger than post_max_size is a 413 before validation ever runs', function () {
     $limit = ini_get('post_max_size');
     $bytes = (int) $limit * match (strtoupper(substr($limit, -1))) {

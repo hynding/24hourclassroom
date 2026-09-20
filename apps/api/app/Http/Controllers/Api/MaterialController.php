@@ -54,6 +54,7 @@ class MaterialController extends Controller
         // basename + truncate BEFORE the insert: MySQL strict mode would
         // otherwise 500 on a long name with the file already on disk.
         $name = basename($file->getClientOriginalName());
+        $name = preg_replace('/[\x00-\x1f\x7f]/', '', $name);
         // Truncate from the stem, not the right edge, so a long name keeps
         // its extension -- `path` already has one; `original_name` should too.
         $nameExt = pathinfo($name, PATHINFO_EXTENSION);
