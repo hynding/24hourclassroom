@@ -48,6 +48,11 @@ export namespace Components {
     interface PageHome {
     }
     interface PageLibrary {
+        /**
+          * Which segment is showing. reflect: true is load-bearing -- page-library.css keys on :host([kind='materials']) for the wider grid the extra type and size cells need.
+          * @default 'tests'
+         */
+        "kind": 'tests' | 'materials';
     }
     interface PageLogin {
     }
@@ -341,6 +346,11 @@ declare namespace LocalJSX {
     interface PageHome {
     }
     interface PageLibrary {
+        /**
+          * Which segment is showing. reflect: true is load-bearing -- page-library.css keys on :host([kind='materials']) for the wider grid the extra type and size cells need.
+          * @default 'tests'
+         */
+        "kind"?: 'tests' | 'materials';
     }
     interface PageLogin {
     }
@@ -403,6 +413,9 @@ declare namespace LocalJSX {
     interface PageAttemptAttributes {
         "attemptId": number;
     }
+    interface PageLibraryAttributes {
+        "kind": 'tests' | 'materials';
+    }
     interface PageTeacherProfileAttributes {
         "teacherId": number;
     }
@@ -435,7 +448,7 @@ declare namespace LocalJSX {
         "page-connections": PageConnections;
         "page-forgot-password": PageForgotPassword;
         "page-home": PageHome;
-        "page-library": PageLibrary;
+        "page-library": Omit<PageLibrary, keyof PageLibraryAttributes> & { [K in keyof PageLibrary & keyof PageLibraryAttributes]?: PageLibrary[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `attr:${K}`]?: PageLibraryAttributes[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `prop:${K}`]?: PageLibrary[K] };
         "page-login": PageLogin;
         "page-notifications": PageNotifications;
         "page-profile": PageProfile;

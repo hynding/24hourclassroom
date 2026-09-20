@@ -88,7 +88,7 @@ export class AppRoot {
       case 'page-material-share':
         return <page-material-share materialId={route.materialId}></page-material-share>;
       case 'page-library':
-        return <page-library></page-library>;
+        return <page-library kind={route.kind ?? 'tests'}></page-library>;
       case 'page-profile':
         return <page-profile></page-profile>;
       case 'page-connections':
