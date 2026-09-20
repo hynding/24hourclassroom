@@ -76,6 +76,8 @@ class SaveMaterialRequest extends FormRequest
             'file.required' => "Choose a file under {$mb} MB.",
             'file.max' => "Choose a file under {$mb} MB.",
             'file.file' => "Choose a file under {$mb} MB.",
+            'file.uploaded' => "Choose a file under {$mb} MB.",
+            'file' => "Choose a file under {$mb} MB.",
             'file.extensions' => 'That file type is not supported.',
             'file.mimetypes' => 'That file type is not supported.',
         ];
