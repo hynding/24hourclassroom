@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\LibraryController;
 use App\Http\Controllers\Api\MaterialController;
 use App\Http\Controllers\Api\MaterialFileController;
 use App\Http\Controllers\Api\MaterialPublishController;
+use App\Http\Controllers\Api\MaterialShareController;
 use App\Http\Controllers\Api\MaterialShowController;
 use App\Http\Controllers\Api\MyAssignmentsController;
 use App\Http\Controllers\Api\MyAttemptsController;
@@ -97,6 +98,9 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
     Route::delete('materials/{material}', [MaterialController::class, 'destroy']);
     Route::post('materials/{material}/publish', [MaterialPublishController::class, 'publish']);
     Route::post('materials/{material}/unpublish', [MaterialPublishController::class, 'unpublish']);
+    Route::get('materials/{material}/shares', [MaterialShareController::class, 'index']);
+    Route::post('materials/{material}/shares', [MaterialShareController::class, 'store']);
+    Route::delete('materials/{material}/shares/{share}', [MaterialShareController::class, 'destroy']);
 });
 
 // `active` here too. These two routes are reachable by guests -- the
