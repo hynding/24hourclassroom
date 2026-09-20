@@ -13,7 +13,10 @@ use App\Notifications\MaterialShared;
  * Per-id share eligibility and the write. Same loop shape as
  * AssignmentController::store, with two differences: the role allowlist
  * admits teachers as well as students (a handout is as useful
- * teacher-to-teacher), and the unique-violation race is rescued.
+ * teacher-to-teacher), and the unique-violation race is handled by the
+ * framework's `firstOrCreate` (`createOrFirst` as of laravel/framework
+ * v12.15.0), which catches the race and re-reads the existing row with
+ * `wasRecentlyCreated = false`.
  */
 final class MaterialSharer
 {
@@ -43,7 +46,12 @@ final class MaterialSharer
                 continue;
             }
 
-            // firstOrCreate (Laravel 12 createOrFirst) catches the unique-key race itself: a concurrent share of the same id re-reads the existing row with wasRecentlyCreated=false, so the loser never notifies twice. Do not wrap this in a second rescue — the savepoint rollback inside createOrFirst makes one unreachable.
+            // firstOrCreate (createOrFirst as of laravel/framework
+            // v12.15.0) catches the unique-key race itself: a concurrent
+            // share of the same id re-reads the existing row with
+            // wasRecentlyCreated=false, so the loser never notifies twice.
+            // Do not wrap this in a second rescue — the savepoint rollback
+            // inside createOrFirst makes one unreachable.
             $share = MaterialShare::firstOrCreate([
                 'material_id' => $material->id,
                 'user_id' => $target->id,
