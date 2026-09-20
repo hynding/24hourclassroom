@@ -14,6 +14,8 @@ class SharedMaterialResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        return MaterialPayload::summary($this->resource) + ['shared_at' => $this->shared_at];
+        return MaterialPayload::summary($this->resource) + [
+            'shared_at' => $this->shared_at ? \Illuminate\Support\Carbon::parse($this->shared_at)->toJSON() : null,
+        ];
     }
 }

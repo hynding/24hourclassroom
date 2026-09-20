@@ -194,6 +194,7 @@ test('the shared list is filtered by accepted connection IN SQL, so meta.total c
         'id', 'title', 'subject', 'grade_level', 'visibility', 'published_at',
         'original_name', 'mime_type', 'size_bytes', 'author', 'shared_at',
     ]);
+    expect($page->json('data.0.shared_at'))->toMatch('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z$/');
 
     // `id` is the MATERIAL id, not the share id: the two tables' id and
     // created_at columns would otherwise clobber each other in the join.
