@@ -50,11 +50,10 @@ class MaterialShareController extends Controller
         return response()->json(['results' => MaterialSharer::share($material, $author, $data['user_ids'])]);
     }
 
-    public function destroy(Request $request, Material $material, MaterialShare $share): Response
+    public function destroy(Request $request, Material $material, int $share): Response
     {
         MaterialAccess::assertAuthor($request->user(), $material);
-        abort_unless($share->material_id === $material->id, 404);
-        $share->delete();
+        $material->shares()->findOrFail($share)->delete();
 
         return response()->noContent();
     }

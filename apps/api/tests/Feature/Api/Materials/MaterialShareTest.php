@@ -140,6 +140,29 @@ test('unsharing is 204, and a share id from another material is 404', function (
     $this->getJson("/api/materials/{$material->id}")->assertStatus(404);
 });
 
+test('a nonexistent and a foreign share id are the same 403 for a non-author on a public material', function () {
+    config(['app.debug' => false]);
+
+    $author = aTeacher();
+    $public = aMaterial($author, ['visibility' => 'public', 'published_at' => now()]);
+    $other = aMaterial($author);
+    $student = aStudent();
+    connectAccepted($author, $student);
+    $foreign = shareWith($other, $student);
+
+    $stranger = aTeacher();
+    $this->actingAs($stranger);
+
+    $nonexistent = $this->deleteJson("/api/materials/{$public->id}/shares/999999")->assertStatus(403);
+    $foreignId = $this->deleteJson("/api/materials/{$public->id}/shares/{$foreign->id}")->assertStatus(403);
+
+    expect($nonexistent->json())->toBe($foreignId->json());
+
+    // The author, by contrast, gets a real 404 on an id that does not exist.
+    $this->actingAs($author);
+    $this->deleteJson("/api/materials/{$public->id}/shares/999999")->assertStatus(404);
+});
+
 test('only the author manages shares: 404 on private, 403 on public', function () {
     $author = aTeacher();
     $private = aMaterial($author);
