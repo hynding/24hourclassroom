@@ -14,7 +14,10 @@ return [
 
     // Validation uses BOTH `extensions:` (the client's filename) and
     // `mimetypes:` (a content sniff), so an HTML file renamed .pdf fails on
-    // content and a real PDF named .exe fails on name.
+    // content and a real PDF named .exe fails on name. A zip renamed to any
+    // allowlisted extension passes, because application/zip is allowlisted
+    // for .docx/.odt; attachment + nosniff + the stored sniffed type keep
+    // such a file inert.
     'mimetypes' => [
         'application/pdf', 'application/msword',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
