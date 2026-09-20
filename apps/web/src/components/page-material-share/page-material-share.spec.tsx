@@ -141,6 +141,7 @@ describe('page-material-share', () => {
     expect(navigate).toHaveBeenCalledWith('/materials/7');
     expect(page.root.shadowRoot.querySelector('input[type="checkbox"]')).toBeNull();
     expect(connections).not.toHaveBeenCalled();
+    expect(page.root.shadowRoot.textContent).toBe('');
   });
 
   it('renders not found on a 404', async () => {

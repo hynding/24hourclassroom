@@ -18,6 +18,8 @@ export class PageMaterialShare {
   @State() busy = false;
   @State() notFound = false;
   @State() error = '';
+  /** Set when a non-author is being navigated away; render() paints nothing. */
+  @State() bounced = false;
 
   async componentWillLoad() {
     if (!this.materialId) {
@@ -25,11 +27,16 @@ export class PageMaterialShare {
       return;
     }
     try {
-      this.material = await materialsStore.getMaterial(this.materialId);
-      if (!this.material.is_author) {
-        navigate(`/materials/${this.material.id}`);
+      const material = await materialsStore.getMaterial(this.materialId);
+      if (!material.is_author) {
+        // Set bounced BEFORE assigning this.material and return immediately:
+        // render() checks bounced first, so the share UI is never painted
+        // even for a single frame.
+        this.bounced = true;
+        navigate(`/materials/${material.id}`);
         return;
       }
+      this.material = material;
       const connections = await profileStore.connections();
       // Allowlist: a handout is as useful teacher-to-teacher as
       // teacher-to-student, but any other role is invalid by default.
@@ -110,6 +117,9 @@ export class PageMaterialShare {
   }
 
   render() {
+    if (this.bounced) {
+      return null;
+    }
     if (this.notFound) {
       return <section><h1>Material not found</h1><p>This material does not exist or is not available to you.</p></section>;
     }
