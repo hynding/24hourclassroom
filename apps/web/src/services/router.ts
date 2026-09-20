@@ -5,18 +5,26 @@ export interface ResolvedRoute {
   teacherId?: number;
   testId?: number;
   attemptId?: number;
+  materialId?: number;
+  /** Which library segment page-library is showing. */
+  kind?: 'tests' | 'materials';
 }
 
 const GUEST_ONLY = ['/login', '/register', '/forgot-password', '/reset-password'];
-const AUTH_ONLY = ['/profile', '/connections', '/notifications', '/tests', '/tests/new'];
+const AUTH_ONLY = ['/profile', '/connections', '/notifications', '/tests', '/tests/new', '/materials', '/materials/new'];
 const TEACHER_PREFIX = '/teachers/';
 const TESTS_PREFIX = '/tests/';
+const MATERIALS_PREFIX = '/materials/';
 const ATTEMPTS_PREFIX = '/attempts/';
 const TEST_SUBPAGES: Record<string, string> = {
   edit: 'page-test-editor',
   assign: 'page-test-assign',
   results: 'page-test-results',
   print: 'page-test-print',
+};
+const MATERIAL_SUBPAGES: Record<string, string> = {
+  edit: 'page-material-form',
+  share: 'page-material-share',
 };
 
 /** Positive integer or undefined; pages render not-found off undefined. */
@@ -41,28 +49,58 @@ function testRoute(path: string): ResolvedRoute | null {
   return tag ? { tag, testId } : { tag: 'page-home' };
 }
 
+/**
+ * A sibling of testRoute(), not a parameterised helper: testRoute() is
+ * hardcoded to its prefix, sub-page map and `testId` key, and generalising it
+ * would churn three call sites for no gain.
+ */
+function materialRoute(path: string): ResolvedRoute | null {
+  if (!path.startsWith(MATERIALS_PREFIX)) {
+    return null;
+  }
+  const [idSegment, sub, ...rest] = path.slice(MATERIALS_PREFIX.length).split('/');
+  if (rest.length > 0) {
+    return { tag: 'page-home' };
+  }
+  const materialId = parseId(idSegment);
+  if (sub === undefined || sub === '') {
+    return { tag: 'page-material', materialId };
+  }
+  const tag = MATERIAL_SUBPAGES[sub];
+  return tag ? { tag, materialId } : { tag: 'page-home' };
+}
+
 /** Public even logged out, so exempt from the verification gate. */
 function isPublic(path: string): boolean {
-  if (path === '/teachers' || path.startsWith(TEACHER_PREFIX) || path === '/library') {
+  if (path === '/teachers' || path.startsWith(TEACHER_PREFIX) || path === '/library' || path === '/library/materials') {
     return true;
   }
-  // '/tests/new' parses through testRoute() as a (bogus) /tests/:id with
-  // id "new" -- same shape as /tests/abc -- which would otherwise read as
-  // the public page-test view. It is a distinct, auth-only route (see
-  // AUTH_ONLY), so exclude it before consulting testRoute().
-  if (path === '/tests/new') {
+  // '/tests/new' and '/materials/new' parse through their helpers as a
+  // (bogus) /:prefix/:id with id "new" -- the same shape as /tests/abc --
+  // which would otherwise read as the public single-item view. Both are
+  // distinct, auth-only routes (see AUTH_ONLY), so exclude them before
+  // consulting either helper.
+  if (path === '/tests/new' || path === '/materials/new') {
     return false;
   }
-  const route = testRoute(path);
-  return route !== null && (route.tag === 'page-test' || route.tag === 'page-test-print');
+  const test = testRoute(path);
+  if (test !== null) {
+    return test.tag === 'page-test' || test.tag === 'page-test-print';
+  }
+  const material = materialRoute(path);
+  return material !== null && material.tag === 'page-material';
 }
 
 function isAuthOnly(path: string): boolean {
   if (AUTH_ONLY.includes(path) || path.startsWith(ATTEMPTS_PREFIX)) {
     return true;
   }
-  const route = testRoute(path);
-  return route !== null && ['page-test-editor', 'page-test-assign', 'page-test-results'].includes(route.tag);
+  const test = testRoute(path);
+  if (test !== null && ['page-test-editor', 'page-test-assign', 'page-test-results'].includes(test.tag)) {
+    return true;
+  }
+  const material = materialRoute(path);
+  return material !== null && ['page-material-form', 'page-material-share'].includes(material.tag);
 }
 
 export function resolveRoute(path: string): ResolvedRoute {
@@ -78,12 +116,25 @@ export function resolveRoute(path: string): ResolvedRoute {
   if (path === '/tests/new') {
     return { tag: 'page-test-editor', testId: undefined };
   }
+  if (path === '/materials') {
+    return { tag: 'page-materials' };
+  }
+  if (path === '/materials/new') {
+    return { tag: 'page-material-form', materialId: undefined };
+  }
   if (path === '/library') {
-    return { tag: 'page-library' };
+    return { tag: 'page-library', kind: 'tests' };
+  }
+  if (path === '/library/materials') {
+    return { tag: 'page-library', kind: 'materials' };
   }
   const test = testRoute(path);
   if (test) {
     return test;
+  }
+  const material = materialRoute(path);
+  if (material) {
+    return material;
   }
   if (path.startsWith(ATTEMPTS_PREFIX)) {
     const [idSegment, ...rest] = path.slice(ATTEMPTS_PREFIX.length).split('/');
