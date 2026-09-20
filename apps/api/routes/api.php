@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Auth\VerificationNotificationController;
 use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\LibraryController;
+use App\Http\Controllers\Api\MaterialController;
 use App\Http\Controllers\Api\MaterialFileController;
 use App\Http\Controllers\Api\MaterialShowController;
 use App\Http\Controllers\Api\MyAssignmentsController;
@@ -88,6 +89,9 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
     Route::post('attempts/{attempt}/submit', [AttemptController::class, 'submit']);
     Route::put('attempts/{attempt}/answers/{answer}', AnswerGradeController::class);
     Route::get('tests/{test}/attempts', TestAttemptsController::class);
+
+    Route::get('materials', [MaterialController::class, 'index']);
+    Route::post('materials', [MaterialController::class, 'store']);
 });
 
 // `active` here too. These two routes are reachable by guests -- the
