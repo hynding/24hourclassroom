@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Auth\VerificationNotificationController;
 use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\LibraryController;
+use App\Http\Controllers\Api\MaterialFileController;
 use App\Http\Controllers\Api\MyAssignmentsController;
 use App\Http\Controllers\Api\MyAttemptsController;
 use App\Http\Controllers\Api\NotificationController;
@@ -106,3 +107,11 @@ Route::middleware(['throttle:60,1', 'active'])->group(function () {
 // the whole api group, which is fine: AuthenticateSession only ends a session
 // whose password changed, correct on any route.
 Route::middleware('throttle:60,1')->get('site', SiteController::class);
+
+// The file stream: `signed:relative` and its own limiter, deliberately with
+// NO `auth` and NO `active`. The signature covers path and query only, so a
+// scheme or host difference between APP_URL and what the shared host's proxy
+// presents to PHP cannot 403 every production download.
+Route::middleware(['signed:relative', 'throttle:downloads'])
+    ->get('materials/{material}/file', MaterialFileController::class)
+    ->name('materials.file');
