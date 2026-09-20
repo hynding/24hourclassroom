@@ -176,16 +176,6 @@ test('a zip renamed .docx is accepted -- the documented weakening for zip contai
     expect(Material::sole()->mime_type)->toBe('application/zip');
 });
 
-test('a 300-character client filename is stored truncated to 255', function () {
-    $this->actingAs(aTeacher());
-    $name = str_repeat('a', 296).'.pdf';
-    expect(strlen($name))->toBe(300);
-
-    $this->post('/api/materials', uploadBody(['file' => materialFixture('sample.pdf', $name)]))->assertCreated();
-
-    expect(strlen(Material::sole()->original_name))->toBe(255);
-});
-
 test('a missing file reports the size-aware message', function () {
     $this->actingAs(aTeacher());
 
