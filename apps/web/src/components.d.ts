@@ -65,6 +65,9 @@ export namespace Components {
          */
         "materialId"?: number;
     }
+    interface PageMaterialShare {
+        "materialId"?: number;
+    }
     interface PageMaterials {
     }
     interface PageNotifications {
@@ -197,6 +200,12 @@ declare global {
         prototype: HTMLPageMaterialFormElement;
         new (): HTMLPageMaterialFormElement;
     };
+    interface HTMLPageMaterialShareElement extends Components.PageMaterialShare, HTMLStencilElement {
+    }
+    var HTMLPageMaterialShareElement: {
+        prototype: HTMLPageMaterialShareElement;
+        new (): HTMLPageMaterialShareElement;
+    };
     interface HTMLPageMaterialsElement extends Components.PageMaterials, HTMLStencilElement {
     }
     var HTMLPageMaterialsElement: {
@@ -319,6 +328,7 @@ declare global {
         "page-login": HTMLPageLoginElement;
         "page-material": HTMLPageMaterialElement;
         "page-material-form": HTMLPageMaterialFormElement;
+        "page-material-share": HTMLPageMaterialShareElement;
         "page-materials": HTMLPageMaterialsElement;
         "page-notifications": HTMLPageNotificationsElement;
         "page-profile": HTMLPageProfileElement;
@@ -395,6 +405,9 @@ declare namespace LocalJSX {
          */
         "materialId"?: number;
     }
+    interface PageMaterialShare {
+        "materialId"?: number;
+    }
     interface PageMaterials {
     }
     interface PageNotifications {
@@ -465,6 +478,9 @@ declare namespace LocalJSX {
     interface PageMaterialFormAttributes {
         "materialId": number;
     }
+    interface PageMaterialShareAttributes {
+        "materialId": number;
+    }
     interface PageTeacherProfileAttributes {
         "teacherId": number;
     }
@@ -501,6 +517,7 @@ declare namespace LocalJSX {
         "page-login": PageLogin;
         "page-material": Omit<PageMaterial, keyof PageMaterialAttributes> & { [K in keyof PageMaterial & keyof PageMaterialAttributes]?: PageMaterial[K] } & { [K in keyof PageMaterial & keyof PageMaterialAttributes as `attr:${K}`]?: PageMaterialAttributes[K] } & { [K in keyof PageMaterial & keyof PageMaterialAttributes as `prop:${K}`]?: PageMaterial[K] };
         "page-material-form": Omit<PageMaterialForm, keyof PageMaterialFormAttributes> & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes]?: PageMaterialForm[K] } & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes as `attr:${K}`]?: PageMaterialFormAttributes[K] } & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes as `prop:${K}`]?: PageMaterialForm[K] };
+        "page-material-share": Omit<PageMaterialShare, keyof PageMaterialShareAttributes> & { [K in keyof PageMaterialShare & keyof PageMaterialShareAttributes]?: PageMaterialShare[K] } & { [K in keyof PageMaterialShare & keyof PageMaterialShareAttributes as `attr:${K}`]?: PageMaterialShareAttributes[K] } & { [K in keyof PageMaterialShare & keyof PageMaterialShareAttributes as `prop:${K}`]?: PageMaterialShare[K] };
         "page-materials": PageMaterials;
         "page-notifications": PageNotifications;
         "page-profile": PageProfile;
@@ -542,6 +559,7 @@ declare module "@stencil/core" {
             "page-login": LocalJSX.IntrinsicElements["page-login"] & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
             "page-material": LocalJSX.IntrinsicElements["page-material"] & JSXBase.HTMLAttributes<HTMLPageMaterialElement>;
             "page-material-form": LocalJSX.IntrinsicElements["page-material-form"] & JSXBase.HTMLAttributes<HTMLPageMaterialFormElement>;
+            "page-material-share": LocalJSX.IntrinsicElements["page-material-share"] & JSXBase.HTMLAttributes<HTMLPageMaterialShareElement>;
             "page-materials": LocalJSX.IntrinsicElements["page-materials"] & JSXBase.HTMLAttributes<HTMLPageMaterialsElement>;
             "page-notifications": LocalJSX.IntrinsicElements["page-notifications"] & JSXBase.HTMLAttributes<HTMLPageNotificationsElement>;
             "page-profile": LocalJSX.IntrinsicElements["page-profile"] & JSXBase.HTMLAttributes<HTMLPageProfileElement>;
