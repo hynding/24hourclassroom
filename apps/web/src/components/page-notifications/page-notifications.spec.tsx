@@ -173,4 +173,37 @@ describe('page-notifications', () => {
     expect(text).toContain('Unpublished.');
     expect(page.root.shadowRoot.querySelector('a[href="/tests/4/results"]')).not.toBeNull();
   });
+
+  it('describes material notifications with a link and a moderation message', async () => {
+    notifications.mockResolvedValue({
+      data: [
+        { id: 'd', type: 'App\\Notifications\\MaterialShared', read_at: null, created_at: '', data: { user: { id: 1, name: 'Ms K' }, material_id: 9, material_title: 'Cell diagram' } },
+        // Actor-less, like TestModerated: no `user` key at all, so the
+        // deactivated-actor filter cannot hide it.
+        { id: 'e', type: 'App\\Notifications\\MaterialModerated', read_at: null, created_at: '', data: { material_id: 9, material_title: 'Cell diagram', message: 'An administrator removed "Cell diagram" from the public library.' } },
+      ],
+      meta: { current_page: 1, last_page: 1, per_page: 15, total: 2 },
+    });
+
+    const page = await mount();
+    await page.waitForChanges();
+    const text = page.root.shadowRoot.textContent;
+
+    expect(text).toContain('Ms K shared "Cell diagram" with you');
+    expect(text).toContain('An administrator removed "Cell diagram" from the public library.');
+    expect(page.root.shadowRoot.querySelector('a[href="/materials/9"]')).not.toBeNull();
+  });
+
+  it('names an unknown sharer generically rather than rendering undefined', async () => {
+    notifications.mockResolvedValue({
+      data: [{ id: 'f', type: 'App\\Notifications\\MaterialShared', read_at: null, created_at: '', data: { material_id: 9, material_title: 'Cell diagram' } }],
+      meta: { current_page: 1, last_page: 1, per_page: 15, total: 1 },
+    });
+
+    const page = await mount();
+    await page.waitForChanges();
+
+    expect(page.root.shadowRoot.textContent).toContain('A teacher shared "Cell diagram" with you');
+    expect(page.root.shadowRoot.textContent).not.toContain('undefined');
+  });
 });
