@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\LibraryController;
 use App\Http\Controllers\Api\MaterialController;
+use App\Http\Controllers\Api\MaterialsLibraryController;
 use App\Http\Controllers\Api\MaterialFileController;
 use App\Http\Controllers\Api\MaterialPublishController;
 use App\Http\Controllers\Api\MaterialShareController;
@@ -115,6 +116,7 @@ Route::middleware(['throttle:60,1', 'active'])->group(function () {
     Route::get('teachers', TeacherDirectoryController::class);
     Route::get('users/{user}', PublicProfileController::class);
     Route::get('library', LibraryController::class);
+    Route::get('library/materials', MaterialsLibraryController::class);
     Route::get('tests/{test}', [TestController::class, 'show']);
     Route::get('materials/{material}', MaterialShowController::class);
 });
