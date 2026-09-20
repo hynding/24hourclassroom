@@ -56,6 +56,8 @@ export namespace Components {
     }
     interface PageLogin {
     }
+    interface PageMaterials {
+    }
     interface PageNotifications {
     }
     interface PageProfile {
@@ -174,6 +176,12 @@ declare global {
         prototype: HTMLPageLoginElement;
         new (): HTMLPageLoginElement;
     };
+    interface HTMLPageMaterialsElement extends Components.PageMaterials, HTMLStencilElement {
+    }
+    var HTMLPageMaterialsElement: {
+        prototype: HTMLPageMaterialsElement;
+        new (): HTMLPageMaterialsElement;
+    };
     interface HTMLPageNotificationsElement extends Components.PageNotifications, HTMLStencilElement {
     }
     var HTMLPageNotificationsElement: {
@@ -288,6 +296,7 @@ declare global {
         "page-home": HTMLPageHomeElement;
         "page-library": HTMLPageLibraryElement;
         "page-login": HTMLPageLoginElement;
+        "page-materials": HTMLPageMaterialsElement;
         "page-notifications": HTMLPageNotificationsElement;
         "page-profile": HTMLPageProfileElement;
         "page-register": HTMLPageRegisterElement;
@@ -353,6 +362,8 @@ declare namespace LocalJSX {
         "kind"?: 'tests' | 'materials';
     }
     interface PageLogin {
+    }
+    interface PageMaterials {
     }
     interface PageNotifications {
     }
@@ -450,6 +461,7 @@ declare namespace LocalJSX {
         "page-home": PageHome;
         "page-library": Omit<PageLibrary, keyof PageLibraryAttributes> & { [K in keyof PageLibrary & keyof PageLibraryAttributes]?: PageLibrary[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `attr:${K}`]?: PageLibraryAttributes[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `prop:${K}`]?: PageLibrary[K] };
         "page-login": PageLogin;
+        "page-materials": PageMaterials;
         "page-notifications": PageNotifications;
         "page-profile": PageProfile;
         "page-register": PageRegister;
@@ -488,6 +500,7 @@ declare module "@stencil/core" {
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-library": LocalJSX.IntrinsicElements["page-library"] & JSXBase.HTMLAttributes<HTMLPageLibraryElement>;
             "page-login": LocalJSX.IntrinsicElements["page-login"] & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
+            "page-materials": LocalJSX.IntrinsicElements["page-materials"] & JSXBase.HTMLAttributes<HTMLPageMaterialsElement>;
             "page-notifications": LocalJSX.IntrinsicElements["page-notifications"] & JSXBase.HTMLAttributes<HTMLPageNotificationsElement>;
             "page-profile": LocalJSX.IntrinsicElements["page-profile"] & JSXBase.HTMLAttributes<HTMLPageProfileElement>;
             "page-register": LocalJSX.IntrinsicElements["page-register"] & JSXBase.HTMLAttributes<HTMLPageRegisterElement>;
