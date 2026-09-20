@@ -92,6 +92,8 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
 
     Route::get('materials', [MaterialController::class, 'index']);
     Route::post('materials', [MaterialController::class, 'store']);
+    Route::put('materials/{material}', [MaterialController::class, 'update']);
+    Route::delete('materials/{material}', [MaterialController::class, 'destroy']);
 });
 
 // `active` here too. These two routes are reachable by guests -- the
