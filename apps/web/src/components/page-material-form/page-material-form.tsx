@@ -117,6 +117,12 @@ export class PageMaterialForm {
       } else if (e instanceof ApiError && e.status === 422) {
         this.errors = e.errors ?? {};
         this.message = 'Please fix the highlighted fields.';
+      } else if (e instanceof ApiError && e.status === 403) {
+        // Create mode has no client-side role gate, so a non-teacher who
+        // navigates straight to /materials/new only finds out after
+        // (possibly) uploading a large file. Name the reason instead of
+        // falling through to the generic failure message.
+        this.message = 'Only teachers can upload materials.';
       } else {
         this.message = 'We could not save this material. Please try again.';
       }

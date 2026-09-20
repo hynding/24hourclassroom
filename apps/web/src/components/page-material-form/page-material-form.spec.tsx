@@ -207,6 +207,25 @@ describe('page-material-form', () => {
     expect(text).not.toContain('failed with status 413');
   });
 
+  it('explains a 403 on upload instead of a generic failure', async () => {
+    // Create mode has no client-side role gate: a non-teacher who types
+    // /materials/new only learns this from the server, after a possibly
+    // large upload.
+    uploadMaterial.mockRejectedValue(new ApiError(403, 'Forbidden'));
+    const page = await mountNew();
+    await page.waitForChanges();
+    const cmp = page.rootInstance as PageMaterialForm;
+    const { event } = pick(2048);
+
+    page.rootInstance.onFile(event);
+    cmp.subject = 'science';
+    cmp.grade = '6-8';
+    await cmp.save();
+    await page.waitForChanges();
+
+    expect(page.root.shadowRoot.textContent).toContain('Only teachers can upload materials.');
+  });
+
   it('updates metadata only and returns to the material', async () => {
     const page = await mountEdit();
     await page.waitForChanges();
