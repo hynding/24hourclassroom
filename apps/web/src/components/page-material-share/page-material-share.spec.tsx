@@ -109,6 +109,22 @@ describe('page-material-share', () => {
     expect(listMaterialShares).toHaveBeenCalledTimes(2);
   });
 
+  it('labels a recipient promoted to admin as Other, not Student', async () => {
+    // The API does not role-filter the recipient list (unlike the connection
+    // checklist above it), so a share whose user is now an admin must not
+    // fall through a role !== 'teacher' default to 'Student'. Connections
+    // are emptied here so the checklist contributes no 'Student'/'Teacher'
+    // text of its own, isolating the assertion to the recipient badge.
+    connections.mockResolvedValue({ data: [] });
+    listMaterialShares.mockResolvedValue({ data: [{ id: 5, user: { id: 22, name: 'Root', role: 'admin' }, created_at: '2026-09-19T00:00:00Z' }] });
+
+    const page = await mount();
+    const text = page.root.shadowRoot.textContent;
+
+    expect(text).toContain('Other');
+    expect(text).not.toContain('Student');
+  });
+
   it('says so when there is nobody to share with yet', async () => {
     connections.mockResolvedValue({ data: [] });
 

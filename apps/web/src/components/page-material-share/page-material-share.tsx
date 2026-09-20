@@ -95,9 +95,14 @@ export class PageMaterialShare {
     }
   }
 
-  /** Allowlisted upstream, so the two cases are exhaustive. */
+  /**
+   * Allowlisted for the connection checklist, but NOT for the recipient
+   * list below it: the API does not role-filter shares, so a recipient
+   * promoted to admin after being shared with still appears there. Every
+   * role must be named explicitly rather than defaulting to 'Student'.
+   */
   private roleLabel(role: string): string {
-    return role === 'teacher' ? 'Teacher' : 'Student';
+    return role === 'teacher' ? 'Teacher' : role === 'student' ? 'Student' : 'Other';
   }
 
   private nameFor(userId: number): string {
