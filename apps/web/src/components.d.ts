@@ -56,6 +56,9 @@ export namespace Components {
     }
     interface PageLogin {
     }
+    interface PageMaterial {
+        "materialId"?: number;
+    }
     interface PageMaterialForm {
         /**
           * Undefined = creating (/materials/new); set = editing (/materials/:id/edit).
@@ -181,6 +184,12 @@ declare global {
     var HTMLPageLoginElement: {
         prototype: HTMLPageLoginElement;
         new (): HTMLPageLoginElement;
+    };
+    interface HTMLPageMaterialElement extends Components.PageMaterial, HTMLStencilElement {
+    }
+    var HTMLPageMaterialElement: {
+        prototype: HTMLPageMaterialElement;
+        new (): HTMLPageMaterialElement;
     };
     interface HTMLPageMaterialFormElement extends Components.PageMaterialForm, HTMLStencilElement {
     }
@@ -308,6 +317,7 @@ declare global {
         "page-home": HTMLPageHomeElement;
         "page-library": HTMLPageLibraryElement;
         "page-login": HTMLPageLoginElement;
+        "page-material": HTMLPageMaterialElement;
         "page-material-form": HTMLPageMaterialFormElement;
         "page-materials": HTMLPageMaterialsElement;
         "page-notifications": HTMLPageNotificationsElement;
@@ -375,6 +385,9 @@ declare namespace LocalJSX {
         "kind"?: 'tests' | 'materials';
     }
     interface PageLogin {
+    }
+    interface PageMaterial {
+        "materialId"?: number;
     }
     interface PageMaterialForm {
         /**
@@ -446,6 +459,9 @@ declare namespace LocalJSX {
     interface PageLibraryAttributes {
         "kind": 'tests' | 'materials';
     }
+    interface PageMaterialAttributes {
+        "materialId": number;
+    }
     interface PageMaterialFormAttributes {
         "materialId": number;
     }
@@ -483,6 +499,7 @@ declare namespace LocalJSX {
         "page-home": PageHome;
         "page-library": Omit<PageLibrary, keyof PageLibraryAttributes> & { [K in keyof PageLibrary & keyof PageLibraryAttributes]?: PageLibrary[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `attr:${K}`]?: PageLibraryAttributes[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `prop:${K}`]?: PageLibrary[K] };
         "page-login": PageLogin;
+        "page-material": Omit<PageMaterial, keyof PageMaterialAttributes> & { [K in keyof PageMaterial & keyof PageMaterialAttributes]?: PageMaterial[K] } & { [K in keyof PageMaterial & keyof PageMaterialAttributes as `attr:${K}`]?: PageMaterialAttributes[K] } & { [K in keyof PageMaterial & keyof PageMaterialAttributes as `prop:${K}`]?: PageMaterial[K] };
         "page-material-form": Omit<PageMaterialForm, keyof PageMaterialFormAttributes> & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes]?: PageMaterialForm[K] } & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes as `attr:${K}`]?: PageMaterialFormAttributes[K] } & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes as `prop:${K}`]?: PageMaterialForm[K] };
         "page-materials": PageMaterials;
         "page-notifications": PageNotifications;
@@ -523,6 +540,7 @@ declare module "@stencil/core" {
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-library": LocalJSX.IntrinsicElements["page-library"] & JSXBase.HTMLAttributes<HTMLPageLibraryElement>;
             "page-login": LocalJSX.IntrinsicElements["page-login"] & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
+            "page-material": LocalJSX.IntrinsicElements["page-material"] & JSXBase.HTMLAttributes<HTMLPageMaterialElement>;
             "page-material-form": LocalJSX.IntrinsicElements["page-material-form"] & JSXBase.HTMLAttributes<HTMLPageMaterialFormElement>;
             "page-materials": LocalJSX.IntrinsicElements["page-materials"] & JSXBase.HTMLAttributes<HTMLPageMaterialsElement>;
             "page-notifications": LocalJSX.IntrinsicElements["page-notifications"] & JSXBase.HTMLAttributes<HTMLPageNotificationsElement>;
