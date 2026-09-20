@@ -62,11 +62,10 @@ class SaveMaterialRequest extends FormRequest
     }
 
     /**
-     * Built from the config value, never hardcoded. An upload larger than
-     * upload_max_filesize arrives as an UploadedFile with UPLOAD_ERR_INI_SIZE
-     * and an EMPTY path, which fails `required` (validateRequired checks
-     * getPath() !== '' for files) -- so the size message is what the user sees
-     * rather than a generic "field is required".
+     * Built from the config value, never hardcoded. An upload over
+     * upload_max_filesize arrives as an invalid UploadedFile; the validator
+     * short-circuits it into the implicit "uploaded" rule before
+     * required/file/extensions run, so that key carries the size message.
      */
     public function messages(): array
     {
@@ -77,7 +76,6 @@ class SaveMaterialRequest extends FormRequest
             'file.max' => "Choose a file under {$mb} MB.",
             'file.file' => "Choose a file under {$mb} MB.",
             'file.uploaded' => "Choose a file under {$mb} MB.",
-            'file' => "Choose a file under {$mb} MB.",
             'file.extensions' => 'That file type is not supported.',
             'file.mimetypes' => 'That file type is not supported.',
         ];
