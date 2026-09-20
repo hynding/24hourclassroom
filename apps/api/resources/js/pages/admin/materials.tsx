@@ -105,13 +105,21 @@ export default function AdminMaterials({ materials, filters }: { materials: Pagi
                     </table>
                 </div>
                 <div className="flex gap-2">
-                    <Button variant="outline" disabled={!materials.prev_page_url} onClick={() => materials.prev_page_url && router.get(materials.prev_page_url)}>
+                    <Button
+                        variant="outline"
+                        disabled={!materials.prev_page_url}
+                        onClick={() => materials.prev_page_url && router.get(materials.prev_page_url)}
+                    >
                         Previous
                     </Button>
                     <span className="self-center text-sm">
                         Page {materials.current_page} of {materials.last_page}
                     </span>
-                    <Button variant="outline" disabled={!materials.next_page_url} onClick={() => materials.next_page_url && router.get(materials.next_page_url)}>
+                    <Button
+                        variant="outline"
+                        disabled={!materials.next_page_url}
+                        onClick={() => materials.next_page_url && router.get(materials.next_page_url)}
+                    >
                         Next
                     </Button>
                 </div>
