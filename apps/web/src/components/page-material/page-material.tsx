@@ -144,7 +144,7 @@ export class PageMaterial {
         <header>
           <h1>{m.title}</h1>
           <p class="meta">
-            {this.label(SUBJECTS, m.subject)} · {this.label(GRADE_LEVELS, m.grade_level)} · {fileTypeLabel(m.original_name)} · {formatBytes(m.size_bytes)} · by {m.author.name}
+            {this.label(SUBJECTS, m.subject)} · {this.label(GRADE_LEVELS, m.grade_level)} · {fileTypeLabel(m.original_name)} · {formatBytes(m.size_bytes)} · by {this.link(`/teachers/${m.author.id}`, m.author.name)}
             {m.visibility === 'public' ? ' · Public' : ' · Private'}
           </p>
           {m.description && <p>{m.description}</p>}

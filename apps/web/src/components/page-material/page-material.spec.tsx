@@ -102,6 +102,14 @@ describe('page-material', () => {
     expect(page.root.shadowRoot.querySelector('button')).toBeNull();
   });
 
+  it('links the author to their profile', async () => {
+    const page = await mount(view({ visibility: 'public', published_at: '2026-09-01', author: { id: 42, name: 'Ada' } }));
+
+    const link = Array.from(page.root.shadowRoot.querySelectorAll('a')).find((a) => a.textContent === 'Ada');
+    expect(link).toBeTruthy();
+    expect(link.getAttribute('href')).toMatch(/\/teachers\/42$/);
+  });
+
   it('renders not found on a 404 and on a missing id', async () => {
     getMaterial.mockRejectedValue(new ApiError(404, 'nope'));
     const missing = await newSpecPage({ components: [PageMaterial], html: '<page-material material-id="7"></page-material>' });
