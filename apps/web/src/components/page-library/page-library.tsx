@@ -56,16 +56,24 @@ export class PageLibrary {
       ...(this.page > 1 ? { page: this.page } : {}),
     };
     try {
-      // Allowlist on the segment, not a ternary fallback: an unknown kind
-      // must not silently fetch the other library.
+      // True allowlist, not an if/else default: kind is a reflected string
+      // attribute, so its runtime value is not type-constrained. An unknown
+      // segment must render empty, never silently fetch the tests library.
       if (this.kind === 'materials') {
         const result = await materialsStore.materialsLibrary(filters);
         this.materials = result.data;
         this.lastPage = result.meta.last_page;
-      } else {
+      } else if (this.kind === 'tests') {
         const result = await testsStore.library(filters);
         this.tests = result.data;
         this.lastPage = result.meta.last_page;
+      } else {
+        // Unknown segment: render the empty state, fetch nothing.
+        this.tests = [];
+        this.materials = [];
+        this.lastPage = 1;
+        this.loaded = true;
+        return;
       }
       this.loaded = true;
     } catch (e) {

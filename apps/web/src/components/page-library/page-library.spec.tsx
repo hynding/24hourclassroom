@@ -109,6 +109,25 @@ describe('page-library', () => {
     expect(page.root.shadowRoot.textContent).toContain('Worksheet');
   });
 
+  it('fetches nothing and renders the empty state for an unknown kind', async () => {
+    // kind is a reflected string attribute, so its runtime value is not
+    // type-constrained -- an unrecognised segment must not silently fall
+    // back to fetching either library (the denylist-shaped defect CLAUDE.md
+    // calls out).
+    const page = await mount();
+    await page.waitForChanges();
+    library.mockClear();
+    materialsLibrary.mockClear();
+
+    page.root.kind = 'nope' as any;
+    await page.waitForChanges();
+    await page.waitForChanges();
+
+    expect(library).not.toHaveBeenCalled();
+    expect(materialsLibrary).not.toHaveBeenCalled();
+    expect(page.root.shadowRoot.textContent).toContain('No tests match');
+  });
+
   it('offers both segments as links', async () => {
     const page = await mount();
     await page.waitForChanges();
