@@ -48,8 +48,27 @@ export namespace Components {
     interface PageHome {
     }
     interface PageLibrary {
+        /**
+          * Which segment is showing. reflect: true is load-bearing -- page-library.css keys on :host([kind='materials']) for the wider grid the extra type and size cells need.
+          * @default 'tests'
+         */
+        "kind": 'tests' | 'materials';
     }
     interface PageLogin {
+    }
+    interface PageMaterial {
+        "materialId"?: number;
+    }
+    interface PageMaterialForm {
+        /**
+          * Undefined = creating (/materials/new); set = editing (/materials/:id/edit).
+         */
+        "materialId"?: number;
+    }
+    interface PageMaterialShare {
+        "materialId"?: number;
+    }
+    interface PageMaterials {
     }
     interface PageNotifications {
     }
@@ -169,6 +188,30 @@ declare global {
         prototype: HTMLPageLoginElement;
         new (): HTMLPageLoginElement;
     };
+    interface HTMLPageMaterialElement extends Components.PageMaterial, HTMLStencilElement {
+    }
+    var HTMLPageMaterialElement: {
+        prototype: HTMLPageMaterialElement;
+        new (): HTMLPageMaterialElement;
+    };
+    interface HTMLPageMaterialFormElement extends Components.PageMaterialForm, HTMLStencilElement {
+    }
+    var HTMLPageMaterialFormElement: {
+        prototype: HTMLPageMaterialFormElement;
+        new (): HTMLPageMaterialFormElement;
+    };
+    interface HTMLPageMaterialShareElement extends Components.PageMaterialShare, HTMLStencilElement {
+    }
+    var HTMLPageMaterialShareElement: {
+        prototype: HTMLPageMaterialShareElement;
+        new (): HTMLPageMaterialShareElement;
+    };
+    interface HTMLPageMaterialsElement extends Components.PageMaterials, HTMLStencilElement {
+    }
+    var HTMLPageMaterialsElement: {
+        prototype: HTMLPageMaterialsElement;
+        new (): HTMLPageMaterialsElement;
+    };
     interface HTMLPageNotificationsElement extends Components.PageNotifications, HTMLStencilElement {
     }
     var HTMLPageNotificationsElement: {
@@ -283,6 +326,10 @@ declare global {
         "page-home": HTMLPageHomeElement;
         "page-library": HTMLPageLibraryElement;
         "page-login": HTMLPageLoginElement;
+        "page-material": HTMLPageMaterialElement;
+        "page-material-form": HTMLPageMaterialFormElement;
+        "page-material-share": HTMLPageMaterialShareElement;
+        "page-materials": HTMLPageMaterialsElement;
         "page-notifications": HTMLPageNotificationsElement;
         "page-profile": HTMLPageProfileElement;
         "page-register": HTMLPageRegisterElement;
@@ -341,8 +388,27 @@ declare namespace LocalJSX {
     interface PageHome {
     }
     interface PageLibrary {
+        /**
+          * Which segment is showing. reflect: true is load-bearing -- page-library.css keys on :host([kind='materials']) for the wider grid the extra type and size cells need.
+          * @default 'tests'
+         */
+        "kind"?: 'tests' | 'materials';
     }
     interface PageLogin {
+    }
+    interface PageMaterial {
+        "materialId"?: number;
+    }
+    interface PageMaterialForm {
+        /**
+          * Undefined = creating (/materials/new); set = editing (/materials/:id/edit).
+         */
+        "materialId"?: number;
+    }
+    interface PageMaterialShare {
+        "materialId"?: number;
+    }
+    interface PageMaterials {
     }
     interface PageNotifications {
     }
@@ -403,6 +469,18 @@ declare namespace LocalJSX {
     interface PageAttemptAttributes {
         "attemptId": number;
     }
+    interface PageLibraryAttributes {
+        "kind": 'tests' | 'materials';
+    }
+    interface PageMaterialAttributes {
+        "materialId": number;
+    }
+    interface PageMaterialFormAttributes {
+        "materialId": number;
+    }
+    interface PageMaterialShareAttributes {
+        "materialId": number;
+    }
     interface PageTeacherProfileAttributes {
         "teacherId": number;
     }
@@ -435,8 +513,12 @@ declare namespace LocalJSX {
         "page-connections": PageConnections;
         "page-forgot-password": PageForgotPassword;
         "page-home": PageHome;
-        "page-library": PageLibrary;
+        "page-library": Omit<PageLibrary, keyof PageLibraryAttributes> & { [K in keyof PageLibrary & keyof PageLibraryAttributes]?: PageLibrary[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `attr:${K}`]?: PageLibraryAttributes[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `prop:${K}`]?: PageLibrary[K] };
         "page-login": PageLogin;
+        "page-material": Omit<PageMaterial, keyof PageMaterialAttributes> & { [K in keyof PageMaterial & keyof PageMaterialAttributes]?: PageMaterial[K] } & { [K in keyof PageMaterial & keyof PageMaterialAttributes as `attr:${K}`]?: PageMaterialAttributes[K] } & { [K in keyof PageMaterial & keyof PageMaterialAttributes as `prop:${K}`]?: PageMaterial[K] };
+        "page-material-form": Omit<PageMaterialForm, keyof PageMaterialFormAttributes> & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes]?: PageMaterialForm[K] } & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes as `attr:${K}`]?: PageMaterialFormAttributes[K] } & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes as `prop:${K}`]?: PageMaterialForm[K] };
+        "page-material-share": Omit<PageMaterialShare, keyof PageMaterialShareAttributes> & { [K in keyof PageMaterialShare & keyof PageMaterialShareAttributes]?: PageMaterialShare[K] } & { [K in keyof PageMaterialShare & keyof PageMaterialShareAttributes as `attr:${K}`]?: PageMaterialShareAttributes[K] } & { [K in keyof PageMaterialShare & keyof PageMaterialShareAttributes as `prop:${K}`]?: PageMaterialShare[K] };
+        "page-materials": PageMaterials;
         "page-notifications": PageNotifications;
         "page-profile": PageProfile;
         "page-register": PageRegister;
@@ -475,6 +557,10 @@ declare module "@stencil/core" {
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-library": LocalJSX.IntrinsicElements["page-library"] & JSXBase.HTMLAttributes<HTMLPageLibraryElement>;
             "page-login": LocalJSX.IntrinsicElements["page-login"] & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
+            "page-material": LocalJSX.IntrinsicElements["page-material"] & JSXBase.HTMLAttributes<HTMLPageMaterialElement>;
+            "page-material-form": LocalJSX.IntrinsicElements["page-material-form"] & JSXBase.HTMLAttributes<HTMLPageMaterialFormElement>;
+            "page-material-share": LocalJSX.IntrinsicElements["page-material-share"] & JSXBase.HTMLAttributes<HTMLPageMaterialShareElement>;
+            "page-materials": LocalJSX.IntrinsicElements["page-materials"] & JSXBase.HTMLAttributes<HTMLPageMaterialsElement>;
             "page-notifications": LocalJSX.IntrinsicElements["page-notifications"] & JSXBase.HTMLAttributes<HTMLPageNotificationsElement>;
             "page-profile": LocalJSX.IntrinsicElements["page-profile"] & JSXBase.HTMLAttributes<HTMLPageProfileElement>;
             "page-register": LocalJSX.IntrinsicElements["page-register"] & JSXBase.HTMLAttributes<HTMLPageRegisterElement>;

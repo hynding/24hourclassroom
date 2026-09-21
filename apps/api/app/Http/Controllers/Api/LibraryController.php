@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Enums\GradeLevel;
 use App\Enums\Subject;
-use App\Enums\TestVisibility;
+use App\Enums\Visibility;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TestSummaryResource;
 use App\Models\Test;
@@ -23,7 +23,7 @@ class LibraryController extends Controller
         ]);
 
         $tests = Test::query()
-            ->where('visibility', TestVisibility::Public)
+            ->where('visibility', Visibility::Public)
             ->whereHas('author', fn ($q) => $q->whereNull('deactivated_at'))
             ->with('author')
             ->withCount('questions')

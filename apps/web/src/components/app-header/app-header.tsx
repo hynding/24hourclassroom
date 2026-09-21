@@ -86,6 +86,11 @@ export class AppHeader {
     return this.user !== null && (this.user.role === 'teacher' || this.user.role === 'student');
   }
 
+  /** Allowlist: teachers upload, students receive. An admin has no materials shelf. */
+  private showsMaterials(): boolean {
+    return this.user !== null && (this.user.role === 'teacher' || this.user.role === 'student');
+  }
+
   render() {
     return (
       <header>
@@ -94,6 +99,7 @@ export class AppHeader {
           <a href="/teachers" onClick={(e) => this.onNav(e, '/teachers')}>Teachers</a>
           <a href="/library" onClick={(e) => this.onNav(e, '/library')}>Library</a>
           {this.showsTests() && <a href="/tests" onClick={(e) => this.onNav(e, '/tests')}>Tests</a>}
+          {this.showsMaterials() && <a href="/materials" onClick={(e) => this.onNav(e, '/materials')}>Materials</a>}
           {this.user
             ? [
                 <a href="/notifications" onClick={(e) => this.onNav(e, '/notifications')}>

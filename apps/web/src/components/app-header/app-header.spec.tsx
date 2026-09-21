@@ -188,4 +188,20 @@ describe('app-header bell', () => {
     expect(links).toContain('/library');
     expect(links).not.toContain('/tests');
   });
+
+  it('shows Materials for teachers and students only', async () => {
+    // Allowlist, not a denylist: a fourth role must be invalid by default,
+    // and an admin has no materials shelf (admin moderation is Inertia-only).
+    for (const [role, expected] of [['teacher', true], ['student', true], ['admin', false]] as const) {
+      currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role };
+      const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+      const links = Array.from(spec.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+      expect(links.includes('/materials')).toBe(expected);
+    }
+
+    currentUser.value = null;
+    const guest = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    const links = Array.from(guest.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+    expect(links).not.toContain('/materials');
+  });
 });

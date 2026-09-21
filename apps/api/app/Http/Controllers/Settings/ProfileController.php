@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
+use App\Models\Material;
+use App\Services\MaterialDeleter;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -61,6 +63,8 @@ class ProfileController extends Controller
         // leaving the account standing.
         DB::transaction(function () use ($user) {
             $user->notifications()->delete();
+
+            $user->materials()->cursor()->each(fn (Material $m) => MaterialDeleter::delete($m));
 
             $user->delete();
         });

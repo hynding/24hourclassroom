@@ -53,9 +53,10 @@ export const GRADE_LEVELS: TaxonomyOption<GradeLevel>[] = [
   { value: 'higher-ed', label: 'Higher Ed' },
 ];
 
-export type TestVisibility = 'private' | 'public';
+/** Shared by tests (C1) and materials (C2). Mirrors App\Enums\Visibility. */
+export type Visibility = 'private' | 'public';
 
-export const TEST_VISIBILITIES: TaxonomyOption<TestVisibility>[] = [
+export const VISIBILITIES: TaxonomyOption<Visibility>[] = [
   { value: 'private', label: 'Private' },
   { value: 'public', label: 'Public' },
 ];
@@ -109,7 +110,7 @@ export interface TestSummary {
   title: string;
   subject: Subject;
   grade_level: GradeLevel;
-  visibility: TestVisibility;
+  visibility: Visibility;
   published_at: string | null;
   question_count: number;
   author: TestAuthor;
@@ -214,6 +215,83 @@ export interface LibraryFilters {
   grade?: GradeLevel;
   q?: string;
   page?: number;
+}
+
+/**
+ * The per-file upload cap, in bytes. A LITERAL, not `10 * 1024 * 1024`:
+ * TaxonomyMirrorTest reads it with a digit-capturing regex, the same way it
+ * reads enum `value:` entries, and asserts it equals
+ * `config('materials.max_file_kb') * 1024` on the PHP side. 10 MB.
+ */
+export const MAX_MATERIAL_BYTES = 10485760;
+
+/** A material as it appears in any list (own, shared-with-me, library). */
+export interface MaterialSummary {
+  id: number;
+  title: string;
+  subject: Subject;
+  grade_level: GradeLevel;
+  visibility: Visibility;
+  published_at: string | null;
+  /** The client filename, basenamed and truncated to 255 by the server. */
+  original_name: string;
+  /** Server-detected, never the client's claim. */
+  mime_type: string;
+  size_bytes: number;
+  author: TestAuthor;
+}
+
+export interface Material extends MaterialSummary {
+  description: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+/**
+ * The shape of EVERY single-material response: show, create, update, publish
+ * and unpublish all return this, so a spread-merge after an action can never
+ * drop `download_url`. That URL is a 15-minute signed link.
+ */
+export interface MaterialView extends Material {
+  is_author: boolean;
+  shared_with_me: boolean;
+  download_url: string;
+}
+
+/** An item of GET /api/materials/shared: a summary plus when it was shared. */
+export interface SharedMaterial extends MaterialSummary {
+  /** Null when the share-time alias is absent from the row. */
+  shared_at: string | null;
+}
+
+/** A row of GET /api/materials/{id}/shares. `id` is the SHARE id, not the user's. */
+export interface MaterialShare {
+  id: number;
+  user: TestAuthor & { role: Role };
+  created_at: string;
+}
+
+/** Per-id outcome of POST /api/materials/{id}/shares. Never says why. */
+export interface ShareResult {
+  id: number;
+  status: 'shared' | 'not_found';
+}
+
+/** Multipart create. `title` absent => the server uses the filename stem. */
+export interface MaterialUpload {
+  file: File;
+  title?: string;
+  description?: string | null;
+  subject: Subject;
+  grade_level: GradeLevel;
+}
+
+/** Metadata-only update. The file itself is never replaceable. */
+export interface MaterialUpdate {
+  title: string;
+  description?: string | null;
+  subject: Subject;
+  grade_level: GradeLevel;
 }
 
 export type Layout = 'stacked' | 'rail';
@@ -358,5 +436,7 @@ export interface AppNotification {
     score?: string | null;
     max_score?: string | null;
     ungraded_count?: number;
+    material_id?: number;
+    material_title?: string;
   };
 }

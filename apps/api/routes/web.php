@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\MaterialAdminController;
 use App\Http\Controllers\Admin\SiteThemeController;
 use App\Http\Controllers\Admin\TestAdminController;
 use App\Http\Controllers\Admin\UserAdminController;
@@ -28,6 +29,10 @@ Route::middleware(['auth', 'verified', 'active', 'admin'])->prefix('admin')->gro
     Route::get('tests', [TestAdminController::class, 'index'])->name('admin.tests');
     Route::post('tests/{test}/unpublish', [TestAdminController::class, 'unpublish']);
     Route::delete('tests/{test}', [TestAdminController::class, 'destroy']);
+
+    Route::get('materials', [MaterialAdminController::class, 'index'])->name('admin.materials');
+    Route::post('materials/{material}/unpublish', [MaterialAdminController::class, 'unpublish']);
+    Route::delete('materials/{material}', [MaterialAdminController::class, 'destroy']);
 });
 
 Route::get('auth/google/redirect', [GoogleOAuthController::class, 'redirect'])->name('oauth.google.redirect');

@@ -145,4 +145,34 @@ describe('app-root theme wiring', () => {
     expect(tests.root.shadowRoot.querySelector('app-layout').hasAttribute('bare')).toBe(false);
     expect(tests.root.shadowRoot.querySelector('page-tests')).not.toBeNull();
   });
+
+  // The child page tags are not registered in these spec pages, so Stencil
+  // may hand the value over as a property or as an attribute depending on
+  // the element; read whichever landed rather than pinning the mechanism.
+  const propOf = (el: Element | null, camel: string, dashed: string) => {
+    const value = (el as any)?.[camel] ?? el?.getAttribute(camel.toLowerCase()) ?? el?.getAttribute(dashed);
+    return value == null ? null : String(value);
+  };
+
+  it('mounts the materials list page', async () => {
+    const spec = await mountAt('/materials');
+    expect(spec.root.shadowRoot.querySelector('page-materials')).not.toBeNull();
+  });
+
+  it('passes the material id to the single-material, form and share pages', async () => {
+    const view = await mountAt('/materials/7');
+    expect(propOf(view.root.shadowRoot.querySelector('page-material'), 'materialId', 'material-id')).toBe('7');
+
+    const edit = await mountAt('/materials/7/edit');
+    expect(propOf(edit.root.shadowRoot.querySelector('page-material-form'), 'materialId', 'material-id')).toBe('7');
+
+    const share = await mountAt('/materials/7/share');
+    expect(propOf(share.root.shadowRoot.querySelector('page-material-share'), 'materialId', 'material-id')).toBe('7');
+  });
+
+  it('passes kind to page-library for the materials segment', async () => {
+    const spec = await mountAt('/library/materials');
+    expect(propOf(spec.root.shadowRoot.querySelector('page-library'), 'kind', 'kind')).toBe('materials');
+  });
+
 });

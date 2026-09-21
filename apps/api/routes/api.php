@@ -13,6 +13,13 @@ use App\Http\Controllers\Api\Auth\VerificationNotificationController;
 use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\LibraryController;
+use App\Http\Controllers\Api\MaterialController;
+use App\Http\Controllers\Api\MaterialsLibraryController;
+use App\Http\Controllers\Api\MaterialFileController;
+use App\Http\Controllers\Api\MaterialPublishController;
+use App\Http\Controllers\Api\MaterialShareController;
+use App\Http\Controllers\Api\SharedMaterialController;
+use App\Http\Controllers\Api\MaterialShowController;
 use App\Http\Controllers\Api\MyAssignmentsController;
 use App\Http\Controllers\Api\MyAttemptsController;
 use App\Http\Controllers\Api\NotificationController;
@@ -86,6 +93,19 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
     Route::post('attempts/{attempt}/submit', [AttemptController::class, 'submit']);
     Route::put('attempts/{attempt}/answers/{answer}', AnswerGradeController::class);
     Route::get('tests/{test}/attempts', TestAttemptsController::class);
+
+    Route::get('materials', [MaterialController::class, 'index']);
+    Route::post('materials', [MaterialController::class, 'store']);
+    // Registered before the {material} routes for readability; Route::pattern
+    // in AppServiceProvider is what actually guarantees the literal wins.
+    Route::get('materials/shared', SharedMaterialController::class);
+    Route::put('materials/{material}', [MaterialController::class, 'update']);
+    Route::delete('materials/{material}', [MaterialController::class, 'destroy']);
+    Route::post('materials/{material}/publish', [MaterialPublishController::class, 'publish']);
+    Route::post('materials/{material}/unpublish', [MaterialPublishController::class, 'unpublish']);
+    Route::get('materials/{material}/shares', [MaterialShareController::class, 'index']);
+    Route::post('materials/{material}/shares', [MaterialShareController::class, 'store']);
+    Route::delete('materials/{material}/shares/{share}', [MaterialShareController::class, 'destroy']);
 });
 
 // `active` here too. These two routes are reachable by guests -- the
@@ -96,7 +116,9 @@ Route::middleware(['throttle:60,1', 'active'])->group(function () {
     Route::get('teachers', TeacherDirectoryController::class);
     Route::get('users/{user}', PublicProfileController::class);
     Route::get('library', LibraryController::class);
+    Route::get('library/materials', MaterialsLibraryController::class);
     Route::get('tests/{test}', [TestController::class, 'show']);
+    Route::get('materials/{material}', MaterialShowController::class);
 });
 
 // Site configuration: no `auth`, no `active`. The public group above carries
@@ -106,3 +128,11 @@ Route::middleware(['throttle:60,1', 'active'])->group(function () {
 // the whole api group, which is fine: AuthenticateSession only ends a session
 // whose password changed, correct on any route.
 Route::middleware('throttle:60,1')->get('site', SiteController::class);
+
+// The file stream: `signed:relative` and its own limiter, deliberately with
+// NO `auth` and NO `active`. The signature covers path and query only, so a
+// scheme or host difference between APP_URL and what the shared host's proxy
+// presents to PHP cannot 403 every production download.
+Route::middleware(['signed:relative', 'throttle:downloads'])
+    ->get('materials/{material}/file', MaterialFileController::class)
+    ->name('materials.file');

@@ -32,3 +32,13 @@ nav[aria-label] {
   align-items: center;
   margin-top: var(--space-4);
 }
+.segments {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+/* The materials cards carry two extra cells (type and size), so they need a
+ * wider column than the tests cards. Keyed on the reflected `kind` prop. */
+:host([kind='materials']) .cards {
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+}

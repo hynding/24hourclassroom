@@ -76,7 +76,14 @@ export class PageNotifications {
         </a>
       );
     }
-    if (type.endsWith('ProfileModerated') || type.endsWith('TestModerated')) {
+    if (type.endsWith('MaterialShared')) {
+      return (
+        <a href={`/materials/${data.material_id}`} onClick={(e) => { e.preventDefault(); navigate(`/materials/${data.material_id}`); }}>
+          {data.user?.name ?? 'A teacher'} shared "{data.material_title}" with you
+        </a>
+      );
+    }
+    if (type.endsWith('ProfileModerated') || type.endsWith('TestModerated') || type.endsWith('MaterialModerated')) {
       return data.message;
     }
     return data.user?.name;

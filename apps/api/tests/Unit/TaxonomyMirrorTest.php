@@ -85,14 +85,14 @@ test('the theme enums (Layout, Palette, Typeset) mirror the shared TypeScript ar
 });
 
 use App\Enums\QuestionType;
-use App\Enums\TestVisibility;
+use App\Enums\Visibility;
 
-test('TestVisibility and QuestionType mirror the shared package in both directions', function () {
+test('Visibility and QuestionType mirror the shared package in both directions', function () {
     $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
 
-    foreach ([TestVisibility::class => 'TEST_VISIBILITIES', QuestionType::class => 'QUESTION_TYPES'] as $enum => $const) {
+    foreach ([Visibility::class => 'VISIBILITIES', QuestionType::class => 'QUESTION_TYPES'] as $enum => $const) {
         $php = array_column($enum::cases(), 'value');
-        expect(preg_match('/export const '.$const.':.*?\];/s', $shared, $m))->toBe(1);
+        expect(preg_match('/export const '.$const.':.*?\];/s', $shared, $m))->toBe(1, "$const const array not found in packages/shared");
         preg_match_all('/value:\s*[\'"]([^\'"]+)[\'"]/', $m[0], $found);
         expect($found[1])->toBe($php);
     }
@@ -100,5 +100,26 @@ test('TestVisibility and QuestionType mirror the shared package in both directio
     expect(array_column(QuestionType::cases(), 'value'))->toBe([
         'multiple_choice', 'multi_select', 'true_false', 'short_answer', 'numeric',
     ]);
-    expect(array_column(TestVisibility::cases(), 'value'))->toBe(['private', 'public']);
+    expect(array_column(Visibility::cases(), 'value'))->toBe(['private', 'public']);
+});
+
+test('the old TestVisibility names are gone from both sides', function () {
+    // Guards the rename itself: a stale import or a leftover TEST_VISIBILITIES
+    // const would otherwise keep working for one side and rot.
+    expect(class_exists(\App\Enums\TestVisibility::class))->toBeFalse();
+    $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
+    expect($shared)->not->toContain('TestVisibility')->not->toContain('TEST_VISIBILITIES');
+});
+
+test('the per-file upload cap in config/materials.php mirrors MAX_MATERIAL_BYTES', function () {
+    // The SPA's pre-flight size check and the server's `max:` rule have to
+    // agree or a user sees one limit and hits another. The TS side is a
+    // LITERAL (not 10 * 1024 * 1024) so this digit-capturing regex can read
+    // it the same way the enum tests read `value:` entries.
+    $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
+
+    expect(preg_match('/export const MAX_MATERIAL_BYTES\s*=\s*(\d+);/', $shared, $m))
+        ->toBe(1, 'MAX_MATERIAL_BYTES literal not found in packages/shared');
+    expect((int) $m[1])->toBe(config('materials.max_file_kb') * 1024);
+    expect((int) $m[1])->toBe(10485760);
 });

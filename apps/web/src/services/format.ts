@@ -11,3 +11,37 @@
 export function formatDueDate(iso: string): string {
   return new Date(iso).toLocaleDateString(undefined, { timeZone: 'UTC' });
 }
+
+/** One decimal, with a bare integer kept bare: 10 renders "10", not "10.0". */
+function oneDecimal(value: number): string {
+  return String(Math.round(value * 10) / 10);
+}
+
+/**
+ * Binary units under the familiar labels: 1 KB = 1024 bytes, 1 MB = 1,048,576.
+ * That is what makes the 10,485,760-byte cap read "10 MB" and match the
+ * server's "Choose a file under 10 MB." message; decimal units would print
+ * the identical cap as "10.5 MB" beside it.
+ */
+export function formatBytes(bytes: number): string {
+  if (bytes < 1024) {
+    return `${bytes} B`;
+  }
+  const kb = bytes / 1024;
+  if (kb < 1024) {
+    return `${oneDecimal(kb)} KB`;
+  }
+  return `${oneDecimal(kb / 1024)} MB`;
+}
+
+/**
+ * A short, readable type for a size/type cell, taken from the client
+ * filename's last extension. `mime_type` is server-detected and correct but
+ * unreadable ("application/vnd.oasis.opendocument.text"), and for .docx/.odt
+ * it is often just "application/zip".
+ */
+export function fileTypeLabel(originalName: string): string {
+  const dot = originalName.lastIndexOf('.');
+  const ext = dot > 0 ? originalName.slice(dot + 1) : '';
+  return ext ? ext.toUpperCase() : 'File';
+}

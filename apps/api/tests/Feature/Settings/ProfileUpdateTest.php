@@ -1,8 +1,14 @@
 <?php
 
+use App\Models\Material;
 use App\Models\User;
 use App\Notifications\NewFollower;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
+beforeEach(function () {
+    Storage::fake(config('materials.disk'));
+});
 
 test('profile page is displayed', function () {
     $user = User::factory()->create();
@@ -124,4 +130,17 @@ test('a successful account deletion still removes both the notifications and the
 
     expect(DB::table('notifications')->where('notifiable_id', $user->id)->count())->toBe(0)
         ->and(User::find($user->id))->toBeNull();
+});
+
+test('deleting an account deletes the users material files too', function () {
+    $user = aTeacher();
+    aMaterial($user);
+    aMaterial($user);
+
+    $this->actingAs($user)
+        ->delete('/settings/profile', ['password' => 'password'])
+        ->assertRedirect('/');
+
+    expect(Material::count())->toBe(0)
+        ->and(Storage::disk(config('materials.disk'))->allFiles())->toBe([]);
 });

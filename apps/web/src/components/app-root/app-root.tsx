@@ -79,8 +79,16 @@ export class AppRoot {
         return <page-test-print testId={route.testId}></page-test-print>;
       case 'page-attempt':
         return <page-attempt attemptId={route.attemptId}></page-attempt>;
+      case 'page-materials':
+        return <page-materials></page-materials>;
+      case 'page-material':
+        return <page-material materialId={route.materialId}></page-material>;
+      case 'page-material-form':
+        return <page-material-form materialId={route.materialId}></page-material-form>;
+      case 'page-material-share':
+        return <page-material-share materialId={route.materialId}></page-material-share>;
       case 'page-library':
-        return <page-library></page-library>;
+        return <page-library kind={route.kind ?? 'tests'}></page-library>;
       case 'page-profile':
         return <page-profile></page-profile>;
       case 'page-connections':

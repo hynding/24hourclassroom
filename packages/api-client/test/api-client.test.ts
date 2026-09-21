@@ -394,3 +394,184 @@ describe('tests endpoints', () => {
     expect(urls).toContainEqual(['https://api.test/api/tests/9/assignments/3', 'DELETE']);
   });
 });
+
+describe('material endpoints', () => {
+  const okJson = (body: unknown) => jsonResponse(200, body);
+  // mockImplementation (not mockResolvedValue) so each call gets its own
+  // single-use Response -- see the notifications pagination test above.
+  const okFetch = (body: unknown = { data: [], meta: {} }) =>
+    vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? jsonResponse(204, null) : okJson(body),
+    );
+
+  it('listMaterials omits the page param on page 1 and sends it beyond', async () => {
+    const fetchFn = okFetch();
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.listMaterials();
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/materials');
+
+    await client.listMaterials(4);
+    expect(fetchFn.mock.calls.at(-1)![0]).toBe('https://api.test/api/materials?page=4');
+  });
+
+  it('sharedMaterials reads /api/materials/shared with the same page rule', async () => {
+    const fetchFn = okFetch();
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.sharedMaterials();
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/materials/shared');
+
+    await client.sharedMaterials(2);
+    expect(fetchFn.mock.calls.at(-1)![0]).toBe('https://api.test/api/materials/shared?page=2');
+  });
+
+  it('materialsLibrary builds the query string and omits page 1', async () => {
+    const fetchFn = okFetch();
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.materialsLibrary({ subject: 'math', q: 'a b', page: 1 });
+    await client.materialsLibrary({ grade: '6-8', page: 3 });
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/library/materials?subject=math&q=a+b');
+    expect(fetchFn.mock.calls[1][0]).toBe('https://api.test/api/library/materials?grade=6-8&page=3');
+  });
+
+  it('uploadMaterial sends FormData without a Content-Type header', async () => {
+    const fetchFn = vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? jsonResponse(204, null) : jsonResponse(201, { id: 3 }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+    const file = new File(['bytes'], 'worksheet.pdf', { type: 'application/pdf' });
+
+    const result = await client.uploadMaterial({
+      file, title: 'Worksheet', description: 'Week 1', subject: 'math', grade_level: 'k-2',
+    });
+
+    expect(result).toEqual({ id: 3 });
+    const init = fetchFn.mock.calls.at(-1)![1];
+    const form = init.body as FormData;
+    expect(form).toBeInstanceOf(FormData);
+    expect(form.get('file')).toBe(file);
+    expect(form.get('title')).toBe('Worksheet');
+    expect(form.get('description')).toBe('Week 1');
+    expect(form.get('subject')).toBe('math');
+    expect(form.get('grade_level')).toBe('k-2');
+    // The browser has to set its own multipart boundary.
+    expect(init.headers).not.toHaveProperty('Content-Type');
+  });
+
+  it('uploadMaterial appends no title or description entry when they are absent or empty', async () => {
+    // FormData.append(k, undefined) sends the literal string "undefined",
+    // which passes `nullable|string` server-side and would silently defeat
+    // the filename-stem default for title.
+    const fetchFn = vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? jsonResponse(204, null) : jsonResponse(201, { id: 4 }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+    const file = new File(['bytes'], 'notes.pdf', { type: 'application/pdf' });
+
+    await client.uploadMaterial({ file, subject: 'math', grade_level: 'k-2' });
+    await client.uploadMaterial({ file, title: '', description: '', subject: 'math', grade_level: 'k-2' });
+
+    const forms = fetchFn.mock.calls
+      .filter((c) => c[0] === 'https://api.test/api/materials')
+      .map((c) => c[1].body as FormData);
+
+    expect(forms).toHaveLength(2);
+    for (const form of forms) {
+      expect(form.has('title')).toBe(false);
+      expect(form.get('title')).toBeNull();
+      expect(form.has('description')).toBe(false);
+      expect(form.get('file')).toBe(file);
+    }
+  });
+
+  it('getMaterial GETs the single-material path', async () => {
+    const fetchFn = vi.fn().mockResolvedValue(okJson({ id: 7, download_url: 'https://api.test/api/materials/7/file?signature=x' }));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    const view = await client.getMaterial(7);
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/materials/7');
+    expect(view.download_url).toContain('signature=x');
+  });
+
+  it('updateMaterial PUTs metadata only', async () => {
+    const fetchFn = okFetch({ id: 7 });
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.updateMaterial(7, { title: 'New', description: null, subject: 'science', grade_level: '9-12' });
+
+    const call = fetchFn.mock.calls.find((c) => c[0] === 'https://api.test/api/materials/7');
+    expect(call?.[1].method).toBe('PUT');
+    expect(JSON.parse(call?.[1].body)).toEqual({ title: 'New', description: null, subject: 'science', grade_level: '9-12' });
+  });
+
+  it('deleteMaterial DELETEs after the CSRF cookie', async () => {
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(204, null));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.deleteMaterial(7);
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/sanctum/csrf-cookie');
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/materials/7',
+      expect.objectContaining({ method: 'DELETE' }),
+    );
+  });
+
+  it('publishMaterial and unpublishMaterial POST their own paths', async () => {
+    const fetchFn = okFetch({ id: 7 });
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.publishMaterial(7);
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/materials/7/publish',
+      expect.objectContaining({ method: 'POST' }),
+    );
+
+    await client.unpublishMaterial(7);
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/materials/7/unpublish',
+      expect.objectContaining({ method: 'POST' }),
+    );
+  });
+
+  it('listMaterialShares GETs the unpaginated recipient list', async () => {
+    const fetchFn = vi.fn().mockResolvedValue(okJson({ data: [{ id: 1, user: { id: 2, name: 'Sam', role: 'student' }, created_at: '' }] }));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    const shares = await client.listMaterialShares(7);
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/materials/7/shares');
+    expect(shares.data[0].user.role).toBe('student');
+  });
+
+  it('shareMaterial POSTs user_ids and returns per-id results', async () => {
+    const fetchFn = vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? jsonResponse(204, null) : okJson({ results: [{ id: 2, status: 'shared' }, { id: 9, status: 'not_found' }] }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    const res = await client.shareMaterial(7, [2, 9]);
+
+    const call = fetchFn.mock.calls.find((c) => c[0] === 'https://api.test/api/materials/7/shares');
+    expect(call?.[1].method).toBe('POST');
+    expect(JSON.parse(call?.[1].body)).toEqual({ user_ids: [2, 9] });
+    expect(res.results).toEqual([{ id: 2, status: 'shared' }, { id: 9, status: 'not_found' }]);
+  });
+
+  it('unshareMaterial DELETEs by SHARE id, not user id', async () => {
+    // The two id spaces look alike in the URL; a swap would revoke the wrong row.
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(204, null));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.unshareMaterial(7, 42);
+
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/materials/7/shares/42',
+      expect.objectContaining({ method: 'DELETE' }),
+    );
+  });
+});
