@@ -1,15 +1,33 @@
 import type {
   AppNotification,
+  AssignResult,
+  AssignmentResult,
+  AssignmentRow,
+  Attempt,
   Connection,
   GradeLevel,
+  LibraryFilters,
+  MaterialShare,
+  MaterialSummary,
+  MaterialUpdate,
+  MaterialUpload,
+  MaterialView,
+  MyAssignment,
+  MyAttempt,
   Paginated,
   PendingConnections,
   Profile,
   PublicProfile,
   RegistrationRole,
+  SharedMaterial,
+  ShareResult,
   SiteConfig,
   Subject,
   TeacherSummary,
+  Test,
+  TestInput,
+  TestSummary,
+  TestView,
   User,
 } from '@24hc/shared';
 
@@ -218,6 +236,178 @@ export class ApiClient {
 
   async markNotificationsRead(ids?: string[]): Promise<void> {
     await this.post('/api/notifications/read', ids ? { ids } : {});
+  }
+
+  async listTests(page?: number): Promise<Paginated<TestSummary>> {
+    const query = page && page > 1 ? `?page=${page}` : '';
+    return this.get<Paginated<TestSummary>>(`/api/tests${query}`);
+  }
+
+  async createTest(data: TestInput): Promise<Test> {
+    return this.post<Test>('/api/tests', data);
+  }
+
+  async getTest(id: number): Promise<TestView> {
+    return this.get<TestView>(`/api/tests/${id}`);
+  }
+
+  async updateTest(id: number, data: TestInput): Promise<Test> {
+    return this.put<Test>(`/api/tests/${id}`, data);
+  }
+
+  async deleteTest(id: number): Promise<void> {
+    await this.delete(`/api/tests/${id}`);
+  }
+
+  async publishTest(id: number): Promise<Test> {
+    return this.post<Test>(`/api/tests/${id}/publish`);
+  }
+
+  async unpublishTest(id: number): Promise<Test> {
+    return this.post<Test>(`/api/tests/${id}/unpublish`);
+  }
+
+  async copyTest(id: number): Promise<Test> {
+    return this.post<Test>(`/api/tests/${id}/copy`);
+  }
+
+  async listAssignments(testId: number): Promise<{ data: AssignmentRow[] }> {
+    return this.get<{ data: AssignmentRow[] }>(`/api/tests/${testId}/assignments`);
+  }
+
+  /**
+   * Assigns a test. `dueAt` distinguishes three cases, because the server only
+   * touches `due_at` when the key is present: a date sets it, `null` CLEARS an
+   * existing due date, and `undefined` (omitted) leaves it untouched.
+   */
+  async assignTest(testId: number, studentIds: number[], dueAt?: string | null): Promise<{ results: AssignResult[] }> {
+    return this.post<{ results: AssignResult[] }>(`/api/tests/${testId}/assignments`, {
+      student_ids: studentIds,
+      ...(dueAt !== undefined ? { due_at: dueAt } : {}),
+    });
+  }
+
+  async unassign(testId: number, assignmentId: number): Promise<void> {
+    await this.delete(`/api/tests/${testId}/assignments/${assignmentId}`);
+  }
+
+  async listTestAttempts(testId: number, page?: number): Promise<Paginated<AssignmentResult>> {
+    const query = page && page > 1 ? `?page=${page}` : '';
+    return this.get<Paginated<AssignmentResult>>(`/api/tests/${testId}/attempts${query}`);
+  }
+
+  async myAssignments(): Promise<{ data: MyAssignment[] }> {
+    return this.get<{ data: MyAssignment[] }>('/api/assignments');
+  }
+
+  async myAttempts(): Promise<{ data: MyAttempt[] }> {
+    return this.get<{ data: MyAttempt[] }>('/api/attempts');
+  }
+
+  async startAttempt(testId: number): Promise<Attempt> {
+    return this.post<Attempt>(`/api/tests/${testId}/attempts`);
+  }
+
+  async getAttempt(id: number): Promise<Attempt> {
+    return this.get<Attempt>(`/api/attempts/${id}`);
+  }
+
+  async saveAttempt(id: number, responses: Record<number, unknown>): Promise<Attempt> {
+    return this.put<Attempt>(`/api/attempts/${id}`, { responses });
+  }
+
+  async submitAttempt(id: number): Promise<Attempt> {
+    return this.post<Attempt>(`/api/attempts/${id}/submit`);
+  }
+
+  async gradeAnswer(attemptId: number, answerId: number, awarded: number): Promise<Attempt> {
+    return this.put<Attempt>(`/api/attempts/${attemptId}/answers/${answerId}`, { awarded });
+  }
+
+  async library(filters: LibraryFilters = {}): Promise<Paginated<TestSummary>> {
+    const params = new URLSearchParams();
+    if (filters.subject) params.set('subject', filters.subject);
+    if (filters.grade) params.set('grade', filters.grade);
+    if (filters.q) params.set('q', filters.q);
+    if (filters.page != null && filters.page > 1) params.set('page', String(filters.page));
+    const query = params.toString();
+    return this.get<Paginated<TestSummary>>(`/api/library${query ? `?${query}` : ''}`);
+  }
+
+  async listMaterials(page?: number): Promise<Paginated<MaterialSummary>> {
+    // Page 1 sends no param, matching listTests.
+    const query = page && page > 1 ? `?page=${page}` : '';
+    return this.get<Paginated<MaterialSummary>>(`/api/materials${query}`);
+  }
+
+  async sharedMaterials(page?: number): Promise<Paginated<SharedMaterial>> {
+    const query = page && page > 1 ? `?page=${page}` : '';
+    return this.get<Paginated<SharedMaterial>>(`/api/materials/shared${query}`);
+  }
+
+  async materialsLibrary(filters: LibraryFilters = {}): Promise<Paginated<MaterialSummary>> {
+    const params = new URLSearchParams();
+    if (filters.subject) params.set('subject', filters.subject);
+    if (filters.grade) params.set('grade', filters.grade);
+    if (filters.q) params.set('q', filters.q);
+    if (filters.page != null && filters.page > 1) params.set('page', String(filters.page));
+    const query = params.toString();
+    return this.get<Paginated<MaterialSummary>>(`/api/library/materials${query ? `?${query}` : ''}`);
+  }
+
+  /**
+   * `title` and `description` are appended ONLY when present and non-empty:
+   * FormData.append(k, undefined) sends the literal string "undefined",
+   * which passes the server's `nullable|string` rules and would silently
+   * defeat the filename-stem default for the title.
+   */
+  async uploadMaterial(input: MaterialUpload): Promise<MaterialView> {
+    const form = new FormData();
+    form.append('file', input.file);
+    form.append('subject', input.subject);
+    form.append('grade_level', input.grade_level);
+    if (input.title) {
+      form.append('title', input.title);
+    }
+    if (input.description) {
+      form.append('description', input.description);
+    }
+
+    return this.postForm<MaterialView>('/api/materials', form);
+  }
+
+  async getMaterial(id: number): Promise<MaterialView> {
+    return this.get<MaterialView>(`/api/materials/${id}`);
+  }
+
+  async updateMaterial(id: number, data: MaterialUpdate): Promise<MaterialView> {
+    return this.put<MaterialView>(`/api/materials/${id}`, data);
+  }
+
+  async deleteMaterial(id: number): Promise<void> {
+    await this.delete(`/api/materials/${id}`);
+  }
+
+  async publishMaterial(id: number): Promise<MaterialView> {
+    return this.post<MaterialView>(`/api/materials/${id}/publish`);
+  }
+
+  async unpublishMaterial(id: number): Promise<MaterialView> {
+    return this.post<MaterialView>(`/api/materials/${id}/unpublish`);
+  }
+
+  async listMaterialShares(id: number): Promise<{ data: MaterialShare[] }> {
+    return this.get<{ data: MaterialShare[] }>(`/api/materials/${id}/shares`);
+  }
+
+  /** Takes the ids of the USERS being shared with. */
+  async shareMaterial(id: number, userIds: number[]): Promise<{ results: ShareResult[] }> {
+    return this.post<{ results: ShareResult[] }>(`/api/materials/${id}/shares`, { user_ids: userIds });
+  }
+
+  /** Takes the id of the SHARE row, not the user. */
+  async unshareMaterial(id: number, shareId: number): Promise<void> {
+    await this.delete(`/api/materials/${id}/shares/${shareId}`);
   }
 
   private async ensureCsrf(): Promise<void> {

@@ -153,8 +153,8 @@ export function attachAuthInvalidation(
   return auth.subscribe(() => profile.clear());
 }
 
-export const profileStore = new ProfileStore(
-  new ApiClient({ baseUrl: Env?.apiBaseUrl ?? 'http://localhost:8000' }),
-);
+export const apiClient = new ApiClient({ baseUrl: Env?.apiBaseUrl ?? 'http://localhost:8000' });
+
+export const profileStore = new ProfileStore(apiClient);
 
 attachAuthInvalidation(authStore, profileStore);

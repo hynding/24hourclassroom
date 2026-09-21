@@ -3,6 +3,7 @@ import type { Layout } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
 import { redirectFor, resolveRoute } from '../../services/router';
+import type { ResolvedRoute } from '../../services/router';
 import { cachedTheme, loadTheme, releaseInlineCanvas } from '../../services/theme-store';
 
 @Component({ tag: 'app-root', shadow: true })
@@ -48,23 +49,46 @@ export class AppRoot {
   }
 
   render() {
+    const route = resolveRoute(this.path);
     return (
-      <app-layout layout={this.layout}>
+      <app-layout layout={this.layout} bare={route.tag === 'page-test-print'}>
         <app-header slot="header" orientation={this.layout === 'rail' ? 'vertical' : 'horizontal'}></app-header>
-        {this.renderPage()}
+        {this.renderPage(route)}
         <app-footer slot="footer"></app-footer>
       </app-layout>
     );
   }
 
-  private renderPage() {
-    const route = resolveRoute(this.path);
-
+  private renderPage(route: ResolvedRoute) {
     switch (route.tag) {
       case 'page-teachers':
         return <page-teachers></page-teachers>;
       case 'page-teacher-profile':
         return <page-teacher-profile teacherId={route.teacherId}></page-teacher-profile>;
+      case 'page-tests':
+        return <page-tests></page-tests>;
+      case 'page-test-editor':
+        return <page-test-editor testId={route.testId}></page-test-editor>;
+      case 'page-test':
+        return <page-test testId={route.testId}></page-test>;
+      case 'page-test-assign':
+        return <page-test-assign testId={route.testId}></page-test-assign>;
+      case 'page-test-results':
+        return <page-test-results testId={route.testId}></page-test-results>;
+      case 'page-test-print':
+        return <page-test-print testId={route.testId}></page-test-print>;
+      case 'page-attempt':
+        return <page-attempt attemptId={route.attemptId}></page-attempt>;
+      case 'page-materials':
+        return <page-materials></page-materials>;
+      case 'page-material':
+        return <page-material materialId={route.materialId}></page-material>;
+      case 'page-material-form':
+        return <page-material-form materialId={route.materialId}></page-material-form>;
+      case 'page-material-share':
+        return <page-material-share materialId={route.materialId}></page-material-share>;
+      case 'page-library':
+        return <page-library kind={route.kind ?? 'tests'}></page-library>;
       case 'page-profile':
         return <page-profile></page-profile>;
       case 'page-connections':

@@ -311,3 +311,267 @@ describe('ApiClient connection and notification methods', () => {
     expect(site).toEqual({ theme: { layout: 'rail', palette: 'evening', typeset: 'modern' } });
   });
 });
+
+describe('tests endpoints', () => {
+  const okJson = (body: unknown) => jsonResponse(200, body);
+
+  it('createTest POSTs the body and returns the test', async () => {
+    const fetchFn = vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? okJson({}) : jsonResponse(201, { id: 7, title: 'T' }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+    const body = { title: 'T', subject: 'math', grade_level: 'k-2', questions: [{ type: 'true_false', prompt: 'p', answer: true }] };
+
+    const result = await client.createTest(body as never);
+
+    expect(result).toEqual({ id: 7, title: 'T' });
+    const call = fetchFn.mock.calls.find((c) => c[0] === 'https://api.test/api/tests');
+    expect(call?.[1]).toEqual(expect.objectContaining({ method: 'POST', body: JSON.stringify(body) }));
+  });
+
+  it('library builds the query string and omits page 1', async () => {
+    // mockImplementation (not mockResolvedValue) so each call gets its own
+    // single-use Response — see the notifications pagination test above.
+    const fetchFn = vi.fn().mockImplementation(() =>
+      okJson({ data: [], meta: { current_page: 1, last_page: 1, per_page: 15, total: 0 } }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.library({ subject: 'math', q: 'a b', page: 1 });
+    await client.library({ grade: '6-8', page: 3 });
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/library?subject=math&q=a+b');
+    expect(fetchFn.mock.calls[1][0]).toBe('https://api.test/api/library?grade=6-8&page=3');
+  });
+
+  it('assignTest sends student_ids and an optional due_at', async () => {
+    const fetchFn = vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? okJson({}) : okJson({ results: [{ id: 2, status: 'assigned' }] }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    const result = await client.assignTest(9, [2], '2026-10-01T00:00:00Z');
+
+    expect(result.results[0].status).toBe('assigned');
+    const call = fetchFn.mock.calls.find((c) => c[0] === 'https://api.test/api/tests/9/assignments');
+    expect(JSON.parse(call?.[1].body)).toEqual({ student_ids: [2], due_at: '2026-10-01T00:00:00Z' });
+  });
+
+  it('assignTest sends due_at: null to clear a due date and omits the key when it is unspecified', async () => {
+    const fetchFn = vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? okJson({}) : okJson({ results: [] }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.assignTest(9, [2], null);
+    await client.assignTest(9, [2]);
+
+    // The server only touches due_at when the key is PRESENT, so `null` has to
+    // survive as a key (clear) while `undefined` must drop out (leave alone).
+    const bodies = fetchFn.mock.calls
+      .filter((c) => c[0] === 'https://api.test/api/tests/9/assignments')
+      .map((c) => JSON.parse(c[1].body));
+
+    expect(bodies).toHaveLength(2);
+    expect(bodies[0]).toEqual({ student_ids: [2], due_at: null });
+    expect(bodies[1]).toEqual({ student_ids: [2] });
+    expect('due_at' in bodies[1]).toBe(false);
+  });
+
+  it('saveAttempt PUTs responses keyed by question id and gradeAnswer PUTs awarded', async () => {
+    const fetchFn = vi.fn().mockImplementation((url: string) => (url.endsWith('/sanctum/csrf-cookie') ? okJson({}) : okJson({ id: 4 })));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.saveAttempt(4, { 10: 0, 11: 'x' });
+    await client.gradeAnswer(4, 55, 2.5);
+    await client.submitAttempt(4);
+    await client.unassign(9, 3);
+
+    const urls = fetchFn.mock.calls.map((c) => [c[0], c[1]?.method]);
+    expect(urls).toContainEqual(['https://api.test/api/attempts/4', 'PUT']);
+    expect(urls).toContainEqual(['https://api.test/api/attempts/4/answers/55', 'PUT']);
+    expect(urls).toContainEqual(['https://api.test/api/attempts/4/submit', 'POST']);
+    expect(urls).toContainEqual(['https://api.test/api/tests/9/assignments/3', 'DELETE']);
+  });
+});
+
+describe('material endpoints', () => {
+  const okJson = (body: unknown) => jsonResponse(200, body);
+  // mockImplementation (not mockResolvedValue) so each call gets its own
+  // single-use Response -- see the notifications pagination test above.
+  const okFetch = (body: unknown = { data: [], meta: {} }) =>
+    vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? jsonResponse(204, null) : okJson(body),
+    );
+
+  it('listMaterials omits the page param on page 1 and sends it beyond', async () => {
+    const fetchFn = okFetch();
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.listMaterials();
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/materials');
+
+    await client.listMaterials(4);
+    expect(fetchFn.mock.calls.at(-1)![0]).toBe('https://api.test/api/materials?page=4');
+  });
+
+  it('sharedMaterials reads /api/materials/shared with the same page rule', async () => {
+    const fetchFn = okFetch();
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.sharedMaterials();
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/materials/shared');
+
+    await client.sharedMaterials(2);
+    expect(fetchFn.mock.calls.at(-1)![0]).toBe('https://api.test/api/materials/shared?page=2');
+  });
+
+  it('materialsLibrary builds the query string and omits page 1', async () => {
+    const fetchFn = okFetch();
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.materialsLibrary({ subject: 'math', q: 'a b', page: 1 });
+    await client.materialsLibrary({ grade: '6-8', page: 3 });
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/library/materials?subject=math&q=a+b');
+    expect(fetchFn.mock.calls[1][0]).toBe('https://api.test/api/library/materials?grade=6-8&page=3');
+  });
+
+  it('uploadMaterial sends FormData without a Content-Type header', async () => {
+    const fetchFn = vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? jsonResponse(204, null) : jsonResponse(201, { id: 3 }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+    const file = new File(['bytes'], 'worksheet.pdf', { type: 'application/pdf' });
+
+    const result = await client.uploadMaterial({
+      file, title: 'Worksheet', description: 'Week 1', subject: 'math', grade_level: 'k-2',
+    });
+
+    expect(result).toEqual({ id: 3 });
+    const init = fetchFn.mock.calls.at(-1)![1];
+    const form = init.body as FormData;
+    expect(form).toBeInstanceOf(FormData);
+    expect(form.get('file')).toBe(file);
+    expect(form.get('title')).toBe('Worksheet');
+    expect(form.get('description')).toBe('Week 1');
+    expect(form.get('subject')).toBe('math');
+    expect(form.get('grade_level')).toBe('k-2');
+    // The browser has to set its own multipart boundary.
+    expect(init.headers).not.toHaveProperty('Content-Type');
+  });
+
+  it('uploadMaterial appends no title or description entry when they are absent or empty', async () => {
+    // FormData.append(k, undefined) sends the literal string "undefined",
+    // which passes `nullable|string` server-side and would silently defeat
+    // the filename-stem default for title.
+    const fetchFn = vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? jsonResponse(204, null) : jsonResponse(201, { id: 4 }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+    const file = new File(['bytes'], 'notes.pdf', { type: 'application/pdf' });
+
+    await client.uploadMaterial({ file, subject: 'math', grade_level: 'k-2' });
+    await client.uploadMaterial({ file, title: '', description: '', subject: 'math', grade_level: 'k-2' });
+
+    const forms = fetchFn.mock.calls
+      .filter((c) => c[0] === 'https://api.test/api/materials')
+      .map((c) => c[1].body as FormData);
+
+    expect(forms).toHaveLength(2);
+    for (const form of forms) {
+      expect(form.has('title')).toBe(false);
+      expect(form.get('title')).toBeNull();
+      expect(form.has('description')).toBe(false);
+      expect(form.get('file')).toBe(file);
+    }
+  });
+
+  it('getMaterial GETs the single-material path', async () => {
+    const fetchFn = vi.fn().mockResolvedValue(okJson({ id: 7, download_url: 'https://api.test/api/materials/7/file?signature=x' }));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    const view = await client.getMaterial(7);
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/materials/7');
+    expect(view.download_url).toContain('signature=x');
+  });
+
+  it('updateMaterial PUTs metadata only', async () => {
+    const fetchFn = okFetch({ id: 7 });
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.updateMaterial(7, { title: 'New', description: null, subject: 'science', grade_level: '9-12' });
+
+    const call = fetchFn.mock.calls.find((c) => c[0] === 'https://api.test/api/materials/7');
+    expect(call?.[1].method).toBe('PUT');
+    expect(JSON.parse(call?.[1].body)).toEqual({ title: 'New', description: null, subject: 'science', grade_level: '9-12' });
+  });
+
+  it('deleteMaterial DELETEs after the CSRF cookie', async () => {
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(204, null));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.deleteMaterial(7);
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/sanctum/csrf-cookie');
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/materials/7',
+      expect.objectContaining({ method: 'DELETE' }),
+    );
+  });
+
+  it('publishMaterial and unpublishMaterial POST their own paths', async () => {
+    const fetchFn = okFetch({ id: 7 });
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.publishMaterial(7);
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/materials/7/publish',
+      expect.objectContaining({ method: 'POST' }),
+    );
+
+    await client.unpublishMaterial(7);
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/materials/7/unpublish',
+      expect.objectContaining({ method: 'POST' }),
+    );
+  });
+
+  it('listMaterialShares GETs the unpaginated recipient list', async () => {
+    const fetchFn = vi.fn().mockResolvedValue(okJson({ data: [{ id: 1, user: { id: 2, name: 'Sam', role: 'student' }, created_at: '' }] }));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    const shares = await client.listMaterialShares(7);
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/materials/7/shares');
+    expect(shares.data[0].user.role).toBe('student');
+  });
+
+  it('shareMaterial POSTs user_ids and returns per-id results', async () => {
+    const fetchFn = vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? jsonResponse(204, null) : okJson({ results: [{ id: 2, status: 'shared' }, { id: 9, status: 'not_found' }] }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    const res = await client.shareMaterial(7, [2, 9]);
+
+    const call = fetchFn.mock.calls.find((c) => c[0] === 'https://api.test/api/materials/7/shares');
+    expect(call?.[1].method).toBe('POST');
+    expect(JSON.parse(call?.[1].body)).toEqual({ user_ids: [2, 9] });
+    expect(res.results).toEqual([{ id: 2, status: 'shared' }, { id: 9, status: 'not_found' }]);
+  });
+
+  it('unshareMaterial DELETEs by SHARE id, not user id', async () => {
+    // The two id spaces look alike in the URL; a swap would revoke the wrong row.
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(204, null));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.unshareMaterial(7, 42);
+
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/materials/7/shares/42',
+      expect.objectContaining({ method: 'DELETE' }),
+    );
+  });
+});

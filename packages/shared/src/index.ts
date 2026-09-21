@@ -53,6 +53,247 @@ export const GRADE_LEVELS: TaxonomyOption<GradeLevel>[] = [
   { value: 'higher-ed', label: 'Higher Ed' },
 ];
 
+/** Shared by tests (C1) and materials (C2). Mirrors App\Enums\Visibility. */
+export type Visibility = 'private' | 'public';
+
+export const VISIBILITIES: TaxonomyOption<Visibility>[] = [
+  { value: 'private', label: 'Private' },
+  { value: 'public', label: 'Public' },
+];
+
+export type QuestionType = 'multiple_choice' | 'multi_select' | 'true_false' | 'short_answer' | 'numeric';
+
+export const QUESTION_TYPES: TaxonomyOption<QuestionType>[] = [
+  { value: 'multiple_choice', label: 'Multiple choice' },
+  { value: 'multi_select', label: 'Select all that apply' },
+  { value: 'true_false', label: 'True / false' },
+  { value: 'short_answer', label: 'Short answer' },
+  { value: 'numeric', label: 'Numeric' },
+];
+
+export interface TestAuthor {
+  id: number;
+  name: string;
+}
+
+export interface NumericAnswer {
+  value: number;
+  tolerance?: number;
+}
+
+/** `answer` and `explanation` are ABSENT (not null) unless the viewer is the author. */
+export interface Question {
+  id: number;
+  position: number;
+  type: QuestionType;
+  prompt: string;
+  options: string[] | null;
+  points: number;
+  partial_credit: boolean;
+  answer?: unknown;
+  explanation?: string | null;
+}
+
+export interface QuestionInput {
+  id?: number;
+  type: QuestionType;
+  prompt: string;
+  options?: string[];
+  answer: unknown;
+  points?: number;
+  partial_credit?: boolean;
+  explanation?: string | null;
+}
+
+export interface TestSummary {
+  id: number;
+  title: string;
+  subject: Subject;
+  grade_level: GradeLevel;
+  visibility: Visibility;
+  published_at: string | null;
+  question_count: number;
+  author: TestAuthor;
+  /** Only on GET /api/tests (the author's own list). */
+  assignment_count?: number;
+}
+
+export interface Test extends TestSummary {
+  description: string | null;
+  copied_from_id: number | null;
+  questions: Question[];
+  created_at: string;
+  updated_at: string;
+}
+
+/** GET /api/tests/{id}: the test plus the viewer's relationship to it. */
+export interface TestView extends Test {
+  is_author: boolean;
+  assignment: { id: number; due_at: string | null } | null;
+  open_attempt_id: number | null;
+  can_copy: boolean;
+}
+
+export interface TestInput {
+  title: string;
+  description?: string | null;
+  subject: Subject;
+  grade_level: GradeLevel;
+  questions: QuestionInput[];
+}
+
+/** Decimals arrive as strings ("2.00") from Laravel's decimal cast. */
+export interface AttemptSummary {
+  id: number;
+  test_id: number;
+  assignment_id: number | null;
+  started_at: string;
+  submitted_at: string | null;
+  score: string | null;
+  max_score: string | null;
+  graded_at: string | null;
+  ungraded_count: number;
+}
+
+export interface AttemptQuestion extends Question {
+  response: unknown;
+  /** Present after submit. */
+  answer_id?: number;
+  awarded?: string | null;
+  graded_answer?: { answer: unknown; points: number } | null;
+}
+
+export interface AttemptTestRef {
+  id: number;
+  title: string;
+  subject: Subject;
+  grade_level: GradeLevel;
+}
+
+export interface Attempt extends AttemptSummary {
+  student: TestAuthor;
+  test: AttemptTestRef;
+  questions: AttemptQuestion[];
+}
+
+export interface MyAttempt extends AttemptSummary {
+  test: AttemptTestRef;
+}
+
+export interface MyAssignment {
+  id: number;
+  due_at: string | null;
+  test: AttemptTestRef & { question_count: number; author: TestAuthor };
+  latest: AttemptSummary | null;
+  best: AttemptSummary | null;
+}
+
+export interface AssignmentRow {
+  id: number;
+  student: TestAuthor;
+  due_at: string | null;
+  latest: AttemptSummary | null;
+  best: AttemptSummary | null;
+}
+
+export interface AssignmentResult {
+  assignment_id: number;
+  student: TestAuthor;
+  due_at: string | null;
+  attempts: AttemptSummary[];
+  latest: AttemptSummary | null;
+  best: AttemptSummary | null;
+}
+
+export interface AssignResult {
+  id: number;
+  status: 'assigned' | 'not_found';
+}
+
+export interface LibraryFilters {
+  subject?: Subject;
+  grade?: GradeLevel;
+  q?: string;
+  page?: number;
+}
+
+/**
+ * The per-file upload cap, in bytes. A LITERAL, not `10 * 1024 * 1024`:
+ * TaxonomyMirrorTest reads it with a digit-capturing regex, the same way it
+ * reads enum `value:` entries, and asserts it equals
+ * `config('materials.max_file_kb') * 1024` on the PHP side. 10 MB.
+ */
+export const MAX_MATERIAL_BYTES = 10485760;
+
+/** A material as it appears in any list (own, shared-with-me, library). */
+export interface MaterialSummary {
+  id: number;
+  title: string;
+  subject: Subject;
+  grade_level: GradeLevel;
+  visibility: Visibility;
+  published_at: string | null;
+  /** The client filename, basenamed and truncated to 255 by the server. */
+  original_name: string;
+  /** Server-detected, never the client's claim. */
+  mime_type: string;
+  size_bytes: number;
+  author: TestAuthor;
+}
+
+export interface Material extends MaterialSummary {
+  description: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+/**
+ * The shape of EVERY single-material response: show, create, update, publish
+ * and unpublish all return this, so a spread-merge after an action can never
+ * drop `download_url`. That URL is a 15-minute signed link.
+ */
+export interface MaterialView extends Material {
+  is_author: boolean;
+  shared_with_me: boolean;
+  download_url: string;
+}
+
+/** An item of GET /api/materials/shared: a summary plus when it was shared. */
+export interface SharedMaterial extends MaterialSummary {
+  /** Null when the share-time alias is absent from the row. */
+  shared_at: string | null;
+}
+
+/** A row of GET /api/materials/{id}/shares. `id` is the SHARE id, not the user's. */
+export interface MaterialShare {
+  id: number;
+  user: TestAuthor & { role: Role };
+  created_at: string;
+}
+
+/** Per-id outcome of POST /api/materials/{id}/shares. Never says why. */
+export interface ShareResult {
+  id: number;
+  status: 'shared' | 'not_found';
+}
+
+/** Multipart create. `title` absent => the server uses the filename stem. */
+export interface MaterialUpload {
+  file: File;
+  title?: string;
+  description?: string | null;
+  subject: Subject;
+  grade_level: GradeLevel;
+}
+
+/** Metadata-only update. The file itself is never replaceable. */
+export interface MaterialUpdate {
+  title: string;
+  description?: string | null;
+  subject: Subject;
+  grade_level: GradeLevel;
+}
+
 export type Layout = 'stacked' | 'rail';
 export type Palette = 'noon' | 'evening' | 'slate' | 'afternoon';
 export type Typeset = 'editorial' | 'modern';
@@ -184,5 +425,18 @@ export interface AppNotification {
   type: string;
   read_at: string | null;
   created_at: string;
-  data: { user?: UserSummary; message?: string };
+  data: {
+    user?: UserSummary;
+    message?: string;
+    test_id?: number;
+    test_title?: string;
+    assignment_id?: number;
+    attempt_id?: number;
+    due_at?: string | null;
+    score?: string | null;
+    max_score?: string | null;
+    ungraded_count?: number;
+    material_id?: number;
+    material_title?: string;
+  };
 }

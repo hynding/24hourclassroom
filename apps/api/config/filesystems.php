@@ -33,7 +33,9 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
-            'serve' => true,
+            // Materials live on this disk. Laravel's built-in serve route would be a
+            // second, unguarded path to the same bytes; MaterialFileController is the only way in.
+            'serve' => false,
             'throw' => false,
             'report' => false,
         ],

@@ -81,12 +81,25 @@ export class AppHeader {
     navigate('/');
   };
 
+  /** Allowlist: teachers author, students take. An admin has no tests shelf. */
+  private showsTests(): boolean {
+    return this.user !== null && (this.user.role === 'teacher' || this.user.role === 'student');
+  }
+
+  /** Allowlist: teachers upload, students receive. An admin has no materials shelf. */
+  private showsMaterials(): boolean {
+    return this.user !== null && (this.user.role === 'teacher' || this.user.role === 'student');
+  }
+
   render() {
     return (
       <header>
         <a class="wordmark" href="/" onClick={(e) => this.onNav(e, '/')}>24 Hour Classroom</a>
         <nav>
           <a href="/teachers" onClick={(e) => this.onNav(e, '/teachers')}>Teachers</a>
+          <a href="/library" onClick={(e) => this.onNav(e, '/library')}>Library</a>
+          {this.showsTests() && <a href="/tests" onClick={(e) => this.onNav(e, '/tests')}>Tests</a>}
+          {this.showsMaterials() && <a href="/materials" onClick={(e) => this.onNav(e, '/materials')}>Materials</a>}
           {this.user
             ? [
                 <a href="/notifications" onClick={(e) => this.onNav(e, '/notifications')}>

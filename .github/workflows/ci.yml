@@ -119,7 +119,7 @@ jobs:
           ssh -i ~/.ssh/id_deploy "$SSH_TARGET" "
             set -e
             cd '$API_PATH'
-            mkdir -p storage/logs storage/app/public storage/framework/cache storage/framework/sessions storage/framework/views
+            mkdir -p storage/logs storage/app/public storage/app/private storage/framework/cache storage/framework/sessions storage/framework/views
             # --force, not `|| true`: rsync --delete above removes the
             # public/storage symlink on every deploy (the --exclude
             # 'storage/' pattern matches directories only, and the link

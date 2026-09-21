@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\AnswerGradeController;
+use App\Http\Controllers\Api\AssignmentController;
+use App\Http\Controllers\Api\AttemptController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\NewPasswordController;
@@ -9,12 +12,26 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationNotificationController;
 use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\FollowController;
+use App\Http\Controllers\Api\LibraryController;
+use App\Http\Controllers\Api\MaterialController;
+use App\Http\Controllers\Api\MaterialsLibraryController;
+use App\Http\Controllers\Api\MaterialFileController;
+use App\Http\Controllers\Api\MaterialPublishController;
+use App\Http\Controllers\Api\MaterialShareController;
+use App\Http\Controllers\Api\SharedMaterialController;
+use App\Http\Controllers\Api\MaterialShowController;
+use App\Http\Controllers\Api\MyAssignmentsController;
+use App\Http\Controllers\Api\MyAttemptsController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ProfileAvatarController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicProfileController;
 use App\Http\Controllers\Api\SiteController;
 use App\Http\Controllers\Api\TeacherDirectoryController;
+use App\Http\Controllers\Api\TestAttemptsController;
+use App\Http\Controllers\Api\TestController;
+use App\Http\Controllers\Api\TestCopyController;
+use App\Http\Controllers\Api\TestPublishController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +72,40 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
     Route::get('notifications', [NotificationController::class, 'index']);
     Route::get('notifications/unread-count', [NotificationController::class, 'unreadCount']);
     Route::post('notifications/read', [NotificationController::class, 'read']);
+
+    Route::get('tests', [TestController::class, 'index']);
+    Route::post('tests', [TestController::class, 'store']);
+    Route::put('tests/{test}', [TestController::class, 'update']);
+    Route::delete('tests/{test}', [TestController::class, 'destroy']);
+    Route::post('tests/{test}/publish', [TestPublishController::class, 'publish']);
+    Route::post('tests/{test}/unpublish', [TestPublishController::class, 'unpublish']);
+    Route::post('tests/{test}/copy', TestCopyController::class);
+
+    Route::get('tests/{test}/assignments', [AssignmentController::class, 'index']);
+    Route::post('tests/{test}/assignments', [AssignmentController::class, 'store']);
+    Route::delete('tests/{test}/assignments/{assignment}', [AssignmentController::class, 'destroy']);
+    Route::get('assignments', MyAssignmentsController::class);
+
+    Route::get('attempts', MyAttemptsController::class);
+    Route::post('tests/{test}/attempts', [AttemptController::class, 'store']);
+    Route::get('attempts/{attempt}', [AttemptController::class, 'show']);
+    Route::put('attempts/{attempt}', [AttemptController::class, 'update']);
+    Route::post('attempts/{attempt}/submit', [AttemptController::class, 'submit']);
+    Route::put('attempts/{attempt}/answers/{answer}', AnswerGradeController::class);
+    Route::get('tests/{test}/attempts', TestAttemptsController::class);
+
+    Route::get('materials', [MaterialController::class, 'index']);
+    Route::post('materials', [MaterialController::class, 'store']);
+    // Registered before the {material} routes for readability; Route::pattern
+    // in AppServiceProvider is what actually guarantees the literal wins.
+    Route::get('materials/shared', SharedMaterialController::class);
+    Route::put('materials/{material}', [MaterialController::class, 'update']);
+    Route::delete('materials/{material}', [MaterialController::class, 'destroy']);
+    Route::post('materials/{material}/publish', [MaterialPublishController::class, 'publish']);
+    Route::post('materials/{material}/unpublish', [MaterialPublishController::class, 'unpublish']);
+    Route::get('materials/{material}/shares', [MaterialShareController::class, 'index']);
+    Route::post('materials/{material}/shares', [MaterialShareController::class, 'store']);
+    Route::delete('materials/{material}/shares/{share}', [MaterialShareController::class, 'destroy']);
 });
 
 // `active` here too. These two routes are reachable by guests -- the
@@ -64,6 +115,10 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
 Route::middleware(['throttle:60,1', 'active'])->group(function () {
     Route::get('teachers', TeacherDirectoryController::class);
     Route::get('users/{user}', PublicProfileController::class);
+    Route::get('library', LibraryController::class);
+    Route::get('library/materials', MaterialsLibraryController::class);
+    Route::get('tests/{test}', [TestController::class, 'show']);
+    Route::get('materials/{material}', MaterialShowController::class);
 });
 
 // Site configuration: no `auth`, no `active`. The public group above carries
@@ -73,3 +128,11 @@ Route::middleware(['throttle:60,1', 'active'])->group(function () {
 // the whole api group, which is fine: AuthenticateSession only ends a session
 // whose password changed, correct on any route.
 Route::middleware('throttle:60,1')->get('site', SiteController::class);
+
+// The file stream: `signed:relative` and its own limiter, deliberately with
+// NO `auth` and NO `active`. The signature covers path and query only, so a
+// scheme or host difference between APP_URL and what the shared host's proxy
+// presents to PHP cannot 403 every production download.
+Route::middleware(['signed:relative', 'throttle:downloads'])
+    ->get('materials/{material}/file', MaterialFileController::class)
+    ->name('materials.file');

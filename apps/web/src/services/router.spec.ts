@@ -101,3 +101,89 @@ describe('router B2 routes', () => {
     expect(redirectFor('/connections', unverified)).toBe('/verify-email');
   });
 });
+
+describe('test and attempt routes', () => {
+  it('resolves the static test pages', () => {
+    expect(resolveRoute('/tests')).toEqual({ tag: 'page-tests' });
+    expect(resolveRoute('/tests/new')).toEqual({ tag: 'page-test-editor', testId: undefined });
+    // page-library now serves both segments and is switched by a reflected
+    // prop, so the route always names which one.
+    expect(resolveRoute('/library')).toEqual({ tag: 'page-library', kind: 'tests' });
+  });
+
+  it('parses /tests/:id and its sub-pages', () => {
+    expect(resolveRoute('/tests/5')).toEqual({ tag: 'page-test', testId: 5 });
+    expect(resolveRoute('/tests/5/edit')).toEqual({ tag: 'page-test-editor', testId: 5 });
+    expect(resolveRoute('/tests/5/assign')).toEqual({ tag: 'page-test-assign', testId: 5 });
+    expect(resolveRoute('/tests/5/results')).toEqual({ tag: 'page-test-results', testId: 5 });
+    expect(resolveRoute('/tests/5/print')).toEqual({ tag: 'page-test-print', testId: 5 });
+    expect(resolveRoute('/tests/abc')).toEqual({ tag: 'page-test', testId: undefined });
+    expect(resolveRoute('/tests/5/nope').tag).toBe('page-home');
+    expect(resolveRoute('/tests/5/edit/extra').tag).toBe('page-home');
+  });
+
+  it('parses /attempts/:id', () => {
+    expect(resolveRoute('/attempts/9')).toEqual({ tag: 'page-attempt', attemptId: 9 });
+    expect(resolveRoute('/attempts/x')).toEqual({ tag: 'page-attempt', attemptId: undefined });
+  });
+
+  it('guards the authenticated test pages and leaves the public ones open', () => {
+    for (const path of ['/tests', '/tests/new', '/tests/5/edit', '/tests/5/assign', '/tests/5/results', '/attempts/9']) {
+      expect(redirectFor(path, null)).toBe('/login');
+      expect(redirectFor(path, unverified)).toBe('/verify-email');
+    }
+    for (const path of ['/library', '/tests/5', '/tests/5/print']) {
+      expect(redirectFor(path, null)).toBeNull();
+      expect(redirectFor(path, unverified)).toBeNull();
+    }
+  });
+});
+
+describe('material routes', () => {
+  it('resolves the static material pages', () => {
+    expect(resolveRoute('/materials')).toEqual({ tag: 'page-materials' });
+    expect(resolveRoute('/materials/new')).toEqual({ tag: 'page-material-form', materialId: undefined });
+    expect(resolveRoute('/library/materials')).toEqual({ tag: 'page-library', kind: 'materials' });
+  });
+
+  it('parses /materials/:id and its sub-pages', () => {
+    expect(resolveRoute('/materials/7')).toEqual({ tag: 'page-material', materialId: 7 });
+    expect(resolveRoute('/materials/7/edit')).toEqual({ tag: 'page-material-form', materialId: 7 });
+    expect(resolveRoute('/materials/7/share')).toEqual({ tag: 'page-material-share', materialId: 7 });
+    expect(resolveRoute('/materials/abc')).toEqual({ tag: 'page-material', materialId: undefined });
+    expect(resolveRoute('/materials/-1')).toEqual({ tag: 'page-material', materialId: undefined });
+    expect(resolveRoute('/materials/7/nope').tag).toBe('page-home');
+    expect(resolveRoute('/materials/7/edit/extra').tag).toBe('page-home');
+  });
+
+  it('treats /materials/shared as an unknown material rather than a page', () => {
+    // /materials/shared is an API path only; the SPA has no such route, so it
+    // must land on page-material with no id (the not-found state) and never
+    // swallow the exact /materials case.
+    expect(resolveRoute('/materials/shared')).toEqual({ tag: 'page-material', materialId: undefined });
+  });
+
+  it('guards the authenticated material pages and leaves the public ones open', () => {
+    for (const path of ['/materials', '/materials/new', '/materials/7/edit', '/materials/7/share']) {
+      expect(redirectFor(path, null)).toBe('/login');
+      expect(redirectFor(path, unverified)).toBe('/verify-email');
+    }
+    for (const path of ['/materials/7', '/library/materials']) {
+      expect(redirectFor(path, null)).toBeNull();
+      expect(redirectFor(path, unverified)).toBeNull();
+    }
+  });
+
+  it('does not let /materials/new read as a public material page', () => {
+    // It parses through materialRoute() as a (bogus) /materials/:id with id
+    // "new" -- exactly the /tests/new hazard -- so it has to be excluded
+    // before isPublic() consults the helper.
+    expect(redirectFor('/materials/new', unverified)).toBe('/verify-email');
+  });
+
+  it('lets a verified user reach every material page', () => {
+    for (const path of ['/materials', '/materials/new', '/materials/7', '/materials/7/edit', '/materials/7/share', '/library/materials']) {
+      expect(redirectFor(path, verified)).toBeNull();
+    }
+  });
+});

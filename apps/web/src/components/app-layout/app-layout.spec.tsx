@@ -24,6 +24,20 @@ describe('app-layout', () => {
     expect(spec.root.getAttribute('layout')).not.toBe('stacked');
   });
 
+  // reflect: true is load-bearing -- app-layout.css keys on :host([bare]).
+  it('reflects the bare prop as an attribute', async () => {
+    const spec = await mount('bare');
+    expect(spec.root.hasAttribute('bare')).toBe(true);
+
+    spec.root.bare = false;
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('bare')).toBe(false);
+
+    spec.root.bare = true;
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('bare')).toBe(true);
+  });
+
   it('projects header, page and footer into their slots', async () => {
     const spec = await mount();
     expect(assigned(spec, 'slot[name="header"]')).toEqual(['B']);

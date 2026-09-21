@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\ConnectionStatus;
 use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Models\Connection;
@@ -29,7 +28,7 @@ class PublicProfileController extends Controller
         // denylist over an open enum breaks every time the enum grows; only
         // teachers are public figures here.
         if ($user->role !== Role::Teacher) {
-            abort_unless($viewer && $this->hasAcceptedConnection($viewer, $user), 404);
+            abort_unless($viewer && Connection::acceptedBetween($viewer, $user), 404);
 
             // Name only. No profile key at all -- an empty profile object
             // would still tell the viewer the shape of what they cannot see.
@@ -71,12 +70,5 @@ class PublicProfileController extends Controller
             'status' => $connection->status->value,
             'direction' => $connection->requester_id === $viewer->id ? 'outgoing' : 'incoming',
         ];
-    }
-
-    private function hasAcceptedConnection(User $viewer, User $user): bool
-    {
-        return Connection::where('pair_key', Connection::pairKey($viewer->id, $user->id))
-            ->where('status', ConnectionStatus::Accepted)
-            ->exists();
     }
 }

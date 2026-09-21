@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Layout } from "@24hc/shared";
-export { Layout } from "@24hc/shared";
+import { Layout, QuestionInput } from "@24hc/shared";
+export { Layout, QuestionInput } from "@24hc/shared";
 export namespace Components {
     interface AppFooter {
     }
@@ -26,6 +26,11 @@ export namespace Components {
      */
     interface AppLayout {
         /**
+          * reflect: true is load-bearing -- app-layout.css keys on :host([bare]). Set by app-root for the print page.
+          * @default false
+         */
+        "bare": boolean;
+        /**
           * reflect: true is load-bearing -- app-layout.css keys on :host([layout]).
           * @default 'stacked'
          */
@@ -33,13 +38,37 @@ export namespace Components {
     }
     interface AppRoot {
     }
+    interface PageAttempt {
+        "attemptId"?: number;
+    }
     interface PageConnections {
     }
     interface PageForgotPassword {
     }
     interface PageHome {
     }
+    interface PageLibrary {
+        /**
+          * Which segment is showing. reflect: true is load-bearing -- page-library.css keys on :host([kind='materials']) for the wider grid the extra type and size cells need.
+          * @default 'tests'
+         */
+        "kind": 'tests' | 'materials';
+    }
     interface PageLogin {
+    }
+    interface PageMaterial {
+        "materialId"?: number;
+    }
+    interface PageMaterialForm {
+        /**
+          * Undefined = creating (/materials/new); set = editing (/materials/:id/edit).
+         */
+        "materialId"?: number;
+    }
+    interface PageMaterialShare {
+        "materialId"?: number;
+    }
+    interface PageMaterials {
     }
     interface PageNotifications {
     }
@@ -56,8 +85,40 @@ export namespace Components {
     }
     interface PageTeachers {
     }
+    interface PageTest {
+        "testId"?: number;
+    }
+    interface PageTestAssign {
+        "testId"?: number;
+    }
+    interface PageTestEditor {
+        /**
+          * Undefined = creating a new test.
+         */
+        "testId"?: number;
+    }
+    interface PageTestPrint {
+        "testId"?: number;
+    }
+    interface PageTestResults {
+        "testId"?: number;
+    }
+    interface PageTests {
+    }
     interface PageVerifyEmail {
     }
+    interface TestQuestionEditor {
+        "error"?: string;
+        /**
+          * @default 0
+         */
+        "index": number;
+        "question": QuestionInput;
+    }
+}
+export interface TestQuestionEditorCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLTestQuestionEditorElement;
 }
 declare global {
     interface HTMLAppFooterElement extends Components.AppFooter, HTMLStencilElement {
@@ -91,6 +152,12 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLPageAttemptElement extends Components.PageAttempt, HTMLStencilElement {
+    }
+    var HTMLPageAttemptElement: {
+        prototype: HTMLPageAttemptElement;
+        new (): HTMLPageAttemptElement;
+    };
     interface HTMLPageConnectionsElement extends Components.PageConnections, HTMLStencilElement {
     }
     var HTMLPageConnectionsElement: {
@@ -109,11 +176,41 @@ declare global {
         prototype: HTMLPageHomeElement;
         new (): HTMLPageHomeElement;
     };
+    interface HTMLPageLibraryElement extends Components.PageLibrary, HTMLStencilElement {
+    }
+    var HTMLPageLibraryElement: {
+        prototype: HTMLPageLibraryElement;
+        new (): HTMLPageLibraryElement;
+    };
     interface HTMLPageLoginElement extends Components.PageLogin, HTMLStencilElement {
     }
     var HTMLPageLoginElement: {
         prototype: HTMLPageLoginElement;
         new (): HTMLPageLoginElement;
+    };
+    interface HTMLPageMaterialElement extends Components.PageMaterial, HTMLStencilElement {
+    }
+    var HTMLPageMaterialElement: {
+        prototype: HTMLPageMaterialElement;
+        new (): HTMLPageMaterialElement;
+    };
+    interface HTMLPageMaterialFormElement extends Components.PageMaterialForm, HTMLStencilElement {
+    }
+    var HTMLPageMaterialFormElement: {
+        prototype: HTMLPageMaterialFormElement;
+        new (): HTMLPageMaterialFormElement;
+    };
+    interface HTMLPageMaterialShareElement extends Components.PageMaterialShare, HTMLStencilElement {
+    }
+    var HTMLPageMaterialShareElement: {
+        prototype: HTMLPageMaterialShareElement;
+        new (): HTMLPageMaterialShareElement;
+    };
+    interface HTMLPageMaterialsElement extends Components.PageMaterials, HTMLStencilElement {
+    }
+    var HTMLPageMaterialsElement: {
+        prototype: HTMLPageMaterialsElement;
+        new (): HTMLPageMaterialsElement;
     };
     interface HTMLPageNotificationsElement extends Components.PageNotifications, HTMLStencilElement {
     }
@@ -157,21 +254,82 @@ declare global {
         prototype: HTMLPageTeachersElement;
         new (): HTMLPageTeachersElement;
     };
+    interface HTMLPageTestElement extends Components.PageTest, HTMLStencilElement {
+    }
+    var HTMLPageTestElement: {
+        prototype: HTMLPageTestElement;
+        new (): HTMLPageTestElement;
+    };
+    interface HTMLPageTestAssignElement extends Components.PageTestAssign, HTMLStencilElement {
+    }
+    var HTMLPageTestAssignElement: {
+        prototype: HTMLPageTestAssignElement;
+        new (): HTMLPageTestAssignElement;
+    };
+    interface HTMLPageTestEditorElement extends Components.PageTestEditor, HTMLStencilElement {
+    }
+    var HTMLPageTestEditorElement: {
+        prototype: HTMLPageTestEditorElement;
+        new (): HTMLPageTestEditorElement;
+    };
+    interface HTMLPageTestPrintElement extends Components.PageTestPrint, HTMLStencilElement {
+    }
+    var HTMLPageTestPrintElement: {
+        prototype: HTMLPageTestPrintElement;
+        new (): HTMLPageTestPrintElement;
+    };
+    interface HTMLPageTestResultsElement extends Components.PageTestResults, HTMLStencilElement {
+    }
+    var HTMLPageTestResultsElement: {
+        prototype: HTMLPageTestResultsElement;
+        new (): HTMLPageTestResultsElement;
+    };
+    interface HTMLPageTestsElement extends Components.PageTests, HTMLStencilElement {
+    }
+    var HTMLPageTestsElement: {
+        prototype: HTMLPageTestsElement;
+        new (): HTMLPageTestsElement;
+    };
     interface HTMLPageVerifyEmailElement extends Components.PageVerifyEmail, HTMLStencilElement {
     }
     var HTMLPageVerifyEmailElement: {
         prototype: HTMLPageVerifyEmailElement;
         new (): HTMLPageVerifyEmailElement;
     };
+    interface HTMLTestQuestionEditorElementEventMap {
+        "questionChange": QuestionInput;
+        "questionRemove": void;
+        "questionMove": -1 | 1;
+    }
+    interface HTMLTestQuestionEditorElement extends Components.TestQuestionEditor, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLTestQuestionEditorElementEventMap>(type: K, listener: (this: HTMLTestQuestionEditorElement, ev: TestQuestionEditorCustomEvent<HTMLTestQuestionEditorElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLTestQuestionEditorElementEventMap>(type: K, listener: (this: HTMLTestQuestionEditorElement, ev: TestQuestionEditorCustomEvent<HTMLTestQuestionEditorElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLTestQuestionEditorElement: {
+        prototype: HTMLTestQuestionEditorElement;
+        new (): HTMLTestQuestionEditorElement;
+    };
     interface HTMLElementTagNameMap {
         "app-footer": HTMLAppFooterElement;
         "app-header": HTMLAppHeaderElement;
         "app-layout": HTMLAppLayoutElement;
         "app-root": HTMLAppRootElement;
+        "page-attempt": HTMLPageAttemptElement;
         "page-connections": HTMLPageConnectionsElement;
         "page-forgot-password": HTMLPageForgotPasswordElement;
         "page-home": HTMLPageHomeElement;
+        "page-library": HTMLPageLibraryElement;
         "page-login": HTMLPageLoginElement;
+        "page-material": HTMLPageMaterialElement;
+        "page-material-form": HTMLPageMaterialFormElement;
+        "page-material-share": HTMLPageMaterialShareElement;
+        "page-materials": HTMLPageMaterialsElement;
         "page-notifications": HTMLPageNotificationsElement;
         "page-profile": HTMLPageProfileElement;
         "page-register": HTMLPageRegisterElement;
@@ -179,7 +337,14 @@ declare global {
         "page-reset-password": HTMLPageResetPasswordElement;
         "page-teacher-profile": HTMLPageTeacherProfileElement;
         "page-teachers": HTMLPageTeachersElement;
+        "page-test": HTMLPageTestElement;
+        "page-test-assign": HTMLPageTestAssignElement;
+        "page-test-editor": HTMLPageTestEditorElement;
+        "page-test-print": HTMLPageTestPrintElement;
+        "page-test-results": HTMLPageTestResultsElement;
+        "page-tests": HTMLPageTestsElement;
         "page-verify-email": HTMLPageVerifyEmailElement;
+        "test-question-editor": HTMLTestQuestionEditorElement;
     }
 }
 declare namespace LocalJSX {
@@ -201,6 +366,11 @@ declare namespace LocalJSX {
      */
     interface AppLayout {
         /**
+          * reflect: true is load-bearing -- app-layout.css keys on :host([bare]). Set by app-root for the print page.
+          * @default false
+         */
+        "bare"?: boolean;
+        /**
           * reflect: true is load-bearing -- app-layout.css keys on :host([layout]).
           * @default 'stacked'
          */
@@ -208,13 +378,37 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
+    interface PageAttempt {
+        "attemptId"?: number;
+    }
     interface PageConnections {
     }
     interface PageForgotPassword {
     }
     interface PageHome {
     }
+    interface PageLibrary {
+        /**
+          * Which segment is showing. reflect: true is load-bearing -- page-library.css keys on :host([kind='materials']) for the wider grid the extra type and size cells need.
+          * @default 'tests'
+         */
+        "kind"?: 'tests' | 'materials';
+    }
     interface PageLogin {
+    }
+    interface PageMaterial {
+        "materialId"?: number;
+    }
+    interface PageMaterialForm {
+        /**
+          * Undefined = creating (/materials/new); set = editing (/materials/:id/edit).
+         */
+        "materialId"?: number;
+    }
+    interface PageMaterialShare {
+        "materialId"?: number;
+    }
+    interface PageMaterials {
     }
     interface PageNotifications {
     }
@@ -231,7 +425,38 @@ declare namespace LocalJSX {
     }
     interface PageTeachers {
     }
+    interface PageTest {
+        "testId"?: number;
+    }
+    interface PageTestAssign {
+        "testId"?: number;
+    }
+    interface PageTestEditor {
+        /**
+          * Undefined = creating a new test.
+         */
+        "testId"?: number;
+    }
+    interface PageTestPrint {
+        "testId"?: number;
+    }
+    interface PageTestResults {
+        "testId"?: number;
+    }
+    interface PageTests {
+    }
     interface PageVerifyEmail {
+    }
+    interface TestQuestionEditor {
+        "error"?: string;
+        /**
+          * @default 0
+         */
+        "index"?: number;
+        "onQuestionChange"?: (event: TestQuestionEditorCustomEvent<QuestionInput>) => void;
+        "onQuestionMove"?: (event: TestQuestionEditorCustomEvent<-1 | 1>) => void;
+        "onQuestionRemove"?: (event: TestQuestionEditorCustomEvent<void>) => void;
+        "question"?: QuestionInput;
     }
 
     interface AppHeaderAttributes {
@@ -239,9 +464,44 @@ declare namespace LocalJSX {
     }
     interface AppLayoutAttributes {
         "layout": Layout;
+        "bare": boolean;
+    }
+    interface PageAttemptAttributes {
+        "attemptId": number;
+    }
+    interface PageLibraryAttributes {
+        "kind": 'tests' | 'materials';
+    }
+    interface PageMaterialAttributes {
+        "materialId": number;
+    }
+    interface PageMaterialFormAttributes {
+        "materialId": number;
+    }
+    interface PageMaterialShareAttributes {
+        "materialId": number;
     }
     interface PageTeacherProfileAttributes {
         "teacherId": number;
+    }
+    interface PageTestAttributes {
+        "testId": number;
+    }
+    interface PageTestAssignAttributes {
+        "testId": number;
+    }
+    interface PageTestEditorAttributes {
+        "testId": number;
+    }
+    interface PageTestPrintAttributes {
+        "testId": number;
+    }
+    interface PageTestResultsAttributes {
+        "testId": number;
+    }
+    interface TestQuestionEditorAttributes {
+        "index": number;
+        "error": string;
     }
 
     interface IntrinsicElements {
@@ -249,10 +509,16 @@ declare namespace LocalJSX {
         "app-header": Omit<AppHeader, keyof AppHeaderAttributes> & { [K in keyof AppHeader & keyof AppHeaderAttributes]?: AppHeader[K] } & { [K in keyof AppHeader & keyof AppHeaderAttributes as `attr:${K}`]?: AppHeaderAttributes[K] } & { [K in keyof AppHeader & keyof AppHeaderAttributes as `prop:${K}`]?: AppHeader[K] };
         "app-layout": Omit<AppLayout, keyof AppLayoutAttributes> & { [K in keyof AppLayout & keyof AppLayoutAttributes]?: AppLayout[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `attr:${K}`]?: AppLayoutAttributes[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `prop:${K}`]?: AppLayout[K] };
         "app-root": AppRoot;
+        "page-attempt": Omit<PageAttempt, keyof PageAttemptAttributes> & { [K in keyof PageAttempt & keyof PageAttemptAttributes]?: PageAttempt[K] } & { [K in keyof PageAttempt & keyof PageAttemptAttributes as `attr:${K}`]?: PageAttemptAttributes[K] } & { [K in keyof PageAttempt & keyof PageAttemptAttributes as `prop:${K}`]?: PageAttempt[K] };
         "page-connections": PageConnections;
         "page-forgot-password": PageForgotPassword;
         "page-home": PageHome;
+        "page-library": Omit<PageLibrary, keyof PageLibraryAttributes> & { [K in keyof PageLibrary & keyof PageLibraryAttributes]?: PageLibrary[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `attr:${K}`]?: PageLibraryAttributes[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `prop:${K}`]?: PageLibrary[K] };
         "page-login": PageLogin;
+        "page-material": Omit<PageMaterial, keyof PageMaterialAttributes> & { [K in keyof PageMaterial & keyof PageMaterialAttributes]?: PageMaterial[K] } & { [K in keyof PageMaterial & keyof PageMaterialAttributes as `attr:${K}`]?: PageMaterialAttributes[K] } & { [K in keyof PageMaterial & keyof PageMaterialAttributes as `prop:${K}`]?: PageMaterial[K] };
+        "page-material-form": Omit<PageMaterialForm, keyof PageMaterialFormAttributes> & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes]?: PageMaterialForm[K] } & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes as `attr:${K}`]?: PageMaterialFormAttributes[K] } & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes as `prop:${K}`]?: PageMaterialForm[K] };
+        "page-material-share": Omit<PageMaterialShare, keyof PageMaterialShareAttributes> & { [K in keyof PageMaterialShare & keyof PageMaterialShareAttributes]?: PageMaterialShare[K] } & { [K in keyof PageMaterialShare & keyof PageMaterialShareAttributes as `attr:${K}`]?: PageMaterialShareAttributes[K] } & { [K in keyof PageMaterialShare & keyof PageMaterialShareAttributes as `prop:${K}`]?: PageMaterialShare[K] };
+        "page-materials": PageMaterials;
         "page-notifications": PageNotifications;
         "page-profile": PageProfile;
         "page-register": PageRegister;
@@ -260,7 +526,14 @@ declare namespace LocalJSX {
         "page-reset-password": PageResetPassword;
         "page-teacher-profile": Omit<PageTeacherProfile, keyof PageTeacherProfileAttributes> & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes]?: PageTeacherProfile[K] } & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes as `attr:${K}`]?: PageTeacherProfileAttributes[K] } & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes as `prop:${K}`]?: PageTeacherProfile[K] };
         "page-teachers": PageTeachers;
+        "page-test": Omit<PageTest, keyof PageTestAttributes> & { [K in keyof PageTest & keyof PageTestAttributes]?: PageTest[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `attr:${K}`]?: PageTestAttributes[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `prop:${K}`]?: PageTest[K] };
+        "page-test-assign": Omit<PageTestAssign, keyof PageTestAssignAttributes> & { [K in keyof PageTestAssign & keyof PageTestAssignAttributes]?: PageTestAssign[K] } & { [K in keyof PageTestAssign & keyof PageTestAssignAttributes as `attr:${K}`]?: PageTestAssignAttributes[K] } & { [K in keyof PageTestAssign & keyof PageTestAssignAttributes as `prop:${K}`]?: PageTestAssign[K] };
+        "page-test-editor": Omit<PageTestEditor, keyof PageTestEditorAttributes> & { [K in keyof PageTestEditor & keyof PageTestEditorAttributes]?: PageTestEditor[K] } & { [K in keyof PageTestEditor & keyof PageTestEditorAttributes as `attr:${K}`]?: PageTestEditorAttributes[K] } & { [K in keyof PageTestEditor & keyof PageTestEditorAttributes as `prop:${K}`]?: PageTestEditor[K] };
+        "page-test-print": Omit<PageTestPrint, keyof PageTestPrintAttributes> & { [K in keyof PageTestPrint & keyof PageTestPrintAttributes]?: PageTestPrint[K] } & { [K in keyof PageTestPrint & keyof PageTestPrintAttributes as `attr:${K}`]?: PageTestPrintAttributes[K] } & { [K in keyof PageTestPrint & keyof PageTestPrintAttributes as `prop:${K}`]?: PageTestPrint[K] };
+        "page-test-results": Omit<PageTestResults, keyof PageTestResultsAttributes> & { [K in keyof PageTestResults & keyof PageTestResultsAttributes]?: PageTestResults[K] } & { [K in keyof PageTestResults & keyof PageTestResultsAttributes as `attr:${K}`]?: PageTestResultsAttributes[K] } & { [K in keyof PageTestResults & keyof PageTestResultsAttributes as `prop:${K}`]?: PageTestResults[K] };
+        "page-tests": PageTests;
         "page-verify-email": PageVerifyEmail;
+        "test-question-editor": Omit<TestQuestionEditor, keyof TestQuestionEditorAttributes> & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes]?: TestQuestionEditor[K] } & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes as `attr:${K}`]?: TestQuestionEditorAttributes[K] } & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes as `prop:${K}`]?: TestQuestionEditor[K] };
     }
 }
 export { LocalJSX as JSX };
@@ -278,10 +551,16 @@ declare module "@stencil/core" {
              */
             "app-layout": LocalJSX.IntrinsicElements["app-layout"] & JSXBase.HTMLAttributes<HTMLAppLayoutElement>;
             "app-root": LocalJSX.IntrinsicElements["app-root"] & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "page-attempt": LocalJSX.IntrinsicElements["page-attempt"] & JSXBase.HTMLAttributes<HTMLPageAttemptElement>;
             "page-connections": LocalJSX.IntrinsicElements["page-connections"] & JSXBase.HTMLAttributes<HTMLPageConnectionsElement>;
             "page-forgot-password": LocalJSX.IntrinsicElements["page-forgot-password"] & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
+            "page-library": LocalJSX.IntrinsicElements["page-library"] & JSXBase.HTMLAttributes<HTMLPageLibraryElement>;
             "page-login": LocalJSX.IntrinsicElements["page-login"] & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
+            "page-material": LocalJSX.IntrinsicElements["page-material"] & JSXBase.HTMLAttributes<HTMLPageMaterialElement>;
+            "page-material-form": LocalJSX.IntrinsicElements["page-material-form"] & JSXBase.HTMLAttributes<HTMLPageMaterialFormElement>;
+            "page-material-share": LocalJSX.IntrinsicElements["page-material-share"] & JSXBase.HTMLAttributes<HTMLPageMaterialShareElement>;
+            "page-materials": LocalJSX.IntrinsicElements["page-materials"] & JSXBase.HTMLAttributes<HTMLPageMaterialsElement>;
             "page-notifications": LocalJSX.IntrinsicElements["page-notifications"] & JSXBase.HTMLAttributes<HTMLPageNotificationsElement>;
             "page-profile": LocalJSX.IntrinsicElements["page-profile"] & JSXBase.HTMLAttributes<HTMLPageProfileElement>;
             "page-register": LocalJSX.IntrinsicElements["page-register"] & JSXBase.HTMLAttributes<HTMLPageRegisterElement>;
@@ -289,7 +568,14 @@ declare module "@stencil/core" {
             "page-reset-password": LocalJSX.IntrinsicElements["page-reset-password"] & JSXBase.HTMLAttributes<HTMLPageResetPasswordElement>;
             "page-teacher-profile": LocalJSX.IntrinsicElements["page-teacher-profile"] & JSXBase.HTMLAttributes<HTMLPageTeacherProfileElement>;
             "page-teachers": LocalJSX.IntrinsicElements["page-teachers"] & JSXBase.HTMLAttributes<HTMLPageTeachersElement>;
+            "page-test": LocalJSX.IntrinsicElements["page-test"] & JSXBase.HTMLAttributes<HTMLPageTestElement>;
+            "page-test-assign": LocalJSX.IntrinsicElements["page-test-assign"] & JSXBase.HTMLAttributes<HTMLPageTestAssignElement>;
+            "page-test-editor": LocalJSX.IntrinsicElements["page-test-editor"] & JSXBase.HTMLAttributes<HTMLPageTestEditorElement>;
+            "page-test-print": LocalJSX.IntrinsicElements["page-test-print"] & JSXBase.HTMLAttributes<HTMLPageTestPrintElement>;
+            "page-test-results": LocalJSX.IntrinsicElements["page-test-results"] & JSXBase.HTMLAttributes<HTMLPageTestResultsElement>;
+            "page-tests": LocalJSX.IntrinsicElements["page-tests"] & JSXBase.HTMLAttributes<HTMLPageTestsElement>;
             "page-verify-email": LocalJSX.IntrinsicElements["page-verify-email"] & JSXBase.HTMLAttributes<HTMLPageVerifyEmailElement>;
+            "test-question-editor": LocalJSX.IntrinsicElements["test-question-editor"] & JSXBase.HTMLAttributes<HTMLTestQuestionEditorElement>;
         }
     }
 }

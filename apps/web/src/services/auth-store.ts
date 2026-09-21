@@ -7,6 +7,7 @@ type Listener = (user: User | null) => void;
 export class AuthStore {
   private user: User | null = null;
   private loaded = false;
+  private inFlight: Promise<User | null> | null = null;
   private listeners = new Set<Listener>();
 
   constructor(private readonly client: ApiClient) {}
@@ -20,13 +21,34 @@ export class AuthStore {
     return () => this.listeners.delete(fn);
   }
 
+  /**
+   * Shares one request between concurrent callers. app-root starts this on
+   * connect and pages await it before reading the role, so without the
+   * in-flight promise the second caller would fire a second /api/user --
+   * and both throttle groups share one per-user bucket.
+   */
   async load(): Promise<User | null> {
-    if (!this.loaded) {
-      this.user = await this.client.currentUser();
-      this.loaded = true;
-      this.notify();
+    if (this.loaded) {
+      return this.user;
     }
-    return this.user;
+    if (!this.inFlight) {
+      this.inFlight = this.client.currentUser().then(
+        (user) => {
+          this.user = user;
+          this.loaded = true;
+          this.inFlight = null;
+          this.notify();
+          return this.user;
+        },
+        (err) => {
+          // Leave `loaded` false so a later call can retry, but drop the
+          // rejected promise -- keeping it would reject every future caller.
+          this.inFlight = null;
+          throw err;
+        },
+      );
+    }
+    return this.inFlight;
   }
 
   async login(email: string, password: string): Promise<void> {

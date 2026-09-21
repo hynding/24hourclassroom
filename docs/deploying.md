@@ -14,6 +14,19 @@
    under the DB user's "Allowable Hosts".
 4. **SSH**: create a shell user, add a dedicated deploy keypair; the private key
    becomes the `DEPLOY_SSH_KEY` secret.
+5. **PHP upload limits** (needed by the materials library): Dreamhost's shared PHP
+   defaults sit below the app's 10 MB per-file cap, so create `~/.php/8.3/phprc` on the
+   deploy user's account (Panel → Manage Websites → the api site, or over SSH) containing:
+
+   ```ini
+   upload_max_filesize = 12M
+   post_max_size = 16M
+   ```
+
+   Both values are deliberately above the app cap so an oversized upload is refused by
+   Laravel with a readable 422 rather than by PHP with a bare 413. Until this is done,
+   uploads between the host default and 10 MB return the "under 10 MB" message in
+   production — degraded, not broken. The deploy does not touch this file.
 
 ## GitHub configuration
 
