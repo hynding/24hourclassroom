@@ -2,6 +2,7 @@
 
 namespace App\Mcp\Servers;
 
+use App\Mcp\Tools\ListMaterials;
 use Laravel\Mcp\Server;
 use Laravel\Mcp\Server\Attributes\Instructions;
 use Laravel\Mcp\Server\Attributes\Name;
@@ -31,5 +32,7 @@ class TeacherServer extends Server
      *
      * @var array<int, class-string<\Laravel\Mcp\Server\Tool>>
      */
-    protected array $tools = [];
+    protected array $tools = [
+        ListMaterials::class,
+    ];
 }
