@@ -91,6 +91,14 @@ export class AppHeader {
     return this.user !== null && (this.user.role === 'teacher' || this.user.role === 'student');
   }
 
+  /**
+   * Allowlist: only a teacher can hold an Anthropic key or an MCP token --
+   * every generation endpoint and every MCP tool admits Role::Teacher alone.
+   */
+  private showsIntegrations(): boolean {
+    return this.user !== null && this.user.role === 'teacher';
+  }
+
   render() {
     return (
       <header>
@@ -100,6 +108,7 @@ export class AppHeader {
           <a href="/library" onClick={(e) => this.onNav(e, '/library')}>Library</a>
           {this.showsTests() && <a href="/tests" onClick={(e) => this.onNav(e, '/tests')}>Tests</a>}
           {this.showsMaterials() && <a href="/materials" onClick={(e) => this.onNav(e, '/materials')}>Materials</a>}
+          {this.showsIntegrations() && <a href="/integrations" onClick={(e) => this.onNav(e, '/integrations')}>Integrations</a>}
           {this.user
             ? [
                 <a href="/notifications" onClick={(e) => this.onNav(e, '/notifications')}>
