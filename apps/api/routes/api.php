@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationNotificationController;
 use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\FollowController;
+use App\Http\Controllers\Api\GenerationController;
 use App\Http\Controllers\Api\IntegrationsController;
 use App\Http\Controllers\Api\LibraryController;
 use App\Http\Controllers\Api\MaterialController;
@@ -119,6 +120,8 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
         Route::delete('integrations/mcp-tokens/{id}', [McpTokenController::class, 'destroy']);
         Route::put('integrations/anthropic-key', [AnthropicKeyController::class, 'update']);
         Route::delete('integrations/anthropic-key', [AnthropicKeyController::class, 'destroy']);
+
+        Route::post('generations', [GenerationController::class, 'store']);
     });
 });
 
