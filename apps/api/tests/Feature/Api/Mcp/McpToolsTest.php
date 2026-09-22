@@ -4,13 +4,16 @@ use App\Enums\GradeLevel;
 use App\Enums\QuestionType;
 use App\Enums\Role;
 use App\Enums\Subject;
+use App\Enums\Visibility;
 use App\Mcp\Servers\TeacherServer;
+use App\Mcp\Tools\CreateTestDraft;
 use App\Mcp\Tools\GetMaterial;
 use App\Mcp\Tools\ListMaterials;
 use App\Mcp\Tools\ListTaxonomies;
 use App\Mcp\Tools\ListTests;
 use App\Models\Connection;
 use App\Models\Material;
+use App\Models\Question;
 use App\Models\Test;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -275,4 +278,93 @@ test('list_tests lists only the teachers own tests, newest first', function () {
             ->etc());
 
     expect($foreign->author->id)->not->toBe($teacher->id);
+});
+
+test('create_test_draft creates a private test owned by the caller', function () {
+    config(['app.frontend_urls' => 'http://localhost:3333']);
+
+    $teacher = aTeacher();
+    $this->actingAs($teacher);
+
+    $response = TeacherServer::tool(CreateTestDraft::class, validDraftBody())->assertOk();
+
+    $test = Test::query()->latest('id')->first();
+
+    $response->assertStructuredContent([
+        'id' => $test->id,
+        'title' => 'Fractions warm-up',
+        'question_count' => 5,
+        'url' => "http://localhost:3333/tests/{$test->id}/edit",
+    ]);
+
+    expect($test->user_id)->toBe($teacher->id);
+    expect($test->visibility)->toBe(Visibility::Private);
+    expect($test->published_at)->toBeNull();
+
+    // Positions rewritten 0..n-1 and the answers stored as C1 stores them.
+    $questions = $test->questions()->get();
+    expect($questions->pluck('position')->all())->toBe([0, 1, 2, 3, 4]);
+    expect($questions->pluck('type.value')->all())
+        ->toBe(['multiple_choice', 'multi_select', 'true_false', 'short_answer', 'numeric']);
+    expect($questions[0]->answer)->toBe(1);
+    expect($questions[1]->answer)->toBe([1, 2]);
+    expect($questions[1]->partial_credit)->toBeTrue();
+    expect($questions[2]->answer)->toBeTrue();
+    expect($questions[3]->answer)->toBe('1/2');
+    expect($questions[4]->answer)->toBe(['value' => 2, 'tolerance' => 0]);
+});
+
+test('create_test_draft ignores a question id from another test', function () {
+    $teacher = aTeacher();
+    $victim = aTestWithQuestions(aTeacher(), 1, ['title' => 'Untouched']);
+    $victimQuestion = $victim->questions()->first();
+    $before = $victimQuestion->prompt;
+
+    $this->actingAs($teacher);
+
+    TeacherServer::tool(CreateTestDraft::class, validDraftBody(['questions' => [
+        ['id' => $victimQuestion->id, 'type' => 'true_false', 'prompt' => 'Overwrite attempt', 'answer' => false],
+    ]]))->assertOk();
+
+    // TestWriter scopes every id lookup to the test it is writing, so the
+    // foreign id created a NEW row and left the other test alone.
+    expect($victimQuestion->fresh()->prompt)->toBe($before);
+    expect($victim->fresh()->questions()->count())->toBe(1);
+    expect(Question::where('prompt', 'Overwrite attempt')->count())->toBe(1);
+});
+
+test('create_test_draft reports every shape violation in one error', function () {
+    $this->actingAs(aTeacher());
+
+    TeacherServer::tool(CreateTestDraft::class, validDraftBody(['questions' => [
+        ['type' => 'multiple_choice', 'prompt' => 'Out of range', 'options' => ['a', 'b'], 'answer' => 5],
+        ['type' => 'true_false', 'prompt' => 'Options it may not have', 'options' => ['a', 'b'], 'answer' => true],
+        ['type' => 'numeric', 'prompt' => 'Negative tolerance', 'answer' => ['value' => 1, 'tolerance' => -1]],
+    ]]))->assertHasErrors([
+        'The answer must be the index of one option.',
+        'This question type does not take options.',
+        'The answer must be {value, tolerance >= 0}.',
+    ]);
+
+    expect(Test::count())->toBe(0);
+});
+
+test('create_test_draft never honours a visibility in the body', function () {
+    $this->actingAs(aTeacher());
+
+    TeacherServer::tool(CreateTestDraft::class, validDraftBody(['visibility' => 'public']))->assertOk();
+
+    $test = Test::query()->latest('id')->first();
+    expect($test->visibility)->toBe(Visibility::Private);
+    expect($test->published_at)->toBeNull();
+});
+
+test('the server registers all five tools', function () {
+    TeacherServer::tools()->assertRegistered([
+        ListMaterials::class,
+        GetMaterial::class,
+        ListTaxonomies::class,
+        ListTests::class,
+        CreateTestDraft::class,
+    ]);
 });

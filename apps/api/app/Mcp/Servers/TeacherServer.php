@@ -2,6 +2,7 @@
 
 namespace App\Mcp\Servers;
 
+use App\Mcp\Tools\CreateTestDraft;
 use App\Mcp\Tools\GetMaterial;
 use App\Mcp\Tools\ListMaterials;
 use App\Mcp\Tools\ListTaxonomies;
@@ -40,5 +41,6 @@ class TeacherServer extends Server
         GetMaterial::class,
         ListTaxonomies::class,
         ListTests::class,
+        CreateTestDraft::class,
     ];
 }

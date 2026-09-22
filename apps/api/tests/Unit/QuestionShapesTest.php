@@ -3,6 +3,7 @@
 use App\Enums\GradeLevel;
 use App\Enums\QuestionType;
 use App\Enums\Subject;
+use App\Mcp\Tools\CreateTestDraft;
 use App\Support\QuestionRules;
 use App\Support\QuestionShapes;
 use App\Support\TaxonomyLabels;
@@ -74,4 +75,18 @@ test('the taxonomy labels mirror the enum cases in order', function () {
     foreach ([...TaxonomyLabels::subjects(), ...TaxonomyLabels::gradeLevels(), ...TaxonomyLabels::questionTypes()] as $option) {
         expect($option['label'])->toBeString()->not->toBe('');
     }
+});
+
+test('the create_test_draft builder schema requires the same four fields as TestDraftSchema', function () {
+    // Two hand-written schemas -- the MCP builder's and TestDraftSchema's
+    // (C3b's custom tool) -- must agree on what is mandatory, or the two
+    // write paths accept different bodies.
+    $builder = (new CreateTestDraft)->toArray()['inputSchema'];
+
+    expect($builder['required'])->toBe(['title', 'subject', 'grade_level', 'questions']);
+    expect($builder['required'])->toBe(TestDraftSchema::json()['required']);
+    expect($builder['properties'])->not->toHaveKey('id')->not->toHaveKey('visibility');
+    expect($builder['properties']['questions']['items']['properties'])
+        ->not->toHaveKey('id')
+        ->not->toHaveKey('visibility');
 });
