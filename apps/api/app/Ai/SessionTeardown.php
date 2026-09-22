@@ -61,8 +61,11 @@ class SessionTeardown
         }
 
         // The interrupt is asynchronous and archive is rejected on a running
-        // session, so poll up to five times, a second apart.
-        $running = true;
+        // session, so poll up to five times, a second apart. A read failure
+        // leaves the status unknown -- not "running" -- so archive is still
+        // attempted; only five confirmed "running" answers skip it.
+        $stillRunning = true;
+        $listCostCents = null;
 
         for ($attempt = 1; $attempt <= 5; $attempt++) {
             try {
@@ -73,15 +76,16 @@ class SessionTeardown
                     'error' => $e->getMessage(),
                 ]);
 
-                return;
+                $stillRunning = false;
+                break;
             }
 
             if ($session['listCostCents'] !== null) {
-                $generation->forceFill(['list_cost_cents' => $session['listCostCents']])->save();
+                $listCostCents = $session['listCostCents'];
             }
 
             if ($session['status'] !== 'running') {
-                $running = false;
+                $stillRunning = false;
                 break;
             }
 
@@ -90,7 +94,11 @@ class SessionTeardown
             }
         }
 
-        if ($running) {
+        if ($listCostCents !== null) {
+            $generation->forceFill(['list_cost_cents' => $listCostCents])->save();
+        }
+
+        if ($stillRunning) {
             Log::warning('An Anthropic session was still running after the interrupt; not archiving', [
                 'generation_id' => $generation->id,
                 'session_id' => $sessionId,

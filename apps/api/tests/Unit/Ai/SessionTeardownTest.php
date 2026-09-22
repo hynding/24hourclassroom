@@ -132,3 +132,25 @@ test('a failing archive is logged and the files are deleted anyway', function ()
         ->and($this->fake->calls['deleteFile'])->toHaveCount(2)
         ->and($generation->fresh()->file_ids)->toBeNull();
 });
+
+test('a failed status read does not skip the archive, and the files are deleted anyway', function () {
+    $teacher = aTeacher();
+    withAnthropicKey($teacher);
+    $this->fake->failNext('retrieveSession', new AnthropicUnavailable('down', 503));
+
+    Log::spy();
+
+    $generation = Generation::factory()->create([
+        'user_id' => $teacher->id,
+        'session_id' => 'sesn_1',
+        'file_ids' => ['file_1', 'file_2'],
+    ]);
+
+    app(SessionTeardown::class)->run($generation);
+
+    Log::shouldHaveReceived('warning');
+
+    expect($this->fake->calls['archiveSession'])->toHaveCount(1)
+        ->and($this->fake->calls['deleteFile'])->toHaveCount(2)
+        ->and($generation->fresh()->file_ids)->toBeNull();
+});
