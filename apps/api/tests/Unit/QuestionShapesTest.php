@@ -80,7 +80,10 @@ test('the taxonomy labels mirror the enum cases in order', function () {
 test('the create_test_draft builder schema requires the same four fields as TestDraftSchema', function () {
     // Two hand-written schemas -- the MCP builder's and TestDraftSchema's
     // (C3b's custom tool) -- must agree on what is mandatory, or the two
-    // write paths accept different bodies.
+    // write paths accept different bodies. Only the `required` list and the
+    // absence of `id`/`visibility` are compared here: the MCP JsonSchema
+    // builder has no way to emit `additionalProperties: false`, so that part
+    // of TestDraftSchema's shape is not, and cannot be, asserted against it.
     $builder = (new CreateTestDraft)->toArray()['inputSchema'];
 
     expect($builder['required'])->toBe(['title', 'subject', 'grade_level', 'questions']);

@@ -2,6 +2,7 @@
 
 use App\Enums\GradeLevel;
 use App\Enums\Subject;
+use App\Support\TaxonomyLabels;
 
 test('every PHP taxonomy value appears in the shared TypeScript package', function () {
     $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
@@ -109,6 +110,28 @@ test('the old TestVisibility names are gone from both sides', function () {
     expect(class_exists(\App\Enums\TestVisibility::class))->toBeFalse();
     $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
     expect($shared)->not->toContain('TestVisibility')->not->toContain('TEST_VISIBILITIES');
+});
+
+test('TaxonomyLabels labels mirror the shared TypeScript const arrays, in order', function () {
+    // TaxonomyLabels is a hand-copy of @24hc/shared's labels (see its class
+    // docblock); this asserts the copy hasn't drifted, the same block regex
+    // the value-only tests above use, plus a `label:` capture.
+    $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
+
+    $pairs = [
+        ['SUBJECTS', TaxonomyLabels::subjects()],
+        ['GRADE_LEVELS', TaxonomyLabels::gradeLevels()],
+        ['QUESTION_TYPES', TaxonomyLabels::questionTypes()],
+    ];
+
+    foreach ($pairs as [$constName, $phpEntries]) {
+        expect(preg_match('/export const '.$constName.':.*?\];/s', $shared, $m))
+            ->toBe(1, "$constName const array not found in packages/shared");
+        preg_match_all('/label:\s*[\'"]([^\'"]+)[\'"]/', $m[0], $labels);
+
+        expect($labels[1])->not->toBeEmpty();
+        expect($labels[1])->toBe(array_column($phpEntries, 'label'));
+    }
 });
 
 test('the per-file upload cap in config/materials.php mirrors MAX_MATERIAL_BYTES', function () {

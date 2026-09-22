@@ -13,7 +13,13 @@ use Laravel\Mcp\Facades\Mcp;
 | the API host (NOT /api/mcp/teacher), and none of the api group's session
 | middleware runs here. Do not add this file to withRouting() as well.
 |
-| The seven middlewares, in this order:
+| The seven middlewares are declared in the order below, but that is not the
+| order they RUN in: the framework's priority list moves ThrottleRequests
+| ahead of the aliased gates, so the resolved order is auth:sanctum ->
+| token-only -> abilities:mcp -> verified -> throttle:mcp -> active ->
+| teacher. A request rejected before the throttle runs (401/403 from auth or
+| the ability check) is never rate-limited -- the same shape as the
+| existing unthrottled login route.
 |   auth:sanctum   401 for no credential at all
 |   token-only     401 for a session (auth:sanctum falls back to the session
 |                  guard and hands it a TransientToken that can() anything)

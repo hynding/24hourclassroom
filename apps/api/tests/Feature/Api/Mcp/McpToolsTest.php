@@ -221,9 +221,11 @@ test('get_material returns a signed download url for a pdf', function () {
 
     TeacherServer::tool(GetMaterial::class, ['id' => $material->id])
         ->assertOk()
-        ->assertStructuredContent(function (AssertableJson $json) use ($material) {
+        ->assertStructuredContent(function (AssertableJson $json) use ($material, $teacher) {
             $url = $json->toArray()['download_url'];
-            expect($url)->toContain("/api/materials/{$material->id}/file")->toContain('signature=');
+            expect($url)->toContain("/api/materials/{$material->id}/file")
+                ->toContain('signature=')
+                ->toContain("viewer={$teacher->id}");
 
             // A binary file never carries `text` or `truncated`.
             $json->missing('text')->missing('truncated')->etc();
@@ -238,6 +240,12 @@ test('get_material hides a material the teacher cannot view', function () {
 
     TeacherServer::tool(GetMaterial::class, ['id' => $private->id])->assertHasErrors(['Not found.']);
     TeacherServer::tool(GetMaterial::class, ['id' => 999_999])->assertHasErrors(['Not found.']);
+});
+
+test('get_material rejects a non-int id instead of coercing it', function () {
+    $this->actingAs(aTeacher());
+
+    TeacherServer::tool(GetMaterial::class, ['id' => [5]])->assertHasErrors(['Not found.']);
 });
 
 test('get_material reports a missing disk object as not found', function () {

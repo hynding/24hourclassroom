@@ -29,7 +29,9 @@ class ListTests extends Tool
             return $teacher;
         }
 
-        $page = max(1, (int) $request->get('page', 1));
+        // Anything that is not a positive int is page 1.
+        $page = $request->get('page', 1);
+        $page = is_int($page) && $page >= 1 ? $page : 1;
 
         $tests = $teacher->tests()
             ->with('author')

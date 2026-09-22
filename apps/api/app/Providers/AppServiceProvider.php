@@ -53,12 +53,14 @@ class AppServiceProvider extends ServiceProvider
         // The MCP route's own bucket, keyed on the TOKEN, not the user: a
         // teacher's Claude client hammering /mcp/teacher must not spend the
         // 60/min that teacher's own SPA session draws on (the shared-bucket
-        // gotcha in CLAUDE.md). The key resolves because auth:sanctum runs
-        // before throttle -- Illuminate\Auth\Middleware\Authenticate
-        // implements AuthenticatesRequests, which sits ahead of
-        // ThrottleRequests in the framework's priority list, and it calls
-        // Auth::shouldUse('sanctum') so $request->user() reaches the token
-        // user here. The ip() fallback only matters if that ever changes.
+        // gotcha in CLAUDE.md). The key resolves because auth:sanctum
+        // precedes throttle:mcp in the resolved middleware order (see
+        // routes/ai.php) -- Illuminate\Auth\Middleware\Authenticate implements
+        // AuthenticatesRequests, which sits ahead of ThrottleRequests in the
+        // framework's priority list, and it calls Auth::shouldUse('sanctum')
+        // so $request->user() reaches the token user here. The ip() fallback
+        // is therefore unreachable in practice on this route -- it is kept
+        // only as a guard, in case that ordering ever changes.
         RateLimiter::for('mcp', fn (Request $request) => Limit::perMinute(60)
             ->by('mcp:'.($request->user()?->currentAccessToken()?->id ?? $request->ip())));
     }

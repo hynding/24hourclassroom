@@ -37,7 +37,13 @@ class GetMaterial extends Tool
             return $teacher;
         }
 
-        $material = Material::find((int) $request->get('id'));
+        $id = $request->get('id');
+
+        if (! is_int($id) || $id <= 0) {
+            return Response::error('Not found.');
+        }
+
+        $material = Material::find($id);
 
         // A hidden material and a missing one are indistinguishable, the
         // same rule the HTTP surface follows.

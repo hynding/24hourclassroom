@@ -30,8 +30,14 @@ class ListMaterials extends Tool
             return $teacher;
         }
 
-        $scope = (string) $request->get('scope', 'all');
-        $page = max(1, (int) $request->get('page', 1));
+        // A non-string scope (e.g. a client sending an array) falls back to
+        // the documented default rather than coercing into a stray string.
+        $scope = $request->get('scope', 'all');
+        $scope = is_string($scope) ? $scope : 'all';
+
+        // Same for page: anything that is not a positive int is page 1.
+        $page = $request->get('page', 1);
+        $page = is_int($page) && $page >= 1 ? $page : 1;
 
         // C2's shared-with-me query: a share counts only while the
         // connection to the author is ACCEPTED, and the filter is in SQL so
