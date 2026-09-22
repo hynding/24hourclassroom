@@ -146,3 +146,45 @@ test('the per-file upload cap in config/materials.php mirrors MAX_MATERIAL_BYTES
     expect((int) $m[1])->toBe(config('materials.max_file_kb') * 1024);
     expect((int) $m[1])->toBe(10485760);
 });
+
+use App\Enums\GenerationStatus;
+
+test('GenerationStatus mirrors the shared GENERATION_STATUSES array in both directions', function () {
+    // Same regex as the VISIBILITIES/QUESTION_TYPES test: the const must be a
+    // TaxonomyOption-shaped array with `value:` keys, or this finds nothing.
+    $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
+
+    expect(preg_match('/export const GENERATION_STATUSES:.*?\];/s', $shared, $m))
+        ->toBe(1, 'GENERATION_STATUSES const array not found in packages/shared');
+    preg_match_all('/value:\s*[\'"]([^\'"]+)[\'"]/', $m[0], $found);
+
+    expect($found[1])->not->toBeEmpty();
+    expect($found[1])->toBe(array_column(GenerationStatus::cases(), 'value'));
+});
+
+test('the generation limits in config/generation.php mirror the shared literals', function () {
+    // The SPA enforces min/max questions and the ≤5 material cap in its own
+    // form, and prints the budget in a message the server also composes, so
+    // both sides have to read the same numbers. The TS side is four LITERALS
+    // (no type annotation, no arithmetic) so this digit-capturing regex can
+    // read them the way the MAX_MATERIAL_BYTES test does.
+    $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
+
+    $pairs = [
+        'GENERATION_BUDGET_CENTS' => 'generation.budget_cents',
+        'GENERATION_MAX_MATERIALS' => 'generation.max_materials',
+        'GENERATION_MIN_QUESTIONS' => 'generation.min_questions',
+        'GENERATION_MAX_QUESTIONS' => 'generation.max_questions',
+    ];
+
+    foreach ($pairs as $const => $key) {
+        expect(preg_match('/export const '.$const.'\s*=\s*(\d+);/', $shared, $m))
+            ->toBe(1, "$const literal not found in packages/shared");
+        expect((int) $m[1])->toBe(config($key));
+    }
+
+    expect(config('generation.budget_cents'))->toBe(200);
+    expect(config('generation.max_materials'))->toBe(5);
+    expect(config('generation.min_questions'))->toBe(5);
+    expect(config('generation.max_questions'))->toBe(30);
+});
