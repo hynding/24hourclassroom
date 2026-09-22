@@ -25,6 +25,8 @@ test('an mcp token is refused on every session-only json route', function () {
     $this->withToken($token)->getJson('/api/integrations')->assertStatus(401);
     $this->withToken($token)->postJson('/api/integrations/mcp-tokens', ['name' => 'x'])->assertStatus(401);
     $this->withToken($token)->deleteJson('/api/integrations/mcp-tokens/1')->assertStatus(401);
+    $this->withToken($token)->putJson('/api/integrations/anthropic-key', ['api_key' => str_repeat('k', 30)])->assertStatus(401);
+    $this->withToken($token)->deleteJson('/api/integrations/anthropic-key')->assertStatus(401);
 
     // Nothing was minted, nothing was revoked.
     expect($teacher->tokens()->count())->toBe(1);

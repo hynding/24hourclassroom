@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Role;
+use App\Models\Integration;
 use App\Models\User;
 use Laravel\Sanctum\PersonalAccessToken;
 
@@ -9,15 +10,21 @@ beforeEach(function () {
 });
 
 test('the integrations payload lists no tokens and a placeholder anthropic block', function () {
-    $this->actingAs(aTeacher(['email_verified_at' => now()]));
+    $teacher = aTeacher(['email_verified_at' => now()]);
+    $this->actingAs($teacher);
 
-    // PLAN 2 REWRITES THIS ASSERTION: the `anthropic` block is hard-coded
-    // here because the `integrations` table is plan 2's. The KEY SHAPE is
-    // final -- plan 2 only changes where the three values come from.
-    $this->getJson('/api/integrations')->assertOk()->assertExactJson([
-        'mcp_tokens' => [],
-        'anthropic' => ['configured' => false, 'hint' => null, 'verified_at' => null],
-    ]);
+    $response = $this->getJson('/api/integrations')->assertOk();
+
+    // Plan 2 made this block row-backed (IntegrationsPayload reads
+    // Integration::forUser). For a teacher who has never set a key the three
+    // values are the same as plan 1's hard-coded ones; the row now existing
+    // after the read is what proves they are no longer hard-coded.
+    $response
+        ->assertJsonPath('anthropic.configured', false)
+        ->assertJsonPath('anthropic.hint', null)
+        ->assertJsonPath('anthropic.verified_at', null);
+
+    expect(Integration::where('user_id', $teacher->id)->exists())->toBeTrue();
 });
 
 test('minting a token returns the plaintext once and stores the mcp ability', function () {

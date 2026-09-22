@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AnswerGradeController;
+use App\Http\Controllers\Api\AnthropicKeyController;
 use App\Http\Controllers\Api\AssignmentController;
 use App\Http\Controllers\Api\AttemptController;
 use App\Http\Controllers\Api\Auth\LoginController;
@@ -116,6 +117,8 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
         Route::get('integrations', [IntegrationsController::class, 'show']);
         Route::post('integrations/mcp-tokens', [McpTokenController::class, 'store']);
         Route::delete('integrations/mcp-tokens/{id}', [McpTokenController::class, 'destroy']);
+        Route::put('integrations/anthropic-key', [AnthropicKeyController::class, 'update']);
+        Route::delete('integrations/anthropic-key', [AnthropicKeyController::class, 'destroy']);
     });
 });
 
