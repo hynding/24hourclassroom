@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Ai\AnthropicGateway;
+use App\Ai\HttpAnthropicGateway;
+use App\Ai\Sleeper;
+use App\Ai\SystemSleeper;
 use App\Support\FrontendRedirect;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -17,7 +21,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Every generation test swaps these two for FakeAnthropicGateway and
+        // NoopSleeper through the fakeAnthropic() helper, so nothing in the
+        // suite opens a socket or waits a second.
+        $this->app->singleton(AnthropicGateway::class, HttpAnthropicGateway::class);
+        $this->app->singleton(Sleeper::class, SystemSleeper::class);
     }
 
     /**
