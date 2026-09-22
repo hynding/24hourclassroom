@@ -106,7 +106,12 @@ final class GenerationAdvancer
         });
     }
 
-    /** Phase 2: outside every transaction, still inside the cache lock. */
+    /**
+     * Phase 2: the send, after phase 1 has committed and outside every
+     * transaction, still inside the cache lock. Whether Anthropic accepts a
+     * duplicate user.custom_tool_result is undocumented, so the lock plus the
+     * stored event id -- not the platform -- is what makes this at-most-once.
+     */
     private function settle(Generation $generation): void
     {
         if ($this->endedThisCall) {
@@ -114,7 +119,70 @@ final class GenerationAdvancer
             // session id, or no key, it skips the session steps and still
             // deletes file_ids, so an upload never outlives its run.
             $this->teardown->run($generation);
+
+            return;
         }
+
+        $eventId = $generation->pending_tool_event_id;
+
+        if ($generation->isTerminal() || $eventId === null || $generation->session_id === null) {
+            return;
+        }
+
+        // Step 0 cancels a keyless row, so this is belt and braces.
+        $key = Integration::forUser($generation->user)->apiKey();
+
+        if ($key === null) {
+            return;
+        }
+
+        $result = $generation->pending_tool_result ?? ['content' => [], 'is_error' => false];
+        $isError = (bool) ($result['is_error'] ?? false);
+
+        try {
+            $this->gateway->sendCustomToolResult(
+                $key,
+                $generation->session_id,
+                $eventId,
+                $result['content'] ?? [],
+                $isError,
+            );
+        } catch (AnthropicUnavailable) {
+            // The pending columns stay exactly as they are and the next poll
+            // retries with the same event id.
+            return;
+        } catch (AnthropicRejected) {
+            // Treated as sent: the likeliest cause is a previous send that
+            // Anthropic accepted before this process died. Retrying forever
+            // would strand the run.
+        }
+
+        DB::transaction(function () use ($generation, $eventId): void {
+            $generation->pending_tool_event_id = null;
+            $generation->pending_tool_result = null;
+            $generation->last_event_id = $eventId;
+            $generation->save();
+        });
+
+        if (! $isError) {
+            // A saved draft ends the run immediately (spec ruling 6): the
+            // session has nothing left to do and every minute of it is billed.
+            $this->teardown->run($generation);
+            $generation->markTerminal(GenerationStatus::Done);
+
+            return;
+        }
+
+        if ($generation->tool_failures >= (int) config('generation.max_tool_failures')) {
+            $this->teardown->run($generation);
+            $generation->markTerminal(GenerationStatus::Failed, GenerationMessages::rejected());
+
+            return;
+        }
+
+        // The agent has been told what was wrong and gets another turn.
+        $generation->status = GenerationStatus::Running;
+        $generation->save();
     }
 
     /**
@@ -212,13 +280,40 @@ final class GenerationAdvancer
             return false;
         }
 
+        if ($event->id === '') {
+            // A result is addressed to the tool_use event's id, so a call
+            // without one can never be answered. Leaving it unanswered would
+            // park the session -- billing the teacher -- until the wall-clock
+            // cap, so the run ends here instead.
+            return $this->terminate(
+                $generation,
+                GenerationStatus::Failed,
+                GenerationMessages::PLATFORM_STOPPED.': tool call without an id',
+            );
+        }
+
+        if ($generation->test_id !== null) {
+            // Defensive: an accepted draft ends the run `done` in phase 2, so a
+            // live row that already has a test_id should be unreachable. One
+            // run may never mint two tests, so the agent is told no instead.
+            $this->pend($generation, $event->id, 'A draft was already saved for this run.', isError: true);
+
+            return true;
+        }
+
         try {
             $validated = TestDraftValidator::validate($event->toolInput ?? []);
         } catch (ValidationException $e) {
-            // A bad draft is a tool error the agent can correct; three strikes
-            // is Task 4's business.
+            // A bad draft is a tool error the agent can correct; phase 2 counts
+            // the strikes. The sentences are truncated on the column's own byte
+            // budget, exactly like the note and the error.
             $generation->tool_failures = $generation->tool_failures + 1;
-            $this->pend($generation, $event->id, implode(' ', Arr::flatten($e->errors())), isError: true);
+            $this->pend(
+                $generation,
+                $event->id,
+                mb_strcut(implode(' ', Arr::flatten($e->errors())), 0, 60000),
+                isError: true,
+            );
 
             return true;
         }
@@ -228,11 +323,11 @@ final class GenerationAdvancer
         $test = TestDraftWriter::create($generation->user, $validated);
         $generation->test_id = $test->id;
 
-        $this->pend($generation, $event->id, (string) json_encode([
+        $this->pend($generation, $event->id, json_encode([
             'ok' => true,
             'test_id' => $test->id,
             'url' => FrontendRedirect::spaOrigin()."/tests/{$test->id}/edit",
-        ]), isError: false);
+        ], JSON_THROW_ON_ERROR), isError: false);
 
         return true;
     }

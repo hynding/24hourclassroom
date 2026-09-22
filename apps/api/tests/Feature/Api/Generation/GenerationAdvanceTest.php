@@ -360,27 +360,42 @@ test('a rejected session id fails the run and carries Anthropic message', functi
         ->and($generation->finished_at)->not->toBeNull();
 });
 
-test('a valid save_test_draft call is committed as a pending tool result', function () {
+test('a valid save_test_draft call is answered once and finishes the run', function () {
     $fake = fakeAnthropic();
+    $fake->returnsSessionCost(87);
     $owner = aTeacher();
-    withAnthropicKey($owner);
-    $generation = Generation::factory()->for($owner)->create(['session_id' => 'sesn_draft']);
+    $integration = withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create([
+        'session_id' => 'sesn_draft',
+        'file_ids' => ['file_1', 'file_2'],
+    ]);
 
     advanceEvents($fake, $generation, [
         ['id' => 'sevt_1', 'type' => 'agent.custom_tool_use', 'name' => 'save_test_draft', 'input' => validDraftBody()],
-        // Everything after the call belongs to a turn that has not resumed:
-        // reading it now would process events out of order, and a second
-        // save_test_draft in the same list is deliberately abandoned so a run
-        // can never produce two tests (spec step 2).
+        // Everything after the call belongs to a turn that has not resumed: a
+        // second save_test_draft in the same list is deliberately abandoned so
+        // a run can never produce two tests (spec step 2).
         ['id' => 'sevt_2', 'type' => 'agent.message', 'content' => [['type' => 'text', 'text' => 'Should never be read.']]],
     ]);
 
     $generation->refresh();
     $test = $owner->tests()->first();
 
-    expect($test)->not->toBeNull()
+    expect($fake->calls['sendCustomToolResult'])->toHaveCount(1);
+    [$key, $sessionId, $eventId, $content, $isError] = $fake->calls['sendCustomToolResult'][0];
+    // The agent reads the decoded object, not our byte-for-byte encoding of it.
+    $answer = json_decode($content[0]['text'], true);
+
+    expect($key)->toBe($integration->apiKey())
+        ->and($sessionId)->toBe('sesn_draft')
+        ->and($eventId)->toBe('sevt_1')
+        ->and($isError)->toBeFalse()
+        ->and($answer['ok'])->toBeTrue()
+        ->and($answer['test_id'])->toBe($test->id)
+        ->and($answer['url'])->toEndWith("/tests/{$test->id}/edit")
+        ->and($answer['url'])->toStartWith(FrontendRedirect::spaOrigin())
+        // The draft itself, written through C1's validated path.
         ->and($test->visibility)->toBe(Visibility::Private)
-        ->and($test->title)->toBe('Fractions warm-up')
         ->and($test->questions)->toHaveCount(5)
         ->and($test->questions->pluck('position')->all())->toBe([0, 1, 2, 3, 4])
         ->and($test->questions[0]->type)->toBe(QuestionType::MultipleChoice)
@@ -391,21 +406,23 @@ test('a valid save_test_draft call is committed as a pending tool result', funct
         ->and($test->questions[2]->answer)->toBeTrue()
         ->and($test->questions[3]->answer)->toBe('1/2')
         ->and($test->questions[4]->answer)->toBe(['value' => 2, 'tolerance' => 0])
+        // A saved draft ends the run immediately (spec ruling 6).
+        ->and($generation->status)->toBe(GenerationStatus::Done)
+        ->and($generation->error)->toBeNull()
         ->and($generation->test_id)->toBe($test->id)
-        ->and($generation->status)->toBe(GenerationStatus::AwaitingTool)
-        ->and($generation->pending_tool_event_id)->toBe('sevt_1')
-        ->and($generation->pending_tool_result['is_error'])->toBeFalse()
-        ->and($generation->pending_tool_result['content'][0]['text'])->toBe(json_encode([
-            'ok' => true,
-            'test_id' => $test->id,
-            'url' => FrontendRedirect::spaOrigin()."/tests/{$test->id}/edit",
-        ]))
+        ->and($generation->finished_at)->not->toBeNull()
+        ->and($generation->pending_tool_event_id)->toBeNull()
+        ->and($generation->pending_tool_result)->toBeNull()
         ->and($generation->last_event_id)->toBe('sevt_1')
-        // sevt_2 was not processed.
-        ->and($generation->agent_note)->toBeNull();
+        ->and($generation->agent_note)->toBeNull()
+        ->and($generation->list_cost_cents)->toBe(87)
+        ->and($fake->calls)->toHaveKey('interrupt')
+        ->and($fake->calls)->toHaveKey('retrieveSession')
+        ->and($fake->calls)->toHaveKey('archiveSession')
+        ->and(array_map(fn ($args) => $args[1], $fake->calls['deleteFile']))->toBe(['file_1', 'file_2']);
 });
 
-test('an invalid save_test_draft call is committed as an error result', function () {
+test('an invalid save_test_draft call is answered as an error and the run continues', function () {
     $fake = fakeAnthropic();
     $owner = aTeacher();
     withAnthropicKey($owner);
@@ -421,15 +438,24 @@ test('an invalid save_test_draft call is committed as an error result', function
     ]);
 
     $generation->refresh();
-    expect(Test::count())->toBe(0)
+    expect($fake->calls['sendCustomToolResult'])->toHaveCount(1);
+    [, , $eventId, $content, $isError] = $fake->calls['sendCustomToolResult'][0];
+
+    expect($eventId)->toBe('sevt_1')
+        ->and($isError)->toBeTrue()
+        ->and($content[0]['text'])->toContain('index of one option')
+        ->and(Test::count())->toBe(0)
         ->and($generation->test_id)->toBeNull()
         ->and($generation->tool_failures)->toBe(1)
-        ->and($generation->status)->toBe(GenerationStatus::AwaitingTool)
-        ->and($generation->pending_tool_event_id)->toBe('sevt_1')
-        ->and($generation->pending_tool_result['is_error'])->toBeTrue()
-        // The agent has to be told what to fix, so the validator's own sentence
-        // is what goes back.
-        ->and($generation->pending_tool_result['content'][0]['text'])->toContain('index of one option');
+        // One failure of three: the agent gets another turn, so the run goes
+        // back to running and nothing is torn down.
+        ->and($generation->status)->toBe(GenerationStatus::Running)
+        ->and($generation->pending_tool_event_id)->toBeNull()
+        ->and($generation->pending_tool_result)->toBeNull()
+        ->and($generation->last_event_id)->toBe('sevt_1')
+        ->and($generation->finished_at)->toBeNull()
+        ->and($fake->calls)->not->toHaveKey('interrupt')
+        ->and($fake->calls)->not->toHaveKey('archiveSession');
 });
 
 test('a tool call with another name is a marker and nothing else', function () {
@@ -561,4 +587,171 @@ test('an oversized agent message is cut to whole characters', function () {
     expect(strlen($note))->toBeLessThanOrEqual(60000)
         ->and(mb_check_encoding($note, 'UTF-8'))->toBeTrue()
         ->and(mb_strlen($note))->toBe(30000);
+});
+
+test('a send that cannot reach Anthropic is retried by the next poll', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create(['session_id' => 'sesn_retry']);
+    $fake->failNext('sendCustomToolResult', new AnthropicUnavailable('connection timed out', 503));
+
+    advanceEvents($fake, $generation, [
+        ['id' => 'sevt_1', 'type' => 'agent.custom_tool_use', 'name' => 'save_test_draft', 'input' => validDraftBody()],
+    ]);
+
+    $generation->refresh();
+    // The decision is committed; only the send failed. The row waits.
+    expect($generation->status)->toBe(GenerationStatus::AwaitingTool)
+        ->and($generation->pending_tool_event_id)->toBe('sevt_1')
+        ->and($generation->pending_tool_result['is_error'])->toBeFalse()
+        ->and($generation->finished_at)->toBeNull();
+
+    $this->actingAs($owner)->getJson("/api/generations/{$generation->id}")->assertOk()
+        ->assertJsonPath('status', 'done');
+
+    $generation->refresh();
+    expect($generation->status)->toBe(GenerationStatus::Done)
+        ->and($generation->pending_tool_event_id)->toBeNull()
+        ->and($generation->last_event_id)->toBe('sevt_1')
+        // One draft, not two: the second poll never re-read the events.
+        ->and(Test::count())->toBe(1);
+
+    // Two ATTEMPTS, one ACCEPTED result. The fake records the call and then
+    // throws the scripted failure, so the failed attempt is in $calls too; what
+    // the lock and the stored event id guarantee is one accepted result per
+    // event id, which is why both attempts carry the same one.
+    expect($fake->calls['sendCustomToolResult'])->toHaveCount(2)
+        ->and($fake->calls['sendCustomToolResult'][0][2])->toBe('sevt_1')
+        ->and($fake->calls['sendCustomToolResult'][1][2])->toBe('sevt_1');
+});
+
+test('a send rejected as already answered is treated as sent', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create(['session_id' => 'sesn_dup']);
+    $fake->failNext('sendCustomToolResult', new AnthropicRejected('already answered', 400));
+
+    advanceEvents($fake, $generation, [
+        ['id' => 'sevt_1', 'type' => 'agent.custom_tool_use', 'name' => 'save_test_draft', 'input' => validDraftBody()],
+    ]);
+
+    $generation->refresh();
+    // The likeliest cause is a previous send Anthropic accepted before the
+    // process died; retrying forever would strand the run.
+    expect($generation->status)->toBe(GenerationStatus::Done)
+        ->and($generation->pending_tool_event_id)->toBeNull()
+        ->and($generation->pending_tool_result)->toBeNull()
+        ->and($generation->finished_at)->not->toBeNull()
+        ->and(Test::count())->toBe(1)
+        ->and($fake->calls)->toHaveKey('archiveSession');
+});
+
+test('three rejected drafts end the run', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create(['session_id' => 'sesn_strikes']);
+    $bad = validDraftBody([
+        'questions' => [
+            ['type' => 'multiple_choice', 'prompt' => 'Pick one.', 'options' => ['a', 'b'], 'answer' => 9],
+        ],
+    ]);
+
+    // One new tool_use event per poll, exactly as a corrected-but-still-wrong
+    // agent would produce.
+    foreach (['sevt_1', 'sevt_2', 'sevt_3'] as $eventId) {
+        advanceEvents($fake, $generation, [
+            ['id' => $eventId, 'type' => 'agent.custom_tool_use', 'name' => 'save_test_draft', 'input' => $bad],
+        ]);
+    }
+
+    $generation->refresh();
+    expect(config('generation.max_tool_failures'))->toBe(3)
+        ->and($generation->tool_failures)->toBe(3)
+        ->and($generation->status)->toBe(GenerationStatus::Failed)
+        ->and($generation->error)->toBe('The draft was rejected 3 times.')
+        ->and($generation->error)->toBe(GenerationMessages::rejected())
+        ->and($generation->finished_at)->not->toBeNull()
+        // The third error result is still sent -- the agent is told why the run
+        // ended -- and only then is the session torn down.
+        ->and($fake->calls['sendCustomToolResult'])->toHaveCount(3)
+        ->and($fake->calls)->toHaveKey('interrupt')
+        ->and($fake->calls)->toHaveKey('archiveSession')
+        ->and(Test::count())->toBe(0);
+});
+
+test('two sequential advances over one pending tool call accept exactly one send', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create(['session_id' => 'sesn_once']);
+    $fake->queueEvents('sesn_once', [
+        ['id' => 'sevt_1', 'type' => 'agent.custom_tool_use', 'name' => 'save_test_draft', 'input' => validDraftBody()],
+    ]);
+
+    // Straight through the advancer twice, no HTTP: the second call finds the
+    // terminal row the first one left and stops at step 0. This is the
+    // at-most-once guarantee the cache lock exists for (spec decision 13).
+    app(GenerationAdvancer::class)->advance($generation);
+    app(GenerationAdvancer::class)->advance($generation->fresh());
+
+    expect($fake->calls['sendCustomToolResult'])->toHaveCount(1)
+        ->and(Test::count())->toBe(1)
+        ->and($generation->fresh()->status)->toBe(GenerationStatus::Done);
+});
+
+test('a second save_test_draft in one run is refused instead of written twice', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $existing = Test::factory()->for($owner, 'author')->create();
+    $generation = Generation::factory()->for($owner)->create([
+        'session_id' => 'sesn_second',
+        'test_id' => $existing->id,
+    ]);
+
+    advanceEvents($fake, $generation, [
+        ['id' => 'sevt_1', 'type' => 'agent.custom_tool_use', 'name' => 'save_test_draft', 'input' => validDraftBody()],
+    ]);
+
+    $generation->refresh();
+    [, , $eventId, $content, $isError] = $fake->calls['sendCustomToolResult'][0];
+
+    // Defensive only: an accepted draft ends the run `done`, so a running row
+    // that already has a test_id should be unreachable. If it ever happens the
+    // agent is told no, rather than the teacher getting two drafts from one run.
+    expect(Test::count())->toBe(1)
+        ->and($generation->test_id)->toBe($existing->id)
+        ->and($eventId)->toBe('sevt_1')
+        ->and($isError)->toBeTrue()
+        ->and($content[0]['text'])->toBe('A draft was already saved for this run.')
+        ->and($generation->tool_failures)->toBe(0)
+        ->and($generation->status)->toBe(GenerationStatus::Running)
+        ->and($generation->pending_tool_event_id)->toBeNull();
+});
+
+test('a save_test_draft call with no id fails the run because it cannot be answered', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create(['session_id' => 'sesn_noid']);
+
+    advanceEvents($fake, $generation, [
+        ['id' => '', 'type' => 'agent.custom_tool_use', 'name' => 'save_test_draft', 'input' => validDraftBody()],
+    ]);
+
+    $generation->refresh();
+    // A result is addressed to the tool_use event's id. Without one there is
+    // nothing to answer, and an unanswered call would park the session until
+    // the wall-clock cap, billing the teacher for the wait.
+    expect($generation->status)->toBe(GenerationStatus::Failed)
+        ->and($generation->error)->toBe('Anthropic stopped the session: tool call without an id')
+        ->and($generation->error)->toBe(GenerationMessages::PLATFORM_STOPPED.': tool call without an id')
+        ->and($generation->finished_at)->not->toBeNull()
+        ->and($generation->last_event_id)->toBeNull()
+        ->and(Test::count())->toBe(0)
+        ->and($fake->calls)->not->toHaveKey('sendCustomToolResult')
+        ->and($fake->calls)->toHaveKey('archiveSession');
 });
