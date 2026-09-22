@@ -50,3 +50,97 @@ test('a bearer token is a guest on the public library and the payload is byte-id
 
     expect($withToken->getContent())->toBe($anonymous->getContent());
 });
+
+test('an mcp token from a verified active teacher reaches the server', function () {
+    $teacher = aTeacher(['email_verified_at' => now()]);
+
+    $this->withToken(mcpToken($teacher))
+        ->postJson('/mcp/teacher', mcpPing())
+        ->assertOk()
+        ->assertJsonPath('jsonrpc', '2.0')
+        ->assertJsonPath('id', 1);
+});
+
+test('a token without the mcp ability is refused', function () {
+    $teacher = aTeacher(['email_verified_at' => now()]);
+    $other = $teacher->createToken('Something else', ['other'])->plainTextToken;
+
+    $this->withToken($other)->postJson('/mcp/teacher', mcpPing())->assertStatus(403);
+});
+
+test('a session without a token is refused at the mcp route', function () {
+    // auth:sanctum falls back to the session guard, which hands the request
+    // a TransientToken whose can() is unconditionally true -- abilities:mcp
+    // alone would let a logged-in browser tab in.
+    $this->actingAs(aTeacher(['email_verified_at' => now()]));
+
+    $this->postJson('/mcp/teacher', mcpPing())->assertStatus(401);
+});
+
+test('every non-teacher role is refused at the mcp route', function () {
+    foreach (Role::cases() as $role) {
+        if ($role === Role::Teacher) {
+            continue;
+        }
+
+        $user = User::factory()->create(['role' => $role->value, 'email_verified_at' => now()]);
+
+        $this->flushHeaders();
+        $this->withHeader('Referer', 'http://localhost:3333');
+        $this->withToken(mcpToken($user))
+            ->postJson('/mcp/teacher', mcpPing())
+            ->assertStatus(403);
+    }
+});
+
+test('a deactivated teacher gets 401 and an unverified teacher gets 403', function () {
+    // `active` is ahead of `teacher` in the priority list, so a deactivated
+    // user gets the status `active` gives a JSON request everywhere else.
+    $deactivated = aTeacher(['email_verified_at' => now(), 'deactivated_at' => now()]);
+    $this->withToken(mcpToken($deactivated))->postJson('/mcp/teacher', mcpPing())->assertStatus(401);
+
+    // Sanctum's RequestGuard caches the resolved user on the guard instance,
+    // and the AuthManager singleton keeps that instance for the whole test,
+    // so a second bearer identity would otherwise resolve to the first user.
+    $this->app['auth']->forgetGuards();
+
+    $unverified = aTeacher(['email_verified_at' => null]);
+    $this->flushHeaders();
+    $this->withHeader('Referer', 'http://localhost:3333');
+    $this->withToken(mcpToken($unverified))->postJson('/mcp/teacher', mcpPing())->assertStatus(403);
+});
+
+test('the mcp limiter is keyed on the token, not on the host or the user', function () {
+    $first = aTeacher(['email_verified_at' => now()]);
+    $second = aTeacher(['email_verified_at' => now()]);
+    $firstToken = mcpToken($first);
+
+    foreach (range(1, 60) as $i) {
+        $this->withToken($firstToken)->postJson('/mcp/teacher', mcpPing())->assertOk();
+    }
+    $this->withToken($firstToken)->postJson('/mcp/teacher', mcpPing())->assertStatus(429);
+
+    // Same guard-instance caching as above: the second teacher is a new
+    // bearer identity, so the cached resolution from $first must be dropped.
+    $this->app['auth']->forgetGuards();
+
+    // Same host, different token: a global or ip-keyed limiter would make
+    // one teacher's client a denial-of-service primitive against everyone.
+    $this->withToken(mcpToken($second))->postJson('/mcp/teacher', mcpPing())->assertOk();
+
+    // And the exhausted teacher's OWN session still has its separate
+    // throttle:60,1 budget on the JSON API -- the two buckets are distinct.
+    $this->flushHeaders();
+    $this->withHeader('Referer', 'http://localhost:3333');
+    $this->actingAs($first);
+    $this->getJson('/api/tests')->assertOk();
+});
+
+test('a rejected mcp request advertises bearer auth', function () {
+    // The package's AddWwwAuthenticateHeader turns every 401 on this route
+    // into a discoverable challenge, which is how a client knows to send a
+    // token rather than a cookie.
+    $response = $this->postJson('/mcp/teacher', mcpPing())->assertStatus(401);
+
+    expect($response->headers->get('WWW-Authenticate'))->toStartWith('Bearer realm="mcp"');
+});
