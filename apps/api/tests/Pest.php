@@ -119,3 +119,26 @@ function materialFixture(string $name, ?string $clientName = null): UploadedFile
         true,
     );
 }
+
+/**
+ * A complete, valid POST /tests body with one question of every type -- the
+ * non-HTTP twin of TestAuthoringTest's file-local validTestBody(), which
+ * must NOT be redefined here (a second global declaration is a fatal).
+ * Used by QuestionShapesTest and the MCP tool tests.
+ */
+function validDraftBody(array $overrides = []): array
+{
+    return array_merge([
+        'title' => 'Fractions warm-up',
+        'description' => 'Ten minutes.',
+        'subject' => 'math',
+        'grade_level' => '3-5',
+        'questions' => [
+            ['type' => 'multiple_choice', 'prompt' => '1/2 + 1/4?', 'options' => ['1/4', '3/4', '1'], 'answer' => 1, 'points' => 2, 'explanation' => 'Common denominator.'],
+            ['type' => 'multi_select', 'prompt' => 'Which are > 1/2?', 'options' => ['1/3', '2/3', '3/4'], 'answer' => [1, 2], 'partial_credit' => true],
+            ['type' => 'true_false', 'prompt' => '1/2 > 1/3', 'answer' => true],
+            ['type' => 'short_answer', 'prompt' => 'Name a unit fraction.', 'answer' => '1/2'],
+            ['type' => 'numeric', 'prompt' => '0.5 as a fraction of 4?', 'answer' => ['value' => 2, 'tolerance' => 0]],
+        ],
+    ], $overrides);
+}
