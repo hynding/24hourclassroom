@@ -19,6 +19,16 @@ test('an mcp token is refused on every session-only json route', function () {
     $this->withToken($token)->getJson('/api/materials')->assertStatus(401);
     $this->withToken($token)->postJson('/api/auth/verification-notification')->assertStatus(401);
 
+    // The integration routes mint and revoke MCP tokens themselves -- a
+    // stolen MCP token reaching them would let it mint or revoke its own
+    // siblings.
+    $this->withToken($token)->getJson('/api/integrations')->assertStatus(401);
+    $this->withToken($token)->postJson('/api/integrations/mcp-tokens', ['name' => 'x'])->assertStatus(401);
+    $this->withToken($token)->deleteJson('/api/integrations/mcp-tokens/1')->assertStatus(401);
+
+    // Nothing was minted, nothing was revoked.
+    expect($teacher->tokens()->count())->toBe(1);
+
     // The same teacher's session still works on all three.
     $this->flushHeaders();
     $this->withHeader('Referer', 'http://localhost:3333');
