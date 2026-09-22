@@ -99,15 +99,24 @@ test('another teachers token id is indistinguishable from a missing one', functi
 
     $mine = aTeacher(['email_verified_at' => now()]);
     $theirs = aTeacher(['email_verified_at' => now()]);
+    // The caller owns a token too, so a numeric-prefix cast bug (`(int) "{id}abc"`
+    // turning into that real id) would have a live target to wrongly delete.
+    $myId = PersonalAccessToken::findToken(mcpToken($mine))->id;
     $foreignId = PersonalAccessToken::findToken(mcpToken($theirs))->id;
     $this->actingAs($mine);
 
     $foreign = $this->deleteJson("/api/integrations/mcp-tokens/{$foreignId}")->assertStatus(404);
     $missing = $this->deleteJson('/api/integrations/mcp-tokens/99999')->assertStatus(404);
     $garbage = $this->deleteJson('/api/integrations/mcp-tokens/not-an-id')->assertStatus(404);
+    // A numeric-prefixed garbage id must not survive an (int) cast into a real, owned id.
+    $numericPrefix = $this->deleteJson("/api/integrations/mcp-tokens/{$myId}abc")->assertStatus(404);
 
-    expect($foreign->getContent())->toBe($missing->getContent())->toBe($garbage->getContent());
+    expect($foreign->getContent())
+        ->toBe($missing->getContent())
+        ->toBe($garbage->getContent())
+        ->toBe($numericPrefix->getContent());
     expect($theirs->tokens()->count())->toBe(1);
+    expect($mine->tokens()->count())->toBe(1);
 });
 
 test('every non-teacher role is refused on all three token endpoints', function () {

@@ -41,12 +41,16 @@ class McpTokenController extends Controller
 
     /**
      * No route-model binding and no Route::pattern: `{id}` is taken as a
-     * string and cast, so a non-numeric segment is a 404 like any other id
-     * that is not the caller's, rather than a TypeError 500.
+     * string, so it needs its own digits-only guard before the lookup. A
+     * bare `(int)` cast would turn a numeric-prefixed segment like `12abc`
+     * into `12` and delete that token instead of 404ing, so a non-digit
+     * segment is rejected up front rather than cast.
      */
     public function destroy(Request $request, string $id): Response
     {
-        $token = $request->user()->tokens()->whereKey((int) $id)->first();
+        $token = ctype_digit($id)
+            ? $request->user()->tokens()->whereKey((int) $id)->first()
+            : null;
 
         abort_if($token === null, 404);
 
