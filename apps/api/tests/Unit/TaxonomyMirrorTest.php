@@ -162,6 +162,18 @@ test('GenerationStatus mirrors the shared GENERATION_STATUSES array in both dire
     expect($found[1])->toBe(array_column(GenerationStatus::cases(), 'value'));
 });
 
+test('page-generation TERMINAL list mirrors GenerationStatus::terminal() — a missed terminal status would poll for ever', function () {
+    $tsx = file_get_contents(base_path('../../apps/web/src/components/page-generation/page-generation.tsx'));
+
+    expect(preg_match('/const TERMINAL(?::\s*[^=]+)?=\s*\[(.*?)\]/s', $tsx, $m))
+        ->toBe(1, 'TERMINAL const not found in page-generation.tsx');
+    preg_match_all('/[\'"]([^\'"]+)[\'"]/', $m[1], $found);
+
+    expect($found[1])->not->toBeEmpty();
+    expect(collect($found[1])->sort()->values()->all())
+        ->toBe(collect(GenerationStatus::terminal())->sort()->values()->all());
+});
+
 test('the generation limits in config/generation.php mirror the shared literals', function () {
     // The SPA enforces min/max questions and the ≤5 material cap in its own
     // form, and prints the budget in a message the server also composes, so
