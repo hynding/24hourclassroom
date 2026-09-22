@@ -76,4 +76,10 @@ class Generation extends Model
     {
         $query->whereNotIn('status', GenerationStatus::terminal());
     }
+
+    /** The cache-lock key every advance, cancel and teardown takes for this row. */
+    public function lockKey(): string
+    {
+        return "generation:{$this->id}";
+    }
 }

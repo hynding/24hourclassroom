@@ -209,6 +209,33 @@ test('the key is bounded at 20 and 400 characters', function () {
     expect($this->fake->calls)->toBe([]);
 });
 
+test('a typo must not cost the teacher their running generations', function () {
+    $teacher = aTeacher();
+    $integration = withAnthropicKey($teacher);
+    $integration->forceFill([
+        'anthropic_agent_id' => 'agent_1',
+        'anthropic_environment_id' => 'env_1',
+        'anthropic_agent_version' => 1,
+    ])->save();
+    $oldKey = $integration->apiKey();
+
+    $generation = Generation::factory()->for($teacher)->create();
+
+    $this->fake->rejectKeys();
+
+    $this->actingAs($teacher)
+        ->putJson('/api/integrations/anthropic-key', ['api_key' => str_repeat('n', 30)])
+        ->assertStatus(422)
+        ->assertJsonValidationErrors(['api_key']);
+
+    $row = Integration::forUser($teacher);
+    expect($row->apiKey())->toBe($oldKey)
+        ->and($row->anthropic_agent_id)->toBe('agent_1')
+        ->and($row->anthropic_environment_id)->toBe('env_1')
+        ->and($generation->fresh()->status)->toBe(GenerationStatus::Running)
+        ->and(array_keys($this->fake->calls))->toBe(['verifyKey']);
+});
+
 test('only a teacher may set or remove a key', function () {
     foreach (Role::cases() as $role) {
         if ($role === Role::Teacher) {

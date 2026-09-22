@@ -140,6 +140,12 @@ test('the live scope hides exactly the terminal rows', function () {
         ->and($teacher->integration)->toBeNull();
 });
 
+test('lockKey names the cache lock every advance, cancel and teardown share', function () {
+    $generation = Generation::factory()->create();
+
+    expect($generation->lockKey())->toBe("generation:{$generation->id}");
+});
+
 test('GenerationPayload::for has exactly the fifteen keys the SPA contract names', function () {
     $generation = Generation::factory()->create(['instructions' => 'Two decimals.', 'material_ids' => [4, 7]]);
 

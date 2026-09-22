@@ -31,7 +31,7 @@ class IntegrationTeardown
         foreach ($user->generations()->live()->get() as $generation) {
             // The same lock the advancer and cancel take, so a poll in flight
             // cannot be advancing the run we are tearing down.
-            $lock = Cache::lock("generation:{$generation->id}", 180);
+            $lock = Cache::lock($generation->lockKey(), 180);
 
             try {
                 $lock->block(5);

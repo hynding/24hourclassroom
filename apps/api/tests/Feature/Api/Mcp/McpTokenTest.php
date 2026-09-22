@@ -20,6 +20,7 @@ test('the integrations payload lists no tokens and a placeholder anthropic block
     // values are the same as plan 1's hard-coded ones; the row now existing
     // after the read is what proves they are no longer hard-coded.
     $response
+        ->assertJsonPath('mcp_tokens', [])
         ->assertJsonPath('anthropic.configured', false)
         ->assertJsonPath('anthropic.hint', null)
         ->assertJsonPath('anthropic.verified_at', null);
