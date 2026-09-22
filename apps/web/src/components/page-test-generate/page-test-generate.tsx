@@ -78,7 +78,9 @@ export class PageTestGenerate {
       this.questionCount = previous.question_count;
       this.selected = previous.material_ids;
     } catch (e) {
-      if (!recoverFromExpiredSession(e)) {
+      // Keep whichever message landed first: a failed materials load already
+      // explains the page, and the prefill failure would only bump it.
+      if (!recoverFromExpiredSession(e) && this.message === '') {
         // A prefill is a convenience: an unreadable source row leaves an
         // empty form rather than a dead end.
         this.message = 'We could not load that generation to copy.';
@@ -88,7 +90,13 @@ export class PageTestGenerate {
 
   /** Public: the specs drive selection through it rather than clicking boxes. */
   toggleMaterial(id: number) {
-    this.selected = this.selected.includes(id)
+    const alreadySelected = this.selected.includes(id);
+    // The `disabled` attribute is only the affordance; the cap has to hold
+    // here too, since the specs (and any future caller) drive this directly.
+    if (!alreadySelected && this.selected.length >= GENERATION_MAX_MATERIALS) {
+      return;
+    }
+    this.selected = alreadySelected
       ? this.selected.filter((m) => m !== id)
       : [...this.selected, id];
   }

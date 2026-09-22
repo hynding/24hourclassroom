@@ -118,6 +118,28 @@ describe('page-test-generate', () => {
     expect(boxes[5].hasAttribute('disabled')).toBe(true);
   });
 
+  it('enforces the material cap in the toggle handler itself, not just the disabled attribute', async () => {
+    listMaterials.mockResolvedValue(materialPage(6));
+    const page = await mount();
+    const cmp = page.rootInstance as PageTestGenerate;
+
+    for (const id of [1, 2, 3, 4, 5]) {
+      cmp.toggleMaterial(id);
+    }
+    cmp.toggleMaterial(6);
+    await page.waitForChanges();
+
+    expect(cmp.selected.length).toBe(5);
+    expect(cmp.selected).not.toContain(6);
+
+    cmp.toggleMaterial(1);
+    cmp.toggleMaterial(6);
+    await page.waitForChanges();
+
+    expect(cmp.selected).toContain(6);
+    expect(cmp.selected).not.toContain(1);
+  });
+
   it('submits the exact input and navigates to the new generation', async () => {
     createGeneration.mockResolvedValue({ id: 12 });
     const page = await mount();
