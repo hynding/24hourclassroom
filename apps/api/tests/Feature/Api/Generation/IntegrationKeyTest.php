@@ -7,7 +7,9 @@ use App\Models\Generation;
 use App\Models\Integration;
 use App\Models\User;
 use App\Support\GenerationMessages;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 beforeEach(function () {
     $this->withHeader('Referer', 'http://localhost:3333');
@@ -185,6 +187,46 @@ test('removing a key cancels live generations, archives everything and clears th
         ->and($row->anthropic_key_verified_at)->toBeNull()
         ->and($row->anthropic_agent_id)->toBeNull()
         ->and($row->anthropic_environment_id)->toBeNull();
+});
+
+test('removing a key skips a generation whose lock is held elsewhere and still tears the rest of the organisation down', function () {
+    // NOTE: this test really does take about five seconds -- IntegrationTeardown
+    // blocks on the same lock a cancel or the advancer would hold, and gives up
+    // rather than racing it.
+    $teacher = aTeacher();
+    $integration = Integration::factory()->create([
+        'user_id' => $teacher->id,
+        'anthropic_environment_id' => 'env_1',
+        'anthropic_agent_id' => 'agent_1',
+        'anthropic_agent_version' => 1,
+        'anthropic_config_hash' => str_repeat('a', 64),
+    ]);
+    $key = $integration->apiKey();
+
+    $busy = Generation::factory()->create(['user_id' => $teacher->id, 'session_id' => 'sesn_1', 'file_ids' => ['file_1']]);
+
+    $lock = Cache::lock($busy->lockKey(), 180);
+    expect($lock->get())->toBeTrue();
+
+    Log::spy();
+
+    $this->actingAs($teacher)->deleteJson('/api/integrations/anthropic-key')->assertNoContent();
+
+    $lock->release();
+
+    Log::shouldHaveReceived('warning')
+        ->once()
+        ->with('Skipped a busy generation during an integration teardown', ['generation_id' => $busy->id]);
+
+    // The busy generation was left exactly as it was -- never torn down.
+    expect($busy->fresh()->status)->toBe(GenerationStatus::Running)
+        ->and($busy->fresh()->file_ids)->toBe(['file_1'])
+        // The rest of the organisation was still torn down despite the skip.
+        ->and(array_keys($this->fake->calls))->toBe(['archiveAgent', 'archiveEnvironment'])
+        ->and($this->fake->calls['archiveAgent'][0])->toBe([$key, 'agent_1'])
+        ->and($this->fake->calls['archiveEnvironment'][0])->toBe([$key, 'env_1']);
+
+    expect(Integration::forUser($teacher)->hasKey())->toBeFalse();
 });
 
 test('removing a key that was never set is a 204 and calls nothing', function () {

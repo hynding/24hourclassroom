@@ -35,6 +35,11 @@ class GenerationCancelController extends Controller
         }
 
         try {
+            // The route bound $generation before the block above could have
+            // waited; re-read what the lock actually protects before trusting
+            // its status, or a concurrent holder's terminal write is undone.
+            $generation->refresh();
+
             if (! $generation->isTerminal()) {
                 $this->teardown->run($generation);
                 // No error text: a user cancel is not a failure.

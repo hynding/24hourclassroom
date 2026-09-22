@@ -44,6 +44,15 @@ class IntegrationTeardown
             }
 
             try {
+                // The row was fetched before locking; a cancel or the
+                // advancer may have made it terminal while we waited for the
+                // lock, and re-tearing it down would wipe its real error.
+                $generation->refresh();
+
+                if ($generation->isTerminal()) {
+                    continue;
+                }
+
                 $this->sessions->run($generation);
                 $generation->markTerminal(GenerationStatus::Cancelled, GenerationMessages::KEY_REMOVED);
             } finally {

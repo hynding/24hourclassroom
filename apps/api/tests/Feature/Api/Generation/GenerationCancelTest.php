@@ -2,10 +2,12 @@
 
 use App\Enums\GenerationStatus;
 use App\Enums\Role;
+use App\Http\Controllers\Api\GenerationCancelController;
 use App\Models\Generation;
 use App\Models\Integration;
 use App\Models\User;
 use App\Support\GenerationMessages;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 beforeEach(function () {
@@ -112,6 +114,42 @@ test('a cancel that cannot take the lock inside five seconds is a 409', function
         ->and($this->fake->calls)->toBe([]);
 
     $lock->release();
+});
+
+test('a generation made terminal by a concurrent holder while this request waited for the lock is left alone', function () {
+    // Simulates the race the lock exists to prevent: something else (today
+    // IntegrationTeardown, tomorrow the advancer) holds the lock and
+    // finishes the row for a reason of its own (here, a removed key) before
+    // this cancel gets its turn. The stale pre-block read must not win.
+    //
+    // This deliberately bypasses HTTP/route-model-binding: binding re-fetches
+    // the row at request-dispatch time, which in a synchronous test always
+    // happens AFTER the DB write below, so a request built via postJson()
+    // would already see the terminal row and could never distinguish this
+    // controller with the refresh() fix from one without it. Invoking the
+    // controller directly lets $stale be the PRE-block read the fix exists
+    // to protect against.
+    $teacher = aTeacher();
+    withAnthropicKey($teacher);
+    $generation = Generation::factory()->create(['user_id' => $teacher->id, 'session_id' => 'sesn_1']);
+
+    // What the controller would have bound before the concurrent write.
+    $stale = Generation::find($generation->id);
+
+    Generation::whereKey($generation->id)->update([
+        'status' => GenerationStatus::Cancelled,
+        'error' => GenerationMessages::KEY_REMOVED,
+        'finished_at' => now(),
+    ]);
+
+    $request = Request::create("/api/generations/{$generation->id}/cancel", 'POST');
+    $request->setUserResolver(fn () => $teacher);
+
+    $response = app(GenerationCancelController::class)($request, $stale);
+
+    expect($response->getStatusCode())->toBe(200)
+        ->and($response->getData(true)['error'])->toBe(GenerationMessages::KEY_REMOVED)
+        ->and($this->fake->calls)->toBe([]);
 });
 
 test('only a teacher may cancel', function () {
