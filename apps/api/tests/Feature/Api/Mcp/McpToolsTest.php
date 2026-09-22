@@ -1,11 +1,17 @@
 <?php
 
+use App\Enums\GradeLevel;
+use App\Enums\QuestionType;
 use App\Enums\Role;
+use App\Enums\Subject;
 use App\Mcp\Servers\TeacherServer;
 use App\Mcp\Tools\GetMaterial;
 use App\Mcp\Tools\ListMaterials;
+use App\Mcp\Tools\ListTaxonomies;
+use App\Mcp\Tools\ListTests;
 use App\Models\Connection;
 use App\Models\Material;
+use App\Models\Test;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -223,4 +229,50 @@ test('get_material reports a missing disk object as not found', function () {
     $this->actingAs($teacher);
 
     TeacherServer::tool(GetMaterial::class, ['id' => $material->id])->assertHasErrors(['Not found.']);
+});
+
+test('list_taxonomies returns the enums in order with the shape table', function () {
+    $this->actingAs(aTeacher());
+
+    TeacherServer::tool(ListTaxonomies::class)
+        ->assertOk()
+        ->assertStructuredContent(function (AssertableJson $json) {
+            $payload = $json->toArray();
+
+            expect(array_column($payload['subjects'], 'value'))->toBe(array_column(Subject::cases(), 'value'));
+            expect(array_column($payload['grade_levels'], 'value'))->toBe(array_column(GradeLevel::cases(), 'value'));
+            expect(array_column($payload['question_types'], 'value'))->toBe(array_column(QuestionType::cases(), 'value'));
+            expect($payload['subjects'][0]['label'])->toBe('Math');
+
+            foreach (QuestionType::cases() as $type) {
+                expect($payload['shapes'])->toHaveKey($type->value);
+                expect(array_keys($payload['shapes'][$type->value]))
+                    ->toBe(['options', 'answer', 'extras', 'valid']);
+            }
+
+            $json->etc();
+        });
+});
+
+test('list_tests lists only the teachers own tests, newest first', function () {
+    $teacher = aTeacher();
+    Test::factory()->count(16)->for($teacher, 'author')->create();
+    $newest = aTestWithQuestions($teacher, 2, ['title' => 'Fractions quiz']);
+    $foreign = aTestWithQuestions(aTeacher(), 1, ['title' => 'Someone elses quiz']);
+
+    $this->actingAs($teacher);
+
+    TeacherServer::tool(ListTests::class)
+        ->assertOk()
+        ->assertDontSee('Someone elses quiz')
+        ->assertStructuredContent(fn (AssertableJson $json) => $json
+            ->has('data', 15)
+            ->where('data.0.id', $newest->id)
+            ->where('data.0.title', 'Fractions quiz')
+            ->where('data.0.question_count', 2)
+            ->where('meta.total', 17)
+            ->where('meta.last_page', 2)
+            ->etc());
+
+    expect($foreign->author->id)->not->toBe($teacher->id);
 });

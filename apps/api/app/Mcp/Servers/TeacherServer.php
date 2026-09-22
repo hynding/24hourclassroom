@@ -4,6 +4,8 @@ namespace App\Mcp\Servers;
 
 use App\Mcp\Tools\GetMaterial;
 use App\Mcp\Tools\ListMaterials;
+use App\Mcp\Tools\ListTaxonomies;
+use App\Mcp\Tools\ListTests;
 use Laravel\Mcp\Server;
 use Laravel\Mcp\Server\Attributes\Instructions;
 use Laravel\Mcp\Server\Attributes\Name;
@@ -36,5 +38,7 @@ class TeacherServer extends Server
     protected array $tools = [
         ListMaterials::class,
         GetMaterial::class,
+        ListTaxonomies::class,
+        ListTests::class,
     ];
 }
