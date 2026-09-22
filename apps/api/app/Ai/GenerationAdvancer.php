@@ -7,10 +7,14 @@ use App\Ai\Exceptions\AnthropicUnavailable;
 use App\Enums\GenerationStatus;
 use App\Models\Generation;
 use App\Models\Integration;
+use App\Support\FrontendRedirect;
 use App\Support\GenerationMessages;
+use App\Support\TestDraftValidator;
+use App\Support\TestDraftWriter;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 final class GenerationAdvancer
 {
@@ -137,17 +141,18 @@ final class GenerationAdvancer
 
             // Anything not named here -- session.status_running, session.usage,
             // span.*, agent.tool_use, agent.tool_result, echoed user.* -- moves
-            // the marker and nothing else. Task 3 adds the
-            // agent.custom_tool_use arm.
+            // the marker and nothing else.
             $stop = match ($event->type) {
                 'agent.message' => $this->note($generation, $event),
+                'agent.custom_tool_use' => $this->toolCall($generation, $event),
                 'session.status_idle' => $this->idle($generation, $event),
                 'session.error' => $this->terminate($generation, GenerationStatus::Failed, $event->errorMessage),
                 'session.status_terminated' => $this->terminate($generation, GenerationStatus::Failed, GenerationMessages::SESSION_ENDED),
                 default => false,
             };
 
-            // terminate() has already saved the row, marker included.
+            // terminate() and pend() have both already saved the row, marker
+            // included.
             if ($stop) {
                 return;
             }
@@ -186,19 +191,74 @@ final class GenerationAdvancer
 
     private function note(Generation $generation, SessionEvent $event): bool
     {
-        // The latest note wins; earlier ones are not kept. 60 000 characters is
-        // the column's own cap (spec data model).
+        // The latest note wins; earlier ones are not kept. mb_strcut, not
+        // substr: the cut is 60 000 bytes (the TEXT column's budget) and has to
+        // land on a character boundary.
         $generation->agent_note = mb_strcut((string) $event->text, 0, 60000);
 
         return false;
+    }
+
+    /**
+     * The only path that writes a test. Either outcome stops the walk: the
+     * session is idle waiting for our result, so the events after the call
+     * belong to a turn that has not resumed.
+     */
+    private function toolCall(Generation $generation, SessionEvent $event): bool
+    {
+        if ($event->toolName !== 'save_test_draft') {
+            // The agent's built-in tools (read, web_search) are Anthropic's to
+            // answer; we only ever owe a result for our own custom tool.
+            return false;
+        }
+
+        try {
+            $validated = TestDraftValidator::validate($event->toolInput ?? []);
+        } catch (ValidationException $e) {
+            // A bad draft is a tool error the agent can correct; three strikes
+            // is Task 4's business.
+            $generation->tool_failures = $generation->tool_failures + 1;
+            $this->pend($generation, $event->id, implode(' ', Arr::flatten($e->errors())), isError: true);
+
+            return true;
+        }
+
+        // Private, owned by the teacher, written through C1's validated path --
+        // nothing generated can be malformed.
+        $test = TestDraftWriter::create($generation->user, $validated);
+        $generation->test_id = $test->id;
+
+        $this->pend($generation, $event->id, (string) json_encode([
+            'ok' => true,
+            'test_id' => $test->id,
+            'url' => FrontendRedirect::spaOrigin()."/tests/{$test->id}/edit",
+        ]), isError: false);
+
+        return true;
+    }
+
+    /**
+     * Commit the tool result we owe, without sending it. Phase 2 is the only
+     * place a result goes over the wire, so a crash between the two leaves a
+     * row whose next poll retries the send with the SAME event id.
+     */
+    private function pend(Generation $generation, string $eventId, string $text, bool $isError): void
+    {
+        $generation->pending_tool_event_id = $eventId;
+        $generation->pending_tool_result = [
+            'content' => [['type' => 'text', 'text' => $text]],
+            'is_error' => $isError,
+        ];
+        $generation->status = GenerationStatus::AwaitingTool;
+        $generation->save();
     }
 
     private function idle(Generation $generation, SessionEvent $event): bool
     {
         $reason = (string) $event->stopReasonType;
 
-        // requires_action accompanies the custom_tool_use we handle separately:
-        // the session is waiting for us, not finished.
+        // requires_action accompanies the custom_tool_use handled above: the
+        // session is waiting for us, not finished.
         if ($reason === 'requires_action') {
             return false;
         }

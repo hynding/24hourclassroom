@@ -5,7 +5,11 @@ use App\Ai\Exceptions\AnthropicUnavailable;
 use App\Ai\FakeAnthropicGateway;
 use App\Ai\GenerationAdvancer;
 use App\Enums\GenerationStatus;
+use App\Enums\QuestionType;
+use App\Enums\Visibility;
 use App\Models\Generation;
+use App\Models\Test;
+use App\Support\FrontendRedirect;
 use App\Support\GenerationMessages;
 use Illuminate\Support\Facades\Cache;
 
@@ -331,7 +335,10 @@ test('an unreachable Anthropic during phase 1 leaves the row untouched', functio
         ->and($generation->agent_note)->toBe('Earlier note.')
         ->and($generation->last_event_id)->toBe('sevt_0')
         ->and($generation->error)->toBeNull()
-        ->and($generation->finished_at)->toBeNull();
+        ->and($generation->finished_at)->toBeNull()
+        // The call WAS made and the exception WAS caught -- without this the
+        // case would also pass if phase 1 never reached listEvents at all.
+        ->and($fake->calls)->toHaveKey('listEvents');
 });
 
 test('a rejected session id fails the run and carries Anthropic message', function () {
@@ -351,4 +358,207 @@ test('a rejected session id fails the run and carries Anthropic message', functi
     expect($generation->status)->toBe(GenerationStatus::Failed)
         ->and($generation->error)->toBe('Anthropic rejected the session: no such session')
         ->and($generation->finished_at)->not->toBeNull();
+});
+
+test('a valid save_test_draft call is committed as a pending tool result', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create(['session_id' => 'sesn_draft']);
+
+    advanceEvents($fake, $generation, [
+        ['id' => 'sevt_1', 'type' => 'agent.custom_tool_use', 'name' => 'save_test_draft', 'input' => validDraftBody()],
+        // Everything after the call belongs to a turn that has not resumed:
+        // reading it now would process events out of order, and a second
+        // save_test_draft in the same list is deliberately abandoned so a run
+        // can never produce two tests (spec step 2).
+        ['id' => 'sevt_2', 'type' => 'agent.message', 'content' => [['type' => 'text', 'text' => 'Should never be read.']]],
+    ]);
+
+    $generation->refresh();
+    $test = $owner->tests()->first();
+
+    expect($test)->not->toBeNull()
+        ->and($test->visibility)->toBe(Visibility::Private)
+        ->and($test->title)->toBe('Fractions warm-up')
+        ->and($test->questions)->toHaveCount(5)
+        ->and($test->questions->pluck('position')->all())->toBe([0, 1, 2, 3, 4])
+        ->and($test->questions[0]->type)->toBe(QuestionType::MultipleChoice)
+        // One question of every type, each answer round-tripped in the shape
+        // the type uses (validDraftBody's own order).
+        ->and($test->questions[0]->answer)->toBe(1)
+        ->and($test->questions[1]->answer)->toBe([1, 2])
+        ->and($test->questions[2]->answer)->toBeTrue()
+        ->and($test->questions[3]->answer)->toBe('1/2')
+        ->and($test->questions[4]->answer)->toBe(['value' => 2, 'tolerance' => 0])
+        ->and($generation->test_id)->toBe($test->id)
+        ->and($generation->status)->toBe(GenerationStatus::AwaitingTool)
+        ->and($generation->pending_tool_event_id)->toBe('sevt_1')
+        ->and($generation->pending_tool_result['is_error'])->toBeFalse()
+        ->and($generation->pending_tool_result['content'][0]['text'])->toBe(json_encode([
+            'ok' => true,
+            'test_id' => $test->id,
+            'url' => FrontendRedirect::spaOrigin()."/tests/{$test->id}/edit",
+        ]))
+        ->and($generation->last_event_id)->toBe('sevt_1')
+        // sevt_2 was not processed.
+        ->and($generation->agent_note)->toBeNull();
+});
+
+test('an invalid save_test_draft call is committed as an error result', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create(['session_id' => 'sesn_bad']);
+
+    advanceEvents($fake, $generation, [
+        ['id' => 'sevt_1', 'type' => 'agent.custom_tool_use', 'name' => 'save_test_draft', 'input' => validDraftBody([
+            'questions' => [
+                // answer 9 with two options: QuestionRules::shapeError rejects it.
+                ['type' => 'multiple_choice', 'prompt' => 'Pick one.', 'options' => ['a', 'b'], 'answer' => 9],
+            ],
+        ])],
+    ]);
+
+    $generation->refresh();
+    expect(Test::count())->toBe(0)
+        ->and($generation->test_id)->toBeNull()
+        ->and($generation->tool_failures)->toBe(1)
+        ->and($generation->status)->toBe(GenerationStatus::AwaitingTool)
+        ->and($generation->pending_tool_event_id)->toBe('sevt_1')
+        ->and($generation->pending_tool_result['is_error'])->toBeTrue()
+        // The agent has to be told what to fix, so the validator's own sentence
+        // is what goes back.
+        ->and($generation->pending_tool_result['content'][0]['text'])->toContain('index of one option');
+});
+
+test('a tool call with another name is a marker and nothing else', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create(['session_id' => 'sesn_other']);
+
+    advanceEvents($fake, $generation, [
+        ['id' => 'sevt_1', 'type' => 'agent.custom_tool_use', 'name' => 'something_else', 'input' => ['x' => 1]],
+        ['id' => 'sevt_2', 'type' => 'agent.message', 'content' => [['type' => 'text', 'text' => 'Carrying on.']]],
+    ]);
+
+    $generation->refresh();
+    expect($generation->status)->toBe(GenerationStatus::Running)
+        ->and($generation->pending_tool_event_id)->toBeNull()
+        ->and($generation->tool_failures)->toBe(0)
+        ->and($generation->agent_note)->toBe('Carrying on.')
+        ->and($generation->last_event_id)->toBe('sevt_2');
+});
+
+test('a four-question draft is accepted: the requested count is advisory', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create([
+        'session_id' => 'sesn_four',
+        'question_count' => 10,
+    ]);
+
+    advanceEvents($fake, $generation, [
+        ['id' => 'sevt_1', 'type' => 'agent.custom_tool_use', 'name' => 'save_test_draft', 'input' => validDraftBody([
+            'questions' => [
+                ['type' => 'true_false', 'prompt' => 'Water is wet.', 'answer' => true],
+                ['type' => 'true_false', 'prompt' => 'Ice is cold.', 'answer' => true],
+                ['type' => 'short_answer', 'prompt' => 'Name a state of matter.', 'answer' => 'gas'],
+                ['type' => 'numeric', 'prompt' => 'Boiling point in Celsius?', 'answer' => ['value' => 100, 'tolerance' => 0]],
+            ],
+        ])],
+    ]);
+
+    // TestRules allows 1-100 questions; question_count shapes the brief, it is
+    // not a validation rule. A short draft is a draft the teacher can edit.
+    $test = $owner->tests()->first();
+    expect(Test::count())->toBe(1)
+        ->and($test->questions)->toHaveCount(4)
+        ->and($generation->fresh()->test_id)->toBe($test->id);
+});
+
+test('a poll that owes a tool result does not read events', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create([
+        'session_id' => 'sesn_owed',
+        'status' => 'awaiting_tool',
+        'pending_tool_event_id' => 'sevt_5',
+        'pending_tool_result' => ['content' => [['type' => 'text', 'text' => '{"ok":true}']], 'is_error' => false],
+    ]);
+    $fake->queueEvents('sesn_owed', [
+        ['id' => 'sevt_6', 'type' => 'agent.message', 'content' => [['type' => 'text', 'text' => 'Never read.']]],
+    ]);
+    $this->actingAs($owner);
+
+    $this->getJson("/api/generations/{$generation->id}")->assertOk();
+
+    // Step 1: a result is owed, so phase 1 hands straight over to phase 2
+    // rather than reading one more event.
+    expect($fake->calls)->not->toHaveKey('listEvents');
+});
+
+test('a marker that is not in the event list processes nothing', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create([
+        'session_id' => 'sesn_lost',
+        'last_event_id' => 'sevt_gone',
+        'agent_note' => 'Earlier note.',
+    ]);
+
+    advanceEvents($fake, $generation, [
+        ['id' => 'sevt_1', 'type' => 'agent.message', 'content' => [['type' => 'text', 'text' => 'Never read.']]],
+        ['id' => 'sevt_2', 'type' => 'session.status_idle', 'stop_reason' => ['type' => 'end_turn']],
+    ]);
+
+    $generation->refresh();
+    // Replaying from the head would re-run a save_test_draft and mint a second
+    // test, so an unrecognisable marker means "process nothing at all" -- not
+    // even the end_turn that would otherwise fail this run.
+    expect($generation->agent_note)->toBe('Earlier note.')
+        ->and($generation->last_event_id)->toBe('sevt_gone')
+        ->and($generation->status)->toBe(GenerationStatus::Running)
+        ->and($generation->finished_at)->toBeNull();
+});
+
+test('an idle with no stop reason at all still fails the run', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create(['session_id' => 'sesn_noreason']);
+
+    advanceEvents($fake, $generation, [
+        // No stop_reason key: SessionEvent flattens that to ''. An empty reason
+        // is still not a reason we allowlist, so the row may not stay running.
+        ['id' => 'sevt_1', 'type' => 'session.status_idle'],
+    ]);
+
+    $generation->refresh();
+    expect($generation->status)->toBe(GenerationStatus::Failed)
+        ->and($generation->error)->toBe(GenerationMessages::PLATFORM_STOPPED.': ')
+        ->and($generation->finished_at)->not->toBeNull();
+});
+
+test('an oversized agent message is cut to whole characters', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create(['session_id' => 'sesn_long']);
+
+    advanceEvents($fake, $generation, [
+        // Two bytes per character, so 140 000 bytes into a 65 535-byte TEXT
+        // column. mb_strcut is what keeps the cut off a character boundary:
+        // substr() here would store a half-character and break the JSON payload.
+        ['id' => 'sevt_1', 'type' => 'agent.message', 'content' => [['type' => 'text', 'text' => str_repeat('é', 70000)]]],
+    ]);
+
+    $note = $generation->refresh()->agent_note;
+    expect(strlen($note))->toBeLessThanOrEqual(60000)
+        ->and(mb_check_encoding($note, 'UTF-8'))->toBeTrue()
+        ->and(mb_strlen($note))->toBe(30000);
 });
