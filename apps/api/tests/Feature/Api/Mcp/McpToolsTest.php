@@ -359,6 +359,23 @@ test('create_test_draft never honours a visibility in the body', function () {
     expect($test->published_at)->toBeNull();
 });
 
+test('every non-teacher role is refused by create_test_draft', function () {
+    // The only tool that writes -- worth its own loop even though the
+    // allowlist check itself is shared with every other tool via TeachersOnly.
+    foreach (Role::cases() as $role) {
+        if ($role === Role::Teacher) {
+            continue;
+        }
+
+        $this->actingAs(User::factory()->create(['role' => $role->value]));
+
+        TeacherServer::tool(CreateTestDraft::class, validDraftBody())
+            ->assertHasErrors(['Only teachers can use this server.']);
+    }
+
+    expect(Test::count())->toBe(0);
+});
+
 test('the server registers all five tools', function () {
     TeacherServer::tools()->assertRegistered([
         ListMaterials::class,
