@@ -152,6 +152,23 @@ test('a generation made terminal by a concurrent holder while this request waite
         ->and($this->fake->calls)->toBe([]);
 });
 
+test('an unverified teacher is refused before route-model binding, missing id and owned id alike', function () {
+    // `verified` is chained ahead of `admin` (and `teacher`) in the priority
+    // list precisely so this never becomes a 404-vs-403 existence oracle: a
+    // missing id and an id the teacher genuinely owns must both read 403.
+    $teacher = aTeacher(['email_verified_at' => null]);
+    withAnthropicKey($teacher);
+    $generation = Generation::factory()->create(['user_id' => $teacher->id, 'session_id' => 'sesn_1']);
+
+    $this->actingAs($teacher);
+
+    $this->postJson('/api/generations/999999/cancel')->assertStatus(403);
+    $this->postJson("/api/generations/{$generation->id}/cancel")->assertStatus(403);
+
+    expect($generation->fresh()->status)->toBe(GenerationStatus::Running)
+        ->and($this->fake->calls)->toBe([]);
+});
+
 test('only a teacher may cancel', function () {
     $owner = aTeacher();
     $generation = Generation::factory()->create(['user_id' => $owner->id]);
