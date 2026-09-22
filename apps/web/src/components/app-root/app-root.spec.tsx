@@ -175,4 +175,20 @@ describe('app-root theme wiring', () => {
     expect(propOf(spec.root.shadowRoot.querySelector('page-library'), 'kind', 'kind')).toBe('materials');
   });
 
+  it('mounts the integrations and generate pages', async () => {
+    const integrations = await mountAt('/integrations');
+    expect(integrations.root.shadowRoot.querySelector('page-integrations')).not.toBeNull();
+
+    const generate = await mountAt('/tests/generate');
+    expect(generate.root.shadowRoot.querySelector('page-test-generate')).not.toBeNull();
+    // Not the public single-test page: /tests/generate is matched before
+    // testRoute() precisely so this cannot regress.
+    expect(generate.root.shadowRoot.querySelector('page-test')).toBeNull();
+  });
+
+  it('passes the generation id to page-generation', async () => {
+    const spec = await mountAt('/generations/7');
+    expect(propOf(spec.root.shadowRoot.querySelector('page-generation'), 'generationId', 'generation-id')).toBe('7');
+  });
+
 });
