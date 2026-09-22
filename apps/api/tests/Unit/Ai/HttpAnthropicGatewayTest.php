@@ -108,15 +108,37 @@ test('uploadFile posts multipart with purpose=agent, the filename and the mime, 
         $file = $parts->firstWhere('name', 'file');
         $purpose = $parts->firstWhere('name', 'purpose');
 
+        // uploadFile() now streams the file (attach() given an open resource
+        // rather than a whole string read into memory), so the multipart data
+        // Http records for assertions carries that same resource -- read it
+        // to compare bytes instead of comparing it to a string directly.
+        $contents = is_resource($file['contents'])
+            ? stream_get_contents($file['contents'])
+            : $file['contents'];
+
         return $request->method() === 'POST'
             && $request->url() === 'https://api.anthropic.com/v1/files'
             && $request->isMultipart()
             && $request->hasHeader('anthropic-beta', 'files-api-2025-04-14')
             && $file['filename'] === 'cells notes.txt'
             && $file['headers']['Content-Type'] === 'text/plain'
-            && $file['contents'] === file_get_contents(base_path('tests/Fixtures/materials/sample.txt'))
+            && $contents === file_get_contents(base_path('tests/Fixtures/materials/sample.txt'))
             && $purpose['contents'] === 'agent';
     });
+});
+
+test('uploadFile refuses an unreadable local path before any request is sent', function () {
+    // A material row can outlive its bytes on disk; without this guard
+    // file_get_contents() on a missing path returns false and would have
+    // silently shipped Anthropic an empty "file" instead of failing loudly.
+    expect(fn () => $this->gateway->uploadFile(
+        'k',
+        base_path('tests/Fixtures/materials/does-not-exist.txt'),
+        'cells notes.txt',
+        'text/plain',
+    ))->toThrow(AnthropicUnavailable::class);
+
+    Http::assertNothingSent();
 });
 
 test('deleteFile DELETEs the file under the files beta', function () {

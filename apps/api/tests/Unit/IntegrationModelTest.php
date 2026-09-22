@@ -111,16 +111,20 @@ test('the two computed generation messages read from config', function () {
         ->and(GenerationMessages::rejected())->toBe('The draft was rejected 4 times.');
 });
 
-test('markTerminal truncates a huge error, clears the pending columns and stamps finished_at', function () {
+test('markTerminal truncates a huge multibyte error on a byte budget, clears the pending columns and stamps finished_at', function () {
     $generation = Generation::factory()->create([
         'pending_tool_event_id' => 'sevt_1',
         'pending_tool_result' => ['content' => [['type' => 'text', 'text' => 'owed']], 'is_error' => false],
     ]);
 
-    $generation->markTerminal(GenerationStatus::Failed, str_repeat('x', 70000));
+    // 'é' is two BYTES in UTF-8: Str::limit() counts characters/display width
+    // and would let this overflow the 65,535-byte TEXT column; mb_strcut()
+    // cuts on a byte budget and never splits a multibyte character.
+    $generation->markTerminal(GenerationStatus::Failed, str_repeat('é', 70000));
 
     $fresh = $generation->fresh();
-    expect(strlen($fresh->error))->toBe(60000)
+    expect(strlen($fresh->error))->toBeLessThanOrEqual(60000)
+        ->and(mb_check_encoding($fresh->error, 'UTF-8'))->toBeTrue()
         ->and($fresh->status)->toBe(GenerationStatus::Failed)
         ->and($fresh->isTerminal())->toBeTrue()
         ->and($fresh->finished_at)->not->toBeNull()

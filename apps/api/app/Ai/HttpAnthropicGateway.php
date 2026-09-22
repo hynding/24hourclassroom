@@ -76,8 +76,21 @@ class HttpAnthropicGateway implements AnthropicGateway
 
     public function uploadFile(string $key, string $path, string $filename, string $mime): string
     {
+        // A material row can outlive its bytes on disk (moved, pruned, a
+        // storage-disk misconfiguration) -- file_get_contents() on a missing
+        // path used to return false and silently upload an empty file rather
+        // than failing the create. Caught here, not left to the HTTP layer,
+        // so the controller's catch marks the generation CREATE_FAILED
+        // instead of shipping Anthropic a zero-byte "material".
+        if (! is_file($path) || ! is_readable($path)) {
+            throw new AnthropicUnavailable("Local material file is unreadable: {$filename}", 500);
+        }
+
+        // Streamed rather than read whole into memory: attach() accepts a
+        // resource, and a multi-megabyte PDF has no business living in a
+        // string just to be handed straight to Http's multipart writer.
         return $this->requireString($this->call(fn () => $this->request($key, self::FILES_BETA)
-            ->attach('file', (string) file_get_contents($path), $filename, ['Content-Type' => $mime])
+            ->attach('file', fopen($path, 'r'), $filename, ['Content-Type' => $mime])
             ->post(self::BASE.'/v1/files', ['purpose' => 'agent'])), 'id');
     }
 

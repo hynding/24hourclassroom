@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Str;
 
 class Generation extends Model
 {
@@ -60,14 +59,17 @@ class Generation extends Model
 
     /**
      * The one terminal transition. `error` is truncated because an Anthropic
-     * message is unbounded and the column is TEXT; the pending tool columns
+     * message is unbounded and the column is TEXT (65,535 BYTES, not
+     * characters) -- mb_strcut() cuts on a byte budget and never splits a
+     * multibyte character, where Str::limit() counts display width and can
+     * still overflow the column on wide UTF-8 input. The pending tool columns
      * are cleared because a result owed to an abandoned run is never sent.
      */
     public function markTerminal(GenerationStatus $status, ?string $error = null): void
     {
         $this->forceFill([
             'status' => $status,
-            'error' => $error === null ? null : Str::limit($error, 60000, ''),
+            'error' => $error === null ? null : mb_strcut($error, 0, 60000),
             'finished_at' => now(),
             'pending_tool_event_id' => null,
             'pending_tool_result' => null,
