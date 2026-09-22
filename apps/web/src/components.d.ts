@@ -107,9 +107,6 @@ export namespace Components {
          */
         "testId"?: number;
     }
-    /**
-     * Stub: plan 4 task 6 replaces this with the real page.
-     */
     interface PageTestGenerate {
     }
     interface PageTestPrint {
@@ -304,9 +301,6 @@ declare global {
         prototype: HTMLPageTestEditorElement;
         new (): HTMLPageTestEditorElement;
     };
-    /**
-     * Stub: plan 4 task 6 replaces this with the real page.
-     */
     interface HTMLPageTestGenerateElement extends Components.PageTestGenerate, HTMLStencilElement {
     }
     var HTMLPageTestGenerateElement: {
@@ -491,9 +485,6 @@ declare namespace LocalJSX {
          */
         "testId"?: number;
     }
-    /**
-     * Stub: plan 4 task 6 replaces this with the real page.
-     */
     interface PageTestGenerate {
     }
     interface PageTestPrint {
@@ -643,9 +634,6 @@ declare module "@stencil/core" {
             "page-test": LocalJSX.IntrinsicElements["page-test"] & JSXBase.HTMLAttributes<HTMLPageTestElement>;
             "page-test-assign": LocalJSX.IntrinsicElements["page-test-assign"] & JSXBase.HTMLAttributes<HTMLPageTestAssignElement>;
             "page-test-editor": LocalJSX.IntrinsicElements["page-test-editor"] & JSXBase.HTMLAttributes<HTMLPageTestEditorElement>;
-            /**
-             * Stub: plan 4 task 6 replaces this with the real page.
-             */
             "page-test-generate": LocalJSX.IntrinsicElements["page-test-generate"] & JSXBase.HTMLAttributes<HTMLPageTestGenerateElement>;
             "page-test-print": LocalJSX.IntrinsicElements["page-test-print"] & JSXBase.HTMLAttributes<HTMLPageTestPrintElement>;
             "page-test-results": LocalJSX.IntrinsicElements["page-test-results"] & JSXBase.HTMLAttributes<HTMLPageTestResultsElement>;
