@@ -24,6 +24,11 @@ class HttpAnthropicGateway implements AnthropicGateway
 
     private const FILES_BETA = 'files-api-2025-04-14';
 
+    // A session that never reaches session.status_idle (or a platform bug)
+    // could hand back next_page forever; this bounds the walk so a stuck
+    // session degrades to a retryable error instead of an infinite loop.
+    private const MAX_EVENT_PAGES = 100;
+
     public function verifyKey(string $key): void
     {
         // No beta header: this proves the KEY is valid, nothing about Managed
@@ -33,8 +38,8 @@ class HttpAnthropicGateway implements AnthropicGateway
 
     public function createEnvironment(string $key, string $name, array $config): string
     {
-        return (string) $this->call(fn () => $this->request($key, self::AGENTS_BETA)
-            ->post(self::BASE.'/v1/environments', ['name' => $name, 'config' => $config]))->json('id');
+        return $this->requireString($this->call(fn () => $this->request($key, self::AGENTS_BETA)
+            ->post(self::BASE.'/v1/environments', ['name' => $name, 'config' => $config])), 'id');
     }
 
     public function createAgent(string $key, array $definition): array
@@ -71,9 +76,9 @@ class HttpAnthropicGateway implements AnthropicGateway
 
     public function uploadFile(string $key, string $path, string $filename, string $mime): string
     {
-        return (string) $this->call(fn () => $this->request($key, self::FILES_BETA)
+        return $this->requireString($this->call(fn () => $this->request($key, self::FILES_BETA)
             ->attach('file', (string) file_get_contents($path), $filename, ['Content-Type' => $mime])
-            ->post(self::BASE.'/v1/files', ['purpose' => 'agent']))->json('id');
+            ->post(self::BASE.'/v1/files', ['purpose' => 'agent'])), 'id');
     }
 
     public function deleteFile(string $key, string $fileId): void
@@ -92,7 +97,7 @@ class HttpAnthropicGateway implements AnthropicGateway
         int $budgetCents,
         string $initialText,
     ): string {
-        return (string) $this->call(fn () => $this->request($key, self::AGENTS_BETA)
+        return $this->requireString($this->call(fn () => $this->request($key, self::AGENTS_BETA)
             ->post(self::BASE.'/v1/sessions', [
                 'agent' => ['type' => 'agent', 'id' => $agentId, 'version' => $agentVersion],
                 'environment_id' => $environmentId,
@@ -107,7 +112,7 @@ class HttpAnthropicGateway implements AnthropicGateway
                     'type' => 'user.message',
                     'content' => [['type' => 'text', 'text' => $initialText]],
                 ]],
-            ]))->json('id');
+            ])), 'id');
     }
 
     public function listEvents(string $key, string $sessionId): array
@@ -115,7 +120,7 @@ class HttpAnthropicGateway implements AnthropicGateway
         $events = [];
         $page = null;
 
-        do {
+        for ($fetched = 0; $fetched < self::MAX_EVENT_PAGES; $fetched++) {
             $query = $page === null ? [] : ['page' => $page];
 
             $response = $this->call(fn () => $this->request($key, self::AGENTS_BETA)
@@ -126,9 +131,13 @@ class HttpAnthropicGateway implements AnthropicGateway
             }
 
             $page = $response->json('next_page');
-        } while (is_string($page) && $page !== '');
 
-        return $events;
+            if (! is_string($page) || $page === '') {
+                return $events;
+            }
+        }
+
+        throw new AnthropicUnavailable('The event list did not terminate after 100 pages', 503);
     }
 
     public function sendCustomToolResult(string $key, string $sessionId, string $toolUseEventId, array $content, bool $isError): void
@@ -159,7 +168,7 @@ class HttpAnthropicGateway implements AnthropicGateway
         $amount = $response->json('usage.list_cost.amount');
 
         return [
-            'status' => (string) $response->json('status', ''),
+            'status' => $this->requireString($response, 'status'),
             // Cents as an integer string, already rounded by Anthropic.
             'listCostCents' => $amount === null ? null : (int) $amount,
         ];
@@ -185,7 +194,34 @@ class HttpAnthropicGateway implements AnthropicGateway
     /** @return array{id: string, version: int} */
     private function agent(Response $response): array
     {
-        return ['id' => (string) $response->json('id'), 'version' => (int) $response->json('version')];
+        return ['id' => $this->requireString($response, 'id'), 'version' => $this->requireInt($response, 'version')];
+    }
+
+    /**
+     * Guards against a 2xx body that omits a field the caller relies on --
+     * without this, a missing id or status silently casts to '' and
+     * propagates as if it were a real value.
+     */
+    private function requireString(Response $response, string $key): string
+    {
+        $value = $response->json($key);
+
+        if (! is_string($value) || $value === '') {
+            throw new AnthropicUnavailable("Unexpected response from Anthropic: missing {$key}", 502);
+        }
+
+        return $value;
+    }
+
+    private function requireInt(Response $response, string $key): int
+    {
+        $value = $response->json($key);
+
+        if ($value === null || $value === '' || (! is_int($value) && ! is_numeric($value))) {
+            throw new AnthropicUnavailable("Unexpected response from Anthropic: missing {$key}", 502);
+        }
+
+        return (int) $value;
     }
 
     /**

@@ -84,6 +84,13 @@ test('a stale version is a 409 AnthropicRejected carrying the status', function 
     }
 });
 
+test('a 2xx body missing a required field is AnthropicUnavailable, not a silently empty value', function () {
+    Http::fake(fn () => Http::response([], 200));
+
+    expect(fn () => $this->gateway->createAgent('k', ['name' => 'a']))
+        ->toThrow(AnthropicUnavailable::class);
+});
+
 test('uploadFile posts multipart with purpose=agent, the filename and the mime, under the files beta', function () {
     Http::fake(fn () => Http::response(['id' => 'file_xyz']));
 
@@ -188,6 +195,18 @@ test('listEvents follows next_page and returns mapped DTOs in server order', fun
     Http::assertSentCount(2);
     Http::assertSent(fn (Request $request) => $request->url() === 'https://api.anthropic.com/v1/sessions/sesn_1/events');
     Http::assertSent(fn (Request $request) => $request->url() === 'https://api.anthropic.com/v1/sessions/sesn_1/events?page=page_2');
+});
+
+test('listEvents that never terminates is bounded and reported as AnthropicUnavailable', function () {
+    Http::fake(fn () => Http::response([
+        'data' => [
+            ['id' => 'sevt_1', 'type' => 'agent.message', 'content' => [['type' => 'text', 'text' => 'still going']]],
+        ],
+        'next_page' => 'page_x',
+    ]));
+
+    expect(fn () => $this->gateway->listEvents('k', 'sesn_1'))
+        ->toThrow(AnthropicUnavailable::class);
 });
 
 test('sendCustomToolResult and interrupt post the documented event envelopes', function () {
