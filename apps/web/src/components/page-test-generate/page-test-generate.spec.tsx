@@ -181,6 +181,38 @@ describe('page-test-generate', () => {
     expect(cmp.instructions).toBe('Focus on organelles.');
     expect(cmp.questionCount).toBe(15);
     expect(cmp.selected).toEqual([1, 2]);
+    // Both prefilled ids are in the first page of the checklist: no notice.
+    expect(page.root.shadowRoot.textContent).not.toContain('not shown in this list.');
+  });
+
+  it('keeps a prefilled material that is not in the checklist and offers to deselect it', async () => {
+    listMaterials.mockResolvedValue({
+      data: [material(7)],
+      meta: { current_page: 1, last_page: 1, per_page: 15, total: 1 },
+    });
+    getGeneration.mockResolvedValue({
+      id: 9, title: 'Cells', subject: 'science', grade_level: '6-8',
+      instructions: 'Focus on organelles.', question_count: 15, material_ids: [7, 99],
+      status: 'failed', agent_note: null, error: 'It broke.', list_cost_cents: 40,
+      test_id: null, started_at: null, finished_at: null, created_at: '2026-09-21T00:00:00Z',
+    });
+    const page = await mount('http://testing.stenciljs.com/tests/generate?from=9');
+    const cmp = page.rootInstance as PageTestGenerate;
+    const root = page.root.shadowRoot;
+
+    // The id beyond the first page is kept, not silently dropped: it is
+    // still a valid material the teacher asked for.
+    expect(cmp.selected).toEqual([7, 99]);
+    expect(root.textContent).toContain('1 selected material is not shown in this list.');
+    expect(root.textContent).toContain('2 of 5 selected');
+
+    const button = Array.from(root.querySelectorAll('button')).find((b) => b.textContent === 'Deselect it');
+    expect(button).not.toBeUndefined();
+    (button as HTMLButtonElement).click();
+    await page.waitForChanges();
+
+    expect(cmp.selected).toEqual([7]);
+    expect(root.textContent).not.toContain('not shown in this list.');
   });
 
   it('renders a missing-key 422 as a link to the integrations page', async () => {

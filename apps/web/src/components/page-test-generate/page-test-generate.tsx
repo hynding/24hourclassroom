@@ -88,6 +88,14 @@ export class PageTestGenerate {
     }
   }
 
+  /**
+   * Drops the ids that are not in the checklist. Public: bound directly from
+   * the notice's button, and the specs drive it the same way.
+   */
+  deselectHidden() {
+    this.selected = this.selected.filter((id) => this.materials.some((m) => m.id === id));
+  }
+
   /** Public: the specs drive selection through it rather than clicking boxes. */
   toggleMaterial(id: number) {
     const alreadySelected = this.selected.includes(id);
@@ -159,6 +167,7 @@ export class PageTestGenerate {
       return <section><p>Loading…</p></section>;
     }
     const atCap = this.selected.length >= GENERATION_MAX_MATERIALS;
+    const hidden = this.selected.filter((id) => !this.materials.some((m) => m.id === id));
     return (
       <section>
         <h1>Generate a test</h1>
@@ -230,6 +239,12 @@ export class PageTestGenerate {
           <fieldset>
             <legend>Materials</legend>
             <p class="hint">{this.selected.length} of {GENERATION_MAX_MATERIALS} selected</p>
+            {hidden.length > 0 && (
+              <p class="hint">
+                {hidden.length} selected {hidden.length === 1 ? 'material is' : 'materials are'} not shown in this list.{' '}
+                <button type="button" class="btn" onClick={() => this.deselectHidden()}>Deselect {hidden.length === 1 ? 'it' : 'them'}</button>
+              </p>
+            )}
             {this.materials.length === 0 && <p>You have no materials to draw on yet.</p>}
             <ul class="rows">
               {this.materials.map((m) => (
