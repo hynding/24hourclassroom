@@ -66,7 +66,8 @@ final class GenerationAdvancer
                 return false;
             }
 
-            if ($this->failNeverStarted($generation)
+            if ($this->recoverOrphanedAwait($generation)
+                || $this->failNeverStarted($generation)
                 || $this->cancelTimedOut($generation)
                 || $this->cancelKeyRemoved($generation, $key)) {
                 return false;
@@ -111,6 +112,14 @@ final class GenerationAdvancer
      * transaction, still inside the cache lock. Whether Anthropic accepts a
      * duplicate user.custom_tool_result is undocumented, so the lock plus the
      * stored event id -- not the platform -- is what makes this at-most-once.
+     *
+     * A saved draft ends the run immediately (spec ruling 6). The terminal
+     * write comes BEFORE the teardown, the same order GenerationController's
+     * own failure path uses: a teardown interrupted halfway -- the process
+     * dies mid-archive -- then leaves a terminal row whose leftovers
+     * (archived_at still null, file ids still listed) the sweep's second pass
+     * retries. Torn down first and interrupted before markTerminal, the row
+     * would stay live and be swept as an abandoned RUN instead.
      */
     private function settle(Generation $generation): void
     {
@@ -165,17 +174,18 @@ final class GenerationAdvancer
         });
 
         if (! $isError) {
-            // A saved draft ends the run immediately (spec ruling 6): the
-            // session has nothing left to do and every minute of it is billed.
-            $this->teardown->run($generation);
+            // The session has nothing left to do and every minute of it is
+            // billed, so it is torn down -- but only once the row can no
+            // longer be mistaken for a live run.
             $generation->markTerminal(GenerationStatus::Done);
+            $this->teardown->run($generation);
 
             return;
         }
 
         if ($generation->tool_failures >= (int) config('generation.max_tool_failures')) {
-            $this->teardown->run($generation);
             $generation->markTerminal(GenerationStatus::Failed, GenerationMessages::rejected());
+            $this->teardown->run($generation);
 
             return;
         }
@@ -391,6 +401,35 @@ final class GenerationAdvancer
     {
         Generation::whereKey($generation->id)->lockForUpdate()->first();
         $generation->refresh();
+    }
+
+    /**
+     * `awaiting_tool` with a null pending_tool_event_id is a state no writer
+     * produces on purpose: pend() sets the id and the status in one save, and
+     * phase 2 clears the id and only then ends the run or returns it to
+     * `running`. A process killed between those two writes leaves the status
+     * stranded. With a test_id the draft is already written and its result
+     * already accepted, so the run really is finished: end it `done` and let
+     * phase 2 tear the session down. Without one nothing is owed -- the row
+     * goes back to `running` and this very poll walks the events as usual.
+     *
+     * @return bool Whether the caller must stop here.
+     */
+    private function recoverOrphanedAwait(Generation $generation): bool
+    {
+        if ($generation->status !== GenerationStatus::AwaitingTool
+            || $generation->pending_tool_event_id !== null) {
+            return false;
+        }
+
+        if ($generation->test_id !== null) {
+            return $this->terminate($generation, GenerationStatus::Done);
+        }
+
+        $generation->status = GenerationStatus::Running;
+        $generation->save();
+
+        return false;
     }
 
     private function failNeverStarted(Generation $generation): bool

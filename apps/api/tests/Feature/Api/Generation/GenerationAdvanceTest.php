@@ -527,6 +527,63 @@ test('a poll that owes a tool result does not read events', function () {
     expect($fake->calls)->not->toHaveKey('listEvents');
 });
 
+test('an orphaned awaiting_tool row with a saved draft is finished by step 0', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $saved = aTestWithQuestions($owner);
+    $generation = Generation::factory()->for($owner)->create([
+        'session_id' => 'sesn_orphan_done',
+        'status' => 'awaiting_tool',
+        // The crash window: phase 2 cleared the pending id and then died
+        // before markTerminal landed.
+        'pending_tool_event_id' => null,
+        'test_id' => $saved->id,
+        'file_ids' => ['file_3'],
+    ]);
+    $this->actingAs($owner);
+
+    $this->getJson("/api/generations/{$generation->id}")->assertOk()
+        ->assertJsonPath('status', 'done');
+
+    $generation->refresh();
+    // The draft is written and its result was accepted, so the run is over:
+    // step 0 ends it and phase 2 releases the session rather than reading one
+    // more billable event.
+    expect($generation->status)->toBe(GenerationStatus::Done)
+        ->and($generation->error)->toBeNull()
+        ->and($generation->finished_at)->not->toBeNull()
+        ->and($generation->test_id)->toBe($saved->id)
+        ->and($fake->calls)->toHaveKey('interrupt')
+        ->and($fake->calls)->toHaveKey('archiveSession')
+        ->and($fake->calls)->not->toHaveKey('listEvents');
+});
+
+test('an orphaned awaiting_tool row with no draft goes back to running', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create([
+        'session_id' => 'sesn_orphan_run',
+        'status' => 'awaiting_tool',
+        'pending_tool_event_id' => null,
+    ]);
+    $this->actingAs($owner);
+
+    // No events queued: what this proves is that the poll got PAST step 0 and
+    // read the session, not what the walk then found.
+    $this->getJson("/api/generations/{$generation->id}")->assertOk()
+        ->assertJsonPath('status', 'running');
+
+    $generation->refresh();
+    // Nothing is owed -- no event id means no result can be addressed -- so
+    // the run carries on instead of waiting for a tool result for ever.
+    expect($generation->status)->toBe(GenerationStatus::Running)
+        ->and($generation->finished_at)->toBeNull()
+        ->and($generation->test_id)->toBeNull()
+        ->and($fake->calls)->toHaveKey('listEvents');
+});
+
 test('a marker that is not in the event list processes nothing', function () {
     $fake = fakeAnthropic();
     $owner = aTeacher();
