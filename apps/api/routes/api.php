@@ -122,6 +122,7 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
         Route::put('integrations/anthropic-key', [AnthropicKeyController::class, 'update']);
         Route::delete('integrations/anthropic-key', [AnthropicKeyController::class, 'destroy']);
 
+        Route::get('generations', [GenerationController::class, 'index']);
         Route::post('generations', [GenerationController::class, 'store']);
         Route::post('generations/{generation}/cancel', GenerationCancelController::class);
     });

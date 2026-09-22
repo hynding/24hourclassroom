@@ -18,6 +18,7 @@ use App\Support\GenerationPayload;
 use App\Support\MaterialAccess;
 use App\Support\TaxonomyLabels;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
@@ -28,6 +29,29 @@ class GenerationController extends Controller
         private readonly AnthropicProvisioner $provisioner,
         private readonly SessionTeardown $teardown,
     ) {}
+
+    /**
+     * Hand-built meta rather than a resource collection, because the rows are
+     * built by GenerationPayload::for -- the same fifteen keys the create,
+     * cancel and (plan 3) poll responses return.
+     */
+    public function index(Request $request): JsonResponse
+    {
+        $page = $request->user()->generations()->latest('id')->paginate(15);
+
+        return response()->json([
+            'data' => array_map(
+                fn (Generation $generation) => GenerationPayload::for($generation),
+                $page->items(),
+            ),
+            'meta' => [
+                'current_page' => $page->currentPage(),
+                'last_page' => $page->lastPage(),
+                'per_page' => $page->perPage(),
+                'total' => $page->total(),
+            ],
+        ]);
+    }
 
     /**
      * The heaviest request in the app: provision, upload every material, open
