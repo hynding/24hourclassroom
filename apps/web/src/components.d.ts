@@ -55,9 +55,6 @@ export namespace Components {
     }
     interface PageHome {
     }
-    /**
-     * Stub: plan 4 task 5 replaces this with the real page.
-     */
     interface PageIntegrations {
     }
     interface PageLibrary {
@@ -205,9 +202,6 @@ declare global {
         prototype: HTMLPageHomeElement;
         new (): HTMLPageHomeElement;
     };
-    /**
-     * Stub: plan 4 task 5 replaces this with the real page.
-     */
     interface HTMLPageIntegrationsElement extends Components.PageIntegrations, HTMLStencilElement {
     }
     var HTMLPageIntegrationsElement: {
@@ -445,9 +439,6 @@ declare namespace LocalJSX {
     }
     interface PageHome {
     }
-    /**
-     * Stub: plan 4 task 5 replaces this with the real page.
-     */
     interface PageIntegrations {
     }
     interface PageLibrary {
@@ -635,9 +626,6 @@ declare module "@stencil/core" {
              */
             "page-generation": LocalJSX.IntrinsicElements["page-generation"] & JSXBase.HTMLAttributes<HTMLPageGenerationElement>;
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
-            /**
-             * Stub: plan 4 task 5 replaces this with the real page.
-             */
             "page-integrations": LocalJSX.IntrinsicElements["page-integrations"] & JSXBase.HTMLAttributes<HTMLPageIntegrationsElement>;
             "page-library": LocalJSX.IntrinsicElements["page-library"] & JSXBase.HTMLAttributes<HTMLPageLibraryElement>;
             "page-login": LocalJSX.IntrinsicElements["page-login"] & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
