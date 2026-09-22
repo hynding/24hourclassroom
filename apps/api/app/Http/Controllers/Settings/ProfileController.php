@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Settings;
 
+use App\Ai\IntegrationTeardown;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
 use App\Models\Material;
@@ -65,6 +66,14 @@ class ProfileController extends Controller
             $user->notifications()->delete();
 
             $user->materials()->cursor()->each(fn (Material $m) => MaterialDeleter::delete($m));
+
+            // Third-party state and the morph table, both of which outlive the
+            // user row otherwise: the integrations/generations rows cascade,
+            // but the Anthropic agent, environment, sessions and uploaded
+            // files live in the teacher's own organisation, and
+            // personal_access_tokens carries no foreign key at all.
+            app(IntegrationTeardown::class)->forUser($user);
+            $user->tokens()->delete();
 
             $user->delete();
         });
