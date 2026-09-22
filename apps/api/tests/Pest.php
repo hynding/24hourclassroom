@@ -142,3 +142,24 @@ function validDraftBody(array $overrides = []): array
         ],
     ], $overrides);
 }
+
+/**
+ * The only token this app mints: one ability, no expiry. Returns the
+ * plaintext, which is the last time it exists.
+ */
+function mcpToken(User $user, string $name = 'Claude Code'): string
+{
+    return $user->createToken($name, ['mcp'])->plainTextToken;
+}
+
+/**
+ * A JSON-RPC body with no `params._meta`, which ValidateMcpHeaders treats
+ * as "legacy" and passes through without protocol-meta validation -- so a
+ * feature test can assert auth statuses without a full MCP handshake.
+ *
+ * @return array<string, mixed>
+ */
+function mcpPing(): array
+{
+    return ['jsonrpc' => '2.0', 'id' => 1, 'method' => 'ping'];
+}

@@ -35,7 +35,7 @@ use App\Http\Controllers\Api\TestPublishController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth:sanctum', 'active'])->get('/user', UserController::class);
+Route::middleware(['auth:sanctum', 'session-only', 'active'])->get('/user', UserController::class);
 
 Route::prefix('auth')->group(function () {
     Route::post('register', RegisterController::class)->middleware('throttle:6,1');
@@ -44,7 +44,7 @@ Route::prefix('auth')->group(function () {
     Route::post('forgot-password', PasswordResetLinkController::class)->middleware('throttle:6,1');
     Route::post('reset-password', NewPasswordController::class)->middleware('throttle:6,1');
     Route::post('verification-notification', VerificationNotificationController::class)
-        ->middleware(['auth:sanctum', 'active', 'throttle:6,1']);
+        ->middleware(['auth:sanctum', 'session-only', 'active', 'throttle:6,1']);
     Route::post('oauth/complete', OAuthCompletionController::class)->middleware('throttle:6,1');
 });
 
@@ -54,7 +54,7 @@ Route::prefix('auth')->group(function () {
 // full speed; each POST /api/connections/{id} probe also writes a row and
 // fires a notification, so an uncapped census doubled as inbox spam. The
 // limiter keys on the user id, so it caps an individual rather than the host.
-Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->group(function () {
+Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'throttle:60,1'])->group(function () {
     Route::get('profile', [ProfileController::class, 'show']);
     Route::put('profile', [ProfileController::class, 'update']);
     Route::post('profile/avatar', [ProfileAvatarController::class, 'store']);

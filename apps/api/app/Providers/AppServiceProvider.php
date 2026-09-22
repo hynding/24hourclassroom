@@ -49,5 +49,17 @@ class AppServiceProvider extends ServiceProvider
         // their own bucket. At 30/min per person, a 429 is a scripted client.
         RateLimiter::for('downloads', fn (Request $request) => Limit::perMinute(30)
             ->by($request->user()?->id ?: $request->ip()));
+
+        // The MCP route's own bucket, keyed on the TOKEN, not the user: a
+        // teacher's Claude client hammering /mcp/teacher must not spend the
+        // 60/min that teacher's own SPA session draws on (the shared-bucket
+        // gotcha in CLAUDE.md). The key resolves because auth:sanctum runs
+        // before throttle -- Illuminate\Auth\Middleware\Authenticate
+        // implements AuthenticatesRequests, which sits ahead of
+        // ThrottleRequests in the framework's priority list, and it calls
+        // Auth::shouldUse('sanctum') so $request->user() reaches the token
+        // user here. The ip() fallback only matters if that ever changes.
+        RateLimiter::for('mcp', fn (Request $request) => Limit::perMinute(60)
+            ->by('mcp:'.($request->user()?->currentAccessToken()?->id ?? $request->ip())));
     }
 }

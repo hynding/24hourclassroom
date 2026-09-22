@@ -30,20 +30,44 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'active' => App\Http\Middleware\EnsureUserIsActive::class,
             'admin' => App\Http\Middleware\EnsureUserIsAdmin::class,
+            'teacher' => App\Http\Middleware\EnsureUserIsTeacher::class,
+            // A personal access token is valid at /mcp/teacher and nowhere
+            // else; a session is valid everywhere else and not there.
+            'session-only' => App\Http\Middleware\RejectPersonalAccessToken::class,
+            'token-only' => App\Http\Middleware\RejectTransientToken::class,
+            // Sanctum's own ability check: 401 without a token, 403 when the
+            // ability is missing.
+            'abilities' => Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
         ]);
 
         // SubstituteBindings is in the framework's priority list; a custom
-        // alias is not, so both of these ran AFTER route-model binding. That
-        // made /admin/users/{user}/* an existence oracle: a plain teacher got
-        // 404 for an id that does not exist and 403 for one that does -- the
-        // one place on this branch where the non-member received the MORE
-        // informative status. Authorization gates belong in front of the
-        // binding they guard.
+        // alias is not, so an authorization alias runs AFTER route-model
+        // binding unless it is added here. That made /admin/users/{user}/*
+        // an existence oracle (404 for a missing id, 403 for a real one --
+        // the non-member got the MORE informative status), and it would do
+        // the same to /generations/{generation} for a student. Authorization
+        // gates belong in front of the binding they guard.
         //
-        // `active` is listed first so it still wins over `admin`: a
-        // deactivated non-admin is redirected to login rather than told 403.
+        // The three calls are CHAINED (teacher before SubstituteBindings,
+        // admin before teacher, active before admin) rather than each
+        // pointing at SubstituteBindings, because prependToPriorityList()
+        // stores its argument in an array keyed on the middleware being
+        // inserted: two calls prepending EnsureUserIsActive would overwrite
+        // each other and the surviving one would be applied before
+        // EnsureUserIsTeacher had been inserted, which appends `active` to
+        // the END of the priority list -- behind SubstituteBindings -- and
+        // silently undoes the `active` ahead of `admin` guarantee below.
+        // Resulting order: active -> admin -> teacher -> SubstituteBindings.
+        //
+        // `active` stays first so it still wins over both gates: a
+        // deactivated non-admin is redirected to login rather than told 403,
+        // and a deactivated teacher's token gets 401 rather than 403.
         $middleware->prependToPriorityList(
             Illuminate\Routing\Middleware\SubstituteBindings::class,
+            App\Http\Middleware\EnsureUserIsTeacher::class,
+        );
+        $middleware->prependToPriorityList(
+            App\Http\Middleware\EnsureUserIsTeacher::class,
             App\Http\Middleware\EnsureUserIsAdmin::class,
         );
         $middleware->prependToPriorityList(
