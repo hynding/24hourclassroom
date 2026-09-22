@@ -1,7 +1,8 @@
 import { Component, h, State } from '@stencil/core';
-import { MyAssignment, MyAttempt, TestSummary } from '@24hc/shared';
+import { GENERATION_STATUSES, Generation, MyAssignment, MyAttempt, TestSummary } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { testsStore } from '../../services/tests-store';
+import { generationStore } from '../../services/generation-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { formatDueDate } from '../../services/format';
@@ -9,6 +10,7 @@ import { formatDueDate } from '../../services/format';
 @Component({ tag: 'page-tests', styleUrl: 'page-tests.css', shadow: true })
 export class PageTests {
   @State() tests: TestSummary[] = [];
+  @State() generations: Generation[] = [];
   @State() assignments: MyAssignment[] = [];
   @State() practice: MyAttempt[] = [];
   @State() loaded = false;
@@ -37,6 +39,7 @@ export class PageTests {
         const result = await testsStore.listTests(this.page > 1 ? this.page : undefined);
         this.tests = result.data;
         this.lastPage = result.meta.last_page;
+        await this.loadGenerations();
       } else if (this.role === 'student') {
         const [assignments, attempts] = await Promise.all([testsStore.myAssignments(), testsStore.myAttempts()]);
         this.assignments = assignments.data;
@@ -48,6 +51,24 @@ export class PageTests {
         this.error = true;
       }
     }
+  }
+
+  /**
+   * Its own try/catch, on purpose: the generations list is a side panel, and
+   * a C3 outage must not be able to take the teacher's own tests list down
+   * with it. An empty list reads as "No generations yet." either way.
+   */
+  private async loadGenerations() {
+    try {
+      const result = await generationStore.listGenerations();
+      this.generations = result.data;
+    } catch {
+      this.generations = [];
+    }
+  }
+
+  private label(list: { value: string; label: string }[], value: string) {
+    return list.find((o) => o.value === value)?.label ?? value;
   }
 
   private link(path: string, text: string) {
@@ -65,7 +86,10 @@ export class PageTests {
     return (
       <section>
         <h1>My tests</h1>
-        <p>{this.link('/tests/new', 'New test')}</p>
+        <p class="actions">
+          {this.link('/tests/new', 'New test')}
+          {this.link('/tests/generate', 'Generate a test')}
+        </p>
         {this.loaded && this.tests.length === 0 && <p>You have not written any tests yet.</p>}
         <ul class="rows">
           {this.tests.map((t) => (
@@ -84,6 +108,17 @@ export class PageTests {
             <button type="button" class="btn" disabled={this.page >= this.lastPage} onClick={() => { this.page += 1; this.load(); }}>Next</button>
           </nav>
         )}
+
+        <h2>Recent generations</h2>
+        {this.loaded && this.generations.length === 0 && <p>No generations yet.</p>}
+        <ul class="rows">
+          {this.generations.map((g) => (
+            <li>
+              {this.link(`/generations/${g.id}`, g.title)}
+              <span class="pill">{this.label(GENERATION_STATUSES, g.status)}</span>
+            </li>
+          ))}
+        </ul>
       </section>
     );
   }

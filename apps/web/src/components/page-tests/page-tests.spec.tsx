@@ -21,6 +21,11 @@ jest.mock('../../services/auth-store', () => ({
 }));
 jest.mock('../../services/session-recovery', () => ({ recoverFromExpiredSession: () => false }));
 
+const listGenerations = jest.fn();
+jest.mock('../../services/generation-store', () => ({
+  generationStore: { listGenerations: (...a: unknown[]) => listGenerations(...a) },
+}));
+
 import { PageTests } from './page-tests';
 
 const mount = () => newSpecPage({ components: [PageTests], html: '<page-tests></page-tests>' });
@@ -28,6 +33,7 @@ const mount = () => newSpecPage({ components: [PageTests], html: '<page-tests></
 describe('page-tests', () => {
   beforeEach(() => {
     listTests.mockReset(); myAssignments.mockReset(); myAttempts.mockReset(); authLoad.mockClear();
+    listGenerations.mockReset().mockResolvedValue({ data: [], meta: { current_page: 1, last_page: 1, per_page: 15, total: 0 } });
     currentUser = null;
     pending = null;
   });
@@ -75,5 +81,55 @@ describe('page-tests', () => {
     expect(page.root.shadowRoot.textContent).toContain('no tests');
     expect(listTests).not.toHaveBeenCalled();
     expect(myAssignments).not.toHaveBeenCalled();
+  });
+
+  it('offers the teacher a Generate a test link beside New test', async () => {
+    pending = { id: 1, role: 'teacher' };
+    listTests.mockResolvedValue({ data: [], meta: { current_page: 1, last_page: 1, per_page: 15, total: 0 } });
+    const page = await mount();
+    await page.waitForChanges();
+
+    expect(page.root.shadowRoot.querySelector('a[href="/tests/new"]')).not.toBeNull();
+    expect(page.root.shadowRoot.querySelector('a[href="/tests/generate"]')).not.toBeNull();
+  });
+
+  it('lists recent generations with their status labels', async () => {
+    pending = { id: 1, role: 'teacher' };
+    listTests.mockResolvedValue({ data: [], meta: { current_page: 1, last_page: 1, per_page: 15, total: 0 } });
+    listGenerations.mockResolvedValue({
+      data: [
+        { id: 4, title: 'Cells', subject: 'science', grade_level: '6-8', instructions: null, question_count: 10, material_ids: [], status: 'running', agent_note: null, error: null, list_cost_cents: null, test_id: null, started_at: null, finished_at: null, created_at: '2026-09-21T00:00:00Z' },
+        { id: 5, title: 'Volcanoes', subject: 'science', grade_level: '6-8', instructions: null, question_count: 10, material_ids: [], status: 'budget_reached', agent_note: null, error: 'Stopped.', list_cost_cents: 200, test_id: null, started_at: null, finished_at: null, created_at: '2026-09-20T00:00:00Z' },
+      ],
+      meta: { current_page: 1, last_page: 1, per_page: 15, total: 2 },
+    });
+    const page = await mount();
+    await page.waitForChanges();
+    const root = page.root.shadowRoot;
+
+    expect(root.textContent).toContain('Recent generations');
+    expect(root.querySelector('a[href="/generations/4"]')).not.toBeNull();
+    expect(root.querySelector('a[href="/generations/5"]')).not.toBeNull();
+    expect(root.textContent).toContain('Running');
+    expect(root.textContent).toContain('Budget reached');
+  });
+
+  it('keeps the tests list alive when the generations call fails, and hides the section from students', async () => {
+    pending = { id: 1, role: 'teacher' };
+    listTests.mockResolvedValue({ data: [{ id: 3, title: 'Cells', subject: 'science', grade_level: '6-8', visibility: 'private', published_at: null, question_count: 4, assignment_count: 0, author: { id: 1, name: 'Me' } }], meta: { current_page: 1, last_page: 1, per_page: 15, total: 1 } });
+    listGenerations.mockRejectedValue(new Error('down'));
+    const teacher = await mount();
+    await teacher.waitForChanges();
+    // A side panel must never take the teacher's own tests list down with it.
+    expect(teacher.root.shadowRoot.textContent).toContain('Cells');
+    expect(teacher.root.shadowRoot.textContent).toContain('No generations yet.');
+
+    pending = { id: 2, role: 'student' };
+    myAssignments.mockResolvedValue({ data: [] });
+    myAttempts.mockResolvedValue({ data: [] });
+    const student = await mount();
+    await student.waitForChanges();
+    expect(student.root.shadowRoot.textContent).not.toContain('Recent generations');
+    expect(listGenerations).toHaveBeenCalledTimes(1);
   });
 });
