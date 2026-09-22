@@ -28,6 +28,12 @@ test('an mcp token is refused on every session-only json route', function () {
     $this->withToken($token)->putJson('/api/integrations/anthropic-key', ['api_key' => str_repeat('k', 30)])->assertStatus(401);
     $this->withToken($token)->deleteJson('/api/integrations/anthropic-key')->assertStatus(401);
     $this->withToken($token)->postJson('/api/generations', [])->assertStatus(401);
+    // A non-existent id, on purpose: proves session-only is refused before
+    // route-model binding runs, not after -- otherwise a stolen MCP token
+    // could walk every id space by reading 404 (missing) vs 401 (exists) off
+    // a bound route's response.
+    $this->withToken($token)->postJson('/api/generations/1/cancel')->assertStatus(401);
+    $this->withToken($token)->putJson('/api/materials/999999', [])->assertStatus(401);
 
     // Nothing was minted, nothing was revoked.
     expect($teacher->tokens()->count())->toBe(1);

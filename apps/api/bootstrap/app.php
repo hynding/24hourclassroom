@@ -62,6 +62,11 @@ return Application::configure(basePath: dirname(__DIR__))
         // `active` stays first so it still wins over both gates: a
         // deactivated non-admin is redirected to login rather than told 403,
         // and a deactivated teacher's token gets 401 rather than 403.
+        //
+        // `session-only` is chained ahead of `active` for the same reason: a
+        // personal access token must be refused before route-model binding
+        // ever runs, or a stolen MCP token could walk every id space by
+        // reading 404 (missing) vs 401 (exists) off a bound route's response.
         $middleware->prependToPriorityList(
             Illuminate\Routing\Middleware\SubstituteBindings::class,
             App\Http\Middleware\EnsureUserIsTeacher::class,
@@ -73,6 +78,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->prependToPriorityList(
             App\Http\Middleware\EnsureUserIsAdmin::class,
             App\Http\Middleware\EnsureUserIsActive::class,
+        );
+        $middleware->prependToPriorityList(
+            App\Http\Middleware\EnsureUserIsActive::class,
+            App\Http\Middleware\RejectPersonalAccessToken::class,
         );
     })
     ->withExceptions(function (Exceptions $exceptions) {
