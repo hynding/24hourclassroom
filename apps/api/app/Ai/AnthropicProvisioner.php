@@ -32,7 +32,7 @@ class AnthropicProvisioner
         }
 
         $definition = $this->agentDefinition();
-        $hash = $this->configHash();
+        $hash = $this->hashOf($definition);
 
         if ($integration->anthropic_agent_id === null) {
             $agent = $this->gateway->createAgent($key, $definition);
@@ -108,7 +108,13 @@ class AnthropicProvisioner
 
     public function configHash(): string
     {
-        return hash('sha256', (string) json_encode($this->agentDefinition()));
+        return $this->hashOf($this->agentDefinition());
+    }
+
+    /** @param  array<string, mixed>  $definition */
+    private function hashOf(array $definition): string
+    {
+        return hash('sha256', json_encode($definition, JSON_THROW_ON_ERROR));
     }
 
     private function createEnvironment(string $key, Integration $integration): string
