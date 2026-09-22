@@ -2,6 +2,7 @@
 
 use App\Enums\Role;
 use App\Mcp\Servers\TeacherServer;
+use App\Mcp\Tools\GetMaterial;
 use App\Mcp\Tools\ListMaterials;
 use App\Models\Connection;
 use App\Models\Material;
@@ -128,4 +129,98 @@ test('every non-teacher role is refused by the tools themselves', function () {
 
 test('the server registers list_materials', function () {
     TeacherServer::tools()->assertRegistered(ListMaterials::class);
+});
+
+test('get_material returns the text of a plain-text material', function () {
+    $teacher = aTeacher();
+    $material = aMaterial($teacher, [
+        'mime_type' => 'text/plain',
+        'original_name' => 'notes.txt',
+        'description' => 'Two paragraphs on cells.',
+    ]);
+    Storage::disk(config('materials.disk'))->put($material->path, "Cells have membranes.\nMitochondria make ATP.\n");
+    $material->update(['size_bytes' => Storage::disk(config('materials.disk'))->size($material->path)]);
+
+    $this->actingAs($teacher);
+
+    TeacherServer::tool(GetMaterial::class, ['id' => $material->id])
+        ->assertOk()
+        ->assertStructuredContent(fn (AssertableJson $json) => $json
+            ->where('id', $material->id)
+            ->where('original_name', 'notes.txt')
+            ->where('description', 'Two paragraphs on cells.')
+            ->where('text', "Cells have membranes.\nMitochondria make ATP.\n")
+            ->where('truncated', false)
+            ->missing('download_url')
+            ->etc());
+});
+
+test('get_material truncates a long text on a character boundary', function () {
+    $teacher = aTeacher();
+    $material = aMaterial($teacher, ['mime_type' => 'text/plain', 'original_name' => 'long.txt']);
+
+    // The multibyte character straddles the 200 000-byte cut: bytes
+    // 200 000..200 002 are one 3-byte euro sign, so a naive substr would
+    // hand the model a broken UTF-8 sequence.
+    $body = str_repeat('a', 199_999).'€'.str_repeat('b', 10);
+    Storage::disk(config('materials.disk'))->put($material->path, $body);
+    $material->update(['size_bytes' => strlen($body)]);
+
+    $this->actingAs($teacher);
+
+    // A 200 KB string does not belong in an expectation literal, so the
+    // closure form reads the value out of the payload and asserts on it.
+    TeacherServer::tool(GetMaterial::class, ['id' => $material->id])
+        ->assertOk()
+        ->assertStructuredContent(function (AssertableJson $json) {
+            $text = $json->toArray()['text'];
+
+            expect(mb_check_encoding($text, 'UTF-8'))->toBeTrue();
+            expect(strlen($text))->toBeLessThanOrEqual(200_000);
+            // The partial euro sign was dropped, not handed over broken.
+            expect(str_ends_with($text, 'a'))->toBeTrue();
+
+            $json->where('truncated', true)->etc();
+        });
+});
+
+test('get_material returns a signed download url for a pdf', function () {
+    $teacher = aTeacher();
+    $material = aMaterial($teacher);   // the pdf fixture, mime application/pdf
+
+    $this->actingAs($teacher);
+
+    TeacherServer::tool(GetMaterial::class, ['id' => $material->id])
+        ->assertOk()
+        ->assertStructuredContent(function (AssertableJson $json) use ($material) {
+            $url = $json->toArray()['download_url'];
+            expect($url)->toContain("/api/materials/{$material->id}/file")->toContain('signature=');
+
+            // A binary file never carries `text` or `truncated`.
+            $json->missing('text')->missing('truncated')->etc();
+        });
+});
+
+test('get_material hides a material the teacher cannot view', function () {
+    $teacher = aTeacher();
+    $private = Material::factory()->for(aTeacher(), 'author')->create();
+
+    $this->actingAs($teacher);
+
+    TeacherServer::tool(GetMaterial::class, ['id' => $private->id])->assertHasErrors(['Not found.']);
+    TeacherServer::tool(GetMaterial::class, ['id' => 999_999])->assertHasErrors(['Not found.']);
+});
+
+test('get_material reports a missing disk object as not found', function () {
+    // The row survives a lost file (a botched restore, a manual delete);
+    // that is a 404-shaped answer, not a 500.
+    $teacher = aTeacher();
+    $material = Material::factory()->for($teacher, 'author')->create([
+        'mime_type' => 'text/plain',
+        'original_name' => 'gone.txt',
+    ]);
+
+    $this->actingAs($teacher);
+
+    TeacherServer::tool(GetMaterial::class, ['id' => $material->id])->assertHasErrors(['Not found.']);
 });
