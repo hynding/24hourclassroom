@@ -124,6 +124,7 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
 
         Route::get('generations', [GenerationController::class, 'index']);
         Route::post('generations', [GenerationController::class, 'store']);
+        Route::get('generations/{generation}', [GenerationController::class, 'show']);
         Route::post('generations/{generation}/cancel', GenerationCancelController::class);
     });
 });

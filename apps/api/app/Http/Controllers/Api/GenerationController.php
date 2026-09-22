@@ -6,6 +6,7 @@ use App\Ai\AnthropicGateway;
 use App\Ai\AnthropicProvisioner;
 use App\Ai\Exceptions\AnthropicRejected;
 use App\Ai\Exceptions\AnthropicUnavailable;
+use App\Ai\GenerationAdvancer;
 use App\Ai\SessionTeardown;
 use App\Enums\GenerationStatus;
 use App\Http\Controllers\Controller;
@@ -13,6 +14,7 @@ use App\Http\Requests\StoreGenerationRequest;
 use App\Models\Generation;
 use App\Models\Integration;
 use App\Models\Material;
+use App\Support\GenerationAccess;
 use App\Support\GenerationMessages;
 use App\Support\GenerationPayload;
 use App\Support\MaterialAccess;
@@ -140,6 +142,21 @@ class GenerationController extends Controller
         }
 
         return response()->json(GenerationPayload::for($generation->fresh()), 201);
+    }
+
+    public function show(Request $request, Generation $generation, GenerationAdvancer $advancer): JsonResponse
+    {
+        // 404, not 403: a generation you do not own is indistinguishable from
+        // one that does not exist (spec decision 11).
+        GenerationAccess::assertOwner($request->user(), $generation);
+
+        // The poll IS the advance (spec decision 7). A terminal row has nothing
+        // to advance, and asking would cost the teacher session time.
+        if (! $generation->isTerminal()) {
+            $advancer->advance($generation);
+        }
+
+        return response()->json(GenerationPayload::for($generation->fresh()));
     }
 
     /**

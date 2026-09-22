@@ -77,3 +77,77 @@ test('only a teacher may list generations', function () {
 });
 
 // plan 3 appends the GET /generations/{id} cases here
+
+// ---------------------------------------------------------------------------
+// The poll endpoint, GET /api/generations/{generation} (plan 3).
+// `fakeAnthropic()` is called inside each case as well as in this file's
+// beforeEach: re-calling it rebinds a fresh fake, and the local handle is what
+// the assertions read. No case here may reach the real gateway.
+// ---------------------------------------------------------------------------
+
+test('the owner polls a terminal generation and gets its payload', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->done()->create([
+        'title' => 'Cell biology quiz',
+        'agent_note' => 'Read three chapters.',
+        'list_cost_cents' => 41,
+    ]);
+    $this->actingAs($owner);
+
+    $this->getJson("/api/generations/{$generation->id}")->assertOk()
+        ->assertJsonPath('id', $generation->id)
+        ->assertJsonPath('title', 'Cell biology quiz')
+        ->assertJsonPath('status', 'done')
+        ->assertJsonPath('agent_note', 'Read three chapters.')
+        ->assertJsonPath('list_cost_cents', 41)
+        ->assertJsonStructure([
+            'id', 'title', 'subject', 'grade_level', 'instructions', 'question_count',
+            'material_ids', 'status', 'agent_note', 'error', 'list_cost_cents', 'test_id',
+            'started_at', 'finished_at', 'created_at',
+        ]);
+
+    // A terminal row is never advanced: the controller skips the advancer, so
+    // nothing is asked of Anthropic on a poll that has nothing left to do.
+    expect($fake->calls)->toBe([]);
+});
+
+test('a teacher who is not the owner gets an identical 404 for an existing and a missing generation', function () {
+    // Debug bodies embed the calling line; the oracle check needs the
+    // production shape (repo convention).
+    config(['app.debug' => false]);
+    fakeAnthropic();
+    $generation = Generation::factory()->for(aTeacher())->create();
+    $this->actingAs(aTeacher());
+
+    $existing = $this->getJson("/api/generations/{$generation->id}")->assertStatus(404);
+    $missing = $this->getJson('/api/generations/999999')->assertStatus(404);
+
+    // Byte-identical: a generation you do not own must not be distinguishable
+    // from one that never existed (spec decision 11).
+    expect($existing->getContent())->toBe($missing->getContent())
+        ->and($existing->json('message'))->toBe('Not found.');
+});
+
+test('every non-teacher role is 403 on an existing and a missing generation alike', function () {
+    config(['app.debug' => false]);
+    fakeAnthropic();
+    $generation = Generation::factory()->for(aTeacher())->create();
+
+    foreach (Role::cases() as $role) {
+        if ($role === Role::Teacher) {
+            continue;
+        }
+        $this->actingAs(User::factory()->create(['role' => $role->value]));
+
+        // This pair is the proof that `teacher` is prepended to the priority
+        // list AHEAD of SubstituteBindings in bootstrap/app.php. If the gate
+        // ran after route-model binding, the missing id would 404 and the
+        // existing one 403 -- and the pair would tell a student exactly which
+        // generation ids exist, the existence oracle CLAUDE.md warns about.
+        $existing = $this->getJson("/api/generations/{$generation->id}")->assertStatus(403);
+        $missing = $this->getJson('/api/generations/999999')->assertStatus(403);
+        expect($existing->getContent())->toBe($missing->getContent());
+    }
+});
