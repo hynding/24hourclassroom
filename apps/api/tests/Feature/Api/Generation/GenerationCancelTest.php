@@ -74,8 +74,11 @@ test('with the key removed the cancel is local only', function () {
         ->assertOk()
         ->assertJsonPath('status', GenerationStatus::Cancelled->value);
 
+    // Changed by the SessionTeardown fix that lets the sweep retry a give-up:
+    // with no key nothing was actually deleted, so file_ids is left exactly
+    // as it was rather than force-nulled, in case a key is added back later.
     expect($this->fake->calls)->toBe([])
-        ->and($generation->fresh()->file_ids)->toBeNull();
+        ->and($generation->fresh()->file_ids)->toBe(['file_1']);
 });
 
 test('another teachers generation and a missing id are one byte-identical 404', function () {

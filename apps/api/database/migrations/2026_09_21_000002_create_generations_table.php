@@ -35,6 +35,13 @@ return new class extends Migration
             $table->foreignId('test_id')->nullable()->constrained('tests')->nullOnDelete();
             $table->timestamp('started_at')->nullable();
             $table->timestamp('finished_at')->nullable();
+            // Set by SessionTeardown only once the Anthropic session is
+            // actually archived (or there never was one); null means a give-up
+            // is retryable by the sweep (plan 3).
+            $table->timestamp('archived_at')->nullable();
+            // Every SessionTeardown::run() call, whether or not it finished --
+            // the sweep's retry budget.
+            $table->unsignedTinyInteger('teardown_attempts')->default(0);
             $table->timestamps();
 
             $table->index(['user_id', 'created_at']);

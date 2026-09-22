@@ -21,6 +21,7 @@ class Generation extends Model
         'material_ids', 'file_ids', 'status', 'session_id', 'last_event_id',
         'pending_tool_event_id', 'pending_tool_result', 'tool_failures', 'agent_note',
         'error', 'list_cost_cents', 'test_id', 'started_at', 'finished_at',
+        'archived_at', 'teardown_attempts',
     ];
 
     protected function casts(): array
@@ -37,6 +38,8 @@ class Generation extends Model
             'list_cost_cents' => 'integer',
             'started_at' => 'datetime',
             'finished_at' => 'datetime',
+            'archived_at' => 'datetime',
+            'teardown_attempts' => 'integer',
         ];
     }
 

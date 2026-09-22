@@ -128,6 +128,15 @@ test('markTerminal truncates a huge error, clears the pending columns and stamps
         ->and($fresh->pending_tool_result)->toBeNull();
 });
 
+test('archived_at and teardown_attempts default to null and zero', function () {
+    // fresh(), not the in-memory model: create() never set either attribute,
+    // so only a re-read proves what the COLUMN default actually is.
+    $generation = Generation::factory()->create()->fresh();
+
+    expect($generation->archived_at)->toBeNull()
+        ->and($generation->teardown_attempts)->toBe(0);
+});
+
 test('the live scope hides exactly the terminal rows', function () {
     $teacher = aTeacher();
     Generation::factory()->create(['user_id' => $teacher->id]);                 // running
