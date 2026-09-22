@@ -63,11 +63,24 @@ class GetMaterial extends Tool
             $buffer = (string) fread($stream, self::MAX_TEXT_BYTES + 4);
             fclose($stream);
 
+            // mb_strcut, not substr: the read may have stopped in the
+            // middle of a multibyte character.
+            $text = mb_strcut($buffer, 0, self::MAX_TEXT_BYTES, 'UTF-8');
+
+            // mb_strcut only fixes a split character; it does nothing for
+            // bytes that were never valid UTF-8 (finfo happily calls a
+            // latin-1 .txt file text/plain). Response::structured() json
+            // encodes with JSON_THROW_ON_ERROR, so invalid sequences must be
+            // dropped here rather than surfacing as a thrown exception.
+            $text = mb_convert_encoding($text, 'UTF-8', 'UTF-8');
+
             return Response::structured($payload + [
-                // mb_strcut, not substr: the read may have stopped in the
-                // middle of a multibyte character.
-                'text' => mb_strcut($buffer, 0, self::MAX_TEXT_BYTES, 'UTF-8'),
-                'truncated' => $material->size_bytes > self::MAX_TEXT_BYTES,
+                'text' => $text,
+                // The buffer was read with +4 bytes of headroom, so a
+                // full-length read (plus anything beyond it) means the file
+                // was longer than the cap. size_bytes is not used here: it
+                // reflects the whole file, not what mb_strcut kept.
+                'truncated' => strlen($buffer) > self::MAX_TEXT_BYTES,
             ]);
         }
 

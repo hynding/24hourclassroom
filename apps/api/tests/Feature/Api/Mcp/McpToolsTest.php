@@ -193,6 +193,26 @@ test('get_material truncates a long text on a character boundary', function () {
         });
 });
 
+test('get_material sanitises text that was never valid utf-8', function () {
+    // finfo happily calls a latin-1 .txt file text/plain -- it inspects
+    // bytes, not encoding. mb_strcut only fixes a split multibyte
+    // character; it does nothing for bytes that were never UTF-8 at all.
+    $teacher = aTeacher();
+    $material = aMaterial($teacher, ['mime_type' => 'text/plain', 'original_name' => 'latin1.txt']);
+
+    $body = "caf\xE9 au lait";
+    Storage::disk(config('materials.disk'))->put($material->path, $body);
+    $material->update(['size_bytes' => strlen($body)]);
+
+    $this->actingAs($teacher);
+
+    TeacherServer::tool(GetMaterial::class, ['id' => $material->id])
+        ->assertOk()
+        ->assertStructuredContent(fn (AssertableJson $json) => $json
+            ->where('text', fn ($text) => mb_check_encoding($text, 'UTF-8'))
+            ->etc());
+});
+
 test('get_material returns a signed download url for a pdf', function () {
     $teacher = aTeacher();
     $material = aMaterial($teacher);   // the pdf fixture, mime application/pdf
