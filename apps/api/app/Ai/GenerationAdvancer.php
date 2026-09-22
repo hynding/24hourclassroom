@@ -2,12 +2,15 @@
 
 namespace App\Ai;
 
+use App\Ai\Exceptions\AnthropicRejected;
+use App\Ai\Exceptions\AnthropicUnavailable;
 use App\Enums\GenerationStatus;
 use App\Models\Generation;
 use App\Models\Integration;
 use App\Support\GenerationMessages;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 final class GenerationAdvancer
 {
@@ -51,23 +54,51 @@ final class GenerationAdvancer
     {
         $key = Integration::forUser($generation->user)->apiKey();
 
-        // Step 0 needs no network, so it commits on its own.
-        DB::transaction(function () use ($generation, $key): void {
+        // Step 0 and step 1 need no network, so they commit on their own.
+        $readEvents = DB::transaction(function () use ($generation, $key): bool {
             $this->lockRow($generation);
 
             if ($generation->isTerminal()) {
-                return;
+                return false;
             }
 
-            if ($this->failNeverStarted($generation)) {
-                return;
+            if ($this->failNeverStarted($generation)
+                || $this->cancelTimedOut($generation)
+                || $this->cancelKeyRemoved($generation, $key)) {
+                return false;
             }
 
-            if ($this->cancelTimedOut($generation)) {
-                return;
-            }
+            // Step 1: a committed-but-unsent result is owed, so phase 2 sends
+            // it before we read one more event.
+            return $generation->pending_tool_event_id === null;
+        });
 
-            $this->cancelKeyRemoved($generation, $key);
+        if (! $readEvents || $key === null || $generation->session_id === null) {
+            return;
+        }
+
+        // listEvents runs BEFORE the event-walk transaction opens, never inside
+        // it. Two reasons: the call is bounded by the gateway's 60 s request
+        // timeout and a transaction held open that long pins InnoDB's undo log
+        // and blocks the sweep on this row; and it makes the failure modes
+        // trivial -- an unreachable Anthropic leaves the row untouched because
+        // no write has happened yet, which is exactly what the spec asks for.
+        try {
+            $events = $this->gateway->listEvents($key, $generation->session_id);
+        } catch (AnthropicUnavailable) {
+            return;
+        } catch (AnthropicRejected $e) {
+            $this->terminate(
+                $generation,
+                GenerationStatus::Failed,
+                GenerationMessages::SESSION_REJECTED.': '.$e->getMessage(),
+            );
+
+            return;
+        }
+
+        DB::transaction(function () use ($generation, $events): void {
+            $this->walk($generation, $events);
         });
     }
 
@@ -80,6 +111,118 @@ final class GenerationAdvancer
             // deletes file_ids, so an upload never outlives its run.
             $this->teardown->run($generation);
         }
+    }
+
+    /**
+     * Steps 2 and 3: every event after the marker, in order, until one of them
+     * says stop.
+     *
+     * @param  list<SessionEvent>  $events
+     */
+    private function walk(Generation $generation, array $events): void
+    {
+        $this->lockRow($generation);
+
+        if ($generation->isTerminal() || $generation->pending_tool_event_id !== null) {
+            return;
+        }
+
+        foreach ($this->unprocessed($generation, $events) as $event) {
+            // The marker only ever advances to a real, persisted id: an echoed
+            // user.interrupt arrives with an empty id, and storing that would
+            // reset the marker and replay the whole session next poll.
+            if ($event->id !== '') {
+                $generation->last_event_id = $event->id;
+            }
+
+            // Anything not named here -- session.status_running, session.usage,
+            // span.*, agent.tool_use, agent.tool_result, echoed user.* -- moves
+            // the marker and nothing else. Task 3 adds the
+            // agent.custom_tool_use arm.
+            $stop = match ($event->type) {
+                'agent.message' => $this->note($generation, $event),
+                'session.status_idle' => $this->idle($generation, $event),
+                'session.error' => $this->terminate($generation, GenerationStatus::Failed, $event->errorMessage),
+                'session.status_terminated' => $this->terminate($generation, GenerationStatus::Failed, GenerationMessages::SESSION_ENDED),
+                default => false,
+            };
+
+            // terminate() has already saved the row, marker included.
+            if ($stop) {
+                return;
+            }
+        }
+
+        $generation->save();
+    }
+
+    /**
+     * Everything after `last_event_id`. The marker is our own "processed up to
+     * here" note, not a server cursor: listEvents returns the whole session
+     * every time, so the head is re-skipped on every poll. A marker that is not
+     * in the list means something we do not understand happened -- return
+     * nothing rather than replay, because a replayed save_test_draft would
+     * create a second test.
+     *
+     * @param  list<SessionEvent>  $events
+     * @return list<SessionEvent>
+     */
+    private function unprocessed(Generation $generation, array $events): array
+    {
+        $marker = $generation->last_event_id;
+
+        if ($marker === null || $marker === '') {
+            return $events;
+        }
+
+        foreach ($events as $i => $event) {
+            if ($event->id === $marker) {
+                return array_values(array_slice($events, $i + 1));
+            }
+        }
+
+        return [];
+    }
+
+    private function note(Generation $generation, SessionEvent $event): bool
+    {
+        // The latest note wins; earlier ones are not kept. 60 000 characters is
+        // the column's own cap (spec data model).
+        $generation->agent_note = mb_strcut((string) $event->text, 0, 60000);
+
+        return false;
+    }
+
+    private function idle(Generation $generation, SessionEvent $event): bool
+    {
+        $reason = (string) $event->stopReasonType;
+
+        // requires_action accompanies the custom_tool_use we handle separately:
+        // the session is waiting for us, not finished.
+        if ($reason === 'requires_action') {
+            return false;
+        }
+
+        if ($reason === 'end_turn') {
+            // test_id is only ever set by a draft we saved, so a null one here
+            // means the agent stopped without calling the tool.
+            return $generation->test_id === null
+                ? $this->terminate($generation, GenerationStatus::Failed, GenerationMessages::NO_DRAFT)
+                : false;
+        }
+
+        if ($reason === 'budget_reached') {
+            return $this->terminate($generation, GenerationStatus::BudgetReached, GenerationMessages::budget());
+        }
+
+        // retries_exhausted, or a reason this code has never heard of. Naming
+        // the reason is what keeps a new platform value from parking a row in
+        // `running` forever.
+        return $this->terminate(
+            $generation,
+            GenerationStatus::Failed,
+            GenerationMessages::PLATFORM_STOPPED.': '.$reason,
+        );
     }
 
     /**
