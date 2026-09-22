@@ -19,8 +19,10 @@ use App\Support\MaterialAccess;
 use App\Support\TaxonomyLabels;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
 class GenerationController extends Controller
 {
@@ -154,10 +156,52 @@ class GenerationController extends Controller
                 throw $e;
             }
 
+            $this->archiveStaleProvisioning($integration);
+
             $integration->clearProvisioning();
             $this->provisioner->ensure($integration);
 
             return $this->createSession($integration, $generation, $resources);
+        }
+    }
+
+    /**
+     * Best-effort archive of the agent and environment clearProvisioning() is
+     * about to orphan. A 401/404 from createSession does not prove the agent
+     * or environment are themselves gone -- it could equally be the key that
+     * now belongs to a different organisation -- so this may itself 401/404,
+     * and that is not this method's problem: only silently leaving the OLD
+     * pair alive and unreachable in the teacher's organisation would be. Each
+     * call is independent so one failing never skips the other.
+     */
+    private function archiveStaleProvisioning(Integration $integration): void
+    {
+        $key = (string) $integration->apiKey();
+        $agentId = $integration->anthropic_agent_id;
+        $environmentId = $integration->anthropic_environment_id;
+
+        if ($agentId !== null) {
+            try {
+                $this->gateway->archiveAgent($key, $agentId);
+            } catch (Throwable $e) {
+                Log::warning('Could not archive a stale Anthropic agent before re-provisioning', [
+                    'integration_id' => $integration->id,
+                    'agent_id' => $agentId,
+                    'error' => $e->getMessage(),
+                ]);
+            }
+        }
+
+        if ($environmentId !== null) {
+            try {
+                $this->gateway->archiveEnvironment($key, $environmentId);
+            } catch (Throwable $e) {
+                Log::warning('Could not archive a stale Anthropic environment before re-provisioning', [
+                    'integration_id' => $integration->id,
+                    'environment_id' => $environmentId,
+                    'error' => $e->getMessage(),
+                ]);
+            }
         }
     }
 

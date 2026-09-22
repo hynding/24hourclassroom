@@ -98,6 +98,29 @@ test('a shared material, a strangers material and a missing id are one byte-iden
         ->and($this->fake->calls)->toBe([]);
 });
 
+test('a body mixing an owned id with a strangers id is the same byte-identical 404', function () {
+    // The all-or-nothing check in store() must not leak which id in a MIXED
+    // list was the problem -- an owned id sitting beside a bad one is still
+    // exactly the missing-id response.
+    config(['app.debug' => false]);
+
+    $teacher = aTeacher();
+    withAnthropicKey($teacher);
+    $own = aMaterial($teacher);
+
+    $other = aTeacher();
+    $strangers = aMaterial($other);
+
+    $this->actingAs($teacher);
+
+    $missing = $this->postJson('/api/generations', generationBody(['material_ids' => [99999]]))->assertStatus(404);
+    $mixed = $this->postJson('/api/generations', generationBody(['material_ids' => [$own->id, $strangers->id]]))->assertStatus(404);
+
+    expect($mixed->getContent())->toBe($missing->getContent())
+        ->and(Generation::count())->toBe(0)
+        ->and($this->fake->calls)->toBe([]);
+});
+
 test('the first create provisions once and the second re-uses the same agent and environment', function () {
     $teacher = aTeacher();
     withAnthropicKey($teacher);
@@ -190,6 +213,26 @@ test('the session is created with the mounts in order, the budget, the title and
         ->and($row->user_id)->toBe($teacher->id);
 });
 
+test('with no instructions the brief carries no instructions heading', function () {
+    $teacher = aTeacher();
+    withAnthropicKey($teacher);
+    $material = aMaterial($teacher);
+    $this->actingAs($teacher);
+
+    $this->postJson('/api/generations', generationBody([
+        'material_ids' => [$material->id],
+        'instructions' => null,
+    ]))->assertCreated();
+
+    // Index 7 is createSession()'s $initialText argument -- the brief.
+    $brief = $this->fake->calls['createSession'][0][7];
+
+    // brief.blade.php only prints the "The teacher's instructions" section
+    // under @if (filled($instructions)) -- assert the heading itself is
+    // absent, not merely that the (never-supplied) text is missing.
+    expect($brief)->not->toContain("The teacher's instructions");
+});
+
 test('a gateway failure after the uploads fails the row, still 201, and deletes every uploaded file', function () {
     $teacher = aTeacher();
     withAnthropicKey($teacher);
@@ -229,6 +272,29 @@ test('a 404 from createSession clears the provisioning and re-provisions exactly
     $row = Integration::forUser($teacher);
     expect($row->anthropic_agent_id)->toBe('agent_2')
         ->and($row->anthropic_environment_id)->toBe('env_2');
+});
+
+test('a 404 from createSession archives the OLD agent and environment before re-provisioning', function () {
+    // Without this, clearProvisioning() just forgets the ids locally and the
+    // old agent/environment stay alive and unreachable in the teacher's
+    // organisation -- a leak on every re-provision, not only the ones where
+    // the pair really is gone.
+    $teacher = aTeacher();
+    $key = withAnthropicKey($teacher)->apiKey();
+    $material = aMaterial($teacher);
+    $this->fake->failNext('createSession', new AnthropicRejected('gone', 404));
+    $this->actingAs($teacher);
+
+    $this->postJson('/api/generations', generationBody(['material_ids' => [$material->id]]))
+        ->assertCreated()
+        ->assertJsonPath('status', GenerationStatus::Running->value);
+
+    expect($this->fake->calls['archiveAgent'])->toHaveCount(1)
+        ->and($this->fake->calls['archiveAgent'][0])->toBe([$key, 'agent_1'])
+        ->and($this->fake->calls['archiveEnvironment'])->toHaveCount(1)
+        ->and($this->fake->calls['archiveEnvironment'][0])->toBe([$key, 'env_1'])
+        ->and($this->fake->calls['createAgent'])->toHaveCount(2)
+        ->and($this->fake->calls['createEnvironment'])->toHaveCount(2);
 });
 
 test('a second failure after the re-provision fails the row', function () {
