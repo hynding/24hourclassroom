@@ -85,6 +85,11 @@ test('every non-teacher role is refused at the mcp route', function () {
 
         $user = User::factory()->create(['role' => $role->value, 'email_verified_at' => now()]);
 
+        // Sanctum's RequestGuard caches the resolved user on the guard
+        // instance for the whole test, so each loop iteration's new bearer
+        // identity needs the cache dropped or later roles silently reuse it.
+        $this->app['auth']->forgetGuards();
+
         $this->flushHeaders();
         $this->withHeader('Referer', 'http://localhost:3333');
         $this->withToken(mcpToken($user))
