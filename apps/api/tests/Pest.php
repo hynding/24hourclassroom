@@ -41,7 +41,12 @@ expect()->extend('toBeOne', function () {
 |
 */
 
+use App\Ai\AnthropicGateway;
+use App\Ai\FakeAnthropicGateway;
+use App\Ai\NoopSleeper;
+use App\Ai\Sleeper;
 use App\Models\Connection;
+use App\Models\Integration;
 use App\Models\Material;
 use App\Models\MaterialShare;
 use App\Models\Question;
@@ -162,4 +167,26 @@ function mcpToken(User $user, string $name = 'Claude Code'): string
 function mcpPing(): array
 {
     return ['jsonrpc' => '2.0', 'id' => 1, 'method' => 'ping'];
+}
+
+/**
+ * Swap the gateway and the sleeper for the scripted pair, and hand the fake
+ * back so the test can script it and read $fake->calls. Required in the
+ * beforeEach of EVERY generation test file: without it a controller would try
+ * to reach api.anthropic.com.
+ */
+function fakeAnthropic(): FakeAnthropicGateway
+{
+    $fake = new FakeAnthropicGateway;
+
+    app()->instance(AnthropicGateway::class, $fake);
+    app()->instance(Sleeper::class, new NoopSleeper);
+
+    return $fake;
+}
+
+/** A verified Anthropic key on the teacher's integration row. */
+function withAnthropicKey(User $user): Integration
+{
+    return Integration::factory()->create(['user_id' => $user->id]);
 }
