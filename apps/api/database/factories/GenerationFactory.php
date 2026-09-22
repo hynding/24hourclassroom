@@ -32,9 +32,10 @@ class GenerationFactory extends Factory
         return $this->state(fn () => ['status' => 'queued', 'session_id' => null, 'started_at' => null]);
     }
 
+    /** A row that went through SessionTeardown normally: archived, nothing left to retry. */
     public function done(): static
     {
-        return $this->state(fn () => ['status' => 'done', 'finished_at' => now()]);
+        return $this->state(fn () => ['status' => 'done', 'finished_at' => now(), 'archived_at' => now()]);
     }
 
     public function failed(): static
