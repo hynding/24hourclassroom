@@ -18,6 +18,14 @@ export class PageTests {
   @State() page = 1;
   @State() lastPage = 1;
 
+  /**
+   * Not @State: it drives no rendering. load() is re-entered by every
+   * Previous/Next click, and the generations side panel cannot have changed
+   * between page turns of the SAME tests list, so it is fetched once per
+   * mount rather than once per page turn.
+   */
+  private generationsLoaded = false;
+
   private get role(): 'teacher' | 'student' | 'none' {
     // Allowlist: anything that is not exactly teacher or student gets the empty state.
     const role = authStore.currentUser?.role;
@@ -39,7 +47,9 @@ export class PageTests {
         const result = await testsStore.listTests(this.page > 1 ? this.page : undefined);
         this.tests = result.data;
         this.lastPage = result.meta.last_page;
-        await this.loadGenerations();
+        if (!this.generationsLoaded) {
+          await this.loadGenerations();
+        }
       } else if (this.role === 'student') {
         const [assignments, attempts] = await Promise.all([testsStore.myAssignments(), testsStore.myAttempts()]);
         this.assignments = assignments.data;
@@ -59,6 +69,9 @@ export class PageTests {
    * with it. An empty list reads as "No generations yet." either way.
    */
   private async loadGenerations() {
+    // Set before the await, not after: a failing call is not retried on the
+    // next page turn either, matching the "No generations yet." fallback.
+    this.generationsLoaded = true;
     try {
       const result = await generationStore.listGenerations();
       this.generations = result.data;

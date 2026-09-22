@@ -132,4 +132,23 @@ describe('page-tests', () => {
     expect(student.root.shadowRoot.textContent).not.toContain('Recent generations');
     expect(listGenerations).toHaveBeenCalledTimes(1);
   });
+
+  it('fetches recent generations once per mount, not on every page turn', async () => {
+    // load() is re-entered by Previous/Next, and the generations side panel
+    // cannot have changed between page turns -- it shares one 60/min bucket
+    // with the rest of the app's traffic (CLAUDE.md).
+    pending = { id: 1, role: 'teacher' };
+    listTests.mockResolvedValue({ data: [], meta: { current_page: 1, last_page: 2, per_page: 15, total: 20 } });
+    const page = await mount();
+    await page.waitForChanges();
+
+    const next = Array.from(page.root.shadowRoot.querySelectorAll('button'))
+      .find((b) => b.textContent?.includes('Next')) as HTMLButtonElement;
+    expect(next).toBeTruthy();
+    next.click();
+    await page.waitForChanges();
+
+    expect(listTests).toHaveBeenCalledTimes(2);
+    expect(listGenerations).toHaveBeenCalledTimes(1);
+  });
 });
