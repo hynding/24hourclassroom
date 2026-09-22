@@ -1,17 +1,22 @@
 import type {
+  AnthropicIntegration,
   AppNotification,
   AssignResult,
   AssignmentResult,
   AssignmentRow,
   Attempt,
   Connection,
+  Generation,
+  GenerationInput,
   GradeLevel,
+  Integrations,
   LibraryFilters,
   MaterialShare,
   MaterialSummary,
   MaterialUpdate,
   MaterialUpload,
   MaterialView,
+  McpTokenCreated,
   MyAssignment,
   MyAttempt,
   Paginated,
@@ -408,6 +413,57 @@ export class ApiClient {
   /** Takes the id of the SHARE row, not the user. */
   async unshareMaterial(id: number, shareId: number): Promise<void> {
     await this.delete(`/api/materials/${id}/shares/${shareId}`);
+  }
+
+  /**
+   * The API origin this client talks to. The SPA needs it for the one string
+   * it must SHOW rather than fetch: the `claude mcp add ... <base>/mcp/teacher`
+   * line on the Integrations page. Under Jest it is the
+   * `http://localhost:8000` fallback the stores construct with.
+   */
+  getBaseUrl(): string {
+    return this.opts.baseUrl;
+  }
+
+  async getIntegrations(): Promise<Integrations> {
+    return this.get<Integrations>('/api/integrations');
+  }
+
+  /** The response is the ONLY time the plaintext token exists client-side. */
+  async createMcpToken(name: string): Promise<McpTokenCreated> {
+    return this.post<McpTokenCreated>('/api/integrations/mcp-tokens', { name });
+  }
+
+  async revokeMcpToken(id: number): Promise<void> {
+    await this.delete(`/api/integrations/mcp-tokens/${id}`);
+  }
+
+  /** Returns only the `anthropic` block: the key itself is never echoed back. */
+  async setAnthropicKey(apiKey: string): Promise<AnthropicIntegration> {
+    return this.put<AnthropicIntegration>('/api/integrations/anthropic-key', { api_key: apiKey });
+  }
+
+  async removeAnthropicKey(): Promise<void> {
+    await this.delete('/api/integrations/anthropic-key');
+  }
+
+  async listGenerations(page?: number): Promise<Paginated<Generation>> {
+    // Page 1 sends no param, matching listTests.
+    const query = page && page > 1 ? `?page=${page}` : '';
+    return this.get<Paginated<Generation>>(`/api/generations${query}`);
+  }
+
+  async createGeneration(data: GenerationInput): Promise<Generation> {
+    return this.post<Generation>('/api/generations', data);
+  }
+
+  /** The poll. Each call also advances the run server-side. */
+  async getGeneration(id: number): Promise<Generation> {
+    return this.get<Generation>(`/api/generations/${id}`);
+  }
+
+  async cancelGeneration(id: number): Promise<Generation> {
+    return this.post<Generation>(`/api/generations/${id}/cancel`);
   }
 
   private async ensureCsrf(): Promise<void> {
