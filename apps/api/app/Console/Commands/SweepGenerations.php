@@ -68,11 +68,16 @@ class SweepGenerations extends Command
             }
         }
 
-        // Second pass -- give-ups (plan-2 final-review ruling). SessionTeardown
-        // keeps the file ids it could not delete and leaves archived_at null
-        // when the session was still running or the archive failed; a
-        // terminal row in that state is retried while attempts remain, so an
-        // abandoned session stops billing and no upload outlives its run.
+        // Second pass -- give-ups. SessionTeardown keeps the file ids it could
+        // not delete and leaves archived_at null when the session was still
+        // running or the archive failed; a terminal row in that state is
+        // retried while attempts remain, so an abandoned session stops billing
+        // and no upload outlives its run.
+        //
+        // Only rows whose owner still has a key: every step of the teardown
+        // needs one, so a keyless row's retry would burn an attempt without
+        // making a single call. The ciphertext column is non-null exactly when
+        // a key exists.
         $retried = 0;
         $leftovers = Generation::query()
             ->whereIn('status', GenerationStatus::terminal())
@@ -80,6 +85,7 @@ class SweepGenerations extends Command
             ->where(fn ($q) => $q
                 ->whereNotNull('file_ids')
                 ->orWhere(fn ($q) => $q->whereNotNull('session_id')->whereNull('archived_at')))
+            ->whereHas('user.integration', fn ($q) => $q->whereNotNull('anthropic_api_key'))
             ->whereNotIn('id', $touched)
             ->orderBy('id')
             ->get();
@@ -97,6 +103,14 @@ class SweepGenerations extends Command
 
             try {
                 $generation->refresh();
+
+                // A poll or a cancel may have finished the job while we waited
+                // for the lock. Re-reading the predicate on the committed row
+                // keeps the count honest and saves the row an attempt.
+                if (! $this->hasLeftovers($generation)) {
+                    continue;
+                }
+
                 $teardown->run($generation);
                 $retried++;
             } finally {
@@ -107,5 +121,12 @@ class SweepGenerations extends Command
         $this->info("Cancelled {$cancelled} generation(s); retried {$retried} teardown(s).");
 
         return self::SUCCESS;
+    }
+
+    /** Anything SessionTeardown left behind: undeleted uploads, or a session it never archived. */
+    private function hasLeftovers(Generation $generation): bool
+    {
+        return $generation->file_ids !== null
+            || ($generation->session_id !== null && $generation->archived_at === null);
     }
 }

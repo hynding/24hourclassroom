@@ -12,6 +12,7 @@ use App\Models\Test;
 use App\Support\FrontendRedirect;
 use App\Support\GenerationMessages;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 beforeEach(function () {
     // Sanctum's stateful-frontend check (contract ground rules).
@@ -523,8 +524,49 @@ test('a poll that owes a tool result does not read events', function () {
     $this->getJson("/api/generations/{$generation->id}")->assertOk();
 
     // Step 1: a result is owed, so phase 1 hands straight over to phase 2
-    // rather than reading one more event.
-    expect($fake->calls)->not->toHaveKey('listEvents');
+    // rather than reading one more event -- and phase 2 sends THAT result,
+    // addressed to the event id it was committed against.
+    expect($fake->calls)->not->toHaveKey('listEvents')
+        ->and($fake->calls['sendCustomToolResult'])->toHaveCount(1)
+        ->and($fake->calls['sendCustomToolResult'][0][2])->toBe('sevt_5')
+        ->and($fake->calls['sendCustomToolResult'][0][4])->toBeFalse()
+        // An accepted result ends the run, so the owed send is not a detour:
+        // it is the last thing this generation does.
+        ->and($generation->fresh()->status)->toBe(GenerationStatus::Done)
+        ->and($generation->fresh()->pending_tool_event_id)->toBeNull()
+        ->and($generation->fresh()->last_event_id)->toBe('sevt_5');
+});
+
+test('a pending tool result that was never stored is sent as an error', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create([
+        'session_id' => 'sesn_halfwritten',
+        'status' => 'awaiting_tool',
+        // pend() writes both columns in one save, so only a torn write leaves
+        // an id with no result.
+        'pending_tool_event_id' => 'sevt_5',
+        'pending_tool_result' => null,
+    ]);
+    $this->actingAs($owner);
+
+    $this->getJson("/api/generations/{$generation->id}")->assertOk()
+        ->assertJsonPath('status', 'running');
+
+    $generation->refresh();
+    [, , $eventId, $content, $isError] = $fake->calls['sendCustomToolResult'][0];
+
+    // Fail closed: an empty, successful result would end the run `done` with
+    // no draft, which is the one outcome the teacher cannot act on.
+    expect($eventId)->toBe('sevt_5')
+        ->and($isError)->toBeTrue()
+        ->and($content[0]['text'])->toBe('The draft could not be read back.')
+        ->and($generation->status)->toBe(GenerationStatus::Running)
+        ->and($generation->finished_at)->toBeNull()
+        // Not the agent's fault, so it keeps all three of its turns.
+        ->and($generation->tool_failures)->toBe(0)
+        ->and(Test::count())->toBe(0);
 });
 
 test('an orphaned awaiting_tool row with a saved draft is finished by step 0', function () {
@@ -787,6 +829,68 @@ test('a second save_test_draft in one run is refused instead of written twice', 
         ->and($generation->tool_failures)->toBe(0)
         ->and($generation->status)->toBe(GenerationStatus::Running)
         ->and($generation->pending_tool_event_id)->toBeNull();
+});
+
+test('an empty agent message leaves the previous note alone', function () {
+    $fake = fakeAnthropic();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create(['session_id' => 'sesn_blank']);
+
+    advanceEvents($fake, $generation, [
+        ['id' => 'sevt_1', 'type' => 'agent.message', 'content' => [['type' => 'text', 'text' => 'Reading the material.']]],
+        // A tool-only turn, or a message whose blocks are all non-text,
+        // flattens to whitespace. Storing it would blank the line the SPA is
+        // showing while the run is still working.
+        ['id' => 'sevt_2', 'type' => 'agent.message', 'content' => [['type' => 'text', 'text' => '   ']]],
+    ]);
+
+    $generation->refresh();
+    expect($generation->agent_note)->toBe('Reading the material.')
+        // The empty message is still processed -- it just says nothing.
+        ->and($generation->last_event_id)->toBe('sevt_2')
+        ->and($generation->status)->toBe(GenerationStatus::Running);
+});
+
+test('a draft that cannot be written is one strike, not an escaped exception', function () {
+    $fake = fakeAnthropic();
+    Log::spy();
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create(['session_id' => 'sesn_writefail']);
+
+    // A throwing model event is the cheapest deterministic stand-in for the
+    // write failing on us -- a deadlock, a lost connection. Only
+    // ValidationException used to be caught, so this escaped the walk, rolled
+    // the decision back and left the session waiting for a result for ever.
+    Test::creating(fn () => throw new RuntimeException('boom'));
+
+    try {
+        advanceEvents($fake, $generation, [
+            ['id' => 'sevt_1', 'type' => 'agent.custom_tool_use', 'name' => 'save_test_draft', 'input' => validDraftBody()],
+        ]);
+    } finally {
+        // Eloquent listeners live on the dispatcher, not on the test case, so
+        // the closure has to be unregistered by hand.
+        Test::flushEventListeners();
+    }
+
+    $generation->refresh();
+    [, , $eventId, $content, $isError] = $fake->calls['sendCustomToolResult'][0];
+
+    // Treated exactly like an invalid draft: the agent is told, it keeps its
+    // remaining turns, and the strike count is what stops a permanently broken
+    // write looping until the wall-clock cap.
+    expect($eventId)->toBe('sevt_1')
+        ->and($isError)->toBeTrue()
+        ->and($content[0]['text'])->toBe('The draft could not be saved.')
+        ->and(Test::count())->toBe(0)
+        ->and($generation->test_id)->toBeNull()
+        ->and($generation->tool_failures)->toBe(1)
+        ->and($generation->status)->toBe(GenerationStatus::Running)
+        ->and($generation->finished_at)->toBeNull();
+
+    Log::shouldHaveReceived('warning');
 });
 
 test('a save_test_draft call with no id fails the run because it cannot be answered', function () {

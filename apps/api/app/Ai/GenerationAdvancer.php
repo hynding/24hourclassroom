@@ -14,7 +14,9 @@ use App\Support\TestDraftWriter;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
 final class GenerationAdvancer
 {
@@ -145,7 +147,15 @@ final class GenerationAdvancer
             return;
         }
 
-        $result = $generation->pending_tool_result ?? ['content' => [], 'is_error' => false];
+        // A pending id with no stored result is a half-written decision --
+        // the columns are saved together, so only a torn write produces it.
+        // Fail closed: an empty, successful result would finish the run `done`
+        // with no draft behind it, which is the one outcome the teacher can
+        // neither use nor understand.
+        $result = $generation->pending_tool_result ?? [
+            'content' => [['type' => 'text', 'text' => 'The draft could not be read back.']],
+            'is_error' => true,
+        ];
         $isError = (bool) ($result['is_error'] ?? false);
 
         try {
@@ -272,7 +282,16 @@ final class GenerationAdvancer
         // The latest note wins; earlier ones are not kept. mb_strcut, not
         // substr: the cut is 60 000 bytes (the TEXT column's budget) and has to
         // land on a character boundary.
-        $generation->agent_note = mb_strcut((string) $event->text, 0, 60000);
+        $text = mb_strcut((string) $event->text, 0, 60000);
+
+        // A message whose content is empty -- tool-only turns produce them --
+        // would otherwise blank a real note and leave the SPA showing nothing
+        // while the run is still working.
+        if (trim($text) === '') {
+            return false;
+        }
+
+        $generation->agent_note = $text;
 
         return false;
     }
@@ -313,24 +332,33 @@ final class GenerationAdvancer
 
         try {
             $validated = TestDraftValidator::validate($event->toolInput ?? []);
+
+            // Private, owned by the teacher, written through C1's validated
+            // path -- nothing generated can be malformed.
+            $test = TestDraftWriter::create($generation->user, $validated);
         } catch (ValidationException $e) {
             // A bad draft is a tool error the agent can correct; phase 2 counts
             // the strikes. The sentences are truncated on the column's own byte
             // budget, exactly like the note and the error.
-            $generation->tool_failures = $generation->tool_failures + 1;
-            $this->pend(
+            return $this->strike(
                 $generation,
                 $event->id,
                 mb_strcut(implode(' ', Arr::flatten($e->errors())), 0, 60000),
-                isError: true,
             );
+        } catch (Throwable $e) {
+            // The write itself failed -- a deadlock, a column the draft
+            // overflows, anything. It is still OUR failure, not a run-ending
+            // one: the agent is told the same way it is told about an invalid
+            // draft and gets its remaining turns, and the strike count is what
+            // stops a permanently broken write looping until the cap.
+            Log::warning('Could not save a generated draft', [
+                'generation_id' => $generation->id,
+                'error' => $e->getMessage(),
+            ]);
 
-            return true;
+            return $this->strike($generation, $event->id, 'The draft could not be saved.');
         }
 
-        // Private, owned by the teacher, written through C1's validated path --
-        // nothing generated can be malformed.
-        $test = TestDraftWriter::create($generation->user, $validated);
         $generation->test_id = $test->id;
 
         $this->pend($generation, $event->id, json_encode([
@@ -338,6 +366,15 @@ final class GenerationAdvancer
             'test_id' => $test->id,
             'url' => FrontendRedirect::spaOrigin()."/tests/{$test->id}/edit",
         ], JSON_THROW_ON_ERROR), isError: false);
+
+        return true;
+    }
+
+    /** A rejected draft: one strike, and the reason goes back to the agent. */
+    private function strike(Generation $generation, string $eventId, string $text): bool
+    {
+        $generation->tool_failures = $generation->tool_failures + 1;
+        $this->pend($generation, $eventId, $text, isError: true);
 
         return true;
     }

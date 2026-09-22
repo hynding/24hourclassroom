@@ -2,6 +2,7 @@
 
 use App\Enums\GenerationStatus;
 use App\Models\Generation;
+use App\Models\Integration;
 use App\Support\GenerationMessages;
 
 beforeEach(function () {
@@ -135,6 +136,36 @@ test('the second pass retries a terminal row whose files were never deleted', fu
         ->and($generation->archived_at)->not->toBeNull()
         ->and($generation->teardown_attempts)->toBe(2)
         ->and($generation->status)->toBe(GenerationStatus::Failed);
+});
+
+test('the second pass skips a leftover whose owner has no key', function () {
+    $fake = fakeAnthropic();
+
+    // Two ways to have no key: no integration row at all, and a row whose key
+    // the teacher removed.
+    $never = aTeacher();
+    $removed = aTeacher();
+    Integration::factory()->create(['user_id' => $removed->id, 'anthropic_api_key' => null]);
+
+    $rows = collect([$never, $removed])->map(fn ($owner) => Generation::factory()->for($owner)->create([
+        'status' => 'failed', 'session_id' => 'sesn_'.$owner->id, 'file_ids' => ['file_7'],
+        'archived_at' => null, 'teardown_attempts' => 1, 'finished_at' => now(),
+    ]));
+
+    $this->artisan('generations:sweep')
+        ->expectsOutput('Cancelled 0 generation(s); retried 0 teardown(s).')
+        ->assertExitCode(0);
+
+    // Every step of the teardown needs the owner's key, so a retry would spend
+    // one of five attempts without making a single call -- and the file ids
+    // must survive for a teardown after the teacher adds a new key.
+    expect($fake->calls)->toBe([]);
+
+    foreach ($rows as $generation) {
+        expect($generation->fresh()->teardown_attempts)->toBe(1)
+            ->and($generation->fresh()->file_ids)->toBe(['file_7'])
+            ->and($generation->fresh()->archived_at)->toBeNull();
+    }
 });
 
 test('the second pass gives up after five attempts', function () {
