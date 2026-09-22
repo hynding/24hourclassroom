@@ -45,11 +45,6 @@ export namespace Components {
     }
     interface PageForgotPassword {
     }
-    /**
-     * Stub: plan 4 task 7 replaces this with the real page. The prop is declared
-     * here already so the generated components.d.ts knows it and app-root's
-     * `<page-generation generationId={...}>` type-checks.
-     */
     interface PageGeneration {
         "generationId"?: number;
     }
@@ -182,11 +177,6 @@ declare global {
         prototype: HTMLPageForgotPasswordElement;
         new (): HTMLPageForgotPasswordElement;
     };
-    /**
-     * Stub: plan 4 task 7 replaces this with the real page. The prop is declared
-     * here already so the generated components.d.ts knows it and app-root's
-     * `<page-generation generationId={...}>` type-checks.
-     */
     interface HTMLPageGenerationElement extends Components.PageGeneration, HTMLStencilElement {
     }
     var HTMLPageGenerationElement: {
@@ -423,11 +413,6 @@ declare namespace LocalJSX {
     }
     interface PageForgotPassword {
     }
-    /**
-     * Stub: plan 4 task 7 replaces this with the real page. The prop is declared
-     * here already so the generated components.d.ts knows it and app-root's
-     * `<page-generation generationId={...}>` type-checks.
-     */
     interface PageGeneration {
         "generationId"?: number;
     }
@@ -610,11 +595,6 @@ declare module "@stencil/core" {
             "page-attempt": LocalJSX.IntrinsicElements["page-attempt"] & JSXBase.HTMLAttributes<HTMLPageAttemptElement>;
             "page-connections": LocalJSX.IntrinsicElements["page-connections"] & JSXBase.HTMLAttributes<HTMLPageConnectionsElement>;
             "page-forgot-password": LocalJSX.IntrinsicElements["page-forgot-password"] & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
-            /**
-             * Stub: plan 4 task 7 replaces this with the real page. The prop is declared
-             * here already so the generated components.d.ts knows it and app-root's
-             * `<page-generation generationId={...}>` type-checks.
-             */
             "page-generation": LocalJSX.IntrinsicElements["page-generation"] & JSXBase.HTMLAttributes<HTMLPageGenerationElement>;
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-integrations": LocalJSX.IntrinsicElements["page-integrations"] & JSXBase.HTMLAttributes<HTMLPageIntegrationsElement>;
