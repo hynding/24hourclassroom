@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationNotificationController;
 use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\FollowController;
+use App\Http\Controllers\Api\IntegrationsController;
 use App\Http\Controllers\Api\LibraryController;
 use App\Http\Controllers\Api\MaterialController;
 use App\Http\Controllers\Api\MaterialsLibraryController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\Api\MaterialPublishController;
 use App\Http\Controllers\Api\MaterialShareController;
 use App\Http\Controllers\Api\SharedMaterialController;
 use App\Http\Controllers\Api\MaterialShowController;
+use App\Http\Controllers\Api\McpTokenController;
 use App\Http\Controllers\Api\MyAssignmentsController;
 use App\Http\Controllers\Api\MyAttemptsController;
 use App\Http\Controllers\Api\NotificationController;
@@ -106,6 +108,15 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::get('materials/{material}/shares', [MaterialShareController::class, 'index']);
     Route::post('materials/{material}/shares', [MaterialShareController::class, 'store']);
     Route::delete('materials/{material}/shares/{share}', [MaterialShareController::class, 'destroy']);
+
+    // Teacher-only, and grouped so plan 2's anthropic-key and generation
+    // routes join the same gate. `teacher` sits ahead of SubstituteBindings
+    // in the priority list, so a bound {generation} id is never an oracle.
+    Route::middleware('teacher')->group(function () {
+        Route::get('integrations', [IntegrationsController::class, 'show']);
+        Route::post('integrations/mcp-tokens', [McpTokenController::class, 'store']);
+        Route::delete('integrations/mcp-tokens/{id}', [McpTokenController::class, 'destroy']);
+    });
 });
 
 // `active` here too. These two routes are reachable by guests -- the
