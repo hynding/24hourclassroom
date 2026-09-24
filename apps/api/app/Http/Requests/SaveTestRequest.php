@@ -2,12 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\GradeLevel;
 use App\Enums\Role;
-use App\Enums\Subject;
 use App\Support\QuestionRules;
+use App\Support\TestRules;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
 
 class SaveTestRequest extends FormRequest
@@ -37,13 +35,7 @@ class SaveTestRequest extends FormRequest
 
     public function rules(): array
     {
-        return [
-            'title' => ['required', 'string', 'max:160'],
-            'description' => ['nullable', 'string', 'max:5000'],
-            'subject' => ['required', Rule::enum(Subject::class)],
-            'grade_level' => ['required', Rule::enum(GradeLevel::class)],
-            ...QuestionRules::rules(),
-        ];
+        return TestRules::rules();
     }
 
     protected function prepareForValidation(): void

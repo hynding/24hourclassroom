@@ -45,7 +45,12 @@ export namespace Components {
     }
     interface PageForgotPassword {
     }
+    interface PageGeneration {
+        "generationId"?: number;
+    }
     interface PageHome {
+    }
+    interface PageIntegrations {
     }
     interface PageLibrary {
         /**
@@ -96,6 +101,8 @@ export namespace Components {
           * Undefined = creating a new test.
          */
         "testId"?: number;
+    }
+    interface PageTestGenerate {
     }
     interface PageTestPrint {
         "testId"?: number;
@@ -170,11 +177,23 @@ declare global {
         prototype: HTMLPageForgotPasswordElement;
         new (): HTMLPageForgotPasswordElement;
     };
+    interface HTMLPageGenerationElement extends Components.PageGeneration, HTMLStencilElement {
+    }
+    var HTMLPageGenerationElement: {
+        prototype: HTMLPageGenerationElement;
+        new (): HTMLPageGenerationElement;
+    };
     interface HTMLPageHomeElement extends Components.PageHome, HTMLStencilElement {
     }
     var HTMLPageHomeElement: {
         prototype: HTMLPageHomeElement;
         new (): HTMLPageHomeElement;
+    };
+    interface HTMLPageIntegrationsElement extends Components.PageIntegrations, HTMLStencilElement {
+    }
+    var HTMLPageIntegrationsElement: {
+        prototype: HTMLPageIntegrationsElement;
+        new (): HTMLPageIntegrationsElement;
     };
     interface HTMLPageLibraryElement extends Components.PageLibrary, HTMLStencilElement {
     }
@@ -272,6 +291,12 @@ declare global {
         prototype: HTMLPageTestEditorElement;
         new (): HTMLPageTestEditorElement;
     };
+    interface HTMLPageTestGenerateElement extends Components.PageTestGenerate, HTMLStencilElement {
+    }
+    var HTMLPageTestGenerateElement: {
+        prototype: HTMLPageTestGenerateElement;
+        new (): HTMLPageTestGenerateElement;
+    };
     interface HTMLPageTestPrintElement extends Components.PageTestPrint, HTMLStencilElement {
     }
     var HTMLPageTestPrintElement: {
@@ -323,7 +348,9 @@ declare global {
         "page-attempt": HTMLPageAttemptElement;
         "page-connections": HTMLPageConnectionsElement;
         "page-forgot-password": HTMLPageForgotPasswordElement;
+        "page-generation": HTMLPageGenerationElement;
         "page-home": HTMLPageHomeElement;
+        "page-integrations": HTMLPageIntegrationsElement;
         "page-library": HTMLPageLibraryElement;
         "page-login": HTMLPageLoginElement;
         "page-material": HTMLPageMaterialElement;
@@ -340,6 +367,7 @@ declare global {
         "page-test": HTMLPageTestElement;
         "page-test-assign": HTMLPageTestAssignElement;
         "page-test-editor": HTMLPageTestEditorElement;
+        "page-test-generate": HTMLPageTestGenerateElement;
         "page-test-print": HTMLPageTestPrintElement;
         "page-test-results": HTMLPageTestResultsElement;
         "page-tests": HTMLPageTestsElement;
@@ -385,7 +413,12 @@ declare namespace LocalJSX {
     }
     interface PageForgotPassword {
     }
+    interface PageGeneration {
+        "generationId"?: number;
+    }
     interface PageHome {
+    }
+    interface PageIntegrations {
     }
     interface PageLibrary {
         /**
@@ -437,6 +470,8 @@ declare namespace LocalJSX {
          */
         "testId"?: number;
     }
+    interface PageTestGenerate {
+    }
     interface PageTestPrint {
         "testId"?: number;
     }
@@ -468,6 +503,9 @@ declare namespace LocalJSX {
     }
     interface PageAttemptAttributes {
         "attemptId": number;
+    }
+    interface PageGenerationAttributes {
+        "generationId": number;
     }
     interface PageLibraryAttributes {
         "kind": 'tests' | 'materials';
@@ -512,7 +550,9 @@ declare namespace LocalJSX {
         "page-attempt": Omit<PageAttempt, keyof PageAttemptAttributes> & { [K in keyof PageAttempt & keyof PageAttemptAttributes]?: PageAttempt[K] } & { [K in keyof PageAttempt & keyof PageAttemptAttributes as `attr:${K}`]?: PageAttemptAttributes[K] } & { [K in keyof PageAttempt & keyof PageAttemptAttributes as `prop:${K}`]?: PageAttempt[K] };
         "page-connections": PageConnections;
         "page-forgot-password": PageForgotPassword;
+        "page-generation": Omit<PageGeneration, keyof PageGenerationAttributes> & { [K in keyof PageGeneration & keyof PageGenerationAttributes]?: PageGeneration[K] } & { [K in keyof PageGeneration & keyof PageGenerationAttributes as `attr:${K}`]?: PageGenerationAttributes[K] } & { [K in keyof PageGeneration & keyof PageGenerationAttributes as `prop:${K}`]?: PageGeneration[K] };
         "page-home": PageHome;
+        "page-integrations": PageIntegrations;
         "page-library": Omit<PageLibrary, keyof PageLibraryAttributes> & { [K in keyof PageLibrary & keyof PageLibraryAttributes]?: PageLibrary[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `attr:${K}`]?: PageLibraryAttributes[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `prop:${K}`]?: PageLibrary[K] };
         "page-login": PageLogin;
         "page-material": Omit<PageMaterial, keyof PageMaterialAttributes> & { [K in keyof PageMaterial & keyof PageMaterialAttributes]?: PageMaterial[K] } & { [K in keyof PageMaterial & keyof PageMaterialAttributes as `attr:${K}`]?: PageMaterialAttributes[K] } & { [K in keyof PageMaterial & keyof PageMaterialAttributes as `prop:${K}`]?: PageMaterial[K] };
@@ -529,6 +569,7 @@ declare namespace LocalJSX {
         "page-test": Omit<PageTest, keyof PageTestAttributes> & { [K in keyof PageTest & keyof PageTestAttributes]?: PageTest[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `attr:${K}`]?: PageTestAttributes[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `prop:${K}`]?: PageTest[K] };
         "page-test-assign": Omit<PageTestAssign, keyof PageTestAssignAttributes> & { [K in keyof PageTestAssign & keyof PageTestAssignAttributes]?: PageTestAssign[K] } & { [K in keyof PageTestAssign & keyof PageTestAssignAttributes as `attr:${K}`]?: PageTestAssignAttributes[K] } & { [K in keyof PageTestAssign & keyof PageTestAssignAttributes as `prop:${K}`]?: PageTestAssign[K] };
         "page-test-editor": Omit<PageTestEditor, keyof PageTestEditorAttributes> & { [K in keyof PageTestEditor & keyof PageTestEditorAttributes]?: PageTestEditor[K] } & { [K in keyof PageTestEditor & keyof PageTestEditorAttributes as `attr:${K}`]?: PageTestEditorAttributes[K] } & { [K in keyof PageTestEditor & keyof PageTestEditorAttributes as `prop:${K}`]?: PageTestEditor[K] };
+        "page-test-generate": PageTestGenerate;
         "page-test-print": Omit<PageTestPrint, keyof PageTestPrintAttributes> & { [K in keyof PageTestPrint & keyof PageTestPrintAttributes]?: PageTestPrint[K] } & { [K in keyof PageTestPrint & keyof PageTestPrintAttributes as `attr:${K}`]?: PageTestPrintAttributes[K] } & { [K in keyof PageTestPrint & keyof PageTestPrintAttributes as `prop:${K}`]?: PageTestPrint[K] };
         "page-test-results": Omit<PageTestResults, keyof PageTestResultsAttributes> & { [K in keyof PageTestResults & keyof PageTestResultsAttributes]?: PageTestResults[K] } & { [K in keyof PageTestResults & keyof PageTestResultsAttributes as `attr:${K}`]?: PageTestResultsAttributes[K] } & { [K in keyof PageTestResults & keyof PageTestResultsAttributes as `prop:${K}`]?: PageTestResults[K] };
         "page-tests": PageTests;
@@ -554,7 +595,9 @@ declare module "@stencil/core" {
             "page-attempt": LocalJSX.IntrinsicElements["page-attempt"] & JSXBase.HTMLAttributes<HTMLPageAttemptElement>;
             "page-connections": LocalJSX.IntrinsicElements["page-connections"] & JSXBase.HTMLAttributes<HTMLPageConnectionsElement>;
             "page-forgot-password": LocalJSX.IntrinsicElements["page-forgot-password"] & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
+            "page-generation": LocalJSX.IntrinsicElements["page-generation"] & JSXBase.HTMLAttributes<HTMLPageGenerationElement>;
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
+            "page-integrations": LocalJSX.IntrinsicElements["page-integrations"] & JSXBase.HTMLAttributes<HTMLPageIntegrationsElement>;
             "page-library": LocalJSX.IntrinsicElements["page-library"] & JSXBase.HTMLAttributes<HTMLPageLibraryElement>;
             "page-login": LocalJSX.IntrinsicElements["page-login"] & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
             "page-material": LocalJSX.IntrinsicElements["page-material"] & JSXBase.HTMLAttributes<HTMLPageMaterialElement>;
@@ -571,6 +614,7 @@ declare module "@stencil/core" {
             "page-test": LocalJSX.IntrinsicElements["page-test"] & JSXBase.HTMLAttributes<HTMLPageTestElement>;
             "page-test-assign": LocalJSX.IntrinsicElements["page-test-assign"] & JSXBase.HTMLAttributes<HTMLPageTestAssignElement>;
             "page-test-editor": LocalJSX.IntrinsicElements["page-test-editor"] & JSXBase.HTMLAttributes<HTMLPageTestEditorElement>;
+            "page-test-generate": LocalJSX.IntrinsicElements["page-test-generate"] & JSXBase.HTMLAttributes<HTMLPageTestGenerateElement>;
             "page-test-print": LocalJSX.IntrinsicElements["page-test-print"] & JSXBase.HTMLAttributes<HTMLPageTestPrintElement>;
             "page-test-results": LocalJSX.IntrinsicElements["page-test-results"] & JSXBase.HTMLAttributes<HTMLPageTestResultsElement>;
             "page-tests": LocalJSX.IntrinsicElements["page-tests"] & JSXBase.HTMLAttributes<HTMLPageTestsElement>;

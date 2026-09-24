@@ -187,3 +187,37 @@ describe('material routes', () => {
     }
   });
 });
+
+describe('generation routes', () => {
+  it('resolves the two static generation pages', () => {
+    expect(resolveRoute('/integrations')).toEqual({ tag: 'page-integrations' });
+    // Must be matched BEFORE testRoute(), which would otherwise read
+    // /tests/generate as a (bogus) /tests/:id with id "generate" and hand it
+    // to the PUBLIC page-test.
+    expect(resolveRoute('/tests/generate')).toEqual({ tag: 'page-test-generate' });
+    expect(resolveRoute('/tests/generate').tag).not.toBe('page-test');
+  });
+
+  it('parses /generations/:id like /attempts/:id', () => {
+    expect(resolveRoute('/generations/7')).toEqual({ tag: 'page-generation', generationId: 7 });
+    expect(resolveRoute('/generations/x')).toEqual({ tag: 'page-generation', generationId: undefined });
+    expect(resolveRoute('/generations/-1')).toEqual({ tag: 'page-generation', generationId: undefined });
+    expect(resolveRoute('/generations/7/extra').tag).toBe('page-home');
+  });
+
+  it('guards all three as auth-only', () => {
+    for (const path of ['/integrations', '/tests/generate', '/generations/7']) {
+      expect(redirectFor(path, null)).toBe('/login');
+      expect(redirectFor(path, unverified)).toBe('/verify-email');
+      expect(redirectFor(path, verified)).toBeNull();
+    }
+  });
+
+  it('does not let /tests/generate read as a public test page', () => {
+    // The same hazard as /tests/new and /materials/new: it parses through
+    // testRoute() as /tests/:id, which isPublic() would treat as the public
+    // single-test view and exempt from the verification gate.
+    expect(redirectFor('/tests/generate', unverified)).toBe('/verify-email');
+    expect(redirectFor('/tests/generate', null)).toBe('/login');
+  });
+});

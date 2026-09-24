@@ -294,6 +294,118 @@ export interface MaterialUpdate {
   grade_level: GradeLevel;
 }
 
+/**
+ * Mirrors App\Enums\GenerationStatus. The last four are terminal: the SPA
+ * stops polling on them, and nothing ever leaves a terminal state.
+ * `awaiting_tool` means a draft has been accepted and committed but its tool
+ * result has not been sent back to Anthropic yet, so it is still live.
+ */
+export type GenerationStatus =
+  | 'queued'
+  | 'running'
+  | 'awaiting_tool'
+  | 'done'
+  | 'failed'
+  | 'cancelled'
+  | 'budget_reached';
+
+export const GENERATION_STATUSES: TaxonomyOption<GenerationStatus>[] = [
+  { value: 'queued', label: 'Queued' },
+  { value: 'running', label: 'Running' },
+  { value: 'awaiting_tool', label: 'Saving draft' },
+  { value: 'done', label: 'Done' },
+  { value: 'failed', label: 'Failed' },
+  { value: 'cancelled', label: 'Cancelled' },
+  { value: 'budget_reached', label: 'Budget reached' },
+];
+
+/**
+ * The generation limits, mirrored from config/generation.php. LITERALS, not
+ * expressions and with no type annotation, for the same reason
+ * MAX_MATERIAL_BYTES is one: TaxonomyMirrorTest reads each with a
+ * digit-capturing regex (`export const X = (\d+);`) and asserts it equals
+ * `config('generation.*')`. A `: number` or a `2 * 100` here silently ends
+ * the mirror -- and the SPA's form bounds and the server's validation rules
+ * would then be free to drift apart.
+ */
+export const GENERATION_BUDGET_CENTS = 200;
+export const GENERATION_MAX_MATERIALS = 5;
+export const GENERATION_MIN_QUESTIONS = 5;
+export const GENERATION_MAX_QUESTIONS = 30;
+
+/**
+ * How often page-generation polls. SPA-only -- progress is poll-driven
+ * because the shared host has no queue worker, and the server has no opinion
+ * about the interval, so this one has no PHP counterpart and is not mirrored.
+ * On a 429 the page doubles it (10, 20, 30 s clamped) and resets on success.
+ */
+export const GENERATION_POLL_MS = 5000;
+
+/** A personal access token for the MCP server. The hash is never returned. */
+export interface McpToken {
+  id: number;
+  name: string;
+  /** Null until the teacher's Claude client has actually connected. */
+  last_used_at: string | null;
+  created_at: string;
+}
+
+/**
+ * The only payload that ever carries the plaintext token, returned once by
+ * POST /api/integrations/mcp-tokens. It is not stored anywhere on the client.
+ */
+export interface McpTokenCreated {
+  id: number;
+  name: string;
+  token: string;
+}
+
+/** The stored key is never returned -- only whether it exists, and its last four. */
+export interface AnthropicIntegration {
+  configured: boolean;
+  hint: string | null;
+  verified_at: string | null;
+}
+
+export interface Integrations {
+  mcp_tokens: McpToken[];
+  anthropic: AnthropicIntegration;
+}
+
+/**
+ * One generation run. `agent_note` is the agent's latest message (earlier
+ * ones are not kept), `error` is set on every failed and budget-reached row
+ * and on a system-initiated cancel, and `list_cost_cents` is informational --
+ * Anthropic's list price for the session, never compared with the budget.
+ */
+export interface Generation {
+  id: number;
+  title: string;
+  subject: Subject;
+  grade_level: GradeLevel;
+  instructions: string | null;
+  question_count: number;
+  material_ids: number[];
+  status: GenerationStatus;
+  agent_note: string | null;
+  error: string | null;
+  list_cost_cents: number | null;
+  test_id: number | null;
+  started_at: string | null;
+  finished_at: string | null;
+  created_at: string;
+}
+
+/** POST /api/generations. Materials must be the teacher's OWN (see the spec's decision 5). */
+export interface GenerationInput {
+  title: string;
+  subject: Subject;
+  grade_level: GradeLevel;
+  instructions?: string | null;
+  question_count: number;
+  material_ids: number[];
+}
+
 export type Layout = 'stacked' | 'rail';
 export type Palette = 'noon' | 'evening' | 'slate' | 'afternoon';
 export type Typeset = 'editorial' | 'modern';
