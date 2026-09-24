@@ -5,6 +5,14 @@
 
     RewriteEngine On
 
+    # Canonical host: www.<domain> -> https://<domain>, permanently. The API's CORS
+    # and Sanctum allowlists (FRONTEND_URLS, SANCTUM_STATEFUL_DOMAINS) name the apex
+    # only, so a visitor who typed www. had every credentialed request rejected by
+    # the browser and could neither register nor log in (production, 2026-09-23).
+    # The query string is carried over by Apache; %{REQUEST_URI} excludes it.
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
