@@ -6,16 +6,18 @@ export interface ResolvedRoute {
   testId?: number;
   attemptId?: number;
   materialId?: number;
+  generationId?: number;
   /** Which library segment page-library is showing. */
   kind?: 'tests' | 'materials';
 }
 
 const GUEST_ONLY = ['/login', '/register', '/forgot-password', '/reset-password'];
-const AUTH_ONLY = ['/profile', '/connections', '/notifications', '/tests', '/tests/new', '/materials', '/materials/new'];
+const AUTH_ONLY = ['/profile', '/connections', '/notifications', '/tests', '/tests/new', '/tests/generate', '/materials', '/materials/new', '/integrations'];
 const TEACHER_PREFIX = '/teachers/';
 const TESTS_PREFIX = '/tests/';
 const MATERIALS_PREFIX = '/materials/';
 const ATTEMPTS_PREFIX = '/attempts/';
+const GENERATIONS_PREFIX = '/generations/';
 const TEST_SUBPAGES: Record<string, string> = {
   edit: 'page-test-editor',
   assign: 'page-test-assign',
@@ -75,12 +77,12 @@ function isPublic(path: string): boolean {
   if (path === '/teachers' || path.startsWith(TEACHER_PREFIX) || path === '/library' || path === '/library/materials') {
     return true;
   }
-  // '/tests/new' and '/materials/new' parse through their helpers as a
-  // (bogus) /:prefix/:id with id "new" -- the same shape as /tests/abc --
-  // which would otherwise read as the public single-item view. Both are
-  // distinct, auth-only routes (see AUTH_ONLY), so exclude them before
-  // consulting either helper.
-  if (path === '/tests/new' || path === '/materials/new') {
+  // '/tests/new', '/tests/generate' and '/materials/new' parse through their
+  // helpers as a (bogus) /:prefix/:id with id "new"/"generate" -- the same
+  // shape as /tests/abc -- which would otherwise read as the public
+  // single-item view. All three are distinct, auth-only routes (see
+  // AUTH_ONLY), so exclude them before consulting either helper.
+  if (path === '/tests/new' || path === '/tests/generate' || path === '/materials/new') {
     return false;
   }
   const test = testRoute(path);
@@ -92,7 +94,7 @@ function isPublic(path: string): boolean {
 }
 
 function isAuthOnly(path: string): boolean {
-  if (AUTH_ONLY.includes(path) || path.startsWith(ATTEMPTS_PREFIX)) {
+  if (AUTH_ONLY.includes(path) || path.startsWith(ATTEMPTS_PREFIX) || path.startsWith(GENERATIONS_PREFIX)) {
     return true;
   }
   const test = testRoute(path);
@@ -115,6 +117,14 @@ export function resolveRoute(path: string): ResolvedRoute {
   }
   if (path === '/tests/new') {
     return { tag: 'page-test-editor', testId: undefined };
+  }
+  // Before testRoute(): otherwise "generate" parses as a test id and this
+  // resolves to the public page-test.
+  if (path === '/tests/generate') {
+    return { tag: 'page-test-generate' };
+  }
+  if (path === '/integrations') {
+    return { tag: 'page-integrations' };
   }
   if (path === '/materials') {
     return { tag: 'page-materials' };
@@ -139,6 +149,10 @@ export function resolveRoute(path: string): ResolvedRoute {
   if (path.startsWith(ATTEMPTS_PREFIX)) {
     const [idSegment, ...rest] = path.slice(ATTEMPTS_PREFIX.length).split('/');
     return rest.length > 0 ? { tag: 'page-home' } : { tag: 'page-attempt', attemptId: parseId(idSegment) };
+  }
+  if (path.startsWith(GENERATIONS_PREFIX)) {
+    const [idSegment, ...rest] = path.slice(GENERATIONS_PREFIX.length).split('/');
+    return rest.length > 0 ? { tag: 'page-home' } : { tag: 'page-generation', generationId: parseId(idSegment) };
   }
 
   switch (path) {

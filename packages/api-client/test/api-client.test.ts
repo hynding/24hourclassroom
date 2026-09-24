@@ -575,3 +575,146 @@ describe('material endpoints', () => {
     );
   });
 });
+
+describe('generation and integration endpoints', () => {
+  const okJson = (body: unknown) => jsonResponse(200, body);
+  // mockImplementation (not mockResolvedValue) so each call gets its own
+  // single-use Response -- see the notifications pagination test above.
+  const okFetch = (body: unknown = {}) =>
+    vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? jsonResponse(204, null) : okJson(body),
+    );
+
+  it('getBaseUrl returns the origin the client was constructed with', () => {
+    // page-integrations prints it inside the `claude mcp add` line: the one
+    // place the SPA has to show an API URL rather than fetch it.
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn: okFetch() });
+    expect(client.getBaseUrl()).toBe('https://api.test');
+  });
+
+  it('getIntegrations GETs the integrations payload', async () => {
+    const payload = {
+      mcp_tokens: [{ id: 1, name: 'Claude Code', last_used_at: null, created_at: '2026-09-21T00:00:00Z' }],
+      anthropic: { configured: false, hint: null, verified_at: null },
+    };
+    const fetchFn = okFetch(payload);
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    const result = await client.getIntegrations();
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/integrations');
+    expect(fetchFn.mock.calls[0][1].method).toBe('GET');
+    expect(result).toEqual(payload);
+  });
+
+  it('createMcpToken POSTs the name after the CSRF cookie and returns the plaintext', async () => {
+    const fetchFn = vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? jsonResponse(204, null) : jsonResponse(201, { id: 4, name: 'Laptop', token: '4|plaintext' }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    const created = await client.createMcpToken('Laptop');
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/sanctum/csrf-cookie');
+    const call = fetchFn.mock.calls.find((c) => c[0] === 'https://api.test/api/integrations/mcp-tokens');
+    expect(call?.[1].method).toBe('POST');
+    expect(JSON.parse(call?.[1].body)).toEqual({ name: 'Laptop' });
+    expect(created.token).toBe('4|plaintext');
+  });
+
+  it('revokeMcpToken DELETEs the token path', async () => {
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(204, null));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.revokeMcpToken(9);
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/sanctum/csrf-cookie');
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/integrations/mcp-tokens/9',
+      expect.objectContaining({ method: 'DELETE' }),
+    );
+  });
+
+  it('setAnthropicKey PUTs the key under api_key and returns the anthropic block', async () => {
+    const fetchFn = okFetch({ configured: true, hint: '6789', verified_at: '2026-09-21T00:00:00Z' });
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    const result = await client.setAnthropicKey('sk-ant-0123456789abcdef6789');
+
+    const call = fetchFn.mock.calls.find((c) => c[0] === 'https://api.test/api/integrations/anthropic-key');
+    expect(call?.[1].method).toBe('PUT');
+    expect(JSON.parse(call?.[1].body)).toEqual({ api_key: 'sk-ant-0123456789abcdef6789' });
+    expect(result).toEqual({ configured: true, hint: '6789', verified_at: '2026-09-21T00:00:00Z' });
+  });
+
+  it('removeAnthropicKey DELETEs the key path', async () => {
+    const fetchFn = vi.fn().mockImplementation(() => jsonResponse(204, null));
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.removeAnthropicKey();
+
+    expect(fetchFn).toHaveBeenLastCalledWith(
+      'https://api.test/api/integrations/anthropic-key',
+      expect.objectContaining({ method: 'DELETE' }),
+    );
+  });
+
+  it('listGenerations omits the page param on page 1 and sends it beyond', async () => {
+    const fetchFn = okFetch({ data: [], meta: { current_page: 1, last_page: 1, per_page: 15, total: 0 } });
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.listGenerations();
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/generations');
+
+    await client.listGenerations(1);
+    expect(fetchFn.mock.calls.at(-1)![0]).toBe('https://api.test/api/generations');
+
+    await client.listGenerations(3);
+    expect(fetchFn.mock.calls.at(-1)![0]).toBe('https://api.test/api/generations?page=3');
+  });
+
+  it('createGeneration POSTs the input and returns the row', async () => {
+    const fetchFn = vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? jsonResponse(204, null) : jsonResponse(201, { id: 7, status: 'running' }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+    const input = {
+      title: 'Cells',
+      subject: 'science',
+      grade_level: '6-8',
+      instructions: 'Focus on organelles.',
+      question_count: 10,
+      material_ids: [3, 4],
+    };
+
+    const result = await client.createGeneration(input as never);
+
+    expect(result).toEqual({ id: 7, status: 'running' });
+    const call = fetchFn.mock.calls.find((c) => c[0] === 'https://api.test/api/generations');
+    expect(call?.[1].method).toBe('POST');
+    expect(JSON.parse(call?.[1].body)).toEqual(input);
+  });
+
+  it('getGeneration GETs one generation', async () => {
+    const fetchFn = okFetch({ id: 7, status: 'running' });
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    const result = await client.getGeneration(7);
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/generations/7');
+    expect(fetchFn.mock.calls[0][1].method).toBe('GET');
+    expect(result).toEqual({ id: 7, status: 'running' });
+  });
+
+  it('cancelGeneration POSTs to the cancel path and returns the updated row', async () => {
+    const fetchFn = okFetch({ id: 7, status: 'cancelled' });
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    const result = await client.cancelGeneration(7);
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/sanctum/csrf-cookie');
+    const call = fetchFn.mock.calls.find((c) => c[0] === 'https://api.test/api/generations/7/cancel');
+    expect(call?.[1].method).toBe('POST');
+    expect(result.status).toBe('cancelled');
+  });
+});

@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Ai\AnthropicGateway;
+use App\Ai\HttpAnthropicGateway;
+use App\Ai\Sleeper;
+use App\Ai\SystemSleeper;
 use App\Support\FrontendRedirect;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -17,7 +21,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Every generation test swaps these two for FakeAnthropicGateway and
+        // NoopSleeper through the fakeAnthropic() helper, so nothing in the
+        // suite opens a socket or waits a second.
+        $this->app->singleton(AnthropicGateway::class, HttpAnthropicGateway::class);
+        $this->app->singleton(Sleeper::class, SystemSleeper::class);
     }
 
     /**
@@ -49,5 +57,19 @@ class AppServiceProvider extends ServiceProvider
         // their own bucket. At 30/min per person, a 429 is a scripted client.
         RateLimiter::for('downloads', fn (Request $request) => Limit::perMinute(30)
             ->by($request->user()?->id ?: $request->ip()));
+
+        // The MCP route's own bucket, keyed on the TOKEN, not the user: a
+        // teacher's Claude client hammering /mcp/teacher must not spend the
+        // 60/min that teacher's own SPA session draws on (the shared-bucket
+        // gotcha in CLAUDE.md). The key resolves because auth:sanctum
+        // precedes throttle:mcp in the resolved middleware order (see
+        // routes/ai.php) -- Illuminate\Auth\Middleware\Authenticate implements
+        // AuthenticatesRequests, which sits ahead of ThrottleRequests in the
+        // framework's priority list, and it calls Auth::shouldUse('sanctum')
+        // so $request->user() reaches the token user here. The ip() fallback
+        // is therefore unreachable in practice on this route -- it is kept
+        // only as a guard, in case that ordering ever changes.
+        RateLimiter::for('mcp', fn (Request $request) => Limit::perMinute(60)
+            ->by('mcp:'.($request->user()?->currentAccessToken()?->id ?? $request->ip())));
     }
 }

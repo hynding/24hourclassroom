@@ -10,11 +10,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -83,5 +84,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function materials(): HasMany
     {
         return $this->hasMany(Material::class);
+    }
+
+    public function integration(): HasOne
+    {
+        return $this->hasOne(Integration::class);
+    }
+
+    public function generations(): HasMany
+    {
+        return $this->hasMany(Generation::class);
     }
 }

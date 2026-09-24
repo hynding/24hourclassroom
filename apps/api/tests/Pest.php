@@ -41,7 +41,12 @@ expect()->extend('toBeOne', function () {
 |
 */
 
+use App\Ai\AnthropicGateway;
+use App\Ai\FakeAnthropicGateway;
+use App\Ai\NoopSleeper;
+use App\Ai\Sleeper;
 use App\Models\Connection;
+use App\Models\Integration;
 use App\Models\Material;
 use App\Models\MaterialShare;
 use App\Models\Question;
@@ -118,4 +123,70 @@ function materialFixture(string $name, ?string $clientName = null): UploadedFile
         null,
         true,
     );
+}
+
+/**
+ * A complete, valid POST /tests body with one question of every type -- the
+ * non-HTTP twin of TestAuthoringTest's file-local validTestBody(), which
+ * must NOT be redefined here (a second global declaration is a fatal).
+ * Used by QuestionShapesTest and the MCP tool tests.
+ */
+function validDraftBody(array $overrides = []): array
+{
+    return array_merge([
+        'title' => 'Fractions warm-up',
+        'description' => 'Ten minutes.',
+        'subject' => 'math',
+        'grade_level' => '3-5',
+        'questions' => [
+            ['type' => 'multiple_choice', 'prompt' => '1/2 + 1/4?', 'options' => ['1/4', '3/4', '1'], 'answer' => 1, 'points' => 2, 'explanation' => 'Common denominator.'],
+            ['type' => 'multi_select', 'prompt' => 'Which are > 1/2?', 'options' => ['1/3', '2/3', '3/4'], 'answer' => [1, 2], 'partial_credit' => true],
+            ['type' => 'true_false', 'prompt' => '1/2 > 1/3', 'answer' => true],
+            ['type' => 'short_answer', 'prompt' => 'Name a unit fraction.', 'answer' => '1/2'],
+            ['type' => 'numeric', 'prompt' => '0.5 as a fraction of 4?', 'answer' => ['value' => 2, 'tolerance' => 0]],
+        ],
+    ], $overrides);
+}
+
+/**
+ * The only token this app mints: one ability, no expiry. Returns the
+ * plaintext, which is the last time it exists.
+ */
+function mcpToken(User $user, string $name = 'Claude Code'): string
+{
+    return $user->createToken($name, ['mcp'])->plainTextToken;
+}
+
+/**
+ * A JSON-RPC body with no `params._meta`, which ValidateMcpHeaders treats
+ * as "legacy" and passes through without protocol-meta validation -- so a
+ * feature test can assert auth statuses without a full MCP handshake.
+ *
+ * @return array<string, mixed>
+ */
+function mcpPing(): array
+{
+    return ['jsonrpc' => '2.0', 'id' => 1, 'method' => 'ping'];
+}
+
+/**
+ * Swap the gateway and the sleeper for the scripted pair, and hand the fake
+ * back so the test can script it and read $fake->calls. Required in the
+ * beforeEach of EVERY generation test file: without it a controller would try
+ * to reach api.anthropic.com.
+ */
+function fakeAnthropic(): FakeAnthropicGateway
+{
+    $fake = new FakeAnthropicGateway;
+
+    app()->instance(AnthropicGateway::class, $fake);
+    app()->instance(Sleeper::class, new NoopSleeper);
+
+    return $fake;
+}
+
+/** A verified Anthropic key on the teacher's integration row. */
+function withAnthropicKey(User $user): Integration
+{
+    return Integration::factory()->create(['user_id' => $user->id]);
 }

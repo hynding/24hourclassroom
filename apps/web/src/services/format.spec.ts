@@ -1,5 +1,5 @@
-import { fileTypeLabel, formatBytes, formatDueDate } from './format';
-import { MAX_MATERIAL_BYTES } from '@24hc/shared';
+import { fileTypeLabel, formatBytes, formatCents, formatDueDate } from './format';
+import { GENERATION_BUDGET_CENTS, MAX_MATERIAL_BYTES } from '@24hc/shared';
 
 describe('formatDueDate', () => {
   it('reads the calendar date as UTC, regardless of the runner\'s zone', () => {
@@ -46,5 +46,23 @@ describe('fileTypeLabel', () => {
     expect(fileTypeLabel('README')).toBe('File');
     expect(fileTypeLabel('.hidden')).toBe('File');
     expect(fileTypeLabel('')).toBe('File');
+  });
+});
+
+describe('formatCents', () => {
+  it('renders an integer number of cents as a dollar amount', () => {
+    // Anthropic reports list cost as an integer string of cents and the
+    // server casts it to an int, so nothing here parses a decimal.
+    expect(formatCents(0)).toBe('$0.00');
+    expect(formatCents(5)).toBe('$0.05');
+    expect(formatCents(123)).toBe('$1.23');
+    expect(formatCents(12345)).toBe('$123.45');
+  });
+
+  it('renders the shared budget literal the way the server message does', () => {
+    // GenerationMessages::budget() composes "Stopped at the $2.00 budget..."
+    // from config('generation.budget_cents'), which is mirrored to
+    // GENERATION_BUDGET_CENTS -- the two strings must not disagree.
+    expect(formatCents(GENERATION_BUDGET_CENTS)).toBe('$2.00');
   });
 });

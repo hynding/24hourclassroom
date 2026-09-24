@@ -2,6 +2,7 @@
 
 use App\Enums\GradeLevel;
 use App\Enums\Subject;
+use App\Support\TaxonomyLabels;
 
 test('every PHP taxonomy value appears in the shared TypeScript package', function () {
     $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
@@ -111,6 +112,28 @@ test('the old TestVisibility names are gone from both sides', function () {
     expect($shared)->not->toContain('TestVisibility')->not->toContain('TEST_VISIBILITIES');
 });
 
+test('TaxonomyLabels labels mirror the shared TypeScript const arrays, in order', function () {
+    // TaxonomyLabels is a hand-copy of @24hc/shared's labels (see its class
+    // docblock); this asserts the copy hasn't drifted, the same block regex
+    // the value-only tests above use, plus a `label:` capture.
+    $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
+
+    $pairs = [
+        ['SUBJECTS', TaxonomyLabels::subjects()],
+        ['GRADE_LEVELS', TaxonomyLabels::gradeLevels()],
+        ['QUESTION_TYPES', TaxonomyLabels::questionTypes()],
+    ];
+
+    foreach ($pairs as [$constName, $phpEntries]) {
+        expect(preg_match('/export const '.$constName.':.*?\];/s', $shared, $m))
+            ->toBe(1, "$constName const array not found in packages/shared");
+        preg_match_all('/label:\s*[\'"]([^\'"]+)[\'"]/', $m[0], $labels);
+
+        expect($labels[1])->not->toBeEmpty();
+        expect($labels[1])->toBe(array_column($phpEntries, 'label'));
+    }
+});
+
 test('the per-file upload cap in config/materials.php mirrors MAX_MATERIAL_BYTES', function () {
     // The SPA's pre-flight size check and the server's `max:` rule have to
     // agree or a user sees one limit and hits another. The TS side is a
@@ -122,4 +145,58 @@ test('the per-file upload cap in config/materials.php mirrors MAX_MATERIAL_BYTES
         ->toBe(1, 'MAX_MATERIAL_BYTES literal not found in packages/shared');
     expect((int) $m[1])->toBe(config('materials.max_file_kb') * 1024);
     expect((int) $m[1])->toBe(10485760);
+});
+
+use App\Enums\GenerationStatus;
+
+test('GenerationStatus mirrors the shared GENERATION_STATUSES array in both directions', function () {
+    // Same regex as the VISIBILITIES/QUESTION_TYPES test: the const must be a
+    // TaxonomyOption-shaped array with `value:` keys, or this finds nothing.
+    $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
+
+    expect(preg_match('/export const GENERATION_STATUSES:.*?\];/s', $shared, $m))
+        ->toBe(1, 'GENERATION_STATUSES const array not found in packages/shared');
+    preg_match_all('/value:\s*[\'"]([^\'"]+)[\'"]/', $m[0], $found);
+
+    expect($found[1])->not->toBeEmpty();
+    expect($found[1])->toBe(array_column(GenerationStatus::cases(), 'value'));
+});
+
+test('page-generation TERMINAL list mirrors GenerationStatus::terminal() — a missed terminal status would poll for ever', function () {
+    $tsx = file_get_contents(base_path('../../apps/web/src/components/page-generation/page-generation.tsx'));
+
+    expect(preg_match('/const TERMINAL(?::\s*[^=]+)?=\s*\[(.*?)\]/s', $tsx, $m))
+        ->toBe(1, 'TERMINAL const not found in page-generation.tsx');
+    preg_match_all('/[\'"]([^\'"]+)[\'"]/', $m[1], $found);
+
+    expect($found[1])->not->toBeEmpty();
+    expect(collect($found[1])->sort()->values()->all())
+        ->toBe(collect(GenerationStatus::terminal())->sort()->values()->all());
+});
+
+test('the generation limits in config/generation.php mirror the shared literals', function () {
+    // The SPA enforces min/max questions and the ≤5 material cap in its own
+    // form, and prints the budget in a message the server also composes, so
+    // both sides have to read the same numbers. The TS side is four LITERALS
+    // (no type annotation, no arithmetic) so this digit-capturing regex can
+    // read them the way the MAX_MATERIAL_BYTES test does.
+    $shared = file_get_contents(base_path('../../packages/shared/src/index.ts'));
+
+    $pairs = [
+        'GENERATION_BUDGET_CENTS' => 'generation.budget_cents',
+        'GENERATION_MAX_MATERIALS' => 'generation.max_materials',
+        'GENERATION_MIN_QUESTIONS' => 'generation.min_questions',
+        'GENERATION_MAX_QUESTIONS' => 'generation.max_questions',
+    ];
+
+    foreach ($pairs as $const => $key) {
+        expect(preg_match('/export const '.$const.'\s*=\s*(\d+);/', $shared, $m))
+            ->toBe(1, "$const literal not found in packages/shared");
+        expect((int) $m[1])->toBe(config($key));
+    }
+
+    expect(config('generation.budget_cents'))->toBe(200);
+    expect(config('generation.max_materials'))->toBe(5);
+    expect(config('generation.min_questions'))->toBe(5);
+    expect(config('generation.max_questions'))->toBe(30);
 });

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AnswerGradeController;
+use App\Http\Controllers\Api\AnthropicKeyController;
 use App\Http\Controllers\Api\AssignmentController;
 use App\Http\Controllers\Api\AttemptController;
 use App\Http\Controllers\Api\Auth\LoginController;
@@ -12,20 +13,24 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationNotificationController;
 use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\FollowController;
+use App\Http\Controllers\Api\GenerationCancelController;
+use App\Http\Controllers\Api\GenerationController;
+use App\Http\Controllers\Api\IntegrationsController;
 use App\Http\Controllers\Api\LibraryController;
 use App\Http\Controllers\Api\MaterialController;
-use App\Http\Controllers\Api\MaterialsLibraryController;
 use App\Http\Controllers\Api\MaterialFileController;
 use App\Http\Controllers\Api\MaterialPublishController;
 use App\Http\Controllers\Api\MaterialShareController;
-use App\Http\Controllers\Api\SharedMaterialController;
 use App\Http\Controllers\Api\MaterialShowController;
+use App\Http\Controllers\Api\MaterialsLibraryController;
+use App\Http\Controllers\Api\McpTokenController;
 use App\Http\Controllers\Api\MyAssignmentsController;
 use App\Http\Controllers\Api\MyAttemptsController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ProfileAvatarController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicProfileController;
+use App\Http\Controllers\Api\SharedMaterialController;
 use App\Http\Controllers\Api\SiteController;
 use App\Http\Controllers\Api\TeacherDirectoryController;
 use App\Http\Controllers\Api\TestAttemptsController;
@@ -35,7 +40,7 @@ use App\Http\Controllers\Api\TestPublishController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth:sanctum', 'active'])->get('/user', UserController::class);
+Route::middleware(['auth:sanctum', 'session-only', 'active'])->get('/user', UserController::class);
 
 Route::prefix('auth')->group(function () {
     Route::post('register', RegisterController::class)->middleware('throttle:6,1');
@@ -44,7 +49,7 @@ Route::prefix('auth')->group(function () {
     Route::post('forgot-password', PasswordResetLinkController::class)->middleware('throttle:6,1');
     Route::post('reset-password', NewPasswordController::class)->middleware('throttle:6,1');
     Route::post('verification-notification', VerificationNotificationController::class)
-        ->middleware(['auth:sanctum', 'active', 'throttle:6,1']);
+        ->middleware(['auth:sanctum', 'session-only', 'active', 'throttle:6,1']);
     Route::post('oauth/complete', OAuthCompletionController::class)->middleware('throttle:6,1');
 });
 
@@ -54,7 +59,7 @@ Route::prefix('auth')->group(function () {
 // full speed; each POST /api/connections/{id} probe also writes a row and
 // fires a notification, so an uncapped census doubled as inbox spam. The
 // limiter keys on the user id, so it caps an individual rather than the host.
-Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->group(function () {
+Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'throttle:60,1'])->group(function () {
     Route::get('profile', [ProfileController::class, 'show']);
     Route::put('profile', [ProfileController::class, 'update']);
     Route::post('profile/avatar', [ProfileAvatarController::class, 'store']);
@@ -106,6 +111,22 @@ Route::middleware(['auth:sanctum', 'verified', 'active', 'throttle:60,1'])->grou
     Route::get('materials/{material}/shares', [MaterialShareController::class, 'index']);
     Route::post('materials/{material}/shares', [MaterialShareController::class, 'store']);
     Route::delete('materials/{material}/shares/{share}', [MaterialShareController::class, 'destroy']);
+
+    // Teacher-only, and grouped so plan 2's anthropic-key and generation
+    // routes join the same gate. `teacher` sits ahead of SubstituteBindings
+    // in the priority list, so a bound {generation} id is never an oracle.
+    Route::middleware('teacher')->group(function () {
+        Route::get('integrations', [IntegrationsController::class, 'show']);
+        Route::post('integrations/mcp-tokens', [McpTokenController::class, 'store']);
+        Route::delete('integrations/mcp-tokens/{id}', [McpTokenController::class, 'destroy']);
+        Route::put('integrations/anthropic-key', [AnthropicKeyController::class, 'update']);
+        Route::delete('integrations/anthropic-key', [AnthropicKeyController::class, 'destroy']);
+
+        Route::get('generations', [GenerationController::class, 'index']);
+        Route::post('generations', [GenerationController::class, 'store']);
+        Route::get('generations/{generation}', [GenerationController::class, 'show']);
+        Route::post('generations/{generation}/cancel', GenerationCancelController::class);
+    });
 });
 
 // `active` here too. These two routes are reachable by guests -- the

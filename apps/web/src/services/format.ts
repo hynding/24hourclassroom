@@ -45,3 +45,13 @@ export function fileTypeLabel(originalName: string): string {
   const ext = dot > 0 ? originalName.slice(dot + 1) : '';
   return ext ? ext.toUpperCase() : 'File';
 }
+
+/**
+ * Cents to a dollar string: 123 -> "$1.23". Generation costs and the budget
+ * are integer cents on both sides of the wire (Anthropic reports list cost as
+ * an integer string of cents), so this is the only place the SPA divides --
+ * unlike attempt scores, which arrive as decimal strings already.
+ */
+export function formatCents(cents: number): string {
+  return `$${(cents / 100).toFixed(2)}`;
+}

@@ -204,4 +204,26 @@ describe('app-header bell', () => {
     const links = Array.from(guest.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
     expect(links).not.toContain('/materials');
   });
+
+  it('shows Integrations for teachers only', async () => {
+    // Allowlist, not a denylist: the MCP server and every generation
+    // endpoint admit Role::Teacher and nothing else, so a student, an admin
+    // and any fourth role must not be offered the page at all.
+    currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role: 'teacher' };
+    const teacher = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    const teacherLinks = Array.from(teacher.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+    expect(teacherLinks).toContain('/integrations');
+
+    for (const role of ['student', 'admin'] as const) {
+      currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role };
+      const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+      const links = Array.from(spec.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+      expect(links).not.toContain('/integrations');
+    }
+
+    currentUser.value = null;
+    const guest = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    const guestLinks = Array.from(guest.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+    expect(guestLinks).not.toContain('/integrations');
+  });
 });
