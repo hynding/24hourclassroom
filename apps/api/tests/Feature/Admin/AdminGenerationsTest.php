@@ -3,6 +3,7 @@
 use App\Enums\GenerationStatus;
 use App\Enums\Role;
 use App\Models\Generation;
+use App\Models\Integration;
 use App\Models\User;
 use Illuminate\Testing\TestResponse;
 
@@ -27,6 +28,7 @@ function generationAdminRoutes(Generation $generation): array
 {
     return [
         ['get', '/admin/generations'],
+        ['get', "/admin/generations/{$generation->id}"],
     ];
 }
 
@@ -148,4 +150,67 @@ test('pagination keeps the filters', function () {
         ->and($page['last_page'])->toBe(2)
         ->and($page['next_page_url'])->toContain('status=failed')
         ->and(collect($this->get($page['next_page_url'])->viewData('page')['props']['generations']['data'])->pluck('status')->unique()->all())->toBe(['failed']);
+});
+
+test('the detail page carries every field, the owner email, and whether the owner has a key, never the key itself', function () {
+    $owner = aTeacher(['name' => 'Ms K', 'email' => 'k@example.com']);
+    $integration = withAnthropicKey($owner);
+    $test = aTestWithQuestions($owner, 1, ['title' => 'Volcanoes draft']);
+    $generation = Generation::factory()->for($owner)->done()->create([
+        'title' => 'Volcanoes', 'instructions' => 'Keep it short.', 'material_ids' => [4, 5],
+        'session_id' => 'sesn_1', 'agent_note' => 'Used two sources.', 'tool_failures' => 1,
+        'teardown_attempts' => 1, 'test_id' => $test->id,
+    ]);
+    $this->actingAs(generationsAdmin());
+
+    $response = $this->get("/admin/generations/{$generation->id}")->assertOk();
+    $props = $response->viewData('page')['props'];
+    $detail = $props['generation'];
+
+    expect($detail['user'])->toBe(['id' => $owner->id, 'name' => 'Ms K', 'email' => 'k@example.com'])
+        ->and($detail['instructions'])->toBe('Keep it short.')
+        ->and($detail['material_ids'])->toBe([4, 5])
+        ->and($detail['file_ids'])->toBeNull()
+        ->and($detail['session_id'])->toBe('sesn_1')
+        ->and($detail['error'])->toBeNull()
+        ->and($detail['agent_note'])->toBe('Used two sources.')
+        ->and($detail['tool_failures'])->toBe(1)
+        ->and($detail['teardown_attempts'])->toBe(1)
+        ->and($detail['archived_at'])->not->toBeNull()
+        ->and($detail['created_at'])->not->toBeNull()
+        ->and($detail['test'])->toBe(['id' => $test->id, 'title' => 'Volcanoes draft'])
+        ->and($detail['owner_has_key'])->toBeTrue()
+        ->and($detail['live'])->toBeFalse()
+        ->and($detail['has_leftovers'])->toBeFalse()
+        ->and($props['notice'])->toBeNull();
+
+    // The key, its hint and the column name are nowhere in the page.
+    $json = json_encode($props);
+    expect($json)->not->toContain('anthropic_api_key')
+        ->and($json)->not->toContain($integration->apiKey())
+        ->and($json)->not->toContain($integration->anthropic_key_hint);
+});
+
+test('owner_has_key is false with no integration row and with a removed key', function () {
+    $never = aTeacher();
+    $removed = aTeacher();
+    Integration::factory()->create(['user_id' => $removed->id, 'anthropic_api_key' => null, 'anthropic_key_hint' => null]);
+    $a = Generation::factory()->for($never)->create();
+    $b = Generation::factory()->for($removed)->create();
+    $this->actingAs(generationsAdmin());
+
+    expect($this->get("/admin/generations/{$a->id}")->viewData('page')['props']['generation']['owner_has_key'])->toBeFalse()
+        ->and($this->get("/admin/generations/{$b->id}")->viewData('page')['props']['generation']['owner_has_key'])->toBeFalse();
+});
+
+test('a swept queued run has a finish but no start, so its duration is null; a missing id is a 404', function () {
+    $generation = Generation::factory()->queued()->create(['status' => 'cancelled', 'finished_at' => now()]);
+    $this->actingAs(generationsAdmin());
+
+    $detail = $this->get("/admin/generations/{$generation->id}")->viewData('page')['props']['generation'];
+    expect($detail['started_at'])->toBeNull()
+        ->and($detail['finished_at'])->not->toBeNull()
+        ->and($detail['duration_seconds'])->toBeNull();
+
+    $this->get('/admin/generations/999999')->assertStatus(404);
 });

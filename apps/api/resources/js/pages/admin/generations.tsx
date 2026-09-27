@@ -1,6 +1,6 @@
 import { type BreadcrumbItem } from '@/types';
 import { type AdminGenerationRow, type GenerationFilters, type Paginated } from '@/types/admin';
-import { Head, router } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 
 import HeadingSmall from '@/components/heading-small';
@@ -96,7 +96,11 @@ export default function AdminGenerations({ generations, filters, statuses, notic
                                 <tr key={row.id} className="border-b">
                                     <td className="py-2 pr-4">{row.id}</td>
                                     <td className="py-2 pr-4">{row.user.name}</td>
-                                    <td className="py-2 pr-4">{row.title}</td>
+                                    <td className="py-2 pr-4">
+                                        <Link href={`/admin/generations/${row.id}`} className="underline">
+                                            {row.title}
+                                        </Link>
+                                    </td>
                                     <td className="py-2 pr-4">
                                         {row.subject} / {row.grade_level}
                                     </td>

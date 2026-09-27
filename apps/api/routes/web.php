@@ -36,6 +36,7 @@ Route::middleware(['auth', 'verified', 'active', 'admin'])->prefix('admin')->gro
     Route::delete('materials/{material}', [MaterialAdminController::class, 'destroy']);
 
     Route::get('generations', [GenerationAdminController::class, 'index'])->name('admin.generations');
+    Route::get('generations/{generation}', [GenerationAdminController::class, 'show']);
 });
 
 Route::get('auth/google/redirect', [GoogleOAuthController::class, 'redirect'])->name('oauth.google.redirect');

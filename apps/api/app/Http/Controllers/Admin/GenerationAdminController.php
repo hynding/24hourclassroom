@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\GenerationStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Generation;
+use App\Models\Integration;
 use App\Support\AdminGenerationPayload;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -48,6 +49,23 @@ class GenerationAdminController extends Controller
             // Sent from the server so the page never hardcodes the enum.
             'statuses' => array_column(GenerationStatus::cases(), 'value'),
             // `notice`, not `status`: `status` is already a filter and a row field.
+            'notice' => $request->session()->get('notice'),
+        ]);
+    }
+
+    public function show(Request $request, Generation $generation): Response
+    {
+        $generation->load(['user:id,name,email', 'test:id,title']);
+
+        // The ciphertext column is non-null exactly when a key exists. Read
+        // the column, never apiKey(): no admin page ever decrypts a key.
+        $ownerHasKey = Integration::query()
+            ->where('user_id', $generation->user_id)
+            ->whereNotNull('anthropic_api_key')
+            ->exists();
+
+        return Inertia::render('admin/generation', [
+            'generation' => AdminGenerationPayload::detail($generation, $ownerHasKey),
             'notice' => $request->session()->get('notice'),
         ]);
     }
