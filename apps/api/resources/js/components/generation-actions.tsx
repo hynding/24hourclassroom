@@ -15,7 +15,7 @@ export function GenerationActions({ id, title, live, hasLeftovers }: Props) {
     };
 
     const retryTeardown = () => {
-        if (confirm(`Retry the cleanup for generation #${id}? This talks to Anthropic under the teacher's key.`)) {
+        if (confirm(`Retry the cleanup for generation #${id}? This talks to Anthropic under the teacher's key and spends one teardown attempt.`)) {
             router.post(`/admin/generations/${id}/teardown`, {}, { preserveScroll: true });
         }
     };

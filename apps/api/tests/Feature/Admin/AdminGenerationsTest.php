@@ -341,7 +341,7 @@ test('retrying on a keyless finished run spends an attempt and archives nothing,
 
     $this->from('/admin/generations')->post("/admin/generations/{$generation->id}/teardown")
         ->assertRedirect('/admin/generations')
-        ->assertSessionMissing('notice');
+        ->assertSessionHas('notice', GenerationMessages::LEFTOVERS_REMAIN);
 
     expect($this->fake->calls)->toBe([])
         ->and($generation->fresh()->archived_at)->toBeNull()
@@ -350,4 +350,27 @@ test('retrying on a keyless finished run spends an attempt and archives nothing,
 
     $this->post('/admin/generations/999999/cancel')->assertStatus(404);
     $this->post('/admin/generations/999999/teardown')->assertStatus(404);
+});
+
+test('rows and the detail carry the owner id the teacher links filter on', function () {
+    $owner = aTeacher();
+    $generation = Generation::factory()->for($owner)->create();
+    $this->actingAs(generationsAdmin());
+
+    expect($this->get('/admin/generations')->viewData('page')['props']['generations']['data'][0]['user']['id'])->toBe($owner->id)
+        ->and($this->get("/admin/generations/{$generation->id}")->viewData('page')['props']['generation']['user']['id'])->toBe($owner->id)
+        ->and(listedIds($this->get("/admin/generations?user={$owner->id}")))->toBe([$generation->id]);
+});
+
+test('an admin cancel drops the dashboard metrics cache so the next dashboard view is current', function () {
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create();
+    $this->actingAs(generationsAdmin());
+
+    expect($this->get('/dashboard')->viewData('page')['props']['metrics']['generations']['live'])->toBe(1);
+
+    $this->post("/admin/generations/{$generation->id}/cancel")->assertRedirect();
+
+    expect($this->get('/dashboard')->viewData('page')['props']['metrics']['generations']['live'])->toBe(0);
 });

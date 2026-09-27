@@ -8,9 +8,11 @@ use Illuminate\Contracts\Cache\LockTimeoutException;
 use Illuminate\Support\Facades\Cache;
 
 /**
- * The ONE lock sequence for ending a run or cleaning up after one: lock,
+ * The lock sequence for ending a run or cleaning up after one: lock,
  * re-read, act, release. The teacher's cancel endpoint, the admin page and
- * the sweep all call this rather than carrying their own copy of the dance.
+ * both sweep passes call this rather than carrying their own copy of the
+ * dance. IntegrationTeardown still carries one (a key-removal cancel with
+ * KEY_REMOVED); rewiring it is a follow-up on its own branch.
  *
  * The lock is the same one every poll takes (Generation::lockKey), but
  * blocking: a cancel is a deliberate action and is worth waiting a few

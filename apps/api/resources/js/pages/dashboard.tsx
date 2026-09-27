@@ -86,7 +86,7 @@ function AdminOverview({ metrics }: { metrics: AdminMetrics }) {
                 {generations.leftovers > 0 && (
                     <p className="mt-2">
                         <Link href="/admin/generations?leftovers=1" className="underline">
-                            {generations.leftovers} finished runs with leftovers
+                            {generations.leftovers} finished {generations.leftovers === 1 ? 'run' : 'runs'} with leftovers
                         </Link>
                     </p>
                 )}

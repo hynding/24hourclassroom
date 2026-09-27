@@ -3,7 +3,6 @@
 use App\Enums\GenerationStatus;
 use App\Models\Follow;
 use App\Models\Generation;
-use App\Models\Test;
 use App\Models\User;
 use App\Support\AdminMetrics;
 use Illuminate\Support\Facades\Cache;

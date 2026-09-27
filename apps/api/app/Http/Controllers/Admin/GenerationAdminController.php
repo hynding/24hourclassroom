@@ -11,9 +11,11 @@ use App\Models\Generation;
 use App\Models\Integration;
 use App\Notifications\GenerationModerated;
 use App\Support\AdminGenerationPayload;
+use App\Support\AdminMetrics;
 use App\Support\GenerationMessages;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -86,6 +88,7 @@ class GenerationAdminController extends Controller
         // teacher's own cancel share the canceller and must never notify.
         if ($outcome === CancelOutcome::Cancelled) {
             $generation->user->notify(new GenerationModerated($generation));
+            Cache::forget(AdminMetrics::CACHE_KEY);
         }
 
         return $this->backWith(match ($outcome) {
@@ -97,8 +100,16 @@ class GenerationAdminController extends Controller
 
     public function retryTeardown(Generation $generation): RedirectResponse
     {
-        return $this->backWith(match ($this->canceller->retryTeardown($generation)) {
-            TeardownOutcome::Ran => null,
+        $outcome = $this->canceller->retryTeardown($generation);
+
+        if ($outcome === TeardownOutcome::Ran) {
+            Cache::forget(AdminMetrics::CACHE_KEY);
+        }
+
+        return $this->backWith(match ($outcome) {
+            // A keyless owner's retry spends an attempt and clears nothing;
+            // without this the list looks identical and invites another click.
+            TeardownOutcome::Ran => $generation->refresh()->hasLeftovers() ? GenerationMessages::LEFTOVERS_REMAIN : null,
             TeardownOutcome::NothingToDo => GenerationMessages::NO_LEFTOVERS,
             TeardownOutcome::Busy => GenerationMessages::BUSY,
         });

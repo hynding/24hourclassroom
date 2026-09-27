@@ -45,6 +45,9 @@ final class GenerationMessages
     /** Admin retry-teardown on a clean row -- or a live one, which never has leftovers. */
     public const NO_LEFTOVERS = 'Nothing left to clean up.';
 
+    /** Admin retry-teardown ran but the row still has leftovers (typically a keyless owner). */
+    public const LEFTOVERS_REMAIN = 'Cleanup ran, but this run still has leftovers.';
+
     public static function budget(): string
     {
         return sprintf(

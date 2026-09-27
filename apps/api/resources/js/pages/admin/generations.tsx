@@ -97,7 +97,11 @@ export default function AdminGenerations({ generations, filters, statuses, notic
                             {generations.data.map((row) => (
                                 <tr key={row.id} className="border-b">
                                     <td className="py-2 pr-4">{row.id}</td>
-                                    <td className="py-2 pr-4">{row.user.name}</td>
+                                    <td className="py-2 pr-4">
+                                        <Link href={`/admin/generations?user=${row.user.id}`} className="underline">
+                                            {row.user.name}
+                                        </Link>
+                                    </td>
                                     <td className="py-2 pr-4">
                                         <Link href={`/admin/generations/${row.id}`} className="underline">
                                             {row.title}
