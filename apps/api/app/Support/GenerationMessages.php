@@ -36,6 +36,15 @@ final class GenerationMessages
 
     public const BUSY = 'The generation is busy. Try again.';
 
+    /** Written to `error` by an admin cancel; a teacher's own cancel writes null. */
+    public const CANCELLED_BY_ADMIN = 'Cancelled by an administrator.';
+
+    /** Admin cancel on a row the lock's re-read found already terminal. */
+    public const ALREADY_FINISHED = 'That generation had already finished.';
+
+    /** Admin retry-teardown on a clean row -- or a live one, which never has leftovers. */
+    public const NO_LEFTOVERS = 'Nothing left to clean up.';
+
     public static function budget(): string
     {
         return sprintf(

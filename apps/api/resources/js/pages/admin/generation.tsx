@@ -3,6 +3,7 @@ import { type AdminGenerationDetail } from '@/types/admin';
 import { Head, Link } from '@inertiajs/react';
 import { Fragment, type ReactNode } from 'react';
 
+import { GenerationActions } from '@/components/generation-actions';
 import HeadingSmall from '@/components/heading-small';
 import AppLayout from '@/layouts/app-layout';
 import { formatCents, formatDuration, formatWhen } from '@/lib/admin-format';
@@ -47,6 +48,8 @@ export default function AdminGeneration({ generation, notice }: Props) {
 
             <div className="space-y-6 px-4 py-6">
                 <HeadingSmall title={generation.title} description={`Generation #${generation.id}`} />
+
+                <GenerationActions id={generation.id} title={generation.title} live={generation.live} hasLeftovers={generation.has_leftovers} />
 
                 {notice && <p className="text-muted-foreground text-sm">{notice}</p>}
 

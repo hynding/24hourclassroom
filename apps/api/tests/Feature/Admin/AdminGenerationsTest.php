@@ -5,6 +5,9 @@ use App\Enums\Role;
 use App\Models\Generation;
 use App\Models\Integration;
 use App\Models\User;
+use App\Notifications\GenerationModerated;
+use App\Support\GenerationMessages;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Testing\TestResponse;
 
 function generationsAdmin(): User
@@ -29,6 +32,8 @@ function generationAdminRoutes(Generation $generation): array
     return [
         ['get', '/admin/generations'],
         ['get', "/admin/generations/{$generation->id}"],
+        ['post', "/admin/generations/{$generation->id}/cancel"],
+        ['post', "/admin/generations/{$generation->id}/teardown"],
     ];
 }
 
@@ -213,4 +218,136 @@ test('a swept queued run has a finish but no start, so its duration is null; a m
         ->and($detail['duration_seconds'])->toBeNull();
 
     $this->get('/admin/generations/999999')->assertStatus(404);
+});
+
+test('cancelling a live run tears it down, records the admin reason, and notifies the owner', function () {
+    $owner = aTeacher();
+    $key = withAnthropicKey($owner)->apiKey();
+    $generation = Generation::factory()->for($owner)->create(['session_id' => 'sesn_1', 'file_ids' => ['file_1'], 'title' => 'Volcanoes']);
+    $this->actingAs(generationsAdmin());
+
+    $this->from("/admin/generations/{$generation->id}")
+        ->post("/admin/generations/{$generation->id}/cancel")
+        ->assertRedirect("/admin/generations/{$generation->id}")
+        ->assertSessionMissing('notice');
+
+    $fresh = $generation->fresh();
+    expect($fresh->status)->toBe(GenerationStatus::Cancelled)
+        ->and($fresh->error)->toBe(GenerationMessages::CANCELLED_BY_ADMIN)
+        ->and($fresh->finished_at)->not->toBeNull()
+        ->and($this->fake->calls['interrupt'][0])->toBe([$key, 'sesn_1'])
+        ->and($this->fake->calls['deleteFile'][0])->toBe([$key, 'file_1'])
+        ->and($owner->notifications()->count())->toBe(1)
+        ->and($owner->notifications()->first()->type)->toBe(GenerationModerated::class)
+        ->and($owner->notifications()->first()->data['generation_title'])->toBe('Volcanoes')
+        ->and(array_key_exists('user', $owner->notifications()->first()->data))->toBeFalse();
+});
+
+test('cancelling a finished run changes nothing, sends nothing, and says so', function () {
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->done()->create(['session_id' => 'sesn_1']);
+    $this->actingAs(generationsAdmin());
+
+    $this->from('/admin/generations')
+        ->post("/admin/generations/{$generation->id}/cancel")
+        ->assertRedirect('/admin/generations')
+        ->assertSessionHas('notice', GenerationMessages::ALREADY_FINISHED);
+
+    expect($generation->fresh()->status)->toBe(GenerationStatus::Done)
+        ->and($generation->fresh()->error)->toBeNull()
+        ->and($this->fake->calls)->toBe([])
+        ->and($owner->notifications()->count())->toBe(0);
+});
+
+test('a cancel that cannot take the lock says busy and sends nothing', function () {
+    // NOTE: really waits five seconds -- the blocking window is the contract.
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $generation = Generation::factory()->for($owner)->create();
+    $lock = Cache::lock($generation->lockKey(), 180);
+    expect($lock->get())->toBeTrue();
+    $this->actingAs(generationsAdmin());
+
+    $this->from('/admin/generations')
+        ->post("/admin/generations/{$generation->id}/cancel")
+        ->assertRedirect('/admin/generations')
+        ->assertSessionHas('notice', GenerationMessages::BUSY);
+
+    expect($generation->fresh()->status)->toBe(GenerationStatus::Running)
+        ->and($this->fake->calls)->toBe([])
+        ->and($owner->notifications()->count())->toBe(0);
+
+    $lock->release();
+});
+
+test('retrying the teardown on a finished run with leftovers cleans it up', function () {
+    $owner = aTeacher();
+    $key = withAnthropicKey($owner)->apiKey();
+    $generation = Generation::factory()->for($owner)->create([
+        'status' => 'failed', 'session_id' => 'sesn_9', 'file_ids' => ['file_7'],
+        'archived_at' => null, 'teardown_attempts' => 1, 'finished_at' => now(),
+    ]);
+    $this->actingAs(generationsAdmin());
+
+    $this->from("/admin/generations/{$generation->id}")
+        ->post("/admin/generations/{$generation->id}/teardown")
+        ->assertRedirect("/admin/generations/{$generation->id}")
+        ->assertSessionMissing('notice');
+
+    $generation->refresh();
+    expect($this->fake->calls['deleteFile'][0])->toBe([$key, 'file_7'])
+        ->and($this->fake->calls['archiveSession'][0])->toBe([$key, 'sesn_9'])
+        ->and($generation->file_ids)->toBeNull()
+        ->and($generation->archived_at)->not->toBeNull()
+        ->and($generation->teardown_attempts)->toBe(2)
+        ->and($generation->status)->toBe(GenerationStatus::Failed)
+        ->and($owner->notifications()->count())->toBe(0);
+});
+
+test('retrying on a clean finished run, or on a live one, does nothing and says so', function () {
+    $owner = aTeacher();
+    withAnthropicKey($owner);
+    $clean = Generation::factory()->for($owner)->done()->create(['session_id' => 'sesn_1']);
+    // The blocker regression: a session and no archived_at on a RUNNING row is
+    // a run in progress. The button must not archive it under the teacher.
+    $live = Generation::factory()->for($owner)->create(['session_id' => 'sesn_2', 'archived_at' => null, 'file_ids' => ['file_1']]);
+    $this->actingAs(generationsAdmin());
+
+    $this->from('/admin/generations')->post("/admin/generations/{$clean->id}/teardown")
+        ->assertRedirect('/admin/generations')
+        ->assertSessionHas('notice', GenerationMessages::NO_LEFTOVERS);
+    $this->from('/admin/generations')->post("/admin/generations/{$live->id}/teardown")
+        ->assertRedirect('/admin/generations')
+        ->assertSessionHas('notice', GenerationMessages::NO_LEFTOVERS);
+
+    expect($this->fake->calls)->toBe([])
+        ->and($live->fresh()->status)->toBe(GenerationStatus::Running)
+        ->and($live->fresh()->file_ids)->toBe(['file_1'])
+        ->and($live->fresh()->teardown_attempts)->toBe(0)
+        ->and($clean->fresh()->teardown_attempts)->toBe(0);
+});
+
+test('retrying on a keyless finished run spends an attempt and archives nothing, and a missing id is a 404', function () {
+    // The admin deliberately has neither of the sweep's guards (key present,
+    // attempts < 5): pressing the button on such a row is an informed choice
+    // the detail page warns about.
+    $owner = aTeacher();
+    $generation = Generation::factory()->for($owner)->create([
+        'status' => 'failed', 'session_id' => 'sesn_9', 'file_ids' => ['file_7'],
+        'archived_at' => null, 'teardown_attempts' => 1, 'finished_at' => now(),
+    ]);
+    $this->actingAs(generationsAdmin());
+
+    $this->from('/admin/generations')->post("/admin/generations/{$generation->id}/teardown")
+        ->assertRedirect('/admin/generations')
+        ->assertSessionMissing('notice');
+
+    expect($this->fake->calls)->toBe([])
+        ->and($generation->fresh()->archived_at)->toBeNull()
+        ->and($generation->fresh()->file_ids)->toBe(['file_7'])
+        ->and($generation->fresh()->teardown_attempts)->toBe(2);
+
+    $this->post('/admin/generations/999999/cancel')->assertStatus(404);
+    $this->post('/admin/generations/999999/teardown')->assertStatus(404);
 });

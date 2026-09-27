@@ -37,6 +37,8 @@ Route::middleware(['auth', 'verified', 'active', 'admin'])->prefix('admin')->gro
 
     Route::get('generations', [GenerationAdminController::class, 'index'])->name('admin.generations');
     Route::get('generations/{generation}', [GenerationAdminController::class, 'show']);
+    Route::post('generations/{generation}/cancel', [GenerationAdminController::class, 'cancel']);
+    Route::post('generations/{generation}/teardown', [GenerationAdminController::class, 'retryTeardown']);
 });
 
 Route::get('auth/google/redirect', [GoogleOAuthController::class, 'redirect'])->name('oauth.google.redirect');

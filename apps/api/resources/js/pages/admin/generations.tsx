@@ -3,6 +3,7 @@ import { type AdminGenerationRow, type GenerationFilters, type Paginated } from 
 import { Head, Link, router } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 
+import { GenerationActions } from '@/components/generation-actions';
 import HeadingSmall from '@/components/heading-small';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -89,6 +90,7 @@ export default function AdminGenerations({ generations, filters, statuses, notic
                                 <th className="py-2 pr-4">Started</th>
                                 <th className="py-2 pr-4">Duration</th>
                                 <th className="py-2 pr-4">Leftovers</th>
+                                <th className="py-2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -109,11 +111,14 @@ export default function AdminGenerations({ generations, filters, statuses, notic
                                     <td className="py-2 pr-4">{row.started_at ? formatWhen(row.started_at) : ''}</td>
                                     <td className="py-2 pr-4">{formatDuration(row.duration_seconds)}</td>
                                     <td className="py-2 pr-4">{row.has_leftovers ? 'Yes' : ''}</td>
+                                    <td className="py-2">
+                                        <GenerationActions id={row.id} title={row.title} live={row.live} hasLeftovers={row.has_leftovers} />
+                                    </td>
                                 </tr>
                             ))}
                             {generations.data.length === 0 && (
                                 <tr>
-                                    <td className="py-4" colSpan={9}>
+                                    <td className="py-4" colSpan={10}>
                                         No generations match.
                                     </td>
                                 </tr>

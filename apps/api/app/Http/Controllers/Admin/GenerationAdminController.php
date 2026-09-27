@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Ai\CancelOutcome;
+use App\Ai\GenerationCanceller;
+use App\Ai\TeardownOutcome;
 use App\Enums\GenerationStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Generation;
 use App\Models\Integration;
+use App\Notifications\GenerationModerated;
 use App\Support\AdminGenerationPayload;
+use App\Support\GenerationMessages;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -16,6 +22,8 @@ class GenerationAdminController extends Controller
 {
     /** The one status filter value that is not an enum case: every non-terminal row. */
     private const LIVE = 'live';
+
+    public function __construct(private readonly GenerationCanceller $canceller) {}
 
     public function index(Request $request): Response
     {
@@ -68,5 +76,37 @@ class GenerationAdminController extends Controller
             'generation' => AdminGenerationPayload::detail($generation, $ownerHasKey),
             'notice' => $request->session()->get('notice'),
         ]);
+    }
+
+    public function cancel(Generation $generation): RedirectResponse
+    {
+        $outcome = $this->canceller->cancel($generation, GenerationMessages::CANCELLED_BY_ADMIN);
+
+        // The controller notifies, not the canceller: the sweep and the
+        // teacher's own cancel share the canceller and must never notify.
+        if ($outcome === CancelOutcome::Cancelled) {
+            $generation->user->notify(new GenerationModerated($generation));
+        }
+
+        return $this->backWith(match ($outcome) {
+            CancelOutcome::Cancelled => null,
+            CancelOutcome::AlreadyTerminal => GenerationMessages::ALREADY_FINISHED,
+            CancelOutcome::Busy => GenerationMessages::BUSY,
+        });
+    }
+
+    public function retryTeardown(Generation $generation): RedirectResponse
+    {
+        return $this->backWith(match ($this->canceller->retryTeardown($generation)) {
+            TeardownOutcome::Ran => null,
+            TeardownOutcome::NothingToDo => GenerationMessages::NO_LEFTOVERS,
+            TeardownOutcome::Busy => GenerationMessages::BUSY,
+        });
+    }
+
+    /** `notice`, not `status`: `status` is already a filter and a row field on these pages. */
+    private function backWith(?string $notice): RedirectResponse
+    {
+        return $notice === null ? back() : back()->with('notice', $notice);
     }
 }
