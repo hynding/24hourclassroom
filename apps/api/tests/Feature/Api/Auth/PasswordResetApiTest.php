@@ -19,6 +19,7 @@ test('forgot-password sends a reset link pointing at the SPA', function () {
 
     Notification::assertSentTo($user, ResetPassword::class, function (ResetPassword $notification) use ($user) {
         $url = $notification->toMail($user)->actionUrl;
+
         return str_starts_with($url, 'https://24hourclassroom.com/reset-password?token=');
     });
 });

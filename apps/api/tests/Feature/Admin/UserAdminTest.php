@@ -162,10 +162,10 @@ test('a non-admin cannot tell an existing user id from a nonexistent one on the 
     $this->actingAs(User::factory()->create(['role' => 'teacher']));
 
     $probes = [
-        ['patch', "/admin/users/%d/role", ['role' => 'student']],
-        ['patch', "/admin/users/%d/deactivate", []],
-        ['patch', "/admin/users/%d/reactivate", []],
-        ['delete', "/admin/users/%d/profile-content", []],
+        ['patch', '/admin/users/%d/role', ['role' => 'student']],
+        ['patch', '/admin/users/%d/deactivate', []],
+        ['patch', '/admin/users/%d/reactivate', []],
+        ['delete', '/admin/users/%d/profile-content', []],
     ];
 
     foreach ($probes as [$verb, $template, $payload]) {
