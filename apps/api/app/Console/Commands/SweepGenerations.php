@@ -2,13 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Ai\SessionTeardown;
-use App\Enums\GenerationStatus;
+use App\Ai\CancelOutcome;
+use App\Ai\GenerationCanceller;
+use App\Ai\TeardownOutcome;
 use App\Models\Generation;
 use App\Support\GenerationMessages;
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Cache\LockTimeoutException;
-use Illuminate\Support\Facades\Cache;
 
 class SweepGenerations extends Command
 {
@@ -16,7 +15,7 @@ class SweepGenerations extends Command
 
     protected $description = 'Cancel generations that have been running longer than generation.max_run_minutes';
 
-    public function handle(SessionTeardown $teardown): int
+    public function handle(GenerationCanceller $canceller): int
     {
         $cutoff = now()->subMinutes((int) config('generation.max_run_minutes'));
         $cancelled = 0;
@@ -39,33 +38,16 @@ class SweepGenerations extends Command
 
         foreach ($rows as $generation) {
             $touched[] = $generation->id;
-            $lock = Cache::lock($generation->lockKey(), 180);
 
-            try {
-                // Blocking, unlike a poll: the sweep has nothing better to do
-                // and a run mid-advance is worth waiting five seconds for.
-                $lock->block(5);
-            } catch (LockTimeoutException) {
-                $this->warn("Generation {$generation->id} is busy; skipped.");
-
-                continue;
-            }
-
-            try {
-                // The poll that held the lock may have finished the run while
-                // we waited.
-                $generation->refresh();
-
-                if ($generation->isTerminal()) {
-                    continue;
-                }
-
-                $teardown->run($generation);
-                $generation->markTerminal(GenerationStatus::Cancelled, GenerationMessages::TIMED_OUT);
-                $cancelled++;
-            } finally {
-                $lock->release();
-            }
+            // Blocking, unlike a poll: the sweep has nothing better to do and a
+            // run mid-advance is worth waiting five seconds for. The canceller
+            // re-reads the row under the lock, so a poll that finished the run
+            // while we waited comes back AlreadyTerminal and is left alone.
+            match ($canceller->cancel($generation, GenerationMessages::TIMED_OUT)) {
+                CancelOutcome::Cancelled => $cancelled++,
+                CancelOutcome::Busy => $this->warn("Generation {$generation->id} is busy; skipped."),
+                CancelOutcome::AlreadyTerminal => null,
+            };
         }
 
         // Second pass -- give-ups. SessionTeardown keeps the file ids it could
@@ -87,31 +69,14 @@ class SweepGenerations extends Command
             ->get();
 
         foreach ($leftovers as $generation) {
-            $lock = Cache::lock($generation->lockKey(), 180);
-
-            try {
-                $lock->block(5);
-            } catch (LockTimeoutException) {
-                $this->warn("Generation {$generation->id} is busy; skipped.");
-
-                continue;
-            }
-
-            try {
-                $generation->refresh();
-
-                // A poll or a cancel may have finished the job while we waited
-                // for the lock. Re-reading the predicate on the committed row
-                // keeps the count honest and saves the row an attempt.
-                if (! $generation->hasLeftovers()) {
-                    continue;
-                }
-
-                $teardown->run($generation);
-                $retried++;
-            } finally {
-                $lock->release();
-            }
+            // NothingToDo: a poll or a cancel finished the cleanup while we
+            // waited for the lock. The re-read under the lock keeps the count
+            // honest and saves the row an attempt.
+            match ($canceller->retryTeardown($generation)) {
+                TeardownOutcome::Ran => $retried++,
+                TeardownOutcome::Busy => $this->warn("Generation {$generation->id} is busy; skipped."),
+                TeardownOutcome::NothingToDo => null,
+            };
         }
 
         $this->info("Cancelled {$cancelled} generation(s); retried {$retried} teardown(s).");
