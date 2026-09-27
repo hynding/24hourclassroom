@@ -79,12 +79,8 @@ class SweepGenerations extends Command
         // making a single call. The ciphertext column is non-null exactly when
         // a key exists.
         $retried = 0;
-        $leftovers = Generation::query()
-            ->whereIn('status', GenerationStatus::terminal())
+        $leftovers = Generation::withLeftovers()
             ->where('teardown_attempts', '<', 5)
-            ->where(fn ($q) => $q
-                ->whereNotNull('file_ids')
-                ->orWhere(fn ($q) => $q->whereNotNull('session_id')->whereNull('archived_at')))
             ->whereHas('user.integration', fn ($q) => $q->whereNotNull('anthropic_api_key'))
             ->whereNotIn('id', $touched)
             ->orderBy('id')
@@ -107,7 +103,7 @@ class SweepGenerations extends Command
                 // A poll or a cancel may have finished the job while we waited
                 // for the lock. Re-reading the predicate on the committed row
                 // keeps the count honest and saves the row an attempt.
-                if (! $this->hasLeftovers($generation)) {
+                if (! $generation->hasLeftovers()) {
                     continue;
                 }
 
@@ -121,12 +117,5 @@ class SweepGenerations extends Command
         $this->info("Cancelled {$cancelled} generation(s); retried {$retried} teardown(s).");
 
         return self::SUCCESS;
-    }
-
-    /** Anything SessionTeardown left behind: undeleted uploads, or a session it never archived. */
-    private function hasLeftovers(Generation $generation): bool
-    {
-        return $generation->file_ids !== null
-            || ($generation->session_id !== null && $generation->archived_at === null);
     }
 }
