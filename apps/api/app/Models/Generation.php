@@ -82,6 +82,29 @@ class Generation extends Model
         $query->whereNotIn('status', GenerationStatus::terminal());
     }
 
+    /**
+     * Anything SessionTeardown left behind on a FINISHED run: undeleted
+     * uploads, or a session it never archived. Terminal-only by definition --
+     * a live run has a session and no archived_at by construction, and that
+     * is a run in progress, not a leftover. Every reader (the sweep's second
+     * pass, the admin page's Retry button and filter, the dashboard count)
+     * shares this one predicate; scopeWithLeftovers() is the same in SQL.
+     */
+    public function hasLeftovers(): bool
+    {
+        return $this->isTerminal()
+            && ($this->file_ids !== null
+                || ($this->session_id !== null && $this->archived_at === null));
+    }
+
+    public function scopeWithLeftovers(Builder $query): void
+    {
+        $query->whereIn('status', GenerationStatus::terminal())
+            ->where(fn (Builder $q) => $q
+                ->whereNotNull('file_ids')
+                ->orWhere(fn (Builder $q) => $q->whereNotNull('session_id')->whereNull('archived_at')));
+    }
+
     /** The cache-lock key every advance, cancel and teardown takes for this row. */
     public function lockKey(): string
     {
