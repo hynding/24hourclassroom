@@ -32,7 +32,15 @@ type Paginated<T> = {
     next_page_url: string | null;
 };
 
-export default function AdminUsers({ users, filters }: { users: Paginated<AdminUser>; filters: { q: string | null } }) {
+export default function AdminUsers({
+    users,
+    filters,
+    notice,
+}: {
+    users: Paginated<AdminUser>;
+    filters: { q: string | null };
+    notice: string | null;
+}) {
     const [search, setSearch] = useState(filters.q ?? '');
 
     const submitSearch: FormEventHandler = (e) => {
@@ -47,6 +55,8 @@ export default function AdminUsers({ users, filters }: { users: Paginated<AdminU
 
             <div className="space-y-6 px-4 py-6">
                 <HeadingSmall title="Users" description="Open a user to see their account and act on it." />
+
+                {notice && <p className="text-muted-foreground text-sm">{notice}</p>}
 
                 <form onSubmit={submitSearch} className="flex items-end gap-2">
                     <div className="grid gap-2">

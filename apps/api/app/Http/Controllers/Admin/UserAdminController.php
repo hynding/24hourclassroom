@@ -43,7 +43,11 @@ class UserAdminController extends Controller
                 'active' => $user->isActive(),
             ]);
 
-        return Inertia::render('admin/users', ['users' => $users, 'filters' => ['q' => $term]]);
+        return Inertia::render('admin/users', [
+            'users' => $users,
+            'filters' => ['q' => $term],
+            'notice' => $request->session()->get('notice'),
+        ]);
     }
 
     public function show(Request $request, User $user): Response

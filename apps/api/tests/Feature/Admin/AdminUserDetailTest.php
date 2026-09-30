@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Storage;
 
 function adminUser(): User
@@ -236,7 +237,14 @@ test('resend sends the verification mail once and refuses a verified user', func
 test('the admin resend has its own six-per-minute bucket', function () {
     Notification::fake();
     $target = User::factory()->unverified()->create(['role' => 'teacher']);
-    $this->actingAs(adminUser());
+    $admin = adminUser();
+    $this->actingAs($admin);
+
+    // An inline throttle:6,1 keys on sha1(user id) with no prefix and would
+    // already be exhausted here -- the named admin-resend bucket must not be.
+    foreach (range(1, 6) as $i) {
+        RateLimiter::hit(sha1((string) $admin->id), 60);
+    }
 
     foreach (range(1, 6) as $i) {
         $this->post("/admin/users/{$target->id}/verification")->assertRedirect();
@@ -314,7 +322,8 @@ test('the key-removed notice composes every case', function () {
     expect(AdminMessages::keyRemoved(0, 0))->toBeNull()
         ->and(AdminMessages::keyRemoved(3, 0))->toBe('Key removed. 3 live generations were cancelled.')
         ->and(AdminMessages::keyRemoved(0, 2))->toBe('Key removed. 2 generations could not be cancelled and are still running.')
-        ->and(AdminMessages::keyRemoved(2, 1))->toBe('Key removed. 2 live generations were cancelled; 1 could not be cancelled and is still running.');
+        ->and(AdminMessages::keyRemoved(2, 1))->toBe('Key removed. 2 live generations were cancelled; 1 could not be cancelled and is still running.')
+        ->and(AdminMessages::keyRemoved(1, 2))->toBe('Key removed. 1 live generation was cancelled; 2 could not be cancelled and are still running.');
 });
 
 test('delete refuses an active account, then requires the exact email', function () {
@@ -388,6 +397,9 @@ test('a delete that loses the lock says so and deletes nothing', function () {
 
     $this->from("/admin/users/{$teacher->id}")->delete("/admin/users/{$teacher->id}", ['confirmation' => 'k@example.com'])
         ->assertRedirect('/admin/users')->assertSessionHas('notice', AdminMessages::ALREADY_DELETING);
+
+    // The flash survives one request: the list page must actually render it.
+    expect($this->get('/admin/users')->assertOk()->viewData('page')['props']['notice'])->toBe(AdminMessages::ALREADY_DELETING);
 
     expect(User::find($teacher->id))->not->toBeNull()
         ->and($this->fake->calls)->toBe([]);

@@ -91,8 +91,14 @@ class UserAccountController extends Controller
             return back()->with('notice', AdminMessages::DEACTIVATE_FIRST);
         }
 
-        $request->merge(['confirmation' => trim((string) $request->input('confirmation'))]);
-        $request->validate(['confirmation' => ['required', 'string', Rule::in([$user->email])]]);
+        // is_string() first: trim() on an array ("confirmation[]=x") would
+        // raise instead of failing validation with a clean 422.
+        $confirmation = $request->input('confirmation');
+        $request->merge(['confirmation' => is_string($confirmation) ? trim($confirmation) : $confirmation]);
+        $request->validate(
+            ['confirmation' => ['required', 'string', Rule::in([$user->email])]],
+            ['confirmation.in' => 'That is not this account\'s email address.'],
+        );
 
         if (! AccountDeleter::delete($user)) {
             return redirect('/admin/users')->with('notice', AdminMessages::ALREADY_DELETING);
