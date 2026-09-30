@@ -17,6 +17,7 @@ Route::middleware(['auth', 'verified', 'active'])->group(function () {
 
 Route::middleware(['auth', 'verified', 'active', 'admin'])->prefix('admin')->group(function () {
     Route::get('users', [UserAdminController::class, 'index'])->name('admin.users');
+    Route::get('users/{user}', [UserAdminController::class, 'show'])->name('admin.users.show');
     Route::patch('users/{user}/role', [UserAdminController::class, 'updateRole']);
     Route::patch('users/{user}/deactivate', [UserAdminController::class, 'deactivate']);
     Route::patch('users/{user}/reactivate', [UserAdminController::class, 'reactivate']);

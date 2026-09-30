@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Notifications\ProfileModerated;
 use App\Support\AdminMetrics;
 use App\Support\AdminTarget;
+use App\Support\AdminUserPayload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -43,6 +44,16 @@ class UserAdminController extends Controller
             ]);
 
         return Inertia::render('admin/users', ['users' => $users, 'filters' => ['q' => $term]]);
+    }
+
+    public function show(Request $request, User $user): Response
+    {
+        $actor = $request->user();
+
+        return Inertia::render('admin/user', [
+            'detail' => AdminUserPayload::detail($user, AdminTarget::isActionable($actor, $user), $user->id === $actor->id),
+            'notice' => $request->session()->get('notice'),
+        ]);
     }
 
     public function updateRole(Request $request, User $user): RedirectResponse

@@ -50,6 +50,53 @@ export type CostWindow = { cents: number; unpriced: number };
 
 export type ContentCounts = { public: number; private: number; published_30d: number };
 
+export type AdminRelated = { id: number; name: string; role: string };
+
+export type AdminUserDetail = {
+    user: {
+        id: number;
+        name: string;
+        email: string;
+        /** A Role value. The page never branches on it: use actionable / role_options. */
+        role: string;
+        email_verified_at: string | null;
+        created_at: string;
+        deactivated_at: string | null;
+        google_linked: boolean;
+        is_self: boolean;
+        actionable: boolean;
+        /** Roles this target may be changed to, server-built by allowlist. */
+        role_options: string[];
+    };
+    profile: {
+        bio: string | null;
+        school: string | null;
+        specialties: string | null;
+        subjects: string[];
+        grade_levels: string[];
+        avatar_url: string | null;
+    } | null;
+    integration: { has_key: boolean; key_hint: string | null; key_verified_at: string | null; provisioned: boolean } | null;
+    counts: {
+        tests: Record<string, number>;
+        materials: Record<string, number>;
+        generations_live: number;
+        generations_total: number;
+        attempts_taken: number;
+        attempts_received: number;
+        assignments: number;
+        shares_out: number;
+        tokens: number;
+    };
+    following: { follow_id: number; user: AdminRelated }[];
+    followers: { follow_id: number; user: AdminRelated }[];
+    connections: { id: number; counterpart: AdminRelated; status: string; created_at: string }[];
+    tests: { id: number; title: string; visibility: string; published_at: string | null; question_count: number }[];
+    materials: { id: number; title: string; visibility: string; size_bytes: number; published_at: string | null }[];
+    generations: AdminGenerationRow[];
+    notifications: { type: string; message: string | null; created_at: string; read_at: string | null }[];
+};
+
 export type AdminMetrics = {
     people: {
         by_role: { teacher: number; student: number; admin: number };
