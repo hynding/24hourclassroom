@@ -6,8 +6,11 @@ use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Notifications\ProfileModerated;
+use App\Support\AdminMetrics;
+use App\Support\AdminTarget;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -44,7 +47,7 @@ class UserAdminController extends Controller
 
     public function updateRole(Request $request, User $user): RedirectResponse
     {
-        $this->refuseSelf($request, $user);
+        AdminTarget::assertActionable($request->user(), $user);
 
         $validated = $request->validate([
             // Admin is granted by hand on purpose. Allowing it here would let
@@ -54,12 +57,14 @@ class UserAdminController extends Controller
 
         $user->update(['role' => $validated['role']]);
 
+        Cache::forget(AdminMetrics::CACHE_KEY);
+
         return back();
     }
 
     public function deactivate(Request $request, User $user): RedirectResponse
     {
-        $this->refuseSelf($request, $user);
+        AdminTarget::assertActionable($request->user(), $user);
 
         // forceFill, not update(): `deactivated_at` is deliberately absent from
         // User::$fillable so it cannot be mass-assigned through a profile
@@ -67,18 +72,26 @@ class UserAdminController extends Controller
         // deactivate button that does nothing.
         $user->forceFill(['deactivated_at' => now()])->save();
 
+        Cache::forget(AdminMetrics::CACHE_KEY);
+
         return back();
     }
 
     public function reactivate(Request $request, User $user): RedirectResponse
     {
+        AdminTarget::assertActionable($request->user(), $user);
+
         $user->forceFill(['deactivated_at' => null])->save();
+
+        Cache::forget(AdminMetrics::CACHE_KEY);
 
         return back();
     }
 
-    public function clearProfileContent(User $user): RedirectResponse
+    public function clearProfileContent(Request $request, User $user): RedirectResponse
     {
+        AdminTarget::assertActionable($request->user(), $user);
+
         $profile = $user->profile;
 
         if ($profile) {
@@ -97,11 +110,5 @@ class UserAdminController extends Controller
         $user->notify(new ProfileModerated);
 
         return back();
-    }
-
-    /** An admin removing their own access has no recovery short of tinker. */
-    private function refuseSelf(Request $request, User $user): void
-    {
-        abort_if($user->id === $request->user()->id, 403);
     }
 }

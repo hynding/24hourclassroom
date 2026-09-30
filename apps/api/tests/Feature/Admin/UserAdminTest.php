@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Role;
 use App\Models\Connection;
 use App\Models\Follow;
 use App\Models\Profile;
@@ -190,4 +191,28 @@ test('an admin still gets 404 for a user id that does not exist', function () {
     $this->actingAs(admin());
 
     $this->patch('/admin/users/999999/deactivate')->assertStatus(404);
+});
+
+test('the four existing actions refuse an admin target', function () {
+    // Admin accounts are managed from the shell (user:promote / user:demote):
+    // a stolen admin session must not be able to remove or silence another admin.
+    $this->actingAs(admin());
+    $other = User::factory()->create(['role' => 'admin']);
+
+    $this->patch("/admin/users/{$other->id}/role", ['role' => 'teacher'])->assertStatus(403);
+    $this->patch("/admin/users/{$other->id}/deactivate")->assertStatus(403);
+    $this->patch("/admin/users/{$other->id}/reactivate")->assertStatus(403);
+    $this->delete("/admin/users/{$other->id}/profile-content")->assertStatus(403);
+
+    expect($other->fresh()->role)->toBe(Role::Admin)
+        ->and($other->fresh()->isActive())->toBeTrue()
+        ->and($other->notifications()->count())->toBe(0);
+});
+
+test('reactivate and profile-content refuse self like the other two', function () {
+    $me = admin();
+    $this->actingAs($me);
+
+    $this->patch("/admin/users/{$me->id}/reactivate")->assertStatus(403);
+    $this->delete("/admin/users/{$me->id}/profile-content")->assertStatus(403);
 });
