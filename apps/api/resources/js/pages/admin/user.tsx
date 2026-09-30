@@ -1,10 +1,14 @@
 import { type BreadcrumbItem } from '@/types';
 import { type AdminRelated, type AdminUserDetail } from '@/types/admin';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { Fragment, type ReactNode } from 'react';
 
 import { ConfirmButton } from '@/components/confirm-button';
 import HeadingSmall from '@/components/heading-small';
+import InputError from '@/components/input-error';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import AppLayout from '@/layouts/app-layout';
 import { formatBytes, formatCents, formatDuration, formatWhen } from '@/lib/admin-format';
@@ -44,6 +48,64 @@ function RelatedLink({ user }: { user: AdminRelated }) {
 const TABLE = 'w-full text-left text-sm';
 const TH = 'py-2 pr-4';
 const TD = 'py-2 pr-4';
+
+function plural(n: number, singular: string, pluralForm = `${singular}s`): string {
+    return `${n} ${n === 1 ? singular : pluralForm}`;
+}
+
+/** One clause per non-zero count; never branched on role. */
+function deletionConsequences(counts: AdminUserDetail['counts']): string {
+    const total = (record: Record<string, number>) => Object.values(record).reduce((a, b) => a + b, 0);
+    const clauses = [
+        counts.attempts_received > 0 &&
+            `${plural(counts.attempts_received, 'attempt')} other students submitted on this user's tests, and their answers`,
+        counts.attempts_taken > 0 &&
+            `${plural(counts.attempts_taken, 'attempt')} this user submitted on other teachers' tests, and the grades on them`,
+        counts.assignments > 0 && plural(counts.assignments, 'assignment'),
+        counts.shares_out > 0 && `${plural(counts.shares_out, 'share')} of their materials with other users`,
+        total(counts.tests) > 0 && `${plural(total(counts.tests), 'test')} of their own`,
+        total(counts.materials) > 0 && `${plural(total(counts.materials), 'material')} and their files`,
+        counts.tokens > 0 && plural(counts.tokens, 'MCP token'),
+        'their Anthropic environment, agent and sessions',
+    ].filter((c): c is string => typeof c === 'string');
+    const joined = clauses.length === 1 ? clauses[0] : `${clauses.slice(0, -1).join(', ')} and ${clauses[clauses.length - 1]}`;
+    return `Deleting this account also deletes ${joined}.`;
+}
+
+function DeleteBlock({ user, counts }: { user: AdminUserDetail['user']; counts: AdminUserDetail['counts'] }) {
+    const form = useForm({ confirmation: '' });
+    const matches = form.data.confirmation.trim() === user.email;
+
+    if (user.deactivated_at === null) {
+        return <p className="text-sm">Deactivate the account first. Deletion is permanent and only available on a deactivated account.</p>;
+    }
+
+    return (
+        <div className="space-y-2">
+            <p className="text-sm">{deletionConsequences(counts)}</p>
+            <p className="text-muted-foreground text-sm">
+                Grades other teachers gave on those answers are lost; copies other users made of their tests keep their rows but lose the link back.
+            </p>
+            <div className="grid max-w-md gap-2">
+                <Label htmlFor="confirmation">Type the email to confirm</Label>
+                <Input id="confirmation" value={form.data.confirmation} onChange={(e) => form.setData('confirmation', e.target.value)} />
+                <InputError message={form.errors.confirmation} />
+            </div>
+            <Button
+                type="button"
+                variant="destructive"
+                disabled={!matches || form.processing}
+                onClick={() => {
+                    if (confirm(`Delete ${user.email}? This cannot be undone.`)) {
+                        form.delete(`/admin/users/${user.id}`);
+                    }
+                }}
+            >
+                Delete account
+            </Button>
+        </div>
+    );
+}
 
 export default function AdminUser({ detail, notice }: Props) {
     const { user, profile, integration, counts } = detail;
@@ -106,7 +168,22 @@ export default function AdminUser({ detail, notice }: Props) {
                                         confirm={`Deactivate ${user.name}? They will be signed out and cannot sign in until reactivated.`}
                                     />
                                 )}
-                                {/* verification actions */}
+                                {!user.email_verified_at && (
+                                    <>
+                                        <ConfirmButton
+                                            label="Resend verification"
+                                            method="post"
+                                            url={`${userUrl}/verification`}
+                                            confirm={`Resend the verification email to ${user.email}?`}
+                                        />
+                                        <ConfirmButton
+                                            label="Force-verify"
+                                            method="patch"
+                                            url={`${userUrl}/verify`}
+                                            confirm={`Mark ${user.email} as verified without an email? Only do this when the holder has proven they own the address.`}
+                                        />
+                                    </>
+                                )}
                                 <ConfirmButton
                                     label="Clear profile content"
                                     variant="destructive"
@@ -114,9 +191,31 @@ export default function AdminUser({ detail, notice }: Props) {
                                     url={`${userUrl}/profile-content`}
                                     confirm={`Clear ${user.name}'s bio, specialties and avatar? They will be notified.`}
                                 />
-                                {/* key action */}
+                                {integration?.has_key && (
+                                    <ConfirmButton
+                                        label="Clear Anthropic key"
+                                        variant="destructive"
+                                        method="delete"
+                                        url={`${userUrl}/anthropic-key`}
+                                        confirm="Removes the key, cancels any live generations, and notifies the teacher. Continue?"
+                                    />
+                                )}
                             </div>
-                            {/* delete block */}
+                            {!user.email_verified_at && (
+                                <div className="text-muted-foreground space-y-1 text-sm">
+                                    <p>
+                                        Resend: sent through the configured mailer; where mail is not deliverable in this environment it will not
+                                        arrive.
+                                    </p>
+                                    <p>
+                                        Force-verify: only when the holder has proven they own this address out of band. Verifying an address they do
+                                        not own creates a live account on it, and a later Google sign-in with that address links into this account.
+                                    </p>
+                                </div>
+                            )}
+                            <Separator />
+                            <h3 className="font-medium">Delete account</h3>
+                            <DeleteBlock user={user} counts={counts} />
                         </div>
                     )}
                 </Section>
@@ -365,8 +464,6 @@ export default function AdminUser({ detail, notice }: Props) {
                         </tbody>
                     </table>
                 </Section>
-
-                <Separator />
             </div>
         </AppLayout>
     );

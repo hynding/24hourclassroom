@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\GenerationStatus;
 use App\Enums\Role;
 use App\Enums\Visibility;
 use App\Models\Assignment;
@@ -8,10 +9,24 @@ use App\Models\Connection;
 use App\Models\Follow;
 use App\Models\Generation;
 use App\Models\Integration;
+use App\Models\MaterialShare;
 use App\Models\Profile;
+use App\Models\Test;
 use App\Models\User;
+use App\Notifications\GenerationModerated;
+use App\Notifications\IntegrationModerated;
 use App\Notifications\ProfileModerated;
+use App\Support\AdminMessages;
+use App\Support\AdminMetrics;
+use App\Support\GenerationMessages;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 
 function adminUser(): User
@@ -201,4 +216,182 @@ test('a missing user id is a 404 for an admin', function () {
     $this->actingAs(adminUser());
 
     $this->get('/admin/users/999999')->assertStatus(404);
+});
+
+test('resend sends the verification mail once and refuses a verified user', function () {
+    Notification::fake();
+    $unverified = User::factory()->unverified()->create(['role' => 'teacher']);
+    $verified = aTeacher();
+    $this->actingAs(adminUser());
+
+    $this->from("/admin/users/{$unverified->id}")->post("/admin/users/{$unverified->id}/verification")
+        ->assertRedirect("/admin/users/{$unverified->id}")->assertSessionMissing('notice');
+    Notification::assertSentToTimes($unverified, VerifyEmail::class, 1);
+
+    $this->from("/admin/users/{$verified->id}")->post("/admin/users/{$verified->id}/verification")
+        ->assertRedirect()->assertSessionHas('notice', AdminMessages::ALREADY_VERIFIED);
+    Notification::assertNotSentTo($verified, VerifyEmail::class);
+});
+
+test('the admin resend has its own six-per-minute bucket', function () {
+    Notification::fake();
+    $target = User::factory()->unverified()->create(['role' => 'teacher']);
+    $this->actingAs(adminUser());
+
+    foreach (range(1, 6) as $i) {
+        $this->post("/admin/users/{$target->id}/verification")->assertRedirect();
+    }
+    $this->post("/admin/users/{$target->id}/verification")->assertStatus(429);
+});
+
+test('force-verify sets the timestamp, fires Verified, leaves deactivation alone, logs, and drops the cache', function () {
+    Event::fake([Verified::class]);
+    Log::spy();
+    $target = User::factory()->unverified()->create(['role' => 'teacher', 'deactivated_at' => now()]);
+    $admin = adminUser();
+    $this->actingAs($admin);
+    $this->get('/dashboard'); // prime the metrics cache
+    expect(Cache::has(AdminMetrics::CACHE_KEY))->toBeTrue();
+
+    $this->from("/admin/users/{$target->id}")->patch("/admin/users/{$target->id}/verify")
+        ->assertRedirect("/admin/users/{$target->id}")->assertSessionMissing('notice');
+
+    expect($target->fresh()->email_verified_at)->not->toBeNull()
+        ->and($target->fresh()->deactivated_at)->not->toBeNull()
+        ->and(Cache::has(AdminMetrics::CACHE_KEY))->toBeFalse();
+    Event::assertDispatched(Verified::class, fn (Verified $e) => $e->user->id === $target->id);
+    Log::shouldHaveReceived('info')->withArgs(fn ($message, $context) => $context['admin_id'] === $admin->id && $context['user_id'] === $target->id)->once();
+
+    $this->patch("/admin/users/{$target->id}/verify")->assertSessionHas('notice', AdminMessages::ALREADY_VERIFIED);
+});
+
+test('clear-key tears down, notifies once, composes the notice, and refuses a keyless account before any teardown', function () {
+    $teacher = aTeacher();
+    $key = withAnthropicKey($teacher)->apiKey();
+    $live = Generation::factory()->for($teacher)->create(['session_id' => 'sesn_1']);
+    $this->actingAs(adminUser());
+
+    $this->from("/admin/users/{$teacher->id}")->delete("/admin/users/{$teacher->id}/anthropic-key")
+        ->assertRedirect("/admin/users/{$teacher->id}")
+        ->assertSessionHas('notice', 'Key removed. 1 live generation was cancelled.');
+
+    expect($live->fresh()->status)->toBe(GenerationStatus::Cancelled)
+        ->and($live->fresh()->error)->toBe(GenerationMessages::KEY_REMOVED)
+        ->and($this->fake->calls['interrupt'][0])->toBe([$key, 'sesn_1'])
+        ->and($teacher->notifications()->where('type', IntegrationModerated::class)->count())->toBe(1)
+        ->and($teacher->notifications()->where('type', GenerationModerated::class)->count())->toBe(0)
+        ->and(detailFor($teacher)['integration']['has_key'])->toBeFalse();
+
+    // Keyless now: a second click must not tear anything down.
+    $stillLive = Generation::factory()->for($teacher)->create(['session_id' => 'sesn_2']);
+    $this->fake = fakeAnthropic();
+    $this->from("/admin/users/{$teacher->id}")->delete("/admin/users/{$teacher->id}/anthropic-key")
+        ->assertRedirect()->assertSessionHas('notice', AdminMessages::NO_KEY);
+    expect($this->fake->calls)->toBe([])
+        ->and($stillLive->fresh()->status)->toBe(GenerationStatus::Running)
+        ->and($teacher->notifications()->where('type', IntegrationModerated::class)->count())->toBe(1);
+});
+
+test('clear-key names a run it could not cancel', function () {
+    // NOTE: really waits five seconds -- the blocking window is the contract.
+    $teacher = aTeacher();
+    withAnthropicKey($teacher);
+    $busy = Generation::factory()->for($teacher)->create(['session_id' => 'sesn_busy']);
+    $lock = Cache::lock($busy->lockKey(), 180);
+    expect($lock->get())->toBeTrue();
+    $this->actingAs(adminUser());
+
+    $this->from("/admin/users/{$teacher->id}")->delete("/admin/users/{$teacher->id}/anthropic-key")
+        ->assertSessionHas('notice', 'Key removed. 1 generation could not be cancelled and is still running.');
+
+    expect($busy->fresh()->status)->toBe(GenerationStatus::Running)
+        ->and(\App\Support\AdminUserPayload::hasKey($teacher))->toBeFalse();
+
+    $lock->release();
+});
+
+test('the key-removed notice composes every case', function () {
+    expect(AdminMessages::keyRemoved(0, 0))->toBeNull()
+        ->and(AdminMessages::keyRemoved(3, 0))->toBe('Key removed. 3 live generations were cancelled.')
+        ->and(AdminMessages::keyRemoved(0, 2))->toBe('Key removed. 2 generations could not be cancelled and are still running.')
+        ->and(AdminMessages::keyRemoved(2, 1))->toBe('Key removed. 2 live generations were cancelled; 1 could not be cancelled and is still running.');
+});
+
+test('delete refuses an active account, then requires the exact email', function () {
+    $teacher = aTeacher(['email' => 'k@example.com']);
+    $this->actingAs(adminUser());
+
+    $this->from("/admin/users/{$teacher->id}")->delete("/admin/users/{$teacher->id}", ['confirmation' => 'k@example.com'])
+        ->assertRedirect("/admin/users/{$teacher->id}")->assertSessionHas('notice', AdminMessages::DEACTIVATE_FIRST);
+    expect(User::find($teacher->id))->not->toBeNull();
+
+    $teacher->forceFill(['deactivated_at' => now()])->save();
+
+    $this->from("/admin/users/{$teacher->id}")->delete("/admin/users/{$teacher->id}")->assertSessionHasErrors('confirmation');
+    $this->from("/admin/users/{$teacher->id}")->delete("/admin/users/{$teacher->id}", ['confirmation' => 'wrong@example.com'])->assertSessionHasErrors('confirmation');
+    $this->from("/admin/users/{$teacher->id}")->delete("/admin/users/{$teacher->id}", ['confirmation' => 'K@example.com'])->assertSessionHasErrors('confirmation');
+    expect(User::find($teacher->id))->not->toBeNull()
+        ->and($this->fake->calls)->toBe([]);
+});
+
+test('delete removes the account and everything the spec names, and a second delete is a 404', function () {
+    Log::spy();
+    $teacher = aTeacher(['email' => 'k@example.com']);
+    $teacher->forceFill(['deactivated_at' => now()])->save();
+    $key = withAnthropicKey($teacher)->apiKey();
+    $student = aStudent();
+    $peer = aTeacher();
+    Profile::factory()->for($teacher)->create(['avatar_path' => 'avatars/k.jpg']);
+    Storage::disk('public')->put('avatars/k.jpg', 'bytes');
+    $test = aTestWithQuestions($teacher, 2);
+    $copy = aTestWithQuestions($peer, 1, ['copied_from_id' => $test->id]);
+    Attempt::create(['test_id' => $test->id, 'student_id' => $student->id, 'started_at' => now()]);
+    $material = aMaterial($teacher);
+    shareWith($material, $student);
+    Follow::create(['follower_id' => $student->id, 'followed_id' => $teacher->id]);
+    connectAccepted($teacher, $peer);
+    Generation::factory()->for($teacher)->create(['session_id' => 'sesn_1']);
+    $teacher->createToken('Claude Code', ['mcp']);
+    $teacher->notify(new ProfileModerated);
+    $admin = adminUser();
+    $this->actingAs($admin);
+    $this->get('/dashboard');
+
+    $this->from("/admin/users/{$teacher->id}")->delete("/admin/users/{$teacher->id}", ['confirmation' => '  k@example.com '])
+        ->assertRedirect('/admin/users')->assertSessionMissing('notice');
+
+    expect(User::find($teacher->id))->toBeNull()
+        ->and(Storage::disk('public')->exists('avatars/k.jpg'))->toBeFalse()
+        ->and(Storage::disk(config('materials.disk'))->exists($material->path))->toBeFalse()
+        ->and(DB::table('personal_access_tokens')->count())->toBe(0)
+        ->and(DB::table('notifications')->where('notifiable_id', $teacher->id)->count())->toBe(0)
+        ->and(Attempt::count())->toBe(0) // the student's work on the teacher's test: the documented cost
+        ->and(MaterialShare::count())->toBe(0)
+        ->and(Follow::count())->toBe(0)
+        ->and(Connection::count())->toBe(0)
+        ->and(Test::find($copy->id)->copied_from_id)->toBeNull()
+        ->and($this->fake->calls['interrupt'][0])->toBe([$key, 'sesn_1'])
+        ->and(Cache::has(AdminMetrics::CACHE_KEY))->toBeFalse();
+    Log::shouldHaveReceived('info')->withArgs(fn ($message, $context) => ($context['user_id'] ?? null) === $teacher->id && $context['admin_id'] === $admin->id)->once();
+
+    $this->delete("/admin/users/{$teacher->id}", ['confirmation' => 'k@example.com'])->assertStatus(404);
+});
+
+test('a delete that loses the lock says so and deletes nothing', function () {
+    // NOTE: really waits five seconds.
+    Log::spy();
+    $teacher = aTeacher(['email' => 'k@example.com']);
+    $teacher->forceFill(['deactivated_at' => now()])->save();
+    $lock = Cache::lock("user-delete:{$teacher->id}", 120);
+    expect($lock->get())->toBeTrue();
+    $this->actingAs(adminUser());
+
+    $this->from("/admin/users/{$teacher->id}")->delete("/admin/users/{$teacher->id}", ['confirmation' => 'k@example.com'])
+        ->assertRedirect('/admin/users')->assertSessionHas('notice', AdminMessages::ALREADY_DELETING);
+
+    expect(User::find($teacher->id))->not->toBeNull()
+        ->and($this->fake->calls)->toBe([]);
+    Log::shouldNotHaveReceived('info');
+
+    $lock->release();
 });
