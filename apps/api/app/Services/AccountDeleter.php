@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Contracts\Cache\LockTimeoutException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -22,6 +23,10 @@ use Illuminate\Support\Facades\Storage;
  * transaction for the rows nothing cascades (notifications, tokens) and the
  * user row itself; the foreign keys cascade the rest. The avatar file is
  * unlinked only after that commit.
+ *
+ * The lock is a deliberate 120 s, not longer: a crashed holder would wedge
+ * the user's own self-delete (which ignores the return value and logs them
+ * out) for the whole TTL, and a lapse costs only duplicate no-op deletes.
  */
 final class AccountDeleter
 {
@@ -62,8 +67,8 @@ final class AccountDeleter
                 $user->delete();
             });
 
-            if ($avatarPath !== null) {
-                Storage::disk('public')->delete($avatarPath);
+            if ($avatarPath !== null && ! Storage::disk('public')->delete($avatarPath)) {
+                Log::warning('Failed to delete an avatar file', ['path' => $avatarPath]);
             }
 
             return true;

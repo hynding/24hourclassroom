@@ -23,7 +23,7 @@ type Props = {
 export function ConfirmButton({ label, confirm: question, method, url, data, disabled, variant = 'outline', size, preserveScroll = true }: Props) {
     const onClick = () => {
         if (confirm(question)) {
-            router.visit(url, { method, data, preserveScroll });
+            router.visit(url, { method, data: data ?? {}, preserveScroll, preserveState: true });
         }
     };
 

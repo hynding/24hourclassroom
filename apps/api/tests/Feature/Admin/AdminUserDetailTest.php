@@ -49,19 +49,46 @@ beforeEach(function () {
     $this->fake = fakeAnthropic();
 });
 
-test('non-admin roles cannot open a user detail page and a guest is sent to login', function () {
+/** Every new admin route of this sub-project, for the allowlist and guest loops. */
+function moderationRoutes(User $target, Follow $follow, Connection $connection): array
+{
+    return [
+        ['get', "/admin/users/{$target->id}", []],
+        ['post', "/admin/users/{$target->id}/verification", []],
+        ['patch', "/admin/users/{$target->id}/verify", []],
+        ['delete', "/admin/users/{$target->id}/anthropic-key", []],
+        ['delete', "/admin/users/{$target->id}", ['confirmation' => $target->email]],
+        ['delete', "/admin/follows/{$follow->id}", []],
+        ['delete', "/admin/connections/{$connection->id}", []],
+    ];
+}
+
+test('non-admin roles cannot reach any moderation route and a guest is sent to login', function () {
     $target = aTeacher();
+    $target->forceFill(['deactivated_at' => now()])->save();
+    $peer = aTeacher();
+    $follow = Follow::create(['follower_id' => $peer->id, 'followed_id' => $target->id]);
+    $connection = connectAccepted($target, $peer);
 
     foreach (Role::cases() as $role) {
         if ($role === Role::Admin) {
             continue;
         }
         $this->actingAs(User::factory()->create(['role' => $role->value]));
-        $this->get("/admin/users/{$target->id}")->assertStatus(403);
+        foreach (moderationRoutes($target, $follow, $connection) as [$verb, $url, $body]) {
+            $this->{$verb}($url, $body)->assertStatus(403);
+        }
     }
 
     $this->app['auth']->forgetGuards();
-    $this->get("/admin/users/{$target->id}")->assertRedirect('/login');
+    foreach (moderationRoutes($target, $follow, $connection) as [$verb, $url, $body]) {
+        $this->{$verb}($url, $body)->assertRedirect('/login');
+    }
+
+    expect(User::find($target->id))->not->toBeNull()
+        ->and(Follow::count())->toBe(1)
+        ->and(Connection::count())->toBe(1)
+        ->and($this->fake->calls)->toBe([]);
 });
 
 test('a user with nothing renders every empty state and creates no integration row', function () {
@@ -211,6 +238,20 @@ test('content and notifications are the newest ten, with live question counts an
         ->and($detail['notifications'][0]['type'])->toBe('ProfileModerated')
         ->and($detail['notifications'][0]['message'])->toBeString()
         ->and($detail['notifications'][0]['read_at'])->toBeNull();
+});
+
+test('received notifications are ordered by sequence, newest first, even within one second', function () {
+    $teacher = aTeacher();
+    $teacher->notify(new ProfileModerated);
+    $teacher->notify(new ProfileModerated);
+    // Same created_at for both rows: only `sequence` can order them.
+    DB::table('notifications')->update(['created_at' => now()->subMinute()]);
+    $last = DB::table('notifications')->orderByDesc('sequence')->value('id');
+    DB::table('notifications')->where('id', $last)->update(['data' => json_encode(['message' => 'newest'])]);
+
+    $detail = detailFor($teacher);
+
+    expect($detail['notifications'][0]['message'])->toBe('newest');
 });
 
 test('a missing user id is a 404 for an admin', function () {

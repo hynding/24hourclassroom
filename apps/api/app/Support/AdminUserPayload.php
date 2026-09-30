@@ -140,8 +140,8 @@ final class AdminUserPayload
             'attempts_taken' => Attempt::where('student_id', $target->id)->count(),
             // By OTHER users: the number the Delete block quotes as other students' work.
             'attempts_received' => Attempt::whereIn('test_id', $testIds)->where('student_id', '!=', $target->id)->count(),
-            // Either side; a student is never a teacher_id and vice versa, so
-            // this equals the role-dependent count without a role branch.
+            // Either side, so the number survives a role change (a demoted
+            // teacher keeps their teacher_id rows; a promoted student their student_id rows).
             'assignments' => Assignment::where('student_id', $target->id)->orWhere('teacher_id', $target->id)->count(),
             'shares_out' => MaterialShare::whereIn('material_id', $materialIds)->count(),
             'tokens' => $target->tokens()->count(),
@@ -246,6 +246,7 @@ final class AdminUserPayload
     private static function notifications(User $target): array
     {
         return $target->notifications()
+            ->reorder('sequence', 'desc')
             ->limit(self::CONTENT_LIMIT)
             ->get()
             ->map(fn (DatabaseNotification $n) => [
