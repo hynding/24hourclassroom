@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Ai\AnthropicGateway;
+use App\Ai\AnthropicKeyRemover;
 use App\Ai\Exceptions\AnthropicRejected;
 use App\Ai\Exceptions\AnthropicUnavailable;
 use App\Ai\IntegrationTeardown;
@@ -64,17 +65,9 @@ class AnthropicKeyController extends Controller
         return response()->json(IntegrationsPayload::for($user)['anthropic']);
     }
 
-    public function destroy(Request $request): Response
+    public function destroy(Request $request, AnthropicKeyRemover $remover): Response
     {
-        $user = $request->user();
-
-        $this->teardown->forUser($user);
-
-        Integration::forUser($user)->forceFill([
-            'anthropic_api_key' => null,
-            'anthropic_key_hint' => null,
-            'anthropic_key_verified_at' => null,
-        ])->save();
+        $remover->forUser($request->user());
 
         return response()->noContent();
     }
