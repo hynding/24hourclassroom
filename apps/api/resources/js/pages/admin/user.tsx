@@ -290,7 +290,15 @@ export default function AdminUser({ detail, notice }: Props) {
                                     </td>
                                     <td className={TD}>{c.status}</td>
                                     <td className={TD}>{formatWhen(c.created_at)}</td>
-                                    <td className="py-2">{/* connection remove */}</td>
+                                    <td className="py-2">
+                                        <ConfirmButton
+                                            label="Remove"
+                                            size="sm"
+                                            method="delete"
+                                            url={`/admin/connections/${c.id}`}
+                                            confirm="Removing a connection revokes the teacher's grading access to already-submitted attempts and hides shared materials until they reconnect. Continue?"
+                                        />
+                                    </td>
                                 </tr>
                             ))}
                             {detail.connections.length === 0 && (
@@ -319,7 +327,15 @@ export default function AdminUser({ detail, notice }: Props) {
                                         <td className={TD}>
                                             <RelatedLink user={f.user} /> ({f.user.role})
                                         </td>
-                                        <td className="py-2">{/* follow remove */}</td>
+                                        <td className="py-2">
+                                            <ConfirmButton
+                                                label="Remove"
+                                                size="sm"
+                                                method="delete"
+                                                url={`/admin/follows/${f.follow_id}`}
+                                                confirm="Remove this follow?"
+                                            />
+                                        </td>
                                     </tr>
                                 ))}
                                 {detail[direction].length === 0 && (

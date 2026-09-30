@@ -160,13 +160,21 @@ test('a non-admin cannot tell an existing user id from a nonexistent one on the 
     config(['app.debug' => false]);
 
     $victim = User::factory()->create(['role' => 'teacher']);
-    $this->actingAs(User::factory()->create(['role' => 'teacher']));
+    $probe = User::factory()->create(['role' => 'teacher']);
+    $this->actingAs($probe);
+    $follow = Follow::create(['follower_id' => $probe->id, 'followed_id' => $victim->id]);
+    $connection = Connection::create(['requester_id' => $victim->id, 'addressee_id' => $probe->id, 'status' => 'pending', 'pair_key' => Connection::pairKey($victim->id, $probe->id)]);
 
     $probes = [
         ['patch', '/admin/users/%d/role', ['role' => 'student']],
         ['patch', '/admin/users/%d/deactivate', []],
         ['patch', '/admin/users/%d/reactivate', []],
         ['delete', '/admin/users/%d/profile-content', []],
+        ['get', '/admin/users/%d', []],
+        ['post', '/admin/users/%d/verification', []],
+        ['patch', '/admin/users/%d/verify', []],
+        ['delete', '/admin/users/%d/anthropic-key', []],
+        ['delete', '/admin/users/%d', ['confirmation' => 'x']],
     ];
 
     foreach ($probes as [$verb, $template, $payload]) {
@@ -177,6 +185,17 @@ test('a non-admin cannot tell an existing user id from a nonexistent one on the 
             ->and($missing->status())->toBe($existing->status())
             ->and($missing->getContent())->toBe($existing->getContent());
     }
+
+    foreach ([['/admin/follows/%d', $follow->id], ['/admin/connections/%d', $connection->id]] as [$template, $id]) {
+        $existing = $this->delete(sprintf($template, $id));
+        $missing = $this->delete(sprintf($template, 999999));
+
+        expect($existing->status())->toBe(403)
+            ->and($missing->status())->toBe(403)
+            ->and($missing->getContent())->toBe($existing->getContent());
+    }
+
+    expect(Follow::count())->toBe(1)->and(Connection::count())->toBe(1);
 
     // The probe must also be a no-op, or the oracle is the least of it.
     expect($victim->fresh()->isActive())->toBeTrue()

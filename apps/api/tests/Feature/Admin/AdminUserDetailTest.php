@@ -407,3 +407,73 @@ test('a delete that loses the lock says so and deletes nothing', function () {
 
     $lock->release();
 });
+
+test('removing a follow or a connection deletes only that row, silently, even when one party is an admin', function () {
+    Log::spy();
+    $teacher = aTeacher();
+    $student = aStudent();
+    $otherAdmin = User::factory()->create(['role' => 'admin']);
+    $follow = Follow::create(['follower_id' => $otherAdmin->id, 'followed_id' => $teacher->id]);
+    $pending = Connection::create(['requester_id' => $student->id, 'addressee_id' => $teacher->id, 'status' => 'pending', 'pair_key' => Connection::pairKey($student->id, $teacher->id)]);
+    $test = aTestWithQuestions($teacher, 1);
+    Assignment::create(['test_id' => $test->id, 'student_id' => $student->id, 'teacher_id' => $teacher->id]);
+    Attempt::create(['test_id' => $test->id, 'student_id' => $student->id, 'started_at' => now()]);
+    shareWith(aMaterial($teacher), $student);
+    $admin = adminUser();
+    $this->actingAs($admin);
+    $this->get('/dashboard');
+
+    $this->from("/admin/users/{$teacher->id}")->delete("/admin/follows/{$follow->id}")
+        ->assertRedirect("/admin/users/{$teacher->id}")->assertSessionMissing('notice');
+    $this->from("/admin/users/{$teacher->id}")->delete("/admin/connections/{$pending->id}")
+        ->assertRedirect("/admin/users/{$teacher->id}")->assertSessionMissing('notice');
+
+    expect(Follow::count())->toBe(0)
+        ->and(Connection::count())->toBe(0)
+        ->and(Assignment::count())->toBe(1)
+        ->and(Attempt::count())->toBe(1)
+        ->and(MaterialShare::count())->toBe(1)
+        ->and(DB::table('notifications')->count())->toBe(0)
+        ->and(Cache::has(AdminMetrics::CACHE_KEY))->toBeFalse();
+    Log::shouldHaveReceived('info')->twice();
+
+    $this->delete('/admin/follows/999999')->assertStatus(404);
+    $this->delete('/admin/connections/999999')->assertStatus(404);
+});
+
+test('every account action is 403 on an admin target and on self, with no state change', function (string $verb, string $path, array $body) {
+    $me = adminUser();
+    $other = User::factory()->create(['role' => 'admin']);
+    withAnthropicKey($other);
+    $this->actingAs($me);
+
+    $this->{$verb}(sprintf($path, $other->id), $body)->assertStatus(403);
+    $this->{$verb}(sprintf($path, $me->id), $body)->assertStatus(403);
+
+    expect($other->fresh()->role)->toBe(Role::Admin)
+        ->and($other->fresh()->isActive())->toBeTrue()
+        ->and(User::find($other->id))->not->toBeNull()
+        ->and(\App\Support\AdminUserPayload::hasKey($other))->toBeTrue()
+        ->and($this->fake->calls)->toBe([]);
+})->with([
+    'role' => ['patch', '/admin/users/%d/role', ['role' => 'teacher']],
+    'deactivate' => ['patch', '/admin/users/%d/deactivate', []],
+    'reactivate' => ['patch', '/admin/users/%d/reactivate', []],
+    'profile-content' => ['delete', '/admin/users/%d/profile-content', []],
+    'verification' => ['post', '/admin/users/%d/verification', []],
+    'verify' => ['patch', '/admin/users/%d/verify', []],
+    'anthropic-key' => ['delete', '/admin/users/%d/anthropic-key', []],
+    'destroy' => ['delete', '/admin/users/%d', ['confirmation' => 'x']],
+]);
+
+test('a role change is visible on the dashboard without waiting for the cache', function () {
+    $teacher = aTeacher();
+    $this->actingAs(adminUser());
+    $before = $this->get('/dashboard')->viewData('page')['props']['metrics']['people']['by_role']; // primes the cache
+
+    $this->patch("/admin/users/{$teacher->id}/role", ['role' => 'student']);
+
+    $after = $this->get('/dashboard')->viewData('page')['props']['metrics']['people']['by_role'];
+    expect($after['teacher'])->toBe($before['teacher'] - 1)
+        ->and($after['student'])->toBe($before['student'] + 1);
+});

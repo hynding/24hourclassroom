@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\GenerationAdminController;
 use App\Http\Controllers\Admin\MaterialAdminController;
+use App\Http\Controllers\Admin\RelationshipAdminController;
 use App\Http\Controllers\Admin\SiteThemeController;
 use App\Http\Controllers\Admin\TestAdminController;
 use App\Http\Controllers\Admin\UserAccountController;
@@ -45,6 +46,9 @@ Route::middleware(['auth', 'verified', 'active', 'admin'])->prefix('admin')->gro
     Route::get('generations/{generation}', [GenerationAdminController::class, 'show']);
     Route::post('generations/{generation}/cancel', [GenerationAdminController::class, 'cancel']);
     Route::post('generations/{generation}/teardown', [GenerationAdminController::class, 'retryTeardown']);
+
+    Route::delete('follows/{follow}', [RelationshipAdminController::class, 'removeFollow']);
+    Route::delete('connections/{connection}', [RelationshipAdminController::class, 'removeConnection']);
 });
 
 Route::get('auth/google/redirect', [GoogleOAuthController::class, 'redirect'])->name('oauth.google.redirect');
