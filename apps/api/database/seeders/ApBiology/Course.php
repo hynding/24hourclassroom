@@ -288,9 +288,9 @@ final class Course
 
     public static function endsWithAttribution(string $markdown): bool
     {
-        $tail = substr(rtrim($markdown), -1200);
+        $tail = mb_strtolower(substr(rtrim($markdown), -1200));
         foreach (self::ATTRIBUTION_MARKERS as $marker) {
-            if (! str_contains($tail, $marker)) {
+            if (! str_contains($tail, mb_strtolower($marker))) {
                 return false;
             }
         }
