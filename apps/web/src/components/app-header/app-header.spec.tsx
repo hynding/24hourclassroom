@@ -41,6 +41,7 @@ describe('app-header bell', () => {
     recoverFromExpiredSession.mockReset().mockReturnValue(false);
     currentUser.value = null;
     listener = () => {};
+    siteConfig = { identity: { name: 'Night School', tagline: null } };
   });
 
   it('shows the unread badge for a signed-in verified user', async () => {

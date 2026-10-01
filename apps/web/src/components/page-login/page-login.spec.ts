@@ -7,6 +7,10 @@ jest.mock('../../services/site-store', () => ({ siteStore: { get config() { retu
 import { PageLogin } from './page-login';
 
 describe('page-login', () => {
+  beforeEach(() => {
+    config = { registration: { open: true, message: null } };
+  });
+
   it('renders email/password fields and a Google link', async () => {
     const page = await newSpecPage({ components: [PageLogin], html: '<page-login></page-login>' });
     const root = page.root.shadowRoot;
