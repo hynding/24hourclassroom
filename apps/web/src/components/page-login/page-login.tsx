@@ -1,7 +1,9 @@
-import { Component, Env, h, State } from '@stencil/core';
+import { Component, Env, h, Listen, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
+import type { SiteConfig } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
+import { siteStore } from '../../services/site-store';
 
 @Component({ tag: 'page-login', styleUrl: 'page-login.css', shadow: true })
 export class PageLogin {
@@ -9,6 +11,12 @@ export class PageLogin {
   @State() password = '';
   @State() errors: Record<string, string[]> = {};
   @State() busy = false;
+  @State() site: SiteConfig = siteStore.config;
+
+  @Listen('site:changed', { target: 'window' })
+  onSiteChanged() {
+    this.site = siteStore.config;
+  }
 
   private get googleUrl(): string {
     return `${Env.apiBaseUrl}/auth/google/redirect`;
@@ -31,6 +39,10 @@ export class PageLogin {
 
   private get accountDeactivated(): boolean {
     return this.errorParam === 'deactivated';
+  }
+
+  private get registrationClosed(): boolean {
+    return this.errorParam === 'registration_closed';
   }
 
   private onSubmit = async (event: Event) => {
@@ -67,6 +79,7 @@ export class PageLogin {
             This account has been deactivated. Contact support if you think that's a mistake.
           </p>
         )}
+        {this.registrationClosed && <p class="notice">{this.site.registration.message ?? 'Registration is closed.'}</p>}
         <form onSubmit={this.onSubmit}>
           <label>
             Email

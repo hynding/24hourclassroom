@@ -1,15 +1,22 @@
 import { Component, h, Listen, Prop, State } from '@stencil/core';
-import type { User } from '@24hc/shared';
+import type { SiteConfig, User } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { profileStore } from '../../services/profile-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { navigate } from '../../services/navigate';
+import { siteStore } from '../../services/site-store';
 import { StaleIdentityError } from '../../services/stale-identity';
 
 @Component({ tag: 'app-header', styleUrl: 'app-header.css', shadow: true })
 export class AppHeader {
   @State() user: User | null = null;
   @State() unread = 0;
+  @State() site: SiteConfig = siteStore.config;
+
+  @Listen('site:changed', { target: 'window' })
+  onSiteChanged() {
+    this.site = siteStore.config;
+  }
 
   /** reflect: true is load-bearing -- app-header.css keys on :host([orientation]). */
   @Prop({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
@@ -102,7 +109,7 @@ export class AppHeader {
   render() {
     return (
       <header>
-        <a class="wordmark" href="/" onClick={(e) => this.onNav(e, '/')}>24 Hour Classroom</a>
+        <a class="wordmark" href="/" onClick={(e) => this.onNav(e, '/')}>{this.site.identity.name}</a>
         <nav>
           <a href="/teachers" onClick={(e) => this.onNav(e, '/teachers')}>Teachers</a>
           <a href="/library" onClick={(e) => this.onNav(e, '/library')}>Library</a>

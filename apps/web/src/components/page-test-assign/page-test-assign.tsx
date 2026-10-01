@@ -115,7 +115,7 @@ export class PageTestAssign {
         <h1>Assign "{this.test.title}"</h1>
         {this.error && <p class="error">{this.error}</p>}
         {this.results && (
-          <p class="notice">{assignedCount} assigned{missedCount ? `, ${missedCount} could not be assigned` : ''}.</p>
+          <p class="assigned">{assignedCount} assigned{missedCount ? `, ${missedCount} could not be assigned` : ''}.</p>
         )}
 
         <form onSubmit={(e) => { e.preventDefault(); this.assign(); }}>

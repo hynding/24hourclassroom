@@ -22,6 +22,9 @@ jest.mock('../../services/auth-store', () => ({
   },
 }));
 
+let siteConfig: any = { identity: { name: 'Night School', tagline: null } };
+jest.mock('../../services/site-store', () => ({ siteStore: { get config() { return siteConfig; } } }));
+
 // Deliberately NOT mocked: app-header does a real `instanceof` against it,
 // and it lives outside profile-store precisely so the mock above cannot
 // replace the constructor with an impostor.
@@ -171,7 +174,15 @@ describe('app-header bell', () => {
 
   it('marks the brand link as the wordmark', async () => {
     const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
-    expect(spec.root.shadowRoot.querySelector('a.wordmark')?.textContent).toContain('24 Hour Classroom');
+    expect(spec.root.shadowRoot.querySelector('a.wordmark')?.textContent).toContain('Night School');
+  });
+
+  it('re-renders the wordmark on site:changed', async () => {
+    const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    siteConfig = { identity: { name: 'Day School', tagline: null } };
+    spec.win.dispatchEvent(new (spec.win as any).CustomEvent('site:changed'));
+    await spec.waitForChanges();
+    expect(spec.root.shadowRoot.querySelector('a.wordmark')?.textContent).toContain('Day School');
   });
 
   it('shows Tests for teachers and students only, and Library for everyone', async () => {
