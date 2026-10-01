@@ -44,8 +44,12 @@ directions. Add a case to one, add it to the other.
 
 **Theming.** The site owner picks layout (`stacked|rail`), palette
 (`noon|evening|slate|afternoon`), and typeset (`editorial|modern`) at
-`/admin/site-theme`. Stored in a single-row `site_settings` table, served by
-`GET /api/site` (throttle-only — no `auth`, no `active`). The SPA applies it via
+`/admin/site-theme`. Stored in a single-row `site_settings` table beside the
+site name, tagline, registration switch and announcement banner (edited at
+`/admin/site`), all served as one config by `GET /api/site` (throttle-only —
+no `auth`, no `active`). The SPA caches the theme under `24hc.theme.v1` (read
+by the inline boot script) and the whole config under `24hc.site.v1`;
+`applyTheme` is the only writer of the first. The SPA applies it via
 `data-palette`/`data-typeset` on `<html>`, an inline pre-paint boot script in
 `index.html`, and one `app-layout` component switched by a reflected prop.
 
@@ -91,13 +95,22 @@ the admin surface is gated on `['auth','verified','active','admin']` and the
 role alone won't get you in. Without the flag those gates are left untouched and
 the command warns you which one is still closed.
 
-The admin UI is Inertia on the **API host** (`/admin/users`, `/admin/site-theme`),
-not the Stencil SPA. Log in there, not on the SPA host.
+The admin UI is Inertia on the **API host** (`/admin/users`,
+`/admin/users/{user}`, `/admin/site-theme`, `/admin/site`, `/admin/tests`,
+`/admin/materials`, `/admin/generations`), not the Stencil SPA. Log in there,
+not on the SPA host.
 
 Middleware order in `bootstrap/app.php` is load-bearing: `EnsureUserIsAdmin` is
 prepended ahead of `SubstituteBindings` so `/admin/users/{user}` isn't an
 existence oracle, and `active` ahead of `admin` so a deactivated non-admin is
 redirected rather than told 403. Don't add admin routes that bypass those aliases.
+
+**Registration can be closed** from `/admin/site`. Every path that creates a
+`users` row goes through `App\Support\Registration` (`assertOpen()` on the
+JSON entry points, `isOpen()` + redirect on the web register page, the OAuth
+callback's new-account branch); `RegistrationGateTest` scans `app/` for
+`User::create(` and fails until a new creator is gated. Shell commands,
+seeders and factories are deliberately ungated.
 
 ## Gotchas
 
@@ -110,6 +123,15 @@ Regression tests iterate `Role::cases()` so a fourth role is invalid-by-default.
 keys an authenticated request on `sha1(user id)` alone, so a signed-in user has
 a single 60/min budget spanning the public directory *and* the authenticated
 endpoints. Tuning either number tunes both.
+
+**All guest requests share one per-IP throttle bucket.** `ThrottleRequests`
+keys a guest on `sha1(domain|ip)` with no route component, and the limit is
+not part of the key, so `GET /api/site` (60/min) and the four `throttle:6,1`
+auth routes (`/api/auth/register`, `forgot-password`, `reset-password`,
+`oauth/complete`) increment one counter: six page loads can spend the
+registration budget. The web `POST /register` and `POST /login` carry no
+throttle middleware. In Pest, keep any one test under six guest requests
+through throttled routes.
 
 **Notification payloads are frozen at write time.** Redaction is read-time, not
 retroactive — a promoted teacher's old `ConnectionRequested` still carries
