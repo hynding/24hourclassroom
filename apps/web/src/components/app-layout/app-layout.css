@@ -16,14 +16,29 @@ main {
   padding: var(--space-4);
 }
 
-/* Rail: header becomes a left column spanning both rows. */
+/* Rail: banner across the top, header a left column spanning the rest.
+ * Two elements in one slot would both match ::slotted([slot='header']) and
+ * collide in this grid, so the banner has its own slot. */
 :host([layout='rail']) .shell {
   display: grid;
   grid-template-columns: 14rem 1fr;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr auto; /* banner (0 when empty) / page / footer */
+}
+:host([layout='rail']) ::slotted([slot='banner']) {
+  grid-column: 1 / -1;
+  grid-row: 1;
 }
 :host([layout='rail']) ::slotted([slot='header']) {
-  grid-row: 1 / -1;
+  grid-column: 1;
+  grid-row: 2 / -1;
+}
+:host([layout='rail']) main {
+  grid-column: 2;
+  grid-row: 2;
+}
+:host([layout='rail']) ::slotted([slot='footer']) {
+  grid-column: 2;
+  grid-row: 3;
 }
 
 /* Breakpoint literal is duplicated in app-header.css (custom properties
@@ -46,6 +61,7 @@ main {
    * trailing blank sheet out of the printer. Print has no viewport to fill. */
   min-height: auto;
 }
+:host([bare]) ::slotted([slot='banner']),
 :host([bare]) ::slotted([slot='header']),
 :host([bare]) ::slotted([slot='footer']) {
   display: none;

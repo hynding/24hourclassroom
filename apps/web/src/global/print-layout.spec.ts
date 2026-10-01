@@ -37,3 +37,23 @@ describe('app-layout print (bare) shell', () => {
     expect(bare['min-height']).toBe('auto');
   });
 });
+
+describe('app-layout rail grid with the banner slot', () => {
+  it('reserves an auto row for the banner above the page', () => {
+    expect(declarations(ruleBody(":host([layout='rail']) .shell"))['grid-template-rows']).toBe('auto 1fr auto');
+  });
+
+  it('places the banner across both columns and the header beneath it', () => {
+    const banner = declarations(ruleBody(":host([layout='rail']) ::slotted([slot='banner'])"));
+    expect(banner['grid-column']).toBe('1 / -1');
+    expect(banner['grid-row']).toBe('1');
+    const header = declarations(ruleBody(":host([layout='rail']) ::slotted([slot='header'])"));
+    expect(header['grid-row']).toBe('2 / -1');
+    expect(declarations(ruleBody(":host([layout='rail']) main"))['grid-row']).toBe('2');
+    expect(declarations(ruleBody(":host([layout='rail']) ::slotted([slot='footer'])"))['grid-row']).toBe('3');
+  });
+
+  it('hides the banner under [bare]', () => {
+    expect(css.replace(/\/\*[\s\S]*?\*\//g, '')).toMatch(/:host\(\[bare\]\) ::slotted\(\[slot='banner'\]\)[^{]*\{[^}]*display:\s*none/);
+  });
+});
