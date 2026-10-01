@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
+import { formatBytes } from '@/lib/admin-format';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Admin', href: '/admin/materials' }];
 
@@ -21,14 +22,6 @@ type AdminMaterial = {
 };
 
 type Paginated<T> = { data: T[]; current_page: number; last_page: number; prev_page_url: string | null; next_page_url: string | null };
-
-// Binary units labelled KB/MB, so the 10,485,760-byte cap reads "10 MB" and
-// matches the server's message.
-function formatBytes(bytes: number): string {
-    if (bytes < 1024) return `${bytes} B`;
-    if (bytes < 1048576) return `${(bytes / 1024).toFixed(1)} KB`;
-    return `${(bytes / 1048576).toFixed(1)} MB`;
-}
 
 export default function AdminMaterials({ materials, filters }: { materials: Paginated<AdminMaterial>; filters: { q: string | null } }) {
     const [search, setSearch] = useState(filters.q ?? '');

@@ -71,5 +71,13 @@ class AppServiceProvider extends ServiceProvider
         // only as a guard, in case that ordering ever changes.
         RateLimiter::for('mcp', fn (Request $request) => Limit::perMinute(60)
             ->by('mcp:'.($request->user()?->currentAccessToken()?->id ?? $request->ip())));
+
+        // The admin's resend-verification button. A NAMED limiter: an inline
+        // throttle:6,1 keys on sha1(user id) with no prefix and would share
+        // one counter with both throttle:60,1 API groups (the CLAUDE.md
+        // shared-bucket gotcha), so an admin who had just used the SPA would
+        // get a raw 429 on their first click.
+        RateLimiter::for('admin-resend', fn (Request $request) => Limit::perMinute(6)
+            ->by('admin-resend:'.($request->user()?->id ?? $request->ip())));
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Role;
 use App\Models\Connection;
 use App\Models\Follow;
 use App\Models\Profile;
@@ -159,13 +160,21 @@ test('a non-admin cannot tell an existing user id from a nonexistent one on the 
     config(['app.debug' => false]);
 
     $victim = User::factory()->create(['role' => 'teacher']);
-    $this->actingAs(User::factory()->create(['role' => 'teacher']));
+    $probe = User::factory()->create(['role' => 'teacher']);
+    $this->actingAs($probe);
+    $follow = Follow::create(['follower_id' => $probe->id, 'followed_id' => $victim->id]);
+    $connection = Connection::create(['requester_id' => $victim->id, 'addressee_id' => $probe->id, 'status' => 'pending', 'pair_key' => Connection::pairKey($victim->id, $probe->id)]);
 
     $probes = [
         ['patch', '/admin/users/%d/role', ['role' => 'student']],
         ['patch', '/admin/users/%d/deactivate', []],
         ['patch', '/admin/users/%d/reactivate', []],
         ['delete', '/admin/users/%d/profile-content', []],
+        ['get', '/admin/users/%d', []],
+        ['post', '/admin/users/%d/verification', []],
+        ['patch', '/admin/users/%d/verify', []],
+        ['delete', '/admin/users/%d/anthropic-key', []],
+        ['delete', '/admin/users/%d', ['confirmation' => 'x']],
     ];
 
     foreach ($probes as [$verb, $template, $payload]) {
@@ -176,6 +185,17 @@ test('a non-admin cannot tell an existing user id from a nonexistent one on the 
             ->and($missing->status())->toBe($existing->status())
             ->and($missing->getContent())->toBe($existing->getContent());
     }
+
+    foreach ([['/admin/follows/%d', $follow->id], ['/admin/connections/%d', $connection->id]] as [$template, $id]) {
+        $existing = $this->delete(sprintf($template, $id));
+        $missing = $this->delete(sprintf($template, 999999));
+
+        expect($existing->status())->toBe(403)
+            ->and($missing->status())->toBe(403)
+            ->and($missing->getContent())->toBe($existing->getContent());
+    }
+
+    expect(Follow::count())->toBe(1)->and(Connection::count())->toBe(1);
 
     // The probe must also be a no-op, or the oracle is the least of it.
     expect($victim->fresh()->isActive())->toBeTrue()
@@ -190,4 +210,28 @@ test('an admin still gets 404 for a user id that does not exist', function () {
     $this->actingAs(admin());
 
     $this->patch('/admin/users/999999/deactivate')->assertStatus(404);
+});
+
+test('the four existing actions refuse an admin target', function () {
+    // Admin accounts are managed from the shell (user:promote / user:demote):
+    // a stolen admin session must not be able to remove or silence another admin.
+    $this->actingAs(admin());
+    $other = User::factory()->create(['role' => 'admin']);
+
+    $this->patch("/admin/users/{$other->id}/role", ['role' => 'teacher'])->assertStatus(403);
+    $this->patch("/admin/users/{$other->id}/deactivate")->assertStatus(403);
+    $this->patch("/admin/users/{$other->id}/reactivate")->assertStatus(403);
+    $this->delete("/admin/users/{$other->id}/profile-content")->assertStatus(403);
+
+    expect($other->fresh()->role)->toBe(Role::Admin)
+        ->and($other->fresh()->isActive())->toBeTrue()
+        ->and($other->notifications()->count())->toBe(0);
+});
+
+test('reactivate and profile-content refuse self like the other two', function () {
+    $me = admin();
+    $this->actingAs($me);
+
+    $this->patch("/admin/users/{$me->id}/reactivate")->assertStatus(403);
+    $this->delete("/admin/users/{$me->id}/profile-content")->assertStatus(403);
 });

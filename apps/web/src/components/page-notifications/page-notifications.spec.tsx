@@ -209,6 +209,24 @@ describe('page-notifications', () => {
     expect(page.root.shadowRoot.textContent).toContain('An administrator cancelled the generation "Volcanoes".');
   });
 
+  it('renders any moderation notice by its message, falling back to an actor name', async () => {
+    notifications.mockResolvedValue({
+      data: [
+        // Synthetic: no server code produces an unknown *Moderated type today.
+        { id: 'g', type: 'App\\Notifications\\SomethingModerated', read_at: null, created_at: '', data: { message: 'An administrator did something.' } },
+        { id: 'h', type: 'App\\Notifications\\OtherModerated', read_at: null, created_at: '', data: { user: { id: 7, name: 'Ms K' } } },
+      ],
+      meta: { current_page: 1, last_page: 1, per_page: 15, total: 2 },
+    });
+
+    const page = await mount();
+    await page.waitForChanges();
+    const text = page.root.shadowRoot.textContent;
+
+    expect(text).toContain('An administrator did something.');
+    expect(text).toContain('Ms K');
+  });
+
   it('names an unknown sharer generically rather than rendering undefined', async () => {
     notifications.mockResolvedValue({
       data: [{ id: 'f', type: 'App\\Notifications\\MaterialShared', read_at: null, created_at: '', data: { material_id: 9, material_title: 'Cell diagram' } }],

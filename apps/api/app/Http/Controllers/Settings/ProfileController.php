@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Settings;
 
-use App\Ai\IntegrationTeardown;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
-use App\Models\Material;
-use App\Services\MaterialDeleter;
+use App\Services\AccountDeleter;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -57,27 +54,9 @@ class ProfileController extends Controller
 
         Auth::logout();
 
-        // Tear down third-party state (Anthropic agent, environment, sessions,
-        // uploaded files) outside the transaction: it takes a cache lock on the
-        // database connection and makes 60 s gateway calls, neither of which
-        // belongs inside an open transaction. The call has its own best-effort
-        // error handling and needs no atomicity with the local deletes below.
-        app(IntegrationTeardown::class)->forUser($user);
-
-        // One unit, as the spec's data-model section requires. The
-        // notifications table's notifiable_id is polymorphic and carries no
-        // foreign key, so nothing else ties these two writes together: a
-        // failure between them would lose the user's notifications while
-        // leaving the account standing.
-        DB::transaction(function () use ($user) {
-            $user->notifications()->delete();
-
-            $user->materials()->cursor()->each(fn (Material $m) => MaterialDeleter::delete($m));
-
-            $user->tokens()->delete();
-
-            $user->delete();
-        });
+        // Return value ignored deliberately: the session is already gone and
+        // "/" is the right destination whether or not a concurrent delete won.
+        AccountDeleter::delete($user);
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

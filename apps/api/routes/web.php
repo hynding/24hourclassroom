@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Admin\GenerationAdminController;
 use App\Http\Controllers\Admin\MaterialAdminController;
+use App\Http\Controllers\Admin\RelationshipAdminController;
 use App\Http\Controllers\Admin\SiteThemeController;
 use App\Http\Controllers\Admin\TestAdminController;
+use App\Http\Controllers\Admin\UserAccountController;
 use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Auth\GoogleOAuthController;
 use App\Http\Controllers\DashboardController;
@@ -17,6 +19,11 @@ Route::middleware(['auth', 'verified', 'active'])->group(function () {
 
 Route::middleware(['auth', 'verified', 'active', 'admin'])->prefix('admin')->group(function () {
     Route::get('users', [UserAdminController::class, 'index'])->name('admin.users');
+    Route::get('users/{user}', [UserAdminController::class, 'show'])->name('admin.users.show');
+    Route::post('users/{user}/verification', [UserAccountController::class, 'resendVerification'])->middleware('throttle:admin-resend');
+    Route::patch('users/{user}/verify', [UserAccountController::class, 'forceVerify']);
+    Route::delete('users/{user}/anthropic-key', [UserAccountController::class, 'clearAnthropicKey']);
+    Route::delete('users/{user}', [UserAccountController::class, 'destroy']);
     Route::patch('users/{user}/role', [UserAdminController::class, 'updateRole']);
     Route::patch('users/{user}/deactivate', [UserAdminController::class, 'deactivate']);
     Route::patch('users/{user}/reactivate', [UserAdminController::class, 'reactivate']);
@@ -39,6 +46,9 @@ Route::middleware(['auth', 'verified', 'active', 'admin'])->prefix('admin')->gro
     Route::get('generations/{generation}', [GenerationAdminController::class, 'show']);
     Route::post('generations/{generation}/cancel', [GenerationAdminController::class, 'cancel']);
     Route::post('generations/{generation}/teardown', [GenerationAdminController::class, 'retryTeardown']);
+
+    Route::delete('follows/{follow}', [RelationshipAdminController::class, 'removeFollow']);
+    Route::delete('connections/{connection}', [RelationshipAdminController::class, 'removeConnection']);
 });
 
 Route::get('auth/google/redirect', [GoogleOAuthController::class, 'redirect'])->name('oauth.google.redirect');

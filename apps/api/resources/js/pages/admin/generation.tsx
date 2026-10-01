@@ -25,7 +25,7 @@ export default function AdminGeneration({ generation, notice }: Props) {
                     {generation.user.name}
                 </Link>{' '}
                 (
-                <Link href={`/admin/users?q=${encodeURIComponent(generation.user.email)}`} className="underline">
+                <Link href={`/admin/users/${generation.user.id}`} className="underline">
                     {generation.user.email}
                 </Link>
                 )

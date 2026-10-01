@@ -26,8 +26,12 @@ class IntegrationTeardown
         private readonly SessionTeardown $sessions,
     ) {}
 
-    public function forUser(User $user): void
+    /** @return array{cancelled: int, skipped: int} what happened to the live runs (a run found terminal after the lock is in neither) */
+    public function forUser(User $user): array
     {
+        $cancelled = 0;
+        $skipped = 0;
+
         foreach ($user->generations()->live()->get() as $generation) {
             // The same lock the advancer and cancel take, so a poll in flight
             // cannot be advancing the run we are tearing down.
@@ -39,6 +43,8 @@ class IntegrationTeardown
                 Log::warning('Skipped a busy generation during an integration teardown', [
                     'generation_id' => $generation->id,
                 ]);
+
+                $skipped++;
 
                 continue;
             }
@@ -55,6 +61,7 @@ class IntegrationTeardown
 
                 $this->sessions->run($generation);
                 $generation->markTerminal(GenerationStatus::Cancelled, GenerationMessages::KEY_REMOVED);
+                $cancelled++;
             } finally {
                 $lock->release();
             }
@@ -75,6 +82,8 @@ class IntegrationTeardown
         }
 
         $integration->clearProvisioning();
+
+        return ['cancelled' => $cancelled, 'skipped' => $skipped];
     }
 
     private function archive(?string $id, callable $call): void

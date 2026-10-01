@@ -1,5 +1,4 @@
-import { Button } from '@/components/ui/button';
-import { router } from '@inertiajs/react';
+import { ConfirmButton } from '@/components/confirm-button';
 
 type Props = { id: number; title: string; live: boolean; hasLeftovers: boolean };
 
@@ -8,18 +7,6 @@ type Props = { id: number; title: string; live: boolean; hasLeftovers: boolean }
  * Both flags come from the server; nothing here derives them from `status`.
  */
 export function GenerationActions({ id, title, live, hasLeftovers }: Props) {
-    const cancel = () => {
-        if (confirm(`Cancel generation #${id} "${title}"? The teacher will be notified.`)) {
-            router.post(`/admin/generations/${id}/cancel`, {}, { preserveScroll: true });
-        }
-    };
-
-    const retryTeardown = () => {
-        if (confirm(`Retry the cleanup for generation #${id}? This talks to Anthropic under the teacher's key and spends one teardown attempt.`)) {
-            router.post(`/admin/generations/${id}/teardown`, {}, { preserveScroll: true });
-        }
-    };
-
     if (!live && !hasLeftovers) {
         return null;
     }
@@ -27,14 +14,24 @@ export function GenerationActions({ id, title, live, hasLeftovers }: Props) {
     return (
         <div className="flex gap-2">
             {live && (
-                <Button type="button" variant="destructive" size="sm" onClick={cancel}>
-                    Cancel
-                </Button>
+                <ConfirmButton
+                    label="Cancel"
+                    variant="destructive"
+                    size="sm"
+                    method="post"
+                    url={`/admin/generations/${id}/cancel`}
+                    confirm={`Cancel generation #${id} "${title}"? The teacher will be notified.`}
+                />
             )}
             {hasLeftovers && (
-                <Button type="button" variant="outline" size="sm" onClick={retryTeardown}>
-                    Retry teardown
-                </Button>
+                <ConfirmButton
+                    label="Retry teardown"
+                    variant="outline"
+                    size="sm"
+                    method="post"
+                    url={`/admin/generations/${id}/teardown`}
+                    confirm={`Retry the cleanup for generation #${id}? This talks to Anthropic under the teacher's key and spends one teardown attempt.`}
+                />
             )}
         </div>
     );

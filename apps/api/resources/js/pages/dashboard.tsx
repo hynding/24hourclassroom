@@ -96,7 +96,7 @@ function AdminOverview({ metrics }: { metrics: AdminMetrics }) {
                 <ul className="space-y-1">
                     {recent_users.map((user) => (
                         <li key={user.id} className="flex justify-between gap-4">
-                            <Link href={`/admin/users?q=${encodeURIComponent(user.email)}`} className="underline">
+                            <Link href={`/admin/users/${user.id}`} className="underline">
                                 {user.name}
                             </Link>
                             <span className="text-muted-foreground">
