@@ -19,7 +19,12 @@ class MyAssignmentsController extends Controller
         $rows = Assignment::where('student_id', $me->id)
             ->with(['test.author', 'test' => fn ($q) => $q->withCount('questions')])
             ->with(['attempts' => fn ($q) => $q->where('student_id', $me->id)->with('answers')])
-            ->latest('id')
+            // Soonest due first, undated last, then oldest first: a to-do
+            // list, not a changelog. A seeded course assigns a whole year at
+            // once and must read in course order.
+            ->orderByRaw('due_at IS NULL')
+            ->orderBy('due_at')
+            ->orderBy('id')
             ->get()
             ->map(fn (Assignment $a) => [
                 'id' => $a->id,

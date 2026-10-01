@@ -348,6 +348,21 @@ describe('tests endpoints', () => {
     expect(fetchFn.mock.calls[1][0]).toBe('https://api.test/api/library?grade=6-8&page=3');
   });
 
+  it('library and materialsLibrary send sort only when it is not the default', async () => {
+    const fetchFn = vi.fn().mockImplementation(() =>
+      okJson({ data: [], meta: { current_page: 1, last_page: 1, per_page: 15, total: 0 } }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.library({ sort: 'recent' });
+    await client.library({ sort: 'title', page: 2 });
+    await client.materialsLibrary({ sort: 'title' });
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/library');
+    expect(fetchFn.mock.calls[1][0]).toBe('https://api.test/api/library?sort=title&page=2');
+    expect(fetchFn.mock.calls[2][0]).toBe('https://api.test/api/library/materials?sort=title');
+  });
+
   it('assignTest sends student_ids and an optional due_at', async () => {
     const fetchFn = vi.fn().mockImplementation((url: string) =>
       url.endsWith('/sanctum/csrf-cookie') ? okJson({}) : okJson({ results: [{ id: 2, status: 'assigned' }] }),

@@ -23,3 +23,18 @@ test('the library lists public tests by active authors with filters', function (
     $this->getJson('/api/library?q=%25')->assertJsonCount(0, 'data');
     $this->getJson('/api/library?subject=nope')->assertStatus(422);
 });
+
+test('sort=title lists A-Z so a zero-padded course reads in order; the default stays newest first', function () {
+    $a = aTeacher();
+    $w10 = aTestWithQuestions($a, 1, ['visibility' => 'public', 'published_at' => now()->subDays(2), 'title' => 'AP Biology · Week 10 · Quiz']);
+    $w02 = aTestWithQuestions($a, 1, ['visibility' => 'public', 'published_at' => now()->subDay(), 'title' => 'AP Biology · Week 02 · Quiz']);
+    $w01 = aTestWithQuestions($a, 1, ['visibility' => 'public', 'published_at' => now(), 'title' => 'AP Biology · Week 01 · Quiz']);
+
+    $this->getJson('/api/library?sort=title')->assertOk()
+        ->assertJsonPath('data.0.id', $w01->id)
+        ->assertJsonPath('data.1.id', $w02->id)
+        ->assertJsonPath('data.2.id', $w10->id);
+    $this->getJson('/api/library')->assertJsonPath('data.0.id', $w01->id)->assertJsonPath('data.2.id', $w10->id);
+    $this->getJson('/api/library?sort=recent')->assertJsonPath('data.2.id', $w10->id);
+    $this->getJson('/api/library?sort=size')->assertStatus(422);
+});

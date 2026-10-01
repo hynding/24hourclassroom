@@ -20,7 +20,11 @@ class MaterialsLibraryController extends Controller
             'subject' => ['nullable', Rule::enum(Subject::class)],
             'grade' => ['nullable', Rule::enum(GradeLevel::class)],
             'q' => ['nullable', 'string', 'max:100'],
+            // `title` sorts A-Z so a zero-padded course title ("Week 07")
+            // reads in course order; `recent` (the default) is newest first.
+            'sort' => ['nullable', Rule::in(['recent', 'title'])],
         ]);
+        $byTitle = ($filters['sort'] ?? 'recent') === 'title';
 
         $materials = Material::query()
             ->where('visibility', Visibility::Public)
@@ -35,8 +39,8 @@ class MaterialsLibraryController extends Controller
                     ->where('title', 'like', "%{$escaped}%")
                     ->orWhere('description', 'like', "%{$escaped}%"));
             })
-            ->orderByDesc('published_at')
-            ->orderByDesc('id')
+            ->when($byTitle, fn ($q) => $q->orderBy('title')->orderBy('id'))
+            ->unless($byTitle, fn ($q) => $q->orderByDesc('published_at')->orderByDesc('id'))
             ->paginate(15)
             ->withQueryString();
 
