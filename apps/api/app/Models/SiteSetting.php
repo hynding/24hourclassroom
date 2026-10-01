@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class SiteSetting extends Model
 {
+    public const DEFAULT_TAGLINE = 'A place for teachers to connect with other teachers and students — creating and sharing lesson plans, homework, study materials, practice tests, and reports.';
+
     protected $fillable = [
         'layout', 'palette', 'typeset',
         'name', 'tagline', 'registration_open', 'registration_message', 'banner_enabled', 'banner_text',
@@ -42,7 +44,7 @@ class SiteSetting extends Model
             'palette' => Palette::Noon,
             'typeset' => Typeset::Editorial,
             'name' => '24 Hour Classroom',
-            'tagline' => null,
+            'tagline' => self::DEFAULT_TAGLINE,
             'registration_open' => true,
             'registration_message' => null,
             'banner_enabled' => false,

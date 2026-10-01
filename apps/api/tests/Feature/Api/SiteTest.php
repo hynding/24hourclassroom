@@ -14,7 +14,7 @@ test('a guest reads the default config', function () {
         ->assertOk()
         ->assertExactJson([
             'theme' => ['layout' => 'stacked', 'palette' => 'noon', 'typeset' => 'editorial'],
-            'identity' => ['name' => '24 Hour Classroom', 'tagline' => null],
+            'identity' => ['name' => '24 Hour Classroom', 'tagline' => 'A place for teachers to connect with other teachers and students — creating and sharing lesson plans, homework, study materials, practice tests, and reports.'],
             'registration' => ['open' => true, 'message' => null],
             'banner' => ['enabled' => false, 'text' => null],
         ]);
