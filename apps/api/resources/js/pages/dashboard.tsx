@@ -14,11 +14,21 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Dashboard({ metrics }: { metrics: AdminMetrics | null }) {
+export default function Dashboard({ metrics, registration }: { metrics: AdminMetrics | null; registration: { open: boolean } | null }) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
-            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">{metrics ? <AdminOverview metrics={metrics} /> : <Placeholders />}</div>
+            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+                {metrics && registration && (
+                    <p className="text-sm">
+                        Sign-ups: {registration.open ? 'open' : 'closed'}.{' '}
+                        <Link href="/admin/site" className="underline">
+                            Site settings
+                        </Link>
+                    </p>
+                )}
+                {metrics ? <AdminOverview metrics={metrics} /> : <Placeholders />}
+            </div>
         </AppLayout>
     );
 }

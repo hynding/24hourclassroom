@@ -3,6 +3,7 @@
 use App\Enums\GenerationStatus;
 use App\Models\Follow;
 use App\Models\Generation;
+use App\Models\SiteSetting;
 use App\Models\User;
 use App\Support\AdminMetrics;
 use Illuminate\Support\Facades\Cache;
@@ -129,4 +130,14 @@ test('a non-admin gets no metrics at all', function () {
     $this->actingAs(User::factory()->create(['role' => 'teacher']));
 
     expect($this->get('/dashboard')->viewData('page')['props']['metrics'])->toBeNull();
+});
+
+test('an admin sees the sign-up switch; everyone else gets null', function () {
+    SiteSetting::current()->update(['registration_open' => false]);
+
+    $this->actingAs(User::factory()->create(['role' => 'admin']));
+    expect($this->get('/dashboard')->viewData('page')['props']['registration'])->toBe(['open' => false]);
+
+    $this->actingAs(User::factory()->create(['role' => 'teacher']));
+    expect($this->get('/dashboard')->viewData('page')['props']['registration'])->toBeNull();
 });
