@@ -1,10 +1,11 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h, Listen, State } from '@stencil/core';
 import type { Layout } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
 import { redirectFor, resolveRoute } from '../../services/router';
 import type { ResolvedRoute } from '../../services/router';
-import { cachedTheme, loadTheme, releaseInlineCanvas } from '../../services/theme-store';
+import { siteStore } from '../../services/site-store';
+import { cachedTheme, releaseInlineCanvas } from '../../services/theme-store';
 
 @Component({ tag: 'app-root', shadow: true })
 export class AppRoot {
@@ -20,18 +21,18 @@ export class AppRoot {
     // Synchronous: the cache is what makes a return visit right on the first
     // frame. Palette/typeset were already applied by the inline boot script.
     this.layout = cachedTheme().layout;
+    document.title = siteStore.config.identity.name;
   }
 
   async connectedCallback() {
     window.addEventListener('popstate', this.onPopState);
     // Not awaited: a hanging API must be a default-themed page, never a blank
     // one. app-layout switches by prop, so a late change remounts nothing.
-    loadTheme()
-      .then((theme) => { this.layout = theme.layout; })
+    siteStore
+      .load()
+      .then((config) => { this.layout = config.theme.layout; })
       // A failed fetch never reaches applyTheme, so nothing else would hand
-      // the boot script's inline canvas back to the stylesheet; without
-      // this, an unreachable /api/site leaves a stale dark canvas under the
-      // Noon tokens the CSS falls back to.
+      // the boot script's inline canvas back to the stylesheet.
       .catch(() => releaseInlineCanvas());
     await authStore.load();
     this.applyGuards();
@@ -39,6 +40,14 @@ export class AppRoot {
 
   disconnectedCallback() {
     window.removeEventListener('popstate', this.onPopState);
+  }
+
+  // No @State snapshot here, deliberately: the only job is a side effect.
+  // load() dispatches this before resolving, so this is the single post-load
+  // writer of document.title; componentWillLoad is the other (from the cache).
+  @Listen('site:changed', { target: 'window' })
+  onSiteChanged() {
+    document.title = siteStore.config.identity.name;
   }
 
   private applyGuards() {
@@ -52,6 +61,7 @@ export class AppRoot {
     const route = resolveRoute(this.path);
     return (
       <app-layout layout={this.layout} bare={route.tag === 'page-test-print'}>
+        <app-banner slot="banner"></app-banner>
         <app-header slot="header" orientation={this.layout === 'rail' ? 'vertical' : 'horizontal'}></app-header>
         {this.renderPage(route)}
         <app-footer slot="footer"></app-footer>

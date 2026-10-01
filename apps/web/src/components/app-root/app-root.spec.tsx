@@ -3,15 +3,20 @@ import { newSpecPage } from '@stencil/core/testing';
 // Every dependency app-root touches at boot is mocked BEFORE the component
 // import: jest.mock() is not hoisted under Stencil's TS transpiler.
 const cachedTheme = jest.fn();
-const loadTheme = jest.fn();
 const releaseInlineCanvas = jest.fn();
+const siteLoad = jest.fn();
+let siteConfig: any;
 const navigate = jest.fn();
 const authLoad = jest.fn();
 
 jest.mock('../../services/theme-store', () => ({
   cachedTheme: (...a: unknown[]) => cachedTheme(...a),
-  loadTheme: (...a: unknown[]) => loadTheme(...a),
   releaseInlineCanvas: (...a: unknown[]) => releaseInlineCanvas(...a),
+}));
+// A getter over a test-local variable: the factory object is captured once,
+// so a plain property could not be re-pointed from a test.
+jest.mock('../../services/site-store', () => ({
+  siteStore: { get config() { return siteConfig; }, load: (...a: unknown[]) => siteLoad(...a) },
 }));
 jest.mock('../../services/auth-store', () => ({
   authStore: { load: (...a: unknown[]) => authLoad(...a), currentUser: null, subscribe: () => () => {} },
@@ -19,6 +24,13 @@ jest.mock('../../services/auth-store', () => ({
 jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a) }));
 
 import { AppRoot } from './app-root';
+
+const configWith = (theme: { layout: string; palette: string; typeset: string }, name = 'Night School') => ({
+  theme,
+  identity: { name, tagline: null },
+  registration: { open: true, message: null },
+  banner: { enabled: false, text: null },
+});
 
 // app-root reads window.location.pathname at field initialisation, before
 // connectedCallback, so the path must be set before mount.
@@ -44,7 +56,8 @@ let rejectLoad: (e: unknown) => void;
 describe('app-root theme wiring', () => {
   beforeEach(() => {
     cachedTheme.mockReset().mockReturnValue({ layout: 'stacked', palette: 'noon', typeset: 'editorial' });
-    loadTheme.mockReset().mockImplementation(() => new Promise((res, rej) => { resolveLoad = res; rejectLoad = rej; }));
+    siteConfig = configWith({ layout: 'stacked', palette: 'noon', typeset: 'editorial' });
+    siteLoad.mockReset().mockImplementation(() => new Promise((res, rej) => { resolveLoad = res; rejectLoad = rej; }));
     releaseInlineCanvas.mockReset();
     navigate.mockReset();
     authLoad.mockReset().mockResolvedValue(null);
@@ -66,7 +79,7 @@ describe('app-root theme wiring', () => {
     const headerBefore = spec.root.shadowRoot.querySelector('app-header');
     expect(layout.getAttribute('layout')).toBe('stacked');
 
-    resolveLoad({ layout: 'rail', palette: 'evening', typeset: 'modern' });
+    resolveLoad(configWith({ layout: 'rail', palette: 'evening', typeset: 'modern' }));
     // Two ticks: one for the .then() microtask that assigns this.layout,
     // one for Stencil to flush the render it schedules.
     await spec.waitForChanges();
@@ -91,7 +104,7 @@ describe('app-root theme wiring', () => {
   });
 
   it('releases the inline boot canvas when the fetch fails', async () => {
-    // F6/T8b: a failed loadTheme() never reaches applyTheme, so nothing else
+    // F6/T8b: a failed siteStore.load() never reaches applyTheme, so nothing else
     // would hand the boot script's inline canvas back to the stylesheet.
     const spec = await mountAt('/teachers');
 
@@ -104,7 +117,7 @@ describe('app-root theme wiring', () => {
   it('does not release the inline canvas on the resolution path -- applyTheme owns that', async () => {
     const spec = await mountAt('/teachers');
 
-    resolveLoad({ layout: 'rail', palette: 'evening', typeset: 'modern' });
+    resolveLoad(configWith({ layout: 'rail', palette: 'evening', typeset: 'modern' }));
     await spec.waitForChanges();
     await spec.waitForChanges();
 
@@ -112,9 +125,9 @@ describe('app-root theme wiring', () => {
   });
 
   it('calls auth-store.load and applies guards without waiting on the theme fetch', async () => {
-    // F7/T11: loadTheme is left pending for the whole test (the default
+    // F7/T11: siteStore.load is left pending for the whole test (the default
     // beforeEach mock, which never resolves or rejects). The real hazard of
-    // an accidental `await loadTheme()` in connectedCallback is that
+    // an accidental `await siteStore.load()` in connectedCallback is that
     // authStore.load() and applyGuards() would be deferred behind it, so a
     // hanging /api/site would render every visitor as a signed-out guest
     // with route guards never applied.
@@ -134,7 +147,7 @@ describe('app-root theme wiring', () => {
 
   it('mounts the print page bare and every other page with chrome', async () => {
     cachedTheme.mockReturnValue({ layout: 'stacked', palette: 'noon', typeset: 'editorial' });
-    loadTheme.mockResolvedValue({ layout: 'stacked', palette: 'noon', typeset: 'editorial' });
+    siteLoad.mockResolvedValue(configWith({ layout: 'stacked', palette: 'noon', typeset: 'editorial' }));
     authLoad.mockResolvedValue(undefined);
 
     const print = await mountAt('/tests/3/print');
@@ -189,6 +202,32 @@ describe('app-root theme wiring', () => {
   it('passes the generation id to page-generation', async () => {
     const spec = await mountAt('/generations/7');
     expect(propOf(spec.root.shadowRoot.querySelector('page-generation'), 'generationId', 'generation-id')).toBe('7');
+  });
+
+  it('sets the document title from the cached site name on the first frame and again on site:changed', async () => {
+    const spec = await mountAt('/teachers');
+    expect(spec.doc.title).toBe('Night School');
+
+    siteConfig = configWith({ layout: 'stacked', palette: 'noon', typeset: 'editorial' }, 'Day School');
+    spec.win.dispatchEvent(new (spec.win as any).CustomEvent('site:changed'));
+    await spec.waitForChanges();
+    expect(spec.doc.title).toBe('Day School');
+  });
+
+  it('renders the banner in its own slot above the header', async () => {
+    const spec = await mountAt('/teachers');
+    const layout = spec.root.shadowRoot.querySelector('app-layout')!;
+    const banner = layout.querySelector('app-banner')!;
+    expect(banner.getAttribute('slot')).toBe('banner');
+    // Stencil's mock-doc stubs compareDocumentPosition() to a constant -1 and
+    // does not define Node.DOCUMENT_POSITION_FOLLOWING at all, so neither
+    // side of that comparison is meaningful here (confirmed by probing: the
+    // stub always returns -1 regardless of actual order, and the constant is
+    // undefined) -- a literal "Node.DOCUMENT_POSITION_FOLLOWING" check would
+    // pass or fail independent of real DOM order. Assert the same fact
+    // (banner precedes header as children of app-layout) via child order.
+    const children = Array.from(layout.childNodes);
+    expect(children.indexOf(banner)).toBeLessThan(children.indexOf(layout.querySelector('app-header')!));
   });
 
 });
