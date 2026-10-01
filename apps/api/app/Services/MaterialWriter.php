@@ -47,7 +47,7 @@ final class MaterialWriter
         $size = $source instanceof UploadedFile ? (int) $source->getSize() : strlen($source);
 
         try {
-            return DB::transaction(function () use ($author, $attrs, $source, $path, $originalName, $size, $disk) {
+            return DB::transaction(function () use ($author, $attrs, $source, $path, $originalName, $size) {
                 // The authoritative quota check. N parallel uploads at the
                 // boundary all pass the request's friendly check; this one is
                 // serialised behind a row lock on the author.
