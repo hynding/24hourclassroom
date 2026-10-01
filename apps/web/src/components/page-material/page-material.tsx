@@ -5,6 +5,7 @@ import { materialsStore } from '../../services/materials-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { fileTypeLabel, formatBytes } from '../../services/format';
+import { isDeckName, isReadableText, parseDeck } from '../../services/flashcards';
 
 /**
  * download_url is signed for 15 minutes from the moment the payload was
@@ -22,6 +23,9 @@ export class PageMaterial {
   @State() loadError = false;
   @State() busy = false;
   @State() actionError = '';
+  /** The text of a small .md/.txt upload, read for inline display; null means download-only. */
+  @State() body: string | null = null;
+  @State() reading = false;
 
   /**
    * When the current payload arrived. A plain field, not @State: it drives
@@ -44,6 +48,9 @@ export class PageMaterial {
     try {
       this.material = await materialsStore.getMaterial(this.materialId);
       this.fetchedAt = Date.now();
+      // Not awaited: the page renders its header and download link now and
+      // the reader fills in when the body arrives.
+      void this.read(this.material);
     } catch (e) {
       if (e instanceof ApiError && e.status === 404) {
         this.notFound = true;
@@ -51,6 +58,52 @@ export class PageMaterial {
         this.loadError = true;
       }
     }
+  }
+
+  /**
+   * Pull the body of a small markdown/text upload through its signed URL so
+   * it can be read on the page. The response is Content-Disposition:
+   * attachment, which fetch() does not care about. credentials: 'omit' --
+   * the signature is the credential, and a cookie-less request is what the
+   * CORS allowlist is configured for. Any failure (CORS, 403 on an expired
+   * link, a network error) leaves `body` null and the page download-only.
+   */
+  private async read(material: MaterialView) {
+    if (!isReadableText(material)) {
+      return;
+    }
+    this.reading = true;
+    try {
+      const res = await fetch(material.download_url, { credentials: 'omit' });
+      if (res.ok) {
+        this.body = await res.text();
+      }
+    } catch {
+      this.body = null;
+    } finally {
+      this.reading = false;
+    }
+  }
+
+  private renderReader(m: MaterialView) {
+    if (this.reading) {
+      return <p class="meta" data-testid="reading">Loading…</p>;
+    }
+    if (this.body === null) {
+      return null;
+    }
+    if (isDeckName(m.original_name)) {
+      return (
+        <section class="reader" aria-label="Flashcards">
+          <flashcard-deck cards={parseDeck(this.body).cards}></flashcard-deck>
+        </section>
+      );
+    }
+    return (
+      <article class="reader">
+        <rich-text blocks text={this.body}></rich-text>
+      </article>
+    );
   }
 
   /**
@@ -166,6 +219,8 @@ export class PageMaterial {
             <button type="button" class="btn" disabled={this.busy} onClick={this.remove}>Delete</button>,
           ]}
         </div>
+
+        {this.renderReader(m)}
 
         {this.link('/materials', 'Back to materials')}
       </section>

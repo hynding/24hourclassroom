@@ -129,6 +129,47 @@ describe('page-library', () => {
     expect(page.root.shadowRoot.textContent).not.toContain('No tests match');
   });
 
+  it('offers a sort that applies on change, resets the page and is omitted by default', async () => {
+    library.mockResolvedValue(paginated([test(1, 'Fractions')], 3));
+    const page = await mount();
+    await page.waitForChanges();
+    expect(library).toHaveBeenCalledTimes(1);
+    expect(library).toHaveBeenLastCalledWith(expect.not.objectContaining({ sort: expect.anything() }));
+
+    const cmp = page.rootInstance as PageLibrary;
+    cmp.page = 3;
+    const select = page.root.shadowRoot.querySelector('select[data-testid="sort"]') as HTMLSelectElement;
+    expect(Array.from(select.querySelectorAll('option')).map((o) => o.getAttribute('value'))).toEqual(['recent', 'title']);
+    select.value = 'title';
+    select.dispatchEvent(new (page.win as any).Event('input', { bubbles: true }));
+    await page.waitForChanges();
+    await page.waitForChanges();
+
+    expect(library).toHaveBeenCalledTimes(2);
+    expect(library).toHaveBeenLastCalledWith({ sort: 'title' });
+    expect(cmp.page).toBe(1);
+
+    select.value = 'recent';
+    select.dispatchEvent(new (page.win as any).Event('input', { bubbles: true }));
+    await page.waitForChanges();
+    await page.waitForChanges();
+    expect(library).toHaveBeenLastCalledWith({});
+  });
+
+  it('keeps the sort across the kind switch and sends it to the materials library', async () => {
+    const page = await mount();
+    await page.waitForChanges();
+    const cmp = page.rootInstance as PageLibrary;
+    cmp.sort = 'title';
+
+    page.root.kind = 'materials';
+    await page.waitForChanges();
+    await page.waitForChanges();
+
+    expect(materialsLibrary).toHaveBeenCalledWith({ sort: 'title' });
+    expect(cmp.sort).toBe('title');
+  });
+
   it('offers both segments as links', async () => {
     const page = await mount();
     await page.waitForChanges();

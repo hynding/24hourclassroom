@@ -6,7 +6,9 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Layout, QuestionInput } from "@24hc/shared";
+import { Flashcard } from "./services/flashcards";
 export { Layout, QuestionInput } from "@24hc/shared";
+export { Flashcard } from "./services/flashcards";
 export namespace Components {
     /**
      * The site-wide announcement. An <aside>, not a live region: it is static
@@ -44,6 +46,23 @@ export namespace Components {
         "layout": Layout;
     }
     interface AppRoot {
+    }
+    /**
+     * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
+     * flip to the back, step or shuffle. All state is local -- nothing is
+     * persisted, so reloading starts the deck over.
+     */
+    interface FlashcardDeck {
+        /**
+          * @default []
+         */
+        "cards": Flashcard[];
+        /**
+          * Which side is up. A reflected prop rather than
+          * @State because flashcard-deck.css keys on :host([flipped]) for the back's styling.
+          * @default false
+         */
+        "flipped": boolean;
     }
     interface PageAttempt {
         "attemptId"?: number;
@@ -121,12 +140,32 @@ export namespace Components {
     }
     interface PageVerifyEmail {
     }
+    /**
+     * Author text -- a prompt, a stimulus, a rationale, a study guide -- in the
+     * markdown subset `services/rich-text` understands. Vnodes only; see that
+     * file for why there is no sanitizer.
+     */
+    interface RichText {
+        /**
+          * Headings, lists, quotes, fences, rules and links: on for materials, off for questions.
+          * @default false
+         */
+        "blocks": boolean;
+        /**
+          * @default ''
+         */
+        "text": string;
+    }
     interface TestQuestionEditor {
         "error"?: string;
         /**
           * @default 0
          */
         "index": number;
+        /**
+          * The previous question's stimulus, offered as a one-click copy so a set shares it verbatim.
+         */
+        "previousStimulus"?: string | null;
         "question": QuestionInput;
     }
 }
@@ -176,6 +215,17 @@ declare global {
     var HTMLAppRootElement: {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
+    };
+    /**
+     * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
+     * flip to the back, step or shuffle. All state is local -- nothing is
+     * persisted, so reloading starts the deck over.
+     */
+    interface HTMLFlashcardDeckElement extends Components.FlashcardDeck, HTMLStencilElement {
+    }
+    var HTMLFlashcardDeckElement: {
+        prototype: HTMLFlashcardDeckElement;
+        new (): HTMLFlashcardDeckElement;
     };
     interface HTMLPageAttemptElement extends Components.PageAttempt, HTMLStencilElement {
     }
@@ -339,6 +389,17 @@ declare global {
         prototype: HTMLPageVerifyEmailElement;
         new (): HTMLPageVerifyEmailElement;
     };
+    /**
+     * Author text -- a prompt, a stimulus, a rationale, a study guide -- in the
+     * markdown subset `services/rich-text` understands. Vnodes only; see that
+     * file for why there is no sanitizer.
+     */
+    interface HTMLRichTextElement extends Components.RichText, HTMLStencilElement {
+    }
+    var HTMLRichTextElement: {
+        prototype: HTMLRichTextElement;
+        new (): HTMLRichTextElement;
+    };
     interface HTMLTestQuestionEditorElementEventMap {
         "questionChange": QuestionInput;
         "questionRemove": void;
@@ -364,6 +425,7 @@ declare global {
         "app-header": HTMLAppHeaderElement;
         "app-layout": HTMLAppLayoutElement;
         "app-root": HTMLAppRootElement;
+        "flashcard-deck": HTMLFlashcardDeckElement;
         "page-attempt": HTMLPageAttemptElement;
         "page-connections": HTMLPageConnectionsElement;
         "page-forgot-password": HTMLPageForgotPasswordElement;
@@ -391,6 +453,7 @@ declare global {
         "page-test-results": HTMLPageTestResultsElement;
         "page-tests": HTMLPageTestsElement;
         "page-verify-email": HTMLPageVerifyEmailElement;
+        "rich-text": HTMLRichTextElement;
         "test-question-editor": HTMLTestQuestionEditorElement;
     }
 }
@@ -431,6 +494,23 @@ declare namespace LocalJSX {
         "layout"?: Layout;
     }
     interface AppRoot {
+    }
+    /**
+     * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
+     * flip to the back, step or shuffle. All state is local -- nothing is
+     * persisted, so reloading starts the deck over.
+     */
+    interface FlashcardDeck {
+        /**
+          * @default []
+         */
+        "cards"?: Flashcard[];
+        /**
+          * Which side is up. A reflected prop rather than
+          * @State because flashcard-deck.css keys on :host([flipped]) for the back's styling.
+          * @default false
+         */
+        "flipped"?: boolean;
     }
     interface PageAttempt {
         "attemptId"?: number;
@@ -508,6 +588,22 @@ declare namespace LocalJSX {
     }
     interface PageVerifyEmail {
     }
+    /**
+     * Author text -- a prompt, a stimulus, a rationale, a study guide -- in the
+     * markdown subset `services/rich-text` understands. Vnodes only; see that
+     * file for why there is no sanitizer.
+     */
+    interface RichText {
+        /**
+          * Headings, lists, quotes, fences, rules and links: on for materials, off for questions.
+          * @default false
+         */
+        "blocks"?: boolean;
+        /**
+          * @default ''
+         */
+        "text"?: string;
+    }
     interface TestQuestionEditor {
         "error"?: string;
         /**
@@ -517,6 +613,10 @@ declare namespace LocalJSX {
         "onQuestionChange"?: (event: TestQuestionEditorCustomEvent<QuestionInput>) => void;
         "onQuestionMove"?: (event: TestQuestionEditorCustomEvent<-1 | 1>) => void;
         "onQuestionRemove"?: (event: TestQuestionEditorCustomEvent<void>) => void;
+        /**
+          * The previous question's stimulus, offered as a one-click copy so a set shares it verbatim.
+         */
+        "previousStimulus"?: string | null;
         "question"?: QuestionInput;
     }
 
@@ -526,6 +626,9 @@ declare namespace LocalJSX {
     interface AppLayoutAttributes {
         "layout": Layout;
         "bare": boolean;
+    }
+    interface FlashcardDeckAttributes {
+        "flipped": boolean;
     }
     interface PageAttemptAttributes {
         "attemptId": number;
@@ -563,9 +666,14 @@ declare namespace LocalJSX {
     interface PageTestResultsAttributes {
         "testId": number;
     }
+    interface RichTextAttributes {
+        "text": string;
+        "blocks": boolean;
+    }
     interface TestQuestionEditorAttributes {
         "index": number;
         "error": string;
+        "previousStimulus": string | null;
     }
 
     interface IntrinsicElements {
@@ -574,6 +682,7 @@ declare namespace LocalJSX {
         "app-header": Omit<AppHeader, keyof AppHeaderAttributes> & { [K in keyof AppHeader & keyof AppHeaderAttributes]?: AppHeader[K] } & { [K in keyof AppHeader & keyof AppHeaderAttributes as `attr:${K}`]?: AppHeaderAttributes[K] } & { [K in keyof AppHeader & keyof AppHeaderAttributes as `prop:${K}`]?: AppHeader[K] };
         "app-layout": Omit<AppLayout, keyof AppLayoutAttributes> & { [K in keyof AppLayout & keyof AppLayoutAttributes]?: AppLayout[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `attr:${K}`]?: AppLayoutAttributes[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `prop:${K}`]?: AppLayout[K] };
         "app-root": AppRoot;
+        "flashcard-deck": Omit<FlashcardDeck, keyof FlashcardDeckAttributes> & { [K in keyof FlashcardDeck & keyof FlashcardDeckAttributes]?: FlashcardDeck[K] } & { [K in keyof FlashcardDeck & keyof FlashcardDeckAttributes as `attr:${K}`]?: FlashcardDeckAttributes[K] } & { [K in keyof FlashcardDeck & keyof FlashcardDeckAttributes as `prop:${K}`]?: FlashcardDeck[K] };
         "page-attempt": Omit<PageAttempt, keyof PageAttemptAttributes> & { [K in keyof PageAttempt & keyof PageAttemptAttributes]?: PageAttempt[K] } & { [K in keyof PageAttempt & keyof PageAttemptAttributes as `attr:${K}`]?: PageAttemptAttributes[K] } & { [K in keyof PageAttempt & keyof PageAttemptAttributes as `prop:${K}`]?: PageAttempt[K] };
         "page-connections": PageConnections;
         "page-forgot-password": PageForgotPassword;
@@ -601,6 +710,7 @@ declare namespace LocalJSX {
         "page-test-results": Omit<PageTestResults, keyof PageTestResultsAttributes> & { [K in keyof PageTestResults & keyof PageTestResultsAttributes]?: PageTestResults[K] } & { [K in keyof PageTestResults & keyof PageTestResultsAttributes as `attr:${K}`]?: PageTestResultsAttributes[K] } & { [K in keyof PageTestResults & keyof PageTestResultsAttributes as `prop:${K}`]?: PageTestResults[K] };
         "page-tests": PageTests;
         "page-verify-email": PageVerifyEmail;
+        "rich-text": Omit<RichText, keyof RichTextAttributes> & { [K in keyof RichText & keyof RichTextAttributes]?: RichText[K] } & { [K in keyof RichText & keyof RichTextAttributes as `attr:${K}`]?: RichTextAttributes[K] } & { [K in keyof RichText & keyof RichTextAttributes as `prop:${K}`]?: RichText[K] };
         "test-question-editor": Omit<TestQuestionEditor, keyof TestQuestionEditorAttributes> & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes]?: TestQuestionEditor[K] } & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes as `attr:${K}`]?: TestQuestionEditorAttributes[K] } & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes as `prop:${K}`]?: TestQuestionEditor[K] };
     }
 }
@@ -625,6 +735,12 @@ declare module "@stencil/core" {
              */
             "app-layout": LocalJSX.IntrinsicElements["app-layout"] & JSXBase.HTMLAttributes<HTMLAppLayoutElement>;
             "app-root": LocalJSX.IntrinsicElements["app-root"] & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            /**
+             * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
+             * flip to the back, step or shuffle. All state is local -- nothing is
+             * persisted, so reloading starts the deck over.
+             */
+            "flashcard-deck": LocalJSX.IntrinsicElements["flashcard-deck"] & JSXBase.HTMLAttributes<HTMLFlashcardDeckElement>;
             "page-attempt": LocalJSX.IntrinsicElements["page-attempt"] & JSXBase.HTMLAttributes<HTMLPageAttemptElement>;
             "page-connections": LocalJSX.IntrinsicElements["page-connections"] & JSXBase.HTMLAttributes<HTMLPageConnectionsElement>;
             "page-forgot-password": LocalJSX.IntrinsicElements["page-forgot-password"] & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
@@ -652,6 +768,12 @@ declare module "@stencil/core" {
             "page-test-results": LocalJSX.IntrinsicElements["page-test-results"] & JSXBase.HTMLAttributes<HTMLPageTestResultsElement>;
             "page-tests": LocalJSX.IntrinsicElements["page-tests"] & JSXBase.HTMLAttributes<HTMLPageTestsElement>;
             "page-verify-email": LocalJSX.IntrinsicElements["page-verify-email"] & JSXBase.HTMLAttributes<HTMLPageVerifyEmailElement>;
+            /**
+             * Author text -- a prompt, a stimulus, a rationale, a study guide -- in the
+             * markdown subset `services/rich-text` understands. Vnodes only; see that
+             * file for why there is no sanitizer.
+             */
+            "rich-text": LocalJSX.IntrinsicElements["rich-text"] & JSXBase.HTMLAttributes<HTMLRichTextElement>;
             "test-question-editor": LocalJSX.IntrinsicElements["test-question-editor"] & JSXBase.HTMLAttributes<HTMLTestQuestionEditorElement>;
         }
     }
