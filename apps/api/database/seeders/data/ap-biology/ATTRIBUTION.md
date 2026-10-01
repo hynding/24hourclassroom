@@ -84,3 +84,14 @@ Items the authors could not source from OpenStax carry
 | 26 | §20.1 Organizing Life on Earth · §20.2 Determining Evolutionary Relationships · §18.2 Formation of New Species · §18.3 Reconnection and Speciation Rates | — | 2026-10-01 |
 | 27 | §22.1 Prokaryotic Diversity · §23.1 Eukaryotic Origins · §1.2 Themes and Concepts of Biology · §20.3 Perspectives on the Phylogenetic Tree · §19.2 Population Genetics | — | 2026-10-01 |
 | Unit 7 exam and summary | §18.1–18.3, §19.1–19.3, §20.1–20.3, §22.1, §23.1, §1.2 (as above); exam review items also use §4.2, §6.5, §7.2, §9.4, §14.6, §16.4 | — | 2026-10-01 |
+
+### Unit 8 · Ecology
+
+| Week | Biology 2e sections | Biology for AP Courses | Accessed |
+|---|---|---|---|
+| 28 | §45.7 Behavioral Biology: Proximate and Ultimate Causes of Behavior · §46.1 Ecology of Ecosystems · §46.2 Energy Flow through Ecosystems | — | 2026-10-01 |
+| 29 | §46.3 Biogeochemical Cycles · §45.1 Population Demography · §45.3 Environmental Limits to Population Growth | — | 2026-10-01 |
+| 30 | §45.1 Population Demography · §45.4 Population Dynamics and Regulation · §45.6 Community Ecology · §47.4 Preserving Biodiversity | — | 2026-10-01 |
+| 31 | §44.5 Climate and the Effects of Global Climate Change · §46.1 Ecology of Ecosystems · §47.1 The Biodiversity Crisis · §47.2 The Importance of Biodiversity to Human Life · §47.3 Threats to Biodiversity · §47.4 Preserving Biodiversity | — | 2026-10-01 |
+| 32 | §45.1 Population Demography · §45.5 Human Population Growth · §46.1 Ecology of Ecosystems · §46.2 Energy Flow through Ecosystems · §46.3 Biogeochemical Cycles · §47.4 Preserving Biodiversity | — | 2026-10-01 |
+| Unit 8 exam and summary | §44.5, §45.1, §45.3–45.7, §46.1–46.3, §47.1–47.4 (as above); exam review items also use §3.5, §5.2, §6.5, §8.3, §17.1, §19.2, §19.3 | — | 2026-10-01 |
