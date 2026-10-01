@@ -59,8 +59,9 @@ export class SiteStore {
   /** Fetches once per concurrent burst; applies the theme (which writes the theme cache), then caches the whole config with the APPLIED theme, then announces. */
   load(client: Pick<ApiClient, 'getSite'> = defaultClient): Promise<SiteConfig> {
     if (!this.inFlight) {
-      this.inFlight = client.getSite().then(
-        (fetched) => {
+      this.inFlight = client
+        .getSite()
+        .then((fetched) => {
           const theme = applyTheme(fetched.theme);
           const config: SiteConfig = { ...normalizeSite(fetched), theme };
           try {
@@ -69,15 +70,13 @@ export class SiteStore {
             // Private mode: the config still applies, it just won't be remembered.
           }
           this.current = config; // a new object, so @State snapshots see a changed reference
-          this.inFlight = null;
           window.dispatchEvent(new CustomEvent('site:changed'));
           return config;
-        },
-        (err) => {
+        })
+        .finally(() => {
+          // Always cleared -- a throw inside the handler above must not wedge the store.
           this.inFlight = null;
-          throw err;
-        },
-      );
+        });
     }
     return this.inFlight;
   }

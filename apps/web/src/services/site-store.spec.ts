@@ -87,5 +87,16 @@ describe('site-store', () => {
       expect(html().dataset.palette).toBe('evening');
       expect(window.localStorage.getItem(SITE_CACHE_KEY)).toBeNull();
     });
+
+    it('clears the in-flight slot even when applying the fetched config throws, so the next load retries', async () => {
+      (window as any).getComputedStyle = () => { throw new Error('boom'); };
+      const client = { getSite: jest.fn().mockResolvedValue(fetched) };
+
+      await expect(siteStore.load(client)).rejects.toThrow('boom');
+
+      stubSurface('#fdfcf8');
+      await expect(siteStore.load(client)).resolves.toBeTruthy();
+      expect(client.getSite).toHaveBeenCalledTimes(2);
+    });
   });
 });
