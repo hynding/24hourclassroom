@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Support\Registration;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,8 @@ class OAuthCompletionController extends Controller
 {
     public function __invoke(Request $request): Response
     {
+        Registration::assertOpen();
+
         $request->validate(['role' => ['required', Rule::in([Role::Teacher->value, Role::Student->value])]]);
 
         $google = $request->session()->get('oauth.google');

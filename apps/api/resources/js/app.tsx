@@ -5,7 +5,9 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
 import { initializeTheme } from './hooks/use-appearance';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+// The site name from the initial page props; VITE_APP_NAME is the pre-props fallback.
+const initialPage = JSON.parse(document.getElementById('app')?.dataset.page ?? '{}') as { props?: { name?: string } };
+const appName = initialPage.props?.name || import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

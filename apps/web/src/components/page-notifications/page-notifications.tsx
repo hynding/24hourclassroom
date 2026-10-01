@@ -83,8 +83,8 @@ export class PageNotifications {
         </a>
       );
     }
-    if (type.endsWith('ProfileModerated') || type.endsWith('TestModerated') || type.endsWith('MaterialModerated')) {
-      return data.message;
+    if (type.endsWith('Moderated')) {
+      return data.message ?? data.user?.name;
     }
     return data.user?.name;
   }

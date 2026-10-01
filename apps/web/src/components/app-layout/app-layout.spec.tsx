@@ -51,3 +51,17 @@ describe('app-layout', () => {
     expect(spec.root.shadowRoot.querySelector('main > slot:not([name])')).not.toBeNull();
   });
 });
+
+describe('app-layout slots', () => {
+  it('has a banner slot first in the shell, and assigns a slot="banner" child to it', async () => {
+    const page = await newSpecPage({
+      components: [AppLayout],
+      html: '<app-layout><div slot="banner" id="b"></div><div slot="header" id="h"></div><p id="p"></p></app-layout>',
+    });
+    const shell = page.root.shadowRoot.querySelector('.shell')!;
+    const first = shell.firstElementChild as HTMLSlotElement;
+    expect(first.tagName.toLowerCase()).toBe('slot');
+    expect(first.getAttribute('name')).toBe('banner');
+    expect(first.assignedElements().map((el) => el.id)).toEqual(['b']);
+  });
+});

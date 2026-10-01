@@ -72,7 +72,7 @@ final class MaterialAccess
         self::assertViewer($user, $material);
         if (! self::canAuthor($user, $material)) {
             if ($material->isPublic()) {
-                throw new AccessDeniedHttpException();
+                throw new AccessDeniedHttpException;
             }
             abort(404);
         }

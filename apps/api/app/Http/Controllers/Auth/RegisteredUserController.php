@@ -6,6 +6,7 @@ use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Support\FrontendRedirect;
+use App\Support\Registration;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,7 +28,12 @@ class RegisteredUserController extends Controller
             $request->session()->put('url.intended', $url);
         }
 
-        return Inertia::render('auth/register');
+        $open = Registration::isOpen();
+
+        return Inertia::render('auth/register', [
+            // The draft message is a public prop only while closed, as on /api/site.
+            'registration' => ['open' => $open, 'message' => $open ? null : Registration::closedMessage()],
+        ]);
     }
 
     /**
@@ -37,6 +43,12 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Redirect, never abort(403, $text): the create() page renders the closed
+        // state, and Laravel's 403 view would echo the admin's text unescaped.
+        if (! Registration::isOpen()) {
+            return redirect()->route('register');
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,

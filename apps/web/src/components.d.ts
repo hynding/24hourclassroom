@@ -8,6 +8,13 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Layout, QuestionInput } from "@24hc/shared";
 export { Layout, QuestionInput } from "@24hc/shared";
 export namespace Components {
+    /**
+     * The site-wide announcement. An <aside>, not a live region: it is static
+     * content, not a response to a user action, and live regions inside shadow
+     * roots announce unevenly. Not dismissible (one admin, one notice).
+     */
+    interface AppBanner {
+    }
     interface AppFooter {
     }
     interface AppHeader {
@@ -128,6 +135,17 @@ export interface TestQuestionEditorCustomEvent<T> extends CustomEvent<T> {
     target: HTMLTestQuestionEditorElement;
 }
 declare global {
+    /**
+     * The site-wide announcement. An <aside>, not a live region: it is static
+     * content, not a response to a user action, and live regions inside shadow
+     * roots announce unevenly. Not dismissible (one admin, one notice).
+     */
+    interface HTMLAppBannerElement extends Components.AppBanner, HTMLStencilElement {
+    }
+    var HTMLAppBannerElement: {
+        prototype: HTMLAppBannerElement;
+        new (): HTMLAppBannerElement;
+    };
     interface HTMLAppFooterElement extends Components.AppFooter, HTMLStencilElement {
     }
     var HTMLAppFooterElement: {
@@ -341,6 +359,7 @@ declare global {
         new (): HTMLTestQuestionEditorElement;
     };
     interface HTMLElementTagNameMap {
+        "app-banner": HTMLAppBannerElement;
         "app-footer": HTMLAppFooterElement;
         "app-header": HTMLAppHeaderElement;
         "app-layout": HTMLAppLayoutElement;
@@ -376,6 +395,13 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    /**
+     * The site-wide announcement. An <aside>, not a live region: it is static
+     * content, not a response to a user action, and live regions inside shadow
+     * roots announce unevenly. Not dismissible (one admin, one notice).
+     */
+    interface AppBanner {
+    }
     interface AppFooter {
     }
     interface AppHeader {
@@ -543,6 +569,7 @@ declare namespace LocalJSX {
     }
 
     interface IntrinsicElements {
+        "app-banner": AppBanner;
         "app-footer": AppFooter;
         "app-header": Omit<AppHeader, keyof AppHeaderAttributes> & { [K in keyof AppHeader & keyof AppHeaderAttributes]?: AppHeader[K] } & { [K in keyof AppHeader & keyof AppHeaderAttributes as `attr:${K}`]?: AppHeaderAttributes[K] } & { [K in keyof AppHeader & keyof AppHeaderAttributes as `prop:${K}`]?: AppHeader[K] };
         "app-layout": Omit<AppLayout, keyof AppLayoutAttributes> & { [K in keyof AppLayout & keyof AppLayoutAttributes]?: AppLayout[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `attr:${K}`]?: AppLayoutAttributes[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `prop:${K}`]?: AppLayout[K] };
@@ -581,6 +608,12 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            /**
+             * The site-wide announcement. An <aside>, not a live region: it is static
+             * content, not a response to a user action, and live regions inside shadow
+             * roots announce unevenly. Not dismissible (one admin, one notice).
+             */
+            "app-banner": LocalJSX.IntrinsicElements["app-banner"] & JSXBase.HTMLAttributes<HTMLAppBannerElement>;
             "app-footer": LocalJSX.IntrinsicElements["app-footer"] & JSXBase.HTMLAttributes<HTMLAppFooterElement>;
             "app-header": LocalJSX.IntrinsicElements["app-header"] & JSXBase.HTMLAttributes<HTMLAppHeaderElement>;
             /**

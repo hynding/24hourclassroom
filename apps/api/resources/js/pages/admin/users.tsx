@@ -1,5 +1,5 @@
-import { type BreadcrumbItem, type SharedData } from '@/types';
-import { Head, router, usePage } from '@inertiajs/react';
+import { type BreadcrumbItem } from '@/types';
+import { Head, Link, router } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 
 import HeadingSmall from '@/components/heading-small';
@@ -15,13 +15,11 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-type AdminUserRole = 'teacher' | 'student' | 'admin';
-
 type AdminUser = {
     id: number;
     name: string;
     email: string;
-    role: AdminUserRole;
+    role: string;
     verified: boolean;
     active: boolean;
 };
@@ -34,8 +32,15 @@ type Paginated<T> = {
     next_page_url: string | null;
 };
 
-export default function AdminUsers({ users, filters }: { users: Paginated<AdminUser>; filters: { q: string | null } }) {
-    const { auth } = usePage<SharedData>().props;
+export default function AdminUsers({
+    users,
+    filters,
+    notice,
+}: {
+    users: Paginated<AdminUser>;
+    filters: { q: string | null };
+    notice: string | null;
+}) {
     const [search, setSearch] = useState(filters.q ?? '');
 
     const submitSearch: FormEventHandler = (e) => {
@@ -44,26 +49,14 @@ export default function AdminUsers({ users, filters }: { users: Paginated<AdminU
         router.get('/admin/users', { q: search || undefined }, { preserveState: true, replace: true });
     };
 
-    const changeRole = (user: AdminUser, role: 'teacher' | 'student') => {
-        router.patch(`/admin/users/${user.id}/role`, { role }, { preserveScroll: true });
-    };
-
-    const toggleActive = (user: AdminUser) => {
-        const action = user.active ? 'deactivate' : 'reactivate';
-
-        router.patch(`/admin/users/${user.id}/${action}`, {}, { preserveScroll: true });
-    };
-
-    const clearProfileContent = (user: AdminUser) => {
-        router.delete(`/admin/users/${user.id}/profile-content`, { preserveScroll: true });
-    };
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Admin: users" />
 
             <div className="space-y-6 px-4 py-6">
-                <HeadingSmall title="Users" description="Manage roles, activation, and moderate profile content." />
+                <HeadingSmall title="Users" description="Open a user to see their account and act on it." />
+
+                {notice && <p className="text-muted-foreground text-sm">{notice}</p>}
 
                 <form onSubmit={submitSearch} className="flex items-end gap-2">
                     <div className="grid gap-2">
@@ -82,67 +75,22 @@ export default function AdminUsers({ users, filters }: { users: Paginated<AdminU
                                 <th className="py-2 pr-4">Role</th>
                                 <th className="py-2 pr-4">Verified</th>
                                 <th className="py-2 pr-4">Active</th>
-                                <th className="py-2 pr-4">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {users.data.map((user) => {
-                                const isSelf = user.id === auth.user.id;
-
-                                return (
-                                    <tr key={user.id} className="border-b">
-                                        <td className="py-2 pr-4">{user.name}</td>
-                                        <td className="py-2 pr-4">{user.email}</td>
-                                        <td className="py-2 pr-4">{user.role}</td>
-                                        <td className="py-2 pr-4">{user.verified ? 'Yes' : 'No'}</td>
-                                        <td className="py-2 pr-4">{user.active ? 'Yes' : 'No'}</td>
-                                        <td className="py-2 pr-4">
-                                            <div className="flex flex-wrap items-center gap-2">
-                                                {user.role !== 'admin' && (
-                                                    <>
-                                                        {user.role !== 'teacher' && (
-                                                            <Button
-                                                                type="button"
-                                                                variant="outline"
-                                                                size="sm"
-                                                                disabled={isSelf}
-                                                                onClick={() => changeRole(user, 'teacher')}
-                                                            >
-                                                                Make teacher
-                                                            </Button>
-                                                        )}
-                                                        {user.role !== 'student' && (
-                                                            <Button
-                                                                type="button"
-                                                                variant="outline"
-                                                                size="sm"
-                                                                disabled={isSelf}
-                                                                onClick={() => changeRole(user, 'student')}
-                                                            >
-                                                                Make student
-                                                            </Button>
-                                                        )}
-                                                    </>
-                                                )}
-
-                                                <Button
-                                                    type="button"
-                                                    variant="outline"
-                                                    size="sm"
-                                                    disabled={isSelf}
-                                                    onClick={() => toggleActive(user)}
-                                                >
-                                                    {user.active ? 'Deactivate' : 'Reactivate'}
-                                                </Button>
-
-                                                <Button type="button" variant="destructive" size="sm" onClick={() => clearProfileContent(user)}>
-                                                    Clear profile content
-                                                </Button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
+                            {users.data.map((user) => (
+                                <tr key={user.id} className="border-b">
+                                    <td className="py-2 pr-4">
+                                        <Link href={`/admin/users/${user.id}`} className="underline">
+                                            {user.name}
+                                        </Link>
+                                    </td>
+                                    <td className="py-2 pr-4">{user.email}</td>
+                                    <td className="py-2 pr-4">{user.role}</td>
+                                    <td className="py-2 pr-4">{user.verified ? 'Yes' : 'No'}</td>
+                                    <td className="py-2 pr-4">{user.active ? 'Yes' : 'No'}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>

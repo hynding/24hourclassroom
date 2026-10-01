@@ -19,6 +19,7 @@ export class AppLayout {
   render() {
     return (
       <div class="shell">
+        <slot name="banner"></slot>
         <slot name="header"></slot>
         <main>
           <slot></slot>

@@ -1,8 +1,16 @@
 import { forceUpdate } from '@stencil/core';
 import { newSpecPage } from '@stencil/core/testing';
+
+let config: any = { registration: { open: true, message: null } };
+jest.mock('../../services/site-store', () => ({ siteStore: { get config() { return config; } } }));
+
 import { PageLogin } from './page-login';
 
 describe('page-login', () => {
+  beforeEach(() => {
+    config = { registration: { open: true, message: null } };
+  });
+
   it('renders email/password fields and a Google link', async () => {
     const page = await newSpecPage({ components: [PageLogin], html: '<page-login></page-login>' });
     const root = page.root.shadowRoot;
@@ -61,5 +69,11 @@ describe('page-login', () => {
 
     expect(text).not.toContain('deactivated');
     expect(text).not.toContain("Google sign-in didn't complete");
+  });
+
+  it('explains closed registration when the OAuth bounce says so', async () => {
+    config = { registration: { open: false, message: 'Closed for the summer.' } };
+    const page = await mountWith('?error=registration_closed');
+    expect(page.root.shadowRoot.querySelector('.notice')!.textContent).toBe('Closed for the summer.');
   });
 });

@@ -4,10 +4,10 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import ReactDOMServer from 'react-dom/server';
 import { type RouteName, route } from 'ziggy-js';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+createServer((page) => {
+    const appName = (page.props as { name?: string }).name || import.meta.env.VITE_APP_NAME || 'Laravel';
 
-createServer((page) =>
-    createInertiaApp({
+    return createInertiaApp({
         page,
         render: ReactDOMServer.renderToString,
         title: (title) => `${title} - ${appName}`,
@@ -26,5 +26,5 @@ createServer((page) =>
 
             return <App {...props} />;
         },
-    }),
-);
+    });
+});
