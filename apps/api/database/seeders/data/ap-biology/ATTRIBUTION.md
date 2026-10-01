@@ -35,6 +35,16 @@ Items the authors could not source from OpenStax carry
 | 07 | §4.2–4.4, §5.1–5.4, §23.1 (as above; synthesis week built around AP Investigation 4) | — | 2026-10-01 |
 | Unit 2 exam and summary | §4.1–4.6, §5.1–5.4, §23.1 (as above) | — | 2026-10-01 |
 
+### Unit 3 · Cellular Energetics
+
+| Week | Biology 2e sections | Biology for AP Courses | Accessed |
+|---|---|---|---|
+| 08 | §6.2 Potential, Kinetic, Free, and Activation Energy · §6.5 Enzymes | — | 2026-10-01 |
+| 09 | §6.1 Energy and Metabolism · §6.3 The Laws of Thermodynamics · §6.4 ATP: Adenosine Triphosphate · §7.1 Energy in Living Systems · §8.1 Overview of Photosynthesis · §8.2 The Light-Dependent Reactions of Photosynthesis | — | 2026-10-01 |
+| 10 | §8.3 Using Light Energy to Make Organic Molecules · §7.1 Energy in Living Systems · §7.2 Glycolysis · §7.3 Oxidation of Pyruvate and the Citric Acid Cycle · §7.6 Connections of Carbohydrate, Protein, and Lipid Metabolic Pathways · §7.7 Regulation of Cellular Respiration | — | 2026-10-01 |
+| 11 | §7.4 Oxidative Phosphorylation · §7.5 Metabolism without Oxygen · §7.7 Regulation of Cellular Respiration · §6.3 The Laws of Thermodynamics | — | 2026-10-01 |
+| Unit 3 exam and summary | §6.1–6.5, §7.1–7.7, §8.1–8.3 (as above); exam review items also draw on §2.2, §3.2, §3.4, §4.3, §5.1, §5.2, §23.1 | — | 2026-10-01 |
+
 ### Unit 4 · Cell Communication and Cell Cycle
 
 | Week | Biology 2e sections | Biology for AP Courses | Accessed |
