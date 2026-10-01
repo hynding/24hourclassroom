@@ -21,3 +21,6 @@ Items the authors could not source from OpenStax carry
 | Week | Biology 2e sections | Biology for AP Courses | Accessed |
 |---|---|---|---|
 | 01 | §2.1 Atoms, Isotopes, Ions, and Molecules: The Building Blocks · §2.2 Water · §2.3 Carbon | Ch. 2 introduction | 2026-10-01 |
+| 02 | §3.1 Synthesis of Biological Macromolecules · §3.2 Carbohydrates · §3.3 Lipids | — | 2026-10-01 |
+| 03 | §3.4 Proteins · §3.5 Nucleic Acids | — | 2026-10-01 |
+| Unit 1 exam and summary | §2.1–2.3, §3.1–3.5 (as above) | — | 2026-10-01 |
