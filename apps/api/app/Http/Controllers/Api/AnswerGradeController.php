@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\QuestionType;
 use App\Http\Controllers\Controller;
 use App\Models\Answer;
 use App\Models\Attempt;
@@ -32,8 +31,11 @@ class AnswerGradeController extends Controller
         abort_unless($attempt->isSubmitted(), 409, 'This attempt has not been submitted.');
 
         $question = $answer->question;
-        if ($question->type !== QuestionType::ShortAnswer) {
-            throw ValidationException::withMessages(['awarded' => ['Only short answers are graded by hand.']]);
+        // Allowlist on the enum (see QuestionType::allowsManualGrade): a
+        // fill_blank override replaces its automatic score; short and long
+        // answers have no other way to be scored.
+        if (! $question->type->allowsManualGrade()) {
+            throw ValidationException::withMessages(['awarded' => ['This question type is graded automatically.']]);
         }
 
         $max = (float) ($answer->graded_answer['points'] ?? $question->points);

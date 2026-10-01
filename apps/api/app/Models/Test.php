@@ -15,7 +15,7 @@ class Test extends Model
     /** @use HasFactory<\Database\Factories\TestFactory> */
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'subject', 'grade_level', 'visibility', 'copied_from_id', 'published_at'];
+    protected $fillable = ['title', 'description', 'subject', 'grade_level', 'visibility', 'copied_from_id', 'published_at', 'slug'];
 
     protected function casts(): array
     {

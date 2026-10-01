@@ -57,3 +57,23 @@ test('every non-teacher role gets 403 on a public source', function () {
         $this->postJson("/api/tests/{$source->id}/copy")->assertStatus(403);
     }
 });
+
+test('a copy carries stimulus, rationales and auto_grade but never the seed slug', function () {
+    $author = aTeacher();
+    $source = aTestWithQuestions($author, 0, ['visibility' => 'public', 'published_at' => now(), 'slug' => 'apbio-w01-quiz']);
+    \App\Models\Question::factory()->for($source)->create([
+        'position' => 0, 'slug' => 'u01-w01-q01', 'stimulus' => 'Shared passage.',
+        'option_explanations' => ['Right.', 'Wrong.', 'Wrong.', 'Wrong.'],
+    ]);
+    \App\Models\Question::factory()->for($source)->fillBlank(['polar'], false)->create(['position' => 1, 'slug' => 'u01-w01-q02']);
+    $this->actingAs(aTeacher());
+
+    $res = $this->postJson("/api/tests/{$source->id}/copy")->assertCreated()
+        ->assertJsonPath('questions.0.stimulus', 'Shared passage.')
+        ->assertJsonPath('questions.0.option_explanations.0', 'Right.')
+        ->assertJsonPath('questions.1.auto_grade', false);
+
+    $copy = Test::find($res->json('id'));
+    expect($copy->slug)->toBeNull()
+        ->and($copy->questions->pluck('slug')->all())->toBe([null, null]);
+});

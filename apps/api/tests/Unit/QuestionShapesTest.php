@@ -93,3 +93,35 @@ test('the create_test_draft builder schema requires the same four fields as Test
         ->not->toHaveKey('id')
         ->not->toHaveKey('visibility');
 });
+
+test('the draft schema states the same length limits as QuestionRules', function () {
+    $item = TestDraftSchema::json()['properties']['questions']['items']['properties'];
+
+    expect($item['prompt']['maxLength'])->toBe(QuestionRules::PROMPT_MAX)
+        ->and($item['stimulus']['maxLength'])->toBe(QuestionRules::STIMULUS_MAX)
+        ->and($item['options']['items']['maxLength'])->toBe(QuestionRules::OPTION_MAX)
+        ->and($item['option_explanations']['items']['maxLength'])->toBe(QuestionRules::OPTION_EXPLANATION_MAX)
+        ->and($item['explanation']['maxLength'])->toBe(QuestionRules::EXPLANATION_MAX);
+
+    // And the field rules read the same constants.
+    $rules = QuestionRules::rules();
+    expect($rules['questions.*.prompt'])->toContain('max:'.QuestionRules::PROMPT_MAX)
+        ->and($rules['questions.*.options.*'])->toContain('max:'.QuestionRules::OPTION_MAX)
+        ->and($rules['questions.*.explanation'])->toContain('max:'.QuestionRules::EXPLANATION_MAX);
+});
+
+test('the enum helpers partition every case', function () {
+    foreach (QuestionType::cases() as $type) {
+        // A hand-graded type must be hand-gradable; the converse is not
+        // required (fill_blank is auto-graded yet overridable).
+        if ($type->isManuallyGraded()) {
+            expect($type->allowsManualGrade())->toBeTrue($type->value);
+        }
+        if ($type->hasOptions()) {
+            expect($type->isManuallyGraded())->toBeFalse($type->value);
+        }
+    }
+
+    expect(array_values(array_map(fn ($t) => $t->value, array_filter(QuestionType::cases(), fn ($t) => $t->allowsManualGrade()))))
+        ->toBe(['short_answer', 'fill_blank', 'long_answer']);
+});

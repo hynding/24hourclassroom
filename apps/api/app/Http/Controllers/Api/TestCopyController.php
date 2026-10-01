@@ -34,7 +34,12 @@ class TestCopyController extends Controller
                 'copied_from_id' => $test->id,
             ]);
             foreach ($test->questions as $q) {
-                $copy->questions()->create($q->only(['position', 'type', 'prompt', 'options', 'answer', 'points', 'partial_credit', 'explanation']));
+                // Not `slug`: a copy is a different test, and the seeder's
+                // re-run must find its own rows, never a teacher's copy.
+                $copy->questions()->create($q->only([
+                    'position', 'type', 'prompt', 'stimulus', 'options', 'option_explanations',
+                    'answer', 'points', 'partial_credit', 'auto_grade', 'explanation',
+                ]));
             }
 
             return $copy;

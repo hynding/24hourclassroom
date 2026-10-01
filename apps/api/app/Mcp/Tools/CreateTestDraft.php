@@ -7,6 +7,7 @@ use App\Enums\QuestionType;
 use App\Enums\Subject;
 use App\Mcp\Tools\Concerns\TeachersOnly;
 use App\Support\FrontendRedirect;
+use App\Support\QuestionRules;
 use App\Support\TestDraftValidator;
 use App\Support\TestDraftWriter;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
@@ -74,21 +75,29 @@ class CreateTestDraft extends Tool
                 ->items($schema->object([
                     'type' => $schema->string()->enum(QuestionType::class)->required()
                         ->description('One question type value from list_taxonomies.'),
-                    'prompt' => $schema->string()->max(2000)->required()
+                    'prompt' => $schema->string()->max(QuestionRules::PROMPT_MAX)->required()
                         ->description('The question as the student reads it.'),
+                    'stimulus' => $schema->string()->max(QuestionRules::STIMULUS_MAX)
+                        ->description('Optional passage or data table shared by consecutive questions; repeat it verbatim on each.'),
                     'options' => $schema->array()->min(2)->max(8)
-                        ->items($schema->string()->max(200))
+                        ->items($schema->string()->max(QuestionRules::OPTION_MAX))
                         ->description('Required for multiple_choice and multi_select; omit for every other type.'),
+                    'option_explanations' => $schema->array()->max(8)
+                        ->items($schema->string()->max(QuestionRules::OPTION_EXPLANATION_MAX))
+                        ->description('Optional, multiple_choice and multi_select only: one entry per option saying why it is right or wrong.'),
                     // No single JSON type fits: an option index, a list of
-                    // indices, a boolean, a string, or {value, tolerance}.
+                    // indices, a boolean, a string, {value, tolerance}, or a
+                    // list of accepted strings.
                     'answer' => $schema->union(['string', 'integer', 'number', 'boolean', 'array', 'object'])->required()
                         ->description('The correct answer in the shape this type requires -- see list_taxonomies.'),
                     'points' => $schema->integer()->min(1)->max(100)
-                        ->description('Defaults to 1.'),
+                        ->description('Defaults to 1; 4 to 10 on long_answer.'),
                     'partial_credit' => $schema->boolean()
                         ->description('Only valid on multi_select.'),
-                    'explanation' => $schema->string()->max(2000)
-                        ->description('Optional rationale shown after grading.'),
+                    'auto_grade' => $schema->boolean()
+                        ->description('fill_blank only: false hands the item to the teacher.'),
+                    'explanation' => $schema->string()->max(QuestionRules::EXPLANATION_MAX)
+                        ->description('Optional rationale shown after grading; the acceptable-answer summary on hand-graded types.'),
                 ])),
         ];
     }

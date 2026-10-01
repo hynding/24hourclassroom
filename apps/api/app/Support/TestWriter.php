@@ -33,10 +33,17 @@ final class TestWriter
                 'position' => $position,
                 'type' => $type,
                 'prompt' => $q['prompt'],
+                'stimulus' => filled($q['stimulus'] ?? null) ? $q['stimulus'] : null,
                 'options' => $type->hasOptions() ? array_values($q['options']) : null,
+                // Same array_values rule as options: the two lists are
+                // parallel, so an associative object would mis-pair them.
+                'option_explanations' => ($type->hasOptions() && isset($q['option_explanations']))
+                    ? array_values($q['option_explanations'])
+                    : null,
                 'answer' => $q['answer'],
                 'points' => $q['points'] ?? 1,
                 'partial_credit' => $type === QuestionType::MultiSelect ? (bool) ($q['partial_credit'] ?? false) : false,
+                'auto_grade' => $type === QuestionType::FillBlank ? (bool) ($q['auto_grade'] ?? true) : true,
                 'explanation' => $q['explanation'] ?? null,
             ];
 

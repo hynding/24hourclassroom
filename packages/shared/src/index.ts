@@ -61,7 +61,14 @@ export const VISIBILITIES: TaxonomyOption<Visibility>[] = [
   { value: 'public', label: 'Public' },
 ];
 
-export type QuestionType = 'multiple_choice' | 'multi_select' | 'true_false' | 'short_answer' | 'numeric';
+export type QuestionType =
+  | 'multiple_choice'
+  | 'multi_select'
+  | 'true_false'
+  | 'short_answer'
+  | 'numeric'
+  | 'fill_blank'
+  | 'long_answer';
 
 export const QUESTION_TYPES: TaxonomyOption<QuestionType>[] = [
   { value: 'multiple_choice', label: 'Multiple choice' },
@@ -69,7 +76,15 @@ export const QUESTION_TYPES: TaxonomyOption<QuestionType>[] = [
   { value: 'true_false', label: 'True / false' },
   { value: 'short_answer', label: 'Short answer' },
   { value: 'numeric', label: 'Numeric' },
+  { value: 'fill_blank', label: 'Fill in the blank' },
+  { value: 'long_answer', label: 'Long answer' },
 ];
+
+/** The marker a `fill_blank` prompt must contain; the attempt view replaces it with an input. */
+export const BLANK_MARKER = '____';
+
+/** Types a teacher may grade by hand. Mirrors QuestionType::allowsManualGrade(). */
+export const MANUAL_GRADE_TYPES: QuestionType[] = ['short_answer', 'fill_blank', 'long_answer'];
 
 export interface TestAuthor {
   id: number;
@@ -81,27 +96,40 @@ export interface NumericAnswer {
   tolerance?: number;
 }
 
-/** `answer` and `explanation` are ABSENT (not null) unless the viewer is the author. */
+/**
+ * `answer`, `explanation` and `option_explanations` are ABSENT (not null)
+ * unless the viewer may see answers: each per-option rationale says whether
+ * its option is the right one. `stimulus` is shared context (a passage or
+ * data table) repeated verbatim across a set of consecutive questions; views
+ * collapse identical neighbours into one block.
+ */
 export interface Question {
   id: number;
   position: number;
   type: QuestionType;
   prompt: string;
+  stimulus: string | null;
   options: string[] | null;
   points: number;
   partial_credit: boolean;
+  /** fill_blank only: false means the teacher grades it by hand. */
+  auto_grade: boolean;
   answer?: unknown;
   explanation?: string | null;
+  option_explanations?: (string | null)[] | null;
 }
 
 export interface QuestionInput {
   id?: number;
   type: QuestionType;
   prompt: string;
+  stimulus?: string | null;
   options?: string[];
+  option_explanations?: (string | null)[] | null;
   answer: unknown;
   points?: number;
   partial_credit?: boolean;
+  auto_grade?: boolean;
   explanation?: string | null;
 }
 
@@ -210,10 +238,14 @@ export interface AssignResult {
   status: 'assigned' | 'not_found';
 }
 
+export type LibrarySort = 'recent' | 'title';
+
 export interface LibraryFilters {
   subject?: Subject;
   grade?: GradeLevel;
   q?: string;
+  /** `title` sorts A→Z so a zero-padded course title reads in course order. Default `recent`. */
+  sort?: LibrarySort;
   page?: number;
 }
 

@@ -139,3 +139,46 @@ test('grade() is idempotent and never overwrites a manual grade on a second call
         ->and($attempt->graded_at)->not->toBeNull()
         ->and($attempt->answers)->toHaveCount(1);
 });
+
+test('fill_blank matches any accepted answer after normalization, or nothing when auto_grade is off', function () {
+    $fb = q('fillBlank', ['Hydrogen bond', 'H-bond']); // points 4
+    expect(AttemptGrader::score($fb, 'hydrogen bond'))->toBe(4.0)
+        ->and(AttemptGrader::score($fb, '  Hydrogen   BOND. '))->toBe(4.0)
+        ->and(AttemptGrader::score($fb, 'h-bond'))->toBe(4.0)
+        ->and(AttemptGrader::score($fb, 'hydrogen bonds'))->toBe(0.0)
+        ->and(AttemptGrader::score($fb, ''))->toBe(0.0)
+        ->and(AttemptGrader::score($fb, null))->toBe(0.0)
+        ->and(AttemptGrader::score($fb, ['hydrogen bond']))->toBe(0.0)
+        ->and(AttemptGrader::score($fb, 42))->toBe(0.0);
+
+    $manual = q('fillBlank', ['polar'], false);
+    expect(AttemptGrader::score($manual, 'polar'))->toBeNull();
+});
+
+test('long answer is never auto-graded', function () {
+    $la = q('longAnswer');
+    expect(AttemptGrader::score($la, 'A paragraph.'))->toBeNull()
+        ->and(AttemptGrader::score($la, null))->toBeNull();
+});
+
+test('every question type is either auto-graded or hand-graded, never silently neither', function () {
+    // isManuallyGraded() names the null-scoring types; every other type
+    // must return a number for a wrong-shaped response (decision 9).
+    foreach (\App\Enums\QuestionType::cases() as $type) {
+        $state = match ($type) {
+            \App\Enums\QuestionType::MultipleChoice => 'multipleChoice',
+            \App\Enums\QuestionType::MultiSelect => 'multiSelect',
+            \App\Enums\QuestionType::TrueFalse => 'trueFalse',
+            \App\Enums\QuestionType::ShortAnswer => 'shortAnswer',
+            \App\Enums\QuestionType::Numeric => 'numeric',
+            \App\Enums\QuestionType::FillBlank => 'fillBlank',
+            \App\Enums\QuestionType::LongAnswer => 'longAnswer',
+        };
+        $score = AttemptGrader::score(q($state), ['nonsense']);
+        if ($type->isManuallyGraded()) {
+            expect($score)->toBeNull($type->value);
+        } else {
+            expect($score)->toBe(0.0, $type->value);
+        }
+    }
+});

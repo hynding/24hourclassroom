@@ -174,3 +174,21 @@ test('a student lists all their attempts including self-practice', function () {
         $this->getJson('/api/attempts')->assertStatus(403);
     }
 });
+
+test('a written response is capped and the new types are saved as given', function () {
+    $teacher = aTeacher();
+    $test = aTestWithQuestions($teacher, 0, ['visibility' => 'public', 'published_at' => now()]);
+    $fb = \App\Models\Question::factory()->for($test)->fillBlank(['polar'])->create(['position' => 0]);
+    $la = \App\Models\Question::factory()->for($test)->longAnswer()->create(['position' => 1]);
+    $this->actingAs(aStudent());
+    $id = $this->postJson("/api/tests/{$test->id}/attempts")->json('id');
+
+    $this->putJson("/api/attempts/{$id}", ['responses' => [$la->id => str_repeat('x', 10001)]])
+        ->assertStatus(422)->assertJsonValidationErrors(["responses.{$la->id}"]);
+
+    $this->putJson("/api/attempts/{$id}", ['responses' => [$fb->id => ' Polar ', $la->id => str_repeat('x', 10000)]])->assertOk();
+    $res = $this->postJson("/api/attempts/{$id}/submit")->assertOk();
+    expect($res->json('score'))->toBe('1.00')          // fill_blank auto-graded
+        ->and($res->json('ungraded_count'))->toBe(1)   // long_answer waits
+        ->and($res->json('questions.0.answer'))->toBe(['polar']);
+});
