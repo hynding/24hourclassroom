@@ -63,3 +63,14 @@ Items the authors could not source from OpenStax carry
 | 21 | §14.6 DNA Repair · §13.2 Chromosomal Basis of Inherited Disorders · §22.2 Structure of Prokaryotes: Bacteria and Archaea · §17.1 Biotechnology · §17.2 Mapping Genomes | — | 2026-10-01 |
 | 22 | §17.1 Biotechnology · §17.3 Whole-Genome Sequencing · §14.2 DNA Structure and Sequencing · §16.2 Prokaryotic Gene Regulation | — | 2026-10-01 |
 | Unit 6 exam and summary | §14.1–14.6, §15.1–15.5, §16.1–16.7, §17.1–17.3, §13.2, §22.2 (as above) | — | 2026-10-01 |
+
+### Unit 7 · Natural Selection
+
+| Week | Biology 2e sections | Biology for AP Courses | Accessed |
+|---|---|---|---|
+| 23 | §18.1 Understanding Evolution · §19.2 Population Genetics · §19.3 Adaptive Evolution | — | 2026-10-01 |
+| 24 | §19.1 Population Evolution · §19.2 Population Genetics · §19.3 Adaptive Evolution | — | 2026-10-01 |
+| 25 | §18.1 Understanding Evolution · §20.2 Determining Evolutionary Relationships · §20.3 Perspectives on the Phylogenetic Tree · §22.1 Prokaryotic Diversity · §23.1 Eukaryotic Origins · §1.2 Themes and Concepts of Biology | — | 2026-10-01 |
+| 26 | §20.1 Organizing Life on Earth · §20.2 Determining Evolutionary Relationships · §18.2 Formation of New Species · §18.3 Reconnection and Speciation Rates | — | 2026-10-01 |
+| 27 | §22.1 Prokaryotic Diversity · §23.1 Eukaryotic Origins · §1.2 Themes and Concepts of Biology · §20.3 Perspectives on the Phylogenetic Tree · §19.2 Population Genetics | — | 2026-10-01 |
+| Unit 7 exam and summary | §18.1–18.3, §19.1–19.3, §20.1–20.3, §22.1, §23.1, §1.2 (as above); exam review items also use §4.2, §6.5, §7.2, §9.4, §14.6, §16.4 | — | 2026-10-01 |

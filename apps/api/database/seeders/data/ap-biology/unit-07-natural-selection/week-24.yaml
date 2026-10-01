@@ -1,0 +1,785 @@
+week: 24
+unit: 7
+title: Population Genetics and Hardy-Weinberg
+topics: ["7.4", "7.5"]
+guide: guides/week-24.md
+guide_description: |
+  Evolution as a change in allele frequency; the forces that change it (selection, drift with its bottleneck
+  and founder cases, gene flow, mutation) and the one that changes genotype frequencies only (nonrandom mating);
+  Hardy-Weinberg as the null hypothesis of no evolution, with p + q = 1 and p² + 2pq + q² = 1; the chi-square
+  test as the way to decide. Three worked examples (allele frequencies from counts, carriers from a recessive
+  phenotype, a full chi-square test of equilibrium), misconceptions, self-check.
+flashcards_description: |
+  34 cards: gene pools and allele frequencies, the five evolutionary forces, Hardy-Weinberg conditions and
+  equations, carriers, the null-hypothesis logic and the chi-square test.
+
+flashcards:
+  - front: Population (the genetic definition)
+    back: |
+      A group of individuals of one species living in the same area and interbreeding, so that they share a gene pool. Evolution is defined on populations, never on individuals.
+    topic_code: "7.4"
+  - front: Gene pool
+    back: |
+      All the alleles of all the genes carried by all the members of a population. Evolution is a change in the make-up of the gene pool from one generation to the next.
+    topic_code: "7.4"
+  - front: Allele frequency → how to calculate it from genotype counts
+    back: |
+      Count every copy of the allele and divide by the total number of alleles (twice the number of diploid individuals). For 245 YY, 210 Yy and 45 yy plants: Y = (2 × 245 + 210) / 1,000 = 0.7 and y = (210 + 2 × 45) / 1,000 = 0.3.
+    hint: Homozygotes count twice, heterozygotes once.
+    topic_code: "7.4"
+  - front: Microevolution
+    back: |
+      A change in allele frequencies within a population across generations. It is the population-genetics definition of evolution; macroevolution (new species and higher groups) is microevolution accumulated over long times.
+    topic_code: "7.4"
+  - front: Modern synthesis
+    back: |
+      The 1940s union of Darwin's natural selection with Mendelian genetics: evolution is a change in allele frequencies, caused by selection, drift, gene flow and mutation, and the same processes explain both microevolution and macroevolution.
+    topic_code: "7.4"
+  - front: Genetic drift
+    back: |
+      Random change in allele frequencies from one generation to the next because the individuals that happen to reproduce are a chance sample of the population. It has no relation to fitness, and it can fix or eliminate an allele.
+    hint: Sampling error, not selection.
+    topic_code: "7.4"
+  - front: Why is genetic drift stronger in a small population?
+    back: |
+      Each death or birth is a larger fraction of the gene pool. Losing one individual from ten removes a tenth of the alleles; from a hundred, only one percent. Small samples swing more, so small populations drift faster and lose alleles sooner.
+    topic_code: "7.4"
+  - front: Bottleneck effect
+    back: |
+      A sudden event (storm, disease, hunting) kills a large part of a population at random with respect to genotype. The survivors' alleles become the whole gene pool, often with alleles lost and frequencies changed, and variation stays low even after numbers recover.
+    topic_code: "7.4"
+  - front: Founder effect
+    back: |
+      A small group leaves to found a new population; its alleles are an unrepresentative sample of the source, so the new population's frequencies differ from the start. Rare alleles carried by a founder can become common.
+    hint: A new population built from a few colonists.
+    topic_code: "7.4"
+  - front: Founder effect → the Afrikaner example
+    back: |
+      The Afrikaner population of South Africa descends from a small number of Dutch colonists, several of whom carried alleles for Huntington's disease and Fanconi anaemia. Those conditions are far more common among Afrikaners than in the Netherlands today.
+    topic_code: "7.4"
+  - front: Fixation of an allele
+    back: |
+      An allele reaches a frequency of 1.0: every individual is homozygous for it and the alternative is gone. Once lost, an allele returns only by new mutation or by gene flow. Drift fixes alleles quickly in small populations.
+    topic_code: "7.4"
+  - front: Gene flow → effect on two populations
+    back: |
+      Alleles moving between populations by migration of individuals or gametes (pollen, seeds, dispersing males). It makes the two populations more alike, adds alleles a population lacked, and can oppose local selection. Stopping it is the first step of speciation.
+    topic_code: "7.4"
+  - front: Mutation as an evolutionary force → why it alone is slow
+    back: |
+      Mutation is the only source of new alleles, but mutation rates are tiny (about one per gene per hundred thousand gametes), so on its own it changes frequencies very slowly. Its importance is in supplying the variation that selection and drift then act on.
+    topic_code: "7.4"
+  - front: Nonrandom mating → the two forms and the effect
+    back: |
+      Assortative mating (choosing mates with a similar phenotype) and inbreeding (mating with relatives). Both raise the frequency of homozygotes and lower heterozygotes. Allele frequencies do not change; genotype frequencies do.
+    hint: Changes who is paired with whom, not how many of each allele exist.
+    topic_code: "7.4"
+  - front: Assortative mating
+    back: |
+      Individuals prefer mates that resemble them, such as peahens choosing peacocks with the largest tails or birds mating by size. It increases homozygosity for the trait and is a form of nonrandom mating that violates Hardy-Weinberg.
+    topic_code: "7.4"
+  - front: Inbreeding → the effect on genotype frequencies versus allele frequencies
+    back: |
+      Mating among relatives makes offspring more likely to be homozygous at every locus, so homozygote frequencies rise and heterozygote frequencies fall below 2pq. The allele frequencies p and q are unchanged. Harmful recessive alleles are exposed, which is inbreeding depression.
+    topic_code: "7.4"
+  - front: Inbreeding depression
+    back: |
+      Reduced fitness in a population where relatives mate, because deleterious recessive alleles that were sheltered in heterozygotes are brought together in homozygotes. Breeding programs raise genetic variability to avoid it.
+    topic_code: "7.4"
+  - front: Cline
+    back: |
+      A gradual change in a trait or allele frequency across a geographic gradient, such as larger body size toward the poles or later flowering with altitude. Gene flow along the gradient keeps the change smooth; cut it off and the differences become abrupt.
+    topic_code: "7.4"
+  - front: Genetic variability → why breeding and conservation programs try to raise it
+    back: |
+      The diversity of alleles and genotypes in a population. More variability means more phenotypes for selection to work with when conditions change and less risk of inbreeding depression. Managers bring in unrelated individuals to add alleles.
+    topic_code: "7.4"
+  - front: The ten-rabbit drift example → what happened
+    back: |
+      Ten rabbits with p = q = 0.5 (2 BB, 6 Bb, 2 bb). By chance only five breed (2 BB, 3 Bb), so the next generation has p = 0.7, q = 0.3. If by chance only the two BB rabbits breed next, b is lost entirely. No rabbit was fitter than another; the sample was just small.
+    topic_code: "7.4"
+  - front: Hardy-Weinberg principle → the claim it makes
+    back: |
+      In a population with no evolutionary forces acting, allele and genotype frequencies stay the same from generation to generation. Sexual reproduction by itself does not change frequencies. Any change therefore means some force (selection, drift, gene flow, mutation, nonrandom mating) is at work.
+    topic_code: "7.5"
+  - front: Hardy-Weinberg → the five conditions for equilibrium
+    back: |
+      (1) Very large population, so no drift; (2) no mutation; (3) no migration in or out (no gene flow); (4) no natural selection, every genotype equally successful; (5) random mating. Real populations violate at least one, which is the point: the model is a baseline, not a description.
+    hint: No drift, no mutation, no migration, no selection, random mating.
+    topic_code: "7.5"
+  - front: p + q = 1 → what p and q are
+    back: |
+      p is the frequency of one allele and q the frequency of the other at a locus with two alleles; together they account for every allele in the gene pool. Knowing either gives the other.
+    topic_code: "7.5"
+  - front: p² + 2pq + q² = 1 → what each term means
+    back: |
+      The expected genotype frequencies under random mating: p² homozygous for the first allele, 2pq heterozygous, q² homozygous for the second. It is a Punnett square for the whole gene pool: a sperm carrying the allele with probability p meets an egg carrying it with probability p.
+    hint: Square the allele frequencies; the cross term is doubled because Aa and aA both count.
+    topic_code: "7.5"
+  - front: Finding q when you only know the recessive phenotype frequency
+    back: |
+      The recessive phenotype is the q² class, the only genotype you can recognise by looking. Take the square root: if 9% of a population shows the recessive trait, q² = 0.09, q = 0.3, p = 0.7, and the carriers are 2pq = 0.42. This works only if the population is in Hardy-Weinberg equilibrium.
+    topic_code: "7.5"
+  - front: Carrier frequency → which term and why it stays large when q is small
+    back: |
+      Carriers are the heterozygotes, 2pq. When q is small, p is near 1 and 2pq ≈ 2q, which is far larger than q². For cystic fibrosis q ≈ 0.02, so affected = q² = 1 in 2,500 but carriers ≈ 1 in 25. Rare recessive alleles live mostly in carriers, hidden from selection.
+    topic_code: "7.5"
+  - front: Hardy-Weinberg as a null hypothesis
+    back: |
+      The equations predict what genotype frequencies would be if no evolution were occurring. Compare the prediction with observed counts: if they match, you have no evidence of evolutionary forces at that locus; if they differ by more than chance (chi-square test), reject the null and conclude that some force is acting.
+    hint: It describes the population that is NOT evolving, so you can tell when one is.
+    topic_code: "7.5"
+  - front: A population matches its Hardy-Weinberg prediction → what can and cannot be concluded
+    back: |
+      You cannot reject the null hypothesis of no evolution at this locus for this generation. You cannot conclude the population never evolves: a single generation of random mating restores Hardy-Weinberg genotype proportions even after frequencies have shifted, and selection can act on other loci.
+    topic_code: "7.5"
+  - front: Chi-square test → equation and the steps
+    back: |
+      χ² = Σ (observed − expected)² / expected, summed over every category. Steps: state the null hypothesis (observed counts fit the expectation), compute expected counts from the model, compute χ², find degrees of freedom (categories − 1), compare with the critical value at p = 0.05. Larger than critical: reject the null.
+    topic_code: "7.5"
+  - front: Degrees of freedom and the critical value → how to read the chi-square table
+    back: |
+      Degrees of freedom = number of categories − 1 (three genotypes gives df = 2). At p = 0.05 the AP table gives 3.84 for df = 1, 5.99 for df = 2, 7.82 for df = 3. If your χ² exceeds the value, the observed counts differ from the expectation by more than chance alone would produce in 95% of trials.
+    topic_code: "7.5"
+  - front: Null hypothesis (in a chi-square test of Hardy-Weinberg)
+    back: |
+      The statement that the observed genotype counts do not differ from the counts expected under equilibrium, so any gap is sampling chance. Rejecting it means the population is not at equilibrium; failing to reject it does not prove equilibrium.
+    topic_code: "7.5"
+  - front: Heterozygote advantage → how it keeps a harmful allele in a population
+    back: |
+      When the heterozygote is fitter than either homozygote, selection keeps both alleles even though one homozygote is unfit. Sickle-cell is the case: HbA/HbS carriers resist malaria, so HbS stays near 10% in some African populations although HbS/HbS is often fatal.
+    topic_code: "7.5"
+  - front: AP Investigation 2 → what the spreadsheet models and what you vary
+    back: |
+      A spreadsheet draws random gametes from a gene pool with chosen allele frequencies to make each generation, so it simulates random mating. You vary population size (to watch drift), starting frequencies, and the fitness of each genotype (to watch selection), and record how p changes over generations and across replicate runs.
+    topic_code: "7.5"
+  - front: Which evolutionary forces add variation to a population and which remove it?
+    back: |
+      Add: mutation (new alleles) and gene flow (alleles from elsewhere). Remove: genetic drift (alleles lost by chance), bottleneck and founder effects, and most natural selection (stabilizing and directional). Disruptive, frequency-dependent and heterozygote-advantage selection maintain or raise variation.
+    topic_code: "7.4"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · allele frequencies, the five evolutionary forces, Hardy-Weinberg as a
+    null hypothesis, chi-square and genetic drift from simulation data, with spiral review of selection modes,
+    artificial selection, segregation, codominance and mutation. Multiple choice, select-all, true/false and
+    numeric items are graded at once; the fill-in-the-blank items are matched automatically; the two short
+    answers and the long answer are graded by your teacher against the acceptable-answer summary.
+  questions:
+    - slug: u07-w24-q01
+      type: numeric
+      topic_code: "7.5"
+      source: "Biology 2e §19.1 Population Evolution"
+      points: 1
+      stimulus: |
+        Coat colour in a population of deer mice is controlled by one gene with two alleles; B (dark) is dominant to b (light). Students trapped 1,000 mice from one meadow and genotyped every animal by a DNA test, so all three genotypes could be counted.
+
+        | Genotype | Observed count |
+        |---|---|
+        | BB | 400 |
+        | Bb | 400 |
+        | bb | 200 |
+        | Total | 1,000 |
+
+        The AP chi-square table gives critical values at p = 0.05 of 3.84 for 1 degree of freedom, 5.99 for 2 degrees of freedom and 7.82 for 3 degrees of freedom.
+      prompt: |
+        Calculate the frequency of the B allele (p) in the sample. Give your answer to two decimal places.
+      answer: { value: 0.6, tolerance: 0.005 }
+      explanation: |
+        Total alleles = 2 × 1,000 = 2,000. Copies of B = 2 × 400 (from BB) + 400 (from Bb) = 1,200. p = 1,200 / 2,000 = 0.60, so q = 0.40. Notice that you must count alleles, not individuals: the heterozygotes carry one copy each. With p and q known you can compute what Hardy-Weinberg expects and test whether this population fits.
+
+    - slug: u07-w24-q02
+      type: numeric
+      topic_code: "7.5"
+      source: "general knowledge"
+      points: 1
+      stimulus: |
+        Coat colour in a population of deer mice is controlled by one gene with two alleles; B (dark) is dominant to b (light). Students trapped 1,000 mice from one meadow and genotyped every animal by a DNA test, so all three genotypes could be counted.
+
+        | Genotype | Observed count |
+        |---|---|
+        | BB | 400 |
+        | Bb | 400 |
+        | bb | 200 |
+        | Total | 1,000 |
+
+        The AP chi-square table gives critical values at p = 0.05 of 3.84 for 1 degree of freedom, 5.99 for 2 degrees of freedom and 7.82 for 3 degrees of freedom.
+      prompt: |
+        Using p = 0.6 and q = 0.4, calculate the expected counts of each genotype under Hardy-Weinberg equilibrium and then the chi-square value, χ² = Σ (observed − expected)² / expected. Give the chi-square value to one decimal place.
+      answer: { value: 27.8, tolerance: 0.5 }
+      explanation: |
+        Expected: BB = p² × 1,000 = 0.36 × 1,000 = 360; Bb = 2pq × 1,000 = 0.48 × 1,000 = 480; bb = q² × 1,000 = 0.16 × 1,000 = 160. χ² = (400 − 360)² / 360 + (400 − 480)² / 480 + (200 − 160)² / 160 = 1,600 / 360 + 6,400 / 480 + 1,600 / 160 = 4.44 + 13.33 + 10.00 = 27.8. Three genotype categories give 2 degrees of freedom and a critical value of 5.99; 27.8 is far beyond it.
+
+    - slug: u07-w24-q03
+      type: multiple_choice
+      topic_code: "7.5"
+      source: "general knowledge"
+      points: 1
+      stimulus: |
+        Coat colour in a population of deer mice is controlled by one gene with two alleles; B (dark) is dominant to b (light). Students trapped 1,000 mice from one meadow and genotyped every animal by a DNA test, so all three genotypes could be counted.
+
+        | Genotype | Observed count |
+        |---|---|
+        | BB | 400 |
+        | Bb | 400 |
+        | bb | 200 |
+        | Total | 1,000 |
+
+        The AP chi-square table gives critical values at p = 0.05 of 3.84 for 1 degree of freedom, 5.99 for 2 degrees of freedom and 7.82 for 3 degrees of freedom.
+      prompt: |
+        The chi-square value for these data is about 27.8 with 2 degrees of freedom. Which conclusion is justified?
+      options:
+        - "The null hypothesis cannot be rejected, so the population is in Hardy-Weinberg equilibrium."
+        - "The null hypothesis is rejected: the genotype frequencies differ from the Hardy-Weinberg expectation by more than chance, so at least one condition of equilibrium is being violated."
+        - "The chi-square value proves that natural selection is acting against heterozygotes."
+        - "The sample is too small to draw any conclusion, so more mice must be trapped."
+      option_explanations:
+        - |
+          A chi-square far above the critical value (27.8 against 5.99) means the gap between observed and expected is very unlikely to be sampling chance; the null is rejected, not retained.
+        - |
+          Correct. The test rejects the null of equilibrium. It tells you that some evolutionary force or nonrandom mating is acting, though not which one; that needs further evidence.
+        - |
+          The test identifies a departure from expectation, not its cause. Fewer heterozygotes than expected is consistent with inbreeding, assortative mating or selection against heterozygotes; the number alone cannot distinguish them.
+        - |
+          A sample of 1,000 is large, and the test already accounts for sample size through the expected counts. The data are sufficient to reject the null.
+      answer: 1
+      explanation: |
+        Hardy-Weinberg is a null hypothesis: it describes a population that is not evolving so you can recognise one that is. A significant chi-square says "something is acting here"; naming the force is a separate inference.
+
+    - slug: u07-w24-q04
+      type: multiple_choice
+      topic_code: "7.4"
+      source: "Biology 2e §19.2 Population Genetics"
+      points: 1
+      stimulus: |
+        Coat colour in a population of deer mice is controlled by one gene with two alleles; B (dark) is dominant to b (light). Students trapped 1,000 mice from one meadow and genotyped every animal by a DNA test, so all three genotypes could be counted.
+
+        | Genotype | Observed count |
+        |---|---|
+        | BB | 400 |
+        | Bb | 400 |
+        | bb | 200 |
+        | Total | 1,000 |
+
+        The AP chi-square table gives critical values at p = 0.05 of 3.84 for 1 degree of freedom, 5.99 for 2 degrees of freedom and 7.82 for 3 degrees of freedom.
+      prompt: |
+        The sample has fewer heterozygotes (400) and more of both homozygotes than Hardy-Weinberg predicts (480 heterozygotes), while the allele frequencies are unchanged. Which process is most consistent with this specific pattern?
+      options:
+        - "Gene flow from a neighbouring meadow with a different allele frequency."
+        - "Nonrandom mating, such as inbreeding or mice preferring mates of their own colour, which raises homozygosity without changing allele frequencies."
+        - "Directional selection favouring dark mice, which would raise the frequency of B."
+        - "A recent mutation converting b alleles into B alleles."
+      option_explanations:
+        - |
+          Gene flow would change allele frequencies by importing alleles; it does not specifically convert heterozygotes into homozygotes in both directions at once.
+        - |
+          Correct. Inbreeding and assortative mating change genotype frequencies only: relatives, or like with like, produce more homozygotes of both kinds, leaving p and q where they were. That is exactly the pattern.
+        - |
+          Selection for dark mice would shift p upward and reduce bb, not increase both BB and bb together. The data show both homozygotes in excess.
+        - |
+          Mutation is far too rare to move counts by dozens in one generation, and it would change allele frequencies rather than redistribute genotypes.
+      answer: 1
+      explanation: |
+        Of the five forces, nonrandom mating is the one that leaves allele frequencies alone and alters genotype frequencies. A heterozygote deficit with unchanged p and q is its fingerprint.
+
+    - slug: u07-w24-q05
+      type: multiple_choice
+      topic_code: "7.4"
+      source: "general knowledge"
+      points: 1
+      stimulus: |
+        A class used a spreadsheet model (AP Investigation 2) to simulate a population with two alleles, A and a, starting at p = 0.5, with random mating and no selection, for 20 generations. They ran five replicate simulations at each population size and recorded the frequency of A at generation 20.
+
+        | Population size | Run 1 | Run 2 | Run 3 | Run 4 | Run 5 |
+        |---|---|---|---|---|---|
+        | 10 | 1.00 | 0.00 | 0.90 | 0.20 | 1.00 |
+        | 100 | 0.58 | 0.41 | 0.55 | 0.47 | 0.62 |
+        | 1,000 | 0.51 | 0.49 | 0.50 | 0.52 | 0.48 |
+      prompt: |
+        Which conclusion about genetic drift is best supported by the simulation?
+      options:
+        - "Drift changes allele frequencies in a consistent direction, favouring allele A."
+        - "The smaller the population, the larger and more unpredictable the change in allele frequency due to chance alone."
+        - "Drift occurs only in populations of ten or fewer; populations of 100 or more are immune."
+        - "Natural selection was stronger in the small populations than in the large ones."
+      option_explanations:
+        - |
+          Runs at size 10 ended at both 1.00 and 0.00; there is no consistent direction. Drift is random with respect to which allele wins.
+        - |
+          Correct. At size 10 the frequency wandered from 0.00 to 1.00; at 1,000 it barely moved from 0.5. Sampling error shrinks as the sample grows, which is exactly why drift matters most in small populations.
+        - |
+          Drift acts in every finite population; the runs at 100 moved by up to 0.09 in twenty generations. The effect is smaller, not absent.
+        - |
+          The model had no selection at all (every genotype was equally likely to reproduce). All of the change is chance sampling of gametes.
+      answer: 1
+      explanation: |
+        Drift is sampling error in the gene pool. The five replicates are the key: they show that with no selection the outcome is unpredictable and that the spread of outcomes depends on population size.
+
+    - slug: u07-w24-q06
+      type: multiple_choice
+      topic_code: "7.4"
+      source: "Biology 2e §19.2 Population Genetics"
+      points: 1
+      stimulus: |
+        A class used a spreadsheet model (AP Investigation 2) to simulate a population with two alleles, A and a, starting at p = 0.5, with random mating and no selection, for 20 generations. They ran five replicate simulations at each population size and recorded the frequency of A at generation 20.
+
+        | Population size | Run 1 | Run 2 | Run 3 | Run 4 | Run 5 |
+        |---|---|---|---|---|---|
+        | 10 | 1.00 | 0.00 | 0.90 | 0.20 | 1.00 |
+        | 100 | 0.58 | 0.41 | 0.55 | 0.47 | 0.62 |
+        | 1,000 | 0.51 | 0.49 | 0.50 | 0.52 | 0.48 |
+      prompt: |
+        In three of the five runs at population size 10, the frequency of A reached 1.00 or 0.00. What has happened in those runs, and what would it take for the lost allele to reappear?
+      options:
+        - "One allele has become fixed and the other has been lost; it can return only through new mutation or migration from another population."
+        - "The population has gone extinct, because a frequency of 0.00 means no individuals remain."
+        - "The alleles have reached equilibrium and will oscillate back toward 0.5 in later generations."
+        - "The spreadsheet has made a rounding error, since real populations always keep both alleles."
+      option_explanations:
+        - |
+          Correct. Fixation means every individual is homozygous for the remaining allele. With no copies left, random mating cannot regenerate the lost allele; only mutation or gene flow can.
+        - |
+          A frequency of 0.00 for A means all individuals are aa; the population is alive and homozygous. Allele frequencies describe the gene pool, not the number of animals.
+        - |
+          There is no force pulling frequencies back toward 0.5. Once an allele is fixed, drift has nothing left to sample; the frequency stays at 1.00 or 0.00 until mutation or migration intervenes.
+        - |
+          Real small populations do lose alleles; that is the mechanism behind reduced variation in bottlenecked species such as cheetahs. The simulation is behaving as populations do.
+      answer: 0
+      explanation: |
+        Fixation is drift's endpoint and the reason small populations lose variation permanently. The flashcard version: once gone, an allele needs mutation or migration to come back.
+
+    - slug: u07-w24-q07
+      type: short_answer
+      topic_code: "7.5"
+      source: "general knowledge"
+      points: 4
+      stimulus: |
+        A class used a spreadsheet model (AP Investigation 2) to simulate a population with two alleles, A and a, starting at p = 0.5, with random mating and no selection, for 20 generations. They ran five replicate simulations at each population size and recorded the frequency of A at generation 20.
+
+        | Population size | Run 1 | Run 2 | Run 3 | Run 4 | Run 5 |
+        |---|---|---|---|---|---|
+        | 10 | 1.00 | 0.00 | 0.90 | 0.20 | 1.00 |
+        | 100 | 0.58 | 0.41 | 0.55 | 0.47 | 0.62 |
+        | 1,000 | 0.51 | 0.49 | 0.50 | 0.52 | 0.48 |
+      prompt: |
+        Analyze a model. (a) The Hardy-Weinberg principle predicts that allele frequencies will not change under random mating with no selection, mutation or migration, yet the frequencies in the simulation did change. Identify which Hardy-Weinberg condition the simulation violates and explain how the violation produced the changes. (b) Predict what the five runs at population size 10 would look like at generation 100, and justify the prediction. (c) Explain why the class ran five replicates at each size instead of one.
+      answer: |
+        The simulation violates the infinitely large population condition; in a finite population the gametes that form each generation are a random sample, so frequencies drift by sampling error, most strongly when the sample is small. By generation 100 every run at size 10 would be at 1.00 or 0.00 (fixation), because drift continues until one allele is lost and nothing restores it. Replicates show the spread of outcomes due to chance; a single run could not distinguish drift from a directional trend.
+      explanation: |
+        Four points.
+
+        (a) 2 pts: 1 pt for identifying the violated condition: the population is not very large (the model has only 10, 100 or 1,000 individuals), so genetic drift occurs; 1 pt for the mechanism: each generation's alleles are a random sample of the previous generation's gametes, and sampling error is larger in a small sample, so frequencies wander, most of all at size 10. Accept "chance determines which individuals reproduce" as the mechanism.
+
+        (b) 1 pt: all five runs at size 10 will have reached fixation (frequency of A at 1.00 or 0.00), because drift continues to move the frequency until an allele is lost, and with no mutation or migration a lost allele cannot return. A prediction that the two runs already fixed stay fixed and the others reach 0 or 1 is also correct. A prediction that frequencies return toward 0.5 earns nothing.
+
+        (c) 1 pt: replicates reveal the range of outcomes that chance alone can produce, which is the evidence that drift is random rather than directional; with one run a student could not tell a chance change from a trend, and the spread across runs is what shows the effect of population size. Accept "to see variability between runs" or "to be sure the result was not a fluke".
+
+        Zero: attributing the changes to natural selection or to allele A being advantageous; stating that drift only happens in small populations (it is weaker, not absent, in large ones).
+
+    - slug: u07-w24-q08
+      type: multiple_choice
+      topic_code: "7.4"
+      source: "Biology 2e §19.2 Population Genetics"
+      points: 1
+      prompt: |
+        Huntington's disease and Fanconi anaemia are far more common in the Afrikaner population of South Africa than in the Netherlands, from which its founders came in the 1600s. Which explanation best fits?
+      options:
+        - "Natural selection in South Africa favoured the disease alleles because they conferred resistance to local infections."
+        - "A few of the small number of founding colonists happened to carry the alleles, so the new population started with a much higher frequency than the source population: the founder effect."
+        - "The South African climate increased the mutation rate at those genes."
+        - "Gene flow from indigenous populations introduced the alleles."
+      option_explanations:
+        - |
+          There is no evidence of any advantage, and Huntington's is a dominant lethal that acts after reproduction, so selection has little grip on it; the pattern is chance sampling, not adaptation.
+        - |
+          Correct. A small founding group is an unrepresentative sample of the source gene pool. Rare alleles carried by one or two founders can start the new population at a frequency many times that of the source.
+        - |
+          Mutation rates are not raised by climate in any gene-specific way, and new mutations would be far too rare to explain a population-wide excess.
+        - |
+          The alleles came with the Dutch founders; the point of the example is that the colonists were a small, atypical sample. Gene flow would, if anything, dilute the excess.
+      answer: 1
+      explanation: |
+        The founder effect is drift at the moment a population begins. The exam's tell is a small founding group and an allele unusually common for no adaptive reason.
+
+    - slug: u07-w24-q09
+      type: multiple_choice
+      topic_code: "7.4"
+      source: "Biology 2e §19.2 Population Genetics"
+      points: 1
+      prompt: |
+        Two populations of a wildflower on opposite sides of a valley differ in flower colour frequency. A new road is built and bees now routinely carry pollen across. What is the most likely effect on the two populations over the following decades?
+      options:
+        - "Their allele frequencies will become more similar, because gene flow moves alleles between them and reduces differences."
+        - "Each population will become more distinct, because the bees select the best-adapted flowers on each side."
+        - "Both populations will lose all variation, because gene flow is a form of genetic drift."
+        - "Nothing will change, because pollen transfer is not reproduction."
+      option_explanations:
+        - |
+          Correct. Gene flow by migrating gametes (pollen) homogenises populations: alleles common on one side enter the other, and the colour frequencies converge. Blocking gene flow is what lets populations diverge.
+        - |
+          Pollinator movement adds alleles from the other side; it does not act as a selective filter for local adaptation. If anything, gene flow opposes local selection.
+        - |
+          Gene flow adds alleles to a population and generally increases its variation; drift removes alleles by chance. They are different forces with opposite effects on variation.
+        - |
+          Pollen carries a sperm nucleus; fertilisation by foreign pollen puts foreign alleles into the next generation of seeds. That is gene flow.
+      answer: 0
+      explanation: |
+        Gene flow is the force that keeps populations alike. Its absence (geographic isolation) is the opening move of allopatric speciation in week 26.
+
+    - slug: u07-w24-q10
+      type: multiple_choice
+      topic_code: "7.4"
+      source: "Biology 2e §19.2 Population Genetics"
+      points: 1
+      prompt: |
+        Northern elephant seals were hunted to about 20 individuals in the 1890s. The population has since recovered to more than 100,000, yet it shows almost no genetic variation at the genes that have been examined. Which statement best explains the lack of variation today?
+      options:
+        - "The bottleneck removed most alleles by chance, and a recovery in numbers does not restore alleles that were lost."
+        - "Natural selection in the recovering population favoured a single best genotype at every gene."
+        - "Elephant seals have an unusually low mutation rate."
+        - "The large modern population experiences strong genetic drift."
+      option_explanations:
+        - |
+          Correct. The twenty survivors carried only a fraction of the original gene pool. Numbers can rebound in a century, but new alleles arrive only by mutation, which is far too slow to rebuild variation.
+        - |
+          Selection does not drive every gene to one genotype at once, and nothing suggests the modern seals are uniformly adapted; the loss was random with respect to genotype.
+        - |
+          There is no reason to suppose a special mutation rate; the loss of existing variation, not a failure to generate new variation, is the explanation.
+        - |
+          Drift is weak in a population of 100,000. It was the tiny population of the 1890s that drifted; today's seals inherit its reduced gene pool.
+      answer: 0
+      explanation: |
+        A bottleneck is drift concentrated into one event. The lasting consequence is reduced variation, which lowers a population's ability to respond to future selection (week 27).
+
+    - slug: u07-w24-q11
+      type: multiple_choice
+      topic_code: "7.5"
+      source: "Biology 2e §19.1 Population Evolution"
+      points: 1
+      prompt: |
+        Cystic fibrosis is an autosomal recessive condition that affects about 1 in 2,500 newborns of European ancestry. Assuming Hardy-Weinberg equilibrium, approximately what fraction of the population are unaffected carriers?
+      options:
+        - "About 1 in 2,500, the same as the affected fraction."
+        - "About 1 in 50, because q = 0.02 and carriers are q."
+        - "About 1 in 25, because q = √(1/2,500) = 0.02 and carriers are 2pq ≈ 2 × 0.98 × 0.02 ≈ 0.04."
+        - "About 1 in 4, because a recessive condition always has a 25% carrier rate."
+      option_explanations:
+        - |
+          The affected fraction is q², the homozygous class; carriers are heterozygotes, 2pq, which for a rare allele is enormously larger than q².
+        - |
+          q is the allele frequency, not a genotype frequency. Carriers are heterozygotes, counted by 2pq, which is roughly twice q when p is near 1.
+        - |
+          Correct. q² = 1/2,500 = 0.0004, so q = 0.02 and p = 0.98. Carriers = 2pq = 0.0392, about 1 in 25. One hundred times as many people carry the allele as show the condition.
+        - |
+          The 25% figure is the recessive share of a monohybrid cross between two heterozygotes, not a population-level carrier rate. Population carrier frequency depends on q.
+      answer: 2
+      explanation: |
+        The square root is the move: the recessive phenotype gives q² directly, and from q everything else follows. The large 2pq term is why recessive alleles persist for so long under selection.
+
+    - slug: u07-w24-q12
+      type: multiple_choice
+      topic_code: "7.5"
+      source: "Biology 2e §19.1 Population Evolution"
+      points: 1
+      prompt: |
+        A student samples a population, finds that the genotype counts match the Hardy-Weinberg prediction closely, and concludes that the population "is not evolving and never has". Which statement best evaluates the conclusion?
+      options:
+        - "The conclusion is fully justified: matching the prediction proves that all five conditions have always held."
+        - "The conclusion overreaches: the data show no evidence of evolutionary forces at this locus in this generation, but one round of random mating restores Hardy-Weinberg proportions even after frequencies have changed, and other loci were not examined."
+        - "The conclusion is wrong because no real population can ever match Hardy-Weinberg proportions."
+        - "The conclusion is wrong because matching the prediction shows that natural selection is acting."
+      option_explanations:
+        - |
+          A fit to the null hypothesis is a failure to reject it, not a proof. The equations cannot see a past shift in allele frequencies, since random mating re-establishes p², 2pq, q² each generation.
+        - |
+          Correct. Hardy-Weinberg is a snapshot at one locus. It can detect departures in genotype proportions now; it cannot certify the population's history or its other genes.
+        - |
+          Many populations fit the proportions at many loci, because the genotype proportions depend only on random mating in the current generation. A good fit is common and informative.
+        - |
+          A fit is the opposite of evidence for selection. Selection would normally produce a departure from the expected proportions or a change in p over time.
+      answer: 1
+      explanation: |
+        Statistics lets you reject a null hypothesis, never confirm it. Hardy-Weinberg tells you when something is happening; silence is not proof that nothing ever did.
+
+    - slug: u07-w24-q13
+      type: multiple_choice
+      topic_code: "7.2"
+      source: "Biology 2e §19.3 Adaptive Evolution"
+      points: 1
+      prompt: |
+        Review. A population of snails lives on a shore where a crab eats the ones with the thinnest shells and a bird eats the ones with the thickest shells, which it can see most easily. After ten years, mean shell thickness is unchanged but the standard deviation has halved. Which mode of selection has acted?
+      options:
+        - "Directional selection toward thicker shells."
+        - "Stabilizing selection, because both extremes were removed and the intermediate favoured."
+        - "Disruptive selection, because two predators were involved."
+        - "Frequency-dependent selection, because the predators switch prey."
+      option_explanations:
+        - |
+          The mean did not move; directional selection would have shifted it toward one extreme.
+        - |
+          Correct. Unchanged mean plus reduced variation is the signature of stabilizing selection, whatever the number of predators doing the trimming.
+        - |
+          Two predators can produce disruptive selection only if they remove intermediates; here each removes one extreme, so the middle is favoured and variation shrinks.
+        - |
+          Nothing in the scenario makes a phenotype's fitness depend on how common it is; the predators act on thickness, not on rarity.
+      answer: 1
+      explanation: |
+        Read the mean and the spread before you name the mode. A narrowed distribution around a fixed mean is stabilizing, which is also the mode that most reduces variation.
+
+    - slug: u07-w24-q14
+      type: multiple_choice
+      topic_code: "7.3"
+      source: "Biology 2e §19.2 Population Genetics"
+      points: 1
+      prompt: |
+        Review. A dog breed has been developed from a handful of founding animals and bred to a strict standard for a century. Compared with village dogs that breed freely, what genetic consequence is expected in the breed, and why?
+      options:
+        - "Greater genetic variability, because selection creates new alleles."
+        - "Reduced genetic variability and more homozygosity, because few founders plus selection and inbreeding removed alleles and exposed recessive ones."
+        - "The same variability, because artificial selection does not change allele frequencies."
+        - "Greater fitness in all environments, because the breeder selected for the best genes."
+      option_explanations:
+        - |
+          Selection removes alleles; it never creates them. Mutation is the only source of new alleles, and a century is not enough for it to matter.
+        - |
+          Correct. A founder effect, generations of selection for one standard and mating among relatives all reduce variation. The breed-specific hereditary diseases that result are inbreeding depression made visible.
+        - |
+          Artificial selection changes allele frequencies by definition; that is how the breed came to differ from its ancestors.
+        - |
+          The breeder selected for appearance in a kennel, not for fitness in a varied environment. Reduced variation leaves the breed less able to respond to new challenges, not more.
+      answer: 1
+      explanation: |
+        Humans change diversity within populations in both directions: selecting for a trait reduces variation, and bringing in unrelated animals restores it. CED 7.3 asks for both halves.
+
+    - slug: u07-w24-q15
+      type: multiple_choice
+      topic_code: "7.1"
+      source: "general knowledge"
+      points: 1
+      prompt: |
+        Review. In 1952 the Lederbergs pressed velvet onto a plate of bacteria that had never been exposed to penicillin, used it to stamp copies onto plates containing penicillin, and found that the few resistant colonies on every copy came from the same positions on the original plate. What does this show about the origin of the resistant variants?
+      options:
+        - "Exposure to penicillin induced resistance in the colonies at those positions."
+        - "The resistant variants existed on the original plate before any exposure to penicillin, so the mutation arose independently of the selective agent."
+        - "Resistance spread between neighbouring colonies by gene flow during stamping."
+        - "The velvet contaminated the plates with resistant bacteria from the laboratory."
+      option_explanations:
+        - |
+          The colonies on the original plate never touched penicillin. If the drug induced resistance, the resistant colonies would appear at random positions on each copy, not at the same positions on all of them.
+        - |
+          Correct. Identical positions on every replica trace back to the same pre-existing resistant colonies on the drug-free master plate. Variation came first; penicillin only revealed it.
+        - |
+          Stamping transfers cells straight down; it does not mix colonies. Matching positions across independent copies rule out transfer between colonies as the cause.
+        - |
+          Contamination would place colonies randomly on each copy. The repeated positions point to the master plate, which is the experiment's whole logic.
+      answer: 1
+      explanation: |
+        Replica plating is the cleanest demonstration that mutation is random with respect to need. It is also why week 25's antibiotic resistance items always say "selected", never "caused".
+
+    - slug: u07-w24-q16
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "Biology 2e §12.2 Characteristics and Traits"
+      points: 1
+      prompt: |
+        Review. The M and N blood-group alleles are codominant: MM, MN and NN individuals each have a distinct phenotype. Why does codominance make a gene especially convenient for testing Hardy-Weinberg equilibrium?
+      options:
+        - "Codominant alleles are always at frequencies of 0.5, which simplifies the arithmetic."
+        - "Every genotype can be identified from the phenotype, so all three observed counts are available for comparison with p², 2pq and q²."
+        - "Codominant genes are never subject to natural selection."
+        - "Heterozygotes cannot exist for a codominant gene, so only p² and q² are needed."
+      option_explanations:
+        - |
+          Codominance says nothing about the frequencies; it describes how the heterozygote looks. Frequencies can take any value.
+        - |
+          Correct. With complete dominance, AA and Aa are indistinguishable and q must be inferred from the recessive class alone. With codominance the heterozygotes are counted directly, so the full chi-square test is possible.
+        - |
+          Codominance concerns phenotype expression, not fitness. Codominant genes can be selected like any other.
+        - |
+          The MN phenotype is the heterozygote, expressed openly. Codominance makes heterozygotes visible, not impossible.
+      answer: 1
+      explanation: |
+        The limiting step in a Hardy-Weinberg test is counting heterozygotes. Codominant markers (or a DNA test, as in the mouse data) make all three classes countable.
+
+    - slug: u07-w24-q17
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "Biology 2e §12.2 Characteristics and Traits"
+      points: 1
+      prompt: |
+        Review. Mendel's law of segregation states that the two alleles of a gene separate during gamete formation so each gamete carries one. How does that law underlie the Hardy-Weinberg equation p² + 2pq + q² = 1?
+      options:
+        - "It guarantees that p and q are always equal."
+        - "It means a gamete carries allele A with probability p or allele a with probability q, so random union of gametes gives genotypes in the proportions p², 2pq and q²."
+        - "It ensures that heterozygotes produce only heterozygous offspring."
+        - "It applies to individuals only and has no connection to populations."
+      option_explanations:
+        - |
+          Segregation separates alleles; it does not set their frequencies. p and q can be any pair that sums to 1.
+        - |
+          Correct. The Hardy-Weinberg equation is a Punnett square for a whole gene pool: each gamete is an independent draw with probabilities p and q, and the genotype proportions are the products.
+        - |
+          Heterozygotes produce two kinds of gametes, so their offspring can be any genotype. That is why 2pq appears as a cross term, not as a closed class.
+        - |
+          The law describes gametes, and a gene pool is the collection of all gametes a population can produce; the population equation follows directly from the individual rule.
+      answer: 1
+      explanation: |
+        p² + 2pq + q² is (p + q)² expanded: the probability of two independent gamete draws. Segregation is what makes each draw independent.
+
+    - slug: u07-w24-q18
+      type: multi_select
+      topic_code: "7.5"
+      source: "Biology 2e §19.1 Population Evolution"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Select every condition that must hold for a population to remain in Hardy-Weinberg equilibrium.
+      options:
+        - "The population is very large."
+        - "Mating is random with respect to the gene in question."
+        - "There is no migration into or out of the population."
+        - "Every individual is heterozygous."
+        - "There is no natural selection at the locus."
+      option_explanations:
+        - |
+          Correct. In a small population, sampling error (drift) changes allele frequencies by chance; the model assumes a population large enough for drift to be negligible.
+        - |
+          Correct. Nonrandom mating (assortative mating, inbreeding) changes genotype frequencies away from p², 2pq, q² even when allele frequencies are constant.
+        - |
+          Correct. Gene flow adds or removes alleles and so changes p and q.
+        - |
+          Hardy-Weinberg makes no requirement about which genotypes are present; it predicts their proportions from p and q. A population of all heterozygotes would in fact be far from equilibrium.
+        - |
+          Correct. Selection means some genotypes leave more offspring, which changes allele frequencies; the fifth condition, no mutation, completes the list.
+      answer: [0, 1, 2, 4]
+      explanation: |
+        Five conditions: large population, random mating, no gene flow, no selection, no mutation. Each one names an evolutionary force, which is why violating any of them is evolution.
+
+    - slug: u07-w24-q19
+      type: multi_select
+      topic_code: "7.4"
+      source: "Biology 2e §19.2 Population Genetics"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which processes change the allele frequencies of a population, as opposed to changing only the genotype frequencies? Select all that apply.
+      options:
+        - "Genetic drift in a small population"
+        - "Inbreeding"
+        - "Gene flow from a neighbouring population"
+        - "Natural selection against one homozygote"
+        - "Assortative mating by phenotype"
+      option_explanations:
+        - |
+          Correct. Drift is a random change in allele frequency produced by sampling error; it can carry an allele to fixation or to loss.
+        - |
+          Inbreeding redistributes alleles into more homozygotes and fewer heterozygotes; p and q stay the same. It changes genotype frequencies only.
+        - |
+          Correct. Migrants bring alleles with them, changing p and q in the receiving population.
+        - |
+          Correct. Removing one homozygote removes copies of its allele, so the allele's frequency falls generation by generation.
+        - |
+          Like inbreeding, assortative mating pairs similar genotypes and raises homozygosity without altering the number of each allele in the gene pool.
+      answer: [0, 2, 3]
+      explanation: |
+        Four forces change allele frequencies (selection, drift, gene flow, mutation); nonrandom mating changes genotype frequencies alone. The distinction is what lets you diagnose a heterozygote deficit.
+
+    - slug: u07-w24-q20
+      type: true_false
+      topic_code: "7.4"
+      source: "Biology 2e §19.2 Population Genetics"
+      points: 1
+      prompt: |
+        True or false: Several generations of inbreeding in a population will lower the frequency of a harmful recessive allele because more homozygous recessive individuals are produced and exposed to selection.
+      answer: true
+      explanation: |
+        True, with a distinction worth stating. Inbreeding itself does not change allele frequencies; it only raises the proportion of homozygotes. But once more recessive homozygotes exist, selection against them removes more copies of the allele per generation than it could when the allele was sheltered in heterozygotes. So inbreeding alone leaves q unchanged, while inbreeding plus selection lowers it, at the cost of the inbreeding depression suffered along the way.
+
+    - slug: u07-w24-q21
+      type: true_false
+      topic_code: "6.7"
+      source: "Biology 2e §14.6 DNA Repair"
+      points: 1
+      prompt: |
+        Review. True or false: Most new mutations that change a protein's amino-acid sequence are beneficial, which is why mutation is a strong force for adaptive evolution.
+      answer: false
+      explanation: |
+        False on both counts. A random change to a protein that already works is far more likely to be harmful or neutral than helpful, and mutation rates are so low that mutation alone barely moves allele frequencies. Mutation matters as the ultimate source of the alleles that selection and drift act on, not as a force that drives frequencies in an adaptive direction.
+
+    - slug: u07-w24-q22
+      type: fill_blank
+      topic_code: "7.4"
+      source: "Biology 2e §19.2 Population Genetics"
+      points: 1
+      prompt: |
+        When a hurricane kills most of an island's lizards at random, the reduced and altered gene pool of the survivors is an example of the ____ effect, a form of genetic drift.
+      answer: ["bottleneck"]
+      explanation: |
+        A bottleneck is drift produced by a sudden, random collapse in numbers: the survivors' alleles become the whole gene pool, and alleles are lost by chance. The founder effect is the mirror case, a small group starting a new population; "founder" is not accepted here because no new population was founded.
+
+    - slug: u07-w24-q23
+      type: fill_blank
+      topic_code: "5.2"
+      source: "Biology 2e §11.1 The Process of Meiosis"
+      points: 1
+      prompt: |
+        Review. The exchange of segments between non-sister chromatids of homologous chromosomes during prophase I, which produces recombinant chromosomes carrying new allele combinations, is called ____.
+      answer: ["crossing over", "crossing-over", "recombination"]
+      explanation: |
+        Crossing over at chiasmata, with independent assortment at metaphase I, generates the new combinations of existing alleles that make every gamete different. Those combinations are what random mating draws from in the Hardy-Weinberg gene pool. "Independent assortment" shuffles whole chromosomes rather than exchanging segments, so it is not accepted.
+
+    - slug: u07-w24-q24
+      type: short_answer
+      topic_code: "7.4"
+      source: "Biology 2e §19.2 Population Genetics"
+      points: 4
+      prompt: |
+        Conceptual analysis. A conservation team moves ten unrelated wolves from a large mainland population onto an island where an inbred population of thirty wolves has a high rate of skeletal defects and low pup survival. (a) Identify the evolutionary force the team is introducing. (b) Predict the effect on the island population's genotype frequencies and on pup survival over the next few generations, and (c) justify the prediction. (d) Explain one risk the team should consider.
+      answer: |
+        Gene flow (migration). Heterozygosity will rise and the frequency of homozygous recessive defects will fall, so pup survival should improve; the migrants carry alleles absent or rare on the island, and their offspring are heterozygous at loci where islanders were homozygous for harmful recessives. Risks: the migrants may bring disease or alleles poorly suited to the island, or may swamp locally adapted alleles; if the population stays small, drift will continue to erode variation.
+      explanation: |
+        Four points.
+
+        (a) 1 pt: gene flow (accept "migration" or "introduction of new alleles"). Naming "genetic drift" or "natural selection" earns nothing.
+
+        (b) 1 pt: heterozygosity increases and homozygous-recessive defects decrease, with pup survival rising. The prediction must be directional and include the genotype change or the fitness change.
+
+        (c) 1 pt: justification by mechanism: the mainland wolves carry alleles the island population lacks (or has at different frequencies), and matings between migrants and islanders produce offspring heterozygous at loci where islanders were homozygous for deleterious recessives, masking those alleles; this is the reversal of inbreeding depression. Accept reference to raising genetic variability.
+
+        (d) 1 pt: any one well-reasoned risk: introduced disease; mainland alleles maladapted to island conditions (outbreeding depression) or swamping of locally adapted alleles; the population remaining small so drift continues; or the migrants failing to breed. Vague answers such as "it might not work" earn nothing.
+
+        Zero: treating the migrants as changing individual island wolves rather than the gene pool, or claiming that the defects will disappear immediately in the existing animals.
+
+    - slug: u07-w24-q25
+      type: long_answer
+      topic_code: "7.5"
+      source: "general knowledge"
+      points: 8
+      prompt: |
+        Interpreting and evaluating experimental results. A region began spraying an insecticide against malaria mosquitoes in year 0. A resistance allele R (dominant to the sensitive allele r) was tracked by genotyping a sample of 500 mosquitoes each year. Mosquitoes were also sampled from a nearby valley that was never sprayed.
+
+        | Year | Sprayed region: frequency of R | Sprayed region: RR / Rr / rr counts (n = 500) | Unsprayed valley: frequency of R |
+        |---|---|---|---|
+        | 0 | 0.02 | 0 / 20 / 480 | 0.02 |
+        | 2 | 0.20 | 20 / 160 / 320 | 0.02 |
+        | 4 | 0.50 | 125 / 250 / 125 | 0.03 |
+        | 6 | 0.80 | 320 / 160 / 20 | 0.03 |
+
+        (a) Identify the independent and dependent variables and state the purpose of the unsprayed valley.
+        (b) Using Hardy-Weinberg, calculate the expected genotype counts in year 4 if the population were at equilibrium, compare them with the observed counts, and state what the comparison shows.
+        (c) Explain the pattern in the sprayed region over the six years using the mechanism of natural selection, including why the sensitive allele has not disappeared.
+        (d) Spraying is stopped in year 6. Predict and justify what will happen to the frequency of R over the following decade if resistant mosquitoes are slightly less fit than sensitive ones in the absence of insecticide.
+      answer: |
+        IV: insecticide exposure (sprayed versus unsprayed, and years of spraying); DV: frequency of R and genotype counts; the unsprayed valley controls for change that is not due to spraying. Year 4: p = 0.5, expected RR = 125, Rr = 250, rr = 125, matching the observed counts, so genotype proportions fit random mating even while allele frequency is changing between years. Insecticide killed rr mosquitoes; RR and Rr survived and reproduced, so R rose from 0.02 to 0.80 (directional selection on pre-existing variation). The r allele persists in heterozygotes, which are resistant and so not removed. After spraying stops, R should decline slowly because resistant genotypes are slightly less fit; r is still common enough (0.20) to increase, but the decline will be slower than the rise because the fitness difference is small.
+      explanation: |
+        Eight points.
+
+        (a) 2 pts: 1 pt for the independent variable (exposure to insecticide, or years of spraying) and the dependent variable (frequency of R, or genotype counts); 1 pt for the control's purpose: the unsprayed valley shows what happens to R without the insecticide, so the rise in the sprayed region can be attributed to spraying rather than to drift, mutation or some region-wide change.
+
+        (b) 2 pts: 1 pt for the calculation: p = 0.5, q = 0.5, expected RR = 0.25 × 500 = 125, Rr = 2 × 0.5 × 0.5 × 500 = 250, rr = 125; 1 pt for the comparison and interpretation: observed counts equal the expected counts, so within the year-4 generation the genotypes are in Hardy-Weinberg proportions; this shows that random mating re-establishes the proportions each generation even though allele frequencies are changing between generations, so a within-generation fit does not mean the population is not evolving.
+
+        (c) 2 pts: 1 pt for the selection mechanism: insecticide kills rr individuals, RR and Rr survive and reproduce, so each generation R is a larger share of the gene pool; the variation (R at 0.02) existed before spraying and the insecticide selected it rather than causing it; 1 pt for why r persists: R is dominant, so heterozygotes are resistant and are not killed, and the r alleles they carry are sheltered from selection; r declines only as rr individuals are removed. Accept the observation that in year 6 most remaining r copies are in the 160 heterozygotes.
+
+        (d) 2 pts: 1 pt for the prediction: R will decline (and r rise) after spraying stops; 1 pt for the justification: with no insecticide, the selective advantage of R is gone and a small fitness cost now acts against resistant genotypes, so selection reverses direction; the decline will be slow because the fitness difference is small, and r is available to increase because it was never eliminated. Accept the point that if the cost were zero, R would stay near 0.80 and change only by drift.
+
+        Zero for a part: describing the mosquitoes as developing resistance in response to spraying; computing expected values from genotype counts rather than from p and q; or predicting that R returns immediately to 0.02 because the "need" for resistance is gone.

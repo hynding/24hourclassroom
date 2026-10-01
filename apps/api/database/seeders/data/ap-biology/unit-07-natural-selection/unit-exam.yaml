@@ -1,0 +1,1140 @@
+unit: 7
+description: |
+  44 questions · about 60 minutes · every topic of Unit 7 (7.1 to 7.12) with about a fifth cumulative review of
+  Units 1 to 6, two data-based stimulus sets (a Hardy-Weinberg set and a molecular-phylogeny set), one short
+  free-response item (4 points) and one long free-response item (8 points). Multiple choice, select-all,
+  true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the two
+  free-response items are graded by your teacher against the acceptable-answer summary.
+questions:
+  # ---- Stimulus set A: Hardy-Weinberg as a null hypothesis in a stickleback cohort (7.2, 7.4, 7.5)
+  - slug: u07-exam-q01
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "Biology 2e §19.1 Population Evolution"
+    points: 1
+    stimulus: |
+      Threespine stickleback fish colonised a large lake from the sea, where nearly all fish are fully armoured. At the Eda gene, allele C produces a full row of bony armour plates and allele L produces few plates. Every fish was genotyped by a DNA test, so all three genotypes could be counted. Researchers sampled 400 juveniles of one year's cohort in spring, then sampled 200 adults of the same cohort one year later. The lake population numbers in the hundreds of thousands and no fish enter it from the sea. Values are illustrative, modelled on published field studies.
+
+      | Genotype | Juveniles, spring of year 1 | Adults of the same cohort, spring of year 2 |
+      |---|---|---|
+      | CC | 40 | 4 |
+      | CL | 160 | 52 |
+      | LL | 200 | 144 |
+      | Total | 400 | 200 |
+
+      The AP chi-square table gives critical values at p = 0.05 of 3.84 for 1 degree of freedom and 5.99 for 2 degrees of freedom.
+    prompt: |
+      What is the frequency of the L allele among the juveniles?
+    options:
+      - "0.50"
+      - "0.70"
+      - "0.90"
+      - "0.30"
+    option_explanations:
+      - |
+        0.50 is the frequency of the LL genotype (200 of 400 fish), not of the allele. It ignores the 160 L alleles carried by heterozygotes.
+      - |
+        Correct. Count allele copies, not fish: 400 juveniles carry 800 alleles; L copies = 2 × 200 (LL) + 160 (CL) = 560; 560 / 800 = 0.70.
+      - |
+        0.90 is the share of fish carrying at least one L (360 of 400). It counts individuals instead of allele copies, so each LL fish is counted once instead of twice and CL fish are counted as if wholly L.
+      - |
+        0.30 is the frequency of the other allele, C: (2 × 40 + 160) / 800 = 240 / 800. The two frequencies must add to 1, so check which allele the question names.
+    answer: 1
+    explanation: |
+      Allele frequency = copies of the allele / total allele copies (2 per diploid fish). Homozygotes contribute two copies, heterozygotes one. Here p (C) = 0.30 and q (L) = 0.70.
+
+  - slug: u07-exam-q02
+    type: multiple_choice
+    topic_code: "7.5"
+    source: "Biology 2e §19.1 Population Evolution"
+    points: 1
+    stimulus: |
+      Threespine stickleback fish colonised a large lake from the sea, where nearly all fish are fully armoured. At the Eda gene, allele C produces a full row of bony armour plates and allele L produces few plates. Every fish was genotyped by a DNA test, so all three genotypes could be counted. Researchers sampled 400 juveniles of one year's cohort in spring, then sampled 200 adults of the same cohort one year later. The lake population numbers in the hundreds of thousands and no fish enter it from the sea. Values are illustrative, modelled on published field studies.
+
+      | Genotype | Juveniles, spring of year 1 | Adults of the same cohort, spring of year 2 |
+      |---|---|---|
+      | CC | 40 | 4 |
+      | CL | 160 | 52 |
+      | LL | 200 | 144 |
+      | Total | 400 | 200 |
+
+      The AP chi-square table gives critical values at p = 0.05 of 3.84 for 1 degree of freedom and 5.99 for 2 degrees of freedom.
+    prompt: |
+      If the juveniles were in Hardy-Weinberg equilibrium, how many CL heterozygotes would be expected among the 400, and what does the comparison with the observed count show?
+    options:
+      - "168 expected; 160 observed is close, and with χ² ≈ 0.9, below the critical value, the juvenile genotype counts are consistent with Hardy-Weinberg equilibrium."
+      - "168 expected; because 160 is not exactly 168, the juveniles cannot be in Hardy-Weinberg equilibrium."
+      - "84 expected; the juveniles have a large excess of heterozygotes, showing selection in favour of CL."
+      - "200 expected; heterozygotes should always make up half of a population, so the juveniles show a heterozygote deficit."
+    option_explanations:
+      - |
+        Correct. 2pq × 400 = 2 × 0.30 × 0.70 × 400 = 168, with 36 CC and 196 LL expected. χ² = 16/36 + 64/168 + 16/196 ≈ 0.91, far below the critical value, so the null hypothesis of equilibrium is not rejected.
+      - |
+        Sampling always produces some deviation from expected counts. The chi-square test asks whether the deviation is larger than chance would produce; 0.91 is well within chance, so the data give no reason to reject equilibrium.
+      - |
+        84 is pq × 400, which forgets the factor of 2 in 2pq. A heterozygote can arise two ways (C from the mother and L from the father, or the reverse), so the expected frequency is 2pq.
+      - |
+        Heterozygotes reach one half only when p = q = 0.5. With p = 0.30 and q = 0.70, 2pq is 0.42, so 168, not 200, is the expectation.
+    answer: 0
+    explanation: |
+      Hardy-Weinberg gives the null hypothesis; chi-square decides whether the data depart from it more than chance allows. The conclusion is the same whether you use 1 degree of freedom (strictly correct, because p was estimated from the same data: critical value 3.84) or the 2 used by the AP course convention (5.99): 0.91 is below both.
+
+  - slug: u07-exam-q03
+    type: numeric
+    topic_code: "7.5"
+    source: "Biology 2e §19.1 Population Evolution"
+    points: 1
+    stimulus: |
+      Threespine stickleback fish colonised a large lake from the sea, where nearly all fish are fully armoured. At the Eda gene, allele C produces a full row of bony armour plates and allele L produces few plates. Every fish was genotyped by a DNA test, so all three genotypes could be counted. Researchers sampled 400 juveniles of one year's cohort in spring, then sampled 200 adults of the same cohort one year later. The lake population numbers in the hundreds of thousands and no fish enter it from the sea. Values are illustrative, modelled on published field studies.
+
+      | Genotype | Juveniles, spring of year 1 | Adults of the same cohort, spring of year 2 |
+      |---|---|---|
+      | CC | 40 | 4 |
+      | CL | 160 | 52 |
+      | LL | 200 | 144 |
+      | Total | 400 | 200 |
+
+      The AP chi-square table gives critical values at p = 0.05 of 3.84 for 1 degree of freedom and 5.99 for 2 degrees of freedom.
+    prompt: |
+      If genotype had no effect on survival, the 200 adults would show the same genotype proportions as the juveniles. Calculate the chi-square value comparing the observed adult counts with the counts expected under that null hypothesis, χ² = Σ (o − e)² / e. Give your answer to one decimal place.
+    answer: { value: 42.0, tolerance: 0.2 }
+    explanation: |
+      Expected adults = juvenile proportions × 200: CC 0.10 × 200 = 20, CL 0.40 × 200 = 80, LL 0.50 × 200 = 100. χ² = (4 − 20)²/20 + (52 − 80)²/80 + (144 − 100)²/100 = 256/20 + 784/80 + 1936/100 = 12.8 + 9.8 + 19.36 = 41.96 ≈ 42.0. With 3 classes and 2 degrees of freedom the critical value is 5.99; 42.0 is far above it, so the null hypothesis that survival was independent of genotype is rejected.
+
+  - slug: u07-exam-q04
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "Biology 2e §19.3 Adaptive Evolution"
+    points: 1
+    stimulus: |
+      Threespine stickleback fish colonised a large lake from the sea, where nearly all fish are fully armoured. At the Eda gene, allele C produces a full row of bony armour plates and allele L produces few plates. Every fish was genotyped by a DNA test, so all three genotypes could be counted. Researchers sampled 400 juveniles of one year's cohort in spring, then sampled 200 adults of the same cohort one year later. The lake population numbers in the hundreds of thousands and no fish enter it from the sea. Values are illustrative, modelled on published field studies.
+
+      | Genotype | Juveniles, spring of year 1 | Adults of the same cohort, spring of year 2 |
+      |---|---|---|
+      | CC | 40 | 4 |
+      | CL | 160 | 52 |
+      | LL | 200 | 144 |
+      | Total | 400 | 200 |
+
+      The AP chi-square table gives critical values at p = 0.05 of 3.84 for 1 degree of freedom and 5.99 for 2 degrees of freedom.
+    prompt: |
+      Which conclusion about the change between the juvenile and adult samples is best supported?
+    options:
+      - "Directional natural selection favoured allele L: its frequency rose from 0.70 to 0.85 within one cohort, LL fish rose from 50% to 72% of the sample, and the change is far larger than chance would produce."
+      - "Genetic drift raised the frequency of L, because the adult sample is smaller than the juvenile sample."
+      - "Gene flow raised the frequency of L, because new fish arrived in the lake from the sea."
+      - "Mutation converted C alleles into L alleles in the fish that survived the year."
+    option_explanations:
+      - |
+        Correct. Adult q = (2 × 144 + 52) / 400 = 0.85. The shift toward one end of the plate-number range, in a large closed population, with χ² ≈ 42, is the signature of directional selection acting on survival.
+      - |
+        Drift is chance change in small populations; this lake holds hundreds of thousands of fish. A smaller sample makes estimates less precise but does not push allele frequencies in a consistent direction, and the chi-square result rules out chance.
+      - |
+        The stimulus states that no fish enter from the sea, and marine fish are nearly all armoured, so any migrants would bring C, not L.
+      - |
+        Mutation rates are around one in a million or less per gene per generation and do not respond to need; they could not shift 15% of the alleles in a year.
+    answer: 0
+    explanation: |
+      Eliminate the other forces using the stimulus (large population, no immigration, mutation far too slow) and the chi-square result; what remains is selection, and its direction is given by which allele rose.
+
+  - slug: u07-exam-q05
+    type: multiple_choice
+    topic_code: "7.5"
+    source: "Biology 2e §19.1 Population Evolution"
+    points: 1
+    stimulus: |
+      Threespine stickleback fish colonised a large lake from the sea, where nearly all fish are fully armoured. At the Eda gene, allele C produces a full row of bony armour plates and allele L produces few plates. Every fish was genotyped by a DNA test, so all three genotypes could be counted. Researchers sampled 400 juveniles of one year's cohort in spring, then sampled 200 adults of the same cohort one year later. The lake population numbers in the hundreds of thousands and no fish enter it from the sea. Values are illustrative, modelled on published field studies.
+
+      | Genotype | Juveniles, spring of year 1 | Adults of the same cohort, spring of year 2 |
+      |---|---|---|
+      | CC | 40 | 4 |
+      | CL | 160 | 52 |
+      | LL | 200 | 144 |
+      | Total | 400 | 200 |
+
+      The AP chi-square table gives critical values at p = 0.05 of 3.84 for 1 degree of freedom and 5.99 for 2 degrees of freedom.
+    prompt: |
+      The adults' own allele frequencies (C = 0.15, L = 0.85) predict 4.5 CC, 51 CL and 144.5 LL adults, almost exactly what was observed. A student concludes that the cohort did not evolve during the year. Which statement best evaluates the conclusion?
+    options:
+      - "The conclusion is supported, because a sample in Hardy-Weinberg proportions cannot have experienced selection."
+      - "The conclusion is not supported: a fit to Hardy-Weinberg proportions within one sample says nothing about whether allele frequencies changed, and comparing the two samples shows L rising from 0.70 to 0.85, which is evolution."
+      - "The conclusion is not supported, because Hardy-Weinberg proportions are expected only in populations that are evolving."
+      - "The conclusion is supported, because the adults carry the same two alleles as the juveniles, and evolution requires a new allele to appear."
+    option_explanations:
+      - |
+        A single sample's genotype proportions are compared with expectations built from that same sample's allele frequencies. Selection can shift p and q while leaving the survivors close to Hardy-Weinberg proportions, so a good fit is no proof of stasis.
+      - |
+        Correct. Evolution is a change in allele frequencies across time. The test that detects it here compares the two samples (χ² ≈ 42), not each sample with its own Hardy-Weinberg expectation.
+      - |
+        This reverses the model: Hardy-Weinberg proportions are the expectation when no evolutionary force acts, which is why the model serves as a null hypothesis.
+      - |
+        Evolution does not require a new allele. A change in the frequency of existing alleles, as from 0.70 to 0.85 here, is evolution by definition.
+    answer: 1
+    explanation: |
+      Ask what the null hypothesis is being compared with. Hardy-Weinberg within one sample tests genotype proportions at one moment; evolution is detected by comparing allele frequencies between moments.
+
+  # ---- Stimulus set B: insertion characters and sequence differences in hoofed mammals and whales (7.6, 7.7, 7.9)
+  - slug: u07-exam-q06
+    type: multiple_choice
+    topic_code: "7.9"
+    source: "Biology 2e §20.2 Determining Evolutionary Relationships"
+    points: 1
+    stimulus: |
+      Researchers tested where whales belong among the hoofed mammals using two kinds of molecular data. First, they scored four sites in the genome for the presence (1) or absence (0) of a SINE, a short stretch of DNA that copies itself and inserts at random positions. Once inserted at a site, a SINE is almost never cleanly removed, and the chance of two independent insertions at exactly the same site is negligible. The camel is the outgroup.
+
+      | Insertion site | Camel | Pig | Cow | Hippopotamus | Whale |
+      |---|---|---|---|---|---|
+      | Site 1 | 0 | 1 | 1 | 1 | 1 |
+      | Site 2 | 0 | 0 | 1 | 1 | 1 |
+      | Site 3 | 0 | 0 | 0 | 1 | 1 |
+      | Site 4 | 0 | 0 | 0 | 1 | 1 |
+
+      Second, they compared the sequence of one nuclear gene and recorded the percentage of nucleotide positions that differ between each pair of species.
+
+      | | Pig | Cow | Hippopotamus | Whale |
+      |---|---|---|---|---|
+      | Camel | 10.1 | 10.4 | 10.3 | 10.6 |
+      | Pig | — | 7.9 | 8.1 | 8.2 |
+      | Cow | — | — | 6.0 | 6.2 |
+      | Hippopotamus | — | — | — | 3.4 |
+
+      Values are illustrative, modelled on published studies.
+    prompt: |
+      Which two taxa are sister taxa, and which evidence in the stimulus supports the pairing?
+    options:
+      - "Cow and whale, because both are large mammals with four-chambered hearts."
+      - "Hippopotamus and whale, because they alone share the insertions at sites 3 and 4 and have the smallest sequence difference in the table (3.4%)."
+      - "Camel and pig, because both lack the insertions at sites 2, 3 and 4."
+      - "Cow and hippopotamus, because both carry the insertion at site 2."
+    option_explanations:
+      - |
+        Body size and a four-chambered heart are not in the data, and a four-chambered heart is shared by every mammal (and bird), so it is a shared ancestral character that cannot single out one pair.
+      - |
+        Correct. Sites 3 and 4 are shared derived characters found only in these two taxa, and the independent sequence data agree: 3.4% is the smallest pairwise difference.
+      - |
+        Shared absence is the ancestral state, as the outgroup shows. Lacking an insertion does not unite two taxa; only shared derived characters define a clade.
+      - |
+        Site 2 is also present in the whale, so it defines the three-taxon clade of cow, hippopotamus and whale. Which pair is closest inside that clade is settled by sites 3 and 4.
+    answer: 1
+    explanation: |
+      Group taxa by shared derived characters, from the most widely shared (site 1) to the most narrowly shared (sites 3 and 4). The narrowest group with two members is the sister pair, and the distance table gives an independent check.
+
+  - slug: u07-exam-q07
+    type: multiple_choice
+    topic_code: "7.6"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Researchers tested where whales belong among the hoofed mammals using two kinds of molecular data. First, they scored four sites in the genome for the presence (1) or absence (0) of a SINE, a short stretch of DNA that copies itself and inserts at random positions. Once inserted at a site, a SINE is almost never cleanly removed, and the chance of two independent insertions at exactly the same site is negligible. The camel is the outgroup.
+
+      | Insertion site | Camel | Pig | Cow | Hippopotamus | Whale |
+      |---|---|---|---|---|---|
+      | Site 1 | 0 | 1 | 1 | 1 | 1 |
+      | Site 2 | 0 | 0 | 1 | 1 | 1 |
+      | Site 3 | 0 | 0 | 0 | 1 | 1 |
+      | Site 4 | 0 | 0 | 0 | 1 | 1 |
+
+      Second, they compared the sequence of one nuclear gene and recorded the percentage of nucleotide positions that differ between each pair of species.
+
+      | | Pig | Cow | Hippopotamus | Whale |
+      |---|---|---|---|---|
+      | Camel | 10.1 | 10.4 | 10.3 | 10.6 |
+      | Pig | — | 7.9 | 8.1 | 8.2 |
+      | Cow | — | — | 6.0 | 6.2 |
+      | Hippopotamus | — | — | — | 3.4 |
+
+      Values are illustrative, modelled on published studies.
+    prompt: |
+      Why are shared SINE insertions regarded as unusually strong evidence of common ancestry?
+    options:
+      - "SINEs code for proteins that are under strong natural selection, so they change only when the environment changes."
+      - "An insertion at an identical site in two species almost certainly happened once, in their common ancestor, and was inherited by both; shared insertions are therefore shared derived characters with very little risk of arising by convergence."
+      - "SINEs insert only into genes needed for an aquatic way of life, so they reveal which mammals are adapted to water."
+      - "The absence of every insertion in the camel shows that the camel is the most recently evolved species in the table."
+    option_explanations:
+      - |
+        SINEs are non-coding mobile elements, not protein-coding genes. Their value as markers comes from how they insert and persist, not from selection on a protein.
+      - |
+        Correct. Random insertion makes two independent hits at the same site vanishingly unlikely, and near-permanence means a shared insertion is rarely lost again; together these make shared insertions close to unambiguous evidence of shared descent.
+      - |
+        The stimulus says insertion sites are random, and the pig and cow, which carry insertions, are not aquatic. Insertions record ancestry, not adaptation.
+      - |
+        Absence is the ancestral state, and every species in the table is a present-day species. An outgroup is the lineage that branched off earliest, not the most recent.
+    answer: 1
+    explanation: |
+      Good phylogenetic characters are ones that rarely arise twice independently and rarely revert. Insertions meet both conditions better than most anatomical traits or single base changes.
+
+  - slug: u07-exam-q08
+    type: multiple_choice
+    topic_code: "7.9"
+    source: "Biology 2e §20.2 Determining Evolutionary Relationships"
+    points: 1
+    stimulus: |
+      Researchers tested where whales belong among the hoofed mammals using two kinds of molecular data. First, they scored four sites in the genome for the presence (1) or absence (0) of a SINE, a short stretch of DNA that copies itself and inserts at random positions. Once inserted at a site, a SINE is almost never cleanly removed, and the chance of two independent insertions at exactly the same site is negligible. The camel is the outgroup.
+
+      | Insertion site | Camel | Pig | Cow | Hippopotamus | Whale |
+      |---|---|---|---|---|---|
+      | Site 1 | 0 | 1 | 1 | 1 | 1 |
+      | Site 2 | 0 | 0 | 1 | 1 | 1 |
+      | Site 3 | 0 | 0 | 0 | 1 | 1 |
+      | Site 4 | 0 | 0 | 0 | 1 | 1 |
+
+      Second, they compared the sequence of one nuclear gene and recorded the percentage of nucleotide positions that differ between each pair of species.
+
+      | | Pig | Cow | Hippopotamus | Whale |
+      |---|---|---|---|---|
+      | Camel | 10.1 | 10.4 | 10.3 | 10.6 |
+      | Pig | — | 7.9 | 8.1 | 8.2 |
+      | Cow | — | — | 6.0 | 6.2 |
+      | Hippopotamus | — | — | — | 3.4 |
+
+      Values are illustrative, modelled on published studies.
+    prompt: |
+      A rival tree makes the cow the whale's sister, with the hippopotamus branching off just before that pair. If insertions are never lost, how many insertion events must the rival tree assume to explain the four sites, compared with the tree that makes the hippopotamus the whale's sister?
+    options:
+      - "4 for the rival tree and 4 for the hippopotamus-whale tree"
+      - "5 for the rival tree and 4 for the hippopotamus-whale tree"
+      - "6 for the rival tree and 4 for the hippopotamus-whale tree"
+      - "8 for the rival tree and 4 for the hippopotamus-whale tree"
+    option_explanations:
+      - |
+        Sites 3 and 4 group the hippopotamus with the whale and exclude the cow. On the rival tree those two taxa are not a clade, so neither site can be explained by a single event.
+      - |
+        This counts only one of the two conflicting sites as costing an extra event; sites 3 and 4 each need a second, independent insertion.
+      - |
+        Correct. Sites 1 and 2 fit the rival tree with one event each, but sites 3 and 4 each need two independent insertions (one on the hippopotamus branch and one on the whale branch): 1 + 1 + 2 + 2 = 6, against 4 for the hippopotamus-whale tree.
+      - |
+        Sites 1 and 2 are consistent with the rival tree, because the cow, hippopotamus and whale still form a clade on it; only the two sites that conflict cost extra events.
+    answer: 2
+    explanation: |
+      Maximum parsimony prefers the tree that needs the fewest evolutionary events. Count, site by site, how many separate origins each tree requires; 4 beats 6, so parsimony favours the hippopotamus-whale tree.
+
+  - slug: u07-exam-q09
+    type: multiple_choice
+    topic_code: "7.7"
+    source: "Biology 2e §20.2 Determining Evolutionary Relationships"
+    points: 1
+    stimulus: |
+      Researchers tested where whales belong among the hoofed mammals using two kinds of molecular data. First, they scored four sites in the genome for the presence (1) or absence (0) of a SINE, a short stretch of DNA that copies itself and inserts at random positions. Once inserted at a site, a SINE is almost never cleanly removed, and the chance of two independent insertions at exactly the same site is negligible. The camel is the outgroup.
+
+      | Insertion site | Camel | Pig | Cow | Hippopotamus | Whale |
+      |---|---|---|---|---|---|
+      | Site 1 | 0 | 1 | 1 | 1 | 1 |
+      | Site 2 | 0 | 0 | 1 | 1 | 1 |
+      | Site 3 | 0 | 0 | 0 | 1 | 1 |
+      | Site 4 | 0 | 0 | 0 | 1 | 1 |
+
+      Second, they compared the sequence of one nuclear gene and recorded the percentage of nucleotide positions that differ between each pair of species.
+
+      | | Pig | Cow | Hippopotamus | Whale |
+      |---|---|---|---|---|
+      | Camel | 10.1 | 10.4 | 10.3 | 10.6 |
+      | Pig | — | 7.9 | 8.1 | 8.2 |
+      | Cow | — | — | 6.0 | 6.2 |
+      | Hippopotamus | — | — | — | 3.4 |
+
+      Values are illustrative, modelled on published studies.
+    prompt: |
+      A news headline about these data reads: Whales evolved from hippos. Which statement best evaluates the headline?
+    options:
+      - "The headline is correct, because the hippopotamus and the whale share more insertions than any other pair."
+      - "The headline is wrong: the data show that whales and hippopotamuses share a more recent common ancestor with each other than with the cow, pig or camel; both modern species descend from that ancestor, and neither is the other's ancestor."
+      - "The headline is wrong, because whales and hippopotamuses differ at 3.4% of positions and must therefore be unrelated."
+      - "The headline is correct, because the hippopotamus spends much of its time in water, the first step toward becoming a whale."
+    option_explanations:
+      - |
+        Sharing the most derived characters makes two taxa sisters, not ancestor and descendant. Both lineages have kept evolving since they split, so the modern hippopotamus is no more ancestral than the modern whale.
+      - |
+        Correct. Sister taxa share a common ancestor that was neither a hippopotamus nor a whale; the tree records branching from shared ancestors, not one living species turning into another.
+      - |
+        3.4% is the smallest difference in the table, so it indicates the closest relationship. All the species are related; differences measure how long ago lineages diverged.
+      - |
+        Habitat is not in the data, and evolution is not a ladder in which living species are stages on the way to others. Present-day hippopotamuses are a separate branch, not an intermediate.
+    answer: 1
+    explanation: |
+      Every present-day species sits at a branch tip. Common ancestry means shared ancestors at the nodes, so the right phrasing is closest living relatives, never one modern species descending from another.
+
+  - slug: u07-exam-q10
+    type: multiple_choice
+    topic_code: "7.6"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Researchers tested where whales belong among the hoofed mammals using two kinds of molecular data. First, they scored four sites in the genome for the presence (1) or absence (0) of a SINE, a short stretch of DNA that copies itself and inserts at random positions. Once inserted at a site, a SINE is almost never cleanly removed, and the chance of two independent insertions at exactly the same site is negligible. The camel is the outgroup.
+
+      | Insertion site | Camel | Pig | Cow | Hippopotamus | Whale |
+      |---|---|---|---|---|---|
+      | Site 1 | 0 | 1 | 1 | 1 | 1 |
+      | Site 2 | 0 | 0 | 1 | 1 | 1 |
+      | Site 3 | 0 | 0 | 0 | 1 | 1 |
+      | Site 4 | 0 | 0 | 0 | 1 | 1 |
+
+      Second, they compared the sequence of one nuclear gene and recorded the percentage of nucleotide positions that differ between each pair of species.
+
+      | | Pig | Cow | Hippopotamus | Whale |
+      |---|---|---|---|---|
+      | Camel | 10.1 | 10.4 | 10.3 | 10.6 |
+      | Pig | — | 7.9 | 8.1 | 8.2 |
+      | Cow | — | — | 6.0 | 6.2 |
+      | Hippopotamus | — | — | — | 3.4 |
+
+      Values are illustrative, modelled on published studies.
+    prompt: |
+      Fossil whales about 50 million years old have small hind limbs whose ankle bone has a double-pulley shape found otherwise only in even-toed hoofed mammals such as pigs, cows, camels and hippopotamuses. How does this fossil evidence relate to the molecular data?
+    options:
+      - "It contradicts the molecular data, because anatomical and molecular evidence cannot both be correct."
+      - "It is an independent line of evidence that agrees with the molecular data: a shared derived ankle structure places whales inside the group of even-toed hoofed mammals, just as the insertions nest the whale inside that group rather than outside it."
+      - "It shows that whales are the ancestors of the even-toed hoofed mammals, because the whale fossils are older than the living species."
+      - "It shows that the double-pulley ankle is an analogous trait that evolved independently in whales as an adaptation for swimming."
+    option_explanations:
+      - |
+        Both lines of evidence place whales among the even-toed hoofed mammals, so there is no conflict to resolve. Independent kinds of evidence agreeing is what makes a phylogeny convincing.
+      - |
+        Correct. A complex, distinctive bone shape shared only by members of one group is a shared derived character; finding it in early whales agrees with the insertion data, which put the whale inside that group.
+      - |
+        Fossils being older than living species does not make them ancestors of the whole group; the living pigs, cows and camels descend from earlier hoofed ancestors, not from whales.
+      - |
+        A double-pulley ankle is a structure for running on land, not for swimming, and its presence in a nested pattern that matches the molecular data marks it as homologous, inherited from a common ancestor.
+    answer: 1
+    explanation: |
+      Fossils, anatomy and molecules are separate tests of one hypothesis. When a fossil intermediate carries the derived trait the molecular tree predicts, common ancestry has passed an independent test.
+
+  # ---- Natural selection and its requirements (7.1, 7.2)
+  - slug: u07-exam-q11
+    type: multiple_choice
+    topic_code: "7.1"
+    source: "Biology 2e §18.1 Understanding Evolution"
+    points: 1
+    prompt: |
+      A female cod releases several million eggs each year, yet the number of cod in a region stays roughly constant for decades. Which inference, of the kind Darwin drew from comparable observations, follows?
+    options:
+      - "Most offspring die before reproducing, so individuals whose heritable traits help them survive and reproduce will contribute disproportionately to the next generation."
+      - "Cod adjust their egg production to match the food available, so overproduction never occurs."
+      - "Every egg has an equal chance of surviving, so survival is decided entirely at random."
+      - "A population whose size is stable is not subject to natural selection."
+    option_explanations:
+      - |
+        Correct. Overproduction plus a stable population means intense competition and heavy mortality; if survival depends partly on heritable traits, those traits become more common. This is the core logic of natural selection.
+      - |
+        Millions of eggs per female in a population of stable size is overproduction by definition; the observation itself rules out this option.
+      - |
+        If heritable traits affect survival, survival is not random. Purely random survival would be genetic drift, which Darwin's inference does not describe.
+      - |
+        Stable numbers say nothing about which individuals survive. Selection depends on differential survival and reproduction, which a stable size with huge overproduction actually implies.
+    answer: 0
+    explanation: |
+      Darwin's chain: more offspring than can survive, heritable variation among them, so differential survival and reproduction, so change in the population. Every link must be present.
+
+  - slug: u07-exam-q12
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "Biology 2e §19.3 Adaptive Evolution"
+    points: 1
+    prompt: |
+      Male long-tailed widowbirds have tails about half a metre long. In a field experiment, researchers cut the tails of some males short, glued the clipped pieces onto the tails of other males to lengthen them, and cut and reglued the tails of control males at their normal length. Mean new nests in each male's territory afterwards were: shortened 0.4, control 1.0, lengthened 1.9. Which conclusion is best supported?
+    options:
+      - "Female choice favours longer tails, so sexual selection, which acts through mating success, can explain the evolution of long tails even if they hinder flight."
+      - "Long tails protect males from predators, so females nest near them for safety."
+      - "Males that exercise their tails grow longer ones and pass the trait to their sons."
+      - "The experiment shows that tail length is heritable."
+    option_explanations:
+      - |
+        Correct. Tail length was manipulated directly and nests (females mating with the male) tracked it, while the reglued controls rule out handling effects. Higher mating success for long-tailed males is sexual selection.
+      - |
+        The experiment measured nests, not survival or predation, and nothing in the data concerns predators. The effect appears within one breeding season through female behaviour.
+      - |
+        The tails were lengthened with glue, not by use, and acquired changes are not inherited. This is the Lamarckian error.
+      - |
+        The experiment altered the phenotype directly, so it tests the effect of tail length on mating success, not whether tail length is passed on. Heritability would need parent-offspring comparisons.
+    answer: 0
+    explanation: |
+      Manipulating a trait isolates its effect on fitness. Sexual selection can favour traits that are costly for survival, provided they raise reproductive success by more.
+
+  # ---- Artificial selection (7.3)
+  - slug: u07-exam-q13
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Maize was domesticated from teosinte, a wild grass whose small ears hold about a dozen hard-cased kernels that fall from the plant when ripe. Modern maize ears hold hundreds of exposed kernels that stay on the cob. Which statement best describes how this change came about?
+    options:
+      - "Early farmers saved and replanted seed from the plants with the most useful ears in each generation, so heritable variants present in teosinte, and new ones as they arose, increased in frequency over thousands of years, with humans as the selective agent."
+      - "Growing in fertile, cultivated soil made teosinte plants develop larger ears, and the larger ears were passed on to their offspring."
+      - "Farmers created the genes for large ears by repeatedly crossing teosinte plants with one another."
+      - "Maize arose from teosinte in a single generation through one large mutation."
+    option_explanations:
+      - |
+        Correct. Artificial selection works like natural selection, sorting heritable variation by differential reproduction, except that people decide which individuals breed.
+      - |
+        A change caused by the environment during a plant's life is not inherited. Fertile soil can make one plant bigger without altering the ears of its offspring grown elsewhere.
+      - |
+        Crossing and breeding reshuffle and sort alleles; they do not create them. New alleles come only from mutation, which is random with respect to what the breeder wants.
+      - |
+        Domestication took thousands of years and changed many genes. Some genes had large effects, but no single mutation turned teosinte into modern maize in one step.
+    answer: 0
+    explanation: |
+      Artificial selection is the clearest demonstration that selection on heritable variation can transform a lineage. The only difference from natural selection is who, or what, decides which individuals reproduce.
+
+  # ---- Evidence of evolution (7.6)
+  - slug: u07-exam-q14
+    type: multiple_choice
+    topic_code: "7.6"
+    source: "Biology 2e §18.1 Understanding Evolution"
+    points: 1
+    prompt: |
+      Early embryos of a fish, a chicken and a human all have paired pharyngeal pouches in the throat region and a tail behind the anus. In the fish the pouches develop into parts of the gills; in the human they develop into parts of the middle ear, the tonsils and the thymus and parathyroid glands, and most of the tail is reabsorbed. Which conclusion is best supported?
+    options:
+      - "Human embryos pass through a fish stage in which they breathe with gills."
+      - "The pouches are homologous structures inherited from a common vertebrate ancestor, and each lineage has modified the same embryonic starting point for different adult functions."
+      - "The pouches are analogous structures that evolved separately in each lineage because all embryos develop in fluid."
+      - "Human cells contain switched-off fish genes inherited from fish ancestors."
+    option_explanations:
+      - |
+        Human embryos never have working gills. The pouches are shared embryonic structures that develop differently in each lineage, not a recapitulation of an adult fish.
+      - |
+        Correct. Same position, same embryonic origin, different adult fates: that is homology, and it is best explained by descent from a common ancestor whose development included pouches.
+      - |
+        Analogous structures have different origins and similar functions; these share an origin and have different functions. A fluid environment would not produce the same pouches in the same position.
+      - |
+        Humans and fish share homologous developmental genes inherited from a common ancestor; they are not fish genes, and living fish are relatives, not ancestors.
+    answer: 1
+    explanation: |
+      Embryology reveals homology that adult anatomy hides. Shared developmental structures that later diverge in function are a signature of common ancestry.
+
+  # ---- Continuing evolution (7.8)
+  - slug: u07-exam-q15
+    type: multiple_choice
+    topic_code: "7.8"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      HIV replicates rapidly using an error-prone reverse transcriptase, so new mutations appear in a large fraction of the viral genomes copied each day. In patients treated with a single antiretroviral drug, a drug-resistant virus population usually dominates within weeks. In patients treated with three drugs that act on different viral targets at once, resistance arises far more slowly. Which explanation is best supported?
+    options:
+      - "Three drugs kill the virus faster, so it has less time to learn how to resist them."
+      - "A virus resistant to one drug is still stopped by the other two, so only a genome carrying resistance mutations against all three drugs at once can multiply, and such a genome is vastly rarer than one carrying a single resistance mutation."
+      - "Combining drugs prevents the reverse transcriptase from making errors, so HIV stops mutating."
+      - "The three drugs stimulate the immune system to make antibodies that block resistance mutations."
+    option_explanations:
+      - |
+        Viruses do not learn or respond purposefully; resistance arises from random mutations that happen to exist before the drug selects them.
+      - |
+        Correct. If each resistance mutation is rare, the chance that one genome carries three independent ones is the product of three small probabilities. Selection cannot favour a variant that does not yet exist.
+      - |
+        The drugs block viral enzymes or entry; they do not make copying more accurate. The virus keeps mutating, which is why adherence to all three drugs matters.
+      - |
+        Antibodies do not act on mutations. The effect comes from the requirement for multiple simultaneous resistance mutations, not from the immune response.
+    answer: 1
+    explanation: |
+      Resistance evolves when a pre-existing variant survives the selective agent. Making survival depend on several rare mutations together starves selection of variants to act on; the same logic underlies multi-drug treatment of tuberculosis.
+
+  # ---- Speciation (7.10)
+  - slug: u07-exam-q16
+    type: multiple_choice
+    topic_code: "7.10"
+    source: "Biology 2e §18.2 Formation of New Species"
+    points: 1
+    prompt: |
+      About 30 species of the Hawaiian silversword alliance, ranging from rosette shrubs on dry volcanic slopes to trees in rainforest and cushion plants in bogs, descend, according to DNA evidence, from a single tarweed ancestor that reached the islands from North America about 5 million years ago. Which process best describes this pattern?
+    options:
+      - "Convergent evolution, in which unrelated plants came to resemble one another in similar habitats."
+      - "Adaptive radiation, in which one founding lineage colonised islands with many unoccupied habitats and diverged rapidly into many species, each adapted to a different way of life."
+      - "Artificial selection by people who cultivated the plants on the islands."
+      - "Coevolution, in which the species evolved in response to one another."
+    option_explanations:
+      - |
+        Convergence is unrelated lineages becoming similar. Here related plants from one ancestor became very different, the opposite pattern.
+      - |
+        Correct. One colonist, many empty niches, rapid divergence into forms suited to each: the defining features of an adaptive radiation, here in plants rather than birds.
+      - |
+        There is no evidence of human cultivation in the stimulus, and the radiation began millions of years before people reached Hawaii.
+      - |
+        Coevolution is reciprocal adaptation between interacting species, such as a flower and its pollinator. Diversifying into different habitats from one ancestor is radiation.
+    answer: 1
+    explanation: |
+      Islands with empty niches are natural laboratories for adaptive radiation: founder effect, isolation between islands and different selection in each habitat together drive repeated speciation.
+
+  - slug: u07-exam-q17
+    type: multiple_choice
+    topic_code: "7.10"
+    source: "Biology 2e §18.3 Reconnection and Speciation Rates"
+    points: 1
+    prompt: |
+      In a continuous sequence of marine sediments spanning 2 million years, fossil brachiopod shells of one lineage show almost no change in shape for 1.2 million years. Then, within a single layer representing about 20,000 years, two distinct shell shapes appear, and each remains nearly unchanged to the top of the sequence. Which interpretation best fits the data?
+    options:
+      - "Gradualism, because change accumulated steadily throughout the 2 million years."
+      - "Punctuated equilibrium: long periods of stasis broken by a geologically brief burst of divergence, a pattern expected when a small, isolated population meets a sudden change in selection."
+      - "No conclusion about tempo is possible, because the fossil record is always incomplete."
+      - "Each new shape arose by a single mutation in one individual, so speciation took one generation."
+    option_explanations:
+      - |
+        Steady change would show shapes shifting a little in every layer. These data show stasis for 1.2 million years, so they do not fit gradualism.
+      - |
+        Correct. Stasis, rapid change, stasis again is the punctuated pattern. Twenty thousand years is thousands of generations, ample time for selection on a small population, yet brief on a geological scale.
+      - |
+        The record can be patchy, but the stimulus describes a continuous sequence; the data are sufficient to compare the two models, which is what the question asks.
+      - |
+        Twenty thousand years is not one generation, and a shell shape is shaped by many genes. Rapid in geological terms is still gradual in generational terms.
+    answer: 1
+    explanation: |
+      Gradualism and punctuated equilibrium are predictions about the shape of change through time. Read the record layer by layer: steady drift fits one, stasis broken by bursts fits the other.
+
+  # ---- Variation in populations (7.11)
+  - slug: u07-exam-q18
+    type: multiple_choice
+    topic_code: "7.11"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Researchers exposed two equally sized populations of a bacterium to the same phage. In population 1 the cells carried many different CRISPR spacer sequences, so different cells recognised different parts of the phage genome. In population 2 every cell carried the same single spacer. After 20 days the phage had disappeared from population 1, but in population 2 it had evolved to escape the bacteria's immunity and was killing most of the cells. Which explanation is best supported?
+    options:
+      - "In population 2 a single phage mutation in the one targeted sequence lets the phage infect every cell, whereas in population 1 a phage that escapes one spacer is still recognised by most cells, so the hosts' genetic diversity kept the phage from spreading."
+      - "Population 1 contained more cells, so it could absorb more phage."
+      - "The bacteria in population 1 mutated in response to the phage, but those in population 2 were unable to."
+      - "Phage can evolve only in genetically uniform host populations."
+    option_explanations:
+      - |
+        Correct. Against a uniform host, one escape mutation opens the whole population. Against a diverse host, each escape works on only a small minority, so the phage cannot build up numbers and dies out.
+      - |
+        The populations were the same size. The difference lies in the variation among cells, not in how many there were.
+      - |
+        The diversity existed before exposure, as the stimulus describes; mutations are not produced in response to a threat.
+      - |
+        Phage can and do mutate in diverse host populations too; what differs is whether an escape mutant finds enough susceptible hosts to spread.
+    answer: 0
+    explanation: |
+      Genetic variation is a population's insurance: a pathogen that defeats one genotype meets many others. A clonal or uniform population can be overcome by a single change in its enemy.
+
+  # ---- Origins of life (7.12)
+  - slug: u07-exam-q19
+    type: multiple_choice
+    topic_code: "7.12"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Chemically activated RNA nucleotides dissolved in water alone join into chains only a few units long. When the same solution is mixed with montmorillonite, a clay mineral common on the early Earth, and fresh nucleotides are added daily for several days, chains of up to about 50 nucleotides form without any enzyme. Which step in hypotheses about the origin of life does this result most directly support?
+    options:
+      - "Abiotic synthesis of small organic monomers from inorganic gases."
+      - "Formation of polymers from monomers, concentrated and joined on mineral surfaces without enzymes."
+      - "Origin of the genetic code that links nucleotide sequences to amino-acid sequences."
+      - "Engulfment of bacteria that became mitochondria."
+    option_explanations:
+      - |
+        The experiment starts with nucleotides already made; it says nothing about how monomers formed from gases, which is the question Miller and Urey addressed.
+      - |
+        Correct. The clay surface concentrates and orients nucleotides so they link into chains, showing how polymers could have formed before enzymes existed.
+      - |
+        No amino acids or proteins are involved, so the result cannot address how codons came to specify amino acids.
+      - |
+        Endosymbiosis concerns the origin of eukaryotic cells, more than a billion years after the first polymers and cells.
+    answer: 1
+    explanation: |
+      Origin-of-life hypotheses are a sequence of steps (monomers, polymers, self-replication, enclosure in membranes), each testable separately. Match an experiment to the step whose starting and ending materials it actually uses.
+
+  # ---- Population genetics (7.4)
+  - slug: u07-exam-q20
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "Biology 2e §19.2 Population Genetics"
+    points: 1
+    prompt: |
+      On an island, the frequency of allele A in a beetle population is 0.2. Each generation, 10% of the breeding beetles are migrants from a mainland population in which the frequency of A is 0.8. If no other evolutionary force acts, what is the frequency of A among the island's breeders in the next generation?
+    options:
+      - "0.26"
+      - "0.50"
+      - "0.28"
+      - "0.80"
+    option_explanations:
+      - |
+        Correct. The new frequency is a weighted average: 0.9 × 0.2 + 0.1 × 0.8 = 0.18 + 0.08 = 0.26.
+      - |
+        0.50 is the simple average of the two frequencies; it would apply only if migrants made up half of the breeders, not 10%.
+      - |
+        0.28 adds the migrants' contribution (0.08) to the residents' full 0.2, forgetting that residents now make up only 90% of the breeders.
+      - |
+        0.80 is the mainland frequency. Gene flow moves the island toward it gradually, not in a single generation.
+    answer: 0
+    explanation: |
+      Gene flow makes populations more alike: each generation of migration pulls the island frequency part of the way toward the mainland value. Repeated over many generations, it can swamp local differences that drift or selection create.
+
+  # ---- Cumulative review, multiple choice (Units 1-6)
+  - slug: u07-exam-q21
+    type: multiple_choice
+    topic_code: "6.5"
+    source: "Biology 2e §16.4 Eukaryotic Transcription Gene Regulation"
+    points: 1
+    prompt: |
+      Review. In most mammals, the gene for the milk-digesting enzyme lactase is switched off in the intestine after weaning. In many people from populations with a long history of dairying it stays on into adulthood. The cause is a single-base substitution in an enhancer thousands of base pairs upstream of the gene; the lactase protein itself is unchanged. Which explanation of how the substitution keeps the gene active is best supported?
+    options:
+      - "The substitution creates or strengthens a binding site for a transcription factor, so the enhancer keeps promoting transcription of the lactase gene in adult intestinal cells."
+      - "The substitution changes the amino-acid sequence of lactase so the enzyme works better in adults."
+      - "The substitution lies in an intron, so it changes how the lactase pre-mRNA is spliced."
+      - "Drinking milk as an adult causes the substitution to occur in intestinal cells."
+    option_explanations:
+      - |
+        Correct. Enhancers are binding sites for transcription factors; a base change that improves binding keeps transcription running after the developmental switch-off.
+      - |
+        The prompt states the protein is unchanged; the variation lies in when and where the gene is expressed, not in what it encodes.
+      - |
+        An enhancer upstream of the gene is not part of the transcribed pre-mRNA, so it cannot affect splicing.
+      - |
+        Mutations are not induced by need or diet; the substitution is inherited, which is why it could spread by natural selection in dairying populations.
+    answer: 0
+    explanation: |
+      Much evolutionary change works through regulatory sequences rather than protein-coding ones. A change in when a gene is expressed can be selected just as strongly as a change in the protein.
+
+  - slug: u07-exam-q22
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "Biology 2e §19.2 Population Genetics"
+    points: 1
+    prompt: |
+      Review. Cuttings taken from a single yarrow plant, and therefore genetically identical, were planted at sea level, at 1,400 m and at 3,000 m. After one season they averaged 60 cm, 35 cm and 20 cm tall. Which conclusion is correct?
+    options:
+      - "The height differences were caused by the environment acting on one genotype, so they are not heritable variation and natural selection could not act on them among these cuttings."
+      - "The plants at 3,000 m will produce seeds that grow into short plants even at sea level, because they have adapted to altitude."
+      - "Mutations caused by the altitude produced the shorter plants."
+      - "The results show that height in yarrow has no genetic component."
+    option_explanations:
+      - |
+        Correct. One genotype, three phenotypes: the variation is environmental (phenotypic plasticity). Selection changes a population only through differences that are inherited.
+      - |
+        This is inheritance of acquired characteristics. The cuttings share one genotype, and their seeds carry no record of the altitude at which the parent grew.
+      - |
+        The cuttings share a genotype; the environment changed how that genotype was expressed, not the DNA sequence.
+      - |
+        A single genotype cannot reveal genetic variation. Different yarrow genotypes grown side by side could still differ in height; this experiment tests only the environment's effect.
+    answer: 0
+    explanation: |
+      Phenotype = genotype acting in an environment. Clones separate the two: whatever differs among clones is environmental, and environmental variation is invisible to evolution.
+
+  - slug: u07-exam-q23
+    type: multiple_choice
+    topic_code: "2.2"
+    source: "Biology 2e §4.2 Prokaryotic Cells"
+    points: 1
+    prompt: |
+      Review. One hypothesis for the advantage of multicellularity is that a single cell cannot grow very large and still exchange materials efficiently. Comparing a cube-shaped cell 2 μm on a side with a cube-shaped cell 20 μm on a side, which statement is correct?
+    options:
+      - "The 2 μm cell has a surface-area-to-volume ratio of 3 μm⁻¹ and the 20 μm cell 0.3 μm⁻¹, so the larger cell has one tenth as much membrane per unit of cytoplasm for exchange."
+      - "The 20 μm cell has the larger ratio, because its surface area is 100 times greater."
+      - "Both cells have the same ratio, because they have the same shape."
+      - "The 20 μm cell's ratio is one thousandth of the smaller cell's, because its volume is 1,000 times greater."
+    option_explanations:
+      - |
+        Correct. Small cube: 6 × 2² = 24 μm² over 2³ = 8 μm³, a ratio of 3. Large cube: 6 × 20² = 2,400 μm² over 20³ = 8,000 μm³, a ratio of 0.3.
+      - |
+        Surface area does grow 100-fold, but volume grows 1,000-fold, so the ratio falls rather than rises.
+      - |
+        Shape alone does not fix the ratio; for a given shape, the ratio falls as size increases (for a cube it equals 6 divided by the side length).
+      - |
+        This forgets that surface area also increases, by 100-fold; 100 / 1,000 gives one tenth, not one thousandth.
+    answer: 0
+    explanation: |
+      Volume grows with the cube of size and surface with the square, so exchange capacity per unit of cytoplasm falls as a cell grows. Many cells instead of one big one keeps the ratio high.
+
+  - slug: u07-exam-q24
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "Biology 2e §7.2 Glycolysis"
+    points: 1
+    prompt: |
+      Review. Glycolysis takes place in the cytosol, uses no oxygen, and runs by nearly the same ten enzyme-catalysed steps in bacteria, archaea and eukaryotes. Which inference about its evolutionary history is best supported?
+    options:
+      - "Glycolysis evolved early, in a common ancestor of all three domains, before oxygen accumulated in the atmosphere and before membrane-bound organelles existed, and has been conserved since."
+      - "Glycolysis evolved separately in each domain, because it is the only chemically possible way to break down glucose."
+      - "Glycolysis evolved after mitochondria, because its job is to supply them with pyruvate."
+      - "Glycolysis requires oxygen, which is why every organism uses it."
+    option_explanations:
+      - |
+        Correct. A pathway that needs no oxygen and no organelles, and is shared with the same enzymes across all domains, fits an origin in an early common ancestor living in an oxygen-poor world.
+      - |
+        Glucose can be broken down by other routes, and the enzymes of glycolysis share homologous sequences across domains, which points to shared descent rather than repeated invention.
+      - |
+        Bacteria and archaea, which have no mitochondria, run glycolysis, and so do cells fermenting without oxygen; the pathway does not depend on mitochondria.
+      - |
+        Glycolysis is anaerobic: no step uses oxygen, which is why fermenting cells can rely on it alone.
+    answer: 0
+    explanation: |
+      Universal, anaerobic and cytosolic: three clues that place glycolysis near the root of the tree of life, and an example of how shared metabolism is evidence of common ancestry.
+
+  - slug: u07-exam-q25
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "Biology 2e §9.4 Signaling in Single-Celled Organisms"
+    points: 1
+    prompt: |
+      Review. Yeast cells detect mating pheromone with a G protein-coupled receptor, and human cells detect many hormones and odours with receptors of the same seven-pass structure acting through similar G proteins. Which conclusion is best supported?
+    options:
+      - "Signalling through G protein-coupled receptors evolved in a common ancestor of fungi and animals and was retained and diversified in both lineages."
+      - "Yeast acquired its receptor genes from humans by horizontal gene transfer."
+      - "The resemblance is coincidence, because every receptor that crosses a membrane must cross it seven times."
+      - "Because yeast is single-celled, its receptors cannot be related to those of a multicellular organism."
+    option_explanations:
+      - |
+        Correct. Conserved structure and mechanism across distantly related eukaryotes is best explained by inheritance from a shared ancestor, with later diversification of ligands.
+      - |
+        Yeast is far older as a lineage than humans and there is no route for human DNA to reach it; the shared structure reflects common descent, not transfer.
+      - |
+        Many membrane receptors, such as receptor tyrosine kinases, cross the membrane only once; seven passes is a specific, inherited design.
+      - |
+        Being single-celled does not separate a lineage from the tree of life; fungi and animals share a common ancestor, and many of their pathways are homologous.
+    answer: 0
+    explanation: |
+      Cell-signalling pathways are molecular homologies, like bones in a limb. Conserved pathways in single-celled and multicellular organisms point back to a shared ancestor.
+
+  - slug: u07-exam-q26
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Review. Mitochondrial DNA sequences are widely used to trace the maternal ancestry of human populations. Which feature of mitochondrial inheritance makes it suited to this purpose?
+    options:
+      - "It passes from mother to offspring in the egg's cytoplasm without recombining with paternal DNA, so a line of mothers is recorded in one unshuffled sequence that changes only by mutation."
+      - "It is inherited equally from both parents, so it records both lines of descent."
+      - "It follows Mendel's law of independent assortment, so its variants sort randomly into gametes."
+      - "It never mutates, so it is identical in all humans."
+    option_explanations:
+      - |
+        Correct. Maternal transmission without recombination means differences between two people's sequences reflect only mutations accumulated since their maternal lines diverged.
+      - |
+        Mitochondria come almost entirely from the egg; sperm mitochondria are destroyed after fertilisation, so the record is maternal only.
+      - |
+        Mitochondrial genes are not on nuclear chromosomes and do not segregate in meiosis; their inheritance is non-Mendelian.
+      - |
+        Mitochondrial DNA mutates faster than most nuclear DNA, and those differences are exactly what make it informative about ancestry.
+    answer: 0
+    explanation: |
+      Non-Mendelian inheritance has a practical side: a genome that passes down one line without shuffling is a clean record of descent, used to build trees of human populations.
+
+  # ---- Select-all (5)
+  - slug: u07-exam-q27
+    type: multi_select
+    topic_code: "7.1"
+    source: "Biology 2e §18.1 Understanding Evolution"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A student is studying a population of desert beetles. Which observations, taken together, are needed to predict that the population will evolve by natural selection toward water-tight cuticles? Select all that apply.
+    options:
+      - "Beetles differ in how much water their waxy cuticle lets escape."
+      - "Offspring resemble their parents in cuticle water loss."
+      - "More beetles hatch each year than the habitat can support, so many die before breeding."
+      - "Beetles that lose less water survive dry seasons better and leave more offspring."
+      - "Individual beetles thicken their cuticles during their lifetimes when the air is dry."
+    option_explanations:
+      - |
+        Correct. Variation in the trait is the raw material; without it there is nothing for selection to sort.
+      - |
+        Correct. The variation must be heritable, or the survivors' advantage will not appear in the next generation.
+      - |
+        Correct. Overproduction creates the competition that makes survival unequal.
+      - |
+        Correct. Differential survival and reproduction linked to the trait is the selection itself.
+      - |
+        A change made during an individual's lifetime is acclimation, not inherited variation; it does not change what offspring inherit, so it is not one of the conditions.
+    answer: [0, 1, 2, 3]
+    explanation: |
+      Variation, heritability, overproduction and differential reproductive success: all four together predict evolution by natural selection; any one alone does not. Acquired changes are not part of the mechanism.
+
+  - slug: u07-exam-q28
+    type: multi_select
+    topic_code: "7.8"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which observations are direct evidence that populations are still evolving today? Select all that apply.
+    options:
+      - "Malaria parasites resistant to the drug chloroquine rose from rare to dominant in parts of Africa within a few decades of its widespread use."
+      - "Weed populations sprayed with the same herbicide for many years contain far more resistant plants than unsprayed populations of the same species."
+      - "Influenza vaccines must be reformulated most years because the virus's surface proteins keep changing."
+      - "Fossils show that the ancestors of horses had several toes on each foot 50 million years ago."
+      - "A man who lifts weights for a year develops larger muscles."
+    option_explanations:
+      - |
+        Correct. A heritable trait changed in frequency within human memory under a known selective agent, the drug.
+      - |
+        Correct. The difference between sprayed and unsprayed populations of one species shows selection changing allele frequencies in recent decades.
+      - |
+        Correct. Season-to-season change in viral proteins is evolution measured in real time, driven by mutation and selection by host immunity.
+      - |
+        This is evidence of evolution in the past, not of evolution continuing now; it shows change over millions of years.
+      - |
+        Muscle growth from training is a change in one individual's phenotype, not a heritable change in a population.
+    answer: [0, 1, 2]
+    explanation: |
+      Continuing evolution is seen where generation times are short or selection is strong: pathogens, pests and weeds under chemical selection. Evidence must show a heritable change in a population, observed in our own time.
+
+  - slug: u07-exam-q29
+    type: multi_select
+    topic_code: "7.10"
+    source: "Biology 2e §18.2 Formation of New Species"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Two species of toad occasionally mate where their ranges meet. Which observations would indicate a postzygotic barrier between them? Select all that apply.
+    options:
+      - "Hybrid embryos stop developing before hatching."
+      - "Hybrid adults are healthy but produce no viable sperm or eggs."
+      - "The two species call at different pitches, and females approach only their own species' call."
+      - "Sperm of one species cannot penetrate the jelly coat of the other species' eggs."
+      - "First-generation hybrids are fertile, but most of their offspring are weak and die young."
+    option_explanations:
+      - |
+        Correct. Hybrid inviability acts after the zygote forms, so it is postzygotic.
+      - |
+        Correct. Hybrid sterility is a postzygotic barrier: the hybrid lives but its genes go no further.
+      - |
+        A difference in mating calls is behavioural isolation; it stops mating before any zygote forms, so it is prezygotic.
+      - |
+        Failure of fertilisation is a gametic barrier; no zygote forms, so it is prezygotic.
+      - |
+        Correct. Hybrid breakdown, the failure of second-generation hybrids, is also postzygotic, because the barrier acts on offspring after fertilisation.
+    answer: [0, 1, 4]
+    explanation: |
+      Classify a barrier by asking whether a zygote forms. Before the zygote (habitat, timing, behaviour, mechanics, gametes) is prezygotic; after it (inviability, sterility, breakdown) is postzygotic.
+
+  - slug: u07-exam-q30
+    type: multi_select
+    topic_code: "7.12"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about the early Earth and the origin of life are supported by current evidence? Select all that apply.
+    options:
+      - "The early atmosphere held little or no free oxygen, so newly formed organic molecules were not quickly broken down by oxidation."
+      - "Lightning, ultraviolet radiation and volcanic heat supplied energy that could drive the synthesis of organic molecules."
+      - "Amino acids have been found in meteorites, so some organic molecules may have been delivered to Earth from space."
+      - "The first cells were eukaryotic, with a nucleus and mitochondria."
+      - "Life began only after the atmosphere filled with oxygen, which the first cells needed for respiration."
+    option_explanations:
+      - |
+        Correct. Free oxygen destroys many organic molecules; its absence let them accumulate, and oxygen did not build up until about 2.3 billion years ago.
+      - |
+        Correct. Experiments of the Miller-Urey type show that such energy sources can drive the formation of organic monomers from simple gases.
+      - |
+        Correct. Meteorites such as the one that fell at Murchison, Australia, in 1969 contain amino acids, so delivery from space is a supported contributing source.
+      - |
+        The oldest fossils are prokaryotic; eukaryotic cells appear more than a billion years later, and mitochondria arose by endosymbiosis of bacteria.
+      - |
+        Life appeared well before oxygen accumulated, and the oxygen itself came from photosynthetic bacteria; the first cells were anaerobic.
+    answer: [0, 1, 2]
+    explanation: |
+      Origin-of-life hypotheses rest on what the early Earth offered: no free oxygen, abundant energy and possible delivery of organics from space. The sequence prokaryotes first, oxygen later, eukaryotes later still is firm.
+
+  - slug: u07-exam-q31
+    type: multi_select
+    topic_code: "2.7"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Review. When marine fish colonise fresh water, their body fluids are now far saltier than the water around them. Which statements correctly describe the osmotic situation of a fish living in fresh water? Select all that apply.
+    options:
+      - "The surrounding water is hypotonic to the fish's body fluids."
+      - "Water tends to enter the fish by osmosis across the gills and other thin surfaces."
+      - "The fish must excrete large volumes of dilute urine to remove the excess water."
+      - "Salts tend to diffuse into the fish from the water, so it must pump them out."
+      - "The fish must take up salt ions from the water by active transport at the gills, using ATP."
+    option_explanations:
+      - |
+        Correct. Fresh water has a lower solute concentration than the fish's blood, which is what hypotonic means.
+      - |
+        Correct. Water moves from the region of lower solute concentration (the lake) into the fish across permeable surfaces.
+      - |
+        Correct. Producing copious dilute urine removes the water gained by osmosis while conserving salts.
+      - |
+        This reverses the gradient: salts are more concentrated inside the fish, so they tend to diffuse out, not in.
+      - |
+        Correct. Ions must be moved into the fish against their concentration gradient, which requires active transport and ATP.
+    answer: [0, 1, 2, 4]
+    explanation: |
+      Tonicity sets the direction of passive movement; the organism pays with ATP to move anything the other way. A freshwater fish gains water and loses salt passively, and fixes both with urine and active uptake.
+
+  # ---- True/false (5)
+  - slug: u07-exam-q32
+    type: true_false
+    topic_code: "7.9"
+    source: "Biology 2e §20.2 Determining Evolutionary Relationships"
+    points: 1
+    prompt: |
+      True or false: In a cladogram, the outgroup is the taxon from which all the other taxa in the analysis evolved.
+    answer: false
+    explanation: |
+      False. The outgroup is a present-day lineage that branched off before the common ancestor of the other taxa (the ingroup). It is used to decide which character states are ancestral, because whatever the outgroup has is likely to be the starting condition. It is a relative, not an ancestor, and it has been evolving for exactly as long as every other taxon on the tree.
+
+  - slug: u07-exam-q33
+    type: true_false
+    topic_code: "7.6"
+    source: "Biology 2e §20.2 Determining Evolutionary Relationships"
+    points: 1
+    prompt: |
+      True or false: The streamlined body shape shared by sharks and dolphins is evidence that dolphins are more closely related to sharks than to land mammals.
+    answer: false
+    explanation: |
+      False. Streamlining is an analogous trait: similar selection for fast swimming produced a similar shape in two unrelated lineages (convergent evolution). Dolphins share homologous traits with land mammals, such as hair at birth, mammary glands, lungs and the same limb bones inside their flippers, so they belong with the mammals. Similar function in a similar environment is the classic trap for anyone building a tree from appearance alone.
+
+  - slug: u07-exam-q34
+    type: true_false
+    topic_code: "7.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: Artificial selection can change a trait only if the breeding population contains heritable variation in it; the breeder chooses which individuals reproduce but cannot choose which new mutations arise.
+    answer: true
+    explanation: |
+      True. Breeders select among the variation that exists; new variation appears by random mutation, not on demand. This is why selection for a trait eventually stalls when variation runs out (all individuals carry the favoured alleles), and why breeders cross in new stock to restore variation. The same limit applies to natural selection.
+
+  - slug: u07-exam-q35
+    type: true_false
+    topic_code: "7.11"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: Where malaria is common, heterozygotes for the sickle-cell allele have higher fitness than either homozygote, so selection maintains both the sickle-cell allele and the normal allele in the population.
+    answer: true
+    explanation: |
+      True. Normal homozygotes are more vulnerable to malaria and sickle-cell homozygotes suffer sickle-cell disease, so heterozygotes have the highest fitness. Selection then keeps both alleles at intermediate frequencies instead of eliminating one. Heterozygote advantage is one way variation is preserved in a population, and the allele declines where malaria is absent.
+
+  - slug: u07-exam-q36
+    type: true_false
+    topic_code: "6.2"
+    source: "Biology 2e §14.6 DNA Repair"
+    points: 1
+    prompt: |
+      Review. True or false: DNA polymerase proofreading and mismatch repair remove nearly all copying errors, but an error that escapes both becomes a permanent mutation once the DNA is replicated again, providing new heritable variation.
+    answer: true
+    explanation: |
+      True. Proofreading and mismatch repair lower the error rate to about one in a billion bases, but not to zero. A mismatch that survives is copied faithfully at the next replication, fixing the change in both daughter molecules. That residual error rate is the ultimate source of the new alleles on which natural selection acts.
+
+  # ---- Fill in the blank (5)
+  - slug: u07-exam-q37
+    type: fill_blank
+    topic_code: "7.4"
+    source: "Biology 2e §19.2 Population Genetics"
+    points: 1
+    prompt: |
+      The only process that creates entirely new alleles, supplying the raw material on which selection, drift and gene flow then act, is ____.
+    answer: ["mutation", "mutations"]
+    explanation: |
+      Mutation is the ultimate source of genetic variation. Gene flow moves existing alleles between populations, recombination reshuffles them into new combinations, and selection and drift change their frequencies, but only mutation makes an allele that did not exist before.
+
+  - slug: u07-exam-q38
+    type: fill_blank
+    topic_code: "7.10"
+    source: "Biology 2e §18.2 Formation of New Species"
+    points: 1
+    prompt: |
+      Under the biological species concept, two populations are separate species when ____ isolation prevents them from interbreeding and producing fertile offspring in nature.
+    answer: ["reproductive"]
+    explanation: |
+      Reproductive isolation is the defining feature of a biological species; the barriers that cause it are classed as prezygotic or postzygotic. Geographic isolation can start speciation, but populations separated only by distance are not separate species if they would still interbreed on meeting, so "geographic" is not accepted.
+
+  - slug: u07-exam-q39
+    type: fill_blank
+    topic_code: "7.9"
+    source: "Biology 2e §20.2 Determining Evolutionary Relationships"
+    points: 1
+    prompt: |
+      A group that consists of one common ancestor and all of its descendants, and nothing else, is called a ____.
+    answer: ["clade", "monophyletic group"]
+    explanation: |
+      A clade, or monophyletic group, can be cut from a tree with a single snip. Groups that leave out some descendants (such as reptiles without birds) are paraphyletic, and they are not clades even if they are traditional names.
+
+  - slug: u07-exam-q40
+    type: fill_blank
+    topic_code: "7.12"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Because it held almost no free oxygen and was rich in gases such as hydrogen and methane that readily donate electrons, the atmosphere of the early Earth is often described as a ____ atmosphere.
+    answer: ["reducing"]
+    explanation: |
+      A reducing atmosphere donates electrons, the opposite of today's oxidising one. Oparin and Haldane argued that such conditions would let organic molecules form and persist; Miller and Urey tested the idea. Later evidence suggests the early atmosphere may have been less strongly reducing than they assumed, which is why hydrothermal vents are studied as an alternative setting.
+
+  - slug: u07-exam-q41
+    type: fill_blank
+    topic_code: "3.1"
+    source: "Biology 2e §6.5 Enzymes"
+    points: 1
+    prompt: |
+      Review. A mutation that changes the shape and chemistry of an enzyme's ____ site can change which substrate the enzyme binds, one route by which new enzyme functions evolve.
+    answer: ["active"]
+    explanation: |
+      The active site's shape and the charges of its R groups determine substrate specificity, so a substitution there can shift the enzyme to a new substrate. Combined with gene duplication, which leaves one copy free to change, this is a common route to new enzyme functions. "Allosteric" names a regulatory site, so it is not accepted.
+
+  # ---- Numeric (2, with q03 above)
+  - slug: u07-exam-q42
+    type: numeric
+    topic_code: "7.8"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Soapberry bugs feed by piercing fruit with their beaks to reach the seeds. In Florida, bugs on a native vine with large fruit have long beaks, averaging about 9.2 mm, while bugs that colonised an introduced tree with much smaller fruit within the last century have shorter beaks. A sample of 25 bugs from the introduced tree had a mean beak length of 6.9 mm with a standard deviation of 0.50 mm. Using SE = s / √n, calculate the standard error of the mean for this sample. Give your answer in millimetres to two decimal places.
+    answer: { value: 0.10, tolerance: 0.005 }
+    explanation: |
+      SE = s / √n = 0.50 / √25 = 0.50 / 5 = 0.10 mm. The ±2 SE interval is 6.9 ± 0.2, or 6.7 to 7.1 mm, nowhere near the 9.2 mm of bugs on the native vine, so the difference is very unlikely to be a sampling accident. A change of this size in about a century of generations is evolution observed in historical time, driven by selection for beaks matched to the new fruit.
+
+  # ---- Free response
+  - slug: u07-exam-q43
+    type: short_answer
+    topic_code: "7.7"
+    source: "Biology 2e §18.1 Understanding Evolution"
+    points: 4
+    prompt: |
+      Scientific argumentation. The genetic code is nearly identical in bacteria, archaea, plants, fungi and animals: with a handful of exceptions, the same codon specifies the same amino acid everywhere. The known exceptions are rare, are scattered across unrelated lineages (in some mitochondria and a few single-celled eukaryotes, for example), and each differs from the standard code at only one or a few codons. (a) Make a claim about the ancestry of all living organisms that the near-universality of the code supports. (b) Explain why a shared genetic code is stronger evidence for that claim than the fact that all organisms use water as a solvent. (c) Explain why the rare variant codes do not refute the claim. (d) Identify one other molecular feature shared by all living organisms that supports the same claim.
+    answer: |
+      All living organisms descend from a single common ancestor in which the code was already established. Codon assignments are largely arbitrary, so independent origins would be unlikely to arrive at the same ones, whereas any life would use water because chemistry requires it. The variants differ by one or a few codons and occur in lineages whose relatives use the standard code, so they are later modifications of the inherited code. Other shared features: DNA as the genetic material, ribosomes that translate mRNA, ATP as the energy currency.
+    explanation: |
+      Four points.
+
+      (a) Claim, 1 pt: all living organisms share a single common ancestor (accept "descend from one universal common ancestor", "life on Earth has a single origin"), and the code was inherited from it. A statement that organisms are "similar" or "related" without stating common descent from one ancestor earns zero.
+
+      (b) Reasoning, 1 pt: the assignment of codons to amino acids is largely arbitrary (many other assignments would work chemically), so the same assignments in every lineage are best explained by inheritance, not by independent invention; water use, by contrast, is dictated by chemistry and would be expected even if life had arisen more than once. The point needs the contrast between an arbitrary shared convention and a chemically necessary one. Accept an analogy (a shared arbitrary spelling or language) if the arbitrariness is stated.
+
+      (c) Variants, 1 pt: each variant differs from the standard code by only one or a few codons and appears in lineages whose close relatives use the standard code, so the most parsimonious explanation is that the variants are recent modifications of the inherited universal code, not independent codes. Saying "the exceptions are too few to matter" without explaining that they are derived from the standard code earns zero.
+
+      (d) Other evidence, 1 pt: any one of: DNA as the hereditary material built from the same four nucleotides; RNA as the intermediary; ribosomes and conserved ribosomal RNA genes; ATP as the energy currency; the same twenty amino acids in proteins; glycolysis or other conserved core metabolic pathways; phospholipid-bilayer membranes. The feature must be molecular or cellular and genuinely universal; features such as nuclei or mitochondria (absent from prokaryotes) earn zero.
+
+      Zero overall: answers that treat the code as evidence that all organisms are the same species, or that argue the code was designed to be universal, earn no reasoning points.
+
+  - slug: u07-exam-q44
+    type: long_answer
+    topic_code: "7.2"
+    source: "general knowledge"
+    points: 8
+    prompt: |
+      Interpreting and evaluating experimental results. In streams on Trinidad, male guppies carry bright colour spots that attract females, but the spots also make males easier for predatory fish to see. Researchers stocked ten large greenhouse pools from one mixed population of guppies. They then added a dangerous predator (the pike cichlid, which eats adult guppies) to four pools, a weak predator (a killifish that rarely eats adults) to four pools, and no predator to two pools. They counted the colour spots on adult males at the start and after about 10 and 20 generations. Values are treatment means (illustrative, modelled on a classic study); standard errors were all about 0.2 spots.
+
+      | Treatment | Pools | Spots per male at start | After about 10 generations | After about 20 generations |
+      |---|---|---|---|---|
+      | No predator | 2 | 11.0 | 12.4 | 13.1 |
+      | Weak predator | 4 | 11.1 | 12.2 | 12.9 |
+      | Dangerous predator | 4 | 10.9 | 9.6 | 8.8 |
+
+      At generation 20, newborn sons of males from the no-predator pools and from the dangerous-predator pools were raised in identical predator-free aquaria. As adults they averaged 13.0 and 9.0 spots respectively.
+
+      (a) Identify the independent and dependent variables, and explain the purpose of the no-predator pools.
+      (b) Describe the change in spot number in each treatment over the 20 generations. Using ±2 SE, determine whether the difference at generation 20 between the no-predator and weak-predator pools, and between the no-predator and dangerous-predator pools, is likely to be real.
+      (c) Explain the two opposing selective pressures that produced the different outcomes, naming the kind of selection that raises spot number and the mode of selection acting on spot number in the dangerous-predator pools.
+      (d) Using the aquarium result, explain whether the difference in spot number between the treatments is heritable, and why this matters for concluding that the populations evolved.
+      (e) The pike cichlids are removed from the dangerous-predator pools at generation 20. Predict the mean spot number in those pools over the following 20 generations and justify the prediction.
+    answer: |
+      IV: predator treatment; DV: mean spots per male. The no-predator pools show the effect of female choice alone, so changes in predator pools can be attributed to predation. Spots rose without predators (11.0 to 13.1) and with weak predators (11.1 to 12.9) and fell with dangerous predators (10.9 to 8.8); at generation 20, no-predator (12.7-13.5) and weak (12.5-13.3) intervals overlap, so that difference is not established, while no-predator and dangerous (8.4-9.2) do not overlap, so that difference is real. Sexual selection by female choice favours more spots; dangerous predators eat conspicuous males, a directional selection toward fewer spots that outweighs female choice. Sons raised without predators kept the difference (13.0 vs 9.0), so it is genetic, and evolution requires heritable change. After removal, spot number should rise toward about 13 because sexual selection is no longer opposed and heritable variation remains.
+    explanation: |
+      Eight points.
+
+      (a) 2 pts: 1 pt for independent variable = predator treatment (none, weak, dangerous; accept time in generations as a second independent variable) and dependent variable = mean number of colour spots per adult male; 1 pt for the purpose of the no-predator pools: a control or baseline showing how spot number changes without predation (under female choice alone), so that differences in the predator pools can be attributed to predation. "A control" with no explanation of what it controls for earns zero for this point.
+
+      (b) 2 pts: 1 pt for the pattern with numbers: spot number increased in the no-predator pools (11.0 to 13.1) and weak-predator pools (11.1 to 12.9) and decreased in the dangerous-predator pools (10.9 to 8.8), from similar starting values; 1 pt for the error-bar judgement: ±2 SE is ±0.4, so at generation 20 the no-predator interval (12.7 to 13.5) overlaps the weak-predator interval (12.5 to 13.3), so that difference is not shown to be real, while it does not overlap the dangerous-predator interval (8.4 to 9.2), so that difference is likely real. Both comparisons are required for the point.
+
+      (c) 2 pts: 1 pt for sexual selection: females prefer males with more or brighter spots, so spotted males mate more and the trait increases where predation is weak or absent; 1 pt for predation: dangerous predators see and eat the most conspicuous males before they reproduce, so directional selection favours fewer spots, and this natural selection outweighs female choice in those pools. The mode (directional) must be named or the direction clearly described for the second point.
+
+      (d) 1 pt: the sons were raised in identical, predator-free conditions yet kept the difference (13.0 versus 9.0), so the difference is genetic (heritable), not a plastic response to seeing predators; this matters because evolution is a change in heritable traits (allele frequencies) across generations, and a purely environmental difference would not count.
+
+      (e) 1 pt: prediction that mean spot number rises over the following generations toward the no-predator value (about 13), justified by the removal of the opposing selective pressure, so female choice now favours more spots unopposed, and by heritable variation in spot number still being present. Accept a slow or partial rise if variation is argued to be reduced. A prediction of an immediate return in one generation, or of no change because the fish "have already adapted", earns zero.
+
+      Zero for a part: describing the data without direction or numbers; claiming that predators cause individual males to lose spots; treating overlapping error bars as proof of a difference; explaining the rise in spots as males "trying" to attract females.
