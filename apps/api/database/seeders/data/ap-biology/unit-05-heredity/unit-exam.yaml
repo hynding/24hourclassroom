@@ -1,0 +1,1183 @@
+unit: 5
+description: |
+  48 questions · about 65 minutes · every topic of Unit 5 (5.1 to 5.5) with three data-based stimulus sets (a
+  linkage test cross, DNA content through meiosis, an X-linked pedigree), about one fifth cumulative review of
+  Units 1 to 4, one short free-response item (4 points) and one long free-response item (8 points). Multiple
+  choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+  automatically; the two free-response items are graded by your teacher against the acceptable-answer summary.
+questions:
+  # ---- Stimulus set A: a linkage test cross with chi-square (5.3, 5.4, 5.2)
+  - slug: u05-exam-q01
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "Biology 2e §13.1 Chromosomal Theory and Genetic Linkage"
+    points: 1
+    stimulus: |
+      A geneticist test-crossed fruit flies heterozygous for two genes (AaBb, with A and B on one homologue and a and b on the other) to aabb flies and scored 1,000 offspring.
+
+      | Offspring genotype | Number |
+      |---|---|
+      | AaBb | 412 |
+      | aabb | 408 |
+      | Aabb | 92 |
+      | aaBb | 88 |
+      | Total | 1,000 |
+
+      Critical values of chi-square at p = 0.05: df 1 = 3.84, df 2 = 5.99, df 3 = 7.81.
+    prompt: |
+      The geneticist first tests the null hypothesis that the two genes assort independently. What are the expected counts and the degrees of freedom for that test?
+    options:
+      - "412, 408, 92 and 88; df = 3, because the expected values are the observed values."
+      - "250 in each of the four classes; df = 3, because a dihybrid test cross of unlinked genes gives 1:1:1:1 and there are four classes."
+      - "562.5, 187.5, 187.5 and 62.5; df = 3, because the expected ratio is 9:3:3:1."
+      - "500 and 500; df = 1, because only two phenotypes are involved."
+    option_explanations:
+      - |
+        Expected values come from the hypothesis, never from the data; using the observed counts as expected would make chi-square zero for every data set.
+      - |
+        Correct. The aabb parent contributes only recessive alleles, so the offspring classes report the heterozygote's gametes; independent assortment predicts four equal gamete types, 1,000 ÷ 4 = 250 each, and df = 4 − 1 = 3.
+      - |
+        9:3:3:1 is the ratio of an F1 × F1 dihybrid cross; a test cross to a double recessive gives 1:1:1:1 when the genes are unlinked.
+      - |
+        There are four genotype classes, not two; collapsing them would discard exactly the information (the parental versus recombinant split) the test is about.
+    answer: 1
+    explanation: |
+      A test cross is a window onto one parent's gametes. Independent assortment predicts equal classes; that is the null hypothesis to put into the chi-square.
+
+  - slug: u05-exam-q02
+    type: numeric
+    topic_code: "5.4"
+    source: "Biology 2e §13.1 Chromosomal Theory and Genetic Linkage"
+    points: 1
+    stimulus: |
+      A geneticist test-crossed fruit flies heterozygous for two genes (AaBb, with A and B on one homologue and a and b on the other) to aabb flies and scored 1,000 offspring.
+
+      | Offspring genotype | Number |
+      |---|---|
+      | AaBb | 412 |
+      | aabb | 408 |
+      | Aabb | 92 |
+      | aaBb | 88 |
+      | Total | 1,000 |
+
+      Critical values of chi-square at p = 0.05: df 1 = 3.84, df 2 = 5.99, df 3 = 7.81.
+    prompt: |
+      Calculate the recombination frequency between genes A and B as a percentage, to one decimal place.
+    answer: { value: 18.0, tolerance: 0.5 }
+    explanation: |
+      The heterozygote's chromosomes carried AB and ab, so the parental classes are AaBb and aabb and the recombinant classes are Aabb and aaBb. Recombinants = 92 + 88 = 180; 180 ÷ 1,000 × 100 = 18.0%, so the genes are 18 map units apart. For comparison, the chi-square against 250 per class is (162² + 158² + 158² + 162²) ÷ 250 ≈ 410, far above 7.81.
+
+  - slug: u05-exam-q03
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A geneticist test-crossed fruit flies heterozygous for two genes (AaBb, with A and B on one homologue and a and b on the other) to aabb flies and scored 1,000 offspring.
+
+      | Offspring genotype | Number |
+      |---|---|
+      | AaBb | 412 |
+      | aabb | 408 |
+      | Aabb | 92 |
+      | aaBb | 88 |
+      | Total | 1,000 |
+
+      Critical values of chi-square at p = 0.05: df 1 = 3.84, df 2 = 5.99, df 3 = 7.81.
+    prompt: |
+      The chi-square value for the independent-assortment hypothesis is about 410. Which conclusion is justified?
+    options:
+      - "Fail to reject the null hypothesis; the genes assort independently and the uneven classes are chance."
+      - "Reject the null hypothesis; the parental classes are far too common for independent assortment, so the genes are linked on one chromosome about 18 map units apart."
+      - "Reject the null hypothesis; the genes are on different chromosomes but one allele is lethal."
+      - "The test is invalid because the sample is too large."
+    option_explanations:
+      - |
+        A chi-square of 410 against a critical value of 7.81 means a deviation this large would occur by chance far less than once in twenty trials; the hypothesis must be rejected.
+      - |
+        Correct. Rejecting independent assortment leaves linkage as the explanation of the excess parental classes; the recombinant fraction of 18% is the map distance.
+      - |
+        Lethality removes a class or classes and would leave the surviving classes in a different pattern; here the two parental classes are nearly equal to each other and the two recombinants are nearly equal, the signature of linkage, not of lethality.
+      - |
+        Large samples make chi-square more reliable, not less; the test's power to detect a real deviation grows with sample size.
+    answer: 1
+    explanation: |
+      Reject independent assortment and the deficit of recombinants becomes a measurement: 18% recombinants, 18 map units.
+
+  - slug: u05-exam-q04
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "Biology 2e §11.1 The Process of Meiosis"
+    points: 1
+    stimulus: |
+      A geneticist test-crossed fruit flies heterozygous for two genes (AaBb, with A and B on one homologue and a and b on the other) to aabb flies and scored 1,000 offspring.
+
+      | Offspring genotype | Number |
+      |---|---|
+      | AaBb | 412 |
+      | aabb | 408 |
+      | Aabb | 92 |
+      | aaBb | 88 |
+      | Total | 1,000 |
+
+      Critical values of chi-square at p = 0.05: df 1 = 3.84, df 2 = 5.99, df 3 = 7.81.
+    prompt: |
+      Which event in the heterozygous parent produced the 180 recombinant offspring?
+    options:
+      - "Random orientation of the two homologues at metaphase I"
+      - "A crossover between non-sister chromatids, at a point between the two genes, during prophase I"
+      - "Separation of sister chromatids at anaphase II"
+      - "A mutation of A to a or B to b in the parent's germ cells"
+    option_explanations:
+      - |
+        Metaphase I orientation shuffles whole chromosomes; it cannot separate two genes that sit on the same chromosome.
+      - |
+        Correct. Only an exchange between the maternal and paternal chromatids, falling between A and B, moves A onto a chromatid carrying b; the 18% frequency reflects how often a crossover lands in that interval.
+      - |
+        Sister chromatids are identical until a crossover alters them; their separation distributes recombinants but does not create them.
+      - |
+        Mutation rates are around one in a million per gene per generation; 180 in 1,000 is far too many, and the recombinants appear as reciprocal pairs, which exchange predicts and mutation does not.
+    answer: 1
+    explanation: |
+      Recombination frequency is the frequency of a prophase I crossover in a particular interval. Unit 5's map is built from Unit 5's meiosis.
+
+  # ---- Stimulus set B: DNA content through meiosis (5.1)
+  - slug: u05-exam-q05
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "Biology 2e §11.1 The Process of Meiosis"
+    points: 1
+    stimulus: |
+      The table gives the DNA content per nucleus, in picograms (pg), measured in cells of a mammal with 2n = 4 at several points. Each unreplicated chromosome of this species contains 1.5 pg of DNA.
+
+      | Cell | DNA per nucleus (pg) |
+      |---|---|
+      | Body cell in G1 | 6.0 |
+      | Body cell in G2 | 12.0 |
+      | Cell at the end of meiosis I | 6.0 |
+      | Normal sperm | 3.0 |
+      | One unusual sperm | 4.5 |
+    prompt: |
+      Why does a body cell in G2 contain 12.0 pg of DNA, and how many chromosomes does it have?
+    options:
+      - "DNA replication in S phase gave each of the 4 chromosomes two sister chromatids; the cell still has 4 chromosomes."
+      - "The cell has become tetraploid, with 8 chromosomes."
+      - "The cell has 8 chromosomes because mitosis occurred without cytokinesis."
+      - "The nucleus has absorbed DNA from a neighbouring cell."
+    option_explanations:
+      - |
+        Correct. Replication doubles the DNA (6.0 → 12.0 pg) by copying each chromosome into two attached chromatids; chromosomes are counted by centromeres, so the number stays at 4.
+      - |
+        Ploidy does not change in a normal cell cycle; the extra DNA is sister chromatids, which will be separated at the next anaphase.
+      - |
+        Mitosis without cytokinesis produces two nuclei, each with 6.0 pg; a single G2 nucleus with 12.0 pg is the normal pre-division state.
+      - |
+        Cells do not take up DNA from neighbours as part of the cycle; the doubling is the result of the cell's own S phase.
+    answer: 0
+    explanation: |
+      DNA content and chromosome number are different quantities: S phase doubles the first and leaves the second alone.
+
+  - slug: u05-exam-q06
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "Biology 2e §11.1 The Process of Meiosis"
+    points: 1
+    stimulus: |
+      The table gives the DNA content per nucleus, in picograms (pg), measured in cells of a mammal with 2n = 4 at several points. Each unreplicated chromosome of this species contains 1.5 pg of DNA.
+
+      | Cell | DNA per nucleus (pg) |
+      |---|---|
+      | Body cell in G1 | 6.0 |
+      | Body cell in G2 | 12.0 |
+      | Cell at the end of meiosis I | 6.0 |
+      | Normal sperm | 3.0 |
+      | One unusual sperm | 4.5 |
+    prompt: |
+      A cell at the end of meiosis I and a body cell in G1 both contain 6.0 pg of DNA. How do the two cells differ?
+    options:
+      - "They do not differ; both are diploid cells with 4 unreplicated chromosomes."
+      - "The G1 cell is diploid with 4 single-chromatid chromosomes; the meiosis I product is haploid with 2 chromosomes, each still made of two sister chromatids."
+      - "The G1 cell is haploid and the meiosis I product is diploid."
+      - "The meiosis I product has 4 chromosomes each with one chromatid, but they are all maternal."
+    option_explanations:
+      - |
+        Equal DNA content does not mean equal chromosome number; the meiosis I product has half the chromosomes, each doubled.
+      - |
+        Correct. 6.0 pg can be 4 chromosomes × 1.5 pg (G1) or 2 chromosomes × 2 chromatids × 1.5 pg (after meiosis I); homologues have separated but sister chromatids have not.
+      - |
+        A body cell in G1 is diploid by definition; meiosis I reduces ploidy, so its product is the haploid one.
+      - |
+        Meiosis I halves the chromosome count to 2 and, because of independent assortment and crossing over, each product carries a mixture of maternal and paternal material.
+    answer: 1
+    explanation: |
+      Meiosis I is the reductional division: chromosome number halves while each chromosome keeps both chromatids. The DNA content alone cannot tell you which cell you are looking at.
+
+  - slug: u05-exam-q07
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "Biology 2e §13.2 Chromosomal Basis of Inherited Disorders"
+    points: 1
+    stimulus: |
+      The table gives the DNA content per nucleus, in picograms (pg), measured in cells of a mammal with 2n = 4 at several points. Each unreplicated chromosome of this species contains 1.5 pg of DNA.
+
+      | Cell | DNA per nucleus (pg) |
+      |---|---|
+      | Body cell in G1 | 6.0 |
+      | Body cell in G2 | 12.0 |
+      | Cell at the end of meiosis I | 6.0 |
+      | Normal sperm | 3.0 |
+      | One unusual sperm | 4.5 |
+    prompt: |
+      One sperm contains 4.5 pg of DNA. What is the most likely explanation, and what would the chromosome number of a zygote formed from it be?
+    options:
+      - "The sperm has 3 chromosomes because of nondisjunction during its formation; a zygote formed with a normal egg would have 5 chromosomes."
+      - "The sperm has not finished replicating its DNA; the zygote would have 4 chromosomes."
+      - "The sperm is diploid; the zygote would have 6 chromosomes."
+      - "The sperm has 2 chromosomes, one of which is unusually large; the zygote would have 4 chromosomes."
+    option_explanations:
+      - |
+        Correct. 4.5 ÷ 1.5 = 3 chromosomes, one more than the haploid 2, which is the product of a homologous pair or sister chromatids failing to separate; fusing with a normal egg (2) gives a 5-chromosome (2n + 1) zygote.
+      - |
+        Gametes do not replicate DNA; a sperm is a finished haploid cell, and 4.5 pg is not a replication intermediate of 3.0 pg in any case (replication would give 6.0).
+      - |
+        A diploid sperm would carry 4 chromosomes and 6.0 pg; 4.5 pg is one chromosome more than haploid, not twice haploid.
+      - |
+        Chromosome sizes are fixed for a species; a 1.5 pg increase is one whole extra chromosome, not a swollen one.
+    answer: 0
+    explanation: |
+      An extra 1.5 pg is an extra chromosome. Nondisjunction in either division of meiosis produces gametes with n + 1 or n − 1, and fertilisation carries the error into the zygote.
+
+  - slug: u05-exam-q08
+    type: true_false
+    topic_code: "5.1"
+    source: "Biology 2e §11.1 The Process of Meiosis"
+    points: 1
+    stimulus: |
+      The table gives the DNA content per nucleus, in picograms (pg), measured in cells of a mammal with 2n = 4 at several points. Each unreplicated chromosome of this species contains 1.5 pg of DNA.
+
+      | Cell | DNA per nucleus (pg) |
+      |---|---|
+      | Body cell in G1 | 6.0 |
+      | Body cell in G2 | 12.0 |
+      | Cell at the end of meiosis I | 6.0 |
+      | Normal sperm | 3.0 |
+      | One unusual sperm | 4.5 |
+    prompt: |
+      True or false: A cell of this species at metaphase II contains 6.0 pg of DNA and is haploid.
+    answer: true
+    explanation: |
+      True. After meiosis I each cell has 2 chromosomes (haploid), each still made of two sister chromatids, so 2 × 2 × 1.5 = 6.0 pg; nothing is replicated in interkinesis, so that is the content at metaphase II. The sister chromatids separate at anaphase II, giving four cells of 3.0 pg each. The trap is to equate 6.0 pg with "diploid": the G1 body cell and the metaphase II cell share a DNA content but not a ploidy.
+
+  # ---- Stimulus set C: an X-linked pedigree (5.4)
+  - slug: u05-exam-q09
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A pedigree for a recessive trait that, in this extended family, has only ever appeared in males. Squares are males and circles are females; affected individuals are shaded.
+
+      Generation I: I-1 (male, unaffected) and I-2 (female, unaffected).
+      Generation II: their children are II-1 (male, affected), II-2 (female, unaffected) and II-3 (male, unaffected).
+      II-2 marries II-4 (male, unaffected, from outside the family). Their children are III-1 (male, affected), III-2 (female, unaffected) and III-3 (male, unaffected).
+    prompt: |
+      Which mode of inheritance is most consistent with the pedigree, and which features support it?
+    options:
+      - "Autosomal dominant: the trait appears in every generation."
+      - "X-linked recessive: only males are affected, affected males have unaffected parents, and the trait passes through an unaffected daughter (II-2) to her son, consistent with carrier mothers."
+      - "Y-linked: the trait passes from father to son."
+      - "Mitochondrial: the trait passes through the female line."
+    option_explanations:
+      - |
+        Both affected males have two unaffected parents, which a dominant trait cannot produce; and the trait is stated to be recessive.
+      - |
+        Correct. Each affected male's mother (I-2, II-2) is unaffected but must carry the allele; the trait skips the unaffected father II-4, who contributed only a Y to III-1. Male-only expression over an extended family is the X-linked signature.
+      - |
+        Neither affected male has an affected father (I-1 and II-4 are unaffected), so father-to-son transmission is absent; Y-linked traits never skip a generation of fathers.
+      - |
+        A mitochondrial trait would affect all children of an affected mother, daughters included, and would not be described as recessive; here mothers are unaffected and daughters are never affected.
+    answer: 1
+    explanation: |
+      Affected sons, unaffected carrier mothers, no father-to-son passage, no affected daughters: read those four features and the X-linked recessive pattern is unmistakable.
+
+  - slug: u05-exam-q10
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A pedigree for a recessive trait that, in this extended family, has only ever appeared in males. Squares are males and circles are females; affected individuals are shaded.
+
+      Generation I: I-1 (male, unaffected) and I-2 (female, unaffected).
+      Generation II: their children are II-1 (male, affected), II-2 (female, unaffected) and II-3 (male, unaffected).
+      II-2 marries II-4 (male, unaffected, from outside the family). Their children are III-1 (male, affected), III-2 (female, unaffected) and III-3 (male, unaffected).
+    prompt: |
+      Assuming X-linked recessive inheritance (Xᴬ normal, Xᵃ affected), what is the genotype of II-2, and what is the probability that her next child is an affected son?
+    options:
+      - "XᴬXᴬ; probability 0, because she is unaffected."
+      - "XᴬXᵃ; probability 1/4, because half her children are sons and half of those receive Xᵃ."
+      - "XᴬXᵃ; probability 1/2, because half her sons are affected."
+      - "XᵃXᵃ; probability 1/2, because she must be affected to have an affected son."
+    option_explanations:
+      - |
+        An affected son must have received Xᵃ from his mother (his father gave him a Y), so II-2 cannot be homozygous normal.
+      - |
+        Correct. III-1 proves II-2 carries Xᵃ. For her next child, P(son) = 1/2 and P(the son receives Xᵃ) = 1/2, so P(affected son) = 1/4; daughters cannot be affected because II-4 contributes Xᴬ.
+      - |
+        One half is the probability that a son, once known to be a son, is affected; the question asks about her next child without conditioning on sex, so the sex probability must be multiplied in.
+      - |
+        II-2 is unaffected, so she cannot be XᵃXᵃ; a carrier mother is sufficient to have an affected son.
+    answer: 1
+    explanation: |
+      Separate the two events: being a son (1/2) and receiving the recessive X (1/2). The product rule gives 1/4 for "affected son" and 1/2 for "affected, given a son".
+
+  - slug: u05-exam-q11
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "Biology 2e §12.2 Characteristics and Traits"
+    points: 1
+    stimulus: |
+      A pedigree for a recessive trait that, in this extended family, has only ever appeared in males. Squares are males and circles are females; affected individuals are shaded.
+
+      Generation I: I-1 (male, unaffected) and I-2 (female, unaffected).
+      Generation II: their children are II-1 (male, affected), II-2 (female, unaffected) and II-3 (male, unaffected).
+      II-2 marries II-4 (male, unaffected, from outside the family). Their children are III-1 (male, affected), III-2 (female, unaffected) and III-3 (male, unaffected).
+    prompt: |
+      If III-1 (affected) has children with a woman who is homozygous for the normal allele, which outcome is expected?
+    options:
+      - "Half of his sons will be affected."
+      - "None of his children will be affected; every daughter will be a carrier and no son will carry the allele."
+      - "All of his sons will be affected, because he passes the trait to his sons."
+      - "Half of his daughters will be affected."
+    option_explanations:
+      - |
+        A son receives his father's Y, not his X, so an affected father cannot pass an X-linked allele to a son; the sons' X comes from their unaffected, non-carrier mother.
+      - |
+        Correct. Every daughter receives her father's only X (Xᵃ) and her mother's Xᴬ, making her a carrier; every son receives Y from the father and Xᴬ from the mother, so no child is affected.
+      - |
+        This is the most common misconception about sex linkage; father-to-son transmission of an X-linked gene is impossible because the father gives sons a Y.
+      - |
+        Daughters receive one Xᵃ from the father and one Xᴬ from the mother, so all are heterozygous carriers and none is affected.
+    answer: 1
+    explanation: |
+      An affected man's X goes to every daughter and to no son. His daughters are obligate carriers, and the trait resurfaces in his grandsons.
+
+  # ---- Single items: 5.1 Meiosis
+  - slug: u05-exam-q12
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "Biology 2e §11.1 The Process of Meiosis"
+    points: 1
+    prompt: |
+      A student examines a dividing cell under the microscope. The cell contains half the species' diploid number of chromosomes, each chromosome consists of a single chromatid, and the chromosomes are moving toward the two poles. Which stage is this?
+    options:
+      - "Anaphase I"
+      - "Anaphase II"
+      - "Anaphase of mitosis"
+      - "Metaphase II"
+    option_explanations:
+      - |
+        In anaphase I the moving chromosomes still have two chromatids each; single-chromatid chromosomes appear only after the centromeres split in anaphase II.
+      - |
+        Correct. The cell is haploid (meiosis I is complete), the centromeres have divided, and sister chromatids, now single-chromatid chromosomes, are moving apart: anaphase II.
+      - |
+        Mitotic anaphase also moves single-chromatid chromosomes, but the cell would contain the full diploid number (two copies of each chromosome are moving to opposite poles, 2n to each pole in total).
+      - |
+        At metaphase II the chromosomes are aligned at the plate and still consist of two chromatids; movement to the poles has not begun.
+    answer: 1
+    explanation: |
+      Three clues identify a stage: ploidy, chromatids per chromosome, and what is moving. Haploid plus single chromatids plus movement is anaphase II.
+
+  - slug: u05-exam-q13
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "Biology 2e §11.2 Sexual Reproduction"
+    points: 1
+    prompt: |
+      A fern sporophyte has 2n = 60. Its spores are produced by meiosis, and the gametophyte that grows from a spore produces gametes by mitosis. How many chromosomes are in a spore and in a gamete?
+    options:
+      - "Spore 30, gamete 15"
+      - "Spore 30, gamete 30"
+      - "Spore 60, gamete 30"
+      - "Spore 60, gamete 60"
+    option_explanations:
+      - |
+        Mitosis conserves chromosome number; the gametophyte and the gametes it makes have the same 30 chromosomes as the spore. Halving happens only once, at meiosis.
+      - |
+        Correct. Meiosis in the sporophyte halves 60 to 30 in the spores; the gametophyte is haploid throughout, so its mitotic products, the gametes, are also 30. Fertilisation restores 60.
+      - |
+        Spores are the products of meiosis and so are haploid (30); a 60-chromosome spore would make a diploid gametophyte and a tetraploid zygote.
+      - |
+        If neither division reduced the number the zygote would have 120 chromosomes; alternation of generations still contains exactly one meiosis.
+    answer: 1
+    explanation: |
+      Every sexual life cycle has one meiosis and one fertilisation; in plants the meiosis makes spores, and gametes come later by mitosis without any further change in number.
+
+  - slug: u05-exam-q14
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "Biology 2e §11.1 The Process of Meiosis"
+    points: 1
+    prompt: |
+      Which statement best explains why at least one chiasma per homologous pair is required for a normal meiosis I?
+    options:
+      - "The chiasma copies the DNA of the chromosome so that both daughter cells receive a full set."
+      - "The chiasma physically holds the two homologues together after the synaptonemal complex disassembles, so the pair is positioned with one homologue facing each pole at metaphase I."
+      - "The chiasma pulls sister chromatids apart so that they can be separated in meiosis I."
+      - "The chiasma signals the spindle checkpoint that the chromosomes are not ready to divide."
+    option_explanations:
+      - |
+        DNA replication is complete in S phase, long before prophase I; a chiasma is an exchange between existing chromatids, not a copying event.
+      - |
+        Correct. Without a chiasma a pair has nothing holding it together, and the two homologues may attach to the same pole, producing n + 1 and n − 1 products. The crossover is both a source of variation and a mechanical requirement.
+      - |
+        Sister chromatids stay together through meiosis I; it is cohesin at the centromere that holds them, and nothing pulls them apart until anaphase II.
+      - |
+        Checkpoints monitor spindle attachment to kinetochores; a chiasma is what makes correct bipolar attachment of a pair possible, not a signal that it is absent.
+    answer: 1
+    explanation: |
+      A pair with no crossover is a pair with no connection. Chiasmata are the reason crossing over is universal rather than optional.
+
+  # ---- 5.2 Meiosis and Genetic Diversity
+  - slug: u05-exam-q15
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "Biology 2e §11.1 The Process of Meiosis"
+    points: 1
+    prompt: |
+      A species has 2n = 20. Ignoring crossing over, how many different chromosome combinations are possible in one parent's gametes, and how many are possible in a zygote from two parents?
+    options:
+      - "20 and 40"
+      - "1,024 and about 1 million"
+      - "2²⁰ and 2⁴⁰"
+      - "10 and 100"
+    option_explanations:
+      - |
+        The number of chromosomes per gamete is 10, but the question asks about combinations, which are a power of two in the number of pairs.
+      - |
+        Correct. Ten homologous pairs give 2¹⁰ = 1,024 orientations at metaphase I; random fertilisation multiplies two parents' sets, 1,024 × 1,024 ≈ 1.05 million.
+      - |
+        The exponent is the haploid number n = 10, not the diploid 20; 2²⁰ would be the answer for a species with 20 pairs.
+      - |
+        Ten is the haploid number, not the number of combinations; each of the ten pairs independently doubles the possibilities.
+    answer: 1
+    explanation: |
+      Independent assortment gives 2ⁿ per parent and random fertilisation squares it. Crossing over multiplies the result again, which is why no two siblings are identical.
+
+  - slug: u05-exam-q16
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "Biology 2e §13.2 Chromosomal Basis of Inherited Disorders"
+    points: 1
+    prompt: |
+      In one of the two cells undergoing meiosis II, the sister chromatids of one chromosome fail to separate. Which set of four gametes results from that meiosis?
+    options:
+      - "Two n + 1 and two n − 1"
+      - "Two normal, one n + 1 and one n − 1"
+      - "Four normal, because meiosis II errors are corrected"
+      - "One n + 2 and three normal"
+    option_explanations:
+      - |
+        Four abnormal gametes are the result of a meiosis I error, when both homologues go to one cell and both of that cell's products and both of the other's are wrong.
+      - |
+        Correct. The unaffected meiosis II cell divides normally (two normal gametes); in the affected cell both chromatids go to one product (n + 1) and none to the other (n − 1).
+      - |
+        There is no mechanism to add a missing chromosome to a gamete or remove an extra one; the error is carried into fertilisation.
+      - |
+        A failure of two sister chromatids to separate moves one extra chromosome, not two, and leaves the partner gamete one short rather than normal.
+    answer: 1
+    explanation: |
+      The meiosis I versus meiosis II nondisjunction question is really the "what separates when" question in disguise.
+
+  - slug: u05-exam-q17
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "Biology 2e §11.2 Sexual Reproduction"
+    points: 1
+    prompt: |
+      Aphids reproduce asexually for most of the summer and sexually in autumn. In a field where a parasitic wasp is abundant, the genetically uniform summer clones are heavily parasitised, while the genetically varied offspring of the autumn sexual generation suffer less the following year. Which statement best interprets this pattern?
+    options:
+      - "Sexual reproduction is advantageous because it is faster than asexual reproduction."
+      - "The wasp adapts to the common clone genotype, and the sexual generation's recombined genotypes present new targets the wasp is not yet adapted to, as the Red Queen hypothesis predicts."
+      - "Asexual reproduction produces no genetic variation at all, so clones cannot evolve."
+      - "The autumn offspring are resistant because sexual reproduction creates new mutations."
+    option_explanations:
+      - |
+        Asexual reproduction is the faster strategy, which is why aphids use it in summer; the advantage of sex is variation, not speed.
+      - |
+        Correct. Coevolving enemies track the most common host genotypes; a population that reshuffles its alleles each generation stays ahead, which is the Red Queen argument for why sex persists despite its cost.
+      - |
+        Clones do vary by mutation, just slowly; the point is that reshuffling existing alleles produces far more variation per generation.
+      - |
+        Meiosis and fertilisation recombine existing alleles; they do not raise the mutation rate. The new genotypes are new combinations, not new alleles.
+    answer: 1
+    explanation: |
+      Mutation makes alleles; sex makes combinations. Against a coevolving parasite the combinations are what keep a host population in the race.
+
+  # ---- 5.3 Mendelian Genetics
+  - slug: u05-exam-q18
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "Biology 2e §12.3 Laws of Inheritance"
+    points: 1
+    prompt: |
+      A plant with purple flowers and tall stems is crossed with a white-flowered, dwarf plant (both recessive) and produces 52 purple tall, 49 purple dwarf, 51 white tall and 48 white dwarf offspring. Which conclusion about the purple tall parent is justified?
+    options:
+      - "It is homozygous for both genes."
+      - "It is heterozygous for both genes, and the two genes assort independently."
+      - "It is heterozygous for both genes, and the two genes are tightly linked."
+      - "It is heterozygous for flower colour only."
+    option_explanations:
+      - |
+        A parent homozygous dominant for both genes would give only purple tall offspring in a test cross; the appearance of white and dwarf classes shows it carries both recessive alleles.
+      - |
+        Correct. Four classes in a 1:1:1:1 ratio are what a dihybrid test cross gives when the heterozygote makes four equal gamete types, which requires independent assortment.
+      - |
+        Tight linkage would give two large parental classes and two small recombinant classes; the four equal classes rule it out.
+      - |
+        Dwarf offspring appeared, so the parent must also be heterozygous for height; a heterozygote at one gene only would give two classes, not four.
+    answer: 1
+    explanation: |
+      A dihybrid test cross reads the heterozygote's gametes directly. Equal classes mean equal gametes, and equal gametes mean independent assortment.
+
+  - slug: u05-exam-q19
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "Biology 2e §12.1 Mendel's Experiments and the Laws of Probability"
+    points: 1
+    prompt: |
+      In a cross AaBb × AaBb with independent assortment and complete dominance, what is the probability that an offspring shows the recessive phenotype for at least one of the two genes?
+    options:
+      - "1/16"
+      - "6/16"
+      - "7/16"
+      - "9/16"
+    option_explanations:
+      - |
+        1/16 is the probability of being recessive for both genes; "at least one" also includes offspring recessive for only one gene.
+      - |
+        6/16 is the probability of being recessive for exactly one gene (3/16 + 3/16); it omits the 1/16 that are recessive for both.
+      - |
+        Correct. The complement of "dominant for both" (9/16) is "recessive for at least one": 1 − 9/16 = 7/16, or by the sum rule 3/16 + 3/16 + 1/16.
+      - |
+        9/16 is the probability of showing the dominant phenotype for both genes, the opposite of what is asked.
+    answer: 2
+    explanation: |
+      "At least one" is usually fastest as 1 minus "none". The sum rule over the three qualifying classes gives the same 7/16.
+
+  - slug: u05-exam-q20
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      In a pedigree, every affected individual has at least one affected parent, the trait appears in every generation, and two affected parents have one unaffected child. Which conclusion is best supported?
+    options:
+      - "The trait is autosomal dominant, and the two affected parents are both heterozygous."
+      - "The trait is autosomal recessive, and the unaffected child is a carrier."
+      - "The trait is X-linked recessive."
+      - "The trait is mitochondrial."
+    option_explanations:
+      - |
+        Correct. Dominant traits do not skip generations and need an affected parent; an unaffected child of two affected parents is possible only if both are Dd and the child received d from each (1/4 chance).
+      - |
+        Two affected (dd) parents with a recessive trait can only produce dd children; an unaffected child is impossible, so the trait is not recessive.
+      - |
+        An X-linked recessive trait typically shows affected sons of unaffected mothers and skips generations; "every affected person has an affected parent" is the dominant pattern.
+      - |
+        A mitochondrial trait passes from affected mothers to all their children; an unaffected child of an affected mother is not expected, and affected fathers would never transmit it.
+    answer: 0
+    explanation: |
+      The decisive clue for dominance is the opposite of the clue for recessiveness: two affected parents producing an unaffected child means affected is the heterozygous, dominant state.
+
+  # ---- 5.4 Non-Mendelian Genetics
+  - slug: u05-exam-q21
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "Biology 2e §12.2 Characteristics and Traits"
+    points: 1
+    prompt: |
+      In shorthorn cattle, a cross between a red bull and a white cow gives roan calves, whose coats contain a mixture of fully red hairs and fully white hairs. Which inheritance pattern does this show, and how do you know?
+    options:
+      - "Incomplete dominance, because the calf's colour is between red and white."
+      - "Codominance, because each hair is either fully red or fully white, so both alleles are expressed in full rather than blended."
+      - "Complete dominance of red, because roan is a shade of red."
+      - "Epistasis, because a second gene controls the spotting."
+    option_explanations:
+      - |
+        From a distance a roan looks intermediate, but the hairs themselves show that no blending occurred; each hair expresses one allele fully, which is codominance rather than incomplete dominance.
+      - |
+        Correct. The heterozygote displays both parental phenotypes side by side, as AB blood displays both antigens. A roan × roan cross gives 1 red : 2 roan : 1 white.
+      - |
+        If red were completely dominant the calves would be indistinguishable from the red parent; the white hairs show the white allele is being expressed.
+      - |
+        A single gene with two codominant alleles explains the data; invoking a second gene is unnecessary and would predict ratios summing to 16.
+    answer: 1
+    explanation: |
+      Look at the unit of expression: a blended pigment is incomplete dominance; two distinct products present at once is codominance.
+
+  - slug: u05-exam-q22
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A woman with blood type AB and a man with blood type O have children. Which blood types are possible among the children, and with what probabilities?
+    options:
+      - "A, B, AB and O, each 1/4"
+      - "A and B, each 1/2"
+      - "AB only"
+      - "O only"
+    option_explanations:
+      - |
+        The AB parent has no i allele and the O parent has no Iᴬ or Iᴮ, so AB (needs Iᴬ and Iᴮ) and O (needs two i) are both impossible.
+      - |
+        Correct. The mother's gametes are Iᴬ or Iᴮ; the father's are all i. Children are Iᴬi (type A) or Iᴮi (type B), each with probability 1/2.
+      - |
+        The father cannot contribute Iᴮ or Iᴬ; every child receives i from him, so no child can be IᴬIᴮ.
+      - |
+        The mother has no i allele to give, so no child can be ii.
+    answer: 1
+    explanation: |
+      With multiple alleles, write each parent's gametes first. The AB × O cross is the classic case where the children resemble neither parent in blood type.
+
+  - slug: u05-exam-q23
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "Biology 2e §12.3 Laws of Inheritance"
+    points: 1
+    prompt: |
+      In summer squash, a cross between two plants heterozygous at two genes (WwYy × WwYy) produces 12 white : 3 yellow : 1 green fruit. Which explanation accounts for the ratio?
+    options:
+      - "The W allele is dominant and epistatic: any plant with at least one W is white regardless of gene Y; among ww plants, Y_ is yellow and yy is green."
+      - "The genes are linked, so recombinant classes are rare."
+      - "The Y allele is lethal when homozygous, removing one class."
+      - "The ratio is really 9:3:3:1 and the counts are chance."
+    option_explanations:
+      - |
+        Correct. The 9/16 W_Y_ and 3/16 W_yy classes are both white, giving 12/16; the 3/16 wwY_ class is yellow and the 1/16 wwyy class is green. Dominant epistasis merges classes without disturbing independent assortment.
+      - |
+        Linkage would change the gamete frequencies and give a ratio that does not sum to neat sixteenths; 12:3:1 sums to 16 and has the Mendelian denominators intact.
+      - |
+        Lethality removes individuals and changes the total, typically giving ratios such as 2:1 or 9:3:3 (with a missing class); here all 16 parts are accounted for.
+      - |
+        A 12:3:1 ratio has only three classes; two phenotypic classes of 9:3:3:1 have merged, which is a systematic effect, not sampling error.
+    answer: 0
+    explanation: |
+      Any ratio that sums to 16 in a dihybrid cross is 9:3:3:1 with classes merged. Ask which genotypes look alike, and the epistatic gene reveals itself.
+
+  - slug: u05-exam-q24
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      In four o'clock plants, some branches are green, some white and some variegated, because of mutations in the chloroplast genome. Pollen from a green branch is used to fertilise a flower on a white branch. What phenotype are the seedlings expected to have, and why?
+    options:
+      - "All green, because green is dominant to white."
+      - "White, because the seedlings' chloroplasts come from the egg's cytoplasm, which was on the white branch, and the pollen contributes essentially no chloroplasts."
+      - "A 3:1 ratio of green to white, because the gene segregates in meiosis."
+      - "All variegated, because the two parents' chloroplasts mix."
+    option_explanations:
+      - |
+        Dominance applies to nuclear alleles on paired chromosomes; chloroplast genes are not paired and are not sorted by the spindle, so dominance is not the issue.
+      - |
+        Correct. Organelle genomes are inherited with the cytoplasm of the egg; the seedling's plastids are copies of the mother branch's plastids regardless of the pollen source.
+      - |
+        Mendelian ratios require two alleles segregating from a diploid nucleus; chloroplast DNA does not segregate this way, so no 3:1 appears.
+      - |
+        Pollen delivers sperm nuclei with almost no cytoplasm, so there is no mixing; the phenotype follows the branch that bore the seed.
+    answer: 1
+    explanation: |
+      Non-nuclear inheritance follows the egg. In a reciprocal cross (pollen from the white branch onto a green branch) the seedlings would be green.
+
+  # ---- 5.5 Environmental Effects on Phenotype
+  - slug: u05-exam-q25
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Arctic foxes turn white in winter. A group of foxes kept indoors at a constant 20 °C but exposed to a natural autumn day length still turned white, while a second group kept outdoors in the cold under artificial 16-hour days stayed brown. Which conclusion is best supported?
+    options:
+      - "Fur colour is determined entirely by genotype and cannot be altered by the environment."
+      - "Day length, not temperature, is the environmental cue that switches the foxes' pigment genes between the summer and winter phenotypes."
+      - "Cold temperature causes the fur to turn white."
+      - "The indoor foxes mutated to the white allele."
+    option_explanations:
+      - |
+        The same genotypes produced different coats under different conditions, so the environment clearly affects the phenotype; the question is which variable.
+      - |
+        Correct. The experiment separates the two variables: short days alone were sufficient for white fur and cold alone was not. The genotype is unchanged; what changes is which genes are expressed.
+      - |
+        The outdoor group was cold yet stayed brown; temperature on its own did not trigger the change.
+      - |
+        A whole group changing identically and reversibly is a regulated response, not a set of independent mutations.
+    answer: 1
+    explanation: |
+      To attribute a phenotype to an environmental factor, vary that factor while holding the others constant. Two groups and two variables were enough to isolate day length.
+
+  - slug: u05-exam-q26
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      In many sea turtles, eggs incubated above about 29 °C produce mostly females and eggs incubated below it produce mostly males. Which statement correctly interprets this and its significance?
+    options:
+      - "Sex is determined by sex chromosomes, and warm nests favour the survival of female embryos."
+      - "Sex is determined by incubation temperature rather than by chromosomes, so the phenotype depends on the environment; warming beaches can therefore skew hatchling sex ratios toward females."
+      - "Warm temperatures cause mutations that convert male embryos to female."
+      - "Temperature affects only the colour of the hatchlings, not their sex."
+    option_explanations:
+      - |
+        These turtles have no sex chromosomes; the data describe sex being set by temperature, not differential survival of chromosomally determined sexes.
+      - |
+        Correct. Temperature-dependent sex determination is the clearest case of an environmental variable deciding a phenotype. Because the response is set by temperature, a warming climate shifts the ratio, with consequences for population growth.
+      - |
+        The response is regulated gene expression during development, repeatable and predictable; mutation is random and would not sort embryos by nest temperature.
+      - |
+        The data are about sex; colour is not mentioned, and the shift from male to female is the observed effect.
+    answer: 1
+    explanation: |
+      Phenotype = genotype + environment. When the phenotype is sex itself, the environmental dependence becomes an ecological and conservation problem.
+
+  # ---- Cumulative review (Units 1 to 4)
+  - slug: u05-exam-q27
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Review. Cyclin-dependent kinases (Cdks) drive a cell past the checkpoints of the cell cycle. Which statement correctly describes how their activity is controlled?
+    options:
+      - "Cdks are active only when bound to a cyclin, and cyclin levels rise and fall through the cycle, so Cdk activity is switched on at particular points."
+      - "Cdks are synthesised only at the moment they are needed and destroyed immediately afterwards."
+      - "Cdks are activated by the completion of cytokinesis."
+      - "Cdks phosphorylate DNA directly to start replication."
+    option_explanations:
+      - |
+        Correct. The kinase is present throughout the cycle but inactive until a cyclin binds; the cyclin's rise and programmed degradation time the activity, and checkpoint signals (such as p53 after DNA damage) can block it.
+      - |
+        It is the cyclins, not the Cdks, whose concentrations oscillate; the Cdk protein is relatively constant.
+      - |
+        Cytokinesis is an end point; Cdk activity is required before it, at the G1/S and G2/M transitions, to let the cycle proceed.
+      - |
+        Kinases phosphorylate proteins; Cdks act on protein targets that in turn trigger replication and mitosis, not on DNA itself.
+    answer: 0
+    explanation: |
+      Unit 4's control system is what decides whether a germ cell enters meiosis at all. The cyclin-Cdk partnership is the switch at each checkpoint.
+
+  - slug: u05-exam-q28
+    type: multiple_choice
+    topic_code: "1.6"
+    source: "Biology 2e §3.5 Nucleic Acids"
+    points: 1
+    prompt: |
+      Review. After crossing over, a recombinant chromatid is a single continuous DNA molecule containing a segment from each of the two homologues. Which bond joins the last nucleotide of one segment to the first nucleotide of the other?
+    options:
+      - "A hydrogen bond between complementary bases"
+      - "A covalent phosphodiester bond between the 3′ carbon of one nucleotide and the 5′ phosphate of the next"
+      - "A peptide bond between the two sugar groups"
+      - "A glycosidic linkage between the two bases"
+    option_explanations:
+      - |
+        Hydrogen bonds hold the two strands of the helix together across the rungs; they do not join nucleotides along a strand.
+      - |
+        Correct. The sugar-phosphate backbone is held by phosphodiester bonds, and the enzymes of recombination cut and reseal exactly these bonds so that the new strand is continuous and directional (5′ to 3′).
+      - |
+        Peptide bonds join amino acids in proteins; nucleotides are joined through phosphate groups.
+      - |
+        A glycosidic linkage joins a base to its sugar within one nucleotide (and joins sugars in carbohydrates); it is not the backbone bond between nucleotides.
+    answer: 1
+    explanation: |
+      Unit 1's backbone chemistry is what makes recombination possible: a covalent, directional backbone can be cut and rejoined to make a new continuous molecule.
+
+  - slug: u05-exam-q29
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Review. Albino (cc) mice lack a functional tyrosinase, the enzyme that begins converting the amino acid tyrosine into melanin. If a researcher injects extra tyrosine into the skin of an albino mouse, what is the expected result and why?
+    options:
+      - "The skin darkens, because adding substrate drives the reaction forward."
+      - "No melanin forms, because the reaction requires a catalyst to lower its activation energy, and substrate concentration cannot substitute for a missing enzyme."
+      - "The skin darkens slowly, because the reaction proceeds without an enzyme at a low rate sufficient for pigmentation."
+      - "Melanin forms but is colourless without the enzyme."
+    option_explanations:
+      - |
+        Raising substrate concentration increases the rate only of a reaction that has a catalyst; without tyrosinase the activation energy barrier is unchanged and the reaction is effectively absent.
+      - |
+        Correct. Enzymes act by lowering activation energy; the uncatalysed reaction is too slow to matter at body temperature, so no amount of tyrosine compensates for a missing or defective enzyme.
+      - |
+        Uncatalysed rates of such reactions are negligible on the timescale of an organism; if they were sufficient, albino animals would not exist.
+      - |
+        Melanin is a coloured pigment by its chemistry; the issue is whether it is made at all, not whether it is coloured.
+    answer: 1
+    explanation: |
+      A recessive allele that produces no enzyme produces no product, however much substrate is available. Unit 3's activation energy is the reason.
+
+  - slug: u05-exam-q30
+    type: multiple_choice
+    topic_code: "2.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Review. A human egg is about 100 μm in diameter; a sperm head is about 5 μm. Which statement about surface-area-to-volume ratio and its consequence is correct?
+    options:
+      - "The egg has the higher surface-area-to-volume ratio, so it exchanges materials with its surroundings faster."
+      - "The sperm has the higher surface-area-to-volume ratio; the large egg has relatively little membrane per unit volume, which limits exchange and is one reason it is metabolically slow and relies on stored reserves."
+      - "Surface-area-to-volume ratio is the same for all spheres."
+      - "The egg's large volume gives it more membrane per unit volume, so it is the more active cell."
+    option_explanations:
+      - |
+        As a sphere grows, volume rises with the cube of the radius and surface area with the square, so the larger cell has the lower ratio and the slower relative exchange.
+      - |
+        Correct. For a sphere SA:V = 3/r, so the 5 μm sperm head has a ratio twenty times that of the 100 μm egg; the egg's bulk is stored yolk and cytoplasm, not an actively exchanging compartment.
+      - |
+        SA:V for a sphere is 3/r, which depends on the radius; small cells always have the higher ratio.
+      - |
+        Volume grows faster than surface area, so a larger cell has less membrane per unit volume, not more.
+    answer: 1
+    explanation: |
+      Unit 2's SA:V rule explains gamete design: a tiny, mobile sperm with maximal surface and a large, slow egg that stores what the embryo will need.
+
+  - slug: u05-exam-q31
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Review. Progesterone, a steroid hormone, prepares the uterus for a fertilised egg. Which description of how progesterone delivers its signal to a uterine cell is correct?
+    options:
+      - "It binds a receptor on the cell surface, which activates a G protein and raises cAMP."
+      - "It diffuses through the plasma membrane and binds an intracellular receptor; the hormone-receptor complex then alters gene expression in the nucleus."
+      - "It enters through a ligand-gated ion channel and depolarises the cell."
+      - "It is taken up by endocytosis and digested to release its signal."
+    option_explanations:
+      - |
+        Surface receptors with second messengers serve hydrophilic ligands such as peptide hormones; a small hydrophobic steroid does not need one.
+      - |
+        Correct. Steroids are lipid-soluble and pass the bilayer; their receptors are inside the cell, and the complex acts as a transcription factor, so the response is slower and longer-lasting than a second-messenger cascade.
+      - |
+        Ion channels pass ions, not hormones, and progesterone's effects are on gene expression rather than membrane potential.
+      - |
+        Endocytosis is not a signalling route for steroids; the hormone is active as an intact molecule bound to its receptor.
+    answer: 1
+    explanation: |
+      Unit 4's rule: hydrophobic signals cross the membrane and act on intracellular receptors; hydrophilic ones stop at the surface.
+
+  - slug: u05-exam-q32
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Review. Chloroplast DNA encodes several proteins of the thylakoid membrane. A mutation in one of these genes, inherited through the egg, abolishes the proteins. Which process would be most directly impaired, and what would the plant be unable to do?
+    options:
+      - "The Calvin cycle, so the plant could not fix carbon dioxide into sugar."
+      - "The light reactions, so the plant could not use light to split water, build a proton gradient and make ATP and NADPH."
+      - "Glycolysis, so the plant could not break down glucose."
+      - "Transpiration, so the plant could not move water."
+    option_explanations:
+      - |
+        The Calvin cycle runs in the stroma, not the thylakoid membrane; it would stall secondarily for lack of ATP and NADPH, but it is not the process the thylakoid proteins perform.
+      - |
+        Correct. The photosystems, electron transport chain and ATP synthase of photosynthesis are thylakoid membrane proteins; without them light energy cannot be captured and the plant cannot make the ATP and NADPH the Calvin cycle needs.
+      - |
+        Glycolysis takes place in the cytosol with nuclear-encoded enzymes; chloroplast genes do not affect it.
+      - |
+        Transpiration is water movement through xylem and stomata; it does not depend on thylakoid proteins.
+    answer: 1
+    explanation: |
+      Unit 3's light reactions live in a membrane partly built from a non-nuclear genome, which is why some photosynthetic defects are inherited only through the mother.
+
+  # ---- Select-all (4)
+  - slug: u05-exam-q33
+    type: multi_select
+    topic_code: "5.1"
+    source: "Biology 2e §11.1 The Process of Meiosis"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of the following statements correctly compare mitosis and meiosis? Select all that apply.
+    options:
+      - "Both are preceded by a single S phase in which each chromosome is replicated."
+      - "Mitosis produces two genetically identical diploid cells; meiosis produces four genetically different haploid cells."
+      - "Homologous chromosomes pair and exchange segments in mitosis as well as in meiosis I."
+      - "Sister chromatids separate in mitosis and in meiosis II, but not in meiosis I."
+      - "DNA is replicated again between meiosis I and meiosis II."
+    option_explanations:
+      - |
+        Correct. Both divisions start from a G2 cell with replicated chromosomes; meiosis simply divides twice on that single replication.
+      - |
+        Correct. This is the whole contrast in one line: conservation versus reduction and reshuffling.
+      - |
+        Synapsis and crossing over are unique to prophase I of meiosis; mitotic chromosomes never pair with their homologues.
+      - |
+        Correct. Meiosis I separates homologues and keeps sisters together; the sisters part at anaphase II, as they do at mitotic anaphase.
+      - |
+        There is no S phase in interkinesis; a second replication would return the cells to the diploid DNA content and defeat the purpose of meiosis.
+    answer: [0, 1, 3]
+    explanation: |
+      One replication, then either one division (mitosis, identical products) or two (meiosis, reduced and reshuffled products).
+
+  - slug: u05-exam-q34
+    type: multi_select
+    topic_code: "5.3"
+    source: "Biology 2e §12.1 Mendel's Experiments and the Laws of Probability"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Two parents are both Aa for a gene showing complete dominance. Select every statement that is correct.
+    options:
+      - "The probability that a child shows the recessive phenotype is 1/4."
+      - "The probability that a child with the dominant phenotype is heterozygous is 2/3."
+      - "If the first two children are both aa, the third child is less likely to be aa."
+      - "The probability that two children in a row both show the dominant phenotype is 9/16."
+      - "A child showing the dominant phenotype must be AA."
+    option_explanations:
+      - |
+        Correct. Aa × Aa gives 1 AA : 2 Aa : 1 aa, and only aa shows the recessive phenotype.
+      - |
+        Correct. Among the three dominant-phenotype genotypes (AA, Aa, Aa), two of three are heterozygous; this conditional probability is a frequent exam item.
+      - |
+        Each fertilisation is independent; the probability of aa is 1/4 for every child regardless of earlier outcomes.
+      - |
+        Correct. P(dominant) = 3/4 for each child; by the product rule, 3/4 × 3/4 = 9/16.
+      - |
+        A dominant-phenotype child may be AA or Aa; the phenotype cannot distinguish them, which is why test crosses exist.
+    answer: [0, 1, 3]
+    explanation: |
+      The monohybrid cross is a probability machine: 1/4, 1/2, 1/4 for the genotypes, 3/4 and 1/4 for the phenotypes, and independence between births.
+
+  - slug: u05-exam-q35
+    type: multi_select
+    topic_code: "5.4"
+    source: "Biology 2e §12.2 Characteristics and Traits"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of the following are true of an X-linked recessive trait in humans? Select all that apply.
+    options:
+      - "A male needs only one copy of the recessive allele to be affected."
+      - "An affected father passes the allele to all of his daughters and none of his sons."
+      - "A carrier mother and an unaffected father can have an affected daughter."
+      - "The trait is more common in males than in females."
+      - "An affected female must have an affected father."
+    option_explanations:
+      - |
+        Correct. Males are hemizygous; the single X allele is expressed, and dominance has no meaning for them.
+      - |
+        Correct. Sons receive the father's Y; daughters receive his only X, so every daughter is at least a carrier.
+      - |
+        A daughter receives her father's X, which carries the normal allele if he is unaffected, so she can be a carrier but not affected.
+      - |
+        Correct. With allele frequency q, affected males occur at frequency q and affected females at q², which is far smaller for a rare allele.
+      - |
+        Correct. An affected female is homozygous and one of her two X chromosomes came from her father, who, having only that X, must himself be affected.
+    answer: [0, 1, 3, 4]
+    explanation: |
+      Every rule of X-linkage follows from two facts: males have one X, and a son's X comes from his mother.
+
+  - slug: u05-exam-q36
+    type: multi_select
+    topic_code: "5.5"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A student wants to show that an environmental factor, not genotype, causes a difference in phenotype. Which experimental designs would isolate the environmental effect? Select all that apply.
+    options:
+      - "Growing cuttings taken from a single plant in two different soils and comparing flower colour."
+      - "Comparing the coat colour of a Himalayan rabbit's shaved back patch before and after it is kept cold while the fur regrows."
+      - "Comparing the height of two unrelated people who grew up in different countries."
+      - "Raising genetically identical fish from the same clone at two temperatures and comparing their sex ratio."
+      - "Crossing two true-breeding lines and scoring the F2 for a 3:1 ratio."
+    option_explanations:
+      - |
+        Correct. Cuttings are clones, so genotype is held constant and any difference in colour must come from the soil.
+      - |
+        Correct. The same animal, and the same patch of skin, is compared under two temperatures; genotype cannot differ.
+      - |
+        Unrelated people differ in genotype as well as environment, so the design confounds the two and cannot attribute the difference to either.
+      - |
+        Correct. Clonal fish share a genotype; a difference between the temperature groups isolates the environmental effect on sex determination.
+      - |
+        A cross and a 3:1 ratio test the genetic basis of a trait; they do nothing to separate environment from genotype.
+    answer: [0, 1, 3]
+    explanation: |
+      The design rule is simple: hold genotype constant (clones, cuttings, the same individual) and vary only the environment.
+
+  # ---- True/false (4 more)
+  - slug: u05-exam-q37
+    type: true_false
+    topic_code: "5.2"
+    source: "Biology 2e §11.1 The Process of Meiosis"
+    points: 1
+    prompt: |
+      True or false: Random fertilisation contributes to genetic variation among offspring even when crossing over and independent assortment are not considered.
+    answer: true
+    explanation: |
+      True. Even if every gamete of each parent were identical in chromosome content, two parents contribute different genomes, and which sperm meets which egg is a matter of chance; with the real diversity of gametes (2²³ combinations per human parent from assortment alone) random fertilisation multiplies the possibilities to around 70 trillion. The three sources of variation act at different stages and multiply.
+
+  - slug: u05-exam-q38
+    type: true_false
+    topic_code: "5.4"
+    source: "Biology 2e §13.1 Chromosomal Theory and Genetic Linkage"
+    points: 1
+    prompt: |
+      True or false: In a test cross involving two linked genes, the two recombinant classes are expected to occur in approximately equal numbers, and so are the two parental classes.
+    answer: true
+    explanation: |
+      True. A single crossover between the two genes produces two reciprocal recombinant chromatids, one of each type, so the recombinant classes are equal within sampling error; the two parental classes are likewise the two non-recombinant chromatids of the same tetrads. Morgan's 206 and 185 recombinants, and 965 and 944 parentals, show the pattern. Unequal reciprocal classes point to lethality or a scoring problem rather than to linkage.
+
+  - slug: u05-exam-q39
+    type: true_false
+    topic_code: "1.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Review. True or false: The A and B blood-group antigens are short carbohydrate chains, built from monosaccharides joined by glycosidic linkages, attached to lipids and proteins on the outer surface of the red cell membrane.
+    answer: true
+    explanation: |
+      True. The Iᴬ and Iᴮ alleles encode enzymes that add one more sugar (N-acetylgalactosamine or galactose) to a common precursor chain; the i allele's enzyme is inactive, so type O cells carry the bare precursor. The antigens are oligosaccharides, joined by glycosidic linkages as in any carbohydrate, and they face outward as part of the glycocalyx, which is why the immune system can read them. A single sugar difference, set by a single gene, is what codominance in the ABO system is made of.
+
+  - slug: u05-exam-q40
+    type: true_false
+    topic_code: "1.7"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Review. True or false: The tyrosinase of a Himalayan rabbit differs from the wild-type enzyme in its primary structure, and that difference is sufficient to lower the temperature at which the enzyme loses its functional shape.
+    answer: true
+    explanation: |
+      True. A change in the amino-acid sequence alters the R-group interactions that hold the tertiary structure, and a fold held by weaker interactions denatures at a lower temperature. In the Himalayan allele that threshold happens to fall between the temperature of the extremities and that of the trunk, so the environment decides where pigment forms. Unit 1's structure-function rule is the molecular basis of this Unit 5 environmental effect.
+
+  # ---- Fill-in-the-blank (5)
+  - slug: u05-exam-q41
+    type: fill_blank
+    topic_code: "5.1"
+    source: "Biology 2e §11.1 The Process of Meiosis"
+    points: 1
+    prompt: |
+      Meiosis I is called the ____ division because it halves the number of chromosomes by separating homologous pairs.
+    answer: ["reductional", "reduction", "reductive"]
+    explanation: |
+      The chromosome number goes from 2n to n in meiosis I; meiosis II is the equational division, which separates sister chromatids and leaves the number at n. "Equational" and "mitotic" describe the second division and are not accepted.
+
+  - slug: u05-exam-q42
+    type: fill_blank
+    topic_code: "5.2"
+    source: "Biology 2e §11.1 The Process of Meiosis"
+    points: 1
+    prompt: |
+      The random orientation of each tetrad on the metaphase I plate, which lets maternal and paternal chromosomes be mixed in every combination in the gametes, is called ____.
+    answer: ["independent assortment", "random assortment"]
+    explanation: |
+      Independent assortment gives 2ⁿ possible chromosome combinations per gamete and is the meiotic basis of Mendel's second law. "Crossing over" is the prophase I exchange between non-sister chromatids and "segregation" is the separation of the two alleles of one gene, so neither is accepted.
+
+  - slug: u05-exam-q43
+    type: fill_blank
+    topic_code: "5.3"
+    source: "Biology 2e §12.2 Characteristics and Traits"
+    points: 1
+    prompt: |
+      An individual that carries two identical alleles of a gene, and therefore breeds true for the trait, is described as ____ for that gene.
+    answer: ["homozygous", "homozygote"]
+    explanation: |
+      Homozygotes (AA or aa) produce only one kind of gamete for that gene, which is why true-breeding lines are homozygous. "Heterozygous" individuals (Aa) carry two different alleles and produce two gamete types, so the term is not accepted.
+
+  - slug: u05-exam-q44
+    type: fill_blank
+    topic_code: "5.4"
+    source: "Biology 2e §13.1 Chromosomal Theory and Genetic Linkage"
+    points: 1
+    prompt: |
+      On a genetic map, one map unit (one centimorgan) corresponds to a recombination frequency of ____ percent between two genes.
+    answer: ["1", "one", "1%"]
+    explanation: |
+      Sturtevant defined the unit so that a 0.01 recombination frequency is 1 cM, which makes distances approximately additive along a chromosome. The maximum observable frequency is 50 percent, which corresponds to independent assortment, so the scale is reliable only for genes close enough that double crossovers are rare.
+
+  - slug: u05-exam-q45
+    type: fill_blank
+    topic_code: "4.5"
+    source: "Biology 2e §11.1 The Process of Meiosis"
+    points: 1
+    prompt: |
+      Review. The division of the cytoplasm that follows telophase, by a cleavage furrow in animal cells or a cell plate in plant cells, is called ____.
+    answer: ["cytokinesis"]
+    explanation: |
+      Cytokinesis separates the two new nuclei into two cells; it follows telophase I and telophase II in meiosis as it follows mitotic telophase. "Mitosis" and "karyokinesis" refer to the division of the nucleus and are not accepted.
+
+  # ---- Numeric (second)
+  - slug: u05-exam-q46
+    type: numeric
+    topic_code: "5.3"
+    source: "Biology 2e §12.3 Laws of Inheritance"
+    points: 1
+    prompt: |
+      Two plants heterozygous at three independently assorting genes (AaBbCc × AaBbCc), each gene with complete dominance, are crossed. What is the probability that an offspring shows the dominant phenotype for all three genes? Give your answer as a decimal to three places.
+    answer: { value: 0.422, tolerance: 0.005 }
+    explanation: |
+      Each gene is an independent monohybrid cross with P(dominant phenotype) = 3/4. By the product rule, (3/4)³ = 27/64 = 0.422. The complementary probability, that at least one gene shows the recessive phenotype, is 1 − 0.422 = 0.578.
+
+  # ---- Free response
+  - slug: u05-exam-q47
+    type: short_answer
+    topic_code: "5.4"
+    source: "general knowledge"
+    points: 4
+    prompt: |
+      Analyze a model. A student is asked to predict the offspring of a woman who is a carrier for an X-linked recessive condition (XᴬXᵃ) and a man who is unaffected (XᴬY). The student draws a Punnett square treating the gene as autosomal, writes the father as "Aa", and concludes that one quarter of the daughters and one quarter of the sons will be affected. (a) Identify two errors in the student's model. (b) Draw or describe the correct Punnett square and state the expected outcomes for sons and for daughters. (c) Explain, in terms of the chromosomes involved, why the outcomes differ between sons and daughters. (d) Predict the outcomes if instead the father were affected (XᵃY) and the mother a carrier.
+    answer: |
+      Errors: the father has only one X-linked allele (he is hemizygous, XᴬY, not Aa), and the model ignores that sons receive the Y rather than an X from the father. Correct square: mother's gametes Xᴬ and Xᵃ, father's Xᴬ and Y; daughters XᴬXᴬ or XᴬXᵃ (none affected, half carriers), sons XᴬY or XᵃY (half affected). Sons get their single X from the mother, so her Xᵃ is expressed whenever it is passed; daughters always receive the father's normal Xᴬ, which masks the mother's Xᵃ. With an affected father: daughters XᴬXᵃ or XᵃXᵃ (half affected, half carriers); sons XᴬY or XᵃY (half affected).
+    explanation: |
+      Four points.
+
+      (a) 1 pt for two errors: the father is written with two alleles although he is hemizygous (XᴬY); the model gives sons and daughters the same probabilities although sons receive a Y, not an X, from the father (or: the predicted 1/4 affected daughters is impossible because every daughter receives the father's Xᴬ). Any two distinct errors earn the point.
+
+      (b) 1 pt: the square with gametes Xᴬ and Xᵃ (mother) against Xᴬ and Y (father), giving XᴬXᴬ, XᴬXᵃ, XᴬY, XᵃY; sons 1/2 affected, daughters 0 affected and 1/2 carriers. Both outcomes are required.
+
+      (c) 1 pt: a son's only X comes from his mother, so if he receives Xᵃ there is no second allele to mask it; a daughter receives one X from each parent and the father's Xᴬ is always normal here, so she is at most a carrier. The explanation must mention the source of the son's X or the father's Y.
+
+      (d) 1 pt: XᴬXᵃ × XᵃY gives daughters XᴬXᵃ (carrier) or XᵃXᵃ (affected), each 1/2, and sons XᴬY or XᵃY, each 1/2. Accept "half the daughters and half the sons affected" with genotypes.
+
+      Zero: redrawing the square with the father as XX or the mother as XY; stating that sons inherit the condition from the father; giving probabilities without genotypes.
+
+  - slug: u05-exam-q48
+    type: long_answer
+    topic_code: "5.4"
+    source: "general knowledge"
+    points: 8
+    prompt: |
+      Interpreting and evaluating experimental results. Researchers measured the recombination frequency between two linked genes on chromosome 2 of fruit flies by test-crossing heterozygous females (parental chromosomes AB and ab) raised at three temperatures. They also measured the same frequency in heterozygous males. In this species, crossing over does not occur in males. Each value is from 2,000 offspring. The data are hypothetical.
+
+      | Temperature during the females' development (°C) | Recombinant offspring from females (%) | Recombinant offspring from males (%) |
+      |---|---|---|
+      | 17 | 12.5 | 0 |
+      | 25 | 17.0 | 0 |
+      | 30 | 22.0 | 0 |
+
+      (a) Describe the relationship between temperature and recombination frequency in females, and describe the result in males.
+      (b) Explain what the recombination frequency measures and what event in meiosis produces the recombinant offspring.
+      (c) The physical distance between the two genes on the chromosome is the same in every fly. Explain how the measured map distance can nevertheless change with temperature, and propose a cellular mechanism that could account for it.
+      (d) A geneticist uses the 25 °C value to build a chromosome map and then tests the map against data collected from flies raised at 17 °C. Predict what the geneticist will find and justify the prediction.
+      (e) Identify one controlled variable essential to this experiment and explain why the male data serve as a useful control.
+    answer: |
+      In females recombination rises with temperature, from 12.5% at 17 °C to 22.0% at 30 °C; males show no recombinants at any temperature. The frequency is the proportion of offspring with non-parental allele combinations (Ab, aB), produced by crossing over between non-sister chromatids in prophase I in a position between the two genes. Map units are a frequency of crossing over, not a length in base pairs; if temperature changes how often a crossover forms in the interval, the measured distance changes while the DNA does not. A plausible mechanism is that the enzymes and the synaptonemal complex involved in forming crossovers are temperature-sensitive, so warmer development produces more chiasmata per interval. The map built at 25 °C would predict 17% recombinants, but 17 °C flies would give only 12.5%; the map would appear compressed, with the two genes closer together, although gene order would be unchanged. Controlled variables include the genotype of the heterozygotes, the tester strain, and the temperature at which the offspring were raised and scored; the male data show that temperature has no effect where crossing over does not occur, so the female effect is attributable to crossing over rather than to differential survival of recombinant phenotypes.
+    explanation: |
+      Eight points.
+
+      (a) 1 pt: in females recombination frequency increases with temperature (12.5% at 17 °C, 17.0% at 25 °C, 22.0% at 30 °C), and in males it is 0% at every temperature. Both trends with at least one number are required.
+
+      (b) 2 pts: 1 pt for the definition: recombinants (Ab and aB offspring, the non-parental combinations) divided by total offspring, expressed as a percentage; 1 pt for the event: crossing over between non-sister chromatids of the homologous pair during prophase I, at a point between the two genes.
+
+      (c) 2 pts: 1 pt for the conceptual point that a map distance is a frequency of crossing over in an interval, not a physical length, so anything that changes the probability of a crossover changes the measured distance without changing the chromosome; 1 pt for a plausible mechanism, such as temperature-sensitive enzymes of recombination or temperature affecting the formation of the synaptonemal complex or the number or placement of chiasmata. Accept any mechanism that acts on crossover frequency in prophase I; "the chromosome stretches when warm" earns nothing.
+
+      (d) 1 pt: the 17 °C data would give fewer recombinants (about 12.5%) than the map predicts (17%), so the genes would appear closer together, the map compressed, while the order of genes would be unchanged; justified by the lower crossover frequency at the lower temperature. A prediction that the order changes earns nothing.
+
+      (e) 2 pts: 1 pt for a controlled variable (genotype of the heterozygous parents, the tester strain, the number of offspring scored, the temperature of the offspring during scoring, food); 1 pt for the control value of the males: because crossing over does not occur in males, any temperature effect on recombinant frequency in males would have to come from something other than crossing over (such as differential survival of recombinant phenotypes); the constant 0% shows that temperature is acting on crossing over itself, not on survival. Stating only that the males "show no recombination" without explaining what this rules out earns the first point only.
+
+      Zero for a part: describing the female data as "varies" with no direction; explaining recombinants by independent assortment; stating that temperature mutates the genes; claiming that the males must have the genes on different chromosomes.
