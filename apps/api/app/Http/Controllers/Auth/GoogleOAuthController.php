@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Support\FrontendRedirect;
+use App\Support\Registration;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,12 @@ class GoogleOAuthController extends Controller
             $request->session()->regenerate();
 
             return redirect(FrontendRedirect::spaOrigin());
+        }
+
+        // A brand-new sign-up. The existing-account branches above already
+        // returned, so this is the only path that would create a user.
+        if (! Registration::isOpen()) {
+            return redirect(FrontendRedirect::spaOrigin().'/login?error=registration_closed');
         }
 
         $request->session()->put('oauth.google', [
