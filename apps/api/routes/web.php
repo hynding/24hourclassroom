@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\GenerationAdminController;
 use App\Http\Controllers\Admin\MaterialAdminController;
 use App\Http\Controllers\Admin\RelationshipAdminController;
+use App\Http\Controllers\Admin\SiteSettingsController;
 use App\Http\Controllers\Admin\SiteThemeController;
 use App\Http\Controllers\Admin\TestAdminController;
 use App\Http\Controllers\Admin\UserAccountController;
@@ -33,6 +34,9 @@ Route::middleware(['auth', 'verified', 'active', 'admin'])->prefix('admin')->gro
     // (per-user light/dark for the admin UI) and the route name `appearance`.
     Route::get('site-theme', [SiteThemeController::class, 'edit'])->name('admin.site-theme');
     Route::patch('site-theme', [SiteThemeController::class, 'update']);
+
+    Route::get('site', [SiteSettingsController::class, 'edit'])->name('admin.site');
+    Route::patch('site', [SiteSettingsController::class, 'update']);
 
     Route::get('tests', [TestAdminController::class, 'index'])->name('admin.tests');
     Route::post('tests/{test}/unpublish', [TestAdminController::class, 'unpublish']);
