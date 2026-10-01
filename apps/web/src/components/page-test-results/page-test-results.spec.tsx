@@ -16,6 +16,17 @@ jest.mock('../../services/navigate', () => ({ navigate: jest.fn() }));
 jest.mock('../../services/session-recovery', () => ({ recoverFromExpiredSession: () => false }));
 
 import { PageTestResults } from './page-test-results';
+import { RichText } from '../rich-text/rich-text';
+
+// Text across shadow boundaries: a parent's `shadowRoot.textContent` stops
+// at a child's shadow root, and every prompt now renders inside <rich-text>.
+const deepText = (node: Node): string => {
+  if (node.nodeType === 3) {
+    return node.textContent ?? '';
+  }
+  const root = (node as Element).shadowRoot ?? node;
+  return Array.from(root.childNodes).map(deepText).join('');
+};
 
 const summary = (id: number, score: string, ungraded = 0) => ({ id, test_id: 5, assignment_id: 9, started_at: '', submitted_at: '2026-09-02T10:00:00Z', score, max_score: '4.00', graded_at: ungraded ? null : '2026-09-02', ungraded_count: ungraded });
 
@@ -30,7 +41,7 @@ describe('page-test-results', () => {
     ] });
     gradeAnswer.mockResolvedValue({ ...summary(2, '4.50'), student: { id: 20, name: 'Sam' }, test: { id: 5, title: 'Cells' }, questions: [] });
 
-    const page = await newSpecPage({ components: [PageTestResults], html: '<page-test-results test-id="5"></page-test-results>' });
+    const page = await newSpecPage({ components: [PageTestResults, RichText], html: '<page-test-results test-id="5"></page-test-results>' });
     await page.waitForChanges();
     const text = page.root.shadowRoot.textContent;
     expect(text).toContain('Sam');
@@ -59,7 +70,7 @@ describe('page-test-results', () => {
       { id: 11, position: 1, type: 'short_answer', prompt: 'Why?', options: null, points: 2, partial_credit: false, response: null },
     ] });
 
-    const page = await newSpecPage({ components: [PageTestResults], html: '<page-test-results test-id="5"></page-test-results>' });
+    const page = await newSpecPage({ components: [PageTestResults, RichText], html: '<page-test-results test-id="5"></page-test-results>' });
     await page.waitForChanges();
     await (page.rootInstance as PageTestResults).open(3);
     await page.waitForChanges();
@@ -77,7 +88,7 @@ describe('page-test-results', () => {
     listTestAttempts.mockResolvedValueOnce({ data: [], meta: { current_page: 1, last_page: 2, per_page: 15, total: 2 } });
     listTestAttempts.mockRejectedValueOnce(new Error('boom'));
 
-    const page = await newSpecPage({ components: [PageTestResults], html: '<page-test-results test-id="5"></page-test-results>' });
+    const page = await newSpecPage({ components: [PageTestResults, RichText], html: '<page-test-results test-id="5"></page-test-results>' });
     await page.waitForChanges();
 
     const next = Array.from(page.root.shadowRoot.querySelectorAll('button')).find((b) => b.textContent?.includes('Next')) as HTMLButtonElement;
@@ -88,5 +99,39 @@ describe('page-test-results', () => {
 
     expect(listTestAttempts).toHaveBeenCalledTimes(2);
     expect(page.root.shadowRoot.textContent).toContain('We could not load results.');
+  });
+
+  it('offers a grading form for every hand-gradable type, pre-filled, with the explanation to grade against', async () => {
+    getTest.mockResolvedValue({ id: 5, title: 'Cells', is_author: true, questions: [] });
+    listTestAttempts.mockReset();
+    listTestAttempts.mockResolvedValue({ data: [{ assignment_id: 9, student: { id: 20, name: 'Sam' }, due_at: null, attempts: [summary(2, '3.00', 1)], latest: summary(2, '3.00', 1), best: summary(2, '3.00', 1) }], meta: { current_page: 1, last_page: 1, per_page: 15, total: 1 } });
+    getAttempt.mockResolvedValue({ ...summary(2, '3.00', 1), student: { id: 20, name: 'Sam' }, test: { id: 5, title: 'Cells' }, questions: [
+      { id: 10, position: 0, type: 'multiple_choice', prompt: 'Powerhouse?', stimulus: 'Read the passage.', options: ['Nucleus', 'Mitochondria'], points: 1, partial_credit: false, auto_grade: true, answer: 1, response: 1, answer_id: 50, awarded: '1.00', graded_answer: { answer: 1, points: 1 } },
+      { id: 11, position: 1, type: 'fill_blank', prompt: 'The ____ makes ATP.', stimulus: 'Read the passage.', options: null, points: 1, partial_credit: false, auto_grade: true, answer: ['mitochondria', 'mitochondrion'], explanation: 'Accept the plural too.', response: 'mitochondrias', answer_id: 51, awarded: '0.00', graded_answer: { answer: ['mitochondria', 'mitochondrion'], points: 1 } },
+      { id: 12, position: 2, type: 'long_answer', prompt: 'Explain.', stimulus: null, options: null, points: 6, partial_credit: false, auto_grade: true, answer: 'Model.', explanation: null, response: 'Glucose in,\nATP out.', answer_id: 52, awarded: null, graded_answer: { answer: 'Model.', points: 6 } },
+    ] });
+
+    const page = await newSpecPage({ components: [PageTestResults, RichText], html: '<page-test-results test-id="5"></page-test-results>' });
+    await page.waitForChanges();
+    await (page.rootInstance as PageTestResults).open(2);
+    await page.waitForChanges();
+    const root = page.root.shadowRoot;
+
+    const forms = root.querySelectorAll('form.grade');
+    expect(forms).toHaveLength(2); // fill_blank + long_answer, not the multiple choice
+    expect((forms[0].querySelector('input') as HTMLInputElement).value).toBe('0.00');
+    expect((forms[1].querySelector('input') as HTMLInputElement).value).toBe('');
+    expect(forms[1].querySelector('input').getAttribute('max')).toBe('6');
+
+    expect(root.querySelectorAll('.accept')).toHaveLength(1);
+    expect(root.textContent).toContain('What to accept');
+    expect(deepText(root.querySelector('.accept'))).toContain('Accept the plural too.');
+
+    expect(root.querySelectorAll('.stimulus')).toHaveLength(1);
+    const responses = root.querySelectorAll('.response');
+    expect(responses).toHaveLength(2);
+    expect(responses[1].textContent).toBe('Glucose in,\nATP out.');
+    expect(root.textContent).toContain('Expected: mitochondria / mitochondrion');
+    expect(root.textContent).toContain('Response: Mitochondria');
   });
 });
