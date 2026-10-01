@@ -10,6 +10,6 @@ class SiteController extends Controller
 {
     public function __invoke(): JsonResponse
     {
-        return response()->json(['theme' => SiteSetting::current()->theme()]);
+        return response()->json(SiteSetting::current()->config());
     }
 }
