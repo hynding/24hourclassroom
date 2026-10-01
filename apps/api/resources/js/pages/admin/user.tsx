@@ -53,8 +53,8 @@ function plural(n: number, singular: string, pluralForm = `${singular}s`): strin
     return `${n} ${n === 1 ? singular : pluralForm}`;
 }
 
-/** One clause per non-zero count; never branched on role. */
-function deletionConsequences(counts: AdminUserDetail['counts']): string {
+/** One clause per non-zero count; never branched on role. The Anthropic clause follows the integration row, not the role. */
+function deletionConsequences(counts: AdminUserDetail['counts'], integration: AdminUserDetail['integration']): string {
     const total = (record: Record<string, number>) => Object.values(record).reduce((a, b) => a + b, 0);
     const clauses = [
         counts.attempts_received > 0 &&
@@ -66,13 +66,24 @@ function deletionConsequences(counts: AdminUserDetail['counts']): string {
         total(counts.tests) > 0 && `${plural(total(counts.tests), 'test')} of their own`,
         total(counts.materials) > 0 && `${plural(total(counts.materials), 'material')} and their files`,
         counts.tokens > 0 && plural(counts.tokens, 'MCP token'),
-        'their Anthropic environment, agent and sessions',
+        integration !== null && 'their Anthropic environment, agent and sessions',
     ].filter((c): c is string => typeof c === 'string');
+    if (clauses.length === 0) {
+        return 'Deleting this account is permanent and cannot be undone.';
+    }
     const joined = clauses.length === 1 ? clauses[0] : `${clauses.slice(0, -1).join(', ')} and ${clauses[clauses.length - 1]}`;
     return `Deleting this account also deletes ${joined}.`;
 }
 
-function DeleteBlock({ user, counts }: { user: AdminUserDetail['user']; counts: AdminUserDetail['counts'] }) {
+function DeleteBlock({
+    user,
+    counts,
+    integration,
+}: {
+    user: AdminUserDetail['user'];
+    counts: AdminUserDetail['counts'];
+    integration: AdminUserDetail['integration'];
+}) {
     const form = useForm({ confirmation: '' });
     const matches = form.data.confirmation.trim() === user.email;
 
@@ -82,7 +93,7 @@ function DeleteBlock({ user, counts }: { user: AdminUserDetail['user']; counts: 
 
     return (
         <div className="space-y-2">
-            <p className="text-sm">{deletionConsequences(counts)}</p>
+            <p className="text-sm">{deletionConsequences(counts, integration)}</p>
             <p className="text-muted-foreground text-sm">
                 Grades other teachers gave on those answers are lost; copies other users made of their tests keep their rows but lose the link back.
             </p>
@@ -215,7 +226,7 @@ export default function AdminUser({ detail, notice }: Props) {
                             )}
                             <Separator />
                             <h3 className="font-medium">Delete account</h3>
-                            <DeleteBlock user={user} counts={counts} />
+                            <DeleteBlock user={user} counts={counts} integration={integration} />
                         </div>
                     )}
                 </Section>
