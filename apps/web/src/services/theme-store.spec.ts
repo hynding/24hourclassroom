@@ -3,7 +3,7 @@ import { join } from 'path';
 
 // Imported FIRST so the "no side effects on import" test is meaningful: the
 // module must not have touched the document by the time we look.
-import { THEME_CACHE_KEY, applyTheme, cachedTheme, loadTheme, normalizeTheme, releaseInlineCanvas } from './theme-store';
+import { THEME_CACHE_KEY, applyTheme, cachedTheme, normalizeTheme, releaseInlineCanvas } from './theme-store';
 
 const html = () => document.documentElement;
 
@@ -155,26 +155,6 @@ describe('theme-store', () => {
 
       expect(html().style.colorScheme).toBe('dark');
       expect(html().style.backgroundColor).toBe('#15191e');
-    });
-  });
-
-  describe('loadTheme', () => {
-    it('fetches, applies, caches and resolves the applied theme', async () => {
-      const client = { getSite: jest.fn().mockResolvedValue({ theme: { layout: 'rail', palette: 'slate', typeset: 'modern' } }) };
-
-      const theme = await loadTheme(client);
-
-      expect(theme).toEqual({ layout: 'rail', palette: 'slate', typeset: 'modern' });
-      expect(html().dataset.palette).toBe('slate');
-      expect(JSON.parse(window.localStorage.getItem(THEME_CACHE_KEY)!).surface).toBe('#ffffff');
-    });
-
-    it('rejects when the fetch rejects and leaves the DOM untouched', async () => {
-      html().dataset.palette = 'evening';
-      const client = { getSite: jest.fn().mockRejectedValue(new Error('down')) };
-
-      await expect(loadTheme(client)).rejects.toThrow('down');
-      expect(html().dataset.palette).toBe('evening');
     });
   });
 });

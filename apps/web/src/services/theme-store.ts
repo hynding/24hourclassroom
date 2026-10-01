@@ -1,4 +1,3 @@
-import { ApiClient } from '@24hc/api-client';
 import {
   DEFAULT_THEME,
   LAYOUTS,
@@ -9,7 +8,6 @@ import {
   type SiteTheme,
   type Typeset,
 } from '@24hc/shared';
-import { Env } from '@stencil/core';
 
 /**
  * Versioning rule: bump the suffix on ANY change to the cached fields or
@@ -18,10 +16,6 @@ import { Env } from '@stencil/core';
  * asserts the two agree.
  */
 export const THEME_CACHE_KEY = '24hc.theme.v1';
-
-// No module-scope side effects: constructing a client is fine (auth-store
-// does the same); touching document/localStorage/network at import is not.
-const defaultClient = new ApiClient({ baseUrl: Env?.apiBaseUrl ?? 'http://localhost:8000' });
 
 const isLayout = (v: unknown): v is Layout => LAYOUTS.some((o) => o.value === v);
 const isPalette = (v: unknown): v is Palette => PALETTES.some((o) => o.value === v);
@@ -53,9 +47,9 @@ export function cachedTheme(): SiteTheme {
 // back to the stylesheet only once the stylesheet has actually arrived; if
 // app.css 404'd, clearing would turn a correctly dark canvas white. Exported
 // so a failed theme fetch can release the canvas too -- applyTheme is only
-// ever reached through a successful loadTheme(), and a fetch failure still
-// hands the page to Noon tokens rather than leaving a stale dark canvas
-// under a cream body.
+// ever reached through a successful siteStore.load(), and a fetch failure
+// still hands the page to Noon tokens rather than leaving a stale dark
+// canvas under a cream body.
 export function releaseInlineCanvas(): void {
   const root = document.documentElement;
   if (window.getComputedStyle(root).getPropertyValue('--color-surface').trim() !== '') {
@@ -83,9 +77,4 @@ export function applyTheme(input: unknown): SiteTheme {
   releaseInlineCanvas();
 
   return theme;
-}
-
-export async function loadTheme(client: Pick<ApiClient, 'getSite'> = defaultClient): Promise<SiteTheme> {
-  const config = await client.getSite();
-  return applyTheme(config.theme);
 }
