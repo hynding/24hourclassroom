@@ -445,9 +445,43 @@ export interface SiteTheme {
 
 export const DEFAULT_THEME: SiteTheme = { layout: 'stacked', palette: 'noon', typeset: 'editorial' };
 
+export interface SiteIdentity {
+  name: string;
+  tagline: string | null;
+}
+
+export interface SiteRegistration {
+  open: boolean;
+  /** Set only while registration is closed; `/api/site` hides a draft while open. */
+  message: string | null;
+}
+
+export interface SiteBanner {
+  enabled: boolean;
+  /** Set only while the banner is enabled. */
+  text: string | null;
+}
+
 export interface SiteConfig {
   theme: SiteTheme;
+  identity: SiteIdentity;
+  registration: SiteRegistration;
+  banner: SiteBanner;
 }
+
+/**
+ * The pre-fetch and fallback config. `identity.name` is the original site
+ * name on purpose: after a rename this is the one surface where it survives
+ * (a first-ever visit with /api/site down). SiteConfigMirrorTest on the API
+ * side pins every value here to SiteSetting::config() on a fresh row, so
+ * keep each nested object on its own lines with `key: value` pairs.
+ */
+export const DEFAULT_SITE: SiteConfig = {
+  theme: DEFAULT_THEME,
+  identity: { name: '24 Hour Classroom', tagline: null },
+  registration: { open: true, message: null },
+  banner: { enabled: false, text: null },
+};
 
 export interface Profile {
   bio: string | null;
