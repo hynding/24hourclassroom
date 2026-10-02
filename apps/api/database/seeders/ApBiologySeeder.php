@@ -250,6 +250,14 @@ class ApBiologySeeder extends Seeder
             $test->published_at ??= now();
             $test->save();
 
+            // A seeded question the teacher deleted is soft-deleted with its
+            // slug still on the row, and (test_id, slug) is unique across
+            // trashed rows too. Restore it so the YAML item maps back onto
+            // its own row -- keeping its id, so past answers stay attached --
+            // instead of creating a second row that collides on the slug.
+            // The YAML is the source of truth for slugged content.
+            $test->questions()->onlyTrashed()->whereIn('slug', $spec['slugs'])->restore();
+
             // Map each YAML slug to its existing row so TestWriter updates in
             // place and answers keep their foreign keys; new slugs create.
             $existing = $test->questions()->whereNotNull('slug')->pluck('id', 'slug');

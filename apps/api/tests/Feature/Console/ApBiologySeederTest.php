@@ -107,11 +107,32 @@ YAML);
     expect(Test::count())->toBe(0)->and(User::count())->toBe(0);
 });
 
+test('a seeded question the teacher deleted is restored on the next run, not duplicated', function () {
+    seedFixtureCourse();
+    $quiz = Test::where('slug', 'apbio-w01-quiz')->sole();
+    [$kept, $deleted] = $quiz->questions->all();
+
+    // The editor's delete path: a soft delete that leaves the slug on the row.
+    $deleted->delete();
+
+    seedFixtureCourse();
+
+    expect(Question::withTrashed()->where('test_id', $quiz->id)->count())->toBe(2)
+        ->and($quiz->fresh()->questions->pluck('id')->all())->toBe([$kept->id, $deleted->id])
+        ->and($deleted->fresh()->trashed())->toBeFalse();
+});
+
 test('DatabaseSeeder is re-runnable', function () {
-    // The real course directory may be empty or partial at any point in
-    // the content work; this only proves the top-level seeder tolerates a
-    // second run.
+    // Bind the course seeder to the three-item fixture: the real course is
+    // ~1,200 questions and 73 files, and the fixture tests above already
+    // prove the seeder's own idempotency. This only proves the top-level
+    // seeder tolerates a second run.
+    app()->bind(ApBiologySeeder::class, fn () => new ApBiologySeeder(base_path('tests/Fixtures/course')));
+
     $this->seed();
     $this->seed();
-    expect(User::where('email', 'test@example.com')->count())->toBe(1);
+
+    expect(User::where('email', 'test@example.com')->count())->toBe(1)
+        ->and(Test::count())->toBe(2)
+        ->and(Material::count())->toBe(3);
 });
