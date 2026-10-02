@@ -88,3 +88,46 @@ test('the author sees assigned attempts grouped by student, paginated, excluding
     $this->actingAs(aTeacher());
     $this->getJson("/api/tests/{$test->id}/attempts")->assertStatus(403);
 });
+
+test('hand grading is allowlisted by type: every case is either gradable or 422', function () {
+    $teacher = aTeacher();
+    $test = aTestWithQuestions($teacher, 0);
+    $student = aStudent();
+    connectAccepted($teacher, $student);
+    Assignment::create(['test_id' => $test->id, 'student_id' => $student->id, 'teacher_id' => $teacher->id]);
+
+    $questions = [];
+    foreach (\App\Enums\QuestionType::cases() as $i => $type) {
+        $factory = Question::factory()->for($test);
+        $factory = match ($type) {
+            \App\Enums\QuestionType::MultipleChoice => $factory,
+            \App\Enums\QuestionType::MultiSelect => $factory->multiSelect(),
+            \App\Enums\QuestionType::TrueFalse => $factory->trueFalse(),
+            \App\Enums\QuestionType::ShortAnswer => $factory->shortAnswer(),
+            \App\Enums\QuestionType::Numeric => $factory->numeric(),
+            \App\Enums\QuestionType::FillBlank => $factory->fillBlank(),
+            \App\Enums\QuestionType::LongAnswer => $factory->longAnswer(),
+        };
+        $questions[$type->value] = $factory->create(['position' => $i]);
+    }
+
+    $this->actingAs($student);
+    $id = $this->postJson("/api/tests/{$test->id}/attempts")->json('id');
+    $this->putJson("/api/attempts/{$id}", ['responses' => [$questions['fill_blank']->id => 'nonpolar']])->assertOk();
+    $this->postJson("/api/attempts/{$id}/submit")->assertOk();
+
+    $this->actingAs($teacher);
+    foreach ($questions as $value => $q) {
+        $row = Answer::where('attempt_id', $id)->where('question_id', $q->id)->first();
+        $res = $this->putJson("/api/attempts/{$id}/answers/{$row->id}", ['awarded' => 1]);
+        if (\App\Enums\QuestionType::from($value)->allowsManualGrade()) {
+            $res->assertOk();
+        } else {
+            $res->assertStatus(422);
+        }
+    }
+
+    // The fill_blank override replaced its automatic zero.
+    $fb = Answer::where('attempt_id', $id)->where('question_id', $questions['fill_blank']->id)->first();
+    expect((float) $fb->awarded)->toBe(1.0)->and($fb->graded_by)->toBe($teacher->id);
+});

@@ -9,13 +9,28 @@ enum QuestionType: string
     case TrueFalse = 'true_false';
     case ShortAnswer = 'short_answer';
     case Numeric = 'numeric';
+    case FillBlank = 'fill_blank';
+    case LongAnswer = 'long_answer';
 
     /** Types whose `options` array is required (all others must omit it). */
     public function hasOptions(): bool
     {
         return match ($this) {
             self::MultipleChoice, self::MultiSelect => true,
-            self::TrueFalse, self::ShortAnswer, self::Numeric => false,
+            self::TrueFalse, self::ShortAnswer, self::Numeric, self::FillBlank, self::LongAnswer => false,
+        };
+    }
+
+    /**
+     * Types a teacher may set `awarded` on by hand. Allowlist, every case
+     * named: the previous `!== ShortAnswer` denylist is the Role-enum defect
+     * class, where the next case added is accepted by default.
+     */
+    public function allowsManualGrade(): bool
+    {
+        return match ($this) {
+            self::ShortAnswer, self::LongAnswer, self::FillBlank => true,
+            self::MultipleChoice, self::MultiSelect, self::TrueFalse, self::Numeric => false,
         };
     }
 }

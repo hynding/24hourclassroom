@@ -162,3 +162,19 @@ test('a student lists their own assignments with test summary and attempt stats'
         $this->getJson('/api/assignments')->assertStatus(403);
     }
 });
+
+test('a student sees assignments soonest-due first, undated last, then oldest first', function () {
+    $teacher = aTeacher();
+    $me = aStudent();
+    $mk = fn (?string $due) => Assignment::create([
+        'test_id' => aTestWithQuestions($teacher, 1)->id, 'student_id' => $me->id, 'teacher_id' => $teacher->id, 'due_at' => $due,
+    ]);
+    $undatedOld = $mk(null);
+    $late = $mk('2027-05-02');
+    $soon = $mk('2026-09-06');
+    $undatedNew = $mk(null);
+
+    $this->actingAs($me);
+    expect(collect($this->getJson('/api/assignments')->json('data'))->pluck('id')->all())
+        ->toBe([$soon->id, $late->id, $undatedOld->id, $undatedNew->id]);
+});

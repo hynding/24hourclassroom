@@ -93,3 +93,44 @@ test('the create_test_draft builder schema requires the same four fields as Test
         ->not->toHaveKey('id')
         ->not->toHaveKey('visibility');
 });
+
+test('the draft schema states the same length limits as QuestionRules', function () {
+    $item = TestDraftSchema::json()['properties']['questions']['items']['properties'];
+
+    expect($item['prompt']['maxLength'])->toBe(QuestionRules::PROMPT_MAX)
+        ->and($item['stimulus']['maxLength'])->toBe(QuestionRules::STIMULUS_MAX)
+        ->and($item['options']['items']['maxLength'])->toBe(QuestionRules::OPTION_MAX)
+        ->and($item['option_explanations']['items']['maxLength'])->toBe(QuestionRules::OPTION_EXPLANATION_MAX)
+        ->and($item['explanation']['maxLength'])->toBe(QuestionRules::EXPLANATION_MAX);
+
+    // And the field rules read the same constants.
+    $rules = QuestionRules::rules();
+    expect($rules['questions.*.prompt'])->toContain('max:'.QuestionRules::PROMPT_MAX)
+        ->and($rules['questions.*.options.*'])->toContain('max:'.QuestionRules::OPTION_MAX)
+        ->and($rules['questions.*.explanation'])->toContain('max:'.QuestionRules::EXPLANATION_MAX);
+});
+
+test('the hand-grading allowlist is exactly the three written types', function () {
+    // Which of these the grader leaves null is bound in AttemptGraderTest.
+    expect(array_values(array_map(fn ($t) => $t->value, array_filter(QuestionType::cases(), fn ($t) => $t->allowsManualGrade()))))
+        ->toBe(['short_answer', 'fill_blank', 'long_answer']);
+});
+
+test('the generation prompt rules name every type in the right options list and the long-answer points range', function () {
+    $prompt = view('generation.system')->render();
+
+    expect(preg_match('/`options` is required for (.+?),\s+and must be omitted for ([^.]+)\./s', $prompt, $m))
+        ->toBe(1, 'options rule not found in the generation prompt');
+    $split = fn (string $list) => array_map('trim', preg_split('/,| and /', $list));
+    $required = $split($m[1]);
+    $omitted = $split($m[2]);
+
+    foreach (QuestionType::cases() as $type) {
+        expect(in_array($type->value, $type->hasOptions() ? $required : $omitted, true))->toBeTrue($type->value);
+    }
+    expect(count($required) + count($omitted))->toBe(count(QuestionType::cases()));
+
+    expect($prompt)->toContain(
+        'long_answer is always worth '.QuestionRules::LONG_ANSWER_POINTS_MIN.' to '.QuestionRules::LONG_ANSWER_POINTS_MAX.' points'
+    );
+});

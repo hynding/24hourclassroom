@@ -23,8 +23,52 @@ final class AttemptGrader
             QuestionType::TrueFalse => (is_bool($response) && $response === $answer) ? $points : 0.0,
             QuestionType::MultiSelect => self::scoreMultiSelect($q, $response),
             QuestionType::Numeric => self::scoreNumeric($q, $response),
-            QuestionType::ShortAnswer => null,
+            QuestionType::FillBlank => $q->auto_grade ? self::scoreFillBlank($q, $response) : null,
+            QuestionType::ShortAnswer, QuestionType::LongAnswer => null,
         };
+    }
+
+    /**
+     * Full points when the normalized response equals any normalized
+     * accepted answer. Normalization is deliberately narrow -- case, outer
+     * and repeated whitespace, one trailing full stop -- because on
+     * biology terms one letter is the difference (ADP / ATP).
+     */
+    private static function scoreFillBlank(Question $q, mixed $response): float
+    {
+        if (! is_string($response)) {
+            return 0.0;
+        }
+
+        $given = self::normalizeBlank($response);
+        if ($given === '') {
+            return 0.0;
+        }
+
+        foreach ((array) $q->answer as $accepted) {
+            if (is_string($accepted) && self::normalizeBlank($accepted) === $given) {
+                return (float) $q->points;
+            }
+        }
+
+        return 0.0;
+    }
+
+    /**
+     * Case-folded, inner whitespace collapsed, and ONE trailing full stop
+     * removed together with any space before it ("polar ." == "polar").
+     * Exactly one: "polar..." is not "polar".
+     */
+    public static function normalizeBlank(string $text): string
+    {
+        $text = mb_strtolower(trim($text));
+        $text = preg_replace('/\s+/u', ' ', $text) ?? $text;
+
+        if (str_ends_with($text, '.')) {
+            $text = rtrim(substr($text, 0, -1));
+        }
+
+        return $text;
     }
 
     private static function scoreMultiSelect(Question $q, mixed $response): float

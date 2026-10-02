@@ -8,6 +8,7 @@ use App\Enums\Visibility;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TestSummaryResource;
 use App\Models\Test;
+use App\Support\LibrarySort;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Validation\Rule;
@@ -20,6 +21,7 @@ class LibraryController extends Controller
             'subject' => ['nullable', Rule::enum(Subject::class)],
             'grade' => ['nullable', Rule::enum(GradeLevel::class)],
             'q' => ['nullable', 'string', 'max:100'],
+            'sort' => LibrarySort::rule(),
         ]);
 
         $tests = Test::query()
@@ -36,8 +38,7 @@ class LibraryController extends Controller
                     ->where('title', 'like', "%{$escaped}%")
                     ->orWhere('description', 'like', "%{$escaped}%"));
             })
-            ->orderByDesc('published_at')
-            ->orderByDesc('id')
+            ->tap(fn ($q) => LibrarySort::apply($q, $filters['sort'] ?? null))
             ->paginate(15)
             ->withQueryString();
 

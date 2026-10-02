@@ -112,6 +112,34 @@ callback's new-account branch); `RegistrationGateTest` scans `app/` for
 `User::create(` and fails until a new creator is gated. Shell commands,
 seeders and factories are deliberately ungated.
 
+## Seeded AP Biology course
+
+`php artisan db:seed --class=ApBiologySeeder` (also called from `DatabaseSeeder`)
+builds a full-year course from YAML under
+`apps/api/database/seeders/data/ap-biology/` (`course.yaml` = week → unit → CED
+topic map; `unit-NN-*/week-NN.yaml` = guide path + flashcards + quiz;
+`unit-exam.yaml`, `unit-summary.md`; `review/` = practice exam and prep guide).
+`Database\Seeders\ApBiology\Course` loads it and composes every title and slug
+(`AP Biology · Week 07 · Quiz · …`) so the library's `sort=title` reads in course
+order. Idempotent through nullable `slug` columns on `tests`, `questions` and
+`materials`: a re-run updates in place and questions keep their ids. It creates
+`apbio@example.com` / `apbio-student@example.com` (password `password`),
+connects them, and assigns every test to the student with a due date from
+`start_date` (null = no due dates). `ApBiologyContentTest` lints the data
+directory (provenance, rationales, spiral review, duplicates, attribution) and
+`ApBiologySeederTest` proves idempotency on `tests/Fixtures/course`.
+
+Content contract the lint enforces: every option carries an
+`option_explanations` entry; `fill_blank` prompts contain `____` and `answer` is a
+list of accepted strings (`auto_grade: false` hands the item to the teacher);
+`long_answer` is 4–10 points and its `explanation` is the point-by-point
+acceptable-answer summary; a `stimulus` repeated verbatim across consecutive
+items renders once. Flashcard decks are materials named `*.flashcards.md`
+(`## front`, body back, trailing `Hint:`/`Topic:` lines); `page-material` reads
+any small `.md`/`.txt` in-app through `rich-text`, a vnode-only markdown subset
+with no HTML and no `innerHTML`. `MaterialWriter` is the one path that puts a
+file on the materials disk, for uploads and the seeder alike.
+
 ## Gotchas
 
 **Denylist over the `Role` enum — the recurring defect class.** Writing

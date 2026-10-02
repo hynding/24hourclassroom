@@ -16,10 +16,11 @@ Rules
 - Every index is an integer, never a string.
 - `options` is a list (a JSON array), never an object, and holds between 2 and
   8 non-empty strings.
-- `options` is required for multiple_choice and multi_select, and must be
-  omitted for true_false, short_answer and numeric.
+- `options` is required for {!! collect(\App\Enums\QuestionType::cases())->filter(fn ($t) => $t->hasOptions())->map(fn ($t) => $t->value)->join(', ', ' and ') !!},
+  and must be omitted for {!! collect(\App\Enums\QuestionType::cases())->reject(fn ($t) => $t->hasOptions())->map(fn ($t) => $t->value)->join(', ', ' and ') !!}.
 - `partial_credit` is only valid on multi_select.
-- `points` is an integer from 1 to 100; omit it for a 1-point question.
+- `points` is an integer from 1 to 100; omit it for a 1-point question. A
+  long_answer is always worth {!! \App\Support\QuestionRules::LONG_ANSWER_POINTS_MIN !!} to {!! \App\Support\QuestionRules::LONG_ANSWER_POINTS_MAX !!} points, so always send `points` on one.
 - A test holds between 1 and 100 questions, and only the question types above.
 - Never send an `id` or a `visibility` field: the app sets those.
 - Write from the mounted materials. Research with web search where they are

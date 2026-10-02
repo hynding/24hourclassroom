@@ -14,8 +14,12 @@ use App\Models\User;
  */
 final class MaterialQuota
 {
-    /** The message to show, or null when this upload fits. */
-    public static function errorFor(User $author, int $incomingBytes): ?string
+    /**
+     * The message to show, or null when this write fits. `$incomingFiles` is
+     * 1 for an upload and 0 when an existing file's bytes are replaced in
+     * place, which grows the byte total but not the file count.
+     */
+    public static function errorFor(User $author, int $incomingBytes, int $incomingFiles = 1): ?string
     {
         // Count and total in ONE query. Deleted materials free quota
         // immediately -- there is no soft delete on materials.
@@ -27,7 +31,7 @@ final class MaterialQuota
         $maxFiles = (int) config('materials.max_files_per_teacher');
         $maxBytes = (int) config('materials.max_bytes_per_teacher');
 
-        if ((int) $usage->files + 1 > $maxFiles) {
+        if ($incomingFiles > 0 && (int) $usage->files + $incomingFiles > $maxFiles) {
             return "You have reached the limit of {$maxFiles} materials.";
         }
 

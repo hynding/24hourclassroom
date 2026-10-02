@@ -4,6 +4,8 @@ import { Attempt, AttemptQuestion } from '@24hc/shared';
 import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
+import { assertNever } from '../../services/assert-never';
+import { formatAnswer, formatResponse, isTextResponse, optionChosen, showsStimulus } from '../../services/question-format';
 
 const AUTOSAVE_MS = 2000;
 
@@ -197,37 +199,76 @@ export class PageAttempt {
           const raw = (e.target as HTMLInputElement).value;
           this.setResponse(q.id, raw === '' ? null : Number(raw));
         }} />;
+      case 'fill_blank':
+        // The prompt keeps its ____ on screen; the student fills a labelled input beneath it.
+        return (
+          <label class="blank">
+            Your answer for the blank
+            <input type="text" maxlength="100" value={(value as string) ?? ''} onInput={(e) => this.setResponse(q.id, (e.target as HTMLInputElement).value)} />
+          </label>
+        );
+      case 'long_answer':
+        return <textarea rows={8} maxlength="10000" aria-label="Your answer" value={(value as string) ?? ''} onInput={(e) => this.setResponse(q.id, (e.target as HTMLTextAreaElement).value)}></textarea>;
+      default:
+        return assertNever(q.type, 'question type');
     }
   }
 
-  private format(q: AttemptQuestion, value: unknown): string {
-    if (value === null || value === undefined) {
-      return '(skipped)';
-    }
-    if (q.options && typeof value === 'number') {
-      return q.options[value] ?? String(value);
-    }
-    if (q.options && Array.isArray(value)) {
-      return value.map((i: number) => q.options[i] ?? i).join(', ');
-    }
-    if (q.type === 'numeric' && value && typeof value === 'object') {
-      const a = value as { value: number; tolerance?: number };
-      return a.tolerance ? `${a.value} ± ${a.tolerance}` : String(a.value);
-    }
-    return String(value);
+  private stimulus(questions: AttemptQuestion[], i: number) {
+    return showsStimulus(questions, i) ? <div class="stimulus"><rich-text text={questions[i].stimulus}></rich-text></div> : null;
   }
 
-  private renderReview(q: AttemptQuestion, index: number) {
+  /** Each option with the student's pick and the correct one marked, plus its rationale when written. */
+  private renderExplainedOptions(q: AttemptQuestion, answer: unknown) {
+    // No option carries "(your answer)" when nothing was picked, so say so
+    // in words; otherwise a skipped item reads as if it was answered.
+    const skipped = q.response === null || q.response === undefined || (Array.isArray(q.response) && q.response.length === 0);
+    return [
+      skipped && <p>Your answer: <strong>{formatResponse(q, null)}</strong></p>,
+      <ol class="options explained">
+        {q.options.map((opt, i) => {
+          const picked = optionChosen(q.response, i);
+          const correct = optionChosen(answer, i);
+          return (
+            <li class={{ picked, correct }}>
+              <span class="option-text">{opt}</span>
+              {picked && <span class="meta"> (your answer)</span>}
+              {correct && <span class="meta"> (correct)</span>}
+              {q.option_explanations[i] && <div class="rationale"><rich-text text={q.option_explanations[i]}></rich-text></div>}
+            </li>
+          );
+        })}
+      </ol>,
+    ];
+  }
+
+  private renderAnswerLines(q: AttemptQuestion, answer: unknown) {
+    const label = q.type === 'long_answer' ? 'Model answer' : 'Correct answer';
+    if (isTextResponse(q.type)) {
+      return [
+        <p>Your answer:</p>,
+        <p class="response">{formatResponse(q, q.response)}</p>,
+        <p>{label}: {formatAnswer(q, answer)}</p>,
+      ];
+    }
+    return [
+      <p>Your answer: <strong>{formatResponse(q, q.response)}</strong></p>,
+      <p>{label}: {formatAnswer(q, answer)}</p>,
+    ];
+  }
+
+  private renderReview(q: AttemptQuestion, index: number, questions: AttemptQuestion[]) {
     const answer = q.graded_answer?.answer ?? q.answer;
     const points = q.graded_answer?.points ?? q.points;
     const status = q.awarded === null || q.awarded === undefined ? 'pending' : Number(q.awarded) >= points ? 'right' : Number(q.awarded) > 0 ? 'partial' : 'wrong';
+    const explained = (q.type === 'multiple_choice' || q.type === 'multi_select') && Array.isArray(q.option_explanations) && Array.isArray(q.options);
     return (
       <li class={status}>
-        <p class="prompt">{index + 1}. {q.prompt}</p>
-        <p>Your answer: <strong>{this.format(q, q.response)}</strong></p>
-        <p>Correct answer: {this.format(q, answer)}</p>
+        {this.stimulus(questions, index)}
+        <div class="prompt"><span class="num">{index + 1}.</span> <rich-text text={q.prompt}></rich-text></div>
+        {explained ? this.renderExplainedOptions(q, answer) : this.renderAnswerLines(q, answer)}
         <p class="meta">{q.awarded === null || q.awarded === undefined ? 'Awaiting grading' : `${q.awarded} / ${points}`}</p>
-        {q.explanation && <p class="explanation">{q.explanation}</p>}
+        {q.explanation && <div class="explanation"><rich-text text={q.explanation}></rich-text></div>}
       </li>
     );
   }
@@ -248,7 +289,7 @@ export class PageAttempt {
             {a.score} / {a.max_score}
             {a.ungraded_count > 0 && ` · ${a.ungraded_count} answer${a.ungraded_count === 1 ? '' : 's'} awaiting grading`}
           </p>
-          <ol class="review">{a.questions.map((q, i) => this.renderReview(q, i))}</ol>
+          <ol class="review">{a.questions.map((q, i) => this.renderReview(q, i, a.questions))}</ol>
           <a href={`/tests/${a.test.id}`} onClick={(e) => { e.preventDefault(); navigate(`/tests/${a.test.id}`); }}>Back to test</a>
         </section>
       );
@@ -261,7 +302,8 @@ export class PageAttempt {
         <ol class="questions">
           {a.questions.map((q, i) => (
             <li>
-              <p class="prompt">{i + 1}. {q.prompt} <span class="meta">({q.points} pt{q.points === 1 ? '' : 's'})</span></p>
+              {this.stimulus(a.questions, i)}
+              <div class="prompt"><span class="num">{i + 1}.</span> <rich-text text={q.prompt}></rich-text> <span class="meta">({q.points} pt{q.points === 1 ? '' : 's'})</span></div>
               {this.renderInput(q)}
             </li>
           ))}

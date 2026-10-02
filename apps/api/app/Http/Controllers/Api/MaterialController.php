@@ -7,21 +7,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveMaterialRequest;
 use App\Http\Resources\MaterialSummaryResource;
 use App\Models\Material;
-use App\Models\User;
 use App\Services\MaterialDeleter;
+use App\Services\MaterialWriter;
 use App\Support\MaterialAccess;
 use App\Support\MaterialPayload;
-use App\Support\MaterialQuota;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
-use Throwable;
 
 class MaterialController extends Controller
 {
@@ -43,72 +37,22 @@ class MaterialController extends Controller
     /**
      * The role gate lives in SaveMaterialRequest::authorize(), which runs
      * before the rules, so a non-teacher's malformed body still gets 403.
+     * The write itself -- path, sniff, quota lock, orphan cleanup -- is
+     * MaterialWriter's, shared with the course seeder.
      */
     public function store(SaveMaterialRequest $request): JsonResponse
     {
         $data = $request->validated();
-        $user = $request->user();
         $file = $request->file('file');
 
-        $ext = strtolower($file->getClientOriginalExtension());
-        // basename + truncate BEFORE the insert: MySQL strict mode would
-        // otherwise 500 on a long name with the file already on disk.
-        $name = basename($file->getClientOriginalName());
-        $name = preg_replace('/[\x00-\x1f\x7f]/', '', $name);
-        // Truncate from the stem, not the right edge, so a long name keeps
-        // its extension -- `path` already has one; `original_name` should too.
-        $nameExt = pathinfo($name, PATHINFO_EXTENSION);
-        $stem = pathinfo($name, PATHINFO_FILENAME);
-        $originalName = $nameExt === ''
-            ? Str::limit($stem, 255, '')
-            : Str::limit($stem, 255 - strlen($nameExt) - 1, '').'.'.$nameExt;
+        $material = MaterialWriter::create(
+            $request->user(),
+            $file,
+            $file->getClientOriginalName(),
+            Arr::only($data, ['title', 'description', 'subject', 'grade_level']),
+        );
 
-        $path = $file->storeAs("materials/{$user->id}", Str::random(40).'.'.$ext, config('materials.disk'));
-        // The disk is throw => false, so a failed write returns false rather
-        // than throwing. Without this a row with an empty path would 201.
-        abort_if($path === false, 500);
-
-        try {
-            $material = DB::transaction(function () use ($user, $data, $file, $path, $originalName) {
-                // The authoritative quota check. N parallel uploads at the
-                // boundary all pass the request's friendly check; this one is
-                // serialised behind a row lock on the author.
-                User::whereKey($user->id)->lockForUpdate()->first();
-
-                if ($error = MaterialQuota::errorFor($user, (int) $file->getSize())) {
-                    throw ValidationException::withMessages(['file' => [$error]]);
-                }
-
-                return $user->materials()->create([
-                    'title' => filled($data['title'] ?? null)
-                        ? $data['title']
-                        // A stemless name like ".pdf" has no PATHINFO_FILENAME
-                        // (''); fall back to the full original name rather
-                        // than an empty title.
-                        : Str::limit(
-                            filled(pathinfo($originalName, PATHINFO_FILENAME)) ? pathinfo($originalName, PATHINFO_FILENAME) : $originalName,
-                            160,
-                            ''
-                        ),
-                    'description' => $data['description'] ?? null,
-                    'subject' => $data['subject'],
-                    'grade_level' => $data['grade_level'],
-                    'original_name' => $originalName,
-                    'path' => $path,
-                    // Content-sniffed, never the client's claim. C3 decides
-                    // per file whether Claude gets a document, text or image.
-                    'mime_type' => $file->getMimeType(),
-                    'size_bytes' => $file->getSize(),
-                ]);
-            });
-        } catch (Throwable $e) {
-            // Anything after the store leaves an orphan file otherwise.
-            Storage::disk(config('materials.disk'))->delete($path);
-
-            throw $e;
-        }
-
-        return response()->json(MaterialPayload::view($material->fresh(), $user), 201);
+        return response()->json(MaterialPayload::view($material->fresh(), $request->user()), 201);
     }
 
     public function update(SaveMaterialRequest $request, Material $material): JsonResponse

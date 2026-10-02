@@ -18,6 +18,10 @@ jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => nav
 jest.mock('../../services/session-recovery', () => ({ recoverFromExpiredSession: () => false }));
 
 import { PageMaterial } from './page-material';
+import { RichText } from '../rich-text/rich-text';
+import { FlashcardDeck } from '../flashcard-deck/flashcard-deck';
+
+const fetchMock = jest.fn();
 
 const URL_ONE = 'https://api.test/api/materials/7/file?expires=1&signature=one';
 const URL_TWO = 'https://api.test/api/materials/7/file?expires=2&signature=two';
@@ -31,10 +35,20 @@ const view = (extra: Record<string, unknown> = {}) => ({
 
 const mount = async (payload: unknown) => {
   getMaterial.mockResolvedValue(payload);
-  const page = await newSpecPage({ components: [PageMaterial], html: '<page-material material-id="7"></page-material>' });
+  const page = await newSpecPage({ components: [PageMaterial, RichText, FlashcardDeck], html: '<page-material material-id="7"></page-material>' });
   await page.waitForChanges();
   return page;
 };
+
+/** The body fetch is not awaited by componentWillLoad: give it a tick, then let Stencil render. */
+const settle = async (page: Awaited<ReturnType<typeof mount>>) => {
+  await Promise.resolve();
+  await Promise.resolve();
+  await page.waitForChanges();
+  await page.waitForChanges();
+};
+
+const textResponse = (text: string, ok = true) => ({ ok, status: ok ? 200 : 403, text: async () => text });
 
 const clickDownload = async (page: Awaited<ReturnType<typeof mount>>) => {
   const link = page.root.shadowRoot.querySelector('a[data-testid="download"]') as HTMLAnchorElement;
@@ -62,6 +76,10 @@ describe('page-material', () => {
     unpublishMaterial.mockReset();
     deleteMaterial.mockReset();
     navigate.mockReset();
+    // The component calls the bare global, which jest shares across the
+    // mock-window reset newSpecPage performs. Default: never called.
+    fetchMock.mockReset();
+    (global as any).fetch = fetchMock;
   });
 
   it('shows the author every control', async () => {
@@ -204,5 +222,86 @@ describe('page-material', () => {
     await clickDownload(page);
 
     expect(page.root.shadowRoot.textContent).toContain('Material not found');
+  });
+
+  describe('inline reader', () => {
+    it('never fetches the body of a non-text upload', async () => {
+      const page = await mount(view());
+      await settle(page);
+
+      expect(fetchMock).not.toHaveBeenCalled();
+      expect(page.root.shadowRoot.querySelector('.reader')).toBeNull();
+      expect(page.root.shadowRoot.querySelector('a[data-testid="download"]')).not.toBeNull();
+    });
+
+    it('reads a small markdown upload through its signed url and renders it as blocks', async () => {
+      fetchMock.mockResolvedValue(textResponse('# Guide\n\nHello **world**'));
+      const page = await mount(view({ original_name: 'guide.md', mime_type: 'text/markdown', size_bytes: 400 }));
+      await settle(page);
+
+      expect(fetchMock).toHaveBeenCalledWith(URL_ONE, { credentials: 'omit' });
+      const article = page.root.shadowRoot.querySelector('article.reader');
+      expect(article).not.toBeNull();
+      const rich = article.querySelector('rich-text').shadowRoot;
+      expect(rich.querySelector('h2').textContent).toBe('Guide');
+      expect(rich.querySelector('strong').textContent).toBe('world');
+      expect(page.root.shadowRoot.querySelector('[data-testid="reading"]')).toBeNull();
+      // The download stays regardless.
+      expect(page.root.shadowRoot.querySelector('a[data-testid="download"]')).not.toBeNull();
+    });
+
+    it('plays a .flashcards.md upload as a deck instead of a document', async () => {
+      fetchMock.mockResolvedValue(textResponse('# Deck\n## Q1\nA1\n## Q2\nA2'));
+      const page = await mount(view({ original_name: 'unit.flashcards.md', mime_type: 'text/markdown', size_bytes: 400 }));
+      await settle(page);
+
+      const deck = page.root.shadowRoot.querySelector('section.reader flashcard-deck');
+      expect(deck).not.toBeNull();
+      expect(deck.shadowRoot.textContent).toContain('Q1');
+      expect(deck.shadowRoot.textContent).toContain('1 / 2');
+      expect(page.root.shadowRoot.querySelector('article.reader')).toBeNull();
+    });
+
+    it('keeps the student\'s place in the deck when the page re-renders', async () => {
+      fetchMock.mockResolvedValue(textResponse('# Deck\n## Q1\nA1\n## Q2\nA2\n## Q3\nA3'));
+      const page = await mount(view({ original_name: 'unit.flashcards.md', mime_type: 'text/markdown', size_bytes: 400 }));
+      await settle(page);
+
+      const deck = page.root.shadowRoot.querySelector('flashcard-deck');
+      const next = Array.from(deck.shadowRoot.querySelectorAll('button')).find((b) => b.textContent === 'Next');
+      next.click();
+      await page.waitForChanges();
+      expect(deck.shadowRoot.querySelector('.counter').textContent).toBe('2 / 3');
+
+      // Any state change on the page (an action error, busy, a refreshed
+      // payload) re-renders it; the deck must receive the same cards and
+      // stay where the student left it.
+      (page.rootInstance as PageMaterial).actionError = 'Something went wrong.';
+      await page.waitForChanges();
+      expect(page.root.shadowRoot.querySelector('flashcard-deck')).toBe(deck);
+      expect(deck.shadowRoot.querySelector('.counter').textContent).toBe('2 / 3');
+    });
+
+    it('skips the fetch for text over the size cap', async () => {
+      const page = await mount(view({ original_name: 'notes.txt', mime_type: 'text/plain', size_bytes: 262145 }));
+      await settle(page);
+      expect(fetchMock).not.toHaveBeenCalled();
+    });
+
+    it('stays download-only when the fetch fails or is refused', async () => {
+      fetchMock.mockRejectedValue(new TypeError('Failed to fetch'));
+      const failed = await mount(view({ original_name: 'notes.txt', mime_type: 'text/plain', size_bytes: 40 }));
+      await settle(failed);
+      expect(failed.root.shadowRoot.querySelector('.reader')).toBeNull();
+      expect(failed.root.shadowRoot.querySelector('[data-testid="reading"]')).toBeNull();
+      expect(failed.root.shadowRoot.querySelector('a[data-testid="download"]')?.getAttribute('href')).toBe(URL_ONE);
+      expect(failed.root.shadowRoot.textContent).toContain('Cell diagram');
+
+      fetchMock.mockResolvedValue(textResponse('forbidden', false));
+      const refused = await mount(view({ original_name: 'notes.txt', mime_type: 'text/plain', size_bytes: 40 }));
+      await settle(refused);
+      expect(refused.root.shadowRoot.querySelector('.reader')).toBeNull();
+      expect(refused.root.shadowRoot.querySelector('a[data-testid="download"]')).not.toBeNull();
+    });
   });
 });

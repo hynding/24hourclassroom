@@ -3,6 +3,10 @@ import { ApiError } from '@24hc/api-client';
 import { GRADE_LEVELS, Question, SUBJECTS, TestView } from '@24hc/shared';
 import { testsStore } from '../../services/tests-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
+import { assertNever } from '../../services/assert-never';
+import { keyFor, showsStimulus } from '../../services/question-format';
+
+const LONG_ANSWER_RULES = 8;
 
 @Component({ tag: 'page-test-print', styleUrl: 'page-test-print.css', shadow: true })
 export class PageTestPrint {
@@ -37,25 +41,23 @@ export class PageTestPrint {
     return list.find((o) => o.value === value)?.label ?? value;
   }
 
-  private letter(i: number) {
-    return String.fromCharCode(65 + i);
-  }
-
-  private keyFor(q: Question): string {
-    if (q.options && typeof q.answer === 'number') {
-      return this.letter(q.answer);
+  /** The space left for a written answer -- nothing for option types, whose choices are the answer space. */
+  private renderAnswerSpace(q: Question) {
+    switch (q.type) {
+      case 'multiple_choice':
+      case 'multi_select':
+      case 'fill_blank':
+        return null;
+      case 'true_false':
+        return <p class="tf"><span>☐ True</span><span>☐ False</span></p>;
+      case 'short_answer':
+      case 'numeric':
+        return <div class="answer-line"></div>;
+      case 'long_answer':
+        return <div class="answer-block">{Array.from({ length: LONG_ANSWER_RULES }, () => <div class="rule"></div>)}</div>;
+      default:
+        return assertNever(q.type, 'question type');
     }
-    if (q.options && Array.isArray(q.answer)) {
-      return q.answer.map((i: number) => this.letter(i)).join(', ');
-    }
-    if (q.type === 'true_false') {
-      return q.answer ? 'True' : 'False';
-    }
-    if (q.type === 'numeric' && q.answer && typeof q.answer === 'object') {
-      const a = q.answer as { value: number; tolerance?: number };
-      return a.tolerance ? `${a.value} ± ${a.tolerance}` : String(a.value);
-    }
-    return String(q.answer);
   }
 
   render() {
@@ -79,21 +81,21 @@ export class PageTestPrint {
           {t.description && <p class="instructions">{t.description}</p>}
         </header>
         <ol class="questions">
-          {t.questions.map((q) => (
+          {t.questions.map((q, i) => (
             <li>
-              <p class="prompt">{q.prompt} <span class="meta">({q.points} pt{q.points === 1 ? '' : 's'})</span></p>
+              {showsStimulus(t.questions, i) && <div class="stimulus"><rich-text text={q.stimulus}></rich-text></div>}
+              <div class="prompt"><rich-text text={q.prompt}></rich-text> <span class="meta">({q.points} pt{q.points === 1 ? '' : 's'})</span></div>
               {q.options && (
                 <ol class="options">{q.options.map((opt) => <li>{opt}</li>)}</ol>
               )}
-              {q.type === 'true_false' && <p class="tf"><span>☐ True</span><span>☐ False</span></p>}
-              {(q.type === 'short_answer' || q.type === 'numeric') && <div class="answer-line"></div>}
+              {this.renderAnswerSpace(q)}
             </li>
           ))}
         </ol>
         {this.wantsKey && hasAnswers && (
           <section class="key">
             <h2>Answer key</h2>
-            <ol>{t.questions.map((q) => <li>{this.keyFor(q)}</li>)}</ol>
+            <ol>{t.questions.map((q) => <li>{keyFor(q, q.answer)}</li>)}</ol>
           </section>
         )}
         <button type="button" class="btn no-print" onClick={() => window.print()}>Print</button>

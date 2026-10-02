@@ -1,0 +1,835 @@
+week: 26
+unit: 7
+title: Phylogeny and Speciation
+topics: ["7.9", "7.10"]
+guide: guides/week-26.md
+guide_description: |
+  Reading and building phylogenetic trees and cladograms: nodes, sister taxa, outgroups, shared derived
+  characters, monophyletic groups and parsimony, with BLAST output as the molecular version; then how branches
+  form: the biological species concept, allopatric and sympatric speciation, polyploidy, prezygotic and
+  postzygotic barriers, hybrid zones, and gradual versus punctuated rates. Three worked examples (a cladogram
+  from a character table, reading a BLAST table, a polyploidy chromosome count), misconceptions, self-check.
+flashcards_description: |
+  36 cards: tree anatomy and reading rules, cladistics vocabulary, BLAST, the species concept, the two routes
+  to speciation, every reproductive barrier, and speciation rates.
+
+flashcards:
+  - front: Phylogeny
+    back: |
+      The evolutionary history of a group: the pattern of ancestry and descent that connects its members. A phylogenetic tree is a hypothesis about that history, revised as new fossil, anatomical and molecular evidence arrives.
+    topic_code: "7.9"
+  - front: Phylogenetic tree vs cladogram → the difference in what branch length means
+    back: |
+      Both show branching order. In a cladogram branch lengths carry no information; only the sequence of splits matters. In a phylogenetic tree drawn to scale, branch length represents time or amount of genetic change. Unless a scale is shown, assume lengths mean nothing.
+    hint: No scale bar, no meaning.
+    topic_code: "7.9"
+  - front: Branch point (node) on a tree
+    back: |
+      A point where one lineage splits into two: the most recent common ancestor of everything beyond it. The deeper (closer to the root) a node, the older the ancestor it represents.
+    topic_code: "7.9"
+  - front: Root of a tree
+    back: |
+      The base of a rooted tree, representing the common ancestor of every taxon shown. An unrooted tree shows relationships without saying which lineage is oldest.
+    topic_code: "7.9"
+  - front: Sister taxa
+    back: |
+      Two lineages that emerge from the same node and are therefore each other's closest relatives on the tree. Lizard and mouse are sister taxa when they share a node that no other taxon on the tree shares.
+    topic_code: "7.9"
+  - front: Basal taxon
+    back: |
+      A lineage that branches off nearest the root and remains unbranched on the tree, such as the lamprey on a vertebrate cladogram. Basal does not mean primitive or ancestral; it has evolved for just as long as the other tips.
+    topic_code: "7.9"
+  - front: Polytomy
+    back: |
+      A node from which more than two lineages emerge, drawn when the order of splitting is unresolved. It signals missing information, not a real three-way split.
+    topic_code: "7.9"
+  - front: Rotating branches at a node → does it change the tree?
+    back: |
+      No. A node is a hinge: swapping the two lineages that come from it changes the drawing but not a single relationship. Two trees are identical if every taxon shares the same nodes with the same other taxa, whatever the left-to-right order of the tips.
+    hint: Read nodes, not the order of names along the top.
+    topic_code: "7.9"
+  - front: How do you decide which two taxa on a tree are most closely related?
+    back: |
+      Find their most recent common ancestor: the node where their lines meet. The pair whose shared node is nearest the tips is most closely related. Never judge by how close the names are along the edge of the tree.
+    topic_code: "7.9"
+  - front: Clade (monophyletic group)
+    back: |
+      An ancestor plus all of its descendants and nothing else: one node and everything beyond it. Clades are the only groups that reflect phylogeny; you can cut a clade off a tree with one snip.
+    hint: One snip, whole group.
+    topic_code: "7.9"
+  - front: Paraphyletic group
+    back: |
+      An ancestor and some but not all of its descendants. "Reptiles" excluding birds is paraphyletic because birds descend from the same ancestor. "Fish" excluding tetrapods is another. Such groups are convenient but not clades.
+    topic_code: "7.9"
+  - front: Polyphyletic group
+    back: |
+      A group whose members come from different ancestors and are united by a convergent trait, such as "warm-blooded animals" (birds and mammals) or "flying animals". Based on analogy, so phylogenetically meaningless.
+    topic_code: "7.9"
+  - front: Shared derived character (synapomorphy)
+    back: |
+      A trait that arose in a lineage's ancestor and is present in its descendants but absent in taxa outside the lineage. It marks a clade: four limbs for tetrapods, the amniotic egg for amniotes, hair for mammals. Cladograms are built from these.
+    topic_code: "7.9"
+  - front: Shared ancestral character
+    back: |
+      A trait inherited from an ancestor older than the group being studied, and so present in all its members and in the outgroup too, such as a vertebral column among jawed vertebrates. It cannot distinguish members of the group from one another. Ancestral and derived are relative to the question asked.
+    topic_code: "7.9"
+  - front: Outgroup
+    back: |
+      A taxon known to have branched off before the group under study. Traits it has are treated as ancestral; traits present in the ingroup but absent from the outgroup are derived. It is how a tree is rooted and polarised.
+    topic_code: "7.9"
+  - front: Maximum parsimony
+    back: |
+      The rule for choosing among possible trees: prefer the tree requiring the fewest evolutionary changes (fewest times a trait must arise or be lost). Based on the idea that the simplest explanation consistent with the evidence is the most probable.
+    topic_code: "7.9"
+  - front: Homoplasy
+    back: |
+      A trait shared by two taxa that did not inherit it from a common ancestor: convergence or reversal. Homoplasies (wings in bats and birds) are the noise that parsimony is designed to see through; molecular data help identify them.
+    topic_code: "7.9"
+  - front: Building a cladogram from a character table → the steps
+    back: |
+      Choose the outgroup; mark every trait it lacks as derived. Order the derived traits from most widely shared to least. The taxon with no derived traits branches first, then the one with only the most widespread derived trait, and so on; taxa sharing the rarest trait are sister taxa. Check that the tree needs each trait to arise only once.
+    topic_code: "7.9"
+  - front: Molecular systematics → why DNA often beats anatomy
+    back: |
+      Sequences give thousands of characters, can be compared across all life, and are less prone to convergence than shapes. Combined with morphology, molecular data have confirmed many classifications and overturned others (whales inside the even-toed ungulates, birds inside the dinosaurs).
+    topic_code: "7.9"
+  - front: BLAST → what it does (AP Investigation 3)
+    back: |
+      Compares a query sequence with a database and returns the best-matching sequences ranked by similarity. For each hit it reports percent identity, alignment length and an E-value. The hits' identities let you place an unknown gene or organism on a cladogram.
+    topic_code: "7.9"
+  - front: E-value in a BLAST result → how to read it
+    back: |
+      The number of matches this good expected by chance alone in a database of this size. Smaller is better: an E-value of 1e-150 means the match is essentially impossible by chance; a value near 1 means the match is probably noise. Rank hits by lowest E-value and highest percent identity.
+    hint: Expectation by chance; you want it tiny.
+    topic_code: "7.9"
+  - front: Biological species concept
+    back: |
+      A species is a group of populations whose members can interbreed in nature and produce fertile offspring, and are reproductively isolated from other such groups. Poodles and cocker spaniels are one species; bald eagles and African fish eagles are not, because any hybrid would be infertile.
+    topic_code: "7.10"
+  - front: Speciation
+    back: |
+      The splitting of one population into two that can no longer interbreed. It requires gene flow between them to stop and their gene pools to diverge, by selection or drift, until reproductive barriers exist. Each split is a node on the tree.
+    topic_code: "7.10"
+  - front: Allopatric speciation
+    back: |
+      Speciation after a geographic barrier (river, mountain, sea, distance) separates a population. With no gene flow, the two halves experience different selection and independent drift until they are reproductively isolated. The northern and Mexican spotted owls are diverging this way.
+    hint: Allo- = other place.
+    topic_code: "7.10"
+  - front: Adaptive radiation
+    back: |
+      One founding species spreads into many unfilled niches and splits into several species in a short time, each adapted to a different resource. Hawaiian honeycreepers evolved beaks for nectar, seeds and insects from one colonist; island chains are the usual setting.
+    topic_code: "7.10"
+  - front: Sympatric speciation
+    back: |
+      Speciation without a geographic barrier, within one area. Happens when a subgroup starts exploiting a different resource or breeding at a different time, or when polyploidy makes individuals reproductively incompatible at once. Lake Victoria's cichlids are the classic animal case.
+    hint: Sym- = same place.
+    topic_code: "7.10"
+  - front: Polyploidy → why it causes instant reproductive isolation
+    back: |
+      An error in meiosis or mitosis leaves an individual with extra whole sets of chromosomes. Its gametes have the wrong number to pair with those of the parent species, so any hybrid is sterile, while it can breed with others like itself. Over half of plant species trace back to a polyploid event; it is rare in animals.
+    topic_code: "7.10"
+  - front: Autopolyploid vs allopolyploid
+    back: |
+      Autopolyploid: extra chromosome sets all from one species (a 2n = 6 plant producing diploid gametes gives a 4n = 12 tetraploid). Allopolyploid: a hybrid between two species whose chromosome sets are doubled so they can pair; wheat, cotton and tobacco arose this way.
+    topic_code: "7.10"
+  - front: Prezygotic barriers → the list
+    back: |
+      Barriers that prevent fertilisation: habitat isolation, temporal isolation, behavioural isolation, mechanical isolation and gametic isolation. They stop a zygote forming at all.
+    topic_code: "7.10"
+  - front: Temporal isolation
+    back: |
+      Populations breed at different times. Rana aurora breeds from January to March and Rana boylii from March to May, so even where both live they rarely mate.
+    topic_code: "7.10"
+  - front: Behavioural isolation
+    back: |
+      Courtship signals differ, so individuals do not recognise each other as mates. Male fireflies of each species flash a distinct pattern; females respond only to their own.
+    topic_code: "7.10"
+  - front: Habitat, mechanical and gametic isolation → one example each
+    back: |
+      Habitat: two cricket species on sandy versus loamy soil in the same area rarely meet. Mechanical: damselfly genitalia fit only their own species; flower shapes admit only certain pollinators. Gametic: sperm cannot fertilise the other species' egg because the surface proteins do not match.
+    topic_code: "7.10"
+  - front: Postzygotic barriers → the two kinds
+    back: |
+      Act after fertilisation. Hybrid inviability: the embryo fails to develop or dies young. Hybrid sterility: the hybrid lives but cannot reproduce, like a mule, because mismatched chromosome sets cannot pair in meiosis.
+    topic_code: "7.10"
+  - front: Hybrid zone → the three outcomes
+    back: |
+      Where two diverging species meet and interbreed. Reinforcement: hybrids are less fit, so selection strengthens barriers and the species keep diverging. Fusion: barriers weaken and the two merge back into one. Stability: fit hybrids keep forming but the species remain distinct.
+    topic_code: "7.10"
+  - front: Gradualism vs punctuated equilibrium
+    back: |
+      Gradualism: species diverge by many small changes over a long time, with intermediates in the fossil record. Punctuated equilibrium: a new species forms quickly (often in a small, isolated population), then stays much the same for a long period. Both patterns are seen; rapid change follows environmental shifts.
+    topic_code: "7.10"
+  - front: Why are rates of speciation and extinction uneven over time?
+    back: |
+      Rapid environmental change (new islands, climate shifts, mass extinctions that empty niches) speeds speciation by creating isolation and new selection pressures; stable environments favour stasis. Small, isolated populations change fastest because drift and selection act without gene flow.
+    topic_code: "7.10"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · reading and building cladograms from character tables and BLAST output,
+    the species concept, allopatric and sympatric speciation, polyploidy, reproductive barriers and speciation
+    rates, with spiral review of molecular clocks, the founder effect, Hardy-Weinberg, meiosis, electrophoresis
+    and mutation types. Multiple choice, select-all, true/false and numeric items are graded at once; the
+    fill-in-the-blank items are matched automatically; the two short answers and the long answer are graded by
+    your teacher against the acceptable-answer summary.
+  questions:
+    - slug: u07-w26-q01
+      type: multiple_choice
+      topic_code: "7.9"
+      source: "Biology 2e §20.2 Determining Evolutionary Relationships"
+      points: 1
+      stimulus: |
+        The table records whether each of six animals has each of six traits (1 = present, 0 = absent). The lamprey is the outgroup.
+
+        | Trait | Lamprey | Shark | Trout | Frog | Lizard | Mouse |
+        |---|---|---|---|---|---|---|
+        | Vertebral column | 1 | 1 | 1 | 1 | 1 | 1 |
+        | Jaws | 0 | 1 | 1 | 1 | 1 | 1 |
+        | Bony skeleton | 0 | 0 | 1 | 1 | 1 | 1 |
+        | Four limbs | 0 | 0 | 0 | 1 | 1 | 1 |
+        | Amniotic egg | 0 | 0 | 0 | 0 | 1 | 1 |
+        | Hair | 0 | 0 | 0 | 0 | 0 | 1 |
+
+        A cladogram built from the table by parsimony has the lamprey branching first, then the shark, then the trout, then the frog, with the lizard and the mouse forming the final pair.
+      prompt: |
+        Which two taxa are sister taxa on the cladogram, and what justifies the pairing?
+      options:
+        - "Shark and trout, because both are fish and live in water."
+        - "Lizard and mouse, because they share the most recent node: both have the amniotic egg, a derived trait no other taxon in the table has."
+        - "Frog and lizard, because they are adjacent in the table."
+        - "Lamprey and shark, because both lack a bony skeleton."
+      option_explanations:
+        - |
+          Living in water is an ancestral condition shared with the lamprey, and "fish" is not a clade: the trout shares a bony skeleton with the tetrapods that the shark lacks, so the trout is closer to the mouse than to the shark.
+        - |
+          Correct. The amniotic egg is a shared derived character present only in lizard and mouse, so they share a node that no other taxon joins. Sister taxa are read from nodes, not from position.
+        - |
+          Adjacency in a table or along the top of a tree carries no information. The frog lacks the amniotic egg, so it branches before the lizard-mouse node.
+        - |
+          Lacking a trait is not a shared derived character. Absence of a bony skeleton is the ancestral state; it cannot define a clade.
+      answer: 1
+      explanation: |
+        Clades are defined by shared derived traits, read from the rarest trait outward. Shared absences and shared ancestral traits never group taxa.
+
+    - slug: u07-w26-q02
+      type: multiple_choice
+      topic_code: "7.9"
+      source: "Biology 2e §20.2 Determining Evolutionary Relationships"
+      points: 1
+      stimulus: |
+        The table records whether each of six animals has each of six traits (1 = present, 0 = absent). The lamprey is the outgroup.
+
+        | Trait | Lamprey | Shark | Trout | Frog | Lizard | Mouse |
+        |---|---|---|---|---|---|---|
+        | Vertebral column | 1 | 1 | 1 | 1 | 1 | 1 |
+        | Jaws | 0 | 1 | 1 | 1 | 1 | 1 |
+        | Bony skeleton | 0 | 0 | 1 | 1 | 1 | 1 |
+        | Four limbs | 0 | 0 | 0 | 1 | 1 | 1 |
+        | Amniotic egg | 0 | 0 | 0 | 0 | 1 | 1 |
+        | Hair | 0 | 0 | 0 | 0 | 0 | 1 |
+
+        A cladogram built from the table by parsimony has the lamprey branching first, then the shark, then the trout, then the frog, with the lizard and the mouse forming the final pair.
+      prompt: |
+        Which trait is a shared derived character that defines the clade containing the frog, the lizard and the mouse but no other taxon in the table?
+      options:
+        - "Vertebral column"
+        - "Jaws"
+        - "Four limbs"
+        - "Hair"
+      option_explanations:
+        - |
+          Every taxon including the outgroup has a vertebral column, so it is a shared ancestral character for this table and defines no subgroup.
+        - |
+          Jaws are shared by five taxa including the shark and trout, so they define a larger clade than the one asked about.
+        - |
+          Correct. Four limbs appear in frog, lizard and mouse and in nothing else; the trait arose once in their common ancestor and marks the tetrapod clade.
+        - |
+          Hair is present only in the mouse, so it is a derived trait of one lineage and does not unite the three taxa.
+      answer: 2
+      explanation: |
+        A synapomorphy marks exactly the clade descended from the ancestor in which it arose. Too widespread and it is ancestral for the group; too narrow and it marks a smaller clade.
+
+    - slug: u07-w26-q03
+      type: multiple_choice
+      topic_code: "7.9"
+      source: "Biology 2e §20.1 Organizing Life on Earth"
+      points: 1
+      stimulus: |
+        The table records whether each of six animals has each of six traits (1 = present, 0 = absent). The lamprey is the outgroup.
+
+        | Trait | Lamprey | Shark | Trout | Frog | Lizard | Mouse |
+        |---|---|---|---|---|---|---|
+        | Vertebral column | 1 | 1 | 1 | 1 | 1 | 1 |
+        | Jaws | 0 | 1 | 1 | 1 | 1 | 1 |
+        | Bony skeleton | 0 | 0 | 1 | 1 | 1 | 1 |
+        | Four limbs | 0 | 0 | 0 | 1 | 1 | 1 |
+        | Amniotic egg | 0 | 0 | 0 | 0 | 1 | 1 |
+        | Hair | 0 | 0 | 0 | 0 | 0 | 1 |
+
+        A cladogram built from the table by parsimony has the lamprey branching first, then the shark, then the trout, then the frog, with the lizard and the mouse forming the final pair.
+      prompt: |
+        Which statement about relatedness is correct according to the cladogram?
+      options:
+        - "The trout is more closely related to the mouse than to the shark."
+        - "The shark is more closely related to the lamprey than to the trout."
+        - "The frog is equally related to the trout and to the mouse."
+        - "The lamprey is the ancestor of the other five animals."
+      option_explanations:
+        - |
+          Correct. Trout and mouse share the node marked by the bony skeleton; trout and shark share only the older node marked by jaws. The more recent common ancestor makes trout and mouse the closer pair, even though trout and shark both look like fish.
+        - |
+          The shark shares jaws, a derived trait, with the trout and everything beyond; it shares only the ancestral vertebral column with the lamprey. Shark and trout have the more recent common ancestor.
+        - |
+          The frog shares the four-limb node with the mouse and only the older bony-skeleton node with the trout, so the frog is more closely related to the mouse.
+        - |
+          The lamprey is a living tip, the basal taxon; it has evolved for as long as every other tip. Ancestors sit at nodes, not at the ends of branches.
+      answer: 0
+      explanation: |
+        Relatedness is recency of common ancestry, read from nodes. Appearance (two "fish") misleads precisely where a shared trait is ancestral rather than derived.
+
+    - slug: u07-w26-q04
+      type: multiple_choice
+      topic_code: "7.9"
+      source: "Biology 2e §20.2 Determining Evolutionary Relationships"
+      points: 1
+      stimulus: |
+        The table records whether each of six animals has each of six traits (1 = present, 0 = absent). The lamprey is the outgroup.
+
+        | Trait | Lamprey | Shark | Trout | Frog | Lizard | Mouse |
+        |---|---|---|---|---|---|---|
+        | Vertebral column | 1 | 1 | 1 | 1 | 1 | 1 |
+        | Jaws | 0 | 1 | 1 | 1 | 1 | 1 |
+        | Bony skeleton | 0 | 0 | 1 | 1 | 1 | 1 |
+        | Four limbs | 0 | 0 | 0 | 1 | 1 | 1 |
+        | Amniotic egg | 0 | 0 | 0 | 0 | 1 | 1 |
+        | Hair | 0 | 0 | 0 | 0 | 0 | 1 |
+
+        A cladogram built from the table by parsimony has the lamprey branching first, then the shark, then the trout, then the frog, with the lizard and the mouse forming the final pair.
+      prompt: |
+        A student proposes a different tree in which the shark and the trout are sister taxa forming a "fish" clade, with the four-limbed animals as their sister group. Why does parsimony reject this tree in favour of the one described?
+      options:
+        - "Because fish are not real animals and cannot form a clade."
+        - "Because the student's tree requires the bony skeleton to have evolved twice (or to have evolved once and then been lost in the shark), whereas the described tree needs each trait to arise only once."
+        - "Because the shark has more traits than the lamprey."
+        - "Because sister taxa must always be the two taxa with the most traits."
+      option_explanations:
+        - |
+          Groups are judged by descent, not by whether the organisms are real. The problem with "fish" is that it leaves out the tetrapods, which descend from the same bony ancestor; it is paraphyletic.
+        - |
+          Correct. In the described tree every derived trait arises exactly once (six changes). Putting the shark beside the trout forces an extra event for the bony skeleton, so the tree is less parsimonious and is rejected.
+        - |
+          Trait counts do not decide trees; the pattern of which traits are shared does. The shark's two traits are both shared with all the taxa beyond it.
+        - |
+          Sister taxa are the pair sharing the most recent node, which parsimony identifies by the rarest shared derived trait, not by counting traits.
+      answer: 1
+      explanation: |
+        Parsimony picks the tree with the fewest evolutionary changes. The test for any proposed grouping is to count how many times each trait must arise or vanish.
+
+    - slug: u07-w26-q05
+      type: numeric
+      topic_code: "7.9"
+      source: "Biology 2e §20.1 Organizing Life on Earth"
+      points: 1
+      stimulus: |
+        The table records whether each of six animals has each of six traits (1 = present, 0 = absent). The lamprey is the outgroup.
+
+        | Trait | Lamprey | Shark | Trout | Frog | Lizard | Mouse |
+        |---|---|---|---|---|---|---|
+        | Vertebral column | 1 | 1 | 1 | 1 | 1 | 1 |
+        | Jaws | 0 | 1 | 1 | 1 | 1 | 1 |
+        | Bony skeleton | 0 | 0 | 1 | 1 | 1 | 1 |
+        | Four limbs | 0 | 0 | 0 | 1 | 1 | 1 |
+        | Amniotic egg | 0 | 0 | 0 | 0 | 1 | 1 |
+        | Hair | 0 | 0 | 0 | 0 | 0 | 1 |
+
+        A cladogram built from the table by parsimony has the lamprey branching first, then the shark, then the trout, then the frog, with the lizard and the mouse forming the final pair.
+      prompt: |
+        How many branch points (nodes) does the fully resolved cladogram of these six taxa contain? Give a whole number.
+      answer: { value: 5, tolerance: 0 }
+      explanation: |
+        A fully resolved (bifurcating) tree of n taxa has n − 1 nodes: each node splits one lineage into two, and it takes five splits to go from one root lineage to six tips. Here they are the root (the lamprey splitting from all the rest), then the node each new trait leads to: jaws (shark splits from the bony fishes and tetrapods), bony skeleton (trout splits from the tetrapods), four limbs (frog splits from the amniotes) and amniotic egg (the final lizard-mouse split). Hair marks only the mouse's own branch, so it adds no node. A polytomy would reduce the count, which is why it signals unresolved relationships.
+
+    - slug: u07-w26-q06
+      type: multiple_choice
+      topic_code: "7.9"
+      source: "general knowledge"
+      points: 1
+      stimulus: |
+        A student sequences a 600-nucleotide region of a gene from an unidentified reptile and submits it to BLAST. The top hits are shown.
+
+        | Species in database | Percent identity | E-value | Alignment length (nucleotides) |
+        |---|---|---|---|
+        | Komodo dragon | 98 | 0.0 | 600 |
+        | Green iguana | 93 | 1e-150 | 598 |
+        | American alligator | 84 | 1e-90 | 590 |
+        | Chicken | 83 | 1e-85 | 585 |
+        | Mouse | 76 | 1e-40 | 560 |
+      prompt: |
+        Which species in the table is the closest relative of the unknown reptile, and which features of the output support the choice?
+      options:
+        - "The mouse, because it has the smallest E-value exponent (−40)."
+        - "The Komodo dragon, because it has the highest percent identity and the lowest E-value over the full alignment length."
+        - "The chicken, because birds are reptiles."
+        - "The green iguana, because 93% identity is the typical value for members of one species."
+      option_explanations:
+        - |
+          An E-value of 1e-40 is the largest in the table (a less significant match than 1e-150 or 0.0). Smaller E-values are better, and −40 is the smallest exponent in magnitude.
+        - |
+          Correct. Ninety-eight percent identity over all 600 bases with an E-value of 0.0 is the strongest match possible; the ranking of hits by identity and E-value is the ranking of relatedness.
+        - |
+          Birds do nest within reptiles on the tree, but the chicken shows only 83% identity; relatedness is read from the data, not from a group name.
+        - |
+          There is no fixed identity threshold for a species, and 93% is clearly below the 98% of the top hit. The iguana is the second-closest relative in the table.
+      answer: 1
+      explanation: |
+        BLAST ranks matches by how unlikely they are to occur by chance (E-value) and how similar they are (percent identity). The top hit over a full-length alignment is the best estimate of the nearest relative in the database.
+
+    - slug: u07-w26-q07
+      type: multiple_choice
+      topic_code: "7.9"
+      source: "general knowledge"
+      points: 1
+      stimulus: |
+        A student sequences a 600-nucleotide region of a gene from an unidentified reptile and submits it to BLAST. The top hits are shown.
+
+        | Species in database | Percent identity | E-value | Alignment length (nucleotides) |
+        |---|---|---|---|
+        | Komodo dragon | 98 | 0.0 | 600 |
+        | Green iguana | 93 | 1e-150 | 598 |
+        | American alligator | 84 | 1e-90 | 590 |
+        | Chicken | 83 | 1e-85 | 585 |
+        | Mouse | 76 | 1e-40 | 560 |
+      prompt: |
+        What does the E-value of 1e-90 for the alligator alignment mean?
+      options:
+        - "The alligator sequence is 90% identical to the query."
+        - "About 1 × 10⁻⁹⁰ matches this good would be expected by chance in a database of this size, so the match is essentially certain to reflect real similarity."
+        - "There is a 90% probability that the alligator is the closest relative."
+        - "The alignment contains 90 mismatched bases."
+      option_explanations:
+        - |
+          Percent identity is a separate column (84% for the alligator). The E-value is not a percentage of anything.
+        - |
+          Correct. The E-value is the expected number of chance hits of equal or better score; a value of 1e-90 means the similarity is far beyond what random sequences produce, so it is evidence of shared ancestry.
+        - |
+          E-values are not probabilities that a hit is the closest relative; they measure how unlikely the alignment is to be chance. Relatedness is judged by comparing hits.
+        - |
+          Mismatches are given by identity and length: 16% of 590 is about 94 mismatches. The E-value is a statistic, not a count.
+      answer: 1
+      explanation: |
+        E for expectation: how many hits this good chance alone would give. Tiny means significant; near 1 means noise. It is the molecular equivalent of a null hypothesis.
+
+    - slug: u07-w26-q08
+      type: multiple_choice
+      topic_code: "7.9"
+      source: "general knowledge"
+      points: 1
+      stimulus: |
+        A student sequences a 600-nucleotide region of a gene from an unidentified reptile and submits it to BLAST. The top hits are shown.
+
+        | Species in database | Percent identity | E-value | Alignment length (nucleotides) |
+        |---|---|---|---|
+        | Komodo dragon | 98 | 0.0 | 600 |
+        | Green iguana | 93 | 1e-150 | 598 |
+        | American alligator | 84 | 1e-90 | 590 |
+        | Chicken | 83 | 1e-85 | 585 |
+        | Mouse | 76 | 1e-40 | 560 |
+      prompt: |
+        Which placement of the unknown reptile on a cladogram is best supported by the BLAST output?
+      options:
+        - "In a clade with the Komodo dragon and the green iguana (lizards), with the alligator and chicken as the sister group to that clade, and the mouse branching earlier."
+        - "As the sister taxon of the chicken, because birds and reptiles are the same group."
+        - "In a clade with the mouse, because mammals and reptiles are both amniotes."
+        - "As the outgroup to all five species, because it was not previously in the database."
+      option_explanations:
+        - |
+          Correct. Identities fall into three tiers: lizards (98, 93), then alligator and chicken together (84, 83), then the mouse (76). That nested pattern is a lizard clade, a crocodile-bird sister group, and a mammal outgroup, which matches the known amniote tree.
+        - |
+          The chicken is only the fourth-best hit. Birds are reptiles in the phylogenetic sense, but the data place the unknown far closer to lizards.
+        - |
+          The mouse has the lowest identity of all, so it shares the oldest common ancestor with the unknown. Both being amniotes is a shared ancestral feature, not grounds for a close pairing.
+        - |
+          Absence from a database is not an evolutionary property. The outgroup is the taxon with the deepest split, which the data identify as the mouse.
+      answer: 0
+      explanation: |
+        Cluster the identities into tiers and the tiers become nested clades. AP Investigation 3 asks exactly this: place an unknown gene on a cladogram from its BLAST hits.
+
+    - slug: u07-w26-q09
+      type: multiple_choice
+      topic_code: "7.10"
+      source: "Biology 2e §18.2 Formation of New Species"
+      points: 1
+      prompt: |
+        A diploid plant with 2n = 6 produces, through a meiotic error, gametes that are diploid (n = 6 instead of 3). Two such gametes fuse to form a tetraploid (4n = 12) individual that is fertile when crossed with other tetraploids but produces sterile offspring when crossed with the original diploids. Why is this considered speciation, and of what kind?
+      options:
+        - "Allopatric speciation, because the tetraploid is geographically isolated from its parents."
+        - "Sympatric speciation, because the tetraploid is reproductively isolated from the parent species in the same place: tetraploid-diploid hybrids are triploid and cannot pair chromosomes in meiosis."
+        - "It is not speciation, because the tetraploid plants look the same as the diploids."
+        - "It is not speciation, because speciation requires millions of years."
+      option_explanations:
+        - |
+          No barrier separates the plants; they grow side by side. Geography has nothing to do with this isolation.
+        - |
+          Correct. Reproductive isolation is the criterion of the biological species concept, and the triploid hybrids' sterility provides it in a single generation, without any geographic separation. This is autopolyploidy, common in plants.
+        - |
+          Appearance is not the criterion; interbreeding is. Two populations that cannot produce fertile offspring together are separate species however similar they look.
+        - |
+          Speciation usually takes many generations, but polyploidy is the exception: the barrier appears in one step. More than half of plant species have a polyploid event in their ancestry.
+      answer: 1
+      explanation: |
+        Polyploidy is instant sympatric speciation. Count the chromosome sets in the hybrid: an odd number cannot pair in meiosis, so the hybrid is sterile and the barrier is complete.
+
+    - slug: u07-w26-q10
+      type: multiple_choice
+      topic_code: "7.10"
+      source: "Biology 2e §18.2 Formation of New Species"
+      points: 1
+      prompt: |
+        Lake Apoyeque in Nicaragua is a crater lake about 1,800 years old that was colonised by a single founder population of cichlid fish about 100 years ago. Today it holds two groups with different jaw shapes and diets, one feeding on insects near the surface and one on snails near the bottom, and the fish tend to mate within their own group. Which description of this situation is most accurate?
+      options:
+        - "Completed allopatric speciation, because the two groups live at different depths."
+        - "Early sympatric speciation: within one lake, specialisation on different resources plus assortative mating is reducing gene flow between the groups."
+        - "Two species that colonised the lake separately and never interbred."
+        - "Genetic drift, because the lake is small and the fish are few."
+      option_explanations:
+        - |
+          Different depths within one lake are not a geographic barrier; the fish can and sometimes do meet. The isolation is ecological and behavioural, and it is incomplete, so speciation is not finished.
+        - |
+          Correct. One founder population, no barrier, divergent selection on jaw shape for two diets, and mating preference within groups: the ingredients of sympatric speciation, caught in progress.
+        - |
+          The lake was colonised once, by a single population; the two groups have arisen from it within the lake, which is why the case is studied.
+        - |
+          Drift is random with respect to phenotype; it would not produce two groups each matched to a food source. The pattern shows selection, not chance.
+      answer: 1
+      explanation: |
+        Sympatric speciation needs disruptive selection (two resources, intermediates do worse) and something that cuts gene flow between the two types, usually mating preference. The cichlids show both.
+
+    - slug: u07-w26-q11
+      type: multiple_choice
+      topic_code: "7.8"
+      source: "general knowledge"
+      points: 1
+      prompt: |
+        Review. A researcher wants to build a tree of ten closely related bird species that diverged within the last million years. Which kind of sequence would be the most informative, and why?
+      options:
+        - "Ribosomal RNA genes, because they are present in every organism."
+        - "A rapidly evolving region such as the mitochondrial control region, because a slow gene would have accumulated too few differences in a million years to separate the species."
+        - "The cytochrome c gene, because it gives the correct answer for humans and yeast."
+        - "Any gene, because all genes evolve at the same rate."
+      option_explanations:
+        - |
+          rRNA is universal but changes so slowly that ten species a million years apart might show no differences at all; it is the right choice for deep splits, not shallow ones.
+        - |
+          Correct. The gene must tick fast enough to register differences over the timescale in question. Fast-evolving regions resolve recent splits; slow ones resolve ancient ones.
+        - |
+          Cytochrome c works for deep divergences because it changes slowly; between birds that diverged recently it would be nearly identical and uninformative.
+        - |
+          Genes evolve at very different rates depending on how constrained their function is; that difference is exactly what lets you choose a clock for a given depth.
+      answer: 1
+      explanation: |
+        Match the clock to the question. Deep tree, slow gene; recent radiation, fast gene. A clock that has not ticked cannot tell time.
+
+    - slug: u07-w26-q12
+      type: multiple_choice
+      topic_code: "7.4"
+      source: "Biology 2e §18.2 Formation of New Species"
+      points: 1
+      prompt: |
+        Review. A storm carries a dozen finches from a mainland population to a remote island. Which evolutionary force acts on the new island population first, before any selection has occurred, and what is its immediate effect?
+      options:
+        - "Natural selection, which immediately favours the finches best suited to the island."
+        - "The founder effect, a form of genetic drift: the dozen colonists carry an unrepresentative sample of the mainland gene pool, so allele frequencies differ from the start."
+        - "Gene flow, which continues between the island and the mainland."
+        - "Mutation, which supplies the new alleles the island requires."
+      option_explanations:
+        - |
+          Selection will act, but it needs generations of differential reproduction. The gene pool is already different the moment the colonists land, which is drift, not selection.
+        - |
+          Correct. Twelve birds cannot carry every allele at mainland frequencies; rare alleles may be absent or over-represented. This chance difference is the founder effect and it starts allopatric divergence.
+        - |
+          A remote island reached by one storm has essentially no gene flow with the mainland; the absence of gene flow is what allows the island population to diverge.
+        - |
+          Mutation does not respond to need and is far too rare to change the new population quickly; the immediate change comes from who happened to arrive.
+      answer: 1
+      explanation: |
+        Allopatric speciation often begins with a founder event: isolation plus a small, non-random starting gene pool. Adaptive radiation on islands grows from exactly this.
+
+    - slug: u07-w26-q13
+      type: multiple_choice
+      topic_code: "5.1"
+      source: "Biology 2e §11.1 The Process of Meiosis"
+      points: 1
+      prompt: |
+        Review. A polyploid plant can arise when a parent produces diploid gametes. Which meiotic failure produces a gamete with the full diploid chromosome number?
+      options:
+        - "Failure of DNA replication in S phase before meiosis."
+        - "Failure of homologous chromosomes or sister chromatids to separate (nondisjunction) affecting all chromosomes, so one product receives every chromosome."
+        - "Crossing over between non-sister chromatids in prophase I."
+        - "Independent assortment of homologous pairs at metaphase I."
+      option_explanations:
+        - |
+          Without replication there would be fewer chromatids, not more; replication failure would halt the cycle rather than double the gamete's chromosome number.
+        - |
+          Correct. If the spindle fails and no chromosomes are pulled apart, a single product keeps the whole set. Such unreduced gametes, fusing with each other or with normal gametes, give polyploid or triploid offspring.
+        - |
+          Crossing over exchanges segments between homologues and changes allele combinations; it does not change the number of chromosomes in a gamete.
+        - |
+          Independent assortment distributes one member of each pair to each gamete; it shuffles maternal and paternal chromosomes but leaves the count at n.
+      answer: 1
+      explanation: |
+        Polyploidy is a meiosis story: an unreduced gamete carries 2n, and the chromosome arithmetic of the offspring decides whether it is fertile (even sets) or sterile (odd sets).
+
+    - slug: u07-w26-q14
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "Biology 2e §17.1 Biotechnology"
+      points: 1
+      prompt: |
+        Review. Before sequencing, a student checks a PCR product by gel electrophoresis. Which statement correctly describes what the gel shows and why?
+      options:
+        - "DNA migrates toward the negative electrode, with larger fragments moving farther."
+        - "DNA, being negatively charged, migrates toward the positive electrode, and smaller fragments move farther through the gel's pores in a given time."
+        - "DNA fragments separate by their base sequence, with A-T-rich fragments moving farther."
+        - "The gel amplifies the DNA so that a single band becomes visible."
+      option_explanations:
+        - |
+          The phosphate backbone makes DNA negative, so it moves toward the positive electrode; and large fragments are slowed by the gel, so they travel less far, not more.
+        - |
+          Correct. Electrophoresis separates by size: a single sharp band of the expected length confirms that the PCR amplified one product, which can then be sequenced and compared with other species by BLAST.
+        - |
+          Standard gels separate by length, not by composition; two fragments of the same size run together whatever their sequence.
+        - |
+          Amplification is PCR's job; a gel only separates and displays what is already there. Bands are visible because of a dye that binds DNA.
+      answer: 1
+      explanation: |
+        The molecular data behind every cladogram pass through PCR, a gel and a sequencer. Knowing what each step does is part of reading the tree critically.
+
+    - slug: u07-w26-q15
+      type: multiple_choice
+      topic_code: "7.5"
+      source: "Biology 2e §19.1 Population Evolution"
+      points: 1
+      prompt: |
+        Review. On an island, 500 lizards are counted and 20 of them show a recessive colour pattern. Assuming Hardy-Weinberg equilibrium, what is the frequency of the dominant allele?
+      options:
+        - "0.04"
+        - "0.20"
+        - "0.80"
+        - "0.96"
+      option_explanations:
+        - |
+          0.04 is q², the fraction of recessive homozygotes (20/500). It is the starting point, not the dominant allele frequency.
+        - |
+          0.20 is q, the recessive allele frequency (√0.04). The question asks for p.
+        - |
+          Correct. q² = 20/500 = 0.04, so q = 0.2 and p = 1 − q = 0.8. The heterozygotes would be 2pq = 0.32, or about 160 lizards.
+        - |
+          0.96 is 1 − q², the fraction of lizards showing the dominant phenotype, which includes both homozygotes and heterozygotes; it is not an allele frequency.
+      answer: 2
+      explanation: |
+        Recessive phenotype gives q²; square root gives q; subtract from 1 for p. Island populations founded by few colonists are the ones most likely to violate the equilibrium assumption, so state it when you use it.
+
+    - slug: u07-w26-q16
+      type: multi_select
+      topic_code: "7.10"
+      source: "Biology 2e §18.2 Formation of New Species"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Select every example that is a prezygotic reproductive barrier.
+      options:
+        - "Two frog species in the same ponds breed in different months."
+        - "A mule, the offspring of a horse and a donkey, is sterile."
+        - "Female fireflies respond only to the flash pattern of males of their own species."
+        - "Sperm of one sea-urchin species cannot bind the egg surface proteins of another."
+        - "Hybrid embryos between two species of plant die before germinating."
+      option_explanations:
+        - |
+          Correct. Temporal isolation prevents mating from happening at all, so no zygote is formed; it is prezygotic.
+        - |
+          Hybrid sterility is a postzygotic barrier: fertilisation succeeded and a hybrid developed, but it cannot reproduce.
+        - |
+          Correct. Behavioural isolation through courtship signals stops mating between species before fertilisation.
+        - |
+          Correct. Gametic isolation blocks fertilisation itself, which is the last prezygotic step.
+        - |
+          Hybrid inviability is postzygotic: a zygote formed but the embryo failed to develop.
+      answer: [0, 2, 3]
+      explanation: |
+        The dividing line is the zygote. Anything that stops mating or fertilisation (habitat, time, behaviour, mechanics, gametes) is prezygotic; inviability and sterility of the hybrid are postzygotic.
+
+    - slug: u07-w26-q17
+      type: multi_select
+      topic_code: "7.9"
+      source: "Biology 2e §20.1 Organizing Life on Earth"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about reading a phylogenetic tree are correct? Select all that apply.
+      options:
+        - "Rotating the two branches at any node does not change the relationships the tree shows."
+        - "Two taxa drawn next to each other along the top of the tree are always the most closely related."
+        - "A node represents the most recent common ancestor of the lineages beyond it."
+        - "Unless a scale is given, the length of a branch does not indicate how much time has passed."
+        - "The taxon drawn at the far left is the ancestor of the taxa to its right."
+      option_explanations:
+        - |
+          Correct. A node is a hinge; swapping its branches changes the picture, not a single ancestor-descendant relationship.
+        - |
+          Adjacency is an artefact of drawing. After rotating a node, a taxon's neighbour changes while its relatives do not; relatedness is read from shared nodes.
+        - |
+          Correct. Each branch point is a lineage splitting; everything beyond it descends from the ancestor at that point.
+        - |
+          Correct. In a cladogram only branching order carries information; branch length means time or change only when the tree is explicitly drawn to scale.
+        - |
+          Every tip is a living (or terminal) taxon that has evolved for the same length of time. Ancestors are at the nodes, never at the tips; a basal taxon is not an ancestor.
+      answer: [0, 2, 3]
+      explanation: |
+        Three habits prevent most tree-reading errors: find nodes rather than neighbours, remember that tips are not ancestors, and ignore branch length unless there is a scale.
+
+    - slug: u07-w26-q18
+      type: true_false
+      topic_code: "7.9"
+      source: "Biology 2e §20.1 Organizing Life on Earth"
+      points: 1
+      prompt: |
+        True or false: On a cladogram, a taxon connected to the rest of the tree by a longer branch has been evolving for a longer time than a taxon with a short branch.
+      answer: false
+      explanation: |
+        False. All living tips have been evolving for the same time, since the root. In a cladogram branch lengths carry no information at all; only the branching order does. In a phylogram drawn to scale, length represents the amount of genetic change (or time, if the tree is calibrated), which is stated on the figure. A long branch on a scaled tree means more change in that lineage, not a longer existence.
+
+    - slug: u07-w26-q19
+      type: true_false
+      topic_code: "5.2"
+      source: "Biology 2e §11.1 The Process of Meiosis"
+      points: 1
+      prompt: |
+        Review. True or false: In an organism with three pairs of homologous chromosomes, independent assortment at metaphase I alone can produce eight genetically different kinds of gametes.
+      answer: true
+      explanation: |
+        True. Each pair can orient in two ways, independently of the others, so 2³ = 8 combinations of maternal and paternal chromosomes are possible. Crossing over multiplies the number further. This shuffling is the source of the combinations that random mating draws from, and the variation that allows populations to diverge once gene flow between them stops.
+
+    - slug: u07-w26-q20
+      type: fill_blank
+      topic_code: "7.10"
+      source: "Biology 2e §18.2 Formation of New Species"
+      points: 1
+      prompt: |
+        When a river changes course and divides a population of ground squirrels so that the two halves evolve separately until they can no longer interbreed, the process is called ____ speciation.
+      answer: ["allopatric", "geographic"]
+      explanation: |
+        Allopatric ("other homeland") speciation begins with a geographic barrier that stops gene flow; drift and different selection pressures then drive the halves apart. Sympatric speciation happens without a barrier, within one area, so "sympatric" is not accepted.
+
+    - slug: u07-w26-q21
+      type: fill_blank
+      topic_code: "6.7"
+      source: "Biology 2e §14.6 DNA Repair"
+      points: 1
+      prompt: |
+        Review. A substitution that converts a codon for an amino acid into a stop codon, producing a truncated protein, is called a ____ mutation.
+      answer: ["nonsense"]
+      explanation: |
+        A nonsense mutation ends translation early. It usually destroys the protein's function, so such alleles are strongly selected against and rarely persist in populations; by contrast silent mutations accumulate freely and are what molecular clocks count. "Missense" changes one amino acid to another and "frameshift" needs an insertion or deletion, so neither is accepted.
+
+    - slug: u07-w26-q22
+      type: numeric
+      topic_code: "7.10"
+      source: "Biology 2e §18.2 Formation of New Species"
+      points: 1
+      prompt: |
+        A plant species with 2n = 6 chromosomes hybridises with a species with 2n = 10. The sterile hybrid later undergoes a doubling of its whole chromosome set, producing a fertile allopolyploid. How many chromosomes does each body cell of the fertile allopolyploid contain? Give a whole number.
+      answer: { value: 16, tolerance: 0 }
+      explanation: |
+        The hybrid receives a haploid set from each parent: 3 + 5 = 8 chromosomes, with no homologous partners, so it cannot pair them in meiosis and is sterile. Doubling gives 16 chromosomes, every one now with a partner, so meiosis works and the plant is fertile. It cannot breed with either parent species (16 against 6 or 10 would give unpairable hybrids), so it is a new species in one step; wheat and cotton arose this way.
+
+    - slug: u07-w26-q23
+      type: short_answer
+      topic_code: "7.9"
+      source: "Biology 2e §20.2 Determining Evolutionary Relationships"
+      points: 4
+      prompt: |
+        Visual representation. Four plants were scored for three traits. The moss is the outgroup.
+
+        | Trait | Moss | Fern | Pine | Rose |
+        |---|---|---|---|---|
+        | Vascular tissue | 0 | 1 | 1 | 1 |
+        | Seeds | 0 | 0 | 1 | 1 |
+        | Flowers | 0 | 0 | 0 | 1 |
+
+        (a) Describe in words the cladogram that parsimony supports, naming the order of branching and the sister taxa. (b) Identify the shared derived character that defines the clade containing the pine and the rose. (c) Explain why "non-flowering plants" (moss, fern and pine) does not form a clade, and name the kind of group it is.
+      answer: |
+        Moss branches first, then fern, then pine and rose as sister taxa (a nested series: vascular tissue arises after the moss split, seeds after the fern split, flowers on the rose lineage only). Seeds are the shared derived character uniting pine and rose. Non-flowering plants share only the absence of a trait; the group leaves out the rose, which descends from the same ancestor as the pine, so it is paraphyletic (an ancestor and some but not all descendants).
+      explanation: |
+        Four points.
+
+        (a) 2 pts: 1 pt for the correct branching order: moss (outgroup) first, then fern, then the pine-rose split last; 1 pt for naming pine and rose as sister taxa, or for stating that each trait arises once along the sequence (vascular tissue before the fern branch, seeds before the pine-rose node, flowers on the rose branch). A tree placing the fern with the pine or the moss with the fern earns 1 pt at most.
+
+        (b) 1 pt: seeds (present in pine and rose, absent in fern and moss). Naming vascular tissue (too widespread, shared with the fern) or flowers (rose only) earns nothing.
+
+        (c) 1 pt: the group is defined by lacking flowers, and absence of a derived trait does not indicate shared ancestry; moreover the rose descends from the same seed-plant ancestor as the pine, so the group omits one descendant of that ancestor and is paraphyletic. Accept "it includes the ancestor but not all its descendants". Calling it polyphyletic earns nothing.
+
+        Zero: reading the table left to right as the tree without reference to shared derived traits, or defining clades by shared absences.
+
+    - slug: u07-w26-q24
+      type: short_answer
+      topic_code: "7.10"
+      source: "Biology 2e §18.2 Formation of New Species"
+      points: 4
+      prompt: |
+        Analyze data. Two frog species share the same ponds. Researchers recorded the weeks in which breeding calls were heard and the outcome of forced laboratory crosses.
+
+        | Species | Breeding period | Lab crosses with the other species: eggs fertilised | Lab crosses: tadpoles surviving to adulthood |
+        |---|---|---|---|
+        | Rana aurora | January to March | 85% | 2% |
+        | Rana boylii | March to May | 85% | 2% |
+
+        (a) Identify the reproductive barrier that keeps the two species separate in nature and classify it as prezygotic or postzygotic. (b) Use the laboratory data to identify a second barrier and classify it. (c) Explain why both barriers together mean the two populations are separate species under the biological species concept, and predict what would happen to gene flow between them if a warming climate shifted both breeding periods to overlap completely.
+      answer: |
+        Temporal isolation (different breeding months), prezygotic. The lab crosses show hybrid inviability: fertilisation works but almost no hybrids survive, a postzygotic barrier. Members of the two groups do not interbreed in nature and cannot produce viable offspring when forced to, so they are reproductively isolated and therefore separate species. If breeding periods overlapped completely, matings between species would occur but the hybrids would still die, so gene flow would remain near zero, and selection against wasted matings would favour stronger behavioural barriers (reinforcement).
+      explanation: |
+        Four points.
+
+        (a) 1 pt: temporal (seasonal) isolation, prezygotic: the one-month overlap means the species rarely mate.
+
+        (b) 1 pt: hybrid inviability, postzygotic: 85% of eggs are fertilised, so gametes are compatible, but only 2% of hybrids reach adulthood. Calling it hybrid sterility (no data on hybrid fertility) earns nothing; "gametic isolation" contradicts the 85% fertilisation.
+
+        (c) 2 pts: 1 pt for the species argument: the biological species concept defines species by reproductive isolation, and these populations neither interbreed in nature nor produce viable offspring when they do, so they are distinct species; 1 pt for the prediction with justification: complete overlap would remove the temporal barrier, but the postzygotic barrier would still prevent almost all gene flow (hybrids die before reproducing), and because hybrid matings waste gametes, selection would favour mate recognition or other prezygotic barriers (reinforcement). Accept a prediction that a small amount of gene flow could occur through the 2% survivors, provided it notes that the postzygotic barrier keeps it very low.
+
+        Zero: answers that treat the two as one species because they can be crossed in the laboratory, or that predict the species will merge immediately if breeding seasons overlap.
+
+    - slug: u07-w26-q25
+      type: long_answer
+      topic_code: "7.10"
+      source: "general knowledge"
+      points: 8
+      prompt: |
+        Interpreting and evaluating experimental results. A small island was colonised by a single species of lizard about 10,000 years ago, according to a molecular clock. Today the island has two forms. Researchers measured limb length and perch use, then tested mate choice in the laboratory by giving a female a choice between a male of her own form and a male of the other form, and finally crossed the forms.
+
+        | Measure | Ground form (n = 60) | Tree form (n = 60) |
+        |---|---|---|
+        | Mean hindlimb length (mm) | 31.2 | 24.5 |
+        | Standard error (mm) | 0.4 | 0.4 |
+        | Perches on the ground / on narrow branches (%) | 92 / 8 | 11 / 89 |
+        | Females choosing a male of their own form (%) | 88 | 85 |
+        | Crosses between forms: eggs hatching (%) | 90 | 90 |
+        | Hybrid offspring surviving to breed (%) | 70 | 70 |
+
+        (a) Describe the pattern in limb length and perch use and state, using the standard errors, whether the limb-length difference is likely to be real.
+        (b) Explain how natural selection could have produced the two limb forms from one founding population on an island with both habitats, naming the mode of selection.
+        (c) Using the mate-choice and cross data, identify which reproductive barriers are present, classify each, and judge how complete speciation is.
+        (d) The fossil record on the island shows no intermediate limb lengths in the deposits older than 2,000 years, then both forms appearing within a few centuries. State which model of the rate of speciation this pattern fits better, and explain why the island setting makes that model plausible.
+      answer: |
+        The ground form has longer hindlimbs (31.2 vs 24.5 mm) and perches on the ground; the tree form has shorter limbs and perches on branches. Intervals of ±2 SE (30.4–32.0 and 23.7–25.3) do not overlap, so the difference is real. Long limbs favour running on the ground, short limbs favour gripping narrow branches, and intermediates do neither well, so disruptive selection drove the founding population into two forms. Mate choice within forms (85–88%) is a prezygotic (behavioural) barrier; hybrids hatch and 70% survive to breed, so the postzygotic barrier is weak. Speciation is incomplete: gene flow is reduced but possible. The abrupt appearance of both forms after a long period without them fits punctuated equilibrium; small isolated island populations can change rapidly under new selection and drift.
+      explanation: |
+        Eight points.
+
+        (a) 2 pts: 1 pt for the pattern: ground form has longer hindlimbs (31.2 mm versus 24.5 mm) and mostly uses the ground (92%), tree form has shorter limbs and mostly uses narrow branches (89%); 1 pt for the standard-error reasoning: ±2 SE gives 30.4–32.0 mm and 23.7–25.3 mm, which do not overlap, so the difference is unlikely to be due to sampling chance.
+
+        (b) 2 pts: 1 pt for the mechanism: heritable variation in limb length existed in the founders; longer limbs give faster running on open ground, shorter limbs give better grip on narrow branches, so lizards at each extreme survived and reproduced better in their habitat while intermediates were poorer at both; 1 pt for naming disruptive (diversifying) selection. Directional selection in two separate populations earns the mechanism point only if the answer explains that both forms arose from one founding population on the same island.
+
+        (c) 2 pts: 1 pt for identifying behavioural (mate-choice) isolation as a prezygotic barrier that is strong but incomplete (85–88% own-form choice, so 12–15% of matings cross forms); 1 pt for using the cross data: eggs hatch (90%) and 70% of hybrids breed, so postzygotic isolation is weak or absent, and the conclusion that speciation is in progress but incomplete because gene flow between forms is reduced rather than eliminated. Accept a mention that reinforcement could strengthen the barrier if hybrids are at a disadvantage in either habitat.
+
+        (d) 2 pts: 1 pt for punctuated equilibrium: a long period of stasis followed by rapid change (both forms appearing within centuries) and then stability; 1 pt for why the island makes it plausible: a small, isolated population with no gene flow from the mainland, facing two new habitats, can respond quickly to strong selection and drift, and a founder population with limited variation can shift fast once selection begins. Accept a note that the fossil record's resolution may hide short-lived intermediates, provided the model is still identified.
+
+        Zero for a part: describing lizards as growing longer or shorter limbs to suit their perch; calling mate choice a postzygotic barrier; or claiming speciation is complete because the forms look different.

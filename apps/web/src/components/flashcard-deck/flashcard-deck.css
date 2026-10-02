@@ -1,0 +1,60 @@
+:host {
+  display: block;
+}
+.deck {
+  display: grid;
+  gap: var(--space-3);
+}
+/* app.css's .card supplies the surface, border and radius; this adds the
+ * playing-card shape and makes the whole face a flip target. */
+.card {
+  display: grid;
+  place-items: center;
+  min-height: 12rem;
+  text-align: center;
+  cursor: pointer;
+  font-size: var(--text-lg);
+}
+.card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+/* Keyed on the reflected `flipped` prop: the back sits on the page surface
+ * with an accent edge so a glance says which side is up. */
+:host([flipped]) .card {
+  background: var(--color-surface);
+  border-color: var(--color-accent);
+}
+.side {
+  justify-self: start;
+  align-self: start;
+  color: var(--color-ink-muted);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.front {
+  margin: 0;
+  font-weight: var(--font-weight-heading);
+}
+.back {
+  text-align: left;
+  width: 100%;
+}
+.hint,
+.topic,
+.keys {
+  color: var(--color-ink-muted);
+  font-size: var(--text-sm);
+  margin: 0;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+.counter {
+  min-width: 4rem;
+  text-align: center;
+}

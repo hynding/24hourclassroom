@@ -48,6 +48,8 @@ final class TaxonomyLabels
             ['value' => 'true_false', 'label' => 'True / false'],
             ['value' => 'short_answer', 'label' => 'Short answer'],
             ['value' => 'numeric', 'label' => 'Numeric'],
+            ['value' => 'fill_blank', 'label' => 'Fill in the blank'],
+            ['value' => 'long_answer', 'label' => 'Long answer'],
         ];
     }
 }
