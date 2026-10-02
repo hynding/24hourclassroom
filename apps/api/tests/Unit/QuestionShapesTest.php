@@ -110,18 +110,27 @@ test('the draft schema states the same length limits as QuestionRules', function
         ->and($rules['questions.*.explanation'])->toContain('max:'.QuestionRules::EXPLANATION_MAX);
 });
 
-test('the enum helpers partition every case', function () {
-    foreach (QuestionType::cases() as $type) {
-        // A hand-graded type must be hand-gradable; the converse is not
-        // required (fill_blank is auto-graded yet overridable).
-        if ($type->isManuallyGraded()) {
-            expect($type->allowsManualGrade())->toBeTrue($type->value);
-        }
-        if ($type->hasOptions()) {
-            expect($type->isManuallyGraded())->toBeFalse($type->value);
-        }
-    }
-
+test('the hand-grading allowlist is exactly the three written types', function () {
+    // Which of these the grader leaves null is bound in AttemptGraderTest.
     expect(array_values(array_map(fn ($t) => $t->value, array_filter(QuestionType::cases(), fn ($t) => $t->allowsManualGrade()))))
         ->toBe(['short_answer', 'fill_blank', 'long_answer']);
+});
+
+test('the generation prompt rules name every type in the right options list and the long-answer points range', function () {
+    $prompt = view('generation.system')->render();
+
+    expect(preg_match('/`options` is required for (.+?),\s+and must be omitted for ([^.]+)\./s', $prompt, $m))
+        ->toBe(1, 'options rule not found in the generation prompt');
+    $split = fn (string $list) => array_map('trim', preg_split('/,| and /', $list));
+    $required = $split($m[1]);
+    $omitted = $split($m[2]);
+
+    foreach (QuestionType::cases() as $type) {
+        expect(in_array($type->value, $type->hasOptions() ? $required : $omitted, true))->toBeTrue($type->value);
+    }
+    expect(count($required) + count($omitted))->toBe(count(QuestionType::cases()));
+
+    expect($prompt)->toContain(
+        'long_answer is always worth '.QuestionRules::LONG_ANSWER_POINTS_MIN.' to '.QuestionRules::LONG_ANSWER_POINTS_MAX.' points'
+    );
 });

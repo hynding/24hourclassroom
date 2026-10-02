@@ -54,12 +54,21 @@ final class AttemptGrader
         return 0.0;
     }
 
+    /**
+     * Case-folded, inner whitespace collapsed, and ONE trailing full stop
+     * removed together with any space before it ("polar ." == "polar").
+     * Exactly one: "polar..." is not "polar".
+     */
     public static function normalizeBlank(string $text): string
     {
         $text = mb_strtolower(trim($text));
         $text = preg_replace('/\s+/u', ' ', $text) ?? $text;
 
-        return rtrim($text, '.');
+        if (str_ends_with($text, '.')) {
+            $text = rtrim(substr($text, 0, -1));
+        }
+
+        return $text;
     }
 
     private static function scoreMultiSelect(Question $q, mixed $response): float
