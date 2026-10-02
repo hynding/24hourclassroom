@@ -5,7 +5,7 @@ import { materialsStore } from '../../services/materials-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { fileTypeLabel, formatBytes } from '../../services/format';
-import { isDeckName, isReadableText, parseDeck } from '../../services/flashcards';
+import { Flashcard, isDeckName, isReadableText, parseDeck } from '../../services/flashcards';
 
 /**
  * download_url is signed for 15 minutes from the moment the payload was
@@ -25,6 +25,13 @@ export class PageMaterial {
   @State() actionError = '';
   /** The text of a small .md/.txt upload, read for inline display; null means download-only. */
   @State() body: string | null = null;
+  /**
+   * A deck's cards, parsed ONCE when the body arrives. flashcard-deck
+   * resets to card 1 whenever it is handed a new `cards` array, so parsing
+   * in render() sent a student back to the start on every re-render of this
+   * page (an action error, `busy`, a refreshed download link).
+   */
+  @State() cards: Flashcard[] | null = null;
   @State() reading = false;
 
   /**
@@ -76,7 +83,12 @@ export class PageMaterial {
     try {
       const res = await fetch(material.download_url, { credentials: 'omit' });
       if (res.ok) {
-        this.body = await res.text();
+        const text = await res.text();
+        if (isDeckName(material.original_name)) {
+          this.cards = parseDeck(text).cards;
+        } else {
+          this.body = text;
+        }
       }
     } catch {
       this.body = null;
@@ -89,15 +101,15 @@ export class PageMaterial {
     if (this.reading) {
       return <p class="meta" data-testid="reading">Loading…</p>;
     }
-    if (this.body === null) {
-      return null;
-    }
-    if (isDeckName(m.original_name)) {
+    if (this.cards !== null) {
       return (
         <section class="reader" aria-label="Flashcards">
-          <flashcard-deck cards={parseDeck(this.body).cards}></flashcard-deck>
+          <flashcard-deck cards={this.cards}></flashcard-deck>
         </section>
       );
+    }
+    if (this.body === null) {
+      return null;
     }
     return (
       <article class="reader">

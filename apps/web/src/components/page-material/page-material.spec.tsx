@@ -262,6 +262,26 @@ describe('page-material', () => {
       expect(page.root.shadowRoot.querySelector('article.reader')).toBeNull();
     });
 
+    it('keeps the student\'s place in the deck when the page re-renders', async () => {
+      fetchMock.mockResolvedValue(textResponse('# Deck\n## Q1\nA1\n## Q2\nA2\n## Q3\nA3'));
+      const page = await mount(view({ original_name: 'unit.flashcards.md', mime_type: 'text/markdown', size_bytes: 400 }));
+      await settle(page);
+
+      const deck = page.root.shadowRoot.querySelector('flashcard-deck');
+      const next = Array.from(deck.shadowRoot.querySelectorAll('button')).find((b) => b.textContent === 'Next');
+      next.click();
+      await page.waitForChanges();
+      expect(deck.shadowRoot.querySelector('.counter').textContent).toBe('2 / 3');
+
+      // Any state change on the page (an action error, busy, a refreshed
+      // payload) re-renders it; the deck must receive the same cards and
+      // stay where the student left it.
+      (page.rootInstance as PageMaterial).actionError = 'Something went wrong.';
+      await page.waitForChanges();
+      expect(page.root.shadowRoot.querySelector('flashcard-deck')).toBe(deck);
+      expect(deck.shadowRoot.querySelector('.counter').textContent).toBe('2 / 3');
+    });
+
     it('skips the fetch for text over the size cap', async () => {
       const page = await mount(view({ original_name: 'notes.txt', mime_type: 'text/plain', size_bytes: 262145 }));
       await settle(page);
