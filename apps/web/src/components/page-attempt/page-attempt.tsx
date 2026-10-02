@@ -220,7 +220,11 @@ export class PageAttempt {
 
   /** Each option with the student's pick and the correct one marked, plus its rationale when written. */
   private renderExplainedOptions(q: AttemptQuestion, answer: unknown) {
-    return (
+    // No option carries "(your answer)" when nothing was picked, so say so
+    // in words; otherwise a skipped item reads as if it was answered.
+    const skipped = q.response === null || q.response === undefined || (Array.isArray(q.response) && q.response.length === 0);
+    return [
+      skipped && <p>Your answer: <strong>{formatResponse(q, null)}</strong></p>,
       <ol class="options explained">
         {q.options.map((opt, i) => {
           const picked = optionChosen(q.response, i);
@@ -234,8 +238,8 @@ export class PageAttempt {
             </li>
           );
         })}
-      </ol>
-    );
+      </ol>,
+    ];
   }
 
   private renderAnswerLines(q: AttemptQuestion, answer: unknown) {

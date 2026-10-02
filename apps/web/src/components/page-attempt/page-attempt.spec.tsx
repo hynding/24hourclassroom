@@ -139,6 +139,26 @@ describe('page-attempt', () => {
     expect(root.textContent).toContain('Model answer: Model.');
   });
 
+  it('says "(skipped)" on an unanswered item whose options carry rationales', async () => {
+    const submitted = { ...open, submitted_at: '2026-09-02', score: '0.00', max_score: '3.00', ungraded_count: 0, questions: [
+      { ...open.questions[0], response: null, answer: 1, option_explanations: ['The nucleus holds DNA.', 'Mitochondria make ATP.'], answer_id: 1, awarded: '0.00', graded_answer: { answer: 1, points: 1 } },
+      { ...open.questions[1], response: [], answer: [0, 2], option_explanations: ['A.', 'B.', 'C.'], answer_id: 2, awarded: '0.00', graded_answer: { answer: [0, 2], points: 2 } },
+    ] };
+    submitAttempt.mockResolvedValue(submitted);
+    const page = await mount(open);
+    window.confirm = () => true;
+    await (page.rootInstance as PageAttempt).submit();
+    await page.waitForChanges();
+
+    const items = page.root.shadowRoot.querySelectorAll('.review > li');
+    expect(items).toHaveLength(2);
+    for (const item of Array.from(items)) {
+      expect(item.querySelector('.explained')).not.toBeNull();
+      expect(item.querySelector('.picked')).toBeNull();
+      expect(item.textContent).toContain('Your answer: (skipped)');
+    }
+  });
+
   it('debounces autosave 2s after the last change and sends every response', async () => {
     const page = await mount(open);
     jest.useFakeTimers();
