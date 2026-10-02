@@ -84,31 +84,47 @@ final class MaterialWriter
 
     /**
      * Overwrite the bytes at the SAME path -- the seeder re-running over a
-     * guide it already placed. Quota is re-checked on the size delta.
+     * guide it already placed. Quota is re-checked on the size delta only:
+     * no file is added, so the file-count cap does not apply.
+     *
+     * The disk write is not transactional, so the previous bytes are kept in
+     * memory and written back if anything after the write fails, including
+     * the commit itself. Row and file never disagree.
      *
      * @throws ValidationException
      */
     public static function replace(Material $material, string $contents): Material
     {
         $disk = Storage::disk(config('materials.disk'));
+        $previous = $disk->get($material->path);
+        $written = false;
 
-        return DB::transaction(function () use ($material, $contents, $disk) {
-            User::whereKey($material->user_id)->lockForUpdate()->first();
+        try {
+            return DB::transaction(function () use ($material, $contents, $disk, &$written) {
+                User::whereKey($material->user_id)->lockForUpdate()->first();
 
-            $delta = strlen($contents) - $material->size_bytes;
-            if ($delta > 0 && ($error = MaterialQuota::errorFor($material->author, $delta))) {
-                throw ValidationException::withMessages(['file' => [$error]]);
+                $delta = strlen($contents) - $material->size_bytes;
+                if ($delta > 0 && ($error = MaterialQuota::errorFor($material->author, $delta, 0))) {
+                    throw ValidationException::withMessages(['file' => [$error]]);
+                }
+
+                abort_unless($disk->put($material->path, $contents), 500);
+                $written = true;
+
+                $material->update([
+                    'mime_type' => self::sniff($material->path),
+                    'size_bytes' => strlen($contents),
+                ]);
+
+                return $material->fresh();
+            });
+        } catch (Throwable $e) {
+            if ($written && $previous !== null) {
+                $disk->put($material->path, $previous);
             }
 
-            abort_unless($disk->put($material->path, $contents), 500);
-
-            $material->update([
-                'mime_type' => self::sniff($material->path),
-                'size_bytes' => strlen($contents),
-            ]);
-
-            return $material->fresh();
-        });
+            throw $e;
+        }
     }
 
     /**

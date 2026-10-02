@@ -76,3 +76,24 @@ test('the client name is basenamed, stripped of control characters and truncated
     $long = MaterialWriter::normalizeName(str_repeat('a', 300).'.pdf');
     expect(strlen($long))->toBe(255)->and($long)->toEndWith('.pdf');
 });
+
+test('replace is allowed at the file cap, since it adds no file', function () {
+    $teacher = aTeacher();
+    $material = MaterialWriter::create($teacher, 'short', 'g.md', ['subject' => 'math', 'grade_level' => 'k-2']);
+    config(['materials.max_files_per_teacher' => 1]);
+
+    $fresh = MaterialWriter::replace($material, 'a longer body than before');
+
+    expect($fresh->size_bytes)->toBe(strlen('a longer body than before'));
+});
+
+test('a replace whose row update fails puts the old bytes back', function () {
+    $teacher = aTeacher();
+    $material = MaterialWriter::create($teacher, 'original body', 'g.md', ['subject' => 'math', 'grade_level' => 'k-2']);
+
+    Material::updating(fn () => throw new RuntimeException('update exploded'));
+
+    expect(fn () => MaterialWriter::replace($material, 'replacement body'))->toThrow(RuntimeException::class);
+    expect(Storage::disk(config('materials.disk'))->get($material->path))->toBe('original body')
+        ->and($material->fresh()->size_bytes)->toBe(strlen('original body'));
+});
