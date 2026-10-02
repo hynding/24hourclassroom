@@ -8,6 +8,7 @@ use App\Enums\Visibility;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MaterialSummaryResource;
 use App\Models\Material;
+use App\Support\LibrarySort;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Validation\Rule;
@@ -20,11 +21,8 @@ class MaterialsLibraryController extends Controller
             'subject' => ['nullable', Rule::enum(Subject::class)],
             'grade' => ['nullable', Rule::enum(GradeLevel::class)],
             'q' => ['nullable', 'string', 'max:100'],
-            // `title` sorts A-Z so a zero-padded course title ("Week 07")
-            // reads in course order; `recent` (the default) is newest first.
-            'sort' => ['nullable', Rule::in(['recent', 'title'])],
+            'sort' => LibrarySort::rule(),
         ]);
-        $byTitle = ($filters['sort'] ?? 'recent') === 'title';
 
         $materials = Material::query()
             ->where('visibility', Visibility::Public)
@@ -39,8 +37,7 @@ class MaterialsLibraryController extends Controller
                     ->where('title', 'like', "%{$escaped}%")
                     ->orWhere('description', 'like', "%{$escaped}%"));
             })
-            ->when($byTitle, fn ($q) => $q->orderBy('title')->orderBy('id'))
-            ->unless($byTitle, fn ($q) => $q->orderByDesc('published_at')->orderByDesc('id'))
+            ->tap(fn ($q) => LibrarySort::apply($q, $filters['sort'] ?? null))
             ->paginate(15)
             ->withQueryString();
 
