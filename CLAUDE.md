@@ -122,10 +122,26 @@ topic map; `unit-NN-*/week-NN.yaml` = guide path + flashcards + quiz;
 `Database\Seeders\ApBiology\Course` loads it and composes every title and slug
 (`AP Biology · Week 07 · Quiz · …`) so the library's `sort=title` reads in course
 order. Idempotent through nullable `slug` columns on `tests`, `questions` and
-`materials`: a re-run updates in place and questions keep their ids. It creates
-`apbio@example.com` / `apbio-student@example.com` (password `password`),
-connects them, and assigns every test to the student with a due date from
-`start_date` (null = no due dates). `ApBiologyContentTest` lints the data
+`materials`: a re-run updates in place and questions keep their ids. By default
+it creates `apbio@example.com` / `apbio-student@example.com`, connects them, and
+assigns every test to the student with a due date from `start_date` (null = no
+due dates). Those demo accounts get the password `password` only in `local` and
+`testing`; anywhere else they get a random one, printed once.
+
+On a real server, attach the course to your own account instead. Deploys run
+migrations, never seeders, so this is a one-off shell step per environment:
+
+```bash
+php artisan course:seed-ap-biology --teacher=you@example.com --no-student --force
+```
+
+`--teacher` must name an existing, verified, active teacher; the command never
+creates, verifies or re-passwords an account you name, and checks the owner's
+material quota (the course is 73 files) before writing anything. `--student=EMAIL`
+assigns the course to an existing student; `--no-student` skips the student,
+connection and assignments. Re-running with a different `--teacher` moves every
+course test and material to that account. Plain `db:seed` also seeds the course
+with the demo accounts and creates `test@example.com`: never run it on a server. `ApBiologyContentTest` lints the data
 directory (provenance, rationales, spiral review, duplicates, attribution) and
 `ApBiologySeederTest` proves idempotency on `tests/Fixtures/course`.
 
