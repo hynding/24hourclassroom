@@ -21,7 +21,8 @@ main {
  * collide in this grid, so the banner has its own slot. */
 :host([layout='rail']) .shell {
   display: grid;
-  grid-template-columns: 14rem 1fr;
+  /* auto: the side panel sets its own width (wide, or collapsed to icons). */
+  grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr auto; /* banner (0 when empty) / page / footer */
 }
 :host([layout='rail']) ::slotted([slot='banner']) {

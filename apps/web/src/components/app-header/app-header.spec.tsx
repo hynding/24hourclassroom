@@ -22,6 +22,9 @@ jest.mock('../../services/auth-store', () => ({
   },
 }));
 
+const navigate = jest.fn();
+jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a) }));
+
 let siteConfig: any = { identity: { name: 'Night School', tagline: null } };
 jest.mock('../../services/site-store', () => ({ siteStore: { get config() { return siteConfig; } } }));
 
@@ -256,3 +259,111 @@ describe('app-header bell', () => {
     expect(guestLinks).not.toContain('/integrations');
   });
 });
+
+describe('app-header side panel (vertical orientation)', () => {
+  const panel = async () => {
+    const spec = await newSpecPage({ components: [AppHeader], html: '<app-header orientation="vertical"></app-header>' });
+    return spec;
+  };
+
+  beforeEach(() => {
+    unreadCount.mockReset().mockResolvedValue(2);
+    recoverFromExpiredSession.mockReset().mockReturnValue(false);
+    currentUser.value = { id: 1, name: 'Ada', email_verified_at: '2026-01-01', role: 'teacher' };
+    siteConfig = { identity: { name: 'Night School', tagline: null } };
+  });
+
+  afterEach(() => {
+    try { window.localStorage.removeItem('24hc.nav.collapsed.v1'); } catch { /* not available */ }
+  });
+
+  it('gives every menu link an icon and a tooltip naming it', async () => {
+    const spec = await panel();
+    const links = Array.from(spec.root.shadowRoot.querySelectorAll('nav a'));
+    expect(links.length).toBeGreaterThan(5);
+    for (const link of links) {
+      expect(link.querySelector('svg')).not.toBeNull();
+      expect(link.getAttribute('title')).toBe(link.querySelector('.label').textContent);
+    }
+    expect(links.map((a) => a.getAttribute('href'))).toContain('/connections');
+    // Account controls sit at the bottom of the panel, outside the menu.
+    const account = spec.root.shadowRoot.querySelector('.account');
+    expect(account.textContent).toContain('Ada');
+    expect(account.textContent).toContain('Log out');
+  });
+
+  it('collapses to icons with a labelled toggle, and remembers the choice', async () => {
+    const spec = await panel();
+    const toggle = spec.root.shadowRoot.querySelector('button.collapse') as HTMLButtonElement;
+    expect(toggle.querySelector('svg')).not.toBeNull();
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+    expect(toggle.getAttribute('aria-label')).toBe('Collapse menu');
+    expect(spec.root.hasAttribute('collapsed')).toBe(false);
+
+    toggle.click();
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('collapsed')).toBe(true);
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    expect(toggle.getAttribute('aria-label')).toBe('Expand menu');
+    // Labels stay in the DOM for screen readers; CSS hides them visually.
+    expect(spec.root.shadowRoot.querySelector('nav a .label')).not.toBeNull();
+    expect(window.localStorage.getItem('24hc.nav.collapsed.v1')).toBe('1');
+
+    // A fresh page has a fresh simulated window, so seed its storage the way
+    // the first page left the real one, then render into it.
+    const again = await newSpecPage({ components: [AppHeader], html: '' });
+    again.win.localStorage.setItem('24hc.nav.collapsed.v1', '1');
+    await again.setContent('<app-header orientation="vertical"></app-header>');
+    expect(again.root.hasAttribute('collapsed')).toBe(true);
+
+    (again.root.shadowRoot.querySelector('button.collapse') as HTMLButtonElement).click();
+    await again.waitForChanges();
+    expect(again.root.hasAttribute('collapsed')).toBe(false);
+    expect(again.win.localStorage.getItem('24hc.nav.collapsed.v1')).toBe('0');
+  });
+
+  it('opens as a drawer on small screens and closes on Escape, a page pick or the backdrop', async () => {
+    const spec = await panel();
+    const menu = spec.root.shadowRoot.querySelector('button.menu') as HTMLButtonElement;
+    expect(menu.getAttribute('aria-label')).toBe('Open menu');
+    expect(menu.getAttribute('aria-expanded')).toBe('false');
+
+    menu.click();
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(true);
+    expect(menu.getAttribute('aria-label')).toBe('Close menu');
+
+    spec.win.dispatchEvent(new (spec.win as any).KeyboardEvent('keydown', { key: 'Escape' }));
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(false);
+
+    menu.click();
+    await spec.waitForChanges();
+    (spec.root.shadowRoot.querySelector('a[href="/library"]') as HTMLAnchorElement).click();
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(false);
+    expect(navigate).toHaveBeenCalledWith('/library');
+
+    menu.click();
+    await spec.waitForChanges();
+    (spec.root.shadowRoot.querySelector('.backdrop') as HTMLElement).click();
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(false);
+  });
+
+  it('keeps the top header free of panel controls', async () => {
+    const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    expect(spec.root.shadowRoot.querySelector('button.collapse')).toBeNull();
+    expect(spec.root.shadowRoot.querySelector('button.menu')).toBeNull();
+    expect(spec.root.shadowRoot.querySelector('nav a svg')).toBeNull();
+  });
+
+  it('styles key on the reflected collapsed and open attributes', () => {
+    const fs = require('fs');
+    const path = require('path');
+    const css = fs.readFileSync(path.join(__dirname, 'app-header.css'), 'utf8');
+    expect(css).toContain(":host([orientation='vertical'][collapsed])");
+    expect(css).toContain(":host([orientation='vertical'][open])");
+  });
+});
+

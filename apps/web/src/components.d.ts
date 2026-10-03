@@ -21,6 +21,16 @@ export namespace Components {
     }
     interface AppHeader {
         /**
+          * Side panel narrowed to its icons (wide screens). reflect: true is load-bearing -- app-header.css keys on :host([collapsed]).
+          * @default false
+         */
+        "collapsed": boolean;
+        /**
+          * Side panel showing as a drawer (narrow screens). reflect: true is load-bearing -- app-header.css keys on :host([open]).
+          * @default false
+         */
+        "open": boolean;
+        /**
           * reflect: true is load-bearing -- app-header.css keys on :host([orientation]).
           * @default 'horizontal'
          */
@@ -469,6 +479,16 @@ declare namespace LocalJSX {
     }
     interface AppHeader {
         /**
+          * Side panel narrowed to its icons (wide screens). reflect: true is load-bearing -- app-header.css keys on :host([collapsed]).
+          * @default false
+         */
+        "collapsed"?: boolean;
+        /**
+          * Side panel showing as a drawer (narrow screens). reflect: true is load-bearing -- app-header.css keys on :host([open]).
+          * @default false
+         */
+        "open"?: boolean;
+        /**
           * reflect: true is load-bearing -- app-header.css keys on :host([orientation]).
           * @default 'horizontal'
          */
@@ -622,6 +642,8 @@ declare namespace LocalJSX {
 
     interface AppHeaderAttributes {
         "orientation": 'horizontal' | 'vertical';
+        "collapsed": boolean;
+        "open": boolean;
     }
     interface AppLayoutAttributes {
         "layout": Layout;
