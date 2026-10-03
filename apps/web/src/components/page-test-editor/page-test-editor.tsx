@@ -1,6 +1,6 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
-import { GRADE_LEVELS, GradeLevel, QuestionInput, SUBJECTS, Subject, TestInput, TestView } from '@24hc/shared';
+import { GRADE_LEVELS, GradeLevel, Question, QuestionInput, SUBJECTS, Subject, TestInput, TestView } from '@24hc/shared';
 import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
@@ -54,12 +54,21 @@ export class PageTestEditor {
       id: q.id,
       type: q.type,
       prompt: q.prompt,
+      ...(q.stimulus ? { stimulus: q.stimulus } : {}),
       ...(q.options ? { options: q.options } : {}),
+      ...(this.rationales(q)),
       answer: q.answer,
       points: q.points,
       ...(q.type === 'multi_select' ? { partial_credit: q.partial_credit } : {}),
+      ...(q.type === 'fill_blank' ? { auto_grade: q.auto_grade } : {}),
       explanation: q.explanation ?? null,
     }));
+  }
+
+  /** Server rationales, present only when at least one is written; null entries become ''. */
+  private rationales(q: Question): Pick<QuestionInput, 'option_explanations'> {
+    const list = q.option_explanations;
+    return list && list.some((r) => r) ? { option_explanations: list.map((r) => r ?? '') } : {};
   }
 
   private body(): TestInput {
@@ -174,6 +183,7 @@ export class PageTestEditor {
               <test-question-editor
                 question={q}
                 index={i}
+                previousStimulus={this.questions[i - 1]?.stimulus}
                 error={this.errors[`questions.${i}`]?.[0]}
                 onQuestionChange={(e: CustomEvent<QuestionInput>) => this.update(i, e.detail)}
                 onQuestionRemove={() => this.remove(i)}

@@ -1,9 +1,10 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
-import { AssignmentResult, Attempt, AttemptQuestion, AttemptSummary, TestView } from '@24hc/shared';
+import { AssignmentResult, Attempt, AttemptQuestion, AttemptSummary, MANUAL_GRADE_TYPES, TestView } from '@24hc/shared';
 import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
+import { formatAnswer, formatResponse, isTextResponse, showsStimulus } from '../../services/question-format';
 
 @Component({ tag: 'page-test-results', styleUrl: 'page-test-results.css', shadow: true })
 export class PageTestResults {
@@ -96,32 +97,43 @@ export class PageTestResults {
     return a && a.score !== null ? <span class="meta">{prefix} {a.score} / {a.max_score}{a.ungraded_count ? ` (${a.ungraded_count} to grade)` : ''}</span> : null;
   }
 
-  private formatResponse(q: AttemptQuestion): string {
-    if (q.response === null || q.response === undefined) {
-      return '(skipped)';
+  private renderResponse(q: AttemptQuestion) {
+    if (isTextResponse(q.type)) {
+      return [<p>Response:</p>, <p class="response">{formatResponse(q, q.response)}</p>];
     }
-    if (q.options && typeof q.response === 'number') {
-      return q.options[q.response] ?? String(q.response);
-    }
-    if (q.options && Array.isArray(q.response)) {
-      return q.response.map((i: number) => q.options[i] ?? i).join(', ');
-    }
-    return String(q.response);
+    return <p>Response: <strong>{formatResponse(q, q.response)}</strong></p>;
   }
 
-  private formatAnswer(q: AttemptQuestion): string {
-    const answer = q.graded_answer?.answer ?? q.answer;
-    if (q.options && typeof answer === 'number') {
-      return q.options[answer] ?? String(answer);
+  /**
+   * Hand grading for every type the server lets a teacher override; for a
+   * fill_blank that replaces the automatic score. The explanation sits
+   * beside the form because it is what the teacher grades against.
+   */
+  private renderGrading(attempt: Attempt, q: AttemptQuestion) {
+    if (!MANUAL_GRADE_TYPES.includes(q.type) || !q.answer_id) {
+      return null;
     }
-    if (q.options && Array.isArray(answer)) {
-      return answer.map((i: number) => q.options[i] ?? i).join(', ');
-    }
-    if (q.type === 'numeric' && answer && typeof answer === 'object') {
-      const a = answer as { value: number; tolerance?: number };
-      return a.tolerance ? `${a.value} ± ${a.tolerance}` : String(a.value);
-    }
-    return String(answer);
+    return (
+      <div class="grading">
+        <form class="grade" onSubmit={(e) => {
+          e.preventDefault();
+          const input = (e.target as HTMLFormElement).querySelector('input') as HTMLInputElement;
+          this.grade(attempt.id, q.answer_id, Number(input.value));
+        }}>
+          <label>
+            Points
+            <input type="number" step="0.25" min="0" max={q.graded_answer?.points ?? q.points} value={q.awarded ?? ''} />
+          </label>
+          <button type="submit" class="btn" disabled={this.busy}>Save grade</button>
+        </form>
+        {q.explanation && (
+          <div class="accept">
+            <h4>What to accept</h4>
+            <rich-text text={q.explanation}></rich-text>
+          </div>
+        )}
+      </div>
+    );
   }
 
   private renderAttempt(attempt: Attempt) {
@@ -133,24 +145,13 @@ export class PageTestResults {
     }
     return (
       <ol class="answers">
-        {attempt.questions.map((q) => (
+        {attempt.questions.map((q, i) => (
           <li>
-            <p class="prompt">{q.prompt}</p>
-            <p>Response: <strong>{this.formatResponse(q)}</strong></p>
-            <p class="meta">Expected: {this.formatAnswer(q)} · {q.awarded ?? '—'} / {q.graded_answer?.points ?? q.points}</p>
-            {q.type === 'short_answer' && q.answer_id && (
-              <form class="grade" onSubmit={(e) => {
-                e.preventDefault();
-                const input = (e.target as HTMLFormElement).querySelector('input') as HTMLInputElement;
-                this.grade(attempt.id, q.answer_id, Number(input.value));
-              }}>
-                <label>
-                  Points
-                  <input type="number" step="0.25" min="0" max={q.graded_answer?.points ?? q.points} value={q.awarded ?? ''} />
-                </label>
-                <button type="submit" class="btn" disabled={this.busy}>Save grade</button>
-              </form>
-            )}
+            {showsStimulus(attempt.questions, i) && <div class="stimulus"><rich-text text={q.stimulus}></rich-text></div>}
+            <div class="prompt"><rich-text text={q.prompt}></rich-text></div>
+            {this.renderResponse(q)}
+            <p class="meta">Expected: {formatAnswer(q, q.graded_answer?.answer ?? q.answer)} · {q.awarded ?? '—'} / {q.graded_answer?.points ?? q.points}</p>
+            {this.renderGrading(attempt, q)}
           </li>
         ))}
       </ol>

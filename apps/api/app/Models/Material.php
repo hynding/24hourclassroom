@@ -17,7 +17,7 @@ class Material extends Model
 
     protected $fillable = [
         'user_id', 'title', 'description', 'subject', 'grade_level',
-        'visibility', 'original_name', 'path', 'mime_type', 'size_bytes', 'published_at',
+        'visibility', 'original_name', 'path', 'mime_type', 'size_bytes', 'published_at', 'slug',
     ];
 
     protected function casts(): array

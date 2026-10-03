@@ -13,17 +13,19 @@ class Question extends Model
     /** @use HasFactory<\Database\Factories\QuestionFactory> */
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['position', 'type', 'prompt', 'options', 'answer', 'points', 'partial_credit', 'explanation'];
+    protected $fillable = ['position', 'type', 'prompt', 'stimulus', 'options', 'option_explanations', 'answer', 'points', 'partial_credit', 'auto_grade', 'explanation', 'slug'];
 
     protected function casts(): array
     {
         return [
             'type' => QuestionType::class,
             'options' => 'array',
+            'option_explanations' => 'array',
             // `json`, not `array`: the answer is a scalar for most types.
             'answer' => 'json',
             'points' => 'integer',
             'partial_credit' => 'boolean',
+            'auto_grade' => 'boolean',
         ];
     }
 

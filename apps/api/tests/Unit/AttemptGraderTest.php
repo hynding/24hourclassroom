@@ -139,3 +139,68 @@ test('grade() is idempotent and never overwrites a manual grade on a second call
         ->and($attempt->graded_at)->not->toBeNull()
         ->and($attempt->answers)->toHaveCount(1);
 });
+
+test('fill_blank matches any accepted answer after normalization, or nothing when auto_grade is off', function () {
+    $fb = q('fillBlank', ['Hydrogen bond', 'H-bond']); // points 4
+    expect(AttemptGrader::score($fb, 'hydrogen bond'))->toBe(4.0)
+        ->and(AttemptGrader::score($fb, '  Hydrogen   BOND. '))->toBe(4.0)
+        ->and(AttemptGrader::score($fb, 'h-bond'))->toBe(4.0)
+        ->and(AttemptGrader::score($fb, 'hydrogen bonds'))->toBe(0.0)
+        ->and(AttemptGrader::score($fb, ''))->toBe(0.0)
+        ->and(AttemptGrader::score($fb, null))->toBe(0.0)
+        ->and(AttemptGrader::score($fb, ['hydrogen bond']))->toBe(0.0)
+        ->and(AttemptGrader::score($fb, 42))->toBe(0.0);
+
+    $manual = q('fillBlank', ['polar'], false);
+    expect(AttemptGrader::score($manual, 'polar'))->toBeNull();
+});
+
+test('long answer is never auto-graded', function () {
+    $la = q('longAnswer');
+    expect(AttemptGrader::score($la, 'A paragraph.'))->toBeNull()
+        ->and(AttemptGrader::score($la, null))->toBeNull();
+});
+
+test('every question type is either auto-graded or hand-gradable, never silently neither', function () {
+    // AttemptGrader::score is the one place that decides which types wait
+    // for a teacher (a null score). A null score on a type the teacher
+    // cannot grade would leave every attempt on it ungraded for ever, so
+    // bind the two together over every case -- plus fill_blank with
+    // auto_grade off, the one per-item switch. A wrong-shaped response on
+    // an auto-graded type scores 0, never an exception (decision 9).
+    $cases = [];
+    foreach (\App\Enums\QuestionType::cases() as $type) {
+        $state = match ($type) {
+            \App\Enums\QuestionType::MultipleChoice => ['multipleChoice'],
+            \App\Enums\QuestionType::MultiSelect => ['multiSelect'],
+            \App\Enums\QuestionType::TrueFalse => ['trueFalse'],
+            \App\Enums\QuestionType::ShortAnswer => ['shortAnswer'],
+            \App\Enums\QuestionType::Numeric => ['numeric'],
+            \App\Enums\QuestionType::FillBlank => ['fillBlank'],
+            \App\Enums\QuestionType::LongAnswer => ['longAnswer'],
+        };
+        $cases[$type->value] = [$type, q(...$state)];
+    }
+    $cases['fill_blank (auto_grade off)'] = [\App\Enums\QuestionType::FillBlank, q('fillBlank', ['polar'], false)];
+
+    foreach ($cases as $label => [$type, $question]) {
+        $score = AttemptGrader::score($question, ['nonsense']);
+        if ($score === null) {
+            expect($type->allowsManualGrade())->toBeTrue("{$label} scores null but cannot be hand-graded");
+            expect($type->hasOptions())->toBeFalse("{$label} has options yet is never auto-scored");
+        } else {
+            expect($score)->toBe(0.0, $label);
+        }
+    }
+});
+
+test('blank normalization strips one trailing full stop and the whitespace around it, no more', function () {
+    expect(AttemptGrader::normalizeBlank('polar .'))->toBe('polar')
+        ->and(AttemptGrader::normalizeBlank('  Polar.  '))->toBe('polar')
+        ->and(AttemptGrader::normalizeBlank("hydrogen \t  bond."))->toBe('hydrogen bond')
+        ->and(AttemptGrader::normalizeBlank('polar...'))->toBe('polar..');
+
+    $fb = q('fillBlank', ['polar']);
+    expect(AttemptGrader::score($fb, 'polar .'))->toBe(4.0)
+        ->and(AttemptGrader::score($fb, 'polar...'))->toBe(0.0);
+});

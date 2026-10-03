@@ -6,6 +6,7 @@ import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { formatDueDate } from '../../services/format';
+import { formatAnswer, optionChosen, showsStimulus } from '../../services/question-format';
 
 @Component({ tag: 'page-test', styleUrl: 'page-test.css', shadow: true })
 export class PageTest {
@@ -107,34 +108,32 @@ export class PageTest {
     return list.find((o) => o.value === value)?.label ?? value;
   }
 
-  private renderQuestion(q: Question, index: number) {
+  /** The label beside a non-option answer; only two types word it differently. */
+  private answerLabel(q: Question): string {
+    return q.type === 'fill_blank' ? 'Accepted answers' : q.type === 'long_answer' ? 'Model answer' : 'Correct answer';
+  }
+
+  private renderQuestion(q: Question, index: number, questions: Question[]) {
     const hasAnswer = 'answer' in q;
+    const rationales = hasAnswer && Array.isArray(q.option_explanations) ? q.option_explanations : null;
     return (
       <li>
-        <p class="prompt">{index + 1}. {q.prompt} <span class="points">({q.points} pt{q.points === 1 ? '' : 's'})</span></p>
+        {showsStimulus(questions, index) && <div class="stimulus"><rich-text text={q.stimulus}></rich-text></div>}
+        <div class="prompt"><span class="num">{index + 1}.</span> <rich-text text={q.prompt}></rich-text> <span class="points">({q.points} pt{q.points === 1 ? '' : 's'})</span></div>
         {q.options && (
           <ol class="options">
             {q.options.map((opt, i) => (
-              <li class={hasAnswer && this.isCorrect(q, i) ? 'correct' : ''}>{opt}</li>
+              <li class={hasAnswer && optionChosen(q.answer, i) ? 'correct' : ''}>
+                <span class="option-text">{opt}</span>
+                {rationales?.[i] && <div class="rationale"><rich-text text={rationales[i]}></rich-text></div>}
+              </li>
             ))}
           </ol>
         )}
-        {hasAnswer && !q.options && <p class="answer">Correct answer: {this.formatAnswer(q)}</p>}
-        {hasAnswer && q.explanation && <p class="explanation">{q.explanation}</p>}
+        {hasAnswer && !q.options && <p class="answer">{this.answerLabel(q)}: {formatAnswer(q, q.answer)}</p>}
+        {hasAnswer && q.explanation && <div class="explanation"><rich-text text={q.explanation}></rich-text></div>}
       </li>
     );
-  }
-
-  private isCorrect(q: Question, index: number): boolean {
-    return Array.isArray(q.answer) ? q.answer.includes(index) : q.answer === index;
-  }
-
-  private formatAnswer(q: Question): string {
-    if (q.type === 'numeric') {
-      const a = q.answer as { value: number; tolerance?: number };
-      return a.tolerance ? `${a.value} ± ${a.tolerance}` : String(a.value);
-    }
-    return String(q.answer);
   }
 
   render() {
@@ -204,7 +203,7 @@ export class PageTest {
         )}
 
         <h2>Questions</h2>
-        <ol class="questions">{t.questions.map((q, i) => this.renderQuestion(q, i))}</ol>
+        <ol class="questions">{t.questions.map((q, i) => this.renderQuestion(q, i, t.questions))}</ol>
         {!t.is_author && this.link(`/tests/${t.id}/print`, 'Printable version')}
       </section>
     );

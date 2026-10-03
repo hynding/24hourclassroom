@@ -38,6 +38,16 @@ class QuestionFactory extends Factory
         return $this->state(fn () => ['type' => 'short_answer', 'options' => null, 'answer' => 'photosynthesis']);
     }
 
+    public function fillBlank(array $answers = ['polar'], bool $autoGrade = true): static
+    {
+        return $this->state(fn () => ['type' => 'fill_blank', 'prompt' => 'Water is a ____ molecule.', 'options' => null, 'answer' => $answers, 'auto_grade' => $autoGrade]);
+    }
+
+    public function longAnswer(int $points = 6): static
+    {
+        return $this->state(fn () => ['type' => 'long_answer', 'options' => null, 'answer' => 'A model answer.', 'points' => $points]);
+    }
+
     public function numeric(float $value = 42, float $tolerance = 0): static
     {
         return $this->state(fn () => ['type' => 'numeric', 'options' => null, 'answer' => ['value' => $value, 'tolerance' => $tolerance]]);

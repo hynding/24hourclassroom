@@ -1,0 +1,745 @@
+week: 21
+unit: 6
+title: Mutations; PCR, Gels and Restriction Analysis
+topics: ["6.7", "6.8"]
+guide: guides/week-21.md
+guide_description: |
+  Mutation as the raw material of evolution: point, frameshift and chromosomal changes, what each does to a
+  protein, where mutations come from and how cells repair them, and how bacteria and viruses trade genes
+  horizontally. Then the first half of biotechnology: PCR, gel electrophoresis and restriction-enzyme mapping,
+  with the fragment-size and semi-log reasoning of AP Investigation 9. Three worked examples (classifying a
+  mutation, reading a gel against a ladder, a PCR calculation), misconceptions, self-check.
+flashcards_description: |
+  35 cards: every class of mutation and its effect, repair systems, horizontal gene transfer, and the mechanics of PCR, gels and restriction enzymes.
+
+flashcards:
+  - front: Mutation → definition and why it is the ultimate source of variation
+    back: |
+      A heritable change in DNA sequence. Recombination only shuffles existing alleles; every new allele began as a mutation, so without mutation there would be nothing for selection to act on.
+    topic_code: "6.7"
+  - front: Point mutation → substitution; transition vs transversion
+    back: |
+      One base pair replaced by another. Transition: purine for purine or pyrimidine for pyrimidine (A↔G, C↔T). Transversion: purine for pyrimidine or the reverse. The effect depends on which codon changes and how.
+    topic_code: "6.7"
+  - front: Silent mutation → why it changes nothing
+    back: |
+      A substitution that yields a synonymous codon, usually in the third position, so the same amino acid is inserted. Possible because the code is degenerate. Can still matter if it alters splicing or mRNA stability.
+    topic_code: "6.7"
+  - front: Missense mutation → conservative vs non-conservative
+    back: |
+      A substitution that changes one amino acid for another. Conservative: the new R group is chemically similar (leucine for isoleucine), often harmless. Non-conservative: different chemistry (glutamate for valine in sickle-cell haemoglobin), often disrupts folding or function.
+    topic_code: "6.7"
+  - front: Nonsense mutation
+    back: |
+      A substitution that creates a stop codon (UAA, UAG, UGA) in the coding sequence, truncating the protein. Usually severe unless it falls near the normal end.
+    topic_code: "6.7"
+  - front: Frameshift mutation → why one base is so damaging
+    back: |
+      Inserting or deleting any number of bases that is not a multiple of three regroups every codon downstream, producing a different amino acid sequence and usually a premature stop. The earlier in the gene, the worse.
+    hint: "Count the bases: 1 or 2 shifts; 3 does not."
+    topic_code: "6.7"
+  - front: In-frame insertion or deletion
+    back: |
+      Adding or removing three bases (or a multiple) inserts or deletes whole amino acids and leaves the rest of the protein unchanged. Expansion of three-base repeats (trinucleotide repeats) lengthens a run of one amino acid.
+    topic_code: "6.7"
+  - front: Mutation in a promoter or enhancer → effect
+    back: |
+      The protein's sequence is unchanged but how much of it is made, or where and when, changes: transcription factors or RNA polymerase bind more weakly or more strongly. Much of the phenotypic variation between individuals is regulatory.
+    topic_code: "6.7"
+  - front: Mutation at a splice site → effect
+    back: |
+      The spliceosome misses the boundary, so an exon is skipped or an intron retained; the mRNA then carries the wrong sequence, often a frameshift or premature stop, although the exon sequences themselves are intact.
+    topic_code: "6.7"
+  - front: Spontaneous vs induced mutation
+    back: |
+      Spontaneous: replication errors that escape proofreading and repair, or chemical decay of bases in the cell's own environment. Induced: caused by a mutagen such as UV light, X-rays or reactive chemicals that alter bases.
+    topic_code: "6.7"
+  - front: Thymine dimers and nucleotide excision repair
+    back: |
+      UV light bonds adjacent thymines together, distorting the helix and blocking polymerase. Excision-repair enzymes cut out the damaged stretch, a polymerase fills it from the undamaged strand and ligase seals it. People lacking the repair enzymes (xeroderma pigmentosum) are extremely sun-sensitive.
+    topic_code: "6.7"
+  - front: Mismatch repair → how it knows which strand is wrong
+    back: |
+      After replication the parental strand is methylated and the new strand briefly is not; repair enzymes cut the mismatched base out of the unmethylated strand and replace it, so the correction follows the old strand.
+    topic_code: "6.7"
+  - front: Why are most mutations neutral or harmful, and some beneficial?
+    back: |
+      A random change to a working, selected sequence is more likely to break it than improve it; many fall in non-coding DNA or are silent and change nothing. Occasionally a change fits the current environment better, and selection spreads it. Which is which depends on the environment.
+    topic_code: "6.7"
+  - front: Germline vs somatic mutation
+    back: |
+      Germline: in a cell that makes gametes, so it can be passed to offspring and enter the population's variation. Somatic: in a body cell, affecting only that cell's descendants in that individual (the route to most cancers), not inherited.
+    topic_code: "6.7"
+  - front: Chromosomal mutations → the four rearrangements
+    back: |
+      Deletion (a segment lost), duplication (a segment repeated), inversion (a segment reversed), translocation (a segment moved to a non-homologous chromosome). They alter gene dosage or break genes at the breakpoints, and can disrupt pairing in meiosis.
+    topic_code: "6.7"
+  - front: Nondisjunction → what it produces
+    back: |
+      Failure of homologues (meiosis I) or sister chromatids (meiosis II or mitosis) to separate, giving cells with an extra or missing chromosome. Aneuploid gametes produce trisomic (2n+1) or monosomic (2n−1) zygotes with altered gene dosage.
+    topic_code: "6.7"
+  - front: Polyploidy → plants vs animals
+    back: |
+      Whole extra chromosome sets. Common and often vigorous in plants, where it can found a new species in one step; usually lethal or sterile in animals.
+    topic_code: "6.7"
+  - front: Why do bacterial populations evolve so fast?
+    back: |
+      Huge numbers, short generations and haploid genomes mean a rare mutation appears somewhere soon and is expressed at once; horizontal gene transfer then spreads useful alleles between cells and even species. Antibiotic resistance arises this way.
+    topic_code: "6.7"
+  - front: Horizontal gene transfer → the three routes in bacteria
+    back: |
+      Transformation (taking up DNA from the environment), transduction (DNA carried by a bacteriophage) and conjugation (DNA passed through a pilus from one cell to another). All move genes between existing cells rather than from parent to offspring.
+    topic_code: "6.7"
+  - front: Conjugation → mechanism
+    back: |
+      A donor cell carrying a conjugative (F) plasmid builds a pilus to a recipient, replicates the plasmid and passes one copy across. Resistance genes carried on such plasmids spread through a population and across species in this way.
+    topic_code: "6.7"
+  - front: Transduction
+    back: |
+      A bacteriophage packages a piece of host DNA by mistake and injects it into the next cell it infects, where it can recombine into the chromosome.
+    topic_code: "6.7"
+  - front: How does a virus population generate variation?
+    back: |
+      High mutation rates, especially in RNA viruses whose polymerases do not proofread, and recombination or reassortment when two related viruses infect one cell and exchange segments. New influenza strains arise from reassortment.
+    topic_code: "6.7"
+  - front: Where do resistant bacteria come from when an antibiotic is used?
+    back: |
+      Resistant mutants already exist at low frequency before exposure; the antibiotic does not create them, it kills the sensitive majority and lets the resistant minority take over. Replica-plating experiments showed the mutations were present before selection.
+    topic_code: "6.7"
+  - front: PCR → the three steps and their temperatures
+    back: |
+      Denaturation (about 95 °C) separates the strands; annealing (about 50-65 °C) lets two primers pair with their target sequences; extension (about 72 °C) lets a heat-stable DNA polymerase copy from each primer. Repeated 25-35 times.
+    topic_code: "6.8"
+  - front: Why PCR uses Taq polymerase
+    back: |
+      Taq, from the hot-spring bacterium Thermus aquaticus, survives the 95 °C denaturation step that would permanently unfold an ordinary polymerase, so the enzyme need not be replaced every cycle.
+    topic_code: "6.8"
+  - front: PCR primers → what they decide
+    back: |
+      Two short single-stranded DNA sequences, one complementary to each strand, flanking the region of interest. They give the polymerase its 3′-OH to extend from and they define exactly which stretch of the genome is copied.
+    topic_code: "6.8"
+  - front: PCR amplification → the arithmetic
+    back: |
+      Each cycle doubles the target, so n cycles give about 2ⁿ copies from one molecule: 10 cycles about a thousand, 20 about a million, 30 about a billion. Enough to see on a gel from a single hair.
+    topic_code: "6.8"
+  - front: Gel electrophoresis → the principle
+    back: |
+      DNA is negatively charged (phosphate backbone), so in an electric field it moves toward the positive electrode through a gel; smaller fragments slip through the pores faster and travel farther. Fragments are sorted by size.
+    topic_code: "6.8"
+  - front: Reading a gel → the ladder and the direction
+    back: |
+      The wells are at the negative end; bands farther from the wells are smaller. A ladder of known sizes in one lane calibrates the rest; a band's size is read by comparing its distance with the ladder's.
+    topic_code: "6.8"
+  - front: Semi-log plot → why distance vs log(size) gives a straight line
+    back: |
+      Migration distance is proportional to the logarithm of fragment size over the useful range, so plotting distance against size on a log axis (or log of size) gives a straight line from which unknown sizes can be read accurately.
+    topic_code: "6.8"
+  - front: Restriction enzyme → what it recognises and how it cuts
+    back: |
+      A bacterial enzyme that cuts DNA at a specific 4-8 base sequence, usually a palindrome (reads the same 5′ → 3′ on both strands, like GAATTC for EcoRI). Staggered cuts leave single-stranded sticky ends; straight cuts leave blunt ends.
+    topic_code: "6.8"
+  - front: Sticky ends → why they matter for making recombinant DNA
+    back: |
+      Fragments cut by the same enzyme have complementary overhangs that base-pair with each other regardless of their source, so a human fragment and a plasmid can be joined and then sealed by DNA ligase.
+    topic_code: "6.8"
+  - front: Counting fragments → linear vs circular DNA
+    back: |
+      A linear molecule with n cut sites gives n + 1 fragments; a circular molecule with n sites gives n fragments. The fragment sizes must add up to the whole molecule.
+    hint: One cut in a circle opens it; one cut in a line halves it.
+    topic_code: "6.8"
+  - front: Restriction fragment length polymorphism (RFLP)
+    back: |
+      A sequence difference between individuals that creates or destroys a restriction site, so the same enzyme gives different fragment patterns. Used to track alleles (sickle-cell) and in DNA profiling.
+    topic_code: "6.8"
+  - front: Why do bacteria make restriction enzymes?
+    back: |
+      To cut up invading phage DNA. The cell protects its own DNA by methylating its recognition sites, which the enzyme then ignores.
+    topic_code: "6.8"
+
+quiz:
+  description: |
+    25 questions · about 30 minutes · about 70% this week (mutations, horizontal transfer, PCR, gels and
+    restriction analysis) and 30% review of proteins and nucleic acids (Unit 1), enzyme temperature (Unit 3),
+    cell-cycle control (Unit 4), meiosis (Unit 5) and translation (week 19). Multiple choice, select-all,
+    true/false and numeric items are graded at once; the fill-in-the-blank items are matched automatically; the
+    two short answers and the long answer are graded by your teacher against the acceptable-answer summary.
+  questions:
+    - slug: u06-w21-q01
+      type: multiple_choice
+      topic_code: "6.7"
+      source: "Biology 2e §14.6 DNA Repair"
+      points: 1
+      prompt: |
+        The coding strand of part of a gene reads 5′-ATG AAA GGC TGG TAA-3′ (Met-Lys-Gly-Trp-stop). Four mutant versions are found. Which one is a nonsense mutation?
+      options:
+        - "5′-ATG AAG GGC TGG TAA-3′"
+        - "5′-ATG AAA GGC TGA TAA-3′"
+        - "5′-ATG AAA GGC TTG GTA A-3′"
+        - "5′-ATG AAA GAC TGG TAA-3′"
+      option_explanations:
+        - |
+          AAA → AAG still encodes lysine (both are Lys codons); this is a silent mutation.
+        - |
+          Correct. TGG (Trp) → TGA, which is transcribed as UGA, a stop codon; the polypeptide ends after glycine, two residues short.
+        - |
+          An extra T has been inserted, shifting the frame after GGC; that is a frameshift, which changes every subsequent codon.
+        - |
+          GGC (Gly) → GAC (Asp) substitutes one amino acid for another: a missense mutation.
+      answer: 1
+      explanation: |
+        Classify by effect, not by appearance: compare codon by codon with the table. Silent (same amino acid), missense (different amino acid), nonsense (stop), frameshift (indel not divisible by three).
+
+    - slug: u06-w21-q02
+      type: multiple_choice
+      topic_code: "6.7"
+      source: "Biology 2e §15.1 The Genetic Code"
+      points: 1
+      prompt: |
+        Two patients carry single-base deletions in the same 900-base gene. Patient A's deletion is at base 30; patient B's is at base 880. Which prediction is best supported?
+      options:
+        - "Both patients make a protein missing exactly one amino acid."
+        - "Patient A's protein is almost entirely wrong after the tenth residue and probably truncated; patient B's protein is normal except for its last few residues."
+        - "Patient B's protein is more severely affected because the mutation is closer to the stop codon."
+        - "Neither protein is affected, because single-base deletions are repaired at translation."
+      option_explanations:
+        - |
+          Removing one base does not remove one amino acid; it shifts the frame, so every codon after the deletion is misread.
+        - |
+          Correct. A frameshift scrambles the sequence from the deletion onward and usually hits a premature stop; the earlier it occurs, the larger the damaged fraction of the protein. Near the end, only a handful of residues change.
+        - |
+          The reverse: a frameshift near the end of a gene leaves most of the protein intact.
+        - |
+          Ribosomes have no way to detect or correct a frameshift; they read whatever triplets they are given.
+      answer: 1
+      explanation: |
+        Position matters as much as type. The exam often asks you to rank mutations by expected severity; for frameshifts, earlier is worse.
+
+    - slug: u06-w21-q03
+      type: multiple_choice
+      topic_code: "6.7"
+      source: "Biology 2e §16.4 Eukaryotic Transcription Gene Regulation"
+      points: 1
+      prompt: |
+        A mutation is found in the promoter of a gene, 30 bases upstream of the transcription start site, in the TATA box. The coding sequence is unchanged. Which outcome is most likely?
+      options:
+        - "The protein is made with a different amino-acid sequence."
+        - "The protein's sequence is normal but much less of it is made, because transcription factors bind the promoter poorly."
+        - "The protein is truncated by a premature stop codon."
+        - "The mutation has no effect, because it is outside the coding sequence."
+      option_explanations:
+        - |
+          The coding sequence is intact, so any protein made has the normal sequence; the promoter is not transcribed into the mRNA.
+        - |
+          Correct. The TATA box is where the TATA-binding protein assembles the pre-initiation complex; weakening it reduces how often RNA polymerase II starts, so the normal protein is made in reduced amounts.
+        - |
+          A stop codon is a change inside the coding sequence; a promoter change alters quantity, not sequence.
+        - |
+          Non-coding does not mean non-functional: regulatory sequences decide how much, when and where a gene is expressed, and mutations there produce much of the variation between individuals.
+      answer: 1
+      explanation: |
+        Mutations in regulatory DNA change expression, not protein structure. Unit 7 will treat such variation as a major substrate for evolution.
+
+    - slug: u06-w21-q04
+      type: multiple_choice
+      topic_code: "6.7"
+      source: "Biology 2e §14.6 DNA Repair"
+      points: 1
+      prompt: |
+        Skin cells from a person with the inherited condition xeroderma pigmentosum accumulate thymine dimers after UV exposure, while cells from an unaffected person remove them within hours. Which explanation and consequence are correct?
+      options:
+        - "The affected person lacks DNA polymerase, so no replication occurs."
+        - "The affected person's nucleotide excision repair is defective, so UV-induced lesions persist, replication errors accumulate, and skin cancer risk is greatly increased."
+        - "The affected person's mismatch repair cannot tell old strands from new, so point mutations double."
+        - "The affected person's skin absorbs more UV, producing more dimers in the first place."
+      option_explanations:
+        - |
+          Cells without DNA polymerase could not divide at all; the affected cells replicate but copy damaged templates.
+        - |
+          Correct. Excision repair normally cuts out the dimer and refills the gap; without it, polymerase stalls or misreads at every dimer, mutations accumulate in skin genes, and cancers follow.
+        - |
+          Mismatch repair handles base-pairing errors after replication; thymine dimers are bulky lesions handled by excision repair.
+        - |
+          The dimers form at the same rate; the difference is in removal, which is why they accumulate.
+      answer: 1
+      explanation: |
+        Repair systems are part of why mutation rates are low. Loss of a repair pathway is itself a mutation that raises the rate of all the others, which is why repair genes act as tumour suppressors.
+
+    - slug: u06-w21-q05
+      type: multiple_choice
+      topic_code: "6.7"
+      source: "general knowledge"
+      points: 1
+      prompt: |
+        A bacterial culture that has never been exposed to streptomycin is spread on plates without the antibiotic. Each colony is then stamped onto a plate containing streptomycin. A few colonies grow, and when the original (never-exposed) colonies in those positions are tested, they are already resistant. Which conclusion is best supported?
+      options:
+        - "Exposure to streptomycin caused the bacteria to mutate to resistance."
+        - "Resistance mutations arose spontaneously before any exposure to the antibiotic; the antibiotic merely selected the cells that already carried them."
+        - "The bacteria learned to tolerate streptomycin and passed the habit to their offspring."
+        - "Streptomycin is ineffective against this species."
+      option_explanations:
+        - |
+          The resistant colonies were identified from a plate that had never contained streptomycin; the mutations existed before any exposure, so the drug could not have caused them.
+        - |
+          Correct. This is the replica-plating logic: mutation is random with respect to need, and selection acts afterward on the variation already present.
+        - |
+          Resistance is a heritable change in DNA (for example in a ribosomal protein), not an acquired habit; the experiment shows it is present before the drug appears.
+        - |
+          Most colonies failed to grow on the antibiotic plate; only the rare pre-existing mutants survived.
+      answer: 1
+      explanation: |
+        Mutation supplies variation blindly; the environment chooses. That distinction is the core of Unit 7, and this is the experiment that established it.
+
+    - slug: u06-w21-q06
+      type: multiple_choice
+      topic_code: "6.7"
+      source: "Biology 2e §22.2 Structure of Prokaryotes: Bacteria and Archaea"
+      points: 1
+      prompt: |
+        Two bacterial strains are mixed. Strain A carries a plasmid with an ampicillin-resistance gene and can make a pilus; strain B is ampicillin-sensitive and has a chromosomal marker that lets it be identified. After an hour, ampicillin-resistant cells carrying strain B's marker appear. When the strains are separated by a filter that blocks cell contact but lets DNA and viruses through, no such cells appear. Which process transferred the resistance?
+      options:
+        - "Transformation, because free DNA crossed between the strains."
+        - "Transduction, because a phage carried the gene."
+        - "Conjugation, because transfer required direct cell-to-cell contact through a pilus."
+        - "Mutation, because strain B spontaneously became resistant."
+      option_explanations:
+        - |
+          If free DNA were responsible, the filter, which lets DNA through, would not have blocked the transfer.
+        - |
+          Phage particles pass through the filter, so transduction would also have continued across it.
+        - |
+          Correct. The transfer needed physical contact, the hallmark of conjugation, in which a plasmid is copied across a pilus from donor to recipient.
+        - |
+          Spontaneous resistance would arise at the same low rate with or without the filter, and would not depend on the presence of strain A.
+      answer: 2
+      explanation: |
+        The three routes of horizontal transfer are distinguished by what they need: contact (conjugation), a phage (transduction) or nothing but naked DNA (transformation). A filter experiment separates them.
+
+    - slug: u06-w21-q07
+      type: multiple_choice
+      topic_code: "6.7"
+      source: "Biology 2e §13.2 Chromosomal Basis of Inherited Disorders"
+      points: 1
+      prompt: |
+        A gamete is found to contain two copies of chromosome 21 while every other chromosome is present once. If this gamete fertilises a normal gamete, which description of the zygote is correct?
+      options:
+        - "The zygote is diploid and normal, because the extra chromosome is lost at the first division."
+        - "The zygote is trisomic for chromosome 21 (2n + 1), with three copies of every gene on that chromosome, altering gene dosage."
+        - "The zygote is triploid, with three complete sets of chromosomes."
+        - "The zygote is monosomic for chromosome 21."
+      option_explanations:
+        - |
+          Extra chromosomes are not discarded; every mitotic division copies all 47 chromosomes faithfully.
+        - |
+          Correct. Nondisjunction produced an n + 1 gamete; the zygote has 47 chromosomes, and the proteins of chromosome 21 are made at about 150% of the normal amount, which disrupts development.
+        - |
+          Triploidy means three of every chromosome; here only one chromosome is in excess, which is aneuploidy.
+        - |
+          Monosomy would require a gamete lacking chromosome 21; this one has an extra copy.
+      answer: 1
+      explanation: |
+        Aneuploidy is a mutation in chromosome number rather than sequence; its effect comes through dosage, since every gene on the extra chromosome is still expressed.
+
+    - slug: u06-w21-q08
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "Biology 2e §17.1 Biotechnology"
+      points: 1
+      stimulus: |
+        A linear DNA molecule of 10,000 base pairs was cut with two restriction enzymes separately and the fragments were separated on an agarose gel beside a ladder of known sizes. The distance each band travelled from the well is shown.
+
+        | Lane | Sample | Band distances from well (mm) |
+        |---|---|---|
+        | 1 | Ladder: 10,000; 5,000; 2,000; 1,000; 500 bp | 10; 21; 35; 45; 56 |
+        | 2 | Uncut DNA | 10 |
+        | 3 | DNA cut with EcoRI | 18; 28; 45 |
+        | 4 | DNA cut with BamHI | 15; 28 |
+      prompt: |
+        Which statement about the band at 45 mm in lane 3 is correct?
+      options:
+        - "It is the largest EcoRI fragment, because it travelled farthest."
+        - "It is about 1,000 base pairs, because it travelled the same distance as the 1,000-bp ladder band."
+        - "It is about 5,000 base pairs, because it is the middle band of three."
+        - "Its size cannot be estimated without knowing the voltage."
+      option_explanations:
+        - |
+          Smaller fragments travel farther through the gel; the band farthest from the well is the smallest fragment, not the largest.
+        - |
+          Correct. A band that migrates the same distance as a ladder band is the same size; 45 mm matches the 1,000-bp standard.
+        - |
+          Band order in a lane does not give size directly; the ladder does. The middle band (28 mm) is about 3,000 bp.
+        - |
+          Voltage affects how far everything moves, but the ladder was run on the same gel under the same conditions, so comparison with it gives the size.
+      answer: 1
+      explanation: |
+        A gel measures distance; the ladder converts distance to size. Always read unknown bands against standards on the same gel.
+
+    - slug: u06-w21-q09
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "Biology 2e §17.1 Biotechnology"
+      points: 1
+      stimulus: |
+        A linear DNA molecule of 10,000 base pairs was cut with two restriction enzymes separately and the fragments were separated on an agarose gel beside a ladder of known sizes. The distance each band travelled from the well is shown.
+
+        | Lane | Sample | Band distances from well (mm) |
+        |---|---|---|
+        | 1 | Ladder: 10,000; 5,000; 2,000; 1,000; 500 bp | 10; 21; 35; 45; 56 |
+        | 2 | Uncut DNA | 10 |
+        | 3 | DNA cut with EcoRI | 18; 28; 45 |
+        | 4 | DNA cut with BamHI | 15; 28 |
+      prompt: |
+        Using the ladder, which is the best estimate of the size of the band at 15 mm in lane 4, and what does the sum of lane 4's fragments tell you?
+      options:
+        - "About 7,000 bp; the two BamHI fragments add to 10,000 bp, so BamHI cuts once."
+        - "About 12,000 bp; the DNA was larger than stated."
+        - "About 3,000 bp; the two fragments are the same size."
+        - "About 500 bp; the band is small because it is faint."
+      option_explanations:
+        - |
+          Correct. 15 mm lies between the 10,000-bp (10 mm) and 5,000-bp (21 mm) standards, nearer the top, about 7,000 bp; with the 28-mm band at about 3,000 bp the fragments total 10,000, consistent with a single cut in a linear molecule.
+        - |
+          A fragment cannot be larger than the uncut molecule, and 15 mm is below (farther than) the 10,000-bp standard at 10 mm.
+        - |
+          The 28-mm band is about 3,000 bp; the 15-mm band travelled much less and must be considerably larger.
+        - |
+          Distance, not brightness, measures size; 500 bp would sit at 56 mm, far down the gel.
+      answer: 0
+      explanation: |
+        Two checks on any restriction map: estimate each fragment from the ladder, then confirm the fragments add up to the whole molecule.
+
+    - slug: u06-w21-q10
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "Biology 2e §17.1 Biotechnology"
+      points: 1
+      stimulus: |
+        A linear DNA molecule of 10,000 base pairs was cut with two restriction enzymes separately and the fragments were separated on an agarose gel beside a ladder of known sizes. The distance each band travelled from the well is shown.
+
+        | Lane | Sample | Band distances from well (mm) |
+        |---|---|---|
+        | 1 | Ladder: 10,000; 5,000; 2,000; 1,000; 500 bp | 10; 21; 35; 45; 56 |
+        | 2 | Uncut DNA | 10 |
+        | 3 | DNA cut with EcoRI | 18; 28; 45 |
+        | 4 | DNA cut with BamHI | 15; 28 |
+      prompt: |
+        How many EcoRI recognition sites does the molecule contain, and how many fragments would EcoRI produce if the same sequence were instead a circular plasmid?
+      options:
+        - "Three sites; three fragments from the circle."
+        - "Two sites; two fragments from the circle."
+        - "Two sites; three fragments from the circle."
+        - "One site; one fragment from the circle."
+      option_explanations:
+        - |
+          Three fragments from a linear molecule require only two cuts; a third site would give four bands.
+        - |
+          Correct. A linear molecule with n sites yields n + 1 fragments, so three bands mean two sites. In a circle the same two cuts give just two fragments, because the end pieces are joined.
+        - |
+          The site count is right, but a circle with two cuts yields two pieces, not three; the linear molecule's two end fragments become one.
+        - |
+          One site would give two fragments in a linear molecule and would merely open a circle into one linear piece.
+      answer: 1
+      explanation: |
+        Linear: fragments = sites + 1. Circular: fragments = sites. The difference comes up constantly in plasmid mapping.
+
+    - slug: u06-w21-q11
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "Biology 2e §17.1 Biotechnology"
+      points: 1
+      prompt: |
+        A forensic scientist wants to amplify one specific 400-base-pair region from a sample containing the entire human genome. Which component of the PCR determines that only that region is copied?
+      options:
+        - "The Taq polymerase, which recognises the target sequence."
+        - "The two primers, whose sequences are complementary to the ends of the target region on opposite strands."
+        - "The denaturation temperature, which only separates the target region."
+        - "The deoxynucleotides, which are specific to the target."
+      option_explanations:
+        - |
+          Polymerases extend any primed template; they have no sequence preference of their own.
+        - |
+          Correct. Each primer anneals only where its complement occurs and provides the 3′-OH from which the polymerase copies; the region between the two primer sites is what accumulates exponentially.
+        - |
+          At 95 °C every double helix in the tube separates; denaturation is not selective.
+        - |
+          The four dNTPs are the same for any sequence; they are building blocks, not targeting agents.
+      answer: 1
+      explanation: |
+        Primers are PCR's address. Designing them requires knowing the flanking sequence, which is why PCR amplifies known targets rather than discovering new ones.
+
+    - slug: u06-w21-q12
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "Biology 2e §3.4 Proteins"
+      points: 1
+      prompt: |
+        Review. Two missense mutations occur in the same enzyme. Mutation 1 replaces a leucine buried in the hydrophobic core with isoleucine; mutation 2 replaces the same leucine with lysine. Which prediction is best supported by the chemistry of the R groups?
+      options:
+        - "Both mutations destroy the enzyme, because any change in primary structure unfolds a protein."
+        - "Mutation 1 is likely tolerated because isoleucine is also nonpolar, whereas mutation 2 places a charged group in the core and is likely to disrupt folding."
+        - "Mutation 2 is harmless because lysine is larger and fills the core better."
+        - "Neither mutation matters because the core is not part of the active site."
+      option_explanations:
+        - |
+          Many substitutions are conservative and leave the fold intact; proteins tolerate most changes between similar R groups.
+        - |
+          Correct. Hydrophobic interactions hold the core together; swapping one nonpolar residue for another preserves them, but a charged lysine in a nonpolar environment is energetically unfavourable and the protein may misfold.
+        - |
+          Size is not the issue; charge is. A charged group cannot be buried without cost.
+        - |
+          Core residues hold the tertiary structure that positions the active site; disrupting the core disrupts the site indirectly.
+      answer: 1
+      explanation: |
+        Whether a missense mutation matters depends on where it falls and what chemistry it changes, which is Unit 1's R-group classification applied to Unit 6's mutations.
+
+    - slug: u06-w21-q13
+      type: multiple_choice
+      topic_code: "5.1"
+      source: "Biology 2e §11.1 The Process of Meiosis"
+      points: 1
+      prompt: |
+        Review. Nondisjunction of one chromosome pair occurs in a cell during meiosis I. Which description of the four resulting gametes is correct?
+      options:
+        - "Two gametes have an extra copy of that chromosome and two lack it."
+        - "One gamete has an extra copy, one lacks it, and two are normal."
+        - "All four gametes are normal, because meiosis II corrects the error."
+        - "All four gametes have an extra copy."
+      option_explanations:
+        - |
+          Correct. If homologues fail to separate in meiosis I, both go to one daughter cell; after meiosis II that cell's two gametes each carry two copies and the other cell's two gametes carry none.
+        - |
+          This pattern (one n + 1, one n − 1, two normal) results from nondisjunction in meiosis II, when sister chromatids fail to separate in only one of the two cells.
+        - |
+          Meiosis II separates sister chromatids within each cell; it cannot restore a chromosome to a cell that never received it.
+        - |
+          The chromosomes are not duplicated again; what one cell gains the other loses.
+      answer: 0
+      explanation: |
+        Meiosis I errors affect all four products; meiosis II errors affect two. Drawing the two divisions is faster than remembering the rule.
+
+    - slug: u06-w21-q14
+      type: multiple_choice
+      topic_code: "3.2"
+      source: "Biology 2e §6.5 Enzymes"
+      points: 1
+      prompt: |
+        Review. Early PCR protocols used E. coli DNA polymerase and had to add fresh enzyme after every cycle; switching to Taq polymerase removed that step. Which explanation is best?
+      options:
+        - "E. coli polymerase runs out of nucleotides faster than Taq."
+        - "The 95 °C denaturation step irreversibly denatures E. coli polymerase, breaking the weak interactions that hold its tertiary structure, whereas Taq, from a hot-spring bacterium, has a fold that remains stable at that temperature."
+        - "Taq polymerase does not need a primer."
+        - "E. coli polymerase cannot copy human DNA."
+      option_explanations:
+        - |
+          Nucleotides are supplied in excess and are the same for both enzymes; the difference is in the enzyme's survival of the heat.
+        - |
+          Correct. An enzyme's optimum and stability reflect the environment it evolved in; a mesophile's polymerase unfolds at 95 °C and does not refold, while a thermophile's stays active cycle after cycle.
+        - |
+          Every DNA polymerase needs a primer; PCR supplies two.
+        - |
+          DNA polymerases copy any template; the genetic code and the DNA chemistry are universal.
+      answer: 1
+      explanation: |
+        Topic 3.2 in a machine: the temperature profile of PCR was designed around the stability of a thermophile's enzyme.
+
+    - slug: u06-w21-q15
+      type: multi_select
+      topic_code: "6.7"
+      source: "Biology 2e §14.6 DNA Repair"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which of the following mutations would change the amino-acid sequence of the encoded protein? Select all that apply.
+      options:
+        - "A substitution that changes GAA (Glu) to GAG (Glu) in the coding sequence"
+        - "A deletion of two bases in the middle of the coding sequence"
+        - "A substitution that changes CAG (Gln) to UAG in the coding sequence"
+        - "A substitution in the TATA box of the promoter"
+        - "An insertion of three bases within the coding sequence"
+      option_explanations:
+        - |
+          GAA and GAG both encode glutamate; this substitution is silent and the protein is unchanged.
+        - |
+          Correct. A two-base deletion shifts the reading frame, changing every amino acid downstream.
+        - |
+          Correct. UAG is a stop codon; the protein is truncated at that position.
+        - |
+          A promoter mutation changes how much mRNA is made but not the sequence of the protein encoded.
+        - |
+          Correct. An in-frame insertion adds one amino acid, which changes the sequence even though the frame is preserved.
+      answer: [1, 2, 4]
+      explanation: |
+        Ask of every mutation: is it in the coding sequence, and does it alter which amino acids are specified? Regulatory and silent changes leave the protein's sequence alone; indels and nonsense changes do not.
+
+    - slug: u06-w21-q16
+      type: multi_select
+      topic_code: "4.6"
+      source: "Biology 2e §16.7 Cancer and Gene Regulation"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Review. Which somatic mutations could contribute to a cell dividing without proper control? Select all that apply.
+      options:
+        - "A mutation that makes a growth-factor receptor signal continuously even without growth factor"
+        - "A nonsense mutation in both copies of the p53 gene"
+        - "A silent mutation in a housekeeping gene"
+        - "Promoter methylation that silences a gene for a DNA repair enzyme"
+        - "A mutation that permanently inactivates a cyclin-dependent kinase"
+      option_explanations:
+        - |
+          Correct. A constitutively active receptor is an oncogene: it drives the cell-cycle pathway regardless of external signals.
+        - |
+          Correct. p53 is a tumour suppressor that halts the cycle after DNA damage; losing both copies removes the brake.
+        - |
+          A silent mutation changes no amino acid and has no effect on the protein or the cell cycle.
+        - |
+          Correct. Losing a repair enzyme raises the mutation rate, so further cancer-driving mutations accumulate faster; repair genes act as tumour suppressors.
+        - |
+          Cyclin-dependent kinases drive the cycle forward; inactivating one would stop division, not free it.
+      answer: [0, 1, 3]
+      explanation: |
+        Cancer needs gain-of-function in accelerators (proto-oncogenes) or loss-of-function in brakes (tumour suppressors, repair genes). Mutations that reduce division are not the problem.
+
+    - slug: u06-w21-q17
+      type: true_false
+      topic_code: "6.8"
+      source: "Biology 2e §17.1 Biotechnology"
+      points: 1
+      prompt: |
+        True or false: A restriction enzyme cuts DNA at random positions, so the number of fragments depends only on how long the enzyme is allowed to act.
+      answer: false
+      explanation: |
+        False. Each restriction enzyme recognises a specific sequence, usually a 4-8 base palindrome such as GAATTC for EcoRI, and cuts only there. The number of fragments is set by how many copies of that sequence the molecule contains (n + 1 for linear DNA, n for circular), and a complete digest gives the same pattern every time. That reproducibility is what makes restriction mapping and RFLP analysis possible.
+
+    - slug: u06-w21-q18
+      type: true_false
+      topic_code: "1.6"
+      source: "Biology 2e §3.5 Nucleic Acids"
+      points: 1
+      prompt: |
+        Review. True or false: DNA fragments migrate toward the positive electrode in gel electrophoresis because the phosphate groups of the sugar-phosphate backbone give every fragment a net negative charge.
+      answer: true
+      explanation: |
+        True. Each phosphodiester linkage carries a negative charge at neutral pH, so charge is proportional to length and the charge-to-mass ratio is the same for every fragment. That is why a gel separates DNA by size alone: all fragments feel the same force per unit mass, and the gel's pores slow the longer ones more. Proteins, with variable charges, need extra treatment (SDS) before they can be sorted the same way.
+
+    - slug: u06-w21-q19
+      type: fill_blank
+      topic_code: "6.7"
+      source: "Biology 2e §14.6 DNA Repair"
+      points: 1
+      prompt: |
+        An insertion or deletion of one or two nucleotides within a coding sequence alters the grouping of every downstream codon; this type of mutation is called a ____ mutation.
+      answer: ["frameshift", "frame-shift", "frame shift"]
+      explanation: |
+        A frameshift changes the reading frame, so the ribosome reads a completely different set of codons after the mutation and usually meets a premature stop. Insertions or deletions of three (or multiples of three) nucleotides keep the frame and are not frameshifts. "Point mutation" is not accepted: that term is reserved for single-base substitutions.
+
+    - slug: u06-w21-q20
+      type: fill_blank
+      topic_code: "5.2"
+      source: "Biology 2e §11.1 The Process of Meiosis"
+      points: 1
+      prompt: |
+        Review. Besides mutation, new combinations of alleles arise in meiosis when homologous chromosomes exchange segments during prophase I, a process called ____.
+      answer: ["crossing over", "crossing-over", "recombination"]
+      explanation: |
+        Crossing over between non-sister chromatids of homologues produces chromosomes with allele combinations that neither parent chromosome had. Together with independent assortment and random fertilisation it shuffles existing alleles into new genotypes; mutation is the only source of new alleles. "Independent assortment" is not accepted here, because it concerns whole chromosomes, not exchange of segments.
+
+    - slug: u06-w21-q21
+      type: numeric
+      topic_code: "6.8"
+      source: "Biology 2e §17.1 Biotechnology"
+      points: 1
+      prompt: |
+        A PCR starts with a single double-stranded copy of the target sequence. Assuming every cycle doubles the number of copies, how many copies are present after 10 cycles? Give a whole number.
+      answer: { value: 1024, tolerance: 0 }
+      explanation: |
+        Each cycle doubles the target: 2¹⁰ = 1,024. After 20 cycles there would be about a million (2²⁰ = 1,048,576) and after 30 about a billion. In practice the first two cycles produce some longer products and efficiency falls below 100% late in the run, but 2ⁿ is the model the exam expects. This exponential growth is why a trace of DNA from a single hair is enough.
+
+    - slug: u06-w21-q22
+      type: numeric
+      topic_code: "6.4"
+      source: "Biology 2e §15.1 The Genetic Code"
+      points: 1
+      prompt: |
+        Review. A gene encodes a protein of 300 amino acids. A mutation deletes six consecutive bases from the middle of the coding sequence, and the deletion does not create a stop codon. How many amino acids does the mutant protein contain? Give a whole number.
+      answer: { value: 298, tolerance: 0 }
+      explanation: |
+        Six bases is two codons, and six is a multiple of three, so the reading frame is preserved: the protein simply lacks two amino acids, 300 − 2 = 298. A deletion of five or seven bases would instead shift the frame and scramble everything downstream, giving an unpredictable length. The CFTR protein in cystic fibrosis is the classic in-frame case: a three-base deletion removes one phenylalanine.
+
+    - slug: u06-w21-q23
+      type: short_answer
+      topic_code: "6.8"
+      source: "Biology 2e §17.2 Mapping Genomes"
+      points: 4
+      prompt: |
+        Scientific investigation. The normal β-globin allele contains the sequence CCTGAGG, which is a recognition site for the restriction enzyme MstII. The sickle-cell allele carries a single-base substitution that changes the sequence to CCTGTGG, which MstII does not cut. (a) Describe a procedure using PCR, MstII and gel electrophoresis that could determine whether a person carries zero, one or two sickle-cell alleles. (b) Predict the band pattern for each of the three genotypes, assuming the amplified region is 400 base pairs and the MstII site lies 150 base pairs from one end. (c) Explain why this method works, referring to what a restriction enzyme recognises.
+      answer: |
+        Amplify the region of the β-globin gene containing the site with primers flanking it, digest the product with MstII, run it on a gel beside a ladder. Normal homozygote: two bands, 150 and 250 bp. Sickle-cell homozygote: one band, 400 bp. Heterozygote: three bands, 400, 250 and 150 bp. It works because the enzyme cuts only its exact recognition sequence; the mutation destroys the site, so the allele can be read from the fragment pattern.
+      explanation: |
+        Four points.
+
+        (a) Procedure, 1 pt: PCR with primers that flank the MstII site to amplify the 400-bp region from the person's DNA; incubate the product with MstII; separate the fragments by gel electrophoresis alongside a size ladder (and ideally known normal and sickle controls). All three steps in order are needed.
+
+        (b) Predictions, 2 pts: 1 pt for the two homozygotes: normal/normal gives 150 bp and 250 bp bands; sickle/sickle gives a single 400-bp band; 1 pt for the heterozygote: 400, 250 and 150 bp, because one allele is cut and the other is not. Sizes must be correct.
+
+        (c) Explanation, 1 pt: a restriction enzyme cuts only at its exact recognition sequence, so a single-base change within the site abolishes cutting; the genotype can therefore be read directly from whether the fragment is cut, which is a restriction fragment length polymorphism. Accept an answer that notes the mutation is itself the diagnostic change, so no sequencing is needed.
+
+        Zero: designs that omit the restriction digest or the gel; predictions in which the heterozygote shows only two bands; explanations that say the enzyme recognises the mutant protein.
+
+    - slug: u06-w21-q24
+      type: short_answer
+      topic_code: "6.7"
+      source: "Biology 2e §22.2 Structure of Prokaryotes: Bacteria and Archaea"
+      points: 4
+      prompt: |
+        Argumentation. In a hospital, a strain of bacteria resistant to three unrelated antibiotics appears within two years of the third antibiotic being introduced. The resistance genes are found together on a single plasmid, and the same plasmid is soon detected in a second bacterial species. (a) Make a claim about how this triple resistance most likely arose and spread, and support it with two pieces of evidence from the scenario. (b) Explain why resistance would spread much more slowly if each gene were on the bacterial chromosome. (c) Predict one consequence of reducing antibiotic use in the hospital, and justify it in terms of selection.
+      answer: |
+        Claim: the genes were assembled on a plasmid and spread by horizontal transfer (conjugation) rather than arising independently in each lineage. Evidence: all three genes sit on one plasmid, and the identical plasmid appears in a second species, which vertical inheritance cannot explain. Chromosomal genes pass only to a cell's own descendants, so each species and lineage would need its own mutations, taking many generations. Reducing use removes the selective advantage; because carrying the plasmid has a cost, resistant strains should decline in frequency over time, though they may not vanish.
+      explanation: |
+        Four points.
+
+        (a) Claim with evidence, 2 pts: 1 pt for the claim that the resistance genes accumulated on a mobile plasmid and spread by horizontal gene transfer (conjugation) between cells and species; 1 pt for two supporting observations: the three genes are physically linked on one plasmid (so they travel together and are selected together whenever any one antibiotic is used), and the same plasmid turned up in a different species (impossible by descent, so it must have been transferred). Accept the speed of appearance as a third piece of evidence.
+
+        (b) Explain, 1 pt: chromosomal genes are inherited vertically, only by the dividing cell's descendants; each lineage and each species would have to acquire each resistance by its own rare mutation, and three independent mutations in one lineage would take far longer than one conjugation event.
+
+        (c) Predict and justify, 1 pt: with less antibiotic, resistant cells lose their advantage; because replicating a plasmid and making resistance proteins costs energy, sensitive cells out-compete them and the frequency of resistance falls, though the plasmid may persist at low frequency. Accept the prediction that the decline is slow if the cost is small, with justification.
+
+        Zero: claims that the antibiotics caused the mutations; arguments that bacteria "share" resistance deliberately; predictions with no reference to selection or cost.
+
+    - slug: u06-w21-q25
+      type: long_answer
+      topic_code: "6.8"
+      source: "general knowledge"
+      points: 8
+      prompt: |
+        Interpreting and evaluating experimental results. A 2,000-base-pair region of a gene was amplified by PCR from a family and digested with a restriction enzyme whose single recognition site in the normal allele lies 800 base pairs from one end. A known disease-causing mutation destroys that site. The digested products were run on a gel; band sizes read against a ladder are given. The family's clinical status is also shown.
+
+        | Individual | Bands after digestion (bp) | Affected by the disease? |
+        |---|---|---|
+        | Mother | 2,000; 1,200; 800 | No |
+        | Father | 2,000; 1,200; 800 | No |
+        | Child 1 | 1,200; 800 | No |
+        | Child 2 | 2,000 | Yes |
+        | Child 3 | 2,000; 1,200; 800 | No |
+        | Control (normal homozygote) | 1,200; 800 | No |
+
+        (a) Explain why the normal allele gives two bands and the mutant allele gives one, and why the band sizes are 1,200 and 800.
+        (b) Determine the genotype of each family member with respect to the mutation, and explain how you can tell a heterozygote from each homozygote on the gel.
+        (c) Using the family data, determine whether the disease is dominant or recessive, and justify your answer.
+        (d) A fourth child is expected. Calculate the probability that the child will be affected, and the probability that the child will be an unaffected carrier.
+        (e) The test detects only mutations that destroy this one restriction site. Describe one limitation this creates for diagnosing the disease, and propose an alternative method that would overcome it.
+      answer: |
+        The enzyme cuts the normal allele once at 800 bp from the end, giving 800 and 1,200 bp pieces; the mutant allele has lost the site and stays 2,000 bp. Parents and child 3 are heterozygous (three bands); child 1 is a normal homozygote (two bands); child 2 is a mutant homozygote (one band). Both parents are heterozygous and unaffected while child 2, homozygous, is affected, so the disease is recessive. Each child has 1/4 chance of being affected and 1/2 of being a carrier. The test misses other mutations in the gene that do not touch this site; sequencing the gene would detect them.
+      explanation: |
+        Eight points.
+
+        (a) 1 pt: the normal allele contains one recognition site 800 bp from one end, so cutting the 2,000-bp product gives fragments of 800 and 1,200 (2,000 − 800); the mutation destroys the site, so the mutant product is not cut and remains 2,000 bp.
+
+        (b) 2 pts: 1 pt for the genotypes: mother, father and child 3 heterozygous; child 1 homozygous normal; child 2 homozygous mutant; 1 pt for the reasoning: a heterozygote shows all three bands (one allele cut, one not), the normal homozygote shows only the two cut fragments, the mutant homozygote only the uncut band. Both the assignments and the reasoning are needed for full credit.
+
+        (c) 2 pts: 1 pt for recessive; 1 pt for the justification: both parents carry one mutant allele and are unaffected, so one copy does not cause disease, while child 2 with two mutant alleles is affected; this fits recessive inheritance and rules out dominant inheritance, in which the heterozygous parents would be affected.
+
+        (d) 1 pt: heterozygote × heterozygote gives 1/4 homozygous mutant (affected), 1/2 heterozygous (unaffected carriers), 1/4 homozygous normal; the probabilities are 1/4 (25%) affected and 1/2 (50%) carrier. Both values required.
+
+        (e) 2 pts: 1 pt for a limitation: a different mutation elsewhere in the gene (or one within the site that happens not to abolish cutting) would still allow cutting and be scored as normal, so a carrier of a different allele would be missed, or a mutation that created a new site could confuse the pattern; 1 pt for an alternative: sequence the gene (or the amplified region) to read the actual bases, or use probes or PCR primers specific to each known mutation. Accept whole-exome or whole-genome sequencing.
+
+        Zero for a part: assigning genotypes without reference to the number of bands; calling the disease dominant because child 2 shows one band; probabilities of 1/2 affected; proposing another restriction enzyme without explaining that it would still only test one site.

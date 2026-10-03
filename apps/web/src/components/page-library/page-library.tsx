@@ -1,5 +1,5 @@
 import { Component, h, Prop, State, Watch } from '@stencil/core';
-import { GRADE_LEVELS, GradeLevel, MaterialSummary, SUBJECTS, Subject, TestSummary } from '@24hc/shared';
+import { GRADE_LEVELS, GradeLevel, LibrarySort, MaterialSummary, SUBJECTS, Subject, TestSummary } from '@24hc/shared';
 import { testsStore } from '../../services/tests-store';
 import { materialsStore } from '../../services/materials-store';
 import { navigate } from '../../services/navigate';
@@ -20,6 +20,8 @@ export class PageLibrary {
   @State() subject: Subject | '' = '';
   @State() grade: GradeLevel | '' = '';
   @State() q = '';
+  /** Omitted from the query when `recent`, the API's default. */
+  @State() sort: LibrarySort = 'recent';
   @State() busy = false;
   @State() loaded = false;
   @State() error = false;
@@ -33,7 +35,7 @@ export class PageLibrary {
   /**
    * Both /library and /library/materials resolve to this tag, so Stencil
    * reuses the element and componentWillLoad does NOT re-run on the switch.
-   * Reset the results and the pager -- but never subject/grade/q: those
+   * Reset the results and the pager -- but never subject/grade/q/sort: those
    * <select>s are uncontrolled, so clearing the state would leave the DOM
    * showing filters the query no longer applies.
    */
@@ -53,6 +55,7 @@ export class PageLibrary {
       ...(this.subject ? { subject: this.subject } : {}),
       ...(this.grade ? { grade: this.grade } : {}),
       ...(this.q ? { q: this.q } : {}),
+      ...(this.sort === 'title' ? { sort: 'title' as const } : {}),
       ...(this.page > 1 ? { page: this.page } : {}),
     };
     try {
@@ -94,6 +97,17 @@ export class PageLibrary {
 
   private onSubmit = async (event: Event) => {
     event.preventDefault();
+    await this.submitSearch();
+  };
+
+  /**
+   * Sort applies on change, not on Search: it reorders what is already
+   * showing rather than narrowing it. Allowlisted -- an unknown value from
+   * the DOM falls back to the default, never to a bare string on the wire.
+   */
+  private onSortInput = async (event: Event) => {
+    const value = (event.target as HTMLSelectElement).value;
+    this.sort = value === 'title' ? 'title' : 'recent';
     await this.submitSearch();
   };
 
@@ -141,6 +155,13 @@ export class PageLibrary {
           <label>
             Search
             <input type="search" placeholder="Title or description" value={this.q} onInput={(e) => (this.q = (e.target as HTMLInputElement).value)} />
+          </label>
+          <label>
+            Sort
+            <select data-testid="sort" onInput={this.onSortInput}>
+              <option value="recent">Newest first</option>
+              <option value="title">Title A→Z</option>
+            </select>
           </label>
           <button type="submit" class="btn-primary" disabled={this.busy}>Search</button>
         </form>

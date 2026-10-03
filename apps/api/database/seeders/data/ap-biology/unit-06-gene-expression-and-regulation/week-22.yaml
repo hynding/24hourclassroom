@@ -1,0 +1,714 @@
+week: 22
+unit: 6
+title: Transformation, Sequencing and Gene Editing; Unit Synthesis
+topics: ["6.8"]
+guide: guides/week-22.md
+guide_description: |
+  The second half of the toolkit: building a recombinant plasmid, getting it into bacteria and selecting the
+  cells that took it (AP Investigation 8 with pGLO, including the four-plate logic and transformation
+  efficiency), reading DNA by Sanger and next-generation sequencing, editing genes with CRISPR-Cas9 at the
+  CED's level, and the applications the exam names. Ends with a synthesis of Unit 6 as one chain from DNA to
+  phenotype. Three worked examples (the four plates, a sequencing read, a CRISPR knockout), misconceptions,
+  self-check.
+flashcards_description: |
+  30 cards: vectors and transformation, the pGLO plates, efficiency arithmetic, cDNA and expression vectors, sequencing methods, CRISPR, applications, and the Unit 6 chain.
+
+flashcards:
+  - front: Recombinant DNA → the four steps to a cloned gene
+    back: |
+      Cut the gene and a plasmid vector with the same restriction enzyme; mix so the sticky ends pair; seal with DNA ligase; transform the recombinant plasmid into bacteria and select the cells that took it up.
+    topic_code: "6.8"
+  - front: What makes a plasmid a useful vector?
+    back: |
+      An origin of replication so it is copied in the host; a selectable marker (usually an antibiotic-resistance gene) so transformed cells can be picked out; and a multiple cloning site, a cluster of unique restriction sites where the insert goes.
+    topic_code: "6.8"
+  - front: Laboratory transformation → why calcium chloride and heat shock
+    back: |
+      Bacteria rarely take up DNA on their own. Ca²⁺ ions screen the negative charges of the membrane phosphates and the DNA so they stop repelling; a brief 42 °C shock then opens the membrane enough for plasmids to enter. Most cells still fail, which is why selection is essential.
+    topic_code: "6.8"
+  - front: Selectable marker → how an antibiotic plate finds the transformed cells
+    back: |
+      The plasmid carries a gene (bla for ampicillin resistance) that untransformed cells lack. On a plate containing the antibiotic only cells that took up the plasmid grow, so every colony is a transformant.
+    topic_code: "6.8"
+  - front: pGLO → its three genes and what each does
+    back: |
+      bla: β-lactamase, confers ampicillin resistance (selection). GFP: green fluorescent protein, the reporter. araC: a regulatory protein that switches the GFP promoter on only when arabinose is present (an inducible system like lac).
+    topic_code: "6.8"
+  - front: The four plates of the transformation lab → what each shows
+    back: |
+      −pGLO on LB: lawn (cells are alive). −pGLO on LB/amp: no growth (untransformed cells are sensitive). +pGLO on LB/amp: colonies, not glowing (transformed, GFP off). +pGLO on LB/amp/arabinose: colonies that glow green under UV (transformed, GFP induced).
+    topic_code: "6.8"
+  - front: Transformation efficiency → the calculation
+    back: |
+      Transformants per microgram of DNA = colonies counted ÷ micrograms of plasmid actually spread on that plate. The DNA spread is the total DNA added multiplied by the fraction of the cell suspension plated.
+    hint: Count colonies; work out how much DNA reached the plate; divide.
+    topic_code: "6.8"
+  - front: Why use cDNA, not genomic DNA, to express a human gene in bacteria?
+    back: |
+      Genomic DNA has introns, and bacteria have no spliceosome. cDNA is made from the mature mRNA by reverse transcriptase, so it is a continuous coding sequence the bacterium can transcribe and translate.
+    topic_code: "6.8"
+  - front: Reverse transcriptase → source and uses
+    back: |
+      A retroviral enzyme that makes DNA from an RNA template. Used to make cDNA libraries, to measure gene expression (RT-PCR) and to copy RNA genomes for sequencing.
+    topic_code: "6.8"
+  - front: Expression vector → what control sequences a human gene needs in E. coli
+    back: |
+      A bacterial promoter the host RNA polymerase recognises, a ribosome-binding (Shine-Dalgarno) sequence just upstream of AUG, the intron-free coding sequence, and a bacterial terminator. The genetic code is universal, so the protein's sequence comes out right.
+    topic_code: "6.8"
+  - front: Sanger (dideoxy) sequencing → how it reads a sequence
+    back: |
+      A primer is extended by DNA polymerase in the presence of normal nucleotides plus a small amount of each dideoxynucleotide, which lacks a 3′-OH and stops the chain wherever it is incorporated. The fragments, each ending in a labelled ddNTP, are sorted by size; reading the labels from shortest to longest gives the sequence.
+    topic_code: "6.8"
+  - front: Why does a dideoxynucleotide terminate a growing strand?
+    back: |
+      Polymerase joins each new nucleotide to the 3′-OH of the previous one. A ddNTP has H instead of OH at the 3′ carbon, so once it is added there is nothing for the next phosphodiester bond to form on.
+    topic_code: "6.8"
+  - front: Reading a sequencing output → which fragment comes first
+    back: |
+      The shortest fragment ended at the first position after the primer, so its terminal base is the first base of the sequence. Read from the bottom of the gel (or the left of the chromatogram) upward, each colour giving one base, 5′ → 3′ of the new strand.
+    topic_code: "6.8"
+  - front: Shotgun and next-generation sequencing → the idea
+    back: |
+      The genome is broken into millions of random fragments that are sequenced in parallel; computers find the overlaps and assemble them into contigs and then chromosomes. A human genome now takes days and costs about the price of a phone.
+    topic_code: "6.8"
+  - front: What genome sequences are used for
+    back: |
+      Finding disease alleles and tailoring treatment; comparing species to build phylogenies and date divergences; tracking pathogens in an outbreak; improving crops; identifying organisms from environmental DNA.
+    topic_code: "6.8"
+  - front: CRISPR-Cas9 → the two components and what they do
+    back: |
+      A guide RNA whose sequence pairs with the target DNA, and the Cas9 nuclease, which the guide RNA leads to that site, where it cuts both strands. The cell's repair of the break is what changes the gene.
+    topic_code: "6.8"
+  - front: How does a CRISPR cut become a knockout or an edit?
+    back: |
+      If the break is repaired by simply rejoining the ends, small insertions or deletions usually result, which frameshift and disable the gene (a knockout). If a DNA template with the desired sequence is supplied, the cell can copy it into the break, changing the gene precisely.
+    topic_code: "6.8"
+  - front: Where did CRISPR come from?
+    back: |
+      From a bacterial immune system: bacteria store fragments of phage DNA between repeats in their genome, transcribe them into guide RNAs, and use Cas nucleases to cut matching phage DNA on the next infection. Scientists repurposed the guide-plus-nuclease pair for any target.
+    topic_code: "6.8"
+  - front: Gene therapy → idea and vehicle
+    back: |
+      Introducing a functional copy of a gene into a patient's cells to compensate for a defective one, usually carried by a modified virus that delivers DNA to the nucleus. Works best for single-gene disorders in accessible tissues.
+    topic_code: "6.8"
+  - front: Transgenic organism and GMO → definition and two examples
+    back: |
+      An organism carrying a gene from another species inserted by recombinant methods. Bt corn expresses a bacterial toxin gene that kills caterpillars; bacteria carrying the human insulin gene make insulin for patients.
+    topic_code: "6.8"
+  - front: Agrobacterium and the Ti plasmid → engineering plants
+    back: |
+      A soil bacterium that naturally injects part of its Ti plasmid into plant cells. With the tumour genes removed and a desired gene inserted, it becomes a vector that carries foreign DNA into the plant genome.
+    topic_code: "6.8"
+  - front: DNA profiling → what is compared and why it distinguishes people
+    back: |
+      Short tandem repeats at several sites in non-coding DNA vary in repeat number between individuals. PCR across each site and electrophoresis give a band pattern; matching all sites identifies a person, and children share bands with each parent.
+    topic_code: "6.8"
+  - front: Probe hybridisation and blotting → finding one sequence among many
+    back: |
+      Fragments separated on a gel are transferred to a membrane and exposed to a labelled single-stranded probe complementary to the sequence of interest; the probe base-pairs only where its match is, marking the band. Southern blot for DNA, northern for RNA.
+    topic_code: "6.8"
+  - front: Blue-white screening → how an insert is detected
+    back: |
+      The cloning site sits inside lacZ. An intact lacZ makes β-galactosidase, which turns X-gal blue; an insert disrupts the gene, so colonies with recombinant plasmids are white.
+    topic_code: "6.8"
+  - front: GFP → why it is a convenient reporter
+    back: |
+      Green fluorescent protein, from a jellyfish, glows under UV light with no added substrate, so living cells and colonies can be checked without being killed. It reports when and where a promoter is active.
+    topic_code: "6.8"
+  - front: Why does E. coli make a correct human protein from a human gene?
+    back: |
+      Because the genetic code is nearly universal: the same codons specify the same amino acids, and bacterial ribosomes and tRNAs read them identically. The shared code is evidence of common ancestry and the basis of the biotechnology industry.
+    topic_code: "6.8"
+  - front: Controls in a transformation experiment → why the −pGLO plates matter
+    back: |
+      The −pGLO LB plate shows the cells were viable; the −pGLO LB/amp plate shows that untransformed cells cannot grow on ampicillin. Without them, colonies on the +pGLO amp plate could be spontaneous resistant mutants or contamination.
+    topic_code: "6.8"
+  - front: Measuring gene expression with RT-PCR
+    back: |
+      Extract mRNA, copy it into cDNA with reverse transcriptase, then amplify a gene-specific target by PCR; the amount of product (or the cycle at which it appears in real-time PCR) reflects how much mRNA the cells contained.
+    topic_code: "6.8"
+  - front: Site-directed change as a test of function
+    back: |
+      To test whether a residue or sequence matters, change it deliberately (by mutagenesis or CRISPR), express the altered gene, and compare the product or the organism with the unaltered control. A loss of function identifies what the sequence did.
+    topic_code: "6.8"
+  - front: The Unit 6 chain → from DNA to phenotype in one sentence
+    back: |
+      DNA is replicated semiconservatively; a gene is transcribed from its template strand; the pre-mRNA is capped, spliced and tailed; ribosomes translate codons into a polypeptide; regulation at every step decides how much is made and where; mutation at any step creates the variation evolution works with; biotechnology manipulates each step.
+    topic_code: "6.8"
+
+quiz:
+  description: |
+    24 questions · about 30 minutes · about 70% this week (transformation, sequencing, gene editing,
+    applications) and 30% synthesis and review of earlier Unit 6 weeks (replication, transcription, regulation)
+    and of membranes and prokaryotic cells (Unit 2) and nucleic acid chemistry (Unit 1). Multiple choice,
+    select-all, true/false and numeric items are graded at once; the fill-in-the-blank items are matched
+    automatically; the two short answers and the long answer are graded by your teacher against the
+    acceptable-answer summary.
+  questions:
+    - slug: u06-w22-q01
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "general knowledge"
+      points: 1
+      stimulus: |
+        Students transformed E. coli with the pGLO plasmid, which carries an ampicillin-resistance gene (bla), the gene for green fluorescent protein (GFP) and the araC regulator that lets the GFP promoter be switched on by the sugar arabinose. Cells with (+pGLO) and without (−pGLO) plasmid were spread on four kinds of plate and examined after 24 hours under white light and under UV light.
+
+        | Plate | Cells | Growth | Appearance under UV |
+        |---|---|---|---|
+        | LB | −pGLO | Lawn covering the plate | No glow |
+        | LB + ampicillin | −pGLO | No growth | — |
+        | LB + ampicillin | +pGLO | 64 separate colonies | No glow |
+        | LB + ampicillin + arabinose | +pGLO | 71 separate colonies | Colonies glow green |
+      prompt: |
+        Which statement best explains why the −pGLO cells on LB + ampicillin showed no growth?
+      options:
+        - "The cells were killed by the heat-shock step of the procedure."
+        - "The cells lack the plasmid-borne bla gene, so they cannot inactivate ampicillin and are killed by it; this plate is the control that validates selection."
+        - "Ampicillin prevents all bacterial growth, including transformed cells."
+        - "The cells could not use LB as a food source without arabinose."
+      option_explanations:
+        - |
+          The same heat-shocked cells grew as a lawn on plain LB, so the procedure did not kill them; it is the antibiotic that stopped growth.
+        - |
+          Correct. Untransformed cells have no β-lactamase; ampicillin blocks their cell-wall synthesis and they die. Showing this is what makes the colonies on the +pGLO ampicillin plates interpretable as transformants.
+        - |
+          The +pGLO cells grew on ampicillin plates, so the antibiotic is not universally lethal; resistance comes from the plasmid.
+        - |
+          The −pGLO cells grew on LB without arabinose; arabinose is a switch for GFP, not a nutrient requirement.
+      answer: 1
+      explanation: |
+        A control plate answers a specific question. This one asks whether ampicillin really kills untransformed cells; if it did not, every colony on the selection plates would be uninterpretable.
+
+    - slug: u06-w22-q02
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "general knowledge"
+      points: 1
+      stimulus: |
+        Students transformed E. coli with the pGLO plasmid, which carries an ampicillin-resistance gene (bla), the gene for green fluorescent protein (GFP) and the araC regulator that lets the GFP promoter be switched on by the sugar arabinose. Cells with (+pGLO) and without (−pGLO) plasmid were spread on four kinds of plate and examined after 24 hours under white light and under UV light.
+
+        | Plate | Cells | Growth | Appearance under UV |
+        |---|---|---|---|
+        | LB | −pGLO | Lawn covering the plate | No glow |
+        | LB + ampicillin | −pGLO | No growth | — |
+        | LB + ampicillin | +pGLO | 64 separate colonies | No glow |
+        | LB + ampicillin + arabinose | +pGLO | 71 separate colonies | Colonies glow green |
+      prompt: |
+        The +pGLO colonies on LB + ampicillin did not glow, while those on LB + ampicillin + arabinose did. Which explanation is best?
+      options:
+        - "Only the cells on the arabinose plate took up the plasmid."
+        - "Both sets of colonies carry the GFP gene, but its promoter is induced only when arabinose binds the araC regulator, so GFP is transcribed only on the arabinose plate."
+        - "Arabinose is converted into GFP by the bacteria."
+        - "Ampicillin degrades GFP unless arabinose is present to protect it."
+      option_explanations:
+        - |
+          Both plates contain ampicillin, and colonies grew on both, so cells on both plates carry the plasmid with bla and GFP.
+        - |
+          Correct. This is an inducible system like the lac operon: the gene is present in every transformant, but it is expressed only when the inducer is present. The colonies differ in gene expression, not in genotype.
+        - |
+          GFP is a protein encoded by a gene; a sugar cannot be converted into it. Arabinose is the signal, not the raw material.
+        - |
+          Ampicillin acts on cell-wall synthesis in sensitive cells and has no effect on GFP; the transformed cells destroy it anyway.
+      answer: 1
+      explanation: |
+        Same genotype, different phenotype, because of an environmental signal acting on a promoter: the regulation of topic 6.5 engineered into a plasmid.
+
+    - slug: u06-w22-q03
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "general knowledge"
+      points: 1
+      stimulus: |
+        Students transformed E. coli with the pGLO plasmid, which carries an ampicillin-resistance gene (bla), the gene for green fluorescent protein (GFP) and the araC regulator that lets the GFP promoter be switched on by the sugar arabinose. Cells with (+pGLO) and without (−pGLO) plasmid were spread on four kinds of plate and examined after 24 hours under white light and under UV light.
+
+        | Plate | Cells | Growth | Appearance under UV |
+        |---|---|---|---|
+        | LB | −pGLO | Lawn covering the plate | No glow |
+        | LB + ampicillin | −pGLO | No growth | — |
+        | LB + ampicillin | +pGLO | 64 separate colonies | No glow |
+        | LB + ampicillin + arabinose | +pGLO | 71 separate colonies | Colonies glow green |
+      prompt: |
+        The +pGLO plates show separate colonies while the −pGLO LB plate shows a continuous lawn, even though the same number of cells was spread on each. Which inference is best supported?
+      options:
+        - "Transformation killed most of the +pGLO cells."
+        - "Only a small fraction of the +pGLO cells actually took up a plasmid; each colony grew from one transformed cell, and the untransformed majority died on ampicillin."
+        - "The plasmid slows bacterial growth so that colonies stay small and separate."
+        - "Ampicillin plates contain less nutrient, limiting growth to a few colonies."
+      option_explanations:
+        - |
+          The heat-shock procedure was identical for the −pGLO cells, which grew as a lawn; the procedure is not what reduced the numbers.
+        - |
+          Correct. Transformation is inefficient: typically far fewer than one cell in a thousand takes up a plasmid. Selection on ampicillin removes the rest, leaving a countable number of colonies, each a clone of one transformant.
+        - |
+          Colonies on both ampicillin plates are of normal size; they are separate because they are few, not because they are slow.
+        - |
+          LB with ampicillin has the same nutrients as LB; the antibiotic, not the food, limits which cells grow.
+      answer: 1
+      explanation: |
+        Lawn versus colonies is the visible difference between "every cell grew" and "a rare subset grew". Counting the colonies is how transformation efficiency is calculated.
+
+    - slug: u06-w22-q04
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "Biology 2e §14.2 DNA Structure and Sequencing"
+      points: 1
+      prompt: |
+        In Sanger sequencing, a small proportion of each dideoxynucleotide (ddNTP) is mixed with the normal nucleotides. Why does the reaction produce a set of fragments of every possible length rather than a single full-length product?
+      options:
+        - "ddNTPs cause the polymerase to skip bases at random."
+        - "A ddNTP lacks the 3′-OH needed to form the next phosphodiester bond, so whenever one is incorporated the chain stops; because incorporation is random, chains stop at every position in some fraction of the molecules."
+        - "ddNTPs are degraded by the polymerase, leaving gaps in the strand."
+        - "The primers anneal at different positions along the template."
+      option_explanations:
+        - |
+          Polymerase incorporates a ddNTP opposite its complementary base just as it would a normal nucleotide; nothing is skipped. The difference comes after incorporation.
+        - |
+          Correct. Chain growth needs a free 3′-OH; the dideoxy sugar has none, so the chain ends there. With a low ratio of ddNTP to dNTP, termination is rare at any single position but happens somewhere in every molecule, producing a ladder of lengths.
+        - |
+          ddNTPs are stable substrates; they are built into the strand, not destroyed.
+        - |
+          All primers anneal at the same site; the fragments differ in where they end, not where they begin.
+      answer: 1
+      explanation: |
+        Sanger sequencing is replication chemistry (week 18) used as a measuring instrument: the 3′-OH requirement becomes a way of marking every position.
+
+    - slug: u06-w22-q05
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "Biology 2e §14.2 DNA Structure and Sequencing"
+      points: 1
+      prompt: |
+        In a Sanger sequencing run, the fragments terminated by each labelled ddNTP were separated by size. Listed from shortest to longest, the terminating bases were: G, A, T, T, C, A, G. What is the sequence of the newly synthesised strand, written 5′ → 3′?
+      options:
+        - "5′-GATTCAG-3′"
+        - "5′-GACTTAG-3′"
+        - "5′-CTAAGTC-3′"
+        - "3′-GATTCAG-5′ read as 5′-CTAAGTC-3′"
+      option_explanations:
+        - |
+          Correct. The shortest fragment stopped at the first position after the primer, so its terminal base is the first base synthesised; reading shortest to longest gives the new strand 5′ → 3′.
+        - |
+          This reverses the order of the fragments; reading longest to shortest gives the sequence backwards.
+        - |
+          This is the complement of the new strand, which would be the template's sequence; the fragments carry the new strand's bases.
+        - |
+          The fragments are read directly as the new strand, 5′ → 3′; no complementing or reversing is needed.
+      answer: 0
+      explanation: |
+        Shortest fragment first, each terminal base in order, 5′ → 3′ of the synthesised strand. If the question asks for the template instead, complement and reverse.
+
+    - slug: u06-w22-q06
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "general knowledge"
+      points: 1
+      prompt: |
+        Researchers want to disable a specific gene in cultured cells using CRISPR-Cas9. Which description of what they must provide, and why, is correct?
+      options:
+        - "Only the Cas9 enzyme, which recognises the gene by its promoter."
+        - "Cas9 plus a guide RNA whose sequence is complementary to a site in the gene; the guide RNA directs Cas9 to that site by base pairing, and the double-strand break is repaired imprecisely, usually creating a frameshift."
+        - "A restriction enzyme that cuts within the gene and a plasmid to replace it."
+        - "An antisense mRNA that prevents the gene from being transcribed."
+      option_explanations:
+        - |
+          Cas9 has no sequence preference of its own; without a guide RNA it cannot find any particular gene.
+        - |
+          Correct. The guide RNA supplies the specificity by Watson-Crick pairing; Cas9 supplies the cut; the cell's error-prone end-joining supplies the small insertions or deletions that knock the gene out.
+        - |
+          Restriction enzymes cut at their recognition sequences wherever those occur across the genome and cannot be targeted to one gene; they also do not work inside living cells in this way.
+        - |
+          Antisense RNA could reduce expression, but it does not alter the gene and is not CRISPR; the question asks how to disable the gene itself.
+      answer: 1
+      explanation: |
+        Every targeting technology in this unit uses base pairing for specificity: primers in PCR, probes in blotting, guide RNAs in CRISPR, miRNAs in the cell.
+
+    - slug: u06-w22-q07
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "Biology 2e §17.1 Biotechnology"
+      points: 1
+      prompt: |
+        A company wants E. coli to produce a human growth hormone. Which starting material and reason are correct?
+      options:
+        - "The human chromosome containing the gene, because the whole gene including its introns is needed."
+        - "A cDNA copy of the hormone's mRNA, because it lacks introns, which bacteria cannot remove, and can be placed behind a bacterial promoter."
+        - "The hormone protein itself, so the bacteria can copy it."
+        - "The human mRNA directly inserted into the bacterial chromosome."
+      option_explanations:
+        - |
+          Bacteria have no spliceosome; an intron-containing gene would be transcribed and translated with the introns in frame, producing a useless protein.
+        - |
+          Correct. Reverse transcriptase converts the processed mRNA into an intron-free DNA copy; cloned into an expression vector with bacterial control sequences, it is transcribed and translated correctly because the code is universal.
+        - |
+          Proteins cannot be copied; information flows from nucleic acid to protein, not back.
+        - |
+          RNA cannot be ligated into a DNA chromosome and would be degraded in seconds; it must first be copied into DNA.
+      answer: 1
+      explanation: |
+        Three Unit 6 facts combine here: eukaryotic genes have introns (6.3), bacteria cannot splice (6.3) and the code is universal (6.4). cDNA is the practical consequence.
+
+    - slug: u06-w22-q08
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "Biology 2e §17.1 Biotechnology"
+      points: 1
+      prompt: |
+        Bt corn carries a gene from the bacterium Bacillus thuringiensis encoding a protein toxic to caterpillars, and the corn plant makes a functional toxin. Which principle best explains why a bacterial gene produces a working protein in a plant?
+      options:
+        - "Plants and bacteria share the same genetic code, so the plant's ribosomes translate the bacterial codons into the same amino-acid sequence."
+        - "The bacterial gene is translated by bacteria living inside the corn."
+        - "Plants can read any DNA because they have no nucleus."
+        - "The toxin is a carbohydrate, so no translation is needed."
+      option_explanations:
+        - |
+          Correct. Because codon assignments are nearly universal, a coding sequence from any source specifies the same protein in any host, provided the host's transcription signals are attached.
+        - |
+          The gene was inserted into the plant's own genome (via the Ti plasmid), and plant cells make the toxin; no bacteria are involved in the field.
+        - |
+          Plant cells have nuclei; the gene works because of the shared code and the plant promoter attached to it, not because of cell structure.
+        - |
+          The toxin is a protein encoded by the gene; its production requires transcription and translation like any other protein.
+      answer: 0
+      explanation: |
+        The universality of the code is both evidence for common ancestry (Unit 7) and the foundation of every transgenic organism.
+
+    - slug: u06-w22-q09
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "Biology 2e §17.2 Mapping Genomes"
+      points: 1
+      prompt: |
+        DNA from a crime scene and from three suspects was amplified at a short tandem repeat (STR) site where individuals differ in the number of repeats, and run on a gel. Band positions (mm from the well) were: scene 31 and 38; suspect 1: 31 and 38; suspect 2: 31 and 44; suspect 3: 38 and 38. Which conclusion is best supported?
+      options:
+        - "Suspect 1 is proven to be the source of the DNA."
+        - "Suspects 2 and 3 can be excluded as the source; suspect 1 cannot be excluded, and more STR sites should be tested before any stronger claim is made."
+        - "Suspect 3 matches because one band is shared."
+        - "No conclusion is possible without the suspects' blood types."
+      option_explanations:
+        - |
+          One matching site is not proof; many unrelated people share any single STR genotype. Profiling uses many sites so that a full match is extremely unlikely by chance.
+        - |
+          Correct. A mismatch at even one site excludes a person; a match at one site is consistent with but does not establish identity, and the strength of the evidence grows with each additional matching site.
+        - |
+          Suspect 3 has two copies of the 38 allele and no 31 allele, which differs from the scene sample; a shared band is not a match.
+        - |
+          Blood type is a far less informative marker; the DNA data already exclude two suspects.
+      answer: 1
+      explanation: |
+        Exclusion is certain; inclusion is probabilistic. The number of STR sites tested is what turns "consistent with" into "one in a billion".
+
+    - slug: u06-w22-q10
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "Biology 2e §17.3 Whole-Genome Sequencing"
+      points: 1
+      prompt: |
+        Next-generation sequencing produces millions of short reads (about 100-300 bases) from random fragments of a genome. Which step is essential before the genome can be read as chromosomes, and why?
+      options:
+        - "Running every fragment on a gel to measure its size."
+        - "Computationally assembling the reads by finding overlapping sequences, because each read is far shorter than a chromosome and its position is unknown."
+        - "Cutting the genome with a single restriction enzyme first, so that every read starts at the same site."
+        - "Translating each read into protein so that the genes can be recognised."
+      option_explanations:
+        - |
+          Fragment size does not tell you where a read belongs; assembly uses sequence overlap, not length.
+        - |
+          Correct. Shotgun sequencing relies on redundancy: random fragments overlap, and software stitches overlapping reads into contigs and contigs into chromosomes.
+        - |
+          A single enzyme would give fragments far too long to sequence directly and would not solve the ordering problem; random fragmentation with overlap is the point.
+        - |
+          Most of a genome does not encode protein, and assembly must precede any search for genes.
+      answer: 1
+      explanation: |
+        A genome is read like a shredded book reassembled from overlapping strips. Sequencing is now cheap; assembly and interpretation are the work.
+
+    - slug: u06-w22-q11
+      type: multiple_choice
+      topic_code: "6.5"
+      source: "Biology 2e §16.2 Prokaryotic Gene Regulation"
+      points: 1
+      prompt: |
+        Review. In pGLO, the GFP gene is transcribed only when arabinose is present, because arabinose binds the araC protein and converts it into an activator of the GFP promoter. Which lac-operon component is most closely analogous to arabinose in this system?
+      options:
+        - "The lac repressor, which blocks transcription."
+        - "Allolactose, the inducer that changes the shape of a regulatory protein and switches the operon on."
+        - "The operator, the DNA sequence the repressor binds."
+        - "Glucose, which lowers cAMP and reduces expression."
+      option_explanations:
+        - |
+          The repressor is a protein; arabinose is a small molecule that acts on a protein. The analogue of the repressor would be araC itself.
+        - |
+          Correct. Both are small sugar-derived molecules that bind a regulatory protein, change its conformation and turn an inducible system on; the gene set is expressed only when its substrate is present.
+        - |
+          The operator is cis-acting DNA; arabinose is a diffusible signal, so the analogy is to a trans-acting small molecule.
+        - |
+          Glucose turns the lac operon down; arabinose turns the GFP gene up, so its analogue is the inducer, not the catabolite repressor.
+      answer: 1
+      explanation: |
+        Engineers borrow the cell's switches. Recognising an inducible promoter in a plasmid is the same skill as reading the four-state lac table.
+
+    - slug: u06-w22-q12
+      type: multiple_choice
+      topic_code: "6.2"
+      source: "Biology 2e §14.4 DNA Replication in Prokaryotes"
+      points: 1
+      prompt: |
+        Review. PCR copies DNA with only a polymerase, primers, nucleotides and a cycling heat block. Which cellular replication components does PCR replace, and with what?
+      options:
+        - "Helicase is replaced by heat, which separates the strands; primase is replaced by synthetic DNA primers, which supply the 3′-OH."
+        - "DNA polymerase is replaced by heat, and primers replace the template."
+        - "Ligase is replaced by heat, and topoisomerase by primers."
+        - "Nothing is replaced; PCR uses all the same enzymes as a cell."
+      option_explanations:
+        - |
+          Correct. The two tasks a cell assigns to enzymes at the start of replication, unwinding and priming, are done in PCR by 95 °C and by two designed oligonucleotides; the polymerase still does the copying.
+        - |
+          Polymerase is essential in PCR (Taq); heat cannot make phosphodiester bonds, and the template is the sample DNA, not the primers.
+        - |
+          PCR makes no Okazaki fragments and has no supercoiling to relieve, so neither ligase nor topoisomerase is needed in the first place.
+        - |
+          PCR deliberately omits helicase, primase, SSB, ligase and topoisomerase; it is replication reduced to the one indispensable enzyme.
+      answer: 0
+      explanation: |
+        Comparing PCR with the replication fork is a favourite synthesis question: it tests whether you know what each fork enzyme is for.
+
+    - slug: u06-w22-q13
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "Biology 2e §5.1 Components and Structure"
+      points: 1
+      prompt: |
+        Review. In the transformation protocol, cells are suspended in cold calcium chloride solution before plasmid DNA is added and the mixture is briefly heated to 42 °C. Which explanation best connects the calcium ions to membrane structure?
+      options:
+        - "Ca²⁺ dissolves the phospholipid bilayer so DNA can pass freely."
+        - "Ca²⁺ ions shield the negative charges of the phosphate groups on both the membrane surface and the DNA, reducing their mutual repulsion so the DNA can approach the membrane; the heat shock then transiently disrupts the bilayer enough for uptake."
+        - "Ca²⁺ is a cofactor for DNA ligase, which joins the plasmid to the chromosome."
+        - "Ca²⁺ opens protein channels that are specific for plasmids."
+      option_explanations:
+        - |
+          Dissolving the membrane would kill the cells; the −pGLO cells treated identically grew as a lawn.
+        - |
+          Correct. Both the phospholipid head groups and the DNA backbone are negatively charged (Units 1 and 2); divalent cations neutralise that repulsion, and the thermal shock makes the bilayer briefly permeable to a large polar molecule that could never cross it otherwise.
+        - |
+          The plasmid is not joined to the chromosome; it replicates independently from its own origin, and ligase is not part of the uptake step.
+        - |
+          There are no plasmid-specific channels; DNA entry is a physical disruption, which is why it is so inefficient.
+      answer: 1
+      explanation: |
+        A large, charged molecule crossing a hydrophobic bilayer is the membrane-permeability problem of topic 2.4; the protocol is a workaround, not a transport mechanism.
+
+    - slug: u06-w22-q14
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "Biology 2e §3.5 Nucleic Acids"
+      points: 1
+      prompt: |
+        Review. A dideoxynucleotide differs from a normal deoxynucleotide at a single position on its sugar. Which position, and why does the difference matter for the chemistry of the backbone?
+      options:
+        - "The 2′ carbon lacks an OH, which is the same difference as between RNA and DNA."
+        - "The 3′ carbon carries H instead of OH, so the phosphodiester bond that would link the next nucleotide's 5′ phosphate to this sugar cannot form."
+        - "The 5′ carbon lacks its phosphate, so the nucleotide cannot be added at all."
+        - "The base is missing, so it cannot pair with the template."
+      option_explanations:
+        - |
+          Deoxyribose already lacks the 2′-OH; dideoxyribose lacks the 3′-OH as well, and it is the 3′ position that the backbone uses.
+        - |
+          Correct. The backbone is a chain of 3′ to 5′ phosphodiester bonds; without the 3′-OH there is nothing for the incoming nucleotide to be joined to, so the chain ends.
+        - |
+          A ddNTP has its 5′ triphosphate and is incorporated normally; the problem arises only for the nucleotide that would come after it.
+        - |
+          The ddNTP has a normal base and pairs correctly with the template, which is exactly why it is incorporated opposite the matching base.
+      answer: 1
+      explanation: |
+        Unit 1's phosphodiester bond, 3′-OH to 5′-phosphate, explains replication's direction, telomere shortening and Sanger sequencing with one fact.
+
+    - slug: u06-w22-q15
+      type: multi_select
+      topic_code: "6.8"
+      source: "Biology 2e §17.1 Biotechnology"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which features must a plasmid have to serve as a cloning vector in bacteria? Select all that apply.
+      options:
+        - "An origin of replication so that it is copied as the host divides"
+        - "A selectable marker such as an antibiotic-resistance gene"
+        - "At least one restriction site at which foreign DNA can be inserted"
+        - "A set of histone genes so that the plasmid can be packaged"
+        - "A telomere at each end"
+      option_explanations:
+        - |
+          Correct. Without an origin the plasmid would not be replicated and would be lost within a few divisions.
+        - |
+          Correct. Transformation is inefficient; the marker lets the rare transformed cells be selected on an antibiotic plate.
+        - |
+          Correct. A cloning site, cut by the same enzyme as the insert, is where the sticky ends join; vectors usually carry a cluster of such sites.
+        - |
+          Bacteria do not use histones, and plasmids are not packaged in nucleosomes; this is a eukaryotic feature.
+        - |
+          Plasmids are circular and have no ends, so they need no telomeres and face no end-replication problem.
+      answer: [0, 1, 2]
+      explanation: |
+        Origin, marker, cloning site: the three features every vector has, each solving a specific problem (persistence, selection, insertion).
+
+    - slug: u06-w22-q16
+      type: multi_select
+      topic_code: "6.3"
+      source: "Biology 2e §15.2 Prokaryotic Transcription"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Review. A human cDNA has been inserted into a bacterial plasmid, but the bacteria make no protein from it. Which modifications to the construct could be expected to allow expression? Select all that apply.
+      options:
+        - "Place a bacterial promoter with −10 and −35 sequences upstream of the coding sequence"
+        - "Add a Shine-Dalgarno sequence a few bases upstream of the AUG"
+        - "Add introns to the coding sequence so that it resembles the human gene"
+        - "Add a eukaryotic 5′ cap signal to the DNA"
+        - "Ensure the insert is in the correct orientation relative to the promoter"
+      option_explanations:
+        - |
+          Correct. Bacterial RNA polymerase, through its sigma factor, recognises only bacterial promoter sequences; a human promoter is ignored.
+        - |
+          Correct. Bacterial ribosomes bind the mRNA through pairing between the Shine-Dalgarno sequence and 16S rRNA; without it initiation is inefficient.
+        - |
+          Bacteria cannot splice; adding introns would guarantee a nonfunctional product. The cDNA was chosen precisely because it has none.
+        - |
+          Capping is a eukaryotic RNA-processing step done by nuclear enzymes; bacteria neither add caps nor need them, and a cap cannot be encoded in DNA.
+        - |
+          Correct. A promoter drives transcription in one direction; an insert ligated backwards is transcribed from its antisense strand and yields no protein.
+      answer: [0, 1, 4]
+      explanation: |
+        Expression requires the host's own signals for each step: bacterial promoter for transcription, bacterial ribosome-binding site for translation, correct orientation so the coding strand is the one read.
+
+    - slug: u06-w22-q17
+      type: true_false
+      topic_code: "6.8"
+      source: "general knowledge"
+      points: 1
+      prompt: |
+        True or false: The Cas9 nuclease by itself recognises the target gene; the guide RNA is added only to increase the rate of cutting.
+      answer: false
+      explanation: |
+        False. Cas9 has no inherent sequence specificity beyond a short adjacent motif; it is the guide RNA, about 20 nucleotides of which pair with the target, that determines where the cut is made. Changing the guide sequence retargets the same enzyme to any gene. This is why CRISPR is programmable in a way restriction enzymes are not: specificity is written in RNA, which can be synthesised to order, not in protein.
+
+    - slug: u06-w22-q18
+      type: true_false
+      topic_code: "2.1"
+      source: "Biology 2e §4.2 Prokaryotic Cells"
+      points: 1
+      prompt: |
+        Review. True or false: Plasmids are small circular DNA molecules found in many prokaryotes that replicate independently of the chromosome, which is why a plasmid can be maintained in E. coli without being inserted into the bacterial genome.
+      answer: true
+      explanation: |
+        True. A plasmid carries its own origin of replication and is copied by the host's replication machinery each generation; it is separate from the nucleoid chromosome and is often present in many copies per cell. This independence is what makes plasmids both natural vehicles of horizontal gene transfer (antibiotic resistance) and the standard vectors of genetic engineering. Eukaryotic cells, by contrast, do not normally carry plasmids.
+
+    - slug: u06-w22-q19
+      type: fill_blank
+      topic_code: "6.8"
+      source: "Biology 2e §17.1 Biotechnology"
+      points: 1
+      prompt: |
+        A DNA molecule, usually a plasmid or a modified virus, that carries a foreign gene into a host cell and allows it to be replicated there is called a ____.
+      answer: ["vector", "cloning vector", "plasmid vector"]
+      explanation: |
+        A vector is the vehicle; the insert is the passenger. Plasmid vectors serve bacteria and yeast; viral vectors deliver genes to animal cells in gene therapy; the Ti plasmid of Agrobacterium serves plants. "Plasmid" alone is accepted only with "vector", because not every plasmid is used as a vector and some vectors are not plasmids.
+
+    - slug: u06-w22-q20
+      type: fill_blank
+      topic_code: "6.2"
+      source: "Biology 2e §14.4 DNA Replication in Prokaryotes"
+      points: 1
+      prompt: |
+        Review. After a gene and a plasmid cut with the same restriction enzyme have paired through their sticky ends, the enzyme ____ forms the phosphodiester bonds that make the recombinant molecule covalently continuous.
+      answer: ["DNA ligase", "ligase"]
+      explanation: |
+        Hydrogen bonding between sticky ends holds the pieces together only loosely; DNA ligase seals the backbone nicks, the same reaction it performs between Okazaki fragments at the replication fork. Without ligase the recombinant plasmid would fall apart in the cell. "Polymerase" is not accepted: it adds nucleotides to a 3′ end but does not join two existing ends.
+
+    - slug: u06-w22-q21
+      type: numeric
+      topic_code: "6.8"
+      source: "general knowledge"
+      points: 1
+      prompt: |
+        In a transformation experiment, 10 μL of plasmid solution at 0.01 μg/μL was added to a tube of cells. After heat shock and recovery, the cells were suspended in a total volume of 500 μL and 100 μL was spread on an LB/ampicillin plate, which grew 120 colonies. Calculate the transformation efficiency in transformants per microgram of plasmid DNA. Give a whole number.
+      answer: { value: 6000, tolerance: 100 }
+      explanation: |
+        Total DNA added = 10 μL × 0.01 μg/μL = 0.1 μg. Fraction of the cells plated = 100 μL ÷ 500 μL = 0.2, so DNA represented on the plate = 0.1 × 0.2 = 0.02 μg. Efficiency = 120 colonies ÷ 0.02 μg = 6,000 transformants per μg. Forgetting the plated fraction gives 1,200, five times too low; using the plate volume alone gives nonsense. Classroom efficiencies of 10³ to 10⁵ per μg are typical; commercial competent cells reach 10⁸ or more.
+
+    - slug: u06-w22-q22
+      type: short_answer
+      topic_code: "6.8"
+      source: "general knowledge"
+      points: 4
+      prompt: |
+        Scientific investigation. A student hypothesises that the pGLO plasmid will transform a different bacterial species, Bacillus subtilis, as efficiently as it transforms E. coli. (a) Describe a procedure to test the hypothesis, identifying the independent and dependent variables and at least two controlled variables. (b) Describe the control plates you would include and state what each one rules out. (c) Explain one biological reason the plasmid might fail to produce ampicillin-resistant colonies in B. subtilis even if it enters the cells.
+      answer: |
+        Transform equal numbers of competent E. coli and B. subtilis cells with the same amount of pGLO using the same protocol; spread equal volumes on LB/ampicillin and count colonies; IV = species, DV = transformation efficiency (colonies per μg); control DNA amount, cell number, heat-shock time and temperature, plating volume, incubation. Controls: each species without plasmid on LB (viability) and on LB/amp (no spontaneous resistance or contamination). The plasmid's origin of replication or its promoters may not be recognised by B. subtilis, so the plasmid is not copied or bla is not expressed, and no resistant colonies form.
+      explanation: |
+        Four points.
+
+        (a) Procedure, 2 pts: 1 pt for a design that treats both species identically and names the independent variable (bacterial species) and the dependent variable (number of colonies on LB/ampicillin, converted to transformants per μg); 1 pt for at least two controlled variables from: amount and concentration of plasmid, number of cells, CaCl₂ treatment, heat-shock temperature and duration, recovery time, volume plated, incubation time and temperature. Replicate plates are a bonus.
+
+        (b) Controls, 1 pt: for each species, cells with no plasmid on LB (shows the cells survived the procedure) and cells with no plasmid on LB/ampicillin (shows that any colonies on the experimental plates are due to the plasmid, not to pre-existing resistance or contamination). Both plates, with their purposes, are required.
+
+        (c) Biological reason, 1 pt: any one of: the plasmid's origin of replication is specific to E. coli-type machinery and the plasmid is not replicated in B. subtilis, so it is lost; the bla gene's promoter is not recognised by B. subtilis RNA polymerase, so no β-lactamase is made; B. subtilis may degrade the foreign DNA with its restriction enzymes; or B. subtilis has a different cell envelope (Gram-positive) that the CaCl₂/heat-shock method does not open. The reason must be a mechanism, not "it is a different species".
+
+        Zero: a procedure that varies two things at once (species and DNA amount), controls with no stated purpose, or a reason based on the species not needing ampicillin resistance.
+
+    - slug: u06-w22-q23
+      type: short_answer
+      topic_code: "6.8"
+      source: "general knowledge"
+      points: 4
+      prompt: |
+        Conceptual analysis. A researcher believes that gene D in a plant is required for tolerance to salty soil. She uses CRISPR-Cas9 with a guide RNA targeting the first exon of gene D and recovers a plant line in which sequencing shows a single-base insertion at the target site. (a) Explain what the single-base insertion will do to the gene D protein. (b) Describe the experiment, with its control, that would test whether gene D is required for salt tolerance. (c) The edited plants die in salty soil while unedited plants survive. Explain why this result supports but does not prove the hypothesis, and describe one additional experiment that would strengthen the conclusion.
+      answer: |
+        A one-base insertion in the first exon shifts the reading frame, so the protein is scrambled after the first few residues and usually truncated by a premature stop: a knockout. Grow edited and unedited (otherwise identical) plants in salty and normal soil, with several plants each, and compare survival or growth. Death of edited plants in salt supports the hypothesis, but Cas9 could have cut elsewhere (off-target) or the line could carry another difference; restoring a working copy of gene D to the edited plants (complementation) and seeing tolerance return, or producing a second independent edited line with the same phenotype, would strengthen it.
+      explanation: |
+        Four points.
+
+        (a) Explain, 1 pt: the insertion is not a multiple of three, so it shifts the reading frame; every codon after it is misread and a premature stop codon usually appears, so little or no functional gene D protein is made (loss of function). Must mention the frameshift, not just "mutation".
+
+        (b) Experiment, 1 pt: compare the edited line with unedited plants of the same genetic background under salty and under normal soil conditions, measuring survival, growth or another defined response, with replication; the unedited plants in salt are the key control, and the normal-soil treatment shows the edit itself does not harm the plants. Both the comparison and the control must be present.
+
+        (c) Evaluate and extend, 2 pts: 1 pt for the limitation: the result is consistent with the hypothesis but CRISPR can cut at off-target sites, and the regenerated line may differ from the parent in other ways, so the salt sensitivity might not be due to loss of gene D; 1 pt for a strengthening experiment: complementation (introduce a functional gene D into the edited line and test whether tolerance is restored), an independent second edited line made with a different guide RNA, or sequencing of likely off-target sites. Accept a rescue by expressing gene D from a plasmid.
+
+        Zero: answers that treat the one-base insertion as a missense change affecting one amino acid; experiments without an unedited control; evaluations that say the result "proves" the hypothesis.
+
+    - slug: u06-w22-q24
+      type: long_answer
+      topic_code: "6.8"
+      source: "general knowledge"
+      points: 8
+      prompt: |
+        Interpreting and evaluating experimental results. To make human insulin in bacteria, researchers built four plasmid constructs, transformed each into E. coli, selected transformants on ampicillin, and measured insulin production. In a second test, each strain was grown with or without the inducer that activates the bacterial promoter used. A fifth construct carried the correct cDNA but with a single-base deletion at codon 10.
+
+        | Construct | Insulin coding sequence | Promoter | Ribosome-binding site | Insulin produced, with inducer (μg per litre) | Insulin produced, without inducer (μg per litre) |
+        |---|---|---|---|---|---|
+        | 1 | Human genomic DNA (with introns) | Bacterial, inducible | Bacterial | 0 | 0 |
+        | 2 | Human cDNA | Human | Bacterial | 0 | 0 |
+        | 3 | Human cDNA | Bacterial, inducible | None | 4 | 0 |
+        | 4 | Human cDNA | Bacterial, inducible | Bacterial | 950 | 2 |
+        | 5 | Human cDNA with 1-base deletion at codon 10 | Bacterial, inducible | Bacterial | 0 | 0 |
+
+        (a) Identify the independent variables and the dependent variable, and state the purpose of growing each strain without inducer.
+        (b) Explain why construct 1 made no insulin and construct 2 made no insulin, giving a different reason for each.
+        (c) Compare constructs 3 and 4 and explain the difference in terms of translation in bacteria.
+        (d) Explain why construct 5 made no insulin even though it differs from construct 4 by one base, and predict what a sequencing read of construct 5's mRNA would show at codon 10 and beyond.
+        (e) The insulin from construct 4 was tested and found to lower blood glucose in diabetic animals. Explain what this result shows about the genetic code, and describe one further check the researchers should make before concluding that the bacterial product is identical to human insulin.
+      answer: |
+        IVs: the construct's coding sequence, promoter and ribosome-binding site, plus inducer presence; DV: insulin yield. Without inducer shows the promoter is regulated and gives a baseline. Construct 1 has introns that bacteria cannot splice, so the transcript encodes a wrong product; construct 2 has a human promoter that bacterial RNA polymerase does not recognise, so no transcription. Construct 3 is transcribed but, lacking a Shine-Dalgarno sequence, its mRNA is barely bound by 30S subunits, so translation is inefficient; construct 4 adds the site and yields over 200 times more. Construct 5's deletion shifts the frame from codon 10, scrambling the sequence and creating a premature stop; the mRNA would read normally through codon 9 and then show every codon regrouped. Biological activity shows the bacterial ribosome translated the human codons into the same amino acids, the code being universal; researchers should sequence or mass-analyse the protein and check for correct folding and disulfide bonds, since bacteria lack some eukaryotic processing.
+      explanation: |
+        Eight points.
+
+        (a) 1 pt: independent variables are the features of the construct (source of coding sequence, type of promoter, presence of a ribosome-binding site) and the presence or absence of inducer; dependent variable is insulin yield (μg per litre); growth without inducer shows that the promoter is regulated (expression is switched on by the inducer) and provides a baseline for leaky expression. All parts required.
+
+        (b) 2 pts: 1 pt for construct 1: genomic DNA contains introns, bacteria lack a spliceosome, so the transcript retains intron sequence and the reading frame is interrupted, giving no functional insulin; 1 pt for construct 2: the human promoter (TATA box and eukaryotic elements) is not recognised by the bacterial RNA polymerase and sigma factor, so the gene is not transcribed at all. The two reasons must differ and be correctly assigned.
+
+        (c) 1 pt: both constructs are transcribed from the inducible promoter, but construct 3's mRNA lacks a Shine-Dalgarno sequence, so the 30S subunit cannot bind efficiently and translation initiation is rare (4 μg per litre); construct 4 includes the site and is translated efficiently (950 μg per litre). Must link the difference to ribosome binding, not to transcription.
+
+        (d) 2 pts: 1 pt for the explanation: a one-base deletion shifts the reading frame from codon 10 onward, so the ribosome reads a different set of codons, produces a wrong amino-acid sequence and usually meets a premature stop, giving no insulin; 1 pt for the prediction: the mRNA sequence itself is present and would read identically to construct 4 through codon 9, after which every triplet is offset by one base relative to construct 4; accept a statement that a premature stop codon would likely appear within the shifted frame.
+
+        (e) 2 pts: 1 pt for the inference that the bacterial translation machinery read the human codons as the same amino acids, which demonstrates the universality of the genetic code (and supports common ancestry); 1 pt for a further check: determine the protein's amino-acid sequence (mass spectrometry or sequencing), confirm correct folding and disulfide-bond formation or correct processing of the two chains, or compare activity per microgram with human insulin, because bacteria lack some eukaryotic post-translational processing. Accept checking for the absence of contaminating bacterial proteins only if paired with a structural check.
+
+        Zero for a part: explaining construct 1 and construct 2 by the same mechanism; attributing construct 3's low yield to a weaker promoter; treating the one-base deletion as a change in a single amino acid; concluding that activity alone proves identity.

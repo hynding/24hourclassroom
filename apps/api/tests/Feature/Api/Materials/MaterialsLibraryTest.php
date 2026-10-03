@@ -69,3 +69,14 @@ test('the library is readable logged out and never leaks a private material by i
     $titles = collect($this->getJson('/api/library/materials')->assertOk()->json('data'))->pluck('title');
     expect($titles->all())->toBe(['Public']);
 });
+
+test('sort=title lists materials A-Z', function () {
+    $a = aTeacher();
+    $late = aMaterial($a, ['visibility' => 'public', 'published_at' => now(), 'title' => 'Zebra notes']);
+    $early = aMaterial($a, ['visibility' => 'public', 'published_at' => now()->subDay(), 'title' => 'Apple notes']);
+
+    $this->getJson('/api/library/materials?sort=title')->assertOk()
+        ->assertJsonPath('data.0.id', $early->id)->assertJsonPath('data.1.id', $late->id);
+    $this->getJson('/api/library/materials')->assertJsonPath('data.0.id', $late->id);
+    $this->getJson('/api/library/materials?sort=nope')->assertStatus(422);
+});

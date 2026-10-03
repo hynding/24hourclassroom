@@ -202,3 +202,71 @@ test('an associative options object is rejected so array_values cannot re-point 
 
     expect(Test::count())->toBe(0);
 });
+
+test('stimulus, per-option rationales and the new types round-trip, and rationales travel only with answers', function () {
+    $teacher = aTeacher();
+    $this->actingAs($teacher);
+
+    $body = validTestBody(['questions' => [
+        [
+            'type' => 'multiple_choice',
+            'stimulus' => "| Trial | O2 (mL) |\n|---|---|\n| 1 | 4 |",
+            'prompt' => 'Which conclusion fits?',
+            'options' => ['Light limits', 'CO2 limits'],
+            'option_explanations' => ['Correct: more light, more O2.', 'Tempting, but CO2 was held constant.'],
+            'answer' => 0,
+        ],
+        ['type' => 'fill_blank', 'prompt' => 'Water is a ____ molecule.', 'answer' => ['polar', 'POLAR covalent'], 'auto_grade' => false, 'explanation' => 'Unequal sharing.'],
+        ['type' => 'long_answer', 'prompt' => 'Design an experiment.', 'answer' => 'Vary light; measure O2.', 'points' => 8, 'explanation' => 'IV, DV, control, prediction.'],
+    ]]);
+
+    $res = $this->postJson('/api/tests', $body)->assertCreated()
+        ->assertJsonPath('questions.0.stimulus', $body['questions'][0]['stimulus'])
+        ->assertJsonPath('questions.0.option_explanations.1', 'Tempting, but CO2 was held constant.')
+        ->assertJsonPath('questions.1.answer', ['polar', 'POLAR covalent'])
+        ->assertJsonPath('questions.1.auto_grade', false)
+        ->assertJsonPath('questions.2.points', 8)
+        ->assertJsonPath('questions.2.auto_grade', true);
+    $id = $res->json('id');
+
+    // Publish, then look as a student: stimulus visible, rationales absent (not null).
+    $this->postJson("/api/tests/{$id}/publish")->assertOk();
+    $this->actingAs(aStudent());
+    $view = $this->getJson("/api/tests/{$id}")->assertOk();
+    expect($view->json('questions.0.stimulus'))->toBe($body['questions'][0]['stimulus'])
+        ->and(array_key_exists('option_explanations', $view->json('questions.0')))->toBeFalse()
+        ->and(array_key_exists('answer', $view->json('questions.1')))->toBeFalse();
+});
+
+test('bounds on the new fields and types', function () {
+    $this->actingAs(aTeacher());
+    $mc = fn (array $o) => validTestBody(['questions' => [array_merge(['type' => 'multiple_choice', 'prompt' => 'p', 'options' => ['a', 'b'], 'answer' => 0], $o)]]);
+    $fb = fn (array $o) => validTestBody(['questions' => [array_merge(['type' => 'fill_blank', 'prompt' => 'A ____ b.', 'answer' => ['x']], $o)]]);
+    $la = fn (array $o) => validTestBody(['questions' => [array_merge(['type' => 'long_answer', 'prompt' => 'p', 'answer' => 'model', 'points' => 6], $o)]]);
+
+    $this->postJson('/api/tests', $mc(['option_explanations' => ['only one']]))->assertStatus(422);            // count mismatch
+    $this->postJson('/api/tests', $mc(['option_explanations' => ['a', str_repeat('x', 601)]]))->assertStatus(422);
+    $this->postJson('/api/tests', $mc(['stimulus' => str_repeat('x', 4001)]))->assertStatus(422);
+    $this->postJson('/api/tests', $mc(['prompt' => str_repeat('x', 4001)]))->assertStatus(422);
+    $this->postJson('/api/tests', $mc(['options' => ['a', str_repeat('x', 501)]]))->assertStatus(422);
+    $this->postJson('/api/tests', $mc(['explanation' => str_repeat('x', 5001)]))->assertStatus(422);
+    $this->postJson('/api/tests', $mc(['auto_grade' => false]))->assertStatus(422);                           // not fill_blank
+    $this->postJson('/api/tests', $fb(['option_explanations' => ['a']]))->assertStatus(422);                  // no options here
+    $this->postJson('/api/tests', $fb(['prompt' => 'no blank marker']))->assertStatus(422);
+    $this->postJson('/api/tests', $fb(['answer' => 'x']))->assertStatus(422);                                 // must be a list
+    $this->postJson('/api/tests', $fb(['answer' => ['x', 'x']]))->assertStatus(422);                          // distinct
+    $this->postJson('/api/tests', $fb(['answer' => array_map(fn ($i) => "a{$i}", range(1, 11))]))->assertStatus(422);
+    $this->postJson('/api/tests', $fb(['answer' => [['nested']]]))->assertStatus(422);
+    $this->postJson('/api/tests', $la(['points' => 3]))->assertStatus(422);
+    $this->postJson('/api/tests', $la(['points' => 11]))->assertStatus(422);
+    $this->postJson('/api/tests', $la(['answer' => str_repeat('x', 2001)]))->assertStatus(422);
+
+    // The generous side of every limit is accepted.
+    $this->postJson('/api/tests', $mc([
+        'stimulus' => str_repeat('s', 4000), 'prompt' => str_repeat('p', 4000),
+        'options' => [str_repeat('a', 500), 'b'], 'option_explanations' => [str_repeat('e', 600), ''],
+        'explanation' => str_repeat('x', 5000),
+    ]))->assertCreated();
+    $this->postJson('/api/tests', $fb(['auto_grade' => false]))->assertCreated();
+    $this->postJson('/api/tests', $la(['points' => 10]))->assertCreated();
+});

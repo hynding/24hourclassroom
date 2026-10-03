@@ -33,6 +33,17 @@ jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => nav
 jest.mock('../../services/session-recovery', () => ({ recoverFromExpiredSession: () => false }));
 
 import { PageTest } from './page-test';
+import { RichText } from '../rich-text/rich-text';
+
+// Text across shadow boundaries: a parent's `shadowRoot.textContent` stops
+// at a child's shadow root, and every prompt now renders inside <rich-text>.
+const deepText = (node: Node): string => {
+  if (node.nodeType === 3) {
+    return node.textContent ?? '';
+  }
+  const root = (node as Element).shadowRoot ?? node;
+  return Array.from(root.childNodes).map(deepText).join('');
+};
 
 const base = {
   id: 5, title: 'Cells', description: 'Intro', subject: 'science', grade_level: '6-8', visibility: 'public', published_at: '2026-09-01',
@@ -43,7 +54,7 @@ const base = {
 const mount = async (view: unknown) => {
   getTest.mockResolvedValue(view);
   myAttempts.mockResolvedValue({ data: [] });
-  const page = await newSpecPage({ components: [PageTest], html: '<page-test test-id="5"></page-test>' });
+  const page = await newSpecPage({ components: [PageTest, RichText], html: '<page-test test-id="5"></page-test>' });
   await page.waitForChanges();
   return page;
 };
@@ -61,7 +72,7 @@ describe('page-test', () => {
 
   it('renders the public view without answers for a guest', async () => {
     const page = await mount(base);
-    const text = page.root.shadowRoot.textContent;
+    const text = deepText(page.root.shadowRoot);
     expect(text).toContain('Cells');
     expect(text).toContain('Powerhouse?');
     expect(text).not.toContain('Correct answer');
@@ -78,12 +89,34 @@ describe('page-test', () => {
   it('shows author controls and answers to the author', async () => {
     pending = { id: 1, role: 'teacher', email_verified_at: 'x' };
     const page = await mount({ ...base, is_author: true, questions: [{ ...base.questions[0], answer: 1, explanation: 'ATP.' }] });
-    const text = page.root.shadowRoot.textContent;
+    const text = deepText(page.root.shadowRoot);
     expect(text).toContain('Mitochondria');
     expect(text).toContain('ATP.');
     expect(page.root.shadowRoot.querySelector('a[href="/tests/5/edit"]')).not.toBeNull();
     expect(page.root.shadowRoot.querySelector('a[href="/tests/5/results"]')).not.toBeNull();
     expect(page.root.shadowRoot.querySelector('a[href="/tests/5/print"]')).not.toBeNull();
+  });
+
+  it('shows the author stimuli once per set, rationales under options, and the new answer lines', async () => {
+    pending = { id: 1, role: 'teacher', email_verified_at: 'x' };
+    const page = await mount({ ...base, is_author: true, questions: [
+      { ...base.questions[0], stimulus: 'Read the passage.', answer: 1, option_explanations: ['Holds DNA.', 'Makes ATP.'] },
+      { id: 11, position: 1, type: 'fill_blank', prompt: 'The ____ makes ATP.', stimulus: 'Read the passage.', options: null, points: 1, partial_credit: false, auto_grade: true, answer: ['mitochondria', 'mitochondrion'] },
+      { id: 12, position: 2, type: 'long_answer', prompt: 'Explain.', stimulus: null, options: null, points: 6, partial_credit: false, auto_grade: true, answer: 'A model answer.' },
+    ] });
+    const root = page.root.shadowRoot;
+    expect(root.querySelectorAll('.stimulus')).toHaveLength(1);
+    expect(deepText(root.querySelector('.stimulus'))).toContain('Read the passage.');
+    const options = root.querySelectorAll('.options > li');
+    expect(options[1].classList.contains('correct')).toBe(true);
+    expect(deepText(options[1])).toContain('Makes ATP.');
+    expect(root.textContent).toContain('Accepted answers: mitochondria / mitochondrion');
+    expect(root.textContent).toContain('Model answer: A model answer.');
+  });
+
+  it('hides rationales from a viewer without answers', async () => {
+    const page = await mount({ ...base, questions: [{ ...base.questions[0], stimulus: null }] });
+    expect(page.root.shadowRoot.querySelector('.rationale')).toBeNull();
   });
 
   it('lets a student start an attempt and navigates to it', async () => {

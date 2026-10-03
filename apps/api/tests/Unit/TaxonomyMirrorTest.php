@@ -99,7 +99,7 @@ test('Visibility and QuestionType mirror the shared package in both directions',
     }
 
     expect(array_column(QuestionType::cases(), 'value'))->toBe([
-        'multiple_choice', 'multi_select', 'true_false', 'short_answer', 'numeric',
+        'multiple_choice', 'multi_select', 'true_false', 'short_answer', 'numeric', 'fill_blank', 'long_answer',
     ]);
     expect(array_column(Visibility::cases(), 'value'))->toBe(['private', 'public']);
 });

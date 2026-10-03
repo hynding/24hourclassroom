@@ -1,0 +1,1110 @@
+unit: 3
+description: |
+  44 questions · about 60 minutes · every topic of Unit 3 (3.1 to 3.5) with about a fifth of the items reviewing
+  Units 1 and 2, three data-based stimulus sets (an enzyme-inhibition table, an aquatic-plant light curve and an
+  oxygen-electrode run with isolated mitochondria), two numeric items (gross photosynthesis and ATP yield per
+  glucose), one short free-response item (4 points) and one long free-response item (8 points). Multiple choice,
+  select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the
+  two free-response items are graded by your teacher against the acceptable-answer summary.
+questions:
+  # ---- Stimulus set A: β-galactosidase with a product inhibitor and a heavy metal (3.2, 3.1, 1.7)
+  - slug: u03-exam-q01
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "Biology 2e §6.5 Enzymes"
+    points: 1
+    stimulus: |
+      β-Galactosidase hydrolyses the colourless substrate ONPG into galactose and o-nitrophenol, which is yellow, so the initial rate can be followed by the rise in absorbance at 420 nm. Initial rates (μmol product per minute) were measured at five ONPG concentrations under four conditions, at 30 °C and pH 7. Each value is the mean of three trials.
+
+      | ONPG (mM) | Standard enzyme | Standard enzyme + 20 mM galactose | Standard enzyme + 0.05 mM Hg²⁺ | Twice the standard enzyme |
+      |---|---|---|---|---|
+      | 0.25 | 18 | 7 | 9 | 36 |
+      | 0.5 | 30 | 13 | 15 | 60 |
+      | 1 | 45 | 23 | 23 | 89 |
+      | 4 | 68 | 52 | 34 | 135 |
+      | 16 | 76 | 72 | 38 | 151 |
+    prompt: |
+      Which addition acts as a competitive inhibitor of β-galactosidase, and which row of the table is the strongest evidence for that identification?
+    options:
+      - "Galactose; at 16 mM ONPG its rate (72) is almost the uninhibited rate (76), so enough substrate outcompetes it."
+      - "Galactose; at 0.25 mM ONPG its rate (7) is the lowest in the row, so it binds most strongly."
+      - "Hg²⁺; at 16 mM ONPG its rate (38) is the lowest in the row, so it must be competing for the active site."
+      - "Hg²⁺; at 1 mM ONPG its rate equals the galactose rate (23), so the two inhibitors work the same way."
+    option_explanations:
+      - |
+        Correct. The signature of competitive inhibition is that a high substrate concentration rescues the rate: at 16 mM ONPG, galactose costs only 4 of 76 units, because ONPG molecules now win most of the contests for the active site.
+      - |
+        The low-substrate row shows that galactose inhibits, but every inhibitor depresses the rate there. Only the high-substrate rows distinguish a competitive inhibitor from a noncompetitive one.
+      - |
+        The low plateau is evidence against competition, not for it. A competitor can be outcompeted; a rate stuck at half the maximum even with 64 times more substrate means the inhibitor is not fighting substrate for the site.
+      - |
+        A single shared value at one concentration says nothing about mechanism. The two columns diverge sharply at high ONPG (72 versus 38), which is exactly where the mechanisms differ.
+    answer: 0
+    explanation: |
+      Decide the type of inhibition from the high-substrate end of the table: rescue by substrate means competition for the active site, a lowered ceiling means binding elsewhere. Galactose is also the reaction's own product, a common source of competitive inhibition.
+
+  - slug: u03-exam-q02
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "Biology 2e §6.5 Enzymes"
+    points: 1
+    stimulus: |
+      β-Galactosidase hydrolyses the colourless substrate ONPG into galactose and o-nitrophenol, which is yellow, so the initial rate can be followed by the rise in absorbance at 420 nm. Initial rates (μmol product per minute) were measured at five ONPG concentrations under four conditions, at 30 °C and pH 7. Each value is the mean of three trials.
+
+      | ONPG (mM) | Standard enzyme | Standard enzyme + 20 mM galactose | Standard enzyme + 0.05 mM Hg²⁺ | Twice the standard enzyme |
+      |---|---|---|---|---|
+      | 0.25 | 18 | 7 | 9 | 36 |
+      | 0.5 | 30 | 13 | 15 | 60 |
+      | 1 | 45 | 23 | 23 | 89 |
+      | 4 | 68 | 52 | 34 | 135 |
+      | 16 | 76 | 72 | 38 | 151 |
+    prompt: |
+      A student proposes overcoming the mercury inhibition simply by adding still more ONPG. Which evaluation of the proposal is best supported by the data?
+    options:
+      - "It will work, because raising ONPG from 0.25 to 16 mM more than quadrupled the rate with Hg²⁺ present."
+      - "It will not work, because raising ONPG from 4 to 16 mM lifted the Hg²⁺ rate only from 34 to 38, levelling off at half the uninhibited maximum; Hg²⁺ has put part of the enzyme out of action rather than competing with substrate."
+      - "It will not work, because Hg²⁺ destroys ONPG before the enzyme can bind it."
+      - "It will work, because the Hg²⁺ rate at 1 mM ONPG equals the galactose rate, and galactose is overcome by substrate."
+    option_explanations:
+      - |
+        The rise at low concentrations is real but misleading: it is the ordinary approach to saturation. What matters is where the curve levels off, and the Hg²⁺ column flattens near 38, half the uninhibited 76.
+      - |
+        Correct. A ceiling that more substrate cannot lift means fewer working active sites. Hg²⁺ binds the enzyme away from the substrate's place in the active site and distorts it, so the molecules it affects are out of action whatever the ONPG concentration.
+      - |
+        If ONPG were being destroyed, the rate would keep falling as substrate disappeared, and adding more ONPG would help. The data show a stable plateau, which points to the enzyme, not the substrate, being affected.
+      - |
+        Matching values at one concentration do not mean matching mechanisms; at 16 mM the galactose rate has recovered to 72 while the Hg²⁺ rate is stuck at 38.
+    answer: 1
+    explanation: |
+      Noncompetitive inhibition lowers the maximum rate, and no amount of substrate restores it. The practical consequence is that only removing the inhibitor, or making more enzyme, brings the rate back.
+
+  - slug: u03-exam-q03
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "Biology 2e §6.5 Enzymes"
+    points: 1
+    stimulus: |
+      β-Galactosidase hydrolyses the colourless substrate ONPG into galactose and o-nitrophenol, which is yellow, so the initial rate can be followed by the rise in absorbance at 420 nm. Initial rates (μmol product per minute) were measured at five ONPG concentrations under four conditions, at 30 °C and pH 7. Each value is the mean of three trials.
+
+      | ONPG (mM) | Standard enzyme | Standard enzyme + 20 mM galactose | Standard enzyme + 0.05 mM Hg²⁺ | Twice the standard enzyme |
+      |---|---|---|---|---|
+      | 0.25 | 18 | 7 | 9 | 36 |
+      | 0.5 | 30 | 13 | 15 | 60 |
+      | 1 | 45 | 23 | 23 | 89 |
+      | 4 | 68 | 52 | 34 | 135 |
+      | 16 | 76 | 72 | 38 | 151 |
+    prompt: |
+      Doubling the amount of enzyme roughly doubled the rate at every ONPG concentration, including 16 mM, where the standard enzyme had almost levelled off. Which explanation is best?
+    options:
+      - "Twice the enzyme provides twice as many active sites; at 16 mM nearly every site is occupied, so the maximum rate is set by how many enzyme molecules are present."
+      - "Extra enzyme lowers the activation energy further, so each enzyme molecule works twice as fast."
+      - "Extra enzyme supplies energy to the reaction, making it more exergonic."
+      - "The enzyme is used up in each reaction, so twice the enzyme can make twice the product before running out."
+    option_explanations:
+      - |
+        Correct. On the plateau the enzyme, not the substrate, is limiting; each active site turns over substrate at its maximum speed, so the total rate scales with the number of sites (76 rising to 151).
+      - |
+        Every molecule of a given enzyme lowers activation energy by the same amount; more molecules do not lower it further. The rate doubles because there are more catalysts, not better ones.
+      - |
+        Enzymes do not supply energy and cannot change ΔG; the hydrolysis of ONPG releases the same free energy with one portion of enzyme or two.
+      - |
+        Enzymes are not consumed; each molecule catalyses the reaction thousands of times. The table reports initial rates, measured long before anything could run out.
+    answer: 0
+    explanation: |
+      The plateau is the enzyme's ceiling, and the ceiling is proportional to the amount of enzyme. That is why cells regulate many pathways by changing how much enzyme they make, a theme Unit 6 returns to.
+
+  - slug: u03-exam-q04
+    type: multiple_choice
+    topic_code: "1.7"
+    source: "Biology 2e §3.4 Proteins"
+    points: 1
+    stimulus: |
+      β-Galactosidase hydrolyses the colourless substrate ONPG into galactose and o-nitrophenol, which is yellow, so the initial rate can be followed by the rise in absorbance at 420 nm. Initial rates (μmol product per minute) were measured at five ONPG concentrations under four conditions, at 30 °C and pH 7. Each value is the mean of three trials.
+
+      | ONPG (mM) | Standard enzyme | Standard enzyme + 20 mM galactose | Standard enzyme + 0.05 mM Hg²⁺ | Twice the standard enzyme |
+      |---|---|---|---|---|
+      | 0.25 | 18 | 7 | 9 | 36 |
+      | 0.5 | 30 | 13 | 15 | 60 |
+      | 1 | 45 | 23 | 23 | 89 |
+      | 4 | 68 | 52 | 34 | 135 |
+      | 16 | 76 | 72 | 38 | 151 |
+    prompt: |
+      Review. Mercury ions bind tightly to the sulfur atoms in the R groups of cysteine, including cysteines that would otherwise form disulfide bridges. Using protein structure, which explanation accounts for inhibition even when the affected cysteines lie far from the active site?
+    options:
+      - "Hg²⁺ breaks the peptide bonds next to cysteine, shortening the enzyme's primary structure."
+      - "Disrupting disulfide bridges and other R-group interactions changes the enzyme's tertiary structure, and the change in the overall fold distorts the active site."
+      - "Hg²⁺ changes the sequence of amino acids, replacing cysteine with another residue."
+      - "Hg²⁺ binds the substrate ONPG, so less substrate reaches the enzyme."
+    option_explanations:
+      - |
+        Peptide bonds are not cut by Hg²⁺ under these conditions; the chain stays intact. The inhibition comes from a change in folding, not from breaking the backbone.
+      - |
+        Correct. Disulfide bridges are covalent cross-links that help hold a polypeptide's tertiary structure. Interfering with them anywhere in the chain can shift the fold, and the active site, which is formed by that fold, loses its precise shape.
+      - |
+        Sequence is set when the protein is made from its gene; a metal ion can bind an R group but cannot swap one amino acid for another.
+      - |
+        If Hg²⁺ were tying up the substrate, extra ONPG would compensate, as it does for galactose. The table shows it does not.
+    answer: 1
+    explanation: |
+      The active site is a product of the whole fold, so a disturbance anywhere in tertiary structure can reach it. This is the structural basis of noncompetitive and allosteric effects.
+
+  # ---- Enzymes (3.1), their environment (3.2) and cellular energy (3.3)
+  - slug: u03-exam-q05
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "Biology 2e §6.5 Enzymes"
+    points: 1
+    prompt: |
+      Carbonic anhydrase holds a zinc ion in its active site. When the zinc is removed with a chelating agent the protein still folds normally but is inactive; adding Zn²⁺ back restores full activity. What does this show?
+    options:
+      - "Zinc is a cofactor: an inorganic ion that the active site needs in order to catalyse the reaction."
+      - "Zinc is the enzyme's substrate, which is consumed during the reaction."
+      - "Zinc is a coenzyme derived from a vitamin that carries electrons between reactions."
+      - "Zinc is needed for the enzyme to fold, so without it the enzyme is denatured."
+    option_explanations:
+      - |
+        Correct. A cofactor is a non-protein helper; metal ions such as Zn²⁺, Mg²⁺ and Fe²⁺ often sit in active sites and take part in catalysis. Restoring the ion restores activity because the protein itself was never damaged.
+      - |
+        A substrate is changed into product; the zinc is recovered unchanged and simply re-added, and the enzyme acts on CO₂ and water, not on zinc.
+      - |
+        Coenzymes are organic molecules (NAD⁺, FAD, coenzyme A) usually made from vitamins. Zinc is an inorganic ion, which makes it a cofactor.
+      - |
+        The prompt states that the protein still folds normally without zinc, and a denatured enzyme would not recover simply because an ion was added back.
+    answer: 0
+    explanation: |
+      Proteins supply the shape; cofactors and coenzymes often supply the chemistry. A trace element in the diet can matter because a single ion is essential at an enzyme's active site.
+
+  - slug: u03-exam-q06
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      In lysozyme, an enzyme that cuts the polysaccharides of bacterial cell walls, replacing one glutamate in the active site with glutamine (similar in size, but with no acidic carboxyl group) abolishes catalysis, yet the substrate still binds. What does this show about the active site?
+    options:
+      - "The active site only needs the right shape; the chemistry of its R groups does not matter."
+      - "Particular R groups in the active site take part in the reaction itself, for example by donating a proton, so binding the substrate and catalysing the reaction are separate jobs."
+      - "Glutamine is a much larger amino acid that blocks the substrate from entering."
+      - "The substitution changed the enzyme's quaternary structure."
+    option_explanations:
+      - |
+        The substrate still binds, so the shape is intact, yet catalysis is lost. That result shows the chemistry of particular R groups matters beyond shape.
+      - |
+        Correct. An active site lowers activation energy partly by providing a chemical microenvironment, such as an acidic group that donates H⁺ to a bond being broken. Remove that group and the substrate sits in the site unchanged.
+      - |
+        The prompt specifies that the two residues are similar in size, and the substrate still binds, so nothing is physically blocking it.
+      - |
+        Lysozyme is a single polypeptide with no quaternary structure; the change is one residue's chemistry within the active site.
+    answer: 1
+    explanation: |
+      Specificity (binding) and catalysis (lowering activation energy) depend on different features of the active site. Biochemists separate them experimentally exactly this way, one substitution at a time.
+
+  - slug: u03-exam-q07
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "Biology 2e §6.5 Enzymes"
+    points: 1
+    prompt: |
+      An enzyme with a pH optimum of 7 loses about half its activity at pH 6. A sample held at pH 6 for an hour and returned to pH 7 recovers full activity, but a sample held at pH 12 for an hour and returned to pH 7 recovers only 10%. Which interpretation is best?
+    options:
+      - "At pH 6 the charges on some R groups change and reversibly alter the active site; at pH 12 so many of the bonds holding tertiary structure are disrupted that the enzyme denatures and cannot refold."
+      - "At pH 6 the enzyme was hydrolysed into amino acids and then reassembled; at pH 12 it could not reassemble."
+      - "pH affects only the substrate, so the enzyme itself is unchanged at both pH values."
+      - "pH 12 is closer to the optimum than pH 6, so the enzyme worked too fast and wore out."
+    option_explanations:
+      - |
+        Correct. Gaining or losing H⁺ changes the charge on acidic and basic R groups. Near the optimum this shifts a few ionic and hydrogen bonds slightly and reversibly; an extreme pH disrupts so many that the fold is lost.
+      - |
+        Hydrolysing peptide bonds would destroy the chain, and a cell-free sample cannot rebuild a protein from its amino acids. A small, fully reversible loss is better explained by altered R-group charges.
+      - |
+        If only the substrate were affected, both samples would show full activity as soon as pH 7 was restored. The pH 12 sample did not recover, so the enzyme itself was changed.
+      - |
+        pH 12 is five units from the optimum and pH 6 only one. Enzymes do not wear out by working; they are not consumed by the reactions they catalyse.
+    answer: 0
+    explanation: |
+      Distinguish a reversible change in activity (altered charges, shape restored when conditions return) from irreversible denaturation (the fold is lost). A recovery test is how you tell the two apart.
+
+  - slug: u03-exam-q08
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "Biology 2e §6.5 Enzymes"
+    points: 1
+    prompt: |
+      In a bacterial pathway A → B → C → D, the end product D binds an allosteric site on the enzyme that converts A to B and inhibits it. A mutant form of that enzyme has an altered allosteric site that D can no longer bind. Which outcome is most likely in the mutant?
+    options:
+      - "The pathway stops, because the first enzyme can no longer be regulated."
+      - "D is produced continuously even when it is abundant, wasting A and the energy used to make D."
+      - "D is produced only when the cell has run out of D."
+      - "The first enzyme's active site can no longer bind A."
+    option_explanations:
+      - |
+        Losing regulation does not inactivate the enzyme; its active site is untouched, so it keeps converting A to B, now without an off-switch.
+      - |
+        Correct. Feedback inhibition is how the cell matches D production to demand. Without the allosteric site the brake is gone, and the pathway runs at full speed regardless of how much D is present.
+      - |
+        This describes the normal, regulated cell, which makes D when D is scarce. The mutant makes D whether or not D is scarce.
+      - |
+        The allosteric site is separate from the active site, which is why altering one need not affect the other; the mutant enzyme still binds A.
+    answer: 1
+    explanation: |
+      Inhibiting the first committed step saves the most material and energy. Mutants that have lost feedback control are how bacteria are engineered to overproduce amino acids commercially.
+
+  - slug: u03-exam-q09
+    type: multiple_choice
+    topic_code: "3.3"
+    source: "Biology 2e §6.1 Energy and Metabolism"
+    points: 1
+    prompt: |
+      A three-step metabolic pathway has these free-energy changes: step 1, +2 kcal/mol; step 2, −6 kcal/mol; step 3, −4 kcal/mol. Which statement about the pathway in a living cell is correct?
+    options:
+      - "The pathway cannot run, because step 1 is endergonic."
+      - "The pathway as a whole is exergonic (ΔG = −8 kcal/mol); steps 2 and 3 continually remove the product of step 1, so step 1 keeps proceeding."
+      - "The pathway is endergonic overall, because the first step sets the direction for the rest."
+      - "The pathway releases 10 kcal/mol, the sum of the two negative steps."
+    option_explanations:
+      - |
+        An endergonic step can run in a cell when the steps after it are strongly exergonic and keep its product scarce, pulling the reaction forward. Pathways are judged as a whole.
+      - |
+        Correct. +2 − 6 − 4 = −8 kcal/mol. Because the later steps consume the intermediate, step 1 never reaches equilibrium, and the pathway flows forward as a sequence.
+      - |
+        The direction of a pathway is not set by its first step; free-energy changes along a pathway add, and the sum here is negative.
+      - |
+        The uphill step must be included: summing only the downhill steps overstates the energy released by 2 kcal/mol.
+    answer: 1
+    explanation: |
+      Free-energy changes are additive. Sequential pathways let cells run individually unfavourable steps by linking them to favourable ones, and they break energy release into controllable pieces.
+
+  - slug: u03-exam-q10
+    type: multiple_choice
+    topic_code: "3.3"
+    source: "Biology 2e §7.1 Energy in Living Systems"
+    points: 1
+    prompt: |
+      Burning glucose in a flame and oxidising it in a cell release the same total free energy. Why does a cell oxidise glucose through more than twenty enzyme-catalysed steps rather than in a single reaction?
+    options:
+      - "Each step needs less activation energy, so the overall ΔG of the oxidation becomes larger."
+      - "Breaking the release into small steps lets much of the energy be captured in ATP and in reduced carriers such as NADH, instead of all of it escaping at once as heat, and gives many points for regulation."
+      - "A single-step oxidation would be endergonic, so the cell must use many steps to make it exergonic."
+      - "Multiple steps allow the cell to recover all of the energy in glucose as ATP, with no loss as heat."
+    option_explanations:
+      - |
+        ΔG between glucose and CO₂ plus water is fixed by the starting and ending states; the route cannot change it. Small steps lower the activation barriers, not the total energy released.
+      - |
+        Correct. Energy released in small packets can be coupled to making ATP or transferred as electrons to NAD⁺ and FAD; a single explosive release could only become heat. Each enzyme is also a potential control point.
+      - |
+        Oxidation of glucose is strongly exergonic (about −686 kcal/mol) whichever path it takes; dividing it into steps does not change its sign.
+      - |
+        The second law guarantees some loss: a cell captures only about a third of glucose's energy in ATP, and the rest is released as heat.
+    answer: 1
+    explanation: |
+      Stepwise pathways trade speed of release for capture and control. That is why the pathways of Unit 3 are long and why heat is always one of their products.
+
+  # ---- Stimulus set B: an Elodea light curve (3.4, 3.5)
+  - slug: u03-exam-q11
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "Biology 2e §8.1 Overview of Photosynthesis"
+    points: 1
+    stimulus: |
+      A sprig of the pondweed Elodea was sealed in a chamber of pond water containing 0.5% sodium bicarbonate at 25 °C, fitted with a dissolved-oxygen sensor. A lamp was set at different distances from the chamber, behind a water-filled screen that kept the temperature constant, and the change in dissolved O₂ was recorded over 10 minutes at each light intensity. The lamp was then switched off for the dark reading. Values are means of four sprigs, expressed per gram of plant per hour.
+
+      | Light intensity (relative units) | Net change in dissolved O₂ (μmol g⁻¹ h⁻¹) |
+      |---|---|
+      | 0 (dark) | −6 |
+      | 10 | 0 |
+      | 25 | +10 |
+      | 50 | +24 |
+      | 100 | +38 |
+      | 200 | +40 |
+      | 400 | +40 |
+    prompt: |
+      At which light intensity is the rate of photosynthesis equal to the rate of cellular respiration in the sprig, and how can you tell?
+    options:
+      - "At 0 units, because without light neither process is running."
+      - "At 10 units, because the net change in O₂ is zero: oxygen released by photosynthesis exactly balances oxygen used by respiration."
+      - "At 200 units, because that is where the rate stops rising."
+      - "At no intensity, because photosynthesis and respiration never occur at the same time in one plant."
+    option_explanations:
+      - |
+        In the dark the sprig still uses O₂ (−6), so respiration continues without light. Only photosynthesis stops.
+      - |
+        Correct. A net change of zero does not mean nothing is happening; it means O₂ production and O₂ consumption are equal. This is the light compensation point.
+      - |
+        200 units is where the curve levels off, the point at which light stops being limiting, not the point where the two processes balance.
+      - |
+        Plant cells respire all the time, in light and in dark; every reading in the light is photosynthesis minus that ongoing respiration.
+    answer: 1
+    explanation: |
+      A gas-exchange measurement always reports a net value. Read zero as balance, not inactivity, and read the negative dark value as the plant's own respiration.
+
+  - slug: u03-exam-q12
+    type: numeric
+    topic_code: "3.4"
+    source: "Biology 2e §8.1 Overview of Photosynthesis"
+    points: 1
+    stimulus: |
+      A sprig of the pondweed Elodea was sealed in a chamber of pond water containing 0.5% sodium bicarbonate at 25 °C, fitted with a dissolved-oxygen sensor. A lamp was set at different distances from the chamber, behind a water-filled screen that kept the temperature constant, and the change in dissolved O₂ was recorded over 10 minutes at each light intensity. The lamp was then switched off for the dark reading. Values are means of four sprigs, expressed per gram of plant per hour.
+
+      | Light intensity (relative units) | Net change in dissolved O₂ (μmol g⁻¹ h⁻¹) |
+      |---|---|
+      | 0 (dark) | −6 |
+      | 10 | 0 |
+      | 25 | +10 |
+      | 50 | +24 |
+      | 100 | +38 |
+      | 200 | +40 |
+      | 400 | +40 |
+    prompt: |
+      Assuming the sprig respires at the same rate in the light as in the dark, calculate the gross rate of photosynthesis (total O₂ produced) at 100 light units, in μmol O₂ g⁻¹ h⁻¹. Give a whole number.
+    answer: { value: 44, tolerance: 0.5 }
+    explanation: |
+      Gross photosynthesis = net O₂ change + O₂ used by respiration. The dark reading shows respiration consuming 6 μmol g⁻¹ h⁻¹, so gross = 38 + 6 = 44 μmol O₂ g⁻¹ h⁻¹. The assumption matters: if respiration ran faster in the light, 44 would be an underestimate, which is why a good answer states it.
+
+  - slug: u03-exam-q13
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "Biology 2e §8.3 Using Light Energy to Make Organic Molecules"
+    points: 1
+    stimulus: |
+      A sprig of the pondweed Elodea was sealed in a chamber of pond water containing 0.5% sodium bicarbonate at 25 °C, fitted with a dissolved-oxygen sensor. A lamp was set at different distances from the chamber, behind a water-filled screen that kept the temperature constant, and the change in dissolved O₂ was recorded over 10 minutes at each light intensity. The lamp was then switched off for the dark reading. Values are means of four sprigs, expressed per gram of plant per hour.
+
+      | Light intensity (relative units) | Net change in dissolved O₂ (μmol g⁻¹ h⁻¹) |
+      |---|---|
+      | 0 (dark) | −6 |
+      | 10 | 0 |
+      | 25 | +10 |
+      | 50 | +24 |
+      | 100 | +38 |
+      | 200 | +40 |
+      | 400 | +40 |
+    prompt: |
+      Doubling the light from 200 to 400 units produced no further rise in net O₂ release. Which explanation is best supported, and which follow-up test would check it?
+    options:
+      - "Light is still limiting; a brighter lamp would raise the rate further."
+      - "Another factor, most likely the CO₂ supply to the Calvin cycle, now limits the rate; repeating the 400-unit reading with more bicarbonate in the water should raise it."
+      - "The sprig was killed by the bright light; returning it to 50 units would give no O₂ release."
+      - "Respiration rose to match photosynthesis; a dark reading taken after the 400-unit reading would be −40."
+    option_explanations:
+      - |
+        If light were limiting, doubling it would raise the rate, as it did between 25 and 50 units. A flat line means light is no longer the factor in short supply.
+      - |
+        Correct. Once the light reactions supply ATP and NADPH faster than the Calvin cycle can use them, carbon fixation by RuBisCO, which depends on the CO₂ concentration, sets the pace. Adding bicarbonate tests the idea directly.
+      - |
+        A dead sprig would stop producing O₂ altogether; instead the rate holds steady at +40. Nothing in the data suggests damage.
+      - |
+        The temperature was held constant and nothing indicates respiration changed; had it risen that much, the net value would have fallen toward zero rather than holding at +40.
+    answer: 1
+    explanation: |
+      A plateau means a different factor has become limiting. Name the likely factor and propose the experiment that would raise the ceiling: that is the move the AP exam rewards.
+
+  - slug: u03-exam-q14
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "Biology 2e §7.1 Energy in Living Systems"
+    points: 1
+    stimulus: |
+      A sprig of the pondweed Elodea was sealed in a chamber of pond water containing 0.5% sodium bicarbonate at 25 °C, fitted with a dissolved-oxygen sensor. A lamp was set at different distances from the chamber, behind a water-filled screen that kept the temperature constant, and the change in dissolved O₂ was recorded over 10 minutes at each light intensity. The lamp was then switched off for the dark reading. Values are means of four sprigs, expressed per gram of plant per hour.
+
+      | Light intensity (relative units) | Net change in dissolved O₂ (μmol g⁻¹ h⁻¹) |
+      |---|---|
+      | 0 (dark) | −6 |
+      | 10 | 0 |
+      | 25 | +10 |
+      | 50 | +24 |
+      | 100 | +38 |
+      | 200 | +40 |
+      | 400 | +40 |
+    prompt: |
+      Which process accounts for the negative value in the dark, and what does that value tell you about the sprig in the light?
+    options:
+      - "Photosynthesis running in reverse; in the light it runs forward instead."
+      - "Cellular respiration in the plant's mitochondria, which uses O₂ continuously; in the light it is still running, hidden within the net value."
+      - "Oxygen dissolving into the plant's cell walls, which happens only in the dark."
+      - "Fermentation, which plants switch to when there is no light."
+    option_explanations:
+      - |
+        The light reactions and the Calvin cycle do not run backward to consume O₂ in the dark; they simply stop. Steady O₂ uptake is the signature of aerobic respiration.
+      - |
+        Correct. Plant cells have mitochondria and oxidise sugar for ATP day and night. The light readings are net values: photosynthetic O₂ release minus this continuing O₂ use.
+      - |
+        Dissolving would quickly reach equilibrium and stop; a steady uptake over the whole reading is the sign of a metabolic process.
+      - |
+        Fermentation uses no O₂ at all; the sprig was taking up O₂, so it was respiring aerobically. Darkness does not remove oxygen from the water.
+    answer: 1
+    explanation: |
+      Plants respire too. The dark reading is the respiration rate, and it must be added back to any light reading to find the true (gross) rate of photosynthesis.
+
+  # ---- Photosynthesis (3.4) with Unit 1 and 2 links
+  - slug: u03-exam-q15
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      The rock record shows that free oxygen began to accumulate in Earth's atmosphere roughly 2.4 billion years ago, long after the first cells appeared but well before eukaryotic algae and plants. Which inference is best supported?
+    options:
+      - "Photosynthesis first evolved in eukaryotic plants, which released the first oxygen."
+      - "Oxygen-releasing photosynthesis evolved in prokaryotes such as the ancestors of cyanobacteria, and eukaryotes later inherited the pathway when a cyanobacterium became the chloroplast."
+      - "Early cells used oxygen for aerobic respiration before any oxygen had been released into the atmosphere."
+      - "The first oxygen was produced by the Calvin cycle of the earliest cells."
+    option_explanations:
+      - |
+        The timing rules this out: oxygen accumulated before eukaryotic algae and plants existed, so the first oxygen producers must have been prokaryotes.
+      - |
+        Correct. Oxygenic photosynthesis arose in prokaryotes; chloroplasts are descended from an engulfed cyanobacterium, which is why the plant pathway is a prokaryotic pathway housed in an organelle.
+      - |
+        Aerobic respiration needs O₂ as its final electron acceptor; it could become widespread only after photosynthesis had made oxygen available, not before.
+      - |
+        The O₂ of photosynthesis comes from splitting water in the light-dependent reactions; the Calvin cycle fixes CO₂ and releases no oxygen.
+    answer: 1
+    explanation: |
+      Photosynthesis is older than eukaryotes, and its oxygen changed the planet: it made aerobic respiration, with its much larger ATP yield, possible. The CED expects you to connect the pathway to its prokaryotic origin.
+
+  - slug: u03-exam-q16
+    type: multiple_choice
+    topic_code: "1.2"
+    source: "Biology 2e §8.2 The Light-Dependent Reactions of Photosynthesis"
+    points: 1
+    prompt: |
+      Review. Plants grown in soil deficient in magnesium develop yellow leaves and grow slowly. Which explanation connects the element to the symptoms?
+    options:
+      - "Magnesium sits at the centre of the ring of every chlorophyll molecule; without it the plant makes less chlorophyll, absorbs less light and fixes less carbon."
+      - "Magnesium is part of every amino acid, so the plant cannot make proteins."
+      - "Magnesium is the main element of cellulose, so the cell walls weaken and the leaves lose colour."
+      - "Magnesium is needed to split water, so the plant becomes dehydrated."
+    option_explanations:
+      - |
+        Correct. The Mg²⁺ ion at the centre of chlorophyll's ring is essential to the pigment; fewer chlorophyll molecules mean pale leaves and less energy captured for photosynthesis, hence slow growth.
+      - |
+        Amino acids are built from C, H, O, N and sometimes S; magnesium is not part of their structure, though it serves as a cofactor for many enzymes.
+      - |
+        Cellulose is pure carbohydrate (C, H and O). The yellowing comes from lost pigment, not from weakened walls.
+      - |
+        Water splitting at photosystem II uses a manganese-containing cluster, not magnesium, and pale leaves are a pigment symptom, not a water symptom.
+    answer: 0
+    explanation: |
+      A small amount of an element can matter enormously when it sits in a key molecule. Yellow leaves point to the pigment, and the pigment points to the element.
+
+  - slug: u03-exam-q17
+    type: multiple_choice
+    topic_code: "2.7"
+    source: "Biology 2e §8.1 Overview of Photosynthesis"
+    points: 1
+    prompt: |
+      Review. A crop is irrigated with water containing a high concentration of salt. The soil solution becomes hypertonic to the roots, the plant loses water, and its guard cells lose turgor so the stomata close. Which effect on photosynthesis follows first?
+    options:
+      - "The light-dependent reactions stop because no water at all can reach the chloroplasts."
+      - "CO₂ can no longer diffuse into the leaf, so the CO₂ inside the leaf falls and the Calvin cycle slows."
+      - "Oxygen floods into the leaf and is used as the final electron acceptor of photosynthesis."
+      - "Salt enters the chloroplasts and denatures the chlorophyll."
+    option_explanations:
+      - |
+        A water-stressed leaf still holds far more water than photosystem II splits; the immediate limitation imposed by closed stomata is gas exchange, not water for the light reactions.
+      - |
+        Correct. Stomata are the leaf's gas ports. With them shut, CO₂ inside the leaf is used faster than it is replaced, RuBisCO has less substrate, and carbon fixation slows.
+      - |
+        Closed stomata block O₂ exchange too, and photosynthesis has no use for O₂ as an electron acceptor; its final electron acceptor is NADP⁺.
+      - |
+        Chlorophyll is a pigment, not a protein, and the immediate consequence described is water loss and stomatal closure, not salt reaching the chloroplasts.
+    answer: 1
+    explanation: |
+      Tonicity reaches photosynthesis through the guard cells: water loss closes the stomata and starves the Calvin cycle of CO₂. Saving water and gaining carbon are a constant trade-off for a plant.
+
+  # ---- Stimulus set C: an oxygen-electrode run with isolated mitochondria (3.5)
+  - slug: u03-exam-q18
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Mitochondria isolated from rat liver were suspended in a sealed, stirred chamber fitted with an oxygen electrode. The buffer contained phosphate and the fuels pyruvate and malate, which the mitochondria oxidise to supply NADH. Compounds were added one after another, and the rate of O₂ consumption was calculated for each interval. Oligomycin blocks the proton channel of ATP synthase; DNP carries H⁺ across the inner membrane; cyanide blocks complex IV.
+
+      | Interval | Chamber contents (additions are cumulative) | O₂ consumption (nmol O₂ per min per mg mitochondrial protein) |
+      |---|---|---|
+      | 1 | Mitochondria, phosphate, pyruvate and malate | 6 |
+      | 2 | + ADP | 38 |
+      | 3 | No further addition (all the added ADP now converted to ATP) | 7 |
+      | 4 | + a second dose of ADP, together with oligomycin | 5 |
+      | 5 | + DNP | 55 |
+      | 6 | + cyanide | 0 |
+    prompt: |
+      O₂ consumption rose from 6 to 38 when ADP was added and fell back to 7 once that ADP had been converted to ATP. Which explanation is best?
+    options:
+      - "ADP is a fuel that is oxidised by the electron transport chain."
+      - "Electron transport is coupled to ATP synthesis through the proton gradient: without ADP, ATP synthase cannot let protons back, the gradient builds until it resists further pumping, and electron flow to O₂ slows."
+      - "ADP activates complex IV directly, and ATP inhibits it."
+      - "The mitochondria ran out of pyruvate and malate during interval 2."
+    option_explanations:
+      - |
+        ADP is not oxidised; it is phosphorylated to ATP. The electrons reaching O₂ come from NADH produced from pyruvate and malate.
+      - |
+        Correct. Protons can re-enter the matrix through ATP synthase only when there is ADP to phosphorylate. With the ADP gone the gradient stays steep, pumping becomes harder, and the whole chain slows; adding ADP releases the brake.
+      - |
+        Nothing in the data requires a direct effect on complex IV, and interval 5 shows the chain can run fast with no ATP synthesis at all once the gradient is dissipated.
+      - |
+        If the fuel had run out, neither the second dose of ADP nor the DNP could have restarted O₂ consumption; in interval 5 the rate reached 55, so fuel was plentiful.
+    answer: 1
+    explanation: |
+      The chain runs only as fast as protons can return across the membrane. This coupling, called respiratory control, lets a cell burn fuel in step with its demand for ATP.
+
+  - slug: u03-exam-q19
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Mitochondria isolated from rat liver were suspended in a sealed, stirred chamber fitted with an oxygen electrode. The buffer contained phosphate and the fuels pyruvate and malate, which the mitochondria oxidise to supply NADH. Compounds were added one after another, and the rate of O₂ consumption was calculated for each interval. Oligomycin blocks the proton channel of ATP synthase; DNP carries H⁺ across the inner membrane; cyanide blocks complex IV.
+
+      | Interval | Chamber contents (additions are cumulative) | O₂ consumption (nmol O₂ per min per mg mitochondrial protein) |
+      |---|---|---|
+      | 1 | Mitochondria, phosphate, pyruvate and malate | 6 |
+      | 2 | + ADP | 38 |
+      | 3 | No further addition (all the added ADP now converted to ATP) | 7 |
+      | 4 | + a second dose of ADP, together with oligomycin | 5 |
+      | 5 | + DNP | 55 |
+      | 6 | + cyanide | 0 |
+    prompt: |
+      In interval 4, ADP was present but O₂ consumption was only 5. What does this result show?
+    options:
+      - "The second dose of ADP had already been converted to ATP before the oligomycin acted."
+      - "With ATP synthase blocked, protons cannot flow back into the matrix even though ADP is available, so the gradient stays steep and electron transport is held back."
+      - "Oligomycin blocks complex IV, which is why so little O₂ is used."
+      - "Oligomycin removes the fuel, so no NADH is supplied to the chain."
+    option_explanations:
+      - |
+        Without the drug, a fresh dose of ADP produces a burst like interval 2. The low rate is the drug's effect, not a sign that the ADP was already used.
+      - |
+        Correct. Blocking the synthase removes the only route back for protons. The chain can pump only until the gradient becomes too steep, so O₂ use stays low: evidence that the two processes are linked by the gradient, not by direct contact.
+      - |
+        The stimulus states that oligomycin blocks ATP synthase, and interval 5 proves complex IV was still working, because DNP restored rapid O₂ use with oligomycin still present.
+      - |
+        Fuel was still present, as interval 5 shows; the chain stalled because protons could not get back into the matrix.
+    answer: 1
+    explanation: |
+      Oligomycin and cyanide both lower O₂ use, but for different reasons. Oligomycin acts on the synthase and is bypassed by an uncoupler; cyanide acts on the chain itself and cannot be bypassed.
+
+  - slug: u03-exam-q20
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "Biology 2e §7.4 Oxidative Phosphorylation"
+    points: 1
+    stimulus: |
+      Mitochondria isolated from rat liver were suspended in a sealed, stirred chamber fitted with an oxygen electrode. The buffer contained phosphate and the fuels pyruvate and malate, which the mitochondria oxidise to supply NADH. Compounds were added one after another, and the rate of O₂ consumption was calculated for each interval. Oligomycin blocks the proton channel of ATP synthase; DNP carries H⁺ across the inner membrane; cyanide blocks complex IV.
+
+      | Interval | Chamber contents (additions are cumulative) | O₂ consumption (nmol O₂ per min per mg mitochondrial protein) |
+      |---|---|---|
+      | 1 | Mitochondria, phosphate, pyruvate and malate | 6 |
+      | 2 | + ADP | 38 |
+      | 3 | No further addition (all the added ADP now converted to ATP) | 7 |
+      | 4 | + a second dose of ADP, together with oligomycin | 5 |
+      | 5 | + DNP | 55 |
+      | 6 | + cyanide | 0 |
+    prompt: |
+      Adding DNP raised O₂ consumption to 55, the highest rate in the run, while oligomycin was still present. Which conclusion is best supported?
+    options:
+      - "DNP reversed the effect of oligomycin, so ATP synthesis resumed at a high rate."
+      - "By letting protons leak back across the inner membrane, DNP removed the back-pressure of the gradient, so electrons flowed to O₂ at full speed while almost no ATP was made and the energy was released as heat."
+      - "DNP is an extra electron donor that feeds the chain directly."
+      - "DNP converts oligomycin into an activator of the chain."
+    option_explanations:
+      - |
+        Oligomycin still blocks the synthase; DNP gives protons a different path, not a way through ATP synthase. Fast O₂ use with no working synthase means ATP is not being made.
+      - |
+        Correct. An uncoupler dissipates the proton gradient, so the chain is no longer held back, and the energy of electron transport is lost as heat instead of being stored in ATP. The fastest rate of the run coincides with almost no ATP synthesis.
+      - |
+        DNP does not supply electrons; it carries protons. The electrons still come from NADH made from pyruvate and malate.
+      - |
+        Oligomycin is an inhibitor of ATP synthase; nothing in the data or in the mechanism suggests that DNP turns it into an activator.
+    answer: 1
+    explanation: |
+      Coupled mitochondria trade speed for ATP; uncoupled mitochondria trade ATP for speed and heat. Rapid O₂ consumption is not, by itself, evidence of rapid ATP production.
+
+  - slug: u03-exam-q21
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "Biology 2e §7.4 Oxidative Phosphorylation"
+    points: 1
+    stimulus: |
+      Mitochondria isolated from rat liver were suspended in a sealed, stirred chamber fitted with an oxygen electrode. The buffer contained phosphate and the fuels pyruvate and malate, which the mitochondria oxidise to supply NADH. Compounds were added one after another, and the rate of O₂ consumption was calculated for each interval. Oligomycin blocks the proton channel of ATP synthase; DNP carries H⁺ across the inner membrane; cyanide blocks complex IV.
+
+      | Interval | Chamber contents (additions are cumulative) | O₂ consumption (nmol O₂ per min per mg mitochondrial protein) |
+      |---|---|---|
+      | 1 | Mitochondria, phosphate, pyruvate and malate | 6 |
+      | 2 | + ADP | 38 |
+      | 3 | No further addition (all the added ADP now converted to ATP) | 7 |
+      | 4 | + a second dose of ADP, together with oligomycin | 5 |
+      | 5 | + DNP | 55 |
+      | 6 | + cyanide | 0 |
+    prompt: |
+      Cyanide reduced O₂ consumption to zero, even with DNP present. Which conclusion about the mitochondria does this support?
+    options:
+      - "Oxygen in these mitochondria is consumed only at complex IV, where it accepts electrons at the end of the chain and is reduced to water."
+      - "Oxygen is consumed mainly by the citric acid cycle, which cyanide also blocks."
+      - "Cyanide rebuilds the proton gradient that DNP had removed."
+      - "Cyanide blocks ATP synthase, which is why O₂ use stops."
+    option_explanations:
+      - |
+        Correct. With complex IV blocked, nothing else in the mitochondria takes up O₂, even when the gradient is dissipated. Oxygen is the final electron acceptor, and it is reduced to water only there.
+      - |
+        The citric acid cycle consumes no O₂ directly; it releases CO₂ and reduces NAD⁺ and FAD. It stops after cyanide only because NAD⁺ is no longer regenerated.
+      - |
+        Cyanide stops electron flow, so pumping stops; it cannot rebuild a gradient that DNP keeps dissipating.
+      - |
+        ATP synthase was already blocked by oligomycin before cyanide was added, and the DNP interval showed the chain runs without the synthase; the new block is in the chain itself.
+    answer: 0
+    explanation: |
+      Each addition isolates one part: oligomycin the synthase, DNP the tightness of the membrane, cyanide the last carrier. Together they show the order of the machine: chain, gradient, synthase.
+
+  # ---- Cellular respiration and fermentation (3.5)
+  - slug: u03-exam-q22
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "Biology 2e §7.5 Metabolism without Oxygen"
+    points: 1
+    prompt: |
+      Mature mammalian red blood cells have no mitochondria, yet they carry oxygen all their lives. How do they make their ATP, and what is the end product of their glucose breakdown?
+    options:
+      - "By aerobic respiration using the oxygen they carry; the products are CO₂ and water."
+      - "By glycolysis followed by lactic acid fermentation; the product is lactate, and the yield is 2 ATP per glucose."
+      - "By alcohol fermentation; the products are ethanol and CO₂."
+      - "By the citric acid cycle running in the cytosol; the product is acetyl CoA."
+    option_explanations:
+      - |
+        Without mitochondria there is no citric acid cycle or electron transport chain, so the oxygen bound to haemoglobin cannot be used to make ATP; it is delivered to other cells.
+      - |
+        Correct. Glycolysis runs in the cytosol and needs no organelle; converting pyruvate to lactate regenerates NAD⁺ so glycolysis can continue. Two ATP per glucose suffice for a cell that does little biosynthesis.
+      - |
+        Alcohol fermentation occurs in yeast and some bacteria; animal cells, red blood cells included, ferment pyruvate to lactate and release no CO₂.
+      - |
+        The citric acid cycle enzymes are in the mitochondrial matrix; a cell without mitochondria cannot run the cycle at all.
+    answer: 1
+    explanation: |
+      Fermentation is a way of keeping glycolysis going, not an extra source of ATP. The red blood cell is the clean example: plenty of oxygen, no machinery to use it.
+
+  - slug: u03-exam-q23
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "Biology 2e §7.5 Metabolism without Oxygen"
+    points: 1
+    prompt: |
+      Some bacteria in oxygen-free marsh mud pass electrons from NADH down a membrane electron transport chain to sulfate, producing hydrogen sulfide, and make ATP with an ATP synthase. How should their metabolism be classified?
+    options:
+      - "Fermentation, because no oxygen is used."
+      - "Anaerobic respiration, because an electron transport chain and chemiosmosis are used with an inorganic final electron acceptor other than oxygen."
+      - "Aerobic respiration, because sulfate contains oxygen atoms."
+      - "Photosynthesis, because a sulfur compound is released."
+    option_explanations:
+      - |
+        Fermentation uses no electron transport chain; it passes electrons from NADH to an organic molecule such as pyruvate. A chain plus ATP synthase is respiration.
+      - |
+        Correct. Respiration is defined by the chain and the gradient, not by oxygen; sulfate takes oxygen's place as the terminal acceptor and yields less energy per pair of electrons.
+      - |
+        Aerobic respiration means molecular oxygen (O₂) is the final electron acceptor; oxygen atoms bound inside sulfate do not count.
+      - |
+        Photosynthesis uses light energy to reduce CO₂; these bacteria live in dark mud and oxidise a fuel, which is respiration.
+    answer: 1
+    explanation: |
+      Classify by mechanism: a chain plus a gradient is respiration (aerobic if O₂ is the acceptor, anaerobic if another molecule is); no chain, with NAD⁺ regenerated on an organic molecule, is fermentation.
+
+  # ---- Units 1 and 2 review (multiple choice)
+  - slug: u03-exam-q24
+    type: multiple_choice
+    topic_code: "1.1"
+    source: "Biology 2e §2.2 Water"
+    points: 1
+    prompt: |
+      Review. In an illuminated chloroplast the thylakoid lumen reaches about pH 5 while the stroma is about pH 8. How does the hydrogen ion concentration in the lumen compare with that in the stroma?
+    options:
+      - "About 3 times higher"
+      - "About 1,000 times higher"
+      - "About 1,000 times lower"
+      - "About 10 times higher"
+    option_explanations:
+      - |
+        Subtracting the pH values (8 − 5 = 3) gives the number of tenfold steps, not the ratio; the pH scale is logarithmic.
+      - |
+        Correct. Each pH unit is a tenfold change in H⁺ concentration, and three units is 10 × 10 × 10 = 1,000. The lower pH is the more acidic side, so the lumen holds more H⁺.
+      - |
+        The direction is reversed: a lower pH means a higher hydrogen ion concentration, so the lumen at pH 5 has more H⁺ than the stroma at pH 8.
+      - |
+        A tenfold difference corresponds to a single pH unit; the lumen and stroma differ by three units, which is three tenfold steps.
+    answer: 1
+    explanation: |
+      A thousandfold H⁺ difference across a membrane a few nanometres thick is a large store of potential energy, and it is what ATP synthase spends. Read pH differences as powers of ten.
+
+  - slug: u03-exam-q25
+    type: multiple_choice
+    topic_code: "1.4"
+    source: "Biology 2e §3.2 Carbohydrates"
+    points: 1
+    prompt: |
+      Review. A cow and a human both eat grass. Grass cellulose is made of glucose, yet a human gains almost no ATP from it while a cow gains a great deal. Which explanation is correct?
+    options:
+      - "The glucose in cellulose is a different isomer from the glucose that glycolysis uses."
+      - "Human digestive enzymes cannot hydrolyse the β 1-4 linkages of cellulose, so its glucose never reaches the cells; microbes in the cow's gut break those linkages and ferment the sugar, and the cow absorbs and respires the products."
+      - "Cows have a different version of glycolysis that uses polysaccharides directly."
+      - "Cellulose contains less energy per glucose unit than starch."
+    option_explanations:
+      - |
+        Cellulose is built from glucose; what differs from starch is the β orientation of the linkage between units, not the identity of the monomer released.
+      - |
+        Correct. Enzyme specificity is the barrier: amylase fits α linkages, not β. The cow houses microbes with cellulose-digesting enzymes, and their fermentation products are absorbed and respired by the cow.
+      - |
+        Glycolysis is essentially the same in all organisms and begins with a single sugar; no organism feeds a polysaccharide into it whole.
+      - |
+        A glucose unit holds about the same energy whether it is linked α or β; what differs is whether an enzyme can release it.
+    answer: 1
+    explanation: |
+      Respiration can use only what digestion releases, and digestion depends on enzymes that match the linkage. Unit 1 structure meets Unit 3 enzyme specificity.
+
+  - slug: u03-exam-q26
+    type: multiple_choice
+    topic_code: "2.10"
+    source: "Biology 2e §23.1 Eukaryotic Origins"
+    points: 1
+    prompt: |
+      Review. The inner membranes of mitochondria contain electron transport chains and ATP synthases closely resembling those in the plasma membranes of aerobic bacteria, and mitochondria also have their own circular DNA and small ribosomes. Which explanation do these observations support?
+    options:
+      - "Mitochondria are descended from aerobic bacteria engulfed by an ancestral host cell, and the inner membrane derives from the bacterium's plasma membrane."
+      - "Mitochondria formed by infolding of the host cell's plasma membrane, which explains their double membrane."
+      - "Bacteria evolved from mitochondria that escaped from eukaryotic cells."
+      - "Similar enzymes arose independently in bacteria and mitochondria because both need ATP."
+    option_explanations:
+      - |
+        Correct. Endosymbiotic theory predicts exactly these features: a bacterial-type chain in the inner membrane, a separate circular genome and bacterial-sized ribosomes, all inherited from the engulfed ancestor.
+      - |
+        Membrane infolding is the likely origin of the endomembrane system and nuclear envelope, but it would not give mitochondria their own DNA and ribosomes or a bacterial-type chain.
+      - |
+        Bacteria appear in the fossil record long before eukaryotes; the direction of descent runs from free-living bacteria to mitochondria, not the reverse.
+      - |
+        Independent origin would not explain why the shared features extend beyond the chain to circular DNA and ribosome size, which have nothing to do with making ATP.
+    answer: 0
+    explanation: |
+      Chemiosmosis in the mitochondrion is a bacterial mechanism in a new home. The resemblances are evidence of common ancestry, linking Unit 2's origins topic to Unit 3's pathways.
+
+  - slug: u03-exam-q27
+    type: multiple_choice
+    topic_code: "2.4"
+    source: "Biology 2e §5.2 Passive Transport"
+    points: 1
+    prompt: |
+      Review. A respiring mitochondrion must take in O₂, pyruvate and ADP across its inner membrane. Which of these crosses the phospholipid bilayer by simple diffusion, without a transport protein?
+    options:
+      - "Pyruvate, because it is a small three-carbon molecule."
+      - "ADP, because it is the substrate of ATP synthase."
+      - "O₂, because it is small and nonpolar and dissolves in the hydrophobic core of the bilayer."
+      - "All three, because the inner membrane is unusually permeable."
+    option_explanations:
+      - |
+        Size alone does not decide permeability; pyruvate is charged at cellular pH and is carried across by a specific transport protein.
+      - |
+        ADP carries several negative charges on its phosphates and cannot cross the hydrophobic core; a dedicated exchanger swaps it for ATP.
+      - |
+        Correct. Small nonpolar gases such as O₂ and CO₂ pass straight through the bilayer down their concentration gradients.
+      - |
+        The inner membrane is notably impermeable, even to H⁺, and that tightness is what lets it hold a proton gradient. Charged molecules need transporters.
+    answer: 2
+    explanation: |
+      Polarity and charge, not just size, decide what crosses a bilayer unaided. The inner membrane's impermeability to ions is the foundation of chemiosmosis.
+
+  # ---- Select-all (4)
+  - slug: u03-exam-q28
+    type: multi_select
+    topic_code: "3.1"
+    source: "Biology 2e §6.5 Enzymes"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of the following are ways in which an enzyme's active site can lower the activation energy of a reaction? Select all that apply.
+    options:
+      - "Holding two substrates close together in the orientation needed for them to react"
+      - "Straining or bending a bond in the substrate so that it breaks more easily"
+      - "Providing a local environment, such as an acidic or nonpolar pocket, that favours the transition state"
+      - "Making the reaction's ΔG more negative so that more energy is released"
+      - "Supplying heat from the enzyme to push the substrate over the energy barrier"
+    option_explanations:
+      - |
+        Correct. Bringing reactants together in the right orientation removes the need for a lucky collision, a major part of the activation barrier.
+      - |
+        Correct. Distorting the substrate toward the shape of the transition state makes the bonds that must break easier to break.
+      - |
+        Correct. R groups in the site can create a microenvironment, for example donating H⁺ or excluding water, that would not exist in open solution.
+      - |
+        Enzymes leave ΔG unchanged; the products hold the same free energy whether the reaction is catalysed or not. Only the barrier is lowered.
+      - |
+        Enzymes are not heat sources; the substrate still crosses the barrier using ordinary thermal energy. The enzyme lowers the barrier so that ordinary energy suffices.
+    answer: [0, 1, 2]
+    explanation: |
+      Orientation, strain and microenvironment (and sometimes a brief covalent bond to the substrate) all reduce activation energy. None of them changes how much energy the reaction releases.
+
+  - slug: u03-exam-q29
+    type: multi_select
+    topic_code: "3.4"
+    source: "Biology 2e §8.3 Using Light Energy to Make Organic Molecules"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of the following changes would slow the Calvin cycle in a leaf within a minute or two? Select all that apply.
+    options:
+      - "Closing the stomata"
+      - "Switching off the light"
+      - "Adding a chemical that blocks ATP synthase in the thylakoid membrane"
+      - "Raising the CO₂ concentration around the leaf from 400 to 800 ppm"
+      - "Lowering the O₂ concentration around the leaf"
+    option_explanations:
+      - |
+        Correct. Closed stomata cut off the supply of CO₂, RuBisCO's substrate, so carbon fixation slows as the CO₂ inside the leaf is used up.
+      - |
+        Correct. Without light the thylakoids stop making ATP and NADPH; the Calvin cycle uses up its supply within seconds and stalls.
+      - |
+        Correct. The Calvin cycle needs ATP for the reduction stage and for regenerating RuBP; blocking the thylakoid's ATP synthase cuts that supply even in bright light.
+      - |
+        More CO₂ provides more substrate for RuBisCO and generally speeds the cycle, up to the point at which something else becomes limiting.
+      - |
+        Less O₂ means less competition with CO₂ at RuBisCO's active site, which reduces photorespiration and, if anything, speeds net carbon fixation.
+    answer: [0, 1, 2]
+    explanation: |
+      The Calvin cycle depends on the light reactions for ATP and NADPH and on the stomata for CO₂. Anything that cuts either supply slows it within minutes.
+
+  - slug: u03-exam-q30
+    type: multi_select
+    topic_code: "3.5"
+    source: "Biology 2e §7.3 Oxidation of Pyruvate and the Citric Acid Cycle"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of the following steps release CO₂? Select all that apply.
+    options:
+      - "Glycolysis, from glucose to two pyruvate"
+      - "Pyruvate oxidation, from pyruvate to acetyl CoA"
+      - "The citric acid cycle"
+      - "The electron transport chain"
+      - "Conversion of pyruvate to acetaldehyde in alcohol fermentation by yeast"
+    option_explanations:
+      - |
+        Glycolysis splits a six-carbon sugar into two three-carbon pyruvates; all six carbons are still present, so no CO₂ is lost.
+      - |
+        Correct. Each pyruvate loses one carbon as CO₂ as it becomes the two-carbon acetyl group, giving two CO₂ per glucose.
+      - |
+        Correct. Two turns of the cycle release the remaining four carbons as CO₂, so by the end of the cycle all six carbons of glucose are gone.
+      - |
+        The chain handles electrons and protons, not carbon; its product is water, formed when O₂ accepts electrons at complex IV.
+      - |
+        Correct. Yeast removes a carboxyl group from pyruvate as CO₂ before reducing the acetaldehyde to ethanol; that CO₂ is what makes bread rise.
+    answer: [1, 2, 4]
+    explanation: |
+      Track the carbons: none lost in glycolysis, two in pyruvate oxidation, four in the cycle, none in the chain. Fermentation by yeast releases CO₂; fermentation to lactate does not.
+
+  - slug: u03-exam-q31
+    type: multi_select
+    topic_code: "3.3"
+    source: "Biology 2e §6.4 ATP: Adenosine Triphosphate"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of these cellular processes are endergonic, so that a cell must couple them to an exergonic reaction such as ATP hydrolysis? Select all that apply.
+    options:
+      - "The sodium-potassium pump moving ions against their concentration gradients"
+      - "Myosin pulling on actin filaments during muscle contraction"
+      - "Diffusion of O₂ from the blood into a muscle cell"
+      - "Joining amino acids into a polypeptide"
+      - "Hydrolysis of sucrose into glucose and fructose by sucrase"
+    option_explanations:
+      - |
+        Correct. Pumping ions against a gradient requires free energy; the pump is phosphorylated by ATP, which changes its shape and moves the ions.
+      - |
+        Correct. Each cycle of myosin binding, pulling and releasing is powered by hydrolysis of one ATP; mechanical work needs an energy input.
+      - |
+        Diffusion down a concentration gradient is exergonic and spontaneous; no ATP is needed for O₂ to move from high to low concentration.
+      - |
+        Correct. Forming peptide bonds by dehydration synthesis is endergonic; the energy comes from ATP spent attaching each amino acid to its tRNA, and from GTP during elongation.
+      - |
+        Hydrolysis of a disaccharide releases free energy; the enzyme speeds it up, but no ATP is needed to drive it.
+    answer: [0, 1, 3]
+    explanation: |
+      Building, pumping and moving cost energy; breaking down and flowing down a gradient release it. ATP links the second kind of process to the first.
+
+  # ---- True/false (5)
+  - slug: u03-exam-q32
+    type: true_false
+    topic_code: "3.2"
+    source: "Biology 2e §6.5 Enzymes"
+    points: 1
+    prompt: |
+      True or false: Below an enzyme's optimum temperature, the rate of the reaction it catalyses rises with temperature mainly because enzyme and substrate molecules move faster and collide more often and with more energy.
+    answer: true
+    explanation: |
+      True. Warming increases kinetic energy, so substrate molecules reach active sites more often and more of them reach the transition state. Below the optimum the enzyme's fold is stable, so the effect is reversible; above the optimum the same motion begins breaking the weak bonds that hold the active site, and denaturation outweighs the faster collisions.
+
+  - slug: u03-exam-q33
+    type: true_false
+    topic_code: "3.3"
+    source: "Biology 2e §6.2 Potential, Kinetic, Free, and Activation Energy"
+    points: 1
+    prompt: |
+      True or false: A cell that keeps a constant composition and temperature from hour to hour is at chemical equilibrium with its surroundings.
+    answer: false
+    explanation: |
+      False. A steady state is not equilibrium. A living cell holds its reactions far from equilibrium by continually taking in free energy (as food or light) and exporting heat and waste; the constancy is maintained by constant flow. A cell whose reactions actually reached equilibrium would have no free energy left to do work, which is to say it would be dead.
+
+  - slug: u03-exam-q34
+    type: true_false
+    topic_code: "3.4"
+    source: "Biology 2e §8.2 The Light-Dependent Reactions of Photosynthesis"
+    points: 1
+    prompt: |
+      True or false: The electrons that reduce NADP⁺ to NADPH in the light-dependent reactions ultimately come from water molecules split at photosystem II.
+    answer: true
+    explanation: |
+      True. P680 loses an excited electron to the chain and replaces it with an electron taken from water; that electron is passed along, boosted again at photosystem I, and handed to NADP⁺. Splitting water also releases the protons that add to the lumen's gradient and the O₂ given off as a by-product.
+
+  - slug: u03-exam-q35
+    type: true_false
+    topic_code: "3.5"
+    source: "Biology 2e §7.2 Glycolysis"
+    points: 1
+    prompt: |
+      True or false: Glycolysis itself produces more ATP per glucose when oxygen is present than when it is absent.
+    answer: false
+    explanation: |
+      False. Glycolysis makes a net 2 ATP per glucose either way. Oxygen raises the cell's total yield because pyruvate and NADH can then feed the citric acid cycle and oxidative phosphorylation, which make most of the ATP. Without oxygen, fermentation only regenerates NAD⁺ so that glycolysis can continue at its 2 ATP.
+
+  - slug: u03-exam-q36
+    type: true_false
+    topic_code: "2.3"
+    source: "Biology 2e §5.1 Components and Structure"
+    points: 1
+    prompt: |
+      Review. True or false: The large complexes of the electron transport chain are integral membrane proteins, with nonpolar regions that sit in the hydrophobic interior of the inner mitochondrial membrane.
+    answer: true
+    explanation: |
+      True. Integral proteins are embedded in or span the bilayer; their membrane-crossing segments are rich in nonpolar amino acids, while the parts facing the matrix and the intermembrane space are polar. That arrangement lets the complexes move protons from one side to the other, which a peripheral protein sitting on one surface could not do. The small mobile carriers, ubiquinone and cytochrome c, are the exceptions.
+
+  # ---- Fill in the blank (5)
+  - slug: u03-exam-q37
+    type: fill_blank
+    topic_code: "3.1"
+    source: "Biology 2e §6.5 Enzymes"
+    points: 1
+    prompt: |
+      Organic helper molecules such as NAD⁺ and FAD, often made from vitamins, that an enzyme needs in order to function are called ____.
+    answer: ["coenzymes", "coenzyme"]
+    explanation: |
+      Coenzymes are organic and often carry electrons or chemical groups from one reaction to another; NAD⁺ is made from niacin and FAD from riboflavin. Biology 2e reserves "cofactor" for inorganic helpers such as Zn²⁺ and Mg²⁺, so that word is not accepted here, and "vitamins" names the dietary source rather than the helper molecule.
+
+  - slug: u03-exam-q38
+    type: fill_blank
+    topic_code: "3.3"
+    source: "Biology 2e §6.4 ATP: Adenosine Triphosphate"
+    points: 1
+    prompt: |
+      Transferring a phosphate group from ATP to another molecule, which raises that molecule's free energy and makes it more reactive, is called ____.
+    answer: ["phosphorylation"]
+    explanation: |
+      Phosphorylation is the coupling step: the phosphate carries part of ATP's free energy to a substrate or a protein, which then reacts or changes shape. "Hydrolysis" names the breaking of ATP by water, which on its own would release the energy as heat, so it is not accepted.
+
+  - slug: u03-exam-q39
+    type: fill_blank
+    topic_code: "3.4"
+    source: "Biology 2e §8.3 Using Light Energy to Make Organic Molecules"
+    points: 1
+    prompt: |
+      The three-carbon sugar ____ is the product that leaves the Calvin cycle and is used to build glucose, sucrose, starch and other organic molecules.
+    answer: ["G3P", "glyceraldehyde 3-phosphate", "glyceraldehyde-3-phosphate", "glyceraldehyde 3 phosphate"]
+    explanation: |
+      G3P is the true output of the Calvin cycle: one in every six made leaves the cycle, and the other five regenerate RuBP. Two G3P make one glucose. "3-PGA" is not accepted, because it is the product of fixation that must still be reduced by ATP and NADPH; "glucose" is a downstream product, not the cycle's own.
+
+  - slug: u03-exam-q40
+    type: fill_blank
+    topic_code: "3.5"
+    source: "Biology 2e §7.4 Oxidative Phosphorylation"
+    points: 1
+    prompt: |
+      The process in which ATP synthase uses the energy of a hydrogen ion gradient across a membrane to make ATP is called ____.
+    answer: ["chemiosmosis"]
+    explanation: |
+      Chemiosmosis is the shared mechanism of mitochondria and chloroplasts: a chain pumps H⁺, and ATP synthase lets it back. "Oxidative phosphorylation" names the whole mitochondrial process, chain plus chemiosmosis, and does not cover the same mechanism in the thylakoid, so it is not accepted for this definition.
+
+  - slug: u03-exam-q41
+    type: fill_blank
+    topic_code: "2.9"
+    source: "Biology 2e §4.3 Eukaryotic Cells"
+    points: 1
+    prompt: |
+      Review. The electron transport chain pumps protons out of the matrix into the ____ space, the narrow compartment between the inner and outer mitochondrial membranes.
+    answer: ["intermembrane"]
+    explanation: |
+      The intermembrane space is small, so pumped protons build up a steep gradient quickly; compartmentalization is what turns a stream of electrons into stored potential energy. The "matrix" is the opposite side, inside the inner membrane, where the citric acid cycle runs.
+
+  # ---- Numeric (second item; the first is in stimulus set B)
+  - slug: u03-exam-q42
+    type: numeric
+    topic_code: "3.5"
+    source: "Biology 2e §7.4 Oxidative Phosphorylation"
+    points: 1
+    prompt: |
+      Per glucose, aerobic respiration yields 2 ATP from glycolysis, 2 ATP from the citric acid cycle, 10 NADH and 2 FADH₂. Assuming each NADH yields 2.5 ATP and each FADH₂ yields 1.5 ATP through oxidative phosphorylation, what is the maximum total number of ATP per glucose? Give a whole number.
+    answer: { value: 32, tolerance: 0 }
+    explanation: |
+      Oxidative phosphorylation: 10 NADH × 2.5 = 25 ATP, and 2 FADH₂ × 1.5 = 3 ATP, so 28 ATP. Substrate-level phosphorylation: 2 + 2 = 4 ATP. Total = 28 + 4 = 32 ATP. That makes 28 of 32, about 88%, the product of the chain and ATP synthase, and it is sixteen times the 2 ATP of fermentation. Real cells often make about 30, because moving the NADH of glycolysis into the mitochondrion can cost energy.
+
+  # ---- Free response
+  - slug: u03-exam-q43
+    type: short_answer
+    topic_code: "3.3"
+    source: "Biology 2e §6.4 ATP: Adenosine Triphosphate"
+    points: 4
+    prompt: |
+      Conceptual analysis. The first step of glycolysis converts glucose into glucose 6-phosphate (G6P). The reaction glucose + Pi → G6P + H₂O has ΔG = +3.3 kcal/mol, and ATP + H₂O → ADP + Pi has ΔG = −7.3 kcal/mol. The enzyme hexokinase catalyses glucose + ATP → G6P + ADP. (a) Calculate ΔG for the hexokinase reaction and state whether it is exergonic or endergonic. (b) Explain how the enzyme couples the two reactions, and why simply hydrolysing ATP elsewhere in the same cell would not drive the phosphorylation of glucose. (c) G6P cannot leave through the glucose transporter. Explain how this helps maintain the concentration gradient that brings glucose into the cell by facilitated diffusion. (d) Explain why glycolysis spends ATP at its start even though it is a pathway that makes ATP.
+    answer: |
+      ΔG = +3.3 + (−7.3) = −4.0 kcal/mol, exergonic. Hexokinase binds both glucose and ATP and transfers ATP's terminal phosphate directly to glucose, so the energy released by breaking the phosphate bond is used in the same reaction; ATP hydrolysed elsewhere just releases heat. G6P is trapped in the cell, so the free glucose concentration inside stays low and glucose keeps diffusing in down its gradient. The phosphorylated sugar is more reactive and can be split; the investment of 2 ATP is repaid by the 4 ATP made later, a net gain of 2.
+    explanation: |
+      Four points, one per part.
+
+      (a) 1 pt: ΔG = +3.3 + (−7.3) = −4.0 kcal/mol, with the statement that the coupled reaction is exergonic (spontaneous). The arithmetic and the classification are both required: −4.0 kcal/mol with "exergonic" earns the point; the right number with "endergonic" does not.
+
+      (b) 1 pt: hexokinase binds glucose and ATP together in its active site and transfers the terminal phosphate of ATP directly to glucose, so the two reactions happen as one and share the phosphate; the energy released by ATP is used where it is released. Must also say, or clearly imply, that ATP hydrolysed separately would release its energy as heat, which cannot be used to drive another reaction. Saying "ATP gives energy to glucose" with no mention of phosphate transfer or of a shared enzyme earns zero.
+
+      (c) 1 pt: because G6P cannot use the glucose transporter (it is a different, charged molecule), it stays in the cell; converting each glucose that enters into G6P keeps the concentration of free glucose inside the cell low, so glucose continues to move in down its concentration gradient through the transporter without any energy spent on transport. Accept "traps glucose in the cell" only if the link to the low internal glucose concentration and the gradient is made.
+
+      (d) 1 pt: the early phosphorylations make the sugar less stable and more reactive (priming it so that it can be split into two three-carbon molecules), and the investment is repaid later in the pathway, which makes 4 ATP for the 2 spent, a net gain of 2 ATP per glucose. Either the priming idea or the investment-and-return idea with numbers earns the point.
+
+      Zero: treating ΔG values as multiplied rather than added; claiming the enzyme "adds energy"; saying G6P leaves the cell faster than glucose.
+
+  - slug: u03-exam-q44
+    type: long_answer
+    topic_code: "3.4"
+    source: "general knowledge"
+    points: 8
+    prompt: |
+      Interpreting and evaluating experimental results. Chloroplasts were isolated from spinach in cold buffer and mixed with the blue dye DCPIP, which becomes colourless when it accepts electrons. Absorbance at 600 nm (a measure of blue colour) was read every 5 minutes. Tube 1: chloroplasts in light. Tube 2: chloroplasts in darkness. Tube 3: boiled chloroplasts in light. Tube 4: chloroplasts in light with DCMU, a herbicide. Tube 5: no chloroplasts, buffer and dye only, in light. Each value is the mean of three trials; standard errors were all 0.02 or less.
+
+      | Time (min) | Tube 1: light | Tube 2: dark | Tube 3: boiled, light | Tube 4: light + DCMU | Tube 5: no chloroplasts, light |
+      |---|---|---|---|---|---|
+      | 0 | 0.62 | 0.62 | 0.62 | 0.62 | 0.62 |
+      | 5 | 0.47 | 0.61 | 0.61 | 0.60 | 0.62 |
+      | 10 | 0.33 | 0.61 | 0.60 | 0.59 | 0.61 |
+      | 15 | 0.20 | 0.60 | 0.60 | 0.59 | 0.61 |
+      | 20 | 0.11 | 0.60 | 0.60 | 0.58 | 0.61 |
+
+      (a) Describe the result in Tube 1 compared with the other tubes, and calculate the rate of change of absorbance in Tube 1 over the first 15 minutes.
+      (b) In the chloroplast, DCPIP is standing in for a natural molecule. Identify that molecule, and explain why the loss of blue colour in Tube 1 shows that the light-dependent reactions are running.
+      (c) Explain what Tubes 2, 3 and 5 each rule out.
+      (d) DCMU blocks the transfer of electrons out of photosystem II. Explain the result in Tube 4, and predict how O₂ release in Tube 4 would compare with Tube 1.
+      (e) A student claims that these data show the chloroplasts in Tube 1 were making glucose. Evaluate the claim.
+    answer: |
+      In Tube 1 absorbance falls steadily from 0.62 to 0.11 in 20 minutes while every other tube stays within 0.04 of 0.62; rate = (0.20 − 0.62)/15 = −0.028 absorbance units per minute. DCPIP replaces NADP⁺, the final electron acceptor; it turns colourless only when it receives electrons, which the light-driven chain removes from water. Dark rules out a light-independent reaction; boiled rules out light alone acting on the chloroplast material and shows intact proteins are needed; no-chloroplast rules out light bleaching the dye. DCMU stops electrons leaving photosystem II, so none reach DCPIP and water splitting stops: O₂ release near zero, far below Tube 1. The claim is not supported: the data show only electron transport; no CO₂ was supplied or measured, and DCPIP diverts electrons away from NADP⁺, so the Calvin cycle lacks NADPH; measuring sugar or ¹⁴CO₂ fixation would be needed.
+    explanation: |
+      Eight points.
+
+      (a) 2 pts: 1 pt for the description: absorbance in Tube 1 falls steadily, from 0.62 to 0.11 over 20 minutes (the blue fades), while all four other tubes stay essentially unchanged, within about 0.04 of 0.62. At least one number and the comparison are required. 1 pt for the calculation: (0.20 − 0.62) / 15 min = −0.028 absorbance units per minute (accept 0.027 to 0.029, with or without the minus sign, if units are given; a 20-minute calculation, 0.0255 per minute, earns the point only if the student notes the curve is less steep after 15 minutes).
+
+      (b) 2 pts: 1 pt for identifying NADP⁺ as the natural final electron acceptor that DCPIP replaces (accept "the electron acceptor at the end of the chain that becomes NADPH"). 1 pt for the explanation: DCPIP loses its colour only when it is reduced, so the fading shows electrons are being moved; in the chloroplast those electrons are removed from water at photosystem II and driven along the chain by light energy, so continuing reduction means the light-dependent reactions are operating. Saying "the dye shows photosynthesis" without the electron link earns zero for this point.
+
+      (c) 2 pts: Tube 2 (dark) shows the reduction needs light, so the chloroplasts do not reduce DCPIP by some light-independent reaction; Tube 3 (boiled) shows that intact, functioning chloroplast proteins (photosystems, carriers) are required, so light acting on pigment or membrane material alone is not enough; Tube 5 (no chloroplasts) shows light does not bleach the dye by itself. All three correctly explained earn 2 pts; two earn 1 pt.
+
+      (d) 1 pt: with electrons unable to leave photosystem II, no electrons reach DCPIP, so its colour stays (0.58 at 20 minutes against 0.11 in Tube 1); and the prediction that O₂ release in Tube 4 would be near zero, far less than in Tube 1, because a photosystem II that cannot pass electrons on cannot keep taking electrons from water, so water splitting, the source of the O₂, stops. Both the explanation and the prediction are required.
+
+      (e) 1 pt: the claim is not supported. The data show only that electrons are being transported, the light-dependent reactions. Glucose is made by the Calvin cycle, which was not measured, no CO₂ source was mentioned, and DCPIP diverts the electrons that would have reduced NADP⁺, so little NADPH is available for carbon fixation. A valid answer names what would be needed, such as supplying CO₂ (bicarbonate) and measuring sugar production or ¹⁴CO₂ incorporation.
+
+      Zero for a part: describing Tube 1 as "changing" without direction or numbers; saying DCPIP "absorbs light" or is a pigment; explaining controls only as "for comparison" without saying what each rules out; saying DCMU "kills" the chloroplasts; accepting the glucose claim because "photosynthesis makes glucose".
