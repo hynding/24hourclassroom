@@ -137,7 +137,10 @@ php artisan course:seed-ap-biology --teacher=you@example.com --no-student --forc
 
 `--teacher` must name an existing, verified, active teacher; the command never
 creates, verifies or re-passwords an account you name, and checks the owner's
-material quota (the course is 73 files) before writing anything. `--student=EMAIL`
+material quota before writing anything. The course is 73 files against a
+per-teacher cap of 100, set by `MATERIALS_MAX_FILES_PER_TEACHER`; the deploy
+runs `config:cache`, so a changed value needs a redeploy or a fresh
+`config:cache` on the server. `--student=EMAIL`
 assigns the course to an existing student; `--no-student` skips the student,
 connection and assignments. Re-running with a different `--teacher` moves every
 course test and material to that account. Plain `db:seed` also seeds the course

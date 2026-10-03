@@ -303,7 +303,7 @@ class ApBiologySeeder extends Seeder
 
         if ($files > $maxFiles) {
             throw new RuntimeException(sprintf(
-                '--teacher: the course needs %d materials and %s already has %d others; the per-teacher cap is %d.',
+                '--teacher: the course needs %d materials and %s already has %d others; the per-teacher cap is %d (raise it with MATERIALS_MAX_FILES_PER_TEACHER).',
                 count($materials), $owner->email, (int) $others->files, $maxFiles,
             ));
         }
