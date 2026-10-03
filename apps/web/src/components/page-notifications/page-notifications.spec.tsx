@@ -174,6 +174,27 @@ describe('page-notifications', () => {
     expect(page.root.shadowRoot.querySelector('a[href="/tests/4/results"]')).not.toBeNull();
   });
 
+  it('describes connection requests and acceptances in words, linking to Connections', async () => {
+    notifications.mockResolvedValue({
+      data: [
+        { id: 'r', type: 'App\\Notifications\\ConnectionRequested', read_at: null, created_at: '', data: { user: { id: 3, name: 'Sam', role: 'student', avatar_url: null } } },
+        { id: 'a', type: 'App\\Notifications\\ConnectionAccepted', read_at: null, created_at: '', data: { user: { id: 4, name: 'Ms K', role: 'teacher', avatar_url: null } } },
+        { id: 'n', type: 'App\\Notifications\\ConnectionRequested', read_at: null, created_at: '', data: { user: { id: 5 } } },
+      ],
+      meta: { current_page: 1, last_page: 1, per_page: 15, total: 3 },
+    });
+    const page = await mount();
+    await page.waitForChanges();
+
+    const links = Array.from(page.root.shadowRoot.querySelectorAll('a[href="/connections"]')).map((a) => a.textContent);
+    expect(links).toEqual([
+      'Sam wants to connect with you',
+      'Ms K accepted your connection request',
+      // A payload without a name never renders "undefined".
+      'Someone wants to connect with you',
+    ]);
+  });
+
   it('describes material notifications with a link and a moderation message', async () => {
     notifications.mockResolvedValue({
       data: [

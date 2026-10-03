@@ -217,6 +217,23 @@ describe('app-header bell', () => {
     expect(links).not.toContain('/materials');
   });
 
+  it('shows Connections to teachers and students only, the two roles that can connect', async () => {
+    // Allowlist, not a denylist: the server accepts connections between
+    // Role::Teacher and Role::Student alone, so an admin (and any fourth
+    // role) must not be offered the page.
+    for (const [role, expected] of [['teacher', true], ['student', true], ['admin', false]] as const) {
+      currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role };
+      const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+      const links = Array.from(spec.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+      expect(links.includes('/connections')).toBe(expected);
+    }
+
+    currentUser.value = null;
+    const guest = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    const links = Array.from(guest.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+    expect(links).not.toContain('/connections');
+  });
+
   it('shows Integrations for teachers only', async () => {
     // Allowlist, not a denylist: the MCP server and every generation
     // endpoint admit Role::Teacher and nothing else, so a student, an admin

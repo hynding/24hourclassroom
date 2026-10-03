@@ -99,6 +99,14 @@ export class AppHeader {
   }
 
   /**
+   * Allowlist: connections exist between teachers and students only (the
+   * server refuses every other role), so only they get the page.
+   */
+  private showsConnections(): boolean {
+    return this.user !== null && (this.user.role === 'teacher' || this.user.role === 'student');
+  }
+
+  /**
    * Allowlist: only a teacher can hold an Anthropic key or an MCP token --
    * every generation endpoint and every MCP tool admits Role::Teacher alone.
    */
@@ -115,6 +123,7 @@ export class AppHeader {
           <a href="/library" onClick={(e) => this.onNav(e, '/library')}>Library</a>
           {this.showsTests() && <a href="/tests" onClick={(e) => this.onNav(e, '/tests')}>Tests</a>}
           {this.showsMaterials() && <a href="/materials" onClick={(e) => this.onNav(e, '/materials')}>Materials</a>}
+          {this.showsConnections() && <a href="/connections" onClick={(e) => this.onNav(e, '/connections')}>Connections</a>}
           {this.showsIntegrations() && <a href="/integrations" onClick={(e) => this.onNav(e, '/integrations')}>Integrations</a>}
           {this.user
             ? [
