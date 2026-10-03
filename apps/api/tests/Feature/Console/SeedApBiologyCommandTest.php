@@ -140,3 +140,17 @@ test('locally the demo accounts keep the documented password', function () {
 
     expect(Hash::check('password', User::where('email', 'apbio@example.com')->sole()->password))->toBeTrue();
 });
+
+test('the course command honours the file cap set in the admin panel', function () {
+    $me = aTeacher(['email' => 'me@example.com']);
+    aMaterial($me);
+    aMaterial($me);
+    \App\Models\SiteSetting::current()->update(['max_materials_per_teacher' => 4]);
+
+    $this->artisan('course:seed-ap-biology', ['--teacher' => 'me@example.com', '--force' => true])
+        ->expectsOutputToContain('cap is 4')->assertFailed();
+
+    \App\Models\SiteSetting::current()->update(['max_materials_per_teacher' => 5]);
+    $this->artisan('course:seed-ap-biology', ['--teacher' => 'me@example.com', '--force' => true])->assertSuccessful();
+    expect(Material::where('user_id', $me->id)->count())->toBe(5);
+});

@@ -11,6 +11,7 @@ use App\Models\Material;
 use App\Models\Test;
 use App\Models\User;
 use App\Services\MaterialWriter;
+use App\Support\MaterialQuota;
 use App\Support\TestDraftValidator;
 use App\Support\TestWriter;
 use Carbon\CarbonImmutable;
@@ -187,7 +188,7 @@ class ApBiologySeeder extends Seeder
             ];
         }
 
-        $cap = (int) config('materials.max_files_per_teacher');
+        $cap = MaterialQuota::maxFiles();
         if (count($materials) > $cap) {
             throw new RuntimeException(sprintf('The course has %d materials; the per-teacher cap is %d.', count($materials), $cap));
         }
@@ -298,12 +299,12 @@ class ApBiologySeeder extends Seeder
 
         $files = (int) $others->files + count($materials);
         $bytes = (int) $others->bytes + array_sum(array_map(fn ($m) => strlen($m['body']), $materials));
-        $maxFiles = (int) config('materials.max_files_per_teacher');
+        $maxFiles = MaterialQuota::maxFiles();
         $maxBytes = (int) config('materials.max_bytes_per_teacher');
 
         if ($files > $maxFiles) {
             throw new RuntimeException(sprintf(
-                '--teacher: the course needs %d materials and %s already has %d others; the per-teacher cap is %d (raise it with MATERIALS_MAX_FILES_PER_TEACHER).',
+                '--teacher: the course needs %d materials and %s already has %d others; the per-teacher cap is %d (raise it under Materials on the admin Site settings page).',
                 count($materials), $owner->email, (int) $others->files, $maxFiles,
             ));
         }

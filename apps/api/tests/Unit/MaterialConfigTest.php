@@ -64,3 +64,25 @@ test('the quota message and the seeder honour a raised file cap', function () {
     \App\Models\Material::factory()->for($teacher, 'author')->create();
     expect(\App\Support\MaterialQuota::errorFor($teacher, 10))->toBe('You have reached the limit of 3 materials.');
 });
+
+test('the admin setting wins over the server default, which applies while it is blank', function () {
+    config(['materials.max_files_per_teacher' => 40]);
+    expect(\App\Support\MaterialQuota::maxFiles())->toBe(40);
+
+    // With no settings row at all the default still applies, and reading
+    // the cap does not create the row (that would be a write per upload).
+    \App\Models\SiteSetting::query()->delete();
+    expect(\App\Support\MaterialQuota::maxFiles())->toBe(40)
+        ->and(\App\Models\SiteSetting::count())->toBe(0);
+
+    \App\Models\SiteSetting::current()->update(['max_materials_per_teacher' => 3]);
+    expect(\App\Support\MaterialQuota::maxFiles())->toBe(3);
+
+    $teacher = aTeacher();
+    \App\Models\Material::factory()->count(3)->for($teacher, 'author')->create();
+    expect(\App\Support\MaterialQuota::errorFor($teacher, 10))->toBe('You have reached the limit of 3 materials.');
+
+    \App\Models\SiteSetting::current()->update(['max_materials_per_teacher' => null]);
+    expect(\App\Support\MaterialQuota::maxFiles())->toBe(40)
+        ->and(\App\Support\MaterialQuota::errorFor($teacher, 10))->toBeNull();
+});

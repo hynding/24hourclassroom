@@ -3,6 +3,7 @@
 namespace App\Support;
 
 use App\Models\Material;
+use App\Models\SiteSetting;
 use App\Models\User;
 
 /**
@@ -14,6 +15,18 @@ use App\Models\User;
  */
 final class MaterialQuota
 {
+    /**
+     * The per-teacher file cap in force: the admin's setting on the Site
+     * settings page, or the server default (MATERIALS_MAX_FILES_PER_TEACHER,
+     * else 100) while that is blank. Reads row 1 with find(1), never
+     * current(), so checking a quota can never create the settings row.
+     */
+    public static function maxFiles(): int
+    {
+        return SiteSetting::query()->find(1)?->max_materials_per_teacher
+            ?? (int) config('materials.max_files_per_teacher');
+    }
+
     /**
      * The message to show, or null when this write fits. `$incomingFiles` is
      * 1 for an upload and 0 when an existing file's bytes are replaced in
@@ -28,7 +41,7 @@ final class MaterialQuota
             ->selectRaw('COUNT(*) as files, COALESCE(SUM(size_bytes), 0) as bytes')
             ->first();
 
-        $maxFiles = (int) config('materials.max_files_per_teacher');
+        $maxFiles = self::maxFiles();
         $maxBytes = (int) config('materials.max_bytes_per_teacher');
 
         if ($incomingFiles > 0 && (int) $usage->files + $incomingFiles > $maxFiles) {
