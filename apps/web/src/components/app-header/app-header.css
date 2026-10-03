@@ -44,36 +44,246 @@ nav {
   background: var(--color-accent);
 }
 
-/* Vertical: a left rail. */
+/* ---- Side panel: the vertical orientation (the Rail layout) ----
+ * Wide screens: a sticky left column, collapsible to its icons.
+ * Narrow screens (below the shared breakpoint): a slim top bar whose menu
+ * button opens the same panel as a drawer over a dimmed page. */
+:host([orientation='vertical']) {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+}
+
 :host([orientation='vertical']) header {
   flex-direction: column;
   align-items: stretch;
+  gap: var(--space-4);
+  width: 14rem;
   height: 100%;
+  overflow-y: auto;
   border-bottom: none;
   border-right: 1px solid var(--color-line);
 }
-:host([orientation='vertical']) nav {
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+:host([orientation='vertical']) .wordmark {
+  flex: 1;
+  /* The panel is narrow: wrap a long site name rather than cutting it off. */
+  white-space: normal;
+}
+
+:host([orientation='vertical']) nav,
+.account {
+  display: flex;
   flex-direction: column;
   align-items: stretch;
+  gap: var(--space-1);
   margin-left: 0;
 }
 
+:host([orientation='vertical']) nav a,
+.account a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  border-radius: var(--radius);
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+:host([orientation='vertical']) nav a:hover,
+.account a:hover {
+  background: var(--color-surface);
+}
+
+:host([orientation='vertical']) nav a:focus-visible,
+.account a:focus-visible,
+.icon-button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.icon {
+  flex: none;
+}
+
+.badge {
+  margin-left: auto;
+}
+
+.account {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-line);
+}
+
+.who {
+  padding: 0 var(--space-2);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  border-color: var(--color-ink-muted);
+}
+
+/* The drawer button and its backdrop exist for narrow screens only. */
+.menu,
+.backdrop {
+  display: none;
+}
+
+/* Collapsed: icons only. Labels stay in the DOM for screen readers and the
+ * links keep their title tooltips. */
+:host([orientation='vertical'][collapsed]) header {
+  width: 3.75rem;
+  padding-inline: var(--space-2);
+}
+
+:host([orientation='vertical'][collapsed]) .wordmark,
+:host([orientation='vertical'][collapsed]) .who {
+  display: none;
+}
+
+:host([orientation='vertical'][collapsed]) .top,
+:host([orientation='vertical'][collapsed]) nav a,
+:host([orientation='vertical'][collapsed]) .account a {
+  justify-content: center;
+}
+
+:host([orientation='vertical'][collapsed]) .label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+:host([orientation='vertical'][collapsed]) .badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: var(--text-sm);
+}
+
 /* Breakpoint literal is duplicated in app-layout.css; a spec asserts they
- * match. Below it the rail becomes a top bar again. */
+ * match. Below it the panel becomes a top bar plus a drawer, and the
+ * collapsed setting (a wide-screen preference) does not apply. */
 @media (max-width: 767px) {
-  :host([orientation='vertical']) header {
+  :host([orientation='vertical']) {
+    /* A full-width bar: the wide-screen align-self: start would shrink it
+     * to its content in the layout's column. */
+    align-self: stretch;
+    height: auto;
+    z-index: 10;
+  }
+
+  :host([orientation='vertical']) header,
+  :host([orientation='vertical'][collapsed]) header {
     flex-direction: row;
     align-items: center;
+    width: auto;
     height: auto;
+    overflow: visible;
+    padding: var(--space-3) var(--space-4);
     border-right: none;
     border-bottom: 1px solid var(--color-line);
   }
-  :host([orientation='vertical']) nav {
-    flex-direction: row;
-    /* Mirrors the sibling `header` rule above: the vertical rule set
-     * align-items: stretch, which otherwise survives the collapse (same
-     * (0,2,1) specificity, later source only resets flex-direction/margin). */
-    align-items: center;
-    margin-left: auto;
+
+  :host([orientation='vertical']) .top {
+    flex: 1;
+  }
+
+  :host([orientation='vertical'][collapsed]) .top {
+    justify-content: flex-start;
+  }
+
+  :host([orientation='vertical'][collapsed]) .wordmark,
+  :host([orientation='vertical'][collapsed]) .who {
+    display: block;
+  }
+
+  :host([orientation='vertical'][collapsed]) .label {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+  }
+
+  :host([orientation='vertical'][collapsed]) nav a,
+  :host([orientation='vertical'][collapsed]) .account a {
+    justify-content: flex-start;
+  }
+
+  :host([orientation='vertical'][collapsed]) .badge {
+    position: static;
+  }
+
+  :host([orientation='vertical']) .collapse,
+  :host([orientation='vertical']) nav,
+  :host([orientation='vertical']) .account {
+    display: none;
+  }
+
+  :host([orientation='vertical']) .menu {
+    display: inline-flex;
+  }
+
+  /* The open drawer. */
+  :host([orientation='vertical'][open]) header {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 30;
+    flex-direction: column;
+    align-items: stretch;
+    width: min(18rem, 85vw);
+    overflow-y: auto;
+    border-bottom: none;
+    border-right: 1px solid var(--color-line);
+  }
+
+  :host([orientation='vertical'][open]) .top {
+    flex: none;
+  }
+
+  :host([orientation='vertical'][open]) nav,
+  :host([orientation='vertical'][open]) .account {
+    display: flex;
+  }
+
+  :host([orientation='vertical'][open]) .backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    background: var(--color-ink);
+    opacity: 0.4;
   }
 }

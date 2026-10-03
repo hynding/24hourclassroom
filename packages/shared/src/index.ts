@@ -475,7 +475,7 @@ export interface SiteTheme {
   typeset: Typeset;
 }
 
-export const DEFAULT_THEME: SiteTheme = { layout: 'stacked', palette: 'noon', typeset: 'editorial' };
+export const DEFAULT_THEME: SiteTheme = { layout: 'rail', palette: 'noon', typeset: 'editorial' };
 
 export interface SiteIdentity {
   name: string;

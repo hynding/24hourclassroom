@@ -83,6 +83,23 @@ export class PageNotifications {
         </a>
       );
     }
+    // Both connection notices point at Connections, where a request is
+    // accepted or declined. Without the words and the link, a request read
+    // as a bare name with nowhere to go.
+    if (type.endsWith('ConnectionRequested')) {
+      return (
+        <a href="/connections" onClick={(e) => { e.preventDefault(); navigate('/connections'); }}>
+          {data.user?.name ?? 'Someone'} wants to connect with you
+        </a>
+      );
+    }
+    if (type.endsWith('ConnectionAccepted')) {
+      return (
+        <a href="/connections" onClick={(e) => { e.preventDefault(); navigate('/connections'); }}>
+          {data.user?.name ?? 'Someone'} accepted your connection request
+        </a>
+      );
+    }
     if (type.endsWith('Moderated')) {
       return data.message ?? data.user?.name;
     }

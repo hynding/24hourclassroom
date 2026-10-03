@@ -42,7 +42,8 @@ npm run build
 `packages/shared/src/index.ts` must agree; tests assert the mirror in both
 directions. Add a case to one, add it to the other.
 
-**Theming.** The site owner picks layout (`stacked|rail`), palette
+**Theming.** The site owner picks layout (`rail`, the default: a left side
+panel; or `stacked`, a top header), palette
 (`noon|evening|slate|afternoon`), and typeset (`editorial|modern`) at
 `/admin/site-theme`. Stored in a single-row `site_settings` table beside the
 site name, tagline, registration switch and announcement banner (edited at
@@ -52,7 +53,11 @@ no `auth`, no `active`). The SPA caches the theme under `24hc.theme.v1` (read
 by the inline boot script) and the whole config under `24hc.site.v1`;
 `applyTheme` is the only writer of the first. The SPA applies it via
 `data-palette`/`data-typeset` on `<html>`, an inline pre-paint boot script in
-`index.html`, and one `app-layout` component switched by a reflected prop.
+`index.html`, and one `app-layout` component switched by a reflected prop. In
+`rail`, `app-header` (orientation `vertical`) is the side panel: icons from
+`services/nav-icons.tsx`, collapsible to icons on wide screens (reflected
+`collapsed`, remembered per browser under `24hc.nav.collapsed.v1`), and a top
+bar plus drawer below the 767px breakpoint (reflected `open`).
 
 **Shadow DOM.** Components use `shadow: true`. `app.css` is delivered twice —
 linked from `index.html` (so `:root`/`body`/`@font-face` work) and adopted into

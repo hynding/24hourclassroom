@@ -42,7 +42,7 @@ class SiteSetting extends Model
     {
         return static::query()->find(1) ?? static::query()->forceCreate([
             'id' => 1,
-            'layout' => Layout::Stacked,
+            'layout' => Layout::Rail,
             'palette' => Palette::Noon,
             'typeset' => Typeset::Editorial,
             'name' => '24 Hour Classroom',

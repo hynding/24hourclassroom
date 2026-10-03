@@ -32,8 +32,8 @@ describe('theme-store', () => {
 
   describe('normalizeTheme', () => {
     it('returns defaults for garbage', () => {
-      expect(normalizeTheme(null)).toEqual({ layout: 'stacked', palette: 'noon', typeset: 'editorial' });
-      expect(normalizeTheme('x')).toEqual({ layout: 'stacked', palette: 'noon', typeset: 'editorial' });
+      expect(normalizeTheme(null)).toEqual({ layout: 'rail', palette: 'noon', typeset: 'editorial' });
+      expect(normalizeTheme('x')).toEqual({ layout: 'rail', palette: 'noon', typeset: 'editorial' });
     });
 
     it('falls back per field, keeping the valid ones', () => {
@@ -52,7 +52,7 @@ describe('theme-store', () => {
       const original = window.localStorage.getItem;
       window.localStorage.getItem = () => { throw new Error('SecurityError'); };
       try {
-        expect(cachedTheme()).toEqual({ layout: 'stacked', palette: 'noon', typeset: 'editorial' });
+        expect(cachedTheme()).toEqual({ layout: 'rail', palette: 'noon', typeset: 'editorial' });
       } finally {
         window.localStorage.getItem = original;
       }
