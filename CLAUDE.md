@@ -46,7 +46,8 @@ directions. Add a case to one, add it to the other.
 (`noon|evening|slate|afternoon`), and typeset (`editorial|modern`) at
 `/admin/site-theme`. Stored in a single-row `site_settings` table beside the
 site name, tagline, registration switch and announcement banner (edited at
-`/admin/site`), all served as one config by `GET /api/site` (throttle-only —
+`/admin/site`, which also holds the per-teacher material file cap — kept out
+of the public config), all served as one config by `GET /api/site` (throttle-only —
 no `auth`, no `active`). The SPA caches the theme under `24hc.theme.v1` (read
 by the inline boot script) and the whole config under `24hc.site.v1`;
 `applyTheme` is the only writer of the first. The SPA applies it via
@@ -122,10 +123,31 @@ topic map; `unit-NN-*/week-NN.yaml` = guide path + flashcards + quiz;
 `Database\Seeders\ApBiology\Course` loads it and composes every title and slug
 (`AP Biology · Week 07 · Quiz · …`) so the library's `sort=title` reads in course
 order. Idempotent through nullable `slug` columns on `tests`, `questions` and
-`materials`: a re-run updates in place and questions keep their ids. It creates
-`apbio@example.com` / `apbio-student@example.com` (password `password`),
-connects them, and assigns every test to the student with a due date from
-`start_date` (null = no due dates). `ApBiologyContentTest` lints the data
+`materials`: a re-run updates in place and questions keep their ids. By default
+it creates `apbio@example.com` / `apbio-student@example.com`, connects them, and
+assigns every test to the student with a due date from `start_date` (null = no
+due dates). Those demo accounts get the password `password` only in `local` and
+`testing`; anywhere else they get a random one, printed once.
+
+On a real server, attach the course to your own account instead. Deploys run
+migrations, never seeders, so this is a one-off shell step per environment:
+
+```bash
+php artisan course:seed-ap-biology --teacher=you@example.com --no-student --force
+```
+
+`--teacher` must name an existing, verified, active teacher; the command never
+creates, verifies or re-passwords an account you name, and checks the owner's
+material quota before writing anything. The course is 73 files against the
+per-teacher file cap. An admin sets that cap under Materials at `/admin/site`
+(stored in `site_settings`, read through `MaterialQuota::maxFiles()`); while it
+is blank the server default applies: `MATERIALS_MAX_FILES_PER_TEACHER`, else
+100. The deploy runs `config:cache`, so a changed env default needs a redeploy
+or a fresh `config:cache`; the admin setting takes effect immediately. `--student=EMAIL`
+assigns the course to an existing student; `--no-student` skips the student,
+connection and assignments. Re-running with a different `--teacher` moves every
+course test and material to that account. Plain `db:seed` also seeds the course
+with the demo accounts and creates `test@example.com`: never run it on a server. `ApBiologyContentTest` lints the data
 directory (provenance, rationales, spiral review, duplicates, attribution) and
 `ApBiologySeederTest` proves idempotency on `tests/Fixtures/course`.
 

@@ -15,6 +15,7 @@ class SiteSetting extends Model
     protected $fillable = [
         'layout', 'palette', 'typeset',
         'name', 'tagline', 'registration_open', 'registration_message', 'banner_enabled', 'banner_text',
+        'max_materials_per_teacher',
     ];
 
     protected function casts(): array
@@ -25,6 +26,7 @@ class SiteSetting extends Model
             'typeset' => Typeset::class,
             'registration_open' => 'boolean',
             'banner_enabled' => 'boolean',
+            'max_materials_per_teacher' => 'integer',
         ];
     }
 
@@ -49,6 +51,7 @@ class SiteSetting extends Model
             'registration_message' => null,
             'banner_enabled' => false,
             'banner_text' => null,
+            'max_materials_per_teacher' => null,
         ]);
     }
 

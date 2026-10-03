@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\ConnectionStatus;
+use App\Enums\Role;
 use App\Enums\Visibility;
 use App\Models\Assignment;
 use App\Models\Connection;
@@ -10,6 +11,7 @@ use App\Models\Material;
 use App\Models\Test;
 use App\Models\User;
 use App\Services\MaterialWriter;
+use App\Support\MaterialQuota;
 use App\Support\TestDraftValidator;
 use App\Support\TestWriter;
 use Carbon\CarbonImmutable;
@@ -17,6 +19,7 @@ use Database\Seeders\ApBiology\Course;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use RuntimeException;
 
@@ -29,7 +32,15 @@ use RuntimeException;
  * Deliberately NOT gated by the registration switch: shell provisioning
  * must work while sign-ups are closed (CLAUDE.md).
  *
- *   php artisan db:seed --class=ApBiologySeeder
+ *   php artisan db:seed --class=ApBiologySeeder          (demo accounts)
+ *   php artisan course:seed-ap-biology --teacher=EMAIL   (your own account)
+ *
+ * The owner is either an existing account named by the caller -- which must
+ * already be a verified, active teacher and is never created or modified --
+ * or the demo teacher from course.yaml. The same goes for the student, who
+ * can also be left out entirely. Demo accounts get the documented password
+ * only in local and testing; anywhere else they get a random one, printed
+ * once, so a public site never carries a login anyone can read in the repo.
  */
 class ApBiologySeeder extends Seeder
 {
@@ -39,12 +50,22 @@ class ApBiologySeeder extends Seeder
 
     private User $teacher;
 
-    private User $student;
+    private ?User $student = null;
 
     /** @var array<string, int> */
     private array $counts = ['tests' => 0, 'questions' => 0, 'materials' => 0, 'decks' => 0, 'cards' => 0, 'general_knowledge' => 0];
 
-    public function __construct(private readonly ?string $dir = null) {}
+    /**
+     * @param  string|null  $teacherEmail  an existing teacher to own the course; null = the demo teacher
+     * @param  string|null  $studentEmail  an existing student to assign it to; null = the demo student
+     * @param  bool  $withStudent  false = no student, no connection, no assignments
+     */
+    public function __construct(
+        private readonly ?string $dir = null,
+        private readonly ?string $teacherEmail = null,
+        private readonly ?string $studentEmail = null,
+        private readonly bool $withStudent = true,
+    ) {}
 
     public function run(): void
     {
@@ -54,7 +75,9 @@ class ApBiologySeeder extends Seeder
         //    fails loudly with its file and index; nothing is half-seeded.
         $plan = $this->plan();
 
-        $this->accounts();
+        // 2. Resolve the accounts. Named accounts are checked (and the
+        //    owner's quota with them) before anything is written.
+        $this->accounts($plan['materials']);
 
         foreach ($plan['tests'] as $spec) {
             $this->test($spec);
@@ -165,7 +188,7 @@ class ApBiologySeeder extends Seeder
             ];
         }
 
-        $cap = (int) config('materials.max_files_per_teacher');
+        $cap = MaterialQuota::maxFiles();
         if (count($materials) > $cap) {
             throw new RuntimeException(sprintf('The course has %d materials; the per-teacher cap is %d.', count($materials), $cap));
         }
@@ -206,10 +229,22 @@ class ApBiologySeeder extends Seeder
         return ['slug' => $slug, 'week' => $week, 'slugs' => $slugs] + $validated;
     }
 
-    private function accounts(): void
+    /** @param  list<array<string, mixed>>  $materials */
+    private function accounts(array $materials): void
     {
-        $this->teacher = $this->account($this->course->config['teacher'], 'teacher');
-        $this->student = $this->account($this->course->config['student'], 'student');
+        $teacher = $this->teacherEmail !== null ? $this->existing($this->teacherEmail, Role::Teacher, '--teacher') : null;
+        $student = ($this->withStudent && $this->studentEmail !== null) ? $this->existing($this->studentEmail, Role::Student, '--student') : null;
+
+        if ($teacher !== null) {
+            $this->assertRoomFor($teacher, $materials);
+        }
+
+        $this->teacher = $teacher ?? $this->demo($this->course->config['teacher'], Role::Teacher);
+        $this->student = $this->withStudent ? ($student ?? $this->demo($this->course->config['student'], Role::Student)) : null;
+
+        if ($this->student === null) {
+            return;
+        }
 
         $key = Connection::pairKey($this->teacher->id, $this->student->id);
         $connection = Connection::firstOrNew(['pair_key' => $key], [
@@ -220,14 +255,90 @@ class ApBiologySeeder extends Seeder
         $connection->save();
     }
 
-    /** @param  array{name: string, email: string}  $spec */
-    private function account(array $spec, string $role): User
+    /**
+     * An account the caller named. It must already exist with exactly the
+     * expected role (an allowlist: an admin is not a teacher here) and be
+     * able to sign in; it is never created, verified, reactivated or given
+     * a password by the seeder.
+     */
+    private function existing(string $email, Role $role, string $flag): User
+    {
+        $user = User::where('email', $email)->first();
+
+        if ($user === null) {
+            throw new RuntimeException("{$flag}: No account uses {$email}. Create it first; the seeder never creates an account you name.");
+        }
+        if ($user->role !== $role) {
+            throw new RuntimeException("{$flag}: {$email} is a {$user->role->value}, not a {$role->value}.");
+        }
+        if (! $user->isActive()) {
+            throw new RuntimeException("{$flag}: {$email} is deactivated.");
+        }
+        if ($user->email_verified_at === null) {
+            throw new RuntimeException("{$flag}: {$email} has not verified its email (not verified accounts cannot sign in).");
+        }
+
+        return $user;
+    }
+
+    /**
+     * The course's files must fit beside the owner's other materials. Checked
+     * up front: MaterialWriter would otherwise refuse one file part way
+     * through a run that has already written the tests.
+     *
+     * @param  list<array<string, mixed>>  $materials
+     */
+    private function assertRoomFor(User $owner, array $materials): void
+    {
+        $slugs = array_column($materials, 'slug');
+        $others = Material::query()
+            ->where('user_id', $owner->id)
+            ->where(fn ($q) => $q->whereNull('slug')->orWhereNotIn('slug', $slugs))
+            ->selectRaw('COUNT(*) as files, COALESCE(SUM(size_bytes), 0) as bytes')
+            ->first();
+
+        $files = (int) $others->files + count($materials);
+        $bytes = (int) $others->bytes + array_sum(array_map(fn ($m) => strlen($m['body']), $materials));
+        $maxFiles = MaterialQuota::maxFiles();
+        $maxBytes = (int) config('materials.max_bytes_per_teacher');
+
+        if ($files > $maxFiles) {
+            throw new RuntimeException(sprintf(
+                '--teacher: the course needs %d materials and %s already has %d others; the per-teacher cap is %d (raise it under Materials on the admin Site settings page).',
+                count($materials), $owner->email, (int) $others->files, $maxFiles,
+            ));
+        }
+        if ($bytes > $maxBytes) {
+            throw new RuntimeException(sprintf('--teacher: the course would take %s over the per-teacher storage cap.', $owner->email));
+        }
+    }
+
+    /**
+     * A demo account from course.yaml, created on first run. The documented
+     * password only where no one else can reach the site; otherwise a random
+     * one, shown once.
+     *
+     * @param  array{name: string, email: string}  $spec
+     */
+    private function demo(array $spec, Role $role): User
     {
         $user = User::firstOrNew(['email' => $spec['email']]);
+
+        if ($user->exists && $user->role !== $role) {
+            throw new RuntimeException("course.yaml: {$spec['email']} already exists as a {$user->role->value}, not a {$role->value}.");
+        }
+
         if (! $user->exists) {
+            $local = app()->environment(['local', 'testing']);
+            $password = $local ? self::PASSWORD : Str::password(24, symbols: false);
             $user->name = $spec['name'];
-            $user->password = Hash::make(self::PASSWORD);
+            $user->password = Hash::make($password);
             $user->role = $role;
+
+            if (! $local) {
+                $this->command?->warn("Created {$spec['email']} with password: {$password}");
+                $this->command?->warn('It is shown once. Store it now, or reset it from the login page.');
+            }
         }
         $user->email_verified_at ??= now();
         $user->deactivated_at = null;
@@ -275,10 +386,12 @@ class ApBiologySeeder extends Seeder
                 }
             }
 
-            $assignment = Assignment::firstOrNew(['test_id' => $test->id, 'student_id' => $this->student->id]);
-            $assignment->teacher_id = $this->teacher->id;
-            $assignment->due_at = $this->dueDate($spec['week']);
-            $assignment->save();
+            if ($this->student !== null) {
+                $assignment = Assignment::firstOrNew(['test_id' => $test->id, 'student_id' => $this->student->id]);
+                $assignment->teacher_id = $this->teacher->id;
+                $assignment->due_at = $this->dueDate($spec['week']);
+                $assignment->save();
+            }
 
             $this->counts['tests']++;
             $this->counts['questions'] += count($spec['questions']);
@@ -297,7 +410,12 @@ class ApBiologySeeder extends Seeder
 
         $material = Material::where('slug', $spec['slug'])->first();
         if ($material) {
-            $material->update($attrs + ['visibility' => Visibility::Public, 'published_at' => $material->published_at ?? now()]);
+            // A re-run with a different owner moves the file's row to them;
+            // the stored path is opaque and stays where it is.
+            $material->forceFill(['user_id' => $this->teacher->id])
+                ->fill($attrs + ['visibility' => Visibility::Public, 'published_at' => $material->published_at ?? now()])
+                ->save();
+            $material->unsetRelation('author');
             MaterialWriter::replace($material, $spec['body']);
         } else {
             MaterialWriter::create($this->teacher, $spec['body'], $spec['name'], $attrs + [

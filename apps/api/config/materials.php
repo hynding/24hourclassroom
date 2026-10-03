@@ -7,7 +7,15 @@ return [
     'disk' => 'local',
 
     'max_file_kb' => 10240,          // 10 MB
-    'max_files_per_teacher' => 100,
+    // Per-teacher file cap. MATERIALS_MAX_FILES_PER_TEACHER overrides it. A
+    // missing, zero, negative or non-numeric value falls back to 100 rather
+    // than locking every teacher out of uploading. Deploys run config:cache,
+    // so a changed value takes effect on the next deploy (or config:cache).
+    'max_files_per_teacher' => filter_var(
+        env('MATERIALS_MAX_FILES_PER_TEACHER'),
+        FILTER_VALIDATE_INT,
+        ['options' => ['min_range' => 1]],
+    ) ?: 100,
     'max_bytes_per_teacher' => 262144000, // 250 MB
 
     'extensions' => ['pdf', 'doc', 'docx', 'odt', 'rtf', 'txt', 'md', 'png', 'jpg', 'jpeg'],

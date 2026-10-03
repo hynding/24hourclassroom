@@ -40,7 +40,9 @@ test('the edit page carries the raw columns, drafts included', function () {
         ->where('site.registration_open', true)
         ->where('site.registration_message', 'Not yet.')
         ->where('site.banner_enabled', false)
-        ->where('site.banner_text', 'Soon'));
+        ->where('site.banner_text', 'Soon')
+        ->where('site.max_materials_per_teacher', null)
+        ->where('defaults.max_materials_per_teacher', 100));
 });
 
 test('a round trip changes the public config', function () {
@@ -73,6 +75,10 @@ test('every rule', function (array $body, string $field) {
     'banner text required when enabled' => [['banner_enabled' => true, 'banner_text' => null], 'banner_text'],
     'banner text required when enabled as a form value' => [['banner_enabled' => '1', 'banner_text' => ''], 'banner_text'],
     'banner text 300' => [['banner_enabled' => true, 'banner_text' => str_repeat('a', 301)], 'banner_text'],
+    'file cap integer' => [['max_materials_per_teacher' => 'lots'], 'max_materials_per_teacher'],
+    'file cap at least 1' => [['max_materials_per_teacher' => 0], 'max_materials_per_teacher'],
+    'file cap at most 10000' => [['max_materials_per_teacher' => 10001], 'max_materials_per_teacher'],
+    'file cap whole number' => [['max_materials_per_teacher' => 2.5], 'max_materials_per_teacher'],
 ]);
 
 test('blank strings store null', function () {
@@ -83,4 +89,26 @@ test('blank strings store null', function () {
 
     $row = SiteSetting::current();
     expect($row->tagline)->toBeNull()->and($row->registration_message)->toBeNull()->and($row->banner_text)->toBeNull();
+});
+
+test('the file cap set here governs uploads, and blank falls back to the server default', function () {
+    $this->actingAs(siteAdmin());
+    $base = ['name' => 'Ok', 'tagline' => null, 'registration_open' => true, 'registration_message' => null, 'banner_enabled' => false, 'banner_text' => null];
+
+    $this->patch('/admin/site', $base + ['max_materials_per_teacher' => 250])->assertRedirect()->assertSessionHasNoErrors();
+    expect(SiteSetting::current()->max_materials_per_teacher)->toBe(250)
+        ->and(\App\Support\MaterialQuota::maxFiles())->toBe(250);
+
+    $this->get('/admin/site')->assertInertia(fn ($page) => $page->where('site.max_materials_per_teacher', 250));
+
+    $this->patch('/admin/site', $base + ['max_materials_per_teacher' => ''])->assertRedirect()->assertSessionHasNoErrors();
+    expect(SiteSetting::current()->max_materials_per_teacher)->toBeNull()
+        ->and(\App\Support\MaterialQuota::maxFiles())->toBe(100);
+});
+
+test('a rejected file cap is reported in the words the form uses', function () {
+    $this->actingAs(siteAdmin());
+
+    $this->patch('/admin/site', ['name' => 'Ok', 'registration_open' => true, 'banner_enabled' => false, 'max_materials_per_teacher' => 0])
+        ->assertSessionHasErrors(['max_materials_per_teacher' => 'The files per teacher field must be at least 1.']);
 });
