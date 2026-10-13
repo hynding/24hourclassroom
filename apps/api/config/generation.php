@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'model' => 'claude-opus-5',
+    'model' => 'claude-opus-5-5',
     'effort' => 'high',
     'budget_cents' => 200,
     'max_materials' => 5,
