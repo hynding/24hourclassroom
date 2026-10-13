@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 test('the generation config carries exactly the values the spec fixes', function () {
-    expect(config('generation.model'))->toBe('claude-opus-5')
+    expect(config('generation.model'))->toBe('claude-opus-5-5')
         ->and(config('generation.effort'))->toBe('high')
         ->and(config('generation.budget_cents'))->toBe(200)
         ->and(config('generation.max_materials'))->toBe(5)

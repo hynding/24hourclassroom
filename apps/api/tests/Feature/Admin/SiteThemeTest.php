@@ -35,7 +35,7 @@ test('an admin sees the current theme and every option', function () {
         ->assertInertia(fn ($page) => $page
             ->component('admin/site-theme')
             ->where('theme.palette', 'slate')
-            ->where('theme.layout', 'stacked')
+            ->where('theme.layout', 'rail')
             ->has('options.layouts', count(Layout::cases()))
             ->has('options.palettes', count(Palette::cases()))
             ->has('options.typesets', count(Typeset::cases())));

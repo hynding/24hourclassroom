@@ -6,6 +6,8 @@ const library = jest.fn();
 const materialsLibrary = jest.fn();
 jest.mock('../../services/tests-store', () => ({ testsStore: { library: (...a: unknown[]) => library(...a) } }));
 jest.mock('../../services/materials-store', () => ({ materialsStore: { materialsLibrary: (...a: unknown[]) => materialsLibrary(...a) } }));
+const coursesLibrary = jest.fn();
+jest.mock('../../services/courses-store', () => ({ coursesStore: { coursesLibrary: (...a: unknown[]) => coursesLibrary(...a) } }));
 jest.mock('../../services/session-recovery', () => ({ recoverFromExpiredSession: () => false }));
 
 import { PageLibrary } from './page-library';
@@ -25,6 +27,29 @@ describe('page-library', () => {
   beforeEach(() => {
     library.mockReset().mockResolvedValue(paginated([]));
     materialsLibrary.mockReset().mockResolvedValue(paginated([]));
+    coursesLibrary.mockReset().mockResolvedValue(paginated([]));
+  });
+
+  it('lists public courses with their counts when kind is courses, and links each to its page', async () => {
+    coursesLibrary.mockResolvedValue(paginated([{
+      id: 3, title: 'AP Biology', subject: 'science', grade_level: '9-12', visibility: 'public', published_at: '2026-09-01',
+      test_count: 41, material_count: 1, author: { id: 1, name: 'Ms K' },
+    }]));
+    const page = await mount('kind="courses"');
+    await page.waitForChanges();
+    const text = page.root.shadowRoot.textContent;
+    expect(text).toContain('Course library');
+    expect(text).toContain('41 tests · 1 material · by Ms K');
+    expect(page.root.shadowRoot.querySelector('a[href="/courses/3"]')).not.toBeNull();
+    expect(page.root.shadowRoot.querySelector('nav.segments a[href="/library/courses"]')).not.toBeNull();
+    expect(library).not.toHaveBeenCalled();
+    expect(materialsLibrary).not.toHaveBeenCalled();
+  });
+
+  it('says so when no course matches', async () => {
+    const page = await mount('kind="courses"');
+    await page.waitForChanges();
+    expect(page.root.shadowRoot.textContent).toContain('No courses match those filters yet.');
   });
 
   it('lists public tests with author and question count', async () => {

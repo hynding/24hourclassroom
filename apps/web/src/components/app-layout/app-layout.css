@@ -4,6 +4,9 @@
 
 .shell {
   min-height: 100vh;
+  /* Phones: the small-viewport unit tracks the browser's collapsing toolbar,
+   * so the footer is not pushed under it. The vh line above is the fallback. */
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }
@@ -12,8 +15,15 @@ main {
   flex: 1;
   width: 100%;
   max-width: 64rem;
+  /* A grid/flex child's min-width is its content: without this one long
+   * unbreakable string (a URL in a material) widens the column past the
+   * viewport and the whole page scrolls sideways. */
+  min-width: 0;
   margin: 0 auto;
   padding: var(--space-4);
+  /* Notched phones in landscape: keep the gutter clear of the sensor housing. */
+  padding-left: max(var(--space-4), env(safe-area-inset-left));
+  padding-right: max(var(--space-4), env(safe-area-inset-right));
 }
 
 /* Rail: banner across the top, header a left column spanning the rest.
@@ -21,7 +31,8 @@ main {
  * collide in this grid, so the banner has its own slot. */
 :host([layout='rail']) .shell {
   display: grid;
-  grid-template-columns: 14rem 1fr;
+  /* auto: the side panel sets its own width (wide, or collapsed to icons). */
+  grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr auto; /* banner (0 when empty) / page / footer */
 }
 :host([layout='rail']) ::slotted([slot='banner']) {
@@ -41,8 +52,8 @@ main {
   grid-row: 3;
 }
 
-/* Breakpoint literal is duplicated in app-header.css (custom properties
- * cannot drive media queries); a spec asserts the two match. */
+/* Breakpoint literal is duplicated in app-header.css and app-header.tsx
+ * (custom properties cannot drive media queries); a spec asserts they match. */
 @media (max-width: 767px) {
   :host([layout='rail']) .shell {
     display: flex;

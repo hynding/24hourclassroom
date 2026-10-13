@@ -22,6 +22,9 @@ jest.mock('../../services/auth-store', () => ({
   },
 }));
 
+const navigate = jest.fn();
+jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a) }));
+
 let siteConfig: any = { identity: { name: 'Night School', tagline: null } };
 jest.mock('../../services/site-store', () => ({ siteStore: { get config() { return siteConfig; } } }));
 
@@ -217,6 +220,40 @@ describe('app-header bell', () => {
     expect(links).not.toContain('/materials');
   });
 
+  it('shows Courses to teachers only, the one role with a courses shelf', async () => {
+    // Allowlist: everyone else finds published courses in the library.
+    for (const [role, expected] of [['teacher', true], ['student', false], ['admin', false]] as const) {
+      currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role };
+      for (const orientation of ['horizontal', 'vertical']) {
+        const spec = await newSpecPage({ components: [AppHeader], html: `<app-header orientation="${orientation}"></app-header>` });
+        const links = Array.from(spec.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+        expect(links.includes('/courses')).toBe(expected);
+      }
+    }
+
+    currentUser.value = null;
+    const guest = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    const links = Array.from(guest.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+    expect(links).not.toContain('/courses');
+  });
+
+  it('shows Connections to teachers and students only, the two roles that can connect', async () => {
+    // Allowlist, not a denylist: the server accepts connections between
+    // Role::Teacher and Role::Student alone, so an admin (and any fourth
+    // role) must not be offered the page.
+    for (const [role, expected] of [['teacher', true], ['student', true], ['admin', false]] as const) {
+      currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role };
+      const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+      const links = Array.from(spec.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+      expect(links.includes('/connections')).toBe(expected);
+    }
+
+    currentUser.value = null;
+    const guest = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    const links = Array.from(guest.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+    expect(links).not.toContain('/connections');
+  });
+
   it('shows Integrations for teachers only', async () => {
     // Allowlist, not a denylist: the MCP server and every generation
     // endpoint admit Role::Teacher and nothing else, so a student, an admin
@@ -239,3 +276,157 @@ describe('app-header bell', () => {
     expect(guestLinks).not.toContain('/integrations');
   });
 });
+
+describe('app-header side panel (vertical orientation)', () => {
+  const panel = async () => {
+    const spec = await newSpecPage({ components: [AppHeader], html: '<app-header orientation="vertical"></app-header>' });
+    return spec;
+  };
+
+  beforeEach(() => {
+    unreadCount.mockReset().mockResolvedValue(2);
+    recoverFromExpiredSession.mockReset().mockReturnValue(false);
+    currentUser.value = { id: 1, name: 'Ada', email_verified_at: '2026-01-01', role: 'teacher' };
+    siteConfig = { identity: { name: 'Night School', tagline: null } };
+  });
+
+  afterEach(() => {
+    try { window.localStorage.removeItem('24hc.nav.collapsed.v1'); } catch { /* not available */ }
+  });
+
+  it('gives every menu link an icon and a tooltip naming it', async () => {
+    const spec = await panel();
+    const links = Array.from(spec.root.shadowRoot.querySelectorAll('nav a'));
+    expect(links.length).toBeGreaterThan(5);
+    for (const link of links) {
+      expect(link.querySelector('svg')).not.toBeNull();
+      expect(link.getAttribute('title')).toBe(link.querySelector('.label').textContent);
+    }
+    expect(links.map((a) => a.getAttribute('href'))).toContain('/connections');
+    // Account controls sit at the bottom of the panel, outside the menu.
+    const account = spec.root.shadowRoot.querySelector('.account');
+    expect(account.textContent).toContain('Ada');
+    expect(account.textContent).toContain('Log out');
+  });
+
+  it('collapses to icons with a labelled toggle, and remembers the choice', async () => {
+    const spec = await panel();
+    const toggle = spec.root.shadowRoot.querySelector('button.collapse') as HTMLButtonElement;
+    expect(toggle.querySelector('svg')).not.toBeNull();
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+    expect(toggle.getAttribute('aria-label')).toBe('Collapse menu');
+    expect(spec.root.hasAttribute('collapsed')).toBe(false);
+
+    toggle.click();
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('collapsed')).toBe(true);
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    expect(toggle.getAttribute('aria-label')).toBe('Expand menu');
+    // Labels stay in the DOM for screen readers; CSS hides them visually.
+    expect(spec.root.shadowRoot.querySelector('nav a .label')).not.toBeNull();
+    expect(window.localStorage.getItem('24hc.nav.collapsed.v1')).toBe('1');
+
+    // A fresh page has a fresh simulated window, so seed its storage the way
+    // the first page left the real one, then render into it.
+    const again = await newSpecPage({ components: [AppHeader], html: '' });
+    again.win.localStorage.setItem('24hc.nav.collapsed.v1', '1');
+    await again.setContent('<app-header orientation="vertical"></app-header>');
+    expect(again.root.hasAttribute('collapsed')).toBe(true);
+
+    (again.root.shadowRoot.querySelector('button.collapse') as HTMLButtonElement).click();
+    await again.waitForChanges();
+    expect(again.root.hasAttribute('collapsed')).toBe(false);
+    expect(again.win.localStorage.getItem('24hc.nav.collapsed.v1')).toBe('0');
+  });
+
+  it('opens as a drawer on small screens and closes on Escape, a page pick or the backdrop', async () => {
+    const spec = await panel();
+    const menu = spec.root.shadowRoot.querySelector('button.menu') as HTMLButtonElement;
+    expect(menu.getAttribute('aria-label')).toBe('Open menu');
+    expect(menu.getAttribute('aria-expanded')).toBe('false');
+
+    menu.click();
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(true);
+    expect(menu.getAttribute('aria-label')).toBe('Close menu');
+
+    spec.win.dispatchEvent(new (spec.win as any).KeyboardEvent('keydown', { key: 'Escape' }));
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(false);
+
+    menu.click();
+    await spec.waitForChanges();
+    (spec.root.shadowRoot.querySelector('a[href="/library"]') as HTMLAnchorElement).click();
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(false);
+    expect(navigate).toHaveBeenCalledWith('/library');
+
+    menu.click();
+    await spec.waitForChanges();
+    (spec.root.shadowRoot.querySelector('.backdrop') as HTMLElement).click();
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(false);
+  });
+
+  it('keeps the top header free of the collapse toggle but gives it the drawer', async () => {
+    // The collapse-to-icons setting belongs to the side panel alone. The
+    // drawer is for narrow screens in either layout: a phone showing the
+    // Stacked layout gets the same menu button instead of a row of nine
+    // links wrapping mid-word. Icons are in the markup for the drawer;
+    // the wide top bar hides them in CSS.
+    const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    expect(spec.root.shadowRoot.querySelector('button.collapse')).toBeNull();
+    const menu = spec.root.shadowRoot.querySelector('button.menu') as HTMLButtonElement;
+    expect(menu).not.toBeNull();
+    expect(menu.getAttribute('aria-controls')).toBe('site-menu');
+    expect(spec.root.shadowRoot.querySelector('nav#site-menu')).not.toBeNull();
+    expect(spec.root.shadowRoot.querySelector('.backdrop')).not.toBeNull();
+
+    menu.click();
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(true);
+    (spec.root.shadowRoot.querySelector('a[href="/library"]') as HTMLAnchorElement).click();
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(false);
+    expect(navigate).toHaveBeenCalledWith('/library');
+  });
+
+  it('renders the same links in both orientations', async () => {
+    const hrefs = async (orientation: string) => {
+      const spec = await newSpecPage({ components: [AppHeader], html: `<app-header orientation="${orientation}"></app-header>` });
+      return Array.from(spec.root.shadowRoot.querySelectorAll('nav a, .account a')).map((a) => a.getAttribute('href'));
+    };
+    expect(await hrefs('horizontal')).toEqual(await hrefs('vertical'));
+  });
+
+  it('closes the drawer when the viewport widens past the breakpoint', async () => {
+    const spec = await panel();
+    const matchMedia = jest.fn().mockReturnValue({ matches: true });
+    (spec.win as any).matchMedia = matchMedia;
+    (spec.root.shadowRoot.querySelector('button.menu') as HTMLButtonElement).click();
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(true);
+
+    // Still narrow: a resize within the phone range leaves the drawer alone.
+    spec.win.dispatchEvent(new (spec.win as any).Event('resize'));
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(true);
+    expect(matchMedia).toHaveBeenCalledWith('(max-width: 767px)');
+
+    matchMedia.mockReturnValue({ matches: false });
+    spec.win.dispatchEvent(new (spec.win as any).Event('resize'));
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(false);
+  });
+
+  it('styles key on the reflected collapsed and open attributes', () => {
+    const fs = require('fs');
+    const path = require('path');
+    const css = fs.readFileSync(path.join(__dirname, 'app-header.css'), 'utf8');
+    expect(css).toContain(":host([orientation='vertical'][collapsed])");
+    // [orientation] rather than [orientation='vertical']: the drawer serves
+    // both layouts.
+    expect(css).toContain(':host([orientation][open])');
+  });
+});
+

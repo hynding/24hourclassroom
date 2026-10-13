@@ -19,6 +19,11 @@ type Site = {
     registration_message: string | null;
     banner_enabled: boolean;
     banner_text: string | null;
+    max_materials_per_teacher: number | null;
+};
+
+type Defaults = {
+    max_materials_per_teacher: number;
 };
 
 type Form = {
@@ -28,9 +33,10 @@ type Form = {
     registration_message: string;
     banner_enabled: boolean;
     banner_text: string;
+    max_materials_per_teacher: string;
 };
 
-export default function SiteSettings({ site }: { site: Site }) {
+export default function SiteSettings({ site, defaults }: { site: Site; defaults: Defaults }) {
     // Nullable strings seed as '' (React warns on a null value); the server turns '' back into null.
     const { data, setData, patch, processing, errors, recentlySuccessful } = useForm<Form>({
         name: site.name,
@@ -39,6 +45,8 @@ export default function SiteSettings({ site }: { site: Site }) {
         registration_message: site.registration_message ?? '',
         banner_enabled: site.banner_enabled,
         banner_text: site.banner_text ?? '',
+        // A number input still yields a string; blank means "use the server default".
+        max_materials_per_teacher: site.max_materials_per_teacher === null ? '' : String(site.max_materials_per_teacher),
     });
 
     const submit: FormEventHandler = (e) => {
@@ -51,7 +59,10 @@ export default function SiteSettings({ site }: { site: Site }) {
             <Head title="Admin: site settings" />
 
             <div className="space-y-6 px-4 py-6">
-                <HeadingSmall title="Site settings" description="The name, sign-up switch and announcement every visitor sees." />
+                <HeadingSmall
+                    title="Site settings"
+                    description="The name, sign-up switch and announcement every visitor sees, and how many materials each teacher can store."
+                />
 
                 <form onSubmit={submit} className="space-y-8">
                     <section className="space-y-2">
@@ -107,6 +118,30 @@ export default function SiteSettings({ site }: { site: Site }) {
                             <Input id="banner_text" value={data.banner_text} onChange={(e) => setData('banner_text', e.target.value)} />
                             <p className="text-muted-foreground text-sm">Shown above the header on every page of the site.</p>
                             <InputError message={errors.banner_text} />
+                        </div>
+                    </section>
+
+                    <section className="space-y-2">
+                        <h2 className="font-medium">Materials</h2>
+                        <div className="grid max-w-md gap-2">
+                            <Label htmlFor="max_materials_per_teacher">Files per teacher</Label>
+                            <Input
+                                id="max_materials_per_teacher"
+                                type="number"
+                                min={1}
+                                max={10000}
+                                step={1}
+                                inputMode="numeric"
+                                placeholder={String(defaults.max_materials_per_teacher)}
+                                value={data.max_materials_per_teacher}
+                                onChange={(e) => setData('max_materials_per_teacher', e.target.value)}
+                            />
+                            <p className="text-muted-foreground text-sm">
+                                The most materials one teacher can store. Leave blank to use the server default of{' '}
+                                {defaults.max_materials_per_teacher}. Lowering it never removes files: a teacher already over the limit keeps them but
+                                cannot upload more. The storage limit per teacher is unchanged.
+                            </p>
+                            <InputError message={errors.max_materials_per_teacher} />
                         </div>
                     </section>
 

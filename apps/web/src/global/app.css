@@ -73,6 +73,20 @@ button, input, select, textarea, ::file-selector-button {
 :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
 :disabled { opacity: 0.5; cursor: not-allowed; }
 
+/* Narrow screens: a text-like control fills its line, so an inline
+ * "Label [control]" pair stacks into label-above-control instead of wrapping
+ * ragged, and a textarea is as wide as the page rather than its UA default.
+ * Toggles, file pickers and buttons keep their own size. Breakpoint literal
+ * is shared with app-layout.css and app-header.css; a spec asserts they
+ * match. */
+@media (max-width: 767px) {
+  select,
+  textarea,
+  input:not([type='checkbox']):not([type='radio']):not([type='file']):not([type='button']):not([type='submit']):not([type='reset']):not([type='range']) {
+    width: 100%;
+  }
+}
+
 .btn {
   display: inline-block;
   cursor: pointer;

@@ -10,14 +10,13 @@ use App\Models\Test;
 use App\Notifications\AttemptSubmitted;
 use App\Services\AttemptGrader;
 use App\Support\AttemptPayload;
+use App\Support\ResponseRules;
 use App\Support\TestAccess;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AttemptController extends Controller
 {
-    public const RESPONSE_MAX = 10000;
-
     public function store(Request $request, Test $test): JsonResponse
     {
         $me = $request->user();
@@ -60,17 +59,7 @@ class AttemptController extends Controller
         abort_unless($request->user()->id === $attempt->student_id, 404);
         abort_if($attempt->isSubmitted(), 409, 'This attempt has already been submitted.');
 
-        $data = $request->validate([
-            'responses' => ['present', 'array'],
-            // A long_answer textarea invites a paste of any size; cap the
-            // text shapes here, where every response lands. Other shapes
-            // (indices, booleans, numbers) are bounded by their type.
-            'responses.*' => [function (string $attribute, mixed $value, \Closure $fail) {
-                if (is_string($value) && mb_strlen($value) > self::RESPONSE_MAX) {
-                    $fail('A written response may be at most '.self::RESPONSE_MAX.' characters.');
-                }
-            }],
-        ]);
+        $data = $request->validate(ResponseRules::rules());
         $live = $attempt->test->questions()->pluck('id')->all();
 
         foreach ($data['responses'] as $questionId => $response) {

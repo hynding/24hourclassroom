@@ -6,6 +6,10 @@ import type {
   AssignmentRow,
   Attempt,
   Connection,
+  CourseCandidates,
+  CourseInput,
+  CourseSummary,
+  CourseView,
   Generation,
   GenerationInput,
   GradeLevel,
@@ -21,6 +25,8 @@ import type {
   MyAttempt,
   Paginated,
   PendingConnections,
+  PracticeResult,
+  PracticeTest,
   Profile,
   PublicProfile,
   RegistrationRole,
@@ -416,6 +422,67 @@ export class ApiClient {
   /** Takes the id of the SHARE row, not the user. */
   async unshareMaterial(id: number, shareId: number): Promise<void> {
     await this.delete(`/api/materials/${id}/shares/${shareId}`);
+  }
+
+  async listCourses(page?: number): Promise<Paginated<CourseSummary>> {
+    // Page 1 sends no param, matching listTests.
+    const query = page && page > 1 ? `?page=${page}` : '';
+    return this.get<Paginated<CourseSummary>>(`/api/courses${query}`);
+  }
+
+  async coursesLibrary(filters: LibraryFilters = {}): Promise<Paginated<CourseSummary>> {
+    const params = new URLSearchParams();
+    if (filters.subject) params.set('subject', filters.subject);
+    if (filters.grade) params.set('grade', filters.grade);
+    if (filters.q) params.set('q', filters.q);
+    if (filters.sort && filters.sort !== 'recent') params.set('sort', filters.sort);
+    if (filters.page != null && filters.page > 1) params.set('page', String(filters.page));
+    const query = params.toString();
+    return this.get<Paginated<CourseSummary>>(`/api/library/courses${query ? `?${query}` : ''}`);
+  }
+
+  async courseCandidates(): Promise<CourseCandidates> {
+    return this.get<CourseCandidates>('/api/courses/candidates');
+  }
+
+  async getCourse(id: number): Promise<CourseView> {
+    return this.get<CourseView>(`/api/courses/${id}`);
+  }
+
+  async createCourse(data: CourseInput): Promise<CourseView> {
+    return this.post<CourseView>('/api/courses', data);
+  }
+
+  async updateCourse(id: number, data: CourseInput): Promise<CourseView> {
+    return this.put<CourseView>(`/api/courses/${id}`, data);
+  }
+
+  async deleteCourse(id: number): Promise<void> {
+    await this.delete(`/api/courses/${id}`);
+  }
+
+  /** Publishes the course AND everything in it. */
+  async publishCourse(id: number): Promise<CourseView> {
+    return this.post<CourseView>(`/api/courses/${id}/publish`);
+  }
+
+  /** The course only; its tests and materials keep their own visibility. */
+  async unpublishCourse(id: number): Promise<CourseView> {
+    return this.post<CourseView>(`/api/courses/${id}/unpublish`);
+  }
+
+  /** A private copy for the caller: its tests copied as their own, materials kept from the original. Returns the BRANCH. */
+  async branchCourse(id: number): Promise<CourseView> {
+    return this.post<CourseView>(`/api/courses/${id}/branch`);
+  }
+
+  async getPracticeTest(courseId: number, testId: number): Promise<PracticeTest> {
+    return this.get<PracticeTest>(`/api/courses/${courseId}/tests/${testId}`);
+  }
+
+  /** Stateless: grades the run and stores nothing. */
+  async checkPractice(courseId: number, testId: number, responses: Record<number, unknown>): Promise<PracticeResult> {
+    return this.post<PracticeResult>(`/api/courses/${courseId}/tests/${testId}/check`, { responses });
   }
 
   /**

@@ -86,8 +86,9 @@ returns `null`. The real tree is:
 
 ```
 <app-root> [shadow]
-  <app-layout layout="stacked"> [shadow]
-    <app-header orientation="horizontal" slot="header"> [shadow]
+  <app-layout layout="rail"> [shadow]
+    <app-banner slot="banner"> [shadow]
+    <app-header orientation="vertical" slot="header"> [shadow]
     <page-*> [shadow]
     <app-footer slot="footer"> [shadow]
 ```
@@ -112,8 +113,8 @@ root, and they only work because those props are `reflect: true`:
 
 ```js
 const sr = document.querySelector('app-root').shadowRoot;
-sr.querySelector('app-layout').setAttribute('layout', 'rail');        // stacked | rail
-sr.querySelector('app-header').setAttribute('orientation', 'vertical');
+sr.querySelector('app-layout').setAttribute('layout', 'stacked');        // rail (default) | stacked
+sr.querySelector('app-header').setAttribute('orientation', 'horizontal'); // rail pairs with vertical
 ```
 
 ### Confirm what actually resolved

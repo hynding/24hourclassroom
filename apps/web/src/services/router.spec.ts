@@ -221,3 +221,35 @@ describe('generation routes', () => {
     expect(redirectFor('/tests/generate', null)).toBe('/login');
   });
 });
+
+describe('course routes', () => {
+  it('resolves the static course pages and the library segment', () => {
+    expect(resolveRoute('/courses')).toEqual({ tag: 'page-courses' });
+    expect(resolveRoute('/courses/new')).toEqual({ tag: 'page-course-editor', courseId: undefined });
+    expect(resolveRoute('/library/courses')).toEqual({ tag: 'page-library', kind: 'courses' });
+  });
+
+  it('parses /courses/:id, its editor, and practice at /courses/:id/tests/:testId', () => {
+    expect(resolveRoute('/courses/3')).toEqual({ tag: 'page-course', courseId: 3 });
+    expect(resolveRoute('/courses/3/edit')).toEqual({ tag: 'page-course-editor', courseId: 3 });
+    expect(resolveRoute('/courses/3/tests/9')).toEqual({ tag: 'page-course-practice', courseId: 3, testId: 9 });
+    expect(resolveRoute('/courses/3/tests/abc')).toEqual({ tag: 'page-course-practice', courseId: 3, testId: undefined });
+    expect(resolveRoute('/courses/abc')).toEqual({ tag: 'page-course', courseId: undefined });
+    expect(resolveRoute('/courses/3/nope').tag).toBe('page-home');
+    expect(resolveRoute('/courses/3/edit/extra').tag).toBe('page-home');
+    expect(resolveRoute('/courses/3/tests/9/extra').tag).toBe('page-home');
+  });
+
+  it('guards the authoring pages and leaves the course and practice open to everyone', () => {
+    for (const path of ['/courses', '/courses/new', '/courses/3/edit']) {
+      expect(redirectFor(path, null)).toBe('/login');
+      expect(redirectFor(path, unverified)).toBe('/verify-email');
+      expect(redirectFor(path, verified)).toBeNull();
+    }
+    for (const path of ['/courses/3', '/courses/3/tests/9', '/library/courses']) {
+      expect(redirectFor(path, null)).toBeNull();
+      expect(redirectFor(path, unverified)).toBeNull();
+      expect(redirectFor(path, verified)).toBeNull();
+    }
+  });
+});

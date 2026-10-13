@@ -1,0 +1,88 @@
+:host {
+  display: block;
+}
+form {
+  display: grid;
+  gap: var(--space-3);
+}
+label {
+  display: grid;
+  gap: var(--space-1);
+}
+.items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+.item {
+  display: grid;
+  grid-template-columns: minmax(10rem, 14rem) 1fr auto;
+  gap: var(--space-2) var(--space-3);
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: var(--color-surface-raised);
+}
+.section {
+  min-width: 0;
+}
+.section input {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.item > .error {
+  grid-column: 1 / -1;
+}
+.what {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: baseline;
+  min-width: 0;
+}
+.kind,
+.meta {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+.kind {
+  font-weight: 600;
+}
+.row-actions {
+  display: flex;
+  gap: var(--space-1);
+}
+.row-actions .btn {
+  font-size: var(--text-sm);
+  padding: var(--space-1) var(--space-2);
+}
+.add {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: end;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+}
+.add select {
+  max-width: 100%;
+}
+.actions {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+.error {
+  color: var(--color-danger);
+  margin: 0;
+}
+@media (max-width: 767px) {
+  .item {
+    grid-template-columns: 1fr;
+  }
+}

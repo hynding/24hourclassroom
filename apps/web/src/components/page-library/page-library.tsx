@@ -1,7 +1,8 @@
 import { Component, h, Prop, State, Watch } from '@stencil/core';
-import { GRADE_LEVELS, GradeLevel, LibrarySort, MaterialSummary, SUBJECTS, Subject, TestSummary } from '@24hc/shared';
+import { CourseSummary, GRADE_LEVELS, GradeLevel, LibrarySort, MaterialSummary, SUBJECTS, Subject, TestSummary } from '@24hc/shared';
 import { testsStore } from '../../services/tests-store';
 import { materialsStore } from '../../services/materials-store';
+import { coursesStore } from '../../services/courses-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { fileTypeLabel, formatBytes } from '../../services/format';
@@ -13,10 +14,11 @@ export class PageLibrary {
    * page-library.css keys on :host([kind='materials']) for the wider grid
    * the extra type and size cells need.
    */
-  @Prop({ reflect: true }) kind: 'tests' | 'materials' = 'tests';
+  @Prop({ reflect: true }) kind: 'tests' | 'materials' | 'courses' = 'tests';
 
   @State() tests: TestSummary[] = [];
   @State() materials: MaterialSummary[] = [];
+  @State() courses: CourseSummary[] = [];
   @State() subject: Subject | '' = '';
   @State() grade: GradeLevel | '' = '';
   @State() q = '';
@@ -33,7 +35,7 @@ export class PageLibrary {
   }
 
   /**
-   * Both /library and /library/materials resolve to this tag, so Stencil
+   * /library, /library/materials and /library/courses resolve to this tag, so Stencil
    * reuses the element and componentWillLoad does NOT re-run on the switch.
    * Reset the results and the pager -- but never subject/grade/q/sort: those
    * <select>s are uncontrolled, so clearing the state would leave the DOM
@@ -44,6 +46,7 @@ export class PageLibrary {
     this.page = 1;
     this.tests = [];
     this.materials = [];
+    this.courses = [];
     this.loaded = false;
     await this.search();
   }
@@ -70,10 +73,15 @@ export class PageLibrary {
         const result = await testsStore.library(filters);
         this.tests = result.data;
         this.lastPage = result.meta.last_page;
+      } else if (this.kind === 'courses') {
+        const result = await coursesStore.coursesLibrary(filters);
+        this.courses = result.data;
+        this.lastPage = result.meta.last_page;
       } else {
         // Unknown segment: render the empty state, fetch nothing.
         this.tests = [];
         this.materials = [];
+        this.courses = [];
         this.lastPage = 1;
         this.loaded = true;
         return;
@@ -124,17 +132,66 @@ export class PageLibrary {
   }
 
   private get count(): number {
-    return this.isMaterials ? this.materials.length : this.tests.length;
+    return this.isMaterials ? this.materials.length : this.kind === 'courses' ? this.courses.length : this.tests.length;
+  }
+
+  private get heading(): string {
+    return this.isMaterials ? 'Material library' : this.kind === 'courses' ? 'Course library' : 'Test library';
+  }
+
+  private get emptyMessage(): string {
+    switch (this.kind) {
+      case 'materials':
+        return 'No materials match those filters yet.';
+      case 'tests':
+        return 'No tests match those filters yet.';
+      case 'courses':
+        return 'No courses match those filters yet.';
+      default:
+        return 'Nothing to show.';
+    }
+  }
+
+  private renderCards() {
+    if (this.isMaterials) {
+      return this.materials.map((m) => (
+        <li>
+          {this.link(`/materials/${m.id}`, m.title)}
+          <span class="meta">
+            {this.label(SUBJECTS, m.subject)} · {this.label(GRADE_LEVELS, m.grade_level)} · {fileTypeLabel(m.original_name)} · {formatBytes(m.size_bytes)} · by {m.author.name}
+          </span>
+        </li>
+      ));
+    }
+    if (this.kind === 'courses') {
+      return this.courses.map((c) => (
+        <li>
+          {this.link(`/courses/${c.id}`, c.title)}
+          <span class="meta">
+            {this.label(SUBJECTS, c.subject)} · {this.label(GRADE_LEVELS, c.grade_level)} · {c.test_count} test{c.test_count === 1 ? '' : 's'} · {c.material_count} material{c.material_count === 1 ? '' : 's'} · by {c.author.name}
+          </span>
+        </li>
+      ));
+    }
+    return this.tests.map((t) => (
+      <li>
+        {this.link(`/tests/${t.id}`, t.title)}
+        <span class="meta">
+          {this.label(SUBJECTS, t.subject)} · {this.label(GRADE_LEVELS, t.grade_level)} · {t.question_count} questions · by {t.author.name}
+        </span>
+      </li>
+    ));
   }
 
   render() {
     return (
       <section>
-        <h1>{this.isMaterials ? 'Material library' : 'Test library'}</h1>
+        <h1>{this.heading}</h1>
 
         <nav class="segments" aria-label="Library sections">
           {this.link('/library', 'Tests')}
           {this.link('/library/materials', 'Materials')}
+          {this.link('/library/courses', 'Courses')}
         </nav>
 
         <form onSubmit={this.onSubmit}>
@@ -169,28 +226,10 @@ export class PageLibrary {
         {this.busy && <p>Searching…</p>}
         {this.error && <p>We could not load the library. Please try again.</p>}
         {this.loaded && !this.busy && !this.error && this.count === 0 && (
-          <p>{this.kind === 'materials' ? 'No materials match those filters yet.' : this.kind === 'tests' ? 'No tests match those filters yet.' : 'Nothing to show.'}</p>
+          <p>{this.emptyMessage}</p>
         )}
 
-        <ul class="cards">
-          {this.isMaterials
-            ? this.materials.map((m) => (
-                <li>
-                  {this.link(`/materials/${m.id}`, m.title)}
-                  <span class="meta">
-                    {this.label(SUBJECTS, m.subject)} · {this.label(GRADE_LEVELS, m.grade_level)} · {fileTypeLabel(m.original_name)} · {formatBytes(m.size_bytes)} · by {m.author.name}
-                  </span>
-                </li>
-              ))
-            : this.tests.map((t) => (
-                <li>
-                  {this.link(`/tests/${t.id}`, t.title)}
-                  <span class="meta">
-                    {this.label(SUBJECTS, t.subject)} · {this.label(GRADE_LEVELS, t.grade_level)} · {t.question_count} questions · by {t.author.name}
-                  </span>
-                </li>
-              ))}
-        </ul>
+        <ul class="cards">{this.renderCards()}        </ul>
 
         {this.lastPage > 1 && (
           <nav aria-label="Library pages">

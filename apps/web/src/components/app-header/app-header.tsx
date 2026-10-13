@@ -1,4 +1,4 @@
-import { Component, h, Listen, Prop, State } from '@stencil/core';
+import { Component, Element, h, Listen, Prop, State, Watch } from '@stencil/core';
 import type { SiteConfig, User } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { profileStore } from '../../services/profile-store';
@@ -6,9 +6,22 @@ import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { navigate } from '../../services/navigate';
 import { siteStore } from '../../services/site-store';
 import { StaleIdentityError } from '../../services/stale-identity';
+import { navIcon, NavIcon } from '../../services/nav-icons';
+
+/** Per-browser memory of the collapsed side panel. A convenience, so a failed read or write is harmless. */
+const COLLAPSED_KEY = '24hc.nav.collapsed.v1';
+
+/**
+ * The narrow-screen query. The same literal lives in app-header.css and
+ * app-layout.css (custom properties cannot drive media queries);
+ * breakpoint.spec.ts asserts all three agree.
+ */
+const NARROW_SCREEN = '(max-width: 767px)';
 
 @Component({ tag: 'app-header', styleUrl: 'app-header.css', shadow: true })
 export class AppHeader {
+  @Element() el!: HTMLElement;
+
   @State() user: User | null = null;
   @State() unread = 0;
   @State() site: SiteConfig = siteStore.config;
@@ -20,6 +33,86 @@ export class AppHeader {
 
   /** reflect: true is load-bearing -- app-header.css keys on :host([orientation]). */
   @Prop({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
+
+  /**
+   * Side panel narrowed to its icons (wide screens). reflect: true is
+   * load-bearing -- app-header.css keys on :host([collapsed]).
+   */
+  @Prop({ reflect: true, mutable: true }) collapsed = false;
+
+  /**
+   * Menu showing as a drawer (narrow screens, either orientation).
+   * reflect: true is load-bearing -- app-header.css keys on :host([open]).
+   */
+  @Prop({ reflect: true, mutable: true }) open = false;
+
+  /** Where focus goes after the next render: into the drawer as it opens, back to its button as it closes. */
+  private focusAfterRender: 'drawer' | 'menu' | null = null;
+
+  @Watch('open')
+  onOpenChanged(open: boolean) {
+    this.focusAfterRender = open ? 'drawer' : 'menu';
+  }
+
+  componentDidRender() {
+    if (!this.focusAfterRender) {
+      return;
+    }
+    const where = this.focusAfterRender;
+    this.focusAfterRender = null;
+    const root = this.el.shadowRoot;
+    if (!root) {
+      return;
+    }
+    // Closing returns focus only when it was inside the drawer -- a closing
+    // tap on the backdrop or a page pick must not yank focus from wherever
+    // the page put it.
+    if (where === 'menu' && !root.activeElement) {
+      return;
+    }
+    const target = root.querySelector<HTMLElement>(where === 'drawer' ? 'nav a' : 'button.menu');
+    target?.focus();
+  }
+
+  /**
+   * A drawer is a narrow-screen thing. Widening past the breakpoint (a
+   * tablet turned sideways) would otherwise leave `open` set with nothing
+   * styling it, and the next tap of the menu button would do nothing.
+   */
+  @Listen('resize', { target: 'window' })
+  onResize() {
+    if (this.open && typeof window.matchMedia === 'function' && !window.matchMedia(NARROW_SCREEN).matches) {
+      this.open = false;
+    }
+  }
+
+  componentWillLoad() {
+    try {
+      this.collapsed = window.localStorage.getItem(COLLAPSED_KEY) === '1';
+    } catch {
+      // Storage can throw in private browsing; the panel simply starts open.
+    }
+  }
+
+  private toggleCollapsed = () => {
+    this.collapsed = !this.collapsed;
+    try {
+      window.localStorage.setItem(COLLAPSED_KEY, this.collapsed ? '1' : '0');
+    } catch {
+      // Not remembered this time; nothing else depends on it.
+    }
+  };
+
+  private toggleOpen = () => {
+    this.open = !this.open;
+  };
+
+  @Listen('keydown', { target: 'window' })
+  onKeydown(event: KeyboardEvent) {
+    if (this.open && event.key === 'Escape') {
+      this.open = false;
+    }
+  }
 
   private unsubscribe: () => void = () => undefined;
 
@@ -79,11 +172,14 @@ export class AppHeader {
 
   private onNav = (event: MouseEvent, path: string) => {
     event.preventDefault();
+    // Picking a page closes the drawer; it is a menu, not a place to stay.
+    this.open = false;
     navigate(path);
   };
 
   private onLogout = async (event: MouseEvent) => {
     event.preventDefault();
+    this.open = false;
     await authStore.logout();
     navigate('/');
   };
@@ -99,6 +195,22 @@ export class AppHeader {
   }
 
   /**
+   * Allowlist: only a teacher builds courses (the API refuses everyone
+   * else a shelf). Everyone finds published courses in the library.
+   */
+  private showsCourses(): boolean {
+    return this.user !== null && this.user.role === 'teacher';
+  }
+
+  /**
+   * Allowlist: connections exist between teachers and students only (the
+   * server refuses every other role), so only they get the page.
+   */
+  private showsConnections(): boolean {
+    return this.user !== null && (this.user.role === 'teacher' || this.user.role === 'student');
+  }
+
+  /**
    * Allowlist: only a teacher can hold an Anthropic key or an MCP token --
    * every generation endpoint and every MCP tool admits Role::Teacher alone.
    */
@@ -106,32 +218,88 @@ export class AppHeader {
     return this.user !== null && this.user.role === 'teacher';
   }
 
-  render() {
+  /** One side-panel entry: icon, label (visually hidden when collapsed), and a tooltip. */
+  private item(path: string, label: string, icon: NavIcon, extra?: unknown) {
     return (
+      <a href={path} title={label} onClick={(e) => this.onNav(e, path)}>
+        {navIcon(icon)}
+        <span class="label">{label}</span>
+        {extra}
+      </a>
+    );
+  }
+
+  private renderPanel() {
+    const user = this.user;
+    const vertical = this.orientation === 'vertical';
+    return [
       <header>
-        <a class="wordmark" href="/" onClick={(e) => this.onNav(e, '/')}>{this.site.identity.name}</a>
-        <nav>
-          <a href="/teachers" onClick={(e) => this.onNav(e, '/teachers')}>Teachers</a>
-          <a href="/library" onClick={(e) => this.onNav(e, '/library')}>Library</a>
-          {this.showsTests() && <a href="/tests" onClick={(e) => this.onNav(e, '/tests')}>Tests</a>}
-          {this.showsMaterials() && <a href="/materials" onClick={(e) => this.onNav(e, '/materials')}>Materials</a>}
-          {this.showsIntegrations() && <a href="/integrations" onClick={(e) => this.onNav(e, '/integrations')}>Integrations</a>}
-          {this.user
+        <div class="top">
+          <a class="wordmark" href="/" onClick={(e) => this.onNav(e, '/')}>{this.site.identity.name}</a>
+          {vertical && (
+            <button
+              type="button"
+              class="icon-button collapse"
+              aria-label={this.collapsed ? 'Expand menu' : 'Collapse menu'}
+              aria-expanded={this.collapsed ? 'false' : 'true'}
+              aria-controls="site-menu"
+              title={this.collapsed ? 'Expand menu' : 'Collapse menu'}
+              onClick={this.toggleCollapsed}
+            >
+              {navIcon('panel')}
+            </button>
+          )}
+          <button
+            type="button"
+            class="icon-button menu"
+            aria-label={this.open ? 'Close menu' : 'Open menu'}
+            aria-expanded={this.open ? 'true' : 'false'}
+            aria-controls="site-menu"
+            onClick={this.toggleOpen}
+          >
+            {navIcon('panel')}
+          </button>
+        </div>
+        <nav id="site-menu" aria-label="Main">
+          {this.item('/teachers', 'Teachers', 'teachers')}
+          {this.item('/library', 'Library', 'library')}
+          {this.showsTests() && this.item('/tests', 'Tests', 'tests')}
+          {this.showsMaterials() && this.item('/materials', 'Materials', 'materials')}
+          {this.showsCourses() && this.item('/courses', 'Courses', 'courses')}
+          {this.showsConnections() && this.item('/connections', 'Connections', 'connections')}
+          {this.showsIntegrations() && this.item('/integrations', 'Integrations', 'integrations')}
+          {user && this.item('/notifications', 'Notifications', 'notifications',
+            this.unread > 0 && <span class="badge" data-testid="unread-badge">{this.unread}</span>)}
+          {user && this.item('/profile', 'My profile', 'profile')}
+        </nav>
+        <div class="account">
+          {user
             ? [
-                <a href="/notifications" onClick={(e) => this.onNav(e, '/notifications')}>
-                  Notifications
-                  {this.unread > 0 && <span data-testid="unread-badge">{this.unread}</span>}
+                <span class="who" title={user.name}>{user.name}</span>,
+                <a href="/" title="Log out" onClick={this.onLogout}>
+                  {navIcon('logout')}
+                  <span class="label">Log out</span>
                 </a>,
-                <a href="/profile" onClick={(e) => this.onNav(e, '/profile')}>My profile</a>,
-                <span>{this.user.name}</span>,
-                <a href="/" onClick={this.onLogout}>Log out</a>,
               ]
             : [
-                <a href="/login" onClick={(e) => this.onNav(e, '/login')}>Sign in</a>,
-                <a href="/register" onClick={(e) => this.onNav(e, '/register')}>Sign up</a>,
+                this.item('/login', 'Sign in', 'login'),
+                this.item('/register', 'Sign up', 'register'),
               ]}
-        </nav>
-      </header>
-    );
+        </div>
+      </header>,
+      // Narrow screens only (CSS): dims the page behind the open drawer and
+      // closes it on a tap.
+      <div class="backdrop" onClick={() => { this.open = false; }}></div>,
+    ];
+  }
+
+  /**
+   * One markup for both orientations: the stylesheet lays it out as a top
+   * bar (horizontal) or a side panel (vertical) on wide screens, and as the
+   * same slim bar plus drawer on narrow ones, whichever layout the site
+   * owner picked. Only the collapse toggle is the side panel's alone.
+   */
+  render() {
+    return this.renderPanel();
   }
 }

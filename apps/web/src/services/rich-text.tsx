@@ -66,11 +66,14 @@ export function renderRich(text: string, options: RichTextOptions = {}): VNode[]
         rows.push(cells(lines[i]));
         i++;
       }
+      // Wrapped so a wide table scrolls within its own box on a phone.
       out.push(
-        <table>
-          <thead><tr>{header.map((c) => <th>{inline(c, blocks)}</th>)}</tr></thead>
-          <tbody>{rows.map((r) => <tr>{header.map((_, k) => <td>{inline(r[k] ?? '', blocks)}</td>)}</tr>)}</tbody>
-        </table>,
+        <div class="table-scroll">
+          <table>
+            <thead><tr>{header.map((c) => <th>{inline(c, blocks)}</th>)}</tr></thead>
+            <tbody>{rows.map((r) => <tr>{header.map((_, k) => <td>{inline(r[k] ?? '', blocks)}</td>)}</tr>)}</tbody>
+          </table>
+        </div>,
       );
       continue;
     }

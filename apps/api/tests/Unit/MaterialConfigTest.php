@@ -31,3 +31,58 @@ test('the negative fixtures really are the types the rules must catch', function
     // text/html is NOT allowlisted -- that is the whole point of the fixture.
     expect(config('materials.mimetypes'))->not->toContain('text/html');
 });
+
+test('MATERIALS_MAX_FILES_PER_TEACHER sets the per-teacher file cap; a bad value falls back to 100', function () {
+    // Re-evaluate the config file with the variable set, the way a fresh
+    // boot (or config:cache on deploy) would.
+    $load = function (?string $value): mixed {
+        putenv($value === null ? 'MATERIALS_MAX_FILES_PER_TEACHER' : "MATERIALS_MAX_FILES_PER_TEACHER={$value}");
+
+        return (require config_path('materials.php'))['max_files_per_teacher'];
+    };
+
+    try {
+        expect($load('250'))->toBe(250)
+            ->and($load(' 150 '))->toBe(150)  // stray spaces in an env file are harmless
+            ->and($load(null))->toBe(100)
+            // Zero, negative or junk would lock every teacher out of
+            // uploading; fall back to the default instead.
+            ->and($load('0'))->toBe(100)
+            ->and($load('-5'))->toBe(100)
+            ->and($load('lots'))->toBe(100);
+    } finally {
+        putenv('MATERIALS_MAX_FILES_PER_TEACHER');
+    }
+});
+
+test('the quota message and the seeder honour a raised file cap', function () {
+    config(['materials.max_files_per_teacher' => 3]);
+    $teacher = aTeacher();
+    \App\Models\Material::factory()->count(2)->for($teacher, 'author')->create();
+
+    expect(\App\Support\MaterialQuota::errorFor($teacher, 10))->toBeNull();
+    \App\Models\Material::factory()->for($teacher, 'author')->create();
+    expect(\App\Support\MaterialQuota::errorFor($teacher, 10))->toBe('You have reached the limit of 3 materials.');
+});
+
+test('the admin setting wins over the server default, which applies while it is blank', function () {
+    config(['materials.max_files_per_teacher' => 40]);
+    expect(\App\Support\MaterialQuota::maxFiles())->toBe(40);
+
+    // With no settings row at all the default still applies, and reading
+    // the cap does not create the row (that would be a write per upload).
+    \App\Models\SiteSetting::query()->delete();
+    expect(\App\Support\MaterialQuota::maxFiles())->toBe(40)
+        ->and(\App\Models\SiteSetting::count())->toBe(0);
+
+    \App\Models\SiteSetting::current()->update(['max_materials_per_teacher' => 3]);
+    expect(\App\Support\MaterialQuota::maxFiles())->toBe(3);
+
+    $teacher = aTeacher();
+    \App\Models\Material::factory()->count(3)->for($teacher, 'author')->create();
+    expect(\App\Support\MaterialQuota::errorFor($teacher, 10))->toBe('You have reached the limit of 3 materials.');
+
+    \App\Models\SiteSetting::current()->update(['max_materials_per_teacher' => null]);
+    expect(\App\Support\MaterialQuota::maxFiles())->toBe(40)
+        ->and(\App\Support\MaterialQuota::errorFor($teacher, 10))->toBeNull();
+});

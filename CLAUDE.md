@@ -42,16 +42,26 @@ npm run build
 `packages/shared/src/index.ts` must agree; tests assert the mirror in both
 directions. Add a case to one, add it to the other.
 
-**Theming.** The site owner picks layout (`stacked|rail`), palette
+**Theming.** The site owner picks layout (`rail`, the default: a left side
+panel; or `stacked`, a top header), palette
 (`noon|evening|slate|afternoon`), and typeset (`editorial|modern`) at
 `/admin/site-theme`. Stored in a single-row `site_settings` table beside the
 site name, tagline, registration switch and announcement banner (edited at
-`/admin/site`), all served as one config by `GET /api/site` (throttle-only —
+`/admin/site`, which also holds the per-teacher material file cap — kept out
+of the public config), all served as one config by `GET /api/site` (throttle-only —
 no `auth`, no `active`). The SPA caches the theme under `24hc.theme.v1` (read
 by the inline boot script) and the whole config under `24hc.site.v1`;
 `applyTheme` is the only writer of the first. The SPA applies it via
 `data-palette`/`data-typeset` on `<html>`, an inline pre-paint boot script in
-`index.html`, and one `app-layout` component switched by a reflected prop.
+`index.html`, and one `app-layout` component switched by a reflected prop. In
+`rail`, `app-header` (orientation `vertical`) is the side panel: icons from
+`services/nav-icons.tsx`, collapsible to icons on wide screens (reflected
+`collapsed`, remembered per browser under `24hc.nav.collapsed.v1`). Both
+orientations render the same markup; at or below the 767px breakpoint either
+one becomes a slim top bar plus drawer (reflected `open`). The breakpoint
+literal lives in `app-layout.css`, `app-header.css`, `app.css` (narrow-screen
+form controls fill their line) and `app-header.tsx`; `breakpoint.spec.ts`
+asserts every `max-width` query under `src/` agrees.
 
 **Shadow DOM.** Components use `shadow: true`. `app.css` is delivered twice —
 linked from `index.html` (so `:root`/`body`/`@font-face` work) and adopted into
@@ -97,7 +107,7 @@ the command warns you which one is still closed.
 
 The admin UI is Inertia on the **API host** (`/admin/users`,
 `/admin/users/{user}`, `/admin/site-theme`, `/admin/site`, `/admin/tests`,
-`/admin/materials`, `/admin/generations`), not the Stencil SPA. Log in there,
+`/admin/materials`, `/admin/courses`, `/admin/generations`), not the Stencil SPA. Log in there,
 not on the SPA host.
 
 Middleware order in `bootstrap/app.php` is load-bearing: `EnsureUserIsAdmin` is
@@ -112,6 +122,45 @@ callback's new-account branch); `RegistrationGateTest` scans `app/` for
 `User::create(` and fails until a new creator is gated. Shell commands,
 seeders and factories are deliberately ungated.
 
+## Courses
+
+A course (`courses` + `course_items`) is a teacher's ordered list of their
+**own** tests and materials, each under an optional `section` heading (repeated
+per item and collapsed by the views, like a stimulus). New courses are private.
+A public course's answers are public by design: there is no hide-answers switch.
+`App\Support\CourseAccess` holds every rule:
+
+- Private: author only, 404 to everyone else. Public: anyone, logged out
+  included, while the author is active.
+- A visitor sees only items that are **themselves public**. Publishing a course
+  (`CourseWriter::publishContents`) publishes everything in it; saving a public
+  course publishes only what was *added*, never an item its author unpublished
+  since. An admin unpublishing a test/material therefore drops it from every
+  course too. Unpublishing a course leaves its items' visibility alone.
+- **Practice mode** (`/api/courses/{course}/tests/{test}`, SPA
+  `/courses/:id/tests/:testId`) returns the test *with answers* — the reveal
+  button needs no round trip — to anyone who can see the course, but only for a
+  public test (the author can preview anything). `POST …/check` grades a run
+  with `AttemptGrader::score` and writes nothing, so guests can use it. Nothing
+  else ever returns answers to a non-author; an assigned student cannot reach a
+  private test's answers through a course.
+
+Publishing a course exposes its answers, including to students the teacher has
+assigned those tests to; the SPA's publish confirm says so.
+
+**Branches** are how a teacher gets private answers from a public course.
+`POST /api/courses/{course}/branch` (another teacher only, public course only)
+runs `CourseBrancher`: a new **private** course (`branched_from_id`) whose
+tests are private copies owned by the brancher (`TestCopier`, the same path as
+"Copy to my tests") — theirs to rewrite, extend and assign — and whose
+materials stay **references** to the original's public files rather than
+copies (no answers in them, and a full course would eat the file cap). That
+makes tests always the course author's own, while a material may be another
+teacher's: shown only while it is public with an active author, keepable,
+movable and removable in the editor, never newly addable. Later changes to the
+original do not reach a branch. `page-course` watches `courseId`: a branch and
+its original are the same tag, so Stencil reuses the element.
+
 ## Seeded AP Biology course
 
 `php artisan db:seed --class=ApBiologySeeder` (also called from `DatabaseSeeder`)
@@ -122,10 +171,34 @@ topic map; `unit-NN-*/week-NN.yaml` = guide path + flashcards + quiz;
 `Database\Seeders\ApBiology\Course` loads it and composes every title and slug
 (`AP Biology · Week 07 · Quiz · …`) so the library's `sort=title` reads in course
 order. Idempotent through nullable `slug` columns on `tests`, `questions` and
-`materials`: a re-run updates in place and questions keep their ids. It creates
-`apbio@example.com` / `apbio-student@example.com` (password `password`),
-connects them, and assigns every test to the student with a due date from
-`start_date` (null = no due dates). `ApBiologyContentTest` lints the data
+`materials`: a re-run updates in place and questions keep their ids. By default
+it creates `apbio@example.com` / `apbio-student@example.com`, connects them, and
+assigns every test to the student with a due date from `start_date` (null = no
+due dates). Those demo accounts get the password `password` only in `local` and
+`testing`; anywhere else they get a random one, printed once. It also builds the
+`Course` row (slug `apbio`): every item in teaching order under one section per
+unit, created **private** — publishing it exposes answers, so that is the
+owner's call — and a re-run keeps whatever visibility the owner chose since.
+
+On a real server, attach the course to your own account instead. Deploys run
+migrations, never seeders, so this is a one-off shell step per environment:
+
+```bash
+php artisan course:seed-ap-biology --teacher=you@example.com --no-student --force
+```
+
+`--teacher` must name an existing, verified, active teacher; the command never
+creates, verifies or re-passwords an account you name, and checks the owner's
+material quota before writing anything. The course is 73 files against the
+per-teacher file cap. An admin sets that cap under Materials at `/admin/site`
+(stored in `site_settings`, read through `MaterialQuota::maxFiles()`); while it
+is blank the server default applies: `MATERIALS_MAX_FILES_PER_TEACHER`, else
+100. The deploy runs `config:cache`, so a changed env default needs a redeploy
+or a fresh `config:cache`; the admin setting takes effect immediately. `--student=EMAIL`
+assigns the course to an existing student; `--no-student` skips the student,
+connection and assignments. Re-running with a different `--teacher` moves every
+course test and material to that account. Plain `db:seed` also seeds the course
+with the demo accounts and creates `test@example.com`: never run it on a server. `ApBiologyContentTest` lints the data
 directory (provenance, rationales, spiral review, duplicates, attribution) and
 `ApBiologySeederTest` proves idempotency on `tests/Fixtures/course`.
 
@@ -171,7 +244,10 @@ distinguishable 422 let a caller walk the id space.
 ## Conventions
 
 - Conventional commits with optional scope: `feat(web):`, `fix:`, `test(api):`.
-- **`master` has no merge commits** — milestones land fast-forward.
+- Feature branches start from `dev` and PR into `dev`; `master` only ever
+  receives `dev`, through a dev -> master PR merged with **a merge commit, never
+  squash** — a squash leaves `master` with commits `dev` lacks, and the next
+  dev -> master PR reports conflicts on identical trees.
 - Don't commit into `docs/` or `.superpowers/` expecting them to travel; both
   are gitignored.
 
@@ -179,12 +255,14 @@ distinguishable 422 let a caller walk the id space.
 
 Push to `dev` -> staging, push to `master` -> production. Both gated on CI
 (`needs: [api, web]` in the single `.github/workflows/ci.yml`). There is no
-manual trigger — a push is the only way to deploy.
+manual trigger — a push is the only way to deploy, and merging a PR into either
+branch is a push.
 
 The deploy runs migrations (`migrate --force`) and recreates the
 `public/storage` symlink (`storage:link --force`, deliberately not `|| true` —
 a permissions failure there 404s every avatar behind an otherwise green deploy).
 
 **Deploys have been on hold by standing instruction. Confirm with the user
-before pushing either branch.** Check `git log origin/master..master` first —
-unpushed work has accumulated in large batches before.
+before pushing or merging into either branch.** Check `git log
+origin/master..origin/dev` first — that is what production is missing, and it
+has accumulated in large batches before.
