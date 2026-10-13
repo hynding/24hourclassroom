@@ -342,6 +342,7 @@ export class ApiClient {
     if (filters.q) params.set('q', filters.q);
     // `recent` is the server default; only the other order travels.
     if (filters.sort && filters.sort !== 'recent') params.set('sort', filters.sort);
+    if (filters.author) params.set('author', String(filters.author));
     if (filters.page != null && filters.page > 1) params.set('page', String(filters.page));
     const query = params.toString();
     return this.get<Paginated<TestSummary>>(`/api/library${query ? `?${query}` : ''}`);
@@ -364,6 +365,7 @@ export class ApiClient {
     if (filters.grade) params.set('grade', filters.grade);
     if (filters.q) params.set('q', filters.q);
     if (filters.sort && filters.sort !== 'recent') params.set('sort', filters.sort);
+    if (filters.author) params.set('author', String(filters.author));
     if (filters.page != null && filters.page > 1) params.set('page', String(filters.page));
     const query = params.toString();
     return this.get<Paginated<MaterialSummary>>(`/api/library/materials${query ? `?${query}` : ''}`);

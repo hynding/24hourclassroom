@@ -363,6 +363,19 @@ describe('tests endpoints', () => {
     expect(fetchFn.mock.calls[2][0]).toBe('https://api.test/api/library/materials?sort=title');
   });
 
+  it('library and materialsLibrary send the author filter for a teacher profile', async () => {
+    const fetchFn = vi.fn().mockImplementation(() =>
+      okJson({ data: [], meta: { current_page: 1, last_page: 1, per_page: 15, total: 0 } }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.library({ author: 7 });
+    await client.materialsLibrary({ author: 7, page: 2 });
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/library?author=7');
+    expect(fetchFn.mock.calls[1][0]).toBe('https://api.test/api/library/materials?author=7&page=2');
+  });
+
   it('assignTest sends student_ids and an optional due_at', async () => {
     const fetchFn = vi.fn().mockImplementation((url: string) =>
       url.endsWith('/sanctum/csrf-cookie') ? okJson({}) : okJson({ results: [{ id: 2, status: 'assigned' }] }),
