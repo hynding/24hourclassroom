@@ -22,8 +22,6 @@ class HttpAnthropicGateway implements AnthropicGateway
 
     private const AGENTS_BETA = 'managed-agents-2026-04-01';
 
-    private const FILES_BETA = 'files-api-2025-04-14';
-
     // A session that never reaches session.status_idle (or a platform bug)
     // could hand back next_page forever; this bounds the walk so a stuck
     // session degrades to a retryable error instead of an infinite loop.
@@ -89,14 +87,14 @@ class HttpAnthropicGateway implements AnthropicGateway
         // Streamed rather than read whole into memory: attach() accepts a
         // resource, and a multi-megabyte PDF has no business living in a
         // string just to be handed straight to Http's multipart writer.
-        return $this->requireString($this->call(fn () => $this->request($key, self::FILES_BETA)
+        return $this->requireString($this->call(fn () => $this->request($key)
             ->attach('file', fopen($path, 'r'), $filename, ['Content-Type' => $mime])
             ->post(self::BASE.'/v1/files', ['purpose' => 'agent'])), 'id');
     }
 
     public function deleteFile(string $key, string $fileId): void
     {
-        $this->call(fn () => $this->request($key, self::FILES_BETA)
+        $this->call(fn () => $this->request($key)
             ->delete(self::BASE."/v1/files/{$fileId}"));
     }
 

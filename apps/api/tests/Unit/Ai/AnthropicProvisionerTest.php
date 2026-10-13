@@ -31,7 +31,7 @@ test('the first ensure creates one environment and one agent and records ids, ve
     $definition = $this->fake->calls['createAgent'][0][1];
 
     expect($definition['name'])->toBe(config('generation.agent_name'))
-        ->and($definition['model'])->toBe(['id' => 'claude-opus-5', 'effort' => 'high'])
+        ->and($definition['model'])->toBe(['id' => 'claude-opus-5-5', 'effort' => 'high'])
         ->and($definition['system'])->toContain('Question shapes')
         // The one shape table (plan 1's QuestionShapes) reached the prompt
         // verbatim -- no second copy of the rules anywhere.

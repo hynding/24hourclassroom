@@ -13,41 +13,33 @@ action against a live environment, not a routine git operation.
 ## Before you push anything
 
 **Deploys have been on hold by standing instruction.** Confirm with the user
-before pushing either branch, every time. Approval to push `dev` is not
-approval to push `master`.
+before pushing or merging into either branch, every time. Approval to deploy
+`dev` is not approval to deploy `master`.
 
-Unpushed work accumulates here in large batches — at one point `master` sat 115
-commits ahead across four days — so a "small change" can carry a great deal with
-it. Always look at what you'd actually be shipping:
+## How a change reaches each environment
+
+- **Staging:** a feature branch (cut from `origin/dev`) is merged into `dev`
+  through a PR. The merge is the deploy.
+- **Production:** a PR from `dev` into `master`, merged with **"Create a merge
+  commit"** — never squash. A squash gives `master` commits `dev` doesn't have,
+  and the next dev -> master PR then reports conflicts on identical trees.
+
+Production lags staging in large batches, so a "small change" can carry a great
+deal with it. Look at what you'd actually be shipping:
 
 ```bash
 git fetch origin --prune
-git log --oneline origin/master..master | wc -l
-git diff --name-only --diff-filter=A origin/<branch>..<branch> -- apps/api/database/migrations/
+git log --oneline origin/master..origin/dev     # what production is missing
+git diff --name-only --diff-filter=A <base>..<head> -- apps/api/database/migrations/
 ```
 
-Migrations run automatically with `--force`, so that second command is the one
-that tells you whether this deploy touches the database.
+`<base>..<head>` is `origin/dev..<feature-branch>` for staging and
+`origin/master..origin/dev` for production. Migrations run automatically with
+`--force`, so that diff is what tells you whether this deploy touches the
+database.
 
-## Verify the push is a fast-forward
-
-Local `dev` has been stale and behind `origin/dev` before. Check that moving it
-loses nothing and that the push won't need a force:
-
-```bash
-git log --oneline master..dev            # expect empty: no unique work on dev
-git merge-base --is-ancestor origin/dev master && echo "ff-safe"
-```
-
-Only when both pass:
-
-```bash
-git branch -f dev master
-git push origin dev
-```
-
-If either check fails, stop and tell the user — never reach for `--force` to
-get past it.
+Never force-push `dev` or `master`. If a dev -> master PR reports conflicts,
+stop and tell the user rather than resolving it on `master`.
 
 ## Watch the run
 

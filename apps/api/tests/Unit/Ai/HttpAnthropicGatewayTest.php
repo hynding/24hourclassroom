@@ -91,7 +91,7 @@ test('a 2xx body missing a required field is AnthropicUnavailable, not a silentl
         ->toThrow(AnthropicUnavailable::class);
 });
 
-test('uploadFile posts multipart with purpose=agent, the filename and the mime, under the files beta', function () {
+test('uploadFile posts multipart with purpose=agent, the filename and the mime, with no beta header', function () {
     Http::fake(fn () => Http::response(['id' => 'file_xyz']));
 
     $id = $this->gateway->uploadFile(
@@ -119,7 +119,7 @@ test('uploadFile posts multipart with purpose=agent, the filename and the mime, 
         return $request->method() === 'POST'
             && $request->url() === 'https://api.anthropic.com/v1/files'
             && $request->isMultipart()
-            && $request->hasHeader('anthropic-beta', 'files-api-2025-04-14')
+            && ! $request->hasHeader('anthropic-beta')
             && $file['filename'] === 'cells notes.txt'
             && $file['headers']['Content-Type'] === 'text/plain'
             && $contents === file_get_contents(base_path('tests/Fixtures/materials/sample.txt'))
@@ -141,14 +141,14 @@ test('uploadFile refuses an unreadable local path before any request is sent', f
     Http::assertNothingSent();
 });
 
-test('deleteFile DELETEs the file under the files beta', function () {
+test('deleteFile DELETEs the file with no beta header', function () {
     Http::fake(fn () => Http::response([], 204));
 
     $this->gateway->deleteFile('k', 'file_xyz');
 
     Http::assertSent(fn (Request $request) => $request->method() === 'DELETE'
         && $request->url() === 'https://api.anthropic.com/v1/files/file_xyz'
-        && $request->hasHeader('anthropic-beta', 'files-api-2025-04-14'));
+        && ! $request->hasHeader('anthropic-beta'));
 });
 
 test('createSession sends the agent, mounts, the budget as a STRING and one initial user message', function () {
