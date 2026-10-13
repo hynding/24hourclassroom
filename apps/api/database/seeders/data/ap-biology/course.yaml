@@ -1,7 +1,11 @@
 # The AP Biology course map. Week files live under unit-NN-<slug>/week-NN.yaml.
-# Titles and slugs are composed by Database\Seeders\ApBiology\Course from the
+# Titles and slugs are composed by Database\Seeders\Curriculum\Course from the
 # numbers here, so nothing in a week file repeats the naming convention.
 title: AP Biology
+# Every title starts with `prefix`; every test, material and the course row
+# itself carry a slug that starts with `slug`.
+prefix: AP Biology
+slug: apbio
 # The course page's introduction. Folded (`>`): one paragraph, not hard line breaks.
 description: >
   A full school year of AP Biology, one week at a time: a study guide,
@@ -17,11 +21,16 @@ start_date: 2026-08-31
 exam_date: 2027-05-03
 subject: science
 grade_level: "9-12"
-review: { prep_guide_week: 33, practice_exam_week: 34 }
+review:
+  prep_guide_week: 33
+  practice_exam_week: 34
+  prep_guide_description: Format, timing, the formula sheet, the task verbs and a two-week review plan.
 attribution: |
   Adapted from *Biology 2e* and *Biology for AP® Courses* by OpenStax, Rice
   University, licensed under CC BY 4.0
   (https://creativecommons.org/licenses/by/4.0/). Adapted from the original.
+# Every guide and summary must end with all of these (the content lint).
+attribution_markers: [OpenStax, "https://creativecommons.org/licenses/by/4.0/", adapted from the original]
 units:
   - number: 1
     slug: unit-01-chemistry-of-life

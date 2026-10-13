@@ -1,25 +1,30 @@
 <?php
 
-namespace Database\Seeders\ApBiology;
+namespace Database\Seeders\Curriculum;
 
 use RuntimeException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * The AP Biology course as data: course.yaml plus every week, unit exam and
- * review file under one directory. Loads, shapes and validates; writes
- * nothing. ApBiologySeeder and ApBiologyContentTest both read through here
- * so the two can never disagree about what a file means.
+ * A seeded course as data: course.yaml plus every week, unit exam and
+ * review file under one directory (database/seeders/data/<course>). Loads,
+ * shapes and validates; writes nothing. CurriculumSeeder and the content
+ * lint both read through here so the two can never disagree about what a
+ * file means.
  *
- * Titles and slugs are composed HERE, from the week/unit numbers, so the
- * YAML never spells the convention out: `AP Biology · Week 07 · Quiz · …`
- * sorts in course order when the library sorts by title.
+ * Titles and slugs are composed HERE, from course.yaml's `prefix` and
+ * `slug` and the week/unit numbers, so the YAML never spells the
+ * convention out: `AP Biology · Week 07 · Quiz · …` sorts in course order
+ * when the library sorts by title, and every test and material slug starts
+ * with the course's own `slug` so two courses never collide.
  */
 final class Course
 {
-    public const PREFIX = 'AP Biology';
+    /** The title prefix, e.g. `AP Biology`. */
+    public readonly string $prefix;
 
-    public const ATTRIBUTION_MARKERS = ['OpenStax', 'https://creativecommons.org/licenses/by/4.0/', 'adapted from the original'];
+    /** The course row's slug and the prefix of every test and material slug, e.g. `apbio`. */
+    public readonly string $slug;
 
     /** @var array<string, mixed> */
     public readonly array $config;
@@ -27,16 +32,16 @@ final class Course
     public function __construct(public readonly string $dir)
     {
         $this->config = self::yaml("{$dir}/course.yaml");
-        foreach (['teacher', 'student', 'subject', 'grade_level', 'units'] as $key) {
+        foreach (['prefix', 'slug', 'teacher', 'student', 'subject', 'grade_level', 'units'] as $key) {
             if (! array_key_exists($key, $this->config)) {
                 throw new RuntimeException("course.yaml: missing `{$key}`");
             }
         }
-    }
-
-    public static function defaultDir(): string
-    {
-        return database_path('seeders/data/ap-biology');
+        if (! preg_match('/^[a-z0-9]+(-[a-z0-9]+)*$/', (string) $this->config['slug'])) {
+            throw new RuntimeException('course.yaml: `slug` must be lowercase letters, digits and hyphens');
+        }
+        $this->prefix = (string) $this->config['prefix'];
+        $this->slug = (string) $this->config['slug'];
     }
 
     /** @return array<string, mixed> */
@@ -183,41 +188,41 @@ final class Course
 
     public function quizTitle(int $week, string $title): string
     {
-        return self::PREFIX.' · '.self::weekLabel($week).' · Quiz · '.$title;
+        return $this->prefix.' · '.self::weekLabel($week).' · Quiz · '.$title;
     }
 
     public function guideTitle(int $week, string $title): string
     {
-        return self::PREFIX.' · '.self::weekLabel($week).' · Study Guide · '.$title;
+        return $this->prefix.' · '.self::weekLabel($week).' · Study Guide · '.$title;
     }
 
     public function deckTitle(int $week, string $title): string
     {
-        return self::PREFIX.' · '.self::weekLabel($week).' · Flashcards · '.$title;
+        return $this->prefix.' · '.self::weekLabel($week).' · Flashcards · '.$title;
     }
 
     public function unitExamTitle(int $unit): string
     {
         $u = $this->unit($unit);
 
-        return self::PREFIX.' · '.self::weekLabel(max((array) $u['weeks']))." · Unit {$unit} Exam · ".$u['title'];
+        return $this->prefix.' · '.self::weekLabel(max((array) $u['weeks']))." · Unit {$unit} Exam · ".$u['title'];
     }
 
     public function unitSummaryTitle(int $unit): string
     {
         $u = $this->unit($unit);
 
-        return self::PREFIX.' · '.self::weekLabel(max((array) $u['weeks']))." · Unit {$unit} Summary · ".$u['title'];
+        return $this->prefix.' · '.self::weekLabel(max((array) $u['weeks']))." · Unit {$unit} Summary · ".$u['title'];
     }
 
     public function practiceExamTitle(): string
     {
-        return self::PREFIX.' · '.self::weekLabel((int) ($this->config['review']['practice_exam_week'] ?? 34)).' · Practice Exam';
+        return $this->prefix.' · '.self::weekLabel((int) ($this->config['review']['practice_exam_week'] ?? 34)).' · Practice Exam';
     }
 
     public function examPrepTitle(): string
     {
-        return self::PREFIX.' · '.self::weekLabel((int) ($this->config['review']['prep_guide_week'] ?? 33)).' · Exam Prep Guide';
+        return $this->prefix.' · '.self::weekLabel((int) ($this->config['review']['prep_guide_week'] ?? 33)).' · Exam Prep Guide';
     }
 
     /** The description a test or material carries: the CED line first, then the authored text. */
@@ -292,10 +297,28 @@ final class Course
         return implode("\n", $out);
     }
 
-    public static function endsWithAttribution(string $markdown): bool
+    /**
+     * The phrases every guide and summary must end with, from course.yaml's
+     * `attribution_markers`: a course adapted from a CC BY text names the
+     * text and the licence; an original course names its framework and the
+     * public-domain status of its quoted sources.
+     *
+     * @return list<string>
+     */
+    public function attributionMarkers(): array
+    {
+        $markers = array_values(array_filter(array_map('strval', (array) ($this->config['attribution_markers'] ?? []))));
+        if ($markers === []) {
+            throw new RuntimeException('course.yaml: `attribution_markers` must list at least one phrase');
+        }
+
+        return $markers;
+    }
+
+    public function endsWithAttribution(string $markdown): bool
     {
         $tail = mb_strtolower(substr(rtrim($markdown), -1200));
-        foreach (self::ATTRIBUTION_MARKERS as $marker) {
+        foreach ($this->attributionMarkers() as $marker) {
             if (! str_contains($tail, mb_strtolower($marker))) {
                 return false;
             }
