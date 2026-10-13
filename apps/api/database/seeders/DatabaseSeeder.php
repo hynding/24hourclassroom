@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
             User::factory()->raw(['name' => 'Test User', 'email' => 'test@example.com']),
         );
 
-        $this->call([ApBiologySeeder::class, ApUsHistorySeeder::class]);
+        $this->call([ApBiologySeeder::class, ApUsHistorySeeder::class, ApLiteratureSeeder::class]);
     }
 }

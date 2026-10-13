@@ -1,0 +1,535 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Enums\ConnectionStatus;
+use App\Enums\Role;
+use App\Enums\Visibility;
+use App\Models\Assignment;
+use App\Models\Connection;
+use App\Models\Course as CourseRow;
+use App\Models\Material;
+use App\Models\Test;
+use App\Models\User;
+use App\Services\MaterialWriter;
+use App\Support\CourseWriter;
+use App\Support\MaterialQuota;
+use App\Support\TestDraftValidator;
+use App\Support\TestWriter;
+use Carbon\CarbonImmutable;
+use Database\Seeders\ApLiterature\Course;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+use RuntimeException;
+
+/**
+ * The AP English Literature course, from YAML to rows: a sibling of
+ * ApBiologySeeder with the same contract and the same steps. Idempotent:
+ * every test, question, material and the course itself carry a slug, so a
+ * re-run updates in place -- questions keep their ids (and so their
+ * answers), a guide's bytes are rewritten at the same path, nothing is
+ * duplicated.
+ *
+ * Deliberately NOT gated by the registration switch: shell provisioning
+ * must work while sign-ups are closed (CLAUDE.md).
+ *
+ *   php artisan db:seed --class=ApLiteratureSeeder          (demo accounts)
+ *   php artisan course:seed-ap-literature --teacher=EMAIL   (your own account)
+ *
+ * The owner is either an existing account named by the caller -- which must
+ * already be a verified, active teacher and is never created or modified --
+ * or the demo teacher from course.yaml. The same goes for the student, who
+ * can also be left out entirely. Demo accounts get the documented password
+ * only in local and testing; anywhere else they get a random one, printed
+ * once, so a public site never carries a login anyone can read in the repo.
+ */
+class ApLiteratureSeeder extends Seeder
+{
+    public const PASSWORD = 'password';
+
+    public const COURSE_SLUG = 'aplit';
+
+    private Course $course;
+
+    private User $teacher;
+
+    private ?User $student = null;
+
+    /** Order within a week on the course page. */
+    private const RANK_GUIDE = 0;
+
+    private const RANK_CARDS = 1;
+
+    private const RANK_QUIZ = 2;
+
+    private const RANK_UNIT_SUMMARY = 3;
+
+    private const RANK_UNIT_EXAM = 4;
+
+    /** @var array<string, int> */
+    private array $counts = ['tests' => 0, 'questions' => 0, 'materials' => 0, 'decks' => 0, 'cards' => 0, 'general_knowledge' => 0];
+
+    /**
+     * @param  string|null  $teacherEmail  an existing teacher to own the course; null = the demo teacher
+     * @param  string|null  $studentEmail  an existing student to assign it to; null = the demo student
+     * @param  bool  $withStudent  false = no student, no connection, no assignments
+     */
+    public function __construct(
+        private readonly ?string $dir = null,
+        private readonly ?string $teacherEmail = null,
+        private readonly ?string $studentEmail = null,
+        private readonly bool $withStudent = true,
+    ) {}
+
+    public function run(): void
+    {
+        $this->course = new Course($this->dir ?? Course::defaultDir());
+
+        // 1. Validate every question before writing anything. A bad item
+        //    fails loudly with its file and index; nothing is half-seeded.
+        $plan = $this->plan();
+
+        // 2. Resolve the accounts. Named accounts are checked (and the
+        //    owner's quota with them) before anything is written.
+        $this->accounts($plan['materials']);
+
+        foreach ($plan['tests'] as $spec) {
+            $this->test($spec);
+        }
+        foreach ($plan['materials'] as $spec) {
+            $this->material($spec);
+        }
+        $course = $this->course($plan);
+
+        $this->command?->info(sprintf(
+            'AP Literature: %d tests (%d questions), %d materials of which %d decks (%d cards); %d items marked general knowledge.',
+            $this->counts['tests'], $this->counts['questions'], $this->counts['materials'], $this->counts['decks'], $this->counts['cards'], $this->counts['general_knowledge'],
+        ));
+        $this->command?->info(sprintf(
+            'Course #%d "%s" is %s.%s',
+            $course->id, $course->title, $course->visibility->value,
+            $course->isPublic() ? '' : ' Its owner can publish it from the course page.',
+        ));
+    }
+
+    /**
+     * Everything to write, shaped and validated. Tests carry their already-
+     * validated question bodies plus the per-question slugs; materials carry
+     * their bytes.
+     *
+     * @return array{tests: list<array<string, mixed>>, materials: list<array<string, mixed>>}
+     */
+    private function plan(): array
+    {
+        $c = $this->course;
+        $tests = [];
+        $materials = [];
+
+        foreach ($c->weeks() as $week => ['file' => $file, 'data' => $data]) {
+            $unit = $c->unitForWeek($week);
+            $topics = (array) ($data['topics'] ?? []);
+            $title = (string) ($data['title'] ?? "Week {$week}");
+            $section = $c->sectionTitle($unit);
+
+            if (isset($data['quiz'])) {
+                $tests[] = $this->testSpec(
+                    slug: sprintf('aplit-w%02d-quiz', $week),
+                    title: $c->quizTitle($week, $title),
+                    description: $c->describe($topics, $data['quiz']['description'] ?? null, $unit['number'] ?? null),
+                    questions: (array) ($data['quiz']['questions'] ?? []),
+                    file: $file,
+                    week: $week,
+                ) + ['rank' => self::RANK_QUIZ, 'section' => $section];
+            }
+
+            if (isset($data['guide'])) {
+                $materials[] = [
+                    'week' => $week, 'rank' => self::RANK_GUIDE, 'section' => $section,
+                    'slug' => sprintf('aplit-w%02d-guide', $week),
+                    'title' => $c->guideTitle($week, $title),
+                    'description' => $c->describe($topics, $data['guide_description'] ?? null, $unit['number'] ?? null),
+                    'name' => sprintf('week-%02d-study-guide.md', $week),
+                    'body' => $this->read("{$c->dir}/{$data['guide']}"),
+                ];
+            }
+
+            if (! empty($data['flashcards'])) {
+                $deckTitle = $c->deckTitle($week, $title);
+                $materials[] = [
+                    'week' => $week, 'rank' => self::RANK_CARDS, 'section' => $section,
+                    'slug' => sprintf('aplit-w%02d-cards', $week),
+                    'title' => $deckTitle,
+                    'description' => $c->describe($topics, $data['flashcards_description'] ?? null, $unit['number'] ?? null),
+                    'name' => sprintf('week-%02d.flashcards.md', $week),
+                    'body' => Course::deckMarkdown($deckTitle, (array) $data['flashcards']),
+                    'cards' => count((array) $data['flashcards']),
+                ];
+            }
+        }
+
+        foreach ($c->unitExams() as $number => ['file' => $file, 'data' => $data]) {
+            $unit = $c->unit($number);
+            $tests[] = $this->testSpec(
+                slug: sprintf('aplit-u%02d-exam', $number),
+                title: $c->unitExamTitle($number),
+                description: $c->describe($c->unitSkills($number), $data['description'] ?? null, $number),
+                questions: (array) ($data['questions'] ?? []),
+                file: $file,
+                week: max((array) $unit['weeks']),
+            ) + ['rank' => self::RANK_UNIT_EXAM, 'section' => $c->sectionTitle($unit)];
+        }
+
+        foreach ($c->unitSummaries() as $number => $file) {
+            $unit = $c->unit($number);
+            $materials[] = [
+                'week' => max((array) $unit['weeks']), 'rank' => self::RANK_UNIT_SUMMARY, 'section' => $c->sectionTitle($unit),
+                'slug' => sprintf('aplit-u%02d-summary', $number),
+                'title' => $c->unitSummaryTitle($number),
+                'description' => $c->describe($c->unitSkills($number), null, $number),
+                'name' => sprintf('unit-%02d-summary.md', $number),
+                'body' => $this->read($file),
+            ];
+        }
+
+        if ($exam = $c->practiceExam()) {
+            $tests[] = $this->testSpec(
+                slug: 'aplit-practice-exam',
+                title: $c->practiceExamTitle(),
+                description: $c->describe([], $exam['data']['description'] ?? null),
+                questions: (array) ($exam['data']['questions'] ?? []),
+                file: $exam['file'],
+                week: (int) ($c->config['review']['practice_exam_week'] ?? 34),
+            ) + ['rank' => self::RANK_QUIZ, 'section' => $c->sectionTitle(null)];
+        }
+
+        if ($guide = $c->examPrepGuide()) {
+            $materials[] = [
+                'week' => (int) ($c->config['review']['prep_guide_week'] ?? 33), 'rank' => self::RANK_GUIDE, 'section' => $c->sectionTitle(null),
+                'slug' => 'aplit-exam-prep',
+                'title' => $c->examPrepTitle(),
+                'description' => 'Format, timing, the three essay rubrics, the passage-set routine and a two-week review plan.',
+                'name' => 'exam-prep-guide.md',
+                'body' => $this->read($guide),
+            ];
+        }
+
+        $cap = MaterialQuota::maxFiles();
+        if (count($materials) > $cap) {
+            throw new RuntimeException(sprintf('The course has %d materials; the per-teacher cap is %d.', count($materials), $cap));
+        }
+
+        return ['tests' => $tests, 'materials' => $materials];
+    }
+
+    /** @param  array<int, array<string, mixed>>  $questions @return array<string, mixed> */
+    private function testSpec(string $slug, string $title, string $description, array $questions, string $file, int $week): array
+    {
+        $slugs = [];
+        $bodies = [];
+        foreach (array_values($questions) as $i => $q) {
+            $shaped = Course::shapeQuestion((array) $q, $file, $i + 1);
+            $slugs[] = $shaped['slug'];
+            $bodies[] = $shaped['question'];
+            if (strcasecmp($shaped['source'], 'general knowledge') === 0) {
+                $this->counts['general_knowledge']++;
+            }
+        }
+
+        try {
+            $validated = TestDraftValidator::validate([
+                'title' => $title,
+                'description' => $description,
+                'subject' => $this->course->config['subject'],
+                'grade_level' => $this->course->config['grade_level'],
+                'questions' => $bodies,
+            ]);
+        } catch (ValidationException $e) {
+            // The first error, with the file and the 1-based item index the
+            // author will look for. `questions.3.prompt` -> item #4.
+            $key = array_key_first($e->errors());
+            $index = preg_match('/^questions\.(\d+)/', (string) $key, $m) ? ' question #'.($m[1] + 1).' ('.($slugs[(int) $m[1]] ?? '?').')' : '';
+            throw new RuntimeException("{$file}{$index}: ".implode(' ', $e->errors()[$key]), previous: $e);
+        }
+
+        return ['slug' => $slug, 'week' => $week, 'slugs' => $slugs] + $validated;
+    }
+
+    /** @param  list<array<string, mixed>>  $materials */
+    private function accounts(array $materials): void
+    {
+        $teacher = $this->teacherEmail !== null ? $this->existing($this->teacherEmail, Role::Teacher, '--teacher') : null;
+        $student = ($this->withStudent && $this->studentEmail !== null) ? $this->existing($this->studentEmail, Role::Student, '--student') : null;
+
+        if ($teacher !== null) {
+            $this->assertRoomFor($teacher, $materials);
+        }
+
+        $this->teacher = $teacher ?? $this->demo($this->course->config['teacher'], Role::Teacher);
+        $this->student = $this->withStudent ? ($student ?? $this->demo($this->course->config['student'], Role::Student)) : null;
+
+        if ($this->student === null) {
+            return;
+        }
+
+        $key = Connection::pairKey($this->teacher->id, $this->student->id);
+        $connection = Connection::firstOrNew(['pair_key' => $key], [
+            'requester_id' => $this->teacher->id,
+            'addressee_id' => $this->student->id,
+        ]);
+        $connection->status = ConnectionStatus::Accepted;
+        $connection->save();
+    }
+
+    /**
+     * An account the caller named. It must already exist with exactly the
+     * expected role (an allowlist: an admin is not a teacher here) and be
+     * able to sign in; it is never created, verified, reactivated or given
+     * a password by the seeder.
+     */
+    private function existing(string $email, Role $role, string $flag): User
+    {
+        $user = User::where('email', $email)->first();
+
+        if ($user === null) {
+            throw new RuntimeException("{$flag}: No account uses {$email}. Create it first; the seeder never creates an account you name.");
+        }
+        if ($user->role !== $role) {
+            throw new RuntimeException("{$flag}: {$email} is a {$user->role->value}, not a {$role->value}.");
+        }
+        if (! $user->isActive()) {
+            throw new RuntimeException("{$flag}: {$email} is deactivated.");
+        }
+        if ($user->email_verified_at === null) {
+            throw new RuntimeException("{$flag}: {$email} has not verified its email (not verified accounts cannot sign in).");
+        }
+
+        return $user;
+    }
+
+    /**
+     * The course's files must fit beside the owner's other materials. Checked
+     * up front: MaterialWriter would otherwise refuse one file part way
+     * through a run that has already written the tests.
+     *
+     * @param  list<array<string, mixed>>  $materials
+     */
+    private function assertRoomFor(User $owner, array $materials): void
+    {
+        $slugs = array_column($materials, 'slug');
+        $others = Material::query()
+            ->where('user_id', $owner->id)
+            ->where(fn ($q) => $q->whereNull('slug')->orWhereNotIn('slug', $slugs))
+            ->selectRaw('COUNT(*) as files, COALESCE(SUM(size_bytes), 0) as bytes')
+            ->first();
+
+        $files = (int) $others->files + count($materials);
+        $bytes = (int) $others->bytes + array_sum(array_map(fn ($m) => strlen($m['body']), $materials));
+        $maxFiles = MaterialQuota::maxFiles();
+        $maxBytes = (int) config('materials.max_bytes_per_teacher');
+
+        if ($files > $maxFiles) {
+            throw new RuntimeException(sprintf(
+                '--teacher: the course needs %d materials and %s already has %d others; the per-teacher cap is %d (raise it under Materials on the admin Site settings page).',
+                count($materials), $owner->email, (int) $others->files, $maxFiles,
+            ));
+        }
+        if ($bytes > $maxBytes) {
+            throw new RuntimeException(sprintf('--teacher: the course would take %s over the per-teacher storage cap.', $owner->email));
+        }
+    }
+
+    /**
+     * A demo account from course.yaml, created on first run. The documented
+     * password only where no one else can reach the site; otherwise a random
+     * one, shown once.
+     *
+     * @param  array{name: string, email: string}  $spec
+     */
+    private function demo(array $spec, Role $role): User
+    {
+        $user = User::firstOrNew(['email' => $spec['email']]);
+
+        if ($user->exists && $user->role !== $role) {
+            throw new RuntimeException("course.yaml: {$spec['email']} already exists as a {$user->role->value}, not a {$role->value}.");
+        }
+
+        if (! $user->exists) {
+            $local = app()->environment(['local', 'testing']);
+            $password = $local ? self::PASSWORD : Str::password(24, symbols: false);
+            $user->name = $spec['name'];
+            $user->password = Hash::make($password);
+            $user->role = $role;
+
+            if (! $local) {
+                $this->command?->warn("Created {$spec['email']} with password: {$password}");
+                $this->command?->warn('It is shown once. Store it now, or reset it from the login page.');
+            }
+        }
+        $user->email_verified_at ??= now();
+        $user->deactivated_at = null;
+        $user->save();
+
+        return $user;
+    }
+
+    /** @param  array<string, mixed>  $spec */
+    private function test(array $spec): void
+    {
+        DB::transaction(function () use ($spec) {
+            $test = Test::firstOrNew(['slug' => $spec['slug']]);
+            $test->user_id = $this->teacher->id;
+            $test->title = $spec['title'];
+            $test->description = $spec['description'];
+            $test->subject = $spec['subject'];
+            $test->grade_level = $spec['grade_level'];
+            $test->visibility = Visibility::Public;
+            $test->published_at ??= now();
+            $test->save();
+
+            // A seeded question the teacher deleted is soft-deleted with its
+            // slug still on the row, and (test_id, slug) is unique across
+            // trashed rows too. Restore it so the YAML item maps back onto
+            // its own row -- keeping its id, so past answers stay attached --
+            // instead of creating a second row that collides on the slug.
+            // The YAML is the source of truth for slugged content.
+            $test->questions()->onlyTrashed()->whereIn('slug', $spec['slugs'])->restore();
+
+            // Map each YAML slug to its existing row so TestWriter updates in
+            // place and answers keep their foreign keys; new slugs create.
+            $existing = $test->questions()->whereNotNull('slug')->pluck('id', 'slug');
+            $questions = [];
+            foreach ($spec['questions'] as $i => $q) {
+                $id = $existing[$spec['slugs'][$i]] ?? null;
+                $questions[] = $id ? ['id' => $id] + $q : $q;
+            }
+            TestWriter::syncQuestions($test, $questions);
+
+            // Position i is YAML item i (a clean list); stamp the slugs.
+            foreach ($test->questions()->get() as $i => $row) {
+                if ($row->slug !== $spec['slugs'][$i]) {
+                    $row->forceFill(['slug' => $spec['slugs'][$i]])->save();
+                }
+            }
+
+            if ($this->student !== null) {
+                $assignment = Assignment::firstOrNew(['test_id' => $test->id, 'student_id' => $this->student->id]);
+                $assignment->teacher_id = $this->teacher->id;
+                $assignment->due_at = $this->dueDate($spec['week']);
+                $assignment->save();
+            }
+
+            $this->counts['tests']++;
+            $this->counts['questions'] += count($spec['questions']);
+        });
+    }
+
+    /** @param  array<string, mixed>  $spec */
+    private function material(array $spec): void
+    {
+        $attrs = [
+            'title' => $spec['title'],
+            'description' => $spec['description'],
+            'subject' => $this->course->config['subject'],
+            'grade_level' => $this->course->config['grade_level'],
+        ];
+
+        $material = Material::where('slug', $spec['slug'])->first();
+        if ($material) {
+            // A re-run with a different owner moves the file's row to them;
+            // the stored path is opaque and stays where it is.
+            $material->forceFill(['user_id' => $this->teacher->id])
+                ->fill($attrs + ['visibility' => Visibility::Public, 'published_at' => $material->published_at ?? now()])
+                ->save();
+            $material->unsetRelation('author');
+            MaterialWriter::replace($material, $spec['body']);
+        } else {
+            MaterialWriter::create($this->teacher, $spec['body'], $spec['name'], $attrs + [
+                'slug' => $spec['slug'],
+                'visibility' => Visibility::Public,
+                'published_at' => now(),
+            ]);
+        }
+
+        $this->counts['materials']++;
+        if (isset($spec['cards'])) {
+            $this->counts['decks']++;
+            $this->counts['cards'] += $spec['cards'];
+        }
+    }
+
+    /**
+     * The course row: every seeded test and material in teaching order --
+     * by week, and within a week guide, flashcards, quiz, then the unit's
+     * summary and exam -- under one heading per unit. Created PRIVATE:
+     * publishing a course exposes its answers in practice mode, which is the
+     * owner's call, not the seeder's. A re-run moves it with everything else
+     * to the current owner, keeps the visibility the owner has chosen since,
+     * and rewrites the item list from the YAML.
+     *
+     * @param  array{tests: list<array<string, mixed>>, materials: list<array<string, mixed>>}  $plan
+     */
+    private function course(array $plan): CourseRow
+    {
+        $entries = [
+            ...array_map(fn ($spec) => ['kind' => 'test'] + $spec, $plan['tests']),
+            ...array_map(fn ($spec) => ['kind' => 'material'] + $spec, $plan['materials']),
+        ];
+        usort($entries, fn ($a, $b) => [$a['week'], $a['rank']] <=> [$b['week'], $b['rank']]);
+
+        $ids = [
+            'test' => Test::whereIn('slug', array_column($plan['tests'], 'slug'))->pluck('id', 'slug'),
+            'material' => Material::whereIn('slug', array_column($plan['materials'], 'slug'))->pluck('id', 'slug'),
+        ];
+        $items = array_map(fn ($e) => [
+            'kind' => $e['kind'],
+            'id' => $ids[$e['kind']][$e['slug']],
+            'section' => $e['section'],
+        ], $entries);
+
+        return DB::transaction(function () use ($items) {
+            $config = $this->course->config;
+            $course = CourseRow::firstOrNew(['slug' => self::COURSE_SLUG]);
+            $course->user_id = $this->teacher->id;
+            $course->title = (string) ($config['title'] ?? Course::PREFIX);
+            $course->description = isset($config['description']) ? trim((string) $config['description']) : null;
+            $course->subject = $config['subject'];
+            $course->grade_level = $config['grade_level'];
+            $course->visibility ??= Visibility::Private;
+            $course->save();
+
+            CourseWriter::syncItems($course, $items);
+
+            return $course->fresh();
+        });
+    }
+
+    /** Sunday ending the week, or null when the course has no calendar. */
+    private function dueDate(int $week): ?CarbonImmutable
+    {
+        $start = $this->course->config['start_date'] ?? null;
+        if (! $start) {
+            return null;
+        }
+
+        // symfony/yaml hands an unquoted date back as a Unix timestamp.
+        $monday = match (true) {
+            is_int($start) => CarbonImmutable::createFromTimestampUTC($start)->startOfDay(),
+            $start instanceof \DateTimeInterface => CarbonImmutable::instance($start)->startOfDay(),
+            default => CarbonImmutable::parse((string) $start)->startOfDay(),
+        };
+
+        return $monday->addWeeks($week - 1)->addDays(6)->endOfDay();
+    }
+
+    private function read(string $path): string
+    {
+        if (! is_file($path)) {
+            throw new RuntimeException("Missing file: {$path}");
+        }
+
+        return (string) file_get_contents($path);
+    }
+}

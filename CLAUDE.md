@@ -236,6 +236,37 @@ any small `.md`/`.txt` in-app through `rich-text`, a vnode-only markdown subset
 with no HTML and no `innerHTML`. `MaterialWriter` is the one path that puts a
 file on the materials disk, for uploads and the seeder alike.
 
+## Seeded AP Literature course
+
+`php artisan db:seed --class=ApLiteratureSeeder` (also called from
+`DatabaseSeeder`) and `php artisan course:seed-ap-literature --teacher=EMAIL
+[--student=EMAIL|--no-student] --force` work exactly like their AP Biology
+twins (same owner checks, quota check, idempotent slugs, private course row,
+slug `aplit`, demo accounts `aplit@example.com` / `aplit-student@example.com`).
+The code is a sibling of the Curriculum classes above, not a subclass (it was
+written alongside them): `Database\Seeders\ApLiterature\Course`,
+`ApLiteratureSeeder`, `SeedApLiterature`, its own lint, and its own row in
+`DatabaseSeeder`'s call list. Data lives under
+`apps/api/database/seeders/data/ap-literature/`, same layout as AP Biology,
+nine units in the CED order (Short Fiction / Poetry / Longer Fiction or Drama,
+three times) over 32 weeks plus an exam-prep guide (week 33) and a practice
+exam shaped like the real one (55 MC in five passage sets, then three 6-point
+essays). It is 74 files against the per-teacher cap, so one teacher owning
+it and another seeded course needs the cap raised accordingly (147 with AP
+Biology).
+
+Two differences from biology. The literature CED has skills, not numbered
+topics, so a `topic_code` is a CED skill code (`1.A` ... `7.E`, listed once
+under `skills` in `course.yaml`; each unit lists the skills the CED gives it;
+each week's `topics` are its focus skills). And every quoted text must be in
+the US public domain: week files list their `texts` with year and a link, an
+item's `source` carries the work's year in parentheses (or is `general
+knowledge`), and the lint rejects anything after
+`Lint::PUBLIC_DOMAIN_THROUGH` (1930; bump it each January). The lint lives in
+`Database\Seeders\ApLiterature\Lint`, not the test, so it can run on one
+unit (`(new Lint($course))->run([3])`); `ApLiteratureContentTest` runs it over
+everything.
+
 ## Gotchas
 
 **Denylist over the `Role` enum — the recurring defect class.** Writing
