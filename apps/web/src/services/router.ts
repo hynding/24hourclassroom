@@ -7,17 +7,19 @@ export interface ResolvedRoute {
   attemptId?: number;
   materialId?: number;
   generationId?: number;
+  courseId?: number;
   /** Which library segment page-library is showing. */
-  kind?: 'tests' | 'materials';
+  kind?: 'tests' | 'materials' | 'courses';
 }
 
 const GUEST_ONLY = ['/login', '/register', '/forgot-password', '/reset-password'];
-const AUTH_ONLY = ['/profile', '/connections', '/notifications', '/tests', '/tests/new', '/tests/generate', '/materials', '/materials/new', '/integrations'];
+const AUTH_ONLY = ['/profile', '/connections', '/notifications', '/tests', '/tests/new', '/tests/generate', '/materials', '/materials/new', '/courses', '/courses/new', '/integrations'];
 const TEACHER_PREFIX = '/teachers/';
 const TESTS_PREFIX = '/tests/';
 const MATERIALS_PREFIX = '/materials/';
 const ATTEMPTS_PREFIX = '/attempts/';
 const GENERATIONS_PREFIX = '/generations/';
+const COURSES_PREFIX = '/courses/';
 const TEST_SUBPAGES: Record<string, string> = {
   edit: 'page-test-editor',
   assign: 'page-test-assign',
@@ -72,9 +74,32 @@ function materialRoute(path: string): ResolvedRoute | null {
   return tag ? { tag, materialId } : { tag: 'page-home' };
 }
 
+/**
+ * /courses/:id, /courses/:id/edit, and practice mode at
+ * /courses/:id/tests/:testId -- the one three-segment route, so it gets its
+ * own sibling rather than a flag on testRoute()'s shape.
+ */
+function courseRoute(path: string): ResolvedRoute | null {
+  if (!path.startsWith(COURSES_PREFIX)) {
+    return null;
+  }
+  const [idSegment, sub, testSegment, ...rest] = path.slice(COURSES_PREFIX.length).split('/');
+  const courseId = parseId(idSegment);
+  if (sub === undefined || sub === '') {
+    return { tag: 'page-course', courseId };
+  }
+  if (sub === 'edit' && testSegment === undefined) {
+    return { tag: 'page-course-editor', courseId };
+  }
+  if (sub === 'tests' && rest.length === 0) {
+    return { tag: 'page-course-practice', courseId, testId: parseId(testSegment) };
+  }
+  return { tag: 'page-home' };
+}
+
 /** Public even logged out, so exempt from the verification gate. */
 function isPublic(path: string): boolean {
-  if (path === '/teachers' || path.startsWith(TEACHER_PREFIX) || path === '/library' || path === '/library/materials') {
+  if (path === '/teachers' || path.startsWith(TEACHER_PREFIX) || path === '/library' || path === '/library/materials' || path === '/library/courses') {
     return true;
   }
   // '/tests/new', '/tests/generate' and '/materials/new' parse through their
@@ -82,8 +107,12 @@ function isPublic(path: string): boolean {
   // shape as /tests/abc -- which would otherwise read as the public
   // single-item view. All three are distinct, auth-only routes (see
   // AUTH_ONLY), so exclude them before consulting either helper.
-  if (path === '/tests/new' || path === '/tests/generate' || path === '/materials/new') {
+  if (path === '/tests/new' || path === '/tests/generate' || path === '/materials/new' || path === '/courses/new') {
     return false;
+  }
+  const course = courseRoute(path);
+  if (course !== null) {
+    return course.tag === 'page-course' || course.tag === 'page-course-practice';
   }
   const test = testRoute(path);
   if (test !== null) {
@@ -99,6 +128,10 @@ function isAuthOnly(path: string): boolean {
   }
   const test = testRoute(path);
   if (test !== null && ['page-test-editor', 'page-test-assign', 'page-test-results'].includes(test.tag)) {
+    return true;
+  }
+  const course = courseRoute(path);
+  if (course !== null && course.tag === 'page-course-editor') {
     return true;
   }
   const material = materialRoute(path);
@@ -137,6 +170,20 @@ export function resolveRoute(path: string): ResolvedRoute {
   }
   if (path === '/library/materials') {
     return { tag: 'page-library', kind: 'materials' };
+  }
+  if (path === '/library/courses') {
+    return { tag: 'page-library', kind: 'courses' };
+  }
+  if (path === '/courses') {
+    return { tag: 'page-courses' };
+  }
+  // Before courseRoute(): otherwise "new" parses as a (bogus) course id.
+  if (path === '/courses/new') {
+    return { tag: 'page-course-editor', courseId: undefined };
+  }
+  const course = courseRoute(path);
+  if (course) {
+    return course;
   }
   const test = testRoute(path);
   if (test) {

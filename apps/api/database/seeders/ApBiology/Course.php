@@ -170,6 +170,12 @@ final class Course
 
     // ---- composition -------------------------------------------------
 
+    /** The course-page heading for a unit's items; the review weeks have no unit. @param array<string, mixed>|null $unit */
+    public function sectionTitle(?array $unit): string
+    {
+        return $unit === null ? 'Exam review' : "Unit {$unit['number']} · {$unit['title']}";
+    }
+
     public static function weekLabel(int $week): string
     {
         return sprintf('Week %02d', $week);

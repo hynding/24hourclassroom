@@ -3,6 +3,7 @@
 use App\Enums\Role;
 use App\Models\Assignment;
 use App\Models\Connection;
+use App\Models\Course;
 use App\Models\Material;
 use App\Models\Test;
 use App\Models\User;
@@ -107,7 +108,8 @@ test('a re-run with a new owner moves every test and material to them, keeping i
     expect(Test::orderBy('id')->pluck('id')->all())->toBe($testIds)
         ->and(Material::orderBy('id')->pluck('id')->all())->toBe($materialIds)
         ->and(Test::pluck('user_id')->unique()->all())->toBe([$me->id])
-        ->and(Material::pluck('user_id')->unique()->all())->toBe([$me->id]);
+        ->and(Material::pluck('user_id')->unique()->all())->toBe([$me->id])
+        ->and(Course::sole()->user_id)->toBe($me->id);
 });
 
 test('an owner without room for the course is refused before anything is written', function () {

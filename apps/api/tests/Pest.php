@@ -46,6 +46,7 @@ use App\Ai\FakeAnthropicGateway;
 use App\Ai\NoopSleeper;
 use App\Ai\Sleeper;
 use App\Models\Connection;
+use App\Models\Course;
 use App\Models\Integration;
 use App\Models\Material;
 use App\Models\MaterialShare;
@@ -100,6 +101,29 @@ function aMaterial(User $author, array $attrs = []): Material
     );
 
     return $material;
+}
+
+/**
+ * A course by `$author` listing `$items` (Test and Material rows) in order,
+ * each under `$section`. Writes the rows directly, past the ownership checks
+ * SaveCourseRequest applies, so a test can also build the states the API
+ * refuses to create.
+ *
+ * @param  array<int, Test|Material>  $items
+ */
+function aCourse(User $author, array $items = [], array $attrs = [], ?string $section = null): Course
+{
+    $course = Course::factory()->for($author, 'author')->create($attrs);
+    foreach (array_values($items) as $i => $item) {
+        $course->items()->create([
+            'position' => $i,
+            'section' => $section,
+            'test_id' => $item instanceof Test ? $item->id : null,
+            'material_id' => $item instanceof Material ? $item->id : null,
+        ]);
+    }
+
+    return $course;
 }
 
 function shareWith(Material $material, User $recipient): MaterialShare

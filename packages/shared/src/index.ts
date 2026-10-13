@@ -53,7 +53,7 @@ export const GRADE_LEVELS: TaxonomyOption<GradeLevel>[] = [
   { value: 'higher-ed', label: 'Higher Ed' },
 ];
 
-/** Shared by tests (C1) and materials (C2). Mirrors App\Enums\Visibility. */
+/** Shared by tests (C1), materials (C2) and courses. Mirrors App\Enums\Visibility. */
 export type Visibility = 'private' | 'public';
 
 export const VISIBILITIES: TaxonomyOption<Visibility>[] = [
@@ -324,6 +324,111 @@ export interface MaterialUpdate {
   description?: string | null;
   subject: Subject;
   grade_level: GradeLevel;
+}
+
+/**
+ * A course's author and its row in any list (the author's shelf, the course
+ * library). The counts are of what the VIEWER can see: on the shelf every
+ * item, in the library only the public ones.
+ */
+export interface CourseSummary {
+  id: number;
+  title: string;
+  subject: Subject;
+  grade_level: GradeLevel;
+  visibility: Visibility;
+  published_at: string | null;
+  test_count: number;
+  material_count: number;
+  author: TestAuthor;
+}
+
+export type CourseItemKind = 'test' | 'material';
+
+export interface CourseTestRef {
+  id: number;
+  title: string;
+  visibility: Visibility;
+  question_count: number;
+}
+
+export interface CourseMaterialRef {
+  id: number;
+  title: string;
+  visibility: Visibility;
+  original_name: string;
+  mime_type: string;
+  size_bytes: number;
+}
+
+/**
+ * One entry of a course, in display order. `section` is a heading repeated
+ * verbatim on every item of its group; views collapse identical neighbours,
+ * the same way they collapse a question's stimulus. Exactly one of `test`
+ * and `material` is present, as `kind` says.
+ */
+export interface CourseItem {
+  id: number;
+  position: number;
+  section: string | null;
+  kind: CourseItemKind;
+  test?: CourseTestRef;
+  material?: CourseMaterialRef;
+}
+
+/**
+ * GET /api/courses/{id}, and every single-course write. A visitor sees only
+ * the items that are themselves public; the author sees them all.
+ */
+export interface CourseView extends CourseSummary {
+  description: string | null;
+  created_at: string;
+  updated_at: string;
+  is_author: boolean;
+  items: CourseItem[];
+}
+
+export interface CourseItemInput {
+  kind: CourseItemKind;
+  /** The id of the TEST or MATERIAL, which must be the author's own. */
+  id: number;
+  section?: string | null;
+}
+
+export interface CourseInput {
+  title: string;
+  description?: string | null;
+  subject: Subject;
+  grade_level: GradeLevel;
+  items: CourseItemInput[];
+}
+
+/** GET /api/courses/candidates: everything the editor may add, unpaginated. */
+export interface CourseCandidates {
+  tests: { id: number; title: string; visibility: Visibility; question_count: number }[];
+  materials: { id: number; title: string; visibility: Visibility; original_name: string }[];
+}
+
+/**
+ * GET /api/courses/{id}/tests/{testId}: practice mode. The test WITH its
+ * answers (`answer`, `explanation`, `option_explanations` on every
+ * question), because a public course lets anyone reveal them.
+ */
+export interface PracticeTest extends Test {
+  course: { id: number; title: string; author: TestAuthor };
+}
+
+/**
+ * POST /api/courses/{id}/tests/{testId}/check. Plain numbers, not the
+ * decimal strings an Attempt carries: nothing here is stored. `awarded` is
+ * null for an item no scorer can mark (short and long answers, hand-graded
+ * blanks); `ungraded_count` counts those, and `score` leaves them out.
+ */
+export interface PracticeResult {
+  score: number;
+  max_score: number;
+  ungraded_count: number;
+  results: { question_id: number; awarded: number | null; points: number }[];
 }
 
 /**
@@ -616,5 +721,7 @@ export interface AppNotification {
     ungraded_count?: number;
     material_id?: number;
     material_title?: string;
+    course_id?: number;
+    course_title?: string;
   };
 }

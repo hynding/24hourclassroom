@@ -220,6 +220,23 @@ describe('app-header bell', () => {
     expect(links).not.toContain('/materials');
   });
 
+  it('shows Courses to teachers only, the one role with a courses shelf', async () => {
+    // Allowlist: everyone else finds published courses in the library.
+    for (const [role, expected] of [['teacher', true], ['student', false], ['admin', false]] as const) {
+      currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role };
+      for (const orientation of ['horizontal', 'vertical']) {
+        const spec = await newSpecPage({ components: [AppHeader], html: `<app-header orientation="${orientation}"></app-header>` });
+        const links = Array.from(spec.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+        expect(links.includes('/courses')).toBe(expected);
+      }
+    }
+
+    currentUser.value = null;
+    const guest = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+    const links = Array.from(guest.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+    expect(links).not.toContain('/courses');
+  });
+
   it('shows Connections to teachers and students only, the two roles that can connect', async () => {
     // Allowlist, not a denylist: the server accepts connections between
     // Role::Teacher and Role::Student alone, so an admin (and any fourth

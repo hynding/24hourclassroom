@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CourseAdminController;
 use App\Http\Controllers\Admin\GenerationAdminController;
 use App\Http\Controllers\Admin\MaterialAdminController;
 use App\Http\Controllers\Admin\RelationshipAdminController;
@@ -45,6 +46,10 @@ Route::middleware(['auth', 'verified', 'active', 'admin'])->prefix('admin')->gro
     Route::get('materials', [MaterialAdminController::class, 'index'])->name('admin.materials');
     Route::post('materials/{material}/unpublish', [MaterialAdminController::class, 'unpublish']);
     Route::delete('materials/{material}', [MaterialAdminController::class, 'destroy']);
+
+    Route::get('courses', [CourseAdminController::class, 'index'])->name('admin.courses');
+    Route::post('courses/{course}/unpublish', [CourseAdminController::class, 'unpublish']);
+    Route::delete('courses/{course}', [CourseAdminController::class, 'destroy']);
 
     Route::get('generations', [GenerationAdminController::class, 'index'])->name('admin.generations');
     Route::get('generations/{generation}', [GenerationAdminController::class, 'show']);

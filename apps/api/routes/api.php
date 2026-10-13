@@ -12,6 +12,11 @@ use App\Http\Controllers\Api\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationNotificationController;
 use App\Http\Controllers\Api\ConnectionController;
+use App\Http\Controllers\Api\CourseCandidatesController;
+use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\CourseLibraryController;
+use App\Http\Controllers\Api\CoursePracticeController;
+use App\Http\Controllers\Api\CoursePublishController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\GenerationCancelController;
 use App\Http\Controllers\Api\GenerationController;
@@ -112,6 +117,16 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::post('materials/{material}/shares', [MaterialShareController::class, 'store']);
     Route::delete('materials/{material}/shares/{share}', [MaterialShareController::class, 'destroy']);
 
+    Route::get('courses', [CourseController::class, 'index']);
+    Route::post('courses', [CourseController::class, 'store']);
+    // The literal is safe from {course} for the same reason as
+    // materials/shared: Route::pattern in AppServiceProvider.
+    Route::get('courses/candidates', CourseCandidatesController::class);
+    Route::put('courses/{course}', [CourseController::class, 'update']);
+    Route::delete('courses/{course}', [CourseController::class, 'destroy']);
+    Route::post('courses/{course}/publish', [CoursePublishController::class, 'publish']);
+    Route::post('courses/{course}/unpublish', [CoursePublishController::class, 'unpublish']);
+
     // Teacher-only, and grouped so plan 2's anthropic-key and generation
     // routes join the same gate. `teacher` sits ahead of SubstituteBindings
     // in the priority list, so a bound {generation} id is never an oracle.
@@ -140,6 +155,13 @@ Route::middleware(['throttle:60,1', 'active'])->group(function () {
     Route::get('library/materials', MaterialsLibraryController::class);
     Route::get('tests/{test}', [TestController::class, 'show']);
     Route::get('materials/{material}', MaterialShowController::class);
+    Route::get('library/courses', CourseLibraryController::class);
+    Route::get('courses/{course}', [CourseController::class, 'show']);
+    // Practice mode: guests included, nothing recorded. `check` is a POST
+    // only because a run's responses do not fit a query string; it writes
+    // nothing.
+    Route::get('courses/{course}/tests/{test}', [CoursePracticeController::class, 'show']);
+    Route::post('courses/{course}/tests/{test}/check', [CoursePracticeController::class, 'check']);
 });
 
 // Site configuration: no `auth`, no `active`. The public group above carries

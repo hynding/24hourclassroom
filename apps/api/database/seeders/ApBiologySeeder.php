@@ -7,10 +7,12 @@ use App\Enums\Role;
 use App\Enums\Visibility;
 use App\Models\Assignment;
 use App\Models\Connection;
+use App\Models\Course as CourseRow;
 use App\Models\Material;
 use App\Models\Test;
 use App\Models\User;
 use App\Services\MaterialWriter;
+use App\Support\CourseWriter;
 use App\Support\MaterialQuota;
 use App\Support\TestDraftValidator;
 use App\Support\TestWriter;
@@ -25,7 +27,7 @@ use RuntimeException;
 
 /**
  * The AP Biology course, from YAML to rows. Idempotent: every test,
- * question and material carries a slug, so a re-run updates in place --
+ * question, material and the course itself carry a slug, so a re-run updates in place --
  * questions keep their ids (and so their answers), a guide's bytes are
  * rewritten at the same path, nothing is duplicated.
  *
@@ -46,11 +48,24 @@ class ApBiologySeeder extends Seeder
 {
     public const PASSWORD = 'password';
 
+    public const COURSE_SLUG = 'apbio';
+
     private Course $course;
 
     private User $teacher;
 
     private ?User $student = null;
+
+    /** Order within a week on the course page. */
+    private const RANK_GUIDE = 0;
+
+    private const RANK_CARDS = 1;
+
+    private const RANK_QUIZ = 2;
+
+    private const RANK_UNIT_SUMMARY = 3;
+
+    private const RANK_UNIT_EXAM = 4;
 
     /** @var array<string, int> */
     private array $counts = ['tests' => 0, 'questions' => 0, 'materials' => 0, 'decks' => 0, 'cards' => 0, 'general_knowledge' => 0];
@@ -85,10 +100,16 @@ class ApBiologySeeder extends Seeder
         foreach ($plan['materials'] as $spec) {
             $this->material($spec);
         }
+        $course = $this->course($plan);
 
         $this->command?->info(sprintf(
             'AP Biology: %d tests (%d questions), %d materials of which %d decks (%d cards); %d items marked general knowledge.',
             $this->counts['tests'], $this->counts['questions'], $this->counts['materials'], $this->counts['decks'], $this->counts['cards'], $this->counts['general_knowledge'],
+        ));
+        $this->command?->info(sprintf(
+            'Course #%d "%s" is %s.%s',
+            $course->id, $course->title, $course->visibility->value,
+            $course->isPublic() ? '' : ' Its owner can publish it from the course page.',
         ));
     }
 
@@ -109,6 +130,7 @@ class ApBiologySeeder extends Seeder
             $unit = $c->unitForWeek($week);
             $topics = (array) ($data['topics'] ?? []);
             $title = (string) ($data['title'] ?? "Week {$week}");
+            $section = $c->sectionTitle($unit);
 
             if (isset($data['quiz'])) {
                 $tests[] = $this->testSpec(
@@ -118,11 +140,12 @@ class ApBiologySeeder extends Seeder
                     questions: (array) ($data['quiz']['questions'] ?? []),
                     file: $file,
                     week: $week,
-                );
+                ) + ['rank' => self::RANK_QUIZ, 'section' => $section];
             }
 
             if (isset($data['guide'])) {
                 $materials[] = [
+                    'week' => $week, 'rank' => self::RANK_GUIDE, 'section' => $section,
                     'slug' => sprintf('apbio-w%02d-guide', $week),
                     'title' => $c->guideTitle($week, $title),
                     'description' => $c->describe($topics, $data['guide_description'] ?? null, $unit['number'] ?? null),
@@ -134,6 +157,7 @@ class ApBiologySeeder extends Seeder
             if (! empty($data['flashcards'])) {
                 $deckTitle = $c->deckTitle($week, $title);
                 $materials[] = [
+                    'week' => $week, 'rank' => self::RANK_CARDS, 'section' => $section,
                     'slug' => sprintf('apbio-w%02d-cards', $week),
                     'title' => $deckTitle,
                     'description' => $c->describe($topics, $data['flashcards_description'] ?? null, $unit['number'] ?? null),
@@ -153,12 +177,13 @@ class ApBiologySeeder extends Seeder
                 questions: (array) ($data['questions'] ?? []),
                 file: $file,
                 week: max((array) $unit['weeks']),
-            );
+            ) + ['rank' => self::RANK_UNIT_EXAM, 'section' => $c->sectionTitle($unit)];
         }
 
         foreach ($c->unitSummaries() as $number => $file) {
             $unit = $c->unit($number);
             $materials[] = [
+                'week' => max((array) $unit['weeks']), 'rank' => self::RANK_UNIT_SUMMARY, 'section' => $c->sectionTitle($unit),
                 'slug' => sprintf('apbio-u%02d-summary', $number),
                 'title' => $c->unitSummaryTitle($number),
                 'description' => $c->describe(array_keys((array) $unit['topics']), null, $number),
@@ -175,11 +200,12 @@ class ApBiologySeeder extends Seeder
                 questions: (array) ($exam['data']['questions'] ?? []),
                 file: $exam['file'],
                 week: (int) ($c->config['review']['practice_exam_week'] ?? 34),
-            );
+            ) + ['rank' => self::RANK_QUIZ, 'section' => $c->sectionTitle(null)];
         }
 
         if ($guide = $c->examPrepGuide()) {
             $materials[] = [
+                'week' => (int) ($c->config['review']['prep_guide_week'] ?? 33), 'rank' => self::RANK_GUIDE, 'section' => $c->sectionTitle(null),
                 'slug' => 'apbio-exam-prep',
                 'title' => $c->examPrepTitle(),
                 'description' => 'Format, timing, the formula sheet, the task verbs and a two-week review plan.',
@@ -430,6 +456,52 @@ class ApBiologySeeder extends Seeder
             $this->counts['decks']++;
             $this->counts['cards'] += $spec['cards'];
         }
+    }
+
+    /**
+     * The course row: every seeded test and material in teaching order --
+     * by week, and within a week guide, flashcards, quiz, then the unit's
+     * summary and exam -- under one heading per unit. Created PRIVATE:
+     * publishing a course exposes its answers in practice mode, which is the
+     * owner's call, not the seeder's. A re-run moves it with everything else
+     * to the current owner, keeps the visibility the owner has chosen since,
+     * and rewrites the item list from the YAML.
+     *
+     * @param  array{tests: list<array<string, mixed>>, materials: list<array<string, mixed>>}  $plan
+     */
+    private function course(array $plan): CourseRow
+    {
+        $entries = [
+            ...array_map(fn ($spec) => ['kind' => 'test'] + $spec, $plan['tests']),
+            ...array_map(fn ($spec) => ['kind' => 'material'] + $spec, $plan['materials']),
+        ];
+        usort($entries, fn ($a, $b) => [$a['week'], $a['rank']] <=> [$b['week'], $b['rank']]);
+
+        $ids = [
+            'test' => Test::whereIn('slug', array_column($plan['tests'], 'slug'))->pluck('id', 'slug'),
+            'material' => Material::whereIn('slug', array_column($plan['materials'], 'slug'))->pluck('id', 'slug'),
+        ];
+        $items = array_map(fn ($e) => [
+            'kind' => $e['kind'],
+            'id' => $ids[$e['kind']][$e['slug']],
+            'section' => $e['section'],
+        ], $entries);
+
+        return DB::transaction(function () use ($items) {
+            $config = $this->course->config;
+            $course = CourseRow::firstOrNew(['slug' => self::COURSE_SLUG]);
+            $course->user_id = $this->teacher->id;
+            $course->title = (string) ($config['title'] ?? Course::PREFIX);
+            $course->description = isset($config['description']) ? trim((string) $config['description']) : null;
+            $course->subject = $config['subject'];
+            $course->grade_level = $config['grade_level'];
+            $course->visibility ??= Visibility::Private;
+            $course->save();
+
+            CourseWriter::syncItems($course, $items);
+
+            return $course->fresh();
+        });
     }
 
     /** Sunday ending the week, or null when the course has no calendar. */

@@ -79,6 +79,32 @@ export namespace Components {
     }
     interface PageConnections {
     }
+    interface PageCourse {
+        "courseId"?: number;
+    }
+    interface PageCourseEditor {
+        /**
+          * Undefined = creating (/courses/new); set = editing (/courses/:id/edit).
+         */
+        "courseId"?: number;
+    }
+    /**
+     * Practice mode for a course's test, open to anyone who can see the course.
+     * Two ways through, and the visitor can mix them: reveal any one answer as
+     * they go, or finish and see every answer with a score. Nothing is stored --
+     * responses live in this component and vanish with it -- so there is no
+     * autosave and no attempt; "finish" is one stateless check the server
+     * grades with the same scorer a real attempt uses.
+     */
+    interface PageCoursePractice {
+        "courseId"?: number;
+        "testId"?: number;
+    }
+    /**
+     * The teacher's own courses. Everyone else finds courses in the library.
+     */
+    interface PageCourses {
+    }
     interface PageForgotPassword {
     }
     interface PageGeneration {
@@ -93,7 +119,7 @@ export namespace Components {
           * Which segment is showing. reflect: true is load-bearing -- page-library.css keys on :host([kind='materials']) for the wider grid the extra type and size cells need.
           * @default 'tests'
          */
-        "kind": 'tests' | 'materials';
+        "kind": 'tests' | 'materials' | 'courses';
     }
     interface PageLogin {
     }
@@ -248,6 +274,41 @@ declare global {
     var HTMLPageConnectionsElement: {
         prototype: HTMLPageConnectionsElement;
         new (): HTMLPageConnectionsElement;
+    };
+    interface HTMLPageCourseElement extends Components.PageCourse, HTMLStencilElement {
+    }
+    var HTMLPageCourseElement: {
+        prototype: HTMLPageCourseElement;
+        new (): HTMLPageCourseElement;
+    };
+    interface HTMLPageCourseEditorElement extends Components.PageCourseEditor, HTMLStencilElement {
+    }
+    var HTMLPageCourseEditorElement: {
+        prototype: HTMLPageCourseEditorElement;
+        new (): HTMLPageCourseEditorElement;
+    };
+    /**
+     * Practice mode for a course's test, open to anyone who can see the course.
+     * Two ways through, and the visitor can mix them: reveal any one answer as
+     * they go, or finish and see every answer with a score. Nothing is stored --
+     * responses live in this component and vanish with it -- so there is no
+     * autosave and no attempt; "finish" is one stateless check the server
+     * grades with the same scorer a real attempt uses.
+     */
+    interface HTMLPageCoursePracticeElement extends Components.PageCoursePractice, HTMLStencilElement {
+    }
+    var HTMLPageCoursePracticeElement: {
+        prototype: HTMLPageCoursePracticeElement;
+        new (): HTMLPageCoursePracticeElement;
+    };
+    /**
+     * The teacher's own courses. Everyone else finds courses in the library.
+     */
+    interface HTMLPageCoursesElement extends Components.PageCourses, HTMLStencilElement {
+    }
+    var HTMLPageCoursesElement: {
+        prototype: HTMLPageCoursesElement;
+        new (): HTMLPageCoursesElement;
     };
     interface HTMLPageForgotPasswordElement extends Components.PageForgotPassword, HTMLStencilElement {
     }
@@ -438,6 +499,10 @@ declare global {
         "flashcard-deck": HTMLFlashcardDeckElement;
         "page-attempt": HTMLPageAttemptElement;
         "page-connections": HTMLPageConnectionsElement;
+        "page-course": HTMLPageCourseElement;
+        "page-course-editor": HTMLPageCourseEditorElement;
+        "page-course-practice": HTMLPageCoursePracticeElement;
+        "page-courses": HTMLPageCoursesElement;
         "page-forgot-password": HTMLPageForgotPasswordElement;
         "page-generation": HTMLPageGenerationElement;
         "page-home": HTMLPageHomeElement;
@@ -537,6 +602,32 @@ declare namespace LocalJSX {
     }
     interface PageConnections {
     }
+    interface PageCourse {
+        "courseId"?: number;
+    }
+    interface PageCourseEditor {
+        /**
+          * Undefined = creating (/courses/new); set = editing (/courses/:id/edit).
+         */
+        "courseId"?: number;
+    }
+    /**
+     * Practice mode for a course's test, open to anyone who can see the course.
+     * Two ways through, and the visitor can mix them: reveal any one answer as
+     * they go, or finish and see every answer with a score. Nothing is stored --
+     * responses live in this component and vanish with it -- so there is no
+     * autosave and no attempt; "finish" is one stateless check the server
+     * grades with the same scorer a real attempt uses.
+     */
+    interface PageCoursePractice {
+        "courseId"?: number;
+        "testId"?: number;
+    }
+    /**
+     * The teacher's own courses. Everyone else finds courses in the library.
+     */
+    interface PageCourses {
+    }
     interface PageForgotPassword {
     }
     interface PageGeneration {
@@ -551,7 +642,7 @@ declare namespace LocalJSX {
           * Which segment is showing. reflect: true is load-bearing -- page-library.css keys on :host([kind='materials']) for the wider grid the extra type and size cells need.
           * @default 'tests'
          */
-        "kind"?: 'tests' | 'materials';
+        "kind"?: 'tests' | 'materials' | 'courses';
     }
     interface PageLogin {
     }
@@ -655,11 +746,21 @@ declare namespace LocalJSX {
     interface PageAttemptAttributes {
         "attemptId": number;
     }
+    interface PageCourseAttributes {
+        "courseId": number;
+    }
+    interface PageCourseEditorAttributes {
+        "courseId": number;
+    }
+    interface PageCoursePracticeAttributes {
+        "courseId": number;
+        "testId": number;
+    }
     interface PageGenerationAttributes {
         "generationId": number;
     }
     interface PageLibraryAttributes {
-        "kind": 'tests' | 'materials';
+        "kind": 'tests' | 'materials' | 'courses';
     }
     interface PageMaterialAttributes {
         "materialId": number;
@@ -707,6 +808,10 @@ declare namespace LocalJSX {
         "flashcard-deck": Omit<FlashcardDeck, keyof FlashcardDeckAttributes> & { [K in keyof FlashcardDeck & keyof FlashcardDeckAttributes]?: FlashcardDeck[K] } & { [K in keyof FlashcardDeck & keyof FlashcardDeckAttributes as `attr:${K}`]?: FlashcardDeckAttributes[K] } & { [K in keyof FlashcardDeck & keyof FlashcardDeckAttributes as `prop:${K}`]?: FlashcardDeck[K] };
         "page-attempt": Omit<PageAttempt, keyof PageAttemptAttributes> & { [K in keyof PageAttempt & keyof PageAttemptAttributes]?: PageAttempt[K] } & { [K in keyof PageAttempt & keyof PageAttemptAttributes as `attr:${K}`]?: PageAttemptAttributes[K] } & { [K in keyof PageAttempt & keyof PageAttemptAttributes as `prop:${K}`]?: PageAttempt[K] };
         "page-connections": PageConnections;
+        "page-course": Omit<PageCourse, keyof PageCourseAttributes> & { [K in keyof PageCourse & keyof PageCourseAttributes]?: PageCourse[K] } & { [K in keyof PageCourse & keyof PageCourseAttributes as `attr:${K}`]?: PageCourseAttributes[K] } & { [K in keyof PageCourse & keyof PageCourseAttributes as `prop:${K}`]?: PageCourse[K] };
+        "page-course-editor": Omit<PageCourseEditor, keyof PageCourseEditorAttributes> & { [K in keyof PageCourseEditor & keyof PageCourseEditorAttributes]?: PageCourseEditor[K] } & { [K in keyof PageCourseEditor & keyof PageCourseEditorAttributes as `attr:${K}`]?: PageCourseEditorAttributes[K] } & { [K in keyof PageCourseEditor & keyof PageCourseEditorAttributes as `prop:${K}`]?: PageCourseEditor[K] };
+        "page-course-practice": Omit<PageCoursePractice, keyof PageCoursePracticeAttributes> & { [K in keyof PageCoursePractice & keyof PageCoursePracticeAttributes]?: PageCoursePractice[K] } & { [K in keyof PageCoursePractice & keyof PageCoursePracticeAttributes as `attr:${K}`]?: PageCoursePracticeAttributes[K] } & { [K in keyof PageCoursePractice & keyof PageCoursePracticeAttributes as `prop:${K}`]?: PageCoursePractice[K] };
+        "page-courses": PageCourses;
         "page-forgot-password": PageForgotPassword;
         "page-generation": Omit<PageGeneration, keyof PageGenerationAttributes> & { [K in keyof PageGeneration & keyof PageGenerationAttributes]?: PageGeneration[K] } & { [K in keyof PageGeneration & keyof PageGenerationAttributes as `attr:${K}`]?: PageGenerationAttributes[K] } & { [K in keyof PageGeneration & keyof PageGenerationAttributes as `prop:${K}`]?: PageGeneration[K] };
         "page-home": PageHome;
@@ -765,6 +870,21 @@ declare module "@stencil/core" {
             "flashcard-deck": LocalJSX.IntrinsicElements["flashcard-deck"] & JSXBase.HTMLAttributes<HTMLFlashcardDeckElement>;
             "page-attempt": LocalJSX.IntrinsicElements["page-attempt"] & JSXBase.HTMLAttributes<HTMLPageAttemptElement>;
             "page-connections": LocalJSX.IntrinsicElements["page-connections"] & JSXBase.HTMLAttributes<HTMLPageConnectionsElement>;
+            "page-course": LocalJSX.IntrinsicElements["page-course"] & JSXBase.HTMLAttributes<HTMLPageCourseElement>;
+            "page-course-editor": LocalJSX.IntrinsicElements["page-course-editor"] & JSXBase.HTMLAttributes<HTMLPageCourseEditorElement>;
+            /**
+             * Practice mode for a course's test, open to anyone who can see the course.
+             * Two ways through, and the visitor can mix them: reveal any one answer as
+             * they go, or finish and see every answer with a score. Nothing is stored --
+             * responses live in this component and vanish with it -- so there is no
+             * autosave and no attempt; "finish" is one stateless check the server
+             * grades with the same scorer a real attempt uses.
+             */
+            "page-course-practice": LocalJSX.IntrinsicElements["page-course-practice"] & JSXBase.HTMLAttributes<HTMLPageCoursePracticeElement>;
+            /**
+             * The teacher's own courses. Everyone else finds courses in the library.
+             */
+            "page-courses": LocalJSX.IntrinsicElements["page-courses"] & JSXBase.HTMLAttributes<HTMLPageCoursesElement>;
             "page-forgot-password": LocalJSX.IntrinsicElements["page-forgot-password"] & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
             "page-generation": LocalJSX.IntrinsicElements["page-generation"] & JSXBase.HTMLAttributes<HTMLPageGenerationElement>;
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;

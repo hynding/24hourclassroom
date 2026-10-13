@@ -146,6 +146,14 @@ export class AppHeader {
   }
 
   /**
+   * Allowlist: only a teacher builds courses (the API refuses everyone
+   * else a shelf). Everyone finds published courses in the library.
+   */
+  private showsCourses(): boolean {
+    return this.user !== null && this.user.role === 'teacher';
+  }
+
+  /**
    * Allowlist: connections exist between teachers and students only (the
    * server refuses every other role), so only they get the page.
    */
@@ -205,6 +213,7 @@ export class AppHeader {
           {this.item('/library', 'Library', 'library')}
           {this.showsTests() && this.item('/tests', 'Tests', 'tests')}
           {this.showsMaterials() && this.item('/materials', 'Materials', 'materials')}
+          {this.showsCourses() && this.item('/courses', 'Courses', 'courses')}
           {this.showsConnections() && this.item('/connections', 'Connections', 'connections')}
           {this.showsIntegrations() && this.item('/integrations', 'Integrations', 'integrations')}
           {user && this.item('/notifications', 'Notifications', 'notifications',
@@ -244,6 +253,7 @@ export class AppHeader {
           <a href="/library" onClick={(e) => this.onNav(e, '/library')}>Library</a>
           {this.showsTests() && <a href="/tests" onClick={(e) => this.onNav(e, '/tests')}>Tests</a>}
           {this.showsMaterials() && <a href="/materials" onClick={(e) => this.onNav(e, '/materials')}>Materials</a>}
+          {this.showsCourses() && <a href="/courses" onClick={(e) => this.onNav(e, '/courses')}>Courses</a>}
           {this.showsConnections() && <a href="/connections" onClick={(e) => this.onNav(e, '/connections')}>Connections</a>}
           {this.showsIntegrations() && <a href="/integrations" onClick={(e) => this.onNav(e, '/integrations')}>Integrations</a>}
           {this.user

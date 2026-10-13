@@ -737,3 +737,73 @@ describe('generation and integration endpoints', () => {
     expect(result.status).toBe('cancelled');
   });
 });
+
+describe('course endpoints', () => {
+  const okJson = (body: unknown) => jsonResponse(200, body);
+  const okFetch = (body: unknown = { data: [], meta: {} }) =>
+    vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? jsonResponse(204, null) : okJson(body),
+    );
+
+  it('listCourses and coursesLibrary follow the shelf and library query rules', async () => {
+    const fetchFn = okFetch();
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.listCourses(1);
+    await client.listCourses(2);
+    await client.coursesLibrary({ subject: 'science', sort: 'recent', page: 1 });
+    await client.coursesLibrary({ q: 'cells', sort: 'title', page: 3 });
+
+    expect(fetchFn.mock.calls.map((c) => c[0])).toEqual([
+      'https://api.test/api/courses',
+      'https://api.test/api/courses?page=2',
+      'https://api.test/api/library/courses?subject=science',
+      'https://api.test/api/library/courses?q=cells&sort=title&page=3',
+    ]);
+  });
+
+  it('createCourse POSTs and updateCourse PUTs the body with its items', async () => {
+    const fetchFn = okFetch({ id: 4 });
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+    const body = {
+      title: 'Bio', subject: 'science' as const, grade_level: '9-12' as const,
+      items: [{ kind: 'test' as const, id: 9, section: 'Unit 1' }],
+    };
+
+    await client.createCourse(body);
+    const create = fetchFn.mock.calls.find((c) => c[0] === 'https://api.test/api/courses');
+    expect(create?.[1].method).toBe('POST');
+    expect(JSON.parse(create?.[1].body)).toEqual(body);
+
+    await client.updateCourse(4, body);
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/courses/4', expect.objectContaining({ method: 'PUT' }));
+  });
+
+  it('publish, unpublish, delete and the candidates list use their own paths', async () => {
+    const fetchFn = okFetch({ id: 4 });
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.publishCourse(4);
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/courses/4/publish', expect.objectContaining({ method: 'POST' }));
+    await client.unpublishCourse(4);
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/courses/4/unpublish', expect.objectContaining({ method: 'POST' }));
+    await client.deleteCourse(4);
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/courses/4', expect.objectContaining({ method: 'DELETE' }));
+    await client.courseCandidates();
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/courses/candidates', expect.objectContaining({ method: 'GET' }));
+  });
+
+  it('practice reads the course-scoped test and checks responses keyed by question id', async () => {
+    const fetchFn = okFetch({ score: 1, max_score: 2, ungraded_count: 0, results: [] });
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.getPracticeTest(4, 9);
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/courses/4/tests/9', expect.objectContaining({ method: 'GET' }));
+
+    const result = await client.checkPractice(4, 9, { 11: 1, 12: [0, 2] });
+    const call = fetchFn.mock.calls.find((c) => c[0] === 'https://api.test/api/courses/4/tests/9/check');
+    expect(call?.[1].method).toBe('POST');
+    expect(JSON.parse(call?.[1].body)).toEqual({ responses: { 11: 1, 12: [0, 2] } });
+    expect(result.max_score).toBe(2);
+  });
+});
