@@ -198,7 +198,10 @@ distinguishable 422 let a caller walk the id space.
 ## Conventions
 
 - Conventional commits with optional scope: `feat(web):`, `fix:`, `test(api):`.
-- **`master` has no merge commits** — milestones land fast-forward.
+- Feature branches start from `dev` and PR into `dev`; `master` only ever
+  receives `dev`, through a dev -> master PR merged with **a merge commit, never
+  squash** — a squash leaves `master` with commits `dev` lacks, and the next
+  dev -> master PR reports conflicts on identical trees.
 - Don't commit into `docs/` or `.superpowers/` expecting them to travel; both
   are gitignored.
 
@@ -206,12 +209,14 @@ distinguishable 422 let a caller walk the id space.
 
 Push to `dev` -> staging, push to `master` -> production. Both gated on CI
 (`needs: [api, web]` in the single `.github/workflows/ci.yml`). There is no
-manual trigger — a push is the only way to deploy.
+manual trigger — a push is the only way to deploy, and merging a PR into either
+branch is a push.
 
 The deploy runs migrations (`migrate --force`) and recreates the
 `public/storage` symlink (`storage:link --force`, deliberately not `|| true` —
 a permissions failure there 404s every avatar behind an otherwise green deploy).
 
 **Deploys have been on hold by standing instruction. Confirm with the user
-before pushing either branch.** Check `git log origin/master..master` first —
-unpushed work has accumulated in large batches before.
+before pushing or merging into either branch.** Check `git log
+origin/master..origin/dev` first — that is what production is missing, and it
+has accumulated in large batches before.
