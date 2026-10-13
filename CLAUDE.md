@@ -227,7 +227,7 @@ nine units in the CED order (Short Fiction / Poetry / Longer Fiction or Drama,
 three times) over 32 weeks plus an exam-prep guide (week 33) and a practice
 exam shaped like the real one (55 MC in five passage sets, then three 6-point
 essays). It is 74 files against the per-teacher cap, so one teacher owning
-both seeded courses needs the cap raised above 147.
+both seeded courses needs the cap raised to at least 147.
 
 Two differences from biology. The literature CED has skills, not numbered
 topics, so a `topic_code` is a CED skill code (`1.A` ... `7.E`, listed once
