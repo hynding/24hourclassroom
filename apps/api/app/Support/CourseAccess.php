@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Enums\Role;
 use App\Models\Course;
 use App\Models\CourseItem;
 use App\Models\Test;
@@ -15,7 +16,11 @@ use App\Models\User;
  * A public course shows a visitor only the items that are themselves public
  * -- publishing a course publishes its contents (CourseWriter), and an
  * administrator unpublishing one test or material takes it out of every
- * course with it. The author always sees the whole list.
+ * course with it. The author always sees the whole list of their own items.
+ *
+ * Tests are always the course author's own, so their answers stay under the
+ * author's control. A material may be another teacher's: a branch keeps the
+ * original's readings rather than copying the files (CourseBrancher).
  */
 final class CourseAccess
 {
@@ -41,21 +46,42 @@ final class CourseAccess
     /**
      * Whether this entry appears on the course page for this viewer. The
      * caller has already established that the viewer may see the course.
-     * An item owned by someone other than the course's author is never
-     * shown: CourseWriter refuses one, and this keeps a later change of
-     * ownership from carrying it into a stranger's course.
      *
-     * The library's per-course counts apply the same rule in SQL
-     * (CourseLibraryController); change the two together.
+     * The author's own item: always to the author, to anyone else while it
+     * is public. Someone else's MATERIAL (kept from a branched course): to
+     * everyone, the author included, only while it is public and its author
+     * active -- exactly when it is in the public library. Someone else's
+     * TEST: never; SaveCourseRequest refuses one, and this keeps a later
+     * change of ownership from carrying one into a stranger's course.
+     *
+     * The per-course counts apply the same rule in SQL (CourseController,
+     * CourseLibraryController); change them together.
      */
     public static function showsItem(?User $viewer, Course $course, CourseItem $item): bool
     {
         $target = $item->test ?? $item->material;
-        if ($target === null || $target->user_id !== $course->user_id) {
+        if ($target === null) {
             return false;
+        }
+        if ($target->user_id !== $course->user_id) {
+            return $item->material !== null && $target->isPublic() && $target->author->isActive();
         }
 
         return self::canAuthor($viewer, $course) || $target->isPublic();
+    }
+
+    /**
+     * Branching is for OTHER teachers, like copying a test: the author
+     * already owns the original. Allowlist: only `Role::Teacher`. The caller
+     * has already established the viewer may see the course, which for a
+     * non-author means it is public.
+     */
+    public static function canBranch(?User $viewer, Course $course): bool
+    {
+        return $viewer !== null
+            && $viewer->role === Role::Teacher
+            && $course->isPublic()
+            && ! self::canAuthor($viewer, $course);
     }
 
     /**

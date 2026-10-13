@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Enums\Role;
+use App\Enums\Visibility;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveCourseRequest;
 use App\Http\Resources\CourseSummaryResource;
@@ -20,20 +21,29 @@ use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
-    /** The author's own shelf: every item counts, public or not. */
+    /**
+     * The author's own shelf: every item the author would see on the course
+     * page (CourseAccess::showsItem) -- their own, public or not, and another
+     * teacher's material kept from a branch while it is public.
+     */
     public function index(Request $request): AnonymousResourceCollection
     {
         // Allowlist: only a teacher has a courses shelf. Admin is not a teacher here.
         abort_unless($request->user()->role === Role::Teacher, 403);
 
         $own = fn (string $table) => fn (Builder $q) => $q->whereColumn("{$table}.user_id", 'courses.user_id');
+        $material = fn (Builder $q) => $q->where(fn (Builder $m) => $m
+            ->whereColumn('materials.user_id', 'courses.user_id')
+            ->orWhere(fn (Builder $shared) => $shared
+                ->where('materials.visibility', Visibility::Public)
+                ->whereHas('author', fn ($a) => $a->whereNull('deactivated_at'))));
 
         return CourseSummaryResource::collection(
             $request->user()->courses()
                 ->with('author')
                 ->withCount([
                     'items as tests_count' => fn (Builder $q) => $q->whereHas('test', $own('tests')),
-                    'items as materials_count' => fn (Builder $q) => $q->whereHas('material', $own('materials')),
+                    'items as materials_count' => fn (Builder $q) => $q->whereHas('material', $material),
                 ])
                 ->latest('id')
                 ->paginate(15)

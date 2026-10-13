@@ -779,7 +779,7 @@ describe('course endpoints', () => {
     expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/courses/4', expect.objectContaining({ method: 'PUT' }));
   });
 
-  it('publish, unpublish, delete and the candidates list use their own paths', async () => {
+  it('publish, unpublish, delete, branch and the candidates list use their own paths', async () => {
     const fetchFn = okFetch({ id: 4 });
     const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
 
@@ -791,6 +791,8 @@ describe('course endpoints', () => {
     expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/courses/4', expect.objectContaining({ method: 'DELETE' }));
     await client.courseCandidates();
     expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/courses/candidates', expect.objectContaining({ method: 'GET' }));
+    await client.branchCourse(4);
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/courses/4/branch', expect.objectContaining({ method: 'POST' }));
   });
 
   it('practice reads the course-scoped test and checks responses keyed by question id', async () => {

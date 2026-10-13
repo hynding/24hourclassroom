@@ -13,6 +13,10 @@ interface EditorItem {
   section: string;
   title: string;
   visibility: Visibility;
+  /** Another teacher's material kept from the original of a branch: their name. */
+  sharedBy?: string;
+  /** Added in this editing session: on a public course, saving publishes it (and only it). */
+  added?: boolean;
 }
 
 /** The server's cap (SaveCourseRequest::MAX_ITEMS). */
@@ -73,7 +77,11 @@ export class PageCourseEditor {
     this.items = course.items
       .map((item) => {
         const target = item.kind === 'test' ? item.test : item.material;
-        return target ? { kind: item.kind, id: target.id, section: item.section ?? '', title: target.title, visibility: target.visibility } : null;
+        if (!target) {
+          return null;
+        }
+        const sharedBy = item.kind === 'material' && item.material.author.id !== course.author.id ? item.material.author.name : undefined;
+        return { kind: item.kind, id: target.id, section: item.section ?? '', title: target.title, visibility: target.visibility, ...(sharedBy ? { sharedBy } : {}) };
       })
       .filter((item): item is EditorItem => item !== null);
     this.nextSection = this.items[this.items.length - 1]?.section ?? '';
@@ -125,7 +133,7 @@ export class PageCourseEditor {
     if (!found || this.has(kind as CourseItemKind, id) || this.items.length >= MAX_ITEMS) {
       return;
     }
-    this.items = [...this.items, { kind: kind as CourseItemKind, id, section: this.nextSection, title: found.title, visibility: found.visibility }];
+    this.items = [...this.items, { kind: kind as CourseItemKind, id, section: this.nextSection, title: found.title, visibility: found.visibility, added: true }];
     this.pick = '';
   }
 
@@ -165,7 +173,8 @@ export class PageCourseEditor {
         <div class="what">
           <span class="kind">{item.kind === 'test' ? 'Test' : 'Material'}</span>
           <span class="title">{courseItemTitle(this.title, item.title)}</span>
-          {item.visibility === 'private' && <span class="meta">{this.isPublic ? 'Private: published when you save' : 'Private'}</span>}
+          {item.sharedBy && <span class="meta">From {item.sharedBy}'s original: keep, move or remove it</span>}
+          {item.visibility === 'private' && <span class="meta">{this.isPublic && item.added ? 'Private: published when you save' : 'Private'}</span>}
         </div>
         <div class="row-actions">
           <button type="button" class="btn" aria-label={`Move ${item.title} up`} disabled={i === 0} onClick={() => this.move(i, -1)}>Up</button>
@@ -225,7 +234,7 @@ export class PageCourseEditor {
           <h2>Contents</h2>
           <p class="notice">
             Only your own tests and materials can go in a course. Items under the same section heading are grouped together.
-            {this.isPublic && ' This course is public: anything you add is published with it.'}
+            {this.isPublic && ' This course is public: anything you add is published with it. Items already here keep their own visibility.'}
           </p>
           {this.fieldError('items')}
           {this.items.length === 0 && <p>Nothing in this course yet.</p>}

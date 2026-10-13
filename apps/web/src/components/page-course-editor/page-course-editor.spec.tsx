@@ -26,6 +26,7 @@ const candidates = {
 const existing = {
   id: 3, title: 'Biology', subject: 'science', grade_level: '9-12', visibility: 'public', published_at: '2026-09-01',
   test_count: 1, material_count: 0, author: { id: 1, name: 'Ms K' }, description: 'A term.', created_at: '', updated_at: '', is_author: true,
+  branched_from: null, can_branch: false, my_branch_id: null,
   items: [{ id: 30, position: 0, section: 'Unit 1', kind: 'test', test: { id: 5, title: 'Cells quiz', visibility: 'public', question_count: 4 } }],
 };
 const mount = async (attrs = '') => {
@@ -98,6 +99,34 @@ describe('page-course-editor', () => {
     page.root.shadowRoot.querySelector<HTMLButtonElement>('button[aria-label="Remove Draft"]').click();
     await page.waitForChanges();
     expect(cmp.items.map((i) => i.id)).toEqual([5]);
+  });
+
+  it('marks a branch\'s shared material, labels only newly added items as published on save, and keeps both in the body', async () => {
+    getCourse.mockResolvedValue({
+      ...existing,
+      items: [
+        { id: 31, position: 0, section: null, kind: 'material', material: { id: 70, title: 'Original reading', visibility: 'public', original_name: 'r.md', mime_type: 'text/plain', size_bytes: 9, author: { id: 9, name: 'Mr Original' } } },
+        { id: 32, position: 1, section: null, kind: 'test', test: { id: 6, title: 'Draft', visibility: 'private', question_count: 0 } },
+      ],
+    });
+    courseCandidates.mockResolvedValue({ ...candidates, tests: [...candidates.tests, { id: 8, title: 'Fresh', visibility: 'private', question_count: 2 }] });
+    const page = await mount('course-id="3"');
+    const cmp = page.rootInstance as PageCourseEditor;
+    cmp.pick = 'test:8';
+    cmp.add();
+    await page.waitForChanges();
+
+    const metas = Array.from(page.root.shadowRoot.querySelectorAll('.item .what')).map((w) => w.textContent);
+    expect(metas[0]).toContain("From Mr Original's original");
+    expect(metas[1]).toContain('Private');
+    expect(metas[1]).not.toContain('published when you save');
+    expect(metas[2]).toContain('Private: published when you save');
+
+    updateCourse.mockResolvedValue({ id: 3 });
+    await cmp.save();
+    expect(updateCourse.mock.calls[0][1].items).toEqual([
+      { kind: 'material', id: 70, section: null }, { kind: 'test', id: 6, section: null }, { kind: 'test', id: 8, section: null },
+    ]);
   });
 
   it('shows the server\'s per-item errors beside the row', async () => {

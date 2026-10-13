@@ -359,6 +359,8 @@ export interface CourseMaterialRef {
   original_name: string;
   mime_type: string;
   size_bytes: number;
+  /** Not always the course's author: a branch keeps its original's materials. */
+  author: TestAuthor;
 }
 
 /**
@@ -378,13 +380,19 @@ export interface CourseItem {
 
 /**
  * GET /api/courses/{id}, and every single-course write. A visitor sees only
- * the items that are themselves public; the author sees them all.
+ * the items that are themselves public; the author sees all of their own.
  */
 export interface CourseView extends CourseSummary {
   description: string | null;
   created_at: string;
   updated_at: string;
   is_author: boolean;
+  /** The public course this one was branched from; null when there is none the viewer can open. */
+  branched_from: { id: number; title: string; author: TestAuthor } | null;
+  /** Another teacher, on a public course. */
+  can_branch: boolean;
+  /** The viewer's latest branch of this course, if they have one. */
+  my_branch_id: number | null;
   items: CourseItem[];
 }
 

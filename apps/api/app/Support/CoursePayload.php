@@ -40,7 +40,8 @@ final class CoursePayload
     /** The CourseView shape. @return array<string, mixed> */
     public static function view(Course $course, ?User $viewer): array
     {
-        $course->loadMissing(['author', 'items.test' => fn ($q) => $q->withCount('questions'), 'items.material']);
+        $course->loadMissing(['author', 'branchedFrom.author', 'items.test' => fn ($q) => $q->withCount('questions'), 'items.material.author']);
+        $source = $course->branchedFrom;
 
         $items = $course->items
             ->filter(fn (CourseItem $item) => CourseAccess::showsItem($viewer, $course, $item))
@@ -53,6 +54,17 @@ final class CoursePayload
             'created_at' => $course->created_at,
             'updated_at' => $course->updated_at,
             'is_author' => CourseAccess::canAuthor($viewer, $course),
+            // Named only while the viewer could open it: an original made
+            // private since is not this branch's to announce.
+            'branched_from' => $source !== null && CourseAccess::canView($viewer, $source)
+                ? ['id' => $source->id, 'title' => $source->title, 'author' => ['id' => $source->author->id, 'name' => $source->author->name]]
+                : null,
+            'can_branch' => CourseAccess::canBranch($viewer, $course),
+            // The viewer's latest branch of THIS course, so the page can
+            // offer it instead of a second copy by accident.
+            'my_branch_id' => $viewer
+                ? $course->branches()->where('user_id', $viewer->id)->latest('id')->value('id')
+                : null,
             'items' => $items->map(fn (CourseItem $item) => self::item($item))->all(),
         ]);
     }
@@ -83,6 +95,8 @@ final class CoursePayload
                 'original_name' => $item->material->original_name,
                 'mime_type' => $item->material->mime_type,
                 'size_bytes' => $item->material->size_bytes,
+                // Not always the course's author: a branch keeps the original's materials.
+                'author' => ['id' => $item->material->author->id, 'name' => $item->material->author->name],
             ],
         ];
     }

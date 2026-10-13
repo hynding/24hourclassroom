@@ -5,6 +5,7 @@ const getCourse = jest.fn();
 const publishCourse = jest.fn();
 const unpublishCourse = jest.fn();
 const deleteCourse = jest.fn();
+const branchCourse = jest.fn();
 const navigate = jest.fn();
 jest.mock('../../services/courses-store', () => ({
   coursesStore: {
@@ -12,6 +13,7 @@ jest.mock('../../services/courses-store', () => ({
     publishCourse: (...a: unknown[]) => publishCourse(...a),
     unpublishCourse: (...a: unknown[]) => unpublishCourse(...a),
     deleteCourse: (...a: unknown[]) => deleteCourse(...a),
+    branchCourse: (...a: unknown[]) => branchCourse(...a),
   },
 }));
 jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a) }));
@@ -34,12 +36,15 @@ const quiz = (id: number, section: string | null, visibility = 'public') => ({
 });
 const guide = (id: number, section: string | null) => ({
   id: id * 10, position: id, section, kind: 'material',
-  material: { id, title: `AP Biology · Week 0${id} · Study Guide`, visibility: 'public', original_name: 'guide.md', mime_type: 'text/plain', size_bytes: 900 },
+  material: {
+    id, title: `AP Biology · Week 0${id} · Study Guide`, visibility: 'public', original_name: 'guide.md', mime_type: 'text/plain', size_bytes: 900,
+    author: { id: 1, name: 'Ms K' },
+  },
 });
 const course = (over: Record<string, unknown> = {}) => ({
   id: 3, title: 'AP Biology', subject: 'science', grade_level: '9-12', visibility: 'public', published_at: '2026-09-01',
   test_count: 2, material_count: 1, author: { id: 1, name: 'Ms K' }, description: 'A full year.', created_at: '', updated_at: '',
-  is_author: false,
+  is_author: false, branched_from: null, can_branch: false, my_branch_id: null,
   items: [guide(1, 'Unit 1 · Chemistry of Life'), quiz(1, 'Unit 1 · Chemistry of Life'), quiz(2, 'Unit 2 · Cells')],
   ...over,
 });
@@ -53,7 +58,7 @@ const buttons = (page: Awaited<ReturnType<typeof mount>>) => Array.from(page.roo
 
 describe('page-course', () => {
   beforeEach(() => {
-    [getCourse, publishCourse, unpublishCourse, deleteCourse, navigate].forEach((m) => m.mockReset());
+    [getCourse, publishCourse, unpublishCourse, deleteCourse, branchCourse, navigate].forEach((m) => m.mockReset());
   });
 
   it('shows a visitor the course in sections, tests linked to practice mode, and no author controls', async () => {
@@ -118,6 +123,61 @@ describe('page-course', () => {
     await page.waitForChanges();
     expect(deleteCourse).toHaveBeenCalledWith(3);
     expect(navigate).toHaveBeenCalledWith('/courses');
+  });
+
+  it('offers another teacher a branch, and opens the new branch once it exists', async () => {
+    const page = await mount(course({ can_branch: true }));
+    expect(buttons(page)).toEqual(['Branch this course']);
+    expect(deepText(page.root.shadowRoot)).toContain('Branch it to get your own private copy');
+
+    branchCourse.mockResolvedValue(course({ id: 8, is_author: true, visibility: 'private' }));
+    window.confirm = jest.fn(() => true);
+    page.root.shadowRoot.querySelector('button').click();
+    await page.waitForChanges();
+    await page.waitForChanges();
+    expect(window.confirm).toHaveBeenCalledWith(expect.stringContaining('private'));
+    expect(branchCourse).toHaveBeenCalledWith(3);
+    expect(navigate).toHaveBeenCalledWith('/courses/8');
+  });
+
+  it('points a teacher who already branched at their branch, and does not branch on a cancelled confirm', async () => {
+    const page = await mount(course({ can_branch: true, my_branch_id: 8 }));
+    expect(page.root.shadowRoot.querySelector('a[href="/courses/8"]').textContent).toBe('Open your branch');
+    expect(buttons(page)).toEqual(['Branch again']);
+    window.confirm = jest.fn(() => false);
+    page.root.shadowRoot.querySelector('button').click();
+    await page.waitForChanges();
+    expect(branchCourse).not.toHaveBeenCalled();
+  });
+
+  it('shows a branch where it came from, whose materials are shared, and links its own tests to their editor', async () => {
+    const shared = guide(1, null);
+    shared.material.author = { id: 9, name: 'Mr Original' };
+    const page = await mount(course({
+      is_author: true, visibility: 'private', author: { id: 1, name: 'Ms K' },
+      branched_from: { id: 2, title: 'AP Biology', author: { id: 9, name: 'Mr Original' } },
+      items: [shared, quiz(4, null, 'private')],
+    }));
+    const root = page.root.shadowRoot;
+    const text = deepText(root);
+    expect(root.querySelector('a[href="/courses/2"]').textContent).toBe('AP Biology');
+    expect(text).toContain('by Mr Original');
+    expect(text).toContain('from Mr Original');
+    expect(text).toContain('This is your private branch');
+    expect(text).not.toContain('Only you can see this course');
+    expect(root.querySelector('a[href="/tests/4/edit"]').textContent).toBe('Edit questions');
+  });
+
+  it('loads the new course when the route moves to another one on the same element', async () => {
+    const page = await mount(course());
+    getCourse.mockResolvedValue(course({ id: 8, title: 'My branch', is_author: true, visibility: 'private' }));
+
+    page.root.courseId = 8;
+    await page.waitForChanges();
+    await page.waitForChanges();
+
+    expect(getCourse).toHaveBeenLastCalledWith(8);
+    expect(page.root.shadowRoot.querySelector('h1').textContent).toBe('My branch');
   });
 
   it('renders not-found on a 404 and an empty state for an empty course', async () => {

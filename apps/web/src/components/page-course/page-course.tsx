@@ -1,4 +1,4 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Prop, State, Watch } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
 import { CourseItem, CourseView, GRADE_LEVELS, SUBJECTS } from '@24hc/shared';
 import { coursesStore } from '../../services/courses-store';
@@ -19,6 +19,21 @@ export class PageCourse {
   async componentWillLoad() {
     // No authStore.load(): every branch reads a payload field (is_author),
     // never the viewer's role.
+    await this.load();
+  }
+
+  /**
+   * Course-to-course links (a branch and its original, "Open your branch",
+   * landing on a new branch) resolve to this same tag, so Stencil reuses the
+   * element and componentWillLoad does NOT re-run: without this the page
+   * would keep showing the course it was mounted with.
+   */
+  @Watch('courseId')
+  async onCourseChange() {
+    this.course = null;
+    this.notFound = false;
+    this.loadError = false;
+    this.actionError = '';
     await this.load();
   }
 
@@ -74,6 +89,20 @@ export class PageCourse {
     this.course = await coursesStore.unpublishCourse(this.course.id);
   });
 
+  /**
+   * The server decides who may branch (`can_branch`); this only asks first,
+   * because a branch copies every test into the teacher's account.
+   */
+  private branch = () => {
+    if (!window.confirm('Make your own private branch of this course? Its tests are copied into your account, private, for you to change: rewrite or add questions and answers, and assign them to your students. Its readings and flashcards stay shared from the original. Nothing you change touches the original.')) {
+      return;
+    }
+    return this.run(async () => {
+      const branch = await coursesStore.branchCourse(this.course.id);
+      navigate(`/courses/${branch.id}`);
+    });
+  };
+
   private remove = () => {
     if (!window.confirm('Delete this course? Its tests and materials are kept. This cannot be undone.')) {
       return;
@@ -102,12 +131,15 @@ export class PageCourse {
       return null;
     }
     const path = item.kind === 'test' ? `/courses/${c.id}/tests/${target.id}` : `/materials/${target.id}`;
+    const shared = item.kind === 'material' && item.material.author.id !== c.author.id;
     return (
       <li class={`item ${item.kind}`}>
         <span class="kind">{courseItemKind(item)}</span>
         {this.link(path, courseItemTitle(c.title, target.title))}
         {item.kind === 'test' && <span class="meta">{this.count(item.test.question_count, 'question', 'questions')}</span>}
+        {shared && <span class="meta">from {item.material.author.name}</span>}
         {c.is_author && target.visibility === 'private' && <span class="meta">Private</span>}
+        {c.is_author && item.kind === 'test' && this.link(`/tests/${target.id}/edit`, 'Edit questions')}
       </li>
     );
   }
@@ -134,6 +166,9 @@ export class PageCourse {
             {this.label(SUBJECTS, c.subject)} · {this.label(GRADE_LEVELS, c.grade_level)} · {this.count(c.test_count, 'test', 'tests')} · {this.count(c.material_count, 'material', 'materials')} · by {this.link(`/teachers/${c.author.id}`, c.author.name)}
             {c.is_author && (isPublic ? ' · Public' : ' · Private')}
           </p>
+          {c.branched_from && (
+            <p class="meta">Branched from {this.link(`/courses/${c.branched_from.id}`, c.branched_from.title)} by {c.branched_from.author.name}</p>
+          )}
           {c.description && <rich-text blocks text={c.description}></rich-text>}
         </header>
 
@@ -151,7 +186,21 @@ export class PageCourse {
             <button type="button" class="btn" disabled={this.busy} onClick={this.remove}>Delete</button>
           </div>
         )}
-        {c.is_author && !isPublic && (
+        {c.can_branch && (
+          <div class="actions">
+            {c.my_branch_id && this.link(`/courses/${c.my_branch_id}`, 'Open your branch')}
+            <button type="button" class={c.my_branch_id ? 'btn' : 'btn-primary'} disabled={this.busy} onClick={this.branch}>
+              {c.my_branch_id ? 'Branch again' : 'Branch this course'}
+            </button>
+          </div>
+        )}
+        {c.can_branch && !c.my_branch_id && (
+          <p class="notice">Anyone can see this course's answers. Branch it to get your own private copy whose questions and answers you can change and keep to yourself and your students.</p>
+        )}
+        {c.is_author && !isPublic && c.branched_from && (
+          <p class="notice">This is your private branch. Its tests are your own copies: edit them, add your own questions and answers, and assign them. Only you and the students you assign them to can see them, unless you publish the course.</p>
+        )}
+        {c.is_author && !isPublic && !c.branched_from && (
           <p class="notice">Only you can see this course. Publishing it makes the course and everything in it public, and lets anyone practise its tests with the answers available.</p>
         )}
         {c.is_author && isPublic && hidden > 0 && (

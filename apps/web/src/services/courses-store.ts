@@ -19,6 +19,8 @@ export class CoursesStore {
   deleteCourse(id: number) { return this.client.deleteCourse(id); }
   publishCourse(id: number) { return this.client.publishCourse(id); }
   unpublishCourse(id: number) { return this.client.unpublishCourse(id); }
+  /** Resolves to the new BRANCH, not the original. */
+  branchCourse(id: number) { return this.client.branchCourse(id); }
   getPracticeTest(courseId: number, testId: number) { return this.client.getPracticeTest(courseId, testId); }
   checkPractice(courseId: number, testId: number, responses: Record<number, unknown>) { return this.client.checkPractice(courseId, testId, responses); }
 }

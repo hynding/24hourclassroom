@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Enums\GradeLevel;
 use App\Enums\Role;
 use App\Enums\Subject;
+use App\Enums\Visibility;
 use App\Models\Material;
 use App\Models\Test;
 use App\Support\CourseAccess;
@@ -57,6 +58,11 @@ class SaveCourseRequest extends FormRequest
      * "does not exist": a distinguishable error would let a teacher walk
      * the id space for other people's private tests.
      *
+     * The one exception to "your own": a material that is ALREADY in this
+     * course and is another teacher's public one -- what a branch keeps from
+     * its original. It can be kept, moved or removed, never newly added
+     * here, and only while it would still be shown (CourseAccess::showsItem).
+     *
      * @return array<int, callable>
      */
     public function after(): array
@@ -70,9 +76,20 @@ class SaveCourseRequest extends FormRequest
                 $items = (array) $this->input('items', []);
                 $owner = $this->user()->id;
                 $ids = fn (string $kind) => collect($items)->where('kind', $kind)->pluck('id')->map(fn ($id) => (int) $id)->all();
+                $kept = $this->route('course')
+                    ? Material::query()
+                        ->whereIn('id', $this->route('course')->items()->reorder()->whereNotNull('material_id')->select('material_id'))
+                        ->where('user_id', '!=', $owner)
+                        ->where('visibility', Visibility::Public)
+                        ->whereHas('author', fn ($q) => $q->whereNull('deactivated_at'))
+                        ->pluck('id')->all()
+                    : [];
                 $own = [
                     'test' => Test::where('user_id', $owner)->whereIn('id', $ids('test'))->pluck('id')->all(),
-                    'material' => Material::where('user_id', $owner)->whereIn('id', $ids('material'))->pluck('id')->all(),
+                    'material' => [
+                        ...Material::where('user_id', $owner)->whereIn('id', $ids('material'))->pluck('id')->all(),
+                        ...$kept,
+                    ],
                 ];
 
                 $seen = [];

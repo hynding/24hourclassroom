@@ -471,6 +471,11 @@ export class ApiClient {
     return this.post<CourseView>(`/api/courses/${id}/unpublish`);
   }
 
+  /** A private copy for the caller: its tests copied as their own, materials kept from the original. Returns the BRANCH. */
+  async branchCourse(id: number): Promise<CourseView> {
+    return this.post<CourseView>(`/api/courses/${id}/branch`);
+  }
+
   async getPracticeTest(courseId: number, testId: number): Promise<PracticeTest> {
     return this.get<PracticeTest>(`/api/courses/${courseId}/tests/${testId}`);
   }

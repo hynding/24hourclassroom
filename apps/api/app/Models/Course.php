@@ -15,7 +15,7 @@ class Course extends Model
     /** @use HasFactory<\Database\Factories\CourseFactory> */
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'subject', 'grade_level', 'visibility', 'published_at', 'slug'];
+    protected $fillable = ['title', 'description', 'subject', 'grade_level', 'visibility', 'published_at', 'slug', 'branched_from_id'];
 
     protected function casts(): array
     {
@@ -30,6 +30,17 @@ class Course extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /** The public course this one was branched from, while it exists. */
+    public function branchedFrom(): BelongsTo
+    {
+        return $this->belongsTo(Course::class, 'branched_from_id');
+    }
+
+    public function branches(): HasMany
+    {
+        return $this->hasMany(Course::class, 'branched_from_id');
     }
 
     /** In display order. */

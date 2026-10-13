@@ -6,7 +6,7 @@ const test = (id: number, section: string | null): CourseItem => ({
 });
 const material = (id: number, name: string): CourseItem => ({
   id, position: id, section: null, kind: 'material',
-  material: { id, title: `M${id}`, visibility: 'public', original_name: name, mime_type: 'text/plain', size_bytes: 10 },
+  material: { id, title: `M${id}`, visibility: 'public', original_name: name, mime_type: 'text/plain', size_bytes: 10, author: { id: 1, name: 'Ms K' } },
 });
 
 describe('courseSections', () => {

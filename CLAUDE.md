@@ -123,6 +123,7 @@ seeders and factories are deliberately ungated.
 A course (`courses` + `course_items`) is a teacher's ordered list of their
 **own** tests and materials, each under an optional `section` heading (repeated
 per item and collapsed by the views, like a stimulus). New courses are private.
+A public course's answers are public by design: there is no hide-answers switch.
 `App\Support\CourseAccess` holds every rule:
 
 - Private: author only, 404 to everyone else. Public: anyone, logged out
@@ -142,6 +143,19 @@ per item and collapsed by the views, like a stimulus). New courses are private.
 
 Publishing a course exposes its answers, including to students the teacher has
 assigned those tests to; the SPA's publish confirm says so.
+
+**Branches** are how a teacher gets private answers from a public course.
+`POST /api/courses/{course}/branch` (another teacher only, public course only)
+runs `CourseBrancher`: a new **private** course (`branched_from_id`) whose
+tests are private copies owned by the brancher (`TestCopier`, the same path as
+"Copy to my tests") — theirs to rewrite, extend and assign — and whose
+materials stay **references** to the original's public files rather than
+copies (no answers in them, and a full course would eat the file cap). That
+makes tests always the course author's own, while a material may be another
+teacher's: shown only while it is public with an active author, keepable,
+movable and removable in the editor, never newly addable. Later changes to the
+original do not reach a branch. `page-course` watches `courseId`: a branch and
+its original are the same tag, so Stencil reuses the element.
 
 ## Seeded AP Biology course
 

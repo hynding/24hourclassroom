@@ -25,19 +25,24 @@ class CourseLibraryController extends Controller
             'sort' => LibrarySort::rule(),
         ]);
 
-        // CourseAccess::showsItem for a visitor, in SQL: the author's own
-        // row, and public. Change the two together.
-        $visible = fn (string $table) => fn (Builder $q) => $q
-            ->whereColumn("{$table}.user_id", 'courses.user_id')
-            ->where("{$table}.visibility", Visibility::Public);
+        // CourseAccess::showsItem for a visitor, in SQL: a test that is the
+        // author's own and public; a material that is public with an active
+        // author (the course's, or the original's in a branch). Change the
+        // two together.
+        $test = fn (Builder $q) => $q
+            ->whereColumn('tests.user_id', 'courses.user_id')
+            ->where('tests.visibility', Visibility::Public);
+        $material = fn (Builder $q) => $q
+            ->where('materials.visibility', Visibility::Public)
+            ->whereHas('author', fn ($a) => $a->whereNull('deactivated_at'));
 
         $courses = Course::query()
             ->where('visibility', Visibility::Public)
             ->whereHas('author', fn ($q) => $q->whereNull('deactivated_at'))
             ->with('author')
             ->withCount([
-                'items as tests_count' => fn (Builder $q) => $q->whereHas('test', $visible('tests')),
-                'items as materials_count' => fn (Builder $q) => $q->whereHas('material', $visible('materials')),
+                'items as tests_count' => fn (Builder $q) => $q->whereHas('test', $test),
+                'items as materials_count' => fn (Builder $q) => $q->whereHas('material', $material),
             ])
             ->when($filters['subject'] ?? null, fn ($q, $s) => $q->where('subject', $s))
             ->when($filters['grade'] ?? null, fn ($q, $g) => $q->where('grade_level', $g))

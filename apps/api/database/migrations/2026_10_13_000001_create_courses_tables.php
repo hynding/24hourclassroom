@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Schema;
  * A course is an ordered list of its author's own tests and materials,
  * grouped under optional section headings. Publishing one is the author's
  * choice: a public course is readable logged out and its tests can be
- * practised with the answers available (CourseAccess).
+ * practised with the answers available (CourseAccess). Another teacher can
+ * branch a public course into a private one of their own (CourseBrancher).
  */
 return new class extends Migration
 {
@@ -19,6 +20,9 @@ return new class extends Migration
             // Seeder idempotency key; never set by the API or the editor.
             $table->string('slug', 120)->nullable()->unique();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            // The public course this one was branched from. Deleting the
+            // original must not delete its branches.
+            $table->foreignId('branched_from_id')->nullable()->constrained('courses')->nullOnDelete();
             $table->string('title', 160);
             $table->text('description')->nullable();
             $table->string('subject');
@@ -39,7 +43,9 @@ return new class extends Migration
             // question's stimulus; the views collapse identical neighbours.
             $table->string('section', 160)->nullable();
             // Exactly one of the two is set (CourseWriter). Deleting the test
-            // or material removes it from every course that listed it.
+            // or material removes it from every course that listed it. A
+            // test is always the course author's own; a material may be
+            // another teacher's public one, kept from a branched course.
             $table->foreignId('test_id')->nullable()->constrained('tests')->cascadeOnDelete();
             $table->foreignId('material_id')->nullable()->constrained('materials')->cascadeOnDelete();
             $table->timestamps();

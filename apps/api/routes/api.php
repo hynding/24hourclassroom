@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationNotificationController;
 use App\Http\Controllers\Api\ConnectionController;
+use App\Http\Controllers\Api\CourseBranchController;
 use App\Http\Controllers\Api\CourseCandidatesController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\CourseLibraryController;
@@ -126,6 +127,7 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::delete('courses/{course}', [CourseController::class, 'destroy']);
     Route::post('courses/{course}/publish', [CoursePublishController::class, 'publish']);
     Route::post('courses/{course}/unpublish', [CoursePublishController::class, 'unpublish']);
+    Route::post('courses/{course}/branch', CourseBranchController::class);
 
     // Teacher-only, and grouped so plan 2's anthropic-key and generation
     // routes join the same gate. `teacher` sits ahead of SubstituteBindings
