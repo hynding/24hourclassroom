@@ -30,6 +30,12 @@ test('the content lint passes', function (string $seeder, array $expect, string 
     expect($errors)->toBe([], implode("\n", array_slice($errors, 0, 25)));
 })->with('seeded courses')->with(ContentLint::RULES);
 
+test('the course fits the default per-teacher file cap', function (string $seeder) {
+    $course = new Course($seeder::defaultDir());
+    $files = 2 * count($course->weeks()) + count($course->unitSummaries()) + ($course->examPrepGuide() ? 1 : 0);
+    expect($files)->toBeLessThanOrEqual(100, "{$files} materials");
+})->with('seeded courses');
+
 test('no two seeded courses share a slug', function () {
     $slugs = array_map(fn ($seeder) => (new Course($seeder::defaultDir()))->slug, [ApBiologySeeder::class, ApUsHistorySeeder::class]);
     expect(array_unique($slugs))->toHaveCount(count($slugs));
