@@ -121,6 +121,11 @@ export namespace Components {
          */
         "kind": 'tests' | 'materials' | 'courses';
     }
+    /**
+     * /library: an index of the library's shelves, one card each.
+     */
+    interface PageLibraryIndex {
+    }
     interface PageLogin {
     }
     interface PageMaterial {
@@ -340,6 +345,15 @@ declare global {
         prototype: HTMLPageLibraryElement;
         new (): HTMLPageLibraryElement;
     };
+    /**
+     * /library: an index of the library's shelves, one card each.
+     */
+    interface HTMLPageLibraryIndexElement extends Components.PageLibraryIndex, HTMLStencilElement {
+    }
+    var HTMLPageLibraryIndexElement: {
+        prototype: HTMLPageLibraryIndexElement;
+        new (): HTMLPageLibraryIndexElement;
+    };
     interface HTMLPageLoginElement extends Components.PageLogin, HTMLStencilElement {
     }
     var HTMLPageLoginElement: {
@@ -508,6 +522,7 @@ declare global {
         "page-home": HTMLPageHomeElement;
         "page-integrations": HTMLPageIntegrationsElement;
         "page-library": HTMLPageLibraryElement;
+        "page-library-index": HTMLPageLibraryIndexElement;
         "page-login": HTMLPageLoginElement;
         "page-material": HTMLPageMaterialElement;
         "page-material-form": HTMLPageMaterialFormElement;
@@ -643,6 +658,11 @@ declare namespace LocalJSX {
           * @default 'tests'
          */
         "kind"?: 'tests' | 'materials' | 'courses';
+    }
+    /**
+     * /library: an index of the library's shelves, one card each.
+     */
+    interface PageLibraryIndex {
     }
     interface PageLogin {
     }
@@ -817,6 +837,7 @@ declare namespace LocalJSX {
         "page-home": PageHome;
         "page-integrations": PageIntegrations;
         "page-library": Omit<PageLibrary, keyof PageLibraryAttributes> & { [K in keyof PageLibrary & keyof PageLibraryAttributes]?: PageLibrary[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `attr:${K}`]?: PageLibraryAttributes[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `prop:${K}`]?: PageLibrary[K] };
+        "page-library-index": PageLibraryIndex;
         "page-login": PageLogin;
         "page-material": Omit<PageMaterial, keyof PageMaterialAttributes> & { [K in keyof PageMaterial & keyof PageMaterialAttributes]?: PageMaterial[K] } & { [K in keyof PageMaterial & keyof PageMaterialAttributes as `attr:${K}`]?: PageMaterialAttributes[K] } & { [K in keyof PageMaterial & keyof PageMaterialAttributes as `prop:${K}`]?: PageMaterial[K] };
         "page-material-form": Omit<PageMaterialForm, keyof PageMaterialFormAttributes> & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes]?: PageMaterialForm[K] } & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes as `attr:${K}`]?: PageMaterialFormAttributes[K] } & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes as `prop:${K}`]?: PageMaterialForm[K] };
@@ -890,6 +911,10 @@ declare module "@stencil/core" {
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-integrations": LocalJSX.IntrinsicElements["page-integrations"] & JSXBase.HTMLAttributes<HTMLPageIntegrationsElement>;
             "page-library": LocalJSX.IntrinsicElements["page-library"] & JSXBase.HTMLAttributes<HTMLPageLibraryElement>;
+            /**
+             * /library: an index of the library's shelves, one card each.
+             */
+            "page-library-index": LocalJSX.IntrinsicElements["page-library-index"] & JSXBase.HTMLAttributes<HTMLPageLibraryIndexElement>;
             "page-login": LocalJSX.IntrinsicElements["page-login"] & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
             "page-material": LocalJSX.IntrinsicElements["page-material"] & JSXBase.HTMLAttributes<HTMLPageMaterialElement>;
             "page-material-form": LocalJSX.IntrinsicElements["page-material-form"] & JSXBase.HTMLAttributes<HTMLPageMaterialFormElement>;

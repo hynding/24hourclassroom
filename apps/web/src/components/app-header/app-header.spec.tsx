@@ -204,6 +204,17 @@ describe('app-header bell', () => {
     expect(links).not.toContain('/tests');
   });
 
+  it('nests Tests, Materials and Courses under Library in the side panel, for everyone', async () => {
+    currentUser.value = null;
+    const spec = await newSpecPage({ components: [AppHeader], html: '<app-header orientation="vertical"></app-header>' });
+    const links = Array.from(spec.root.shadowRoot.querySelectorAll('nav a'));
+    const hrefs = links.map((a) => a.getAttribute('href'));
+    const at = hrefs.indexOf('/library');
+    expect(hrefs.slice(at, at + 4)).toEqual(['/library', '/library/tests', '/library/materials', '/library/courses']);
+    expect(links.slice(at + 1, at + 4).every((a) => a.classList.contains('sub'))).toBe(true);
+    expect(links.slice(at + 1, at + 4).map((a) => a.textContent)).toEqual(['Tests', 'Materials', 'Courses']);
+  });
+
   it('shows Materials for teachers and students only', async () => {
     // Allowlist, not a denylist: a fourth role must be invalid by default,
     // and an admin has no materials shelf (admin moderation is Inertia-only).

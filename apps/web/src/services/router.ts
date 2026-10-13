@@ -99,7 +99,7 @@ function courseRoute(path: string): ResolvedRoute | null {
 
 /** Public even logged out, so exempt from the verification gate. */
 function isPublic(path: string): boolean {
-  if (path === '/teachers' || path.startsWith(TEACHER_PREFIX) || path === '/library' || path === '/library/materials' || path === '/library/courses') {
+  if (path === '/teachers' || path.startsWith(TEACHER_PREFIX) || path === '/library' || path === '/library/tests' || path === '/library/materials' || path === '/library/courses') {
     return true;
   }
   // '/tests/new', '/tests/generate' and '/materials/new' parse through their
@@ -166,6 +166,9 @@ export function resolveRoute(path: string): ResolvedRoute {
     return { tag: 'page-material-form', materialId: undefined };
   }
   if (path === '/library') {
+    return { tag: 'page-library-index' };
+  }
+  if (path === '/library/tests') {
     return { tag: 'page-library', kind: 'tests' };
   }
   if (path === '/library/materials') {

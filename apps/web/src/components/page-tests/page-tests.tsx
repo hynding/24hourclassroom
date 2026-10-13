@@ -141,7 +141,7 @@ export class PageTests {
       <section>
         <h1>My tests</h1>
         <h2>Assigned</h2>
-        {this.loaded && this.assignments.length === 0 && <p>Nothing assigned yet. Browse the {this.link('/library', 'library')} to practise.</p>}
+        {this.loaded && this.assignments.length === 0 && <p>Nothing assigned yet. Browse the {this.link('/library/tests', 'test library')} to practise.</p>}
         <ul class="rows">
           {this.assignments.map((a) => (
             <li>

@@ -183,6 +183,16 @@ describe('app-root theme wiring', () => {
     expect(propOf(share.root.shadowRoot.querySelector('page-material-share'), 'materialId', 'material-id')).toBe('7');
   });
 
+  it('mounts the library index at /library and the tests shelf at /library/tests', async () => {
+    const index = await mountAt('/library');
+    expect(index.root.shadowRoot.querySelector('page-library-index')).not.toBeNull();
+    expect(index.root.shadowRoot.querySelector('page-library')).toBeNull();
+
+    const tests = await mountAt('/library/tests');
+    expect(propOf(tests.root.shadowRoot.querySelector('page-library'), 'kind', 'kind')).toBe('tests');
+
+  });
+
   it('passes kind to page-library for the materials segment', async () => {
     const spec = await mountAt('/library/materials');
     expect(propOf(spec.root.shadowRoot.querySelector('page-library'), 'kind', 'kind')).toBe('materials');

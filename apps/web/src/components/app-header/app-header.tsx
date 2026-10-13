@@ -7,6 +7,7 @@ import { navigate } from '../../services/navigate';
 import { siteStore } from '../../services/site-store';
 import { StaleIdentityError } from '../../services/stale-identity';
 import { navIcon, NavIcon } from '../../services/nav-icons';
+import { LIBRARY_SECTIONS } from '../../services/library-sections';
 
 /** Per-browser memory of the collapsed side panel. A convenience, so a failed read or write is harmless. */
 const COLLAPSED_KEY = '24hc.nav.collapsed.v1';
@@ -219,9 +220,9 @@ export class AppHeader {
   }
 
   /** One side-panel entry: icon, label (visually hidden when collapsed), and a tooltip. */
-  private item(path: string, label: string, icon: NavIcon, extra?: unknown) {
+  private item(path: string, label: string, icon: NavIcon, extra?: unknown, cls?: string) {
     return (
-      <a href={path} title={label} onClick={(e) => this.onNav(e, path)}>
+      <a href={path} class={cls} title={label} onClick={(e) => this.onNav(e, path)}>
         {navIcon(icon)}
         <span class="label">{label}</span>
         {extra}
@@ -263,6 +264,7 @@ export class AppHeader {
         <nav id="site-menu" aria-label="Main">
           {this.item('/teachers', 'Teachers', 'teachers')}
           {this.item('/library', 'Library', 'library')}
+          {LIBRARY_SECTIONS.map((s) => this.item(s.path, s.title, s.icon, undefined, 'sub'))}
           {this.showsTests() && this.item('/tests', 'Tests', 'tests')}
           {this.showsMaterials() && this.item('/materials', 'Materials', 'materials')}
           {this.showsCourses() && this.item('/courses', 'Courses', 'courses')}

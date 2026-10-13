@@ -108,7 +108,7 @@ describe('test and attempt routes', () => {
     expect(resolveRoute('/tests/new')).toEqual({ tag: 'page-test-editor', testId: undefined });
     // page-library now serves both segments and is switched by a reflected
     // prop, so the route always names which one.
-    expect(resolveRoute('/library')).toEqual({ tag: 'page-library', kind: 'tests' });
+    expect(resolveRoute('/library/tests')).toEqual({ tag: 'page-library', kind: 'tests' });
   });
 
   it('parses /tests/:id and its sub-pages', () => {
@@ -132,7 +132,7 @@ describe('test and attempt routes', () => {
       expect(redirectFor(path, null)).toBe('/login');
       expect(redirectFor(path, unverified)).toBe('/verify-email');
     }
-    for (const path of ['/library', '/tests/5', '/tests/5/print']) {
+    for (const path of ['/library', '/library/tests', '/library/courses', '/tests/5', '/tests/5/print']) {
       expect(redirectFor(path, null)).toBeNull();
       expect(redirectFor(path, unverified)).toBeNull();
     }
@@ -144,6 +144,13 @@ describe('material routes', () => {
     expect(resolveRoute('/materials')).toEqual({ tag: 'page-materials' });
     expect(resolveRoute('/materials/new')).toEqual({ tag: 'page-material-form', materialId: undefined });
     expect(resolveRoute('/library/materials')).toEqual({ tag: 'page-library', kind: 'materials' });
+  });
+
+  it('resolves /library to the index and each shelf to its own URL', () => {
+    expect(resolveRoute('/library')).toEqual({ tag: 'page-library-index' });
+    expect(resolveRoute('/library/tests')).toEqual({ tag: 'page-library', kind: 'tests' });
+    expect(resolveRoute('/library/courses')).toEqual({ tag: 'page-library', kind: 'courses' });
+    expect(resolveRoute('/library/nope').tag).toBe('page-home');
   });
 
   it('parses /materials/:id and its sub-pages', () => {

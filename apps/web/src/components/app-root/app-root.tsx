@@ -105,6 +105,8 @@ export class AppRoot {
         return <page-course-editor courseId={route.courseId}></page-course-editor>;
       case 'page-course-practice':
         return <page-course-practice courseId={route.courseId} testId={route.testId}></page-course-practice>;
+      case 'page-library-index':
+        return <page-library-index></page-library-index>;
       case 'page-library':
         return <page-library kind={route.kind ?? 'tests'}></page-library>;
       case 'page-integrations':

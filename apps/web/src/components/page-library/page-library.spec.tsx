@@ -72,6 +72,14 @@ describe('page-library', () => {
     expect(materialsLibrary).not.toHaveBeenCalled();
   });
 
+  it('links every shelf and marks the current one', async () => {
+    const page = await mount('kind="materials"');
+    await page.waitForChanges();
+    const links = Array.from(page.root.shadowRoot.querySelectorAll('.segments a'));
+    expect(links.map((a) => a.getAttribute('href'))).toEqual(['/library', '/library/tests', '/library/materials', '/library/courses']);
+    expect(links.filter((a) => a.getAttribute('aria-current') === 'page').map((a) => a.getAttribute('href'))).toEqual(['/library/materials']);
+  });
+
   it('shows an empty state and resets to page 1 on a new search', async () => {
     const page = await mount();
     await page.waitForChanges();
