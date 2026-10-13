@@ -9,7 +9,7 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database. Re-runnable: the demo user is
-     * looked up by email, and the course seeder updates in place.
+     * looked up by email, and the course seeders update in place.
      */
     public function run(): void
     {
@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
             User::factory()->raw(['name' => 'Test User', 'email' => 'test@example.com']),
         );
 
-        $this->call(ApBiologySeeder::class);
-        $this->call(ApLiteratureSeeder::class);
+        $this->call([ApBiologySeeder::class, ApUsHistorySeeder::class, ApLiteratureSeeder::class]);
     }
 }

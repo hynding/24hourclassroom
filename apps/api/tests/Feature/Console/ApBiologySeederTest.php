@@ -7,6 +7,7 @@ use App\Models\Question;
 use App\Models\Test;
 use App\Models\User;
 use Database\Seeders\ApBiologySeeder;
+use Database\Seeders\ApUsHistorySeeder;
 use Illuminate\Support\Facades\Storage;
 
 beforeEach(function () {
@@ -152,11 +153,13 @@ test('a seeded question the teacher deleted is restored on the next run, not dup
 });
 
 test('DatabaseSeeder is re-runnable', function () {
-    // Bind the course seeder to the three-item fixture: the real course is
-    // ~1,200 questions and 73 files, and the fixture tests above already
-    // prove the seeder's own idempotency. This only proves the top-level
-    // seeder tolerates a second run.
+    // Bind every course seeder to a small fixture: the real courses are
+    // over a thousand questions and seventy-odd files each, and the
+    // fixture tests above already prove the seeder's own idempotency. This
+    // only proves the top-level seeder tolerates a second run (the fixture
+    // seeded twice per run lands on the same rows).
     app()->bind(ApBiologySeeder::class, fn () => new ApBiologySeeder(base_path('tests/Fixtures/course')));
+    app()->bind(ApUsHistorySeeder::class, fn () => new ApUsHistorySeeder(base_path('tests/Fixtures/course')));
     app()->bind(\Database\Seeders\ApLiteratureSeeder::class, fn () => new \Database\Seeders\ApLiteratureSeeder(base_path('tests/Fixtures/course-ap-literature')));
 
     $this->seed();

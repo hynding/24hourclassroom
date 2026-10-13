@@ -161,16 +161,27 @@ movable and removable in the editor, never newly addable. Later changes to the
 original do not reach a branch. `page-course` watches `courseId`: a branch and
 its original are the same tag, so Stencil reuses the element.
 
-## Seeded AP Biology course
+## Seeded courses (AP Biology, AP U.S. History)
 
-`php artisan db:seed --class=ApBiologySeeder` (also called from `DatabaseSeeder`)
+Two full-year courses are seeded from YAML, each by a thin subclass of
+`Database\Seeders\Curriculum\CurriculumSeeder` that names its data directory:
+
+| Seeder | Command | Data | Slug | Demo accounts |
+|---|---|---|---|---|
+| `ApBiologySeeder` | `course:seed-ap-biology` | `data/ap-biology/` (adapted from CC BY OpenStax) | `apbio` | `apbio@`, `apbio-student@example.com` |
+| `ApUsHistorySeeder` | `course:seed-ap-us-history` | `data/ap-us-history/` (original, public-domain quotations) | `apush` | `apush@`, `apush-student@example.com` |
+
+Everything below applies to both; AP Biology is the worked example.
+
+`php artisan db:seed --class=ApBiologySeeder` (both are also called from `DatabaseSeeder`)
 builds a full-year course from YAML under
 `apps/api/database/seeders/data/ap-biology/` (`course.yaml` = week → unit → CED
-topic map; `unit-NN-*/week-NN.yaml` = guide path + flashcards + quiz;
+topic map, plus the course's title `prefix`, its `slug` and its `attribution_markers`;
+`unit-NN-*/week-NN.yaml` = guide path + flashcards + quiz;
 `unit-exam.yaml`, `unit-summary.md`; `review/` = practice exam and prep guide).
-`Database\Seeders\ApBiology\Course` loads it and composes every title and slug
-(`AP Biology · Week 07 · Quiz · …`) so the library's `sort=title` reads in course
-order. Idempotent through nullable `slug` columns on `tests`, `questions` and
+`Database\Seeders\Curriculum\Course` loads it and composes every title and slug
+(`AP Biology · Week 07 · Quiz · …`, `apbio-w07-quiz`) so the library's `sort=title` reads in course
+order and two courses never collide. Idempotent through nullable `slug` columns on `tests`, `questions` and
 `materials`: a re-run updates in place and questions keep their ids. By default
 it creates `apbio@example.com` / `apbio-student@example.com`, connects them, and
 assigns every test to the student with a due date from `start_date` (null = no
@@ -185,6 +196,7 @@ migrations, never seeders, so this is a one-off shell step per environment:
 
 ```bash
 php artisan course:seed-ap-biology --teacher=you@example.com --no-student --force
+php artisan course:seed-ap-us-history --teacher=you@example.com --no-student --force
 ```
 
 `--teacher` must name an existing, verified, active teacher; the command never
@@ -198,9 +210,20 @@ or a fresh `config:cache`; the admin setting takes effect immediately. `--studen
 assigns the course to an existing student; `--no-student` skips the student,
 connection and assignments. Re-running with a different `--teacher` moves every
 course test and material to that account. Plain `db:seed` also seeds the course
-with the demo accounts and creates `test@example.com`: never run it on a server. `ApBiologyContentTest` lints the data
-directory (provenance, rationales, spiral review, duplicates, attribution) and
-`ApBiologySeederTest` proves idempotency on `tests/Fixtures/course`.
+with the demo accounts and creates `test@example.com`: never run it on a server. `CurriculumContentTest` runs
+`Curriculum\ContentLint` over every course's data directory (provenance, rationales,
+spiral review, duplicates, attribution) and `ApBiologySeederTest` proves idempotency
+on `tests/Fixtures/course`. A new course is a `course.yaml`, its data, a
+`CurriculumSeeder` subclass, a `SeedCurriculum` command and a row in the lint's
+dataset.
+
+AP U.S. History is **original writing**, not adapted: OpenStax *U.S. History* is
+now CC BY-NC-SA and bars LLM ingestion, so it is only linked as further reading.
+Its quotations are limited to public-domain texts (federal government works,
+pre-1931 publications); never quote copyrighted 20th-century private writing
+into it. Its guides end with the CED name and `public domain` (its
+`attribution_markers`). Both courses together are ~150 files: one teacher owning
+both needs the file cap raised at `/admin/site`.
 
 Content contract the lint enforces: every option carries an
 `option_explanations` entry; `fill_blank` prompts contain `____` and `answer` is a
@@ -220,14 +243,17 @@ file on the materials disk, for uploads and the seeder alike.
 [--student=EMAIL|--no-student] --force` work exactly like their AP Biology
 twins (same owner checks, quota check, idempotent slugs, private course row,
 slug `aplit`, demo accounts `aplit@example.com` / `aplit-student@example.com`).
-The code is a sibling, not a subclass: `Database\Seeders\ApLiterature\Course`,
-`ApLiteratureSeeder`, `SeedApLiterature`. Data lives under
+The code is a sibling of the Curriculum classes above, not a subclass (it was
+written alongside them): `Database\Seeders\ApLiterature\Course`,
+`ApLiteratureSeeder`, `SeedApLiterature`, its own lint, and its own row in
+`DatabaseSeeder`'s call list. Data lives under
 `apps/api/database/seeders/data/ap-literature/`, same layout as AP Biology,
 nine units in the CED order (Short Fiction / Poetry / Longer Fiction or Drama,
 three times) over 32 weeks plus an exam-prep guide (week 33) and a practice
 exam shaped like the real one (55 MC in five passage sets, then three 6-point
 essays). It is 74 files against the per-teacher cap, so one teacher owning
-both seeded courses needs the cap raised to at least 147.
+it and another seeded course needs the cap raised accordingly (147 with AP
+Biology).
 
 Two differences from biology. The literature CED has skills, not numbered
 topics, so a `topic_code` is a CED skill code (`1.A` ... `7.E`, listed once

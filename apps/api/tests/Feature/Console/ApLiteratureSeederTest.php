@@ -157,6 +157,7 @@ test('DatabaseSeeder seeds the literature course beside biology, and is re-runna
     // Both course seeders bound to their small fixtures; the fixture tests
     // above prove each seeder's own idempotency.
     app()->bind(ApBiologySeeder::class, fn () => new ApBiologySeeder(base_path('tests/Fixtures/course')));
+    app()->bind(\Database\Seeders\ApUsHistorySeeder::class, fn () => new \Database\Seeders\ApUsHistorySeeder(base_path('tests/Fixtures/course')));
     app()->bind(ApLiteratureSeeder::class, fn () => new ApLiteratureSeeder(base_path('tests/Fixtures/course-ap-literature')));
 
     $this->seed();
@@ -166,5 +167,5 @@ test('DatabaseSeeder seeds the literature course beside biology, and is re-runna
         ->and(Test::where('slug', 'like', 'aplit-%')->count())->toBe(2)
         ->and(Material::where('slug', 'like', 'aplit-%')->count())->toBe(3)
         ->and(Course::where('slug', ApLiteratureSeeder::COURSE_SLUG)->count())->toBe(1)
-        ->and(Course::count())->toBe(2);
+        ->and(Course::where('slug', ApBiologySeeder::COURSE_SLUG)->count())->toBe(1);
 });
