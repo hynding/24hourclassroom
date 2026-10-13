@@ -140,13 +140,15 @@ export class PageLibrary {
   }
 
   private get emptyMessage(): string {
+    // An empty shelf with no filter set is not a failed search: say what it is.
+    const filtered = this.subject !== '' || this.grade !== '' || this.q !== '';
     switch (this.kind) {
       case 'materials':
-        return 'No materials match those filters yet.';
+        return filtered ? 'No materials match those filters yet.' : 'No materials have been published yet.';
       case 'tests':
-        return 'No tests match those filters yet.';
+        return filtered ? 'No tests match those filters yet.' : 'No tests have been published yet.';
       case 'courses':
-        return 'No courses match those filters yet.';
+        return filtered ? 'No courses match those filters yet.' : 'No courses have been published yet.';
       default:
         return 'Nothing to show.';
     }
