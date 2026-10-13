@@ -4,7 +4,7 @@ import { Attempt, AttemptQuestion } from '@24hc/shared';
 import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
-import { assertNever } from '../../services/assert-never';
+import { QuestionInput } from '../../services/question-input';
 import { formatAnswer, formatResponse, isTextResponse, optionChosen, showsStimulus } from '../../services/question-format';
 
 const AUTOSAVE_MS = 2000;
@@ -160,58 +160,8 @@ export class PageAttempt {
     }
   }
 
-  private toggleMulti(q: AttemptQuestion, i: number, on: boolean) {
-    const current = Array.isArray(this.responses[q.id]) ? (this.responses[q.id] as number[]) : [];
-    const next = on ? [...current, i].sort((a, b) => a - b) : current.filter((x) => x !== i);
-    this.setResponse(q.id, Array.from(new Set(next)));
-  }
-
   private renderInput(q: AttemptQuestion) {
-    const value = this.responses[q.id];
-    switch (q.type) {
-      case 'multiple_choice':
-        return (
-          <ol class="options">
-            {q.options.map((opt, i) => (
-              <li><label><input type="radio" name={`q-${q.id}`} checked={value === i} onChange={() => this.setResponse(q.id, i)} /> {opt}</label></li>
-            ))}
-          </ol>
-        );
-      case 'multi_select':
-        return (
-          <ol class="options">
-            {q.options.map((opt, i) => (
-              <li><label><input type="checkbox" checked={Array.isArray(value) && value.includes(i)} onChange={(e) => this.toggleMulti(q, i, (e.target as HTMLInputElement).checked)} /> {opt}</label></li>
-            ))}
-          </ol>
-        );
-      case 'true_false':
-        return (
-          <div class="choices">
-            <label><input type="radio" name={`q-${q.id}`} checked={value === true} onChange={() => this.setResponse(q.id, true)} /> True</label>
-            <label><input type="radio" name={`q-${q.id}`} checked={value === false} onChange={() => this.setResponse(q.id, false)} /> False</label>
-          </div>
-        );
-      case 'short_answer':
-        return <input type="text" value={(value as string) ?? ''} onInput={(e) => this.setResponse(q.id, (e.target as HTMLInputElement).value)} />;
-      case 'numeric':
-        return <input type="number" step="any" value={value === undefined || value === null ? '' : String(value)} onInput={(e) => {
-          const raw = (e.target as HTMLInputElement).value;
-          this.setResponse(q.id, raw === '' ? null : Number(raw));
-        }} />;
-      case 'fill_blank':
-        // The prompt keeps its ____ on screen; the student fills a labelled input beneath it.
-        return (
-          <label class="blank">
-            Your answer for the blank
-            <input type="text" maxlength="100" value={(value as string) ?? ''} onInput={(e) => this.setResponse(q.id, (e.target as HTMLInputElement).value)} />
-          </label>
-        );
-      case 'long_answer':
-        return <textarea rows={8} maxlength="10000" aria-label="Your answer" value={(value as string) ?? ''} onInput={(e) => this.setResponse(q.id, (e.target as HTMLTextAreaElement).value)}></textarea>;
-      default:
-        return assertNever(q.type, 'question type');
-    }
+    return <QuestionInput question={q} value={this.responses[q.id]} onChange={(value) => this.setResponse(q.id, value)} />;
   }
 
   private stimulus(questions: AttemptQuestion[], i: number) {

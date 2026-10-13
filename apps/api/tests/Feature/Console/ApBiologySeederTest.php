@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Assignment;
+use App\Models\Course;
 use App\Models\Material;
 use App\Models\Question;
 use App\Models\Test;
@@ -62,6 +63,34 @@ test('the seeder creates accounts, a connection, published tests with slugged qu
         ->toContain('Hint: Think of water beading on a leaf.')
         ->toContain("Topic: 1.1\n")
         ->toContain("## Cohesion\nWater molecules sticking to one another.");
+});
+
+test('the seeder builds a private course of every test and material, in teaching order, under unit headings', function () {
+    seedFixtureCourse();
+
+    $course = Course::where('slug', ApBiologySeeder::COURSE_SLUG)->sole();
+    expect($course->title)->toBe('AP Biology (fixture)')
+        ->and($course->visibility->value)->toBe('private')
+        ->and($course->user_id)->toBe(User::where('email', 'apbio@example.com')->sole()->id)
+        ->and($course->subject->value)->toBe('science')
+        ->and($course->grade_level->value)->toBe('9-12');
+
+    $slugs = $course->items->map(fn ($item) => $item->test?->slug ?? $item->material?->slug)->all();
+    expect($slugs)->toBe(['apbio-w01-guide', 'apbio-w01-cards', 'apbio-w01-quiz', 'apbio-u01-summary', 'apbio-u01-exam'])
+        ->and($course->items->pluck('section')->unique()->all())->toBe(['Unit 1 · Chemistry of Life']);
+});
+
+test('a re-run keeps the course, its id and the visibility its owner chose', function () {
+    seedFixtureCourse();
+    $course = Course::sole();
+    $course->update(['visibility' => 'public', 'published_at' => now()]);
+
+    seedFixtureCourse();
+
+    expect(Course::count())->toBe(1)
+        ->and(Course::sole()->id)->toBe($course->id)
+        ->and(Course::sole()->visibility->value)->toBe('public')
+        ->and(Course::sole()->items()->count())->toBe(5);
 });
 
 test('re-running updates in place: same ids, same paths, no duplicates, answers survive', function () {

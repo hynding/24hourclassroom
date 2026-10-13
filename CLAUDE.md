@@ -103,7 +103,7 @@ the command warns you which one is still closed.
 
 The admin UI is Inertia on the **API host** (`/admin/users`,
 `/admin/users/{user}`, `/admin/site-theme`, `/admin/site`, `/admin/tests`,
-`/admin/materials`, `/admin/generations`), not the Stencil SPA. Log in there,
+`/admin/materials`, `/admin/courses`, `/admin/generations`), not the Stencil SPA. Log in there,
 not on the SPA host.
 
 Middleware order in `bootstrap/app.php` is load-bearing: `EnsureUserIsAdmin` is
@@ -117,6 +117,45 @@ JSON entry points, `isOpen()` + redirect on the web register page, the OAuth
 callback's new-account branch); `RegistrationGateTest` scans `app/` for
 `User::create(` and fails until a new creator is gated. Shell commands,
 seeders and factories are deliberately ungated.
+
+## Courses
+
+A course (`courses` + `course_items`) is a teacher's ordered list of their
+**own** tests and materials, each under an optional `section` heading (repeated
+per item and collapsed by the views, like a stimulus). New courses are private.
+A public course's answers are public by design: there is no hide-answers switch.
+`App\Support\CourseAccess` holds every rule:
+
+- Private: author only, 404 to everyone else. Public: anyone, logged out
+  included, while the author is active.
+- A visitor sees only items that are **themselves public**. Publishing a course
+  (`CourseWriter::publishContents`) publishes everything in it; saving a public
+  course publishes only what was *added*, never an item its author unpublished
+  since. An admin unpublishing a test/material therefore drops it from every
+  course too. Unpublishing a course leaves its items' visibility alone.
+- **Practice mode** (`/api/courses/{course}/tests/{test}`, SPA
+  `/courses/:id/tests/:testId`) returns the test *with answers* — the reveal
+  button needs no round trip — to anyone who can see the course, but only for a
+  public test (the author can preview anything). `POST …/check` grades a run
+  with `AttemptGrader::score` and writes nothing, so guests can use it. Nothing
+  else ever returns answers to a non-author; an assigned student cannot reach a
+  private test's answers through a course.
+
+Publishing a course exposes its answers, including to students the teacher has
+assigned those tests to; the SPA's publish confirm says so.
+
+**Branches** are how a teacher gets private answers from a public course.
+`POST /api/courses/{course}/branch` (another teacher only, public course only)
+runs `CourseBrancher`: a new **private** course (`branched_from_id`) whose
+tests are private copies owned by the brancher (`TestCopier`, the same path as
+"Copy to my tests") — theirs to rewrite, extend and assign — and whose
+materials stay **references** to the original's public files rather than
+copies (no answers in them, and a full course would eat the file cap). That
+makes tests always the course author's own, while a material may be another
+teacher's: shown only while it is public with an active author, keepable,
+movable and removable in the editor, never newly addable. Later changes to the
+original do not reach a branch. `page-course` watches `courseId`: a branch and
+its original are the same tag, so Stencil reuses the element.
 
 ## Seeded AP Biology course
 
@@ -132,7 +171,10 @@ order. Idempotent through nullable `slug` columns on `tests`, `questions` and
 it creates `apbio@example.com` / `apbio-student@example.com`, connects them, and
 assigns every test to the student with a due date from `start_date` (null = no
 due dates). Those demo accounts get the password `password` only in `local` and
-`testing`; anywhere else they get a random one, printed once.
+`testing`; anywhere else they get a random one, printed once. It also builds the
+`Course` row (slug `apbio`): every item in teaching order under one section per
+unit, created **private** — publishing it exposes answers, so that is the
+owner's call — and a re-run keeps whatever visibility the owner chose since.
 
 On a real server, attach the course to your own account instead. Deploys run
 migrations, never seeders, so this is a one-off shell step per environment:

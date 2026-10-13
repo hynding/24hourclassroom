@@ -97,6 +97,14 @@ export class AppRoot {
         return <page-material-form materialId={route.materialId}></page-material-form>;
       case 'page-material-share':
         return <page-material-share materialId={route.materialId}></page-material-share>;
+      case 'page-courses':
+        return <page-courses></page-courses>;
+      case 'page-course':
+        return <page-course courseId={route.courseId}></page-course>;
+      case 'page-course-editor':
+        return <page-course-editor courseId={route.courseId}></page-course-editor>;
+      case 'page-course-practice':
+        return <page-course-practice courseId={route.courseId} testId={route.testId}></page-course-practice>;
       case 'page-library':
         return <page-library kind={route.kind ?? 'tests'}></page-library>;
       case 'page-integrations':

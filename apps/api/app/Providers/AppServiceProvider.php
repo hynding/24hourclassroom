@@ -45,6 +45,10 @@ class AppServiceProvider extends ServiceProvider
         // on registration order or what the route cache produced.
         Route::pattern('material', '[0-9]+');
 
+        // Same reason: GET /courses/{course} must never swallow
+        // /courses/candidates.
+        Route::pattern('course', '[0-9]+');
+
         // {share} is resolved by hand inside MaterialShareController::destroy
         // (after the author check, so share ids are not an oracle); without a
         // pattern a non-numeric segment would reach `int $share` as a string.
