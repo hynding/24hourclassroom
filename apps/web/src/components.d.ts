@@ -26,7 +26,7 @@ export namespace Components {
          */
         "collapsed": boolean;
         /**
-          * Side panel showing as a drawer (narrow screens). reflect: true is load-bearing -- app-header.css keys on :host([open]).
+          * Menu showing as a drawer (narrow screens, either orientation). reflect: true is load-bearing -- app-header.css keys on :host([open]).
           * @default false
          */
         "open": boolean;
@@ -549,7 +549,7 @@ declare namespace LocalJSX {
          */
         "collapsed"?: boolean;
         /**
-          * Side panel showing as a drawer (narrow screens). reflect: true is load-bearing -- app-header.css keys on :host([open]).
+          * Menu showing as a drawer (narrow screens, either orientation). reflect: true is load-bearing -- app-header.css keys on :host([open]).
           * @default false
          */
         "open"?: boolean;

@@ -26,8 +26,13 @@ function declarations(body: string): Record<string, string> {
 describe('app-layout print (bare) shell', () => {
   it('the screen shell fills the viewport', () => {
     // Pins the declaration the bare rule below has to undo -- if this ever
-    // stops being 100vh, the reset is no longer load-bearing.
-    expect(declarations(ruleBody('.shell {'))['min-height']).toBe('100vh');
+    // stops being a viewport height, the reset is no longer load-bearing.
+    // Two declarations, deliberately: dvh tracks a phone browser's
+    // collapsing toolbar, and the vh line before it is the fallback for
+    // engines without it, so both must stay, in that order.
+    const body = ruleBody('.shell {');
+    const heights = [...body.matchAll(/min-height\s*:\s*([^;]+);/g)].map((m) => m[1].trim());
+    expect(heights).toEqual(['100vh', '100dvh']);
   });
 
   it('resets min-height under [bare] so print gets no trailing blank sheet', () => {

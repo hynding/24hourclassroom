@@ -368,11 +368,55 @@ describe('app-header side panel (vertical orientation)', () => {
     expect(spec.root.hasAttribute('open')).toBe(false);
   });
 
-  it('keeps the top header free of panel controls', async () => {
+  it('keeps the top header free of the collapse toggle but gives it the drawer', async () => {
+    // The collapse-to-icons setting belongs to the side panel alone. The
+    // drawer is for narrow screens in either layout: a phone showing the
+    // Stacked layout gets the same menu button instead of a row of nine
+    // links wrapping mid-word. Icons are in the markup for the drawer;
+    // the wide top bar hides them in CSS.
     const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
     expect(spec.root.shadowRoot.querySelector('button.collapse')).toBeNull();
-    expect(spec.root.shadowRoot.querySelector('button.menu')).toBeNull();
-    expect(spec.root.shadowRoot.querySelector('nav a svg')).toBeNull();
+    const menu = spec.root.shadowRoot.querySelector('button.menu') as HTMLButtonElement;
+    expect(menu).not.toBeNull();
+    expect(menu.getAttribute('aria-controls')).toBe('site-menu');
+    expect(spec.root.shadowRoot.querySelector('nav#site-menu')).not.toBeNull();
+    expect(spec.root.shadowRoot.querySelector('.backdrop')).not.toBeNull();
+
+    menu.click();
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(true);
+    (spec.root.shadowRoot.querySelector('a[href="/library"]') as HTMLAnchorElement).click();
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(false);
+    expect(navigate).toHaveBeenCalledWith('/library');
+  });
+
+  it('renders the same links in both orientations', async () => {
+    const hrefs = async (orientation: string) => {
+      const spec = await newSpecPage({ components: [AppHeader], html: `<app-header orientation="${orientation}"></app-header>` });
+      return Array.from(spec.root.shadowRoot.querySelectorAll('nav a, .account a')).map((a) => a.getAttribute('href'));
+    };
+    expect(await hrefs('horizontal')).toEqual(await hrefs('vertical'));
+  });
+
+  it('closes the drawer when the viewport widens past the breakpoint', async () => {
+    const spec = await panel();
+    const matchMedia = jest.fn().mockReturnValue({ matches: true });
+    (spec.win as any).matchMedia = matchMedia;
+    (spec.root.shadowRoot.querySelector('button.menu') as HTMLButtonElement).click();
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(true);
+
+    // Still narrow: a resize within the phone range leaves the drawer alone.
+    spec.win.dispatchEvent(new (spec.win as any).Event('resize'));
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(true);
+    expect(matchMedia).toHaveBeenCalledWith('(max-width: 767px)');
+
+    matchMedia.mockReturnValue({ matches: false });
+    spec.win.dispatchEvent(new (spec.win as any).Event('resize'));
+    await spec.waitForChanges();
+    expect(spec.root.hasAttribute('open')).toBe(false);
   });
 
   it('styles key on the reflected collapsed and open attributes', () => {
@@ -380,7 +424,9 @@ describe('app-header side panel (vertical orientation)', () => {
     const path = require('path');
     const css = fs.readFileSync(path.join(__dirname, 'app-header.css'), 'utf8');
     expect(css).toContain(":host([orientation='vertical'][collapsed])");
-    expect(css).toContain(":host([orientation='vertical'][open])");
+    // [orientation] rather than [orientation='vertical']: the drawer serves
+    // both layouts.
+    expect(css).toContain(':host([orientation][open])');
   });
 });
 

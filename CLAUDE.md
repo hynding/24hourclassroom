@@ -56,8 +56,12 @@ by the inline boot script) and the whole config under `24hc.site.v1`;
 `index.html`, and one `app-layout` component switched by a reflected prop. In
 `rail`, `app-header` (orientation `vertical`) is the side panel: icons from
 `services/nav-icons.tsx`, collapsible to icons on wide screens (reflected
-`collapsed`, remembered per browser under `24hc.nav.collapsed.v1`), and a top
-bar plus drawer below the 767px breakpoint (reflected `open`).
+`collapsed`, remembered per browser under `24hc.nav.collapsed.v1`). Both
+orientations render the same markup; at or below the 767px breakpoint either
+one becomes a slim top bar plus drawer (reflected `open`). The breakpoint
+literal lives in `app-layout.css`, `app-header.css`, `app.css` (narrow-screen
+form controls fill their line) and `app-header.tsx`; `breakpoint.spec.ts`
+asserts every `max-width` query under `src/` agrees.
 
 **Shadow DOM.** Components use `shadow: true`. `app.css` is delivered twice —
 linked from `index.html` (so `:root`/`body`/`@font-face` work) and adopted into

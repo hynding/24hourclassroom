@@ -13,6 +13,16 @@
 .options {
   list-style-type: upper-alpha;
 }
+/* The whole row, not just the radio, is the tap target, with enough height
+ * between rows for a thumb. */
+.options label,
+.choices label {
+  display: block;
+  padding: var(--space-1) 0;
+}
+.choices label {
+  display: inline-block;
+}
 .prompt {
   display: flex;
   flex-wrap: wrap;
@@ -62,7 +72,8 @@ textarea {
 }
 .choices {
   display: flex;
-  gap: var(--space-3);
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
 }
 .review p {
   margin: 0 0 var(--space-1);

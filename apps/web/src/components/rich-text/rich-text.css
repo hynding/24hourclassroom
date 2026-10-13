@@ -2,8 +2,22 @@
   display: block;
 }
 
+.rich {
+  /* A long URL or token has no break opportunity; without this it widens
+   * the page past a phone's viewport. */
+  overflow-wrap: anywhere;
+}
 .rich > :first-child {
   margin-top: 0;
+}
+/* A wide table scrolls within its own box instead of the whole page. */
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: var(--space-2) 0;
+}
+.table-scroll table {
+  margin: 0;
 }
 .rich > :last-child {
   margin-bottom: 0;
