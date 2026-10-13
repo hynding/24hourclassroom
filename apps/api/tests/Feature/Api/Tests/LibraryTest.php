@@ -24,6 +24,25 @@ test('the library lists public tests by active authors with filters', function (
     $this->getJson('/api/library?subject=nope')->assertStatus(422);
 });
 
+test('author= narrows the library to one teacher\'s public tests and nothing else', function () {
+    $a = aTeacher();
+    $b = aTeacher();
+    $mine = aTestWithQuestions($a, 1, ['visibility' => 'public', 'published_at' => now()]);
+    aTestWithQuestions($a, 1); // private: never listed, even for its author's page
+    aTestWithQuestions($b, 1, ['visibility' => 'public', 'published_at' => now()]);
+    $gone = aTeacher();
+    aTestWithQuestions($gone, 1, ['visibility' => 'public', 'published_at' => now()]);
+    $gone->forceFill(['deactivated_at' => now()])->save();
+
+    $this->getJson("/api/library?author={$a->id}")->assertOk()->assertJsonCount(1, 'data')->assertJsonPath('data.0.id', $mine->id);
+    // A deactivated author's work stays hidden under the filter too.
+    $this->getJson("/api/library?author={$gone->id}")->assertOk()->assertJsonCount(0, 'data');
+    // An unknown id is an empty page, not a 404: the filter is not an oracle.
+    $this->getJson('/api/library?author=999999')->assertOk()->assertJsonCount(0, 'data');
+    $this->getJson('/api/library?author=abc')->assertStatus(422);
+    $this->getJson('/api/library?author=0')->assertStatus(422);
+});
+
 test('sort=title lists A-Z so a zero-padded course reads in order; the default stays newest first', function () {
     $a = aTeacher();
     $w10 = aTestWithQuestions($a, 1, ['visibility' => 'public', 'published_at' => now()->subDays(2), 'title' => 'AP Biology · Week 10 · Quiz']);

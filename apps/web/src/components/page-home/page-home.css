@@ -1,2 +1,54 @@
-:host { display: block; }
-section { max-width: 40rem; }
+:host {
+  display: block;
+}
+.tagline {
+  max-width: 40rem;
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-6);
+}
+.cards {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-3);
+  /* One column on a phone, two or three as the page widens. */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+}
+/* app.css's .card supplies the surface, border and radius; this makes the
+ * whole card the link and a thumb-sized target. */
+.cards .card {
+  display: grid;
+  gap: var(--space-1);
+  height: 100%;
+  min-height: 5rem;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+.cards .card:hover,
+.cards .card:focus-visible {
+  border-color: var(--color-accent);
+}
+.cards .card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+.cards .card strong {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--tracking-heading);
+  font-size: var(--text-lg);
+  color: var(--color-link);
+}
+.cards .card span {
+  color: var(--color-ink-muted);
+  font-size: var(--text-sm);
+}
+.cards .primary {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+.cards .primary strong,
+.cards .primary span {
+  color: var(--color-on-accent);
+}

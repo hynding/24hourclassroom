@@ -246,6 +246,8 @@ export interface LibraryFilters {
   q?: string;
   /** `title` sorts A→Z so a zero-padded course title reads in course order. Default `recent`. */
   sort?: LibrarySort;
+  /** Only this teacher's public work (their profile page). An unknown id is an empty page. */
+  author?: number;
   page?: number;
 }
 

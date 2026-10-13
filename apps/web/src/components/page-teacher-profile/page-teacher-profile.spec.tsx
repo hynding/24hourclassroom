@@ -36,6 +36,14 @@ jest.mock('../../services/session-recovery', () => ({
   recoverFromExpiredSession: (...a: unknown[]) => recoverFromExpiredSession(...a),
 }));
 
+const emptyPage = () => ({ data: [], meta: { current_page: 1, last_page: 1, per_page: 15, total: 0 } });
+const library = jest.fn();
+const materialsLibrary = jest.fn();
+jest.mock('../../services/tests-store', () => ({ testsStore: { library: (...a: unknown[]) => library(...a) } }));
+jest.mock('../../services/materials-store', () => ({ materialsStore: { materialsLibrary: (...a: unknown[]) => materialsLibrary(...a) } }));
+const navigate = jest.fn();
+jest.mock('../../services/navigate', () => ({ navigate: (path: string) => navigate(path) }));
+
 // Imported after jest.mock(): Stencil's Jest preprocessor transpiles via the
 // TypeScript compiler, not babel-jest, so jest.mock() calls are not hoisted
 // above static imports the way they are under babel-jest. Without this
@@ -57,6 +65,9 @@ describe('page-teacher-profile', () => {
     acceptConnection.mockClear();
     removeConnection.mockClear();
     recoverFromExpiredSession.mockReset().mockReturnValue(false);
+    library.mockReset().mockResolvedValue(emptyPage());
+    materialsLibrary.mockReset().mockResolvedValue(emptyPage());
+    navigate.mockReset();
     // A VERIFIED viewer who is not the subject, by default. The server only
     // sends a boolean `is_following` to an authenticated viewer, so the
     // control-rendering tests below were never really exercising a guest;
@@ -81,6 +92,56 @@ describe('page-teacher-profile', () => {
     expect(teacher).toHaveBeenCalledWith(7);
     expect(spec.root.shadowRoot.textContent).toContain('Ada Teacher');
     expect(spec.root.shadowRoot.textContent).toContain('I teach math.');
+    // Nothing published: no empty "Public tests" heading either.
+    expect(spec.root.shadowRoot.querySelector('.work')).toBeNull();
+  });
+
+  it("lists the teacher's public tests and materials with their totals", async () => {
+    teacher.mockResolvedValue({ id: 7, name: 'Ada Teacher', role: 'teacher', profile: { bio: null, school: null, specialties: null, subjects: [], grade_levels: [], avatar_url: null } });
+    library.mockResolvedValue({
+      data: [{ id: 41, title: 'Week 34 · Practice Exam', subject: 'science', grade_level: '9-12', visibility: 'public', published_at: '2026-10-01', question_count: 66, author: { id: 7, name: 'Ada Teacher' } }],
+      meta: { current_page: 1, last_page: 3, per_page: 15, total: 41 },
+    });
+    materialsLibrary.mockResolvedValue({
+      data: [{ id: 2, title: 'Week 01 · Flashcards', subject: 'science', grade_level: '9-12', visibility: 'public', published_at: '2026-10-01', original_name: 'w.md', mime_type: 'text/plain', size_bytes: 10, author: { id: 7, name: 'Ada Teacher' } }],
+      meta: { current_page: 1, last_page: 1, per_page: 15, total: 1 },
+    });
+
+    const spec = await newSpecPage({ components: [PageTeacherProfile], html: '<page-teacher-profile teacher-id="7"></page-teacher-profile>' });
+    await spec.waitForChanges();
+
+    expect(library).toHaveBeenCalledWith({ author: 7 });
+    expect(materialsLibrary).toHaveBeenCalledWith({ author: 7 });
+    const text = spec.root.shadowRoot.textContent;
+    expect(text).toContain('Public tests (41)');
+    expect(text).toContain('Showing the 1 most recent of 41.');
+    expect(text).toContain('Public materials (1)');
+    expect(text).toContain('Science · 9-12 · 66 questions');
+    const link = spec.root.shadowRoot.querySelector('a[href="/tests/41"]') as HTMLAnchorElement;
+    expect(link.textContent).toBe('Week 34 · Practice Exam');
+    link.click();
+    expect(navigate).toHaveBeenCalledWith('/tests/41');
+    expect(spec.root.shadowRoot.querySelector('a[href="/materials/2"]')).not.toBeNull();
+  });
+
+  it('still shows the profile when the library cannot be reached, and skips the library for a student', async () => {
+    teacher.mockResolvedValue({ id: 7, name: 'Ada Teacher', role: 'teacher', profile: { bio: 'Hi', school: null, specialties: null, subjects: [], grade_levels: [], avatar_url: null } });
+    library.mockRejectedValue(new ApiError(500, 'Server Error'));
+    materialsLibrary.mockRejectedValue(new ApiError(500, 'Server Error'));
+    const spec = await newSpecPage({ components: [PageTeacherProfile], html: '<page-teacher-profile teacher-id="7"></page-teacher-profile>' });
+    await spec.waitForChanges();
+    expect(spec.root.shadowRoot.textContent).toContain('Hi');
+    expect(spec.root.shadowRoot.textContent).not.toContain('Something went wrong');
+    expect(spec.root.shadowRoot.querySelector('.work')).toBeNull();
+
+    library.mockClear();
+    materialsLibrary.mockClear();
+    teacher.mockResolvedValue({ id: 8, name: 'Sam Student', role: 'student' });
+    const student = await newSpecPage({ components: [PageTeacherProfile], html: '<page-teacher-profile teacher-id="8"></page-teacher-profile>' });
+    await student.waitForChanges();
+    expect(student.root.shadowRoot.textContent).toContain('Sam Student');
+    expect(library).not.toHaveBeenCalled();
+    expect(materialsLibrary).not.toHaveBeenCalled();
   });
 
   it('renders a not-found state when the api 404s', async () => {
