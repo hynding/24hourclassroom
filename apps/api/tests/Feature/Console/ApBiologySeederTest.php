@@ -157,11 +157,12 @@ test('DatabaseSeeder is re-runnable', function () {
     // prove the seeder's own idempotency. This only proves the top-level
     // seeder tolerates a second run.
     app()->bind(ApBiologySeeder::class, fn () => new ApBiologySeeder(base_path('tests/Fixtures/course')));
+    app()->bind(\Database\Seeders\ApLiteratureSeeder::class, fn () => new \Database\Seeders\ApLiteratureSeeder(base_path('tests/Fixtures/course-ap-literature')));
 
     $this->seed();
     $this->seed();
 
     expect(User::where('email', 'test@example.com')->count())->toBe(1)
-        ->and(Test::count())->toBe(2)
-        ->and(Material::count())->toBe(3);
+        ->and(Test::where('slug', 'like', 'apbio-%')->count())->toBe(2)
+        ->and(Material::where('slug', 'like', 'apbio-%')->count())->toBe(3);
 });

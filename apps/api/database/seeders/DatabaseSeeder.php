@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         );
 
         $this->call(ApBiologySeeder::class);
+        $this->call(ApLiteratureSeeder::class);
     }
 }
