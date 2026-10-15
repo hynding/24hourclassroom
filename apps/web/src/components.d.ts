@@ -5,9 +5,9 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Layout, QuestionInput } from "@24hc/shared";
+import { CommentTargetType, Layout, QuestionInput } from "@24hc/shared";
 import { Flashcard } from "./services/flashcards";
-export { Layout, QuestionInput } from "@24hc/shared";
+export { CommentTargetType, Layout, QuestionInput } from "@24hc/shared";
 export { Flashcard } from "./services/flashcards";
 export namespace Components {
     /**
@@ -56,6 +56,25 @@ export namespace Components {
         "layout": Layout;
     }
     interface AppRoot {
+    }
+    /**
+     * The discussion under a test, a question, a material or a course. The API
+     * decides everything -- who may post, edit, delete, and whose name this
+     * viewer may see -- and this only renders its answers. `compact` starts
+     * closed behind a "Discuss" toggle, for the per-question threads on a test
+     * page, and loads only when opened.
+     */
+    interface CommentThread {
+        /**
+          * @default false
+         */
+        "compact": boolean;
+        /**
+          * @default 'Discussion'
+         */
+        "heading": string;
+        "targetId": number;
+        "targetType": CommentTargetType;
     }
     /**
      * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
@@ -264,6 +283,19 @@ declare global {
     var HTMLAppRootElement: {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
+    };
+    /**
+     * The discussion under a test, a question, a material or a course. The API
+     * decides everything -- who may post, edit, delete, and whose name this
+     * viewer may see -- and this only renders its answers. `compact` starts
+     * closed behind a "Discuss" toggle, for the per-question threads on a test
+     * page, and loads only when opened.
+     */
+    interface HTMLCommentThreadElement extends Components.CommentThread, HTMLStencilElement {
+    }
+    var HTMLCommentThreadElement: {
+        prototype: HTMLCommentThreadElement;
+        new (): HTMLCommentThreadElement;
     };
     /**
      * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
@@ -529,6 +561,7 @@ declare global {
         "app-header": HTMLAppHeaderElement;
         "app-layout": HTMLAppLayoutElement;
         "app-root": HTMLAppRootElement;
+        "comment-thread": HTMLCommentThreadElement;
         "flashcard-deck": HTMLFlashcardDeckElement;
         "page-attempt": HTMLPageAttemptElement;
         "page-connections": HTMLPageConnectionsElement;
@@ -568,6 +601,8 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    type OneOf<K extends string, PropT, AttrT = PropT> = { [P in K]: PropT } & { [P in `attr:${K}`]?: never } | { [P in `attr:${K}`]: AttrT } & { [P in K]?: never };
+
     /**
      * The site-wide announcement. An <aside>, not a live region: it is static
      * content, not a response to a user action, and live regions inside shadow
@@ -614,6 +649,25 @@ declare namespace LocalJSX {
         "layout"?: Layout;
     }
     interface AppRoot {
+    }
+    /**
+     * The discussion under a test, a question, a material or a course. The API
+     * decides everything -- who may post, edit, delete, and whose name this
+     * viewer may see -- and this only renders its answers. `compact` starts
+     * closed behind a "Discuss" toggle, for the per-question threads on a test
+     * page, and loads only when opened.
+     */
+    interface CommentThread {
+        /**
+          * @default false
+         */
+        "compact"?: boolean;
+        /**
+          * @default 'Discussion'
+         */
+        "heading"?: string;
+        "targetId": number;
+        "targetType": CommentTargetType;
     }
     /**
      * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
@@ -788,6 +842,12 @@ declare namespace LocalJSX {
         "layout": Layout;
         "bare": boolean;
     }
+    interface CommentThreadAttributes {
+        "targetType": CommentTargetType;
+        "targetId": number;
+        "compact": boolean;
+        "heading": string;
+    }
     interface FlashcardDeckAttributes {
         "flipped": boolean;
     }
@@ -856,6 +916,7 @@ declare namespace LocalJSX {
         "app-header": Omit<AppHeader, keyof AppHeaderAttributes> & { [K in keyof AppHeader & keyof AppHeaderAttributes]?: AppHeader[K] } & { [K in keyof AppHeader & keyof AppHeaderAttributes as `attr:${K}`]?: AppHeaderAttributes[K] } & { [K in keyof AppHeader & keyof AppHeaderAttributes as `prop:${K}`]?: AppHeader[K] };
         "app-layout": Omit<AppLayout, keyof AppLayoutAttributes> & { [K in keyof AppLayout & keyof AppLayoutAttributes]?: AppLayout[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `attr:${K}`]?: AppLayoutAttributes[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `prop:${K}`]?: AppLayout[K] };
         "app-root": AppRoot;
+        "comment-thread": Omit<CommentThread, keyof CommentThreadAttributes> & { [K in keyof CommentThread & keyof CommentThreadAttributes]?: CommentThread[K] } & { [K in keyof CommentThread & keyof CommentThreadAttributes as `attr:${K}`]?: CommentThreadAttributes[K] } & { [K in keyof CommentThread & keyof CommentThreadAttributes as `prop:${K}`]?: CommentThread[K] } & OneOf<"targetType", CommentThread["targetType"], CommentThreadAttributes["targetType"]> & OneOf<"targetId", CommentThread["targetId"], CommentThreadAttributes["targetId"]>;
         "flashcard-deck": Omit<FlashcardDeck, keyof FlashcardDeckAttributes> & { [K in keyof FlashcardDeck & keyof FlashcardDeckAttributes]?: FlashcardDeck[K] } & { [K in keyof FlashcardDeck & keyof FlashcardDeckAttributes as `attr:${K}`]?: FlashcardDeckAttributes[K] } & { [K in keyof FlashcardDeck & keyof FlashcardDeckAttributes as `prop:${K}`]?: FlashcardDeck[K] };
         "page-attempt": Omit<PageAttempt, keyof PageAttemptAttributes> & { [K in keyof PageAttempt & keyof PageAttemptAttributes]?: PageAttempt[K] } & { [K in keyof PageAttempt & keyof PageAttemptAttributes as `attr:${K}`]?: PageAttemptAttributes[K] } & { [K in keyof PageAttempt & keyof PageAttemptAttributes as `prop:${K}`]?: PageAttempt[K] };
         "page-connections": PageConnections;
@@ -915,6 +976,14 @@ declare module "@stencil/core" {
              */
             "app-layout": LocalJSX.IntrinsicElements["app-layout"] & JSXBase.HTMLAttributes<HTMLAppLayoutElement>;
             "app-root": LocalJSX.IntrinsicElements["app-root"] & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            /**
+             * The discussion under a test, a question, a material or a course. The API
+             * decides everything -- who may post, edit, delete, and whose name this
+             * viewer may see -- and this only renders its answers. `compact` starts
+             * closed behind a "Discuss" toggle, for the per-question threads on a test
+             * page, and loads only when opened.
+             */
+            "comment-thread": LocalJSX.IntrinsicElements["comment-thread"] & JSXBase.HTMLAttributes<HTMLCommentThreadElement>;
             /**
              * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
              * flip to the back, step or shuffle. All state is local -- nothing is

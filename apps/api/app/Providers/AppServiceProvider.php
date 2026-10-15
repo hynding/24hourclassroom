@@ -49,6 +49,8 @@ class AppServiceProvider extends ServiceProvider
         // /courses/candidates.
         Route::pattern('course', '[0-9]+');
 
+        Route::pattern('comment', '[0-9]+');
+
         // {share} is resolved by hand inside MaterialShareController::destroy
         // (after the author check, so share ids are not an oracle); without a
         // pattern a non-numeric segment would reach `int $share` as a string.

@@ -5,6 +5,9 @@ import type {
   AssignmentResult,
   AssignmentRow,
   Attempt,
+  Comment,
+  CommentTargetType,
+  CommentThread,
   Connection,
   CourseCandidates,
   CourseInput,
@@ -506,6 +509,30 @@ export class ApiClient {
   /** Stateless: grades the run and stores nothing. */
   async checkPractice(courseId: number, testId: number, responses: Record<number, unknown>): Promise<PracticeResult> {
     return this.post<PracticeResult>(`/api/courses/${courseId}/tests/${testId}/check`, { responses });
+  }
+
+  /** The whole discussion on one target, oldest first, replies nested. */
+  async getComments(targetType: CommentTargetType, targetId: number): Promise<CommentThread> {
+    return this.get<CommentThread>(`/api/comments?target_type=${targetType}&target_id=${targetId}`);
+  }
+
+  /** A reply when `parentId` is given; a reply to a reply joins its thread. */
+  async postComment(targetType: CommentTargetType, targetId: number, body: string, parentId?: number): Promise<Comment> {
+    return this.post<Comment>('/api/comments', {
+      target_type: targetType,
+      target_id: targetId,
+      body,
+      ...(parentId ? { parent_id: parentId } : {}),
+    });
+  }
+
+  async updateComment(id: number, body: string): Promise<Comment> {
+    return this.patch<Comment>(`/api/comments/${id}`, { body });
+  }
+
+  /** Deletes its replies with it. */
+  async deleteComment(id: number): Promise<void> {
+    await this.delete(`/api/comments/${id}`);
   }
 
   /**

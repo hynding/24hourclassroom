@@ -1,4 +1,5 @@
 import { Component, h, State } from '@stencil/core';
+import { roleLabel } from '@24hc/shared';
 import type { AppNotification } from '@24hc/shared';
 import { profileStore } from '../../services/profile-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
@@ -59,6 +60,21 @@ export class PageNotifications {
     await this.load();
   }
 
+  /** Where a comment lives: a question's discussion is on its test page. */
+  private commentPath(data: AppNotification['data']): string | null {
+    switch (data.target_type) {
+      case 'test':
+      case 'question':
+        return data.test_id ? `/tests/${data.test_id}` : null;
+      case 'material':
+        return `/materials/${data.target_id}`;
+      case 'course':
+        return `/courses/${data.target_id}`;
+      default:
+        return null;
+    }
+  }
+
   private describe(notification: AppNotification) {
     const { type, data } = notification;
     if (type.endsWith('TestAssigned')) {
@@ -99,6 +115,15 @@ export class PageNotifications {
           {data.user?.name ?? 'Someone'} accepted your connection request
         </a>
       );
+    }
+    if (type.endsWith('CommentPosted')) {
+      const path = this.commentPath(data);
+      const who = data.user?.name ?? `A ${roleLabel(data.commenter_role).toLowerCase()}`;
+      const where = data.target_type === 'question' ? `a question in "${data.target_title}"` : `"${data.target_title}"`;
+      const what = data.is_reply ? `replied to your comment on ${where}` : `commented on ${where}`;
+      return path
+        ? <a href={path} onClick={(e) => { e.preventDefault(); navigate(path); }}>{who} {what}</a>
+        : `${who} ${what}`;
     }
     if (type.endsWith('Moderated')) {
       return data.message ?? data.user?.name;

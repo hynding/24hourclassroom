@@ -219,6 +219,7 @@ export class PageCourse {
             <ol class="items">{group.items.map((item) => this.renderItem(c, item))}</ol>
           </section>
         ))}
+        <comment-thread targetType="course" targetId={c.id}></comment-thread>
       </section>
     );
   }

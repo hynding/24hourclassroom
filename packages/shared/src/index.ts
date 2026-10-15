@@ -34,6 +34,12 @@ export const SUPPORTER_ROLES: Role[] = ['tutor', 'assistant', 'guardian'];
 /** `Role::receivesShares()`: may be shared a material by a connected author. */
 export const SHARE_RECIPIENT_ROLES: Role[] = ['teacher', 'student', 'tutor', 'assistant'];
 
+/** `Role::comments()`: may comment on anything they can see. */
+export const COMMENTER_ROLES: Role[] = ['teacher', 'student', 'tutor', 'assistant', 'guardian'];
+
+/** `Role::moderatesComments()`: may delete anyone's comment. */
+export const COMMENT_MODERATOR_ROLES: Role[] = ['admin'];
+
 /** Absent or unknown roles answer false. */
 export function hasRole(list: readonly Role[], role: Role | null | undefined): boolean {
   return role !== null && role !== undefined && list.includes(role);
@@ -779,5 +785,54 @@ export interface AppNotification {
     material_title?: string;
     course_id?: number;
     course_title?: string;
+    // CommentPosted. `user` is absent when the commenter is not named to
+    // this recipient; `commenter_role` is always there for "A student".
+    comment_id?: number;
+    commenter_role?: Role;
+    target_type?: CommentTargetType;
+    target_id?: number;
+    target_title?: string;
+    is_reply?: boolean;
   };
+}
+
+/** Mirrors `App\Enums\CommentTarget`, in enum order. */
+export const COMMENT_TARGETS = ['test', 'question', 'material', 'course'] as const;
+export type CommentTargetType = (typeof COMMENT_TARGETS)[number];
+
+/** `CommentController::MAX_BODY`. */
+export const COMMENT_MAX_LENGTH = 2000;
+
+/**
+ * A commenter as this viewer may see them: a UserSummary, or -- when the
+ * viewer may not know who they are (decision 5) -- the role alone with
+ * `id` and `name` null.
+ */
+export interface CommentAuthor {
+  id: number | null;
+  name: string | null;
+  role: Role;
+  avatar_url: string | null;
+}
+
+export interface Comment {
+  id: number;
+  parent_id: number | null;
+  body: string;
+  created_at: string;
+  edited_at: string | null;
+  author: CommentAuthor;
+  is_mine: boolean;
+  can_edit: boolean;
+  can_delete: boolean;
+  /** Top-level comments only; replies are one level deep. */
+  replies?: Comment[];
+}
+
+export interface CommentThread {
+  data: Comment[];
+  /** The viewer's role takes part and they can see the target. */
+  can_comment: boolean;
+  /** The target is theirs, or they are an administrator. */
+  can_moderate: boolean;
 }
