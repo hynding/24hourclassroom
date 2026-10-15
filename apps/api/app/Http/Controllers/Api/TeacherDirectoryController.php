@@ -23,7 +23,7 @@ class TeacherDirectoryController extends Controller
         ]);
 
         $teachers = User::query()
-            ->where('role', Role::Teacher)
+            ->whereIn('role', Role::publicValues())
             ->whereNull('deactivated_at')
             ->with('profile')
             ->when(

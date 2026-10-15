@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Enums\GradeLevel;
-use App\Enums\Role;
 use App\Enums\Subject;
 use App\Enums\Visibility;
 use App\Models\Material;
@@ -28,7 +27,7 @@ class SaveCourseRequest extends FormRequest
             return true;
         }
 
-        return $this->user()?->role === Role::Teacher;
+        return $this->user()?->role?->authors() === true;
     }
 
     protected function prepareForValidation(): void

@@ -1,4 +1,5 @@
 import { Component, h, Listen, State } from '@stencil/core';
+import { AUTHOR_ROLES, SHARE_RECIPIENT_ROLES, SUPPORTER_ROLES, hasRole } from '@24hc/shared';
 import type { SiteConfig, User } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
@@ -27,14 +28,28 @@ export class PageHome {
     this.unsubscribe();
   }
 
-  /** Allowlist, like app-header: teachers author, students take. An admin has no tests shelf. */
-  private hasShelves(): boolean {
-    return this.user !== null && (this.user.role === 'teacher' || this.user.role === 'student');
+  /** Allowlist, like app-header: authors write, students take. An admin has no tests shelf. */
+  private hasTests(): boolean {
+    return this.user !== null && (this.authors() || this.user.role === 'student');
   }
 
-  /** Allowlist: only a teacher builds courses. */
+  /** Allowlist, like app-header: authors upload, share recipients receive. */
+  private hasMaterials(): boolean {
+    return this.user !== null && (this.authors() || hasRole(SHARE_RECIPIENT_ROLES, this.user.role));
+  }
+
+  private authors(): boolean {
+    return this.user !== null && hasRole(AUTHOR_ROLES, this.user.role);
+  }
+
+  /** Allowlist: only an author builds courses. */
   private buildsCourses(): boolean {
-    return this.user !== null && this.user.role === 'teacher';
+    return this.authors();
+  }
+
+  /** Allowlist: a tutor, assistant or guardian follows connected students. */
+  private supportsStudents(): boolean {
+    return this.user !== null && hasRole(SUPPORTER_ROLES, this.user.role);
   }
 
   private card(path: string, title: string, blurb: string, primary = false) {
@@ -70,8 +85,9 @@ export class PageHome {
   private renderMember() {
     return (
       <ul class="cards" aria-label="Your shelves">
-        {this.hasShelves() && this.card('/tests', 'Tests', this.user!.role === 'teacher' ? 'Write, assign and grade.' : 'Assigned to you, with your results.')}
-        {this.hasShelves() && this.card('/materials', 'Materials', this.user!.role === 'teacher' ? 'Upload and share study materials.' : 'Shared with you by your teachers.')}
+        {this.supportsStudents() && this.card('/connections', 'Your students', 'Connect with a student to follow their assignments and scores.', true)}
+        {this.hasTests() && this.card('/tests', 'Tests', this.authors() ? 'Write, assign and grade.' : 'Assigned to you, with your results.')}
+        {this.hasMaterials() && this.card('/materials', 'Materials', this.authors() ? 'Upload and share study materials.' : 'Shared with you by your teachers.')}
         {this.buildsCourses() && this.card('/courses', 'Courses', 'Order your tests and materials into a course.')}
         {this.card('/library', 'Library', 'Everything published on the site.')}
         {this.card('/teachers', 'Teachers', 'Find and connect with other teachers.')}

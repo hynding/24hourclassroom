@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { GENERATION_STATUSES, Generation, MyAssignment, MyAttempt, TestSummary } from '@24hc/shared';
+import { AUTHOR_ROLES, GENERATION_STATUSES, Generation, MyAssignment, MyAttempt, TestSummary, hasRole } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { testsStore } from '../../services/tests-store';
 import { generationStore } from '../../services/generation-store';
@@ -27,9 +27,13 @@ export class PageTests {
   private generationsLoaded = false;
 
   private get role(): 'teacher' | 'student' | 'none' {
-    // Allowlist: anything that is not exactly teacher or student gets the empty state.
+    // Allowlist: an author (teacher, tutor) writes tests, a student takes
+    // them, and anyone else gets the empty state.
     const role = authStore.currentUser?.role;
-    return role === 'teacher' || role === 'student' ? role : 'none';
+    if (hasRole(AUTHOR_ROLES, role)) {
+      return 'teacher';
+    }
+    return role === 'student' ? 'student' : 'none';
   }
 
   async componentWillLoad() {

@@ -127,9 +127,9 @@ test('another teachers token id is indistinguishable from a missing one', functi
     expect($mine->tokens()->count())->toBe(1);
 });
 
-test('every non-teacher role is refused on all three token endpoints', function () {
+test('every non-author role is refused on all three token endpoints', function () {
     foreach (Role::cases() as $role) {
-        if ($role === Role::Teacher) {
+        if ($role->authors()) {
             continue;
         }
 

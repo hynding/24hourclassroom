@@ -50,7 +50,7 @@ test('the author cannot copy their own public test', function () {
 test('every non-teacher role gets 403 on a public source', function () {
     $source = aTestWithQuestions(aTeacher(), 1, ['visibility' => 'public', 'published_at' => now()]);
     foreach (Role::cases() as $role) {
-        if ($role === Role::Teacher) {
+        if ($role->authors()) {
             continue;
         }
         $this->actingAs(User::factory()->create(['role' => $role->value]));

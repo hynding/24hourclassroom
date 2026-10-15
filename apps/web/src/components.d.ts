@@ -152,6 +152,14 @@ export namespace Components {
     }
     interface PageResetPassword {
     }
+    /**
+     * A connected student's assignments, for a tutor, teacher assistant or
+     * parent/guardian. Read-only. Titles are plain text, not links: a private
+     * test 404s for anyone but its author and the student it was assigned to.
+     */
+    interface PageStudent {
+        "studentId"?: number;
+    }
     interface PageTeacherProfile {
         "teacherId"?: number;
     }
@@ -414,6 +422,17 @@ declare global {
         prototype: HTMLPageResetPasswordElement;
         new (): HTMLPageResetPasswordElement;
     };
+    /**
+     * A connected student's assignments, for a tutor, teacher assistant or
+     * parent/guardian. Read-only. Titles are plain text, not links: a private
+     * test 404s for anyone but its author and the student it was assigned to.
+     */
+    interface HTMLPageStudentElement extends Components.PageStudent, HTMLStencilElement {
+    }
+    var HTMLPageStudentElement: {
+        prototype: HTMLPageStudentElement;
+        new (): HTMLPageStudentElement;
+    };
     interface HTMLPageTeacherProfileElement extends Components.PageTeacherProfile, HTMLStencilElement {
     }
     var HTMLPageTeacherProfileElement: {
@@ -533,6 +552,7 @@ declare global {
         "page-register": HTMLPageRegisterElement;
         "page-register-role": HTMLPageRegisterRoleElement;
         "page-reset-password": HTMLPageResetPasswordElement;
+        "page-student": HTMLPageStudentElement;
         "page-teacher-profile": HTMLPageTeacherProfileElement;
         "page-teachers": HTMLPageTeachersElement;
         "page-test": HTMLPageTestElement;
@@ -690,6 +710,14 @@ declare namespace LocalJSX {
     }
     interface PageResetPassword {
     }
+    /**
+     * A connected student's assignments, for a tutor, teacher assistant or
+     * parent/guardian. Read-only. Titles are plain text, not links: a private
+     * test 404s for anyone but its author and the student it was assigned to.
+     */
+    interface PageStudent {
+        "studentId"?: number;
+    }
     interface PageTeacherProfile {
         "teacherId"?: number;
     }
@@ -791,6 +819,9 @@ declare namespace LocalJSX {
     interface PageMaterialShareAttributes {
         "materialId": number;
     }
+    interface PageStudentAttributes {
+        "studentId": number;
+    }
     interface PageTeacherProfileAttributes {
         "teacherId": number;
     }
@@ -848,6 +879,7 @@ declare namespace LocalJSX {
         "page-register": PageRegister;
         "page-register-role": PageRegisterRole;
         "page-reset-password": PageResetPassword;
+        "page-student": Omit<PageStudent, keyof PageStudentAttributes> & { [K in keyof PageStudent & keyof PageStudentAttributes]?: PageStudent[K] } & { [K in keyof PageStudent & keyof PageStudentAttributes as `attr:${K}`]?: PageStudentAttributes[K] } & { [K in keyof PageStudent & keyof PageStudentAttributes as `prop:${K}`]?: PageStudent[K] };
         "page-teacher-profile": Omit<PageTeacherProfile, keyof PageTeacherProfileAttributes> & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes]?: PageTeacherProfile[K] } & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes as `attr:${K}`]?: PageTeacherProfileAttributes[K] } & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes as `prop:${K}`]?: PageTeacherProfile[K] };
         "page-teachers": PageTeachers;
         "page-test": Omit<PageTest, keyof PageTestAttributes> & { [K in keyof PageTest & keyof PageTestAttributes]?: PageTest[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `attr:${K}`]?: PageTestAttributes[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `prop:${K}`]?: PageTest[K] };
@@ -925,6 +957,12 @@ declare module "@stencil/core" {
             "page-register": LocalJSX.IntrinsicElements["page-register"] & JSXBase.HTMLAttributes<HTMLPageRegisterElement>;
             "page-register-role": LocalJSX.IntrinsicElements["page-register-role"] & JSXBase.HTMLAttributes<HTMLPageRegisterRoleElement>;
             "page-reset-password": LocalJSX.IntrinsicElements["page-reset-password"] & JSXBase.HTMLAttributes<HTMLPageResetPasswordElement>;
+            /**
+             * A connected student's assignments, for a tutor, teacher assistant or
+             * parent/guardian. Read-only. Titles are plain text, not links: a private
+             * test 404s for anyone but its author and the student it was assigned to.
+             */
+            "page-student": LocalJSX.IntrinsicElements["page-student"] & JSXBase.HTMLAttributes<HTMLPageStudentElement>;
             "page-teacher-profile": LocalJSX.IntrinsicElements["page-teacher-profile"] & JSXBase.HTMLAttributes<HTMLPageTeacherProfileElement>;
             "page-teachers": LocalJSX.IntrinsicElements["page-teachers"] & JSXBase.HTMLAttributes<HTMLPageTeachersElement>;
             "page-test": LocalJSX.IntrinsicElements["page-test"] & JSXBase.HTMLAttributes<HTMLPageTestElement>;

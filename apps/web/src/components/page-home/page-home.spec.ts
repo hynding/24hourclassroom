@@ -55,6 +55,9 @@ describe('page-home', () => {
       teacher: ['/tests', '/materials', '/courses', '/library', '/teachers'],
       student: ['/tests', '/materials', '/library', '/teachers'],
       admin: ['/library', '/teachers'],
+      tutor: ['/connections', '/tests', '/materials', '/courses', '/library', '/teachers'],
+      assistant: ['/connections', '/materials', '/library', '/teachers'],
+      guardian: ['/connections', '/library', '/teachers'],
     };
     for (const role of Object.keys(expected) as Role[]) {
       currentUser = { id: 1, name: 'Ada', email_verified_at: '2026-01-01', role };

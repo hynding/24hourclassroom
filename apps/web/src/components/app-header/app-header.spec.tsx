@@ -189,8 +189,8 @@ describe('app-header bell', () => {
     expect(spec.root.shadowRoot.querySelector('a.wordmark')?.textContent).toContain('Day School');
   });
 
-  it('shows Tests for teachers and students only, and Library for everyone', async () => {
-    for (const [role, expected] of [['teacher', true], ['student', true], ['admin', false]] as const) {
+  it('shows Tests for authors and students only, and Library for everyone', async () => {
+    for (const [role, expected] of [['teacher', true], ['student', true], ['admin', false], ['tutor', true], ['assistant', false], ['guardian', false]] as const) {
       currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role };
       const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
       const links = Array.from(spec.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
@@ -215,10 +215,10 @@ describe('app-header bell', () => {
     expect(links.slice(at + 1, at + 4).map((a) => a.textContent)).toEqual(['Tests', 'Materials', 'Courses']);
   });
 
-  it('shows Materials for teachers and students only', async () => {
-    // Allowlist, not a denylist: a fourth role must be invalid by default,
+  it('shows Materials for authors and share recipients only', async () => {
+    // Allowlist, not a denylist: a new role must be invalid by default,
     // and an admin has no materials shelf (admin moderation is Inertia-only).
-    for (const [role, expected] of [['teacher', true], ['student', true], ['admin', false]] as const) {
+    for (const [role, expected] of [['teacher', true], ['student', true], ['admin', false], ['tutor', true], ['assistant', true], ['guardian', false]] as const) {
       currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role };
       const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
       const links = Array.from(spec.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
@@ -231,9 +231,9 @@ describe('app-header bell', () => {
     expect(links).not.toContain('/materials');
   });
 
-  it('shows Courses to teachers only, the one role with a courses shelf', async () => {
+  it('shows Courses to authors only, the roles with a courses shelf', async () => {
     // Allowlist: everyone else finds published courses in the library.
-    for (const [role, expected] of [['teacher', true], ['student', false], ['admin', false]] as const) {
+    for (const [role, expected] of [['teacher', true], ['student', false], ['admin', false], ['tutor', true], ['assistant', false], ['guardian', false]] as const) {
       currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role };
       for (const orientation of ['horizontal', 'vertical']) {
         const spec = await newSpecPage({ components: [AppHeader], html: `<app-header orientation="${orientation}"></app-header>` });
@@ -248,11 +248,11 @@ describe('app-header bell', () => {
     expect(links).not.toContain('/courses');
   });
 
-  it('shows Connections to teachers and students only, the two roles that can connect', async () => {
-    // Allowlist, not a denylist: the server accepts connections between
-    // Role::Teacher and Role::Student alone, so an admin (and any fourth
-    // role) must not be offered the page.
-    for (const [role, expected] of [['teacher', true], ['student', true], ['admin', false]] as const) {
+  it('shows Connections to every self-assignable role, never an admin', async () => {
+    // Allowlist, not a denylist: the server's Role::canConnect pairs no one
+    // with an admin, so an admin (and any role added later) must not be
+    // offered the page.
+    for (const [role, expected] of [['teacher', true], ['student', true], ['admin', false], ['tutor', true], ['assistant', true], ['guardian', true]] as const) {
       currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role };
       const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
       const links = Array.from(spec.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
@@ -265,16 +265,18 @@ describe('app-header bell', () => {
     expect(links).not.toContain('/connections');
   });
 
-  it('shows Integrations for teachers only', async () => {
+  it('shows Integrations for authors only', async () => {
     // Allowlist, not a denylist: the MCP server and every generation
-    // endpoint admit Role::Teacher and nothing else, so a student, an admin
-    // and any fourth role must not be offered the page at all.
-    currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role: 'teacher' };
-    const teacher = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
-    const teacherLinks = Array.from(teacher.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
-    expect(teacherLinks).toContain('/integrations');
+    // endpoint admit Role::authors() and nothing else, so a student, an
+    // admin and any other role must not be offered the page at all.
+    for (const role of ['teacher', 'tutor'] as const) {
+      currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role };
+      const author = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+      const authorLinks = Array.from(author.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+      expect(authorLinks).toContain('/integrations');
+    }
 
-    for (const role of ['student', 'admin'] as const) {
+    for (const role of ['student', 'admin', 'assistant', 'guardian'] as const) {
       currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role };
       const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
       const links = Array.from(spec.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));

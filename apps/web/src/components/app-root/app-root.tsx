@@ -119,6 +119,8 @@ export class AppRoot {
         return <page-profile></page-profile>;
       case 'page-connections':
         return <page-connections></page-connections>;
+      case 'page-student':
+        return <page-student studentId={route.studentId}></page-student>;
       case 'page-notifications':
         return <page-notifications></page-notifications>;
       case 'page-login':

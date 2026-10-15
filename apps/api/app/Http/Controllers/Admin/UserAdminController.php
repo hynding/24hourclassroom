@@ -67,7 +67,7 @@ class UserAdminController extends Controller
         $validated = $request->validate([
             // Admin is granted by hand on purpose. Allowing it here would let
             // one compromised admin session mint more admins.
-            'role' => ['required', Rule::in([Role::Teacher->value, Role::Student->value])],
+            'role' => ['required', Rule::in(Role::selfAssignableValues())],
         ]);
 
         $user->update(['role' => $validated['role']]);

@@ -28,7 +28,7 @@ class SaveMaterialRequest extends FormRequest
             return true;
         }
 
-        return $this->user()?->role === Role::Teacher;
+        return $this->user()?->role?->authors() === true;
     }
 
     public function rules(): array

@@ -235,3 +235,13 @@ test('reactivate and profile-content refuse self like the other two', function (
     $this->patch("/admin/users/{$me->id}/reactivate")->assertStatus(403);
     $this->delete("/admin/users/{$me->id}/profile-content")->assertStatus(403);
 });
+
+test('an admin moves a user between every self-assignable role', function () {
+    $this->actingAs(admin());
+    $user = User::factory()->create(['role' => 'teacher']);
+
+    foreach (['guardian', 'assistant', 'tutor', 'student', 'teacher'] as $role) {
+        $this->patch("/admin/users/{$user->id}/role", ['role' => $role])->assertSessionHasNoErrors();
+        expect($user->fresh()->role->value)->toBe($role);
+    }
+});

@@ -98,9 +98,9 @@ test('a session without a token is refused at the mcp route', function () {
     $this->postJson('/mcp/teacher', mcpPing())->assertStatus(401);
 });
 
-test('every non-teacher role is refused at the mcp route', function () {
+test('every non-author role is refused at the mcp route', function () {
     foreach (Role::cases() as $role) {
-        if ($role === Role::Teacher) {
+        if ($role->authors()) {
             continue;
         }
 

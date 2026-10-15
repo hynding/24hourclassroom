@@ -280,7 +280,7 @@ test('a typo must not cost the teacher their running generations', function () {
 
 test('only a teacher may set or remove a key', function () {
     foreach (Role::cases() as $role) {
-        if ($role === Role::Teacher) {
+        if ($role->authors()) {
             continue;
         }
 

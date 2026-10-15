@@ -104,6 +104,18 @@ export class ProfileStore {
     return this.client.requestConnection(userId);
   }
 
+  connectCode(): Promise<{ code: string }> {
+    return this.client.getConnectCode();
+  }
+
+  rotateConnectCode(): Promise<{ code: string }> {
+    return this.client.rotateConnectCode();
+  }
+
+  requestConnectionByCode(code: string): Promise<void> {
+    return this.client.requestConnectionByCode(code);
+  }
+
   acceptConnection(connectionId: number): Promise<void> {
     return this.client.acceptConnection(connectionId);
   }

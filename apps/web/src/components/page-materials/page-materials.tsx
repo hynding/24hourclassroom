@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { GRADE_LEVELS, MaterialSummary, SUBJECTS, SharedMaterial } from '@24hc/shared';
+import { AUTHOR_ROLES, GRADE_LEVELS, MaterialSummary, SHARE_RECIPIENT_ROLES, SUBJECTS, SharedMaterial, hasRole } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { materialsStore } from '../../services/materials-store';
 import { navigate } from '../../services/navigate';
@@ -17,10 +17,17 @@ export class PageMaterials {
   @State() sharedPage = 1;
   @State() sharedLastPage = 1;
 
-  /** Allowlist: anything that is not exactly teacher or student gets the empty state. */
+  /**
+   * Allowlists: an author (teacher, tutor) gets the authoring view, anyone
+   * else who can be shared a material gets the shared list, and everyone
+   * else the empty state.
+   */
   private get role(): 'teacher' | 'student' | 'none' {
     const role = authStore.currentUser?.role;
-    return role === 'teacher' || role === 'student' ? role : 'none';
+    if (hasRole(AUTHOR_ROLES, role)) {
+      return 'teacher';
+    }
+    return hasRole(SHARE_RECIPIENT_ROLES, role) ? 'student' : 'none';
   }
 
   async componentWillLoad() {

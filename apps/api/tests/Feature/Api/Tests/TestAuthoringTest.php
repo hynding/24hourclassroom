@@ -47,7 +47,7 @@ test('a teacher creates a test with every question type and sees answers back', 
 
 test('only a teacher may create or list tests', function () {
     foreach (Role::cases() as $role) {
-        if ($role === Role::Teacher) {
+        if ($role->authors()) {
             continue;
         }
         $this->actingAs(User::factory()->create(['role' => $role->value]));

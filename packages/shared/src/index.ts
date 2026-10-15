@@ -1,7 +1,47 @@
-export type Role = 'teacher' | 'student' | 'admin';
+export type Role = 'teacher' | 'student' | 'admin' | 'tutor' | 'assistant' | 'guardian';
 
 /** Roles a user may choose for themselves. Admin is assigned, never requested. */
 export type RegistrationRole = Exclude<Role, 'admin'>;
+
+/**
+ * Mirrors `App\Enums\Role`: every case, its label, in enum order. The three
+ * capability lists below mirror the enum's allowlists of the same names; an
+ * API test asserts both directions. Branch on these, never on a role literal
+ * compared with `===` or `!==`: a role added later should be refused by
+ * default (the recurring defect class in CLAUDE.md).
+ */
+export const ROLES: TaxonomyOption<Role>[] = [
+  { value: 'teacher', label: 'Teacher' },
+  { value: 'student', label: 'Student' },
+  { value: 'admin', label: 'Admin' },
+  { value: 'tutor', label: 'Tutor' },
+  { value: 'assistant', label: 'Teacher assistant' },
+  { value: 'guardian', label: 'Parent or guardian' },
+];
+
+/** `Role::selfAssignable()`, in the order registration offers them. */
+export const REGISTRATION_ROLES: RegistrationRole[] = ['teacher', 'student', 'tutor', 'assistant', 'guardian'];
+
+/** `Role::authors()`: writes, assigns and grades tests, materials and courses. */
+export const AUTHOR_ROLES: Role[] = ['teacher', 'tutor'];
+
+/** `Role::isPublic()`: in the directory, with a public profile. */
+export const PUBLIC_ROLES: Role[] = ['teacher', 'tutor'];
+
+/** `Role::supportsStudents()`: reads a connected student's assignments. */
+export const SUPPORTER_ROLES: Role[] = ['tutor', 'assistant', 'guardian'];
+
+/** `Role::receivesShares()`: may be shared a material by a connected author. */
+export const SHARE_RECIPIENT_ROLES: Role[] = ['teacher', 'student', 'tutor', 'assistant'];
+
+/** Absent or unknown roles answer false. */
+export function hasRole(list: readonly Role[], role: Role | null | undefined): boolean {
+  return role !== null && role !== undefined && list.includes(role);
+}
+
+export function roleLabel(role: Role | null | undefined): string {
+  return ROLES.find((r) => r.value === role)?.label ?? 'Member';
+}
 
 export interface User {
   id: number;
@@ -214,6 +254,12 @@ export interface MyAssignment {
   test: AttemptTestRef & { question_count: number; author: TestAuthor };
   latest: AttemptSummary | null;
   best: AttemptSummary | null;
+}
+
+/** `GET /api/students/{id}/assignments`, for a connected supporter. */
+export interface StudentAssignments {
+  student: TestAuthor;
+  data: MyAssignment[];
 }
 
 export interface AssignmentRow {

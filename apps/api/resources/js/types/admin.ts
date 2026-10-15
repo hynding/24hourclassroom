@@ -99,7 +99,7 @@ export type AdminUserDetail = {
 
 export type AdminMetrics = {
     people: {
-        by_role: { teacher: number; student: number; admin: number };
+        by_role: { teacher: number; student: number; admin: number; tutor: number; assistant: number; guardian: number };
         verified_percentage: number;
         new_7d: number;
         new_30d: number;

@@ -71,19 +71,20 @@ class ConnectionController extends Controller
      * An ALLOWLIST, not a denylist. This first shipped as `=== Role::Student`,
      * which meant Role::Admin -- added in this same milestone -- took the
      * full-summary branch, and the student-roster attack ran verbatim against
-     * administrators instead. Only a teacher is publicly discoverable (they
-     * are in GET /api/teachers), so only a teacher is named here.
+     * administrators instead. Only a Role::isPublic() role is publicly
+     * discoverable (they are in GET /api/teachers), so only they are named
+     * here; a guardian or assistant reached by connect code is not.
      *
-     * Read time, not write time: store() now refuses a non-teacher/student
-     * target, but a row created while both parties were teachers survives one
-     * of them being promoted -- the spec enforces role rules at creation time
-     * only -- so the current role is what counts.
+     * Read time, not write time: store() refuses a pair Role::canConnect
+     * does not allow, but a row created while both parties were teachers
+     * survives one of them being promoted -- the spec enforces role rules
+     * at creation time only -- so the current role is what counts.
      *
      * @return array<string, mixed>
      */
     private function outgoingSummary(User $user): array
     {
-        if ($user->role !== Role::Teacher) {
+        if (! $user->role->isPublic()) {
             return ['id' => $user->id];
         }
 
@@ -92,8 +93,30 @@ class ConnectionController extends Controller
 
     public function store(Request $request, User $user): Response
     {
-        $me = $request->user();
+        $this->request($request->user(), $user);
 
+        return response()->noContent();
+    }
+
+    /**
+     * Send a request to whoever owns `$code`. This is how anyone who is not
+     * publicly listed gets connected: a student has no directory and neither
+     * does a guardian, so one of them shares their code and the other sends
+     * the request. Every miss -- unknown code, deactivated owner, a pair the
+     * roles do not allow -- is the same 404.
+     */
+    public function storeByCode(Request $request, string $code): Response
+    {
+        $user = User::where('connect_code', strtoupper($code))->first();
+        abort_if($user === null, 404);
+
+        $this->request($request->user(), $user);
+
+        return response()->noContent();
+    }
+
+    private function request(User $me, User $user): void
+    {
         if ($user->id === $me->id) {
             throw ValidationException::withMessages(['user' => __('You cannot connect with yourself.')]);
         }
@@ -113,20 +136,15 @@ class ConnectionController extends Controller
         // student walk the id space and rebuild the student directory the
         // spec deliberately omits. Nothing is lost: students cannot discover
         // other students, so the only way to reach this branch is the attack.
-        // An ALLOWLIST over Role, for the same reason PublicProfileController
-        // has one: spec line 14 defines the valid pairs as teacher<->teacher
-        // and teacher<->student, so anyone who is neither a teacher nor a
-        // student is not a connection partner -- in EITHER direction. Written
-        // as a denylist, Role::Admin (new in this milestone) became a
-        // permitted addressee for every authenticated user, which rebuilt the
-        // named-administrator list through pending() and spammed the admin
-        // with a ConnectionRequested per probe. A role added later is invalid
-        // by default rather than silently permitted.
-        $partners = [Role::Teacher, Role::Student];
-        abort_unless(in_array($user->role, $partners, true), 404);
-        abort_unless(in_array($me->role, $partners, true), 404);
-
-        abort_if($me->role === Role::Student && $user->role === Role::Student, 404);
+        //
+        // An ALLOWLIST of pairs (Role::canConnect), for the same reason
+        // PublicProfileController has one. Written as a denylist, Role::Admin
+        // (new in that milestone) became a permitted addressee for every
+        // authenticated user, which rebuilt the named-administrator list
+        // through pending() and spammed the admin with a ConnectionRequested
+        // per probe. A role added later is invalid by default rather than
+        // silently permitted.
+        abort_unless(Role::canConnect($me->role, $user->role), 404);
 
         try {
             Connection::create([
@@ -143,8 +161,26 @@ class ConnectionController extends Controller
         }
 
         $user->notify(new ConnectionRequested($me));
+    }
 
-        return response()->noContent();
+    /** The caller's own connect code, minted on first read. */
+    public function code(Request $request): JsonResponse
+    {
+        $me = $request->user();
+        if ($me->connect_code === null) {
+            $me->forceFill(['connect_code' => User::newConnectCode()])->save();
+        }
+
+        return response()->json(['code' => $me->connect_code]);
+    }
+
+    /** A fresh code; the old one stops working at once. */
+    public function rotateCode(Request $request): JsonResponse
+    {
+        $me = $request->user();
+        $me->forceFill(['connect_code' => User::newConnectCode()])->save();
+
+        return response()->json(['code' => $me->connect_code]);
     }
 
     public function update(Request $request, Connection $connection): Response

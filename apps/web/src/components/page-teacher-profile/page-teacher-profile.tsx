@@ -1,6 +1,6 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
-import { GRADE_LEVELS, MaterialSummary, Paginated, PublicProfile, SUBJECTS, TestSummary } from '@24hc/shared';
+import { GRADE_LEVELS, MaterialSummary, PUBLIC_ROLES, Paginated, PublicProfile, REGISTRATION_ROLES, SUBJECTS, TestSummary, hasRole, roleLabel } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { materialsStore } from '../../services/materials-store';
 import { navigate } from '../../services/navigate';
@@ -37,9 +37,10 @@ export class PageTeacherProfile {
 
     try {
       this.teacher = await profileStore.teacher(this.teacherId);
-      // Allowlist: only a teacher has public work. A student's name-only
-      // payload (seen through an accepted connection) gets no library call.
-      if (this.teacher.role === 'teacher') {
+      // Allowlist: only a public role (teacher, tutor) has public work. A
+      // name-only payload (seen through an accepted connection) gets no
+      // library call.
+      if (hasRole(PUBLIC_ROLES, this.teacher.role)) {
         await this.loadWork(this.teacher.id);
       }
     } catch (err) {
@@ -165,9 +166,10 @@ export class PageTeacherProfile {
   }
 
   /**
-   * The server enforces connections as teacher<->teacher or
-   * teacher<->student (spec line 14), guarding the ACTOR as well as the
-   * target, so an admin's Connect click 404s. 404 is not a recovery case,
+   * The server allowlists connection pairs (Role::canConnect), guarding the
+   * ACTOR as well as the target. Every self-assignable role may connect
+   * with a public one (teacher, tutor); an admin may not, so an admin's
+   * Connect click 404s. 404 is not a recovery case,
    * so connectAction() resyncs to the identical state and the button looks
    * live while doing nothing -- the same dead affordance as B3's
    * unverified viewer.
@@ -178,7 +180,7 @@ export class PageTeacherProfile {
    * spec permits "anyone -> teachers" there.
    */
   private get viewerMayInitiateConnection(): boolean {
-    return authStore.currentUser?.role !== 'admin';
+    return hasRole(REGISTRATION_ROLES, authStore.currentUser?.role);
   }
 
   private connectLabel(connection: PublicProfile['connection']): string {
@@ -226,6 +228,7 @@ export class PageTeacherProfile {
       <section>
         {profile?.avatar_url && <img src={profile.avatar_url} alt={`${name}'s avatar`} />}
         <h1>{name}</h1>
+        {this.teacher.role && this.teacher.role !== 'teacher' && <p class="pill">{roleLabel(this.teacher.role)}</p>}
         {profile?.school && <p>{profile.school}</p>}
         {profile?.bio && <p>{profile.bio}</p>}
         {profile?.specialties && <p>{profile.specialties}</p>}
@@ -268,7 +271,7 @@ export class PageTeacherProfile {
                 // affordance -- so an existing row keeps its
                 // Accept/Cancel/Disconnect button.
                 <p data-testid="admin-connect-hint">
-                  Only teachers and students can start a connection.
+                  Admin accounts cannot start a connection.
                 </p>
               )}
             </div>

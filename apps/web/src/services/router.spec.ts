@@ -212,6 +212,15 @@ describe('generation routes', () => {
     expect(resolveRoute('/generations/7/extra').tag).toBe('page-home');
   });
 
+  it('parses /students/:id and guards it', () => {
+    expect(resolveRoute('/students/40')).toEqual({ tag: 'page-student', studentId: 40 });
+    expect(resolveRoute('/students/x')).toEqual({ tag: 'page-student', studentId: undefined });
+    expect(resolveRoute('/students/40/extra').tag).toBe('page-home');
+    expect(redirectFor('/students/40', null)).toBe('/login');
+    expect(redirectFor('/students/40', unverified)).toBe('/verify-email');
+    expect(redirectFor('/students/40', verified)).toBeNull();
+  });
+
   it('guards all three as auth-only', () => {
     for (const path of ['/integrations', '/tests/generate', '/generations/7']) {
       expect(redirectFor(path, null)).toBe('/login');

@@ -319,7 +319,7 @@ test('a second failure after the re-provision fails the row', function () {
 
 test('only a teacher may create a generation, malformed body and all', function () {
     foreach (Role::cases() as $role) {
-        if ($role === Role::Teacher) {
+        if ($role->authors()) {
             continue;
         }
 

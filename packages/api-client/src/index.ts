@@ -33,6 +33,7 @@ import type {
   SharedMaterial,
   ShareResult,
   SiteConfig,
+  StudentAssignments,
   Subject,
   TeacherSummary,
   Test,
@@ -220,6 +221,21 @@ export class ApiClient {
     await this.post(`/api/connections/${userId}`);
   }
 
+  /** The caller's own connect code, created on first read. */
+  async getConnectCode(): Promise<{ code: string }> {
+    return this.get<{ code: string }>('/api/connections/code');
+  }
+
+  /** Replaces the caller's connect code; the old one stops working. */
+  async rotateConnectCode(): Promise<{ code: string }> {
+    return this.put<{ code: string }>('/api/connections/code');
+  }
+
+  /** Sends a connection request to whoever owns `code`. */
+  async requestConnectionByCode(code: string): Promise<void> {
+    await this.post(`/api/connections/code/${encodeURIComponent(code.trim())}`);
+  }
+
   /** Takes the id of the CONNECTION row, not the user. */
   async acceptConnection(connectionId: number): Promise<void> {
     await this.patch(`/api/connections/${connectionId}`);
@@ -309,6 +325,11 @@ export class ApiClient {
 
   async myAssignments(): Promise<{ data: MyAssignment[] }> {
     return this.get<{ data: MyAssignment[] }>('/api/assignments');
+  }
+
+  /** A connected student's assignments, for a tutor, assistant or guardian. */
+  async studentAssignments(studentId: number): Promise<StudentAssignments> {
+    return this.get<StudentAssignments>(`/api/students/${studentId}/assignments`);
   }
 
   async myAttempts(): Promise<{ data: MyAttempt[] }> {
