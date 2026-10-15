@@ -91,8 +91,9 @@ Enforced by specs in `src/global/`. These fail CI, not review:
 ## Admin accounts
 
 **Nothing in the application can create an admin.** All four role-accepting
-entry points allowlist teacher/student only — SPA registration, web
-registration, OAuth completion, *and the admin UI's own role editor*. That is
+entry points allowlist `Role::selfAssignable()` (teacher, student, tutor,
+assistant, guardian) — SPA registration, web registration, OAuth completion,
+*and the admin UI's own role editor*. That is
 deliberate: a stolen admin session cannot mint persistent admins. It also means
 provisioning always needs shell access.
 
@@ -121,6 +122,26 @@ JSON entry points, `isOpen()` + redirect on the web register page, the OAuth
 callback's new-account branch); `RegistrationGateTest` scans `app/` for
 `User::create(` and fails until a new creator is gated. Shell commands,
 seeders and factories are deliberately ungated.
+
+## Roles
+
+`App\Enums\Role` holds every capability as an allowlist method; branch on those,
+never on a role literal. `packages/shared` mirrors each list (`AUTHOR_ROLES`,
+`PUBLIC_ROLES`, …) and `RoleMirrorTest` asserts both directions.
+
+- `authors()` — teacher, tutor: tests, materials, courses, assigning, grading,
+  integrations. A tutor is a teacher in every gate.
+- `isPublic()` — teacher, tutor: directory, public profile, follow, avatar.
+- `supportsStudents()` — tutor, assistant (teacher assistant), guardian
+  (parent or guardian): `GET /api/students/{id}/assignments`, read-only scores
+  for a student they hold an accepted connection with. 404 for anything else.
+- `receivesShares()` — teacher, student, tutor, assistant.
+- `Role::canConnect($a, $b)` — the symmetric pair matrix (no admin, no
+  student↔student, guardian/assistant only with teacher, tutor, student).
+
+Non-public roles are reached through **connect codes** (`users.connect_code`,
+hidden, minted on first `GET /api/connections/code`, rotated by `PUT`):
+`POST /api/connections/code/{code}` sends a request; every miss is one 404.
 
 ## Courses
 

@@ -18,7 +18,7 @@ class OAuthCompletionController extends Controller
     {
         Registration::assertOpen();
 
-        $request->validate(['role' => ['required', Rule::in([Role::Teacher->value, Role::Student->value])]]);
+        $request->validate(['role' => ['required', Rule::in(Role::selfAssignableValues())]]);
 
         $google = $request->session()->get('oauth.google');
 

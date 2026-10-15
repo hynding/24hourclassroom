@@ -39,6 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
         'google_id',
         'deactivated_at',
+        'connect_code',
     ];
 
     /**
@@ -59,6 +60,25 @@ class User extends Authenticatable implements MustVerifyEmail
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
+    }
+
+    /**
+     * A shareable code that lets someone send this user a connection request
+     * without the user being publicly listed. No 0/O/1/I, so it survives being
+     * read aloud; 32^10 values, so it cannot be walked like an id.
+     */
+    public static function newConnectCode(): string
+    {
+        $alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
+        do {
+            $code = '';
+            for ($i = 0; $i < 10; $i++) {
+                $code .= $alphabet[random_int(0, strlen($alphabet) - 1)];
+            }
+        } while (static::where('connect_code', $code)->exists());
+
+        return $code;
     }
 
     public function isActive(): bool

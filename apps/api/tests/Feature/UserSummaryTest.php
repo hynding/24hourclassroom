@@ -87,7 +87,7 @@ test('for() surrenders an avatar_url only for a teacher, across every role the e
         // a missing key would make the payload shape announce the role.
         expect($summary)->toHaveCount(4)->and($summary)->toHaveKey('avatar_url');
 
-        if ($role === Role::Teacher) {
+        if ($role->isPublic()) {
             expect($summary['avatar_url'])->toBe($user->profile->avatar_url);
 
             continue;

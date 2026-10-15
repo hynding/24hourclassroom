@@ -67,7 +67,7 @@ test('each row carries exactly the generation payload', function () {
 
 test('only a teacher may list generations', function () {
     foreach (Role::cases() as $role) {
-        if ($role === Role::Teacher) {
+        if ($role->authors()) {
             continue;
         }
 
@@ -136,7 +136,7 @@ test('every non-teacher role is 403 on an existing and a missing generation alik
     $generation = Generation::factory()->for(aTeacher())->create();
 
     foreach (Role::cases() as $role) {
-        if ($role === Role::Teacher) {
+        if ($role->authors()) {
             continue;
         }
         $this->actingAs(User::factory()->create(['role' => $role->value]));

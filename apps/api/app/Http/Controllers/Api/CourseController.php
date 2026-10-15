@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\Role;
 use App\Enums\Visibility;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveCourseRequest;
@@ -29,7 +28,7 @@ class CourseController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         // Allowlist: only a teacher has a courses shelf. Admin is not a teacher here.
-        abort_unless($request->user()->role === Role::Teacher, 403);
+        abort_unless($request->user()->role->authors(), 403);
 
         $own = fn (string $table) => fn (Builder $q) => $q->whereColumn("{$table}.user_id", 'courses.user_id');
         $material = fn (Builder $q) => $q->where(fn (Builder $m) => $m

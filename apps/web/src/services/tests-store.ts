@@ -23,6 +23,7 @@ export class TestsStore {
   unassign(testId: number, assignmentId: number) { return this.client.unassign(testId, assignmentId); }
   listTestAttempts(testId: number, page?: number) { return this.client.listTestAttempts(testId, page); }
   myAssignments() { return this.client.myAssignments(); }
+  studentAssignments(studentId: number) { return this.client.studentAssignments(studentId); }
   myAttempts() { return this.client.myAttempts(); }
   startAttempt(testId: number) { return this.client.startAttempt(testId); }
   getAttempt(id: number) { return this.client.getAttempt(id); }

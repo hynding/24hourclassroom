@@ -25,7 +25,7 @@ test('only a teacher may create a course, and a non-teacher learns nothing from 
     $this->postJson('/api/courses', courseBody())->assertStatus(401);
 
     foreach (Role::cases() as $role) {
-        if ($role === Role::Teacher) {
+        if ($role->authors()) {
             continue;
         }
         $this->actingAs(User::factory()->create(['role' => $role->value]));
@@ -154,7 +154,7 @@ test('the shelf lists the teacher\'s own courses with item counts; only teachers
         ->and($res->json('meta.total'))->toBe(1);
 
     foreach (Role::cases() as $role) {
-        if ($role === Role::Teacher) {
+        if ($role->authors()) {
             continue;
         }
         $this->actingAs(User::factory()->create(['role' => $role->value]));

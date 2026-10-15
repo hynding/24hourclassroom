@@ -71,6 +71,9 @@ export default function Register({ registration }: { registration: { open: boole
                             >
                                 <option value="teacher">Teacher</option>
                                 <option value="student">Student</option>
+                                <option value="tutor">Tutor</option>
+                                <option value="assistant">Teacher assistant</option>
+                                <option value="guardian">Parent or guardian</option>
                             </select>
                             <InputError message={errors.role} />
                         </div>

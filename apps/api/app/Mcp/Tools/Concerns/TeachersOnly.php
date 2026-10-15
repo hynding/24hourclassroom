@@ -19,8 +19,8 @@ trait TeachersOnly
     {
         $user = $request->user();
 
-        return ($user instanceof User && $user->role === Role::Teacher)
+        return ($user instanceof User && $user->role->authors())
             ? $user
-            : Response::error('Only teachers can use this server.');
+            : Response::error('Only teachers and tutors can use this server.');
     }
 }

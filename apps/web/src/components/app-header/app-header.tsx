@@ -1,4 +1,5 @@
 import { Component, Element, h, Listen, Prop, State, Watch } from '@stencil/core';
+import { AUTHOR_ROLES, REGISTRATION_ROLES, SHARE_RECIPIENT_ROLES, hasRole } from '@24hc/shared';
 import type { SiteConfig, User } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { profileStore } from '../../services/profile-store';
@@ -185,38 +186,38 @@ export class AppHeader {
     navigate('/');
   };
 
-  /** Allowlist: teachers author, students take. An admin has no tests shelf. */
+  /** Allowlist: authors write, students take. An admin, assistant or guardian has no tests shelf. */
   private showsTests(): boolean {
-    return this.user !== null && (this.user.role === 'teacher' || this.user.role === 'student');
+    return this.user !== null && (hasRole(AUTHOR_ROLES, this.user.role) || this.user.role === 'student');
   }
 
-  /** Allowlist: teachers upload, students receive. An admin has no materials shelf. */
+  /** Allowlist: authors upload, share recipients receive. An admin or guardian has no materials shelf. */
   private showsMaterials(): boolean {
-    return this.user !== null && (this.user.role === 'teacher' || this.user.role === 'student');
+    return this.user !== null && (hasRole(AUTHOR_ROLES, this.user.role) || hasRole(SHARE_RECIPIENT_ROLES, this.user.role));
   }
 
   /**
-   * Allowlist: only a teacher builds courses (the API refuses everyone
+   * Allowlist: only an author builds courses (the API refuses everyone
    * else a shelf). Everyone finds published courses in the library.
    */
   private showsCourses(): boolean {
-    return this.user !== null && this.user.role === 'teacher';
+    return this.user !== null && hasRole(AUTHOR_ROLES, this.user.role);
   }
 
   /**
-   * Allowlist: connections exist between teachers and students only (the
-   * server refuses every other role), so only they get the page.
+   * Allowlist: every self-assignable role has connection partners
+   * (Role::canConnect); an admin has none, so gets no page.
    */
   private showsConnections(): boolean {
-    return this.user !== null && (this.user.role === 'teacher' || this.user.role === 'student');
+    return this.user !== null && hasRole(REGISTRATION_ROLES, this.user.role);
   }
 
   /**
-   * Allowlist: only a teacher can hold an Anthropic key or an MCP token --
-   * every generation endpoint and every MCP tool admits Role::Teacher alone.
+   * Allowlist: only an author can hold an Anthropic key or an MCP token --
+   * every generation endpoint and every MCP tool admits Role::authors() alone.
    */
   private showsIntegrations(): boolean {
-    return this.user !== null && this.user.role === 'teacher';
+    return this.user !== null && hasRole(AUTHOR_ROLES, this.user.role);
   }
 
   /** One side-panel entry: icon, label (visually hidden when collapsed), and a tooltip. */

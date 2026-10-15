@@ -44,11 +44,11 @@ final class TestAccess
     /**
      * Copying is for OTHER teachers -- an author already owns the original,
      * so a self-copy is excluded even though the author can view and see
-     * answers. Allowlist: only `Role::Teacher` may copy.
+     * answers. Allowlist: only a role that `authors()` may copy.
      */
     public static function canCopy(?User $viewer, Test $test): bool
     {
-        return $viewer !== null && $viewer->role === Role::Teacher && $test->isPublic() && ! self::canAuthor($viewer, $test);
+        return $viewer !== null && $viewer->role->authors() && $test->isPublic() && ! self::canAuthor($viewer, $test);
     }
 
     public static function assertViewer(?User $viewer, Test $test): void

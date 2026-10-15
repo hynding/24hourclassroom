@@ -8,6 +8,7 @@ export interface ResolvedRoute {
   materialId?: number;
   generationId?: number;
   courseId?: number;
+  studentId?: number;
   /** Which library segment page-library is showing. */
   kind?: 'tests' | 'materials' | 'courses';
 }
@@ -20,6 +21,7 @@ const MATERIALS_PREFIX = '/materials/';
 const ATTEMPTS_PREFIX = '/attempts/';
 const GENERATIONS_PREFIX = '/generations/';
 const COURSES_PREFIX = '/courses/';
+const STUDENTS_PREFIX = '/students/';
 const TEST_SUBPAGES: Record<string, string> = {
   edit: 'page-test-editor',
   assign: 'page-test-assign',
@@ -123,7 +125,7 @@ function isPublic(path: string): boolean {
 }
 
 function isAuthOnly(path: string): boolean {
-  if (AUTH_ONLY.includes(path) || path.startsWith(ATTEMPTS_PREFIX) || path.startsWith(GENERATIONS_PREFIX)) {
+  if (AUTH_ONLY.includes(path) || path.startsWith(ATTEMPTS_PREFIX) || path.startsWith(GENERATIONS_PREFIX) || path.startsWith(STUDENTS_PREFIX)) {
     return true;
   }
   const test = testRoute(path);
@@ -203,6 +205,10 @@ export function resolveRoute(path: string): ResolvedRoute {
   if (path.startsWith(GENERATIONS_PREFIX)) {
     const [idSegment, ...rest] = path.slice(GENERATIONS_PREFIX.length).split('/');
     return rest.length > 0 ? { tag: 'page-home' } : { tag: 'page-generation', generationId: parseId(idSegment) };
+  }
+  if (path.startsWith(STUDENTS_PREFIX)) {
+    const [idSegment, ...rest] = path.slice(STUDENTS_PREFIX.length).split('/');
+    return rest.length > 0 ? { tag: 'page-home' } : { tag: 'page-student', studentId: parseId(idSegment) };
   }
 
   switch (path) {

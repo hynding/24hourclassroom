@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { CourseSummary } from '@24hc/shared';
+import { AUTHOR_ROLES, CourseSummary, hasRole } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { coursesStore } from '../../services/courses-store';
 import { navigate } from '../../services/navigate';
@@ -16,7 +16,7 @@ export class PageCourses {
 
   /** Allowlist: only a teacher has a courses shelf (the API's own rule). */
   private get isTeacher(): boolean {
-    return authStore.currentUser?.role === 'teacher';
+    return hasRole(AUTHOR_ROLES, authStore.currentUser?.role);
   }
 
   async componentWillLoad() {

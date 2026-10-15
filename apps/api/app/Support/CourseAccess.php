@@ -72,14 +72,14 @@ final class CourseAccess
 
     /**
      * Branching is for OTHER teachers, like copying a test: the author
-     * already owns the original. Allowlist: only `Role::Teacher`. The caller
+     * already owns the original. Allowlist: only a role that `authors()`. The caller
      * has already established the viewer may see the course, which for a
      * non-author means it is public.
      */
     public static function canBranch(?User $viewer, Course $course): bool
     {
         return $viewer !== null
-            && $viewer->role === Role::Teacher
+            && $viewer->role->authors()
             && $course->isPublic()
             && ! self::canAuthor($viewer, $course);
     }

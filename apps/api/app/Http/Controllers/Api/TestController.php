@@ -23,7 +23,7 @@ class TestController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         // Allowlist: only a teacher has a tests shelf. Admin is not a teacher here.
-        abort_unless($request->user()->role === Role::Teacher, 403);
+        abort_unless($request->user()->role->authors(), 403);
 
         return TestSummaryResource::collection(
             $request->user()->tests()

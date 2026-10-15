@@ -26,8 +26,8 @@ class PublicProfileController extends Controller
         // Role::Admin was added it fell straight into the public branch and
         // an anonymous visitor could read a named administrator's bio. A
         // denylist over an open enum breaks every time the enum grows; only
-        // teachers are public figures here.
-        if ($user->role !== Role::Teacher) {
+        // Role::isPublic() roles (teachers and tutors) are public figures.
+        if (! $user->role->isPublic()) {
             abort_unless($viewer && Connection::acceptedBetween($viewer, $user), 404);
 
             // Name only. No profile key at all -- an empty profile object

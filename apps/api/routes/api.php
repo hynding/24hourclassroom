@@ -38,6 +38,7 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicProfileController;
 use App\Http\Controllers\Api\SharedMaterialController;
 use App\Http\Controllers\Api\SiteController;
+use App\Http\Controllers\Api\StudentAssignmentsController;
 use App\Http\Controllers\Api\TeacherDirectoryController;
 use App\Http\Controllers\Api\TestAttemptsController;
 use App\Http\Controllers\Api\TestController;
@@ -76,6 +77,11 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
 
     Route::get('connections', [ConnectionController::class, 'index']);
     Route::get('connections/pending', [ConnectionController::class, 'pending']);
+    // `user` has no Route::pattern, so connections/code must never be a POST:
+    // it would bind "code" as a user id. Hence rotation is a PUT.
+    Route::get('connections/code', [ConnectionController::class, 'code']);
+    Route::put('connections/code', [ConnectionController::class, 'rotateCode']);
+    Route::post('connections/code/{code}', [ConnectionController::class, 'storeByCode']);
     Route::post('connections/{user}', [ConnectionController::class, 'store']);
     Route::patch('connections/{connection}', [ConnectionController::class, 'update']);
     Route::delete('connections/{connection}', [ConnectionController::class, 'destroy']);
@@ -96,6 +102,7 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::post('tests/{test}/assignments', [AssignmentController::class, 'store']);
     Route::delete('tests/{test}/assignments/{assignment}', [AssignmentController::class, 'destroy']);
     Route::get('assignments', MyAssignmentsController::class);
+    Route::get('students/{user}/assignments', StudentAssignmentsController::class);
 
     Route::get('attempts', MyAttemptsController::class);
     Route::post('tests/{test}/attempts', [AttemptController::class, 'store']);
