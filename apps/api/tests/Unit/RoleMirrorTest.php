@@ -48,3 +48,26 @@ test('the capability lists mirror the enum allowlists', function () {
         ->and(tsStringArray($shared, 'SUPPORTER_ROLES'))->toBe($filter(fn (Role $r) => $r->supportsStudents()))
         ->and(tsStringArray($shared, 'SHARE_RECIPIENT_ROLES'))->toBe($filter(fn (Role $r) => $r->receivesShares()));
 });
+
+test('the comment role lists mirror the enum allowlists', function () {
+    $shared = roleMirrorSource();
+    $filter = fn (callable $test) => array_values(array_map(
+        fn (Role $r) => $r->value,
+        array_filter(Role::cases(), $test),
+    ));
+
+    expect(tsStringArray($shared, 'COMMENTER_ROLES'))->toBe($filter(fn (Role $r) => $r->comments()))
+        ->and(tsStringArray($shared, 'COMMENT_MODERATOR_ROLES'))->toBe($filter(fn (Role $r) => $r->moderatesComments()));
+});
+
+test('COMMENT_TARGETS mirrors the CommentTarget enum, in order', function () {
+    expect(preg_match('/export const COMMENT_TARGETS = \[(.*?)\] as const;/s', roleMirrorSource(), $m))->toBe(1);
+    preg_match_all("/'([a-z_]+)'/", $m[1], $values);
+
+    expect($values[1])->toBe(array_column(\App\Enums\CommentTarget::cases(), 'value'));
+});
+
+test('COMMENT_MAX_LENGTH matches the controller', function () {
+    expect(preg_match('/export const COMMENT_MAX_LENGTH = (\d+);/', roleMirrorSource(), $m))->toBe(1)
+        ->and((int) $m[1])->toBe(\App\Http\Controllers\Api\CommentController::MAX_BODY);
+});

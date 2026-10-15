@@ -235,6 +235,7 @@ export class PageMaterial {
         {this.renderReader(m)}
 
         {this.link('/materials', 'Back to materials')}
+        <comment-thread targetType="material" targetId={m.id}></comment-thread>
       </section>
     );
   }

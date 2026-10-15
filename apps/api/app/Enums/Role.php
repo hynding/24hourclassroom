@@ -92,6 +92,22 @@ enum Role: string
     }
 
     /**
+     * May post comments on anything they can see: tests, their questions,
+     * materials and courses. Admin is not here -- an administrator moderates
+     * (deletes) a discussion but does not take part in it.
+     */
+    public function comments(): bool
+    {
+        return in_array($this, [self::Teacher, self::Student, self::Tutor, self::Assistant, self::Guardian], true);
+    }
+
+    /** May delete anyone's comment on anything they can see. */
+    public function moderatesComments(): bool
+    {
+        return in_array($this, [self::Admin], true);
+    }
+
+    /**
      * Who may connect with whom. Symmetric, and an allowlist of pairs: an
      * admin pairs with nobody, students never pair with each other, and a
      * guardian pairs with the student and the people teaching them, never

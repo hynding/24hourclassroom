@@ -260,4 +260,23 @@ describe('page-notifications', () => {
     expect(page.root.shadowRoot.textContent).toContain('A teacher shared "Cell diagram" with you');
     expect(page.root.shadowRoot.textContent).not.toContain('undefined');
   });
+
+  it('describes comment notices, naming an unnamed commenter by role and linking to the discussion', async () => {
+    notifications.mockResolvedValue({
+      data: [
+        { id: 'g', type: 'App\\Notifications\\CommentPosted', read_at: null, created_at: '', data: { comment_id: 1, commenter_role: 'student', target_type: 'question', target_id: 10, target_title: 'Cells quiz', test_id: 5, is_reply: false } },
+        { id: 'h', type: 'App\\Notifications\\CommentPosted', read_at: null, created_at: '', data: { user: { id: 3, name: 'Ms K', role: 'teacher', avatar_url: null }, comment_id: 2, commenter_role: 'teacher', target_type: 'course', target_id: 4, target_title: 'Biology', test_id: null, is_reply: true } },
+      ],
+      meta: { current_page: 1, last_page: 1, per_page: 15, total: 2 },
+    });
+
+    const page = await mount();
+    await page.waitForChanges();
+    const text = page.root.shadowRoot.textContent;
+
+    expect(text).toContain('A student commented on a question in "Cells quiz"');
+    expect(text).toContain('Ms K replied to your comment on "Biology"');
+    expect(page.root.shadowRoot.querySelector('a[href="/tests/5"]')).not.toBeNull();
+    expect(page.root.shadowRoot.querySelector('a[href="/courses/4"]')).not.toBeNull();
+  });
 });

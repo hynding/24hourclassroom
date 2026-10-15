@@ -132,6 +132,7 @@ export class PageTest {
         )}
         {hasAnswer && !q.options && <p class="answer">{this.answerLabel(q)}: {formatAnswer(q, q.answer)}</p>}
         {hasAnswer && q.explanation && <div class="explanation"><rich-text text={q.explanation}></rich-text></div>}
+        <comment-thread compact targetType="question" targetId={q.id}></comment-thread>
       </li>
     );
   }
@@ -205,6 +206,7 @@ export class PageTest {
         <h2>Questions</h2>
         <ol class="questions">{t.questions.map((q, i) => this.renderQuestion(q, i, t.questions))}</ol>
         {!t.is_author && this.link(`/tests/${t.id}/print`, 'Printable version')}
+        <comment-thread targetType="test" targetId={t.id}></comment-thread>
       </section>
     );
   }

@@ -136,6 +136,7 @@ never on a role literal. `packages/shared` mirrors each list (`AUTHOR_ROLES`,
   (parent or guardian): `GET /api/students/{id}/assignments`, read-only scores
   for a student they hold an accepted connection with. 404 for anything else.
 - `receivesShares()` — teacher, student, tutor, assistant.
+- `comments()` — everyone but admin; `moderatesComments()` — admin (see Comments).
 - `Role::canConnect($a, $b)` — the symmetric pair matrix (no admin, no
   student↔student, guardian/assistant only with teacher, tutor, student).
 
@@ -181,6 +182,27 @@ teacher's: shown only while it is public with an active author, keepable,
 movable and removable in the editor, never newly addable. Later changes to the
 original do not reach a branch. `page-course` watches `courseId`: a branch and
 its original are the same tag, so Stencil reuses the element.
+
+## Comments
+
+Signed-in people discuss a test, any one of its questions, a material or a
+course (`GET|POST /api/comments?target_type=&target_id=`, `PATCH|DELETE
+/api/comments/{comment}`; SPA `comment-thread`, compact per question on
+`page-test`). `App\Support\CommentAccess` holds every rule:
+
+- A discussion is exactly as visible as its target (`TestAccess`,
+  `MaterialAccess`, `CourseAccess`; a question goes through its test): 404
+  otherwise. Guests read nothing: a discussion names people.
+- Posting is `Role::comments()` (everyone but admin); `Role::moderatesComments()`
+  (admin) deletes anything it can see; the target's author deletes anything on
+  their own content; the writer edits and deletes their own.
+- Names follow decision 5: a `Role::isPublic()` commenter is named to all,
+  anyone else only to themselves, their accepted connections and admins;
+  others see the role ("A student"). `CommentPosted` notifications apply the
+  same rule per recipient at write time.
+- One nullable FK per target type (`CommentTarget`), so a deleted target takes
+  its discussion with it. Replies are one level deep; deleting a comment
+  deletes its replies. Deactivated people's comments are hidden, not deleted.
 
 ## Seeded courses (AP Biology, AP U.S. History)
 

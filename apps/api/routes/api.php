@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Auth\OAuthCompletionController;
 use App\Http\Controllers\Api\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationNotificationController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\CourseBranchController;
 use App\Http\Controllers\Api\CourseCandidatesController;
@@ -135,6 +136,14 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::post('courses/{course}/publish', [CoursePublishController::class, 'publish']);
     Route::post('courses/{course}/unpublish', [CoursePublishController::class, 'unpublish']);
     Route::post('courses/{course}/branch', CourseBranchController::class);
+
+    // Comments on a test, a question, a material or a course. Signed-in
+    // only, reading included: a discussion names people, and who may see
+    // whose name is decided per viewer (CommentAccess).
+    Route::get('comments', [CommentController::class, 'index']);
+    Route::post('comments', [CommentController::class, 'store']);
+    Route::patch('comments/{comment}', [CommentController::class, 'update']);
+    Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
 
     // Teacher-only, and grouped so plan 2's anthropic-key and generation
     // routes join the same gate. `teacher` sits ahead of SubstituteBindings
