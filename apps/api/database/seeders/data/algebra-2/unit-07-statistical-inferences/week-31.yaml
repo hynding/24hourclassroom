@@ -1,0 +1,599 @@
+week: 31
+unit: 7
+title: "Sampling Variability and Margin of Error"
+topics: ["7.9", "7.10", "7.11", "7.12"]
+guide: guides/week-31.md
+guide_description: |
+  Why random samples give different estimates and what the distribution of many sample statistics looks
+  like; the margin of error as two standard deviations of the sample proportions, with interval estimates
+  and their meaning; how a larger sample shrinks the margin (four times the sample halves it) and what it
+  cannot fix; and the same recipe for estimating a population mean.
+flashcards_description: |
+  28 cards on sampling variability, estimating a proportion or a mean with a margin of error, and the effect of sample size.
+
+flashcards:
+  - front: Why two random samples from the same population give different estimates
+    back: |
+      They contain different members, chosen by chance, so their means and proportions differ by chance. Random sampling makes the error random, not systematic.
+    topic_code: "7.9"
+  - front: Distribution of sample statistics → what it looks like
+    back: |
+      The means (or proportions) from many random samples, plotted together: a mound, roughly normal, centred near the population value, with most samples close and a few further off.
+    topic_code: "7.9"
+  - front: Margin of error → definition
+    back: |
+      The largest difference you expect between a sample estimate and the population value: about 2 × (standard deviation of the sample statistics).
+    topic_code: "7.9"
+  - front: Why the margin of error uses two standard deviations
+    back: |
+      The sample statistics are roughly normal, so about 95% of them lie within two standard deviations of the centre; an estimate is within that distance of the truth about 95% of the time.
+    topic_code: "7.9"
+  - front: Reporting an estimate with its margin of error
+    back: |
+      estimate ± margin, or as an interval. Sample proportions with mean 0.55 and standard deviation 0.04: 0.55 ± 0.08, so 0.47 to 0.63.
+    topic_code: "7.9"
+  - front: Meaning of "the population value is likely within the interval"
+    back: |
+      The method captures the true value about 95% of the time; about one interval in twenty misses. It is not a guarantee.
+    topic_code: "7.9"
+  - front: Sample proportion → formula
+    back: |
+      (number in the sample with the property) ÷ (sample size). Nine mutant flies out of 40 gives 9/40 = 0.225.
+    topic_code: "7.10"
+  - front: Margin of error for a proportion from a simulation → the steps
+    back: |
+      Simulate many random samples of the same size from a population with the estimated proportion, record each sample proportion, find their standard deviation, double it.
+    topic_code: "7.10"
+  - front: Ten sample proportions with mean 0.45 and standard deviation 0.03 → estimate
+    back: |
+      Margin 0.06, so 0.45 ± 0.06: the population proportion is likely between 0.39 and 0.51.
+    topic_code: "7.10"
+  - front: Interpreting the estimate 0.45 ± 0.06
+    back: |
+      Our best estimate of the population proportion is 0.45, and it is likely (about 95% of the time for this method) between 0.39 and 0.51.
+    topic_code: "7.10"
+  - front: Margin of error from a dot plot of sample proportions
+    back: |
+      Find the range that holds the middle 95% of the dots; half its width is the margin of error.
+    topic_code: "7.10"
+  - front: One sample proportion of 0.52 from 50 people → what you can and cannot say
+    back: |
+      It is a reasonable estimate of the population proportion, but without a margin of error you cannot say how far off it might be; you need the spread of such sample proportions.
+    topic_code: "7.10"
+  - front: Effect of sample size on the margin of error
+    back: |
+      Larger samples give sample statistics that vary less, so a smaller standard deviation and a smaller margin of error.
+    topic_code: "7.11"
+  - front: Samples of 10 with margin 0.28 versus samples of 40 with margin 0.138 → the pattern
+    back: |
+      Four times the sample size roughly halves the margin of error (0.28/0.138 ≈ 2). The spread shrinks like 1/√n.
+    topic_code: "7.11"
+  - front: Why a larger sample varies less
+    back: |
+      Unusual members are diluted: being 3 people off is 30 percentage points in a sample of 10 but 7.5 points in a sample of 40.
+    topic_code: "7.11"
+  - front: How to halve a margin of error
+    back: |
+      Take about four times as large a sample. To cut it to a third, nine times.
+    topic_code: "7.11"
+  - front: Does a larger sample fix a biased sampling method?
+    back: |
+      No. The margin of error covers only random error; a biased method (mall survey, online poll) is systematically off, and a huge biased sample is confidently wrong.
+    topic_code: "7.11"
+  - front: Margin of error versus bias
+    back: |
+      Margin of error: the random, chance part of the error, shrunk by sample size. Bias: a systematic tilt from how the sample was chosen, fixed only by random selection.
+    topic_code: "7.11"
+  - front: Means of 5 die rolls, repeated many times → distribution
+    back: |
+      A mound centred at 3.5 (the mean of a fair die), roughly normal and much narrower than the flat distribution of single rolls. Averaging tames variability.
+    topic_code: "7.12"
+  - front: Estimating a population mean with a margin of error → the steps
+    back: |
+      Take many random samples, compute each sample mean, then report (mean of the sample means) ± 2 × (standard deviation of the sample means).
+    topic_code: "7.12"
+  - front: Ten sample mean weights with mean 25.4 g and standard deviation 0.59 → estimate
+    back: |
+      Margin about 1.2, so 25.4 ± 1.2: the population mean is likely between 24.2 g and 26.6 g.
+    topic_code: "7.12"
+  - front: Population mean of a fair six-sided die
+    back: |
+      (1 + 2 + 3 + 4 + 5 + 6)/6 = 3.5. The mean of a million rolls would be very close to it.
+    topic_code: "7.12"
+  - front: Why the mean of many sample means is close to the population mean
+    back: |
+      Each sample mean is off by a random amount in either direction; averaging many of them cancels the ups and downs.
+    topic_code: "7.12"
+  - front: Tennis balls, required mean diameter 6.54 to 6.86 cm, estimate 6.62 ± 0.04 → verdict
+    back: |
+      The mean diameter is likely between 6.58 and 6.66 cm, inside the requirement; the factory passes, as far as the sampling can tell.
+    topic_code: "7.12"
+  - front: Margin of error for a mean versus for a proportion
+    back: |
+      Same recipe, different statistic: double the standard deviation of the sample means, or of the sample proportions.
+    topic_code: "7.12"
+  - front: What the margin of error does not cover
+    back: |
+      Bias in selection, badly worded questions, measurement mistakes, people answering untruthfully. It only covers sampling variability.
+    topic_code: "7.12"
+  - front: Width of an interval estimate
+    back: |
+      Twice the margin of error: 0.45 ± 0.06 runs from 0.39 to 0.51, a width of 0.12.
+    topic_code: "7.12"
+  - front: Standard deviation of the data versus of the sample means
+    back: |
+      The sample means vary far less than the individual values. Use the standard deviation of the sample means, the smaller one, for the margin of error.
+    topic_code: "7.12"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (lessons 7.9 to 7.12: sampling variability,
+    estimating a proportion or a mean with a margin of error, and the effect of sample size), with about a
+    quarter reviewing earlier units. Includes a shared-context set on samples of students who walk to school.
+    Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are
+    matched automatically; the short answers and the long answer are graded by your teacher against the scoring notes.
+  questions:
+    # ---- Stimulus set: walking to school (7.9, 7.10, 7.11)
+    - slug: alg2-u07-w31-q01
+      type: multiple_choice
+      topic_code: "7.9"
+      source: "IM Algebra 2, Unit 7, Lesson 9"
+      points: 1
+      stimulus: |
+        A school has 1,500 students. Twenty random samples of 50 students each were asked whether they walk to school. The 20 sample proportions have mean 0.32 and standard deviation 0.065, and their dot plot is roughly bell-shaped.
+      prompt: |
+        Why do the 20 sample proportions differ from one another?
+      options:
+        - "The proportion of walkers in the school changed between samples."
+        - "The samples were chosen badly; proper random samples would all agree."
+        - "Each random sample happens to contain different students, so the proportions vary by chance."
+        - "Some students lied in some samples but not others."
+      option_explanations:
+        - |
+          The population did not change; the samples drew different members of it.
+        - |
+          Random samples never all agree; variation is expected even with perfect sampling.
+        - |
+          Correct. Sampling variability is the natural chance-to-chance difference between random samples.
+        - |
+          Nothing suggests dishonesty; chance alone produces this spread.
+      answer: 2
+    - slug: alg2-u07-w31-q02
+      type: multiple_choice
+      topic_code: "7.10"
+      source: "IM Algebra 2, Unit 7, Lesson 10"
+      points: 1
+      stimulus: |
+        A school has 1,500 students. Twenty random samples of 50 students each were asked whether they walk to school. The 20 sample proportions have mean 0.32 and standard deviation 0.065, and their dot plot is roughly bell-shaped.
+      prompt: |
+        What is the margin of error for estimating the proportion of students who walk?
+      options:
+        - "0.13"
+        - "0.065"
+        - "0.26"
+        - "0.32"
+      option_explanations:
+        - |
+          Correct. The margin of error is two standard deviations of the sample proportions: 2 · 0.065 = 0.13.
+        - |
+          0.065 is one standard deviation; the margin doubles it to cover about 95% of samples.
+        - |
+          0.26 is four standard deviations, the full width of the interval, not the margin.
+        - |
+          0.32 is the estimate itself, not its margin of error.
+      answer: 0
+    - slug: alg2-u07-w31-q03
+      type: multiple_choice
+      topic_code: "7.10"
+      source: "IM Algebra 2, Unit 7, Lesson 10"
+      points: 1
+      stimulus: |
+        A school has 1,500 students. Twenty random samples of 50 students each were asked whether they walk to school. The 20 sample proportions have mean 0.32 and standard deviation 0.065, and their dot plot is roughly bell-shaped.
+      prompt: |
+        Which statement correctly reports the estimate?
+      options:
+        - "Exactly 32% of students walk to school."
+        - "The proportion of students who walk is likely between 0.19 and 0.45."
+        - "The proportion of students who walk is between 0.255 and 0.385."
+        - "About 32% of each sample of 50 will walk, guaranteed."
+      option_explanations:
+        - |
+          0.32 is an estimate with uncertainty, not an exact population figure.
+        - |
+          Correct. 0.32 ± 0.13 gives 0.19 to 0.45, and "likely" acknowledges that about one interval in twenty misses.
+        - |
+          This uses one standard deviation; the margin of error is two, 0.13.
+        - |
+          Individual samples vary; nothing about a future sample is guaranteed.
+      answer: 1
+    - slug: alg2-u07-w31-q04
+      type: multiple_choice
+      topic_code: "7.11"
+      source: "IM Algebra 2, Unit 7, Lesson 11"
+      points: 1
+      stimulus: |
+        A school has 1,500 students. Twenty random samples of 50 students each were asked whether they walk to school. The 20 sample proportions have mean 0.32 and standard deviation 0.065, and their dot plot is roughly bell-shaped.
+      prompt: |
+        If the study were repeated with samples of 200 students instead of 50, what would you expect?
+      options:
+        - "The margin of error would stay 0.13 because the school is the same."
+        - "The mean of the sample proportions would move well away from 0.32."
+        - "The sample proportions would vary more because more students are involved."
+        - "The sample proportions would vary less and the margin of error would be about half as large."
+      option_explanations:
+        - |
+          The margin depends on the sample size, not only on the population.
+        - |
+          The centre of the sample proportions stays near the population proportion whatever the sample size.
+        - |
+          Larger samples average out unusual members, so their proportions vary less, not more.
+        - |
+          Correct. Four times the sample size roughly halves the standard deviation of the proportions, so the margin falls to about 0.065.
+      answer: 3
+    # ---- Single items on this week
+    - slug: alg2-u07-w31-q05
+      type: multiple_choice
+      topic_code: "7.9"
+      source: "IM Algebra 2, Unit 7, Lesson 9"
+      points: 1
+      prompt: |
+        What does the margin of error of an estimate describe?
+      options:
+        - "The standard deviation of the population"
+        - "The mistake made by the people who recorded the data"
+        - "The largest difference expected, by chance, between the sample estimate and the population value"
+        - "The difference between the largest and smallest values in the sample"
+      option_explanations:
+        - |
+          The population's spread is a different quantity; the margin concerns how much estimates vary.
+        - |
+          Recording mistakes are not what the margin measures; it covers sampling variability only.
+        - |
+          Correct. It is about two standard deviations of the sample statistics, covering roughly 95% of samples.
+        - |
+          That is the range of the sample's data, not the uncertainty of an estimate.
+      answer: 2
+    - slug: alg2-u07-w31-q06
+      type: multiple_choice
+      topic_code: "3.5"
+      source: "IM Algebra 2, Unit 3, Lesson 5"
+      points: 1
+      prompt: |
+        What is 8^(−1/3)?
+      options:
+        - "2"
+        - "1/2"
+        - "−1/2"
+        - "−2"
+      option_explanations:
+        - |
+          2 is 8^(1/3); the minus sign in the exponent still has to be applied.
+        - |
+          Correct. 8^(1/3) = 2, and the negative exponent takes the reciprocal: 1/2.
+        - |
+          The reciprocal of 2 is positive 1/2; the sign of the exponent does not make the result negative.
+        - |
+          A negative exponent means a reciprocal, not a negative number.
+      answer: 1
+    - slug: alg2-u07-w31-q07
+      type: multiple_choice
+      topic_code: "7.12"
+      source: "IM Algebra 2, Unit 7, Lesson 12"
+      points: 1
+      prompt: |
+        A fair die is rolled 5 times and the mean of the 5 rolls is recorded; this is repeated 500 times. Which best describes the dot plot of the 500 means?
+      options:
+        - "A flat shape from 1 to 6, like the single rolls"
+        - "Two peaks, at 1 and at 6"
+        - "A mound centred near 3.5, wider than the spread of single rolls"
+        - "A mound centred near 3.5, much narrower than the spread of single rolls"
+      option_explanations:
+        - |
+          Single rolls are uniform, but means of several rolls pile up in the middle.
+        - |
+          A mean of 5 rolls is almost never 1 or 6; those would need five identical rolls.
+        - |
+          Averaging reduces variability; the means are less spread out than single rolls, not more.
+        - |
+          Correct. Averaging 5 rolls pulls the result toward 3.5; means near 1 or 6 are very rare.
+      answer: 3
+    - slug: alg2-u07-w31-q08
+      type: multiple_choice
+      topic_code: "7.12"
+      source: "IM Algebra 2, Unit 7, Lesson 12"
+      points: 1
+      prompt: |
+        Ten random samples of tomatoes give sample mean weights whose mean is 25.4 g and whose standard deviation is 0.59 g. Which is the correct estimate of the farm's mean tomato weight?
+      options:
+        - "25.4 ± 1.2 g"
+        - "25.4 ± 0.3 g"
+        - "25.4 ± 0.59 g"
+        - "25.4 ± 5.9 g"
+      option_explanations:
+        - |
+          Correct. The margin of error is 2 · 0.59 ≈ 1.2 g, so the mean is likely between 24.2 g and 26.6 g.
+        - |
+          0.3 is half a standard deviation; the margin should be twice the standard deviation.
+        - |
+          0.59 is one standard deviation; the margin of error doubles it.
+        - |
+          5.9 is ten times the standard deviation; nothing in the method multiplies by the number of samples.
+      answer: 0
+    - slug: alg2-u07-w31-q09
+      type: multiple_choice
+      topic_code: "7.11"
+      source: "IM Algebra 2, Unit 7, Lesson 11"
+      points: 1
+      prompt: |
+        A survey using samples of 50 has a margin of error of 0.10. Roughly what sample size would bring the margin of error down to 0.05?
+      options:
+        - "About 2,500"
+        - "About 25"
+        - "About 200"
+        - "About 100"
+      option_explanations:
+        - |
+          2,500 is fifty times the sample and would cut the margin to about 0.014; far more than needed.
+        - |
+          A smaller sample makes the margin larger, not smaller.
+        - |
+          Correct. Halving the margin takes about four times the sample: 4 · 50 = 200.
+        - |
+          Doubling the sample cuts the margin by a factor of about √2, to roughly 0.07, not 0.05.
+      answer: 2
+    - slug: alg2-u07-w31-q10
+      type: multiple_choice
+      topic_code: "7.11"
+      source: "IM Algebra 2, Unit 7, Lesson 11"
+      points: 1
+      prompt: |
+        A website polls its own visitors and gets 2 million responses, so it reports a margin of error of 0.001. Why is that number misleading?
+      options:
+        - "Website polls cannot be counted accurately."
+        - "Two million is too many responses for the formula to work."
+        - "A margin of error can never be smaller than 0.01."
+        - "The visitors are a self-selected sample, so the estimate is biased, and the margin of error covers only random error."
+      option_explanations:
+        - |
+          Counting is not the problem; who chose to respond is.
+        - |
+          Large samples are fine for the method; the problem is how the sample was chosen.
+        - |
+          There is no such floor; the issue is bias, not the size of the number.
+        - |
+          Correct. A huge biased sample is confidently wrong; no sample size repairs a non-random selection method.
+      answer: 3
+    - slug: alg2-u07-w31-q11
+      type: multiple_choice
+      topic_code: "7.4"
+      source: "IM Algebra 2, Unit 7, Lesson 4"
+      points: 1
+      prompt: |
+        A distribution has a long tail of low values to the left. How do its mean and median compare?
+      options:
+        - "The mean equals the median."
+        - "The mean is less than the median."
+        - "The median is undefined."
+        - "The mean is greater than the median."
+      option_explanations:
+        - |
+          Equality holds for symmetric distributions, not skewed ones.
+        - |
+          Correct. The tail of low values pulls the mean down, below the median.
+        - |
+          Every data set has a median; the skew does not remove it.
+        - |
+          A greater mean goes with a tail of high values, a right skew.
+      answer: 1
+    - slug: alg2-u07-w31-q12
+      type: multiple_choice
+      topic_code: "6.7"
+      source: "IM Algebra 2, Unit 6, Lesson 7"
+      points: 1
+      prompt: |
+        A point on the circle of radius 10 centred at the origin is at (−8, 6). To two decimal places, what is its angle θ in [0, 2π)?
+      options:
+        - "2.50"
+        - "3.79"
+        - "0.64"
+        - "5.64"
+      option_explanations:
+        - |
+          Correct. The reference angle is arccos(8/10) ≈ 0.64, and in quadrant II θ = π − 0.64 ≈ 2.50.
+        - |
+          3.79 = π + 0.64 is the quadrant III angle, where y would be negative.
+        - |
+          0.64 is the reference angle, the quadrant I angle with cosine 0.8; this point has x < 0.
+        - |
+          5.64 = 2π − 0.64 is the quadrant IV angle, where x would be positive.
+      answer: 0
+    - slug: alg2-u07-w31-q13
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "IM Algebra 2, Unit 4, Lesson 3"
+      points: 1
+      prompt: |
+        A population of bacteria doubles every hour: p(t) = 100 · 2ᵗ. To the nearest whole number, what is p(1/2)?
+      options:
+        - "141"
+        - "50"
+        - "150"
+        - "200"
+      option_explanations:
+        - |
+          Correct. 2^(1/2) = √2 ≈ 1.414, so p(1/2) ≈ 141: half an hour multiplies by √2, and two such half-hours multiply by 2.
+        - |
+          50 would be dividing by 2; a positive exponent of 1/2 means a square root, not halving.
+        - |
+          150 assumes the growth is linear within the hour; exponential growth multiplies by √2, not by 1.5.
+        - |
+          200 is p(1), the population after a full hour, not after half an hour.
+      answer: 0
+    - slug: alg2-u07-w31-q14
+      type: multi_select
+      topic_code: "7.10"
+      source: "IM Algebra 2, Unit 7, Lesson 10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about the margin of error are true? Select all that apply.
+      options:
+        - "It is about two standard deviations of the sample statistics."
+        - "It accounts for a biased sampling method."
+        - "The population value is likely to lie within estimate ± margin of error."
+        - "A larger random sample gives a smaller margin of error."
+        - "It equals the standard deviation of the population."
+      option_explanations:
+        - |
+          Correct. Doubling the standard deviation of the sample statistics covers about 95% of them.
+        - |
+          It covers random sampling variability only; bias is a separate, systematic error.
+        - |
+          Correct. That is how the interval is meant to be read, with "likely" meaning about 95% of the time.
+        - |
+          Correct. Larger samples vary less, so their statistics have a smaller standard deviation.
+        - |
+          The population's standard deviation describes the data's spread, a different and larger quantity.
+      answer: [0, 2, 3]
+    - slug: alg2-u07-w31-q15
+      type: multi_select
+      topic_code: "7.12"
+      source: "IM Algebra 2, Unit 7, Lesson 12"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which steps are part of estimating a population mean with a margin of error? Select all that apply.
+      options:
+        - "Use a single item from the population as the sample."
+        - "Take many random samples and find each sample's mean."
+        - "Use the mean of the sample means as the estimate."
+        - "Find the standard deviation of the sample means and double it."
+        - "Use the largest sample mean as the estimate."
+      option_explanations:
+        - |
+          One item gives no information about variability and a very unreliable estimate.
+        - |
+          Correct. The sample means are the data for the rest of the method.
+        - |
+          Correct. The mean of the sample means is close to the population mean.
+        - |
+          Correct. Twice their standard deviation is the margin of error.
+        - |
+          The largest sample mean is biased upward; the centre of the sample means is the estimate.
+      answer: [1, 2, 3]
+    - slug: alg2-u07-w31-q16
+      type: true_false
+      topic_code: "7.11"
+      source: "IM Algebra 2, Unit 7, Lesson 11"
+      points: 1
+      prompt: |
+        True or false: multiplying the sample size by 4 roughly halves the margin of error.
+      answer: true
+      explanation: |
+        True. The standard deviation of sample statistics shrinks like 1/√n, so four times the sample cuts it, and the margin, by about half.
+    - slug: alg2-u07-w31-q17
+      type: true_false
+      topic_code: "5.6"
+      source: "IM Algebra 2, Unit 5, Lesson 6"
+      points: 1
+      prompt: |
+        True or false: f(x) = x⁴ − 3x² is an even function.
+      answer: true
+      explanation: |
+        True. f(−x) = (−x)⁴ − 3(−x)² = x⁴ − 3x² = f(x) for every x; only even powers appear, so the graph is symmetric about the y-axis.
+    - slug: alg2-u07-w31-q18
+      type: fill_blank
+      topic_code: "7.10"
+      source: "IM Algebra 2, Unit 7, Lesson 10"
+      points: 1
+      prompt: |
+        Sample proportions from 25 random samples have mean 0.62 and standard deviation 0.045. The margin of error is ____
+      answer: ["0.09", ".09", "0,09"]
+      explanation: |
+        Twice the standard deviation of the sample proportions: 2 · 0.045 = 0.09.
+    - slug: alg2-u07-w31-q19
+      type: fill_blank
+      topic_code: "6.12"
+      source: "IM Algebra 2, Unit 6, Lesson 12"
+      points: 1
+      prompt: |
+        tan(π/4) = ____
+      answer: ["1", "1.0"]
+      explanation: |
+        At π/4 the sine and cosine are both √2/2, so their ratio is 1; the ray at 45° has slope 1.
+    - slug: alg2-u07-w31-q20
+      type: numeric
+      topic_code: "7.12"
+      source: "IM Algebra 2, Unit 7, Lesson 12"
+      points: 1
+      prompt: |
+        Eight random samples give sample means 14.2, 15.1, 14.8, 15.6, 14.9, 15.0, 14.6 and 15.2. What is the mean of the sample means, the estimate of the population mean? Give two decimal places.
+      answer: { value: 14.93, tolerance: 0.01 }
+      explanation: |
+        The eight values add to 119.4, and 119.4/8 = 14.925 ≈ 14.93.
+    - slug: alg2-u07-w31-q21
+      type: numeric
+      topic_code: "7.10"
+      source: "IM Algebra 2, Unit 7, Lesson 10"
+      points: 1
+      prompt: |
+        Ten sample proportions have mean 0.45 and standard deviation 0.03. What is the lower end of the interval estimate (estimate minus margin of error)? Give two decimal places.
+      answer: { value: 0.39, tolerance: 0.001 }
+      explanation: |
+        Margin of error 2 · 0.03 = 0.06, so the lower end is 0.45 − 0.06 = 0.39.
+    - slug: alg2-u07-w31-q22
+      type: numeric
+      topic_code: "2.13"
+      source: "IM Algebra 2, Unit 2, Lesson 13"
+      points: 1
+      prompt: |
+        When x² + 5x + 6 is divided by x + 2, the quotient is x + k with no remainder. What is k?
+      answer: { value: 3, tolerance: 0 }
+      explanation: |
+        x² + 5x + 6 = (x + 2)(x + 3), so the quotient is x + 3 and k = 3.
+    - slug: alg2-u07-w31-q23
+      type: short_answer
+      topic_code: "7.11"
+      source: "IM Algebra 2, Unit 7, Lesson 11"
+      points: 3
+      prompt: |
+        A poll asks a random sample of 1,000 voters about a ballot measure; 400 say they support it. A simulation of many samples of 1,000 from a population with 40% support gives sample proportions with standard deviation 0.015.
+        (a) Give the sample proportion and the margin of error.
+        (b) Report the interval estimate in a sentence.
+        (c) If the poll had asked 250 voters instead, roughly what would the margin of error be, and why?
+      answer: |
+        (a) Sample proportion 400/1,000 = 0.40; margin of error 2 · 0.015 = 0.03.
+        (b) Support for the measure is likely between 37% and 43% (0.40 ± 0.03).
+        (c) About 0.06: a quarter of the sample size roughly doubles the margin, because the standard deviation of sample proportions shrinks like 1/√n.
+      explanation: |
+        Three points, one per part. (a) 0.40 and 0.03. (b) 0.37 to 0.43 with "likely" or similar hedging. (c) about 0.06 with the quarter-sample-doubles reason.
+    - slug: alg2-u07-w31-q24
+      type: short_answer
+      topic_code: "7.12"
+      source: "IM Algebra 2, Unit 7, Lesson 12"
+      points: 3
+      prompt: |
+        A factory needs its tennis balls to have a mean diameter between 6.54 cm and 6.86 cm. Twelve random samples of 30 balls have sample mean diameters whose mean is 6.62 cm and whose standard deviation is 0.02 cm.
+        (a) Give the margin of error and the interval estimate for the mean diameter.
+        (b) Does the factory appear to meet the requirement? Explain.
+        (c) Explain what "appear to" is doing in your answer to (b).
+      answer: |
+        (a) Margin 2 · 0.02 = 0.04 cm; the mean diameter is likely between 6.58 cm and 6.66 cm (6.62 ± 0.04).
+        (b) Yes: the whole interval lies inside 6.54 to 6.86, so the mean diameter is likely within the requirement.
+        (c) The interval is based on random samples and captures the true mean about 95% of the time, not always; and it says nothing about individual balls, only about the mean.
+      explanation: |
+        Three points, one per part. (a) 0.04 and 6.58 to 6.66. (b) yes, interval inside the requirement. (c) the 95%-not-certain point or the mean-not-individuals point.
+    - slug: alg2-u07-w31-q25
+      type: long_answer
+      topic_code: "7.10"
+      source: "IM Algebra 2, Unit 7, Lesson 10"
+      points: 6
+      prompt: |
+        A city wants to estimate the proportion of its 40,000 households that own a pet. Write a full response that (1) describes how to choose random samples of households and explains why random selection matters, (2) uses these results to give an estimate with a margin of error: 25 random samples of 60 households gave sample proportions with mean 0.58 and standard deviation 0.06, (3) explains what the "likely" in the interval statement means and why the interval could still miss the true proportion, and (4) says how the city could cut the margin of error to about 0.06, what that would cost, and why switching to a convenience sample at a pet store instead would not help however large it was.
+      answer: |
+        (1) Number every household from a complete list (such as the utility or tax roll) and pick 60 numbers with a random number generator for each sample, so every household has the same chance of being chosen. Random selection makes the sample differ from the population only by chance, not systematically, which is what lets a margin of error describe the error.
+        (2) Estimate 0.58; margin of error 2 · 0.06 = 0.12; the proportion of pet-owning households is likely between 0.46 and 0.70 (0.58 ± 0.12).
+        (3) "Likely" means the method produces an interval that contains the true proportion about 95% of the time, since about 95% of sample proportions lie within two standard deviations of the centre. About one time in twenty the samples happen to be unusual and the interval misses; the margin of error describes chance error, not a guarantee.
+        (4) Halving the margin from 0.12 to 0.06 takes about four times the sample size, samples of about 240 households, so four times the interviewing cost and time. A pet-store sample would be biased toward pet owners whatever its size; the margin of error only measures random error, so a huge biased sample would give a tiny margin around a wrong answer.
+      explanation: |
+        Six points: 1 for a genuinely random method and 1 for why randomness matters in (1); 1 for 0.58 ± 0.12 in (2); 1 for the 95% meaning and the possibility of a miss in (3); 1 for four times the sample (about 240) with its cost and 1 for the bias argument in (4).
