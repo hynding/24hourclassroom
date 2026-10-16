@@ -108,6 +108,17 @@ enum Role: string
     }
 
     /**
+     * May approve and deny comments on a public course whose author they
+     * hold an accepted connection with: a teacher assistant helping the
+     * teacher run the discussion. The course's author and administrators
+     * approve regardless of this (CommentAccess::canApprove).
+     */
+    public function approvesConnectedComments(): bool
+    {
+        return in_array($this, [self::Assistant], true);
+    }
+
+    /**
      * Who may connect with whom. Symmetric, and an allowlist of pairs: an
      * admin pairs with nobody, students never pair with each other, and a
      * guardian pairs with the student and the people teaching them, never

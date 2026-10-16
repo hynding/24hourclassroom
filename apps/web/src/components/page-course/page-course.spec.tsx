@@ -44,7 +44,7 @@ const guide = (id: number, section: string | null) => ({
 const course = (over: Record<string, unknown> = {}) => ({
   id: 3, title: 'AP Biology', subject: 'science', grade_level: '9-12', visibility: 'public', published_at: '2026-09-01',
   test_count: 2, material_count: 1, author: { id: 1, name: 'Ms K' }, description: 'A full year.', created_at: '', updated_at: '',
-  is_author: false, branched_from: null, can_branch: false, my_branch_id: null,
+  is_author: false, branched_from: null, can_branch: false, my_branch_id: null, comment_reactions: false,
   items: [guide(1, 'Unit 1 · Chemistry of Life'), quiz(1, 'Unit 1 · Chemistry of Life'), quiz(2, 'Unit 2 · Cells')],
   ...over,
 });

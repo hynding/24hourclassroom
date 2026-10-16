@@ -71,3 +71,12 @@ test('COMMENT_MAX_LENGTH matches the controller', function () {
     expect(preg_match('/export const COMMENT_MAX_LENGTH = (\d+);/', roleMirrorSource(), $m))->toBe(1)
         ->and((int) $m[1])->toBe(\App\Http\Controllers\Api\CommentController::MAX_BODY);
 });
+
+test('COMMENT_STATUSES and COMMENT_REACTIONS mirror their enums, in order', function () {
+    foreach (['COMMENT_STATUSES' => \App\Enums\CommentStatus::class, 'COMMENT_REACTIONS' => \App\Enums\CommentReaction::class] as $name => $enum) {
+        expect(preg_match("/export const {$name} = \\[(.*?)\\] as const;/s", roleMirrorSource(), $m))->toBe(1);
+        preg_match_all("/'([a-z_]+)'/", $m[1], $values);
+
+        expect($values[1])->toBe(array_column($enum::cases(), 'value'));
+    }
+});

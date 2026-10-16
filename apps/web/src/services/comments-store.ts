@@ -1,5 +1,5 @@
 import type { ApiClient } from '@24hc/api-client';
-import type { CommentTargetType } from '@24hc/shared';
+import type { CommentReaction, CommentTargetType } from '@24hc/shared';
 import { apiClient } from './profile-store';
 
 /**
@@ -14,6 +14,9 @@ export class CommentsStore {
   postComment(type: CommentTargetType, id: number, body: string, parentId?: number) { return this.client.postComment(type, id, body, parentId); }
   updateComment(id: number, body: string) { return this.client.updateComment(id, body); }
   deleteComment(id: number) { return this.client.deleteComment(id); }
+  approveComment(id: number) { return this.client.approveComment(id); }
+  denyComment(id: number) { return this.client.denyComment(id); }
+  reactToComment(id: number, value: CommentReaction | null) { return this.client.reactToComment(id, value); }
 }
 
 export const commentsStore = new CommentsStore(apiClient);

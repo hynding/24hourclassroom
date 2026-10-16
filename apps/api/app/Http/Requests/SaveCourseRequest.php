@@ -44,6 +44,9 @@ class SaveCourseRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:5000'],
             'subject' => ['required', Rule::enum(Subject::class)],
             'grade_level' => ['required', Rule::enum(GradeLevel::class)],
+            // Thumbs up and down on approved comments. Optional so an older
+            // client's save leaves the setting as it was.
+            'comment_reactions' => ['sometimes', 'boolean'],
             'items' => ['present', 'array', 'max:'.self::MAX_ITEMS],
             'items.*' => ['array'],
             'items.*.kind' => ['required', Rule::in(['test', 'material'])],

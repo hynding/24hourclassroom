@@ -144,6 +144,11 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::post('comments', [CommentController::class, 'store']);
     Route::patch('comments/{comment}', [CommentController::class, 'update']);
     Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
+    // A public course's discussion is moderated: its author, a connected
+    // teacher assistant and admins approve or deny each comment.
+    Route::post('comments/{comment}/approve', [CommentController::class, 'approve']);
+    Route::post('comments/{comment}/deny', [CommentController::class, 'deny']);
+    Route::put('comments/{comment}/reaction', [CommentController::class, 'react']);
 
     // Teacher-only, and grouped so plan 2's anthropic-key and generation
     // routes join the same gate. `teacher` sits ahead of SubstituteBindings

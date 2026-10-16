@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Enums\CommentStatus;
 use App\Enums\CommentTarget;
 use App\Models\Comment;
 use App\Models\Connection;
@@ -10,7 +11,9 @@ use App\Models\Material;
 use App\Models\Question;
 use App\Models\Test;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Every rule for comments, in one place. A discussion is exactly as visible
@@ -27,6 +30,14 @@ use Illuminate\Database\Eloquent\Model;
  * is named to everyone; anyone else is named only to themselves, to people
  * they hold an accepted connection with, and to administrators. Everyone
  * else sees the role alone ("A student").
+ *
+ * A public course's own discussion is moderated. A comment there starts
+ * pending unless its writer may approve it, and until it is approved only
+ * its writer and the approvers see it: the course's author, a connected
+ * teacher assistant (Role::approvesConnectedComments) and administrators. A
+ * denied comment stays visible to the same people. A deleted comment is kept
+ * for administrators alone. Thumbs up and down are the course's switch
+ * (`comment_reactions`), on approved comments only.
  */
 final class CommentAccess
 {
@@ -60,6 +71,90 @@ final class CommentAccess
     public static function canPost(?User $viewer, CommentTarget $type, Model $target): bool
     {
         return $viewer !== null && $viewer->role->comments() && self::canView($viewer, $type, $target);
+    }
+
+    /** A public course's own discussion: new comments wait for approval. */
+    public static function isModerated(CommentTarget $type, Model $target): bool
+    {
+        return $type === CommentTarget::Course && $target->isPublic();
+    }
+
+    /**
+     * Approves and denies on this discussion, and so sees every comment in
+     * it whatever its status. Only a course's discussion has approvers; the
+     * caller has already established the viewer can see the course.
+     */
+    public static function canApprove(?User $viewer, CommentTarget $type, Model $target): bool
+    {
+        if ($viewer === null || $type !== CommentTarget::Course) {
+            return false;
+        }
+        if ($viewer->role->moderatesComments() || $viewer->id === $target->user_id) {
+            return true;
+        }
+
+        return $viewer->role->approvesConnectedComments()
+            && Connection::acceptedBetween($viewer, $target->author);
+    }
+
+    /** What a new or edited comment by this writer starts as. */
+    public static function statusFor(User $writer, CommentTarget $type, Model $target): CommentStatus
+    {
+        return self::isModerated($type, $target) && ! self::canApprove($writer, $type, $target)
+            ? CommentStatus::Pending
+            : CommentStatus::Approved;
+    }
+
+    /** Only administrators see deleted comments. */
+    public static function seesDeleted(?User $viewer): bool
+    {
+        return $viewer !== null && $viewer->role->moderatesComments();
+    }
+
+    /**
+     * Narrows a comments query to what this viewer may see: approved ones,
+     * plus their own and -- for an approver -- everyone's pending and
+     * denied ones, plus deleted ones for an administrator. Authors who have
+     * been deactivated stay hidden from everyone.
+     */
+    public static function visible(Builder|HasMany $query, ?User $viewer, bool $approver): Builder|HasMany
+    {
+        if (self::seesDeleted($viewer)) {
+            $query->withTrashed();
+        }
+        if (! $approver) {
+            $query->where(fn (Builder $q) => $q
+                ->where('status', CommentStatus::Approved)
+                ->when($viewer !== null, fn (Builder $mine) => $mine->orWhere('user_id', $viewer->id)));
+        }
+
+        return $query->whereHas('author', fn (Builder $q) => $q->whereNull('deactivated_at'));
+    }
+
+    /** The single-comment form of visible(). */
+    public static function canSee(?User $viewer, Comment $comment, bool $approver): bool
+    {
+        if ($comment->trashed() && ! self::seesDeleted($viewer)) {
+            return false;
+        }
+
+        return $comment->isApproved() || $approver || ($viewer !== null && $viewer->id === $comment->user_id);
+    }
+
+    /** The course's switch; nothing else has thumbs. */
+    public static function reactionsEnabled(CommentTarget $type, Model $target): bool
+    {
+        return $type === CommentTarget::Course && (bool) $target->comment_reactions;
+    }
+
+    /** Anyone who may post, on someone else's approved, undeleted comment. */
+    public static function canReact(CommentContext $ctx, Comment $comment): bool
+    {
+        return $ctx->reactions
+            && $ctx->canPost
+            && $comment->isApproved()
+            && ! $comment->trashed()
+            && $ctx->viewer->id !== $comment->user_id;
     }
 
     /** The person whose test, material or course this is. */

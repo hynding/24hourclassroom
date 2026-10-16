@@ -38,6 +38,7 @@ export class PageCourseEditor {
   /** The heading the next added item goes under; follows the last row by default. */
   @State() nextSection = '';
   @State() isPublic = false;
+  @State() commentReactions = false;
   @State() errors: Record<string, string[]> = {};
   @State() message = '';
   @State() busy = false;
@@ -74,6 +75,7 @@ export class PageCourseEditor {
     this.subject = course.subject;
     this.grade = course.grade_level;
     this.isPublic = course.visibility === 'public';
+    this.commentReactions = course.comment_reactions;
     this.items = course.items
       .map((item) => {
         const target = item.kind === 'test' ? item.test : item.material;
@@ -93,6 +95,7 @@ export class PageCourseEditor {
       description: this.description || null,
       subject: this.subject as Subject,
       grade_level: this.grade as GradeLevel,
+      comment_reactions: this.commentReactions,
       items: this.items.map((item) => ({ kind: item.kind, id: item.id, section: item.section.trim() || null })),
     };
   }
@@ -230,6 +233,11 @@ export class PageCourseEditor {
             </select>
           </label>
           {this.fieldError('grade_level')}
+          <label class="check">
+            <input type="checkbox" checked={this.commentReactions} onChange={(e) => (this.commentReactions = (e.target as HTMLInputElement).checked)} />
+            Allow thumbs up and down on approved comments
+          </label>
+          {this.fieldError('comment_reactions')}
 
           <h2>Contents</h2>
           <p class="notice">

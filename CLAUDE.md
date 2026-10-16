@@ -203,6 +203,23 @@ course (`GET|POST /api/comments?target_type=&target_id=`, `PATCH|DELETE
 - One nullable FK per target type (`CommentTarget`), so a deleted target takes
   its discussion with it. Replies are one level deep; deleting a comment
   deletes its replies. Deactivated people's comments are hidden, not deleted.
+- **Moderation** (`CommentStatus`: pending, approved, denied): only a *public
+  course's* own discussion is moderated. A comment there starts pending unless
+  its writer can approve (`CommentAccess::canApprove`: the course's author, an
+  assistant connected to them via `Role::approvesConnectedComments()`, an
+  admin); pending and denied comments are shown only to their writer and the
+  approvers (`CommentAccess::visible`). A writer's edit there sends the
+  comment back to pending. `POST /api/comments/{c}/approve|deny`. A reply's
+  notice to the person it answers waits for approval.
+- **Deleting is soft** (`deleted_at`, replies with it): only admins are ever
+  sent a deleted comment, marked by `deleted_at`. Existing comments migrated
+  as approved.
+- **Thumbs** (`PUT /api/comments/{c}/reaction`): the course's
+  `comment_reactions` switch, off by default and set in the course editor;
+  one per person, on someone else's approved comment.
+- The SPA's state tints are tokens (`--color-pending-surface`,
+  `--color-denied-surface`, `--color-deleted-surface`) in every palette, held
+  to 4.5:1 for every text token by `theme-files.spec.ts`.
 
 ## Seeded courses (AP Biology, AP U.S. History)
 

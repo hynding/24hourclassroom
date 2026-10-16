@@ -63,6 +63,11 @@ export namespace Components {
      * viewer may see -- and this only renders its answers. `compact` starts
      * closed behind a "Discuss" toggle, for the per-question threads on a test
      * page, and loads only when opened.
+     * On a public course's discussion every comment waits for approval. A
+     * comment that is not approved carries its state in the top right corner --
+     * a pause sign while it waits, a barred ring once denied, a bin for what an
+     * administrator sees deleted -- and a light wash of that state behind it.
+     * Approvers get Approve and Deny beside the sign.
      */
     interface CommentThread {
         /**
@@ -290,6 +295,11 @@ declare global {
      * viewer may see -- and this only renders its answers. `compact` starts
      * closed behind a "Discuss" toggle, for the per-question threads on a test
      * page, and loads only when opened.
+     * On a public course's discussion every comment waits for approval. A
+     * comment that is not approved carries its state in the top right corner --
+     * a pause sign while it waits, a barred ring once denied, a bin for what an
+     * administrator sees deleted -- and a light wash of that state behind it.
+     * Approvers get Approve and Deny beside the sign.
      */
     interface HTMLCommentThreadElement extends Components.CommentThread, HTMLStencilElement {
     }
@@ -656,6 +666,11 @@ declare namespace LocalJSX {
      * viewer may see -- and this only renders its answers. `compact` starts
      * closed behind a "Discuss" toggle, for the per-question threads on a test
      * page, and loads only when opened.
+     * On a public course's discussion every comment waits for approval. A
+     * comment that is not approved carries its state in the top right corner --
+     * a pause sign while it waits, a barred ring once denied, a bin for what an
+     * administrator sees deleted -- and a light wash of that state behind it.
+     * Approvers get Approve and Deny beside the sign.
      */
     interface CommentThread {
         /**
@@ -982,6 +997,11 @@ declare module "@stencil/core" {
              * viewer may see -- and this only renders its answers. `compact` starts
              * closed behind a "Discuss" toggle, for the per-question threads on a test
              * page, and loads only when opened.
+             * On a public course's discussion every comment waits for approval. A
+             * comment that is not approved carries its state in the top right corner --
+             * a pause sign while it waits, a barred ring once denied, a bin for what an
+             * administrator sees deleted -- and a light wash of that state behind it.
+             * Approvers get Approve and Deny beside the sign.
              */
             "comment-thread": LocalJSX.IntrinsicElements["comment-thread"] & JSXBase.HTMLAttributes<HTMLCommentThreadElement>;
             /**
