@@ -1,0 +1,613 @@
+week: 17
+unit: 4
+title: "Finding Angles and Approximating π"
+topics: ["4.9", "4.10", "4.11"]
+guide: guides/week-17.md
+guide_description: |
+  The inverse trigonometric functions for finding an acute angle from two sides, a decision procedure for right-triangle problems including two-triangle and isosceles setups, perimeter and area of regular polygons inscribed in or circumscribed about a circle, and how those polygons squeeze π between bounds. Worked examples, Try-it problems and a self-check.
+flashcards_description: |
+  27 cards on arcsin, arccos and arctan, choosing the ratio, multi-step problems, regular polygons from one right triangle and Archimedes' bounds on π. Review them before the week 17 quiz.
+flashcards:
+  - front: arctan x (tan⁻¹ x) → meaning
+    back: |
+      The acute angle whose tangent is x. Any positive x is allowed. tan⁻¹(1) = 45°, tan⁻¹(√3) = 60°.
+    topic_code: "4.9"
+  - front: arcsin x (sin⁻¹ x) → meaning and allowed inputs
+    back: |
+      The acute angle whose sine is x, for 0 < x < 1 (a leg over the hypotenuse). sin⁻¹(1/2) = 30°, sin⁻¹(√2/2) = 45°.
+    topic_code: "4.9"
+  - front: arccos x (cos⁻¹ x) → meaning
+    back: |
+      The acute angle whose cosine is x, for 0 < x < 1. cos⁻¹(1/2) = 60°, cos⁻¹(0.6) ≈ 53.1°.
+    topic_code: "4.9"
+  - front: Finding an angle from two sides → steps
+    back: |
+      Label the two known sides relative to the wanted angle; form their ratio (sin, cos or tan); apply the matching inverse function in degree mode.
+    topic_code: "4.9"
+  - front: Ramp rising 1 over 12 → angle
+    back: |
+      tan θ = 1/12 ≈ 0.0833, so θ = tan⁻¹(0.0833) ≈ 4.8°.
+    topic_code: "4.9"
+  - front: 6 m ladder reaching 5.4 m → angle with the ground
+    back: |
+      sin θ = 5.4/6 = 0.9, θ ≈ 64.2°. The 4 : 1 safety rule wants tan θ = 4, about 76°, so this ladder leans too far out.
+    topic_code: "4.9"
+  - front: Legs 7 and 24 → both acute angles
+    back: |
+      tan⁻¹(7/24) ≈ 16.3° opposite the 7, and 90° − 16.3° = 73.7° (also cos⁻¹(7/25)).
+    topic_code: "4.9"
+  - front: The 3-4-5 triangle → its angles
+    back: |
+      About 36.9° (opposite the 3) and 53.1° (opposite the 4). Any multiple, such as 9-12-15, has the same angles.
+    topic_code: "4.9"
+  - front: Notation warning about sin⁻¹
+    back: |
+      sin⁻¹ x means the inverse function (the angle), not 1/sin x. Inputs to sin⁻¹ and cos⁻¹ must be between 0 and 1.
+    topic_code: "4.9"
+  - front: Ratio bigger than 1 entered into sin⁻¹ → what it means
+    back: |
+      The sides are the wrong way round: the hypotenuse must be the denominator. Only tangent can exceed 1.
+    topic_code: "4.9"
+  - front: Decision procedure for a right-triangle problem
+    back: |
+      Not right? Drop an altitude. Side wanted with an angle known: sin/cos/tan. Angle wanted with two sides known: inverse of their ratio. Check with Pythagoras and the 90° angle sum.
+    topic_code: "4.10"
+  - front: Pole seen at 35° from 24 m away → height and wire to that point
+    back: |
+      Height 24 tan 35° ≈ 16.8 m; wire 24 / cos 35° ≈ 29.3 m.
+    topic_code: "4.10"
+  - front: Isosceles triangle with equal sides 10 and base 12 → angles
+    back: |
+      The altitude makes right triangles with hypotenuse 10 and leg 6: base angles cos⁻¹(0.6) ≈ 53.1°, apex ≈ 73.7°, height 8, area 48.
+    topic_code: "4.10"
+  - front: Two angles of depression (40° and 25°) from a 50 m tower → distance between the cars
+    back: |
+      50 / tan 25° − 50 / tan 40° ≈ 107.2 − 59.6 ≈ 47.6 m.
+    topic_code: "4.10"
+  - front: Boat sails 15 km east, 8 km north → distance and angle of the return line
+    back: |
+      Distance 17 km; the straight line back makes tan⁻¹(8/15) ≈ 28.1° with the east–west direction.
+    topic_code: "4.10"
+  - front: Regular n-gon → the one right triangle that determines it
+    back: |
+      Centre to two adjacent vertices is an isosceles triangle with apex 360°/n; its altitude (the apothem) splits it into right triangles with apex angle 180°/n.
+    topic_code: "4.11"
+  - front: Apothem → definition
+    back: |
+      The distance from the centre of a regular polygon to the midpoint of a side (perpendicular to the side).
+    topic_code: "4.11"
+  - front: Inscribed regular n-gon in a circle of radius r → side and perimeter
+    back: |
+      Side = 2r sin(180°/n); perimeter = 2nr sin(180°/n). The hypotenuse of the right triangle is r.
+    topic_code: "4.11"
+  - front: Inscribed regular n-gon → apothem and area
+    back: |
+      Apothem = r cos(180°/n); area = ½ · perimeter · apothem = n r² sin(180°/n) cos(180°/n).
+    topic_code: "4.11"
+  - front: Circumscribed regular n-gon about a circle of radius r → perimeter and area
+    back: |
+      Half-side = r tan(180°/n); perimeter = 2nr tan(180°/n); area = n r² tan(180°/n). The apothem equals r.
+    topic_code: "4.11"
+  - front: Regular hexagon inscribed in a circle of radius 10 → perimeter and area
+    back: |
+      Side 10 (the triangles are equilateral), perimeter 60, apothem 10 cos 30° ≈ 8.66, area ≈ 259.8.
+    topic_code: "4.11"
+  - front: Regular octagon circumscribed about a circle of radius 5 → area
+    back: |
+      Half-side 5 tan 22.5° ≈ 2.07, perimeter ≈ 33.1, area ½ · 33.1 · 5 ≈ 82.8.
+    topic_code: "4.11"
+  - front: The squeeze on π from polygons (radius 1)
+    back: |
+      n sin(180°/n) < π < n tan(180°/n). For n = 12: 3.1058 < π < 3.2154; n = 96: 3.1410 < π < 3.1427.
+    topic_code: "4.11"
+  - front: Archimedes' bounds on π
+    back: |
+      Using 96-sided polygons: 3 10/71 < π < 3 1/7, that is 3.1408 < π < 3.1429.
+    topic_code: "4.11"
+  - front: Why one value of π serves every circle
+    back: |
+      All circles are similar, so circumference/diameter (and area/radius²) is the same for all of them.
+    topic_code: "4.11"
+  - front: Doubling the number of sides → effect on the gap between bounds
+    back: |
+      The gap shrinks by about a factor of 4 each time n doubles: 0.46 at n = 6, 0.11 at n = 12, 0.027 at n = 24.
+    topic_code: "4.11"
+  - front: Angle check after solving a right triangle (review)
+    back: |
+      The two acute angles must add to 90°, and sin of one must equal cos of the other.
+    topic_code: "4.8"
+quiz:
+  description: |
+    25 questions · about 40 minutes · Inverse trigonometric functions, multi-step right-triangle problems, regular polygons inscribed in and circumscribed about circles, and bounds on π, with review of sine and cosine, special triangles, the Pythagorean theorem, isosceles triangles and similarity of circles. Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your teacher against the scoring notes.
+  questions:
+    - slug: geo-u04-w17-q01
+      type: multiple_choice
+      topic_code: "4.9"
+      source: "IM Geometry, Unit 4, Lesson 9"
+      points: 1
+      stimulus: |
+        Figure description: an 8 m ladder leans against a vertical wall on level ground. Its foot is 3.5 m from the base of the wall.
+      prompt: |
+        Which expression gives the angle θ the ladder makes with the ground?
+      options:
+        - "cos⁻¹(3.5/8)"
+        - "sin⁻¹(3.5/8)"
+        - "tan⁻¹(3.5/8)"
+        - "cos⁻¹(8/3.5)"
+      option_explanations:
+        - |
+          Correct. The 3.5 m distance is the leg adjacent to θ and the ladder is the hypotenuse, so cos θ = 3.5/8 and θ = cos⁻¹(0.4375) ≈ 64.1°.
+        - |
+          Sine would need the leg opposite θ (the height on the wall), which is not given directly.
+        - |
+          Tangent needs both legs; the ladder is the hypotenuse, not a leg.
+        - |
+          8/3.5 > 1 is not a possible cosine; the hypotenuse belongs in the denominator.
+      answer: 0
+
+    - slug: geo-u04-w17-q02
+      type: multiple_choice
+      topic_code: "4.10"
+      source: "IM Geometry, Unit 4, Lesson 10"
+      points: 1
+      stimulus: |
+        Figure description: an 8 m ladder leans against a vertical wall on level ground. Its foot is 3.5 m from the base of the wall.
+      prompt: |
+        How high up the wall does the ladder reach?
+      options:
+        - "√(8² − 3.5²) ≈ 7.19 m"
+        - "√(8² + 3.5²) ≈ 8.73 m"
+        - "8 − 3.5 = 4.5 m"
+        - "8 cos 64.1° ≈ 3.5 m"
+      option_explanations:
+        - |
+          Correct. The height is the other leg: √(64 − 12.25) = √51.75 ≈ 7.19 m (also 8 sin 64.1°).
+        - |
+          Adding the squares finds a hypotenuse, but the ladder already is the hypotenuse.
+        - |
+          Lengths in a right triangle do not subtract linearly; the Pythagorean theorem applies to squares.
+        - |
+          8 cos 64.1° recovers the foot distance 3.5 m, not the height.
+      answer: 0
+
+    - slug: geo-u04-w17-q03
+      type: multiple_choice
+      topic_code: "4.10"
+      source: "IM Geometry, Unit 4, Lesson 10"
+      points: 1
+      stimulus: |
+        Figure description: an 8 m ladder leans against a vertical wall on level ground. Its foot is 3.5 m from the base of the wall.
+      prompt: |
+        A safety guideline says the ladder should make an angle of about 75° with the ground. To meet it, which change is needed?
+      options:
+        - "Move the foot closer to the wall, to about 8 cos 75° ≈ 2.07 m"
+        - "Move the foot farther from the wall, to about 8 sin 75° ≈ 7.73 m"
+        - "Nothing: the ladder is already at about 75°"
+        - "Move the foot to 8 tan 75° ≈ 29.9 m from the wall"
+      option_explanations:
+        - |
+          Correct. At 75° the adjacent leg is 8 cos 75° ≈ 2.07 m; the current angle (about 64°) is too shallow, so the foot must come in.
+        - |
+          8 sin 75° is the height reached at 75°, and moving the foot out makes the angle smaller, not larger.
+        - |
+          The current angle is cos⁻¹(3.5/8) ≈ 64°, well below 75°.
+        - |
+          8 tan 75° has no meaning here (8 is the hypotenuse), and 29.9 m is longer than the ladder.
+      answer: 0
+
+    - slug: geo-u04-w17-q04
+      type: multiple_choice
+      topic_code: "4.9"
+      source: "IM Geometry, Unit 4, Lesson 9"
+      points: 1
+      prompt: |
+        A right triangle has legs 9 and 12. What is the measure of the angle opposite the leg 9?
+      options:
+        - "tan⁻¹(9/12) ≈ 36.9°"
+        - "tan⁻¹(12/9) ≈ 53.1°"
+        - "sin⁻¹(9/12) ≈ 48.6°"
+        - "cos⁻¹(9/12) ≈ 41.4°"
+      option_explanations:
+        - |
+          Correct. Opposite 9, adjacent 12: tan θ = 0.75, θ ≈ 36.9° (the 3-4-5 triangle).
+        - |
+          12/9 is the tangent of the other acute angle, the one opposite 12.
+        - |
+          9/12 is not a sine here: the hypotenuse is 15, so sin θ = 9/15 = 0.6, which gives 36.9° as well.
+        - |
+          The cosine of this angle is 12/15 = 0.8; 9/12 is the ratio of the legs, which is a tangent.
+      answer: 0
+
+    - slug: geo-u04-w17-q05
+      type: multiple_choice
+      topic_code: "4.9"
+      source: "IM Geometry, Unit 4, Lesson 9"
+      points: 1
+      prompt: |
+        Which statement about the notation sin⁻¹ is correct?
+      options:
+        - "sin⁻¹(x) is the acute angle whose sine is x; it is not 1/sin x"
+        - "sin⁻¹(x) equals 1/sin x"
+        - "sin⁻¹(x) is defined for every positive x"
+        - "sin⁻¹(x) gives the side opposite the angle x"
+      option_explanations:
+        - |
+          Correct. The superscript −1 marks the inverse function; the reciprocal 1/sin x is a different quantity.
+        - |
+          The reciprocal of a sine is at least 1, while sin⁻¹ returns an angle.
+        - |
+          Sines of acute angles lie between 0 and 1, so sin⁻¹ accepts only inputs in that range.
+        - |
+          The input of sin⁻¹ is a ratio and the output is an angle, not a length.
+      answer: 0
+
+    - slug: geo-u04-w17-q06
+      type: multiple_choice
+      topic_code: "4.9"
+      source: "IM Geometry, Unit 4, Lesson 9"
+      points: 1
+      prompt: |
+        Without a calculator, what is cos⁻¹(1/2)?
+      options:
+        - "60°"
+        - "30°"
+        - "45°"
+        - "2"
+      option_explanations:
+        - |
+          Correct. cos 60° = 1/2 (the short leg over the hypotenuse in the 30-60-90 triangle, seen from the 60° angle).
+        - |
+          30° has cosine √3/2 ≈ 0.866; it is the sine of 30° that equals 1/2, not the cosine.
+        - |
+          cos 45° = √2/2 ≈ 0.707, not 1/2; the half-square has equal legs, not a 1 : 2 ratio.
+        - |
+          2 would be 1 ÷ (1/2), the reciprocal, not the inverse function.
+      answer: 0
+
+    - slug: geo-u04-w17-q07
+      type: multiple_choice
+      topic_code: "4.10"
+      source: "IM Geometry, Unit 4, Lesson 10"
+      points: 1
+      prompt: |
+        An isosceles triangle has equal sides 13 and base 10. What are its base angles?
+      options:
+        - "cos⁻¹(5/13) ≈ 67.4°"
+        - "cos⁻¹(10/13) ≈ 39.7°"
+        - "sin⁻¹(5/13) ≈ 22.6°"
+        - "tan⁻¹(10/13) ≈ 37.6°"
+      option_explanations:
+        - |
+          Correct. The altitude bisects the base into 5 and 5; in the right triangle, 5 is adjacent to the base angle and 13 is the hypotenuse.
+        - |
+          The whole base 10 is not a side of the right triangle; the altitude splits it in half.
+        - |
+          sin⁻¹(5/13) is the half-apex angle at the top of the right triangle, not the base angle.
+        - |
+          Tangent needs the two legs (5 and the height 12); 13 is the hypotenuse.
+      answer: 0
+
+    - slug: geo-u04-w17-q08
+      type: multiple_choice
+      topic_code: "4.10"
+      source: "IM Geometry, Unit 4, Lesson 10"
+      points: 1
+      prompt: |
+        From the top of a 60 m lighthouse, two boats are seen in the same direction at angles of depression 30° and 45°. How far apart are the boats?
+      options:
+        - "60/tan 30° − 60/tan 45° ≈ 103.9 − 60 ≈ 43.9 m"
+        - "60 tan 30° − 60 tan 45° ≈ 34.6 − 60, impossible, so the boats must be on opposite sides"
+        - "60/tan 45° − 60/tan 30° ≈ −43.9 m"
+        - "60(tan 45° − tan 30°) ≈ 25.4 m"
+      option_explanations:
+        - |
+          Correct. Each boat's distance from the base is 60 / tan(depression); the boat at 30° is farther (103.9 m) than the one at 45° (60 m).
+        - |
+          Multiplying by the tangent gives the height from a distance, not the distance from the height.
+        - |
+          The subtraction is in the wrong order; the 30° boat is the farther one.
+        - |
+          Distances are 60 / tan θ, not 60 · tan θ; this expression does not represent either distance.
+      answer: 0
+
+    - slug: geo-u04-w17-q09
+      type: multiple_choice
+      topic_code: "4.11"
+      source: "IM Geometry, Unit 4, Lesson 11"
+      points: 1
+      prompt: |
+        A regular hexagon is inscribed in a circle of radius 10. What is its perimeter?
+      options:
+        - "60"
+        - "2 · 6 · 10 tan 30° ≈ 69.3"
+        - "2π · 10 ≈ 62.8"
+        - "12 · 10 sin 60° ≈ 103.9"
+      option_explanations:
+        - |
+          Correct. Each side is 2 · 10 · sin 30° = 10 (the six central triangles are equilateral), so the perimeter is 60.
+        - |
+          Tangent gives the circumscribed hexagon's perimeter; inscribed uses sine.
+        - |
+          The circumference of the circle is larger than any inscribed polygon's perimeter.
+        - |
+          The right triangle's apex angle is 180°/6 = 30°, not 60°.
+      answer: 0
+
+    - slug: geo-u04-w17-q10
+      type: multiple_choice
+      topic_code: "4.11"
+      source: "IM Geometry, Unit 4, Lesson 11"
+      points: 1
+      prompt: |
+        A regular polygon with 12 sides is circumscribed about a circle of radius 1. Which expression gives its perimeter?
+      options:
+        - "24 tan 15°"
+        - "24 sin 15°"
+        - "12 tan 30°"
+        - "24 cos 15°"
+      option_explanations:
+        - |
+          Correct. The apothem is the radius 1; half a side is tan(180°/12) = tan 15°, so the perimeter is 12 · 2 tan 15° ≈ 6.43.
+        - |
+          24 sin 15° is the inscribed 12-gon's perimeter, where the radius is the hypotenuse.
+        - |
+          The right triangle's angle is half the central angle: 15°, not 30°.
+        - |
+          Cosine relates the apothem to the hypotenuse; it does not give a side length here.
+      answer: 0
+
+    - slug: geo-u04-w17-q11
+      type: multiple_choice
+      topic_code: "4.11"
+      source: "IM Geometry, Unit 4, Lesson 11"
+      points: 1
+      prompt: |
+        For a circle of radius 1, the inscribed 24-gon has half-perimeter 24 sin 7.5° ≈ 3.1326 and the circumscribed 24-gon has half-perimeter 24 tan 7.5° ≈ 3.1597. What does this show?
+      options:
+        - "3.1326 < π < 3.1597"
+        - "π ≈ 3.1326 exactly"
+        - "π is the average, 3.146"
+        - "The circle's circumference is 3.1597"
+      option_explanations:
+        - |
+          Correct. The inscribed perimeter is less than the circumference 2π and the circumscribed one is greater, so halving gives bounds on π.
+        - |
+          The inscribed polygon's perimeter is strictly less than the circumference; it is a lower bound, not the value.
+        - |
+          π is between the bounds but not necessarily at their midpoint (it is 3.1416, below the average).
+        - |
+          The circumference is 2π ≈ 6.283; 3.1597 is half the circumscribed perimeter, an upper bound on π.
+      answer: 0
+
+    - slug: geo-u04-w17-q12
+      type: multiple_choice
+      topic_code: "4.11"
+      source: "IM Geometry, Unit 4, Lesson 11"
+      points: 1
+      prompt: |
+        Why does one number π give the circumference of every circle as π times the diameter?
+      options:
+        - "All circles are similar, so the ratio circumference/diameter is the same for all of them"
+        - "Because every circle has the same radius"
+        - "Because π is defined as 3.14"
+        - "Because inscribed polygons have the same perimeter in every circle"
+      option_explanations:
+        - |
+          Correct. A similarity multiplies all lengths by the same factor, so the ratio of two lengths (circumference and diameter) is unchanged from circle to circle.
+        - |
+          Radii differ; it is the ratio, not the lengths, that is constant.
+        - |
+          π is defined as circumference/diameter; 3.14 is only an approximation of it.
+        - |
+          Polygon perimeters scale with the radius; only their ratio to the radius is constant.
+      answer: 0
+
+    - slug: geo-u04-w17-q13
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "IM Geometry, Unit 4, Lesson 5"
+      points: 1
+      prompt: |
+        Review. In a right triangle, the leg adjacent to angle θ is 24 and the hypotenuse is 25. Which statement is correct?
+      options:
+        - "cos θ = 24/25 and sin θ = 7/25"
+        - "sin θ = 24/25 and cos θ = 7/25"
+        - "tan θ = 24/25"
+        - "cos θ = 25/24"
+      option_explanations:
+        - |
+          Correct. cos θ = adjacent/hypotenuse = 24/25; the other leg is √(625 − 576) = 7, so sin θ = 7/25.
+        - |
+          These are the sine and cosine of the other acute angle, whose opposite leg is 24.
+        - |
+          Tangent compares the two legs: tan θ = 7/24, not a leg over the hypotenuse.
+        - |
+          A cosine is never greater than 1; the hypotenuse is the denominator.
+      answer: 0
+
+    - slug: geo-u04-w17-q14
+      type: multiple_choice
+      topic_code: "3.14"
+      source: "IM Geometry, Unit 3, Lesson 14"
+      points: 1
+      prompt: |
+        Review. A right triangle has hypotenuse 25 and one leg 15. Which method finds the angle between that leg and the hypotenuse, and what is it?
+      options:
+        - "cos⁻¹(15/25) ≈ 53.1°, or find the other leg 20 by the Pythagorean theorem and use tan⁻¹(20/15)"
+        - "sin⁻¹(15/25) ≈ 36.9°"
+        - "tan⁻¹(15/25) ≈ 31.0°"
+        - "cos⁻¹(25/15), which is undefined, so the triangle is impossible"
+      option_explanations:
+        - |
+          Correct. The known leg is adjacent to the wanted angle, so cosine applies directly; the other leg √(625 − 225) = 20 gives the same angle by tangent.
+        - |
+          sin⁻¹(15/25) ≈ 36.9° is the angle opposite the leg 15, not the angle between that leg and the hypotenuse.
+        - |
+          Tangent compares two legs, and 25 is the hypotenuse.
+        - |
+          The ratio must be leg/hypotenuse = 15/25 = 0.6; the triangle (a 15-20-25) is perfectly possible.
+      answer: 0
+
+    - slug: geo-u04-w17-q15
+      type: multi_select
+      topic_code: "4.11"
+      source: "IM Geometry, Unit 4, Lesson 11"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A regular pentagon is inscribed in a circle of radius 6. Which statements are true? Select all that apply.
+      options:
+        - "The central angle for each side is 72°"
+        - "Each side has length 12 sin 36° ≈ 7.05"
+        - "The apothem is 6 cos 36° ≈ 4.85"
+        - "The area is ½ · perimeter · apothem ≈ 85.6"
+        - "The perimeter is greater than the circle's circumference"
+      option_explanations:
+        - |
+          True: 360°/5 = 72°, and the right triangle uses half of it, 36°.
+        - |
+          True: half a side is 6 sin 36°, so a side is 12 sin 36° ≈ 7.05.
+        - |
+          True: the apothem is the adjacent leg, 6 cos 36° ≈ 4.85.
+        - |
+          True: ½ · 35.27 · 4.85 ≈ 85.6 (equivalently 5 · 36 · sin 36° cos 36°).
+        - |
+          False: an inscribed polygon's perimeter (about 35.3) is less than the circumference 12π ≈ 37.7.
+      answer: [0, 1, 2, 3]
+
+    - slug: geo-u04-w17-q16
+      type: multi_select
+      topic_code: "4.8"
+      source: "IM Geometry, Unit 4, Lesson 8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Review. A right triangle has acute angles θ and φ with sin θ = 0.6. Which statements are true? Select all that apply.
+      options:
+        - "cos θ = 0.8"
+        - "cos φ = 0.6"
+        - "tan θ = 0.75"
+        - "θ ≈ 36.9°"
+        - "sin φ = 0.6"
+      option_explanations:
+        - |
+          True: cos² θ = 1 − 0.36 = 0.64, so cos θ = 0.8.
+        - |
+          True: cos φ = sin θ because φ = 90° − θ.
+        - |
+          True: tan θ = sin θ / cos θ = 0.6/0.8 = 0.75.
+        - |
+          True: sin⁻¹(0.6) ≈ 36.9°, the 3-4-5 triangle's smaller angle.
+        - |
+          False: sin φ = cos θ = 0.8, because the leg opposite φ is the leg adjacent to θ.
+      answer: [0, 1, 2, 3]
+
+    - slug: geo-u04-w17-q17
+      type: true_false
+      topic_code: "4.9"
+      source: "IM Geometry, Unit 4, Lesson 9"
+      points: 1
+      prompt: |
+        True or false: if the two legs of a right triangle are known, the acute angles can be found with tan⁻¹ without first computing the hypotenuse.
+      answer: true
+      explanation: |
+        True. Tangent is the ratio of the two legs, so tan⁻¹(opposite/adjacent) gives one acute angle directly and 90° minus it gives the other.
+
+    - slug: geo-u04-w17-q18
+      type: true_false
+      topic_code: "2.8"
+      source: "IM Geometry, Unit 2, Lesson 8"
+      points: 1
+      prompt: |
+        Review. True or false: in an isosceles triangle, the altitude from the apex to the base bisects the base, which is why the base angle can be found from a right triangle whose adjacent leg is half the base.
+      answer: true
+      explanation: |
+        True. The apex is equidistant from the two base vertices, so it lies on the perpendicular bisector of the base (Perpendicular Bisector Theorem converse); the altitude from the apex is that perpendicular bisector, giving two congruent right triangles with half the base as a leg.
+
+    - slug: geo-u04-w17-q19
+      type: fill_blank
+      topic_code: "4.11"
+      source: "IM Geometry, Unit 4, Lesson 11"
+      points: 1
+      prompt: |
+        The perpendicular distance from the centre of a regular polygon to one of its sides is called the ____.
+      answer: ["apothem"]
+      explanation: |
+        The apothem is the adjacent leg of the polygon's basic right triangle; area = ½ · perimeter · apothem.
+
+    - slug: geo-u04-w17-q20
+      type: fill_blank
+      topic_code: "3.8"
+      source: "IM Geometry, Unit 3, Lesson 8"
+      points: 1
+      prompt: |
+        Review. The ratio of circumference to diameter is the same for every circle because all circles are ____.
+      answer: ["similar"]
+      explanation: |
+        Any circle can be carried onto any other by a translation and a dilation, and a dilation preserves ratios of lengths.
+
+    - slug: geo-u04-w17-q21
+      type: numeric
+      topic_code: "4.9"
+      source: "general knowledge"
+      points: 1
+      prompt: |
+        A wheelchair ramp rises 0.75 m over a horizontal run of 9 m. What angle does it make with the ground, in degrees, to one decimal place?
+      answer: { value: 4.8, tolerance: 0.1 }
+      explanation: |
+        tan θ = 0.75/9 = 1/12 ≈ 0.0833, so θ = tan⁻¹(0.0833) ≈ 4.8°.
+
+    - slug: geo-u04-w17-q22
+      type: numeric
+      topic_code: "4.6"
+      source: "general knowledge"
+      points: 1
+      prompt: |
+        Review. A right triangle has a 40° angle and hypotenuse 18. What is the leg adjacent to the 40° angle, to one decimal place? (cos 40° ≈ 0.7660)
+      answer: { value: 13.8, tolerance: 0.1 }
+      explanation: |
+        adjacent = hypotenuse × cos 40° = 18 × 0.7660 ≈ 13.8.
+
+    - slug: geo-u04-w17-q23
+      type: short_answer
+      topic_code: "4.3"
+      source: "IM Geometry, Unit 4, Lesson 3"
+      points: 3
+      prompt: |
+        Review. Without a calculator, explain why a regular hexagon inscribed in a circle of radius r has perimeter exactly 6r, and find its area exactly in terms of r.
+      answer: |
+        Joining the centre to the six vertices makes six isosceles triangles with apex angle 360°/6 = 60°; their base angles are (180° − 60°)/2 = 60°, so each triangle is equilateral and each side of the hexagon equals the radius r. Perimeter = 6r. Each equilateral triangle of side r has height (r/2)√3 (half of it is a 30-60-90 triangle with short leg r/2), so its area is ½ · r · (r√3/2) = (√3/4)r², and the hexagon's area is 6 · (√3/4)r² = (3√3/2)r² ≈ 2.598r².
+      explanation: |
+        1 point for showing the central triangles are equilateral (60° apex gives 60° base angles). 1 point for perimeter 6r. 1 point for the area (3√3/2)r² using the 30-60-90 height.
+
+    - slug: geo-u04-w17-q24
+      type: short_answer
+      topic_code: "4.10"
+      source: "IM Geometry, Unit 4, Lesson 10"
+      points: 3
+      prompt: |
+        A straight road climbs from 200 m above sea level to 650 m above sea level over a horizontal distance of 6 km. Find the angle of the road with the horizontal and the road's actual length, showing which ratio or theorem you use for each. Then say whether the road is steeper or shallower than a 1 : 12 ramp.
+      answer: |
+        Rise = 650 − 200 = 450 m = 0.45 km; run = 6 km. The angle: tan θ = 0.45/6 = 0.075, so θ = tan⁻¹(0.075) ≈ 4.3° (tangent, because rise and run are the two legs). The road length is the hypotenuse: √(6² + 0.45²) = √36.2025 ≈ 6.017 km (Pythagorean theorem), or 6 / cos 4.3° ≈ 6.017 km. A 1 : 12 ramp has steepness 1/12 ≈ 0.083, which is more than 0.075, so the road is slightly shallower than the ramp.
+      explanation: |
+        1 point for θ ≈ 4.3° with tangent justified by the two legs. 1 point for the length ≈ 6.02 km by the Pythagorean theorem or cosine. 1 point for comparing 0.075 with 1/12 ≈ 0.083 and concluding shallower.
+
+    - slug: geo-u04-w17-q25
+      type: long_answer
+      topic_code: "4.11"
+      source: "IM Geometry, Unit 4, Lesson 11"
+      points: 6
+      prompt: |
+        A circle has radius 1.
+
+        (a) Describe the right triangle formed by the centre, one vertex and the midpoint of one side of an inscribed regular 12-gon, giving its angle at the centre and its hypotenuse. Find the 12-gon's perimeter and area. (sin 15° ≈ 0.2588, cos 15° ≈ 0.9659, sin 30° = 0.5)
+        (b) Do the same for a circumscribed regular 12-gon. (tan 15° ≈ 0.2679)
+        (c) Use (a) and (b) to write two inequalities that bound π, one from perimeters and one from areas, and state the resulting range for π.
+        (d) Explain why increasing the number of sides improves the bounds, and why the method proves that the bounds approach the same number.
+      answer: |
+        (a) The centre, a vertex and the midpoint of an adjacent side form a right triangle with the right angle at the midpoint, angle 360°/24 = 15° at the centre, and hypotenuse 1 (the radius). Half a side is sin 15° ≈ 0.2588, so a side is 0.5176 and the perimeter is 12 × 0.5176 ≈ 6.212. The apothem is cos 15° ≈ 0.9659, so the area is ½ × 6.212 × 0.9659 ≈ 3.000 (exactly 3, since the area is also 6 sin 30° = 3).
+        (b) For the circumscribed 12-gon the apothem is the radius 1 and the centre angle is still 15°; half a side is tan 15° ≈ 0.2679, so a side is 0.5359, the perimeter is 12 × 0.5359 ≈ 6.431, and the area is ½ × 6.431 × 1 ≈ 3.215.
+        (c) Perimeters: 6.212 < 2π < 6.431, so 3.106 < π < 3.215. Areas: 3.000 < π < 3.215. Together, 3.106 < π < 3.215.
+        (d) More sides make the inscribed polygon fill more of the circle (its perimeter and area grow toward the circle's) and make the circumscribed polygon hug the circle more tightly (its perimeter and area shrink toward the circle's), so the lower bound rises and the upper bound falls. The ratio of the two bounds is tan(180°/n) / sin(180°/n) = 1/cos(180°/n), which approaches 1 as n grows, so the bounds close in on a single number, which is π.
+      explanation: |
+        Scoring (6 points). (a) 1 point for the right triangle (15° at the centre, hypotenuse 1) with perimeter ≈ 6.21; 1 point for area = 3. (b) 1 point for perimeter ≈ 6.43 and area ≈ 3.215 with the apothem equal to 1. (c) 1 point for both inequalities and the range 3.106 < π < 3.215. (d) 1 point for the squeezing explanation; 1 point for a reason the bounds converge (such as the ratio 1/cos(180°/n) approaching 1).

@@ -1,0 +1,958 @@
+unit: 1
+description: |
+  44 questions · about 80 minutes · every lesson of Unit 1 (1.1 to 1.16): statistical questions and data types,
+  dot plots, histograms and box plots, shape, mean, median, MAD, IQR and standard deviation, spreadsheet
+  formulas, the effect of extremes, outliers, and comparing data sets. Three stimulus sets share a table or a
+  described plot across consecutive items. Multiple choice, select-all, true/false and numeric items are graded
+  at once; fill-in-the-blank items are matched automatically; the short answers and the long answer are graded
+  by your teacher against the scoring notes.
+questions:
+  # ---- Statistical questions and data types (1.1)
+  - slug: alg1-u01-exam-q01
+    type: multiple_choice
+    topic_code: "1.1"
+    source: "IM Algebra 1, Unit 1, Lesson 1"
+    points: 1
+    prompt: |
+      Which question would be answered by collecting data that vary and describing a distribution?
+    options:
+      - "How many centimetres are in a metre?"
+      - "How far do students at this school live from campus?"
+      - "What time does first period start?"
+      - "How many classrooms does the school have?"
+    option_explanations:
+      - |
+        A unit conversion has one fixed answer and needs no data.
+      - |
+        Correct. Distances vary from student to student, so the answer is a distribution of values.
+      - |
+        The start time is a single scheduled fact, not something that varies across cases.
+      - |
+        A count of classrooms is one number that can be looked up.
+    answer: 1
+
+  - slug: alg1-u01-exam-q02
+    type: multiple_choice
+    topic_code: "1.1"
+    source: "IM Algebra 1, Unit 1, Lesson 1"
+    points: 1
+    prompt: |
+      A form records each runner's bib number, finishing time, age group (under 20, 20–39, 40+) and shoe brand. Which of these variables is numerical?
+    options:
+      - "Bib number"
+      - "Finishing time"
+      - "Age group"
+      - "Shoe brand"
+    option_explanations:
+      - |
+        A bib number identifies a runner; averaging bib numbers means nothing.
+      - |
+        Correct. Finishing time is a measurement with meaningful differences and averages.
+      - |
+        The age groups are categories, even though they are defined by ages.
+      - |
+        Shoe brand is a label that sorts runners into groups.
+    answer: 1
+
+  # ---- Stimulus set A: a dot plot of library visits (1.2, 1.4, 1.5, 1.14)
+  - slug: alg1-u01-exam-q03
+    type: multiple_choice
+    topic_code: "1.2"
+    source: "IM Algebra 1, Unit 1, Lesson 2"
+    points: 1
+    stimulus: |
+      Graph description: a dot plot shows the number of library visits made by 15 students in a month. There are two dots at 0, four dots at 1, three dots at 2, two dots at 3, one dot at 4, one dot at 5, one dot at 6 and one dot at 12.
+    prompt: |
+      What is the median number of visits?
+    options:
+      - "1"
+      - "2"
+      - "2.5"
+      - "3"
+    option_explanations:
+      - |
+        The dots at 0 and 1 account for the first six values; the 8th value lies in the group of 2s.
+      - |
+        Correct. Ordered, the 15 values are 0, 0, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 5, 6, 12; the 8th value is 2.
+      - |
+        With an odd count the median is a single data value, not an average of two.
+      - |
+        3 is the 10th and 11th value, past the middle.
+    answer: 1
+
+  - slug: alg1-u01-exam-q04
+    type: multiple_choice
+    topic_code: "1.4"
+    source: "IM Algebra 1, Unit 1, Lesson 4"
+    points: 1
+    stimulus: |
+      Graph description: a dot plot shows the number of library visits made by 15 students in a month. There are two dots at 0, four dots at 1, three dots at 2, two dots at 3, one dot at 4, one dot at 5, one dot at 6 and one dot at 12.
+    prompt: |
+      Which description of the shape is correct?
+    options:
+      - "Symmetric, centred at 6"
+      - "Skewed right, with a peak at 1 and a tail toward 12"
+      - "Skewed left, with a peak at 12"
+      - "Uniform from 0 to 12"
+    option_explanations:
+      - |
+        The plot is lopsided: most dots sit at 0 to 3 and a tail trails to 12.
+      - |
+        Correct. The tallest stack is at 1, the dots thin out to the right, and the single dot at 12 extends the right tail.
+      - |
+        The peak is at 1, not 12, and the tail points to the right.
+      - |
+        A uniform plot would have equal stacks at every value; here the stacks vary from 0 to 4 dots.
+    answer: 1
+
+  - slug: alg1-u01-exam-q05
+    type: multiple_choice
+    topic_code: "1.14"
+    source: "IM Algebra 1, Unit 1, Lesson 14"
+    points: 1
+    stimulus: |
+      Graph description: a dot plot shows the number of library visits made by 15 students in a month. There are two dots at 0, four dots at 1, three dots at 2, two dots at 3, one dot at 4, one dot at 5, one dot at 6 and one dot at 12.
+    prompt: |
+      Q1 = 1 and Q3 = 4 for these data. Is 12 an outlier by the 1.5 × IQR rule?
+    options:
+      - "Yes, because the upper fence is 4 + 1.5 × 3 = 8.5 and 12 is above it"
+      - "No, because 12 is less than 1.5 × 12"
+      - "Yes, because 12 is more than twice the median"
+      - "No, because the upper fence is 4 + 3 = 7 and 12 is a visit count, not a fence"
+    option_explanations:
+      - |
+        Correct. IQR = 3, 1.5 × 3 = 4.5, upper fence = 8.5, and 12 > 8.5.
+      - |
+        The rule compares the value with a fence built from the quartiles, not with a multiple of itself.
+      - |
+        There is no "twice the median" rule; the fence uses Q3 and the IQR.
+      - |
+        The fence is Q3 plus 1.5 times the IQR, which is 8.5, and 12 is beyond it.
+    answer: 0
+
+  - slug: alg1-u01-exam-q06
+    type: numeric
+    topic_code: "1.5"
+    source: "IM Algebra 1, Unit 1, Lesson 5"
+    points: 1
+    stimulus: |
+      Graph description: a dot plot shows the number of library visits made by 15 students in a month. There are two dots at 0, four dots at 1, three dots at 2, two dots at 3, one dot at 4, one dot at 5, one dot at 6 and one dot at 12.
+    prompt: |
+      What is the mean number of visits? Give your answer to one decimal place.
+    answer: { value: 2.9, tolerance: 0.05 }
+    explanation: |
+      Sum = 2(0) + 4(1) + 3(2) + 2(3) + 4 + 5 + 6 + 12 = 0 + 4 + 6 + 6 + 27 = 43. Mean = 43/15 ≈ 2.87, which rounds to 2.9. The mean sits above the median of 2 because the single value 12 pulls it toward the right tail.
+
+  # ---- Displays (1.2, 1.3)
+  - slug: alg1-u01-exam-q07
+    type: multiple_choice
+    topic_code: "1.3"
+    source: "IM Algebra 1, Unit 1, Lesson 3"
+    points: 1
+    prompt: |
+      A researcher has 5,000 measurements and wants to see whether the distribution has one peak or two. Which display is most useful?
+    options:
+      - "A dot plot"
+      - "A histogram with a sensible bin width"
+      - "A box plot"
+      - "The five-number summary"
+    option_explanations:
+      - |
+        Five thousand dots stacked on a number line cannot be read or counted.
+      - |
+        Correct. A histogram shows the shape of a large data set, and two peaks appear as two humps.
+      - |
+        A box plot shows five numbers and cannot reveal a second peak.
+      - |
+        Five numbers cannot tell one peak from two.
+    answer: 1
+
+  - slug: alg1-u01-exam-q08
+    type: multiple_choice
+    topic_code: "1.2"
+    source: "IM Algebra 1, Unit 1, Lesson 2"
+    points: 1
+    prompt: |
+      Graph description: a box plot has whiskers from 8 to 40, a box from 15 to 27, and a line at 19. What is the IQR?
+    options:
+      - "32"
+      - "12"
+      - "19"
+      - "8"
+    option_explanations:
+      - |
+        32 is the range, 40 − 8, the distance between the whisker ends rather than the box edges.
+      - |
+        Correct. The box runs from Q1 = 15 to Q3 = 27, so IQR = 27 − 15 = 12.
+      - |
+        19 is the median, the line inside the box.
+      - |
+        8 is the minimum, the left end of the left whisker.
+    answer: 1
+
+  - slug: alg1-u01-exam-q09
+    type: multiple_choice
+    topic_code: "1.2"
+    source: "IM Algebra 1, Unit 1, Lesson 2"
+    points: 1
+    prompt: |
+      A histogram uses bins 0–5, 5–10, 10–15 and 15–20 with heights 3, 8, 6 and 1. Which statement must be true?
+    options:
+      - "The data set has 18 values."
+      - "The largest value is 20."
+      - "The median is exactly 7.5."
+      - "The data contain the value 8."
+    option_explanations:
+      - |
+        Correct. Bar heights are counts: 3 + 8 + 6 + 1 = 18 values.
+      - |
+        The last bin holds one value somewhere between 15 and 20; its exact value is unknown.
+      - |
+        The median lies in the 5–10 bin (the 9th and 10th values fall there) but its exact value cannot be read from a histogram.
+      - |
+        Histograms hide individual values; we only know eight values lie between 5 and 10.
+    answer: 0
+
+  # ---- Centre and spread (1.5, 1.12)
+  - slug: alg1-u01-exam-q10
+    type: multiple_choice
+    topic_code: "1.5"
+    source: "IM Algebra 1, Unit 1, Lesson 5"
+    points: 1
+    prompt: |
+      The data 6, 8, 11, 15 have mean 10. What is the mean absolute deviation?
+    options:
+      - "0"
+      - "3"
+      - "3.5"
+      - "9"
+    option_explanations:
+      - |
+        The signed deviations sum to zero, but the MAD uses distances.
+      - |
+        Correct. Distances from 10 are 4, 2, 1, 5; sum 12; MAD = 12/4 = 3.
+      - |
+        3.5 would need a sum of 14; the distances sum to 12.
+      - |
+        9 is the range, 15 − 6, not an average distance from the mean.
+    answer: 1
+
+  - slug: alg1-u01-exam-q11
+    type: multiple_choice
+    topic_code: "1.12"
+    source: "IM Algebra 1, Unit 1, Lesson 12"
+    points: 1
+    prompt: |
+      The data 4, 6, 10, 12 have mean 8. What is the standard deviation (dividing by n)?
+    options:
+      - "3"
+      - "√10 ≈ 3.16"
+      - "10"
+      - "40"
+    option_explanations:
+      - |
+        3 is the MAD (distances 4, 2, 2, 4 average to 3); the SD squares first.
+      - |
+        Correct. Squared deviations 16, 4, 4, 16 sum to 40; variance 40/4 = 10; SD = √10 ≈ 3.16.
+      - |
+        10 is the variance, not its square root.
+      - |
+        40 is the sum of squared deviations before dividing by n.
+    answer: 1
+
+  - slug: alg1-u01-exam-q12
+    type: multiple_choice
+    topic_code: "1.12"
+    source: "IM Algebra 1, Unit 1, Lesson 12"
+    points: 1
+    prompt: |
+      Which statement correctly interprets a standard deviation of 1.5 kg for the weights of a litter of puppies with mean 4 kg?
+    options:
+      - "Every puppy weighs between 2.5 kg and 5.5 kg."
+      - "A typical puppy's weight is about 1.5 kg away from 4 kg."
+      - "The heaviest puppy is 1.5 kg heavier than the lightest."
+      - "Half the puppies weigh exactly 4 kg."
+    option_explanations:
+      - |
+        The SD is a typical distance, not a guaranteed limit; some puppies may be further from the mean.
+      - |
+        Correct. The standard deviation is a typical distance of the values from the mean, in the data's units.
+      - |
+        That describes the range, which the SD does not give.
+      - |
+        The SD says nothing about how many values equal the mean.
+    answer: 1
+
+  # ---- Spreadsheets (1.6, 1.7, 1.8)
+  - slug: alg1-u01-exam-q13
+    type: multiple_choice
+    topic_code: "1.6"
+    source: "IM Algebra 1, Unit 1, Lesson 6"
+    points: 1
+    prompt: |
+      Column A holds 1, 2, 5 and column B shows 2, 5, 26. Which formula is in B1?
+    options:
+      - "=A1*2"
+      - "=A1^2+1"
+      - "=A1+1"
+      - "=3*A1-1"
+    option_explanations:
+      - |
+        1 × 2 = 2 fits the first row, but 5 × 2 = 10, not 26.
+      - |
+        Correct. 1² + 1 = 2, 2² + 1 = 5 and 5² + 1 = 26.
+      - |
+        1 + 1 = 2 fits the first row, but 2 + 1 = 3, not 5.
+      - |
+        3 × 1 − 1 = 2 fits the first row, but 3 × 2 − 1 = 5 and 3 × 5 − 1 = 14, not 26.
+    answer: 1
+
+  - slug: alg1-u01-exam-q14
+    type: multiple_choice
+    topic_code: "1.7"
+    source: "IM Algebra 1, Unit 1, Lesson 7"
+    points: 1
+    prompt: |
+      Thirty values are in cells C2 through C31. Which formula computes their mean?
+    options:
+      - "=MEAN(C2:C31)"
+      - "=AVERAGE(C2:C31)"
+      - "=SUM(C2:C31)/31"
+      - "=AVERAGE(C2+C31)"
+    option_explanations:
+      - |
+        MEAN is not a spreadsheet function; the mean is computed by AVERAGE.
+      - |
+        Correct. AVERAGE over the range of thirty cells returns their mean.
+      - |
+        The range holds 30 values, not 31; the divisor is wrong.
+      - |
+        The plus sign adds just two cells; a range uses a colon.
+    answer: 1
+
+  - slug: alg1-u01-exam-q15
+    type: multiple_choice
+    topic_code: "1.8"
+    source: "IM Algebra 1, Unit 1, Lesson 8"
+    points: 1
+    prompt: |
+      Cell D2 contains =C2-$C$1 and is filled down to D10. What does D10 contain?
+    options:
+      - "=C10-$C$9"
+      - "=C10-$C$1"
+      - "=C2-$C$1"
+      - "=C10-C9"
+    option_explanations:
+      - |
+        The dollar signs keep the second reference at C1.
+      - |
+        Correct. The relative reference C2 becomes C10 and the absolute reference $C$1 is unchanged.
+      - |
+        The first reference moves with the formula when it is filled down.
+      - |
+        The copied formula keeps its dollar signs and its locked reference.
+    answer: 1
+
+  # ---- Stimulus set B: two sections' quiz summaries (1.11, 1.15, 1.10)
+  - slug: alg1-u01-exam-q16
+    type: multiple_choice
+    topic_code: "1.11"
+    source: "IM Algebra 1, Unit 1, Lesson 11"
+    points: 1
+    stimulus: |
+      Two sections of the same course took a 40-point quiz.
+
+      | Section | Shape | Mean | Median | SD | IQR | Outliers |
+      |---|---|---|---|---|---|---|
+      | Morning | roughly symmetric | 29.5 | 30 | 3.2 | 4 | none |
+      | Afternoon | skewed left | 26.0 | 31 | 8.9 | 5 | two scores below 8 |
+    prompt: |
+      Which pair of statistics should be used to compare the typical scores of the two sections?
+    options:
+      - "The means, because they use every score"
+      - "The medians, because one section is skewed with outliers"
+      - "The standard deviations, because they are larger"
+      - "The IQRs, because they are resistant"
+    option_explanations:
+      - |
+        The afternoon mean is dragged down by two very low scores and does not describe a typical student there.
+      - |
+        Correct. With skew and outliers in one section, the resistant median is the matching centre for both.
+      - |
+        Standard deviations measure spread, not typical score.
+      - |
+        The IQR is a measure of spread, so it cannot be used to compare typical scores.
+    answer: 1
+
+  - slug: alg1-u01-exam-q17
+    type: multiple_choice
+    topic_code: "1.15"
+    source: "IM Algebra 1, Unit 1, Lesson 15"
+    points: 1
+    stimulus: |
+      Two sections of the same course took a 40-point quiz.
+
+      | Section | Shape | Mean | Median | SD | IQR | Outliers |
+      |---|---|---|---|---|---|---|
+      | Morning | roughly symmetric | 29.5 | 30 | 3.2 | 4 | none |
+      | Afternoon | skewed left | 26.0 | 31 | 8.9 | 5 | two scores below 8 |
+    prompt: |
+      Which conclusion is best supported by the table?
+    options:
+      - "Typical scores are similar in the two sections, but the afternoon section is less consistent because of a few very low scores."
+      - "The morning section scored much higher, since 29.5 is above 26.0."
+      - "The afternoon section scored much higher, since its SD is larger."
+      - "The sections are identical because the IQRs are close."
+    option_explanations:
+      - |
+        Correct. Medians of 30 and 31 are close; the afternoon SD of 8.9 and two outliers show more variability.
+      - |
+        The 3.5-point gap in means is created by the two outliers; the medians differ by only one point.
+      - |
+        A larger SD means more spread, not higher scores.
+      - |
+        Similar IQRs describe the middle halves; the SDs and outliers show the sections differ in spread.
+    answer: 0
+
+  - slug: alg1-u01-exam-q18
+    type: multiple_choice
+    topic_code: "1.10"
+    source: "IM Algebra 1, Unit 1, Lesson 10"
+    points: 1
+    stimulus: |
+      Two sections of the same course took a 40-point quiz.
+
+      | Section | Shape | Mean | Median | SD | IQR | Outliers |
+      |---|---|---|---|---|---|---|
+      | Morning | roughly symmetric | 29.5 | 30 | 3.2 | 4 | none |
+      | Afternoon | skewed left | 26.0 | 31 | 8.9 | 5 | two scores below 8 |
+    prompt: |
+      If the two afternoon scores below 8 were removed, which change would you expect?
+    options:
+      - "The afternoon mean would rise toward the median and the SD would fall."
+      - "The afternoon median would fall sharply."
+      - "The afternoon IQR would double."
+      - "The morning statistics would change."
+    option_explanations:
+      - |
+        Correct. The two low scores drag the mean down and inflate the SD; without them the mean approaches the median and the spread shrinks.
+      - |
+        Removing two low values shifts the median by at most one position upward, not sharply down.
+      - |
+        The IQR depends on the quartiles of the middle, which barely move when two extreme values leave.
+      - |
+        The morning section's data are unaffected by changes to the afternoon section.
+    answer: 0
+
+  # ---- Effects of changes (1.10, 1.13)
+  - slug: alg1-u01-exam-q19
+    type: multiple_choice
+    topic_code: "1.13"
+    source: "IM Algebra 1, Unit 1, Lesson 13"
+    points: 1
+    prompt: |
+      A data set has mean 12 and standard deviation 2. Every value is multiplied by 3 and then 4 is subtracted. What are the new mean and standard deviation?
+    options:
+      - "Mean 32, SD 6"
+      - "Mean 32, SD 2"
+      - "Mean 36, SD 6"
+      - "Mean 32, SD 18"
+    option_explanations:
+      - |
+        Correct. Tripling gives mean 36 and SD 6; subtracting 4 moves the mean to 32 and leaves the SD at 6.
+      - |
+        Multiplying by 3 triples the spread; the SD cannot stay at 2.
+      - |
+        The subtraction of 4 shifts the mean from 36 to 32.
+      - |
+        The SD triples to 6; squaring is not involved in the final SD.
+    answer: 0
+
+  - slug: alg1-u01-exam-q20
+    type: multiple_choice
+    topic_code: "1.10"
+    source: "IM Algebra 1, Unit 1, Lesson 10"
+    points: 1
+    prompt: |
+      The data 15, 16, 18, 19, 22 have median 18. If 60 is added as a sixth value, what is the new median?
+    options:
+      - "18"
+      - "18.5"
+      - "25"
+      - "60"
+    option_explanations:
+      - |
+        With six values the median averages the 3rd and 4th, which are 18 and 19.
+      - |
+        Correct. Ordered: 15, 16, 18, 19, 22, 60; the median is (18 + 19)/2 = 18.5, barely changed.
+      - |
+        25 is the new mean (150/6), which is what moves a lot; the median does not.
+      - |
+        The median is a middle value, never the extreme that was added.
+    answer: 1
+
+  # ---- Stimulus set C: a spreadsheet of commute times (1.7, 1.8, 1.9)
+  - slug: alg1-u01-exam-q21
+    type: multiple_choice
+    topic_code: "1.7"
+    source: "IM Algebra 1, Unit 1, Lesson 7"
+    points: 1
+    stimulus: |
+      A spreadsheet holds the commute times, in minutes, of 25 teachers in cells B2 through B26. Cell E1 holds the formula =AVERAGE(B2:B26) and displays 23.4. Column C is meant to hold each teacher's absolute deviation from the mean, and cell E2 will hold the MAD.
+    prompt: |
+      Which formula should go in C2 so that it can be filled down to C26 correctly?
+    options:
+      - "=ABS(B2-E1)"
+      - "=ABS(B2-$E$1)"
+      - "=B2-$E$1"
+      - "=AVERAGE(B2-$E$1)"
+    option_explanations:
+      - |
+        Without dollar signs, filling down turns E1 into E2, E3 and so on, pointing at the wrong cells.
+      - |
+        Correct. ABS gives the distance from the mean, and $E$1 keeps every row pointed at the mean.
+      - |
+        This gives a signed deviation; the MAD needs absolute values, and the signed deviations would average to zero.
+      - |
+        AVERAGE of a single difference is just that difference; it does not take the absolute value.
+    answer: 1
+
+  - slug: alg1-u01-exam-q22
+    type: multiple_choice
+    topic_code: "1.8"
+    source: "IM Algebra 1, Unit 1, Lesson 8"
+    points: 1
+    stimulus: |
+      A spreadsheet holds the commute times, in minutes, of 25 teachers in cells B2 through B26. Cell E1 holds the formula =AVERAGE(B2:B26) and displays 23.4. Column C is meant to hold each teacher's absolute deviation from the mean, and cell E2 will hold the MAD.
+    prompt: |
+      Which formula in E2 computes the MAD once column C is filled?
+    options:
+      - "=AVERAGE(C2:C26)"
+      - "=SUM(C2:C26)"
+      - "=AVERAGE(B2:B26)"
+      - "=MEDIAN(C2:C26)"
+    option_explanations:
+      - |
+        Correct. The MAD is the mean of the absolute deviations held in C2 through C26.
+      - |
+        The sum of the deviations must still be divided by 25 to give an average distance.
+      - |
+        That is the mean of the commute times again, already in E1.
+      - |
+        The median of the deviations is not the MAD, which is their mean.
+    answer: 0
+
+  - slug: alg1-u01-exam-q23
+    type: multiple_choice
+    topic_code: "1.9"
+    source: "IM Algebra 1, Unit 1, Lesson 9"
+    points: 1
+    stimulus: |
+      A spreadsheet holds the commute times, in minutes, of 25 teachers in cells B2 through B26. Cell E1 holds the formula =AVERAGE(B2:B26) and displays 23.4. Column C is meant to hold each teacher's absolute deviation from the mean, and cell E2 will hold the MAD.
+    prompt: |
+      The commute times range from 5 to 65 minutes. The spreadsheet's default histogram uses a bin width of 1 minute and looks like a scattered comb. Which bin width would give a readable histogram of these data?
+    options:
+      - "1 minute, because more detail is always better"
+      - "About 6 minutes, giving roughly ten bins"
+      - "60 minutes, giving a single bar"
+      - "0.5 minutes, to separate every value"
+    option_explanations:
+      - |
+        With only 25 values, 1-minute bins leave most bins empty or with one value, which hides the shape.
+      - |
+        Correct. A range of 60 minutes in bins of about 6 gives around ten bins, enough to show the shape without noise.
+      - |
+        One bar covering the whole range shows no shape at all and hides every feature.
+      - |
+        Narrower bins make the comb worse, with even more empty or single-value bins.
+    answer: 1
+
+  # ---- Outliers and shape (1.14, 1.4)
+  - slug: alg1-u01-exam-q24
+    type: multiple_choice
+    topic_code: "1.14"
+    source: "IM Algebra 1, Unit 1, Lesson 14"
+    points: 1
+    prompt: |
+      A student records the heights of classmates and one entry reads 1,620 cm. Which action is appropriate?
+    options:
+      - "Keep it, because every data value must stay in the set"
+      - "Check the record; it is almost certainly a typing error for 162 cm, and either correct it or remove it and say so"
+      - "Delete it quietly so the mean looks reasonable"
+      - "Change it to the mean height so it does not affect the SD"
+    option_explanations:
+      - |
+        Values shown to be errors should be corrected or removed; this one is physically impossible.
+      - |
+        Correct. An outlier is investigated first; an impossible value is an error to fix or remove with a note.
+      - |
+        Removing data without reporting it misrepresents the analysis.
+      - |
+        Inventing a value is fabrication; the correct value should be found or the entry removed.
+    answer: 1
+
+  - slug: alg1-u01-exam-q25
+    type: multiple_choice
+    topic_code: "1.4"
+    source: "IM Algebra 1, Unit 1, Lesson 4"
+    points: 1
+    prompt: |
+      Which situation most likely produces a bimodal distribution?
+    options:
+      - "The last digit of 500 randomly chosen phone numbers"
+      - "The heights of all the people at a parent–toddler swim class"
+      - "The weights of eggs from one farm"
+      - "The waiting times at a bank, where most waits are short and a few are long"
+    option_explanations:
+      - |
+        Last digits are roughly uniform: each digit appears about equally often.
+      - |
+        Correct. Toddlers and adults form two separate clusters of heights, producing two peaks.
+      - |
+        Eggs from one farm are usually a single roughly symmetric cluster.
+      - |
+        Mostly short waits with a few long ones is a skewed-right distribution with one peak.
+    answer: 1
+
+  - slug: alg1-u01-exam-q26
+    type: multiple_choice
+    topic_code: "1.16"
+    source: "IM Algebra 1, Unit 1, Lesson 16"
+    points: 1
+    prompt: |
+      In a statistical investigation, which step comes immediately after collecting the data?
+    options:
+      - "Writing the conclusion"
+      - "Displaying the data to see its shape"
+      - "Computing the mean"
+      - "Posing the statistical question"
+    option_explanations:
+      - |
+        The conclusion comes last, after the displays and summaries.
+      - |
+        Correct. Plot first: the shape decides which summary statistics are appropriate.
+      - |
+        Computing before looking risks choosing the wrong centre for skewed data.
+      - |
+        The question is posed before any data are collected.
+    answer: 1
+
+  - slug: alg1-u01-exam-q27
+    type: multiple_choice
+    topic_code: "1.5"
+    source: "IM Algebra 1, Unit 1, Lesson 5"
+    points: 1
+    prompt: |
+      Two data sets both have median 40. Set R has IQR 2 and set S has IQR 20. Which statement is correct?
+    options:
+      - "The middle half of S is spread across a much wider interval than the middle half of R."
+      - "S has a larger median than R."
+      - "R has more values than S."
+      - "Every value in R is 40."
+    option_explanations:
+      - |
+        Correct. The IQR is the width of the middle 50%, so S's middle half spans 20 units against R's 2.
+      - |
+        The medians are stated to be equal at 40, so neither is larger.
+      - |
+        The IQR says nothing about how many values a data set has.
+      - |
+        An IQR of 2 means the middle half spans 2 units, not that every value is identical.
+    answer: 0
+
+  # ---- Select-all (1.11, 1.13, 1.1)
+  - slug: alg1-u01-exam-q28
+    type: multi_select
+    topic_code: "1.11"
+    source: "IM Algebra 1, Unit 1, Lesson 11"
+    points: 2
+    partial_credit: true
+    prompt: |
+      For which of the following data sets would the median and IQR be the more appropriate summary than the mean and SD? Select all that apply.
+    options:
+      - "Household incomes in a city, which have a long right tail"
+      - "Heights of adult women, roughly bell-shaped"
+      - "Times to finish a marathon, with a few runners taking far longer than the rest"
+      - "Daily high temperatures in June at one location, roughly symmetric"
+      - "Numbers of pets per household, mostly 0 to 2 with a few households keeping 10 or more"
+    option_explanations:
+      - |
+        Correct. A long right tail distorts the mean; the median describes a typical household.
+      - |
+        A bell-shaped distribution is summarised well by its mean and SD.
+      - |
+        Correct. The few very slow finishers are extreme values that pull the mean and SD.
+      - |
+        Symmetric temperatures with no outliers suit the mean and SD.
+      - |
+        Correct. The households with many pets are extreme values in a skewed distribution.
+    answer: [0, 2, 4]
+
+  - slug: alg1-u01-exam-q29
+    type: multi_select
+    topic_code: "1.13"
+    source: "IM Algebra 1, Unit 1, Lesson 13"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which changes to a data set leave its standard deviation unchanged? Select all that apply.
+    options:
+      - "Adding 7 to every value"
+      - "Subtracting 20 from every value"
+      - "Multiplying every value by 2"
+      - "Replacing the largest value with a larger one"
+      - "Converting every value from kilograms to grams"
+    option_explanations:
+      - |
+        Correct. Shifting all values together leaves every deviation from the mean unchanged.
+      - |
+        Correct. Subtracting a constant is also a shift; the spread is unchanged.
+      - |
+        Doubling every value doubles every deviation and so doubles the SD.
+      - |
+        Enlarging the maximum increases the spread.
+      - |
+        Converting to grams multiplies every value by 1,000 and so multiplies the SD by 1,000.
+    answer: [0, 1]
+
+  - slug: alg1-u01-exam-q30
+    type: multi_select
+    topic_code: "1.1"
+    source: "IM Algebra 1, Unit 1, Lesson 1"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of the following are statistical questions? Select all that apply.
+    options:
+      - "How many hours per week do students in grade 9 spend on sports?"
+      - "What is the area of this classroom?"
+      - "How much do apples cost at stores across the city?"
+      - "How many minutes long is this class period?"
+      - "What are the arrival times of the number 4 bus over a month?"
+    option_explanations:
+      - |
+        Correct. Hours vary from student to student.
+      - |
+        A single measurement answers it; nothing varies.
+      - |
+        Correct. Prices vary from store to store.
+      - |
+        The period length is one fixed number on the timetable.
+      - |
+        Correct. Arrival times vary from day to day.
+    answer: [0, 2, 4]
+
+  # ---- True/false (1.2, 1.10, 1.14)
+  - slug: alg1-u01-exam-q31
+    type: true_false
+    topic_code: "1.2"
+    source: "IM Algebra 1, Unit 1, Lesson 2"
+    points: 1
+    prompt: |
+      True or false: a box plot shows how many values are in the data set.
+    answer: false
+    explanation: |
+      False. A box plot shows only the five-number summary; a data set of 10 values and one of 10,000 can produce the same box plot. The number of values is read from a dot plot or a histogram's bar heights.
+
+  - slug: alg1-u01-exam-q32
+    type: true_false
+    topic_code: "1.10"
+    source: "IM Algebra 1, Unit 1, Lesson 10"
+    points: 1
+    prompt: |
+      True or false: in a distribution that is skewed left, the mean is usually less than the median.
+    answer: true
+    explanation: |
+      True. The tail of small values pulls the balance point (the mean) down toward it, while the median stays at the middle position.
+
+  - slug: alg1-u01-exam-q33
+    type: true_false
+    topic_code: "1.14"
+    source: "IM Algebra 1, Unit 1, Lesson 14"
+    points: 1
+    prompt: |
+      True or false: a value exactly equal to Q3 + 1.5 × IQR is classified as an outlier.
+    answer: false
+    explanation: |
+      False. The fences are boundaries; a value must lie beyond a fence (above the upper fence or below the lower fence) to count as an outlier. A value on the fence is inside.
+
+  # ---- Fill in the blank (1.5, 1.12, 1.4)
+  - slug: alg1-u01-exam-q34
+    type: fill_blank
+    topic_code: "1.5"
+    source: "IM Algebra 1, Unit 1, Lesson 5"
+    points: 1
+    prompt: |
+      The measure of variability found by averaging the distances of the values from the mean is the ____.
+    answer: ["mean absolute deviation", "MAD", "mean absolute deviation (MAD)"]
+    explanation: |
+      The MAD is the mean of the absolute deviations. It is a typical distance from the mean, like the standard deviation but without squaring.
+
+  - slug: alg1-u01-exam-q35
+    type: fill_blank
+    topic_code: "1.12"
+    source: "IM Algebra 1, Unit 1, Lesson 12"
+    points: 1
+    prompt: |
+      If the variance of a data set is 49, its standard deviation is ____.
+    answer: ["7", "7.0", "SD = 7"]
+    explanation: |
+      The standard deviation is the square root of the variance: √49 = 7.
+
+  - slug: alg1-u01-exam-q36
+    type: fill_blank
+    topic_code: "1.4"
+    source: "IM Algebra 1, Unit 1, Lesson 4"
+    points: 1
+    prompt: |
+      A distribution with most of its values at the high end and a long tail toward the low values is called skewed ____.
+    answer: ["left", "to the left", "negatively"]
+    explanation: |
+      Skew is named for the direction of the tail. A tail toward the small values points left, so the distribution is skewed left.
+
+  # ---- Numeric (1.5, 1.12, 1.14, 1.13)
+  - slug: alg1-u01-exam-q37
+    type: numeric
+    topic_code: "1.5"
+    source: "IM Algebra 1, Unit 1, Lesson 5"
+    points: 1
+    prompt: |
+      Find the interquartile range of 11, 13, 13, 16, 18, 21, 24, 26, 30, 33. Give your answer to one decimal place.
+    answer: { value: 13, tolerance: 0.05 }
+    explanation: |
+      Lower half 11, 13, 13, 16, 18 has median 13; upper half 21, 24, 26, 30, 33 has median 26. IQR = 26 − 13 = 13.0.
+
+  - slug: alg1-u01-exam-q38
+    type: numeric
+    topic_code: "1.12"
+    source: "IM Algebra 1, Unit 1, Lesson 12"
+    points: 1
+    prompt: |
+      Find the standard deviation of 2, 2, 5, 8, 8 (divide by n). Give your answer to two decimal places.
+    answer: { value: 2.68, tolerance: 0.01 }
+    explanation: |
+      Mean = 25/5 = 5. Deviations −3, −3, 0, 3, 3; squares 9, 9, 0, 9, 9; sum 36; variance 36/5 = 7.2; SD = √7.2 ≈ 2.68.
+
+  - slug: alg1-u01-exam-q39
+    type: numeric
+    topic_code: "1.14"
+    source: "IM Algebra 1, Unit 1, Lesson 14"
+    points: 1
+    prompt: |
+      A data set has Q1 = 42 and Q3 = 58. What is the lower fence for outliers? Give a whole number.
+    answer: { value: 18, tolerance: 0 }
+    explanation: |
+      IQR = 16; 1.5 × 16 = 24; lower fence = 42 − 24 = 18. The upper fence is 58 + 24 = 82.
+
+  - slug: alg1-u01-exam-q40
+    type: numeric
+    topic_code: "1.13"
+    source: "IM Algebra 1, Unit 1, Lesson 13"
+    points: 1
+    prompt: |
+      A data set has mean 30 and standard deviation 4. Each value is multiplied by 2.5. What is the new standard deviation? Give your answer to one decimal place.
+    answer: { value: 10, tolerance: 0.05 }
+    explanation: |
+      Multiplying every value by 2.5 multiplies every deviation, and so the SD, by 2.5: 4 × 2.5 = 10.0. The new mean is 75.
+
+  # ---- Free response
+  - slug: alg1-u01-exam-q41
+    type: short_answer
+    topic_code: "1.14"
+    source: "IM Algebra 1, Unit 1, Lesson 14"
+    points: 3
+    prompt: |
+      The number of text messages 12 students sent yesterday: 4, 9, 12, 15, 15, 18, 20, 22, 25, 28, 31, 90.
+
+      (a) Find the five-number summary.
+      (b) Use the 1.5 × IQR rule to decide whether 90 is an outlier.
+      (c) State which centre you would report and give its value, with a reason.
+    answer: |
+      (a) Min 4; Q1 = median of 4, 9, 12, 15, 15, 18 = (12 + 15)/2 = 13.5; median = (18 + 20)/2 = 19; Q3 = median of 20, 22, 25, 28, 31, 90 = (25 + 28)/2 = 26.5; max 90.
+      (b) IQR = 13; 1.5 × 13 = 19.5; upper fence = 26.5 + 19.5 = 46. Since 90 > 46, it is an outlier.
+      (c) The median, 19 messages, because the outlier at 90 inflates the mean (the mean is 289/12 ≈ 24.1) and the distribution is skewed right.
+    explanation: |
+      Three points, one per part.
+
+      (a) 1 pt: 4, 13.5, 19, 26.5, 90.
+
+      (b) 1 pt: fence 46 and the conclusion that 90 is an outlier.
+
+      (c) 1 pt: median 19 with a reason tied to the outlier or skew.
+
+  - slug: alg1-u01-exam-q42
+    type: short_answer
+    topic_code: "1.12"
+    source: "IM Algebra 1, Unit 1, Lesson 12"
+    points: 3
+    prompt: |
+      Six bags of rice are weighed, in kilograms: 4.8, 4.9, 5.0, 5.0, 5.1, 5.2.
+
+      (a) Compute the mean and the standard deviation (divide by n; round the SD to three decimal places).
+      (b) A second factory's bags have mean 5.0 kg and SD 0.4 kg. Compare the two factories in one sentence.
+      (c) The first factory's scale was later found to read 0.1 kg too high on every bag. Explain what happens to the mean and the SD once the weights are corrected.
+    answer: |
+      (a) Mean = 30.0/6 = 5.0. Deviations −0.2, −0.1, 0, 0, 0.1, 0.2; squares 0.04, 0.01, 0, 0, 0.01, 0.04; sum 0.10; variance 0.10/6 ≈ 0.01667; SD ≈ 0.129 kg.
+      (b) Both factories fill bags to 5.0 kg on average, but the first is far more consistent: its SD of 0.129 kg is less than a third of the second's 0.4 kg.
+      (c) Subtracting 0.1 kg from every weight shifts the mean to 4.9 kg but leaves every deviation, and so the SD, unchanged at 0.129 kg.
+    explanation: |
+      Three points, one per part.
+
+      (a) 1 pt: mean 5.0 and SD ≈ 0.129 (accept 0.13).
+
+      (b) 1 pt: same centre, first factory more consistent, citing the SDs.
+
+      (c) 1 pt: mean falls by 0.1 to 4.9, SD unchanged, with the reason that a shift does not change deviations.
+
+  - slug: alg1-u01-exam-q43
+    type: short_answer
+    topic_code: "1.7"
+    source: "IM Algebra 1, Unit 1, Lesson 7"
+    points: 3
+    prompt: |
+      A spreadsheet holds 50 test scores in cells A2 through A51.
+
+      (a) Write formulas for the mean, the median and the maximum.
+      (b) Write a formula for cell B2 that computes the first score's deviation from the mean stored in D1, in a form that fills down correctly, and write what B7 will contain after filling.
+      (c) Describe one way to check that your spreadsheet is computing correctly before trusting it on the 50 scores.
+    answer: |
+      (a) =AVERAGE(A2:A51), =MEDIAN(A2:A51), =MAX(A2:A51).
+      (b) =A2-$D$1; after filling, B7 contains =A7-$D$1.
+      (c) Replace the data with a tiny set whose answers are known by hand (for example 2, 4, 6 has mean 4, median 4, max 6) and confirm the sheet shows those values; or compute one row's deviation by hand and compare it with column B.
+    explanation: |
+      Three points, one per part.
+
+      (a) 1 pt: all three formulas with the correct range (SUM/COUNT for the mean is acceptable).
+
+      (b) 1 pt: the locked reference $D$1 (or D$1) and the correct filled formula in B7.
+
+      (c) 1 pt: any concrete check (small known data set, hand computation of one cell).
+
+  - slug: alg1-u01-exam-q44
+    type: long_answer
+    topic_code: "1.15"
+    source: "IM Algebra 1, Unit 1, Lesson 15"
+    points: 6
+    prompt: |
+      A school tested two brands of light bulb. Each bulb's lifetime, in hundreds of hours, is listed.
+
+      Brand A: 8, 9, 9, 10, 10, 10, 11, 11, 12, 30
+      Brand B: 7, 9, 10, 11, 11, 12, 12, 13, 14, 15
+
+      Write a complete comparison. Describe the shape of each distribution and apply the outlier rule to brand A. Choose and compute an appropriate centre and spread for each brand, justifying your choice. Compare the brands on typical lifetime and on consistency. Finally, recommend a brand for a gym that replaces all its bulbs at once and wants the longest typical life, and explain how your recommendation would change if the 30 in brand A's data turned out to be a recording error for 10.
+    answer: |
+      Shape: A is tightly clustered from 8 to 12 with a single far value at 30, so it is skewed right with a likely outlier. B is roughly symmetric from 7 to 15.
+      Outlier rule for A: Q1 = median of 8, 9, 9, 10, 10 = 9; Q3 = median of 10, 11, 11, 12, 30 = 11; IQR = 2; upper fence = 11 + 3 = 14. The 30 is an outlier.
+      Statistics: because A has an outlier, use medians and IQRs for both. A: median (10 + 10)/2 = 10, IQR = 2. B: median (11 + 12)/2 = 11.5, Q1 = 10, Q3 = 13, IQR = 3. (Means: A = 120/10 = 12.0, inflated by the 30; B = 114/10 = 11.4.)
+      Comparison: B's typical bulb lasts about 150 hours longer (median 11.5 vs 10). A is slightly more consistent in its middle half (IQR 2 vs 3), but A also produced the single 30, which is not typical.
+      Recommendation: for the longest typical life, choose B; its median is higher and it has no values below 7. If the 30 were really a 10, A's data would become 8 to 12 with median 10 and mean 10.0, still below B's 11.5, so the recommendation stays with B; the correction would only remove the misleading mean of 12.0 that might have made A look better.
+    explanation: |
+      Six points.
+
+      Shape and outlier (2 pts): 1 pt for both shapes described correctly; 1 pt for computing A's fence (14) and identifying 30 as an outlier.
+
+      Statistics (2 pts): 1 pt for choosing medians and IQRs with a justification based on A's outlier; 1 pt for correct values (A: 10 and 2; B: 11.5 and 3).
+
+      Comparison and recommendation (2 pts): 1 pt for comparing both centre and spread in context; 1 pt for recommending B and correctly reasoning that the correction would not change the choice (A's median stays 10).
+
+      Common errors: comparing means and concluding A lasts longer; stating 30 is an outlier without computing the fence; failing to revisit the recommendation after the correction.

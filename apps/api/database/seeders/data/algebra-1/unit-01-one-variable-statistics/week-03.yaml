@@ -1,0 +1,661 @@
+week: 3
+unit: 1
+title: "Extremes, Choosing a Summary and Standard Deviation"
+topics: ["1.9", "1.10", "1.11", "1.12"]
+guide: guides/week-03.md
+guide_description: |
+  Graphing a data set with technology and choosing a bin width, what one extreme value does to the mean, median,
+  MAD and IQR, the rule for choosing mean-and-SD or median-and-IQR from the shape, and the standard deviation
+  computed step by step and interpreted as a typical distance from the mean.
+flashcards_description: |
+  28 cards on resistant and non-resistant statistics, the effect of extremes, which summary fits which shape,
+  and the standard deviation: its steps, its meaning and how it compares with the MAD.
+
+flashcards:
+  - front: Choosing a histogram bin width → the rule of thumb
+    back: |
+      Aim for roughly 8 to 12 bins across the range of the data, then adjust until the shape is clear and stable. Too narrow looks jagged; too wide hides everything in a few bars.
+    topic_code: "1.9"
+  - front: Two histograms from technology look alike → what to check before comparing them
+    back: |
+      The axis scales. Technology chooses scales automatically, so the same bar height can represent different counts on different plots. Read both axes first.
+    topic_code: "1.9"
+  - front: Steps to graph a data column with a spreadsheet
+    back: |
+      Select the column of numbers, insert a chart, choose the chart type (histogram or box plot), then set the bin width or axis range and add titles so the plot can be read without the data.
+    topic_code: "1.9"
+  - front: Resistant statistic → definition and the two main examples
+    back: |
+      A statistic that barely changes when a few extreme values are added or changed. The median and the IQR are resistant; the mean, MAD and standard deviation are not.
+    topic_code: "1.10"
+  - front: Adding one very large value → effect on the mean
+    back: |
+      The mean rises, often a lot, because it is the balance point and every value's size counts. The larger the extreme value and the smaller the data set, the bigger the jump.
+    topic_code: "1.10"
+  - front: Adding one very large value → effect on the median
+    back: |
+      Almost none: the median shifts at most to the next value in the ordered list, because it only registers that the new value is above the middle, not how far above.
+    topic_code: "1.10"
+  - front: Extreme value on either side → effect on MAD and standard deviation
+    back: |
+      Both increase, whether the extreme value is very large or very small, because deviations are turned into positive distances before averaging.
+    topic_code: "1.10"
+  - front: Skewed right → how the mean compares with the median
+    back: |
+      The mean is greater than the median, because the long tail of large values pulls the balance point toward it while the median stays at the middle position.
+    topic_code: "1.10"
+  - front: Skewed left → how the mean compares with the median
+    back: |
+      The mean is less than the median: the tail of small values pulls the mean down toward it.
+    topic_code: "1.10"
+  - front: Salaries 38, 41, 44, 46, 49, 52, 310 (thousands) → typical employee's pay
+    back: |
+      The median, 46. The mean of about 82.9 is dragged up by the single 310 and describes nobody; six of the seven people earn between 38 and 52.
+    topic_code: "1.10"
+  - front: Which centre and spread for a roughly symmetric distribution?
+    back: |
+      Mean and standard deviation (or MAD). With no extreme values pulling it around, the mean is the natural balance point and the SD uses every value.
+    topic_code: "1.11"
+  - front: Which centre and spread for a skewed distribution or one with extreme values?
+    back: |
+      Median and IQR. Both are resistant, so the tail or the extreme values do not distort the summary of a typical value and typical spread.
+    topic_code: "1.11"
+  - front: Order of operations when summarising data → plot first or compute first?
+    back: |
+      Plot first. The shape of the dot plot, histogram or box plot decides whether to report mean and SD or median and IQR; computing before looking risks the wrong summary.
+    topic_code: "1.11"
+  - front: Comparing two groups → the matching rule
+    back: |
+      Compare like with like: both medians and both IQRs, or both means and both SDs, and then say what the difference means in context. Never compare one group's mean with another's median.
+    topic_code: "1.11"
+  - front: Is the mean "more accurate" than the median?
+    back: |
+      No. They answer different questions: the mean is the balance point and the median the middle position. For skewed data the median is usually the more honest description of a typical value.
+    topic_code: "1.11"
+  - front: Variance → definition
+    back: |
+      The mean of the squared deviations from the mean. Its units are the square of the data's units, which is why we take its square root to get the standard deviation.
+    topic_code: "1.12"
+  - front: Standard deviation → the five steps
+    back: |
+      1. Find the mean. 2. Subtract the mean from each value. 3. Square each deviation. 4. Average the squares (the variance). 5. Take the square root.
+    topic_code: "1.12"
+  - front: Standard deviation → how to interpret the number
+    back: |
+      A typical distance of the values from the mean, in the data's own units. A larger SD means more spread; an SD of zero means every value is identical.
+    topic_code: "1.12"
+  - front: SD of 2, 4, 4, 4, 5, 5, 7, 9 → worked result
+    back: |
+      Mean 5; deviations −3, −1, −1, −1, 0, 0, 2, 4; squares 9, 1, 1, 1, 0, 0, 4, 16 sum to 32; variance 32/8 = 4; SD = √4 = 2.
+    topic_code: "1.12"
+  - front: SD of 1, 3, 5, 7, 9 → worked result
+    back: |
+      Mean 5; deviations −4, −2, 0, 2, 4; squares 16, 4, 0, 4, 16 sum to 40; variance 40/5 = 8; SD = √8 ≈ 2.83.
+    topic_code: "1.12"
+  - front: SD vs MAD → how they differ in reacting to extremes
+    back: |
+      Both measure typical distance from the mean and are usually close, but squaring magnifies large deviations, so the SD grows faster than the MAD when an extreme value is present.
+    topic_code: "1.12"
+  - front: Dividing by n or by n − 1 in the standard deviation
+    back: |
+      This course divides by n (the population formula). Many calculators and spreadsheets offer an n − 1 version (the sample standard deviation), which is slightly larger. Know which one your tool used.
+    topic_code: "1.12"
+  - front: Can a standard deviation be negative?
+    back: |
+      No. It is the square root of an average of squares, so it is zero or positive. A negative result means an arithmetic slip.
+    topic_code: "1.12"
+  - front: Two classes, both mean 75, SDs 3 and 12 → what the SDs say
+    back: |
+      In the SD 3 class nearly everyone scored within a few points of 75. In the SD 12 class scores in the low 60s and high 80s are routine. Same centre, very different spread.
+    topic_code: "1.12"
+  - front: Error to spot → "variance 4.5, so the standard deviation is 4.5"
+    back: |
+      The standard deviation is the square root of the variance: √4.5 ≈ 2.12. Forgetting the final square root is the most common SD slip.
+    topic_code: "1.12"
+  - front: Error to spot → "we added one outlier and the median jumped from 10 to 25"
+    back: |
+      Impossible. Adding one value moves the median by at most one position in the ordered list, so it can only move to a neighbouring data value (or the midpoint of two). A jump like that is the mean's behaviour.
+    topic_code: "1.10"
+  - front: Error to spot → reporting the mean for a strongly right-skewed income data set
+    back: |
+      The tail of high incomes pulls the mean well above what most people earn. Report the median (and the IQR) so the summary describes a typical person.
+    topic_code: "1.11"
+  - front: Spread of 1, 1, 1, 1, 21 → MAD and SD compared
+    back: |
+      Mean 5. Distances 4, 4, 4, 4, 16 give MAD 6.4. Squares 16, 16, 16, 16, 256 give variance 64 and SD 8. The SD is larger because squaring amplifies the single big deviation.
+    topic_code: "1.12"
+
+quiz:
+  description: |
+    25 questions · about 45 minutes · graphing with technology, the effect of extreme values, choosing the
+    right centre and spread, and the standard deviation (lessons 1.9 to 1.12), with review of the five-number
+    summary, MAD, IQR and spreadsheet formulas from weeks 1 and 2. Multiple choice, select-all, true/false and
+    numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and
+    the long answer are graded by your teacher against the scoring notes.
+  questions:
+    - slug: alg1-u01-w03-q01
+      type: multiple_choice
+      topic_code: "1.10"
+      source: "IM Algebra 1, Unit 1, Lesson 10"
+      points: 1
+      prompt: |
+        The data 7, 8, 9, 10, 11 have mean 9 and median 9. If the 11 is replaced by 41, what are the new mean and median?
+      options:
+        - "Mean 15, median 9"
+        - "Mean 9, median 15"
+        - "Mean 15, median 15"
+        - "Mean 9, median 9"
+      option_explanations:
+        - |
+          Correct. The new sum is 75 and 75/5 = 15, while the middle of 7, 8, 9, 10, 41 is still 9.
+        - |
+          The mean, not the median, is the one that moves: the median only registers that 41 is above the middle.
+        - |
+          The median stays at 9 because the ordered list still has 9 in the middle position.
+        - |
+          The mean must change: the total rose by 30, so the mean rose by 30/5 = 6.
+      answer: 0
+
+    - slug: alg1-u01-w03-q02
+      type: multiple_choice
+      topic_code: "1.10"
+      source: "IM Algebra 1, Unit 1, Lesson 10"
+      points: 1
+      prompt: |
+        A histogram of house prices in a town is strongly skewed right. Which relationship between the mean and the median is expected?
+      options:
+        - "The mean is greater than the median."
+        - "The mean is less than the median."
+        - "The mean and median are equal."
+        - "The median is greater than the maximum."
+      option_explanations:
+        - |
+          Correct. The tail of expensive houses pulls the balance point (the mean) upward, while the median stays at the middle house.
+        - |
+          The mean is pulled toward the tail, and the tail of a right-skewed distribution is on the high side.
+        - |
+          Equality is expected only for a symmetric distribution.
+        - |
+          The median is always between the minimum and the maximum.
+      answer: 0
+
+    - slug: alg1-u01-w03-q03
+      type: multiple_choice
+      topic_code: "1.11"
+      source: "IM Algebra 1, Unit 1, Lesson 11"
+      points: 1
+      prompt: |
+        Graph description: a box plot of the times 60 students took to finish a puzzle has a short left whisker from 3 to 5 minutes, a box from 5 to 9 with the median at 6, and a long right whisker reaching 32 minutes. Which summary best describes a typical time and the spread?
+      options:
+        - "Mean and standard deviation, because every value should count"
+        - "Median and IQR, because the distribution is skewed with extreme values"
+        - "Mean and range, because the range shows the extremes"
+        - "Median and standard deviation, because they are both resistant"
+      option_explanations:
+        - |
+          Letting every value count is exactly the problem: the 32-minute times would inflate both the mean and the SD.
+        - |
+          Correct. The long right whisker shows a skewed distribution with extreme values, where the resistant median and IQR describe the typical student honestly.
+        - |
+          The range is driven entirely by the extremes and says nothing about the typical spread.
+        - |
+          The standard deviation is not resistant; it reacts strongly to the long tail.
+      answer: 1
+
+    - slug: alg1-u01-w03-q04
+      type: multiple_choice
+      topic_code: "1.12"
+      source: "IM Algebra 1, Unit 1, Lesson 12"
+      points: 1
+      prompt: |
+        The data 2, 6, 7, 9 have mean 6. What is the standard deviation (dividing by n)?
+      options:
+        - "2.5"
+        - "√6.5 ≈ 2.55"
+        - "6.5"
+        - "26"
+      option_explanations:
+        - |
+          2.5 is the MAD (distances 4, 0, 1, 3 average to 2); the SD squares the deviations before averaging.
+        - |
+          Correct. Squared deviations 16, 0, 1, 9 sum to 26; variance 26/4 = 6.5; SD = √6.5 ≈ 2.55.
+        - |
+          6.5 is the variance; the standard deviation is its square root.
+        - |
+          26 is the sum of the squared deviations before dividing by 4 and taking the square root.
+      answer: 1
+
+    - slug: alg1-u01-w03-q05
+      type: multiple_choice
+      topic_code: "1.12"
+      source: "IM Algebra 1, Unit 1, Lesson 12"
+      points: 1
+      prompt: |
+        Two data sets have the same mean of 50. Set P has standard deviation 2 and set Q has standard deviation 15. Which statement is correct?
+      options:
+        - "The values in Q are typically much farther from 50 than the values in P."
+        - "Q has more values than P."
+        - "Every value in P equals 50."
+        - "The median of Q must be larger than the median of P."
+      option_explanations:
+        - |
+          Correct. A larger standard deviation means a larger typical distance from the mean, so Q's values are more spread out around 50.
+        - |
+          The standard deviation does not depend on how many values there are.
+        - |
+          A standard deviation of 2 means values are typically about 2 from the mean, not all equal to it.
+        - |
+          Spread says nothing about where the medians sit; they could be equal.
+      answer: 0
+
+    - slug: alg1-u01-w03-q06
+      type: multiple_choice
+      topic_code: "1.9"
+      source: "IM Algebra 1, Unit 1, Lesson 9"
+      points: 1
+      prompt: |
+        A student makes a histogram of 400 reaction times ranging from 150 to 650 milliseconds using a bin width of 2 milliseconds. The plot looks like a jagged comb with dozens of tiny bars. What should the student do?
+      options:
+        - "Switch to a box plot, because histograms cannot show 400 values"
+        - "Increase the bin width to around 50 milliseconds so the overall shape is visible"
+        - "Decrease the bin width to 1 millisecond for more detail"
+        - "Remove the data values that fall in empty bins"
+      option_explanations:
+        - |
+          Histograms are the natural display for 400 values; the bin width is the problem, not the chart type.
+        - |
+          Correct. A range of 500 ms with bins of 50 ms gives about 10 bins, enough to show the hump or tail without the noise of tiny bins.
+        - |
+          Narrower bins make the comb worse, with even more near-empty bars.
+        - |
+          Data must never be deleted to make a plot look tidier; that misrepresents the distribution.
+      answer: 1
+
+    - slug: alg1-u01-w03-q07
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "IM Algebra 1, Unit 1, Lesson 5"
+      points: 1
+      prompt: |
+        For the ordered data 5, 9, 11, 14, 16, 20, 25, what is the interquartile range?
+      options:
+        - "20"
+        - "14"
+        - "11"
+        - "9"
+      option_explanations:
+        - |
+          20 is the range, 25 − 5; the IQR subtracts the quartiles, not the extremes.
+        - |
+          14 is the median (the 4th of 7 values), not a difference of quartiles.
+        - |
+          Correct. With the median 14 left out, Q1 is the median of 5, 9, 11, which is 9, and Q3 is the median of 16, 20, 25, which is 20; IQR = 20 − 9 = 11.
+        - |
+          9 is Q1 itself; the IQR is Q3 − Q1 = 20 − 9.
+      answer: 2
+
+    - slug: alg1-u01-w03-q08
+      type: multiple_choice
+      topic_code: "1.11"
+      source: "IM Algebra 1, Unit 1, Lesson 11"
+      points: 1
+      stimulus: |
+        Two classes took the same 50-point test.
+
+        | Class | Shape of dot plot | Mean | Median | SD | IQR |
+        |---|---|---|---|---|---|
+        | Red | roughly symmetric, single peak | 36 | 36 | 4 | 6 |
+        | Blue | skewed left, several very low scores | 31 | 37 | 11 | 7 |
+      prompt: |
+        Which comparison of typical scores is the most appropriate?
+      options:
+        - "Red's mean of 36 is higher than Blue's mean of 31, so a typical Red student scored higher."
+        - "Blue's median of 37 is slightly higher than Red's median of 36, so typical students in the two classes scored about the same, with Blue a point higher."
+        - "Blue's SD of 11 is larger, so Blue students scored higher."
+        - "Red's IQR of 6 is smaller, so Red students scored higher."
+      option_explanations:
+        - |
+          Blue's mean is dragged down by its low scores; it does not describe a typical Blue student.
+        - |
+          Correct. For the skewed Blue class the median is the honest centre, and comparing medians shows the typical scores are close, with Blue a point ahead.
+        - |
+          The standard deviation measures spread, not how high the scores are.
+        - |
+          The IQR measures the spread of the middle half; a smaller IQR means more consistent scores, not higher ones.
+      answer: 1
+
+    - slug: alg1-u01-w03-q09
+      type: multiple_choice
+      topic_code: "1.11"
+      source: "IM Algebra 1, Unit 1, Lesson 11"
+      points: 1
+      stimulus: |
+        Two classes took the same 50-point test.
+
+        | Class | Shape of dot plot | Mean | Median | SD | IQR |
+        |---|---|---|---|---|---|
+        | Red | roughly symmetric, single peak | 36 | 36 | 4 | 6 |
+        | Blue | skewed left, several very low scores | 31 | 37 | 11 | 7 |
+      prompt: |
+        Which statement about variability is best supported by the table?
+      options:
+        - "The middle halves of the two classes are spread out by a similar amount, but Blue's low scores make its overall spread much larger."
+        - "Red's scores vary more than Blue's because its IQR is closer to its SD."
+        - "Blue's scores do not vary at all because the median is close to Red's."
+        - "The two classes have identical variability because both IQRs are under 10."
+      option_explanations:
+        - |
+          Correct. IQRs of 6 and 7 are similar, so the middle 50% of each class is similarly tight, while Blue's SD of 11 reflects the tail of very low scores.
+        - |
+          Comparing a class's IQR with its own SD says nothing about how it compares with the other class.
+        - |
+          A median says nothing about spread; Blue's SD of 11 shows considerable variability.
+        - |
+          Similar IQRs do not make the variability identical when the SDs differ so much.
+      answer: 0
+
+    - slug: alg1-u01-w03-q10
+      type: multiple_choice
+      topic_code: "1.10"
+      source: "IM Algebra 1, Unit 1, Lesson 10"
+      points: 1
+      stimulus: |
+        Two classes took the same 50-point test.
+
+        | Class | Shape of dot plot | Mean | Median | SD | IQR |
+        |---|---|---|---|---|---|
+        | Red | roughly symmetric, single peak | 36 | 36 | 4 | 6 |
+        | Blue | skewed left, several very low scores | 31 | 37 | 11 | 7 |
+      prompt: |
+        Why is Blue's mean so much lower than its median?
+      options:
+        - "Because the mean is always lower than the median"
+        - "Because the several very low scores pull the mean toward the left tail while the median stays at the middle position"
+        - "Because the standard deviation was subtracted from the mean"
+        - "Because Blue has more students than Red"
+      option_explanations:
+        - |
+          For symmetric data the mean and median agree, and for right-skewed data the mean is higher.
+        - |
+          Correct. Very low scores drag the balance point down; a left skew means mean < median.
+        - |
+          The standard deviation is a separate statistic and is never subtracted from the mean to produce it.
+        - |
+          Class size has no effect on whether the mean sits below or above the median.
+      answer: 1
+
+    - slug: alg1-u01-w03-q11
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "IM Algebra 1, Unit 1, Lesson 5"
+      points: 1
+      prompt: |
+        What is the mean absolute deviation of 4, 4, 6, 10?
+      options:
+        - "0"
+        - "2"
+        - "2.5"
+        - "6"
+      option_explanations:
+        - |
+          Zero is what the signed deviations average to; the MAD uses distances, which are all non-negative.
+        - |
+          Correct. The mean is 6; distances are 2, 2, 0, 4; their sum is 8 and 8/4 = 2.
+        - |
+          2.5 would come from a sum of 10; recheck the distance of 10 from the mean of 6, which is 4, not 6.
+        - |
+          6 is the mean of the data, not a measure of spread.
+      answer: 1
+
+    - slug: alg1-u01-w03-q12
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "IM Algebra 1, Unit 1, Lesson 7"
+      points: 1
+      prompt: |
+        Cells A2 to A41 hold 40 test scores. Which formula returns the highest score?
+      options:
+        - "=MAX(A2:A41)"
+        - "=COUNT(A2:A41)"
+        - "=SUM(A2:A41)"
+        - "=TOP(A2:A41)"
+      option_explanations:
+        - |
+          Correct. MAX returns the largest value in the range.
+        - |
+          COUNT returns how many cells hold numbers, which would be 40.
+        - |
+          SUM returns the total of all 40 scores added together, not the largest one.
+        - |
+          TOP is not a spreadsheet function; the largest value is found with MAX.
+      answer: 0
+
+    - slug: alg1-u01-w03-q13
+      type: multi_select
+      topic_code: "1.10"
+      source: "IM Algebra 1, Unit 1, Lesson 10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        The data set 20, 22, 23, 25, 26, 27, 30 has a new value of 95 added. Which statistics will increase noticeably? Select all that apply.
+      options:
+        - "The mean"
+        - "The median"
+        - "The mean absolute deviation"
+        - "The standard deviation"
+        - "The range"
+      option_explanations:
+        - |
+          Correct. The total rises by 95, so the mean jumps from about 24.7 to about 33.5.
+        - |
+          The median moves from 25 to (25 + 26)/2 = 25.5, barely a change; the median is resistant.
+        - |
+          Correct. The new value sits about 60 above the new mean, and every other distance also grows, so the MAD rises sharply.
+        - |
+          Correct. Squaring the deviation of about 60 adds thousands to the sum of squares, so the SD increases a great deal.
+        - |
+          Correct. The maximum becomes 95, so the range jumps from 10 to 75.
+      answer: [0, 2, 3, 4]
+
+    - slug: alg1-u01-w03-q14
+      type: multi_select
+      topic_code: "1.12"
+      source: "IM Algebra 1, Unit 1, Lesson 12"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about the standard deviation are true? Select all that apply.
+      options:
+        - "It is the square root of the variance."
+        - "It can be negative when most values are below the mean."
+        - "It is zero only when every value in the data set is the same."
+        - "It is measured in the same units as the data."
+        - "It is not affected by extreme values."
+      option_explanations:
+        - |
+          Correct. The variance is the mean of the squared deviations and the SD is its square root.
+        - |
+          Squares are never negative, so neither is their average or its square root.
+        - |
+          Correct. Every squared deviation is zero only when every value equals the mean.
+        - |
+          Correct. Squaring puts the variance in squared units; the square root brings the SD back to the data's units.
+        - |
+          Extreme values produce large squared deviations, so the SD reacts strongly to them.
+      answer: [0, 2, 3]
+
+    - slug: alg1-u01-w03-q15
+      type: true_false
+      topic_code: "1.10"
+      source: "IM Algebra 1, Unit 1, Lesson 10"
+      points: 1
+      prompt: |
+        True or false: adding one extremely small value to a data set always decreases the standard deviation, because the value is small.
+      answer: false
+      explanation: |
+        False. The standard deviation measures distance from the mean in either direction. An extremely small value is far below the mean, so its squared deviation is large and the SD increases.
+
+    - slug: alg1-u01-w03-q16
+      type: true_false
+      topic_code: "1.4"
+      source: "IM Algebra 1, Unit 1, Lesson 4"
+      points: 1
+      prompt: |
+        True or false: in a roughly symmetric, single-peaked distribution, the mean and the median are close together.
+      answer: true
+      explanation: |
+        True. With no tail pulling the balance point, the mean sits near the middle position. The two separate only when the distribution is skewed or has extreme values.
+
+    - slug: alg1-u01-w03-q17
+      type: fill_blank
+      topic_code: "1.12"
+      source: "IM Algebra 1, Unit 1, Lesson 12"
+      points: 1
+      prompt: |
+        The mean of the squared deviations from the mean is called the ____; its square root is the standard deviation.
+      answer: ["variance"]
+      explanation: |
+        The variance averages the squared deviations. Because squaring changes the units, its square root, the standard deviation, is the number usually reported.
+
+    - slug: alg1-u01-w03-q18
+      type: fill_blank
+      topic_code: "1.10"
+      source: "IM Algebra 1, Unit 1, Lesson 10"
+      points: 1
+      prompt: |
+        A statistic that barely changes when a few extreme values are added to the data is called ____.
+      answer: ["resistant", "robust", "resistant to outliers"]
+      explanation: |
+        Resistant statistics such as the median and IQR depend on position rather than on the size of every value, so a few extreme values leave them almost unchanged.
+
+    - slug: alg1-u01-w03-q19
+      type: numeric
+      topic_code: "1.12"
+      source: "IM Algebra 1, Unit 1, Lesson 12"
+      points: 1
+      prompt: |
+        Find the standard deviation of 5, 7, 8, 12 (divide by n). Give your answer to two decimal places.
+      answer: { value: 2.55, tolerance: 0.01 }
+      explanation: |
+        Mean = 32/4 = 8. Deviations −3, −1, 0, 4; squares 9, 1, 0, 16; sum 26; variance 26/4 = 6.5; SD = √6.5 ≈ 2.55.
+
+    - slug: alg1-u01-w03-q20
+      type: numeric
+      topic_code: "1.5"
+      source: "IM Algebra 1, Unit 1, Lesson 5"
+      points: 1
+      prompt: |
+        Compute the mean of 12, 14, 15, 15, 19, 45. Give your answer to one decimal place.
+      answer: { value: 20, tolerance: 0.05 }
+      explanation: |
+        The sum is 12 + 14 + 15 + 15 + 19 + 45 = 120, and 120/6 = 20.0. Notice that the single value 45 lifts the mean well above the median of 15; without it the mean would be 75/5 = 15.
+
+    - slug: alg1-u01-w03-q25
+      type: multiple_choice
+      topic_code: "1.3"
+      source: "IM Algebra 1, Unit 1, Lesson 3"
+      points: 1
+      prompt: |
+        A coach wants to compare the sprint times of the varsity and junior varsity teams and see at a glance which has the lower median and which is more spread out in its middle half. Which display is most suitable?
+      options:
+        - "Two box plots on the same scale"
+        - "Two separate dot plots on different scales"
+        - "One histogram combining both teams"
+        - "A table of every time"
+      option_explanations:
+        - |
+          Correct. Box plots on a shared scale show both medians and both IQRs side by side.
+        - |
+          Different scales make comparison unreliable, and dot plots do not mark the median or quartiles.
+        - |
+          Combining the teams in one histogram makes it impossible to compare them.
+        - |
+          A raw table shows the data but gives no immediate view of the medians or the middle halves.
+      answer: 0
+
+    - slug: alg1-u01-w03-q21
+      type: numeric
+      topic_code: "1.2"
+      source: "IM Algebra 1, Unit 1, Lesson 2"
+      points: 1
+      prompt: |
+        What is the median of 31, 18, 25, 40, 22, 27? Give your answer to one decimal place.
+      answer: { value: 26, tolerance: 0.01 }
+      explanation: |
+        Ordered: 18, 22, 25, 27, 31, 40. Six values, so the median is the mean of the 3rd and 4th, (25 + 27)/2 = 26.0. Order the data first; the median of the unordered list is meaningless.
+
+    - slug: alg1-u01-w03-q22
+      type: short_answer
+      topic_code: "1.12"
+      source: "IM Algebra 1, Unit 1, Lesson 12"
+      points: 3
+      prompt: |
+        Five plants were measured one month after planting; their heights in centimetres are 10, 12, 13, 15, 20.
+
+        (a) Compute the mean and list the deviation of each height from the mean.
+        (b) Compute the variance and the standard deviation (divide by n), showing the squared deviations.
+        (c) Interpret the standard deviation in a sentence about the plants.
+      answer: |
+        (a) Mean = 70/5 = 14. Deviations: −4, −2, −1, 1, 6.
+        (b) Squared deviations: 16, 4, 1, 1, 36, sum 58. Variance = 58/5 = 11.6. SD = √11.6 ≈ 3.41 cm.
+        (c) A typical plant's height is about 3.4 cm away from the mean height of 14 cm.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: mean 14 and all five deviations with correct signs.
+
+        (b) 1 pt: squares, sum 58, variance 11.6 and SD ≈ 3.41 (accept 3.4). Reporting the variance as the SD loses the point.
+
+        (c) 1 pt: an interpretation as a typical distance from the mean in centimetres, not merely "the spread is 3.41".
+
+    - slug: alg1-u01-w03-q23
+      type: short_answer
+      topic_code: "1.11"
+      source: "IM Algebra 1, Unit 1, Lesson 11"
+      points: 3
+      prompt: |
+        A bakery recorded the number of loaves sold on each of 30 days. A dot plot shows most days between 40 and 60 loaves, a single peak near 50, and three days (a festival weekend) at 150, 160 and 175 loaves.
+
+        (a) Would you report the mean or the median as the typical daily sales? Justify from the shape.
+        (b) Would you report the standard deviation or the IQR as the spread? Justify.
+        (c) The owner wants to know how many loaves to bake on an ordinary day. Explain why the summary you chose in (a) answers that question better than the other one.
+      answer: |
+        (a) The median. The three festival days make the distribution skewed right with extreme values, and the median is resistant to them.
+        (b) The IQR, for the same reason: the standard deviation would be inflated by the three days far above the mean, while the IQR describes the spread of the middle half of ordinary days.
+        (c) The mean would be pulled up by the festival sales (each of those days adds over 100 loaves above a normal day to the total), so it would overstate ordinary demand and lead to baking too much on normal days. The median sits among the ordinary days and reflects what usually sells.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: median, justified by skew or extreme values.
+
+        (b) 1 pt: IQR, justified by resistance to the extreme values.
+
+        (c) 1 pt: explains that the mean overstates an ordinary day because the festival days inflate it, linked to the owner's decision.
+
+    - slug: alg1-u01-w03-q24
+      type: long_answer
+      topic_code: "1.10"
+      source: "IM Algebra 1, Unit 1, Lesson 10"
+      points: 6
+      prompt: |
+        A data set of seven test scores is 60, 64, 66, 70, 72, 74, 78.
+
+        Part 1: compute the mean, median, IQR and standard deviation (divide by n; round the SD to two decimal places).
+
+        Part 2: the score 78 was a typing mistake and should have been 98. Recompute all four statistics with 98 in place of 78.
+
+        Part 3: write a paragraph explaining which statistics changed, by how much, and why the median and IQR behaved differently from the mean and standard deviation. Finish by stating which pair of statistics you would report for the corrected data and why.
+      answer: |
+        Part 1: sum 484, mean ≈ 69.14; median 70; Q1 = 64, Q3 = 74, IQR = 10; deviations from 69.14 are −9.14, −5.14, −3.14, 0.86, 2.86, 4.86, 8.86, squares ≈ 83.6, 26.4, 9.9, 0.7, 8.2, 23.6, 78.4, sum ≈ 230.9, variance ≈ 32.98, SD ≈ 5.74.
+        Part 2: sum 504, mean = 72; median still 70; Q1 = 64, Q3 = 74, IQR still 10; deviations −12, −8, −6, −2, 0, 2, 26, squares 144, 64, 36, 4, 0, 4, 676, sum 928, variance ≈ 132.57, SD ≈ 11.51.
+        Part 3: the mean rose by about 2.9 points and the SD doubled from about 5.7 to about 11.5, while the median and IQR did not change at all. The median depends only on the middle position and the quartiles only on the positions a quarter of the way in; replacing the largest value with a larger one leaves every position the same. The mean and SD use the size of every value, so a value 20 points higher raises the total and creates a large squared deviation. With 98 now an extreme value the distribution is skewed right, so I would report the median (70) and IQR (10), which describe the typical student without being distorted by the one very high score.
+      explanation: |
+        Six points.
+
+        Part 1 (2 pts): 1 pt for mean ≈ 69.1 and median 70; 1 pt for IQR 10 and SD ≈ 5.74 (accept 5.7 to 5.8).
+
+        Part 2 (2 pts): 1 pt for mean 72 with median and IQR unchanged; 1 pt for SD ≈ 11.5 (accept 11.4 to 11.6).
+
+        Part 3 (2 pts): 1 pt for correctly identifying what changed and explaining resistance in terms of position versus size of values; 1 pt for choosing the median and IQR with a reason tied to the new extreme value.
+
+        Common errors: recomputing the median as if it should change; forgetting the square root; choosing mean and SD "because they use all the data" without addressing the extreme value.

@@ -1,0 +1,661 @@
+week: 21
+unit: 5
+title: "Interpreting Exponential Functions and Their Graphs"
+topics: ["5.9", "5.10", "5.11", "5.12", "5.13"]
+guide: guides/week-21.md
+guide_description: |
+  Interpreting the parameters of a · bˣ in context with the unit of the input, how the average rate of change
+  of an exponential function grows by the same factor over equal intervals, building an exponential model
+  from data by checking ratios, and matching, sketching and comparing exponential graphs using the
+  intercept and the factor.
+flashcards_description: |
+  28 cards on reading a and b in context, the role of the input's unit, interpreting f(k) = v, average rates
+  of change over equal intervals for growth and decay, the steps of fitting an exponential model, matching
+  equations to graphs, finding a and b from two points, and the effects of changing a or b.
+
+flashcards:
+  - front: P(t) = 4,000 · 1.03ᵗ, t in years since 2015 → meaning of 4,000
+    back: |
+      The population in 2015, when t = 0.
+    topic_code: "5.9"
+  - front: P(t) = 4,000 · 1.03ᵗ → meaning of 1.03
+    back: |
+      Each year the population is 103% of the previous year's: 3% growth per year. It is not "grows by 1.03" or "by 103%".
+    topic_code: "5.9"
+  - front: Why the unit of the input matters for the factor
+    back: |
+      The factor is "per unit of x". With t in years, 1.03 is 3% per year; with t in decades it would be 3% per decade, a far slower town.
+    topic_code: "5.9"
+  - front: V(n) = 800 · 0.6ⁿ for a shirt's colour after n washes → meaning of 0.6
+    back: |
+      Each wash leaves 60% of the brightness, a 40% loss per wash. V(3) = 172.8.
+    topic_code: "5.9"
+  - front: Interpreting P(4) ≈ 4,502
+    back: |
+      Four years after 2015, in 2019, the model gives a population of about 4,500.
+    topic_code: "5.9"
+  - front: A(w) = 50 · 1.5ʷ app downloads w weeks after launch → interpretation
+    back: |
+      50 downloads in launch week; downloads grow 50% each week; A(3) ≈ 169.
+    topic_code: "5.9"
+  - front: Average rate of change of 2ˣ over 0–1, 1–2, 2–3, 3–4
+    back: |
+      1, 2, 4, 8. Each is double the previous, because each unit interval's change is twice the one before.
+    topic_code: "5.10"
+  - front: How the average rate of change behaves for exponential growth
+    back: |
+      Over equal intervals it is multiplied by the same factor each time (bʷ for intervals of width w). It is never constant, unlike a linear function.
+    topic_code: "5.10"
+  - front: Average rate of change for exponential decay
+    back: |
+      Negative and shrinking toward 0: for 100 · 0.5ˣ the unit-interval changes are −50, −25, −12.5, −6.25.
+    topic_code: "5.10"
+  - front: Linear versus exponential by rates of change
+    back: |
+      Constant rate over equal intervals means linear; a rate that is multiplied by a constant each interval means exponential.
+    topic_code: "5.10"
+  - front: P(t) = 4,000 · 1.03ᵗ → average rate 0–10 versus 10–20
+    back: |
+      About 138 per year, then about 185 per year; the ratio is about 1.34 = 1.03¹⁰.
+    topic_code: "5.10"
+  - front: g(x) = 3ˣ → average rate of change from 1 to 2 and from 2 to 3
+    back: |
+      (9 − 3)/1 = 6 and (27 − 9)/1 = 18. The second is 3 times the first.
+    topic_code: "5.10"
+  - front: Deciding whether data are exponential
+    back: |
+      For equally spaced inputs, compute the ratios of consecutive values. Roughly constant ratios mean exponential; roughly constant differences mean linear.
+    topic_code: "5.11"
+  - front: Bacteria counts 120, 178, 262, 395, 590 hourly → model
+    back: |
+      Ratios ≈ 1.48, 1.47, 1.51, 1.49, so b ≈ 1.5 and a = 120: N(h) = 120 · 1.5ʰ. N(4) = 607.5 against the actual 590: a reasonable fit.
+    topic_code: "5.11"
+  - front: Estimating the factor across the whole data span
+    back: |
+      Take the overall ratio and the appropriate root: (590/120)^(1/4) ≈ 1.49 for four steps.
+    topic_code: "5.11"
+  - front: Steps of fitting an exponential model
+    back: |
+      1. Check ratios. 2. Choose b as a typical ratio. 3. Choose a (usually the first value). 4. Write a · bˣ and compare with every data point. 5. Use it only near the data.
+    topic_code: "5.11"
+  - front: Coffee excess temperature 60, 48, 38, 31, 25 at 5-minute steps → model
+    back: |
+      Ratios ≈ 0.8 per 5 minutes: E(t) = 60 · 0.8ᵗ with t in 5-minute steps; at 30 minutes (t = 6), about 15.7 degrees.
+    topic_code: "5.11"
+  - front: Rumour reaching 8, 25, 70, 210 people on successive days → model
+    back: |
+      Ratios 3.1, 2.8, 3.0: exponential with factor about 3; R(d) = 8 · 3ᵈ.
+    topic_code: "5.11"
+  - front: Matching equations to graphs → first checks
+    back: |
+      Direction (rising means b > 1, falling means b < 1), then the y-intercept (0, a), then steepness (larger b is steeper for x > 0).
+    topic_code: "5.12"
+  - front: Graphs of 2ˣ and 3ˣ → how they relate
+    back: |
+      Both pass through (0, 1). For x > 0 the 3ˣ graph is higher; for x < 0 it is lower. They cross only at (0, 1).
+    topic_code: "5.12"
+  - front: Sketching y = 5 · 2ˣ
+    back: |
+      Through (0, 5), (1, 10), (2, 20), (−1, 2.5); rising to the right, flattening toward the x-axis on the left.
+    topic_code: "5.12"
+  - front: Which of 100 · 1.1ˣ and 10 · 1.5ˣ is larger at x = 10?
+    back: |
+      100 · 1.1¹⁰ ≈ 259 and 10 · 1.5¹⁰ ≈ 577: the second, despite starting ten times lower. They cross between x = 7 and x = 8.
+    topic_code: "5.12"
+  - front: Finding a and b from (0, 6) and (2, 54)
+    back: |
+      a = 6; b² = 54/6 = 9, so b = 3: y = 6 · 3ˣ.
+    topic_code: "5.13"
+  - front: Finding a and b from (1, 10) and (3, 250)
+    back: |
+      b² = 250/10 = 25, so b = 5; then a = 10/5 = 2: y = 2 · 5ˣ.
+    topic_code: "5.13"
+  - front: Effect of changing a in a · bˣ
+    back: |
+      Every output is multiplied by the same amount: the graph is stretched vertically and the intercept moves to (0, a); the factor and steepness ratio stay the same.
+    topic_code: "5.13"
+  - front: Effect of changing b in a · bˣ
+    back: |
+      Sets how fast the graph grows (b > 1) or decays (b < 1). With the same a, two growth graphs start together and the larger b pulls ahead at once.
+    topic_code: "5.13"
+  - front: Two decay graphs with the same a → which falls faster
+    back: |
+      The one with the smaller factor. 80 · 0.5ˣ falls faster than 80 · 0.75ˣ.
+    topic_code: "5.13"
+  - front: Graph through (0, 80) and (1, 60) → equation
+    back: |
+      a = 80, b = 60/80 = 0.75: y = 80 · 0.75ˣ.
+    topic_code: "5.13"
+
+quiz:
+  description: |
+    25 questions · about 45 minutes · interpreting parameters, rates of change of exponential functions,
+    modelling exponential data, and reasoning about exponential graphs (lessons 5.9 to 5.13), with review of
+    growth and decay factors, negative exponents, graph analysis from weeks 19 and 20, and average rate of
+    change and notation from unit 4. Multiple choice, select-all, true/false and numeric items are graded at
+    once; fill-in-the-blank items are matched automatically; the short answers and the long answer are graded
+    by your teacher against the scoring notes.
+  questions:
+    # ---- Stimulus set: a town's population (5.9, 5.10)
+    - slug: alg1-u05-w21-q01
+      type: multiple_choice
+      topic_code: "5.9"
+      source: "IM Algebra 1, Unit 5, Lesson 9"
+      points: 1
+      stimulus: |
+        A town's population is modelled by P(t) = 4,000 · 1.03ᵗ, where t is the number of years after 2015.
+      prompt: |
+        What does the number 1.03 tell you?
+      options:
+        - "The population grows by 3% each year."
+        - "The population grows by 103% each year."
+        - "The population grows by 1.03 people each year."
+        - "The population in 2015 was 1.03 thousand."
+      option_explanations:
+        - |
+          Correct. Multiplying by 1.03 makes each year's population 103% of the previous one, an increase of 3%.
+        - |
+          Growing by 103% would more than double the population each year; the factor would be 2.03.
+        - |
+          The factor is a multiplier, not a number of people added.
+        - |
+          The 2015 population is the starting value, 4,000; 1.03 is the yearly factor.
+      answer: 0
+
+    - slug: alg1-u05-w21-q02
+      type: multiple_choice
+      topic_code: "5.9"
+      source: "IM Algebra 1, Unit 5, Lesson 9"
+      points: 1
+      stimulus: |
+        A town's population is modelled by P(t) = 4,000 · 1.03ᵗ, where t is the number of years after 2015.
+      prompt: |
+        Which statement correctly interprets P(4) ≈ 4,502?
+      options:
+        - "In 2019 the population was about 4,500."
+        - "It took about 4 years for the population to reach 4,502 from 2000."
+        - "The population grew by 4,502 people in 4 years."
+        - "In 2015 the population was about 4,502."
+      option_explanations:
+        - |
+          Correct. t = 4 is the year 2019, and the output is the modelled population then.
+        - |
+          The model counts years from 2015, not from 2000.
+        - |
+          4,502 is the population itself; the growth over 4 years is about 502 people.
+        - |
+          The 2015 population is P(0) = 4,000, the starting value, not 4,502.
+      answer: 0
+
+    - slug: alg1-u05-w21-q03
+      type: multiple_choice
+      topic_code: "5.10"
+      source: "IM Algebra 1, Unit 5, Lesson 10"
+      points: 1
+      stimulus: |
+        A town's population is modelled by P(t) = 4,000 · 1.03ᵗ, where t is the number of years after 2015.
+      prompt: |
+        P(10) ≈ 5,376 and P(20) ≈ 7,224. Which statement about average rates of change is correct?
+      options:
+        - "The rate from t = 10 to 20 (about 185 per year) is larger than the rate from t = 0 to 10 (about 138 per year), because exponential growth speeds up."
+        - "Both rates are about 138 per year, because the growth rate is a constant 3%."
+        - "The rate from t = 10 to 20 is smaller, because growth slows as the town gets bigger."
+        - "The rate from t = 0 to 20 is 3% per year."
+      option_explanations:
+        - |
+          Correct. (5,376 − 4,000)/10 ≈ 138 and (7,224 − 5,376)/10 ≈ 185; a fixed percentage of a larger population is more people.
+        - |
+          The percentage is constant, but the number of people added each year grows with the population.
+        - |
+          Exponential growth never slows; each decade adds more people than the last.
+        - |
+          An average rate of change is measured in people per year, not as a percentage.
+      answer: 0
+
+    - slug: alg1-u05-w21-q04
+      type: multiple_choice
+      topic_code: "5.9"
+      source: "IM Algebra 1, Unit 5, Lesson 9"
+      points: 1
+      stimulus: |
+        A town's population is modelled by P(t) = 4,000 · 1.03ᵗ, where t is the number of years after 2015.
+      prompt: |
+        Suppose a second town is modelled by Q(d) = 4,000 · 1.03ᵈ, where d is the number of decades after 2015. How do the towns compare?
+      options:
+        - "The second town grows much more slowly: 3% per decade instead of 3% per year."
+        - "The towns grow at the same rate, because the equations are identical."
+        - "The second town grows faster, because a decade is longer than a year."
+        - "The second town started with ten times as many people."
+      option_explanations:
+        - |
+          Correct. The factor applies per unit of the input, so 1.03 per decade is far slower than 1.03 per year.
+        - |
+          The symbols match, but the inputs have different units, so the factors mean different things.
+        - |
+          A longer unit with the same factor means the same growth spread over more time: slower.
+        - |
+          Both start at 4,000; only the time unit differs.
+      answer: 0
+
+    # ---- Multiple choice (5.10–5.13)
+    - slug: alg1-u05-w21-q05
+      type: multiple_choice
+      topic_code: "5.10"
+      source: "IM Algebra 1, Unit 5, Lesson 10"
+      points: 1
+      prompt: |
+        For f(x) = 2ˣ, the average rates of change over the intervals 0 to 1, 1 to 2, 2 to 3 and 3 to 4 are 1, 2, 4 and 8. What pattern do they follow?
+      options:
+        - "Each rate is twice the previous one, matching the growth factor."
+        - "The rates increase by 2 each time."
+        - "The rates are constant, as for any function."
+        - "The rates increase by 1, 2, 4, 8 and then repeat."
+      option_explanations:
+        - |
+          Correct. Over equal unit intervals, the change in an exponential function is multiplied by the factor, here 2.
+        - |
+          The differences between the rates are 1, 2 and 4, not a constant 2; the rates multiply rather than add.
+        - |
+          Only linear functions have a constant average rate of change.
+        - |
+          The pattern continues doubling (16, 32, …); it does not repeat.
+      answer: 0
+
+    - slug: alg1-u05-w21-q06
+      type: multiple_choice
+      topic_code: "5.11"
+      source: "IM Algebra 1, Unit 5, Lesson 11"
+      points: 1
+      prompt: |
+        Which data set, recorded at equal time steps, is best modelled by an exponential function?
+      options:
+        - "50, 76, 112, 170"
+        - "50, 70, 90, 110"
+        - "50, 60, 90, 100"
+        - "50, 45, 42, 41"
+      option_explanations:
+        - |
+          Correct. The ratios 1.52, 1.47 and 1.52 are roughly constant, so a model with factor about 1.5 fits.
+        - |
+          The differences are a constant 20, so a linear model fits this set.
+        - |
+          Neither the differences (10, 30, 10) nor the ratios (1.2, 1.5, 1.1) are roughly constant.
+        - |
+          The decreases 5, 3, 1 shrink quickly but the ratios 0.9, 0.93, 0.98 are not constant; the values are levelling off, not decaying by a fixed fraction.
+      answer: 0
+
+    - slug: alg1-u05-w21-q07
+      type: multiple_choice
+      topic_code: "5.11"
+      source: "IM Algebra 1, Unit 5, Lesson 11"
+      points: 1
+      prompt: |
+        Hourly bacteria counts are 120, 178, 262, 395, 590. Which exponential model fits best, and how well does it predict the last count?
+      options:
+        - "N(h) = 120 · 1.5ʰ; it predicts about 608 at h = 4, close to 590."
+        - "N(h) = 120 · 2ʰ; it predicts 1,920 at h = 4, close to 590."
+        - "N(h) = 120 + 118h; it predicts 592 at h = 4, so the data are linear."
+        - "N(h) = 590 · 1.5ʰ; it predicts 590 at h = 0."
+      option_explanations:
+        - |
+          Correct. Consecutive ratios are about 1.48 to 1.51, and 120 · 1.5⁴ = 607.5, within 3% of the actual 590.
+        - |
+          A factor of 2 would predict 240 at h = 1, far above 178; and 1,920 is nowhere near 590.
+        - |
+          A line matches the ends but misses the middle: it predicts 356 at h = 2 against the actual 262. The differences 58, 84, 133, 195 are not constant.
+        - |
+          The starting value should be the first count, 120, not the last.
+      answer: 0
+
+    - slug: alg1-u05-w21-q08
+      type: multiple_choice
+      topic_code: "5.12"
+      source: "IM Algebra 1, Unit 5, Lesson 12"
+      points: 1
+      prompt: |
+        A graph rises from left to right and crosses the y-axis at (0, 5). Which equation could it be?
+      options:
+        - "y = 5 · 2ˣ"
+        - "y = 2 · 5ˣ"
+        - "y = 5 · 0.5ˣ"
+        - "y = 2ˣ"
+      option_explanations:
+        - |
+          Correct. The intercept is a = 5 and the factor 2 is greater than 1, so the graph rises.
+        - |
+          This graph rises but crosses the y-axis at (0, 2).
+        - |
+          The intercept is right, but a factor of 0.5 makes the graph fall.
+        - |
+          This graph crosses the y-axis at (0, 1).
+      answer: 0
+
+    - slug: alg1-u05-w21-q09
+      type: multiple_choice
+      topic_code: "5.13"
+      source: "IM Algebra 1, Unit 5, Lesson 13"
+      points: 1
+      prompt: |
+        An exponential graph passes through (1, 10) and (3, 250). What is its equation?
+      options:
+        - "y = 2 · 5ˣ"
+        - "y = 10 · 5ˣ"
+        - "y = 10 · 25ˣ"
+        - "y = 2 · 25ˣ"
+      option_explanations:
+        - |
+          Correct. b² = 250/10 = 25 gives b = 5, and a = 10/5 = 2; check: 2 · 5³ = 250.
+        - |
+          10 is the value at x = 1, not at x = 0; this rule gives 50 at x = 1.
+        - |
+          25 is b², the factor over two steps; the factor per step is 5.
+        - |
+          The factor per step is the square root of 25, and with b = 25 the value at x = 1 would be 50.
+      answer: 0
+
+    - slug: alg1-u05-w21-q10
+      type: multiple_choice
+      topic_code: "5.13"
+      source: "IM Algebra 1, Unit 5, Lesson 13"
+      points: 1
+      prompt: |
+        Which of these functions decays fastest?
+      options:
+        - "y = 80 · 0.5ˣ"
+        - "y = 80 · 0.75ˣ"
+        - "y = 200 · 0.9ˣ"
+        - "y = 20 · 0.95ˣ"
+      option_explanations:
+        - |
+          Correct. The smallest factor loses the largest fraction each step: half, compared with a quarter, a tenth and a twentieth.
+        - |
+          Losing 25% per step is slower than losing 50%.
+        - |
+          The larger starting value does not affect the rate; losing 10% per step is slow.
+        - |
+          Losing 5% per step is the slowest decay of the four, whatever the starting value.
+      answer: 0
+
+    - slug: alg1-u05-w21-q11
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "IM Algebra 1, Unit 4, Lesson 7"
+      points: 1
+      prompt: |
+        For the linear function g(x) = 7x − 3, what are the average rates of change from 0 to 2 and from 10 to 12?
+      options:
+        - "7 and 7"
+        - "14 and 14"
+        - "7 and 77"
+        - "−3 and 7"
+      option_explanations:
+        - |
+          Correct. A linear function's average rate of change over any interval equals its slope, 7.
+        - |
+          14 is the change in output over an interval of width 2; dividing by 2 gives the rate 7.
+        - |
+          The slope does not change along a line; 77 is g(10) + g(1) or a similar confusion.
+        - |
+          −3 is the vertical intercept, not a rate.
+      answer: 0
+
+    - slug: alg1-u05-w21-q12
+      type: multiple_choice
+      topic_code: "5.7"
+      source: "IM Algebra 1, Unit 5, Lesson 7"
+      points: 1
+      prompt: |
+        What is 6 · 3⁻²?
+      options:
+        - "2/3"
+        - "−54"
+        - "−12"
+        - "1/54"
+      option_explanations:
+        - |
+          Correct. 3⁻² = 1/9, and 6 · (1/9) = 6/9 = 2/3.
+        - |
+          A negative exponent does not make the answer negative; it inverts the power.
+        - |
+          −12 multiplies 6 by −2 instead of raising 3 to the power −2.
+        - |
+          1/54 inverts the whole product 6 · 9; only the power 3² is inverted.
+      answer: 0
+
+    - slug: alg1-u05-w21-q13
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "IM Algebra 1, Unit 5, Lesson 4"
+      points: 1
+      prompt: |
+        A medication level falls by 30% every hour. Which function with starting level 240 mg describes it?
+      options:
+        - "L(h) = 240 · 0.7ʰ"
+        - "L(h) = 240 · 0.3ʰ"
+        - "L(h) = 240 − 72h"
+        - "L(h) = 240 · 1.3ʰ"
+      option_explanations:
+        - |
+          Correct. Losing 30% leaves 70%, so the level is multiplied by 0.7 each hour.
+        - |
+          0.3 is the fraction lost, not the fraction that remains.
+        - |
+          Subtracting 72 mg each hour is a linear model; it would reach 0 in under four hours, and a 30% loss is a multiplication.
+        - |
+          1.3 is a 30% increase; the level is falling.
+      answer: 0
+
+    # ---- Select-all (5.10, 5.6)
+    - slug: alg1-u05-w21-q14
+      type: multi_select
+      topic_code: "5.10"
+      source: "IM Algebra 1, Unit 5, Lesson 10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        f(x) = 100 · 0.5ˣ. Which statements about its average rates of change are true? Select all that apply.
+      options:
+        - "From 0 to 1 the average rate of change is −50."
+        - "From 1 to 2 the average rate of change is −25."
+        - "The rates over successive unit intervals are each half the previous one."
+        - "The rates are negative and get closer to 0 as x increases."
+        - "From 0 to 2 the average rate of change is −75."
+      option_explanations:
+        - |
+          Correct. f(1) − f(0) = 50 − 100 = −50 over an interval of width 1.
+        - |
+          Correct. f(2) − f(1) = 25 − 50 = −25 over an interval of width 1.
+        - |
+          Correct. Each interval's change is the previous change multiplied by the factor 0.5.
+        - |
+          Correct. The decreases shrink as the quantity shrinks, so the rates approach 0 from below.
+        - |
+          (25 − 100)/2 = −37.5; −75 is the total change, not the rate.
+      answer: [0, 1, 2, 3]
+
+    - slug: alg1-u05-w21-q15
+      type: multi_select
+      topic_code: "5.6"
+      source: "IM Algebra 1, Unit 5, Lesson 6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about the graphs of y = 2ˣ and y = 3ˣ are true? Select all that apply.
+      options:
+        - "Both pass through (0, 1)."
+        - "For x > 0, the graph of 3ˣ is above the graph of 2ˣ."
+        - "For x < 0, the graph of 3ˣ is above the graph of 2ˣ."
+        - "Both are increasing for all x."
+        - "The graph of 3ˣ crosses the x-axis before the graph of 2ˣ."
+      option_explanations:
+        - |
+          Correct. Any non-zero base to the power 0 is 1.
+        - |
+          Correct. A larger base grows faster, so 3ˣ exceeds 2ˣ for positive x (9 against 4 at x = 2).
+        - |
+          For negative x, 3ˣ = 1/3⁻ˣ is smaller than 2ˣ = 1/2⁻ˣ (1/9 against 1/4 at x = −2), so 3ˣ is below.
+        - |
+          Correct. Bases greater than 1 give rising graphs everywhere.
+        - |
+          Neither graph ever crosses the x-axis; both are always positive.
+      answer: [0, 1, 3]
+
+    # ---- True/false (5.9, 4.2)
+    - slug: alg1-u05-w21-q16
+      type: true_false
+      topic_code: "5.9"
+      source: "IM Algebra 1, Unit 5, Lesson 9"
+      points: 1
+      prompt: |
+        True or false: in f(x) = 500 · 1.08ˣ, the quantity grows by 108% each unit of x.
+      answer: false
+      explanation: |
+        False. A factor of 1.08 makes each value 108% of the previous one, which is an increase of 8%, not 108%. A 108% increase would need a factor of 2.08.
+
+    - slug: alg1-u05-w21-q17
+      type: true_false
+      topic_code: "4.2"
+      source: "IM Algebra 1, Unit 4, Lesson 2"
+      points: 1
+      prompt: |
+        True or false: if N(h) = 120 · 1.5ʰ, then N(2) = 270 means the input 2 produces the output 270.
+      answer: true
+      explanation: |
+        True. Function notation names the input inside the parentheses and gives the output; 120 · 1.5² = 120 · 2.25 = 270.
+
+    # ---- Fill in the blank (5.11, 5.3)
+    - slug: alg1-u05-w21-q18
+      type: fill_blank
+      topic_code: "5.11"
+      source: "IM Algebra 1, Unit 5, Lesson 11"
+      points: 1
+      prompt: |
+        If the ratios of consecutive values in a data set with equally spaced inputs are roughly constant, an ____ model is appropriate.
+      answer: ["exponential"]
+      explanation: |
+        Roughly constant ratios mean each value is about the previous one times a fixed factor; roughly constant differences would point to a linear model instead.
+
+    - slug: alg1-u05-w21-q19
+      type: fill_blank
+      topic_code: "5.3"
+      source: "IM Algebra 1, Unit 5, Lesson 3"
+      points: 1
+      prompt: |
+        In f(x) = a · bˣ, the number b is called the growth ____ (or decay ____ when it is less than 1).
+      answer: ["factor"]
+      explanation: |
+        The factor is what each output is multiplied by per unit of x; it equals the ratio of consecutive outputs.
+
+    # ---- Numeric (5.10, 5.13, 5.5)
+    - slug: alg1-u05-w21-q20
+      type: numeric
+      topic_code: "5.10"
+      source: "IM Algebra 1, Unit 5, Lesson 10"
+      points: 1
+      prompt: |
+        For g(x) = 3ˣ, what is the average rate of change from x = 2 to x = 3?
+      answer: { value: 18, tolerance: 0 }
+      explanation: |
+        (27 − 9)/(3 − 2) = 18; it is three times the rate from 1 to 2, which is 6.
+
+    - slug: alg1-u05-w21-q21
+      type: numeric
+      topic_code: "5.13"
+      source: "IM Algebra 1, Unit 5, Lesson 13"
+      points: 1
+      prompt: |
+        An exponential graph passes through (0, 3) and (2, 48). What is its growth factor b?
+      answer: { value: 4, tolerance: 0 }
+      explanation: |
+        b² = 48/3 = 16, so b = 4; the equation is y = 3 · 4ˣ.
+
+    - slug: alg1-u05-w21-q22
+      type: numeric
+      topic_code: "5.5"
+      source: "IM Algebra 1, Unit 5, Lesson 5"
+      points: 1
+      prompt: |
+        A quantity decays exponentially from 800 at x = 0 to 512 at x = 2. What is the decay factor per step?
+      answer: { value: 0.8, tolerance: 0 }
+      explanation: |
+        b² = 512/800 = 0.64, so b = 0.8.
+
+    # ---- Short answer (5.11, 5.9/5.13)
+    - slug: alg1-u05-w21-q23
+      type: short_answer
+      topic_code: "5.11"
+      source: "IM Algebra 1, Unit 5, Lesson 11"
+      points: 3
+      prompt: |
+        The excess temperature of a cup of coffee above room temperature is recorded every 5 minutes: 60, 48, 38, 31, 25 degrees.
+
+        (a) Compute the ratios of consecutive values and decide whether an exponential model is reasonable.
+        (b) Write a model E(t) with t counted in 5-minute steps, and use it to predict the excess temperature at 30 minutes.
+        (c) Check the model against the 15-minute reading and comment on the fit.
+      answer: |
+        (a) 48/60 = 0.80, 38/48 ≈ 0.79, 31/38 ≈ 0.82, 25/31 ≈ 0.81: roughly constant, so exponential decay with factor about 0.8 is reasonable.
+        (b) E(t) = 60 · 0.8ᵗ; 30 minutes is t = 6: 60 · 0.8⁶ ≈ 15.7 degrees.
+        (c) At 15 minutes, t = 3: 60 · 0.512 = 30.7, against the actual 31. The model fits well.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: ratios about 0.8 and the exponential conclusion.
+
+        (b) 1 pt: E(t) = 60 · 0.8ᵗ and about 15.7.
+
+        (c) 1 pt: prediction about 30.7 compared with 31, judged a good fit.
+
+    - slug: alg1-u05-w21-q24
+      type: short_answer
+      topic_code: "5.13"
+      source: "IM Algebra 1, Unit 5, Lesson 13"
+      points: 3
+      prompt: |
+        Two investments are modelled by A(t) = 2,000 · 1.04ᵗ and B(t) = 1,200 · 1.09ᵗ, with t in years.
+
+        (a) Interpret the two parameters of B.
+        (b) Which investment is worth more at t = 0 and at t = 5? Show the values.
+        (c) Explain, without computing further, why B must eventually be worth more than A, and roughly when (to the nearest few years) by testing t = 10 and t = 12.
+      answer: |
+        (a) B starts at $1,200 and grows 9% per year.
+        (b) t = 0: A 2,000, B 1,200, so A. t = 5: A ≈ 2,433, B ≈ 1,846, so A still.
+        (c) B's factor is larger, so its value is multiplied by more each year; a larger factor always overtakes a smaller one eventually. t = 10: A ≈ 2,960, B ≈ 2,841 (A still ahead); t = 12: A ≈ 3,202, B ≈ 3,375 (B ahead). So B overtakes A after about 11 years.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: $1,200 start and 9% per year.
+
+        (b) 1 pt: A ahead at both times with values shown.
+
+        (c) 1 pt: the larger-factor argument and the crossing between t = 10 and t = 12.
+
+    # ---- Long answer (5.12, 5.13)
+    - slug: alg1-u05-w21-q25
+      type: long_answer
+      topic_code: "5.12"
+      source: "IM Algebra 1, Unit 5, Lesson 12"
+      points: 6
+      prompt: |
+        Four functions are given: f(x) = 100 · 1.1ˣ, g(x) = 10 · 1.5ˣ, h(x) = 100 · 0.8ˣ and k(x) = 10 · 0.8ˣ.
+
+        (1) Without plotting, describe how to tell the four graphs apart: which rise, which fall, and where each crosses the y-axis.
+        (2) Compare h and k: what do they have in common, and how is one related to the other at every x?
+        (3) f starts at ten times g's value. Compute both at x = 5 and x = 10, and state between which two whole numbers the graphs of f and g cross, with evidence.
+        (4) A graph passes through (0, 10) and (2, 22.5). Decide which of the four functions it could be, or find its equation if it is none of them.
+      answer: |
+        (1) f and g rise (factors above 1); h and k fall (factor 0.8). Intercepts: f and h at (0, 100); g and k at (0, 10). So f: rising from 100; g: rising from 10; h: falling from 100; k: falling from 10.
+        (2) Same factor 0.8, so both lose 20% per step and have the same shape; h(x) = 10 · k(x) for every x.
+        (3) x = 5: f ≈ 161, g ≈ 76; x = 10: f ≈ 259, g ≈ 577. f is ahead at 5 and behind at 10. x = 7: f ≈ 195, g ≈ 171; x = 8: f ≈ 214, g ≈ 256. The graphs cross between x = 7 and x = 8.
+        (4) a = 10; b² = 22.5/10 = 2.25, so b = 1.5: y = 10 · 1.5ˣ, which is g.
+      explanation: |
+        Six points.
+
+        (1) 2 pts: 1 for direction of each, 1 for the intercepts.
+
+        (2) 1 pt: same factor and h = 10k.
+
+        (3) 2 pts: 1 for the four values, 1 for locating the crossing between 7 and 8 with evidence.
+
+        (4) 1 pt: identifies g via b = 1.5.
+
+        Common errors: using the intercept alone to match; taking b = 2.25; assuming the larger start stays ahead.

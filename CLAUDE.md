@@ -204,19 +204,22 @@ course (`GET|POST /api/comments?target_type=&target_id=`, `PATCH|DELETE
   its discussion with it. Replies are one level deep; deleting a comment
   deletes its replies. Deactivated people's comments are hidden, not deleted.
 
-## Seeded courses (AP Biology, AP U.S. History)
+## Seeded courses (AP Biology, AP U.S. History, Algebra 1, Geometry, Algebra 2)
 
-Two full-year courses are seeded from YAML, each by a thin subclass of
+Five full-year courses are seeded from YAML, each by a thin subclass of
 `Database\Seeders\Curriculum\CurriculumSeeder` that names its data directory:
 
 | Seeder | Command | Data | Slug | Demo accounts |
 |---|---|---|---|---|
 | `ApBiologySeeder` | `course:seed-ap-biology` | `data/ap-biology/` (adapted from CC BY OpenStax) | `apbio` | `apbio@`, `apbio-student@example.com` |
 | `ApUsHistorySeeder` | `course:seed-ap-us-history` | `data/ap-us-history/` (original, public-domain quotations) | `apush` | `apush@`, `apush-student@example.com` |
+| `Algebra1Seeder` | `course:seed-algebra-1` | `data/algebra-1/` (adapted from CC BY 4.0 IM 9–12 Math) | `alg1` | `algebra1@`, `algebra1-student@example.com` |
+| `GeometrySeeder` | `course:seed-geometry` | `data/geometry/` (adapted from CC BY 4.0 IM 9–12 Math) | `geo` | `geometry@`, `geometry-student@example.com` |
+| `Algebra2Seeder` | `course:seed-algebra-2` | `data/algebra-2/` (adapted from CC BY 4.0 IM 9–12 Math) | `alg2` | `algebra2@`, `algebra2-student@example.com` |
 
-Everything below applies to both; AP Biology is the worked example.
+Everything below applies to all of them; AP Biology is the worked example.
 
-`php artisan db:seed --class=ApBiologySeeder` (both are also called from `DatabaseSeeder`)
+`php artisan db:seed --class=ApBiologySeeder` (all five are also called from `DatabaseSeeder`)
 builds a full-year course from YAML under
 `apps/api/database/seeders/data/ap-biology/` (`course.yaml` = week → unit → CED
 topic map, plus the course's title `prefix`, its `slug` and its `attribution_markers`;
@@ -240,6 +243,9 @@ migrations, never seeders, so this is a one-off shell step per environment:
 ```bash
 php artisan course:seed-ap-biology --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-us-history --teacher=you@example.com --no-student --force
+php artisan course:seed-algebra-1 --teacher=you@example.com --no-student --force
+php artisan course:seed-geometry --teacher=you@example.com --no-student --force
+php artisan course:seed-algebra-2 --teacher=you@example.com --no-student --force
 ```
 
 `--teacher` must name an existing, verified, active teacher; the command never
@@ -265,8 +271,18 @@ now CC BY-NC-SA and bars LLM ingestion, so it is only linked as further reading.
 Its quotations are limited to public-domain texts (federal government works,
 pre-1931 publications); never quote copyrighted 20th-century private writing
 into it. Its guides end with the CED name and `public domain` (its
-`attribution_markers`). Both courses together are ~150 files: one teacher owning
-both needs the file cap raised at `/admin/site`.
+`attribution_markers`). Each course is 72–74 files: one teacher owning more than
+one needs the file cap raised at `/admin/site` (about 75 per course).
+
+The three math courses (Algebra 1, Geometry, Algebra 2) are **adapted** from
+IM 9–12 Math by Illustrative Mathematics, © 2019, CC BY 4.0, rewritten in our
+own words with original examples and items; their topic codes are IM lesson
+numbers (`"2.14"` = Unit 2, Lesson 14) and their guides end with
+`Illustrative Mathematics` and `CC BY 4.0`. The IM name and logo are excluded
+from that licence: credit IM in attribution text only, never as branding.
+OpenStax is no longer usable for new courses (every book is now CC BY-NC-SA
+with a no-LLM clause). Math is written in plain Unicode (x², √, π, ≤) because
+`rich-text` renders no LaTeX and no HTML; figures are described in words.
 
 Content contract the lint enforces: every option carries an
 `option_explanations` entry; `fill_blank` prompts contain `____` and `answer` is a

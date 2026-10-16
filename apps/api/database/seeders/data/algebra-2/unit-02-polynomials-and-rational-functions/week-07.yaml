@@ -1,0 +1,578 @@
+week: 7
+unit: 2
+title: "Polynomial Division and the Remainder Theorem"
+topics: ["2.12", "2.13", "2.14", "2.15"]
+guide: guides/week-07.md
+guide_description: |
+  Dividing a polynomial by a linear factor by running the multiplication grid backwards; long division with
+  remainders, written as dividend = divisor × quotient + remainder; pulling together degree, zeros, multiplicity,
+  intercepts and end behaviour to test claims about a polynomial; and the Remainder Theorem (the remainder on
+  dividing by x − a is p(a)) with its consequence, the Factor Theorem. Worked examples: factoring a cubic from
+  one known zero, long division by a quadratic, and finding a coefficient that makes (x − 2) a factor.
+flashcards_description: |
+  28 cards on grid division, long division, the division statement, checking claims about polynomials, and the
+  Remainder and Factor Theorems.
+
+flashcards:
+  - front: Dividing a polynomial with a grid → the idea
+    back: |
+      Put the known factor down the side, the product's terms as the cell totals, and fill in the unknown factor across the top one term at a time, left to right, so that each diagonal of cells adds to the right coefficient.
+    topic_code: "2.12"
+  - front: First step of grid division → how to find the first quotient term
+    back: |
+      The top-left cell must equal the dividend's leading term. Divide it by the divisor's leading term: x³ ÷ x = x², so x² is the first term of the quotient.
+    topic_code: "2.12"
+  - front: x³ + 2x² − 13x − 6 divided by (x − 3) → result
+    back: |
+      Quotient x² + 5x + 2 with no remainder, so x³ + 2x² − 13x − 6 = (x − 3)(x² + 5x + 2). The quadratic's zeros come from the quadratic formula: (−5 ± √17)/2.
+    topic_code: "2.12"
+  - front: Using a known zero to factor a cubic → procedure
+    back: |
+      If p(a) = 0, divide p(x) by (x − a) to get a quadratic quotient, then factor the quadratic (or use the quadratic formula). Example: p(x) = 2x³ + 3x² − 8x − 12 with zero −2 gives (x + 2)(2x² − x − 6) = (x + 2)(2x + 3)(x − 2).
+    topic_code: "2.12"
+  - front: Missing powers when dividing → what to do
+    back: |
+      Insert them with coefficient 0 so the columns line up: x³ − 7x + 6 becomes x³ + 0x² − 7x + 6. Forgetting this misaligns the grid or the long division.
+    topic_code: "2.12"
+  - front: Long division of polynomials → the repeated cycle
+    back: |
+      Divide the leading terms; multiply the divisor by that term; subtract the whole row; bring down the next term; repeat until what is left has smaller degree than the divisor.
+    topic_code: "2.13"
+  - front: When to stop a long division → the rule
+    back: |
+      When the degree of what remains is less than the degree of the divisor. Dividing by a linear factor stops at a constant; dividing by a quadratic stops at a linear or constant remainder.
+    topic_code: "2.13"
+  - front: Division statement for polynomials → the form
+    back: |
+      dividend = divisor × quotient + remainder, for example 2x³ − 5x² + x + 7 = (x − 2)(2x² − x − 1) + 5. Equivalently the fraction equals the quotient plus remainder over divisor.
+    topic_code: "2.13"
+  - front: 2x³ − 5x² + x + 7 divided by (x − 2) → quotient and remainder
+    back: |
+      Quotient 2x² − x − 1, remainder 5. Quick check with the Remainder Theorem: p(2) = 16 − 20 + 2 + 7 = 5.
+    topic_code: "2.13"
+  - front: x⁴ − 3x² + 2x − 4 divided by (x² + 1) → quotient and remainder
+    back: |
+      Quotient x² − 4, remainder 2x. Check: (x² + 1)(x² − 4) + 2x = x⁴ − 3x² − 4 + 2x.
+    topic_code: "2.13"
+  - front: Subtracting in long division → the common slip
+    back: |
+      Subtract every term of the row, not just the first: taking (−x² + x) − (−x² + 2x) gives −x, because +x − 2x = −x.
+    topic_code: "2.13"
+  - front: Checking a division → how
+    back: |
+      Multiply the divisor by the quotient and add the remainder; the result must be the original dividend. Also, for a linear divisor (x − a), the remainder must equal p(a).
+    topic_code: "2.13"
+  - front: Three ways to test whether (x − 4) is a factor of p → list them
+    back: |
+      Divide by (x − 4) and look for remainder 0; evaluate p(4) and look for 0; or graph p and look for an x-intercept at 4. The evaluation is fastest.
+    topic_code: "2.14"
+  - front: Number of zeros versus degree → the check
+    back: |
+      A degree-n polynomial has at most n zeros (counting multiplicity). A cubic claimed to have zeros 1, 2, 3 and 4 is impossible.
+    topic_code: "2.14"
+  - front: Odd degree → why there is always a real zero
+    back: |
+      The two ends go in opposite directions (one up, one down), so the continuous graph must cross the x-axis at least once.
+    topic_code: "2.14"
+  - front: Turning points as evidence of degree → the inference
+    back: |
+      A graph with 3 turning points has degree at least 4, because a degree-n polynomial has at most n − 1 turning points.
+    topic_code: "2.14"
+  - front: Constant term and factored form → the link
+    back: |
+      p(0) is the constant term, and in factored form it is the product of all the constants. If p(0) = 24 and the zeros are 2, 3, −4 with leading coefficient 1, then (−2)(−3)(4) = 24 checks out.
+    topic_code: "2.14"
+  - front: Cubic with zeros 2 and −1 leaving remainder 6 at x = 1 → how to build one
+    back: |
+      p(x) = k(x − 2)(x + 1)(x − c) with p(1) = k(−1)(2)(1 − c) = 6, so k(1 − c) = −3. One choice is k = 1, c = 4: p(x) = (x − 2)(x + 1)(x − 4). More than one answer exists.
+    topic_code: "2.14"
+  - front: Remainder Theorem → statement
+    back: |
+      When a polynomial p(x) is divided by (x − a), the remainder is the number p(a).
+    topic_code: "2.15"
+  - front: Remainder Theorem → proof in two lines
+    back: |
+      Dividing by the linear (x − a) leaves a constant remainder r, so p(x) = (x − a) q(x) + r. Substituting x = a kills the first term: p(a) = 0 · q(a) + r = r.
+    topic_code: "2.15"
+  - front: Factor Theorem → statement
+    back: |
+      (x − a) is a factor of p(x) if and only if p(a) = 0. It follows from the Remainder Theorem: factor means remainder 0, and the remainder is p(a).
+    topic_code: "2.15"
+  - front: Remainder of x⁵ − 3x² + 1 divided by (x + 1) → shortcut
+    back: |
+      Evaluate at x = −1 (the zero of the divisor): (−1)⁵ − 3(1) + 1 = −3. No division needed.
+    topic_code: "2.15"
+  - front: Divisor (x + 3) → which value to substitute
+    back: |
+      x = −3, the number that makes the divisor zero. Substituting +3 is the classic sign error.
+    topic_code: "2.15"
+  - front: Is (x − 5) a factor of x³ − 4x² − 7x + 10? → test
+    back: |
+      p(5) = 125 − 100 − 35 + 10 = 0, so yes. By contrast p(−1) = 12, so (x + 1) is not a factor.
+    topic_code: "2.15"
+  - front: Finding k so that (x − 2) is a factor of x³ + kx − 10 → method
+    back: |
+      Require p(2) = 0: 8 + 2k − 10 = 0, so k = 1.
+    topic_code: "2.15"
+  - front: Candidates for integer zeros → where to look
+    back: |
+      Among the divisors of the constant term (when the leading coefficient is 1). For x³ − 6x² + 11x − 6 try ±1, ±2, ±3, ±6; p(1) = 0 starts the factoring, giving (x − 1)(x − 2)(x − 3).
+    topic_code: "2.15"
+  - front: Error-spot → "(x − 1) is a factor because the graph looks like it crosses at 1"
+    back: |
+      A graph suggests a zero but cannot confirm it exactly (the crossing might be at 1.02). Evaluate p(1); only p(1) = 0 proves the factor.
+    topic_code: "2.15"
+  - front: Why division matters for rational functions → preview
+    back: |
+      Dividing numerator by denominator rewrites a rational function as quotient plus remainder over divisor; the quotient describes the end behaviour (next week).
+    topic_code: "2.13"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (lessons 2.12 to 2.15: division by a grid and by long
+    division, reasoning about polynomials, and the Remainder Theorem), with about a third reviewing weeks 4 to 6
+    and Unit 1. Includes a shared-context set on one cubic with a known zero. Multiple choice, select-all,
+    true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the
+    short answers and the long answer are graded by your teacher against the scoring notes.
+  questions:
+    # ---- Stimulus set: one cubic with a known zero (2.15, 2.12, 2.14)
+    - slug: alg2-u02-w07-q01
+      type: multiple_choice
+      topic_code: "2.15"
+      source: "IM Algebra 2, Unit 2, Lesson 15"
+      points: 1
+      stimulus: |
+        Let p(x) = x³ − 2x² − 11x + 12.
+      prompt: |
+        Which of the following is a factor of p(x)?
+      options:
+        - "(x − 2)"
+        - "(x + 1)"
+        - "(x − 1)"
+        - "(x + 4)"
+      option_explanations:
+        - |
+          p(2) = 8 − 8 − 22 + 12 = −10, which is not 0.
+        - |
+          p(−1) = −1 − 2 + 11 + 12 = 20, which is not 0.
+        - |
+          Correct. p(1) = 1 − 2 − 11 + 12 = 0, so by the Factor Theorem (x − 1) is a factor.
+        - |
+          p(−4) = −64 − 32 + 44 + 12 = −40, which is not 0; the factor with zero −3 is (x + 3).
+      answer: 2
+    - slug: alg2-u02-w07-q02
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "IM Algebra 2, Unit 2, Lesson 12"
+      points: 1
+      stimulus: |
+        Let p(x) = x³ − 2x² − 11x + 12.
+      prompt: |
+        When p(x) is divided by (x − 1), what is the quotient?
+      options:
+        - "x² − x − 12"
+        - "x² − 3x − 8"
+        - "x² − x − 11"
+        - "x² + x − 12"
+      option_explanations:
+        - |
+          Correct. (x − 1)(x² − x − 12) = x³ − x² − 12x − x² + x + 12 = x³ − 2x² − 11x + 12.
+        - |
+          This gives (x − 1)(x² − 3x − 8) = x³ − 4x² − 5x + 8, not p(x).
+        - |
+          Multiplying back gives a constant term of +11, but p has constant term 12.
+        - |
+          (x − 1)(x² + x − 12) = x³ − 13x + 12, which is missing the −2x² term.
+      answer: 0
+    - slug: alg2-u02-w07-q03
+      type: multiple_choice
+      topic_code: "2.14"
+      source: "IM Algebra 2, Unit 2, Lesson 14"
+      points: 1
+      stimulus: |
+        Let p(x) = x³ − 2x² − 11x + 12.
+      prompt: |
+        Which statement about the graph of p is true?
+      options:
+        - "It has x-intercepts at 1, 4 and −3 and both ends go up."
+        - "It has x-intercepts at 1, 4 and −3, comes up from the bottom left and leaves at the top right."
+        - "It has x-intercepts at 1, −4 and 3 and a vertical intercept at (0, −12)."
+        - "It has exactly two x-intercepts because it is a cubic."
+      option_explanations:
+        - |
+          The intercepts are right, but a cubic cannot have both ends going up.
+        - |
+          Correct. x² − x − 12 = (x − 4)(x + 3), so the zeros are 1, 4, −3; odd degree with positive leading coefficient gives down-left, up-right.
+        - |
+          The quadratic factor is (x − 4)(x + 3), so the zeros are 4 and −3, and p(0) = 12.
+        - |
+          A cubic can have up to three x-intercepts, and this one has three.
+      answer: 1
+    - slug: alg2-u02-w07-q04
+      type: multiple_choice
+      topic_code: "2.13"
+      source: "IM Algebra 2, Unit 2, Lesson 13"
+      points: 1
+      prompt: |
+        When 3x³ + x² − 8x + 2 is divided by (x + 2), what are the quotient and remainder?
+      options:
+        - "Quotient 3x² − 5x + 2, remainder −2"
+        - "Quotient 3x² + 7x + 6, remainder 14"
+        - "Quotient 3x² − 5x − 2, remainder 6"
+        - "Quotient 3x² − 5x + 2, remainder 0"
+      option_explanations:
+        - |
+          Correct. 3x³ + x² − 8x + 2 = (x + 2)(3x² − 5x + 2) − 2; also p(−2) = −24 + 4 + 16 + 2 = −2 confirms the remainder.
+        - |
+          This is what you get by adding instead of subtracting at each step.
+        - |
+          (x + 2)(3x² − 5x − 2) = 3x³ + x² − 12x − 4, which does not match.
+        - |
+          p(−2) = −2, not 0, so (x + 2) is not a factor and the remainder is not 0.
+      answer: 0
+    - slug: alg2-u02-w07-q05
+      type: multiple_choice
+      topic_code: "2.15"
+      source: "IM Algebra 2, Unit 2, Lesson 15"
+      points: 1
+      prompt: |
+        Without dividing, find the remainder when x⁴ − 5x² + 3x − 7 is divided by (x − 2).
+      options:
+        - "−7"
+        - "−5"
+        - "3"
+        - "−17"
+      option_explanations:
+        - |
+          −7 is the constant term, which is the remainder on dividing by x, not by (x − 2).
+        - |
+          Correct. By the Remainder Theorem the remainder is p(2) = 16 − 20 + 6 − 7 = −5.
+        - |
+          3 is the coefficient of x; the remainder requires evaluating the whole polynomial at 2.
+        - |
+          −17 is p(−2), the remainder on dividing by (x + 2); the divisor (x − 2) requires evaluating at x = 2.
+      answer: 1
+    - slug: alg2-u02-w07-q06
+      type: multiple_choice
+      topic_code: "2.15"
+      source: "IM Algebra 2, Unit 2, Lesson 15"
+      points: 1
+      prompt: |
+        For which value of k is (x + 3) a factor of x³ + 4x² + kx − 6?
+      options:
+        - "k = −1"
+        - "k = 1"
+        - "k = 3"
+        - "k = −3"
+      option_explanations:
+        - |
+          With k = −1, p(−3) = −27 + 36 + 3 − 6 = 6, which is not 0, so (x + 3) is not a factor.
+        - |
+          Correct. p(−3) = −27 + 36 − 3k − 6 = 3 − 3k, which is 0 exactly when k = 1.
+        - |
+          With k = 3, p(−3) = 3 − 3·3 = −6, which is not 0, so (x + 3) is not a factor.
+        - |
+          With k = −3, p(−3) = 3 + 9 = 12, which is not 0, so (x + 3) is not a factor.
+      answer: 1
+    - slug: alg2-u02-w07-q07
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "IM Algebra 2, Unit 2, Lesson 12"
+      points: 1
+      prompt: |
+        A grid is used to divide x³ + 0x² − 19x − 30 by (x + 2). The first quotient term is x², giving cells x³ and 2x². What must the second quotient term be?
+      options:
+        - "2x"
+        - "−2x"
+        - "−19x"
+        - "−17x"
+      option_explanations:
+        - |
+          Adding 2x would make the x² total 2x² + 2x² = 4x², but the dividend has 0x².
+        - |
+          Correct. The x² cells must total 0, and 2x² is already there, so the next cell must be −2x², which requires a quotient term of −2x.
+        - |
+          The quotient term is chosen to fix the x² column, not the x column.
+        - |
+          −17x would produce −17x² in the x² column, not the −2x² needed.
+      answer: 1
+    - slug: alg2-u02-w07-q08
+      type: multiple_choice
+      topic_code: "2.5"
+      source: "IM Algebra 2, Unit 2, Lesson 5"
+      points: 1
+      prompt: |
+        A student claims that a certain polynomial of degree 3 has zeros at −2, 0, 1 and 5. Which response is correct?
+      options:
+        - "That is possible if one of the zeros has multiplicity 2."
+        - "That is impossible: a degree-3 polynomial has at most 3 zeros."
+        - "That is possible if the leading coefficient is negative."
+        - "That is possible only if the polynomial has no constant term."
+      option_explanations:
+        - |
+          A repeated zero uses up more of the degree, not less; four distinct zeros need degree at least 4.
+        - |
+          Correct. Each zero contributes a linear factor, and four linear factors multiply to degree 4 or more.
+        - |
+          The sign of the leading coefficient affects end behaviour, not the maximum number of zeros.
+        - |
+          The zero at 0 does imply no constant term, but that does not allow a fourth zero.
+      answer: 1
+    - slug: alg2-u02-w07-q09
+      type: multiple_choice
+      topic_code: "2.13"
+      source: "IM Algebra 2, Unit 2, Lesson 13"
+      points: 1
+      prompt: |
+        Which equation correctly expresses the result of dividing x³ + 1 by (x + 1)?
+      options:
+        - "x³ + 1 = (x + 1)(x² + x + 1)"
+        - "x³ + 1 = (x + 1)(x² − x + 1)"
+        - "x³ + 1 = (x + 1)(x² − 1) + 2"
+        - "x³ + 1 = (x + 1)(x²) + 1"
+      option_explanations:
+        - |
+          (x + 1)(x² + x + 1) = x³ + 2x² + 2x + 1, not x³ + 1.
+        - |
+          Correct. (x + 1)(x² − x + 1) = x³ − x² + x + x² − x + 1 = x³ + 1, and p(−1) = 0 confirms there is no remainder.
+        - |
+          (x + 1)(x² − 1) + 2 = x³ + x² − x + 1, which is not the dividend.
+        - |
+          (x + 1)x² + 1 = x³ + x² + 1, which has an extra x² term.
+      answer: 1
+    - slug: alg2-u02-w07-q10
+      type: multiple_choice
+      topic_code: "2.15"
+      source: "IM Algebra 2, Unit 2, Lesson 15"
+      points: 1
+      prompt: |
+        A polynomial p satisfies p(x) = (x − 4) · q(x) + 9 for some polynomial q. Which statement must be true?
+      options:
+        - "p(4) = 9"
+        - "p(9) = 4"
+        - "(x − 4) is a factor of p(x)"
+        - "p(4) = 0"
+      option_explanations:
+        - |
+          Correct. Substituting x = 4 makes the first term 0, leaving p(4) = 9; the remainder on dividing by (x − 4) is p(4).
+        - |
+          There is no reason for p(9) to be 4; the division statement says nothing about x = 9.
+        - |
+          A factor would require remainder 0, but the remainder is 9.
+        - |
+          p(4) equals the remainder, which is 9, not 0; a zero would need remainder 0.
+      answer: 0
+    - slug: alg2-u02-w07-q11
+      type: multiple_choice
+      topic_code: "2.10"
+      source: "IM Algebra 2, Unit 2, Lesson 10"
+      points: 1
+      prompt: |
+        At which zero does the graph of y = (x + 1)(x − 2)²(x − 5)³ touch the x-axis without crossing?
+      options:
+        - "x = −1"
+        - "x = 2"
+        - "x = 5"
+        - "At none of its zeros"
+      option_explanations:
+        - |
+          The factor (x + 1) has multiplicity 1, so the graph crosses at −1.
+        - |
+          Correct. The factor (x − 2)² has even multiplicity, so the graph bounces at 2.
+        - |
+          Multiplicity 3 is odd, so the graph crosses at 5, flattening as it does.
+        - |
+          The double zero at 2 does produce a bounce, so there is a zero where the graph touches.
+      answer: 1
+    - slug: alg2-u02-w07-q12
+      type: multiple_choice
+      topic_code: "2.9"
+      source: "IM Algebra 2, Unit 2, Lesson 9"
+      points: 1
+      prompt: |
+        Which polynomial has a graph with both ends going down?
+      options:
+        - "−3x⁵ + x"
+        - "−(x − 1)(x + 1)(x − 3)(x + 3)"
+        - "x⁴ − 100"
+        - "−x³ + 2x² + x"
+      option_explanations:
+        - |
+          Odd degree with a negative coefficient: left up, right down.
+        - |
+          Correct. Four linear factors and a minus sign give leading term −x⁴: even degree, negative coefficient, both ends down.
+        - |
+          Positive leading coefficient with even degree: both ends up.
+        - |
+          Odd degree (3) with a negative coefficient: left end up, right end down.
+      answer: 1
+    - slug: alg2-u02-w07-q13
+      type: multi_select
+      topic_code: "2.15"
+      source: "IM Algebra 2, Unit 2, Lesson 15"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let p(x) = x³ − 7x + 6. Which statements are true? Select all that apply.
+      options:
+        - "(x − 1) is a factor of p(x)."
+        - "(x + 3) is a factor of p(x)."
+        - "The remainder when p(x) is divided by (x − 3) is 12."
+        - "p(x) = (x − 1)(x − 2)(x + 3)"
+        - "The remainder when p(x) is divided by (x + 1) is 0."
+      option_explanations:
+        - |
+          Correct. p(1) = 1 − 7 + 6 = 0, so by the Factor Theorem (x − 1) divides p(x).
+        - |
+          Correct. p(−3) = −27 + 21 + 6 = 0, so (x + 3) is a factor as well.
+        - |
+          Correct. By the Remainder Theorem the remainder is p(3) = 27 − 21 + 6 = 12.
+        - |
+          Correct. The zeros 1, 2 and −3 (p(2) = 8 − 14 + 6 = 0) with leading coefficient 1 give this factored form.
+        - |
+          p(−1) = −1 + 7 + 6 = 12, not 0, so (x + 1) is not a factor.
+      answer: [0, 1, 2, 3]
+    - slug: alg2-u02-w07-q14
+      type: multi_select
+      topic_code: "2.13"
+      source: "IM Algebra 2, Unit 2, Lesson 13"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A division gives 2x³ − 3x² + 4x − 5 = (x − 1)(2x² − x + 3) − 2. Which statements are true? Select all that apply.
+      options:
+        - "The quotient is 2x² − x + 3."
+        - "The remainder is −2."
+        - "(x − 1) is a factor of 2x³ − 3x² + 4x − 5."
+        - "The value of 2x³ − 3x² + 4x − 5 at x = 1 is −2."
+        - "(2x³ − 3x² + 4x − 5)/(x − 1) = 2x² − x + 3 − 2/(x − 1)"
+      option_explanations:
+        - |
+          Correct. The polynomial multiplying the divisor is the quotient.
+        - |
+          Correct. The constant added at the end is the remainder.
+        - |
+          A nonzero remainder means (x − 1) is not a factor.
+        - |
+          Correct. Substituting x = 1 gives 0 · (quotient) − 2 = −2; directly, 2 − 3 + 4 − 5 = −2.
+        - |
+          Correct. Dividing the division statement by (x − 1) gives quotient plus remainder over divisor.
+      answer: [0, 1, 3, 4]
+    - slug: alg2-u02-w07-q15
+      type: true_false
+      topic_code: "2.15"
+      source: "IM Algebra 2, Unit 2, Lesson 15"
+      points: 1
+      prompt: |
+        True or false: If p(−2) = 0 for a polynomial p, then (x − 2) is a factor of p(x).
+      answer: false
+      explanation: |
+        False. p(−2) = 0 means that −2 is a zero, so the factor is (x − (−2)) = (x + 2). The factor (x − 2) would require p(2) = 0.
+    - slug: alg2-u02-w07-q16
+      type: true_false
+      topic_code: "2.9"
+      source: "IM Algebra 2, Unit 2, Lesson 9"
+      points: 1
+      prompt: |
+        True or false: Every polynomial of odd degree has at least one real zero.
+      answer: true
+      explanation: |
+        True. For odd degree the two ends of the graph go in opposite directions (one up, one down), so the continuous graph must cross the x-axis somewhere. Even-degree polynomials such as x² + 1 can avoid the axis entirely.
+    - slug: alg2-u02-w07-q17
+      type: fill_blank
+      topic_code: "2.15"
+      source: "IM Algebra 2, Unit 2, Lesson 15"
+      points: 1
+      prompt: |
+        The remainder when 2x³ − x² + 5 is divided by (x + 1) is ____.
+      answer: ["2"]
+      explanation: |
+        By the Remainder Theorem the remainder is p(−1) = 2(−1) − 1 + 5 = −2 − 1 + 5 = 2.
+    - slug: alg2-u02-w07-q18
+      type: fill_blank
+      topic_code: "2.7"
+      source: "IM Algebra 2, Unit 2, Lesson 7"
+      points: 1
+      prompt: |
+        A cubic has zeros −1, 2 and 3 and passes through (0, −12). Its equation is p(x) = k(x + 1)(x − 2)(x − 3), where k = ____.
+      answer: ["-2", "−2", "k = -2", "k = −2"]
+      explanation: |
+        p(0) = k · 1 · (−2) · (−3) = 6k = −12, so k = −2.
+    - slug: alg2-u02-w07-q19
+      type: numeric
+      topic_code: "2.13"
+      source: "IM Algebra 2, Unit 2, Lesson 13"
+      points: 1
+      prompt: |
+        When x³ + 2x² − 5x + 1 is divided by (x − 3), what is the remainder? Give the exact value.
+      answer: { value: 31, tolerance: 0 }
+      explanation: |
+        Long division gives quotient x² + 5x + 10 and remainder 31; the Remainder Theorem confirms p(3) = 27 + 18 − 15 + 1 = 31.
+    - slug: alg2-u02-w07-q20
+      type: numeric
+      topic_code: "2.15"
+      source: "IM Algebra 2, Unit 2, Lesson 15"
+      points: 1
+      prompt: |
+        For what value of c does x³ − 3x² + cx + 8 have (x − 2) as a factor? Give the exact value.
+      answer: { value: -2, tolerance: 0 }
+      explanation: |
+        Require p(2) = 0: 8 − 12 + 2c + 8 = 4 + 2c = 0, so c = −2.
+    - slug: alg2-u02-w07-q21
+      type: numeric
+      topic_code: "1.8"
+      source: "IM Algebra 2, Unit 1, Lesson 8"
+      points: 1
+      prompt: |
+        An arithmetic sequence has a(1) = 7 and a(n) = a(n − 1) + 6. What is a(35)? Give the exact value.
+      answer: { value: 211, tolerance: 0 }
+      explanation: |
+        a(35) = 7 + 34 · 6 = 7 + 204 = 211.
+    - slug: alg2-u02-w07-q22
+      type: short_answer
+      topic_code: "2.12"
+      source: "IM Algebra 2, Unit 2, Lesson 12"
+      points: 3
+      prompt: |
+        Let p(x) = x³ + 3x² − 10x − 24.
+
+        (a) Show that x = 3 is a zero of p.
+        (b) Divide p(x) by (x − 3) using a grid or long division, showing your work, and state the quotient.
+        (c) Factor p(x) completely and list all of its zeros.
+      answer: |
+        (a) p(3) = 27 + 27 − 30 − 24 = 0.
+        (b) Grid with (x − 3) down the side: x · x² = x³ and −3 · x² = −3x², so the x² column needs +6x², giving the quotient term 6x; −3 · 6x = −18x, so the x column needs +8x, giving the quotient term 8; −3 · 8 = −24 matches the constant. Quotient x² + 6x + 8, remainder 0.
+        (c) x² + 6x + 8 = (x + 2)(x + 4), so p(x) = (x − 3)(x + 2)(x + 4) with zeros 3, −2, −4.
+      explanation: |
+        Three points, one per part. (a) the evaluation shown. (b) the division work and the quotient x² + 6x + 8. (c) the complete factorisation and all three zeros.
+    - slug: alg2-u02-w07-q23
+      type: short_answer
+      topic_code: "2.15"
+      source: "IM Algebra 2, Unit 2, Lesson 15"
+      points: 3
+      prompt: |
+        (a) State the Remainder Theorem.
+        (b) Use it to find the remainder when x⁵⁰ − 2x + 3 is divided by (x − 1), and explain why long division would be a poor choice here.
+        (c) Explain how the Remainder Theorem shows that a is a zero of p exactly when (x − a) is a factor of p(x).
+      answer: |
+        (a) When a polynomial p(x) is divided by (x − a), the remainder equals p(a).
+        (b) p(1) = 1 − 2 + 3 = 2, so the remainder is 2. Long division would need 50 steps with mostly zero coefficients; evaluation takes one line.
+        (c) Write p(x) = (x − a) q(x) + r with r = p(a). If p(a) = 0 then r = 0 and p(x) = (x − a) q(x), so (x − a) is a factor. Conversely, if (x − a) is a factor then p(a) = (a − a) q(a) = 0.
+      explanation: |
+        Three points, one per part. (a) a correct statement. (b) remainder 2 with the efficiency comment. (c) both directions of the argument, using the division statement.
+    - slug: alg2-u02-w07-q24
+      type: long_answer
+      topic_code: "2.14"
+      source: "IM Algebra 2, Unit 2, Lesson 14"
+      points: 6
+      prompt: |
+        A polynomial p of degree 4 has leading coefficient 1, zeros at −2, 1 and 3, and p(0) = −18. It is known that one of the zeros is a double zero.
+
+        Write a full response that (1) explains why the degree and the three listed zeros force exactly one zero to be repeated, (2) tests each possibility for the double zero against p(0) = −18 and determines which one is consistent, (3) writes p(x) in factored form and expands it to standard form, and (4) describes the graph: intercepts, behaviour at each zero, and end behaviour.
+      answer: |
+        (1) A degree-4 polynomial has four zeros counting multiplicity. Three distinct zeros are listed, so the fourth must repeat one of them: exactly one zero has multiplicity 2 and the other two are simple.
+        (2) Double zero at −2: p(x) = (x + 2)²(x − 1)(x − 3), p(0) = 4 · (−1)(−3) = 12. Double zero at 1: (x + 2)(x − 1)²(x − 3), p(0) = 2 · 1 · (−3) = −6. Double zero at 3: (x + 2)(x − 1)(x − 3)², p(0) = 2 · (−1) · 9 = −18. Only the double zero at 3 matches.
+        (3) p(x) = (x + 2)(x − 1)(x − 3)². (x + 2)(x − 1) = x² + x − 2 and (x − 3)² = x² − 6x + 9; the product is x⁴ − 6x³ + 9x² + x³ − 6x² + 9x − 2x² + 12x − 18 = x⁴ − 5x³ + x² + 21x − 18.
+        (4) x-intercepts at −2 (crosses), 1 (crosses) and 3 (touches and turns back); vertical intercept (0, −18). Degree 4 with leading coefficient 1, so both ends go up. The graph is negative between −2 and 1 (it passes through (0, −18)), positive between 1 and 3, and stays positive after bouncing at 3.
+      explanation: |
+        Six points: 1 for the multiplicity argument; 2 for testing the three cases with correct values (12, −6, −18) and choosing 3; 2 for the factored form and a correct expansion (1 if the expansion has one slip); 1 for the graph description including the bounce at 3 and both ends up.

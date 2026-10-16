@@ -1,0 +1,659 @@
+week: 18
+unit: 4
+title: "Inverse Functions and Modelling with Functions"
+topics: ["4.15", "4.16", "4.17", "4.18"]
+guide: guides/week-18.md
+guide_description: |
+  What the inverse of a function is and when it exists, finding the inverse of a linear function by solving
+  for the input and interpreting it in context, using inverses to answer "what input gives this output"
+  questions efficiently, and modelling a draining battery with a function, its inverse and its domain.
+flashcards_description: |
+  28 cards on the meaning of an inverse, reading an inverse from a table, when an inverse function exists,
+  solving for the input to find an inverse, domain and range swapping, conversions and formulas, and building
+  and checking a linear battery model.
+
+flashcards:
+  - front: Inverse of a function → meaning
+    back: |
+      The rule that undoes the function: if f(a) = b, the inverse sends b back to a. The original outputs become inputs and the original inputs become outputs.
+    topic_code: "4.15"
+  - front: Inverse from a table
+    back: |
+      Read the same pairs the other way. If C sends 1 → 35, 2 → 50, 3 → 65, the inverse sends 35 → 1, 50 → 2, 65 → 3.
+    topic_code: "4.15"
+  - front: What question the inverse of C(t) = 15t + 20 answers
+    back: |
+      C answers "how much does a t-hour rental cost?" Its inverse answers "how many hours does d dollars buy?"
+    topic_code: "4.15"
+  - front: When does a function have an inverse function?
+    back: |
+      Only when no output is shared by two inputs. Then each output leads back to exactly one input, so the reverse rule is itself a function.
+    topic_code: "4.15"
+  - front: Why the height of a thrown ball has no inverse function
+    back: |
+      The same height occurs at two times (going up and coming down), so a height does not determine a single time.
+    topic_code: "4.15"
+  - front: Do linear functions have inverses?
+    back: |
+      Every linear function with non-zero slope does, because it never repeats an output. A constant function (slope 0) does not.
+    topic_code: "4.15"
+  - front: Inverse of Celsius-to-Fahrenheit → what it does with 212
+    back: |
+      F(c) = 1.8c + 32 sends 100 to 212, so the inverse, Fahrenheit to Celsius, sends 212 back to 100.
+    topic_code: "4.15"
+  - front: Inverse and the graph → what the pairs look like
+    back: |
+      Each point (a, b) on the graph of f corresponds to the point (b, a) on the graph of the inverse; the coordinates swap.
+    topic_code: "4.15"
+  - front: Finding the inverse of a linear function → the method
+    back: |
+      Write output = rule, then solve for the input. For d = 15t + 20: d − 20 = 15t, so t = (d − 20)/15.
+    topic_code: "4.16"
+  - front: Inverse of C(t) = 15t + 20 → interpretation
+    back: |
+      t = (d − 20)/15: subtract the $20 fixed fee from the amount paid, then divide by the $15 hourly rate to get the hours.
+    topic_code: "4.16"
+  - front: Checking an inverse with a pair
+    back: |
+      Pick an input, compute the output with the original, then feed that output to the inverse; you must get the input back. C(2) = 50 and (50 − 20)/15 = 2.
+    topic_code: "4.16"
+  - front: Inverse of F = 1.8c + 32
+    back: |
+      c = (F − 32)/1.8. Check: (212 − 32)/1.8 = 100.
+    topic_code: "4.16"
+  - front: Inverse of f(x) = 3x − 7
+    back: |
+      Solve y = 3x − 7 for x: x = (y + 7)/3. To find the x with f(x) = 20, compute (20 + 7)/3 = 9.
+    topic_code: "4.16"
+  - front: Undoing operations in reverse order
+    back: |
+      f(x) = 3x + 2 multiplies by 3 then adds 2, so the inverse subtracts 2 first, then divides by 3: x = (y − 2)/3.
+    topic_code: "4.16"
+  - front: Domain and range of an inverse
+    back: |
+      The domain of the inverse is the range of the original, and its range is the original's domain. For C with 0 ≤ t ≤ 8 and 20 ≤ C ≤ 140, the inverse has domain 20 to 140 and range 0 to 8.
+    topic_code: "4.16"
+  - front: Inverse of a function given by the table 2 → 7, 4 → 11, 6 → 15
+    back: |
+      The table 7 → 2, 11 → 4, 15 → 6; as a rule, g(x) = 2x + 3 inverts to x = (y − 3)/2.
+    topic_code: "4.16"
+  - front: Inverse is not a reciprocal
+    back: |
+      The inverse of 3x + 2 is (y − 2)/3, not 1/(3x + 2). An inverse undoes the function; a reciprocal is 1 divided by it.
+    topic_code: "4.16"
+  - front: When to build the inverse instead of solving each time
+    back: |
+      Whenever "what input gives this output?" must be answered repeatedly: write the inverse once and substitute each target.
+    topic_code: "4.17"
+  - front: Charity walk R(k) = 12k + 300 → kilometres for $900
+    back: |
+      Inverse k = (R − 300)/12; (900 − 300)/12 = 50 km.
+    topic_code: "4.17"
+  - front: Rice recipe S(p) = 0.25p cups for p people → people for 3 cups
+    back: |
+      Inverse p = 4S, so 3 cups serve 12 people.
+    topic_code: "4.17"
+  - front: Miles to kilometres and back
+    back: |
+      K(m) = 1.6m converts miles to kilometres; the inverse m = K/1.6 converts back. A 10 km race is 6.25 miles.
+    topic_code: "4.17"
+  - front: Printer charge P(n) = 0.08n + 5 → pages for $21
+    back: |
+      Inverse n = (P − 5)/0.08; (21 − 5)/0.08 = 200 pages.
+    topic_code: "4.17"
+  - front: Building a linear battery model from two readings
+    back: |
+      Rate = change in percent ÷ change in hours. From 100% at 8:00 to 76% at 11:00: −8 points per hour, so B(t) = 100 − 8t with t hours after 8:00.
+    topic_code: "4.18"
+  - front: Battery model B(t) = 100 − 8t → when is it at 20%?
+    back: |
+      Solve 100 − 8t = 20: t = 10, so 18:00. The inverse t = (100 − B)/8 answers any such question.
+    topic_code: "4.18"
+  - front: Domain and range of the battery model
+    back: |
+      The battery is empty at t = 12.5, so the domain is 0 ≤ t ≤ 12.5 and the range is 0 ≤ B ≤ 100.
+    topic_code: "4.18"
+  - front: Checking a battery model against more data
+    back: |
+      Predict the reading at another time and compare. If 14:00 shows 40% rather than the predicted 52%, the drain changed and a piecewise model fits better.
+    topic_code: "4.18"
+  - front: Laptop charging from 15% to 65% in 50 minutes → model and time to full
+    back: |
+      Rate 1 point per minute: C(m) = 15 + m; 100% at m = 85 minutes, an estimate since charging slows near full.
+    topic_code: "4.18"
+  - front: Tablet 90% at 9:00 and 60% at 13:00 → model and empty time
+    back: |
+      Rate −7.5 per hour: B(t) = 90 − 7.5t with t hours after 9:00; B = 0 at t = 12, which is 21:00.
+    topic_code: "4.18"
+
+quiz:
+  description: |
+    25 questions · about 45 minutes · inverse functions, finding and using inverses, and modelling with
+    functions (lessons 4.15 to 4.18), with review of domain and range, piecewise and absolute value
+    functions, average rate of change, residuals and solving for a variable. Multiple choice, select-all,
+    true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the
+    short answers and the long answer are graded by your teacher against the scoring notes.
+  questions:
+    # ---- Stimulus set: bike rental (4.15–4.17)
+    - slug: alg1-u04-w18-q01
+      type: multiple_choice
+      topic_code: "4.15"
+      source: "IM Algebra 1, Unit 4, Lesson 15"
+      points: 1
+      stimulus: |
+        A bike shop charges a $20 fee plus $15 per hour, so C(t) = 15t + 20 is the cost in dollars of a rental lasting t hours. Rentals last at most 8 hours.
+      prompt: |
+        What does the inverse of C do?
+      options:
+        - "It gives the cost of a rental twice as long."
+        - "It gives the number of hours a rental lasts from the amount paid."
+        - "It gives 1 divided by the cost."
+        - "It gives the cost with the fee removed."
+      option_explanations:
+        - |
+          Doubling the rental time is just evaluating C at 2t; it does not reverse the function.
+        - |
+          Correct. The inverse takes an output of C (dollars) and returns the input (hours).
+        - |
+          A reciprocal is not an inverse function; the inverse undoes C rather than dividing 1 by it.
+        - |
+          Removing the fee is one step of undoing C, but the inverse finishes by dividing by 15 to return hours.
+      answer: 1
+
+    - slug: alg1-u04-w18-q02
+      type: multiple_choice
+      topic_code: "4.16"
+      source: "IM Algebra 1, Unit 4, Lesson 16"
+      points: 1
+      stimulus: |
+        A bike shop charges a $20 fee plus $15 per hour, so C(t) = 15t + 20 is the cost in dollars of a rental lasting t hours. Rentals last at most 8 hours.
+      prompt: |
+        Which rule is the inverse of C, giving hours t from dollars d?
+      options:
+        - "t = (d − 20)/15"
+        - "t = (d + 20)/15"
+        - "t = d/15 − 20"
+        - "t = 15d − 20"
+      option_explanations:
+        - |
+          Correct. From d = 15t + 20, subtract 20 and divide by 15: t = (d − 20)/15. Check: d = 50 gives t = 2 and C(2) = 50.
+        - |
+          The fee is added by C, so the inverse must subtract it, not add it.
+        - |
+          The 20 must be subtracted before dividing by 15, because C added it after multiplying.
+        - |
+          This multiplies by 15 instead of dividing; it does not undo C.
+      answer: 0
+
+    - slug: alg1-u04-w18-q03
+      type: multiple_choice
+      topic_code: "4.16"
+      source: "IM Algebra 1, Unit 4, Lesson 16"
+      points: 1
+      stimulus: |
+        A bike shop charges a $20 fee plus $15 per hour, so C(t) = 15t + 20 is the cost in dollars of a rental lasting t hours. Rentals last at most 8 hours.
+      prompt: |
+        What is the domain of the inverse of C?
+      options:
+        - "0 ≤ t ≤ 8"
+        - "20 ≤ d ≤ 140"
+        - "All real numbers"
+        - "0 ≤ d ≤ 120"
+      option_explanations:
+        - |
+          0 to 8 hours is the domain of C and therefore the range of the inverse.
+        - |
+          Correct. The inverse's inputs are the costs C can produce: from C(0) = 20 to C(8) = 140.
+        - |
+          Only amounts the shop could actually charge are meaningful inputs for the inverse.
+        - |
+          120 is the hourly part of an 8-hour rental; the fee makes the costs run from 20 to 140.
+      answer: 1
+
+    - slug: alg1-u04-w18-q04
+      type: multiple_choice
+      topic_code: "4.17"
+      source: "IM Algebra 1, Unit 4, Lesson 17"
+      points: 1
+      stimulus: |
+        A bike shop charges a $20 fee plus $15 per hour, so C(t) = 15t + 20 is the cost in dollars of a rental lasting t hours. Rentals last at most 8 hours.
+      prompt: |
+        A customer paid $95. How long was the rental?
+      options:
+        - "5 hours"
+        - "6.33 hours"
+        - "7.67 hours"
+        - "1,445 hours"
+      option_explanations:
+        - |
+          Correct. (95 − 20)/15 = 75/15 = 5 hours; check: 15(5) + 20 = 95.
+        - |
+          6.33 is 95/15, which forgets to subtract the $20 fee first.
+        - |
+          7.67 is (95 + 20)/15, adding the fee instead of subtracting it.
+        - |
+          1,445 is C(95), the cost of a 95-hour rental, which evaluates C instead of inverting it.
+      answer: 0
+
+    # ---- Multiple choice (4.15–4.18)
+    - slug: alg1-u04-w18-q05
+      type: multiple_choice
+      topic_code: "4.15"
+      source: "IM Algebra 1, Unit 4, Lesson 15"
+      points: 1
+      prompt: |
+        Which function does NOT have an inverse function?
+      options:
+        - "The cost of n identical items at $4 each"
+        - "The height of a ball thrown upward, as a function of time"
+        - "Kilometres as a function of miles"
+        - "The perimeter of a square as a function of its side"
+      option_explanations:
+        - |
+          Each cost comes from exactly one number of items, so the reverse rule is a function.
+        - |
+          Correct. The ball is at the same height twice (going up and coming down), so a height does not lead back to a single time.
+        - |
+          Each number of kilometres comes from one number of miles, so the conversion reverses cleanly.
+        - |
+          Each perimeter comes from exactly one side length.
+      answer: 1
+
+    - slug: alg1-u04-w18-q06
+      type: multiple_choice
+      topic_code: "4.15"
+      source: "IM Algebra 1, Unit 4, Lesson 15"
+      points: 1
+      prompt: |
+        A function g sends 3 → 10, 5 → 16 and 8 → 25. What does the inverse of g send 16 to?
+      options:
+        - "5"
+        - "10"
+        - "1/16"
+        - "49"
+      option_explanations:
+        - |
+          Correct. g(5) = 16, so the inverse reverses the pair and sends 16 back to 5.
+        - |
+          10 is g(3), an output of g, not what the inverse produces from 16.
+        - |
+          The inverse is not a reciprocal; it returns the original input.
+        - |
+          49 would be g(16) if g(x) = 3x + 1, which evaluates g rather than reversing it.
+      answer: 0
+
+    - slug: alg1-u04-w18-q07
+      type: multiple_choice
+      topic_code: "4.16"
+      source: "IM Algebra 1, Unit 4, Lesson 16"
+      points: 1
+      prompt: |
+        F = 1.8c + 32 converts a Celsius temperature c to Fahrenheit. Which is the inverse, giving c from F?
+      options:
+        - "c = (F − 32)/1.8"
+        - "c = F/1.8 − 32"
+        - "c = (F + 32)/1.8"
+        - "c = 1.8F − 32"
+      option_explanations:
+        - |
+          Correct. Subtract 32 and divide by 1.8; check: (212 − 32)/1.8 = 100.
+        - |
+          The 32 was added last by F, so it must be removed first, before dividing.
+        - |
+          Adding 32 does not undo adding 32; the inverse must subtract it.
+        - |
+          Multiplying by 1.8 does not undo multiplying by 1.8; the inverse divides.
+      answer: 0
+
+    - slug: alg1-u04-w18-q08
+      type: multiple_choice
+      topic_code: "4.17"
+      source: "IM Algebra 1, Unit 4, Lesson 17"
+      points: 1
+      prompt: |
+        A charity walk raises R(k) = 12k + 300 dollars when k kilometres are walked. How many kilometres are needed to raise $900?
+      options:
+        - "50"
+        - "75"
+        - "100"
+        - "11,100"
+      option_explanations:
+        - |
+          Correct. k = (900 − 300)/12 = 50 km; check: 12(50) + 300 = 900.
+        - |
+          75 is 900/12, which ignores the $300 already raised.
+        - |
+          100 is (900 + 300)/12, adding the 300 instead of subtracting it.
+        - |
+          11,100 is R(900), the money raised by walking 900 km.
+      answer: 0
+
+    - slug: alg1-u04-w18-q09
+      type: multiple_choice
+      topic_code: "4.18"
+      source: "IM Algebra 1, Unit 4, Lesson 18"
+      points: 1
+      prompt: |
+        A phone battery reads 100% at 8:00 and 76% at 11:00. Assuming a steady drain, which linear model gives the percentage B after t hours since 8:00?
+      options:
+        - "B(t) = 100 − 8t"
+        - "B(t) = 100 − 24t"
+        - "B(t) = 76 − 8t"
+        - "B(t) = 100 − 3t"
+      option_explanations:
+        - |
+          Correct. The drop is 24 points in 3 hours, a rate of −8 per hour, from a start of 100.
+        - |
+          24 is the total drop over 3 hours, not the drop per hour.
+        - |
+          76 is the reading at 11:00; the model's starting value at t = 0 (8:00) is 100.
+        - |
+          3 is the number of hours between readings, not the rate of drain.
+      answer: 0
+
+    - slug: alg1-u04-w18-q10
+      type: multiple_choice
+      topic_code: "4.18"
+      source: "IM Algebra 1, Unit 4, Lesson 18"
+      points: 1
+      prompt: |
+        Using the model B(t) = 100 − 8t with t hours after 8:00, when does the battery reach 20%?
+      options:
+        - "18:00"
+        - "10:30"
+        - "20:30"
+        - "16:00"
+      option_explanations:
+        - |
+          Correct. 100 − 8t = 20 gives t = 10 hours after 8:00, which is 18:00.
+        - |
+          10:30 is t = 2.5, when the battery is at 80%, not 20%.
+        - |
+          20:30 is t = 12.5, when the model reaches 0%.
+        - |
+          16:00 is t = 8, when the battery is at 36%.
+      answer: 0
+
+    - slug: alg1-u04-w18-q11
+      type: multiple_choice
+      topic_code: "4.10"
+      source: "IM Algebra 1, Unit 4, Lesson 10"
+      points: 1
+      prompt: |
+        A ferry carries at most 40 cars, and F(c) = 18c is the fare income in dollars from c cars. What is the domain of F?
+      options:
+        - "All real numbers from 0 to 40"
+        - "The whole numbers from 0 to 40"
+        - "The multiples of 18 from 0 to 720"
+        - "All whole numbers"
+      option_explanations:
+        - |
+          Cars are counted in whole numbers; 2.5 cars is not a possible input.
+        - |
+          Correct. The inputs are whole numbers of cars up to the 40-car capacity.
+        - |
+          The multiples of 18 are the outputs (dollars), which form the range.
+        - |
+          The ferry's capacity limits the inputs to at most 40.
+      answer: 1
+
+    - slug: alg1-u04-w18-q12
+      type: multiple_choice
+      topic_code: "2.9"
+      source: "IM Algebra 1, Unit 2, Lesson 9"
+      points: 1
+      prompt: |
+        Solve the formula A = (1/2)bh for h.
+      options:
+        - "h = 2A/b"
+        - "h = A/(2b)"
+        - "h = 2Ab"
+        - "h = A − b/2"
+      option_explanations:
+        - |
+          Correct. Multiply both sides by 2 to get 2A = bh, then divide by b.
+        - |
+          This divides by 2 instead of multiplying; the 1/2 must be undone by doubling.
+        - |
+          Multiplying by b does not undo multiplying by b; divide instead.
+        - |
+          Subtraction cannot undo a product; the formula multiplies b and h.
+      answer: 0
+
+    - slug: alg1-u04-w18-q13
+      type: multiple_choice
+      topic_code: "4.12"
+      source: "IM Algebra 1, Unit 4, Lesson 12"
+      points: 1
+      prompt: |
+        p(x) = 4 − x for x < 1 and p(x) = 2x + 1 for x ≥ 1. What are p(1) and p(−3)?
+      options:
+        - "p(1) = 3 and p(−3) = 7"
+        - "p(1) = 3 and p(−3) = −5"
+        - "p(1) = 5 and p(−3) = 7"
+        - "p(1) = 5 and p(−3) = −5"
+      option_explanations:
+        - |
+          p(−3) = 7 is right, but 1 satisfies x ≥ 1, so p(1) uses the second rule: 2(1) + 1 = 3.
+        - |
+          p(1) = 3 is right, but −3 < 1 uses the first rule: 4 − (−3) = 7.
+        - |
+          Both wrong: p(1) uses 2x + 1 giving 3, and p(−3) uses 4 − x giving 7.
+        - |
+          Correct. 1 ≥ 1 so p(1) = 2(1) + 1 = 3; −3 < 1 so p(−3) = 4 − (−3) = 7.
+      answer: 3
+
+    # ---- Select-all (4.15, 4.11)
+    - slug: alg1-u04-w18-q14
+      type: multi_select
+      topic_code: "4.15"
+      source: "IM Algebra 1, Unit 4, Lesson 15"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which functions have an inverse function? Select all that apply.
+      options:
+        - "f(x) = 2x + 9"
+        - "g(x) = 7 (a constant function)"
+        - "h(x) = |x|"
+        - "k(x) = −3x"
+        - "The function that sends each person to their height in centimetres"
+      option_explanations:
+        - |
+          Correct. A linear function with non-zero slope never repeats an output.
+        - |
+          Every input gives 7, so the output 7 cannot be traced back to one input.
+        - |
+          |3| = |−3| = 3, so the output 3 comes from two inputs; no inverse function.
+        - |
+          Correct. Slope −3 is non-zero, so each output comes from exactly one input.
+        - |
+          Two people can share a height, so a height does not identify one person.
+      answer: [0, 3]
+
+    - slug: alg1-u04-w18-q15
+      type: multi_select
+      topic_code: "4.11"
+      source: "IM Algebra 1, Unit 4, Lesson 11"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A graph is a single curve from an open dot at (1, 2) to a filled dot at (6, 2), rising to a peak of 8 at x = 4 in between. Which statements are true? Select all that apply.
+      options:
+        - "The domain is 1 < x ≤ 6."
+        - "The range is 2 ≤ y ≤ 8."
+        - "The maximum value is 4."
+        - "The function is increasing for 1 < x < 4."
+        - "The range is 1 < y ≤ 6."
+      option_explanations:
+        - |
+          Correct. The x-values start just after 1 (open dot) and end at 6 (filled dot).
+        - |
+          Correct. The curve reaches y = 2 at the filled dot and climbs to 8; all heights in between occur.
+        - |
+          The maximum value is 8; 4 is the input where it occurs.
+        - |
+          Correct. From the open start the curve rises to its peak at x = 4.
+        - |
+          1 to 6 are x-values (the domain), not the heights of the graph.
+      answer: [0, 1, 3]
+
+    # ---- True/false (4.16, 3.6)
+    - slug: alg1-u04-w18-q16
+      type: true_false
+      topic_code: "4.16"
+      source: "IM Algebra 1, Unit 4, Lesson 16"
+      points: 1
+      prompt: |
+        True or false: the domain of the inverse of a function is the range of the original function.
+      answer: true
+      explanation: |
+        True. The inverse takes the original's outputs as its inputs, so its domain is the set of those outputs, and its range is the original's domain.
+
+    - slug: alg1-u04-w18-q17
+      type: true_false
+      topic_code: "3.6"
+      source: "IM Algebra 1, Unit 3, Lesson 6"
+      points: 1
+      prompt: |
+        True or false: a data point with a positive residual lies below the line of best fit.
+      answer: false
+      explanation: |
+        False. Residual = actual − predicted; a positive residual means the actual value exceeds the prediction, so the point is above the line.
+
+    # ---- Fill in the blank (4.15, 4.7)
+    - slug: alg1-u04-w18-q18
+      type: fill_blank
+      topic_code: "4.15"
+      source: "IM Algebra 1, Unit 4, Lesson 15"
+      points: 1
+      prompt: |
+        A function that undoes another function, sending each output back to the input it came from, is called the ____ of that function.
+      answer: ["inverse", "inverse function"]
+      explanation: |
+        If f(a) = b, the inverse sends b to a. It exists as a function only when no output of f is shared by two inputs.
+
+    - slug: alg1-u04-w18-q19
+      type: fill_blank
+      topic_code: "4.7"
+      source: "IM Algebra 1, Unit 4, Lesson 7"
+      points: 1
+      prompt: |
+        For a linear function, the average rate of change over any interval is equal to the ____ of its graph.
+      answer: ["slope", "gradient"]
+      explanation: |
+        The average rate of change between two points is the slope of the segment joining them, and on a line every segment has the same slope.
+
+    # ---- Numeric (4.16, 4.17, 4.18)
+    - slug: alg1-u04-w18-q20
+      type: numeric
+      topic_code: "4.16"
+      source: "IM Algebra 1, Unit 4, Lesson 16"
+      points: 1
+      prompt: |
+        f(x) = 3x − 7. Use the inverse of f to find the input for which f(x) = 20.
+      answer: { value: 9, tolerance: 0 }
+      explanation: |
+        The inverse is x = (y + 7)/3, so (20 + 7)/3 = 9; check: 3(9) − 7 = 20.
+
+    - slug: alg1-u04-w18-q21
+      type: numeric
+      topic_code: "4.17"
+      source: "IM Algebra 1, Unit 4, Lesson 17"
+      points: 1
+      prompt: |
+        A printer charges P(n) = 0.08n + 5 dollars for n pages. How many pages does $21 buy?
+      answer: { value: 200, tolerance: 0 }
+      explanation: |
+        n = (21 − 5)/0.08 = 16/0.08 = 200 pages.
+
+    - slug: alg1-u04-w18-q22
+      type: numeric
+      topic_code: "4.18"
+      source: "IM Algebra 1, Unit 4, Lesson 18"
+      points: 1
+      prompt: |
+        A tablet's battery is at 90% at 9:00 and 60% at 13:00, draining steadily. With B(t) = 90 − 7.5t for t hours after 9:00, after how many hours (t) does the model reach 0%?
+      answer: { value: 12, tolerance: 0 }
+      explanation: |
+        90 − 7.5t = 0 gives t = 12, so the model predicts an empty battery at 21:00.
+
+    # ---- Short answer (4.16, 4.14)
+    - slug: alg1-u04-w18-q23
+      type: short_answer
+      topic_code: "4.16"
+      source: "IM Algebra 1, Unit 4, Lesson 16"
+      points: 3
+      prompt: |
+        A tutor charges T(h) = 60h + 40 dollars for h hours, for sessions of up to 5 hours.
+
+        (a) Find the inverse of T, showing the algebra, and say what question it answers.
+        (b) State the domain and range of the inverse.
+        (c) Use the inverse to find the session length a family gets for $250.
+      answer: |
+        (a) d = 60h + 40, so h = (d − 40)/60. It answers "how many hours does d dollars buy?"
+        (b) T has domain 0 ≤ h ≤ 5 and range 40 ≤ T ≤ 340, so the inverse has domain 40 ≤ d ≤ 340 and range 0 ≤ h ≤ 5.
+        (c) (250 − 40)/60 = 3.5 hours.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: h = (d − 40)/60 with the interpretation.
+
+        (b) 1 pt: domain 40 to 340 and range 0 to 5 (the swap stated correctly).
+
+        (c) 1 pt: 3.5 hours.
+
+    - slug: alg1-u04-w18-q24
+      type: short_answer
+      topic_code: "4.14"
+      source: "IM Algebra 1, Unit 4, Lesson 14"
+      points: 3
+      prompt: |
+        A thermostat is set to 21 °C. The function D(T) = |T − 21| gives how far the room temperature T is from the setting.
+
+        (a) Find D(18.5) and D(24) and interpret one of them.
+        (b) Give the vertex of the graph of D and the interval on which D is decreasing.
+        (c) The heating switches on whenever D(T) > 1.5. For which temperatures is the heating on? Express the answer without absolute value.
+      answer: |
+        (a) D(18.5) = 2.5 and D(24) = 3. D(24) = 3 means the room is 3 degrees from the setting (3 degrees too warm).
+        (b) Vertex (21, 0); D is decreasing for T < 21, as the temperature rises toward the setting.
+        (c) |T − 21| > 1.5 means T < 19.5 or T > 22.5.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: 2.5 and 3 with an interpretation as distance from the setting.
+
+        (b) 1 pt: vertex (21, 0) and decreasing for T < 21.
+
+        (c) 1 pt: T < 19.5 or T > 22.5 (both pieces required).
+
+    # ---- Long answer (4.18)
+    - slug: alg1-u04-w18-q25
+      type: long_answer
+      topic_code: "4.18"
+      source: "IM Algebra 1, Unit 4, Lesson 18"
+      points: 6
+      prompt: |
+        An electric scooter's battery reads 96% at 7:00 and 72% at 9:00 while being ridden.
+
+        (1) Assuming a steady drain, write a linear model S(t) for the percentage t hours after 7:00, and state its domain and range.
+        (2) Find the inverse of S and explain what it tells the rider.
+        (3) Use the model or its inverse to find when the battery reaches 30%, and when it is empty.
+        (4) At 12:00 the actual reading is 24%, not what the model predicts. Compute the model's prediction for 12:00, compare it with 24%, say what this means about the drain after 9:00, and propose how to improve the model.
+      answer: |
+        (1) Rate (72 − 96)/2 = −12 points per hour: S(t) = 96 − 12t. Empty at t = 8, so domain 0 ≤ t ≤ 8 and range 0 ≤ S ≤ 96.
+        (2) t = (96 − S)/12: for any battery percentage, it gives the number of hours after 7:00 at which the scooter will show that percentage.
+        (3) 30%: t = (96 − 30)/12 = 5.5, so 12:30. Empty: t = 8, so 15:00.
+        (4) At 12:00, t = 5 and S(5) = 36%. The actual 24% is 12 points lower, so the battery drained faster than 12 points per hour after 9:00 (24 points lower over 3 hours would be 48/3 = 16 points per hour from 9:00 to 12:00, perhaps from faster riding or hills). Improve the model with a piecewise rule: S(t) = 96 − 12t for 0 ≤ t ≤ 2 and S(t) = 72 − 16(t − 2) for t > 2, or refit a line using all three readings and check it against future readings.
+      explanation: |
+        Six points.
+
+        (1) 2 pts: 1 for S(t) = 96 − 12t, 1 for domain 0 to 8 and range 0 to 96.
+
+        (2) 1 pt: the inverse with an interpretation.
+
+        (3) 1 pt: 12:30 and 15:00.
+
+        (4) 2 pts: 1 for the prediction 36% and the conclusion that the drain sped up, 1 for a sensible improvement (piecewise model or refit with all data).
+
+        Common errors: using 24 as the hourly rate; giving the domain as all real numbers; computing the inverse as 1/S.

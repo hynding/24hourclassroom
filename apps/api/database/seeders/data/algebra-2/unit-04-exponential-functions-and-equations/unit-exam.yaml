@@ -1,0 +1,941 @@
+unit: 4
+description: |
+  46 questions · about 90 minutes · every lesson of Unit 4 (4.1 to 4.18): growth and decay, the four
+  representations, rational inputs and changing time units, equations from two points, average rate of
+  change, unknown exponents, logarithms and their evaluation, the number e and continuous growth, solving
+  exponential equations, doubling times and half-lives, logarithmic graphs and logarithmic scales. Includes
+  three shared-context sets of three questions (a depreciating car, an exponential equation, and a
+  continuously growing population), select-all, true/false, fill-in-the-blank and numeric items, two
+  short-answer questions (3 points each) and one extended response (6 points). Multiple choice, select-all,
+  true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the
+  free-response items are graded by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: V(t) = 24000(0.85)ᵗ (4.1, 4.5, 4.15)
+  - slug: alg2-u04-exam-q01
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "IM Algebra 2, Unit 4, Lesson 1"
+    points: 1
+    stimulus: |
+      The value of a car t years after purchase is V(t) = 24000(0.85)ᵗ dollars.
+    prompt: |
+      What do the numbers 24000 and 0.85 tell you?
+    options:
+      - "The car cost $24,000 and loses 85% of its value each year."
+      - "The car cost $24,000 and loses 15% of its value each year."
+      - "The car cost $24,000 and loses $850 each year."
+      - "The car is worth $24,000 after one year and gains 85% each year."
+    option_explanations:
+      - |
+        0.85 is the fraction that remains, so 85% is kept and 15% is lost.
+      - |
+        Correct. V(0) = 24000, and multiplying by 0.85 removes 15% of the current value each year.
+      - |
+        The loss is proportional, 15% of the current value, not a fixed dollar amount.
+      - |
+        V(0) = 24000 is the purchase price, and a factor below 1 means the value falls.
+    answer: 1
+  - slug: alg2-u04-exam-q02
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "IM Algebra 2, Unit 4, Lesson 5"
+    points: 1
+    stimulus: |
+      The value of a car t years after purchase is V(t) = 24000(0.85)ᵗ dollars.
+    prompt: |
+      By what percent does the value fall over any 3-year period?
+    options:
+      - "45%"
+      - "About 38.6%"
+      - "About 61.4%"
+      - "About 25%"
+    option_explanations:
+      - |
+        45% adds 15% three times; the factor over 3 years is 0.85³ ≈ 0.614, so the loss is about 38.6%.
+      - |
+        Correct. 0.85³ ≈ 0.614 remains, so about 38.6% is lost.
+      - |
+        61.4% is the fraction that remains, not the fraction lost.
+      - |
+        25% is far less than three years of 15% losses.
+    answer: 1
+  - slug: alg2-u04-exam-q03
+    type: multiple_choice
+    topic_code: "4.15"
+    source: "IM Algebra 2, Unit 4, Lesson 15"
+    points: 1
+    stimulus: |
+      The value of a car t years after purchase is V(t) = 24000(0.85)ᵗ dollars.
+    prompt: |
+      How long does it take for the car to lose half its value?
+    options:
+      - "log₀.₈₅(0.5) ≈ 4.27 years"
+      - "0.5/0.15 ≈ 3.33 years"
+      - "log₀.₈₅(12000) ≈ −57.8 years"
+      - "It depends on the purchase price."
+    option_explanations:
+      - |
+        Correct. 0.85ᵗ = 0.5 gives t = log₀.₈₅(0.5) ≈ 4.27 years.
+      - |
+        3.33 years assumes a fixed 15% of the original each year; the losses shrink as the value falls.
+      - |
+        The target factor is 0.5, not the dollar amount 12000; and a negative time makes no sense here.
+      - |
+        The purchase price cancels: 24000 · 0.85ᵗ = 12000 reduces to 0.85ᵗ = 0.5.
+    answer: 0
+  # ---- Stimulus set B: 3ˣ = 20 (4.8, 4.10, 4.14)
+  - slug: alg2-u04-exam-q04
+    type: multiple_choice
+    topic_code: "4.8"
+    source: "IM Algebra 2, Unit 4, Lesson 8"
+    points: 1
+    stimulus: |
+      Consider the equation 3ˣ = 20.
+    prompt: |
+      Between which two integers does the solution lie, and why?
+    options:
+      - "Between 1 and 2, because 3 < 20 < 30"
+      - "Between 2 and 3, because 9 < 20 < 27"
+      - "Between 6 and 7, because 18 < 20 < 21"
+      - "Between 19 and 21, because 20 is near both"
+    option_explanations:
+      - |
+        3¹ = 3 and 3² = 9 are both below 20; the bracket must use powers of 3.
+      - |
+        Correct. 3² = 9 < 20 < 27 = 3³, so 2 < x < 3.
+      - |
+        18 and 21 are multiples of 3, not powers; 3⁶ = 729 is far above 20.
+      - |
+        x is an exponent; the value is about 2.7, nowhere near 20.
+    answer: 1
+  - slug: alg2-u04-exam-q05
+    type: multiple_choice
+    topic_code: "4.10"
+    source: "IM Algebra 2, Unit 4, Lesson 10"
+    points: 1
+    stimulus: |
+      Consider the equation 3ˣ = 20.
+    prompt: |
+      Which expression is the exact solution?
+    options:
+      - "x = log₃(20)"
+      - "x = log₂₀(3)"
+      - "x = log(20)"
+      - "x = 20/3"
+    option_explanations:
+      - |
+        Correct. log₃(20) is, by definition, the exponent on 3 that gives 20.
+      - |
+        This swaps base and argument; log₂₀(3) ≈ 0.37 is the exponent on 20 that gives 3.
+      - |
+        log(20) ≈ 1.30 is the exponent on 10, not on 3.
+      - |
+        3^(20/3) is about 1500, not 20; division does not undo an exponent.
+    answer: 0
+  - slug: alg2-u04-exam-q06
+    type: multiple_choice
+    topic_code: "4.14"
+    source: "IM Algebra 2, Unit 4, Lesson 14"
+    points: 1
+    stimulus: |
+      Consider the equation 3ˣ = 20.
+    prompt: |
+      Which decimal value is consistent with both the exact solution and the bracket?
+    options:
+      - "x ≈ 1.301"
+      - "x ≈ 2.727"
+      - "x ≈ 3.727"
+      - "x ≈ 6.667"
+    option_explanations:
+      - |
+        1.301 is log(20), the base-10 value; it is below the bracket 2 < x < 3.
+      - |
+        Correct. log₃(20) ≈ 2.727, between 2 and 3; check 3^2.727 ≈ 20.
+      - |
+        3.727 is above 3, but 3³ = 27 already exceeds 20.
+      - |
+        6.667 is 20/3, a quotient, not an exponent.
+    answer: 1
+  # ---- Stimulus set C: N(t) = 50e^(0.12t) (4.13, 4.14)
+  - slug: alg2-u04-exam-q07
+    type: multiple_choice
+    topic_code: "4.13"
+    source: "IM Algebra 2, Unit 4, Lesson 13"
+    points: 1
+    stimulus: |
+      A population is modeled by N(t) = 50e^(0.12t), with t in years.
+    prompt: |
+      By what percent does the population actually grow each year?
+    options:
+      - "Exactly 12%"
+      - "About 12.75%, since e^0.12 ≈ 1.1275"
+      - "About 1.2%"
+      - "About 27.2%, since e ≈ 2.72"
+    option_explanations:
+      - |
+        0.12 is the continuous rate; compounding within the year lifts the actual growth above 12%.
+      - |
+        Correct. N(t + 1)/N(t) = e^0.12 ≈ 1.1275.
+      - |
+        The exponent coefficient is 0.12, that is 12% as a continuous rate, not 1.2%.
+      - |
+        A factor of e per year would need k = 1; here the factor is e^0.12.
+    answer: 1
+  - slug: alg2-u04-exam-q08
+    type: multiple_choice
+    topic_code: "4.13"
+    source: "IM Algebra 2, Unit 4, Lesson 13"
+    points: 1
+    stimulus: |
+      A population is modeled by N(t) = 50e^(0.12t), with t in years.
+    prompt: |
+      What is the population after 5 years, to the nearest whole number?
+    options:
+      - "80"
+      - "88"
+      - "91"
+      - "300"
+    option_explanations:
+      - |
+        80 adds 12% of 50 five times; growth compounds, so the result is higher.
+      - |
+        88 is 50(1.12)⁵, yearly compounding at 12%; the continuous model grows a little faster.
+      - |
+        Correct. N(5) = 50e^0.6 ≈ 50 · 1.822 ≈ 91.
+      - |
+        300 would need e^0.6 = 6; in fact e^0.6 ≈ 1.82.
+    answer: 2
+  - slug: alg2-u04-exam-q09
+    type: multiple_choice
+    topic_code: "4.14"
+    source: "IM Algebra 2, Unit 4, Lesson 14"
+    points: 1
+    stimulus: |
+      A population is modeled by N(t) = 50e^(0.12t), with t in years.
+    prompt: |
+      When does the population reach 400?
+    options:
+      - "t = ln(8)/0.12 ≈ 17.3 years"
+      - "t = ln(400)/0.12 ≈ 49.9 years"
+      - "t = 8/0.12 ≈ 66.7 years"
+      - "t = log(8)/0.12 ≈ 7.5 years"
+    option_explanations:
+      - |
+        Correct. e^(0.12t) = 400/50 = 8, so 0.12t = ln 8 and t = ln(8)/0.12 ≈ 17.33.
+      - |
+        Divide by 50 before taking the logarithm: the power equals 8, not 400.
+      - |
+        Dividing 8 by the rate is not solving e^(0.12t) = 8; a logarithm is needed.
+      - |
+        The base is e, so ln must be used, not the base-10 log.
+    answer: 0
+  # ---- Single items
+  - slug: alg2-u04-exam-q10
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "IM Algebra 2, Unit 4, Lesson 1"
+    points: 1
+    prompt: |
+      A quantity grows by 45% each year. Which growth factor describes this?
+    options:
+      - "0.45"
+      - "1.45"
+      - "0.55"
+      - "45"
+    option_explanations:
+      - |
+        0.45 would mean only 45% remains, a 55% decrease.
+      - |
+        Correct. New = old + 0.45 · old = 1.45 · old.
+      - |
+        0.55 describes a 45% decrease, the opposite situation.
+      - |
+        The factor is 1 plus the rate as a decimal, not the percent number itself.
+    answer: 1
+  - slug: alg2-u04-exam-q11
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "IM Algebra 2, Unit 4, Lesson 2"
+    points: 1
+    prompt: |
+      A table gives f(0) = 5, f(1) = 15, f(2) = 45, f(3) = 135. Which equation defines f?
+    options:
+      - "f(x) = 5 · 3ˣ"
+      - "f(x) = 3 · 5ˣ"
+      - "f(x) = 5 + 10x"
+      - "f(x) = 15ˣ"
+    option_explanations:
+      - |
+        Correct. f(0) = 5 and each output is 3 times the previous one.
+      - |
+        3 · 5ˣ is 3 at x = 0, but the table gives 5.
+      - |
+        5 + 10x gives 5, 15, 25, 35: linear, not matching 45 and 135.
+      - |
+        15ˣ gives 1 at x = 0 and 225 at x = 2, neither of which matches the table.
+    answer: 0
+  - slug: alg2-u04-exam-q12
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "IM Algebra 2, Unit 4, Lesson 2"
+    points: 1
+    prompt: |
+      The graph of an exponential function passes through (0, 8) and (2, 2). What is its equation?
+    options:
+      - "g(x) = 8(0.25)ˣ"
+      - "g(x) = 8(0.5)ˣ"
+      - "g(x) = 2(0.5)ˣ"
+      - "g(x) = 8 − 3x"
+    option_explanations:
+      - |
+        0.25 is the factor over the two units from x = 0 to x = 2; the per-unit factor is √0.25 = 0.5.
+      - |
+        Correct. a = 8, and 8b² = 2 gives b² = 1/4, b = 1/2.
+      - |
+        2 is g(2), not the y-intercept; a must be g(0) = 8.
+      - |
+        The function is exponential; a line through the two points is a different function.
+    answer: 1
+  - slug: alg2-u04-exam-q13
+    type: multiple_choice
+    topic_code: "4.3"
+    source: "IM Algebra 2, Unit 4, Lesson 3"
+    points: 1
+    prompt: |
+      Let f(x) = 100 · 4ˣ. What is f(3/2)?
+    options:
+      - "150"
+      - "600"
+      - "800"
+      - "200"
+    option_explanations:
+      - |
+        150 treats the exponent 3/2 as a multiplier of 100; 4^(3/2) is a root and a power.
+      - |
+        600 is 100 · 6, as if 4^(3/2) were 4 · 3/2.
+      - |
+        Correct. 4^(3/2) = (√4)³ = 8, so f(3/2) = 800.
+      - |
+        200 is f(1/2) = 100 · √4, the value at half a unit rather than one and a half.
+    answer: 2
+  - slug: alg2-u04-exam-q14
+    type: multiple_choice
+    topic_code: "4.4"
+    source: "IM Algebra 2, Unit 4, Lesson 4"
+    points: 1
+    prompt: |
+      A population grows 10% per year. What is the monthly growth factor?
+    options:
+      - "1.1/12 ≈ 0.0917"
+      - "1 + 0.10/12 ≈ 1.00833"
+      - "1.1^(1/12) ≈ 1.00797"
+      - "1.1^12 ≈ 3.14"
+    option_explanations:
+      - |
+        A factor below 1 would mean the population shrinks each month.
+      - |
+        1.00833¹² ≈ 1.1047, not 1.1; dividing the percent ignores compounding.
+      - |
+        Correct. Twelve monthly factors must multiply to 1.1, so each is 1.1^(1/12) ≈ 1.00797.
+      - |
+        1.1¹² ≈ 3.14 is the factor over 12 years, not over one month.
+    answer: 2
+  - slug: alg2-u04-exam-q15
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "IM Algebra 2, Unit 4, Lesson 5"
+    points: 1
+    prompt: |
+      For f(x) = 20(0.9)ˣ, what is f(x + 3)/f(x)?
+    options:
+      - "0.729, for every x"
+      - "0.7, for every x"
+      - "2.7, for every x"
+      - "It depends on x."
+    option_explanations:
+      - |
+        Correct. The factor over any 3-unit interval is 0.9³ = 0.729, a 27.1% decrease.
+      - |
+        0.7 subtracts 10% three times; factors multiply, so the result is 0.9³.
+      - |
+        2.7 is 3 · 0.9; the exponent 3 is a power, not a multiplier.
+      - |
+        The a and the 0.9ˣ cancel in the ratio, leaving 0.9³ regardless of x.
+    answer: 0
+  - slug: alg2-u04-exam-q16
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "IM Algebra 2, Unit 4, Lesson 6"
+    points: 1
+    prompt: |
+      An exponential function passes through (1, 12) and (3, 108). What is its equation?
+    options:
+      - "h(x) = 12 · 9ˣ"
+      - "h(x) = 4 · 3ˣ"
+      - "h(x) = 12 · 3ˣ"
+      - "h(x) = 4 · 9ˣ"
+    option_explanations:
+      - |
+        9 is the factor over the 2-unit gap; the per-unit factor is √9 = 3, and 12 is h(1), not h(0).
+      - |
+        Correct. b² = 108/12 = 9 so b = 3; a · 3 = 12 so a = 4.
+      - |
+        12 is h(1); the initial value is h(0) = 12/3 = 4.
+      - |
+        9 is the two-unit factor; per unit it is 3.
+    answer: 1
+  - slug: alg2-u04-exam-q17
+    type: multiple_choice
+    topic_code: "4.7"
+    source: "IM Algebra 2, Unit 4, Lesson 7"
+    points: 1
+    prompt: |
+      For P(t) = 50 · 2ᵗ, what is the average rate of change from t = 1 to t = 3?
+    options:
+      - "100 per unit"
+      - "150 per unit"
+      - "300 per unit"
+      - "4 per unit"
+    option_explanations:
+      - |
+        100 is P(1); the average rate is the change in P divided by the change in t.
+      - |
+        Correct. (P(3) − P(1))/(3 − 1) = (400 − 100)/2 = 150.
+      - |
+        300 is the total change; divide by the interval length 2.
+      - |
+        4 is the ratio P(3)/P(1), the growth factor over two units, not a rate.
+    answer: 1
+  - slug: alg2-u04-exam-q18
+    type: multiple_choice
+    topic_code: "4.8"
+    source: "IM Algebra 2, Unit 4, Lesson 8"
+    points: 1
+    prompt: |
+      Solve 27ˣ = 9.
+    options:
+      - "x = 3"
+      - "x = 2/3"
+      - "x = 3/2"
+      - "x = 1/3"
+    option_explanations:
+      - |
+        27³ = 19683, far more than 9; the exponent is less than 1.
+      - |
+        Correct. 27ˣ = 3³ˣ and 9 = 3², so 3x = 2 and x = 2/3.
+      - |
+        27^(3/2) = (√27)³ ≈ 140, not 9; the exponent must be below 1.
+      - |
+        27^(1/3) = ∛27 = 3, not 9; one more factor of 3 is needed, giving 2/3.
+    answer: 1
+  - slug: alg2-u04-exam-q19
+    type: multiple_choice
+    topic_code: "4.9"
+    source: "IM Algebra 2, Unit 4, Lesson 9"
+    points: 1
+    prompt: |
+      Without a calculator, between which two integers is log(5000)?
+    options:
+      - "2 and 3"
+      - "3 and 4"
+      - "4 and 5"
+      - "49 and 51"
+    option_explanations:
+      - |
+        10³ = 1000 is below 5000, so the log exceeds 3.
+      - |
+        Correct. 10³ = 1000 < 5000 < 10,000 = 10⁴, so 3 < log(5000) < 4 (≈ 3.70).
+      - |
+        10⁴ = 10,000 is above 5000, so the log is below 4.
+      - |
+        A logarithm is an exponent, about 3.7 here, not a tenth of the argument.
+    answer: 1
+  - slug: alg2-u04-exam-q20
+    type: multiple_choice
+    topic_code: "4.10"
+    source: "IM Algebra 2, Unit 4, Lesson 10"
+    points: 1
+    prompt: |
+      Which equation says the same thing as 2⁻³ = 1/8?
+    options:
+      - "log₂(1/8) = −3"
+      - "log₂(−3) = 1/8"
+      - "log₁/₈(2) = −3"
+      - "log₂(8) = −3"
+    option_explanations:
+      - |
+        Correct. The base 2 stays the base, 1/8 is the argument, and −3 is the exponent.
+      - |
+        The argument of a logarithm must be positive, and −3 is the exponent, not the argument.
+      - |
+        log₁/₈(2) = −1/3, since (1/8)^(−1/3) = 2; this swaps base and argument.
+      - |
+        log₂(8) = 3; the reciprocal 1/8 is what gives −3.
+    answer: 0
+  - slug: alg2-u04-exam-q21
+    type: multiple_choice
+    topic_code: "4.11"
+    source: "IM Algebra 2, Unit 4, Lesson 11"
+    points: 1
+    prompt: |
+      Evaluate log₄(32).
+    options:
+      - "8"
+      - "5/2"
+      - "2"
+      - "5"
+    option_explanations:
+      - |
+        8 is 32/4, a quotient; a logarithm is an exponent.
+      - |
+        Correct. 4^(5/2) = (√4)⁵ = 2⁵ = 32, so the logarithm is 5/2.
+      - |
+        4² = 16, not 32; the exponent is a little more than 2.
+      - |
+        4⁵ = 1024; 5 is log₂(32), with base 2, not 4.
+    answer: 1
+  - slug: alg2-u04-exam-q22
+    type: multiple_choice
+    topic_code: "4.11"
+    source: "IM Algebra 2, Unit 4, Lesson 11"
+    points: 1
+    prompt: |
+      Which of these is undefined?
+    options:
+      - "log₆(1)"
+      - "log(0.0001)"
+      - "ln(1/e)"
+      - "log(−1)"
+    option_explanations:
+      - |
+        log₆(1) = 0, because 6⁰ = 1; it is defined, like log of 1 in any base.
+      - |
+        log(0.0001) = −4; small positive arguments give negative values, which is fine.
+      - |
+        ln(1/e) = −1, because e⁻¹ = 1/e; the argument is positive, so it is defined.
+      - |
+        Correct. 10ˣ is positive for every real x, so no exponent produces −1.
+    answer: 3
+  - slug: alg2-u04-exam-q23
+    type: multiple_choice
+    topic_code: "4.12"
+    source: "IM Algebra 2, Unit 4, Lesson 12"
+    points: 1
+    prompt: |
+      Which statement about the number e is correct?
+    options:
+      - "e = 2.718 exactly, and it is the growth factor for 100% yearly interest compounded once."
+      - "e ≈ 2.71828 is the value approached by (1 + 1/n)ⁿ as n grows, and it is irrational."
+      - "e is the solution of 10ˣ = 2."
+      - "e is the largest growth factor an exponential function can have."
+    option_explanations:
+      - |
+        e is irrational, and 100% compounded once gives a factor of 2, not e.
+      - |
+        Correct. Compounding 100% growth n times per year approaches e, an irrational constant.
+      - |
+        10ˣ = 2 has solution log(2) ≈ 0.301, which has nothing to do with e.
+      - |
+        Growth factors can be any positive number; e is the factor for continuous 100% growth.
+    answer: 1
+  - slug: alg2-u04-exam-q24
+    type: multiple_choice
+    topic_code: "4.13"
+    source: "IM Algebra 2, Unit 4, Lesson 13"
+    points: 1
+    prompt: |
+      A quantity grows continuously at a 4% rate: Q(t) = Q₀e^(0.04t). What is the actual percent increase per unit of t?
+    options:
+      - "Exactly 4%"
+      - "About 4.08%"
+      - "About 0.04%"
+      - "About 1.04%"
+    option_explanations:
+      - |
+        Continuous compounding at 4% produces slightly more than 4% per unit.
+      - |
+        Correct. e^0.04 ≈ 1.0408, a 4.08% increase per unit.
+      - |
+        0.04 is the continuous rate as a decimal, which is 4%, not 0.04%.
+      - |
+        1.04 is roughly the factor, not the percent; the percent change is the factor minus 1.
+    answer: 1
+  - slug: alg2-u04-exam-q25
+    type: multiple_choice
+    topic_code: "4.14"
+    source: "IM Algebra 2, Unit 4, Lesson 14"
+    points: 1
+    prompt: |
+      Solve 10ˣ = 0.02.
+    options:
+      - "x = log(0.02) ≈ −1.70"
+      - "x = 0.02"
+      - "x = log(0.02) ≈ 1.70"
+      - "No solution, because 0.02 is less than 1"
+    option_explanations:
+      - |
+        Correct. 0.01 < 0.02 < 0.1 means −2 < x < −1, and log(0.02) ≈ −1.699.
+      - |
+        10^0.02 ≈ 1.047, not 0.02; the solution is the exponent, not the output.
+      - |
+        10^1.7 ≈ 50, not 0.02; an output below 1 needs a negative exponent.
+      - |
+        Every positive number is a power of 10; numbers below 1 simply need negative exponents.
+    answer: 0
+  - slug: alg2-u04-exam-q26
+    type: multiple_choice
+    topic_code: "4.14"
+    source: "IM Algebra 2, Unit 4, Lesson 14"
+    points: 1
+    prompt: |
+      Solve 3 · 2ᵗ = 96.
+    options:
+      - "t = log₂(96) ≈ 6.58"
+      - "t = 5"
+      - "t = log₆(96) ≈ 2.55"
+      - "t = 32"
+    option_explanations:
+      - |
+        The coefficient 3 must be divided away first: 2ᵗ = 32, not 96.
+      - |
+        Correct. Dividing by 3 gives 2ᵗ = 32 = 2⁵, so t = 5.
+      - |
+        3 · 2ᵗ is not 6ᵗ; only the 2 carries the exponent.
+      - |
+        32 is the value of 2ᵗ, not the exponent t.
+    answer: 1
+  - slug: alg2-u04-exam-q27
+    type: multiple_choice
+    topic_code: "4.15"
+    source: "IM Algebra 2, Unit 4, Lesson 15"
+    points: 1
+    prompt: |
+      A savings account grows 3% per year. How long does it take to double?
+    options:
+      - "About 33.3 years, since 100/3 ≈ 33.3"
+      - "About 23.4 years, since log₁.₀₃(2) ≈ 23.4"
+      - "About 66.7 years, since 2/0.03 ≈ 66.7"
+      - "About 2 years, since the balance is multiplied by 1.03 twice"
+    option_explanations:
+      - |
+        33.3 years assumes 3% of the original each year; compounding doubles the balance sooner.
+      - |
+        Correct. 1.03ᵗ = 2 gives t = log₁.₀₃(2) ≈ 23.45 years.
+      - |
+        Dividing 2 by the rate is not solving 1.03ᵗ = 2.
+      - |
+        1.03² ≈ 1.06, nowhere near doubling; two years adds only about 6%.
+    answer: 1
+  - slug: alg2-u04-exam-q28
+    type: multiple_choice
+    topic_code: "4.16"
+    source: "IM Algebra 2, Unit 4, Lesson 16"
+    points: 1
+    prompt: |
+      For which t is 500(1.2)ᵗ > 5000?
+    options:
+      - "t > log₁.₂(10) ≈ 12.6"
+      - "t < log₁.₂(10) ≈ 12.6"
+      - "t > 10"
+      - "t > log₁.₂(5000) ≈ 46.7"
+    option_explanations:
+      - |
+        Correct. 1.2ᵗ > 10, and since 1.2ᵗ increases, this holds for t > log₁.₂(10) ≈ 12.63.
+      - |
+        For t below 12.6 the value is still under 5000; the base exceeds 1, so the expression grows with t.
+      - |
+        10 is the required factor, not the time; 500(1.2)¹⁰ ≈ 3096 < 5000.
+      - |
+        Divide by 500 first: the power must exceed 10, not 5000.
+    answer: 0
+  - slug: alg2-u04-exam-q29
+    type: multiple_choice
+    topic_code: "4.17"
+    source: "IM Algebra 2, Unit 4, Lesson 17"
+    points: 1
+    prompt: |
+      Which three points lie on the graph of y = log₃(x)?
+    options:
+      - "(0, 1), (1, 3), (2, 9)"
+      - "(1, 0), (3, 1), (9, 2)"
+      - "(1, 0), (3, 1), (6, 2)"
+      - "(−1, 0), (3, 1), (9, 2)"
+    option_explanations:
+      - |
+        Those points lie on y = 3ˣ; the logarithm swaps the coordinates.
+      - |
+        Correct. 3⁰ = 1, 3¹ = 3, 3² = 9 give log₃(1) = 0, log₃(3) = 1, log₃(9) = 2.
+      - |
+        log₃(6) ≈ 1.63, not 2; the input with output 2 is 9.
+      - |
+        Negative inputs are outside the domain of a logarithm.
+    answer: 1
+  - slug: alg2-u04-exam-q30
+    type: multiple_choice
+    topic_code: "4.17"
+    source: "IM Algebra 2, Unit 4, Lesson 17"
+    points: 1
+    prompt: |
+      What are the domain and range of f(x) = ln(x)?
+    options:
+      - "Domain: all real numbers; range: y > 0"
+      - "Domain: x > 0; range: all real numbers"
+      - "Domain: x ≥ 0; range: y ≥ 0"
+      - "Domain: x > 1; range: y > 0"
+    option_explanations:
+      - |
+        Those are the domain and range of eˣ; the inverse swaps them.
+      - |
+        Correct. Only positive numbers have a natural logarithm, and every real number is the log of some positive number.
+      - |
+        ln(0) is undefined, and ln(x) is negative for 0 < x < 1.
+      - |
+        Inputs between 0 and 1 are allowed; they give negative outputs.
+    answer: 1
+  - slug: alg2-u04-exam-q31
+    type: multiple_choice
+    topic_code: "4.18"
+    source: "IM Algebra 2, Unit 4, Lesson 18"
+    points: 1
+    prompt: |
+      Sound level is L = 10 log(I/10⁻¹²) decibels. What is the level of a sound with intensity I = 10⁻⁸ W/m²?
+    options:
+      - "40 dB"
+      - "80 dB"
+      - "4 dB"
+      - "−80 dB"
+    option_explanations:
+      - |
+        Correct. I/10⁻¹² = 10⁴, log(10⁴) = 4, and 10 · 4 = 40 dB.
+      - |
+        80 would need I/10⁻¹² = 10⁸, that is I = 10⁻⁴.
+      - |
+        4 is the logarithm before multiplying by 10.
+      - |
+        The ratio 10⁻⁸/10⁻¹² = 10⁴ has a positive exponent, so the level is positive.
+    answer: 0
+  - slug: alg2-u04-exam-q32
+    type: multiple_choice
+    topic_code: "4.18"
+    source: "IM Algebra 2, Unit 4, Lesson 18"
+    points: 1
+    prompt: |
+      Each whole unit of earthquake magnitude corresponds to a factor of 10 in wave amplitude. How does a magnitude 7.5 earthquake compare with a magnitude 5.5 earthquake?
+    options:
+      - "Its amplitude is 2 times as large."
+      - "Its amplitude is 20 times as large."
+      - "Its amplitude is 100 times as large."
+      - "Its amplitude is 10^7.5 times as large."
+    option_explanations:
+      - |
+        A difference of 2 on a logarithmic scale is a factor of 10², not 2.
+      - |
+        20 multiplies the difference by 10 instead of raising 10 to the difference.
+      - |
+        Correct. The magnitudes differ by 2, so the amplitude ratio is 10² = 100.
+      - |
+        10^7.5 would compare with a magnitude 0 earthquake, not with magnitude 5.5.
+    answer: 2
+  - slug: alg2-u04-exam-q33
+    type: multi_select
+    topic_code: "4.4"
+    source: "IM Algebra 2, Unit 4, Lesson 4"
+    points: 2
+    partial_credit: true
+    prompt: |
+      An investment grows 8% per year. Which expressions equal its growth factor over 6 months? Select all that apply.
+    options:
+      - "1.08^(1/2)"
+      - "√1.08"
+      - "1.04"
+      - "1.08/2"
+      - "(1.08^(1/12))⁶"
+    option_explanations:
+      - |
+        Correct. Two half-year factors multiply to 1.08, so each is 1.08^(1/2) ≈ 1.0392.
+      - |
+        Correct. √1.08 is another way of writing 1.08^(1/2), about 1.0392.
+      - |
+        1.04² = 1.0816 ≠ 1.08; halving the percent ignores compounding.
+      - |
+        0.54 is below 1 and would mean the investment nearly halves in six months.
+      - |
+        Correct. Six monthly factors of 1.08^(1/12) multiply to 1.08^(6/12) = 1.08^(1/2).
+    answer: [0, 1, 4]
+  - slug: alg2-u04-exam-q34
+    type: multi_select
+    topic_code: "4.11"
+    source: "IM Algebra 2, Unit 4, Lesson 11"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which expressions equal −2? Select all that apply.
+    options:
+      - "log₃(1/9)"
+      - "log(0.01)"
+      - "log₂(1/4)"
+      - "log₂(−4)"
+      - "log₅(25)"
+    option_explanations:
+      - |
+        Correct. 3⁻² = 1/9, so the exponent on 3 that gives 1/9 is −2.
+      - |
+        Correct. 10⁻² = 0.01, so log(0.01) = −2.
+      - |
+        Correct. 2⁻² = 1/4, so the exponent on 2 that gives 1/4 is −2.
+      - |
+        log₂(−4) is undefined; no power of 2 is negative.
+      - |
+        log₅(25) = +2, since 5² = 25; the sign is wrong for this question.
+    answer: [0, 1, 2]
+  - slug: alg2-u04-exam-q35
+    type: multi_select
+    topic_code: "4.17"
+    source: "IM Algebra 2, Unit 4, Lesson 17"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about the graphs of y = 2ˣ and y = log₂(x) are true? Select all that apply.
+    options:
+      - "They are reflections of each other across the line y = x."
+      - "Both functions are increasing."
+      - "Both graphs have the asymptote y = 0."
+      - "(2, 4) is on y = 2ˣ and (4, 2) is on y = log₂(x)."
+      - "Both functions are defined for every real number x."
+    option_explanations:
+      - |
+        Correct. They are inverse functions, so their graphs are mirror images across y = x.
+      - |
+        Correct. A base greater than 1 makes both the exponential and the logarithm increase.
+      - |
+        y = 2ˣ has the horizontal asymptote y = 0, but y = log₂(x) has the vertical asymptote x = 0.
+      - |
+        Correct. 2² = 4 means log₂(4) = 2; the coordinates swap.
+      - |
+        log₂(x) is defined only for x > 0; the exponential is defined everywhere, the logarithm is not.
+    answer: [0, 1, 3]
+  - slug: alg2-u04-exam-q36
+    type: true_false
+    topic_code: "4.3"
+    source: "IM Algebra 2, Unit 4, Lesson 3"
+    points: 1
+    prompt: |
+      True or false: for a quantity that doubles every hour, the growth over half an hour is a factor of 1.5.
+    answer: false
+    explanation: |
+      False. Two half-hour factors must multiply to 2, so each is 2^(1/2) ≈ 1.414; 1.5 · 1.5 = 2.25 would overshoot.
+  - slug: alg2-u04-exam-q37
+    type: true_false
+    topic_code: "4.15"
+    source: "IM Algebra 2, Unit 4, Lesson 15"
+    points: 1
+    prompt: |
+      True or false: the half-life of an exponentially decaying quantity depends on how much of it there is at the start.
+    answer: false
+    explanation: |
+      False. Halving means a · bᵗ = a/2, and a cancels, leaving bᵗ = 1/2; the half-life depends only on the decay factor b.
+  - slug: alg2-u04-exam-q38
+    type: fill_blank
+    topic_code: "4.11"
+    source: "IM Algebra 2, Unit 4, Lesson 11"
+    points: 1
+    prompt: |
+      Evaluate: log₅(125) = ____
+    answer: ["3"]
+    explanation: |
+      5³ = 125, so the logarithm is 3.
+  - slug: alg2-u04-exam-q39
+    type: fill_blank
+    topic_code: "4.1"
+    source: "IM Algebra 2, Unit 4, Lesson 1"
+    points: 1
+    prompt: |
+      A decay factor of 0.35 per unit means a decrease of ____ percent per unit.
+    answer: ["65", "65%"]
+    explanation: |
+      1 − 0.35 = 0.65, so 65% is lost each unit and 35% remains.
+  - slug: alg2-u04-exam-q40
+    type: numeric
+    topic_code: "4.14"
+    source: "IM Algebra 2, Unit 4, Lesson 14"
+    points: 1
+    prompt: |
+      Solve 1.06ᵗ = 2. Give t to two decimal places.
+    answer: { value: 11.9, tolerance: 0.02 }
+    explanation: |
+      t = log₁.₀₆(2) ≈ 11.90 years, the doubling time at 6% growth. Bracket: 1.06¹¹ ≈ 1.90 and 1.06¹² ≈ 2.01.
+  - slug: alg2-u04-exam-q41
+    type: numeric
+    topic_code: "4.13"
+    source: "IM Algebra 2, Unit 4, Lesson 13"
+    points: 1
+    prompt: |
+      M(t) = 200e^(−0.3t). Find M(4) to the nearest hundredth.
+    answer: { value: 60.24, tolerance: 0.05 }
+    explanation: |
+      M(4) = 200e^(−1.2) ≈ 200 · 0.30119 ≈ 60.24.
+  - slug: alg2-u04-exam-q42
+    type: numeric
+    topic_code: "4.6"
+    source: "IM Algebra 2, Unit 4, Lesson 6"
+    points: 1
+    prompt: |
+      An exponential function passes through (2, 18) and (4, 162). Find its value at x = 0.
+    answer: { value: 2, tolerance: 0 }
+    explanation: |
+      b² = 162/18 = 9 so b = 3; then a · 3² = 18 gives a = 2, so f(0) = 2.
+  - slug: alg2-u04-exam-q43
+    type: numeric
+    topic_code: "4.18"
+    source: "IM Algebra 2, Unit 4, Lesson 18"
+    points: 1
+    prompt: |
+      Using L = 10 log(I/10⁻¹²), how many times more intense is a 95 dB sound than a 65 dB sound?
+    answer: { value: 1000, tolerance: 0 }
+    explanation: |
+      The difference is 30 dB, three factors of 10, so the intensity ratio is 10³ = 1000.
+  - slug: alg2-u04-exam-q44
+    type: short_answer
+    topic_code: "4.16"
+    source: "IM Algebra 2, Unit 4, Lesson 16"
+    points: 3
+    prompt: |
+      A sample measures 64 units at t = 0 and 8 units at t = 3 hours.
+      (a) Write an exponential model for the sample and state its hourly decay factor.
+      (b) Find when the sample reaches 1 unit, showing the equation you solve.
+      (c) Explain how a graph could be used to check your answer to (b).
+    answer: |
+      (a) b³ = 8/64 = 1/8, so b = 1/2: N(t) = 64(1/2)ᵗ, a 50% loss per hour.
+      (b) 64(1/2)ᵗ = 1 gives (1/2)ᵗ = 1/64 = (1/2)⁶, so t = 6 hours.
+      (c) Graph y = 64(1/2)ᵗ and y = 1; the curves intersect at t = 6, where the model's value equals 1.
+    explanation: |
+      Three points, one per part. (a) the model with b = 1/2. (b) t = 6 from (1/2)ᵗ = 1/64. (c) intersection of the model with the horizontal line y = 1.
+  - slug: alg2-u04-exam-q45
+    type: short_answer
+    topic_code: "4.11"
+    source: "IM Algebra 2, Unit 4, Lesson 11"
+    points: 3
+    prompt: |
+      (a) Evaluate log₈(4) exactly and explain your reasoning.
+      (b) Solve 8ˣ = 100, giving the exact answer and a decimal to three places, and check it against a bracket.
+      (c) Explain the difference between log(x) and ln(x), and give the value of each at x = 100 to two decimal places.
+    answer: |
+      (a) 8 = 2³ and 4 = 2², so 8^(2/3) = 4 and log₈(4) = 2/3.
+      (b) x = log₈(100) ≈ 2.215. Bracket: 8² = 64 < 100 < 512 = 8³, so 2 < x < 3.
+      (c) log(x) is the exponent on 10 that gives x; ln(x) is the exponent on e. log(100) = 2 exactly; ln(100) ≈ 4.61.
+    explanation: |
+      Three points, one per part. (a) 2/3 with the common-base reasoning. (b) log₈(100) ≈ 2.215 with the bracket. (c) base 10 versus base e, with 2 and ≈ 4.61.
+  - slug: alg2-u04-exam-q46
+    type: long_answer
+    topic_code: "4.15"
+    source: "IM Algebra 2, Unit 4, Lesson 15"
+    points: 6
+    prompt: |
+      $2000 is invested. Write a full response that (1) finds the value after 6 years if the investment grows 5% per year, compounded yearly, (2) finds the doubling time under that yearly growth using a logarithm, (3) finds the value after 6 years and the doubling time if instead the investment grows continuously at a 5% rate, and (4) explains why the continuous results are slightly larger and states the actual yearly percent growth of the continuous model.
+    answer: |
+      (1) A(6) = 2000(1.05)⁶ ≈ 2000 · 1.3401 ≈ 2680.19.
+      (2) 1.05ᵗ = 2 gives t = log₁.₀₅(2) ≈ 14.21 years.
+      (3) B(6) = 2000e^(0.05 · 6) = 2000e^0.3 ≈ 2000 · 1.3499 ≈ 2699.72. Doubling: e^(0.05t) = 2, t = ln(2)/0.05 ≈ 13.86 years.
+      (4) Continuous compounding adds interest at every instant, so interest earned early in a year earns more interest before the year ends; the yearly factor is e^0.05 ≈ 1.0513, an actual growth of about 5.13% per year rather than 5%, which makes the balance higher and the doubling time shorter.
+    explanation: |
+      Six points: 1 for 2680.19; 1 for 14.21 years from 1.05ᵗ = 2; 2 for 2699.72 and 13.86 years; 2 for the compounding-within-the-year explanation and the 5.13% figure.

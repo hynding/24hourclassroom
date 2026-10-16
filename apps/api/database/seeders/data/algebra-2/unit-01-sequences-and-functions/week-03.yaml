@@ -1,0 +1,569 @@
+week: 3
+unit: 1
+title: "Modelling with Sequences and Adding Up Terms"
+topics: ["1.9", "1.10", "1.11"]
+guide: guides/week-03.md
+guide_description: |
+  Writing an equation for a sequence from any representation, with a deliberate choice of domain; deciding
+  whether a real situation is arithmetic (a fixed amount added each step), geometric (multiplied by a fixed
+  factor) or neither, and judging how long a model stays sensible; and adding up the first n terms, including
+  the pairing argument behind S(n) = n(a(1) + a(n))/2 and patterns in geometric partial sums. Worked examples:
+  two depreciation models for a phone, a theatre's total seating, and a bouncing ball's total distance.
+flashcards_description: |
+  27 cards on writing sequence equations, matching situations to sequence types, limits of models, and partial
+  sums of arithmetic and geometric sequences.
+
+flashcards:
+  - front: Writing the equation of a sequence → the four moves
+    back: |
+      Identify the type (constant difference or constant ratio), choose the domain (first value at n = 0 or n = 1), fill in the matching formula, and check it against at least two known values including the first.
+    topic_code: "1.9"
+  - front: Equation from a graph through (0, 24), (1, 36), (2, 54), (3, 81) → write it
+    back: |
+      Ratios are all 1.5 and the first point is at n = 0, so a(n) = 24 · 1.5ⁿ. Check: a(3) = 24 · 3.375 = 81.
+    topic_code: "1.9"
+  - front: Equation from the recursive rule c(1) = 100, c(n) = c(n − 1) − 12 → write it
+    back: |
+      Arithmetic with d = −12 and first term at n = 1: c(n) = 100 − 12(n − 1). So c(12) = 100 − 132 = −32.
+    topic_code: "1.9"
+  - front: Plant 8 cm tall growing 2.5 cm a week → equation for height
+    back: |
+      Equal amounts added each week, so arithmetic, with the purchase height as the natural start: h(0) = 8 and h(n) = 8 + 2.5n.
+    topic_code: "1.9"
+  - front: Tank of 500 litres losing 8% a day → equation for the water left
+    back: |
+      Losing 8% means keeping 92%, a fixed factor each day: w(n) = 500 · 0.92ⁿ with n = 0 at the start.
+    topic_code: "1.9"
+  - front: Checking a sequence equation → what to test
+    back: |
+      Substitute the first index to be sure the formula returns the first term, then test a second known value. A formula with the wrong exponent (n instead of n − 1) fails the first test.
+    topic_code: "1.9"
+  - front: Situation gives an arithmetic sequence → the tell-tale sign
+    back: |
+      The same amount is added or removed each step: a fixed deposit every month, one more row of seats, three fewer tickets each day.
+    topic_code: "1.10"
+  - front: Situation gives a geometric sequence → the tell-tale sign
+    back: |
+      The quantity is multiplied by the same factor each step: 5% interest (× 1.05), a half-life (× 0.5), 20% fewer each round (× 0.8).
+    topic_code: "1.10"
+  - front: '"Loses 8% each day" versus "loses 8 litres each day" → which type is each'
+    back: |
+      8% each day is multiplicative (× 0.92), so geometric. 8 litres each day is additive (− 8), so arithmetic. Percent changes always multiply.
+    topic_code: "1.10"
+  - front: Triangular numbers 1, 3, 6, 10 → why neither type
+    back: |
+      Differences 2, 3, 4 are not constant and ratios 3, 2, 1.67 are not constant. The step itself grows by one each time, so the sequence is neither arithmetic nor geometric.
+    topic_code: "1.10"
+  - front: Phone worth $900 losing $150 a year versus losing 25% a year → compare after 6 years
+    back: |
+      Arithmetic model: 900 − 150·6 = 0. Geometric model: 900 · 0.75⁶ ≈ $160. The arithmetic model goes negative after year 6, which makes no sense for a price; the geometric model stays positive.
+    topic_code: "1.10"
+  - front: Judging when a sequence model stops making sense → what to ask
+    back: |
+      For what range of n are the predictions believable? An arithmetic model that goes negative or a geometric population model that predicts millions of rabbits has left its useful range.
+    topic_code: "1.10"
+  - front: Gym with $50 joining fee and $30 a month → total paid after n months
+    back: |
+      Arithmetic: t(n) = 50 + 30n with t(0) = 50 at joining. After 12 months, t(12) = $410.
+    topic_code: "1.10"
+  - front: Partial sum S(n) → definition
+    back: |
+      The sum of the first n terms: S(n) = a(1) + a(2) + … + a(n). For 1, 3, 7, 15, 31 the partial sums are 1, 4, 11, 26, 57.
+    topic_code: "1.11"
+  - front: Running total in a spreadsheet → how to compute partial sums
+    back: |
+      Beside the terms column put a totals column whose first cell equals the first term and whose later cells add the term on that row to the total above: `=C2+B3`, filled down.
+    topic_code: "1.11"
+  - front: Gauss pairing for an arithmetic sum → the idea
+    back: |
+      Write the sum forwards and backwards and add the two rows: every column adds to a(1) + a(n). There are n columns, and the double row is twice the sum, so S(n) = n(a(1) + a(n))/2.
+    topic_code: "1.11"
+  - front: Sum of the first n terms of an arithmetic sequence → formula
+    back: |
+      S(n) = n · (a(1) + a(n)) / 2: the number of terms times the average of the first and last terms. Works only for arithmetic sequences.
+    topic_code: "1.11"
+  - front: 7 + 11 + 15 + … + 43 → compute the sum
+    back: |
+      Ten terms (7 + 4(n − 1) = 43 gives n = 10). S = 10 · (7 + 43)/2 = 250.
+    topic_code: "1.11"
+  - front: 2 + 5 + 8 + … + 152 → how many terms and the sum
+    back: |
+      2 + 3(n − 1) = 152 gives n = 51 terms. S = 51 · (2 + 152)/2 = 51 · 77 = 3927.
+    topic_code: "1.11"
+  - front: Theatre with rows of 18, 22, 26, … and 20 rows → total seats
+    back: |
+      a(20) = 18 + 4 · 19 = 94. S(20) = 20 · (18 + 94)/2 = 1120 seats.
+    topic_code: "1.11"
+  - front: Partial sums of 1 + 2 + 4 + 8 + … → pattern
+    back: |
+      1, 3, 7, 15, 31, …: each is one less than the next power of 2, so the sum of the first n terms is 2ⁿ − 1.
+    topic_code: "1.11"
+  - front: Partial sums of 3 + 6 + 12 + 24 + … → pattern
+    back: |
+      3, 9, 21, 45, …, which is 3 times (2ⁿ − 1). Factoring out the first term reduces it to the powers-of-2 pattern.
+    topic_code: "1.11"
+  - front: Why n(a(1) + a(n))/2 fails for geometric sequences → reason
+    back: |
+      The pairing trick needs equal gaps so that every pair adds to the same total. In a geometric sequence the gaps change by a factor each step, so the pairs do not match. List the terms or use a pattern instead.
+    topic_code: "1.11"
+  - front: Ball dropped from 2 m, each bounce half as high → distance by the fourth floor hit
+    back: |
+      Down 2, then up and down 1, up and down 0.5, up and down 0.25: total 2 + 2(1 + 0.5 + 0.25) = 5.5 m. Every bounce after the drop counts twice.
+    topic_code: "1.11"
+  - front: Partial sums of 80, 40, 20, … → why they approach 160
+    back: |
+      S(1) = 80, S(2) = 120, S(3) = 140, S(4) = 150, S(5) = 155. Each sum closes half the remaining gap to 160, so the sums get ever closer to 160 without passing it.
+    topic_code: "1.11"
+  - front: Error-spot → "the sum of 5, 9, 13, …, 121 is 30 · 121/2"
+    back: |
+      The formula uses the average of the first and last terms, not just the last: S = 30 · (5 + 121)/2 = 1890. Forgetting a(1) is a common slip.
+    topic_code: "1.11"
+  - front: Counting the terms before summing → the step people skip
+    back: |
+      Solve a(n) = last term for n first. For 100 + 95 + … + 5: 100 − 5(n − 1) = 5 gives n = 20, and then S = 20 · (100 + 5)/2 = 1050.
+    topic_code: "1.11"
+
+quiz:
+  description: |
+    22 questions · about 35 minutes · mostly on this week (lessons 1.9 to 1.11: writing sequence equations,
+    matching situations to sequence types, and partial sums), with about a third reviewing weeks 1 and 2
+    (classifying sequences, recursive rules and nth-term formulas). Multiple choice, select-all, true/false and
+    numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and
+    the long answer are graded by your teacher against the scoring notes.
+  questions:
+    - slug: alg2-u01-w03-q01
+      type: multiple_choice
+      topic_code: "1.10"
+      source: "IM Algebra 2, Unit 1, Lesson 10"
+      points: 1
+      prompt: |
+        Which situation is best modelled by a geometric sequence?
+      options:
+        - "A swimming pool loses 300 litres of water to evaporation each day."
+        - "A savings account earns 4% interest on its balance each year."
+        - "A stadium adds 2 extra seats to each row compared with the row in front."
+        - "A runner adds 1 km to her weekly distance every week."
+      option_explanations:
+        - |
+          The same 300 litres is subtracted each day, so the volumes form an arithmetic sequence.
+        - |
+          Correct. Earning 4% means the balance is multiplied by 1.04 each year, a constant factor.
+        - |
+          Two seats are added per row, a constant difference, so the row sizes are arithmetic.
+        - |
+          Adding the same 1 km each week is a constant difference, so the distances are arithmetic.
+      answer: 1
+    - slug: alg2-u01-w03-q02
+      type: multiple_choice
+      topic_code: "1.9"
+      source: "IM Algebra 2, Unit 1, Lesson 9"
+      points: 1
+      prompt: |
+        A table shows n = 0 → 40, n = 1 → 34, n = 2 → 28, n = 3 → 22. Which equation fits?
+      options:
+        - "a(n) = 40 − 6(n − 1)"
+        - "a(n) = 40 − 6n"
+        - "a(n) = 40 · 0.85ⁿ"
+        - "a(n) = 34 − 6n"
+      option_explanations:
+        - |
+          This gives a(0) = 46, not 40. Because the first value is at n = 0, the multiplier on d should be n, not n − 1.
+        - |
+          Correct. The differences are all −6 and the first value 40 sits at n = 0, so a(n) = 40 − 6n. Check: a(3) = 22.
+        - |
+          The ratios 34/40 = 0.85 and 28/34 ≈ 0.82 are not constant; the sequence is arithmetic, not geometric.
+        - |
+          This gives a(0) = 34, but the table shows 40 at n = 0.
+      answer: 1
+    - slug: alg2-u01-w03-q03
+      type: multiple_choice
+      topic_code: "1.11"
+      source: "IM Algebra 2, Unit 1, Lesson 11"
+      points: 1
+      prompt: |
+        What is the sum of the first 40 terms of the arithmetic sequence 3, 7, 11, 15, …?
+      options:
+        - "159"
+        - "3240"
+        - "3280"
+        - "6480"
+      option_explanations:
+        - |
+          159 is the 40th term (3 + 4·39), not the sum of the first 40 terms.
+        - |
+          Correct. a(40) = 3 + 39·4 = 159, so S(40) = 40 · (3 + 159)/2 = 40 · 81 = 3240.
+        - |
+          3280 comes from using 160 as the last term; the 40th term is 159.
+        - |
+          6480 is 40 · (3 + 159) without the division by 2 that undoes the double counting in the pairing argument.
+      answer: 1
+    - slug: alg2-u01-w03-q04
+      type: multiple_choice
+      topic_code: "1.10"
+      source: "IM Algebra 2, Unit 1, Lesson 10"
+      points: 1
+      prompt: |
+        A town's population is 20,000 and is modelled by p(n) = 20000 · 1.02ⁿ, where n is years from now. Which statement about the model is most reasonable?
+      options:
+        - "The population grows by exactly 400 people every year."
+        - "The population grows by 2% of the current population each year, so the yearly increase itself grows."
+        - "The model predicts the population will reach zero after 50 years."
+        - "The model is arithmetic because 1.02 is close to 1."
+      option_explanations:
+        - |
+          The first year adds 400, but the second adds 2% of 20,400 = 408. The increase is not constant.
+        - |
+          Correct. Multiplying by 1.02 each year is 2% growth of whatever the population is, so the yearly increases form a growing sequence too.
+        - |
+          A ratio greater than 1 makes the terms grow without bound; nothing in the model reaches zero.
+        - |
+          A constant multiplier makes the model geometric no matter how close the multiplier is to 1.
+      answer: 1
+    - slug: alg2-u01-w03-q05
+      type: multiple_choice
+      topic_code: "1.11"
+      source: "general knowledge"
+      points: 1
+      prompt: |
+        How many terms are in the sum 11 + 18 + 25 + … + 193, and what is the sum?
+      options:
+        - "26 terms; sum 2652"
+        - "27 terms; sum 2754"
+        - "27 terms; sum 5508"
+        - "182 terms; sum 18,564"
+      option_explanations:
+        - |
+          11 + 7(n − 1) = 193 gives n − 1 = 26, so there are 27 terms, not 26.
+        - |
+          Correct. 7(n − 1) = 182 gives n = 27, and S = 27 · (11 + 193)/2 = 27 · 102 = 2754.
+        - |
+          The term count is right, but 5508 is 27 · 204 without dividing by 2.
+        - |
+          182 is the difference 193 − 11, not the number of terms; dividing by the step 7 and adding 1 gives 27.
+      answer: 1
+    - slug: alg2-u01-w03-q06
+      type: multiple_choice
+      topic_code: "1.9"
+      source: "IM Algebra 2, Unit 1, Lesson 9"
+      points: 1
+      prompt: |
+        A culture starts with 300 cells and the number of cells triples every day. Which equation gives the number of cells c(n) after n days?
+      options:
+        - "c(n) = 300 + 3n"
+        - "c(n) = 300 · 3ⁿ⁻¹"
+        - "c(n) = 300 · 3ⁿ"
+        - "c(n) = 3 · 300ⁿ"
+      option_explanations:
+        - |
+          Adding 3 cells a day is not tripling; tripling multiplies by 3.
+        - |
+          This gives c(0) = 100, but the starting count at n = 0 is 300. With a start at day 0 the exponent is n.
+        - |
+          Correct. c(0) = 300 and each day multiplies by 3, so c(n) = 300 · 3ⁿ; after 2 days there are 2700 cells.
+        - |
+          The base and the starting value are swapped; 300ⁿ would be an absurd growth rate.
+      answer: 2
+    - slug: alg2-u01-w03-q07
+      type: multiple_choice
+      topic_code: "1.11"
+      source: "IM Algebra 2, Unit 1, Lesson 11"
+      points: 1
+      prompt: |
+        What is the sum of the first seven terms of the geometric sequence 1, 2, 4, 8, …?
+      options:
+        - "64"
+        - "127"
+        - "128"
+        - "255"
+      option_explanations:
+        - |
+          64 is the seventh term (2⁶), not the sum of the first seven terms.
+        - |
+          Correct. 1 + 2 + 4 + 8 + 16 + 32 + 64 = 127, which is 2⁷ − 1, matching the pattern that the partial sums are one less than the next power of 2.
+        - |
+          128 is 2⁷; the sum of the first seven terms is one less than that.
+        - |
+          255 is 2⁸ − 1, the sum of the first eight terms.
+      answer: 1
+    - slug: alg2-u01-w03-q08
+      type: multiple_choice
+      topic_code: "1.8"
+      source: "IM Algebra 2, Unit 1, Lesson 8"
+      points: 1
+      prompt: |
+        Which term of the geometric sequence a(n) = 4 · 3ⁿ⁻¹ equals 2916?
+      options:
+        - "n = 6"
+        - "n = 7"
+        - "n = 8"
+        - "n = 729"
+      option_explanations:
+        - |
+          a(6) = 4 · 3⁵ = 972, which is a third of 2916.
+        - |
+          Correct. 4 · 3ⁿ⁻¹ = 2916 gives 3ⁿ⁻¹ = 729 = 3⁶, so n − 1 = 6 and n = 7.
+        - |
+          a(8) = 4 · 3⁷ = 8748, three times too large.
+        - |
+          729 is 3ⁿ⁻¹, not the term number; it still needs to be recognised as 3⁶.
+      answer: 1
+    - slug: alg2-u01-w03-q09
+      type: multiple_choice
+      topic_code: "1.3"
+      source: "IM Algebra 2, Unit 1, Lesson 3"
+      points: 1
+      prompt: |
+        Which sequence is neither arithmetic nor geometric?
+      options:
+        - "0.5, 1.5, 4.5, 13.5"
+        - "0.5, 1.5, 2.5, 3.5"
+        - "0.5, 1.5, 3.5, 7.5"
+        - "0.5, 0.5, 0.5, 0.5"
+      option_explanations:
+        - |
+          Every ratio is 3, so this sequence is geometric.
+        - |
+          Every difference is 1, so this sequence is arithmetic.
+        - |
+          Correct. Differences 1, 2, 4 are not constant and ratios 3, 2.33, 2.14 are not constant, so it is neither.
+        - |
+          A constant sequence is both arithmetic (d = 0) and geometric (r = 1).
+      answer: 2
+    - slug: alg2-u01-w03-q10
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "IM Algebra 2, Unit 1, Lesson 5"
+      points: 1
+      prompt: |
+        A sequence h gives the height of a stack of n identical boxes, each 30 cm tall, for n = 1, 2, 3, … Which statement is true?
+      options:
+        - "h(2.5) = 75 is a valid value of the sequence."
+        - "The domain of h is the positive integers, and h(n) = 30n."
+        - "The graph of h is a solid line through the origin."
+        - "h is geometric with common ratio 30."
+      option_explanations:
+        - |
+          There is no stack of two and a half boxes; the sequence has no value at n = 2.5.
+        - |
+          Correct. The inputs are the counts 1, 2, 3, … and each box adds 30 cm, so h(n) = 30n, an arithmetic sequence.
+        - |
+          The points lie on that line, but the graph of a sequence is only the separate points at whole-number inputs.
+        - |
+          Each box adds 30 cm; it does not multiply the height by 30. The common difference is 30.
+      answer: 1
+    - slug: alg2-u01-w03-q11
+      type: multi_select
+      topic_code: "1.10"
+      source: "IM Algebra 2, Unit 1, Lesson 10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which of the following situations produce arithmetic sequences? Select all that apply.
+      options:
+        - "The number of tiles in each successive row of a floor, when each row has 3 more tiles than the last"
+        - "The height of a bouncing ball on each bounce, when each bounce reaches 70% of the previous height"
+        - "The amount owed on a loan that is paid off at a fixed $200 a month with no interest"
+        - "The number of people who have heard a story, when each day the number doubles"
+        - "The temperature of a room that drops 1.5 degrees every hour"
+      option_explanations:
+        - |
+          Correct. Adding 3 tiles per row is a constant difference.
+        - |
+          Reaching 70% of the previous height multiplies by 0.7 each bounce, so the heights are geometric.
+        - |
+          Correct. Subtracting the same $200 each month is a constant difference of −200.
+        - |
+          Doubling multiplies by 2 each day, so the counts form a geometric sequence.
+        - |
+          Correct. A constant drop of 1.5 degrees per hour is a common difference of −1.5.
+      answer: [0, 2, 4]
+    - slug: alg2-u01-w03-q12
+      type: multi_select
+      topic_code: "1.11"
+      source: "IM Algebra 2, Unit 1, Lesson 11"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Consider the arithmetic sequence 6, 10, 14, 18, …, 102. Which statements are true? Select all that apply.
+      options:
+        - "The sequence has 25 terms."
+        - "The sum of all its terms is 1350."
+        - "Pairing the first and last, second and second-last, and so on gives pairs that each add to 108."
+        - "The sum of the first 10 terms is 240."
+        - "The average of all the terms is 54."
+      option_explanations:
+        - |
+          Correct. 6 + 4(n − 1) = 102 gives n − 1 = 24, so n = 25.
+        - |
+          Correct. S(25) = 25 · (6 + 102)/2 = 25 · 54 = 1350.
+        - |
+          Correct. 6 + 102 = 10 + 98 = 14 + 94 = 108, which is the pairing idea behind the sum formula.
+        - |
+          a(10) = 6 + 4·9 = 42, so S(10) = 10 · (6 + 42)/2 = 240. This is true.
+        - |
+          Correct. The average of an arithmetic sequence is the average of its first and last terms, (6 + 102)/2 = 54, which is also 1350/25.
+      answer: [0, 1, 2, 3, 4]
+    - slug: alg2-u01-w03-q13
+      type: true_false
+      topic_code: "1.10"
+      source: "IM Algebra 2, Unit 1, Lesson 10"
+      points: 1
+      prompt: |
+        True or false: A car's value modelled by v(n) = 18000 − 2500n, with n in years, gives sensible predictions for every whole number n.
+      answer: false
+      explanation: |
+        False. v(7) = 500 and v(8) = −2000, so the model predicts a negative value from year 8 on. An arithmetic depreciation model only makes sense while its values stay positive; a geometric model (multiplying by a factor below 1 each year) avoids this problem.
+    - slug: alg2-u01-w03-q14
+      type: true_false
+      topic_code: "1.11"
+      source: "IM Algebra 2, Unit 1, Lesson 11"
+      points: 1
+      prompt: |
+        True or false: The formula S(n) = n(a(1) + a(n))/2 gives the sum of the first n terms of any sequence, arithmetic or geometric.
+      answer: false
+      explanation: |
+        False. The pairing argument behind the formula needs equal gaps between consecutive terms so that every pair adds to the same total, which is only true for arithmetic sequences. For 1, 2, 4, 8 the formula would give 4 · 9/2 = 18, but the real sum is 15.
+    - slug: alg2-u01-w03-q15
+      type: fill_blank
+      topic_code: "1.9"
+      source: "IM Algebra 2, Unit 1, Lesson 9"
+      points: 1
+      prompt: |
+        A sequence has the recursive definition g(0) = 7, g(n) = 4 · g(n − 1). Its explicit equation, with the domain starting at 0, is g(n) = ____.
+      answer: ["7 · 4ⁿ", "7·4ⁿ", "7 * 4^n", "7*4^n", "7(4)^n", "7(4^n)", "7 · 4^n", "7·4^n"]
+      explanation: |
+        Geometric with first term 7 at n = 0 and ratio 4, so g(n) = 7 · 4ⁿ. With the domain starting at 0 the exponent is n, not n − 1; check g(0) = 7 · 1 = 7.
+    - slug: alg2-u01-w03-q16
+      type: fill_blank
+      topic_code: "1.11"
+      source: "general knowledge"
+      points: 1
+      prompt: |
+        The sum of the whole numbers from 1 to 100 is ____.
+      answer: ["5050", "5,050"]
+      explanation: |
+        This is an arithmetic sequence with 100 terms, first term 1 and last term 100, so S = 100 · (1 + 100)/2 = 5050. The pairing 1 + 100, 2 + 99, … gives fifty pairs of 101.
+    - slug: alg2-u01-w03-q17
+      type: numeric
+      topic_code: "1.11"
+      source: "IM Algebra 2, Unit 1, Lesson 11"
+      points: 1
+      prompt: |
+        A ball is dropped from 3 m and each bounce rises to 60% of the previous height. How far has the ball travelled, in metres, when it hits the floor for the third time? Give your answer to two decimal places.
+      answer: { value: 8.76, tolerance: 0.01 }
+      explanation: |
+        Down 3 m, then up and down 1.8 m, then up and down 1.08 m: 3 + 2(1.8) + 2(1.08) = 3 + 3.6 + 2.16 = 8.76 m.
+    - slug: alg2-u01-w03-q18
+      type: numeric
+      topic_code: "1.10"
+      source: "IM Algebra 2, Unit 1, Lesson 10"
+      points: 1
+      prompt: |
+        A medication dose of 250 mg is taken, and the amount in the body falls by 30% every 4 hours. How many milligrams remain after 12 hours? Give your answer to one decimal place.
+      answer: { value: 85.75, tolerance: 0.1 }
+      explanation: |
+        Twelve hours is three 4-hour periods, and each multiplies the amount by 0.7: 250 · 0.7³ = 250 · 0.343 = 85.75 mg, about 85.8 mg.
+    - slug: alg2-u01-w03-q19
+      type: numeric
+      topic_code: "1.2"
+      source: "IM Algebra 2, Unit 1, Lesson 2"
+      points: 1
+      prompt: |
+        A geometric sequence has a(2) = 36 and a(3) = 12. What is a(1)? Give the exact value.
+      answer: { value: 108, tolerance: 0 }
+      explanation: |
+        r = 12/36 = 1/3. Working one step backwards from a(2): a(1) = 36 ÷ (1/3) = 108.
+    - slug: alg2-u01-w03-q20
+      type: short_answer
+      topic_code: "1.10"
+      source: "IM Algebra 2, Unit 1, Lesson 10"
+      points: 3
+      prompt: |
+        A pond is stocked with 120 fish. Two models are proposed for the number of fish after n years: Model A adds 36 fish per year; Model B multiplies the population by 1.25 each year.
+
+        (a) Write an equation for each model, with n = 0 as the stocking year.
+        (b) Which model predicts more fish after 2 years? After 10 years? Show the values.
+        (c) Give one reason neither model can be trusted for very large n.
+      answer: |
+        (a) A(n) = 120 + 36n; B(n) = 120 · 1.25ⁿ.
+        (b) After 2 years: A(2) = 192, B(2) = 187.5, so Model A predicts more. After 10 years: A(10) = 480, B(10) = 120 · 9.31 ≈ 1118, so Model B predicts far more.
+        (c) Both grow without limit, but a pond has limited food, oxygen and space, so the population must level off; also a real count must be a whole number and depends on breeding seasons, fishing and predators, none of which the models include.
+      explanation: |
+        Three points, one per part. (a) needs both equations with the correct form (n, not n − 1, since n = 0 is the start). (b) needs the four values (accept B(10) between 1117 and 1119) and the two comparisons. (c) any sound limitation (carrying capacity, resources, unmodelled events) earns the point.
+    - slug: alg2-u01-w03-q21
+      type: short_answer
+      topic_code: "1.11"
+      source: "IM Algebra 2, Unit 1, Lesson 11"
+      points: 3
+      prompt: |
+        A stack of logs has 24 logs in the bottom row, and each row above has 2 fewer logs than the row below. The top row has 2 logs.
+
+        (a) How many rows are in the stack? Show the equation you solve.
+        (b) Use the pairing idea (first + last, second + second-last, …) to find the total number of logs, and explain why the pairs all add to the same number.
+        (c) Check your total using S(n) = n(a(1) + a(n))/2.
+      answer: |
+        (a) 24 − 2(n − 1) = 2 gives 2(n − 1) = 22, so n = 12 rows.
+        (b) Pairs: 24 + 2, 22 + 4, 20 + 6, …, each adds to 26 because one term goes down by 2 while its partner goes up by 2. Twelve terms make 6 pairs, so the total is 6 · 26 = 156 logs.
+        (c) S(12) = 12 · (24 + 2)/2 = 12 · 13 = 156. The two methods agree.
+      explanation: |
+        Three points, one per part. (a) must show the equation and get 12. (b) must give 156 with the explanation that the pairs are constant because the gaps are equal. (c) must show the formula with n = 12, a(1) = 24, a(12) = 2.
+    - slug: alg2-u01-w03-q22
+      type: long_answer
+      topic_code: "1.9"
+      source: "IM Algebra 2, Unit 1, Lesson 9"
+      points: 6
+      prompt: |
+        A student saves for a bicycle. She starts with $60 and on each later Saturday she deposits $15 more than she deposited the Saturday before: $20 on the first Saturday, $35 on the second, $50 on the third, and so on.
+
+        Write a full response that (1) explains what type of sequence the weekly deposits form and writes an explicit equation for the deposit d(n) on Saturday n, (2) finds the deposit on Saturday 8, (3) finds the total amount in the fund (including the original $60) after 8 Saturdays, showing the sum method, and (4) determines the first Saturday on which the fund reaches at least $700, explaining how you found it.
+      answer: |
+        (1) Each deposit is $15 more than the previous one, a constant difference, so the deposits are arithmetic with d(1) = 20 and d = 15: d(n) = 20 + 15(n − 1), or 15n + 5.
+        (2) d(8) = 20 + 15·7 = $125.
+        (3) Sum of the 8 deposits: S(8) = 8 · (20 + 125)/2 = 8 · 72.5 = $580. Adding the original $60 gives $640.
+        (4) The fund after n Saturdays is 60 + n(20 + 15n + 5)/2 = 60 + n(15n + 25)/2. After 8 it is $640; after 9: S(9) = 9 · (20 + 140)/2 = 720, so the fund is $780. Since $640 < $700 ≤ $780, the fund first reaches $700 on Saturday 9. (A table of running totals gives the same answer.)
+      explanation: |
+        Six points: 1 for identifying arithmetic with a reason; 1 for a correct equation for d(n); 1 for d(8) = 125; 2 for the total $640 with the sum formula or an explicit listing shown (1 if the $60 is forgotten but the sum 580 is right); 1 for Saturday 9 with the comparison of the totals after 8 and 9 Saturdays.
+    - slug: alg2-u01-w03-q23
+      type: multiple_choice
+      topic_code: "1.4"
+      source: "IM Algebra 2, Unit 1, Lesson 4"
+      points: 1
+      prompt: |
+        A spreadsheet has 1 in cell A2 and 50 in cell B2. Cell A3 contains `=A2+1` and cell B3 contains `=B2*0.9`. Both are filled down. Which row first shows a value in column B below 30?
+      options:
+        - "Row 6 (n = 5)"
+        - "Row 7 (n = 6)"
+        - "Row 8 (n = 7)"
+        - "Row 3 (n = 2)"
+      option_explanations:
+        - |
+          At n = 5 the value is 50 · 0.9⁴ ≈ 32.8, still above 30.
+        - |
+          Correct. Column B holds 50, 45, 40.5, 36.45, 32.8, 29.5, …; the sixth value (row 7, n = 6) is 50 · 0.9⁵ ≈ 29.5, the first below 30.
+        - |
+          Row 8 holds about 26.6, but row 7 was already below 30.
+        - |
+          Row 3 holds 45, the result of one multiplication by 0.9.
+      answer: 1
+    - slug: alg2-u01-w03-q24
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "IM Algebra 2, Unit 1, Lesson 6"
+      points: 1
+      prompt: |
+        Graph description: four points are plotted at (1, 5), (2, 8), (3, 11) and (4, 14), evenly spaced and rising. Which recursive definition matches the sequence shown?
+      options:
+        - "a(1) = 5, a(n) = a(n − 1) + 3"
+        - "a(1) = 5, a(n) = 3 · a(n − 1)"
+        - "a(1) = 3, a(n) = a(n − 1) + 5"
+        - "a(1) = 5, a(n) = a(n − 1) + 3n"
+      option_explanations:
+        - |
+          Correct. The points rise by 3 each step from a first term of 5, so each term is the previous plus 3.
+        - |
+          Multiplying by 3 would give 5, 15, 45, which does not match the evenly spaced points.
+        - |
+          The first term shown is 5, not 3, and the step is 3, not 5.
+        - |
+          Adding 3n would give steps of 6, 9, 12, but the points rise by the same 3 every time.
+      answer: 0

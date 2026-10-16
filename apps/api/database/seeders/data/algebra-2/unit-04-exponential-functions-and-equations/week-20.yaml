@@ -1,0 +1,594 @@
+week: 20
+unit: 4
+title: "Solving Problems with Graphs and Logarithms, and Logarithmic Functions"
+topics: ["4.15", "4.16", "4.17", "4.18"]
+guide: guides/week-20.md
+guide_description: |
+  Doubling times, half-lives and time-to-target found both from a graph and with a logarithm, and why the
+  two agree; building a model from two data points and answering "when" questions, including inequalities
+  and comparing two models; the graph of y = log_b(x) as the reflection of y = bˣ across y = x, with domain
+  x > 0, vertical asymptote x = 0 and the points (1, 0) and (b, 1); and logarithmic scales (pH, decibels,
+  earthquake magnitude) where each step of 1 is a factor of 10.
+flashcards_description: |
+  27 cards on doubling time and half-life, models from data, inequalities, logarithmic graphs, and the pH,
+  decibel and magnitude scales.
+
+flashcards:
+  - front: Two ways to find when 500(1.5)ᵗ reaches 10,000
+    back: |
+      Graph y = 500(1.5)ᵗ with y = 10,000 and read the intersection (between 7 and 8); or solve 1.5ᵗ = 20, t = log₁.₅(20) ≈ 7.39. They agree because the intersection is exactly where the equation holds.
+    topic_code: "4.15"
+  - front: Doubling time (how to find it)
+    back: |
+      Solve bᵗ = 2: t = log_b(2). It does not depend on the starting amount. At 7% per year, log₁.₀₇(2) ≈ 10.24 years.
+    topic_code: "4.15"
+  - front: Half-life (how to find it)
+    back: |
+      Solve bᵗ = 1/2: t = log_b(0.5). For 12% decay per year, log₀.₈₈(0.5) ≈ 5.42 years.
+    topic_code: "4.15"
+  - front: Half-life of caffeine with C(t) = 200(0.87)ᵗ
+    back: |
+      0.87ᵗ = 0.5 gives t = log₀.₈₇(0.5) ≈ 4.98 hours, about 5 hours.
+    topic_code: "4.15"
+  - front: Carbon-14 (half-life 5730 years) with 30% remaining → age
+    back: |
+      (1/2)^(t/5730) = 0.3, so t/5730 = log₀.₅(0.3) ≈ 1.737 and t ≈ 9950 years.
+    topic_code: "4.15"
+  - front: When does 400 · 2ᵗ reach 10,000?
+    back: |
+      2ᵗ = 25, t = log₂(25) ≈ 4.64 hours; bracket 2⁴ = 16 < 25 < 32 = 2⁵.
+    topic_code: "4.15"
+  - front: Model from 120 at t = 0 and 30 at t = 4
+    back: |
+      b⁴ = 0.25, b ≈ 0.707: N(t) = 120(0.707)ᵗ, or N(t) = 120(1/2)^(t/2) since the quantity halves every 2 units. N(6) = 15.
+    topic_code: "4.16"
+  - front: Solving 300(0.8)ᵗ < 30
+    back: |
+      0.8ᵗ < 0.1; because 0.8ᵗ decreases, this holds for t > log₀.₈(0.1) ≈ 10.3.
+    topic_code: "4.16"
+  - front: Direction of the inequality for a decaying base
+    back: |
+      For 0 < b < 1, bᵗ decreases, so bᵗ < c is true for t greater than log_b(c), not less.
+    topic_code: "4.16"
+  - front: When are 400 · 2ᵗ and 1000(1.5)ᵗ equal?
+    back: |
+      (2/1.5)ᵗ = 2.5, so t = log₄/₃(2.5) ≈ 3.19; after that the faster-growing 400 · 2ᵗ is larger.
+    topic_code: "4.16"
+  - front: When is less than 50 mg of caffeine left from C(t) = 200(0.87)ᵗ?
+    back: |
+      0.87ᵗ < 0.25, t > log₀.₈₇(0.25) ≈ 9.95 hours: about 10 hours, two half-lives.
+    topic_code: "4.16"
+  - front: Judging a model's reasonableness
+    back: |
+      Every exponential model has a domain where it applies; a dose runs out, a population hits limits. State where the answer makes sense.
+    topic_code: "4.16"
+  - front: Relationship between y = bˣ and y = log_b(x)
+    back: |
+      Inverses: each undoes the other, and their graphs are reflections across the line y = x. (3, 8) on y = 2ˣ becomes (8, 3) on y = log₂(x).
+    topic_code: "4.17"
+  - front: Domain, range and asymptote of y = log_b(x)
+    back: |
+      Domain x > 0; range all real numbers; vertical asymptote x = 0. There is no y-intercept.
+    topic_code: "4.17"
+  - front: Two points on every graph y = log_b(x)
+    back: |
+      (1, 0) because b⁰ = 1, and (b, 1) because b¹ = b.
+    topic_code: "4.17"
+  - front: Points on y = log₂(x)
+    back: |
+      (1/4, −2), (1/2, −1), (1, 0), (2, 1), (4, 2), (8, 3), (16, 4).
+    topic_code: "4.17"
+  - front: Shape of a logarithmic graph (b > 1)
+    back: |
+      Increasing everywhere but ever more slowly (log₂ x reaches 10 only at x = 1024); plunges toward −∞ as x approaches 0 from the right.
+    topic_code: "4.17"
+  - front: Feature swap between exponential and logarithmic graphs
+    back: |
+      Horizontal asymptote y = 0 becomes vertical asymptote x = 0; y-intercept (0, 1) becomes x-intercept (1, 0); domain and range trade places.
+    topic_code: "4.17"
+  - front: pH formula
+    back: |
+      pH = −log[H⁺]. [H⁺] = 3.2 × 10⁻⁴ gives pH ≈ 3.49; pH 2.5 means [H⁺] = 10⁻²·⁵ ≈ 0.00316.
+    topic_code: "4.18"
+  - front: Meaning of a pH difference of 1
+    back: |
+      A factor of 10 in hydrogen-ion concentration: pH 3 is ten times more acidic than pH 4 and a hundred times more than pH 5.
+    topic_code: "4.18"
+  - front: Decibel formula
+    back: |
+      L = 10 log(I/10⁻¹²) with I in W/m². I = 10⁻⁵ gives 10 log(10⁷) = 70 dB.
+    topic_code: "4.18"
+  - front: 70 dB versus 50 dB in intensity
+    back: |
+      20 dB is two factors of 10, so 100 times the intensity. 10 dB more is 10 times; 30 dB more is 1000 times.
+    topic_code: "4.18"
+  - front: Earthquake magnitude difference of 1.5
+    back: |
+      Each unit is a factor of 10 in wave amplitude, so 10^1.5 ≈ 31.6 times.
+    topic_code: "4.18"
+  - front: Why scientists use logarithmic scales
+    back: |
+      They compress ranges spanning many powers of 10 (sound intensity from 10⁻¹² to 10 W/m² becomes 0 to 130 dB) and match perception, where each ×10 feels like a similar step.
+    topic_code: "4.18"
+  - front: Lemon juice (pH 2) versus milk (pH 6.5)
+    back: |
+      Difference 4.5, so lemon juice has 10^4.5 ≈ 31,600 times the hydrogen-ion concentration.
+    topic_code: "4.18"
+  - front: Logarithmic scale → common error
+    back: |
+      Treating differences as ratios: pH 3 versus pH 5 is a factor of 100, not 5/3; 80 dB is 10⁴ times 40 dB, not twice.
+    topic_code: "4.18"
+  - front: Doubling time → common error
+    back: |
+      Thinking it depends on the starting amount. It depends only on the growth factor: bᵗ = 2 has no a in it.
+    topic_code: "4.15"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (lessons 4.15 to 4.18: doubling times and
+    half-lives, models from data, logarithmic graphs and logarithmic scales), with about a third reviewing
+    weeks 16–19 and Units 2–3. Includes a shared-context set on a caffeine model. Multiple choice, select-all,
+    true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the
+    short answers and the long answer are graded by your teacher against the scoring notes.
+  questions:
+    # ---- Stimulus set: C(t) = 200(0.87)ᵗ (4.15, 4.16)
+    - slug: alg2-u04-w20-q01
+      type: multiple_choice
+      topic_code: "4.15"
+      source: "IM Algebra 2, Unit 4, Lesson 15"
+      points: 1
+      stimulus: |
+        The amount of caffeine in a person's body t hours after drinking a coffee is C(t) = 200(0.87)ᵗ milligrams.
+      prompt: |
+        Which equation gives the half-life of the caffeine, and what is it?
+      options:
+        - "0.87ᵗ = 0.5; t = log₀.₈₇(0.5) ≈ 4.98 hours"
+        - "200(0.87)ᵗ = 0.5; t ≈ 43 hours"
+        - "0.87ᵗ = 100; t ≈ −33 hours"
+        - "0.87 · t = 0.5; t ≈ 0.57 hours"
+      option_explanations:
+        - |
+          Correct. Half remains when the factor 0.87ᵗ equals 1/2, giving t ≈ 4.98, about 5 hours.
+        - |
+          0.5 mg is not half of 200 mg; the half-life is when 100 mg remain, which is 0.87ᵗ = 1/2.
+        - |
+          0.87ᵗ = 100 has a negative solution and is not the half-life condition; the factor must equal 0.5.
+        - |
+          The exponent is t, not a coefficient; 0.87t is a linear expression and the wrong model.
+      answer: 0
+    - slug: alg2-u04-w20-q02
+      type: multiple_choice
+      topic_code: "4.16"
+      source: "IM Algebra 2, Unit 4, Lesson 16"
+      points: 1
+      stimulus: |
+        The amount of caffeine in a person's body t hours after drinking a coffee is C(t) = 200(0.87)ᵗ milligrams.
+      prompt: |
+        After about how many hours is less than 50 mg left?
+      options:
+        - "About 2.5 hours"
+        - "About 10 hours"
+        - "About 4 hours"
+        - "About 20 hours"
+      option_explanations:
+        - |
+          After 2.5 hours about 142 mg remain; 50 mg is a quarter of the dose, two half-lives away.
+        - |
+          Correct. 0.87ᵗ < 0.25 holds for t > log₀.₈₇(0.25) ≈ 9.95, about 10 hours (two half-lives of 4.98 hours).
+        - |
+          After 4 hours about 115 mg remain, still more than half the dose.
+        - |
+          20 hours is about four half-lives, leaving about 12 mg; 50 mg is reached well before.
+      answer: 1
+    - slug: alg2-u04-w20-q03
+      type: multiple_choice
+      topic_code: "4.15"
+      source: "IM Algebra 2, Unit 4, Lesson 15"
+      points: 1
+      stimulus: |
+        The amount of caffeine in a person's body t hours after drinking a coffee is C(t) = 200(0.87)ᵗ milligrams.
+      prompt: |
+        How could a graph be used to answer the previous question, and why does it agree with the logarithm method?
+      options:
+        - "Graph y = C(t) and y = 50 and read the t-coordinate of their intersection; the intersection is exactly where 200(0.87)ᵗ = 50 holds."
+        - "Graph y = C(t) and read where it crosses the t-axis; that is where the caffeine is gone."
+        - "Graph y = 0.87ᵗ and read its y-intercept; the intercept is the half-life."
+        - "Graph y = log(t) and y = 50; the logarithm method is just the graph of the log."
+      option_explanations:
+        - |
+          Correct. Both methods find the t for which C(t) = 50; the graph estimates it, the logarithm computes it exactly.
+        - |
+          C(t) never reaches 0, so the graph never crosses the t-axis; the target is 50 mg, not 0.
+        - |
+          The y-intercept of 0.87ᵗ is 1, which says nothing about the half-life.
+        - |
+          The graph of log(t) is unrelated to the caffeine model; the logarithm is used to solve 0.87ᵗ = 0.25, not graphed.
+      answer: 0
+    # ---- Single items on this week
+    - slug: alg2-u04-w20-q04
+      type: multiple_choice
+      topic_code: "4.15"
+      source: "IM Algebra 2, Unit 4, Lesson 15"
+      points: 1
+      prompt: |
+        An investment grows 7% per year. What is its doubling time?
+      options:
+        - "100/7 ≈ 14.3 years"
+        - "log₁.₀₇(2) ≈ 10.2 years"
+        - "2/0.07 ≈ 28.6 years"
+        - "It depends on the amount invested."
+      option_explanations:
+        - |
+          14.3 years assumes the growth is linear, 7% of the original each year; compounding is faster.
+        - |
+          Correct. 1.07ᵗ = 2 gives t = log₁.₀₇(2) ≈ 10.24 years.
+        - |
+          Dividing 2 by the rate is not solving 1.07ᵗ = 2.
+        - |
+          The equation a · 1.07ᵗ = 2a cancels a; the doubling time depends only on the growth factor.
+      answer: 1
+    - slug: alg2-u04-w20-q05
+      type: multiple_choice
+      topic_code: "4.15"
+      source: "IM Algebra 2, Unit 4, Lesson 15"
+      points: 1
+      prompt: |
+        Carbon-14 has a half-life of 5730 years. A sample contains 30% of its original carbon-14. About how old is it?
+      options:
+        - "About 1720 years"
+        - "About 5730 years"
+        - "About 9950 years"
+        - "About 19,100 years"
+      option_explanations:
+        - |
+          1720 = 0.3 · 5730 treats the fraction remaining as a fraction of one half-life, which is not how decay works.
+        - |
+          After one half-life 50% remains; 30% is less, so more than one half-life has passed.
+        - |
+          Correct. (1/2)^(t/5730) = 0.3 gives t = 5730 · log₀.₅(0.3) ≈ 5730 · 1.737 ≈ 9950 years.
+        - |
+          19,100 is about 3.3 half-lives, which would leave only about 10%.
+      answer: 2
+    - slug: alg2-u04-w20-q06
+      type: multiple_choice
+      topic_code: "4.16"
+      source: "IM Algebra 2, Unit 4, Lesson 16"
+      points: 1
+      prompt: |
+        A sample measures 120 units at t = 0 and 30 units at t = 4 hours. Which model fits, and what is its half-life?
+      options:
+        - "N(t) = 120(0.25)ᵗ; half-life 4 hours"
+        - "N(t) = 120(1/2)^(t/2); half-life 2 hours"
+        - "N(t) = 120 − 22.5t; half-life about 2.7 hours"
+        - "N(t) = 120(0.75)ᵗ; half-life 4 hours"
+      option_explanations:
+        - |
+          0.25 is the factor over 4 hours, not per hour; the per-hour factor is 0.25^(1/4) ≈ 0.707.
+        - |
+          Correct. b⁴ = 0.25 = (1/2)², so the quantity halves every 2 hours; N(4) = 120/4 = 30 checks.
+        - |
+          The question asks for an exponential model; a line gives different values and has no half-life in the usual sense.
+        - |
+          0.75⁴ ≈ 0.316, so this model gives N(4) ≈ 38, not the measured 30.
+      answer: 1
+    - slug: alg2-u04-w20-q07
+      type: multiple_choice
+      topic_code: "4.16"
+      source: "IM Algebra 2, Unit 4, Lesson 16"
+      points: 1
+      prompt: |
+        For which values of t is 300(0.8)ᵗ < 30?
+      options:
+        - "t < log₀.₈(0.1) ≈ 10.3"
+        - "t > log₀.₈(0.1) ≈ 10.3"
+        - "t > log₀.₈(10) ≈ −10.3"
+        - "t < 10, because 300 ÷ 30 = 10"
+      option_explanations:
+        - |
+          For t below 10.3 the value is still above 30; the base 0.8 is less than 1, so the expression decreases as t grows.
+        - |
+          Correct. 0.8ᵗ < 0.1, and since 0.8ᵗ decreases, this holds for t greater than log₀.₈(0.1) ≈ 10.3.
+        - |
+          The inequality to solve is 0.8ᵗ < 0.1, not 0.8ᵗ < 10; and a negative threshold would make every positive t a solution.
+        - |
+          Dividing 300 by 30 gives the factor needed (0.1), not the time; the time is the exponent that produces that factor.
+      answer: 1
+    - slug: alg2-u04-w20-q08
+      type: multiple_choice
+      topic_code: "4.17"
+      source: "IM Algebra 2, Unit 4, Lesson 17"
+      points: 1
+      prompt: |
+        Which description of the graph of y = log₂(x) is correct?
+      options:
+        - "It passes through (0, 1) and (1, 2) and has a horizontal asymptote at y = 0."
+        - "It passes through (1, 0) and (2, 1) and has a vertical asymptote at x = 0."
+        - "It passes through (0, 0) and rises steeply for large x."
+        - "It passes through (1, 0) and (2, 1) and has a horizontal asymptote at y = 2."
+      option_explanations:
+        - |
+          Those are features of y = 2ˣ; the logarithm swaps them.
+        - |
+          Correct. log₂(1) = 0 and log₂(2) = 1, and the outputs plunge toward −∞ as x approaches 0.
+        - |
+          log₂(0) is undefined, so the graph never meets the y-axis; and the graph flattens for large x.
+        - |
+          A logarithmic graph has no horizontal asymptote; it keeps rising, just slowly.
+      answer: 1
+    - slug: alg2-u04-w20-q09
+      type: multiple_choice
+      topic_code: "4.17"
+      source: "IM Algebra 2, Unit 4, Lesson 17"
+      points: 1
+      prompt: |
+        The point (3, 8) lies on the graph of y = 2ˣ. What does that tell you about the graph of y = log₂(x)?
+      options:
+        - "(3, 8) also lies on y = log₂(x)."
+        - "(8, 3) lies on y = log₂(x), because the two graphs are reflections across y = x."
+        - "(−3, −8) lies on y = log₂(x), because the two graphs are reflections through the origin."
+        - "Nothing; the two graphs are unrelated."
+      option_explanations:
+        - |
+          log₂(3) ≈ 1.58, not 8; the coordinates are swapped, not kept.
+        - |
+          Correct. 2³ = 8 means log₂(8) = 3, so (8, 3) is on the logarithmic graph; inverse functions reflect across y = x.
+        - |
+          Negative inputs are outside the domain of log₂(x).
+        - |
+          They are inverse functions, so every point on one gives a point on the other with the coordinates swapped.
+      answer: 1
+    - slug: alg2-u04-w20-q10
+      type: multiple_choice
+      topic_code: "4.18"
+      source: "IM Algebra 2, Unit 4, Lesson 18"
+      points: 1
+      prompt: |
+        A solution has hydrogen-ion concentration [H⁺] = 3.2 × 10⁻⁴. Using pH = −log[H⁺], what is its pH?
+      options:
+        - "About 3.49"
+        - "About −3.49"
+        - "About 4.32"
+        - "About 0.00032"
+      option_explanations:
+        - |
+          Correct. log(3.2 × 10⁻⁴) ≈ −3.49, so pH ≈ 3.49.
+        - |
+          The minus sign in the formula makes the pH positive for concentrations below 1.
+        - |
+          4.32 reverses the digits; log(3.2 × 10⁻⁴) = log(3.2) + (−4) ≈ 0.51 − 4 = −3.49.
+        - |
+          0.00032 is the concentration itself, not its negative logarithm.
+      answer: 0
+    - slug: alg2-u04-w20-q11
+      type: multiple_choice
+      topic_code: "4.18"
+      source: "IM Algebra 2, Unit 4, Lesson 18"
+      points: 1
+      prompt: |
+        Sound level is L = 10 log(I/10⁻¹²) decibels. How does the intensity of a 70 dB sound compare with a 50 dB sound?
+      options:
+        - "It is 20 times as intense."
+        - "It is 100 times as intense."
+        - "It is 1.4 times as intense."
+        - "It is 2 times as intense."
+      option_explanations:
+        - |
+          A 20 dB difference is a ratio of 10^(20/10) = 100, not 20.
+        - |
+          Correct. Each 10 dB is a factor of 10 in intensity, so 20 dB is 10² = 100.
+        - |
+          1.4 is the ratio of the decibel readings; decibels are logarithmic, so ratios of readings are not ratios of intensity.
+        - |
+          Doubling the intensity adds only about 3 dB, not 20.
+      answer: 1
+    - slug: alg2-u04-w20-q12
+      type: multiple_choice
+      topic_code: "4.13"
+      source: "IM Algebra 2, Unit 4, Lesson 13"
+      points: 1
+      prompt: |
+        Two accounts start at $1000. One grows 5% per year, A(t) = 1000(1.05)ᵗ; the other grows continuously at 5%, B(t) = 1000e^(0.05t). After 8 years, which is larger and why?
+      options:
+        - "A, because 1.05 > e^0.05"
+        - "B, because e^0.05 ≈ 1.0513 > 1.05, so B grows slightly faster every year"
+        - "They are equal, because both rates are 5%"
+        - "A, because e is less than 1.05 raised to any power"
+      option_explanations:
+        - |
+          e^0.05 ≈ 1.0513 is larger than 1.05, not smaller.
+        - |
+          Correct. B's yearly factor is e^0.05 ≈ 1.0513; after 8 years B ≈ 1491.82 versus A ≈ 1477.46.
+        - |
+          A continuous rate of 5% compounds within the year and produces about 5.13% actual growth.
+        - |
+          e ≈ 2.718 is much larger than 1.05; the comparison is between e^0.05 and 1.05.
+      answer: 1
+    - slug: alg2-u04-w20-q13
+      type: multiple_choice
+      topic_code: "2.4"
+      source: "IM Algebra 2, Unit 2, Lesson 4"
+      points: 1
+      prompt: |
+        Simplify (x² + 3x − 1) − (2x² − x + 4).
+      options:
+        - "−x² + 4x − 5"
+        - "−x² + 2x + 3"
+        - "3x² + 2x + 3"
+        - "−x² + 4x + 3"
+      option_explanations:
+        - |
+          Correct. x² − 2x² = −x², 3x − (−x) = 4x, −1 − 4 = −5.
+        - |
+          Subtracting −x gives +x, so the x-terms are 3x + x = 4x, and −1 − 4 = −5.
+        - |
+          The second polynomial is subtracted, not added: x² − 2x² = −x².
+        - |
+          The constants are −1 − 4 = −5, not +3; the 4 is subtracted along with the rest.
+      answer: 0
+    - slug: alg2-u04-w20-q14
+      type: multi_select
+      topic_code: "4.17"
+      source: "IM Algebra 2, Unit 4, Lesson 17"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let f(x) = log(x), the base-10 logarithm. Which statements are true? Select all that apply.
+      options:
+        - "f(1) = 0"
+        - "f(1000) = 3"
+        - "f is defined for every real number x."
+        - "f(0.1) = −1"
+        - "The graph of f has a horizontal asymptote."
+      option_explanations:
+        - |
+          Correct. 10⁰ = 1, so log(1) = 0 and the graph passes through (1, 0).
+        - |
+          Correct. 10³ = 1000, so the exponent on 10 that gives 1000 is 3.
+        - |
+          Only positive x have a base-10 logarithm; log(0) and log(−2) are undefined.
+        - |
+          Correct. 10⁻¹ = 0.1, so the logarithm of 0.1 is −1.
+        - |
+          The graph has a vertical asymptote at x = 0 and keeps rising, slowly, as x grows; there is no horizontal asymptote.
+      answer: [0, 1, 3]
+    - slug: alg2-u04-w20-q15
+      type: multi_select
+      topic_code: "4.18"
+      source: "IM Algebra 2, Unit 4, Lesson 18"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about logarithmic scales are true? Select all that apply.
+      options:
+        - "An increase of 1 in pH means the hydrogen-ion concentration is divided by 10."
+        - "A sound of 80 dB is twice as intense as a sound of 40 dB."
+        - "A magnitude 7.0 earthquake has about 31.6 times the wave amplitude of a magnitude 5.5 earthquake."
+        - "Logarithmic scales compress ranges spanning many powers of 10 into small numbers."
+        - "A solution of pH 7 is twice as acidic as a solution of pH 14."
+      option_explanations:
+        - |
+          Correct. pH = −log[H⁺], so one unit of pH is one power of 10 in concentration.
+        - |
+          40 dB more is four factors of 10, so 80 dB is 10,000 times as intense as 40 dB.
+        - |
+          Correct. Each magnitude unit is a factor of 10, so 1.5 units is 10^1.5 ≈ 31.6.
+        - |
+          Correct. Sound intensities from 10⁻¹² to 10 W/m² become 0 to 130 dB.
+        - |
+          A difference of 7 pH units is a factor of 10⁷ in concentration, not 2.
+      answer: [0, 2, 3]
+    - slug: alg2-u04-w20-q16
+      type: true_false
+      topic_code: "4.10"
+      source: "IM Algebra 2, Unit 4, Lesson 10"
+      points: 1
+      prompt: |
+        True or false: the equation log₃(81) = 4 says the same thing as 3⁴ = 81.
+      answer: true
+      explanation: |
+        True. log_b(y) = x means bˣ = y; here the base is 3, the exponent 4 and the result 81.
+    - slug: alg2-u04-w20-q17
+      type: true_false
+      topic_code: "3.8"
+      source: "IM Algebra 2, Unit 3, Lesson 8"
+      points: 1
+      prompt: |
+        True or false: cubing both sides of an equation can never introduce an extraneous solution.
+      answer: true
+      explanation: |
+        True. Different real numbers have different cubes, so a³ = b³ exactly when a = b; cubing is a reversible step. Squaring is the step that can add solutions.
+    - slug: alg2-u04-w20-q18
+      type: fill_blank
+      topic_code: "4.1"
+      source: "IM Algebra 2, Unit 4, Lesson 1"
+      points: 1
+      prompt: |
+        A quantity that loses 40% of its value every hour has an hourly decay factor of ____
+      answer: ["0.6", ".6", "0.60"]
+      explanation: |
+        After losing 40%, 60% remains: the factor is 1 − 0.4 = 0.6.
+    - slug: alg2-u04-w20-q19
+      type: fill_blank
+      topic_code: "4.17"
+      source: "IM Algebra 2, Unit 4, Lesson 17"
+      points: 1
+      prompt: |
+        The graph of y = log₅(x) crosses the x-axis at x = ____
+      answer: ["1"]
+      explanation: |
+        log₅(x) = 0 when x = 5⁰ = 1, so the x-intercept is (1, 0), as it is for every base.
+    - slug: alg2-u04-w20-q20
+      type: numeric
+      topic_code: "4.18"
+      source: "IM Algebra 2, Unit 4, Lesson 18"
+      points: 1
+      prompt: |
+        A solution has pH 2.5. Using pH = −log[H⁺], find [H⁺] to three significant figures.
+      answer: { value: 0.00316, tolerance: 0.00002 }
+      explanation: |
+        log[H⁺] = −2.5, so [H⁺] = 10⁻²·⁵ ≈ 0.00316 moles per litre.
+    - slug: alg2-u04-w20-q21
+      type: numeric
+      topic_code: "4.15"
+      source: "IM Algebra 2, Unit 4, Lesson 15"
+      points: 1
+      prompt: |
+        A quantity decays 12% per year. Find its half-life in years, to two decimal places.
+      answer: { value: 5.42, tolerance: 0.02 }
+      explanation: |
+        0.88ᵗ = 0.5 gives t = log₀.₈₈(0.5) ≈ 5.42 years.
+    - slug: alg2-u04-w20-q22
+      type: numeric
+      topic_code: "3.4"
+      source: "IM Algebra 2, Unit 3, Lesson 4"
+      points: 1
+      prompt: |
+        Evaluate 125^(2/3).
+      answer: { value: 25, tolerance: 0 }
+      explanation: |
+        ∛125 = 5 and 5² = 25.
+    - slug: alg2-u04-w20-q23
+      type: short_answer
+      topic_code: "4.16"
+      source: "IM Algebra 2, Unit 4, Lesson 16"
+      points: 3
+      prompt: |
+        Two bacteria cultures are modeled by A(t) = 400 · 2ᵗ and B(t) = 1000(1.5)ᵗ, with t in hours.
+        (a) Which culture is larger at t = 0, and which grows faster? Explain.
+        (b) Find the time when the two cultures are equal, showing the equation you solve.
+        (c) Describe what a graph of the two functions would show.
+      answer: |
+        (a) B is larger at t = 0 (1000 versus 400), but A grows faster because its growth factor 2 exceeds 1.5.
+        (b) 400 · 2ᵗ = 1000(1.5)ᵗ, so (2/1.5)ᵗ = 2.5, that is (4/3)ᵗ = 2.5 and t = log₄/₃(2.5) ≈ 3.19 hours.
+        (c) Two increasing curves; B starts higher, A is steeper, and they cross once at about t = 3.19, after which A stays above B.
+      explanation: |
+        Three points, one per part. (a) B larger initially, A faster, with the factors compared. (b) the equation and t ≈ 3.19. (c) a single crossing with A above afterwards.
+    - slug: alg2-u04-w20-q24
+      type: short_answer
+      topic_code: "4.14"
+      source: "IM Algebra 2, Unit 4, Lesson 14"
+      points: 3
+      prompt: |
+        (a) Solve 6 · 4ᵗ = 96 exactly.
+        (b) Solve 2eᵗ = 11, giving an exact answer and a decimal approximation.
+        (c) Explain why, in both parts, the coefficient must be removed before using a logarithm.
+      answer: |
+        (a) 4ᵗ = 16, so t = log₄(16) = 2.
+        (b) eᵗ = 5.5, so t = ln(5.5) ≈ 1.705.
+        (c) A logarithm answers "the base to what power gives this number?", so the equation must have the form bᵗ = c with the power alone on one side; log(6 · 4ᵗ) is not 6 · log(4ᵗ), so the 6 cannot be carried through.
+      explanation: |
+        Three points, one per part. (a) t = 2. (b) ln 5.5 ≈ 1.705. (c) the isolation reason.
+    - slug: alg2-u04-w20-q25
+      type: long_answer
+      topic_code: "4.15"
+      source: "IM Algebra 2, Unit 4, Lesson 15"
+      points: 6
+      prompt: |
+        A culture is measured at 400 cells at t = 0 and 1600 cells at t = 2 hours. Write a full response that (1) builds an exponential model P(t) from the two measurements, (2) states the doubling time and explains why it does not depend on the 400, (3) finds, with a logarithm, when the culture reaches 10,000 cells and checks the answer against a bracket of whole hours, and (4) explains how to get the same answer from a graph and gives one reason the model will eventually stop being accurate.
+      answer: |
+        (1) b² = 1600/400 = 4, so b = 2 and P(t) = 400 · 2ᵗ.
+        (2) The doubling time is 1 hour, since the factor per hour is 2. Doubling means a · 2ᵗ = 2a, and the a cancels, leaving 2ᵗ = 2; the starting amount plays no part.
+        (3) 400 · 2ᵗ = 10,000 gives 2ᵗ = 25, so t = log₂(25) ≈ 4.64 hours. Bracket: 2⁴ = 16 < 25 < 32 = 2⁵, so between 4 and 5 hours, consistent.
+        (4) Graph y = 400 · 2ᵗ and y = 10,000 and read the t-coordinate of the intersection, which is where the two expressions are equal, about 4.6. The model fails eventually because the culture runs out of nutrients or space; unbounded doubling is impossible in a real dish.
+      explanation: |
+        Six points: 1 for P(t) = 400 · 2ᵗ; 1 for the doubling time with the cancellation argument; 2 for t = log₂(25) ≈ 4.64 with the bracket 4 < t < 5; 2 for the intersection description and a sensible limitation.

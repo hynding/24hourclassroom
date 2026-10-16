@@ -1,0 +1,666 @@
+week: 4
+unit: 1
+title: "Outliers, Comparing Data Sets and Writing Up an Analysis"
+topics: ["1.13", "1.14", "1.15", "1.16"]
+guide: guides/week-04.md
+guide_description: |
+  How shifting, scaling and extreme values change the standard deviation, the 1.5 × IQR rule for outliers and
+  the modified box plot, a four-part method for comparing data sets (shape, centre, spread, conclusion), and the
+  five stages of a statistical investigation from question to write-up.
+flashcards_description: |
+  28 cards on what moves the standard deviation, the outlier fences, what to do with an outlier, comparing
+  distributions with matching statistics, and the stages of an investigation.
+
+flashcards:
+  - front: Add the same constant to every value → effect on mean and SD
+    back: |
+      The mean shifts by that constant; the SD (and the range, IQR and MAD) do not change, because every deviation from the mean is the same as before.
+    topic_code: "1.13"
+  - front: Multiply every value by k → effect on mean and SD
+    back: |
+      Both the mean and the SD are multiplied by k (for positive k). Doubling every value doubles the typical distance from the mean.
+    topic_code: "1.13"
+  - front: Same mean, values pushed further from it → effect on SD
+    back: |
+      The SD grows. 10, 12, 14, 16, 18 and 6, 10, 14, 18, 22 both have mean 14, but the second has twice the deviations and so twice the SD (5.66 vs 2.83).
+    topic_code: "1.13"
+  - front: Data in centimetres vs the same data in metres → SDs compared
+    back: |
+      The centimetre SD is 100 times the metre SD, because converting units multiplies every value by 100 and the SD scales with the data.
+    topic_code: "1.13"
+  - front: One extreme value added → why the SD reacts more than the MAD
+    back: |
+      The SD squares the deviations, so a deviation of 26 contributes 676 to the sum of squares while adding only 26 to the sum of distances. Squaring amplifies the extreme.
+    topic_code: "1.13"
+  - front: Using mean and SD to compare two symmetric data sets
+    back: |
+      Compare the means to say which is typically higher and by how much; compare the SDs to say which is more consistent. Always give both, in context.
+    topic_code: "1.13"
+  - front: Outlier → the 1.5 × IQR definition
+    back: |
+      A value below Q1 − 1.5 × IQR or above Q3 + 1.5 × IQR. The two boundaries are called the lower and upper fences.
+    topic_code: "1.14"
+  - front: Lower fence and upper fence → formulas
+    back: |
+      Lower fence = Q1 − 1.5 × IQR. Upper fence = Q3 + 1.5 × IQR. A value exactly on a fence is not an outlier; it must be beyond it.
+    topic_code: "1.14"
+  - front: Q1 = 20, Q3 = 32 → which values are outliers?
+    back: |
+      IQR = 12 and 1.5 × 12 = 18, so the fences are 2 and 50. Any value below 2 or above 50 is an outlier; 51 is, 2 and 50 are not.
+    topic_code: "1.14"
+  - front: Modified box plot → how it differs from a plain box plot
+    back: |
+      The whiskers stop at the smallest and largest values that are not outliers, and each outlier is drawn as a separate dot beyond the whisker. Most technology draws this version by default.
+    topic_code: "1.14"
+  - front: Found an outlier → the first thing to do
+    back: |
+      Find out why it is there. A recording error gets corrected or removed and reported; a genuine unusual value stays in the data and is mentioned in the conclusion.
+    topic_code: "1.14"
+  - front: Can you delete an outlier that is inconvenient?
+    back: |
+      No. Only values shown to be errors are removed, and the removal is reported. A genuine outlier is kept, and resistant statistics (median, IQR) are used so it does not distort the summary.
+    topic_code: "1.14"
+  - front: Outlier rule with Q1 = 8.5, Q3 = 12.5 and the value 30
+    back: |
+      IQR = 4, so the upper fence is 12.5 + 6 = 18.5. Since 30 > 18.5, it is an outlier. The lower fence is 2.5, so a value of 3 would not be.
+    topic_code: "1.14"
+  - front: Comparing two distributions → the four parts in order
+    back: |
+      1. Shape (and outliers). 2. Centre, using matching statistics. 3. Spread, using matching statistics. 4. A conclusion in context that answers the question.
+    topic_code: "1.15"
+  - front: Which statistics to compare when one group is skewed and the other symmetric
+    back: |
+      Medians and IQRs for both. The skewed group needs resistant statistics, and comparisons must match, so the symmetric group is summarised the same way.
+    topic_code: "1.15"
+  - front: Claim that group A is more consistent than group B → which statistic supports it
+    back: |
+      A smaller measure of spread for A: a smaller IQR, SD or MAD. Consistency is about variability, not centre.
+    topic_code: "1.15"
+  - front: Same medians, IQRs 3 and 15 → what can you conclude?
+    back: |
+      The groups have the same typical value but very different variability: the group with IQR 3 is far more consistent. Centre alone would wrongly suggest they are alike.
+    topic_code: "1.15"
+  - front: Two groups with means 4 points apart → is that a big difference?
+    back: |
+      Judge it against the spread. If both SDs are about 1, four points is a large gap; if both SDs are about 20, the groups overlap heavily and the gap is small.
+    topic_code: "1.15"
+  - front: Statistical investigation → the five stages
+    back: |
+      Pose a statistical question, collect (or choose) data, display it, summarise it with appropriate statistics, and write a conclusion that answers the question and notes limitations.
+    topic_code: "1.16"
+  - front: Good statistical question for an investigation → an example and a non-example
+    back: |
+      Good: "Do students who eat breakfast report more sleep than those who skip it?" (variable data, two groups). Not statistical: "Should everyone eat breakfast?" (an opinion, no data).
+    topic_code: "1.16"
+  - front: Limitation to mention in a write-up → sampling
+    back: |
+      A convenience sample (your friends, one class) may not represent the whole school, so the conclusion applies to the people measured. Suggest a larger or random sample as a next step.
+    topic_code: "1.16"
+  - front: What a conclusion paragraph must contain
+    back: |
+      The answer to the original question, the statistics that support it (centre and spread for each group), any outliers or errors found, and the limits of the data.
+    topic_code: "1.16"
+  - front: Which displays to draw when comparing two small groups
+    back: |
+      Box plots on one scale for the comparison, plus a dot plot of each group to check shape and spot outliers that a box plot would hide.
+    topic_code: "1.16"
+  - front: Error to spot → "the fence is 1.5 × IQR = 6, so anything above 6 is an outlier"
+    back: |
+      1.5 × IQR is the distance beyond the quartiles, not the fence. The upper fence is Q3 + 6 and the lower fence is Q1 − 6.
+    topic_code: "1.14"
+  - front: Error to spot → "the maximum is far from the rest, so it is an outlier"
+    back: |
+      Looking far away is not the rule. Compute Q3 + 1.5 × IQR; the maximum is an outlier only if it lies above that fence.
+    topic_code: "1.14"
+  - front: Error to spot → "every score rose by 3 points, so the SD rose too"
+    back: |
+      Adding a constant to every value leaves the deviations, and so the SD, unchanged. Only the mean moves.
+    topic_code: "1.13"
+  - front: Error to spot → comparing group A's median with group B's mean
+    back: |
+      Statistics must match. Compare median with median (and IQR with IQR) or mean with mean (and SD with SD); mixing them compares two different things.
+    topic_code: "1.15"
+  - front: Error to spot → a conclusion that reports numbers but never answers the question
+    back: |
+      The last paragraph must return to the statistical question and answer it in words, using the statistics as evidence. Numbers without an answer are not a conclusion.
+    topic_code: "1.16"
+
+quiz:
+  description: |
+    25 questions · about 45 minutes · what changes the standard deviation, the 1.5 × IQR outlier rule, comparing
+    data sets and planning an investigation (lessons 1.13 to 1.16), with review of displays, measures of centre
+    and spread, and choosing a summary from weeks 1 to 3. Multiple choice, select-all, true/false and numeric
+    items are graded at once; fill-in-the-blank items are matched automatically; the short answers and the long
+    answer are graded by your teacher against the scoring notes.
+  questions:
+    - slug: alg1-u01-w04-q01
+      type: multiple_choice
+      topic_code: "1.14"
+      source: "IM Algebra 1, Unit 1, Lesson 14"
+      points: 1
+      prompt: |
+        A data set has Q1 = 14 and Q3 = 22. Which value would be classified as an outlier by the 1.5 × IQR rule?
+      options:
+        - "2"
+        - "3"
+        - "33"
+        - "35"
+      option_explanations:
+        - |
+          IQR = 8, so the lower fence is 14 − 12 = 2. A value equal to the fence is not beyond it, so 2 is not an outlier.
+        - |
+          3 lies above the lower fence of 2, inside the fences.
+        - |
+          33 is below the upper fence of 22 + 12 = 34, so it is not an outlier.
+        - |
+          Correct. The upper fence is 22 + 1.5 × 8 = 34, and 35 is above it.
+      answer: 3
+
+    - slug: alg1-u01-w04-q02
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "IM Algebra 1, Unit 1, Lesson 13"
+      points: 1
+      prompt: |
+        A set of temperatures in degrees Celsius has mean 20 and standard deviation 3. Every temperature is increased by 5 degrees. What are the new mean and standard deviation?
+      options:
+        - "Mean 25, SD 3"
+        - "Mean 25, SD 8"
+        - "Mean 20, SD 8"
+        - "Mean 25, SD 15"
+      option_explanations:
+        - |
+          Correct. Adding 5 shifts the mean to 25 but leaves every deviation from the mean, and so the SD, unchanged.
+        - |
+          The SD does not grow when a constant is added; the values move together and stay equally spread.
+        - |
+          The mean must shift by 5 because every value did.
+        - |
+          Multiplying by 5 would give an SD of 15; adding 5 leaves it at 3.
+      answer: 0
+
+    - slug: alg1-u01-w04-q03
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "IM Algebra 1, Unit 1, Lesson 13"
+      points: 1
+      prompt: |
+        Distances in a data set are recorded in metres with mean 1.6 and SD 0.2. The same distances are converted to centimetres. What is the new SD?
+      options:
+        - "0.2"
+        - "2"
+        - "20"
+        - "160"
+      option_explanations:
+        - |
+          Converting multiplies every value by 100, and the SD scales with the values.
+        - |
+          A factor of 10 would give 2, but a metre is 100 centimetres.
+        - |
+          Correct. Every value is multiplied by 100, so the SD is 0.2 × 100 = 20 cm.
+        - |
+          160 cm is the new mean (1.6 × 100), not the SD.
+      answer: 2
+
+    - slug: alg1-u01-w04-q04
+      type: multiple_choice
+      topic_code: "1.15"
+      source: "IM Algebra 1, Unit 1, Lesson 15"
+      points: 1
+      stimulus: |
+        Two bus routes recorded the number of minutes late for 20 trips each.
+
+        | Route | Shape | Median | IQR | Mean | SD | Outliers |
+        |---|---|---|---|---|---|---|
+        | 7 | symmetric | 4 | 3 | 4.1 | 1.8 | none |
+        | 12 | skewed right | 3 | 5 | 6.4 | 7.2 | one trip 35 minutes late |
+      prompt: |
+        Which comparison of typical lateness uses the appropriate statistics?
+      options:
+        - "Route 12 is typically later because its mean of 6.4 is higher than route 7's mean of 4.1."
+        - "Route 12 is typically slightly less late, median 3 minutes versus route 7's median 4 minutes."
+        - "Route 7 is typically later because its IQR is smaller."
+        - "Route 12 is typically later because its SD of 7.2 is higher."
+      option_explanations:
+        - |
+          Route 12 is skewed with an outlier, so its mean is inflated by the 35-minute trip and does not describe a typical trip.
+        - |
+          Correct. With one route skewed and an outlier present, medians are the matching resistant centres, and route 12's is a minute lower.
+        - |
+          The IQR measures spread, not lateness; a smaller IQR means more consistent, not later.
+        - |
+          The SD describes variability, not the typical value.
+      answer: 1
+
+    - slug: alg1-u01-w04-q05
+      type: multiple_choice
+      topic_code: "1.15"
+      source: "IM Algebra 1, Unit 1, Lesson 15"
+      points: 1
+      stimulus: |
+        Two bus routes recorded the number of minutes late for 20 trips each.
+
+        | Route | Shape | Median | IQR | Mean | SD | Outliers |
+        |---|---|---|---|---|---|---|
+        | 7 | symmetric | 4 | 3 | 4.1 | 1.8 | none |
+        | 12 | skewed right | 3 | 5 | 6.4 | 7.2 | one trip 35 minutes late |
+      prompt: |
+        Which route is more consistent, and which statistic best supports that?
+      options:
+        - "Route 7, because its IQR of 3 is smaller than route 12's IQR of 5"
+        - "Route 12, because its median of 3 is smaller"
+        - "Route 7, because its mean is lower"
+        - "Route 12, because it has an outlier"
+      option_explanations:
+        - |
+          Correct. Consistency is about spread; the matching resistant measure is the IQR, and route 7's is narrower.
+        - |
+          The median describes the typical value, not how much the trips vary.
+        - |
+          A lower mean says nothing about consistency.
+        - |
+          An outlier is evidence of less consistency, not more.
+      answer: 0
+
+    - slug: alg1-u01-w04-q06
+      type: multiple_choice
+      topic_code: "1.14"
+      source: "IM Algebra 1, Unit 1, Lesson 14"
+      points: 1
+      stimulus: |
+        Two bus routes recorded the number of minutes late for 20 trips each.
+
+        | Route | Shape | Median | IQR | Mean | SD | Outliers |
+        |---|---|---|---|---|---|---|
+        | 7 | symmetric | 4 | 3 | 4.1 | 1.8 | none |
+        | 12 | skewed right | 3 | 5 | 6.4 | 7.2 | one trip 35 minutes late |
+      prompt: |
+        Route 12's third quartile is 6 minutes. Does the 35-minute trip count as an outlier under the 1.5 × IQR rule?
+      options:
+        - "Yes, because 35 is above the upper fence of 6 + 1.5 × 5 = 13.5"
+        - "No, because 35 is less than 1.5 × 35"
+        - "Yes, because any trip over 30 minutes late is an outlier"
+        - "No, because the outlier rule only applies to values below Q1"
+      option_explanations:
+        - |
+          Correct. IQR = 5, so the upper fence is Q3 + 7.5 = 13.5, and 35 lies well above it.
+        - |
+          The rule compares the value with the fence built from Q3 and the IQR, not with a multiple of the value itself.
+        - |
+          There is no fixed cutoff like 30 minutes; the fence depends on the quartiles of the data.
+        - |
+          The rule has both a lower and an upper fence; values above Q3 + 1.5 × IQR are outliers too.
+      answer: 0
+
+    - slug: alg1-u01-w04-q07
+      type: multiple_choice
+      topic_code: "1.16"
+      source: "IM Algebra 1, Unit 1, Lesson 16"
+      points: 1
+      prompt: |
+        Which question is the best starting point for a statistical investigation?
+      options:
+        - "Is pizza the best school lunch?"
+        - "How many minutes do students at our school wait in the lunch line, and does it differ between lunch periods?"
+        - "How long is the lunch line right now?"
+        - "Should the school add another lunch line?"
+      option_explanations:
+        - |
+          "Best" is an opinion with no measurable variable, so data cannot settle it.
+        - |
+          Correct. It names a numerical variable that varies, and it sets up a comparison between groups that data can answer.
+        - |
+          One count at one moment gives a single number, not a distribution.
+        - |
+          This is a decision; data might inform it, but the investigation needs a measurable question first.
+      answer: 1
+
+    - slug: alg1-u01-w04-q08
+      type: multiple_choice
+      topic_code: "1.16"
+      source: "IM Algebra 1, Unit 1, Lesson 16"
+      points: 1
+      prompt: |
+        A student surveys the 12 members of her own club about hours of sleep and concludes that "students at this school sleep 7.5 hours on average". What is the main weakness of the conclusion?
+      options:
+        - "She should have reported the median instead of the mean."
+        - "Twelve club members are a convenience sample that may not represent the whole school."
+        - "Hours of sleep are categorical data, so an average is meaningless."
+        - "Sleep cannot be measured, so the question is not statistical."
+      option_explanations:
+        - |
+          The median might or might not be better, but the choice of centre is not the main flaw.
+        - |
+          Correct. The conclusion generalises from a small, non-random group to the whole school; it only describes those 12 students.
+        - |
+          Hours of sleep are a numerical measurement, and an average is meaningful.
+        - |
+          Sleep hours vary from person to person, which is exactly what makes the question statistical.
+      answer: 1
+
+    - slug: alg1-u01-w04-q09
+      type: multiple_choice
+      topic_code: "1.4"
+      source: "IM Algebra 1, Unit 1, Lesson 4"
+      points: 1
+      prompt: |
+        Graph description: a histogram of scores on an easy quiz has short bars at 40–50 and 50–60, taller bars at 60–70 and 70–80, and its tallest bars at 80–90 and 90–100. Which shape is this?
+      options:
+        - "Skewed left"
+        - "Skewed right"
+        - "Uniform"
+        - "Bimodal"
+      option_explanations:
+        - |
+          Correct. The bulk of the scores are at the high end and the tail of short bars trails toward the low scores on the left.
+        - |
+          A right skew would have its tall bars on the left and a tail toward high values.
+        - |
+          The bars are not all the same height; they rise steadily from left to right.
+        - |
+          There is a single peak at the top end, not two separate peaks.
+      answer: 0
+
+    - slug: alg1-u01-w04-q10
+      type: multiple_choice
+      topic_code: "1.11"
+      source: "IM Algebra 1, Unit 1, Lesson 11"
+      points: 1
+      prompt: |
+        A dot plot of the number of pets owned by 40 students is strongly skewed right, with most students at 0, 1 or 2 pets and three students at 9, 11 and 14. Which summary should be reported?
+      options:
+        - "Mean and standard deviation"
+        - "Median and IQR"
+        - "Mean and IQR"
+        - "Median and standard deviation"
+      option_explanations:
+        - |
+          The three large values would inflate both the mean and the SD.
+        - |
+          Correct. A skewed distribution with extreme values calls for the resistant pair: median and IQR.
+        - |
+          Mixing a non-resistant centre with a resistant spread is inconsistent; the mean would still be distorted.
+        - |
+          The SD is not resistant and would be dominated by the pets counts of 9, 11 and 14.
+      answer: 1
+
+    - slug: alg1-u01-w04-q11
+      type: multiple_choice
+      topic_code: "1.2"
+      source: "IM Algebra 1, Unit 1, Lesson 2"
+      points: 1
+      prompt: |
+        For the data 6, 9, 9, 12, 14, 15, 20, 24, what is the first quartile?
+      options:
+        - "6"
+        - "9"
+        - "10.5"
+        - "13"
+      option_explanations:
+        - |
+          6 is the minimum, not the median of the lower half.
+        - |
+          Correct. The lower half is 6, 9, 9, 12 and its median is (9 + 9)/2 = 9.
+        - |
+          10.5 would be the mean of 9 and 12, the 3rd and 4th values, which are not the two middle values of the lower half.
+        - |
+          13 is the overall median, (12 + 14)/2, which splits the data but is not a quartile.
+      answer: 1
+
+    - slug: alg1-u01-w04-q12
+      type: multiple_choice
+      topic_code: "1.12"
+      source: "IM Algebra 1, Unit 1, Lesson 12"
+      points: 1
+      prompt: |
+        The squared deviations of a data set of six values sum to 54. What is the standard deviation (dividing by n)?
+      options:
+        - "9"
+        - "3"
+        - "54"
+        - "√54 ≈ 7.35"
+      option_explanations:
+        - |
+          9 is the variance, 54/6; the SD is its square root.
+        - |
+          Correct. Variance = 54/6 = 9, and √9 = 3.
+        - |
+          54 is the sum of the squared deviations, before dividing by 6 and taking the root.
+        - |
+          Taking the square root before dividing by n skips the averaging step.
+      answer: 1
+
+    - slug: alg1-u01-w04-q13
+      type: multi_select
+      topic_code: "1.14"
+      source: "IM Algebra 1, Unit 1, Lesson 14"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A data set has Q1 = 50, median 58 and Q3 = 62. Which of the following values are outliers by the 1.5 × IQR rule? Select all that apply.
+      options:
+        - "30"
+        - "32"
+        - "40"
+        - "80"
+        - "81"
+      option_explanations:
+        - |
+          Correct. IQR = 12, so the lower fence is 50 − 18 = 32; 30 is below it.
+        - |
+          32 equals the lower fence, and a value on the fence is not beyond it.
+        - |
+          40 lies between the fences of 32 and 80.
+        - |
+          80 equals the upper fence, 62 + 18, so it is not an outlier.
+        - |
+          Correct. 81 is above the upper fence of 80.
+      answer: [0, 4]
+
+    - slug: alg1-u01-w04-q14
+      type: multi_select
+      topic_code: "1.15"
+      source: "IM Algebra 1, Unit 1, Lesson 15"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which of the following belong in a complete written comparison of two data sets? Select all that apply.
+      options:
+        - "The shape of each distribution and any outliers"
+        - "A comparison of centres using the same statistic for both groups"
+        - "A comparison of spreads using the same statistic for both groups"
+        - "A conclusion that answers the original question in context"
+        - "The mean of one group compared with the median of the other"
+      option_explanations:
+        - |
+          Correct. Shape and outliers come first because they decide which statistics to use.
+        - |
+          Correct. Medians with medians or means with means.
+        - |
+          Correct. IQRs with IQRs or SDs with SDs.
+        - |
+          Correct. The numbers are evidence for an answer to the question that was asked.
+        - |
+          Mismatched statistics compare different things and do not belong in a comparison.
+      answer: [0, 1, 2, 3]
+
+    - slug: alg1-u01-w04-q15
+      type: true_false
+      topic_code: "1.14"
+      source: "IM Algebra 1, Unit 1, Lesson 14"
+      points: 1
+      prompt: |
+        True or false: a value that turns out to be a genuine, correctly recorded measurement should be deleted if the outlier rule flags it.
+      answer: false
+      explanation: |
+        False. Only values shown to be errors are removed, and the removal is reported. A genuine outlier stays in the data; the analysis uses resistant statistics and mentions the outlier in the conclusion.
+
+    - slug: alg1-u01-w04-q16
+      type: true_false
+      topic_code: "1.13"
+      source: "IM Algebra 1, Unit 1, Lesson 13"
+      points: 1
+      prompt: |
+        True or false: if every value in a data set is multiplied by 4, the standard deviation is multiplied by 16.
+      answer: false
+      explanation: |
+        False. The deviations are multiplied by 4, the squared deviations by 16, but the square root at the end brings the SD back to 4 times its original value.
+
+    - slug: alg1-u01-w04-q17
+      type: fill_blank
+      topic_code: "1.14"
+      source: "IM Algebra 1, Unit 1, Lesson 14"
+      points: 1
+      prompt: |
+        A box plot whose whiskers stop at the last values inside the fences, with outliers drawn as separate dots, is called a ____ box plot.
+      answer: ["modified", "modified box plot"]
+      explanation: |
+        The modified box plot separates outliers from the whiskers so that the whisker length reflects the bulk of the data; most technology draws this version by default.
+
+    - slug: alg1-u01-w04-q18
+      type: fill_blank
+      topic_code: "1.1"
+      source: "IM Algebra 1, Unit 1, Lesson 1"
+      points: 1
+      prompt: |
+        Data whose values are labels or groups, such as a student's bus route, are called ____ data.
+      answer: ["categorical", "qualitative"]
+      explanation: |
+        Categorical data sort cases into groups and are summarised by counts and percentages; numerical data are measurements or counts with meaningful averages.
+
+    - slug: alg1-u01-w04-q19
+      type: numeric
+      topic_code: "1.14"
+      source: "IM Algebra 1, Unit 1, Lesson 14"
+      points: 1
+      prompt: |
+        A data set has Q1 = 36 and Q3 = 48. What is the upper fence for outliers? Give a whole number.
+      answer: { value: 66, tolerance: 0 }
+      explanation: |
+        IQR = 48 − 36 = 12; 1.5 × 12 = 18; upper fence = 48 + 18 = 66. The lower fence is 36 − 18 = 18.
+
+    - slug: alg1-u01-w04-q20
+      type: numeric
+      topic_code: "1.12"
+      source: "IM Algebra 1, Unit 1, Lesson 12"
+      points: 1
+      prompt: |
+        Find the standard deviation of 3, 7, 7, 11 (divide by n). Give your answer to two decimal places.
+      answer: { value: 2.83, tolerance: 0.01 }
+      explanation: |
+        Mean = 28/4 = 7. Deviations −4, 0, 0, 4; squares 16, 0, 0, 16; variance 32/4 = 8; SD = √8 ≈ 2.83.
+
+    - slug: alg1-u01-w04-q21
+      type: numeric
+      topic_code: "1.5"
+      source: "IM Algebra 1, Unit 1, Lesson 5"
+      points: 1
+      prompt: |
+        Find the mean absolute deviation of 20, 24, 25, 31. Give your answer to one decimal place.
+      answer: { value: 3, tolerance: 0.05 }
+      explanation: |
+        Mean = 100/4 = 25. Distances from 25: 5, 1, 0, 6, which sum to 12. MAD = 12/4 = 3.0.
+
+    - slug: alg1-u01-w04-q22
+      type: short_answer
+      topic_code: "1.14"
+      source: "IM Algebra 1, Unit 1, Lesson 14"
+      points: 3
+      prompt: |
+        The weights, in kilograms, of 10 dogs at a shelter are 6, 8, 9, 11, 12, 13, 15, 16, 18, 41.
+
+        (a) Find Q1, Q3 and the IQR.
+        (b) Compute the fences and identify any outliers.
+        (c) Describe how a modified box plot of this data would differ from an ordinary box plot.
+      answer: |
+        (a) Lower half 6, 8, 9, 11, 12 gives Q1 = 9; upper half 13, 15, 16, 18, 41 gives Q3 = 16; IQR = 7.
+        (b) 1.5 × 7 = 10.5. Lower fence 9 − 10.5 = −1.5; upper fence 16 + 10.5 = 26.5. The 41 kg dog is an outlier; no low outliers.
+        (c) The ordinary box plot's right whisker would run from 16 to 41. The modified box plot's right whisker stops at 18, the largest value inside the fence, and 41 is drawn as a separate dot.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: Q1 = 9, Q3 = 16, IQR = 7.
+
+        (b) 1 pt: fences −1.5 and 26.5 with 41 identified as the only outlier.
+
+        (c) 1 pt: whisker ends at 18 rather than 41 and the outlier is a separate point.
+
+    - slug: alg1-u01-w04-q23
+      type: short_answer
+      topic_code: "1.15"
+      source: "IM Algebra 1, Unit 1, Lesson 15"
+      points: 3
+      prompt: |
+        Two gardeners grew tomato plants and measured the height of each plant in centimetres after six weeks.
+
+        Gardener A: 42, 45, 46, 47, 48, 50, 51, 52
+        Gardener B: 30, 44, 47, 48, 49, 50, 52, 76
+
+        (a) Find the median and IQR for each gardener.
+        (b) Which gardener's plants have a more consistent height? Support your answer with statistics.
+        (c) Gardener B says, "my plants are taller on average". Compute both means and explain whether the mean is a fair basis for the claim.
+      answer: |
+        (a) A: median (47 + 48)/2 = 47.5; Q1 = (45 + 46)/2 = 45.5; Q3 = (50 + 51)/2 = 50.5; IQR = 5. B: median (48 + 49)/2 = 48.5; Q1 = (44 + 47)/2 = 45.5; Q3 = (50 + 52)/2 = 51; IQR = 5.5.
+        (b) Gardener A: the IQRs are similar (5 vs 5.5), but B has two extreme values, 30 and 76, far outside the middle, while A's plants all lie between 42 and 52. A's range is 10 against B's 46.
+        (c) A's mean = 381/8 = 47.625; B's mean = 396/8 = 49.5. B's mean is pulled up by the 76 cm plant (and down by the 30, but less). The medians, 47.5 and 48.5, differ by only 1 cm, so the plants are typically about the same height; the mean is not a fair basis because B's data has extreme values.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: all four values (A: 47.5, 5; B: 48.5, 5.5).
+
+        (b) 1 pt: A, supported by the extreme values or range of B (the similar IQRs alone do not settle it, so the answer must mention the extremes).
+
+        (c) 1 pt: both means (47.6 and 49.5) and a judgement that the mean is distorted by B's extreme values, with the medians as the fairer comparison.
+
+    - slug: alg1-u01-w04-q24
+      type: short_answer
+      topic_code: "1.16"
+      source: "IM Algebra 1, Unit 1, Lesson 16"
+      points: 3
+      prompt: |
+        A student wants to investigate whether students who walk to school arrive at different times than students who ride the bus.
+
+        (a) Write the statistical question and name the variable and the groups.
+        (b) Describe what data to collect and one limitation of collecting it from the student's own homeroom only.
+        (c) Name the displays and the statistics you would use to compare the two groups, and say how you would decide between mean/SD and median/IQR.
+      answer: |
+        (a) "How do arrival times (minutes before the first bell) compare for students who walk and students who ride the bus?" Variable: arrival time in minutes before the bell (numerical). Groups: walkers and bus riders.
+        (b) Record each student's arrival time and travel mode for several days. A single homeroom is a convenience sample; it may not represent other grades or neighbourhoods, so conclusions apply only to that homeroom.
+        (c) Box plots of both groups on one scale plus a dot plot of each. Look at the dot plots first: if both are roughly symmetric with no outliers, compare means and SDs; if either is skewed or has outliers (one bus that was very late), compare medians and IQRs.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: a question with a measurable numerical variable and two named groups.
+
+        (b) 1 pt: sensible data collection and a stated limitation of the convenience sample.
+
+        (c) 1 pt: appropriate displays and a rule for choosing the statistics based on shape and outliers.
+
+    - slug: alg1-u01-w04-q25
+      type: long_answer
+      topic_code: "1.15"
+      source: "IM Algebra 1, Unit 1, Lesson 15"
+      points: 6
+      prompt: |
+        Two brands of batteries were tested in identical torches. The number of hours each battery lasted is recorded.
+
+        Brand X: 18, 19, 20, 20, 21, 21, 22, 23, 23, 24
+        Brand Y: 9, 20, 21, 22, 22, 23, 23, 24, 25, 26
+
+        Write a full comparison of the two brands: describe the shape of each distribution and apply the outlier rule to brand Y; compute the appropriate centre and spread for each brand (justify your choice); compare the brands; and recommend a brand for someone who needs a torch to last at least 20 hours on every trip, explaining your reasoning with the statistics.
+      answer: |
+        Shape: X is roughly symmetric from 18 to 24. Y has a cluster from 20 to 26 and one value, 9, far below the rest, so it is skewed left with a possible outlier.
+        Outlier check for Y: Q1 = median of 9, 20, 21, 22, 22 = 21; Q3 = median of 23, 23, 24, 25, 26 = 24; IQR = 3; lower fence 21 − 4.5 = 16.5. The 9 is an outlier.
+        Statistics: because Y has an outlier, use medians and IQRs for both. X: median (21 + 21)/2 = 21, Q1 = 20, Q3 = 23, IQR = 3. Y: median (22 + 23)/2 = 22.5, IQR = 3. (For reference, X's mean is 21.1 and Y's is 21.5; Y's mean is dragged down by the 9.)
+        Comparison: Y's typical battery lasts about 1.5 hours longer (median 22.5 vs 21) and the middle halves are equally spread (IQR 3 each). But Y produced one battery that lasted only 9 hours, while every X battery lasted at least 18 hours.
+        Recommendation: for someone who needs at least 20 hours every trip, X is the safer choice: 8 of 10 X batteries reached 20 hours and the lowest was 18, whereas Y's 9-hour failure would ruin a trip even though Y usually lasts longer. If the 9 were traced to a defective unit, Y would be preferable on typical performance.
+      explanation: |
+        Six points.
+
+        Shape and outlier (2 pts): 1 pt for describing both shapes; 1 pt for computing Y's fences (16.5 and 28.5) and identifying 9 as an outlier.
+
+        Statistics (2 pts): 1 pt for choosing median and IQR with a justification based on the outlier; 1 pt for correct values (X: 21 and 3; Y: 22.5 and 3).
+
+        Comparison and recommendation (2 pts): 1 pt for a comparison that covers both centre and spread; 1 pt for a recommendation tied to the "every trip" requirement and the outlier (X), or a well-argued conditional recommendation.
+
+        Common errors: reporting means without noticing the outlier; declaring 9 an outlier without computing the fence; recommending Y on the median alone while ignoring the requirement that every trip succeed.
