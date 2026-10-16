@@ -1,0 +1,599 @@
+week: 28
+unit: 6
+title: "Comparing Transformations and Modeling with Trigonometry"
+topics: ["6.17", "6.18", "6.19"]
+guide: guides/week-28.md
+guide_description: |
+  Writing one function as a transformation of another and why the order of steps matters; comparing two
+  trigonometric functions feature by feature; modeling a turning wheel as a function of time with
+  b = 2π/period and the right starting shape; and fitting sine or cosine models to daylight, tides,
+  the Moon and temperature, with their limits.
+flashcards_description: |
+  28 cards on comparing transformations, time-based circular-motion models and trigonometric models of periodic data.
+
+flashcards:
+  - front: g(x) = 2f(x − 1) + 3 → where the point (a, f(a)) lands
+    back: |
+      At (a + 1, 2f(a) + 3): right 1, outputs doubled, then up 3. The rule is the same whatever f is.
+    topic_code: "6.17"
+  - front: Writing g in terms of f → the method
+    back: |
+      Match g's formula to the pattern a · f(b(x − h)) + k with f's own formula inside. g(x) = 3√(x + 2) − 1 with f(x) = √x is 3f(x + 2) − 1.
+    topic_code: "6.17"
+  - front: g(θ) = 3 cos(θ + π/2) − 1 in terms of f(θ) = cos θ
+    back: |
+      g = 3f(θ + π/2) − 1: stretch by 3, left π/2, down 1. Since cos(θ + π/2) = −sin θ, it is also −3 sin θ − 1.
+    topic_code: "6.17"
+  - front: Order of steps → up 2 then ×3 versus ×3 then up 2
+    back: |
+      Up 2 then ×3 gives 3(sin θ + 2) = 3 sin θ + 6, midline 6. ×3 then up 2 gives 3 sin θ + 2, midline 2. The form a sin θ + k stretches before shifting.
+    topic_code: "6.17"
+  - front: sin(2(θ − 1)) versus sin(2θ − 1)
+    back: |
+      The first is shifted right 1 (shift, then compress). The second is 2(θ − 1/2), shifted right 1/2 (compress, then shift). Different graphs.
+    topic_code: "6.17"
+  - front: Comparing 2 sin(θ − π/4) + 1 with 2 sin(3θ − 3π/4) + 1
+    back: |
+      Same amplitude 2, midline 1 and shift π/4 (since 3θ − 3π/4 = 3(θ − π/4)); periods 2π and 2π/3. The second is the first compressed by 3 toward θ = π/4.
+    topic_code: "6.17"
+  - front: 4 cos(2θ) versus 2 cos(4θ) → maximum and peaks in [0, 2π]
+    back: |
+      4 cos(2θ): maximum 4, period π, two peaks. 2 cos(4θ): maximum 2, period π/2, four peaks.
+    topic_code: "6.17"
+  - front: Same transformation applied to different parent functions → what is shared
+    back: |
+      The geometric description (stretch, shift, reflect) and where each point goes; only the parent shape differs.
+    topic_code: "6.17"
+  - front: Angle turned after t seconds by a wheel with period T seconds
+    back: |
+      θ = (2π/T) · t. The wheel turns 2π radians every T seconds, so its angular speed is 2π/T radians per second.
+    topic_code: "6.18"
+  - front: b for a wheel that turns once every 60 seconds
+    back: |
+      b = 2π/60 = π/30. The model is k ± a cos(πt/30) or k ± a sin(πt/30), with t in seconds.
+    topic_code: "6.18"
+  - front: Ferris wheel of radius 25 m, centre 30 m up, one turn per 60 s, boarding at the bottom → h(t)
+    back: |
+      h(t) = 30 − 25 cos(πt/30). Check: h(0) = 5 (bottom), h(30) = 55 (top).
+    topic_code: "6.18"
+  - front: First time the 60-second Ferris wheel rider is 42.5 m up
+    back: |
+      30 − 25 cos(πt/30) = 42.5 gives cos(πt/30) = −1/2, so πt/30 = 2π/3 and t = 20 s (again at t = 40 s).
+    topic_code: "6.18"
+  - front: Point starting at the top of the wheel → which function
+    back: |
+      h(t) = k + a cos(bt): cosine starts at its maximum.
+    topic_code: "6.18"
+  - front: Point starting at the bottom of the wheel → which function
+    back: |
+      h(t) = k − a cos(bt): the reflected cosine starts at its minimum.
+    topic_code: "6.18"
+  - front: Point starting level with the centre and rising → which function
+    back: |
+      h(t) = k + a sin(bt). Starting level and falling (on the left) is k − a sin(bt).
+    topic_code: "6.18"
+  - front: Point that reaches the top of the wheel at t = t₀ → model
+    back: |
+      h(t) = k + a cos(b(t − t₀)): the cosine peak is moved to t₀.
+    topic_code: "6.18"
+  - front: Bicycle reflector, radius 35 cm, 2 turns per second, starting level and rising → height above the axle
+    back: |
+      Period 0.5 s, b = 2π/0.5 = 4π: 35 sin(4πt) cm. It is at the top (35 cm above the axle) at t = 1/8 s.
+    topic_code: "6.18"
+  - front: Windmill tip highest 11 m, lowest 1 m, one turn per 8 s, at the top when t = 3 → h(t)
+    back: |
+      Midline 6, amplitude 5, b = π/4: h(t) = 6 + 5 cos((π/4)(t − 3)).
+    topic_code: "6.18"
+  - front: First check of a time-based wheel model
+    back: |
+      Evaluate h(0): it must match where the point starts (bottom, top or level). Then check the time of the first peak against the period.
+    topic_code: "6.18"
+  - front: Recipe for a trigonometric model of periodic data
+    back: |
+      Midline = (max + min)/2, amplitude = (max − min)/2, period = time between repeats (b = 2π/period), shift = time of a peak (cosine) or of an upward midline crossing (sine).
+    topic_code: "6.19"
+  - front: Daylight model, 15 h on day 172 and 9 h on day 355 → D(t)
+    back: |
+      Midline 12, amplitude 3, period 365, peak at 172: D(t) = 12 + 3 cos(2π(t − 172)/365). Day 80 gives about 11.96 h.
+    topic_code: "6.19"
+  - front: Period of a daylight model and of a tide model
+    back: |
+      Daylight repeats every 365 days; the tide's high-to-high cycle is about 12.4 hours.
+    topic_code: "6.19"
+  - front: Tide model, high 5.2 m at 2:00 and low 1.0 m at 8:12 → h(t)
+    back: |
+      Midline 3.1, amplitude 2.1, half-period 6.2 h so period 12.4 h: h(t) = 3.1 + 2.1 cos(2π(t − 2)/12.4), t in hours after midnight.
+    topic_code: "6.19"
+  - front: Moon illumination model with a full moon on day 0
+    back: |
+      f(t) = 0.5 + 0.5 cos(2πt/29.5): 1 when full, 0 when new 14.75 days later, half lit at about 7.4 days.
+    topic_code: "6.19"
+  - front: Monthly temperature, 26°C in July and 2°C in January → T(m)
+    back: |
+      Midline 14, amplitude 12, period 12 months, peak at m = 7: T(m) = 14 + 12 cos(2π(m − 7)/12).
+    topic_code: "6.19"
+  - front: Residual of a model at a data point
+    back: |
+      Data value minus model value. Small residuals of both signs mean a good fit; a run of same-sign residuals means a feature is off.
+    topic_code: "6.19"
+  - front: What a trigonometric model of tides or weather cannot do
+    back: |
+      Predict irregular departures (storms, cold snaps) or long-term trends; it only captures the regular cycle. Report predictions as approximate.
+    topic_code: "6.19"
+  - front: Time from a peak to the next trough in the data → what it is
+    back: |
+      Half a period. Double it to get the period before computing b = 2π/period.
+    topic_code: "6.19"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (lessons 6.17 to 6.19: comparing transformations,
+    modeling circular motion in time, and trigonometric models of periodic data), with about a quarter
+    reviewing earlier units. Includes a shared-context set on an 80-second Ferris wheel. Multiple choice,
+    select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes.
+  questions:
+    # ---- Stimulus set: the 80-second Ferris wheel (6.17, 6.18)
+    - slug: alg2-u06-w28-q01
+      type: multiple_choice
+      topic_code: "6.18"
+      source: "IM Algebra 2, Unit 6, Lesson 18"
+      points: 1
+      stimulus: |
+        A Ferris wheel of radius 20 m has its centre 22 m above the ground and turns at a steady rate, once every 80 seconds. A rider boards at the lowest point at t = 0.
+      prompt: |
+        Which function gives the rider's height h(t) in metres after t seconds?
+      options:
+        - "h(t) = 22 + 20 sin(πt/40)"
+        - "h(t) = 22 − 20 cos(80t)"
+        - "h(t) = 22 + 20 cos(πt/40)"
+        - "h(t) = 22 − 20 cos(πt/40)"
+      option_explanations:
+        - |
+          This starts level with the centre, h(0) = 22, and rising; the rider starts 2 m up.
+        - |
+          b is 2π divided by the period, π/40, not the period itself.
+        - |
+          This starts at the top: h(0) = 42. The rider boards at the bottom.
+        - |
+          Correct. b = 2π/80 = π/40, and boarding at the bottom means a reflected cosine: h(0) = 22 − 20 = 2.
+      answer: 3
+    - slug: alg2-u06-w28-q02
+      type: multiple_choice
+      topic_code: "6.18"
+      source: "IM Algebra 2, Unit 6, Lesson 18"
+      points: 1
+      stimulus: |
+        A Ferris wheel of radius 20 m has its centre 22 m above the ground and turns at a steady rate, once every 80 seconds. A rider boards at the lowest point at t = 0.
+      prompt: |
+        How high is the rider at t = 20 seconds?
+      options:
+        - "2 m"
+        - "42 m"
+        - "22 m"
+        - "32 m"
+      option_explanations:
+        - |
+          2 m is the boarding height at t = 0 and again at t = 80.
+        - |
+          42 m is the top, reached after half a turn, at t = 40.
+        - |
+          Correct. A quarter turn after the bottom, the rider is level with the centre: 22 − 20 cos(π/2) = 22.
+        - |
+          32 m is reached when cos(πt/40) = −1/2, at t = 80/3 ≈ 26.7 s, not at t = 20.
+      answer: 2
+    - slug: alg2-u06-w28-q03
+      type: multiple_choice
+      topic_code: "6.18"
+      source: "IM Algebra 2, Unit 6, Lesson 18"
+      points: 1
+      stimulus: |
+        A Ferris wheel of radius 20 m has its centre 22 m above the ground and turns at a steady rate, once every 80 seconds. A rider boards at the lowest point at t = 0.
+      prompt: |
+        When is the rider first exactly 32 m above the ground?
+      options:
+        - "t = 80/3 ≈ 26.7 s"
+        - "t = 40/3 ≈ 13.3 s"
+        - "t = 160/3 ≈ 53.3 s"
+        - "t = 20 s"
+      option_explanations:
+        - |
+          Correct. 22 − 20 cos(πt/40) = 32 gives cos(πt/40) = −1/2, so πt/40 = 2π/3 and t = 80/3.
+        - |
+          πt/40 = π/3 gives cos = +1/2 and a height of 12 m, not 32 m.
+        - |
+          160/3 is the second time (πt/40 = 4π/3), on the way down; the first is 80/3.
+        - |
+          At t = 20 the rider is level with the centre, 22 m up.
+      answer: 0
+    - slug: alg2-u06-w28-q04
+      type: multiple_choice
+      topic_code: "6.17"
+      source: "IM Algebra 2, Unit 6, Lesson 17"
+      points: 1
+      stimulus: |
+        A Ferris wheel of radius 20 m has its centre 22 m above the ground and turns at a steady rate, once every 80 seconds. A rider boards at the lowest point at t = 0.
+      prompt: |
+        A second rider is at the top at t = 0. How is the second rider's height function g related to the first rider's h?
+      options:
+        - "g(t) = −h(t): the same wave reflected across the t-axis"
+        - "g(t) = h(t − 40): the same wave shifted 40 seconds"
+        - "g(t) = h(2t): the same wave with half the period"
+        - "g(t) = h(t) + 40: the same wave shifted up 40 m"
+      option_explanations:
+        - |
+          −h(t) would give negative heights; the reflection needed is across the midline, not the t-axis.
+        - |
+          Correct. The second rider is half a turn ahead, so g(t) = 22 + 20 cos(πt/40) = h(t − 40) = h(t + 40).
+        - |
+          Both riders turn at the same rate, so the period is 80 s for both.
+        - |
+          Adding 40 would make the maximum 82 m; both riders share the same wheel and the same midline 22.
+      answer: 1
+    # ---- Single items on this week
+    - slug: alg2-u06-w28-q05
+      type: multiple_choice
+      topic_code: "6.17"
+      source: "IM Algebra 2, Unit 6, Lesson 17"
+      points: 1
+      prompt: |
+        Let g(x) = −f(x + 2) + 5. Which description takes the graph of f to the graph of g?
+      options:
+        - "Reflect across the x-axis, shift left 2, shift up 5"
+        - "Reflect across the x-axis, shift right 2, shift down 5"
+        - "Shift left 2, shift up 5, reflect across the x-axis"
+        - "Reflect across the y-axis, shift right 2, shift up 5"
+      option_explanations:
+        - |
+          Correct. The minus sign outside reflects outputs, x + 2 shifts left, and +5 shifts up after the reflection.
+        - |
+          x + 2 shifts left, not right, and +5 shifts up.
+        - |
+          Reflecting last would also flip the +5, giving f(x + 2) − 5 reflected, which is −f(x + 2) − 5.
+        - |
+          The minus sign is on the output, so the reflection is across the x-axis; and x + 2 shifts left.
+      answer: 0
+    - slug: alg2-u06-w28-q06
+      type: multiple_choice
+      topic_code: "6.17"
+      source: "IM Algebra 2, Unit 6, Lesson 17"
+      points: 1
+      prompt: |
+        Which pair of functions has the same graph?
+      options:
+        - "y = sin(θ + π) and y = sin θ"
+        - "y = 2 sin θ and y = sin(2θ)"
+        - "y = cos θ and y = sin(θ − π/2)"
+        - "y = cos(θ − π/2) and y = sin θ"
+      option_explanations:
+        - |
+          Shifting by half a period reflects the wave: sin(θ + π) = −sin θ.
+        - |
+          One has amplitude 2 and period 2π; the other has amplitude 1 and period π.
+        - |
+          sin(θ − π/2) = −cos θ, the reflection of cosine; cosine itself is sin(θ + π/2).
+        - |
+          Correct. Cosine moved right π/2 peaks at π/2, exactly where sine peaks; the graphs coincide.
+      answer: 3
+    - slug: alg2-u06-w28-q07
+      type: multiple_choice
+      topic_code: "6.17"
+      source: "IM Algebra 2, Unit 6, Lesson 17"
+      points: 1
+      prompt: |
+        How do the graphs of y = sin(2(θ − 1)) and y = sin(2θ − 1) compare?
+      options:
+        - "They are the same graph."
+        - "Same period; the first is shifted right 1, the second right 1/2."
+        - "The first is shifted right 1, the second left 1."
+        - "Same shift; the first has period π, the second period 2π."
+      option_explanations:
+        - |
+          sin(2(θ − 1)) = sin(2θ − 2), not sin(2θ − 1); the order of the steps changes the result.
+        - |
+          Correct. 2θ − 1 = 2(θ − 1/2), so compressing then shifting leaves a shift of only 1/2; both have period π.
+        - |
+          Both shifts are to the right; the second is just half as large.
+        - |
+          Both have the factor 2 on θ, so both have period π; it is the shifts that differ.
+      answer: 1
+    - slug: alg2-u06-w28-q08
+      type: multiple_choice
+      topic_code: "6.19"
+      source: "IM Algebra 2, Unit 6, Lesson 19"
+      points: 1
+      prompt: |
+        A city's daylight hours are modelled by D(t) = 12 + 3 cos(2π(t − 172)/365), where t is the day of the year. What does the 172 represent?
+      options:
+        - "The number of hours of daylight on the longest day"
+        - "The day of the year with the least daylight"
+        - "The day of the year with the most daylight"
+        - "Half the length of the cycle in days"
+      option_explanations:
+        - |
+          The longest day has 12 + 3 = 15 hours; 172 is when it happens, not how long it is.
+        - |
+          The least daylight, 9 hours, is half a period later, at t ≈ 354.5.
+        - |
+          Correct. Cosine peaks where its argument is 0, at t = 172 (21 June), when D = 15 hours.
+        - |
+          Half the cycle is 365/2 = 182.5 days; 172 is a shift, not a period.
+      answer: 2
+    - slug: alg2-u06-w28-q09
+      type: multiple_choice
+      topic_code: "6.19"
+      source: "IM Algebra 2, Unit 6, Lesson 19"
+      points: 1
+      prompt: |
+        High tide of 6 m occurs at 3:00 and the next low tide of 2 m at 9:12, 6.2 hours later. With t in hours after midnight, which model fits?
+      options:
+        - "h(t) = 4 + 2 cos(2π(t − 3)/12.4)"
+        - "h(t) = 4 + 2 cos(2π(t − 3)/6.2)"
+        - "h(t) = 4 + 4 cos(2π(t − 3)/12.4)"
+        - "h(t) = 6 + 2 cos(2π(t − 3)/12.4)"
+      option_explanations:
+        - |
+          Correct. Midline (6 + 2)/2 = 4, amplitude 2, period 2 · 6.2 = 12.4 h, peak at t = 3.
+        - |
+          6.2 hours is high to low, half a period; the full period is 12.4 hours.
+        - |
+          Amplitude is half the range, (6 − 2)/2 = 2, not the whole range.
+        - |
+          The midline is the average of high and low, 4 m, not the high-tide height.
+      answer: 0
+    - slug: alg2-u06-w28-q10
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "IM Algebra 2, Unit 2, Lesson 3"
+      points: 1
+      prompt: |
+        What are the degree and leading coefficient of p(x) = 4x − 2x³ + 7?
+      options:
+        - "Degree 1, leading coefficient 4"
+        - "Degree 3, leading coefficient −2"
+        - "Degree 3, leading coefficient 4"
+        - "Degree 0, leading coefficient 7"
+      option_explanations:
+        - |
+          4x is written first but is not the highest power; the degree is set by x³.
+        - |
+          Correct. The highest power is x³, and its coefficient is −2 once the terms are put in standard form.
+        - |
+          The leading coefficient belongs to the highest-degree term, −2x³, not to the first term written.
+        - |
+          7 is the constant term; the degree is the largest exponent, 3.
+      answer: 1
+    - slug: alg2-u06-w28-q11
+      type: multiple_choice
+      topic_code: "5.11"
+      source: "IM Algebra 2, Unit 5, Lesson 11"
+      points: 1
+      prompt: |
+        A cup of coffee cools: 90°, 70°, 55°, 44°, 36°, 30° at 0, 5, 10, 15, 20 and 25 minutes, and the room is 20°. Which model is best suited to the data?
+      options:
+        - "A sine wave with midline 20"
+        - "A quadratic with vertex at (0, 90)"
+        - "A line, T(t) = 90 − 2.4t"
+        - "A shifted exponential, T(t) = 70 · bᵗ + 20"
+      option_explanations:
+        - |
+          Cooling does not repeat; nothing here is periodic.
+        - |
+          A quadratic would eventually turn back up; the temperature approaches 20° and stays.
+        - |
+          The drops shrink each step (20, 15, 11, 8, 6), so the data are not linear.
+        - |
+          Correct. The temperature levels off at the room's 20°, and the excess over 20 (70, 50, 35, 24, 16, 10) falls by a near-constant ratio of about 0.7.
+      answer: 3
+    - slug: alg2-u06-w28-q12
+      type: multiple_choice
+      topic_code: "4.17"
+      source: "IM Algebra 2, Unit 4, Lesson 17"
+      points: 1
+      prompt: |
+        What is the vertical asymptote of y = log₂(x − 3)?
+      options:
+        - "y = 3"
+        - "x = −3"
+        - "x = 3"
+        - "x = 0"
+      option_explanations:
+        - |
+          A vertical asymptote is a vertical line, x = constant; the graph has no horizontal asymptote.
+        - |
+          x − 3 inside the logarithm shifts the graph right 3, not left, so the asymptote moves to x = 3.
+        - |
+          Correct. log₂ is defined only for positive inputs, and x − 3 approaches 0 from the right as x approaches 3.
+        - |
+          x = 0 is the asymptote of the parent log₂(x); the shift right 3 moves it.
+      answer: 2
+    - slug: alg2-u06-w28-q13
+      type: multiple_choice
+      topic_code: "2.22"
+      source: "IM Algebra 2, Unit 2, Lesson 22"
+      points: 1
+      prompt: |
+        Solve 6/x = x − 1.
+      options:
+        - "x = 6 or x = −1"
+        - "x = 2 or x = −3"
+        - "x = 3 only"
+        - "x = 3 or x = −2"
+      option_explanations:
+        - |
+          6/6 = 1 but 6 − 1 = 5; and 6/(−1) = −6 while −1 − 1 = −2.
+        - |
+          6/2 = 3 but 2 − 1 = 1; the factors are (x − 3)(x + 2), not (x − 2)(x + 3).
+        - |
+          −2 also works: 6/(−2) = −3 and −2 − 1 = −3.
+        - |
+          Correct. Multiplying by x gives x² − x − 6 = 0, so (x − 3)(x + 2) = 0; both values check (6/3 = 2, 6/(−2) = −3).
+      answer: 3
+    - slug: alg2-u06-w28-q14
+      type: multi_select
+      topic_code: "6.18"
+      source: "IM Algebra 2, Unit 6, Lesson 18"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A wheel of radius 8 m with centre 10 m up turns once every 10 seconds. Which height functions describe a point that is at the top of the wheel at t = 0? Select all that apply.
+      options:
+        - "h(t) = 10 + 8 sin((π/5)(t + 2.5))"
+        - "h(t) = 10 + 8 sin(πt/5)"
+        - "h(t) = 10 − 8 cos(πt/5)"
+        - "h(t) = 10 + 8 cos(πt/5)"
+        - "h(t) = 10 + 8 cos((π/5)(t − 10))"
+      option_explanations:
+        - |
+          Correct. At t = 0 the argument is π/2, where the sine is 1, so h(0) = 18; this is the cosine form written as a shifted sine.
+        - |
+          h(0) = 10: this point starts level with the centre and rising.
+        - |
+          h(0) = 10 − 8 = 2: this point starts at the bottom.
+        - |
+          Correct. h(0) = 10 + 8 = 18, the top, and the period is 2π/(π/5) = 10 s.
+        - |
+          Correct. At t = 0 the argument is −2π, where the cosine is 1, so h(0) = 18; shifting by a full period changes nothing.
+      answer: [0, 3, 4]
+    - slug: alg2-u06-w28-q15
+      type: multi_select
+      topic_code: "6.19"
+      source: "IM Algebra 2, Unit 6, Lesson 19"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which quantities are reasonably modelled by a sine or cosine function of time? Select all that apply.
+      options:
+        - "A population growing by 3% each year"
+        - "The height of the tide at a harbour over a day"
+        - "The average monthly temperature of a city over several years"
+        - "The distance a car has travelled along a straight road at a steady speed"
+        - "Hours of daylight in a city over the year"
+      option_explanations:
+        - |
+          Exponential growth never returns to an earlier value; it has no cycle.
+        - |
+          Correct. Tides rise and fall on a regular cycle of about 12.4 hours.
+        - |
+          Correct. Monthly averages repeat each year with a warm peak and a cold trough.
+        - |
+          Distance at steady speed grows linearly without ever repeating.
+        - |
+          Correct. Daylight repeats every 365 days, peaking in midsummer and bottoming in midwinter.
+      answer: [1, 2, 4]
+    - slug: alg2-u06-w28-q16
+      type: true_false
+      topic_code: "6.17"
+      source: "IM Algebra 2, Unit 6, Lesson 17"
+      points: 1
+      prompt: |
+        True or false: multiplying the outputs of f by 3 and then adding 2 gives the same function as adding 2 to the outputs and then multiplying by 3.
+      answer: false
+      explanation: |
+        False. The first is 3f(x) + 2; the second is 3(f(x) + 2) = 3f(x) + 6. For f = sin the midlines are 2 and 6; the order of the steps matters.
+    - slug: alg2-u06-w28-q17
+      type: true_false
+      topic_code: "3.7"
+      source: "IM Algebra 2, Unit 3, Lesson 7"
+      points: 1
+      prompt: |
+        True or false: squaring both sides of an equation can introduce a solution that does not satisfy the original equation.
+      answer: true
+      explanation: |
+        True. √x = −2 has no solution, but squaring gives x = 4, which fails the original (√4 = 2). Always check candidates in the original equation.
+    - slug: alg2-u06-w28-q18
+      type: fill_blank
+      topic_code: "6.18"
+      source: "IM Algebra 2, Unit 6, Lesson 18"
+      points: 1
+      prompt: |
+        A wheel turns once every 12 seconds. In the model h(t) = k + a cos(bt), b = ____
+      answer: ["π/6", "pi/6", "b = π/6", "2π/12"]
+      explanation: |
+        b = 2π/period = 2π/12 = π/6 radians per second.
+    - slug: alg2-u06-w28-q19
+      type: fill_blank
+      topic_code: "4.1"
+      source: "IM Algebra 2, Unit 4, Lesson 1"
+      points: 1
+      prompt: |
+        A quantity halves every 3 hours. After 12 hours it is ____ of its starting amount (give a fraction).
+      answer: ["1/16", "0.0625", "1/16 of"]
+      explanation: |
+        Twelve hours is four halvings: (1/2)⁴ = 1/16.
+    - slug: alg2-u06-w28-q20
+      type: numeric
+      topic_code: "6.19"
+      source: "IM Algebra 2, Unit 6, Lesson 19"
+      points: 1
+      prompt: |
+        Using the daylight model D(t) = 12 + 3 cos(2π(t − 172)/365), find the hours of daylight on day 100, to two decimal places.
+      answer: { value: 12.98, tolerance: 0.03 }
+      explanation: |
+        2π(100 − 172)/365 ≈ −1.239 radians, cos(−1.239) ≈ 0.325, so D ≈ 12 + 0.98 ≈ 12.98 hours.
+    - slug: alg2-u06-w28-q21
+      type: numeric
+      topic_code: "6.18"
+      source: "IM Algebra 2, Unit 6, Lesson 18"
+      points: 1
+      prompt: |
+        A windmill tip's height is h(t) = 6 + 5 cos((π/4)(t − 3)) metres. Find h(7). Give an exact integer.
+      answer: { value: 1, tolerance: 0 }
+      explanation: |
+        (π/4)(7 − 3) = π and cos π = −1, so h(7) = 6 − 5 = 1 m, the lowest point, half a period after the top at t = 3.
+    - slug: alg2-u06-w28-q22
+      type: numeric
+      topic_code: "4.13"
+      source: "IM Algebra 2, Unit 4, Lesson 13"
+      points: 1
+      prompt: |
+        An account grows continuously: A(t) = 500 · e^(0.04t) dollars after t years. Find A(10) to the nearest cent.
+      answer: { value: 745.91, tolerance: 0.02 }
+      explanation: |
+        500 · e^(0.4) ≈ 500 · 1.4918 ≈ 745.91.
+    - slug: alg2-u06-w28-q23
+      type: short_answer
+      topic_code: "6.17"
+      source: "IM Algebra 2, Unit 6, Lesson 17"
+      points: 3
+      prompt: |
+        Let f(θ) = 3 sin θ − 1 and g(θ) = 3 sin(2θ) − 1.
+        (a) Name every feature (midline, amplitude, period, maximum, minimum) the two functions share.
+        (b) Name the feature that differs and give its value for each function.
+        (c) How many maximums does each function have for 0 ≤ θ ≤ 2π, and at which θ?
+      answer: |
+        (a) Both have midline y = −1, amplitude 3, maximum 2 and minimum −4.
+        (b) The period: f has period 2π, g has period π. g is f compressed horizontally by a factor of 1/2.
+        (c) f has one maximum, at θ = π/2. g has two, where 2θ = π/2 or 5π/2, at θ = π/4 and θ = 5π/4.
+      explanation: |
+        Three points, one per part. (a) midline −1, amplitude 3, max 2, min −4 (at least three named). (b) periods 2π and π. (c) one at π/2; two at π/4 and 5π/4.
+    - slug: alg2-u06-w28-q24
+      type: short_answer
+      topic_code: "6.19"
+      source: "IM Algebra 2, Unit 6, Lesson 19"
+      points: 3
+      prompt: |
+        A city's average monthly temperature is highest in July (month 7) at 26°C and lowest in January (month 1) at 2°C, repeating every 12 months.
+        (a) Give the midline, amplitude and period of a cosine model T(m).
+        (b) Write the model.
+        (c) Use it to estimate the April (m = 4) temperature, and say why the real April average might differ.
+      answer: |
+        (a) Midline (26 + 2)/2 = 14, amplitude (26 − 2)/2 = 12, period 12 months.
+        (b) T(m) = 14 + 12 cos(2π(m − 7)/12) = 14 + 12 cos((π/6)(m − 7)).
+        (c) m = 4: (π/6)(−3) = −π/2, cos = 0, so T ≈ 14°C. The real average could differ because a year's weather is not perfectly regular and the warming and cooling halves of the year are not exactly symmetric.
+      explanation: |
+        Three points, one per part. (a) 14, 12 and 12. (b) a correct cosine (or equivalent sine) model. (c) 14°C with a sensible reason for the model's limits.
+    - slug: alg2-u06-w28-q25
+      type: long_answer
+      topic_code: "6.18"
+      source: "IM Algebra 2, Unit 6, Lesson 18"
+      points: 6
+      prompt: |
+        A mill wheel of radius 3 m turns at a steady rate, once every 12 seconds, with its axle 2 m above the surface of the water. Follow one paddle that is at the very top at t = 0. Write a full response that (1) builds the paddle's height above the water, h(t), explaining the choice of function and each number in it, (2) states the midline, amplitude and period and what each means, (3) finds the first time the paddle enters the water, to two decimal places, showing the equation you solve, and (4) finds how long the paddle spends under water during each turn, to two decimal places.
+      answer: |
+        (1) Starting at the top calls for a cosine: h(t) = 2 + 3 cos(bt), with midline 2 (the axle height), amplitude 3 (the radius) and b = 2π/12 = π/6. So h(t) = 2 + 3 cos(πt/6). Check: h(0) = 5, the top, 5 m above the water.
+        (2) Midline 2 m is the axle height, the average of the paddle's highest (5 m) and lowest (−1 m) positions; amplitude 3 m is the radius, how far the paddle swings above and below the axle; period 12 s is the time for one turn.
+        (3) The paddle enters the water when h = 0: 2 + 3 cos(πt/6) = 0, cos(πt/6) = −2/3. arccos(−2/3) ≈ 2.30, so πt/6 ≈ 2.30 and t ≈ 2.30 · 6/π ≈ 4.39 s.
+        (4) The paddle is under water while cos(πt/6) < −2/3, which is for πt/6 between 2.30 and 2π − 2.30 ≈ 3.98. That is an angle of about 1.68 radians, taking 1.68 · 6/π ≈ 3.21 seconds. (Equivalently it leaves the water at t ≈ 7.61 s, and 7.61 − 4.39 = 3.21.)
+      explanation: |
+        Six points: 2 for (1), one for the cosine with midline 2 and amplitude 3 and one for b = π/6; 1 for (2); 2 for (3), one for cos(πt/6) = −2/3 and one for t ≈ 4.39 s; 1 for about 3.21 s in (4).

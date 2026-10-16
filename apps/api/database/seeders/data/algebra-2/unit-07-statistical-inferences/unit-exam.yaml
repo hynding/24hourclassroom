@@ -1,0 +1,896 @@
+unit: 7
+description: |
+  45 questions · about 85 minutes · every lesson of Unit 7 (7.1 to 7.16): skeptical reading of data, study
+  types, random selection and assignment, describing distributions, normal distributions and areas,
+  z-scores and cutoffs, unusual results, sampling variability and margin of error for proportions and
+  means, and the analysis and design of experiments. Includes three shared-context sets of three questions
+  (a newspaper study, commute times, and a reading-app experiment), select-all, true/false,
+  fill-in-the-blank and numeric items, two short-answer questions (3 points each) and one extended response
+  (6 points), with a few review items from earlier units. Multiple choice, select-all, true/false and
+  numeric items are graded at once; fill-in-the-blank items are matched automatically; the free-response
+  items are graded by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: a newspaper study (7.1, 7.2, 7.3)
+  - slug: alg2-u07-exam-q01
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "IM Algebra 2, Unit 7, Lesson 2"
+    points: 1
+    stimulus: |
+      A newspaper reports: "Of 300 adults who signed up for a free sleep-tracking app, those who recorded 8 or more hours of sleep were 30% more likely to say they felt productive at work than those who recorded less."
+    prompt: |
+      What type of study is this?
+    options:
+      - "An observational study (with a survey question), since nobody was assigned an amount of sleep"
+      - "An experiment, since the app recorded the data"
+      - "A simulation of sleep and productivity"
+      - "A randomized experiment, since 300 is a large number"
+    option_explanations:
+      - |
+        Correct. Sleep was observed, not assigned, and productivity was self-reported; this compares existing groups.
+      - |
+        Recording data is not the same as assigning a treatment; an experiment would decide who sleeps how much.
+      - |
+        The data are real app users' records, not generated from a model.
+      - |
+        Sample size has nothing to do with whether assignment was random; it was not random at all.
+    answer: 0
+  - slug: alg2-u07-exam-q02
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "IM Algebra 2, Unit 7, Lesson 2"
+    points: 1
+    stimulus: |
+      A newspaper reports: "Of 300 adults who signed up for a free sleep-tracking app, those who recorded 8 or more hours of sleep were 30% more likely to say they felt productive at work than those who recorded less."
+    prompt: |
+      What does the result support?
+    options:
+      - "Nothing at all, because self-reports are never useful"
+      - "That sleeping 8 hours causes a 30% rise in productivity"
+      - "An association between sleep and reported productivity among app users, not that sleep causes productivity"
+      - "That productive people sleep more, as a proven cause"
+    option_explanations:
+      - |
+        Self-reports are weak evidence but not worthless; the study does show an association in this group.
+      - |
+        Causation needs random assignment of sleep amounts; this study had none.
+      - |
+        Correct. Without random assignment, a confounder (such as job stress affecting both sleep and productivity) could explain the link.
+      - |
+        The direction of cause cannot be determined from an association either.
+    answer: 2
+  - slug: alg2-u07-exam-q03
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "IM Algebra 2, Unit 7, Lesson 3"
+    points: 1
+    stimulus: |
+      A newspaper reports: "Of 300 adults who signed up for a free sleep-tracking app, those who recorded 8 or more hours of sleep were 30% more likely to say they felt productive at work than those who recorded less."
+    prompt: |
+      What is the main problem with the sample?
+    options:
+      - "Three hundred is far too few people to learn anything."
+      - "Adults should not be studied with apps."
+      - "The sample should have been split exactly 150 and 150."
+      - "The 300 adults chose to sign up for a sleep app, so they are self-selected and may not represent adults in general."
+    option_explanations:
+      - |
+        Three hundred is a reasonable size; the problem is how they were chosen, not how many.
+      - |
+        The tool is not the issue; who ended up in the sample is.
+      - |
+        The groups were defined by sleep recorded, not assigned, so equal sizes are beside the point.
+      - |
+        Correct. People who download a sleep tracker probably care about sleep already; the sample is biased, whatever its size.
+    answer: 3
+  # ---- Stimulus set B: commute times (7.5, 7.7)
+  - slug: alg2-u07-exam-q04
+    type: multiple_choice
+    topic_code: "7.5"
+    source: "IM Algebra 2, Unit 7, Lesson 5"
+    points: 1
+    stimulus: |
+      Commute times for a city's workers are approximately normal with mean 32 minutes and standard deviation 8 minutes. Areas to the left of z: z = −1.5 → 0.067; z = −0.5 → 0.309; z = 1 → 0.841; z = 2 → 0.977.
+    prompt: |
+      About what share of workers have commutes between 24 and 40 minutes?
+    options:
+      - "50%"
+      - "68%"
+      - "95%"
+      - "34%"
+    option_explanations:
+      - |
+        50% is the share below the mean; this interval is centred on the mean.
+      - |
+        Correct. 24 and 40 are one standard deviation either side of 32, which holds about 68%.
+      - |
+        95% is the share within two standard deviations, 16 to 48 minutes.
+      - |
+        34% is the share between the mean and one standard deviation on one side only.
+    answer: 1
+  - slug: alg2-u07-exam-q05
+    type: multiple_choice
+    topic_code: "7.7"
+    source: "IM Algebra 2, Unit 7, Lesson 7"
+    points: 1
+    stimulus: |
+      Commute times for a city's workers are approximately normal with mean 32 minutes and standard deviation 8 minutes. Areas to the left of z: z = −1.5 → 0.067; z = −0.5 → 0.309; z = 1 → 0.841; z = 2 → 0.977.
+    prompt: |
+      About what share of workers have commutes longer than 48 minutes?
+    options:
+      - "2.3%"
+      - "4.6%"
+      - "16%"
+      - "97.7%"
+    option_explanations:
+      - |
+        Correct. 48 minutes is z = 2; the area to the right is 1 − 0.977 = 0.023.
+      - |
+        4.6% counts both tails beyond ±2; only the upper tail is asked for.
+      - |
+        16% is the share beyond one standard deviation, above 40 minutes.
+      - |
+        97.7% is the share with commutes shorter than 48 minutes.
+    answer: 0
+  - slug: alg2-u07-exam-q06
+    type: multiple_choice
+    topic_code: "7.7"
+    source: "IM Algebra 2, Unit 7, Lesson 7"
+    points: 1
+    stimulus: |
+      Commute times for a city's workers are approximately normal with mean 32 minutes and standard deviation 8 minutes. Areas to the left of z: z = −1.5 → 0.067; z = −0.5 → 0.309; z = 1 → 0.841; z = 2 → 0.977.
+    prompt: |
+      About what share of workers have commutes between 20 and 28 minutes?
+    options:
+      - "37.6%"
+      - "24.2%"
+      - "6.7%"
+      - "30.9%"
+    option_explanations:
+      - |
+        37.6% adds the two areas instead of subtracting them.
+      - |
+        Correct. 20 minutes is z = −1.5 (area 0.067) and 28 minutes is z = −0.5 (area 0.309); between them is 0.309 − 0.067 = 0.242.
+      - |
+        6.7% is the share below 20 minutes alone.
+      - |
+        30.9% is the share below 28 minutes; the share below 20 must be subtracted.
+    answer: 1
+  # ---- Stimulus set C: the reading-app experiment (7.13, 7.14)
+  - slug: alg2-u07-exam-q07
+    type: multiple_choice
+    topic_code: "7.13"
+    source: "IM Algebra 2, Unit 7, Lesson 13"
+    points: 1
+    stimulus: |
+      Twenty-four students were randomly assigned, 12 to practise vocabulary with a reading app and 12 to practise with printed cards, for two weeks. The app group's mean gain was 12.5 words and the card group's mean gain was 9.5 words. Shuffling the 24 gains into two groups of 12 at random 1,000 times gave differences in means with mean 0 and standard deviation 1.5 words, roughly normal. The area to the left of z = 2 is 0.977.
+    prompt: |
+      What is the observed difference in means, app minus cards?
+    options:
+      - "1.5 words"
+      - "22 words"
+      - "0 words"
+      - "3 words"
+    option_explanations:
+      - |
+        1.5 is the standard deviation of the regrouping differences, not the observed difference.
+      - |
+        22 is the sum of the two means; the effect is the difference.
+      - |
+        0 is the centre of the randomization distribution, not the observed result.
+      - |
+        Correct. The app group's mean gain minus the card group's: 12.5 − 9.5 = 3 words.
+    answer: 3
+  - slug: alg2-u07-exam-q08
+    type: multiple_choice
+    topic_code: "7.14"
+    source: "IM Algebra 2, Unit 7, Lesson 14"
+    points: 1
+    stimulus: |
+      Twenty-four students were randomly assigned, 12 to practise vocabulary with a reading app and 12 to practise with printed cards, for two weeks. The app group's mean gain was 12.5 words and the card group's mean gain was 9.5 words. Shuffling the 24 gains into two groups of 12 at random 1,000 times gave differences in means with mean 0 and standard deviation 1.5 words, roughly normal. The area to the left of z = 2 is 0.977.
+    prompt: |
+      About what proportion of random regroupings give a difference at least as extreme as the observed one, in either direction?
+    options:
+      - "About 2.3%"
+      - "About 97.7%"
+      - "About 4.6%"
+      - "About 50%"
+    option_explanations:
+      - |
+        2.3% is one tail only; "either direction" counts both.
+      - |
+        97.7% is the area to the left of z = 2, the less extreme regroupings on that side.
+      - |
+        Correct. z = 3/1.5 = 2; one tail is 1 − 0.977 = 0.023, and both tails together give 0.046.
+      - |
+        50% is the share of regroupings favouring the app at all, not the share as extreme as 3 words.
+    answer: 2
+  - slug: alg2-u07-exam-q09
+    type: multiple_choice
+    topic_code: "7.14"
+    source: "IM Algebra 2, Unit 7, Lesson 14"
+    points: 1
+    stimulus: |
+      Twenty-four students were randomly assigned, 12 to practise vocabulary with a reading app and 12 to practise with printed cards, for two weeks. The app group's mean gain was 12.5 words and the card group's mean gain was 9.5 words. Shuffling the 24 gains into two groups of 12 at random 1,000 times gave differences in means with mean 0 and standard deviation 1.5 words, roughly normal. The area to the left of z = 2 is 0.977.
+    prompt: |
+      The researchers chose a 5% cutoff before the experiment. What should they conclude?
+    options:
+      - "The app has been proved to teach exactly 3 more words."
+      - "The difference is not significant, because 3 words is a small number."
+      - "The difference is significant at 5%: the app likely produced the larger gain, though it would not be significant at a 1% cutoff."
+      - "The experiment is invalid because the groups were not the same size."
+    option_explanations:
+      - |
+        The analysis gives evidence of an effect, not proof, and not a precise size.
+      - |
+        Significance depends on the size relative to chance differences (z = 2), not on the raw number.
+      - |
+        Correct. 4.6% is below 5%, so chance is an unlikely explanation; it is above 1%, so a stricter cutoff would not be met.
+      - |
+        The groups were 12 and 12, equal; and equal sizes are not required in any case.
+    answer: 2
+  # ---- Single items
+  - slug: alg2-u07-exam-q10
+    type: multiple_choice
+    topic_code: "7.1"
+    source: "IM Algebra 2, Unit 7, Lesson 1"
+    points: 1
+    prompt: |
+      A bar chart compares two brands' customer-satisfaction scores, 87% and 89%, with a vertical axis running from 86% to 90%. How does the chart mislead?
+    options:
+      - "The two brands should have been shown on separate charts."
+      - "Bar charts cannot show percentages."
+      - "Satisfaction scores cannot be compared."
+      - "The cut-off axis makes a 2-point difference look like one bar is several times taller than the other."
+    option_explanations:
+      - |
+        Separate charts would make comparison harder, not more honest.
+      - |
+        Bar charts show percentages perfectly well; the axis range is the problem.
+      - |
+        The scores can be compared; the chart just distorts the comparison.
+      - |
+        Correct. On an axis from 0 the bars would be almost the same height; starting at 86 exaggerates the gap.
+    answer: 3
+  - slug: alg2-u07-exam-q11
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "IM Algebra 2, Unit 7, Lesson 2"
+    points: 1
+    prompt: |
+      Which question is a statistical question?
+    options:
+      - "How many minutes do students at this school spend on homework each night?"
+      - "How many minutes did Ana spend on homework last night?"
+      - "How many students are enrolled at the school this year?"
+      - "What time does the school day start?"
+    option_explanations:
+      - |
+        Correct. The answer varies from student to student, so data must be collected and summarised.
+      - |
+        One person's single value, not a distribution to describe.
+      - |
+        A single count to look up, not variable data.
+      - |
+        A fixed fact with one answer, nothing to vary.
+    answer: 0
+  - slug: alg2-u07-exam-q12
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "IM Algebra 2, Unit 7, Lesson 2"
+    points: 1
+    prompt: |
+      A teacher wants to know whether a new note-taking method improves quiz scores. Which design can support a cause-and-effect conclusion?
+    options:
+      - "Teach the new method to the students with the lowest scores and see if they improve."
+      - "Randomly assign half the class to the new method and half to their usual method, then compare mean quiz scores."
+      - "Compare the scores of students who already use a similar method with those who do not."
+      - "Ask students which method they prefer."
+    option_explanations:
+      - |
+        Choosing the lowest scorers builds a difference into the groups, and their scores might rise anyway.
+      - |
+        Correct. Random assignment with a control group is a randomized experiment.
+      - |
+        An observational comparison leaves confounders (who chooses such methods) in place.
+      - |
+        A survey of preferences cannot show an effect on scores.
+    answer: 1
+  - slug: alg2-u07-exam-q13
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "IM Algebra 2, Unit 7, Lesson 3"
+    points: 1
+    prompt: |
+      What is the purpose of selecting a sample at random?
+    options:
+      - "So that the sample is as large as possible"
+      - "So that every sample gives exactly the same estimate"
+      - "So the sample differs from the population only by chance, not systematically, and represents it"
+      - "So the treatment and control groups are alike"
+    option_explanations:
+      - |
+        Randomness is about how members are chosen, not how many.
+      - |
+        Random samples still vary by chance; that variation is what the margin of error measures.
+      - |
+        Correct. Equal chances for every member remove the tilt that volunteer or convenience samples have.
+      - |
+        That is the purpose of random assignment in an experiment, not of random selection of a sample.
+    answer: 2
+  - slug: alg2-u07-exam-q14
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "IM Algebra 2, Unit 7, Lesson 3"
+    points: 1
+    prompt: |
+      A company with 5,000 employees wants a sample of 200 for a survey about the cafeteria. Which method is best?
+    options:
+      - "Number the employees 1 to 5,000 and choose 200 numbers with a random number generator."
+      - "Post the survey on the company intranet and use the first 200 responses."
+      - "Survey the first 200 employees who arrive at the cafeteria on Monday."
+      - "Ask the 200 employees in the headquarters building."
+    option_explanations:
+      - |
+        Correct. Every employee has the same chance of being chosen.
+      - |
+        Volunteers who respond first are self-selected and may feel strongly one way.
+      - |
+        Early cafeteria arrivals are frequent cafeteria users, a biased group for a cafeteria survey.
+      - |
+        One building is a convenience sample and may differ from the other sites.
+    answer: 0
+  - slug: alg2-u07-exam-q15
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "IM Algebra 2, Unit 7, Lesson 4"
+    points: 1
+    prompt: |
+      Household incomes in a city have a few very high values and most values clustered lower. Which description is correct?
+    options:
+      - "Uniform; every income is about equally common."
+      - "Skewed right; the median is a better typical value than the mean."
+      - "Symmetric; the mean and median are equal."
+      - "Skewed left; the mean is a better typical value than the median."
+    option_explanations:
+      - |
+        Incomes cluster at lower values; they are not evenly spread.
+      - |
+        Correct. The long tail of high values is to the right, and it pulls the mean up; the median resists it.
+      - |
+        A few very high values make the distribution far from symmetric.
+      - |
+        The tail is on the high side, so the skew is to the right, and the mean is the measure to avoid.
+    answer: 1
+  - slug: alg2-u07-exam-q16
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "IM Algebra 2, Unit 7, Lesson 4"
+    points: 1
+    prompt: |
+      The data set 10, 12, 13, 15, 15, 16 has mean 13.5 and median 14. The 16 is replaced by 46. What happens?
+    options:
+      - "The mean stays 13.5 and the median rises to 19."
+      - "The mean and the median both rise by 5."
+      - "Neither the mean nor the median changes."
+      - "The mean rises to 18.5 and the median stays 14."
+    option_explanations:
+      - |
+        The mean uses every value, so it must change; the median is the one that stays.
+      - |
+        The median depends only on the middle values, which are unchanged.
+      - |
+        The mean is pulled by the new outlier; only the median is unaffected.
+      - |
+        Correct. The sum rises by 30, so the mean rises by 5; the middle two values are still 13 and 15, so the median stays 14.
+    answer: 3
+  - slug: alg2-u07-exam-q17
+    type: multiple_choice
+    topic_code: "7.5"
+    source: "IM Algebra 2, Unit 7, Lesson 5"
+    points: 1
+    prompt: |
+      A normal distribution has mean 100 and standard deviation 15. About what share of values lies between 70 and 115?
+    options:
+      - "95%"
+      - "81.5%"
+      - "47.5%"
+      - "68%"
+    option_explanations:
+      - |
+        95% is the share within two standard deviations, 70 to 130.
+      - |
+        Correct. From μ − 2σ to μ is 47.5% and from μ to μ + σ is 34%; together 81.5%.
+      - |
+        47.5% is only the lower half of the interval, from 70 to 100.
+      - |
+        68% is the share within one standard deviation, 85 to 115.
+    answer: 1
+  - slug: alg2-u07-exam-q18
+    type: multiple_choice
+    topic_code: "7.6"
+    source: "IM Algebra 2, Unit 7, Lesson 6"
+    points: 1
+    prompt: |
+      In a relative-frequency histogram the bars have areas 0.05, 0.20, 0.45, 0.22 and 0.08 for the intervals 0–10, 10–20, 20–30, 30–40 and 40–50. What share of the data is at least 30?
+    options:
+      - "0.70"
+      - "0.08"
+      - "0.30"
+      - "0.22"
+    option_explanations:
+      - |
+        0.70 is the share below 30, the three bars on the left added together.
+      - |
+        0.08 is only the 40–50 bar; the 30–40 bar is also at least 30.
+      - |
+        Correct. The bars for 30–40 and 40–50 have areas 0.22 + 0.08 = 0.30.
+      - |
+        0.22 is only the 30–40 bar; the 40–50 bar also counts as at least 30.
+    answer: 2
+  - slug: alg2-u07-exam-q19
+    type: multiple_choice
+    topic_code: "7.7"
+    source: "IM Algebra 2, Unit 7, Lesson 7"
+    points: 1
+    prompt: |
+      Scores have mean 40 and standard deviation 4. What is the z-score of a score of 46?
+    options:
+      - "0.67"
+      - "−1.5"
+      - "6"
+      - "1.5"
+    option_explanations:
+      - |
+        0.67 divides the wrong way round, 4/6 instead of 6/4.
+      - |
+        46 is above the mean, so its z-score is positive.
+      - |
+        6 is the distance from the mean in score units; divide by the standard deviation.
+      - |
+        Correct. z = (46 − 40)/4 = 6/4 = 1.5 standard deviations above the mean.
+    answer: 3
+  - slug: alg2-u07-exam-q20
+    type: multiple_choice
+    topic_code: "7.7"
+    source: "IM Algebra 2, Unit 7, Lesson 7"
+    points: 1
+    prompt: |
+      Test scores are approximately normal with mean 100 and standard deviation 15. The top 5% of scores start at about what value? (The area to the left of z = 1.645 is 0.95.)
+    options:
+      - "124.7"
+      - "130"
+      - "75.3"
+      - "115"
+    option_explanations:
+      - |
+        Correct. x = μ + zσ = 100 + 1.645 · 15 ≈ 124.7, the score with 95% of scores below it.
+      - |
+        130 is two standard deviations above, where the top 2.5% start.
+      - |
+        75.3 is the cutoff for the bottom 5%, z = −1.645.
+      - |
+        115 is one standard deviation above the mean, where the top 16% start.
+    answer: 0
+  - slug: alg2-u07-exam-q21
+    type: multiple_choice
+    topic_code: "7.8"
+    source: "IM Algebra 2, Unit 7, Lesson 8"
+    points: 1
+    prompt: |
+      A coin is claimed to be fair. In 40 flips it shows 30 heads. A simulation of 40 fair flips, repeated 1,000 times, gives a mean of 20 heads with standard deviation 3.2. What is the best conclusion?
+    options:
+      - "30 heads is about 3 standard deviations above the mean, very unusual for a fair coin: strong evidence the coin is not fair, though not proof."
+      - "No conclusion is possible from only 40 flips."
+      - "30 heads is within the typical range, so the coin is fair."
+      - "The coin has been proved unfair."
+    option_explanations:
+      - |
+        Correct. (30 − 20)/3.2 ≈ 3.1; the typical range is about 13.6 to 26.4, and 30 is well outside it.
+      - |
+        Forty flips with a simulation to compare against are enough to judge how unusual 30 heads is.
+      - |
+        The typical range ends near 26; 30 is well beyond it.
+      - |
+        An unusual result is evidence, never proof; a fair coin could do this, just very rarely.
+    answer: 0
+  - slug: alg2-u07-exam-q22
+    type: multiple_choice
+    topic_code: "7.9"
+    source: "IM Algebra 2, Unit 7, Lesson 9"
+    points: 1
+    prompt: |
+      Which best describes the margin of error of a sample estimate?
+    options:
+      - "The difference between the sample estimate and the population value, known exactly"
+      - "About two standard deviations of the sample statistics: the largest difference from the population value expected by chance"
+      - "The standard deviation of the original data"
+      - "The number of members of the population not included in the sample"
+    option_explanations:
+      - |
+        The actual error of a single sample is unknown; the margin bounds it with high probability.
+      - |
+        Correct. Roughly 95% of sample statistics lie within two standard deviations of the population value.
+      - |
+        The data's standard deviation describes individual values, not how estimates vary.
+      - |
+        The count of people not sampled is irrelevant; a random sample of 1,000 works for any large population.
+    answer: 1
+  - slug: alg2-u07-exam-q23
+    type: multiple_choice
+    topic_code: "7.10"
+    source: "IM Algebra 2, Unit 7, Lesson 10"
+    points: 1
+    prompt: |
+      Thirty random samples give sample proportions with mean 0.36 and standard deviation 0.04. Which interval estimate is correct?
+    options:
+      - "0.34 to 0.38"
+      - "0.32 to 0.40"
+      - "0.28 to 0.44"
+      - "0.24 to 0.48"
+    option_explanations:
+      - |
+        This uses half a standard deviation, far too narrow to capture the population value reliably.
+      - |
+        This uses one standard deviation; the margin of error is two.
+      - |
+        Correct. Margin 2 · 0.04 = 0.08, so 0.36 ± 0.08.
+      - |
+        This uses three standard deviations, wider than the 95% convention.
+    answer: 2
+  - slug: alg2-u07-exam-q24
+    type: multiple_choice
+    topic_code: "7.11"
+    source: "IM Algebra 2, Unit 7, Lesson 11"
+    points: 1
+    prompt: |
+      Samples of 100 give a margin of error of 0.08. To bring the margin down to about 0.04, how large should each sample be?
+    options:
+      - "About 50"
+      - "About 10,000"
+      - "About 200"
+      - "About 400"
+    option_explanations:
+      - |
+        A smaller sample makes the margin larger.
+      - |
+        10,000 would cut the margin to about 0.008, far more than needed.
+      - |
+        Doubling the sample only cuts the margin by about a factor of √2, to roughly 0.057.
+      - |
+        Correct. Halving the margin takes about four times the sample.
+    answer: 3
+  - slug: alg2-u07-exam-q25
+    type: multiple_choice
+    topic_code: "7.12"
+    source: "IM Algebra 2, Unit 7, Lesson 12"
+    points: 1
+    prompt: |
+      Fifteen random samples of boxes give sample mean masses whose mean is 52.0 g and whose standard deviation is 0.8 g. What is the estimate of the population mean mass?
+    options:
+      - "52.0 ± 0.4 g"
+      - "52.0 ± 1.6 g"
+      - "52.0 ± 0.8 g"
+      - "52.0 ± 12 g"
+    option_explanations:
+      - |
+        0.4 is half a standard deviation; the margin of error is two of them, 1.6 g.
+      - |
+        Correct. The margin of error is twice the standard deviation of the sample means, 1.6 g.
+      - |
+        0.8 is one standard deviation; double it.
+      - |
+        12 multiplies by the number of samples, which the method never does.
+    answer: 1
+  - slug: alg2-u07-exam-q26
+    type: multiple_choice
+    topic_code: "7.15"
+    source: "IM Algebra 2, Unit 7, Lesson 15"
+    points: 1
+    prompt: |
+      In a trial of a headache pill, neither the patients nor the nurses recording pain levels know who received the real pill. What is the purpose?
+    options:
+      - "To make the groups the same size"
+      - "To make the randomization distribution narrower"
+      - "To save money on the real pills"
+      - "To stop expectations from changing what patients report and what nurses record"
+    option_explanations:
+      - |
+        Group sizes are set by the assignment, not by who knows what.
+      - |
+        Blinding affects bias in measurement, not the spread of chance differences.
+      - |
+        Cost is not the reason; fairness of measurement is.
+      - |
+        Correct. Blinding removes the influence of knowing one's group, on both the subjects and the measurers.
+    answer: 3
+  - slug: alg2-u07-exam-q27
+    type: multiple_choice
+    topic_code: "7.16"
+    source: "IM Algebra 2, Unit 7, Lesson 16"
+    points: 1
+    prompt: |
+      A student counts 11 pulse beats in 10 seconds. What is the resting heart rate in beats per minute?
+    options:
+      - "66"
+      - "110"
+      - "60"
+      - "11"
+    option_explanations:
+      - |
+        Correct. Ten seconds is a sixth of a minute, so multiply by 6: 11 · 6 = 66.
+      - |
+        110 multiplies by 10; a minute has 6 ten-second intervals, not 10.
+      - |
+        60 would be the rate for 10 beats in 10 seconds; one more beat adds 6 per minute.
+      - |
+        11 is the count in 10 seconds, not the rate per minute.
+    answer: 0
+  - slug: alg2-u07-exam-q28
+    type: multiple_choice
+    topic_code: "6.16"
+    source: "IM Algebra 2, Unit 6, Lesson 16"
+    points: 1
+    prompt: |
+      What are the midline, amplitude and period of y = 3 cos(2(θ − π/3)) + 1?
+    options:
+      - "Midline y = 1, amplitude 3, period π/3"
+      - "Midline y = 1, amplitude 3, period 2π"
+      - "Midline y = 1, amplitude 3, period π"
+      - "Midline y = 3, amplitude 1, period 2π"
+    option_explanations:
+      - |
+        π/3 is the horizontal shift, not the period.
+      - |
+        The factor 2 inside halves the period to π.
+      - |
+        Correct. The constant 1 is the midline, the factor 3 the amplitude, and the period is 2π/2 = π.
+      - |
+        The multiplier is the amplitude and the added constant is the midline, not the reverse.
+    answer: 2
+  - slug: alg2-u07-exam-q29
+    type: multiple_choice
+    topic_code: "4.14"
+    source: "IM Algebra 2, Unit 4, Lesson 14"
+    points: 1
+    prompt: |
+      Solve 2 · 5ˣ = 250.
+    options:
+      - "x = 2"
+      - "x = log₅(250)"
+      - "x = 125"
+      - "x = 3"
+    option_explanations:
+      - |
+        5² = 25 and 2 · 25 = 50, not 250; one more factor of 5 is needed, so x = 3.
+      - |
+        Divide by 2 before taking the logarithm; log₅(250) ≈ 3.43 solves 5ˣ = 250.
+      - |
+        125 is 5ˣ, not x; the exponent that gives 125 is 3.
+      - |
+        Correct. Dividing by 2 gives 5ˣ = 125 = 5³, so x = 3.
+    answer: 3
+  - slug: alg2-u07-exam-q30
+    type: multi_select
+    topic_code: "7.2"
+    source: "IM Algebra 2, Unit 7, Lesson 2"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of these are observational studies? Select all that apply.
+    options:
+      - "A random sample of 800 residents is asked whether they support a new park."
+      - "Hospital records are used to compare recovery times of patients who did and did not take a vitamin on their own."
+      - "Researchers compare the lung health of people who live near a highway with that of people who live far from one."
+      - "A biologist records the growth of trees on the sunny and shady sides of a valley."
+      - "Forty volunteers are randomly assigned to drink coffee or decaf before a memory test."
+    option_explanations:
+      - |
+        Asking questions of a sample is a survey.
+      - |
+        Correct. The patients chose the vitamin themselves; the records are observed, not assigned.
+      - |
+        Correct. Nobody was assigned where to live; existing groups are compared.
+      - |
+        Correct. The trees' positions were not assigned by the biologist; the growth is observed.
+      - |
+        Random assignment of coffee or decaf makes this an experiment.
+    answer: [1, 2, 3]
+  - slug: alg2-u07-exam-q31
+    type: multi_select
+    topic_code: "7.11"
+    source: "IM Algebra 2, Unit 7, Lesson 11"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about margin of error and sample size are true? Select all that apply.
+    options:
+      - "Larger random samples give smaller margins of error."
+      - "Four times the sample size roughly halves the margin of error."
+      - "Doubling the sample size halves the margin of error."
+      - "A large enough sample removes the bias of a convenience sample."
+      - "The margin of error covers random sampling variability, not systematic bias."
+    option_explanations:
+      - |
+        Correct. Sample statistics from larger samples vary less.
+      - |
+        Correct. The standard deviation of sample statistics shrinks like 1/√n.
+      - |
+        Doubling the sample cuts the margin by a factor of about √2 ≈ 1.4, not 2.
+      - |
+        No sample size fixes a biased selection method; the estimate stays systematically off.
+      - |
+        Correct. It describes chance error only; bias must be prevented by random selection.
+    answer: [0, 1, 4]
+  - slug: alg2-u07-exam-q32
+    type: multi_select
+    topic_code: "7.15"
+    source: "IM Algebra 2, Unit 7, Lesson 15"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which questions matter for judging whether an experiment's difference in means is due to the treatment? Select all that apply.
+    options:
+      - "Which group was listed first in the report?"
+      - "Were the subjects assigned to groups at random?"
+      - "Was the cutoff for significance chosen before the results were seen?"
+      - "How many subjects were in each group?"
+      - "What proportion of random regroupings gave a difference at least as extreme?"
+    option_explanations:
+      - |
+        The order of listing changes nothing about the evidence.
+      - |
+        Correct. Without random assignment the regrouping argument does not apply.
+      - |
+        Correct. A cutoff chosen afterwards can be picked to give the desired answer.
+      - |
+        Correct. Small groups make large chance differences common.
+      - |
+        Correct. That proportion is the measure of how unusual the result is under chance alone.
+    answer: [1, 2, 3, 4]
+  - slug: alg2-u07-exam-q33
+    type: true_false
+    topic_code: "7.4"
+    source: "IM Algebra 2, Unit 7, Lesson 4"
+    points: 1
+    prompt: |
+      True or false: in a distribution that is skewed right, the mean is usually greater than the median.
+    answer: true
+    explanation: |
+      True. The long tail of high values pulls the mean toward it, while the median stays at the middle of the data.
+  - slug: alg2-u07-exam-q34
+    type: true_false
+    topic_code: "7.9"
+    source: "IM Algebra 2, Unit 7, Lesson 9"
+    points: 1
+    prompt: |
+      True or false: two random samples of the same size from the same population will give the same sample proportion.
+    answer: false
+    explanation: |
+      False. Different random samples contain different members, so their proportions differ by chance; this sampling variability is what the margin of error measures.
+  - slug: alg2-u07-exam-q35
+    type: true_false
+    topic_code: "7.14"
+    source: "IM Algebra 2, Unit 7, Lesson 14"
+    points: 1
+    prompt: |
+      True or false: a randomization distribution of differences in means is centred at the observed difference from the experiment.
+    answer: false
+    explanation: |
+      False. It is centred at 0, because the regroupings assume the treatment did nothing and shuffling favours neither group. The observed difference is compared against it.
+  - slug: alg2-u07-exam-q36
+    type: fill_blank
+    topic_code: "7.7"
+    source: "IM Algebra 2, Unit 7, Lesson 7"
+    points: 1
+    prompt: |
+      Values have mean 60 and standard deviation 5. The z-score of the value 72 is ____
+    answer: ["2.4", "z = 2.4", "2,4"]
+    explanation: |
+      z = (72 − 60)/5 = 12/5 = 2.4.
+  - slug: alg2-u07-exam-q37
+    type: fill_blank
+    topic_code: "7.10"
+    source: "IM Algebra 2, Unit 7, Lesson 10"
+    points: 1
+    prompt: |
+      Sample proportions from many random samples have standard deviation 0.035. The margin of error is ____
+    answer: ["0.07", ".07", "0,07"]
+    explanation: |
+      Twice the standard deviation of the sample proportions: 2 · 0.035 = 0.07.
+  - slug: alg2-u07-exam-q38
+    type: fill_blank
+    topic_code: "7.12"
+    source: "IM Algebra 2, Unit 7, Lesson 12"
+    points: 1
+    prompt: |
+      The population mean of a single roll of a fair six-sided die is ____
+    answer: ["3.5", "3,5", "7/2"]
+    explanation: |
+      (1 + 2 + 3 + 4 + 5 + 6)/6 = 21/6 = 3.5; the means of many samples of rolls cluster around it.
+  - slug: alg2-u07-exam-q39
+    type: numeric
+    topic_code: "7.4"
+    source: "IM Algebra 2, Unit 7, Lesson 4"
+    points: 1
+    prompt: |
+      Find the mean of 6, 9, 11 and 14.
+    answer: { value: 10, tolerance: 0 }
+    explanation: |
+      40/4 = 10.
+  - slug: alg2-u07-exam-q40
+    type: numeric
+    topic_code: "7.4"
+    source: "IM Algebra 2, Unit 7, Lesson 4"
+    points: 1
+    prompt: |
+      Find the standard deviation of 1, 3, 5, 7, 9 using the population formula (divide the sum of squared deviations by 5). Give two decimal places.
+    answer: { value: 2.83, tolerance: 0.01 }
+    explanation: |
+      The mean is 5; squared deviations 16, 4, 0, 4, 16 sum to 40; 40/5 = 8; √8 ≈ 2.83.
+  - slug: alg2-u07-exam-q41
+    type: numeric
+    topic_code: "7.7"
+    source: "IM Algebra 2, Unit 7, Lesson 7"
+    points: 1
+    prompt: |
+      The area to the left of z = −0.5 is 0.309 and to the left of z = 1 is 0.841. What proportion of a normal distribution lies between z = −0.5 and z = 1? Give three decimal places.
+    answer: { value: 0.532, tolerance: 0.002 }
+    explanation: |
+      0.841 − 0.309 = 0.532.
+  - slug: alg2-u07-exam-q42
+    type: numeric
+    topic_code: "7.13"
+    source: "IM Algebra 2, Unit 7, Lesson 13"
+    points: 1
+    prompt: |
+      A treatment group's results are 20, 24 and 22; the control group's results are 18, 17 and 19. Find the difference in means, treatment minus control.
+    answer: { value: 4, tolerance: 0.01 }
+    explanation: |
+      Treatment mean 66/3 = 22; control mean 54/3 = 18; difference 4.
+  - slug: alg2-u07-exam-q43
+    type: short_answer
+    topic_code: "7.10"
+    source: "IM Algebra 2, Unit 7, Lesson 10"
+    points: 3
+    prompt: |
+      A random sample of 1,200 residents is asked whether they support a new bus route; 540 say yes. A simulation of many samples of 1,200 from a population with 45% support gives sample proportions with standard deviation 0.014.
+      (a) Give the sample proportion and the margin of error.
+      (b) Write the interval estimate as a sentence a newspaper could print.
+      (c) The city council wants a margin of error of about 0.014. Roughly how large a sample would it need, and why?
+    answer: |
+      (a) 540/1,200 = 0.45; margin of error 2 · 0.014 = 0.028, about 0.03.
+      (b) About 45% of residents support the route, with a margin of error of about 3 percentage points: support is likely between 42% and 48%.
+      (c) About 4,800: halving the margin takes about four times the sample, because the standard deviation of sample proportions shrinks like 1/√n.
+    explanation: |
+      Three points, one per part. (a) 0.45 and about 0.03. (b) 42% to 48% with appropriate hedging. (c) about 4,800 with the four-times reason.
+  - slug: alg2-u07-exam-q44
+    type: short_answer
+    topic_code: "7.14"
+    source: "IM Algebra 2, Unit 7, Lesson 14"
+    points: 3
+    prompt: |
+      In a randomized experiment the treatment group's mean exceeds the control group's by 2.5 units. Random regroupings of the results give differences in means with mean 0 and standard deviation 1.0, roughly normal. The area to the left of z = 2.5 is 0.994.
+      (a) Find the z-score of the observed difference and the proportion of regroupings at least as extreme in both tails.
+      (b) State the decision at a 5% cutoff and at a 1% cutoff.
+      (c) Explain in one sentence what the proportion in (a) represents.
+    answer: |
+      (a) z = 2.5/1.0 = 2.5; one tail 1 − 0.994 = 0.006, both tails about 0.012 (1.2%).
+      (b) Significant at 5% (1.2% < 5%); not significant at 1% (1.2% > 1%).
+      (c) It is the proportion of random regroupings, with no treatment effect at all, that would produce a difference as large as the observed one in either direction: how often chance alone does this.
+    explanation: |
+      Three points, one per part. (a) z = 2.5 and about 0.012. (b) both decisions. (c) a correct description of the two-tailed proportion under chance.
+  - slug: alg2-u07-exam-q45
+    type: long_answer
+    topic_code: "7.15"
+    source: "IM Algebra 2, Unit 7, Lesson 15"
+    points: 6
+    prompt: |
+      A teacher wonders whether a ten-minute walk before a quiz improves students' quiz scores. Write a full response that (1) explains why simply comparing the scores of students who choose to walk with those who do not would not answer the question, (2) designs a randomized experiment, naming the treatment, the control, how the groups are formed, what is measured and how the groups are kept otherwise alike, (3) explains how the results would be analysed with a randomization distribution, including what number is compared with what and how the decision is made, and (4) states two limitations the teacher should mention when reporting the result.
+    answer: |
+      (1) Students who choose to walk may differ from the others in ways that affect scores, such as energy, mood, sleep or habits; such a comparison is observational and shows only association, with those confounders unaccounted for.
+      (2) Treatment: a ten-minute walk immediately before the quiz; control: ten minutes of sitting quietly (so both groups spend the same time away from studying). Assign the class at random, for example by shuffling slips with half marked "walk". Everyone takes the same quiz at the same time under the same conditions, and the quizzes are graded without knowing who walked. The response is each student's quiz score, and the statistic is the difference in mean scores, walk minus sit.
+      (3) Pretend the walk has no effect and shuffle all the scores into two groups of the same sizes at random many times, recording the difference in means each time; the differences centre at 0 and are roughly normal. Compare the observed difference with this distribution: find the proportion of regroupings at least as extreme (both tails), or z = (observed difference)/(regrouping standard deviation). If that proportion is below a cutoff chosen beforehand (say 5%), the difference is significant and the walk is the likely cause; otherwise there is not enough evidence.
+      (4) Limitations (any two): one class is a small sample, so chance differences are large and a real effect could be missed; the result applies to this class and this quiz and may not generalise to other students or subjects; students could not be blinded to whether they walked, so expectations might play a part; a significant result shows the walk likely helped on average but not by how much for any individual, and "not significant" would not mean the walk does nothing.
+    explanation: |
+      Six points: 1 for self-selection and confounding in (1); 2 for (2), one for treatment, control and random assignment and one for keeping conditions alike and a clear measure; 2 for (3), one for the regrouping distribution centred at 0 and one for the comparison with a cutoff set beforehand; 1 for two sensible limitations in (4).

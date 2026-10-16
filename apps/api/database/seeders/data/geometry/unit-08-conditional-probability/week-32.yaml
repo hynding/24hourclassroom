@@ -1,0 +1,637 @@
+week: 32
+unit: 8
+title: "Conditional Probability from Tables, Testing Independence, and Games"
+topics: ["8.9", "8.10", "8.11"]
+guide: guides/week-32.md
+guide_description: |
+  Reading conditional probabilities from two-way tables by choosing the row or column as the new sample space, building tables from conditional information, the three equivalent tests for independence and approximate independence from data, and analysing games with tables and trees, fairness and average winnings. Worked examples, Try-it problems and a self-check.
+flashcards_description: |
+  28 cards on conditional probability from tables, building tables from conditionals, the independence tests, approximate independence, and analysing games. Review them before the week 32 quiz.
+flashcards:
+  - front: Conditional probability from a two-way table → method
+    back: |
+      The condition names a row or column; that line's total is the denominator and the shared cell is the numerator. P(reads | train) = 72/120.
+    topic_code: "8.9"
+  - front: 'The question "What fraction of car commuters read?" → which conditional'
+    back: |
+      P(reads | car): the car row is the sample space. "What fraction of readers commute by car?" is P(car | reads), the reads column.
+    topic_code: "8.9"
+  - front: Same cell, two conditionals → why the answers differ
+    back: |
+      P(A | B) divides the cell by B's total, P(B | A) by A's total. 72/120 = 0.6 versus 72/96 = 0.75 in the commuting table.
+    topic_code: "8.9"
+  - front: Build a two-way table from conditional percentages → method
+    back: |
+      Split the total by the first variable, then apply each conditional percentage within its row. 200 plants, 60% fertilised, 80% of those flowered: 120 fertilised, 96 flowered.
+    topic_code: "8.9"
+  - front: Tree versus table → when to use which
+    back: |
+      A tree follows the order events happen; a table makes reverse conditionals (P(cause | effect)) easy because every row and column total is visible.
+    topic_code: "8.9"
+  - front: Leaf probabilities of a tree → relation to a table
+    back: |
+      Each leaf probability is a table cell divided by the grand total: 0.6 × 0.8 = 0.48 matches 96/200.
+    topic_code: "8.9"
+  - front: Error-spot → "P(reads | train) = 72/300"
+    back: |
+      300 is the grand total; the condition "train" restricts to the 120 train commuters. 72/120 = 0.6.
+    topic_code: "8.9"
+  - front: Reverse conditional from a tree → P(fertilised | flowered)
+    back: |
+      P(fertilised and flowered)/P(flowered) = 0.48/0.66 ≈ 0.73; in counts, 96/132.
+    topic_code: "8.9"
+  - front: Independence test 1 → with a conditional
+    back: |
+      A and B are independent exactly when P(A | B) = P(A): knowing B changes nothing.
+    topic_code: "8.10"
+  - front: Independence test 2 → with the other conditional
+    back: |
+      Equivalently P(B | A) = P(B). If one holds, so does the other.
+    topic_code: "8.10"
+  - front: Independence test 3 → the multiplication form
+    back: |
+      P(A and B) = P(A) · P(B). It comes from the multiplication rule P(A and B) = P(B) · P(A | B) with P(A | B) replaced by P(A).
+    topic_code: "8.10"
+  - front: Independence in a two-way table → what it looks like
+    back: |
+      Every row has the same proportions (and so does every column). Tea table: 30/50, 90/150 and 120/200 are all 0.6.
+    topic_code: "8.10"
+  - front: Two dice, "first is even" and "sum is 7" → independent?
+    back: |
+      Yes: P(and) = 3/36 = (1/2)(1/6). With "sum is 8" instead: 3/36 ≠ (1/2)(5/36), dependent.
+    topic_code: "8.10"
+  - front: Approximately independent → meaning
+    back: |
+      Observed conditional probabilities that are close (0.41 versus 0.43 in a survey) but not exactly equal; data always wobbles, so look for differences that matter.
+    topic_code: "8.10"
+  - front: When may you multiply P(A) · P(B) for "A and B"?
+    back: |
+      Only when A and B are independent (known or assumed). Otherwise use P(B) · P(A | B).
+    topic_code: "8.10"
+  - front: Two parts fail independently with probabilities 0.02 and 0.05 → P(at least one fails)
+    back: |
+      1 − (0.98)(0.95) = 1 − 0.931 = 0.069. Both fail: 0.001.
+    topic_code: "8.10"
+  - front: Error-spot → "P(A and B) = 0.15 and P(A) = 0.3, so P(B) must be 0.5"
+    back: |
+      Only if A and B are independent. In general P(A and B) = P(A) · P(B | A), so 0.5 is P(B | A), not necessarily P(B).
+    topic_code: "8.10"
+  - front: Analyse a game → the five steps
+    back: |
+      Name the chance devices; write the sample space (table or tree); mark each player's wins; compute the probabilities; judge fairness or average winnings.
+    topic_code: "8.11"
+  - front: Two spinners (1–3 and 1–4), A wins on an odd product, B on a product of at least 8 → fair?
+    back: |
+      Odd products 4/12, products ≥ 8 are 3/12: not fair, and 9 is a win for both. "B wins on an even product of at least 6" gives 4/12.
+    topic_code: "8.11"
+  - front: Shared winning outcomes → what to do
+    back: |
+      Notice them (9 is odd and ≥ 8) and add a tie-break rule, or rewrite the rules so the winning sets do not overlap.
+    topic_code: "8.11"
+  - front: Multi-stage game → how to find P(win)
+    back: |
+      Tree: multiply along each winning branch, add the branches. Heart (1/4) then 5 or 6 (1/3), else coin heads (1/2): 1/12 + 3/8 = 11/24.
+    topic_code: "8.11"
+  - front: P(drew a heart | won) in the card-then-die game
+    back: |
+      (1/12)/(11/24) = 2/11: the winning-via-heart branch over all winning branches.
+    topic_code: "8.11"
+  - front: Average (expected) winnings → formula
+    back: |
+      Sum of prize × probability over all outcomes. Compare with the cost to play: higher means a gaining game on average.
+    topic_code: "8.11"
+  - front: $2 spinner game paying $1 (30%), $5 (15%), $20 (5%) → average winnings
+    back: |
+      0.3 + 0.75 + 1.00 = $2.05 per play, slightly more than the $2 cost.
+    topic_code: "8.11"
+  - front: Spinner with 90°, 120°, 150° regions → can one spin be fair?
+    back: |
+      No: no subset of 1/4, 1/3, 5/12 adds to 1/2. Fairness must be checked by computing, not assumed.
+    topic_code: "8.11"
+  - front: Error-spot → "the game with the biggest prize is the best deal"
+    back: |
+      A big prize with a tiny probability can give low average winnings. Compare prize × probability totals against the cost.
+    topic_code: "8.11"
+  - front: Simulate a game to check a calculation → how
+    back: |
+      Play it many times (or with random numbers), record the relative frequency of each player's wins, and compare with the computed probabilities.
+    topic_code: "8.11"
+  - front: Game-show door problem as a tree → result
+    back: |
+      Prize behind 1, 2 or 3 with 1/3 each; after the host's informed reveal, switching wins in the two branches where the first pick was wrong: 2/3.
+    topic_code: "8.11"
+quiz:
+  description: |
+    25 questions · about 40 minutes · Conditional probability from two-way tables, building tables from conditionals, the independence tests and approximate independence, and analysing games with tables, trees, fairness and average winnings, with review of the addition rule, complements, sample spaces, dependence, spinners and sectors. Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your teacher against the scoring notes.
+  questions:
+    - slug: geo-u08-w32-q01
+      type: multiple_choice
+      topic_code: "8.9"
+      source: "IM Geometry, Unit 8, Lesson 9"
+      points: 1
+      stimulus: |
+        A gym recorded 360 members by membership type and whether they attended a class last week.
+
+        | | Attended a class | Did not | Total |
+        |---|---|---|---|
+        | Monthly | 90 | 150 | 240 |
+        | Annual | 60 | 60 | 120 |
+        | Total | 150 | 210 | 360 |
+      prompt: |
+        What is P(attended a class | annual member)?
+      options:
+        - "0.167"
+        - "0.40"
+        - "0.375"
+        - "0.50"
+      option_explanations:
+        - |
+          0.167 is 60/360, the joint probability P(annual and attended).
+        - |
+          0.40 is 60/150, P(annual | attended), the reverse conditional.
+        - |
+          0.375 is 90/240, P(attended | monthly), the other row.
+        - |
+          Correct. Among the 120 annual members, 60 attended: 60/120 = 0.50.
+      answer: 3
+
+    - slug: geo-u08-w32-q02
+      type: multiple_choice
+      topic_code: "8.10"
+      source: "IM Geometry, Unit 8, Lesson 10"
+      points: 1
+      stimulus: |
+        A gym recorded 360 members by membership type and whether they attended a class last week.
+
+        | | Attended a class | Did not | Total |
+        |---|---|---|---|
+        | Monthly | 90 | 150 | 240 |
+        | Annual | 60 | 60 | 120 |
+        | Total | 150 | 210 | 360 |
+      prompt: |
+        Are "annual member" and "attended a class" independent?
+      options:
+        - "Yes: P(attended | annual) = 0.50 and P(did not | annual) = 0.50"
+        - "No: P(attended | annual) = 0.50 but P(attended) = 150/360 ≈ 0.42"
+        - "Yes: the annual row has equal counts"
+        - "No: annual members are fewer than monthly members"
+      option_explanations:
+        - |
+          Comparing the two cells of one row tests nothing; independence compares P(attended | annual) with P(attended).
+        - |
+          Correct. Knowing a member is annual raises the chance of attending from about 0.42 to 0.50, so the events are dependent. (Also 120/360 × 150/360 = 0.139 ≠ 60/360 = 0.167.)
+        - |
+          Equal counts in a row say that half of annual members attended, which must be compared with the overall rate.
+        - |
+          Group sizes have nothing to do with independence.
+      answer: 1
+
+    - slug: geo-u08-w32-q03
+      type: multiple_choice
+      topic_code: "8.9"
+      source: "IM Geometry, Unit 8, Lesson 9"
+      points: 1
+      stimulus: |
+        A gym recorded 360 members by membership type and whether they attended a class last week.
+
+        | | Attended a class | Did not | Total |
+        |---|---|---|---|
+        | Monthly | 90 | 150 | 240 |
+        | Annual | 60 | 60 | 120 |
+        | Total | 150 | 210 | 360 |
+      prompt: |
+        What is the probability that a member who attended a class is a monthly member?
+      options:
+        - "0.60"
+        - "0.667"
+        - "0.25"
+        - "0.375"
+      option_explanations:
+        - |
+          Correct. "Who attended" makes the attended column the sample space: 90/150 = 0.60.
+        - |
+          0.667 is 240/360, P(monthly) with no condition.
+        - |
+          0.25 is 90/360, the joint probability P(monthly and attended), not a conditional one.
+        - |
+          0.375 is 90/240, the fraction of monthly members who attended: the condition is reversed.
+      answer: 0
+
+    - slug: geo-u08-w32-q04
+      type: multiple_choice
+      topic_code: "8.9"
+      source: "IM Geometry, Unit 8, Lesson 9"
+      points: 1
+      prompt: |
+        Of 500 customers, 40% are first-time visitors. 30% of first-time visitors and 70% of returning customers made a purchase. How many customers in the two-way table are returning customers who made a purchase?
+      options:
+        - "60"
+        - "350"
+        - "210"
+        - "140"
+      option_explanations:
+        - |
+          60 is 30% of the 200 first-time visitors, the other purchasing cell.
+        - |
+          350 is 70% of all 500 customers, but the 70% applies only to the 300 returning customers.
+        - |
+          Correct. Returning customers: 60% of 500 = 300; 70% of 300 = 210.
+        - |
+          140 is the 200 first-time visitors minus 60, the first-time visitors who did not purchase.
+      answer: 2
+
+    - slug: geo-u08-w32-q05
+      type: multiple_choice
+      topic_code: "8.10"
+      source: "IM Geometry, Unit 8, Lesson 10"
+      points: 1
+      prompt: |
+        P(A) = 0.6, P(B) = 0.35 and P(A and B) = 0.21. Which statement is correct?
+      options:
+        - "Independence cannot be decided without P(A or B)"
+        - "A and B are independent, because 0.6 × 0.35 = 0.21"
+        - "A and B are dependent, because 0.21 ≠ 0.6 + 0.35"
+        - "A and B are mutually exclusive"
+      option_explanations:
+        - |
+          P(A or B) follows from the addition rule (0.74) but is not needed for the independence test.
+        - |
+          Correct. The multiplication test P(A and B) = P(A) · P(B) holds, so P(A | B) = 0.21/0.35 = 0.6 = P(A).
+        - |
+          The sum of probabilities is not a test for anything; the product is the test.
+        - |
+          Mutually exclusive would need P(A and B) = 0; here it is 0.21.
+      answer: 1
+
+    - slug: geo-u08-w32-q06
+      type: multiple_choice
+      topic_code: "8.10"
+      source: "IM Geometry, Unit 8, Lesson 10"
+      points: 1
+      prompt: |
+        Two dice are rolled. Let E = "the first die shows an even number" and S = "the sum is 7". Which computation shows E and S are independent?
+      options:
+        - "E and S share no outcomes"
+        - "P(E) = 1/2 and P(S) = 1/6 are different"
+        - "P(E or S) = 1/2 + 1/6 = 2/3"
+        - "P(E and S) = 3/36 and P(E) · P(S) = (1/2)(1/6) = 3/36"
+      option_explanations:
+        - |
+          They share three outcomes; sharing no outcomes would make them mutually exclusive, hence dependent.
+        - |
+          Different probabilities say nothing about independence; the test compares P(E and S) with P(E) · P(S).
+        - |
+          That addition is wrong (the overlap 3/36 must be subtracted) and the addition rule does not test independence anyway.
+        - |
+          Correct. The pairs (2, 5), (4, 3), (6, 1) are in both events, giving 3/36, which equals the product.
+      answer: 3
+
+    - slug: geo-u08-w32-q07
+      type: multiple_choice
+      topic_code: "8.10"
+      source: "IM Geometry, Unit 8, Lesson 10"
+      points: 1
+      prompt: |
+        A survey of 2,000 people finds P(drinks coffee) = 0.62 and P(drinks coffee | owns a car) = 0.63. What is the most reasonable conclusion?
+      options:
+        - "The events are strongly dependent, because 0.63 ≠ 0.62"
+        - "The survey must contain an error, because independent events would give exactly equal values"
+        - "The events are approximately independent; a difference of 0.01 is what sampling variation produces"
+        - "Owning a car causes coffee drinking"
+      option_explanations:
+        - |
+          A 0.01 gap in survey data is not evidence of real dependence.
+        - |
+          Observed relative frequencies wobble around the true probabilities; exact equality is not expected.
+        - |
+          Correct. Real data never matches exactly; judge dependence by whether the gap is large enough to matter.
+        - |
+          Even a real association would not establish cause, and here there is barely an association.
+      answer: 2
+
+    - slug: geo-u08-w32-q08
+      type: multiple_choice
+      topic_code: "8.11"
+      source: "IM Geometry, Unit 8, Lesson 11"
+      points: 1
+      prompt: |
+        Two spinners are spun: one with equal regions 1, 2, 3 and one with equal regions 1, 2, 3, 4. Player A wins if the product is odd; Player B wins if the product is at least 8. Which statement is correct?
+      options:
+        - "P(A wins) = 4/12, P(B wins) = 3/12, and the product 9 is a win for both"
+        - "P(A wins) = 6/12, because half of all numbers are odd"
+        - "P(A wins) = 4/12, P(B wins) = 4/12, so the game is fair"
+        - "P(A wins) = 3/12, P(B wins) = 3/12, so the game is fair"
+      option_explanations:
+        - |
+          Correct. Odd products: 1, 3, 3, 9 (4 of 12). Products ≥ 8: 8, 9, 12 (3 of 12). The outcome (3, 3) gives 9, which satisfies both rules.
+        - |
+          A product is odd only when both factors are odd: 2 × 2 = 4 of the 12 pairs, not half.
+        - |
+          Only 8, 9 and 12 are at least 8: three outcomes.
+        - |
+          Odd products occur 4 times: (1,1), (1,3), (3,1), (3,3).
+      answer: 0
+
+    - slug: geo-u08-w32-q09
+      type: multiple_choice
+      topic_code: "8.11"
+      source: "IM Geometry, Unit 8, Lesson 11"
+      points: 1
+      prompt: |
+        A game costs $2 to play. A spinner pays $1 with probability 0.4, $5 with probability 0.1, and nothing otherwise. What are the average winnings per play, and is the game favourable to the player?
+      options:
+        - "$0.90; no, the player loses about $1.10 per play on average"
+        - "$0.50; no"
+        - "$3.00; yes, because $1 + $5 = $6 and half the spins pay"
+        - "$2.00; the game is exactly fair"
+      option_explanations:
+        - |
+          Correct. 1 × 0.4 + 5 × 0.1 + 0 × 0.5 = 0.4 + 0.5 = $0.90, less than the $2 cost.
+        - |
+          $0.50 is the $5 prize's contribution alone; the $1 prize adds $0.40.
+        - |
+          Prizes must be weighted by their probabilities, not averaged by count.
+        - |
+          The average is $0.90, well below the $2 cost, so the game is far from fair.
+      answer: 0
+
+    - slug: geo-u08-w32-q10
+      type: multiple_choice
+      topic_code: "8.11"
+      source: "IM Geometry, Unit 8, Lesson 11"
+      points: 1
+      prompt: |
+        A game has two stages: draw a card (a heart with probability 1/4). If it is a heart, roll a die and win on a 5 or 6; otherwise flip a coin and win on heads. What is P(win)?
+      options:
+        - "1/3 + 1/2 = 5/6"
+        - "11/24"
+        - "(1/4)(1/3)(1/2) = 1/24"
+        - "1/12"
+      option_explanations:
+        - |
+          The stage probabilities must be weighted by the chance of reaching each stage.
+        - |
+          Correct. (1/4)(1/3) + (3/4)(1/2) = 1/12 + 3/8 = 2/24 + 9/24 = 11/24.
+        - |
+          The two branches are alternatives (add), not a sequence (multiply).
+        - |
+          1/12 is only the "heart then 5 or 6" branch; the coin branch adds 3/8.
+      answer: 1
+
+    - slug: geo-u08-w32-q11
+      type: multiple_choice
+      topic_code: "8.6"
+      source: "IM Geometry, Unit 8, Lesson 6"
+      points: 1
+      prompt: |
+        Review. P(A) = 0.6, P(B) = 0.35 and P(A and B) = 0.21. What is P(A or B)?
+      options:
+        - "0.39"
+        - "0.21"
+        - "0.74"
+        - "0.95"
+      option_explanations:
+        - |
+          0.39 is 0.6 − 0.21, P(A and not B), not the union.
+        - |
+          0.21 is the overlap itself, "and" rather than "or".
+        - |
+          Correct. 0.6 + 0.35 − 0.21 = 0.74 by the addition rule.
+        - |
+          0.95 adds without subtracting the overlap.
+      answer: 2
+
+    - slug: geo-u08-w32-q12
+      type: multiple_choice
+      topic_code: "8.7"
+      source: "IM Geometry, Unit 8, Lesson 7"
+      points: 1
+      prompt: |
+        Review. Which situation produces dependent events?
+      options:
+        - "Drawing a marble, replacing it, shaking the bag, and drawing again"
+        - "Rolling a die twice"
+        - "Flipping a coin and spinning a spinner"
+        - "Drawing two names from a hat without putting the first back"
+      option_explanations:
+        - |
+          Replacement restores the bag, so the draws are independent.
+        - |
+          A die has no memory; the second roll is unaffected by the first.
+        - |
+          Two separate devices do not influence each other.
+        - |
+          Correct. Removing the first name changes the hat, so the second draw's probabilities depend on the first.
+      answer: 3
+
+    - slug: geo-u08-w32-q13
+      type: multiple_choice
+      topic_code: "7.8"
+      source: "IM Geometry, Unit 7, Lesson 8"
+      points: 1
+      prompt: |
+        Review. A spinner of radius 10 cm has a prize sector of area 15π cm² and a bonus sector of area 5π cm², not overlapping. What is P(prize or bonus) on one spin?
+      options:
+        - "1/5"
+        - "20π"
+        - "3/20"
+        - "1/20"
+      option_explanations:
+        - |
+          Correct. The circle's area is 100π; the two sectors are mutually exclusive, so (15π + 5π)/100π = 1/5.
+        - |
+          20π is the combined area, not a probability; divide by the whole area 100π.
+        - |
+          3/20 is the prize sector alone, 15π/100π.
+        - |
+          1/20 is the bonus sector alone, 5π/100π; the question asks for prize or bonus.
+      answer: 0
+
+    - slug: geo-u08-w32-q14
+      type: multi_select
+      topic_code: "8.10"
+      source: "IM Geometry, Unit 8, Lesson 10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        In a two-way table of 200 people, 80 are in group G, 50 have property H, and 20 are both. Which statements are true? Select all that apply.
+      options:
+        - "P(G and H) = P(G) · P(H)"
+        - "P(G | H) = 0.4"
+        - "P(H) = 0.25"
+        - "G and H are independent"
+        - "P(H | G) = 0.25"
+      option_explanations:
+        - |
+          Yes: 20/200 = 0.10 and (80/200)(50/200) = 0.4 × 0.25 = 0.10.
+        - |
+          Yes: 20 of the 50 with H are in G, 20/50 = 0.4, which also equals P(G) = 80/200.
+        - |
+          Yes: 50 of the 200 people have H, so P(H) = 50/200 = 0.25.
+        - |
+          Yes: P(H | G) = P(H), so knowing G changes nothing about H.
+        - |
+          Yes: 20 of the 80 in G have H, 20/80 = 0.25.
+      answer: [0, 1, 2, 3, 4]
+
+    - slug: geo-u08-w32-q15
+      type: multi_select
+      topic_code: "8.3"
+      source: "IM Geometry, Unit 8, Lesson 3"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Review. Two spinners with equal regions 1, 2, 3 and 1, 2, 3, 4 are spun once each. Which statements about the sample space are true? Select all that apply.
+      options:
+        - "P(the two numbers are equal) = 3/12"
+        - "P(both show 1) = 1/12"
+        - "P(the first spinner shows 3) = 1/4"
+        - "P(the sum is 7) = 1/12"
+        - "There are 12 equally likely outcomes"
+      option_explanations:
+        - |
+          Yes: (1, 1), (2, 2), (3, 3) are the only equal pairs, since the first spinner stops at 3.
+        - |
+          Yes: the single ordered pair (1, 1) out of 12 equally likely pairs.
+        - |
+          No: the first spinner has three equal regions, so P(3) = 1/3.
+        - |
+          Yes: only the pair (3, 4) sums to 7, since the first spinner cannot exceed 3.
+        - |
+          Yes: 3 × 4 = 12 ordered pairs, each with probability (1/3)(1/4).
+      answer: [0, 1, 3, 4]
+
+    - slug: geo-u08-w32-q16
+      type: true_false
+      topic_code: "8.10"
+      source: "IM Geometry, Unit 8, Lesson 10"
+      points: 1
+      prompt: |
+        True or false: if P(A | B) = P(A), then it must also be true that P(B | A) = P(B).
+      answer: true
+      explanation: |
+        True. P(A | B) = P(A) means P(A and B) = P(A) · P(B), and dividing by P(A) gives P(B | A) = P(B). All three independence tests are equivalent.
+
+    - slug: geo-u08-w32-q17
+      type: true_false
+      topic_code: "8.5"
+      source: "IM Geometry, Unit 8, Lesson 5"
+      points: 1
+      prompt: |
+        Review. True or false: P(at least one head in three tosses) = 1 − P(three tails) = 7/8.
+      answer: true
+      explanation: |
+        True. "At least one head" is the complement of "no heads", which is the single outcome TTT with probability 1/8.
+
+    - slug: geo-u08-w32-q18
+      type: fill_blank
+      topic_code: "8.4"
+      source: "IM Geometry, Unit 8, Lesson 4"
+      points: 1
+      prompt: |
+        Review. A relative frequency table built from 200 people shows 0.15 in the cell for "both R and Q". The count of people in that cell is ____.
+      answer: ["30", "30 people"]
+      explanation: |
+        A relative frequency is count ÷ total, so the count is 0.15 × 200 = 30.
+
+    - slug: geo-u08-w32-q19
+      type: fill_blank
+      topic_code: "8.11"
+      source: "IM Geometry, Unit 8, Lesson 11"
+      points: 1
+      prompt: |
+        A game pays $6 with probability 1/4 and nothing otherwise. The average winnings per play are $____.
+      answer: ["1.50", "1.5", "1,50"]
+      explanation: |
+        6 × 1/4 + 0 × 3/4 = $1.50.
+
+    - slug: geo-u08-w32-q20
+      type: numeric
+      topic_code: "8.9"
+      source: "IM Geometry, Unit 8, Lesson 9"
+      points: 1
+      prompt: |
+        Of 400 students, 25% are seniors. 60% of seniors and 20% of non-seniors have a parking permit. What is P(senior | has a permit)? Give your answer as a decimal to three places.
+      answer: { value: 0.5, tolerance: 0.002 }
+      explanation: |
+        Seniors with permits: 0.25 × 400 × 0.6 = 60. Non-seniors with permits: 300 × 0.2 = 60. P(senior | permit) = 60/120 = 0.500.
+
+    - slug: geo-u08-w32-q21
+      type: numeric
+      topic_code: "8.10"
+      source: "IM Geometry, Unit 8, Lesson 10"
+      points: 1
+      prompt: |
+        Two independent components fail during a year with probabilities 0.1 and 0.2. What is the probability that at least one fails? Give your answer as a decimal.
+      answer: { value: 0.28, tolerance: 0.001 }
+      explanation: |
+        1 − (0.9)(0.8) = 1 − 0.72 = 0.28. (Or 0.1 + 0.2 − 0.02 by the addition rule, using independence for the overlap.)
+
+    - slug: geo-u08-w32-q22
+      type: numeric
+      topic_code: "7.11"
+      source: "IM Geometry, Unit 7, Lesson 11"
+      points: 1
+      prompt: |
+        Review. A game spinner's winning region has central angle 0.9 radians. What is the probability of winning on one spin? Give your answer as a decimal to three places.
+      answer: { value: 0.143, tolerance: 0.002 }
+      explanation: |
+        0.9 ÷ 2π ≈ 0.9/6.2832 ≈ 0.143.
+
+    - slug: geo-u08-w32-q23
+      type: short_answer
+      topic_code: "8.10"
+      source: "IM Geometry, Unit 8, Lesson 10"
+      points: 3
+      prompt: |
+        A two-way table of 300 households shows: 120 have solar panels; 90 have an electric car; 36 have both.
+
+        (a) Find P(electric car | solar panels) and P(electric car).
+        (b) Decide whether "has solar panels" and "has an electric car" are independent, showing the multiplication test as well.
+        (c) Fill in the number of households with neither, and find P(solar panels | no electric car).
+      answer: |
+        (a) P(car | solar) = 36/120 = 0.30; P(car) = 90/300 = 0.30.
+        (b) Equal, so independent. Multiplication test: P(solar) · P(car) = 0.4 × 0.3 = 0.12 and P(both) = 36/300 = 0.12 ✓.
+        (c) Neither: 300 − (36 + 84 + 54) = 126. P(solar | no car) = 84/210 = 0.40, which equals P(solar), as independence predicts.
+      explanation: |
+        1 point for both probabilities 0.30. 1 point for "independent" with the product check 0.12 = 0.12. 1 point for 126 and 0.40.
+
+    - slug: geo-u08-w32-q24
+      type: short_answer
+      topic_code: "8.11"
+      source: "IM Geometry, Unit 8, Lesson 11"
+      points: 3
+      prompt: |
+        A carnival game: roll a fair die. On a 6 you win $10; on a 4 or 5 you win $2; otherwise nothing. It costs $3 to play.
+
+        (a) Find the probability of each prize.
+        (b) Compute the average winnings per play and say whether the game favours the player or the carnival.
+        (c) The carnival wants the game to be exactly break-even on average (average winnings equal to the cost). Keeping the $2 prize, what should the top prize be?
+      answer: |
+        (a) P($10) = 1/6; P($2) = 2/6 = 1/3; P($0) = 3/6 = 1/2.
+        (b) 10 × 1/6 + 2 × 1/3 = 1.667 + 0.667 ≈ $2.33 per play, less than $3: the carnival gains about 67 cents per play on average.
+        (c) Need x/6 + 2/3 = 3, so x/6 = 7/3 and x = $14.
+      explanation: |
+        1 point for the three probabilities. 1 point for ≈ $2.33 and "favours the carnival". 1 point for $14.
+
+    - slug: geo-u08-w32-q25
+      type: long_answer
+      topic_code: "8.9"
+      source: "IM Geometry, Unit 8, Lesson 9"
+      points: 6
+      prompt: |
+        A screening test for a plant disease is given to 1,000 plants. 5% of the plants actually have the disease. The test comes back positive for 90% of diseased plants and for 8% of healthy plants.
+
+        (a) Build the two-way table (diseased / healthy against positive / negative) with totals.
+        (b) Find P(positive).
+        (c) Find P(diseased | positive) and explain in a sentence why it is so much smaller than 90%.
+        (d) Find P(healthy | negative).
+        (e) Are "diseased" and "positive" independent? Justify with a test.
+      answer: |
+        (a) Diseased: 50 plants; 45 positive, 5 negative. Healthy: 950 plants; 76 positive, 874 negative. Column totals: 121 positive, 879 negative; grand total 1,000.
+        (b) P(positive) = 121/1000 = 0.121.
+        (c) P(diseased | positive) = 45/121 ≈ 0.37. Because the disease is rare, the 8% false positives among the 950 healthy plants (76) outnumber the 45 true positives, so most positive results come from healthy plants.
+        (d) P(healthy | negative) = 874/879 ≈ 0.994.
+        (e) Dependent: P(positive | diseased) = 0.90 while P(positive) = 0.121; or P(diseased) · P(positive) = 0.05 × 0.121 ≈ 0.006 ≠ P(diseased and positive) = 0.045.
+      explanation: |
+        Scoring (6 points): (a) 1 point for a correct table. (b) 1 point for 0.121. (c) 2 points: 1 for ≈ 0.37, 1 for the explanation that false positives from the large healthy group outnumber true positives. (d) 1 point for ≈ 0.994. (e) 1 point for "dependent" with a valid test.

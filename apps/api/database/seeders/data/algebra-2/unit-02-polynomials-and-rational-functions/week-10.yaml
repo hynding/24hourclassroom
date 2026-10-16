@@ -1,0 +1,564 @@
+week: 10
+unit: 2
+title: "Polynomial Identities and Geometric Sums"
+topics: ["2.23", "2.24", "2.25", "2.26"]
+guide: guides/week-10.md
+guide_description: |
+  Identities versus conditional equations and how to prove or disprove one; the difference of squares, sums
+  and differences of cubes, the factorisation of xⁿ − 1 and the identity that generates Pythagorean triples,
+  with what each says about numbers; the geometric sum formula a(rⁿ − 1)/(r − 1) derived from the xⁿ − 1
+  identity; and its use for regular deposits, loan payments and bouncing balls. Worked examples: 101² − 99²
+  by identity, a 36-month savings plan, and a 24-month loan payment.
+flashcards_description: |
+  28 cards on identities and their proofs, the standard factoring identities, Pythagorean triples, the
+  geometric sum formula and its applications.
+
+flashcards:
+  - front: Identity versus conditional equation → the distinction
+    back: |
+      An identity is true for every value of the variable ((x + 3)² = x² + 6x + 9); a conditional equation is true only for some values (x² = 4, true for ±2 only).
+    topic_code: "2.23"
+  - front: Proving an identity → the method
+    back: |
+      Start from one side (usually the more complicated) and rewrite it step by step, by expanding and combining like terms, until it equals the other side. Plugging in numbers checks but does not prove.
+    topic_code: "2.23"
+  - front: Disproving a claimed identity → what is enough
+    back: |
+      A single counterexample. (x + 2)³ = x³ + 8 fails at x = 1 (27 versus 9), so it is not an identity.
+    topic_code: "2.23"
+  - front: (x + y)² − (x − y)² = 4xy → proof
+    back: |
+      Expand: (x² + 2xy + y²) − (x² − 2xy + y²) = 4xy. The squared terms cancel and the cross terms add.
+    topic_code: "2.23"
+  - front: Using (x + y)² − (x − y)² = 4xy on numbers → example
+    back: |
+      52² − 48² has x = 50, y = 2, so it equals 4 · 50 · 2 = 400 with no squaring.
+    topic_code: "2.23"
+  - front: Why identities are useful → the idea
+    back: |
+      An identity lets you replace an expression by an equivalent one whenever convenient: to factor, to simplify, to compute a large number without brute force, or to derive a formula.
+    topic_code: "2.23"
+  - front: Difference of squares identity → statement and number example
+    back: |
+      a² − b² = (a − b)(a + b). 2023² − 2022² = (1)(4045) = 4045.
+    topic_code: "2.24"
+  - front: Difference of cubes identity → statement
+    back: |
+      a³ − b³ = (a − b)(a² + ab + b²). Example: x³ − 8 = (x − 2)(x² + 2x + 4); x³ − 125 = (x − 5)(x² + 5x + 25).
+    topic_code: "2.24"
+  - front: Sum of cubes identity → statement
+    back: |
+      a³ + b³ = (a + b)(a² − ab + b²). Example: x³ + 27 = (x + 3)(x² − 3x + 9). Note the minus sign on the middle term of the quadratic factor.
+    topic_code: "2.24"
+  - front: (x − 1)(xⁿ⁻¹ + … + x + 1) = xⁿ − 1 → why it works
+    back: |
+      Multiplying out, every middle term appears once with + and once with −, so only xⁿ and −1 survive. The Remainder Theorem agrees: xⁿ − 1 is 0 at x = 1, so (x − 1) is a factor.
+    topic_code: "2.24"
+  - front: Factoring 4¹⁰ − 1 with identities → how
+    back: |
+      4¹⁰ − 1 = (2¹⁰)² − 1 = (2¹⁰ − 1)(2¹⁰ + 1) = 1023 · 1025, so it is divisible by both without computing 4¹⁰.
+    topic_code: "2.24"
+  - front: Pythagorean triple identity → statement
+    back: |
+      (a² − b²)² + (2ab)² = (a² + b²)². Both sides expand to a⁴ + 2a²b² + b⁴. Whole numbers a > b give a triple: a = 2, b = 1 gives 3, 4, 5.
+    topic_code: "2.24"
+  - front: Pythagorean triple from a = 3, b = 2 → compute
+    back: |
+      a² − b² = 5, 2ab = 12, a² + b² = 13: the triple 5, 12, 13. Check: 25 + 144 = 169.
+    topic_code: "2.24"
+  - front: Factor x⁶ − 1 completely → steps
+    back: |
+      (x³)² − 1 = (x³ − 1)(x³ + 1) = (x − 1)(x² + x + 1)(x + 1)(x² − x + 1), using difference of squares then the cube identities.
+    topic_code: "2.24"
+  - front: Geometric series → definition
+    back: |
+      The sum of the terms of a geometric sequence: a + ar + ar² + … + arⁿ⁻¹, which has n terms (exponents 0 through n − 1).
+    topic_code: "2.25"
+  - front: Geometric sum formula → statement
+    back: |
+      a + ar + … + arⁿ⁻¹ = a(rⁿ − 1)/(r − 1) for r ≠ 1. For r = 1 the sum is simply na.
+    topic_code: "2.25"
+  - front: Where the geometric sum formula comes from → derivation
+    back: |
+      Divide the identity (x − 1)(1 + x + … + xⁿ⁻¹) = xⁿ − 1 by (x − 1) to get 1 + x + … + xⁿ⁻¹ = (xⁿ − 1)/(x − 1), then multiply by the first term a.
+    topic_code: "2.25"
+  - front: a(1 − rⁿ)/(1 − r) versus a(rⁿ − 1)/(r − 1) → relationship
+    back: |
+      They are the same formula with numerator and denominator both negated. The first is tidier when |r| < 1, the second when r > 1.
+    topic_code: "2.25"
+  - front: 3 + 6 + 12 + … + 384 → sum by formula
+    back: |
+      a = 3, r = 2; 384 = 3 · 2⁷ is the 8th term, so n = 8. S = 3(2⁸ − 1)/(2 − 1) = 3 · 255 = 765.
+    topic_code: "2.25"
+  - front: Sum of the first 10 terms of 80, 40, 20, … → by formula
+    back: |
+      80(1 − (1/2)¹⁰)/(1 − 1/2) = 160(1 − 1/1024) ≈ 159.84. The sums approach 160 as n grows, falling short by 160/2ⁿ.
+    topic_code: "2.25"
+  - front: 1 − 3 + 9 − 27 + 81 − 243 → by formula
+    back: |
+      a = 1, r = −3, n = 6: ((−3)⁶ − 1)/(−3 − 1) = 728/(−4) = −182. The formula handles negative ratios.
+    topic_code: "2.25"
+  - front: Counting n in a geometric sum → the rule
+    back: |
+      n is the number of terms, which is one more than the last exponent: 5 + 15 + … + 5 · 3⁹ has n = 10, and the formula uses 3¹⁰.
+    topic_code: "2.25"
+  - front: Deposit polynomial as a geometric series → the rewrite
+    back: |
+      500x⁴ + 500x³ + 500x² + 500x = 500x(1 + x + x² + x³) = 500x(x⁴ − 1)/(x − 1). At x = 1.05 this is about $2,262.82, and the formula extends to any number of years.
+    topic_code: "2.26"
+  - front: $200 at the end of each month for 36 months at 0.5% per month → balance
+    back: |
+      The deposits have grown for 0, 1, …, 35 months: a = 200, r = 1.005, n = 36. S = 200(1.005³⁶ − 1)/0.005 ≈ $7,867.22, of which $7,200 is deposits.
+    topic_code: "2.26"
+  - front: Monthly payment on a $10,000 loan at 1% per month over 24 months → method
+    back: |
+      Loan grows to 10000 · 1.01²⁴ ≈ 12,697.35; payments grow to P(1.01²⁴ − 1)/0.01 ≈ 26.9735P. Equate: P ≈ $470.73.
+    topic_code: "2.26"
+  - front: Bouncing ball total distance with the sum formula → setup
+    back: |
+      Drop height plus twice the sum of the bounce heights, which form a geometric series. From 10 m at 70%: 10 + 2 · 7(1 − 0.7⁷)/0.3 ≈ 52.82 m by the 8th floor hit.
+    topic_code: "2.26"
+  - front: Error-spot → "the sum of n terms is a(rⁿ⁻¹ − 1)/(r − 1)"
+    back: |
+      The exponent in the formula is n, the number of terms, not n − 1. For 1 + 2 + 4 + 8 (n = 4) the sum is (2⁴ − 1)/1 = 15, not 7.
+    topic_code: "2.25"
+  - front: Error-spot → "a deposit made at the end of the last month has grown for one month"
+    back: |
+      It has grown for 0 months; it is the first term a of the series. Count growth periods carefully: the first deposit of a 36-month plan has grown for 35 months.
+    topic_code: "2.26"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (lessons 2.23 to 2.26: identities, factoring
+    identities and number facts, the geometric sum formula and its applications), with about a third reviewing
+    weeks 4 to 9 and Unit 1. Includes a shared-context set on a savings plan. Multiple choice, select-all,
+    true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the
+    short answers and the long answer are graded by your teacher against the scoring notes.
+  questions:
+    # ---- Stimulus set: a savings plan (2.26, 2.25)
+    - slug: alg2-u02-w10-q01
+      type: multiple_choice
+      topic_code: "2.26"
+      source: "IM Algebra 2, Unit 2, Lesson 26"
+      points: 1
+      stimulus: |
+        Ana deposits $300 at the end of every year for 10 years into an account that pays 6% interest per year. The balance just after the 10th deposit is the sum 300 + 300(1.06) + 300(1.06)² + … + 300(1.06)⁹.
+      prompt: |
+        Why does the first deposit appear as the term 300(1.06)⁹ rather than 300(1.06)¹⁰?
+      options:
+        - "Because the first deposit earns interest for 9 years, from the end of year 1 to the end of year 10."
+        - "Because the account pays interest only 9 times."
+        - "Because the 10th deposit is not counted."
+        - "Because 1.06⁹ is easier to compute than 1.06¹⁰."
+      option_explanations:
+        - |
+          Correct. Made at the end of year 1, the first deposit grows through years 2 to 10, which is 9 growth periods; the last deposit has grown for 0.
+        - |
+          Interest is paid every year; the point is when each deposit was made.
+        - |
+          The 10th deposit is the term 300(1.06)⁰ = 300.
+        - |
+          Convenience plays no part; the exponent counts the growth periods.
+      answer: 0
+    - slug: alg2-u02-w10-q02
+      type: multiple_choice
+      topic_code: "2.25"
+      source: "IM Algebra 2, Unit 2, Lesson 25"
+      points: 1
+      stimulus: |
+        Ana deposits $300 at the end of every year for 10 years into an account that pays 6% interest per year. The balance just after the 10th deposit is the sum 300 + 300(1.06) + 300(1.06)² + … + 300(1.06)⁹.
+      prompt: |
+        Which expression equals the balance?
+      options:
+        - "300(1.06⁹ − 1)/0.06"
+        - "300(1.06¹⁰ − 1)/0.06"
+        - "300(1.06¹⁰ − 1)/1.06"
+        - "300 · 1.06¹⁰"
+      option_explanations:
+        - |
+          There are 10 terms, so the formula uses 1.06¹⁰; using the last exponent 9 drops a term.
+        - |
+          Correct. a = 300, r = 1.06, n = 10: S = a(rⁿ − 1)/(r − 1) = 300(1.06¹⁰ − 1)/0.06.
+        - |
+          The denominator of the sum formula is r − 1 = 0.06, not the ratio r itself.
+        - |
+          This is a single $300 deposit grown for 10 years, not ten deposits.
+      answer: 1
+    - slug: alg2-u02-w10-q03
+      type: numeric
+      topic_code: "2.26"
+      source: "IM Algebra 2, Unit 2, Lesson 26"
+      points: 1
+      stimulus: |
+        Ana deposits $300 at the end of every year for 10 years into an account that pays 6% interest per year. The balance just after the 10th deposit is the sum 300 + 300(1.06) + 300(1.06)² + … + 300(1.06)⁹.
+      prompt: |
+        Compute the balance in dollars, to the nearest cent.
+      answer: { value: 3954.24, tolerance: 0.1 }
+      explanation: |
+        1.06¹⁰ ≈ 1.790848, so S = 300(0.790848)/0.06 ≈ 300 · 13.1808 ≈ $3,954.24. The deposits total $3,000; about $954 is interest.
+    - slug: alg2-u02-w10-q04
+      type: multiple_choice
+      topic_code: "2.23"
+      source: "IM Algebra 2, Unit 2, Lesson 23"
+      points: 1
+      prompt: |
+        Which of the following is an identity (true for every real value of x)?
+      options:
+        - "x² − 9 = 0"
+        - "(x − 3)(x + 3) = x² − 9"
+        - "(x − 3)² = x² − 9"
+        - "x² − 9 = 2x − 6"
+      option_explanations:
+        - |
+          This is true only for x = 3 and x = −3; it is a conditional equation.
+        - |
+          Correct. Expanding the left side gives x² + 3x − 3x − 9 = x² − 9 for every x.
+        - |
+          (x − 3)² = x² − 6x + 9, which differs from x² − 9 except at x = 3.
+        - |
+          This holds only where (x − 3)(x + 3) = 2(x − 3), that is x = 3 or x = −1.
+      answer: 1
+    - slug: alg2-u02-w10-q05
+      type: multiple_choice
+      topic_code: "2.24"
+      source: "IM Algebra 2, Unit 2, Lesson 24"
+      points: 1
+      prompt: |
+        Using an identity, what is 7,002² − 6,998²?
+      options:
+        - "16"
+        - "4"
+        - "56,000"
+        - "28,000"
+      option_explanations:
+        - |
+          16 is 4², the square of the difference; the difference of squares is (a − b)(a + b), not (a − b)².
+        - |
+          4 is just a − b; it must be multiplied by a + b.
+        - |
+          Correct. (7002 − 6998)(7002 + 6998) = 4 · 14,000 = 56,000.
+        - |
+          28,000 is 2 · 14,000; the difference of the two numbers is 4, not 2.
+      answer: 2
+    - slug: alg2-u02-w10-q06
+      type: multiple_choice
+      topic_code: "2.25"
+      source: "IM Algebra 2, Unit 2, Lesson 25"
+      points: 1
+      prompt: |
+        What is 2 + 6 + 18 + 54 + 162 + 486?
+      options:
+        - "728"
+        - "364"
+        - "1458"
+        - "242"
+      option_explanations:
+        - |
+          Correct. a = 2, r = 3, n = 6: S = 2(3⁶ − 1)/(3 − 1) = 2 · 728/2 = 728.
+        - |
+          364 is (3⁶ − 1)/2, missing the factor a = 2.
+        - |
+          1458 is the next term (2 · 3⁶), not the sum.
+        - |
+          242 is the sum of only the first five terms.
+      answer: 0
+    - slug: alg2-u02-w10-q07
+      type: multiple_choice
+      topic_code: "2.24"
+      source: "IM Algebra 2, Unit 2, Lesson 24"
+      points: 1
+      prompt: |
+        Which is the correct factorisation of x³ + 64?
+      options:
+        - "(x + 4)(x² + 4x + 16)"
+        - "(x + 4)(x² − 4x + 16)"
+        - "(x + 4)³"
+        - "(x − 4)(x² + 4x + 16)"
+      option_explanations:
+        - |
+          Multiplying out gives x³ + 8x² + 32x + 64; the middle term of the quadratic factor must be −4x for the cross terms to cancel.
+        - |
+          Correct. Sum of cubes: a³ + b³ = (a + b)(a² − ab + b²) with a = x, b = 4.
+        - |
+          (x + 4)³ = x³ + 12x² + 48x + 64, not x³ + 64.
+        - |
+          This is the factorisation of x³ − 64, a difference of cubes.
+      answer: 1
+    - slug: alg2-u02-w10-q08
+      type: multiple_choice
+      topic_code: "2.25"
+      source: "IM Algebra 2, Unit 2, Lesson 25"
+      points: 1
+      prompt: |
+        Dividing both sides of the identity (x − 1)(x⁴ + x³ + x² + x + 1) = x⁵ − 1 by (x − 1) gives which formula?
+      options:
+        - "1 + x + x² + x³ + x⁴ = (x⁵ − 1)/(x − 1), valid for x ≠ 1"
+        - "1 + x + x² + x³ + x⁴ = x⁴ − 1"
+        - "x⁴ + x³ + x² + x + 1 = x⁵ − 1 for all x"
+        - "1 + x + x² + x³ + x⁴ = (x⁵ − 1)/(x − 1), valid for all x including 1"
+      option_explanations:
+        - |
+          Correct. This is the geometric sum formula with a = 1, r = x and n = 5; dividing by x − 1 requires x ≠ 1.
+        - |
+          Dividing x⁵ − 1 by x − 1 does not give x⁴ − 1; it gives the five-term sum on the left.
+        - |
+          Without the division the right side keeps its factor (x − 1); this equation is false for most x.
+        - |
+          At x = 1 the right side is 0/0, undefined; the sum there is simply 5.
+      answer: 0
+    - slug: alg2-u02-w10-q09
+      type: multiple_choice
+      topic_code: "2.26"
+      source: "IM Algebra 2, Unit 2, Lesson 26"
+      points: 1
+      prompt: |
+        A ball is dropped from 8 m and rebounds to 50% of its height on each bounce. Which expression gives the total distance travelled when it hits the floor for the 5th time?
+      options:
+        - "8 + 2 · 4(1 − 0.5⁴)/(1 − 0.5)"
+        - "8 + 4(1 − 0.5⁵)/(1 − 0.5)"
+        - "8(1 − 0.5⁵)/(1 − 0.5)"
+        - "8 + 2 · 4(1 − 0.5⁵)/(1 − 0.5)"
+      option_explanations:
+        - |
+          Correct. The drop is 8 m; then 4 bounces (between the 1st and 5th floor hits) of heights 4, 2, 1, 0.5 each travelled up and down: 8 + 2(4 + 2 + 1 + 0.5) = 8 + 2 · 7.5 = 23 m.
+        - |
+          Each bounce height is travelled twice (up and down), so the series must be doubled, and there are 4 bounces, not 5.
+        - |
+          This treats the drop as the first of a series of one-way trips and ignores the doubling.
+        - |
+          Between the 1st and 5th floor hits there are 4 bounces, so n = 4, not 5.
+      answer: 0
+    - slug: alg2-u02-w10-q10
+      type: multiple_choice
+      topic_code: "2.23"
+      source: "IM Algebra 2, Unit 2, Lesson 23"
+      points: 1
+      prompt: |
+        A student claims that (x + 5)² = x² + 25 is an identity. Which is the best response?
+      options:
+        - "It is an identity because both sides are quadratic."
+        - "It is not an identity: at x = 1 the left side is 36 and the right side is 26."
+        - "It is an identity for positive x only."
+        - "It is an identity because it is true at x = 0."
+      option_explanations:
+        - |
+          Having the same degree does not make two expressions equal; the cross term 10x is missing.
+        - |
+          Correct. A single counterexample disproves a claimed identity; the correct expansion is x² + 10x + 25.
+        - |
+          An identity must hold for every x; this fails for every x except 0.
+        - |
+          One value checking proves nothing; the equation fails at every other x.
+      answer: 1
+    - slug: alg2-u02-w10-q11
+      type: multiple_choice
+      topic_code: "2.22"
+      source: "IM Algebra 2, Unit 2, Lesson 22"
+      points: 1
+      prompt: |
+        What is the solution set of (x² − 1)/(x − 1) = 3?
+      options:
+        - "x = 2"
+        - "x = 1 and x = 2"
+        - "x = 1"
+        - "No solution"
+      option_explanations:
+        - |
+          Correct. Clearing gives x² − 1 = 3x − 3, so x² − 3x + 2 = (x − 1)(x − 2) = 0; x = 1 is extraneous, leaving x = 2. Check: 3/1 = 3.
+        - |
+          x = 1 makes the denominator zero, so it is extraneous.
+        - |
+          x = 1 is not in the domain; the only valid solution is x = 2.
+        - |
+          x = 2 is a valid solution: (4 − 1)/(2 − 1) = 3.
+      answer: 0
+    - slug: alg2-u02-w10-q12
+      type: multiple_choice
+      topic_code: "2.18"
+      source: "IM Algebra 2, Unit 2, Lesson 18"
+      points: 1
+      prompt: |
+        What is the horizontal asymptote of y = (2x + 5)/(x² − x)?
+      options:
+        - "y = 2"
+        - "y = 0"
+        - "y = −5"
+        - "There is none."
+      option_explanations:
+        - |
+          y = 2 would need equal degrees; the numerator has degree 1 and the denominator degree 2.
+        - |
+          Correct. Numerator degree less than denominator degree, so the outputs approach 0 at both ends.
+        - |
+          −5 is the vertical intercept you would get if 0 were in the domain, which it is not.
+        - |
+          A horizontal asymptote exists whenever the numerator's degree does not exceed the denominator's.
+      answer: 1
+    - slug: alg2-u02-w10-q13
+      type: multi_select
+      topic_code: "2.24"
+      source: "IM Algebra 2, Unit 2, Lesson 24"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which of the following are identities? Select all that apply.
+      options:
+        - "a² − b² = (a − b)(a + b)"
+        - "a³ − b³ = (a − b)(a² + ab + b²)"
+        - "(a + b)³ = a³ + b³"
+        - "(a² − b²)² + (2ab)² = (a² + b²)²"
+        - "(x − 1)(x² + x + 1) = x³ − 1"
+      option_explanations:
+        - |
+          Correct. Expanding the right side gives a² + ab − ab − b² = a² − b².
+        - |
+          Correct. Expanding gives a³ + a²b + ab² − a²b − ab² − b³ = a³ − b³.
+        - |
+          (a + b)³ = a³ + 3a²b + 3ab² + b³; at a = b = 1 the left side is 8 and the right side is 2.
+        - |
+          Correct. Both sides expand to a⁴ + 2a²b² + b⁴; this identity generates Pythagorean triples.
+        - |
+          Correct. The middle terms cancel: x³ + x² + x − x² − x − 1 = x³ − 1.
+      answer: [0, 1, 3, 4]
+    - slug: alg2-u02-w10-q14
+      type: multi_select
+      topic_code: "2.25"
+      source: "IM Algebra 2, Unit 2, Lesson 25"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Consider the series 5 + 10 + 20 + … + 5 · 2⁷. Which statements are true? Select all that apply.
+      options:
+        - "The series has 8 terms."
+        - "Its sum is 5(2⁸ − 1)/(2 − 1)."
+        - "Its sum is 1275."
+        - "Its sum is 5(2⁷ − 1)."
+        - "Adding one more term would give a sum of 2555."
+      option_explanations:
+        - |
+          Correct. The exponents run from 0 to 7, which is 8 terms.
+        - |
+          Correct. With a = 5, r = 2 and n = 8 the formula a(rⁿ − 1)/(r − 1) gives exactly this.
+        - |
+          Correct. 2⁸ − 1 = 255 and 5 · 255 = 1275, which matches adding the eight terms.
+        - |
+          5(2⁷ − 1) = 635 is the sum of only the first 7 terms.
+        - |
+          Correct. The 9-term sum is 5(2⁹ − 1) = 5 · 511 = 2555, which is also 1275 + 1280.
+      answer: [0, 1, 2, 4]
+    - slug: alg2-u02-w10-q15
+      type: true_false
+      topic_code: "2.9"
+      source: "IM Algebra 2, Unit 2, Lesson 9"
+      points: 1
+      prompt: |
+        True or false: Both ends of the graph of y = −x⁴ + 3x go down.
+      answer: true
+      explanation: |
+        True. The leading term −x⁴ has even degree and a negative coefficient, so as x → ∞ and as x → −∞ the outputs go to −∞. The 3x term only shapes the middle of the graph.
+    - slug: alg2-u02-w10-q16
+      type: true_false
+      topic_code: "2.5"
+      source: "IM Algebra 2, Unit 2, Lesson 5"
+      points: 1
+      prompt: |
+        True or false: If the graph of a polynomial p has an x-intercept at (−6, 0), then (x + 6) is a factor of p(x).
+      answer: true
+      explanation: |
+        True. An x-intercept at −6 means p(−6) = 0, and by the Factor Theorem that makes (x − (−6)) = (x + 6) a factor.
+    - slug: alg2-u02-w10-q17
+      type: fill_blank
+      topic_code: "2.24"
+      source: "IM Algebra 2, Unit 2, Lesson 24"
+      points: 1
+      prompt: |
+        Using the identity (a² − b²)² + (2ab)² = (a² + b²)² with a = 5 and b = 2, the Pythagorean triple produced is 21, 20 and ____.
+      answer: ["29"]
+      explanation: |
+        a² + b² = 25 + 4 = 29. Check: 21² + 20² = 441 + 400 = 841 = 29².
+    - slug: alg2-u02-w10-q18
+      type: fill_blank
+      topic_code: "2.13"
+      source: "IM Algebra 2, Unit 2, Lesson 13"
+      points: 1
+      prompt: |
+        When 2x³ − 3x + 1 is divided by (x − 1), the remainder is ____.
+      answer: ["0", "zero"]
+      explanation: |
+        p(1) = 2 − 3 + 1 = 0, so the remainder is 0 and (x − 1) is a factor: 2x³ − 3x + 1 = (x − 1)(2x² + 2x − 1).
+    - slug: alg2-u02-w10-q19
+      type: numeric
+      topic_code: "2.25"
+      source: "IM Algebra 2, Unit 2, Lesson 25"
+      points: 1
+      prompt: |
+        Find the sum of the first 15 terms of the geometric sequence 100, 90, 81, … Give your answer to two decimal places.
+      answer: { value: 794.11, tolerance: 0.05 }
+      explanation: |
+        a = 100, r = 0.9, n = 15: S = 100(1 − 0.9¹⁵)/(1 − 0.9) = 1000(1 − 0.205891) ≈ 794.11.
+    - slug: alg2-u02-w10-q20
+      type: numeric
+      topic_code: "2.26"
+      source: "IM Algebra 2, Unit 2, Lesson 26"
+      points: 1
+      prompt: |
+        $150 is deposited at the end of every month for 24 months into an account paying 0.25% per month. What is the balance just after the last deposit? Give your answer in dollars to the nearest cent.
+      answer: { value: 3705.41, tolerance: 0.5 }
+      explanation: |
+        a = 150, r = 1.0025, n = 24: S = 150(1.0025²⁴ − 1)/0.0025. Since 1.0025²⁴ ≈ 1.061757, S ≈ 150 · 24.7027 ≈ $3,705.41. The deposits total $3,600, so about $105 is interest.
+    - slug: alg2-u02-w10-q21
+      type: numeric
+      topic_code: "1.3"
+      source: "IM Algebra 2, Unit 1, Lesson 3"
+      points: 1
+      prompt: |
+        An arithmetic sequence has a(3) = 7.5 and a(8) = 20. What is its common difference? Give the exact value.
+      answer: { value: 2.5, tolerance: 0 }
+      explanation: |
+        Five steps change the value by 12.5, so d = 12.5/5 = 2.5.
+    - slug: alg2-u02-w10-q22
+      type: short_answer
+      topic_code: "2.23"
+      source: "IM Algebra 2, Unit 2, Lesson 23"
+      points: 3
+      prompt: |
+        (a) Prove that (x + 2)² − (x − 2)² = 8x is an identity.
+        (b) Use the identity to compute 102² − 98² without squaring either number.
+        (c) Explain why checking the equation at x = 3 alone would not have been a proof.
+      answer: |
+        (a) (x² + 4x + 4) − (x² − 4x + 4) = 8x.
+        (b) Take x = 100: 102² − 98² = 8 · 100 = 800.
+        (c) A check at one value shows the two sides agree there, but an identity must hold for every x; a false equation such as (x + 5)² = x² + 25 also holds at x = 0. Only rewriting one side into the other proves it for all x.
+      explanation: |
+        Three points, one per part. (a) a full expansion. (b) 800 with the identity used. (c) the distinction between checking and proving.
+    - slug: alg2-u02-w10-q23
+      type: short_answer
+      topic_code: "2.26"
+      source: "IM Algebra 2, Unit 2, Lesson 26"
+      points: 3
+      prompt: |
+        A student borrows $5,000 at 1% interest per month and will repay it with 12 equal monthly payments of P dollars, the first one month after borrowing.
+
+        (a) Write an expression for what the loan has grown to after 12 months if nothing were paid.
+        (b) Write the total value of the 12 payments at the end of month 12 as a geometric series and as a closed-form expression.
+        (c) Set the two equal and find P to the nearest cent.
+      answer: |
+        (a) 5000 · 1.01¹².
+        (b) The last payment has grown 0 months and the first 11 months: P + P(1.01) + … + P(1.01)¹¹ = P(1.01¹² − 1)/0.01.
+        (c) 5000 · 1.01¹² ≈ 5634.13 and (1.01¹² − 1)/0.01 ≈ 12.6825, so P ≈ 5634.13/12.6825 ≈ $444.24.
+      explanation: |
+        Three points, one per part. (a) the grown loan. (b) the series and the closed form with n = 12. (c) P ≈ 444.24 (accept 444.20 to 444.30).
+    - slug: alg2-u02-w10-q24
+      type: long_answer
+      topic_code: "2.25"
+      source: "IM Algebra 2, Unit 2, Lesson 25"
+      points: 6
+      prompt: |
+        Write a full response that (1) expands (x − 1)(x³ + x² + x + 1) and explains why the middle terms cancel, (2) uses the result to write 1 + x + x² + x³ as a single fraction and states the value of x for which the fraction is not allowed, (3) explains how the same idea gives the formula a + ar + … + arⁿ⁻¹ = a(rⁿ − 1)/(r − 1), and (4) uses the formula to find 4 + 12 + 36 + … + 4 · 3⁸ and checks the answer another way for the first three terms.
+      answer: |
+        (1) x⁴ + x³ + x² + x − x³ − x² − x − 1 = x⁴ − 1. Each middle power appears once from multiplying by x and once, negated, from multiplying by −1, so they cancel in pairs.
+        (2) 1 + x + x² + x³ = (x⁴ − 1)/(x − 1), valid for x ≠ 1 (at x = 1 the sum is just 4).
+        (3) The same cancellation gives (x − 1)(1 + x + … + xⁿ⁻¹) = xⁿ − 1 for any n, so 1 + x + … + xⁿ⁻¹ = (xⁿ − 1)/(x − 1). Replacing x by r and multiplying every term by a gives a + ar + … + arⁿ⁻¹ = a(rⁿ − 1)/(r − 1).
+        (4) a = 4, r = 3, n = 9 (exponents 0 to 8): S = 4(3⁹ − 1)/2 = 2(19683 − 1) = 39,364. Check on the first three terms: 4 + 12 + 36 = 52, and the formula with n = 3 gives 4(27 − 1)/2 = 52.
+      explanation: |
+        Six points: 1 for the expansion with the cancellation explanation; 1 for the fraction and the exclusion x ≠ 1; 2 for the general derivation (1 for stating the formula without the link to the identity); 2 for the sum 39,364 with n = 9 and the three-term check (1 if n is miscounted but the method is right).
