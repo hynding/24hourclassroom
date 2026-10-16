@@ -31,17 +31,17 @@ questions:
     options:
       - "Median 5, IQR 5"
       - "Median 6, IQR 5"
-      - "Median 5, IQR 18"
       - "Median 6.5, IQR 6"
+      - "Median 5, IQR 18"
     option_explanations:
       - |
         Correct. With 11 values the median is the 6th, 5. Q1 is the median of the lower five (2, 3, 3, 4, 5), which is 3; Q3 is the median of the upper five (6, 7, 8, 9, 20), which is 8; IQR = 8 − 3 = 5.
       - |
         6 is the 7th value; the middle of 11 ordered values is the 6th, which is 5.
       - |
-        18 is the range (20 − 2), not the interquartile range Q3 − Q1 = 8 − 3 = 5.
-      - |
         6.5 is close to the mean (72/11 ≈ 6.55), not the median; the median of an odd-sized list is a value in the list.
+      - |
+        18 is the range (20 − 2), not the interquartile range Q3 − Q1 = 8 − 3 = 5.
     answer: 0
 
   - slug: alg1-final-q02
@@ -54,20 +54,20 @@ questions:
     prompt: |
       Using the 1.5 × IQR rule, is 20 an outlier?
     options:
-      - "Yes: the upper fence is 8 + 1.5 · 5 = 15.5, and 20 is above it."
-      - "No: the upper fence is 8 + 5 = 13 and 20 is only 7 above it."
       - "No: a value is an outlier only if it is more than twice the mean."
       - "Yes: any value more than 10 above the median is an outlier."
+      - "No: the upper fence is 8 + 5 = 13 and 20 is only 7 above it."
+      - "Yes: the upper fence is 8 + 1.5 · 5 = 15.5, and 20 is above it."
     option_explanations:
-      - |
-        Correct. Q3 = 8 and IQR = 5, so the fence is Q3 + 1.5 · IQR = 15.5; 20 > 15.5 makes it an outlier. The lower fence 3 − 7.5 = −4.5 catches nothing.
-      - |
-        The fence adds 1.5 times the IQR, 7.5, to Q3, giving 15.5; and being above the fence by any amount makes a value an outlier.
       - |
         The rule is not based on the mean; it uses the quartiles and the IQR.
       - |
         The rule is not "10 above the median"; the fence is Q3 + 1.5 · IQR = 15.5 here, and the conclusion happens to agree.
-    answer: 0
+      - |
+        The fence adds 1.5 times the IQR, 7.5, to Q3, giving 15.5; and being above the fence by any amount makes a value an outlier.
+      - |
+        Correct. Q3 = 8 and IQR = 5, so the fence is Q3 + 1.5 · IQR = 15.5; 20 > 15.5 makes it an outlier. The lower fence 3 − 7.5 = −4.5 catches nothing.
+    answer: 3
 
   - slug: alg1-final-q03
     type: multiple_choice
@@ -79,20 +79,20 @@ questions:
     prompt: |
       If the value 20 is removed, how do the mean and the median change?
     options:
-      - "The mean drops from about 6.55 to 5.2; the median stays at 5."
-      - "The mean stays at about 6.55; the median drops from 5 to 4."
       - "Both drop by the same amount, about 1.35."
+      - "The mean stays at about 6.55; the median drops from 5 to 4."
+      - "The mean drops from about 6.55 to 5.2; the median stays at 5."
       - "The median drops from 5 to 4.5; the mean is unchanged."
     option_explanations:
       - |
-        Correct. The sum falls from 72 to 52 over 10 values, so the mean falls from 6.55 to 5.2. The median of the remaining ten (the average of the 5th and 6th values, 5 and 5) is still 5. An extreme value pulls the mean, not the median.
+        The median is unchanged at 5; only the mean moves, by about 1.35.
       - |
         Removing the largest value must lower the mean; and the middle of 2, 3, 3, 4, 5, 5, 6, 7, 8, 9 is (5 + 5)/2 = 5.
       - |
-        The median is unchanged at 5; only the mean moves, by about 1.35.
+        Correct. The sum falls from 72 to 52 over 10 values, so the mean falls from 6.55 to 5.2. The median of the remaining ten (the average of the 5th and 6th values, 5 and 5) is still 5. An extreme value pulls the mean, not the median.
       - |
         The 5th and 6th values of the remaining ten are both 5, so the median is 5; the mean falls to 5.2.
-    answer: 0
+    answer: 2
 
   - slug: alg1-final-q04
     type: multiple_choice
@@ -102,20 +102,20 @@ questions:
     prompt: |
       A dot plot of house prices in a town has most dots bunched between $150,000 and $250,000 and a thin tail of dots stretching out to $900,000. Which description is correct, and which measure of center best represents a typical price?
     options:
+      - "Skewed right; the mean, because the tail contains real houses."
       - "Skewed right; the median, because the tail pulls the mean upward."
       - "Skewed left; the mean, because it uses every value."
       - "Symmetric; either the mean or the median."
-      - "Skewed right; the mean, because the tail contains real houses."
     option_explanations:
+      - |
+        The expensive houses are real, but they make the mean unrepresentative of the typical house; the median resists them.
       - |
         Correct. A tail toward the high values is a right skew; a few very expensive houses raise the mean well above where most prices lie, so the median is the better summary of a typical price.
       - |
         The tail stretches toward the higher prices, which is a right skew, and the mean is pulled toward that tail.
       - |
         A long tail on one side is a skew, not symmetry; the mean and median would differ.
-      - |
-        The expensive houses are real, but they make the mean unrepresentative of the typical house; the median resists them.
-    answer: 0
+    answer: 1
 
   - slug: alg1-final-q05
     type: multi_select
@@ -126,23 +126,23 @@ questions:
     prompt: |
       Two classes took the same test. Class A: mean 72, median 75, standard deviation 8. Class B: mean 72, median 68, standard deviation 15. Which statements are supported? Select all that apply.
     options:
-      - "Class A's scores are more spread out than class B's."
+      - "Half of class B scored above 72."
       - "The two classes have the same mean score."
       - "Class A's distribution is likely skewed left."
+      - "Class A's scores are more spread out than class B's."
       - "Class B's distribution is likely skewed right."
-      - "Half of class B scored above 72."
     option_explanations:
       - |
-        A standard deviation of 8 is smaller than 15, so class A's scores are less spread out, not more.
+        Half scored above the median, 68, not above the mean; with a right skew, fewer than half are above 72.
       - |
         Correct. Both means are 72; the classes differ in shape and spread, not in mean.
       - |
         Correct. A mean below the median (72 < 75) is the signature of a tail toward the low scores, a left skew.
       - |
-        Correct. A mean above the median (72 > 68) points to a tail toward the high scores, a right skew.
+        A standard deviation of 8 is smaller than 15, so class A's scores are less spread out, not more.
       - |
-        Half scored above the median, 68, not above the mean; with a right skew, fewer than half are above 72.
-    answer: [1, 2, 3]
+        Correct. A mean above the median (72 > 68) points to a tail toward the high scores, a right skew.
+    answer: [1, 2, 4]
 
   - slug: alg1-final-q06
     type: numeric
@@ -198,20 +198,20 @@ questions:
     prompt: |
       Which ordered pair is a solution of 3x − 2y = 12?
     options:
-      - "(4, 0)"
-      - "(0, 6)"
       - "(2, 3)"
+      - "(0, 6)"
       - "(6, −3)"
+      - "(4, 0)"
     option_explanations:
-      - |
-        Correct. 3 · 4 − 2 · 0 = 12, so (4, 0) makes the equation true; it is the x-intercept.
-      - |
-        3 · 0 − 2 · 6 = −12, not 12; the y-intercept is (0, −6).
       - |
         3 · 2 − 2 · 3 = 6 − 6 = 0, not 12; (2, 3) lies on 3x − 2y = 0 instead.
       - |
+        3 · 0 − 2 · 6 = −12, not 12; the y-intercept is (0, −6).
+      - |
         3 · 6 − 2 · (−3) = 18 + 6 = 24, not 12; subtracting a negative adds.
-    answer: 0
+      - |
+        Correct. 3 · 4 − 2 · 0 = 12, so (4, 0) makes the equation true; it is the x-intercept.
+    answer: 3
 
   - slug: alg1-final-q10
     type: multiple_choice
@@ -221,20 +221,20 @@ questions:
     prompt: |
       Solving 4(x − 3) = 20, a student went from 4(x − 3) = 20 to x − 3 = 5 in one step. Which statement explains why the new equation has the same solution?
     options:
-      - "Both sides were divided by 4, and dividing both sides by the same non-zero number keeps the solutions."
-      - "The 4 was subtracted from both sides, and subtracting the same number keeps the solutions."
       - "The distributive property was applied to the left side."
+      - "Both sides were divided by 4, and dividing both sides by the same non-zero number keeps the solutions."
       - "The step is not valid; the student should have expanded to 4x − 12 = 20 first."
+      - "The 4 was subtracted from both sides, and subtracting the same number keeps the solutions."
     option_explanations:
-      - |
-        Correct. 4(x − 3)/4 = x − 3 and 20/4 = 5; any number that made the first equation true makes the second true, and the step can be undone by multiplying by 4.
-      - |
-        Subtracting 4 from 4(x − 3) does not give x − 3; the 4 multiplies the bracket, so the inverse is division.
       - |
         The distributive property would give 4x − 12 = 20, not x − 3 = 5.
       - |
+        Correct. 4(x − 3)/4 = x − 3 and 20/4 = 5; any number that made the first equation true makes the second true, and the step can be undone by multiplying by 4.
+      - |
         Expanding first is also valid, but it is not required; dividing by 4 is a legitimate move that keeps the solution x = 8.
-    answer: 0
+      - |
+        Subtracting 4 from 4(x − 3) does not give x − 3; the 4 multiplies the bracket, so the inverse is division.
+    answer: 1
 
   - slug: alg1-final-q11
     type: multiple_choice
@@ -244,20 +244,20 @@ questions:
     prompt: |
       The perimeter of a rectangle is P = 2l + 2w. Which equation gives the width in terms of the perimeter and the length?
     options:
-      - "w = (P − 2l)/2"
-      - "w = P − 2l"
       - "w = P/2 − l/2"
+      - "w = P − 2l"
+      - "w = (P − 2l)/2"
       - "w = (P + 2l)/2"
     option_explanations:
       - |
-        Correct. Subtract 2l from both sides, then divide by 2: w = (P − 2l)/2, which is also P/2 − l. With P = 30 and l = 10 it gives w = 5.
+        Dividing P − 2l by 2 gives P/2 − l, not P/2 − l/2; the 2 in 2l cancels fully.
       - |
         After subtracting 2l the width is still multiplied by 2; P − 2l is twice the width.
       - |
-        Dividing P − 2l by 2 gives P/2 − l, not P/2 − l/2; the 2 in 2l cancels fully.
+        Correct. Subtract 2l from both sides, then divide by 2: w = (P − 2l)/2, which is also P/2 − l. With P = 30 and l = 10 it gives w = 5.
       - |
         2l must be subtracted from P, not added; adding it makes the width larger than half the perimeter.
-    answer: 0
+    answer: 2
 
   # ---- Unit 2 · Set B: apples and pears (2.12, 2.14, 2.10)
   - slug: alg1-final-q12
@@ -271,18 +271,18 @@ questions:
       Which system represents the situation?
     options:
       - "a + p = 50 and 2a + 3p = 120"
+      - "a + p = 50 and 3a + 2p = 120"
       - "a + p = 120 and 2a + 3p = 50"
       - "2a + 3p = 50 and a + p = 120"
-      - "a + p = 50 and 3a + 2p = 120"
     option_explanations:
       - |
         Correct. The pounds add to 50 and the money, $2 per pound of apples plus $3 per pound of pears, adds to $120.
       - |
+        Apples are $2 a pound, so the money equation needs 2a, not 3a.
+      - |
         The numbers are swapped: 50 is the total weight and 120 the total money.
       - |
         The prices belong with the $120 total, not with the 50 pounds; this swaps the right-hand sides.
-      - |
-        Apples are $2 a pound, so the money equation needs 2a, not 3a.
     answer: 0
 
   - slug: alg1-final-q13
@@ -295,20 +295,20 @@ questions:
     prompt: |
       How many pounds of each were sold?
     options:
-      - "30 pounds of apples and 20 pounds of pears"
       - "20 pounds of apples and 30 pounds of pears"
       - "40 pounds of apples and 10 pounds of pears"
       - "25 pounds of apples and 25 pounds of pears"
+      - "30 pounds of apples and 20 pounds of pears"
     option_explanations:
-      - |
-        Correct. Multiply a + p = 50 by 2 and subtract from 2a + 3p = 120: p = 20, so a = 30. Check: 60 + 60 = 120.
       - |
         20 apples and 30 pears weigh 50 pounds but bring in 40 + 90 = $130, not $120.
       - |
         40 and 10 weigh 50 pounds but bring in 80 + 30 = $110.
       - |
         25 and 25 bring in 50 + 75 = $125, five dollars too many.
-    answer: 0
+      - |
+        Correct. Multiply a + p = 50 by 2 and subtract from 2a + 3p = 120: p = 20, so a = 30. Check: 60 + 60 = 120.
+    answer: 3
 
   - slug: alg1-final-q14
     type: multiple_choice
@@ -320,20 +320,20 @@ questions:
     prompt: |
       The graph of 2a + 3p = 120 is drawn with a on the horizontal axis. What are its intercepts, and what does the a-intercept mean?
     options:
-      - "a-intercept 60, p-intercept 40; selling only apples, 60 pounds bring in $120."
       - "a-intercept 40, p-intercept 60; selling only apples, 40 pounds bring in $120."
-      - "a-intercept 120, p-intercept 120; the stand sold $120 of each fruit."
       - "a-intercept 50, p-intercept 50; the stand sold 50 pounds in all."
+      - "a-intercept 60, p-intercept 40; selling only apples, 60 pounds bring in $120."
+      - "a-intercept 120, p-intercept 120; the stand sold $120 of each fruit."
     option_explanations:
-      - |
-        Correct. With p = 0, 2a = 120 gives a = 60; with a = 0, 3p = 120 gives p = 40. The a-intercept is the all-apples way to reach $120.
       - |
         The intercepts are swapped: 120/2 = 60 pounds of apples alone, 120/3 = 40 pounds of pears alone.
       - |
-        The intercepts come from dividing 120 by each price, not from 120 itself.
-      - |
         50 and 50 are the intercepts of the other equation, a + p = 50, not of the money equation.
-    answer: 0
+      - |
+        Correct. With p = 0, 2a = 120 gives a = 60; with a = 0, 3p = 120 gives p = 40. The a-intercept is the all-apples way to reach $120.
+      - |
+        The intercepts come from dividing 120 by each price, not from 120 itself.
+    answer: 2
 
   # ---- Unit 2: systems, inequalities (2.17, 2.19, 2.22, 2.24, 2.6, 2.20, 2.15, 2.11, 2.13, 2.16)
   - slug: alg1-final-q15
@@ -344,20 +344,20 @@ questions:
     prompt: |
       How many solutions does the system 2x + y = 5, 4x + 2y = 7 have?
     options:
-      - "None: the second equation is 2x + y = 3.5, a line parallel to the first."
-      - "Exactly one, found by elimination."
       - "Infinitely many: the second equation is twice the first."
+      - "None: the second equation is 2x + y = 3.5, a line parallel to the first."
       - "Exactly two, one for each equation."
+      - "Exactly one, found by elimination."
     option_explanations:
-      - |
-        Correct. Dividing the second equation by 2 gives 2x + y = 3.5. The same expression cannot equal both 5 and 3.5, so the lines are parallel and never meet.
-      - |
-        Elimination (doubling the first and subtracting) gives 0 = 3, a false statement, which means no solution.
       - |
         Twice the first equation is 4x + 2y = 10, not 7; the lines have the same slope but different intercepts.
       - |
+        Correct. Dividing the second equation by 2 gives 2x + y = 3.5. The same expression cannot equal both 5 and 3.5, so the lines are parallel and never meet.
+      - |
         A solution is a point on both lines; a system of two lines has none, one or infinitely many solutions, never two.
-    answer: 0
+      - |
+        Elimination (doubling the first and subtracting) gives 0 = 3, a false statement, which means no solution.
+    answer: 1
 
   - slug: alg1-final-q16
     type: multiple_choice
@@ -367,20 +367,20 @@ questions:
     prompt: |
       What is the solution set of −3x + 4 > 13?
     options:
-      - "x < −3"
       - "x > −3"
+      - "x < −3"
       - "x < 3"
       - "x > −17/3"
     option_explanations:
       - |
-        Correct. −3x > 9; dividing by −3 reverses the inequality: x < −3. Check x = −4: 12 + 4 = 16 > 13.
-      - |
         Dividing by a negative number reverses the inequality; x > −3 fails at x = 0, where 4 > 13 is false.
+      - |
+        Correct. −3x > 9; dividing by −3 reverses the inequality: x < −3. Check x = −4: 12 + 4 = 16 > 13.
       - |
         −3x > 9 gives x < −3, not x < 3; the sign of 9/(−3) is negative.
       - |
         This comes from adding 4 instead of subtracting it; the step is −3x > 13 − 4 = 9.
-    answer: 0
+    answer: 1
 
   - slug: alg1-final-q17
     type: multiple_choice
@@ -390,20 +390,20 @@ questions:
     prompt: |
       Which describes the graph of y ≤ 2x − 1?
     options:
-      - "A solid line through (0, −1) with slope 2, shaded on the side not containing (0, 0)."
-      - "A dashed line through (0, −1) with slope 2, shaded on the side containing (0, 0)."
       - "A solid line through (0, −1) with slope 2, shaded on the side containing (0, 0)."
+      - "A dashed line through (0, −1) with slope 2, shaded on the side containing (0, 0)."
+      - "A solid line through (0, −1) with slope 2, shaded on the side not containing (0, 0)."
       - "A solid line through (0, 1) with slope −2, shaded below."
     option_explanations:
       - |
-        Correct. ≤ includes the boundary, so the line is solid. Testing (0, 0): 0 ≤ −1 is false, so the shaded region is the other side (below and to the right of the line).
+        (0, 0) gives 0 ≤ −1, which is false, so the origin's side is not shaded.
       - |
         ≤ includes the boundary, so the line is solid, and (0, 0) does not satisfy the inequality.
       - |
-        (0, 0) gives 0 ≤ −1, which is false, so the origin's side is not shaded.
+        Correct. ≤ includes the boundary, so the line is solid. Testing (0, 0): 0 ≤ −1 is false, so the shaded region is the other side (below and to the right of the line).
       - |
         The line y = 2x − 1 has intercept −1 and slope 2, not intercept 1 and slope −2.
-    answer: 0
+    answer: 2
 
   - slug: alg1-final-q18
     type: multiple_choice
@@ -414,18 +414,18 @@ questions:
       Which point is a solution of the system x + y ≤ 6 and y > 2x?
     options:
       - "(1, 4)"
-      - "(3, 3)"
-      - "(0, 7)"
       - "(2, 4)"
+      - "(0, 7)"
+      - "(3, 3)"
     option_explanations:
       - |
         Correct. 1 + 4 = 5 ≤ 6 and 4 > 2 · 1 = 2; both inequalities hold.
       - |
-        3 + 3 = 6 ≤ 6 holds, but 3 > 6 is false.
+        2 + 4 = 6 ≤ 6 holds, but y > 2x needs 4 > 4, which is false; the boundary is excluded.
       - |
         0 + 7 = 7 is not ≤ 6, so the first inequality fails (the second holds).
       - |
-        2 + 4 = 6 ≤ 6 holds, but y > 2x needs 4 > 4, which is false; the boundary is excluded.
+        3 + 3 = 6 ≤ 6 holds, but 3 > 6 is false.
     answer: 0
 
   - slug: alg1-final-q19
@@ -437,23 +437,23 @@ questions:
     prompt: |
       Which equations are equivalent to 2x + 6 = 14 (that is, have exactly the same solution)? Select all that apply.
     options:
+      - "2x = 20"
+      - "2x + 6 − 6 = 14"
+      - "x = 4"
       - "x + 3 = 7"
       - "2x = 8"
-      - "2x = 20"
-      - "x = 4"
-      - "2x + 6 − 6 = 14"
     option_explanations:
+      - |
+        2x = 20 comes from adding 6 to the right side only; its solution is 10, not 4.
+      - |
+        Subtracting 6 from one side only gives 2x = 14, whose solution is 7, not 4.
+      - |
+        Correct. x = 4 is the solution of the original, and an equation with the same solution is equivalent to it.
       - |
         Correct. Dividing both sides by 2 gives x + 3 = 7, whose solution is 4, the same as the original.
       - |
         Correct. Subtracting 6 from both sides gives 2x = 8; the solution is still 4.
-      - |
-        2x = 20 comes from adding 6 to the right side only; its solution is 10, not 4.
-      - |
-        Correct. x = 4 is the solution of the original, and an equation with the same solution is equivalent to it.
-      - |
-        Subtracting 6 from one side only gives 2x = 14, whose solution is 7, not 4.
-    answer: [0, 1, 3]
+    answer: [2, 3, 4]
 
   - slug: alg1-final-q20
     type: multi_select
@@ -465,21 +465,21 @@ questions:
       A taxi charges $3 plus $2 per mile. Priya has $15. Let m be the number of miles she can ride. Which statements are correct? Select all that apply.
     options:
       - "The situation is modelled by 3 + 2m ≤ 15."
-      - "Priya can ride at most 6 miles."
-      - "Priya can ride 7 miles."
       - "The solution is 0 ≤ m ≤ 6."
       - "The solution is m < 6."
+      - "Priya can ride at most 6 miles."
+      - "Priya can ride 7 miles."
     option_explanations:
       - |
         Correct. The cost 3 + 2m must not exceed the $15 she has.
       - |
-        Correct. 2m ≤ 12 gives m ≤ 6; a 6-mile ride costs exactly $15.
-      - |
-        7 miles would cost 3 + 14 = $17, more than she has.
-      - |
         Correct. m ≤ 6 from the inequality, and m cannot be negative, so 0 ≤ m ≤ 6.
       - |
         m = 6 is allowed, since a $15 ride is affordable; the inequality is ≤, not <.
+      - |
+        Correct. 2m ≤ 12 gives m ≤ 6; a 6-mile ride costs exactly $15.
+      - |
+        7 miles would cost 3 + 14 = $17, more than she has.
     answer: [0, 1, 3]
 
   - slug: alg1-final-q21
@@ -541,20 +541,20 @@ questions:
     prompt: |
       What percentage of the students who play a sport have a job, and what percentage of the students who do not play a sport have a job?
     options:
-      - "About 67% and 37.5%"
+      - "60% and 40%"
       - "40% and 15%"
       - "About 73% and 27%"
-      - "60% and 40%"
+      - "About 67% and 37.5%"
     option_explanations:
       - |
-        Correct. Row relative frequencies: 80/120 ≈ 0.667 for sport players and 30/80 = 0.375 for non-players.
+        60% and 40% are 120/200 and 80/200, the shares of students who do and do not play a sport, not the job rates within each group.
       - |
         40% and 15% are 80/200 and 30/200, shares of all students; the question asks for a share of each row.
       - |
         73% and 27% are 80/110 and 30/110, the shares of the students with a job who do and do not play a sport: column percentages, not row percentages.
       - |
-        60% and 40% are 120/200 and 80/200, the shares of students who do and do not play a sport, not the job rates within each group.
-    answer: 0
+        Correct. Row relative frequencies: 80/120 ≈ 0.667 for sport players and 30/80 = 0.375 for non-players.
+    answer: 3
 
   - slug: alg1-final-q25
     type: multiple_choice
@@ -566,20 +566,20 @@ questions:
     prompt: |
       Is there an association between playing a sport and having a job?
     options:
-      - "Yes: about 67% of sport players have a job but only 37.5% of non-players do, a large difference."
+      - "Yes: more than half of all students have a job."
       - "No: 80 is larger than 30 only because there are more sport players."
       - "No: the same question was asked of everyone, so the variables are independent."
-      - "Yes: more than half of all students have a job."
+      - "Yes: about 67% of sport players have a job but only 37.5% of non-players do, a large difference."
     option_explanations:
       - |
-        Correct. When the conditional percentages differ this much between the groups, the variables are associated: knowing whether a student plays a sport changes the likelihood of a job.
+        Whether most students have a job (110/200 = 55%) does not show an association; the comparison between the two groups does.
       - |
         Comparing counts is misleading for exactly that reason, which is why the row percentages are compared; they differ, 67% against 37.5%.
       - |
         Asking everyone the same question says nothing about independence; the percentages decide, and they differ.
       - |
-        Whether most students have a job (110/200 = 55%) does not show an association; the comparison between the two groups does.
-    answer: 0
+        Correct. When the conditional percentages differ this much between the groups, the variables are associated: knowing whether a student plays a sport changes the likelihood of a job.
+    answer: 3
 
   - slug: alg1-final-q26
     type: multiple_choice
@@ -591,20 +591,20 @@ questions:
     prompt: |
       How many students have neither a sport nor a job, and how many have a job in all?
     options:
-      - "50 with neither; 110 with a job"
-      - "30 with neither; 110 with a job"
-      - "50 with neither; 80 with a job"
       - "90 with neither; 110 with a job"
+      - "50 with neither; 110 with a job"
+      - "50 with neither; 80 with a job"
+      - "30 with neither; 110 with a job"
     option_explanations:
+      - |
+        90 is the total without a job (40 sport players and 50 non-players); only the 50 are non-players as well.
       - |
         Correct. Of the 80 non-players, 30 have a job, so 80 − 30 = 50 have neither. Jobs: 80 + 30 = 110.
       - |
-        30 is the number of non-players with a job, not without one; 80 − 30 = 50 have neither.
-      - |
         80 is the number of sport players with a job; the 30 non-players with a job must be added, giving 110.
       - |
-        90 is the total without a job (40 sport players and 50 non-players); only the 50 are non-players as well.
-    answer: 0
+        30 is the number of non-players with a job, not without one; 80 − 30 = 50 have neither.
+    answer: 1
 
   - slug: alg1-final-q27
     type: multi_select
@@ -615,22 +615,22 @@ questions:
     prompt: |
       For a group of students, the correlation coefficient between hours of television watched per week and score on a test is r = −0.85. Which statements are justified? Select all that apply.
     options:
-      - "There is a strong negative linear relationship between the two variables."
-      - "Watching more television causes lower test scores."
-      - "Students who watch more television tend to score lower."
-      - "This relationship is weaker than one with r = 0.6."
       - "A line of best fit for the data has a negative slope."
+      - "Watching more television causes lower test scores."
+      - "There is a strong negative linear relationship between the two variables."
+      - "This relationship is weaker than one with r = 0.6."
+      - "Students who watch more television tend to score lower."
     option_explanations:
       - |
-        Correct. The sign gives the direction (negative) and the size, 0.85 out of a possible 1, says the points lie close to a line.
+        Correct. The sign of r matches the sign of the slope of the line of best fit.
       - |
         Correlation does not establish causation; a third factor (less study time, for instance) could drive both variables.
       - |
-        Correct. A negative correlation means higher values of one variable go with lower values of the other, as a tendency rather than a rule.
+        Correct. The sign gives the direction (negative) and the size, 0.85 out of a possible 1, says the points lie close to a line.
       - |
         Strength is the distance of r from 0; 0.85 is farther from 0 than 0.6, so this relationship is stronger, not weaker.
       - |
-        Correct. The sign of r matches the sign of the slope of the line of best fit.
+        Correct. A negative correlation means higher values of one variable go with lower values of the other, as a tendency rather than a rule.
     answer: [0, 2, 4]
 
   - slug: alg1-final-q28
@@ -668,17 +668,17 @@ questions:
     options:
       - "Ten minutes after it is poured, the coffee is 128 °F."
       - "The coffee takes 128 minutes to reach 10 °F."
-      - "The coffee cools 128 degrees in 10 minutes."
       - "When the coffee is 10 °F, 128 minutes have passed."
+      - "The coffee cools 128 degrees in 10 minutes."
     option_explanations:
       - |
         Correct. The input 10 is the time in minutes and the output 128 is the temperature at that time.
       - |
         This reverses input and output; the 10 is minutes and the 128 is degrees.
       - |
-        128 is the temperature itself, not the drop; the drop over 10 minutes is 180 − 128 = 52 degrees.
-      - |
         Again the input and output are swapped; and the coffee never reaches 10 °F in these values.
+      - |
+        128 is the temperature itself, not the drop; the drop over 10 minutes is 180 − 128 = 52 degrees.
     answer: 0
 
   - slug: alg1-final-q31
@@ -691,20 +691,20 @@ questions:
     prompt: |
       What is the average rate of change of T from t = 0 to t = 20, and how does it compare with the rate from t = 20 to t = 40?
     options:
-      - "−4 °F per minute; cooling is slower later, at −1 °F per minute."
       - "−4 °F per minute; cooling is faster later, at −8 °F per minute."
-      - "−80 °F per minute; the same in both intervals."
       - "4 °F per minute; the coffee warms up."
+      - "−4 °F per minute; cooling is slower later, at −1 °F per minute."
+      - "−80 °F per minute; the same in both intervals."
     option_explanations:
-      - |
-        Correct. (100 − 180)/(20 − 0) = −80/20 = −4; then (80 − 100)/(40 − 20) = −20/20 = −1. The coffee cools fastest at first.
       - |
         The second interval drops 20 degrees over 20 minutes, a rate of −1, not −8.
       - |
-        −80 is the change in temperature; the rate divides it by the 20 minutes.
-      - |
         The temperature falls, so the rate is negative; a positive rate would mean warming.
-    answer: 0
+      - |
+        Correct. (100 − 180)/(20 − 0) = −80/20 = −4; then (80 − 100)/(40 − 20) = −20/20 = −1. The coffee cools fastest at first.
+      - |
+        −80 is the change in temperature; the rate divides it by the 20 minutes.
+    answer: 2
 
   - slug: alg1-final-q32
     type: multiple_choice
@@ -716,20 +716,20 @@ questions:
     prompt: |
       The room is 70 °F. Which is the most reasonable description of the domain and range of T?
     options:
-      - "Domain: t ≥ 0. Range: temperatures from a little above 70 up to 180."
-      - "Domain: 0 ≤ t ≤ 40. Range: 80 to 180."
-      - "Domain: all real numbers. Range: all real numbers."
       - "Domain: 70 to 180. Range: t ≥ 0."
+      - "Domain: t ≥ 0. Range: temperatures from a little above 70 up to 180."
+      - "Domain: all real numbers. Range: all real numbers."
+      - "Domain: 0 ≤ t ≤ 40. Range: 80 to 180."
     option_explanations:
+      - |
+        This swaps domain and range; the input t is time, and the output is temperature.
       - |
         Correct. Time runs from the pour onward, and the coffee cools toward room temperature without going below it, starting at 180.
       - |
-        The table stops at 40 minutes but the coffee keeps existing and cooling; the values listed are samples, not the whole domain.
-      - |
         Negative times and temperatures above 180 or below 70 make no sense for this cup of coffee.
       - |
-        This swaps domain and range; the input t is time, and the output is temperature.
-    answer: 0
+        The table stops at 40 minutes but the coffee keeps existing and cooling; the values listed are samples, not the whole domain.
+    answer: 1
 
   - slug: alg1-final-q33
     type: multiple_choice
@@ -739,20 +739,20 @@ questions:
     prompt: |
       Which function has a graph that is a V shape with its vertex at (4, 0)?
     options:
-      - "y = |x − 4|"
-      - "y = |x + 4|"
       - "y = |x| − 4"
       - "y = |x| + 4"
+      - "y = |x + 4|"
+      - "y = |x − 4|"
     option_explanations:
-      - |
-        Correct. |x − 4| is the distance from x to 4, which is 0 at x = 4 and grows in both directions, giving a V with vertex (4, 0).
-      - |
-        |x + 4| is zero at x = −4, so its vertex is (−4, 0).
       - |
         |x| − 4 shifts the V down 4: vertex (0, −4).
       - |
         |x| + 4 shifts the V up 4: vertex (0, 4).
-    answer: 0
+      - |
+        |x + 4| is zero at x = −4, so its vertex is (−4, 0).
+      - |
+        Correct. |x − 4| is the distance from x to 4, which is 0 at x = 4 and grows in both directions, giving a V with vertex (4, 0).
+    answer: 3
 
   - slug: alg1-final-q34
     type: multiple_choice
@@ -763,18 +763,18 @@ questions:
       f(x) = 3x + 6. Which is the inverse function?
     options:
       - "f⁻¹(x) = (x − 6)/3"
-      - "f⁻¹(x) = x/3 − 6"
       - "f⁻¹(x) = 1/(3x + 6)"
       - "f⁻¹(x) = 3x − 6"
+      - "f⁻¹(x) = x/3 − 6"
     option_explanations:
       - |
         Correct. Write y = 3x + 6, solve for x: x = (y − 6)/3, then swap the names. Check: f(2) = 12 and (12 − 6)/3 = 2.
       - |
-        The 6 must be subtracted before dividing by 3; x/3 − 6 undoes the steps in the wrong order (f(2) = 12 would map to −2).
-      - |
         The inverse function undoes f; it is not the reciprocal 1/f(x).
       - |
         3x − 6 does not undo f: f(2) = 12 and 3 · 12 − 6 = 30, not 2.
+      - |
+        The 6 must be subtracted before dividing by 3; x/3 − 6 undoes the steps in the wrong order (f(2) = 12 would map to −2).
     answer: 0
 
   - slug: alg1-final-q35
@@ -786,23 +786,23 @@ questions:
     prompt: |
       A piecewise function is defined by f(x) = x + 2 for x < 0, f(x) = 5 for 0 ≤ x < 3, and f(x) = 2x − 1 for x ≥ 3. Which statements are true? Select all that apply.
     options:
-      - "f(−3) = −1"
-      - "f(0) = 2"
-      - "f(3) = 5"
-      - "f(−1) = 5"
       - "f(10) = 19"
+      - "f(0) = 2"
+      - "f(−1) = 5"
+      - "f(3) = 5"
+      - "f(−3) = −1"
     option_explanations:
       - |
-        Correct. −3 < 0, so the first rule applies: −3 + 2 = −1.
+        Correct. 10 ≥ 3, so f(10) = 2 · 10 − 1 = 19.
       - |
         0 belongs to the middle piece (0 ≤ x < 3), so f(0) = 5, not 0 + 2 = 2.
       - |
-        Correct. 3 belongs to the last piece (x ≥ 3), so f(3) = 2 · 3 − 1 = 5.
-      - |
         −1 < 0, so the first rule applies: f(−1) = −1 + 2 = 1, not 5.
       - |
-        Correct. 10 ≥ 3, so f(10) = 2 · 10 − 1 = 19.
-    answer: [0, 2, 4]
+        Correct. 3 belongs to the last piece (x ≥ 3), so f(3) = 2 · 3 − 1 = 5.
+      - |
+        Correct. −3 < 0, so the first rule applies: −3 + 2 = −1.
+    answer: [0, 3, 4]
 
   - slug: alg1-final-q36
     type: true_false
@@ -872,20 +872,20 @@ questions:
     prompt: |
       A table gives the values 3, 6, 12, 24, 48 for x = 0, 1, 2, 3, 4. Which statement is correct?
     options:
-      - "The function is exponential with growth factor 2, because each value is twice the one before."
-      - "The function is linear with slope 3, because the first two values differ by 3."
-      - "The function is exponential with growth factor 3, because it starts at 3."
       - "The function is quadratic, because the differences 3, 6, 12, 24 are not constant."
+      - "The function is linear with slope 3, because the first two values differ by 3."
+      - "The function is exponential with growth factor 2, because each value is twice the one before."
+      - "The function is exponential with growth factor 3, because it starts at 3."
     option_explanations:
       - |
-        Correct. The ratios 6/3, 12/6, 24/12 and 48/24 are all 2, the mark of exponential growth; the rule is y = 3 · 2ˣ.
+        Non-constant first differences do not make a function quadratic; a quadratic has constant second differences, and here the differences double instead.
       - |
         The differences 3, 6, 12, 24 are not constant, so the function is not linear.
       - |
-        3 is the starting value a, not the factor b; the factor is the ratio of consecutive values, 2.
+        Correct. The ratios 6/3, 12/6, 24/12 and 48/24 are all 2, the mark of exponential growth; the rule is y = 3 · 2ˣ.
       - |
-        Non-constant first differences do not make a function quadratic; a quadratic has constant second differences, and here the differences double instead.
-    answer: 0
+        3 is the starting value a, not the factor b; the factor is the ratio of consecutive values, 2.
+    answer: 2
 
   - slug: alg1-final-q41
     type: multiple_choice
@@ -895,20 +895,20 @@ questions:
     prompt: |
       A car bought for $24,000 loses 15% of its value every year. Which function gives its value V after t years?
     options:
+      - "V(t) = 24,000 · (1.15)ᵗ"
       - "V(t) = 24,000 · (0.85)ᵗ"
       - "V(t) = 24,000 · (0.15)ᵗ"
       - "V(t) = 24,000 − 3,600t"
-      - "V(t) = 24,000 · (1.15)ᵗ"
     option_explanations:
+      - |
+        1.15 is a 15% increase; the car loses value, so the factor must be below 1.
       - |
         Correct. Losing 15% leaves 85%, so the decay factor is 1 − 0.15 = 0.85, applied once per year.
       - |
         0.15 is the fraction lost, not the fraction kept; multiplying by 0.15 would wipe out 85% each year.
       - |
         This subtracts the same $3,600 every year (linear decay); 15% of a shrinking value is less each year.
-      - |
-        1.15 is a 15% increase; the car loses value, so the factor must be below 1.
-    answer: 0
+    answer: 1
 
   - slug: alg1-final-q42
     type: fill_blank
@@ -933,16 +933,16 @@ questions:
       What function gives the balance of account B after t years, and what is the balance after 2 years?
     options:
       - "B(t) = 2,000(1.06)ᵗ; $2,247.20 after 2 years"
-      - "B(t) = 2,000(0.06)ᵗ; $7.20 after 2 years"
       - "B(t) = 2,000 + 120t; $2,240 after 2 years"
+      - "B(t) = 2,000(0.06)ᵗ; $7.20 after 2 years"
       - "B(t) = 2,000(1.06)ᵗ; $2,240 after 2 years"
     option_explanations:
       - |
         Correct. Each year multiplies the balance by 1.06; 2,000 · 1.06² = 2,000 · 1.1236 = 2,247.20.
       - |
-        0.06 is the rate, not the factor; the balance keeps its 100% and adds 6%, a factor of 1.06.
-      - |
         2,000 + 120t is simple interest, account A; B compounds, so the second year's interest is 6% of 2,120, not of 2,000.
+      - |
+        0.06 is the rate, not the factor; the balance keeps its 100% and adds 6%, a factor of 1.06.
       - |
         The function is right but 2,000 · 1.06² = 2,247.20, not 2,240; the extra $7.20 is interest on the first year's interest.
     answer: 0
@@ -957,20 +957,20 @@ questions:
     prompt: |
       Which function gives the balance of account C after t years, and what is the effective annual growth factor?
     options:
-      - "C(t) = 2,000(1.005)^(12t); about 1.0617 per year"
-      - "C(t) = 2,000(1.06)^(12t); about 2.0122 per year"
       - "C(t) = 2,000(1.005)ᵗ; 1.005 per year"
+      - "C(t) = 2,000(1.06)^(12t); about 2.0122 per year"
       - "C(t) = 2,000(1.5)^(12t); 1.5 per month"
+      - "C(t) = 2,000(1.005)^(12t); about 1.0617 per year"
     option_explanations:
-      - |
-        Correct. Monthly compounding applies 6%/12 = 0.5% twelve times a year; 1.005¹² ≈ 1.0617, a little more than the 1.06 of annual compounding.
-      - |
-        6% is the annual rate; each month earns 0.5%, so the monthly factor is 1.005, not 1.06.
       - |
         1.005 is applied every month, so the exponent is 12t, not t; after a year the factor is 1.005¹² ≈ 1.0617.
       - |
+        6% is the annual rate; each month earns 0.5%, so the monthly factor is 1.005, not 1.06.
+      - |
         0.5% is 0.005, not 0.5; a factor of 1.5 per month would be 50% interest monthly.
-    answer: 0
+      - |
+        Correct. Monthly compounding applies 6%/12 = 0.5% twelve times a year; 1.005¹² ≈ 1.0617, a little more than the 1.06 of annual compounding.
+    answer: 3
 
   - slug: alg1-final-q45
     type: multiple_choice
@@ -982,20 +982,20 @@ questions:
     prompt: |
       After 10 years, how do accounts A and B compare?
     options:
-      - "A holds $3,200 and B about $3,582; B is ahead by about $382 and the gap keeps growing."
       - "A holds $3,200 and B $3,200; simple and compound interest agree after 10 years."
-      - "A holds $3,200 and B about $2,120; compounding is slower at first."
       - "A holds $3,582 and B $3,200; simple interest wins over long periods."
+      - "A holds $3,200 and B about $3,582; B is ahead by about $382 and the gap keeps growing."
+      - "A holds $3,200 and B about $2,120; compounding is slower at first."
     option_explanations:
-      - |
-        Correct. A: 2,000 + 120 · 10 = 3,200. B: 2,000 · 1.06¹⁰ ≈ 2,000 · 1.7908 ≈ 3,581.70. B's yearly increase grows while A's stays $120, so B pulls away.
       - |
         They agree only at t = 0 and t = 1; from year 2 on, B earns interest on interest and is ahead.
       - |
-        2,120 is B after one year; after ten it is about 3,582, well ahead of A.
-      - |
         The accounts are swapped: simple interest is linear and is overtaken by compound growth.
-    answer: 0
+      - |
+        Correct. A: 2,000 + 120 · 10 = 3,200. B: 2,000 · 1.06¹⁰ ≈ 2,000 · 1.7908 ≈ 3,581.70. B's yearly increase grows while A's stays $120, so B pulls away.
+      - |
+        2,120 is B after one year; after ten it is about 3,582, well ahead of A.
+    answer: 2
 
   # ---- Unit 5: interpreting, graphs, percent change, comparison (5.9, 5.12, 5.14, 5.3, 5.19)
   - slug: alg1-final-q46
@@ -1007,23 +1007,23 @@ questions:
     prompt: |
       The function f(x) = 500 · (1.2)ˣ models the number of bacteria in a dish after x hours. Which statements are true? Select all that apply.
     options:
-      - "The starting number of bacteria is 500."
-      - "The number grows by 20% each hour."
-      - "The number grows by 120 each hour."
       - "f(2) = 720"
       - "The growth factor is 0.2."
+      - "The starting number of bacteria is 500."
+      - "The number grows by 120 each hour."
+      - "The number grows by 20% each hour."
     option_explanations:
-      - |
-        Correct. f(0) = 500 · 1 = 500; the coefficient a is the value at x = 0.
-      - |
-        Correct. A factor of 1.2 means each hour's count is 120% of the previous, a 20% increase.
-      - |
-        The increase is 20% of the current count, which is 100 in the first hour, 120 in the second, and keeps growing; it is not a fixed 120.
       - |
         Correct. 500 · 1.2² = 500 · 1.44 = 720; two hours of 20% growth.
       - |
         0.2 is the rate of increase; the growth factor is 1 + 0.2 = 1.2.
-    answer: [0, 1, 3]
+      - |
+        Correct. f(0) = 500 · 1 = 500; the coefficient a is the value at x = 0.
+      - |
+        The increase is 20% of the current count, which is 100 in the first hour, 120 in the second, and keeps growing; it is not a fixed 120.
+      - |
+        Correct. A factor of 1.2 means each hour's count is 120% of the previous, a 20% increase.
+    answer: [0, 2, 4]
 
   - slug: alg1-final-q47
     type: multi_select
@@ -1035,22 +1035,22 @@ questions:
       The graph of y = a · bˣ passes through (0, 8) and (1, 6). Which statements are true? Select all that apply.
     options:
       - "a = 8"
-      - "b = 3/4"
       - "The function is decreasing."
-      - "The value at x = 2 is 4."
       - "b = −2, because the graph drops by 2 from x = 0 to x = 1."
+      - "b = 3/4"
+      - "The value at x = 2 is 4."
     option_explanations:
       - |
         Correct. At x = 0, a · b⁰ = a, so a is the y-intercept, 8.
       - |
-        Correct. b is the ratio of consecutive values: 6/8 = 3/4.
-      - |
         Correct. A positive factor less than 1 means each value is a fraction of the one before: exponential decay.
       - |
-        At x = 2 the value is 8 · (3/4)² = 8 · 9/16 = 4.5, not 4; exponential change is by a factor, not by a fixed drop.
-      - |
         b is a ratio, not a difference, and it is positive; an exponential function never has a negative base here.
-    answer: [0, 1, 2]
+      - |
+        Correct. b is the ratio of consecutive values: 6/8 = 3/4.
+      - |
+        At x = 2 the value is 8 · (3/4)² = 8 · 9/16 = 4.5, not 4; exponential change is by a factor, not by a fixed drop.
+    answer: [0, 1, 3]
 
   - slug: alg1-final-q48
     type: true_false
@@ -1115,20 +1115,20 @@ questions:
     prompt: |
       Which is the factored form of h(t), and what does it tell you?
     options:
+      - "h(t) = −16(t − 2)(t − 2); the ball lands after 2 seconds."
+      - "h(t) = (−16t + 8)(t + 8); the ball lands after 8 seconds."
       - "h(t) = −16(t − 4)(t + 1); the ball lands after 4 seconds."
       - "h(t) = −16(t + 4)(t − 1); the ball lands after 1 second."
-      - "h(t) = (−16t + 8)(t + 8); the ball lands after 8 seconds."
-      - "h(t) = −16(t − 2)(t − 2); the ball lands after 2 seconds."
     option_explanations:
+      - |
+        −16(t − 2)² = −16t² + 64t − 64, which has the wrong middle term and the wrong constant.
+      - |
+        (−16t + 8)(t + 8) = −16t² − 120t + 64, not h(t); and 64 = (−16)(−4) comes from factoring out −16 first.
       - |
         Correct. −16(t² − 3t − 4) = −16(t − 4)(t + 1); the zeros are t = 4 and t = −1, and only t = 4 is in the flight, so the ball lands at 4 seconds.
       - |
         (t + 4)(t − 1) = t² + 3t − 4, which gives −16t² − 48t + 64, the wrong middle sign.
-      - |
-        (−16t + 8)(t + 8) = −16t² − 120t + 64, not h(t); and 64 = (−16)(−4) comes from factoring out −16 first.
-      - |
-        −16(t − 2)² = −16t² + 64t − 64, which has the wrong middle term and the wrong constant.
-    answer: 0
+    answer: 2
 
   - slug: alg1-final-q52
     type: multiple_choice
@@ -1142,17 +1142,17 @@ questions:
     options:
       - "100 feet, at t = 1.5 seconds"
       - "64 feet, at t = 0 seconds"
-      - "96 feet, at t = 2 seconds"
       - "100 feet, at t = 2 seconds"
+      - "96 feet, at t = 2 seconds"
     option_explanations:
       - |
         Correct. The axis of symmetry is halfway between the zeros −1 and 4, at t = 1.5; h(1.5) = −36 + 72 + 64 = 100. In vertex form, h(t) = −16(t − 1.5)² + 100.
       - |
         64 is the starting height; the ball rises after it is thrown and peaks later.
       - |
-        h(2) = −64 + 96 + 64 = 96, which is below the peak of 100 at t = 1.5; t = 2 is half the landing time, not the vertex.
-      - |
         The maximum is 100 but it occurs at t = 1.5, midway between the zeros, not at t = 2.
+      - |
+        h(2) = −64 + 96 + 64 = 96, which is below the peak of 100 at t = 1.5; t = 2 is half the landing time, not the vertex.
     answer: 0
 
   - slug: alg1-final-q53
@@ -1165,20 +1165,20 @@ questions:
     prompt: |
       Which feature of the graph of h can be read directly from the standard form, and what does it mean?
     options:
-      - "The vertical intercept, 64: the platform is 64 feet high."
+      - "The vertical intercept, 48: the ball is thrown at 48 feet per second from the ground."
       - "The vertex, (48, 64): the ball peaks at 64 feet after 48 seconds."
       - "The horizontal intercept, −16: the ball lands 16 feet away."
-      - "The vertical intercept, 48: the ball is thrown at 48 feet per second from the ground."
+      - "The vertical intercept, 64: the platform is 64 feet high."
     option_explanations:
       - |
-        Correct. The constant term is h(0), the height when t = 0, which is the platform's height. The other forms reveal the zeros and the vertex.
+        48 is the initial upward speed in feet per second, not a height; the vertical intercept is 64.
       - |
         48 and 64 are the coefficients, not the vertex; the vertex is (1.5, 100).
       - |
         −16 is the leading coefficient (gravity, in feet per second squared), not an intercept.
       - |
-        48 is the initial upward speed in feet per second, not a height; the vertical intercept is 64.
-    answer: 0
+        Correct. The constant term is h(0), the height when t = 0, which is the platform's height. The other forms reveal the zeros and the vertex.
+    answer: 3
 
   # ---- Unit 6: vertex form, patterns, graphs (6.16, 6.2, 6.13, 6.8, 6.11, 6.15)
   - slug: alg1-final-q54
@@ -1189,20 +1189,20 @@ questions:
     prompt: |
       What are the vertex and the direction of opening of the graph of y = −2(x + 3)² + 5?
     options:
+      - "Vertex (−3, −5); opens upward."
       - "Vertex (−3, 5); opens downward, so 5 is the maximum value."
       - "Vertex (3, 5); opens downward."
-      - "Vertex (−3, −5); opens upward."
       - "Vertex (−3, 5); opens upward, so 5 is the minimum value."
     option_explanations:
+      - |
+        k = +5, so the vertex's y-coordinate is 5; and a = −2 opens downward.
       - |
         Correct. a(x − h)² + k with h = −3 (since x + 3 = x − (−3)) and k = 5; a = −2 < 0 opens downward, making 5 the maximum.
       - |
         x + 3 is x − (−3), so h = −3, not 3; the sign inside the bracket is reversed.
       - |
-        k = +5, so the vertex's y-coordinate is 5; and a = −2 opens downward.
-      - |
         The vertex is right, but a = −2 is negative, so the parabola opens downward and 5 is a maximum.
-    answer: 0
+    answer: 1
 
   - slug: alg1-final-q55
     type: multi_select
@@ -1213,23 +1213,23 @@ questions:
     prompt: |
       Which of these lists of values, for x = 1, 2, 3, 4, could come from a quadratic function? Select all that apply.
     options:
-      - "1, 4, 9, 16"
       - "2, 4, 8, 16"
       - "5, 8, 13, 20"
+      - "1, 4, 9, 16"
       - "3, 7, 11, 15"
       - "0, 3, 8, 15"
     option_explanations:
-      - |
-        Correct. The differences are 3, 5, 7 and the second differences are 2, 2: quadratic (y = x²).
       - |
         Each value doubles; constant ratios mark an exponential function, not a quadratic one.
       - |
         Correct. Differences 3, 5, 7, second differences 2, 2: quadratic (y = x² + 4).
       - |
+        Correct. The differences are 3, 5, 7 and the second differences are 2, 2: quadratic (y = x²).
+      - |
         The differences are all 4, so the function is linear.
       - |
         Correct. Differences 3, 5, 7, second differences 2, 2: quadratic (y = x² − 1).
-    answer: [0, 2, 4]
+    answer: [1, 2, 4]
 
   - slug: alg1-final-q56
     type: true_false
@@ -1302,18 +1302,18 @@ questions:
       Which is the factored form of the left side, and what are the solutions?
     options:
       - "(2x + 3)(x − 3) = 0; x = 3 or x = −3/2"
-      - "(2x − 3)(x + 3) = 0; x = 3/2 or x = −3"
       - "(2x − 9)(x + 1) = 0; x = 9/2 or x = −1"
       - "(x + 3)(x − 3) = 0; x = 3 or x = −3"
+      - "(2x − 3)(x + 3) = 0; x = 3/2 or x = −3"
     option_explanations:
       - |
         Correct. (2x + 3)(x − 3) = 2x² − 6x + 3x − 9 = 2x² − 3x − 9; the factors are zero at x = −3/2 and x = 3.
       - |
-        (2x − 3)(x + 3) = 2x² + 6x − 3x − 9 = 2x² + 3x − 9, the wrong sign on the middle term.
-      - |
         (2x − 9)(x + 1) = 2x² + 2x − 9x − 9 = 2x² − 7x − 9, not −3x.
       - |
         (x + 3)(x − 3) = x² − 9 has no 2x² and no x term.
+      - |
+        (2x − 3)(x + 3) = 2x² + 6x − 3x − 9 = 2x² + 3x − 9, the wrong sign on the middle term.
     answer: 0
 
   - slug: alg1-final-q61
@@ -1326,20 +1326,20 @@ questions:
     prompt: |
       Which shows the quadratic formula applied correctly to this equation?
     options:
-      - "x = (3 ± √(9 + 72))/4 = (3 ± 9)/4, so x = 3 or x = −3/2"
-      - "x = (−3 ± √(9 + 72))/4 = (−3 ± 9)/4, so x = 3/2 or x = −3"
       - "x = (3 ± √(9 − 72))/4, so there are no real solutions"
       - "x = (3 ± √(9 + 72))/2 = (3 ± 9)/2, so x = 6 or x = −3"
+      - "x = (3 ± √(9 + 72))/4 = (3 ± 9)/4, so x = 3 or x = −3/2"
+      - "x = (−3 ± √(9 + 72))/4 = (−3 ± 9)/4, so x = 3/2 or x = −3"
     option_explanations:
-      - |
-        Correct. a = 2, b = −3, c = −9: −b = 3, b² − 4ac = 9 − 4(2)(−9) = 9 + 72 = 81, 2a = 4. (3 + 9)/4 = 3 and (3 − 9)/4 = −3/2, matching the factored form.
-      - |
-        b = −3, so −b = +3; this uses the sign of b instead of −b.
       - |
         c = −9, so −4ac = −4(2)(−9) = +72, not −72; the discriminant is 81.
       - |
         The denominator is 2a = 4, not 2; dividing by 2 doubles both solutions.
-    answer: 0
+      - |
+        Correct. a = 2, b = −3, c = −9: −b = 3, b² − 4ac = 9 − 4(2)(−9) = 9 + 72 = 81, 2a = 4. (3 + 9)/4 = 3 and (3 − 9)/4 = −3/2, matching the factored form.
+      - |
+        b = −3, so −b = +3; this uses the sign of b instead of −b.
+    answer: 2
 
   - slug: alg1-final-q62
     type: multiple_choice
@@ -1351,20 +1351,20 @@ questions:
     prompt: |
       What does the discriminant say about the solutions, before they are found?
     options:
-      - "It is 81, a perfect square, so there are two rational solutions."
       - "It is 81, positive, so there are two irrational solutions."
-      - "It is −63, so there are no real solutions."
       - "It is 9, so there is one solution."
+      - "It is −63, so there are no real solutions."
+      - "It is 81, a perfect square, so there are two rational solutions."
     option_explanations:
-      - |
-        Correct. 81 > 0 gives two solutions, and √81 = 9 is a whole number, so both solutions (3 and −3/2) are rational.
       - |
         Positive gives two solutions, but a perfect square discriminant makes them rational, not irrational.
       - |
+        9 is b², not the whole discriminant; and one solution needs a discriminant of exactly 0.
+      - |
         The discriminant is 9 − 4(2)(−9) = 9 + 72 = 81, not 9 − 72; two negatives in −4ac make it positive.
       - |
-        9 is b², not the whole discriminant; and one solution needs a discriminant of exactly 0.
-    answer: 0
+        Correct. 81 > 0 gives two solutions, and √81 = 9 is a whole number, so both solutions (3 and −3/2) are rational.
+    answer: 3
 
   # ---- Unit 7: zero product, counting solutions, perfect squares, roots, vertex form (7.4, 7.5, 7.11, 7.13, 7.3, 7.15, 7.22, 7.24)
   - slug: alg1-final-q63
@@ -1377,22 +1377,22 @@ questions:
       Which equations have x = 3 as a solution? Select all that apply.
     options:
       - "(x − 3)(x + 2) = 0"
-      - "x² = 9"
       - "(x + 3)² = 0"
-      - "x² − 5x + 6 = 0"
       - "(x − 3)(x − 1) = 2"
+      - "x² = 9"
+      - "x² − 5x + 6 = 0"
     option_explanations:
       - |
         Correct. At x = 3 the first factor is 0, so the product is 0; the other solution is −2.
       - |
-        Correct. 3² = 9; the solutions are 3 and −3.
-      - |
         (3 + 3)² = 36, not 0; the only solution is x = −3.
       - |
-        Correct. 9 − 15 + 6 = 0; the expression factors as (x − 2)(x − 3), so the solutions are 2 and 3.
-      - |
         At x = 3 the left side is (0)(2) = 0, not 2; a factor equal to zero does not help when the product must be 2. The solutions are 2 ± √3.
-    answer: [0, 1, 3]
+      - |
+        Correct. 3² = 9; the solutions are 3 and −3.
+      - |
+        Correct. 9 − 15 + 6 = 0; the expression factors as (x − 2)(x − 3), so the solutions are 2 and 3.
+    answer: [0, 3, 4]
 
   - slug: alg1-final-q64
     type: multi_select
@@ -1404,22 +1404,22 @@ questions:
       Which statements about the number of solutions are correct? Select all that apply.
     options:
       - "(x − 2)² = −4 has no real solutions."
-      - "x² = 0 has exactly one solution."
       - "(x + 1)² = 10 has two irrational solutions."
       - "x² + 9 = 0 has the solutions 3 and −3."
+      - "x² = 0 has exactly one solution."
       - "(x − 5)² = 0 has two solutions, 5 and −5."
     option_explanations:
       - |
         Correct. A square is never negative, so no value of x makes (x − 2)² equal −4.
       - |
-        Correct. Only 0 squares to 0, so x = 0 is the single solution.
-      - |
         Correct. x + 1 = ±√10 gives x = −1 ± √10, and √10 is irrational.
       - |
         x² + 9 = 0 means x² = −9, which has no real solutions; 3 and −3 solve x² − 9 = 0.
       - |
+        Correct. Only 0 squares to 0, so x = 0 is the single solution.
+      - |
         (x − 5)² = 0 forces x − 5 = 0, so the only solution is 5; −5 gives (−10)² = 100.
-    answer: [0, 1, 2]
+    answer: [0, 1, 3]
 
   - slug: alg1-final-q65
     type: true_false

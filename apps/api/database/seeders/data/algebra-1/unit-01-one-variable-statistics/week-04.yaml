@@ -141,20 +141,20 @@ quiz:
       prompt: |
         A data set has Q1 = 14 and Q3 = 22. Which value would be classified as an outlier by the 1.5 × IQR rule?
       options:
-        - "2"
         - "3"
         - "33"
         - "35"
+        - "2"
       option_explanations:
-        - |
-          IQR = 8, so the lower fence is 14 − 12 = 2. A value equal to the fence is not beyond it, so 2 is not an outlier.
         - |
           3 lies above the lower fence of 2, inside the fences.
         - |
           33 is below the upper fence of 22 + 12 = 34, so it is not an outlier.
         - |
           Correct. The upper fence is 22 + 1.5 × 8 = 34, and 35 is above it.
-      answer: 3
+        - |
+          IQR = 8, so the lower fence is 14 − 12 = 2. A value equal to the fence is not beyond it, so 2 is not an outlier.
+      answer: 2
 
     - slug: alg1-u01-w04-q02
       type: multiple_choice
@@ -164,20 +164,20 @@ quiz:
       prompt: |
         A set of temperatures in degrees Celsius has mean 20 and standard deviation 3. Every temperature is increased by 5 degrees. What are the new mean and standard deviation?
       options:
+        - "Mean 20, SD 8"
         - "Mean 25, SD 3"
         - "Mean 25, SD 8"
-        - "Mean 20, SD 8"
         - "Mean 25, SD 15"
       option_explanations:
+        - |
+          The mean must shift by 5 because every value did.
         - |
           Correct. Adding 5 shifts the mean to 25 but leaves every deviation from the mean, and so the SD, unchanged.
         - |
           The SD does not grow when a constant is added; the values move together and stay equally spread.
         - |
-          The mean must shift by 5 because every value did.
-        - |
           Multiplying by 5 would give an SD of 15; adding 5 leaves it at 3.
-      answer: 0
+      answer: 1
 
     - slug: alg1-u01-w04-q03
       type: multiple_choice
@@ -187,20 +187,20 @@ quiz:
       prompt: |
         Distances in a data set are recorded in metres with mean 1.6 and SD 0.2. The same distances are converted to centimetres. What is the new SD?
       options:
-        - "0.2"
         - "2"
-        - "20"
         - "160"
+        - "0.2"
+        - "20"
       option_explanations:
-        - |
-          Converting multiplies every value by 100, and the SD scales with the values.
         - |
           A factor of 10 would give 2, but a metre is 100 centimetres.
         - |
-          Correct. Every value is multiplied by 100, so the SD is 0.2 × 100 = 20 cm.
-        - |
           160 cm is the new mean (1.6 × 100), not the SD.
-      answer: 2
+        - |
+          Converting multiplies every value by 100, and the SD scales with the values.
+        - |
+          Correct. Every value is multiplied by 100, so the SD is 0.2 × 100 = 20 cm.
+      answer: 3
 
     - slug: alg1-u01-w04-q04
       type: multiple_choice
@@ -217,20 +217,20 @@ quiz:
       prompt: |
         Which comparison of typical lateness uses the appropriate statistics?
       options:
-        - "Route 12 is typically later because its mean of 6.4 is higher than route 7's mean of 4.1."
         - "Route 12 is typically slightly less late, median 3 minutes versus route 7's median 4 minutes."
         - "Route 7 is typically later because its IQR is smaller."
+        - "Route 12 is typically later because its mean of 6.4 is higher than route 7's mean of 4.1."
         - "Route 12 is typically later because its SD of 7.2 is higher."
       option_explanations:
-        - |
-          Route 12 is skewed with an outlier, so its mean is inflated by the 35-minute trip and does not describe a typical trip.
         - |
           Correct. With one route skewed and an outlier present, medians are the matching resistant centres, and route 12's is a minute lower.
         - |
           The IQR measures spread, not lateness; a smaller IQR means more consistent, not later.
         - |
+          Route 12 is skewed with an outlier, so its mean is inflated by the 35-minute trip and does not describe a typical trip.
+        - |
           The SD describes variability, not the typical value.
-      answer: 1
+      answer: 0
 
     - slug: alg1-u01-w04-q05
       type: multiple_choice
@@ -247,20 +247,20 @@ quiz:
       prompt: |
         Which route is more consistent, and which statistic best supports that?
       options:
-        - "Route 7, because its IQR of 3 is smaller than route 12's IQR of 5"
-        - "Route 12, because its median of 3 is smaller"
         - "Route 7, because its mean is lower"
+        - "Route 7, because its IQR of 3 is smaller than route 12's IQR of 5"
         - "Route 12, because it has an outlier"
+        - "Route 12, because its median of 3 is smaller"
       option_explanations:
-        - |
-          Correct. Consistency is about spread; the matching resistant measure is the IQR, and route 7's is narrower.
-        - |
-          The median describes the typical value, not how much the trips vary.
         - |
           A lower mean says nothing about consistency.
         - |
+          Correct. Consistency is about spread; the matching resistant measure is the IQR, and route 7's is narrower.
+        - |
           An outlier is evidence of less consistency, not more.
-      answer: 0
+        - |
+          The median describes the typical value, not how much the trips vary.
+      answer: 1
 
     - slug: alg1-u01-w04-q06
       type: multiple_choice
@@ -277,20 +277,20 @@ quiz:
       prompt: |
         Route 12's third quartile is 6 minutes. Does the 35-minute trip count as an outlier under the 1.5 × IQR rule?
       options:
-        - "Yes, because 35 is above the upper fence of 6 + 1.5 × 5 = 13.5"
         - "No, because 35 is less than 1.5 × 35"
-        - "Yes, because any trip over 30 minutes late is an outlier"
         - "No, because the outlier rule only applies to values below Q1"
+        - "Yes, because 35 is above the upper fence of 6 + 1.5 × 5 = 13.5"
+        - "Yes, because any trip over 30 minutes late is an outlier"
       option_explanations:
-        - |
-          Correct. IQR = 5, so the upper fence is Q3 + 7.5 = 13.5, and 35 lies well above it.
         - |
           The rule compares the value with the fence built from Q3 and the IQR, not with a multiple of the value itself.
         - |
-          There is no fixed cutoff like 30 minutes; the fence depends on the quartiles of the data.
-        - |
           The rule has both a lower and an upper fence; values above Q3 + 1.5 × IQR are outliers too.
-      answer: 0
+        - |
+          Correct. IQR = 5, so the upper fence is Q3 + 7.5 = 13.5, and 35 lies well above it.
+        - |
+          There is no fixed cutoff like 30 minutes; the fence depends on the quartiles of the data.
+      answer: 2
 
     - slug: alg1-u01-w04-q07
       type: multiple_choice
@@ -301,19 +301,19 @@ quiz:
         Which question is the best starting point for a statistical investigation?
       options:
         - "Is pizza the best school lunch?"
-        - "How many minutes do students at our school wait in the lunch line, and does it differ between lunch periods?"
-        - "How long is the lunch line right now?"
         - "Should the school add another lunch line?"
+        - "How long is the lunch line right now?"
+        - "How many minutes do students at our school wait in the lunch line, and does it differ between lunch periods?"
       option_explanations:
         - |
           "Best" is an opinion with no measurable variable, so data cannot settle it.
         - |
-          Correct. It names a numerical variable that varies, and it sets up a comparison between groups that data can answer.
+          This is a decision; data might inform it, but the investigation needs a measurable question first.
         - |
           One count at one moment gives a single number, not a distribution.
         - |
-          This is a decision; data might inform it, but the investigation needs a measurable question first.
-      answer: 1
+          Correct. It names a numerical variable that varies, and it sets up a comparison between groups that data can answer.
+      answer: 3
 
     - slug: alg1-u01-w04-q08
       type: multiple_choice
@@ -323,20 +323,20 @@ quiz:
       prompt: |
         A student surveys the 12 members of her own club about hours of sleep and concludes that "students at this school sleep 7.5 hours on average". What is the main weakness of the conclusion?
       options:
-        - "She should have reported the median instead of the mean."
         - "Twelve club members are a convenience sample that may not represent the whole school."
-        - "Hours of sleep are categorical data, so an average is meaningless."
+        - "She should have reported the median instead of the mean."
         - "Sleep cannot be measured, so the question is not statistical."
+        - "Hours of sleep are categorical data, so an average is meaningless."
       option_explanations:
-        - |
-          The median might or might not be better, but the choice of centre is not the main flaw.
         - |
           Correct. The conclusion generalises from a small, non-random group to the whole school; it only describes those 12 students.
         - |
-          Hours of sleep are a numerical measurement, and an average is meaningful.
+          The median might or might not be better, but the choice of centre is not the main flaw.
         - |
           Sleep hours vary from person to person, which is exactly what makes the question statistical.
-      answer: 1
+        - |
+          Hours of sleep are a numerical measurement, and an average is meaningful.
+      answer: 0
 
     - slug: alg1-u01-w04-q09
       type: multiple_choice
@@ -346,20 +346,20 @@ quiz:
       prompt: |
         Graph description: a histogram of scores on an easy quiz has short bars at 40–50 and 50–60, taller bars at 60–70 and 70–80, and its tallest bars at 80–90 and 90–100. Which shape is this?
       options:
-        - "Skewed left"
-        - "Skewed right"
-        - "Uniform"
         - "Bimodal"
+        - "Skewed right"
+        - "Skewed left"
+        - "Uniform"
       option_explanations:
         - |
-          Correct. The bulk of the scores are at the high end and the tail of short bars trails toward the low scores on the left.
+          There is a single peak at the top end, not two separate peaks.
         - |
           A right skew would have its tall bars on the left and a tail toward high values.
         - |
-          The bars are not all the same height; they rise steadily from left to right.
+          Correct. The bulk of the scores are at the high end and the tail of short bars trails toward the low scores on the left.
         - |
-          There is a single peak at the top end, not two separate peaks.
-      answer: 0
+          The bars are not all the same height; they rise steadily from left to right.
+      answer: 2
 
     - slug: alg1-u01-w04-q10
       type: multiple_choice
@@ -369,17 +369,17 @@ quiz:
       prompt: |
         A dot plot of the number of pets owned by 40 students is strongly skewed right, with most students at 0, 1 or 2 pets and three students at 9, 11 and 14. Which summary should be reported?
       options:
-        - "Mean and standard deviation"
-        - "Median and IQR"
         - "Mean and IQR"
+        - "Median and IQR"
+        - "Mean and standard deviation"
         - "Median and standard deviation"
       option_explanations:
         - |
-          The three large values would inflate both the mean and the SD.
+          Mixing a non-resistant centre with a resistant spread is inconsistent; the mean would still be distorted.
         - |
           Correct. A skewed distribution with extreme values calls for the resistant pair: median and IQR.
         - |
-          Mixing a non-resistant centre with a resistant spread is inconsistent; the mean would still be distorted.
+          The three large values would inflate both the mean and the SD.
         - |
           The SD is not resistant and would be dominated by the pets counts of 9, 11 and 14.
       answer: 1
@@ -392,20 +392,20 @@ quiz:
       prompt: |
         For the data 6, 9, 9, 12, 14, 15, 20, 24, what is the first quartile?
       options:
-        - "6"
         - "9"
-        - "10.5"
+        - "6"
         - "13"
+        - "10.5"
       option_explanations:
-        - |
-          6 is the minimum, not the median of the lower half.
         - |
           Correct. The lower half is 6, 9, 9, 12 and its median is (9 + 9)/2 = 9.
         - |
-          10.5 would be the mean of 9 and 12, the 3rd and 4th values, which are not the two middle values of the lower half.
+          6 is the minimum, not the median of the lower half.
         - |
           13 is the overall median, (12 + 14)/2, which splits the data but is not a quartile.
-      answer: 1
+        - |
+          10.5 would be the mean of 9 and 12, the 3rd and 4th values, which are not the two middle values of the lower half.
+      answer: 0
 
     - slug: alg1-u01-w04-q12
       type: multiple_choice
@@ -416,19 +416,19 @@ quiz:
         The squared deviations of a data set of six values sum to 54. What is the standard deviation (dividing by n)?
       options:
         - "9"
-        - "3"
-        - "54"
         - "√54 ≈ 7.35"
+        - "54"
+        - "3"
       option_explanations:
         - |
           9 is the variance, 54/6; the SD is its square root.
         - |
-          Correct. Variance = 54/6 = 9, and √9 = 3.
+          Taking the square root before dividing by n skips the averaging step.
         - |
           54 is the sum of the squared deviations, before dividing by 6 and taking the root.
         - |
-          Taking the square root before dividing by n skips the averaging step.
-      answer: 1
+          Correct. Variance = 54/6 = 9, and √9 = 3.
+      answer: 3
 
     - slug: alg1-u01-w04-q13
       type: multi_select
@@ -439,22 +439,22 @@ quiz:
       prompt: |
         A data set has Q1 = 50, median 58 and Q3 = 62. Which of the following values are outliers by the 1.5 × IQR rule? Select all that apply.
       options:
-        - "30"
-        - "32"
-        - "40"
-        - "80"
         - "81"
+        - "32"
+        - "80"
+        - "40"
+        - "30"
       option_explanations:
         - |
-          Correct. IQR = 12, so the lower fence is 50 − 18 = 32; 30 is below it.
+          Correct. 81 is above the upper fence of 80.
         - |
           32 equals the lower fence, and a value on the fence is not beyond it.
         - |
-          40 lies between the fences of 32 and 80.
-        - |
           80 equals the upper fence, 62 + 18, so it is not an outlier.
         - |
-          Correct. 81 is above the upper fence of 80.
+          40 lies between the fences of 32 and 80.
+        - |
+          Correct. IQR = 12, so the lower fence is 50 − 18 = 32; 30 is below it.
       answer: [0, 4]
 
     - slug: alg1-u01-w04-q14
@@ -466,23 +466,23 @@ quiz:
       prompt: |
         Which of the following belong in a complete written comparison of two data sets? Select all that apply.
       options:
-        - "The shape of each distribution and any outliers"
+        - "The mean of one group compared with the median of the other"
         - "A comparison of centres using the same statistic for both groups"
         - "A comparison of spreads using the same statistic for both groups"
+        - "The shape of each distribution and any outliers"
         - "A conclusion that answers the original question in context"
-        - "The mean of one group compared with the median of the other"
       option_explanations:
         - |
-          Correct. Shape and outliers come first because they decide which statistics to use.
+          Mismatched statistics compare different things and do not belong in a comparison.
         - |
           Correct. Medians with medians or means with means.
         - |
           Correct. IQRs with IQRs or SDs with SDs.
         - |
-          Correct. The numbers are evidence for an answer to the question that was asked.
+          Correct. Shape and outliers come first because they decide which statistics to use.
         - |
-          Mismatched statistics compare different things and do not belong in a comparison.
-      answer: [0, 1, 2, 3]
+          Correct. The numbers are evidence for an answer to the question that was asked.
+      answer: [1, 2, 3, 4]
 
     - slug: alg1-u01-w04-q15
       type: true_false

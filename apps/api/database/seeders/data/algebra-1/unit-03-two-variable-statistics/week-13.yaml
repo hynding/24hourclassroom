@@ -169,20 +169,20 @@ quiz:
       prompt: |
         What bill does the line predict for a month averaging 80 °F?
       options:
-        - "$210"
-        - "$207"
         - "$192"
         - "$195"
+        - "$207"
+        - "$210"
       option_explanations:
-        - |
-          $210 is the actual bill recorded at 80 °F, not the value the line predicts.
-        - |
-          Correct. 2.4(80) + 15 = 192 + 15 = 207 dollars.
         - |
           $192 is 2.4 × 80 without adding the intercept of 15.
         - |
           $195 would come from 2.4 × 75, the wrong temperature.
-      answer: 1
+        - |
+          Correct. 2.4(80) + 15 = 192 + 15 = 207 dollars.
+        - |
+          $210 is the actual bill recorded at 80 °F, not the value the line predicts.
+      answer: 2
 
     - slug: alg1-u03-w13-q03
       type: multiple_choice
@@ -194,20 +194,20 @@ quiz:
       prompt: |
         What is the residual for the month at 90 °F?
       options:
+        - "+19"
         - "+4"
         - "−4"
-        - "+19"
         - "0"
       option_explanations:
+        - |
+          +19 is 235 − 216, which leaves out the intercept 15 when computing the prediction.
         - |
           Correct. Predicted 2.4(90) + 15 = 231, actual 235, residual 235 − 231 = +4; the point is above the line.
         - |
           −4 is predicted minus actual; a residual is actual minus predicted, so the sign is positive here.
         - |
-          +19 is 235 − 216, which leaves out the intercept 15 when computing the prediction.
-        - |
           The point would have residual 0 only if it lay exactly on the line, but 235 is not 231.
-      answer: 0
+      answer: 1
 
     - slug: alg1-u03-w13-q04
       type: multiple_choice
@@ -219,20 +219,20 @@ quiz:
       prompt: |
         The residual for the month at 70 °F is −3. What does this tell you?
       options:
+        - "The line is a poor fit for the data."
+        - "The temperature was 3 degrees lower than expected."
         - "The line predicts a bill $3 lower than the actual bill."
         - "The actual bill was $3 lower than the line predicts, so the point is below the line."
-        - "The temperature was 3 degrees lower than expected."
-        - "The line is a poor fit for the data."
       option_explanations:
+        - |
+          One small residual says nothing about overall fit; judging fit needs all the residuals and their pattern.
+        - |
+          Residuals measure vertical distance, in the units of y (dollars), never a difference in x.
         - |
           A negative residual means the actual value is below the prediction, not above it.
         - |
           Correct. Predicted 2.4(70) + 15 = 183 and actual 180, so 180 − 183 = −3: the point is 3 below the line.
-        - |
-          Residuals measure vertical distance, in the units of y (dollars), never a difference in x.
-        - |
-          One small residual says nothing about overall fit; judging fit needs all the residuals and their pattern.
-      answer: 1
+      answer: 3
 
     # ---- Multiple choice (3.4–3.6)
     - slug: alg1-u03-w13-q05
@@ -243,20 +243,20 @@ quiz:
       prompt: |
         A model for a plant's height in centimetres after d days is h = 0.6d + 4. What does the 4 represent?
       options:
-        - "The plant grows 4 cm every day."
         - "The plant's height when measurements began, about 4 cm."
         - "The number of days before the plant started growing."
+        - "The plant grows 4 cm every day."
         - "The plant's height after 0.6 days."
       option_explanations:
-        - |
-          The daily growth is the slope, 0.6 cm per day, not the constant term.
         - |
           Correct. The intercept is the predicted height at d = 0, the start of the measurements.
         - |
           The intercept is a height in centimetres, not a number of days.
         - |
+          The daily growth is the slope, 0.6 cm per day, not the constant term.
+        - |
           At d = 0.6 the height would be 0.36 + 4 = 4.36 cm; the 4 belongs to d = 0.
-      answer: 1
+      answer: 0
 
     - slug: alg1-u03-w13-q06
       type: multiple_choice
@@ -266,19 +266,19 @@ quiz:
       prompt: |
         When technology computes the least-squares line for a scatter plot, what does it make as small as possible?
       options:
-        - "The number of points above the line"
-        - "The sum of the squared residuals"
         - "The slope of the line"
+        - "The sum of the squared residuals"
         - "The distance between the first and last points"
+        - "The number of points above the line"
       option_explanations:
-        - |
-          The least-squares line balances points above and below, but it does not minimise their number.
-        - |
-          Correct. It chooses the slope and intercept that minimise the total of the squared vertical distances from the points to the line.
         - |
           The slope is whatever the data demand; a steep trend gives a steep line.
         - |
+          Correct. It chooses the slope and intercept that minimise the total of the squared vertical distances from the points to the line.
+        - |
           The first and last points have no special role; every point contributes to the fit.
+        - |
+          The least-squares line balances points above and below, but it does not minimise their number.
       answer: 1
 
     - slug: alg1-u03-w13-q07
@@ -289,20 +289,20 @@ quiz:
       prompt: |
         Which description is the poorest way to draw a line of fit by eye for a scatter plot with a clear upward trend?
       options:
+        - "Draw a line that stays close to most of the points."
         - "Draw a line through the middle of the cloud following its direction."
         - "Draw a line with about as many points above as below."
         - "Draw a line through the lowest point and the highest point."
-        - "Draw a line that stays close to most of the points."
       option_explanations:
+        - |
+          Staying close to most points is the goal; this is what least squares measures.
         - |
           Following the centre and direction of the cloud is exactly what a good line of fit does.
         - |
           Balancing the points above and below is one of the checks for a reasonable line of fit.
         - |
           Correct. The extreme points are the most likely to be unusual, so a line through them often tilts away from the trend.
-        - |
-          Staying close to most points is the goal; this is what least squares measures.
-      answer: 2
+      answer: 3
 
     - slug: alg1-u03-w13-q08
       type: multiple_choice
@@ -312,20 +312,20 @@ quiz:
       prompt: |
         A residual plot shows residuals that are negative for small x, positive for middle x and negative again for large x. What should you conclude?
       options:
-        - "The linear model fits well because the residuals are balanced."
-        - "The data follow a curve, so a line is not an appropriate model."
         - "The slope of the line should be increased."
         - "The data contain an outlier that should be removed."
+        - "The data follow a curve, so a line is not an appropriate model."
+        - "The linear model fits well because the residuals are balanced."
       option_explanations:
-        - |
-          Balance alone is not enough; a clear arch pattern means the line misses the shape of the data.
-        - |
-          Correct. Residuals that follow a curve mean the line underestimates in the middle and overestimates at the ends.
         - |
           Changing the slope would move the ends in opposite directions and cannot straighten an arch.
         - |
           An arch involves all the points, not a single unusual one, so removing a point will not fix it.
-      answer: 1
+        - |
+          Correct. Residuals that follow a curve mean the line underestimates in the middle and overestimates at the ends.
+        - |
+          Balance alone is not enough; a clear arch pattern means the line misses the shape of the data.
+      answer: 2
 
     - slug: alg1-u03-w13-q09
       type: multiple_choice
@@ -335,20 +335,20 @@ quiz:
       prompt: |
         A data point has a residual of +5 with respect to a linear model. Which statement is true?
       options:
-        - "The point lies 5 units above the line."
-        - "The point lies 5 units below the line."
         - "The point lies 5 units to the right of the line."
         - "The model predicts a value 5 units larger than the actual value."
+        - "The point lies 5 units above the line."
+        - "The point lies 5 units below the line."
       option_explanations:
-        - |
-          Correct. Residual = actual − predicted = +5, so the actual value is 5 more than the prediction: above the line.
-        - |
-          A point below the line has a negative residual, because the actual value is less than the prediction.
         - |
           Residuals are vertical distances measured in the units of y, not horizontal shifts.
         - |
           This describes a residual of −5, where the prediction exceeds the actual value.
-      answer: 0
+        - |
+          Correct. Residual = actual − predicted = +5, so the actual value is 5 more than the prediction: above the line.
+        - |
+          A point below the line has a negative residual, because the actual value is less than the prediction.
+      answer: 2
 
     - slug: alg1-u03-w13-q10
       type: multiple_choice
@@ -358,20 +358,20 @@ quiz:
       prompt: |
         A linear model for a child's height was fitted to data for ages 2 to 10. Why would using it to predict height at age 40 be unwise?
       options:
-        - "Because the slope would become negative."
         - "Because age 40 is far outside the data, and growth does not continue at a constant rate."
-        - "Because linear models can only predict for whole-number ages."
         - "Because the residuals would all be positive."
+        - "Because the slope would become negative."
+        - "Because linear models can only predict for whole-number ages."
       option_explanations:
-        - |
-          The slope of the fitted line does not change; the problem is that the real pattern does.
         - |
           Correct. This is extrapolation: the model was never tested beyond age 10, and people stop growing.
         - |
-          A linear model accepts any input value; whole numbers are not a restriction.
-        - |
           There are no data at age 40, so there are no residuals there to be positive or negative.
-      answer: 1
+        - |
+          The slope of the fitted line does not change; the problem is that the real pattern does.
+        - |
+          A linear model accepts any input value; whole numbers are not a restriction.
+      answer: 0
 
     - slug: alg1-u03-w13-q11
       type: multiple_choice
@@ -381,20 +381,20 @@ quiz:
       prompt: |
         In a two-way table, the cell for "walks to school and lives within a mile" holds 36, the "lives within a mile" column total is 60, and the grand total is 200. What percent of students who live within a mile walk to school?
       options:
-        - "18%"
         - "30%"
         - "60%"
+        - "18%"
         - "36%"
       option_explanations:
-        - |
-          18% is 36/200, the share of all students, not the share of those living within a mile.
         - |
           30% is 60/200, the share of all students who live within a mile.
         - |
           Correct. "Of students who live within a mile" means divide by that column total: 36/60 = 0.60.
         - |
+          18% is 36/200, the share of all students, not the share of those living within a mile.
+        - |
           36% reads the count as a percent; the cell must be divided by the column total.
-      answer: 2
+      answer: 1
 
     - slug: alg1-u03-w13-q12
       type: multiple_choice
@@ -404,20 +404,20 @@ quiz:
       prompt: |
         A line passes through (2, 5) and (6, 13). What is its slope?
       options:
-        - "2"
-        - "1/2"
         - "4"
+        - "1/2"
         - "8"
+        - "2"
       option_explanations:
-        - |
-          Correct. Slope = (13 − 5)/(6 − 2) = 8/4 = 2.
-        - |
-          1/2 divides the change in x by the change in y, the reverse of the slope formula.
         - |
           4 is the change in x alone; the slope compares the change in y to it.
         - |
+          1/2 divides the change in x by the change in y, the reverse of the slope formula.
+        - |
           8 is the change in y alone; it must be divided by the change in x, which is 4.
-      answer: 0
+        - |
+          Correct. Slope = (13 − 5)/(6 − 2) = 8/4 = 2.
+      answer: 3
 
     - slug: alg1-u03-w13-q13
       type: multiple_choice
@@ -427,20 +427,20 @@ quiz:
       prompt: |
         A histogram of house prices has most values between $150,000 and $250,000 and a long tail stretching to $900,000. How is the distribution described, and which is larger, the mean or the median?
       options:
-        - "Skewed left; the median is larger."
-        - "Skewed right; the mean is larger."
         - "Symmetric; the mean and median are equal."
         - "Skewed right; the median is larger."
+        - "Skewed right; the mean is larger."
+        - "Skewed left; the median is larger."
       option_explanations:
-        - |
-          A tail toward large values is a right skew, and a right tail pulls the mean up, not the median.
-        - |
-          Correct. The long tail is on the right, and the few very expensive houses pull the mean above the median.
         - |
           A distribution with a long tail on one side is not symmetric.
         - |
           The direction is right, but the extreme values raise the mean, so the median is the smaller measure.
-      answer: 1
+        - |
+          Correct. The long tail is on the right, and the few very expensive houses pull the mean above the median.
+        - |
+          A tail toward large values is a right skew, and a right tail pulls the mean up, not the median.
+      answer: 2
 
     # ---- Select-all (3.6, 3.3)
     - slug: alg1-u03-w13-q14
@@ -452,23 +452,23 @@ quiz:
       prompt: |
         Which statements about residuals are true? Select all that apply.
       options:
-        - "A residual is the actual value minus the value predicted by the model."
-        - "A point on the line has a residual of 0."
-        - "A residual plot with no pattern suggests a linear model is appropriate."
         - "A residual is always positive."
         - "Residuals are measured along the horizontal axis."
+        - "A residual plot with no pattern suggests a linear model is appropriate."
+        - "A residual is the actual value minus the value predicted by the model."
+        - "A point on the line has a residual of 0."
       option_explanations:
-        - |
-          Correct. This is the definition, and the order matters for the sign.
-        - |
-          Correct. If actual equals predicted, the difference is 0.
-        - |
-          Correct. Random scatter around 0 means the line has captured the trend and only noise remains.
         - |
           Residuals are negative for points below the line, so they can have either sign.
         - |
           Residuals are vertical distances in the units of y; they are plotted on the vertical axis of a residual plot.
-      answer: [0, 1, 2]
+        - |
+          Correct. Random scatter around 0 means the line has captured the trend and only noise remains.
+        - |
+          Correct. This is the definition, and the order matters for the sign.
+        - |
+          Correct. If actual equals predicted, the difference is 0.
+      answer: [2, 3, 4]
 
     - slug: alg1-u03-w13-q15
       type: multi_select
@@ -480,22 +480,22 @@ quiz:
         Which of these survey results show an association between the two variables? Select all that apply.
       options:
         - "70% of morning members renewed; 35% of evening members renewed."
-        - "25% of cats and 25% of dogs are over 5 years old."
         - "Of 200 students, 80 walkers and 40 bus riders have a pet: 40% versus 40%."
-        - "Of 50 freshmen, 10 play chess; of 50 seniors, 30 play chess."
         - "60 of 100 bus riders and 20 of 100 car riders were late."
+        - "25% of cats and 25% of dogs are over 5 years old."
+        - "Of 50 freshmen, 10 play chess; of 50 seniors, 30 play chess."
       option_explanations:
         - |
           Correct. A 35-point gap in renewal rate between the two groups is a clear association.
         - |
-          Equal percentages in both groups mean no association.
-        - |
           Both groups have the same 40% pet rate, so there is no association despite the different counts.
         - |
-          Correct. 20% of freshmen versus 60% of seniors is a large gap, so grade and chess are associated.
-        - |
           Correct. 60% versus 20% late is a 40-point gap; transport and lateness are associated.
-      answer: [0, 3, 4]
+        - |
+          Equal percentages in both groups mean no association.
+        - |
+          Correct. 20% of freshmen versus 60% of seniors is a large gap, so grade and chess are associated.
+      answer: [0, 2, 4]
 
     # ---- True/false (3.5, 2.6)
     - slug: alg1-u03-w13-q16

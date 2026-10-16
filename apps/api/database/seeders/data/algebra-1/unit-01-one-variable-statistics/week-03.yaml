@@ -141,20 +141,20 @@ quiz:
       prompt: |
         The data 7, 8, 9, 10, 11 have mean 9 and median 9. If the 11 is replaced by 41, what are the new mean and median?
       options:
-        - "Mean 15, median 9"
+        - "Mean 9, median 9"
         - "Mean 9, median 15"
         - "Mean 15, median 15"
-        - "Mean 9, median 9"
+        - "Mean 15, median 9"
       option_explanations:
         - |
-          Correct. The new sum is 75 and 75/5 = 15, while the middle of 7, 8, 9, 10, 41 is still 9.
+          The mean must change: the total rose by 30, so the mean rose by 30/5 = 6.
         - |
           The mean, not the median, is the one that moves: the median only registers that 41 is above the middle.
         - |
           The median stays at 9 because the ordered list still has 9 in the middle position.
         - |
-          The mean must change: the total rose by 30, so the mean rose by 30/5 = 6.
-      answer: 0
+          Correct. The new sum is 75 and 75/5 = 15, while the middle of 7, 8, 9, 10, 41 is still 9.
+      answer: 3
 
     - slug: alg1-u01-w03-q02
       type: multiple_choice
@@ -164,20 +164,20 @@ quiz:
       prompt: |
         A histogram of house prices in a town is strongly skewed right. Which relationship between the mean and the median is expected?
       options:
-        - "The mean is greater than the median."
         - "The mean is less than the median."
         - "The mean and median are equal."
+        - "The mean is greater than the median."
         - "The median is greater than the maximum."
       option_explanations:
-        - |
-          Correct. The tail of expensive houses pulls the balance point (the mean) upward, while the median stays at the middle house.
         - |
           The mean is pulled toward the tail, and the tail of a right-skewed distribution is on the high side.
         - |
           Equality is expected only for a symmetric distribution.
         - |
+          Correct. The tail of expensive houses pulls the balance point (the mean) upward, while the median stays at the middle house.
+        - |
           The median is always between the minimum and the maximum.
-      answer: 0
+      answer: 2
 
     - slug: alg1-u01-w03-q03
       type: multiple_choice
@@ -187,19 +187,19 @@ quiz:
       prompt: |
         Graph description: a box plot of the times 60 students took to finish a puzzle has a short left whisker from 3 to 5 minutes, a box from 5 to 9 with the median at 6, and a long right whisker reaching 32 minutes. Which summary best describes a typical time and the spread?
       options:
-        - "Mean and standard deviation, because every value should count"
+        - "Median and standard deviation, because they are both resistant"
         - "Median and IQR, because the distribution is skewed with extreme values"
         - "Mean and range, because the range shows the extremes"
-        - "Median and standard deviation, because they are both resistant"
+        - "Mean and standard deviation, because every value should count"
       option_explanations:
         - |
-          Letting every value count is exactly the problem: the 32-minute times would inflate both the mean and the SD.
+          The standard deviation is not resistant; it reacts strongly to the long tail.
         - |
           Correct. The long right whisker shows a skewed distribution with extreme values, where the resistant median and IQR describe the typical student honestly.
         - |
           The range is driven entirely by the extremes and says nothing about the typical spread.
         - |
-          The standard deviation is not resistant; it reacts strongly to the long tail.
+          Letting every value count is exactly the problem: the 32-minute times would inflate both the mean and the SD.
       answer: 1
 
     - slug: alg1-u01-w03-q04
@@ -210,20 +210,20 @@ quiz:
       prompt: |
         The data 2, 6, 7, 9 have mean 6. What is the standard deviation (dividing by n)?
       options:
-        - "2.5"
         - "√6.5 ≈ 2.55"
-        - "6.5"
+        - "2.5"
         - "26"
+        - "6.5"
       option_explanations:
-        - |
-          2.5 is the MAD (distances 4, 0, 1, 3 average to 2); the SD squares the deviations before averaging.
         - |
           Correct. Squared deviations 16, 0, 1, 9 sum to 26; variance 26/4 = 6.5; SD = √6.5 ≈ 2.55.
         - |
-          6.5 is the variance; the standard deviation is its square root.
+          2.5 is the MAD (distances 4, 0, 1, 3 average to 2); the SD squares the deviations before averaging.
         - |
           26 is the sum of the squared deviations before dividing by 4 and taking the square root.
-      answer: 1
+        - |
+          6.5 is the variance; the standard deviation is its square root.
+      answer: 0
 
     - slug: alg1-u01-w03-q05
       type: multiple_choice
@@ -233,20 +233,20 @@ quiz:
       prompt: |
         Two data sets have the same mean of 50. Set P has standard deviation 2 and set Q has standard deviation 15. Which statement is correct?
       options:
-        - "The values in Q are typically much farther from 50 than the values in P."
-        - "Q has more values than P."
         - "Every value in P equals 50."
+        - "The values in Q are typically much farther from 50 than the values in P."
         - "The median of Q must be larger than the median of P."
+        - "Q has more values than P."
       option_explanations:
-        - |
-          Correct. A larger standard deviation means a larger typical distance from the mean, so Q's values are more spread out around 50.
-        - |
-          The standard deviation does not depend on how many values there are.
         - |
           A standard deviation of 2 means values are typically about 2 from the mean, not all equal to it.
         - |
+          Correct. A larger standard deviation means a larger typical distance from the mean, so Q's values are more spread out around 50.
+        - |
           Spread says nothing about where the medians sit; they could be equal.
-      answer: 0
+        - |
+          The standard deviation does not depend on how many values there are.
+      answer: 1
 
     - slug: alg1-u01-w03-q06
       type: multiple_choice
@@ -256,20 +256,20 @@ quiz:
       prompt: |
         A student makes a histogram of 400 reaction times ranging from 150 to 650 milliseconds using a bin width of 2 milliseconds. The plot looks like a jagged comb with dozens of tiny bars. What should the student do?
       options:
-        - "Switch to a box plot, because histograms cannot show 400 values"
         - "Increase the bin width to around 50 milliseconds so the overall shape is visible"
-        - "Decrease the bin width to 1 millisecond for more detail"
+        - "Switch to a box plot, because histograms cannot show 400 values"
         - "Remove the data values that fall in empty bins"
+        - "Decrease the bin width to 1 millisecond for more detail"
       option_explanations:
-        - |
-          Histograms are the natural display for 400 values; the bin width is the problem, not the chart type.
         - |
           Correct. A range of 500 ms with bins of 50 ms gives about 10 bins, enough to show the hump or tail without the noise of tiny bins.
         - |
-          Narrower bins make the comb worse, with even more near-empty bars.
+          Histograms are the natural display for 400 values; the bin width is the problem, not the chart type.
         - |
           Data must never be deleted to make a plot look tidier; that misrepresents the distribution.
-      answer: 1
+        - |
+          Narrower bins make the comb worse, with even more near-empty bars.
+      answer: 0
 
     - slug: alg1-u01-w03-q07
       type: multiple_choice
@@ -279,19 +279,19 @@ quiz:
       prompt: |
         For the ordered data 5, 9, 11, 14, 16, 20, 25, what is the interquartile range?
       options:
-        - "20"
+        - "9"
         - "14"
         - "11"
-        - "9"
+        - "20"
       option_explanations:
         - |
-          20 is the range, 25 − 5; the IQR subtracts the quartiles, not the extremes.
+          9 is Q1 itself; the IQR is Q3 − Q1 = 20 − 9.
         - |
           14 is the median (the 4th of 7 values), not a difference of quartiles.
         - |
           Correct. With the median 14 left out, Q1 is the median of 5, 9, 11, which is 9, and Q3 is the median of 16, 20, 25, which is 20; IQR = 20 − 9 = 11.
         - |
-          9 is Q1 itself; the IQR is Q3 − Q1 = 20 − 9.
+          20 is the range, 25 − 5; the IQR subtracts the quartiles, not the extremes.
       answer: 2
 
     - slug: alg1-u01-w03-q08
@@ -309,20 +309,20 @@ quiz:
       prompt: |
         Which comparison of typical scores is the most appropriate?
       options:
-        - "Red's mean of 36 is higher than Blue's mean of 31, so a typical Red student scored higher."
-        - "Blue's median of 37 is slightly higher than Red's median of 36, so typical students in the two classes scored about the same, with Blue a point higher."
         - "Blue's SD of 11 is larger, so Blue students scored higher."
         - "Red's IQR of 6 is smaller, so Red students scored higher."
+        - "Red's mean of 36 is higher than Blue's mean of 31, so a typical Red student scored higher."
+        - "Blue's median of 37 is slightly higher than Red's median of 36, so typical students in the two classes scored about the same, with Blue a point higher."
       option_explanations:
-        - |
-          Blue's mean is dragged down by its low scores; it does not describe a typical Blue student.
-        - |
-          Correct. For the skewed Blue class the median is the honest centre, and comparing medians shows the typical scores are close, with Blue a point ahead.
         - |
           The standard deviation measures spread, not how high the scores are.
         - |
           The IQR measures the spread of the middle half; a smaller IQR means more consistent scores, not higher ones.
-      answer: 1
+        - |
+          Blue's mean is dragged down by its low scores; it does not describe a typical Blue student.
+        - |
+          Correct. For the skewed Blue class the median is the honest centre, and comparing medians shows the typical scores are close, with Blue a point ahead.
+      answer: 3
 
     - slug: alg1-u01-w03-q09
       type: multiple_choice
@@ -340,16 +340,16 @@ quiz:
         Which statement about variability is best supported by the table?
       options:
         - "The middle halves of the two classes are spread out by a similar amount, but Blue's low scores make its overall spread much larger."
-        - "Red's scores vary more than Blue's because its IQR is closer to its SD."
         - "Blue's scores do not vary at all because the median is close to Red's."
+        - "Red's scores vary more than Blue's because its IQR is closer to its SD."
         - "The two classes have identical variability because both IQRs are under 10."
       option_explanations:
         - |
           Correct. IQRs of 6 and 7 are similar, so the middle 50% of each class is similarly tight, while Blue's SD of 11 reflects the tail of very low scores.
         - |
-          Comparing a class's IQR with its own SD says nothing about how it compares with the other class.
-        - |
           A median says nothing about spread; Blue's SD of 11 shows considerable variability.
+        - |
+          Comparing a class's IQR with its own SD says nothing about how it compares with the other class.
         - |
           Similar IQRs do not make the variability identical when the SDs differ so much.
       answer: 0
@@ -369,20 +369,20 @@ quiz:
       prompt: |
         Why is Blue's mean so much lower than its median?
       options:
+        - "Because Blue has more students than Red"
+        - "Because the standard deviation was subtracted from the mean"
         - "Because the mean is always lower than the median"
         - "Because the several very low scores pull the mean toward the left tail while the median stays at the middle position"
-        - "Because the standard deviation was subtracted from the mean"
-        - "Because Blue has more students than Red"
       option_explanations:
+        - |
+          Class size has no effect on whether the mean sits below or above the median.
+        - |
+          The standard deviation is a separate statistic and is never subtracted from the mean to produce it.
         - |
           For symmetric data the mean and median agree, and for right-skewed data the mean is higher.
         - |
           Correct. Very low scores drag the balance point down; a left skew means mean < median.
-        - |
-          The standard deviation is a separate statistic and is never subtracted from the mean to produce it.
-        - |
-          Class size has no effect on whether the mean sits below or above the median.
-      answer: 1
+      answer: 3
 
     - slug: alg1-u01-w03-q11
       type: multiple_choice
@@ -392,20 +392,20 @@ quiz:
       prompt: |
         What is the mean absolute deviation of 4, 4, 6, 10?
       options:
-        - "0"
-        - "2"
-        - "2.5"
         - "6"
+        - "2.5"
+        - "2"
+        - "0"
       option_explanations:
         - |
-          Zero is what the signed deviations average to; the MAD uses distances, which are all non-negative.
-        - |
-          Correct. The mean is 6; distances are 2, 2, 0, 4; their sum is 8 and 8/4 = 2.
+          6 is the mean of the data, not a measure of spread.
         - |
           2.5 would come from a sum of 10; recheck the distance of 10 from the mean of 6, which is 4, not 6.
         - |
-          6 is the mean of the data, not a measure of spread.
-      answer: 1
+          Correct. The mean is 6; distances are 2, 2, 0, 4; their sum is 8 and 8/4 = 2.
+        - |
+          Zero is what the signed deviations average to; the MAD uses distances, which are all non-negative.
+      answer: 2
 
     - slug: alg1-u01-w03-q12
       type: multiple_choice
@@ -415,20 +415,20 @@ quiz:
       prompt: |
         Cells A2 to A41 hold 40 test scores. Which formula returns the highest score?
       options:
+        - "=SUM(A2:A41)"
         - "=MAX(A2:A41)"
         - "=COUNT(A2:A41)"
-        - "=SUM(A2:A41)"
         - "=TOP(A2:A41)"
       option_explanations:
+        - |
+          SUM returns the total of all 40 scores added together, not the largest one.
         - |
           Correct. MAX returns the largest value in the range.
         - |
           COUNT returns how many cells hold numbers, which would be 40.
         - |
-          SUM returns the total of all 40 scores added together, not the largest one.
-        - |
           TOP is not a spreadsheet function; the largest value is found with MAX.
-      answer: 0
+      answer: 1
 
     - slug: alg1-u01-w03-q13
       type: multi_select
@@ -439,22 +439,22 @@ quiz:
       prompt: |
         The data set 20, 22, 23, 25, 26, 27, 30 has a new value of 95 added. Which statistics will increase noticeably? Select all that apply.
       options:
-        - "The mean"
+        - "The standard deviation"
         - "The median"
         - "The mean absolute deviation"
-        - "The standard deviation"
         - "The range"
+        - "The mean"
       option_explanations:
         - |
-          Correct. The total rises by 95, so the mean jumps from about 24.7 to about 33.5.
+          Correct. Squaring the deviation of about 60 adds thousands to the sum of squares, so the SD increases a great deal.
         - |
           The median moves from 25 to (25 + 26)/2 = 25.5, barely a change; the median is resistant.
         - |
           Correct. The new value sits about 60 above the new mean, and every other distance also grows, so the MAD rises sharply.
         - |
-          Correct. Squaring the deviation of about 60 adds thousands to the sum of squares, so the SD increases a great deal.
-        - |
           Correct. The maximum becomes 95, so the range jumps from 10 to 75.
+        - |
+          Correct. The total rises by 95, so the mean jumps from about 24.7 to about 33.5.
       answer: [0, 2, 3, 4]
 
     - slug: alg1-u01-w03-q14
@@ -466,23 +466,23 @@ quiz:
       prompt: |
         Which statements about the standard deviation are true? Select all that apply.
       options:
-        - "It is the square root of the variance."
-        - "It can be negative when most values are below the mean."
-        - "It is zero only when every value in the data set is the same."
-        - "It is measured in the same units as the data."
         - "It is not affected by extreme values."
+        - "It is zero only when every value in the data set is the same."
+        - "It is the square root of the variance."
+        - "It is measured in the same units as the data."
+        - "It can be negative when most values are below the mean."
       option_explanations:
         - |
-          Correct. The variance is the mean of the squared deviations and the SD is its square root.
-        - |
-          Squares are never negative, so neither is their average or its square root.
+          Extreme values produce large squared deviations, so the SD reacts strongly to them.
         - |
           Correct. Every squared deviation is zero only when every value equals the mean.
         - |
+          Correct. The variance is the mean of the squared deviations and the SD is its square root.
+        - |
           Correct. Squaring puts the variance in squared units; the square root brings the SD back to the data's units.
         - |
-          Extreme values produce large squared deviations, so the SD reacts strongly to them.
-      answer: [0, 2, 3]
+          Squares are never negative, so neither is their average or its square root.
+      answer: [1, 2, 3]
 
     - slug: alg1-u01-w03-q15
       type: true_false
@@ -558,20 +558,20 @@ quiz:
       prompt: |
         A coach wants to compare the sprint times of the varsity and junior varsity teams and see at a glance which has the lower median and which is more spread out in its middle half. Which display is most suitable?
       options:
-        - "Two box plots on the same scale"
         - "Two separate dot plots on different scales"
+        - "Two box plots on the same scale"
         - "One histogram combining both teams"
         - "A table of every time"
       option_explanations:
         - |
-          Correct. Box plots on a shared scale show both medians and both IQRs side by side.
-        - |
           Different scales make comparison unreliable, and dot plots do not mark the median or quartiles.
+        - |
+          Correct. Box plots on a shared scale show both medians and both IQRs side by side.
         - |
           Combining the teams in one histogram makes it impossible to compare them.
         - |
           A raw table shows the data but gives no immediate view of the medians or the middle halves.
-      answer: 0
+      answer: 1
 
     - slug: alg1-u01-w03-q21
       type: numeric

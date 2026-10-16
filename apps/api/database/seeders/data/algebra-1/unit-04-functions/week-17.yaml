@@ -145,20 +145,20 @@ quiz:
       prompt: |
         What is C(2.5)?
       options:
-        - "$7"
-        - "$5"
-        - "$8"
         - "$7.50"
+        - "$7"
+        - "$8"
+        - "$5"
       option_explanations:
+        - |
+          The garage charges for any part of an hour, so there is no half-hour charge.
         - |
           Correct. The first hour costs $3 and the stay runs into a second and a third hour, each costing $2: 3 + 2 + 2 = 7.
         - |
-          $5 covers only the first two hours; a stay of 2.5 hours runs into a third hour, which is charged in full.
-        - |
           $8 would be four hours at $2 each; the first hour costs $3, not $2.
         - |
-          The garage charges for any part of an hour, so there is no half-hour charge.
-      answer: 0
+          $5 covers only the first two hours; a stay of 2.5 hours runs into a third hour, which is charged in full.
+      answer: 1
 
     - slug: alg1-u04-w17-q02
       type: multiple_choice
@@ -170,20 +170,20 @@ quiz:
       prompt: |
         Which describes the graph of C correctly near t = 1?
       options:
-        - "A horizontal step at $3 ending with a filled dot at t = 1, then a step at $5 starting with an open dot at t = 1."
-        - "A horizontal step at $3 ending with an open dot at t = 1, then a step at $5 starting with a filled dot at t = 1."
         - "A straight line rising from $3 at t = 1 to $5 at t = 2."
         - "A single point at (1, 5)."
+        - "A horizontal step at $3 ending with an open dot at t = 1, then a step at $5 starting with a filled dot at t = 1."
+        - "A horizontal step at $3 ending with a filled dot at t = 1, then a step at $5 starting with an open dot at t = 1."
       option_explanations:
-        - |
-          Correct. Exactly 1 hour costs $3 (filled dot), and any stay longer than 1 hour, however slightly, costs $5 (open dot at the left end of the next step).
-        - |
-          This gives a 1-hour stay the $5 charge, but the first hour, including exactly 1 hour, costs $3.
         - |
           The charge jumps rather than rising gradually; any part of an hour costs the full $2.
         - |
           The graph is a step function defined for every t in the domain, not isolated points.
-      answer: 0
+        - |
+          This gives a 1-hour stay the $5 charge, but the first hour, including exactly 1 hour, costs $3.
+        - |
+          Correct. Exactly 1 hour costs $3 (filled dot), and any stay longer than 1 hour, however slightly, costs $5 (open dot at the left end of the next step).
+      answer: 3
 
     - slug: alg1-u04-w17-q03
       type: multiple_choice
@@ -196,19 +196,19 @@ quiz:
         What is the domain of C?
       options:
         - "All real numbers"
+        - "3 ≤ t ≤ 15"
         - "0 < t ≤ 24"
         - "The whole numbers 1 to 24"
-        - "3 ≤ t ≤ 15"
       option_explanations:
         - |
           Negative stays and stays over 24 hours are not allowed, so the domain is restricted.
         - |
+          3 and 15 are charges, outputs of C, not lengths of stay.
+        - |
           Correct. A stay lasts some positive time up to the 24-hour limit, and any length in between is possible.
         - |
           Stays need not be whole hours; 2.5 hours is a valid input.
-        - |
-          3 and 15 are charges, outputs of C, not lengths of stay.
-      answer: 1
+      answer: 2
 
     - slug: alg1-u04-w17-q04
       type: multiple_choice
@@ -220,20 +220,20 @@ quiz:
       prompt: |
         What is the range of C?
       options:
-        - "3 ≤ C ≤ 15"
         - "The values 3, 5, 7, 9, 11, 13 and 15 only"
-        - "0 < C ≤ 24"
         - "All multiples of 2 up to 15"
+        - "0 < C ≤ 24"
+        - "3 ≤ C ≤ 15"
       option_explanations:
-        - |
-          Charges jump in $2 steps, so values such as $4 never occur; the range is not a whole interval.
         - |
           Correct. The charge starts at 3, rises by 2 for each extra hour, and is capped at 15, so only those seven values occur.
         - |
+          The charges are odd numbers (3, 5, 7, …), not multiples of 2.
+        - |
           0 to 24 describes the inputs (hours), not the charges.
         - |
-          The charges are odd numbers (3, 5, 7, …), not multiples of 2.
-      answer: 1
+          Charges jump in $2 steps, so values such as $4 never occur; the range is not a whole interval.
+      answer: 0
 
     # ---- Multiple choice (4.10–4.14)
     - slug: alg1-u04-w17-q05
@@ -244,17 +244,17 @@ quiz:
       prompt: |
         A 500-litre tank drains at 20 litres per minute, so V(t) = 500 − 20t gives the volume after t minutes. What is the domain of V in this situation?
       options:
-        - "All real numbers"
-        - "0 ≤ t ≤ 25"
         - "0 ≤ t ≤ 500"
+        - "0 ≤ t ≤ 25"
+        - "All real numbers"
         - "t ≥ 25"
       option_explanations:
         - |
-          Negative time has no meaning, and after the tank is empty the formula would give negative volumes.
+          500 is the starting volume in litres, an output, not a number of minutes.
         - |
           Correct. The tank empties when 500 − 20t = 0, at t = 25, so sensible inputs run from 0 to 25 minutes.
         - |
-          500 is the starting volume in litres, an output, not a number of minutes.
+          Negative time has no meaning, and after the tank is empty the formula would give negative volumes.
         - |
           After 25 minutes the tank is empty and the formula no longer describes anything.
       answer: 1
@@ -267,20 +267,20 @@ quiz:
       prompt: |
         A bakery sells muffins only in boxes of 6 and bakes at most 30 boxes a day. B(x) = 6x gives the number of muffins in x boxes. What is the range of B?
       options:
-        - "All whole numbers from 0 to 180"
         - "The multiples of 6 from 0 to 180"
         - "The whole numbers from 0 to 30"
         - "All real numbers from 0 to 180"
+        - "All whole numbers from 0 to 180"
       option_explanations:
-        - |
-          Only multiples of 6 can be produced; 7 muffins, for example, is impossible.
         - |
           Correct. The domain is the whole numbers 0 to 30, and 6 times each of those gives 0, 6, 12, …, 180.
         - |
           0 to 30 is the domain, the number of boxes, not the number of muffins.
         - |
           The outputs are whole numbers of muffins, not every real number.
-      answer: 1
+        - |
+          Only multiples of 6 can be produced; 7 muffins, for example, is impossible.
+      answer: 0
 
     - slug: alg1-u04-w17-q07
       type: multiple_choice
@@ -290,20 +290,20 @@ quiz:
       prompt: |
         A graph runs from a filled dot at (−2, 3) to an open dot at (4, 7), dipping to a lowest point of −1 in between. What are the domain and range?
       options:
-        - "Domain −2 ≤ x < 4; range −1 ≤ y < 7"
-        - "Domain −2 ≤ x ≤ 4; range 3 ≤ y ≤ 7"
         - "Domain −1 ≤ x < 7; range −2 ≤ y < 4"
         - "Domain −2 < x ≤ 4; range −1 < y ≤ 7"
+        - "Domain −2 ≤ x < 4; range −1 ≤ y < 7"
+        - "Domain −2 ≤ x ≤ 4; range 3 ≤ y ≤ 7"
       option_explanations:
-        - |
-          Correct. The x-values run from −2 (included) to 4 (excluded); the y-values run from the low point −1 up to, but not including, 7.
-        - |
-          The open dot excludes x = 4, and the range must include the dip to −1, which is below 3.
         - |
           This swaps the domain and range: the x-values are −2 to 4, the y-values −1 to 7.
         - |
           The filled dot is at x = −2 and the open dot at x = 4, so the inclusions are the other way round.
-      answer: 0
+        - |
+          Correct. The x-values run from −2 (included) to 4 (excluded); the y-values run from the low point −1 up to, but not including, 7.
+        - |
+          The open dot excludes x = 4, and the range must include the dip to −1, which is below 3.
+      answer: 2
 
     - slug: alg1-u04-w17-q08
       type: multiple_choice
@@ -313,20 +313,20 @@ quiz:
       prompt: |
         Which statement about the function f(x) = |x| is true?
       options:
-        - "Its graph is a straight line with slope 1."
         - "f(−7) = −7."
-        - "Its range is y ≥ 0 and its minimum value is 0."
+        - "Its graph is a straight line with slope 1."
         - "Its domain is x ≥ 0."
+        - "Its range is y ≥ 0 and its minimum value is 0."
       option_explanations:
-        - |
-          The graph is a V: slope 1 to the right of 0 and slope −1 to the left.
         - |
           |−7| is the distance of −7 from 0, which is 7, never a negative number.
         - |
-          Correct. Distances are never negative, and the distance is 0 at x = 0, the vertex.
+          The graph is a V: slope 1 to the right of 0 and slope −1 to the left.
         - |
           Any real number has a distance from 0, so every real number is an allowed input.
-      answer: 2
+        - |
+          Correct. Distances are never negative, and the distance is 0 at x = 0, the vertex.
+      answer: 3
 
     - slug: alg1-u04-w17-q09
       type: multiple_choice
@@ -359,20 +359,20 @@ quiz:
       prompt: |
         Which values of x satisfy |x − 3| = 5?
       options:
-        - "x = 8 only"
         - "x = 8 or x = −2"
-        - "x = 2 or x = −8"
         - "x = 5 or x = −5"
+        - "x = 2 or x = −8"
+        - "x = 8 only"
       option_explanations:
-        - |
-          8 is one solution, but there is a second number at distance 5 from 3 on the other side.
         - |
           Correct. The numbers at distance 5 from 3 are 3 + 5 = 8 and 3 − 5 = −2.
         - |
+          These solve |x| = 5; the shift by 3 moves both solutions to the right.
+        - |
           These are the numbers at distance 5 from −3, which would solve |x + 3| = 5.
         - |
-          These solve |x| = 5; the shift by 3 moves both solutions to the right.
-      answer: 1
+          8 is one solution, but there is a second number at distance 5 from 3 on the other side.
+      answer: 0
 
     - slug: alg1-u04-w17-q11
       type: multiple_choice
@@ -382,20 +382,20 @@ quiz:
       prompt: |
         A function's graph reaches its lowest point, −4, when x = 2. Which statement is correct?
       options:
-        - "The minimum value is 2."
-        - "The minimum value is −4, occurring at x = 2."
-        - "The function has a zero at x = −4."
         - "The function is decreasing for x > 2."
+        - "The function has a zero at x = −4."
+        - "The minimum value is −4, occurring at x = 2."
+        - "The minimum value is 2."
       option_explanations:
         - |
-          2 is the input where the minimum occurs; the minimum value is the output, −4.
-        - |
-          Correct. The minimum is the smallest output, −4, and it happens at the input 2.
+          After its lowest point a graph rises, so the function is increasing for x > 2.
         - |
           A zero is an input with output 0; nothing here says the graph crosses the axis at −4.
         - |
-          After its lowest point a graph rises, so the function is increasing for x > 2.
-      answer: 1
+          Correct. The minimum is the smallest output, −4, and it happens at the input 2.
+        - |
+          2 is the input where the minimum occurs; the minimum value is the output, −4.
+      answer: 2
 
     - slug: alg1-u04-w17-q12
       type: multiple_choice
@@ -405,20 +405,20 @@ quiz:
       prompt: |
         The data set 2, 4, 9 has mean 5. What is its mean absolute deviation (MAD)?
       options:
+        - "3"
+        - "7"
         - "0"
         - "8/3, about 2.67"
-        - "7"
-        - "3"
       option_explanations:
+        - |
+          3 is the largest deviation below the mean, not the average of all the distances.
+        - |
+          7 is the range (9 − 2), not the average distance from the mean.
         - |
           The signed deviations (−3, −1, 4) add to 0, but MAD uses their absolute values.
         - |
           Correct. The distances from the mean are 3, 1 and 4; their mean is 8/3 ≈ 2.67.
-        - |
-          7 is the range (9 − 2), not the average distance from the mean.
-        - |
-          3 is the largest deviation below the mean, not the average of all the distances.
-      answer: 1
+      answer: 3
 
     - slug: alg1-u04-w17-q13
       type: multiple_choice
@@ -428,20 +428,20 @@ quiz:
       prompt: |
         What is the solution set of 7 − 2x < 1?
       options:
-        - "x < 3"
         - "x > 3"
-        - "x < −3"
         - "x > −3"
+        - "x < −3"
+        - "x < 3"
       option_explanations:
-        - |
-          Dividing by −2 reverses the inequality symbol, so the solution is x > 3, not x < 3.
         - |
           Correct. 7 − 2x < 1 gives −2x < −6, and dividing by −2 flips the symbol: x > 3. Check x = 4: 7 − 8 = −1 < 1.
         - |
+          The boundary is 3, not −3; test x = 0: 7 < 1 is false, so 0 is not a solution.
+        - |
           −3 comes from a sign error in −2x < −6; dividing gives 3, with the symbol reversed.
         - |
-          The boundary is 3, not −3; test x = 0: 7 < 1 is false, so 0 is not a solution.
-      answer: 1
+          Dividing by −2 reverses the inequality symbol, so the solution is x > 3, not x < 3.
+      answer: 0
 
     # ---- Select-all (4.10, 4.7)
     - slug: alg1-u04-w17-q14
@@ -453,18 +453,18 @@ quiz:
       prompt: |
         Which functions have a discrete domain (only separate values make sense as inputs)? Select all that apply.
       options:
-        - "The cost of n ride tickets at a fair"
-        - "The height of a kite t seconds after launch"
         - "The number of chairs needed for p people at a dinner"
+        - "The height of a kite t seconds after launch"
+        - "The cost of n ride tickets at a fair"
         - "The temperature of soup m minutes after it is served"
         - "The total legs on c three-legged stools"
       option_explanations:
         - |
-          Correct. Tickets come in whole numbers; half a ticket cannot be bought.
+          Correct. People are counted in whole numbers.
         - |
           Time is continuous: every instant after launch has a height.
         - |
-          Correct. People are counted in whole numbers.
+          Correct. Tickets come in whole numbers; half a ticket cannot be bought.
         - |
           Time is continuous, so every moment is a valid input.
         - |
@@ -480,23 +480,23 @@ quiz:
       prompt: |
         A table gives f(0) = 10, f(2) = 16, f(5) = 25 and f(8) = 25. Which statements are true? Select all that apply.
       options:
-        - "The average rate of change from 0 to 2 is 3."
+        - "The average rate of change from 0 to 8 is 15."
         - "The average rate of change from 2 to 5 is 3."
         - "The average rate of change from 5 to 8 is 0."
-        - "The average rate of change from 0 to 8 is 15."
+        - "The average rate of change from 0 to 2 is 3."
         - "The function is linear."
       option_explanations:
         - |
-          Correct. The change in output 16 − 10 = 6 over a change in input of 2 gives a rate of 3.
+          (25 − 10)/(8 − 0) = 15/8, not 15; the total change must be divided by the change in input.
         - |
           Correct. The output rises by 9 while the input rises by 3, so the rate is 9/3 = 3.
         - |
           Correct. The output does not change between 5 and 8, so the rate is 0.
         - |
-          (25 − 10)/(8 − 0) = 15/8, not 15; the total change must be divided by the change in input.
+          Correct. The change in output 16 − 10 = 6 over a change in input of 2 gives a rate of 3.
         - |
           A linear function has the same rate over every interval, but here the rate drops from 3 to 0.
-      answer: [0, 1, 2]
+      answer: [1, 2, 3]
 
     # ---- True/false (4.13, 4.1)
     - slug: alg1-u04-w17-q16

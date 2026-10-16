@@ -147,20 +147,20 @@ quiz:
       prompt: |
         How does the number of tiles change from step to step?
       options:
-        - "The increases are 5, 7, 9: each increase is 2 more than the last."
-        - "The number of tiles increases by the same amount, 5, each step."
-        - "The number of tiles is multiplied by the same factor each step."
         - "The increases are 5, 7, 9: each increase is 1.4 times the last."
+        - "The number of tiles is multiplied by the same factor each step."
+        - "The number of tiles increases by the same amount, 5, each step."
+        - "The increases are 5, 7, 9: each increase is 2 more than the last."
       option_explanations:
         - |
-          Correct. 8 − 3 = 5, 15 − 8 = 7, 24 − 15 = 9: the increases grow by a constant 2.
-        - |
-          The increase is 5 only at the first step; after that it is 7, then 9.
+          The increases grow by adding 2, not by multiplying; 7/5 and 9/7 are different ratios.
         - |
           The ratios 8/3 ≈ 2.7, 15/8 ≈ 1.9 and 24/15 = 1.6 are not constant.
         - |
-          The increases grow by adding 2, not by multiplying; 7/5 and 9/7 are different ratios.
-      answer: 0
+          The increase is 5 only at the first step; after that it is 7, then 9.
+        - |
+          Correct. 8 − 3 = 5, 15 − 8 = 7, 24 − 15 = 9: the increases grow by a constant 2.
+      answer: 3
 
     - slug: alg1-u06-w24-q02
       type: multiple_choice
@@ -172,20 +172,20 @@ quiz:
       prompt: |
         What kind of function gives the number of tiles at step n, and what is the evidence?
       options:
+        - "Quadratic, because the ratios are constant."
+        - "Exponential, because the counts grow quickly."
         - "Quadratic, because the second differences are a constant 2."
         - "Linear, because the first differences are odd numbers."
-        - "Exponential, because the counts grow quickly."
-        - "Quadratic, because the ratios are constant."
       option_explanations:
+        - |
+          Constant ratios would mean exponential change; it is the second differences that are constant here.
+        - |
+          Growing quickly is not the test; exponential change needs constant ratios, which these counts lack.
         - |
           Correct. First differences 5, 7, 9 give second differences 2, 2, the test for a quadratic pattern.
         - |
           Linear change needs constant first differences, and 5, 7, 9 are not constant.
-        - |
-          Growing quickly is not the test; exponential change needs constant ratios, which these counts lack.
-        - |
-          Constant ratios would mean exponential change; it is the second differences that are constant here.
-      answer: 0
+      answer: 2
 
     - slug: alg1-u06-w24-q03
       type: multiple_choice
@@ -197,20 +197,20 @@ quiz:
       prompt: |
         Which expression gives the number of tiles at step n?
       options:
-        - "n² + 2n"
         - "n² + 2"
+        - "n² + 2n"
         - "2n² + n"
         - "3n"
       option_explanations:
         - |
-          Correct. The square has n² tiles and the two columns have 2n; check step 3: 9 + 6 = 15.
-        - |
           Two extra tiles, not two extra columns; this gives 3, 6, 11, 18, matching only step 1.
+        - |
+          Correct. The square has n² tiles and the two columns have 2n; check step 3: 9 + 6 = 15.
         - |
           Two squares would give 2n²; the pattern has one square. This gives 3 at step 1 but 10 at step 2.
         - |
           3n matches step 1 only; it is linear and the counts are not.
-      answer: 0
+      answer: 1
 
     - slug: alg1-u06-w24-q04
       type: multiple_choice
@@ -223,18 +223,18 @@ quiz:
         How many tiles does step 10 use?
       options:
         - "120"
-        - "102"
         - "60"
         - "30"
+        - "102"
       option_explanations:
         - |
           Correct. Substituting n = 10 into n² + 2n gives 10² + 2(10) = 100 + 20 = 120 tiles.
         - |
-          102 is n² + 2, the wrong expression for the two extra columns.
-        - |
           60 continues adding 6 per step from step 4, treating the pattern as linear.
         - |
           30 is 3 × 10, continuing step 1's count linearly.
+        - |
+          102 is n² + 2, the wrong expression for the two extra columns.
       answer: 0
 
     # ---- Multiple choice (6.2–6.4)
@@ -246,20 +246,20 @@ quiz:
       prompt: |
         Which table of outputs, for inputs 0, 1, 2, 3, 4, is quadratic?
       options:
-        - "5, 8, 13, 20, 29"
         - "5, 8, 11, 14, 17"
+        - "5, 8, 13, 20, 29"
         - "5, 10, 20, 40, 80"
         - "5, 8, 12, 15, 19"
       option_explanations:
         - |
-          Correct. First differences 3, 5, 7, 9 and second differences 2, 2, 2.
-        - |
           First differences are a constant 3: linear.
+        - |
+          Correct. First differences 3, 5, 7, 9 and second differences 2, 2, 2.
         - |
           Each output is double the previous: exponential.
         - |
           First differences 3, 4, 3, 4 and second differences 1, −1, 1: no constant pattern.
-      answer: 0
+      answer: 1
 
     - slug: alg1-u06-w24-q06
       type: multiple_choice
@@ -270,18 +270,18 @@ quiz:
         A table has equally spaced inputs. Which test identifies a quadratic function?
       options:
         - "The second differences are constant and not zero."
+        - "The outputs are all perfect squares."
         - "The first differences are constant."
         - "The ratios of consecutive outputs are constant."
-        - "The outputs are all perfect squares."
       option_explanations:
         - |
           Correct. Constant non-zero second differences are the signature of a quadratic pattern.
         - |
+          n² + 1 gives 2, 5, 10, 17, none of which are perfect squares, yet it is quadratic.
+        - |
           Constant first differences identify a linear function.
         - |
           Constant ratios identify an exponential function.
-        - |
-          n² + 1 gives 2, 5, 10, 17, none of which are perfect squares, yet it is quadratic.
       answer: 0
 
     - slug: alg1-u06-w24-q07
@@ -292,20 +292,20 @@ quiz:
       prompt: |
         At step n, a pattern of dots forms a rectangle n dots wide and n + 1 dots tall. Which expression gives the number of dots, and how many are there at step 6?
       options:
-        - "n(n + 1); 42"
         - "2n + 1; 13"
-        - "n² + 1; 37"
         - "(n + 1)²; 49"
+        - "n² + 1; 37"
+        - "n(n + 1); 42"
       option_explanations:
-        - |
-          Correct. Width times height is n(n + 1) = n² + n; at step 6 that is 6 × 7 = 42.
         - |
           2n + 1 is the perimeter-like count, not the area; the rectangle is filled with dots.
         - |
+          (n + 1)² describes an (n + 1)-by-(n + 1) square, one column too many.
+        - |
           n² + 1 adds one dot, but the rectangle has a whole extra row of n dots.
         - |
-          (n + 1)² describes an (n + 1)-by-(n + 1) square, one column too many.
-      answer: 0
+          Correct. Width times height is n(n + 1) = n² + n; at step 6 that is 6 × 7 = 42.
+      answer: 3
 
     - slug: alg1-u06-w24-q08
       type: multiple_choice
@@ -315,20 +315,20 @@ quiz:
       prompt: |
         A pattern at step n is a hollow square frame of side n, one tile thick. Why is the number of tiles NOT quadratic?
       options:
-        - "Only the border grows, giving 4n − 4 tiles, which is linear."
         - "Because frames are not squares."
-        - "Because the count is n², which is linear."
         - "It is quadratic, since the figure is a square."
+        - "Only the border grows, giving 4n − 4 tiles, which is linear."
+        - "Because the count is n², which is linear."
       option_explanations:
-        - |
-          Correct. Four sides of n tiles with the four corners counted twice: 4n − 4, a constant increase of 4 per step.
         - |
           The shape's name is irrelevant; what matters is how the count grows, and a hollow frame adds a constant 4 tiles per step.
         - |
-          n² is the count for a solid square, and it is quadratic, not linear; the frame has 4n − 4 tiles.
-        - |
           A solid square would be quadratic, but the hollow frame's interior is empty, so the count grows linearly.
-      answer: 0
+        - |
+          Correct. Four sides of n tiles with the four corners counted twice: 4n − 4, a constant increase of 4 per step.
+        - |
+          n² is the count for a solid square, and it is quadratic, not linear; the frame has 4n − 4 tiles.
+      answer: 2
 
     - slug: alg1-u06-w24-q09
       type: multiple_choice
@@ -340,17 +340,17 @@ quiz:
       options:
         - "n = 2 and n = 4"
         - "n = 1 and n = 2"
-        - "n = 2 only"
         - "n = 4 and n = 8"
+        - "n = 2 only"
       option_explanations:
         - |
           Correct. 2² = 4 = 2² and 4² = 16 = 2⁴; between them n² is larger, and from n = 5 on 2ⁿ is larger.
         - |
           At n = 1, 1² = 1 but 2¹ = 2, so the two expressions are not equal there; n = 2 works, but n = 1 does not.
         - |
-          n = 2 works, but so does n = 4: 16 = 16.
-        - |
           At n = 8, 8² = 64 but 2⁸ = 256; by then the exponential function is already four times the quadratic one.
+        - |
+          n = 2 works, but so does n = 4: 16 = 16.
       answer: 0
 
     - slug: alg1-u06-w24-q10
@@ -361,20 +361,20 @@ quiz:
       prompt: |
         Why does 2ⁿ eventually exceed 100n², even though 100n² is far larger for small n?
       options:
-        - "Each step multiplies 2ⁿ by 2, while each step adds only a linearly growing amount to 100n²."
-        - "Because 2 is larger than 100 in the long run."
         - "Because quadratic functions eventually decrease."
+        - "Because 2 is larger than 100 in the long run."
+        - "Each step multiplies 2ⁿ by 2, while each step adds only a linearly growing amount to 100n²."
         - "It never does; 100n² is always larger."
       option_explanations:
         - |
-          Correct. The exponential increases grow exponentially; the quadratic increases, 100(2n + 1), grow only linearly.
+          100n² keeps increasing for positive n; it simply increases more slowly than 2ⁿ in the end.
         - |
           2 is never larger than 100; the point is how the functions change, not the sizes of the constants.
         - |
-          100n² keeps increasing for positive n; it simply increases more slowly than 2ⁿ in the end.
+          Correct. The exponential increases grow exponentially; the quadratic increases, 100(2n + 1), grow only linearly.
         - |
           At n = 20, 100n² = 40,000 but 2²⁰ = 1,048,576; the exponential function is already far ahead.
-      answer: 0
+      answer: 2
 
     - slug: alg1-u06-w24-q11
       type: multiple_choice
@@ -384,20 +384,20 @@ quiz:
       prompt: |
         Which table of outputs, for inputs 0, 1, 2, 3, shows exponential growth?
       options:
-        - "6, 9, 13.5, 20.25"
-        - "6, 9, 12, 15"
         - "6, 9, 14, 21"
         - "6, 9, 15, 24"
+        - "6, 9, 12, 15"
+        - "6, 9, 13.5, 20.25"
       option_explanations:
-        - |
-          Correct. 9/6 = 13.5/9 = 20.25/13.5 = 1.5, a constant ratio, which is the test for exponential growth.
-        - |
-          The differences 3, 3, 3 are constant, so this table is linear, not exponential.
         - |
           The differences 3, 5, 7 grow by 2 each step (second differences 2, 2): quadratic, not exponential.
         - |
           The ratios 1.5, 1.67, 1.6 are not constant, so this is not exponential; its differences 3, 6, 9 have constant second differences of 3, so it is quadratic.
-      answer: 0
+        - |
+          The differences 3, 3, 3 are constant, so this table is linear, not exponential.
+        - |
+          Correct. 9/6 = 13.5/9 = 20.25/13.5 = 1.5, a constant ratio, which is the test for exponential growth.
+      answer: 3
 
     - slug: alg1-u06-w24-q12
       type: multiple_choice
@@ -407,20 +407,20 @@ quiz:
       prompt: |
         What is the average rate of change of f(n) = n² from n = 5 to n = 10?
       options:
-        - "15"
         - "75"
+        - "15"
         - "5"
         - "25"
       option_explanations:
         - |
-          Correct. (100 − 25)/(10 − 5) = 75/5 = 15.
-        - |
           75 is the change in output; it must be divided by the change in input, 5.
+        - |
+          Correct. (100 − 25)/(10 − 5) = 75/5 = 15.
         - |
           5 is the change in input, 10 − 5; the rate divides the change in output by this, giving 15.
         - |
           25 is f(5), the output at the start of the interval, not a rate of change over it.
-      answer: 0
+      answer: 1
 
     - slug: alg1-u06-w24-q13
       type: multiple_choice
@@ -430,20 +430,20 @@ quiz:
       prompt: |
         A quantity of 480 is increased by 15%, and the result is then decreased by 15%. What is the final value?
       options:
-        - "469.2"
-        - "480"
         - "490.8"
+        - "480"
+        - "469.2"
         - "408"
       option_explanations:
         - |
-          Correct. 480 · 1.15 · 0.85 = 480 · 0.9775 = 469.2.
+          490.8 would be a net 2.25% increase; the combined factor 0.9775 is a decrease.
         - |
           The decrease is taken from a larger amount than the increase was added to, so they do not cancel.
         - |
-          490.8 would be a net 2.25% increase; the combined factor 0.9775 is a decrease.
+          Correct. 480 · 1.15 · 0.85 = 480 · 0.9775 = 469.2.
         - |
           408 is a single 15% decrease with no increase first.
-      answer: 0
+      answer: 2
 
     # ---- Select-all (6.2, 5.20)
     - slug: alg1-u06-w24-q14
@@ -455,23 +455,23 @@ quiz:
       prompt: |
         Which of these tables, with inputs 1, 2, 3, 4, 5, are quadratic? Select all that apply.
       options:
-        - "1, 4, 9, 16, 25"
-        - "2, 4, 8, 16, 32"
-        - "4, 10, 18, 28, 40"
         - "3, 5, 7, 9, 11"
         - "0, 3, 8, 15, 24"
+        - "4, 10, 18, 28, 40"
+        - "2, 4, 8, 16, 32"
+        - "1, 4, 9, 16, 25"
       option_explanations:
-        - |
-          Correct. These are n²: differences 3, 5, 7, 9 and second differences 2.
-        - |
-          Each is double the previous: exponential.
-        - |
-          Correct. Differences 6, 8, 10, 12 and second differences 2 (this is n² + 3n).
         - |
           The differences are a constant 2, so this table is linear, not quadratic.
         - |
           Correct. Differences 3, 5, 7, 9 and second differences 2 (this is n² − 1).
-      answer: [0, 2, 4]
+        - |
+          Correct. Differences 6, 8, 10, 12 and second differences 2 (this is n² + 3n).
+        - |
+          Each is double the previous: exponential.
+        - |
+          Correct. These are n²: differences 3, 5, 7, 9 and second differences 2.
+      answer: [1, 2, 4]
 
     - slug: alg1-u06-w24-q15
       type: multi_select
@@ -482,23 +482,23 @@ quiz:
       prompt: |
         g(n) = 2ⁿ. Which statements are true? Select all that apply.
       options:
-        - "g(n + 1) = 2 · g(n) for every n."
-        - "g(n + 1) − g(n) = g(n) for every n."
-        - "g(n + 1) − g(n) is the same for every n."
-        - "g(n + 4) = 16 · g(n) for every n."
         - "g(10)/g(7) = g(4)/g(1)."
+        - "g(n + 1) − g(n) is the same for every n."
+        - "g(n + 1) − g(n) = g(n) for every n."
+        - "g(n + 1) = 2 · g(n) for every n."
+        - "g(n + 4) = 16 · g(n) for every n."
       option_explanations:
         - |
-          Correct. 2ⁿ⁺¹ = 2 · 2ⁿ, so moving one step to the right doubles the output every time.
-        - |
-          Correct. 2ⁿ⁺¹ − 2ⁿ = 2ⁿ: the increase equals the current value.
+          Correct. Both ratios span three steps, so both equal 8.
         - |
           The increase doubles each step; only a linear function has constant increases.
         - |
-          Correct. Four steps multiply by 2⁴ = 16.
+          Correct. 2ⁿ⁺¹ − 2ⁿ = 2ⁿ: the increase equals the current value.
         - |
-          Correct. Both ratios span three steps, so both equal 8.
-      answer: [0, 1, 3, 4]
+          Correct. 2ⁿ⁺¹ = 2 · 2ⁿ, so moving one step to the right doubles the output every time.
+        - |
+          Correct. Four steps multiply by 2⁴ = 16.
+      answer: [0, 2, 3, 4]
 
     # ---- True/false (6.3, 5.4)
     - slug: alg1-u06-w24-q16

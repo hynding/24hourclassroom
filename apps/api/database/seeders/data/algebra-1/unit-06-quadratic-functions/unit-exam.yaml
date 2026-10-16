@@ -41,20 +41,20 @@ questions:
     prompt: |
       Which table of outputs, for inputs 1, 2, 3, 4, 5, comes from a quadratic function?
     options:
-      - "2, 6, 12, 20, 30"
-      - "2, 6, 18, 54, 162"
       - "2, 6, 10, 14, 18"
+      - "2, 6, 18, 54, 162"
       - "2, 6, 11, 15, 20"
+      - "2, 6, 12, 20, 30"
     option_explanations:
-      - |
-        Correct. First differences 4, 6, 8, 10 and second differences 2, 2, 2: constant second differences (the function is n² + n).
-      - |
-        Each output is triple the previous: constant ratios, an exponential function.
       - |
         Constant first differences of 4: a linear function.
       - |
+        Each output is triple the previous: constant ratios, an exponential function.
+      - |
         First differences 4, 5, 4, 5 and second differences 1, −1, 1: no constant pattern of either kind.
-    answer: 0
+      - |
+        Correct. First differences 4, 6, 8, 10 and second differences 2, 2, 2: constant second differences (the function is n² + n).
+    answer: 3
 
   - slug: alg1-u06-exam-q03
     type: multiple_choice
@@ -64,20 +64,20 @@ questions:
     prompt: |
       A pattern of dots has 4, 10, 18, 28 dots at steps 1, 2, 3, 4. Which expression gives the number of dots at step n?
     options:
-      - "n² + 3n"
       - "n² + 3"
-      - "3n² + 1"
       - "6n − 2"
+      - "n² + 3n"
+      - "3n² + 1"
     option_explanations:
-      - |
-        Correct. Second differences (6, 8, 10 then 2, 2) give n²; subtracting 1, 4, 9, 16 leaves 3, 6, 9, 12 = 3n.
       - |
         n² + 3 gives 4 at step 1 but 7 at step 2, not 10.
       - |
-        3n² + 1 gives 4 at step 1 but 13 at step 2; a coefficient of 3 would need second differences of 6.
-      - |
         6n − 2 matches steps 1 and 2 (4, 10) but gives 16 at step 3, not 18; the pattern is not linear.
-    answer: 0
+      - |
+        Correct. Second differences (6, 8, 10 then 2, 2) give n²; subtracting 1, 4, 9, 16 leaves 3, 6, 9, 12 = 3n.
+      - |
+        3n² + 1 gives 4 at step 1 but 13 at step 2; a coefficient of 3 would need second differences of 6.
+    answer: 2
 
   - slug: alg1-u06-exam-q04
     type: multiple_choice
@@ -87,20 +87,20 @@ questions:
     prompt: |
       A quadratic table with inputs 1, 2, 3, … has constant second differences of 6. What is the coefficient of n² in its expression?
     options:
-      - "3"
       - "6"
+      - "3"
       - "12"
       - "1.5"
     option_explanations:
       - |
-        Correct. The coefficient of n² is half the second difference: 3n² has outputs 3, 12, 27, 48 with second differences 6.
-      - |
         6n² has second differences of 12, twice too large.
+      - |
+        Correct. The coefficient of n² is half the second difference: 3n² has outputs 3, 12, 27, 48 with second differences 6.
       - |
         12 is double the second difference; the coefficient is half of it.
       - |
         1.5n² has second differences of 3, half of what is needed.
-    answer: 0
+    answer: 1
 
   - slug: alg1-u06-exam-q05
     type: multiple_choice
@@ -110,20 +110,20 @@ questions:
     prompt: |
       Compare q(n) = 5n² and e(n) = 2ⁿ for whole numbers n. At n = 8, q = 320 and e = 256. From which value of n onward is e(n) larger than q(n)?
     options:
-      - "n = 9, where e = 512 and q = 405"
-      - "n = 8, because the exponential function is always larger"
       - "n = 10, where e = 1,024 and q = 500"
+      - "n = 8, because the exponential function is always larger"
+      - "n = 9, where e = 512 and q = 405"
       - "Never, because 5n² starts ahead and quadratic functions grow without bound"
     option_explanations:
       - |
-        Correct. At n = 9, 2⁹ = 512 exceeds 5 · 81 = 405, and from then on the doubling outpaces the quadratic increases.
+        The exponential function is already ahead at n = 9; n = 10 is one step late.
       - |
         At n = 8 the quadratic is still ahead, 320 against 256; exponential functions are not always larger, only eventually.
       - |
-        The exponential function is already ahead at n = 9; n = 10 is one step late.
+        Correct. At n = 9, 2⁹ = 512 exceeds 5 · 81 = 405, and from then on the doubling outpaces the quadratic increases.
       - |
         Both grow without bound, but the exponential function's increases multiply while the quadratic's only add, so it overtakes.
-    answer: 0
+    answer: 2
 
   - slug: alg1-u06-exam-q06
     type: multiple_choice
@@ -133,20 +133,20 @@ questions:
     prompt: |
       Why does an exponential function with growth factor greater than 1 eventually exceed any quadratic function?
     options:
-      - "Each step multiplies the exponential function's value, so its increases grow exponentially, while a quadratic function's increases grow only linearly."
+      - "A quadratic function's second differences are constant, so it stops growing."
       - "Quadratic functions eventually turn around and decrease."
       - "Exponential functions are larger for every input."
-      - "A quadratic function's second differences are constant, so it stops growing."
+      - "Each step multiplies the exponential function's value, so its increases grow exponentially, while a quadratic function's increases grow only linearly."
     option_explanations:
       - |
-        Correct. The increase of n² from n to n + 1 is 2n + 1, a linear amount; the increase of 2ⁿ is 2ⁿ itself, which doubles every step.
+        Constant second differences mean the increases grow steadily, not that growth stops.
       - |
         For positive inputs a quadratic function with positive leading coefficient keeps increasing; it is simply outpaced.
       - |
         n² exceeds 2ⁿ at n = 3, and 100n² exceeds 2ⁿ for all n up to 14; the exponential wins eventually, not everywhere.
       - |
-        Constant second differences mean the increases grow steadily, not that growth stops.
-    answer: 0
+        Correct. The increase of n² from n to n + 1 is 2n + 1, a linear amount; the increase of 2ⁿ is 2ⁿ itself, which doubles every step.
+    answer: 3
 
   # ---- Stimulus set A: a ball thrown from a cliff (6.6, 6.10, 6.11, 4.7)
   - slug: alg1-u06-exam-q07
@@ -159,20 +159,20 @@ questions:
     prompt: |
       What are the height of the cliff and the ball's launch speed?
     options:
-      - "80 feet; 64 feet per second"
-      - "64 feet; 80 feet per second"
       - "80 feet; 16 feet per second"
+      - "80 feet; 64 feet per second"
       - "5 feet; 64 feet per second"
+      - "64 feet; 80 feet per second"
     option_explanations:
-      - |
-        Correct. h(0) = 80 is the starting height, and the coefficient of t, 64, is the upward launch speed.
-      - |
-        The constant term is the starting height and the t coefficient the speed; these are swapped.
       - |
         16 is the gravity coefficient in −16t², the same for every thrown object; the launch speed is 64.
       - |
+        Correct. h(0) = 80 is the starting height, and the coefficient of t, 64, is the upward launch speed.
+      - |
         5 is a zero of the function (the landing time), not a height.
-    answer: 0
+      - |
+        The constant term is the starting height and the t coefficient the speed; these are swapped.
+    answer: 1
 
   - slug: alg1-u06-exam-q08
     type: multiple_choice
@@ -185,18 +185,18 @@ questions:
       When does the ball land on the beach, and which form of the function shows it?
     options:
       - "At t = 5 seconds, shown by the factor (t − 5) in the factored form."
-      - "At t = −1 second, shown by the factor (t + 1)."
       - "At t = 80 seconds, shown by the constant in the standard form."
       - "At t = 16 seconds, shown by the coefficient of t²."
+      - "At t = −1 second, shown by the factor (t + 1)."
     option_explanations:
       - |
         Correct. h(t) = 0 when a factor is 0; t − 5 = 0 at t = 5, the only zero after the throw.
       - |
-        t = −1 is also a zero of the expression, but it is one second before the throw and does not describe the flight.
-      - |
         80 is the starting height, read from the standard form; it is not a time.
       - |
         16 is the gravity coefficient; neither it nor the standard form displays the zeros.
+      - |
+        t = −1 is also a zero of the expression, but it is one second before the throw and does not describe the flight.
     answer: 0
 
   - slug: alg1-u06-exam-q09
@@ -210,18 +210,18 @@ questions:
       What is the ball's greatest height, and when is it reached?
     options:
       - "144 feet at t = 2"
+      - "160 feet at t = 2.5"
       - "128 feet at t = 1"
       - "144 feet at t = 3"
-      - "160 feet at t = 2.5"
     option_explanations:
       - |
         Correct. The zeros 5 and −1 average to 2, and h(2) = 80 + 128 − 64 = 144.
       - |
+        h(2.5) = 80 + 160 − 100 = 140, below the peak; 2.5 is half the landing time, not the midpoint of the zeros.
+      - |
         h(1) = 128, but the ball keeps rising until t = 2; by symmetry h(3) is also 128.
       - |
         144 is right, but it occurs at t = 2, the midpoint of the zeros; at t = 3 the height is 128.
-      - |
-        h(2.5) = 80 + 160 − 100 = 140, below the peak; 2.5 is half the landing time, not the midpoint of the zeros.
     answer: 0
 
   - slug: alg1-u06-exam-q10
@@ -234,20 +234,20 @@ questions:
     prompt: |
       What is the average rate of change of the height from t = 2 to t = 5, and what does its sign mean?
     options:
-      - "−48 feet per second; the ball is falling on that interval."
       - "48 feet per second; the ball is rising on that interval."
-      - "−144 feet per second; the ball drops 144 feet."
       - "−16 feet per second; gravity's constant pull."
+      - "−48 feet per second; the ball is falling on that interval."
+      - "−144 feet per second; the ball drops 144 feet."
     option_explanations:
-      - |
-        Correct. (h(5) − h(2))/(5 − 2) = (0 − 144)/3 = −48; a negative rate means the height decreases over the interval.
       - |
         From the peak at t = 2 to the landing the height falls from 144 to 0, so the rate is negative.
       - |
-        144 feet is the total change in height; dividing by the 3 seconds gives the rate, −48 per second.
-      - |
         16 is the coefficient in −16t², not an average rate; the actual rate over this interval is −48.
-    answer: 0
+      - |
+        Correct. (h(5) − h(2))/(5 − 2) = (0 − 144)/3 = −48; a negative rate means the height decreases over the interval.
+      - |
+        144 feet is the total change in height; dividing by the 3 seconds gives the rate, −48 per second.
+    answer: 2
 
   # ---- Situations and forms (6.5-6.9)
   - slug: alg1-u06-exam-q11
@@ -258,20 +258,20 @@ questions:
     prompt: |
       A stone is dropped from a 900-foot tower. How high is it after 5 seconds?
     options:
-      - "500 feet"
-      - "820 feet"
       - "400 feet"
+      - "820 feet"
       - "100 feet"
+      - "500 feet"
     option_explanations:
-      - |
-        Correct. It has fallen 16 · 5² = 400 feet, so its height is 900 − 400 = 500 feet.
-      - |
-        820 subtracts 16 · 5 = 80, treating the fall as linear; the distance fallen is 16t², not 16t.
       - |
         400 is the distance fallen, not the height remaining.
       - |
+        820 subtracts 16 · 5 = 80, treating the fall as linear; the distance fallen is 16t², not 16t.
+      - |
         100 would need a fall of 800 feet, which takes √50 ≈ 7.07 seconds.
-    answer: 0
+      - |
+        Correct. It has fallen 16 · 5² = 400 feet, so its height is 900 − 400 = 500 feet.
+    answer: 3
 
   - slug: alg1-u06-exam-q12
     type: multiple_choice
@@ -281,20 +281,20 @@ questions:
     prompt: |
       An object is dropped from 1,024 feet. How long does it take to reach the ground?
     options:
+      - "16 seconds"
       - "8 seconds"
       - "64 seconds"
       - "32 seconds"
-      - "16 seconds"
     option_explanations:
+      - |
+        After 16 seconds a dropped object has fallen 16 · 256 = 4,096 feet, far more than 1,024.
       - |
         Correct. 16t² = 1,024 gives t² = 64, so t = 8 seconds.
       - |
         64 is t², the value of 1,024/16; the time is its square root.
       - |
         32 is √1,024, which forgets the 16 in 16t².
-      - |
-        After 16 seconds a dropped object has fallen 16 · 256 = 4,096 feet, far more than 1,024.
-    answer: 0
+    answer: 1
 
   - slug: alg1-u06-exam-q13
     type: multiple_choice
@@ -304,20 +304,20 @@ questions:
     prompt: |
       A ball's height in feet is h(t) = 3 + 40t − 16t². You find that h(0.5) = 19 and h(2) = 19. When is the ball highest, and how high is it then?
     options:
-      - "At t = 1.25, 28 feet"
       - "At t = 1, 27 feet"
-      - "At t = 1.25, 19 feet"
       - "At t = 2.5, 3 feet"
+      - "At t = 1.25, 19 feet"
+      - "At t = 1.25, 28 feet"
     option_explanations:
-      - |
-        Correct. Equal heights at t = 0.5 and t = 2 put the peak halfway, at t = 1.25: h(1.25) = 3 + 50 − 25 = 28.
       - |
         h(1) = 27 is high but not the peak; the symmetry of the flight puts the vertex at t = 1.25, where the height is 28.
       - |
+        At t = 2.5 the ball is back at its starting height of 3 feet, on the way down.
+      - |
         The time is right, but 19 is the height at t = 0.5 and t = 2, not at the peak.
       - |
-        At t = 2.5 the ball is back at its starting height of 3 feet, on the way down.
-    answer: 0
+        Correct. Equal heights at t = 0.5 and t = 2 put the peak halfway, at t = 1.25: h(1.25) = 3 + 50 − 25 = 28.
+    answer: 3
 
   - slug: alg1-u06-exam-q14
     type: multiple_choice
@@ -327,20 +327,20 @@ questions:
     prompt: |
       A café predicts it will sell 150 − 25p muffins a day at a price of p dollars each. What is the daily revenue function, and which price gives the most revenue?
     options:
+      - "R(p) = p(150 − 25p); p = $6, earning $900"
       - "R(p) = p(150 − 25p); p = $3, earning $225"
       - "R(p) = 150 − 25p; p = $0, earning $150"
-      - "R(p) = p(150 − 25p); p = $6, earning $900"
       - "R(p) = 150p − 25; p = $6, earning $875"
     option_explanations:
+      - |
+        At p = 6 the quantity is 150 − 150 = 0, so the revenue is 0, not 900.
       - |
         Correct. Revenue is price times quantity; the zeros are p = 0 and p = 6, so the best price is halfway, p = 3, where R = 3 · 75 = 225.
       - |
         150 − 25p is the number of muffins, not the revenue; at p = 0 the café gives them away and earns nothing.
       - |
-        At p = 6 the quantity is 150 − 150 = 0, so the revenue is 0, not 900.
-      - |
         150p − 25 is not price times quantity; the −25 must multiply p², not stand alone.
-    answer: 0
+    answer: 1
 
   - slug: alg1-u06-exam-q15
     type: multiple_choice
@@ -373,20 +373,20 @@ questions:
     prompt: |
       Which expression is equivalent to (x − 5)(x + 5)?
     options:
-      - "x² − 25"
-      - "x² − 10x − 25"
       - "x² + 25"
       - "x² − 10x + 25"
+      - "x² − 25"
+      - "x² − 10x − 25"
     option_explanations:
-      - |
-        Correct. x² + 5x − 5x − 25 = x² − 25; the middle terms cancel.
-      - |
-        The middle terms 5x and −5x cancel; there is no x term.
       - |
         The constant is (−5)(5) = −25, a negative product.
       - |
         x² − 10x + 25 is (x − 5)², the square of one factor, not the product of the two different factors.
-    answer: 0
+      - |
+        Correct. x² + 5x − 5x − 25 = x² − 25; the middle terms cancel.
+      - |
+        The middle terms 5x and −5x cancel; there is no x term.
+    answer: 2
 
   - slug: alg1-u06-exam-q17
     type: multiple_choice
@@ -396,20 +396,20 @@ questions:
     prompt: |
       Which expression is equivalent to (2x + 1)(x + 3)?
     options:
-      - "2x² + 7x + 3"
       - "2x² + 3"
       - "2x² + 4x + 3"
+      - "2x² + 7x + 3"
       - "3x² + 7x + 3"
     option_explanations:
-      - |
-        Correct. 2x · x + 2x · 3 + 1 · x + 1 · 3 = 2x² + 6x + x + 3 = 2x² + 7x + 3.
       - |
         The middle products 6x and x are missing; at x = 1 the original is 3 · 4 = 12 but this gives 5.
       - |
         The middle term is 6x + x = 7x, not 3x + x.
       - |
+        Correct. 2x · x + 2x · 3 + 1 · x + 1 · 3 = 2x² + 6x + x + 3 = 2x² + 7x + 3.
+      - |
         The x² coefficient is 2 · 1 = 2, the product of the x coefficients, not their sum.
-    answer: 0
+    answer: 2
 
   - slug: alg1-u06-exam-q18
     type: multiple_choice
@@ -421,17 +421,17 @@ questions:
     options:
       - "(x − 7)(x + 2)"
       - "(x + 7)(x − 2)"
-      - "(x − 7)(x − 2)"
       - "(x − 14)(x + 1)"
+      - "(x − 7)(x − 2)"
     option_explanations:
       - |
         Correct. (−7)(2) = −14 and −7 + 2 = −5, matching both the constant and the middle coefficient.
       - |
         7 + (−2) = 5, so this expands to x² + 5x − 14 with the wrong middle sign.
       - |
-        (−7)(−2) = +14, not −14; this expands to x² − 9x + 14.
-      - |
         (−14)(1) = −14, but −14 + 1 = −13, not −5.
+      - |
+        (−7)(−2) = +14, not −14; this expands to x² − 9x + 14.
     answer: 0
 
   # ---- Stimulus set B: one function in three forms (6.10, 6.11, 6.15, 4.6)
@@ -445,20 +445,20 @@ questions:
     prompt: |
       What are the intercepts of the graph of f?
     options:
-      - "x-intercepts 6 and −2; y-intercept −12"
-      - "x-intercepts −6 and 2; y-intercept −12"
       - "x-intercepts 6 and −2; y-intercept −16"
+      - "x-intercepts 6 and −2; y-intercept −12"
       - "x-intercepts 2 and −16; y-intercept −12"
+      - "x-intercepts −6 and 2; y-intercept −12"
     option_explanations:
-      - |
-        Correct. The factors vanish at x = 6 and x = −2; the constant in the standard form, −12, is f(0).
-      - |
-        The signs are reversed: (x − 6) is 0 at 6 and (x + 2) at −2.
       - |
         −16 is the y-coordinate of the vertex, read from the vertex form, not the y-intercept.
       - |
+        Correct. The factors vanish at x = 6 and x = −2; the constant in the standard form, −12, is f(0).
+      - |
         2 and −16 are the coordinates of the vertex, not the x-intercepts.
-    answer: 0
+      - |
+        The signs are reversed: (x − 6) is 0 at 6 and (x + 2) at −2.
+    answer: 1
 
   - slug: alg1-u06-exam-q20
     type: multiple_choice
@@ -470,20 +470,20 @@ questions:
     prompt: |
       Using the factored form, how do you find the vertex, and what is it?
     options:
-      - "Average the x-intercepts to get x = 2, then compute f(2) = (−4)(4) = −16: vertex (2, −16)."
       - "Multiply the x-intercepts to get −12: vertex (0, −12)."
       - "Average the x-intercepts to get x = 4: vertex (4, −12)."
       - "The vertex is the larger x-intercept: (6, 0)."
+      - "Average the x-intercepts to get x = 2, then compute f(2) = (−4)(4) = −16: vertex (2, −16)."
     option_explanations:
-      - |
-        Correct. The axis of symmetry is halfway between 6 and −2, at x = 2, and f(2) = (2 − 6)(2 + 2) = −16; the vertex form confirms (2, −16).
       - |
         The product of the intercepts is the y-intercept here, not a vertex coordinate; the vertex is off the y-axis.
       - |
         4 is half of 6 + 2, but the intercepts are 6 and −2, whose average is 2.
       - |
         The x-intercepts are where the graph crosses the axis; the vertex is the lowest point between them.
-    answer: 0
+      - |
+        Correct. The axis of symmetry is halfway between 6 and −2, at x = 2, and f(2) = (2 − 6)(2 + 2) = −16; the vertex form confirms (2, −16).
+    answer: 3
 
   - slug: alg1-u06-exam-q21
     type: multiple_choice
@@ -496,18 +496,18 @@ questions:
       Which check confirms that (x − 2)² − 16 is equivalent to x² − 4x − 12?
     options:
       - "Expanding: (x − 2)² − 16 = x² − 4x + 4 − 16 = x² − 4x − 12."
+      - "Both equal −12 at x = 0, so they must agree everywhere."
       - "Both have a constant term, so they are the same function."
       - "Expanding: (x − 2)² − 16 = x² − 4 − 16 = x² − 20, which is close enough."
-      - "Both equal −12 at x = 0, so they must agree everywhere."
     option_explanations:
       - |
         Correct. Squaring gives x² − 4x + 4, and 4 − 16 = −12; every term matches.
       - |
+        Agreeing at one input does not prove equivalence; x² + 20x − 12 also equals −12 at x = 0 but is a different function.
+      - |
         Having a constant term is not a test of equivalence; the whole expansions must agree.
       - |
         (x − 2)² is not x² − 4; the square of a difference has a middle term, −4x, and a positive constant, 4.
-      - |
-        Agreeing at one input does not prove equivalence; x² + 20x − 12 also equals −12 at x = 0 but is a different function.
     answer: 0
 
   - slug: alg1-u06-exam-q22
@@ -520,20 +520,20 @@ questions:
     prompt: |
       For which inputs is f(x) negative, and on which interval is f increasing?
     options:
-      - "Negative for −2 < x < 6; increasing for x > 2"
-      - "Negative for x < 2; increasing for x > 6"
       - "Negative for x > 6; increasing for x < 2"
+      - "Negative for x < 2; increasing for x > 6"
       - "Negative for −2 < x < 6; increasing for x > 6"
+      - "Negative for −2 < x < 6; increasing for x > 2"
     option_explanations:
-      - |
-        Correct. An upward-opening parabola is below the x-axis between its intercepts, and it rises to the right of its vertex at x = 2.
-      - |
-        The sign of f changes at the intercepts −2 and 6, not at the vertex; and f starts increasing at the vertex, x = 2, not at 6.
       - |
         Beyond x = 6 the graph is above the axis (f(7) = 9 > 0), and to the left of the vertex the function is decreasing.
       - |
+        The sign of f changes at the intercepts −2 and 6, not at the vertex; and f starts increasing at the vertex, x = 2, not at 6.
+      - |
         The negative interval is right, but the function already increases from x = 2 onward: f(3) = −15 > f(2) = −16.
-    answer: 0
+      - |
+        Correct. An upward-opening parabola is below the x-axis between its intercepts, and it rises to the right of its vertex at x = 2.
+    answer: 3
 
   # ---- Graphs and the vertex form (6.12-6.17)
   - slug: alg1-u06-exam-q23
@@ -544,20 +544,20 @@ questions:
     prompt: |
       How does the graph of y = −(1/2)x² + 4 compare with the graph of y = x²?
     options:
-      - "It opens downward, is wider, and has its vertex at (0, 4)."
       - "It opens downward, is narrower, and has its vertex at (0, 4)."
+      - "It opens downward, is wider, and has its vertex at (0, 4)."
       - "It opens upward, is wider, and is shifted right 4."
       - "It opens downward, is wider, and has its vertex at (4, 0)."
     option_explanations:
       - |
-        Correct. The negative coefficient flips it, the 1/2 halves every output so the graph is wider, and the + 4 lifts the vertex to (0, 4).
-      - |
         A coefficient between 0 and 1 in absolute value makes the parabola wider, not narrower.
+      - |
+        Correct. The negative coefficient flips it, the 1/2 halves every output so the graph is wider, and the + 4 lifts the vertex to (0, 4).
       - |
         The coefficient −1/2 is negative, so it opens downward, and a constant shifts the graph vertically, not horizontally.
       - |
         With no x term the vertex stays on the y-axis; + 4 moves it up to (0, 4), not sideways.
-    answer: 0
+    answer: 1
 
   - slug: alg1-u06-exam-q24
     type: multiple_choice
@@ -567,20 +567,20 @@ questions:
     prompt: |
       What is the vertex of the graph of y = x² + 8x?
     options:
-      - "(−4, −16)"
-      - "(4, −16)"
-      - "(−4, 16)"
       - "(0, 8)"
+      - "(4, −16)"
+      - "(−4, −16)"
+      - "(−4, 16)"
     option_explanations:
       - |
-        Correct. x² + 8x = x(x + 8) has zeros 0 and −8; the midpoint is x = −4, and (−4)² + 8(−4) = 16 − 32 = −16.
+        The y-intercept is 0, not 8, and the 8x term pushes the vertex off the y-axis.
       - |
         The zero from x + 8 is −8, so the axis is at x = −4, to the left of the y-axis.
       - |
-        16 − 32 = −16; the upward-opening parabola dips below the axis between its zeros.
+        Correct. x² + 8x = x(x + 8) has zeros 0 and −8; the midpoint is x = −4, and (−4)² + 8(−4) = 16 − 32 = −16.
       - |
-        The y-intercept is 0, not 8, and the 8x term pushes the vertex off the y-axis.
-    answer: 0
+        16 − 32 = −16; the upward-opening parabola dips below the axis between its zeros.
+    answer: 2
 
   - slug: alg1-u06-exam-q25
     type: multiple_choice
@@ -590,20 +590,20 @@ questions:
     prompt: |
       Graph description: a parabola showing a theatre's revenue in dollars against ticket price in dollars. It opens downward, crosses the price axis at 0 and 40, and peaks at (20, 800). Which conclusion is correct?
     options:
-      - "A price of $20 earns the most, $800; at $40 nobody buys a ticket."
-      - "A price of $40 earns the most, because it is the highest price."
       - "A price of $800 earns $20."
       - "Every price between 0 and 40 earns $800."
+      - "A price of $20 earns the most, $800; at $40 nobody buys a ticket."
+      - "A price of $40 earns the most, because it is the highest price."
     option_explanations:
-      - |
-        Correct. The vertex (20, 800) is the highest point, and the zero at 40 is the price at which sales, and so revenue, drop to 0.
-      - |
-        At $40 the revenue is 0: the graph meets the axis there.
       - |
         The coordinates are (price, revenue): 20 dollars earns 800 dollars, not the reverse.
       - |
         800 is the maximum, reached only at $20; other prices earn less, down to 0 at the ends.
-    answer: 0
+      - |
+        Correct. The vertex (20, 800) is the highest point, and the zero at 40 is the price at which sales, and so revenue, drop to 0.
+      - |
+        At $40 the revenue is 0: the graph meets the axis there.
+    answer: 2
 
   - slug: alg1-u06-exam-q26
     type: multiple_choice
@@ -614,18 +614,18 @@ questions:
       What is the vertex of the graph of y = −2(x − 3)² + 7, and is it a maximum or a minimum?
     options:
       - "(3, 7), a maximum"
-      - "(−3, 7), a maximum"
       - "(3, 7), a minimum"
       - "(3, −7), a minimum"
+      - "(−3, 7), a maximum"
     option_explanations:
       - |
         Correct. x − 3 gives h = 3, k = 7, and a = −2 is negative, so the parabola opens downward and 7 is the largest output.
       - |
-        (x − 3)² is 0 at x = 3, not −3; the vertex is at x = 3.
-      - |
         A negative a makes the vertex the highest point, a maximum.
       - |
         k is +7, the constant added after the square; the vertex is (3, 7).
+      - |
+        (x − 3)² is 0 at x = 3, not −3; the vertex is at x = 3.
     answer: 0
 
   - slug: alg1-u06-exam-q27
@@ -636,20 +636,20 @@ questions:
     prompt: |
       What are the x-intercepts of the graph of y = (x + 1)² − 9?
     options:
-      - "2 and −4"
       - "−1 and 9"
       - "8 and −10"
       - "There are none, because the vertex is below the axis."
+      - "2 and −4"
     option_explanations:
-      - |
-        Correct. (x + 1)² = 9 gives x + 1 = ±3, so x = 2 or x = −4.
       - |
         −1 is the x-coordinate of the vertex and 9 is the number subtracted; neither is a zero (at x = 9, y = 91).
       - |
         8 and −10 come from x + 1 = ±9, forgetting to take the square root of 9.
       - |
         A vertex below the axis on an upward-opening parabola guarantees two x-intercepts.
-    answer: 0
+      - |
+        Correct. (x + 1)² = 9 gives x + 1 = ±3, so x = 2 or x = −4.
+    answer: 3
 
   - slug: alg1-u06-exam-q28
     type: multiple_choice
@@ -659,20 +659,20 @@ questions:
     prompt: |
       The graph of y = x² is moved 4 units to the left and 1 unit up. What is its new equation?
     options:
+      - "y = (x + 4)² − 1"
       - "y = (x + 4)² + 1"
       - "y = (x − 4)² + 1"
-      - "y = (x + 4)² − 1"
       - "y = (x + 1)² + 4"
     option_explanations:
+      - |
+        Subtracting 1 outside the square moves the graph down, not up.
       - |
         Correct. Left 4 puts the vertex at x = −4, written (x + 4)²; up 1 adds 1 outside: vertex (−4, 1).
       - |
         (x − 4)² has its vertex at x = 4, a shift to the right.
       - |
-        Subtracting 1 outside the square moves the graph down, not up.
-      - |
         The shifts are swapped: this vertex is (−1, 4).
-    answer: 0
+    answer: 1
 
   - slug: alg1-u06-exam-q29
     type: multiple_choice
@@ -682,20 +682,20 @@ questions:
     prompt: |
       A parabola has vertex (1, 3) and passes through (3, 11). Which equation describes it?
     options:
-      - "y = 2(x − 1)² + 3"
-      - "y = (x − 1)² + 3"
-      - "y = 2(x + 1)² + 3"
       - "y = 4(x − 1)² + 3"
+      - "y = 2(x + 1)² + 3"
+      - "y = (x − 1)² + 3"
+      - "y = 2(x − 1)² + 3"
     option_explanations:
       - |
-        Correct. With a(x − 1)² + 3, the point (3, 11) gives 4a + 3 = 11, so a = 2.
-      - |
-        a = 1 gives (3 − 1)² + 3 = 7 at x = 3, not 11.
+        a = 4 gives 16 + 3 = 19 at x = 3, not 11.
       - |
         (x + 1)² puts the vertex at x = −1, not 1.
       - |
-        a = 4 gives 16 + 3 = 19 at x = 3, not 11.
-    answer: 0
+        a = 1 gives (3 − 1)² + 3 = 7 at x = 3, not 11.
+      - |
+        Correct. With a(x − 1)² + 3, the point (3, 11) gives 4a + 3 = 11, so a = 2.
+    answer: 3
 
   # ---- Select-all (6.2, 6.16, 6.13)
   - slug: alg1-u06-exam-q30
@@ -707,23 +707,23 @@ questions:
     prompt: |
       Which of these tables, for inputs 1, 2, 3, 4, 5, come from quadratic functions? Select all that apply.
     options:
-      - "3, 12, 27, 48, 75"
-      - "3, 6, 12, 24, 48"
-      - "5, 8, 13, 20, 29"
       - "7, 10, 13, 16, 19"
+      - "5, 8, 13, 20, 29"
+      - "3, 6, 12, 24, 48"
       - "0, 2, 6, 12, 20"
+      - "3, 12, 27, 48, 75"
     option_explanations:
-      - |
-        Correct. These are 3n²: first differences 9, 15, 21, 27 and second differences 6.
-      - |
-        Each output doubles the previous one: exponential, with constant ratios rather than constant second differences.
-      - |
-        Correct. First differences 3, 5, 7, 9 and second differences 2 (the function is n² + 4).
       - |
         Constant first differences of 3: linear.
       - |
+        Correct. First differences 3, 5, 7, 9 and second differences 2 (the function is n² + 4).
+      - |
+        Each output doubles the previous one: exponential, with constant ratios rather than constant second differences.
+      - |
         Correct. First differences 2, 4, 6, 8 and second differences 2 (the function is n² − n).
-    answer: [0, 2, 4]
+      - |
+        Correct. These are 3n²: first differences 9, 15, 21, 27 and second differences 6.
+    answer: [1, 3, 4]
 
   - slug: alg1-u06-exam-q31
     type: multi_select
@@ -734,23 +734,23 @@ questions:
     prompt: |
       Which statements about the graph of y = 3(x − 2)² − 12 are true? Select all that apply.
     options:
-      - "The vertex is (2, −12)."
       - "The minimum value of the function is −12."
-      - "The y-intercept is 0."
+      - "The vertex is (2, −12)."
       - "The x-intercepts are 0 and 4."
       - "The maximum value of the function is 12."
+      - "The y-intercept is 0."
     option_explanations:
-      - |
-        Correct. h = 2 and k = −12 are read from the vertex form.
       - |
         Correct. a = 3 is positive, so the vertex is the lowest point and −12 is the smallest output.
       - |
-        Correct. At x = 0, y = 3 · 4 − 12 = 0, so the graph passes through the origin.
+        Correct. h = 2 and k = −12 are read from the vertex form.
       - |
         Correct. (x − 2)² = 4 gives x − 2 = ±2, so x = 4 or x = 0.
       - |
         An upward-opening parabola has no maximum; its outputs grow without bound, and 12 is not a value of the function at the vertex.
-    answer: [0, 1, 2, 3]
+      - |
+        Correct. At x = 0, y = 3 · 4 − 12 = 0, so the graph passes through the origin.
+    answer: [0, 1, 2, 4]
 
   - slug: alg1-u06-exam-q32
     type: multi_select
@@ -762,22 +762,22 @@ questions:
       Starting from y = x², which changes move the vertex off the y-axis? Select all that apply.
     options:
       - "Adding a term bx with b ≠ 0, as in y = x² + 6x"
+      - "Multiplying the whole expression by −1, as in y = −x²"
       - "Changing the coefficient of x², as in y = 3x²"
       - "Adding a constant, as in y = x² − 5"
       - "Replacing x with x − 3, as in y = (x − 3)²"
-      - "Multiplying the whole expression by −1, as in y = −x²"
     option_explanations:
       - |
         Correct. x² + 6x has zeros 0 and −6, so its vertex is at x = −3.
+      - |
+        Reflecting across the x-axis leaves the vertex at the origin.
       - |
         Changing a stretches or compresses the parabola; its vertex stays at the origin.
       - |
         A constant slides the graph vertically; the vertex moves to (0, −5), still on the y-axis.
       - |
         Correct. The vertex moves to (3, 0); this is the horizontal shift of the vertex form.
-      - |
-        Reflecting across the x-axis leaves the vertex at the origin.
-    answer: [0, 3]
+    answer: [0, 4]
 
   # ---- True/false (6.4, 6.11, 6.17)
   - slug: alg1-u06-exam-q33
