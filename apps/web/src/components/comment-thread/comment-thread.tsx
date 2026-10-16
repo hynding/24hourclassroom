@@ -1,7 +1,8 @@
 import { Component, h, Prop, State, Watch } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
-import { COMMENT_MAX_LENGTH, Comment, CommentTargetType, CommentThread, roleLabel } from '@24hc/shared';
+import { COMMENT_MAX_LENGTH, Comment, CommentReaction, CommentTargetType, CommentThread, roleLabel } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
+import { commentIcon } from '../../services/comment-icons';
 import { commentsStore } from '../../services/comments-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
@@ -12,6 +13,12 @@ import { recoverFromExpiredSession } from '../../services/session-recovery';
  * viewer may see -- and this only renders its answers. `compact` starts
  * closed behind a "Discuss" toggle, for the per-question threads on a test
  * page, and loads only when opened.
+ *
+ * On a public course's discussion every comment waits for approval. A
+ * comment that is not approved carries its state in the top right corner --
+ * a pause sign while it waits, a barred ring once denied, a bin for what an
+ * administrator sees deleted -- and a light wash of that state behind it.
+ * Approvers get Approve and Deny beside the sign.
  */
 @Component({ tag: 'comment-thread', styleUrl: 'comment-thread.css', shadow: true })
 export class CommentThreadView {
@@ -148,6 +155,19 @@ export class CommentThreadView {
     });
   };
 
+  /** Approve, deny or thumb: the API answers with the comment as it now stands. */
+  private swap(comment: Comment, request: () => Promise<Comment>) {
+    return this.run(async () => {
+      const updated = await request();
+      this.thread = { ...this.thread, data: this.replace(this.thread.data, comment.id, (c) => ({ ...c, ...updated, replies: c.replies })) };
+    });
+  }
+
+  private approve = (c: Comment) => this.swap(c, () => commentsStore.approveComment(c.id));
+  private deny = (c: Comment) => this.swap(c, () => commentsStore.denyComment(c.id));
+  private react = (c: Comment, value: CommentReaction) =>
+    this.swap(c, () => commentsStore.reactToComment(c.id, c.reactions?.mine === value ? null : value));
+
   private replace(list: Comment[], id: number, fn: (c: Comment) => Comment): Comment[] {
     return list.map((c) => (c.id === id ? fn(c) : c.replies ? { ...c, replies: this.replace(c.replies, id, fn) } : c));
   }
@@ -165,10 +185,62 @@ export class CommentThreadView {
     return `${/^[aeiou]/.test(label) ? 'An' : 'A'} ${label}`;
   }
 
+  /** Approved comments show none; older payloads without a status count as approved. */
+  private state(c: Comment): 'pending' | 'denied' | 'deleted' | null {
+    if (c.deleted_at) {
+      return 'deleted';
+    }
+    return c.status === 'pending' || c.status === 'denied' ? c.status : null;
+  }
+
+  private renderState(c: Comment) {
+    const state = this.state(c);
+    if (!state) {
+      return null;
+    }
+    const label = { pending: 'Awaiting Approval', denied: 'Denied', deleted: 'Deleted' }[state];
+    return (
+      <div class="state">
+        <span class={`state-icon ${state}`} title={label}>
+          {commentIcon(state)}
+          <span class="visually-hidden">{label}</span>
+        </span>
+        {this.thread.can_approve && state !== 'deleted' && (
+          <button type="button" class="btn btn-small" disabled={this.busy} onClick={() => this.approve(c)}>Approve</button>
+        )}
+        {this.thread.can_approve && state === 'pending' && (
+          <button type="button" class="btn btn-small" disabled={this.busy} onClick={() => this.deny(c)}>Deny</button>
+        )}
+      </div>
+    );
+  }
+
+  private renderReactions(c: Comment) {
+    const r = c.reactions;
+    if (!r || c.deleted_at) {
+      return null;
+    }
+    const thumb = (value: CommentReaction, count: number, label: string) => (
+      <button type="button" class="thumb" aria-pressed={r.mine === value ? 'true' : 'false'}
+        aria-label={`${label} (${count})`} title={label} disabled={this.busy || !c.can_react} onClick={() => this.react(c, value)}>
+        {commentIcon(value)}
+        <span aria-hidden="true">{count}</span>
+      </button>
+    );
+    return (
+      <span class="thumbs">
+        {thumb('up', r.up, 'Thumbs up')}
+        {thumb('down', r.down, 'Thumbs down')}
+      </span>
+    );
+  }
+
   private renderComment(c: Comment, top: boolean) {
     const editing = this.editing === c.id;
+    const state = this.state(c);
     return (
-      <li class="comment" key={c.id}>
+      <li class={{ comment: true, [state]: !!state }} key={c.id}>
+        {this.renderState(c)}
         <p class="byline">
           <span class="author">{this.who(c)}</span>
           {' · '}
@@ -190,7 +262,8 @@ export class CommentThreadView {
         )}
         {!editing && (
           <div class="row">
-            {top && this.thread.can_comment && (
+            {this.renderReactions(c)}
+            {top && this.thread.can_comment && state !== 'denied' && !c.deleted_at && (
               <button type="button" class="link" onClick={() => { this.replyTo = c.id; this.replyDraft = ''; }}>Reply</button>
             )}
             {c.can_edit && (
@@ -246,6 +319,9 @@ export class CommentThreadView {
       this.thread.data.length === 0
         ? <p class="muted">No comments yet.</p>
         : <ul class="comments">{this.thread.data.map((c) => this.renderComment(c, true))}</ul>,
+      this.thread.can_comment && this.thread.moderated && !this.thread.can_approve && (
+        <p class="muted">Comments here are shown to others once a teacher approves them.</p>
+      ),
       this.thread.can_comment && (
         <form class="new" onSubmit={this.post}>
           <label htmlFor="new-comment">Add a comment</label>

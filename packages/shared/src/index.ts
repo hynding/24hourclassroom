@@ -447,6 +447,8 @@ export interface CourseView extends CourseSummary {
   can_branch: boolean;
   /** The viewer's latest branch of this course, if they have one. */
   my_branch_id: number | null;
+  /** Thumbs up and down on the course discussion's approved comments. */
+  comment_reactions: boolean;
   items: CourseItem[];
 }
 
@@ -462,6 +464,8 @@ export interface CourseInput {
   description?: string | null;
   subject: Subject;
   grade_level: GradeLevel;
+  /** Left out, the course keeps its setting. */
+  comment_reactions?: boolean;
   items: CourseItemInput[];
 }
 
@@ -800,6 +804,14 @@ export interface AppNotification {
 export const COMMENT_TARGETS = ['test', 'question', 'material', 'course'] as const;
 export type CommentTargetType = (typeof COMMENT_TARGETS)[number];
 
+/** Mirrors `App\Enums\CommentStatus`, in enum order. Deleted is not a status: see `Comment.deleted_at`. */
+export const COMMENT_STATUSES = ['pending', 'approved', 'denied'] as const;
+export type CommentStatus = (typeof COMMENT_STATUSES)[number];
+
+/** Mirrors `App\Enums\CommentReaction`, in enum order. */
+export const COMMENT_REACTIONS = ['up', 'down'] as const;
+export type CommentReaction = (typeof COMMENT_REACTIONS)[number];
+
 /** `CommentController::MAX_BODY`. */
 export const COMMENT_MAX_LENGTH = 2000;
 
@@ -819,12 +831,19 @@ export interface Comment {
   id: number;
   parent_id: number | null;
   body: string;
+  /** Anything but approved is shown only to its writer and the approvers. */
+  status: CommentStatus;
+  /** Set only on what an administrator is shown: nobody else sees a deleted comment. */
+  deleted_at: string | null;
   created_at: string;
   edited_at: string | null;
   author: CommentAuthor;
   is_mine: boolean;
   can_edit: boolean;
   can_delete: boolean;
+  /** Null unless the course has thumbs switched on and the comment is approved. */
+  reactions: { up: number; down: number; mine: CommentReaction | null } | null;
+  can_react: boolean;
   /** Top-level comments only; replies are one level deep. */
   replies?: Comment[];
 }
@@ -835,4 +854,9 @@ export interface CommentThread {
   can_comment: boolean;
   /** The target is theirs, or they are an administrator. */
   can_moderate: boolean;
+  /** Approves and denies: the course's author, a connected teacher assistant, an administrator. */
+  can_approve: boolean;
+  /** A public course's discussion: new comments wait for approval. */
+  moderated: boolean;
+  reactions_enabled: boolean;
 }

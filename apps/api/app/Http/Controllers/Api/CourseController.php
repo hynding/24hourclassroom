@@ -63,7 +63,7 @@ class CourseController extends Controller
         $data = $request->validated();
 
         $course = DB::transaction(function () use ($request, $data) {
-            $course = $request->user()->courses()->create(Arr::only($data, ['title', 'description', 'subject', 'grade_level']));
+            $course = $request->user()->courses()->create(Arr::only($data, ['title', 'description', 'subject', 'grade_level', 'comment_reactions']));
             CourseWriter::syncItems($course, $data['items']);
 
             return $course;
@@ -77,7 +77,7 @@ class CourseController extends Controller
         $data = $request->validated();
 
         DB::transaction(function () use ($course, $data) {
-            $course->update(Arr::only($data, ['title', 'description', 'subject', 'grade_level']));
+            $course->update(Arr::only($data, ['title', 'description', 'subject', 'grade_level', 'comment_reactions']));
             CourseWriter::syncItems($course, $data['items']);
         });
 

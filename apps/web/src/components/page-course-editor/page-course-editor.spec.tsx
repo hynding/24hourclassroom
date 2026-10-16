@@ -26,7 +26,7 @@ const candidates = {
 const existing = {
   id: 3, title: 'Biology', subject: 'science', grade_level: '9-12', visibility: 'public', published_at: '2026-09-01',
   test_count: 1, material_count: 0, author: { id: 1, name: 'Ms K' }, description: 'A term.', created_at: '', updated_at: '', is_author: true,
-  branched_from: null, can_branch: false, my_branch_id: null,
+  branched_from: null, can_branch: false, my_branch_id: null, comment_reactions: false,
   items: [{ id: 30, position: 0, section: 'Unit 1', kind: 'test', test: { id: 5, title: 'Cells quiz', visibility: 'public', question_count: 4 } }],
 };
 const mount = async (attrs = '') => {
@@ -66,7 +66,7 @@ describe('page-course-editor', () => {
     createCourse.mockResolvedValue({ id: 4 });
     await cmp.save();
     expect(createCourse).toHaveBeenCalledWith({
-      title: 'Biology', description: null, subject: 'science', grade_level: '9-12',
+      title: 'Biology', description: null, subject: 'science', grade_level: '9-12', comment_reactions: false,
       items: [{ kind: 'material', id: 7, section: 'Unit 1' }, { kind: 'test', id: 5, section: 'Unit 1' }],
     });
     expect(navigate).toHaveBeenCalledWith('/courses/4');

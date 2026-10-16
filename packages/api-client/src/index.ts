@@ -6,6 +6,7 @@ import type {
   AssignmentRow,
   Attempt,
   Comment,
+  CommentReaction,
   CommentTargetType,
   CommentThread,
   Connection,
@@ -533,6 +534,19 @@ export class ApiClient {
   /** Deletes its replies with it. */
   async deleteComment(id: number): Promise<void> {
     await this.delete(`/api/comments/${id}`);
+  }
+
+  async approveComment(id: number): Promise<Comment> {
+    return this.post<Comment>(`/api/comments/${id}/approve`);
+  }
+
+  async denyComment(id: number): Promise<Comment> {
+    return this.post<Comment>(`/api/comments/${id}/deny`);
+  }
+
+  /** `null` takes the viewer's thumb back. */
+  async reactToComment(id: number, value: CommentReaction | null): Promise<Comment> {
+    return this.put<Comment>(`/api/comments/${id}/reaction`, { value });
   }
 
   /**

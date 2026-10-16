@@ -4,6 +4,9 @@ const getComments = jest.fn();
 const postComment = jest.fn();
 const updateComment = jest.fn();
 const deleteComment = jest.fn();
+const approveComment = jest.fn();
+const denyComment = jest.fn();
+const reactToComment = jest.fn();
 let currentUser: unknown = null;
 
 jest.mock('../../services/comments-store', () => ({
@@ -12,6 +15,9 @@ jest.mock('../../services/comments-store', () => ({
     postComment: (...a: unknown[]) => postComment(...a),
     updateComment: (...a: unknown[]) => updateComment(...a),
     deleteComment: (...a: unknown[]) => deleteComment(...a),
+    approveComment: (...a: unknown[]) => approveComment(...a),
+    denyComment: (...a: unknown[]) => denyComment(...a),
+    reactToComment: (...a: unknown[]) => reactToComment(...a),
   },
 }));
 jest.mock('../../services/auth-store', () => ({
@@ -47,7 +53,7 @@ const type = async (page: Awaited<ReturnType<typeof mount>>, selector: string, v
 
 describe('comment-thread', () => {
   beforeEach(() => {
-    [getComments, postComment, updateComment, deleteComment].forEach((f) => f.mockReset());
+    [getComments, postComment, updateComment, deleteComment, approveComment, denyComment, reactToComment].forEach((f) => f.mockReset());
     currentUser = { id: 9, name: 'Mr T', role: 'teacher' };
   });
 
@@ -140,6 +146,69 @@ describe('comment-thread', () => {
     // No form for a viewer who may not post.
     expect(page.root.shadowRoot.querySelector('form')).toBeNull();
     expect(button(page, 'Reply')).toBeUndefined();
+  });
+
+  it('shows its writer only the pause sign on a comment awaiting approval', async () => {
+    getComments.mockResolvedValue({ data: [comment({ status: 'pending', is_mine: true })], can_comment: true, can_moderate: false, can_approve: false, moderated: true, reactions_enabled: false });
+    const page = await mount('<comment-thread target-type="course" target-id="5"></comment-thread>');
+    const li = page.root.shadowRoot.querySelector('.comment');
+    expect(li.classList.contains('pending')).toBe(true);
+    expect(li.querySelector('.state-icon').getAttribute('title')).toBe('Awaiting Approval');
+    expect(button(page, 'Approve')).toBeUndefined();
+    expect(button(page, 'Deny')).toBeUndefined();
+    expect(page.root.shadowRoot.textContent).toContain('shown to others once a teacher approves them');
+  });
+
+  it('gives an approver Approve and Deny, and swaps in the answer', async () => {
+    getComments.mockResolvedValue({ data: [comment({ status: 'pending' })], can_comment: true, can_moderate: true, can_approve: true, moderated: true, reactions_enabled: false });
+    denyComment.mockResolvedValue(comment({ status: 'denied' }));
+    approveComment.mockResolvedValue(comment({ status: 'approved' }));
+    const page = await mount('<comment-thread target-type="course" target-id="5"></comment-thread>');
+
+    button(page, 'Deny').click();
+    await page.waitForChanges();
+    await page.waitForChanges();
+    expect(denyComment).toHaveBeenCalledWith(1);
+    const li = page.root.shadowRoot.querySelector('.comment');
+    expect(li.classList.contains('denied')).toBe(true);
+    expect(li.querySelector('.state-icon').getAttribute('title')).toBe('Denied');
+    expect(button(page, 'Deny')).toBeUndefined();
+
+    button(page, 'Approve').click();
+    await page.waitForChanges();
+    await page.waitForChanges();
+    expect(approveComment).toHaveBeenCalledWith(1);
+    expect(page.root.shadowRoot.querySelector('.state-icon')).toBeNull();
+  });
+
+  it('marks a deleted comment for the administrator who is shown it', async () => {
+    getComments.mockResolvedValue({ data: [comment({ status: 'approved', deleted_at: '2026-10-16T00:00:00Z' })], can_comment: false, can_moderate: true, can_approve: true, moderated: true, reactions_enabled: false });
+    const page = await mount('<comment-thread target-type="course" target-id="5"></comment-thread>');
+    const li = page.root.shadowRoot.querySelector('.comment');
+    expect(li.classList.contains('deleted')).toBe(true);
+    expect(li.querySelector('.state-icon').getAttribute('title')).toBe('Deleted');
+    expect(button(page, 'Approve')).toBeUndefined();
+  });
+
+  it('toggles a thumb, and takes it back when pressed again', async () => {
+    const thumbs = (up: number, down: number, mine: string | null) => comment({ status: 'approved', can_react: true, reactions: { up, down, mine } });
+    getComments.mockResolvedValue({ data: [thumbs(2, 0, null)], can_comment: true, can_moderate: false, can_approve: false, moderated: true, reactions_enabled: true });
+    reactToComment.mockResolvedValueOnce(thumbs(3, 0, 'up')).mockResolvedValueOnce(thumbs(2, 0, null));
+    const page = await mount('<comment-thread target-type="course" target-id="5"></comment-thread>');
+    const up = () => page.root.shadowRoot.querySelector('button[title="Thumbs up"]') as HTMLButtonElement;
+    expect(up().getAttribute('aria-label')).toBe('Thumbs up (2)');
+
+    up().click();
+    await page.waitForChanges();
+    await page.waitForChanges();
+    expect(reactToComment).toHaveBeenLastCalledWith(1, 'up');
+    expect(up().getAttribute('aria-pressed')).toBe('true');
+
+    up().click();
+    await page.waitForChanges();
+    await page.waitForChanges();
+    expect(reactToComment).toHaveBeenLastCalledWith(1, null);
+    expect(up().getAttribute('aria-pressed')).toBe('false');
   });
 
   it('says so when the discussion fails to load', async () => {

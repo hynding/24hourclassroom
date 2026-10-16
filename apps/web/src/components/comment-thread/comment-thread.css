@@ -90,3 +90,62 @@ textarea {
   clip-path: inset(50%);
   white-space: nowrap;
 }
+/* Moderation: a comment that is not approved sits on a light wash of its
+ * state, with its sign (and, for approvers, Approve/Deny) in the top right. */
+.comment.pending,
+.comment.denied,
+.comment.deleted {
+  position: relative;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius);
+}
+.comment.pending {
+  background: var(--color-pending-surface);
+}
+.comment.denied {
+  background: var(--color-denied-surface);
+}
+.comment.deleted {
+  background: var(--color-deleted-surface);
+}
+.state {
+  float: right;
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+  margin: 0 0 var(--space-1) var(--space-2);
+}
+.state-icon {
+  display: inline-flex;
+  color: var(--color-ink-muted);
+}
+.state-icon.denied {
+  color: var(--color-danger);
+}
+.btn-small {
+  padding: 0 var(--space-2);
+  font-size: var(--text-sm);
+}
+.thumbs {
+  display: inline-flex;
+  gap: var(--space-1);
+}
+.thumb {
+  display: inline-flex;
+  gap: var(--space-1);
+  align-items: center;
+  padding: 0 var(--space-1);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-ink-muted);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.thumb[aria-pressed='true'] {
+  border-color: var(--color-ink-muted);
+  color: var(--color-ink);
+}
+.thumb:disabled {
+  cursor: default;
+}

@@ -852,4 +852,21 @@ describe('comments', () => {
     await client.deleteComment(7);
     expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/comments/7', expect.objectContaining({ method: 'DELETE' }));
   });
+
+  it('approves, denies and sets or clears a thumb', async () => {
+    const fetchFn = okFetch({ id: 7 });
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.approveComment(7);
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/comments/7/approve', expect.objectContaining({ method: 'POST' }));
+
+    await client.denyComment(7);
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/comments/7/deny', expect.objectContaining({ method: 'POST' }));
+
+    await client.reactToComment(7, 'up');
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/comments/7/reaction', expect.objectContaining({ method: 'PUT', body: JSON.stringify({ value: 'up' }) }));
+
+    await client.reactToComment(7, null);
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/comments/7/reaction', expect.objectContaining({ method: 'PUT', body: JSON.stringify({ value: null }) }));
+  });
 });

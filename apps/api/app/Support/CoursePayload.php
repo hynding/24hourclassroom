@@ -54,6 +54,7 @@ final class CoursePayload
             'created_at' => $course->created_at,
             'updated_at' => $course->updated_at,
             'is_author' => CourseAccess::canAuthor($viewer, $course),
+            'comment_reactions' => (bool) $course->comment_reactions,
             // Named only while the viewer could open it: an original made
             // private since is not this branch's to announce.
             'branched_from' => $source !== null && CourseAccess::canView($viewer, $source)
