@@ -221,9 +221,9 @@ course (`GET|POST /api/comments?target_type=&target_id=`, `PATCH|DELETE
   `--color-denied-surface`, `--color-deleted-surface`) in every palette, held
   to 4.5:1 for every text token by `theme-files.spec.ts`.
 
-## Seeded courses (AP Biology, AP U.S. History, Algebra 1, Geometry, Algebra 2)
+## Seeded courses (AP Biology, AP U.S. History, Algebra 1, Geometry, Algebra 2, Chemistry, AP Chemistry, AP World History)
 
-Five full-year courses are seeded from YAML, each by a thin subclass of
+Eight full-year courses are seeded from YAML, each by a thin subclass of
 `Database\Seeders\Curriculum\CurriculumSeeder` that names its data directory:
 
 | Seeder | Command | Data | Slug | Demo accounts |
@@ -233,6 +233,9 @@ Five full-year courses are seeded from YAML, each by a thin subclass of
 | `Algebra1Seeder` | `course:seed-algebra-1` | `data/algebra-1/` (adapted from CC BY 4.0 IM 9–12 Math) | `alg1` | `algebra1@`, `algebra1-student@example.com` |
 | `GeometrySeeder` | `course:seed-geometry` | `data/geometry/` (adapted from CC BY 4.0 IM 9–12 Math) | `geo` | `geometry@`, `geometry-student@example.com` |
 | `Algebra2Seeder` | `course:seed-algebra-2` | `data/algebra-2/` (adapted from CC BY 4.0 IM 9–12 Math) | `alg2` | `algebra2@`, `algebra2-student@example.com` |
+| `ChemistrySeeder` | `course:seed-chemistry` | `data/chemistry/` (original, public-domain data) | `chem` | `chemistry@`, `chemistry-student@example.com` |
+| `ApChemistrySeeder` | `course:seed-ap-chemistry` | `data/ap-chemistry/` (original, public-domain data) | `apchem` | `apchem@`, `apchem-student@example.com` |
+| `ApWorldHistorySeeder` | `course:seed-ap-world-history` | `data/ap-world-history/` (original, public-domain quotations) | `apworld` | `apworld@`, `apworld-student@example.com` |
 
 Everything below applies to all of them; AP Biology is the worked example.
 
@@ -263,6 +266,9 @@ php artisan course:seed-ap-us-history --teacher=you@example.com --no-student --f
 php artisan course:seed-algebra-1 --teacher=you@example.com --no-student --force
 php artisan course:seed-geometry --teacher=you@example.com --no-student --force
 php artisan course:seed-algebra-2 --teacher=you@example.com --no-student --force
+php artisan course:seed-chemistry --teacher=you@example.com --no-student --force
+php artisan course:seed-ap-chemistry --teacher=you@example.com --no-student --force
+php artisan course:seed-ap-world-history --teacher=you@example.com --no-student --force
 ```
 
 `--teacher` must name an existing, verified, active teacher; the command never
@@ -300,6 +306,23 @@ from that licence: credit IM in attribution text only, never as branding.
 OpenStax is no longer usable for new courses (every book is now CC BY-NC-SA
 with a no-LLM clause). Math is written in plain Unicode (x², √, π, ≤) because
 `rich-text` renders no LaTeX and no HTML; figures are described in words.
+
+Chemistry, AP Chemistry and AP World History: Modern are **original writing**
+like AP U.S. History: no textbook is adapted. The two chemistry courses take
+every constant and data value from public-domain U.S. government sources
+(NIST Chemistry WebBook, CODATA, PubChem) and write formulas in plain Unicode
+(H₂O, SO₄²⁻, ⇌, ΔH°); Chemistry is NGSS-aligned with self-designed units
+(markers `written for this course`, `public domain`), AP Chemistry follows the
+CED's nine units and topic codes (markers `AP Chemistry Course and Exam
+Description`, `public domain`) and its practice exam has the real shape (60
+Section I items, then four 4-point and three 10-point free-response items).
+AP World History: Modern follows the CED's nine units (markers `AP World
+History: Modern Course and Exam Description`, `public domain`) under the same
+quotation rule as AP U.S. History: pre-1931 editions and translations or U.S.
+government works only, each listed in its ATTRIBUTION.md; post-1930 sources
+are described, never quoted. Its practice exam follows the 2027 format (55
+stimulus-based multiple choice, three SAQs, a DBQ scored out of 7 and an LEQ
+scored out of 6).
 
 Content contract the lint enforces: every option carries an
 `option_explanations` entry; `fill_blank` prompts contain `____` and `answer` is a
