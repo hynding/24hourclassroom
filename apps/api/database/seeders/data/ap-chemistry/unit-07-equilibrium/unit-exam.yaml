@@ -1,0 +1,948 @@
+unit: 7
+description: |
+  42 questions · about 85 minutes · every topic of Unit 7 (7.1 to 7.14: dynamic equilibrium, the direction of
+  reversible reactions, Q and K, calculating K, its magnitude and properties, equilibrium concentrations,
+  representations, Le Châtelier's principle and its Q-versus-K explanation, solubility products, the common-ion
+  effect, pH and solubility, and the free energy of dissolution), with review of the ideal gas law, net ionic
+  equations, catalysts and Hess's law. Three data sets in the AP style (a concentration–time graph for the
+  water-gas shift reaction, particle boxes for a dimerisation, and a table of Ksp values), stand-alone
+  multiple choice, select-all, true/false, fill-in-the-blank and numeric items, two short-answer questions
+  (3 points each) and one long free-response question (6 points). Multiple choice, select-all, true/false and
+  numeric items are graded at once; fill-in-the-blank items are matched automatically; the free-response items
+  are graded by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: water-gas shift concentration–time graph (7.1, 7.4, 7.10)
+  - slug: apchem-u07-exam-q01
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Graph description: concentration against time for CO(g) + H₂O(g) ⇌ CO₂(g) + H₂(g) in a sealed 1.00 L vessel at 700 K. [CO] and [H₂O] both start at 0.400 M and fall to flat plateaus at 0.120 M; [CO₂] and [H₂] start at 0 and rise to flat plateaus at 0.280 M. All four curves become horizontal at time t₁. At a later time t₂, enough H₂ is injected to raise [H₂] instantly to 0.500 M.
+    prompt: |
+      What is the value of Kc at 700 K?
+    options:
+      - "2.3"
+      - "5.4"
+      - "0.18"
+      - "0.49"
+    option_explanations:
+      - |
+        2.3 is the simple ratio 0.280/0.120 of one product to one reactant; both products and both reactants must be included.
+      - |
+        Correct. Kc = [CO₂][H₂]/([CO][H₂O]) = (0.280)(0.280)/((0.120)(0.120)) = 0.0784/0.0144 = 5.4.
+      - |
+        0.18 is 1/5.4, the constant for the reverse reaction.
+      - |
+        0.49 comes from using the initial 0.400 M for the reactants instead of their equilibrium values.
+    answer: 1
+    explanation: |
+      Practice 5. Plateau values are the equilibrium concentrations.
+
+  - slug: apchem-u07-exam-q02
+    type: multiple_choice
+    topic_code: "7.10"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Graph description: concentration against time for CO(g) + H₂O(g) ⇌ CO₂(g) + H₂(g) in a sealed 1.00 L vessel at 700 K. [CO] and [H₂O] both start at 0.400 M and fall to flat plateaus at 0.120 M; [CO₂] and [H₂] start at 0 and rise to flat plateaus at 0.280 M. All four curves become horizontal at time t₁. At a later time t₂, enough H₂ is injected to raise [H₂] instantly to 0.500 M.
+    prompt: |
+      Which description of the curves after t₂ is correct?
+    options:
+      - "[H₂] falls from 0.500 M to a new plateau above 0.280 M; [CO₂] falls; [CO] and [H₂O] rise, all by amounts in a 1:1:1:1 ratio."
+      - "[H₂] falls all the way back to 0.280 M; the other three curves return to their previous plateaus."
+      - "[H₂] stays at 0.500 M; [CO₂] rises because more product is now present."
+      - "[CO₂] and [H₂] both rise, while [CO] and [H₂O] fall, because adding a product speeds the forward reaction."
+    option_explanations:
+      - |
+        Correct. Added product makes Q > K, so the reverse reaction proceeds: H₂ and CO₂ are consumed and CO and H₂O form, each change equal because all coefficients are 1. The shift only partly undoes the addition, so the new [H₂] lies between 0.280 and 0.500 M.
+      - |
+        The shift returns Q to K, not the concentrations to their old values; the new equilibrium has more H₂ than before.
+      - |
+        H₂ is consumed by the reverse reaction, so its curve must fall; CO₂ is consumed with it.
+      - |
+        Adding a product raises the reverse rate, not the forward rate; the net reaction is reverse.
+    answer: 0
+    explanation: |
+      Practice 4. Q > K after the injection; the reverse reaction partly counteracts the change.
+
+  - slug: apchem-u07-exam-q03
+    type: numeric
+    topic_code: "7.10"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Graph description: concentration against time for CO(g) + H₂O(g) ⇌ CO₂(g) + H₂(g) in a sealed 1.00 L vessel at 700 K. [CO] and [H₂O] both start at 0.400 M and fall to flat plateaus at 0.120 M; [CO₂] and [H₂] start at 0 and rise to flat plateaus at 0.280 M. All four curves become horizontal at time t₁. At a later time t₂, enough H₂ is injected to raise [H₂] instantly to 0.500 M.
+    prompt: |
+      Calculate Q immediately after the injection at t₂. Give your answer to two significant figures.
+    answer: { value: 9.7, tolerance: 0.2 }
+    explanation: |
+      Q = (0.280)(0.500)/((0.120)(0.120)) = 0.140/0.0144 = 9.7. Since Q = 9.7 > K = 5.4, the reverse reaction proceeds until Q falls back to 5.4.
+
+  # ---- Stimulus set B: particle boxes for a dimerisation (7.3, 7.8, 7.10)
+  - slug: apchem-u07-exam-q04
+    type: multiple_choice
+    topic_code: "7.8"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Figure description: three 1.0 L boxes show particles for the gas-phase dimerisation 2 X(g) ⇌ X₂(g) at the same temperature. Box 1 is at equilibrium and contains 4 X and 8 X₂. Box 2 contains 6 X and 3 X₂. Box 3 contains 2 X and 10 X₂. Treat the particle counts as concentrations in mol/L.
+    prompt: |
+      What is the value of K for the reaction at this temperature?
+    options:
+      - "2.0"
+      - "0.50"
+      - "0.25"
+      - "32"
+    option_explanations:
+      - |
+        2.0 is [X]/[X₂] inverted and unsquared; the expression is [X₂]/[X]².
+      - |
+        Correct. K = [X₂]/[X]² = 8/4² = 8/16 = 0.50, from the box stated to be at equilibrium.
+      - |
+        0.25 is 4/16, which puts [X] in the numerator instead of [X₂].
+      - |
+        32 is [X]² × 2, not the ratio required by the equilibrium expression.
+    answer: 1
+    explanation: |
+      Practice 1 and 5. Only the equilibrium box gives K; the coefficient 2 is the exponent on [X].
+
+  - slug: apchem-u07-exam-q05
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Figure description: three 1.0 L boxes show particles for the gas-phase dimerisation 2 X(g) ⇌ X₂(g) at the same temperature. Box 1 is at equilibrium and contains 4 X and 8 X₂. Box 2 contains 6 X and 3 X₂. Box 3 contains 2 X and 10 X₂. Treat the particle counts as concentrations in mol/L.
+    prompt: |
+      Which statement about boxes 2 and 3 is correct?
+    options:
+      - "Both boxes are at equilibrium, because each contains a mixture of X and X₂."
+      - "Box 2 (Q = 0.083) reacts in reverse and box 3 (Q = 2.5) reacts forward."
+      - "Box 2 is at equilibrium and box 3 reacts in reverse."
+      - "Box 2 (Q = 0.083) reacts forward, forming X₂, and box 3 (Q = 2.5) reacts in reverse, forming X."
+    option_explanations:
+      - |
+        Containing both species is not the test; Q must equal K, and neither box's Q is 0.50.
+      - |
+        The directions are reversed: Q < K means forward, Q > K means reverse.
+      - |
+        Box 2 has Q = 0.083, well below K = 0.50, so it is not at equilibrium.
+      - |
+        Correct. Box 2: Q = 3/36 = 0.083 < 0.50, so X atoms combine to form X₂. Box 3: Q = 10/4 = 2.5 > 0.50, so X₂ dissociates.
+    answer: 3
+    explanation: |
+      Practice 4. Compute Q for each box and compare with K.
+
+  - slug: apchem-u07-exam-q06
+    type: multiple_choice
+    topic_code: "7.10"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Figure description: three 1.0 L boxes show particles for the gas-phase dimerisation 2 X(g) ⇌ X₂(g) at the same temperature. Box 1 is at equilibrium and contains 4 X and 8 X₂. Box 2 contains 6 X and 3 X₂. Box 3 contains 2 X and 10 X₂. Treat the particle counts as concentrations in mol/L.
+    prompt: |
+      The volume of box 1 is halved at constant temperature. What happens, and why?
+    options:
+      - "Q becomes 0.25, which is less than K, so more X₂ forms: the shift is toward fewer gas particles."
+      - "Q becomes 1.0, which is greater than K, so X₂ dissociates into X."
+      - "Q is unchanged because both species are gases, so no net reaction occurs."
+      - "K doubles because the pressure doubles, so more X₂ forms."
+    option_explanations:
+      - |
+        Correct. Doubling the concentrations gives [X] = 8 M and [X₂] = 16 M, so Q = 16/64 = 0.25 < 0.50; the forward reaction (2 particles → 1) proceeds, as Le Châtelier's 'fewer moles of gas' rule predicts.
+      - |
+        Q = 16/64 = 0.25, not 1.0; the squared denominator grows faster than the numerator.
+      - |
+        Q changes whenever the number of gas moles differs on the two sides (Δn = −1 here); the exponents do not cancel.
+      - |
+        K depends on temperature only; compression changes Q, not K.
+    answer: 0
+    explanation: |
+      Practice 6. Compression raises Q's denominator by 4 and its numerator by 2, so Q halves and the system shifts forward.
+
+  # ---- Stimulus set C: Ksp table (7.11, 7.12, 7.13)
+  - slug: apchem-u07-exam-q07
+    type: multiple_choice
+    topic_code: "7.13"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Table: solubility products at 25 °C. BaSO₄ 1.1 × 10⁻¹⁰; BaCO₃ 2.6 × 10⁻⁹; BaF₂ 1.8 × 10⁻⁷; Ca(OH)₂ 5.0 × 10⁻⁶; CaF₂ 3.5 × 10⁻¹¹; AgCl 1.8 × 10⁻¹⁰.
+    prompt: |
+      Which salts in the table become appreciably more soluble when the solution is acidified?
+    options:
+      - "BaSO₄ and AgCl only"
+      - "Ca(OH)₂ only, because it is the only hydroxide"
+      - "All six, because acid increases the solubility of every ionic solid"
+      - "BaCO₃, BaF₂, Ca(OH)₂ and CaF₂"
+    option_explanations:
+      - |
+        Sulfate and chloride are anions of strong acids; they do not react with H⁺, so these two are the ones that are not affected.
+      - |
+        Carbonate and fluoride are also weak bases (conjugate bases of H₂CO₃ and HF), so their salts dissolve in acid as well.
+      - |
+        Only salts whose anion reacts with H⁺ respond; AgCl and BaSO₄ are as insoluble in acid as in water.
+      - |
+        Correct. CO₃²⁻, F⁻ and OH⁻ are all conjugate bases of weak acids; H⁺ removes them from solution, Q falls below Ksp and more solid dissolves.
+    answer: 3
+    explanation: |
+      Practice 6. Basic anions are consumed by acid; strong-acid anions are not.
+
+  - slug: apchem-u07-exam-q08
+    type: multiple_choice
+    topic_code: "7.11"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Table: solubility products at 25 °C. BaSO₄ 1.1 × 10⁻¹⁰; BaCO₃ 2.6 × 10⁻⁹; BaF₂ 1.8 × 10⁻⁷; Ca(OH)₂ 5.0 × 10⁻⁶; CaF₂ 3.5 × 10⁻¹¹; AgCl 1.8 × 10⁻¹⁰.
+    prompt: |
+      What is the molar solubility of BaF₂ in pure water?
+    options:
+      - "4.2 × 10⁻⁴ M"
+      - "5.6 × 10⁻³ M"
+      - "3.6 × 10⁻³ M"
+      - "1.8 × 10⁻⁷ M"
+    option_explanations:
+      - |
+        4.2 × 10⁻⁴ M is √Ksp, the formula for a 1:1 salt; BaF₂ releases two fluoride ions per formula unit.
+      - |
+        5.6 × 10⁻³ M is ∛Ksp, which omits the factor of 4 from (2s)².
+      - |
+        Correct. Ksp = [Ba²⁺][F⁻]² = s(2s)² = 4s³, so s = ∛(1.8 × 10⁻⁷/4) = ∛(4.5 × 10⁻⁸) = 3.6 × 10⁻³ M.
+      - |
+        1.8 × 10⁻⁷ M is Ksp itself, which is not a concentration.
+    answer: 2
+    explanation: |
+      Practice 5. For a 1:2 salt, s = ∛(Ksp/4).
+
+  - slug: apchem-u07-exam-q09
+    type: numeric
+    topic_code: "7.12"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Table: solubility products at 25 °C. BaSO₄ 1.1 × 10⁻¹⁰; BaCO₃ 2.6 × 10⁻⁹; BaF₂ 1.8 × 10⁻⁷; Ca(OH)₂ 5.0 × 10⁻⁶; CaF₂ 3.5 × 10⁻¹¹; AgCl 1.8 × 10⁻¹⁰.
+    prompt: |
+      Calculate the molar solubility of BaSO₄ in 0.050 M Na₂SO₄ in mol/L. Give your answer to two significant figures (for example 2.3e-9 for 2.3 × 10⁻⁹).
+    answer: { value: 2.2e-9, tolerance: 0.2e-9 }
+    explanation: |
+      [SO₄²⁻] ≈ 0.050 M from the sodium sulfate (the common ion); Ksp = [Ba²⁺][SO₄²⁻] = s(0.050) = 1.1 × 10⁻¹⁰, so s = 2.2 × 10⁻⁹ M. In pure water s = √Ksp = 1.0 × 10⁻⁵ M, about 5,000 times larger.
+
+  # ---- Stand-alone multiple choice
+  - slug: apchem-u07-exam-q10
+    type: multiple_choice
+    topic_code: "7.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which statement is true of a reaction mixture that has reached chemical equilibrium?
+    options:
+      - "The concentrations of reactants and products are equal."
+      - "The forward and reverse reactions have stopped."
+      - "The forward and reverse reactions continue at equal rates, so concentrations are constant."
+      - "The forward reaction continues but the reverse reaction has stopped."
+    option_explanations:
+      - |
+        Equilibrium concentrations are fixed by K and are rarely equal; they are constant, not equal.
+      - |
+        Both reactions continue at the molecular level; isotope-exchange experiments show it directly.
+      - |
+        Correct. Equal forward and reverse rates mean no net change, while both reactions proceed continuously.
+      - |
+        If only the forward reaction continued, reactant concentrations would keep falling; they do not.
+    answer: 2
+    explanation: |
+      Practice 6. Dynamic equilibrium: equal rates, constant concentrations.
+
+  - slug: apchem-u07-exam-q11
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Two flasks at the same temperature and volume are prepared: flask P with 1.0 mol H₂ and 1.0 mol I₂; flask Q with 2.0 mol HI. After equilibrium is reached for H₂(g) + I₂(g) ⇌ 2 HI(g), how do the two flasks compare?
+    options:
+      - "Flask P contains more HI, because it started with the reactants."
+      - "The two flasks have identical compositions, because the same total amounts of H and I atoms reach the same equilibrium at the same temperature."
+      - "Flask Q contains more HI, because it started with the product."
+      - "Flask Q contains no H₂ or I₂, because HI does not decompose."
+    option_explanations:
+      - |
+        The starting side does not matter; the equilibrium composition depends only on K and the total inventory of atoms.
+      - |
+        Correct. K is fixed at a given temperature, and both flasks hold 2 mol H and 2 mol I in the same volume, so they reach the same mixture from opposite directions.
+      - |
+        Flask Q reaches equilibrium by decomposing some HI; its final composition matches flask P's.
+      - |
+        HI decomposes until Q = K; a reversible reaction proceeds in reverse when it starts from pure product.
+    answer: 1
+    explanation: |
+      Practice 6. Equilibrium can be approached from either direction.
+
+  - slug: apchem-u07-exam-q12
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which is the correct equilibrium-constant expression for CaCO₃(s) ⇌ CaO(s) + CO₂(g)?
+    options:
+      - "K = [CaO][CO₂]"
+      - "K = [CaO][CO₂]/[CaCO₃]"
+      - "K = [CO₂]/[CaCO₃]"
+      - "K = [CO₂]"
+    option_explanations:
+      - |
+        CaO is a pure solid with a fixed concentration, so it does not appear in the expression.
+      - |
+        Pure solids never appear in the expression; their fixed concentrations are absorbed into K.
+      - |
+        The solid CaCO₃ must be omitted, as must the solid CaO.
+      - |
+        Correct. Both solids are omitted because their concentrations are constant, leaving only the gas.
+    answer: 3
+    explanation: |
+      Practice 5. Only gases and dissolved species appear in K.
+
+  - slug: apchem-u07-exam-q13
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      For N₂(g) + 3 H₂(g) ⇌ 2 NH₃(g), how is Kp related to Kc at temperature T?
+    options:
+      - "Kp = Kc(RT)²"
+      - "Kp = Kc"
+      - "Kp = Kc(RT)⁻²"
+      - "Kp = Kc(RT)⁴"
+    option_explanations:
+      - |
+        (RT)² would apply to Δn = +2; here the gas moles decrease.
+      - |
+        Kp = Kc only when Δn = 0; here 4 mol of gas become 2.
+      - |
+        Correct. Δn = 2 − (1 + 3) = −2, so Kp = Kc(RT)^(−2) = Kc/(RT)².
+      - |
+        4 is the number of reactant gas moles, not the change in gas moles.
+    answer: 2
+    explanation: |
+      Practice 5. Kp = Kc(RT)^Δn with Δn = gas moles of products minus reactants.
+
+  - slug: apchem-u07-exam-q14
+    type: multiple_choice
+    topic_code: "7.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      At 25 °C, N₂(g) + O₂(g) ⇌ 2 NO(g) has K ≈ 10⁻³¹. What does this value tell you about air at room temperature?
+    options:
+      - "Air contains essentially no NO from this reaction, because reactants are overwhelmingly favoured at equilibrium."
+      - "The reaction is extremely slow, which is why NO is not found in air."
+      - "The reaction is exothermic, because K is small."
+      - "NO is unstable and decomposes explosively."
+    option_explanations:
+      - |
+        Correct. A tiny K means the equilibrium mixture is almost entirely N₂ and O₂; the trace of NO in engines forms only because K rises steeply at the high temperature of combustion.
+      - |
+        K says nothing about rate; the equilibrium amount of NO is negligible regardless of how fast equilibrium is reached.
+      - |
+        A small K does not identify the sign of ΔH (this reaction is in fact endothermic, which is why K grows with temperature).
+      - |
+        NO is a stable molecule that decomposes only slowly; the small K reflects thermodynamics, not instability.
+    answer: 0
+    explanation: |
+      Practice 4. K ≪ 1 means reactants dominate; nothing about rate.
+
+  - slug: apchem-u07-exam-q15
+    type: multiple_choice
+    topic_code: "7.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      For 2 SO₂(g) + O₂(g) ⇌ 2 SO₃(g), K = 36 at a certain temperature. What is K for SO₂(g) + ½ O₂(g) ⇌ SO₃(g) at the same temperature?
+    options:
+      - "18"
+      - "6.0"
+      - "1,296"
+      - "0.028"
+    option_explanations:
+      - |
+        Halving the equation does not halve K; the exponents are halved, so K is raised to the ½ power.
+      - |
+        Correct. Multiplying every coefficient by ½ gives K' = K^½ = √36 = 6.0.
+      - |
+        1,296 is K², which would apply to doubling the equation.
+      - |
+        0.028 is 1/36, the constant for the reverse of the original reaction.
+    answer: 1
+    explanation: |
+      Practice 5. Scaling an equation by n raises K to the power n.
+
+  - slug: apchem-u07-exam-q16
+    type: multiple_choice
+    topic_code: "7.7"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      For A(g) ⇌ B(g) + C(g) with [A]₀ = 0.100 M, in which case must the quadratic formula be used rather than the small-x approximation?
+    options:
+      - "K = 1.0 × 10⁻⁸"
+      - "K = 1.0 × 10⁻⁶"
+      - "K = 1.0 × 10⁻¹"
+      - "K = 1.0 × 10⁻¹⁰"
+    option_explanations:
+      - |
+        x = √(1.0 × 10⁻⁹) = 3.2 × 10⁻⁵ M, 0.03% of 0.100 M: the approximation is excellent.
+      - |
+        x = √(1.0 × 10⁻⁷) = 3.2 × 10⁻⁴ M, 0.3% of 0.100 M: fine.
+      - |
+        Correct. The approximation gives x = √(0.010) = 0.10 M, which is 100% of the initial concentration and fails the 5% test; the quadratic x² + 0.1x − 0.01 = 0 gives x = 0.062 M.
+      - |
+        x = √(1.0 × 10⁻¹¹) = 3.2 × 10⁻⁶ M, negligible against 0.100 M.
+    answer: 2
+    explanation: |
+      Practice 5. When K is comparable to the initial concentration, x is not small.
+
+  - slug: apchem-u07-exam-q17
+    type: multiple_choice
+    topic_code: "7.8"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Figure description: a bar chart shows initial and equilibrium concentrations for a reaction in a sealed flask. Species A: initial 0.60 M, equilibrium 0.40 M. Species B: initial 0, equilibrium 0.40 M. Species C: initial 0, equilibrium 0.20 M. Which equation is consistent with the chart?
+    options:
+      - "A ⇌ B + C"
+      - "2 A ⇌ B + C"
+      - "A ⇌ 2 B + C"
+      - "2 A ⇌ 2 B + 2 C"
+    option_explanations:
+      - |
+        A fell by 0.20 M while B rose by 0.40 M; a 1:1 ratio between A and B would need equal changes.
+      - |
+        2 A ⇌ B + C would make A change twice as much as B; here A changed half as much as B.
+      - |
+        Correct. Changes: A −0.20 M, B +0.40 M, C +0.20 M, in the ratio 1:2:1; the only equation among the choices with A:B:C coefficients in that ratio is A ⇌ 2 B + C.
+      - |
+        2 A ⇌ 2 B + 2 C is a 1:1:1 ratio, inconsistent with B changing twice as much as A.
+    answer: 2
+    explanation: |
+      Practice 1 and 4. Changes in concentration are proportional to the coefficients.
+
+  - slug: apchem-u07-exam-q18
+    type: multiple_choice
+    topic_code: "7.9"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      For 2 NO₂(g) ⇌ N₂O₄(g), ΔH° = −57 kJ/mol, which change shifts the equilibrium toward NO₂?
+    options:
+      - "Decreasing the volume of the container"
+      - "Lowering the temperature"
+      - "Adding a catalyst"
+      - "Raising the temperature"
+    option_explanations:
+      - |
+        Decreasing the volume favours the side with fewer gas moles, N₂O₄.
+      - |
+        Lowering the temperature favours the exothermic (forward) direction, toward N₂O₄.
+      - |
+        A catalyst leaves the equilibrium position unchanged.
+      - |
+        Correct. The forward reaction is exothermic, so heat is a product; raising the temperature pushes the reaction toward reactants (NO₂), and K decreases.
+    answer: 3
+    explanation: |
+      Practice 6. Heating favours the endothermic direction, here the reverse.
+
+  - slug: apchem-u07-exam-q19
+    type: multiple_choice
+    topic_code: "7.10"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      An equilibrium mixture of H₂(g) + Cl₂(g) ⇌ 2 HCl(g) is compressed to one third of its volume at constant temperature. Which statement is correct?
+    options:
+      - "No net reaction occurs, because Q is unchanged: every concentration triples, and the factors of 3 cancel in [HCl]²/([H₂][Cl₂])."
+      - "The reaction shifts toward HCl, because the pressure increased."
+      - "The reaction shifts toward H₂ and Cl₂, because there are more reactant molecules."
+      - "K decreases by a factor of 3, so the reverse reaction proceeds."
+    option_explanations:
+      - |
+        Correct. With Δn(gas) = 0, Q = (3[HCl])²/((3[H₂])(3[Cl₂])) = 9/9 × old Q = K; the system is still at equilibrium.
+      - |
+        A pressure increase shifts an equilibrium only when the two sides have different numbers of gas moles; here both sides have 2.
+      - |
+        The number of molecules is the same on both sides (2 and 2), so there is no side with fewer moles to favour.
+      - |
+        K depends only on temperature; it is unchanged by compression.
+    answer: 0
+    explanation: |
+      Practice 6. Volume changes have no effect when Δn(gas) = 0.
+
+  - slug: apchem-u07-exam-q20
+    type: multiple_choice
+    topic_code: "7.11"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Aluminium hydroxide dissolves according to Al(OH)₃(s) ⇌ Al³⁺(aq) + 3 OH⁻(aq). If its molar solubility is s, which expression gives Ksp?
+    options:
+      - "Ksp = s²"
+      - "Ksp = 3s⁴"
+      - "Ksp = 4s³"
+      - "Ksp = 27s⁴"
+    option_explanations:
+      - |
+        s² applies to a 1:1 salt such as AgCl, where each formula unit gives one of each ion.
+      - |
+        The 3 in (3s)³ is cubed: 3³ = 27, not 3.
+      - |
+        4s³ applies to a 1:2 or 2:1 salt such as Ca(OH)₂ or Ag₂CrO₄.
+      - |
+        Correct. [Al³⁺] = s and [OH⁻] = 3s, so Ksp = (s)(3s)³ = 27s⁴.
+    answer: 3
+    explanation: |
+      Practice 5. Each ion's concentration is its coefficient times s, raised to the coefficient.
+
+  - slug: apchem-u07-exam-q21
+    type: multiple_choice
+    topic_code: "7.12"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Silver chromate, Ag₂CrO₄, has Ksp = 1.1 × 10⁻¹². In which solution is its molar solubility lowest?
+    options:
+      - "0.10 M AgNO₃"
+      - "0.10 M K₂CrO₄"
+      - "Pure water"
+      - "0.10 M KNO₃"
+    option_explanations:
+      - |
+        Correct. With [Ag⁺] = 0.10 M fixed, Ksp = (0.10)²[CrO₄²⁻] gives s = 1.1 × 10⁻¹²/0.010 = 1.1 × 10⁻¹⁰ M. The silver ion is squared in Ksp, so it suppresses solubility most.
+      - |
+        With [CrO₄²⁻] = 0.10 M, Ksp = (2s)²(0.10) gives s = √(1.1 × 10⁻¹²/0.40) = 1.7 × 10⁻⁶ M, lower than in water but far above the AgNO₃ case.
+      - |
+        In pure water s = ∛(Ksp/4) = 6.5 × 10⁻⁵ M, the largest value.
+      - |
+        K⁺ and NO₃⁻ are not ions of silver chromate; there is no common-ion effect and the solubility is essentially the pure-water value.
+    answer: 0
+    explanation: |
+      Practice 5. The common ion with the larger exponent in Ksp lowers solubility more.
+
+  - slug: apchem-u07-exam-q22
+    type: multiple_choice
+    topic_code: "7.13"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      How does raising the pH of a solution affect the solubility of Ca(OH)₂, and why?
+    options:
+      - "It increases, because OH⁻ reacts with Ca²⁺ to form a soluble complex."
+      - "It is unchanged, because Ksp does not depend on pH."
+      - "It decreases, because the added OH⁻ is a common ion and the equilibrium shifts toward the solid."
+      - "It increases, because a higher pH means fewer H⁺ ions to compete with Ca²⁺."
+    option_explanations:
+      - |
+        Calcium forms no significant hydroxide complex; the added hydroxide drives precipitation, not dissolving.
+      - |
+        Ksp is indeed unchanged, but the solubility is not: with [OH⁻] fixed higher, less Ca²⁺ can be present before Q = Ksp.
+      - |
+        Correct. Raising the pH raises [OH⁻]; Q = [Ca²⁺][OH⁻]² exceeds Ksp unless [Ca²⁺] falls, so solubility drops (s = Ksp/[OH⁻]²).
+      - |
+        H⁺ does not compete with Ca²⁺; the only role of H⁺ is to remove OH⁻, which happens at low pH and increases solubility.
+    answer: 2
+    explanation: |
+      Practice 6. For a hydroxide, high pH is the common-ion effect; low pH removes the anion.
+
+  - slug: apchem-u07-exam-q23
+    type: multiple_choice
+    topic_code: "7.14"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A dissolution reaction has ΔG° = −5.7 kJ/mol at 298 K. Which value of K at 298 K is consistent with this? (R = 8.314 J/(mol·K))
+    options:
+      - "K ≈ 0.10"
+      - "K ≈ 10"
+      - "K ≈ 1.0"
+      - "K ≈ 5.7"
+    option_explanations:
+      - |
+        0.10 would correspond to ΔG° = +5.7 kJ/mol; a negative ΔG° requires K > 1.
+      - |
+        Correct. K = e^(−ΔG°/RT) = e^(5,700/(8.314 × 298)) = e^(2.30) = 10.
+      - |
+        K = 1 corresponds to ΔG° = 0 exactly; a negative ΔG° requires K greater than 1.
+      - |
+        The number 5.7 is the magnitude of ΔG° in kJ, not K; K comes from the exponential.
+    answer: 1
+    explanation: |
+      Practice 5. ΔG° = −RT ln K; each −5.7 kJ/mol at 298 K is one factor of 10 in K.
+
+  - slug: apchem-u07-exam-q24
+    type: multiple_choice
+    topic_code: "5.11"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Why does a catalyst not change the equilibrium constant of a reaction?
+    options:
+      - "It lowers the activation energy of the forward and reverse reactions by the same amount, so both rate constants increase by the same factor and their ratio is unchanged."
+      - "It lowers only the forward activation energy, but the effect on K is too small to measure."
+      - "It is consumed as the reaction reaches equilibrium."
+      - "It changes ΔH of the reaction to zero, so temperature no longer matters."
+    option_explanations:
+      - |
+        Correct. The catalysed pathway has one lower energy maximum between unchanged reactant and product energies; k(forward)/k(reverse) = K is the same.
+      - |
+        A catalyst that lowered only the forward barrier would change K, which is thermodynamically impossible; it lowers both equally.
+      - |
+        A catalyst is regenerated, not consumed.
+      - |
+        ΔH is set by the reactant and product energies, which a catalyst does not touch.
+    answer: 0
+    explanation: |
+      Practice 6 (review of 5.11). K is thermodynamic; a catalyst is kinetic.
+
+  - slug: apchem-u07-exam-q25
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A 2.00 L flask at 400 K contains 0.100 mol N₂O₄ and 0.200 mol NO₂. What is the partial pressure of NO₂? (R = 0.08206 L·atm/(mol·K))
+    options:
+      - "1.64 atm"
+      - "4.92 atm"
+      - "0.82 atm"
+      - "3.28 atm"
+    option_explanations:
+      - |
+        1.64 atm is the partial pressure of N₂O₄ (0.100 mol); NO₂ has twice the moles.
+      - |
+        4.92 atm is the total pressure of 0.300 mol; the partial pressure of NO₂ alone uses 0.200 mol.
+      - |
+        0.82 atm results from using 0.100 mol and a 4.00 L volume; check both inputs.
+      - |
+        Correct. P = nRT/V = (0.200)(0.08206)(400)/2.00 = 3.28 atm. These partial pressures are what go into a Kp expression.
+    answer: 3
+    explanation: |
+      Practice 5 (review of 3.4). Each gas's partial pressure follows from its own moles.
+
+  - slug: apchem-u07-exam-q26
+    type: multiple_choice
+    topic_code: "6.9"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Reaction 1 has ΔH₁ = −50 kJ and K₁ = 1.0 × 10³; reaction 2 has ΔH₂ = +20 kJ and K₂ = 2.0 × 10⁻². For the overall reaction obtained by adding reactions 1 and 2, which pair of values is correct?
+    options:
+      - "ΔH = −30 kJ and K = 5.0 × 10⁴"
+      - "ΔH = −30 kJ and K = 1.0 × 10³"
+      - "ΔH = −70 kJ and K = 20"
+      - "ΔH = −30 kJ and K = 20"
+    option_explanations:
+      - |
+        5.0 × 10⁴ is K₁/K₂, which would apply if reaction 2 were reversed before adding.
+      - |
+        ΔH is right, but K must be the product of the two constants, not the first alone.
+      - |
+        Adding −50 and +20 gives −30 kJ, not −70 kJ.
+      - |
+        Correct. Enthalpies add by Hess's law: −50 + 20 = −30 kJ. Equilibrium constants multiply: (1.0 × 10³)(2.0 × 10⁻²) = 20.
+    answer: 3
+    explanation: |
+      Practice 5 (review of 6.9). State-function quantities add; constants multiply.
+
+  - slug: apchem-u07-exam-q27
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Solutions of barium chloride and sodium sulfate are mixed, and a white precipitate forms. Which is the correct net ionic equation?
+    options:
+      - "BaCl₂(aq) + Na₂SO₄(aq) → BaSO₄(s) + 2 NaCl(aq)"
+      - "Ba²⁺(aq) + SO₄²⁻(aq) → BaSO₄(s)"
+      - "Na⁺(aq) + Cl⁻(aq) → NaCl(s)"
+      - "Ba²⁺(aq) + 2 Cl⁻(aq) + 2 Na⁺(aq) + SO₄²⁻(aq) → BaSO₄(s) + 2 Na⁺(aq) + 2 Cl⁻(aq)"
+    option_explanations:
+      - |
+        This is the molecular equation; the spectator ions have not been separated and removed.
+      - |
+        Correct. Only the ions that form the sparingly soluble solid (Ksp = 1.1 × 10⁻¹⁰) appear; Na⁺ and Cl⁻ are spectators.
+      - |
+        Sodium chloride is soluble; it does not precipitate.
+      - |
+        This is the complete ionic equation; cancelling the spectator ions gives the net ionic equation.
+    answer: 1
+    explanation: |
+      Practice 2 (review of 4.2). The precipitate's formation is the reverse of its Ksp dissolution.
+
+  # ---- Select all
+  - slug: apchem-u07-exam-q28
+    type: multi_select
+    topic_code: "7.9"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      For the endothermic reaction CaCO₃(s) ⇌ CaO(s) + CO₂(g), which changes increase the amount of CO₂ at equilibrium? Select all that apply.
+    options:
+      - "Raising the temperature"
+      - "Increasing the volume of the container"
+      - "Adding more solid CaCO₃"
+      - "Removing CO₂ as it forms"
+      - "Adding argon at constant volume"
+    option_explanations:
+      - |
+        Correct. Heat is a reactant in an endothermic reaction; heating shifts the equilibrium toward CO₂ and raises K.
+      - |
+        Correct. Expansion lowers [CO₂] so Q < K; more CaCO₃ decomposes toward the side with more gas moles (1 versus 0).
+      - |
+        Solids do not appear in K = [CO₂]; adding more solid changes nothing as long as some is present.
+      - |
+        Correct. Removing the product lowers Q below K, and decomposition continues; this is how lime kilns run.
+      - |
+        Argon at constant volume leaves [CO₂] unchanged, so Q = K still.
+    answer: [0, 1, 3]
+    explanation: |
+      Practice 6. Temperature, volume and product removal move a heterogeneous equilibrium; added solid and inert gas do not.
+
+  - slug: apchem-u07-exam-q29
+    type: multi_select
+    topic_code: "7.6"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about Q and K are correct? Select all that apply.
+    options:
+      - "Q can be calculated for any mixture, whether or not it is at equilibrium."
+      - "If Q < K, the reaction proceeds in the forward direction until Q = K."
+      - "K for a reaction and K for its reverse are reciprocals."
+      - "K changes when a reactant is added at constant temperature."
+      - "Adding two equations multiplies their K values."
+      - "A larger K always means a faster reaction."
+    option_explanations:
+      - |
+        Correct. Q has the same form as K but uses whatever concentrations are present.
+      - |
+        Correct. Q below K means too little product; the forward reaction raises Q.
+      - |
+        Correct. Reversing the equation inverts the mass-action ratio.
+      - |
+        K depends on temperature only; adding reactant changes Q.
+      - |
+        Correct. The concentrations of the cancelled intermediate drop out when the expressions are multiplied.
+      - |
+        K is about extent, not rate; rate depends on the activation energy.
+    answer: [0, 1, 2, 4]
+    explanation: |
+      Practice 6. Q is the diagnostic; K is the fixed target at a given temperature.
+
+  - slug: apchem-u07-exam-q30
+    type: multi_select
+    topic_code: "7.13"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of the following salts are more soluble in acidic solution than in pure water? Select all that apply.
+    options:
+      - "Mg(OH)₂"
+      - "AgI"
+      - "CaCO₃"
+      - "PbSO₄"
+      - "CaF₂"
+    option_explanations:
+      - |
+        Correct. Hydroxide is neutralised by H⁺, removing it from the Ksp equilibrium.
+      - |
+        Iodide is the conjugate base of the strong acid HI; it does not react with H⁺.
+      - |
+        Correct. Carbonate reacts with H⁺ to give CO₂ and water.
+      - |
+        Sulfate is only a very weak base (HSO₄⁻ is a fairly strong acid), so acid has little effect.
+      - |
+        Correct. Fluoride is the conjugate base of the weak acid HF and is protonated by H⁺.
+    answer: [0, 2, 4]
+    explanation: |
+      Practice 6. Weak-acid anions are removed by acid, shifting the dissolving equilibrium right.
+
+  # ---- True/false
+  - slug: apchem-u07-exam-q31
+    type: true_false
+    topic_code: "7.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: at equilibrium the concentrations of reactants and products must be equal to each other.
+    answer: false
+    explanation: |
+      False. Equilibrium means the concentrations are constant, because the forward and reverse rates are equal; the concentrations themselves are set by K and are usually very different. For K = 50, H₂ + I₂ ⇌ 2 HI gives [HI] seven times [H₂].
+
+  - slug: apchem-u07-exam-q32
+    type: true_false
+    topic_code: "7.12"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: the Ksp of silver chloride is the same in 0.10 M NaCl as in pure water, even though far less AgCl dissolves in the NaCl solution.
+    answer: true
+    explanation: |
+      True. Ksp is an equilibrium constant and depends only on temperature. The common ion lowers the molar solubility (from 1.3 × 10⁻⁵ M to 1.8 × 10⁻⁹ M) because the product [Ag⁺][Cl⁻] reaches 1.8 × 10⁻¹⁰ after much less solid dissolves.
+
+  - slug: apchem-u07-exam-q33
+    type: true_false
+    topic_code: "7.14"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: a positive ΔG° for the dissolution of a salt means that none of the salt dissolves in water.
+    answer: false
+    explanation: |
+      False. A positive ΔG° means K = Ksp < 1: forming 1 M ions from the solid is unfavourable, so the salt is sparingly soluble, but some does dissolve until Q = Ksp. AgCl has ΔG° = +55.6 kJ/mol of dissolution and still dissolves to 1.3 × 10⁻⁵ M.
+
+  # ---- Fill in the blank
+  - slug: apchem-u07-exam-q34
+    type: fill_blank
+    topic_code: "7.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      The reaction quotient Q has the same algebraic form as K; the system is at ____ when Q = K.
+    answer: ["equilibrium", "chemical equilibrium", "dynamic equilibrium"]
+    explanation: |
+      Q is evaluated from the concentrations actually present; K is the value of Q at equilibrium. Q < K means the forward reaction proceeds, Q > K the reverse, and Q = K means there is no net change.
+
+  - slug: apchem-u07-exam-q35
+    type: fill_blank
+    topic_code: "7.7"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      When K is not small enough for the small-x approximation to pass the 5% test, the equilibrium equation must be solved exactly, usually with the ____ formula.
+    answer: ["quadratic", "quadratic formula", "quadratic equation"]
+    explanation: |
+      Clearing the denominator gives ax² + bx + c = 0, solved by x = [−b ± √(b² − 4ac)]/(2a). The physically meaningful root is the one that leaves every equilibrium concentration positive.
+
+  - slug: apchem-u07-exam-q36
+    type: fill_blank
+    topic_code: "7.11"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A solution in which the ion product Q for a salt exactly equals Ksp is ____, meaning it is in equilibrium with the solid and will dissolve no more.
+    answer: ["saturated", "a saturated solution", "saturated solution", "at saturation"]
+    explanation: |
+      Saturated: dissolving and precipitation occur at equal rates. Q < Ksp is unsaturated (more could dissolve); Q > Ksp is supersaturated and precipitates until Q = Ksp.
+
+  # ---- Numeric
+  - slug: apchem-u07-exam-q37
+    type: numeric
+    topic_code: "7.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A 1.00 L flask is charged with 0.500 mol of PCl₅ and heated to 500 K. At equilibrium for PCl₅(g) ⇌ PCl₃(g) + Cl₂(g), the flask contains 0.150 mol of Cl₂. Calculate Kc at 500 K. Give your answer to two significant figures.
+    answer: { value: 0.064, tolerance: 0.003 }
+    explanation: |
+      ICE: [PCl₅] = 0.500 − x, [PCl₃] = [Cl₂] = x, with x = 0.150 M. Kc = (0.150)(0.150)/(0.500 − 0.150) = 0.0225/0.350 = 0.064.
+
+  - slug: apchem-u07-exam-q38
+    type: numeric
+    topic_code: "7.7"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      For A(aq) ⇌ B(aq) + C(aq), K = 2.0 × 10⁻⁶. A solution initially 0.50 M in A reaches equilibrium. Calculate [B] in mol/L. Give your answer to two significant figures.
+    answer: { value: 0.0010, tolerance: 0.0001 }
+    explanation: |
+      K = x²/(0.50 − x) ≈ x²/0.50, so x² = 1.0 × 10⁻⁶ and x = 1.0 × 10⁻³ M = [B]. Check: 0.0010/0.50 = 0.2%, far under 5%, so the approximation is valid.
+
+  - slug: apchem-u07-exam-q39
+    type: numeric
+    topic_code: "7.14"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Ksp for AgBr is 5.4 × 10⁻¹³ at 298 K. Calculate ΔG° in kJ/mol for AgBr(s) ⇌ Ag⁺(aq) + Br⁻(aq) at 298 K (R = 8.314 J/(mol·K)). Give your answer to three significant figures.
+    answer: { value: 70.0, tolerance: 0.5 }
+    explanation: |
+      ln(5.4 × 10⁻¹³) = −28.25. ΔG° = −RT ln K = −(8.314)(298)(−28.25) = +70,000 J/mol = +70.0 kJ/mol. The large positive value corresponds to the very small Ksp: AgBr is even less soluble than AgCl (+55.6 kJ/mol).
+
+  # ---- Short answer
+  - slug: apchem-u07-exam-q40
+    type: short_answer
+    topic_code: "7.10"
+    source: "general knowledge"
+    points: 3
+    prompt: |
+      An equilibrium mixture for N₂(g) + 3 H₂(g) ⇌ 2 NH₃(g) in a 1.00 L vessel at 700 K contains [N₂] = 0.200 M, [H₂] = 0.600 M and [NH₃] = 0.100 M.
+      (a) Calculate Kc at 700 K.
+      (b) The vessel is compressed to 0.500 L at constant temperature. Calculate Q immediately after the compression.
+      (c) State the direction of the net reaction after compression and justify it with your values of Q and K.
+    answer: |
+      (a) Kc = [NH₃]²/([N₂][H₂]³) = (0.100)²/((0.200)(0.600)³) = 0.0100/(0.200 × 0.216) = 0.0100/0.0432 = 0.23.
+      (b) Every concentration doubles: [N₂] = 0.400 M, [H₂] = 1.20 M, [NH₃] = 0.200 M. Q = (0.200)²/((0.400)(1.20)³) = 0.0400/(0.400 × 1.728) = 0.0400/0.691 = 0.058.
+      (c) Q = 0.058 < K = 0.23, so the forward reaction proceeds: N₂ and H₂ combine to form NH₃ until Q rises to 0.23. This is the shift toward fewer moles of gas (4 → 2) that Le Châtelier's principle predicts.
+    explanation: |
+      Three points.
+
+      (a) 1 pt: Kc = 0.23 (accept 0.23–0.24) with the correct expression.
+      (b) 1 pt: doubled concentrations and Q = 0.058 (accept 0.057–0.059).
+      (c) 1 pt: forward direction justified by Q < K.
+
+  - slug: apchem-u07-exam-q41
+    type: short_answer
+    topic_code: "7.11"
+    source: "general knowledge"
+    points: 3
+    prompt: |
+      100.0 mL of 0.0010 M CaCl₂ is mixed with 100.0 mL of 0.0020 M NaF. Ksp for CaF₂ is 3.5 × 10⁻¹¹.
+      (a) Calculate [Ca²⁺] and [F⁻] immediately after mixing.
+      (b) Determine whether CaF₂ precipitates, showing the comparison that decides it.
+      (c) Write the net ionic equation for any precipitation and state what happens to [Ca²⁺] and [F⁻] as the system reaches equilibrium.
+    answer: |
+      (a) The volume doubles, so each concentration halves: [Ca²⁺] = 5.0 × 10⁻⁴ M; [F⁻] = 1.0 × 10⁻³ M.
+      (b) Q = [Ca²⁺][F⁻]² = (5.0 × 10⁻⁴)(1.0 × 10⁻³)² = 5.0 × 10⁻¹⁰. Q > Ksp (5.0 × 10⁻¹⁰ > 3.5 × 10⁻¹¹), so CaF₂ precipitates.
+      (c) Ca²⁺(aq) + 2 F⁻(aq) → CaF₂(s). Both concentrations fall (fluoride twice as fast as calcium) until [Ca²⁺][F⁻]² = 3.5 × 10⁻¹¹, at which point the solution is saturated and precipitation stops.
+    explanation: |
+      Three points.
+
+      (a) 1 pt: both concentrations halved on mixing.
+      (b) 1 pt: Q = 5.0 × 10⁻¹⁰ compared with Ksp and precipitation predicted.
+      (c) 1 pt: correct net ionic equation and the statement that the ion concentrations fall until Q = Ksp.
+
+  # ---- Long answer
+  - slug: apchem-u07-exam-q42
+    type: long_answer
+    topic_code: "7.7"
+    source: "general knowledge"
+    points: 6
+    prompt: |
+      Phosphorus pentachloride decomposes: PCl₅(g) ⇌ PCl₃(g) + Cl₂(g). Kc = 0.040 at 500 K and 0.50 at 600 K. A 1.00 L flask at 500 K is charged with 0.250 mol of PCl₅ and no products. (R = 0.08206 L·atm/(mol·K))
+      (a) Set up the ICE table and show that the equilibrium condition gives x² + 0.040x − 0.010 = 0.
+      (b) Explain why the small-x approximation is not acceptable here, and solve the quadratic for the equilibrium concentrations of all three gases.
+      (c) Calculate Kp at 500 K.
+      (d) The flask is then expanded to 2.00 L at 500 K. Calculate Q immediately after the expansion and state the direction of the net reaction with justification.
+      (e) Use the two Kc values to determine whether the decomposition is endothermic or exothermic, and explain your reasoning.
+      (f) Predict, with a Q-based justification, how the percentage of PCl₅ that is decomposed at equilibrium would change if additional Cl₂ were injected into the original equilibrium mixture at 500 K.
+    answer: |
+      (a) Initial: [PCl₅] = 0.250 M, [PCl₃] = [Cl₂] = 0. Change: −x, +x, +x. Equilibrium: 0.250 − x, x, x. Kc = x²/(0.250 − x) = 0.040 → x² = 0.010 − 0.040x → x² + 0.040x − 0.010 = 0.
+      (b) The approximation x² ≈ 0.010 gives x = 0.10 M, which is 40% of 0.250 M, far over 5%; K is not small relative to the initial concentration. Quadratic: x = [−0.040 + √(0.0016 + 0.040)]/2 = (−0.040 + 0.204)/2 = 0.082 M. [PCl₃] = [Cl₂] = 0.082 M; [PCl₅] = 0.250 − 0.082 = 0.168 M. Check: (0.082)²/0.168 = 0.040.
+      (c) Δn = 2 − 1 = +1, so Kp = Kc(RT) = 0.040 × 0.08206 × 500 = 1.6.
+      (d) Doubling the volume halves each concentration: [PCl₅] = 0.084 M, [PCl₃] = [Cl₂] = 0.041 M. Q = (0.041)²/0.084 = 0.00168/0.084 = 0.020. Q < K (0.020 < 0.040), so the forward reaction proceeds: more PCl₅ decomposes, toward the side with more moles of gas.
+      (e) Kc rises from 0.040 at 500 K to 0.50 at 600 K: a higher temperature favours the products, so heat behaves as a reactant and the decomposition is endothermic (ΔH > 0).
+      (f) Injecting Cl₂ raises [Cl₂] and therefore Q above K; the reverse reaction proceeds, consuming PCl₃ and some of the added Cl₂ and re-forming PCl₅. The percentage of the original PCl₅ decomposed at the new equilibrium is lower than before (a common-ion-style suppression), though Kc is unchanged.
+    explanation: |
+      Six points.
+
+      (a) 1 pt: ICE table and derivation of x² + 0.040x − 0.010 = 0.
+      (b) 1 pt: approximation rejected (x would be 40% of initial) and x = 0.082 M with [PCl₅] = 0.168 M, [PCl₃] = [Cl₂] = 0.082 M (accept 0.081–0.083).
+      (c) 1 pt: Kp = 1.6 (accept 1.6–1.7) with Δn = +1.
+      (d) 1 pt: Q = 0.020 < K, forward direction.
+      (e) 1 pt: endothermic because K increases with temperature.
+      (f) 1 pt: Q > K, reverse shift, smaller percentage decomposed, K unchanged.

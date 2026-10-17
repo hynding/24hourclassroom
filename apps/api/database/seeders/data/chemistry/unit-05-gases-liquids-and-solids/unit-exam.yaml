@@ -1,0 +1,892 @@
+unit: 5
+description: |
+  40 questions · about 75 minutes · every topic of unit 5 (5.1 to 5.6: kinetic molecular theory, pressure, the gas
+  laws, gas stoichiometry, Dalton's law, phase changes, vapour pressure and phase diagrams), with review of
+  temperature and energy (1.6), intermolecular forces (3.6) and the mole and stoichiometry (4.4, 4.6). Two data
+  sets (a weather balloon and a gas collected over water) each carry three questions. Multiple choice, select-all,
+  true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the short
+  answers and the long answer are graded by your teacher against the scoring notes. Constants: R = 0.08206
+  L·atm/(mol·K) = 8.314 L·kPa/(mol·K); 1 atm = 101.3 kPa = 760 torr; water c = 4.184 J/(g·°C), ΔH_fus = 334 J/g,
+  ΔH_vap = 2,260 J/g.
+questions:
+  # ---- Stimulus set A: a weather balloon (5.3, 5.1)
+  - slug: chem-u05-exam-q01
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A weather balloon is filled with helium on the ground, where the pressure is 1.00 atm and the temperature is 20 °C, to a volume of 1,000 L. It rises to an altitude where the pressure is 0.250 atm and the temperature is −50 °C. The balloon's thin envelope keeps the gas inside at the same pressure as the air outside.
+    prompt: |
+      What is the volume of the balloon at altitude?
+    options:
+      - "4,000 L"
+      - "3,040 L"
+      - "250 L"
+      - "10,000 L"
+    option_explanations:
+      - |
+        4,000 L accounts for the pressure drop (×4) but ignores the cooling, which shrinks the gas by 223/293.
+      - |
+        Correct. V₂ = V₁ × (P₁/P₂) × (T₂/T₁) = 1,000 × (1.00/0.250) × (223/293) = 1,000 × 4 × 0.761 = 3,040 L.
+      - |
+        250 L has the pressure ratio upside down; a drop in external pressure must let the balloon expand.
+      - |
+        10,000 L would need a pressure ratio of about 13; neither change is that large.
+    answer: 1
+
+  - slug: chem-u05-exam-q02
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A weather balloon is filled with helium on the ground, where the pressure is 1.00 atm and the temperature is 20 °C, to a volume of 1,000 L. It rises to an altitude where the pressure is 0.250 atm and the temperature is −50 °C. The balloon's thin envelope keeps the gas inside at the same pressure as the air outside.
+    prompt: |
+      How many moles of helium are in the balloon?
+    options:
+      - "609 mol"
+      - "44.6 mol"
+      - "41.6 mol"
+      - "0.0416 mol"
+    option_explanations:
+      - |
+        609 mol comes from using 20 K instead of 293 K; the temperature must be in kelvin.
+      - |
+        44.6 mol is 1,000 L ÷ 22.4 L/mol, which assumes STP; the balloon was filled at 20 °C, not 0 °C.
+      - |
+        Correct. n = PV/(RT) = (1.00 atm × 1,000 L)/(0.08206 × 293 K) = 1,000/24.04 = 41.6 mol.
+      - |
+        0.0416 mol would be the answer for 1.00 L, not 1,000 L.
+    answer: 2
+
+  - slug: chem-u05-exam-q03
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A weather balloon is filled with helium on the ground, where the pressure is 1.00 atm and the temperature is 20 °C, to a volume of 1,000 L. It rises to an altitude where the pressure is 0.250 atm and the temperature is −50 °C. The balloon's thin envelope keeps the gas inside at the same pressure as the air outside.
+    prompt: |
+      Using kinetic molecular theory, which statement best explains why the balloon expands as it rises?
+    options:
+      - "The helium atoms absorb energy from sunlight and move faster."
+      - "The helium atoms become larger at low pressure."
+      - "With less air pressure pushing inward, the helium atoms' collisions push the envelope outward until the inside pressure has fallen to match."
+      - "The cold air outside pulls the helium atoms apart."
+    option_explanations:
+      - |
+        The gas actually cools as it rises; the expansion is driven by the falling external pressure, not by faster atoms.
+      - |
+        Atoms do not change size; the space between them increases.
+      - |
+        Correct. The envelope moves outward until the rate of helium collisions per unit area inside equals the reduced air pressure outside; a larger volume means fewer collisions per unit area.
+      - |
+        Cooling makes a gas contract, and KMT includes no attractions between the outside air and the helium.
+    answer: 2
+
+  # ---- Stimulus set B: oxygen collected over water (5.4, 5.6)
+  - slug: chem-u05-exam-q04
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "NIST Chemistry WebBook (vapour pressure of water)"
+    points: 1
+    stimulus: |
+      Hydrogen peroxide decomposes in the presence of a catalyst: 2 H₂O₂(aq) → 2 H₂O(l) + O₂(g). A student decomposes 0.0200 mol of H₂O₂ and collects the oxygen over water at 25 °C. After levelling the water, the gas volume is 248 mL and the barometer reads 765 torr.
+
+      | Temperature (°C) | Vapour pressure of water (torr) |
+      |---|---|
+      | 20 | 17.5 |
+      | 25 | 23.8 |
+      | 30 | 31.8 |
+    prompt: |
+      What is the partial pressure of the oxygen in the collected gas?
+    options:
+      - "741 torr"
+      - "765 torr"
+      - "789 torr"
+      - "747 torr"
+    option_explanations:
+      - |
+        Correct. P_O₂ = 765 − 23.8 = 741.2 torr; the water vapour at 25 °C accounts for the rest of the total.
+      - |
+        765 torr is the total pressure of oxygen plus water vapour, not the oxygen alone.
+      - |
+        Adding the vapour pressure is backwards; the water vapour is part of the 765 torr.
+      - |
+        747 torr would be the result of subtracting the 20 °C value (17.5 torr); the gas was collected at 25 °C.
+    answer: 0
+
+  - slug: chem-u05-exam-q05
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "NIST Chemistry WebBook (vapour pressure of water)"
+    points: 1
+    stimulus: |
+      Hydrogen peroxide decomposes in the presence of a catalyst: 2 H₂O₂(aq) → 2 H₂O(l) + O₂(g). A student decomposes 0.0200 mol of H₂O₂ and collects the oxygen over water at 25 °C. After levelling the water, the gas volume is 248 mL and the barometer reads 765 torr.
+
+      | Temperature (°C) | Vapour pressure of water (torr) |
+      |---|---|
+      | 20 | 17.5 |
+      | 25 | 23.8 |
+      | 30 | 31.8 |
+    prompt: |
+      What volume of oxygen, at the corrected pressure of 741 torr and 25 °C, should the 0.0200 mol of H₂O₂ produce in theory?
+    options:
+      - "502 mL"
+      - "224 mL"
+      - "251 mL"
+      - "448 mL"
+    option_explanations:
+      - |
+        502 mL assumes 0.0200 mol of O₂, but the equation gives one O₂ for every two H₂O₂, so only 0.0100 mol forms.
+      - |
+        224 mL is 0.0100 mol × 22.4 L/mol, the STP volume; the gas is at 25 °C and 0.975 atm.
+      - |
+        Correct. 0.0100 mol O₂; V = nRT/P = (0.0100 × 0.08206 × 298)/(741/760) = 0.2445/0.975 = 0.251 L = 251 mL. The 248 mL collected is a 98.8% yield.
+      - |
+        448 mL is 0.0200 mol × 22.4 L/mol: wrong mole ratio and wrong conditions.
+    answer: 2
+
+  - slug: chem-u05-exam-q06
+    type: multiple_choice
+    topic_code: "5.6"
+    source: "NIST Chemistry WebBook (vapour pressure of water)"
+    points: 1
+    stimulus: |
+      Hydrogen peroxide decomposes in the presence of a catalyst: 2 H₂O₂(aq) → 2 H₂O(l) + O₂(g). A student decomposes 0.0200 mol of H₂O₂ and collects the oxygen over water at 25 °C. After levelling the water, the gas volume is 248 mL and the barometer reads 765 torr.
+
+      | Temperature (°C) | Vapour pressure of water (torr) |
+      |---|---|
+      | 20 | 17.5 |
+      | 25 | 23.8 |
+      | 30 | 31.8 |
+    prompt: |
+      The table shows water's vapour pressure rising from 17.5 torr to 31.8 torr between 20 °C and 30 °C. Which explanation of this trend is correct?
+    options:
+      - "Warmer water has more molecules, so more of them evaporate."
+      - "At higher temperature a larger fraction of the surface molecules have enough kinetic energy to escape the liquid's intermolecular attractions, so the equilibrium vapour pressure is higher."
+      - "Hydrogen bonds become stronger as water warms, pushing molecules into the vapour."
+      - "The air above the water expands and draws water vapour out of the liquid."
+    option_explanations:
+      - |
+        The number of water molecules does not change with temperature; what changes is the share of them that can escape.
+      - |
+        Correct. Vapour pressure is set by the balance of escape and return; a hotter liquid has more high-energy molecules, so escape wins until a higher vapour pressure restores the balance.
+      - |
+        Hydrogen bonds are overcome more easily, not strengthened, at higher temperature.
+      - |
+        Vapour pressure is a property of the liquid alone and is the same with or without air above it.
+    answer: 1
+
+  # ---- Kinetic molecular theory and pressure (5.1)
+  - slug: chem-u05-exam-q07
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A gas in a sealed container is cooled. According to kinetic molecular theory, which quantity decreases?
+    options:
+      - "The number of gas particles"
+      - "The size of each gas particle"
+      - "The mass of each gas particle"
+      - "The average kinetic energy of the particles"
+    option_explanations:
+      - |
+        A sealed container holds a fixed number of particles; cooling does not remove any.
+      - |
+        Particle size is fixed; KMT treats it as negligible in any case.
+      - |
+        Mass is a property of the molecule and does not depend on temperature.
+      - |
+        Correct. Average kinetic energy is proportional to kelvin temperature, so cooling slows the particles on average and the pressure falls.
+    answer: 3
+
+  - slug: chem-u05-exam-q08
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A pressure of 2.50 atm is equal to
+    options:
+      - "253 kPa"
+      - "304 torr"
+      - "25.0 kPa"
+      - "1,900 kPa"
+    option_explanations:
+      - |
+        Correct. 2.50 atm × 101.3 kPa/atm = 253 kPa.
+      - |
+        304 torr is 0.400 atm; 2.50 atm is 1,900 torr.
+      - |
+        25.0 kPa is about a quarter of an atmosphere, not two and a half.
+      - |
+        1,900 is the value in torr (2.50 × 760), not kPa.
+    answer: 0
+
+  # ---- Simple gas laws (5.2)
+  - slug: chem-u05-exam-q09
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A gas occupies 1.20 L at 300 K. At what temperature will it occupy 1.80 L at the same pressure?
+    options:
+      - "200 K"
+      - "450 K"
+      - "177 K"
+      - "650 K"
+    option_explanations:
+      - |
+        200 K is what the inverted ratio (1.20/1.80) gives; a larger volume at constant pressure needs a higher temperature.
+      - |
+        Correct. Charles's law: T₂ = T₁ × V₂/V₁ = 300 K × 1.80/1.20 = 450 K.
+      - |
+        177 K comes from treating the relationship as inverse, as in Boyle's law.
+      - |
+        650 K would be the result of adding instead of multiplying; the ratio of volumes is only 1.5.
+    answer: 1
+
+  - slug: chem-u05-exam-q10
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which graph would be a straight line through the origin for a fixed amount of gas at constant temperature?
+    options:
+      - "Pressure against volume"
+      - "Volume against Celsius temperature"
+      - "Pressure against 1/volume"
+      - "Pressure against kelvin temperature"
+    option_explanations:
+      - |
+        At constant temperature P against V is a falling curve (a hyperbola), since PV is constant.
+      - |
+        Volume against temperature is a straight line, but it crosses the axis at −273 °C, not at the origin, and the temperature was held constant here.
+      - |
+        Correct. Boyle's law P = k/V means P is directly proportional to 1/V, which plots as a straight line through the origin.
+      - |
+        Pressure against kelvin temperature is a line through the origin at constant volume (Gay-Lussac), but this question holds temperature constant.
+    answer: 2
+
+  # ---- Ideal gas law (5.3)
+  - slug: chem-u05-exam-q11
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A 5.00 L flask contains 0.200 mol of nitrogen at 300 K. What is the pressure in kPa?
+    options:
+      - "9.85 kPa"
+      - "0.985 kPa"
+      - "99.8 kPa"
+      - "49.9 kPa"
+    option_explanations:
+      - |
+        9.85 would be the answer if R = 0.08206 were used with the result labelled kPa; 0.985 atm is 99.8 kPa.
+      - |
+        0.985 is the pressure in atm, not in kPa.
+      - |
+        Correct. P = nRT/V = (0.200 × 8.314 × 300)/5.00 = 498.8/5.00 = 99.8 kPa, just under one atmosphere.
+      - |
+        49.9 kPa would be the pressure in a 10.0 L flask, double the stated volume.
+    answer: 2
+
+  - slug: chem-u05-exam-q12
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which gas has the greatest density at 25 °C and 1.00 atm?
+    options:
+      - "Helium, He (4.00 g/mol)"
+      - "Nitrogen, N₂ (28.02 g/mol)"
+      - "Methane, CH₄ (16.04 g/mol)"
+      - "Sulfur dioxide, SO₂ (64.06 g/mol)"
+    option_explanations:
+      - |
+        Helium has the smallest molar mass here and so the smallest density (0.164 g/L).
+      - |
+        Nitrogen's density (1.15 g/L) is close to air's but well below sulfur dioxide's.
+      - |
+        Methane (0.656 g/L) is lighter than air, which is why it rises and collects at ceilings.
+      - |
+        Correct. d = PM/(RT); at the same P and T, density is proportional to molar mass, and SO₂ (2.62 g/L) has the largest.
+    answer: 3
+
+  - slug: chem-u05-exam-q13
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Two identical rigid containers at the same temperature hold 1.0 mol of hydrogen and 1.0 mol of carbon dioxide respectively. Which statement is correct?
+    options:
+      - "The hydrogen container has the higher pressure because its molecules move faster."
+      - "The two containers have the same pressure."
+      - "The carbon dioxide container has the higher pressure because its molecules are heavier."
+      - "The carbon dioxide container has the lower pressure because its molecules are larger."
+    option_explanations:
+      - |
+        Faster but lighter molecules deliver the same average force per collision as slower, heavier ones at the same temperature.
+      - |
+        Correct. P = nRT/V contains no property of the gas itself; equal n, V and T give equal P (Avogadro's law).
+      - |
+        Mass does not enter the ideal gas law; pressure depends on the number of particles and their kinetic energy.
+      - |
+        Molecular size is negligible in an ideal gas and would make only a tiny difference even for a real gas at 1 atm.
+    answer: 1
+
+  # ---- Gas stoichiometry and Dalton's law (5.4)
+  - slug: chem-u05-exam-q14
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Nitrogen and hydrogen form ammonia: N₂(g) + 3 H₂(g) → 2 NH₃(g). What volume of hydrogen reacts completely with 4.0 L of nitrogen at the same temperature and pressure?
+    options:
+      - "4.0 L"
+      - "8.0 L"
+      - "1.3 L"
+      - "12 L"
+    option_explanations:
+      - |
+        4.0 L would be a 1:1 ratio; the equation needs three hydrogens for each nitrogen.
+      - |
+        8.0 L is the volume of ammonia formed, not the hydrogen consumed.
+      - |
+        1.3 L has the ratio upside down (1/3 instead of 3).
+      - |
+        Correct. Gas volumes at the same conditions follow the coefficients: 4.0 L × 3 = 12 L of H₂.
+    answer: 3
+
+  - slug: chem-u05-exam-q15
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A scuba tank is filled with a mixture that is 32% oxygen and 68% nitrogen by moles at a total pressure of 200 atm. What is the partial pressure of oxygen in the tank?
+    options:
+      - "64 atm"
+      - "136 atm"
+      - "32 atm"
+      - "0.32 atm"
+    option_explanations:
+      - |
+        Correct. P_O₂ = X_O₂ × P_total = 0.32 × 200 atm = 64 atm.
+      - |
+        136 atm is the partial pressure of the nitrogen (0.68 × 200).
+      - |
+        32 is the percentage, not the partial pressure; it must be applied to the 200 atm total.
+      - |
+        0.32 atm would be the oxygen partial pressure if the total were 1.00 atm.
+    answer: 0
+
+  # ---- Phase changes and heating curves (5.5)
+  - slug: chem-u05-exam-q16
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which of the following phase changes releases energy to the surroundings?
+    options:
+      - "Melting"
+      - "Condensation"
+      - "Sublimation"
+      - "Vaporisation"
+    option_explanations:
+      - |
+        Melting absorbs the heat of fusion to loosen the solid's structure.
+      - |
+        Correct. Condensation is gas to liquid; attractions form between the molecules and the heat of vaporisation is released, which is what makes a steam burn so severe.
+      - |
+        Sublimation (solid to gas) absorbs energy, often a great deal, since it breaks the structure completely.
+      - |
+        Vaporisation absorbs the heat of vaporisation; evaporation cools the liquid left behind.
+    answer: 1
+
+  - slug: chem-u05-exam-q17
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "NIST Chemistry WebBook (water data)"
+    points: 1
+    prompt: |
+      How much energy is needed to melt 50.0 g of ice at 0 °C (ΔH_fus = 334 J/g)?
+    options:
+      - "6.68 J"
+      - "334 J"
+      - "113,000 J"
+      - "16,700 J"
+    option_explanations:
+      - |
+        6.68 J is 334 ÷ 50.0; the heat of fusion must be multiplied by the mass, not divided.
+      - |
+        334 J is the heat of fusion per gram; it melts one gram of ice, not fifty.
+      - |
+        113,000 J is 50.0 × 2,260, the energy to boil 50.0 g of water, not to melt the ice.
+      - |
+        Correct. q = m × ΔH_fus = 50.0 g × 334 J/g = 16,700 J = 16.7 kJ, with no temperature term since melting occurs at 0 °C.
+    answer: 3
+
+  - slug: chem-u05-exam-q18
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      On the heating curve of water at 1 atm, the segment for liquid water warming from 0 °C to 100 °C is less steep than the segment for ice warming. Why?
+    options:
+      - "Liquid water has a larger specific heat than ice, so each joule raises its temperature less."
+      - "Liquid water has a larger heat of fusion than ice."
+      - "Ice absorbs heat faster because it is colder."
+      - "The liquid segment is longer because water is boiling during it."
+    option_explanations:
+      - |
+        Correct. Slope is ΔT per joule, which is 1/(mc); water's c (4.184) is twice ice's (2.09), so the water segment climbs half as fast.
+      - |
+        Heat of fusion belongs to the melting plateau, not to the sloped segments, and it is a property of the substance, not of one phase.
+      - |
+        The rate of heating is set by the heater and is the same for both segments; what differs is how much temperature rise each joule buys.
+      - |
+        Boiling is the flat plateau at 100 °C, after the liquid segment ends.
+    answer: 0
+
+  # ---- Vapour pressure and phase diagrams (5.6)
+  - slug: chem-u05-exam-q19
+    type: multiple_choice
+    topic_code: "5.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Water boils at about 85 °C in a mountain town. Which statement explains this?
+    options:
+      - "Water molecules have weaker hydrogen bonds at high altitude."
+      - "The external air pressure is lower, so the water's vapour pressure matches it at a lower temperature."
+      - "There is less oxygen in the air, which lowers the boiling point."
+      - "Cold mountain air cools the water, so it boils sooner."
+    option_explanations:
+      - |
+        Hydrogen bond strength depends on the molecules, not on altitude.
+      - |
+        Correct. Boiling occurs when vapour pressure equals external pressure; at about 0.58 atm water's vapour pressure reaches that value near 85 °C.
+      - |
+        Oxygen content has nothing to do with boiling, which involves only the water's vapour and the total pressure above it.
+      - |
+        Cold air would make heating slower, not change the boiling temperature.
+    answer: 1
+
+  - slug: chem-u05-exam-q20
+    type: multiple_choice
+    topic_code: "5.6"
+    source: "NIST Chemistry WebBook (carbon dioxide phase data)"
+    points: 1
+    prompt: |
+      Carbon dioxide's triple point is at −56.6 °C and 5.11 atm. Under which conditions can liquid CO₂ exist?
+    options:
+      - "At 1 atm, between −78.5 °C and 0 °C"
+      - "At any pressure, provided the temperature is below −78.5 °C"
+      - "Only at pressures below 5.11 atm"
+      - "Only at pressures above 5.11 atm and temperatures above −56.6 °C (up to the critical point)"
+    option_explanations:
+      - |
+        At 1 atm, below the triple-point pressure, CO₂ has only solid and gas phases; it sublimes at −78.5 °C.
+      - |
+        Below −78.5 °C at low pressure CO₂ is solid; the liquid region lies above the triple point in both pressure and temperature.
+      - |
+        Below the triple-point pressure no liquid exists at any temperature; the liquid region starts at 5.11 atm.
+      - |
+        Correct. The liquid region of a phase diagram begins at the triple point and extends up along the liquid–gas line to the critical point (31 °C, 73 atm for CO₂).
+    answer: 3
+
+  - slug: chem-u05-exam-q21
+    type: multiple_choice
+    topic_code: "5.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which liquid would you expect to have the highest vapour pressure at 25 °C?
+    options:
+      - "Water, H₂O (hydrogen bonding)"
+      - "Ethanol, C₂H₅OH (one O–H group, hydrogen bonding)"
+      - "Glycerol, C₃H₅(OH)₃ (three O–H groups, extensive hydrogen bonding)"
+      - "Pentane, C₅H₁₂ (nonpolar, dispersion forces only)"
+    option_explanations:
+      - |
+        Water's hydrogen bonding keeps its vapour pressure low (23.8 torr at 25 °C).
+      - |
+        Ethanol's single O–H gives weaker hydrogen bonding than water's, so a higher vapour pressure (about 59 torr), but still far below pentane's.
+      - |
+        Three O–H groups per molecule make glycerol's vapour pressure extremely low; it barely evaporates at room temperature.
+      - |
+        Correct. Only dispersion forces hold pentane molecules together, so they escape most easily; its vapour pressure at 25 °C is about 510 torr and it boils at 36 °C.
+    answer: 3
+
+  # ---- Review of earlier units
+  - slug: chem-u05-exam-q22
+    type: multiple_choice
+    topic_code: "3.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which real gas would deviate most from ideal behaviour at room temperature and 10 atm?
+    options:
+      - "Ammonia, NH₃, which hydrogen-bonds"
+      - "Helium, He"
+      - "Neon, Ne"
+      - "Hydrogen, H₂"
+    option_explanations:
+      - |
+        Correct. Hydrogen bonding is a strong intermolecular attraction, violating the KMT assumption of no attractions; ammonia liquefies at only 8.5 atm at 20 °C.
+      - |
+        Helium's dispersion forces are the weakest of any substance; it stays nearly ideal to very high pressures.
+      - |
+        Neon, a small noble gas with weak dispersion forces, behaves almost ideally.
+      - |
+        Hydrogen is small, nonpolar and light, with very weak dispersion forces, and is nearly ideal under these conditions.
+    answer: 0
+    explanation: |
+      Review of 3.6: the strength of intermolecular forces predicts how far a real gas departs from PV = nRT.
+
+  - slug: chem-u05-exam-q23
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "PubChem (molar masses)"
+    points: 1
+    prompt: |
+      Magnesium burns in oxygen: 2 Mg(s) + O₂(g) → 2 MgO(s). What mass of magnesium oxide (40.31 g/mol) forms from 4.86 g of magnesium (24.31 g/mol) with excess oxygen?
+    options:
+      - "4.03 g"
+      - "16.1 g"
+      - "8.06 g"
+      - "2.02 g"
+    option_explanations:
+      - |
+        4.03 g would be the product of 0.100 mol Mg, half the amount given.
+      - |
+        16.1 g doubles the correct answer by applying a 2:1 ratio that is not in the equation (Mg:MgO is 2:2).
+      - |
+        Correct. 4.86 g ÷ 24.31 = 0.200 mol Mg → 0.200 mol MgO (2:2) → 0.200 × 40.31 = 8.06 g.
+      - |
+        2.02 g uses the ratio 1:2 the wrong way round and a wrong molar mass.
+    answer: 2
+    explanation: |
+      Review of 4.6: the mole-ratio method, which gas stoichiometry extends with litres at one end.
+
+  - slug: chem-u05-exam-q24
+    type: multiple_choice
+    topic_code: "1.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which temperature change represents the LARGEST increase in the average kinetic energy of a gas?
+    options:
+      - "From 100 K to 200 K"
+      - "From 0 °C to 100 °C"
+      - "From 300 K to 450 K"
+      - "From 20 °C to 60 °C"
+    option_explanations:
+      - |
+        100 K to 200 K doubles the kelvin temperature and so doubles the average kinetic energy, but the absolute increase (100 K) is the same as option B's and smaller than option C's 150 K.
+      - |
+        0 °C to 100 °C is 273 K to 373 K, an increase of 100 K.
+      - |
+        Correct. Average kinetic energy is proportional to kelvin temperature, so the largest rise in kelvin, 150 K here, is the largest increase in kinetic energy.
+      - |
+        20 °C to 60 °C is 293 K to 333 K, only a 40 K increase, the smallest of the four.
+    answer: 2
+    explanation: |
+      Review of 1.6: the kelvin difference, not the Celsius ratio or the kelvin ratio, measures the change in kinetic energy.
+
+  # ---- Select all
+  - slug: chem-u05-exam-q25
+    type: multi_select
+    topic_code: "5.1"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of the following are assumptions of the kinetic molecular theory of an ideal gas? Select all that apply.
+    options:
+      - "Gas particles have negligible volume compared with the container."
+      - "Gas particles attract one another weakly at all distances."
+      - "Collisions between particles are elastic."
+      - "The average kinetic energy of the particles is proportional to the kelvin temperature."
+      - "All particles in a sample move at exactly the same speed."
+    option_explanations:
+      - |
+        Correct. This is why gases are so compressible: almost all of a gas is empty space.
+      - |
+        The model assumes no attractions at all; attractions are what make real gases deviate.
+      - |
+        Correct. No kinetic energy is lost in collisions, so an isolated gas keeps its temperature.
+      - |
+        Correct. This is the link between temperature and motion that makes kelvin the required scale.
+      - |
+        Particles have a wide distribution of speeds; it is the average kinetic energy that is fixed by temperature.
+    answer: [0, 2, 3]
+
+  - slug: chem-u05-exam-q26
+    type: multi_select
+    topic_code: "5.3"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A sample of gas is described by PV = nRT. Which changes, made one at a time, would double its pressure? Select all that apply.
+    options:
+      - "Doubling the kelvin temperature at constant volume and amount"
+      - "Doubling the Celsius temperature at constant volume and amount"
+      - "Halving the volume at constant temperature and amount"
+      - "Doubling the number of moles at constant volume and temperature"
+      - "Doubling the volume at constant temperature and amount"
+    option_explanations:
+      - |
+        Correct. P is proportional to T (in kelvin) at fixed n and V.
+      - |
+        Doubling a Celsius value is not doubling the kelvin value: 20 °C to 40 °C is only 293 K to 313 K, a 7% rise.
+      - |
+        Correct. P is inversely proportional to V, so halving V doubles P.
+      - |
+        Correct. P is proportional to n at fixed V and T; twice the particles give twice the collisions.
+      - |
+        Doubling the volume halves the pressure.
+    answer: [0, 2, 3]
+
+  - slug: chem-u05-exam-q27
+    type: multi_select
+    topic_code: "5.6"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about phase diagrams and phase changes are correct? Select all that apply.
+    options:
+      - "At the triple point, solid, liquid and gas coexist."
+      - "Above the critical temperature, a gas cannot be liquefied by pressure alone."
+      - "Crossing the solid–gas line of a phase diagram represents sublimation or deposition."
+      - "The liquid–gas line on a phase diagram is the same information as the liquid's vapour-pressure curve."
+      - "Every substance's solid–liquid line leans to the left, like water's."
+    option_explanations:
+      - |
+        Correct. The triple point is where all three coexistence lines meet.
+      - |
+        Correct. The liquid–gas line ends at the critical point; beyond it there is no distinct liquid phase.
+      - |
+        Correct. The solid–gas line marks the conditions where solid and vapour are in equilibrium.
+      - |
+        Correct. Each point on the line is a temperature and the vapour pressure at that temperature; the normal boiling point is where it passes 1 atm.
+      - |
+        Water's leftward lean is unusual, caused by ice being less dense than liquid water; most substances' lines lean right.
+    answer: [0, 1, 2, 3]
+
+  # ---- True / false
+  - slug: chem-u05-exam-q28
+    type: true_false
+    topic_code: "5.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: According to Charles's law, a gas at 10 °C that is warmed to 20 °C at constant pressure doubles in volume.
+    answer: false
+    explanation: |
+      False. Charles's law uses kelvin temperature. 10 °C is 283 K and 20 °C is 293 K, so the volume increases by a factor of 293/283 = 1.035, about 3.5%. Doubling the volume would require doubling the kelvin temperature, to 566 K (293 °C).
+
+  - slug: chem-u05-exam-q29
+    type: true_false
+    topic_code: "5.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: In a mixture of gases, the gas with the largest molar mass always has the largest partial pressure.
+    answer: false
+    explanation: |
+      False. Partial pressure depends on the number of moles of each gas (P_A = X_A × P_total), not on molar mass. In air, nitrogen (28 g/mol) has a larger partial pressure than argon (40 g/mol) because there is far more of it.
+
+  - slug: chem-u05-exam-q30
+    type: true_false
+    topic_code: "5.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: A liquid can be made to boil at room temperature by lowering the pressure above it until the pressure equals the liquid's vapour pressure.
+    answer: true
+    explanation: |
+      True. Boiling occurs when vapour pressure equals external pressure. Water's vapour pressure at 25 °C is 23.8 torr, so a vacuum pump that lowers the pressure to 23.8 torr makes water boil at 25 °C without heating; the boiling then cools the water further.
+
+  # ---- Fill in the blank
+  - slug: chem-u05-exam-q31
+    type: fill_blank
+    topic_code: "5.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Standard temperature and pressure (STP) for gases is 1 atm and a temperature of ____ K.
+    answer: ["273", "273.15", "273 K", "273.15 K"]
+    explanation: |
+      STP is 0 °C and 1 atm, and 0 °C is 273.15 K. At these conditions one mole of an ideal gas occupies 22.4 L.
+
+  - slug: chem-u05-exam-q32
+    type: fill_blank
+    topic_code: "5.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      The energy required to change one gram of a liquid into a gas at its boiling point is called its heat of ____.
+    answer: ["vaporisation", "vaporization", "vapourisation", "vapourization"]
+    explanation: |
+      The heat of vaporisation (ΔH_vap) is 2,260 J/g for water, about seven times its heat of fusion, because boiling breaks the intermolecular attractions completely rather than loosening them.
+
+  - slug: chem-u05-exam-q33
+    type: fill_blank
+    topic_code: "4.4"
+    source: "PubChem (molar masses)"
+    points: 1
+    prompt: |
+      The molar mass of carbon dioxide, CO₂ (C 12.01, O 16.00), is ____ g/mol.
+    answer: ["44.01", "44.0", "44", "44.01 g/mol", "44.0 g/mol"]
+    explanation: |
+      12.01 + 2 × 16.00 = 44.01 g/mol. The molar mass links a gas density (1.96 g/L at STP) to an identity, and grams of a reactant to litres of gas produced.
+
+  # ---- Numeric
+  - slug: chem-u05-exam-q34
+    type: numeric
+    topic_code: "5.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A rigid tank holds gas at 3.00 atm and 300 K. It is heated to 450 K. What is the new pressure? Give your answer in atm to two decimal places.
+    answer: { value: 4.50, tolerance: 0.01 }
+    explanation: |
+      Gay-Lussac's law: P₂ = P₁ × T₂/T₁ = 3.00 atm × 450/300 = 4.50 atm. The volume is fixed, so the pressure rises in proportion to the kelvin temperature.
+
+  - slug: chem-u05-exam-q35
+    type: numeric
+    topic_code: "5.3"
+    source: "NIST CODATA (gas constant)"
+    points: 1
+    prompt: |
+      What pressure does 2.00 mol of an ideal gas exert in a 25.0 L container at 350 K? Use R = 0.08206 L·atm/(mol·K). Give your answer in atm to two decimal places.
+    answer: { value: 2.30, tolerance: 0.02 }
+    explanation: |
+      P = nRT/V = (2.00 × 0.08206 × 350)/25.0 = 57.44/25.0 = 2.30 atm.
+
+  - slug: chem-u05-exam-q36
+    type: numeric
+    topic_code: "5.4"
+    source: "PubChem (molar masses)"
+    points: 1
+    prompt: |
+      A cylinder contains 8.00 g of helium (4.00 g/mol) and 32.0 g of oxygen (32.00 g/mol) at a total pressure of 3.00 atm. What is the partial pressure of oxygen? Give your answer in atm to two decimal places.
+    answer: { value: 1.00, tolerance: 0.01 }
+    explanation: |
+      Convert to moles first: 8.00/4.00 = 2.00 mol He; 32.0/32.00 = 1.00 mol O₂. X_O₂ = 1.00/3.00 = 0.333. P_O₂ = 0.333 × 3.00 atm = 1.00 atm. Using the mass fraction (32/40 = 0.80) would wrongly give 2.40 atm.
+
+  - slug: chem-u05-exam-q37
+    type: numeric
+    topic_code: "5.5"
+    source: "NIST Chemistry WebBook (water data)"
+    points: 1
+    prompt: |
+      How much heat is needed to warm 100.0 g of water from 25.0 °C to 100.0 °C and then boil all of it? Use c = 4.184 J/(g·°C) and ΔH_vap = 2,260 J/g. Give your answer in kJ to one decimal place.
+    answer: { value: 257.4, tolerance: 0.5 }
+    explanation: |
+      Warming: 100.0 × 4.184 × 75.0 = 31,380 J. Boiling: 100.0 × 2,260 = 226,000 J. Total 257,380 J = 257.4 kJ. Boiling takes nearly 88% of the energy.
+
+  # ---- Short answer
+  - slug: chem-u05-exam-q38
+    type: short_answer
+    topic_code: "5.4"
+    source: "PubChem (molar masses)"
+    points: 3
+    prompt: |
+      Butane burns in a camping stove: 2 C₄H₁₀(g) + 13 O₂(g) → 8 CO₂(g) + 10 H₂O(g). Answer (a), (b) and (c).
+
+      (a) What volume of oxygen, at the same temperature and pressure as the butane, is needed to burn 1.50 L of butane?
+      (b) A canister holds 227 g of butane (58.12 g/mol). What volume of CO₂ at 25 °C and 1.00 atm is produced when all of it burns?
+      (c) Explain why part (a) can be solved without converting to moles but part (b) cannot.
+    answer: |
+      (a) 1.50 L C₄H₁₀ × (13 L O₂ / 2 L C₄H₁₀) = 9.75 L of O₂.
+      (b) 227 g ÷ 58.12 g/mol = 3.906 mol C₄H₁₀; × 8/2 = 15.62 mol CO₂; V = nRT/P = (15.62 × 0.08206 × 298)/1.00 = 382 L of CO₂.
+      (c) In (a) both substances are gases at the same conditions, so by Avogadro's law their volumes are in the same ratio as their moles, and the coefficients can be read as litres. In (b) the starting quantity is a mass, which must be converted to moles through the molar mass before the mole ratio and the ideal gas law can be applied.
+    explanation: |
+      Three points, one per part.
+
+      (a) 1 pt: 9.75 L (accept 9.7–9.8).
+
+      (b) 1 pt: 3.91 mol butane, 15.6 mol CO₂, about 382 L (accept 375–390 L). Zero if 22.4 L/mol is used at 25 °C (350 L).
+
+      (c) 1 pt: Avogadro's law makes volume ratios equal mole ratios only for gases at the same T and P; a mass must go through moles.
+
+  - slug: chem-u05-exam-q39
+    type: short_answer
+    topic_code: "5.6"
+    source: "NIST Chemistry WebBook (vapour pressures)"
+    points: 3
+    stimulus: |
+      Vapour pressures of two liquids at several temperatures, in torr:
+
+      | Temperature (°C) | Ethanol | Water |
+      |---|---|---|
+      | 20 | 44 | 17.5 |
+      | 40 | 134 | 55.3 |
+      | 60 | 352 | 149 |
+      | 78 | 760 | 329 |
+      | 100 | 1,690 | 760 |
+    prompt: |
+      Using the table, answer (a), (b) and (c).
+
+      (a) State the normal boiling point of each liquid and explain how the table shows it.
+      (b) Explain in terms of intermolecular forces why ethanol has the higher vapour pressure at every temperature.
+      (c) Estimate the temperature at which water would boil if the external pressure were 329 torr, and explain your reasoning.
+    answer: |
+      (a) Ethanol 78 °C, water 100 °C: the normal boiling point is the temperature at which the vapour pressure reaches 760 torr (1 atm), and the table shows ethanol reaching 760 torr at 78 °C and water at 100 °C.
+      (b) Both liquids hydrogen-bond, but each ethanol molecule has only one O–H group and a nonpolar ethyl group, while water has two O–H bonds and two lone pairs and forms a more extensive hydrogen-bonded network. Weaker overall attractions in ethanol let more molecules escape into the vapour at any temperature.
+      (c) About 78 °C. A liquid boils when its vapour pressure equals the external pressure, and the table shows water's vapour pressure is 329 torr at 78 °C.
+    explanation: |
+      Three points, one per part.
+
+      (a) 1 pt: both boiling points correct, with the 760 torr criterion stated.
+
+      (b) 1 pt: ethanol's weaker (less extensive) hydrogen bonding, or water's stronger intermolecular forces, explained with structural reference (one O–H versus two, nonpolar chain). Zero for "ethanol is lighter" alone.
+
+      (c) 1 pt: 78 °C, with the reasoning that boiling occurs when vapour pressure equals external pressure.
+
+  # ---- Long answer
+  - slug: chem-u05-exam-q40
+    type: long_answer
+    topic_code: "5.5"
+    source: "NIST Chemistry WebBook (water data)"
+    points: 6
+    prompt: |
+      A 20.0 g block of ice at −10.0 °C is placed in a sealed, rigid, insulated 10.0 L container that also holds 0.500 mol of dry air at 25 °C. The system is then heated slowly until all the water has become steam at 110 °C. (Ice c = 2.09 J/(g·°C); water c = 4.184 J/(g·°C); steam c = 2.01 J/(g·°C); ΔH_fus = 334 J/g; ΔH_vap = 2,260 J/g; H₂O 18.02 g/mol.)
+
+      Write a full account that (1) lists the five stages the water passes through and calculates the heat required for each, then totals it in kJ; (2) explains why the temperature does not change during two of the stages even though heat is being added; (3) calculates the partial pressure of the air in the container at the final temperature of 110 °C (383 K), using the ideal gas law; and (4) calculates the partial pressure of the water vapour at 383 K and the total pressure in the container, and comments on whether the water vapour would behave ideally at this pressure.
+    answer: |
+      (1) Warm ice: 20.0 × 2.09 × 10.0 = 418 J. Melt: 20.0 × 334 = 6,680 J. Warm water: 20.0 × 4.184 × 100.0 = 8,368 J. Boil: 20.0 × 2,260 = 45,200 J. Warm steam: 20.0 × 2.01 × 10.0 = 402 J. Total 61,068 J = 61.1 kJ.
+
+      (2) During melting and boiling the added energy goes into overcoming intermolecular attractions (potential energy) as the solid structure is loosened or the liquid's hydrogen bonds are broken, not into faster molecular motion. Temperature measures average kinetic energy, so it holds steady until the phase change is complete.
+
+      (3) P_air = nRT/V = (0.500 × 0.08206 × 383)/10.0 = 15.71/10.0 = 1.57 atm.
+
+      (4) Moles of water: 20.0/18.02 = 1.11 mol. P_water = (1.11 × 0.08206 × 383)/10.0 = 34.9/10.0 = 3.49 atm. Total (Dalton's law) = 1.57 + 3.49 = 5.06 atm. At 3.49 atm and only 10 °C above its normal boiling point, water vapour is close to its condensation conditions, so its hydrogen bonding would cause noticeable deviation from ideal behaviour; in fact water's vapour pressure at 110 °C is only about 1.4 atm, so at 3.49 atm some of the water would condense rather than all remaining as vapour. The ideal-gas answer is an upper estimate.
+    explanation: |
+      Six points.
+
+      Heating stages (0–2): 1 pt for all five stages identified in order with the correct formula for each (mcΔT on slopes, mΔH on plateaus); 1 pt for the total of about 61.1 kJ (accept 60.5–61.5; individual values 418, 6,680, 8,368, 45,200, 402 J).
+
+      Constant temperature (0–1): energy during a phase change goes into potential energy (overcoming attractions), not kinetic energy, and temperature measures kinetic energy.
+
+      Air partial pressure (0–1): 1.57 atm (accept 1.55–1.60) with T = 383 K.
+
+      Water vapour and total (0–2): 1 pt for 1.11 mol and P_water ≈ 3.49 atm (accept 3.4–3.6) and total ≈ 5.06 atm by Dalton's law; 1 pt for a comment that water vapour near its condensation point, with hydrogen bonding, deviates from ideal behaviour (full credit also for noting that 3.49 atm exceeds water's vapour pressure at 110 °C, so condensation would occur).
+
+      Common errors: using 4.184 for every stage; omitting the ice or steam warming stages; using 110 °C in place of 383 K; adding partial pressures of air and water with moles instead of pressures.

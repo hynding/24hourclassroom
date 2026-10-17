@@ -1,0 +1,960 @@
+unit: 9
+description: |
+  42 questions · about 85 minutes · every topic of Unit 9 (9.1 to 9.10: entropy and absolute entropy, Gibbs
+  free energy and thermodynamic favourability, thermodynamic versus kinetic control, free energy and
+  equilibrium, coupled reactions, galvanic and electrolytic cells, cell potential and free energy, the Nernst
+  equation, and electrolysis with Faraday's law), with review of Hess's law, the reaction quotient and
+  oxidation numbers. Three data sets in the AP style (thermodynamic data for the decomposition of calcium
+  carbonate, a zinc–silver galvanic cell with a table of reduction potentials, and the electrolysis of aqueous
+  copper(II) sulfate), stand-alone multiple choice, select-all, true/false, fill-in-the-blank and numeric
+  items, two short-answer questions (3 points each) and one long free-response question (6 points). Multiple
+  choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+  automatically; the free-response items are graded by your teacher against the scoring notes. Constants:
+  R = 8.314 J/(mol·K), F = 96,485 C/mol, 0.0592/n volts per decade of Q at 298 K.
+questions:
+  # ---- Stimulus set A: calcium carbonate decomposition data (9.2, 9.3, 9.5)
+  - slug: apchem-u09-exam-q01
+    type: multiple_choice
+    topic_code: "9.2"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Thermodynamic data at 298 K for CaCO₃(s) → CaO(s) + CO₂(g):
+
+      | Substance | ΔH°f (kJ/mol) | S° (J/(mol·K)) |
+      |---|---|---|
+      | CaCO₃(s) | −1,206.9 | 92.9 |
+      | CaO(s) | −635.1 | 38.1 |
+      | CO₂(g) | −393.5 | 213.8 |
+
+      From these values, ΔH° = +178.3 kJ and ΔS° = +159.0 J/K for the reaction as written.
+    prompt: |
+      Which statement best explains the sign of ΔS° for the decomposition?
+    options:
+      - "ΔS° is positive because the reaction is endothermic, and absorbing heat always raises entropy."
+      - "ΔS° is positive because one mole of gas is produced from a solid, greatly increasing the dispersal of matter."
+      - "ΔS° is positive because CaO has a lower S° than CaCO₃."
+      - "ΔS° is positive because the number of moles of substance increases from one to two, regardless of phase."
+    option_explanations:
+      - |
+        Absorbing heat does raise a system's entropy, but ΔS° here is the difference between the tabulated S° values of products and reactants, and an endothermic reaction can have negative ΔS° (for example 2 NO(g) → N₂(g) + O₂(g) reversed). The sign is set by the gas produced.
+      - |
+        Correct. The 213.8 J/(mol·K) of CO₂(g) dwarfs the other entries; creating a gas from a solid is the dominant entropy-raising change.
+      - |
+        CaO's small S° slightly lowers ΔS°; it cannot be the reason the total is positive.
+      - |
+        Mole count alone is not the criterion; two solids from one solid would barely change S. It is the gas that matters.
+    answer: 1
+    explanation: |
+      Practice 4. Count gas moles first; here 0 → 1 mol of gas, and the S° data confirm the large positive ΔS°.
+  - slug: apchem-u09-exam-q02
+    type: multiple_choice
+    topic_code: "9.3"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Thermodynamic data at 298 K for CaCO₃(s) → CaO(s) + CO₂(g):
+
+      | Substance | ΔH°f (kJ/mol) | S° (J/(mol·K)) |
+      |---|---|---|
+      | CaCO₃(s) | −1,206.9 | 92.9 |
+      | CaO(s) | −635.1 | 38.1 |
+      | CO₂(g) | −393.5 | 213.8 |
+
+      From these values, ΔH° = +178.3 kJ and ΔS° = +159.0 J/K for the reaction as written.
+    prompt: |
+      Which statement about the thermodynamic favourability of the decomposition is correct?
+    options:
+      - "It is favourable at all temperatures, because ΔS° is positive."
+      - "It is never favourable, because ΔH° is positive."
+      - "It is unfavourable at 298 K (ΔG° ≈ +131 kJ) but becomes favourable above about 1,100 K."
+      - "It is favourable at 298 K because TΔS° exceeds ΔH°."
+    option_explanations:
+      - |
+        A positive ΔS° helps only when TΔS° is large enough to outweigh a positive ΔH°; at low temperature it is not.
+      - |
+        A positive ΔH° makes a reaction unfavourable at low temperature only; with ΔS° > 0 it becomes favourable at high temperature.
+      - |
+        Correct. ΔG° = 178.3 − (298)(0.1590) = 178.3 − 47.4 = +130.9 kJ at 298 K; ΔG° = 0 at T = 178,300/159.0 = 1,121 K, above which the −TΔS° term wins. This is why limestone is roasted in a kiln.
+      - |
+        At 298 K, TΔS° = 47.4 kJ, far less than ΔH° = 178.3 kJ.
+    answer: 2
+    explanation: |
+      Practice 5. The (+, +) case: unfavourable at low T, favourable above T = ΔH°/ΔS°.
+  - slug: apchem-u09-exam-q03
+    type: multiple_choice
+    topic_code: "9.5"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Thermodynamic data at 298 K for CaCO₃(s) → CaO(s) + CO₂(g):
+
+      | Substance | ΔH°f (kJ/mol) | S° (J/(mol·K)) |
+      |---|---|---|
+      | CaCO₃(s) | −1,206.9 | 92.9 |
+      | CaO(s) | −635.1 | 38.1 |
+      | CO₂(g) | −393.5 | 213.8 |
+
+      From these values, ΔH° = +178.3 kJ and ΔS° = +159.0 J/K for the reaction as written.
+    prompt: |
+      Using ΔG° ≈ +131 kJ at 298 K, what is the approximate value of the equilibrium constant Kp = P(CO₂) at 298 K, and what does it mean?
+    options:
+      - "About 10⁻²³ atm; the equilibrium pressure of CO₂ over limestone at room temperature is immeasurably small."
+      - "About 10²³ atm; limestone decomposes completely at room temperature."
+      - "About 0.5 atm; limestone is in equilibrium with the CO₂ in air."
+      - "Exactly 1, because ΔG° refers to standard conditions."
+    option_explanations:
+      - |
+        Correct. ln K = −ΔG°/(RT) = −130,900/(8.314 × 298) = −52.8, so K = e^(−52.8) ≈ 10⁻²³. A large positive ΔG° means an extremely small K.
+      - |
+        The sign is reversed: a positive ΔG° gives K ≪ 1, not K ≫ 1.
+      - |
+        0.5 atm would correspond to ΔG° near zero; the actual ΔG° is +131 kJ.
+      - |
+        ΔG° = 0 would give K = 1; ΔG° is defined at standard conditions but K is a property of the reaction, not forced to 1.
+    answer: 0
+    explanation: |
+      Practice 5. ΔG° = −RT ln K; each 5.7 kJ of ΔG° at 298 K is one power of ten in K, so 131 kJ is about 23 powers of ten.
+  - slug: apchem-u09-exam-q04
+    type: multiple_choice
+    topic_code: "9.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which sample has the greatest entropy?
+    options:
+      - "1 mol of liquid water at 25 °C"
+      - "1 mol of ice at 0 °C"
+      - "1 mol of liquid water at 0 °C"
+      - "1 mol of water vapour at 100 °C"
+    option_explanations:
+      - |
+        Liquid water at 25 °C has more entropy than ice or cooler liquid water, but far less than the gas.
+      - |
+        Ice is the most ordered of the four; its molecules are fixed in a lattice.
+      - |
+        Liquid water at 0 °C has more entropy than ice at the same temperature but less than warmer liquid or the vapour.
+      - |
+        Correct. The gas phase has the greatest dispersal of matter, and the higher temperature adds further dispersal of energy.
+    answer: 3
+    explanation: |
+      Practice 4. S increases solid → liquid → gas and with temperature; the gas at the highest temperature wins on both counts.
+  - slug: apchem-u09-exam-q05
+    type: multiple_choice
+    topic_code: "9.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      For which process is ΔS of the system negative?
+    options:
+      - "N₂(g) + 3 H₂(g) → 2 NH₃(g)"
+      - "NH₄NO₃(s) → NH₄⁺(aq) + NO₃⁻(aq)"
+      - "C₆H₁₂O₆(s) + 6 O₂(g) → 6 CO₂(g) + 6 H₂O(g)"
+      - "I₂(s) → I₂(g)"
+    option_explanations:
+      - |
+        Correct. Four moles of gas become two; the matter is less dispersed, so ΔS is negative (−198 J/K for this reaction).
+      - |
+        Dissolving a solid into mobile ions raises entropy.
+      - |
+        Six moles of gas become twelve; a large positive ΔS.
+      - |
+        Sublimation produces a gas from a solid, the largest possible increase in dispersal.
+    answer: 0
+    explanation: |
+      Practice 4. Fewer gas moles on the right means ΔS < 0.
+  - slug: apchem-u09-exam-q06
+    type: multiple_choice
+    topic_code: "9.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which statement about standard molar entropies, S°, is correct?
+    options:
+      - "S° of an element in its standard state is zero, like ΔH°f."
+      - "S° values are always negative for solids."
+      - "S° of any substance is positive at 298 K, and a perfect crystal has zero entropy only at 0 K."
+      - "S° depends on the amount of substance but not on its phase."
+    option_explanations:
+      - |
+        Unlike ΔH°f and ΔG°f, S° is an absolute quantity; O₂(g) has S° = 205.2 J/(mol·K), not zero.
+      - |
+        S° values are positive for every substance above absolute zero, solids included (CaO 38.1 J/(mol·K)).
+      - |
+        Correct. The third law sets the zero at a perfect crystal at 0 K; everything above that has positive absolute entropy, which is why ΔS° is calculated directly from S° values.
+      - |
+        Phase is the single largest influence on S°; gases have far higher values than liquids or solids of the same substance.
+    answer: 2
+    explanation: |
+      Practice 1. Absolute entropies (third law) are what makes ΔS° = Σ S°(products) − Σ S°(reactants) possible with no "formation" bookkeeping.
+  - slug: apchem-u09-exam-q07
+    type: multiple_choice
+    topic_code: "9.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A reaction has ΔH° = +50 kJ and ΔS° = −120 J/K. Which statement is correct?
+    options:
+      - "The reaction is favourable at high temperature only."
+      - "The reaction is not thermodynamically favourable at any temperature."
+      - "The reaction is favourable at low temperature only."
+      - "The reaction is favourable at all temperatures."
+    option_explanations:
+      - |
+        High temperature helps only when ΔS° > 0; here −TΔS° is positive and grows with T.
+      - |
+        Correct. Both terms of ΔG° = ΔH° − TΔS° are positive at every temperature, so ΔG° > 0 always; the reverse reaction is the favourable one.
+      - |
+        Low temperature favours reactions with ΔH° < 0; a positive ΔH° cannot be overcome when ΔS° is also negative.
+      - |
+        That is the (−, +) case; this is the (+, −) case, its opposite.
+    answer: 1
+    explanation: |
+      Practice 6. (+, −): never favourable. Its reverse, (−, +), is favourable at every temperature.
+  - slug: apchem-u09-exam-q08
+    type: multiple_choice
+    topic_code: "9.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      At 298 K and 1 atm, ΔG° for C(diamond) → C(graphite) is −2.9 kJ/mol, yet diamonds do not visibly change over centuries. Which explanation is correct?
+    options:
+      - "The negative ΔG° is too small to make the reaction favourable."
+      - "Diamond is actually the more stable form, so the sign of ΔG° must be wrong."
+      - "The reaction is at equilibrium, so no net change occurs."
+      - "The conversion is thermodynamically favourable but has an enormous activation energy, so it is under kinetic control."
+    option_explanations:
+      - |
+        Any negative ΔG° means K > 1; magnitude affects how far the equilibrium lies, not whether the reaction is favourable.
+      - |
+        Graphite is the more stable form at 1 atm; the negative ΔG° is correct.
+      - |
+        Equilibrium would require ΔG = 0; with ΔG° < 0 and essentially pure diamond present, the system is far from equilibrium.
+      - |
+        Correct. Breaking the sp³ carbon network needs a very large Ea, so the rate is negligible at room temperature; favourable does not mean fast.
+    answer: 3
+    explanation: |
+      Practice 6. Thermodynamics (ΔG°) says the change is downhill; kinetics (Ea) says the hill in between is too high to cross at 298 K.
+  - slug: apchem-u09-exam-q09
+    type: multiple_choice
+    topic_code: "9.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A catalyst is added to a reaction mixture that has not yet reached equilibrium. Which quantity is unchanged by the catalyst?
+    options:
+      - "ΔG° and the equilibrium constant K"
+      - "The rate at which equilibrium is reached"
+      - "The activation energy of the forward reaction"
+      - "The activation energy of the reverse reaction"
+    option_explanations:
+      - |
+        Correct. A catalyst changes the pathway, not the initial and final states; ΔG°, ΔH°, ΔS° and K are all untouched, and the equilibrium composition is the same, reached sooner.
+      - |
+        The rate is exactly what a catalyst changes; equilibrium is reached faster.
+      - |
+        The catalyst lowers the forward activation energy by providing a different mechanism.
+      - |
+        The reverse activation energy is lowered by the same amount, which is why K is unchanged.
+    answer: 0
+    explanation: |
+      Practice 6. Catalysts act on kinetics only.
+  - slug: apchem-u09-exam-q10
+    type: multiple_choice
+    topic_code: "9.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A reaction has ΔG° = +10 kJ/mol at 298 K. A mixture is prepared in which Q = 1 × 10⁻⁴. Which statement is correct?
+    options:
+      - "The reaction proceeds in reverse, because ΔG° is positive."
+      - "The mixture is at equilibrium, because ΔG° is small."
+      - "The reaction proceeds forward, because ΔG = ΔG° + RT ln Q = 10 − 22.8 = −12.8 kJ/mol is negative."
+      - "No reaction occurs in either direction until a catalyst is added."
+    option_explanations:
+      - |
+        ΔG°, not ΔG, is positive; the direction of reaction under actual conditions depends on ΔG, which includes the RT ln Q term.
+      - |
+        Equilibrium requires ΔG = 0, which here would need Q = K ≈ 0.018 (from ΔG° = +10 kJ); Q = 10⁻⁴ is far below that.
+      - |
+        Correct. RT ln Q = (8.314)(298)(ln 10⁻⁴) = (2,478)(−9.21) = −22,800 J; ΔG = +10,000 − 22,800 = −12,800 J, so the mixture moves forward toward Q = K.
+      - |
+        A catalyst affects rate, not direction; thermodynamics already says the forward reaction is downhill from this starting point.
+    answer: 2
+    explanation: |
+      Practice 5. Q < K (10⁻⁴ versus 0.018) means forward; ΔG makes the same statement in energy units.
+  - slug: apchem-u09-exam-q11
+    type: multiple_choice
+    topic_code: "9.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      In cells, the unfavourable formation of glucose-6-phosphate from glucose and phosphate (ΔG° ≈ +14 kJ/mol) is made to occur. Which statement describes how?
+    options:
+      - "The cell raises its temperature until TΔS° exceeds ΔH°."
+      - "The reaction is coupled to the hydrolysis of ATP (ΔG° ≈ −30 kJ/mol) through a shared intermediate, so the net ΔG° is about −16 kJ/mol."
+      - "An enzyme lowers ΔG° for the reaction below zero."
+      - "The equilibrium constant of the phosphorylation is increased by adding more glucose."
+    option_explanations:
+      - |
+        Cells run at nearly constant temperature; a 14 kJ barrier is not overcome thermally.
+      - |
+        Correct. ATP transfers its phosphate directly to glucose in one enzyme-catalysed step, so the free energies add: +14 + (−30) ≈ −16 kJ/mol, favourable.
+      - |
+        Enzymes are catalysts; they lower Ea, never ΔG°.
+      - |
+        Adding reactant changes Q and can shift position, but it does not change K; and K for the uncoupled reaction stays about 0.004.
+    answer: 1
+    explanation: |
+      Practice 6. Coupling: a favourable reaction that shares an intermediate with the unfavourable one makes the sum favourable; ΔG° values add, K values multiply.
+  - slug: apchem-u09-exam-q12
+    type: multiple_choice
+    topic_code: "9.7"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      In a galvanic cell with a KNO₃ salt bridge, which statement about ion movement is correct?
+    options:
+      - "Electrons flow through the salt bridge from the anode to the cathode."
+      - "K⁺ ions move toward the anode compartment to neutralise the negative charge building up there."
+      - "The salt bridge is unnecessary if the wire is thick enough."
+      - "NO₃⁻ ions move toward the anode compartment, where positive ions are being produced, and K⁺ ions toward the cathode compartment."
+    option_explanations:
+      - |
+        Electrons travel only through the external wire; ions, not electrons, carry charge through the salt bridge and solutions.
+      - |
+        The anode compartment accumulates positive metal ions, so anions, not cations, migrate toward it.
+      - |
+        Without the salt bridge, charge would build up in each compartment within a tiny fraction of a second and the current would stop; the wire cannot carry ions.
+      - |
+        Correct. Oxidation at the anode releases cations into solution, balanced by incoming anions; reduction at the cathode removes cations, balanced by incoming K⁺.
+    answer: 3
+    explanation: |
+      Practice 1. "Anions to the anode, cations to the cathode" through the salt bridge; electrons through the wire.
+  - slug: apchem-u09-exam-q13
+    type: multiple_choice
+    topic_code: "9.8"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      E° = +0.34 V for Cu²⁺(aq) + 2 e⁻ → Cu(s). What is E° for 3 Cu²⁺(aq) + 6 e⁻ → 3 Cu(s), and what is E° for Cu(s) → Cu²⁺(aq) + 2 e⁻?
+    options:
+      - "+0.34 V and −0.34 V"
+      - "+1.02 V and −0.34 V"
+      - "+1.02 V and −1.02 V"
+      - "+0.34 V and +0.34 V"
+    option_explanations:
+      - |
+        Correct. Scaling a half-reaction leaves its potential unchanged (intensive), while reversing it reverses the sign.
+      - |
+        Tripling the equation does not triple the potential; E° stays +0.34 V.
+      - |
+        Both values are wrong for the same reason: E° does not scale with the coefficients.
+      - |
+        The reversed half-reaction (an oxidation) has the opposite sign, −0.34 V.
+    answer: 0
+    explanation: |
+      Practice 1. Potentials are per electron; they are reversed in sign when a half-reaction is reversed and unchanged when it is multiplied.
+  - slug: apchem-u09-exam-q14
+    type: multiple_choice
+    topic_code: "9.9"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      For the cell Zn(s) | Zn²⁺(aq) || Cu²⁺(aq) | Cu(s), which change would increase the cell potential above E°?
+    options:
+      - "Adding Zn(NO₃)₂ to the anode compartment"
+      - "Using a larger zinc electrode"
+      - "Increasing [Cu²⁺] in the cathode compartment"
+      - "Diluting the Cu²⁺ solution with water"
+    option_explanations:
+      - |
+        Zn²⁺ is a product; raising it raises Q and lowers E.
+      - |
+        Electrode size changes the current the cell can deliver and how long it lasts, not the potential.
+      - |
+        Correct. Cu²⁺ is a reactant; raising it lowers Q = [Zn²⁺]/[Cu²⁺] below 1, making RT ln Q negative and E > E°.
+      - |
+        Diluting a reactant raises Q and lowers E.
+    answer: 2
+    explanation: |
+      Practice 4. Nernst: E = E° − (RT/nF) ln Q. More reactant ion or less product ion means smaller Q and higher E.
+  - slug: apchem-u09-exam-q15
+    type: multiple_choice
+    topic_code: "9.10"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Molten magnesium chloride is electrolysed with inert electrodes. What forms at each electrode?
+    options:
+      - "Cathode: H₂(g); anode: Cl₂(g)"
+      - "Cathode: Mg(l); anode: Cl₂(g)"
+      - "Cathode: Cl₂(g); anode: Mg(l)"
+      - "Cathode: Mg(l); anode: O₂(g)"
+    option_explanations:
+      - |
+        There is no water in a molten salt, so hydrogen cannot form; the only cation present is Mg²⁺.
+      - |
+        Correct. Mg²⁺ + 2 e⁻ → Mg at the cathode (reduction) and 2 Cl⁻ → Cl₂ + 2 e⁻ at the anode (oxidation); this is how magnesium is manufactured.
+      - |
+        The electrodes are reversed: cations are reduced at the cathode and anions oxidised at the anode.
+      - |
+        No oxygen-containing species is present in molten MgCl₂.
+    answer: 1
+    explanation: |
+      Practice 6. In a molten salt the salt's own ions are the only candidates; in water, compare with water's half-reactions.
+  - slug: apchem-u09-exam-q16
+    type: multiple_choice
+    topic_code: "6.9"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Given ΔH° = −393.5 kJ for C(s) + O₂(g) → CO₂(g) and ΔH° = −283.0 kJ for CO(g) + ½ O₂(g) → CO₂(g), what is ΔH° for C(s) + ½ O₂(g) → CO(g)?
+    options:
+      - "−676.5 kJ"
+      - "+110.5 kJ"
+      - "−283.0 kJ"
+      - "−110.5 kJ"
+    option_explanations:
+      - |
+        Adding the two equations as written does not give the target; the second must be reversed, not added.
+      - |
+        The magnitude is right but the sign is wrong: forming CO from its elements is exothermic.
+      - |
+        This is the enthalpy of the second reaction, not of the target.
+      - |
+        Correct. Keep the first equation and reverse the second (+283.0 kJ): C + O₂ → CO₂ and CO₂ → CO + ½ O₂ add to C + ½ O₂ → CO with ΔH° = −393.5 + 283.0 = −110.5 kJ.
+    answer: 3
+    explanation: |
+      Practice 5 (review of 6.9). Hess's law: manipulate the given equations so that unwanted species cancel, and treat ΔH° the same way. The same bookkeeping gives ΔG° for coupled reactions.
+  - slug: apchem-u09-exam-q17
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      For the cell reaction Ni(s) + 2 Ag⁺(aq) → Ni²⁺(aq) + 2 Ag(s), which is the correct expression for Q?
+    options:
+      - "Q = [Ni²⁺][Ag]² / ([Ni][Ag⁺]²)"
+      - "Q = [Ni²⁺] / [Ag⁺]²"
+      - "Q = [Ni²⁺] / (2[Ag⁺])"
+      - "Q = [Ag⁺]² / [Ni²⁺]"
+    option_explanations:
+      - |
+        Solids never appear in Q; their "concentration" is constant and is folded into K.
+      - |
+        Correct. Only the aqueous ions appear, products over reactants, each raised to its coefficient.
+      - |
+        Coefficients become exponents, not multipliers.
+      - |
+        This is the expression for the reverse reaction; products belong in the numerator.
+    answer: 1
+    explanation: |
+      Practice 5 (review of 7.3). This Q goes straight into the Nernst equation; the squared silver term is why [Ag⁺] has a stronger effect on E than [Ni²⁺].
+  - slug: apchem-u09-exam-q18
+    type: multiple_choice
+    topic_code: "4.9"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      In the half-reaction MnO₄⁻(aq) + 8 H⁺(aq) + 5 e⁻ → Mn²⁺(aq) + 4 H₂O(l), what is the oxidation number of manganese before and after, and is permanganate the oxidising or reducing agent?
+    options:
+      - "+4 to +2; reducing agent"
+      - "+7 to +2; reducing agent"
+      - "+7 to +2; oxidising agent"
+      - "+5 to +2; oxidising agent"
+    option_explanations:
+      - |
+        Four oxygens at −2 and an ion charge of −1 give Mn = +7, not +4.
+      - |
+        The oxidation numbers are right, but a species that gains electrons (is reduced) is the oxidising agent.
+      - |
+        Correct. Mn is +7 in MnO₄⁻ (four O at −2 sum to −8; −8 + 7 = −1) and +2 in Mn²⁺; it gains five electrons, so it is reduced and is therefore the oxidising agent.
+      - |
+        Five is the number of electrons gained, not the starting oxidation number.
+    answer: 2
+    explanation: |
+      Practice 5 (review of 4.9). The change in oxidation number equals the electrons in the half-reaction; this n enters ΔG° = −nFE° and Faraday's law.
+  # ---- Stimulus set B: zinc–silver galvanic cell (9.7, 9.8, 9.9)
+  - slug: apchem-u09-exam-q19
+    type: multiple_choice
+    topic_code: "9.7"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A galvanic cell is built from a zinc electrode in 1.0 M Zn(NO₃)₂ and a silver electrode in 1.0 M AgNO₃ at 298 K, joined by a wire through a voltmeter and a KNO₃ salt bridge.
+
+      | Half-reaction | E° (V) |
+      |---|---|
+      | Ag⁺(aq) + e⁻ → Ag(s) | +0.80 |
+      | Cu²⁺(aq) + 2 e⁻ → Cu(s) | +0.34 |
+      | 2 H⁺(aq) + 2 e⁻ → H₂(g) | 0.00 |
+      | Zn²⁺(aq) + 2 e⁻ → Zn(s) | −0.76 |
+    prompt: |
+      Which statement about the cell is correct?
+    options:
+      - "Zinc is the anode; electrons flow through the wire from zinc to silver; the zinc electrode loses mass."
+      - "Silver is the anode; electrons flow through the wire from silver to zinc; the silver electrode loses mass."
+      - "Zinc is the cathode; electrons flow through the salt bridge to silver."
+      - "Zinc is the anode; electrons flow through the wire from silver to zinc; the silver electrode gains mass."
+    option_explanations:
+      - |
+        Correct. Zn²⁺/Zn has the lower E°, so zinc is oxidised (anode) and dissolves; its electrons travel through the wire to the silver cathode, where Ag⁺ is reduced and plates out.
+      - |
+        Silver has the higher reduction potential and is the cathode, where it gains mass.
+      - |
+        Zinc is the anode, and electrons never travel through the salt bridge.
+      - |
+        The electron direction is backwards: electrons leave the anode (zinc) and arrive at the cathode (silver).
+    answer: 0
+    explanation: |
+      Practice 1. Lower E° = anode = oxidation = electron source = loses mass.
+  - slug: apchem-u09-exam-q20
+    type: multiple_choice
+    topic_code: "9.8"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A galvanic cell is built from a zinc electrode in 1.0 M Zn(NO₃)₂ and a silver electrode in 1.0 M AgNO₃ at 298 K, joined by a wire through a voltmeter and a KNO₃ salt bridge.
+
+      | Half-reaction | E° (V) |
+      |---|---|
+      | Ag⁺(aq) + e⁻ → Ag(s) | +0.80 |
+      | Cu²⁺(aq) + 2 e⁻ → Cu(s) | +0.34 |
+      | 2 H⁺(aq) + 2 e⁻ → H₂(g) | 0.00 |
+      | Zn²⁺(aq) + 2 e⁻ → Zn(s) | −0.76 |
+    prompt: |
+      What is E°cell, and what is ΔG° for Zn(s) + 2 Ag⁺(aq) → Zn²⁺(aq) + 2 Ag(s)?
+    options:
+      - "E° = 0.04 V; ΔG° = −7.7 kJ"
+      - "E° = 2.36 V; ΔG° = −455 kJ"
+      - "E° = 1.56 V; ΔG° = −301 kJ"
+      - "E° = 1.56 V; ΔG° = −151 kJ"
+    option_explanations:
+      - |
+        0.04 V would be 0.80 − 0.76; the anode value is negative, so subtracting it adds: 0.80 − (−0.76) = 1.56 V.
+      - |
+        2.36 V doubles the silver potential (2 × 0.80 + 0.76); potentials are not scaled.
+      - |
+        Correct. E° = 0.80 − (−0.76) = 1.56 V; n = 2 (two Ag⁺ each take one electron from one Zn); ΔG° = −(2)(96,485)(1.56) = −301,000 J = −301 kJ.
+      - |
+        −151 kJ uses n = 1; two moles of electrons are transferred per mole of reaction.
+    answer: 2
+    explanation: |
+      Practice 5. E°cell = E°cathode − E°anode; ΔG° = −nFE° with n from the balanced equation.
+  - slug: apchem-u09-exam-q21
+    type: multiple_choice
+    topic_code: "9.9"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A galvanic cell is built from a zinc electrode in 1.0 M Zn(NO₃)₂ and a silver electrode in 1.0 M AgNO₃ at 298 K, joined by a wire through a voltmeter and a KNO₃ salt bridge.
+
+      | Half-reaction | E° (V) |
+      |---|---|
+      | Ag⁺(aq) + e⁻ → Ag(s) | +0.80 |
+      | Cu²⁺(aq) + 2 e⁻ → Cu(s) | +0.34 |
+      | 2 H⁺(aq) + 2 e⁻ → H₂(g) | 0.00 |
+      | Zn²⁺(aq) + 2 e⁻ → Zn(s) | −0.76 |
+    prompt: |
+      A few drops of concentrated NaCl solution are added to the silver half-cell, and a white precipitate of AgCl forms. What happens to the cell voltage, and why?
+    options:
+      - "It rises, because the precipitate removes a product of the cell reaction."
+      - "It falls, because [Ag⁺] decreases, raising Q = [Zn²⁺]/[Ag⁺]² and lowering E by the Nernst equation."
+      - "It is unchanged, because E° depends only on the identity of the electrodes."
+      - "It falls to zero immediately, because the silver half-cell no longer contains any Ag⁺."
+    option_explanations:
+      - |
+        Ag⁺ is a reactant of the cell reaction, not a product; removing it moves the cell toward equilibrium and lowers E.
+      - |
+        Correct. Precipitating AgCl lowers [Ag⁺] from 1.0 M to a value set by Ksp (very small), so Q rises sharply; with the squared Ag⁺ term, E can drop by several tenths of a volt.
+      - |
+        E° is unchanged, but the measured E follows the Nernst equation and depends on the ion concentrations.
+      - |
+        Some Ag⁺ remains in equilibrium with AgCl(s); E falls but does not reach zero, because Q is still far below K.
+    answer: 1
+    explanation: |
+      Practice 6. Any change that lowers a reactant-ion concentration raises Q and lowers E; a precipitation reaction is a drastic version of dilution.
+  # ---- Stimulus set C: electrolysis of aqueous CuSO₄ (9.10)
+  - slug: apchem-u09-exam-q22
+    type: multiple_choice
+    topic_code: "9.10"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A 0.50 M CuSO₄(aq) solution is electrolysed between two platinum electrodes with a steady current of 1.50 A for 40.0 min. A reddish solid collects on one electrode and gas bubbles form at the other. Standard reduction potentials: Cu²⁺/Cu +0.34 V; O₂, 4 H⁺/2 H₂O +1.23 V; 2 H₂O/H₂, 2 OH⁻ −0.83 V; S₂O₈²⁻/2 SO₄²⁻ +2.01 V.
+    prompt: |
+      Which electrode collects the reddish solid, and what is the half-reaction there?
+    options:
+      - "The anode; 2 H₂O(l) → O₂(g) + 4 H⁺(aq) + 4 e⁻"
+      - "The anode; Cu(s) → Cu²⁺(aq) + 2 e⁻"
+      - "The cathode; 2 H₂O(l) + 2 e⁻ → H₂(g) + 2 OH⁻(aq)"
+      - "The cathode; Cu²⁺(aq) + 2 e⁻ → Cu(s)"
+    option_explanations:
+      - |
+        Oxygen is the anode product, but the solid is copper, which forms by reduction at the cathode.
+      - |
+        Copper metal is not oxidised here; there was no copper electrode to begin with, and the solid is being deposited, not dissolved.
+      - |
+        Water reduction (−0.83 V, about −0.41 V at pH 7) is far less favourable than Cu²⁺ reduction (+0.34 V), so copper, not hydrogen, forms at the cathode.
+      - |
+        Correct. Cu²⁺ is the most easily reduced species present, so it plates out as copper metal at the cathode (negative terminal).
+    answer: 3
+    explanation: |
+      Practice 6. At the cathode the species with the highest reduction potential is reduced: Cu²⁺ beats water.
+  - slug: apchem-u09-exam-q23
+    type: multiple_choice
+    topic_code: "9.10"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A 0.50 M CuSO₄(aq) solution is electrolysed between two platinum electrodes with a steady current of 1.50 A for 40.0 min. A reddish solid collects on one electrode and gas bubbles form at the other. Standard reduction potentials: Cu²⁺/Cu +0.34 V; O₂, 4 H⁺/2 H₂O +1.23 V; 2 H₂O/H₂, 2 OH⁻ −0.83 V; S₂O₈²⁻/2 SO₄²⁻ +2.01 V.
+    prompt: |
+      How many moles of electrons pass through the cell, and what mass of copper is deposited (Cu = 63.55 g/mol)?
+    options:
+      - "0.0373 mol e⁻; 1.19 g Cu"
+      - "0.0373 mol e⁻; 2.37 g Cu"
+      - "0.000622 mol e⁻; 0.0198 g Cu"
+      - "0.0746 mol e⁻; 2.37 g Cu"
+    option_explanations:
+      - |
+        Correct. q = (1.50 A)(2,400 s) = 3,600 C; 3,600/96,485 = 0.0373 mol e⁻; Cu²⁺ + 2 e⁻ → Cu gives 0.01866 mol Cu = 1.19 g.
+      - |
+        This forgets to divide by 2: each Cu²⁺ needs two electrons, so the moles of copper are half the moles of electrons.
+      - |
+        This uses 40.0 s rather than 40.0 min; time must be converted to seconds (2,400 s).
+      - |
+        0.0746 mol e⁻ would need twice the charge; 1.50 A for 2,400 s is 3,600 C, not 7,200 C.
+    answer: 0
+    explanation: |
+      Practice 5. Current × time (s) = charge; ÷ F = mol e⁻; × ½ = mol Cu; × molar mass.
+  - slug: apchem-u09-exam-q24
+    type: multiple_choice
+    topic_code: "9.10"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A 0.50 M CuSO₄(aq) solution is electrolysed between two platinum electrodes with a steady current of 1.50 A for 40.0 min. A reddish solid collects on one electrode and gas bubbles form at the other. Standard reduction potentials: Cu²⁺/Cu +0.34 V; O₂, 4 H⁺/2 H₂O +1.23 V; 2 H₂O/H₂, 2 OH⁻ −0.83 V; S₂O₈²⁻/2 SO₄²⁻ +2.01 V.
+    prompt: |
+      What gas forms, and what happens to the pH of the solution during the electrolysis?
+    options:
+      - "H₂ at the cathode; the pH rises because OH⁻ is produced."
+      - "O₂ at the anode; the pH is unchanged because the water that is split is replaced."
+      - "O₂ at the anode; the pH falls because H⁺ is produced at the anode."
+      - "SO₂ at the anode from the oxidation of sulfate; the pH falls."
+    option_explanations:
+      - |
+        Hydrogen does not form, because Cu²⁺ is reduced in preference to water at the cathode.
+      - |
+        The gas is right, but the anode half-reaction 2 H₂O → O₂ + 4 H⁺ + 4 e⁻ releases H⁺ into the solution.
+      - |
+        Correct. Water is oxidised at the anode (+1.23 V is far below the +2.01 V needed to oxidise sulfate), releasing O₂ and H⁺; with no OH⁻ made at the cathode, the solution becomes acidic.
+      - |
+        Sulfate's sulfur is already +6 and cannot be oxidised to SO₂ (sulfur +4, which would be a reduction); the only accessible anode reaction is water oxidation.
+    answer: 2
+    explanation: |
+      Practice 6. Inert-electrode electrolysis of CuSO₄(aq): Cu at the cathode, O₂ + H⁺ at the anode; net 2 Cu²⁺ + 2 H₂O → 2 Cu + O₂ + 4 H⁺.
+  - slug: apchem-u09-exam-q25
+    type: multiple_choice
+    topic_code: "9.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Photosynthesis, 6 CO₂(g) + 6 H₂O(l) → C₆H₁₂O₆(s) + 6 O₂(g), has ΔG° ≈ +2,880 kJ. Which statement is correct?
+    options:
+      - "The reaction cannot occur, because ΔG° is positive."
+      - "Chlorophyll acts as a catalyst that lowers ΔG° to a negative value."
+      - "The reaction is favourable at high temperature because ΔS° is strongly positive."
+      - "The reaction is driven by light energy absorbed by chlorophyll, an external input that plays the role a coupled favourable reaction plays in other systems."
+    option_explanations:
+      - |
+        A positive ΔG° means K ≪ 1 for the reaction on its own; it occurs because energy is supplied from outside.
+      - |
+        No catalyst changes ΔG°; chlorophyll absorbs photons, which is an energy input, not catalysis.
+      - |
+        ΔS° for photosynthesis is small and negative (a solid is made from gases and a liquid); temperature does not rescue it.
+      - |
+        Correct. Light supplies the free energy; it is the same logic as coupling to ATP hydrolysis or supplying electrical work in an electrolytic cell.
+    answer: 3
+    explanation: |
+      Practice 6. The three ways to drive an unfavourable reaction are a coupled favourable reaction, electrical work and light.
+  - slug: apchem-u09-exam-q26
+    type: multi_select
+    topic_code: "9.1"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      For which of the following changes is the entropy of the system expected to increase? Select all that apply.
+    options:
+      - "2 KClO₃(s) → 2 KCl(s) + 3 O₂(g)"
+      - "H₂O(g) → H₂O(l) at 25 °C"
+      - "A gas expands into a vacuum to twice its volume at constant temperature"
+      - "CO₂(g) + 2 NH₃(g) → CO(NH₂)₂(s) + H₂O(l)"
+      - "NaCl(s) → Na⁺(aq) + Cl⁻(aq)"
+      - "A sample of argon is heated from 300 K to 600 K at constant volume"
+    option_explanations:
+      - |
+        Correct. Three moles of gas appear from solids; a large increase.
+      - |
+        Condensation converts a gas to a liquid; entropy decreases.
+      - |
+        Correct. More volume means more positions available to each molecule; dispersal of matter increases even though no energy is exchanged.
+      - |
+        Three moles of gas become a solid and a liquid; a large decrease.
+      - |
+        Correct. The ions leave an ordered lattice and spread through the solvent (a small, positive ΔS for NaCl).
+      - |
+        Correct. Heating spreads energy over more accessible states; entropy rises with temperature in every phase.
+    answer: [0, 2, 4, 5]
+    explanation: |
+      Practice 4. Entropy rises with gas moles, volume, dissolution and temperature; it falls on condensation and when gases are consumed.
+  - slug: apchem-u09-exam-q27
+    type: multi_select
+    topic_code: "9.7"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements are true of every electrochemical cell, galvanic or electrolytic? Select all that apply.
+    options:
+      - "Oxidation occurs at the anode."
+      - "The cathode is the positive electrode."
+      - "Electrons flow through the external circuit from the anode to the cathode."
+      - "Ions, not electrons, carry charge through the solution."
+      - "The cell reaction has ΔG < 0 in the direction it is running."
+    option_explanations:
+      - |
+        Correct. This is the definition of the anode in every cell.
+      - |
+        The sign depends on the cell type: the cathode is positive in a galvanic cell but negative in an electrolytic cell.
+      - |
+        Correct. Electrons are released at the anode and consumed at the cathode in every cell; the direction of the wire current is the same, only its cause differs.
+      - |
+        Correct. The electrolyte and salt bridge conduct by ion migration; no electrons travel through the solution.
+      - |
+        True for a galvanic cell only; an electrolytic cell is forced through a reaction with ΔG > 0 by the external supply.
+    answer: [0, 2, 3]
+    explanation: |
+      Practice 1. Process definitions (anode = oxidation, electrons anode → cathode, ions in solution) are universal; signs and the sign of ΔG distinguish the two cell types.
+  - slug: apchem-u09-exam-q28
+    type: multi_select
+    topic_code: "9.10"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about the electrolysis of aqueous solutions with inert electrodes are correct? Select all that apply.
+    options:
+      - "Electrolysing aqueous Na₂SO₄ produces H₂ at the cathode and O₂ at the anode."
+      - "Electrolysing aqueous AgNO₃ deposits silver at the cathode."
+      - "Electrolysing concentrated aqueous NaCl produces Cl₂ at the anode, although O₂ would be expected from potentials alone."
+      - "Electrolysing aqueous KI produces potassium metal at the cathode."
+      - "The minimum applied voltage equals the negative of the cell potential for the reaction being forced."
+    option_explanations:
+      - |
+        Correct. Neither Na⁺ nor SO₄²⁻ can compete with water, so this is simply the electrolysis of water with the salt carrying the current.
+      - |
+        Correct. Ag⁺ (+0.80 V) is reduced far more easily than water.
+      - |
+        Correct. The large overpotential for O₂ evolution lets chloride oxidation win at a practical electrode; this is the chlor-alkali process.
+      - |
+        Water is reduced in preference to K⁺ (−2.93 V); hydrogen forms, and potassium is made only from molten KCl.
+      - |
+        Correct. The supply must exceed |E| for the non-spontaneous reaction (and in practice an overpotential on top of that).
+    answer: [0, 1, 2, 4]
+    explanation: |
+      Practice 6. Rank every reducible and oxidisable species, water included; group 1 and 2 cations and oxoanions lose to water, while Cu²⁺ and Ag⁺ win.
+  - slug: apchem-u09-exam-q29
+    type: true_false
+    topic_code: "9.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: because ΔG° for the combustion of glucose is about −2,880 kJ/mol, a sugar cube left in air at room temperature must burn away within a few hours.
+    answer: false
+    explanation: |
+      Practice 6. ΔG° fixes the position of equilibrium, not the rate. The combustion is enormously favourable, but its activation energy is far too high to be crossed at a useful rate at room temperature, so the sugar sits unchanged: it is under kinetic control until a flame (or an enzyme, in a cell) provides a path.
+  - slug: apchem-u09-exam-q30
+    type: true_false
+    topic_code: "9.8"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: a cell built from the half-reactions Ag⁺/Ag (+0.80 V) and Al³⁺/Al (−1.66 V) has E°cell = 2.46 V, and tripling the silver half-reaction to balance electrons does not change this value.
+    answer: true
+    explanation: |
+      Practice 1. E°cell = 0.80 − (−1.66) = 2.46 V. Balancing the electrons (3 Ag⁺ per Al) sets n = 3 for ΔG° = −nFE° but leaves both potentials, and their difference, unchanged.
+  - slug: apchem-u09-exam-q31
+    type: true_false
+    topic_code: "9.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: if ΔG° for a reaction is positive, its equilibrium constant is less than 1, but some product still forms when pure reactants are mixed.
+    answer: true
+    explanation: |
+      Practice 6. ΔG° = −RT ln K, so ΔG° > 0 gives K < 1. With only reactants present Q = 0 < K, so the forward reaction runs until Q = K; the amount of product is small, not zero.
+  - slug: apchem-u09-exam-q32
+    type: fill_blank
+    topic_code: "9.7"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      In any electrochemical cell, reduction takes place at the electrode called the ____.
+    answer: ["cathode", "Cathode", "the cathode"]
+    explanation: |
+      Practice 1. Cathode = reduction, anode = oxidation, in galvanic and electrolytic cells alike; only the sign labels change between the two.
+  - slug: apchem-u09-exam-q33
+    type: fill_blank
+    topic_code: "9.9"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      When the measured potential of a galvanic cell has fallen to zero, the cell reaction has reached ____, and Q equals K.
+    answer: ["equilibrium", "Equilibrium", "chemical equilibrium", "a state of equilibrium"]
+    explanation: |
+      Practice 4. E = 0 means ΔG = −nFE = 0, the condition for equilibrium; the Nernst equation gives E = 0 exactly when Q = K.
+  - slug: apchem-u09-exam-q34
+    type: fill_blank
+    topic_code: "9.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Absolute entropies can be tabulated because the entropy of a perfect crystal at a temperature of ____ kelvin is zero.
+    answer: ["0", "zero", "0 K", "absolute zero", "Zero"]
+    explanation: |
+      Practice 1. The third law of thermodynamics fixes S = 0 for a perfect crystal at 0 K, which is why S° values (unlike ΔH°f) are absolute and positive for every substance at 298 K.
+  - slug: apchem-u09-exam-q35
+    type: numeric
+    topic_code: "9.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Calculate ΔS° in J/K for 2 H₂O₂(l) → 2 H₂O(l) + O₂(g) from S° values: H₂O₂(l) 109.6, H₂O(l) 69.9, O₂(g) 205.2 J/(mol·K). Give one decimal place.
+    answer:
+      value: 125.8
+      tolerance: 0.3
+    explanation: |
+      Practice 5. ΔS° = [2(69.9) + 205.2] − 2(109.6) = 345.0 − 219.2 = +125.8 J/K. Positive, as expected when a gas is produced from liquids.
+  - slug: apchem-u09-exam-q36
+    type: numeric
+    topic_code: "9.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      For CaCO₃(s) → CaO(s) + CO₂(g), ΔH° = +178.3 kJ and ΔS° = +159.0 J/K. Assuming both are independent of temperature, calculate the temperature in kelvin above which the decomposition becomes thermodynamically favourable. Give the nearest kelvin.
+    answer:
+      value: 1121
+      tolerance: 5
+    explanation: |
+      Practice 5. ΔG° = 0 when T = ΔH°/ΔS° = 178,300 J / 159.0 J/K = 1,121 K (about 850 °C). Above this, −TΔS° outweighs ΔH° and ΔG° < 0.
+  - slug: apchem-u09-exam-q37
+    type: numeric
+    topic_code: "9.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A reaction has ΔG° = +5.7 kJ/mol at 298 K. Calculate its equilibrium constant K (R = 8.314 J/(mol·K)). Give two significant figures.
+    answer:
+      value: 0.10
+      tolerance: 0.005
+    explanation: |
+      Practice 5. ln K = −ΔG°/(RT) = −5,700/(8.314 × 298) = −2.30, so K = e^(−2.30) = 0.10. A useful landmark: at 298 K, every 5.7 kJ of ΔG° is one factor of ten in K.
+  - slug: apchem-u09-exam-q38
+    type: numeric
+    topic_code: "9.8"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      For Al(s) + 3 Ag⁺(aq) → Al³⁺(aq) + 3 Ag(s), E°cell = 2.46 V. Calculate ΔG° in kJ per mole of reaction (F = 96,485 C/mol). Give a negative number for a favourable reaction.
+    answer:
+      value: -712
+      tolerance: 3
+    explanation: |
+      Practice 5. n = 3 (one Al gives three electrons to three Ag⁺). ΔG° = −nFE° = −(3)(96,485)(2.46) = −712,100 J = −712 kJ.
+  - slug: apchem-u09-exam-q39
+    type: numeric
+    topic_code: "9.10"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Aluminium is produced by electrolysis of Al³⁺ in molten cryolite. How many minutes does a 3.00 A current take to deposit 1.00 g of aluminium (Al = 26.98 g/mol; F = 96,485 C/mol)? Give one decimal place.
+    answer:
+      value: 59.6
+      tolerance: 0.3
+    explanation: |
+      Practice 5. mol Al = 1.00/26.98 = 0.03706; mol e⁻ = 3 × 0.03706 = 0.1112; q = 0.1112 × 96,485 = 10,730 C; t = 10,730/3.00 = 3,576 s = 59.6 min.
+  - slug: apchem-u09-exam-q40
+    type: short_answer
+    topic_code: "9.5"
+    source: "general knowledge"
+    points: 3
+    prompt: |
+      For the Haber process, N₂(g) + 3 H₂(g) ⇌ 2 NH₃(g), ΔH° = −92.2 kJ and ΔS° = −198.1 J/K; at 298 K, ΔG° = −33.2 kJ.
+
+      (a) Calculate K at 298 K.
+      (b) A mixture at 298 K has Q = 1.0 × 10⁴. Calculate ΔG and state which direction the reaction proceeds.
+      (c) Estimate the temperature above which the reaction is no longer thermodynamically favourable, and explain in one sentence why industry nevertheless runs it near 700 K.
+    answer: |
+      (a) Ln K = 33,200/(8.314 × 298) = 13.40; K = e^13.40 = 6.6 × 10⁵ (accept 6 × 10⁵ to 7 × 10⁵).
+      (b) RT ln Q = (2,478)(9.21) = 22,800 J; ΔG = −33.2 + 22.8 = −10.4 kJ; negative, so the reaction proceeds forward (Q = 10⁴ is still below K = 6.6 × 10⁵).
+      (c) T = ΔH°/ΔS° = 92,200/198.1 = 465 K; above this ΔG° > 0. Industry runs hotter anyway because the rate at 465 K is far too slow even with the iron catalyst; a smaller K at 700 K is accepted and compensated with high pressure and recycling (kinetic versus thermodynamic trade-off).
+    explanation: |
+      Three points.
+
+      (a) 1 pt: K ≈ 6.6 × 10⁵ (accept 6–7 × 10⁵).
+      (b) 1 pt: ΔG ≈ −10.4 kJ (accept −10 to −11) and 'forward'.
+      (c) 1 pt: T ≈ 465 K and the rate-versus-yield reason.
+  - slug: apchem-u09-exam-q41
+    type: short_answer
+    topic_code: "9.9"
+    source: "general knowledge"
+    points: 3
+    prompt: |
+      A copper strip is placed in 1.0 M AgNO₃ and silver crystals grow on it. E°(Ag⁺/Ag) = +0.80 V; E°(Cu²⁺/Cu) = +0.34 V.
+
+      (a) Write the balanced overall reaction, identify n, and calculate E° and ΔG° in kJ for the reaction.
+      (b) The same reaction is set up as a galvanic cell with [Ag⁺] = 0.10 M and [Cu²⁺] = 0.10 M. Calculate E at 298 K.
+      (c) Explain, in terms of Q, why the cell voltage decreases continuously as the cell is used.
+    answer: |
+      (a) Cu(s) + 2 Ag⁺(aq) → Cu²⁺(aq) + 2 Ag(s); n = 2; E° = 0.80 − 0.34 = 0.46 V; ΔG° = −(2)(96,485)(0.46) = −88,800 J = −88.8 kJ (accept −88 to −89 kJ).
+      (b) Q = [Cu²⁺]/[Ag⁺]² = 0.10/(0.10)² = 10; E = 0.46 − (0.0592/2)(log 10) = 0.46 − 0.030 = 0.43 V.
+      (c) As the cell runs, Ag⁺ (a reactant) is consumed and Cu²⁺ (a product) is produced, so Q = [Cu²⁺]/[Ag⁺]² rises; by E = E° − (0.0592/n) log Q the potential falls, reaching zero when Q = K (equilibrium).
+    explanation: |
+      Three points.
+
+      (a) 1 pt: balanced equation, n = 2, E° = 0.46 V, ΔG° ≈ −88.8 kJ.
+      (b) 1 pt: Q = 10 and E ≈ 0.43 V.
+      (c) 1 pt: Q rises as reactant ion is consumed and product ion made, so E falls toward zero at Q = K.
+  - slug: apchem-u09-exam-q42
+    type: long_answer
+    topic_code: "9.10"
+    source: "general knowledge"
+    points: 6
+    prompt: |
+      A 250 mL sample of 0.50 M CuSO₄(aq) is electrolysed between platinum electrodes with a constant current of 1.50 A for 40.0 min at 298 K. Standard reduction potentials: Cu²⁺(aq) + 2 e⁻ → Cu(s), +0.34 V; O₂(g) + 4 H⁺(aq) + 4 e⁻ → 2 H₂O(l), +1.23 V; 2 H₂O(l) + 2 e⁻ → H₂(g) + 2 OH⁻(aq), −0.83 V. F = 96,485 C/mol; Cu = 63.55 g/mol; molar volume at STP = 22.4 L/mol.
+
+      (a) Write the half-reaction at each electrode and the balanced overall equation.
+      (b) Explain why copper rather than hydrogen forms at the cathode.
+      (c) Calculate the minimum voltage the power supply must exceed under standard conditions, and explain why the practical voltage is higher.
+      (d) Calculate the mass of copper deposited and the volume of O₂ produced at STP.
+      (e) Calculate ΔG° in kJ for the overall equation as written in (a), and state what its sign means for this process.
+      (f) The electrolysis is continued until all the Cu²⁺ has been removed. Calculate how long in total this takes at 1.50 A, and predict what will form at the cathode after that point.
+    answer: |
+      (a) Cathode Cu²⁺(aq) + 2 e⁻ → Cu(s); anode 2 H₂O(l) → O₂(g) + 4 H⁺(aq) + 4 e⁻; overall 2 Cu²⁺(aq) + 2 H₂O(l) → 2 Cu(s) + O₂(g) + 4 H⁺(aq) (n = 4).
+      (b) Cu²⁺ has the higher reduction potential (+0.34 V versus −0.83 V, about −0.41 V at pH 7, for water), so it is reduced first; hydrogen forms only after the Cu²⁺ is depleted.
+      (c) E° for the forced reaction = 0.34 − 1.23 = −0.89 V, so the supply must exceed 0.89 V; in practice more is needed because of the overpotential for O₂ evolution and the resistance of the solution.
+      (d) Q = (1.50)(2,400) = 3,600 C; 3,600/96,485 = 0.0373 mol e⁻; Cu: 0.01866 mol × 63.55 = 1.19 g; O₂: 0.0373/4 = 0.00933 mol × 22.4 L/mol = 0.209 L (accept 0.21 L).
+      (e) ΔG° = −nFE° = −(4)(96,485)(−0.89) = +343,000 J = +343 kJ (accept +340 to +345 kJ); positive, so the process is not thermodynamically favourable and runs only because the power supply does electrical work on it.
+      (f) Mol Cu²⁺ = 0.250 L × 0.50 M = 0.125 mol; mol e⁻ = 0.250 mol; q = 0.250 × 96,485 = 24,120 C; t = 24,120/1.50 = 16,080 s = 268 min = 4.47 h (accept 4.4–4.5 h). After the copper is gone, water is reduced at the cathode and H₂(g) is evolved.
+    explanation: |
+      Six points.
+
+      (a) 1 pt: both half-reactions and the overall equation with n = 4.
+      (b) 1 pt: Cu²⁺ has the higher reduction potential than water.
+      (c) 1 pt: 0.89 V minimum, higher in practice (overpotential, resistance).
+      (d) 1 pt: 1.19 g Cu and 0.21 L O₂.
+      (e) 1 pt: ΔG° ≈ +343 kJ (accept +340 to +345), positive because work is supplied.
+      (f) 1 pt: about 268 min (4.4–4.5 h), then H₂ at the cathode.
+
