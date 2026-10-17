@@ -6,6 +6,7 @@ import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { formatDueDate } from '../../services/format';
+import { setPageMeta, testMeta } from '../../services/page-meta';
 import { formatAnswer, optionChosen, showsStimulus } from '../../services/question-format';
 
 @Component({ tag: 'page-test', styleUrl: 'page-test.css', shadow: true })
@@ -42,6 +43,7 @@ export class PageTest {
     }
     try {
       this.test = await testsStore.getTest(this.testId);
+      setPageMeta(testMeta(this.test));
       if (this.isStudent) {
         const mine = await testsStore.myAttempts();
         this.attempts = mine.data.filter((a) => a.test_id === this.testId);

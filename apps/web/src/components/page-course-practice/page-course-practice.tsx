@@ -5,6 +5,7 @@ import { coursesStore } from '../../services/courses-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { courseItemTitle } from '../../services/course-format';
+import { practiceMeta, setPageMeta } from '../../services/page-meta';
 import { QuestionInput } from '../../services/question-input';
 import { formatAnswer, formatResponse, isTextResponse, optionChosen, showsStimulus } from '../../services/question-format';
 
@@ -38,6 +39,7 @@ export class PageCoursePractice {
     }
     try {
       this.test = await coursesStore.getPracticeTest(this.courseId, this.testId);
+      setPageMeta(practiceMeta(this.test));
     } catch (e) {
       if (e instanceof ApiError && e.status === 404) {
         this.notFound = true;
