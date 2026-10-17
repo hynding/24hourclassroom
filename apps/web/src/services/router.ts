@@ -235,6 +235,22 @@ export function resolveRoute(path: string): ResolvedRoute {
   }
 }
 
+/**
+ * Pages a search engine may list: the logged-out-readable views, minus the
+ * print view (a duplicate of the test page) and every form. `/` is the
+ * home page; every unknown path also resolves to page-home, so it is
+ * matched by path, not tag. A page that turns out to be private when it
+ * loads (an author viewing their own draft) says so through page-meta.
+ */
+const INDEXABLE_TAGS = ['page-teachers', 'page-teacher-profile', 'page-library-index', 'page-library', 'page-course', 'page-course-practice', 'page-test', 'page-material'];
+
+export function isIndexable(path: string): boolean {
+  if (path === '/') {
+    return true;
+  }
+  return INDEXABLE_TAGS.includes(resolveRoute(path).tag) && isPublic(path);
+}
+
 export function redirectFor(path: string, user: User | null): string | null {
   if (user && GUEST_ONLY.includes(path)) {
     return '/';

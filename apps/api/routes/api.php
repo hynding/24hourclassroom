@@ -39,6 +39,7 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicProfileController;
 use App\Http\Controllers\Api\SharedMaterialController;
 use App\Http\Controllers\Api\SiteController;
+use App\Http\Controllers\Api\SitemapController;
 use App\Http\Controllers\Api\StudentAssignmentsController;
 use App\Http\Controllers\Api\TeacherDirectoryController;
 use App\Http\Controllers\Api\TestAttemptsController;
@@ -194,6 +195,10 @@ Route::middleware(['throttle:60,1', 'active'])->group(function () {
 // the whole api group, which is fine: AuthenticateSession only ends a session
 // whose password changed, correct on any route.
 Route::middleware('throttle:60,1')->get('site', SiteController::class);
+
+// Every page a guest can open, as SPA URLs; the SPA's robots.txt names it.
+// No `active`: it carries nothing viewer-dependent.
+Route::middleware('throttle:60,1')->get('sitemap.xml', SitemapController::class);
 
 // The file stream: `signed:relative` and its own limiter, deliberately with
 // NO `auth` and NO `active`. The signature covers path and query only, so a

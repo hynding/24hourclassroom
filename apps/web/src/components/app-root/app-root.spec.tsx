@@ -216,12 +216,12 @@ describe('app-root theme wiring', () => {
 
   it('sets the document title from the cached site name on the first frame and again on site:changed', async () => {
     const spec = await mountAt('/teachers');
-    expect(spec.doc.title).toBe('Night School');
+    expect(spec.doc.title).toBe('Teachers · Night School');
 
     siteConfig = configWith({ layout: 'stacked', palette: 'noon', typeset: 'editorial' }, 'Day School');
     spec.win.dispatchEvent(new (spec.win as any).CustomEvent('site:changed'));
     await spec.waitForChanges();
-    expect(spec.doc.title).toBe('Day School');
+    expect(spec.doc.title).toBe('Teachers · Day School');
   });
 
   it('renders the banner in its own slot above the header', async () => {

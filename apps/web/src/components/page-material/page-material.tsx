@@ -5,6 +5,7 @@ import { materialsStore } from '../../services/materials-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { fileTypeLabel, formatBytes } from '../../services/format';
+import { materialMeta, setPageMeta } from '../../services/page-meta';
 import { Flashcard, isDeckName, isReadableText, parseDeck } from '../../services/flashcards';
 
 /**
@@ -54,6 +55,7 @@ export class PageMaterial {
     }
     try {
       this.material = await materialsStore.getMaterial(this.materialId);
+      setPageMeta(materialMeta(this.material));
       this.fetchedAt = Date.now();
       // Not awaited: the page renders its header and download link now and
       // the reader fills in when the body arrives.

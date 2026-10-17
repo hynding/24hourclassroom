@@ -5,6 +5,7 @@ import { coursesStore } from '../../services/courses-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { courseItemKind, courseItemTitle, courseSections } from '../../services/course-format';
+import { courseMeta, setPageMeta } from '../../services/page-meta';
 
 @Component({ tag: 'page-course', styleUrl: 'page-course.css', shadow: true })
 export class PageCourse {
@@ -44,6 +45,7 @@ export class PageCourse {
     }
     try {
       this.course = await coursesStore.getCourse(this.courseId);
+      setPageMeta(courseMeta(this.course));
     } catch (e) {
       if (e instanceof ApiError && e.status === 404) {
         this.notFound = true;

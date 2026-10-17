@@ -4,6 +4,7 @@ import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
 import { redirectFor, resolveRoute } from '../../services/router';
 import type { ResolvedRoute } from '../../services/router';
+import { applyHead, resetPageMeta } from '../../services/page-meta';
 import { siteStore } from '../../services/site-store';
 import { cachedTheme, releaseInlineCanvas } from '../../services/theme-store';
 
@@ -14,6 +15,7 @@ export class AppRoot {
 
   private onPopState = () => {
     this.path = window.location.pathname;
+    resetPageMeta(this.path);
     this.applyGuards();
   };
 
@@ -21,7 +23,7 @@ export class AppRoot {
     // Synchronous: the cache is what makes a return visit right on the first
     // frame. Palette/typeset were already applied by the inline boot script.
     this.layout = cachedTheme().layout;
-    document.title = siteStore.config.identity.name;
+    resetPageMeta(this.path);
   }
 
   async connectedCallback() {
@@ -43,11 +45,11 @@ export class AppRoot {
   }
 
   // No @State snapshot here, deliberately: the only job is a side effect.
-  // load() dispatches this before resolving, so this is the single post-load
-  // writer of document.title; componentWillLoad is the other (from the cache).
+  // load() dispatches this before resolving; the head re-renders with the
+  // fetched site name around whatever the current page has described.
   @Listen('site:changed', { target: 'window' })
   onSiteChanged() {
-    document.title = siteStore.config.identity.name;
+    applyHead();
   }
 
   private applyGuards() {

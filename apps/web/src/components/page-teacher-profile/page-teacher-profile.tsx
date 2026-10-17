@@ -4,6 +4,7 @@ import { GRADE_LEVELS, MaterialSummary, PUBLIC_ROLES, Paginated, PublicProfile, 
 import { authStore } from '../../services/auth-store';
 import { materialsStore } from '../../services/materials-store';
 import { navigate } from '../../services/navigate';
+import { setPageMeta, teacherMeta } from '../../services/page-meta';
 import { profileStore } from '../../services/profile-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { testsStore } from '../../services/tests-store';
@@ -37,6 +38,7 @@ export class PageTeacherProfile {
 
     try {
       this.teacher = await profileStore.teacher(this.teacherId);
+      setPageMeta(teacherMeta(this.teacher));
       // Allowlist: only a public role (teacher, tutor) has public work. A
       // name-only payload (seen through an accepted connection) gets no
       // library call.
