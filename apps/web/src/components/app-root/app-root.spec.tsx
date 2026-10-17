@@ -8,6 +8,8 @@ const siteLoad = jest.fn();
 let siteConfig: any;
 const navigate = jest.fn();
 const authLoad = jest.fn();
+let currentUser: any = null;
+const takeReturnPath = jest.fn();
 
 jest.mock('../../services/theme-store', () => ({
   cachedTheme: (...a: unknown[]) => cachedTheme(...a),
@@ -19,8 +21,9 @@ jest.mock('../../services/site-store', () => ({
   siteStore: { get config() { return siteConfig; }, load: (...a: unknown[]) => siteLoad(...a) },
 }));
 jest.mock('../../services/auth-store', () => ({
-  authStore: { load: (...a: unknown[]) => authLoad(...a), currentUser: null, subscribe: () => () => {} },
+  authStore: { load: (...a: unknown[]) => authLoad(...a), get currentUser() { return currentUser; }, subscribe: () => () => {} },
 }));
+jest.mock('../../services/return-path', () => ({ takeReturnPath: (...a: unknown[]) => takeReturnPath(...a) }));
 jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a) }));
 
 import { AppRoot } from './app-root';
@@ -135,6 +138,28 @@ describe('app-root theme wiring', () => {
 
     expect(authLoad).toHaveBeenCalledTimes(1);
     expect(navigate).toHaveBeenCalledWith('/login');
+  });
+
+  describe('returning to the page a visitor left to sign in', () => {
+    beforeEach(() => {
+      takeReturnPath.mockReset().mockReturnValue('/courses/3');
+      authLoad.mockResolvedValue(undefined);
+    });
+    afterEach(() => { currentUser = null; });
+
+    it('sends a verified user landing on / back to the remembered course', async () => {
+      currentUser = { id: 1, email_verified_at: '2026-10-17' };
+      await mountAt('/');
+      expect(navigate).toHaveBeenCalledWith('/courses/3');
+    });
+
+    it('keeps the path for an unverified user, and anywhere but /', async () => {
+      currentUser = { id: 1, email_verified_at: null };
+      await mountAt('/');
+      currentUser = { id: 1, email_verified_at: '2026-10-17' };
+      await mountAt('/teachers');
+      expect(takeReturnPath).not.toHaveBeenCalled();
+    });
   });
 
   it('slots the page inside app-layout, not beside it', async () => {

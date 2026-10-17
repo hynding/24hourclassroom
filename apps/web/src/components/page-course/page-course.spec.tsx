@@ -18,6 +18,15 @@ jest.mock('../../services/courses-store', () => ({
 }));
 jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a) }));
 jest.mock('../../services/session-recovery', () => ({ recoverFromExpiredSession: () => false }));
+// Signed in by default, so the guest pitch stays out of every other test.
+const authLoad = jest.fn();
+jest.mock('../../services/auth-store', () => ({ authStore: { load: () => authLoad() } }));
+const rememberReturnPath = jest.fn();
+jest.mock('../../services/return-path', () => ({ rememberReturnPath: (...a: unknown[]) => rememberReturnPath(...a) }));
+let registrationOpen = true;
+jest.mock('../../services/site-store', () => ({
+  siteStore: { get config() { return { identity: { name: '24 Hour Classroom', tagline: null }, registration: { open: registrationOpen, message: null } }; } },
+}));
 
 import { PageCourse } from './page-course';
 import { RichText } from '../rich-text/rich-text';
@@ -58,7 +67,45 @@ const buttons = (page: Awaited<ReturnType<typeof mount>>) => Array.from(page.roo
 
 describe('page-course', () => {
   beforeEach(() => {
-    [getCourse, publishCourse, unpublishCourse, deleteCourse, branchCourse, navigate].forEach((m) => m.mockReset());
+    [getCourse, publishCourse, unpublishCourse, deleteCourse, branchCourse, navigate, rememberReturnPath].forEach((m) => m.mockReset());
+    authLoad.mockReset().mockResolvedValue({ id: 9, role: 'student' });
+    registrationOpen = true;
+  });
+
+  describe('the teacher pitch', () => {
+    it('asks a signed-out visitor to sign up and branch, and remembers to come back', async () => {
+      authLoad.mockResolvedValue(null);
+      const page = await mount(course());
+      const pitch = page.root.shadowRoot.querySelector('.pitch');
+
+      expect(pitch.querySelector('h2').textContent).toBe('Teaching this course?');
+      expect(pitch.textContent).toContain('answer key only you and your students can see');
+      const signUp = pitch.querySelector('a[href="/register"]') as HTMLAnchorElement;
+      signUp.click();
+      expect(rememberReturnPath).toHaveBeenCalledWith('/courses/3');
+      expect(navigate).toHaveBeenCalledWith('/register');
+      expect(pitch.querySelector('a[href="/login"]')).not.toBeNull();
+    });
+
+    it('offers only Log in while registration is closed', async () => {
+      authLoad.mockResolvedValue(null);
+      registrationOpen = false;
+      const page = await mount(course());
+      const pitch = page.root.shadowRoot.querySelector('.pitch');
+
+      expect(pitch.querySelector('a[href="/register"]')).toBeNull();
+      expect(pitch.querySelector('a[href="/login"]')).not.toBeNull();
+    });
+
+    it('is not shown to anyone signed in, when the session is unknown, or on a course with no tests', async () => {
+      expect((await mount(course())).root.shadowRoot.querySelector('.pitch')).toBeNull();
+
+      authLoad.mockRejectedValue(new Error('offline'));
+      expect((await mount(course())).root.shadowRoot.querySelector('.pitch')).toBeNull();
+
+      authLoad.mockResolvedValue(null);
+      expect((await mount(course({ test_count: 0, items: [guide(1, null)] }))).root.shadowRoot.querySelector('.pitch')).toBeNull();
+    });
   });
 
   it('shows a visitor the course in sections, tests linked to practice mode, and no author controls', async () => {
