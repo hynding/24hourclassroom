@@ -2,6 +2,7 @@ import { Component, h, Listen, State } from '@stencil/core';
 import type { Layout } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
+import { takeReturnPath } from '../../services/return-path';
 import { redirectFor, resolveRoute } from '../../services/router';
 import type { ResolvedRoute } from '../../services/router';
 import { applyHead, resetPageMeta } from '../../services/page-meta';
@@ -53,7 +54,12 @@ export class AppRoot {
   }
 
   private applyGuards() {
-    const target = redirectFor(this.path, authStore.currentUser);
+    const user = authStore.currentUser;
+    // Every sign-in route ends on `/`; only a verified user can act on the
+    // page they left (branching needs `verified`), so an unverified one
+    // keeps the path until the verification link brings them back here.
+    const target = redirectFor(this.path, user)
+      ?? (this.path === '/' && user?.email_verified_at ? takeReturnPath() : null);
     if (target) {
       navigate(target);
     }
