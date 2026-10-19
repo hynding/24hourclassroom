@@ -324,6 +324,14 @@ are described, never quoted. Its practice exam follows the 2027 format (55
 stimulus-based multiple choice, three SAQs, a DBQ scored out of 7 and an LEQ
 scored out of 6).
 
+**Licence.** Every seeded course's own writing is © 24 Hour Classroom under
+CC BY 4.0 (the owner's call, 2026-10-19), so the courses can be listed in open
+educational resource directories. Each `ATTRIBUTION.md` says so under
+`## Licence` (with the upstream CC BY credit for the adapted courses, and the
+College Board trademark note for AP), and each `course.yaml` description ends
+by saying so; `ContentLint::licence()` fails a course missing either, AP
+Literature included. A new course must carry both.
+
 Content contract the lint enforces: every option carries an
 `option_explanations` entry; `fill_blank` prompts contain `____` and `answer` is a
 list of accepted strings (`auto_grade: false` hands the item to the teacher);

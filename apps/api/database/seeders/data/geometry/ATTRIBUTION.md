@@ -12,6 +12,12 @@ licence** and are used here for attribution only, never as branding: nothing
 in this course is titled or presented as an Illustrative Mathematics product,
 and Illustrative Mathematics does not endorse it.
 
+## Licence
+
+The study guides, unit summaries, flashcards, test items and explanations in this directory are © 2026 24 Hour Classroom and are licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0, https://creativecommons.org/licenses/by/4.0/). Anyone may copy, adapt and share them, for any purpose, as long as they credit "24 Hour Classroom", link to the licence and say what they changed.
+
+The course is adapted from IM 9–12 Math by Illustrative Mathematics (CC BY 4.0), so a reuse must also credit Illustrative Mathematics, as above. The Illustrative Mathematics name and logo are not covered by either licence.
+
 ## What was adapted and what is original
 
 **Adapted from IM:** the unit sequence and unit titles; the lesson sequence
