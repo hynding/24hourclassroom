@@ -5,6 +5,7 @@ namespace Database\Seeders\ApLiterature;
 use App\Enums\QuestionType;
 use App\Support\QuestionRules;
 use App\Support\TestDraftValidator;
+use Database\Seeders\Curriculum\ContentLint;
 use Illuminate\Validation\ValidationException;
 use RuntimeException;
 
@@ -106,6 +107,9 @@ final class Lint
             $guide === null ? $this->fail('review', 'exam-prep-guide.md is missing') : $this->prose($guide, self::GUIDE_MIN_WORDS);
             if (! is_file("{$c->dir}/ATTRIBUTION.md")) {
                 $this->fail('course', 'ATTRIBUTION.md is missing');
+            }
+            foreach (ContentLint::licence($c->dir, (string) ($c->config['description'] ?? '')) as $problem) {
+                $this->fail('course', $problem);
             }
         }
 

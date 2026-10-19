@@ -14,6 +14,16 @@ Items the authors could not source from OpenStax carry
 - OpenStax, *Biology 2e* (2018). https://openstax.org/details/books/biology-2e
 - OpenStax, *Biology for AP® Courses* (2018). https://openstax.org/details/books/biology-ap-courses
 
+## Licence
+
+The study guides, unit summaries, flashcards, test items and explanations in this directory are © 2026 24 Hour Classroom and are licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0, https://creativecommons.org/licenses/by/4.0/). Anyone may copy, adapt and share them, for any purpose, as long as they credit "24 Hour Classroom", link to the licence and say what they changed.
+
+The course is adapted from OpenStax *Biology 2e* and *Biology for AP® Courses* (2018 editions, CC BY 4.0), so a reuse must also credit OpenStax, as above.
+
+Quoted public-domain texts and U.S. government data stay in the public domain; the licence covers only the writing and questions built around them.
+
+AP® is a trademark of the College Board, which was not involved in producing this course and does not endorse it. The Course and Exam Description belongs to the College Board and is not covered by this licence.
+
 ## Sections used
 
 ### Unit 1 · Chemistry of Life

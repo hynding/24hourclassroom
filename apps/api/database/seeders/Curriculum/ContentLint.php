@@ -325,6 +325,29 @@ final class ContentLint
         }
         if (! is_file("{$c->dir}/ATTRIBUTION.md")) {
             $errors[] = 'ATTRIBUTION.md is missing';
+        } else {
+            $errors = [...$errors, ...self::licence($c->dir, (string) ($c->config['description'] ?? ''))];
+        }
+
+        return $errors;
+    }
+
+    /**
+     * The courses' own writing is CC BY 4.0 (owner's decision, 2026-10-19):
+     * ATTRIBUTION.md states it under `## Licence` and the course page says
+     * so in its description. Shared with the AP Literature lint.
+     *
+     * @return list<string>
+     */
+    public static function licence(string $dir, string $description): array
+    {
+        $errors = [];
+        $attribution = (string) @file_get_contents("{$dir}/ATTRIBUTION.md");
+        if (! preg_match('/^## Licence\n(?:(?!^## ).)*CC BY 4\.0/ms', $attribution)) {
+            $errors[] = 'ATTRIBUTION.md lacks a `## Licence` section naming CC BY 4.0';
+        }
+        if (! str_contains($description, 'CC BY 4.0')) {
+            $errors[] = 'course.yaml `description` does not say the course is CC BY 4.0';
         }
 
         return $errors;

@@ -40,6 +40,12 @@ Items that rest on no specific source carry `source: "general knowledge"` in
 their YAML so a reviewer can find them. No image, map or diagram is
 reproduced: every figure, graph and energy diagram is described in words.
 
+## Licence
+
+The study guides, unit summaries, flashcards, test items and explanations in this directory are © 2026 24 Hour Classroom and are licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0, https://creativecommons.org/licenses/by/4.0/). Anyone may copy, adapt and share them, for any purpose, as long as they credit "24 Hour Classroom", link to the licence and say what they changed.
+
+Quoted public-domain texts and U.S. government data stay in the public domain; the licence covers only the writing and questions built around them.
+
 ## Per-week sources
 
 | Week | Topics | Sources (beyond original writing) |
