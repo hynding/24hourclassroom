@@ -1,0 +1,582 @@
+week: 31
+unit: 4
+title: "Matrices, Determinants and Inverses"
+topics: ["4.10", "4.11"]
+guide: guides/week-31.md
+guide_description: |
+  Matrix dimensions and entries, addition and scalar multiplication, row-by-column multiplication and why AB and
+  BA differ, matrix products in context; the 2 × 2 determinant and its meaning as the area of a parallelogram;
+  the inverse of a 2 × 2 matrix and when it exists; and solving a system of two equations as AX = B with
+  X = A⁻¹B. Worked examples: a hypothetical café's sales times prices, inverting [[2, −1], [3, 4]], and a
+  ticket-sales system solved with an inverse.
+flashcards_description: |
+  30 cards on matrix dimensions and arithmetic, when products are defined, non-commutativity, determinants and
+  area, the 2 × 2 inverse formula, singular matrices, and solving systems with inverses.
+
+flashcards:
+  - front: Dimensions m × n → meaning
+    back: |
+      m rows and n columns, rows first. The matrix [[1, 2, 3], [4, 5, 6]] is 2 × 3.
+    topic_code: "4.10"
+  - front: Entry a₂₁ of a matrix → which position
+    back: |
+      Row 2, column 1. In [[40, 25], [55, 30]], a₂₁ = 55.
+    topic_code: "4.10"
+  - front: Adding matrices → requirement and method
+    back: |
+      Same dimensions; add matching entries. [[2, −1], [3, 4]] + [[0, 10], [2, −4]] = [[2, 9], [5, 0]].
+    topic_code: "4.10"
+  - front: Scalar multiple of a matrix → method
+    back: |
+      Multiply every entry by the scalar: 2[[0, 5], [1, −2]] = [[0, 10], [2, −4]].
+    topic_code: "4.10"
+  - front: When is AB defined, and what size is it → rule
+    back: |
+      A is m × n and B is n × p: the inner numbers must match, and AB is m × p. (2 × 3)(3 × 4) is 2 × 4.
+    topic_code: "4.10"
+  - front: Entry in row i, column j of AB → how to compute
+    back: |
+      The dot product of row i of A with column j of B: multiply matching entries and add.
+    topic_code: "4.10"
+  - front: "[[2, −1], [3, 4]] · [[0, 5], [1, −2]] → product"
+    back: |
+      [[−1, 12], [4, 7]]. For example, row 1 with column 2: 2 · 5 + (−1)(−2) = 12.
+    topic_code: "4.10"
+  - front: "[[0, 5], [1, −2]] · [[2, −1], [3, 4]] → product"
+    back: |
+      [[15, 20], [−4, −9]], different from the product in the other order, [[−1, 12], [4, 7]].
+    topic_code: "4.10"
+  - front: Is matrix multiplication commutative → answer
+    back: |
+      No: in general AB ≠ BA, and one order may be defined while the other is not. It is associative: (AB)C = A(BC).
+    topic_code: "4.10"
+  - front: 2 × 2 identity matrix → entries and property
+    back: |
+      I = [[1, 0], [0, 1]]. AI = IA = A for every 2 × 2 matrix A, like multiplying a number by 1.
+    topic_code: "4.10"
+  - front: Hypothetical café sales [[40, 25], [55, 30]] times prices [[3], [4.5]] → result
+    back: |
+      [[232.5], [300]]: Monday's revenue $232.50 and Tuesday's $300. Each entry is quantities dotted with prices.
+    topic_code: "4.10"
+  - front: Price column (2 × 1) times sales matrix (2 × 2) → defined?
+    back: |
+      No. (2 × 1)(2 × 2) has inner dimensions 1 and 2, which do not match.
+    topic_code: "4.10"
+  - front: "[[2, 1], [0, 3]] times the column [[x], [y]] → result"
+    back: |
+      [[2x + y], [3y]], a new 2 × 1 vector. A 2 × 2 matrix sends vectors to vectors.
+    topic_code: "4.10"
+  - front: Determinant of [[a, b], [c, d]] → formula
+    back: |
+      ad − bc. det [[2, −1], [3, 4]] = 8 − (−3) = 11.
+    topic_code: "4.11"
+  - front: "|det A| for a 2 × 2 matrix → geometric meaning"
+    back: |
+      The area of the parallelogram spanned by its column vectors. ⟨3, 1⟩ and ⟨1, 2⟩: |6 − 1| = 5.
+    topic_code: "4.11"
+  - front: Area of the triangle with sides ⟨3, 1⟩ and ⟨1, 2⟩ from the origin → value
+    back: |
+      Half the parallelogram: |det [[3, 1], [1, 2]]|/2 = 5/2.
+    topic_code: "4.11"
+  - front: Determinant equal to 0 → what it means
+    back: |
+      The columns are parallel (the parallelogram is flat), the matrix is singular, and it has no inverse.
+    topic_code: "4.11"
+  - front: Inverse of [[a, b], [c, d]] → formula
+    back: |
+      (1/(ad − bc)) · [[d, −b], [−c, a]]: swap the diagonal, negate the off-diagonal, divide by the determinant. Requires ad − bc ≠ 0.
+    topic_code: "4.11"
+  - front: Inverse of [[2, −1], [3, 4]] → result
+    back: |
+      (1/11)[[4, 1], [−3, 2]]. Check: [[2, −1], [3, 4]] · [[4, 1], [−3, 2]] = [[11, 0], [0, 11]].
+    topic_code: "4.11"
+  - front: Inverse of [[3, 5], [1, 2]] → result
+    back: |
+      det = 1, so the inverse is [[2, −5], [−1, 3]].
+    topic_code: "4.11"
+  - front: Checking an inverse → method
+    back: |
+      Multiply A by the proposed inverse; the product must be I = [[1, 0], [0, 1]] (in either order).
+    topic_code: "4.11"
+  - front: k making [[6, k], [4, 2]] singular → value
+    back: |
+      12 − 4k = 0, so k = 3; then the rows (6, 3) and (4, 2) are proportional.
+    topic_code: "4.11"
+  - front: System 3x + 5y = 11, x + 2y = 4 → as AX = B and solution
+    back: |
+      [[3, 5], [1, 2]]X = [[11], [4]]; X = A⁻¹B = [[2, −5], [−1, 3]][[11], [4]] = [[2], [1]], so x = 2, y = 1.
+    topic_code: "4.11"
+  - front: Solving AX = B → which side does A⁻¹ go on
+    back: |
+      The left: X = A⁻¹B. Multiplying on the right (BA⁻¹) is a different product and is often undefined.
+    topic_code: "4.11"
+  - front: Hypothetical play tickets $12 adult, $8 child, 30 sold for $300 → solution
+    back: |
+      [[1, 1], [12, 8]]X = [[30], [300]], det −4; X = [[15], [15]]: 15 adult and 15 child tickets.
+    topic_code: "4.11"
+  - front: det A = 0 for a system AX = B → what happens
+    back: |
+      No inverse, so the method fails; the system has either no solution or infinitely many.
+    topic_code: "4.11"
+  - front: Matrices on a graphing calculator → key commands
+    back: |
+      Enter matrices in the editor; [A]*[B] multiplies, [A]⁻¹ inverts, det( finds the determinant. "Singular matrix" means det = 0.
+    topic_code: "4.11"
+  - front: Error-spot → "[[2, −1], [3, 4]] · [[0, 5], [1, −2]] = [[0, −5], [3, −8]]"
+    back: |
+      That multiplies entry by entry. Matrix multiplication uses rows times columns: the product is [[−1, 12], [4, 7]].
+    topic_code: "4.10"
+  - front: Error-spot → "det [[2, −1], [3, 4]] = 8 − 3 = 5"
+    back: |
+      bc = (−1)(3) = −3, so ad − bc = 8 − (−3) = 11. Keep the sign of each entry.
+    topic_code: "4.11"
+  - front: Error-spot → "the inverse of [[a, b], [c, d]] is [[1/a, 1/b], [1/c, 1/d]]"
+    back: |
+      Reciprocals of entries do not undo matrix multiplication. Use (1/(ad − bc))[[d, −b], [−c, a]] and check that the product is I.
+    topic_code: "4.11"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 4.10 and 4.11: matrix arithmetic and
+    multiplication, determinants, inverses, and solving systems), with about a third reviewing weeks 28–30 and
+    Units 2 and 3 (dot products, average velocity, parametric segments, parabolas, the tangent function,
+    logarithms and exponential equations). Opens with a shared-context set on two matrices. Multiple choice,
+    select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes.
+    A calculator is needed only for the item marked (Calculator.).
+  questions:
+    # ---- Stimulus set: two matrices (4.10, 4.11)
+    - slug: precalc-u04-w31-q01
+      type: multiple_choice
+      topic_code: "4.10"
+      source: "AP Precalculus CED, Topic 4.10"
+      points: 1
+      stimulus: |
+        Let A = [[2, −1], [3, 4]] and B = [[0, 5], [1, −2]], written row by row.
+      prompt: |
+        What is A + 2B?
+      options:
+        - "[[2, 9], [5, 0]]"
+        - "[[2, 4], [4, 2]]"
+        - "[[4, 3], [7, 6]]"
+        - "[[0, 10], [2, −4]]"
+      option_explanations:
+        - |
+          Correct. 2B = [[0, 10], [2, −4]], and adding A entry by entry gives [[2, 9], [5, 0]].
+        - |
+          This is A + B; the scalar 2 has to multiply every entry of B first.
+        - |
+          This is 2A + B: the 2 multiplied the wrong matrix.
+        - |
+          This is 2B alone; the entries of A still have to be added.
+      answer: 0
+    - slug: precalc-u04-w31-q02
+      type: multiple_choice
+      topic_code: "4.10"
+      source: "AP Precalculus CED, Topic 4.10"
+      points: 1
+      stimulus: |
+        Let A = [[2, −1], [3, 4]] and B = [[0, 5], [1, −2]], written row by row.
+      prompt: |
+        What is the matrix product AB?
+      options:
+        - "[[0, −5], [3, −8]]"
+        - "[[15, 20], [−4, −9]]"
+        - "[[−1, 12], [4, 7]]"
+        - "[[−1, 4], [12, 7]]"
+      option_explanations:
+        - |
+          This multiplies matching entries; matrix multiplication takes rows of A with columns of B.
+        - |
+          This is BA, the product in the other order; matrix multiplication is not commutative.
+        - |
+          Correct. Row 1 of A, (2, −1), with the columns (0, 1) and (5, −2) gives −1 and 12; row 2, (3, 4), gives 4 and 7.
+        - |
+          The right numbers are in the wrong places: the entry from row 1 and column 2 (which is 12) belongs in row 1, column 2.
+      answer: 2
+    - slug: precalc-u04-w31-q03
+      type: multiple_choice
+      topic_code: "4.11"
+      source: "AP Precalculus CED, Topic 4.11"
+      points: 1
+      stimulus: |
+        Let A = [[2, −1], [3, 4]] and B = [[0, 5], [1, −2]], written row by row.
+      prompt: |
+        What is det A?
+      options:
+        - "5"
+        - "11"
+        - "−11"
+        - "6"
+      option_explanations:
+        - |
+          This computes 8 − 3, losing the sign of the −1: bc = (−1)(3) = −3, so ad − bc = 8 + 3.
+        - |
+          Correct. det A = ad − bc = (2)(4) − (−1)(3) = 8 + 3 = 11.
+        - |
+          This is bc − ad, the subtraction in the wrong order.
+        - |
+          6 is the sum of the diagonal entries 2 + 4 (the trace), not the determinant.
+      answer: 1
+    - slug: precalc-u04-w31-q04
+      type: multiple_choice
+      topic_code: "4.11"
+      source: "AP Precalculus CED, Topic 4.11"
+      points: 1
+      stimulus: |
+        Let A = [[2, −1], [3, 4]] and B = [[0, 5], [1, −2]], written row by row.
+      prompt: |
+        What is A⁻¹?
+      options:
+        - "(1/11)[[2, −1], [3, 4]]"
+        - "(1/11)[[−4, −1], [3, −2]]"
+        - "(1/5)[[4, 1], [−3, 2]]"
+        - "(1/11)[[4, 1], [−3, 2]]"
+      option_explanations:
+        - |
+          This divides A by its determinant without swapping the diagonal and negating the off-diagonal entries.
+        - |
+          Every sign is flipped; this is −A⁻¹, as if the determinant were −11.
+        - |
+          The swap and sign changes are right, but det A is 11, not 5 (bc = −3, so ad − bc = 8 + 3).
+        - |
+          Correct. Swap 2 and 4, negate −1 and 3, divide by det A = 11. Check: A · [[4, 1], [−3, 2]] = [[11, 0], [0, 11]].
+      answer: 3
+    # ---- Independent items
+    - slug: precalc-u04-w31-q05
+      type: multiple_choice
+      topic_code: "4.10"
+      source: "AP Precalculus CED, Topic 4.10"
+      points: 1
+      prompt: |
+        Matrix M is 2 × 3 and matrix N is 3 × 4. What are the dimensions of MN?
+      options:
+        - "3 × 3"
+        - "4 × 2"
+        - "2 × 4"
+        - "MN is not defined."
+      option_explanations:
+        - |
+          The matching inner dimension 3 disappears; the product keeps the outer dimensions.
+        - |
+          This lists the outer dimensions in reverse; rows of M come first, columns of N second.
+        - |
+          Correct. (2 × 3)(3 × 4): the inner 3s match, and the product is 2 × 4.
+        - |
+          MN is defined because the columns of M (3) match the rows of N (3); it is NM that is undefined.
+      answer: 2
+    - slug: precalc-u04-w31-q06
+      type: multiple_choice
+      topic_code: "4.10"
+      source: "AP Precalculus CED, Topic 4.10"
+      points: 1
+      prompt: |
+        P is 2 × 3, Q is 3 × 2 and R is 2 × 2. Which product is NOT defined?
+      options:
+        - "PR"
+        - "PQ"
+        - "QP"
+        - "RP"
+      option_explanations:
+        - |
+          Correct. PR is (2 × 3)(2 × 2): P has 3 columns but R has 2 rows, so the product is undefined.
+        - |
+          PQ is (2 × 3)(3 × 2), defined and 2 × 2.
+        - |
+          QP is (3 × 2)(2 × 3), defined and 3 × 3.
+        - |
+          RP is (2 × 2)(2 × 3), defined and 2 × 3.
+      answer: 0
+    - slug: precalc-u04-w31-q07
+      type: multiple_choice
+      topic_code: "4.11"
+      source: "AP Precalculus CED, Topic 4.11"
+      points: 1
+      prompt: |
+        For what value of k does the matrix [[6, k], [4, 2]] have no inverse?
+      options:
+        - "−3"
+        - "12"
+        - "4/3"
+        - "3"
+      option_explanations:
+        - |
+          This solves 12 + 4k = 0; the determinant is ad − bc = 12 − 4k.
+        - |
+          12 is the product ad = 6 · 2, not the value of k that makes the determinant 0.
+        - |
+          This sets 6k = 4 · 2, multiplying along the wrong pairs; the determinant pairs 6 with 2 and k with 4.
+        - |
+          Correct. det = 6 · 2 − 4k = 12 − 4k, which is 0 when k = 3; a matrix with determinant 0 has no inverse.
+      answer: 3
+    - slug: precalc-u04-w31-q08
+      type: multiple_choice
+      topic_code: "4.11"
+      source: "AP Precalculus CED, Topic 4.11"
+      points: 1
+      prompt: |
+        What is the area of the parallelogram spanned by the vectors ⟨4, 1⟩ and ⟨2, 3⟩?
+      options:
+        - "14"
+        - "10"
+        - "5"
+        - "−10"
+      option_explanations:
+        - |
+          This adds the products, 12 + 2; the determinant subtracts: 12 − 2.
+        - |
+          Correct. |det [[4, 2], [1, 3]]| = |12 − 2| = 10.
+        - |
+          5 is half the determinant, the area of the triangle with these two sides, not the parallelogram.
+        - |
+          The determinant can be negative depending on the order of the vectors, but an area is its absolute value.
+      answer: 1
+    - slug: precalc-u04-w31-q09
+      type: multiple_choice
+      topic_code: "4.11"
+      source: "AP Precalculus CED, Topic 4.11"
+      points: 1
+      prompt: |
+        The matrix [[3, −1], [−5, 2]] is the inverse of [[2, 1], [5, 3]]. Use it to solve the system 2x + y = 7, 5x + 3y = 18.
+      options:
+        - "x = 1, y = 3"
+        - "x = 3, y = −1"
+        - "x = 3, y = 1"
+        - "x = 32, y = 89"
+      option_explanations:
+        - |
+          The values are swapped: 2(1) + 3 = 5, not 7.
+        - |
+          The second entry is −5 · 7 + 2 · 18 = −35 + 36 = 1, not −1; check: 2(3) + (−1) = 5 ≠ 7.
+        - |
+          Correct. X = A⁻¹B = [[3 · 7 − 18], [−5 · 7 + 2 · 18]] = [[3], [1]]. Check: 6 + 1 = 7 and 15 + 3 = 18.
+        - |
+          This multiplies the constants by the original matrix, not by its inverse.
+      answer: 2
+    - slug: precalc-u04-w31-q10
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "AP Precalculus CED, Topic 4.8"
+      points: 1
+      prompt: |
+        What is the dot product ⟨2, −3⟩ · ⟨4, 5⟩?
+      options:
+        - "⟨8, −15⟩"
+        - "23"
+        - "7"
+        - "−7"
+      option_explanations:
+        - |
+          These are the component products, but the dot product adds them into one number.
+        - |
+          This treats (−3)(5) as +15; the product is −15.
+        - |
+          This has the sign reversed: 8 − 15 is −7, not 7.
+        - |
+          Correct. (2)(4) + (−3)(5) = 8 − 15 = −7, so the angle between the vectors is obtuse.
+      answer: 3
+    - slug: precalc-u04-w31-q11
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "AP Precalculus CED, Topic 3.8"
+      points: 1
+      prompt: |
+        What is the period of y = tan(3x)?
+      options:
+        - "π/3"
+        - "2π/3"
+        - "3π"
+        - "π"
+      option_explanations:
+        - |
+          Correct. The tangent function has period π, so tan(bx) has period π/b = π/3.
+        - |
+          2π/b is the period of sine and cosine; tangent's basic period is π.
+        - |
+          This multiplies by b; a coefficient b > 1 compresses the graph, shortening the period.
+        - |
+          π is the period of tan x; the factor 3 compresses it to π/3.
+      answer: 0
+    - slug: precalc-u04-w31-q12
+      type: multi_select
+      topic_code: "4.10"
+      source: "AP Precalculus CED, Topic 4.10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let A = [[1, 2], [0, 1]], B = [[0, 1], [1, 0]] and I = [[1, 0], [0, 1]]. Which statements are true? Select all that apply.
+      options:
+        - "AB = BA"
+        - "AI = A"
+        - "AB = [[2, 1], [1, 0]]"
+        - "A + B = [[1, 3], [1, 1]]"
+        - "A − B = [[1, 1], [−1, 0]]"
+      option_explanations:
+        - |
+          AB = [[2, 1], [1, 0]] but BA = [[0, 1], [1, 2]], so the products differ.
+        - |
+          Correct. Multiplying by the identity matrix leaves any 2 × 2 matrix unchanged.
+        - |
+          Correct. Row 1 (1, 2) with the columns (0, 1) and (1, 0) gives 2 and 1; row 2 (0, 1) gives 1 and 0.
+        - |
+          Correct. Adding entry by entry: [[1 + 0, 2 + 1], [0 + 1, 1 + 0]] = [[1, 3], [1, 1]].
+        - |
+          The bottom-right entry is 1 − 0 = 1, so A − B = [[1, 1], [−1, 1]].
+      answer: [1, 2, 3]
+    - slug: precalc-u04-w31-q13
+      type: multi_select
+      topic_code: "4.9"
+      source: "AP Precalculus CED, Topic 4.9"
+      points: 2
+      partial_credit: true
+      prompt: |
+        An object's position is p(t) = ⟨2t + 1, t² − 4⟩. Which statements are true? Select all that apply.
+      options:
+        - "p(0) = ⟨1, −4⟩"
+        - "The displacement from t = 0 to t = 2 is ⟨4, 4⟩."
+        - "The average velocity on [0, 2] is ⟨4, 4⟩."
+        - "The x-component of the average velocity is 2 on every interval."
+        - "The object moves to the left at some time."
+      option_explanations:
+        - |
+          Correct. p(0) = ⟨2(0) + 1, 0 − 4⟩ = ⟨1, −4⟩.
+        - |
+          Correct. p(2) = ⟨5, 0⟩, so the displacement is ⟨5 − 1, 0 − (−4)⟩ = ⟨4, 4⟩.
+        - |
+          The displacement ⟨4, 4⟩ must be divided by the elapsed time 2, giving ⟨2, 2⟩.
+        - |
+          Correct. x(t) = 2t + 1 is linear with slope 2, so Δx/Δt = 2 on every interval.
+        - |
+          x(t) = 2t + 1 always increases, so the object always moves right.
+      answer: [0, 1, 3]
+    - slug: precalc-u04-w31-q14
+      type: true_false
+      topic_code: "4.11"
+      source: "AP Precalculus CED, Topic 4.11"
+      points: 1
+      prompt: |
+        True or false: Every 2 × 2 matrix whose four entries are all nonzero has an inverse.
+      answer: false
+      explanation: |
+        False. [[1, 2], [2, 4]] has all entries nonzero, but its determinant is 4 − 4 = 0, so it has no inverse. Invertibility depends on the determinant, not on individual entries.
+    - slug: precalc-u04-w31-q15
+      type: true_false
+      topic_code: "4.4"
+      source: "AP Precalculus CED, Topic 4.4"
+      points: 1
+      prompt: |
+        True or false: The parametrization x = 1 + 4t, y = 2 − 4t for 0 ≤ t ≤ 1 traces a line segment of length 4√2.
+      answer: true
+      explanation: |
+        True. The segment runs from (1, 2) at t = 0 to (5, −2) at t = 1. Its length is √(4² + (−4)²) = √32 = 4√2.
+    - slug: precalc-u04-w31-q16
+      type: fill_blank
+      topic_code: "4.11"
+      source: "AP Precalculus CED, Topic 4.11"
+      points: 1
+      prompt: |
+        The determinant of [[5, 2], [3, 4]] is ____.
+      answer: ["14"]
+      explanation: |
+        ad − bc = (5)(4) − (2)(3) = 20 − 6 = 14.
+    - slug: precalc-u04-w31-q17
+      type: fill_blank
+      topic_code: "4.6"
+      source: "AP Precalculus CED, Topic 4.6"
+      points: 1
+      prompt: |
+        The parabola y² = 20x has its focus at the point (____, 0).
+      answer: ["5"]
+      explanation: |
+        y² = 4px with 4p = 20 gives p = 5, so the focus is (5, 0) and the directrix is x = −5.
+    - slug: precalc-u04-w31-q18
+      type: fill_blank
+      topic_code: "2.10"
+      source: "AP Precalculus CED, Topic 2.10"
+      points: 1
+      prompt: |
+        If f(x) = 10ˣ, then f⁻¹(1000) = ____.
+      answer: ["3"]
+      explanation: |
+        The inverse of 10ˣ is log x (base 10), and log 1000 = 3 because 10³ = 1000.
+    - slug: precalc-u04-w31-q19
+      type: numeric
+      topic_code: "4.10"
+      source: "AP Precalculus CED, Topic 4.10"
+      points: 1
+      prompt: |
+        A hypothetical café sold 40 small and 25 large coffees on Monday. The prices are $3.00 (small) and $4.50 (large). The product of the row matrix [[40, 25]] and the column matrix [[3], [4.5]] gives Monday's revenue in dollars. What is it?
+      answer: { value: 232.5, tolerance: 0 }
+      explanation: |
+        A 1 × 2 matrix times a 2 × 1 matrix is a 1 × 1 matrix: 40 · 3 + 25 · 4.5 = 120 + 112.5 = 232.5, so $232.50.
+    - slug: precalc-u04-w31-q20
+      type: numeric
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      prompt: |
+        (Calculator.) Solve e^(2x) = 9. Give your answer to the nearest hundredth.
+      answer: { value: 1.10, tolerance: 0.01 }
+      explanation: |
+        Take natural logs: 2x = ln 9, so x = (ln 9)/2 = ln 3 ≈ 1.0986, which rounds to 1.10.
+    - slug: precalc-u04-w31-q21
+      type: short_answer
+      topic_code: "4.11"
+      source: "AP Precalculus CED, Topic 4.11"
+      points: 3
+      prompt: |
+        At a hypothetical school play, adult tickets cost $12 and child tickets cost $8. Thirty tickets were sold for a total of $300. Let x be the number of adult tickets and y the number of child tickets.
+
+        (a) Write the situation as a matrix equation AX = B.
+        (b) Find det A and A⁻¹.
+        (c) Use A⁻¹ to find x and y, and check your answer.
+      answer: |
+        (a) [[1, 1], [12, 8]] · [[x], [y]] = [[30], [300]].
+        (b) det A = (1)(8) − (1)(12) = −4. A⁻¹ = (−1/4)[[8, −1], [−12, 1]] = [[−2, 1/4], [3, −1/4]].
+        (c) X = A⁻¹B = [[−2 · 30 + (1/4) · 300], [3 · 30 − (1/4) · 300]] = [[−60 + 75], [90 − 75]] = [[15], [15]]. So 15 adult and 15 child tickets. Check: 15 + 15 = 30 and 12(15) + 8(15) = 180 + 120 = 300.
+      explanation: |
+        Three points, one per part. (a) a correct coefficient matrix, variable matrix and constant matrix (rows may be in either order if consistent). (b) det −4 and a correct inverse. (c) x = 15 and y = 15 found with the inverse, with a check.
+    - slug: precalc-u04-w31-q22
+      type: short_answer
+      topic_code: "4.10"
+      source: "AP Precalculus CED, Topic 4.10"
+      points: 3
+      prompt: |
+        A hypothetical café records its sales in Q = [[40, 25], [55, 30]], where row 1 is Monday, row 2 is Tuesday, column 1 is small coffees and column 2 is large coffees. Prices are in P = [[3], [4.5]] (dollars for small, large).
+
+        (a) Give the dimensions of QP and explain why PQ is not defined.
+        (b) Compute QP.
+        (c) Interpret each entry of QP, and find the café's total coffee revenue for the two days.
+      answer: |
+        (a) Q is 2 × 2 and P is 2 × 1, so QP is 2 × 1. PQ would be (2 × 1)(2 × 2); the inner dimensions 1 and 2 do not match, so it is undefined.
+        (b) QP = [[40 · 3 + 25 · 4.5], [55 · 3 + 30 · 4.5]] = [[120 + 112.5], [165 + 135]] = [[232.5], [300]].
+        (c) $232.50 is Monday's coffee revenue and $300 is Tuesday's. The total is $532.50.
+      explanation: |
+        Three points, one per part. (a) 2 × 1 with the dimension-mismatch reason. (b) both entries correct. (c) both entries interpreted by day, and the total $532.50.
+    - slug: precalc-u04-w31-q23
+      type: long_answer
+      topic_code: "4.11"
+      source: "AP Precalculus CED, Topics 4.10 and 4.11"
+      points: 6
+      prompt: |
+        A hypothetical bakery makes batches of muffins and scones. A batch of muffins uses 3 cups of flour and 1 cup of sugar; a batch of scones uses 2 cups of flour and 1 cup of sugar. This is recorded in
+
+        M = [[3, 2], [1, 1]],
+
+        where row 1 is flour, row 2 is sugar, column 1 is muffins and column 2 is scones. If X = [[m], [s]] gives the numbers of batches, MX gives the cups of flour and sugar used.
+
+        (A) (i) Find the flour and sugar needed for 4 batches of muffins and 5 batches of scones.
+            (ii) Flour costs $0.50 per cup and sugar $0.80 per cup. Use the row matrix [[0.5, 0.8]] to find the cost of the ingredients in (i).
+        (B) (i) Find det M and M⁻¹.
+            (ii) Show that MM⁻¹ = I.
+        (C) (i) One day the bakery uses exactly 30 cups of flour and 12 cups of sugar. Use M⁻¹ to find how many batches of each it made.
+            (ii) On another day it uses exactly 30 cups of flour and 8 cups of sugar. Compute M⁻¹ times this resource vector and explain what the result tells you.
+      answer: |
+        (A)(i) M · [[4], [5]] = [[12 + 10], [4 + 5]] = [[22], [9]]: 22 cups of flour and 9 cups of sugar.
+        (ii) [[0.5, 0.8]] · [[22], [9]] = 11 + 7.2 = $18.20.
+        (B)(i) det M = (3)(1) − (2)(1) = 1, so M⁻¹ = [[1, −2], [−1, 3]].
+        (ii) [[3, 2], [1, 1]] · [[1, −2], [−1, 3]] = [[3 − 2, −6 + 6], [1 − 1, −2 + 3]] = [[1, 0], [0, 1]] = I.
+        (C)(i) X = M⁻¹ · [[30], [12]] = [[30 − 24], [−30 + 36]] = [[6], [6]]: 6 batches of muffins and 6 of scones. (Check: 18 + 12 = 30 flour, 6 + 6 = 12 sugar.)
+        (ii) M⁻¹ · [[30], [8]] = [[30 − 16], [−30 + 24]] = [[14], [−6]]. A negative number of scone batches is impossible, so no combination of whole (or even fractional, nonnegative) batches uses exactly 30 cups of flour and 8 cups of sugar; the bakery could not have used exactly those amounts with only these two recipes.
+      explanation: |
+        Six points. (A) 1 point for 22 cups of flour and 9 of sugar; 1 point for $18.20. (B) 1 point for det 1 and the inverse; 1 point for the product equal to I. (C) 1 point for 6 and 6; 1 point for [[14], [−6]] with the explanation that a negative batch count is impossible.

@@ -1,0 +1,624 @@
+week: 17
+unit: 2
+title: "Logarithmic Models and Semi-log Plots"
+topics: ["2.14", "2.15"]
+guide: guides/week-17.md
+guide_description: |
+  When a logarithmic model fits a context or data set, building y = a + b log x from two points, logarithmic
+  regression, and level scales in context (pH, decibels, a hypothetical magnitude scale) where differences of
+  level are ratios of quantity; then semi-log plots, where exponential data become a straight line whose slope
+  and intercept give log b and log a. Worked examples: a hypothetical typing-speed model, comparing two sound
+  levels, linearizing a culture's growth table, and reading a model off a semi-log graph.
+flashcards_description: |
+  30 cards on recognising and building logarithmic models, level scales such as pH and decibels, semi-log
+  plots, linearization, and recovering an exponential model from a semi-log line.
+
+flashcards:
+  - front: Data where inputs multiply and outputs add → which model
+    back: |
+      Logarithmic. If multiplying x by a constant factor always adds the same amount to y, use y = a + b log x (or ln x).
+    topic_code: "2.14"
+  - front: Logarithmic model shape in context → how it behaves
+    back: |
+      Rises quickly at first, then ever more slowly, but never levels off at a ceiling. It is undefined at an input of 0.
+    topic_code: "2.14"
+  - front: Inputs spanning several powers of ten → why a log helps
+    back: |
+      Taking the logarithm turns factors of 10 into equal steps, so values from 0.001 to 1,000 spread evenly (−3 to 3) instead of crowding at one end.
+    topic_code: "2.14"
+  - front: y = a + b log x through (10, 3) and (1,000, 7) → find a and b
+    back: |
+      a + b = 3 and a + 3b = 7, so b = 2 and a = 1: y = 1 + 2 log x. Each factor of 10 in x adds 2 to y.
+    topic_code: "2.14"
+  - front: y = a + b ln x through (1, 5) and (e³, 11) → find a and b
+    back: |
+      At x = 1, ln 1 = 0, so a = 5. Then 5 + 3b = 11 gives b = 2: y = 5 + 2 ln x.
+    topic_code: "2.14"
+  - front: S(x) = 12 + 8 ln x (hypothetical typing speed) → meaning of 12
+    back: |
+      The speed at x = 1 hour, since ln 1 = 0: 12 words per minute after one hour of practice.
+    topic_code: "2.14"
+  - front: S(x) = 12 + 8 ln x → when it reaches 40
+    back: |
+      12 + 8 ln x = 40 gives ln x = 3.5, so x = e^3.5 ≈ 33.1 hours.
+    topic_code: "2.14"
+  - front: Coefficient b in y = a + b ln x → interpretation
+    back: |
+      Multiplying x by e adds b to y; doubling x adds b ln 2 ≈ 0.693b. For 12 + 8 ln x, doubling practice adds about 5.5 words per minute.
+    topic_code: "2.14"
+  - front: Logarithmic regression (LnReg) → what it fits and needs
+    back: |
+      It fits y = a + b ln x by least squares and reports a and b. Every input must be positive. Check the residual plot before trusting it.
+    topic_code: "2.14"
+  - front: pH = −log H → what a lower pH means
+    back: |
+      A higher hydrogen-ion concentration, because of the minus sign. H = 10⁻⁴ gives pH 4; H = 10⁻² gives pH 2, 100 times more concentrated.
+    topic_code: "2.14"
+  - front: pH 3.5 versus pH 4.5 → compare concentrations
+    back: |
+      The pH 3.5 solution has 10¹ = 10 times the hydrogen-ion concentration. A difference of 1 in pH is a factor of 10.
+    topic_code: "2.14"
+  - front: Sound level L = 10 log(I/I₀) → effect of multiplying intensity by 100
+    back: |
+      Adds 10 log 100 = 20 dB. A level difference is a ratio of intensities, not a difference.
+    topic_code: "2.14"
+  - front: Doubling a sound's intensity → change in decibels
+    back: |
+      Adds 10 log 2 ≈ 3 dB. Doubling the intensity does not double the level.
+    topic_code: "2.14"
+  - front: 70 dB versus 85 dB → intensity ratio
+    back: |
+      15 = 10 log(I₂/I₁), so I₂/I₁ = 10^1.5 ≈ 31.6.
+    topic_code: "2.14"
+  - front: Hypothetical magnitude scale M = log(A/A₀), magnitudes 3.4 and 5.8 → amplitude ratio
+    back: |
+      10^(5.8 − 3.4) = 10^2.4 ≈ 251. Each unit of magnitude is a factor of 10 in amplitude.
+    topic_code: "2.14"
+  - front: Limitations of a log model → two to mention
+    back: |
+      It grows without bound, which few real quantities do forever, and it is undefined at 0. Use it only on the range of the data.
+    topic_code: "2.14"
+  - front: Semi-log plot → what it is
+    back: |
+      A graph with an ordinary horizontal axis and a logarithmically scaled vertical axis, equivalent to plotting (x, log y).
+    topic_code: "2.15"
+  - front: Why y = a · bˣ is linear on a semi-log plot → the algebra
+    back: |
+      log y = log a + x log b, a linear function of x with slope log b and intercept log a.
+    topic_code: "2.15"
+  - front: Semi-log slope m and intercept k (base 10) → recover a and b
+    back: |
+      b = 10ᵐ and a = 10ᵏ, so y = 10ᵏ · (10ᵐ)ˣ.
+    topic_code: "2.15"
+  - front: Semi-log line using ln → recover a and b
+    back: |
+      If ln y = k + mx, then a = eᵏ and b = eᵐ. For ln y = 2.5 − 0.4x: y ≈ 12.18 · (0.670)ˣ.
+    topic_code: "2.15"
+  - front: log y = 1.2 + 0.3x → exponential model
+    back: |
+      y = 10^1.2 · (10^0.3)ˣ ≈ 15.85 · (1.995)ˣ, roughly doubling per unit of x.
+    topic_code: "2.15"
+  - front: Semi-log line with negative slope → what the data do
+    back: |
+      Exponential decay: the slope is log b < 0, so 0 < b < 1.
+    topic_code: "2.15"
+  - front: Linear data on a semi-log plot → shape
+    back: |
+      Concave down. Equal additions to y become ever smaller steps in log y as y grows.
+    topic_code: "2.15"
+  - front: Table 50, 75, 112.5, 168.75 at t = 0, 1, 2, 3 → semi-log slope
+    back: |
+      log y rises by log 1.5 ≈ 0.176 each step, with intercept log 50 ≈ 1.699, so y = 50 · (1.5)ᵗ.
+    topic_code: "2.15"
+  - front: Semi-log line through (0, 4) and (5, 400) (y read on a log axis) → model
+    back: |
+      Slope (log 400 − log 4)/5 = 2/5 = 0.4, so b = 10^0.4 ≈ 2.512 and a = 4: y = 4 · (10^0.4)ˣ.
+    topic_code: "2.15"
+  - front: y = 6 · 4ˣ → slope and intercept of (x, log y)
+    back: |
+      Slope log 4 ≈ 0.602 and intercept log 6 ≈ 0.778.
+    topic_code: "2.15"
+  - front: Linearization test for exponential data → how
+    back: |
+      Compute log y for every point. If (x, log y) is close to a line with no residual pattern, an exponential model is appropriate.
+    topic_code: "2.15"
+  - front: Error-spot → "the semi-log slope 0.3 means y = a · (0.3)ˣ"
+    back: |
+      The slope is log b, so b = 10^0.3 ≈ 1.995. Using the slope as the base turns growth into decay.
+    topic_code: "2.15"
+  - front: Error-spot → "a 20 dB increase means 20 times the intensity"
+    back: |
+      20 = 10 log(ratio) gives a ratio of 10² = 100. Decibel differences are logarithms of ratios.
+    topic_code: "2.14"
+  - front: Error-spot → "halfway between 10 and 100 on a log axis is 55"
+    back: |
+      Halfway in position is 10^1.5 ≈ 31.6. A log axis is evenly spaced in powers of ten, not in values.
+    topic_code: "2.15"
+
+quiz:
+  description: |
+    24 questions · about 45 minutes · mostly on this week (topics 2.14 and 2.15: logarithmic models in context,
+    level scales such as pH and decibels, models from two points, semi-log plots and linearization), with 7 of
+    24 reviewing earlier weeks (linear versus exponential change, exponential models, residuals, log graphs, log
+    properties, and exponential and logarithmic equations). Opens with a shared-context set on a hypothetical
+    mould colony. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. Items marked (Calculator.) need one; the rest do not.
+  questions:
+    # ---- Stimulus set: a hypothetical mould colony on a semi-log plot (2.15)
+    - slug: precalc-u02-w17-q01
+      type: multiple_choice
+      topic_code: "2.15"
+      source: "AP Precalculus CED, Topic 2.15"
+      points: 1
+      stimulus: |
+        A biologist records the area A, in square centimetres, of a hypothetical mould colony d days after it is first measured, and plots the points (d, log A).
+
+        d: 0, 2, 4, 6
+        A: 3, 12, 48, 192
+      prompt: |
+        Which statement describes the plotted points (d, log A)?
+      options:
+        - "They lie on a concave up curve."
+        - "They lie on a line with slope log 2."
+        - "They lie on a line with slope 2."
+        - "They lie on a line with slope 4.5."
+      option_explanations:
+        - |
+          The original points (d, A) are concave up; taking the log of A straightens exponential data.
+        - |
+          Correct. A is multiplied by 4 every 2 days, so log A rises by log 4 every 2 days: slope (log 4)/2 = log 2 ≈ 0.301.
+        - |
+          2 is the daily growth factor, not the slope. On a semi-log plot the slope is the log of the factor.
+        - |
+          4.5 = (12 − 3)/2 is the slope between the first two original points, not of the log-transformed data.
+      answer: 1
+    - slug: precalc-u02-w17-q02
+      type: multiple_choice
+      topic_code: "2.15"
+      source: "AP Precalculus CED, Topic 2.15"
+      points: 1
+      stimulus: |
+        A biologist records the area A, in square centimetres, of a hypothetical mould colony d days after it is first measured, and plots the points (d, log A).
+
+        d: 0, 2, 4, 6
+        A: 3, 12, 48, 192
+      prompt: |
+        What is the vertical intercept of the line through the points (d, log A)?
+      options:
+        - "3"
+        - "0"
+        - "log 3 ≈ 0.477"
+        - "log 2 ≈ 0.301"
+      option_explanations:
+        - |
+          3 is the initial area A itself; the plot shows log A, so the intercept is log 3.
+        - |
+          The line passes through (0, log 3), not the origin; log A is 0 only when A = 1.
+        - |
+          Correct. At d = 0, A = 3, so the point is (0, log 3) ≈ (0, 0.477).
+        - |
+          log 2 is the slope of the line, not its intercept.
+      answer: 2
+    - slug: precalc-u02-w17-q03
+      type: multiple_choice
+      topic_code: "2.15"
+      source: "AP Precalculus CED, Topic 2.15"
+      points: 1
+      stimulus: |
+        A biologist records the area A, in square centimetres, of a hypothetical mould colony d days after it is first measured, and plots the points (d, log A).
+
+        d: 0, 2, 4, 6
+        A: 3, 12, 48, 192
+      prompt: |
+        Which model for A as a function of d fits the data exactly?
+      options:
+        - "A = 3 · 2ᵈ"
+        - "A = 3 · 4ᵈ"
+        - "A = 3 + 4.5d"
+        - "A = 0.477 · (0.301)ᵈ"
+      option_explanations:
+        - |
+          Correct. Intercept log 3 gives a = 3 and slope log 2 gives b = 2. Check: 3 · 2⁶ = 192.
+        - |
+          The factor 4 applies over 2 days, the spacing of the table; per day the factor is 2. This gives 3 · 4² = 48 at d = 2, not 12.
+        - |
+          A linear model cannot fit: the differences 9, 36, 144 are not constant.
+        - |
+          This uses the log values as if they were a and b; they must be undone with powers of 10.
+      answer: 0
+    - slug: precalc-u02-w17-q04
+      type: multiple_choice
+      topic_code: "2.14"
+      source: "AP Precalculus CED, Topic 2.14"
+      points: 1
+      prompt: |
+        Which data set is best modelled by a logarithmic function?
+      options:
+        - "x: 0, 1, 2, 3 and y: 5, 10, 20, 40"
+        - "x: 1, 2, 3, 4 and y: 3, 5, 7, 9"
+        - "x: 1, 2, 3, 4 and y: 1, 4, 9, 16"
+        - "x: 1, 10, 100, 1,000 and y: 2, 5, 8, 11"
+      option_explanations:
+        - |
+          Adding 1 to x doubles y: that is exponential, the inverse pattern.
+        - |
+          Equal steps in x give equal steps in y: linear.
+        - |
+          These are perfect squares with constant second differences: quadratic.
+        - |
+          Correct. Each input is 10 times the previous one and each output is 3 more: y = 2 + 3 log x.
+      answer: 3
+    - slug: precalc-u02-w17-q05
+      type: multiple_choice
+      topic_code: "2.14"
+      source: "AP Precalculus CED, Topic 2.14"
+      points: 1
+      prompt: |
+        A model of the form y = a + b log x passes through (10, 4) and (100, 9). What is the model?
+      options:
+        - "y = 4 + 5 log x"
+        - "y = −1 + 9 log x"
+        - "y = −1 + 5 log x"
+        - "y = −1 + 5 ln x"
+      option_explanations:
+        - |
+          a is not the first y-value: at x = 10, log x = 1, so 4 + 5 · 1 = 9, not 4.
+        - |
+          The coefficient b is the increase per factor of 10, which is 9 − 4 = 5, not 9.
+        - |
+          Correct. a + b = 4 and a + 2b = 9, so b = 5 and a = −1. Check: −1 + 5 · 2 = 9.
+        - |
+          The parameters are right for base 10, but ln 10 ≈ 2.303, so this does not pass through (10, 4).
+      answer: 2
+    - slug: precalc-u02-w17-q06
+      type: multiple_choice
+      topic_code: "2.14"
+      source: "AP Precalculus CED, Topic 2.14"
+      points: 1
+      prompt: |
+        Sound level in decibels is L = 10 log(I/I₀), where I is intensity and I₀ is a fixed reference intensity. A hypothetical machine's sound level rises from 60 dB to 80 dB. By what factor does its intensity increase?
+      options:
+        - "100"
+        - "20"
+        - "2"
+        - "10²⁰"
+      option_explanations:
+        - |
+          Correct. 80 − 60 = 20 = 10 log(I₂/I₁), so log(I₂/I₁) = 2 and I₂/I₁ = 10² = 100.
+        - |
+          20 is the difference in level; a level difference corresponds to a ratio of intensities, not equal to it.
+        - |
+          2 is the change in log(I/I₀); it still has to be undone: 10² = 100.
+        - |
+          This forgets the factor 10 in front of the log; the change in log(I/I₀) is 20/10 = 2.
+      answer: 0
+    - slug: precalc-u02-w17-q07
+      type: multiple_choice
+      topic_code: "2.14"
+      source: "AP Precalculus CED, Topic 2.14"
+      points: 1
+      prompt: |
+        Acidity is measured by pH = −log H, where H is the hydrogen-ion concentration. Hypothetical solution X has pH 3.0 and solution Y has pH 5.0. Which statement is true?
+      options:
+        - "Y has 100 times the hydrogen-ion concentration of X."
+        - "X has 2 times the hydrogen-ion concentration of Y."
+        - "X has 1,000 times the hydrogen-ion concentration of Y."
+        - "X has 100 times the hydrogen-ion concentration of Y."
+      option_explanations:
+        - |
+          The ratio is right but reversed: because of the minus sign, the lower pH (X) has the higher concentration.
+        - |
+          The pH difference of 2 is an exponent on 10, not the ratio itself.
+        - |
+          10³ uses X's pH alone as the exponent; the comparison depends on the difference 5.0 − 3.0 = 2.
+        - |
+          Correct. H_X = 10⁻³ and H_Y = 10⁻⁵, so H_X/H_Y = 10² = 100.
+      answer: 3
+    - slug: precalc-u02-w17-q08
+      type: multiple_choice
+      topic_code: "2.15"
+      source: "AP Precalculus CED, Topic 2.15"
+      points: 1
+      prompt: |
+        Hypothetical data lie on the line log y = 2 − 0.1x on a semi-log plot. Which statement describes y?
+      options:
+        - "y decreases by 0.1 for each increase of 1 in x."
+        - "y = 100 · (10^(−0.1))ˣ, decreasing by about 20.6% for each increase of 1 in x."
+        - "y = 2 · (0.9)ˣ"
+        - "y = 100 · (0.9)ˣ"
+      option_explanations:
+        - |
+          It is log y, not y, that drops by 0.1 per unit; y itself drops by a constant percent.
+        - |
+          Correct. y = 10^2 · (10^(−0.1))ˣ = 100 · (0.794)ˣ, a decrease of about 1 − 0.794 = 20.6% per unit.
+        - |
+          The intercept 2 is log a, so a = 10² = 100, and the slope gives b = 10^(−0.1), not 1 − 0.1.
+        - |
+          a = 100 is right, but the factor is 10^(−0.1) ≈ 0.794, not 1 − 0.1.
+      answer: 1
+    - slug: precalc-u02-w17-q09
+      type: multiple_choice
+      topic_code: "2.14"
+      source: "AP Precalculus CED, Topic 2.14"
+      points: 1
+      prompt: |
+        Which hypothetical situation is best modelled by a logarithmic function?
+      options:
+        - "A learner's skill level rises by 1 each time the total hours of practice doubles."
+        - "A savings balance grows by 4% each year."
+        - "A car travels at a constant 60 kilometres per hour."
+        - "The height of a ball thrown upward over time."
+      option_explanations:
+        - |
+          Correct. Multiplying the input (hours) by 2 adds a constant (1) to the output (level): level = c + log₂(hours).
+        - |
+          A constant percent change per year is exponential growth.
+        - |
+          Constant speed gives distance that increases by equal amounts in equal times: linear.
+        - |
+          A thrown ball's height rises and falls symmetrically: quadratic.
+      answer: 0
+    - slug: precalc-u02-w17-q10
+      type: multiple_choice
+      topic_code: "2.15"
+      source: "AP Precalculus CED, Topic 2.15"
+      points: 1
+      prompt: |
+        On a semi-log plot (vertical axis logarithmically scaled), a line passes through the points with x = 0, y = 5 and x = 3, y = 40. Which exponential model does the line represent?
+      options:
+        - "y = 5 + (35/3)x"
+        - "y = 5 · 8ˣ"
+        - "y = 5 · 2ˣ"
+        - "y = 5 · (1.301)ˣ"
+      option_explanations:
+        - |
+          This is the line through the points on an ordinary plot; on a semi-log plot a line means exponential.
+        - |
+          y multiplies by 8 over 3 units of x, so the factor per unit is ∛8 = 2, not 8.
+        - |
+          Correct. Slope (log 40 − log 5)/3 = (log 8)/3 = log 2, so b = 2, and a = 5. Check: 5 · 2³ = 40.
+        - |
+          1.301 adds the slope log 2 ≈ 0.301 to 1 instead of computing 10^0.301 = 2.
+      answer: 2
+    - slug: precalc-u02-w17-q11
+      type: multiple_choice
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      prompt: |
+        What is the solution of 6 = 2 + 3 ln x?
+      options:
+        - "x = 4/3"
+        - "x = e²"
+        - "x = ln(4/3)"
+        - "x = e^(4/3)"
+      option_explanations:
+        - |
+          4/3 is the value of ln x, not of x; it still has to be exponentiated.
+        - |
+          e² comes from dividing 6 by 3 before subtracting the 2.
+        - |
+          The inverse of ln is the exponential, not another logarithm.
+        - |
+          Correct. 3 ln x = 4, ln x = 4/3, so x = e^(4/3) ≈ 3.79.
+      answer: 3
+    - slug: precalc-u02-w17-q12
+      type: multiple_choice
+      topic_code: "2.6"
+      source: "AP Precalculus CED, Topic 2.6"
+      points: 1
+      prompt: |
+        An exponential model predicts a value of 230 for a data point whose actual value is 241. What is the residual for this point?
+      options:
+        - "−11"
+        - "11"
+        - "471"
+        - "0.95"
+      option_explanations:
+        - |
+          This subtracts in the wrong order. Residual = actual − predicted = 241 − 230.
+        - |
+          Correct. Residual = actual − predicted = 241 − 230 = 11; the model underestimates this point.
+        - |
+          471 adds the two values; a residual is their difference.
+        - |
+          0.95 ≈ 230/241 is a ratio, not a residual.
+      answer: 1
+    - slug: precalc-u02-w17-q13
+      type: multiple_choice
+      topic_code: "2.2"
+      source: "AP Precalculus CED, Topic 2.2"
+      points: 1
+      prompt: |
+        Which exponential function passes through the points (0, 5) and (2, 45)?
+      options:
+        - "f(x) = 5 + 20x"
+        - "f(x) = 5 · 9ˣ"
+        - "f(x) = 5 · 3ˣ"
+        - "f(x) = 45 · 5ˣ"
+      option_explanations:
+        - |
+          This is the linear function through the two points, not an exponential one.
+        - |
+          The factor 9 applies over 2 units of x; per unit the factor is √9 = 3. 5 · 9² = 405, not 45.
+        - |
+          Correct. f(0) = 5 gives a = 5; then 5b² = 45 gives b² = 9 and b = 3.
+        - |
+          This swaps the roles of the numbers; f(0) would be 45, not 5.
+      answer: 2
+    - slug: precalc-u02-w17-q14
+      type: multi_select
+      topic_code: "2.15"
+      source: "AP Precalculus CED, Topic 2.15"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Data satisfy y = 7 · (0.5)ˣ. Which statements about the plot of (x, log y) are true? Select all that apply.
+      options:
+        - "The points lie on a straight line."
+        - "The slope of the line is negative."
+        - "The slope of the line is 0.5."
+        - "The vertical intercept of the line is log 7."
+        - "The line rises from left to right."
+      option_explanations:
+        - |
+          Correct. log y = log 7 + x log 0.5, which is linear in x.
+        - |
+          Correct. The slope is log 0.5 ≈ −0.301, negative because the data decay.
+        - |
+          0.5 is the base b; the slope is log 0.5 ≈ −0.301.
+        - |
+          Correct. At x = 0, log y = log 7 ≈ 0.845.
+        - |
+          The slope log 0.5 is negative, so the line falls.
+      answer: [0, 1, 3]
+    - slug: precalc-u02-w17-q15
+      type: multi_select
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which values of x satisfy log₂(x + 1) ≥ 3? Select all that apply.
+      options:
+        - "7"
+        - "6"
+        - "10"
+        - "−9"
+        - "15"
+      option_explanations:
+        - |
+          Correct. log₂ 8 = 3, which meets the inequality exactly at its boundary.
+        - |
+          log₂ 7 ≈ 2.81, which is less than 3. The solution set is x ≥ 7.
+        - |
+          Correct. x + 1 = 11 and log₂ 11 ≈ 3.46, which is at least 3.
+        - |
+          x + 1 = −8 is negative, so log₂(−8) is undefined; −9 is outside the domain x > −1.
+        - |
+          Correct. x + 1 = 16 and log₂ 16 = 4, which is at least 3.
+      answer: [0, 2, 4]
+    - slug: precalc-u02-w17-q16
+      type: true_false
+      topic_code: "2.14"
+      source: "AP Precalculus CED, Topic 2.14"
+      points: 1
+      prompt: |
+        True or false: With sound level L = 10 log(I/I₀), doubling the intensity of a sound doubles its decibel level.
+      answer: false
+      explanation: |
+        False. Doubling I adds 10 log 2 ≈ 3 dB, whatever the starting level. A 60 dB sound with twice the intensity is about 63 dB, not 120 dB.
+    - slug: precalc-u02-w17-q17
+      type: true_false
+      topic_code: "2.11"
+      source: "AP Precalculus CED, Topic 2.11"
+      points: 1
+      prompt: |
+        True or false: The output of f(x) = 2 log₃ x + 1 increases by 2 every time the input x is multiplied by 3.
+      answer: true
+      explanation: |
+        True. f(3x) = 2 log₃(3x) + 1 = 2(1 + log₃ x) + 1 = f(x) + 2. Multiplying the input by the base adds the coefficient to the output.
+    - slug: precalc-u02-w17-q18
+      type: fill_blank
+      topic_code: "2.14"
+      source: "AP Precalculus CED, Topic 2.14"
+      points: 1
+      prompt: |
+        A hypothetical model is y = 1 + 2 log x. When x = 10,000, y = ____
+      answer: ["9"]
+      explanation: |
+        log 10,000 = 4, so y = 1 + 2 · 4 = 9.
+    - slug: precalc-u02-w17-q19
+      type: fill_blank
+      topic_code: "2.12"
+      source: "AP Precalculus CED, Topic 2.12"
+      points: 1
+      prompt: |
+        The exact value of log 5 + log 20 is ____
+      answer: ["2"]
+      explanation: |
+        By the product property, log 5 + log 20 = log 100 = 2.
+    - slug: precalc-u02-w17-q20
+      type: numeric
+      topic_code: "2.15"
+      source: "AP Precalculus CED, Topic 2.15"
+      points: 1
+      prompt: |
+        (Calculator.) Linearized hypothetical data satisfy ln y = 1.1 + 0.25x. The data can be modelled by y = a · bˣ. Find b to the nearest hundredth.
+      answer: { value: 1.28, tolerance: 0.01 }
+      explanation: |
+        With natural logs, the slope is ln b, so b = e^0.25 ≈ 1.284, or 1.28 to the nearest hundredth. (Also a = e^1.1 ≈ 3.00.)
+    - slug: precalc-u02-w17-q21
+      type: numeric
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 1
+      prompt: |
+        (Calculator.) A hypothetical car is bought for $24,000 and loses 15% of its value each year. What is its value after 3 years, to the nearest dollar?
+      answer: { value: 14739, tolerance: 1 }
+      explanation: |
+        Each year the value is multiplied by 0.85: 24,000 · (0.85)³ = 24,000 · 0.614125 = $14,739.
+    - slug: precalc-u02-w17-q22
+      type: short_answer
+      topic_code: "2.14"
+      source: "AP Precalculus CED, Topic 2.14"
+      points: 3
+      prompt: |
+        (Calculator.) Sound level in decibels is L = 10 log(I/I₀), where I is the intensity of a sound and I₀ is a fixed reference intensity.
+
+        (a) A hypothetical fan has intensity I = 10^6.5 · I₀. Find its sound level.
+        (b) A hypothetical leaf blower has a sound level of 80 dB. How many times as intense as the fan is it? Give your answer to the nearest tenth.
+        (c) If the fan's intensity is tripled, by how many decibels does its sound level increase? Give your answer to the nearest hundredth.
+      answer: |
+        (a) L = 10 log(10^6.5) = 10 · 6.5 = 65 dB.
+        (b) 80 − 65 = 15 = 10 log(ratio), so the ratio is 10^1.5 ≈ 31.6. The leaf blower is about 31.6 times as intense.
+        (c) The increase is 10 log 3 ≈ 4.77 dB, regardless of the starting level, because 10 log(3I/I₀) = 10 log 3 + 10 log(I/I₀).
+      explanation: |
+        Three points, one per part. (a) 65 dB. (b) 31.6, with the level difference converted to a ratio. (c) 4.77 dB, with the product property or a direct computation (75 − 65 is not accepted; any correct method leading to 4.77 is).
+    - slug: precalc-u02-w17-q23
+      type: short_answer
+      topic_code: "2.15"
+      source: "AP Precalculus CED, Topic 2.15"
+      points: 3
+      prompt: |
+        (Calculator.) A hypothetical table gives values of a quantity y.
+
+        x: 0, 1, 2, 3
+        y: 200, 140, 98, 68.6
+
+        (a) Compute log y for each x (to three decimal places) and explain what the results show about the data.
+        (b) Use the slope and intercept of the line through (x, log y) to write an exponential model for y.
+        (c) Interpret the base of your model as a percent change.
+      answer: |
+        (a) log y ≈ 2.301, 2.146, 1.991, 1.836. The values drop by a constant 0.155 each step, so (x, log y) lies on a line and the data are exponential.
+        (b) Slope ≈ −0.155 = log b, so b = 10^(−0.155) ≈ 0.70; intercept 2.301 = log a, so a = 10^2.301 ≈ 200. Model: y = 200 · (0.7)ˣ.
+        (c) Each increase of 1 in x multiplies y by 0.7, a decrease of 30% per unit.
+      explanation: |
+        Three points, one per part. (a) the four log values and the conclusion that a constant difference means exponential data. (b) the model y = 200(0.7)ˣ obtained from slope and intercept (small rounding differences such as 0.699 accepted). (c) a 30% decrease per unit of x.
+    - slug: precalc-u02-w17-q24
+      type: long_answer
+      topic_code: "2.15"
+      source: "AP Precalculus CED, Topic 2.15"
+      points: 6
+      prompt: |
+        (Calculator.) The concentration C, in milligrams per litre, of a hypothetical chemical in a tank is measured t hours after a filter is switched on.
+
+        t (hours): 0, 2, 4, 6, 8
+        C (mg/L): 80, 51.2, 32.8, 21.0, 13.4
+
+        (A) (i) Show that the data are approximately consistent with an exponential model by examining ratios of consecutive values.
+            (ii) Find ln C at t = 0 and at t = 8, and use them to compute the slope of the line through the points (t, ln C). Give values to three decimal places.
+        (B) (i) Use your slope and the intercept ln 80 to write an exponential model C(t) = a · bᵗ, with b to the nearest hundredth.
+            (ii) Interpret b in the context of the problem.
+        (C) (i) Use your model to find when the concentration first falls below 5 mg/L. Give your answer to the nearest tenth of an hour.
+            (ii) Explain why the points (t, ln C) lie close to a straight line, and state one reason the model might not be valid for large t.
+      answer: |
+        (A)(i) 51.2/80 = 0.64, 32.8/51.2 ≈ 0.641, 21.0/32.8 ≈ 0.640, 13.4/21.0 ≈ 0.638. The ratios over equal 2-hour intervals are nearly constant (about 0.64), which is the exponential pattern.
+        (A)(ii) ln 80 ≈ 4.382 and ln 13.4 ≈ 2.595. Slope ≈ (2.595 − 4.382)/8 ≈ −0.223.
+        (B)(i) b = e^(−0.223) ≈ 0.80 and a = e^(ln 80) = 80, so C(t) = 80 · (0.80)ᵗ.
+        (B)(ii) Each hour the concentration is multiplied by 0.80: it decreases by about 20% per hour.
+        (C)(i) 80(0.8)ᵗ < 5 gives (0.8)ᵗ < 1/16, so t ln 0.8 < ln(1/16). Dividing by the negative ln 0.8 reverses the inequality: t > ln(1/16)/ln 0.8 ≈ 12.4 hours.
+        (C)(ii) If C = a · bᵗ then ln C = ln a + t ln b, which is linear in t, so exponential data give (nearly) collinear points. For large t the model predicts the concentration approaching 0 forever; in practice the filter may stop removing chemical below some level, or the measurements may reach the limit of detection, so the model may not hold.
+      explanation: |
+        Six points, one per sub-part. (A)(i) at least three ratios with the conclusion that they are nearly constant. (A)(ii) both ln values and a slope of about −0.223 (accept −0.22). (B)(i) C(t) = 80(0.80)ᵗ (accept b from 0.79 to 0.81 consistent with the student's slope). (B)(ii) a 20% decrease per hour (or multiplied by 0.80 each hour), in context. (C)(i) about 12.4 hours with the reversal of the inequality handled correctly (accept 12.3 to 12.5 consistent with the student's b). (C)(ii) the log-linear algebra plus one sensible limitation.

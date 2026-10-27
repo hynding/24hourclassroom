@@ -1,0 +1,595 @@
+week: 21
+unit: 3
+title: "Sinusoidal Transformations and Models"
+topics: ["3.6", "3.7"]
+guide: guides/week-21.md
+guide_description: |
+  Each parameter of a sin(b(θ + c)) + d as a transformation of sin θ (vertical dilation and reflection,
+  vertical translation, horizontal dilation, horizontal translation), including how to factor bθ + k to read
+  the shift; then building sinusoidal models from maximum, minimum and timing information, interpreting
+  parameters with units, sinusoidal regression, and piecewise sinusoidal models for lopsided data. Worked
+  examples: a hypothetical Ferris wheel, a hypothetical harbour tide, hypothetical daylight hours, and a
+  piecewise tide that rises in 5 hours and falls in 7.
+flashcards_description: |
+  30 cards on the four parameters as transformations, reading horizontal shifts, building models from
+  features, interpreting regression output, piecewise sinusoids and model limitations.
+
+flashcards:
+  - front: Parameter a in a sin(b(θ + c)) + d → transformation
+    back: |
+      Vertical dilation by |a| about the midline; if a < 0, also a reflection across the midline. 3 sin θ has range [−3, 3].
+    topic_code: "3.6"
+  - front: Parameter d in a sin(b(θ + c)) + d → transformation
+    back: |
+      Vertical translation by d: the midline becomes y = d. sin θ + 2 has range [1, 3].
+    topic_code: "3.6"
+  - front: Parameter b in a sin(b(θ + c)) + d → transformation
+    back: |
+      Horizontal dilation by a factor of 1/|b|, so the period is 2π/|b|. sin(2θ) is squeezed to period π; sin(θ/4) is stretched to period 8π.
+    topic_code: "3.6"
+  - front: Parameter c in a sin(b(θ + c)) + d → transformation
+    back: |
+      Horizontal translation by c units to the left (right if c < 0). The starting point where b(θ + c) = 0 is θ = −c.
+    topic_code: "3.6"
+  - front: Shift of sin(3θ + π) → factor first
+    back: |
+      sin(3θ + π) = sin(3(θ + π/3)): a shift of π/3 to the left, not π.
+    topic_code: "3.6"
+  - front: Shift and period of 5 cos(4θ − π) − 2 → values
+    back: |
+      4θ − π = 4(θ − π/4): shift π/4 right, period 2π/4 = π/2. Amplitude 5, midline y = −2.
+    topic_code: "3.6"
+  - front: 3 sin(2(θ − π/4)) + 1 → first maximum to the right of π/4
+    back: |
+      Sine peaks when its input is π/2: 2(θ − π/4) = π/2 gives θ = π/2. The maximum point is (π/2, 3 + 1) = (π/2, 4).
+    topic_code: "3.6"
+  - front: sin(2(θ − π)) compared with sin(2θ) → same graph?
+    back: |
+      Yes. sin(2θ) has period π, so shifting by π (one whole period) changes nothing.
+    topic_code: "3.6"
+  - front: Vertical parameters vs horizontal parameters → what each pair acts on
+    back: |
+      a and d act on outputs (amplitude, midline, range). b and c act on inputs (period, shift). Changing one pair never changes the features controlled by the other.
+    topic_code: "3.6"
+  - front: −2 cos(θ/3) + 4 from cos θ → transformations
+    back: |
+      Vertical dilation by 2 with a reflection across the midline, up 4 (range [2, 6]); horizontal dilation by 3 (period 6π).
+    topic_code: "3.6"
+  - front: Shift and period of sin(πθ/6 + π/2) → values
+    back: |
+      πθ/6 + π/2 = (π/6)(θ + 3): shift 3 left, period 2π/(π/6) = 12.
+    topic_code: "3.6"
+  - front: Sinusoidal model from max and min → midline and amplitude
+    back: |
+      Midline d = (max + min)/2; amplitude |a| = (max − min)/2. Max 42 m, min 2 m: midline 22 m, amplitude 20 m.
+    topic_code: "3.7"
+  - front: Sinusoidal model → period from a maximum and the next minimum
+    back: |
+      Max to the next min is half a period, so double it. High water at 2:00 and low at 8:12 gives a period of 12.4 hours.
+    topic_code: "3.7"
+  - front: Sinusoidal model → b from the period
+    back: |
+      b = 2π/period. A period of 8 minutes gives b = π/4 radians per minute; 365 days gives 2π/365.
+    topic_code: "3.7"
+  - front: Choosing the starting function in a model → rule
+    back: |
+      Known time of a maximum: a cos with that shift. Minimum: −a cos. Rising midline crossing: a sin. Falling midline crossing: −a sin.
+    topic_code: "3.7"
+  - front: Ferris wheel, diameter 40 m, centre 22 m, 8 min per turn, board at bottom → model
+    back: |
+      h(t) = 22 − 20 cos(πt/4): midline 22, amplitude 20, b = 2π/8, and −cos because the rider starts at the minimum.
+    topic_code: "3.7"
+  - front: Tide, high 4.6 m at 2:00, next low 0.6 m at 8:12 → model
+    back: |
+      H(t) = 2.6 + 2 cos((2π/12.4)(t − 2)), t in hours after midnight: midline 2.6, amplitude 2, period 12.4, maximum at t = 2.
+    topic_code: "3.7"
+  - front: Midline of a context model → interpretation
+    back: |
+      The average value of the quantity over one cycle, in the quantity's units. In a tide model, the average depth of the water.
+    topic_code: "3.7"
+  - front: Amplitude of a context model → interpretation
+    back: |
+      How far the quantity rises above and falls below its average, in its units. A daylight amplitude of 3.1 h means days reach 3.1 h more and 3.1 h less than average.
+    topic_code: "3.7"
+  - front: Period of a context model → interpretation
+    back: |
+      The time for one full cycle: one turn of a wheel, one tide from high to high, one year of daylight. Check it against the context.
+    topic_code: "3.7"
+  - front: Sinusoidal regression → what it gives and needs
+    back: |
+      A calculator fit y = a sin(bx + c) + d to many data points. It needs at least a full cycle of data and sometimes a period estimate; check the residuals for patterns.
+    topic_code: "3.7"
+  - front: Shift in regression output a sin(bx + c) + d → how to read
+    back: |
+      Factor: bx + c = b(x + c/b). The rising midline crossing is at x = −c/b.
+    topic_code: "3.7"
+  - front: Piecewise sinusoidal model → when to use one
+    back: |
+      When the quantity rises and falls over unequal times (a single sinusoid always splits a cycle evenly), or behaves differently in different intervals.
+    topic_code: "3.7"
+  - front: Tide rising 1 m to 5 m over 5 h, falling back over 7 h → piecewise model
+    back: |
+      3 − 2 cos(πt/5) for 0 ≤ t ≤ 5 (half-period 5), then 3 + 2 cos(π(t − 5)/7) for 5 ≤ t ≤ 12 (half-period 7). Both pieces equal 5 at t = 5.
+    topic_code: "3.7"
+  - front: Limitations of a sinusoidal model → examples to mention
+    back: |
+      Real cycles drift: tides vary with the Moon's phase, temperatures vary from year to year, a Ferris wheel stops to load. A model describes a stated domain, not a law.
+    topic_code: "3.7"
+  - front: Where a sinusoidal quantity changes fastest in context → when
+    back: |
+      At the midline crossings. A Ferris-wheel rider rises fastest when level with the centre and momentarily not at all at the top and bottom.
+    topic_code: "3.7"
+  - front: Spring bobbing between 12 cm and 30 cm, peaks at t = 0.5 s and 2.5 s → model
+    back: |
+      Midline 21, amplitude 9, period 2 s so b = π, maximum at 0.5: y = 21 + 9 cos(π(t − 0.5)).
+    topic_code: "3.7"
+  - front: Error-spot → "sin(4θ − π) is shifted π to the right"
+    back: |
+      Factor out the 4: sin(4(θ − π/4)), so the shift is π/4 right. The shift is c only when the inside is written b(θ + c).
+    topic_code: "3.6"
+  - front: Error-spot → "the period is 8 minutes, so b = 8"
+    back: |
+      b = 2π/period = 2π/8 = π/4. Using b = 8 would give a period of 2π/8 ≈ 0.79 minutes.
+    topic_code: "3.7"
+  - front: Error-spot → "max 42 m, so the amplitude is 42"
+    back: |
+      Amplitude is measured from the midline: (42 − 2)/2 = 20 m. The maximum is d + |a|.
+    topic_code: "3.7"
+
+quiz:
+  description: |
+    23 questions · about 45 minutes · mostly on this week (topics 3.6 and 3.7: the parameters a, b, c and d
+    as transformations, reading shifts, building and interpreting sinusoidal models, regression and piecewise
+    models), with about 30% reviewing weeks 18–20 (exact values, sinusoid features) and Units 1 and 2
+    (polynomial zeros, semi-log plots, exponential equations, composition). Includes a shared-context set on a
+    hypothetical Ferris wheel. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by
+    your teacher against the scoring notes. Items marked (Calculator.) need a graphing or scientific
+    calculator; the rest are designed to be done by hand.
+  questions:
+    # ---- Stimulus set: a Ferris wheel (3.7)
+    - slug: precalc-u03-w21-q01
+      type: multiple_choice
+      topic_code: "3.7"
+      source: "AP Precalculus CED, Topic 3.7"
+      points: 1
+      stimulus: |
+        A hypothetical Ferris wheel has a diameter of 50 m, and its centre is 28 m above the ground. It turns at a constant rate, making one full turn every 10 minutes. A rider boards at the lowest point of the wheel at time t = 0. Let h(t) be the rider's height above the ground, in metres, t minutes after boarding.
+      prompt: |
+        Which equation models h(t)?
+      options:
+        - "h(t) = 28 + 25 cos(πt/5)"
+        - "h(t) = 28 − 25 cos(10t)"
+        - "h(t) = 28 − 25 cos(πt/5)"
+        - "h(t) = 25 − 28 cos(πt/5)"
+      option_explanations:
+        - |
+          This gives h(0) = 53 m, so the rider would start at the top; boarding at the lowest point needs −cos.
+        - |
+          This uses the period 10 as b; the period 10 minutes gives b = 2π/10 = π/5.
+        - |
+          Correct. Midline 28 m, amplitude 25 m (half the diameter), b = 2π/10 = π/5, and −cos starts at the minimum h(0) = 3 m.
+        - |
+          This swaps the midline and the amplitude; it would give h(0) = −3 m, below the ground.
+      answer: 2
+    - slug: precalc-u03-w21-q02
+      type: multiple_choice
+      topic_code: "3.7"
+      source: "AP Precalculus CED, Topic 3.7"
+      points: 1
+      stimulus: |
+        A hypothetical Ferris wheel has a diameter of 50 m, and its centre is 28 m above the ground. It turns at a constant rate, making one full turn every 10 minutes. A rider boards at the lowest point of the wheel at time t = 0. Let h(t) be the rider's height above the ground, in metres, t minutes after boarding.
+      prompt: |
+        What is the rider's height 5/3 minutes after boarding?
+      options:
+        - "15.5 m"
+        - "40.5 m"
+        - "(28 − 12.5√3) m"
+        - "12.5 m"
+      option_explanations:
+        - |
+          Correct. h(5/3) = 28 − 25 cos(π/3) = 28 − 25 · (1/2) = 15.5 m. The wheel has turned a sixth of a turn.
+        - |
+          This adds 12.5 to the midline; the rider started at the bottom, so after a sixth of a turn they are still below the centre.
+        - |
+          This uses sin(π/3) = √3/2 in place of cos(π/3) = 1/2.
+        - |
+          12.5 m is 25 cos(π/3), the distance below the centre, not the height above the ground.
+      answer: 0
+    - slug: precalc-u03-w21-q03
+      type: multiple_choice
+      topic_code: "3.7"
+      source: "AP Precalculus CED, Topic 3.7"
+      points: 1
+      stimulus: |
+        A hypothetical Ferris wheel has a diameter of 50 m, and its centre is 28 m above the ground. It turns at a constant rate, making one full turn every 10 minutes. A rider boards at the lowest point of the wheel at time t = 0. Let h(t) be the rider's height above the ground, in metres, t minutes after boarding.
+      prompt: |
+        Over which one-minute interval is the average rate of change of h greatest?
+      options:
+        - "0 ≤ t ≤ 1"
+        - "2 ≤ t ≤ 3"
+        - "4 ≤ t ≤ 5"
+        - "5 ≤ t ≤ 6"
+      option_explanations:
+        - |
+          The rider is near the bottom, where the height changes slowly (about 4.8 m in this minute).
+        - |
+          Correct. The rider passes the centre's height at t = 2.5, a midline crossing, where a sinusoid changes fastest; the height rises about 15.5 m in this minute.
+        - |
+          Near the top the rider levels off; the height rises only about 4.8 m in this minute.
+        - |
+          After the top at t = 5 the rider descends, so the average rate of change is negative.
+      answer: 1
+    - slug: precalc-u03-w21-q04
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Precalculus CED, Topic 3.6"
+      points: 1
+      stimulus: |
+        A hypothetical Ferris wheel has a diameter of 50 m, and its centre is 28 m above the ground. It turns at a constant rate, making one full turn every 10 minutes. A rider boards at the lowest point of the wheel at time t = 0. Let h(t) be the rider's height above the ground, in metres, t minutes after boarding.
+      prompt: |
+        The operator speeds the wheel up so that it makes one full turn every 6 minutes. Nothing else changes. How does the model change?
+      options:
+        - "The amplitude increases."
+        - "The midline is lowered."
+        - "The value of b becomes 6."
+        - "The value of b becomes π/3."
+      option_explanations:
+        - |
+          The amplitude is the wheel's radius, 25 m, which does not depend on how fast it turns.
+        - |
+          The midline is the height of the centre, 28 m, which does not change.
+        - |
+          6 is the new period; b is 2π divided by the period.
+        - |
+          Correct. Only the period changes, so b = 2π/6 = π/3 replaces π/5; this is a horizontal dilation of the graph.
+      answer: 3
+    # ---- Topics 3.6 and 3.7
+    - slug: precalc-u03-w21-q05
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Precalculus CED, Topic 3.6"
+      points: 1
+      prompt: |
+        Which describes how the graph of g(θ) = sin(2(θ − π/3)) is obtained from the graph of y = sin θ?
+      options:
+        - "A horizontal dilation by a factor of 2 and a translation π/3 to the left"
+        - "A horizontal dilation by a factor of 1/2 and a translation π/3 to the right"
+        - "A horizontal dilation by a factor of 1/2 and a translation 2π/3 to the right"
+        - "A vertical dilation by a factor of 2 and a translation π/3 to the right"
+      option_explanations:
+        - |
+          Multiplying θ by 2 squeezes the graph (factor 1/2), and θ − π/3 moves it right, not left.
+        - |
+          Correct. b = 2 compresses horizontally by 1/2 (period π), and the factored form θ − π/3 shows a shift of π/3 to the right.
+        - |
+          2π/3 is the expanded constant in 2θ − 2π/3; in factored form the shift is π/3.
+        - |
+          The 2 is inside the sine, so it acts on the input (horizontal), not on the output.
+      answer: 1
+    - slug: precalc-u03-w21-q06
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Precalculus CED, Topic 3.6"
+      points: 1
+      prompt: |
+        The graph of y = cos(3θ + π) is the graph of y = cos(3θ) translated horizontally. By how much, and in which direction?
+      options:
+        - "π units to the left"
+        - "3π units to the left"
+        - "π/3 units to the left"
+        - "π/3 units to the right"
+      option_explanations:
+        - |
+          This reads the constant π as the shift without factoring out the 3.
+        - |
+          This multiplies by 3 instead of dividing; the shift is the constant divided by b.
+        - |
+          Correct. 3θ + π = 3(θ + π/3), so the graph of cos(3θ) moves π/3 to the left.
+        - |
+          The size is right but θ + π/3 means a shift to the left.
+      answer: 2
+    - slug: precalc-u03-w21-q07
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Precalculus CED, Topic 3.6"
+      points: 1
+      prompt: |
+        The graph of y = sin θ is dilated vertically by a factor of 3 and then translated down 4 units. Which equation gives the result?
+      options:
+        - "y = 3 sin θ − 4"
+        - "y = 3(sin θ − 4)"
+        - "y = sin(3θ) − 4"
+        - "y = 3 sin(θ − 4)"
+      option_explanations:
+        - |
+          Correct. Multiply the output by 3, then subtract 4 from the result: range [−7, −1], midline y = −4.
+        - |
+          This translates first and then dilates, which moves the midline to y = −12.
+        - |
+          sin(3θ) is a horizontal dilation (period 2π/3), not a vertical one.
+        - |
+          θ − 4 inside the sine is a translation 4 units to the right, not down.
+      answer: 0
+    - slug: precalc-u03-w21-q08
+      type: multiple_choice
+      topic_code: "3.7"
+      source: "AP Precalculus CED, Topic 3.7"
+      points: 1
+      prompt: |
+        In a hypothetical greenhouse, the temperature reaches a maximum of 31°C at 2 p.m. (t = 14 hours after midnight) and a minimum of 15°C twelve hours later, repeating every 24 hours. Which model fits?
+      options:
+        - "T(t) = 23 + 8 cos(π(t − 14)/24)"
+        - "T(t) = 8 + 23 cos(π(t − 14)/12)"
+        - "T(t) = 23 + 8 cos(π(t + 14)/12)"
+        - "T(t) = 23 + 8 cos(π(t − 14)/12)"
+      option_explanations:
+        - |
+          b = π/24 gives a period of 48 hours; the period is 24 hours, so b = 2π/24 = π/12.
+        - |
+          This swaps the midline (23°C) and the amplitude (8°C); it would reach 31°C but fall to −15°C.
+        - |
+          t + 14 shifts the maximum to t = −14, which is 10 a.m. the previous day, not 2 p.m.
+        - |
+          Correct. Midline (31 + 15)/2 = 23, amplitude 8, b = 2π/24 = π/12, and cosine shifted right 14 puts the maximum at 2 p.m.
+      answer: 3
+    - slug: precalc-u03-w21-q09
+      type: multiple_choice
+      topic_code: "3.7"
+      source: "AP Precalculus CED, Topic 3.7"
+      points: 1
+      prompt: |
+        A student runs sinusoidal regression on hypothetical monthly mean temperatures for a city and gets T(m) = 9.6 sin(0.52m − 1.9) + 17.4, where T is in °C and m is the month number. What does 17.4 represent?
+      options:
+        - "The highest monthly mean temperature of the year"
+        - "The temperature in month 0"
+        - "The average of the monthly mean temperatures over a year, around which they rise and fall by about 9.6°C"
+        - "The length of one cycle in months"
+      option_explanations:
+        - |
+          The highest value is 17.4 + 9.6 = 27.0°C; 17.4 is the midline, not the maximum.
+        - |
+          T(0) = 9.6 sin(−1.9) + 17.4 ≈ 8.3°C; the constant term is not the value at m = 0 for a sinusoid.
+        - |
+          Correct. d = 17.4 is the midline: the average over a cycle, with the amplitude 9.6 describing the swing above and below it.
+        - |
+          The period is 2π/0.52 ≈ 12 months, found from b, not from d.
+      answer: 2
+    - slug: precalc-u03-w21-q10
+      type: multiple_choice
+      topic_code: "3.7"
+      source: "AP Precalculus CED, Topic 3.7"
+      points: 1
+      prompt: |
+        At a hypothetical estuary the water rises from low to high in 5 hours and falls back from high to low in 7 hours, repeating every 12 hours. Why does a single sinusoid model this poorly?
+      options:
+        - "A single sinusoid spends equal time rising and falling, so it cannot match a 5-hour rise and a 7-hour fall."
+        - "A sinusoid cannot have a period of 12 hours."
+        - "The amplitude of a sinusoid must be less than 1."
+        - "Sinusoids can only model quantities that are sometimes negative."
+      option_explanations:
+        - |
+          Correct. In any sinusoid the time from minimum to maximum equals the time from maximum to minimum, half a period each; a piecewise model with half-periods 5 and 7 fits better.
+        - |
+          Any positive period is possible: b = 2π/12 = π/6 gives a period of 12 hours.
+        - |
+          The amplitude can be any positive number; it is set by a.
+        - |
+          The midline d can lift a sinusoid so that all its values are positive, as in every depth or height model.
+      answer: 0
+    # ---- Spiral review
+    - slug: precalc-u03-w21-q11
+      type: multiple_choice
+      topic_code: "3.5"
+      source: "AP Precalculus CED, Topic 3.5"
+      points: 1
+      prompt: |
+        What is the period of y = 3 sin(πθ/6)?
+      options:
+        - "π/6"
+        - "6"
+        - "12π"
+        - "12"
+      option_explanations:
+        - |
+          π/6 is b itself; the period is 2π divided by b.
+        - |
+          6 is only half the period: 2π/(π/6) = 2 · 6 = 12, not 6.
+        - |
+          The π cancels: 2π/(π/6) = 12, with no π left over.
+        - |
+          Correct. Period = 2π/(π/6) = 2π · 6/π = 12, with the π cancelling.
+      answer: 3
+    - slug: precalc-u03-w21-q12
+      type: multiple_choice
+      topic_code: "2.15"
+      source: "AP Precalculus CED, Topic 2.15"
+      points: 1
+      prompt: |
+        On a semi-log plot of log₁₀ y against x, a data set lies on a line with slope 0.3 and vertical intercept 2. Which model fits the data?
+      options:
+        - "y = 2(0.3)ˣ"
+        - "y = 100(10^0.3)ˣ"
+        - "y = 0.3x + 2"
+        - "y = 2 · 10^(0.3x)"
+      option_explanations:
+        - |
+          The slope and intercept describe log₁₀ y, so they must be undone with powers of 10; 0.3 is not the growth factor.
+        - |
+          Correct. log₁₀ y = 0.3x + 2 gives y = 10² · 10^(0.3x) = 100(10^0.3)ˣ ≈ 100(1.995)ˣ.
+        - |
+          This is the line for log₁₀ y, not for y itself.
+        - |
+          The intercept 2 is log₁₀ of the initial value, so the initial value is 10² = 100, not 2.
+      answer: 1
+    - slug: precalc-u03-w21-q13
+      type: multi_select
+      topic_code: "3.6"
+      source: "AP Precalculus CED, Topic 3.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let g(θ) = −2 cos(θ/2) + 1. Which statements are true? Select all that apply.
+      options:
+        - "The amplitude of g is 2."
+        - "The period of g is π."
+        - "g(0) = −1"
+        - "The range of g is [−1, 3]."
+        - "The midline of g is y = −1."
+      option_explanations:
+        - |
+          Correct. The amplitude is |−2| = 2; the negative sign is a reflection across the midline.
+        - |
+          b = 1/2 stretches the graph: the period is 2π/(1/2) = 4π.
+        - |
+          Correct. g(0) = −2 cos 0 + 1 = −2 + 1 = −1, a minimum because of the reflection.
+        - |
+          Correct. Midline 1 and amplitude 2 give values from 1 − 2 = −1 to 1 + 2 = 3.
+        - |
+          The midline is y = d = 1; −1 is the minimum value.
+      answer: [0, 2, 3]
+    - slug: precalc-u03-w21-q14
+      type: multi_select
+      topic_code: "1.5"
+      source: "AP Precalculus CED, Topic 1.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let f(x) = x(x − 2)²(x + 3). Which statements are true? Select all that apply.
+      options:
+        - "The graph of f crosses the x-axis at x = 2."
+        - "f has degree 4."
+        - "f(1) < 0"
+        - "f(x) → ∞ as x → −∞"
+        - "f has exactly three distinct real zeros."
+      option_explanations:
+        - |
+          The factor (x − 2) has even multiplicity 2, so the graph touches the axis and turns back at x = 2.
+        - |
+          Correct. The degrees of the factors add: 1 + 2 + 1 = 4.
+        - |
+          f(1) = 1 · (−1)² · 4 = 4, which is positive.
+        - |
+          Correct. The leading term is x⁴, with even degree and positive coefficient, so both ends go up.
+        - |
+          Correct. The distinct zeros are 0, 2 and −3; 2 is counted once even though it is a double zero.
+      answer: [1, 3, 4]
+    - slug: precalc-u03-w21-q15
+      type: true_false
+      topic_code: "3.6"
+      source: "AP Precalculus CED, Topic 3.6"
+      points: 1
+      prompt: |
+        True or false: Replacing θ with 3θ in y = sin θ triples the period of the graph.
+      answer: false
+      explanation: |
+        False. y = sin(3θ) has period 2π/3, one third of 2π. Multiplying the input by 3 compresses the graph horizontally by a factor of 1/3, so three cycles fit where one did.
+    - slug: precalc-u03-w21-q16
+      type: true_false
+      topic_code: "3.4"
+      source: "AP Precalculus CED, Topic 3.4"
+      points: 1
+      prompt: |
+        True or false: y = cos θ is increasing on the interval (π, 2π).
+      answer: true
+      explanation: |
+        True. Cosine has its minimum −1 at θ = π and its maximum 1 at θ = 2π, and it rises steadily between them: the unit-circle point moves rightward along the bottom half of the circle.
+    - slug: precalc-u03-w21-q17
+      type: fill_blank
+      topic_code: "3.6"
+      source: "AP Precalculus CED, Topic 3.6"
+      points: 1
+      prompt: |
+        The graph of y = sin(4θ − π) is the graph of y = sin(4θ) translated ____ units to the right.
+      answer: ["π/4", "pi/4", "(1/4)π", "1/4π", "0.25π"]
+      explanation: |
+        Factor out 4: sin(4θ − π) = sin(4(θ − π/4)), a translation of π/4 to the right.
+    - slug: precalc-u03-w21-q18
+      type: fill_blank
+      topic_code: "3.3"
+      source: "AP Precalculus CED, Topic 3.3"
+      points: 1
+      prompt: |
+        The exact value of cos(2π/3) is ____.
+      answer: ["-1/2", "−1/2", "-0.5", "−0.5", "-.5", "−.5"]
+      explanation: |
+        2π/3 is in quadrant II with reference angle π/3; cosine is negative there, so cos(2π/3) = −cos(π/3) = −1/2.
+    - slug: precalc-u03-w21-q19
+      type: numeric
+      topic_code: "3.7"
+      source: "AP Precalculus CED, Topic 3.7"
+      points: 1
+      prompt: |
+        (Calculator.) A model for the hours of daylight in a hypothetical city is D(t) = 12.1 + 3.1 sin(2π(t − 80)/365), where t is the day of the year. To the nearest hundredth of an hour, what is D(120)?
+      answer: { value: 14.07, tolerance: 0.01 }
+      explanation: |
+        D(120) = 12.1 + 3.1 sin(2π · 40/365) = 12.1 + 3.1 sin(0.6886) ≈ 12.1 + 3.1(0.6354) ≈ 14.07 hours. The calculator must be in radian mode.
+    - slug: precalc-u03-w21-q20
+      type: numeric
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      prompt: |
+        (Calculator.) Solve 2^(x + 1) = 40. Give x to the nearest hundredth.
+      answer: { value: 4.32, tolerance: 0.01 }
+      explanation: |
+        2^(x + 1) = 40 gives 2ˣ = 20, so x = log₂ 20 = ln 20/ln 2 ≈ 4.32.
+    - slug: precalc-u03-w21-q21
+      type: short_answer
+      topic_code: "3.6"
+      source: "AP Precalculus CED, Topic 3.6"
+      points: 3
+      prompt: |
+        Let f(θ) = 3 sin(2(θ − π/4)) + 1.
+
+        (a) Describe the vertical transformations of y = sin θ that produce f, and state the range of f.
+        (b) Describe the horizontal transformations, and state the period of f.
+        (c) Find the coordinates of the first maximum of f to the right of θ = π/4, showing your reasoning.
+      answer: |
+        (a) A vertical dilation by a factor of 3 followed by a translation up 1. Range [−2, 4].
+        (b) A horizontal dilation by a factor of 1/2 and a translation π/4 to the right. Period 2π/2 = π.
+        (c) Sine has its first maximum when its input is π/2. 2(θ − π/4) = π/2 gives θ − π/4 = π/4, so θ = π/2. f(π/2) = 3 · 1 + 1 = 4, so the point is (π/2, 4).
+      explanation: |
+        Three points, one per part. (a) dilation by 3, up 1, and range [−2, 4]. (b) dilation by 1/2, right π/4, and period π. (c) (π/2, 4) with the input set equal to π/2 (or an equivalent argument from a quarter period after the shifted start).
+    - slug: precalc-u03-w21-q22
+      type: short_answer
+      topic_code: "2.7"
+      source: "AP Precalculus CED, Topic 2.7"
+      points: 3
+      prompt: |
+        Let f(x) = sin x and g(x) = 2x + π/3.
+
+        (a) Find the exact value of f(g(π/6)).
+        (b) Find the exact value of g(f(π/2)).
+        (c) Write f(g(x)) in the form sin(b(x + c)) and state its period and horizontal shift relative to y = sin(2x).
+      answer: |
+        (a) g(π/6) = π/3 + π/3 = 2π/3, and f(2π/3) = sin(2π/3) = √3/2.
+        (b) f(π/2) = 1, and g(1) = 2 + π/3.
+        (c) f(g(x)) = sin(2x + π/3) = sin(2(x + π/6)). Period 2π/2 = π; it is the graph of sin(2x) shifted π/6 to the left.
+      explanation: |
+        Three points, one per part. (a) √3/2. (b) 2 + π/3 (order of composition respected). (c) sin(2(x + π/6)) with period π and shift π/6 left.
+    - slug: precalc-u03-w21-q23
+      type: long_answer
+      topic_code: "3.7"
+      source: "AP Precalculus CED, Topic 3.7"
+      points: 6
+      prompt: |
+        The depth of water at the end of a hypothetical pier is modelled by a sinusoidal function D(t), in metres, where t is the number of hours after midnight. On one day, low water of 1.2 m occurs at 4:00 a.m. and the next high water, 5.0 m, occurs at 10:15 a.m.
+
+        (A) (i) Find the period, amplitude and midline of D.
+        (ii) Write an equation for D(t).
+
+        (B) (i) (Calculator.) Use your model to find the depth at 1:00 p.m., to the nearest hundredth of a metre.
+        (ii) Is the depth increasing or decreasing at 1:00 p.m.? Justify your answer using the model's features, not a calculator graph.
+
+        (C) (i) Between 10:15 a.m. and the next low water, at what time is the depth decreasing fastest? Explain.
+        (ii) The harbour master notes that on this coast the water usually takes longer to fall than to rise. Explain how this would affect the model, and describe a kind of model that could account for it.
+      answer: |
+        (A) (i) Low to high takes 6.25 hours, half a period, so the period is 12.5 hours. Amplitude (5.0 − 1.2)/2 = 1.9 m; midline (5.0 + 1.2)/2 = 3.1 m.
+        (ii) The minimum is at t = 4, so D(t) = 3.1 − 1.9 cos((2π/12.5)(t − 4)), that is, 3.1 − 1.9 cos(0.16π(t − 4)). (Equivalent forms, such as 3.1 + 1.9 cos((2π/12.5)(t − 10.25)), also earn credit.)
+        (B) (i) D(13) = 3.1 − 1.9 cos(0.16π · 9) = 3.1 − 1.9 cos(1.44π) ≈ 3.1 − 1.9(−0.1874) ≈ 3.46 m.
+        (ii) Decreasing. High water is at t = 10.25 and the next low water is half a period later, at t = 16.5 (4:30 p.m.); t = 13 lies between them, where the sinusoid falls from its maximum to its minimum.
+        (C) (i) A sinusoid changes fastest at its midline crossing, halfway between the maximum at t = 10.25 and the minimum at t = 16.5: t = 13.375, about 1:22 p.m., when the depth is 3.1 m.
+        (ii) A single sinusoid always takes equal times to rise and to fall (half a period each), so it would predict the low water too early and the falling water too fast. A piecewise sinusoidal model, with one sinusoidal piece for the rise (shorter half-period) and another for the fall (longer half-period), joined at the high and low water, could match the data better.
+      explanation: |
+        Six points. (A) 1 point for period 12.5 h, amplitude 1.9 m and midline 3.1 m; 1 point for a correct equation (any equivalent form, with b = 2π/12.5). (B) 1 point for 3.46 m (consistent with the student's model); 1 point for "decreasing" justified by t = 13 lying between the high at 10.25 and the low at 16.5. (C) 1 point for about 1:22 p.m. (t = 13.375) with the midline-crossing reason; 1 point for explaining that a single sinusoid has equal rise and fall times and proposing a piecewise sinusoidal model.

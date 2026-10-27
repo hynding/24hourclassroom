@@ -1,0 +1,609 @@
+week: 5
+unit: 1
+title: "End Behavior of Polynomial and Rational Functions"
+topics: ["1.6", "1.7"]
+guide: guides/week-05.md
+guide_description: |
+  Limit notation for end behaviour; why a polynomial's leading term controls its ends, with the four
+  degree-and-sign cases; rational functions as behaving like the ratio of their leading terms, giving horizontal
+  asymptotes (y = 0 or the ratio of leading coefficients), slant asymptotes when the numerator degree is one more,
+  and polynomial-like ends otherwise; and horizontal asymptotes as long-run values in context. Worked examples:
+  a table for x³ − 40x², the limits of three rational functions, slant asymptotes by splitting fractions, and
+  hypothetical average-cost, mixing-tank and dose models.
+flashcards_description: |
+  30 cards on limit notation, polynomial end behaviour, comparing degrees in rational functions, horizontal and
+  slant asymptotes, and interpreting long-run values.
+
+flashcards:
+  - front: lim as x → ∞ of f(x) = ∞ → in words
+    back: |
+      As x increases without bound, f(x) increases without bound. ∞ records "without bound"; it is not a number.
+    topic_code: "1.6"
+  - front: lim as x → −∞ of f(x) = 3 → in words
+    back: |
+      As x decreases without bound, f(x) gets arbitrarily close to 3. The line y = 3 is a horizontal asymptote on the left.
+    topic_code: "1.7"
+  - front: Polynomial end behaviour → what decides it
+    back: |
+      The leading term aₙxⁿ alone: its degree (even or odd) and the sign of aₙ.
+    topic_code: "1.6"
+  - front: Why the leading term wins → algebraic argument
+    back: |
+      p(x) = aₙxⁿ(1 + c₁/x + … + cₙ/xⁿ). Each c/xᵏ → 0 as |x| grows, so the bracket → 1 and p(x) behaves like aₙxⁿ.
+    topic_code: "1.6"
+  - front: x³ − 40x² + 7 at x = 10 vs x = 1,000 → what the table shows
+    back: |
+      At 10 it is −2,993 (the x² term wins); at 1,000 it is 960,000,007, 96% of x³. Lower terms matter near the origin, not at the ends.
+    topic_code: "1.6"
+  - front: Even degree, positive leading coefficient → limits
+    back: |
+      lim as x → −∞ of p(x) = ∞ and lim as x → ∞ of p(x) = ∞. Both ends up.
+    topic_code: "1.6"
+  - front: Even degree, negative leading coefficient → limits
+    back: |
+      lim as x → ±∞ of p(x) = −∞. Both ends down; the polynomial has a global maximum.
+    topic_code: "1.6"
+  - front: Odd degree, positive leading coefficient → limits
+    back: |
+      lim as x → −∞ of p(x) = −∞ and lim as x → ∞ of p(x) = ∞. Down on the left, up on the right.
+    topic_code: "1.6"
+  - front: Odd degree, negative leading coefficient → limits
+    back: |
+      lim as x → −∞ of p(x) = ∞ and lim as x → ∞ of p(x) = −∞. Up on the left, down on the right.
+    topic_code: "1.6"
+  - front: −3x⁵ + 2x² + 9 → end behaviour
+    back: |
+      Leading term −3x⁵ (odd, negative): lim as x → −∞ = ∞ and lim as x → ∞ = −∞.
+    topic_code: "1.6"
+  - front: (2 − x)(x + 1)²(3x − 1) → end behaviour without expanding
+    back: |
+      Leading term (−x)(x²)(3x) = −3x⁴: both ends go to −∞.
+    topic_code: "1.6"
+  - front: 4x⁶ − x⁷ → which term leads
+    back: |
+      −x⁷, the highest power, even though it is written second. Odd degree, negative: up on the left, down on the right.
+    topic_code: "1.6"
+  - front: Rational function far from the origin → behaves like what
+    back: |
+      The ratio of the leading terms of numerator and denominator, (aₙxⁿ)/(bₘxᵐ) = (aₙ/bₘ)xⁿ⁻ᵐ.
+    topic_code: "1.7"
+  - front: Rational function, numerator degree < denominator degree → end behaviour
+    back: |
+      r(x) → 0 as x → ±∞: horizontal asymptote y = 0. Example (6x − 1)/(2x³ + x).
+    topic_code: "1.7"
+  - front: Rational function, equal degrees → end behaviour
+    back: |
+      r(x) → aₙ/bₘ, the ratio of leading coefficients: horizontal asymptote y = aₙ/bₘ. (6x² − x)/(2x² + 5) → 3.
+    topic_code: "1.7"
+  - front: Rational function, numerator degree one more → end behaviour
+    back: |
+      A slant asymptote y = mx + b, with slope m = aₙ/bₘ. (2x² + 3x − 1)/x approaches y = 2x + 3.
+    topic_code: "1.7"
+  - front: Rational function, numerator degree two or more above → end behaviour
+    back: |
+      No asymptote line; r behaves like (aₙ/bₘ)xⁿ⁻ᵐ. (−4x³ + x)/(2x + 7) behaves like −2x², so both ends → −∞.
+    topic_code: "1.7"
+  - front: (5 − 3x²)/(6x² + x) → horizontal asymptote
+    back: |
+      Equal degrees, ratio −3x²/(6x²) = −1/2: y = −1/2.
+    topic_code: "1.7"
+  - front: (x² − 4x + 5)/(x − 2) → slant asymptote by splitting
+    back: |
+      x² − 4x + 5 = (x − 2)² + 1, so the function is (x − 2) + 1/(x − 2). Slant asymptote y = x − 2.
+    topic_code: "1.7"
+  - front: (x² + 1)/x → slant asymptote and side
+    back: |
+      x + 1/x: asymptote y = x. For large positive x, 1/x > 0, so the graph is just above the line.
+    topic_code: "1.7"
+  - front: Crossing a horizontal asymptote → allowed?
+    back: |
+      Yes. (x² + x)/(x² + 1) crosses y = 1 at x = 1, then approaches it from above. Only the far-out behaviour is fixed.
+    topic_code: "1.7"
+  - front: Horizontal asymptote in context → meaning
+    back: |
+      The long-run value the quantity settles toward, such as a limiting average cost or concentration.
+    topic_code: "1.7"
+  - front: Average cost A(n) = (8n + 1200)/n → long-run value
+    back: |
+      lim as n → ∞ of A(n) = 8: the average cost per item approaches $8, staying above it because A(n) = 8 + 1200/n.
+    topic_code: "1.7"
+  - front: Mixing tank C(t) = (2 + 0.3t)/(10 + t) g/L → long run
+    back: |
+      Ratio of leading terms 0.3t/t = 0.3: the concentration approaches 0.3 g/L, the incoming brine's concentration.
+    topic_code: "1.7"
+  - front: Dose model C(t) = 8t/(t² + 4) → long run
+    back: |
+      Numerator degree 1 < denominator degree 2, so C(t) → 0: the medicine is eventually cleared.
+    topic_code: "1.7"
+  - front: (x³ + 1)/x → slant asymptote?
+    back: |
+      No. The degree difference is 2, so it behaves like x², and both ends go to ∞ with no asymptote line.
+    topic_code: "1.7"
+  - front: lim as x → −∞ = −∞ and lim as x → ∞ = ∞ → what polynomial
+    back: |
+      Odd degree with positive leading coefficient, such as x³ or 2x⁵ − x².
+    topic_code: "1.6"
+  - front: Error-spot → "lim as x → ∞ of (6x − 1)/(2x³ + x) is 3"
+    back: |
+      The degrees differ: the ratio of leading terms is 6x/(2x³) = 3/x², which → 0. The ratio of coefficients only works when the degrees are equal.
+    topic_code: "1.7"
+  - front: Error-spot → "r(∞) = 3"
+    back: |
+      ∞ is not an input. Write lim as x → ∞ of r(x) = 3, meaning the outputs approach 3 as x grows without bound.
+    topic_code: "1.7"
+  - front: Error-spot → "(−x)⁵ is positive for large negative x"
+    back: |
+      An odd power of a negative number is negative. That is why odd-degree polynomials have ends in opposite directions.
+    topic_code: "1.6"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 1.6 and 1.7: limit notation, polynomial end
+    behaviour, horizontal and slant asymptotes of rational functions, and long-run values in context), with 7
+    questions (about 30%) reviewing weeks 1 to 4 (average rates of change, quadratic rates, even and odd functions,
+    global extrema, complex zeros and sign charts). Opens with a shared-context set of four items on a
+    hypothetical average-cost model. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. No calculator needed.
+  questions:
+    # ---- Stimulus set: a hypothetical average-cost model (1.7, 1.2)
+    - slug: precalc-u01-w05-q01
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Precalculus CED, Topic 1.7"
+      points: 1
+      stimulus: |
+        A hypothetical workshop has fixed costs of $1,200 per batch and spends $8 on materials for each item. The average cost per item, in dollars, when n items are made in a batch is A(n) = (8n + 1200)/n, for n > 0.
+      prompt: |
+        What is lim as n → ∞ of A(n)?
+      options:
+        - "0"
+        - "8"
+        - "1200"
+        - "∞"
+      option_explanations:
+        - |
+          A limit of 0 needs the numerator degree to be lower; here both numerator and denominator have degree 1.
+        - |
+          Correct. Equal degrees, so the limit is the ratio of leading coefficients, 8n/n = 8. Equivalently A(n) = 8 + 1200/n and 1200/n → 0.
+        - |
+          1200 is the fixed cost; spread over more and more items its share per item shrinks toward 0.
+        - |
+          The average cost does not grow without bound; it levels off because the degrees are equal.
+      answer: 1
+    - slug: precalc-u01-w05-q02
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Precalculus CED, Topic 1.7"
+      points: 1
+      stimulus: |
+        A hypothetical workshop has fixed costs of $1,200 per batch and spends $8 on materials for each item. The average cost per item, in dollars, when n items are made in a batch is A(n) = (8n + 1200)/n, for n > 0.
+      prompt: |
+        Which statement best interprets the end behaviour of A in context?
+      options:
+        - "For a large enough batch the average cost drops below $8 per item."
+        - "The average cost grows without bound as the batch gets larger."
+        - "The average cost approaches $1,200 per item for very large batches."
+        - "As the batch gets larger, the average cost approaches $8 per item but stays above it."
+      option_explanations:
+        - |
+          A(n) = 8 + 1200/n and 1200/n is always positive, so the average cost never falls below $8.
+        - |
+          A is decreasing toward a horizontal asymptote, not increasing without bound.
+        - |
+          $1,200 is the fixed cost for the whole batch; per item it shrinks as n grows.
+        - |
+          Correct. lim as n → ∞ of A(n) = 8, and since 1200/n > 0 the outputs approach 8 from above: the fixed cost per item becomes negligible.
+      answer: 3
+    - slug: precalc-u01-w05-q03
+      type: multiple_choice
+      topic_code: "1.2"
+      source: "AP Precalculus CED, Topic 1.2"
+      points: 1
+      stimulus: |
+        A hypothetical workshop has fixed costs of $1,200 per batch and spends $8 on materials for each item. The average cost per item, in dollars, when n items are made in a batch is A(n) = (8n + 1200)/n, for n > 0.
+      prompt: |
+        What is the average rate of change of A over the interval 100 ≤ n ≤ 200?
+      options:
+        - "−0.06 dollars per item, for each additional item"
+        - "−6 dollars per item, for each additional item"
+        - "0.06 dollars per item, for each additional item"
+        - "−0.03 dollars per item, for each additional item"
+      option_explanations:
+        - |
+          Correct. A(100) = 2000/100 = 20 and A(200) = 2800/200 = 14, so (14 − 20)/(200 − 100) = −6/100 = −0.06.
+        - |
+          −6 is the change in average cost; it must be divided by the change in n, which is 100.
+        - |
+          The average cost falls from $20 to $14, so the rate is negative; this subtracts in the wrong order.
+        - |
+          This divides the change −6 by 200 (the endpoint) instead of by 200 − 100 = 100.
+      answer: 0
+    - slug: precalc-u01-w05-q04
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Precalculus CED, Topic 1.7"
+      points: 1
+      stimulus: |
+        A hypothetical workshop has fixed costs of $1,200 per batch and spends $8 on materials for each item. The average cost per item, in dollars, when n items are made in a batch is A(n) = (8n + 1200)/n, for n > 0.
+      prompt: |
+        For which batch sizes is the average cost at most $10 per item?
+      options:
+        - "n ≥ 120"
+        - "n ≥ 150"
+        - "n ≥ 600"
+        - "n ≥ 1200"
+      option_explanations:
+        - |
+          1200/10 = 120 ignores the $8 materials cost: A(120) = 2160/120 = $18, well above $10.
+        - |
+          1200/8 = 150 is not the solution of the inequality: A(150) = 2400/150 = $16.
+        - |
+          Correct. (8n + 1200)/n ≤ 10 with n > 0 gives 8n + 1200 ≤ 10n, so 2n ≥ 1200 and n ≥ 600.
+        - |
+          1200 forgets to divide by 2 after collecting terms; A(600) = 6000/600 is already exactly $10.
+      answer: 2
+    # ---- Independent items
+    - slug: precalc-u01-w05-q05
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "AP Precalculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        Which describes the end behaviour of p(x) = −3x⁵ + 2x² + 9?
+      options:
+        - "lim as x → −∞ of p(x) = −∞ and lim as x → ∞ of p(x) = ∞"
+        - "lim as x → −∞ of p(x) = ∞ and lim as x → ∞ of p(x) = ∞"
+        - "lim as x → −∞ of p(x) = −∞ and lim as x → ∞ of p(x) = −∞"
+        - "lim as x → −∞ of p(x) = ∞ and lim as x → ∞ of p(x) = −∞"
+      option_explanations:
+        - |
+          This is the pattern for odd degree with a positive leading coefficient; here the coefficient is −3.
+        - |
+          Both ends up needs even degree with a positive leading coefficient; the degree here is 5.
+        - |
+          Both ends down needs even degree with a negative leading coefficient; the degree here is odd.
+        - |
+          Correct. The leading term −3x⁵ has odd degree and a negative coefficient: large negative x gives large positive outputs, large positive x gives large negative outputs.
+      answer: 3
+    - slug: precalc-u01-w05-q06
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Precalculus CED, Topic 1.7"
+      points: 1
+      prompt: |
+        What is the horizontal asymptote of the graph of r(x) = (6x² − x)/(2x² + 5)?
+      options:
+        - "y = 6"
+        - "y = 3"
+        - "y = 0"
+        - "There is none; the graph has a slant asymptote."
+      option_explanations:
+        - |
+          6 is the numerator's leading coefficient alone; it must be divided by the denominator's leading coefficient, 2.
+        - |
+          Correct. The degrees are equal, so r(x) approaches the ratio of leading coefficients 6/2 = 3.
+        - |
+          y = 0 occurs when the numerator has the lower degree; here the degrees are equal.
+        - |
+          A slant asymptote needs the numerator degree to be one more than the denominator's; here both are 2.
+      answer: 1
+    - slug: precalc-u01-w05-q07
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Precalculus CED, Topic 1.7"
+      points: 1
+      prompt: |
+        Which rational function has a slant asymptote?
+      options:
+        - "(x² + 1)/x"
+        - "(x + 1)/x²"
+        - "(x² + 1)/(x² − 1)"
+        - "(x³ + 1)/x"
+      option_explanations:
+        - |
+          Correct. The numerator degree is exactly one more; (x² + 1)/x = x + 1/x approaches the line y = x.
+        - |
+          The numerator has the lower degree, so the function approaches the horizontal asymptote y = 0.
+        - |
+          Equal degrees give the horizontal asymptote y = 1, not a slant one.
+        - |
+          The degree difference is 2, so the function behaves like x² and has no asymptote line.
+      answer: 0
+    - slug: precalc-u01-w05-q08
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Precalculus CED, Topic 1.7"
+      points: 1
+      prompt: |
+        What is lim as x → ∞ of (6x − 1)/(2x³ + x)?
+      options:
+        - "3"
+        - "∞"
+        - "0"
+        - "6"
+      option_explanations:
+        - |
+          3 is the ratio of the leading coefficients, which is the limit only when the degrees are equal; here they are 1 and 3.
+        - |
+          The denominator grows much faster than the numerator, so the quotient shrinks rather than grows.
+        - |
+          Correct. The ratio of leading terms is 6x/(2x³) = 3/x², which → 0 as x → ∞.
+        - |
+          6 is the numerator's leading coefficient; the denominator's growth makes the fraction approach 0.
+      answer: 2
+    - slug: precalc-u01-w05-q09
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "AP Precalculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        A polynomial f satisfies lim as x → −∞ of f(x) = ∞ and lim as x → ∞ of f(x) = ∞. Which could be f?
+      options:
+        - "f(x) = −2x⁴ + 7x³"
+        - "f(x) = 7x³ + 2x² − 1"
+        - "f(x) = 2x⁴ − 7x³ + x"
+        - "f(x) = −x⁵ + 3x⁴"
+      option_explanations:
+        - |
+          The leading coefficient −2 is negative, so both ends go to −∞.
+        - |
+          Odd degree with a positive leading coefficient sends the left end to −∞.
+        - |
+          Correct. The leading term 2x⁴ has even degree and a positive coefficient, so both ends go to ∞.
+        - |
+          The leading term is −x⁵ (odd, negative), so the right end goes to −∞.
+      answer: 2
+    - slug: precalc-u01-w05-q10
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Precalculus CED, Topic 1.7"
+      points: 1
+      prompt: |
+        Which describes the end behaviour of t(x) = (−4x³ + x)/(2x + 7)?
+      options:
+        - "lim as x → −∞ of t(x) = −∞ and lim as x → ∞ of t(x) = −∞"
+        - "The graph has the horizontal asymptote y = −2."
+        - "lim as x → −∞ of t(x) = ∞ and lim as x → ∞ of t(x) = −∞"
+        - "The graph has the horizontal asymptote y = 0."
+      option_explanations:
+        - |
+          Correct. The ratio of leading terms is −4x³/(2x) = −2x², which goes to −∞ at both ends.
+        - |
+          −2 is the ratio of leading coefficients, but the numerator degree is 2 more than the denominator's, so the ratio still contains x².
+        - |
+          This treats the ratio as an odd power such as −2x³; dividing x³ by x leaves x², an even power.
+        - |
+          y = 0 needs the numerator to have the lower degree; here it has the higher degree.
+      answer: 0
+    - slug: precalc-u01-w05-q11
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Precalculus CED, Topic 1.5"
+      points: 1
+      prompt: |
+        Which polynomial of degree 3 has zeros 2, i and −i?
+      options:
+        - "(x + 2)(x² + 1)"
+        - "(x − 2)(x² − 1)"
+        - "(x − 2)(x + i)"
+        - "(x − 2)(x² + 1)"
+      option_explanations:
+        - |
+          The factor (x + 2) gives the zero −2, not 2; the sign in the linear factor is flipped.
+        - |
+          x² − 1 = 0 gives the real zeros ±1, not ±i.
+        - |
+          This has degree 2 and lacks the zero i; it also has non-real coefficients.
+        - |
+          Correct. (x − 2) gives the zero 2, and x² + 1 = (x − i)(x + i) gives ±i.
+      answer: 3
+    - slug: precalc-u01-w05-q12
+      type: multiple_choice
+      topic_code: "1.4"
+      source: "AP Precalculus CED, Topic 1.4"
+      points: 1
+      prompt: |
+        The polynomial p(x) = −x⁴ + 4x² has relative maxima at x = −√2 and x = √2 and a relative minimum at x = 0. What is the global maximum value of p?
+      options:
+        - "√2"
+        - "4"
+        - "0"
+        - "There is no global maximum."
+      option_explanations:
+        - |
+          √2 is where a maximum occurs (an input); the value is the output p(√2).
+        - |
+          Correct. p(±√2) = −4 + 8 = 4, and since both ends go to −∞ (even degree, negative leading coefficient), 4 is the largest output.
+        - |
+          0 is the relative minimum value at x = 0, not a maximum.
+        - |
+          With both ends going to −∞, the higher of the relative maxima is a global maximum.
+      answer: 1
+    - slug: precalc-u01-w05-q13
+      type: multi_select
+      topic_code: "1.7"
+      source: "AP Precalculus CED, Topic 1.7"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let r(x) = (2x² + 3x − 1)/x. Which statements are true? Select all that apply.
+      options:
+        - "The graph of r has the horizontal asymptote y = 2."
+        - "The graph of r has the slant asymptote y = 2x + 3."
+        - "lim as x → ∞ of r(x) = ∞"
+        - "lim as x → −∞ of r(x) = ∞"
+        - "r(x) − (2x + 3) → 0 as x → ∞."
+      option_explanations:
+        - |
+          The numerator degree is one more than the denominator's, so there is no horizontal asymptote.
+        - |
+          Correct. r(x) = 2x + 3 − 1/x, and 1/x → 0.
+        - |
+          Correct. r behaves like 2x, which grows without bound as x → ∞.
+        - |
+          r behaves like 2x, which goes to −∞ as x → −∞.
+        - |
+          Correct. r(x) − (2x + 3) = −1/x, which → 0; that is what it means for y = 2x + 3 to be an asymptote.
+      answer: [1, 2, 4]
+    - slug: precalc-u01-w05-q14
+      type: multi_select
+      topic_code: "1.5"
+      source: "AP Precalculus CED, Topic 1.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which polynomials have exactly two distinct x-intercepts? Select all that apply.
+      options:
+        - "(x − 1)²(x + 4)"
+        - "x(x² + 9)"
+        - "(x² − 9)(x² + 1)"
+        - "(x + 2)³"
+        - "x²(x − 5)⁴"
+      option_explanations:
+        - |
+          Correct. The real zeros are 1 (touching) and −4 (crossing): two intercepts.
+        - |
+          x² + 9 has the non-real zeros ±3i, so the only intercept is at x = 0.
+        - |
+          Correct. x² − 9 gives ±3; x² + 1 gives the non-real ±i, which add no intercepts.
+        - |
+          The only zero is −2 (multiplicity 3), so there is one intercept.
+        - |
+          Correct. The real zeros are 0 and 5, each of even multiplicity: two intercepts where the graph touches.
+      answer: [0, 2, 4]
+    - slug: precalc-u01-w05-q15
+      type: true_false
+      topic_code: "1.7"
+      source: "AP Precalculus CED, Topic 1.7"
+      points: 1
+      prompt: |
+        True or false: The graph of a rational function can never cross its horizontal asymptote.
+      answer: false
+      explanation: |
+        False. A horizontal asymptote describes behaviour as x → ±∞ only. For example r(x) = (x² + x)/(x² + 1) has asymptote y = 1, yet r(1) = 2/2 = 1, so the graph crosses the line at (1, 1).
+    - slug: precalc-u01-w05-q16
+      type: true_false
+      topic_code: "1.6"
+      source: "AP Precalculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        True or false: If p is a polynomial of even degree with a negative leading coefficient, then lim as x → ∞ of p(x) and lim as x → −∞ of p(x) are both −∞.
+      answer: true
+      explanation: |
+        True. An even power of a large positive or large negative number is large and positive; multiplying by a negative leading coefficient makes both ends go to −∞.
+    - slug: precalc-u01-w05-q17
+      type: fill_blank
+      topic_code: "1.4"
+      source: "AP Precalculus CED, Topic 1.4"
+      points: 1
+      prompt: |
+        The function f(x) = x⁵ − 3x³ + 2x is even, odd or neither. It is ____.
+      answer: ["odd"]
+      explanation: |
+        Every term has an odd power, so f(−x) = −x⁵ + 3x³ − 2x = −f(x). The function is odd and its graph is symmetric about the origin.
+    - slug: precalc-u01-w05-q18
+      type: fill_blank
+      topic_code: "1.7"
+      source: "AP Precalculus CED, Topic 1.7"
+      points: 1
+      prompt: |
+        The graph of r(x) = (5 − 3x²)/(6x² + x) has the horizontal asymptote y = ____.
+      answer: ["-1/2", "−1/2", "-0.5", "−0.5", "-.5", "−.5"]
+      explanation: |
+        The degrees are equal (2 and 2), so the asymptote is the ratio of leading coefficients: −3/6 = −1/2.
+    - slug: precalc-u01-w05-q19
+      type: numeric
+      topic_code: "1.7"
+      source: "AP Precalculus CED, Topic 1.7"
+      points: 1
+      prompt: |
+        A hypothetical tank starts with 10 L of water holding 2 g of salt. Brine flows in at 1 L per minute and nothing flows out, so after t minutes the concentration is C(t) = (2 + 0.3t)/(10 + t) grams per litre. What value, in grams per litre, does C(t) approach as t → ∞? Give the exact value.
+      answer: { value: 0.3, tolerance: 0.001 }
+      explanation: |
+        Numerator and denominator both have degree 1, so the limit is the ratio of leading coefficients, 0.3/1 = 0.3 g/L: the concentration of the incoming brine.
+    - slug: precalc-u01-w05-q20
+      type: numeric
+      topic_code: "1.3"
+      source: "AP Precalculus CED, Topic 1.3"
+      points: 1
+      prompt: |
+        What is the average rate of change of f(x) = 3x² − 4x on the interval [1, 5]? Give the exact value.
+      answer: { value: 14, tolerance: 0 }
+      explanation: |
+        f(1) = 3 − 4 = −1 and f(5) = 75 − 20 = 55, so (55 − (−1))/(5 − 1) = 56/4 = 14. (Shortcut for a quadratic: a(p + q) + b = 3 · 6 − 4 = 14.)
+    - slug: precalc-u01-w05-q21
+      type: short_answer
+      topic_code: "1.6"
+      source: "AP Precalculus CED, Topic 1.6"
+      points: 3
+      prompt: |
+        Let q(x) = (2 − x)(x + 1)²(3x − 1).
+
+        (a) Without expanding fully, find the degree and leading coefficient of q.
+        (b) Write the end behaviour of q using limit notation.
+        (c) Explain why q has a global maximum but no global minimum.
+      answer: |
+        (a) Leading term (−x)(x²)(3x) = −3x⁴: degree 4, leading coefficient −3.
+        (b) lim as x → −∞ of q(x) = −∞ and lim as x → ∞ of q(x) = −∞.
+        (c) Both ends go to −∞, so the outputs are unbounded below (no global minimum). A polynomial is continuous, so with both ends falling, the graph has a highest point, the largest of its relative maxima, which is the global maximum.
+      explanation: |
+        Three points, one per part. (a) degree 4 and leading coefficient −3. (b) both limits correct, in limit notation. (c) a reason tied to both ends going to −∞.
+    - slug: precalc-u01-w05-q22
+      type: short_answer
+      topic_code: "1.5"
+      source: "AP Precalculus CED, Topic 1.5"
+      points: 3
+      prompt: |
+        Consider the inequality x⁴ − 5x² + 4 ≤ 0.
+
+        (a) Factor x⁴ − 5x² + 4 completely.
+        (b) List the zeros and their multiplicities.
+        (c) Solve the inequality using a sign chart.
+      answer: |
+        (a) (x² − 1)(x² − 4) = (x − 1)(x + 1)(x − 2)(x + 2).
+        (b) −2, −1, 1, 2, each of multiplicity 1.
+        (c) The leading coefficient is positive and every zero is simple, so the sign alternates from the right: positive for x > 2, negative on (1, 2), positive on (−1, 1), negative on (−2, −1), positive for x < −2. Including the zeros (≤): [−2, −1] ∪ [1, 2].
+      explanation: |
+        Three points, one per part. (a) complete factorisation into four linear factors. (b) all four zeros with multiplicity 1. (c) [−2, −1] ∪ [1, 2] with endpoints included, supported by a sign chart or test values.
+    - slug: precalc-u01-w05-q23
+      type: short_answer
+      topic_code: "1.7"
+      source: "AP Precalculus CED, Topic 1.7"
+      points: 3
+      prompt: |
+        Let r(x) = (x² − 4x + 5)/(x − 2).
+
+        (a) Show that r(x) = (x − 2) + 1/(x − 2) for x ≠ 2.
+        (b) State the slant asymptote of the graph of r and describe the end behaviour of r with limit notation.
+        (c) For large positive x, is the graph of r above or below its slant asymptote? Explain.
+      answer: |
+        (a) x² − 4x + 5 = (x² − 4x + 4) + 1 = (x − 2)² + 1. Dividing by x − 2 gives (x − 2) + 1/(x − 2).
+        (b) As x → ±∞, 1/(x − 2) → 0, so the slant asymptote is y = x − 2. lim as x → ∞ of r(x) = ∞ and lim as x → −∞ of r(x) = −∞.
+        (c) Above: for x > 2, 1/(x − 2) > 0, so r(x) is slightly greater than x − 2.
+      explanation: |
+        Three points, one per part. (a) rewriting the numerator as (x − 2)² + 1 (or an equivalent division). (b) y = x − 2 and both limits. (c) above, with the sign of 1/(x − 2) as the reason.
+    - slug: precalc-u01-w05-q24
+      type: long_answer
+      topic_code: "1.7"
+      source: "AP Precalculus CED, Topic 1.7"
+      points: 6
+      prompt: |
+        A hypothetical model gives the concentration of a medicine in a patient's blood as C(t) = 8t/(t² + 4) milligrams per litre, t hours after a dose, for t ≥ 0. A graph shows that C has its only maximum at t = 2.
+
+        (A) (i) Find C(2) and C(6), and the average rate of change of C over 2 ≤ t ≤ 6. Include units.
+        (ii) Interpret the average rate of change in context.
+
+        (B) Find lim as t → ∞ of C(t). Justify your answer by comparing degrees, and interpret the result in context.
+
+        (C) State the maximum concentration, and the intervals of t on which C is increasing and decreasing.
+
+        (D) The medicine is effective while the concentration is at least 1 mg/L. Find the interval of time during which the medicine is effective. Give exact values and decimals to the nearest hundredth.
+      answer: |
+        (A)(i) C(2) = 16/8 = 2 mg/L and C(6) = 48/40 = 1.2 mg/L. Average rate = (1.2 − 2)/(6 − 2) = −0.8/4 = −0.2 mg/L per hour.
+        (ii) Between 2 and 6 hours after the dose, the concentration fell by 0.2 mg/L per hour on average.
+        (B) The numerator has degree 1 and the denominator degree 2; the ratio of leading terms 8t/t² = 8/t → 0. So lim as t → ∞ of C(t) = 0: in the long run the medicine is cleared from the blood.
+        (C) Maximum concentration C(2) = 2 mg/L. C is increasing on 0 < t < 2 and decreasing for t > 2.
+        (D) 8t/(t² + 4) ≥ 1 with t² + 4 > 0 gives 8t ≥ t² + 4, so t² − 8t + 4 ≤ 0. The zeros of t² − 8t + 4 are t = 4 ± 2√3, and the upward parabola is ≤ 0 between them. Effective for 4 − 2√3 ≤ t ≤ 4 + 2√3, about 0.54 ≤ t ≤ 7.46 hours (roughly 6.93 hours in all).
+      explanation: |
+        Six points: (A) 2 points: 1 for C(2) = 2, C(6) = 1.2 and the rate −0.2 mg/L per hour; 1 for an interpretation with units and the time interval. (B) 1 point for 0 with a degree comparison and a contextual interpretation. (C) 1 point for the maximum 2 mg/L with both intervals. (D) 2 points: 1 for reaching t² − 8t + 4 ≤ 0 (multiplying by the positive denominator), 1 for the interval [4 − 2√3, 4 + 2√3] ≈ [0.54, 7.46].

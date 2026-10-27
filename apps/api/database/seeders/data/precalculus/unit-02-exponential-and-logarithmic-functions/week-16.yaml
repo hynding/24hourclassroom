@@ -1,0 +1,587 @@
+week: 16
+unit: 2
+title: "Exponential and Logarithmic Equations and Inequalities"
+topics: ["2.13"]
+guide: guides/week-16.md
+guide_description: |
+  Three ways to solve exponential equations (a common base, isolating and taking a logarithm, and substitution
+  for equations quadratic in eˣ), solving logarithmic equations by condensing and rewriting in exponential form
+  with a check for extraneous solutions, solving inequalities using monotonicity (reversing for bases between 0
+  and 1), and finding inverses of exponential and logarithmic functions algebraically. Worked examples include
+  3ˣ = 2^(x+1), log₂ x + log₂(x − 2) = 3, a hypothetical medication-decay inequality, and the inverse of
+  3 · 2^(x−1) + 5.
+flashcards_description: |
+  29 cards on solving exponential equations, logarithmic equations and extraneous solutions, exponential and
+  logarithmic inequalities, and finding inverses algebraically.
+
+flashcards:
+  - front: bᵘ = bᵛ → what it tells you about u and v
+    back: |
+      u = v, because an exponential function is one-to-one. This is why rewriting both sides with a common base lets you equate the exponents.
+    topic_code: "2.13"
+  - front: 2^(x+1) = 8^(x−1) → solve by a common base
+    back: |
+      8^(x−1) = 2^(3x−3), so x + 1 = 3x − 3 and x = 2.
+    topic_code: "2.13"
+  - front: 9ˣ = 1/27 → solve
+    back: |
+      3^(2x) = 3⁻³, so 2x = −3 and x = −3/2.
+    topic_code: "2.13"
+  - front: 5ˣ = 40 → exact and decimal solution
+    back: |
+      x = log₅ 40 = ln 40 / ln 5 ≈ 2.292. With no common base, take a logarithm of both sides.
+    topic_code: "2.13"
+  - front: 3 · 2ˣ − 4 = 20 → first step
+    back: |
+      Isolate the exponential before taking logs: 3 · 2ˣ = 24, so 2ˣ = 8 and x = 3.
+    topic_code: "2.13"
+  - front: 4e^(0.2t) = 30 → solve
+    back: |
+      e^(0.2t) = 7.5, so 0.2t = ln 7.5 and t = 5 ln 7.5 ≈ 10.07.
+    topic_code: "2.13"
+  - front: 3ˣ = 2^(x+1) → solve
+    back: |
+      x ln 3 = (x + 1) ln 2, so x(ln 3 − ln 2) = ln 2 and x = ln 2 / ln 1.5 ≈ 1.710. Logs, expand, collect, factor.
+    topic_code: "2.13"
+  - front: e^(2x) − 5eˣ + 6 = 0 → solve
+    back: |
+      With u = eˣ: (u − 2)(u − 3) = 0, so eˣ = 2 or 3 and x = ln 2 or ln 3.
+    topic_code: "2.13"
+  - front: 4ˣ − 2^(x+1) − 8 = 0 → solve
+    back: |
+      With u = 2ˣ: u² − 2u − 8 = 0, so u = 4 or u = −2. 2ˣ = 4 gives x = 2; 2ˣ = −2 is impossible because 2ˣ > 0.
+    topic_code: "2.13"
+  - front: 2ˣ = −2 → number of solutions
+    back: |
+      None. Every power of a positive base is positive, so an exponential can never equal zero or a negative number.
+    topic_code: "2.13"
+  - front: Solving a logarithmic equation → the four steps
+    back: |
+      Combine into a single log; rewrite log_b M = c as M = bᶜ (or log_b M = log_b N as M = N); solve; check every candidate in the original equation.
+    topic_code: "2.13"
+  - front: log₂(x − 1) = 3 → solve
+    back: |
+      x − 1 = 2³ = 8, so x = 9.
+    topic_code: "2.13"
+  - front: log₂ x + log₂(x − 2) = 3 → solve and check
+    back: |
+      log₂(x(x − 2)) = 3, so x² − 2x − 8 = 0 and x = 4 or −2. x = −2 makes log₂ x undefined, so it is extraneous; the solution is x = 4.
+    topic_code: "2.13"
+  - front: Extraneous solutions in log equations → why they appear
+    back: |
+      Condensing with the product or quotient property can enlarge the domain. log₂(x(x − 2)) is defined for x < 0, but log₂ x + log₂(x − 2) is not, so the algebra can produce a value the original equation rejects.
+    topic_code: "2.13"
+  - front: ln(x + 1) − ln(x − 1) = ln 3 → solve
+    back: |
+      (x + 1)/(x − 1) = 3, so x + 1 = 3x − 3 and x = 2. Check: ln 3 − ln 1 = ln 3.
+    topic_code: "2.13"
+  - front: log(x²) = 2 versus 2 log x = 2 → compare the solutions
+    back: |
+      log(x²) = 2 gives x² = 100, so x = ±10 (both valid). 2 log x = 2 gives only x = 10. Rewriting log(x²) as 2 log x first would lose −10.
+    topic_code: "2.13"
+  - front: log(2x + 1) = log(x + 4) → solve
+    back: |
+      Log functions are one-to-one, so 2x + 1 = x + 4 and x = 3. Both arguments equal 7 > 0, so it checks.
+    topic_code: "2.13"
+  - front: Exponential inequality with base greater than 1 → direction rule
+    back: |
+      The direction stays the same: 3ˣ > 20 ⟺ x > log₃ 20 ≈ 2.727, because 3ˣ and ln are increasing.
+    topic_code: "2.13"
+  - front: (0.8)ᵗ < 0.25 → solve and explain the flip
+    back: |
+      t ln 0.8 < ln 0.25. ln 0.8 is negative, so dividing reverses the inequality: t > ln 0.25 / ln 0.8 ≈ 6.21.
+    topic_code: "2.13"
+  - front: (1/3)ˣ ≥ 9 → solve
+    back: |
+      3⁻ˣ ≥ 3², so −x ≥ 2 and x ≤ −2. A base between 0 and 1 gives a decreasing function, which reverses the direction.
+    topic_code: "2.13"
+  - front: log₂(x − 3) ≤ 4 → solve with the domain
+    back: |
+      The argument must be positive: x > 3. Then x − 3 ≤ 16, so x ≤ 19. Solution 3 < x ≤ 19.
+    topic_code: "2.13"
+  - front: log_(1/2) x > −3 → solve
+    back: |
+      The log is decreasing, so x < (1/2)⁻³ = 8. With x > 0, the solution is 0 < x < 8.
+    topic_code: "2.13"
+  - front: ln(x + 2) < 1 → solve
+    back: |
+      0 < x + 2 < e, so −2 < x < e − 2 ≈ 0.718. Both the domain and the inequality give a bound.
+    topic_code: "2.13"
+  - front: Inverse of f(x) = 3 · 2^(x−1) + 5 → find it
+    back: |
+      Swap: x = 3 · 2^(y−1) + 5, so 2^(y−1) = (x − 5)/3 and f⁻¹(x) = 1 + log₂((x − 5)/3), with domain x > 5.
+    topic_code: "2.13"
+  - front: Inverse of g(x) = ln(x + 2) − 1 → find it
+    back: |
+      Swap: x + 1 = ln(y + 2), so g⁻¹(x) = e^(x+1) − 2. Its range y > −2 is the domain of g.
+    topic_code: "2.13"
+  - front: Inverse of h(x) = 10^(x/2) → find it
+    back: |
+      Swap: x = 10^(y/2), so y/2 = log x and h⁻¹(x) = 2 log x for x > 0.
+    topic_code: "2.13"
+  - front: Error-spot → "ln(3 · 2ˣ − 4) = ln 3 + x ln 2 − ln 4"
+    back: |
+      There is no rule for the log of a difference. Isolate 2ˣ first (2ˣ = 8 when the equation is 3 · 2ˣ − 4 = 20), then take logs.
+    topic_code: "2.13"
+  - front: Error-spot → "ln 40 / ln 5 = ln 8"
+    back: |
+      A quotient of logs is not the log of a quotient. ln 40 / ln 5 = log₅ 40 ≈ 2.292, while ln 8 ≈ 2.079.
+    topic_code: "2.13"
+  - front: Error-spot → "(0.5)ˣ > 1/8, so x > 3"
+    back: |
+      Base 0.5 makes the function decreasing, so the inequality reverses: (0.5)ˣ > (0.5)³ means x < 3. Test x = 0: 1 > 1/8. ✓
+    topic_code: "2.13"
+
+quiz:
+  description: |
+    23 questions · about 45 minutes · mostly on this week (topic 2.13: exponential equations by common bases and
+    by logarithms, equations quadratic in an exponential, logarithmic equations and extraneous solutions,
+    inequalities, and inverses found algebraically), with 7 of 23 reviewing earlier weeks (sequences, holes of
+    rational functions, exponential models, logarithmic expressions, inverses, log graphs and log properties).
+    Opens with a shared-context set on a hypothetical savings account. Multiple choice, select-all, true/false
+    and numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers
+    and the long answer are graded by your teacher against the scoring notes. Items marked (Calculator.) need
+    one; the rest do not.
+  questions:
+    # ---- Stimulus set: a hypothetical savings account (2.13)
+    - slug: precalc-u02-w16-q01
+      type: multiple_choice
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      stimulus: |
+        The balance of a hypothetical savings account is modelled by B(t) = 2,000(1.04)ᵗ dollars, where t is the number of years since the account was opened.
+      prompt: |
+        Which expression gives the number of years until the balance reaches $3,000?
+      options:
+        - "(ln 3,000 − ln 2,000)/1.04"
+        - "ln(1.5 · 1.04)"
+        - "(ln 1.04)/(ln 1.5)"
+        - "(ln 1.5)/(ln 1.04)"
+      option_explanations:
+        - |
+          The numerator is ln 1.5, which is right, but it must be divided by ln 1.04, not by 1.04; the power property brings down t as a multiplier of ln 1.04.
+        - |
+          Multiplying 1.5 by 1.04 combines the numbers instead of solving (1.04)ᵗ = 1.5 for the exponent.
+        - |
+          This is the change-of-base formula upside down; it equals log₁.₅ 1.04, which is less than 1.
+        - |
+          Correct. 2,000(1.04)ᵗ = 3,000 gives (1.04)ᵗ = 1.5; taking ln, t ln 1.04 = ln 1.5, so t = ln 1.5 / ln 1.04 ≈ 10.3.
+      answer: 3
+    - slug: precalc-u02-w16-q02
+      type: multiple_choice
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      stimulus: |
+        The balance of a hypothetical savings account is modelled by B(t) = 2,000(1.04)ᵗ dollars, where t is the number of years since the account was opened.
+      prompt: |
+        (Calculator.) To the nearest tenth of a year, when does the balance first exceed $5,000?
+      options:
+        - "37.5 years"
+        - "23.4 years"
+        - "62.5 years"
+        - "22.9 years"
+      option_explanations:
+        - |
+          37.5 = 3,000/80 assumes the account gains a constant $80 per year (simple interest), ignoring compounding.
+        - |
+          Correct. (1.04)ᵗ > 2.5 gives t > ln 2.5 / ln 1.04 ≈ 23.36, so about 23.4 years.
+        - |
+          62.5 = 2.5/0.04 divides the growth factor needed by the rate, which is not how exponents work.
+        - |
+          22.9 = ln 2.5 / 0.04 replaces ln 1.04 by 0.04, which treats the growth as continuous at 4%.
+      answer: 1
+    - slug: precalc-u02-w16-q03
+      type: multiple_choice
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      stimulus: |
+        The balance of a hypothetical savings account is modelled by B(t) = 2,000(1.04)ᵗ dollars, where t is the number of years since the account was opened.
+      prompt: |
+        For t ≥ 0, which inequality is equivalent to B(t) ≥ 4,000?
+      options:
+        - "t ≥ log_(1.04) 2"
+        - "t ≤ log_(1.04) 2"
+        - "t ≥ 2/1.04"
+        - "t ≥ log₂ 1.04"
+      option_explanations:
+        - |
+          Correct. (1.04)ᵗ ≥ 2, and since the base 1.04 is greater than 1 the logarithm keeps the direction: t ≥ log_(1.04) 2 ≈ 17.7.
+        - |
+          The direction reverses only for a base between 0 and 1; a growing balance stays above $4,000 once it gets there.
+        - |
+          Dividing 2 by the growth factor treats the exponent like a multiplier.
+        - |
+          The base and argument are swapped; log₂ 1.04 is about 0.057, far too small.
+      answer: 0
+    - slug: precalc-u02-w16-q04
+      type: multiple_choice
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      prompt: |
+        What is the solution of 2^(x+3) = 4ˣ?
+      options:
+        - "There is no solution."
+        - "x = 1"
+        - "x = 3"
+        - "x = −3"
+      option_explanations:
+        - |
+          Writing 4ˣ as 2^(x+2) instead of 2^(2x) makes the exponents look parallel; with the correct rewrite there is a solution.
+        - |
+          x = 1 comes from x + 3 = 4x, which multiplies the exponent by 4 instead of rewriting the base 4 as 2².
+        - |
+          Correct. 4ˣ = 2^(2x), so x + 3 = 2x and x = 3. Check: 2⁶ = 64 = 4³.
+        - |
+          x + 3 = 2x gives x = 3; −3 comes from a sign error when moving x across.
+      answer: 2
+    - slug: precalc-u02-w16-q05
+      type: multiple_choice
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      prompt: |
+        What is the solution of 5e^(2x) = 40?
+      options:
+        - "x = ln 8"
+        - "x = (ln 8)/2"
+        - "x = (ln 35)/2"
+        - "x = (ln 40)/10"
+      option_explanations:
+        - |
+          ln 8 solves e^(x) = 8; here the exponent is 2x, so the result must still be divided by 2.
+        - |
+          Correct. e^(2x) = 8, so 2x = ln 8 and x = (ln 8)/2 = (3/2) ln 2 ≈ 1.04.
+        - |
+          35 comes from subtracting 5 instead of dividing by it; the 5 multiplies e^(2x).
+        - |
+          ln(5e^(2x)) is ln 5 + 2x, not 10x; the coefficient cannot be multiplied into the exponent.
+      answer: 1
+    - slug: precalc-u02-w16-q06
+      type: multiple_choice
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      prompt: |
+        What is the solution of log₃(2x − 1) = 2?
+      options:
+        - "x = 3.5"
+        - "x = 1.5"
+        - "x = 4.5"
+        - "x = 5"
+      option_explanations:
+        - |
+          3.5 comes from 2x − 1 = 6, multiplying 3 by 2 instead of raising 3 to the power 2.
+        - |
+          1.5 comes from 2x − 1 = 2, ignoring the logarithm and setting the argument equal to the output.
+        - |
+          4.5 solves 2x = 9 and forgets to add 1 back.
+        - |
+          Correct. Rewrite in exponential form: 2x − 1 = 3² = 9, so x = 5. Check: log₃ 9 = 2.
+      answer: 3
+    - slug: precalc-u02-w16-q07
+      type: multiple_choice
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      prompt: |
+        What is the solution set of log x + log(x − 3) = 1?
+      options:
+        - "x = 5 and x = −2"
+        - "x = −2 only"
+        - "x = 5 only"
+        - "x = 6.5 only"
+      option_explanations:
+        - |
+          Both are candidates from x² − 3x − 10 = 0, but x = −2 makes log x undefined, so it is extraneous.
+        - |
+          −2 is the extraneous candidate: log(−2) and log(−5) are undefined.
+        - |
+          Correct. log(x(x − 3)) = 1 gives x² − 3x = 10, so (x − 5)(x + 2) = 0. x = 5 checks (log 5 + log 2 = log 10 = 1); x = −2 does not.
+        - |
+          6.5 comes from adding the arguments, log(2x − 3) = 1. The product property multiplies them.
+      answer: 2
+    - slug: precalc-u02-w16-q08
+      type: multiple_choice
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      prompt: |
+        Which describes all solutions of (0.5)ˣ > 1/8?
+      options:
+        - "x < 3"
+        - "x > 3"
+        - "x > −3"
+        - "x < −3"
+      option_explanations:
+        - |
+          Correct. 1/8 = (0.5)³, and (0.5)ˣ is decreasing, so (0.5)ˣ > (0.5)³ exactly when x < 3. Test x = 0: 1 > 1/8.
+        - |
+          This keeps the direction, but a base between 0 and 1 gives a decreasing function, so the inequality reverses.
+        - |
+          The power of 0.5 that gives 1/8 is +3, not −3; (0.5)⁻³ = 8.
+        - |
+          The boundary is wrong: (0.5)⁻³ = 8, not 1/8.
+      answer: 0
+    - slug: precalc-u02-w16-q09
+      type: multiple_choice
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      prompt: |
+        Let f(x) = 4 + ln(x − 1) for x > 1. Which expression gives f⁻¹(x)?
+      options:
+        - "e^(x−4) − 1"
+        - "1/(4 + ln(x − 1))"
+        - "eˣ − 3"
+        - "e^(x−4) + 1"
+      option_explanations:
+        - |
+          After e^(x−4) = y − 1 the 1 must be added, not subtracted. Check: f(2) = 4, but e⁰ − 1 = 0, not 2.
+        - |
+          This is the reciprocal of f, not its inverse.
+        - |
+          The 4 must be subtracted before exponentiating; eˣ − 3 undoes the steps in the wrong order.
+        - |
+          Correct. Swap: x = 4 + ln(y − 1), so ln(y − 1) = x − 4, y − 1 = e^(x−4) and y = e^(x−4) + 1. Check: f(2) = 4 and e⁰ + 1 = 2.
+      answer: 3
+    - slug: precalc-u02-w16-q10
+      type: multiple_choice
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      prompt: |
+        Which equation has no real solution?
+      options:
+        - "2ˣ = 0.1"
+        - "log x = −2"
+        - "3ˣ + 5 = 2"
+        - "ln x = 0"
+      option_explanations:
+        - |
+          2ˣ = 0.1 has the solution x = log₂ 0.1 ≈ −3.32; an exponential can be small, just never zero or negative.
+        - |
+          log x = −2 has the solution x = 10⁻² = 0.01; a logarithm can take negative values.
+        - |
+          Correct. Isolating gives 3ˣ = −3, but every power of 3 is positive, so there is no real solution.
+        - |
+          ln x = 0 has the solution x = e⁰ = 1, since the log of 1 is 0 in every base.
+      answer: 2
+    - slug: precalc-u02-w16-q11
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Precalculus CED, Topic 2.12"
+      points: 1
+      prompt: |
+        For x > 0, which expression is equivalent to log₂(x³) − log₂ x?
+      options:
+        - "2 log₂ x"
+        - "log₂(x³ − x)"
+        - "(log₂ x)²"
+        - "3"
+      option_explanations:
+        - |
+          Correct. By the quotient property, log₂(x³/x) = log₂(x²) = 2 log₂ x.
+        - |
+          A difference of logs is the log of a quotient, not of a difference.
+        - |
+          The power property gives 2 log₂ x, a multiple, not the square of the log.
+        - |
+          3 comes from dividing the logs, log₂(x³)/log₂ x; the expression subtracts them.
+      answer: 0
+    - slug: precalc-u02-w16-q12
+      type: multiple_choice
+      topic_code: "1.10"
+      source: "AP Precalculus CED, Topic 1.10"
+      points: 1
+      prompt: |
+        The graph of r(x) = (x² − 4)/(x − 2) has a hole. Where is it?
+      options:
+        - "(2, 0)"
+        - "(2, 4)"
+        - "(−2, 0)"
+        - "There is no hole; x = 2 is a vertical asymptote."
+      option_explanations:
+        - |
+          The x-coordinate is right, but the hole's height is found from the simplified function x + 2 at x = 2, which is 4.
+        - |
+          Correct. (x² − 4)/(x − 2) = (x + 2)(x − 2)/(x − 2) = x + 2 for x ≠ 2, so the hole is at (2, 2 + 2) = (2, 4).
+        - |
+          (−2, 0) is the zero of the function, where the remaining factor x + 2 is 0, not a hole.
+        - |
+          The factor x − 2 cancels completely, so x = 2 gives a hole, not an asymptote.
+      answer: 1
+    - slug: precalc-u02-w16-q13
+      type: multi_select
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which values are solutions of e^(2x) − 7eˣ + 12 = 0? Select all that apply.
+      options:
+        - "ln 3"
+        - "ln 4"
+        - "3"
+        - "ln 12"
+        - "2 ln 2"
+        - "4"
+      option_explanations:
+        - |
+          Correct. With u = eˣ, (u − 3)(u − 4) = 0, and eˣ = 3 gives x = ln 3.
+        - |
+          Correct. The other factor, eˣ = 4, gives x = ln 4.
+        - |
+          3 is a value of u = eˣ, not of x. At x = 3, e⁶ − 7e³ + 12 is about 275, not 0.
+        - |
+          ln 12 comes from the constant term; e^(2 ln 12) − 7 · 12 + 12 = 144 − 72 = 72, not 0.
+        - |
+          Correct. 2 ln 2 = ln 4 by the power property, so it is the same solution as ln 4.
+        - |
+          4 is a value of eˣ, not of x; the solution is ln 4.
+      answer: [0, 1, 4]
+    - slug: precalc-u02-w16-q14
+      type: multi_select
+      topic_code: "2.11"
+      source: "AP Precalculus CED, Topic 2.11"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let g(x) = ln x − 2. Which statements are true? Select all that apply.
+      options:
+        - "The graph of g has the vertical asymptote x = 0."
+        - "g has a zero at x = e²."
+        - "The graph of g is concave up."
+        - "lim (x → ∞) g(x) = ∞"
+        - "The range of g is y > −2."
+      option_explanations:
+        - |
+          Correct. A vertical shift does not move the asymptote of ln x, which is x = 0.
+        - |
+          Correct. ln x − 2 = 0 gives ln x = 2, so x = e² ≈ 7.39.
+        - |
+          ln x is concave down, and shifting it down 2 does not change the concavity.
+        - |
+          Correct. ln x grows without bound (slowly), so ln x − 2 does too.
+        - |
+          The range of every log function is all real numbers; −2 is the output at x = 1, not a lower bound.
+      answer: [0, 1, 3]
+    - slug: precalc-u02-w16-q15
+      type: true_false
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      prompt: |
+        True or false: x = −3 is a solution of log₃(x²) = 2.
+      answer: true
+      explanation: |
+        True. Substituting gives log₃((−3)²) = log₃ 9 = 2. The argument is x², which is positive for x = −3, so −3 is a genuine solution (the solutions are x = 3 and x = −3). It would be lost if log₃(x²) were rewritten as 2 log₃ x first.
+    - slug: precalc-u02-w16-q16
+      type: true_false
+      topic_code: "2.10"
+      source: "AP Precalculus CED, Topic 2.10"
+      points: 1
+      prompt: |
+        True or false: The functions y = 10ˣ and y = log x have the same range.
+      answer: false
+      explanation: |
+        False. They are inverses, so their domains and ranges swap. The range of 10ˣ is y > 0, while the range of log x is all real numbers.
+    - slug: precalc-u02-w16-q17
+      type: fill_blank
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      prompt: |
+        The solution of 3^(2x − 1) = 27 is x = ____
+      answer: ["2"]
+      explanation: |
+        27 = 3³, so 2x − 1 = 3 and x = 2. Check: 3³ = 27.
+    - slug: precalc-u02-w16-q18
+      type: fill_blank
+      topic_code: "2.9"
+      source: "AP Precalculus CED, Topic 2.9"
+      points: 1
+      prompt: |
+        The exact value of log₄ 64 + log₂(1/4) is ____
+      answer: ["1"]
+      explanation: |
+        log₄ 64 = 3 because 4³ = 64, and log₂(1/4) = −2 because 2⁻² = 1/4. The sum is 3 + (−2) = 1.
+    - slug: precalc-u02-w16-q19
+      type: numeric
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      prompt: |
+        (Calculator.) Solve 7ˣ = 3^(x+2). Give x to the nearest hundredth.
+      answer: { value: 2.59, tolerance: 0.01 }
+      explanation: |
+        Take ln: x ln 7 = (x + 2) ln 3. Collect: x(ln 7 − ln 3) = 2 ln 3, so x = 2 ln 3 / ln(7/3) ≈ 2.1972/0.8473 ≈ 2.59.
+    - slug: precalc-u02-w16-q20
+      type: numeric
+      topic_code: "2.1"
+      source: "AP Precalculus CED, Topic 2.1"
+      points: 1
+      prompt: |
+        A geometric sequence has g₀ = 3 and common ratio r = 2, so gₙ = 3 · 2ⁿ. What is g₅?
+      answer: { value: 96, tolerance: 0 }
+      explanation: |
+        g₅ = 3 · 2⁵ = 3 · 32 = 96. Each term is twice the one before: 3, 6, 12, 24, 48, 96.
+    - slug: precalc-u02-w16-q21
+      type: short_answer
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 3
+      prompt: |
+        Consider the equation log₂(x + 2) + log₂(x − 5) = 3.
+
+        (a) Use a property of logarithms to write the left side as a single logarithm, then rewrite the equation in exponential form.
+        (b) Solve the resulting equation.
+        (c) Check each candidate in the original equation, state the solution set, and explain why any candidate is rejected.
+      answer: |
+        (a) log₂((x + 2)(x − 5)) = 3, so (x + 2)(x − 5) = 2³ = 8.
+        (b) x² − 3x − 10 = 8, so x² − 3x − 18 = 0 and (x − 6)(x + 3) = 0. Candidates: x = 6 and x = −3.
+        (c) x = 6: log₂ 8 + log₂ 1 = 3 + 0 = 3. ✓ x = −3: log₂(−1) and log₂(−8) are undefined, so −3 is extraneous. Solution set: {6}. The original equation needs x + 2 > 0 and x − 5 > 0, that is x > 5; condensing allowed x < −2 as well, which is where −3 came from.
+      explanation: |
+        Three points, one per part. (a) the product property and the exponential form (x + 2)(x − 5) = 8. (b) both candidates 6 and −3 from correct algebra. (c) the check of both values, the solution {6}, and a reason referring to undefined logarithms (or the domain x > 5).
+    - slug: precalc-u02-w16-q22
+      type: short_answer
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 3
+      prompt: |
+        (Calculator.) A hypothetical population of fish in a lake is modelled by P(t) = 800e^(0.05t), where t is years after the lake was stocked.
+
+        (a) What was the initial population, and what does the 0.05 represent?
+        (b) By what percent does the population grow each year, to the nearest hundredth of a percent?
+        (c) Find the doubling time to the nearest hundredth of a year. Show your work.
+      answer: |
+        (a) P(0) = 800 fish. The 0.05 is the continuous growth rate, 5% per year compounded continuously.
+        (b) Each year the population is multiplied by e^0.05 ≈ 1.0513, so it grows by about 5.13% per year.
+        (c) 800e^(0.05t) = 1,600 gives e^(0.05t) = 2, so 0.05t = ln 2 and t = ln 2 / 0.05 ≈ 13.86 years.
+      explanation: |
+        Three points, one per part. (a) 800 fish and the meaning of 0.05 as a continuous rate. (b) 5.13% (accept 5.1%) from the one-year factor e^0.05. (c) 13.86 years with the logarithm step shown.
+    - slug: precalc-u02-w16-q23
+      type: long_answer
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 6
+      prompt: |
+        Answer each part. Show the steps that lead to your answers.
+
+        (A) (i) Solve 2 · 5^(x+1) = 18 for x. Give an exact answer and a decimal to the nearest thousandth.
+            (ii) Solve ln x + ln(x + 4) = ln 12 for x. Check any candidates.
+        (B) Solve the inequality 5(0.6)ˣ ≤ 1. Give the boundary to the nearest hundredth and explain the direction of your answer.
+        (C) Let f(x) = 2 + 3^(x−1).
+            (i) Find f⁻¹(x).
+            (ii) State the domain and range of f⁻¹.
+      answer: |
+        (A)(i) 5^(x+1) = 9, so x + 1 = log₅ 9 and x = log₅ 9 − 1 = ln 9 / ln 5 − 1 ≈ 0.365.
+        (A)(ii) ln(x(x + 4)) = ln 12, so x² + 4x − 12 = 0 and (x + 6)(x − 2) = 0. x = 2 checks: ln 2 + ln 6 = ln 12. x = −6 makes ln x undefined, so it is extraneous. Solution: x = 2.
+        (B) (0.6)ˣ ≤ 0.2, so x ln 0.6 ≤ ln 0.2. Since ln 0.6 < 0, dividing by it reverses the inequality: x ≥ ln 0.2 / ln 0.6 ≈ 3.15. This makes sense because 5(0.6)ˣ is decreasing, so it stays at or below 1 from the boundary onward.
+        (C)(i) Swap: x = 2 + 3^(y−1), so 3^(y−1) = x − 2, y − 1 = log₃(x − 2) and f⁻¹(x) = 1 + log₃(x − 2).
+        (C)(ii) f has domain all real numbers and range y > 2, so f⁻¹ has domain x > 2 and range all real numbers.
+      explanation: |
+        Six points. (A)(i) 1 point: an exact form (log₅ 9 − 1 or equivalent) and 0.365. (A)(ii) 2 points: 1 for the candidates 2 and −6 from correct algebra; 1 for rejecting −6 with a reason and giving x = 2. (B) 1 point: x ≥ 3.15 with the reversal explained (dividing by a negative log, or the function decreasing). (C)(i) 1 point: a correct inverse in any equivalent form. (C)(ii) 1 point: domain x > 2 and range all real numbers.

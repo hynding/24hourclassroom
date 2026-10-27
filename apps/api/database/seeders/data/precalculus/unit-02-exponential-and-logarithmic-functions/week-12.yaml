@@ -1,0 +1,621 @@
+week: 12
+unit: 2
+title: "Exponential Models and Choosing Between Models"
+topics: ["2.5", "2.6"]
+guide: guides/week-12.md
+guide_description: |
+  Building exponential models from words (percent growth and decay, doubling time, half-life), compound and
+  continuous interest, models from two data points and from exponential regression, and choosing between linear,
+  quadratic and exponential models using context, differences and ratios, and residual plots, with a note on
+  extrapolation. Worked examples: a hypothetical isotope and a depreciating car, a $5,000 deposit under three
+  compounding schemes, and a hypothetical invasive-plant data set compared against linear and exponential models.
+flashcards_description: |
+  30 cards on writing exponential models from context, half-life and doubling time, compound and continuous
+  interest, regression output, residuals and residual plots, and model validity.
+
+flashcards:
+  - front: Growth rate 8% per month → growth factor
+    back: |
+      1 + 0.08 = 1.08 per month. A hypothetical 2,000 users growing 8% monthly: U(t) = 2000(1.08)ᵗ.
+    topic_code: "2.5"
+  - front: Decay rate 15% per year → decay factor
+    back: |
+      1 − 0.15 = 0.85 per year. A hypothetical $24,000 car: V(t) = 24000(0.85)ᵗ.
+    topic_code: "2.5"
+  - front: Doubling-time model → general form
+    back: |
+      Q(t) = Q₀ · 2^(t/d), where d is the doubling time. 30 cells doubling every 6 hours: C(t) = 30 · 2^(t/6).
+    topic_code: "2.5"
+  - front: Half-life model → general form
+    back: |
+      Q(t) = Q₀ · (1/2)^(t/h), where h is the half-life. 200 g with a 30-year half-life: M(t) = 200(1/2)^(t/30).
+    topic_code: "2.5"
+  - front: 200 g with 30-year half-life after 75 years → amount
+    back: |
+      75/30 = 2.5 half-lives: 200(1/2)^2.5 ≈ 35.36 g.
+    topic_code: "2.5"
+  - front: Yearly decay factor for a 30-year half-life → compute
+    back: |
+      (1/2)^(1/30) ≈ 0.9772, so about 2.28% decays each year.
+    topic_code: "2.5"
+  - front: Compound interest formula → state and explain
+    back: |
+      A = P(1 + r/n)^(nt): principal P, annual rate r, n compoundings per year, t years. Each compounding multiplies by 1 + r/n, and there are nt of them.
+    topic_code: "2.5"
+  - front: Continuous compounding formula → state
+    back: |
+      A = Pe^(rt). It is the limit of P(1 + r/n)^(nt) as n → ∞.
+    topic_code: "2.5"
+  - front: $5,000 at 4% for 10 years, annual vs monthly vs continuous → balances
+    back: |
+      $7,401.22, $7,454.16 and $7,459.12. More frequent compounding helps, but the gains shrink quickly.
+    topic_code: "2.5"
+  - front: Effective annual rate of 6% compounded monthly → compute
+    back: |
+      (1 + 0.06/12)¹² ≈ 1.0617, so about 6.17% per year.
+    topic_code: "2.5"
+  - front: Depreciating car losing less each year → why
+    back: |
+      Each year it loses 15% of a smaller value: year 1 loses $3,600 of $24,000, year 3 loses $2,601 of $17,340. Same percent, smaller amount.
+    topic_code: "2.5"
+  - front: Population 1,800 in year 2 and 1,200 in year 5 → year 8 without a calculator
+    back: |
+      Every 3 years the population is multiplied by 1200/1800 = 2/3, so year 8 is 1200 · 2/3 = 800.
+    topic_code: "2.5"
+  - front: Exponential regression output y = a · bˣ → interpret a and b
+    back: |
+      a is the predicted value at x = 0; b is the growth factor per unit of x; b − 1 is the growth rate (negative for decay).
+    topic_code: "2.5"
+  - front: Exponential regression → requirement on data
+    back: |
+      Every output must be positive, because the calculator fits a line to the logarithms of the outputs.
+    topic_code: "2.5"
+  - front: Continuous rate 0.03 vs annual rate 3% → which grows faster
+    back: |
+      Continuous: e^0.03 ≈ 1.0305 per year beats 1.03 per year, slightly.
+    topic_code: "2.5"
+  - front: Residual → definition and sign meaning
+    back: |
+      Residual = actual − predicted. Positive means the model underestimated; negative means it overestimated.
+    topic_code: "2.6"
+  - front: Good residual plot → what it looks like
+    back: |
+      Small residuals scattered above and below 0 with no visible pattern.
+    topic_code: "2.6"
+  - front: U-shaped residual plot for a linear model → meaning
+    back: |
+      The data curve upward away from the line: the model is too straight. Try a quadratic or exponential model.
+    topic_code: "2.6"
+  - front: Context clue "constant amount per period" → model type
+    back: |
+      Linear. Example: a hypothetical $30 fee plus $25 per session.
+    topic_code: "2.6"
+  - front: Context clue "constant percent per period" → model type
+    back: |
+      Exponential. Example: a hypothetical lake's fish population falling 4% per year, F(t) = 1500(0.96)ᵗ.
+    topic_code: "2.6"
+  - front: Context clue "rises, peaks, then falls" → model type
+    back: |
+      Quadratic (or another model with a maximum). Exponential and linear functions never change direction.
+    topic_code: "2.6"
+  - front: Data test with equally spaced inputs → three patterns
+    back: |
+      Constant differences → linear; constant second differences → quadratic; constant ratios → exponential.
+    topic_code: "2.6"
+  - front: Invasive-plant data 50, 61, 74, 91, 111, 135 → which model
+    back: |
+      Ratios are all about 1.22 while differences grow, and the residuals of E(t) = 50(1.22)ᵗ are tiny and patternless. Exponential.
+    topic_code: "2.6"
+  - front: Extrapolating an exponential model far ahead → caution
+    back: |
+      Real quantities face limits (space, food, market size), so exponential growth usually slows. E(52) ≈ 1.5 million m² for a pond is not believable.
+    topic_code: "2.6"
+  - front: Size of an error → how to judge it
+    back: |
+      Compare it with the size of the data: an error of 8 is about 6% of 135 but 16% of 50.
+    topic_code: "2.6"
+  - front: Model validity → what to state
+    back: |
+      The input interval the model was built on, the assumption behind it (constant rate or factor), and whether a prediction is interpolation or extrapolation.
+    topic_code: "2.6"
+  - front: Model predicts 240, actual 228 → residual
+    back: |
+      228 − 240 = −12. The model overestimated by 12.
+    topic_code: "2.6"
+  - front: Error-spot → "15% decay means multiply by 0.15"
+    back: |
+      Multiplying by 0.15 keeps only 15%. Losing 15% keeps 85%, so the factor is 0.85.
+    topic_code: "2.5"
+  - front: "Error-spot → \"monthly compounding for 10 years: exponent 10\""
+    back: |
+      The exponent counts compounding periods: 12 per year for 10 years is 120, with rate r/12 each period.
+    topic_code: "2.5"
+  - front: Error-spot → "residual = predicted − actual"
+    back: |
+      It is actual − predicted. Reversing it flips every sign and the over/underestimate conclusion.
+    topic_code: "2.6"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 2.5 and 2.6: exponential models from context and
+    data, compound and continuous interest, residuals and choosing between linear, quadratic and exponential
+    models), with 7 questions reviewing weeks 10–11 and Unit 1 (sequences, linear vs exponential change, features
+    and rewrites of exponential functions, rational zeros, average rate of change). Opens with a shared-context set
+    on a hypothetical subscriber data set. Multiple choice, select-all, true/false and numeric items are graded at
+    once; fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by
+    your teacher against the scoring notes. Items marked "(Calculator.)", the second short answer and the long
+    answer allow a calculator.
+  questions:
+    # ---- Stimulus set: hypothetical newsletter subscribers (2.5, 2.6)
+    - slug: precalc-u02-w12-q01
+      type: multiple_choice
+      topic_code: "2.6"
+      source: "AP Precalculus CED, Topic 2.6"
+      points: 1
+      stimulus: |
+        A hypothetical newsletter records its subscribers, in hundreds, t months after launch. Two models are proposed: L(t) = 76 + 16t and E(t) = 80(1.15)ᵗ.
+
+        | t (months) | 0 | 1 | 2 | 3 | 4 | 5 |
+        |---|---|---|---|---|---|---|
+        | Subscribers (hundreds) | 80 | 92 | 106 | 122 | 140 | 161 |
+        | Residual for L | 4 | 0 | −2 | −2 | 0 | ? |
+        | Residual for E | 0 | 0 | 0.20 | 0.33 | 0.08 | 0.09 |
+      prompt: |
+        What is the residual for L at t = 5?
+      options:
+        - "156"
+        - "−5"
+        - "5"
+        - "4"
+      option_explanations:
+        - |
+          156 is the predicted value L(5) = 76 + 80, not the residual. The residual is actual minus predicted.
+        - |
+          This computes predicted − actual. The residual is actual − predicted = 161 − 156.
+        - |
+          Correct. L(5) = 76 + 16 · 5 = 156, so the residual is 161 − 156 = 5: the line underestimates by 500 subscribers.
+        - |
+          4 is the residual at t = 0. At t = 5 the actual value is 161 and the prediction is 156.
+      answer: 2
+    - slug: precalc-u02-w12-q02
+      type: multiple_choice
+      topic_code: "2.6"
+      source: "AP Precalculus CED, Topic 2.6"
+      points: 1
+      stimulus: |
+        A hypothetical newsletter records its subscribers, in hundreds, t months after launch. Two models are proposed: L(t) = 76 + 16t and E(t) = 80(1.15)ᵗ.
+
+        | t (months) | 0 | 1 | 2 | 3 | 4 | 5 |
+        |---|---|---|---|---|---|---|
+        | Subscribers (hundreds) | 80 | 92 | 106 | 122 | 140 | 161 |
+        | Residual for L | 4 | 0 | −2 | −2 | 0 | ? |
+        | Residual for E | 0 | 0 | 0.20 | 0.33 | 0.08 | 0.09 |
+      prompt: |
+        Which model is more appropriate for these data, and why?
+      options:
+        - "E, because L's residuals form a U-shaped pattern while E's residuals are small and show no clear pattern."
+        - "L, because its residuals include zeros, so it fits some points exactly."
+        - "L, because a linear model is always preferred when the data are increasing."
+        - "E, because exponential models always fit growth data better than linear models."
+      option_explanations:
+        - |
+          Correct. L's residuals go positive, negative, then positive, so the line is the wrong shape for curving data. E's residuals are all under 0.4 and patternless.
+        - |
+          Matching a few points exactly does not make a model appropriate; the pattern across all residuals shows L is systematically wrong.
+        - |
+          Increasing data can be linear, quadratic or exponential. The residual pattern, not the direction, decides.
+        - |
+          The conclusion is right but the reason is false: data growing by a constant amount are fitted better by a line. The evidence here is the residual pattern.
+      answer: 0
+    - slug: precalc-u02-w12-q03
+      type: multiple_choice
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 1
+      stimulus: |
+        A hypothetical newsletter records its subscribers, in hundreds, t months after launch. Two models are proposed: L(t) = 76 + 16t and E(t) = 80(1.15)ᵗ.
+
+        | t (months) | 0 | 1 | 2 | 3 | 4 | 5 |
+        |---|---|---|---|---|---|---|
+        | Subscribers (hundreds) | 80 | 92 | 106 | 122 | 140 | 161 |
+        | Residual for L | 4 | 0 | −2 | −2 | 0 | ? |
+        | Residual for E | 0 | 0 | 0.20 | 0.33 | 0.08 | 0.09 |
+      prompt: |
+        What does the number 1.15 in E(t) mean in this context?
+      options:
+        - "The number of subscribers increases by 1.15 hundred each month."
+        - "The number of subscribers increases by 115% each month."
+        - "The newsletter started with 115 subscribers."
+        - "The number of subscribers increases by 15% each month, according to the model."
+      option_explanations:
+        - |
+          That would be a linear model with slope 1.15. In E(t), 1.15 multiplies the number of subscribers; it is not added.
+        - |
+          A factor of 1.15 keeps 100% and adds 15%. An increase of 115% would be a factor of 2.15.
+        - |
+          The initial value is E(0) = 80 hundred subscribers; 1.15 is the base, not the starting amount.
+        - |
+          Correct. Each month the model multiplies the number of subscribers by 1.15, which is a 15% increase over the previous month.
+      answer: 3
+    - slug: precalc-u02-w12-q04
+      type: numeric
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 1
+      stimulus: |
+        A hypothetical newsletter records its subscribers, in hundreds, t months after launch. Two models are proposed: L(t) = 76 + 16t and E(t) = 80(1.15)ᵗ.
+
+        | t (months) | 0 | 1 | 2 | 3 | 4 | 5 |
+        |---|---|---|---|---|---|---|
+        | Subscribers (hundreds) | 80 | 92 | 106 | 122 | 140 | 161 |
+        | Residual for L | 4 | 0 | −2 | −2 | 0 | ? |
+        | Residual for E | 0 | 0 | 0.20 | 0.33 | 0.08 | 0.09 |
+      prompt: |
+        (Calculator.) Use E to predict the number of subscribers, in hundreds, at t = 12 months. Give your answer to the nearest hundredth.
+      answer: { value: 428.02, tolerance: 0.01 }
+      explanation: |
+        E(12) = 80(1.15)¹² ≈ 80 · 5.35025 ≈ 428.02 hundred subscribers, about 42,800. This is an extrapolation beyond the data (t = 0 to 5), so it assumes the 15% monthly growth continues.
+    - slug: precalc-u02-w12-q05
+      type: multiple_choice
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 1
+      prompt: |
+        A hypothetical delivery van is bought for $38,000 and loses 12% of its value each year. Which function gives its value, in dollars, after t years?
+      options:
+        - "V(t) = 38000(0.12)ᵗ"
+        - "V(t) = 38000(0.88)ᵗ"
+        - "V(t) = 38000 − 0.12t"
+        - "V(t) = 38000(1.12)^(−1) · t"
+      option_explanations:
+        - |
+          Multiplying by 0.12 keeps only 12% each year. Losing 12% keeps 88%.
+        - |
+          Correct. Each year the van keeps 100% − 12% = 88% of its value, so the factor is 0.88 and V(t) = 38000(0.88)ᵗ.
+        - |
+          This subtracts 12 cents a year. A percent decrease is multiplicative, not a constant amount.
+        - |
+          This divides once by 1.12 and then grows linearly in t; it is neither a percent decay model nor equivalent to one.
+      answer: 1
+    - slug: precalc-u02-w12-q06
+      type: multiple_choice
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 1
+      prompt: |
+        A hypothetical medical tracer has a half-life of 6 hours. A patient receives 40 mg. Which function gives the amount remaining, in mg, after t hours?
+      options:
+        - "A(t) = 40(1/2)^(t/6)"
+        - "A(t) = 40(1/2)^(6t)"
+        - "A(t) = 40(1/6)ᵗ"
+        - "A(t) = 40 − 6t"
+      option_explanations:
+        - |
+          Correct. Every 6 hours the exponent t/6 increases by 1, so the amount is halved every 6 hours.
+        - |
+          With exponent 6t the amount would halve six times every hour, so the half-life would be 1/6 hour.
+        - |
+          A factor of 1/6 per hour removes five sixths each hour; the half-life is not a factor.
+        - |
+          A half-life describes multiplicative decay, not a constant loss of 6 mg per hour.
+      answer: 0
+    - slug: precalc-u02-w12-q07
+      type: multiple_choice
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 1
+      prompt: |
+        $2,500 is deposited in a hypothetical account paying 3.6% annual interest compounded monthly. Which expression gives the balance after t years?
+      options:
+        - "2500(1.036)^(12t)"
+        - "2500(1 + 0.036)^(t/12)"
+        - "2500(1 + 0.036/12)^(12t)"
+        - "2500(1 + 0.36/12)^(12t)"
+      option_explanations:
+        - |
+          This applies the full annual rate every month, so the balance would grow by 3.6% twelve times a year.
+        - |
+          The exponent t/12 means one compounding every 12 years, and the rate is not split into monthly parts.
+        - |
+          Correct. Monthly compounding gives n = 12: each month multiplies by 1 + 0.036/12 = 1.003, and there are 12t months.
+        - |
+          3.6% as a decimal is 0.036, not 0.36; this uses a 36% annual rate.
+      answer: 2
+    - slug: precalc-u02-w12-q08
+      type: multiple_choice
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 1
+      prompt: |
+        (Calculator.) $3,000 is invested in a hypothetical account at 5% annual interest compounded continuously. To the nearest cent, what is the balance after 8 years?
+      options:
+        - "$4,432.37"
+        - "$4,200.00"
+        - "$4,471.76"
+        - "$4,475.47"
+      option_explanations:
+        - |
+          This is annual compounding, 3000(1.05)⁸. Continuous compounding uses 3000e^(0.05 · 8).
+        - |
+          This is simple interest, 3000(1 + 0.05 · 8), with no compounding at all.
+        - |
+          This is monthly compounding, 3000(1 + 0.05/12)⁹⁶, which is close to but less than the continuous balance.
+        - |
+          Correct. A = 3000e^(0.05 · 8) = 3000e^0.4 ≈ $4,475.47.
+      answer: 3
+    - slug: precalc-u02-w12-q09
+      type: multiple_choice
+      topic_code: "2.6"
+      source: "AP Precalculus CED, Topic 2.6"
+      points: 1
+      prompt: |
+        For which situation is a quadratic model more appropriate than a linear or an exponential model?
+      options:
+        - "A hypothetical gym charges a $50 joining fee plus $20 per month."
+        - "The height of a hypothetical ball thrown upward, which rises, reaches a peak and falls back down."
+        - "A hypothetical colony of bacteria that doubles every hour."
+        - "A hypothetical savings balance that earns 2% interest per year."
+      option_explanations:
+        - |
+          A fixed amount added each month gives constant differences, which is linear.
+        - |
+          Correct. The height increases and then decreases, so the model needs a maximum. Linear and exponential functions never change direction; a quadratic can.
+        - |
+          Doubling every hour is a constant factor per period, which is exponential.
+        - |
+          A constant percent per year is a constant factor (1.02), which is exponential.
+      answer: 1
+    # ---- Spiral review
+    - slug: precalc-u02-w12-q10
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "AP Precalculus CED, Topic 2.3"
+      points: 1
+      prompt: |
+        What is the range of h(x) = 4(0.5)ˣ − 7?
+      options:
+        - "(−∞, −7)"
+        - "(4, ∞)"
+        - "(−7, 4)"
+        - "(−7, ∞)"
+      option_explanations:
+        - |
+          The coefficient 4 is positive, so 4(0.5)ˣ is positive and h(x) is above −7, not below.
+        - |
+          4 is the coefficient a, which stretches the graph but does not bound the range; the shift −7 sets the asymptote, and the outputs are all greater than −7.
+        - |
+          The function is not bounded above: as x → −∞, (0.5)ˣ grows without bound.
+        - |
+          Correct. 4(0.5)ˣ takes every positive value, so h takes every value greater than −7; y = −7 is the asymptote.
+      answer: 3
+    - slug: precalc-u02-w12-q11
+      type: multiple_choice
+      topic_code: "2.4"
+      source: "AP Precalculus CED, Topic 2.4"
+      points: 1
+      prompt: |
+        The function f(t) = 3^(t/2) can be written as f(t) = bᵗ. What is b?
+      options:
+        - "√3"
+        - "3/2"
+        - "9"
+        - "1.5"
+      option_explanations:
+        - |
+          Correct. 3^(t/2) = (3^(1/2))ᵗ = (√3)ᵗ by the power rule.
+        - |
+          This divides the base by 2 instead of taking a square root. The exponent t/2 means the 1/2 power of 3.
+        - |
+          9 = 3² would come from 3^(2t), which multiplies the exponent by 2 instead of dividing.
+        - |
+          1.5 is 3/2 written as a decimal; it is not equal to √3 ≈ 1.732.
+      answer: 0
+    - slug: precalc-u02-w12-q12
+      type: multiple_choice
+      topic_code: "1.8"
+      source: "AP Precalculus CED, Topic 1.8"
+      points: 1
+      prompt: |
+        What are the zeros of r(x) = (x² − 5x + 6)/(x + 1)?
+      options:
+        - "−1"
+        - "−2 and −3"
+        - "2 and 3"
+        - "−1, 2 and 3"
+      option_explanations:
+        - |
+          x = −1 makes the denominator zero, giving a vertical asymptote, not a zero.
+        - |
+          These have the wrong signs: x² − 5x + 6 = (x − 2)(x − 3) is zero at 2 and 3.
+        - |
+          Correct. The numerator factors as (x − 2)(x − 3), which is zero at 2 and 3, and the denominator is not zero there.
+        - |
+          r is undefined at x = −1, so −1 cannot be a zero.
+      answer: 2
+    # ---- Select-all, true/false, fill-in, numeric
+    - slug: precalc-u02-w12-q13
+      type: multi_select
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A hypothetical forest loses 8% of its tree cover each year, starting from 100 km². Which functions model the tree cover, in km², after t years? Select all that apply.
+      options:
+        - "C(t) = 100(0.92)ᵗ"
+        - "C(t) = 100 − 8t"
+        - "C(t) = 100(1.08)^(−t)"
+        - "C(t) = 100(1 − 0.08)ᵗ"
+        - "C(t) = 100(0.92^(1/12))^(12t)"
+      option_explanations:
+        - |
+          Correct. Losing 8% leaves 92% each year, so the factor is 0.92.
+        - |
+          This loses a constant 8 km² per year. That matches 8% only in the first year; afterwards 8% of a smaller amount is less than 8 km².
+        - |
+          (1.08)^(−t) = (1/1.08)ᵗ ≈ 0.9259ᵗ, a loss of about 7.4% per year. Undoing 8% growth is not the same as 8% decay.
+        - |
+          Correct. 1 − 0.08 = 0.92, so this is the same function as option A.
+        - |
+          Correct. (0.92^(1/12))^(12t) = 0.92ᵗ by the power rule; it writes the same model with a monthly factor.
+      answer: [0, 3, 4]
+    - slug: precalc-u02-w12-q14
+      type: multi_select
+      topic_code: "2.6"
+      source: "AP Precalculus CED, Topic 2.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A model is fitted to a data set and its residuals, in order of increasing input, are −6, −2, 1, 4, 3, 0, −5. Which statements are true? Select all that apply.
+      options:
+        - "The model overestimates the first data value."
+        - "The residuals show a pattern, so the model may have the wrong shape."
+        - "Because some residuals are 0 or close to 0, the model is appropriate."
+        - "At the fourth input the actual value is 4 more than the predicted value."
+        - "A negative residual means the actual value is negative."
+      option_explanations:
+        - |
+          Correct. Residual = actual − predicted = −6 < 0, so the prediction was 6 too high.
+        - |
+          Correct. The residuals go negative, positive, negative in an arch, a systematic pattern rather than random scatter.
+        - |
+          A few small residuals do not outweigh a clear pattern across all of them.
+        - |
+          Correct. A residual of 4 means actual − predicted = 4.
+        - |
+          A negative residual means the actual value is less than the predicted value; the values themselves can be positive.
+      answer: [0, 1, 3]
+    - slug: precalc-u02-w12-q15
+      type: true_false
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 1
+      prompt: |
+        True or false: At the same 6% annual rate, compounding monthly produces a larger balance after one year than compounding annually.
+      answer: true
+      explanation: |
+        True. Monthly compounding gives (1 + 0.06/12)¹² ≈ 1.0617 per year, more than the 1.06 from annual compounding, because interest earned each month itself earns interest.
+    - slug: precalc-u02-w12-q16
+      type: true_false
+      topic_code: "2.3"
+      source: "AP Precalculus CED, Topic 2.3"
+      points: 1
+      prompt: |
+        True or false: The function f(x) = e^(−x) is decreasing and concave up on its whole domain.
+      answer: true
+      explanation: |
+        True. e^(−x) = (1/e)ˣ with 0 < 1/e < 1 and coefficient 1 > 0, which is exponential decay; a positive coefficient makes it concave up.
+    - slug: precalc-u02-w12-q17
+      type: fill_blank
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 1
+      prompt: |
+        A hypothetical culture of 30 cells doubles every 6 hours. After 18 hours the culture has ____ cells.
+      answer: ["240"]
+      explanation: |
+        18 hours is 18/6 = 3 doubling times, so the count is 30 · 2³ = 240.
+    - slug: precalc-u02-w12-q18
+      type: fill_blank
+      topic_code: "2.1"
+      source: "AP Precalculus CED, Topic 2.1"
+      points: 1
+      prompt: |
+        An arithmetic sequence has a₀ = 12 and common difference −3. Then a₁₅ = ____.
+      answer: ["-33", "−33"]
+      explanation: |
+        a₁₅ = 12 + (−3)(15) = 12 − 45 = −33.
+    - slug: precalc-u02-w12-q19
+      type: numeric
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 1
+      prompt: |
+        (Calculator.) A hypothetical isotope has a half-life of 30 years. How many grams of a 200-gram sample remain after 75 years? Give your answer to the nearest hundredth.
+      answer: { value: 35.36, tolerance: 0.01 }
+      explanation: |
+        75 years is 75/30 = 2.5 half-lives, so the mass is 200(1/2)^2.5 ≈ 35.36 g.
+    - slug: precalc-u02-w12-q20
+      type: numeric
+      topic_code: "1.2"
+      source: "AP Precalculus CED, Topic 1.2"
+      points: 1
+      prompt: |
+        What is the average rate of change of f(x) = 2ˣ over the interval [1, 4]? Give your answer to the nearest hundredth.
+      answer: { value: 4.67, tolerance: 0.01 }
+      explanation: |
+        (f(4) − f(1))/(4 − 1) = (16 − 2)/3 = 14/3 ≈ 4.67.
+    # ---- Short answers
+    - slug: precalc-u02-w12-q21
+      type: short_answer
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 3
+      prompt: |
+        A calculator is allowed. A hypothetical town had 1,800 residents in year t = 2 and 1,200 residents in year t = 5. Assume the population follows an exponential model P(t) = a · bᵗ.
+
+        (a) Find b and a, rounding b to four decimal places and a to the nearest whole number.
+        (b) By what percent does the population change each year?
+        (c) Without using your rounded model, predict the population in year 8 and explain your reasoning.
+      answer: |
+        (a) b³ = 1200/1800 = 2/3, so b = (2/3)^(1/3) ≈ 0.8736. a = 1800/b² ≈ 2359.
+        (b) The factor 0.8736 means a decrease of about 12.6% per year.
+        (c) Over any 3-year interval the population is multiplied by 2/3. From year 5 to year 8 is 3 years, so P(8) = 1200 · 2/3 = 800 residents.
+      explanation: |
+        Three points, one per part. (a) b ≈ 0.8736 from b³ = 2/3 and a ≈ 2359 (accept 2358–2359). (b) a decrease of about 12.6% per year, stated as a decrease. (c) 800 with the 3-year factor reasoning.
+    - slug: precalc-u02-w12-q22
+      type: short_answer
+      topic_code: "2.2"
+      source: "AP Precalculus CED, Topic 2.2"
+      points: 3
+      prompt: |
+        A function f has these values.
+
+        | x | 0 | 3 | 6 | 9 |
+        |---|---|---|---|---|
+        | f(x) | 40 | 50 | 62.5 | 78.125 |
+
+        (a) Show that the data are consistent with an exponential function and not a linear one.
+        (b) Write an exponential function f that fits the table.
+        (c) Find f(12), and find the factor by which f changes per unit increase in x, to four decimal places. (A calculator is allowed.)
+      answer: |
+        (a) The inputs are equally spaced by 3. Differences 10, 12.5, 15.625 are not constant, so f is not linear; ratios 50/40 = 62.5/50 = 78.125/62.5 = 1.25 are constant, so f is exponential.
+        (b) f(x) = 40(1.25)^(x/3).
+        (c) f(12) = 40(1.25)⁴ = 97.65625. The per-unit factor is 1.25^(1/3) ≈ 1.0772.
+      explanation: |
+        Three points, one per part. (a) constant ratios over equal input steps and non-constant differences. (b) any equivalent form, such as 40(1.25)^(x/3) or 40(1.0772)ˣ. (c) f(12) = 97.65625 (accept 97.66) and the factor ≈ 1.0772.
+    # ---- Long answer (AP free-response style)
+    - slug: precalc-u02-w12-q23
+      type: long_answer
+      topic_code: "2.6"
+      source: "AP Precalculus CED, Topic 2.6"
+      points: 6
+      prompt: |
+        A calculator is allowed on this question. The table shows the total views, in thousands, of a hypothetical online video t days after it was posted, with residuals for three regression models:
+        linear L(t) = 6.29t − 1.95, quadratic Q(t) = 0.80t² + 1.50t + 2.04 and exponential E(t) = 2.64(1.627)ᵗ.
+
+        | t (days) | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
+        |---|---|---|---|---|---|---|---|
+        | Views (thousands) | 2.1 | 4.2 | 8.4 | 13.5 | 20.9 | 29.6 | 39.7 |
+        | Residual for L | 4.05 | −0.14 | −2.23 | −3.42 | −2.31 | 0.10 | 3.91 |
+        | Residual for Q | 0.06 | −0.14 | 0.16 | −0.24 | 0.06 | 0.06 | −0.14 |
+        | Residual for E | −0.54 | −0.10 | 1.41 | 2.13 | 2.40 | −0.50 | ? |
+
+        (A) (i) Find the residual for E at t = 6. Show your computation.
+            (ii) Interpret your answer to (A)(i) in context.
+        (B) (i) Which of the three models is most appropriate for these data? Justify your choice using the residuals.
+            (ii) Use the first and second differences of the views to explain why your choice in (B)(i) is reasonable.
+        (C) (i) Use your chosen model to predict the total views on day 10, with units.
+            (ii) Give one reason why using the model to predict the total views on day 60 may not be valid.
+      answer: |
+        (A)(i) E(6) = 2.64(1.627)⁶ ≈ 48.97, so the residual is 39.7 − 48.97 ≈ −9.27.
+        (A)(ii) The exponential model overestimates the total views on day 6 by about 9.27 thousand views.
+        (B)(i) The quadratic model Q. Its residuals are all small (at most 0.24 thousand in size) and alternate in sign with no pattern. L's residuals form a U-shape (positive, negative, positive), and E's residuals form a pattern that ends with a large negative value, so both have the wrong shape.
+        (B)(ii) First differences 2.1, 4.2, 5.1, 7.4, 8.7, 10.1 are increasing, so the data are not linear. Second differences 2.1, 0.9, 2.3, 1.3, 1.4 are roughly constant (around 1.6), which is the pattern of a quadratic. Ratios of consecutive values fall from 2.0 to about 1.34, so they are not constant, which argues against exponential.
+        (C)(i) Q(10) = 0.80(100) + 1.50(10) + 2.04 = 97.04, so about 97 thousand total views.
+        (C)(ii) Day 60 is far outside the data (days 0–6). The quadratic predicts Q(60) ≈ 2,972 thousand views because it keeps accelerating, but interest in a video usually levels off, so the pattern is unlikely to continue that long.
+      explanation: |
+        Six points.
+        (A) 1 point for E(6) ≈ 48.97 and residual ≈ −9.27 (accept −9.2 to −9.3); 1 point for interpreting it as an overestimate of about 9.3 thousand views on day 6.
+        (B) 1 point for choosing Q with a residual-based justification that addresses the patterns of L or E; 1 point for using differences (non-constant first, roughly constant second) to support the quadratic.
+        (C) 1 point for about 97 thousand views with units; 1 point for a valid limitation tied to extrapolation or context.

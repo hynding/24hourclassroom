@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             Algebra1Seeder::class,
             GeometrySeeder::class,
             Algebra2Seeder::class,
+            PrecalculusSeeder::class,
             ChemistrySeeder::class,
             ApChemistrySeeder::class,
             ApWorldHistorySeeder::class,
