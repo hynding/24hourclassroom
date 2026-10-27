@@ -1,0 +1,578 @@
+week: 32
+unit: 4
+title: "Matrices as Linear Transformations and Models"
+topics: ["4.12", "4.13", "4.14"]
+guide: guides/week-32.md
+guide_description: |
+  2 × 2 matrices as linear transformations of the plane: building a matrix from the images of ⟨1, 0⟩ and
+  ⟨0, 1⟩, and the matrices of rotations, reflections, dilations, stretches and shears; matrices as functions,
+  with composition as multiplication in the right order, inverse transformations, and the determinant as the
+  area scale factor; and transition matrices with state vectors for predicting forward, looking back with T⁻¹
+  and finding a steady state. Worked examples: shearing a triangle, reflect-then-rotate, and a hypothetical
+  two-coffee-shop customer model.
+flashcards_description: |
+  30 cards on linear transformations and their matrices, rotation, reflection, dilation and shear, composition
+  and inverses of transformations, determinants as area scale factors, and transition-matrix models.
+
+flashcards:
+  - front: 2 × 2 matrix acting on ⟨x, y⟩ → rule
+    back: |
+      [[a, b], [c, d]] sends ⟨x, y⟩ to ⟨ax + by, cx + dy⟩. Such a transformation is linear: it fixes the origin and sends lines to lines.
+    topic_code: "4.12"
+  - front: Columns of a transformation matrix → what they are
+    back: |
+      The images of ⟨1, 0⟩ (first column) and ⟨0, 1⟩ (second column). To build a matrix, find where those two vectors go.
+    topic_code: "4.12"
+  - front: Linear transformation → the two properties
+    back: |
+      L(u + v) = L(u) + L(v) and L(kv) = kL(v). Consequently L(0) = 0: the origin never moves.
+    topic_code: "4.12"
+  - front: Rotation counterclockwise by θ → matrix
+    back: |
+      [[cos θ, −sin θ], [sin θ, cos θ]], because ⟨1, 0⟩ goes to ⟨cos θ, sin θ⟩ and ⟨0, 1⟩ goes to ⟨−sin θ, cos θ⟩.
+    topic_code: "4.12"
+  - front: Rotation by π/2 counterclockwise → matrix and an example
+    back: |
+      [[0, −1], [1, 0]]. It sends ⟨3, 1⟩ to ⟨−1, 3⟩.
+    topic_code: "4.12"
+  - front: Rotation by π/3 → matrix
+    back: |
+      [[1/2, −√3/2], [√3/2, 1/2]], using cos(π/3) = 1/2 and sin(π/3) = √3/2.
+    topic_code: "4.12"
+  - front: Reflection in the x-axis and in the y-axis → matrices
+    back: |
+      x-axis: [[1, 0], [0, −1]], (x, y) → (x, −y). y-axis: [[−1, 0], [0, 1]], (x, y) → (−x, y).
+    topic_code: "4.12"
+  - front: Reflection in y = x → matrix
+    back: |
+      [[0, 1], [1, 0]], which swaps the coordinates: (x, y) → (y, x).
+    topic_code: "4.12"
+  - front: Dilation by k → matrix
+    back: |
+      [[k, 0], [0, k]]: every vector is multiplied by k, so distances scale by |k| and areas by k².
+    topic_code: "4.12"
+  - front: Horizontal shear by k → matrix and effect
+    back: |
+      [[1, k], [0, 1]], (x, y) → (x + ky, y). Points on the x-axis stay fixed; higher points slide further.
+    topic_code: "4.12"
+  - front: Shear [[1, 3], [0, 1]] on the triangle (0, 0), (2, 0), (0, 1) → image
+    back: |
+      (0, 0), (2, 0), (3, 1): same base and height, slanted right, so the area (1) is unchanged.
+    topic_code: "4.12"
+  - front: Translation (x, y) → (x + 1, y) as a 2 × 2 matrix → possible?
+    back: |
+      No. Every 2 × 2 matrix sends the origin to itself, but a translation moves it.
+    topic_code: "4.12"
+  - front: Matrix of "apply B, then A" → product
+    back: |
+      AB. The first transformation sits next to the vector: A(Bx) = (AB)x, like f(g(x)) applying g first.
+    topic_code: "4.13"
+  - front: Reflect in the x-axis, then rotate by π/2 → matrix and meaning
+    back: |
+      [[0, −1], [1, 0]] · [[1, 0], [0, −1]] = [[0, 1], [1, 0]], the reflection in y = x. The other order gives [[0, −1], [−1, 0]], the reflection in y = −x.
+    topic_code: "4.13"
+  - front: R(θ) · R(θ) → equals
+    back: |
+      R(2θ): two rotations by θ make a rotation by 2θ. Rotating twice by π/3 is a rotation by 2π/3.
+    topic_code: "4.13"
+  - front: Inverse of a rotation by θ → matrix
+    back: |
+      The rotation by −θ: [[cos θ, sin θ], [−sin θ, cos θ]]. For π/6: [[√3/2, 1/2], [−1/2, √3/2]].
+    topic_code: "4.13"
+  - front: Inverse of the shear [[1, 3], [0, 1]] → matrix
+    back: |
+      [[1, −3], [0, 1]]: slide back by the same amount. Its determinant is 1, so the inverse formula gives this directly.
+    topic_code: "4.13"
+  - front: Inverse of a reflection → what it is
+    back: |
+      The same reflection: reflecting twice returns every point, so F² = I and F⁻¹ = F.
+    topic_code: "4.13"
+  - front: "|det A| for a transformation → meaning"
+    back: |
+      The area scale factor: every region's area is multiplied by |det A|. A negative determinant also means orientation is reversed.
+    topic_code: "4.13"
+  - front: Region of area 4 under [[2, 1], [1, −1]] → image area
+    back: |
+      det = −2 − 1 = −3, so the image has area 3 · 4 = 12, with orientation reversed.
+    topic_code: "4.13"
+  - front: Determinants of a rotation, a reflection and a shear → values
+    back: |
+      Rotation: cos²θ + sin²θ = 1. Reflection: −1. Shear: 1. All three preserve area; only the reflection reverses orientation.
+    topic_code: "4.13"
+  - front: Determinant 0 for a transformation → why no inverse
+    back: |
+      The matrix flattens the plane onto a line or a point; different inputs land on the same output, so the transformation cannot be undone.
+    topic_code: "4.13"
+  - front: Transition matrix (this course's convention) → structure
+    back: |
+      Column j lists the fractions moving from state j to each state in one step, so every column sums to 1. Then xₙ₊₁ = Txₙ.
+    topic_code: "4.14"
+  - front: Hypothetical coffee shops, 80% stay at A, 20% switch to B; 70% stay at B, 30% switch to A → transition matrix
+    back: |
+      T = [[0.8, 0.3], [0.2, 0.7]], with column 1 for customers coming from A and column 2 for those coming from B.
+    topic_code: "4.14"
+  - front: T = [[0.8, 0.3], [0.2, 0.7]], x₀ = [[500], [500]] → x₁ and x₂
+    back: |
+      x₁ = [[550], [450]]; x₂ = [[575], [425]]. Each step multiplies the previous state by T.
+    topic_code: "4.14"
+  - front: State after n steps in a transition model → formula
+    back: |
+      xₙ = Tⁿx₀, a matrix version of the geometric sequence g₀rⁿ.
+    topic_code: "4.14"
+  - front: Steady state of T = [[0.8, 0.3], [0.2, 0.7]] for 1,000 customers → find it
+    back: |
+      Solve Tx = x: 0.2a = 0.3b, so a : b = 3 : 2, giving [[600], [400]]. The 120 who leave A each week match the 120 who arrive.
+    topic_code: "4.14"
+  - front: Finding last step's state in a transition model → method
+    back: |
+      x₀ = T⁻¹x₁. For T = [[0.8, 0.3], [0.2, 0.7]], T⁻¹ = [[1.4, −0.6], [−0.4, 1.6]], and T⁻¹ · [[550], [450]] = [[500], [500]].
+    topic_code: "4.14"
+  - front: Error-spot → "rotate by π/2 then reflect in the x-axis has matrix RF"
+    back: |
+      The first transformation goes on the right. "R, then F" is FR = [[0, −1], [−1, 0]]; RF means "F, then R".
+    topic_code: "4.13"
+  - front: Error-spot → "multiply the state vector by T with rows as the 'from' states"
+    back: |
+      With columns as "from" states (each column summing to 1), x₁ = Tx₀. Using the transpose sends people the wrong way, e.g. giving [[70], [70]] instead of [[77], [63]] for T = [[0.7, 0.4], [0.3, 0.6]] and x₀ = [[70], [70]].
+    topic_code: "4.14"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 4.12 to 4.14: transformation matrices,
+    composition and inverses of transformations, determinants as area scale factors, and transition-matrix
+    models), with about a third reviewing weeks 28–31 and Units 1 to 3 (inverses of matrices, vectors, implicit
+    curves, average velocity, polar roses, logarithms and the remainder theorem). Opens with a shared-context
+    set on a hypothetical bike-share model. Multiple choice, select-all, true/false and numeric items are graded
+    at once; fill-in-the-blank items are matched automatically; the short answers and the long answer are graded
+    by your teacher against the scoring notes. No calculator is needed, though one speeds up the arithmetic in
+    the long answer.
+  questions:
+    # ---- Stimulus set: bike-share transition model (4.14)
+    - slug: precalc-u04-w32-q01
+      type: multiple_choice
+      topic_code: "4.14"
+      source: "AP Precalculus CED, Topic 4.14"
+      points: 1
+      stimulus: |
+        A hypothetical bike-share scheme has 140 bikes at two stations, P and Q. Each day, of the bikes at P, 70% end the day at P and 30% at Q; of the bikes at Q, 40% end the day at P and 60% at Q. With state vector xₙ = [[pₙ], [qₙ]] (bikes at P and at Q after n days), the model is xₙ₊₁ = Txₙ, where T = [[0.7, 0.4], [0.3, 0.6]]. On day 0 there are 70 bikes at each station.
+      prompt: |
+        How many bikes are at each station after one day?
+      options:
+        - "70 at P and 70 at Q"
+        - "77 at P and 63 at Q"
+        - "49 at P and 42 at Q"
+        - "63 at P and 77 at Q"
+      option_explanations:
+        - |
+          This multiplies by the rows as if they were the "from" states (the transpose of T); the columns of T are the "from" states.
+        - |
+          Correct. p₁ = 0.7(70) + 0.4(70) = 49 + 28 = 77 and q₁ = 0.3(70) + 0.6(70) = 21 + 42 = 63; the total is still 140.
+        - |
+          These count only the bikes that stay put (70% of P and 60% of Q) and forget the bikes that arrive from the other station.
+        - |
+          The two entries are swapped; P gains bikes, because 40% of Q's bikes move to P while only 30% of P's move to Q.
+      answer: 1
+    - slug: precalc-u04-w32-q02
+      type: multiple_choice
+      topic_code: "4.14"
+      source: "AP Precalculus CED, Topic 4.14"
+      points: 1
+      stimulus: |
+        A hypothetical bike-share scheme has 140 bikes at two stations, P and Q. Each day, of the bikes at P, 70% end the day at P and 30% at Q; of the bikes at Q, 40% end the day at P and 60% at Q. With state vector xₙ = [[pₙ], [qₙ]] (bikes at P and at Q after n days), the model is xₙ₊₁ = Txₙ, where T = [[0.7, 0.4], [0.3, 0.6]]. On day 0 there are 70 bikes at each station.
+      prompt: |
+        What does the model predict after two days?
+      options:
+        - "77 at P and 63 at Q"
+        - "154 at P and 126 at Q"
+        - "80 at P and 60 at Q"
+        - "79.1 at P and 60.9 at Q"
+      option_explanations:
+        - |
+          This is the state after one day; the model must be applied again: x₂ = Tx₁.
+        - |
+          This doubles x₁, but applying T twice is not multiplying by 2; the total must stay 140.
+        - |
+          This is the long-run steady state, which the system approaches but has not reached after two days.
+        - |
+          Correct. x₂ = T · [[77], [63]]: p₂ = 53.9 + 25.2 = 79.1 and q₂ = 23.1 + 37.8 = 60.9 (a model value; real counts would be whole bikes).
+      answer: 3
+    - slug: precalc-u04-w32-q03
+      type: multiple_choice
+      topic_code: "4.14"
+      source: "AP Precalculus CED, Topic 4.14"
+      points: 1
+      stimulus: |
+        A hypothetical bike-share scheme has 140 bikes at two stations, P and Q. Each day, of the bikes at P, 70% end the day at P and 30% at Q; of the bikes at Q, 40% end the day at P and 60% at Q. With state vector xₙ = [[pₙ], [qₙ]] (bikes at P and at Q after n days), the model is xₙ₊₁ = Txₙ, where T = [[0.7, 0.4], [0.3, 0.6]]. On day 0 there are 70 bikes at each station.
+      prompt: |
+        What is the steady-state distribution of the 140 bikes?
+      options:
+        - "80 at P and 60 at Q"
+        - "70 at P and 70 at Q"
+        - "98 at P and 42 at Q"
+        - "60 at P and 80 at Q"
+      option_explanations:
+        - |
+          Correct. Tx = x requires 0.3p = 0.4q, so p : q = 4 : 3; with 140 bikes that is 80 and 60. Check: 0.7(80) + 0.4(60) = 80.
+        - |
+          The starting state is not steady: after one day P already has 77 bikes.
+        - |
+          This is 70% of 140 at P, but the steady state balances the flows in both directions, 0.3p = 0.4q.
+        - |
+          This reverses the ratio; P loses 30% of a larger number, so p must be larger than q.
+      answer: 0
+    # ---- Independent items
+    - slug: precalc-u04-w32-q04
+      type: multiple_choice
+      topic_code: "4.12"
+      source: "AP Precalculus CED, Topic 4.12"
+      points: 1
+      prompt: |
+        Which matrix rotates every vector in the plane counterclockwise by π/2 about the origin?
+      options:
+        - "[[0, 1], [−1, 0]]"
+        - "[[−1, 0], [0, −1]]"
+        - "[[0, −1], [1, 0]]"
+        - "[[0, 1], [1, 0]]"
+      option_explanations:
+        - |
+          This sends ⟨1, 0⟩ to ⟨0, −1⟩, a clockwise quarter turn.
+        - |
+          This sends ⟨x, y⟩ to ⟨−x, −y⟩, a rotation by π (a half turn).
+        - |
+          Correct. Its columns are the images ⟨0, 1⟩ of ⟨1, 0⟩ and ⟨−1, 0⟩ of ⟨0, 1⟩, a counterclockwise quarter turn.
+        - |
+          This swaps the coordinates, which is the reflection in y = x, not a rotation (its determinant is −1).
+      answer: 2
+    - slug: precalc-u04-w32-q05
+      type: multiple_choice
+      topic_code: "4.12"
+      source: "AP Precalculus CED, Topic 4.12"
+      points: 1
+      prompt: |
+        What is the image of the vector ⟨3, 1⟩ under the matrix [[2, 0], [0, −1]]?
+      options:
+        - "⟨6, −1⟩"
+        - "⟨5, 0⟩"
+        - "⟨−6, 1⟩"
+        - "⟨6, 1⟩"
+      option_explanations:
+        - |
+          Correct. ⟨2 · 3 + 0 · 1, 0 · 3 + (−1) · 1⟩ = ⟨6, −1⟩: a horizontal stretch by 2 with a reflection in the x-axis.
+        - |
+          This adds the diagonal entries to the components instead of multiplying row by column.
+        - |
+          Both signs are flipped; only the y-coordinate is negated by the −1.
+        - |
+          This applies the stretch but ignores the −1, which reflects the vector in the x-axis.
+      answer: 0
+    - slug: precalc-u04-w32-q06
+      type: multiple_choice
+      topic_code: "4.12"
+      source: "AP Precalculus CED, Topic 4.12"
+      points: 1
+      prompt: |
+        Which transformation does the matrix [[1, 2], [0, 1]] perform?
+      options:
+        - "A rotation by 2 radians"
+        - "A vertical shear: (x, y) → (x, y + 2x)"
+        - "A dilation by a factor of 2"
+        - "A horizontal shear: (x, y) → (x + 2y, y)"
+      option_explanations:
+        - |
+          A rotation matrix has cos θ on the diagonal and ±sin θ off it; this matrix keeps ⟨1, 0⟩ fixed, which no nonzero rotation does.
+        - |
+          The 2 is in the top row, so it changes x, not y; a vertical shear would be [[1, 0], [2, 1]].
+        - |
+          A dilation by 2 would be [[2, 0], [0, 2]]; this matrix has determinant 1, so it does not change areas.
+        - |
+          Correct. [[1, 2], [0, 1]] · ⟨x, y⟩ = ⟨x + 2y, y⟩: each point slides horizontally by twice its height.
+      answer: 3
+    - slug: precalc-u04-w32-q07
+      type: multiple_choice
+      topic_code: "4.13"
+      source: "AP Precalculus CED, Topic 4.13"
+      points: 1
+      prompt: |
+        A transformation first reflects the plane in the x-axis, using F = [[1, 0], [0, −1]], and then rotates it counterclockwise by π/2, using R = [[0, −1], [1, 0]]. Which matrix represents the combined transformation?
+      options:
+        - "[[0, −1], [−1, 0]]"
+        - "[[0, 1], [1, 0]]"
+        - "[[1, −1], [1, −1]]"
+        - "[[−1, 0], [0, 1]]"
+      option_explanations:
+        - |
+          This is FR, which rotates first and reflects second; "F, then R" is RF.
+        - |
+          Correct. "F, then R" is RF = [[0, 1], [1, 0]], the reflection in y = x. Check: ⟨1, 0⟩ → ⟨1, 0⟩ → ⟨0, 1⟩.
+        - |
+          This adds R and F; combining transformations multiplies their matrices.
+        - |
+          This is the reflection in the y-axis; it sends ⟨1, 0⟩ to ⟨−1, 0⟩, but the combined map sends it to ⟨0, 1⟩.
+      answer: 1
+    - slug: precalc-u04-w32-q08
+      type: multiple_choice
+      topic_code: "4.13"
+      source: "AP Precalculus CED, Topic 4.13"
+      points: 1
+      prompt: |
+        A region of area 4 square units is transformed by the matrix [[2, 1], [1, −1]]. What is the area of its image?
+      options:
+        - "−12"
+        - "4"
+        - "12"
+        - "4/3"
+      option_explanations:
+        - |
+          The determinant is −3, but areas use its absolute value; a negative sign only signals reversed orientation.
+        - |
+          Only transformations with |det| = 1 preserve area; this one has |det| = 3.
+        - |
+          Correct. det = (2)(−1) − (1)(1) = −3, so areas are multiplied by |−3| = 3: 4 · 3 = 12.
+        - |
+          This divides by the scale factor; the transformation multiplies areas by |det|.
+      answer: 2
+    - slug: precalc-u04-w32-q09
+      type: multiple_choice
+      topic_code: "4.13"
+      source: "AP Precalculus CED, Topic 4.13"
+      points: 1
+      prompt: |
+        Which matrix undoes the counterclockwise rotation by π/6, R = [[√3/2, −1/2], [1/2, √3/2]]?
+      options:
+        - "[[√3/2, 1/2], [−1/2, √3/2]]"
+        - "[[√3/2, −1/2], [1/2, √3/2]]"
+        - "[[2/√3, −2], [2, 2/√3]]"
+        - "[[1/2, √3/2], [−√3/2, 1/2]]"
+      option_explanations:
+        - |
+          Correct. The inverse of a rotation by π/6 is the rotation by −π/6: cos(−π/6) = √3/2 and sin(−π/6) = −1/2. Its determinant is 1, and R times it gives I.
+        - |
+          This is R itself; applying it again rotates a further π/6 instead of undoing the first rotation.
+        - |
+          These are reciprocals of the entries; a matrix inverse is not found entry by entry.
+        - |
+          This is the rotation by −π/3, which turns too far back.
+      answer: 0
+    - slug: precalc-u04-w32-q10
+      type: multiple_choice
+      topic_code: "4.11"
+      source: "AP Precalculus CED, Topic 4.11"
+      points: 1
+      prompt: |
+        What is the inverse of [[4, 7], [1, 2]]?
+      options:
+        - "[[2, 7], [1, 4]]"
+        - "[[−2, 7], [1, −4]]"
+        - "[[1/4, 1/7], [1, 1/2]]"
+        - "[[2, −7], [−1, 4]]"
+      option_explanations:
+        - |
+          The diagonal is swapped, but the off-diagonal entries must also change sign.
+        - |
+          This negates the diagonal instead of the off-diagonal entries; it equals −1 times the inverse.
+        - |
+          Reciprocals of entries do not form an inverse; check: the product with the original is not I.
+        - |
+          Correct. det = 8 − 7 = 1, so the inverse is [[2, −7], [−1, 4]]. Check: [[4, 7], [1, 2]] · [[2, −7], [−1, 4]] = [[1, 0], [0, 1]].
+      answer: 3
+    - slug: precalc-u04-w32-q11
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "AP Precalculus CED, Topic 4.8"
+      points: 1
+      prompt: |
+        What is the component form of the vector from the point (−1, 4) to the point (3, −2)?
+      options:
+        - "⟨−4, 6⟩"
+        - "⟨4, −6⟩"
+        - "⟨2, 2⟩"
+        - "⟨3, −2⟩"
+      option_explanations:
+        - |
+          This subtracts in the wrong order (initial minus terminal), giving the vector from (3, −2) back to (−1, 4).
+        - |
+          Correct. Terminal minus initial: ⟨3 − (−1), −2 − 4⟩ = ⟨4, −6⟩.
+        - |
+          This adds the coordinates of the two points; a vector between points is their difference.
+        - |
+          ⟨3, −2⟩ is the position vector of the terminal point, from the origin, not from (−1, 4).
+      answer: 1
+    - slug: precalc-u04-w32-q12
+      type: multi_select
+      topic_code: "4.13"
+      source: "AP Precalculus CED, Topic 4.13"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Consider the transformation with matrix A = [[3, 0], [0, 2]]. Which statements are true? Select all that apply.
+      options:
+        - "It reverses orientation."
+        - "It maps the unit square to a 3-by-2 rectangle."
+        - "It maps the circle x² + y² = 1 to a circle of radius 3."
+        - "It multiplies every area by 6."
+        - "Its inverse transformation has matrix [[1/3, 0], [0, 1/2]]."
+      option_explanations:
+        - |
+          det A = 6 is positive, so orientation is preserved.
+        - |
+          Correct. ⟨1, 0⟩ goes to ⟨3, 0⟩ and ⟨0, 1⟩ to ⟨0, 2⟩, so the unit square becomes a 3-by-2 rectangle.
+        - |
+          The x-direction stretches by 3 but the y-direction only by 2, so the circle becomes the ellipse x²/9 + y²/4 = 1.
+        - |
+          Correct. |det A| = 3 · 2 − 0 = 6 is the area scale factor.
+        - |
+          Correct. Shrinking by 1/3 horizontally and 1/2 vertically undoes the stretches, and the product with A is I.
+      answer: [1, 3, 4]
+    - slug: precalc-u04-w32-q13
+      type: multi_select
+      topic_code: "4.5"
+      source: "AP Precalculus CED, Topic 4.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Consider the curve defined implicitly by xy = 6. Which statements are true? Select all that apply.
+      options:
+        - "The point (−2, −3) is on the curve."
+        - "For each x ≠ 0 there is exactly one point on the curve."
+        - "The curve passes through the origin."
+        - "The point on the curve with x = 4 has y = 1.5."
+        - "The curve is the graph of y = 6x."
+      option_explanations:
+        - |
+          Correct. (−2)(−3) = 6, so the point satisfies the equation.
+        - |
+          Correct. Solving gives y = 6/x, which has exactly one value for each nonzero x.
+        - |
+          At (0, 0), xy = 0, not 6; the curve never meets either axis.
+        - |
+          Correct. Substituting x = 4 gives 4y = 6, so y = 6/4 = 1.5.
+        - |
+          Solving xy = 6 for y gives y = 6/x, a hyperbola, not the line y = 6x.
+      answer: [0, 1, 3]
+    - slug: precalc-u04-w32-q14
+      type: true_false
+      topic_code: "4.12"
+      source: "AP Precalculus CED, Topic 4.12"
+      points: 1
+      prompt: |
+        True or false: The translation (x, y) → (x + 1, y) can be represented by multiplying ⟨x, y⟩ by a 2 × 2 matrix.
+      answer: false
+      explanation: |
+        False. Any 2 × 2 matrix sends ⟨0, 0⟩ to ⟨0, 0⟩, but this translation sends the origin to (1, 0). A translation is not a linear transformation.
+    - slug: precalc-u04-w32-q15
+      type: true_false
+      topic_code: "3.14"
+      source: "AP Precalculus CED, Topic 3.14"
+      points: 1
+      prompt: |
+        True or false: The polar graph of r = 3 sin(2θ) for 0 ≤ θ < 2π is a rose with 4 petals.
+      answer: true
+      explanation: |
+        True. For r = a sin(nθ) with n even, the rose has 2n petals; here n = 2 gives 4 petals, each of length 3.
+    - slug: precalc-u04-w32-q16
+      type: fill_blank
+      topic_code: "4.13"
+      source: "AP Precalculus CED, Topic 4.13"
+      points: 1
+      prompt: |
+        For every angle θ, the determinant of the rotation matrix [[cos θ, −sin θ], [sin θ, cos θ]] is ____.
+      answer: ["1"]
+      explanation: |
+        cos θ · cos θ − (−sin θ)(sin θ) = cos²θ + sin²θ = 1. Rotations preserve both area and orientation.
+    - slug: precalc-u04-w32-q17
+      type: fill_blank
+      topic_code: "4.9"
+      source: "AP Precalculus CED, Topic 4.9"
+      points: 1
+      prompt: |
+        An object's position is p(t) = ⟨t, t²⟩. On the interval [1, 3], the y-component of its average velocity is ____.
+      answer: ["4"]
+      explanation: |
+        p(1) = ⟨1, 1⟩ and p(3) = ⟨3, 9⟩, so the average velocity is ⟨2, 8⟩/2 = ⟨1, 4⟩. Its y-component is 4.
+    - slug: precalc-u04-w32-q18
+      type: fill_blank
+      topic_code: "2.9"
+      source: "AP Precalculus CED, Topic 2.9"
+      points: 1
+      prompt: |
+        The exact value of log₃ 81 is ____.
+      answer: ["4"]
+      explanation: |
+        3⁴ = 81, so log₃ 81 = 4.
+    - slug: precalc-u04-w32-q19
+      type: numeric
+      topic_code: "4.14"
+      source: "AP Precalculus CED, Topic 4.14"
+      points: 1
+      prompt: |
+        In a hypothetical model, a phone company has two plans, Basic and Plus. Each month 90% of Basic customers stay on Basic and 10% move to Plus, while 20% of Plus customers move to Basic and 80% stay. The transition matrix is T = [[0.9, 0.2], [0.1, 0.8]] with state vector [[Basic], [Plus]]. This month there are 3,000 Basic and 7,000 Plus customers. How many Basic customers does the model predict next month?
+      answer: { value: 4100, tolerance: 0 }
+      explanation: |
+        The first entry of Tx₀ is 0.9(3000) + 0.2(7000) = 2700 + 1400 = 4100. (The second is 0.1(3000) + 0.8(7000) = 5900; the total stays 10,000.)
+    - slug: precalc-u04-w32-q20
+      type: numeric
+      topic_code: "1.11"
+      source: "AP Precalculus CED, Topic 1.11"
+      points: 1
+      prompt: |
+        What is the remainder when p(x) = x³ − 2x + 5 is divided by x − 2?
+      answer: { value: 9, tolerance: 0 }
+      explanation: |
+        By the remainder theorem the remainder is p(2) = 8 − 4 + 5 = 9.
+    - slug: precalc-u04-w32-q21
+      type: short_answer
+      topic_code: "4.12"
+      source: "AP Precalculus CED, Topic 4.12"
+      points: 3
+      prompt: |
+        Let M = [[1, 3], [0, 1]], and let the triangle T have vertices (0, 0), (2, 0) and (0, 1).
+
+        (a) Find the vertices of the image of T under M.
+        (b) Find the areas of T and of its image, and explain how det M predicts the result.
+        (c) Describe the transformation in words, and write the matrix of the transformation that undoes it.
+      answer: |
+        (a) M sends (0, 0) to (0, 0), (2, 0) to (2, 0) and (0, 1) to (0 + 3, 1) = (3, 1).
+        (b) T has base 2 and height 1, so area 1. The image has the same base 2 on the x-axis and height 1, so area 1. det M = 1 − 0 = 1, so areas are multiplied by 1: unchanged.
+        (c) A horizontal shear by 3: (x, y) → (x + 3y, y); points on the x-axis stay fixed and each point slides right by three times its height. The inverse is [[1, −3], [0, 1]].
+      explanation: |
+        Three points, one per part. (a) all three image vertices. (b) both areas equal to 1 with the determinant explanation. (c) the description as a horizontal shear and the inverse matrix.
+    - slug: precalc-u04-w32-q22
+      type: short_answer
+      topic_code: "4.13"
+      source: "AP Precalculus CED, Topic 4.13"
+      points: 3
+      prompt: |
+        Let R = [[0, −1], [1, 0]] (rotation by π/2) and D = [[2, 0], [0, 2]] (dilation by 2).
+
+        (a) Find the matrix of the transformation "rotate by π/2, then dilate by 2".
+        (b) Find the image of ⟨1, 3⟩ under this transformation.
+        (c) By what factor does it scale areas? Find the matrix of the inverse transformation and describe it in words.
+      answer: |
+        (a) "R, then D" is DR = [[2, 0], [0, 2]] · [[0, −1], [1, 0]] = [[0, −2], [2, 0]].
+        (b) [[0, −2], [2, 0]] · ⟨1, 3⟩ = ⟨−6, 2⟩.
+        (c) det = 0 − (−4) = 4, so areas are multiplied by 4. Inverse: (1/4)[[0, 2], [−2, 0]] = [[0, 1/2], [−1/2, 0]], which shrinks by a factor of 1/2 and rotates by −π/2 (clockwise a quarter turn).
+      explanation: |
+        Three points, one per part. (a) the product in the correct order (here RD happens to give the same matrix, but the order must be justified). (b) ⟨−6, 2⟩. (c) the factor 4 and the inverse matrix with a correct description.
+    - slug: precalc-u04-w32-q23
+      type: long_answer
+      topic_code: "4.14"
+      source: "AP Precalculus CED, Topics 4.13 and 4.14"
+      points: 6
+      prompt: |
+        In a hypothetical model, a town of 10,000 households chooses between two internet providers, Northline and Swiftnet. Each year 85% of Northline households stay with Northline and 15% switch to Swiftnet; 90% of Swiftnet households stay and 10% switch to Northline. Let xₙ = [[Nₙ], [Sₙ]] be the numbers of households after n years, with xₙ₊₁ = Txₙ. In year 0, x₀ = [[6000], [4000]].
+
+        (A) (i) Write the transition matrix T and explain what its first column represents.
+            (ii) Find x₁ and x₂.
+        (B) (i) Find the steady-state vector for 10,000 households.
+            (ii) Verify that it is unchanged by T, and describe what happens to Northline's share in the long run.
+        (C) (i) Find T⁻¹ and use it to estimate how many households used each provider one year before year 0.
+            (ii) State one assumption of this model and explain how it could make long-range predictions unreliable.
+      answer: |
+        (A)(i) T = [[0.85, 0.10], [0.15, 0.90]]. The first column describes this year's Northline households: 0.85 of them are with Northline next year and 0.15 are with Swiftnet.
+        (ii) x₁ = [[0.85 · 6000 + 0.10 · 4000], [0.15 · 6000 + 0.90 · 4000]] = [[5100 + 400], [900 + 3600]] = [[5500], [4500]]. x₂ = [[4675 + 450], [825 + 4050]] = [[5125], [4875]].
+        (B)(i) Tx = x gives 0.85N + 0.10S = N, so 0.10S = 0.15N and N : S = 2 : 3. With 10,000 households, x = [[4000], [6000]].
+        (ii) T · [[4000], [6000]] = [[3400 + 600], [600 + 5400]] = [[4000], [6000]]. Northline's count falls from 6,000 toward 4,000 (a 40% share) in the long run, approaching but not reaching it in any finite number of years.
+        (C)(i) det T = 0.765 − 0.015 = 0.75. T⁻¹ = (1/0.75)[[0.90, −0.10], [−0.15, 0.85]] = [[1.2, −2/15], [−0.2, 17/15]] ≈ [[1.2, −0.133], [−0.2, 1.133]]. T⁻¹x₀ = [[7200 − 533.3], [−1200 + 4533.3]] ≈ [[6667], [3333]]: about 6,667 Northline and 3,333 Swiftnet households a year earlier.
+        (ii) For example: the model assumes the switching rates stay at 15% and 10% every year. A price change or a new competitor would change those rates, so predictions many years ahead (or behind) could be far off. (Also acceptable: the number of households is fixed; households behave independently of their history.)
+      explanation: |
+        Six points. (A) 1 point for T with a correct interpretation of column 1; 1 point for x₁ = [[5500], [4500]] and x₂ = [[5125], [4875]]. (B) 1 point for the steady state [[4000], [6000]]; 1 point for the verification and the long-run description. (C) 1 point for T⁻¹ and about 6,667 and 3,333; 1 point for a relevant assumption with an explanation of its effect.
