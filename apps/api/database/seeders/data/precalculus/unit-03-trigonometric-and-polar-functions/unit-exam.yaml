@@ -1,0 +1,962 @@
+unit: 3
+description: |
+  46 questions · about 90 minutes · every topic of Unit 3 (3.1 to 3.15): periodic phenomena, sine, cosine and
+  tangent on circles and the unit circle, sinusoidal graphs, transformations and models, the tangent and inverse
+  trigonometric functions, equations and inequalities, the reciprocal functions and identities, polar coordinates,
+  complex numbers in polar form, polar graphs and rates of change in polar functions, with a little review of
+  Units 1 and 2. Includes three shared-context sets (a hypothetical temperature model, an angle through a given
+  point, and a limaçon), select-all, true/false, fill-in-the-blank and numeric items, two short-answer questions
+  (3 points each) and two free-response questions in the AP style (6 points each: a periodic modelling context and
+  symbolic manipulation). Seven items are marked (Calculator.); the rest are designed to be done by hand. Multiple
+  choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+  automatically; the free-response items are graded by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: a hypothetical monthly temperature model (3.5, 3.7, 3.10)
+  - slug: precalc-u03-exam-q01
+    type: multiple_choice
+    topic_code: "3.7"
+    source: "AP Precalculus CED, Topic 3.7"
+    points: 1
+    stimulus: |
+      In a hypothetical model, the average monthly temperature T in a city, in degrees Celsius, varies sinusoidally with the month number t (t = 1 for January, t = 2 for February, and so on), with a period of 12 months. The lowest average, 4 °C, occurs at t = 1, and the highest, 28 °C, occurs at t = 7.
+    prompt: |
+      Which function fits this description?
+    options:
+      - "T(t) = 16 + 12 cos(π(t − 1)/6)"
+      - "T(t) = 16 − 12 cos(π(t − 1)/6)"
+      - "T(t) = 16 − 12 cos(π(t − 1)/12)"
+      - "T(t) = 16 − 24 cos(π(t − 1)/6)"
+    option_explanations:
+      - |
+        This has its maximum, 28, at t = 1; the model needs the minimum there, so the cosine must be negated.
+      - |
+        Correct. Midline (28 + 4)/2 = 16, amplitude (28 − 4)/2 = 12, b = 2π/12 = π/6, and −cos starting at t = 1 puts the minimum 4 at t = 1 and the maximum 28 at t = 7.
+      - |
+        π/12 gives a period of 24 months, using the half-period from minimum to maximum as if it were a quarter of a cycle.
+      - |
+        24 is the full range, 28 − 4; the amplitude is half of it, so this model would run from −8 °C to 40 °C.
+    answer: 1
+  - slug: precalc-u03-exam-q02
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "AP Precalculus CED, Topic 3.5"
+    points: 1
+    stimulus: |
+      In a hypothetical model, the average monthly temperature T in a city, in degrees Celsius, varies sinusoidally with the month number t (t = 1 for January, t = 2 for February, and so on), with a period of 12 months. The lowest average, 4 °C, occurs at t = 1, and the highest, 28 °C, occurs at t = 7.
+    prompt: |
+      On which interval is T increasing and its graph concave up?
+    options:
+      - "4 < t < 7"
+      - "7 < t < 10"
+      - "10 < t < 13"
+      - "1 < t < 4"
+    option_explanations:
+      - |
+        T is increasing on (4, 7), but above the midline, approaching the maximum, the graph is concave down.
+      - |
+        After the maximum at t = 7, T is decreasing, and above the midline it is concave down.
+      - |
+        Below the midline after t = 10 the graph is concave up, but T is decreasing toward the minimum at t = 13.
+      - |
+        Correct. From the minimum at t = 1 to the rising midline crossing at t = 4 (where T = 16), T increases and the graph bends upward.
+    answer: 3
+  - slug: precalc-u03-exam-q03
+    type: multiple_choice
+    topic_code: "3.10"
+    source: "AP Precalculus CED, Topic 3.10"
+    points: 1
+    stimulus: |
+      In a hypothetical model, the average monthly temperature T in a city, in degrees Celsius, varies sinusoidally with the month number t (t = 1 for January, t = 2 for February, and so on), with a period of 12 months. The lowest average, 4 °C, occurs at t = 1, and the highest, 28 °C, occurs at t = 7.
+    prompt: |
+      (Calculator.) Using the model that fits this description, during which interval of 1 ≤ t ≤ 13 is the average temperature at least 25 °C?
+    options:
+      - "5.620 ≤ t ≤ 8.380"
+      - "4.620 ≤ t ≤ 7.380"
+      - "1 ≤ t ≤ 5.620 or 8.380 ≤ t ≤ 13"
+      - "5.620 ≤ t ≤ 7"
+    option_explanations:
+      - |
+        Correct. 16 − 12 cos(π(t − 1)/6) ≥ 25 gives cos(π(t − 1)/6) ≤ −0.75, so 2.419 ≤ π(t − 1)/6 ≤ 2π − 2.419. Then t − 1 is between 4.620 and 7.380, and t is between 5.620 and 8.380.
+      - |
+        These are the values of t − 1; the horizontal shift of 1 month has to be added back to get t.
+      - |
+        These are the times when the temperature is at most 25 °C, the complement of the required set.
+      - |
+        This stops at the maximum, t = 7; the temperature stays at or above 25 °C after the peak until t ≈ 8.380, by symmetry.
+    answer: 0
+  # ---- Stimulus set B: an angle through a given point (3.2, 3.11, 3.12)
+  - slug: precalc-u03-exam-q04
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "AP Precalculus CED, Topic 3.2"
+    points: 1
+    stimulus: |
+      An angle θ is in standard position, and its terminal ray passes through the point (−8, 15).
+    prompt: |
+      What is the exact value of cos θ?
+    options:
+      - "−8/15"
+      - "15/17"
+      - "−8/17"
+      - "8/17"
+    option_explanations:
+      - |
+        This divides x by y, which is cot θ; cos θ = x/r, where r is the distance from the origin.
+      - |
+        15/17 = y/r is sin θ; cosine uses the x-coordinate.
+      - |
+        Correct. r = √(64 + 225) = 17, so cos θ = x/r = −8/17.
+      - |
+        The point has x = −8, in quadrant II, so cosine is negative.
+    answer: 2
+  - slug: precalc-u03-exam-q05
+    type: multiple_choice
+    topic_code: "3.11"
+    source: "AP Precalculus CED, Topic 3.11"
+    points: 1
+    stimulus: |
+      An angle θ is in standard position, and its terminal ray passes through the point (−8, 15).
+    prompt: |
+      What is the exact value of cot θ?
+    options:
+      - "−8/15"
+      - "−15/8"
+      - "−17/8"
+      - "17/15"
+    option_explanations:
+      - |
+        Correct. cot θ = cos θ/sin θ = x/y = −8/15.
+      - |
+        −15/8 = y/x is tan θ; cotangent is its reciprocal.
+      - |
+        −17/8 = r/x is sec θ, the reciprocal of cosine.
+      - |
+        17/15 = r/y is csc θ, the reciprocal of sine.
+    answer: 0
+  - slug: precalc-u03-exam-q06
+    type: multiple_choice
+    topic_code: "3.12"
+    source: "AP Precalculus CED, Topic 3.12"
+    points: 1
+    stimulus: |
+      An angle θ is in standard position, and its terminal ray passes through the point (−8, 15).
+    prompt: |
+      What is the exact value of cos(2θ)?
+    options:
+      - "161/289"
+      - "−16/17"
+      - "−240/289"
+      - "−161/289"
+    option_explanations:
+      - |
+        This is sin²θ − cos²θ = (225 − 64)/289; the identity is cos²θ − sin²θ, so the sign is reversed.
+      - |
+        This is 2 cos θ; cos(2θ) is not twice cos θ.
+      - |
+        −240/289 = 2 sin θ cos θ is sin(2θ), not cos(2θ).
+      - |
+        Correct. cos(2θ) = cos²θ − sin²θ = 64/289 − 225/289 = −161/289.
+    answer: 3
+  # ---- Stimulus set C: a limaçon (3.13, 3.14, 3.15)
+  - slug: precalc-u03-exam-q07
+    type: multiple_choice
+    topic_code: "3.14"
+    source: "AP Precalculus CED, Topic 3.14"
+    points: 1
+    stimulus: |
+      Consider the polar function r = f(θ) = 3 + 6 sin θ for 0 ≤ θ < 2π.
+    prompt: |
+      Which best describes the graph of f?
+    options:
+      - "A cardioid"
+      - "A limaçon with an inner loop"
+      - "A rose with 6 petals"
+      - "A circle of diameter 6 through the pole"
+    option_explanations:
+      - |
+        A cardioid needs |a| = |b|; here |a| = 3 and |b| = 6.
+      - |
+        Correct. r = a + b sin θ with |a| = 3 < |b| = 6, so r is negative for some θ and an inner loop forms.
+      - |
+        A rose has the form a sin(nθ) with no constant term; 6 is the coefficient of sin θ, not a petal count.
+      - |
+        r = 6 sin θ alone would be that circle; the added constant 3 makes the graph a limaçon.
+    answer: 1
+  - slug: precalc-u03-exam-q08
+    type: multiple_choice
+    topic_code: "3.15"
+    source: "AP Precalculus CED, Topic 3.15"
+    points: 1
+    stimulus: |
+      Consider the polar function r = f(θ) = 3 + 6 sin θ for 0 ≤ θ < 2π.
+    prompt: |
+      As θ increases from π/2 to π, which describes the points (f(θ), θ)?
+    options:
+      - "r is increasing, so the points move away from the pole."
+      - "r is negative, so the points move toward the pole."
+      - "r is positive and decreasing, so the points move toward the pole."
+      - "r is positive and decreasing, so the points move away from the pole."
+    option_explanations:
+      - |
+        sin θ decreases from 1 to 0 on this interval, so r decreases, from 9 to 3.
+      - |
+        r runs from 9 to 3 on this interval, so it is positive throughout.
+      - |
+        Correct. r falls from 9 to 3 while positive, so the distance |r| decreases and the points approach the pole.
+      - |
+        The description of r is right, but a positive, decreasing r means the distance from the pole is shrinking.
+    answer: 2
+  - slug: precalc-u03-exam-q09
+    type: multiple_choice
+    topic_code: "3.13"
+    source: "AP Precalculus CED, Topic 3.13"
+    points: 1
+    stimulus: |
+      Consider the polar function r = f(θ) = 3 + 6 sin θ for 0 ≤ θ < 2π.
+    prompt: |
+      What are the rectangular coordinates of the point on the graph where θ = 3π/2?
+    options:
+      - "(0, 3)"
+      - "(0, −3)"
+      - "(0, −9)"
+      - "(−3, 0)"
+    option_explanations:
+      - |
+        Correct. f(3π/2) = 3 − 6 = −3. Then x = −3 cos(3π/2) = 0 and y = −3 sin(3π/2) = 3. The negative r sends the point up, the top of the inner loop.
+      - |
+        This plots r = −3 in the direction 3π/2 as if r were positive; negative r points the opposite way.
+      - |
+        This uses sin(3π/2) = +1 to get r = 9 and then plots it downward; sin(3π/2) = −1, so r = −3.
+      - |
+        This places |r| on the x-axis; the ray at 3π/2 is vertical, so x = r cos(3π/2) = 0.
+    answer: 0
+  - slug: precalc-u03-exam-q10
+    type: numeric
+    topic_code: "3.15"
+    source: "AP Precalculus CED, Topic 3.15"
+    points: 1
+    stimulus: |
+      Consider the polar function r = f(θ) = 3 + 6 sin θ for 0 ≤ θ < 2π.
+    prompt: |
+      Find the average rate of change of f with respect to θ over [0, π/6]. Give your answer to the nearest hundredth.
+    answer: { value: 5.73, tolerance: 0.01 }
+    explanation: |
+      f(0) = 3 and f(π/6) = 3 + 6(1/2) = 6. Average rate = (6 − 3)/(π/6) = 18/π ≈ 5.73 units per radian.
+  # ---- Topics 3.1 to 3.14
+  - slug: precalc-u03-exam-q11
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "AP Precalculus CED, Topic 3.1"
+    points: 1
+    prompt: |
+      A periodic function f has period 5, with f(2) = 7 and f(4) = −1. What is f(17)?
+    options:
+      - "−1"
+      - "35"
+      - "21"
+      - "7"
+    option_explanations:
+      - |
+        This reduces 17 by 13 to reach 4, but 13 is not a multiple of the period 5; only multiples of 5 can be removed.
+      - |
+        This multiplies f(2) by the period; periodic outputs repeat, they do not scale with the number of cycles.
+      - |
+        This adds 7 for each of the three periods between 2 and 17; a periodic function returns the same output each cycle.
+      - |
+        Correct. 17 = 2 + 3 · 5, so f(17) = f(2) = 7.
+    answer: 3
+  - slug: precalc-u03-exam-q12
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "AP Precalculus CED, Topic 3.2"
+    points: 1
+    prompt: |
+      (Calculator.) A point moves on a circle of radius 6 centred at the origin. To three decimal places, what are its coordinates when it is at an angle of 2 radians in standard position?
+    options:
+      - "(5.456, −2.497)"
+      - "(−2.497, 5.456)"
+      - "(5.996, 0.209)"
+      - "(−0.416, 0.909)"
+    option_explanations:
+      - |
+        This swaps the coordinates; the x-coordinate is 6 cos 2 and the y-coordinate is 6 sin 2.
+      - |
+        Correct. (6 cos 2, 6 sin 2) ≈ (6(−0.416), 6(0.909)) ≈ (−2.497, 5.456), in quadrant II since 2 is between π/2 and π.
+      - |
+        These come from a calculator in degree mode (2°); the angle is 2 radians.
+      - |
+        These are cos 2 and sin 2 on the unit circle; on a circle of radius 6 both must be multiplied by 6.
+    answer: 1
+  - slug: precalc-u03-exam-q13
+    type: multiple_choice
+    topic_code: "3.3"
+    source: "AP Precalculus CED, Topic 3.3"
+    points: 1
+    prompt: |
+      What is the exact value of cos(11π/6)?
+    options:
+      - "−√3/2"
+      - "1/2"
+      - "√3/2"
+      - "−1/2"
+    option_explanations:
+      - |
+        The reference angle π/6 is right, but 11π/6 is in quadrant IV, where cosine (the x-coordinate) is positive.
+      - |
+        1/2 is the cosine of a reference angle of π/3; the reference angle of 11π/6 is 2π − 11π/6 = π/6.
+      - |
+        Correct. 11π/6 is in quadrant IV with reference angle π/6; its unit-circle point is (√3/2, −1/2).
+      - |
+        −1/2 is sin(11π/6), the y-coordinate, not the cosine.
+    answer: 2
+  - slug: precalc-u03-exam-q14
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "AP Precalculus CED, Topic 3.4"
+    points: 1
+    prompt: |
+      On which interval is y = cos θ both increasing and concave down?
+    options:
+      - "(0, π/2)"
+      - "(π/2, π)"
+      - "(π, 3π/2)"
+      - "(3π/2, 2π)"
+    option_explanations:
+      - |
+        Cosine is concave down here (above its midline) but decreasing from its maximum at 0.
+      - |
+        Cosine is decreasing here toward its minimum at π, and concave up below the midline.
+      - |
+        Cosine is increasing here, but below the midline it is concave up.
+      - |
+        Correct. After crossing the midline at 3π/2 the graph keeps rising toward the maximum at 2π, bending downward.
+    answer: 3
+  - slug: precalc-u03-exam-q15
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "AP Precalculus CED, Topic 3.5"
+    points: 1
+    prompt: |
+      What are the period and range of f(θ) = 2 sin(πθ/4) + 1?
+    options:
+      - "Period 8, range [−1, 3]"
+      - "Period π/2, range [−1, 3]"
+      - "Period 8, range [1, 3]"
+      - "Period 8, range [−2, 2]"
+    option_explanations:
+      - |
+        Correct. Period 2π/(π/4) = 8; outputs run from 1 − 2 = −1 to 1 + 2 = 3.
+      - |
+        This multiplies 2π by π/4 instead of dividing; the period is 2π/b.
+      - |
+        This runs only from the midline to the maximum; the graph also goes 2 units below the midline.
+      - |
+        This ignores the vertical translation +1, which moves the whole range up by 1.
+    answer: 0
+  - slug: precalc-u03-exam-q16
+    type: multiple_choice
+    topic_code: "3.6"
+    source: "AP Precalculus CED, Topic 3.6"
+    points: 1
+    prompt: |
+      The graph of y = sin(2θ − π/3) is a horizontal translation of the graph of y = sin(2θ). Which translation?
+    options:
+      - "Right by π/3"
+      - "Right by π/6"
+      - "Left by π/6"
+      - "Left by π/3"
+    option_explanations:
+      - |
+        The 2 must be factored out first: sin(2θ − π/3) = sin(2(θ − π/6)), so the shift is π/6, not π/3.
+      - |
+        Correct. sin(2θ − π/3) = sin(2(θ − π/6)), a translation right by π/6.
+      - |
+        Subtracting inside the function moves the graph right, not left.
+      - |
+        This both skips factoring out the 2 and reverses the direction of the shift.
+    answer: 1
+  - slug: precalc-u03-exam-q17
+    type: multiple_choice
+    topic_code: "3.6"
+    source: "AP Precalculus CED, Topic 3.6"
+    points: 1
+    prompt: |
+      The graph of g is obtained from the graph of y = sin θ by a vertical dilation by a factor of 3, then a reflection over the θ-axis, then a vertical translation up 2 units. Which is g(θ)?
+    options:
+      - "g(θ) = 3 sin θ − 2"
+      - "g(θ) = −3 sin(θ + 2)"
+      - "g(θ) = −3 sin θ + 2"
+      - "g(θ) = −3(sin θ + 2)"
+    option_explanations:
+      - |
+        This misses the reflection (the coefficient should be −3) and translates down instead of up.
+      - |
+        Adding 2 inside the function is a horizontal translation left by 2, not a vertical translation.
+      - |
+        Correct. Dilate: 3 sin θ; reflect: −3 sin θ; translate up 2: −3 sin θ + 2.
+      - |
+        This translates before dilating and reflecting: −3(sin θ + 2) = −3 sin θ − 6, which moves the midline down to −6.
+    answer: 2
+  - slug: precalc-u03-exam-q18
+    type: multiple_choice
+    topic_code: "3.7"
+    source: "AP Precalculus CED, Topic 3.7"
+    points: 1
+    prompt: |
+      (Calculator.) A sinusoidal regression on hypothetical water-level data gives y = 4.2 sin(0.52t − 1.1) + 10.3, where y is in feet and t is hours after midnight. According to the model, what is the period of the water level, to the nearest hundredth of an hour?
+    options:
+      - "0.52 hours"
+      - "8.40 hours"
+      - "3.27 hours"
+      - "12.08 hours"
+    option_explanations:
+      - |
+        0.52 is the frequency constant b, not the period; the period is 2π/b.
+      - |
+        8.4 is twice the amplitude, the vertical distance from minimum to maximum in feet, not a time.
+      - |
+        This multiplies b by 2π instead of dividing 2π by b.
+      - |
+        Correct. Period = 2π/0.52 ≈ 12.08 hours.
+    answer: 3
+  - slug: precalc-u03-exam-q19
+    type: multiple_choice
+    topic_code: "3.8"
+    source: "AP Precalculus CED, Topic 3.8"
+    points: 1
+    prompt: |
+      Where are the vertical asymptotes of y = tan(θ − π/4)? (n is any integer.)
+    options:
+      - "θ = 3π/4 + πn"
+      - "θ = π/4 + πn"
+      - "θ = π/2 + πn"
+      - "θ = 3π/4 + 2πn"
+    option_explanations:
+      - |
+        Correct. Asymptotes occur where θ − π/4 = π/2 + πn, that is θ = 3π/4 + πn.
+      - |
+        These are the zeros of the translated tangent, where θ − π/4 = πn.
+      - |
+        These are the asymptotes of tan θ before the translation right by π/4.
+      - |
+        The location is right, but tangent's asymptotes repeat every π, not every 2π; this misses half of them.
+    answer: 0
+  - slug: precalc-u03-exam-q20
+    type: multiple_choice
+    topic_code: "3.8"
+    source: "AP Precalculus CED, Topic 3.8"
+    points: 1
+    prompt: |
+      What is the period of y = 2 tan(3θ)?
+    options:
+      - "π"
+      - "2π/3"
+      - "π/3"
+      - "3π"
+    option_explanations:
+      - |
+        π is the period of tan θ; the inside factor 3 compresses the graph horizontally.
+      - |
+        2π/3 uses the sine and cosine formula 2π/|b|; tangent's basic period is π.
+      - |
+        Correct. The period of tan(bθ) is π/|b| = π/3. The factor 2 is a vertical dilation and does not affect the period.
+      - |
+        This multiplies π by 3 instead of dividing.
+    answer: 2
+  - slug: precalc-u03-exam-q21
+    type: multiple_choice
+    topic_code: "3.9"
+    source: "AP Precalculus CED, Topic 3.9"
+    points: 1
+    prompt: |
+      (Calculator.) To three decimal places, what is cos⁻¹(−0.6)?
+    options:
+      - "−0.927"
+      - "2.214"
+      - "4.069"
+      - "126.870"
+    option_explanations:
+      - |
+        The range of cos⁻¹ is [0, π], so its output is never negative; −0.927 is −cos⁻¹(0.6).
+      - |
+        Correct. cos⁻¹(−0.6) ≈ 2.214, which lies in [0, π] (quadrant II, where cosine is negative).
+      - |
+        cos(4.069) = −0.6 too, but 4.069 is outside the range [0, π] of the inverse cosine.
+      - |
+        This is the angle in degrees; the calculator should be in radian mode.
+    answer: 1
+  - slug: precalc-u03-exam-q22
+    type: multiple_choice
+    topic_code: "3.9"
+    source: "AP Precalculus CED, Topic 3.9"
+    points: 1
+    prompt: |
+      What is the exact value of sin(cos⁻¹(−3/5))?
+    options:
+      - "−4/5"
+      - "−3/5"
+      - "4/3"
+      - "4/5"
+    option_explanations:
+      - |
+        This places the angle in quadrant III or IV; cos⁻¹ returns an angle in [0, π], where sine is never negative.
+      - |
+        −3/5 is the cosine of the angle (the input to cos⁻¹); sine and inverse cosine do not cancel.
+      - |
+        4/3 is a ratio of the triangle's legs (opposite over adjacent, in size); sine is opposite over hypotenuse.
+      - |
+        Correct. θ = cos⁻¹(−3/5) is in quadrant II with cos θ = −3/5, so sin θ = +√(1 − 9/25) = 4/5.
+    answer: 3
+  - slug: precalc-u03-exam-q23
+    type: multiple_choice
+    topic_code: "3.10"
+    source: "AP Precalculus CED, Topic 3.10"
+    points: 1
+    prompt: |
+      (Calculator.) What are all solutions of cos x = −0.35 on the interval [0, 2π), to three decimal places?
+    options:
+      - "1.928 only"
+      - "1.928 and 1.213"
+      - "1.928 and 4.355"
+      - "1.928 and 5.070"
+    option_explanations:
+      - |
+        cos⁻¹ gives only the principal value; the reflection across the x-axis, 2π − 1.928, has the same cosine.
+      - |
+        1.213 = π − 1.928 is the sine-style mirror; cos(1.213) = +0.35.
+      - |
+        Correct. cos⁻¹(−0.35) ≈ 1.928 (quadrant II), and 2π − 1.928 ≈ 4.355 (quadrant III) has the same cosine.
+      - |
+        5.070 = π + 1.928 is the tangent-style partner; cos(5.070) = +0.35.
+    answer: 2
+  - slug: precalc-u03-exam-q24
+    type: multiple_choice
+    topic_code: "3.11"
+    source: "AP Precalculus CED, Topic 3.11"
+    points: 1
+    prompt: |
+      Which statement is true about the graph of y = csc x on the interval (0, π)?
+    options:
+      - "It has a local minimum at (π/2, 1)."
+      - "It has a local maximum at (π/2, 1)."
+      - "It has a zero at x = π/2."
+      - "It has a vertical asymptote at x = π/2."
+    option_explanations:
+      - |
+        Correct. sin x rises to 1 at π/2 and falls back, so its reciprocal falls to 1 and rises again: a local minimum at (π/2, 1).
+      - |
+        sin x has a maximum there; its reciprocal has a minimum, since dividing 1 by the largest value gives the smallest result.
+      - |
+        csc x = 1/sin x is never 0; x = π/2 is a zero of cos x and cot x.
+      - |
+        csc x has asymptotes where sin x = 0 (x = 0 and π here); π/2 is an asymptote of sec x.
+    answer: 0
+  - slug: precalc-u03-exam-q25
+    type: multiple_choice
+    topic_code: "3.12"
+    source: "AP Precalculus CED, Topic 3.12"
+    points: 1
+    prompt: |
+      Using 5π/12 = π/4 + π/6, what is the exact value of cos(5π/12)?
+    options:
+      - "(√6 + √2)/4"
+      - "(√6 − √2)/4"
+      - "(√2 + √3)/2"
+      - "(√2 − √6)/4"
+    option_explanations:
+      - |
+        This uses a plus sign in the middle; cos(α + β) = cos α cos β − sin α sin β.
+      - |
+        Correct. cos(π/4)cos(π/6) − sin(π/4)sin(π/6) = (√2/2)(√3/2) − (√2/2)(1/2) = (√6 − √2)/4 ≈ 0.259.
+      - |
+        This adds cos(π/4) + cos(π/6), distributing cosine over a sum; the result is bigger than 1, impossible for a cosine.
+      - |
+        This reverses the subtraction, giving a negative value; 5π/12 is in quadrant I, so its cosine is positive.
+    answer: 1
+  - slug: precalc-u03-exam-q26
+    type: multiple_choice
+    topic_code: "3.13"
+    source: "AP Precalculus CED, Topic 3.13"
+    points: 1
+    prompt: |
+      Which is the polar form of the complex number 2 − 2i?
+    options:
+      - "2√2(cos(π/4) + i sin(π/4))"
+      - "8(cos(7π/4) + i sin(7π/4))"
+      - "2√2(cos(3π/4) + i sin(3π/4))"
+      - "2√2(cos(7π/4) + i sin(7π/4))"
+    option_explanations:
+      - |
+        This is 2 + 2i; the imaginary part −2 puts the number in quadrant IV.
+      - |
+        8 is a² + b², the square of the modulus; the modulus is √8 = 2√2.
+      - |
+        3π/4 has tangent −1 but is in quadrant II, the point −2 + 2i; 2 − 2i is in quadrant IV.
+      - |
+        Correct. The modulus is √(4 + 4) = 2√2, and (2, −2) is in quadrant IV with reference angle π/4, so θ = 7π/4.
+    answer: 3
+  - slug: precalc-u03-exam-q27
+    type: multiple_choice
+    topic_code: "3.13"
+    source: "AP Precalculus CED, Topic 3.13"
+    points: 1
+    prompt: |
+      Which polar equation has the same graph as the horizontal line y = 3?
+    options:
+      - "r = 3 csc θ"
+      - "r = 3 sec θ"
+      - "r = 3 sin θ"
+      - "θ = 3"
+    option_explanations:
+      - |
+        Correct. y = r sin θ, so r sin θ = 3 and r = 3/sin θ = 3 csc θ.
+      - |
+        r = 3 sec θ means r cos θ = 3, the vertical line x = 3.
+      - |
+        This multiplies instead of dividing; r = 3 sin θ is a circle of diameter 3 through the pole.
+      - |
+        θ = 3 is a line through the pole at an angle of 3 radians, not a horizontal line.
+    answer: 0
+  - slug: precalc-u03-exam-q28
+    type: multiple_choice
+    topic_code: "3.14"
+    source: "AP Precalculus CED, Topic 3.14"
+    points: 1
+    prompt: |
+      How many petals does the graph of r = 2 sin(6θ) have?
+    options:
+      - "6"
+      - "2"
+      - "12"
+      - "4"
+    option_explanations:
+      - |
+        n petals is the rule for odd n; with n = 6 even, the negative values of r draw new petals.
+      - |
+        2 is the petal length, not the number of petals.
+      - |
+        Correct. n = 6 is even, so there are 2n = 12 petals, each of length 2.
+      - |
+        This doubles the coefficient 2; the count depends on n = 6.
+    answer: 2
+  - slug: precalc-u03-exam-q29
+    type: multiple_choice
+    topic_code: "2.10"
+    source: "AP Precalculus CED, Topic 2.10"
+    points: 1
+    prompt: |
+      (Calculator.) Let f(x) = e^(x − 2). To three decimal places, what is f⁻¹(5)?
+    options:
+      - "0.050"
+      - "3.609"
+      - "20.086"
+      - "−0.391"
+    option_explanations:
+      - |
+        0.050 is 1/f(5) = e^(−3); the inverse function is not the reciprocal.
+      - |
+        Correct. Solve e^(y − 2) = 5: y − 2 = ln 5, so f⁻¹(5) = 2 + ln 5 ≈ 3.609. Check: f(3.609) ≈ e^1.609 ≈ 5.
+      - |
+        20.086 is f(5) = e³; the question asks for the input that gives output 5.
+      - |
+        This subtracts 2 instead of adding it: undoing "subtract 2 in the exponent" means adding 2 after taking ln.
+    answer: 1
+  - slug: precalc-u03-exam-q30
+    type: multiple_choice
+    topic_code: "1.7"
+    source: "AP Precalculus CED, Topic 1.7"
+    points: 1
+    prompt: |
+      What is the horizontal asymptote of the graph of f(x) = (3x² − 1)/(6x² + x)?
+    options:
+      - "y = 0"
+      - "y = 3"
+      - "y = 2"
+      - "y = 1/2"
+    option_explanations:
+      - |
+        y = 0 is the asymptote when the denominator has the higher degree; here the degrees are equal.
+      - |
+        This uses only the numerator's leading coefficient; the asymptote is the ratio of both leading coefficients.
+      - |
+        This inverts the ratio, 6/3; the asymptote is numerator's leading coefficient over denominator's.
+      - |
+        Correct. Equal degrees, so as x → ±∞, f(x) → 3/6 = 1/2.
+    answer: 3
+  # ---- Select all that apply
+  - slug: precalc-u03-exam-q31
+    type: multi_select
+    topic_code: "3.4"
+    source: "AP Precalculus CED, Topic 3.4"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about the graphs of y = sin θ and y = cos θ on [0, 2π] are true? Select all that apply.
+    options:
+      - "Both functions are decreasing on (π/2, π)."
+      - "y = cos θ has a maximum at θ = π."
+      - "y = sin θ is concave down on (0, π)."
+      - "The two graphs intersect at θ = π/4 and θ = 5π/4."
+      - "y = sin θ has zeros at θ = π/2 and θ = 3π/2."
+    option_explanations:
+      - |
+        Correct. Sine decreases on (π/2, 3π/2) and cosine decreases on (0, π); both intervals contain (π/2, π).
+      - |
+        cos π = −1, the minimum of cosine; its maxima on [0, 2π] are at 0 and 2π.
+      - |
+        Correct. On (0, π) sine is positive, above its midline, where its graph is concave down.
+      - |
+        Correct. sin θ = cos θ when tan θ = 1: θ = π/4 and 5π/4, where both equal √2/2 or both equal −√2/2.
+      - |
+        At π/2 and 3π/2 sine takes its extreme values 1 and −1; its zeros are at 0, π and 2π.
+    answer: [0, 2, 3]
+  - slug: precalc-u03-exam-q32
+    type: multi_select
+    topic_code: "3.10"
+    source: "AP Precalculus CED, Topic 3.10"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of the following are solutions of tan(2x) = 1? Select all that apply.
+    options:
+      - "π/8"
+      - "5π/8"
+      - "π/4"
+      - "9π/8"
+      - "3π/8"
+    option_explanations:
+      - |
+        Correct. 2 · π/8 = π/4, and tan(π/4) = 1.
+      - |
+        Correct. 2 · 5π/8 = 5π/4, and tan(5π/4) = 1.
+      - |
+        2 · π/4 = π/2, where tangent is undefined; π/4 solves tan x = 1, not tan(2x) = 1.
+      - |
+        Correct. 2 · 9π/8 = 9π/4 = π/4 + 2π, and tan(9π/4) = 1.
+      - |
+        2 · 3π/8 = 3π/4, and tan(3π/4) = −1, not 1.
+    answer: [0, 1, 3]
+  - slug: precalc-u03-exam-q33
+    type: multi_select
+    topic_code: "3.13"
+    source: "AP Precalculus CED, Topic 3.13"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which polar coordinates name the rectangular point (−1, √3)? Select all that apply.
+    options:
+      - "(2, 2π/3)"
+      - "(−2, 5π/3)"
+      - "(2, −4π/3)"
+      - "(2, 5π/3)"
+      - "(−2, 2π/3)"
+    option_explanations:
+      - |
+        Correct. r = √(1 + 3) = 2, and (−1, √3) is in quadrant II with reference angle π/3, so θ = 2π/3.
+      - |
+        Correct. Negative r points in the direction 5π/3 + π = 8π/3, which is the same direction as 2π/3.
+      - |
+        Correct. −4π/3 + 2π = 2π/3, the same direction.
+      - |
+        (2, 5π/3) is the point (1, −√3) in quadrant IV, the reflection of the given point through the pole.
+      - |
+        Negative r in the direction 2π/3 lands in direction 5π/3, at (1, −√3).
+    answer: [0, 1, 2]
+  - slug: precalc-u03-exam-q34
+    type: multi_select
+    topic_code: "3.14"
+    source: "AP Precalculus CED, Topic 3.14"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which polar equations have graphs that pass through the pole? Select all that apply.
+    options:
+      - "r = 3 sin θ"
+      - "r = 2 + cos θ"
+      - "r = 4 cos(3θ)"
+      - "r = 1 + cos θ"
+      - "r = 5"
+    option_explanations:
+      - |
+        Correct. r = 0 when sin θ = 0, for example at θ = 0.
+      - |
+        r = 2 + cos θ is at least 2 − 1 = 1, so r is never 0: a limaçon with no loop.
+      - |
+        Correct. r = 0 when cos(3θ) = 0, for example at θ = π/6; every petal starts and ends at the pole.
+      - |
+        Correct. r = 0 at θ = π: this is a cardioid, whose cusp is at the pole.
+      - |
+        r = 5 is a circle of radius 5 centred at the pole; every point is 5 units away from it.
+    answer: [0, 2, 3]
+  # ---- True or false
+  - slug: precalc-u03-exam-q35
+    type: true_false
+    topic_code: "3.1"
+    source: "AP Precalculus CED, Topic 3.1"
+    points: 1
+    prompt: |
+      True or false: If f is periodic with period 4, then f(x + 8) = f(x) for every x in the domain of f.
+    answer: true
+    explanation: |
+      True. Shifting the input by one period leaves the output unchanged, and 8 is two periods: f(x + 8) = f((x + 4) + 4) = f(x + 4) = f(x).
+  - slug: precalc-u03-exam-q36
+    type: true_false
+    topic_code: "3.11"
+    source: "AP Precalculus CED, Topic 3.11"
+    points: 1
+    prompt: |
+      True or false: The range of y = sec x is [−1, 1].
+    answer: false
+    explanation: |
+      False. [−1, 1] is the range of cosine. Since |cos x| ≤ 1, its reciprocal satisfies |sec x| ≥ 1, so the range of secant is (−∞, −1] ∪ [1, ∞).
+  - slug: precalc-u03-exam-q37
+    type: true_false
+    topic_code: "3.9"
+    source: "AP Precalculus CED, Topic 3.9"
+    points: 1
+    prompt: |
+      True or false: cos⁻¹(cos(5π/3)) = 5π/3.
+    answer: false
+    explanation: |
+      False. cos(5π/3) = 1/2, and the inverse cosine returns the angle in [0, π] with cosine 1/2, which is π/3. The composition undoes cosine only for inputs already in [0, π].
+  # ---- Fill in the blank
+  - slug: precalc-u03-exam-q38
+    type: fill_blank
+    topic_code: "3.3"
+    source: "AP Precalculus CED, Topic 3.3"
+    points: 1
+    prompt: |
+      The exact value of tan(4π/3) is ____.
+    answer: ["√3", "sqrt(3)", "sqrt3", "3^(1/2)", "3^0.5"]
+    explanation: |
+      4π/3 is in quadrant III with reference angle π/3; its point is (−1/2, −√3/2), so tan(4π/3) = (−√3/2)/(−1/2) = √3.
+  - slug: precalc-u03-exam-q39
+    type: fill_blank
+    topic_code: "3.2"
+    source: "AP Precalculus CED, Topic 3.2"
+    points: 1
+    prompt: |
+      An angle of 150° measures ____ radians (give an exact value in terms of π).
+    answer: ["5π/6", "5pi/6", "5*pi/6", "5 pi/6", "(5π)/6", "5π / 6", "5/6π", "5/6 π"]
+    explanation: |
+      Multiply by π/180: 150 · π/180 = 5π/6.
+  - slug: precalc-u03-exam-q40
+    type: fill_blank
+    topic_code: "3.12"
+    source: "AP Precalculus CED, Topic 3.12"
+    points: 1
+    prompt: |
+      If cos θ = 2/3, then cos(2θ) = ____ (give an exact value).
+    answer: ["-1/9", "−1/9", "- 1/9", "−0.111", "-0.111", "-.111"]
+    explanation: |
+      cos(2θ) = 2 cos²θ − 1 = 2(4/9) − 1 = 8/9 − 9/9 = −1/9.
+  # ---- Numeric
+  - slug: precalc-u03-exam-q41
+    type: numeric
+    topic_code: "3.5"
+    source: "AP Precalculus CED, Topic 3.5"
+    points: 1
+    prompt: |
+      What is the maximum value of f(θ) = 4 − 7 sin(3θ)? Give the exact value.
+    answer: { value: 11, tolerance: 0 }
+    explanation: |
+      sin(3θ) ranges over [−1, 1], so −7 sin(3θ) ranges over [−7, 7] and f ranges over [−3, 11]. The maximum 11 occurs where sin(3θ) = −1.
+  - slug: precalc-u03-exam-q42
+    type: numeric
+    topic_code: "2.13"
+    source: "AP Precalculus CED, Topic 2.13"
+    points: 1
+    prompt: |
+      (Calculator.) Solve 5e^(0.2t) = 40 for t. Give your answer to the nearest hundredth.
+    answer: { value: 10.40, tolerance: 0.01 }
+    explanation: |
+      e^(0.2t) = 8, so 0.2t = ln 8 and t = 5 ln 8 ≈ 5(2.0794) ≈ 10.40.
+  # ---- Short answer
+  - slug: precalc-u03-exam-q43
+    type: short_answer
+    topic_code: "3.10"
+    source: "AP Precalculus CED, Topic 3.10"
+    points: 3
+    prompt: |
+      Consider the equation 2 cos(2x) + 1 = 0.
+
+      (a) Find all solutions on [0, 2π). Show how the interval for 2x is used.
+      (b) Write the general solution, using n for any integer.
+      (c) Solve the inequality 2 cos(2x) + 1 < 0 on [0, 2π).
+    answer: |
+      (a) cos(2x) = −1/2. With u = 2x on [0, 4π): u = 2π/3, 4π/3, 8π/3, 10π/3. So x = π/3, 2π/3, 4π/3, 5π/3.
+      (b) 2x = 2π/3 + 2πn or 4π/3 + 2πn, so x = π/3 + πn or x = 2π/3 + πn.
+      (c) cos u < −1/2 for 2π/3 < u < 4π/3 and 8π/3 < u < 10π/3, so π/3 < x < 2π/3 or 4π/3 < x < 5π/3.
+    explanation: |
+      Three points, one per part. (a) all four solutions, using the doubled interval (two solutions only earns 0). (b) a correct general solution with period π for x (four families with + 2πn are also acceptable). (c) both open intervals.
+  - slug: precalc-u03-exam-q44
+    type: short_answer
+    topic_code: "3.15"
+    source: "AP Precalculus CED, Topic 3.15"
+    points: 3
+    prompt: |
+      Consider the rose r = 4 sin(3θ).
+
+      (a) On [0, π/3], on which interval is r increasing and on which is it decreasing?
+      (b) Find the average rate of change of r over [0, π/6]. Include units of r per radian.
+      (c) Is the distance from the pole increasing or decreasing on (π/3, π/2)? Justify your answer.
+    answer: |
+      (a) 3θ runs over [0, π]. r increases on (0, π/6), where 3θ is in (0, π/2), and decreases on (π/6, π/3), where 3θ is in (π/2, π).
+      (b) r(0) = 0 and r(π/6) = 4 sin(π/2) = 4, so (4 − 0)/(π/6) = 24/π ≈ 7.64 units of r per radian.
+      (c) Increasing. On (π/3, π/2), 3θ is in (π, 3π/2), where sine is negative and decreasing, so r falls from 0 to −4. r is negative and decreasing, so |r| increases from 0 to 4.
+    explanation: |
+      Three points, one per part. (a) both intervals. (b) 24/π (or 7.64). (c) increasing, with both the sign of r and its direction of change.
+  # ---- Free response (AP style)
+  - slug: precalc-u03-exam-q45
+    type: long_answer
+    topic_code: "3.7"
+    source: "AP Precalculus CED, Topic 3.7"
+    points: 6
+    prompt: |
+      A hypothetical Ferris wheel has a diameter of 40 metres, and its centre is 24 metres above the ground. It turns at a constant rate, making one full revolution every 8 minutes. A rider boards at the lowest point of the wheel at time t = 0 minutes. The rider's height above the ground, in metres, is modelled by h(t) = a cos(bt) + d.
+
+      (A) (i) Find the values of a, b and d. Show the work that leads to your answers.
+      (ii) Find the average rate of change of h over the interval 1 ≤ t ≤ 3. Express your answer as a decimal approximation with units.
+
+      (B) Is the rate of change of h increasing or decreasing on the interval 2 < t < 4? Give a reason for your answer.
+
+      (C) (i) Find all times t in the first revolution, 0 ≤ t ≤ 8, at which the rider is exactly 34 metres above the ground.
+      (ii) For how many minutes of each revolution is the rider at least 34 metres above the ground? Justify your answer.
+    answer: |
+      (A)(i) The midline is the centre height, d = 24. The amplitude is the radius, 20; the rider starts at the minimum, so a = −20. The period is 8, so b = 2π/8 = π/4. h(t) = −20 cos(πt/4) + 24.
+      (ii) h(1) = 24 − 20 cos(π/4) = 24 − 10√2 ≈ 9.858 and h(3) = 24 − 20 cos(3π/4) = 24 + 10√2 ≈ 38.142. Average rate of change = (38.142 − 9.858)/2 = 10√2 ≈ 14.142 metres per minute.
+      (B) Decreasing. On 2 < t < 4, h is above its midline (h(2) = 24) and rising toward its maximum at t = 4, so its graph is concave down: h is still increasing, but more and more slowly.
+      (C)(i) −20 cos(πt/4) + 24 = 34 gives cos(πt/4) = −1/2. With πt/4 in [0, 2π]: πt/4 = 2π/3 or 4π/3, so t = 8/3 and t = 16/3 minutes.
+      (ii) h(t) ≥ 34 when cos(πt/4) ≤ −1/2, that is 2π/3 ≤ πt/4 ≤ 4π/3 (the part of the cycle around the maximum at t = 4). So 8/3 ≤ t ≤ 16/3, which lasts 16/3 − 8/3 = 8/3 ≈ 2.667 minutes of each revolution.
+    explanation: |
+      Six points.
+      (A)(i) 2 points: 1 for a = −20 and d = 24 (with reasons); 1 for b = π/4.
+      (A)(ii) 1 point: 14.142 (or 10√2) metres per minute; the units are required.
+      (B) 1 point: decreasing, with a reason based on concavity (concave down between the midline crossing and the maximum) or on the rising part of the curve flattening.
+      (C)(i) 1 point: t = 8/3 and t = 16/3 (or 2.667 and 5.333).
+      (C)(ii) 1 point: 8/3 ≈ 2.667 minutes, with the interval 8/3 ≤ t ≤ 16/3 identified as the one where h ≥ 34.
+  - slug: precalc-u03-exam-q46
+    type: long_answer
+    topic_code: "3.12"
+    source: "AP Precalculus CED, Topic 3.12"
+    points: 6
+    prompt: |
+      Directions: answer each part, showing the work that leads to your answer.
+
+      (A) (i) Solve sin(2x) = cos x for all values of x in the interval [0, 2π).
+      (ii) Solve sec²x = 2 tan x + 4 for all values of x in the interval (−π/2, π/2). Give exact answers; an answer may involve an inverse trigonometric function.
+
+      (B) Rewrite (1 − cos(2x))/sin(2x) as a single trigonometric function of x, for x where the expression is defined.
+
+      (C) Rewrite cos(x + π/3) in the form a cos x + b sin x, where a and b are exact constants.
+    answer: |
+      (A)(i) 2 sin x cos x − cos x = 0, so cos x (2 sin x − 1) = 0. cos x = 0 gives x = π/2, 3π/2; sin x = 1/2 gives x = π/6, 5π/6. Solutions: π/6, π/2, 5π/6, 3π/2.
+      (ii) Replace sec²x by 1 + tan²x: 1 + tan²x = 2 tan x + 4, so tan²x − 2 tan x − 3 = 0 and (tan x − 3)(tan x + 1) = 0. tan x = −1 gives x = −π/4; tan x = 3 gives x = tan⁻¹ 3 (≈ 1.249). Both are in (−π/2, π/2).
+      (B) 1 − cos(2x) = 1 − (1 − 2 sin²x) = 2 sin²x, and sin(2x) = 2 sin x cos x. So the expression is 2 sin²x/(2 sin x cos x) = sin x/cos x = tan x.
+      (C) cos(x + π/3) = cos x cos(π/3) − sin x sin(π/3) = (1/2) cos x − (√3/2) sin x, so a = 1/2 and b = −√3/2.
+    explanation: |
+      Six points.
+      (A)(i) 2 points: 1 for factoring cos x (2 sin x − 1) = 0 without dividing by cos x; 1 for all four solutions.
+      (A)(ii) 2 points: 1 for the quadratic in tan x from the Pythagorean identity; 1 for x = −π/4 and x = tan⁻¹ 3.
+      (B) 1 point: tan x, with the double-angle identities shown.
+      (C) 1 point: a = 1/2 and b = −√3/2 with the sum identity shown.
