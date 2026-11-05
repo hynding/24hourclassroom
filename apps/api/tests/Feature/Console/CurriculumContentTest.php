@@ -9,6 +9,7 @@ use Database\Seeders\ApWorldHistorySeeder;
 use Database\Seeders\ChemistrySeeder;
 use Database\Seeders\GeometrySeeder;
 use Database\Seeders\PrecalculusSeeder;
+use Database\Seeders\TrigonometrySeeder;
 use Database\Seeders\Curriculum\ContentLint;
 use Database\Seeders\Curriculum\Course;
 
@@ -29,6 +30,7 @@ dataset('seeded courses', [
     'AP World History' => [ApWorldHistorySeeder::class, ['units' => 9, 'topics' => ['1.7', '2.7', '3.4', '4.8', '5.10', '6.8', '7.9', '8.9', '9.9'], 'email' => 'apworld@example.com', 'student' => 'apworld-student@example.com']],
     'Algebra 2' => [Algebra2Seeder::class, ['units' => 7, 'topics' => ['1.1', '2.1', '3.1', '4.1', '5.1', '6.1', '7.1'], 'email' => 'algebra2@example.com', 'student' => 'algebra2-student@example.com']],
     'Precalculus' => [PrecalculusSeeder::class, ['units' => 4, 'topics' => ['1.14', '2.15', '3.15', '4.14'], 'email' => 'precalc@example.com', 'student' => 'precalc-student@example.com']],
+    'Trigonometry' => [TrigonometrySeeder::class, ['units' => 5, 'topics' => ['1.12', '2.12', '3.12', '4.10', '5.12'], 'email' => 'trig@example.com', 'student' => 'trig-student@example.com']],
 ]);
 
 test('course.yaml names its units with the CED topic codes, its slug and the two accounts', function (string $seeder, array $expect) {
@@ -52,6 +54,6 @@ test('the course fits the default per-teacher file cap', function (string $seede
 })->with('seeded courses');
 
 test('no two seeded courses share a slug', function () {
-    $slugs = array_map(fn ($seeder) => (new Course($seeder::defaultDir()))->slug, [ApBiologySeeder::class, ApUsHistorySeeder::class, Algebra1Seeder::class, GeometrySeeder::class, Algebra2Seeder::class, ChemistrySeeder::class, ApChemistrySeeder::class, ApWorldHistorySeeder::class, PrecalculusSeeder::class]);
+    $slugs = array_map(fn ($seeder) => (new Course($seeder::defaultDir()))->slug, [ApBiologySeeder::class, ApUsHistorySeeder::class, Algebra1Seeder::class, GeometrySeeder::class, Algebra2Seeder::class, ChemistrySeeder::class, ApChemistrySeeder::class, ApWorldHistorySeeder::class, PrecalculusSeeder::class, TrigonometrySeeder::class]);
     expect(array_unique($slugs))->toHaveCount(count($slugs));
 });

@@ -1,0 +1,639 @@
+week: 24
+unit: 4
+title: "The Dot Product, Projections and Work"
+topics: ["4.8", "4.9"]
+guide: guides/week-24.md
+guide_description: |
+  The dot product u · v = u₁v₁ + u₂v₂ and its properties; the angle formula cos θ = (u · v)/(|u||v|) derived from
+  the law of cosines; reading acute, right and obtuse from the sign of u · v; orthogonal and parallel vectors;
+  scalar components, projections and splitting a vector into parts parallel and orthogonal to a direction; work
+  W = F · d = |F||d| cos θ. Worked examples: dot product properties, the angle between ⟨2, 1⟩ and ⟨−1, 3⟩, an unknown
+  component for orthogonality, the projection of ⟨5, 1⟩ onto ⟨3, 4⟩, a sled pulled by a rope, and a force pushing
+  forward and down.
+flashcards_description: |
+  30 cards on computing dot products, the angle between vectors, orthogonality and parallel vectors, scalar
+  components and projections, decomposing a vector, and work from components or from an angle.
+
+flashcards:
+  - front: u · v for u = ⟨u₁, u₂⟩, v = ⟨v₁, v₂⟩ → definition and type of answer
+    back: |
+      u₁v₁ + u₂v₂: multiply matching components and add. The result is a scalar.
+    topic_code: "4.8"
+  - front: ⟨3, −4⟩ · ⟨2, 5⟩ → value
+    back: |
+      6 − 20 = −14.
+    topic_code: "4.8"
+  - front: v · v → what it equals
+    back: |
+      |v|², so |v| = √(v · v). For v = ⟨3, −4⟩, v · v = 25 and |v| = 5.
+    topic_code: "4.8"
+  - front: Dot product properties → the four to know
+    back: |
+      u · v = v · u; u · (v + w) = u · v + u · w; (ku) · v = k(u · v); v · v = |v|².
+    topic_code: "4.8"
+  - front: Geometric form of the dot product → formula
+    back: |
+      u · v = |u||v| cos θ, where θ is the angle between u and v with their tails together.
+    topic_code: "4.8"
+  - front: Angle between vectors u and v → formula
+    back: |
+      cos θ = (u · v)/(|u||v|), then θ = cos⁻¹ of that value, with 0° ≤ θ ≤ 180°.
+    topic_code: "4.8"
+  - front: Where u · v = |u||v| cos θ comes from → derivation idea
+    back: |
+      Apply the law of cosines to the triangle with sides u, v and u − v, and expand |u − v|² = (u − v) · (u − v).
+    topic_code: "4.8"
+  - front: Angle between ⟨2, 1⟩ and ⟨−1, 3⟩ → value
+    back: |
+      Dot product 1; magnitudes √5 and √10; cos θ = 1/√50, θ ≈ 81.87°.
+    topic_code: "4.8"
+  - front: Sign of u · v → what it says about the angle
+    back: |
+      Positive: acute. Zero: right angle (orthogonal). Negative: obtuse.
+    topic_code: "4.8"
+  - front: Why cos⁻¹ needs no quadrant check for the angle between vectors → reason
+    back: |
+      The angle between two vectors is always in [0°, 180°], which is exactly the range of cos⁻¹.
+    topic_code: "4.8"
+  - front: Orthogonal vectors → dot product test
+    back: |
+      u and v are orthogonal exactly when u · v = 0. ⟨6, −4⟩ · ⟨2, 3⟩ = 12 − 12 = 0.
+    topic_code: "4.8"
+  - front: ⟨k, 3⟩ orthogonal to ⟨4, −6⟩ → value of k
+    back: |
+      4k − 18 = 0, so k = 4.5.
+    topic_code: "4.8"
+  - front: A vector orthogonal to ⟨a, b⟩ → quick construction
+    back: |
+      Swap the components and change one sign: ⟨−b, a⟩ or ⟨b, −a⟩. Check: a(−b) + b(a) = 0.
+    topic_code: "4.8"
+  - front: ⟨2, −5⟩ and ⟨−6, 15⟩ → orthogonal, parallel or neither
+    back: |
+      Parallel and opposite: ⟨−6, 15⟩ = −3⟨2, −5⟩, so θ = 180° and cos θ = −1.
+    topic_code: "4.8"
+  - front: Unit vectors at angles α and β → what their dot product gives
+    back: |
+      cos α cos β + sin α sin β = cos(α − β): the difference formula, from u · v = cos θ for unit vectors.
+    topic_code: "4.8"
+  - front: Scalar component of u along v → formula
+    back: |
+      compᵥ u = (u · v)/|v| = |u| cos θ, the signed length of u's shadow on the line of v.
+    topic_code: "4.9"
+  - front: Projection of u onto v → formula
+    back: |
+      projᵥ u = ((u · v)/|v|²) v: the scalar component times the unit vector v/|v|.
+    topic_code: "4.9"
+  - front: Projection of ⟨5, 1⟩ onto ⟨3, 4⟩ → value
+    back: |
+      u · v = 19, |v|² = 25: (19/25)⟨3, 4⟩ = ⟨2.28, 3.04⟩.
+    topic_code: "4.9"
+  - front: Decomposing u along v → the two parts
+    back: |
+      u = projᵥ u + (u − projᵥ u). The first part is parallel to v, the second orthogonal to v.
+    topic_code: "4.9"
+  - front: ⟨5, 1⟩ split along ⟨3, 4⟩ → orthogonal part and its check
+    back: |
+      ⟨5, 1⟩ − ⟨2.28, 3.04⟩ = ⟨2.72, −2.04⟩, and ⟨2.72, −2.04⟩ · ⟨3, 4⟩ = 8.16 − 8.16 = 0.
+    topic_code: "4.9"
+  - front: Negative scalar component compᵥ u → meaning
+    back: |
+      The angle is obtuse, and projᵥ u points opposite to v.
+    topic_code: "4.9"
+  - front: projᵥ u versus proj_u v → same or different
+    back: |
+      Different in general: projᵥ u lies along v and divides by |v|²; proj_u v lies along u and divides by |u|².
+    topic_code: "4.9"
+  - front: Work by a constant force F through displacement d → formula
+    back: |
+      W = F · d = |F||d| cos θ, θ the angle between the force and the motion. Joules (N·m) or foot-pounds.
+    topic_code: "4.9"
+  - front: Sled pulled 40 m with 60 N at 35° to the ground → work
+    back: |
+      W = 60 · 40 · cos 35° ≈ 1965.96 J.
+    topic_code: "4.9"
+  - front: F = ⟨4, 7⟩ N moving an object from (1, 2) to (9, 5) m → work
+    back: |
+      d = ⟨8, 3⟩, so W = 32 + 21 = 53 J.
+    topic_code: "4.9"
+  - front: Force perpendicular to the motion → work done
+    back: |
+      Zero: cos 90° = 0. A force against the motion (θ > 90°) does negative work.
+    topic_code: "4.9"
+  - front: Push F = ⟨20, −15⟩ N, box moved d = ⟨6, 0⟩ m → work and useful component
+    back: |
+      W = 120 J; the component along the motion is 120/6 = 20 N. The downward 15 N does no work.
+    topic_code: "4.9"
+  - front: Error-spot → "⟨1, 2⟩ · ⟨3, 4⟩ = ⟨3, 8⟩"
+    back: |
+      A dot product is a number: 3 + 8 = 11.
+    topic_code: "4.8"
+  - front: Error-spot → "u · v = −6, so the angle between u and v is negative."
+    back: |
+      Angles between vectors are in [0°, 180°]; a negative dot product means the angle is obtuse.
+    topic_code: "4.8"
+  - front: Error-spot → "proj of ⟨4, 2⟩ onto ⟨0, 2⟩ is ((u · v)/|v|) v = ⟨0, 4⟩."
+    back: |
+      Divide by |v|² = 4, not |v| = 2: (4/4)⟨0, 2⟩ = ⟨0, 2⟩, the vertical part of ⟨4, 2⟩.
+    topic_code: "4.9"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (topics 4.8 and 4.9: dot products, the angle between
+    vectors, orthogonality, scalar components and projections, work), with about a third reviewing week 23
+    (direction angles, unit vectors), weeks 20–22 (the law of cosines, Heron's formula, the ambiguous case, an
+    inaccessible height) and week 15 (the difference formula). Includes a shared-context set on u = ⟨4, −3⟩ and
+    v = ⟨2, 6⟩. Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank
+    items are matched automatically; the short answers and the long answer are graded by your teacher against
+    the scoring notes. Items marked (Calculator.) need a calculator; the rest are designed to be done by hand.
+    Angles are in degrees.
+  questions:
+    # ---- Stimulus set: two vectors (4.8, 4.9)
+    - slug: trig-u04-w24-q01
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "Original item; Common Core HSN-VM.B.4 (extension)"
+      points: 1
+      stimulus: |
+        Let u = ⟨4, −3⟩ and v = ⟨2, 6⟩.
+      prompt: |
+        What is u · v?
+      options:
+        - "⟨8, −18⟩"
+        - "−10"
+        - "26"
+        - "10"
+      option_explanations:
+        - |
+          These are the products of matching components, but a dot product adds them to give a single number.
+        - |
+          Correct. u · v = 4·2 + (−3)·6 = 8 − 18 = −10.
+        - |
+          26 = 8 + 18 ignores the negative sign on −3, so the second product should be −18.
+        - |
+          The size is right but the sign is not: 8 − 18 is negative.
+      answer: 1
+    - slug: trig-u04-w24-q02
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "Original item; Common Core HSN-VM.B.4 (extension)"
+      points: 1
+      stimulus: |
+        Let u = ⟨4, −3⟩ and v = ⟨2, 6⟩.
+      prompt: |
+        (Calculator.) To the nearest hundredth of a degree, what is the angle between u and v?
+      options:
+        - "71.57°"
+        - "−71.57°"
+        - "18.43°"
+        - "108.43°"
+      option_explanations:
+        - |
+          71.57° is the acute angle with cosine +0.3162; the dot product is negative, so the angle is obtuse.
+        - |
+          The angle between two vectors is never negative; cos⁻¹ returns an angle in [0°, 180°].
+        - |
+          18.43° is 90° − 71.57°, a complement, which has no role in the angle formula.
+        - |
+          Correct. cos θ = −10/(5 · √40) ≈ −0.3162, so θ = cos⁻¹(−0.3162) ≈ 108.43°.
+      answer: 3
+    - slug: trig-u04-w24-q03
+      type: multiple_choice
+      topic_code: "4.9"
+      source: "Original item; Common Core HSN-VM.B.5 (extension)"
+      points: 1
+      stimulus: |
+        Let u = ⟨4, −3⟩ and v = ⟨2, 6⟩.
+      prompt: |
+        What is projᵥ u, the projection of u onto v?
+      options:
+        - "⟨−0.5, −1.5⟩"
+        - "⟨−1.6, 1.2⟩"
+        - "⟨−20/√40, −60/√40⟩"
+        - "⟨0.5, 1.5⟩"
+      option_explanations:
+        - |
+          Correct. (u · v)/|v|² = −10/40 = −1/4, and −1/4 · ⟨2, 6⟩ = ⟨−0.5, −1.5⟩, pointing opposite to v.
+        - |
+          This is proj_u v = (−10/25)⟨4, −3⟩, the projection the other way round, which lies along u.
+        - |
+          This divides by |v| = √40 instead of |v|² = 40, so the length is wrong.
+        - |
+          The negative dot product makes the scalar negative, so the projection points opposite to v, not along it.
+      answer: 0
+    - slug: trig-u04-w24-q04
+      type: multiple_choice
+      topic_code: "4.9"
+      source: "Original item; Common Core HSN-VM.B.5 (extension)"
+      points: 1
+      stimulus: |
+        Let u = ⟨4, −3⟩ and v = ⟨2, 6⟩.
+      prompt: |
+        What is the scalar component of u along v, to the nearest hundredth?
+      options:
+        - "1.58"
+        - "−2.00"
+        - "−1.58"
+        - "−0.25"
+      option_explanations:
+        - |
+          The dot product is negative, so the shadow of u on the line of v points backwards and the component is negative.
+        - |
+          −2.00 = −10/5 divides by |u| = 5; that is the scalar component of v along u.
+        - |
+          Correct. compᵥ u = (u · v)/|v| = −10/√40 ≈ −1.58.
+        - |
+          −0.25 = −10/40 is the multiplier in the projection formula, which divides by |v|² rather than |v|.
+      answer: 2
+    # ---- Topics 4.8 and 4.9
+    - slug: trig-u04-w24-q05
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "Original item; Common Core HSN-VM.B.4 (extension)"
+      points: 1
+      prompt: |
+        Which pair of vectors is orthogonal?
+      options:
+        - "⟨3, 2⟩ and ⟨2, 3⟩"
+        - "⟨1, −4⟩ and ⟨−1, 4⟩"
+        - "⟨5, 1⟩ and ⟨1, 5⟩"
+        - "⟨−6, 9⟩ and ⟨3, 2⟩"
+      option_explanations:
+        - |
+          The dot product is 6 + 6 = 12, not 0; swapping components without changing a sign does not make a perpendicular vector.
+        - |
+          These are opposite vectors, parallel with an angle of 180°; their dot product is −1 − 16 = −17.
+        - |
+          The dot product is 5 + 5 = 10, so the angle between them is acute.
+        - |
+          Correct. ⟨−6, 9⟩ · ⟨3, 2⟩ = −18 + 18 = 0.
+      answer: 3
+    - slug: trig-u04-w24-q06
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "Original item; Common Core HSN-VM.B.4 (extension)"
+      points: 1
+      prompt: |
+        For what value of k are ⟨3, k⟩ and ⟨−2, 5⟩ orthogonal?
+      options:
+        - "6/5"
+        - "−6/5"
+        - "15/2"
+        - "5/6"
+      option_explanations:
+        - |
+          Correct. 3(−2) + 5k = 0 gives 5k = 6, so k = 6/5.
+        - |
+          This drops the sign of 3(−2) = −6 when moving it across: 5k = 6, not −6.
+        - |
+          15/2 comes from 3·5 − 2k = 0, pairing the wrong components; the first components multiply together, as do the second.
+        - |
+          5/6 solves 5k = 6 by dividing the wrong way; k = 6/5, and ⟨3, 5/6⟩ · ⟨−2, 5⟩ = −6 + 25/6 ≠ 0.
+      answer: 0
+    - slug: trig-u04-w24-q07
+      type: multiple_choice
+      topic_code: "4.9"
+      source: "Original item; Common Core HSN-VM.B.5 (extension)"
+      points: 1
+      prompt: |
+        A constant force of 50 lb, directed 30° above the horizontal, drags a cart 20 ft along level ground. How much work is done?
+      options:
+        - "1000 ft-lb"
+        - "500 ft-lb"
+        - "500√3 ≈ 866 ft-lb"
+        - "70 ft-lb"
+      option_explanations:
+        - |
+          1000 = 50 · 20 assumes the whole force acts along the ground; only the horizontal part, 50 cos 30°, does work.
+        - |
+          500 = 50 · 20 · sin 30° uses the vertical part of the force, which is perpendicular to the motion and does no work.
+        - |
+          Correct. W = |F||d| cos θ = 50 · 20 · cos 30° = 1000 · √3/2 = 500√3 ≈ 866 ft-lb.
+        - |
+          Work multiplies force and distance; 50 + 20 = 70 adds them.
+      answer: 2
+    - slug: trig-u04-w24-q08
+      type: multiple_choice
+      topic_code: "4.9"
+      source: "Original item; Common Core HSN-VM.B.5 (extension)"
+      points: 1
+      prompt: |
+        A force F = ⟨3, 5⟩ newtons moves an object in a straight line from (2, 1) to (8, −1), with distances in metres. How much work is done?
+      options:
+        - "19 J"
+        - "8 J"
+        - "28 J"
+        - "−8 J"
+      option_explanations:
+        - |
+          19 = 3·8 + 5·(−1) uses the terminal point (8, −1) as the displacement; d = ⟨8 − 2, −1 − 1⟩ = ⟨6, −2⟩.
+        - |
+          Correct. d = ⟨6, −2⟩, so W = F · d = 18 − 10 = 8 J.
+        - |
+          28 = 18 + 10 ignores the negative vertical displacement; the object moves down, against the upward part of F.
+        - |
+          The sign is reversed: 18 − 10 is positive, so the force does positive work overall.
+      answer: 1
+    - slug: trig-u04-w24-q09
+      type: multiple_choice
+      topic_code: "4.9"
+      source: "Original item; Common Core HSN-VM.B.5 (extension)"
+      points: 1
+      prompt: |
+        What is the scalar component of u = ⟨2, 7⟩ along v = ⟨3, 4⟩?
+      options:
+        - "6.8"
+        - "34"
+        - "1.36"
+        - "⟨4.08, 5.44⟩"
+      option_explanations:
+        - |
+          Correct. compᵥ u = (u · v)/|v| = (6 + 28)/5 = 34/5 = 6.8.
+        - |
+          34 is u · v; it still has to be divided by |v| = 5.
+        - |
+          1.36 = 34/25 divides by |v|², the multiplier used in the projection vector, not the scalar component.
+        - |
+          ⟨4.08, 5.44⟩ is the projection vector projᵥ u; the scalar component is its signed length, 6.8.
+      answer: 0
+    - slug: trig-u04-w24-q10
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "Original item; Common Core HSN-VM.B.4 (extension)"
+      points: 1
+      prompt: |
+        What is the exact angle between ⟨1, √3⟩ and ⟨√3, 1⟩?
+      options:
+        - "60°"
+        - "45°"
+        - "90°"
+        - "30°"
+      option_explanations:
+        - |
+          60° is the direction angle of ⟨1, √3⟩ alone; the angle between the vectors is the difference 60° − 30°.
+        - |
+          cos 45° = √2/2, but here cos θ = 2√3/4 = √3/2.
+        - |
+          The dot product is √3 + √3 = 2√3, not 0, so the vectors are not orthogonal.
+        - |
+          Correct. cos θ = (√3 + √3)/(2 · 2) = √3/2, so θ = 30°. (Their direction angles are 60° and 30°.)
+      answer: 3
+    # ---- Spiral review
+    - slug: trig-u04-w24-q11
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "Original item; Common Core HSN-VM.A.1"
+      points: 1
+      prompt: |
+        What is the direction angle of ⟨−2√3, 2⟩?
+      options:
+        - "−30°"
+        - "150°"
+        - "120°"
+        - "330°"
+      option_explanations:
+        - |
+          tan⁻¹(2/(−2√3)) = −30° points into quadrant IV; this vector points left and up, into quadrant II.
+        - |
+          Correct. Quadrant II with reference angle tan⁻¹(2/(2√3)) = 30°, so θ = 180° − 30° = 150°.
+        - |
+          120° has reference angle 60°, which would need the components in the ratio 1 : √3, the other way round.
+        - |
+          330° is coterminal with the calculator's −30°, still in quadrant IV.
+      answer: 1
+    - slug: trig-u04-w24-q12
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "Original item; Common Core HSN-VM.B.5"
+      points: 1
+      prompt: |
+        What is the unit vector in the direction of 8i − 15j?
+      options:
+        - "(8/23)i − (15/23)j"
+        - "(15/17)i − (8/17)j"
+        - "(8/17)i − (15/17)j"
+        - "−(8/17)i + (15/17)j"
+      option_explanations:
+        - |
+          23 = 8 + 15 is not the magnitude; |8i − 15j| = √(64 + 225) = 17.
+        - |
+          The components have been swapped, which changes the direction.
+        - |
+          Correct. Divide by |v| = 17: (8/17)i − (15/17)j, and (64 + 225)/289 = 1.
+        - |
+          This has length 1 but points the opposite way; it is the unit vector for −(8i − 15j).
+      answer: 2
+    - slug: trig-u04-w24-q13
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "Original item; Common Core HSG-SRT.D.10"
+      points: 1
+      prompt: |
+        (Calculator.) A triangle has sides 5, 7 and 9. To the nearest hundredth of a degree, what is its largest angle?
+      options:
+        - "95.74°"
+        - "84.26°"
+        - "50.70°"
+        - "33.56°"
+      option_explanations:
+        - |
+          Correct. The largest angle faces the side 9: cos C = (25 + 49 − 81)/(2 · 5 · 7) = −7/70 = −0.1, so C ≈ 95.74°.
+        - |
+          84.26° = cos⁻¹(0.1) drops the negative sign; 25 + 49 − 81 is negative, so the angle is obtuse.
+        - |
+          50.70° is the angle opposite 7, the middle side; the largest angle faces the longest side.
+        - |
+          33.56° is the smallest angle, opposite the side 5.
+      answer: 0
+    - slug: trig-u04-w24-q14
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "Original item; Common Core HSF-TF.C.9"
+      points: 1
+      prompt: |
+        Let u = ⟨cos 75°, sin 75°⟩ and v = ⟨cos 15°, sin 15°⟩. Using the difference formula for cosine, what is the exact value of u · v?
+      options:
+        - "√3/2"
+        - "cos 75° + cos 15°"
+        - "0"
+        - "1/2"
+      option_explanations:
+        - |
+          √3/2 = cos 30° would need an angle of 30° between the vectors; their direction angles differ by 60°.
+        - |
+          The dot product multiplies matching components; it is not a sum of the first components.
+        - |
+          0 would make them orthogonal, which needs a 90° difference in direction.
+        - |
+          Correct. u · v = cos 75° cos 15° + sin 75° sin 15° = cos(75° − 15°) = cos 60° = 1/2.
+      answer: 3
+    - slug: trig-u04-w24-q15
+      type: multi_select
+      topic_code: "4.8"
+      source: "Original item; Common Core HSN-VM.B.4 (extension)"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about the dot product hold for all vectors u, v and w? Select all that apply.
+      options:
+        - "u · v = v · u"
+        - "u · u = |u|"
+        - "If u · v = 0 and neither vector is the zero vector, then u and v are perpendicular."
+        - "(2u) · (3v) = 5(u · v)"
+        - "u · (v + w) = u · v + u · w"
+      option_explanations:
+        - |
+          Correct. u₁v₁ + u₂v₂ = v₁u₁ + v₂u₂, because multiplication of numbers is commutative.
+        - |
+          u · u = u₁² + u₂² = |u|², the square of the magnitude.
+        - |
+          Correct. u · v = |u||v| cos θ = 0 with nonzero lengths forces cos θ = 0, so θ = 90°.
+        - |
+          Scalars multiply out: (2u) · (3v) = 6(u · v), not 5(u · v).
+        - |
+          Correct. The dot product distributes over addition: u₁(v₁ + w₁) + u₂(v₂ + w₂) = u · v + u · w.
+      answer: [0, 2, 4]
+    - slug: trig-u04-w24-q16
+      type: multi_select
+      topic_code: "4.9"
+      source: "Original item; Common Core HSN-VM.B.5 (extension)"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let u = ⟨−4, 3⟩ and v = ⟨2, 0⟩. Which statements about projecting u onto v are true? Select all that apply.
+      options:
+        - "projᵥ u = ⟨−4, 0⟩"
+        - "compᵥ u = 4"
+        - "projᵥ u points in the same direction as v."
+        - "u − projᵥ u = ⟨0, 3⟩, which is orthogonal to v."
+        - "proj_u v = projᵥ u"
+      option_explanations:
+        - |
+          Correct. u · v = −8 and |v|² = 4, so projᵥ u = (−8/4)⟨2, 0⟩ = ⟨−4, 0⟩.
+        - |
+          compᵥ u = (u · v)/|v| = −8/2 = −4; the scalar component carries the sign of the dot product.
+        - |
+          The multiplier −8/4 = −2 is negative, so the projection points opposite to v.
+        - |
+          Correct. ⟨−4, 3⟩ − ⟨−4, 0⟩ = ⟨0, 3⟩, and ⟨0, 3⟩ · ⟨2, 0⟩ = 0.
+        - |
+          proj_u v = (−8/25)⟨−4, 3⟩ = ⟨1.28, −0.96⟩ lies along u, so it differs from projᵥ u.
+      answer: [0, 3]
+    - slug: trig-u04-w24-q17
+      type: true_false
+      topic_code: "4.8"
+      source: "Original item; Common Core HSN-VM.B.4 (extension)"
+      points: 1
+      prompt: |
+        True or false: The dot product of two vectors in the plane is another vector in the plane.
+      answer: false
+      explanation: |
+        False. u · v = u₁v₁ + u₂v₂ is a single real number (a scalar). For example, ⟨1, 2⟩ · ⟨3, 4⟩ = 3 + 8 = 11.
+    - slug: trig-u04-w24-q18
+      type: true_false
+      topic_code: "4.4"
+      source: "Original item; Common Core HSG-SRT.D.9"
+      points: 1
+      prompt: |
+        True or false: By Heron's formula, a triangle with sides 5, 6 and 7 has area 6√6.
+      answer: true
+      explanation: |
+        True. s = (5 + 6 + 7)/2 = 9, and the area is √(9 · 4 · 3 · 2) = √216 = 6√6 ≈ 14.70.
+    - slug: trig-u04-w24-q19
+      type: fill_blank
+      topic_code: "4.8"
+      source: "Original item; Common Core HSN-VM.B.4 (extension)"
+      points: 1
+      prompt: |
+        The dot product ⟨−3, 4⟩ · ⟨5, 2⟩ equals ____.
+      answer: ["-7", "−7"]
+      explanation: |
+        (−3)(5) + (4)(2) = −15 + 8 = −7. The negative value means the angle between the vectors is obtuse.
+    - slug: trig-u04-w24-q20
+      type: fill_blank
+      topic_code: "4.6"
+      source: "Original item; Common Core HSN-VM.A.1"
+      points: 1
+      prompt: |
+        The magnitude of 9i − 40j is ____.
+      answer: ["41"]
+      explanation: |
+        √(9² + (−40)²) = √(81 + 1600) = √1681 = 41.
+    - slug: trig-u04-w24-q21
+      type: numeric
+      topic_code: "4.9"
+      source: "Original item; Common Core HSN-VM.B.5 (extension)"
+      points: 1
+      prompt: |
+        (Calculator.) A hypothetical tow rope pulls a wagon 120 m along a level path with a constant force of 45 N, directed 28° above the path. To the nearest joule, how much work does the rope do?
+      answer: { value: 4768, tolerance: 1 }
+      explanation: |
+        W = |F||d| cos θ = 45 · 120 · cos 28° ≈ 5400 · 0.88295 ≈ 4767.9, which is 4768 J to the nearest joule.
+    - slug: trig-u04-w24-q22
+      type: numeric
+      topic_code: "4.5"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      prompt: |
+        (Calculator.) From point A on level ground, the angle of elevation to the top of a hypothetical tower is 32°. From point B, 50 m closer to the tower along the same line, the angle of elevation is 47°. To the nearest hundredth of a metre, how tall is the tower?
+      answer: { value: 74.87, tolerance: 0.01 }
+      explanation: |
+        In the triangle formed by A, B and the top T, the angle at A is 32°, the angle at B is 180° − 47° = 133°, and the angle at T is 15°. Law of sines: BT = 50 sin 32°/sin 15° ≈ 102.37 m. The height is BT sin 47° ≈ 74.87 m.
+    - slug: trig-u04-w24-q23
+      type: short_answer
+      topic_code: "4.8"
+      source: "Original item; Common Core HSN-VM.B.4 (extension)"
+      points: 3
+      prompt: |
+        Let u = ⟨2, −1⟩, v = ⟨3, 6⟩ and w = ⟨−4, 1⟩.
+
+        (a) Show that u and v are orthogonal.
+        (b) (Calculator.) Find the angle between u and w to the nearest hundredth of a degree.
+        (c) Find both unit vectors that are orthogonal to u, in exact form.
+      answer: |
+        (a) u · v = 2·3 + (−1)·6 = 6 − 6 = 0, so u and v are orthogonal.
+        (b) u · w = −8 − 1 = −9; |u| = √5, |w| = √17; cos θ = −9/√85 ≈ −0.9762, so θ ≈ 167.47°.
+        (c) ⟨1, 2⟩ is orthogonal to u (2 − 2 = 0) and has length √5, so the unit vectors are ⟨1/√5, 2/√5⟩ and ⟨−1/√5, −2/√5⟩ (that is, ±⟨√5/5, 2√5/5⟩).
+      explanation: |
+        Three points, one per part. (a) dot product computed as 0 with the conclusion. (b) 167.47° (accept 167.5°), with the work shown. (c) both unit vectors, in any equivalent exact form; one correct vector earns half credit at the teacher's discretion.
+    - slug: trig-u04-w24-q24
+      type: short_answer
+      topic_code: "4.2"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 3
+      prompt: |
+        (Calculator.) In triangle ABC, A = 42°, a = 9 and b = 12.
+
+        (a) Use the height h = b sin A to show that two triangles fit these measurements.
+        (b) Find both possible values of B, to the nearest hundredth of a degree.
+        (c) Find the value of C in each triangle.
+      answer: |
+        (a) h = 12 sin 42° ≈ 8.03. Since h < a < b (8.03 < 9 < 12), side a can reach the base at two points, so there are two triangles.
+        (b) sin B = 12 sin 42°/9 ≈ 0.8922, so B ≈ 63.15° or B ≈ 180° − 63.15° = 116.85°.
+        (c) C ≈ 180° − 42° − 63.15° = 74.85° in the first triangle and C ≈ 180° − 42° − 116.85° = 21.15° in the second.
+      explanation: |
+        Three points, one per part. (a) h ≈ 8.03 and the comparison h < a < b. (b) both 63.15° and 116.85° (accept within 0.01). (c) both 74.85° and 21.15°, with follow-through from (b).
+    - slug: trig-u04-w24-q25
+      type: long_answer
+      topic_code: "4.9"
+      source: "Original item; Common Core HSN-VM.B.5 (extension)"
+      points: 6
+      prompt: |
+        (Calculator.) A hypothetical robot arm pushes a block across a flat table with a constant force F = ⟨12, 5⟩ newtons while the block moves in a straight line with displacement d = ⟨8, 15⟩ metres.
+
+        (A) (i) Find the work done by F.
+        (ii) Find the angle between F and d to the nearest hundredth of a degree.
+
+        (B) (i) Find proj_d F, and write F as the sum of a vector parallel to d and a vector orthogonal to d, with components to the nearest thousandth.
+        (ii) Explain why only the parallel part does work, and check the work in (A) as (comp_d F) · |d|.
+
+        (C) (i) A force with the same magnitude as F could be aimed in any direction. Find the direction (as a vector) that would do the most work over the same displacement, and the maximum work.
+        (ii) Describe every direction in which a force of this size would do no work over d, and explain why.
+      answer: |
+        (A) (i) W = F · d = 12·8 + 5·15 = 96 + 75 = 171 J.
+        (ii) |F| = 13, |d| = 17; cos θ = 171/221 ≈ 0.7738, θ ≈ 39.31°.
+        (B) (i) proj_d F = (171/289)⟨8, 15⟩ ≈ ⟨4.734, 8.875⟩. The orthogonal part is F − proj_d F ≈ ⟨7.266, −3.875⟩, so F ≈ ⟨4.734, 8.875⟩ + ⟨7.266, −3.875⟩. Check: ⟨7.266, −3.875⟩ · ⟨8, 15⟩ ≈ 58.13 − 58.13 = 0.
+        (ii) Work is F · d, and the orthogonal part has dot product 0 with d: a push across the direction of motion transfers no energy along it. comp_d F = 171/17 ≈ 10.059 N, and 10.059 · 17 = 171 J, matching (A).
+        (C) (i) The work |F||d| cos θ is largest when cos θ = 1, that is when the force points along d: F′ = 13 · ⟨8, 15⟩/17 = ⟨104/17, 195/17⟩ ≈ ⟨6.118, 11.471⟩. The maximum work is 13 · 17 = 221 J.
+        (ii) No work is done when cos θ = 0, so when the force is perpendicular to d: the directions of ⟨15, −8⟩ and ⟨−15, 8⟩, that is ±(13/17)⟨15, −8⟩ for a force of magnitude 13. Their dot product with d is 120 − 120 = 0.
+      explanation: |
+        Six points. (A) 1 point for 171 J; 1 point for 39.31° (accept 39.3°). (B) 1 point for the projection and the orthogonal part (within 0.01); 1 point for explaining that the orthogonal part's dot product with d is zero and confirming 10.059 × 17 = 171. (C) 1 point for the direction along d (any positive multiple of ⟨8, 15⟩ scaled to length 13) and 221 J; 1 point for both perpendicular directions with the reason cos 90° = 0.

@@ -1,0 +1,935 @@
+unit: 3
+description: |
+  44 questions · about 90 minutes · every topic of Unit 3 (3.1 to 3.12): simplifying and factoring trigonometric
+  expressions, verifying identities, sum and difference, cofunction and reduction, double-angle, power-reducing
+  and half-angle formulas, product-to-sum and sum-to-product formulas, combining a sin x + b cos x, and solving
+  equations and inequalities with multiple angles, identities and a calculator, with a little review of Units 1
+  and 2. Includes three shared-context sets (two angles given by a ratio and a quadrant, the sinusoid
+  cos x − √3 sin x, and a hypothetical temperature model), select-all, true/false, fill-in-the-blank and numeric
+  items, two short-answer questions (3 points each) and two free-response questions (6 points each: a triple-angle
+  identity and its equation, and a hypothetical daylight model). Angles are in radians unless degrees are shown,
+  and n stands for any integer. Seven items are marked (Calculator.); the rest are designed to be done by hand.
+  Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+  automatically; the short-answer and free-response items are graded by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: two angles from ratios and quadrants (3.4, 3.6, 3.7)
+  - slug: trig-u03-exam-q01
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "Original item; Common Core HSF-TF.C.9"
+    points: 1
+    stimulus: |
+      Angle α is in quadrant II with sin α = 5/13. Angle β satisfies 3π/2 < β < 2π (quadrant IV) with cos β = 3/5.
+    prompt: |
+      What is the exact value of sin(α + β)?
+    options:
+      - "−33/65"
+      - "33/65"
+      - "63/65"
+      - "−63/65"
+    option_explanations:
+      - |
+        One sign slip (cos α = +12/13 or sin β = +4/5) gives 15/65 − 48/65 = −33/65; in quadrants II and IV both are negative.
+      - |
+        33/65 = 48/65 − 15/65 is sin(β − α), the difference formula; sin(α + β) adds the two products.
+      - |
+        Correct. cos α = −12/13 and sin β = −4/5, so sin(α + β) = (5/13)(3/5) + (−12/13)(−4/5) = 15/65 + 48/65 = 63/65.
+      - |
+        The two products are both positive here, (5/13)(3/5) and (−12/13)(−4/5), so the sum cannot be negative.
+    answer: 2
+  - slug: trig-u03-exam-q02
+    type: multiple_choice
+    topic_code: "3.6"
+    source: "Original item; Common Core HSF-TF.C.9"
+    points: 1
+    stimulus: |
+      Angle α is in quadrant II with sin α = 5/13. Angle β satisfies 3π/2 < β < 2π (quadrant IV) with cos β = 3/5.
+    prompt: |
+      What is the exact value of cos 2α?
+    options:
+      - "119/169"
+      - "−119/169"
+      - "10/13"
+      - "−120/169"
+    option_explanations:
+      - |
+        Correct. cos 2α = 1 − 2 sin²α = 1 − 2(25/169) = 119/169. The quadrant of α does not matter for this form.
+      - |
+        This is sin²α − cos²α, the negative of the double-angle formula cos²α − sin²α.
+      - |
+        This doubles sin α; the double-angle formula for cosine is not 2 times a sine or cosine.
+      - |
+        −120/169 is sin 2α = 2(5/13)(−12/13), not cos 2α.
+    answer: 0
+  - slug: trig-u03-exam-q03
+    type: multiple_choice
+    topic_code: "3.7"
+    source: "Original item; Common Core HSF-TF.C.9"
+    points: 1
+    stimulus: |
+      Angle α is in quadrant II with sin α = 5/13. Angle β satisfies 3π/2 < β < 2π (quadrant IV) with cos β = 3/5.
+    prompt: |
+      What is the exact value of tan(β/2)?
+    options:
+      - "1/2"
+      - "−2"
+      - "−4/3"
+      - "−1/2"
+    option_explanations:
+      - |
+        The size is right, but β/2 lies between 3π/4 and π, in quadrant II, where tangent is negative.
+      - |
+        This is sin β/(1 − cos β) = (−4/5)/(2/5) inverted from the formula tan(β/2) = (1 − cos β)/sin β.
+      - |
+        −4/3 is tan β itself; the half-angle tangent needs the formula, not the original ratio.
+      - |
+        Correct. tan(β/2) = (1 − cos β)/sin β = (2/5)/(−4/5) = −1/2, negative as quadrant II requires.
+    answer: 3
+  # ---- Topics 3.1 to 3.8
+  - slug: trig-u03-exam-q04
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "Original item; Common Core HSF-TF.C.8"
+    points: 1
+    prompt: |
+      Where it is defined, cot x · sec x · sin x simplifies to which expression?
+    options:
+      - "sin x"
+      - "1"
+      - "cos x"
+      - "tan x"
+    option_explanations:
+      - |
+        One factor of sin x appears in the numerator and one in the denominator of cot x, so they cancel completely.
+      - |
+        Correct. (cos x/sin x)(1/cos x)(sin x) = 1: every factor cancels.
+      - |
+        sec x = 1/cos x cancels the cos x from cot x, so no cosine is left.
+      - |
+        This treats cot x as tan x; cot x = cos x/sin x, which cancels with sec x and sin x.
+    answer: 1
+  - slug: trig-u03-exam-q05
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "Original item; Common Core HSF-TF.C.8"
+    points: 1
+    prompt: |
+      Where it is defined, (1 + tan²x)/csc²x simplifies to which expression?
+    options:
+      - "1"
+      - "cot²x"
+      - "sec²x csc²x"
+      - "tan²x"
+    option_explanations:
+      - |
+        1 + tan²x is sec²x, not csc²x, so the quotient does not cancel to 1.
+      - |
+        This inverts the result: sec²x/csc²x = sin²x/cos²x, which is tan²x.
+      - |
+        Dividing by csc²x means multiplying by sin²x, not by csc²x.
+      - |
+        Correct. 1 + tan²x = sec²x, and sec²x/csc²x = (1/cos²x)(sin²x) = tan²x.
+    answer: 3
+  - slug: trig-u03-exam-q06
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "Original item; Common Core HSF-TF.C.8"
+    points: 1
+    prompt: |
+      Treating sin x as a single variable, which is the complete factorisation of sin²x − 3 sin x + 2?
+    options:
+      - "(sin x − 1)(sin x − 2)"
+      - "(sin x + 1)(sin x + 2)"
+      - "(sin x − 1)(sin x + 2)"
+      - "sin x (sin x − 3) + 2"
+    option_explanations:
+      - |
+        Correct. Treat sin x as u: u² − 3u + 2 = (u − 1)(u − 2), and expanding gives back the original.
+      - |
+        Expanding gives sin²x + 3 sin x + 2; the middle term has the wrong sign.
+      - |
+        Expanding gives sin²x + sin x − 2; the factors' constants must multiply to +2 and add to −3.
+      - |
+        This is a rearrangement, not a factorisation: the expression is still a sum.
+    answer: 0
+  - slug: trig-u03-exam-q07
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "Original item; Common Core HSF-TF.C.8"
+    points: 1
+    prompt: |
+      Multiplying by a conjugate, which expression is equal to sin x/(1 − cos x) wherever both are defined?
+    options:
+      - "(1 − cos x)/sin x"
+      - "1 + cos x"
+      - "(1 + cos x)/sin x"
+      - "sin x/(1 + cos x)"
+    option_explanations:
+      - |
+        This is the reciprocal of the expression; at x = π/3 it gives 1/√3, but the original is (√3/2)/(1/2) = √3.
+      - |
+        After multiplying by (1 + cos x)/(1 + cos x), the denominator is sin²x, which leaves a sin x in the denominator.
+      - |
+        Correct. sin x(1 + cos x)/(1 − cos²x) = sin x(1 + cos x)/sin²x = (1 + cos x)/sin x.
+      - |
+        Changing the sign in the denominator changes the value: at x = π/3 this is 1/√3, but the original is √3.
+    answer: 2
+  - slug: trig-u03-exam-q08
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "Original item; Common Core HSF-TF.C.9"
+    points: 1
+    prompt: |
+      Using π/12 = π/3 − π/4, what is the exact value of cos(π/12)?
+    options:
+      - "(√6 − √2)/4"
+      - "(√6 + √2)/4"
+      - "(√3 − 1)/2"
+      - "1/2 − √2/2"
+    option_explanations:
+      - |
+        This is sin(π/12); the cosine difference formula adds the two products.
+      - |
+        Correct. cos(π/3 − π/4) = cos(π/3)cos(π/4) + sin(π/3)sin(π/4) = √2/4 + √6/4.
+      - |
+        (√3 − 1)/2 is cos(π/6) − cos(π/3), a guess that treats cosine as linear; it is about 0.366, while cos(π/12) ≈ 0.966.
+      - |
+        This is cos(π/3) − cos(π/4), treating cosine as linear.
+    answer: 1
+  - slug: trig-u03-exam-q09
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "Original item; Common Core HSF-TF.C.9"
+    points: 1
+    prompt: |
+      Which expression is equal to sin(π + x) for every x?
+    options:
+      - "−sin x"
+      - "sin x"
+      - "−cos x"
+      - "cos x"
+    option_explanations:
+      - |
+        Correct. sin π cos x + cos π sin x = 0 − sin x = −sin x; a half-turn sends the point to the opposite side of the circle.
+      - |
+        sin(π − x) = sin x; with π + x the sign changes because cos π = −1.
+      - |
+        A half-turn does not swap sine and cosine; that needs a quarter-turn, π/2.
+      - |
+        cos x = sin(π/2 + x); adding π instead of π/2 gives −sin x.
+    answer: 0
+  - slug: trig-u03-exam-q10
+    type: multiple_choice
+    topic_code: "3.6"
+    source: "Original item; Common Core HSF-TF.C.9"
+    points: 1
+    prompt: |
+      If tan x = 3, what is tan 2x?
+    options:
+      - "6"
+      - "3/4"
+      - "−3/8"
+      - "−3/4"
+    option_explanations:
+      - |
+        Doubling the tangent ignores the denominator of the double-angle formula.
+      - |
+        The denominator is 1 − tan²x = 1 − 9 = −8, so the result is negative.
+      - |
+        This leaves out the factor 2 in the numerator: 3/(1 − 9) = −3/8. The formula is 2 tan x/(1 − tan²x).
+      - |
+        Correct. tan 2x = 2 tan x/(1 − tan²x) = 6/(1 − 9) = −3/4.
+    answer: 3
+  - slug: trig-u03-exam-q11
+    type: multiple_choice
+    topic_code: "3.7"
+    source: "Original item; Common Core HSF-TF.C.9"
+    points: 1
+    prompt: |
+      Using a half-angle formula with 45°, what is the exact value of sin 22.5°?
+    options:
+      - "√(2 + √2)/2"
+      - "√2/4"
+      - "√(2 − √2)/2"
+      - "−√(2 − √2)/2"
+    option_explanations:
+      - |
+        This is cos 22.5°; the sine half-angle formula uses 1 − cos 45°.
+      - |
+        This halves sin 45°; halving an angle does not halve its sine.
+      - |
+        Correct. sin 22.5° = +√((1 − cos 45°)/2) = √((2 − √2)/4) = √(2 − √2)/2, positive in quadrant I.
+      - |
+        22.5° is in quadrant I, so the positive root is required.
+    answer: 2
+  - slug: trig-u03-exam-q12
+    type: multiple_choice
+    topic_code: "3.7"
+    source: "Original item; Common Core HSF-TF.C.9"
+    points: 1
+    prompt: |
+      Applying power-reducing formulas twice, which expression is equal to cos⁴x for every x?
+    options:
+      - "(1 + cos 2x)²"
+      - "(3 + 4 cos 2x + cos 4x)/8"
+      - "(1 + cos 4x)/2"
+      - "(3 − 4 cos 2x + cos 4x)/8"
+    option_explanations:
+      - |
+        cos²x is (1 + cos 2x)/2, so its square has a denominator of 4; this is 4 cos⁴x.
+      - |
+        Correct. cos⁴x = ((1 + cos 2x)/2)² = (1 + 2 cos 2x + cos²2x)/4, and cos²2x = (1 + cos 4x)/2, giving (3 + 4 cos 2x + cos 4x)/8.
+      - |
+        This is cos²2x, not cos⁴x; at x = π/4 it gives (1 + cos π)/2 = 0, but cos⁴(π/4) = 1/4.
+      - |
+        This is sin⁴x, which uses (1 − cos 2x)/2.
+    answer: 1
+  - slug: trig-u03-exam-q13
+    type: multiple_choice
+    topic_code: "3.8"
+    source: "Original item; Common Core HSF-TF.C.9 (extension)"
+    points: 1
+    prompt: |
+      Which expression is equal to sin 4x cos 2x for every x?
+    options:
+      - "½(sin 6x + sin 2x)"
+      - "½(sin 6x − sin 2x)"
+      - "sin 6x + sin 2x"
+      - "½(cos 2x − cos 6x)"
+    option_explanations:
+      - |
+        Correct. sin A cos B = ½[sin(A + B) + sin(A − B)] with A = 4x and B = 2x.
+      - |
+        The minus sign belongs to cos A sin B; sin A cos B adds the two sines.
+      - |
+        The product-to-sum formula carries a factor of ½; this is 2 sin 4x cos 2x.
+      - |
+        This is the formula for sin 4x sin 2x, a product of two sines.
+    answer: 0
+  - slug: trig-u03-exam-q14
+    type: multiple_choice
+    topic_code: "3.8"
+    source: "Original item; Common Core HSF-TF.C.9 (extension)"
+    points: 1
+    prompt: |
+      Using a sum-to-product formula, what is the exact value of sin 105° − sin 15°?
+    options:
+      - "sin 90° = 1"
+      - "√6/2"
+      - "−√2/2"
+      - "√2/2"
+    option_explanations:
+      - |
+        Sine is not linear, so sin 105° − sin 15° is not sin(105° − 15°).
+      - |
+        This uses the sum formula, 2 sin 60° cos 45°, which gives sin 105° + sin 15°.
+      - |
+        sin 105° > sin 15° (about 0.966 and 0.259), so the difference is positive.
+      - |
+        Correct. sin u − sin v = 2 cos((u + v)/2) sin((u − v)/2) = 2 cos 60° sin 45° = 2 · ½ · √2/2 = √2/2.
+    answer: 3
+  # ---- Stimulus set B: one sinusoid (3.9, 3.11, 3.12)
+  - slug: trig-u03-exam-q15
+    type: multiple_choice
+    topic_code: "3.9"
+    source: "Original item; Common Core HSF-TF.C.9 (extension)"
+    points: 1
+    stimulus: |
+      Let g(x) = cos x − √3 sin x, where x is in radians.
+    prompt: |
+      Which expression is equal to g(x) for every x?
+    options:
+      - "2 sin(x − π/6)"
+      - "2 sin(x + π/6)"
+      - "2 sin(x + 5π/6)"
+      - "2 sin(x − 5π/6)"
+    option_explanations:
+      - |
+        tan⁻¹(1/(−√3)) = −π/6 ignores the quadrant: here a = −√3 < 0. This option is −g(x).
+      - |
+        2 sin(x + π/6) expands to √3 sin x + cos x; the sine coefficient has the wrong sign.
+      - |
+        Correct. Writing g as −√3 sin x + 1 cos x: R = 2, cos φ = −√3/2, sin φ = 1/2, so φ = 5π/6 in quadrant II.
+      - |
+        sin φ must be +1/2 (b = 1 > 0); −5π/6 has sine −1/2.
+    answer: 2
+  - slug: trig-u03-exam-q16
+    type: multiple_choice
+    topic_code: "3.9"
+    source: "Original item; Common Core HSF-TF.C.9 (extension)"
+    points: 1
+    stimulus: |
+      Let g(x) = cos x − √3 sin x, where x is in radians.
+    prompt: |
+      What is the maximum value of g, and where in [0, 2π) does it occur?
+    options:
+      - "Maximum 1 + √3, at x = 0"
+      - "Maximum 2, at x = 5π/3"
+      - "Maximum 2, at x = π/2"
+      - "Maximum 2, at x = 2π/3"
+    option_explanations:
+      - |
+        Adding coefficients does not give the amplitude, and g(0) = 1.
+      - |
+        Correct. g(x) = 2 sin(x + 5π/6) is 2 when x + 5π/6 = 5π/2, so x = 5π/3. Check: 1/2 − √3(−√3/2) = 2.
+      - |
+        g(π/2) = 0 − √3 = −√3, near the minimum; π/2 is where an unshifted sine peaks.
+      - |
+        g(2π/3) = −1/2 − 3/2 = −2: that is the minimum, half a period from the maximum.
+    answer: 1
+  - slug: trig-u03-exam-q17
+    type: multiple_choice
+    topic_code: "3.11"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 1
+    stimulus: |
+      Let g(x) = cos x − √3 sin x, where x is in radians.
+    prompt: |
+      Which list gives every solution of g(x) = 1 in [0, 2π)?
+    options:
+      - "π/3 and 5π/3"
+      - "0 only"
+      - "π/6 and 5π/6"
+      - "0 and 4π/3"
+    option_explanations:
+      - |
+        g(π/3) = 1/2 − 3/2 = −1, not 1; these solve cos x = 1/2, ignoring the sine term.
+      - |
+        0 works, but sin(x + 5π/6) = 1/2 has a second solution in the interval, x = 4π/3.
+      - |
+        These solve sin x = 1/2; the equation is sin(x + 5π/6) = 1/2, whose angle is shifted.
+      - |
+        Correct. sin(x + 5π/6) = 1/2 with x + 5π/6 in [5π/6, 17π/6) gives 5π/6 and 13π/6, so x = 0 and 4π/3.
+    answer: 3
+  - slug: trig-u03-exam-q18
+    type: multiple_choice
+    topic_code: "3.12"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 1
+    stimulus: |
+      Let g(x) = cos x − √3 sin x, where x is in radians.
+    prompt: |
+      Which is the solution set of g(x) > 1 on [0, 2π)?
+    options:
+      - "4π/3 < x < 2π"
+      - "0 < x < 4π/3"
+      - "4π/3 ≤ x < 2π"
+      - "π/6 < x < 5π/6"
+    option_explanations:
+      - |
+        Correct. The boundary points are 0 and 4π/3; a test value 5π/3 gives g = 2 > 1, and a test value π gives g = −1.
+      - |
+        On this interval g stays below 1 (it equals 1 only at x = 0); a test value x = π gives g(π) = −1.
+      - |
+        The inequality is strict, and g(4π/3) = 1 exactly, so 4π/3 is excluded.
+      - |
+        This solves sin x > 1/2 without the shift; g(π/2) = −√3, which fails.
+    answer: 0
+  - slug: trig-u03-exam-q19
+    type: multiple_choice
+    topic_code: "3.9"
+    source: "Original item; Common Core HSF-TF.C.9 (extension)"
+    points: 1
+    prompt: |
+      What is the minimum value of y = 7 sin x − 24 cos x?
+    options:
+      - "−31"
+      - "−24"
+      - "−25"
+      - "−17"
+    option_explanations:
+      - |
+        −31 adds the sizes of the coefficients; the two terms cannot reach their extremes at the same x.
+      - |
+        −24 is only the cosine term's extreme; the combined amplitude is larger.
+      - |
+        Correct. y = 25 sin(x + φ) with R = √(49 + 576) = 25, so the minimum is −25.
+      - |
+        This subtracts the coefficients; R comes from the square root of the sum of their squares.
+    answer: 2
+  # ---- Topics 3.10 to 3.12
+  - slug: trig-u03-exam-q20
+    type: multiple_choice
+    topic_code: "3.10"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 1
+    prompt: |
+      Which describes all solutions of 2 cos x − √3 = 0 (n any integer)?
+    options:
+      - "x = π/6 + 2πn or x = 5π/6 + 2πn"
+      - "x = π/6 + 2πn or x = 11π/6 + 2πn"
+      - "x = π/6 + πn"
+      - "x = π/3 + 2πn or x = 5π/3 + 2πn"
+    option_explanations:
+      - |
+        5π/6 has cosine −√3/2; this uses sine's quadrants (I and II) instead of cosine's (I and IV).
+      - |
+        Correct. cos x = √3/2: reference angle π/6, cosine positive in quadrants I and IV.
+      - |
+        π/6 + π = 7π/6 has cosine −√3/2; cosine solutions are not π apart.
+      - |
+        cos(π/3) = 1/2; the value √3/2 belongs to the reference angle π/6.
+    answer: 1
+  - slug: trig-u03-exam-q21
+    type: multiple_choice
+    topic_code: "3.10"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 1
+    prompt: |
+      Which list gives every solution of cos²x = cos x in [0, 2π)?
+    options:
+      - "0, π/2, 3π/2"
+      - "0 only"
+      - "π/2, 3π/2"
+      - "0, π"
+    option_explanations:
+      - |
+        Correct. cos x (cos x − 1) = 0: cos x = 0 gives π/2, 3π/2 and cos x = 1 gives 0.
+      - |
+        Dividing by cos x leaves cos x = 1 and loses π/2 and 3π/2, where both sides are 0.
+      - |
+        This drops the factor cos x − 1 = 0, which gives x = 0.
+      - |
+        cos π = −1, so cos²π = 1 ≠ −1; π does not satisfy the equation.
+    answer: 0
+  - slug: trig-u03-exam-q22
+    type: multiple_choice
+    topic_code: "3.11"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 1
+    prompt: |
+      How many solutions does cos 4x = 0 have in [0, 2π)?
+    options:
+      - "2"
+      - "4"
+      - "6"
+      - "8"
+    option_explanations:
+      - |
+        2 is the number of solutions of cos x = 0 in one turn; 4x makes four turns.
+      - |
+        This counts one solution per turn; cosine is zero twice in every turn.
+      - |
+        The angle 4x runs over [0, 8π), four full turns, each with two zeros; six stops a turn short.
+      - |
+        Correct. With u = 4x on [0, 8π), cos u = 0 at π/2 + πn for n = 0 to 7: eight values, so x = π/8 + πn/4 gives eight solutions.
+    answer: 3
+  - slug: trig-u03-exam-q23
+    type: multiple_choice
+    topic_code: "3.12"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 1
+    prompt: |
+      (Calculator.) Which list gives the solutions of tan x = 2 in [0, 2π), to three decimal places?
+    options:
+      - "1.107 only"
+      - "1.107 and 2.034"
+      - "1.107 and 4.249"
+      - "63.435 and 243.435"
+    option_explanations:
+      - |
+        The calculator returns one principal value; tangent repeats every π, so there is a second solution in [0, 2π).
+      - |
+        2.034 = π − 1.107 is the second-solution rule for sine; tangent is negative in quadrant II.
+      - |
+        Correct. tan⁻¹ 2 ≈ 1.107, and adding the period π gives 4.249 in quadrant III, where tangent is also positive.
+      - |
+        These are degrees; the interval [0, 2π) calls for radians.
+    answer: 2
+  - slug: trig-u03-exam-q24
+    type: multiple_choice
+    topic_code: "3.12"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 1
+    prompt: |
+      Which is the solution set of sin x < −√3/2 on [0, 2π)?
+    options:
+      - "π/3 < x < 2π/3"
+      - "4π/3 < x < 5π/3"
+      - "7π/6 < x < 11π/6"
+      - "x < 4π/3 or x > 5π/3"
+    option_explanations:
+      - |
+        Here sin x > √3/2, the reflection of the correct arc across the x-axis.
+      - |
+        Correct. sin x = −√3/2 at 4π/3 and 5π/3, and a test value 3π/2 gives −1 < −√3/2.
+      - |
+        These are the boundaries for sin x < −1/2; the value √3/2 belongs to the reference angle π/3.
+      - |
+        This is the complement: at x = 0, sin x = 0, which is not less than −√3/2.
+    answer: 1
+  # ---- Stimulus set C: a hypothetical temperature model (3.10, 3.12)
+  - slug: trig-u03-exam-q25
+    type: multiple_choice
+    topic_code: "3.10"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 1
+    stimulus: |
+      In a hypothetical model, the temperature in a greenhouse is T(t) = 18 − 6 cos(πt/12) degrees Celsius, t hours after midnight, for 0 ≤ t ≤ 24.
+    prompt: |
+      What is the first time after midnight at which the temperature is 21 °C?
+    options:
+      - "4 a.m. (t = 4)"
+      - "6 a.m. (t = 6)"
+      - "4 p.m. (t = 16)"
+      - "8 a.m. (t = 8)"
+    option_explanations:
+      - |
+        At t = 4, cos(π/3) = 1/2 and T = 15 °C; this solves cos = +1/2 instead of −1/2.
+      - |
+        At t = 6 the cosine is 0, so T = 18 °C, the midline.
+      - |
+        T(16) is also 21 °C, but that is the second time, as the greenhouse cools.
+      - |
+        Correct. 18 − 6 cos(πt/12) = 21 gives cos(πt/12) = −1/2, so πt/12 = 2π/3 and t = 8.
+    answer: 3
+  - slug: trig-u03-exam-q26
+    type: multiple_choice
+    topic_code: "3.12"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 1
+    stimulus: |
+      In a hypothetical model, the temperature in a greenhouse is T(t) = 18 − 6 cos(πt/12) degrees Celsius, t hours after midnight, for 0 ≤ t ≤ 24.
+    prompt: |
+      For which times is the temperature at least 21 °C?
+    options:
+      - "8 ≤ t ≤ 16"
+      - "0 ≤ t ≤ 8 or 16 ≤ t ≤ 24"
+      - "4 ≤ t ≤ 20"
+      - "12 ≤ t ≤ 24"
+    option_explanations:
+      - |
+        Correct. T ≥ 21 means cos(πt/12) ≤ −1/2, so 2π/3 ≤ πt/12 ≤ 4π/3, giving 8 ≤ t ≤ 16; at t = 12, T = 24.
+      - |
+        These are the times when T ≤ 21; at midnight T = 12 °C.
+      - |
+        4 and 20 are where T = 15 °C, the boundaries for a different level.
+      - |
+        The temperature peaks at t = 12 and falls below 21 °C after t = 16, so the interval cannot run to 24.
+    answer: 0
+  - slug: trig-u03-exam-q27
+    type: multiple_choice
+    topic_code: "3.12"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 1
+    stimulus: |
+      In a hypothetical model, the temperature in a greenhouse is T(t) = 18 − 6 cos(πt/12) degrees Celsius, t hours after midnight, for 0 ≤ t ≤ 24.
+    prompt: |
+      (Calculator.) To the nearest hundredth of an hour, what is the first time at which the temperature is 20 °C?
+    options:
+      - "4.70"
+      - "7.30"
+      - "1.91"
+      - "16.70"
+    option_explanations:
+      - |
+        This solves cos(πt/12) = +1/3; isolating gives −6 cos(πt/12) = 2, so the cosine is −1/3.
+      - |
+        Correct. cos(πt/12) = −1/3, so πt/12 = cos⁻¹(−1/3) ≈ 1.9106 and t = 12(1.9106)/π ≈ 7.30.
+      - |
+        1.91 is the angle cos⁻¹(−1/3) in radians; it must still be multiplied by 12/π to give hours.
+      - |
+        16.70 = 24 − 7.30 is the second time the temperature is 20 °C, in the afternoon.
+    answer: 1
+  # ---- Review of Units 1 and 2
+  - slug: trig-u03-exam-q28
+    type: multiple_choice
+    topic_code: "1.12"
+    source: "Original item; Common Core HSF-TF.C.8"
+    points: 1
+    prompt: |
+      Given sin θ = −3/5 with θ in quadrant III, what is the value of tan θ?
+    options:
+      - "−3/4"
+      - "−4/3"
+      - "3/4"
+      - "4/3"
+    option_explanations:
+      - |
+        Tangent is positive in quadrant III, where sine and cosine are both negative.
+      - |
+        This is cos θ/sin θ, the cotangent, with the wrong sign.
+      - |
+        Correct. cos θ = −4/5 (from sin²θ + cos²θ = 1 and quadrant III), so tan θ = (−3/5)/(−4/5) = 3/4.
+      - |
+        4/3 is the cotangent; tangent is sin θ/cos θ.
+    answer: 2
+  - slug: trig-u03-exam-q29
+    type: multiple_choice
+    topic_code: "2.9"
+    source: "Original item; Common Core HSF-TF.B.6"
+    points: 1
+    prompt: |
+      What is the value of cos⁻¹(−1/2), in radians?
+    options:
+      - "−π/3"
+      - "4π/3"
+      - "π/3"
+      - "2π/3"
+    option_explanations:
+      - |
+        Inverse cosine returns angles in [0, π], never negative ones, and cos(−π/3) = 1/2.
+      - |
+        cos(4π/3) = −1/2, but 4π/3 is outside [0, π], the range of inverse cosine.
+      - |
+        cos(π/3) = 1/2; a negative input needs a quadrant II angle.
+      - |
+        Correct. 2π/3 lies in [0, π] and cos(2π/3) = −1/2.
+    answer: 3
+  - slug: trig-u03-exam-q30
+    type: multiple_choice
+    topic_code: "2.2"
+    source: "Original item; Common Core HSF-TF.B.5"
+    points: 1
+    prompt: |
+      What is the period of y = 3 sin 4x?
+    options:
+      - "π/2"
+      - "8π"
+      - "3"
+      - "4"
+    option_explanations:
+      - |
+        Correct. The period of a sin bx is 2π/|b| = 2π/4 = π/2.
+      - |
+        This multiplies 2π by b; the period is 2π divided by b.
+      - |
+        3 is the amplitude, which does not affect the period.
+      - |
+        4 is the coefficient b; it compresses the graph, giving period 2π/4.
+    answer: 0
+  # ---- Select-all, true/false, fill-in-the-blank and numeric
+  - slug: trig-u03-exam-q31
+    type: multi_select
+    topic_code: "3.3"
+    source: "Original item; Common Core HSF-TF.C.8"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of these five trigonometric equations are identities (each true wherever both of its sides are defined)? Select all that apply.
+    options:
+      - "cos 2x = (cos x − sin x)²"
+      - "sin⁴x − cos⁴x = sin²x − cos²x"
+      - "tan x + 1 = sec x"
+      - "sin 2x/(1 + cos 2x) = tan x"
+      - "csc x − sin x = cos x cot x"
+    option_explanations:
+      - |
+        (cos x − sin x)² = 1 − 2 sin x cos x = 1 − sin 2x, not cos 2x: at x = π/2 the left side is cos π = −1 but the right side is (0 − 1)² = 1.
+      - |
+        Correct. sin⁴x − cos⁴x = (sin²x − cos²x)(sin²x + cos²x), and the second factor is 1.
+      - |
+        At x = π/4 the left side is 2 and the right side is √2; one counterexample shows it is not an identity.
+      - |
+        Correct. 2 sin x cos x/(1 + 2cos²x − 1) = 2 sin x cos x/(2cos²x) = sin x/cos x = tan x.
+      - |
+        Correct. csc x − sin x = (1 − sin²x)/sin x = cos²x/sin x = cos x · (cos x/sin x) = cos x cot x.
+    answer: [1, 3, 4]
+  - slug: trig-u03-exam-q32
+    type: multi_select
+    topic_code: "3.5"
+    source: "Original item; Common Core HSF-TF.C.9"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which expressions are equal to cos x for every x? Select all that apply.
+    options:
+      - "sin(π/2 − x)"
+      - "cos(π − x)"
+      - "sin(x + π/2)"
+      - "sin(π − x)"
+      - "cos(x + π/2)"
+    option_explanations:
+      - |
+        Correct. This is the cofunction identity: sin(π/2 − x) = sin(π/2)cos x − cos(π/2)sin x = cos x.
+      - |
+        cos π cos x + sin π sin x = −cos x; reflecting across the y-axis changes the sign of the cosine.
+      - |
+        Correct. sin x cos(π/2) + cos x sin(π/2) = cos x: shifting sine left by π/2 gives cosine.
+      - |
+        sin(π − x) = sin x, the supplementary-angle reduction; it does not turn sine into cosine.
+      - |
+        cos x cos(π/2) − sin x sin(π/2) = −sin x.
+    answer: [0, 2]
+  - slug: trig-u03-exam-q33
+    type: multi_select
+    topic_code: "3.10"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which values of x are solutions of tan²x − tan x = 0? Select all that apply.
+    options:
+      - "0"
+      - "π/4"
+      - "π/2"
+      - "3π/4"
+      - "5π/4"
+    option_explanations:
+      - |
+        Correct. tan 0 = 0, so tan x (tan x − 1) = 0 holds.
+      - |
+        Correct. tan(π/4) = 1, so the factor tan x − 1 is zero.
+      - |
+        tan(π/2) is undefined, so π/2 cannot be a solution of an equation in tan x.
+      - |
+        tan(3π/4) = −1, and (−1)² − (−1) = 2 ≠ 0.
+      - |
+        Correct. tan(5π/4) = 1, since tangent repeats every π.
+    answer: [0, 1, 4]
+  - slug: trig-u03-exam-q34
+    type: true_false
+    topic_code: "3.3"
+    source: "Original item; Common Core HSF-TF.C.8"
+    points: 1
+    prompt: |
+      True or false: If an equation in x is true at x = π/6 and at x = π/4, it must be an identity.
+    answer: false
+    explanation: |
+      False. Agreeing at two values only shows that π/6 and π/4 are solutions. For example, sin 2x = cos x holds at x = π/6 (both sides √3/2) but fails at x = 0 (0 versus 1). Values can disprove an identity; only an algebraic argument proves one.
+  - slug: trig-u03-exam-q35
+    type: true_false
+    topic_code: "3.12"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 1
+    prompt: |
+      True or false: On [0, 2π), tan x > 0 exactly when 0 < x < π/2 or π < x < 3π/2.
+    answer: true
+    explanation: |
+      True. tan x is zero at 0 and π and undefined at π/2 and 3π/2; these four boundary points split [0, 2π) into quadrants, and tangent is positive in quadrants I and III.
+  - slug: trig-u03-exam-q36
+    type: true_false
+    topic_code: "3.7"
+    source: "Original item; Common Core HSF-TF.C.9"
+    points: 1
+    prompt: |
+      True or false: sin(x/2) = ½ sin x for every x.
+    answer: false
+    explanation: |
+      False. Halving the angle does not halve the sine. At x = π, sin(π/2) = 1 but ½ sin π = 0. The correct relation is the half-angle formula sin(x/2) = ±√((1 − cos x)/2).
+  - slug: trig-u03-exam-q37
+    type: fill_blank
+    topic_code: "3.4"
+    source: "Original item; Common Core HSF-TF.C.9"
+    points: 1
+    prompt: |
+      Without a calculator, cos 80° cos 20° + sin 80° sin 20° = ____.
+    answer: ["1/2", "0.5", ".5", "0.500", "1 / 2", "one half"]
+    explanation: |
+      The expression is the cosine difference formula read backwards: cos(80° − 20°) = cos 60° = 1/2.
+  - slug: trig-u03-exam-q38
+    type: fill_blank
+    topic_code: "3.11"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 1
+    prompt: |
+      The smallest positive solution of sin 3x = 1, in radians, is ____.
+    answer: ["π/6", "pi/6", "π / 6", "pi / 6", "0.524", "0.52", "(1/6)π", "π/6 radians"]
+    explanation: |
+      sin 3x = 1 when 3x = π/2 + 2πn, so x = π/6 + 2πn/3. The smallest positive value is π/6 ≈ 0.524.
+  - slug: trig-u03-exam-q39
+    type: numeric
+    topic_code: "3.6"
+    source: "Original item; Common Core HSF-TF.C.9"
+    points: 1
+    prompt: |
+      If cos x = 0.6, find the exact value of cos 2x as a decimal.
+    answer: { value: -0.28, tolerance: 0 }
+    explanation: |
+      Use the form with cosine only: cos 2x = 2cos²x − 1 = 2(0.36) − 1 = −0.28.
+  - slug: trig-u03-exam-q40
+    type: numeric
+    topic_code: "3.12"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 1
+    prompt: |
+      (Calculator.) Find the smallest positive solution of 7 cos x = 2, in radians, to the nearest hundredth.
+    answer: { value: 1.28, tolerance: 0.01 }
+    explanation: |
+      cos x = 2/7, so x = cos⁻¹(2/7) ≈ 1.281 in radian mode, which is 1.28 to the nearest hundredth. (The other solution in [0, 2π) is 2π − 1.281 ≈ 5.002.)
+  # ---- Short answer
+  - slug: trig-u03-exam-q41
+    type: short_answer
+    topic_code: "3.3"
+    source: "Original item; Common Core HSF-TF.C.8"
+    points: 3
+    prompt: |
+      Verify the identity cos x/(1 − sin x) = sec x + tan x, working on one side only.
+
+      (a) Multiply the left side by a suitable conjugate and simplify the denominator.
+      (b) Complete the simplification to sec x + tan x.
+      (c) State the values of x in [0, 2π) at which the identity does not apply, and why.
+    answer: |
+      (a) Multiply by (1 + sin x)/(1 + sin x): cos x(1 + sin x)/(1 − sin²x) = cos x(1 + sin x)/cos²x.
+      (b) Cancel a factor of cos x: (1 + sin x)/cos x = 1/cos x + sin x/cos x = sec x + tan x.
+      (c) x = π/2 and x = 3π/2. At π/2 the left side's denominator 1 − sin x is 0, and at both values cos x = 0, so sec x and tan x are undefined.
+    explanation: |
+      Three points, one per part. (a) the conjugate and the denominator cos²x. (b) cancelling a factor (not a term) and splitting into sec x + tan x, with no work done on the right side. (c) both values with a reason (accept π/2 and 3π/2 justified by cos x = 0).
+  - slug: trig-u03-exam-q42
+    type: short_answer
+    topic_code: "3.11"
+    source: "Original item; Common Core HSF-TF.C.8"
+    points: 3
+    prompt: |
+      Solve 2 sin²x − cos x − 1 = 0 on [0, 2π), with x in radians.
+
+      (a) Use an identity to rewrite the equation in terms of cos x only.
+      (b) Factor the result.
+      (c) Find every solution in [0, 2π).
+    answer: |
+      (a) sin²x = 1 − cos²x gives 2 − 2cos²x − cos x − 1 = 0, that is 2cos²x + cos x − 1 = 0.
+      (b) (2 cos x − 1)(cos x + 1) = 0.
+      (c) cos x = 1/2 gives π/3 and 5π/3; cos x = −1 gives π. Solutions: π/3, π, 5π/3.
+    explanation: |
+      Three points, one per part. (a) the substitution and a correct quadratic in cos x (either sign arrangement). (b) a correct factorisation. (c) all three solutions (no credit with one missing).
+  # ---- Free response
+  - slug: trig-u03-exam-q43
+    type: long_answer
+    topic_code: "3.6"
+    source: "Original item; Common Core HSF-TF.C.9"
+    points: 6
+    prompt: |
+      This question builds a triple-angle formula and uses it (radians throughout).
+
+      (A) (i) Write cos 3x = cos(2x + x) and use the sum and double-angle formulas to show that cos 3x = 4cos³x − 3 cos x.
+      (ii) Explain why it is correct to start from the left side and transform it, rather than writing the equation and manipulating both sides.
+
+      (B) (i) If cos θ = 1/3, find the exact value of cos 3θ.
+      (ii) Check the formula at x = π/3 by evaluating both sides.
+
+      (C) (i) Use the formula to solve cos 3x = cos x on [0, 2π).
+      (ii) Solve the same equation using a sum-to-product formula, and confirm that you get the same solutions.
+    answer: |
+      (A) (i) cos(2x + x) = cos 2x cos x − sin 2x sin x = (2cos²x − 1)cos x − 2 sin x cos x · sin x = 2cos³x − cos x − 2(1 − cos²x)cos x = 4cos³x − 3 cos x.
+      (ii) An identity is what we are trying to prove, so we may not assume it. Transforming one side by known identities produces a chain of equal expressions ending at the other side; manipulating both sides of the claimed equation assumes it is true.
+      (B) (i) cos 3θ = 4(1/27) − 3(1/3) = 4/27 − 1 = −23/27.
+      (ii) Left side: cos π = −1. Right side: 4(1/2)³ − 3(1/2) = 1/2 − 3/2 = −1. They agree.
+      (C) (i) 4cos³x − 3 cos x = cos x gives 4cos³x − 4 cos x = 0, so 4 cos x(cos²x − 1) = −4 cos x sin²x = 0. cos x = 0 gives π/2, 3π/2; sin x = 0 gives 0, π. Solutions: 0, π/2, π, 3π/2.
+      (ii) cos 3x − cos x = −2 sin 2x sin x = 0. sin 2x = 0 with 2x in [0, 4π) gives x = 0, π/2, π, 3π/2; sin x = 0 gives 0, π. Same four solutions.
+    explanation: |
+      Six points. (A) 1 point for a complete derivation with the sum formula, cos 2x = 2cos²x − 1, sin 2x = 2 sin x cos x and sin²x = 1 − cos²x; 1 point for a correct reason about not assuming the identity. (B) 1 point for −23/27; 1 point for both sides equal to −1. (C) 1 point for factoring without dividing and all four solutions; 1 point for the sum-to-product route reaching the same four solutions.
+  - slug: trig-u03-exam-q44
+    type: long_answer
+    topic_code: "3.12"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 6
+    prompt: |
+      In a hypothetical model, the number of hours of daylight in a northern town on day t of the year is D(t) = 12 + 3 sin(2π(t − 80)/365), for 0 ≤ t ≤ 365 (radians throughout).
+
+      (A) (i) Find the greatest number of hours of daylight and the value of t at which it occurs.
+      (ii) Find both values of t in [0, 365] at which D(t) = 12, and say what they represent.
+
+      (B) (i) Solve D(t) > 13.5 on [0, 365]. Give the boundary values exactly, then to the nearest hundredth.
+      (ii) For about how many days of the year does the town get more than 13.5 hours of daylight? Explain how the answer relates to the period.
+
+      (C) (i) (Calculator.) Solve D(t) ≥ 14 on [0, 365], giving the boundary values to the nearest hundredth.
+      (ii) Explain how you found the second boundary value from the single angle the calculator gave.
+    answer: |
+      (A) (i) The maximum is 12 + 3 = 15 hours, when 2π(t − 80)/365 = π/2, that is t − 80 = 365/4, so t = 171.25.
+      (ii) sin(2π(t − 80)/365) = 0 when 2π(t − 80)/365 = 0 or π: t = 80 and t = 80 + 182.5 = 262.5. These are the days with 12 hours of daylight, the equinoxes of the model.
+      (B) (i) 3 sin u > 1.5 with u = 2π(t − 80)/365 means sin u > 1/2, so π/6 < u < 5π/6 (u runs from about −1.38 to 4.91 on [0, 365], so this is the only such interval). Then 365/12 < t − 80 < 5 · 365/12, so 80 + 365/12 < t < 80 + 1825/12, that is 110.42 < t < 232.08.
+      (ii) 232.08 − 110.42 ≈ 121.67, about 122 days. That is (5π/6 − π/6)/(2π) = 1/3 of the period of 365 days.
+      (C) (i) sin u ≥ 2/3. sin⁻¹(2/3) ≈ 0.7297, so 0.7297 ≤ u ≤ π − 0.7297 ≈ 2.4119. Converting with t = 80 + 365u/(2π): 122.39 ≤ t ≤ 220.11.
+      (ii) The calculator gives only α = sin⁻¹(2/3) in [−π/2, π/2]. Sine takes the same value at π − α in quadrant II, and sine stays above 2/3 between α and π − α, so π − α is the other boundary.
+    explanation: |
+      Six points. (A) 1 point for 15 hours at t = 171.25; 1 point for t = 80 and 262.5 with an interpretation (12 hours of daylight). (B) 1 point for 110.42 < t < 232.08 with exact forms 80 + 365/12 and 80 + 1825/12; 1 point for about 122 days (accept 121.67) linked to one third of the period. (C) 1 point for 122.39 ≤ t ≤ 220.11 (accept ±0.01); 1 point for the π − α explanation.

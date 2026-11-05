@@ -1,0 +1,607 @@
+week: 14
+unit: 3
+title: "Verifying Identities"
+topics: ["3.3"]
+guide: guides/week-14.md
+guide_description: |
+  What an identity is and how it differs from a conditional equation; why a table of matching values is
+  evidence but not proof; the one-side method with a reason for every line and a strategy list (start with
+  the more complicated side, Pythagorean substitutions, common denominators, factoring, conjugates, sines and
+  cosines); working both sides to a common middle; disproving with a well-chosen counterexample; and the
+  domain on which an identity holds. Worked examples: sec x − cos x = sin x tan x,
+  cos x/(1 − sin x) − tan x = sec x, tan²x − sin²x = tan²x sin²x, (csc x − cot x)² = (1 − cos x)/(1 + cos x),
+  and why (sin x + cos x)² = 1 fails.
+flashcards_description: |
+  30 cards on identities versus conditional equations, the rules for a valid verification, strategies,
+  specific identities and their key steps, counterexamples, domains, and the errors that lose the most points.
+
+flashcards:
+  - front: Identity vs conditional equation → the difference
+    back: |
+      An identity is true at every x where both sides are defined (tan x = sin x/cos x). A conditional equation is true only at some x (sin x = cos x holds at π/4, not at 0).
+    topic_code: "3.3"
+  - front: Graphs of the two sides of an identity → what you see
+    back: |
+      The same graph, with the same gaps. For a conditional equation the two graphs only cross at the solutions.
+    topic_code: "3.3"
+  - front: Matching values at 0, π/6, π/4, π/3, π/2 → does that prove an identity?
+    back: |
+      No. sin x and sin x + sin 12x agree at all five angles but differ at π/24. Only an algebraic chain proves an identity.
+    topic_code: "3.3"
+  - front: The one rule for verifying an identity → what you may not do
+    back: |
+      Do not add to, multiply or square both sides: that assumes what you are proving. Transform one side until it becomes the other.
+    topic_code: "3.3"
+  - front: Which side to start from when verifying → rule of thumb
+    back: |
+      The more complicated side: the one with fractions, sums, or reciprocal functions has more to simplify.
+    topic_code: "3.3"
+  - front: Working both sides of an identity → when it is legitimate
+    back: |
+      When each side is transformed separately to the same expression M: L = M and R = M give L = R. Moving terms across the equal sign is still not allowed.
+    topic_code: "3.3"
+  - front: Stuck verifying an identity → fallback move
+    back: |
+      Convert every function to sines and cosines, combine fractions, and look for sin²x + cos²x.
+    topic_code: "3.3"
+  - front: Denominator 1 − sin x in an identity → standard move
+    back: |
+      Multiply top and bottom by the conjugate 1 + sin x, making the denominator 1 − sin²x = cos²x.
+    topic_code: "3.3"
+  - front: sec x − cos x = sin x tan x → key steps
+    back: |
+      1/cos x − cos x = (1 − cos²x)/cos x = sin²x/cos x = sin x · (sin x/cos x) = sin x tan x.
+    topic_code: "3.3"
+  - front: cos x/(1 − sin x) − tan x = sec x → key steps
+    back: |
+      Common denominator cos x(1 − sin x); numerator cos²x − sin x + sin²x = 1 − sin x; cancel to 1/cos x.
+    topic_code: "3.3"
+  - front: tan²x − sin²x = tan²x sin²x → key steps
+    back: |
+      sin²x/cos²x − sin²x = sin²x(sec²x − 1) = sin²x tan²x.
+    topic_code: "3.3"
+  - front: (csc x − cot x)² = (1 − cos x)/(1 + cos x) → method
+    back: |
+      Work both sides to (1 − cos x)²/sin²x: square the left in sines and cosines; multiply the right by (1 − cos x)/(1 − cos x).
+    topic_code: "3.3"
+  - front: (csc x − cot x)(csc x + cot x) → value and why
+    back: |
+      csc²x − cot²x = 1, from 1 + cot²x = csc²x. Defined where sin x ≠ 0.
+    topic_code: "3.3"
+  - front: sec x + tan x = 1/(sec x − tan x) → why it holds
+    back: |
+      (sec x + tan x)(sec x − tan x) = sec²x − tan²x = 1, so each factor is the reciprocal of the other.
+    topic_code: "3.3"
+  - front: sec⁴x − tan⁴x = sec²x + tan²x → key step
+    back: |
+      Difference of squares: (sec²x − tan²x)(sec²x + tan²x), and sec²x − tan²x = 1.
+    topic_code: "3.3"
+  - front: cos x + sin x tan x = sec x → key steps
+    back: |
+      cos x + sin²x/cos x = (cos²x + sin²x)/cos x = 1/cos x = sec x.
+    topic_code: "3.3"
+  - front: (sin x + cos x)² → the identity it satisfies
+    back: |
+      1 + 2 sin x cos x. Expanding gives sin²x + 2 sin x cos x + cos²x, and sin²x + cos²x = 1.
+    topic_code: "3.3"
+  - front: Counterexample → what makes one valid
+    back: |
+      A value where both sides are defined and have different values. One valid counterexample disproves an identity.
+    topic_code: "3.3"
+  - front: Disproving sin x + cos x = 1 → good and bad choices of x
+    back: |
+      x = π/4 works: √2 ≠ 1. x = 0 and x = π/2 are bad choices, because both sides equal 1 there.
+    topic_code: "3.3"
+  - front: Disproving sec x + tan x = 1 → a counterexample
+    back: |
+      At x = π/4 the left side is √2 + 1 ≈ 2.41, not 1.
+    topic_code: "3.3"
+  - front: Disproving sec²x + csc²x = 1 → a counterexample
+    back: |
+      At x = π/4 the left side is 2 + 2 = 4. (In fact sec²x + csc²x = sec²x csc²x, which is never 1.)
+    topic_code: "3.3"
+  - front: tan x · cot x = 1 at x = π/2 → counterexample or not?
+    back: |
+      Not a counterexample: tan(π/2) is undefined, so π/2 is outside the identity's domain. It holds for x ≠ πn/2.
+    topic_code: "3.3"
+  - front: Domain of an identity → how to find it
+    back: |
+      Exclude zeros of every denominator and every x where tan, sec, csc or cot in the identity is undefined. The identity claims nothing there.
+    topic_code: "3.3"
+  - front: (1 − cos x)/sin x = sin x/(1 + cos x) at x = π → what happens
+    back: |
+      Left side 2/0, right side 0/0: both undefined, so π is outside the domain. The identity holds wherever sin x ≠ 0.
+    topic_code: "3.3"
+  - front: Even/odd identity useful in verifications → cot(−x)
+    back: |
+      cot(−x) = cos(−x)/sin(−x) = cos x/(−sin x) = −cot x. Cotangent is odd, like sine and tangent.
+    topic_code: "3.3"
+  - front: Writing up a verification → layout
+    back: |
+      Start with one side, then one equal sign per line, each line with a reason (identity used or algebra step), ending with the other side.
+    topic_code: "3.3"
+  - front: Cross-multiplying to verify an identity → why graders reject it
+    back: |
+      It starts from the claim itself. Reaching a true statement from an assumed one does not prove the assumption unless every step reverses and no denominator is zero.
+    topic_code: "3.3"
+  - front: Error-spot → "sin x + cos x = 1 is an identity because it works at x = 0"
+    back: |
+      One matching value proves nothing. At x = π/4 the left side is √2, so the equation is not an identity.
+    topic_code: "3.3"
+  - front: Error-spot → "Square both sides of sec x = 1/cos x to verify it"
+    back: |
+      Squaring both sides assumes the identity and can create false ones (−1 = 1 squares to 1 = 1). Transform one side only.
+    topic_code: "3.3"
+  - front: Error-spot → "x = π/2 disproves tan x cot x = 1"
+    back: |
+      tan(π/2) is undefined, so π/2 is not in the domain. A counterexample must be a value where both sides exist.
+    topic_code: "3.3"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topic 3.3: identities versus equations, verifying
+    by transforming one side, strategies, counterexamples and domains), with about a third reviewing week 13
+    (simplifying, factoring and rational expressions) and weeks 6 and 11 (unit-circle values, the fundamental
+    identities, inverse compositions). Includes a shared-context set on a student's verification. Multiple
+    choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring
+    notes. Items marked (Calculator.) need a calculator; the rest are designed to be done by hand.
+  questions:
+    # ---- Stimulus set: reading a verification (3.3)
+    - slug: trig-u03-w14-q01
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      stimulus: |
+        A student verifies the identity csc x − sin x = cos x cot x as follows.
+
+        Line 1: csc x − sin x = 1/sin x − sin x
+        Line 2: = (1 − sin²x)/sin x
+        Line 3: = cos²x/sin x
+        Line 4: = cos x · (cos x/sin x) = cos x cot x
+      prompt: |
+        In which line does the student use a Pythagorean identity?
+      options:
+        - "Line 1"
+        - "Line 2"
+        - "Line 3"
+        - "Line 4"
+      option_explanations:
+        - |
+          Line 1 replaces csc x with 1/sin x, which is a reciprocal identity, not a Pythagorean one.
+        - |
+          Line 2 rewrites the difference over the common denominator sin x; that is fraction arithmetic.
+        - |
+          Correct. Line 3 replaces 1 − sin²x with cos²x, using sin²x + cos²x = 1.
+        - |
+          Line 4 factors cos²x and uses the quotient identity cos x/sin x = cot x; no squares are replaced.
+      answer: 2
+    - slug: trig-u03-w14-q02
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      stimulus: |
+        A student verifies the identity csc x − sin x = cos x cot x as follows.
+
+        Line 1: csc x − sin x = 1/sin x − sin x
+        Line 2: = (1 − sin²x)/sin x
+        Line 3: = cos²x/sin x
+        Line 4: = cos x · (cos x/sin x) = cos x cot x
+      prompt: |
+        Which reason justifies the move from Line 1 to Line 2?
+      options:
+        - "A Pythagorean identity"
+        - "Writing sin x as sin²x/sin x and subtracting over the common denominator"
+        - "Multiplying both sides of the identity by sin x"
+        - "Factoring sin x out of both terms"
+      option_explanations:
+        - |
+          No squares of sine and cosine are combined into 1 in this step; the Pythagorean identity is used one line later.
+        - |
+          Correct. 1/sin x − sin²x/sin x = (1 − sin²x)/sin x: ordinary subtraction of fractions on one side.
+        - |
+          Multiplying both sides would assume the identity and change both sides; here only the left side is rewritten.
+        - |
+          1/sin x and sin x do not share sin x as a factor in a way that produces this line; the denominator comes from a common denominator.
+      answer: 1
+    - slug: trig-u03-w14-q03
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      stimulus: |
+        A student verifies the identity csc x − sin x = cos x cot x as follows.
+
+        Line 1: csc x − sin x = 1/sin x − sin x
+        Line 2: = (1 − sin²x)/sin x
+        Line 3: = cos²x/sin x
+        Line 4: = cos x · (cos x/sin x) = cos x cot x
+      prompt: |
+        For which values of x does the identity make no claim, because a side is undefined?
+      options:
+        - "x = π/2 + πn"
+        - "x = 2πn only"
+        - "x = π/4 + πn"
+        - "x = πn"
+      option_explanations:
+        - |
+          At x = π/2 + πn, cos x = 0 but sin x = ±1, so csc x and cot x are defined (cot x = 0); both sides equal 0.
+        - |
+          sin x is also 0 at odd multiples of π, so x = π, 3π, … are excluded as well.
+        - |
+          At π/4 + πn, sin x = ±√2/2 ≠ 0, so every function in the identity is defined there.
+        - |
+          Correct. csc x and cot x both need sin x ≠ 0, and sin x = 0 exactly at x = πn.
+      answer: 3
+    - slug: trig-u03-w14-q04
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      prompt: |
+        Which of these equations is an identity?
+      options:
+        - "sin x + cos x = 1"
+        - "(sin x + cos x)² = 1 + 2 sin x cos x"
+        - "tan x + cot x = 1"
+        - "sec²x + tan²x = 1"
+      option_explanations:
+        - |
+          At x = π/4 the left side is √2, so this is a conditional equation, true only at some x.
+        - |
+          Correct. Expanding gives sin²x + 2 sin x cos x + cos²x, and sin²x + cos²x = 1.
+        - |
+          At x = π/4 the left side is 1 + 1 = 2. In fact tan x + cot x = sec x csc x.
+        - |
+          The Pythagorean identity is sec²x − tan²x = 1; with a plus sign, x = π/4 gives 2 + 1 = 3.
+      answer: 1
+    - slug: trig-u03-w14-q05
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      prompt: |
+        A student claims that cos x − sin x = 1 is an identity. Which value of x is a counterexample?
+      options:
+        - "x = 0"
+        - "x = 3π/2"
+        - "x = π/2"
+        - "x = 2π"
+      option_explanations:
+        - |
+          cos 0 − sin 0 = 1 − 0 = 1, so the claim holds at 0; it is not a counterexample.
+        - |
+          cos(3π/2) − sin(3π/2) = 0 − (−1) = 1, so the two sides agree here.
+        - |
+          Correct. cos(π/2) − sin(π/2) = 0 − 1 = −1 ≠ 1, and both sides are defined.
+        - |
+          2π gives the same values as 0, so the sides agree: 1 − 0 = 1.
+      answer: 2
+    - slug: trig-u03-w14-q06
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      prompt: |
+        Which is the best first step in verifying (1 − cos²x)/(sin x cos x) = tan x?
+      options:
+        - "Replace 1 − cos²x in the left side with sin²x."
+        - "Multiply both sides by sin x cos x."
+        - "Cross-multiply to get 1 − cos²x = tan x sin x cos x."
+        - "Square both sides to remove the fraction."
+      option_explanations:
+        - |
+          Correct. This rewrites one side with a Pythagorean identity; then sin²x/(sin x cos x) = sin x/cos x = tan x.
+        - |
+          Multiplying both sides treats the identity as an equation to solve and assumes what is to be proved.
+        - |
+          Cross-multiplying is also an operation on both sides; it starts from the claim instead of proving it.
+        - |
+          Squaring both sides assumes the equality and can make a false statement look true.
+      answer: 0
+    - slug: trig-u03-w14-q07
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      prompt: |
+        A verification of cos²x(sec²x − 1) = sin²x reads: cos²x(sec²x − 1) = ____ = cos²x · (sin²x/cos²x) = sin²x. Which expression fills the blank, using a Pythagorean identity?
+      options:
+        - "cos²x · cot²x"
+        - "−cos²x · tan²x"
+        - "cos⁴x"
+        - "cos²x · tan²x"
+      option_explanations:
+        - |
+          sec²x − 1 is tan²x, not cot²x; cot²x pairs with csc²x − 1.
+        - |
+          sec²x − 1 = tan²x is positive; the minus sign would come from misreading it as 1 − sec²x.
+        - |
+          cos⁴x would need sec²x − 1 = cos²x; the Pythagorean identity gives tan²x.
+        - |
+          Correct. 1 + tan²x = sec²x, so sec²x − 1 = tan²x, and the next line writes tan²x as sin²x/cos²x.
+      answer: 3
+    - slug: trig-u03-w14-q08
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      prompt: |
+        Which expression completes the identity cos x/sec x + sin x/csc x = ____?
+      options:
+        - "1"
+        - "2"
+        - "sec x csc x"
+        - "cos x + sin x"
+      option_explanations:
+        - |
+          Correct. Dividing by sec x multiplies by cos x and dividing by csc x multiplies by sin x, giving cos²x + sin²x = 1.
+        - |
+          Each quotient is not 1: cos x/sec x = cos²x, because sec x is 1/cos x, not cos x.
+        - |
+          This treats the quotients as products of reciprocals; dividing by a reciprocal multiplies by the original function.
+        - |
+          The functions are squared, not left alone: cos x ÷ (1/cos x) = cos²x.
+      answer: 0
+    - slug: trig-u03-w14-q09
+      type: multiple_choice
+      topic_code: "3.2"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      prompt: |
+        Simplify (tan²x − 9)/(tan x + 3), for x where tan x is defined and tan x ≠ −3.
+      options:
+        - "tan x + 3"
+        - "tan x − 3"
+        - "tan x − 9"
+        - "sec²x − 10"
+      option_explanations:
+        - |
+          tan x + 3 is the factor that cancels; the factor that remains is tan x − 3.
+        - |
+          Correct. tan²x − 9 = (tan x − 3)(tan x + 3), and tan x + 3 cancels.
+        - |
+          Dividing only the tan²x term by tan x and leaving −9 is not cancellation; factor the whole numerator first.
+        - |
+          tan²x − 9 = sec²x − 10 is true, but it does not simplify the fraction; the denominator remains.
+      answer: 1
+    - slug: trig-u03-w14-q10
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      prompt: |
+        Which single function equals cot x sec x wherever both are defined?
+      options:
+        - "tan x"
+        - "sec x"
+        - "sin x"
+        - "csc x"
+      option_explanations:
+        - |
+          cot x and tan x are reciprocals, but the second factor here is sec x, not tan x.
+        - |
+          sec x does not survive: its cos x in the denominator cancels the cos x in cot x.
+        - |
+          The result is the reciprocal of sin x, because sin x is left in the denominator.
+        - |
+          Correct. (cos x/sin x)(1/cos x) = 1/sin x = csc x.
+      answer: 3
+    - slug: trig-u03-w14-q11
+      type: multiple_choice
+      topic_code: "2.10"
+      source: "Original item; Common Core HSF-TF.B.7"
+      points: 1
+      prompt: |
+        What is the exact value of sin(cos⁻¹(−4/5))?
+      options:
+        - "−3/5"
+        - "4/5"
+        - "3/5"
+        - "−4/5"
+      option_explanations:
+        - |
+          cos⁻¹ returns an angle in [0, π], where sine is never negative.
+        - |
+          4/5 is the absolute value of the cosine; the sine comes from the third side of the 3-4-5 triangle.
+        - |
+          Correct. θ = cos⁻¹(−4/5) is in quadrant II; sin θ = √(1 − 16/25) = 3/5, positive in quadrant II.
+        - |
+          −4/5 is cos θ, and cos(cos⁻¹ x) = x; the question asks for the sine.
+      answer: 2
+    - slug: trig-u03-w14-q12
+      type: multiple_choice
+      topic_code: "1.11"
+      source: "Original item; Common Core HSF-TF.A.3"
+      points: 1
+      prompt: |
+        Which angle in [0, 2π) has sin x = cos x with both values negative?
+      options:
+        - "5π/4"
+        - "π/4"
+        - "3π/4"
+        - "7π/4"
+      option_explanations:
+        - |
+          Correct. At 5π/4 the unit-circle point is (−√2/2, −√2/2): equal coordinates, both negative.
+        - |
+          At π/4 sine and cosine are equal but both positive.
+        - |
+          At 3π/4 the point is (−√2/2, √2/2); the values are opposites, not equal.
+        - |
+          At 7π/4 the point is (√2/2, −√2/2); again the values are opposites.
+      answer: 0
+    - slug: trig-u03-w14-q13
+      type: multi_select
+      topic_code: "3.3"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which of these equations are identities (true wherever both sides are defined)? Select all that apply.
+      options:
+        - "sin²x − cos²x = 1"
+        - "(1 + cot²x) sin²x = 1"
+        - "csc x − sin x = cos x tan x"
+        - "sin x + cos x cot x = csc x"
+        - "1 − 2 sin²x = cos²x"
+      option_explanations:
+        - |
+          At x = 0 the left side is 0 − 1 = −1. The identity is sin²x + cos²x = 1.
+        - |
+          Correct. 1 + cot²x = csc²x = 1/sin²x, so the product is 1 wherever sin x ≠ 0.
+        - |
+          csc x − sin x = cos²x/sin x = cos x cot x; with tan x the right side is sin x, and at x = π/6 the sides are 3/2 and 1/2.
+        - |
+          Correct. sin x + cos²x/sin x = (sin²x + cos²x)/sin x = 1/sin x = csc x.
+        - |
+          1 − 2 sin²x = cos²x − sin²x, which differs from cos²x unless sin x = 0; at x = π/2 the sides are −1 and 0.
+      answer: [1, 3]
+    - slug: trig-u03-w14-q14
+      type: multi_select
+      topic_code: "3.2"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which expressions equal (1 − sin x)(1 + sin x) for every x at which they are defined? Select all that apply.
+      options:
+        - "cos²x"
+        - "sin²x − 1"
+        - "1/sec²x"
+        - "1 − sin²x"
+        - "(1 − sin x)²"
+      option_explanations:
+        - |
+          Correct. The product is 1 − sin²x, which is cos²x by the Pythagorean identity.
+        - |
+          sin²x − 1 is the negative of the product; at x = 0 it is −1 while the product is 1.
+        - |
+          Correct. 1/sec²x = cos²x wherever sec x is defined.
+        - |
+          Correct. Conjugates multiply to a difference of squares: 1 − sin²x.
+        - |
+          (1 − sin x)² = 1 − 2 sin x + sin²x, which keeps a middle term; at x = −π/2 it is 4 while the product is 0.
+      answer: [0, 2, 3]
+    - slug: trig-u03-w14-q15
+      type: true_false
+      topic_code: "3.3"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      prompt: |
+        True or false: If an equation in x is true at x = 0, π/6, π/4, π/3 and π/2, then it is an identity.
+      answer: false
+      explanation: |
+        False. Agreement at finitely many values is evidence, not proof. For example, sin x = sin x + sin 12x holds at all five values (sin 12x = 0 at each) but fails at x = π/24. An identity needs an algebraic verification.
+    - slug: trig-u03-w14-q16
+      type: true_false
+      topic_code: "1.12"
+      source: "Original item; Common Core HSF-TF.A.4"
+      points: 1
+      prompt: |
+        True or false: cot(−x) = −cot x for every x at which cot x is defined.
+      answer: true
+      explanation: |
+        True. cot(−x) = cos(−x)/sin(−x) = cos x/(−sin x) = −cot x, using that cosine is even and sine is odd. Cotangent is an odd function.
+    - slug: trig-u03-w14-q17
+      type: fill_blank
+      topic_code: "3.3"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      prompt: |
+        Complete the identity with a single squared trigonometric function: cos x(sec x − cos x) = ____
+      answer: ["sin²x", "sin² x", "sin^2x", "sin^2 x", "sin^2(x)", "sin²(x)", "(sin x)^2", "(sin x)²", "sinx^2"]
+      explanation: |
+        cos x · sec x − cos²x = 1 − cos²x = sin²x, using cos x · sec x = 1 and the Pythagorean identity.
+    - slug: trig-u03-w14-q18
+      type: fill_blank
+      topic_code: "3.3"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      prompt: |
+        The equation sec²x + csc²x = 1 is not an identity. At x = π/4 its left side equals ____.
+      answer: ["4", "4.0", "four"]
+      explanation: |
+        sec(π/4) = csc(π/4) = √2, so sec²(π/4) + csc²(π/4) = 2 + 2 = 4 ≠ 1. Both sides are defined at π/4, so this is a valid counterexample.
+    - slug: trig-u03-w14-q19
+      type: numeric
+      topic_code: "3.3"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      prompt: |
+        (Calculator.) Before verifying cos x/(1 + sin x) = (1 − sin x)/cos x, a student checks the left side at x = 0.5 radians. What value should she get, to the nearest thousandth?
+      answer: { value: 0.593, tolerance: 0.001 }
+      explanation: |
+        cos 0.5 ≈ 0.87758 and sin 0.5 ≈ 0.47943, so the left side is 0.87758/1.47943 ≈ 0.593. The right side gives 0.52057/0.87758 ≈ 0.593 too, which is consistent with the identity (multiply the left by the conjugate 1 − sin x to prove it) but does not prove it.
+    - slug: trig-u03-w14-q20
+      type: numeric
+      topic_code: "1.12"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      prompt: |
+        If tan θ = −5/12 and θ is in quadrant IV, find cos θ. Give your answer to the nearest thousandth.
+      answer: { value: 0.923, tolerance: 0.001 }
+      explanation: |
+        sec²θ = 1 + 25/144 = 169/144, so sec θ = ±13/12. Cosine is positive in quadrant IV, so cos θ = 12/13 ≈ 0.923.
+    - slug: trig-u03-w14-q21
+      type: short_answer
+      topic_code: "3.3"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 3
+      prompt: |
+        Verify the identity (csc x − cot x)(csc x + cot x) = 1.
+
+        (a) Expand the left side.
+        (b) Name the identity that finishes the verification, and complete it.
+        (c) State the values of x for which the identity holds.
+      answer: |
+        (a) (csc x − cot x)(csc x + cot x) = csc²x − cot²x, a difference of squares.
+        (b) The Pythagorean identity 1 + cot²x = csc²x gives csc²x − cot²x = 1, which is the right side.
+        (c) csc x and cot x are defined exactly where sin x ≠ 0, so the identity holds for all x ≠ πn (n an integer).
+      explanation: |
+        Three points, one per part. (a) csc²x − cot²x. (b) names or writes 1 + cot²x = csc²x and concludes 1. (c) x ≠ πn, or "wherever sin x ≠ 0".
+    - slug: trig-u03-w14-q22
+      type: short_answer
+      topic_code: "3.3"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 3
+      prompt: |
+        Decide each claim. Verify the identities and give a counterexample for the non-identity.
+
+        (a) tan x(cot x + tan x) = sec²x
+        (b) 1 + tan x = sec x
+        (c) sec⁴x − tan⁴x = sec²x + tan²x
+      answer: |
+        (a) Identity. tan x cot x + tan²x = 1 + tan²x = sec²x.
+        (b) Not an identity. At x = π/4 the left side is 1 + 1 = 2 and the right side is √2; both are defined and 2 ≠ √2.
+        (c) Identity. sec⁴x − tan⁴x = (sec²x − tan²x)(sec²x + tan²x) = 1 · (sec²x + tan²x) = sec²x + tan²x.
+      explanation: |
+        Three points, one per part. (a) a valid one-side chain using tan x cot x = 1 and 1 + tan²x = sec²x. (b) a valid counterexample with both values (x = π/4 or any x where both are defined and unequal; x = 0 does not work). (c) the difference-of-squares factorisation with sec²x − tan²x = 1.
+    - slug: trig-u03-w14-q23
+      type: long_answer
+      topic_code: "3.3"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 6
+      prompt: |
+        Consider the claimed identity sin x/(1 − cos x) = (1 + cos x)/sin x.
+
+        (A) (i) Verify the identity by multiplying the left side by a conjugate.
+        (ii) Check it numerically at x = 2π/3, giving exact values of both sides.
+
+        (B) (i) Find every x in [0, 2π) at which at least one side is undefined.
+        (ii) At x = π, what happens to each side? Explain why x = π is not a counterexample.
+
+        (C) Another student writes: "Cross-multiply: sin x · sin x = (1 + cos x)(1 − cos x), so sin²x = 1 − cos²x, which is true. So the identity is proved."
+        (i) Explain what is wrong with this argument as written.
+        (ii) Describe how the student's work could be turned into a valid proof.
+      answer: |
+        (A) (i) sin x/(1 − cos x) · (1 + cos x)/(1 + cos x) = sin x(1 + cos x)/(1 − cos²x) = sin x(1 + cos x)/sin²x = (1 + cos x)/sin x.
+        (ii) At x = 2π/3: sin x = √3/2, cos x = −1/2. Left: (√3/2)/(3/2) = √3/3. Right: (1/2)/(√3/2) = 1/√3 = √3/3. They agree.
+        (B) (i) The left side needs cos x ≠ 1 (x ≠ 0); the right side needs sin x ≠ 0 (x ≠ 0, π). So x = 0 and x = π.
+        (ii) At x = π the left side is 0/2 = 0 but the right side is 0/0, undefined. A counterexample needs both sides defined, so π is simply outside the identity's domain.
+        (C) (i) The student starts from the equation to be proved and operates on both sides; deriving a true statement from an assumed one does not show the assumption is true.
+        (ii) Run the steps backwards from a true statement: start from sin²x = 1 − cos²x = (1 − cos x)(1 + cos x) and divide both sides by sin x(1 − cos x), which is allowed where sin x ≠ 0 and cos x ≠ 1, to obtain sin x/(1 − cos x) = (1 + cos x)/sin x. Or use the one-side method of part (A).
+      explanation: |
+        Six points. (A) 1 point for a correct conjugate chain; 1 point for both sides equal to √3/3 (accept 1/√3). (B) 1 point for x = 0 and x = π with reasons; 1 point for noting the right side is undefined at π, so π is not a counterexample. (C) 1 point for identifying that the argument assumes the conclusion (works on both sides); 1 point for a valid repair: reversing from a true statement with the division justified, or a one-side verification.
