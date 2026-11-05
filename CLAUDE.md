@@ -221,9 +221,9 @@ course (`GET|POST /api/comments?target_type=&target_id=`, `PATCH|DELETE
   `--color-denied-surface`, `--color-deleted-surface`) in every palette, held
   to 4.5:1 for every text token by `theme-files.spec.ts`.
 
-## Seeded courses (AP Biology, AP U.S. History, Algebra 1, Geometry, Algebra 2, Precalculus, Chemistry, AP Chemistry, AP World History)
+## Seeded courses (AP Biology, AP U.S. History, Algebra 1, Geometry, Algebra 2, Precalculus, Trigonometry, Chemistry, AP Chemistry, AP World History)
 
-Nine full-year courses are seeded from YAML, each by a thin subclass of
+Ten full-year courses are seeded from YAML, each by a thin subclass of
 `Database\Seeders\Curriculum\CurriculumSeeder` that names its data directory:
 
 | Seeder | Command | Data | Slug | Demo accounts |
@@ -234,6 +234,7 @@ Nine full-year courses are seeded from YAML, each by a thin subclass of
 | `GeometrySeeder` | `course:seed-geometry` | `data/geometry/` (adapted from CC BY 4.0 IM 9–12 Math) | `geo` | `geometry@`, `geometry-student@example.com` |
 | `Algebra2Seeder` | `course:seed-algebra-2` | `data/algebra-2/` (adapted from CC BY 4.0 IM 9–12 Math) | `alg2` | `algebra2@`, `algebra2-student@example.com` |
 | `PrecalculusSeeder` | `course:seed-precalculus` | `data/precalculus/` (original, AP Precalculus CED) | `precalc` | `precalc@`, `precalc-student@example.com` |
+| `TrigonometrySeeder` | `course:seed-trigonometry` | `data/trigonometry/` (original, Common Core trigonometry standards) | `trig` | `trig@`, `trig-student@example.com` |
 | `ChemistrySeeder` | `course:seed-chemistry` | `data/chemistry/` (original, public-domain data) | `chem` | `chemistry@`, `chemistry-student@example.com` |
 | `ApChemistrySeeder` | `course:seed-ap-chemistry` | `data/ap-chemistry/` (original, public-domain data) | `apchem` | `apchem@`, `apchem-student@example.com` |
 | `ApWorldHistorySeeder` | `course:seed-ap-world-history` | `data/ap-world-history/` (original, public-domain quotations) | `apworld` | `apworld@`, `apworld-student@example.com` |
@@ -268,6 +269,7 @@ php artisan course:seed-algebra-1 --teacher=you@example.com --no-student --force
 php artisan course:seed-geometry --teacher=you@example.com --no-student --force
 php artisan course:seed-algebra-2 --teacher=you@example.com --no-student --force
 php artisan course:seed-precalculus --teacher=you@example.com --no-student --force
+php artisan course:seed-trigonometry --teacher=you@example.com --no-student --force
 php artisan course:seed-chemistry --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-chemistry --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-world-history --teacher=you@example.com --no-student --force
@@ -317,6 +319,20 @@ and Exam Description`, `CC BY 4.0`); modelling data is invented. Its practice
 final opens with the May 2027 AP shape (29 no-calculator and 13 calculator
 multiple choice, then the four 6-point free-response types) and adds 24 items
 on Unit 4 and the other item types.
+
+Trigonometry is **original writing** too (no full trigonometry text is CC BY:
+Yoshiwara and Corral are GFDL, Boelkins CC BY-SA, Weimerskirch CC BY-NC,
+Sundstrom–Schlicker and OpenStax NC-SA; research in the project files). It has
+five self-designed units with its own topic codes (`"3.4"` = Unit 3, topic 4),
+cites Common Core codes (HSG-SRT, HSF-TF, HSN-CN, HSN-VM) in each item's
+`source`, and goes past Precalculus's Unit 3: laws of sines and cosines,
+the full identity toolkit, vectors and dot products, complex numbers in
+trigonometric form with De Moivre's theorem, parametric and polar conics.
+Weeks 1–10 follow the approach of IM 9–12 Math's CC BY trigonometry lessons
+and credit them in their footer; markers are `written for this course` and
+`CC BY 4.0`. Its practice final is a regular cumulative final (70 items: no-
+calculator MC, calculator items, select-all/true-false/fill-in, then four short
+and four long free-response items).
 
 Chemistry, AP Chemistry and AP World History: Modern are **original writing**
 like AP U.S. History: no textbook is adapted. The two chemistry courses take

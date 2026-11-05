@@ -1,0 +1,976 @@
+unit: 5
+description: |
+  46 questions · about 90 minutes · every topic of Unit 5 (5.1 to 5.12): polar coordinates and converting points
+  and equations, graphs of polar equations, the complex plane, trigonometric form, products and quotients, De
+  Moivre's theorem and complex roots, parametric equations, projectile motion, polar conics, and Euler's formula and
+  rotations, with a little review of Units 1, 3 and 4. Includes four shared-context sets (a complex number, a
+  limaçon, a golf drive and a polar conic), select-all, true/false, fill-in-the-blank and numeric items, two
+  short-answer questions (3 points each) and two free-response questions (6 points each: a baseball over a fence
+  and a two-segment robot arm described with complex numbers). Items marked (Calculator.) need a calculator; the
+  rest are designed to be done by hand. Multiple choice, select-all, true/false and numeric items are graded at
+  once; fill-in-the-blank items are matched automatically; the free-response items are graded by your teacher
+  against the scoring notes.
+questions:
+  # ---- Stimulus set A: a complex number (5.5, 5.7, 5.8)
+  - slug: trig-u05-exam-q01
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "Original item; Common Core HSN-CN.B.4"
+    points: 1
+    stimulus: |
+      Let z = −2 + 2√3 i.
+    prompt: |
+      Which is the trigonometric form of z, with 0 ≤ θ < 2π?
+    options:
+      - "4 cis(π/3)"
+      - "16 cis(2π/3)"
+      - "4 cis(2π/3)"
+      - "4 cis(5π/3)"
+    option_explanations:
+      - |
+        π/3 is the reference angle. z has a negative real part and a positive imaginary part, so it is in quadrant II.
+      - |
+        16 is a² + b², the square of the modulus; |z| = √(4 + 12) = 4.
+      - |
+        Correct. |z| = √((−2)² + (2√3)²) = 4, and z is in quadrant II with reference angle π/3, so θ = 2π/3.
+      - |
+        5π/3 is in quadrant IV, where the imaginary part would be negative; z = −2 + 2√3 i is in quadrant II.
+    answer: 2
+  - slug: trig-u05-exam-q02
+    type: multiple_choice
+    topic_code: "5.7"
+    source: "Original item; Common Core HSN-CN.B.5 (extension)"
+    points: 1
+    stimulus: |
+      Let z = −2 + 2√3 i.
+    prompt: |
+      What is z³?
+    options:
+      - "64"
+      - "−64"
+      - "64i"
+      - "−8 − 24√3 i"
+    option_explanations:
+      - |
+        Correct. z = 4 cis(2π/3), so z³ = 4³ cis(2π) = 64(1 + 0i) = 64.
+      - |
+        −64 would need an argument of π after cubing; 3 · 2π/3 = 2π, a full turn, which points along the positive real axis.
+      - |
+        64i has argument π/2; tripling 2π/3 gives 2π, not π/2.
+      - |
+        This cubes the real and imaginary parts separately; (a + b)³ is not a³ + b³.
+    answer: 0
+  - slug: trig-u05-exam-q03
+    type: multiple_choice
+    topic_code: "5.8"
+    source: "Original item; Common Core HSN-CN.B.5 (extension)"
+    points: 1
+    stimulus: |
+      Let z = −2 + 2√3 i.
+    prompt: |
+      What are the two square roots of z?
+    options:
+      - "2 cis(π/3) and 2 cis(2π/3)"
+      - "4 cis(π/3) and 4 cis(4π/3)"
+      - "1 + √3 i and 1 − √3 i"
+      - "1 + √3 i and −1 − √3 i"
+    option_explanations:
+      - |
+        Square roots are π apart (2π/2), not π/3 apart; 2 cis(2π/3) squared is 4 cis(4π/3), not z.
+      - |
+        The arguments are right, but the modulus of each root is √4 = 2, not 4.
+      - |
+        Conjugates are not opposite each other; (1 − √3 i)² = −2 − 2√3 i, the conjugate of z.
+      - |
+        Correct. The roots are 2 cis(π/3) = 1 + √3 i and 2 cis(π/3 + π) = −1 − √3 i; each squares to 4 cis(2π/3) = z.
+    answer: 3
+  # ---- Stimulus set B: a limaçon (5.3)
+  - slug: trig-u05-exam-q04
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "Original item; Common Core HSF-TF.C.8 (extension)"
+    points: 1
+    stimulus: |
+      Consider the polar equation r = 1 + 2 sin θ, with θ in radians.
+    prompt: |
+      Which best describes its graph?
+    options:
+      - "A cardioid"
+      - "A limaçon with an inner loop"
+      - "A dimpled limaçon with no inner loop"
+      - "A rose with 2 petals"
+    option_explanations:
+      - |
+        A cardioid needs the two coefficients equal, as in 1 + sin θ or 2 + 2 sin θ; here |1| < |2|.
+      - |
+        Correct. In a + b sin θ with |a| < |b| (1 < 2), r becomes negative for part of each turn, which makes an inner loop.
+      - |
+        A dimpled limaçon needs b < a < 2b; here a = 1 is smaller than b = 2, so r goes negative and loops.
+      - |
+        Roses have the form a sin(nθ); this equation has a constant added to sin θ, which makes a limaçon.
+    answer: 1
+  - slug: trig-u05-exam-q05
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "Original item; Common Core HSF-TF.C.8 (extension)"
+    points: 1
+    stimulus: |
+      Consider the polar equation r = 1 + 2 sin θ, with θ in radians.
+    prompt: |
+      For which values of θ in [0, 2π) does the graph pass through the pole?
+    options:
+      - "θ = π/6 and 5π/6"
+      - "θ = 3π/2 only"
+      - "θ = 4π/3 and 5π/3"
+      - "θ = 7π/6 and 11π/6"
+    option_explanations:
+      - |
+        At π/6 and 5π/6, sin θ = +1/2 and r = 2; the pole needs sin θ = −1/2.
+      - |
+        At 3π/2, r = 1 − 2 = −1, which is the point (0, 1), not the pole.
+      - |
+        At 4π/3 and 5π/3, sin θ = −√3/2, so r = 1 − √3 ≠ 0.
+      - |
+        Correct. r = 0 when sin θ = −1/2, which happens at 7π/6 and 11π/6 in [0, 2π).
+    answer: 3
+  - slug: trig-u05-exam-q06
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "Original item; Common Core HSF-TF.C.8 (extension)"
+    points: 1
+    stimulus: |
+      Consider the polar equation r = 1 + 2 sin θ, with θ in radians.
+    prompt: |
+      What is the maximum value of |r|, and at which rectangular point is the graph farthest from the pole?
+    options:
+      - "3, at (0, 3)"
+      - "1, at (1, 0)"
+      - "3, at (0, −3)"
+      - "2, at (0, 2)"
+    option_explanations:
+      - |
+        Correct. sin θ = 1 at θ = π/2 gives r = 3, the point (0, 3). The smallest r is −1, so |r| never exceeds 3.
+      - |
+        r = 1 at θ = 0 is not the largest value; at θ = π/2, r = 3.
+      - |
+        At θ = 3π/2, r = −1, which is the point (0, 1), not (0, −3); |r| = 3 occurs only at θ = π/2.
+      - |
+        2 is the coefficient b; the maximum is a + b = 1 + 2 = 3.
+    answer: 0
+  - slug: trig-u05-exam-q07
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "Original item; Common Core HSF-TF.C.8 (extension)"
+    points: 1
+    stimulus: |
+      Consider the polar equation r = 1 + 2 sin θ, with θ in radians.
+    prompt: |
+      About which of the following is the graph symmetric?
+    options:
+      - "The polar axis"
+      - "The pole"
+      - "The line θ = π/2"
+      - "The line θ = π/4"
+    option_explanations:
+      - |
+        Replacing θ by −θ gives 1 − 2 sin θ, a different equation, and the graph's farthest point (0, 3) has no mirror image (0, −3).
+      - |
+        Replacing r by −r gives a different equation, and (0, 3) is on the graph while (0, −3) is not.
+      - |
+        Correct. Replacing θ by π − θ leaves sin θ unchanged, so the graph is symmetric about the vertical line θ = π/2.
+      - |
+        There is no reason for symmetry about θ = π/4; the test would replace θ by π/2 − θ, which turns sin θ into cos θ.
+    answer: 2
+  # ---- Stimulus set C: a golf drive (5.10)
+  - slug: trig-u05-exam-q08
+    type: multiple_choice
+    topic_code: "5.10"
+    source: "Original item; Common Core HSN-VM.A.3"
+    points: 1
+    stimulus: |
+      A hypothetical golf ball is struck from level ground at 40 m/s at 30° above the horizontal. Ignore air resistance; x and y are in metres and t is in seconds.
+    prompt: |
+      Which parametric equations model the ball's flight?
+    options:
+      - "x = 20t, y = 20√3 t − 4.9t²"
+      - "x = 20√3 t, y = 20t − 4.9t²"
+      - "x = 20√3 t, y = 20t − 16t²"
+      - "x = 40t, y = 40t − 4.9t²"
+    option_explanations:
+      - |
+        This swaps the components; horizontal is 40 cos 30° = 20√3 and vertical is 40 sin 30° = 20.
+      - |
+        Correct. x = (40 cos 30°)t = 20√3 t and y = (40 sin 30°)t − 4.9t², with −4.9t² for metres.
+      - |
+        −16t² is the gravity term in feet; in metres it is −4.9t².
+      - |
+        The whole speed cannot be both horizontal and vertical; it must be split into 40 cos 30° and 40 sin 30°.
+    answer: 1
+  - slug: trig-u05-exam-q09
+    type: multiple_choice
+    topic_code: "5.10"
+    source: "Original item; Common Core HSN-VM.A.3"
+    points: 1
+    stimulus: |
+      A hypothetical golf ball is struck from level ground at 40 m/s at 30° above the horizontal. Ignore air resistance; x and y are in metres and t is in seconds.
+    prompt: |
+      (Calculator.) To the nearest hundredth of a metre, what is the ball's maximum height?
+    options:
+      - "2.04 m"
+      - "40.82 m"
+      - "81.63 m"
+      - "20.41 m"
+    option_explanations:
+      - |
+        2.04 is the time of the maximum, t = 20/9.8 seconds, not the height reached.
+      - |
+        40.82 = 20²/9.8 forgets the factor 2 in the vertex height 20²/(2 · 9.8).
+      - |
+        81.63 = 20²/4.9 divides by half of g instead of 2g.
+      - |
+        Correct. The top is at t = 20/9.8 ≈ 2.041 s, where y = 20(2.041) − 4.9(2.041)² ≈ 20.41 m.
+    answer: 3
+  - slug: trig-u05-exam-q10
+    type: multiple_choice
+    topic_code: "5.10"
+    source: "Original item; Common Core HSN-VM.A.3"
+    points: 1
+    stimulus: |
+      A hypothetical golf ball is struck from level ground at 40 m/s at 30° above the horizontal. Ignore air resistance; x and y are in metres and t is in seconds.
+    prompt: |
+      (Calculator.) To the nearest hundredth of a metre, how far from the tee does the ball land?
+    options:
+      - "141.39 m"
+      - "81.63 m"
+      - "70.70 m"
+      - "163.27 m"
+    option_explanations:
+      - |
+        Correct. y = t(20 − 4.9t) = 0 at t = 20/4.9 ≈ 4.082 s, and x = 20√3 × 4.082 ≈ 141.39 m.
+      - |
+        81.63 = 20 × 4.082 multiplies the flight time by the vertical component instead of the horizontal one.
+      - |
+        70.70 is the horizontal distance at the top of the flight, after only half of the flight time.
+      - |
+        163.27 = 40 × 4.082 uses the full speed as if all of it were horizontal.
+    answer: 0
+  # ---- Stimulus set D: a polar conic (5.11)
+  - slug: trig-u05-exam-q11
+    type: multiple_choice
+    topic_code: "5.11"
+    source: "Original item; Common Core HSG-GPE.A.3 (extension)"
+    points: 1
+    stimulus: |
+      A conic has polar equation r = 12/(3 + 6 cos θ), with a focus at the pole.
+    prompt: |
+      What are its eccentricity and type?
+    options:
+      - "e = 6, a hyperbola"
+      - "e = 1/2, an ellipse"
+      - "e = 2, a hyperbola"
+      - "e = 4, a hyperbola"
+    option_explanations:
+      - |
+        6 is the coefficient before dividing; with the constant made 1, r = 4/(1 + 2 cos θ).
+      - |
+        This inverts the ratio; e is the cos θ coefficient over the constant, 6/3 = 2.
+      - |
+        Correct. Dividing by 3 gives r = 4/(1 + 2 cos θ), so e = 2 > 1: a hyperbola.
+      - |
+        4 is ed, the numerator in standard form, not the eccentricity.
+    answer: 2
+  - slug: trig-u05-exam-q12
+    type: multiple_choice
+    topic_code: "5.11"
+    source: "Original item; Common Core HSG-GPE.A.3 (extension)"
+    points: 1
+    stimulus: |
+      A conic has polar equation r = 12/(3 + 6 cos θ), with a focus at the pole.
+    prompt: |
+      What is the equation of its directrix?
+    options:
+      - "x = 4"
+      - "x = 2"
+      - "x = −2"
+      - "y = 2"
+    option_explanations:
+      - |
+        4 is ed, the numerator in standard form. With e = 2, d = 4/2 = 2.
+      - |
+        Correct. ed = 4 and e = 2 give d = 2, and + cos θ puts the directrix to the right of the pole: x = 2.
+      - |
+        A plus sign, 1 + e cos θ, puts the directrix on the right, x = d, not x = −d.
+      - |
+        cos θ goes with a vertical directrix x = ±d; y = ±d belongs to equations with sin θ.
+    answer: 1
+  - slug: trig-u05-exam-q13
+    type: multiple_choice
+    topic_code: "5.11"
+    source: "Original item; Common Core HSG-GPE.A.3 (extension)"
+    points: 1
+    stimulus: |
+      A conic has polar equation r = 12/(3 + 6 cos θ), with a focus at the pole.
+    prompt: |
+      What are its vertices, in rectangular coordinates?
+    options:
+      - "(4/3, 0) and (4, 0)"
+      - "(4/3, 0) and (−4, 0)"
+      - "(4, 0) and (−4/3, 0)"
+      - "(0, 4/3) and (0, −4)"
+    option_explanations:
+      - |
+        Correct. θ = 0 gives r = 12/9 = 4/3, the point (4/3, 0); θ = π gives r = 12/(3 − 6) = −4, and (−4, π) is the point (4, 0).
+      - |
+        At θ = π, r = −4; a negative r points opposite to θ = π, so the point is (4, 0), not (−4, 0).
+      - |
+        At θ = 0, r = 4/3, not 4, and r = −4 at θ = π lands on the positive x-axis.
+      - |
+        With cos θ the vertices lie on the horizontal axis, found at θ = 0 and θ = π.
+    answer: 0
+  # ---- Polar coordinates, complex numbers, parametric equations, conics, Euler
+  - slug: trig-u05-exam-q14
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "Original item; Common Core HSN-CN.B.4 (extension)"
+    points: 1
+    prompt: |
+      What are the rectangular coordinates of the polar point (−3, π/4)?
+    options:
+      - "(3√2/2, 3√2/2)"
+      - "(−3√2/2, 3√2/2)"
+      - "(3√2/2, −3√2/2)"
+      - "(−3√2/2, −3√2/2)"
+    option_explanations:
+      - |
+        This ignores the negative r. With r = −3 the point is in the direction opposite to π/4, in quadrant III.
+      - |
+        Only x is negated here; x = −3 cos(π/4) and y = −3 sin(π/4) are both negative.
+      - |
+        Only y is negated here; both coordinates pick up the factor r = −3.
+      - |
+        Correct. x = −3 cos(π/4) = −3√2/2 and y = −3 sin(π/4) = −3√2/2.
+    answer: 3
+  - slug: trig-u05-exam-q15
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "Original item; Common Core HSN-CN.B.4 (extension)"
+    points: 1
+    prompt: |
+      Which polar coordinates, with r > 0 and 0 ≤ θ < 2π, name the rectangular point (2, −2√3)?
+    options:
+      - "(4, π/3)"
+      - "(4, −π/3)"
+      - "(4, 5π/3)"
+      - "(16, 5π/3)"
+    option_explanations:
+      - |
+        π/3 is the reference angle; the point has y < 0, so it is in quadrant IV, not quadrant I.
+      - |
+        This names the right point, but −π/3 is outside the required interval 0 ≤ θ < 2π.
+      - |
+        Correct. r = √(4 + 12) = 4 and the point is in quadrant IV with reference angle π/3, so θ = 2π − π/3 = 5π/3.
+      - |
+        16 is r², x² + y²; r is its square root, 4.
+    answer: 2
+  - slug: trig-u05-exam-q16
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "Original item; Common Core HSN-CN.B.4 (extension)"
+    points: 1
+    prompt: |
+      Which rectangular equation has the same graph as r = −4 cos θ?
+    options:
+      - "(x − 2)² + y² = 4"
+      - "(x + 2)² + y² = 4"
+      - "x² + (y + 2)² = 4"
+      - "x = −4"
+    option_explanations:
+      - |
+        This is r = 4 cos θ; the minus sign moves the centre to the left of the pole.
+      - |
+        Correct. r² = −4r cos θ gives x² + y² = −4x, and completing the square gives (x + 2)² + y² = 4.
+      - |
+        A circle centred on the y-axis comes from r = ±4 sin θ; cos θ gives a centre on the x-axis.
+      - |
+        r = −4 cos θ is not r cos θ = −4; multiplying both sides by r gives x² + y² = −4x, a circle.
+    answer: 1
+  - slug: trig-u05-exam-q17
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "Original item; Common Core HSN-CN.B.4 (extension)"
+    points: 1
+    prompt: |
+      Which polar equation has the same graph as the parabola y = x²?
+    options:
+      - "r = tan θ sec θ"
+      - "r = tan θ"
+      - "r = sin θ cos²θ"
+      - "r² = tan θ"
+    option_explanations:
+      - |
+        Correct. r sin θ = r² cos²θ; dividing by r cos²θ gives r = sin θ/cos²θ = tan θ sec θ (r = 0 is included at θ = 0).
+      - |
+        This loses one factor of cos θ; r sin θ = r² cos²θ gives r = sin θ/cos²θ.
+      - |
+        This multiplies by cos²θ instead of dividing by it.
+      - |
+        After substituting, one factor of r cancels, leaving r to the first power, not r².
+    answer: 0
+  - slug: trig-u05-exam-q18
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "Original item; Common Core HSN-CN.B.6"
+    points: 1
+    prompt: |
+      What is the distance between the points 1 + 2i and 4 − 2i in the complex plane?
+    options:
+      - "7"
+      - "3√5"
+      - "1"
+      - "5"
+    option_explanations:
+      - |
+        7 = 3 + 4 adds the horizontal and vertical gaps; the distance is the hypotenuse √(3² + 4²).
+      - |
+        3√5 = √5 + 2√5 adds the two moduli; the distance between the points is the modulus of their difference.
+      - |
+        1 = −3 + 4 adds the parts of the difference; the distance uses √(a² + b²).
+      - |
+        Correct. The difference is (1 + 2i) − (4 − 2i) = −3 + 4i, and |−3 + 4i| = √(9 + 16) = 5.
+    answer: 3
+  - slug: trig-u05-exam-q19
+    type: multiple_choice
+    topic_code: "5.6"
+    source: "Original item; Common Core HSN-CN.B.5 (extension)"
+    points: 1
+    prompt: |
+      What is 10 cis(7π/12) ÷ 2 cis(π/4)?
+    options:
+      - "5 cis(7π/48)"
+      - "8 cis(π/3)"
+      - "5/2 + (5√3/2)i"
+      - "20 cis(5π/6)"
+    option_explanations:
+      - |
+        Dividing complex numbers subtracts arguments; it does not divide them.
+      - |
+        The moduli are divided, 10/2 = 5, not subtracted.
+      - |
+        Correct. 5 cis(7π/12 − 3π/12) = 5 cis(π/3) = 5(1/2 + (√3/2)i) = 5/2 + (5√3/2)i.
+      - |
+        This multiplies (moduli 20, arguments added); the question asks for the quotient.
+    answer: 2
+  - slug: trig-u05-exam-q20
+    type: multiple_choice
+    topic_code: "5.6"
+    source: "Original item; Common Core HSN-CN.B.5 (extension)"
+    points: 1
+    prompt: |
+      What is 3 cis(π/5) · 2 cis(3π/10) in the form a + bi?
+    options:
+      - "5i"
+      - "6i"
+      - "6"
+      - "6 cis(3π/50)"
+    option_explanations:
+      - |
+        Moduli multiply, 3 · 2 = 6; adding them gives 5.
+      - |
+        Correct. 6 cis(π/5 + 3π/10) = 6 cis(π/2) = 6i.
+      - |
+        The modulus is right, but the arguments add to π/2, which points along the imaginary axis.
+      - |
+        Arguments add when complex numbers multiply; multiplying them gives 3π/50.
+    answer: 1
+  - slug: trig-u05-exam-q21
+    type: multiple_choice
+    topic_code: "5.7"
+    source: "Original item; Common Core HSN-CN.B.5 (extension)"
+    points: 1
+    prompt: |
+      What is (1 − i)⁸?
+    options:
+      - "16"
+      - "−16"
+      - "16i"
+      - "256"
+    option_explanations:
+      - |
+        Correct. 1 − i = √2 cis(−π/4), so (1 − i)⁸ = (√2)⁸ cis(−2π) = 16.
+      - |
+        The argument 8 · (−π/4) = −2π is a full turn, which points along the positive real axis, not the negative one.
+      - |
+        16i would need a final argument of π/2; −2π is coterminal with 0.
+      - |
+        256 = 2⁸ uses 2 as the modulus; |1 − i| = √2, and (√2)⁸ = 16.
+    answer: 0
+  - slug: trig-u05-exam-q22
+    type: multiple_choice
+    topic_code: "5.8"
+    source: "Original item; Common Core HSN-CN.B.5 (extension)"
+    points: 1
+    prompt: |
+      Which statement describes the five fifth roots of 32i?
+    options:
+      - "Each has modulus 32/5, and consecutive roots are 2π/5 apart."
+      - "Each has modulus 2, and consecutive roots are π/5 apart."
+      - "Each has modulus 2, and one root is the real number 2."
+      - "Each has modulus 2, and consecutive roots are 2π/5 apart."
+    option_explanations:
+      - |
+        The modulus of an nth root is the nth root of the modulus, ⁵√32 = 2, not 32 divided by 5.
+      - |
+        Five roots share a full turn, so they are 2π/5 apart; π/5 would fit ten of them.
+      - |
+        2⁵ = 32, which is real, not 32i. The roots have arguments (π/2 + 2πk)/5, and none of these is 0, so no root is real.
+      - |
+        Correct. ⁵√32 = 2, and the arguments (π/2 + 2πk)/5 differ by 2π/5, so the roots form a regular pentagon on the circle of radius 2.
+    answer: 3
+  - slug: trig-u05-exam-q23
+    type: multiple_choice
+    topic_code: "5.9"
+    source: "Original item; Common Core HSF-TF.C.8 (extension)"
+    points: 1
+    prompt: |
+      Which rectangular equation describes the curve x = 2t², y = 4t, for all real t?
+    options:
+      - "y = x²/8"
+      - "x = y²/8"
+      - "x = 2y²"
+      - "y² = 2x"
+    option_explanations:
+      - |
+        This treats x as the input. From y = 4t, t = y/4, and substituting into x = 2t² makes x a function of y: x = 2(y/4)².
+      - |
+        Correct. t = y/4, so x = 2(y/4)² = 2y²/16 = y²/8, a parabola opening to the right.
+      - |
+        This substitutes y for t; since y = 4t, t must be replaced by y/4, which brings in a factor 1/16.
+      - |
+        y² = 2x means x = y²/2; the correct relation is x = y²/8, that is y² = 8x.
+    answer: 1
+  - slug: trig-u05-exam-q24
+    type: multiple_choice
+    topic_code: "5.9"
+    source: "Original item; Common Core HSF-TF.C.8 (extension)"
+    points: 1
+    prompt: |
+      Which parametric equations, for 0 ≤ t ≤ 2π, trace the circle with centre (−1, 4) and radius 3 once clockwise, starting at (2, 4)?
+    options:
+      - "x = −1 + 3 cos t, y = 4 + 3 sin t"
+      - "x = 1 + 3 cos t, y = −4 − 3 sin t"
+      - "x = −1 + 3 cos t, y = 4 − 3 sin t"
+      - "x = −1 + 3 sin t, y = 4 + 3 cos t"
+    option_explanations:
+      - |
+        This starts at (2, 4) but goes counterclockwise: at t = π/2 it is at (−1, 7), above the centre.
+      - |
+        The centre signs are wrong; these equations describe a circle centred at (1, −4).
+      - |
+        Correct. t = 0 gives (2, 4), and t = π/2 gives (−1, 1), below the centre, so the motion is clockwise.
+      - |
+        This is clockwise, but at t = 0 it is at (−1, 7), the top of the circle, not at (2, 4).
+    answer: 2
+  - slug: trig-u05-exam-q25
+    type: multiple_choice
+    topic_code: "5.11"
+    source: "Original item; Common Core HSG-GPE.A.3 (extension)"
+    points: 1
+    prompt: |
+      Which is the polar equation of the parabola with focus at the pole and directrix y = 2?
+    options:
+      - "r = 2/(1 + sin θ)"
+      - "r = 2/(1 − sin θ)"
+      - "r = 2/(1 + cos θ)"
+      - "r = 1/(2 + sin θ)"
+    option_explanations:
+      - |
+        Correct. A parabola has e = 1, so ed = 2, and a directrix above the pole uses 1 + e sin θ.
+      - |
+        1 − sin θ puts the directrix below the pole, at y = −2.
+      - |
+        cos θ goes with a vertical directrix, here x = 2, not the horizontal line y = 2.
+      - |
+        Written with constant 1 this is r = (1/2)/(1 + (1/2) sin θ), an ellipse with e = 1/2.
+    answer: 0
+  - slug: trig-u05-exam-q26
+    type: multiple_choice
+    topic_code: "5.12"
+    source: "Original item; Common Core HSN-CN.B.4"
+    points: 1
+    prompt: |
+      What is e^(3πi/4) in the form a + bi?
+    options:
+      - "√2/2 + (√2/2)i"
+      - "−√2/2 − (√2/2)i"
+      - "−1/2 + (√3/2)i"
+      - "−√2/2 + (√2/2)i"
+    option_explanations:
+      - |
+        This is e^(iπ/4); 3π/4 is in quadrant II, where cosine is negative.
+      - |
+        This is e^(5πi/4) in quadrant III; at 3π/4 the sine is positive.
+      - |
+        These are the values for 2π/3, whose reference angle is π/3, not π/4.
+      - |
+        Correct. cos(3π/4) + i sin(3π/4) = −√2/2 + (√2/2)i.
+    answer: 3
+  - slug: trig-u05-exam-q27
+    type: multiple_choice
+    topic_code: "5.12"
+    source: "Original item; Common Core HSN-CN.B.5 (extension)"
+    points: 1
+    prompt: |
+      The point (−2, 6) is rotated 90° clockwise about the origin. Where does it land?
+    options:
+      - "(−6, −2)"
+      - "(6, 2)"
+      - "(2, −6)"
+      - "(−2, −6)"
+    option_explanations:
+      - |
+        This is the 90° counterclockwise image, (x, y) → (−y, x); clockwise multiplies by −i instead.
+      - |
+        Correct. Multiplying −2 + 6i by −i gives 2i − 6i² = 6 + 2i, the point (6, 2): (x, y) → (y, −x).
+      - |
+        (2, −6) is the 180° image, (−x, −y); a quarter-turn moves each coordinate into the other's place.
+      - |
+        (−2, −6) is the reflection in the x-axis, which is not a rotation.
+    answer: 1
+  # ---- Review of earlier units
+  - slug: trig-u05-exam-q28
+    type: multiple_choice
+    topic_code: "1.11"
+    source: "Original item; Common Core HSF-TF.A.2"
+    points: 1
+    prompt: |
+      Converting the polar point (6, 5π/3) to rectangular form needs cos(5π/3). What is its exact value?
+    options:
+      - "−1/2"
+      - "−√3/2"
+      - "1/2"
+      - "√3/2"
+    option_explanations:
+      - |
+        5π/3 is in quadrant IV, where cosine (the x-coordinate) is positive.
+      - |
+        −√3/2 is sin(5π/3); cosine is the x-coordinate on the unit circle, which is positive in quadrant IV.
+      - |
+        Correct. 5π/3 has reference angle π/3 in quadrant IV, so cos(5π/3) = cos(π/3) = 1/2.
+      - |
+        √3/2 is the size of the sine at reference angle π/3; the cosine of π/3 is 1/2.
+    answer: 2
+  - slug: trig-u05-exam-q29
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "Original item; Common Core HSF-TF.C.9"
+    points: 1
+    prompt: |
+      The argument of a product of complex numbers is π/3 − π/4 = π/12. Using the difference formula, what is the exact value of cos(π/12)?
+    options:
+      - "(√6 + √2)/4"
+      - "(√6 − √2)/4"
+      - "(1 − √2)/2"
+      - "(√2 − √6)/4"
+    option_explanations:
+      - |
+        Correct. cos(π/3 − π/4) = cos(π/3)cos(π/4) + sin(π/3)sin(π/4) = √2/4 + √6/4 = (√6 + √2)/4.
+      - |
+        (√6 − √2)/4 is sin(π/12); the cosine difference formula has a plus sign between its terms.
+      - |
+        This subtracts cosines, cos(π/3) − cos(π/4); cosine of a difference is not the difference of cosines.
+      - |
+        cos(π/12) is positive, since π/12 is in quadrant I; this value is negative.
+    answer: 0
+  - slug: trig-u05-exam-q30
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "Original item; Common Core HSN-VM.A.3"
+    points: 1
+    prompt: |
+      A vector has magnitude 8 and direction angle 150°, measured counterclockwise from the positive x-axis. What is its component form?
+    options:
+      - "⟨4√3, 4⟩"
+      - "⟨−4, 4√3⟩"
+      - "⟨4, −4√3⟩"
+      - "⟨−4√3, 4⟩"
+    option_explanations:
+      - |
+        150° is in quadrant II, so the horizontal component 8 cos 150° is negative.
+      - |
+        These are the components for 120°; at 150°, cos = −√3/2 and sin = 1/2.
+      - |
+        This points into quadrant IV; a 150° direction points up and to the left.
+      - |
+        Correct. ⟨8 cos 150°, 8 sin 150°⟩ = ⟨8(−√3/2), 8(1/2)⟩ = ⟨−4√3, 4⟩.
+    answer: 3
+  # ---- Select all, true/false, fill in, numeric
+  - slug: trig-u05-exam-q31
+    type: multi_select
+    topic_code: "5.3"
+    source: "Original item; Common Core HSF-TF.C.8 (extension)"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which polar graphs are symmetric about the polar axis (the x-axis)? Select all that apply.
+    options:
+      - "r = 3 + 2 cos θ"
+      - "r = 4 sin θ"
+      - "r = 5 cos 3θ"
+      - "r = 2 + sin θ"
+      - "r² = 9 cos 2θ"
+    option_explanations:
+      - |
+        Correct. cos(−θ) = cos θ, so replacing θ by −θ leaves the equation unchanged.
+      - |
+        r = 4 sin θ is the circle x² + (y − 2)² = 4, centred on the y-axis above the pole, so it is not symmetric about the x-axis.
+      - |
+        Correct. cos(−3θ) = cos 3θ, so the rose is unchanged by θ → −θ.
+      - |
+        Replacing θ by −θ gives 2 − sin θ; the limaçon's farthest point (0, 3) has no mirror image (0, −3).
+      - |
+        Correct. cos(−2θ) = cos 2θ, so the lemniscate is symmetric about the polar axis.
+    answer: [0, 2, 4]
+  - slug: trig-u05-exam-q32
+    type: multi_select
+    topic_code: "5.8"
+    source: "Original item; Common Core HSN-CN.B.5 (extension)"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which numbers are solutions of z³ = −8? Select all that apply.
+    options:
+      - "1 + i√3"
+      - "2"
+      - "−1 + i√3"
+      - "1 − i√3"
+      - "−2"
+    option_explanations:
+      - |
+        Correct. 1 + i√3 = 2 cis(π/3), and its cube is 8 cis(π) = −8.
+      - |
+        2³ = 8, not −8; 2 is a cube root of 8, with argument 0 rather than π/3, π or 5π/3.
+      - |
+        −1 + i√3 = 2 cis(2π/3), whose cube is 8 cis(2π) = 8, so it solves z³ = 8 instead.
+      - |
+        Correct. 1 − i√3 = 2 cis(5π/3), and its cube is 8 cis(5π) = 8 cis(π) = −8.
+      - |
+        Correct. (−2)³ = −8. The three roots 2 cis(π/3), 2 cis(π) and 2 cis(5π/3) form an equilateral triangle.
+    answer: [0, 3, 4]
+  - slug: trig-u05-exam-q33
+    type: multi_select
+    topic_code: "5.12"
+    source: "Original item; Common Core HSN-CN.B.5 (extension)"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about rotating points about the origin are true? Select all that apply.
+    options:
+      - "Multiplying by e^(−iπ/3) rotates a point 60° counterclockwise."
+      - "A rotation leaves every point's distance from the origin unchanged."
+      - "Two rotations of 90° counterclockwise make a rotation of 180°."
+      - "A 90° counterclockwise rotation sends (x, y) to (y, −x)."
+      - "Rotating (1, 0) by θ counterclockwise gives (cos θ, sin θ)."
+    option_explanations:
+      - |
+        The negative exponent turns the other way: e^(−iπ/3) rotates 60° clockwise.
+      - |
+        Correct. Multiplying by e^(iθ) multiplies the modulus by |e^(iθ)| = 1.
+      - |
+        Correct. i · i = e^(iπ/2) · e^(iπ/2) = e^(iπ) = −1, a half-turn.
+      - |
+        (y, −x) is the clockwise quarter-turn; counterclockwise gives (−y, x).
+      - |
+        Correct. 1 · e^(iθ) = cos θ + i sin θ, the point (cos θ, sin θ) on the unit circle.
+    answer: [1, 2, 4]
+  - slug: trig-u05-exam-q34
+    type: multi_select
+    topic_code: "5.10"
+    source: "Original item; Common Core HSN-VM.A.3"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A hypothetical ball's position is x = 50t, y = 5 + 50√3 t − 16t², in feet, t seconds after it is thrown. Which statements are true? Select all that apply.
+    options:
+      - "It was thrown at 60° above the horizontal."
+      - "It was thrown at 50 ft/s."
+      - "It was thrown from 5 ft above the ground."
+      - "Its path is y = 5 + √3 x − 16x²/2500."
+      - "It reaches its maximum height at about t = 5.41 s."
+    option_explanations:
+      - |
+        Correct. The components are 50 and 50√3, so tan θ = √3 and θ = 60°.
+      - |
+        50 ft/s is only the horizontal component; the speed is √(50² + (50√3)²) = 100 ft/s.
+      - |
+        Correct. At t = 0, y = 5 + 0 − 0 = 5, so the ball leaves the hand 5 ft up.
+      - |
+        Correct. t = x/50, so y = 5 + 50√3(x/50) − 16(x/50)² = 5 + √3 x − 16x²/2500.
+      - |
+        The vertex is at t = 50√3/32 ≈ 2.71 s; 5.41 s divides by 16 instead of 32.
+    answer: [0, 2, 3]
+  - slug: trig-u05-exam-q35
+    type: true_false
+    topic_code: "5.1"
+    source: "Original item; Common Core HSN-CN.B.4 (extension)"
+    points: 1
+    prompt: |
+      True or false: The polar coordinates (5, −π/3) and (5, 5π/3) name the same point.
+    answer: true
+    explanation: |
+      True. −π/3 and 5π/3 differ by 2π, so they are coterminal, and both points are 5 units from the pole in that direction: (5/2, −5√3/2).
+  - slug: trig-u05-exam-q36
+    type: true_false
+    topic_code: "5.11"
+    source: "Original item; Common Core HSG-GPE.A.3 (extension)"
+    points: 1
+    prompt: |
+      True or false: The conic r = 6/(3 + 2 sin θ), with a focus at the pole, is a hyperbola.
+    answer: false
+    explanation: |
+      False. Dividing by 3 gives r = 2/(1 + (2/3) sin θ), so e = 2/3 < 1 and the conic is an ellipse (directrix y = 3).
+  - slug: trig-u05-exam-q37
+    type: true_false
+    topic_code: "5.4"
+    source: "Original item; Common Core HSN-CN.B.4"
+    points: 1
+    prompt: |
+      True or false: In the complex plane, 3 + 4i and −4 + 3i are the same distance from the origin.
+    answer: true
+    explanation: |
+      True. |3 + 4i| = √(9 + 16) = 5 and |−4 + 3i| = √(16 + 9) = 5. In fact −4 + 3i = i(3 + 4i), a 90° rotation, which never changes the distance from the origin.
+  - slug: trig-u05-exam-q38
+    type: fill_blank
+    topic_code: "5.2"
+    source: "Original item; Common Core HSN-CN.B.4 (extension)"
+    points: 1
+    prompt: |
+      Converted to polar form with r ≥ 0, the circle x² + y² = 49 is r = ____.
+    answer: ["7", "r = 7", "r=7", "7.0"]
+    explanation: |
+      x² + y² = r², so r² = 49 and, with r ≥ 0, r = 7: every point 7 units from the pole.
+  - slug: trig-u05-exam-q39
+    type: fill_blank
+    topic_code: "5.7"
+    source: "Original item; Common Core HSN-CN.B.5 (extension)"
+    points: 1
+    prompt: |
+      Written in the form a + bi, (2 cis(π/12))⁶ = ____.
+    answer: ["64i", "64 i", "0 + 64i", "0+64i", "64·i", "i64"]
+    explanation: |
+      By De Moivre's theorem, (2 cis(π/12))⁶ = 2⁶ cis(6π/12) = 64 cis(π/2) = 64i.
+  - slug: trig-u05-exam-q40
+    type: fill_blank
+    topic_code: "5.11"
+    source: "Original item; Common Core HSG-GPE.A.3 (extension)"
+    points: 1
+    prompt: |
+      The eccentricity of the conic r = 20/(4 + 5 cos θ) is ____.
+    answer: ["5/4", "1.25", "5 / 4", "e = 5/4", "e = 1.25"]
+    explanation: |
+      Dividing by 4 gives r = 5/(1 + (5/4) cos θ), so e = 5/4, and since e > 1 the conic is a hyperbola.
+  - slug: trig-u05-exam-q41
+    type: numeric
+    topic_code: "5.10"
+    source: "Original item; Common Core HSN-VM.A.3"
+    points: 1
+    prompt: |
+      (Calculator.) A hypothetical ball is thrown from 3 ft above the ground at 90 ft/s and 40° above the horizontal. To the nearest tenth of a foot, what is its maximum height above the ground?
+    answer: { value: 55.3, tolerance: 0.1 }
+    explanation: |
+      y = 3 + (90 sin 40°)t − 16t², with 90 sin 40° ≈ 57.851. The vertex is at t = 57.851/32 ≈ 1.808 s, and y ≈ 3 + 57.851²/64 ≈ 3 + 52.29 ≈ 55.3 ft.
+  - slug: trig-u05-exam-q42
+    type: numeric
+    topic_code: "4.3"
+    source: "Original item; Common Core HSG-SRT.D.11"
+    points: 1
+    prompt: |
+      (Calculator.) Two sides of a triangle are 7 and 9 units long, and the angle between them is 55°. To the nearest hundredth, how long is the third side?
+    answer: { value: 7.60, tolerance: 0.01 }
+    explanation: |
+      Law of Cosines: c² = 7² + 9² − 2(7)(9) cos 55° ≈ 130 − 126(0.5736) ≈ 57.73, so c ≈ 7.60.
+  # ---- Short answer
+  - slug: trig-u05-exam-q43
+    type: short_answer
+    topic_code: "5.2"
+    source: "Original item; Common Core HSN-CN.B.4 (extension)"
+    points: 3
+    prompt: |
+      (a) Convert r = 4/(2 cos θ − sin θ) to a rectangular equation and identify its graph.
+      (b) Convert the circle (x − 3)² + y² = 9 to a polar equation.
+      (c) Decide whether the polar point (3√2, π/4) lies on the circle in (b), and justify your answer in both coordinate systems.
+    answer: |
+      (a) r(2 cos θ − sin θ) = 4, so 2r cos θ − r sin θ = 4, that is 2x − y = 4: a straight line (slope 2, y-intercept −4).
+      (b) Expanding, x² − 6x + 9 + y² = 9, so x² + y² = 6x. Then r² = 6r cos θ, so r = 6 cos θ.
+      (c) Yes. Polar: 6 cos(π/4) = 6(√2/2) = 3√2, which matches r. Rectangular: (3√2, π/4) is (3√2 · √2/2, 3√2 · √2/2) = (3, 3), and (3 − 3)² + 3² = 9.
+    explanation: |
+      Three points, one per part. (a) 2x − y = 4 and "line". (b) r = 6 cos θ with work. (c) "yes" with both checks (polar substitution and the rectangular point (3, 3) in the equation).
+  - slug: trig-u05-exam-q44
+    type: short_answer
+    topic_code: "5.8"
+    source: "Original item; Common Core HSN-CN.B.5 (extension)"
+    points: 3
+    prompt: |
+      Consider the equation z⁶ = 1.
+
+      (a) Write all six solutions (the sixth roots of unity) in trigonometric form.
+      (b) Write them in the form a + bi.
+      (c) Explain, using their arrangement in the complex plane, why the six solutions add up to 0.
+    answer: |
+      (a) cis(2πk/6) = cis(kπ/3) for k = 0, 1, …, 5: cis 0, cis(π/3), cis(2π/3), cis π, cis(4π/3), cis(5π/3).
+      (b) 1, 1/2 + (√3/2)i, −1/2 + (√3/2)i, −1, −1/2 − (√3/2)i, 1/2 − (√3/2)i.
+      (c) They are the vertices of a regular hexagon centred at 0, 60° apart, so each root z has its opposite −z (rotated by π) in the list: 1 and −1, 1/2 + (√3/2)i and −1/2 − (√3/2)i, −1/2 + (√3/2)i and 1/2 − (√3/2)i. Each pair adds to 0, so the total is 0.
+    explanation: |
+      Three points, one per part. (a) all six arguments kπ/3 with modulus 1. (b) all six rectangular forms. (c) a valid argument: opposite pairs cancel (or the symmetry of a regular hexagon about its centre), not just adding the numbers without explanation.
+  # ---- Free response
+  - slug: trig-u05-exam-q45
+    type: long_answer
+    topic_code: "5.10"
+    source: "Original item; Common Core HSN-VM.A.3"
+    points: 6
+    prompt: |
+      (Calculator.) In a hypothetical ballpark, a baseball is hit 3 ft above the ground at 120 ft/s, 30° above the horizontal, straight towards a fence 10 ft high that stands 360 ft from home plate. Ignore air resistance.
+
+      (A) (i) Write parametric equations for the ball's position, with x and y in feet and t in seconds.
+      (ii) Find the time at which the ball is highest and its maximum height.
+
+      (B) (i) Find the exact time at which the ball reaches the fence, and its height there, exactly and to the nearest hundredth of a foot.
+      (ii) Does the ball clear the fence? By how much, or by how much does it fall short?
+
+      (C) (i) Eliminate the parameter to write y as a function of x.
+      (ii) If there were no fence, how far from home plate would the ball land, to the nearest hundredth of a foot?
+    answer: |
+      (A) (i) x = (120 cos 30°)t = 60√3 t ≈ 103.92t; y = 3 + (120 sin 30°)t − 16t² = 3 + 60t − 16t².
+      (ii) The vertex is at t = 60/32 = 1.875 s, where y = 3 + 60(1.875) − 16(1.875)² = 3 + 112.5 − 56.25 = 59.25 ft.
+      (B) (i) 60√3 t = 360 gives t = 6/√3 = 2√3 ≈ 3.46 s. Then y = 3 + 60(2√3) − 16(12) = 120√3 − 189 ≈ 18.85 ft.
+      (ii) Yes: 18.85 ft is above the 10 ft fence, so the ball clears it by about 8.85 ft.
+      (C) (i) t = x/(60√3), so y = 3 + 60x/(60√3) − 16x²/10800 = 3 + x/√3 − x²/675.
+      (ii) 16t² − 60t − 3 = 0 gives t = (60 + √(3600 + 192))/32 ≈ 3.7994 s, so x ≈ 60√3 × 3.7994 ≈ 394.84 ft.
+    explanation: |
+      Six points. (A) 1 point for both equations with the components 60√3 and 60, the launch height 3 and −16t²; 1 point for t = 1.875 s and 59.25 ft. (B) 1 point for t = 2√3 s and y = 120√3 − 189 ≈ 18.85 ft; 1 point for a conclusion that it clears, by about 8.85 ft, consistent with the height found. (C) 1 point for y = 3 + x/√3 − x²/675 (or an equivalent exact form); 1 point for 394.84 ft (accept 394.83 to 394.85).
+  - slug: trig-u05-exam-q46
+    type: long_answer
+    topic_code: "5.12"
+    source: "Original item; Common Core HSN-CN.B.5 (extension)"
+    points: 6
+    prompt: |
+      A hypothetical robot arm has two segments in a plane. The shoulder is at the origin. The upper arm has length 4 and makes angle α with the positive x-axis; the forearm has length 2 and is turned through a further angle β at the elbow. Using complex numbers, the elbow is at 4e^(iα) and the hand is at h = 4e^(iα) + 2e^(i(α + β)) = e^(iα)(4 + 2e^(iβ)). Angles are in radians.
+
+      (A) Let α = π/6 and β = π/2.
+      (i) Find the elbow and the hand positions exactly in the form a + bi.
+      (ii) Find the distance from the shoulder to the hand.
+
+      (B) (i) Use the form h = e^(iα)(4 + 2e^(iβ)) to explain why the distance from the shoulder to the hand does not depend on α.
+      (ii) Find the greatest and least possible distances from the shoulder to the hand, and the values of β that give them.
+
+      (C) Now let β = π/3.
+      (i) Find |4 + 2e^(iπ/3)| exactly, and check your answer with the Law of Cosines in the triangle shoulder–elbow–hand.
+      (ii) Find α, to four decimal places, so that the hand lies on the positive y-axis.
+    answer: |
+      (A) (i) Elbow: 4e^(iπ/6) = 4(√3/2 + i/2) = 2√3 + 2i. Forearm: 2e^(i2π/3) = 2(−1/2 + (√3/2)i) = −1 + √3 i. Hand: (2√3 − 1) + (2 + √3)i ≈ 2.464 + 3.732i.
+      (ii) |h| = |e^(iπ/6)| · |4 + 2e^(iπ/2)| = |4 + 2i| = √20 = 2√5 ≈ 4.47.
+      (B) (i) |h| = |e^(iα)| · |4 + 2e^(iβ)| = 1 · |4 + 2e^(iβ)|. Multiplying by e^(iα) only rotates the arm about the shoulder, which never changes distances from the origin.
+      (ii) |4 + 2e^(iβ)| is greatest when 2e^(iβ) points the same way as 4, at β = 0: 6. It is least when it points the opposite way, at β = π: 2.
+      (C) (i) 4 + 2e^(iπ/3) = 4 + 1 + √3 i = 5 + √3 i, so |·| = √(25 + 3) = √28 = 2√7 ≈ 5.29. Law of Cosines: the angle at the elbow inside the triangle is π − π/3 = 2π/3, so d² = 4² + 2² − 2(4)(2) cos(2π/3) = 20 + 8 = 28, d = 2√7.
+      (ii) arg(5 + √3 i) = tan⁻¹(√3/5) ≈ 0.3335. The hand's argument is α + 0.3335, which must equal π/2, so α ≈ 1.5708 − 0.3335 = 1.2373.
+    explanation: |
+      Six points. (A) 1 point for the elbow 2√3 + 2i and the hand (2√3 − 1) + (2 + √3)i; 1 point for 2√5 (accept √20 or 4.47). (B) 1 point for |e^(iα)| = 1, so rotation does not change the distance; 1 point for maximum 6 at β = 0 and minimum 2 at β = π. (C) 1 point for 2√7 (or √28) with a correct Law of Cosines check using the angle 2π/3; 1 point for α ≈ 1.2373 (accept 1.237).

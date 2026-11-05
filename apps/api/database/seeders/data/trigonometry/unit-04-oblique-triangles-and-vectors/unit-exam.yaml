@@ -1,0 +1,1000 @@
+unit: 4
+description: |
+  46 questions · about 90 minutes · every topic of Unit 4 (4.1 to 4.10): the law of sines and the ambiguous case,
+  the law of cosines, triangle area and Heron's formula, surveying and navigation, vectors in component form,
+  vector operations and unit vectors, the dot product and the angle between vectors, projections and work, and
+  forces, equilibrium and velocity, with a little review of Units 1 to 3 (angles of depression, the sum and
+  difference formulas, inverse cosine). Includes four shared-context sets (an SSA triangle, a triangle with sides
+  7, 8 and 13, a pair of vectors, and a plane in a cross-wind), select-all, true/false, fill-in-the-blank and
+  numeric items, two short-answer questions (3 points each) and two extended questions (6 points each: a surveyed
+  plot and a pilot correcting for wind). Items marked (Calculator.) need a calculator in degree mode; the rest are
+  designed to be done by hand. Multiple choice, select-all, true/false and numeric items are graded at once;
+  fill-in-the-blank items are matched automatically; the short and extended answers are graded by your teacher
+  against the scoring notes. All angles are in degrees.
+questions:
+  # ---- Stimulus set A: an SSA triangle (4.1, 4.2)
+  - slug: trig-u04-exam-q01
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "Original item; Common Core HSG-SRT.D.11"
+    points: 1
+    stimulus: |
+      (Calculator.) In triangle ABC, A = 35°, a = 12 and b = 18.
+    prompt: |
+      How many different triangles fit these measurements?
+    options:
+      - "Exactly one"
+      - "None"
+      - "Exactly two"
+      - "It cannot be decided without knowing side c"
+    option_explanations:
+      - |
+        One triangle needs a = h or a ≥ b; here h ≈ 10.32 < a = 12 < b = 18, so side a meets the base twice.
+      - |
+        No triangle would need a < h = 18 sin 35° ≈ 10.32, but a = 12 is longer than the height.
+      - |
+        Correct. h = b sin A = 18 sin 35° ≈ 10.32, and h < a < b, so there are two triangles: one with B acute and one with B obtuse.
+      - |
+        The SSA test needs only A, a and b: compare a with the height h = b sin A and with b.
+    answer: 2
+  - slug: trig-u04-exam-q02
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "Original item; Common Core HSG-SRT.D.11"
+    points: 1
+    stimulus: |
+      (Calculator.) In triangle ABC, A = 35°, a = 12 and b = 18.
+    prompt: |
+      To the nearest hundredth of a degree, what is the acute value of B?
+    options:
+      - "59.36°"
+      - "120.64°"
+      - "22.48°"
+      - "52.50°"
+    option_explanations:
+      - |
+        Correct. sin B = 18 sin 35°/12 ≈ 0.8603, so the acute value is B = sin⁻¹(0.8603) ≈ 59.36°.
+      - |
+        120.64° = 180° − 59.36° is the obtuse value of B, from the second triangle.
+      - |
+        22.48° comes from sin B = 12 sin 35°/18, with the sides swapped; b is the side opposite B.
+      - |
+        52.50° = 35° · 18/12 scales the angle by the side ratio; the law of sines relates the sides to the sines of the angles.
+    answer: 0
+  - slug: trig-u04-exam-q03
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "Original item; Common Core HSG-SRT.D.10"
+    points: 1
+    stimulus: |
+      (Calculator.) In triangle ABC, A = 35°, a = 12 and b = 18.
+    prompt: |
+      In the triangle in which B is acute, what is side c, to the nearest hundredth?
+    options:
+      - "31.29"
+      - "8.63"
+      - "6.90"
+      - "20.86"
+    option_explanations:
+      - |
+        31.29 = 18 sin C/sin 35° pairs side b with angle A; the known ratio is a/sin A = 12/sin 35°.
+      - |
+        8.63 is side c in the other triangle, where B ≈ 120.64° and C ≈ 24.36°.
+      - |
+        6.90 = 12 sin 35°/sin C inverts the ratio; c must face the largest angle of this triangle, so it is the longest side.
+      - |
+        Correct. C = 180° − 35° − 59.36° ≈ 85.64°, and c = 12 sin 85.64°/sin 35° ≈ 20.86.
+    answer: 3
+  # ---- Stimulus set B: a triangle with sides 7, 8 and 13 (4.3, 4.4, 4.1)
+  - slug: trig-u04-exam-q04
+    type: multiple_choice
+    topic_code: "4.3"
+    source: "Original item; Common Core HSG-SRT.D.10"
+    points: 1
+    stimulus: |
+      A triangle has sides of lengths 7, 8 and 13.
+    prompt: |
+      What is the exact measure of its largest angle?
+    options:
+      - "60°"
+      - "120°"
+      - "90°"
+      - "150°"
+    option_explanations:
+      - |
+        cos θ = −1/2 here, not +1/2; the negative sign makes the angle obtuse.
+      - |
+        Correct. The largest angle faces 13: cos θ = (49 + 64 − 169)/(2 · 7 · 8) = −56/112 = −1/2, so θ = 120°.
+      - |
+        A right angle needs 7² + 8² = 13², but 113 < 169, so the angle is obtuse.
+      - |
+        cos 150° = −√3/2 ≈ −0.866, but the law of cosines gives exactly −1/2.
+    answer: 1
+  - slug: trig-u04-exam-q05
+    type: multiple_choice
+    topic_code: "4.4"
+    source: "Original item; Common Core HSG-SRT.D.9"
+    points: 1
+    stimulus: |
+      A triangle has sides of lengths 7, 8 and 13.
+    prompt: |
+      What is the exact area of the triangle?
+    options:
+      - "28√3"
+      - "28"
+      - "14"
+      - "14√3"
+    option_explanations:
+      - |
+        28√3 = 7 · 8 · sin 120° leaves out the factor ½ in ½ab sin C.
+      - |
+        28 = ½ · 7 · 8 treats the sides as perpendicular; the angle between them is 120°, so the sine is √3/2.
+      - |
+        14 uses sin 120° = 1/2, the value of cos 60°; sin 120° = √3/2.
+      - |
+        Correct. ½ · 7 · 8 · sin 120° = 28 · √3/2 = 14√3. Heron agrees: s = 14 and √(14 · 7 · 6 · 1) = √588 = 14√3.
+    answer: 3
+  - slug: trig-u04-exam-q06
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "Original item; Common Core HSG-SRT.D.10"
+    points: 1
+    stimulus: |
+      A triangle has sides of lengths 7, 8 and 13.
+    prompt: |
+      (Calculator.) To the nearest hundredth of a degree, what is the smallest angle of the triangle?
+    options:
+      - "27.80°"
+      - "32.20°"
+      - "152.20°"
+      - "60.00°"
+    option_explanations:
+      - |
+        Correct. The smallest angle faces 7: sin θ = 7 sin 120°/13 ≈ 0.4663, θ ≈ 27.80°. It must be acute, since the triangle already has a 120° angle.
+      - |
+        32.20° faces the side 8, the middle side, not the shortest.
+      - |
+        152.20° is the obtuse partner of 27.80°; with a 120° angle already in the triangle, another obtuse angle is impossible.
+      - |
+        60° is the sum of the two smaller angles (180° − 120°), not either one of them.
+    answer: 0
+  # ---- Stimulus set C: a pair of vectors (4.8, 4.9)
+  - slug: trig-u04-exam-q07
+    type: multiple_choice
+    topic_code: "4.8"
+    source: "Original item; Common Core HSN-VM.B.4 (extension)"
+    points: 1
+    stimulus: |
+      Let u = ⟨5, −1⟩ and v = ⟨2, 3⟩.
+    prompt: |
+      What is u · v?
+    options:
+      - "13"
+      - "⟨10, −3⟩"
+      - "7"
+      - "−7"
+    option_explanations:
+      - |
+        13 = 10 + 3 ignores the negative sign of −1 · 3; the second product is −3.
+      - |
+        These are the component products, but a dot product adds them to give a scalar.
+      - |
+        Correct. u · v = 5 · 2 + (−1) · 3 = 10 − 3 = 7.
+      - |
+        The sign is wrong: 10 − 3 is positive, so the angle between u and v is acute.
+    answer: 2
+  - slug: trig-u04-exam-q08
+    type: multiple_choice
+    topic_code: "4.8"
+    source: "Original item; Common Core HSN-VM.B.4 (extension)"
+    points: 1
+    stimulus: |
+      Let u = ⟨5, −1⟩ and v = ⟨2, 3⟩.
+    prompt: |
+      (Calculator.) To the nearest hundredth of a degree, what is the angle between u and v?
+    options:
+      - "22.38°"
+      - "67.62°"
+      - "112.38°"
+      - "88.81°"
+    option_explanations:
+      - |
+        22.38° is the complement of the angle; cos θ = 7/(√26 · √13) gives the angle itself.
+      - |
+        Correct. cos θ = 7/(√26 · √13) = 7/√338 ≈ 0.3807, so θ ≈ 67.62°.
+      - |
+        112.38° would need a negative dot product; u · v = 7 is positive, so the angle is acute.
+      - |
+        88.81° comes from dividing by |u|²|v|² = 338 instead of |u||v| = √338.
+    answer: 1
+  - slug: trig-u04-exam-q09
+    type: multiple_choice
+    topic_code: "4.9"
+    source: "Original item; Common Core HSN-VM.B.5 (extension)"
+    points: 1
+    stimulus: |
+      Let u = ⟨5, −1⟩ and v = ⟨2, 3⟩.
+    prompt: |
+      What is projᵥ u, the projection of u onto v?
+    options:
+      - "⟨35/26, −7/26⟩"
+      - "⟨14/√13, 21/√13⟩"
+      - "7/√13"
+      - "⟨14/13, 21/13⟩"
+    option_explanations:
+      - |
+        This is proj_u v = (7/26)⟨5, −1⟩, the projection of v onto u; the order matters.
+      - |
+        This divides by |v| = √13 instead of |v|² = 13, so the vector is too long by a factor of √13.
+      - |
+        7/√13 is the scalar component compᵥ u, a number; the projection is a vector along v.
+      - |
+        Correct. (u · v)/|v|² = 7/13, and (7/13)⟨2, 3⟩ = ⟨14/13, 21/13⟩.
+    answer: 3
+  # ---- Stimulus set D: a plane in a cross-wind (4.10, 4.6)
+  - slug: trig-u04-exam-q10
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "Original item; Common Core HSN-VM.A.3"
+    points: 1
+    stimulus: |
+      (Calculator.) A hypothetical airliner flies on a heading of 150° with an airspeed of 400 mph. The wind blows at 50 mph towards the bearing 060°. Use east and north as the positive directions.
+    prompt: |
+      Which is the wind velocity in component form, in mph?
+    options:
+      - "⟨25√3, 25⟩"
+      - "⟨25, 25√3⟩"
+      - "⟨−25√3, −25⟩"
+      - "⟨25√3, −25⟩"
+    option_explanations:
+      - |
+        Correct. The bearing 060° is the direction angle 90° − 60° = 30°: ⟨50 cos 30°, 50 sin 30°⟩ = ⟨25√3, 25⟩.
+      - |
+        This uses 60° as the direction angle; bearings are measured clockwise from north, so 060° is 30° above east.
+      - |
+        This is a wind blowing from 060°, towards 240°; the wind here blows towards 060°.
+      - |
+        A direction of 060° points north of east, so the north component must be positive.
+    answer: 0
+  - slug: trig-u04-exam-q11
+    type: numeric
+    topic_code: "4.10"
+    source: "Original item; Common Core HSN-VM.A.3"
+    points: 1
+    stimulus: |
+      (Calculator.) A hypothetical airliner flies on a heading of 150° with an airspeed of 400 mph. The wind blows at 50 mph towards the bearing 060°. Use east and north as the positive directions.
+    prompt: |
+      What is the airliner's ground speed, to the nearest hundredth of a mph?
+    answer: { value: 403.11, tolerance: 0.01 }
+    explanation: |
+      Air velocity: θ = 90° − 150° = −60°, so ⟨400 cos(−60°), 400 sin(−60°)⟩ ≈ ⟨200, −346.410⟩. Wind ≈ ⟨43.301, 25⟩. Ground velocity ≈ ⟨243.301, −321.410⟩, with magnitude ≈ 403.11 mph. (The wind is at 90° to the heading, so √(400² + 50²) gives the same value.)
+  - slug: trig-u04-exam-q12
+    type: multiple_choice
+    topic_code: "4.10"
+    source: "Original item; Common Core HSN-VM.A.3"
+    points: 1
+    stimulus: |
+      (Calculator.) A hypothetical airliner flies on a heading of 150° with an airspeed of 400 mph. The wind blows at 50 mph towards the bearing 060°. Use east and north as the positive directions.
+    prompt: |
+      To the nearest tenth of a degree, what is the airliner's course, as a bearing?
+    options:
+      - "157.1°"
+      - "150.0°"
+      - "142.9°"
+      - "007.1°"
+    option_explanations:
+      - |
+        The wind pushes towards 060°, which is counterclockwise from the heading, so the course is less than 150°, not more.
+      - |
+        150° is the heading; a cross-wind always turns the course away from the heading.
+      - |
+        Correct. The drift angle is tan⁻¹(50/400) ≈ 7.1°, towards the wind's direction, so the course is 150° − 7.1° ≈ 142.9°. Components agree: ⟨243.301, −321.410⟩ has direction angle ≈ −52.9°, bearing 90° + 52.9° = 142.9°.
+      - |
+        7.1° is the drift angle alone; it has to be applied to the heading of 150°.
+    answer: 2
+  # ---- Law of sines and the ambiguous case (4.1, 4.2)
+  - slug: trig-u04-exam-q13
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "Original item; Common Core HSG-SRT.D.10"
+    points: 1
+    prompt: |
+      (Calculator.) In triangle ABC, A = 40°, C = 65° and c = 20. To the nearest hundredth, what is a?
+    options:
+      - "28.20"
+      - "14.18"
+      - "21.32"
+      - "12.31"
+    option_explanations:
+      - |
+        28.20 = 20 sin 65°/sin 40° has the ratio upside down; a faces the smaller angle, so a < c.
+      - |
+        Correct. a/sin 40° = 20/sin 65°, so a = 20 sin 40°/sin 65° ≈ 14.18.
+      - |
+        21.32 is side b, opposite B = 180° − 40° − 65° = 75°.
+      - |
+        12.31 = 20 · 40/65 makes the sides proportional to the angles, not to their sines.
+    answer: 1
+  - slug: trig-u04-exam-q14
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "Original item; Common Core HSG-SRT.D.10"
+    points: 1
+    prompt: |
+      In an acute triangle ABC, the altitude from C to side c has length h. Which pair of equations leads directly to the law of sines a/sin A = b/sin B?
+    options:
+      - "h = b sin A and h = a sin B"
+      - "h = a sin A and h = b sin B"
+      - "h = b cos A and h = a cos B"
+      - "h² = a² − b² and h = c sin C"
+    option_explanations:
+      - |
+        Correct. In the right triangle containing A, h is opposite A with hypotenuse b; in the one containing B, h is opposite B with hypotenuse a. Setting b sin A = a sin B and dividing by sin A sin B gives the law.
+      - |
+        Side a is not the hypotenuse of the right triangle that contains angle A; each angle pairs with the other side.
+      - |
+        Cosine gives the adjacent pieces of side c, not the altitude, which is opposite the angles.
+      - |
+        The altitude splits the triangle into two right triangles that share h; neither equation comes from those right triangles.
+    answer: 0
+  - slug: trig-u04-exam-q15
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "Original item; Common Core HSG-SRT.D.11"
+    points: 1
+    prompt: |
+      In triangle ABC, A = 50°, a = 15 and b = 12. How many triangles fit these measurements?
+    options:
+      - "None"
+      - "Exactly two"
+      - "Exactly one, a right triangle"
+      - "Exactly one"
+    option_explanations:
+      - |
+        No triangle would need a < b sin A = 12 sin 50° ≈ 9.19; a = 15 is much longer.
+      - |
+        Two triangles need h < a < b; here a > b, so the obtuse choice for B would leave no room for C.
+      - |
+        A right triangle needs a = h exactly; here a is longer than h ≈ 9.19.
+      - |
+        Correct. a ≥ b with A acute gives exactly one triangle: sin B = 12 sin 50°/15 ≈ 0.613, B ≈ 37.8°, and 180° − 37.8° is too large to add to A.
+    answer: 3
+  - slug: trig-u04-exam-q16
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "Original item; Common Core HSG-SRT.D.11"
+    points: 1
+    prompt: |
+      In triangle ABC, A = 120°, a = 7 and b = 9. How many triangles fit these measurements?
+    options:
+      - "Exactly one, with B acute"
+      - "Exactly two"
+      - "None"
+      - "Exactly one right triangle"
+    option_explanations:
+      - |
+        With A obtuse, the side opposite A must be the longest side; a = 7 < b = 9 is impossible.
+      - |
+        Two triangles can only happen when A is acute; an obtuse angle leaves room for at most one triangle.
+      - |
+        Correct. A is obtuse, so a must be longer than b; since 7 < 9, no triangle exists (sin B = 9 sin 120°/7 ≈ 1.11 > 1).
+      - |
+        A triangle cannot hold a 120° angle and a right angle together.
+    answer: 2
+  # ---- Law of cosines and area (4.3, 4.4)
+  - slug: trig-u04-exam-q17
+    type: multiple_choice
+    topic_code: "4.3"
+    source: "Original item; Common Core HSG-SRT.D.10"
+    points: 1
+    prompt: |
+      (Calculator.) In triangle ABC, b = 10, c = 14 and A = 72°. To the nearest hundredth, what is a?
+    options:
+      - "17.20"
+      - "14.47"
+      - "19.56"
+      - "23.81"
+    option_explanations:
+      - |
+        17.20 = √(100 + 196) leaves out −2bc cos A, which is zero only when A = 90°.
+      - |
+        Correct. a² = 100 + 196 − 280 cos 72° ≈ 296 − 86.53 = 209.47, so a ≈ 14.47.
+      - |
+        19.56 adds 280 cos 72° instead of subtracting it.
+      - |
+        23.81 is what a calculator in radian mode gives: cos(72 radians) ≈ −0.967. Set degree mode.
+    answer: 1
+  - slug: trig-u04-exam-q18
+    type: multiple_choice
+    topic_code: "4.3"
+    source: "Original item; Common Core HSG-SRT.D.11"
+    points: 1
+    prompt: |
+      A surveyor has measured all three sides of a triangular field and wants all three angles. Which plan is safest?
+    options:
+      - "Find the largest angle with the law of cosines, then another angle with the law of sines."
+      - "Find the smallest angle with the law of sines first."
+      - "Use Heron's formula to find the angles."
+      - "Find any angle with the law of sines, since no angle is known yet."
+    option_explanations:
+      - |
+        Correct. The law of cosines gives the largest angle with no ambiguity, even if it is obtuse; the other two must then be acute, so sin⁻¹ gives them correctly.
+      - |
+        The law of sines needs a known angle–side pair; with SSS data, no angle is known yet.
+      - |
+        Heron's formula gives the area, not any angle.
+      - |
+        No angle–side pair is known, so the law of sines has nothing to start from.
+    answer: 0
+  - slug: trig-u04-exam-q19
+    type: multiple_choice
+    topic_code: "4.4"
+    source: "Original item; Common Core HSG-SRT.D.9"
+    points: 1
+    prompt: |
+      (Calculator.) A parallelogram has sides 9 cm and 15 cm, with an angle of 40° between them. To the nearest hundredth, what is its area?
+    options:
+      - "43.39 cm²"
+      - "103.42 cm²"
+      - "86.78 cm²"
+      - "135.00 cm²"
+    option_explanations:
+      - |
+        43.39 = ½ · 9 · 15 · sin 40° is one of the two triangles a diagonal cuts the parallelogram into.
+      - |
+        103.42 = 135 cos 40° uses cosine; the height is 9 sin 40°, so the area uses sine.
+      - |
+        Correct. A parallelogram is two congruent triangles: area = ab sin θ = 9 · 15 · sin 40° ≈ 86.78 cm².
+      - |
+        135 = 9 · 15 would be the area only if the angle were 90°.
+    answer: 2
+  - slug: trig-u04-exam-q20
+    type: multiple_choice
+    topic_code: "4.4"
+    source: "Original item; Common Core HSG-SRT.D.9"
+    points: 1
+    prompt: |
+      A regular octagon is inscribed in a circle of radius 10. What is the exact area of the octagon?
+    options:
+      - "400√2"
+      - "400"
+      - "25√2"
+      - "200√2"
+    option_explanations:
+      - |
+        400√2 leaves out the ½ in each triangle's area, ½r² sin 45°.
+      - |
+        400 = 8 · ½ · 100 drops the factor sin 45°; the two radii meet at 45°, not 90°.
+      - |
+        25√2 is the area of one of the eight central triangles; the octagon is made of eight of them.
+      - |
+        Correct. Eight triangles, each with two sides 10 and a 45° angle between them: 8 · ½ · 100 · sin 45° = 400 · √2/2 = 200√2 ≈ 282.84.
+    answer: 3
+  # ---- Surveying and navigation (4.5)
+  - slug: trig-u04-exam-q21
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "Original item; Common Core HSG-SRT.D.11"
+    points: 1
+    prompt: |
+      (Calculator.) To find the distance AB across a hypothetical lake, a surveyor stands at C, where CA = 250 m, CB = 310 m and angle ACB = 58°. To the nearest hundredth of a metre, what is AB?
+    options:
+      - "398.25 m"
+      - "276.52 m"
+      - "490.65 m"
+      - "560.00 m"
+    option_explanations:
+      - |
+        398.25 = √(250² + 310²) treats angle C as a right angle.
+      - |
+        Correct. AB² = 250² + 310² − 2(250)(310) cos 58° ≈ 158 600 − 82 139 = 76 461, so AB ≈ 276.52 m.
+      - |
+        490.65 adds 2ab cos C instead of subtracting it.
+      - |
+        560 = 250 + 310 would need A, C and B to lie on one straight line with C between them.
+    answer: 1
+  - slug: trig-u04-exam-q22
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "Original item; Common Core HSG-SRT.D.11"
+    points: 1
+    prompt: |
+      The bearing from lighthouse L to buoy B is 215°. What is the bearing from B back to L?
+    options:
+      - "035°"
+      - "145°"
+      - "305°"
+      - "125°"
+    option_explanations:
+      - |
+        Correct. The reverse direction differs by 180°: 215° − 180° = 035°.
+      - |
+        145° = 360° − 215° reflects the direction across the north–south line instead of reversing it.
+      - |
+        305° = 215° + 90° is a quarter turn, not a half turn.
+      - |
+        125° = 215° − 90° is also a quarter turn; reversing a direction takes 180°.
+    answer: 0
+  - slug: trig-u04-exam-q23
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "Original item; Common Core HSG-SRT.D.11"
+    points: 1
+    prompt: |
+      (Calculator.) From point A on level ground, the angle of elevation to the top of a hypothetical radio mast is 25°. From point B, 60 m closer to the mast along the same line, it is 40°. To the nearest hundredth of a metre, how tall is the mast?
+    options:
+      - "149.01 m"
+      - "97.97 m"
+      - "41.40 m"
+      - "62.98 m"
+    option_explanations:
+      - |
+        149.01 m is the slant distance from A to the top, not the height.
+      - |
+        97.97 m is the slant distance from B to the top; one more step, times sin 40°, gives the height.
+      - |
+        41.40 = 97.97 sin 25° uses the wrong angle: from B the top is at 40° elevation.
+      - |
+        Correct. In triangle ABT the angles are 25°, 140° and 15°, so BT = 60 sin 25°/sin 15° ≈ 97.97 m and the height is 97.97 sin 40° ≈ 62.98 m.
+    answer: 3
+  # ---- Vectors (4.6, 4.7)
+  - slug: trig-u04-exam-q24
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "Original item; Common Core HSN-VM.A.1"
+    points: 1
+    prompt: |
+      Which gives the magnitude and the direction angle (in [0°, 360°)) of ⟨5, −12⟩?
+    options:
+      - "13 and 67.38°"
+      - "17 and 292.62°"
+      - "13 and 292.62°"
+      - "13 and 112.62°"
+    option_explanations:
+      - |
+        67.38° is the reference angle placed in quadrant I; the vector points right and down, into quadrant IV.
+      - |
+        17 = 5 + 12 adds the component sizes; the magnitude is √(25 + 144) = 13.
+      - |
+        Correct. |v| = 13; quadrant IV with reference angle tan⁻¹(12/5) ≈ 67.38°, so θ ≈ 360° − 67.38° = 292.62°.
+      - |
+        112.62° is in quadrant II, the direction of ⟨−5, 12⟩, the opposite vector.
+    answer: 2
+  - slug: trig-u04-exam-q25
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "Original item; Common Core HSN-VM.A.3"
+    points: 1
+    prompt: |
+      A drone flies 16 km on a bearing of S 60° E. Taking east and north as positive, which is its displacement in component form?
+    options:
+      - "⟨8√3, −8⟩"
+      - "⟨8, −8√3⟩"
+      - "⟨−8, 8√3⟩"
+      - "⟨8√3, 8⟩"
+    option_explanations:
+      - |
+        Correct. S 60° E is the bearing 120°, so θ = 90° − 120° = −30°: ⟨16 cos(−30°), 16 sin(−30°)⟩ = ⟨8√3, −8⟩.
+      - |
+        This is the direction 60° below east (S 30° E); S 60° E is 60° from south, which is 30° below east.
+      - |
+        This treats the bearing 120° as a direction angle, pointing northwest instead of southeast.
+      - |
+        The drone heads south of east, so the north component must be negative.
+    answer: 0
+  - slug: trig-u04-exam-q26
+    type: multiple_choice
+    topic_code: "4.7"
+    source: "Original item; Common Core HSN-VM.B.5"
+    points: 1
+    prompt: |
+      What is the unit vector in the direction of ⟨−9, 12⟩?
+    options:
+      - "⟨−9/21, 12/21⟩"
+      - "⟨−3/5, 4/5⟩"
+      - "⟨3/5, −4/5⟩"
+      - "⟨−3, 4⟩"
+    option_explanations:
+      - |
+        21 = 9 + 12 is not the magnitude; |⟨−9, 12⟩| = √(81 + 144) = 15.
+      - |
+        Correct. Divide by 15: ⟨−9/15, 12/15⟩ = ⟨−3/5, 4/5⟩.
+      - |
+        This has length 1 but points the opposite way.
+      - |
+        ⟨−3, 4⟩ points the right way but has length 5; a unit vector has length 1.
+    answer: 1
+  - slug: trig-u04-exam-q27
+    type: multiple_choice
+    topic_code: "4.7"
+    source: "Original item; Common Core HSN-VM.B.4"
+    points: 1
+    prompt: |
+      For u = ⟨3, 1⟩ and v = ⟨−2, 5⟩, what is u − 2v?
+    options:
+      - "⟨5, −4⟩"
+      - "⟨−1, 11⟩"
+      - "⟨7, 11⟩"
+      - "⟨7, −9⟩"
+    option_explanations:
+      - |
+        ⟨5, −4⟩ is u − v; the factor 2 on v has been left out.
+      - |
+        ⟨−1, 11⟩ is u + 2v; subtracting 2v = ⟨−4, 10⟩ changes both signs.
+      - |
+        The first component is right, but 1 − 10 = −9, not 11.
+      - |
+        Correct. 2v = ⟨−4, 10⟩, so u − 2v = ⟨3 + 4, 1 − 10⟩ = ⟨7, −9⟩.
+    answer: 3
+  # ---- Dot product, projections and work (4.8, 4.9)
+  - slug: trig-u04-exam-q28
+    type: multiple_choice
+    topic_code: "4.8"
+    source: "Original item; Common Core HSN-VM.B.4 (extension)"
+    points: 1
+    prompt: |
+      For what value of k are ⟨k, 4⟩ and ⟨6, −3⟩ orthogonal?
+    options:
+      - "−2"
+      - "8"
+      - "2"
+      - "1/2"
+    option_explanations:
+      - |
+        −2 gives −12 − 12 = −24, not 0; the sign was lost when solving 6k − 12 = 0.
+      - |
+        8 comes from pairing 4 with 6 and k with −3 (−3k + 24 = 0); match first with first and second with second.
+      - |
+        Correct. 6k + 4(−3) = 0 gives 6k = 12, so k = 2.
+      - |
+        1/2 solves 12k = 6, dividing the wrong way round.
+    answer: 2
+  - slug: trig-u04-exam-q29
+    type: multiple_choice
+    topic_code: "4.9"
+    source: "Original item; Common Core HSN-VM.B.5 (extension)"
+    points: 1
+    prompt: |
+      (Calculator.) A force of 80 N, directed 25° above the horizontal, pulls a cart 15 m along level ground. To the nearest hundredth, how much work is done?
+    options:
+      - "1087.57 J"
+      - "507.14 J"
+      - "1200.00 J"
+      - "1324.05 J"
+    option_explanations:
+      - |
+        Correct. W = |F||d| cos θ = 80 · 15 · cos 25° ≈ 1087.57 J.
+      - |
+        507.14 = 1200 sin 25° uses the vertical part of the force, which does no work on level ground.
+      - |
+        1200 = 80 · 15 counts the whole force as acting along the ground.
+      - |
+        1324.05 = 1200/cos 25° divides by the cosine instead of multiplying, giving more work than the full force could do.
+    answer: 0
+  # ---- Forces and equilibrium (4.10)
+  - slug: trig-u04-exam-q30
+    type: multiple_choice
+    topic_code: "4.10"
+    source: "Original item; Common Core HSN-VM.A.3"
+    points: 1
+    prompt: |
+      (Calculator.) A 300 N load hangs from the middle of a cable, and each half of the cable makes 20° with the horizontal. To the nearest hundredth, what is the tension in each half?
+    options:
+      - "150.00 N"
+      - "438.57 N"
+      - "159.63 N"
+      - "877.14 N"
+    option_explanations:
+      - |
+        150 N assumes each half holds half the weight directly; only the vertical part, T sin 20°, lifts.
+      - |
+        Correct. 2T sin 20° = 300, so T = 300/(2 sin 20°) ≈ 438.57 N: shallow cables carry far more than the load.
+      - |
+        159.63 = 300/(2 cos 20°) uses cosine; the vertical part of a cable at 20° to the horizontal is T sin 20°.
+      - |
+        877.14 = 300/sin 20° forgets that the two halves share the load.
+    answer: 1
+  - slug: trig-u04-exam-q31
+    type: multiple_choice
+    topic_code: "4.10"
+    source: "Original item; Common Core HSN-VM.B.4"
+    points: 1
+    prompt: |
+      Forces ⟨6, −2⟩ and ⟨−1, 7⟩ newtons act on a ring. Which single force, the equilibrant, holds the ring at rest?
+    options:
+      - "⟨5, 5⟩"
+      - "⟨7, −9⟩"
+      - "⟨−7, 9⟩"
+      - "⟨−5, −5⟩"
+    option_explanations:
+      - |
+        ⟨5, 5⟩ is the resultant; adding it again would double the net force rather than cancel it.
+      - |
+        ⟨7, −9⟩ is the difference of the forces; equilibrium depends on their sum.
+      - |
+        ⟨−7, 9⟩ is the negative of the difference; the equilibrant is the negative of the sum.
+      - |
+        Correct. The resultant is ⟨5, 5⟩, so the equilibrant is ⟨−5, −5⟩, and the three forces add to ⟨0, 0⟩.
+    answer: 3
+  # ---- Review of Units 1 to 3
+  - slug: trig-u04-exam-q32
+    type: multiple_choice
+    topic_code: "1.6"
+    source: "Original item; Common Core HSG-SRT.C.8"
+    points: 1
+    prompt: |
+      (Calculator.) From the top of a hypothetical cliff 80 m above the sea, the angle of depression to a boat is 12°. To the nearest hundredth, how far is the boat from the foot of the cliff?
+    options:
+      - "17.00 m"
+      - "81.79 m"
+      - "376.37 m"
+      - "384.78 m"
+    option_explanations:
+      - |
+        17.00 = 80 tan 12° multiplies by the tangent; at the boat the 80 m height is opposite the 12° angle, so tan 12° = 80/d and d = 80/tan 12°.
+      - |
+        81.79 = 80/cos 12° treats the height as the side adjacent to the 12° angle; at the boat it is the opposite side.
+      - |
+        Correct. The angle of elevation from the boat equals the angle of depression, 12°, so tan 12° = 80/d and d = 80/tan 12° ≈ 376.37 m.
+      - |
+        384.78 = 80/sin 12° is the line-of-sight distance from the cliff top to the boat, the hypotenuse.
+    answer: 2
+  - slug: trig-u04-exam-q33
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "Original item; Common Core HSF-TF.C.9"
+    points: 1
+    prompt: |
+      Using cos(45° − 30°), what is the exact value of cos 15°?
+    options:
+      - "(√6 − √2)/4"
+      - "(√6 + √2)/4"
+      - "(√2 − √3)/2"
+      - "√2/2 − √3/2"
+    option_explanations:
+      - |
+        (√6 − √2)/4 is sin 15°; the difference formula for cosine adds the two products.
+      - |
+        Correct. cos 45° cos 30° + sin 45° sin 30° = (√2/2)(√3/2) + (√2/2)(1/2) = (√6 + √2)/4 ≈ 0.966.
+      - |
+        This value is negative, but cos 15° is close to 1; cosine of a difference is not a difference of cosines.
+      - |
+        cos 45° − cos 30° is negative; cos(α − β) ≠ cos α − cos β.
+    answer: 1
+  - slug: trig-u04-exam-q34
+    type: multiple_choice
+    topic_code: "2.9"
+    source: "Original item; Common Core HSF-TF.B.7"
+    points: 1
+    prompt: |
+      The law of cosines gives cos C = −1/2 for an angle C of a triangle. In degrees, what is C = cos⁻¹(−1/2)?
+    options:
+      - "120°"
+      - "−60°"
+      - "240°"
+      - "60°"
+    option_explanations:
+      - |
+        Correct. cos⁻¹ returns angles in [0°, 180°], and cos 120° = −1/2. Every possible triangle angle is in that range, so the answer needs no adjusting.
+      - |
+        cos⁻¹ never returns a negative angle, and cos(−60°) = +1/2 anyway.
+      - |
+        cos 240° = −1/2, but 240° is outside [0°, 180°] and cannot be an angle of a triangle.
+      - |
+        cos 60° = +1/2; a negative cosine means an obtuse angle.
+    answer: 0
+  # ---- Select-all, true/false, fill-in-the-blank, numeric
+  - slug: trig-u04-exam-q35
+    type: multi_select
+    topic_code: "4.2"
+    source: "Original item; Common Core HSG-SRT.D.11"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Each option gives SSA measurements for a triangle ABC. Which sets of measurements give exactly one triangle? Select all that apply.
+    options:
+      - "A = 30°, a = 5, b = 10"
+      - "A = 40°, a = 7, b = 10"
+      - "A = 100°, a = 12, b = 9"
+      - "A = 60°, a = 5, b = 8"
+      - "A = 45°, a = 11, b = 11"
+    option_explanations:
+      - |
+        Correct. h = 10 sin 30° = 5 = a, so side a just reaches the base: exactly one triangle, with a right angle at B.
+      - |
+        h = 10 sin 40° ≈ 6.43, and h < a < b (6.43 < 7 < 10), so there are two triangles.
+      - |
+        Correct. A is obtuse and a > b, so there is exactly one triangle.
+      - |
+        h = 8 sin 60° ≈ 6.93 is longer than a = 5, so side a cannot reach the base: no triangle.
+      - |
+        Correct. a ≥ b with A acute gives one triangle; here it is isosceles with B = 45° and C = 90°.
+    answer: [0, 2, 4]
+  - slug: trig-u04-exam-q36
+    type: multi_select
+    topic_code: "4.8"
+    source: "Original item; Common Core HSN-VM.B.4 (extension)"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Let u = ⟨3, −6⟩ and v = ⟨4, 2⟩. Which statements about u and v are true? Select all that apply.
+    options:
+      - "u and v are orthogonal."
+      - "projᵥ u = ⟨4, 2⟩"
+      - "|u + v| = |u| + |v|"
+      - "|u + v|² = |u|² + |v|²"
+      - "A force u moving an object through displacement v does 30 units of work."
+    option_explanations:
+      - |
+        Correct. u · v = 3 · 4 + (−6) · 2 = 12 − 12 = 0, so the angle is 90°.
+      - |
+        The projection is ((u · v)/|v|²) v = 0 · v, the zero vector, because u and v are orthogonal.
+      - |
+        |u + v| = |⟨7, −4⟩| = √65 ≈ 8.06, while |u| + |v| = √45 + √20 ≈ 11.18; magnitudes add only in the same direction.
+      - |
+        Correct. 65 = 45 + 20: orthogonal vectors form a right angle, so the Pythagorean theorem holds for their sum.
+      - |
+        The work is u · v = 0: a force perpendicular to the motion does no work.
+    answer: [0, 3]
+  - slug: trig-u04-exam-q37
+    type: multi_select
+    topic_code: "4.10"
+    source: "Original item; Common Core HSN-VM.A.3"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about forces and velocities are true? Select all that apply.
+    options:
+      - "A plane's course equals its heading when the wind blows from directly behind it."
+      - "A wind from the east pushes a plane towards the east."
+      - "To land directly opposite its start, a boat crossing a river with a current must aim upstream."
+      - "Two forces of 10 N and 6 N can have a resultant of 20 N."
+      - "The tension in each of two symmetric cables holding a weight increases as the cables get steeper."
+    option_explanations:
+      - |
+        Correct. A tail wind is parallel to the air velocity, so the sum points the same way; only the speed changes.
+      - |
+        Winds are named for where they come from: a wind from the east blows towards the west.
+      - |
+        Correct. The boat's upstream component must cancel the current, so it aims upstream by α with (boat speed) · sin α = (current).
+      - |
+        The largest possible resultant is 10 + 6 = 16 N, when the forces point the same way.
+      - |
+        T = w/(2 sin θ) decreases as θ increases: steeper cables carry less tension.
+    answer: [0, 2]
+  - slug: trig-u04-exam-q38
+    type: true_false
+    topic_code: "4.3"
+    source: "Original item; Common Core HSG-SRT.D.10"
+    points: 1
+    prompt: |
+      True or false: When C = 90°, the law of cosines c² = a² + b² − 2ab cos C reduces to the Pythagorean theorem.
+    answer: true
+    explanation: |
+      True. cos 90° = 0, so the last term vanishes and c² = a² + b². The law of cosines is the Pythagorean theorem with a correction term for angles that are not right angles.
+  - slug: trig-u04-exam-q39
+    type: true_false
+    topic_code: "4.7"
+    source: "Original item; Common Core HSN-VM.B.5"
+    points: 1
+    prompt: |
+      True or false: For every real number k and every vector v, |kv| = k|v|.
+    answer: false
+    explanation: |
+      False. |kv| = |k||v|. For a negative k the right side k|v| would be negative, but a magnitude never is: |−3⟨3, 4⟩| = 15, not −15.
+  - slug: trig-u04-exam-q40
+    type: fill_blank
+    topic_code: "4.6"
+    source: "Original item; Common Core HSN-VM.A.1"
+    points: 1
+    prompt: |
+      The magnitude of the vector ⟨−20, 21⟩ is ____.
+    answer: ["29"]
+    explanation: |
+      √((−20)² + 21²) = √(400 + 441) = √841 = 29.
+  - slug: trig-u04-exam-q41
+    type: fill_blank
+    topic_code: "4.8"
+    source: "Original item; Common Core HSN-VM.B.4 (extension)"
+    points: 1
+    prompt: |
+      The dot product ⟨4, −3⟩ · ⟨−2, 5⟩ equals ____.
+    answer: ["-23", "−23"]
+    explanation: |
+      4(−2) + (−3)(5) = −8 − 15 = −23. The negative value means the angle between the vectors is obtuse.
+  - slug: trig-u04-exam-q42
+    type: numeric
+    topic_code: "4.4"
+    source: "Original item; Common Core HSG-SRT.D.9"
+    points: 1
+    prompt: |
+      Use Heron's formula to find the exact area of the triangle with sides 9, 10 and 17.
+    answer: { value: 36, tolerance: 0 }
+    explanation: |
+      s = (9 + 10 + 17)/2 = 18. Area = √(18 · 9 · 8 · 1) = √1296 = 36 square units.
+  # ---- Short answer
+  - slug: trig-u04-exam-q43
+    type: short_answer
+    topic_code: "4.9"
+    source: "Original item; Common Core HSN-VM.B.5 (extension)"
+    points: 3
+    prompt: |
+      (Calculator.) A constant force F = ⟨3, 4⟩ newtons moves an object along the displacement d = ⟨12, 5⟩ metres.
+
+      (a) Find the work done by F.
+      (b) Find the angle between F and d to the nearest hundredth of a degree.
+      (c) Find the scalar component of F along d, and the vector projection proj_d F with components to the nearest hundredth.
+    answer: |
+      (a) W = F · d = 36 + 20 = 56 J.
+      (b) |F| = 5, |d| = 13, cos θ = 56/65 ≈ 0.8615, θ ≈ 30.51°.
+      (c) comp_d F = 56/13 ≈ 4.31 N; proj_d F = (56/169)⟨12, 5⟩ ≈ ⟨3.98, 1.66⟩.
+    explanation: |
+      Three points, one per part. (a) 56 J. (b) 30.51° (accept 30.5°). (c) both the scalar component 56/13 ≈ 4.31 and the projection ⟨3.98, 1.66⟩; follow-through from an error in (a) is accepted.
+  - slug: trig-u04-exam-q44
+    type: short_answer
+    topic_code: "4.5"
+    source: "Original item; Common Core HSG-SRT.D.11"
+    points: 3
+    prompt: |
+      (Calculator.) A hypothetical patrol boat sails 40 nautical miles on a bearing of 075°, then turns and sails 25 nautical miles on a bearing of 200°.
+
+      (a) Find the angle at the turn inside the triangle formed by the two legs and the line back to the start.
+      (b) Find the boat's distance from its start to the nearest hundredth of a nautical mile.
+      (c) Find the bearing from the start to the boat's final position, to the nearest tenth of a degree.
+    answer: |
+      (a) The course turns clockwise from 075° to 200°, a turn of 125°, so the interior angle at the turn is 180° − 125° = 55°.
+      (b) d² = 40² + 25² − 2(40)(25) cos 55° ≈ 2225 − 1147.2 = 1077.8, so d ≈ 32.83 nautical miles.
+      (c) Law of sines at the start: sin S = 25 sin 55°/32.83 ≈ 0.6238, S ≈ 38.6° (acute, since it faces the shorter leg). The boat turned clockwise, so the bearing is 075° + 38.6° ≈ 113.6°. (Components: ⟨40 cos 15°, 40 sin 15°⟩ + ⟨25 cos(−110°), 25 sin(−110°)⟩ ≈ ⟨30.087, −13.140⟩, bearing 90° + 23.6° ≈ 113.6°.)
+    explanation: |
+      Three points, one per part. (a) 55° with a reason from the bearings. (b) 32.83 nautical miles. (c) a bearing of 113.6° (accept 113.5° to 113.7°) by the law of sines or by components.
+  # ---- Extended response
+  - slug: trig-u04-exam-q45
+    type: long_answer
+    topic_code: "4.3"
+    source: "Original item; Common Core HSG-SRT.D.10"
+    points: 6
+    prompt: |
+      (Calculator.) A hypothetical triangular building plot ABC has AB = 85 m and AC = 120 m, and the angle at corner A is 48°.
+
+      (A) (i) Find the length of the third side, BC, to the nearest hundredth of a metre, and name the law you used.
+      (ii) Explain why the law of sines could not be used first.
+
+      (B) (i) Find the area of the plot to the nearest square metre.
+      (ii) Use Heron's formula with your three side lengths to check the area.
+
+      (C) (i) Find angle C (opposite AB) to the nearest hundredth of a degree, and then angle B.
+      (ii) Explain why it is safer to use the law of sines for angle C than for angle B.
+    answer: |
+      (A) (i) Law of cosines (SAS): BC² = 85² + 120² − 2(85)(120) cos 48° ≈ 21 625 − 13 650.2 = 7974.8, so BC ≈ 89.30 m.
+      (ii) The law of sines needs a known angle together with the side opposite it. The given angle A is between the two known sides, and the side opposite it, BC, is the unknown, so no complete ratio is available.
+      (B) (i) Area = ½ · 85 · 120 · sin 48° = 5100 sin 48° ≈ 3790 m².
+      (ii) s = (85 + 120 + 89.30)/2 ≈ 147.15; √(147.15 · 62.15 · 27.15 · 57.85) ≈ √14 364 000 ≈ 3790 m², which agrees.
+      (C) (i) sin C = 85 sin 48°/89.30 ≈ 0.7073, so C ≈ 45.02°. Then B = 180° − 48° − 45.02° ≈ 86.98°.
+      (ii) C faces AB = 85, the shortest side, so C is the smallest angle and must be acute; sin⁻¹ gives it correctly. B faces the longest side and could be obtuse, in which case sin⁻¹ would return its acute supplement. (Here B ≈ 86.98° happens to be acute; the law of cosines confirms it, since 89.30² + 85² − 120² > 0.)
+    explanation: |
+      Six points. (A) 1 point for BC ≈ 89.30 m with the law of cosines named; 1 point for explaining that no angle–opposite side pair is known. (B) 1 point for 3790 m²; 1 point for a correct Heron's-formula check (semiperimeter about 147.15 and an area of about 3790). (C) 1 point for C ≈ 45.02° and B ≈ 86.98° (accept within 0.02); 1 point for explaining that the smallest angle must be acute while the largest might be obtuse, so sin⁻¹ is safe only for the smaller angle.
+  - slug: trig-u04-exam-q46
+    type: long_answer
+    topic_code: "4.10"
+    source: "Original item; Common Core HSN-VM.A.3"
+    points: 6
+    prompt: |
+      (Calculator.) A hypothetical pilot must fly from airport P to airport Q, 900 miles due east (course 090°). Her airspeed is 360 mph. A 45 mph wind blows from the bearing 020° (that is, towards 200°). Use east and north as the positive directions.
+
+      (A) (i) Write the wind velocity in component form, to the nearest thousandth.
+      (ii) Explain why flying on a heading of 090° would not take her to Q.
+
+      (B) (i) Find the heading she must fly, to the nearest tenth of a degree, so that her course is due east.
+      (ii) Find her ground speed to the nearest hundredth of a mph.
+
+      (C) (i) Find the flight time to the nearest minute.
+      (ii) Explain why the ground speed is less than the airspeed even though the wind is not a direct head wind.
+    answer: |
+      (A) (i) The wind blows towards 200°, a direction angle of 90° − 200° = −110°: ⟨45 cos(−110°), 45 sin(−110°)⟩ ≈ ⟨−15.391, −42.286⟩.
+      (ii) On a heading of 090° the air velocity is ⟨360, 0⟩, so the ground velocity would be ⟨344.609, −42.286⟩, which points south of east (course about 097.0°). The wind's southward component pushes her off the line to Q.
+      (B) (i) Her air velocity 360⟨cos θ, sin θ⟩ must cancel the wind's north component: 360 sin θ = 42.286, sin θ ≈ 0.11746, θ ≈ 6.75°. That direction angle is north of east, so the heading is 90° − 6.75° ≈ 083.3°.
+      (ii) Ground speed = 360 cos 6.75° − 15.391 ≈ 357.508 − 15.391 ≈ 342.12 mph.
+      (C) (i) 900/342.12 ≈ 2.631 h ≈ 158 minutes (2 h 38 min).
+      (ii) The wind has a westward component of about 15.39 mph that directly opposes her eastward travel, and part of her airspeed (360 sin θ ≈ 42.29 mph) is spent cancelling the wind's southward push, which leaves only 360 cos θ ≈ 357.51 mph eastward before the head-wind part is subtracted.
+    explanation: |
+      Six points. (A) 1 point for ⟨−15.391, −42.286⟩ (within 0.01); 1 point for explaining the southward drift (a computed course is not required). (B) 1 point for the heading 083.3° (accept 083.2° to 083.3°); 1 point for 342.12 mph (accept within 0.05). (C) 1 point for about 158 minutes, with follow-through from (B); 1 point for naming both effects: the westward wind component and the airspeed spent cancelling the cross-wind.

@@ -1,0 +1,617 @@
+week: 32
+unit: 5
+title: "Euler's Formula and Rotations"
+topics: ["5.12"]
+guide: guides/week-32.md
+guide_description: |
+  Euler's formula e^(iθ) = cos θ + i sin θ, motivated by the product rule and De Moivre's theorem behaving like the
+  laws of exponents; the exponential form re^(iθ) and e^(iπ) + 1 = 0; deriving the sum, difference and double-angle
+  formulas by expanding e^(i(α + β)) = e^(iα)e^(iβ); and rotating points and vectors about the origin or another
+  centre by multiplying by e^(iθ), with (x cos θ − y sin θ, x sin θ + y cos θ). Worked examples: special values,
+  (−3 + 3√3 i)⁴, the sum formulas, a 90° and a 60° rotation, a rotation about (2, −1) and an equilateral triangle.
+  A synthesis week linking polar form, vectors, parametric circles and identities.
+flashcards_description: |
+  30 cards on Euler's formula, exponential form, identities derived from it, and rotations of points and vectors,
+  with links back to polar form, De Moivre's theorem, roots of unity and the sum formulas.
+
+flashcards:
+  - front: Euler's formula → statement
+    back: |
+      e^(iθ) = cos θ + i sin θ, with θ in radians.
+    topic_code: "5.12"
+  - front: Why cis θ behaves like an exponential → the two rules that match
+    back: |
+      cis α · cis β = cis(α + β) matches a^α · a^β = a^(α + β), and (cis θ)ⁿ = cis(nθ) matches (a^θ)ⁿ = a^(nθ).
+    topic_code: "5.12"
+  - front: e^(iπ/2) in the form a + bi → value
+    back: |
+      cos(π/2) + i sin(π/2) = i.
+    topic_code: "5.12"
+  - front: e^(iπ) + 1 → value and name
+    back: |
+      0, Euler's identity: e^(iπ) = cos π + i sin π = −1.
+    topic_code: "5.12"
+  - front: e^(2πi/3) in the form a + bi → value
+    back: |
+      −1/2 + (√3/2)i, a cube root of unity.
+    topic_code: "5.12"
+  - front: 2e^(iπ/4) in the form a + bi → value
+    back: |
+      2(√2/2 + (√2/2)i) = √2 + √2 i.
+    topic_code: "5.12"
+  - front: "|e^(iθ)| for real θ → value and why"
+    back: |
+      1, because √(cos²θ + sin²θ) = 1: e^(iθ) is always on the unit circle.
+    topic_code: "5.12"
+  - front: −3 + 3√3 i in exponential form → re^(iθ)
+    back: |
+      r = √(9 + 27) = 6; quadrant II with reference angle π/3, so 6e^(2πi/3).
+    topic_code: "5.12"
+  - front: re^(iα) · se^(iβ) and re^(iα)/se^(iβ) → results
+    back: |
+      rs e^(i(α + β)) and (r/s) e^(i(α − β)): multiply or divide the moduli, add or subtract the arguments.
+    topic_code: "5.12"
+  - front: (re^(iθ))ⁿ in exponential form → result
+    back: |
+      rⁿe^(inθ), which is De Moivre's theorem in exponential form.
+    topic_code: "5.12"
+  - front: Sum formulas from e^(i(α + β)) = e^(iα)e^(iβ) → how
+    back: |
+      Expand (cos α + i sin α)(cos β + i sin β) and match real parts (cos(α + β) = cos α cos β − sin α sin β) and imaginary parts (sin(α + β) = sin α cos β + cos α sin β).
+    topic_code: "5.12"
+  - front: Double-angle formulas from (cos θ + i sin θ)² → results
+    back: |
+      Real part: cos 2θ = cos²θ − sin²θ. Imaginary part: sin 2θ = 2 sin θ cos θ.
+    topic_code: "5.12"
+  - front: cos 3θ from (cos θ + i sin θ)³ → result
+    back: |
+      The real part: cos 3θ = cos³θ − 3 cos θ sin²θ.
+    topic_code: "5.12"
+  - front: cos θ in terms of e^(iθ) and e^(−iθ) → formula
+    back: |
+      cos θ = (e^(iθ) + e^(−iθ))/2, the average of a point on the unit circle and its reflection in the real axis.
+    topic_code: "5.12"
+  - front: sin θ in terms of e^(iθ) and e^(−iθ) → formula
+    back: |
+      sin θ = (e^(iθ) − e^(−iθ))/(2i).
+    topic_code: "5.12"
+  - front: Multiplying a complex number by e^(iθ) → geometric effect
+    back: |
+      Rotates its point about the origin by θ counterclockwise; the distance from the origin is unchanged because |e^(iθ)| = 1.
+    topic_code: "5.12"
+  - front: Rotating (x, y) by θ about the origin → formula
+    back: |
+      (x cos θ − y sin θ, x sin θ + y cos θ), the real and imaginary parts of (x + iy)(cos θ + i sin θ).
+    topic_code: "5.12"
+  - front: Rotating (x, y) by 90° counterclockwise → shortcut
+    back: |
+      (−y, x), from multiplying by i. (4, 2) goes to (−2, 4).
+    topic_code: "5.12"
+  - front: Rotating (x, y) by 180° about the origin → result
+    back: |
+      (−x, −y), from multiplying by e^(iπ) = −1.
+    topic_code: "5.12"
+  - front: Rotating (3, 1) by 60° about the origin → exact image
+    back: |
+      ((3 − √3)/2, (3√3 + 1)/2) ≈ (0.634, 3.098).
+    topic_code: "5.12"
+  - front: Rotation about a centre C → three steps
+    back: |
+      Subtract C, rotate about the origin, add C back: P′ = C + e^(iθ)(P − C).
+    topic_code: "5.12"
+  - front: P(5, 1) rotated 90° counterclockwise about C(2, −1) → image
+    back: |
+      P − C = (3, 2) → (−2, 3) → add C: (0, 2).
+    topic_code: "5.12"
+  - front: Rotating by θ and then by φ → single rotation
+    back: |
+      A rotation by θ + φ, since e^(iθ)e^(iφ) = e^(i(θ + φ)). A rotation by −θ undoes one by θ.
+    topic_code: "5.12"
+  - front: Third vertex B of equilateral triangle OAB with O at the origin, A = (4, 2) → method
+    back: |
+      Rotate A by 60° about O: B = (2 − √3, 2√3 + 1) ≈ (0.268, 4.464).
+    topic_code: "5.12"
+  - front: Week 30's circle x = r cos t, y = r sin t → as one complex function
+    back: |
+      z(t) = re^(it), the point re^(it) moving counterclockwise round the circle of radius r.
+    topic_code: "5.12"
+  - front: nth roots of unity in exponential form → list
+    back: |
+      e^(2πik/n) for k = 0, 1, …, n − 1: the vertices of a regular n-gon on the unit circle, each a rotation of the last by 2π/n.
+    topic_code: "5.12"
+  - front: Vector ⟨6, 8⟩ rotated by 30° → new magnitude
+    back: |
+      Still 10. Rotation never changes length; only the direction angle grows by 30°.
+    topic_code: "5.12"
+  - front: Error-spot → "e^(90i) = i, because a quarter turn is 90°"
+    back: |
+      Euler's formula needs radians: e^(iπ/2) = i. e^(90i) is cos 90 + i sin 90 with 90 radians.
+    topic_code: "5.12"
+  - front: Error-spot → "Rotating (x, y) by θ gives (x cos θ + y sin θ, x sin θ + y cos θ)"
+    back: |
+      The first coordinate has a minus: x cos θ − y sin θ. (x cos θ + y sin θ, −x sin θ + y cos θ) would be the clockwise rotation, by −θ.
+    topic_code: "5.12"
+  - front: Error-spot → "Multiplying by e^(iπ/3) rotates a point 60° clockwise"
+    back: |
+      A positive angle turns counterclockwise. Multiplying by e^(−iπ/3) turns 60° clockwise.
+    topic_code: "5.12"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · a synthesis week: topic 5.12 (Euler's formula, exponential form, identities
+    from Euler, rotations of points and vectors), with more than a third reviewing the whole course (radian measure,
+    simple harmonic motion, sum, double-angle and combined-sinusoid formulas, triangle area, the dot product, complex
+    roots and polar conics). Includes a shared-context set on rotating the point P(4, −2). Multiple choice,
+    select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically;
+    the short answers and the long answer are graded by your teacher against the scoring notes. Items marked
+    (Calculator.) need a calculator; the rest are designed to be done by hand.
+  questions:
+    # ---- Stimulus set: rotating a point (5.12)
+    - slug: trig-u05-w32-q01
+      type: multiple_choice
+      topic_code: "5.12"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      stimulus: |
+        The point P(4, −2), which is the complex number 4 − 2i, is rotated about the origin. A rotation by θ counterclockwise sends (x, y) to (x cos θ − y sin θ, x sin θ + y cos θ), which is the same as multiplying x + iy by e^(iθ).
+      prompt: |
+        Where is P after a rotation of 90° counterclockwise?
+      options:
+        - "(−2, −4)"
+        - "(2, 4)"
+        - "(−4, 2)"
+        - "(4, 2)"
+      option_explanations:
+        - |
+          This is a 90° rotation clockwise, (x, y) → (y, −x); counterclockwise sends (x, y) to (−y, x).
+        - |
+          Correct. (4 − 2i) · i = 4i − 2i² = 2 + 4i, the point (2, 4): (x, y) → (−y, x).
+        - |
+          (−4, 2) is the image after a half-turn, 180°, not a quarter-turn.
+        - |
+          (4, 2) is the reflection of P in the x-axis; a rotation keeps distance but this is not a turn about the origin by 90°.
+      answer: 1
+    - slug: trig-u05-w32-q02
+      type: multiple_choice
+      topic_code: "5.12"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      stimulus: |
+        The point P(4, −2), which is the complex number 4 − 2i, is rotated about the origin. A rotation by θ counterclockwise sends (x, y) to (x cos θ − y sin θ, x sin θ + y cos θ), which is the same as multiplying x + iy by e^(iθ).
+      prompt: |
+        Where is P after a rotation of 180°?
+      options:
+        - "(4, 2)"
+        - "(−4, −2)"
+        - "(−4, 2)"
+        - "(2, 4)"
+      option_explanations:
+        - |
+          (4, 2) reflects P in the x-axis, changing only the sign of y; a half-turn changes both signs.
+        - |
+          (−4, −2) reflects P in the y-axis, changing only the sign of x; a half-turn changes both signs.
+        - |
+          Correct. Multiplying by e^(iπ) = −1 gives −4 + 2i, the point (−4, 2).
+        - |
+          (2, 4) is the image after 90°; a further 90° is needed to make a half-turn.
+      answer: 2
+    - slug: trig-u05-w32-q03
+      type: multiple_choice
+      topic_code: "5.12"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      stimulus: |
+        The point P(4, −2), which is the complex number 4 − 2i, is rotated about the origin. A rotation by θ counterclockwise sends (x, y) to (x cos θ − y sin θ, x sin θ + y cos θ), which is the same as multiplying x + iy by e^(iθ).
+      prompt: |
+        Where is P after a rotation of 45° counterclockwise?
+      options:
+        - "(3√2, √2)"
+        - "(√2, 3√2)"
+        - "(√2, −3√2)"
+        - "(2√2, −√2)"
+      option_explanations:
+        - |
+          Correct. x′ = 4(√2/2) − (−2)(√2/2) = 3√2 and y′ = 4(√2/2) + (−2)(√2/2) = √2.
+        - |
+          The coordinates are swapped: x′ = x cos θ − y sin θ = 3√2 and y′ = √2.
+        - |
+          This is the 45° clockwise image, which uses −θ; counterclockwise gives (3√2, √2).
+        - |
+          This only multiplies each coordinate by √2/2; the rotation formula mixes x and y in each coordinate.
+      answer: 0
+    - slug: trig-u05-w32-q04
+      type: multiple_choice
+      topic_code: "5.12"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      stimulus: |
+        The point P(4, −2), which is the complex number 4 − 2i, is rotated about the origin. A rotation by θ counterclockwise sends (x, y) to (x cos θ − y sin θ, x sin θ + y cos θ), which is the same as multiplying x + iy by e^(iθ).
+      prompt: |
+        By which complex number should 4 − 2i be multiplied to rotate P by 30° counterclockwise?
+      options:
+        - "e^(30i)"
+        - "1/2 + (√3/2)i"
+        - "√3/2 − (1/2)i"
+        - "√3/2 + (1/2)i"
+      option_explanations:
+        - |
+          Euler's formula uses radians; 30° is π/6, so the multiplier is e^(iπ/6), not e^(30i).
+        - |
+          1/2 + (√3/2)i = e^(iπ/3) rotates by 60°, because cos 60° = 1/2.
+        - |
+          √3/2 − (1/2)i = e^(−iπ/6) rotates by 30° clockwise.
+        - |
+          Correct. e^(iπ/6) = cos 30° + i sin 30° = √3/2 + (1/2)i.
+      answer: 3
+    # ---- Topic 5.12
+    - slug: trig-u05-w32-q05
+      type: multiple_choice
+      topic_code: "5.12"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      prompt: |
+        Using Euler's formula, what is the value of e^(iπ)?
+      options:
+        - "1"
+        - "i"
+        - "0"
+        - "−1"
+      option_explanations:
+        - |
+          e^(i · 0) = 1; at θ = π the point is half-way round the unit circle, at −1.
+        - |
+          i is e^(iπ/2), a quarter-turn, not a half-turn.
+        - |
+          0 is the value of e^(iπ) + 1, Euler's identity; e^(iπ) itself is −1, and e^(iθ) is never 0.
+        - |
+          Correct. e^(iπ) = cos π + i sin π = −1 + 0i.
+      answer: 3
+    - slug: trig-u05-w32-q06
+      type: multiple_choice
+      topic_code: "5.12"
+      source: "Original item; Common Core HSN-CN.B.4"
+      points: 1
+      prompt: |
+        What is 4e^(5πi/6) in the form a + bi?
+      options:
+        - "−2√3 + 2i"
+        - "2√3 + 2i"
+        - "−2 + 2√3 i"
+        - "−2√3 − 2i"
+      option_explanations:
+        - |
+          Correct. 4(cos(5π/6) + i sin(5π/6)) = 4(−√3/2 + (1/2)i) = −2√3 + 2i.
+        - |
+          5π/6 is in quadrant II, where cosine is negative, so the real part is −2√3.
+        - |
+          These are the values for 2π/3; at 5π/6 the cosine is −√3/2 and the sine is 1/2.
+        - |
+          This is 4e^(7πi/6) in quadrant III; at 5π/6 the sine is positive.
+      answer: 0
+    - slug: trig-u05-w32-q07
+      type: multiple_choice
+      topic_code: "5.12"
+      source: "Original item; Common Core HSF-TF.C.9"
+      points: 1
+      prompt: |
+        Expanding e^(i(α + β)) = e^(iα) · e^(iβ) with Euler's formula and comparing imaginary parts gives which identity?
+      options:
+        - "sin(α + β) = sin α + sin β"
+        - "cos(α + β) = cos α cos β − sin α sin β"
+        - "sin(α + β) = sin α cos β + cos α sin β"
+        - "sin(α + β) = sin α sin β + cos α cos β"
+      option_explanations:
+        - |
+          The product (cos α + i sin α)(cos β + i sin β) has cross terms; its imaginary part is not the sum of the sines.
+        - |
+          This identity is true, but it comes from the real parts, not the imaginary parts.
+        - |
+          Correct. The imaginary part of (cos α + i sin α)(cos β + i sin β) is sin α cos β + cos α sin β, and of e^(i(α + β)) it is sin(α + β).
+        - |
+          sin α sin β comes with i² = −1 and lands in the real part; the imaginary part pairs each sine with the other cosine.
+      answer: 2
+    - slug: trig-u05-w32-q08
+      type: multiple_choice
+      topic_code: "5.12"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      prompt: |
+        What is (e^(iπ/8))⁴?
+      options:
+        - "e^(iπ/32)"
+        - "i"
+        - "4i"
+        - "−1"
+      option_explanations:
+        - |
+          Powers multiply the exponent: 4 · π/8 = π/2. Dividing by 4 gives a fourth root instead.
+        - |
+          Correct. (e^(iπ/8))⁴ = e^(4iπ/8) = e^(iπ/2) = i.
+        - |
+          The modulus is 1⁴ = 1; the exponent 4 multiplies the angle, not the length.
+        - |
+          −1 = e^(iπ) would need 8 · π/8; the fourth power gives π/2.
+      answer: 1
+    - slug: trig-u05-w32-q09
+      type: multiple_choice
+      topic_code: "5.12"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      prompt: |
+        The point (5, 1) is rotated 90° counterclockwise about the centre (2, −1). Where does it land?
+      options:
+        - "(−1, 5)"
+        - "(−2, 3)"
+        - "(0, 2)"
+        - "(4, −4)"
+      option_explanations:
+        - |
+          This rotates about the origin. About (2, −1), first subtract the centre: (5, 1) − (2, −1) = (3, 2).
+        - |
+          (−2, 3) is the rotated offset; the centre (2, −1) must be added back to get the image.
+        - |
+          Correct. Offset (3, 2), rotated 90° to (−2, 3), plus the centre (2, −1) gives (0, 2).
+        - |
+          This turns the offset clockwise, (3, 2) → (2, −3); counterclockwise gives (−2, 3).
+      answer: 2
+    # ---- Spiral review
+    - slug: trig-u05-w32-q10
+      type: multiple_choice
+      topic_code: "5.11"
+      source: "Original item; Common Core HSG-GPE.A.3 (extension)"
+      points: 1
+      prompt: |
+        Which describes the conic r = 4/(1 − sin θ), with a focus at the pole?
+      options:
+        - "A parabola with directrix y = −4"
+        - "A parabola with directrix y = 4"
+        - "An ellipse with directrix y = −4"
+        - "A hyperbola with directrix x = −4"
+      option_explanations:
+        - |
+          Correct. e = 1 (a parabola) and ed = 4, so d = 4; 1 − sin θ puts the directrix below the pole, at y = −4.
+        - |
+          The minus sign in 1 − e sin θ puts the directrix below the pole, y = −d, not above.
+        - |
+          The coefficient of sin θ is 1, so e = 1: a parabola, not an ellipse.
+        - |
+          sin θ means a horizontal directrix y = ±d, and e = 1 makes a parabola, not a hyperbola.
+      answer: 0
+    - slug: trig-u05-w32-q11
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "Original item; Common Core HSF-TF.C.9"
+      points: 1
+      prompt: |
+        Writing 5π/12 as π/4 + π/6, what is the exact value of sin(5π/12)?
+      options:
+        - "(√6 − √2)/4"
+        - "(1 + √2)/2"
+        - "√6/4"
+        - "(√6 + √2)/4"
+      option_explanations:
+        - |
+          (√6 − √2)/4 is sin(π/12) = sin(π/4 − π/6); for π/4 + π/6 the two terms are added.
+        - |
+          This adds sin(π/6) + sin(π/4); sine is not additive, so sin(π/4 + π/6) needs the sum formula.
+        - |
+          √6/4 = sin(π/4) cos(π/6) is only the first term of the sum formula.
+        - |
+          Correct. sin(π/4 + π/6) = (√2/2)(√3/2) + (√2/2)(1/2) = (√6 + √2)/4.
+      answer: 3
+    - slug: trig-u05-w32-q12
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "Original item; Common Core HSN-VM.B.4 (extension)"
+      points: 1
+      prompt: |
+        What is the angle between the vectors u = ⟨3, 4⟩ and v = ⟨−4, 3⟩?
+      options:
+        - "0°"
+        - "90°"
+        - "180°"
+        - "45°"
+      option_explanations:
+        - |
+          0° would need v to point the same way as u; v has a negative x-component while u's is positive.
+        - |
+          Correct. u · v = 3(−4) + 4(3) = 0, so the vectors are orthogonal; v is u rotated 90°, (x, y) → (−y, x).
+        - |
+          180° would need v = −ku for some k > 0, that is, ⟨−3, −4⟩ scaled; ⟨−4, 3⟩ is not.
+        - |
+          cos θ = u · v/(|u||v|) = 0/25 = 0, so the angle is 90°, not 45°.
+      answer: 1
+    - slug: trig-u05-w32-q13
+      type: multiple_choice
+      topic_code: "3.9"
+      source: "Original item; Common Core HSF-TF.C.9 (extension)"
+      points: 1
+      prompt: |
+        sin x + √3 cos x is written in the form R sin(x + φ), with R > 0 and 0 ≤ φ < 2π. What are R and φ?
+      options:
+        - "R = 1 + √3, φ = π/3"
+        - "R = 2, φ = π/6"
+        - "R = 2, φ = π/3"
+        - "R = 4, φ = π/3"
+      option_explanations:
+        - |
+          R is √(a² + b²) = √(1 + 3) = 2, not the sum of the coefficients a + b.
+        - |
+          tan φ = b/a = √3/1, which gives π/3; π/6 would need tan φ = 1/√3.
+        - |
+          Correct. R = √(1² + (√3)²) = 2 and tan φ = √3 with both coefficients positive, so φ = π/3. Check: 2 sin(x + π/3) = sin x + √3 cos x.
+        - |
+          4 is R², a² + b²; R is its square root, 2.
+      answer: 2
+    - slug: trig-u05-w32-q14
+      type: multi_select
+      topic_code: "5.12"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 2
+      partial_credit: true
+      prompt: |
+        θ is a real number. Which statements about e^(iθ) are true? Select all that apply.
+      options:
+        - "e^(iπ/2) = −1"
+        - "|e^(iθ)| = 1 for every real θ."
+        - "e^(2πi) = 1"
+        - "e^(iθ) is a real number for every θ."
+        - "e^(−iθ) = cos θ − i sin θ"
+      option_explanations:
+        - |
+          e^(iπ/2) = cos(π/2) + i sin(π/2) = i; −1 is e^(iπ).
+        - |
+          Correct. |e^(iθ)| = √(cos²θ + sin²θ) = 1, so e^(iθ) always lies on the unit circle.
+        - |
+          Correct. e^(2πi) = cos 2π + i sin 2π = 1, a full turn.
+        - |
+          e^(iθ) is real only when sin θ = 0, that is θ = kπ; e^(iπ/2) = i is not real.
+        - |
+          Correct. cos(−θ) = cos θ and sin(−θ) = −sin θ, so e^(−iθ) = cos θ − i sin θ.
+      answer: [1, 2, 4]
+    - slug: trig-u05-w32-q15
+      type: multi_select
+      topic_code: "5.8"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which numbers are fourth roots of 16, that is, solutions of z⁴ = 16? Select all that apply.
+      options:
+        - "2i"
+        - "1 + i"
+        - "−2"
+        - "√2 + √2 i"
+        - "4"
+      option_explanations:
+        - |
+          Correct. (2i)⁴ = 2⁴ · i⁴ = 16 · 1 = 16, so 2i is a fourth root of 16.
+        - |
+          1 + i = √2 cis(π/4), and (1 + i)⁴ = 4 cis(π) = −4.
+        - |
+          Correct. (−2)⁴ = 16; the four roots are ±2 and ±2i.
+        - |
+          √2 + √2 i = 2 cis(π/4), whose fourth power is 16 cis(π) = −16, so it is a fourth root of −16.
+        - |
+          4⁴ = 256, not 16; the roots have modulus ⁴√16 = 2.
+      answer: [0, 2]
+    - slug: trig-u05-w32-q16
+      type: true_false
+      topic_code: "5.12"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      prompt: |
+        True or false: Multiplying a complex number by e^(iπ/2) rotates its point 90° clockwise about the origin.
+      answer: false
+      explanation: |
+        False. e^(iπ/2) = i, and multiplying by it adds π/2 to the argument, a 90° counterclockwise rotation: (x, y) → (−y, x). A clockwise quarter-turn is multiplication by e^(−iπ/2) = −i.
+    - slug: trig-u05-w32-q17
+      type: true_false
+      topic_code: "3.6"
+      source: "Original item; Common Core HSF-TF.C.9 (extension)"
+      points: 1
+      prompt: |
+        True or false: cos(2π/3) = 2cos²(π/3) − 1.
+      answer: true
+      explanation: |
+        True. It is the double-angle formula cos 2θ = 2cos²θ − 1 with θ = π/3: 2(1/2)² − 1 = −1/2, and cos(2π/3) = −1/2.
+    - slug: trig-u05-w32-q18
+      type: fill_blank
+      topic_code: "5.12"
+      source: "Original item; Common Core HSN-CN.B.4"
+      points: 1
+      prompt: |
+        Written exactly in the form a + bi, e^(iπ/3) = 1/2 + bi, where b = ____.
+      answer: ["√3/2", "sqrt(3)/2", "sqrt3/2", "√(3)/2", "(√3)/2", "√3 / 2", "sqrt(3) / 2"]
+      explanation: |
+        e^(iπ/3) = cos(π/3) + i sin(π/3) = 1/2 + (√3/2)i, so b = sin(π/3) = √3/2.
+    - slug: trig-u05-w32-q19
+      type: fill_blank
+      topic_code: "1.7"
+      source: "Original item; Common Core HSF-TF.A.1"
+      points: 1
+      prompt: |
+        An angle of 5π/6 radians measures ____ degrees.
+      answer: ["150", "150°", "150 degrees", "150.0"]
+      explanation: |
+        Multiply by 180°/π: (5π/6)(180°/π) = 150°.
+    - slug: trig-u05-w32-q20
+      type: numeric
+      topic_code: "5.12"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      prompt: |
+        (Calculator.) The point (6, 2) is rotated 25° counterclockwise about the origin. To the nearest hundredth, what is the x-coordinate of its image?
+      answer: { value: 4.59, tolerance: 0.01 }
+      explanation: |
+        x′ = x cos θ − y sin θ = 6 cos 25° − 2 sin 25° ≈ 5.438 − 0.845 ≈ 4.59. (The y-coordinate is 6 sin 25° + 2 cos 25° ≈ 4.35.)
+    - slug: trig-u05-w32-q21
+      type: numeric
+      topic_code: "4.4"
+      source: "Original item; Common Core HSG-SRT.D.9"
+      points: 1
+      prompt: |
+        (Calculator.) A triangle has sides of 5 cm and 8 cm with an included angle of 60°. To the nearest hundredth of a square centimetre, what is its area?
+      answer: { value: 17.32, tolerance: 0.01 }
+      explanation: |
+        Area = ½ab sin C = ½(5)(8) sin 60° = 20(√3/2) = 10√3 ≈ 17.32 cm².
+    - slug: trig-u05-w32-q22
+      type: short_answer
+      topic_code: "5.12"
+      source: "Original item; Common Core HSF-TF.C.9 (extension)"
+      points: 3
+      prompt: |
+        Use Euler's formula, e^(iθ) = cos θ + i sin θ.
+
+        (a) Expand (cos θ + i sin θ)² in the form (real part) + i(imaginary part).
+        (b) Since (e^(iθ))² = e^(2iθ) = cos 2θ + i sin 2θ, state the two identities that follow from (a), and explain why comparing parts is allowed.
+        (c) Check both identities at θ = π/6.
+      answer: |
+        (a) cos²θ + 2i sin θ cos θ + i² sin²θ = (cos²θ − sin²θ) + i(2 sin θ cos θ).
+        (b) cos 2θ = cos²θ − sin²θ and sin 2θ = 2 sin θ cos θ. Two complex numbers are equal exactly when their real parts are equal and their imaginary parts are equal, and all of cos θ, sin θ, cos 2θ, sin 2θ are real.
+        (c) cos(π/3) = 1/2 and cos²(π/6) − sin²(π/6) = 3/4 − 1/4 = 1/2. sin(π/3) = √3/2 and 2 sin(π/6) cos(π/6) = 2(1/2)(√3/2) = √3/2.
+      explanation: |
+        Three points, one per part. (a) correct expansion using i² = −1. (b) both identities and the reason (equal complex numbers have equal real and imaginary parts). (c) both checks with correct exact values.
+    - slug: trig-u05-w32-q23
+      type: short_answer
+      topic_code: "2.8"
+      source: "Original item; Common Core HSF-TF.B.5"
+      points: 3
+      prompt: |
+        A point P moves around a circle so that its position, as a complex number, is z(t) = 5e^(iπt/2), with t in seconds. Its vertical coordinate is y(t) = 5 sin(πt/2), a simple harmonic motion.
+
+        (a) Find the amplitude, period and frequency of y(t).
+        (b) Find z(3) in the form a + bi, and give P's coordinates at t = 3.
+        (c) Find the first time t > 0 at which y(t) = 2.5.
+      answer: |
+        (a) Amplitude 5; period 2π/(π/2) = 4 s; frequency 1/4 cycle per second.
+        (b) z(3) = 5e^(3πi/2) = 5(cos(3π/2) + i sin(3π/2)) = −5i, so P is at (0, −5).
+        (c) 5 sin(πt/2) = 2.5 gives sin(πt/2) = 1/2; the first positive solution is πt/2 = π/6, so t = 1/3 s.
+      explanation: |
+        Three points, one per part. (a) all three of amplitude 5, period 4 s and frequency 1/4. (b) −5i and (0, −5). (c) t = 1/3 s (accept 0.333).
+    - slug: trig-u05-w32-q24
+      type: long_answer
+      topic_code: "5.12"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 6
+      prompt: |
+        In a hypothetical logo design, O is the origin and A is the point (4, 2), which is the complex number a = 4 + 2i.
+
+        (A) (i) Write a in exponential form re^(iθ), with r exact and θ in radians to four decimal places.
+        (ii) Explain why the point b = a · e^(iπ/3) is the third vertex of an equilateral triangle OAB.
+
+        (B) (i) Find b exactly in the form x + yi, using the rotation formula.
+        (ii) Show that the distance from A to B equals the distance from O to A.
+
+        (C) The designer keeps rotating A by π/3 about O to get six points a, a·e^(iπ/3), a·e^(2πi/3), and so on.
+        (i) Explain why the six points are the vertices of a regular hexagon, and find the vertex opposite A.
+        (ii) The six points are the solutions of z⁶ = a⁶. Use De Moivre's theorem to find the modulus and an argument of a⁶ (argument to four decimal places).
+      answer: |
+        (A) (i) r = √(16 + 4) = √20 = 2√5, and θ = tan⁻¹(2/4) ≈ 0.4636 (quadrant I), so a = 2√5 e^(0.4636i).
+        (ii) Multiplying by e^(iπ/3) keeps the modulus (|e^(iπ/3)| = 1), so OB = OA, and adds π/3 to the argument, so angle AOB = 60°. A triangle with two equal sides enclosing 60° is isosceles with base angles (180° − 60°)/2 = 60°, so it is equilateral.
+        (B) (i) b = (4 cos 60° − 2 sin 60°) + (4 sin 60° + 2 cos 60°)i = (2 − √3) + (2√3 + 1)i ≈ 0.268 + 4.464i.
+        (ii) b − a = (−2 − √3) + (2√3 − 1)i, so AB² = (2 + √3)² + (2√3 − 1)² = (7 + 4√3) + (13 − 4√3) = 20. AB = √20 = OA.
+        (C) (i) Each point is the previous one rotated by π/3 about O, so all six are √20 from O and consecutive ones are 60° apart; six equally spaced points on a circle form a regular hexagon. The opposite vertex is a rotated by π: −a = −4 − 2i, the point (−4, −2).
+        (ii) |a⁶| = (√20)⁶ = 20³ = 8000, and an argument is 6 tan⁻¹(1/2) ≈ 2.7819 radians (a⁶ = −7488 + 2816i).
+      explanation: |
+        Six points. (A) 1 point for 2√5 (or √20) and 0.4636; 1 point for the explanation: modulus unchanged and a 60° angle at O give an equilateral triangle. (B) 1 point for b = (2 − √3) + (2√3 + 1)i; 1 point for showing AB² = 20 (exact, or decimals that round to 4.472 for both lengths). (C) 1 point for a reason (equal distances, equal 60° steps) and the opposite vertex (−4, −2); 1 point for modulus 8000 and argument ≈ 2.7819 (accept 2.7818 or 2.782).
