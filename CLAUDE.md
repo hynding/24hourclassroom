@@ -119,7 +119,7 @@ the command warns you which one is still closed.
 
 The admin UI is Inertia on the **API host** (`/admin/users`,
 `/admin/users/{user}`, `/admin/site-theme`, `/admin/site`, `/admin/tests`,
-`/admin/materials`, `/admin/courses`, `/admin/slugs`, `/admin/generations`), not the Stencil SPA. Log in there,
+`/admin/materials`, `/admin/courses`, `/admin/comments`, `/admin/slugs`, `/admin/generations`), not the Stencil SPA. Log in there,
 not on the SPA host.
 
 Middleware order in `bootstrap/app.php` is load-bearing: `EnsureUserIsAdmin` is
@@ -274,6 +274,13 @@ course (`GET|POST /api/comments?target_type=&target_id=`, `PATCH|DELETE
   author and admins (`CommentAccess::isClosed` / `canRead`; a single-comment
   route is a 404 to anyone else). The thread payload carries `closed`, and
   `page-test` draws no threads for a non-author. A copy keeps the setting.
+- **Admin list** (`/admin/comments`, `CommentAdminController`): every
+  comment, deleted ones included, newest first; search body or commenter,
+  filter by status (pending, approved, denied, deleted) and target kind.
+  Approve/deny (course discussions only, and an approved reply sends its
+  held-back notice through `CommentNotifier`), delete (soft, with replies),
+  restore (with the replies deleted alongside it; a reply under a deleted
+  comment cannot come back alone).
 - The SPA's state tints are tokens (`--color-pending-surface`,
   `--color-denied-surface`, `--color-deleted-surface`) in every palette, held
   to 4.5:1 for every text token by `theme-files.spec.ts`.

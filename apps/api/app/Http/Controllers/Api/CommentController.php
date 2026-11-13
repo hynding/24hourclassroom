@@ -9,8 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Reaction;
 use App\Models\User;
-use App\Notifications\CommentPosted;
 use App\Support\CommentAccess;
+use App\Support\CommentNotifier;
 use App\Support\CommentContext;
 use App\Support\CommentPayload;
 use Illuminate\Database\Eloquent\Model;
@@ -113,7 +113,7 @@ class CommentController extends Controller
 
         // A reply waiting for approval reaches the person it answers once
         // it is approved; the course's author hears of it now, to approve it.
-        $this->notify($comment, $comment->isApproved() ? $parent : null, $type, $target, $viewer, toOwner: true);
+        CommentNotifier::notify($comment, $comment->isApproved() ? $parent : null, $type, $target, $viewer, toOwner: true);
 
         return response()->json(CommentPayload::for($comment, $ctx), 201);
     }
@@ -203,7 +203,7 @@ class CommentController extends Controller
             $comment->update(['status' => $status]);
             if ($status === CommentStatus::Approved && $comment->parent_id !== null) {
                 // The reply's notice to the person it answers was held back.
-                $this->notify($comment, $comment->parent, $ctx->type, $ctx->target, $comment->author, toOwner: false);
+                CommentNotifier::notify($comment, $comment->parent, $ctx->type, $ctx->target, $comment->author, toOwner: false);
             }
         }
 
@@ -256,33 +256,5 @@ class CommentController extends Controller
         abort_if($parent !== null && ($parent->trashed() || ! $parent->author->isActive() || ! CommentAccess::canSee($viewer, $parent, $ctx->approver)), 404);
 
         return $ctx;
-    }
-
-    /**
-     * The target's author when someone else comments, and the writer of the
-     * comment being answered. Each person once, never the commenter, and
-     * only people who can still see the target.
-     */
-    private function notify(Comment $comment, ?Comment $parent, CommentTarget $type, Model $target, User $commenter, bool $toOwner): void
-    {
-        $recipients = $toOwner ? [CommentAccess::ownerId($type, $target) => false] : [];
-        if ($parent !== null) {
-            $recipients[$parent->user_id] = true;
-        }
-        unset($recipients[$commenter->id]);
-
-        $title = CommentAccess::title($type, $target);
-        $testId = match ($type) {
-            CommentTarget::Test => $target->getKey(),
-            CommentTarget::Question => $target->test_id,
-            default => null,
-        };
-
-        foreach (User::whereIn('id', array_keys($recipients))->whereNull('deactivated_at')->get() as $user) {
-            if (! CommentAccess::canView($user, $type, $target)) {
-                continue;
-            }
-            $user->notify(new CommentPosted($comment, $type, $target->getKey(), $title, $testId, $recipients[$user->id]));
-        }
     }
 }

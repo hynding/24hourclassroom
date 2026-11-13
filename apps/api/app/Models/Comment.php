@@ -43,6 +43,27 @@ class Comment extends Model
         return $this->hasMany(Comment::class, 'parent_id')->orderBy('id');
     }
 
+    /** The four possible targets, one nullable key each (CommentTarget); eager-loadable for lists. */
+    public function test(): BelongsTo
+    {
+        return $this->belongsTo(Test::class);
+    }
+
+    public function question(): BelongsTo
+    {
+        return $this->belongsTo(Question::class);
+    }
+
+    public function material(): BelongsTo
+    {
+        return $this->belongsTo(Material::class);
+    }
+
+    public function course(): BelongsTo
+    {
+        return $this->belongsTo(Course::class);
+    }
+
     public function reactions(): HasMany
     {
         return $this->hasMany(Reaction::class);
