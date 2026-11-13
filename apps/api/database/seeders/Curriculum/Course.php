@@ -58,10 +58,33 @@ final class Course
         return $data;
     }
 
-    /** Every CED topic code -> its title, across all units. @return array<string, string> */
+    /**
+     * Whether the course is organised by CED skills rather than numbered
+     * topics (AP Literature): course.yaml then lists every skill once under
+     * `skills`, each unit names its skills under `skills`, and a `topic_code`
+     * is a skill code (1.A ... 7.E) that recurs unit after unit.
+     */
+    public function bySkill(): bool
+    {
+        return array_key_exists('skills', $this->config);
+    }
+
+    /**
+     * Every CED topic code -> its title, across all units; or, for a course
+     * organised by skill, every skill code -> its wording.
+     *
+     * @return array<string, string>
+     */
     public function topics(): array
     {
         $out = [];
+        if ($this->bySkill()) {
+            foreach ((array) $this->config['skills'] as $code => $wording) {
+                $out[(string) $code] = (string) $wording;
+            }
+
+            return $out;
+        }
         foreach ($this->config['units'] as $unit) {
             foreach ((array) ($unit['topics'] ?? []) as $code => $title) {
                 $out[(string) $code] = $title;
@@ -69,6 +92,16 @@ final class Course
         }
 
         return $out;
+    }
+
+    /** The topic (or skill) codes a unit covers, in course.yaml's order. @return list<string> */
+    public function unitTopics(int $number): array
+    {
+        $unit = $this->unit($number);
+
+        return $this->bySkill()
+            ? array_map('strval', (array) ($unit['skills'] ?? []))
+            : array_map('strval', array_keys((array) ($unit['topics'] ?? [])));
     }
 
     /** The unit a week belongs to, or null in the review weeks. @return array<string, mixed>|null */
@@ -225,12 +258,12 @@ final class Course
         return $this->prefix.' · '.self::weekLabel((int) ($this->config['review']['prep_guide_week'] ?? 33)).' · Exam Prep Guide';
     }
 
-    /** The description a test or material carries: the CED line first, then the authored text. */
+    /** The description a test or material carries: the CED line (topics, or skills) first, then the authored text. */
     public function describe(array $topicCodes, ?string $authored, ?int $unit = null): string
     {
         $lines = [];
         if ($topicCodes !== []) {
-            $lines[] = 'CED topics '.implode(', ', array_map('strval', $topicCodes)).($unit ? " · Unit {$unit} ".$this->unit($unit)['title'] : '');
+            $lines[] = ($this->bySkill() ? 'CED skills ' : 'CED topics ').implode(', ', array_map('strval', $topicCodes)).($unit ? " · Unit {$unit} ".$this->unit($unit)['title'] : '');
         }
         if (filled($authored)) {
             $lines[] = trim($authored);

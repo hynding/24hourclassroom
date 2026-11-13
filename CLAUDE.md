@@ -423,10 +423,10 @@ file on the materials disk, for uploads and the seeder alike.
 [--student=EMAIL|--no-student] --force` work exactly like their AP Biology
 twins (same owner checks, quota check, idempotent slugs, private course row,
 slug `aplit`, demo accounts `aplit@example.com` / `aplit-student@example.com`).
-The code is a sibling of the Curriculum classes above, not a subclass (it was
-written alongside them): `Database\Seeders\ApLiterature\Course`,
-`ApLiteratureSeeder`, `SeedApLiterature`, its own lint, and its own row in
-`DatabaseSeeder`'s call list. Data lives under
+It runs on the shared Curriculum classes like the other ten
+(`ApLiteratureSeeder extends CurriculumSeeder`, `SeedApLiterature extends
+SeedCurriculum`, `prefix`/`slug`/`attribution_markers` in its `course.yaml`),
+but keeps its own lint. Data lives under
 `apps/api/database/seeders/data/ap-literature/`, same layout as AP Biology,
 nine units in the CED order (Short Fiction / Poetry / Longer Fiction or Drama,
 three times) over 32 weeks plus an exam-prep guide (week 33) and a practice
@@ -438,7 +438,9 @@ Biology).
 Two differences from biology. The literature CED has skills, not numbered
 topics, so a `topic_code` is a CED skill code (`1.A` ... `7.E`, listed once
 under `skills` in `course.yaml`; each unit lists the skills the CED gives it;
-each week's `topics` are its focus skills). And every quoted text must be in
+each week's `topics` are its focus skills). A top-level `skills` key is what
+switches `Curriculum\Course` into this mode (`bySkill()`: `topics()` returns
+the skills, `unitTopics()` the unit's skills, descriptions say "CED skills"). And every quoted text must be in
 the US public domain: week files list their `texts` with year and a link, an
 item's `source` carries the work's year in parentheses (or is `general
 knowledge`), and the lint rejects anything after

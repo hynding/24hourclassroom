@@ -30,7 +30,7 @@ use RuntimeException;
 
 /**
  * A seeded course, from YAML to rows: one subclass per course, naming its
- * data directory (ApBiologySeeder, ApUsHistorySeeder). Idempotent: every test,
+ * data directory (ApBiologySeeder, ApUsHistorySeeder, ApLiteratureSeeder). Idempotent: every test,
  * question, material and the course itself carry a slug, so a re-run updates in place --
  * questions keep their ids (and so their answers), a guide's bytes are
  * rewritten at the same path, nothing is duplicated.
@@ -180,7 +180,7 @@ abstract class CurriculumSeeder extends Seeder
             $tests[] = $this->testSpec(
                 slug: $this->slug(sprintf('u%02d-exam', $number)),
                 title: $c->unitExamTitle($number),
-                description: $c->describe(array_keys((array) $unit['topics']), $data['description'] ?? null, $number),
+                description: $c->describe($c->unitTopics($number), $data['description'] ?? null, $number),
                 questions: (array) ($data['questions'] ?? []),
                 file: $file,
                 week: max((array) $unit['weeks']),
@@ -193,7 +193,7 @@ abstract class CurriculumSeeder extends Seeder
                 'week' => max((array) $unit['weeks']), 'rank' => self::RANK_UNIT_SUMMARY, 'section' => $c->sectionTitle($unit),
                 'slug' => $this->slug(sprintf('u%02d-summary', $number)),
                 'title' => $c->unitSummaryTitle($number),
-                'description' => $c->describe(array_keys((array) $unit['topics']), null, $number),
+                'description' => $c->describe($c->unitTopics($number), null, $number),
                 'name' => sprintf('unit-%02d-summary.md', $number),
                 'body' => $this->read($file),
             ];
