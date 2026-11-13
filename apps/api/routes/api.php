@@ -43,6 +43,7 @@ use App\Http\Controllers\Api\SitemapController;
 use App\Http\Controllers\Api\StudentAssignmentsController;
 use App\Http\Controllers\Api\TeacherDirectoryController;
 use App\Http\Controllers\Api\TestAttemptsController;
+use App\Http\Controllers\Api\TestCommentsController;
 use App\Http\Controllers\Api\TestController;
 use App\Http\Controllers\Api\TestCopyController;
 use App\Http\Controllers\Api\TestPublishController;
@@ -99,6 +100,7 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::post('tests/{test}/publish', [TestPublishController::class, 'publish']);
     Route::post('tests/{test}/unpublish', [TestPublishController::class, 'unpublish']);
     Route::post('tests/{test}/copy', TestCopyController::class);
+    Route::put('tests/{test}/comments', TestCommentsController::class);
 
     Route::get('tests/{test}/assignments', [AssignmentController::class, 'index']);
     Route::post('tests/{test}/assignments', [AssignmentController::class, 'store']);

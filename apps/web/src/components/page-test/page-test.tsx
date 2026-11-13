@@ -88,6 +88,21 @@ export class PageTest {
     this.test = { ...this.test, ...updated };
   });
 
+  private toggleComments = () => this.run(async () => {
+    const updated = await testsStore.setTestComments(this.test.id, !this.test.comments_enabled);
+    this.test = { ...this.test, ...updated };
+  });
+
+  /**
+   * Threads are drawn while comments are on, and for the author when they
+   * are off (to read and clear what was said). A closed test asks nothing
+   * per question of anyone else: that would be a request per question for
+   * an empty list.
+   */
+  private get showsComments(): boolean {
+    return this.test.comments_enabled || this.test.is_author;
+  }
+
   private remove = () => {
     // Ask BEFORE run(): entering run() flips `busy` (disabling every action
     // button) for a dialog the teacher may still cancel. And it has to be
@@ -134,7 +149,7 @@ export class PageTest {
         )}
         {hasAnswer && !q.options && <p class="answer">{this.answerLabel(q)}: {formatAnswer(q, q.answer)}</p>}
         {hasAnswer && q.explanation && <div class="explanation"><rich-text text={q.explanation}></rich-text></div>}
-        <comment-thread compact targetType="question" targetId={q.id}></comment-thread>
+        {this.showsComments && <comment-thread key={`q${q.id}-${this.test.comments_enabled}`} compact targetType="question" targetId={q.id}></comment-thread>}
       </li>
     );
   }
@@ -173,7 +188,14 @@ export class PageTest {
               {t.visibility === 'public' ? 'Unpublish' : 'Publish to library'}
             </button>
             <button type="button" class="btn" disabled={this.busy} onClick={this.remove}>Delete</button>
+            <label class="check">
+              <input type="checkbox" checked={t.comments_enabled} disabled={this.busy} onChange={this.toggleComments} />
+              Allow comments
+            </label>
           </div>
+        )}
+        {t.is_author && !t.comments_enabled && (
+          <p class="notice">Comments are off: students can't post, and only you see what was said before. Question threads can give answers away, so this suits a test you assign.</p>
         )}
 
         {!t.is_author && this.isStudent && (
@@ -208,7 +230,9 @@ export class PageTest {
         <h2>Questions</h2>
         <ol class="questions">{t.questions.map((q, i) => this.renderQuestion(q, i, t.questions))}</ol>
         {!t.is_author && this.link(`/tests/${t.id}/print`, 'Printable version')}
-        <comment-thread targetType="test" targetId={t.id}></comment-thread>
+        {this.showsComments
+          ? <comment-thread key={`t${t.id}-${t.comments_enabled}`} targetType="test" targetId={t.id}></comment-thread>
+          : <p class="muted">Comments are turned off for this test.</p>}
       </section>
     );
   }

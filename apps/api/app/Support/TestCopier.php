@@ -21,6 +21,7 @@ final class TestCopier
             'subject' => $source->subject,
             'grade_level' => $source->grade_level,
             'visibility' => Visibility::Private,
+            'comments_enabled' => (bool) $source->comments_enabled,
             'copied_from_id' => $source->id,
         ]);
         foreach ($source->questions as $q) {

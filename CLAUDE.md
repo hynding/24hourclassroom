@@ -217,6 +217,14 @@ course (`GET|POST /api/comments?target_type=&target_id=`, `PATCH|DELETE
 - **Thumbs** (`PUT /api/comments/{c}/reaction`): the course's
   `comment_reactions` switch, off by default and set in the course editor;
   one per person, on someone else's approved comment.
+- **Comments off** (`tests.comments_enabled`, on by default; `PUT
+  /api/tests/{test}/comments`, the "Allow comments" box on `page-test`): the
+  author closes a test's discussion and all its question threads, because
+  question threads can leak answers among students assigned the same private
+  test. Closed means no posts, and existing comments are shown only to the
+  author and admins (`CommentAccess::isClosed` / `canRead`; a single-comment
+  route is a 404 to anyone else). The thread payload carries `closed`, and
+  `page-test` draws no threads for a non-author. A copy keeps the setting.
 - The SPA's state tints are tokens (`--color-pending-surface`,
   `--color-denied-surface`, `--color-deleted-surface`) in every palette, held
   to 4.5:1 for every text token by `theme-files.spec.ts`.

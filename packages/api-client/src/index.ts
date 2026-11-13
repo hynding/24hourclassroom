@@ -298,6 +298,11 @@ export class ApiClient {
     return this.post<Test>(`/api/tests/${id}/unpublish`);
   }
 
+  /** Turns the test's discussion (its own and every question's) on or off. Author only. */
+  async setTestComments(id: number, enabled: boolean): Promise<Test> {
+    return this.put<Test>(`/api/tests/${id}/comments`, { enabled });
+  }
+
   async copyTest(id: number): Promise<Test> {
     return this.post<Test>(`/api/tests/${id}/copy`);
   }
