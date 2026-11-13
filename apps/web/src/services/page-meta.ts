@@ -12,8 +12,10 @@ import { siteStore } from './site-store';
  * describes it. Every write goes through applyHead(), the one writer of
  * document.title and of the tags marked `data-page-meta`.
  *
- * The SPA renders these after load, so they reach crawlers that run
- * JavaScript (Google, Bing); preview bots that don't still see index.html.
+ * The SPA renders these after load. Preview bots that never run JavaScript
+ * get the same tags from the server: the web host's index.php splices in
+ * App\Support\PageHead's fragment, which mirrors this file (change the two
+ * together), and setTag() adopts those `data-page-meta` tags in place.
  */
 export interface PageMeta {
   /** The path this describes. A late load for a page already left is dropped. */

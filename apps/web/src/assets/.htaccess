@@ -1,4 +1,7 @@
 Options -MultiViews
+# index.php serves index.html with the page's own <head> (link previews);
+# the home page too, which never reaches the rewrite below.
+DirectoryIndex index.php index.html
 RewriteEngine On
 RewriteBase /
 
@@ -10,7 +13,11 @@ RewriteBase /
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
 
-# Everything that is not a real file or directory is the SPA.
+# The build-time config is only for index.php.
+RewriteRule ^(page-head\.config|page-head\.lib)\.php$ - [R=404,L]
+
+# Everything that is not a real file or directory is the SPA, through
+# index.php (it falls back to index.html unchanged on any failure).
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.html [QSA,L]
+RewriteRule ^ index.php [QSA,L]

@@ -69,6 +69,17 @@ every shadow root by Stencil (so element and class rules reach components).
 `app-layout` lives inside `app-root`'s shadow root, so a top-level
 `document.querySelector('app-layout')` finds nothing — pierce `.shadowRoot`.
 
+**Server-rendered heads (link previews).** The SPA host's `.htaccess` sends
+every page that isn't a file to `index.php` (`apps/web/src/server/`, copied
+into `www/` by Stencil), which asks `GET /api/page-head?path=` and splices the
+returned `<title>`/description/canonical/Open Graph/JSON-LD into `index.html`;
+any failure serves `index.html` unchanged. The API side is
+`App\Support\PageHead`, always the guest view (a private page gets the site
+head and `noindex`), and it mirrors `services/page-meta.ts`, which takes the
+same tags over after load: change the two together. `page-head` has its own
+named limiter because every call comes from the web host's one IP. The web
+host therefore needs PHP (7.4+) enabled.
+
 ## Styling contract (`apps/web`)
 
 Enforced by specs in `src/global/`. These fail CI, not review:
