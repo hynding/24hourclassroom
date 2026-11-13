@@ -1,4 +1,4 @@
-import { redirectFor, resolveRoute } from './router';
+import { needsResolve, redirectFor, resolveRoute } from './router';
 
 const verified = { id: 1, email_verified_at: '2026-01-01' } as any;
 const unverified = { id: 1, email_verified_at: null } as any;
@@ -266,6 +266,20 @@ describe('course routes', () => {
       expect(redirectFor(path, null)).toBeNull();
       expect(redirectFor(path, unverified)).toBeNull();
       expect(redirectFor(path, verified)).toBeNull();
+    }
+  });
+});
+
+describe('needsResolve', () => {
+  it('names the vanity paths app-root must look up', () => {
+    for (const path of ['/courses/precalculus', '/courses/ap-bio/tests/9', '/teachers/ms-rivera', '/teachers/ms-rivera/algebra-1', '/teachers/ms-rivera/algebra-1/tests/3', '/courses/precalculus/']) {
+      expect(needsResolve(path)).toBe(true);
+    }
+  });
+
+  it('leaves id paths, SPA routes and malformed paths alone', () => {
+    for (const path of ['/courses', '/courses/12', '/courses/new', '/courses/12/edit', '/courses/12/tests/3', '/courses/precalculus/edit', '/courses/precalculus/tests/x', '/teachers', '/teachers/4', '/teachers/Ms-Rivera', '/teachers/ms-rivera/algebra-1/edit', '/tests/9', '/library/courses']) {
+      expect(needsResolve(path)).toBe(false);
     }
   });
 });

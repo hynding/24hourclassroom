@@ -14,7 +14,7 @@ jest.mock('../../services/courses-store', () => ({
     updateCourse: (...a: unknown[]) => updateCourse(...a),
   },
 }));
-jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a) }));
+jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a), adoptCanonicalPath: jest.fn() }));
 jest.mock('../../services/session-recovery', () => ({ recoverFromExpiredSession: () => false }));
 
 import { PageCourseEditor } from './page-course-editor';

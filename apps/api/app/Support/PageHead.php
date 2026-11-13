@@ -62,6 +62,12 @@ final class PageHead
             return $this->meta($path, self::LISTINGS[$path], null, true);
         }
 
+        // A vanity path describes what it names, at its canonical address.
+        $slug = Slugs::resolve($path, null);
+        if ($slug !== null) {
+            return $this->resolve($slug['target']);
+        }
+
         if (preg_match('#^/courses/(\d{1,10})/tests/(\d{1,10})$#', $path, $m)) {
             return $this->practice((int) $m[1], (int) $m[2]) ?? $this->hidden($path);
         }
@@ -164,7 +170,7 @@ final class PageHead
         $items = $course->items->filter(fn ($item) => CourseAccess::showsItem(null, $course, $item));
         $tests = $items->whereNotNull('test_id')->count();
         $materials = $items->whereNotNull('material_id')->count();
-        $path = "/courses/{$course->id}";
+        $path = Slugs::coursePath($course);
         $description = self::summarize($course->description)
             ?? 'A free '.self::label(TaxonomyLabels::subjects(), $course->subject)." course by {$course->author->name}: {$tests} practice tests and {$materials} study materials.";
 
@@ -186,7 +192,8 @@ final class PageHead
         if ($course === null || $test === null || ! CourseAccess::canPractice(null, $course, $test)) {
             return null;
         }
-        $path = "/courses/{$course->id}/tests/{$test->id}";
+        $coursePath = Slugs::coursePath($course);
+        $path = "{$coursePath}/tests/{$test->id}";
         $description = self::summarize($test->description)
             ?? "Practise {$test->questions_count} questions with answers and explanations, from {$course->title}.";
 
@@ -197,7 +204,7 @@ final class PageHead
             'url' => $this->origin.$path,
             'author' => $this->person($test->author),
             'isAccessibleForFree' => true,
-            'isPartOf' => ['@type' => 'Course', 'name' => $course->title, 'url' => "{$this->origin}/courses/{$course->id}"],
+            'isPartOf' => ['@type' => 'Course', 'name' => $course->title, 'url' => $this->origin.$coursePath],
         ] + $this->topics($test));
     }
 
@@ -249,7 +256,7 @@ final class PageHead
         if ($user === null || ! $user->isActive() || ! $user->role->isPublic()) {
             return null;
         }
-        $path = "/teachers/{$user->id}";
+        $path = Slugs::teacherPath($user);
         $school = $user->profile?->school;
         $description = self::summarize($user->profile?->bio)
             ?? $user->name.($school ? " ({$school})" : '').' shares tests, study materials and courses.';

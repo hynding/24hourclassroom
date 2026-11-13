@@ -11,6 +11,7 @@ use App\Models\Material;
 use App\Models\Test;
 use App\Models\User;
 use App\Support\FrontendRedirect;
+use App\Support\Slugs;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 
@@ -44,8 +45,10 @@ class SitemapController extends Controller
             ->whereHas('author', $active)
             ->orderBy('id')
             ->get(['id', 'user_id', 'updated_at']);
+        // Canonical paths only: a slugged course is listed by its slug.
+        $coursePaths = Slugs::coursePaths($courses);
         foreach ($courses as $course) {
-            $entries[] = ["/courses/{$course->id}", $course->updated_at];
+            $entries[] = [$coursePaths[$course->id], $course->updated_at];
         }
 
         // Practice mode: CourseAccess::canPractice for a guest -- the course
@@ -61,7 +64,7 @@ class SitemapController extends Controller
             ->orderBy('course_items.position')
             ->get(['course_items.course_id', 'course_items.test_id', 'tests.updated_at']);
         foreach ($practice as $item) {
-            $entries[] = ["/courses/{$item->course_id}/tests/{$item->test_id}", Carbon::parse($item->updated_at)];
+            $entries[] = ["{$coursePaths[$item->course_id]}/tests/{$item->test_id}", Carbon::parse($item->updated_at)];
         }
 
         foreach ([Test::class => '/tests/', Material::class => '/materials/'] as $model => $prefix) {
@@ -81,8 +84,9 @@ class SitemapController extends Controller
             ->tap($active)
             ->orderBy('id')
             ->get(['id', 'updated_at']);
+        $teacherPaths = Slugs::teacherPaths($teachers->pluck('id'));
         foreach ($teachers as $teacher) {
-            $entries[] = ["/teachers/{$teacher->id}", $teacher->updated_at];
+            $entries[] = [$teacherPaths[$teacher->id], $teacher->updated_at];
         }
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n"
