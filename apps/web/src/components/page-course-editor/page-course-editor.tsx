@@ -1,6 +1,6 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
-import { CourseCandidates, CourseInput, CourseItemKind, CourseView, GRADE_LEVELS, GradeLevel, SUBJECTS, Subject, Visibility } from '@24hc/shared';
+import { CourseCandidates, CourseInput, CourseItemKind, CourseView, GRADE_LEVELS, GradeLevel, SUBJECTS, SlugState, Subject, Visibility } from '@24hc/shared';
 import { coursesStore } from '../../services/courses-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
@@ -46,6 +46,14 @@ export class PageCourseEditor {
   @State() notFound = false;
   /** Set when a non-author is being navigated away; render() paints nothing. */
   @State() bounced = false;
+  /** The course's address under the author's handle (App\Support\Slugs). */
+  @State() slug = '';
+  @State() slugState: SlugState | null = null;
+  @State() siteSlug: string | null = null;
+  @State() handle: string | null = null;
+  @State() slugError = '';
+  @State() slugMessage = '';
+  @State() slugBusy = false;
 
   async componentWillLoad() {
     try {
@@ -76,6 +84,10 @@ export class PageCourseEditor {
     this.grade = course.grade_level;
     this.isPublic = course.visibility === 'public';
     this.commentReactions = course.comment_reactions;
+    this.slugState = course.slug ?? null;
+    this.slug = course.slug?.slug ?? '';
+    this.siteSlug = course.site_slug ?? null;
+    this.handle = course.handle ?? null;
     this.items = course.items
       .map((item) => {
         const target = item.kind === 'test' ? item.test : item.material;
@@ -190,6 +202,58 @@ export class PageCourseEditor {
     );
   }
 
+  private async saveSlug() {
+    if (!this.courseId) {
+      return;
+    }
+    this.slugBusy = true;
+    this.slugError = '';
+    this.slugMessage = '';
+    try {
+      const course = await coursesStore.setCourseSlug(this.courseId, this.slug.trim() || null);
+      this.slugState = course.slug ?? null;
+      this.slug = course.slug?.slug ?? '';
+      this.handle = course.handle ?? null;
+      this.slugMessage = this.slugState === null ? 'Address removed. Old links still work.' : this.slugState.status === 'approved' ? 'Saved.' : 'Saved. It goes live once your handle is approved.';
+    } catch (e) {
+      if (e instanceof ApiError) {
+        this.slugError = e.errors?.slug?.[0] ?? e.message;
+      } else if (!recoverFromExpiredSession(e)) {
+        this.slugError = 'Something went wrong.';
+      }
+    } finally {
+      this.slugBusy = false;
+    }
+  }
+
+  private renderAddress() {
+    const prefix = this.handle ? `/teachers/${this.handle}/` : '/teachers/<your handle>/';
+    return (
+      <form class="address" onSubmit={(e) => { e.preventDefault(); this.saveSlug(); }}>
+        <h2>Address</h2>
+        {this.siteSlug && <p class="notice">This course's address is <code>/courses/{this.siteSlug}</code>, set by the site.</p>}
+        <label>
+          Course address under your handle
+          <span class="slug-input">
+            <span class="prefix">{prefix}</span>
+            <input type="text" maxlength="60" pattern="[a-z0-9]+(-[a-z0-9]+)*" placeholder="algebra-1" value={this.slug} onInput={(e) => (this.slug = (e.target as HTMLInputElement).value.toLowerCase())} />
+          </span>
+        </label>
+        {this.slugError && <p class="error">{this.slugError}</p>}
+        {!this.handle && (
+          <p class="notice">
+            Ask for a handle on <a href="/profile" onClick={(e) => { e.preventDefault(); navigate('/profile'); }}>your profile</a>. Course addresses go live once an admin approves it.
+          </p>
+        )}
+        {this.slugState?.status === 'pending' && <p class="notice">Waiting for your handle to be approved.</p>}
+        {this.slugMessage && <p class="notice" role="status">{this.slugMessage}</p>}
+        <div class="actions">
+          <button type="submit" class="btn" disabled={this.slugBusy || this.slug.trim() === (this.slugState?.slug ?? '')}>Save address</button>
+        </div>
+      </form>
+    );
+  }
+
   render() {
     if (this.bounced) {
       return null;
@@ -281,6 +345,7 @@ export class PageCourseEditor {
               : <a href="/courses" onClick={(e) => { e.preventDefault(); navigate('/courses'); }}>Cancel</a>}
           </div>
         </form>
+        {this.courseId && this.renderAddress()}
       </section>
     );
   }

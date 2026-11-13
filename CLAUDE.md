@@ -119,7 +119,7 @@ the command warns you which one is still closed.
 
 The admin UI is Inertia on the **API host** (`/admin/users`,
 `/admin/users/{user}`, `/admin/site-theme`, `/admin/site`, `/admin/tests`,
-`/admin/materials`, `/admin/courses`, `/admin/generations`), not the Stencil SPA. Log in there,
+`/admin/materials`, `/admin/courses`, `/admin/slugs`, `/admin/generations`), not the Stencil SPA. Log in there,
 not on the SPA host.
 
 Middleware order in `bootstrap/app.php` is load-bearing: `EnsureUserIsAdmin` is
@@ -193,6 +193,32 @@ teacher's: shown only while it is public with an active author, keepable,
 movable and removable in the editor, never newly addable. Later changes to the
 original do not reach a branch. `page-course` watches `courseId`: a branch and
 its original are the same tag, so Stencil reuses the element.
+
+## Page addresses (slugs)
+
+Ids keep working everywhere; a slug only adds a readable address.
+`App\Support\Slugs` holds every rule over one `url_slugs` table (`SlugKind`,
+`SlugStatus`, mirrored in `@24hc/shared`):
+
+- `/teachers/<handle>`: a teacher or tutor asks on their profile
+  (`PUT /api/profile/handle`); an admin approves or declines at `/admin/slugs`.
+- `/teachers/<handle>/<slug>`: the author names a course in its editor
+  (`PUT /api/courses/{course}/slug`). **Approved automatically once the
+  handle is** (the owner's call, 2026-11-13): pending until then.
+- `/courses/<slug>`: site-wide, set by an admin only at `/admin/slugs`.
+  `/courses/precalculus` comes from the migration (existing installs) and
+  `site_slug` in the Precalculus `course.yaml` (fresh seeds).
+- A replaced slug is **retired**, never deleted: it keeps resolving and is
+  never issued to anything else. A declined handle is never reissued either.
+- The canonical address prefers the site slug, then the teacher's, then the
+  id (`CourseView.path`, `PublicProfile.path`, practice `course.path`, the
+  sitemap, `PageHead`). The SPA resolves a vanity path through
+  `GET /api/resolve` in `app-root` (`needsResolve()` in `router.ts`) and
+  routes on the id path it names; a page opened by id rewrites the address
+  bar to its canonical path with `adoptCanonicalPath`.
+- Resolving never widens access: `CourseAccess::canView` and the public
+  profile rule apply, and everything else is a 404. Don't reuse
+  `courses.slug` for any of this: it is the seeder's idempotency key.
 
 ## Comments
 

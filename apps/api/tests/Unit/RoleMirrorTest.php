@@ -80,3 +80,12 @@ test('COMMENT_STATUSES and COMMENT_REACTIONS mirror their enums, in order', func
         expect($values[1])->toBe(array_column($enum::cases(), 'value'));
     }
 });
+
+test('SLUG_KINDS and SLUG_STATUSES mirror their enums, in order', function () {
+    foreach (['SLUG_KINDS' => \App\Enums\SlugKind::class, 'SLUG_STATUSES' => \App\Enums\SlugStatus::class] as $name => $enum) {
+        expect(preg_match("/export const {$name} = \\[(.*?)\\] as const;/s", roleMirrorSource(), $m))->toBe(1);
+        preg_match_all("/'([a-z_]+)'/", $m[1], $values);
+
+        expect($values[1])->toBe(array_column($enum::cases(), 'value'));
+    }
+});

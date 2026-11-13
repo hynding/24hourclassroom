@@ -4,16 +4,20 @@ namespace Database\Seeders\Curriculum;
 
 use App\Enums\ConnectionStatus;
 use App\Enums\Role;
+use App\Enums\SlugKind;
+use App\Enums\SlugStatus;
 use App\Enums\Visibility;
 use App\Models\Assignment;
 use App\Models\Connection;
 use App\Models\Course as CourseRow;
 use App\Models\Material;
 use App\Models\Test;
+use App\Models\UrlSlug;
 use App\Models\User;
 use App\Services\MaterialWriter;
 use App\Support\CourseWriter;
 use App\Support\MaterialQuota;
+use App\Support\Slugs;
 use App\Support\TestDraftValidator;
 use App\Support\TestWriter;
 use Carbon\CarbonImmutable;
@@ -502,9 +506,27 @@ abstract class CurriculumSeeder extends Seeder
             $course->save();
 
             CourseWriter::syncItems($course, $items);
+            $this->claimSiteSlug($course, $config['site_slug'] ?? null);
 
             return $course->fresh();
         });
+    }
+
+    /**
+     * `site_slug` in course.yaml: the course's /courses/<slug> address, set
+     * only while the course has none and the address was never used
+     * (Slugs never reissues one). A slug an admin changed since stays theirs.
+     */
+    private function claimSiteSlug(CourseRow $course, mixed $slug): void
+    {
+        if (! is_string($slug) || Slugs::problem($slug) !== null) {
+            return;
+        }
+        $taken = UrlSlug::where('kind', SlugKind::SiteCourse)
+            ->where(fn ($q) => $q->where('course_id', $course->id)->orWhere('slug', $slug))->exists();
+        if (! $taken) {
+            UrlSlug::create(['kind' => SlugKind::SiteCourse, 'scope_id' => 0, 'slug' => $slug, 'course_id' => $course->id, 'status' => SlugStatus::Approved, 'reviewed_at' => now()]);
+        }
     }
 
     /** Sunday ending the week, or null when the course has no calendar. */

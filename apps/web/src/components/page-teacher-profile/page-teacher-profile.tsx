@@ -3,7 +3,7 @@ import { ApiError } from '@24hc/api-client';
 import { GRADE_LEVELS, MaterialSummary, PUBLIC_ROLES, Paginated, PublicProfile, REGISTRATION_ROLES, SUBJECTS, TestSummary, hasRole, roleLabel } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { materialsStore } from '../../services/materials-store';
-import { navigate } from '../../services/navigate';
+import { adoptCanonicalPath, navigate } from '../../services/navigate';
 import { setPageMeta, teacherMeta } from '../../services/page-meta';
 import { profileStore } from '../../services/profile-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
@@ -38,6 +38,9 @@ export class PageTeacherProfile {
 
     try {
       this.teacher = await profileStore.teacher(this.teacherId);
+      if (this.teacher.path) {
+        adoptCanonicalPath(this.teacher.path, `/teachers/${this.teacherId}`);
+      }
       setPageMeta(teacherMeta(this.teacher));
       // Allowlist: only a public role (teacher, tutor) has public work. A
       // name-only payload (seen through an accepted connection) gets no

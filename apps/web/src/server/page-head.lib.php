@@ -9,7 +9,11 @@
  */
 function page_head_wanted(string $path): bool
 {
-    return (bool) preg_match('#^/(library(/(courses|tests|materials))?|teachers(/\d{1,10})?|(tests|materials)/\d{1,10}|courses/\d{1,10}(/tests/\d{1,10})?)?/?$#', $path);
+    // A course or teacher segment is an id or a slug (App\Support\Slugs);
+    // `new` is the one SPA route that shares the shape.
+    $seg = '(?!new/?$)[a-z0-9-]{1,60}';
+
+    return (bool) preg_match("#^/(library(/(courses|tests|materials))?|teachers(/{$seg}(/{$seg}(/tests/\\d{1,10})?)?)?|(tests|materials)/\\d{1,10}|courses/{$seg}(/tests/\\d{1,10})?)?/?$#", $path);
 }
 
 /** The fragment from GET {api}/api/page-head, or null on any failure. */

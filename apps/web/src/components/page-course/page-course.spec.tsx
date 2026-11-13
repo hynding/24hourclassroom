@@ -16,7 +16,7 @@ jest.mock('../../services/courses-store', () => ({
     branchCourse: (...a: unknown[]) => branchCourse(...a),
   },
 }));
-jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a) }));
+jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a), adoptCanonicalPath: jest.fn() }));
 jest.mock('../../services/session-recovery', () => ({ recoverFromExpiredSession: () => false }));
 // Signed in by default, so the guest pitch stays out of every other test.
 const authLoad = jest.fn();
@@ -53,7 +53,7 @@ const guide = (id: number, section: string | null) => ({
 const course = (over: Record<string, unknown> = {}) => ({
   id: 3, title: 'AP Biology', subject: 'science', grade_level: '9-12', visibility: 'public', published_at: '2026-09-01',
   test_count: 2, material_count: 1, author: { id: 1, name: 'Ms K' }, description: 'A full year.', created_at: '', updated_at: '',
-  is_author: false, branched_from: null, can_branch: false, my_branch_id: null, comment_reactions: false,
+  is_author: false, branched_from: null, can_branch: false, my_branch_id: null, comment_reactions: false, path: '/courses/3',
   items: [guide(1, 'Unit 1 · Chemistry of Life'), quiz(1, 'Unit 1 · Chemistry of Life'), quiz(2, 'Unit 2 · Cells')],
   ...over,
 });

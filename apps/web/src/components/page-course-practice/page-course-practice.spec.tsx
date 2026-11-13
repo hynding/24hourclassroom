@@ -9,7 +9,7 @@ jest.mock('../../services/courses-store', () => ({
     checkPractice: (...a: unknown[]) => checkPractice(...a),
   },
 }));
-jest.mock('../../services/navigate', () => ({ navigate: jest.fn() }));
+jest.mock('../../services/navigate', () => ({ navigate: jest.fn(), adoptCanonicalPath: jest.fn() }));
 jest.mock('../../services/session-recovery', () => ({ recoverFromExpiredSession: () => false }));
 
 import { PageCoursePractice } from './page-course-practice';
@@ -26,7 +26,7 @@ const deepText = (node: Node): string => {
 const practice = {
   id: 9, title: 'AP Biology · Week 01 · Quiz · Water', description: null, subject: 'science', grade_level: '9-12', visibility: 'public',
   published_at: '2026-09-01', copied_from_id: null, question_count: 3, author: { id: 1, name: 'Ms K' }, created_at: '', updated_at: '',
-  course: { id: 3, title: 'AP Biology', author: { id: 1, name: 'Ms K' } },
+  course: { id: 3, title: 'AP Biology', path: '/courses/3', author: { id: 1, name: 'Ms K' } },
   questions: [
     {
       id: 10, position: 0, type: 'multiple_choice', prompt: 'Powerhouse?', stimulus: null, options: ['Nucleus', 'Mitochondria'], points: 2,
