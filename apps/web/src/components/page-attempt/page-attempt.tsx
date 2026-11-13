@@ -4,6 +4,7 @@ import { Attempt, AttemptQuestion } from '@24hc/shared';
 import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
+import { optionOrder } from '../../services/option-order';
 import { QuestionInput } from '../../services/question-input';
 import { formatAnswer, formatResponse, isTextResponse, optionChosen, showsStimulus } from '../../services/question-format';
 
@@ -161,7 +162,12 @@ export class PageAttempt {
   }
 
   private renderInput(q: AttemptQuestion) {
-    return <QuestionInput question={q} value={this.responses[q.id]} onChange={(value) => this.setResponse(q.id, value)} />;
+    return <QuestionInput question={q} value={this.responses[q.id]} order={this.order(q)} onChange={(value) => this.setResponse(q.id, value)} />;
+  }
+
+  /** Shuffled per attempt: the same order on every reload and in the review, a new one on a retake. */
+  private order(q: AttemptQuestion): number[] {
+    return optionOrder(q, `attempt-${this.attemptId}`);
   }
 
   private stimulus(questions: AttemptQuestion[], i: number) {
@@ -176,12 +182,12 @@ export class PageAttempt {
     return [
       skipped && <p>Your answer: <strong>{formatResponse(q, null)}</strong></p>,
       <ol class="options explained">
-        {q.options.map((opt, i) => {
+        {this.order(q).map((i) => {
           const picked = optionChosen(q.response, i);
           const correct = optionChosen(answer, i);
           return (
             <li class={{ picked, correct }}>
-              <span class="option-text">{opt}</span>
+              <span class="option-text">{q.options[i]}</span>
               {picked && <span class="meta"> (your answer)</span>}
               {correct && <span class="meta"> (correct)</span>}
               {q.option_explanations[i] && <div class="rationale"><rich-text text={q.option_explanations[i]}></rich-text></div>}
