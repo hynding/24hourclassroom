@@ -15,7 +15,10 @@ class Test extends Model
     /** @use HasFactory<\Database\Factories\TestFactory> */
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'subject', 'grade_level', 'visibility', 'copied_from_id', 'published_at', 'slug'];
+    protected $fillable = ['title', 'description', 'subject', 'grade_level', 'visibility', 'comments_enabled', 'copied_from_id', 'published_at', 'slug'];
+
+    /** Mirrors the column default, so a model fresh from create() reads true. */
+    protected $attributes = ['comments_enabled' => true];
 
     protected function casts(): array
     {
@@ -23,6 +26,7 @@ class Test extends Model
             'subject' => Subject::class,
             'grade_level' => GradeLevel::class,
             'visibility' => Visibility::class,
+            'comments_enabled' => 'boolean',
             'published_at' => 'datetime',
         ];
     }

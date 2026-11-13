@@ -38,6 +38,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * denied comment stays visible to the same people. A deleted comment is kept
  * for administrators alone. Thumbs up and down are the course's switch
  * (`comment_reactions`), on approved comments only.
+ *
+ * A test's author can turn its discussion off (`tests.comments_enabled`),
+ * which closes the test's own thread and every question's: question threads
+ * can leak answers among the students assigned the same private test. A
+ * closed discussion takes no new comments, and what it already holds is
+ * shown only to the people who moderate it (the author and administrators)
+ * until it is turned back on.
  */
 final class CommentAccess
 {
@@ -70,7 +77,26 @@ final class CommentAccess
 
     public static function canPost(?User $viewer, CommentTarget $type, Model $target): bool
     {
-        return $viewer !== null && $viewer->role->comments() && self::canView($viewer, $type, $target);
+        return $viewer !== null
+            && $viewer->role->comments()
+            && ! self::isClosed($type, $target)
+            && self::canView($viewer, $type, $target);
+    }
+
+    /** A test (or one of its questions) whose author turned comments off. */
+    public static function isClosed(CommentTarget $type, Model $target): bool
+    {
+        return match ($type) {
+            CommentTarget::Test => ! $target->comments_enabled,
+            CommentTarget::Question => $target->test !== null && ! $target->test->comments_enabled,
+            default => false,
+        };
+    }
+
+    /** Who still reads a closed discussion: the people who moderate it. */
+    public static function canRead(?User $viewer, CommentTarget $type, Model $target): bool
+    {
+        return ! self::isClosed($type, $target) || self::canModerate($viewer, self::ownerId($type, $target));
     }
 
     /** A public course's own discussion: new comments wait for approval. */

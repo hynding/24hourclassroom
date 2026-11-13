@@ -194,6 +194,8 @@ export interface TestSummary {
 
 export interface Test extends TestSummary {
   description: string | null;
+  /** The author's switch for the test's discussion and its questions' threads. */
+  comments_enabled: boolean;
   copied_from_id: number | null;
   questions: Question[];
   created_at: string;
@@ -899,4 +901,6 @@ export interface CommentThread {
   /** A public course's discussion: new comments wait for approval. */
   moderated: boolean;
   reactions_enabled: boolean;
+  /** The test's author turned comments off: no new ones, and only they and administrators see what was said. */
+  closed: boolean;
 }

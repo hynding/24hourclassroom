@@ -8,6 +8,7 @@ const myAttempts = jest.fn();
 const publishTest = jest.fn();
 const unpublishTest = jest.fn();
 const deleteTest = jest.fn();
+const setTestComments = jest.fn();
 const navigate = jest.fn();
 let currentUser: unknown = null;
 
@@ -20,6 +21,7 @@ jest.mock('../../services/tests-store', () => ({
     publishTest: (...a: unknown[]) => publishTest(...a),
     unpublishTest: (...a: unknown[]) => unpublishTest(...a),
     deleteTest: (...a: unknown[]) => deleteTest(...a),
+    setTestComments: (...a: unknown[]) => setTestComments(...a),
   },
 }));
 // app-root leaves authStore.load() in flight while it renders the route, so
@@ -49,7 +51,7 @@ const base = {
   id: 5, title: 'Cells', description: 'Intro', subject: 'science', grade_level: '6-8', visibility: 'public', published_at: '2026-09-01',
   copied_from_id: null, question_count: 1, author: { id: 1, name: 'Ms K' }, created_at: '', updated_at: '',
   questions: [{ id: 10, position: 0, type: 'multiple_choice', prompt: 'Powerhouse?', options: ['Nucleus', 'Mitochondria'], points: 1, partial_credit: false }],
-  is_author: false, assignment: null, open_attempt_id: null, can_copy: false,
+  is_author: false, assignment: null, open_attempt_id: null, can_copy: false, comments_enabled: true,
 };
 const mount = async (view: unknown) => {
   getTest.mockResolvedValue(view);
@@ -187,6 +189,34 @@ describe('page-test', () => {
 
     expect(deleteTest).not.toHaveBeenCalled();
     expect(navigate).not.toHaveBeenCalled();
+  });
+
+  it('draws a thread per question and one for the test while comments are on', async () => {
+    const page = await mount(base);
+    expect(page.root.shadowRoot.querySelectorAll('comment-thread')).toHaveLength(2);
+  });
+
+  it('asks nothing about a closed test\'s discussion unless you wrote the test', async () => {
+    const page = await mount({ ...base, comments_enabled: false });
+    expect(page.root.shadowRoot.querySelectorAll('comment-thread')).toHaveLength(0);
+    expect(page.root.shadowRoot.textContent).toContain('Comments are turned off for this test.');
+  });
+
+  it('lets the author turn comments off, keeping the threads for them to read', async () => {
+    pending = { id: 1, role: 'teacher', email_verified_at: 'x' };
+    // The response is a Test, not a TestView: no is_author, so the page keeps its own.
+    setTestComments.mockResolvedValue({ id: 5, comments_enabled: false });
+    const page = await mount({ ...base, is_author: true });
+    const box = page.root.shadowRoot.querySelector('.check input') as HTMLInputElement;
+    expect(box.checked).toBe(true);
+
+    box.dispatchEvent(new Event('change'));
+    await page.waitForChanges();
+    await page.waitForChanges();
+
+    expect(setTestComments).toHaveBeenCalledWith(5, false);
+    expect(page.root.shadowRoot.textContent).toContain('Comments are off');
+    expect(page.root.shadowRoot.querySelectorAll('comment-thread')).toHaveLength(2);
   });
 
   it('renders not found on 404', async () => {

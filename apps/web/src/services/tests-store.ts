@@ -18,6 +18,7 @@ export class TestsStore {
   publishTest(id: number) { return this.client.publishTest(id); }
   unpublishTest(id: number) { return this.client.unpublishTest(id); }
   copyTest(id: number) { return this.client.copyTest(id); }
+  setTestComments(id: number, enabled: boolean) { return this.client.setTestComments(id, enabled); }
   listAssignments(testId: number) { return this.client.listAssignments(testId); }
   assignTest(testId: number, studentIds: number[], dueAt?: string | null) { return this.client.assignTest(testId, studentIds, dueAt); }
   unassign(testId: number, assignmentId: number) { return this.client.unassign(testId, assignmentId); }

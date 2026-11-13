@@ -18,6 +18,8 @@ final class TestPayload
             'subject' => $test->subject,
             'grade_level' => $test->grade_level,
             'visibility' => $test->visibility,
+            // The author's switch for this test's discussion and its questions' threads.
+            'comments_enabled' => (bool) $test->comments_enabled,
             'published_at' => $test->published_at,
             'copied_from_id' => $test->copied_from_id,
             'question_count' => $test->questions->count(),
