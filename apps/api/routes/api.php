@@ -34,6 +34,7 @@ use App\Http\Controllers\Api\McpTokenController;
 use App\Http\Controllers\Api\MyAssignmentsController;
 use App\Http\Controllers\Api\MyAttemptsController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\PageHeadController;
 use App\Http\Controllers\Api\ProfileAvatarController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicProfileController;
@@ -199,6 +200,12 @@ Route::middleware('throttle:60,1')->get('site', SiteController::class);
 // Every page a guest can open, as SPA URLs; the SPA's robots.txt names it.
 // No `active`: it carries nothing viewer-dependent.
 Route::middleware('throttle:60,1')->get('sitemap.xml', SitemapController::class);
+
+// The <head> of a public page, for the SPA host's index.php (link previews).
+// Every guest shares one per-IP bucket (CLAUDE.md), and every call here comes
+// from the SPA host's own IP, so it has a named limiter of its own. Guest
+// view only; nothing viewer-dependent, so no `active`.
+Route::middleware('throttle:page-head')->get('page-head', PageHeadController::class);
 
 // The file stream: `signed:relative` and its own limiter, deliberately with
 // NO `auth` and NO `active`. The signature covers path and query only, so a

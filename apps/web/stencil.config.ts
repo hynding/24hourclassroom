@@ -15,7 +15,12 @@ export const config: Config = {
     {
       type: 'www',
       serviceWorker: null,
-      copy: [{ src: 'assets/.htaccess', dest: '.htaccess' }],
+      copy: [
+        { src: 'assets/.htaccess', dest: '.htaccess' },
+        // The SPA entry on the web host: index.html plus the page's own head.
+        { src: 'server/index.php', dest: 'index.php' },
+        { src: 'server/page-head.lib.php', dest: 'page-head.lib.php' },
+      ],
     },
   ],
   testing: {
