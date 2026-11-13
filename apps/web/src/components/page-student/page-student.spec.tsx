@@ -13,6 +13,10 @@ jest.mock('../../services/session-recovery', () => ({
   recoverFromExpiredSession: (...a: unknown[]) => recoverFromExpiredSession(...a),
 }));
 
+const me: { value: { id: number; role: string } | null } = { value: null };
+jest.mock('../../services/auth-store', () => ({ authStore: { get currentUser() { return me.value; } } }));
+jest.mock('../../services/navigate', () => ({ navigate: jest.fn() }));
+
 // Imported after jest.mock(): Stencil transpiles with ts.transpileModule.
 import { PageStudent } from './page-student';
 
@@ -51,6 +55,21 @@ describe('page-student', () => {
     expect(text).toContain('Latest 1.00 / 2.00');
     expect(text).toContain('Not submitted yet');
     expect(page.root.shadowRoot.querySelector('a')).toBeNull();
+  });
+
+  it('links a parent or guardian to each submitted attempt\'s answers, and nobody else', async () => {
+    const data = {
+      student: { id: 40, name: 'Sam' },
+      data: [{ id: 1, due_at: null, test: { id: 9, title: 'Cells quiz', subject: 'science', grade_level: '9-12', question_count: 2, author: { id: 2, name: 'Ms A' } }, latest: { ...summary('1.00'), id: 5 }, best: { ...summary('2.00'), id: 6 } }],
+    };
+    for (const [role, expected] of [['guardian', true], ['tutor', false], ['assistant', false]] as const) {
+      studentAssignments.mockResolvedValue(data);
+      me.value = { id: 99, role };
+      const page = await mount(40);
+      const hrefs = Array.from(page.root.shadowRoot.querySelectorAll('a')).map((a) => a.getAttribute('href'));
+      expect(hrefs).toEqual(expected ? ['/attempts/5', '/attempts/6'] : []);
+    }
+    me.value = null;
   });
 
   it('shows not found on a 404', async () => {

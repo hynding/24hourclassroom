@@ -16,7 +16,9 @@ use Illuminate\Http\Request;
  * or guardian, a tutor, a teacher assistant (Role::supportsStudents). The
  * same rows the student sees at GET /api/assignments, from every teacher who
  * assigned them work. Scores only -- no answers, no attempt detail, nothing
- * writable.
+ * writable. A parent or guardian (Role::seesConnectedStudentAnswers) opens
+ * each submitted attempt's answers through GET /api/attempts/{id}, by the
+ * ids in `latest`/`best`.
  */
 class StudentAssignmentsController extends Controller
 {

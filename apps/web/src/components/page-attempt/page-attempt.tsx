@@ -1,8 +1,9 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
-import { Attempt, AttemptQuestion } from '@24hc/shared';
+import { Attempt, AttemptQuestion, hasRole, SUPPORTER_ROLES } from '@24hc/shared';
 import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
+import { authStore } from '../../services/auth-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { optionOrder } from '../../services/option-order';
 import { QuestionInput } from '../../services/question-input';
@@ -161,6 +162,20 @@ export class PageAttempt {
     }
   }
 
+  /**
+   * Someone else's attempt: a parent or guardian reading a connected
+   * student's review (or a grader who followed a link). The review then says
+   * "Sam's answer", and the way back is the student's page, not the test.
+   */
+  private viewingOther(): boolean {
+    const me = authStore.currentUser;
+    return !!me && !!this.attempt && me.id !== this.attempt.student.id;
+  }
+
+  private answerLabel(): string {
+    return this.viewingOther() ? `${this.attempt.student.name}'s answer` : 'Your answer';
+  }
+
   private renderInput(q: AttemptQuestion) {
     return <QuestionInput question={q} value={this.responses[q.id]} order={this.order(q)} onChange={(value) => this.setResponse(q.id, value)} />;
   }
@@ -180,7 +195,7 @@ export class PageAttempt {
     // in words; otherwise a skipped item reads as if it was answered.
     const skipped = q.response === null || q.response === undefined || (Array.isArray(q.response) && q.response.length === 0);
     return [
-      skipped && <p>Your answer: <strong>{formatResponse(q, null)}</strong></p>,
+      skipped && <p>{this.answerLabel()}: <strong>{formatResponse(q, null)}</strong></p>,
       <ol class="options explained">
         {this.order(q).map((i) => {
           const picked = optionChosen(q.response, i);
@@ -188,7 +203,7 @@ export class PageAttempt {
           return (
             <li class={{ picked, correct }}>
               <span class="option-text">{q.options[i]}</span>
-              {picked && <span class="meta"> (your answer)</span>}
+              {picked && <span class="meta"> ({this.viewingOther() ? `${this.attempt.student.name}'s answer` : 'your answer'})</span>}
               {correct && <span class="meta"> (correct)</span>}
               {q.option_explanations[i] && <div class="rationale"><rich-text text={q.option_explanations[i]}></rich-text></div>}
             </li>
@@ -202,13 +217,13 @@ export class PageAttempt {
     const label = q.type === 'long_answer' ? 'Model answer' : 'Correct answer';
     if (isTextResponse(q.type)) {
       return [
-        <p>Your answer:</p>,
+        <p>{this.answerLabel()}:</p>,
         <p class="response">{formatResponse(q, q.response)}</p>,
         <p>{label}: {formatAnswer(q, answer)}</p>,
       ];
     }
     return [
-      <p>Your answer: <strong>{formatResponse(q, q.response)}</strong></p>,
+      <p>{this.answerLabel()}: <strong>{formatResponse(q, q.response)}</strong></p>,
       <p>{label}: {formatAnswer(q, answer)}</p>,
     ];
   }
@@ -241,12 +256,15 @@ export class PageAttempt {
       return (
         <section>
           <h1>{a.test.title}</h1>
+          {this.viewingOther() && <p class="meta">{a.student.name}'s submitted attempt</p>}
           <p class="score">
             {a.score} / {a.max_score}
             {a.ungraded_count > 0 && ` · ${a.ungraded_count} answer${a.ungraded_count === 1 ? '' : 's'} awaiting grading`}
           </p>
           <ol class="review">{a.questions.map((q, i) => this.renderReview(q, i, a.questions))}</ol>
-          <a href={`/tests/${a.test.id}`} onClick={(e) => { e.preventDefault(); navigate(`/tests/${a.test.id}`); }}>Back to test</a>
+          {this.viewingOther() && hasRole(SUPPORTER_ROLES, authStore.currentUser?.role)
+            ? <a href={`/students/${a.student.id}`} onClick={(e) => { e.preventDefault(); navigate(`/students/${a.student.id}`); }}>Back to {a.student.name}</a>
+            : <a href={`/tests/${a.test.id}`} onClick={(e) => { e.preventDefault(); navigate(`/tests/${a.test.id}`); }}>Back to test</a>}
         </section>
       );
     }
