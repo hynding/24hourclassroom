@@ -60,7 +60,7 @@ In plain language: know three communist revolutions and what Mao did after 1949;
 
 ## Newly independent states (8.6)
 
-**India.** Nehru (1947–64) built a parliamentary democracy with a federal constitution (1950), planned heavy industry, dams ("the temples of modern India"), non-alignment abroad and secularism at home; the Green Revolution from the mid-1960s ended famine. Pakistan, divided into two wings a thousand miles apart, fell under military rule; East Pakistan broke away as Bangladesh in 1971 after a war with Indian intervention.
+**India.** Nehru (1947–64) built a parliamentary democracy with a federal constitution (1950), planned heavy industry, dams (which Nehru praised as the temples of a new India), non-alignment abroad and secularism at home; the Green Revolution from the mid-1960s ended famine. Pakistan, divided into two wings a thousand miles apart, fell under military rule; East Pakistan broke away as Bangladesh in 1971 after a war with Indian intervention.
 
 **Egypt and the Middle East.** Nasser overthrew the monarchy (1952), nationalised the Suez Canal (1956) to pay for the Aswan Dam, survived the Anglo-French-Israeli invasion when Eisenhower and Khrushchev both demanded withdrawal, and became the hero of Arab nationalism; he lost the Six-Day War of 1967. Israel: the UN partition plan (1947), independence (May 1948), war with its neighbours, and about 700,000 Palestinian refugees (the Nakba); wars in 1956, 1967 and 1973. Iran: the CIA-backed coup against Mossadegh (1953) restored the Shah after he nationalised oil.
 
