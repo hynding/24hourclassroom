@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CommentAdminController;
 use App\Http\Controllers\Admin\CourseAdminController;
 use App\Http\Controllers\Admin\GenerationAdminController;
 use App\Http\Controllers\Admin\MaterialAdminController;
@@ -51,6 +52,12 @@ Route::middleware(['auth', 'verified', 'active', 'admin'])->prefix('admin')->gro
     Route::get('courses', [CourseAdminController::class, 'index'])->name('admin.courses');
     Route::post('courses/{course}/unpublish', [CourseAdminController::class, 'unpublish']);
     Route::delete('courses/{course}', [CourseAdminController::class, 'destroy']);
+
+    Route::get('comments', [CommentAdminController::class, 'index'])->name('admin.comments');
+    Route::post('comments/{comment}/approve', [CommentAdminController::class, 'approve']);
+    Route::post('comments/{comment}/deny', [CommentAdminController::class, 'deny']);
+    Route::delete('comments/{comment}', [CommentAdminController::class, 'destroy']);
+    Route::post('comments/{comment}/restore', [CommentAdminController::class, 'restore'])->withTrashed();
 
     Route::get('slugs', [SlugAdminController::class, 'index'])->name('admin.slugs');
     Route::post('slugs/{slug}/approve', [SlugAdminController::class, 'approve']);
