@@ -78,6 +78,10 @@ export namespace Components {
           * @default 'Discussion'
          */
         "heading": string;
+        /**
+          * A line shown above the box to anyone who may post (practice mode warns that options are shuffled).
+         */
+        "hint"?: string;
         "targetId": number;
         "targetType": CommentTargetType;
     }
@@ -119,6 +123,10 @@ export namespace Components {
      * responses live in this component and vanish with it -- so there is no
      * autosave and no attempt; "finish" is one stateless check the server
      * grades with the same scorer a real attempt uses.
+     * The test's discussion and each question's sit here too: the same
+     * threads as on the test's own page (target `test` / `question`), so a
+     * practice page widens nobody's access. The author's comments-off switch
+     * hides them from everyone else, as page-test does.
      */
     interface PageCoursePractice {
         "courseId"?: number;
@@ -187,6 +195,8 @@ export namespace Components {
      * A connected student's assignments, for a tutor, teacher assistant or
      * parent/guardian. Read-only. Titles are plain text, not links: a private
      * test 404s for anyone but its author and the student it was assigned to.
+     * A parent or guardian (STUDENT_ANSWER_VIEWER_ROLES) also gets a link to
+     * each submitted attempt's answers.
      */
     interface PageStudent {
         "studentId"?: number;
@@ -363,6 +373,10 @@ declare global {
      * responses live in this component and vanish with it -- so there is no
      * autosave and no attempt; "finish" is one stateless check the server
      * grades with the same scorer a real attempt uses.
+     * The test's discussion and each question's sit here too: the same
+     * threads as on the test's own page (target `test` / `question`), so a
+     * practice page widens nobody's access. The author's comments-off switch
+     * hides them from everyone else, as page-test does.
      */
     interface HTMLPageCoursePracticeElement extends Components.PageCoursePractice, HTMLStencilElement {
     }
@@ -493,6 +507,8 @@ declare global {
      * A connected student's assignments, for a tutor, teacher assistant or
      * parent/guardian. Read-only. Titles are plain text, not links: a private
      * test 404s for anyone but its author and the student it was assigned to.
+     * A parent or guardian (STUDENT_ANSWER_VIEWER_ROLES) also gets a link to
+     * each submitted attempt's answers.
      */
     interface HTMLPageStudentElement extends Components.PageStudent, HTMLStencilElement {
     }
@@ -719,6 +735,10 @@ declare namespace LocalJSX {
           * @default 'Discussion'
          */
         "heading"?: string;
+        /**
+          * A line shown above the box to anyone who may post (practice mode warns that options are shuffled).
+         */
+        "hint"?: string;
         "targetId": number;
         "targetType": CommentTargetType;
     }
@@ -760,6 +780,10 @@ declare namespace LocalJSX {
      * responses live in this component and vanish with it -- so there is no
      * autosave and no attempt; "finish" is one stateless check the server
      * grades with the same scorer a real attempt uses.
+     * The test's discussion and each question's sit here too: the same
+     * threads as on the test's own page (target `test` / `question`), so a
+     * practice page widens nobody's access. The author's comments-off switch
+     * hides them from everyone else, as page-test does.
      */
     interface PageCoursePractice {
         "courseId"?: number;
@@ -828,6 +852,8 @@ declare namespace LocalJSX {
      * A connected student's assignments, for a tutor, teacher assistant or
      * parent/guardian. Read-only. Titles are plain text, not links: a private
      * test 404s for anyone but its author and the student it was assigned to.
+     * A parent or guardian (STUDENT_ANSWER_VIEWER_ROLES) also gets a link to
+     * each submitted attempt's answers.
      */
     interface PageStudent {
         "studentId"?: number;
@@ -914,6 +940,7 @@ declare namespace LocalJSX {
         "targetId": number;
         "compact": boolean;
         "heading": string;
+        "hint": string;
     }
     interface FlashcardDeckAttributes {
         "flipped": boolean;
@@ -1075,6 +1102,10 @@ declare module "@stencil/core" {
              * responses live in this component and vanish with it -- so there is no
              * autosave and no attempt; "finish" is one stateless check the server
              * grades with the same scorer a real attempt uses.
+             * The test's discussion and each question's sit here too: the same
+             * threads as on the test's own page (target `test` / `question`), so a
+             * practice page widens nobody's access. The author's comments-off switch
+             * hides them from everyone else, as page-test does.
              */
             "page-course-practice": LocalJSX.IntrinsicElements["page-course-practice"] & JSXBase.HTMLAttributes<HTMLPageCoursePracticeElement>;
             /**
@@ -1110,6 +1141,8 @@ declare module "@stencil/core" {
              * A connected student's assignments, for a tutor, teacher assistant or
              * parent/guardian. Read-only. Titles are plain text, not links: a private
              * test 404s for anyone but its author and the student it was assigned to.
+             * A parent or guardian (STUDENT_ANSWER_VIEWER_ROLES) also gets a link to
+             * each submitted attempt's answers.
              */
             "page-student": LocalJSX.IntrinsicElements["page-student"] & JSXBase.HTMLAttributes<HTMLPageStudentElement>;
             "page-teacher-profile": LocalJSX.IntrinsicElements["page-teacher-profile"] & JSXBase.HTMLAttributes<HTMLPageTeacherProfileElement>;

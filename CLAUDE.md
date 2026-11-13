@@ -274,6 +274,11 @@ course (`GET|POST /api/comments?target_type=&target_id=`, `PATCH|DELETE
   author and admins (`CommentAccess::isClosed` / `canRead`; a single-comment
   route is a 404 to anyone else). The thread payload carries `closed`, and
   `page-test` draws no threads for a non-author. A copy keeps the setting.
+- **Practice mode** (`page-course-practice`) carries the same test and
+  per-question threads as `page-test` (so no new audience: a practice test
+  is public), under the same comments-off rule, with a `hint` on
+  `comment-thread` telling posters to quote an option's words, not its
+  letter, because options are shuffled per run.
 - **Admin list** (`/admin/comments`, `CommentAdminController`): every
   comment, deleted ones included, newest first; search body or commenter,
   filter by status (pending, approved, denied, deleted) and target kind.

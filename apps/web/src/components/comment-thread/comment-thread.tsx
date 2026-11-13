@@ -26,6 +26,8 @@ export class CommentThreadView {
   @Prop() targetId!: number;
   @Prop() compact = false;
   @Prop() heading = 'Discussion';
+  /** A line shown above the box to anyone who may post (practice mode warns that options are shuffled). */
+  @Prop() hint?: string;
 
   @State() open = false;
   @State() signedIn = false;
@@ -323,6 +325,7 @@ export class CommentThreadView {
       this.thread.can_comment && this.thread.moderated && !this.thread.can_approve && (
         <p class="muted">Comments here are shown to others once a teacher approves them.</p>
       ),
+      this.thread.can_comment && this.hint && <p class="muted hint">{this.hint}</p>,
       this.thread.can_comment && (
         <form class="new" onSubmit={this.post}>
           <label htmlFor="new-comment">Add a comment</label>
