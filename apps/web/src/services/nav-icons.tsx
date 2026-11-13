@@ -14,6 +14,7 @@ export type NavIcon =
   | 'tests'
   | 'materials'
   | 'courses'
+  | 'grading'
   | 'connections'
   | 'integrations'
   | 'notifications'
@@ -31,6 +32,8 @@ const PATHS: Record<NavIcon, string[]> = {
   materials: ['M3.5 7c0-.8.7-1.5 1.5-1.5h4.5l2 2.5H19c.8 0 1.5.7 1.5 1.5v8.5c0 .8-.7 1.5-1.5 1.5H5c-.8 0-1.5-.7-1.5-1.5z'],
   // A mortarboard: a course, as distinct from the library's open book.
   courses: ['M2.5 9.5L12 5l9.5 4.5L12 14z', 'M6.5 11.5v4.5c1.5 1.5 3.4 2.2 5.5 2.2s4-.7 5.5-2.2v-4.5', 'M21.5 9.5v5'],
+  // A pencil over a ruled line: marking work.
+  grading: ['M4 20h16', 'M14.5 4.5l3 3L9 16H6v-3z', 'M12.5 6.5l3 3'],
   connections: ['M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.2 1.2', 'M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.2-1.2'],
   integrations: ['M9 3v5', 'M15 3v5', 'M6.5 8h11v3a5.5 5.5 0 0 1-11 0z', 'M12 16.5V21'],
   notifications: ['M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z', 'M10 20.5a2 2 0 0 0 4 0'],

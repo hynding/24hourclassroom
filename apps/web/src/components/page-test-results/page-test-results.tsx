@@ -1,10 +1,10 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
-import { AssignmentResult, Attempt, AttemptQuestion, AttemptSummary, MANUAL_GRADE_TYPES, TestView } from '@24hc/shared';
+import { AssignmentResult, Attempt, AttemptSummary, TestView } from '@24hc/shared';
 import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
-import { formatAnswer, formatResponse, isTextResponse, showsStimulus } from '../../services/question-format';
+import { GradedAnswers } from '../../services/attempt-grading';
 
 @Component({ tag: 'page-test-results', styleUrl: 'page-test-results.css', shadow: true })
 export class PageTestResults {
@@ -97,67 +97,6 @@ export class PageTestResults {
     return a && a.score !== null ? <span class="meta">{prefix} {a.score} / {a.max_score}{a.ungraded_count ? ` (${a.ungraded_count} to grade)` : ''}</span> : null;
   }
 
-  private renderResponse(q: AttemptQuestion) {
-    if (isTextResponse(q.type)) {
-      return [<p>Response:</p>, <p class="response">{formatResponse(q, q.response)}</p>];
-    }
-    return <p>Response: <strong>{formatResponse(q, q.response)}</strong></p>;
-  }
-
-  /**
-   * Hand grading for every type the server lets a teacher override; for a
-   * fill_blank that replaces the automatic score. The explanation sits
-   * beside the form because it is what the teacher grades against.
-   */
-  private renderGrading(attempt: Attempt, q: AttemptQuestion) {
-    if (!MANUAL_GRADE_TYPES.includes(q.type) || !q.answer_id) {
-      return null;
-    }
-    return (
-      <div class="grading">
-        <form class="grade" onSubmit={(e) => {
-          e.preventDefault();
-          const input = (e.target as HTMLFormElement).querySelector('input') as HTMLInputElement;
-          this.grade(attempt.id, q.answer_id, Number(input.value));
-        }}>
-          <label>
-            Points
-            <input type="number" step="0.25" min="0" max={q.graded_answer?.points ?? q.points} value={q.awarded ?? ''} />
-          </label>
-          <button type="submit" class="btn" disabled={this.busy}>Save grade</button>
-        </form>
-        {q.explanation && (
-          <div class="accept">
-            <h4>What to accept</h4>
-            <rich-text text={q.explanation}></rich-text>
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  private renderAttempt(attempt: Attempt) {
-    // An unsubmitted attempt carries no `answer`/`graded_answer`/`awarded`,
-    // so the answers list rendered a literal "Expected: undefined". There is
-    // nothing to grade until the student submits -- say so instead.
-    if (!attempt.submitted_at) {
-      return <p class="meta">In progress — not yet submitted.</p>;
-    }
-    return (
-      <ol class="answers">
-        {attempt.questions.map((q, i) => (
-          <li>
-            {showsStimulus(attempt.questions, i) && <div class="stimulus"><rich-text text={q.stimulus}></rich-text></div>}
-            <div class="prompt"><rich-text text={q.prompt}></rich-text></div>
-            {this.renderResponse(q)}
-            <p class="meta">Expected: {formatAnswer(q, q.graded_answer?.answer ?? q.answer)} · {q.awarded ?? '—'} / {q.graded_answer?.points ?? q.points}</p>
-            {this.renderGrading(attempt, q)}
-          </li>
-        ))}
-      </ol>
-    );
-  }
-
   render() {
     if (this.notFound) {
       return <section><h1>Test not found</h1></section>;
@@ -184,7 +123,7 @@ export class PageTestResults {
                     <button type="button" class="btn" onClick={() => this.open(a.id)}>
                       {a.submitted_at ? new Date(a.submitted_at).toLocaleString() : 'In progress'} · {a.score ?? '—'} / {a.max_score ?? '—'}{a.ungraded_count ? ` (${a.ungraded_count} to grade)` : ''}
                     </button>
-                    {this.opened[a.id] && this.renderAttempt(this.opened[a.id])}
+                    {this.opened[a.id] && <GradedAnswers attempt={this.opened[a.id]} busy={this.busy} onGrade={(attemptId, answerId, awarded) => this.grade(attemptId, answerId, awarded)} />}
                   </li>
                 ))}
               </ul>

@@ -78,7 +78,8 @@ enum Role: string
     /**
      * May read the assignments and scores of a student they hold an accepted
      * connection with, across every teacher who assigned them work. Read-only:
-     * never answers, never a grade change.
+     * never a grade change. (An assistant grades through a different door:
+     * gradesForConnectedTeachers.)
      */
     public function supportsStudents(): bool
     {
@@ -114,6 +115,17 @@ enum Role: string
      * approve regardless of this (CommentAccess::canApprove).
      */
     public function approvesConnectedComments(): bool
+    {
+        return in_array($this, [self::Assistant], true);
+    }
+
+    /**
+     * May grade, for a teacher they hold an accepted connection with, the
+     * submitted attempts on that teacher's assignments: a teacher assistant
+     * taking marking off the teacher's plate (GradingAccess). An author
+     * grades their own assignments regardless of this.
+     */
+    public function gradesForConnectedTeachers(): bool
     {
         return in_array($this, [self::Assistant], true);
     }

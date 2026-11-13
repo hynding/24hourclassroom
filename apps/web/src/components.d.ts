@@ -134,6 +134,13 @@ export namespace Components {
     interface PageGeneration {
         "generationId"?: number;
     }
+    /**
+     * Everything waiting for a hand grade, oldest submission first: a teacher's
+     * own assignments, and for a teacher assistant every connected teacher's
+     * (GET /api/grading). Grading here is the same call the results page makes.
+     */
+    interface PageGrading {
+    }
     interface PageHome {
     }
     interface PageIntegrations {
@@ -384,6 +391,17 @@ declare global {
         prototype: HTMLPageGenerationElement;
         new (): HTMLPageGenerationElement;
     };
+    /**
+     * Everything waiting for a hand grade, oldest submission first: a teacher's
+     * own assignments, and for a teacher assistant every connected teacher's
+     * (GET /api/grading). Grading here is the same call the results page makes.
+     */
+    interface HTMLPageGradingElement extends Components.PageGrading, HTMLStencilElement {
+    }
+    var HTMLPageGradingElement: {
+        prototype: HTMLPageGradingElement;
+        new (): HTMLPageGradingElement;
+    };
     interface HTMLPageHomeElement extends Components.PageHome, HTMLStencilElement {
     }
     var HTMLPageHomeElement: {
@@ -599,6 +617,7 @@ declare global {
         "page-courses": HTMLPageCoursesElement;
         "page-forgot-password": HTMLPageForgotPasswordElement;
         "page-generation": HTMLPageGenerationElement;
+        "page-grading": HTMLPageGradingElement;
         "page-home": HTMLPageHomeElement;
         "page-integrations": HTMLPageIntegrationsElement;
         "page-library": HTMLPageLibraryElement;
@@ -755,6 +774,13 @@ declare namespace LocalJSX {
     }
     interface PageGeneration {
         "generationId"?: number;
+    }
+    /**
+     * Everything waiting for a hand grade, oldest submission first: a teacher's
+     * own assignments, and for a teacher assistant every connected teacher's
+     * (GET /api/grading). Grading here is the same call the results page makes.
+     */
+    interface PageGrading {
     }
     interface PageHome {
     }
@@ -967,6 +993,7 @@ declare namespace LocalJSX {
         "page-courses": PageCourses;
         "page-forgot-password": PageForgotPassword;
         "page-generation": Omit<PageGeneration, keyof PageGenerationAttributes> & { [K in keyof PageGeneration & keyof PageGenerationAttributes]?: PageGeneration[K] } & { [K in keyof PageGeneration & keyof PageGenerationAttributes as `attr:${K}`]?: PageGenerationAttributes[K] } & { [K in keyof PageGeneration & keyof PageGenerationAttributes as `prop:${K}`]?: PageGeneration[K] };
+        "page-grading": PageGrading;
         "page-home": PageHome;
         "page-integrations": PageIntegrations;
         "page-library": Omit<PageLibrary, keyof PageLibraryAttributes> & { [K in keyof PageLibrary & keyof PageLibraryAttributes]?: PageLibrary[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `attr:${K}`]?: PageLibraryAttributes[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `prop:${K}`]?: PageLibrary[K] };
@@ -1056,6 +1083,12 @@ declare module "@stencil/core" {
             "page-courses": LocalJSX.IntrinsicElements["page-courses"] & JSXBase.HTMLAttributes<HTMLPageCoursesElement>;
             "page-forgot-password": LocalJSX.IntrinsicElements["page-forgot-password"] & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
             "page-generation": LocalJSX.IntrinsicElements["page-generation"] & JSXBase.HTMLAttributes<HTMLPageGenerationElement>;
+            /**
+             * Everything waiting for a hand grade, oldest submission first: a teacher's
+             * own assignments, and for a teacher assistant every connected teacher's
+             * (GET /api/grading). Grading here is the same call the results page makes.
+             */
+            "page-grading": LocalJSX.IntrinsicElements["page-grading"] & JSXBase.HTMLAttributes<HTMLPageGradingElement>;
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-integrations": LocalJSX.IntrinsicElements["page-integrations"] & JSXBase.HTMLAttributes<HTMLPageIntegrationsElement>;
             "page-library": LocalJSX.IntrinsicElements["page-library"] & JSXBase.HTMLAttributes<HTMLPageLibraryElement>;

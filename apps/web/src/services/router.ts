@@ -14,7 +14,7 @@ export interface ResolvedRoute {
 }
 
 const GUEST_ONLY = ['/login', '/register', '/forgot-password', '/reset-password'];
-const AUTH_ONLY = ['/profile', '/connections', '/notifications', '/tests', '/tests/new', '/tests/generate', '/materials', '/materials/new', '/courses', '/courses/new', '/integrations'];
+const AUTH_ONLY = ['/profile', '/connections', '/notifications', '/tests', '/tests/new', '/tests/generate', '/materials', '/materials/new', '/courses', '/courses/new', '/integrations', '/grading'];
 const TEACHER_PREFIX = '/teachers/';
 const TESTS_PREFIX = '/tests/';
 const MATERIALS_PREFIX = '/materials/';
@@ -184,6 +184,9 @@ export function resolveRoute(path: string): ResolvedRoute {
   }
   if (path === '/integrations') {
     return { tag: 'page-integrations' };
+  }
+  if (path === '/grading') {
+    return { tag: 'page-grading' };
   }
   if (path === '/materials') {
     return { tag: 'page-materials' };

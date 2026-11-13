@@ -30,6 +30,7 @@ export class TestsStore {
   getAttempt(id: number) { return this.client.getAttempt(id); }
   saveAttempt(id: number, responses: Record<number, unknown>) { return this.client.saveAttempt(id, responses); }
   submitAttempt(id: number) { return this.client.submitAttempt(id); }
+  gradingQueue(page?: number) { return this.client.gradingQueue(page); }
   gradeAnswer(attemptId: number, answerId: number, awarded: number) { return this.client.gradeAnswer(attemptId, answerId, awarded); }
   library(filters: LibraryFilters = {}) { return this.client.library(filters); }
 }
