@@ -17,6 +17,7 @@ import type {
   Generation,
   GenerationInput,
   GradeLevel,
+  HandleState,
   Integrations,
   LibraryFilters,
   MaterialShare,
@@ -28,6 +29,7 @@ import type {
   MyAssignment,
   MyAttempt,
   Paginated,
+  ResolvedPath,
   PendingConnections,
   PracticeResult,
   PracticeTest,
@@ -183,6 +185,20 @@ export class ApiClient {
 
   async getPublicProfile(id: number): Promise<PublicProfile> {
     return this.get<PublicProfile>(`/api/users/${id}`);
+  }
+
+  /** A vanity path (`/courses/<slug>`, `/teachers/<handle>[/<slug>]`) to what it names; 404 if nothing the viewer can open. */
+  async resolvePath(path: string): Promise<ResolvedPath> {
+    return this.get<ResolvedPath>(`/api/resolve?path=${encodeURIComponent(path)}`);
+  }
+
+  async getHandle(): Promise<HandleState> {
+    return this.get<HandleState>('/api/profile/handle');
+  }
+
+  /** Asks for a handle (pending until an admin approves it); null withdraws a pending request. */
+  async requestHandle(handle: string | null): Promise<HandleState> {
+    return this.put<HandleState>('/api/profile/handle', { handle });
   }
 
   async getProfile(): Promise<Profile> {
@@ -504,6 +520,11 @@ export class ApiClient {
   }
 
   /** A private copy for the caller: its tests copied as their own, materials kept from the original. Returns the BRANCH. */
+  /** Names the course under the author's handle; null clears it. */
+  async setCourseSlug(id: number, slug: string | null): Promise<CourseView> {
+    return this.put<CourseView>(`/api/courses/${id}/slug`, { slug });
+  }
+
   async branchCourse(id: number): Promise<CourseView> {
     return this.post<CourseView>(`/api/courses/${id}/branch`);
   }

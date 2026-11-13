@@ -8,6 +8,7 @@ use App\Models\Test;
 use App\Services\AttemptGrader;
 use App\Support\CourseAccess;
 use App\Support\ResponseRules;
+use App\Support\Slugs;
 use App\Support\TestPayload;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -30,6 +31,7 @@ class CoursePracticeController extends Controller
             'course' => [
                 'id' => $course->id,
                 'title' => $course->title,
+                'path' => Slugs::coursePath($course),
                 'author' => ['id' => $course->author->id, 'name' => $course->author->name],
             ],
         ]);

@@ -3,7 +3,7 @@ import { ApiError } from '@24hc/api-client';
 import { CourseItem, CourseView, GRADE_LEVELS, SUBJECTS } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { coursesStore } from '../../services/courses-store';
-import { navigate } from '../../services/navigate';
+import { adoptCanonicalPath, navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { courseItemKind, courseItemTitle, courseSections } from '../../services/course-format';
 import { courseMeta, setPageMeta } from '../../services/page-meta';
@@ -58,6 +58,8 @@ export class PageCourse {
     }
     try {
       this.course = await coursesStore.getCourse(this.courseId);
+      // Opened by id: show the course's own address (its slug) instead.
+      adoptCanonicalPath(this.course.path, `/courses/${this.courseId}`);
       setPageMeta(courseMeta(this.course));
     } catch (e) {
       if (e instanceof ApiError && e.status === 404) {

@@ -8,6 +8,7 @@ use App\Models\Connection;
 use App\Models\Follow;
 use App\Models\User;
 use App\Support\ProfilePayload;
+use App\Support\Slugs;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -46,6 +47,7 @@ class PublicProfileController extends Controller
             'name' => $user->name,
             'role' => $user->role,
             'profile' => ProfilePayload::for($user->profile),
+            'path' => Slugs::teacherPath($user),
             'is_following' => $viewer ? $this->isFollowing($viewer, $user) : null,
             'connection' => $viewer ? $this->connectionState($viewer, $user) : null,
         ]);

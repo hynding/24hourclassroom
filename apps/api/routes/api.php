@@ -34,12 +34,14 @@ use App\Http\Controllers\Api\McpTokenController;
 use App\Http\Controllers\Api\MyAssignmentsController;
 use App\Http\Controllers\Api\MyAttemptsController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\PageHeadController;
 use App\Http\Controllers\Api\ProfileAvatarController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicProfileController;
 use App\Http\Controllers\Api\SharedMaterialController;
 use App\Http\Controllers\Api\SiteController;
 use App\Http\Controllers\Api\SitemapController;
+use App\Http\Controllers\Api\SlugController;
 use App\Http\Controllers\Api\StudentAssignmentsController;
 use App\Http\Controllers\Api\TeacherDirectoryController;
 use App\Http\Controllers\Api\TestAttemptsController;
@@ -74,6 +76,8 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::put('profile', [ProfileController::class, 'update']);
     Route::post('profile/avatar', [ProfileAvatarController::class, 'store']);
     Route::delete('profile/avatar', [ProfileAvatarController::class, 'destroy']);
+    Route::get('profile/handle', [SlugController::class, 'showHandle']);
+    Route::put('profile/handle', [SlugController::class, 'updateHandle']);
 
     Route::post('users/{user}/follow', [FollowController::class, 'store']);
     Route::delete('users/{user}/follow', [FollowController::class, 'destroy']);
@@ -139,6 +143,7 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::post('courses/{course}/publish', [CoursePublishController::class, 'publish']);
     Route::post('courses/{course}/unpublish', [CoursePublishController::class, 'unpublish']);
     Route::post('courses/{course}/branch', CourseBranchController::class);
+    Route::put('courses/{course}/slug', [SlugController::class, 'updateCourse']);
 
     // Comments on a test, a question, a material or a course. Signed-in
     // only, reading included: a discussion names people, and who may see
@@ -183,6 +188,9 @@ Route::middleware(['throttle:60,1', 'active'])->group(function () {
     Route::get('materials/{material}', MaterialShowController::class);
     Route::get('library/courses', CourseLibraryController::class);
     Route::get('courses/{course}', [CourseController::class, 'show']);
+    // A vanity path (/courses/<slug>, /teachers/<handle>[/<slug>]) to the id
+    // path it names, for this viewer. See Slugs.
+    Route::get('resolve', [SlugController::class, 'resolve']);
     // Practice mode: guests included, nothing recorded. `check` is a POST
     // only because a run's responses do not fit a query string; it writes
     // nothing.
@@ -201,6 +209,12 @@ Route::middleware('throttle:60,1')->get('site', SiteController::class);
 // Every page a guest can open, as SPA URLs; the SPA's robots.txt names it.
 // No `active`: it carries nothing viewer-dependent.
 Route::middleware('throttle:60,1')->get('sitemap.xml', SitemapController::class);
+
+// The <head> of a public page, for the SPA host's index.php (link previews).
+// Every guest shares one per-IP bucket (CLAUDE.md), and every call here comes
+// from the SPA host's own IP, so it has a named limiter of its own. Guest
+// view only; nothing viewer-dependent, so no `active`.
+Route::middleware('throttle:page-head')->get('page-head', PageHeadController::class);
 
 // The file stream: `signed:relative` and its own limiter, deliberately with
 // NO `auth` and NO `active`. The signature covers path and query only, so a

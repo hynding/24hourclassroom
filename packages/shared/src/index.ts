@@ -452,6 +452,43 @@ export interface CourseView extends CourseSummary {
   /** Thumbs up and down on the course discussion's approved comments. */
   comment_reactions: boolean;
   items: CourseItem[];
+  /** Where the course lives: `/courses/<slug>`, `/teachers/<handle>/<slug>` or `/courses/<id>`. */
+  path: string;
+  /** Author only: the course's name under their handle, and its review state. */
+  slug?: SlugState | null;
+  /** Author only: the site-wide `/courses/<slug>` an admin gave it. */
+  site_slug?: string | null;
+  /** Author only: their approved handle, if any. */
+  handle?: string | null;
+}
+
+/** Mirrors `App\Enums\SlugKind`, in enum order. */
+export const SLUG_KINDS = ['teacher', 'teacher_course', 'site_course'] as const;
+export type SlugKind = (typeof SLUG_KINDS)[number];
+
+/** Mirrors `App\Enums\SlugStatus`, in enum order. */
+export const SLUG_STATUSES = ['pending', 'approved', 'rejected', 'retired'] as const;
+export type SlugStatus = (typeof SLUG_STATUSES)[number];
+
+export interface SlugState {
+  slug: string;
+  status: SlugStatus;
+}
+
+/** GET|PUT /api/profile/handle. */
+export interface HandleState {
+  /** The approved handle, if any. */
+  handle: string | null;
+  /** The teacher's public page: `/teachers/<handle>` or `/teachers/<id>`. */
+  path: string;
+  /** The newest request: pending, rejected, or the approved handle itself. */
+  request: SlugState | null;
+}
+
+/** GET /api/resolve: a vanity path to the id path the SPA routes on, and where the address bar belongs. */
+export interface ResolvedPath {
+  target: string;
+  canonical: string;
 }
 
 export interface CourseItemInput {
@@ -483,7 +520,8 @@ export interface CourseCandidates {
  * question), because a public course lets anyone reveal them.
  */
 export interface PracticeTest extends Test {
-  course: { id: number; title: string; author: TestAuthor };
+  /** `path`: the course's canonical address (see CourseView.path). */
+  course: { id: number; title: string; path: string; author: TestAuthor };
 }
 
 /**
@@ -712,6 +750,8 @@ export interface PublicProfile {
   role: Role;
   /** Absent entirely for a student seen by an accepted connection. */
   profile?: Profile;
+  /** The public page's address: `/teachers/<handle>` or `/teachers/<id>`. Present with `profile`. */
+  path?: string;
   /** Absent (not null) on the same name-only student payload as `profile`. */
   is_following?: boolean | null;
   /** Absent (not null) on the same name-only student payload as `profile`. */

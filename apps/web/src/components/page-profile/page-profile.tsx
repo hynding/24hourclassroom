@@ -227,6 +227,8 @@ export class PageProfile {
 
           <button type="submit" class="btn-primary" disabled={this.busy}>Save profile</button>
         </form>
+
+        <profile-handle></profile-handle>
       </section>
     );
   }

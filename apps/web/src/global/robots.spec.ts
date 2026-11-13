@@ -15,3 +15,13 @@ describe('robots.txt', () => {
     }
   });
 });
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { pageHeadConfig } = require('../../scripts/page-head-config.js');
+
+describe('page-head.config.php', () => {
+  it('hands index.php the API base as a PHP single-quoted literal', () => {
+    expect(pageHeadConfig('https://api.example.org/')).toContain("return ['api' => 'https://api.example.org'];");
+    expect(pageHeadConfig("https://x.test/a'b\\c")).toContain("'https://x.test/a\\'b\\\\c'");
+  });
+});

@@ -24,7 +24,10 @@ jest.mock('../../services/auth-store', () => ({
   authStore: { load: (...a: unknown[]) => authLoad(...a), get currentUser() { return currentUser; }, subscribe: () => () => {} },
 }));
 jest.mock('../../services/return-path', () => ({ takeReturnPath: (...a: unknown[]) => takeReturnPath(...a) }));
-jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a) }));
+const adoptCanonicalPath = jest.fn();
+jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a), adoptCanonicalPath: (...a: unknown[]) => adoptCanonicalPath(...a) }));
+const resolvePath = jest.fn();
+jest.mock('../../services/slug-store', () => ({ slugStore: { resolve: (...a: unknown[]) => resolvePath(...a) } }));
 
 import { AppRoot } from './app-root';
 
@@ -265,4 +268,55 @@ describe('app-root theme wiring', () => {
     expect(children.indexOf(banner)).toBeLessThan(children.indexOf(layout.querySelector('app-header')!));
   });
 
+});
+
+/** Unregistered children get their props as lower-cased attributes. */
+const routedProp = (spec: any, tag: string, prop: string) => spec.root.shadowRoot.querySelector(tag)?.getAttribute(prop.toLowerCase()) ?? null;
+
+describe('app-root vanity paths', () => {
+  beforeEach(() => {
+    cachedTheme.mockReset().mockReturnValue({ layout: 'stacked', palette: 'noon', typeset: 'editorial' });
+    siteConfig = configWith({ layout: 'stacked', palette: 'noon', typeset: 'editorial' });
+    siteLoad.mockReset().mockResolvedValue(siteConfig);
+    authLoad.mockReset().mockResolvedValue(null);
+    navigate.mockReset();
+    adoptCanonicalPath.mockReset();
+    resolvePath.mockReset();
+  });
+
+  it('routes a course slug on the id path the API names', async () => {
+    resolvePath.mockResolvedValue({ target: '/courses/12', canonical: '/courses/precalculus' });
+    const spec = await mountAt('/courses/precalculus');
+    await spec.waitForChanges();
+
+    expect(resolvePath).toHaveBeenCalledWith('/courses/precalculus');
+    expect(routedProp(spec, 'page-course', 'courseId')).toBe('12');
+    expect(adoptCanonicalPath).not.toHaveBeenCalled();
+  });
+
+  it('moves a retired slug to its replacement in place', async () => {
+    resolvePath.mockResolvedValue({ target: '/teachers/4', canonical: '/teachers/ms-rivera' });
+    const spec = await mountAt('/teachers/old-handle');
+    await spec.waitForChanges();
+
+    expect(adoptCanonicalPath).toHaveBeenCalledWith('/teachers/ms-rivera');
+    expect(routedProp(spec, 'page-teacher-profile', 'teacherId')).toBe('4');
+  });
+
+  it('renders the page with no id (not found) when the API names nothing', async () => {
+    resolvePath.mockRejectedValue(new Error('404'));
+    const spec = await mountAt('/teachers/nobody/some-course');
+    await spec.waitForChanges();
+
+    expect(spec.root.shadowRoot.querySelector('page-teacher-profile')).not.toBeNull();
+    expect(routedProp(spec, 'page-teacher-profile', 'teacherId')).toBeNull();
+  });
+
+  it('never asks about an id path', async () => {
+    const spec = await mountAt('/courses/12');
+    await spec.waitForChanges();
+
+    expect(resolvePath).not.toHaveBeenCalled();
+    expect(routedProp(spec, 'page-course', 'courseId')).toBe('12');
+  });
 });

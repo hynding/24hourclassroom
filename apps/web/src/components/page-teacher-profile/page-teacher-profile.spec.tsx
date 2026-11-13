@@ -42,7 +42,7 @@ const materialsLibrary = jest.fn();
 jest.mock('../../services/tests-store', () => ({ testsStore: { library: (...a: unknown[]) => library(...a) } }));
 jest.mock('../../services/materials-store', () => ({ materialsStore: { materialsLibrary: (...a: unknown[]) => materialsLibrary(...a) } }));
 const navigate = jest.fn();
-jest.mock('../../services/navigate', () => ({ navigate: (path: string) => navigate(path) }));
+jest.mock('../../services/navigate', () => ({ navigate: (path: string) => navigate(path), adoptCanonicalPath: jest.fn() }));
 
 // Imported after jest.mock(): Stencil's Jest preprocessor transpiles via the
 // TypeScript compiler, not babel-jest, so jest.mock() calls are not hoisted
