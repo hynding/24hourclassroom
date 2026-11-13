@@ -221,6 +221,13 @@ describe('generation routes', () => {
     expect(redirectFor('/students/40', verified)).toBeNull();
   });
 
+  it('resolves /grading and guards it', () => {
+    expect(resolveRoute('/grading')).toEqual({ tag: 'page-grading' });
+    expect(redirectFor('/grading', null)).toBe('/login');
+    expect(redirectFor('/grading', unverified)).toBe('/verify-email');
+    expect(redirectFor('/grading', verified)).toBeNull();
+  });
+
   it('guards all three as auth-only', () => {
     for (const path of ['/integrations', '/tests/generate', '/generations/7']) {
       expect(redirectFor(path, null)).toBe('/login');

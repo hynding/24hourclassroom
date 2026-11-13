@@ -34,6 +34,9 @@ export const SUPPORTER_ROLES: Role[] = ['tutor', 'assistant', 'guardian'];
 /** `Role::receivesShares()`: may be shared a material by a connected author. */
 export const SHARE_RECIPIENT_ROLES: Role[] = ['teacher', 'student', 'tutor', 'assistant'];
 
+/** `Role::gradesForConnectedTeachers()`: hand-grades a connected teacher's assignments. */
+export const CONNECTED_GRADER_ROLES: Role[] = ['assistant'];
+
 /** `Role::comments()`: may comment on anything they can see. */
 export const COMMENTER_ROLES: Role[] = ['teacher', 'student', 'tutor', 'assistant', 'guardian'];
 
@@ -265,6 +268,14 @@ export interface MyAssignment {
 }
 
 /** `GET /api/students/{id}/assignments`, for a connected supporter. */
+/** One row of `GET /api/grading`: a submitted attempt with answers still to grade. */
+export interface GradingQueueItem extends AttemptSummary {
+  student: TestAuthor;
+  test: { id: number; title: string };
+  /** The assigning teacher: the caller themselves, or a teacher they assist. */
+  teacher: TestAuthor;
+}
+
 export interface StudentAssignments {
   student: TestAuthor;
   data: MyAssignment[];

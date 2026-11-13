@@ -3,7 +3,6 @@
 namespace App\Support;
 
 use App\Models\Attempt;
-use App\Models\Connection;
 use App\Models\User;
 use App\Services\AttemptGrader;
 use Illuminate\Support\Collection;
@@ -62,8 +61,9 @@ final class AttemptPayload
     }
 
     /**
-     * The student who made it; or the assigning teacher while the
-     * connection is accepted. Test visibility is deliberately NOT re-checked.
+     * The student who made it; or anyone who may grade it (GradingAccess:
+     * the assigning teacher, or an assistant connected to them) while the
+     * connections hold. Test visibility is deliberately NOT re-checked.
      */
     public static function canView(?User $viewer, Attempt $attempt): bool
     {
@@ -73,11 +73,8 @@ final class AttemptPayload
         if ($viewer->id === $attempt->student_id) {
             return true;
         }
-        $assignment = $attempt->assignment;
 
-        return $assignment !== null
-            && $assignment->teacher_id === $viewer->id
-            && Connection::acceptedBetween($viewer, $attempt->student);
+        return GradingAccess::canGrade($viewer, $attempt);
     }
 
     /** @return array<string, mixed> */

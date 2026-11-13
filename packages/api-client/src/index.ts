@@ -39,6 +39,7 @@ import type {
   SharedMaterial,
   ShareResult,
   SiteConfig,
+  GradingQueueItem,
   StudentAssignments,
   Subject,
   TeacherSummary,
@@ -375,6 +376,12 @@ export class ApiClient {
 
   async submitAttempt(id: number): Promise<Attempt> {
     return this.post<Attempt>(`/api/attempts/${id}/submit`);
+  }
+
+  /** Submitted attempts with answers still to grade, oldest first, across everything the caller may grade. */
+  async gradingQueue(page?: number): Promise<Paginated<GradingQueueItem>> {
+    const query = page && page > 1 ? `?page=${page}` : '';
+    return this.get<Paginated<GradingQueueItem>>(`/api/grading${query}`);
   }
 
   async gradeAnswer(attemptId: number, answerId: number, awarded: number): Promise<Attempt> {

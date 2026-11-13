@@ -1,5 +1,5 @@
 import { Component, Element, h, Listen, Prop, State, Watch } from '@stencil/core';
-import { AUTHOR_ROLES, REGISTRATION_ROLES, SHARE_RECIPIENT_ROLES, hasRole } from '@24hc/shared';
+import { AUTHOR_ROLES, CONNECTED_GRADER_ROLES, REGISTRATION_ROLES, SHARE_RECIPIENT_ROLES, hasRole } from '@24hc/shared';
 import type { SiteConfig, User } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { profileStore } from '../../services/profile-store';
@@ -205,6 +205,14 @@ export class AppHeader {
   }
 
   /**
+   * Allowlist: authors grade their own assignments, connected graders
+   * (teacher assistants) grade their teachers' (GradingAccess).
+   */
+  private showsGrading(): boolean {
+    return this.user !== null && (hasRole(AUTHOR_ROLES, this.user.role) || hasRole(CONNECTED_GRADER_ROLES, this.user.role));
+  }
+
+  /**
    * Allowlist: every self-assignable role has connection partners
    * (Role::canConnect); an admin has none, so gets no page.
    */
@@ -269,6 +277,7 @@ export class AppHeader {
           {this.showsTests() && this.item('/tests', 'Tests', 'tests')}
           {this.showsMaterials() && this.item('/materials', 'Materials', 'materials')}
           {this.showsCourses() && this.item('/courses', 'Courses', 'courses')}
+          {this.showsGrading() && this.item('/grading', 'To grade', 'grading')}
           {this.showsConnections() && this.item('/connections', 'Connections', 'connections')}
           {this.showsIntegrations() && this.item('/integrations', 'Integrations', 'integrations')}
           {user && this.item('/notifications', 'Notifications', 'notifications',

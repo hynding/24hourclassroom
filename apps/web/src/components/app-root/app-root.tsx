@@ -173,6 +173,8 @@ export class AppRoot {
         return <page-library-index></page-library-index>;
       case 'page-library':
         return <page-library kind={route.kind ?? 'tests'}></page-library>;
+      case 'page-grading':
+        return <page-grading></page-grading>;
       case 'page-integrations':
         return <page-integrations></page-integrations>;
       case 'page-test-generate':

@@ -288,6 +288,15 @@ describe('app-header bell', () => {
     const guestLinks = Array.from(guest.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
     expect(guestLinks).not.toContain('/integrations');
   });
+
+  it('shows To grade for authors and teacher assistants only', async () => {
+    for (const [role, expected] of [['teacher', true], ['tutor', true], ['assistant', true], ['student', false], ['guardian', false], ['admin', false]] as const) {
+      currentUser.value = { id: 1, name: 'U', email_verified_at: '2026-01-01', role };
+      const spec = await newSpecPage({ components: [AppHeader], html: '<app-header></app-header>' });
+      const links = Array.from(spec.root.shadowRoot.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
+      expect(links.includes('/grading')).toBe(expected);
+    }
+  });
 });
 
 describe('app-header side panel (vertical orientation)', () => {

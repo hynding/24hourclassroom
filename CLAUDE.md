@@ -146,6 +146,13 @@ never on a role literal. `packages/shared` mirrors each list (`AUTHOR_ROLES`,
 - `supportsStudents()` — tutor, assistant (teacher assistant), guardian
   (parent or guardian): `GET /api/students/{id}/assignments`, read-only scores
   for a student they hold an accepted connection with. 404 for anything else.
+- `gradesForConnectedTeachers()` — assistant: reads and hand-grades the
+  submitted attempts on a connected teacher's assignments
+  (`App\Support\GradingAccess`: assistant↔teacher and teacher↔student
+  connections accepted, teacher and student active; no assistant↔student
+  connection needed). `graded_by` records who graded. `GET /api/grading`
+  (SPA `/grading`, "To grade") is the queue of attempts still awaiting a hand
+  grade, for authors (their own) and assistants (every connected teacher's).
 - `receivesShares()` — teacher, student, tutor, assistant.
 - `comments()` — everyone but admin; `moderatesComments()` — admin (see Comments).
 - `Role::canConnect($a, $b)` — the symmetric pair matrix (no admin, no

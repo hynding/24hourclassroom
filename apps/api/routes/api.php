@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\CoursePublishController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\GenerationCancelController;
 use App\Http\Controllers\Api\GenerationController;
+use App\Http\Controllers\Api\GradingQueueController;
 use App\Http\Controllers\Api\IntegrationsController;
 use App\Http\Controllers\Api\LibraryController;
 use App\Http\Controllers\Api\MaterialController;
@@ -119,6 +120,7 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::post('attempts/{attempt}/submit', [AttemptController::class, 'submit']);
     Route::put('attempts/{attempt}/answers/{answer}', AnswerGradeController::class);
     Route::get('tests/{test}/attempts', TestAttemptsController::class);
+    Route::get('grading', GradingQueueController::class);
 
     Route::get('materials', [MaterialController::class, 'index']);
     Route::post('materials', [MaterialController::class, 'store']);
