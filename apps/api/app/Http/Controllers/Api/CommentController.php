@@ -41,12 +41,14 @@ class CommentController extends Controller
         [$type, $target] = $this->target($request, $viewer);
         $ctx = CommentContext::for($viewer, $type, $target);
 
-        $comments = CommentAccess::visible(Comment::query(), $viewer, $ctx->approver)
-            ->where($type->column(), $target->getKey())
-            ->whereNull('parent_id')
-            ->with($this->relations($ctx))
-            ->orderBy('id')
-            ->get();
+        $comments = CommentAccess::canRead($viewer, $type, $target)
+            ? CommentAccess::visible(Comment::query(), $viewer, $ctx->approver)
+                ->where($type->column(), $target->getKey())
+                ->whereNull('parent_id')
+                ->with($this->relations($ctx))
+                ->orderBy('id')
+                ->get()
+            : collect();
 
         return response()->json([
             'data' => $comments->map(fn (Comment $c) => CommentPayload::for($c, $ctx))->all(),
@@ -55,6 +57,9 @@ class CommentController extends Controller
             'can_approve' => $ctx->approver,
             'moderated' => CommentAccess::isModerated($type, $target),
             'reactions_enabled' => $ctx->reactions,
+            // The test's author turned comments off: nothing new, and only
+            // they (and admins) still see what was said.
+            'closed' => CommentAccess::isClosed($type, $target),
         ]);
     }
 
@@ -242,6 +247,8 @@ class CommentController extends Controller
         $type = $comment->targetType();
         $target = CommentAccess::targetOf($comment);
         abort_unless($target !== null && CommentAccess::canView($viewer, $type, $target), 404);
+        // A closed test's comments are not on show to its students either.
+        abort_unless(CommentAccess::canRead($viewer, $type, $target), 404);
         $ctx = CommentContext::for($viewer, $type, $target);
 
         abort_unless($comment->author->isActive() && CommentAccess::canSee($viewer, $comment, $ctx->approver), 404);

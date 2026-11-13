@@ -316,6 +316,7 @@ export class CommentThreadView {
     }
     return [
       this.actionError && <p class="error">{this.actionError}</p>,
+      this.thread.closed && <p class="muted">Comments are turned off: only the author and administrators see these.</p>,
       this.thread.data.length === 0
         ? <p class="muted">No comments yet.</p>
         : <ul class="comments">{this.thread.data.map((c) => this.renderComment(c, true))}</ul>,

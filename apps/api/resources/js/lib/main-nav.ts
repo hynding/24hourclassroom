@@ -1,5 +1,5 @@
 import { type NavItem } from '@/types';
-import { BookOpen, FileText, FolderOpen, LayoutGrid, Palette, Settings, Sparkles, Users } from 'lucide-react';
+import { BookOpen, FileText, FolderOpen, LayoutGrid, Link, Palette, Settings, Sparkles, Users } from 'lucide-react';
 
 /**
  * The admin-only links are role-gated, not just visually hidden: an
@@ -19,6 +19,7 @@ export function mainNavItems(role: string | undefined): NavItem[] {
                   { title: 'Tests', href: '/admin/tests', icon: FileText },
                   { title: 'Materials', href: '/admin/materials', icon: FolderOpen },
                   { title: 'Courses', href: '/admin/courses', icon: BookOpen },
+                  { title: 'Addresses', href: '/admin/slugs', icon: Link },
                   { title: 'Generations', href: '/admin/generations', icon: Sparkles },
               ]
             : []),

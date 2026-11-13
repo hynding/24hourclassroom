@@ -12,8 +12,10 @@ import { siteStore } from './site-store';
  * describes it. Every write goes through applyHead(), the one writer of
  * document.title and of the tags marked `data-page-meta`.
  *
- * The SPA renders these after load, so they reach crawlers that run
- * JavaScript (Google, Bing); preview bots that don't still see index.html.
+ * The SPA renders these after load. Preview bots that never run JavaScript
+ * get the same tags from the server: the web host's index.php splices in
+ * App\Support\PageHead's fragment, which mirrors this file (change the two
+ * together), and setTag() adopts those `data-page-meta` tags in place.
  */
 export interface PageMeta {
   /** The path this describes. A late load for a page already left is dropped. */
@@ -133,7 +135,7 @@ function topics(item: { subject: string; grade_level: string }) {
 }
 
 export function courseMeta(course: CourseView): PageMeta {
-  const path = `/courses/${course.id}`;
+  const path = course.path;
   const description = summarize(course.description) ?? `A free ${label(SUBJECTS, course.subject)} course by ${course.author.name}: ${course.test_count} practice tests and ${course.material_count} study materials.`;
   return {
     path,
@@ -154,7 +156,7 @@ export function courseMeta(course: CourseView): PageMeta {
 }
 
 export function practiceMeta(test: PracticeTest): PageMeta {
-  const path = `/courses/${test.course.id}/tests/${test.id}`;
+  const path = `${test.course.path}/tests/${test.id}`;
   const description = summarize(test.description) ?? `Practise ${test.question_count} questions with answers and explanations, from ${test.course.title}.`;
   return {
     path,
@@ -169,7 +171,7 @@ export function practiceMeta(test: PracticeTest): PageMeta {
       url: absolute(path),
       author: person(test.author),
       isAccessibleForFree: true,
-      isPartOf: { '@type': 'Course', name: test.course.title, url: absolute(`/courses/${test.course.id}`) },
+      isPartOf: { '@type': 'Course', name: test.course.title, url: absolute(test.course.path) },
       ...topics(test),
     },
   };
@@ -220,7 +222,7 @@ export function materialMeta(material: MaterialView): PageMeta {
 
 /** Only a public profile (one carrying `profile`) is described; a name-only connection view stays out. */
 export function teacherMeta(teacher: PublicProfile): PageMeta {
-  const path = `/teachers/${teacher.id}`;
+  const path = teacher.path ?? `/teachers/${teacher.id}`;
   const school = teacher.profile?.school;
   const description = summarize(teacher.profile?.bio) ?? `${teacher.name}${school ? ` (${school})` : ''} shares tests, study materials and courses.`;
   return {

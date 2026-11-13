@@ -21,7 +21,7 @@ const course = {
   id: 7, title: 'AP Biology', subject: 'science', grade_level: '9-12', visibility: 'public',
   published_at: null, test_count: 40, material_count: 33, author, description: 'A  full\nyear of biology.',
   created_at: '', updated_at: '', is_author: false, branched_from: null, can_branch: false,
-  my_branch_id: null, comment_reactions: false, items: [],
+  my_branch_id: null, comment_reactions: false, items: [], path: '/courses/7',
 } as CourseView;
 
 describe('page-meta', () => {
@@ -90,7 +90,7 @@ describe('page-meta', () => {
   });
 
   it('describes a practice test as a Quiz that is part of its course', () => {
-    const test = { id: 9, title: 'Week 1 quiz', subject: 'science', grade_level: '9-12', visibility: 'public', question_count: 12, author, description: null, course: { id: 7, title: 'AP Biology', author } } as PracticeTest;
+    const test = { id: 9, title: 'Week 1 quiz', subject: 'science', grade_level: '9-12', visibility: 'public', question_count: 12, author, description: null, course: { id: 7, title: 'AP Biology', path: '/courses/7', author } } as PracticeTest;
     goTo('/courses/7/tests/9');
     setPageMeta(practiceMeta(test));
 

@@ -2,7 +2,7 @@ import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
 import { PracticeResult, PracticeTest, Question } from '@24hc/shared';
 import { coursesStore } from '../../services/courses-store';
-import { navigate } from '../../services/navigate';
+import { adoptCanonicalPath, navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { courseItemTitle } from '../../services/course-format';
 import { practiceMeta, setPageMeta } from '../../services/page-meta';
@@ -42,6 +42,7 @@ export class PageCoursePractice {
     }
     try {
       this.test = await coursesStore.getPracticeTest(this.courseId, this.testId);
+      adoptCanonicalPath(`${this.test.course.path}/tests/${this.testId}`, `/courses/${this.courseId}/tests/${this.testId}`);
       setPageMeta(practiceMeta(this.test));
     } catch (e) {
       if (e instanceof ApiError && e.status === 404) {

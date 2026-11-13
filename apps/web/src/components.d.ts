@@ -214,6 +214,13 @@ export namespace Components {
     interface PageVerifyEmail {
     }
     /**
+     * A teacher's (or tutor's) handle: /teachers/<handle>, admin-approved
+     * (App\Support\Slugs). Only a Role::isPublic() role has a public page to
+     * name, so anyone else sees nothing. Lives on page-profile.
+     */
+    interface ProfileHandle {
+    }
+    /**
      * Author text -- a prompt, a stimulus, a rationale, a study guide -- in the
      * markdown subset `services/rich-text` understands. Vnodes only; see that
      * file for why there is no sanitizer.
@@ -536,6 +543,17 @@ declare global {
         new (): HTMLPageVerifyEmailElement;
     };
     /**
+     * A teacher's (or tutor's) handle: /teachers/<handle>, admin-approved
+     * (App\Support\Slugs). Only a Role::isPublic() role has a public page to
+     * name, so anyone else sees nothing. Lives on page-profile.
+     */
+    interface HTMLProfileHandleElement extends Components.ProfileHandle, HTMLStencilElement {
+    }
+    var HTMLProfileHandleElement: {
+        prototype: HTMLProfileHandleElement;
+        new (): HTMLProfileHandleElement;
+    };
+    /**
      * Author text -- a prompt, a stimulus, a rationale, a study guide -- in the
      * markdown subset `services/rich-text` understands. Vnodes only; see that
      * file for why there is no sanitizer.
@@ -606,6 +624,7 @@ declare global {
         "page-test-results": HTMLPageTestResultsElement;
         "page-tests": HTMLPageTestsElement;
         "page-verify-email": HTMLPageVerifyEmailElement;
+        "profile-handle": HTMLProfileHandleElement;
         "rich-text": HTMLRichTextElement;
         "test-question-editor": HTMLTestQuestionEditorElement;
     }
@@ -817,6 +836,13 @@ declare namespace LocalJSX {
     interface PageVerifyEmail {
     }
     /**
+     * A teacher's (or tutor's) handle: /teachers/<handle>, admin-approved
+     * (App\Support\Slugs). Only a Role::isPublic() role has a public page to
+     * name, so anyone else sees nothing. Lives on page-profile.
+     */
+    interface ProfileHandle {
+    }
+    /**
      * Author text -- a prompt, a stimulus, a rationale, a study guide -- in the
      * markdown subset `services/rich-text` understands. Vnodes only; see that
      * file for why there is no sanitizer.
@@ -966,6 +992,7 @@ declare namespace LocalJSX {
         "page-test-results": Omit<PageTestResults, keyof PageTestResultsAttributes> & { [K in keyof PageTestResults & keyof PageTestResultsAttributes]?: PageTestResults[K] } & { [K in keyof PageTestResults & keyof PageTestResultsAttributes as `attr:${K}`]?: PageTestResultsAttributes[K] } & { [K in keyof PageTestResults & keyof PageTestResultsAttributes as `prop:${K}`]?: PageTestResults[K] };
         "page-tests": PageTests;
         "page-verify-email": PageVerifyEmail;
+        "profile-handle": ProfileHandle;
         "rich-text": Omit<RichText, keyof RichTextAttributes> & { [K in keyof RichText & keyof RichTextAttributes]?: RichText[K] } & { [K in keyof RichText & keyof RichTextAttributes as `attr:${K}`]?: RichTextAttributes[K] } & { [K in keyof RichText & keyof RichTextAttributes as `prop:${K}`]?: RichText[K] };
         "test-question-editor": Omit<TestQuestionEditor, keyof TestQuestionEditorAttributes> & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes]?: TestQuestionEditor[K] } & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes as `attr:${K}`]?: TestQuestionEditorAttributes[K] } & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes as `prop:${K}`]?: TestQuestionEditor[K] };
     }
@@ -1062,6 +1089,12 @@ declare module "@stencil/core" {
             "page-test-results": LocalJSX.IntrinsicElements["page-test-results"] & JSXBase.HTMLAttributes<HTMLPageTestResultsElement>;
             "page-tests": LocalJSX.IntrinsicElements["page-tests"] & JSXBase.HTMLAttributes<HTMLPageTestsElement>;
             "page-verify-email": LocalJSX.IntrinsicElements["page-verify-email"] & JSXBase.HTMLAttributes<HTMLPageVerifyEmailElement>;
+            /**
+             * A teacher's (or tutor's) handle: /teachers/<handle>, admin-approved
+             * (App\Support\Slugs). Only a Role::isPublic() role has a public page to
+             * name, so anyone else sees nothing. Lives on page-profile.
+             */
+            "profile-handle": LocalJSX.IntrinsicElements["profile-handle"] & JSXBase.HTMLAttributes<HTMLProfileHandleElement>;
             /**
              * Author text -- a prompt, a stimulus, a rationale, a study guide -- in the
              * markdown subset `services/rich-text` understands. Vnodes only; see that

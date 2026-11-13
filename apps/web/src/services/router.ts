@@ -33,6 +33,30 @@ const MATERIAL_SUBPAGES: Record<string, string> = {
   share: 'page-material-share',
 };
 
+/** A course or teacher slug segment (App\Support\Slugs): never digits only. */
+const SLUG_SEGMENT = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const isSlug = (segment: string | undefined) => segment !== undefined && SLUG_SEGMENT.test(segment) && !/^\d+$/.test(segment);
+
+/**
+ * A vanity path the API must name before the SPA can route it:
+ * /courses/<slug>[/tests/<id>], /teachers/<handle>[/<slug>[/tests/<id>]].
+ * app-root resolves it (GET /api/resolve) and routes on the id path it gets
+ * back. `/courses/new` is the one SPA route of the same shape.
+ */
+export function needsResolve(path: string): boolean {
+  const [, top, first, second, third, fourth, ...rest] = path.replace(/\/+$/, '').split('/');
+  if (rest.length > 0 || !isSlug(first)) {
+    return false;
+  }
+  if (top === 'courses') {
+    return first !== 'new' && (second === undefined || (second === 'tests' && parseId(third) !== undefined && fourth === undefined));
+  }
+  if (top === 'teachers') {
+    return second === undefined || (isSlug(second) && (third === undefined || (third === 'tests' && parseId(fourth) !== undefined)));
+  }
+  return false;
+}
+
 /** Positive integer or undefined; pages render not-found off undefined. */
 function parseId(segment: string | undefined): number | undefined {
   const id = Number(segment);
