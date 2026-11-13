@@ -6,6 +6,8 @@ interface QuestionInputProps {
   question: Question;
   value: unknown;
   onChange: (value: unknown) => void;
+  /** Authored option indices in display order (option-order.ts); authored order when absent. */
+  order?: number[];
 }
 
 /**
@@ -15,13 +17,15 @@ interface QuestionInputProps {
  * functional component, not a tag: it renders into the caller's own shadow
  * root, where the caller's stylesheet (and its specs) can reach it.
  */
-export const QuestionInput: FunctionalComponent<QuestionInputProps> = ({ question: q, value, onChange }) => {
+export const QuestionInput: FunctionalComponent<QuestionInputProps> = ({ question: q, value, onChange, order }) => {
+  // Shown in `order`, recorded by authored index: the grader never sees the shuffle.
+  const shown = order ?? (q.options ?? []).map((_, i) => i);
   switch (q.type) {
     case 'multiple_choice':
       return (
         <ol class="options">
-          {q.options.map((opt, i) => (
-            <li><label><input type="radio" name={`q-${q.id}`} checked={value === i} onChange={() => onChange(i)} /> {opt}</label></li>
+          {shown.map((i) => (
+            <li><label><input type="radio" name={`q-${q.id}`} checked={value === i} onChange={() => onChange(i)} /> {q.options[i]}</label></li>
           ))}
         </ol>
       );
@@ -33,8 +37,8 @@ export const QuestionInput: FunctionalComponent<QuestionInputProps> = ({ questio
       };
       return (
         <ol class="options">
-          {q.options.map((opt, i) => (
-            <li><label><input type="checkbox" checked={Array.isArray(value) && value.includes(i)} onChange={(e) => toggle(i, (e.target as HTMLInputElement).checked)} /> {opt}</label></li>
+          {shown.map((i) => (
+            <li><label><input type="checkbox" checked={Array.isArray(value) && value.includes(i)} onChange={(e) => toggle(i, (e.target as HTMLInputElement).checked)} /> {q.options[i]}</label></li>
           ))}
         </ol>
       );

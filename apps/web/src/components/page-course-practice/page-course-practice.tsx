@@ -6,6 +6,7 @@ import { adoptCanonicalPath, navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { courseItemTitle } from '../../services/course-format';
 import { practiceMeta, setPageMeta } from '../../services/page-meta';
+import { newSeed, optionOrder } from '../../services/option-order';
 import { QuestionInput } from '../../services/question-input';
 import { formatAnswer, formatResponse, isTextResponse, optionChosen, showsStimulus } from '../../services/question-format';
 
@@ -31,6 +32,8 @@ export class PageCoursePractice {
   @State() loadError = false;
   @State() busy = false;
   @State() error = '';
+  /** One shuffle of the options per practice run (option-order.ts). */
+  private seed = newSeed();
 
   async componentWillLoad() {
     if (!this.courseId || !this.testId) {
@@ -124,12 +127,12 @@ export class PageCoursePractice {
           ? [
               finished && skipped && <p>Your answer: <strong>{formatResponse(q, null)}</strong></p>,
               <ol class="options explained">
-                {q.options.map((opt, i) => {
+                {optionOrder(q, this.seed).map((i) => {
                   const picked = finished && optionChosen(response, i);
                   const correct = optionChosen(q.answer, i);
                   return (
                     <li class={{ picked, correct }}>
-                      <span class="option-text">{opt}</span>
+                      <span class="option-text">{q.options[i]}</span>
                       {picked && <span class="meta"> (your answer)</span>}
                       {correct && <span class="meta"> (correct)</span>}
                       {q.option_explanations?.[i] && <div class="rationale"><rich-text text={q.option_explanations[i]}></rich-text></div>}
@@ -157,7 +160,7 @@ export class PageCoursePractice {
       <li class={this.status(q)}>
         {showsStimulus(questions, index) && <div class="stimulus"><rich-text text={q.stimulus}></rich-text></div>}
         <div class="prompt"><span class="num">{index + 1}.</span> <rich-text text={q.prompt}></rich-text> <span class="meta">({q.points} pt{q.points === 1 ? '' : 's'})</span></div>
-        {!finished && <QuestionInput question={q} value={this.responses[q.id]} onChange={(value) => this.setResponse(q.id, value)} />}
+        {!finished && <QuestionInput question={q} value={this.responses[q.id]} order={optionOrder(q, this.seed)} onChange={(value) => this.setResponse(q.id, value)} />}
         {!finished && (
           <button type="button" class="btn reveal" aria-expanded={shown ? 'true' : 'false'} aria-controls={`key-${q.id}`} onClick={() => this.toggleReveal(q.id)}>
             {shown ? 'Hide answer' : 'Show answer'}

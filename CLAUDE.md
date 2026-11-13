@@ -405,7 +405,8 @@ by saying so; `ContentLint::licence()` fails a course missing either, AP
 Literature included. A new course must carry both.
 
 Content contract the lint enforces: every option carries an
-`option_explanations` entry; `fill_blank` prompts contain `____` and `answer` is a
+`option_explanations` entry; no rationale or explanation names an option by
+letter ("option A"), because students see options shuffled; `fill_blank` prompts contain `____` and `answer` is a
 list of accepted strings (`auto_grade: false` hands the item to the teacher);
 `long_answer` is 4–10 points and its `explanation` is the point-by-point
 acceptable-answer summary; a `stimulus` repeated verbatim across consecutive
@@ -445,6 +446,18 @@ knowledge`), and the lint rejects anything after
 `Database\Seeders\ApLiterature\Lint`, not the test, so it can run on one
 unit (`(new Lint($course))->run([3])`); `ApLiteratureContentTest` runs it over
 everything.
+
+## Shuffled options
+
+Wherever a student answers, multiple-choice and select-all options are shown
+in a shuffled order (`services/option-order.ts`): seeded per attempt
+(`attempt-<id>`: the same on reload and in the review, new on a retake) and
+per practice run. It is purely presentational. Responses, answers and
+`option_explanations` stay in authored indices, so `AttemptGrader` and every
+teacher view (editor, `page-test`, results, print and its answer key) are
+unchanged. A question whose options point at each other ("All of the
+above", "Both A and B", "A and C only") keeps its authored order, and so do
+true/false items.
 
 ## Gotchas
 

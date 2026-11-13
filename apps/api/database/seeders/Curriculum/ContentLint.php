@@ -168,6 +168,12 @@ final class ContentLint
                     if (preg_match('/\b(all|none) of the above\b/i', implode(' ', $q['options']))) {
                         $errors[] = "{$where}: all/none of the above";
                     }
+                    // Students see the options shuffled (the SPA's option-order.ts),
+                    // so no text may point at an option by its letter.
+                    $said = implode(' ', [...array_map('strval', $q['option_explanations'] ?? []), (string) ($q['explanation'] ?? '')]);
+                    if (preg_match('/\b(?:choice|option|answer)s?\s+\(?[A-E]\)?(?=[\s,.;:\'’]|$)/', $said)) {
+                        $errors[] = "{$where}: names an option by letter (options are shuffled)";
+                    }
                 }
                 if (in_array($type, [QuestionType::FillBlank, QuestionType::ShortAnswer, QuestionType::LongAnswer, QuestionType::TrueFalse, QuestionType::Numeric], true)
                     && trim((string) ($q['explanation'] ?? '')) === '') {
