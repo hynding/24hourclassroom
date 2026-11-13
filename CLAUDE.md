@@ -146,6 +146,11 @@ never on a role literal. `packages/shared` mirrors each list (`AUTHOR_ROLES`,
 - `supportsStudents()` — tutor, assistant (teacher assistant), guardian
   (parent or guardian): `GET /api/students/{id}/assignments`, read-only scores
   for a student they hold an accepted connection with. 404 for anything else.
+- `seesConnectedStudentAnswers()` — guardian: also opens, read-only, each
+  *submitted, assigned* attempt of a connected, active student at
+  `GET /api/attempts/{id}` (the student's own review: answers, correct
+  answers, explanations). Never an open attempt or self-practice.
+  `page-student` links "See answers"; `page-attempt` then names the student.
 - `gradesForConnectedTeachers()` — assistant: reads and hand-grades the
   submitted attempts on a connected teacher's assignments
   (`App\Support\GradingAccess`: assistant↔teacher and teacher↔student

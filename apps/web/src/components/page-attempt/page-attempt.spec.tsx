@@ -9,6 +9,8 @@ jest.mock('../../services/tests-store', () => ({
 }));
 jest.mock('../../services/navigate', () => ({ navigate: jest.fn() }));
 jest.mock('../../services/session-recovery', () => ({ recoverFromExpiredSession: () => false }));
+const me: { value: { id: number; role: string } | null } = { value: null };
+jest.mock('../../services/auth-store', () => ({ authStore: { get currentUser() { return me.value; } } }));
 
 import { PageAttempt } from './page-attempt';
 import { RichText } from '../rich-text/rich-text';
@@ -176,6 +178,27 @@ describe('page-attempt', () => {
       expect(item.querySelector('.explained')).not.toBeNull();
       expect(item.querySelector('.picked')).toBeNull();
       expect(item.textContent).toContain('Your answer: (skipped)');
+    }
+  });
+
+  it('names the student, not "you", when a guardian reads a connected student\'s review', async () => {
+    const submitted = { ...open, submitted_at: '2026-09-02', score: '1.00', max_score: '3.00', ungraded_count: 0, questions: [
+      { ...open.questions[0], response: 1, answer: 1, option_explanations: ['The nucleus holds DNA.', 'Mitochondria make ATP.'], answer_id: 1, awarded: '1.00', graded_answer: { answer: 1, points: 1 } },
+      { ...open.questions[3], response: 'energy', answer: 'ATP', answer_id: 2, awarded: '0.00', graded_answer: { answer: 'ATP', points: 2 } },
+    ] };
+    me.value = { id: 99, role: 'guardian' };
+    try {
+      const page = await mount(submitted);
+      const root = page.root.shadowRoot;
+      const text = root.textContent;
+      expect(text).toContain("Sam's submitted attempt");
+      expect(text).toContain("(Sam's answer)");
+      expect(text).toContain("Sam's answer:");
+      expect(text).not.toContain('Your answer');
+      expect(root.querySelector('a[href="/students/3"]')).not.toBeNull();
+      expect(root.querySelector('button.btn-primary')).toBeNull();
+    } finally {
+      me.value = null;
     }
   });
 

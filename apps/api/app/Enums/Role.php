@@ -86,6 +86,18 @@ enum Role: string
         return in_array($this, [self::Tutor, self::Assistant, self::Guardian], true);
     }
 
+    /**
+     * May open, read-only, each submitted attempt on a connected student's
+     * assignments: every question, the student's answer, the correct answer
+     * and the explanation, exactly as the student sees their own review. A
+     * parent or guardian seeing where the student struggles. Never an
+     * unsubmitted attempt, never self-practice, never a grade change.
+     */
+    public function seesConnectedStudentAnswers(): bool
+    {
+        return in_array($this, [self::Guardian], true);
+    }
+
     /** May receive a material share from a connected author. */
     public function receivesShares(): bool
     {

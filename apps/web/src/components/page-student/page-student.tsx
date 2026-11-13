@@ -1,6 +1,9 @@
 import { Component, h, Prop, State, Watch } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
-import type { StudentAssignments } from '@24hc/shared';
+import { hasRole, STUDENT_ANSWER_VIEWER_ROLES } from '@24hc/shared';
+import type { AttemptSummary, StudentAssignments } from '@24hc/shared';
+import { authStore } from '../../services/auth-store';
+import { navigate } from '../../services/navigate';
 import { testsStore } from '../../services/tests-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { formatDueDate } from '../../services/format';
@@ -9,6 +12,8 @@ import { formatDueDate } from '../../services/format';
  * A connected student's assignments, for a tutor, teacher assistant or
  * parent/guardian. Read-only. Titles are plain text, not links: a private
  * test 404s for anyone but its author and the student it was assigned to.
+ * A parent or guardian (STUDENT_ANSWER_VIEWER_ROLES) also gets a link to
+ * each submitted attempt's answers.
  */
 @Component({ tag: 'page-student', styleUrl: 'page-student.css', shadow: true })
 export class PageStudent {
@@ -45,11 +50,21 @@ export class PageStudent {
     }
   }
 
-  private score(a: { score: string | null; max_score: string | null; ungraded_count: number } | null, prefix: string) {
+  private seesAnswers(): boolean {
+    return hasRole(STUDENT_ANSWER_VIEWER_ROLES, authStore.currentUser?.role);
+  }
+
+  private score(a: AttemptSummary | null, prefix: string) {
     if (!a || a.score === null) {
       return null;
     }
-    return <span class="score">{prefix} {a.score} / {a.max_score}{a.ungraded_count ? ` (${a.ungraded_count} still to grade)` : ''}</span>;
+    const path = `/attempts/${a.id}`;
+    return (
+      <span class="score">
+        {prefix} {a.score} / {a.max_score}{a.ungraded_count ? ` (${a.ungraded_count} still to grade)` : ''}
+        {this.seesAnswers() && [' · ', <a href={path} aria-label={`See answers, ${prefix.toLowerCase()} attempt`} onClick={(e) => { e.preventDefault(); navigate(path); }}>See answers</a>]}
+      </span>
+    );
   }
 
   render() {

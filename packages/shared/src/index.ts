@@ -31,6 +31,9 @@ export const PUBLIC_ROLES: Role[] = ['teacher', 'tutor'];
 /** `Role::supportsStudents()`: reads a connected student's assignments. */
 export const SUPPORTER_ROLES: Role[] = ['tutor', 'assistant', 'guardian'];
 
+/** `Role::seesConnectedStudentAnswers()`: opens a connected student's submitted assigned attempts. */
+export const STUDENT_ANSWER_VIEWER_ROLES: Role[] = ['guardian'];
+
 /** `Role::receivesShares()`: may be shared a material by a connected author. */
 export const SHARE_RECIPIENT_ROLES: Role[] = ['teacher', 'student', 'tutor', 'assistant'];
 
