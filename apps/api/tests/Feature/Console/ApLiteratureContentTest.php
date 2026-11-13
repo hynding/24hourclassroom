@@ -1,6 +1,7 @@
 <?php
 
-use Database\Seeders\ApLiterature\Course;
+use Database\Seeders\ApLiteratureSeeder;
+use Database\Seeders\Curriculum\Course;
 use Database\Seeders\ApLiterature\Lint;
 
 /**
@@ -10,13 +11,13 @@ use Database\Seeders\ApLiterature\Lint;
  * printed at once.
  */
 test('the AP Literature course passes the content lint', function () {
-    $problems = (new Lint(new Course(Course::defaultDir())))->run();
+    $problems = (new Lint(new Course(ApLiteratureSeeder::defaultDir())))->run();
 
     expect($problems)->toBe([], implode("\n", $problems));
 });
 
 test('course.yaml names nine units in the CED order, every CED skill and the two accounts', function () {
-    $course = new Course(Course::defaultDir());
+    $course = new Course(ApLiteratureSeeder::defaultDir());
 
     expect(array_column($course->config['units'], 'title'))->toBe([
         'Short Fiction I', 'Poetry I', 'Longer Fiction or Drama I',

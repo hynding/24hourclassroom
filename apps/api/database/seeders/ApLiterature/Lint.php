@@ -6,6 +6,7 @@ use App\Enums\QuestionType;
 use App\Support\QuestionRules;
 use App\Support\TestDraftValidator;
 use Database\Seeders\Curriculum\ContentLint;
+use Database\Seeders\Curriculum\Course;
 use Illuminate\Validation\ValidationException;
 use RuntimeException;
 
@@ -404,7 +405,7 @@ final class Lint
     private function prose(string $file, int $minWords): void
     {
         $body = (string) file_get_contents($file);
-        if (! Course::endsWithAttribution($body)) {
+        if (! $this->course->endsWithAttribution($body)) {
             $this->fail($this->rel($file), 'lacks the closing attribution block');
         }
         $words = str_word_count(strip_tags($body));
