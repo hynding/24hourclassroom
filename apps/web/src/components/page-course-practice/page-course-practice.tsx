@@ -2,6 +2,7 @@ import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
 import { PracticeResult, PracticeTest, Question } from '@24hc/shared';
 import { coursesStore } from '../../services/courses-store';
+import { authStore } from '../../services/auth-store';
 import { adoptCanonicalPath, navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { courseItemTitle } from '../../services/course-format';
@@ -17,6 +18,11 @@ import { formatAnswer, formatResponse, isTextResponse, optionChosen, showsStimul
  * responses live in this component and vanish with it -- so there is no
  * autosave and no attempt; "finish" is one stateless check the server
  * grades with the same scorer a real attempt uses.
+ *
+ * The test's discussion and each question's sit here too: the same
+ * threads as on the test's own page (target `test` / `question`), so a
+ * practice page widens nobody's access. The author's comments-off switch
+ * hides them from everyone else, as page-test does.
  */
 @Component({ tag: 'page-course-practice', styleUrl: 'page-course-practice.css', shadow: true })
 export class PageCoursePractice {
@@ -85,6 +91,14 @@ export class PageCoursePractice {
     this.result = null;
     this.error = '';
     window.scrollTo?.(0, 0);
+  }
+
+  /** Options are shuffled per run (option-order.ts), so "B" means something different to each reader. */
+  private static readonly HINT = 'Options are shuffled for each person, so quote an option\'s words rather than its letter.';
+
+  /** Open, or closed but this is the author come to read and clear what was said (page-test's rule). */
+  private get showsComments(): boolean {
+    return !!this.test && (this.test.comments_enabled || authStore.currentUser?.id === this.test.author.id);
   }
 
   private link(path: string, text: string) {
@@ -173,6 +187,7 @@ export class PageCoursePractice {
             {this.revealed[q.id] && ' · answer shown before finishing'}
           </p>
         )}
+        {this.showsComments && <comment-thread key={`q${q.id}`} compact targetType="question" targetId={q.id} hint={PageCoursePractice.HINT}></comment-thread>}
       </li>
     );
   }
@@ -217,6 +232,10 @@ export class PageCoursePractice {
             : <button type="button" class="btn-primary" disabled={this.busy} onClick={() => this.finish()}>Finish and see results</button>}
           {this.link(`/courses/${t.course.id}`, 'Back to the course')}
         </div>
+
+        {this.showsComments
+          ? <comment-thread key={`t${t.id}`} targetType="test" targetId={t.id} hint={PageCoursePractice.HINT}></comment-thread>
+          : <p class="meta">Comments are turned off for this test.</p>}
       </section>
     );
   }
