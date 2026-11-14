@@ -32,6 +32,30 @@ test('a public course gets its own title, description, canonical and Course JSON
         ->not->toContain('noindex');
 });
 
+test('every head carries the page\'s share card as a large-image preview', function () {
+    config(['app.url' => 'https://api.classroom.test/']);
+    $author = aTeacher(['name' => 'Ada Lovelace']);
+    $tests = Test::factory()->for($author, 'author')->published()->count(2)->create();
+    $course = aCourse($author, $tests->all(), ['visibility' => 'public', 'published_at' => now(), 'title' => 'Engines']);
+
+    expect(pageHead($this, "/courses/{$course->id}"))
+        ->toContain("<meta property=\"og:image\" content=\"https://api.classroom.test/api/page-image?path=%2Fcourses%2F{$course->id}\" data-page-meta>")
+        ->toContain('<meta property="og:image:width" content="1200" data-page-meta>')
+        ->toContain('<meta property="og:image:height" content="630" data-page-meta>')
+        ->toContain('<meta property="og:image:alt" content="Engines" data-page-meta>')
+        ->toContain('<meta name="twitter:card" content="summary_large_image" data-page-meta>');
+
+    $head = new App\Support\PageHead;
+    expect($head->card($head->resolve("/courses/{$course->id}")))->toMatchArray([
+        'kicker' => 'Free course',
+        'title' => 'Engines',
+        'detail' => '2 practice tests · 0 study materials · by Ada Lovelace',
+        'host' => 'classroom.test',
+    ]);
+    expect($head->card($head->resolve('/library/courses')))->toMatchArray(['kicker' => 'Browse', 'title' => 'Free courses']);
+    expect($head->card($head->resolve('/')))->toMatchArray(['title' => SiteSetting::current()->name, 'kicker' => 'Free courses, tests and study materials']);
+});
+
 test('a private course, a missing one and a deactivated author\'s look the same: site head, noindex', function () {
     $author = aTeacher();
     $private = aCourse($author, [], ['title' => 'Secret plans']);
@@ -120,6 +144,32 @@ describe('the web host\'s index.php helpers', function () {
             ->not->toContain('Static.')
             ->toContain('app.esm.js');
         expect(strpos($out, '<title>Engines</title>'))->toBeLessThan(strpos($out, '</head>'));
+    });
+
+    test('drops index.html\'s link-preview defaults for the page\'s own', function () use ($html) {
+        $withDefaults = str_replace('</head>', "  <meta property=\"og:title\" content=\"Default\" />\n    <meta property=\"og:image\" content=\"/assets/share-card.png\" />\n    <meta name=\"twitter:card\" content=\"summary_large_image\" />\n  </head>", $html);
+        $out = page_head_splice($withDefaults, '<meta property="og:title" content="Engines" data-page-meta>');
+
+        expect($out)->not->toContain('Default')
+            ->not->toContain('share-card.png')
+            ->not->toContain('twitter:card')
+            ->toContain('content="Engines"');
+    });
+
+    test('an unspliced page gets the default card at an absolute address on its own origin', function () use ($html) {
+        $withImage = str_replace('</head>', "  <meta property=\"og:image\" content=\"/assets/share-card.png\" />\n  </head>", $html);
+
+        expect(page_head_render($withImage, '/login', 'https://api.test', fn () => null, 'https://classroom.test'))
+            ->toContain('<meta property="og:image" content="https://classroom.test/assets/share-card.png" />');
+        expect(page_head_render($withImage, '/login', 'https://api.test', fn () => null))
+            ->toContain('content="/assets/share-card.png"');
+
+        expect(page_head_origin(['HTTP_HOST' => 'Classroom.test', 'HTTPS' => 'on']))->toBe('https://classroom.test');
+        expect(page_head_origin(['HTTP_HOST' => 'classroom.test:8080', 'HTTP_X_FORWARDED_PROTO' => 'https']))->toBe('https://classroom.test:8080');
+        expect(page_head_origin(['HTTP_HOST' => 'classroom.test', 'HTTPS' => 'off']))->toBe('http://classroom.test');
+        foreach (['', 'evil.test"><script>', 'a b', 'x/y'] as $bad) {
+            expect(page_head_origin(['HTTP_HOST' => $bad]))->toBe('', $bad);
+        }
     });
 
     test('asks only for public pages, and any failure serves index.html unchanged', function () use ($html) {

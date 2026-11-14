@@ -1,3 +1,4 @@
+import { Env } from '@stencil/core';
 import { GRADE_LEVELS, SUBJECTS } from '@24hc/shared';
 import type { CourseView, MaterialView, PracticeTest, PublicProfile, TestView } from '@24hc/shared';
 import { isIndexable } from './router';
@@ -87,7 +88,13 @@ export function applyHead(): void {
   setTag('meta', 'property', 'og:type', meta.type ?? 'website');
   setTag('meta', 'property', 'og:url', url);
   setTag('meta', 'property', 'og:site_name', site.name);
-  setTag('meta', 'name', 'twitter:card', 'summary');
+  // The share card: a 1200×630 PNG the API draws for this path
+  // (PageImageController), the site's own card for anything it can't describe.
+  setTag('meta', 'property', 'og:image', pageImageUrl(meta.path));
+  setTag('meta', 'property', 'og:image:width', '1200');
+  setTag('meta', 'property', 'og:image:height', '630');
+  setTag('meta', 'property', 'og:image:alt', meta.title ?? site.name);
+  setTag('meta', 'name', 'twitter:card', 'summary_large_image');
 
   document.getElementById(JSON_LD_ID)?.remove();
   if (meta.jsonLd && meta.indexable) {
@@ -98,6 +105,12 @@ export function applyHead(): void {
     script.textContent = JSON.stringify({ '@context': 'https://schema.org', ...meta.jsonLd });
     document.head.appendChild(script);
   }
+}
+
+/** GET /api/page-image for $path, as PageHead::imageUrl builds it. */
+export function pageImageUrl(path: string): string {
+  const api = (Env?.apiBaseUrl ?? 'http://localhost:8000').replace(/\/+$/, '');
+  return `${api}/api/page-image?path=${encodeURIComponent(path)}`;
 }
 
 /**

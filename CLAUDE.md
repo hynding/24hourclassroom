@@ -80,6 +80,21 @@ same tags over after load: change the two together. `page-head` has its own
 named limiter because every call comes from the web host's one IP. The web
 host therefore needs PHP (7.4+) enabled.
 
+Each head's `og:image` is a **share card**: `GET /api/page-image?path=`
+(`PageImageController`, own `page-image` limiter) draws a 1200×630 PNG with
+GD/FreeType (`App\Support\ShareCard`) from `PageHead::card()`: kicker, title,
+one detail line, site name. A page a guest can't open, or any path PageHead
+doesn't describe, gets the site's own card, so an image never says more than
+the head. Cards are cached a week by what they draw (bump
+`PageImageController::VERSION` when the drawing changes). The fonts in
+`resources/fonts` are static instances of the SPA's variable Literata and
+Manrope (OFL), because FreeType draws a variable font only at its default
+weight. Without GD the route redirects to `apps/web/src/assets/share-card.png`,
+the same site card, which `index.html`'s static link-preview defaults also name
+(`index.php` drops those defaults when it splices and otherwise makes the image
+absolute on the request's own origin). The OG image URL is built on `APP_URL`
+server-side and `Env.apiBaseUrl` client-side.
+
 ## Styling contract (`apps/web`)
 
 Enforced by specs in `src/global/`. These fail CI, not review:

@@ -60,6 +60,11 @@ describe('page-meta', () => {
     expect(content('meta[name="description"]')).toBe('A full year of biology.');
     expect(content('meta[property="og:title"]')).toBe('AP Biology');
     expect(content('meta[property="og:site_name"]')).toBe('Night School');
+    expect(content('meta[property="og:image"]')).toMatch(/\/api\/page-image\?path=%2Fcourses%2F7$/);
+    expect(content('meta[property="og:image:width"]')).toBe('1200');
+    expect(content('meta[property="og:image:height"]')).toBe('630');
+    expect(content('meta[property="og:image:alt"]')).toBe('AP Biology');
+    expect(content('meta[name="twitter:card"]')).toBe('summary_large_image');
     expect(jsonLd()).toMatchObject({
       '@context': 'https://schema.org', '@type': 'Course', name: 'AP Biology',
       author: { '@type': 'Person', name: 'Ms K' }, about: 'Science', educationalLevel: '9-12',
