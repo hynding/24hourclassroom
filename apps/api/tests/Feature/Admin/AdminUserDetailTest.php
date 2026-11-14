@@ -99,7 +99,7 @@ test('a user with nothing renders every empty state and creates no integration r
     expect($detail['user'])->toMatchArray([
         'id' => $target->id, 'name' => 'Sam Student', 'email' => 'sam@example.com', 'role' => 'student',
         'deactivated_at' => null, 'google_linked' => false, 'is_self' => false, 'actionable' => true,
-        'role_options' => ['teacher'],
+        'role_options' => ['teacher', 'tutor', 'assistant', 'guardian'],
     ])
         ->and($detail['user']['email_verified_at'])->not->toBeNull()
         ->and($detail['profile'])->toBeNull()
@@ -125,7 +125,7 @@ test('actionable, is_self and role_options for every kind of target', function (
     $otherAdmin = User::factory()->create(['role' => 'admin']);
     $teacher = aTeacher();
 
-    expect(detailFor($teacher, $me)['user'])->toMatchArray(['actionable' => true, 'is_self' => false, 'role_options' => ['student']])
+    expect(detailFor($teacher, $me)['user'])->toMatchArray(['actionable' => true, 'is_self' => false, 'role_options' => ['student', 'tutor', 'assistant', 'guardian']])
         ->and(detailFor($otherAdmin, $me)['user'])->toMatchArray(['actionable' => false, 'is_self' => false, 'role_options' => []])
         ->and(detailFor($me, $me)['user'])->toMatchArray(['actionable' => false, 'is_self' => true, 'role_options' => []]);
 });

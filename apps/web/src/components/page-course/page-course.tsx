@@ -1,10 +1,14 @@
 import { Component, h, Prop, State, Watch } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
 import { CourseItem, CourseView, GRADE_LEVELS, SUBJECTS } from '@24hc/shared';
+import { authStore } from '../../services/auth-store';
 import { coursesStore } from '../../services/courses-store';
-import { navigate } from '../../services/navigate';
+import { adoptCanonicalPath, navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { courseItemKind, courseItemTitle, courseSections } from '../../services/course-format';
+import { courseMeta, setPageMeta } from '../../services/page-meta';
+import { rememberReturnPath } from '../../services/return-path';
+import { siteStore } from '../../services/site-store';
 
 @Component({ tag: 'page-course', styleUrl: 'page-course.css', shadow: true })
 export class PageCourse {
@@ -15,11 +19,21 @@ export class PageCourse {
   @State() loadError = false;
   @State() busy = false;
   @State() actionError = '';
+  /** Confirmed signed out, so the teacher sign-up pitch applies. Unknown (a failed /api/user) counts as not a guest. */
+  @State() guest = false;
 
   async componentWillLoad() {
-    // No authStore.load(): every branch reads a payload field (is_author),
-    // never the viewer's role.
-    await this.load();
+    // Permissions come from payload fields (is_author, can_branch), never
+    // the viewer's role; the session is read only to pitch sign-up to guests.
+    await Promise.all([this.load(), this.loadGuest()]);
+  }
+
+  private async loadGuest() {
+    try {
+      this.guest = (await authStore.load()) === null;
+    } catch {
+      this.guest = false;
+    }
   }
 
   /**
@@ -44,6 +58,9 @@ export class PageCourse {
     }
     try {
       this.course = await coursesStore.getCourse(this.courseId);
+      // Opened by id: show the course's own address (its slug) instead.
+      adoptCanonicalPath(this.course.path, `/courses/${this.courseId}`);
+      setPageMeta(courseMeta(this.course));
     } catch (e) {
       if (e instanceof ApiError && e.status === 404) {
         this.notFound = true;
@@ -115,6 +132,41 @@ export class PageCourse {
 
   private link(path: string, text: string) {
     return <a href={path} onClick={(e) => { e.preventDefault(); navigate(path); }}>{text}</a>;
+  }
+
+  /** Leaves for sign-up or log-in, remembering to come back to this course afterwards. */
+  private signIn(path: string, text: string, cls: string) {
+    return (
+      <a class={cls} href={path} onClick={(e) => {
+        e.preventDefault();
+        rememberReturnPath(`/courses/${this.course.id}`);
+        navigate(path);
+      }}>{text}</a>
+    );
+  }
+
+  /**
+   * A shared course link is how most teachers will arrive, signed out. The
+   * branch is what an account gets them: private answer keys and assigning.
+   */
+  private renderTeacherPitch(c: CourseView) {
+    if (!this.guest || c.visibility !== 'public' || c.test_count === 0) {
+      return null;
+    }
+    const open = siteStore.config.registration.open;
+    return (
+      <aside class="pitch" aria-label="For teachers">
+        <h2>Teaching this course?</h2>
+        <p>
+          It's free to use with your class. {open ? 'Create a teacher account' : 'Log in'} and branch it: you get your own private copy of
+          every test, with an answer key only you and your students can see, ready to edit and assign.
+        </p>
+        <div class="actions">
+          {open && this.signIn('/register', 'Sign up free', 'btn-primary')}
+          {this.signIn('/login', 'Log in', 'btn')}
+        </div>
+      </aside>
+    );
   }
 
   private label(list: { value: string; label: string }[], value: string) {
@@ -207,6 +259,8 @@ export class PageCourse {
           <p class="notice">Items marked private are hidden from visitors.</p>
         )}
 
+        {this.renderTeacherPitch(c)}
+
         {!c.is_author && c.test_count > 0 && (
           <p class="notice">Open any test to practise it: check each answer as you go, or finish and see your results. Nothing is recorded.</p>
         )}
@@ -219,6 +273,7 @@ export class PageCourse {
             <ol class="items">{group.items.map((item) => this.renderItem(c, item))}</ol>
           </section>
         ))}
+        <comment-thread targetType="course" targetId={c.id}></comment-thread>
       </section>
     );
   }

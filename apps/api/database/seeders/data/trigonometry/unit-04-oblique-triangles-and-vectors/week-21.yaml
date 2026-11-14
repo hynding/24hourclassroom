@@ -1,0 +1,608 @@
+week: 21
+unit: 4
+title: "The Law of Cosines and Triangle Area"
+topics: ["4.3", "4.4"]
+guide: guides/week-21.md
+guide_description: |
+  The law of cosines derived from coordinates and read as the Pythagorean theorem with a correction term;
+  solving SAS and SSS triangles (largest angle first), classifying a triangle as acute, right or obtuse from
+  its sides, and a table for choosing the right law; then area as ½ab sin C, Heron's formula, and areas of
+  parallelograms and regular polygons. Worked examples: an SAS triangle (8, 11, 47°), an SSS triangle
+  (7, 9, 13), their areas two ways, a parallelogram's area and diagonals, and a regular octagon and pentagon.
+flashcards_description: |
+  31 cards on the three forms of the law of cosines, SAS and SSS strategy, the acute/right/obtuse test,
+  choosing a law, ½ab sin C, Heron's formula, parallelograms and regular polygons, and the common slips.
+
+flashcards:
+  - front: Law of cosines for side c → formula
+    back: |
+      c² = a² + b² − 2ab cos C, where C is the angle opposite c (between sides a and b).
+    topic_code: "4.3"
+  - front: Law of cosines solved for angle C → formula
+    back: |
+      cos C = (a² + b² − c²)/(2ab). The side opposite the angle is the one subtracted.
+    topic_code: "4.3"
+  - front: Law of cosines with C = 90° → what it becomes
+    back: |
+      cos 90° = 0, so c² = a² + b²: the Pythagorean theorem.
+    topic_code: "4.3"
+  - front: Coordinate proof of the law of cosines → where the vertices go
+    back: |
+      C = (0, 0), B = (a, 0), A = (b cos C, b sin C). The distance formula for AB plus sin² C + cos² C = 1 gives c² = a² + b² − 2ab cos C.
+    topic_code: "4.3"
+  - front: Sign of −2ab cos C when C is obtuse → effect on c
+    back: |
+      cos C < 0, so the term is positive and c² > a² + b²: the side across from an obtuse angle is longer than Pythagoras predicts.
+    topic_code: "4.3"
+  - front: Longest side c with c² > a² + b² → type of triangle
+    back: |
+      Obtuse (the angle opposite c is greater than 90°). c² = a² + b² is right; c² < a² + b² is acute.
+    topic_code: "4.3"
+  - front: Sides 6, 8, 11 → acute, right or obtuse
+    back: |
+      Obtuse: 11² = 121 > 6² + 8² = 100.
+    topic_code: "4.3"
+  - front: SAS data → first step
+    back: |
+      Law of cosines for the side opposite the given angle. Then find the smaller remaining angle (it must be acute) or use the cosine form again.
+    topic_code: "4.3"
+  - front: SSS data → which angle first and why
+    back: |
+      The largest angle, opposite the longest side. If any angle is obtuse it is that one, and cosine reveals it by going negative; sin⁻¹ would not.
+    topic_code: "4.3"
+  - front: a = 8, b = 11, C = 47° → side c
+    back: |
+      c² = 64 + 121 − 176 cos 47° ≈ 64.97, so c ≈ 8.06.
+    topic_code: "4.3"
+  - front: Sides 7, 9, 13 → largest angle
+    back: |
+      cos C = (49 + 81 − 169)/126 = −39/126, so C ≈ 108.0°.
+    topic_code: "4.3"
+  - front: Choosing a law → the one-line rule
+    back: |
+      Know a side and the angle opposite it? Law of sines. Otherwise (SAS or SSS) start with the law of cosines.
+    topic_code: "4.3"
+  - front: AAA data → why no unique triangle
+    back: |
+      Three angles fix only the shape. Similar triangles of every size have the same angles, so no side length can be found.
+    topic_code: "4.3"
+  - front: SSA solved with the law of cosines → what you get
+    back: |
+      A quadratic in the unknown third side. Two positive roots mean two triangles, one positive root means one, no real roots means none.
+    topic_code: "4.3"
+  - front: Triangle inequality in an SSS problem → what it requires
+    back: |
+      Each side must be less than the sum of the other two. Sides 3, 4, 8 fail: the law of cosines would give cos C < −1.
+    topic_code: "4.3"
+  - front: Area from two sides and the included angle → formula
+    back: |
+      Area = ½ab sin C (also ½bc sin A, ½ac sin B). The angle must be between the two sides.
+    topic_code: "4.4"
+  - front: Why area = ½ab sin C → the height
+    back: |
+      With base a, the height from A is b sin C, so area = ½ · a · b sin C.
+    topic_code: "4.4"
+  - front: Area with an obtuse included angle of 120° and sides 9, 14 → value
+    back: |
+      ½ · 9 · 14 · sin 120° = 63 · √3/2 = 31.5√3 ≈ 54.56. sin of an obtuse angle is positive, so no adjustment.
+    topic_code: "4.4"
+  - front: Heron's formula → statement
+    back: |
+      Area = √(s(s − a)(s − b)(s − c)), with semiperimeter s = (a + b + c)/2.
+    topic_code: "4.4"
+  - front: Heron's formula for sides 13, 14, 15 → area
+    back: |
+      s = 21, area = √(21 · 8 · 7 · 6) = √7056 = 84.
+    topic_code: "4.4"
+  - front: Heron's formula for sides 7, 9, 13 → area
+    back: |
+      s = 14.5, area = √(14.5 · 7.5 · 5.5 · 1.5) ≈ 29.95.
+    topic_code: "4.4"
+  - front: A zero or negative factor s − a in Heron's formula → meaning
+    back: |
+      The three lengths do not form a triangle (the triangle inequality fails).
+    topic_code: "4.4"
+  - front: Parallelogram with sides p, q and angle θ → area
+    back: |
+      pq sin θ: two congruent triangles of area ½pq sin θ. Sides 10 and 6 with 70° give ≈ 56.38.
+    topic_code: "4.4"
+  - front: Diagonals of a parallelogram with sides 10, 6 and angle 70° → how to find them
+    back: |
+      Law of cosines with 70° for the short one (≈ 9.74) and with the adjacent angle 110° for the long one (≈ 13.31).
+    topic_code: "4.4"
+  - front: Regular n-gon inscribed in a circle of radius r → area
+    back: |
+      ½ n r² sin(360°/n): n isosceles triangles with two sides r and apex angle 360°/n.
+    topic_code: "4.4"
+  - front: Regular octagon with radius 5 → area
+    back: |
+      ½ · 8 · 25 · sin 45° = 100 sin 45° = 50√2 ≈ 70.71.
+    topic_code: "4.4"
+  - front: Regular hexagon with side 4 → area and radius
+    back: |
+      The six central triangles are equilateral, so the radius is 4. Area = ½ · 6 · 16 · sin 60° = 24√3 ≈ 41.57.
+    topic_code: "4.4"
+  - front: Regular pentagon with side 6 → radius
+    back: |
+      Half a central triangle is a right triangle with 36° opposite 3, so r = 3/sin 36° ≈ 5.10. Area ≈ 61.94.
+    topic_code: "4.4"
+  - front: Error-spot → "c² = 64 + 121 − 176 cos 47° = 9 cos 47°"
+    back: |
+      Multiplication comes before subtraction: compute 176 cos 47° ≈ 120.03 first, giving c² ≈ 64.97.
+    topic_code: "4.3"
+  - front: 'Error-spot → "Sides 7, 9, 13: sin C = 13 sin A/7 gives C ≈ 72°"'
+    back: |
+      sin⁻¹ never returns an obtuse angle. The largest angle is 108.0°; find it first with cos C = −39/126.
+    topic_code: "4.3"
+  - front: Error-spot → "Area of a triangle with sides 5 and 8 and a 40° angle opposite the 8 is ½ · 5 · 8 · sin 40°"
+    back: |
+      ½ab sin C needs the angle between the two sides. Find the included angle first (law of sines, then the angle sum).
+    topic_code: "4.4"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 4.3 and 4.4: the law of cosines, SAS and SSS
+    triangles, choosing a law, ½ab sin C, Heron's formula, parallelograms and regular polygons), with about a
+    third reviewing week 20 (the law of sines and the ambiguous case) and earlier units (exact values, the
+    Pythagorean identity, double angles). Includes a shared-context set on the triangle with sides 5, 7 and 10.
+    Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are
+    matched automatically; the short answers and the long answer are graded by your teacher against the
+    scoring notes. All angles are in degrees. Items marked (Calculator.) need a calculator.
+  questions:
+    # ---- Stimulus set: an SSS triangle (4.3, 4.4)
+    - slug: trig-u04-w21-q01
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      stimulus: |
+        (Calculator.) A triangle ABC has sides a = 5, b = 7 and c = 10. All angles are in degrees.
+      prompt: |
+        To the nearest tenth of a degree, what is the largest angle of the triangle?
+      options:
+        - "68.2°"
+        - "111.8°"
+        - "90.0°"
+        - "138.0°"
+      option_explanations:
+        - |
+          68.2° is the acute angle with the same sine as 111.8°, which is what sin⁻¹ would return; the largest angle is obtuse because cos C < 0.
+        - |
+          Correct. C is opposite the longest side: cos C = (25 + 49 − 100)/(2 · 5 · 7) = −26/70, so C ≈ 111.8°.
+        - |
+          A right angle would need 10² = 5² + 7², but 100 > 74, so the angle is obtuse.
+        - |
+          138.0° comes from dividing by 5 · 7 = 35 instead of 2 · 5 · 7 = 70; the formula's denominator is 2ab.
+      answer: 1
+    - slug: trig-u04-w21-q02
+      type: numeric
+      topic_code: "4.4"
+      source: "Original item; Common Core HSG-SRT.D.9"
+      points: 1
+      stimulus: |
+        (Calculator.) A triangle ABC has sides a = 5, b = 7 and c = 10. All angles are in degrees.
+      prompt: |
+        Use Heron's formula to find the area of the triangle, to the nearest hundredth of a square unit.
+      answer: { value: 16.25, tolerance: 0.01 }
+      explanation: |
+        s = (5 + 7 + 10)/2 = 11, so area = √(11 · 6 · 4 · 1) = √264 ≈ 16.248, which is 16.25 to the nearest hundredth. Check: ½ · 5 · 7 · sin 111.8° ≈ 16.25.
+    - slug: trig-u04-w21-q03
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      stimulus: |
+        (Calculator.) A triangle ABC has sides a = 5, b = 7 and c = 10. All angles are in degrees.
+      prompt: |
+        To the nearest tenth of a degree, what is angle A, opposite the side of length 5?
+      options:
+        - "40.5°"
+        - "152.3°"
+        - "62.3°"
+        - "27.7°"
+      option_explanations:
+        - |
+          40.5° is angle B, opposite the side of length 7. For A, subtract a² = 25 in the numerator.
+        - |
+          152.3° is the supplement of the correct angle. The triangle already has an obtuse angle of 111.8°, so A must be acute.
+        - |
+          62.3° is the complement of 27.7°, which mixes up cosine and sine of the angle.
+        - |
+          Correct. cos A = (49 + 100 − 25)/(2 · 7 · 10) = 124/140 ≈ 0.886, so A ≈ 27.7°, the smallest angle, opposite the shortest side.
+      answer: 3
+    - slug: trig-u04-w21-q04
+      type: fill_blank
+      topic_code: "4.4"
+      source: "Original item; Common Core HSG-SRT.D.9"
+      points: 1
+      stimulus: |
+        (Calculator.) A triangle ABC has sides a = 5, b = 7 and c = 10. All angles are in degrees.
+      prompt: |
+        The semiperimeter s used in Heron's formula for this triangle is ____.
+      answer: ["11", "11.0", "s = 11", "s=11"]
+      explanation: |
+        s is half the perimeter: (5 + 7 + 10)/2 = 22/2 = 11.
+    # ---- Topics 4.3 and 4.4
+    - slug: trig-u04-w21-q05
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      prompt: |
+        (Calculator.) In triangle ABC, b = 12, c = 15 and A = 64°. To the nearest hundredth, what is a?
+      options:
+        - "14.53"
+        - "19.21"
+        - "22.95"
+        - "17.03"
+      option_explanations:
+        - |
+          Correct. a² = 144 + 225 − 2(12)(15) cos 64° ≈ 211.19, so a ≈ 14.53.
+        - |
+          19.21 is √(144 + 225), the Pythagorean theorem; A is 64°, not 90°, so the correction term is needed.
+        - |
+          22.95 adds 2bc cos A instead of subtracting it; that is the formula for the obtuse angle 116°.
+        - |
+          17.03 leaves out the factor 2: 144 + 225 − 180 cos 64°. The term is 2bc cos A = 360 cos 64°.
+      answer: 0
+    - slug: trig-u04-w21-q06
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      prompt: |
+        A surveyor knows two sides of a triangle and the angle between them. Which first step leads to a solution?
+      options:
+        - "Use the law of sines to find one of the other angles"
+        - "Use the angle sum to find the third angle"
+        - "Use the law of cosines to find the third side"
+        - "Use Heron's formula to find the area, then a height"
+      option_explanations:
+        - |
+          The law of sines needs a side paired with its opposite angle; in SAS the known angle's opposite side is the unknown.
+        - |
+          Only one angle is known, so the angle sum cannot give the other two yet.
+        - |
+          Correct. In SAS the given angle is opposite the missing side, so c² = a² + b² − 2ab cos C finds it directly.
+        - |
+          Heron's formula needs all three sides, and only two are known.
+      answer: 2
+    - slug: trig-u04-w21-q07
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      prompt: |
+        A triangle has sides 6, 8 and 11. Which statement classifies it correctly?
+      options:
+        - "Acute, because 11 < 6 + 8"
+        - "Right, because 6 and 8 come from a Pythagorean triple"
+        - "Acute, because no side is longer than twice another"
+        - "Obtuse, because 11² > 6² + 8²"
+      option_explanations:
+        - |
+          11 < 6 + 8 shows only that the triangle exists (triangle inequality); it says nothing about the type of angle.
+        - |
+          6, 8 and 10 form a right triangle; a third side of 11 is longer, so the angle opposite it is more than 90°.
+        - |
+          There is no such rule; the type of the largest angle depends on comparing c² with a² + b².
+        - |
+          Correct. 121 > 36 + 64 = 100, so cos C = (100 − 121)/96 < 0 and the angle opposite 11 is obtuse.
+      answer: 3
+    - slug: trig-u04-w21-q08
+      type: multiple_choice
+      topic_code: "4.4"
+      source: "Original item; Common Core HSG-SRT.D.9"
+      points: 1
+      prompt: |
+        A triangle has sides 9 and 14 with an included angle of 120°. What is its exact area?
+      options:
+        - "63√3"
+        - "(63√3)/2"
+        - "63/2"
+        - "−(63√3)/2"
+      option_explanations:
+        - |
+          63√3 is 9 · 14 · sin 120° without the factor ½; the triangle is half of a parallelogram.
+        - |
+          Correct. ½ · 9 · 14 · sin 120° = 63 · √3/2 = (63√3)/2 ≈ 54.56.
+        - |
+          63/2 uses ½ for sin 120°; that is sin 30° or |cos 120°|. sin 120° = √3/2.
+        - |
+          An area is never negative, and sin 120° is positive (quadrant II), so there is no minus sign.
+      answer: 1
+    - slug: trig-u04-w21-q09
+      type: multiple_choice
+      topic_code: "4.4"
+      source: "Original item; Common Core HSG-SRT.D.9"
+      points: 1
+      prompt: |
+        (Calculator.) A parallelogram has sides 12 cm and 7 cm, and one of its angles is 135°. To the nearest hundredth, what is its area in square centimetres?
+      options:
+        - "59.40"
+        - "29.70"
+        - "84.00"
+        - "8.61"
+      option_explanations:
+        - |
+          Correct. Area = 12 · 7 · sin 135° = 84 · √2/2 = 42√2 ≈ 59.40.
+        - |
+          29.70 is ½ · 12 · 7 · sin 135°, the area of one of the two triangles the diagonal makes; the parallelogram is both.
+        - |
+          84 is 12 · 7, the area of a rectangle with these sides; the slant reduces it by the factor sin 135°.
+        - |
+          8.61 cm is the length of the short diagonal (law of cosines with 45°), not an area.
+      answer: 0
+    - slug: trig-u04-w21-q10
+      type: multiple_choice
+      topic_code: "4.4"
+      source: "Original item; Common Core HSG-SRT.D.9"
+      points: 1
+      prompt: |
+        What is the exact area of a regular hexagon with side length 4?
+      options:
+        - "4√3"
+        - "48√3"
+        - "24√3"
+        - "96"
+      option_explanations:
+        - |
+          4√3 is the area of one of the six equilateral triangles that make up the hexagon.
+        - |
+          48√3 is 6 · 4² · sin 60° without the ½ in ½ n r² sin(360°/n).
+        - |
+          Correct. The radius equals the side, 4, so area = ½ · 6 · 16 · sin 60° = 48 · √3/2 = 24√3 ≈ 41.57.
+        - |
+          96 is 6 · 16, which treats each central triangle as having area r² with no ½ sin 60° factor.
+      answer: 2
+    - slug: trig-u04-w21-q11
+      type: multi_select
+      topic_code: "4.3"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 2
+      partial_credit: true
+      prompt: |
+        For which sets of given data can the law of sines NOT be used as the first step, so that the law of cosines is needed to start? Select all that apply.
+      options:
+        - "Two angles and any side"
+        - "Two sides and the angle between them"
+        - "Two sides and an angle opposite one of them"
+        - "Three sides"
+        - "Three angles"
+      option_explanations:
+        - |
+          With two angles the third follows from the angle sum, and then the known side has a known opposite angle: law of sines.
+        - |
+          Correct. In SAS the given angle faces the unknown side, so no complete side–angle pair exists until the law of cosines finds that side.
+        - |
+          SSA gives a side with its opposite angle, so the law of sines starts it (testing both candidate angles).
+        - |
+          Correct. SSS has no known angles at all; the law of cosines finds the first one.
+        - |
+          Three angles determine no lengths at all, so neither law can solve the triangle; it is not a case that needs the law of cosines.
+      answer: [1, 3]
+    - slug: trig-u04-w21-q12
+      type: multi_select
+      topic_code: "4.4"
+      source: "Original item; Common Core HSG-SRT.D.9"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about the area of a triangle ABC are true? Select all that apply.
+      options:
+        - "Doubling every side of a triangle doubles its area."
+        - "The area equals ½bc sin A."
+        - "Heron's formula needs only the three side lengths."
+        - "½ab sin C works with any two sides and any one angle."
+        - "Heron's formula gives an area of 6 for the triangle with sides 3, 4 and 5."
+      option_explanations:
+        - |
+          Area scales with the square of the length factor: doubling every side multiplies the area by 4.
+        - |
+          Correct. Sides b and c meet at angle A, so ½bc sin A is the included-angle formula.
+        - |
+          Correct. Heron's formula uses s = (a + b + c)/2 and the three sides; no angle is needed.
+        - |
+          The angle must be the one between the two sides used; a non-included angle gives the wrong height.
+        - |
+          Correct. s = 6 and √(6 · 3 · 2 · 1) = √36 = 6, matching ½ · 3 · 4 for the right triangle.
+      answer: [1, 2, 4]
+    - slug: trig-u04-w21-q13
+      type: true_false
+      topic_code: "4.3"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      prompt: |
+        True or false: If c is the longest side of a triangle and c² < a² + b², then the triangle is obtuse.
+      answer: false
+      explanation: |
+        False. c² < a² + b² means cos C = (a² + b² − c²)/(2ab) > 0, so the largest angle C is acute, and the triangle is acute. Obtuse triangles have c² > a² + b².
+    - slug: trig-u04-w21-q14
+      type: true_false
+      topic_code: "4.2"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      prompt: |
+        True or false: The SSA data A = 45°, a = 8, b = 10 give exactly two triangles.
+      answer: true
+      explanation: |
+        True. The height is h = 10 sin 45° ≈ 7.07, and 7.07 < 8 < 10, so side a reaches the third side at two points. sin B = 10 sin 45°/8 ≈ 0.884 gives B ≈ 62.1° or 117.9°, and both leave room for C.
+    - slug: trig-u04-w21-q15
+      type: fill_blank
+      topic_code: "4.4"
+      source: "Original item; Common Core HSG-SRT.D.9"
+      points: 1
+      prompt: |
+        By Heron's formula, the exact area of the triangle with sides 13, 14 and 15 is ____ square units.
+      answer: ["84", "84.0"]
+      explanation: |
+        s = (13 + 14 + 15)/2 = 21, so the area is √(21 · 8 · 7 · 6) = √7056 = 84.
+    - slug: trig-u04-w21-q16
+      type: fill_blank
+      topic_code: "1.11"
+      source: "Original item; Common Core HSF-TF.A.3"
+      points: 1
+      prompt: |
+        The exact value of cos 120° is ____.
+      answer: ["-1/2", "−1/2", "- 1/2", "− 1/2", "-1 / 2", "−1 / 2", "-0.5", "−0.5"]
+      explanation: |
+        120° is in quadrant II with reference angle 60°, and cosine is negative there, so cos 120° = −cos 60° = −1/2. In the law of cosines this makes −2ab cos 120° = +ab.
+    - slug: trig-u04-w21-q17
+      type: numeric
+      topic_code: "4.1"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      prompt: |
+        (Calculator.) In triangle ABC, A = 35°, B = 82° and a = 14. Find b to the nearest hundredth.
+      answer: { value: 24.17, tolerance: 0.01 }
+      explanation: |
+        The pair (a, A) is complete, so by the law of sines b = 14 sin 82°/sin 35° ≈ 24.17.
+    # ---- Spiral review
+    - slug: trig-u04-w21-q18
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      prompt: |
+        In triangle ABC, A = 55°, a = 9 and b = 10. How many triangles fit these data?
+      options:
+        - "None, because a is shorter than b"
+        - "Exactly one, because a and b are nearly equal"
+        - "Exactly one, a right triangle"
+        - "Exactly two"
+      option_explanations:
+        - |
+          a < b allows a triangle as long as a is at least the height h = 10 sin 55° ≈ 8.19, and 9 > 8.19.
+        - |
+          Closeness of a and b is not a rule; the count comes from comparing a with h and b.
+        - |
+          A right triangle needs a = h exactly, but 9 ≠ 8.19.
+        - |
+          Correct. h = 10 sin 55° ≈ 8.19 < 9 < 10, so two triangles (B ≈ 65.5° or 114.5°).
+      answer: 3
+    - slug: trig-u04-w21-q19
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      prompt: |
+        (Calculator.) In triangle ABC, A = 46°, B = 58° and c = 21. To the nearest hundredth, what is a?
+      options:
+        - "15.57"
+        - "18.35"
+        - "28.33"
+        - "17.81"
+      option_explanations:
+        - |
+          Correct. C = 180° − 46° − 58° = 76°, so a = 21 sin 46°/sin 76° ≈ 15.57.
+        - |
+          18.35 is side b, opposite the 58° angle; a is opposite the 46° angle.
+        - |
+          28.33 inverts the ratio, 21 sin 76°/sin 46°; that would make a longer than c even though A < C.
+        - |
+          17.81 divides by sin 58° instead of sin 76°; c = 21 is opposite C, so C must be found first.
+      answer: 0
+    - slug: trig-u04-w21-q20
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "Original item; Common Core HSF-TF.C.9 (extension)"
+      points: 1
+      prompt: |
+        If sin θ = 1/3, what is the exact value of cos 2θ?
+      options:
+        - "2/3"
+        - "7/9"
+        - "8/9"
+        - "−7/9"
+      option_explanations:
+        - |
+          2/3 is 2 sin θ; the double-angle formula does not double the sine.
+        - |
+          Correct. cos 2θ = 1 − 2 sin² θ = 1 − 2/9 = 7/9, whatever the quadrant of θ.
+        - |
+          8/9 is cos² θ = 1 − sin² θ, only one piece of cos 2θ = cos² θ − sin² θ.
+        - |
+          −7/9 is 2 sin² θ − 1, the formula with its sign reversed.
+      answer: 1
+    - slug: trig-u04-w21-q21
+      type: multiple_choice
+      topic_code: "1.12"
+      source: "Original item; Common Core HSF-TF.C.8"
+      points: 1
+      prompt: |
+        (Calculator.) The law of cosines gives cos C = −0.4 for an angle C of a triangle. To the nearest thousandth, what is sin C?
+      options:
+        - "−0.917"
+        - "0.600"
+        - "0.917"
+        - "0.840"
+      option_explanations:
+        - |
+          A triangle's angle lies between 0° and 180°, where sine is never negative.
+        - |
+          0.600 is 1 − 0.4, which subtracts cos C instead of cos² C under a square root.
+        - |
+          Correct. sin² C = 1 − (−0.4)² = 0.84, and sin C > 0 for 0° < C < 180°, so sin C = √0.84 ≈ 0.917.
+        - |
+          0.840 is sin² C; the square root is still needed.
+      answer: 2
+    - slug: trig-u04-w21-q22
+      type: short_answer
+      topic_code: "4.3"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 3
+      prompt: |
+        (Calculator.) In triangle ABC, a = 10, b = 16 and C = 132°.
+
+        (a) Find c to the nearest hundredth.
+        (b) Find angle A to the nearest tenth of a degree, and explain why it is safe to use sin⁻¹ for this angle.
+        (c) Find the area of the triangle to the nearest hundredth.
+      answer: |
+        (a) c² = 100 + 256 − 2(10)(16) cos 132° ≈ 356 + 214.11 = 570.11, so c ≈ 23.88.
+        (b) sin A = 10 sin 132°/23.88 ≈ 0.3112, so A ≈ 18.1°. It is safe because C = 132° is already obtuse, and a triangle has at most one obtuse angle, so A must be acute (it is also opposite the shortest side).
+        (c) Area = ½ · 10 · 16 · sin 132° ≈ 59.45.
+      explanation: |
+        Three points, one per part. (a) c ≈ 23.88 (accept ±0.01). (b) A ≈ 18.1° with a valid reason that A is acute (or found with the cosine form instead). (c) ≈ 59.45 using the included angle.
+    - slug: trig-u04-w21-q23
+      type: short_answer
+      topic_code: "4.2"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 3
+      prompt: |
+        (Calculator.) The SSA data A = 40°, a = 8 and b = 10 can be handled with the law of cosines instead of the law of sines.
+
+        (a) Write the law of cosines for side a in terms of the unknown c, and rearrange it into a quadratic equation c² + pc + q = 0, with p to the nearest hundredth.
+        (b) Solve the quadratic for c, to the nearest hundredth.
+        (c) Explain what the number of positive solutions tells you about the number of triangles.
+      answer: |
+        (a) 8² = 10² + c² − 2(10)c cos 40°, so c² − 20 cos 40° · c + 36 = 0, that is c² − 15.32c + 36 = 0.
+        (b) c = (15.32 ± √(15.32² − 144))/2, giving c ≈ 12.42 or c ≈ 2.90.
+        (c) Both roots are positive, so two different triangles fit the data, one with each value of c. One positive root would mean one triangle, and no real roots (negative discriminant) would mean none.
+      explanation: |
+        Three points, one per part. (a) the correct quadratic (accept p = −15.32). (b) both roots, 12.42 and 2.90 (accept ±0.01). (c) links two positive roots to two triangles.
+    - slug: trig-u04-w21-q24
+      type: long_answer
+      topic_code: "4.4"
+      source: "Original item; Common Core HSG-SRT.D.9"
+      points: 6
+      prompt: |
+        (Calculator.) A hypothetical community garden is a triangular plot with sides 30 m, 42 m and 50 m.
+
+        (A) (i) Find the largest angle of the plot, to the nearest tenth of a degree.
+        (ii) Decide whether the plot is acute, right or obtuse, using only the three side lengths, and explain.
+
+        (B) (i) Find the area of the plot with Heron's formula, to the nearest hundredth of a square metre.
+        (ii) Confirm the area with the formula ½ab sin C, using your angle from (A).
+
+        (C) The garden club buys a second, congruent plot and places it against the 50 m side so that the two plots form a parallelogram with sides 30 m and 42 m.
+        (i) Find the area of the parallelogram.
+        (ii) The 50 m side is one diagonal of the parallelogram. Find the length of the other diagonal to the nearest hundredth of a metre.
+      answer: |
+        (A) (i) The largest angle C is opposite the 50 m side: cos C = (30² + 42² − 50²)/(2 · 30 · 42) = 164/2520 ≈ 0.0651, so C ≈ 86.3°.
+        (ii) Acute: 50² = 2500 < 30² + 42² = 2664, so the largest angle is less than 90° and therefore all three angles are.
+        (B) (i) s = (30 + 42 + 50)/2 = 61, so area = √(61 · 31 · 19 · 11) = √395 219 ≈ 628.66 m².
+        (ii) ½ · 30 · 42 · sin 86.27° ≈ 630 · 0.9979 ≈ 628.66 m², which agrees.
+        (C) (i) The parallelogram is two congruent triangles: 2 × 628.66 ≈ 1257.33 m² (equivalently 30 · 42 · sin 86.27°).
+        (ii) The angle of the parallelogram adjacent to C is 180° − 86.27° ≈ 93.73°, so the other diagonal d satisfies d² = 30² + 42² − 2 · 30 · 42 · cos 93.73° ≈ 2664 + 164 = 2828, giving d ≈ 53.18 m.
+      explanation: |
+        Six points. (A) 1 point for C ≈ 86.3°; 1 point for "acute" with the comparison 2500 < 2664 (or cos C > 0). (B) 1 point for s = 61 and ≈ 628.66 m²; 1 point for a matching ½ab sin C check (accept rounding differences under 0.5). (C) 1 point for ≈ 1257.33 m²; 1 point for the other diagonal ≈ 53.18 m using the supplementary angle.

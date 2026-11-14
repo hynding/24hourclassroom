@@ -1,5 +1,6 @@
 import { Component, h, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
+import { AUTHOR_ROLES, hasRole } from '@24hc/shared';
 import type { AnthropicIntegration, McpToken, McpTokenCreated } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { generationStore } from '../../services/generation-store';
@@ -29,9 +30,9 @@ export class PageIntegrations {
   @State() keyMessage = '';
   @State() busy = false;
 
-  /** Allowlist: anything that is not exactly teacher gets the empty state. */
+  /** Allowlist: anything that is not an author (teacher, tutor) gets the empty state. */
   private get role(): 'teacher' | 'none' {
-    return authStore.currentUser?.role === 'teacher' ? 'teacher' : 'none';
+    return hasRole(AUTHOR_ROLES, authStore.currentUser?.role) ? 'teacher' : 'none';
   }
 
   async componentWillLoad() {

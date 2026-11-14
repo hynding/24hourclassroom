@@ -1,0 +1,670 @@
+week: 14
+unit: 3
+title: "Correlation, Causation and Modelling with Data"
+topics: ["3.7", "3.8", "3.9", "3.10"]
+guide: guides/week-14.md
+guide_description: |
+  The correlation coefficient r as a measure of the strength and direction of a linear relationship, computing
+  and interpreting r with technology alongside the line of best fit, why correlation does not establish
+  causation and what evidence does, and a full modelling cycle on real data.
+flashcards_description: |
+  28 cards on the sign and size of r, matching r to scatter plots, what r does not measure, lurking variables,
+  reverse direction and coincidence, experiments versus observational studies, and the modelling cycle.
+
+flashcards:
+  - front: Correlation coefficient r → what it measures
+    back: |
+      The strength and direction of a linear relationship between two numerical variables. It always lies between −1 and 1.
+    topic_code: "3.7"
+  - front: Sign of r → what it tells you
+    back: |
+      Positive r means larger x tends to go with larger y and the line of best fit slopes up; negative r means larger x goes with smaller y and the line slopes down.
+    topic_code: "3.7"
+  - front: Size of r → what it tells you
+    back: |
+      How close the points are to a line. Near 1 or −1 is a tight line; near 0 means a line explains almost nothing. The sign is ignored when judging strength.
+    topic_code: "3.7"
+  - front: r = 1 or r = −1 → the picture
+    back: |
+      Every point lies exactly on a straight line, sloping up for 1 and down for −1.
+    topic_code: "3.7"
+  - front: r = 0 → the picture
+    back: |
+      No linear trend. The cloud may be shapeless, or it may follow a curve such as a U, which r does not detect.
+    topic_code: "3.7"
+  - front: Rough strength bands for r
+    back: |
+      |r| above about 0.7 is strong, 0.3 to 0.7 moderate, below 0.3 weak. These are conventions for describing a plot, not strict rules.
+    topic_code: "3.7"
+  - front: Which is stronger, r = −0.8 or r = 0.6?
+    back: |
+      r = −0.8. Strength is the distance from 0 regardless of sign, and 0.8 is farther from 0 than 0.6.
+    topic_code: "3.7"
+  - front: Does r measure the slope of the line?
+    back: |
+      No. A steep line with scattered points can have r = 0.4, and a very shallow line with points exactly on it has r = 1.
+    topic_code: "3.7"
+  - front: Curved relationship → what r reports
+    back: |
+      r can be close to 0 even for a perfect U-shaped pattern, because r only measures how well a straight line fits. Always look at the plot.
+    topic_code: "3.7"
+  - front: Estimating r from a scatter plot
+    back: |
+      Decide the direction (up or down) for the sign, then judge how tightly the points hug a line: very tight ±0.9 or more, visible trend with spread about ±0.5, no trend near 0.
+    topic_code: "3.7"
+  - front: Getting r with technology
+    back: |
+      Run the same linear regression that gives the line of best fit; r (sometimes r² as well) is reported with the slope and intercept.
+    topic_code: "3.8"
+  - front: Workflow for using r
+    back: |
+      1. Plot and check for a roughly linear shape. 2. Compute the line and r. 3. Check the residual plot. 4. Report slope in context, strength from r, and cautions.
+    topic_code: "3.8"
+  - front: Interpreting r = 0.98 for study hours and quiz score
+    back: |
+      A strong positive linear relationship: students who studied more scored higher, and the line describes the pattern very closely.
+    topic_code: "3.8"
+  - front: Interpreting r = −0.35 for screen time and sleep
+    back: |
+      A weak-to-moderate negative relationship. More screen time tends to go with less sleep, but with much variation, so predictions for individuals are unreliable.
+    topic_code: "3.8"
+  - front: Effect of removing a point far from the line on r
+    back: |
+      |r| increases, because the remaining points fit the line more tightly. Adding such a point lowers |r|. One point can swing r a lot in a small data set.
+    topic_code: "3.8"
+  - front: Low r → should you predict with the line?
+    back: |
+      Not with confidence. When |r| is small the points are far from the line, so predictions will often miss by a wide margin.
+    topic_code: "3.8"
+  - front: Correlation versus causation → the rule
+    back: |
+      A strong correlation shows two variables move together; it does not show that changing one would change the other.
+    topic_code: "3.9"
+  - front: Lurking (confounding) variable
+    back: |
+      A third variable that influences both measured variables and creates a correlation between them, such as hot weather driving both ice-cream sales and drownings.
+    topic_code: "3.9"
+  - front: Reverse direction as an explanation
+    back: |
+      Perhaps y causes x rather than x causing y. More fire engines at bigger fires does not mean engines cause damage.
+    topic_code: "3.9"
+  - front: Coincidence as an explanation
+    back: |
+      With many variables available, some unrelated pairs will line up by chance, especially over short series of years.
+    topic_code: "3.9"
+  - front: Evidence that supports a causal claim
+    back: |
+      An experiment in which the explanatory variable is assigned at random, so lurking variables average out between the groups, followed by a comparison.
+    topic_code: "3.9"
+  - front: Observational study → what it can and cannot show
+    back: |
+      It can reveal a correlation and suggest a cause, but because people chose their own x, lurking variables cannot be ruled out.
+    topic_code: "3.9"
+  - front: Libraries and crime across cities (r = 0.8) → explanation
+    back: |
+      Population is a lurking variable: bigger cities have more libraries and more crime. Per-person rates would remove the effect.
+    topic_code: "3.9"
+  - front: Questions to ask about any correlation
+    back: |
+      Is there a lurking variable? Could the direction be reversed? Could it be chance? Is there a plausible mechanism, and was there an experiment?
+    topic_code: "3.9"
+  - front: The modelling cycle for two-variable data
+    back: |
+      Plot and describe; fit a line with technology; check residuals; interpret slope (and intercept if sensible); predict inside the data range; report the strength and the limits.
+    topic_code: "3.10"
+  - front: Femur length to height model h = 2.4f + 20, r = 0.97 → prediction for f = 90
+    back: |
+      2.4(90) + 20 = 236 cm. With r = 0.97 and 90 cm inside the data range, the prediction is reasonable, give or take the size of typical residuals.
+    topic_code: "3.10"
+  - front: Reporting the limits of a model
+    back: |
+      State how strong the fit is (r), how big typical residuals are, the range of x the data covered, and that the model describes a trend rather than a cause.
+    topic_code: "3.10"
+  - front: Intercept in the femur model → is it meaningful?
+    back: |
+      Not really. A femur of length 0 does not exist, so the 20 cm is just where the line crosses the axis, not a prediction about a real animal.
+    topic_code: "3.10"
+
+quiz:
+  description: |
+    25 questions · about 45 minutes · the correlation coefficient, interpreting r with technology, correlation
+    versus causation, and modelling with data (lessons 3.7 to 3.10), with review of residuals, linear models,
+    two-way tables and earlier units. Multiple choice, select-all, true/false and numeric items are graded at
+    once; fill-in-the-blank items are matched automatically; the short answers and the long answer are graded
+    by your teacher against the scoring notes.
+  questions:
+    # ---- Stimulus set: cars and life expectancy (3.8, 3.9)
+    - slug: alg1-u03-w14-q01
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "IM Algebra 1, Unit 3, Lesson 8"
+      points: 1
+      stimulus: |
+        For eight countries, a researcher records the number of cars per 100 people, x, and the average life expectancy in years, y. Technology gives the line of best fit y = 0.25x + 62 with r = 0.82. The data cover x from 10 to 60.
+      prompt: |
+        How should r = 0.82 be interpreted?
+      options:
+        - "A strong positive linear relationship: countries with more cars tend to have longer life expectancy."
+        - "A weak relationship, since r is less than 1."
+        - "Life expectancy rises by 0.82 years for each extra car."
+        - "82% of the points lie exactly on the line."
+      option_explanations:
+        - |
+          Correct. r is positive and above 0.7, so the points lie fairly close to an upward-sloping line.
+        - |
+          Only r = ±1 is perfect; 0.82 is well into the strong range.
+        - |
+          The change in y per unit of x is the slope, 0.25, not r.
+        - |
+          r is not a percentage of points on the line; it measures how tightly the whole cloud hugs the line.
+      answer: 0
+
+    - slug: alg1-u03-w14-q02
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "IM Algebra 1, Unit 3, Lesson 8"
+      points: 1
+      stimulus: |
+        For eight countries, a researcher records the number of cars per 100 people, x, and the average life expectancy in years, y. Technology gives the line of best fit y = 0.25x + 62 with r = 0.82. The data cover x from 10 to 60.
+      prompt: |
+        What life expectancy does the model predict for a country with 40 cars per 100 people?
+      options:
+        - "10 years"
+        - "102 years"
+        - "72 years"
+        - "62 years"
+      option_explanations:
+        - |
+          10 is 0.25 × 40 alone, the contribution of the slope, without the intercept.
+        - |
+          102 adds 40 to 62 without multiplying by the slope 0.25.
+        - |
+          Correct. 0.25(40) + 62 = 10 + 62 = 72 years, and x = 40 is inside the data range.
+        - |
+          62 is the intercept, the prediction for x = 0, not for x = 40.
+      answer: 2
+
+    - slug: alg1-u03-w14-q03
+      type: multiple_choice
+      topic_code: "3.9"
+      source: "IM Algebra 1, Unit 3, Lesson 9"
+      points: 1
+      stimulus: |
+        For eight countries, a researcher records the number of cars per 100 people, x, and the average life expectancy in years, y. Technology gives the line of best fit y = 0.25x + 62 with r = 0.82. The data cover x from 10 to 60.
+      prompt: |
+        A newspaper headline reads "Buying cars makes people live longer." What is the best response?
+      options:
+        - "The headline is wrong because r should be negative for a causal relationship."
+        - "The headline is justified because r is above 0.7."
+        - "The headline is wrong because the slope is too small to matter."
+        - "The correlation is probably explained by a lurking variable such as national wealth, which buys both cars and health care."
+      option_explanations:
+        - |
+          The sign of r says only the direction of the trend; it has no bearing on causation.
+        - |
+          A strong correlation never justifies a causal claim by itself; other explanations must be ruled out first.
+        - |
+          The size of the slope has nothing to do with whether the relationship is causal.
+        - |
+          Correct. Wealthier countries have more cars and better medicine, so wealth drives both variables.
+      answer: 3
+
+    - slug: alg1-u03-w14-q04
+      type: multiple_choice
+      topic_code: "3.9"
+      source: "IM Algebra 1, Unit 3, Lesson 9"
+      points: 1
+      stimulus: |
+        For eight countries, a researcher records the number of cars per 100 people, x, and the average life expectancy in years, y. Technology gives the line of best fit y = 0.25x + 62 with r = 0.82. The data cover x from 10 to 60.
+      prompt: |
+        Which of these would provide the strongest evidence that car ownership itself affects life expectancy?
+      options:
+        - "Collecting the same data for 80 countries instead of 8."
+        - "An experiment in which car ownership is assigned at random to comparable groups and their health is followed."
+        - "Showing that the line passes through the origin."
+        - "Finding that r increases to 0.95 with more data."
+      option_explanations:
+        - |
+          A larger observational study can sharpen the correlation but cannot remove lurking variables.
+        - |
+          Correct. Random assignment balances lurking variables between groups, which is what a causal claim needs, even if such an experiment is impractical here.
+        - |
+          Where the line crosses the axis has no connection to whether the relationship is causal.
+        - |
+          A higher r means a tighter line, not a cause; wealth would still explain both variables.
+      answer: 1
+
+    # ---- Multiple choice (3.7–3.10)
+    - slug: alg1-u03-w14-q05
+      type: multiple_choice
+      topic_code: "3.7"
+      source: "IM Algebra 1, Unit 3, Lesson 7"
+      points: 1
+      prompt: |
+        A scatter plot of hours of daylight against month number from June to December shows points falling steadily and lying very close to a line. Which value of r is most plausible?
+      options:
+        - "0"
+        - "−0.3"
+        - "−0.95"
+        - "0.95"
+      option_explanations:
+        - |
+          r = 0 would mean no linear trend, but the daylight decreases steadily.
+        - |
+          −0.3 would describe a weak downward trend with widely spread points, not a tight line.
+        - |
+          Correct. A downward trend with points very close to a line gives r near −1.
+        - |
+          The points fall as x increases, so the correlation is negative, not positive.
+      answer: 2
+
+    - slug: alg1-u03-w14-q06
+      type: multiple_choice
+      topic_code: "3.7"
+      source: "IM Algebra 1, Unit 3, Lesson 7"
+      points: 1
+      prompt: |
+        Which correlation coefficient describes the strongest linear relationship?
+      options:
+        - "r = −0.4"
+        - "r = −0.9"
+        - "r = 0.1"
+        - "r = 0.65"
+      option_explanations:
+        - |
+          −0.4 is a moderate negative relationship, weaker than both 0.65 and −0.9.
+        - |
+          Correct. Strength is the distance from 0 regardless of sign, and 0.9 is the largest here.
+        - |
+          0.1 is the weakest of the four, showing almost no linear trend.
+        - |
+          0.65 is moderately strong, but 0.9 is farther from zero.
+      answer: 1
+
+    - slug: alg1-u03-w14-q07
+      type: multiple_choice
+      topic_code: "3.7"
+      source: "IM Algebra 1, Unit 3, Lesson 7"
+      points: 1
+      prompt: |
+        A line of best fit has slope 12, and r = 0.3. Which statement is correct?
+      options:
+        - "The relationship is weak even though the line is steep; r measures closeness to the line, not steepness."
+        - "A positive slope with r = 0.3 means the points lie on a curve."
+        - "The steep slope means the correlation must be strong."
+        - "r must be wrong, because a slope of 12 gives r = 12."
+      option_explanations:
+        - |
+          Correct. r = 0.3 says the points are spread far from the line, whatever its slope.
+        - |
+          A low r may come from scatter or from a curve; nothing here shows a curve, so the safe reading is a weak linear trend.
+        - |
+          Slope and r are independent; a steep line can pass through a widely scattered cloud.
+        - |
+          r is always between −1 and 1 and is not the slope; both values can be right at once.
+      answer: 0
+
+    - slug: alg1-u03-w14-q08
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "IM Algebra 1, Unit 3, Lesson 8"
+      points: 1
+      prompt: |
+        A data set of 10 points has r = 0.6. One point lies far below the line while the other nine are close to it. If that point is removed, what most likely happens to r?
+      options:
+        - "r stays exactly the same."
+        - "r decreases, because fewer points always lower the correlation."
+        - "r becomes negative."
+        - "r increases, because the remaining points fit the line more tightly."
+      option_explanations:
+        - |
+          Removing a point far from the line changes both the line and r.
+        - |
+          The number of points does not by itself set r; what matters is how close they are to a line.
+        - |
+          The other nine points still slope the same way, so the sign of r does not change.
+        - |
+          Correct. The far point was pulling the fit apart; without it the cloud hugs the line more closely, so r rises toward 1.
+      answer: 3
+
+    - slug: alg1-u03-w14-q09
+      type: multiple_choice
+      topic_code: "3.9"
+      source: "IM Algebra 1, Unit 3, Lesson 9"
+      points: 1
+      prompt: |
+        Monthly ice-cream sales and monthly drownings at a city's beaches have r = 0.9. Which is the best explanation?
+      options:
+        - "Drownings cause people to buy ice cream."
+        - "Eating ice cream causes drowning."
+        - "Hot weather increases both ice-cream sales and swimming, a lurking variable."
+        - "The correlation is a coincidence that would vanish with more data."
+      option_explanations:
+        - |
+          Reversing the direction gives no plausible mechanism either.
+        - |
+          There is no mechanism by which ice cream causes drowning; the correlation has another explanation.
+        - |
+          Correct. Temperature drives both variables, which is the classic lurking-variable explanation.
+        - |
+          The pattern repeats every summer, so it is not chance; it has a real common cause.
+      answer: 2
+
+    - slug: alg1-u03-w14-q10
+      type: multiple_choice
+      topic_code: "3.10"
+      source: "IM Algebra 1, Unit 3, Lesson 10"
+      points: 1
+      prompt: |
+        A model for dinosaur height from femur length, h = 2.4f + 20 with r = 0.97, was fitted to femurs between 60 cm and 120 cm. A new fossil has a femur of 200 cm. What is the right way to report a prediction?
+      options:
+        - "Use the intercept, 20 cm, as the prediction."
+        - "Refuse to compute anything because the intercept is meaningless."
+        - "Give 500 cm with full confidence, because r is so high."
+        - "Give 500 cm but note that 200 cm is far outside the data, so the trend may not hold."
+      option_explanations:
+        - |
+          The intercept is the value at f = 0 and has nothing to do with a 200 cm femur.
+        - |
+          A meaningless intercept does not stop the model being used; it just means f = 0 is outside sensible inputs.
+        - |
+          A high r describes the fit inside the data; it says nothing about how the pattern behaves far beyond it.
+        - |
+          Correct. 2.4(200) + 20 = 500 cm is the model's value, and the honest report flags it as extrapolation.
+      answer: 3
+
+    - slug: alg1-u03-w14-q11
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "IM Algebra 1, Unit 3, Lesson 6"
+      points: 1
+      prompt: |
+        A model predicts 150 for a point whose actual value is 143. Which is correct?
+      options:
+        - "The residual is −7 and the point is below the line."
+        - "The residual is 7 and the point is to the left of the line."
+        - "The residual is +7 and the point is above the line."
+        - "The residual is 0.95."
+      option_explanations:
+        - |
+          Correct. 143 − 150 = −7; the actual value is 7 less than predicted.
+        - |
+          Residuals are vertical distances; "left of the line" has no meaning here.
+        - |
+          Actual minus predicted is 143 − 150, which is negative, so the point is below the line.
+        - |
+          0.95 is the ratio 143/150; a residual is a difference, not a ratio.
+      answer: 0
+
+    - slug: alg1-u03-w14-q12
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "IM Algebra 1, Unit 3, Lesson 4"
+      points: 1
+      prompt: |
+        A model for a taxi fare in dollars is F = 2.5m + 3, where m is miles. What does 2.5 represent?
+      options:
+        - "The number of miles in a typical ride"
+        - "The additional cost for each mile driven"
+        - "The starting charge before any miles are driven"
+        - "The fare for a 1-mile ride"
+      option_explanations:
+        - |
+          The model does not describe typical rides; its coefficients are a rate and a starting value.
+        - |
+          Correct. The slope is the change in fare per additional mile.
+        - |
+          The starting charge is the intercept, 3 dollars, the fare at m = 0.
+        - |
+          A 1-mile ride costs 2.5 + 3 = 5.5 dollars, which includes the starting charge.
+      answer: 1
+
+    - slug: alg1-u03-w14-q13
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "IM Algebra 1, Unit 1, Lesson 13"
+      points: 1
+      prompt: |
+        Which data set has the larger standard deviation?
+      options:
+        - "5, 5, 5, 5"
+        - "They are equal because both have mean 5."
+        - "1, 5, 5, 9"
+        - "It cannot be decided without the median."
+      option_explanations:
+        - |
+          Every value equals the mean, so all deviations are 0 and the standard deviation is 0.
+        - |
+          Equal means say nothing about spread; standard deviation measures distance from the mean.
+        - |
+          Correct. The values 1 and 9 are 4 away from the mean, giving a positive standard deviation, while the first set has none.
+        - |
+          Standard deviation is computed from the mean and the deviations; the median is not needed.
+      answer: 2
+
+    - slug: alg1-u03-w14-q14
+      type: multiple_choice
+      topic_code: "2.21"
+      source: "IM Algebra 1, Unit 2, Lesson 21"
+      points: 1
+      prompt: |
+        How is the graph of y > 2x − 1 drawn?
+      options:
+        - "A solid line with shading above it"
+        - "A dashed line with shading above it"
+        - "A dashed line with shading below it"
+        - "A solid line with shading below it"
+      option_explanations:
+        - |
+          The strict inequality excludes the boundary, so the line must be dashed.
+        - |
+          Correct. ">" means dashed, and the test point (0, 0) gives 0 > −1, true, so the side containing the origin, above the line, is shaded.
+        - |
+          The side containing (0, 0) is shaded, and (0, 0) is above the line y = 2x − 1.
+        - |
+          Both the solid line and the shading below are wrong for a strict "greater than" inequality.
+      answer: 1
+
+    # ---- Select-all (3.9, 3.7)
+    - slug: alg1-u03-w14-q15
+      type: multi_select
+      topic_code: "3.9"
+      source: "IM Algebra 1, Unit 3, Lesson 9"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A study finds a strong positive correlation between the number of hours students spend on sports and their grades. Which are reasonable alternative explanations to "sports cause better grades"? Select all that apply.
+      options:
+        - "Students with good grades are allowed more time for sports (reverse direction)."
+        - "The correlation is impossible, so the data must be wrong."
+        - "Supportive families encourage both sports and study (lurking variable)."
+        - "Schools with strong sports programmes also have strong academic programmes (lurking variable)."
+        - "A positive r always proves causation."
+      option_explanations:
+        - |
+          Correct. The causal arrow may run from grades to sports time rather than the other way.
+        - |
+          Correlations between unrelated-looking variables are common and do not indicate bad data.
+        - |
+          Correct. A common cause that raises both variables is the classic lurking-variable explanation.
+        - |
+          Correct. Which school a student attends can drive both variables at once.
+        - |
+          No value of r proves causation; only a well-designed experiment can support it.
+      answer: [0, 2, 3]
+
+    - slug: alg1-u03-w14-q16
+      type: multi_select
+      topic_code: "3.7"
+      source: "IM Algebra 1, Unit 3, Lesson 7"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about the correlation coefficient r are true? Select all that apply.
+      options:
+        - "r = 0.5 is stronger than r = −0.7."
+        - "r is always between −1 and 1."
+        - "A negative r means the line of best fit slopes downward."
+        - "Points lying exactly on a U-shaped curve can have r close to 0."
+        - "r equals the slope of the line of best fit."
+      option_explanations:
+        - |
+          Strength ignores sign; 0.7 is farther from 0 than 0.5, so −0.7 is the stronger correlation.
+        - |
+          Correct. The extremes ±1 occur only when every point is exactly on a line.
+        - |
+          Correct. The sign of r always matches the sign of the slope.
+        - |
+          Correct. r only detects linear trends, so a symmetric curve can give r near 0 despite a perfect pattern.
+        - |
+          r measures closeness to a line, not its steepness; the two are different numbers.
+      answer: [1, 2, 3]
+
+    # ---- True/false (3.7, 3.3)
+    - slug: alg1-u03-w14-q17
+      type: true_false
+      topic_code: "3.7"
+      source: "IM Algebra 1, Unit 3, Lesson 7"
+      points: 1
+      prompt: |
+        True or false: a correlation of r = −0.9 indicates a stronger linear relationship than r = 0.6.
+      answer: true
+      explanation: |
+        True. Strength is measured by how far r is from 0, ignoring sign; 0.9 is farther than 0.6, so the negative correlation is the stronger one.
+
+    - slug: alg1-u03-w14-q18
+      type: true_false
+      topic_code: "3.3"
+      source: "IM Algebra 1, Unit 3, Lesson 3"
+      points: 1
+      prompt: |
+        True or false: to compare two groups in a two-way table, the groups must contain the same number of cases.
+      answer: false
+      explanation: |
+        False. Converting each group to relative frequencies (percentages of that group) makes groups of any size comparable; that is the whole point of conditional relative frequencies.
+
+    # ---- Fill in the blank (3.9, 3.5)
+    - slug: alg1-u03-w14-q19
+      type: fill_blank
+      topic_code: "3.9"
+      source: "IM Algebra 1, Unit 3, Lesson 9"
+      points: 1
+      prompt: |
+        A third variable that influences both measured variables and creates a correlation between them is called a ____ variable.
+      answer: ["lurking", "confounding", "hidden", "third"]
+      explanation: |
+        Hot weather driving both ice-cream sales and drownings is the standard example. Ruling out lurking variables is why experiments assign the explanatory variable at random.
+
+    - slug: alg1-u03-w14-q20
+      type: fill_blank
+      topic_code: "3.5"
+      source: "IM Algebra 1, Unit 3, Lesson 5"
+      points: 1
+      prompt: |
+        The line that makes the sum of the squared residuals as small as possible is called the ____ line.
+      answer: ["least-squares", "least squares", "regression", "line of best fit", "best fit", "best-fit"]
+      explanation: |
+        Technology computes the least-squares line directly; it is the standard line of best fit and the one whose residuals sum to zero.
+
+    # ---- Numeric (3.10, 2.15)
+    - slug: alg1-u03-w14-q21
+      type: numeric
+      topic_code: "3.10"
+      source: "IM Algebra 1, Unit 3, Lesson 10"
+      points: 1
+      prompt: |
+        Using the model h = 2.4f + 20 for height in cm from femur length f in cm, what height does a 90 cm femur predict?
+      answer: { value: 236, tolerance: 0 }
+      explanation: |
+        2.4(90) + 20 = 216 + 20 = 236 cm.
+
+    - slug: alg1-u03-w14-q22
+      type: numeric
+      topic_code: "2.15"
+      source: "IM Algebra 1, Unit 2, Lesson 15"
+      points: 1
+      prompt: |
+        Solve the system 2x + 3y = 12 and 2x − y = 4 by elimination. What is the value of y?
+      answer: { value: 2, tolerance: 0 }
+      explanation: |
+        Subtracting the second equation from the first eliminates x: 4y = 8, so y = 2, and then x = 3.
+
+    # ---- Short answer (3.9, 1.14)
+    - slug: alg1-u03-w14-q23
+      type: short_answer
+      topic_code: "3.9"
+      source: "IM Algebra 1, Unit 3, Lesson 9"
+      points: 3
+      prompt: |
+        A survey of 500 students finds that those who eat breakfast score higher on tests, with a clear association.
+
+        (a) Give one lurking variable that could explain the association without breakfast causing better scores.
+        (b) Explain how the direction of cause might be reversed.
+        (c) Describe a study that could test whether breakfast actually causes higher scores.
+      answer: |
+        (a) Family routine or household organisation: students from organised households both eat breakfast and get more study support (other reasonable answers: sleep, income).
+        (b) Students who are more attentive or motivated may both score higher and choose to eat breakfast; the scores would be driving the breakfast habit rather than the reverse.
+        (c) An experiment: randomly assign some students to receive breakfast at school and others not, keep everything else the same, and compare the two groups' test scores afterwards.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: any plausible third variable that affects both breakfast and scores.
+
+        (b) 1 pt: a sensible account of scores (or the traits behind them) driving breakfast.
+
+        (c) 1 pt: random assignment of the explanatory variable and a comparison of groups.
+
+    - slug: alg1-u03-w14-q24
+      type: short_answer
+      topic_code: "1.14"
+      source: "IM Algebra 1, Unit 1, Lesson 14"
+      points: 3
+      prompt: |
+        The data set 12, 14, 15, 15, 17, 18, 20, 41 records minutes spent on a task.
+
+        (a) Find Q1, Q3 and the IQR.
+        (b) Use the 1.5 × IQR rule to decide whether 41 is an outlier.
+        (c) State which measure of centre you would report for this data and why.
+      answer: |
+        (a) Lower half 12, 14, 15, 15 gives Q1 = 14.5; upper half 17, 18, 20, 41 gives Q3 = 19; IQR = 4.5.
+        (b) Upper fence Q3 + 1.5(4.5) = 19 + 6.75 = 25.75; 41 is above it, so it is an outlier.
+        (c) The median (16), because the outlier pulls the mean (19) upward and the median resists it.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: Q1 = 14.5, Q3 = 19, IQR = 4.5.
+
+        (b) 1 pt: fence 25.75 computed and 41 identified as an outlier.
+
+        (c) 1 pt: median chosen with the resistance-to-outliers reason.
+
+    # ---- Long answer (3.10)
+    - slug: alg1-u03-w14-q25
+      type: long_answer
+      topic_code: "3.10"
+      source: "IM Algebra 1, Unit 3, Lesson 10"
+      points: 6
+      prompt: |
+        A student measures the width w and length l, in centimetres, of six national flags: (60, 90), (80, 122), (100, 150), (120, 180), (150, 228), (200, 300). Technology gives the line of best fit l = 1.5w + 0.7 with r = 0.999.
+
+        (1) Describe the relationship shown by the data in words, using the sign and size of r.
+        (2) Interpret the slope in context. Is the intercept meaningful? Explain.
+        (3) Compute the residuals for the flags of width 80 and 150, and say what they tell you.
+        (4) Predict the length of a flag 110 cm wide and of a flag 500 cm wide. Explain which prediction you trust more and why the model cannot tell you whether width causes length.
+      answer: |
+        (1) A very strong positive linear relationship: wider flags are longer, and the points lie almost exactly on a line (r ≈ 1).
+        (2) Each extra centimetre of width goes with about 1.5 cm more length; flags are made in roughly a 3:2 ratio. The intercept 0.7 cm is essentially 0, which is sensible (a flag of no width has no length), although w = 0 is outside the data.
+        (3) Width 80: predicted 1.5(80) + 0.7 = 120.7, residual 122 − 120.7 = +1.3 (slightly longer than the line predicts). Width 150: predicted 225.7, residual 228 − 225.7 = +2.3. Both are tiny compared with the lengths, confirming the close fit.
+        (4) Width 110: 1.5(110) + 0.7 = 165.7, about 166 cm, inside the data range, trustworthy. Width 500: 750.7, about 751 cm, far beyond the largest flag measured (200 cm); the pattern probably continues for flags because the ratio is a design convention, but it is extrapolation and should be flagged. Width does not "cause" length; both are set together by the designer's chosen proportions, so this is a relationship, not a cause.
+      explanation: |
+        Six points.
+
+        (1) 1 pt: strong, positive, near-perfect linear relationship.
+
+        (2) 2 pts: 1 for the slope as 1.5 cm of length per cm of width (or the 3:2 ratio), 1 for a reasoned comment on the intercept.
+
+        (3) 1 pt: residuals +1.3 and +2.3 with a comment on their small size.
+
+        (4) 2 pts: 1 for both predictions (about 166 and 751), 1 for identifying the extrapolation and explaining that the model shows a relationship, not a cause.
+
+        Common errors: calling r the slope; predicted minus actual; trusting the 500 cm prediction without comment.

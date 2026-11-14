@@ -1,0 +1,624 @@
+week: 9
+unit: 1
+title: "Building and Choosing Function Models"
+topics: ["1.13", "1.14"]
+guide: guides/week-09.md
+guide_description: |
+  How to choose a linear, quadratic, cubic, polynomial, rational or piecewise model from the characteristics of
+  data and context; stating assumptions and a contextual domain; building models from points by a system, from
+  zeros and a point, from a verbal rule, and by describing a regression; residuals and residual plots; and using
+  a model to answer questions with units. Worked examples use hypothetical data: a tossed ball, an open box, a
+  print shop's average cost, a bike-share fee and a heated water tank.
+flashcards_description: |
+  30 cards on choosing a model type, assumptions and contextual domains, building models from points and
+  descriptions, regression and residuals, and interpreting a model's predictions in context.
+
+flashcards:
+  - front: Linear model → data and context clues
+    back: |
+      Equal changes in output over equal changes in input (constant first differences), and a context with a constant rate: dollars per item, metres per second.
+    topic_code: "1.13"
+  - front: Quadratic model → data and context clues
+    back: |
+      Constant second differences, a single maximum or minimum, symmetry about a vertical line. Contexts: area from a length, height of a thrown object, revenue with a linear demand.
+    topic_code: "1.13"
+  - front: Cubic model → data and context clues
+    back: |
+      Constant third differences, a point of inflection, up to two turning points. Contexts: volume built from a length, a quantity that rises, levels off and rises again.
+    topic_code: "1.13"
+  - front: Rational model → data and context clues
+    back: |
+      Outputs level off toward a horizontal asymptote or blow up near an input. Contexts: average cost per item, time for n workers to share a job, a concentration approaching a limit.
+    topic_code: "1.13"
+  - front: Piecewise model → when to use one
+    back: |
+      When the rule changes at a threshold: a fee that starts after 30 minutes, a pump that switches speed, a tax bracket. Each piece can be a different function.
+    topic_code: "1.13"
+  - front: Average cost (500 + 2x)/x per poster → why rational
+    back: |
+      The $500 setup fee is spread over x posters, so the average cost falls and levels off toward $2, the horizontal asymptote y = 2.
+    topic_code: "1.13"
+  - front: Model assumption → how to state one
+    back: |
+      In context, as a condition the model takes for granted, for example "the price per item does not change with quantity" or "air resistance is negligible".
+    topic_code: "1.13"
+  - front: Contextual domain → meaning
+    back: |
+      The inputs that make sense in the situation. A box volume x(16 − 2x)(10 − 2x) is a cubic defined for all x, but only 0 < x < 5 gives a real box.
+    topic_code: "1.13"
+  - front: Ball model −4.9t² + 19.6t + 1.5 → contextual domain
+    back: |
+      From release until the ball lands: about 0 ≤ t ≤ 4.08 seconds, where h(t) = 0. Negative times and times after landing are outside the model.
+    topic_code: "1.13"
+  - front: Interpolation vs extrapolation → which is more reliable
+    back: |
+      Interpolation (predicting inside the data's input range) is more reliable. Extrapolation assumes the pattern continues where there is no evidence that it does.
+    topic_code: "1.13"
+  - front: Limitation of a linear model for a growing seedling → example
+    back: |
+      Constant growth cannot last: extrapolating months ahead would predict an impossibly tall plant. The model is reasonable only over the observed days.
+    topic_code: "1.13"
+  - front: Residual → definition and sign
+    back: |
+      Residual = actual − predicted. Positive: the model underestimated. Negative: the model overestimated.
+    topic_code: "1.14"
+  - front: Residual plot with no pattern → conclusion
+    back: |
+      Residuals scattered randomly around 0 suggest the model type is appropriate.
+    topic_code: "1.14"
+  - front: U-shaped residuals from a linear fit → conclusion
+    back: |
+      Positive at both ends, negative in the middle: the data curve upward, so a linear model is not appropriate and a quadratic is likely better.
+    topic_code: "1.14"
+  - front: Correlation coefficient r near 1 → what it does and does not show
+    back: |
+      It shows the points lie close to a line. It does not prove a line is the right model type; curved data can still give r near 1, so check the residuals.
+    topic_code: "1.14"
+  - front: Quadratic through (0, 2), (1, 5), (3, 5) → model
+    back: |
+      c = 2; a + b = 3; 9a + 3b = 3. Solving gives a = −1, b = 4: y = −x² + 4x + 2.
+    topic_code: "1.14"
+  - front: Cubic with zeros 0, 4, 9 through (5, 40) → model
+    back: |
+      y = k · x(x − 4)(x − 9). At x = 5: −20k = 40, so k = −2 and y = −2x(x − 4)(x − 9).
+    topic_code: "1.14"
+  - front: Bike-share $2 for the first 30 minutes, then $0.15 per minute → piecewise model
+    back: |
+      C(t) = 2 for 0 < t ≤ 30 and C(t) = 2 + 0.15(t − 30) for t > 30. A 50-minute ride costs $5.00.
+    topic_code: "1.14"
+  - front: Regression on a calculator → the three steps
+    back: |
+      Enter inputs and outputs as lists; choose the model type (linear, quadratic, cubic); read and report the coefficients, rounded to three decimal places.
+    topic_code: "1.14"
+  - front: Tank temperature model T̂ = 0.694t + 18.0 → slope in context
+    back: |
+      The model predicts the water temperature rises about 0.694 °C per minute. Always give units and say "predicted" or "the model".
+    topic_code: "1.14"
+  - front: Tank temperature model T̂ = 0.694t + 18.0 → intercept in context
+    back: |
+      The predicted temperature at t = 0, the start of heating, is 18.0 °C.
+    topic_code: "1.14"
+  - front: Tank model at t = 120 minutes → why not trust it
+    back: |
+      It predicts about 101 °C, above water's boiling point at sea level. An extrapolation far outside 0 to 20 minutes, which the context rules out.
+    topic_code: "1.14"
+  - front: Maximum of a quadratic model → how to find it
+    back: |
+      At t = −b/(2a). For h(t) = −4.9t² + 19.6t + 1.5, t = 2 s and h(2) = 21.1 m. Report both the input and the output with units.
+    topic_code: "1.14"
+  - front: Average rate of change from a model → interpretation template
+    back: |
+      "Over [a, b], the [output] changes on average by [value] [output units] per [input unit]." Example: the ball rose on average 14.7 m per second during the first second.
+    topic_code: "1.14"
+  - front: Revenue with demand R = 120 − 4p → revenue model
+    back: |
+      Revenue = price × quantity = p(120 − 4p), a quadratic opening down with zeros 0 and 30 and a maximum halfway between, at p = 15.
+    topic_code: "1.14"
+  - front: Solving a model equation like h(t) = 10 → method
+    back: |
+      Set the model equal to the value and solve: by factoring or the quadratic formula without a calculator, or by intersecting y = h(t) with y = 10 on a calculator. Keep only solutions in the contextual domain.
+    topic_code: "1.14"
+  - front: Reporting a model answer → three things to include
+    back: |
+      The number, its units, and what it means in the context (including whether it is a prediction from the model).
+    topic_code: "1.14"
+  - front: Error-spot → "the residual is predicted minus actual"
+    back: |
+      Residual = actual − predicted. If the model predicts 54 and the actual value is 50, the residual is −4 (the model overestimated).
+    topic_code: "1.14"
+  - front: Error-spot → "r = 0.98, so a linear model is definitely right"
+    back: |
+      A strong r only means the points are near a line. A U-shaped or curved residual pattern still shows a different model type would fit better.
+    topic_code: "1.14"
+  - front: Error-spot → "a 50-minute bike-share ride costs 0.15 · 50 = $7.50"
+    back: |
+      The piecewise rule charges $2 for the first 30 minutes and $0.15 only for the 20 minutes after that: 2 + 0.15 · 20 = $5.00.
+    topic_code: "1.14"
+
+quiz:
+  description: |
+    23 questions · about 45 minutes · mostly on this week (topics 1.13 and 1.14: choosing a model type, assumptions
+    and contextual domains, building models from points and descriptions, residuals, and interpreting predictions),
+    with about a third reviewing weeks 1 to 8 (rates of change, polynomial behavior, end behavior, holes and
+    transformations). Opens with a shared-context set of four questions on hypothetical bike-rental data. Multiple
+    choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes. A
+    calculator helps with the regression short answer but is not required anywhere else.
+  questions:
+    # ---- Stimulus set: hypothetical bike-rental demand (1.13, 1.14)
+    - slug: precalc-u01-w09-q01
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "AP Precalculus CED, Topic 1.13"
+      points: 1
+      stimulus: |
+        A bike shop records the number of bikes rented per day, R, at several daily rental prices p, in dollars. The data are hypothetical.
+
+        | p (dollars) | 10 | 12 | 14 | 16 | 18 |
+        |---|---|---|---|---|---|
+        | R (bikes) | 80 | 72 | 64 | 56 | 48 |
+      prompt: |
+        Which type of function is most appropriate for modeling R as a function of p?
+      options:
+        - "Quadratic, because R decreases as p increases"
+        - "Linear, because R decreases by 8 bikes for every $2 increase in price"
+        - "Rational, because R decreases as p increases"
+        - "Cubic, because there are five data points"
+      option_explanations:
+        - |
+          Decreasing data alone do not suggest a quadratic; the changes here are all equal, with no sign of a turning point.
+        - |
+          Correct. Equal input steps of $2 give equal output changes of −8, a constant rate of change of −4 bikes per dollar, which is the signature of a linear function.
+        - |
+          A rational model would show outputs levelling off toward an asymptote; these outputs fall by the same amount each step.
+        - |
+          The number of data points does not decide the model type; the pattern of differences does, and the first differences are already constant.
+      answer: 1
+    - slug: precalc-u01-w09-q02
+      type: multiple_choice
+      topic_code: "1.14"
+      source: "AP Precalculus CED, Topic 1.14"
+      points: 1
+      stimulus: |
+        A bike shop records the number of bikes rented per day, R, at several daily rental prices p, in dollars. The data are hypothetical.
+
+        | p (dollars) | 10 | 12 | 14 | 16 | 18 |
+        |---|---|---|---|---|---|
+        | R (bikes) | 80 | 72 | 64 | 56 | 48 |
+      prompt: |
+        Which function fits all five data points?
+      options:
+        - "R(p) = 80 − 4p"
+        - "R(p) = 120 − 8p"
+        - "R(p) = 120 − 4p"
+        - "R(p) = 4p + 40"
+      option_explanations:
+        - |
+          This uses the first data value as the vertical intercept, but 80 is the output at p = 10, not at p = 0.
+        - |
+          This uses the change per $2 step as the slope; per dollar the rate is −8/2 = −4.
+        - |
+          Correct. The slope is −8/2 = −4 bikes per dollar, and 80 = b − 4(10) gives b = 120. Check: R(18) = 120 − 72 = 48.
+        - |
+          The slope must be negative because rentals fall as the price rises; this model increases.
+      answer: 2
+    - slug: precalc-u01-w09-q03
+      type: multiple_choice
+      topic_code: "1.14"
+      source: "AP Precalculus CED, Topic 1.14"
+      points: 1
+      stimulus: |
+        A bike shop records the number of bikes rented per day, R, at several daily rental prices p, in dollars. The data are hypothetical.
+
+        | p (dollars) | 10 | 12 | 14 | 16 | 18 |
+        |---|---|---|---|---|---|
+        | R (bikes) | 80 | 72 | 64 | 56 | 48 |
+      prompt: |
+        Daily revenue is price times rentals. Using the linear model that fits the data, which price gives the greatest daily revenue?
+      options:
+        - "$15"
+        - "$30"
+        - "$10"
+        - "$14"
+      option_explanations:
+        - |
+          Correct. Revenue p(120 − 4p) is a quadratic opening down with zeros 0 and 30, so its maximum is halfway, at p = 15, giving 15 · 60 = $900.
+        - |
+          At $30 the model predicts zero rentals, so revenue is 0; 30 is a zero of the revenue function, not its maximum.
+        - |
+          The lowest price gives the most rentals but only 10 · 80 = $800 of revenue.
+        - |
+          $14 and $16 both give $896, the best values in the table, but the model's maximum lies between them at $15.
+      answer: 0
+    - slug: precalc-u01-w09-q04
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "AP Precalculus CED, Topic 1.13"
+      points: 1
+      stimulus: |
+        A bike shop records the number of bikes rented per day, R, at several daily rental prices p, in dollars. The data are hypothetical.
+
+        | p (dollars) | 10 | 12 | 14 | 16 | 18 |
+        |---|---|---|---|---|---|
+        | R (bikes) | 80 | 72 | 64 | 56 | 48 |
+      prompt: |
+        Which is the most reasonable domain for the linear model of R in this context?
+      options:
+        - "All real numbers"
+        - "p ≥ 0"
+        - "0 ≤ p ≤ 120"
+        - "0 ≤ p ≤ 30"
+      option_explanations:
+        - |
+          Negative prices make no sense, and large prices would give negative rentals.
+        - |
+          Prices above $30 would give a negative number of rentals, which is impossible.
+        - |
+          120 is the vertical intercept (rentals at p = 0), not a price limit; at p = 120 the model gives −360 bikes.
+        - |
+          Correct. Prices cannot be negative, and the number of rentals 120 − 4p must be at least 0, so p ≤ 30. (Predictions far from the observed $10 to $18 are still extrapolations.)
+      answer: 3
+    # ---- Independent items
+    - slug: precalc-u01-w09-q05
+      type: multiple_choice
+      topic_code: "1.3"
+      source: "AP Precalculus CED, Topic 1.3"
+      points: 1
+      stimulus: |
+        | x | 0 | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | y | 3 | 4 | 7 | 12 | 19 |
+      prompt: |
+        Which type of function of lowest degree models the data in the table exactly?
+      options:
+        - "Linear, because y increases every time x increases"
+        - "Cubic, because the third differences are constant"
+        - "Rational, because the outputs grow faster and faster"
+        - "Quadratic, because the second differences are constant"
+      option_explanations:
+        - |
+          The first differences are 1, 3, 5, 7, not constant, so a line cannot pass through all five points.
+        - |
+          The third differences are constant (all 0), but that is because the second differences are already constant; the lowest-degree fit is quadratic.
+        - |
+          Rational functions are suggested by asymptotic behavior, not by steadily increasing growth; these data have constant second differences.
+        - |
+          Correct. First differences 1, 3, 5, 7; second differences 2, 2, 2. Constant second differences over equal steps mean a quadratic (here y = x² + 3).
+      answer: 3
+    - slug: precalc-u01-w09-q06
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "AP Precalculus CED, Topic 1.13"
+      points: 1
+      prompt: |
+        Identical pumps, each working at the same constant rate, are used to empty a pool. Which type of function best models the time T needed to empty the pool as a function of the number of pumps n?
+      options:
+        - "Rational, T = k/n for some constant k > 0"
+        - "Linear, T = −kn + b for constants k > 0 and b"
+        - "Quadratic, T = −kn² + b for constants k > 0 and b"
+        - "Cubic, T = kn³ for some constant k > 0"
+      option_explanations:
+        - |
+          Correct. Doubling the number of pumps halves the time, so T is inversely proportional to n; the time approaches 0 but never reaches it as n grows.
+        - |
+          A linear model would reach zero and then predict negative times for enough pumps, which is impossible.
+        - |
+          A downward quadratic also eventually predicts negative times, and nothing in the context suggests a squared relationship.
+        - |
+          This model makes the time increase as pumps are added, the opposite of the situation.
+      answer: 0
+    - slug: precalc-u01-w09-q07
+      type: multiple_choice
+      topic_code: "1.14"
+      source: "AP Precalculus CED, Topic 1.14"
+      points: 1
+      prompt: |
+        A linear model ŷ = 2.4x + 3 is fitted to a data set that includes the point (5, 14.2). Which describes the residual at x = 5?
+      options:
+        - "0.8, so the model underestimates"
+        - "−0.8, so the model underestimates"
+        - "−0.8, so the model overestimates"
+        - "0.8, so the model overestimates"
+      option_explanations:
+        - |
+          The residual is actual − predicted = 14.2 − 15 = −0.8, not +0.8; the order of subtraction matters.
+        - |
+          The value −0.8 is right, but a negative residual means the prediction (15) is above the actual value (14.2): an overestimate.
+        - |
+          Correct. The prediction is 2.4(5) + 3 = 15. Residual = 14.2 − 15 = −0.8; the model predicts more than the actual value.
+        - |
+          This computes predicted − actual. The residual is defined as actual − predicted, which is −0.8.
+      answer: 2
+    - slug: precalc-u01-w09-q08
+      type: multiple_choice
+      topic_code: "1.14"
+      source: "AP Precalculus CED, Topic 1.14"
+      points: 1
+      prompt: |
+        Which quadratic function passes through the points (0, 4), (1, 3) and (2, 6)?
+      options:
+        - "y = x² − 2x + 4"
+        - "y = 2x² − 3x + 4"
+        - "y = −2x² + x + 4"
+        - "y = 3x² − 4x + 4"
+      option_explanations:
+        - |
+          This fits (0, 4) and (1, 3), but at x = 2 it gives 4 − 4 + 4 = 4, not 6.
+        - |
+          Correct. c = 4; a + b = −1; 4a + 2b = 2. Solving gives a = 2, b = −3. Check: 2(4) − 6 + 4 = 6.
+        - |
+          This fits the first two points, but at x = 2 it gives −8 + 2 + 4 = −2, not 6.
+        - |
+          This fits the first two points, but at x = 2 it gives 12 − 8 + 4 = 8, not 6.
+      answer: 1
+    - slug: precalc-u01-w09-q09
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "AP Precalculus CED, Topic 1.13"
+      points: 1
+      prompt: |
+        A linear model is fitted to six data points with x = 1, 2, 3, 4, 5, 6. The residuals, in order, are 2.1, −0.4, −1.8, −1.9, −0.3 and 2.3. Which conclusion is best supported?
+      options:
+        - "A linear model is not appropriate; the U-shaped pattern suggests a quadratic model would fit better."
+        - "A linear model is appropriate because the residuals add to about 0."
+        - "A linear model is appropriate because every residual is less than 3 in absolute value."
+        - "A cubic model is needed because the residuals change sign twice."
+      option_explanations:
+        - |
+          Correct. The residuals are positive at both ends and negative in the middle, a systematic U-shaped pattern: the data curve upward, which a quadratic can capture.
+        - |
+          Residuals of a least-squares line always add to about 0; that says nothing about whether the model type is right.
+        - |
+          Small residuals are not enough when they follow a clear pattern; a pattern means the model misses the shape of the data.
+        - |
+          Positive, then negative, then positive residuals form a U shape, which points to a quadratic trend rather than a cubic one.
+      answer: 0
+    - slug: precalc-u01-w09-q10
+      type: multiple_choice
+      topic_code: "1.14"
+      source: "AP Precalculus CED, Topic 1.14"
+      points: 1
+      prompt: |
+        A cubic regression on hypothetical data gives y = 0.5x³ − 3x² + 2x + 10, where y is the number of subscribers to a local newsletter, in thousands, x years after it launched. What does the model predict for x = 6?
+      options:
+        - "10 thousand subscribers"
+        - "238 thousand subscribers"
+        - "130 thousand subscribers"
+        - "22 thousand subscribers"
+      option_explanations:
+        - |
+          10 is the constant term, the model's value at x = 0, not at x = 6.
+        - |
+          This treats −3x² as +3x², adding 108 instead of subtracting it.
+        - |
+          This drops the −3x² term entirely: 108 + 12 + 10 = 130.
+        - |
+          Correct. 0.5(216) − 3(36) + 2(6) + 10 = 108 − 108 + 12 + 10 = 22, so about 22 thousand subscribers.
+      answer: 3
+    - slug: precalc-u01-w09-q11
+      type: multiple_choice
+      topic_code: "1.12"
+      source: "AP Precalculus CED, Topic 1.12"
+      points: 1
+      prompt: |
+        A function f has its minimum at the point (1, −3). Where is the minimum of g(x) = f(x − 2) + 5?
+      options:
+        - "(−1, 2)"
+        - "(3, 2)"
+        - "(3, −8)"
+        - "(−1, −8)"
+      option_explanations:
+        - |
+          The output is right, but f(x − 2) shifts the graph right 2, so the input is 1 + 2 = 3.
+        - |
+          Correct. Shift right 2 and up 5: (1 + 2, −3 + 5) = (3, 2).
+        - |
+          The +5 outside f moves the graph up, so the output is −3 + 5 = 2, not −8.
+        - |
+          Both shifts are reversed: right 2 (not left) and up 5 (not down).
+      answer: 1
+    - slug: precalc-u01-w09-q12
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Precalculus CED, Topic 1.7"
+      points: 1
+      prompt: |
+        A hypothetical workshop's average cost per item is C(x) = (300 + 1.5x)/x dollars when x items are made. Which statement about lim as x → ∞ of C(x) is correct?
+      options:
+        - "The limit is 0: for very large orders, items cost almost nothing to make."
+        - "The limit is 300: the average cost approaches the fixed cost."
+        - "The limit is 1.5: for very large orders, the average cost per item approaches $1.50."
+        - "The limit is ∞: the average cost grows without bound."
+      option_explanations:
+        - |
+          Only the fixed-cost part 300/x shrinks to 0; the per-item cost 1.5 remains.
+        - |
+          The fixed cost is spread over more and more items, so its share 300/x shrinks toward 0, not toward 300.
+        - |
+          Correct. C(x) = 1.5 + 300/x, and 300/x → 0. Equivalently, equal degrees give the ratio of leading coefficients, 1.5/1.
+        - |
+          The numerator and denominator have the same degree, so C(x) approaches a finite horizontal asymptote.
+      answer: 2
+    - slug: precalc-u01-w09-q13
+      type: multi_select
+      topic_code: "1.13"
+      source: "AP Precalculus CED, Topic 1.13"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which situations are better modeled by a quadratic function than by a linear function? Select all that apply.
+      options:
+        - "The height of a ball thrown upward, as a function of time"
+        - "The area of a square garden, as a function of its side length"
+        - "The total cost of x pens at $1.50 each"
+        - "Revenue from a product whose demand is 200 − 5p units at price p"
+        - "Distance traveled by a car moving at a constant 60 km/h, as a function of time"
+      option_explanations:
+        - |
+          Correct. The height rises, reaches a maximum and falls, with constant second differences over equal time steps.
+        - |
+          Correct. Area = s², which grows by increasing amounts as s increases.
+        - |
+          The cost rises by the same $1.50 per pen, a constant rate: linear.
+        - |
+          Correct. Revenue = p(200 − 5p) is a product of two linear expressions, a quadratic with a maximum.
+        - |
+          Constant speed means constant rate of change of distance: linear.
+      answer: [0, 1, 3]
+    - slug: precalc-u01-w09-q14
+      type: multi_select
+      topic_code: "1.14"
+      source: "AP Precalculus CED, Topic 1.14"
+      points: 2
+      partial_credit: true
+      prompt: |
+        An open box is made from a 20 cm by 12 cm sheet of card by cutting squares of side x cm from each corner and folding up the sides. Its volume is V(x) = x(20 − 2x)(12 − 2x) cubic centimeters. Which statements are true? Select all that apply.
+      options:
+        - "The contextual domain of V is 0 < x < 6."
+        - "V(2) = 256, so a 2 cm cut gives a volume of 256 cm³."
+        - "V is a polynomial of degree 3."
+        - "V has a zero at x = 10, so a 10 cm cut produces a box with no volume."
+        - "V(x) < 0 for some x with 0 < x < 6."
+      option_explanations:
+        - |
+          Correct. All three dimensions must be positive: x > 0 and 12 − 2x > 0 (the stricter of the two side conditions) give 0 < x < 6.
+        - |
+          Correct. V(2) = 2 · 16 · 8 = 256 cubic centimeters.
+        - |
+          Correct. Multiplying three linear factors gives a leading term 4x³.
+        - |
+          A 10 cm cut is impossible on a 12 cm side (two 10 cm squares do not fit), so x = 10 is outside the contextual domain.
+        - |
+          For 0 < x < 6 all three factors are positive, so V(x) > 0 throughout the contextual domain.
+      answer: [0, 1, 2]
+    - slug: precalc-u01-w09-q15
+      type: true_false
+      topic_code: "1.5"
+      source: "AP Precalculus CED, Topic 1.5"
+      points: 1
+      prompt: |
+        True or false: A polynomial of degree 4 with real coefficients can have exactly three non-real zeros.
+      answer: false
+      explanation: |
+        False. Non-real zeros of a polynomial with real coefficients come in conjugate pairs, so their number is even. A degree-4 polynomial has 4 zeros counting multiplicity, so it has 0, 2 or 4 non-real zeros, never 3.
+    - slug: precalc-u01-w09-q16
+      type: true_false
+      topic_code: "1.12"
+      source: "AP Precalculus CED, Topic 1.12"
+      points: 1
+      prompt: |
+        True or false: If the graph of f has a vertical asymptote at x = 2, then the graph of y = f(x − 3) has a vertical asymptote at x = 5.
+      answer: true
+      explanation: |
+        True. f(x − 3) is the graph of f shifted right 3, and its outputs blow up when x − 3 = 2, that is, at x = 5.
+    - slug: precalc-u01-w09-q17
+      type: fill_blank
+      topic_code: "1.14"
+      source: "AP Precalculus CED, Topic 1.14"
+      points: 1
+      prompt: |
+        A hypothetical bakery models the cost of making x cakes as C(x) = 2.5x + 40 dollars. According to the model, a total cost of $165 corresponds to ____ cakes.
+      answer: ["50"]
+      explanation: |
+        Solve 2.5x + 40 = 165: 2.5x = 125, so x = 50 cakes.
+    - slug: precalc-u01-w09-q18
+      type: fill_blank
+      topic_code: "1.10"
+      source: "AP Precalculus CED, Topic 1.10"
+      points: 1
+      prompt: |
+        The graph of y = (x² − 3x − 10)/(x² − 25) has a hole at x = 5. The y-coordinate of the hole is ____.
+      answer: ["7/10", "0.7", ".7"]
+      explanation: |
+        (x − 5)(x + 2)/((x − 5)(x + 5)) simplifies to (x + 2)/(x + 5) for x ≠ 5. At x = 5 that is 7/10, so the hole is at (5, 7/10).
+    - slug: precalc-u01-w09-q19
+      type: numeric
+      topic_code: "1.14"
+      source: "AP Precalculus CED, Topic 1.14"
+      points: 1
+      prompt: |
+        The height of a ball, in meters, t seconds after it is thrown is modeled by h(t) = −4.9t² + 14.7t + 2. According to the model, what is the ball's maximum height, in meters? Give your answer to the nearest hundredth.
+      answer: { value: 13.025, tolerance: 0.01 }
+      explanation: |
+        The maximum is at t = −14.7/(2 · (−4.9)) = 1.5 s. h(1.5) = −4.9(2.25) + 14.7(1.5) + 2 = −11.025 + 22.05 + 2 = 13.025, about 13.03 m (13.02 also accepted).
+    - slug: precalc-u01-w09-q20
+      type: numeric
+      topic_code: "1.4"
+      source: "AP Precalculus CED, Topic 1.4"
+      points: 1
+      prompt: |
+        What is the greatest number of local extrema (local maximums and minimums combined) that a polynomial function of degree 5 can have? Give a whole number.
+      answer: { value: 4, tolerance: 0 }
+      explanation: |
+        A polynomial of degree n has at most n − 1 turning points, so a degree-5 polynomial has at most 4 local extrema. For example, x(x² − 1)(x² − 4) has exactly 4.
+    - slug: precalc-u01-w09-q21
+      type: short_answer
+      topic_code: "1.14"
+      source: "AP Precalculus CED, Topic 1.14"
+      points: 3
+      stimulus: |
+        The table shows the height of a seedling, in centimeters, x days after it was first measured. The data are hypothetical.
+
+        | x (days) | 0 | 2 | 4 | 6 | 8 |
+        |---|---|---|---|---|---|
+        | height (cm) | 3.1 | 4.9 | 7.2 | 8.8 | 11.0 |
+      prompt: |
+        (Calculator.) A linear regression on these data gives ŷ = 0.985x + 3.06.
+
+        (a) Interpret the slope of the model in context, with units.
+        (b) Use the model to predict the height on day 5, and find the residual on day 6.
+        (c) Give one reason why using this model to predict the height on day 60 would be unreliable.
+      answer: |
+        (a) According to the model, the seedling grows about 0.985 cm per day.
+        (b) Day 5: ŷ = 0.985(5) + 3.06 ≈ 7.99 cm. Day 6: ŷ = 0.985(6) + 3.06 = 8.97 cm, so the residual is 8.8 − 8.97 = −0.17 cm (the model overestimates slightly).
+        (c) Day 60 is far outside the observed 0 to 8 days. The model assumes growth continues at a constant rate, but plant growth slows as the plant matures (the model would predict about 62 cm), so the extrapolation is not supported by the data.
+      explanation: |
+        Three points, one per part. (a) a rate with units, phrased as a model prediction. (b) both the prediction (about 7.99 cm) and the residual −0.17 cm, with actual − predicted. (c) a valid limitation: extrapolation beyond the data and/or the constant-rate assumption.
+    - slug: precalc-u01-w09-q22
+      type: short_answer
+      topic_code: "1.13"
+      source: "AP Precalculus CED, Topic 1.13"
+      points: 3
+      prompt: |
+        A hypothetical water tank, empty at time t = 0, is filled by a pump at 30 liters per minute for the first 10 minutes. Then the pump switches to a slower rate of 12 liters per minute until the tank is full at t = 40 minutes.
+
+        (a) Explain why a piecewise function is an appropriate model, and write a piecewise model V(t) for the volume in liters.
+        (b) Find V(25) and interpret it in context.
+        (c) At what time does the tank contain 600 liters? State the contextual domain and range of V.
+      answer: |
+        (a) The rate of change of the volume is constant on each interval but changes at t = 10, so a single linear function cannot describe the whole process. V(t) = 30t for 0 ≤ t ≤ 10, and V(t) = 300 + 12(t − 10) for 10 < t ≤ 40.
+        (b) V(25) = 300 + 12(15) = 480. After 25 minutes the tank holds 480 liters.
+        (c) 300 + 12(t − 10) = 600 gives t − 10 = 25, so t = 35 minutes. Domain 0 ≤ t ≤ 40; range 0 ≤ V ≤ 660, since V(40) = 300 + 12(30) = 660 liters.
+      explanation: |
+        Three points, one per part. (a) a reason tied to the change in rate and a correct two-piece model. (b) 480 liters with an interpretation. (c) t = 35 minutes, plus the domain [0, 40] and range [0, 660].
+    - slug: precalc-u01-w09-q23
+      type: long_answer
+      topic_code: "1.14"
+      source: "AP Precalculus CED, Topic 1.14"
+      points: 6
+      prompt: |
+        During a dry season, the depth of water in a reservoir is measured every 4 weeks. The data are hypothetical.
+
+        | t (weeks) | 0 | 4 | 8 |
+        |---|---|---|---|
+        | depth (meters) | 12.0 | 10.4 | 9.6 |
+
+        The depth is modeled by a quadratic function d(t) = at² + bt + c.
+
+        (A) (i) Use the three data points to find a, b and c. Show the work that leads to your answer.
+        (ii) Use the model to estimate the depth at t = 6 weeks. Include units.
+
+        (B) (i) Find the average rate of change of d over [0, 8] and interpret it in context.
+        (ii) Is the rate at which the depth changes increasing or decreasing over [0, 8]? Justify using the model.
+
+        (C) (i) The model has its minimum at t = 10 and predicts that the depth rises after that. Explain one limitation of the model that this reveals.
+        (ii) A fourth measurement at t = 12 weeks is 8.9 meters. Find the residual at t = 12 and explain what it suggests about the model.
+      answer: |
+        (A)(i) From (0, 12.0): c = 12. From (4, 10.4): 16a + 4b = −1.6. From (8, 9.6): 64a + 8b = −2.4. Doubling the first gives 32a + 8b = −3.2; subtracting, 32a = 0.8, so a = 0.025, and then 4b = −1.6 − 0.4 = −2, so b = −0.5. d(t) = 0.025t² − 0.5t + 12.
+        (ii) d(6) = 0.025(36) − 3 + 12 = 9.9 meters.
+        (B)(i) (9.6 − 12.0)/(8 − 0) = −0.3 m per week: over the first 8 weeks the depth fell by 0.3 meters per week on average.
+        (ii) Increasing. a = 0.025 > 0, so d is concave up and its rate of change is increasing (becoming less negative): the depth falls more slowly as time passes. The average rates −0.4 m/week on [0, 4] and −0.2 m/week on [4, 8] confirm this.
+        (C)(i) Nothing in a dry season makes the water rise, yet the quadratic must turn upward after its vertex. The model is only reasonable over (roughly) the observed weeks 0 to 8; extrapolating past the vertex is not supported.
+        (ii) d(12) = 0.025(144) − 6 + 12 = 9.6. Residual = 8.9 − 9.6 = −0.7 m. The model overestimates the depth at week 12, which supports the limitation in (C)(i): the quadratic is not appropriate beyond the data it was built from.
+      explanation: |
+        Six points, one per sub-part. (A)(i) a system from the three points solved correctly (a = 0.025, b = −0.5, c = 12). (A)(ii) 9.9 meters with units. (B)(i) −0.3 with units and an interpretation. (B)(ii) "increasing" justified by concavity (a > 0) or by comparing average rates on [0, 4] and [4, 8]. (C)(i) a limitation tied to the context (the predicted rise after week 10 contradicts a dry season; restrict the domain). (C)(ii) residual −0.7 m computed as actual − predicted, with the conclusion that the model overestimates beyond the data.

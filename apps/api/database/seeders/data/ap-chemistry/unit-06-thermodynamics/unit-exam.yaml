@@ -1,0 +1,921 @@
+unit: 6
+description: |
+  40 questions · about 80 minutes · every topic of Unit 6 (6.1 to 6.9: endothermic and exothermic processes,
+  energy diagrams, heat transfer, calorimetry, phase changes, enthalpy of reaction, bond enthalpies, enthalpies
+  of formation and Hess's law), with review of intermolecular forces, limiting reactants and energy profiles.
+  Three data sets in the AP style (an endothermic dissolving in a calorimeter, a table of enthalpies of
+  formation and a described heating curve), stand-alone multiple choice, select-all, true/false,
+  fill-in-the-blank and numeric items, two short-answer questions (3 points each) and one long free-response
+  question (6 points). Multiple choice, select-all, true/false and numeric items are graded at once;
+  fill-in-the-blank items are matched automatically; the free-response items are graded by your teacher
+  against the scoring notes.
+questions:
+  # ---- Stimulus set A: dissolving KNO₃ in a calorimeter (6.4, 6.1)
+  - slug: apchem-u06-exam-q01
+    type: multiple_choice
+    topic_code: "6.4"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A student adds 10.0 g of potassium nitrate, KNO₃ (molar mass 101.1 g/mol), to 100.0 g of water at 24.0 °C in a coffee-cup calorimeter and stirs until it dissolves. The lowest temperature reached is 15.8 °C. Assume the solution has a specific heat of 4.184 J/(g·°C) and that the cup absorbs no heat.
+    prompt: |
+      Which statement about the signs of the heat quantities is correct?
+    options:
+      - "q_solution is negative and q_dissolving is positive; the process is endothermic."
+      - "q_solution is positive and q_dissolving is negative; the process is exothermic."
+      - "Both q values are negative because the temperature fell."
+      - "Both q values are positive because heat was absorbed from the hand."
+    option_explanations:
+      - |
+        Correct. The solution lost heat (its temperature fell, so q_solution < 0) and the dissolving salt absorbed it (q_dissolving = −q_solution > 0): endothermic, ΔH_solution > 0.
+      - |
+        A temperature drop means the solution lost heat, so q_solution is negative, and the dissolving process gained it.
+      - |
+        Energy is conserved within the insulated cup, so the two q values must have opposite signs.
+      - |
+        The cup is insulated from the hand; the heat came from the water in the cup, which is why its temperature fell.
+    answer: 0
+    explanation: |
+      Practice 6. Solution cools → solution lost heat → process absorbed heat → endothermic.
+
+  - slug: apchem-u06-exam-q02
+    type: multiple_choice
+    topic_code: "6.1"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A student adds 10.0 g of potassium nitrate, KNO₃ (molar mass 101.1 g/mol), to 100.0 g of water at 24.0 °C in a coffee-cup calorimeter and stirs until it dissolves. The lowest temperature reached is 15.8 °C. Assume the solution has a specific heat of 4.184 J/(g·°C) and that the cup absorbs no heat.
+    prompt: |
+      Which statement best explains, at the particle level, why the temperature fell?
+    options:
+      - "Potassium nitrate molecules absorb heat as they move faster in solution."
+      - "The ions react with water to form a gas, which carries heat away."
+      - "Dissolving breaks the covalent bonds inside the nitrate ion, which requires a great deal of energy."
+      - "The energy needed to separate K⁺ and NO₃⁻ ions from the crystal and to separate water molecules exceeds the energy released when the ions are hydrated, so the shortfall is taken from the kinetic energy of the water."
+    option_explanations:
+      - |
+        KNO₃ is ionic, not molecular, and faster particle motion would mean a higher temperature, not a lower one.
+      - |
+        No gas forms when potassium nitrate dissolves; the ions simply become hydrated.
+      - |
+        The nitrate ion stays intact in solution; its internal N–O bonds are not broken by dissolving.
+      - |
+        Correct. Breaking ionic and hydrogen-bond attractions costs more than the ion–dipole hydration releases; the deficit is supplied by the water's kinetic energy, lowering its temperature.
+    answer: 3
+    explanation: |
+      Practice 6. Endothermic dissolving: attractions broken cost more than attractions formed release.
+
+  - slug: apchem-u06-exam-q03
+    type: numeric
+    topic_code: "6.4"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A student adds 10.0 g of potassium nitrate, KNO₃ (molar mass 101.1 g/mol), to 100.0 g of water at 24.0 °C in a coffee-cup calorimeter and stirs until it dissolves. The lowest temperature reached is 15.8 °C. Assume the solution has a specific heat of 4.184 J/(g·°C) and that the cup absorbs no heat.
+    prompt: |
+      Calculate the molar enthalpy of solution of KNO₃ from these data. Give your answer in kJ/mol to one decimal place, including the sign.
+    answer: { value: 38.2, tolerance: 0.5 }
+    explanation: |
+      q_solution = (100.0 + 10.0) × 4.184 × (15.8 − 24.0) = 110.0 × 4.184 × (−8.2) = −3,774 J. q_dissolving = +3,774 J. n = 10.0/101.1 = 0.0989 mol. ΔH_solution = 3,774/0.0989 = 38,160 J/mol = +38.2 kJ/mol (the accepted value is about +35 kJ/mol; heat flowing in from the cup and air makes the measured drop smaller and the result slightly high or low depending on timing).
+
+  # ---- Stimulus set B: enthalpies of formation (6.8)
+  - slug: apchem-u06-exam-q04
+    type: multiple_choice
+    topic_code: "6.8"
+    source: "NIST Chemistry WebBook (standard enthalpies of formation, rounded)"
+    points: 1
+    stimulus: |
+      Standard enthalpies of formation at 25 °C:
+
+      | Substance | ΔH°f (kJ/mol) |
+      |---|---|
+      | CH₄(g) | −74.8 |
+      | CO(g) | −110.5 |
+      | CO₂(g) | −393.5 |
+      | H₂O(l) | −285.8 |
+      | H₂O(g) | −241.8 |
+    prompt: |
+      Which equation represents the reaction whose enthalpy change is ΔH°f of CO₂(g)?
+    options:
+      - "CO(g) + ½ O₂(g) → CO₂(g)"
+      - "C(g) + 2 O(g) → CO₂(g)"
+      - "C(s, graphite) + O₂(g) → CO₂(g)"
+      - "2 C(s, graphite) + 2 O₂(g) → 2 CO₂(g)"
+    option_explanations:
+      - |
+        CO is a compound, not an element; this is the second step of carbon combustion, with ΔH = −283.0 kJ.
+      - |
+        Gaseous atoms are not the standard states of carbon and oxygen; this would be an atomisation reaction.
+      - |
+        Correct. One mole of CO₂ from the elements in their standard states, graphite and O₂ gas: ΔH° = −393.5 kJ/mol.
+      - |
+        The elements and states are right but two moles of product are formed; ΔH°f is per one mole.
+    answer: 2
+    explanation: |
+      Practice 1. Formation: elements in standard states → one mole of compound.
+
+  - slug: apchem-u06-exam-q05
+    type: multiple_choice
+    topic_code: "6.8"
+    source: "NIST Chemistry WebBook (standard enthalpies of formation, rounded)"
+    points: 1
+    stimulus: |
+      Standard enthalpies of formation at 25 °C:
+
+      | Substance | ΔH°f (kJ/mol) |
+      |---|---|
+      | CH₄(g) | −74.8 |
+      | CO(g) | −110.5 |
+      | CO₂(g) | −393.5 |
+      | H₂O(l) | −285.8 |
+      | H₂O(g) | −241.8 |
+    prompt: |
+      What is ΔH° for CH₄(g) + 2 O₂(g) → CO₂(g) + 2 H₂O(l)?
+    options:
+      - "−604.5 kJ"
+      - "−890.3 kJ"
+      - "−1,039.9 kJ"
+      - "−802.3 kJ"
+    option_explanations:
+      - |
+        −604.5 kJ forgets the coefficient 2 on water: it uses one mole of H₂O instead of two.
+      - |
+        Correct. [(−393.5) + 2(−285.8)] − [(−74.8) + 0] = −965.1 + 74.8 = −890.3 kJ.
+      - |
+        −1,039.9 kJ subtracts the methane value with the wrong sign (adds −74.8 instead of subtracting it).
+      - |
+        −802.3 kJ is the value with gaseous water (−241.8 kJ/mol), not liquid water as the equation states.
+    answer: 1
+    explanation: |
+      Practice 5. Products minus reactants, each times its coefficient.
+
+  - slug: apchem-u06-exam-q06
+    type: numeric
+    topic_code: "6.8"
+    source: "NIST Chemistry WebBook (standard enthalpies of formation, rounded)"
+    points: 1
+    stimulus: |
+      Standard enthalpies of formation at 25 °C:
+
+      | Substance | ΔH°f (kJ/mol) |
+      |---|---|
+      | CH₄(g) | −74.8 |
+      | CO(g) | −110.5 |
+      | CO₂(g) | −393.5 |
+      | H₂O(l) | −285.8 |
+      | H₂O(g) | −241.8 |
+    prompt: |
+      Calculate ΔH° for CO(g) + ½ O₂(g) → CO₂(g). Give your answer in kJ to one decimal place, including the sign.
+    answer: { value: -283.0, tolerance: 0.3 }
+    explanation: |
+      ΔH° = ΔH°f(CO₂) − [ΔH°f(CO) + ½ ΔH°f(O₂)] = −393.5 − (−110.5 + 0) = −283.0 kJ. This is the heat released when carbon monoxide burns, the reason CO is itself a fuel.
+
+  # ---- Stimulus set C: heating curve (6.5)
+  - slug: apchem-u06-exam-q07
+    type: multiple_choice
+    topic_code: "6.5"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Graph description: a heating curve for 25.0 g of water, temperature (°C) against heat added (kJ), starting with ice at −20 °C. Segment 1 rises from −20 °C to 0 °C; segment 2 is flat at 0 °C; segment 3 rises from 0 °C to 100 °C; segment 4 is flat at 100 °C; segment 5 rises above 100 °C. Data: c(ice) = 2.09, c(water) = 4.184, c(steam) = 2.01 J/(g·°C); ΔH_fus = 6.01 kJ/mol; ΔH_vap = 40.7 kJ/mol; molar mass 18.02 g/mol.
+    prompt: |
+      Which segment represents the largest quantity of heat?
+    options:
+      - "Segment 2, melting"
+      - "Segment 3, warming the liquid"
+      - "Segment 4, boiling"
+      - "Segment 1, warming the ice"
+    option_explanations:
+      - |
+        Melting 25.0 g needs 1.387 mol × 6.01 = 8.3 kJ, much less than boiling.
+      - |
+        Warming the liquid through 100 °C needs 25.0 × 4.184 × 100 = 10.5 kJ, large but still less than boiling.
+      - |
+        Correct. Boiling needs 1.387 mol × 40.7 = 56.5 kJ, more than all the other segments combined, because every hydrogen bond must be overcome to separate the molecules into a gas.
+      - |
+        Warming the ice through 20 °C needs 25.0 × 2.09 × 20 = 1.0 kJ, the smallest of the five.
+    answer: 2
+    explanation: |
+      Practice 3. Plateau length is proportional to n ΔH; vaporisation dominates.
+
+  - slug: apchem-u06-exam-q08
+    type: multiple_choice
+    topic_code: "6.5"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Graph description: a heating curve for 25.0 g of water, temperature (°C) against heat added (kJ), starting with ice at −20 °C. Segment 1 rises from −20 °C to 0 °C; segment 2 is flat at 0 °C; segment 3 rises from 0 °C to 100 °C; segment 4 is flat at 100 °C; segment 5 rises above 100 °C. Data: c(ice) = 2.09, c(water) = 4.184, c(steam) = 2.01 J/(g·°C); ΔH_fus = 6.01 kJ/mol; ΔH_vap = 40.7 kJ/mol; molar mass 18.02 g/mol.
+    prompt: |
+      Compared with segment 3, segments 1 and 5 are steeper. Which explanation is correct?
+    options:
+      - "Ice and steam have lower specific heats than liquid water, so the same heat raises their temperature more."
+      - "Ice and steam have higher specific heats than liquid water."
+      - "Segments 1 and 5 are steeper because they involve phase changes."
+      - "The slope depends only on the mass, which is smaller for the ice and steam."
+    option_explanations:
+      - |
+        Correct. Slope = ΔT/q = 1/(m c); with c about 2.0 J/(g·°C) for ice and steam against 4.184 for liquid water, each joule raises their temperature about twice as much.
+      - |
+        Higher specific heat would make the segments shallower, not steeper.
+      - |
+        Phase changes are the flat segments (2 and 4); segments 1, 3 and 5 are single phases warming.
+      - |
+        The mass is 25.0 g throughout; it is the specific heat that differs.
+    answer: 0
+    explanation: |
+      Practice 4. Steep slope, small specific heat.
+
+  - slug: apchem-u06-exam-q09
+    type: multiple_choice
+    topic_code: "6.5"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Graph description: a heating curve for 25.0 g of water, temperature (°C) against heat added (kJ), starting with ice at −20 °C. Segment 1 rises from −20 °C to 0 °C; segment 2 is flat at 0 °C; segment 3 rises from 0 °C to 100 °C; segment 4 is flat at 100 °C; segment 5 rises above 100 °C. Data: c(ice) = 2.09, c(water) = 4.184, c(steam) = 2.01 J/(g·°C); ΔH_fus = 6.01 kJ/mol; ΔH_vap = 40.7 kJ/mol; molar mass 18.02 g/mol.
+    prompt: |
+      During segment 4, which statement about the water molecules is correct?
+    options:
+      - "Their average kinetic energy increases as heat is added."
+      - "Their potential energy decreases as they escape the liquid."
+      - "Both their kinetic and potential energies stay constant."
+      - "Their average potential energy increases as hydrogen bonds are overcome, while their average kinetic energy stays the same."
+    option_explanations:
+      - |
+        The temperature is constant along segment 4, and temperature measures average kinetic energy, so it does not change.
+      - |
+        Separating molecules against attractions raises, not lowers, their potential energy.
+      - |
+        Energy is being added, so something must change; it is the potential energy of separation.
+      - |
+        Correct. The heat added during boiling does work against intermolecular attractions, raising the molecules' potential energy; their kinetic energy, and hence the temperature, is unchanged until all the liquid has vaporised.
+    answer: 3
+    explanation: |
+      Practice 6. Phase change: potential energy up, kinetic energy unchanged.
+
+  # ---- Stand-alone multiple choice
+  - slug: apchem-u06-exam-q10
+    type: multiple_choice
+    topic_code: "6.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which of the following is an endothermic process?
+    options:
+      - "Steam condensing on a cold window"
+      - "Methane burning in a furnace"
+      - "Solid calcium carbonate decomposing to calcium oxide and carbon dioxide when heated"
+      - "Sodium hydroxide dissolving in water, which warms the solution"
+    option_explanations:
+      - |
+        Condensation forms hydrogen bonds between water molecules and releases heat: exothermic.
+      - |
+        Combustion releases large quantities of heat: exothermic.
+      - |
+        Correct. The decomposition absorbs heat continuously from the furnace (ΔH° = +178 kJ/mol); it is endothermic, which is why it needs sustained heating.
+      - |
+        A warming solution means the system released heat: exothermic.
+    answer: 2
+    explanation: |
+      Practice 1. Endothermic processes need heat supplied and have ΔH > 0.
+
+  - slug: apchem-u06-exam-q11
+    type: multiple_choice
+    topic_code: "6.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Graph description: an energy diagram shows reactants at +30 kJ/mol, a peak at +110 kJ/mol, and products at −10 kJ/mol. Which set of values is correct?
+    options:
+      - "ΔH = −40 kJ/mol; Ea(forward) = 80 kJ/mol; Ea(reverse) = 120 kJ/mol"
+      - "ΔH = −10 kJ/mol; Ea(forward) = 110 kJ/mol; Ea(reverse) = 120 kJ/mol"
+      - "ΔH = +40 kJ/mol; Ea(forward) = 80 kJ/mol; Ea(reverse) = 40 kJ/mol"
+      - "ΔH = −40 kJ/mol; Ea(forward) = 110 kJ/mol; Ea(reverse) = 80 kJ/mol"
+    option_explanations:
+      - |
+        Correct. ΔH = −10 − 30 = −40 kJ/mol; Ea(forward) = 110 − 30 = 80 kJ/mol; Ea(reverse) = 110 − (−10) = 120 kJ/mol.
+      - |
+        These read the products and the peak from zero on the axis instead of as differences from the reactant level.
+      - |
+        The products lie below the reactants, so ΔH is negative, and the reverse barrier (from −10 up to 110) is 120, not 40.
+      - |
+        ΔH is right but the forward barrier is measured from the reactants at +30, giving 80, and the reverse from −10, giving 120.
+    answer: 0
+    explanation: |
+      Practice 4. Every quantity on an energy diagram is a difference between two levels.
+
+  - slug: apchem-u06-exam-q12
+    type: multiple_choice
+    topic_code: "6.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A 100.0 g block of aluminium (c = 0.897 J/(g·°C)) at 80.0 °C and a 100.0 g block of lead (c = 0.129 J/(g·°C)) at 20.0 °C are placed in contact in an insulated container. Which statement about the final temperature is correct?
+    options:
+      - "It is exactly 50.0 °C, because the masses are equal."
+      - "It cannot be determined without knowing the volumes."
+      - "It is much closer to 20.0 °C, because lead is denser."
+      - "It is much closer to 80.0 °C than to 20.0 °C, because aluminium's heat capacity is about seven times lead's."
+    option_explanations:
+      - |
+        Equal masses give the midpoint only if the specific heats are also equal; here they differ sevenfold.
+      - |
+        Masses and specific heats are sufficient; volume plays no role.
+      - |
+        Density is irrelevant to heat transfer calculations; heat capacity (m × c) decides.
+      - |
+        Correct. 100.0 × 0.897 (T − 80.0) + 100.0 × 0.129 (T − 20.0) = 0 gives T ≈ 72.5 °C; the object with the larger m × c moves least.
+    answer: 3
+    explanation: |
+      Practice 5. The final temperature sits near the object with the larger heat capacity.
+
+  - slug: apchem-u06-exam-q13
+    type: multiple_choice
+    topic_code: "6.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which statement correctly distinguishes heat from temperature?
+    options:
+      - "Heat is energy transferred between objects because of a temperature difference; temperature is a measure of the average kinetic energy of the particles."
+      - "Temperature is the total energy of a sample; heat is its average energy."
+      - "Heat and temperature are the same quantity measured in different units."
+      - "Heat flows from the object with more total energy to the one with less."
+    option_explanations:
+      - |
+        Correct. A large cool lake holds more thermal energy than a cup of boiling water, yet heat flows from the cup to the lake because the cup's particles have the higher average kinetic energy.
+      - |
+        This reverses the ideas: temperature reflects average particle kinetic energy, and heat is not a property a sample holds but energy in transit.
+      - |
+        They are different kinds of quantity: heat is energy in joules, temperature is a state variable in kelvin or degrees.
+      - |
+        Direction is set by temperature, not total energy; a small hot object loses heat to a large cool one.
+    answer: 0
+    explanation: |
+      Practice 6. Temperature decides direction; heat is what flows.
+
+  - slug: apchem-u06-exam-q14
+    type: multiple_choice
+    topic_code: "6.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      In a coffee-cup calorimetry experiment, 50.0 mL of 1.0 M AgNO₃ is mixed with 50.0 mL of 1.0 M NaCl and the temperature rises by 4.0 °C. Which quantity is needed, in addition to the temperature change, to calculate ΔH per mole of AgCl formed?
+    options:
+      - "The molar mass of AgCl"
+      - "The density and specific heat of the solution, and the moles of AgCl formed from the limiting reactant"
+      - "The heat of formation of NaNO₃"
+      - "The volume of the foam cup"
+    option_explanations:
+      - |
+        The molar mass is not needed; the moles of AgCl come from the molarity and volume of the limiting reactant.
+      - |
+        Correct. q = m c ΔT needs the solution's mass (from density and volume) and specific heat; dividing q by the 0.050 mol of AgCl formed gives ΔH per mole.
+      - |
+        The spectator ions Na⁺ and NO₃⁻ do not react; no formation enthalpy is required for the calorimetric result.
+      - |
+        The cup's volume plays no role; its heat capacity is assumed negligible.
+    answer: 1
+    explanation: |
+      Practice 2. Mass, specific heat, ΔT and moles of the limiting reactant.
+
+  - slug: apchem-u06-exam-q15
+    type: multiple_choice
+    topic_code: "6.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      For 2 C₈H₁₈(l) + 25 O₂(g) → 16 CO₂(g) + 18 H₂O(l), ΔH = −10,940 kJ. How much heat is released when 57.1 g of octane (molar mass 114.2 g/mol) burns completely?
+    options:
+      - "10,940 kJ"
+      - "5,470 kJ"
+      - "2,735 kJ"
+      - "21,880 kJ"
+    option_explanations:
+      - |
+        10,940 kJ is released per 2 mol of octane as written; 57.1 g is only 0.500 mol.
+      - |
+        5,470 kJ is the heat per mole of octane; 0.500 mol releases half of that.
+      - |
+        Correct. 57.1/114.2 = 0.500 mol octane; ΔH per mole of octane is −10,940/2 = −5,470 kJ; 0.500 × 5,470 = 2,735 kJ released.
+      - |
+        21,880 kJ doubles the equation's ΔH instead of scaling it down to half a mole.
+    answer: 2
+    explanation: |
+      Practice 5. Moles of the named reactant divided by its coefficient, times ΔH.
+
+  - slug: apchem-u06-exam-q16
+    type: multiple_choice
+    topic_code: "6.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      The thermochemical equation 2 H₂O(l) + 571.6 kJ → 2 H₂(g) + O₂(g) is equivalent to which of the following?
+    options:
+      - "H₂(g) + ½ O₂(g) → H₂O(l), ΔH = +285.8 kJ"
+      - "2 H₂(g) + O₂(g) → 2 H₂O(l), ΔH = +571.6 kJ"
+      - "H₂O(l) → H₂(g) + ½ O₂(g), ΔH = −285.8 kJ"
+      - "H₂(g) + ½ O₂(g) → H₂O(l), ΔH = −285.8 kJ"
+    option_explanations:
+      - |
+        Forming water is the reverse of the given decomposition, so its ΔH must be negative.
+      - |
+        The reverse reaction must have the opposite sign: forming 2 mol of water releases 571.6 kJ.
+      - |
+        Decomposing one mole of water absorbs 285.8 kJ, so ΔH is positive, not negative.
+      - |
+        Correct. Heat on the reactant side means ΔH = +571.6 kJ for the decomposition of 2 mol; reversing and halving gives −285.8 kJ for forming one mole.
+    answer: 3
+    explanation: |
+      Practice 1. Heat as a reactant means endothermic; reverse and scale consistently.
+
+  - slug: apchem-u06-exam-q17
+    type: multiple_choice
+    topic_code: "6.7"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which statement about using average bond enthalpies to calculate ΔH is correct?
+    options:
+      - "ΔH equals the sum of the bond enthalpies of the bonds formed minus the sum for the bonds broken."
+      - "The method gives exact values for any reaction in any phase."
+      - "ΔH equals the sum of the bond enthalpies of the bonds broken minus the sum for the bonds formed, and is an estimate because tabulated values are averages."
+      - "Only the bonds in the reactants need to be counted."
+    option_explanations:
+      - |
+        This reverses the sign: breaking bonds is the energy input (positive), forming is the release.
+      - |
+        The values are averages and apply to gases; the results are approximate and need corrections for condensed phases.
+      - |
+        Correct. Energy in (breaking) minus energy out (forming), using averaged gas-phase values, gives an estimate usually within a few per cent.
+      - |
+        Both reactant bonds broken and product bonds formed must be included; omitting the products gives a large positive nonsense value.
+    answer: 2
+    explanation: |
+      Practice 5. Σ broken − Σ formed; estimate, not exact.
+
+  - slug: apchem-u06-exam-q18
+    type: multiple_choice
+    topic_code: "6.7"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Using bond enthalpies H–H 436, F–F 159 and H–F 567 kJ/mol, the estimated ΔH for H₂(g) + F₂(g) → 2 HF(g) is
+    options:
+      - "−539 kJ"
+      - "+539 kJ"
+      - "−28 kJ"
+      - "−1,134 kJ"
+    option_explanations:
+      - |
+        Correct. Broken: 436 + 159 = 595 kJ; formed: 2 × 567 = 1,134 kJ; ΔH ≈ 595 − 1,134 = −539 kJ, a violently exothermic reaction.
+      - |
+        The magnitude is right but the sign is reversed; forming two very strong H–F bonds releases far more than breaking the reactant bonds costs.
+      - |
+        −28 kJ comes from using one H–F bond instead of two.
+      - |
+        −1,134 kJ is the energy released by forming the H–F bonds alone, without subtracting the cost of breaking H–H and F–F.
+    answer: 0
+    explanation: |
+      Practice 5. Two product bonds, both strong; one weak F–F bond broken.
+
+  - slug: apchem-u06-exam-q19
+    type: multiple_choice
+    topic_code: "6.9"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Given (1) S(s) + O₂(g) → SO₂(g), ΔH = −296.8 kJ, and (2) 2 SO₂(g) + O₂(g) → 2 SO₃(g), ΔH = −197.8 kJ, what is ΔH for S(s) + 3/2 O₂(g) → SO₃(g)?
+    options:
+      - "−494.6 kJ"
+      - "−395.7 kJ"
+      - "−98.9 kJ"
+      - "−791.4 kJ"
+    option_explanations:
+      - |
+        −494.6 kJ adds the two ΔH values without halving equation (2) to match one mole of SO₃.
+      - |
+        Correct. Halve (2): SO₂ + ½ O₂ → SO₃, ΔH = −98.9 kJ. Add (1): S + O₂ → SO₂, −296.8 kJ. Sum: S + 3/2 O₂ → SO₃, ΔH = −395.7 kJ, the enthalpy of formation of SO₃.
+      - |
+        −98.9 kJ is only the second step for one mole; the formation of SO₂ from sulfur must be added.
+      - |
+        −791.4 kJ doubles everything; the target makes one mole of SO₃.
+    answer: 1
+    explanation: |
+      Practice 5. Scale equation (2) by ½ before adding.
+
+  - slug: apchem-u06-exam-q20
+    type: multiple_choice
+    topic_code: "6.9"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Why can the ΔH values of individual steps be added to give the ΔH of an overall reaction?
+    options:
+      - "Because every step has the same activation energy"
+      - "Because enthalpy is a state function, so the total change depends only on the initial and final states, not on the path"
+      - "Because heat is always conserved in chemical reactions"
+      - "Because the steps occur at the same rate"
+    option_explanations:
+      - |
+        Activation energies vary from step to step and have no bearing on ΔH.
+      - |
+        Correct. The change in a state function between two states is the same by any route, so the sum of the step changes equals the direct change: Hess's law.
+      - |
+        Energy is conserved, but heat alone is not a state function; it is the state-function nature of enthalpy at constant pressure that makes the additivity exact.
+      - |
+        Rates are irrelevant to enthalpy changes.
+    answer: 1
+    explanation: |
+      Practice 6. State function means path independence.
+
+  - slug: apchem-u06-exam-q21
+    type: multiple_choice
+    topic_code: "6.8"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which substance has a standard enthalpy of formation of zero at 25 °C?
+    options:
+      - "O₃(g)"
+      - "C(s, diamond)"
+      - "Br₂(g)"
+      - "Hg(l)"
+    option_explanations:
+      - |
+        Ozone is not the standard state of oxygen (O₂ is); ΔH°f(O₃) = +142.7 kJ/mol.
+      - |
+        Graphite, not diamond, is the standard state of carbon; diamond has ΔH°f = +1.9 kJ/mol.
+      - |
+        Bromine's standard state is the liquid; the gas has ΔH°f = +30.9 kJ/mol.
+      - |
+        Correct. Liquid mercury is the standard state of the element at 25 °C and 1 atm, so its ΔH°f is zero by definition.
+    answer: 3
+    explanation: |
+      Practice 1. Only the element in its most stable form at standard conditions is zero.
+
+  - slug: apchem-u06-exam-q22
+    type: multiple_choice
+    topic_code: "5.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      The reaction 2 H₂O₂(l) → 2 H₂O(l) + O₂(g) has ΔH° = −196 kJ, yet a bottle of hydrogen peroxide solution lasts for months at room temperature. Which statement is correct?
+    options:
+      - "The reaction must actually be endothermic."
+      - "A negative ΔH means the reaction cannot occur spontaneously."
+      - "The reaction does not occur without light."
+      - "The reaction is exothermic but has a high activation energy; a catalyst such as MnO₂ or catalase lowers the barrier and makes it rapid."
+    option_explanations:
+      - |
+        The enthalpy change is measured and negative; the slowness is a kinetic matter.
+      - |
+        Negative ΔH favours the reaction thermodynamically; it says nothing about whether it is fast.
+      - |
+        Light accelerates decomposition slightly (hence brown bottles) but the fundamental reason for the slowness is the activation energy.
+      - |
+        Correct. ΔH and Ea are independent; the uncatalysed decomposition has a large barrier, which catalysts bypass (adding MnO₂ makes the solution fizz vigorously and warm up).
+    answer: 3
+    explanation: |
+      Practice 6 (review of 5.6). Thermodynamically favourable, kinetically slow.
+
+  - slug: apchem-u06-exam-q23
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      The enthalpies of vaporisation of HF, HCl and HBr are 25.2, 16.2 and 17.6 kJ/mol respectively. Which statement best explains why HF has the largest value?
+    options:
+      - "HF has the largest molar mass."
+      - "HF molecules form hydrogen bonds with one another, a much stronger intermolecular attraction than the dipole–dipole and dispersion forces in HCl and HBr."
+      - "The H–F covalent bond is the strongest, and it must be broken on vaporisation."
+      - "HF is a weaker acid than the others."
+    option_explanations:
+      - |
+        HF has the smallest molar mass of the three; dispersion forces alone would make it the lowest.
+      - |
+        Correct. The H–F dipole is strong enough to hydrogen-bond, so separating HF molecules into the gas phase costs much more than separating HCl or HBr molecules, which cannot hydrogen-bond.
+      - |
+        Vaporisation separates molecules; it does not break the covalent bond inside them.
+      - |
+        Acid strength in water is unrelated to the intermolecular forces in the pure liquid.
+    answer: 1
+    explanation: |
+      Practice 6 (review of 3.1). ΔH_vap ranks intermolecular forces.
+
+  - slug: apchem-u06-exam-q24
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      In a calorimetry experiment, 0.020 mol of Pb(NO₃)₂ is mixed with 0.030 mol of KI: Pb(NO₃)₂(aq) + 2 KI(aq) → PbI₂(s) + 2 KNO₃(aq). The heat released should be divided by how many moles to obtain ΔH per mole of PbI₂ formed?
+    options:
+      - "0.030 mol"
+      - "0.015 mol"
+      - "0.020 mol"
+      - "0.050 mol"
+    option_explanations:
+      - |
+        0.030 mol is the amount of KI, which gives only 0.015 mol of PbI₂ because of the 2:1 ratio.
+      - |
+        Correct. KI is limiting: 0.030 mol KI × (1 mol PbI₂ / 2 mol KI) = 0.015 mol PbI₂ formed.
+      - |
+        0.020 mol of Pb(NO₃)₂ would need 0.040 mol of KI; only 0.030 mol is present, so lead nitrate is in excess.
+      - |
+        Adding the moles of the two reactants has no stoichiometric meaning.
+    answer: 1
+    explanation: |
+      Practice 5 (review of 4.5). Identify the limiting reactant and convert to moles of product.
+
+  - slug: apchem-u06-exam-q25
+    type: multiple_choice
+    topic_code: "6.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which pair of changes would make a reaction both more exothermic and faster?
+    options:
+      - "Lowering the energy of the products and lowering the energy of the transition state"
+      - "Raising the energy of the products and lowering the energy of the transition state"
+      - "Lowering the energy of the products and raising the energy of the transition state"
+      - "Raising the energy of both the products and the transition state"
+    option_explanations:
+      - |
+        Correct. Lower products make ΔH more negative (more exothermic); a lower transition state reduces Ea (faster).
+      - |
+        Raising the products makes ΔH less negative, reducing the heat released.
+      - |
+        A higher transition state increases Ea and slows the reaction.
+      - |
+        Both changes go the wrong way: less exothermic and slower.
+    answer: 0
+    explanation: |
+      Practice 4. ΔH from the product level, rate from the barrier height.
+
+  # ---- Select all
+  - slug: apchem-u06-exam-q26
+    type: multi_select
+    topic_code: "6.1"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about an exothermic reaction carried out in solution in an open beaker are correct? Select all that apply.
+    options:
+      - "The temperature of the solution rises."
+      - "ΔH for the reaction is negative."
+      - "The bonds formed in the products are, in total, stronger than the bonds broken in the reactants."
+      - "The reaction must be fast because it releases energy."
+      - "Heat flows from the surroundings into the system."
+    option_explanations:
+      - |
+        Correct. The system releases heat to the solution and beaker, which warm.
+      - |
+        Correct. Exothermic means the system's enthalpy falls: ΔH < 0.
+      - |
+        Correct. The net release of energy means forming the product bonds gave back more than breaking the reactant bonds cost.
+      - |
+        Rate depends on activation energy, not on ΔH; many exothermic reactions are extremely slow.
+      - |
+        Heat flows out of the system into the surroundings in an exothermic process.
+    answer: [0, 1, 2]
+    explanation: |
+      Practice 6. Exothermic: heat out, ΔH negative, stronger bonds formed; nothing about speed.
+
+  - slug: apchem-u06-exam-q27
+    type: multi_select
+    topic_code: "6.7"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      For the reaction N₂(g) + 2 O₂(g) → 2 NO₂(g), which statements are supported by bond enthalpies (N≡N 945, O=O 495, N=O about 607 kJ/mol as an average in NO₂)? Select all that apply.
+    options:
+      - "Bonds broken total 945 + 2(495) = 1,935 kJ."
+      - "Bonds formed total 4 × 607 = 2,428 kJ."
+      - "The estimated ΔH is positive, consistent with NO₂ having a positive enthalpy of formation."
+      - "The estimated ΔH is about −493 kJ."
+      - "The bond-enthalpy result is an estimate because the N=O bonds in NO₂ are delocalised and not well represented by a single average value."
+    option_explanations:
+      - |
+        Correct. One N≡N and two O=O bonds are broken: 945 + 990 = 1,935 kJ.
+      - |
+        Correct. Each NO₂ has two N–O bonds of order about 1.5, approximated here as 607 kJ/mol each; four in total.
+      - |
+        With these average values the estimate is 1,935 − 2,428 = −493 kJ, negative, whereas the true ΔH is +66 kJ: the crude average overstates the strength of the NO₂ bonds, which is exactly why this reaction is a poor case for the method.
+      - |
+        Correct. Σ broken − Σ formed = 1,935 − 2,428 = −493 kJ with the stated averages.
+      - |
+        Correct. The resonance-delocalised bonds in NO₂ and the exceptional strength of N≡N make the averages unreliable here; the accepted ΔH° is +66.4 kJ.
+    answer: [0, 1, 3, 4]
+    explanation: |
+      Practice 6. A reaction where the bond-enthalpy estimate gets even the sign wrong shows its limits.
+
+  - slug: apchem-u06-exam-q28
+    type: multi_select
+    topic_code: "6.9"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      To find ΔH for C(s) + 2 H₂(g) → CH₄(g) from the combustion reactions (1) C(s) + O₂(g) → CO₂(g), (2) H₂(g) + ½ O₂(g) → H₂O(l), and (3) CH₄(g) + 2 O₂(g) → CO₂(g) + 2 H₂O(l), which manipulations are needed? Select all that apply.
+    options:
+      - "Keep equation (1) as written."
+      - "Multiply equation (2) by 2."
+      - "Reverse equation (3)."
+      - "Reverse equation (1)."
+      - "Multiply equation (3) by 2."
+    option_explanations:
+      - |
+        Correct. Carbon is a reactant in the target with coefficient 1, as in (1).
+      - |
+        Correct. The target has 2 H₂ as reactants, so (2) is doubled.
+      - |
+        Correct. CH₄ must appear as a product, so the combustion of methane is reversed (ΔH becomes +890.3 kJ).
+      - |
+        Reversing (1) would put carbon on the product side, the opposite of the target.
+      - |
+        One mole of CH₄ is required; (3) is reversed, not doubled.
+    answer: [0, 1, 2]
+    explanation: |
+      Practice 5. ΔH°f(CH₄) = −393.5 + 2(−285.8) + 890.3 = −74.8 kJ/mol.
+
+  # ---- True/false
+  - slug: apchem-u06-exam-q29
+    type: true_false
+    topic_code: "6.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: when a hot object and a cold object of different materials reach thermal equilibrium, the final temperature is always the average of their initial temperatures.
+    answer: false
+    explanation: |
+      False. The final temperature is a weighted average with the heat capacities (m × c) as weights: m₁c₁(T − T₁) + m₂c₂(T − T₂) = 0. It is the plain average only when m₁c₁ = m₂c₂. A hot copper block dropped into water ends up very close to the water's starting temperature because water's heat capacity is far larger.
+
+  - slug: apchem-u06-exam-q30
+    type: true_false
+    topic_code: "6.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: the heat required to boil 1.00 mol of water at 100 °C is given by q = n ΔH_vap and does not involve a temperature change.
+    answer: true
+    explanation: |
+      True. Boiling occurs at a constant 100 °C; the 40.7 kJ absorbed per mole goes into separating the molecules (potential energy), not into raising their kinetic energy. q = mcΔT applies only to warming within a single phase.
+
+  - slug: apchem-u06-exam-q31
+    type: true_false
+    topic_code: "6.8"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: because ΔH°f of C₂H₂(g) is +227 kJ/mol, ethyne stores energy relative to its elements and its decomposition to carbon and hydrogen is exothermic.
+    answer: true
+    explanation: |
+      True. A positive enthalpy of formation means the compound lies above its elements in enthalpy. The reverse of the formation reaction, C₂H₂(g) → 2 C(s) + H₂(g), has ΔH = −227 kJ/mol, which is why compressed acetylene can decompose explosively even without oxygen.
+
+  # ---- Fill in the blank
+  - slug: apchem-u06-exam-q32
+    type: fill_blank
+    topic_code: "6.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      In a coffee-cup calorimeter the reaction occurs at constant ____, so the heat measured equals the enthalpy change ΔH.
+    answer: ["pressure", "atmospheric pressure", "constant pressure", "pressure (atmospheric)"]
+    explanation: |
+      The cup is open to the atmosphere, so the pressure is constant and q_p = ΔH by definition of enthalpy. A sealed bomb calorimeter works at constant volume and measures the internal energy change, which differs slightly from ΔH when the moles of gas change.
+
+  - slug: apchem-u06-exam-q33
+    type: fill_blank
+    topic_code: "6.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      If the equation C(s) + O₂(g) → CO₂(g), ΔH = −393.5 kJ, is multiplied by 3, the enthalpy change becomes ____ kJ.
+    answer: ["−1,180.5", "-1180.5", "−1180.5", "-1,180.5", "−1180", "-1180"]
+    explanation: |
+      ΔH is proportional to the amount of reaction: burning three moles of carbon releases 3 × 393.5 = 1,180.5 kJ, so ΔH = −1,180.5 kJ for 3 C + 3 O₂ → 3 CO₂.
+
+  - slug: apchem-u06-exam-q34
+    type: fill_blank
+    topic_code: "6.9"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      The law stating that the enthalpy change of a reaction is the sum of the enthalpy changes of the steps into which it can be divided is ____ law.
+    answer: ["Hess's", "Hess", "Hess's law", "Hess' law", "Hess law"]
+    explanation: |
+      Hess's law (Germain Hess, 1840) is the practical consequence of enthalpy being a state function. It lets ΔH be found for reactions that cannot be measured directly, such as the formation of CO or of CH₄, by combining measurable combustion enthalpies.
+
+  # ---- Numeric
+  - slug: apchem-u06-exam-q35
+    type: numeric
+    topic_code: "6.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      60.0 g of water at 90.0 °C is mixed with 40.0 g of water at 10.0 °C in an insulated container. Calculate the final temperature. Give your answer in °C to one decimal place.
+    answer: { value: 58.0, tolerance: 0.2 }
+    explanation: |
+      Same substance, so c cancels: 60.0 (T − 90.0) + 40.0 (T − 10.0) = 0 → 100.0 T = 5,400 + 400 = 5,800 → T = 58.0 °C. The result lies nearer 90.0 °C because the hot sample has the larger mass.
+
+  - slug: apchem-u06-exam-q36
+    type: numeric
+    topic_code: "6.7"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Using average bond enthalpies C–H 413, Cl–Cl 243, C–Cl 339 and H–Cl 431 kJ/mol, estimate ΔH for CH₄(g) + Cl₂(g) → CH₃Cl(g) + HCl(g). Give your answer in kJ as a whole number, including the sign.
+    answer: { value: -114, tolerance: 2 }
+    explanation: |
+      Only one C–H bond and the Cl–Cl bond are broken (the other three C–H bonds survive): 413 + 243 = 656 kJ. Formed: one C–Cl (339) + one H–Cl (431) = 770 kJ. ΔH ≈ 656 − 770 = −114 kJ. Counting all four C–H bonds on both sides gives the same answer because three cancel.
+
+  - slug: apchem-u06-exam-q37
+    type: numeric
+    topic_code: "6.9"
+    source: "NIST Chemistry WebBook (standard enthalpies, rounded)"
+    points: 1
+    prompt: |
+      Given C(s) + O₂(g) → CO₂(g), ΔH = −393.5 kJ; H₂(g) + ½ O₂(g) → H₂O(l), ΔH = −285.8 kJ; and CH₄(g) + 2 O₂(g) → CO₂(g) + 2 H₂O(l), ΔH = −890.3 kJ, calculate ΔH for C(s) + 2 H₂(g) → CH₄(g). Give your answer in kJ to one decimal place, including the sign.
+    answer: { value: -74.8, tolerance: 0.3 }
+    explanation: |
+      Keep the first (−393.5), double the second (2 × −285.8 = −571.6), reverse the third (+890.3). Adding the equations cancels CO₂, H₂O and O₂, leaving C + 2 H₂ → CH₄; ΔH = −393.5 − 571.6 + 890.3 = −74.8 kJ, the standard enthalpy of formation of methane.
+
+  # ---- Short answer
+  - slug: apchem-u06-exam-q38
+    type: short_answer
+    topic_code: "6.5"
+    source: "general knowledge"
+    points: 3
+    prompt: |
+      A 50.0 g ice cube at 0.0 °C is dropped into 200.0 g of water at 30.0 °C in an insulated cup. (ΔH_fus = 6.01 kJ/mol; c(water) = 4.184 J/(g·°C); molar mass 18.02 g/mol.)
+      (a) Calculate the heat required to melt the ice completely.
+      (b) Determine the final temperature of the water once the ice has melted and thermal equilibrium is reached.
+      (c) Explain why ice at 0 °C cools a drink more effectively than the same mass of liquid water at 0 °C.
+    answer: |
+      (a) n = 50.0/18.02 = 2.775 mol; q = 2.775 × 6,010 = 16,680 J ≈ 16.7 kJ.
+      (b) Heat lost by the warm water = heat to melt ice + heat to warm the melt from 0 °C to T: 200.0 × 4.184 × (30.0 − T) = 16,680 + 50.0 × 4.184 × (T − 0). 836.8(30.0 − T) = 16,680 + 209.2 T → 25,104 − 836.8 T = 16,680 + 209.2 T → 8,424 = 1,046 T → T = 8.1 °C.
+      (c) Melting absorbs 334 J per gram (the enthalpy of fusion) before the resulting water absorbs any heat by warming, so ice removes far more heat from the drink than liquid water at the same temperature, which can only absorb heat by warming (4.18 J per gram per degree).
+    explanation: |
+      Three points, one per part.
+
+      (a) 1 pt: q = n ΔH_fus = 16.7 kJ (accept 16.6–16.8 kJ).
+      (b) 1 pt: correct heat balance including both the melting and the warming of the melt, giving T ≈ 8 °C (accept 7.9–8.3 °C).
+      (c) 1 pt: the latent heat of fusion absorbed in melting, in addition to the heat absorbed on warming.
+
+  - slug: apchem-u06-exam-q39
+    type: short_answer
+    topic_code: "6.8"
+    source: "NIST Chemistry WebBook (standard enthalpies of formation, rounded)"
+    points: 3
+    prompt: |
+      Standard enthalpies of formation (kJ/mol): NH₃(g) −45.9; NO(g) +90.3; H₂O(g) −241.8.
+      (a) Calculate ΔH° for the first step of nitric acid manufacture, 4 NH₃(g) + 5 O₂(g) → 4 NO(g) + 6 H₂O(g).
+      (b) Write the thermochemical equation for the formation of NO(g) from its elements and explain what the sign of ΔH°f tells you about NO relative to N₂ and O₂.
+      (c) The reaction in (a) is run on a platinum gauze catalyst at about 900 °C. Explain why the catalyst affects the rate but not the value you calculated in (a).
+    answer: |
+      (a) ΔH° = [4(+90.3) + 6(−241.8)] − [4(−45.9) + 5(0)] = (361.2 − 1,450.8) + 183.6 = −906.0 kJ.
+      (b) ½ N₂(g) + ½ O₂(g) → NO(g), ΔH°f = +90.3 kJ/mol. The positive sign means NO is higher in enthalpy than the elements it is made from: forming it absorbs energy, and NO is thermodynamically less stable than N₂ and O₂ (it persists for kinetic reasons).
+      (c) The catalyst provides a pathway with a lower activation energy, so the reaction reaches a useful rate; but ΔH° is a state-function difference between the products and reactants, which the catalyst does not alter. The same heat is released per mole whether or not the catalyst is present.
+    explanation: |
+      Three points, one per part.
+
+      (a) 1 pt: −906 kJ (accept −905 to −907) from Σ products − Σ reactants with coefficients.
+      (b) 1 pt: correct formation equation with fractional coefficients and the interpretation of a positive ΔH°f (NO above its elements, less stable).
+      (c) 1 pt: catalyst lowers Ea (rate) but ΔH° depends only on the initial and final states.
+
+  # ---- Long answer
+  - slug: apchem-u06-exam-q40
+    type: long_answer
+    topic_code: "6.4"
+    source: "general knowledge"
+    points: 6
+    stimulus: |
+      A student determines the enthalpy of the reaction Zn(s) + Cu²⁺(aq) → Zn²⁺(aq) + Cu(s) by adding 2.00 g of zinc powder (molar mass 65.38 g/mol) to 50.0 mL of 0.500 M CuSO₄ solution in a coffee-cup calorimeter. The temperature rises from 22.4 °C to 46.0 °C. Assume the solution has a density of 1.00 g/mL and a specific heat of 4.184 J/(g·°C), and ignore the mass of the zinc and the heat capacity of the cup.
+
+      Reference values: ΔH°f of Zn²⁺(aq) = −153.9 kJ/mol; ΔH°f of Cu²⁺(aq) = +64.8 kJ/mol.
+    prompt: |
+      (a) Identify the limiting reactant, showing the calculation.
+      (b) Calculate the heat released and the enthalpy change per mole of reaction.
+      (c) Calculate ΔH° for the reaction from the enthalpies of formation and compare it with the student's value.
+      (d) Give two reasons the student's magnitude is smaller than the accepted value.
+      (e) Explain, at the particle level, why the solution's temperature rose.
+      (f) The student proposes repeating the experiment with 4.00 g of zinc, keeping everything else the same, and expects the temperature rise to double. Evaluate this prediction.
+    answer: |
+      (a) Zn: 2.00/65.38 = 0.0306 mol. Cu²⁺: 0.0500 L × 0.500 M = 0.0250 mol. The reaction is 1:1, so Cu²⁺ is limiting (0.0250 mol).
+      (b) q_solution = 50.0 g × 4.184 × (46.0 − 22.4) = 50.0 × 4.184 × 23.6 = 4,937 J. q_reaction = −4,937 J. ΔH = −4,937 J / 0.0250 mol = −197,500 J/mol = −198 kJ/mol.
+      (c) ΔH° = [ΔH°f(Zn²⁺) + ΔH°f(Cu)] − [ΔH°f(Zn) + ΔH°f(Cu²⁺)] = (−153.9 + 0) − (0 + 64.8) = −218.7 kJ/mol. The student's −198 kJ/mol is about 10% smaller in magnitude.
+      (d) Heat lost to the surroundings (air, cup, thermometer) during the measurement; the heat capacity of the cup and the zinc were ignored, so some heat warmed things other than the solution; the reaction may not have gone to completion or was slow, allowing cooling during the rise.
+      (e) The reaction forms the strongly hydrated Zn²⁺ ion and metallic copper; more energy is released by these new attractions than is needed to remove Zn atoms from the metal and strip Cu²⁺ of its hydration shell. The surplus is transferred to the water molecules as kinetic energy through collisions, raising their average kinetic energy and so the temperature.
+      (f) The prediction is wrong. Cu²⁺ is already the limiting reactant, so adding more zinc produces no more reaction and no more heat; the temperature rise stays about the same (slightly smaller, because the extra zinc absorbs some heat). Doubling the heat would require doubling the Cu²⁺ as well.
+    explanation: |
+      Six points.
+
+      (a) 1 pt: moles of Zn (0.0306) and Cu²⁺ (0.0250) computed and Cu²⁺ identified as limiting.
+      (b) 1 pt: q = 4,937 J (accept 4,900–4,950 J) and ΔH = −198 kJ/mol (accept −195 to −200), negative sign required.
+      (c) 1 pt: ΔH° = −218.7 kJ/mol from the formation values, with a statement that the measured magnitude is smaller.
+      (d) 1 pt: two valid error sources (heat loss to surroundings, neglected heat capacity of cup or zinc, incomplete reaction, slow reaction allowing cooling).
+      (e) 1 pt: net energy released by forming hydrated Zn²⁺ and Cu metal exceeds the cost of the attractions broken; the energy becomes kinetic energy of the water molecules.
+      (f) 1 pt: no change (Cu²⁺ limits), with the reasoning that extra zinc cannot react.

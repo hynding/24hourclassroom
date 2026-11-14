@@ -1,0 +1,947 @@
+unit: 8
+description: |
+  42 questions · about 85 minutes · every topic of Unit 8 (8.1 to 8.10: Brønsted–Lowry acids and bases, Kw
+  and pH, strong and weak acids and bases, acid–base reactions and salts, titrations, molecular structure and
+  acid strength, pH and pKa, buffers, the Henderson–Hasselbalch equation and buffer capacity), with review of
+  the small-x approximation, dilution and net ionic equations. Three data sets in the AP style (a table of Ka
+  values, a weak base–strong acid titration curve, and a buffer being prepared and tested), stand-alone
+  multiple choice, select-all, true/false, fill-in-the-blank and numeric items, two short-answer questions
+  (3 points each) and one long free-response question (6 points). Multiple choice, select-all, true/false and
+  numeric items are graded at once; fill-in-the-blank items are matched automatically; the free-response items
+  are graded by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: Ka table (8.3, 8.9)
+  - slug: apchem-u08-exam-q01
+    type: multiple_choice
+    topic_code: "8.9"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Table: acid ionisation constants at 25 °C. HF 6.8 × 10⁻⁴; HNO₂ 4.5 × 10⁻⁴; CH₃COOH 1.8 × 10⁻⁵; HOCl 3.0 × 10⁻⁸; HCN 6.2 × 10⁻¹⁰; NH₄⁺ 5.6 × 10⁻¹⁰.
+    prompt: |
+      Which conjugate pair from the table is the best choice for a buffer at pH 9.30?
+    options:
+      - "HOCl / OCl⁻"
+      - "NH₄⁺ / NH₃"
+      - "CH₃COOH / CH₃COO⁻"
+      - "HF / F⁻"
+    option_explanations:
+      - |
+        pKa(HOCl) = 7.52 is 1.8 units below the target; the required ratio of about 60:1 leaves almost no acid reserve.
+      - |
+        Correct. pKa(NH₄⁺) = −log(5.6 × 10⁻¹⁰) = 9.25, within 0.05 of the target; the required ratio [NH₃]/[NH₄⁺] = 10^(0.05) ≈ 1.1 keeps both components abundant.
+      - |
+        pKa 4.74 is 4.6 units away; acetate cannot buffer at pH 9.3.
+      - |
+        pKa 3.17 is more than 6 units below the target; an HF/F⁻ mixture at pH 9.3 would contain essentially no HF.
+    answer: 1
+    explanation: |
+      Practice 2. Choose the pair whose pKa is closest to the target pH (within 1).
+
+  - slug: apchem-u08-exam-q02
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Table: acid ionisation constants at 25 °C. HF 6.8 × 10⁻⁴; HNO₂ 4.5 × 10⁻⁴; CH₃COOH 1.8 × 10⁻⁵; HOCl 3.0 × 10⁻⁸; HCN 6.2 × 10⁻¹⁰; NH₄⁺ 5.6 × 10⁻¹⁰.
+    prompt: |
+      Which 0.10 M solution has the highest percent ionisation?
+    options:
+      - "HF"
+      - "CH₃COOH"
+      - "HOCl"
+      - "HCN"
+    option_explanations:
+      - |
+        Correct. At equal concentration the fraction ionised is about √(Ka/c); HF has the largest Ka, giving about 8% ionisation (7.9% by the quadratic).
+      - |
+        Acetic acid (Ka = 1.8 × 10⁻⁵) is only 1.3% ionised at 0.10 M, well below HF.
+      - |
+        HOCl (Ka = 3.0 × 10⁻⁸) is only about 0.05% ionised at 0.10 M.
+      - |
+        HCN is about 0.008% ionised at 0.10 M, the least of the four.
+    answer: 0
+    explanation: |
+      Practice 4. Larger Ka means a larger fraction ionised at the same concentration.
+
+  - slug: apchem-u08-exam-q03
+    type: numeric
+    topic_code: "8.3"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Table: acid ionisation constants at 25 °C. HF 6.8 × 10⁻⁴; HNO₂ 4.5 × 10⁻⁴; CH₃COOH 1.8 × 10⁻⁵; HOCl 3.0 × 10⁻⁸; HCN 6.2 × 10⁻¹⁰; NH₄⁺ 5.6 × 10⁻¹⁰.
+    prompt: |
+      Calculate the pH of 0.050 M acetic acid. Give your answer to two decimal places.
+    answer: { value: 3.02, tolerance: 0.04 }
+    explanation: |
+      x = √(Ka c) = √(1.8 × 10⁻⁵ × 0.050) = √(9.0 × 10⁻⁷) = 9.5 × 10⁻⁴ M (1.9% of 0.050, approximation valid). pH = −log(9.5 × 10⁻⁴) = 3.02.
+
+  # ---- Stimulus set B: methylamine titrated with HCl (8.5)
+  - slug: apchem-u08-exam-q04
+    type: multiple_choice
+    topic_code: "8.5"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Graph description: 20.0 mL of 0.200 M methylamine, CH₃NH₂, a weak base, is titrated with 0.200 M HCl; pH is plotted against the volume of HCl added. The curve starts at pH 11.97, falls slowly through a flat region with pH 10.64 at 10.0 mL, drops steeply near 20.0 mL passing through pH 5.82, and levels off near pH 1.4 by 30.0 mL.
+    prompt: |
+      What is Kb for methylamine?
+    options:
+      - "2.3 × 10⁻¹¹"
+      - "1.1 × 10⁻²"
+      - "4.4 × 10⁻⁴"
+      - "1.5 × 10⁻⁶"
+    option_explanations:
+      - |
+        2.3 × 10⁻¹¹ is Ka of the conjugate acid CH₃NH₃⁺ (10^(−10.64)); Kb = Kw/Ka.
+      - |
+        1.1 × 10⁻² is [OH⁻] at the start (10^(−2.03)), not Kb.
+      - |
+        Correct. At half-equivalence (10.0 mL) pH = pKa(CH₃NH₃⁺) = 10.64, so pKb = 14.00 − 10.64 = 3.36 and Kb = 10^(−3.36) = 4.4 × 10⁻⁴.
+      - |
+        1.5 × 10⁻⁶ is 10^(−5.82), from the equivalence-point pH, which belongs to the conjugate acid's hydrolysis.
+    answer: 2
+    explanation: |
+      Practice 5. Half-equivalence gives pKa of the conjugate acid; subtract from 14 for pKb.
+
+  - slug: apchem-u08-exam-q05
+    type: multiple_choice
+    topic_code: "8.5"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Graph description: 20.0 mL of 0.200 M methylamine, CH₃NH₂, a weak base, is titrated with 0.200 M HCl; pH is plotted against the volume of HCl added. The curve starts at pH 11.97, falls slowly through a flat region with pH 10.64 at 10.0 mL, drops steeply near 20.0 mL passing through pH 5.82, and levels off near pH 1.4 by 30.0 mL.
+    prompt: |
+      Which indicator should be used, and why is the equivalence point below pH 7?
+    options:
+      - "Phenolphthalein (8.3–10.0), because the solution starts strongly basic"
+      - "Methyl red (4.4–6.2), because at equivalence the solution contains CH₃NH₃⁺, a weak acid"
+      - "Either, because the equivalence point of every titration is pH 7"
+      - "Methyl red, because HCl is a strong acid and lowers the pH immediately"
+    option_explanations:
+      - |
+        The starting pH does not decide the indicator; phenolphthalein would change colour in the buffer region, long before equivalence.
+      - |
+        Correct. At 20.0 mL all CH₃NH₂ has become CH₃NH₃⁺ (0.100 M), whose ionisation gives pH 5.82; methyl red changes colour within the steep drop.
+      - |
+        Only strong acid–strong base titrations have equivalence at pH 7.
+      - |
+        The strong acid is consumed by the base until equivalence; the acidic equivalence pH comes from the conjugate acid formed, not from HCl itself.
+    answer: 1
+    explanation: |
+      Practice 2. Match the indicator range to the equivalence pH.
+
+  - slug: apchem-u08-exam-q06
+    type: numeric
+    topic_code: "8.5"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Graph description: 20.0 mL of 0.200 M methylamine, CH₃NH₂, a weak base, is titrated with 0.200 M HCl; pH is plotted against the volume of HCl added. The curve starts at pH 11.97, falls slowly through a flat region with pH 10.64 at 10.0 mL, drops steeply near 20.0 mL passing through pH 5.82, and levels off near pH 1.4 by 30.0 mL.
+    prompt: |
+      Calculate the pH after 30.0 mL of HCl has been added. Give your answer to two decimal places.
+    answer: { value: 1.40, tolerance: 0.03 }
+    explanation: |
+      Moles HCl = 0.0300 L × 0.200 M = 6.00 × 10⁻³; moles base = 4.00 × 10⁻³; excess H⁺ = 2.00 × 10⁻³ mol in 50.0 mL = 0.0400 M. pH = −log(0.0400) = 1.40. The weak acid CH₃NH₃⁺ contributes negligibly beside the strong acid.
+
+  # ---- Stimulus set C: a formate buffer (8.8, 8.9, 8.10)
+  - slug: apchem-u08-exam-q07
+    type: multiple_choice
+    topic_code: "8.9"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A buffer is prepared by dissolving 0.40 mol of formic acid, HCOOH (pKa = 3.74), and 0.60 mol of sodium formate, NaHCOO, in enough water to make 1.00 L of solution.
+    prompt: |
+      What is the pH of the buffer?
+    options:
+      - "3.56"
+      - "3.74"
+      - "4.26"
+      - "3.92"
+    option_explanations:
+      - |
+        3.56 inverts the ratio (log(0.40/0.60) = −0.18).
+      - |
+        3.74 is pKa, the pH for a 1:1 ratio only.
+      - |
+        4.26 uses the wrong arithmetic; the log of 1.5 is 0.18, not 0.52.
+      - |
+        Correct. pH = pKa + log([HCOO⁻]/[HCOOH]) = 3.74 + log(0.60/0.40) = 3.74 + 0.18 = 3.92.
+    answer: 3
+    explanation: |
+      Practice 5. Henderson–Hasselbalch with base over acid.
+
+  - slug: apchem-u08-exam-q08
+    type: multiple_choice
+    topic_code: "8.8"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A buffer is prepared by dissolving 0.40 mol of formic acid, HCOOH (pKa = 3.74), and 0.60 mol of sodium formate, NaHCOO, in enough water to make 1.00 L of solution.
+    prompt: |
+      Which pair of statements correctly identifies what reacts when a strong acid or a strong base is added to this buffer?
+    options:
+      - "Added H⁺ reacts with HCOO⁻ to form HCOOH; added OH⁻ reacts with HCOOH to form HCOO⁻ and water."
+      - "Added H⁺ reacts with HCOOH to form H₂COOH⁺; added OH⁻ reacts with HCOO⁻."
+      - "Added H⁺ reacts with Na⁺; added OH⁻ reacts with water."
+      - "Added H⁺ and OH⁻ both react with HCOOH."
+    option_explanations:
+      - |
+        Correct. The conjugate base absorbs acid and the weak acid absorbs base; each reaction converts a strong reagent into a weak one.
+      - |
+        Formic acid does not accept a proton, and formate cannot react with hydroxide; the roles are reversed.
+      - |
+        Sodium is a spectator, and water is not what consumes added base in a buffer.
+      - |
+        Added H⁺ is absorbed by the base component, formate, not by the acid.
+    answer: 0
+    explanation: |
+      Practice 6. Base for acid, acid for base.
+
+  - slug: apchem-u08-exam-q09
+    type: numeric
+    topic_code: "8.10"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A buffer is prepared by dissolving 0.40 mol of formic acid, HCOOH (pKa = 3.74), and 0.60 mol of sodium formate, NaHCOO, in enough water to make 1.00 L of solution.
+    prompt: |
+      0.10 mol of NaOH is added to the buffer with no change in volume. Calculate the new pH. Give your answer to two decimal places.
+    answer: { value: 4.11, tolerance: 0.04 }
+    explanation: |
+      OH⁻ + HCOOH → HCOO⁻ + H₂O: formic acid 0.40 → 0.30 mol, formate 0.60 → 0.70 mol. pH = 3.74 + log(0.70/0.30) = 3.74 + 0.37 = 4.11, a rise of 0.19 units; the same NaOH in water would give pH 13.00.
+
+  # ---- Stand-alone multiple choice
+  - slug: apchem-u08-exam-q10
+    type: multiple_choice
+    topic_code: "8.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      In H₂PO₄⁻(aq) + H₂O(l) ⇌ HPO₄²⁻(aq) + H₃O⁺(aq), which statement is correct?
+    options:
+      - "H₂PO₄⁻ is the base and H₃O⁺ is its conjugate acid."
+      - "H₂O is the acid and HPO₄²⁻ is its conjugate base."
+      - "H₂PO₄⁻ is the acid and HPO₄²⁻ is its conjugate base; H₂O is the base and H₃O⁺ its conjugate acid."
+      - "HPO₄²⁻ and H₃O⁺ form a conjugate pair."
+    option_explanations:
+      - |
+        H₂PO₄⁻ loses a proton here, so it is the acid; its conjugate base is HPO₄²⁻, not H₃O⁺.
+      - |
+        Water gains a proton, so it is the base; its conjugate acid is H₃O⁺.
+      - |
+        Correct. Each pair differs by one proton: H₂PO₄⁻/HPO₄²⁻ and H₃O⁺/H₂O.
+      - |
+        These are the two products and belong to different pairs.
+    answer: 2
+    explanation: |
+      Practice 1. Identify who loses and who gains the proton.
+
+  - slug: apchem-u08-exam-q11
+    type: multiple_choice
+    topic_code: "8.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      What is [OH⁻] in 0.0020 M HCl at 25 °C?
+    options:
+      - "5.0 × 10⁻¹² M"
+      - "2.0 × 10⁻³ M"
+      - "1.0 × 10⁻⁷ M"
+      - "2.0 × 10⁻¹¹ M"
+    option_explanations:
+      - |
+        Correct. [H₃O⁺] = 2.0 × 10⁻³ M from the strong acid; [OH⁻] = Kw/[H₃O⁺] = 1.0 × 10⁻¹⁴/2.0 × 10⁻³ = 5.0 × 10⁻¹² M.
+      - |
+        2.0 × 10⁻³ M is [H₃O⁺]; the hydroxide concentration must satisfy Kw.
+      - |
+        1.0 × 10⁻⁷ M is the value in pure water; the acid suppresses it.
+      - |
+        2.0 × 10⁻¹¹ M multiplies instead of dividing by the concentration.
+    answer: 0
+    explanation: |
+      Practice 5. [H₃O⁺][OH⁻] = Kw in every aqueous solution.
+
+  - slug: apchem-u08-exam-q12
+    type: multiple_choice
+    topic_code: "8.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      What is the pH of 0.0150 M Sr(OH)₂ at 25 °C?
+    options:
+      - "1.52"
+      - "12.18"
+      - "12.48"
+      - "1.82"
+    option_explanations:
+      - |
+        1.52 is the pOH of 0.0300 M OH⁻; the pH of a strong base is high.
+      - |
+        12.18 uses [OH⁻] = 0.0150 M, forgetting the two hydroxides per formula unit.
+      - |
+        Correct. [OH⁻] = 2 × 0.0150 = 0.0300 M; pOH = 1.52; pH = 12.48.
+      - |
+        1.82 is the pOH that would follow from a single hydroxide; both the count and the conversion to pH are missing.
+    answer: 2
+    explanation: |
+      Practice 5. Sr(OH)₂ is a strong base releasing two OH⁻.
+
+  - slug: apchem-u08-exam-q13
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A 0.10 M solution of a weak monoprotic acid is 1.0% ionised. What is Ka?
+    options:
+      - "1.0 × 10⁻³"
+      - "1.0 × 10⁻²"
+      - "1.0 × 10⁻⁴"
+      - "1.0 × 10⁻⁵"
+    option_explanations:
+      - |
+        1.0 × 10⁻³ is [H⁺] (1.0% of 0.10 M), not Ka.
+      - |
+        1.0 × 10⁻² is the fraction ionised (1.0%), not Ka.
+      - |
+        1.0 × 10⁻⁴ omits the square on x or the division by the acid concentration.
+      - |
+        Correct. x = 0.010 × 0.10 = 1.0 × 10⁻³ M; Ka = x²/(0.10 − x) = (1.0 × 10⁻³)²/0.099 = 1.0 × 10⁻⁵.
+    answer: 3
+    explanation: |
+      Practice 5. Percent ionisation gives x; Ka = x²/(c − x).
+
+  - slug: apchem-u08-exam-q14
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Hypochlorous acid has Ka = 3.0 × 10⁻⁸. What is Kb for the hypochlorite ion, OCl⁻, at 25 °C?
+    options:
+      - "3.0 × 10⁻²²"
+      - "3.3 × 10⁷"
+      - "3.0 × 10⁻⁸"
+      - "3.3 × 10⁻⁷"
+    option_explanations:
+      - |
+        3.0 × 10⁻²² multiplies Ka by Kw; the relation is a quotient.
+      - |
+        3.3 × 10⁷ is 1/Ka; Kw must be in the numerator.
+      - |
+        3.0 × 10⁻⁸ is Ka of the acid, not Kb of its conjugate base.
+      - |
+        Correct. Kb = Kw/Ka = 1.0 × 10⁻¹⁴/3.0 × 10⁻⁸ = 3.3 × 10⁻⁷; OCl⁻ is a moderately weak base, stronger than acetate.
+    answer: 3
+    explanation: |
+      Practice 5. Ka × Kb = Kw for a conjugate pair.
+
+  - slug: apchem-u08-exam-q15
+    type: multiple_choice
+    topic_code: "8.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which salt gives an acidic solution when dissolved in water?
+    options:
+      - "KCN"
+      - "NaNO₃"
+      - "NH₄NO₃"
+      - "Na₂CO₃"
+    option_explanations:
+      - |
+        Cyanide is the conjugate base of the very weak acid HCN; KCN solutions are distinctly basic.
+      - |
+        Both ions are spectators (Na⁺ from a strong base, NO₃⁻ from a strong acid); the solution is neutral.
+      - |
+        Correct. NH₄⁺ is the conjugate acid of the weak base NH₃ and donates protons to water (Ka = 5.6 × 10⁻¹⁰); nitrate is a spectator.
+      - |
+        Carbonate is a weak base; sodium carbonate solutions are basic (washing soda).
+    answer: 2
+    explanation: |
+      Practice 6. Conjugate acids of weak bases make acidic salts.
+
+  - slug: apchem-u08-exam-q16
+    type: multiple_choice
+    topic_code: "8.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which is the correct net ionic equation for the reaction of aqueous hydrofluoric acid with aqueous sodium hydroxide?
+    options:
+      - "H⁺(aq) + OH⁻(aq) → H₂O(l)"
+      - "HF(aq) + OH⁻(aq) → F⁻(aq) + H₂O(l)"
+      - "HF(aq) + NaOH(aq) → NaF(aq) + H₂O(l)"
+      - "HF(aq) + Na⁺(aq) → NaF(aq) + H⁺(aq)"
+    option_explanations:
+      - |
+        HF is a weak acid and must be written as the intact molecule, not as free H⁺.
+      - |
+        Correct. The weak acid is written whole, the strong base as OH⁻, and the spectator Na⁺ is omitted; K = Ka/Kw ≈ 7 × 10¹⁰, so the reaction is complete.
+      - |
+        This is the molecular equation; the strong electrolytes should be written as ions and spectators removed.
+      - |
+        Sodium ion is a spectator and does not react with HF.
+    answer: 1
+    explanation: |
+      Practice 2. Weak acids stay molecular in net ionic equations.
+
+  - slug: apchem-u08-exam-q17
+    type: multiple_choice
+    topic_code: "8.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A diprotic acid H₂A is titrated with NaOH. Which description of the titration curve is correct?
+    options:
+      - "One equivalence point, because both protons are removed at the same time"
+      - "Two equivalence points, the second at twice the titrant volume of the first, with pH = pKa1 and pH = pKa2 at the two half-equivalence points"
+      - "Two equivalence points at the same titrant volume, separated only by pH"
+      - "One equivalence point at pH 7, because the salt Na₂A is neutral"
+    option_explanations:
+      - |
+        The two protons have very different Ka values and are removed one after the other, giving two jumps.
+      - |
+        Correct. The first proton is titrated through its own buffer region (pH = pKa1 at its midpoint), then the second (pH = pKa2); each proton needs the same number of moles of base.
+      - |
+        The second equivalence point requires a second equivalent of base, so it comes at twice the volume.
+      - |
+        A²⁻ is a weak base, so the second equivalence point is basic, and there are two of them.
+    answer: 1
+    explanation: |
+      Practice 4. Each proton gives its own buffer region and jump.
+
+  - slug: apchem-u08-exam-q18
+    type: multiple_choice
+    topic_code: "8.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      What is the difference between the equivalence point and the end point of a titration?
+    options:
+      - "They are the same thing described in different words."
+      - "The equivalence point is where the indicator changes colour; the end point is where the moles of titrant equal the moles of analyte."
+      - "The equivalence point is defined by stoichiometry (moles of titrant equal moles of analyte); the end point is where the indicator changes colour, and a suitable indicator makes them coincide."
+      - "The end point is always at pH 7; the equivalence point varies with the acid."
+    option_explanations:
+      - |
+        They are distinct: one is a chemical fact about moles, the other an observable signal.
+      - |
+        The definitions are swapped: stoichiometry defines the equivalence point, the indicator marks the end point.
+      - |
+        Correct. The experimenter sees the end point; the calculation uses the equivalence point; choosing an indicator whose range covers the equivalence pH keeps the error small.
+      - |
+        Neither is tied to pH 7; the equivalence pH depends on the acid and base, and the end point on the indicator.
+    answer: 2
+    explanation: |
+      Practice 2. Stoichiometry versus signal.
+
+  - slug: apchem-u08-exam-q19
+    type: multiple_choice
+    topic_code: "8.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which is the stronger acid, H₂S or H₂Se, and why?
+    options:
+      - "H₂S, because sulfur is more electronegative, making the H–S bond more polar"
+      - "They are equally strong, because both have two acidic hydrogens"
+      - "H₂S, because it is a smaller molecule with stronger intermolecular forces"
+      - "H₂Se, because the H–Se bond is weaker and the larger HSe⁻ ion spreads its negative charge over more volume"
+    option_explanations:
+      - |
+        Across a period polarity decides, but down a group the weakening bond and the growing anion dominate; H₂Se is the stronger acid.
+      - |
+        Having the same number of hydrogens says nothing about how easily they are lost.
+      - |
+        Intermolecular forces do not determine acid strength.
+      - |
+        Correct. Down group 16, as down group 17 (HF < HCl < HBr < HI), acid strength rises as the H–X bond weakens and the conjugate base becomes larger and more stable.
+    answer: 3
+    explanation: |
+      Practice 6. Down a group, bond strength and anion size control acidity.
+
+  - slug: apchem-u08-exam-q20
+    type: multiple_choice
+    topic_code: "8.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which comparison of oxyacid strengths is correct?
+    options:
+      - "HBrO₂ > HBrO₃, because fewer oxygens leave the O–H bond more polar"
+      - "HIO > HClO, because iodine is larger"
+      - "H₂SO₃ > H₂SO₄, because sulfurous acid has fewer oxygens competing for electrons"
+      - "HBrO₃ > HBrO₂, because the extra oxygen withdraws electron density from the O–H bond and stabilises the anion"
+    option_explanations:
+      - |
+        More oxygens, not fewer, make an oxyacid stronger.
+      - |
+        The more electronegative central atom gives the stronger acid: HClO > HBrO > HIO.
+      - |
+        Sulfuric acid, with the extra oxygen, is strong; sulfurous acid is weak (Ka1 = 1.4 × 10⁻²).
+      - |
+        Correct. Each additional oxygen on the central atom pulls electron density away from the acidic O–H bond and delocalises the anion's charge, so HBrO₃ (strong) is far stronger than HBrO₂.
+    answer: 3
+    explanation: |
+      Practice 6. Oxyacid strength rises with the number of oxygens and the electronegativity of the central atom.
+
+  - slug: apchem-u08-exam-q21
+    type: multiple_choice
+    topic_code: "8.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Acetic acid, CH₃COOH, has Ka = 1.8 × 10⁻⁵, while ethanol, CH₃CH₂OH, has Ka ≈ 10⁻¹⁶. Both lose a proton from an O–H group. Why is acetic acid so much stronger?
+    options:
+      - "The acetate anion is resonance-stabilised: its negative charge is shared between two oxygen atoms, which the ethoxide ion cannot do."
+      - "Acetic acid has more hydrogen atoms."
+      - "The O–H bond in acetic acid is much weaker because carbon is bonded to oxygen."
+      - "Ethanol is a base, not an acid."
+    option_explanations:
+      - |
+        Correct. Delocalising the charge over both oxygens of the carboxylate makes the conjugate base far more stable, shifting the ionisation equilibrium toward products by about eleven orders of magnitude.
+      - |
+        The number of hydrogens is irrelevant; only the O–H hydrogen is acidic in both molecules.
+      - |
+        Both O–H bonds are similar in strength; the difference lies in the stability of the anion formed.
+      - |
+        Ethanol is an extremely weak acid (and also a very weak base); the question concerns the acidity of its O–H proton.
+    answer: 0
+    explanation: |
+      Practice 6. Resonance stabilisation of the carboxylate anion.
+
+  - slug: apchem-u08-exam-q22
+    type: multiple_choice
+    topic_code: "8.7"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A weak acid HA has pKa = 6.0. In a solution of pH 8.0, what is the ratio [A⁻]/[HA]?
+    options:
+      - "100:1"
+      - "1:100"
+      - "2:1"
+      - "1:2"
+    option_explanations:
+      - |
+        Correct. log([A⁻]/[HA]) = pH − pKa = 2.0, so the deprotonated form is 100 times the protonated form.
+      - |
+        1:100 is the ratio at pH 4.0, two units below pKa.
+      - |
+        The relation is logarithmic, not linear: two units of pH are a factor of 100.
+      - |
+        1:2 would need a log of −0.3, which is not the case here.
+    answer: 0
+    explanation: |
+      Practice 5. Above pKa the base form dominates by 10 per pH unit.
+
+  - slug: apchem-u08-exam-q23
+    type: multiple_choice
+    topic_code: "8.8"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which of the following is NOT a buffer solution?
+    options:
+      - "0.1 M NH₃ and 0.1 M NH₄Cl"
+      - "0.1 M CH₃COOH and 0.1 M NaCH₃COO"
+      - "0.1 M H₂CO₃ and 0.1 M NaHCO₃"
+      - "0.1 M HCl and 0.1 M NaCl"
+    option_explanations:
+      - |
+        Ammonia and ammonium are a weak conjugate pair; this is a classic buffer near pH 9.25.
+      - |
+        Acetic acid and acetate are a weak conjugate pair; buffer near pH 4.74.
+      - |
+        Carbonic acid and bicarbonate are a weak conjugate pair; this is the blood buffer.
+      - |
+        Correct. HCl is a strong acid and Cl⁻ is a spectator with no tendency to accept protons; added base simply neutralises HCl and the pH swings freely.
+    answer: 3
+    explanation: |
+      Practice 2. A buffer needs a weak acid or base together with its conjugate.
+
+  - slug: apchem-u08-exam-q24
+    type: multiple_choice
+    topic_code: "8.9"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      What ratio [NH₃]/[NH₄⁺] gives an ammonia buffer a pH of 9.00? (pKa of NH₄⁺ = 9.25)
+    options:
+      - "1.8"
+      - "0.25"
+      - "0.56"
+      - "−0.25"
+    option_explanations:
+      - |
+        1.8 would correspond to pH 9.51, above pKa; a pH below pKa needs a ratio below 1.
+      - |
+        0.25 is the magnitude of log(ratio), not the ratio.
+      - |
+        Correct. log([NH₃]/[NH₄⁺]) = pH − pKa = −0.25, so the ratio = 10^(−0.25) = 0.56: more ammonium than ammonia.
+      - |
+        A ratio of concentrations cannot be negative; −0.25 is the logarithm.
+    answer: 2
+    explanation: |
+      Practice 5. Solve Henderson–Hasselbalch for the ratio and take the antilog.
+
+  - slug: apchem-u08-exam-q25
+    type: multiple_choice
+    topic_code: "8.10"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which 1.0 L buffer can absorb the largest amount of added NaOH before its pH changes by more than about one unit?
+    options:
+      - "0.10 M HA / 0.50 M A⁻"
+      - "0.50 M HA / 0.10 M A⁻"
+      - "0.10 M HA / 0.10 M A⁻"
+      - "0.050 M HA / 0.050 M A⁻"
+    option_explanations:
+      - |
+        Only 0.10 mol of acid is available to neutralise added base; this buffer resists acid well but base poorly.
+      - |
+        Correct. Added OH⁻ reacts with HA, and this buffer has the most HA (0.50 mol); it can absorb more base than any of the others before the acid is used up.
+      - |
+        0.10 mol of acid, the same as the first option, but less overall capacity than the second.
+      - |
+        The most dilute buffer has the smallest reserves of both components.
+    answer: 1
+    explanation: |
+      Practice 6. Capacity toward base is set by the amount of the weak acid.
+
+  - slug: apchem-u08-exam-q26
+    type: multiple_choice
+    topic_code: "7.7"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      For which solution is the small-x approximation in the Ka expression most likely to fail the 5% test?
+    options:
+      - "1.0 M acid with Ka = 1.0 × 10⁻⁵"
+      - "0.10 M acid with Ka = 1.0 × 10⁻⁸"
+      - "0.50 M acid with Ka = 1.0 × 10⁻⁷"
+      - "0.010 M acid with Ka = 1.0 × 10⁻³"
+    option_explanations:
+      - |
+        x = √(1.0 × 10⁻⁵) = 3.2 × 10⁻³ M, 0.32% of 1.0 M: fine.
+      - |
+        x = √(1.0 × 10⁻⁹) = 3.2 × 10⁻⁵ M, 0.03% of 0.10 M: fine.
+      - |
+        x = √(5.0 × 10⁻⁸) = 2.2 × 10⁻⁴ M, 0.04% of 0.50 M: fine.
+      - |
+        Correct. x = √(1.0 × 10⁻⁵) = 3.2 × 10⁻³ M, which is 32% of 0.010 M; Ka/c = 0.1 is far too large for the approximation, so the quadratic is needed.
+    answer: 3
+    explanation: |
+      Practice 5 (review of 7.7). The approximation fails when Ka is not small relative to the concentration.
+
+  - slug: apchem-u08-exam-q27
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      What volume of 2.00 M HCl is needed to prepare 500.0 mL of 0.100 M HCl?
+    options:
+      - "25.0 mL"
+      - "50.0 mL"
+      - "10.0 mL"
+      - "100.0 mL"
+    option_explanations:
+      - |
+        Correct. M₁V₁ = M₂V₂: V₁ = (0.100 M)(500.0 mL)/(2.00 M) = 25.0 mL, diluted to the mark.
+      - |
+        50.0 mL of 2.00 M HCl diluted to 500.0 mL would make 0.200 M, twice the target.
+      - |
+        10.0 mL of 2.00 M HCl diluted to 500.0 mL would make only 0.0400 M.
+      - |
+        100.0 mL of 2.00 M HCl diluted to 500.0 mL would make 0.400 M, four times the target.
+    answer: 0
+    explanation: |
+      Practice 5 (review of 4.5). Moles are conserved on dilution.
+
+  - slug: apchem-u08-exam-q28
+    type: multiple_choice
+    topic_code: "8.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      At 37 °C (body temperature) Kw = 2.4 × 10⁻¹⁴. Which statement about pure water at 37 °C is correct?
+    options:
+      - "It is slightly acidic, because its pH is below 7."
+      - "It is neutral, with pH about 6.8, because [H₃O⁺] = [OH⁻] = √Kw."
+      - "It has pH 7.00, because pure water is always pH 7."
+      - "It is slightly basic, because more OH⁻ forms at higher temperature."
+    option_explanations:
+      - |
+        A pH below 7 is not acidic when Kw itself has changed; acidity means [H₃O⁺] > [OH⁻].
+      - |
+        Correct. [H₃O⁺] = [OH⁻] = √(2.4 × 10⁻¹⁴) = 1.5 × 10⁻⁷ M, pH = 6.81; equal concentrations mean neutral.
+      - |
+        pH 7.00 is neutral only at 25 °C, where Kw = 1.0 × 10⁻¹⁴; at 37 °C the neutral point is lower.
+      - |
+        Autoionisation makes H₃O⁺ and OH⁻ in equal amounts; the water stays neutral.
+    answer: 1
+    explanation: |
+      Practice 6. Neutral means equal ion concentrations; the neutral pH shifts with Kw.
+
+  # ---- Select all
+  - slug: apchem-u08-exam-q29
+    type: multi_select
+    topic_code: "8.2"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of the following are strong bases, dissociating completely into hydroxide ions in water? Select all that apply.
+    options:
+      - "KOH"
+      - "NH₃"
+      - "Ba(OH)₂"
+      - "CH₃NH₂"
+      - "NaOH"
+    option_explanations:
+      - |
+        Correct. Group 1 hydroxides are strong bases.
+      - |
+        Ammonia is a weak base (Kb = 1.8 × 10⁻⁵); it produces OH⁻ only by partial reaction with water.
+      - |
+        Correct. Barium hydroxide dissociates completely, giving two OH⁻ per formula unit.
+      - |
+        Methylamine is a weak base (Kb = 4.4 × 10⁻⁴).
+      - |
+        Correct. Sodium hydroxide is the archetypal strong base.
+    answer: [0, 2, 4]
+    explanation: |
+      Practice 1. Strong bases are the soluble metal hydroxides; nitrogen bases are weak.
+
+  - slug: apchem-u08-exam-q30
+    type: multi_select
+    topic_code: "8.5"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about the titration of a weak acid with a strong base are correct? Select all that apply.
+    options:
+      - "The initial pH is higher than that of a strong acid of the same concentration."
+      - "The pH at half-equivalence equals the pKa of the acid."
+      - "The pH at the equivalence point is greater than 7."
+      - "The steep rise at equivalence spans a smaller pH range than for a strong acid."
+      - "After the equivalence point, the pH is set by the excess strong base."
+      - "The volume of base needed to reach equivalence depends on Ka."
+    option_explanations:
+      - |
+        Correct. The weak acid is only partly ionised, so [H⁺] is lower and the pH higher.
+      - |
+        Correct. Half the acid has become its conjugate base, so [HA] = [A⁻] and pH = pKa.
+      - |
+        Correct. The conjugate base present at equivalence hydrolyses to give OH⁻.
+      - |
+        Correct. The curve starts higher and the jump begins from the buffer region, so it is shorter than the 3-to-11 jump of a strong acid.
+      - |
+        Correct. The weak conjugate base is negligible beside the excess OH⁻.
+      - |
+        The equivalence volume depends only on the moles of acid, not on its strength.
+    answer: [0, 1, 2, 3, 4]
+    explanation: |
+      Practice 4. Strength changes the shape of the curve, not the stoichiometry.
+
+  - slug: apchem-u08-exam-q31
+    type: multi_select
+    topic_code: "8.8"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about buffers are correct? Select all that apply.
+    options:
+      - "A buffer contains comparable amounts of a weak acid and its conjugate base."
+      - "The pH of a buffer depends on the ratio of base to acid, not on their absolute amounts."
+      - "A buffer's capacity depends on the absolute amounts of its components."
+      - "A buffer keeps the pH exactly constant regardless of how much acid is added."
+      - "Mixing a weak acid with less than one equivalent of strong base produces a buffer."
+    option_explanations:
+      - |
+        Correct. That is the definition of a buffer: both members of a weak conjugate pair in comparable amounts.
+      - |
+        Correct. pH = pKa + log(base/acid); doubling both components leaves the pH unchanged.
+      - |
+        Correct. More moles of each component means more strong reagent can be absorbed.
+      - |
+        A buffer limits the change; once a component is exhausted the pH jumps.
+      - |
+        Correct. Partial neutralisation leaves both HA and A⁻.
+    answer: [0, 1, 2, 4]
+    explanation: |
+      Practice 6. Ratio sets pH; amounts set capacity.
+
+  # ---- True/false
+  - slug: apchem-u08-exam-q32
+    type: true_false
+    topic_code: "8.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: diluting a solution of a strong acid to ten times its volume raises its pH by one unit, provided the acid remains far more concentrated than 10⁻⁷ M.
+    answer: true
+    explanation: |
+      True. A strong acid is fully ionised, so [H₃O⁺] falls by exactly a factor of 10 and pH = −log[H₃O⁺] rises by log 10 = 1. The rule breaks down only near 10⁻⁷ M, where water's own autoionisation contributes comparably. A weak acid's pH rises by only about 0.5 per ten-fold dilution, because its percent ionisation increases.
+
+  - slug: apchem-u08-exam-q33
+    type: true_false
+    topic_code: "8.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: HF is the strongest of the hydrogen halide acids because the H–F bond is the most polar.
+    answer: false
+    explanation: |
+      False. HF is the only weak hydrogen halide acid (Ka = 6.8 × 10⁻⁴); HCl, HBr and HI are all strong, with HI the strongest. Down the group the H–X bond weakens (567 kJ/mol for H–F, 299 kJ/mol for H–I) and the larger anion stabilises its charge better; these effects outweigh polarity. Polarity decides only across a period.
+
+  - slug: apchem-u08-exam-q34
+    type: true_false
+    topic_code: "8.10"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: two buffers made from the same conjugate pair with the same base-to-acid ratio have the same pH and the same buffer capacity.
+    answer: false
+    explanation: |
+      False. The same ratio gives the same pH (Henderson–Hasselbalch depends only on the ratio), but capacity depends on the absolute amounts: a 1.0 M/1.0 M buffer absorbs ten times more strong acid or base than a 0.10 M/0.10 M buffer before the same pH change.
+
+  # ---- Fill in the blank
+  - slug: apchem-u08-exam-q35
+    type: fill_blank
+    topic_code: "8.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A species such as HCO₃⁻ or H₂O that can act either as a Brønsted–Lowry acid or as a Brønsted–Lowry base is described as ____.
+    answer: ["amphoteric", "amphiprotic", "amphoteric (amphiprotic)"]
+    explanation: |
+      Amphoteric (or amphiprotic, for proton transfer specifically) species have both a removable proton and a site that can accept one. Water donates a proton to NH₃ and accepts one from HF; bicarbonate gives carbonate or carbonic acid depending on its partner.
+
+  - slug: apchem-u08-exam-q36
+    type: fill_blank
+    topic_code: "8.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      In the titration of a weak acid with a strong base, the pH at the ____ point equals the pKa of the acid, because the acid and its conjugate base are present in equal amounts.
+    answer: ["half-equivalence", "half equivalence", "halfway", "midpoint", "half-neutralisation", "half-neutralization", "half-titration"]
+    explanation: |
+      At half-equivalence, half the acid has been converted to its conjugate base, so [HA] = [A⁻] and pH = pKa + log 1 = pKa. The equivalence point, by contrast, lies above 7 for a weak acid.
+
+  - slug: apchem-u08-exam-q37
+    type: fill_blank
+    topic_code: "8.9"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      The equation pH = pKa + log([A⁻]/[HA]), used to find the pH of a buffer, is known as the ____ equation.
+    answer: ["Henderson–Hasselbalch", "Henderson-Hasselbalch", "Henderson Hasselbalch", "Henderson-Hasselbach", "Henderson–Hasselbalch equation"]
+    explanation: |
+      It is the Ka expression rearranged in logarithms. Base over acid: more conjugate base raises the pH above pKa. After a strong reagent is added, do the stoichiometry in moles first, then apply the equation to the new amounts.
+
+  # ---- Numeric
+  - slug: apchem-u08-exam-q38
+    type: numeric
+    topic_code: "8.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Calculate the pH of 0.10 M sodium acetate, NaCH₃COO, at 25 °C (Ka of acetic acid = 1.8 × 10⁻⁵). Give your answer to two decimal places.
+    answer: { value: 8.87, tolerance: 0.05 }
+    explanation: |
+      Acetate is a weak base: Kb = Kw/Ka = 5.6 × 10⁻¹⁰. CH₃COO⁻ + H₂O ⇌ CH₃COOH + OH⁻: x = √(5.6 × 10⁻¹⁰ × 0.10) = 7.5 × 10⁻⁶ M OH⁻; pOH = 5.13; pH = 8.87. Sodium is a spectator.
+
+  - slug: apchem-u08-exam-q39
+    type: numeric
+    topic_code: "8.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A 25.0 mL sample of 0.150 M HBr is titrated with 0.200 M KOH. Calculate the volume of KOH, in mL, needed to reach the equivalence point. Give your answer to three significant figures.
+    answer: { value: 18.8, tolerance: 0.2 }
+    explanation: |
+      Moles HBr = 0.0250 L × 0.150 M = 3.75 × 10⁻³ mol; the reaction is 1:1, so 3.75 × 10⁻³ mol KOH is needed: V = 3.75 × 10⁻³/0.200 = 0.01875 L = 18.8 mL. Both are strong, so the equivalence pH is 7.00.
+
+  # ---- Short answer
+  - slug: apchem-u08-exam-q40
+    type: short_answer
+    topic_code: "8.3"
+    source: "general knowledge"
+    points: 3
+    prompt: |
+      A 0.20 M solution of a weak monoprotic acid HA has pH 2.80 at 25 °C.
+      (a) Determine [H₃O⁺], [A⁻] and [HA] at equilibrium.
+      (b) Calculate Ka and pKa.
+      (c) Calculate the percent ionisation, and predict whether it would be larger or smaller in a 0.020 M solution of the same acid.
+    answer: |
+      (a) [H₃O⁺] = 10^(−2.80) = 1.6 × 10⁻³ M; [A⁻] = 1.6 × 10⁻³ M; [HA] = 0.20 − 0.0016 = 0.198 ≈ 0.20 M.
+      (b) Ka = (1.6 × 10⁻³)²/0.198 = 1.3 × 10⁻⁵; pKa = 4.90.
+      (c) 100 × 1.6 × 10⁻³/0.20 = 0.79%. In the 0.020 M solution the percent ionisation would be larger (about 2.5%): dilution lowers Q below Ka (two product terms against one reactant term), so a greater fraction ionises even though [H₃O⁺] falls.
+    explanation: |
+      Three points.
+
+      (a) 1 pt: all three concentrations (accept [HA] = 0.20 M with the approximation stated).
+      (b) 1 pt: Ka = 1.3 × 10⁻⁵ (accept 1.2–1.3 × 10⁻⁵) and pKa ≈ 4.9.
+      (c) 1 pt: 0.79% (accept 0.8%) and larger on dilution, with a Q/K or Le Châtelier reason.
+
+  - slug: apchem-u08-exam-q41
+    type: short_answer
+    topic_code: "8.10"
+    source: "general knowledge"
+    points: 3
+    prompt: |
+      Two hypochlorite buffers (pKa of HOCl = 7.52) are prepared, 1.0 L each: buffer M is 0.50 M HOCl / 0.50 M NaOCl, and buffer N is 0.050 M HOCl / 0.050 M NaOCl. 0.060 mol of HCl is added to each without changing the volume.
+      (a) Calculate the pH of buffer M after the addition.
+      (b) Determine what happens in buffer N and calculate its pH after the addition.
+      (c) Explain the difference in terms of buffer capacity.
+    answer: |
+      (a) H⁺ + OCl⁻ → HOCl: OCl⁻ 0.50 → 0.44 mol, HOCl 0.50 → 0.56 mol. pH = 7.52 + log(0.44/0.56) = 7.52 − 0.10 = 7.42.
+      (b) Buffer N holds only 0.050 mol OCl⁻, so the first 0.050 mol of H⁺ converts all of it to HOCl and 0.010 mol of strong acid remains unreacted: [H⁺] = 0.010 M, pH = 2.00 (the 0.10 M HOCl present contributes negligibly beside the strong acid).
+      (c) Both buffers began at pH 7.52 with the same 1:1 ratio, but capacity is set by the moles of the component that reacts, here the base OCl⁻: M had 0.50 mol and absorbed the acid with a 0.10 change in pH; N had only 0.050 mol, was exhausted, and its pH collapsed by 5.5 units.
+    explanation: |
+      Three points.
+
+      (a) 1 pt: pH 7.42 (accept 7.41–7.43) with the stoichiometry.
+      (b) 1 pt: base exhausted, 0.010 mol excess strong acid, pH 2.00.
+      (c) 1 pt: capacity depends on the amount of the reacting component, not on the initial pH or ratio.
+
+  # ---- Long answer
+  - slug: apchem-u08-exam-q42
+    type: long_answer
+    topic_code: "8.5"
+    source: "general knowledge"
+    points: 6
+    prompt: |
+      40.0 mL of 0.150 M propanoic acid, CH₃CH₂COOH (Ka = 1.3 × 10⁻⁵), is titrated with 0.200 M NaOH at 25 °C.
+      (a) Calculate the volume of NaOH required to reach the equivalence point.
+      (b) Calculate the pH of the acid solution before any base is added.
+      (c) Calculate the pH after 10.0 mL of NaOH has been added.
+      (d) State the pH after 15.0 mL of NaOH has been added and explain why no equilibrium calculation is needed.
+      (e) Calculate the pH at the equivalence point.
+      (f) Calculate the pH after 40.0 mL of NaOH has been added, and choose a suitable indicator from methyl red (4.4–6.2) and phenolphthalein (8.3–10.0), with justification.
+    answer: |
+      (a) Moles acid = 0.0400 L × 0.150 M = 6.00 × 10⁻³ mol; 1:1 with NaOH: V = 6.00 × 10⁻³/0.200 = 0.0300 L = 30.0 mL.
+      (b) x = √(1.3 × 10⁻⁵ × 0.150) = 1.4 × 10⁻³ M (0.9% of 0.150, approximation valid); pH = 2.85.
+      (c) Moles OH⁻ = 2.00 × 10⁻³, converting that much acid to propanoate: 4.00 × 10⁻³ mol acid and 2.00 × 10⁻³ mol base remain. pKa = −log(1.3 × 10⁻⁵) = 4.89. pH = 4.89 + log(2.00/4.00) = 4.89 − 0.30 = 4.59.
+      (d) 15.0 mL is half the equivalence volume: half the acid has been converted, so [HA] = [A⁻] and pH = pKa = 4.89 directly from the Henderson–Hasselbalch equation with a ratio of 1.
+      (e) All 6.00 × 10⁻³ mol is propanoate in 70.0 mL: 0.0857 M. Kb = Kw/Ka = 7.7 × 10⁻¹⁰; x = √(7.7 × 10⁻¹⁰ × 0.0857) = 8.1 × 10⁻⁶ M OH⁻; pOH = 5.09; pH = 8.91.
+      (f) Excess OH⁻ = (0.0400 − 0.0300) L × 0.200 M = 2.00 × 10⁻³ mol in 80.0 mL: [OH⁻] = 0.0250 M; pOH = 1.60; pH = 12.40. Phenolphthalein is suitable: its range brackets the equivalence pH of 8.91 on the steep part of the curve; methyl red would change colour at pH 4.4–6.2, in the buffer region, well before equivalence.
+    explanation: |
+      Six points.
+
+      (a) 1 pt: 30.0 mL.
+      (b) 1 pt: pH 2.85 (accept 2.84–2.86).
+      (c) 1 pt: buffer stoichiometry and pH 4.59 (accept 4.58–4.60).
+      (d) 1 pt: pH = pKa = 4.89 with the half-equivalence reasoning.
+      (e) 1 pt: 0.0857 M propanoate, Kb route, pH 8.91 (accept 8.88–8.93).
+      (f) 1 pt: pH 12.40 (accept 12.38–12.42) and phenolphthalein justified by the equivalence pH.

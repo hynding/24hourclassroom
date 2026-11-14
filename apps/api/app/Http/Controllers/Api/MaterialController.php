@@ -23,7 +23,7 @@ class MaterialController extends Controller
     {
         // Allowlist: only a teacher has a materials shelf. Admin is not a
         // teacher here; the SPA gives admins an empty state.
-        abort_unless($request->user()->role === Role::Teacher, 403);
+        abort_unless($request->user()->role->authors(), 403);
 
         return MaterialSummaryResource::collection(
             $request->user()->materials()

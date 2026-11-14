@@ -120,12 +120,12 @@ test('list_materials all combines own and shared and paginates at fifteen', func
             ->etc());
 });
 
-test('every non-teacher role is refused by the tools themselves', function () {
+test('every non-author role is refused by the tools themselves', function () {
     // The route middleware already answers 403, but the Pest harness calls
     // the tool directly -- and so would any future transport. The allowlist
     // lives in the tool too.
     foreach (Role::cases() as $role) {
-        if ($role === Role::Teacher) {
+        if ($role->authors()) {
             continue;
         }
 
@@ -387,18 +387,18 @@ test('create_test_draft never honours a visibility in the body', function () {
     expect($test->published_at)->toBeNull();
 });
 
-test('every non-teacher role is refused by create_test_draft', function () {
+test('every non-author role is refused by create_test_draft', function () {
     // The only tool that writes -- worth its own loop even though the
     // allowlist check itself is shared with every other tool via TeachersOnly.
     foreach (Role::cases() as $role) {
-        if ($role === Role::Teacher) {
+        if ($role->authors()) {
             continue;
         }
 
         $this->actingAs(User::factory()->create(['role' => $role->value]));
 
         TeacherServer::tool(CreateTestDraft::class, validDraftBody())
-            ->assertHasErrors(['Only teachers can use this server.']);
+            ->assertHasErrors(['Only teachers and tutors can use this server.']);
     }
 
     expect(Test::count())->toBe(0);

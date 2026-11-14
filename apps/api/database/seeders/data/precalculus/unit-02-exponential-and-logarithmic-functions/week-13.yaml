@@ -1,0 +1,638 @@
+week: 13
+unit: 2
+title: "Composition and Inverse Functions"
+topics: ["2.7", "2.8"]
+guide: guides/week-13.md
+guide_description: |
+  Composing functions from formulas, tables and graphs, finding the domain of a composition, decomposing a
+  function and the identity function; inverse functions as reversed input–output pairs, one-to-one functions and
+  restricted domains, reflection across y = x, finding inverses from tables and formulas, verifying inverses by
+  composition, and interpreting an inverse in context. Worked examples: f(g(x)) and g(f(x)) for a quadratic and a
+  line, domains with square roots and reciprocals, inverting a rational function, and a hypothetical taxi fare.
+flashcards_description: |
+  30 cards on evaluating and building compositions, domains of compositions, decomposition, one-to-one functions,
+  finding and verifying inverses, and inverses in context.
+
+flashcards:
+  - front: (f ∘ g)(x) → meaning and order
+    back: |
+      f(g(x)): apply g first, then f to the result. g is the inner function and f the outer one.
+    topic_code: "2.7"
+  - front: f(x) = x² + 1, g(x) = 2x − 3 → f(g(x)) and g(f(x))
+    back: |
+      f(g(x)) = (2x − 3)² + 1 = 4x² − 12x + 10; g(f(x)) = 2(x² + 1) − 3 = 2x² − 1. Different functions: order matters.
+    topic_code: "2.7"
+  - front: Domain of f(g(x)) → rule
+    back: |
+      All x in the domain of g for which g(x) is in the domain of f.
+    topic_code: "2.7"
+  - front: f(x) = √x, g(x) = x − 3 → domains of f(g(x)) and g(f(x))
+    back: |
+      √(x − 3) needs x ≥ 3; √x − 3 needs x ≥ 0. The two compositions have different domains.
+    topic_code: "2.7"
+  - front: f(x) = 1/(x − 2), g(x) = x² → f(g(x)) and its domain
+    back: |
+      1/(x² − 2), defined when x² ≠ 2: all reals except x = ±√2.
+    topic_code: "2.7"
+  - front: Composition from a table → method
+    back: |
+      Inside out: find the inner value g(a) in the table, then look up f at that value. If g(a) is not a listed input of f, the composition is not determined.
+    topic_code: "2.7"
+  - front: Composition from two graphs → method
+    back: |
+      Read g(a) from g's graph, locate that number on the x-axis of f's graph, then read f there.
+    topic_code: "2.7"
+  - front: Decompose (3x + 1)⁵ → inner and outer
+    back: |
+      Inner g(x) = 3x + 1, outer f(x) = x⁵. Another valid choice: g(x) = 3x, f(x) = (x + 1)⁵.
+    topic_code: "2.7"
+  - front: Decompose √(x³ + 2) → inner and outer
+    back: |
+      Inner g(x) = x³ + 2, outer f(x) = √x.
+    topic_code: "2.7"
+  - front: Decompose 2^(x²) → inner and outer
+    back: |
+      Inner g(x) = x², outer f(x) = 2ˣ.
+    topic_code: "2.7"
+  - front: Identity function I(x) = x → role in composition
+    back: |
+      f(I(x)) = I(f(x)) = f(x). It is the "do nothing" function, the composition analogue of the number 1.
+    topic_code: "2.7"
+  - front: f(x − 3) + 2 as a composition → write it
+    back: |
+      A(f(S(x))) with S(x) = x − 3 and A(x) = x + 2. Horizontal shifts act on the input (inside), vertical shifts on the output (outside).
+    topic_code: "2.7"
+  - front: Inverse function → defining relationship
+    back: |
+      f(a) = b ⟺ f⁻¹(b) = a. The inverse reverses every input–output pair of f.
+    topic_code: "2.8"
+  - front: Point (a, b) on f → point on f⁻¹
+    back: |
+      (b, a). Swapping coordinates reflects the point across y = x, so the whole graph of f⁻¹ is f reflected across y = x.
+    topic_code: "2.8"
+  - front: Domain and range of f⁻¹ → relationship to f
+    back: |
+      They swap: domain of f⁻¹ = range of f, and range of f⁻¹ = domain of f.
+    topic_code: "2.8"
+  - front: One-to-one → definition and graph test
+    back: |
+      Different inputs always give different outputs. Every horizontal line meets the graph at most once. Only one-to-one functions have inverses.
+    topic_code: "2.8"
+  - front: Why f(x) = x² has no inverse on all reals → reason
+    back: |
+      f(−2) = f(2) = 4, so f⁻¹(4) would need two values. The horizontal line y = 4 meets the graph twice.
+    topic_code: "2.8"
+  - front: Inverse of (x − 1)² on x ≥ 1 → find it
+    back: |
+      Swap: x = (y − 1)²; since y ≥ 1, y − 1 = √x. So f⁻¹(x) = 1 + √x, domain x ≥ 0.
+    topic_code: "2.8"
+  - front: Inverse from a table → method
+    back: |
+      Check the outputs are all different, then swap the input and output rows. If p(2) = 4 then p⁻¹(4) = 2.
+    topic_code: "2.8"
+  - front: Swap-and-solve method → steps
+    back: |
+      Write y = f(x), swap x and y, solve for y. The result is f⁻¹(x). Then state its domain (the range of f).
+    topic_code: "2.8"
+  - front: Inverse of f(x) = (x − 4)/3 → find it
+    back: |
+      x = (y − 4)/3 gives y = 3x + 4. Undo "subtract 4, divide by 3" with "multiply by 3, add 4".
+    topic_code: "2.8"
+  - front: Inverse of f(x) = (2x + 1)/(x − 3) → find it
+    back: |
+      x(y − 3) = 2y + 1 ⟹ y(x − 2) = 3x + 1 ⟹ f⁻¹(x) = (3x + 1)/(x − 2). Domain x ≠ 2, the horizontal asymptote of f.
+    topic_code: "2.8"
+  - front: Inverse of k(x) = x³ + 1 → find it
+    back: |
+      x = y³ + 1 ⟹ y = ∛(x − 1). Cubing is one-to-one, so no domain restriction is needed.
+    topic_code: "2.8"
+  - front: Verifying f and g are inverses → what to show
+    back: |
+      f(g(x)) = x for all x in g's domain and g(f(x)) = x for all x in f's domain. Both compositions must give the identity.
+    topic_code: "2.8"
+  - front: Hypothetical taxi fare F(m) = 3.50 + 2.25m → inverse and meaning
+    back: |
+      F⁻¹(d) = (d − 3.50)/2.25: the miles you can ride for d dollars. F⁻¹(30) ≈ 11.78 miles.
+    topic_code: "2.8"
+  - front: Units of an inverse in context → rule
+    back: |
+      The input of f⁻¹ has the units of f's output, and the output of f⁻¹ has the units of f's input.
+    topic_code: "2.8"
+  - front: Strictly increasing functions → invertible?
+    back: |
+      Yes. A strictly increasing (or strictly decreasing) function never repeats an output, so it is one-to-one. Every exponential abˣ qualifies.
+    topic_code: "2.8"
+  - front: Error-spot → "f⁻¹(x) = 1/f(x)"
+    back: |
+      The −1 denotes the inverse function, not a reciprocal. For f(x) = 2x, f⁻¹(x) = x/2 while 1/f(x) = 1/(2x).
+    topic_code: "2.8"
+  - front: Error-spot → "f(g(x)) = f(x) · g(x)"
+    back: |
+      Composition substitutes; it does not multiply. For f(x) = x + 1 and g(x) = 2x, f(g(x)) = 2x + 1 but f(x)g(x) = 2x² + 2x.
+    topic_code: "2.7"
+  - front: Error-spot → "f(g(x)) = x for f(x) = x², g(x) = √x, so they are inverses on all reals"
+    back: |
+      g(f(x)) = √(x²) = |x|, which equals x only for x ≥ 0. They are inverses only with f restricted to x ≥ 0.
+    topic_code: "2.8"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 2.7 and 2.8: composition from formulas, tables
+    and graphs, domains of compositions, decomposition, one-to-one functions and inverses), with 7 questions
+    reviewing weeks 10–12 and Unit 1 (exponential models and rewrites, model validation, complex zeros, holes and
+    asymptotes). Opens with a shared-context set on two functions given by a table. Multiple choice, select-all,
+    true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the short
+    answers and the long answer are graded by your teacher against the scoring notes. Only items marked
+    "(Calculator.)" need a calculator.
+  questions:
+    # ---- Stimulus set: f and g from a table (2.7, 2.8)
+    - slug: precalc-u02-w13-q01
+      type: multiple_choice
+      topic_code: "2.7"
+      source: "AP Precalculus CED, Topic 2.7"
+      points: 1
+      stimulus: |
+        The functions f and g are defined for x = 0, 1, 2, 3, 4 by this table.
+
+        | x | 0 | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | f(x) | 3 | 4 | 0 | 2 | 1 |
+        | g(x) | 2 | 0 | 4 | 1 | 3 |
+      prompt: |
+        What is f(g(1))?
+      options:
+        - "4"
+        - "3"
+        - "0"
+        - "2"
+      option_explanations:
+        - |
+          4 is f(1), which skips the inner function. First find g(1) = 0, then f(0).
+        - |
+          Correct. Inside out: g(1) = 0, then f(0) = 3.
+        - |
+          0 is g(1), the inner value. The composition still has to apply f to it.
+        - |
+          2 is g(g(1)) = g(0), which applies g twice. f(g(1)) applies f to the inner value g(1) = 0.
+      answer: 1
+    - slug: precalc-u02-w13-q02
+      type: multiple_choice
+      topic_code: "2.7"
+      source: "AP Precalculus CED, Topic 2.7"
+      points: 1
+      stimulus: |
+        The functions f and g are defined for x = 0, 1, 2, 3, 4 by this table.
+
+        | x | 0 | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | f(x) | 3 | 4 | 0 | 2 | 1 |
+        | g(x) | 2 | 0 | 4 | 1 | 3 |
+      prompt: |
+        What is (g ∘ g)(3)?
+      options:
+        - "1"
+        - "9"
+        - "4"
+        - "0"
+      option_explanations:
+        - |
+          1 is g(3), only the first step. (g ∘ g)(3) applies g again to that output.
+        - |
+          This squares 3, treating g ∘ g as multiplication of inputs. Composition means applying g twice.
+        - |
+          4 is f(g(3)) = f(1), which uses f instead of g for the second step. (g ∘ g)(3) applies g both times.
+        - |
+          Correct. Apply g twice, inside out: g(3) = 1, then g(1) = 0.
+      answer: 3
+    - slug: precalc-u02-w13-q03
+      type: multiple_choice
+      topic_code: "2.8"
+      source: "AP Precalculus CED, Topic 2.8"
+      points: 1
+      stimulus: |
+        The functions f and g are defined for x = 0, 1, 2, 3, 4 by this table.
+
+        | x | 0 | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | f(x) | 3 | 4 | 0 | 2 | 1 |
+        | g(x) | 2 | 0 | 4 | 1 | 3 |
+      prompt: |
+        f is one-to-one. What is f⁻¹(4)?
+      options:
+        - "1"
+        - "1/4"
+        - "2"
+        - "3"
+      option_explanations:
+        - |
+          Correct. f(1) = 4, so f⁻¹(4) = 1: the inverse reverses the pair (1, 4).
+        - |
+          This is 1/4, the reciprocal of 4. f⁻¹ means the inverse function, not a reciprocal.
+        - |
+          2 is the input with f(2) = 0. Look for the input whose output is 4.
+        - |
+          3 is g(4) and also f(0); neither is the input that f sends to 4.
+      answer: 0
+    - slug: precalc-u02-w13-q04
+      type: multiple_choice
+      topic_code: "2.7"
+      source: "AP Precalculus CED, Topic 2.7"
+      points: 1
+      stimulus: |
+        The functions f and g are defined for x = 0, 1, 2, 3, 4 by this table.
+
+        | x | 0 | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | f(x) | 3 | 4 | 0 | 2 | 1 |
+        | g(x) | 2 | 0 | 4 | 1 | 3 |
+      prompt: |
+        For which value of x is f(g(x)) = 2?
+      options:
+        - "x = 3"
+        - "x = 0"
+        - "x = 4"
+        - "x = 2"
+      option_explanations:
+        - |
+          3 is the value g(x) must take, not x itself. We still need the x with g(x) = 3.
+        - |
+          g(0) = 2, so f(g(0)) = f(2) = 0, not 2. This confuses the output 2 with g's output.
+        - |
+          Correct. f(g(x)) = 2 needs g(x) to be the input with f-value 2, which is 3. g(4) = 3, so x = 4. Check: f(g(4)) = f(3) = 2.
+        - |
+          f(g(2)) = f(4) = 1. The value 2 appears in the question, but x = 2 does not satisfy the equation.
+      answer: 2
+    - slug: precalc-u02-w13-q05
+      type: multiple_choice
+      topic_code: "2.7"
+      source: "AP Precalculus CED, Topic 2.7"
+      points: 1
+      prompt: |
+        Let f(x) = x² − 3 and g(x) = 2x + 1. Which expression equals f(g(x))?
+      options:
+        - "2x² − 5"
+        - "(x² − 3)(2x + 1)"
+        - "4x² + 4x − 2"
+        - "4x² − 2"
+      option_explanations:
+        - |
+          This is g(f(x)) = 2(x² − 3) + 1, which composes in the opposite order.
+        - |
+          This multiplies the functions. Composition substitutes g(x) into f.
+        - |
+          Correct. f(2x + 1) = (2x + 1)² − 3 = 4x² + 4x + 1 − 3 = 4x² + 4x − 2.
+        - |
+          This squares 2x + 1 as 4x² + 1, dropping the middle term 4x.
+      answer: 2
+    - slug: precalc-u02-w13-q06
+      type: multiple_choice
+      topic_code: "2.7"
+      source: "AP Precalculus CED, Topic 2.7"
+      points: 1
+      prompt: |
+        Let f(x) = √x and g(x) = 5 − x. What is the domain of f(g(x))?
+      options:
+        - "x ≤ 5"
+        - "x ≥ 5"
+        - "x ≥ 0"
+        - "All real numbers"
+      option_explanations:
+        - |
+          Correct. f(g(x)) = √(5 − x) needs 5 − x ≥ 0, so x ≤ 5.
+        - |
+          Solving 5 − x ≥ 0 requires reversing the direction when dividing by −1: the result is x ≤ 5, not x ≥ 5.
+        - |
+          x ≥ 0 is the domain of f alone. In the composition the restriction applies to g(x), not to x.
+        - |
+          g accepts every real number, but f rejects negative inputs, so values of x with 5 − x < 0 are excluded.
+      answer: 0
+    - slug: precalc-u02-w13-q07
+      type: multiple_choice
+      topic_code: "2.7"
+      source: "AP Precalculus CED, Topic 2.7"
+      points: 1
+      prompt: |
+        The function h(x) = (x² + 4)³ can be written as h(x) = f(g(x)). Which pair works?
+      options:
+        - "f(x) = x² + 4, g(x) = x³"
+        - "f(x) = x³, g(x) = x² · 4"
+        - "f(x) = 3x, g(x) = x² + 4"
+        - "f(x) = x³, g(x) = x² + 4"
+      option_explanations:
+        - |
+          This is the reverse order: f(g(x)) = (x³)² + 4 = x⁶ + 4, not (x² + 4)³.
+        - |
+          The inner expression is x² + 4, a sum, not the product 4x².
+        - |
+          The outer operation is cubing, not multiplying by 3: f(g(x)) would be 3x² + 12.
+        - |
+          Correct. Apply g(x) = x² + 4 first, then cube: f(g(x)) = (x² + 4)³.
+      answer: 3
+    - slug: precalc-u02-w13-q08
+      type: multiple_choice
+      topic_code: "2.8"
+      source: "AP Precalculus CED, Topic 2.8"
+      points: 1
+      prompt: |
+        What is the inverse of f(x) = (x − 5)/4?
+      options:
+        - "f⁻¹(x) = 4/(x − 5)"
+        - "f⁻¹(x) = 4x + 5"
+        - "f⁻¹(x) = 4x − 5"
+        - "f⁻¹(x) = (x + 5)/4"
+      option_explanations:
+        - |
+          This is the reciprocal 1/f(x), not the inverse function.
+        - |
+          Correct. Swap and solve: x = (y − 5)/4, so 4x = y − 5 and y = 4x + 5.
+        - |
+          The operations are undone but with the wrong sign: undoing "subtract 5" means adding 5.
+        - |
+          This changes the sign but keeps the division; f(f⁻¹(x)) would be ((x + 5)/4 − 5)/4 = (x − 15)/16, not x.
+      answer: 1
+    - slug: precalc-u02-w13-q09
+      type: multiple_choice
+      topic_code: "2.8"
+      source: "AP Precalculus CED, Topic 2.8"
+      points: 1
+      prompt: |
+        What is the inverse of f(x) = (2x + 1)/(x − 3), for x ≠ 3?
+      options:
+        - "f⁻¹(x) = (3x + 1)/(x − 2)"
+        - "f⁻¹(x) = (x − 3)/(2x + 1)"
+        - "f⁻¹(x) = (x − 1)/(2x − 3)"
+        - "f⁻¹(x) = (3x − 1)/(x + 2)"
+      option_explanations:
+        - |
+          Correct. x(y − 3) = 2y + 1 gives xy − 2y = 3x + 1, so y = (3x + 1)/(x − 2). Check: f(0) = −1/3, and (3(−1/3) + 1)/(−1/3 − 2) = 0.
+        - |
+          This is the reciprocal 1/f(x), not the inverse.
+        - |
+          This tries to "undo" each piece separately; f(1) = −3/2, but this formula sends −3/2 to (−5/2)/(−6) = 5/12, not 1.
+        - |
+          The signs are wrong after collecting terms: xy − 3x = 2y + 1 gives y(x − 2) = 3x + 1, not y(x + 2) = 3x − 1.
+      answer: 0
+    - slug: precalc-u02-w13-q10
+      type: multiple_choice
+      topic_code: "2.8"
+      source: "AP Precalculus CED, Topic 2.8"
+      points: 1
+      prompt: |
+        A one-to-one function h has h(2) = −5. Which point must lie on the graph of h⁻¹?
+      options:
+        - "(2, −5)"
+        - "(−2, 5)"
+        - "(5, −2)"
+        - "(−5, 2)"
+      option_explanations:
+        - |
+          (2, −5) is on the graph of h itself. The inverse swaps the coordinates.
+        - |
+          Changing both signs reflects through the origin, not across the line y = x.
+        - |
+          This swaps the coordinates and also changes both signs; only the swap is needed.
+        - |
+          Correct. h(2) = −5 means h⁻¹(−5) = 2, so (−5, 2) is on the graph of h⁻¹.
+      answer: 3
+    # ---- Spiral review
+    - slug: precalc-u02-w13-q11
+      type: multiple_choice
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 1
+      prompt: |
+        A hypothetical isotope has a half-life of 4 days. A lab starts with 96 mg. How much remains after 12 days?
+      options:
+        - "48 mg"
+        - "32 mg"
+        - "12 mg"
+        - "8 mg"
+      option_explanations:
+        - |
+          48 mg is the amount after one half-life (4 days). 12 days is three half-lives.
+        - |
+          This divides 96 by 3, the number of half-lives, instead of halving three times.
+        - |
+          Correct. 12/4 = 3 half-lives, so 96 · (1/2)³ = 96/8 = 12 mg.
+        - |
+          This divides 96 by 12, the number of days, instead of halving once for each of the three half-lives.
+      answer: 2
+    - slug: precalc-u02-w13-q12
+      type: multiple_choice
+      topic_code: "2.4"
+      source: "AP Precalculus CED, Topic 2.4"
+      points: 1
+      prompt: |
+        Which expression is equivalent to 5 · 2^(x + 1)?
+      options:
+        - "10ˣ⁺¹"
+        - "10 · 2ˣ"
+        - "5 · 2ˣ + 2"
+        - "5 · 2ˣ + 1"
+      option_explanations:
+        - |
+          The coefficient 5 multiplies the power; it cannot be combined with the base 2 to make base 10.
+        - |
+          Correct. 2^(x + 1) = 2 · 2ˣ, so 5 · 2^(x + 1) = 10 · 2ˣ.
+        - |
+          Increasing the exponent by 1 multiplies by 2; it does not add 2.
+        - |
+          Adding 1 to the exponent is not the same as adding 1 to the expression.
+      answer: 1
+    - slug: precalc-u02-w13-q13
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Precalculus CED, Topic 1.5"
+      points: 1
+      prompt: |
+        A polynomial with real coefficients has zeros −1 and 2i. What is the least possible degree of the polynomial?
+      options:
+        - "3"
+        - "2"
+        - "4"
+        - "6"
+      option_explanations:
+        - |
+          Correct. Non-real zeros of a real polynomial come in conjugate pairs, so −2i is also a zero. Zeros −1, 2i and −2i need degree at least 3, e.g. (x + 1)(x² + 4).
+        - |
+          A degree-2 polynomial with real coefficients cannot have zeros −1 and 2i, because 2i's conjugate −2i must also be a zero.
+        - |
+          Degree 4 is possible but not least; the three required zeros −1, 2i, −2i fit in degree 3.
+        - |
+          Doubling the number of zeros is not required; only the non-real zero brings its conjugate.
+      answer: 0
+    # ---- Select-all, true/false, fill-in, numeric
+    - slug: precalc-u02-w13-q14
+      type: multi_select
+      topic_code: "2.8"
+      source: "AP Precalculus CED, Topic 2.8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which functions are one-to-one on the set of all real numbers (and so have an inverse function without restricting the domain)? Select all that apply.
+      options:
+        - "f(x) = x³"
+        - "f(x) = x²"
+        - "f(x) = 2ˣ"
+        - "f(x) = |x|"
+        - "f(x) = 3x − 7"
+      option_explanations:
+        - |
+          Correct. x³ is strictly increasing, so no output repeats.
+        - |
+          x² gives the same output for x and −x (for example f(−3) = f(3) = 9), so it fails the horizontal line test.
+        - |
+          Correct. Every exponential function is strictly increasing or decreasing; 2ˣ is increasing.
+        - |
+          |−4| = |4| = 4, so two inputs share an output; |x| is not one-to-one on all reals.
+        - |
+          Correct. A line with nonzero slope is strictly monotonic, so it is one-to-one; its inverse is (x + 7)/3.
+      answer: [0, 2, 4]
+    - slug: precalc-u02-w13-q15
+      type: multi_select
+      topic_code: "2.7"
+      source: "AP Precalculus CED, Topic 2.7"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let f(x) = x + 2 and g(x) = 3x. Which statements are true? Select all that apply.
+      options:
+        - "f(g(x)) = 3x + 2"
+        - "g(f(x)) = 3x + 6"
+        - "f(g(x)) = g(f(x)) for all x"
+        - "f(g(1)) = 5"
+        - "g(f(0)) = 2"
+      option_explanations:
+        - |
+          Correct. Substitute g(x) = 3x into f: f(3x) = 3x + 2.
+        - |
+          Correct. Substitute f(x) = x + 2 into g: g(x + 2) = 3(x + 2) = 3x + 6.
+        - |
+          3x + 2 and 3x + 6 differ by 4 for every x, so the two compositions are never equal.
+        - |
+          Correct. Inside out: g(1) = 3, and then f(3) = 3 + 2 = 5.
+        - |
+          f(0) = 2 and then g(2) = 6. The value 2 is only the inner step.
+      answer: [0, 1, 3]
+    - slug: precalc-u02-w13-q16
+      type: true_false
+      topic_code: "2.8"
+      source: "AP Precalculus CED, Topic 2.8"
+      points: 1
+      prompt: |
+        True or false: For every invertible function f, the inverse satisfies f⁻¹(x) = 1/f(x).
+      answer: false
+      explanation: |
+        False. The −1 means the inverse function, which undoes f, not the reciprocal. For f(x) = x + 1, f⁻¹(x) = x − 1, while 1/f(x) = 1/(x + 1); at x = 1 these give 0 and 1/2.
+    - slug: precalc-u02-w13-q17
+      type: true_false
+      topic_code: "2.6"
+      source: "AP Precalculus CED, Topic 2.6"
+      points: 1
+      prompt: |
+        True or false: If every residual of a model for a data set is positive, then the model underestimates every data value.
+      answer: true
+      explanation: |
+        True. Residual = actual − predicted, so a positive residual means the actual value is larger than the prediction. All positive residuals mean every prediction is too low, which also signals that the model should be adjusted.
+    - slug: precalc-u02-w13-q18
+      type: fill_blank
+      topic_code: "2.8"
+      source: "AP Precalculus CED, Topic 2.8"
+      points: 1
+      prompt: |
+        Let f(x) = 2x³ − 5. Then f⁻¹(11) = ____.
+      answer: ["2"]
+      explanation: |
+        f⁻¹(11) is the input that f sends to 11: 2x³ − 5 = 11 gives x³ = 8, so x = 2. (Equivalently f⁻¹(x) = ∛((x + 5)/2) and ∛8 = 2.)
+    - slug: precalc-u02-w13-q19
+      type: fill_blank
+      topic_code: "2.2"
+      source: "AP Precalculus CED, Topic 2.2"
+      points: 1
+      prompt: |
+        An exponential function f(x) = abˣ has f(0) = 5 and f(2) = 45. Its base is b = ____.
+      answer: ["3"]
+      explanation: |
+        f(2)/f(0) = 45/5 = 9 = b², and b must be positive, so b = 3.
+    - slug: precalc-u02-w13-q20
+      type: numeric
+      topic_code: "2.7"
+      source: "AP Precalculus CED, Topic 2.7"
+      points: 1
+      prompt: |
+        Let f(x) = x² − 1 and g(x) = √(x + 3). What is f(g(6))? Give the exact value.
+      answer: { value: 8, tolerance: 0 }
+      explanation: |
+        g(6) = √9 = 3, then f(3) = 9 − 1 = 8.
+    - slug: precalc-u02-w13-q21
+      type: numeric
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 1
+      prompt: |
+        (Calculator.) $1,200 is deposited in a hypothetical account paying 5% annual interest compounded quarterly. What is the balance after 6 years? Give your answer to the nearest cent.
+      answer: { value: 1616.82, tolerance: 0.01 }
+      explanation: |
+        A = 1200(1 + 0.05/4)^(4 · 6) = 1200(1.0125)²⁴ ≈ 1616.82 dollars.
+    # ---- Short answers
+    - slug: precalc-u02-w13-q22
+      type: short_answer
+      topic_code: "2.8"
+      source: "AP Precalculus CED, Topic 2.8"
+      points: 3
+      prompt: |
+        A hypothetical taxi company charges F(m) = 3.50 + 2.25m dollars for a trip of m miles.
+
+        (a) Find F⁻¹(d), the inverse of F, as a function of the fare d in dollars.
+        (b) Find F⁻¹(30) to the nearest hundredth and interpret it in context with units.
+        (c) Verify that F(F⁻¹(d)) = d.
+      answer: |
+        (a) d = 3.50 + 2.25m gives m = (d − 3.50)/2.25, so F⁻¹(d) = (d − 3.50)/2.25.
+        (b) F⁻¹(30) = 26.50/2.25 ≈ 11.78. A $30 fare pays for a trip of about 11.78 miles.
+        (c) F(F⁻¹(d)) = 3.50 + 2.25 · (d − 3.50)/2.25 = 3.50 + d − 3.50 = d.
+      explanation: |
+        Three points, one per part. (a) a correct inverse in any equivalent form. (b) 11.78 with an interpretation that names dollars as the input and miles as the output. (c) a correct algebraic simplification to d.
+    - slug: precalc-u02-w13-q23
+      type: short_answer
+      topic_code: "1.10"
+      source: "AP Precalculus CED, Topic 1.10"
+      points: 3
+      prompt: |
+        Let r(x) = (x² − x − 6)/(x² − 9).
+
+        (a) Find the coordinates of any hole in the graph of r.
+        (b) Find the equation of any vertical asymptote of r.
+        (c) Find the zero(s) of r and the equation of the horizontal asymptote.
+      answer: |
+        (a) r(x) = (x − 3)(x + 2)/((x − 3)(x + 3)) = (x + 2)/(x + 3) for x ≠ 3. The hole is at x = 3, y = 5/6: (3, 5/6).
+        (b) x = −3, where the simplified denominator is zero and the numerator is not.
+        (c) Zero: x = −2. Horizontal asymptote: y = 1 (equal degrees, leading coefficients 1/1).
+      explanation: |
+        Three points, one per part. (a) the hole (3, 5/6) with factoring shown. (b) x = −3 only (not x = 3). (c) the zero −2 and the asymptote y = 1.
+    # ---- Long answer (AP free-response style)
+    - slug: precalc-u02-w13-q24
+      type: long_answer
+      topic_code: "2.8"
+      source: "AP Precalculus CED, Topic 2.8"
+      points: 6
+      prompt: |
+        No calculator. Let f(x) = (4x − 1)/(x + 2) for x ≠ −2, and let g(x) = √(x − 1) for x ≥ 1.
+
+        (A) (i) Find f⁻¹(x).
+            (ii) State the domain and the range of f⁻¹, and explain how they are related to f.
+        (B) (i) Find the value of f(g(5)), as an exact value.
+            (ii) Find the domain of f(g(x)). Explain your reasoning.
+        (C) (i) Find f(0), then use your answer to (A)(i) to find f⁻¹(f(0)).
+            (ii) Show algebraically that f(f⁻¹(x)) = x for every x in the domain of f⁻¹.
+      answer: |
+        (A)(i) Swap and solve: x = (4y − 1)/(y + 2), so xy + 2x = 4y − 1, xy − 4y = −2x − 1, y(x − 4) = −(2x + 1), and f⁻¹(x) = (2x + 1)/(4 − x).
+        (A)(ii) Domain of f⁻¹: all real x ≠ 4. Range of f⁻¹: all real y ≠ −2. The domain of f⁻¹ is the range of f (f has horizontal asymptote y = 4 and never equals 4), and the range of f⁻¹ is the domain of f (x ≠ −2).
+        (B)(i) g(5) = √4 = 2, and f(2) = (8 − 1)/(2 + 2) = 7/4.
+        (B)(ii) x must be in the domain of g, so x ≥ 1. Then g(x) ≥ 0, so g(x) is never −2, the only input f rejects. The domain of f(g(x)) is x ≥ 1.
+        (C)(i) f(0) = −1/2. f⁻¹(−1/2) = (2(−1/2) + 1)/(4 + 1/2) = 0/(9/2) = 0, so f⁻¹(f(0)) = 0, the original input.
+        (C)(ii) f(f⁻¹(x)) = [4(2x + 1)/(4 − x) − 1] / [(2x + 1)/(4 − x) + 2]. Multiply numerator and denominator by (4 − x): [8x + 4 − (4 − x)] / [2x + 1 + 2(4 − x)] = 9x/9 = x, for x ≠ 4.
+      explanation: |
+        Six points.
+        (A) 1 point for f⁻¹(x) = (2x + 1)/(4 − x) or an equivalent form such as −(2x + 1)/(x − 4); 1 point for the domain x ≠ 4 and range y ≠ −2 with the swap explanation.
+        (B) 1 point for 7/4; 1 point for the domain x ≥ 1 with the reason that g(x) is never −2.
+        (C) 1 point for f(0) = −1/2 and f⁻¹(f(0)) = 0; 1 point for a complete algebraic simplification to x.

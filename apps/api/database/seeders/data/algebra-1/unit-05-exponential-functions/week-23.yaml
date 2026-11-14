@@ -1,0 +1,661 @@
+week: 23
+unit: 5
+title: "Comparing Growth and Predicting Populations"
+topics: ["5.19", "5.20", "5.21"]
+guide: guides/week-23.md
+guide_description: |
+  Comparing linear and exponential functions over intervals and in the long run, why exponential growth
+  always overtakes linear growth, the equal-interval property that an exponential function is multiplied by
+  the same factor over every interval of the same width, and building, using and judging exponential models
+  of population data.
+flashcards_description: |
+  28 cards on comparing rates of change, long-run behaviour, two exponentials with different starts and
+  factors, the factor over an interval of width w, doubling time, converting per-decade to per-year factors,
+  the steps of a population model, and the limits of predictions.
+
+flashcards:
+  - front: Which function changes faster on an interval?
+    back: |
+      The one with the larger average rate of change on that interval. The answer can differ from one interval to another.
+    topic_code: "5.19"
+  - front: L(t) = 1,000 + 200t versus E(t) = 1,000 · 1.1ᵗ → who leads when
+    back: |
+      L is ahead early (t = 10: 3,000 against about 2,594); E passes L between t = 14 and t = 15 and then pulls away (t = 20: about 6,727 against 5,000).
+    topic_code: "5.19"
+  - front: Why exponential growth always overtakes linear growth
+    back: |
+      The line's rate of change is fixed, but the exponential function's rate keeps multiplying, so eventually one step of the exponential adds more than the line ever adds per step.
+    topic_code: "5.19"
+  - front: Two exponentials, 500 · 1.2ᵗ and 100 · 1.5ᵗ → which wins
+    back: |
+      The one with the larger factor, 100 · 1.5ᵗ, despite starting five times smaller; it passes the other when 1.25ᵗ = 5, around t = 7.2.
+    topic_code: "5.19"
+  - front: f(t) = 50t versus g(t) = 2ᵗ from t = 3 to 4, and from 9 to 10
+    back: |
+      3 to 4: f changes by 50, g by 8, so f is faster. 9 to 10: g changes by 512, f by 50, so g is faster.
+    topic_code: "5.19"
+  - front: Comparing a linear and an exponential function from 0 to 10
+    back: |
+      Compute each average rate of change over the interval: for h(x) = 100 + 30x it is 30; for k(x) = 100 · 1.05ˣ it is about 6.3. The line is faster there, but not forever.
+    topic_code: "5.19"
+  - front: A mistake to avoid → judging the long run from the start
+    back: |
+      Being ahead at the start or over one interval says nothing about the long run; an exponential function with any factor above 1 eventually exceeds any line.
+    topic_code: "5.19"
+  - front: Linear change over equal intervals
+    back: |
+      Moving the input by w always adds mw to the output, wherever you start.
+    topic_code: "5.20"
+  - front: Exponential change over equal intervals
+    back: |
+      Moving the input by w always multiplies the output by bʷ: f(x + w) = a · bˣ · bʷ = f(x) · bʷ, wherever you start.
+    topic_code: "5.20"
+  - front: 3ˣ over intervals of width 1, 2 and 1/2
+    back: |
+      Multiplied by 3, by 9, and by √3 ≈ 1.732 respectively.
+    topic_code: "5.20"
+  - front: 5% a year → growth over a decade
+    back: |
+      1.05¹⁰ ≈ 1.63, about 63% per decade, over any decade.
+    topic_code: "5.20"
+  - front: 80 at x = 2 and 120 at x = 5, exponential → values at x = 8 and x = 11
+    back: |
+      The factor over 3 units is 1.5, so 180 at x = 8 and 270 at x = 11. No need to find b itself.
+    topic_code: "5.20"
+  - front: Doubling time → meaning
+    back: |
+      The interval over which an exponential growth quantity doubles. It is the same from any starting point: a population that doubles in 12 years doubles again in the next 12.
+    topic_code: "5.20"
+  - front: Culture of 400 doubling every 3 hours → function
+    back: |
+      N(h) = 400 · 2^(h/3): 800 at 3 hours, 1,600 at 6, 3,200 at 9.
+    topic_code: "5.20"
+  - front: f(x) = 5 · 2ˣ → f(7)/f(4) and f(12)/f(9)
+    back: |
+      Both equal 2³ = 8 (640/80 and 20,480/2,560): the same width gives the same factor.
+    topic_code: "5.20"
+  - front: 54 at x = 1 and 162 at x = 3 → value at x = 7
+    back: |
+      Factor 3 per 2 units; x = 7 is two more intervals on: 162 · 9 = 1,458.
+    topic_code: "5.20"
+  - front: A mistake to avoid → converting a factor to a shorter interval
+    back: |
+      Take a root, not a fraction: 1.2 per decade is 1.2^(1/10) ≈ 1.0184 per year (about 1.84%), not 0.12 per year.
+    topic_code: "5.20"
+  - front: Steps of a population model from census data
+    back: |
+      1. Check ratios between equally spaced censuses. 2. Write a · bᵈ with d in those intervals. 3. Convert to per-year if needed. 4. Predict. 5. State the limits.
+    topic_code: "5.21"
+  - front: Census 240, 288, 346, 415 thousand (1990–2020, every decade) → model
+    back: |
+      Ratios ≈ 1.2 each decade: P(d) = 240 · 1.2ᵈ, d decades after 1990; per year, about 240 · 1.0184ᵗ.
+    topic_code: "5.21"
+  - front: Predicting 2030 and 2050 from P(d) = 240 · 1.2ᵈ
+    back: |
+      2030: d = 4, about 498 thousand. 2050: d = 6, about 717 thousand; the second assumes 60 years of unchanged growth and deserves caution.
+    topic_code: "5.21"
+  - front: When a linear population model underestimates
+    back: |
+      When the differences between censuses keep growing (48, 58, 69): a line adds the same amount each decade and falls behind an exponential trend.
+    topic_code: "5.21"
+  - front: Town 12,000 in 2005 and 15,000 in 2015 → prediction for 2035
+    back: |
+      Factor 1.25 per decade; three decades after 2005: 12,000 · 1.25³ ≈ 23,400.
+    topic_code: "5.21"
+  - front: Bacteria 2,000 at noon and 8,000 at 2 p.m. → count at 5 p.m.
+    back: |
+      Factor 4 per 2 hours, so 2 per hour: 2,000 · 2⁵ = 64,000.
+    topic_code: "5.21"
+  - front: Judging a population prediction
+    back: |
+      One step beyond the data is reasonable; many steps assume the growth factor never changes, though land, housing and jobs may limit it. Report the number with the caution.
+    topic_code: "5.21"
+  - front: City 60,000 in 2000 and 72,000 in 2010 → 2030 prediction
+    back: |
+      Factor 1.2 per decade; 60,000 · 1.2³ = 103,680.
+    topic_code: "5.21"
+  - front: Converting a per-decade factor to a per-year percentage
+    back: |
+      Take the tenth root: 1.2^(1/10) ≈ 1.0184, so about 1.84% per year.
+    topic_code: "5.21"
+  - front: Choosing between linear and exponential for census data
+    back: |
+      Constant differences favour a line; constant ratios favour an exponential model. Check both before choosing.
+    topic_code: "5.21"
+  - front: Model in decades versus years → same predictions?
+    back: |
+      Yes, when converted correctly: 240 · 1.2⁴ and 240 · 1.0184⁴⁰ both give about 498 thousand for 2030.
+    topic_code: "5.21"
+
+quiz:
+  description: |
+    25 questions · about 45 minutes · comparing linear and exponential change, changes over equal intervals,
+    and predicting populations (lessons 5.19 to 5.21), with review of percent change, compound interest and
+    compounding intervals from week 22, exponential tables and models from earlier weeks, and comparing
+    graphs from unit 4. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by
+    your teacher against the scoring notes.
+  questions:
+    # ---- Stimulus set: two towns (5.19, 5.20, 5.21)
+    - slug: alg1-u05-w23-q01
+      type: multiple_choice
+      topic_code: "5.19"
+      source: "IM Algebra 1, Unit 5, Lesson 19"
+      points: 1
+      stimulus: |
+        Town A's population is modelled by P(t) = 20,000 + 800t and Town B's by Q(t) = 15,000 · 1.05ᵗ, where t is years after 2020.
+      prompt: |
+        Which town's population changes faster between 2020 and 2025?
+      options:
+        - "They change at the same rate, because 5% of 15,000 is 750."
+        - "Town A, with an average rate of 800 people per year against about 829 for Town B."
+        - "Town A, because it starts with more people."
+        - "Town B, with an average rate of about 829 people per year against 800 for Town A."
+      option_explanations:
+        - |
+          750 is only the first year's growth for Town B; later years add more, so the five-year average exceeds 800.
+        - |
+          The numbers given are right, but 829 is larger than 800, so Town B changes faster on this interval.
+        - |
+          A larger starting population says nothing about which is growing faster.
+        - |
+          Correct. Q(5) ≈ 19,144, so (19,144 − 15,000)/5 ≈ 829 per year, compared with Town A's steady 800.
+      answer: 3
+
+    - slug: alg1-u05-w23-q02
+      type: multiple_choice
+      topic_code: "5.19"
+      source: "IM Algebra 1, Unit 5, Lesson 19"
+      points: 1
+      stimulus: |
+        Town A's population is modelled by P(t) = 20,000 + 800t and Town B's by Q(t) = 15,000 · 1.05ᵗ, where t is years after 2020.
+      prompt: |
+        P(16) = 32,800 and Q(16) ≈ 32,743; P(17) = 33,600 and Q(17) ≈ 34,380. What do these values show?
+      options:
+        - "Town B overtakes Town A between t = 16 and t = 17, and stays ahead afterwards."
+        - "Town A stays ahead, because it is ahead at t = 16."
+        - "The towns alternate the lead every year."
+        - "Town B overtakes Town A at exactly t = 16."
+      option_explanations:
+        - |
+          Correct. B is just behind at 16 and ahead at 17, and since B's growth keeps accelerating while A's is fixed, B never falls behind again.
+        - |
+          Being ahead at one moment does not decide the long run; A loses the lead a year later.
+        - |
+          Once an exponential function with the larger rate passes a line, it stays ahead.
+        - |
+          At t = 16 Town A still has 57 more people; the crossing happens during the following year.
+      answer: 0
+
+    - slug: alg1-u05-w23-q03
+      type: multiple_choice
+      topic_code: "5.20"
+      source: "IM Algebra 1, Unit 5, Lesson 20"
+      points: 1
+      stimulus: |
+        Town A's population is modelled by P(t) = 20,000 + 800t and Town B's by Q(t) = 15,000 · 1.05ᵗ, where t is years after 2020.
+      prompt: |
+        By what factor does Town B's population change over any 5-year interval?
+      options:
+        - "5.25"
+        - "It depends on which 5-year interval is chosen."
+        - "About 1.276"
+        - "1.25"
+      option_explanations:
+        - |
+          5.25 is 5 × 1.05, a meaningless product; the factors multiply, giving 1.05⁵.
+        - |
+          The equal-interval property says the factor is the same over every interval of the same width.
+        - |
+          Correct. Over 5 years the population is multiplied by 1.05⁵ ≈ 1.276, whichever 5 years they are.
+        - |
+          1.25 adds the five yearly rates (5 × 5%) and ignores compounding; the true factor is slightly larger.
+      answer: 2
+
+    - slug: alg1-u05-w23-q04
+      type: multiple_choice
+      topic_code: "5.21"
+      source: "IM Algebra 1, Unit 5, Lesson 21"
+      points: 1
+      stimulus: |
+        Town A's population is modelled by P(t) = 20,000 + 800t and Town B's by Q(t) = 15,000 · 1.05ᵗ, where t is years after 2020.
+      prompt: |
+        A planner uses Q to predict Town B's population in 2120 (t = 100) as about 1.97 million. What is the best comment?
+      options:
+        - "The linear model P should be used instead for all long-range predictions."
+        - "The arithmetic is right, but a century of unchanged 5% growth is a strong assumption, so the figure should be reported with caution."
+        - "The prediction must be wrong because populations cannot grow exponentially."
+        - "The prediction is reliable because the model fitted the recent data well."
+      option_explanations:
+        - |
+          A linear model has no better claim to the distant future; the problem is the length of the extrapolation, not the choice of model.
+        - |
+          Correct. 15,000 · 1.05¹⁰⁰ ≈ 1.97 million, but land, housing and jobs may limit growth long before then.
+        - |
+          Populations can grow exponentially for a time; the issue is extrapolating that growth far beyond the data.
+        - |
+          A good fit to recent data says nothing about whether the growth factor will hold for 100 years.
+      answer: 1
+
+    # ---- Multiple choice (5.19–5.21)
+    - slug: alg1-u05-w23-q05
+      type: multiple_choice
+      topic_code: "5.19"
+      source: "IM Algebra 1, Unit 5, Lesson 19"
+      points: 1
+      prompt: |
+        f(t) = 50t and g(t) = 2ᵗ. Which statement about their changes is correct?
+      options:
+        - "f changes more on every interval because 50 is larger than 2."
+        - "From t = 3 to 4, f changes more; from t = 9 to 10, g changes more."
+        - "Both change by the same amount on every interval of width 1."
+        - "g changes more on every interval because it is exponential."
+      option_explanations:
+        - |
+          The line's constant 50 is eventually beaten by the doubling function's growing increases.
+        - |
+          Correct. 3 to 4: f gains 50, g gains 8. 9 to 10: f gains 50, g gains 512.
+        - |
+          f always changes by 50 on a unit interval, but g's change doubles each time.
+        - |
+          Early on, when 2ᵗ is small, its increases are smaller than 50.
+      answer: 1
+
+    - slug: alg1-u05-w23-q06
+      type: multiple_choice
+      topic_code: "5.19"
+      source: "IM Algebra 1, Unit 5, Lesson 19"
+      points: 1
+      prompt: |
+        Investment A is modelled by 500 · 1.2ᵗ and investment B by 100 · 1.5ᵗ. Which is true in the long run?
+      options:
+        - "A always exceeds B, because it starts five times larger."
+        - "B exceeds A from t = 1 onward."
+        - "They remain in the same ratio, 5 to 1."
+        - "B eventually exceeds A, because its factor is larger, even though it starts five times smaller."
+      option_explanations:
+        - |
+          A head start is overcome by a larger growth factor; at t = 10, A ≈ 3,096 and B ≈ 5,767.
+        - |
+          At t = 1, A = 600 and B = 150; B needs about seven years to catch up.
+        - |
+          The ratio changes every year because the factors differ.
+        - |
+          Correct. The ratio B/A is 0.2 · 1.25ᵗ, which grows without bound and passes 1 around t = 7.2.
+      answer: 3
+
+    - slug: alg1-u05-w23-q07
+      type: multiple_choice
+      topic_code: "5.20"
+      source: "IM Algebra 1, Unit 5, Lesson 20"
+      points: 1
+      prompt: |
+        For f(x) = 4 · 3ˣ, what is f(x + 2)/f(x) for any x?
+      options:
+        - "3"
+        - "6"
+        - "9"
+        - "It depends on x."
+      option_explanations:
+        - |
+          3 is the factor over an interval of width 1; width 2 compounds it twice.
+        - |
+          6 adds 3 + 3; the factors multiply, giving 3 × 3 = 9.
+        - |
+          Correct. f(x + 2) = 4 · 3ˣ · 3² = 9 · f(x): a width-2 interval always multiplies by 3² = 9.
+        - |
+          The equal-interval property guarantees the same factor for every interval of the same width.
+      answer: 2
+
+    - slug: alg1-u05-w23-q08
+      type: multiple_choice
+      topic_code: "5.20"
+      source: "IM Algebra 1, Unit 5, Lesson 20"
+      points: 1
+      prompt: |
+        An exponential quantity is 100 at t = 0 and 150 at t = 4. Which statement is correct?
+      options:
+        - "The factor per 4 years is 1.5, and the factor per year is 1.5^(1/4) ≈ 1.107."
+        - "The factor per year is 1.5/4 = 0.375."
+        - "The quantity will be 200 at t = 8."
+        - "The factor per year is 1.125, because 50/4 = 12.5 per year."
+      option_explanations:
+        - |
+          Correct. Four years multiply by 1.5, so one year multiplies by the fourth root of 1.5.
+        - |
+          Dividing a factor by the number of years makes no sense; roots convert factors to shorter intervals.
+        - |
+          At t = 8 the quantity is 150 · 1.5 = 225, not 200; the equal-interval property multiplies, not adds.
+        - |
+          12.5 per year is a linear rate; the percentage per year is about 10.7%, not 12.5%.
+      answer: 0
+
+    - slug: alg1-u05-w23-q09
+      type: multiple_choice
+      topic_code: "5.21"
+      source: "IM Algebra 1, Unit 5, Lesson 21"
+      points: 1
+      prompt: |
+        A city's population was 40,000 in 2000 and 57,600 in 2020. Assuming exponential growth, which model in decades d after 2000 fits, and what does it predict for 2030?
+      options:
+        - "40,000 + 8,800d; 66,400"
+        - "40,000 · 1.44ᵈ; about 119,440"
+        - "40,000 · 1.2ᵈ; about 69,120"
+        - "40,000 · 1.2ᵈ; about 57,600"
+      option_explanations:
+        - |
+          This is a linear model; the question assumes exponential growth.
+        - |
+          1.44 is the factor over two decades; per decade it is its square root, 1.2.
+        - |
+          Correct. Two decades multiply by 57,600/40,000 = 1.44 = 1.2², so 1.2 per decade, and 2030 is d = 3: 40,000 · 1.728 = 69,120.
+        - |
+          57,600 is the 2020 population (d = 2); 2030 is one more decade on.
+      answer: 2
+
+    - slug: alg1-u05-w23-q10
+      type: multiple_choice
+      topic_code: "5.21"
+      source: "IM Algebra 1, Unit 5, Lesson 21"
+      points: 1
+      prompt: |
+        Census figures for a city, in thousands, every decade: 240, 288, 346, 415. Why is an exponential model preferred over a linear one?
+      options:
+        - "The ratios are all about 1.2, while the differences 48, 58, 69 keep growing."
+        - "The differences are constant, which always means exponential growth."
+        - "Populations are always exponential."
+        - "The numbers are large, and large numbers need exponential models."
+      option_explanations:
+        - |
+          Correct. Constant ratios are the signature of exponential growth; growing differences show a line would fall behind.
+        - |
+          Constant differences would point to a linear model, and in any case these differences are not constant.
+        - |
+          Some populations grow linearly or level off; the data decide the model.
+        - |
+          The size of the numbers has nothing to do with the choice of model.
+      answer: 0
+
+    - slug: alg1-u05-w23-q11
+      type: multiple_choice
+      topic_code: "5.14"
+      source: "IM Algebra 1, Unit 5, Lesson 14"
+      points: 1
+      prompt: |
+        A population of 25,000 shrinks by 4% in one year. What is the new population?
+      options:
+        - "26,000"
+        - "24,996"
+        - "1,000"
+        - "24,000"
+      option_explanations:
+        - |
+          26,000 is a 4% increase, but the population shrank.
+        - |
+          24,996 subtracts 4 people, treating the percentage as a count.
+        - |
+          1,000 is the number lost (4% of 25,000), not the population that remains.
+        - |
+          Correct. Shrinking by 4% leaves 96%, and 25,000 · 0.96 = 24,000.
+      answer: 3
+
+    - slug: alg1-u05-w23-q12
+      type: multiple_choice
+      topic_code: "5.16"
+      source: "IM Algebra 1, Unit 5, Lesson 16"
+      points: 1
+      prompt: |
+        $2,500 is invested at 3% a year, compounded annually. Which expression gives the balance after 6 years?
+      options:
+        - "2,500 · 0.03⁶"
+        - "2,500 · 1.03⁶"
+        - "2,500 · 1.18"
+        - "2,500 + 75 · 6"
+      option_explanations:
+        - |
+          0.03 is the rate; the factor is 1 + 0.03.
+        - |
+          Correct. Each year multiplies by 1.03, six times: about $2,985.13.
+        - |
+          1.18 adds six rates without compounding; the true six-year factor is 1.03⁶ ≈ 1.194.
+        - |
+          Adding $75 six times is simple interest, which ignores interest on interest.
+      answer: 1
+
+    - slug: alg1-u05-w23-q13
+      type: multiple_choice
+      topic_code: "4.9"
+      source: "IM Algebra 1, Unit 4, Lesson 9"
+      points: 1
+      prompt: |
+        Two functions are described. M is given by a table: M(0) = 100, M(5) = 150, M(10) = 200. N is given by the rule N(t) = 80 · 1.1ᵗ. Which comparison is correct?
+      options:
+        - "N changes faster on every interval because it is exponential."
+        - "M and N are both linear."
+        - "M changes faster from 0 to 10 because it has larger values."
+        - "M is linear with rate 10 per unit; N is exponential and its average rate from 0 to 10 is about 12.7 per unit, so N changes faster over that interval."
+      option_explanations:
+        - |
+          From 0 to 1, N changes by only 8, less than M's 10; which is faster depends on the interval.
+        - |
+          N multiplies by 1.1 each step, so it is exponential.
+        - |
+          Larger values do not mean faster change; the rates must be compared.
+        - |
+          Correct. M adds 50 every 5 units; N(10) ≈ 207.5, so (207.5 − 80)/10 ≈ 12.7 per unit, which exceeds 10.
+      answer: 3
+
+    # ---- Select-all (5.20, 5.2)
+    - slug: alg1-u05-w23-q14
+      type: multi_select
+      topic_code: "5.20"
+      source: "IM Algebra 1, Unit 5, Lesson 20"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A population doubles every 12 years. Which statements are true? Select all that apply.
+      options:
+        - "It increases by the same number of people every 12 years."
+        - "If it is 8,000 now, it will be 16,000 in 12 years and 32,000 in 24 years."
+        - "It quadruples every 24 years."
+        - "The factor over any 6-year interval is √2 ≈ 1.41."
+        - "It grows by 1/12 of its size each year."
+      option_explanations:
+        - |
+          The number added each 12 years doubles too; the factor, not the amount, is constant.
+        - |
+          Correct. 8,000 → 16,000 → 32,000 by repeated doubling.
+        - |
+          Correct. Two doublings make a factor of 4.
+        - |
+          Correct. Half the interval gives the square root of the factor: √2 per 6 years.
+        - |
+          The yearly factor is 2^(1/12) ≈ 1.059, about 5.9% a year, not 8.3%.
+      answer: [1, 2, 3]
+
+    - slug: alg1-u05-w23-q15
+      type: multi_select
+      topic_code: "5.2"
+      source: "IM Algebra 1, Unit 5, Lesson 2"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which tables, with inputs 0, 1, 2, 3, show exponential change? Select all that apply.
+      options:
+        - "100, 110, 121, 133.1"
+        - "5, 10, 15, 20"
+        - "100, 110, 120, 130"
+        - "64, 32, 16, 8"
+        - "7, 21, 63, 189"
+      option_explanations:
+        - |
+          Correct. Each value is 1.1 times the previous one.
+        - |
+          The differences are a constant 5: linear.
+        - |
+          The differences are a constant 10: linear.
+        - |
+          Correct. Each value is half the previous one: exponential decay.
+        - |
+          Correct. Each value is triple the previous one.
+      answer: [0, 3, 4]
+
+    # ---- True/false (5.19, 5.17)
+    - slug: alg1-u05-w23-q16
+      type: true_false
+      topic_code: "5.19"
+      source: "IM Algebra 1, Unit 5, Lesson 19"
+      points: 1
+      prompt: |
+        True or false: a linear function with a large enough slope will stay ahead of an exponential growth function forever.
+      answer: false
+      explanation: |
+        False. The exponential function's average rate of change keeps multiplying, so it eventually exceeds any fixed slope and the exponential function overtakes the line, however far out that happens.
+
+    - slug: alg1-u05-w23-q17
+      type: true_false
+      topic_code: "5.17"
+      source: "IM Algebra 1, Unit 5, Lesson 17"
+      points: 1
+      prompt: |
+        True or false: at a nominal annual rate of 9% compounded monthly, the balance is multiplied by 1.0075 each month.
+      answer: true
+      explanation: |
+        True. The monthly rate is 0.09/12 = 0.0075, so the monthly factor is 1.0075, applied 12 times a year.
+
+    # ---- Fill in the blank (5.20, 4.7)
+    - slug: alg1-u05-w23-q18
+      type: fill_blank
+      topic_code: "5.20"
+      source: "IM Algebra 1, Unit 5, Lesson 20"
+      points: 1
+      prompt: |
+        Over every interval of the same width, an exponential function is multiplied by the same ____, while a linear function changes by the same amount.
+      answer: ["factor", "number", "growth factor", "ratio"]
+      explanation: |
+        f(x + w) = f(x) · bʷ for f(x) = a · bˣ, so the multiplier depends only on the width w.
+
+    - slug: alg1-u05-w23-q19
+      type: fill_blank
+      topic_code: "4.7"
+      source: "IM Algebra 1, Unit 4, Lesson 7"
+      points: 1
+      prompt: |
+        The average rate of change of a function over an interval is the change in output divided by the change in ____.
+      answer: ["input", "x", "the input", "independent variable"]
+      explanation: |
+        (f(b) − f(a))/(b − a) is the slope of the segment joining the two points.
+
+    # ---- Numeric (5.20, 5.21, 5.15)
+    - slug: alg1-u05-w23-q20
+      type: numeric
+      topic_code: "5.20"
+      source: "IM Algebra 1, Unit 5, Lesson 20"
+      points: 1
+      prompt: |
+        An exponential quantity is 100 at t = 0 and 150 at t = 4. What is it at t = 8?
+      answer: { value: 225, tolerance: 0 }
+      explanation: |
+        The factor over 4 units is 1.5, so 150 · 1.5 = 225 at t = 8.
+
+    - slug: alg1-u05-w23-q21
+      type: numeric
+      topic_code: "5.21"
+      source: "IM Algebra 1, Unit 5, Lesson 21"
+      points: 1
+      prompt: |
+        A bacteria count is 2,000 at noon and 8,000 at 2 p.m. Assuming exponential growth, what is the count at 5 p.m.?
+      answer: { value: 64000, tolerance: 0 }
+      explanation: |
+        A factor of 4 per 2 hours is 2 per hour, so 2,000 · 2⁵ = 64,000.
+
+    - slug: alg1-u05-w23-q22
+      type: numeric
+      topic_code: "5.15"
+      source: "IM Algebra 1, Unit 5, Lesson 15"
+      points: 1
+      prompt: |
+        A fee of $300 rises 2% each year. To the nearest cent, what is it after 5 years?
+      answer: { value: 331.22, tolerance: 0.01 }
+      explanation: |
+        300 · 1.02⁵ ≈ 331.22.
+
+    # ---- Short answer (5.19, 5.21)
+    - slug: alg1-u05-w23-q23
+      type: short_answer
+      topic_code: "5.19"
+      source: "IM Algebra 1, Unit 5, Lesson 19"
+      points: 3
+      prompt: |
+        L(t) = 500 + 100t and E(t) = 500 · 1.15ᵗ model two quantities.
+
+        (a) Find the average rate of change of each from t = 0 to t = 5 and say which changes faster there.
+        (b) Find the average rate of change of each from t = 10 to t = 15 and say which changes faster there.
+        (c) Explain in one or two sentences why the answers to (a) and (b) can differ.
+      answer: |
+        (a) L: 100 per unit. E: (1,005.7 − 500)/5 ≈ 101 per unit. E, by a little.
+        (b) L: 100. E: (4,068.5 − 2,022.8)/5 ≈ 409 per unit. E, by a lot.
+        (c) A line's rate is the same everywhere, but an exponential function's increases are multiplied by the factor every step, so its average rate over later intervals is larger than over earlier ones.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: 100 and about 101 with E chosen.
+
+        (b) 1 pt: 100 and about 409 with E chosen.
+
+        (c) 1 pt: constant rate versus multiplying rate.
+
+    - slug: alg1-u05-w23-q24
+      type: short_answer
+      topic_code: "5.21"
+      source: "IM Algebra 1, Unit 5, Lesson 21"
+      points: 3
+      prompt: |
+        A town had 12,000 people in 2005 and 15,000 in 2015.
+
+        (a) Assuming exponential growth, find the growth factor per decade and write a model with d decades after 2005.
+        (b) Predict the population in 2035.
+        (c) Convert the factor to a yearly growth rate (as a percentage to two decimal places), explaining the method.
+      answer: |
+        (a) 15,000/12,000 = 1.25 per decade; T(d) = 12,000 · 1.25ᵈ.
+        (b) 2035 is d = 3: 12,000 · 1.25³ = 23,437.5, about 23,400.
+        (c) The yearly factor is the tenth root of 1.25: 1.25^(1/10) ≈ 1.0226, so about 2.26% per year. Dividing 25% by 10 would give 2.5%, which is wrong because yearly growth compounds.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: factor 1.25 and the model.
+
+        (b) 1 pt: about 23,400.
+
+        (c) 1 pt: tenth root, about 2.26%, with the compounding reason.
+
+    # ---- Long answer (5.21)
+    - slug: alg1-u05-w23-q25
+      type: long_answer
+      topic_code: "5.21"
+      source: "IM Algebra 1, Unit 5, Lesson 21"
+      points: 6
+      prompt: |
+        Census counts for a city, in thousands: 1990: 240; 2000: 288; 2010: 346; 2020: 415.
+
+        (1) Compute the differences and the ratios between consecutive counts and decide whether a linear or an exponential model fits better, with reasons.
+        (2) Write an exponential model P(d) with d decades after 1990, and rewrite it with t in years, giving the yearly factor to four decimal places.
+        (3) Predict the population in 2030 and in 2060 with your model.
+        (4) Discuss the reliability of each prediction in (3), and describe one piece of evidence that would make you revise the model.
+      answer: |
+        (1) Differences: 48, 58, 69 (growing). Ratios: 1.20, 1.20, 1.20 (constant). Constant ratios mean exponential growth; growing differences mean a line would underestimate later counts.
+        (2) P(d) = 240 · 1.2ᵈ. Yearly factor 1.2^(1/10) ≈ 1.0184, so P(t) ≈ 240 · 1.0184ᵗ with t years after 1990.
+        (3) 2030: d = 4, 240 · 1.2⁴ ≈ 498 thousand. 2060: d = 7, 240 · 1.2⁷ ≈ 860 thousand.
+        (4) The 2030 prediction is one decade beyond the data and the pattern has held for three decades, so it is reasonable. The 2060 prediction assumes four more decades of 20% growth; limits on land, housing, water or jobs could slow growth, so it is far less reliable and should be reported as conditional. Evidence for revision: a 2030 count well below 498 thousand, or ratios between recent counts falling below 1.2, would show the growth factor is dropping.
+      explanation: |
+        Six points.
+
+        (1) 1 pt: differences and ratios with the exponential conclusion.
+
+        (2) 2 pts: 1 for P(d) = 240 · 1.2ᵈ, 1 for the yearly form with factor about 1.0184.
+
+        (3) 1 pt: about 498 and about 860 thousand.
+
+        (4) 2 pts: 1 for distinguishing the reliability of the two predictions with reasons, 1 for a sensible piece of revising evidence.
+
+        Common errors: yearly factor 1.02 (dividing 20% by 10); predicting 2060 as 2020 plus 4 × 69; no caution on the long-range figure.

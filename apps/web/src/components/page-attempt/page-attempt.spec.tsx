@@ -9,6 +9,8 @@ jest.mock('../../services/tests-store', () => ({
 }));
 jest.mock('../../services/navigate', () => ({ navigate: jest.fn() }));
 jest.mock('../../services/session-recovery', () => ({ recoverFromExpiredSession: () => false }));
+const me: { value: { id: number; role: string } | null } = { value: null };
+jest.mock('../../services/auth-store', () => ({ authStore: { get currentUser() { return me.value; } } }));
 
 import { PageAttempt } from './page-attempt';
 import { RichText } from '../rich-text/rich-text';
@@ -74,7 +76,10 @@ describe('page-attempt', () => {
     const root = page.root.shadowRoot;
     expect(root.querySelectorAll('input[type="radio"]')).toHaveLength(2 + 2); // MC + true/false
     expect(root.querySelectorAll('input[type="checkbox"]')).toHaveLength(3);
-    expect((root.querySelector('input[type="checkbox"]') as HTMLInputElement).checked).toBe(true);
+    // Options are shuffled per attempt (option-order.ts), so find them by text.
+    const boxes = Array.from(root.querySelectorAll('label')).filter((l) => l.querySelector('input[type="checkbox"]'));
+    const checked = boxes.filter((l) => (l.querySelector('input') as HTMLInputElement).checked).map((l) => l.textContent?.trim());
+    expect(checked).toEqual(['Ribosome']);
     expect((root.querySelector('input[type="text"]') as HTMLInputElement).value).toBe('energy');
     expect(root.querySelector('input[type="number"]')).not.toBeNull();
     // fill_blank: the ____ stays in the prompt and a capped input sits beneath it.
@@ -105,6 +110,21 @@ describe('page-attempt', () => {
     expect(root.querySelectorAll('.review .stimulus')).toHaveLength(2);
   });
 
+  it('shows the options in the same shuffled order while answering and in the review, recording authored indices', async () => {
+    const many = { ...open, questions: [{ id: 20, position: 0, type: 'multiple_choice', prompt: 'Pick', options: ['A0', 'B1', 'C2', 'D3', 'E4'], points: 1, partial_credit: false, response: null }] };
+    const page = await mount(many);
+    const root = page.root.shadowRoot;
+    const shown = Array.from(root.querySelectorAll('label')).map((l) => l.textContent?.trim());
+    expect([...shown].sort()).toEqual(['A0', 'B1', 'C2', 'D3', 'E4']);
+
+    // Clicking what is shown first records that option's authored index.
+    (root.querySelector('input[type="radio"]') as HTMLInputElement).dispatchEvent(new Event('change'));
+    expect((page.rootInstance as PageAttempt).responses[20]).toBe(Number(shown[0]!.slice(1)));
+
+    const again = await mount(many);
+    expect(Array.from(again.root.shadowRoot.querySelectorAll('label')).map((l) => l.textContent?.trim())).toEqual(shown);
+  });
+
   it('shows each option with its rationale in the review when rationales are present', async () => {
     const submitted = { ...open, submitted_at: '2026-09-02', score: '0.00', max_score: '7.00', ungraded_count: 0, questions: [
       { ...open.questions[0], response: 0, answer: 1, option_explanations: ['The nucleus holds DNA.', 'Mitochondria make ATP.'], answer_id: 1, awarded: '0.00', graded_answer: { answer: 1, points: 1 } },
@@ -120,17 +140,19 @@ describe('page-attempt', () => {
     const root = page.root.shadowRoot;
     const lists = root.querySelectorAll('.review .explained');
     expect(lists).toHaveLength(2);
-    const first = lists[0].querySelectorAll('li');
-    expect(first[0].classList.contains('picked')).toBe(true);
-    expect(first[0].classList.contains('correct')).toBe(false);
-    expect(first[1].classList.contains('correct')).toBe(true);
-    expect(first[1].classList.contains('picked')).toBe(false);
-    expect(deepText(first[1])).toContain('Mitochondria make ATP.');
+    // Shuffled per attempt: each option keeps its own marks and rationale, wherever it lands.
+    const option = (list: Element, text: string) => Array.from(list.querySelectorAll('li')).find((li) => li.querySelector('.option-text')?.textContent === text)!;
+    const nucleus = option(lists[0], 'Nucleus');
+    const mito = option(lists[0], 'Mitochondria');
+    expect(nucleus.classList.contains('picked')).toBe(true);
+    expect(nucleus.classList.contains('correct')).toBe(false);
+    expect(mito.classList.contains('correct')).toBe(true);
+    expect(mito.classList.contains('picked')).toBe(false);
+    expect(deepText(mito)).toContain('Mitochondria make ATP.');
     // Empty and null rationales render nothing beneath the option.
-    const second = lists[1].querySelectorAll('li');
-    expect(second[0].querySelector('.rationale')).toBeNull();
-    expect(second[2].querySelector('.rationale')).toBeNull();
-    expect(deepText(second[1])).toContain('Not an organelle.');
+    expect(option(lists[1], 'Ribosome').querySelector('.rationale')).toBeNull();
+    expect(option(lists[1], 'Golgi').querySelector('.rationale')).toBeNull();
+    expect(deepText(option(lists[1], 'Car'))).toContain('Not an organelle.');
     // Written answers keep their line breaks via the pre-wrap class.
     const responses = root.querySelectorAll('.review .response');
     expect(responses).toHaveLength(2);
@@ -156,6 +178,27 @@ describe('page-attempt', () => {
       expect(item.querySelector('.explained')).not.toBeNull();
       expect(item.querySelector('.picked')).toBeNull();
       expect(item.textContent).toContain('Your answer: (skipped)');
+    }
+  });
+
+  it('names the student, not "you", when a guardian reads a connected student\'s review', async () => {
+    const submitted = { ...open, submitted_at: '2026-09-02', score: '1.00', max_score: '3.00', ungraded_count: 0, questions: [
+      { ...open.questions[0], response: 1, answer: 1, option_explanations: ['The nucleus holds DNA.', 'Mitochondria make ATP.'], answer_id: 1, awarded: '1.00', graded_answer: { answer: 1, points: 1 } },
+      { ...open.questions[3], response: 'energy', answer: 'ATP', answer_id: 2, awarded: '0.00', graded_answer: { answer: 'ATP', points: 2 } },
+    ] };
+    me.value = { id: 99, role: 'guardian' };
+    try {
+      const page = await mount(submitted);
+      const root = page.root.shadowRoot;
+      const text = root.textContent;
+      expect(text).toContain("Sam's submitted attempt");
+      expect(text).toContain("(Sam's answer)");
+      expect(text).toContain("Sam's answer:");
+      expect(text).not.toContain('Your answer');
+      expect(root.querySelector('a[href="/students/3"]')).not.toBeNull();
+      expect(root.querySelector('button.btn-primary')).toBeNull();
+    } finally {
+      me.value = null;
     }
   });
 

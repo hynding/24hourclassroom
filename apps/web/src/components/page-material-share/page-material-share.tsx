@@ -1,6 +1,6 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
-import { Connection, MaterialShare, MaterialView, ShareResult } from '@24hc/shared';
+import { Connection, MaterialShare, MaterialView, Role, SHARE_RECIPIENT_ROLES, ShareResult, hasRole, roleLabel } from '@24hc/shared';
 import { materialsStore } from '../../services/materials-store';
 import { profileStore } from '../../services/profile-store';
 import { navigate } from '../../services/navigate';
@@ -38,9 +38,10 @@ export class PageMaterialShare {
       }
       this.material = material;
       const connections = await profileStore.connections();
-      // Allowlist: a handout is as useful teacher-to-teacher as
-      // teacher-to-student, but any other role is invalid by default.
-      this.connections = connections.data.filter((c) => c.user.role === 'teacher' || c.user.role === 'student');
+      // Allowlist (Role::receivesShares): a handout is as useful
+      // teacher-to-teacher or to an assistant as to a student, but any other
+      // role is invalid by default.
+      this.connections = connections.data.filter((c) => hasRole(SHARE_RECIPIENT_ROLES, c.user.role));
       await this.refresh();
     } catch (e) {
       if (e instanceof ApiError && e.status === 404) {
@@ -108,8 +109,8 @@ export class PageMaterialShare {
    * promoted to admin after being shared with still appears there. Every
    * role must be named explicitly rather than defaulting to 'Student'.
    */
-  private roleLabel(role: string): string {
-    return role === 'teacher' ? 'Teacher' : role === 'student' ? 'Student' : 'Other';
+  private roleLabel(role: Role): string {
+    return hasRole(SHARE_RECIPIENT_ROLES, role) ? roleLabel(role) : 'Other';
   }
 
   private nameFor(userId: number): string {

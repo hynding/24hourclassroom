@@ -1,0 +1,603 @@
+week: 30
+unit: 7
+title: "Normal Distributions and Areas"
+topics: ["7.5", "7.6", "7.7", "7.8"]
+guide: guides/week-30.md
+guide_description: |
+  The normal distribution and its mean and standard deviation with the 68–95–99.7 rule; bar areas in a
+  relative-frequency histogram as proportions and the check for approximate normality; z-scores and a
+  table (or technology) for the area under a normal curve in any interval and for cutoff values; and
+  using a simulation or normal model to decide whether a result is unusual.
+flashcards_description: |
+  29 cards on normal distributions, areas as proportions, z-scores and table areas, and judging unusual results.
+
+flashcards:
+  - front: Normal distribution → the two numbers that describe it
+    back: |
+      The mean μ (where the peak is) and the standard deviation σ (how wide the bell is). Every normal curve is symmetric and bell-shaped.
+    topic_code: "7.5"
+  - front: The 68–95–99.7 rule → statement
+    back: |
+      In an approximately normal distribution about 68% of values lie within 1σ of the mean, 95% within 2σ and 99.7% within 3σ.
+    topic_code: "7.5"
+  - front: Share of a normal distribution below μ − σ
+    back: |
+      About 16%: half of the 32% that lies outside μ ± σ. Likewise about 16% is above μ + σ.
+    topic_code: "7.5"
+  - front: Share of a normal distribution above μ + 2σ
+    back: |
+      About 2.5%: half of the 5% outside μ ± 2σ. Above μ + 3σ is only 0.15%.
+    topic_code: "7.5"
+  - front: Where a normal curve changes from bending downward to bending outward
+    back: |
+      At μ − σ and μ + σ. That is how to read σ off a drawn curve: the distance from the peak to the change of bend.
+    topic_code: "7.5"
+  - front: Adult heights, mean 170 cm, σ = 8 cm → share between 154 and 178 cm
+    back: |
+      From μ − 2σ to μ + σ: 47.5% (half of 95%) plus 34% (half of 68%) = 81.5%.
+    topic_code: "7.5"
+  - front: Middle 95% of bag weights, mean 500 g, σ = 4 g
+    back: |
+      μ ± 2σ: 492 g to 508 g.
+    topic_code: "7.5"
+  - front: Distributions that are not normal → examples
+    back: |
+      Household incomes and waiting times (skewed right), scores on an easy test (skewed left), a mixed group's heights (bimodal). The 68–95–99.7 rule does not apply to them.
+    topic_code: "7.5"
+  - front: Relative-frequency histogram → what the bar areas mean
+    back: |
+      Each bar's area is the proportion of the data in its interval, and the areas add to 1. The proportion in a range is the total area of its bars.
+    topic_code: "7.6"
+  - front: Checking whether data are approximately normal from a histogram
+    back: |
+      Add the bar areas within one and two standard deviations of the mean; about 0.68 and 0.95, with a symmetric shape, means a normal model fits.
+    topic_code: "7.6"
+  - front: Story word counts with 0.67 within 1σ and 0.94 within 2σ → what it shows
+    back: |
+      Close to 68% and 95%, so the word counts are approximately normal with mean 2,600 and σ 400.
+    topic_code: "7.6"
+  - front: Proportion of data outside the bars you were given
+    back: |
+      1 minus the sum of the given bar areas, since the whole histogram has area 1.
+    topic_code: "7.6"
+  - front: z-score → formula and meaning
+    back: |
+      z = (x − μ)/σ: how many standard deviations x is above the mean; negative means below. Height 182 with mean 170 and σ 8 has z = 1.5.
+    topic_code: "7.7"
+  - front: Area to the right of a z-score
+    back: |
+      1 − (area to the left). The table gives areas to the left; subtract for the upper tail.
+    topic_code: "7.7"
+  - front: Area between two values under a normal curve
+    back: |
+      (Area left of the larger z) − (area left of the smaller z).
+    topic_code: "7.7"
+  - front: Area to the left of −z
+    back: |
+      Equal to the area to the right of z, by symmetry: left of −1.5 is 0.067, the same as right of 1.5.
+    topic_code: "7.7"
+  - front: Areas to the left of z = 1, 1.5 and 2
+    back: |
+      0.841, 0.933 and 0.977.
+    topic_code: "7.7"
+  - front: Areas to the left of z = −1, −1.25 and −1.5
+    back: |
+      0.159, 0.106 and 0.067.
+    topic_code: "7.7"
+  - front: Share of adults shorter than 182 cm (mean 170, σ = 8)
+    back: |
+      z = 1.5, area to the left 0.933: about 93.3%. Taller: 6.7%.
+    topic_code: "7.7"
+  - front: Share of adults between 160 and 182 cm (mean 170, σ = 8)
+    back: |
+      z = −1.25 (area 0.106) and z = 1.5 (area 0.933): 0.933 − 0.106 = 0.827, about 83%.
+    topic_code: "7.7"
+  - front: z-scores for the top 10%, the top 5% and the middle 50%
+    back: |
+      Top 10% starts at z = 1.28; top 5% at z = 1.645; the middle 50% lies between z = −0.675 and 0.675.
+    topic_code: "7.7"
+  - front: Height cutting off the tallest 10% (mean 170, σ = 8)
+    back: |
+      z = 1.28: 170 + 1.28 · 8 ≈ 180.2 cm.
+    topic_code: "7.7"
+  - front: Finding a cutoff value from a proportion → the steps
+    back: |
+      Turn the proportion into an area to the left, find the z with that area, then x = μ + zσ. Lightest 25% of bags (mean 500, σ 4): z = −0.675, x ≈ 497.3 g.
+    topic_code: "7.7"
+  - front: Unusual result → working definition
+    back: |
+      A result more than about 2 standard deviations from what the model (or simulation) expects; it would happen less than about 5% of the time if the claim were true.
+    topic_code: "7.8"
+  - front: Two heads in 20 flips of a coin claimed fair → verdict
+    back: |
+      A simulation gives mean 10, σ ≈ 2.2; two heads is about 3.6σ below. Very unusual for a fair coin: strong evidence against fairness, not proof.
+    topic_code: "7.8"
+  - front: 75 of 100 free throws for a player claimed to shoot 60% → verdict
+    back: |
+      Simulation mean 60, σ ≈ 4.9; 75 is about 3σ above. Unusual: the 60% claim is probably too low for that player.
+    topic_code: "7.8"
+  - front: Five seniors in a draw of 8 that a simulation produces 8% of the time → verdict
+    back: |
+      Not unusual: a fair draw does this about one time in twelve. The data do not give strong evidence of unfairness.
+    topic_code: "7.8"
+  - front: Why many simulated trials beat one trial
+    back: |
+      One trial cannot show what is typical; hundreds map out the whole distribution of results, often close to a normal curve, and give its mean and standard deviation.
+    topic_code: "7.8"
+  - front: What an unusual result proves
+    back: |
+      Nothing by itself: rare results do happen. It is evidence against the claim, stronger the rarer the result; it is not a disproof.
+    topic_code: "7.8"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (lessons 7.5 to 7.8: normal distributions, areas
+    as proportions, z-scores and table areas, and unusual results), with about a quarter reviewing earlier
+    units. Includes a shared-context set on LED bulb lifetimes with the table values you need. Multiple
+    choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes.
+  questions:
+    # ---- Stimulus set: LED bulb lifetimes (7.5, 7.7)
+    - slug: alg2-u07-w30-q01
+      type: multiple_choice
+      topic_code: "7.5"
+      source: "IM Algebra 2, Unit 7, Lesson 5"
+      points: 1
+      stimulus: |
+        The lifetimes of a brand of LED bulb are approximately normal with mean 1,200 hours and standard deviation 100 hours. Areas to the left of z: z = −1.5 → 0.067; z = −1 → 0.159; z = 1 → 0.841; z = 2 → 0.977.
+      prompt: |
+        About what share of the bulbs last between 1,100 and 1,300 hours?
+      options:
+        - "50%"
+        - "68%"
+        - "34%"
+        - "95%"
+      option_explanations:
+        - |
+          50% is the share below the mean alone; this interval straddles the mean.
+        - |
+          Correct. 1,100 and 1,300 are one standard deviation either side of the mean, which holds about 68% (0.841 − 0.159 = 0.682).
+        - |
+          34% is the share between the mean and one standard deviation above it, half of this interval.
+        - |
+          95% is the share within two standard deviations, 1,000 to 1,400 hours.
+      answer: 1
+    - slug: alg2-u07-w30-q02
+      type: multiple_choice
+      topic_code: "7.7"
+      source: "IM Algebra 2, Unit 7, Lesson 7"
+      points: 1
+      stimulus: |
+        The lifetimes of a brand of LED bulb are approximately normal with mean 1,200 hours and standard deviation 100 hours. Areas to the left of z: z = −1.5 → 0.067; z = −1 → 0.159; z = 1 → 0.841; z = 2 → 0.977.
+      prompt: |
+        About what share of the bulbs last more than 1,400 hours?
+      options:
+        - "4.6%"
+        - "16%"
+        - "2.3%"
+        - "97.7%"
+      option_explanations:
+        - |
+          4.6% would be both tails beyond ±2 together; the question asks about the upper tail only.
+        - |
+          16% is the share beyond one standard deviation, above 1,300 hours.
+        - |
+          Correct. 1,400 hours is z = 2; the area to the right is 1 − 0.977 = 0.023.
+        - |
+          97.7% is the share lasting less than 1,400 hours, the area to the left of z = 2.
+      answer: 2
+    - slug: alg2-u07-w30-q03
+      type: multiple_choice
+      topic_code: "7.7"
+      source: "IM Algebra 2, Unit 7, Lesson 7"
+      points: 1
+      stimulus: |
+        The lifetimes of a brand of LED bulb are approximately normal with mean 1,200 hours and standard deviation 100 hours. Areas to the left of z: z = −1.5 → 0.067; z = −1 → 0.159; z = 1 → 0.841; z = 2 → 0.977.
+      prompt: |
+        About what share of the bulbs last between 1,050 and 1,400 hours?
+      options:
+        - "6.7%"
+        - "95.0%"
+        - "84.4%"
+        - "91.0%"
+      option_explanations:
+        - |
+          6.7% is the share below 1,050 hours, which must be subtracted, not reported.
+        - |
+          95% is the share within two standard deviations on both sides, 1,000 to 1,400.
+        - |
+          84.4% would be 0.977 − 0.133; the area left of z = −1.5 is 0.067, not 0.133.
+        - |
+          Correct. 1,050 is z = −1.5 and 1,400 is z = 2; the area between is 0.977 − 0.067 = 0.910.
+      answer: 3
+    - slug: alg2-u07-w30-q04
+      type: multiple_choice
+      topic_code: "7.7"
+      source: "IM Algebra 2, Unit 7, Lesson 7"
+      points: 1
+      stimulus: |
+        The lifetimes of a brand of LED bulb are approximately normal with mean 1,200 hours and standard deviation 100 hours. Areas to the left of z: z = −1.5 → 0.067; z = −1 → 0.159; z = 1 → 0.841; z = 2 → 0.977.
+      prompt: |
+        The shortest-lived 16% of bulbs fail before about how many hours?
+      options:
+        - "1,100"
+        - "1,000"
+        - "1,300"
+        - "1,050"
+      option_explanations:
+        - |
+          Correct. An area of 0.159 to the left corresponds to z = −1, which is 1,200 − 100 = 1,100 hours.
+        - |
+          1,000 hours is z = −2, below which only about 2.3% of bulbs fail.
+        - |
+          1,300 hours is z = +1; 16% of bulbs last longer than that, not shorter.
+        - |
+          1,050 hours is z = −1.5, below which about 6.7% fail.
+      answer: 0
+    # ---- Single items on this week
+    - slug: alg2-u07-w30-q05
+      type: multiple_choice
+      topic_code: "7.5"
+      source: "IM Algebra 2, Unit 7, Lesson 5"
+      points: 1
+      prompt: |
+        Which two numbers completely describe a normal distribution?
+      options:
+        - "Its minimum and its maximum"
+        - "Its mean and its standard deviation"
+        - "Its median and its range"
+        - "Its mean and its sample size"
+      option_explanations:
+        - |
+          A normal curve has no minimum or maximum value; its tails go on in both directions.
+        - |
+          Correct. The mean places the peak and the standard deviation sets the width; nothing else is needed.
+        - |
+          The median equals the mean, but the range is not defined for a curve with endless tails.
+        - |
+          Sample size describes a data set, not the shape of the distribution.
+      answer: 1
+    - slug: alg2-u07-w30-q06
+      type: multiple_choice
+      topic_code: "7.5"
+      source: "IM Algebra 2, Unit 7, Lesson 5"
+      points: 1
+      prompt: |
+        Test scores are approximately normal with mean 72 and standard deviation 9. About what share of scores are above 90?
+      options:
+        - "16%"
+        - "95%"
+        - "2.5%"
+        - "5%"
+      option_explanations:
+        - |
+          16% is the share above one standard deviation, that is above 81.
+        - |
+          95% is the share within two standard deviations, between 54 and 90.
+        - |
+          Correct. 90 = 72 + 2(9) is two standard deviations above the mean, and 2.5% lies above that.
+        - |
+          5% is the total outside two standard deviations on both sides; half of it is above 90.
+      answer: 2
+    - slug: alg2-u07-w30-q07
+      type: multiple_choice
+      topic_code: "7.6"
+      source: "IM Algebra 2, Unit 7, Lesson 6"
+      points: 1
+      prompt: |
+        In a relative-frequency histogram the bars for 10–20, 20–30 and 30–40 have areas 0.15, 0.40 and 0.25. What share of the data is between 20 and 40?
+      options:
+        - "0.35"
+        - "0.40"
+        - "0.80"
+        - "0.65"
+      option_explanations:
+        - |
+          0.35 is 1 − 0.65, the share outside 20 to 40.
+        - |
+          0.40 is only the 20–30 bar; the 30–40 bar also lies between 20 and 40.
+        - |
+          0.80 includes the 10–20 bar, which is outside the range asked about.
+        - |
+          Correct. The proportion in a range is the total area of its bars: 0.40 + 0.25 = 0.65.
+      answer: 3
+    - slug: alg2-u07-w30-q08
+      type: multiple_choice
+      topic_code: "7.7"
+      source: "IM Algebra 2, Unit 7, Lesson 7"
+      points: 1
+      prompt: |
+        Weights have mean 50 and standard deviation 4. What is the z-score of a weight of 59?
+      options:
+        - "2.25"
+        - "−2.25"
+        - "9"
+        - "1.5"
+      option_explanations:
+        - |
+          Correct. z = (59 − 50)/4 = 9/4 = 2.25 standard deviations above the mean.
+        - |
+          59 is above the mean, so its z-score is positive.
+        - |
+          9 is the distance from the mean in weight units; divide by the standard deviation to get z.
+        - |
+          1.5 would be the z-score of 56, which is 6 above the mean.
+      answer: 0
+    - slug: alg2-u07-w30-q09
+      type: multiple_choice
+      topic_code: "7.7"
+      source: "IM Algebra 2, Unit 7, Lesson 7"
+      points: 1
+      prompt: |
+        Weights are approximately normal with mean 50 and standard deviation 4. The lightest 25% lie below which value? (The area to the left of z = −0.675 is 0.25.)
+      options:
+        - "47.3"
+        - "52.7"
+        - "37.5"
+        - "46"
+      option_explanations:
+        - |
+          Correct. x = μ + zσ = 50 + (−0.675)(4) = 50 − 2.7 = 47.3.
+        - |
+          52.7 is the cutoff for the heaviest 25%, z = +0.675.
+        - |
+          37.5 is 75% of 50; the cutoff comes from a z-score, not from a percentage of the mean.
+        - |
+          46 is one standard deviation below the mean, below which about 16% lie, not 25%.
+      answer: 0
+    - slug: alg2-u07-w30-q10
+      type: multiple_choice
+      topic_code: "6.18"
+      source: "IM Algebra 2, Unit 6, Lesson 18"
+      points: 1
+      prompt: |
+        A wheel turns once every 24 seconds. In a model h(t) = k + a cos(bt) of a rider's height, what is b?
+      options:
+        - "48π"
+        - "π/12"
+        - "24"
+        - "π/24"
+      option_explanations:
+        - |
+          48π multiplies instead of divides; b must be a small number so the period comes out to 24.
+        - |
+          Correct. b = 2π/period = 2π/24 = π/12, so that bt reaches 2π when t = 24.
+        - |
+          24 is the period in seconds; b is 2π divided by it.
+        - |
+          π/24 would give a period of 48 seconds; the numerator is 2π, not π.
+      answer: 1
+    - slug: alg2-u07-w30-q11
+      type: multiple_choice
+      topic_code: "6.13"
+      source: "IM Algebra 2, Unit 6, Lesson 13"
+      points: 1
+      prompt: |
+        What are the amplitude and midline of y = 3 sin θ − 2?
+      options:
+        - "Amplitude −2, midline y = 3"
+        - "Amplitude 1, midline y = −2"
+        - "Amplitude 3, midline y = 2"
+        - "Amplitude 3, midline y = −2"
+      option_explanations:
+        - |
+          The multiplier is the amplitude and the added constant the midline, not the reverse; amplitude is never negative.
+        - |
+          The amplitude is the factor in front of the sine, 3, not 1.
+        - |
+          The constant is −2, so the midline is y = −2, below the axis.
+        - |
+          Correct. The factor 3 is the amplitude and the constant −2 is the midline; the wave runs from −5 to 1.
+      answer: 3
+    - slug: alg2-u07-w30-q12
+      type: multiple_choice
+      topic_code: "3.11"
+      source: "IM Algebra 2, Unit 3, Lesson 11"
+      points: 1
+      prompt: |
+        What is (3i)²?
+      options:
+        - "9i"
+        - "−9i"
+        - "−9"
+        - "9"
+      option_explanations:
+        - |
+          Squaring 3i produces i², which is −1, so no i remains in the answer.
+        - |
+          The result is real: 9 · i² = −9, with no factor of i left over.
+        - |
+          Correct. (3i)² = 3² · i² = 9 · (−1) = −9, a negative real number.
+        - |
+          9 forgets that i² = −1; the square of an imaginary number is a negative real number.
+      answer: 2
+    - slug: alg2-u07-w30-q13
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "IM Algebra 2, Unit 5, Lesson 4"
+      points: 1
+      prompt: |
+        Which function's graph is the reflection of the graph of f across the y-axis?
+      options:
+        - "y = −f(x)"
+        - "y = −f(−x)"
+        - "y = f(x) − 1"
+        - "y = f(−x)"
+      option_explanations:
+        - |
+          −f(x) flips the outputs: a reflection across the x-axis.
+        - |
+          −f(−x) reflects across both axes, a half-turn about the origin.
+        - |
+          Subtracting 1 shifts the graph down; it is not a reflection.
+        - |
+          Correct. Replacing x by −x sends (a, b) to (−a, b), a mirror image in the y-axis.
+      answer: 3
+    - slug: alg2-u07-w30-q14
+      type: multi_select
+      topic_code: "7.5"
+      source: "IM Algebra 2, Unit 7, Lesson 5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about a normal distribution are true? Select all that apply.
+      options:
+        - "Every value lies within three standard deviations of the mean."
+        - "It is symmetric about its mean."
+        - "A larger standard deviation gives a wider, flatter curve."
+        - "Its mean and median are equal."
+        - "About 95% of its values lie within two standard deviations of the mean."
+      option_explanations:
+        - |
+          About 99.7% lie within three standard deviations, not all; the tails never quite reach zero.
+        - |
+          Correct. The bell is a mirror image of itself about the mean.
+        - |
+          Correct. The standard deviation sets the width; the total area stays 1, so a wider curve is lower.
+        - |
+          Correct. Symmetry puts the middle value at the peak, where the mean is.
+        - |
+          Correct. That is the middle part of the 68–95–99.7 rule.
+      answer: [1, 2, 3, 4]
+    - slug: alg2-u07-w30-q15
+      type: multi_select
+      topic_code: "7.8"
+      source: "IM Algebra 2, Unit 7, Lesson 8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A spinner is claimed to land on red 25% of the time. A simulation of 80 spins at 25% gives a mean of 20 reds with standard deviation 3.9. Treating results more than two standard deviations from 20 as unusual, which of these counts of red in 80 real spins are unusual? Select all that apply.
+      options:
+        - "11 reds"
+        - "29 reds"
+        - "34 reds"
+        - "23 reds"
+        - "27 reds"
+      option_explanations:
+        - |
+          Correct. 11 is below 20 − 7.8 = 12.2, more than two standard deviations under the mean.
+        - |
+          Correct. 29 is above 27.8, more than two standard deviations over the mean.
+        - |
+          Correct. 34 is (34 − 20)/3.9 ≈ 3.6 standard deviations above the mean, far outside 12.2 to 27.8.
+        - |
+          23 is less than one standard deviation above 20; perfectly ordinary.
+        - |
+          27 is just inside the typical range, which runs up to 27.8.
+      answer: [0, 1, 2]
+    - slug: alg2-u07-w30-q16
+      type: true_false
+      topic_code: "7.5"
+      source: "IM Algebra 2, Unit 7, Lesson 5"
+      points: 1
+      prompt: |
+        True or false: the 68–95–99.7 rule applies to every distribution, whatever its shape.
+      answer: false
+      explanation: |
+        False. The rule describes approximately normal distributions only. A strongly skewed distribution, such as incomes, can have far more or less than 68% within one standard deviation of its mean.
+    - slug: alg2-u07-w30-q17
+      type: true_false
+      topic_code: "2.8"
+      source: "IM Algebra 2, Unit 2, Lesson 8"
+      points: 1
+      prompt: |
+        True or false: for p(x) = −2x³ + 5x, the outputs become very large negative numbers as x becomes very large positive.
+      answer: true
+      explanation: |
+        True. The leading term −2x³ controls the end behavior; for large positive x it is a huge negative number and the 5x cannot compete.
+    - slug: alg2-u07-w30-q18
+      type: fill_blank
+      topic_code: "7.7"
+      source: "IM Algebra 2, Unit 7, Lesson 7"
+      points: 1
+      prompt: |
+        Heights have mean 170 cm and standard deviation 8 cm. The z-score of a height of 182 cm is ____
+      answer: ["1.5", "z = 1.5", "1,5"]
+      explanation: |
+        z = (182 − 170)/8 = 12/8 = 1.5.
+    - slug: alg2-u07-w30-q19
+      type: fill_blank
+      topic_code: "1.6"
+      source: "IM Algebra 2, Unit 1, Lesson 6"
+      points: 1
+      prompt: |
+        The recursive rule a(1) = 2, a(n) = 3 · a(n − 1) for n ≥ 2 gives a(4) = ____
+      answer: ["54"]
+      explanation: |
+        a(2) = 6, a(3) = 18, a(4) = 54: each term is three times the one before.
+    - slug: alg2-u07-w30-q20
+      type: numeric
+      topic_code: "7.7"
+      source: "IM Algebra 2, Unit 7, Lesson 7"
+      points: 1
+      prompt: |
+        Heights are approximately normal with mean 170 cm and standard deviation 8 cm. The area to the left of z = −1.25 is 0.106 and to the left of z = 1.5 is 0.933. What proportion of heights is between 160 cm and 182 cm? Give three decimal places.
+      answer: { value: 0.827, tolerance: 0.002 }
+      explanation: |
+        160 cm is z = −1.25 and 182 cm is z = 1.5; the proportion between is 0.933 − 0.106 = 0.827.
+    - slug: alg2-u07-w30-q21
+      type: numeric
+      topic_code: "7.6"
+      source: "IM Algebra 2, Unit 7, Lesson 6"
+      points: 1
+      prompt: |
+        A relative-frequency histogram with bins 0–5, 5–10, 10–15, 15–20 and 20–25 has bar areas 0.10, 0.25, 0.30, 0.25 and 0.10. What proportion of the data is 15 or more? Give two decimal places.
+      answer: { value: 0.35, tolerance: 0.001 }
+      explanation: |
+        The bars for 15–20 and 20–25 have areas 0.25 + 0.10 = 0.35.
+    - slug: alg2-u07-w30-q22
+      type: numeric
+      topic_code: "4.16"
+      source: "IM Algebra 2, Unit 4, Lesson 16"
+      points: 1
+      prompt: |
+        An investment grows by 6% per year. How many years does it take to grow from $100 to $400? Give one decimal place.
+      answer: { value: 23.8, tolerance: 0.1 }
+      explanation: |
+        1.06ᵗ = 4, so t = log(4)/log(1.06) ≈ 0.602/0.0253 ≈ 23.8 years.
+    - slug: alg2-u07-w30-q23
+      type: short_answer
+      topic_code: "7.7"
+      source: "IM Algebra 2, Unit 7, Lesson 7"
+      points: 3
+      prompt: |
+        Bags of rice are filled with weights that are approximately normal with mean 500 g and standard deviation 4 g. Use these areas to the left of z: −1.25 → 0.106; −1 → 0.159; 1.645 → 0.95; 2 → 0.977.
+        (a) What proportion of bags weigh less than 495 g?
+        (b) The heaviest 5% of bags weigh more than what weight?
+        (c) What proportion of bags weigh between 496 g and 508 g?
+      answer: |
+        (a) z = (495 − 500)/4 = −1.25, so the proportion is 0.106, about 10.6%.
+        (b) The top 5% starts at z = 1.645: 500 + 1.645 · 4 = 506.58, about 506.6 g.
+        (c) 496 g is z = −1 (area 0.159) and 508 g is z = 2 (area 0.977): 0.977 − 0.159 = 0.818, about 82%.
+      explanation: |
+        Three points, one per part. (a) 0.106 with z = −1.25. (b) about 506.6 g. (c) 0.818.
+    - slug: alg2-u07-w30-q24
+      type: short_answer
+      topic_code: "7.8"
+      source: "IM Algebra 2, Unit 7, Lesson 8"
+      points: 3
+      prompt: |
+        A die is claimed to be fair. In 120 rolls a six comes up 34 times. A simulation of 120 rolls of a fair die, repeated 1,000 times, gives a mean of 20 sixes with standard deviation 4.1 and a roughly bell-shaped distribution.
+        (a) How many standard deviations is 34 from the simulation's mean?
+        (b) Give the range of counts that would not be unusual for a fair die, using two standard deviations.
+        (c) What can you conclude about the die, and what can you not conclude?
+      answer: |
+        (a) (34 − 20)/4.1 ≈ 3.4 standard deviations above the mean.
+        (b) 20 ± 2(4.1): about 11.8 to 28.2, so roughly 12 to 28 sixes.
+        (c) 34 is far outside the typical range, so it is strong evidence that the die favours six; it is not proof, since a fair die could produce 34 sixes, just very rarely.
+      explanation: |
+        Three points, one per part. (a) about 3.4. (b) about 12 to 28. (c) strong evidence of bias, stated as evidence rather than proof.
+    - slug: alg2-u07-w30-q25
+      type: long_answer
+      topic_code: "7.7"
+      source: "IM Algebra 2, Unit 7, Lesson 7"
+      points: 6
+      prompt: |
+        Resting heart rates of the adults in a large study are approximately normal with mean 70 beats per minute and standard deviation 10. Use these areas to the left of z: −1 → 0.159; 1.28 → 0.90; 1.5 → 0.933; 2 → 0.977. Write a full response that (1) gives the intervals that hold about 68%, 95% and 99.7% of the heart rates, (2) finds the proportion of adults with rates between 60 and 90, showing the z-scores, (3) finds the proportion above 85 and the heart rate that marks the top 10%, and (4) describes one group of people for whom this normal model would probably not fit, and why.
+      answer: |
+        (1) 68%: 60 to 80; 95%: 50 to 90; 99.7%: 40 to 100.
+        (2) 60 is z = (60 − 70)/10 = −1 (area 0.159) and 90 is z = 2 (area 0.977); the proportion between is 0.977 − 0.159 = 0.818, about 82%.
+        (3) 85 is z = 1.5, area to the left 0.933, so the proportion above is 1 − 0.933 = 0.067, about 6.7%. The top 10% starts at z = 1.28: 70 + 1.28 · 10 = 82.8, so about 83 beats per minute.
+        (4) Trained endurance athletes, whose resting rates are often 40 to 55: they form a separate group with a much lower mean, so pooling them with everyone else would make the distribution bimodal or skewed left rather than a single bell; the model's mean and standard deviation would describe neither group well. (Any well-explained group with a different mean, such as people on certain medications, is acceptable.)
+      explanation: |
+        Six points: 1 for the three intervals in (1); 2 for (2), one for the z-scores and one for 0.818; 2 for (3), one for 0.067 and one for about 83; 1 for a sensible group with a reason in (4).

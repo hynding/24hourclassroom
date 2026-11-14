@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Models\Follow;
 use App\Models\User;
@@ -58,6 +57,6 @@ class FollowController extends Controller
         // account whose profile 404s and who is absent from the directory must
         // not be confirmed by a 204 here -- and must not receive a NewFollower
         // notification on an account the platform claims is gone.
-        abort_unless($user->role === Role::Teacher && $user->isActive(), 404);
+        abort_unless($user->role->isPublic() && $user->isActive(), 404);
     }
 }

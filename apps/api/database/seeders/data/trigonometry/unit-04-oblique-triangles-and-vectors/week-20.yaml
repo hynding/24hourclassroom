@@ -1,0 +1,618 @@
+week: 20
+unit: 4
+title: "The Law of Sines and the Ambiguous Case"
+topics: ["4.1", "4.2"]
+guide: guides/week-20.md
+guide_description: |
+  The law of sines derived from an altitude written two ways, then used to solve AAS and ASA triangles, with
+  the longest-side check; then the ambiguous SSA case, decided by comparing the side a with the height
+  h = b sin A and with b, and solved by testing both B and 180° − B. Worked examples: an AAS and an ASA
+  triangle, SSA data giving no triangle, two triangles (A = 35°, a = 9, b = 14) and one triangle, an obtuse
+  given angle, and a five-step routine for any SSA problem.
+flashcards_description: |
+  31 cards on the law of sines and its derivation, AAS and ASA solutions, the height test for SSA, the
+  two-triangle case and its supplement step, obtuse given angles, and the errors that cost the most points.
+
+flashcards:
+  - front: Law of sines for triangle ABC → the three equal ratios
+    back: |
+      a/sin A = b/sin B = c/sin C: each side over the sine of the angle across from it. The reciprocal form sin A/a = sin B/b = sin C/c is handier when solving for an angle.
+    topic_code: "4.1"
+  - front: Altitude h from C in triangle ABC → the two expressions that prove the law of sines
+    back: |
+      h = b sin A (right triangle at A) and h = a sin B (right triangle at B). Setting them equal gives b sin A = a sin B, so a/sin A = b/sin B.
+    topic_code: "4.1"
+  - front: Law of sines proof when angle B is obtuse → what changes
+    back: |
+      The altitude's foot lands outside the triangle and the right triangle uses 180° − B. Since sin(180° − B) = sin B, the equation h = a sin B still holds.
+    topic_code: "4.1"
+  - front: Standard labelling of an oblique triangle → which side goes with which angle
+    back: |
+      Side a is opposite angle A, b opposite B, c opposite C. Lowercase across from uppercase, never beside it.
+    topic_code: "4.1"
+  - front: Data the law of sines can solve → the cases
+    back: |
+      AAS, ASA (exactly one triangle each) and SSA (zero, one or two). It needs one complete side–angle pair to start.
+    topic_code: "4.1"
+  - front: Data the law of sines cannot start on → the cases
+    back: |
+      SAS and SSS: no side is paired with its opposite angle. These need the law of cosines (week 21).
+    topic_code: "4.1"
+  - front: ASA with A = 52°, C = 71°, b = 20 → first step
+    back: |
+      Find B = 180° − 52° − 71° = 57°, so that b has a known opposite angle. Then a = 20 sin 52°/sin 57° ≈ 18.79.
+    topic_code: "4.1"
+  - front: AAS with A = 40°, B = 65°, a = 12 → b and c
+    back: |
+      C = 75°. b = 12 sin 65°/sin 40° ≈ 16.92 and c = 12 sin 75°/sin 40° ≈ 18.03.
+    topic_code: "4.1"
+  - front: Longest-side check in a solved triangle → what to compare
+    back: |
+      The longest side must be opposite the largest angle and the shortest side opposite the smallest angle. A mismatch means a pairing or arithmetic error.
+    topic_code: "4.1"
+  - front: Triangle with angles 30°, 45°, 105° and a = 10 opposite 30° → b and c
+    back: |
+      b = 10 sin 45°/sin 30° = 10√2 ≈ 14.14 and c = 10 sin 105°/sin 30° ≈ 19.32.
+    hint: Dividing by sin 30° = 1/2 doubles the numerator.
+    topic_code: "4.1"
+  - front: Rounding while solving an oblique triangle → best practice
+    back: |
+      Keep full calculator precision (store values) and round only the final answers. Reusing a rounded angle can shift the last digit of a side.
+    topic_code: "4.1"
+  - front: Why SSA is called the ambiguous case → reason
+    back: |
+      Two sides and a non-included angle can fit zero, one or two different triangles, so the data alone may not determine the shape.
+    topic_code: "4.2"
+  - front: Height test in SSA with A, a, b known → formula for h
+    back: |
+      h = b sin A, the distance from vertex C to the line along side c. Compare a with h and with b.
+    topic_code: "4.2"
+  - front: SSA with A acute and a < b sin A → number of triangles
+    back: |
+      None: side a is too short to reach the third side. Algebraically sin B = b sin A/a > 1.
+    topic_code: "4.2"
+  - front: SSA with A acute and a = b sin A → number of triangles
+    back: |
+      Exactly one, a right triangle with B = 90°.
+    topic_code: "4.2"
+  - front: SSA with A acute and b sin A < a < b → number of triangles
+    back: |
+      Two: side a meets the third side at two points, one on each side of the altitude's foot.
+    topic_code: "4.2"
+  - front: SSA with A acute and a ≥ b → number of triangles
+    back: |
+      Exactly one. The supplement 180° − B₁ would make A + B ≥ 180°.
+    topic_code: "4.2"
+  - front: SSA with A obtuse → the rule
+    back: |
+      a must be the longest side. a ≤ b gives no triangle; a > b gives exactly one.
+    topic_code: "4.2"
+  - front: sin B = 0.8923 in an SSA problem → the two candidate angles
+    back: |
+      B₁ = sin⁻¹(0.8923) ≈ 63.2° and B₂ = 180° − 63.2° ≈ 116.8°. Keep each one that leaves A + B < 180°.
+    topic_code: "4.2"
+  - front: Calculator sin⁻¹ in an SSA problem → what it hides
+    back: |
+      It returns only the acute angle (range −90° to 90°). The obtuse supplement has the same sine and must be tested by hand.
+    topic_code: "4.2"
+  - front: A = 35°, a = 9, b = 14 → how many triangles and why
+    back: |
+      h = 14 sin 35° ≈ 8.03 and 8.03 < 9 < 14, so two: B ≈ 63.2° (c ≈ 15.53) and B ≈ 116.8° (c ≈ 7.40).
+    topic_code: "4.2"
+  - front: A = 50°, a = 6, b = 10 → how many triangles
+    back: |
+      None. h = 10 sin 50° ≈ 7.66 > 6; equivalently sin B ≈ 1.277 > 1.
+    topic_code: "4.2"
+  - front: A = 42°, a = 15, b = 11 → why only one triangle
+    back: |
+      a ≥ b. B ≈ 29.4°, and 180° − 29.4° = 150.6° fails because 42° + 150.6° > 180°.
+    topic_code: "4.2"
+  - front: A = 118°, a = 10, b = 13 → how many triangles
+    back: |
+      None. An obtuse angle must face the longest side, and 10 < 13.
+    topic_code: "4.2"
+  - front: A = 30°, b = 20 → the value of a that gives exactly one right triangle
+    back: |
+      a = h = 20 sin 30° = 10. Then B = 90°.
+    topic_code: "4.2"
+  - front: Five-step SSA routine → the steps
+    back: |
+      1 compute sin B = b sin A/a (stop if > 1); 2 B₁ = sin⁻¹, B₂ = 180° − B₁; 3 keep B with A + B < 180°; 4 find C and c for each; 5 check longest side vs largest angle.
+    topic_code: "4.2"
+  - front: Two triangles from one set of SSA data → what they share and what differs
+    back: |
+      They share A, a and b. B is acute in one and obtuse in the other (supplementary), so C and c differ.
+    topic_code: "4.2"
+  - front: Error-spot → "SSA with A = 40°, a = 12, b = 10 is ambiguous, so there are two triangles"
+    back: |
+      Here a ≥ b, so there is exactly one. Two triangles need b sin A < a < b.
+    topic_code: "4.2"
+  - front: Error-spot → "In ASA with A = 52°, C = 71°, b = 20, write b/sin 52° = a/sin 71°"
+    back: |
+      Side b is opposite B, not A, and a is opposite A. Find B = 57° first, then use a/sin 52° = 20/sin 57°.
+    topic_code: "4.1"
+  - front: Error-spot → "sin B = 0.82, so B = 55.1° and the triangle is solved"
+    back: |
+      In SSA the obtuse angle 124.9° also has sine 0.82. Test it: if A + 124.9° < 180°, there is a second triangle.
+    topic_code: "4.2"
+  - front: Degree mode in Unit 4 → why it matters for sin 35
+    back: |
+      Triangle angles are in degrees: sin 35° ≈ 0.574. A calculator left in radian mode gives sin 35 ≈ −0.428, which no triangle can have.
+    topic_code: "4.1"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 4.1 and 4.2: the law of sines, AAS and ASA
+    triangles, and the ambiguous SSA case), with about a third reviewing earlier units (solving right
+    triangles, angles of elevation, reference angles, inverse sine, the sum formulas and solving a sine
+    equation in degrees). Includes a shared-context set on the SSA triangle A = 32°, a = 11, b = 17. Multiple
+    choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes.
+    All angles are in degrees. Items marked (Calculator.) need a calculator.
+  questions:
+    # ---- Stimulus set: one set of SSA data (4.1, 4.2)
+    - slug: trig-u04-w20-q01
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      stimulus: |
+        (Calculator.) In triangle ABC, A = 32°, a = 11 and b = 17. All angles are in degrees.
+      prompt: |
+        How many triangles fit these data?
+      options:
+        - "No triangle, because a is shorter than b"
+        - "Exactly one triangle"
+        - "Exactly two triangles"
+        - "It cannot be decided without knowing c"
+      option_explanations:
+        - |
+          A shorter side a rules out a triangle only when a < h = b sin A ≈ 9.01; here a = 11 is longer than the height.
+        - |
+          Exactly one would need a ≥ b or a = h. Here h ≈ 9.01 < 11 < 17, which is the two-triangle situation.
+        - |
+          Correct. h = 17 sin 32° ≈ 9.01, and 9.01 < 11 < 17, so side a meets the third side at two points.
+        - |
+          The height test decides the count from A, a and b alone; c is one of the things being solved for.
+      answer: 2
+    - slug: trig-u04-w20-q02
+      type: numeric
+      topic_code: "4.2"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      stimulus: |
+        (Calculator.) In triangle ABC, A = 32°, a = 11 and b = 17. All angles are in degrees.
+      prompt: |
+        Find the acute value of angle B, to the nearest tenth of a degree.
+      answer: { value: 55.0, tolerance: 0.1 }
+      explanation: |
+        sin B = b sin A/a = 17 sin 32°/11 ≈ 0.8190, so B = sin⁻¹(0.8190) ≈ 54.98°, which is 55.0° to the nearest tenth.
+    - slug: trig-u04-w20-q03
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      stimulus: |
+        (Calculator.) In triangle ABC, A = 32°, a = 11 and b = 17. All angles are in degrees.
+      prompt: |
+        Which value is the obtuse possibility for angle B, to the nearest tenth of a degree?
+      options:
+        - "125.0°"
+        - "145.0°"
+        - "93.0°"
+        - "122.0°"
+      option_explanations:
+        - |
+          Correct. B₂ = 180° − 55.0° = 125.0°, and 32° + 125.0° < 180°, so it leaves room for C ≈ 23.0°.
+        - |
+          145.0° is 90° + 55.0°. The second angle with the same sine is the supplement 180° − B₁, not B₁ plus 90°.
+        - |
+          93.0° is angle C in the first triangle (180° − 32° − 55.0°), not a value of B.
+        - |
+          122.0° is 180° − 58°, mixing up the given angle and B. Use the supplement of B₁ = 55.0° instead.
+      answer: 0
+    - slug: trig-u04-w20-q04
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "Original item; Common Core HSG-SRT.D.10"
+      points: 1
+      stimulus: |
+        (Calculator.) In triangle ABC, A = 32°, a = 11 and b = 17. All angles are in degrees.
+      prompt: |
+        In the triangle where B is acute, what is the length of side c, to the nearest tenth?
+      options:
+        - "8.1"
+        - "20.7"
+        - "5.8"
+        - "20.2"
+      option_explanations:
+        - |
+          8.1 is side c in the other triangle, where B ≈ 125.0° and C ≈ 23.0°.
+        - |
+          Correct. C = 180° − 32° − 55.0° ≈ 93.0°, and c = 11 sin 93.0°/sin 32° ≈ 20.7.
+        - |
+          5.8 comes from inverting the ratio, 11 sin 32°/sin 93°. The side goes over the sine of its own opposite angle.
+        - |
+          20.2 is √(11² + 17²), the Pythagorean theorem, which only applies when C is exactly 90°; here C ≈ 93.0°.
+      answer: 1
+    # ---- Topics 4.1 and 4.2
+    - slug: trig-u04-w20-q05
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      prompt: |
+        (Calculator.) In triangle ABC, A = 48°, B = 77° and a = 15. To the nearest hundredth, what is b?
+      options:
+        - "11.44"
+        - "16.53"
+        - "17.84"
+        - "19.67"
+      option_explanations:
+        - |
+          11.44 is 15 sin 48°/sin 77°, the ratio upside down. Use b = a sin B/sin A.
+        - |
+          16.53 is side c, opposite C = 55°. The question asks for b, opposite the 77° angle.
+        - |
+          17.84 divides by sin C = sin 55° instead of sin A. The known pair is a = 15 with A = 48°.
+        - |
+          Correct. b = 15 sin 77°/sin 48° ≈ 19.67, and b is the longest side because 77° is the largest angle.
+      answer: 3
+    - slug: trig-u04-w20-q06
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      prompt: |
+        (Calculator.) In triangle ABC, B = 38°, C = 104° and the side between them is a = 25. To the nearest hundredth, what is c?
+      options:
+        - "25.00"
+        - "15.86"
+        - "39.40"
+        - "24.26"
+      option_explanations:
+        - |
+          25.00 is side b: A = 38° = B makes the triangle isosceles with b = a. Side c faces the 104° angle and is longer.
+        - |
+          15.86 is 25 sin 38°/sin 104°, the ratio inverted; it would make the side opposite the largest angle the shortest.
+        - |
+          Correct. A = 180° − 38° − 104° = 38°, then c = 25 sin 104°/sin 38° ≈ 39.40.
+        - |
+          24.26 is 25 sin 104° without dividing by sin A. The law of sines needs the full ratio a/sin A.
+      answer: 2
+    - slug: trig-u04-w20-q07
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "Original item; Common Core HSG-SRT.D.10"
+      points: 1
+      prompt: |
+        To prove the law of sines, a student draws the altitude from C to side c in an acute triangle ABC and calls its length h. Which pair of equations does the proof use?
+      options:
+        - "h = b sin A and h = a sin B"
+        - "h = b cos A and h = a cos B"
+        - "h = c sin A and h = c sin B"
+        - "h = a sin A and h = b sin B"
+      option_explanations:
+        - |
+          Correct. In the right triangle at A, h is opposite A with hypotenuse b; at B, h is opposite B with hypotenuse a. Equating gives a/sin A = b/sin B.
+        - |
+          b cos A and a cos B are the two pieces of side c beside the altitude's foot, not the altitude itself.
+        - |
+          Side c is the base the altitude lands on, not the hypotenuse of either right triangle.
+        - |
+          This pairs each angle with the side opposite it in the big triangle, but in the small right triangles the hypotenuse is the side beside the angle.
+      answer: 0
+    - slug: trig-u04-w20-q08
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      prompt: |
+        In triangle ABC, A = 30° and b = 20. For which value of a is there exactly one triangle?
+      options:
+        - "a = 6"
+        - "a = 10"
+        - "a = 15"
+        - "a = 18"
+      option_explanations:
+        - |
+          The height is h = 20 sin 30° = 10, and a = 6 < 10 is too short to reach the third side: no triangle.
+        - |
+          Correct. a = h = 10 exactly, so side a just touches the third side at a right angle: one right triangle.
+        - |
+          10 < 15 < 20 puts a between the height and b, which gives two triangles, not one.
+        - |
+          10 < 18 < 20 is still between h and b, so there are two triangles.
+      answer: 1
+    - slug: trig-u04-w20-q09
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      prompt: |
+        In triangle ABC, A = 110°, a = 9 and b = 12. How many triangles fit these data?
+      options:
+        - "Two, because sin B has two possible angles"
+        - "One, because A is obtuse"
+        - "One, because 9 is more than the height 12 sin 110°"
+        - "None"
+      option_explanations:
+        - |
+          With an obtuse A there is never a second triangle: an obtuse B would put two obtuse angles in one triangle.
+        - |
+          An obtuse A gives one triangle only when a is the longest side, and here a = 9 < b = 12.
+        - |
+          12 sin 110° ≈ 11.28, so 9 is not more than the height; the height test is for acute A anyway.
+        - |
+          Correct. An obtuse angle must be opposite the longest side, but a = 9 < b = 12, so no triangle exists (sin B ≈ 1.25 > 1).
+      answer: 3
+    - slug: trig-u04-w20-q10
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "Original item; Common Core HSG-SRT.D.10"
+      points: 1
+      prompt: |
+        In triangle ABC, A = 72° and B = 41°. Without finding any lengths, which side is the longest?
+      options:
+        - "a"
+        - "b"
+        - "c"
+        - "It cannot be told without at least one side length"
+      option_explanations:
+        - |
+          Correct. C = 180° − 72° − 41° = 67°, so A = 72° is the largest angle, and by the law of sines the side opposite it, a, is the longest.
+        - |
+          b is opposite the smallest angle, 41°, so it is the shortest side.
+        - |
+          c is opposite C = 67°, which is less than A = 72°, so c is shorter than a.
+        - |
+          The angles fix the shape; sides are proportional to the sines of the opposite angles, so the order is known without lengths.
+      answer: 0
+    - slug: trig-u04-w20-q11
+      type: multi_select
+      topic_code: "4.2"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Each option gives SSA data for a triangle ABC. Which sets of data give exactly two triangles? Select all that apply.
+      options:
+        - "A = 40°, a = 8, b = 10"
+        - "A = 40°, a = 12, b = 10"
+        - "A = 60°, a = 7, b = 10"
+        - "A = 25°, a = 6, b = 13"
+        - "A = 100°, a = 5, b = 4"
+      option_explanations:
+        - |
+          Correct. h = 10 sin 40° ≈ 6.43, and 6.43 < 8 < 10, so two triangles (B ≈ 53.5° or 126.5°).
+        - |
+          Here a ≥ b, so there is only one triangle: the obtuse supplement of B ≈ 32.4° would leave no room for C.
+        - |
+          h = 10 sin 60° ≈ 8.66 > 7, so side a cannot reach: no triangle.
+        - |
+          Correct. h = 13 sin 25° ≈ 5.49, and 5.49 < 6 < 13, so two triangles (B ≈ 66.3° or 113.7°).
+        - |
+          A is obtuse and a > b, which gives exactly one triangle, never two.
+      answer: [0, 3]
+    - slug: trig-u04-w20-q12
+      type: multi_select
+      topic_code: "4.1"
+      source: "Original item; Common Core HSG-SRT.D.10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Triangle ABC has A = 50°, B = 60° and C = 70°, with sides a, b and c opposite them. Which statements are true for this triangle? Select all that apply.
+      options:
+        - "a/sin 50° = c/sin 70°"
+        - "a sin 60° = b sin 50°"
+        - "a/b = sin 60°/sin 50°"
+        - "c is the longest side."
+        - "b/sin 60° = c/sin 50°"
+      option_explanations:
+        - |
+          Correct. Each side over the sine of its opposite angle gives the same ratio.
+        - |
+          Correct. Cross-multiplying a/sin 50° = b/sin 60° gives a sin 60° = b sin 50°.
+        - |
+          The ratio is upside down: a/b = sin 50°/sin 60°, which is less than 1 because a faces the smaller angle.
+        - |
+          Correct. c is opposite the largest angle, 70°.
+        - |
+          c belongs with sin 70°, not sin 50°; this pairs c with the angle opposite a.
+      answer: [0, 1, 3]
+    - slug: trig-u04-w20-q13
+      type: true_false
+      topic_code: "4.2"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      prompt: |
+        True or false: In triangle ABC, if angle A is obtuse and a < b, then the SSA data give two triangles.
+      answer: false
+      explanation: |
+        False. When A is obtuse, side a must be the longest side, so a < b gives no triangle at all. An obtuse A can never give two triangles, because the second candidate for B would also be obtuse.
+    - slug: trig-u04-w20-q14
+      type: true_false
+      topic_code: "1.10"
+      source: "Original item; Common Core HSF-TF.A.2"
+      points: 1
+      prompt: |
+        True or false: cos(180° − θ) = cos θ for every angle θ.
+      answer: false
+      explanation: |
+        False. 180° − θ has the same reference angle as θ but lies across the y-axis, where the x-coordinate changes sign: cos(180° − θ) = −cos θ. It is sine that is unchanged, sin(180° − θ) = sin θ, which is why the law of sines cannot tell an angle from its supplement.
+    - slug: trig-u04-w20-q15
+      type: fill_blank
+      topic_code: "4.2"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 1
+      prompt: |
+        In triangle ABC, A = 30° and b = 18. The height from C to the line along side c is h = b sin A = ____.
+      answer: ["9", "9.0", "9.000"]
+      explanation: |
+        h = 18 sin 30° = 18 · 1/2 = 9. A value of a below 9 gives no triangle, a = 9 gives one right triangle, and 9 < a < 18 gives two.
+    - slug: trig-u04-w20-q16
+      type: fill_blank
+      topic_code: "1.10"
+      source: "Original item; Common Core HSF-TF.A.2"
+      points: 1
+      prompt: |
+        sin 140° equals the sine of one acute angle. That acute angle, in degrees, is ____.
+      answer: ["40", "40°", "40 degrees", "40 °"]
+      explanation: |
+        140° is in quadrant II with reference angle 180° − 140° = 40°, and sine is positive there, so sin 140° = sin 40°.
+    - slug: trig-u04-w20-q17
+      type: numeric
+      topic_code: "1.5"
+      source: "Original item; Common Core HSG-SRT.C.8"
+      points: 1
+      prompt: |
+        (Calculator.) A hypothetical wheelchair ramp rises 1.2 m over a horizontal run of 9.5 m. To the nearest tenth of a degree, what angle does the ramp make with the ground?
+      answer: { value: 7.2, tolerance: 0.1 }
+      explanation: |
+        The rise is opposite the angle and the run is adjacent, so tan θ = 1.2/9.5 ≈ 0.1263 and θ = tan⁻¹(0.1263) ≈ 7.2°.
+    # ---- Spiral review
+    - slug: trig-u04-w20-q18
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "Original item; Common Core HSG-SRT.C.8"
+      points: 1
+      prompt: |
+        (Calculator.) From a point on level ground 40 m from the base of a hypothetical office building, the angle of elevation to the top is 52°. To the nearest tenth of a metre, how tall is the building?
+      options:
+        - "31.5 m"
+        - "31.3 m"
+        - "51.2 m"
+        - "24.6 m"
+      option_explanations:
+        - |
+          31.5 is 40 sin 52°, which treats the 40 m as the line of sight; 40 m is the horizontal distance.
+        - |
+          31.3 is 40/tan 52°, the adjacent side divided by tangent; tangent is opposite over adjacent, so multiply.
+        - |
+          Correct. tan 52° = height/40, so height = 40 tan 52° ≈ 51.2 m.
+        - |
+          24.6 is 40 cos 52°, which uses the wrong ratio and the 40 m as a hypotenuse.
+      answer: 2
+    - slug: trig-u04-w20-q19
+      type: multiple_choice
+      topic_code: "2.9"
+      source: "Original item; Common Core HSF-TF.B.7"
+      points: 1
+      prompt: |
+        A calculator in degree mode gives sin⁻¹(0.82) ≈ 55.1°, but 124.9° also has a sine of 0.82. Why does the calculator show only 55.1°?
+      options:
+        - "124.9° is not a real angle for sine, because sine is negative past 90°"
+        - "The calculator rounds every answer to the nearest acute angle"
+        - "sin⁻¹ is defined only for inputs between 0 and 0.5"
+        - "The inverse sine function returns only angles from −90° to 90°"
+      option_explanations:
+        - |
+          Sine is positive in quadrant II, so sin 124.9° really is 0.82; that is exactly why SSA can have two answers.
+        - |
+          The calculator does not round; it evaluates a function, and a function returns one output per input.
+        - |
+          The domain of sin⁻¹ is −1 to 1, so 0.82 is a legal input.
+        - |
+          Correct. Sine is restricted to −90° ≤ θ ≤ 90° to make it one-to-one, so sin⁻¹ returns only angles in that range; the supplement must be found by hand.
+      answer: 3
+    - slug: trig-u04-w20-q20
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "Original item; Common Core HSF-TF.C.9"
+      points: 1
+      prompt: |
+        What is the exact value of sin 75°?
+      options:
+        - "(√6 − √2)/4"
+        - "(√6 + √2)/4"
+        - "(√3 + 1)/2"
+        - "√3/2 + √2/2"
+      option_explanations:
+        - |
+          (√6 − √2)/4 is sin 15°, from sin(45° − 30°); 75° needs the sum.
+        - |
+          Correct. sin(45° + 30°) = sin 45° cos 30° + cos 45° sin 30° = (√6 + √2)/4 ≈ 0.966.
+        - |
+          (√3 + 1)/2 ≈ 1.37 is greater than 1, which no sine can be; the factors √2/2 were dropped.
+        - |
+          This adds sin 60° and sin 45° as if sin(A + B) = sin A + sin B; the sum is about 1.57, more than 1.
+      answer: 1
+    - slug: trig-u04-w20-q21
+      type: multiple_choice
+      topic_code: "3.10"
+      source: "Original item; Common Core HSF-TF.B.7"
+      points: 1
+      prompt: |
+        (Calculator.) Which list gives every solution of sin θ = 0.6 with 0° ≤ θ < 180°, to the nearest tenth of a degree?
+      options:
+        - "36.9° only"
+        - "53.1° and 126.9°"
+        - "36.9° and 143.1°"
+        - "36.9° and 323.1°"
+      option_explanations:
+        - |
+          Sine is also positive in quadrant II, so the supplement 180° − 36.9° = 143.1° is a second solution in this interval.
+        - |
+          53.1° is cos⁻¹(0.6) and 126.9° is its supplement; sin 53.1° = 0.8, not 0.6, so neither solves the equation.
+        - |
+          Correct. sin⁻¹(0.6) ≈ 36.9°, and the quadrant II angle 180° − 36.9° = 143.1° has the same sine.
+        - |
+          323.1° is outside the interval, and its sine is negative (quadrant IV).
+      answer: 2
+    - slug: trig-u04-w20-q22
+      type: short_answer
+      topic_code: "4.1"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 3
+      prompt: |
+        (Calculator.) In triangle ABC, A = 28°, C = 115° and c = 30.
+
+        (a) Find angle B.
+        (b) Find a and b, each to the nearest hundredth.
+        (c) Explain how the angles confirm that your side lengths are in a sensible order.
+      answer: |
+        (a) B = 180° − 28° − 115° = 37°.
+        (b) a = 30 sin 28°/sin 115° ≈ 15.54 and b = 30 sin 37°/sin 115° ≈ 19.92.
+        (c) The angles in increasing order are A = 28°, B = 37°, C = 115°, so the sides must satisfy a < b < c. Indeed 15.54 < 19.92 < 30.
+      explanation: |
+        Three points, one per part. (a) 37°. (b) both sides correct to the nearest hundredth (accept ±0.01). (c) states that larger angles face longer sides and checks a < b < c.
+    - slug: trig-u04-w20-q23
+      type: short_answer
+      topic_code: "2.9"
+      source: "Original item; Common Core HSF-TF.B.7"
+      points: 3
+      prompt: |
+        Answer without a calculator. Angles are in degrees.
+
+        (a) Evaluate sin⁻¹(√3/2).
+        (b) Give every angle θ with 0° < θ < 180° such that sin θ = √3/2.
+        (c) In an SSA problem a student finds sin B = √3/2 and A = 25°. Explain how part (b) affects the number of triangles.
+      answer: |
+        (a) 60°.
+        (b) θ = 60° and θ = 120°.
+        (c) Both candidates must be tested. B = 60° gives C = 95°, and B = 120° gives C = 35°; both angle sums leave a positive C, so there are two triangles. Stopping at the calculator's 60° would miss the second one.
+      explanation: |
+        Three points, one per part. (a) 60°. (b) both 60° and 120°. (c) tests both values of B against A = 25° and concludes two triangles, with a reason (25° + 120° < 180°).
+    - slug: trig-u04-w20-q24
+      type: long_answer
+      topic_code: "4.2"
+      source: "Original item; Common Core HSG-SRT.D.11"
+      points: 6
+      prompt: |
+        (Calculator.) A hypothetical straight road leaves point A at an angle of 38° to a straight fence AB that is 200 m long. A crew wants to run a straight cable from B to some point C on the road. In triangle ABC, angle A = 38°, side c = AB = 200 m, and the cable is side a = BC. The road distance from A to C is b.
+
+        (A) (i) Find the distance from B to the road, to the nearest tenth of a metre.
+        (ii) The crew has a 140 m cable. Explain why it can reach the road at two different points.
+
+        (B) For the 140 m cable, find both possible values of angle C to the nearest tenth of a degree, and both road distances b = AC to the nearest tenth of a metre.
+
+        (C) (i) State the cable lengths for which there is no possible point C, exactly one, and exactly two.
+        (ii) For a 220 m cable, find b to the nearest tenth of a metre, and explain why the obtuse candidate for angle C is rejected.
+      answer: |
+        (A) (i) The distance is h = c sin A = 200 sin 38° ≈ 123.1 m.
+        (ii) The cable is longer than this distance (140 > 123.1) but shorter than AB = 200 m, so, swung from B, it meets the road at two points, one on each side of the foot of the perpendicular from B.
+        (B) sin C = c sin A/a = 200 sin 38°/140 ≈ 0.8795. C₁ ≈ 61.6°, so B₁ ≈ 180° − 38° − 61.6° = 80.4° and b₁ = 140 sin 80.4°/sin 38° ≈ 224.2 m. C₂ = 180° − 61.6° ≈ 118.4°, so B₂ ≈ 23.6° and b₂ = 140 sin 23.6°/sin 38° ≈ 91.0 m.
+        (C) (i) No point if a < 123.1 m; exactly one if a = 123.1 m (the cable meets the road at a right angle) or a ≥ 200 m; exactly two if 123.1 m < a < 200 m.
+        (ii) sin C = 200 sin 38°/220 ≈ 0.5597, so C ≈ 34.0° and B ≈ 108.0°, giving b = 220 sin 108.0°/sin 38° ≈ 339.9 m. The obtuse candidate C ≈ 146.0° fails because 38° + 146.0° > 180°, leaving no room for angle B; this happens because the cable is longer than AB.
+      explanation: |
+        Six points. (A) 1 point for h ≈ 123.1 m; 1 point for comparing 140 with both 123.1 and 200. (B) 1 point for both values of C (61.6° and 118.4°); 1 point for both distances (224.2 m and 91.0 m, accept ±0.2). (C) 1 point for all three ranges with the boundary cases placed correctly; 1 point for b ≈ 339.9 m with the angle-sum reason for rejecting C ≈ 146.0°.

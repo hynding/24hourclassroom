@@ -1,0 +1,596 @@
+week: 17
+unit: 4
+title: "Rational Intervals, Writing Equations and Unknown Exponents"
+topics: ["4.5", "4.6", "4.7", "4.8"]
+guide: guides/week-17.md
+guide_description: |
+  The factor over any interval of length d is b^d regardless of where it starts, and converting a percent
+  change per unit into a percent change over fractions or multiples of the unit; writing an exponential
+  equation from two points, including points that do not include x = 0; interpreting parameters in context
+  and computing and comparing average rates of change; solving unknown-exponent equations exactly by matching
+  bases (4ˣ = 8 gives 3/2) and bracketing the rest between integers.
+flashcards_description: |
+  27 cards on factors over rational intervals, writing equations from two points, average rate of change,
+  model interpretation, and equations with unknown exponents.
+
+flashcards:
+  - front: f(x + d)/f(x) for f(x) = a · bˣ
+    back: |
+      b^d, for every x. An exponential function changes by the same factor over every interval of the same length, wherever it starts.
+    topic_code: "4.5"
+  - front: 20% per year → factor and percent over 6 months
+    back: |
+      1.2^(1/2) ≈ 1.095, about 9.5%. Not 10%: two half-years must multiply to 1.2.
+    topic_code: "4.5"
+  - front: 20% per year → factor and percent over 2.5 years
+    back: |
+      1.2^(5/2) ≈ 1.577, about 57.7%. Not 50%: factors multiply, percents do not add.
+    topic_code: "4.5"
+  - front: 15% loss per year → change over half a year
+    back: |
+      0.85^(1/2) ≈ 0.922, a 7.8% loss (not 7.5%).
+    topic_code: "4.5"
+  - front: f(x) = 7(1.1)ˣ → factor over any 3-unit interval
+    back: |
+      1.1³ = 1.331, a 33.1% increase (not 30%).
+    topic_code: "4.5"
+  - front: Doubles every 3 hours → factor in 1 hour and in 5 hours
+    back: |
+      Per hour 2^(1/3) ≈ 1.26; over 5 hours 2^(5/3) ≈ 3.17.
+    topic_code: "4.5"
+  - front: Finding b from two points with input gap d
+    back: |
+      b^d = (ratio of outputs), so b = (ratio)^(1/d). Then solve for a using either point.
+    topic_code: "4.6"
+  - front: Exponential through (2, 90) and (5, 2430)
+    back: |
+      b³ = 27 so b = 3; a · 9 = 90 so a = 10: f(x) = 10 · 3ˣ.
+    topic_code: "4.6"
+  - front: Exponential through (1, 50) and (4, 6.25)
+    back: |
+      b³ = 0.125 so b = 0.5; a · 0.5 = 50 so a = 100: f(x) = 100(0.5)ˣ.
+    topic_code: "4.6"
+  - front: Exponential through (0, 12) and (3, 96), then f(5)
+    back: |
+      a = 12, b³ = 8, b = 2: f(x) = 12 · 2ˣ; f(5) = 384.
+    topic_code: "4.6"
+  - front: Exponential through (1, 20) and (3, 45)
+    back: |
+      b² = 2.25 so b = 1.5; a = 20/1.5 = 40/3: f(x) = (40/3)(1.5)ˣ.
+    topic_code: "4.6"
+  - front: Population 8000 in 2010, 9680 in 2012 → annual rate
+    back: |
+      b² = 1.21, b = 1.1: 10% per year; P(t) = 8000(1.1)ᵗ with t in years since 2010.
+    topic_code: "4.6"
+  - front: Two-point equation → common error
+    back: |
+      Dividing the output ratio by the gap instead of taking a root: through (2, 90) and (5, 2430), b = 27^(1/3) = 3, not 27/3 = 9.
+    topic_code: "4.6"
+  - front: Parameters of A(t) = 500(1.04)ᵗ in context
+    back: |
+      500 is the starting amount (t = 0); 1.04 means a 4% increase per year.
+    topic_code: "4.7"
+  - front: Average rate of change (definition)
+    back: |
+      (f(b) − f(a))/(b − a): the slope of the line through (a, f(a)) and (b, f(b)); units are output per input.
+    topic_code: "4.7"
+  - front: Average rate of change of 500(1.04)ᵗ over [0, 10] and [10, 20]
+    back: |
+      About 24.01 per year, then about 35.54 per year: 4% of a larger balance is more money, so the rate grows.
+    topic_code: "4.7"
+  - front: Average rate of change of 100 · 2ᵗ over [0, 2] and [2, 4]
+    back: |
+      (400 − 100)/2 = 150 and (1600 − 400)/2 = 600 per unit; four times larger two units later.
+    topic_code: "4.7"
+  - front: Average rate of change of 3000(0.92)ᵗ over [0, 5]
+    back: |
+      M(5) ≈ 1977.24, so (1977.24 − 3000)/5 ≈ −204.55 per unit: negative, and smaller in size on later intervals.
+    topic_code: "4.7"
+  - front: Why an exponential model must eventually fail
+    back: |
+      Unbounded growth outruns any real resource (300 · 3ᵗ views passes the world population in about 15 days). State the domain where the model is sensible.
+    topic_code: "4.7"
+  - front: P(t) = 2000(1.035)ᵗ → P(10), P(20), average rates
+    back: |
+      P(10) ≈ 2821, P(20) ≈ 3980; average rates ≈ 82 then ≈ 116 people per year.
+    topic_code: "4.7"
+  - front: Solving bˣ = c by matching bases
+    back: |
+      Write both sides as powers of one base and equate exponents: 2ˣ = 32 = 2⁵ gives x = 5; 3ˣ = 1/9 = 3⁻² gives x = −2.
+    topic_code: "4.8"
+  - front: 4ˣ = 8 → solution
+    back: |
+      (2²)ˣ = 2³, so 2x = 3 and x = 3/2. Check: 4^(3/2) = (√4)³ = 8.
+    topic_code: "4.8"
+  - front: 8ˣ = 2, 100ˣ = 10, 16ˣ = 8 → solutions
+    back: |
+      1/3, 1/2, 3/4. Each comes from writing both sides with a common base.
+    topic_code: "4.8"
+  - front: 2ˣ = 1/√2 → solution
+    back: |
+      1/√2 = 2^(−1/2), so x = −1/2.
+    topic_code: "4.8"
+  - front: Bracketing 10ˣ = 50
+    back: |
+      10¹ = 10 < 50 < 100 = 10², so 1 < x < 2 (about 1.70). Next week this is log(50).
+    topic_code: "4.8"
+  - front: Bracketing 5ˣ = 100 and 2ˣ = 10
+    back: |
+      25 < 100 < 125 gives 2 < x < 3 (≈ 2.86); 8 < 10 < 16 gives 3 < x < 4 (≈ 3.32).
+    topic_code: "4.8"
+  - front: When does 2000(1.035)ᵗ reach 4000?
+    back: |
+      1.035ᵗ = 2; 1.035²⁰ ≈ 1.99 and 1.035²¹ ≈ 2.06, so just over 20 years (≈ 20.1).
+    topic_code: "4.8"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (lessons 4.5 to 4.8: factors over rational
+    intervals, equations from two points, interpreting models and average rates of change, and unknown
+    exponents), with about a third reviewing week 16 and Units 1–3. Includes a shared-context set on a savings
+    account. Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank
+    items are matched automatically; the short answers and the long answer are graded by your teacher against
+    the scoring notes.
+  questions:
+    # ---- Stimulus set: A(t) = 500(1.04)ᵗ (4.5, 4.7)
+    - slug: alg2-u04-w17-q01
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "IM Algebra 2, Unit 4, Lesson 7"
+      points: 1
+      stimulus: |
+        The balance of a savings account after t years is A(t) = 500(1.04)ᵗ dollars.
+      prompt: |
+        What do the numbers 500 and 1.04 represent?
+      options:
+        - "500 is the balance after one year; 1.04 is the interest earned each year in dollars."
+        - "500 is the starting balance; 1.04 means the balance grows by 4% each year."
+        - "500 is the starting balance; 1.04 means the balance grows by $1.04 each year."
+        - "500 is the maximum balance; 1.04 is the number of years to reach it."
+      option_explanations:
+        - |
+          500 is A(0), the balance at the start; 1.04 is a factor, not a dollar amount.
+        - |
+          Correct. A(0) = 500, and multiplying by 1.04 adds 4% of the current balance each year.
+        - |
+          Multiplying by 1.04 adds 4% of the balance, not a fixed $1.04.
+        - |
+          Exponential growth has no maximum; 1.04 is the yearly growth factor.
+      answer: 1
+    - slug: alg2-u04-w17-q02
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "IM Algebra 2, Unit 4, Lesson 5"
+      points: 1
+      stimulus: |
+        The balance of a savings account after t years is A(t) = 500(1.04)ᵗ dollars.
+      prompt: |
+        By what factor does the balance grow over any 6-month period?
+      options:
+        - "1.02"
+        - "1.04^(1/2) ≈ 1.0198"
+        - "1.04/2 = 0.52"
+        - "1.04² ≈ 1.0816"
+      option_explanations:
+        - |
+          1.02² = 1.0404, not 1.04; halving the rate overstates the half-year growth slightly.
+        - |
+          Correct. Two half-year factors multiply to 1.04, so each is 1.04^(1/2) ≈ 1.0198, about 1.98%.
+        - |
+          A factor of 0.52 would nearly halve the balance; factors are not divided by the interval length.
+        - |
+          1.04² is the factor over 2 years, not half a year.
+      answer: 1
+    - slug: alg2-u04-w17-q03
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "IM Algebra 2, Unit 4, Lesson 7"
+      points: 1
+      stimulus: |
+        The balance of a savings account after t years is A(t) = 500(1.04)ᵗ dollars.
+      prompt: |
+        A(10) ≈ 740.12. What is the average rate of change of the balance over the first 10 years?
+      options:
+        - "$20.00 per year"
+        - "$24.01 per year"
+        - "$74.01 per year"
+        - "1.48 per year"
+      option_explanations:
+        - |
+          $20 per year is 4% of 500 every year; the balance grows on a growing amount, so the average is higher.
+        - |
+          Correct. (740.12 − 500)/10 ≈ 24.01 dollars per year.
+        - |
+          74.01 is A(10)/10, not the change in balance divided by the time.
+        - |
+          1.48 is the ratio A(10)/A(0); an average rate of change is a difference divided by the time, in dollars per year.
+      answer: 1
+    # ---- Single items on this week
+    - slug: alg2-u04-w17-q04
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "IM Algebra 2, Unit 4, Lesson 5"
+      points: 1
+      prompt: |
+        A quantity grows 20% per year. By what percent does it grow over 2.5 years?
+      options:
+        - "50%"
+        - "About 57.7%"
+        - "About 44%"
+        - "About 150%"
+      option_explanations:
+        - |
+          50% adds 20% two and a half times; the factor 1.2^(2.5) ≈ 1.577 is larger because growth compounds.
+        - |
+          Correct. 1.2^(5/2) ≈ 1.577, a 57.7% increase.
+        - |
+          44% is the 2-year growth (1.2² = 1.44); another half-year adds about 9.5% more of that.
+        - |
+          150% would require a factor of 2.5; the factor is 1.2 raised to 2.5, not multiplied by it.
+      answer: 1
+    - slug: alg2-u04-w17-q05
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "IM Algebra 2, Unit 4, Lesson 6"
+      points: 1
+      prompt: |
+        An exponential function passes through (2, 90) and (5, 2430). What is its equation?
+      options:
+        - "f(x) = 90 · 3ˣ"
+        - "f(x) = 10 · 3ˣ"
+        - "f(x) = 10 · 9ˣ"
+        - "f(x) = 90 · 27ˣ"
+      option_explanations:
+        - |
+          90 is f(2), not f(0); a must satisfy a · 3² = 90, so a = 10.
+        - |
+          Correct. b³ = 2430/90 = 27 gives b = 3, and a · 9 = 90 gives a = 10.
+        - |
+          9 = 27/3 divides the ratio by the gap; the factor per unit is the cube root of 27.
+        - |
+          27 is the factor over 3 units, not 1 unit, and 90 is not the y-intercept.
+      answer: 1
+    - slug: alg2-u04-w17-q06
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "IM Algebra 2, Unit 4, Lesson 6"
+      points: 1
+      prompt: |
+        An exponential function passes through (1, 50) and (4, 6.25). What is its equation?
+      options:
+        - "f(x) = 50(0.5)ˣ"
+        - "f(x) = 100(0.5)ˣ"
+        - "f(x) = 100(0.125)ˣ"
+        - "f(x) = 50(0.125)ˣ"
+      option_explanations:
+        - |
+          50 is f(1); since f(1) = a · 0.5, the initial value is a = 100.
+        - |
+          Correct. b³ = 6.25/50 = 0.125 so b = 0.5; a · 0.5 = 50 so a = 100.
+        - |
+          0.125 is the factor over the 3-unit gap; the per-unit factor is its cube root, 0.5.
+        - |
+          Both the base and the initial value are wrong: b = 0.125^(1/3) = 0.5 and a = 100.
+      answer: 1
+    - slug: alg2-u04-w17-q07
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "IM Algebra 2, Unit 4, Lesson 7"
+      points: 1
+      prompt: |
+        For P(t) = 100 · 2ᵗ, what is the average rate of change over the interval from t = 2 to t = 4?
+      options:
+        - "150 per unit"
+        - "300 per unit"
+        - "600 per unit"
+        - "1200 per unit"
+      option_explanations:
+        - |
+          150 is the average rate over [0, 2]; the function grows faster later.
+        - |
+          300 is half the correct value: (1600 − 400)/2 = 600.
+        - |
+          Correct. P(4) − P(2) = 1600 − 400 = 1200 over 2 units, so 600 per unit.
+        - |
+          1200 is the total change; divide by the interval length 2.
+      answer: 2
+    - slug: alg2-u04-w17-q08
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "IM Algebra 2, Unit 4, Lesson 8"
+      points: 1
+      prompt: |
+        Solve 3ˣ = 1/9.
+      options:
+        - "x = 1/9"
+        - "x = −2"
+        - "x = 2"
+        - "x = −9"
+      option_explanations:
+        - |
+          3^(1/9) is the ninth root of 3, about 1.13, not 1/9.
+        - |
+          Correct. 1/9 = 1/3² = 3⁻², so matching exponents gives x = −2.
+        - |
+          3² = 9, not 1/9; the reciprocal needs a negative exponent.
+        - |
+          3⁻⁹ = 1/19683, far smaller than 1/9; the exponent is −2.
+      answer: 1
+    - slug: alg2-u04-w17-q09
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "IM Algebra 2, Unit 4, Lesson 8"
+      points: 1
+      prompt: |
+        The solution of 10ˣ = 50 lies between which two integers?
+      options:
+        - "0 and 1"
+        - "1 and 2"
+        - "4 and 5"
+        - "49 and 51"
+      option_explanations:
+        - |
+          10⁰ = 1 and 10¹ = 10 are both below 50, so x is above 1.
+        - |
+          Correct. 10¹ = 10 < 50 < 100 = 10², so 1 < x < 2 (x ≈ 1.70).
+        - |
+          10⁴ = 10,000 is far above 50; x must be much smaller.
+        - |
+          x is the exponent, not the output; it is near 1.7, nowhere near 50.
+      answer: 1
+    - slug: alg2-u04-w17-q10
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "IM Algebra 2, Unit 4, Lesson 8"
+      points: 1
+      prompt: |
+        Solve 4ˣ = 8.
+      options:
+        - "x = 2"
+        - "x = 3/2"
+        - "x = 1/2"
+        - "x = 4"
+      option_explanations:
+        - |
+          4² = 16, not 8; the exponent must be less than 2.
+        - |
+          Correct. 4ˣ = (2²)ˣ = 2²ˣ and 8 = 2³, so 2x = 3 and x = 3/2; check 4^(3/2) = (√4)³ = 8.
+        - |
+          4^(1/2) = √4 = 2, not 8; the exponent must be greater than 1.
+        - |
+          4⁴ = 256, far too big; the exponent is between 1 and 2.
+      answer: 1
+    - slug: alg2-u04-w17-q11
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "IM Algebra 2, Unit 4, Lesson 1"
+      points: 1
+      prompt: |
+        A quantity is modeled by f(x) = 60(0.94)ˣ. What percent change does the factor 0.94 describe?
+      options:
+        - "A 94% decrease per unit"
+        - "A 6% decrease per unit"
+        - "A 6% increase per unit"
+        - "A 0.94% decrease per unit"
+      option_explanations:
+        - |
+          0.94 is the fraction that remains, so 94% is kept and 6% is lost.
+        - |
+          Correct. 1 − 0.94 = 0.06, a 6% decrease each unit.
+        - |
+          A factor below 1 means decrease; 1.06 would be a 6% increase.
+        - |
+          The percent change is (1 − 0.94) · 100 = 6%, not 0.94%.
+      answer: 1
+    - slug: alg2-u04-w17-q12
+      type: multiple_choice
+      topic_code: "3.5"
+      source: "IM Algebra 2, Unit 3, Lesson 5"
+      points: 1
+      prompt: |
+        Evaluate (1/4)^(−3/2).
+      options:
+        - "1/8"
+        - "8"
+        - "−8"
+        - "−1/8"
+      option_explanations:
+        - |
+          The negative exponent flips the fraction first: (1/4)^(−3/2) = 4^(3/2), which is 8, not 1/8.
+        - |
+          Correct. (1/4)^(−3/2) = 4^(3/2) = (√4)³ = 2³ = 8.
+        - |
+          A negative exponent produces a reciprocal, never a negative result for a positive base.
+        - |
+          Both the sign and the reciprocal are wrong; the value is 4^(3/2) = 8.
+      answer: 1
+    - slug: alg2-u04-w17-q13
+      type: multiple_choice
+      topic_code: "2.10"
+      source: "IM Algebra 2, Unit 2, Lesson 10"
+      points: 1
+      prompt: |
+        How does the graph of y = (x + 1)²(x − 3) behave at its zeros?
+      options:
+        - "It crosses the x-axis at both x = −1 and x = 3."
+        - "It touches the x-axis at x = −1 without crossing and crosses at x = 3."
+        - "It crosses at x = −1 and touches without crossing at x = 3."
+        - "It touches the x-axis at both zeros without crossing."
+      option_explanations:
+        - |
+          The zero at −1 has multiplicity 2, so the graph bounces there instead of crossing.
+        - |
+          Correct. Even multiplicity (2) at −1 means a touch; odd multiplicity (1) at 3 means a crossing.
+        - |
+          The multiplicities are reversed: (x + 1) is squared, (x − 3) is not.
+        - |
+          The zero at 3 has multiplicity 1, so the graph crosses there.
+      answer: 1
+    - slug: alg2-u04-w17-q14
+      type: multi_select
+      topic_code: "4.6"
+      source: "IM Algebra 2, Unit 4, Lesson 6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        An exponential function g passes through (0, 12) and (3, 96). Which points are also on its graph? Select all that apply.
+      options:
+        - "(1, 24)"
+        - "(2, 24)"
+        - "(1/2, 12√2)"
+        - "(5, 384)"
+        - "(−1, −6)"
+      option_explanations:
+        - |
+          Correct. b³ = 8 gives b = 2, so g(x) = 12 · 2ˣ and g(1) = 24.
+        - |
+          g(2) = 12 · 2² = 48, not 24; 24 is the value at x = 1.
+        - |
+          Correct. g(1/2) = 12 · 2^(1/2) = 12√2 ≈ 16.97.
+        - |
+          Correct. g(5) = 12 · 2⁵ = 12 · 32 = 384.
+        - |
+          g(−1) = 12 · 2⁻¹ = 6; an exponential function with a > 0 is never negative.
+      answer: [0, 2, 3]
+    - slug: alg2-u04-w17-q15
+      type: multi_select
+      topic_code: "4.8"
+      source: "IM Algebra 2, Unit 4, Lesson 8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which equations have the solution x = 1/2? Select all that apply.
+      options:
+        - "9ˣ = 3"
+        - "4ˣ = 2"
+        - "2ˣ = 1"
+        - "16ˣ = 8"
+        - "25ˣ = 5"
+      option_explanations:
+        - |
+          Correct. 9^(1/2) = √9 = 3, so x = 1/2 works.
+        - |
+          Correct. 4^(1/2) = √4 = 2, so x = 1/2 works.
+        - |
+          2ˣ = 1 has the solution x = 0, since 2⁰ = 1.
+        - |
+          16^(1/2) = 4, not 8; the solution of 16ˣ = 8 is 3/4.
+        - |
+          Correct. 25^(1/2) = √25 = 5, so x = 1/2 works.
+      answer: [0, 1, 4]
+    - slug: alg2-u04-w17-q16
+      type: true_false
+      topic_code: "4.5"
+      source: "IM Algebra 2, Unit 4, Lesson 5"
+      points: 1
+      prompt: |
+        True or false: for f(x) = a · bˣ, the ratio f(x + 2)/f(x) depends on the value of x.
+      answer: false
+      explanation: |
+        False. f(x + 2)/f(x) = a · bˣ⁺² / (a · bˣ) = b², the same for every x. An exponential function changes by the same factor over every interval of the same length.
+    - slug: alg2-u04-w17-q17
+      type: true_false
+      topic_code: "3.9"
+      source: "IM Algebra 2, Unit 3, Lesson 9"
+      points: 1
+      prompt: |
+        True or false: the equation √(x + 3) = −1 has no solution.
+      answer: true
+      explanation: |
+        True. A square root is never negative, so no x makes the left side −1. Squaring would produce the false candidate x = −2, which fails the check (√1 = 1 ≠ −1).
+    - slug: alg2-u04-w17-q18
+      type: fill_blank
+      topic_code: "4.8"
+      source: "IM Algebra 2, Unit 4, Lesson 8"
+      points: 1
+      prompt: |
+        The solution of 2ˣ = 32 is x = ____
+      answer: ["5"]
+      explanation: |
+        2⁵ = 32, so x = 5.
+    - slug: alg2-u04-w17-q19
+      type: fill_blank
+      topic_code: "3.11"
+      source: "IM Algebra 2, Unit 3, Lesson 11"
+      points: 1
+      prompt: |
+        Simplify: i⁶ = ____
+      answer: ["-1", "−1", "- 1", "− 1"]
+      explanation: |
+        i⁶ = i⁴ · i² = 1 · (−1) = −1.
+    - slug: alg2-u04-w17-q20
+      type: numeric
+      topic_code: "4.6"
+      source: "IM Algebra 2, Unit 4, Lesson 6"
+      points: 1
+      prompt: |
+        An exponential function passes through (0, 12) and (3, 96). Find f(5).
+      answer: { value: 384, tolerance: 0 }
+      explanation: |
+        a = 12 and b³ = 8 so b = 2; f(5) = 12 · 2⁵ = 384.
+    - slug: alg2-u04-w17-q21
+      type: numeric
+      topic_code: "4.7"
+      source: "IM Algebra 2, Unit 4, Lesson 7"
+      points: 1
+      prompt: |
+        M(t) = 3000(0.92)ᵗ. Find the average rate of change of M over the interval from t = 0 to t = 5, to the nearest tenth.
+      answer: { value: -204.6, tolerance: 0.2 }
+      explanation: |
+        M(5) = 3000 · 0.92⁵ ≈ 1977.24, so the average rate is (1977.24 − 3000)/5 ≈ −204.6 per unit.
+    - slug: alg2-u04-w17-q22
+      type: numeric
+      topic_code: "1.11"
+      source: "IM Algebra 2, Unit 1, Lesson 11"
+      points: 1
+      prompt: |
+        Find the sum of the first six terms of the geometric sequence 2, 6, 18, …
+      answer: { value: 728, tolerance: 0 }
+      explanation: |
+        The sum is a(rⁿ − 1)/(r − 1) = 2(3⁶ − 1)/2 = 729 − 1 = 728.
+    - slug: alg2-u04-w17-q23
+      type: short_answer
+      topic_code: "4.6"
+      source: "IM Algebra 2, Unit 4, Lesson 6"
+      points: 3
+      prompt: |
+        An exponential function h passes through (1, 20) and (3, 45).
+        (a) Find the growth factor b and explain your method.
+        (b) Find the initial value a and write the equation of h.
+        (c) By what percent does h change over any half-unit interval?
+      answer: |
+        (a) The inputs differ by 2, so b² = 45/20 = 2.25 and b = 1.5.
+        (b) h(1) = a · 1.5 = 20, so a = 20/1.5 = 40/3 ≈ 13.33. h(x) = (40/3)(1.5)ˣ.
+        (c) The half-unit factor is 1.5^(1/2) ≈ 1.2247, about a 22.5% increase.
+      explanation: |
+        Three points, one per part. (a) b = 1.5 from the square root of the ratio. (b) a = 40/3 and the equation. (c) ≈ 22.5% from the square root of 1.5, not 25%.
+    - slug: alg2-u04-w17-q24
+      type: short_answer
+      topic_code: "2.15"
+      source: "IM Algebra 2, Unit 2, Lesson 15"
+      points: 3
+      prompt: |
+        Let p(x) = x³ − 4x² + x + 6.
+        (a) Use the remainder theorem to show that x − 2 is a factor of p(x).
+        (b) Divide to write p(x) as (x − 2) times a quadratic.
+        (c) Find all the zeros of p.
+      answer: |
+        (a) p(2) = 8 − 16 + 2 + 6 = 0, so the remainder on division by x − 2 is 0 and x − 2 is a factor.
+        (b) p(x) = (x − 2)(x² − 2x − 3). Check: (x − 2)(x² − 2x − 3) = x³ − 2x² − 3x − 2x² + 4x + 6 = x³ − 4x² + x + 6.
+        (c) x² − 2x − 3 = (x − 3)(x + 1), so the zeros are 2, 3 and −1.
+      explanation: |
+        Three points, one per part. (a) p(2) = 0 with the remainder-theorem reason. (b) the quotient x² − 2x − 3. (c) all three zeros.
+    - slug: alg2-u04-w17-q25
+      type: long_answer
+      topic_code: "4.7"
+      source: "IM Algebra 2, Unit 4, Lesson 7"
+      points: 6
+      prompt: |
+        A town's population is modeled by P(t) = 2000(1.035)ᵗ, where t is years since 2020. Write a full response that (1) interprets the two parameters in context and gives the percent growth over any 5-year span, (2) finds P(10) and P(20) to the nearest person, (3) computes the average rate of change over [0, 10] and over [10, 20] and explains in words why the second is larger, and (4) determines, by bracketing between consecutive whole years, when the population first exceeds 4000, showing the calculations that justify the bracket.
+      answer: |
+        (1) 2000 is the population in 2020; 1.035 means 3.5% growth per year. Over 5 years the factor is 1.035⁵ ≈ 1.188, about 18.8% (not 17.5%).
+        (2) P(10) = 2000(1.035)¹⁰ ≈ 2000 · 1.4106 ≈ 2821. P(20) = 2000(1.035)²⁰ ≈ 2000 · 1.9898 ≈ 3980.
+        (3) Over [0, 10]: (2821 − 2000)/10 ≈ 82 people per year. Over [10, 20]: (3980 − 2821)/10 ≈ 116 people per year. Each year adds 3.5% of the current population, and the population is larger in the second decade, so the same percent produces more people per year.
+        (4) P(t) > 4000 means 1.035ᵗ > 2. 1.035²⁰ ≈ 1.990 < 2 and 1.035²¹ ≈ 2.059 > 2, so the population first exceeds 4000 during the 21st year, between t = 20 and t = 21 (about t = 20.1, in 2040–2041).
+      explanation: |
+        Six points: 1 for the interpretation plus the 5-year percent (≈ 18.8%); 1 for P(10) ≈ 2821 and P(20) ≈ 3980; 2 for the two average rates (≈ 82 and ≈ 116) with the percent-of-a-larger-base explanation; 2 for the bracket 20 < t < 21 supported by 1.035²⁰ ≈ 1.99 and 1.035²¹ ≈ 2.06.

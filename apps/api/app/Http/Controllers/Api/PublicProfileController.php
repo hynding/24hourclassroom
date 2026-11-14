@@ -8,6 +8,7 @@ use App\Models\Connection;
 use App\Models\Follow;
 use App\Models\User;
 use App\Support\ProfilePayload;
+use App\Support\Slugs;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -26,8 +27,8 @@ class PublicProfileController extends Controller
         // Role::Admin was added it fell straight into the public branch and
         // an anonymous visitor could read a named administrator's bio. A
         // denylist over an open enum breaks every time the enum grows; only
-        // teachers are public figures here.
-        if ($user->role !== Role::Teacher) {
+        // Role::isPublic() roles (teachers and tutors) are public figures.
+        if (! $user->role->isPublic()) {
             abort_unless($viewer && Connection::acceptedBetween($viewer, $user), 404);
 
             // Name only. No profile key at all -- an empty profile object
@@ -46,6 +47,7 @@ class PublicProfileController extends Controller
             'name' => $user->name,
             'role' => $user->role,
             'profile' => ProfilePayload::for($user->profile),
+            'path' => Slugs::teacherPath($user),
             'is_following' => $viewer ? $this->isFollowing($viewer, $user) : null,
             'connection' => $viewer ? $this->connectionState($viewer, $user) : null,
         ]);

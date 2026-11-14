@@ -1,0 +1,875 @@
+unit: 2
+description: |
+  44 questions · about 80 minutes · every lesson of Unit 2 (2.1 to 2.26): polynomial vocabulary and arithmetic,
+  factors and zeros, graphs and end behaviour, multiplicity, intersections, division and the Remainder Theorem,
+  rational functions and their asymptotes, rational equations, identities and geometric sums, with a little
+  review of Unit 1. Includes two shared-context sets of three questions (a box and a rational function),
+  select-all, true/false, fill-in-the-blank and numeric items, one short-answer question (3 points) and one
+  extended response (6 points). Multiple choice, select-all, true/false and numeric items are graded at once;
+  fill-in-the-blank items are matched automatically; the free-response items are graded by your teacher against
+  the scoring notes.
+questions:
+  # ---- Stimulus set A: the box (2.1, 2.3)
+  - slug: alg2-u02-exam-q01
+    type: multiple_choice
+    topic_code: "2.1"
+    source: "IM Algebra 2, Unit 2, Lesson 1"
+    points: 1
+    stimulus: |
+      A sheet of card measures 14 cm by 20 cm. Squares of side x cm are cut from the four corners and the sides are folded up to form an open box.
+    prompt: |
+      Which expression gives the volume of the box, and what is the sensible domain for x?
+    options:
+      - "V = x(14 − x)(20 − x), 0 < x < 14"
+      - "V = x(14 − 2x)(20 − 2x), 0 < x < 7"
+      - "V = (14 − 2x)(20 − 2x), 0 < x < 10"
+      - "V = x(14 − 2x)(20 − 2x), 0 < x < 10"
+    option_explanations:
+      - |
+        Each side loses two corner squares, so the dimensions shrink by 2x, not x.
+      - |
+        Correct. Height x, base (14 − 2x) by (20 − 2x); the shorter side must stay positive, so x < 7.
+      - |
+        This is the base area; the height x is missing.
+      - |
+        At x = 8 the width 14 − 16 is negative; the shorter side limits x to less than 7.
+    answer: 1
+  - slug: alg2-u02-exam-q02
+    type: multiple_choice
+    topic_code: "2.3"
+    source: "IM Algebra 2, Unit 2, Lesson 3"
+    points: 1
+    stimulus: |
+      A sheet of card measures 14 cm by 20 cm. Squares of side x cm are cut from the four corners and the sides are folded up to form an open box.
+    prompt: |
+      In standard form, the volume polynomial is 4x³ − 68x² + 280x. Which statement is true?
+    options:
+      - "Its degree is 3 and its constant term is 280."
+      - "Its leading coefficient is 4 and its graph passes through the origin."
+      - "Its leading coefficient is 280."
+      - "It is a quadratic because the box has a rectangular base."
+    option_explanations:
+      - |
+        The degree is 3, but there is no constant term (it is 0); 280 is the coefficient of x.
+      - |
+        Correct. The leading term is 4x³, and with constant term 0 the value at x = 0 is 0.
+      - |
+        280 is the coefficient of x; the leading coefficient belongs to the highest power.
+      - |
+        Three linear factors multiply to a cubic, so the polynomial has degree 3, not 2.
+    answer: 1
+  - slug: alg2-u02-exam-q03
+    type: numeric
+    topic_code: "2.1"
+    source: "IM Algebra 2, Unit 2, Lesson 1"
+    points: 1
+    stimulus: |
+      A sheet of card measures 14 cm by 20 cm. Squares of side x cm are cut from the four corners and the sides are folded up to form an open box.
+    prompt: |
+      What is the volume of the box, in cm³, when x = 3? Give a whole number.
+    answer: { value: 336, tolerance: 0 }
+    explanation: |
+      V(3) = 3 · (14 − 6) · (20 − 6) = 3 · 8 · 14 = 336 cm³.
+  # ---- Stimulus set B: a rational function (2.17, 2.18)
+  - slug: alg2-u02-exam-q04
+    type: multiple_choice
+    topic_code: "2.17"
+    source: "IM Algebra 2, Unit 2, Lesson 17"
+    points: 1
+    stimulus: |
+      Let f(x) = (x − 2)(x + 4) / ((x + 1)(x − 3)).
+    prompt: |
+      Which are the vertical asymptotes of the graph of f?
+    options:
+      - "x = 2 and x = −4"
+      - "x = −1 and x = 3"
+      - "x = 1 and x = −3"
+      - "x = −1, x = 2, x = 3 and x = −4"
+    option_explanations:
+      - |
+        These are the x-intercepts, where the numerator is 0.
+      - |
+        Correct. The denominator is 0 at −1 and 3, and neither factor cancels.
+      - |
+        The signs are reversed: (x + 1) is zero at −1 and (x − 3) at 3.
+      - |
+        Only denominator zeros give asymptotes; numerator zeros give intercepts.
+    answer: 1
+  - slug: alg2-u02-exam-q05
+    type: multiple_choice
+    topic_code: "2.18"
+    source: "IM Algebra 2, Unit 2, Lesson 18"
+    points: 1
+    stimulus: |
+      Let f(x) = (x − 2)(x + 4) / ((x + 1)(x − 3)).
+    prompt: |
+      What is the horizontal asymptote of the graph of f?
+    options:
+      - "y = 0"
+      - "y = 1"
+      - "y = 8/3"
+      - "There is none."
+    option_explanations:
+      - |
+        y = 0 needs the numerator's degree to be smaller; both have degree 2.
+      - |
+        Correct. Equal degrees with leading coefficients 1 and 1 give y = 1.
+      - |
+        8/3 is f(0), the vertical intercept, not the value the graph approaches at the ends.
+      - |
+        Equal degrees always give a horizontal asymptote.
+    answer: 1
+  - slug: alg2-u02-exam-q06
+    type: multiple_choice
+    topic_code: "2.17"
+    source: "IM Algebra 2, Unit 2, Lesson 17"
+    points: 1
+    stimulus: |
+      Let f(x) = (x − 2)(x + 4) / ((x + 1)(x − 3)).
+    prompt: |
+      What are the intercepts of the graph of f?
+    options:
+      - "x-intercepts at 2 and −4; vertical intercept (0, 8/3)"
+      - "x-intercepts at −1 and 3; vertical intercept (0, −8/3)"
+      - "x-intercepts at 2 and −4; vertical intercept (0, −8/3)"
+      - "x-intercepts at −2 and 4; vertical intercept (0, 8/3)"
+    option_explanations:
+      - |
+        Correct. The numerator is 0 at 2 and −4, and f(0) = (−2)(4)/((1)(−3)) = 8/3.
+      - |
+        −1 and 3 are asymptotes, not intercepts.
+      - |
+        The intercepts are right, but f(0) = (−8)/(−3) = +8/3.
+      - |
+        The signs of the x-intercepts are reversed: (x − 2) is zero at 2 and (x + 4) at −4.
+    answer: 0
+  - slug: alg2-u02-exam-q07
+    type: multiple_choice
+    topic_code: "2.5"
+    source: "IM Algebra 2, Unit 2, Lesson 5"
+    points: 1
+    prompt: |
+      What are the zeros of p(x) = (x + 5)(2x − 1)(x − 3)?
+    options:
+      - "5, 1/2, −3"
+      - "−5, 1/2, 3"
+      - "−5, −1/2, 3"
+      - "−5, 2, 3"
+    option_explanations:
+      - |
+        The signs of the first and third zeros are reversed.
+      - |
+        Correct. x + 5 = 0 gives −5, 2x − 1 = 0 gives 1/2, x − 3 = 0 gives 3.
+      - |
+        2x − 1 = 0 gives x = +1/2, not −1/2; the sign of the middle zero is wrong.
+      - |
+        2x − 1 = 0 gives x = 1/2, not 2; the coefficient on x divides the constant.
+    answer: 1
+  - slug: alg2-u02-exam-q08
+    type: multiple_choice
+    topic_code: "2.9"
+    source: "IM Algebra 2, Unit 2, Lesson 9"
+    points: 1
+    prompt: |
+      What is the end behaviour of y = −2x³ + x?
+    options:
+      - "Left end down, right end up"
+      - "Left end up, right end down"
+      - "Both ends up"
+      - "Both ends down"
+    option_explanations:
+      - |
+        That is the pattern for a positive leading coefficient with odd degree.
+      - |
+        Correct. Odd degree with a negative leading coefficient: as x → −∞, y → ∞; as x → ∞, y → −∞.
+      - |
+        Both ends up needs even degree and a positive coefficient.
+      - |
+        Both ends down needs even degree; a cubic always has ends going opposite ways.
+    answer: 1
+  - slug: alg2-u02-exam-q09
+    type: multiple_choice
+    topic_code: "2.15"
+    source: "IM Algebra 2, Unit 2, Lesson 15"
+    points: 1
+    prompt: |
+      What is the remainder when x³ − 2x² + 4 is divided by (x − 2)?
+    options:
+      - "0"
+      - "4"
+      - "−12"
+      - "12"
+    option_explanations:
+      - |
+        A zero remainder would make (x − 2) a factor, but p(2) ≠ 0.
+      - |
+        Correct. By the Remainder Theorem the remainder is p(2) = 8 − 8 + 4 = 4.
+      - |
+        −12 is p(−2) = −8 − 8 + 4; the divisor (x − 2) requires x = 2.
+      - |
+        12 is 8 + 4 without subtracting the 2x² term, which is 8 at x = 2.
+    answer: 1
+  - slug: alg2-u02-exam-q10
+    type: multiple_choice
+    topic_code: "2.10"
+    source: "IM Algebra 2, Unit 2, Lesson 10"
+    points: 1
+    prompt: |
+      At which zero does the graph of y = (x − 3)²(x + 1) touch the x-axis without crossing?
+    options:
+      - "x = 3"
+      - "x = −1"
+      - "x = −3"
+      - "At both zeros"
+    option_explanations:
+      - |
+        Correct. The factor (x − 3)² has even multiplicity, so the graph bounces at 3.
+      - |
+        (x + 1) has multiplicity 1, so the graph crosses at −1.
+      - |
+        −3 is not a zero; the factor is (x − 3), zero at +3.
+      - |
+        Only the double zero at 3 produces a bounce; the simple zero at −1 is a crossing.
+    answer: 0
+  - slug: alg2-u02-exam-q11
+    type: multiple_choice
+    topic_code: "2.11"
+    source: "IM Algebra 2, Unit 2, Lesson 11"
+    points: 1
+    prompt: |
+      At which x-values do the graphs of y = x² and y = 6x − 8 intersect?
+    options:
+      - "x = 2 and x = 4"
+      - "x = −2 and x = −4"
+      - "x = 2 only"
+      - "x = 0 and x = 6"
+    option_explanations:
+      - |
+        Correct. x² − 6x + 8 = (x − 2)(x − 4) = 0.
+      - |
+        At x = −2, x² = 4 but 6x − 8 = −20, so the graphs do not meet there.
+      - |
+        x = 4 also works: 16 = 24 − 8, so there are two intersections, not one.
+      - |
+        At x = 0, x² = 0 but 6x − 8 = −8, so the graphs do not meet there.
+    answer: 0
+  - slug: alg2-u02-exam-q12
+    type: multiple_choice
+    topic_code: "2.21"
+    source: "IM Algebra 2, Unit 2, Lesson 21"
+    points: 1
+    prompt: |
+      What is the solution of 2/(x − 3) = 4/(x + 1)?
+    options:
+      - "x = 7"
+      - "x = 5"
+      - "x = −7"
+      - "No solution"
+    option_explanations:
+      - |
+        Correct. Cross-multiplying: 2(x + 1) = 4(x − 3), so 2x + 2 = 4x − 12 and x = 7. Check: 2/4 = 4/8.
+      - |
+        At x = 5 the left side is 2/2 = 1 but the right side is 4/6, so it is not a solution.
+      - |
+        At x = −7, 2/(−10) = −0.2 but 4/(−6) ≈ −0.67.
+      - |
+        The candidate x = 7 is not a restricted value (x ≠ 3, −1), so it is a valid solution.
+    answer: 0
+  - slug: alg2-u02-exam-q13
+    type: multiple_choice
+    topic_code: "2.17"
+    source: "IM Algebra 2, Unit 2, Lesson 17"
+    points: 1
+    prompt: |
+      Which statement about g(x) = (x² − 9)/(x + 3) is correct?
+    options:
+      - "The graph has a vertical asymptote at x = −3."
+      - "The graph is the line y = x − 3 with a hole at (−3, −6)."
+      - "The graph has a horizontal asymptote at y = 1."
+      - "The graph has an x-intercept at x = −3."
+    option_explanations:
+      - |
+        The factor (x + 3) cancels, so there is no asymptote.
+      - |
+        Correct. (x − 3)(x + 3)/(x + 3) = x − 3 for x ≠ −3; the point at x = −3 is missing.
+      - |
+        After cancelling, the function is linear and has no horizontal asymptote.
+      - |
+        x = −3 is not in the domain; the only x-intercept is 3.
+    answer: 1
+  - slug: alg2-u02-exam-q14
+    type: multiple_choice
+    topic_code: "2.24"
+    source: "IM Algebra 2, Unit 2, Lesson 24"
+    points: 1
+    prompt: |
+      Which is the factorisation of x³ − 27?
+    options:
+      - "(x − 3)(x² + 3x + 9)"
+      - "(x − 3)(x² − 3x + 9)"
+      - "(x − 3)³"
+      - "(x − 3)(x + 3)(x − 3)"
+    option_explanations:
+      - |
+        Correct. Difference of cubes: a³ − b³ = (a − b)(a² + ab + b²) with a = x, b = 3.
+      - |
+        The middle term must be +3x for the cross terms to cancel; this product gives x³ − 6x² + 18x − 27.
+      - |
+        (x − 3)³ = x³ − 9x² + 27x − 27, which has middle terms that x³ − 27 lacks.
+      - |
+        This product is (x − 3)²(x + 3) = x³ − 3x² − 9x + 27, not x³ − 27.
+    answer: 0
+  - slug: alg2-u02-exam-q15
+    type: multiple_choice
+    topic_code: "2.25"
+    source: "IM Algebra 2, Unit 2, Lesson 25"
+    points: 1
+    prompt: |
+      What is 2 + 4 + 8 + … + 2¹⁰?
+    options:
+      - "1023"
+      - "2046"
+      - "2048"
+      - "1024"
+    option_explanations:
+      - |
+        1023 is 2¹⁰ − 1, the sum of 1 + 2 + … + 2⁹; here the first term is 2.
+      - |
+        Correct. Ten terms with a = 2, r = 2: 2(2¹⁰ − 1)/(2 − 1) = 2 · 1023 = 2046.
+      - |
+        2048 is 2¹¹, the next term, not the sum.
+      - |
+        1024 is the last term, 2¹⁰, not the sum of all ten terms.
+    answer: 1
+  - slug: alg2-u02-exam-q16
+    type: multiple_choice
+    topic_code: "2.4"
+    source: "IM Algebra 2, Unit 2, Lesson 4"
+    points: 1
+    prompt: |
+      What is (x + 1)(x² − x + 1)?
+    options:
+      - "x³ + 1"
+      - "x³ − 1"
+      - "x³ + 2x² + 1"
+      - "x³ − x² + x + 1"
+    option_explanations:
+      - |
+        Correct. x³ − x² + x + x² − x + 1 = x³ + 1; the middle terms cancel.
+      - |
+        The constant term of the product is (1)(1) = +1, not −1.
+      - |
+        The x² terms are −x² and +x², which cancel.
+      - |
+        This multiplies by x only and then adds 1; the +1 must multiply every term of the quadratic.
+    answer: 0
+  - slug: alg2-u02-exam-q17
+    type: multiple_choice
+    topic_code: "2.3"
+    source: "IM Algebra 2, Unit 2, Lesson 3"
+    points: 1
+    prompt: |
+      What is the degree of (x² + 1)²(x − 4)?
+    options:
+      - "3"
+      - "4"
+      - "5"
+      - "6"
+    option_explanations:
+      - |
+        3 counts only one factor of x² + 1 and the linear factor.
+      - |
+        4 is the degree of (x² + 1)² alone; the factor (x − 4) adds one more.
+      - |
+        Correct. Degrees add under multiplication: 2 + 2 + 1 = 5.
+      - |
+        6 would need three quadratic factors; here there are two quadratics and one linear factor.
+    answer: 2
+  - slug: alg2-u02-exam-q18
+    type: multiple_choice
+    topic_code: "2.18"
+    source: "IM Algebra 2, Unit 2, Lesson 18"
+    points: 1
+    prompt: |
+      Which function has the horizontal asymptote y = 3?
+    options:
+      - "y = (3x − 1)/(x + 2)"
+      - "y = (x − 1)/(3x + 2)"
+      - "y = 3/(x + 2)"
+      - "y = (3x² − 1)/(x + 2)"
+    option_explanations:
+      - |
+        Correct. Equal degrees with leading coefficients 3 and 1 give y = 3.
+      - |
+        This approaches 1/3, the ratio of its leading coefficients 1 and 3.
+      - |
+        Degree 0 over degree 1 approaches 0, so the asymptote is y = 0, not y = 3.
+      - |
+        The numerator's degree is larger, so there is no horizontal asymptote (a slant one instead).
+    answer: 0
+  - slug: alg2-u02-exam-q19
+    type: multiple_choice
+    topic_code: "2.19"
+    source: "IM Algebra 2, Unit 2, Lesson 19"
+    points: 1
+    prompt: |
+      What is the slant asymptote of y = (x² + 2x + 5)/(x + 1)?
+    options:
+      - "y = x + 1"
+      - "y = x + 2"
+      - "y = x + 5"
+      - "y = x"
+    option_explanations:
+      - |
+        Correct. x² + 2x + 5 = (x + 1)(x + 1) + 4, so y = x + 1 + 4/(x + 1) and the remainder term vanishes for large |x|.
+      - |
+        (x + 1)(x + 2) = x² + 3x + 2, which is not the numerator.
+      - |
+        (x + 1)(x + 5) = x² + 6x + 5, not the numerator.
+      - |
+        (x + 1) · x = x² + x leaves a remainder of x + 5, which is not constant; the quotient must be found by complete division.
+    answer: 0
+  - slug: alg2-u02-exam-q20
+    type: multiple_choice
+    topic_code: "2.7"
+    source: "IM Algebra 2, Unit 2, Lesson 7"
+    points: 1
+    prompt: |
+      A cubic has a simple zero at −1, a double zero at 2, and passes through (0, −8). Which equation describes it?
+    options:
+      - "p(x) = (x + 1)(x − 2)²"
+      - "p(x) = −2(x + 1)(x − 2)²"
+      - "p(x) = −2(x − 1)(x + 2)²"
+      - "p(x) = 2(x + 1)(x − 2)²"
+    option_explanations:
+      - |
+        This has p(0) = 1 · (−2)² = 4, not −8; a scale factor k is needed.
+      - |
+        Correct. k · 1 · 4 = 4k = −8 gives k = −2.
+      - |
+        The zeros here are 1 and −2, the wrong signs.
+      - |
+        With k = 2, p(0) = 2 · 1 · 4 = 8, not −8; the sign of k is wrong.
+    answer: 1
+  - slug: alg2-u02-exam-q21
+    type: multiple_choice
+    topic_code: "2.22"
+    source: "IM Algebra 2, Unit 2, Lesson 22"
+    points: 1
+    prompt: |
+      What is the solution set of (x + 3)/(x − 1) = 4/(x − 1)?
+    options:
+      - "x = 1"
+      - "x = −3"
+      - "No solution"
+      - "All real numbers except 1"
+    option_explanations:
+      - |
+        Clearing gives x + 3 = 4, so x = 1, but 1 makes the denominators zero; it is extraneous.
+      - |
+        At x = −3 the left side is 0 and the right side is −1.
+      - |
+        Correct. The only candidate is restricted, so there is no solution.
+      - |
+        The sides are equal only where x + 3 = 4, which never happens in the domain.
+    answer: 2
+  - slug: alg2-u02-exam-q22
+    type: multiple_choice
+    topic_code: "2.9"
+    source: "IM Algebra 2, Unit 2, Lesson 9"
+    points: 1
+    prompt: |
+      Graph description: a polynomial graph rises on the far left, falls on the far right, and crosses the x-axis three times. What can be concluded?
+    options:
+      - "Odd degree, negative leading coefficient"
+      - "Even degree, negative leading coefficient"
+      - "Odd degree, positive leading coefficient"
+      - "Even degree, positive leading coefficient"
+    option_explanations:
+      - |
+        Correct. Opposite ends mean odd degree; a falling right end means a negative leading coefficient.
+      - |
+        Even degree would make both ends behave the same way.
+      - |
+        A positive leading coefficient would make the right end rise.
+      - |
+        Both the parity and the sign are wrong for this description.
+    answer: 0
+  - slug: alg2-u02-exam-q23
+    type: multiple_choice
+    topic_code: "2.3"
+    source: "IM Algebra 2, Unit 2, Lesson 3"
+    points: 1
+    prompt: |
+      Exactly one of these expressions fails to be a polynomial. Which one?
+    options:
+      - "x² + 1/x"
+      - "x²/2 + 1"
+      - "√3 · x⁴"
+      - "0.5x³ − x"
+    option_explanations:
+      - |
+        Correct. 1/x = x⁻¹ has a negative exponent, which is not allowed.
+      - |
+        Dividing by 2 is a coefficient of 1/2; the exponent is 2.
+      - |
+        An irrational coefficient is fine; the exponent is 4.
+      - |
+        Decimal coefficients are fine; the exponents are 3 and 1.
+    answer: 0
+  - slug: alg2-u02-exam-q24
+    type: multiple_choice
+    topic_code: "2.23"
+    source: "IM Algebra 2, Unit 2, Lesson 23"
+    points: 1
+    prompt: |
+      Which equation is an identity?
+    options:
+      - "(x + y)² − (x − y)² = 4xy"
+      - "(x + y)² = x² + y²"
+      - "x² − 2x = 0"
+      - "(x − y)² = x² − y²"
+    option_explanations:
+      - |
+        Correct. Expanding: (x² + 2xy + y²) − (x² − 2xy + y²) = 4xy for all x and y.
+      - |
+        This misses the 2xy cross term; it fails at x = y = 1 (4 versus 2).
+      - |
+        True only for x = 0 and x = 2, so it is a conditional equation, not an identity.
+      - |
+        (x − y)² = x² − 2xy + y², not a difference of squares.
+    answer: 0
+  - slug: alg2-u02-exam-q25
+    type: multiple_choice
+    topic_code: "2.16"
+    source: "IM Algebra 2, Unit 2, Lesson 16"
+    points: 1
+    prompt: |
+      Making x items costs 500 + 3x dollars. What does the average cost per item approach as x becomes very large?
+    options:
+      - "$500"
+      - "$3"
+      - "$0"
+      - "$503"
+    option_explanations:
+      - |
+        The $500 is spread over more and more items, so its share per item shrinks to 0.
+      - |
+        Correct. (500 + 3x)/x = 500/x + 3, and 500/x → 0, leaving $3 per item.
+      - |
+        The per-item cost of $3 never goes away.
+      - |
+        $503 is the average cost for one item only.
+    answer: 1
+  - slug: alg2-u02-exam-q26
+    type: multiple_choice
+    topic_code: "2.11"
+    source: "IM Algebra 2, Unit 2, Lesson 11"
+    points: 1
+    prompt: |
+      A company's revenue from selling x thousand units is R(x) = 50x − x² (thousand dollars) and its cost is C(x) = 10x + 300. At which production levels does it break even?
+    options:
+      - "10 thousand and 30 thousand units"
+      - "5 thousand and 60 thousand units"
+      - "20 thousand units only"
+      - "It never breaks even"
+    option_explanations:
+      - |
+        Correct. 50x − x² = 10x + 300 gives x² − 40x + 300 = (x − 10)(x − 30) = 0.
+      - |
+        At x = 5, R = 225 and C = 350; these do not match.
+      - |
+        x = 20 is where profit is largest (R − C = 100), not where it is zero.
+      - |
+        The revenue parabola rises above the cost line between 10 and 30.
+    answer: 0
+  - slug: alg2-u02-exam-q27
+    type: multiple_choice
+    topic_code: "2.16"
+    source: "IM Algebra 2, Unit 2, Lesson 16"
+    points: 1
+    prompt: |
+      A can must hold 1000 cm³, so its surface area is S(r) = 2πr² + 2000/r. Which is closest to S(5)?
+    options:
+      - "557 cm²"
+      - "457 cm²"
+      - "357 cm²"
+      - "2157 cm²"
+    option_explanations:
+      - |
+        Correct. 2π · 25 ≈ 157.1 and 2000/5 = 400, so S(5) ≈ 557.1 cm².
+      - |
+        457 would need the side term to be 300; 2000/5 is 400.
+      - |
+        357 is the value for a 500 cm³ can (side term 1000/5).
+      - |
+        2157 comes from adding 2000 instead of dividing it by the radius; the side term is 2000/5 = 400.
+    answer: 0
+  - slug: alg2-u02-exam-q28
+    type: multiple_choice
+    topic_code: "2.14"
+    source: "IM Algebra 2, Unit 2, Lesson 14"
+    points: 1
+    prompt: |
+      A polynomial graph has exactly five turning points. What is the smallest possible degree of the polynomial?
+    options:
+      - "4"
+      - "5"
+      - "6"
+      - "10"
+    option_explanations:
+      - |
+        A degree-4 polynomial has at most 3 turning points.
+      - |
+        A degree-5 polynomial has at most 4 turning points.
+      - |
+        Correct. A polynomial of degree n has at most n − 1 turning points, so five turning points need degree at least 6.
+      - |
+        Degree 10 is possible but not the smallest; degree 6 already allows five turning points.
+    answer: 2
+  - slug: alg2-u02-exam-q29
+    type: multiple_choice
+    topic_code: "1.8"
+    source: "IM Algebra 2, Unit 1, Lesson 8"
+    points: 1
+    prompt: |
+      For the arithmetic sequence a(n) = 3 + 5(n − 1), what is a(20)?
+    options:
+      - "98"
+      - "103"
+      - "93"
+      - "100"
+    option_explanations:
+      - |
+        Correct. Nineteen steps of 5 from the first term: 3 + 5 · 19 = 98.
+      - |
+        103 uses 20 steps of 5 instead of 19; a(20) is 19 steps from a(1).
+      - |
+        93 uses 18 steps of 5 instead of 19; it is a(19), not a(20).
+      - |
+        100 is 5 · 20 without the first-term adjustment.
+    answer: 0
+  - slug: alg2-u02-exam-q30
+    type: multiple_choice
+    topic_code: "1.2"
+    source: "IM Algebra 2, Unit 1, Lesson 2"
+    points: 1
+    prompt: |
+      In the geometric sequence 6, 18, 54, …, which term equals 4374?
+    options:
+      - "The 6th"
+      - "The 7th"
+      - "The 8th"
+      - "The 729th"
+    option_explanations:
+      - |
+        The 6th term is 6 · 3⁵ = 1458, a third of 4374.
+      - |
+        Correct. 6 · 3ⁿ⁻¹ = 4374 gives 3ⁿ⁻¹ = 729 = 3⁶, so n = 7.
+      - |
+        The 8th term is 6 · 3⁷ = 13,122, three times too large.
+      - |
+        729 is 4374/6, the power of 3 needed, not the term number.
+    answer: 1
+  - slug: alg2-u02-exam-q31
+    type: multi_select
+    topic_code: "2.10"
+    source: "IM Algebra 2, Unit 2, Lesson 10"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Let p(x) = x(x − 2)²(x + 3). Which statements are true? Select all that apply.
+    options:
+      - "The degree of p is 4."
+      - "The zeros are 0, 2 and −3."
+      - "The graph bounces off the x-axis at x = 2."
+      - "The graph crosses the x-axis at x = 2."
+      - "Both ends of the graph go up."
+    option_explanations:
+      - |
+        Correct. The multiplicities add: 1 + 2 + 1 = 4.
+      - |
+        Correct. Each factor contributes one zero; 2 is repeated but still a single intercept.
+      - |
+        Correct. The factor (x − 2)² has even multiplicity.
+      - |
+        Even multiplicity means the graph touches and turns back, not crosses.
+      - |
+        Correct. Even degree with positive leading coefficient.
+    answer: [0, 1, 2, 4]
+  - slug: alg2-u02-exam-q32
+    type: multi_select
+    topic_code: "2.18"
+    source: "IM Algebra 2, Unit 2, Lesson 18"
+    points: 2
+    partial_credit: true
+    prompt: |
+      For which of these functions do the outputs approach 0 as x → ∞ and as x → −∞ (horizontal asymptote y = 0)? Select all that apply.
+    options:
+      - "y = 1/(x + 1)"
+      - "y = x/(x² − 1)"
+      - "y = (x² + 1)/x²"
+      - "y = (2x + 1)/x³"
+      - "y = x³/(x² + 1)"
+    option_explanations:
+      - |
+        Correct. Degree 0 over degree 1, so the outputs shrink to 0 at both ends.
+      - |
+        Correct. Degree 1 over degree 2, so the ratio behaves like 1/x for large |x|.
+      - |
+        Equal degrees give y = 1, the ratio of the leading coefficients, not y = 0.
+      - |
+        Correct. Degree 1 over degree 3, so the ratio behaves like 2/x² and goes to 0.
+      - |
+        The numerator's degree is larger, so the graph follows the line y = x at the ends.
+    answer: [0, 1, 3]
+  - slug: alg2-u02-exam-q33
+    type: multi_select
+    topic_code: "2.24"
+    source: "IM Algebra 2, Unit 2, Lesson 24"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of these equations hold for every value of a and b (that is, which are identities)? Select all that apply.
+    options:
+      - "(a − b)² = a² − 2ab + b²"
+      - "a² + b² = (a + b)²"
+      - "(a + b)(a − b) = a² − b²"
+      - "a³ + b³ = (a + b)(a² − ab + b²)"
+      - "(a + b)³ = a³ + 3ab + b³"
+    option_explanations:
+      - |
+        Correct. Expanding (a − b)(a − b) gives a² − ab − ab + b².
+      - |
+        (a + b)² = a² + 2ab + b²; at a = b = 1 the left side is 2 and the right side is 4.
+      - |
+        Correct. The cross terms −ab and +ab cancel.
+      - |
+        Correct. Expanding the right side leaves only a³ and b³.
+      - |
+        The correct expansion is a³ + 3a²b + 3ab² + b³; at a = b = 1 this claim gives 8 versus 5.
+    answer: [0, 2, 3]
+  - slug: alg2-u02-exam-q34
+    type: true_false
+    topic_code: "2.15"
+    source: "IM Algebra 2, Unit 2, Lesson 15"
+    points: 1
+    prompt: |
+      True or false: The remainder when p(x) is divided by (x + 2) is p(2).
+    answer: false
+    explanation: |
+      False. The divisor (x + 2) is zero at x = −2, so the remainder is p(−2). Substituting +2 is the common sign error.
+  - slug: alg2-u02-exam-q35
+    type: true_false
+    topic_code: "2.25"
+    source: "IM Algebra 2, Unit 2, Lesson 25"
+    points: 1
+    prompt: |
+      True or false: The formula a(rⁿ − 1)/(r − 1) for a geometric sum cannot be used when r = 1.
+    answer: true
+    explanation: |
+      True. At r = 1 the denominator is 0. But when r = 1 every term equals a, so the sum of n terms is simply n · a.
+  - slug: alg2-u02-exam-q36
+    type: true_false
+    topic_code: "2.17"
+    source: "IM Algebra 2, Unit 2, Lesson 17"
+    points: 1
+    prompt: |
+      True or false: The graph of a rational function can cross one of its vertical asymptotes.
+    answer: false
+    explanation: |
+      False. A vertical asymptote sits at a value excluded from the domain, so the function has no point there at all. A graph may cross a horizontal asymptote in the middle, but never a vertical one.
+  - slug: alg2-u02-exam-q37
+    type: fill_blank
+    topic_code: "2.3"
+    source: "IM Algebra 2, Unit 2, Lesson 3"
+    points: 1
+    prompt: |
+      The leading coefficient of 5 − 2x³ + x is ____.
+    answer: ["-2", "−2"]
+    explanation: |
+      In standard form, −2x³ + x + 5, the highest-degree term is −2x³, so the leading coefficient is −2.
+  - slug: alg2-u02-exam-q38
+    type: fill_blank
+    topic_code: "2.17"
+    source: "IM Algebra 2, Unit 2, Lesson 17"
+    points: 1
+    prompt: |
+      The x-intercept of the graph of y = (x − 7)/(x + 2) is at x = ____.
+    answer: ["7", "x = 7"]
+    explanation: |
+      The numerator is 0 at x = 7 and the denominator there is 9, so (7, 0) is on the graph. (x = −2 is the vertical asymptote.)
+  - slug: alg2-u02-exam-q39
+    type: fill_blank
+    topic_code: "2.25"
+    source: "IM Algebra 2, Unit 2, Lesson 25"
+    points: 1
+    prompt: |
+      The geometric series 3 + 6 + 12 + … + 3 · 2¹¹ has ____ terms.
+    answer: ["12", "twelve"]
+    explanation: |
+      The exponents on 2 run from 0 to 11, which is 12 terms; the sum formula therefore uses 2¹².
+  - slug: alg2-u02-exam-q40
+    type: numeric
+    topic_code: "2.21"
+    source: "IM Algebra 2, Unit 2, Lesson 21"
+    points: 1
+    prompt: |
+      Solve 3/(x + 2) + 1 = 5/(x + 2). Give the exact value of x.
+    answer: { value: 0, tolerance: 0 }
+    explanation: |
+      Multiply by (x + 2): 3 + (x + 2) = 5, so x = 0. It is not restricted (x ≠ −2). Check: 1.5 + 1 = 2.5.
+  - slug: alg2-u02-exam-q41
+    type: numeric
+    topic_code: "2.15"
+    source: "IM Algebra 2, Unit 2, Lesson 15"
+    points: 1
+    prompt: |
+      For what value of k is (x − 3) a factor of x³ − 4x² + kx + 6? Give the exact value.
+    answer: { value: 1, tolerance: 0 }
+    explanation: |
+      p(3) = 27 − 36 + 3k + 6 = 3k − 3 = 0 gives k = 1.
+  - slug: alg2-u02-exam-q42
+    type: numeric
+    topic_code: "2.6"
+    source: "IM Algebra 2, Unit 2, Lesson 6"
+    points: 1
+    prompt: |
+      What is the vertical intercept (the value at x = 0) of y = −2(x − 1)(x + 3)(x − 5)²? Give the exact value.
+    answer: { value: 150, tolerance: 0 }
+    explanation: |
+      −2 · (−1) · 3 · (−5)² = −2 · (−1) · 3 · 25 = 150.
+  - slug: alg2-u02-exam-q43
+    type: short_answer
+    topic_code: "2.12"
+    source: "IM Algebra 2, Unit 2, Lesson 12"
+    points: 3
+    prompt: |
+      Let f(x) = x³ − 7x − 6.
+
+      (a) Show that (x + 1) is a factor of f(x).
+      (b) Divide f(x) by (x + 1) and factor f(x) completely.
+      (c) Describe the graph of f: zeros, vertical intercept, end behaviour and the sign of f between the zeros.
+    answer: |
+      (a) f(−1) = −1 + 7 − 6 = 0, so by the Factor Theorem (x + 1) is a factor.
+      (b) Dividing (remember the 0x² placeholder) gives x² − x − 6 = (x − 3)(x + 2), so f(x) = (x + 1)(x − 3)(x + 2).
+      (c) Zeros −2, −1, 3; f(0) = −6; degree 3 with positive leading coefficient, so down-left and up-right. Sign: negative for x < −2, positive on (−2, −1), negative on (−1, 3), positive for x > 3.
+    explanation: |
+      Three points, one per part. (a) the evaluation. (b) the division and the complete factorisation. (c) all four features (zeros, intercept, ends, signs).
+  - slug: alg2-u02-exam-q44
+    type: long_answer
+    topic_code: "2.19"
+    source: "IM Algebra 2, Unit 2, Lesson 19"
+    points: 6
+    prompt: |
+      Let g(x) = (2x² − 8)/(x² − 1).
+
+      Write a full response that (1) factors numerator and denominator and states the domain, (2) finds all intercepts, (3) finds the vertical asymptotes and, by testing points, the direction of the graph on each side of x = 1, (4) finds the horizontal asymptote with a reason, and (5) describes the graph in words, including where it is above or below the horizontal asymptote.
+    answer: |
+      (1) g(x) = 2(x − 2)(x + 2)/((x − 1)(x + 1)); domain x ≠ ±1. Nothing cancels, so there are no holes.
+      (2) x-intercepts at 2 and −2; g(0) = −8/(−1) = 8, so the vertical intercept is (0, 8).
+      (3) Vertical asymptotes x = 1 and x = −1. At x = 0.9: numerator 2(0.81 − 4) = −6.38, denominator 0.81 − 1 = −0.19, so g ≈ 33.6, up on the left of 1. At x = 1.1: numerator 2(1.21 − 4) = −5.58, denominator 0.21, so g ≈ −26.6, down on the right of 1.
+      (4) Equal degrees with leading coefficients 2 and 1, so y = 2. (Division: 2x² − 8 = 2(x² − 1) − 6, so g(x) = 2 − 6/(x² − 1).)
+      (5) Because g(x) = 2 − 6/(x² − 1), the graph is below y = 2 wherever |x| > 1 and above it wherever |x| < 1. For x < −1 the graph starts just under 2 at the far left, descends through (−2, 0) and plunges to −∞ as x approaches −1 from the left. Between −1 and 1 it comes down from +∞ at both asymptotes to a lowest point at (0, 8), always above 2. For x > 1 it rises from −∞, crosses the axis at (2, 0) and climbs toward y = 2 from below. The graph is symmetric about the y-axis.
+    explanation: |
+      Six points: 1 for factoring and the domain; 1 for all three intercepts; 1 for the asymptotes with correct directions at x = 1; 1 for y = 2 with a reason; 2 for a coherent description that places the graph above y = 2 between the asymptotes and below it outside (1 if the description is right but the above/below analysis is missing).

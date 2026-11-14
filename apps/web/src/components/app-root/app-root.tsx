@@ -1,27 +1,63 @@
 import { Component, h, Listen, State } from '@stencil/core';
 import type { Layout } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
-import { navigate } from '../../services/navigate';
-import { redirectFor, resolveRoute } from '../../services/router';
+import { adoptCanonicalPath, navigate } from '../../services/navigate';
+import { takeReturnPath } from '../../services/return-path';
+import { needsResolve, redirectFor, resolveRoute } from '../../services/router';
 import type { ResolvedRoute } from '../../services/router';
+import { applyHead, resetPageMeta } from '../../services/page-meta';
 import { siteStore } from '../../services/site-store';
+import { slugStore } from '../../services/slug-store';
 import { cachedTheme, releaseInlineCanvas } from '../../services/theme-store';
 
 @Component({ tag: 'app-root', shadow: true })
 export class AppRoot {
   @State() path: string = window.location.pathname;
   @State() layout: Layout = 'stacked';
+  /**
+   * Vanity paths (needsResolve) to the id path they name; null when the API
+   * named nothing this viewer can open, so the page renders not-found.
+   * Absent while the lookup is in flight.
+   */
+  @State() resolved: Record<string, string | null> = {};
 
   private onPopState = () => {
     this.path = window.location.pathname;
+    resetPageMeta(this.path);
+    this.resolveVanity(this.path);
     this.applyGuards();
   };
+
+  /**
+   * /courses/<slug> and /teachers/<handle>[/<slug>] route on the id path the
+   * API names. A retired slug's lookup names its replacement too, which the
+   * address bar adopts in place.
+   */
+  private resolveVanity(path: string) {
+    if (!needsResolve(path) || path in this.resolved) {
+      return;
+    }
+    slugStore
+      .resolve(path)
+      .then(({ target, canonical }) => {
+        this.resolved = { ...this.resolved, [path]: target, [canonical]: target };
+        if (this.path === path && canonical !== path) {
+          adoptCanonicalPath(canonical);
+          this.path = canonical;
+          resetPageMeta(canonical);
+        }
+      })
+      .catch(() => {
+        this.resolved = { ...this.resolved, [path]: null };
+      });
+  }
 
   componentWillLoad() {
     // Synchronous: the cache is what makes a return visit right on the first
     // frame. Palette/typeset were already applied by the inline boot script.
     this.layout = cachedTheme().layout;
-    document.title = siteStore.config.identity.name;
+    resetPageMeta(this.path);
+    this.resolveVanity(this.path);
   }
 
   async connectedCallback() {
@@ -43,22 +79,50 @@ export class AppRoot {
   }
 
   // No @State snapshot here, deliberately: the only job is a side effect.
-  // load() dispatches this before resolving, so this is the single post-load
-  // writer of document.title; componentWillLoad is the other (from the cache).
+  // load() dispatches this before resolving; the head re-renders with the
+  // fetched site name around whatever the current page has described.
   @Listen('site:changed', { target: 'window' })
   onSiteChanged() {
-    document.title = siteStore.config.identity.name;
+    applyHead();
   }
 
   private applyGuards() {
-    const target = redirectFor(this.path, authStore.currentUser);
+    const user = authStore.currentUser;
+    // Every sign-in route ends on `/`; only a verified user can act on the
+    // page they left (branching needs `verified`), so an unverified one
+    // keeps the path until the verification link brings them back here.
+    const target = redirectFor(this.path, user)
+      ?? (this.path === '/' && user?.email_verified_at ? takeReturnPath() : null);
     if (target) {
       navigate(target);
     }
   }
 
+  /** The path to route on: a vanity path's id path once named; null while it is being looked up. */
+  private routedPath(): string | null {
+    if (!needsResolve(this.path)) {
+      return this.path;
+    }
+    const target = this.resolved[this.path];
+    if (target === undefined) {
+      return null;
+    }
+    // Not found: the vanity path itself routes to the page with no id.
+    return target ?? this.path;
+  }
+
   render() {
-    const route = resolveRoute(this.path);
+    const routed = this.routedPath();
+    const route = routed === null ? null : resolveRoute(routed);
+    if (route === null) {
+      return (
+        <app-layout layout={this.layout}>
+          <app-banner slot="banner"></app-banner>
+          <app-header slot="header" orientation={this.layout === 'rail' ? 'vertical' : 'horizontal'}></app-header>
+          <app-footer slot="footer"></app-footer>
+        </app-layout>
+      );
+    }
     return (
       <app-layout layout={this.layout} bare={route.tag === 'page-test-print'}>
         <app-banner slot="banner"></app-banner>
@@ -105,8 +169,12 @@ export class AppRoot {
         return <page-course-editor courseId={route.courseId}></page-course-editor>;
       case 'page-course-practice':
         return <page-course-practice courseId={route.courseId} testId={route.testId}></page-course-practice>;
+      case 'page-library-index':
+        return <page-library-index></page-library-index>;
       case 'page-library':
         return <page-library kind={route.kind ?? 'tests'}></page-library>;
+      case 'page-grading':
+        return <page-grading></page-grading>;
       case 'page-integrations':
         return <page-integrations></page-integrations>;
       case 'page-test-generate':
@@ -117,6 +185,8 @@ export class AppRoot {
         return <page-profile></page-profile>;
       case 'page-connections':
         return <page-connections></page-connections>;
+      case 'page-student':
+        return <page-student studentId={route.studentId}></page-student>;
       case 'page-notifications':
         return <page-notifications></page-notifications>;
       case 'page-login':

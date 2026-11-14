@@ -1,0 +1,591 @@
+week: 19
+unit: 4
+title: "The Number e and Solving Exponential Equations"
+topics: ["4.12", "4.13", "4.14"]
+guide: guides/week-19.md
+guide_description: |
+  Where e comes from (compounding more and more often, (1 + 1/n)ⁿ approaching 2.71828…) and why it is
+  irrational; functions a · e^(kt) with k the continuous rate and e^k the per-unit factor, converting between
+  the two, evaluating and graphing base-e functions; and solving exponential equations exactly by isolating
+  the power and rewriting in logarithmic form with log, ln or log_b, including negative answers and checks
+  against a bracket.
+flashcards_description: |
+  26 cards on the origin and value of e, continuous growth and decay, the natural logarithm, and the routine
+  for solving exponential equations.
+
+flashcards:
+  - front: Where e comes from
+    back: |
+      $1 at 100% per year compounded n times a year grows to (1 + 1/n)ⁿ: 2, 2.25, 2.594, 2.705, 2.717, … The values level off at e ≈ 2.71828.
+    topic_code: "4.12"
+  - front: Value and nature of e
+    back: |
+      e ≈ 2.718281828…, irrational like π, between 2 and 3. It is a base like 2 or 10, not a variable.
+    topic_code: "4.12"
+  - front: Compounding at rate r more and more often
+    back: |
+      (1 + r/n)ⁿ approaches e^r. Continuous growth at rate r multiplies by e^r per year.
+    topic_code: "4.12"
+  - front: $1000 at 6% for 10 years → yearly, monthly, continuous
+    back: |
+      1000(1.06)¹⁰ ≈ 1790.85; 1000(1 + 0.06/12)¹²⁰ ≈ 1819.40; 1000e^0.6 ≈ 1822.12. More frequent compounding helps less and less.
+    topic_code: "4.12"
+  - front: Ordering 2ˣ, eˣ, 3ˣ for x > 0
+    back: |
+      2ˣ < eˣ < 3ˣ because 2 < e < 3. At x = 2: 4 < 7.39 < 9. The graph of eˣ runs between the other two.
+    topic_code: "4.12"
+  - front: Meaning of a and k in f(t) = a · e^(kt)
+    back: |
+      a = f(0), the initial value; k is the continuous rate; the per-unit growth factor is e^k.
+    topic_code: "4.13"
+  - front: Per-unit percent change for 1000e^(0.05t)
+    back: |
+      e^0.05 ≈ 1.0513, about 5.13% per year, slightly more than 5% because growth compounds within the year.
+    topic_code: "4.13"
+  - front: Per-unit percent change for 200e^(−0.2t)
+    back: |
+      e^(−0.2) ≈ 0.8187, about an 18.1% decrease per unit (not 20%).
+    topic_code: "4.13"
+  - front: 7% per year → continuous rate k
+    back: |
+      e^k = 1.07, so k = ln(1.07) ≈ 0.0677.
+    topic_code: "4.13"
+  - front: A(t) = 1000e^(0.05t) → A(8)
+    back: |
+      1000e^0.4 ≈ 1491.82.
+    topic_code: "4.13"
+  - front: B(t) = 500e^(0.08t) → B(3)
+    back: |
+      500e^0.24 ≈ 635.62.
+    topic_code: "4.13"
+  - front: Graph of y = eˣ
+    back: |
+      y-intercept 1, through (1, e) ≈ (1, 2.72), rising, x-axis as asymptote on the left; faster than 2ˣ, slower than 3ˣ. y = e^(−x) is its mirror image.
+    topic_code: "4.13"
+  - front: g(t) = 50e^(0.03t) → doubling time
+    back: |
+      e^(0.03t) = 2 gives t = ln(2)/0.03 ≈ 23.1 units, not 3.
+    topic_code: "4.13"
+  - front: Natural logarithm ln
+    back: |
+      log base e: ln(y) is the exponent x with eˣ = y. ln(e) = 1, ln(1) = 0, ln(e³) = 3, ln(1/e) = −1, ln(√e) = 1/2.
+    topic_code: "4.14"
+  - front: ln 2 and ln 10 (approximate)
+    back: |
+      ln 2 ≈ 0.693 and ln 10 ≈ 2.303.
+    topic_code: "4.14"
+  - front: Three-step routine for solving bˣ = c type equations
+    back: |
+      Isolate the power (divide away coefficients, move constants); rewrite in logarithmic form; evaluate exactly or with technology.
+    topic_code: "4.14"
+  - front: Solve 2ᵗ = 50
+    back: |
+      t = log₂(50) ≈ 5.64. Check: 2⁵ = 32 < 50 < 64 = 2⁶.
+    topic_code: "4.14"
+  - front: Solve 5 · 3ᵗ = 200
+    back: |
+      Divide first: 3ᵗ = 40, so t = log₃(40) ≈ 3.36.
+    topic_code: "4.14"
+  - front: Solve 1.08ᵗ = 3
+    back: |
+      t = log₁.₀₈(3) ≈ 14.27. Bracket: 1.08¹⁴ ≈ 2.94 < 3 < 1.08¹⁵ ≈ 3.17.
+    topic_code: "4.14"
+  - front: Solve e^(0.2t) = 7
+    back: |
+      0.2t = ln 7, so t = ln(7)/0.2 ≈ 9.73.
+    topic_code: "4.14"
+  - front: Solve 1000e^(0.05t) = 2000
+    back: |
+      e^(0.05t) = 2, so t = ln(2)/0.05 ≈ 13.86 years: the doubling time.
+    topic_code: "4.14"
+  - front: Solve 10ᵗ = 0.004
+    back: |
+      t = log(0.004) ≈ −2.40. Negative because the output is below 1; in a model it means 2.4 units before the starting time.
+    topic_code: "4.14"
+  - front: Solve 0.9ᵗ = 0.25
+    back: |
+      t = log₀.₉(0.25) ≈ 13.16. Bracket: 0.9¹³ ≈ 0.254 > 0.25 > 0.229 ≈ 0.9¹⁴.
+    topic_code: "4.14"
+  - front: Solve 4 · 2^(x + 1) = 100
+    back: |
+      2^(x + 1) = 25, so x + 1 = log₂(25) ≈ 4.64 and x ≈ 3.64.
+    topic_code: "4.14"
+  - front: Evaluating log with a base other than 10 or e
+    back: |
+      Technology evaluates log_b(c) directly; most calculators also accept log(c)/log(b), which gives the same number.
+    topic_code: "4.14"
+  - front: Taking a log before isolating → common error
+    back: |
+      For 5 · 3ᵗ = 200, divide by 5 first. log(5 · 3ᵗ) is not 5 · log(3ᵗ).
+    topic_code: "4.14"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (lessons 4.12 to 4.14: the number e, base-e
+    functions and solving exponential equations), with about a third reviewing weeks 16–18 and Unit 3.
+    Includes a shared-context set on a continuously compounded account. Multiple choice, select-all,
+    true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the
+    short answers and the long answer are graded by your teacher against the scoring notes.
+  questions:
+    # ---- Stimulus set: A(t) = 1000e^(0.05t) (4.13, 4.14)
+    - slug: alg2-u04-w19-q01
+      type: multiple_choice
+      topic_code: "4.13"
+      source: "IM Algebra 2, Unit 4, Lesson 13"
+      points: 1
+      stimulus: |
+        An account balance after t years is A(t) = 1000e^(0.05t) dollars.
+      prompt: |
+        Which statement correctly describes the growth?
+      options:
+        - "The balance grows by exactly 5% each year."
+        - "The balance grows by about 5.13% each year, since e^0.05 ≈ 1.0513."
+        - "The balance grows by $50 each year."
+        - "The balance grows by a factor of e each year."
+      option_explanations:
+        - |
+          0.05 is the continuous rate; the actual yearly factor is e^0.05 ≈ 1.0513, a little more than 5%.
+        - |
+          Correct. A(t + 1)/A(t) = e^0.05 ≈ 1.0513, so each year adds about 5.13%.
+        - |
+          $50 is 5% of 1000 in the first year only; the growth is multiplicative, not a fixed amount.
+        - |
+          A factor of e would need k = 1, that is 100% continuous growth; here k = 0.05.
+      answer: 1
+    - slug: alg2-u04-w19-q02
+      type: multiple_choice
+      topic_code: "4.13"
+      source: "IM Algebra 2, Unit 4, Lesson 13"
+      points: 1
+      stimulus: |
+        An account balance after t years is A(t) = 1000e^(0.05t) dollars.
+      prompt: |
+        What is the balance after 8 years, to the nearest dollar?
+      options:
+        - "$1400"
+        - "$1477"
+        - "$1492"
+        - "$2981"
+      option_explanations:
+        - |
+          $1400 adds $50 eight times; the growth compounds, so the balance is higher.
+        - |
+          $1477 is 1000(1.05)⁸, yearly compounding at 5%; continuous compounding gives slightly more.
+        - |
+          Correct. A(8) = 1000e^0.4 ≈ 1000 · 1.4918 ≈ 1492.
+        - |
+          $2981 is 1000e^(0.05 · 8)·2 or a misplaced exponent; e^0.4 ≈ 1.49, not 2.98.
+      answer: 2
+    - slug: alg2-u04-w19-q03
+      type: multiple_choice
+      topic_code: "4.14"
+      source: "IM Algebra 2, Unit 4, Lesson 14"
+      points: 1
+      stimulus: |
+        An account balance after t years is A(t) = 1000e^(0.05t) dollars.
+      prompt: |
+        When does the balance reach $2000?
+      options:
+        - "t = 20 years, since 0.05 · 20 = 1"
+        - "t = ln(2)/0.05 ≈ 13.86 years"
+        - "t = log(2)/0.05 ≈ 6.02 years"
+        - "t = 2/0.05 = 40 years"
+      option_explanations:
+        - |
+          0.05t = 1 gives e¹ = e ≈ 2.72 times the balance, more than doubling; doubling needs e^(0.05t) = 2.
+        - |
+          Correct. e^(0.05t) = 2, so 0.05t = ln 2 and t = ln(2)/0.05 ≈ 13.86.
+        - |
+          The base is e, so the natural log ln must be used, not the base-10 log.
+        - |
+          Dividing 2 by the rate is not solving the equation; the exponent satisfies 0.05t = ln 2.
+      answer: 1
+    # ---- Single items on this week
+    - slug: alg2-u04-w19-q04
+      type: multiple_choice
+      topic_code: "4.12"
+      source: "IM Algebra 2, Unit 4, Lesson 12"
+      points: 1
+      prompt: |
+        Which best describes the number e?
+      options:
+        - "The exact value 2.718"
+        - "The value that (1 + 1/n)ⁿ approaches as n grows without bound, about 2.71828"
+        - "The largest possible growth factor for one year"
+        - "The solution of the equation 10ˣ = 2"
+      option_explanations:
+        - |
+          2.718 is an approximation; e is irrational and its decimals never end or repeat.
+        - |
+          Correct. Compounding 100% growth n times per year gives (1 + 1/n)ⁿ, which levels off at e ≈ 2.71828.
+        - |
+          Growth factors can be any positive number; e is the factor from continuous compounding at 100%, nothing more.
+        - |
+          10ˣ = 2 has solution log(2) ≈ 0.301, unrelated to e.
+      answer: 1
+    - slug: alg2-u04-w19-q05
+      type: multiple_choice
+      topic_code: "4.12"
+      source: "IM Algebra 2, Unit 4, Lesson 12"
+      points: 1
+      prompt: |
+        $1000 is invested at 6% for 10 years. Which ordering of the final balances is correct?
+      options:
+        - "Yearly compounding > monthly compounding > continuous compounding"
+        - "Continuous compounding > monthly compounding > yearly compounding"
+        - "All three are equal, since the rate is the same"
+        - "Monthly compounding > continuous compounding > yearly compounding"
+      option_explanations:
+        - |
+          More frequent compounding earns interest on interest sooner, so yearly is the smallest: 1790.85 < 1819.40 < 1822.12.
+        - |
+          Correct. 1000e^0.6 ≈ 1822.12 > 1000(1.005)¹²⁰ ≈ 1819.40 > 1000(1.06)¹⁰ ≈ 1790.85.
+        - |
+          The rate is the same but the compounding frequency changes the balance.
+        - |
+          Continuous compounding is the limit of compounding more and more often, so it is never beaten by monthly.
+      answer: 1
+    - slug: alg2-u04-w19-q06
+      type: multiple_choice
+      topic_code: "4.13"
+      source: "IM Algebra 2, Unit 4, Lesson 13"
+      points: 1
+      prompt: |
+        For f(t) = 200e^(−0.2t), what is the percent change per unit of t?
+      options:
+        - "A 20% decrease"
+        - "About an 18.1% decrease, since e^(−0.2) ≈ 0.819"
+        - "About a 22.1% decrease, since e^0.2 ≈ 1.221"
+        - "A 0.2% decrease"
+      option_explanations:
+        - |
+          −0.2 is the continuous rate; the per-unit factor is e^(−0.2) ≈ 0.819, a decrease of about 18.1%.
+        - |
+          Correct. f(t + 1)/f(t) = e^(−0.2) ≈ 0.8187, so about 18.1% is lost each unit.
+        - |
+          e^0.2 is the factor for k = +0.2, growth; the sign of k matters.
+        - |
+          The exponent coefficient is 0.2 = 20% as a continuous rate, not 0.2%.
+      answer: 1
+    - slug: alg2-u04-w19-q07
+      type: multiple_choice
+      topic_code: "4.14"
+      source: "IM Algebra 2, Unit 4, Lesson 14"
+      points: 1
+      prompt: |
+        Which gives the exact solution of 2ᵗ = 50?
+      options:
+        - "t = 25"
+        - "t = log₂(50)"
+        - "t = log(50)"
+        - "t = 50/2"
+      option_explanations:
+        - |
+          2²⁵ is more than 33 million; the exponent is between 5 and 6.
+        - |
+          Correct. By definition log₂(50) is the exponent on 2 that gives 50, about 5.64.
+        - |
+          log(50) ≈ 1.70 is the exponent on 10, not on 2.
+        - |
+          Division is not the inverse of exponentiation; 2²⁵ ≠ 50.
+      answer: 1
+    - slug: alg2-u04-w19-q08
+      type: multiple_choice
+      topic_code: "4.14"
+      source: "IM Algebra 2, Unit 4, Lesson 14"
+      points: 1
+      prompt: |
+        Solve 5 · 3ᵗ = 200.
+      options:
+        - "t = log₃(200) − 5"
+        - "t = log₃(40) ≈ 3.36"
+        - "t = log₁₅(200) ≈ 1.96"
+        - "t = log₃(200)/5 ≈ 0.96"
+      option_explanations:
+        - |
+          The coefficient 5 is divided away, not subtracted from a logarithm.
+        - |
+          Correct. Divide by 5: 3ᵗ = 40, so t = log₃(40) ≈ 3.36. Check: 3³ = 27 < 40 < 81 = 3⁴.
+        - |
+          5 · 3ᵗ is not 15ᵗ; only the power 3ᵗ carries the exponent.
+        - |
+          log₃(200)/5 divides the logarithm instead of the original equation; 3^0.96 ≈ 2.87, far from 40.
+      answer: 1
+    - slug: alg2-u04-w19-q09
+      type: multiple_choice
+      topic_code: "4.14"
+      source: "IM Algebra 2, Unit 4, Lesson 14"
+      points: 1
+      prompt: |
+        Solve e^(0.2t) = 7.
+      options:
+        - "t = ln(7)/0.2 ≈ 9.73"
+        - "t = 0.2 · ln(7) ≈ 0.39"
+        - "t = log(7)/0.2 ≈ 4.23"
+        - "t = 7/0.2 = 35"
+      option_explanations:
+        - |
+          Correct. 0.2t = ln(7), so t = ln(7)/0.2 ≈ 1.946/0.2 ≈ 9.73.
+        - |
+          The exponent 0.2t equals ln 7, so t is ln 7 divided by 0.2, not multiplied.
+        - |
+          The base is e, so the natural logarithm is needed; log(7) is the base-10 exponent.
+        - |
+          Dividing 7 by the rate ignores the exponential; e^(0.2 · 35) = e⁷ ≈ 1097, not 7.
+      answer: 0
+    - slug: alg2-u04-w19-q10
+      type: multiple_choice
+      topic_code: "4.14"
+      source: "IM Algebra 2, Unit 4, Lesson 14"
+      points: 1
+      prompt: |
+        What is ln(e³)?
+      options:
+        - "3"
+        - "e³ ≈ 20.1"
+        - "1.30"
+        - "3e"
+      option_explanations:
+        - |
+          Correct. ln asks for the exponent on e that gives e³, which is 3.
+        - |
+          ln undoes the exponential; the answer is the exponent, not the power itself.
+        - |
+          1.30 is log(e³), the base-10 logarithm, not the natural logarithm.
+        - |
+          ln(e³) is the exponent 3 alone; there is no factor of e left over.
+      answer: 0
+    - slug: alg2-u04-w19-q11
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "IM Algebra 2, Unit 4, Lesson 6"
+      points: 1
+      prompt: |
+        An exponential function passes through (0, 3) and (2, 75). What is its equation?
+      options:
+        - "f(x) = 3 · 25ˣ"
+        - "f(x) = 3 · 5ˣ"
+        - "f(x) = 75 · 5ˣ"
+        - "f(x) = 3 + 36x"
+      option_explanations:
+        - |
+          25 is the factor over two units; the factor per unit is √25 = 5.
+        - |
+          Correct. a = 3 and 3b² = 75 gives b² = 25, b = 5.
+        - |
+          75 is f(2), not the initial value f(0) = 3.
+        - |
+          A linear function does not match an exponential one; the question specifies exponential.
+      answer: 1
+    - slug: alg2-u04-w19-q12
+      type: multiple_choice
+      topic_code: "4.11"
+      source: "IM Algebra 2, Unit 4, Lesson 11"
+      points: 1
+      prompt: |
+        Evaluate log₂(1/32).
+      options:
+        - "5"
+        - "−5"
+        - "1/5"
+        - "16"
+      option_explanations:
+        - |
+          2⁵ = 32, not 1/32; the reciprocal needs a negative exponent.
+        - |
+          Correct. 2⁻⁵ = 1/32, so the logarithm is −5.
+        - |
+          2^(1/5) ≈ 1.15, not 1/32; a positive fractional exponent gives a value above 1.
+        - |
+          16 is 32/2, a quotient; a logarithm is an exponent.
+      answer: 1
+    - slug: alg2-u04-w19-q13
+      type: multiple_choice
+      topic_code: "3.16"
+      source: "IM Algebra 2, Unit 3, Lesson 16"
+      points: 1
+      prompt: |
+        Solve x² − 8x + 12 = 0.
+      options:
+        - "x = 2 and x = 6"
+        - "x = −2 and x = −6"
+        - "x = 3 and x = 4"
+        - "x = 4 ± 2i"
+      option_explanations:
+        - |
+          Correct. (x − 2)(x − 6) = 0; equivalently (x − 4)² = 4 gives x = 4 ± 2.
+        - |
+          (x + 2)(x + 6) = x² + 8x + 12, the wrong sign on the middle term.
+        - |
+          3 · 4 = 12 but 3 + 4 = 7, not 8, so (x − 3)(x − 4) is not the factorisation.
+        - |
+          Completing the square gives (x − 4)² = 16 − 12 = 4, which is positive, so the solutions are real.
+      answer: 0
+    - slug: alg2-u04-w19-q14
+      type: multi_select
+      topic_code: "4.13"
+      source: "IM Algebra 2, Unit 4, Lesson 13"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let g(t) = 50e^(0.03t). Which statements are true? Select all that apply.
+      options:
+        - "g(0) = 50"
+        - "g grows by about 3.05% per unit of t."
+        - "The continuous growth rate is 3%."
+        - "g doubles every 3 units of t."
+        - "g(t) is exactly equal to 50(1.03)ᵗ."
+      option_explanations:
+        - |
+          Correct. e⁰ = 1, so g(0) = 50 · 1 = 50, the initial value.
+        - |
+          Correct. The per-unit factor is e^0.03 ≈ 1.0305.
+        - |
+          Correct. The coefficient k = 0.03 in e^(kt) is the continuous rate.
+        - |
+          Doubling requires e^(0.03t) = 2, so t = ln(2)/0.03 ≈ 23.1 units, not 3.
+        - |
+          e^0.03 ≈ 1.03045, not exactly 1.03, so the two functions differ slightly.
+      answer: [0, 1, 2]
+    - slug: alg2-u04-w19-q15
+      type: multi_select
+      topic_code: "4.14"
+      source: "IM Algebra 2, Unit 4, Lesson 14"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which equations have the solution t = ln 5? Select all that apply.
+      options:
+        - "eᵗ = 5"
+        - "e^(2t) = 25"
+        - "5ᵗ = e"
+        - "eᵗ = 1/5"
+        - "3eᵗ = 15"
+      option_explanations:
+        - |
+          Correct. By definition ln 5 is the exponent on e that gives 5.
+        - |
+          Correct. 2t = ln 25 = ln(5²) = 2 ln 5, so t = ln 5; equivalently (eᵗ)² = 25 gives eᵗ = 5.
+        - |
+          5ᵗ = e has solution t = log₅(e) = 1/ln 5 ≈ 0.62, not ln 5 ≈ 1.61.
+        - |
+          eᵗ = 1/5 gives t = ln(1/5) = −ln 5, the opposite sign.
+        - |
+          Correct. Dividing by 3 gives eᵗ = 5, so t = ln 5.
+      answer: [0, 1, 4]
+    - slug: alg2-u04-w19-q16
+      type: true_false
+      topic_code: "4.12"
+      source: "IM Algebra 2, Unit 4, Lesson 12"
+      points: 1
+      prompt: |
+        True or false: e is a rational number whose exact value is 2.718.
+      answer: false
+      explanation: |
+        False. e ≈ 2.718281828… is irrational, like π: it cannot be written as a fraction and its decimal expansion never ends or repeats. 2.718 is only an approximation.
+    - slug: alg2-u04-w19-q17
+      type: true_false
+      topic_code: "4.5"
+      source: "IM Algebra 2, Unit 4, Lesson 5"
+      points: 1
+      prompt: |
+        True or false: if f(x) = 3(1.2)ˣ, then f(x + 2)/f(x) = 1.44 for every value of x.
+      answer: true
+      explanation: |
+        True. f(x + 2)/f(x) = 1.2ˣ⁺²/1.2ˣ = 1.2² = 1.44, regardless of x: an exponential function changes by the same factor over every interval of the same length.
+    - slug: alg2-u04-w19-q18
+      type: fill_blank
+      topic_code: "4.14"
+      source: "IM Algebra 2, Unit 4, Lesson 14"
+      points: 1
+      prompt: |
+        Evaluate: ln(e⁵) = ____
+      answer: ["5"]
+      explanation: |
+        ln is the logarithm base e, so ln(e⁵) is the exponent 5.
+    - slug: alg2-u04-w19-q19
+      type: fill_blank
+      topic_code: "4.8"
+      source: "IM Algebra 2, Unit 4, Lesson 8"
+      points: 1
+      prompt: |
+        The solution of 25ˣ = 125 is x = ____
+      answer: ["3/2", "1.5"]
+      explanation: |
+        25 = 5² and 125 = 5³, so 5²ˣ = 5³ gives 2x = 3 and x = 3/2.
+    - slug: alg2-u04-w19-q20
+      type: numeric
+      topic_code: "4.14"
+      source: "IM Algebra 2, Unit 4, Lesson 14"
+      points: 1
+      prompt: |
+        Solve 1.08ᵗ = 3. Give t to two decimal places.
+      answer: { value: 14.27, tolerance: 0.02 }
+      explanation: |
+        t = log₁.₀₈(3) ≈ 14.27. Check: 1.08¹⁴ ≈ 2.94 and 1.08¹⁵ ≈ 3.17, so 14 < t < 15.
+    - slug: alg2-u04-w19-q21
+      type: numeric
+      topic_code: "4.13"
+      source: "IM Algebra 2, Unit 4, Lesson 13"
+      points: 1
+      prompt: |
+        B(t) = 500e^(0.08t). Find B(3) to the nearest hundredth.
+      answer: { value: 635.62, tolerance: 0.05 }
+      explanation: |
+        B(3) = 500e^0.24 ≈ 500 · 1.27125 ≈ 635.62.
+    - slug: alg2-u04-w19-q22
+      type: numeric
+      topic_code: "4.7"
+      source: "IM Algebra 2, Unit 4, Lesson 7"
+      points: 1
+      prompt: |
+        Find the average rate of change of P(t) = 100 · 2ᵗ over the interval from t = 1 to t = 3.
+      answer: { value: 300, tolerance: 0 }
+      explanation: |
+        P(1) = 200 and P(3) = 800, so the average rate is (800 − 200)/(3 − 1) = 300 per unit.
+    - slug: alg2-u04-w19-q23
+      type: short_answer
+      topic_code: "4.14"
+      source: "IM Algebra 2, Unit 4, Lesson 14"
+      points: 3
+      prompt: |
+        A substance decays so that the fraction remaining after t days is 0.9ᵗ.
+        (a) Write an equation for the time when one quarter remains, and rewrite it in logarithmic form.
+        (b) Without technology, bracket the answer between two consecutive whole numbers of days, showing the powers you compared.
+        (c) Use technology to find the time to two decimal places, and explain in one sentence why the answer to 10ᵗ = 0.004 would be negative.
+      answer: |
+        (a) 0.9ᵗ = 0.25, so t = log₀.₉(0.25).
+        (b) 0.9¹³ ≈ 0.254 > 0.25 and 0.9¹⁴ ≈ 0.229 < 0.25, so 13 < t < 14.
+        (c) t ≈ 13.16 days. For 10ᵗ = 0.004 the output is less than 1, and 10 raised to a positive power is always more than 1, so the exponent must be negative (t = log(0.004) ≈ −2.40).
+      explanation: |
+        Three points, one per part. (a) the equation and log form. (b) the bracket 13 < t < 14 with 0.9¹³ and 0.9¹⁴. (c) ≈ 13.16 and the output-below-1 reason for a negative exponent.
+    - slug: alg2-u04-w19-q24
+      type: short_answer
+      topic_code: "3.18"
+      source: "IM Algebra 2, Unit 3, Lesson 18"
+      points: 3
+      prompt: |
+        Consider 2x² + 3x + 5 = 0.
+        (a) Compute the discriminant and state what it tells you.
+        (b) Solve the equation with the quadratic formula, writing the solutions in the form a + bi.
+        (c) Verify that the product of the two solutions equals c/a.
+      answer: |
+        (a) b² − 4ac = 9 − 40 = −31 < 0, so there are two non-real solutions forming a conjugate pair.
+        (b) x = (−3 ± √(−31))/4 = (−3 ± i√31)/4 = −3/4 ± (√31/4)i.
+        (c) (−3/4 + (√31/4)i)(−3/4 − (√31/4)i) = 9/16 + 31/16 = 40/16 = 5/2 = c/a. ✓
+      explanation: |
+        Three points, one per part. (a) −31 and the non-real conclusion. (b) −3/4 ± (√31/4)i. (c) the conjugate product 5/2 matching c/a.
+    - slug: alg2-u04-w19-q25
+      type: long_answer
+      topic_code: "4.12"
+      source: "IM Algebra 2, Unit 4, Lesson 12"
+      points: 6
+      prompt: |
+        $1000 is invested at a 6% annual rate. Write a full response that (1) computes the balance after 10 years with yearly compounding, with monthly compounding, and with continuous compounding, (2) explains what pattern the three balances show and how the number e is connected to it, (3) finds the actual percent growth per year under continuous compounding and explains why it is not exactly 6%, and (4) finds, with a logarithm, how many years continuous compounding takes to double the investment, showing the equation you solved.
+      answer: |
+        (1) Yearly: 1000(1.06)¹⁰ ≈ 1790.85. Monthly: 1000(1 + 0.06/12)¹²⁰ = 1000(1.005)¹²⁰ ≈ 1819.40. Continuous: 1000e^(0.06 · 10) = 1000e^0.6 ≈ 1822.12.
+        (2) More frequent compounding gives a larger balance, but the increases shrink: about $28.55 from yearly to monthly, then only about $2.72 from monthly to continuous. Compounding n times per year gives (1 + 0.06/n)ⁿ per year, which approaches e^0.06 as n grows; e is the limit of (1 + 1/n)ⁿ, the 100% version of the same process.
+        (3) The yearly factor is e^0.06 ≈ 1.0618, so the balance grows about 6.18% per year. It exceeds 6% because interest earned early in the year itself earns interest before the year ends.
+        (4) 1000e^(0.06t) = 2000, so e^(0.06t) = 2, 0.06t = ln 2, and t = ln(2)/0.06 ≈ 11.55 years.
+      explanation: |
+        Six points: 2 for the three balances (1790.85, 1819.40, 1822.12); 1 for the diminishing-gains pattern and the link to e as a limit; 1 for 6.18% with the interest-on-interest reason; 2 for the doubling time 11.55 years from the equation e^(0.06t) = 2.

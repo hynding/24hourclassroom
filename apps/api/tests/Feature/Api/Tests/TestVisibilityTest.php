@@ -43,7 +43,7 @@ test('a public test is readable logged out, answers stripped, can_copy only for 
 
     foreach (Role::cases() as $role) {
         $this->actingAs(User::factory()->create(['role' => $role->value]));
-        $this->getJson("/api/tests/{$test->id}")->assertOk()->assertJsonPath('can_copy', $role === Role::Teacher);
+        $this->getJson("/api/tests/{$test->id}")->assertOk()->assertJsonPath('can_copy', $role->authors());
     }
 
     $this->actingAs($author);

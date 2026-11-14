@@ -1,0 +1,604 @@
+week: 32
+unit: 7
+title: "Analyzing Experiments"
+topics: ["7.13", "7.14", "7.15", "7.16"]
+guide: guides/week-32.md
+guide_description: |
+  Treatment and control groups and the difference in means; building a randomization distribution by
+  regrouping the results at random; modeling it with a normal distribution to find the proportion of
+  regroupings at least as extreme and decide whether a difference is significant; the questions to ask
+  about an experiment's data and design; and running a heart-rate experiment from start to finish.
+flashcards_description: |
+  29 cards on randomized experiments, randomization distributions, the normal model for deciding significance, and experiment design questions.
+
+flashcards:
+  - front: Treatment group and control group → definitions
+    back: |
+      The subjects randomly assigned to receive the treatment, and those randomly assigned not to (or to a placebo). Everything else is kept the same.
+    topic_code: "7.13"
+  - front: Difference in means in an experiment → how it is computed
+    back: |
+      (mean response of the treatment group) − (mean response of the control group). It is the observed effect, with a sign.
+    topic_code: "7.13"
+  - front: Why an observed difference in means might not be the treatment
+    back: |
+      With small groups the random split can put the naturally stronger subjects in one group; chance alone produces differences.
+    topic_code: "7.13"
+  - front: Randomization distribution → how it is built
+    back: |
+      Pretend the treatment did nothing: shuffle all the subjects' results into two groups of the original sizes at random, compute the difference in means, and repeat hundreds of times.
+    topic_code: "7.13"
+  - front: Fertilizer experiment, group means 10 cm and 7 cm → observed difference
+    back: |
+      10 − 7 = 3 cm in favour of the fertilizer group. Whether that is more than chance needs the randomization distribution.
+    topic_code: "7.13"
+  - front: Why the regrouping argument needs random assignment
+    back: |
+      Shuffling assumes the groups differed only by chance before the treatment. If subjects were sorted by strength or by choice, chance and treatment are no longer the only explanations.
+    topic_code: "7.13"
+  - front: Counting-aloud heart-rate experiment → treatment, control, response
+    back: |
+      Treatment: counting aloud during light exercise; control: the same exercise in silence; response: each person's rise in heart rate; compare the groups' mean rises.
+    topic_code: "7.13"
+  - front: Shape and centre of a randomization distribution
+    back: |
+      Roughly normal (symmetric, bell-shaped) and centred at 0, because shuffling favours neither group.
+    topic_code: "7.14"
+  - front: A regrouping difference "at least as extreme" as the observed one → meaning
+    back: |
+      As far from 0 as the observed difference in either direction: ≥ 3 or ≤ −3 for an observed 3.
+    topic_code: "7.14"
+  - front: Judging an observed difference with a normal model → the steps
+    back: |
+      z = (observed difference)/(standard deviation of regrouping differences); find the area beyond z in both tails; compare with the cutoff chosen beforehand.
+    topic_code: "7.14"
+  - front: Observed difference 3 with regrouping standard deviation 1.2 → verdict
+    back: |
+      z = 2.5; area beyond is 0.006 per tail, about 1.2% both tails. Below a 5% cutoff: significant, the treatment very likely caused the difference.
+    topic_code: "7.14"
+  - front: Observed difference 1.1 with regrouping standard deviation 1.2 → verdict
+    back: |
+      z ≈ 0.92; about 18% per tail, 36% both tails. Ordinary for chance: not enough evidence of a treatment effect.
+    topic_code: "7.14"
+  - front: Observed difference 4.5 with regrouping standard deviation 1.5 → verdict
+    back: |
+      z = 3; about 0.1% per tail, 0.3% both. Significant even at a 1% cutoff.
+    topic_code: "7.14"
+  - front: Common significance cutoffs and when to choose one
+    back: |
+      1%, 5% or 10%, chosen before the data are seen. Choosing afterwards lets you pick whichever gives the answer you wanted.
+    topic_code: "7.14"
+  - front: What "not significant" means
+    back: |
+      The experiment did not provide enough evidence of a treatment effect. It does not show the treatment has no effect; a larger experiment might detect one.
+    topic_code: "7.14"
+  - front: Two ways to find the proportion of regroupings at least as extreme
+    back: |
+      Count them directly in the simulation (11 of 1,000 is 1.1%), or model the regrouping differences with a normal curve and find the tail areas from z.
+    topic_code: "7.14"
+  - front: Questions to ask about an experiment's data
+    back: |
+      What was the observed difference in means? What are the mean and standard deviation of the regrouping differences? What proportion of regroupings is at least as extreme? How many subjects per group?
+    topic_code: "7.15"
+  - front: Questions to ask about an experiment's design
+    back: |
+      Was assignment random? Was there a control group, with a placebo? Were subjects and measurers blind? Was the response measured the same way for both groups? Was the cutoff set beforehand?
+    topic_code: "7.15"
+  - front: Placebo → purpose
+    back: |
+      A fake treatment that looks like the real one, so the control group has the same experience and expectations; then the only difference is the treatment itself.
+    topic_code: "7.15"
+  - front: Blinding → purpose
+    back: |
+      Keeping subjects (and ideally measurers) unaware of who got the treatment, so expectations do not change what is reported or recorded.
+    topic_code: "7.15"
+  - front: Strawberry soil experiment, difference 30 g with regrouping standard deviation 18 g → verdict
+    back: |
+      z ≈ 1.67; about 4.7% per tail, 9.5% both tails. Not significant at 5%, significant at 10%: some evidence, not conclusive; a larger experiment would settle it.
+    topic_code: "7.15"
+  - front: Small groups → effect on chance differences
+    back: |
+      Chance differences are larger, so the regrouping distribution is wider and a real effect is harder to detect.
+    topic_code: "7.15"
+  - front: Volunteers choosing the tutoring group → why the regrouping method fails
+    back: |
+      Assignment was not random, so the groups may differ in motivation before tutoring starts; regrouping assumes a chance split and cannot separate treatment from self-selection.
+    topic_code: "7.15"
+  - front: Using a z-score table to judge an experiment
+    back: |
+      Convert the observed difference to z using the regrouping standard deviation, read the area to the left, subtract from 1 for one tail, double for both.
+    topic_code: "7.15"
+  - front: Measuring resting heart rate in class
+    back: |
+      Count pulse beats for 10 seconds and multiply by 6 to get beats per minute; 12 beats in 10 s is 72 bpm.
+    topic_code: "7.16"
+  - front: The flapping experiment (full jumping jacks versus arms only) → expected result
+    back: |
+      A large difference in mean heart-rate rise, far in the tail of the randomization distribution: significant, the treatment causes it.
+    topic_code: "7.16"
+  - front: The counting experiment (counting aloud versus silent) → expected result
+    back: |
+      A small difference that sits in the middle of the randomization distribution: not significant, no evidence that counting changes the rise.
+    topic_code: "7.16"
+  - front: Why compare the groups' dot plots as well as their means
+    back: |
+      Two groups can share a mean but differ in spread or shape, and one extreme subject can drive a difference in means; the plots show this.
+    topic_code: "7.16"
+  - front: Writing the conclusion of an experiment → what to include
+    back: |
+      The observed difference, the spread of the regrouping differences (or the proportion at least as extreme), the cutoff chosen beforehand, the decision, and its limits.
+    topic_code: "7.16"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (lessons 7.13 to 7.16: randomized experiments,
+    randomization distributions, the normal model for significance, and experiment design), with about a
+    quarter reviewing earlier units. Includes a shared-context set on the fertilizer experiment with the
+    table value you need. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by
+    your teacher against the scoring notes.
+  questions:
+    # ---- Stimulus set: the fertilizer experiment (7.13, 7.14)
+    - slug: alg2-u07-w32-q01
+      type: multiple_choice
+      topic_code: "7.13"
+      source: "IM Algebra 2, Unit 7, Lesson 13"
+      points: 1
+      stimulus: |
+        Sixteen seedlings were split at random into two groups of 8; one group got a new fertilizer. After a month the fertilizer group's heights have mean 10 cm and the control group's heights have mean 7 cm. Shuffling the 16 heights into two groups of 8 at random 1,000 times gave differences in means with mean 0 and standard deviation 1.2 cm, roughly normal. The area to the left of z = 2.5 is 0.994.
+      prompt: |
+        What is the observed difference in means?
+      options:
+        - "17 cm"
+        - "3 cm"
+        - "1.2 cm"
+        - "0 cm"
+      option_explanations:
+        - |
+          17 is the sum of the two means; the effect is their difference.
+        - |
+          Correct. Treatment mean minus control mean: 10 − 7 = 3 cm.
+        - |
+          1.2 cm is the standard deviation of the regrouping differences, not the observed difference.
+        - |
+          0 is the centre of the randomization distribution, what chance produces on average.
+      answer: 1
+    - slug: alg2-u07-w32-q02
+      type: multiple_choice
+      topic_code: "7.14"
+      source: "IM Algebra 2, Unit 7, Lesson 14"
+      points: 1
+      stimulus: |
+        Sixteen seedlings were split at random into two groups of 8; one group got a new fertilizer. After a month the fertilizer group's heights have mean 10 cm and the control group's heights have mean 7 cm. Shuffling the 16 heights into two groups of 8 at random 1,000 times gave differences in means with mean 0 and standard deviation 1.2 cm, roughly normal. The area to the left of z = 2.5 is 0.994.
+      prompt: |
+        How many standard deviations is the observed difference from the centre of the randomization distribution?
+      options:
+        - "1.2"
+        - "3"
+        - "2.5"
+        - "0.4"
+      option_explanations:
+        - |
+          1.2 is the standard deviation itself, not the number of them.
+        - |
+          3 is the difference in centimetres; divide by the standard deviation 1.2 to get z.
+        - |
+          Correct. z = (observed difference)/(regrouping standard deviation) = 3/1.2 = 2.5.
+        - |
+          0.4 divides the wrong way round: 1.2/3 instead of 3/1.2.
+      answer: 2
+    - slug: alg2-u07-w32-q03
+      type: multiple_choice
+      topic_code: "7.14"
+      source: "IM Algebra 2, Unit 7, Lesson 14"
+      points: 1
+      stimulus: |
+        Sixteen seedlings were split at random into two groups of 8; one group got a new fertilizer. After a month the fertilizer group's heights have mean 10 cm and the control group's heights have mean 7 cm. Shuffling the 16 heights into two groups of 8 at random 1,000 times gave differences in means with mean 0 and standard deviation 1.2 cm, roughly normal. The area to the left of z = 2.5 is 0.994.
+      prompt: |
+        Using the normal model, about what proportion of random regroupings give a difference at least as extreme as the observed one (3 cm or more in either direction)?
+      options:
+        - "About 1.2%"
+        - "About 50%"
+        - "About 0.6%"
+        - "About 99.4%"
+      option_explanations:
+        - |
+          Correct. Beyond z = 2.5 is 1 − 0.994 = 0.006 in each tail; both tails together give about 0.012.
+        - |
+          50% is the share of regroupings with a positive difference, not the share as extreme as 3.
+        - |
+          0.6% is one tail only; "either direction" means both tails count.
+        - |
+          99.4% is the area to the left of z = 2.5, the regroupings that are less extreme on that side.
+      answer: 0
+    - slug: alg2-u07-w32-q04
+      type: multiple_choice
+      topic_code: "7.14"
+      source: "IM Algebra 2, Unit 7, Lesson 14"
+      points: 1
+      stimulus: |
+        Sixteen seedlings were split at random into two groups of 8; one group got a new fertilizer. After a month the fertilizer group's heights have mean 10 cm and the control group's heights have mean 7 cm. Shuffling the 16 heights into two groups of 8 at random 1,000 times gave differences in means with mean 0 and standard deviation 1.2 cm, roughly normal. The area to the left of z = 2.5 is 0.994.
+      prompt: |
+        With a 5% cutoff chosen in advance, what is the conclusion?
+      options:
+        - "The fertilizer has been proved to add exactly 3 cm."
+        - "No conclusion is possible without a larger sample."
+        - "The difference is not significant: chance is a reasonable explanation."
+        - "The difference is significant: the fertilizer very likely caused the extra growth."
+      option_explanations:
+        - |
+          The analysis gives strong evidence of an effect, not proof, and not an exact size.
+        - |
+          Sixteen plants were enough here: the observed difference is far into the tail of what chance produces.
+        - |
+          About 1% is well under 5%; chance is an unlikely explanation.
+        - |
+          Correct. Random regrouping produces a difference this large only about 1% of the time, below the 5% cutoff.
+      answer: 3
+    # ---- Single items on this week
+    - slug: alg2-u07-w32-q05
+      type: multiple_choice
+      topic_code: "7.13"
+      source: "IM Algebra 2, Unit 7, Lesson 13"
+      points: 1
+      prompt: |
+        What is the purpose of building a randomization distribution for an experiment?
+      options:
+        - "To make the treatment group's mean larger"
+        - "To see how large a difference in means the random grouping alone would produce"
+        - "To choose which subjects get the treatment"
+        - "To estimate the population proportion"
+      option_explanations:
+        - |
+          Regrouping does not change the data; it reshuffles them to model the no-effect case.
+        - |
+          Correct. It shows what chance produces, so the observed difference can be compared with it.
+        - |
+          Assignment to groups happens before the experiment; the randomization distribution is built afterwards from the results.
+        - |
+          Estimating a proportion with a margin of error is a sampling task, not an experiment analysis.
+      answer: 1
+    - slug: alg2-u07-w32-q06
+      type: multiple_choice
+      topic_code: "7.14"
+      source: "IM Algebra 2, Unit 7, Lesson 14"
+      points: 1
+      prompt: |
+        An experiment finds an observed difference in means of 1.1 g, and random regroupings give differences with standard deviation 1.2 g. Which conclusion is best?
+      options:
+        - "The treatment has been shown to have no effect."
+        - "The difference is significant because 1.1 is close to 1.2."
+        - "The difference is not significant; the experiment does not provide enough evidence of a treatment effect."
+        - "The difference is significant because it is positive."
+      option_explanations:
+        - |
+          Not significant means not enough evidence, never proof of no effect.
+        - |
+          Closeness to the standard deviation means the difference is ordinary for chance, the opposite of significant.
+        - |
+          Correct. z ≈ 0.92, and about 36% of regroupings are at least that extreme; chance explains it easily.
+        - |
+          The sign says which group did better; significance depends on size relative to chance differences.
+      answer: 2
+    - slug: alg2-u07-w32-q07
+      type: multiple_choice
+      topic_code: "7.15"
+      source: "IM Algebra 2, Unit 7, Lesson 15"
+      points: 1
+      prompt: |
+        Why is the control group in a drug trial given a placebo?
+      options:
+        - "Because it is cheaper than the real drug"
+        - "So that the groups have the same number of people"
+        - "To make the control group's results worse"
+        - "So that both groups have the same experience and expectations, leaving the drug as the only difference"
+      option_explanations:
+        - |
+          Cost is not the reason; the comparison would be unfair without it.
+        - |
+          Group sizes are set by the assignment, not by what the control group takes.
+        - |
+          The placebo is meant to be inert; its job is fairness of comparison, not harm.
+        - |
+          Correct. Taking a pill, any pill, can change what people report; the placebo removes that difference.
+      answer: 3
+    - slug: alg2-u07-w32-q08
+      type: multiple_choice
+      topic_code: "7.15"
+      source: "IM Algebra 2, Unit 7, Lesson 15"
+      points: 1
+      prompt: |
+        A report says an experiment's treatment group scored 6 points higher on average. Which single piece of additional information would most help you judge whether the treatment worked?
+      options:
+        - "The proportion of random regroupings whose difference is at least 6 points"
+        - "The number of questions on the test"
+        - "The name of the researcher"
+        - "The highest individual score in the treatment group"
+      option_explanations:
+        - |
+          Correct. That tells you whether 6 points is unusual for chance alone, which is the whole question.
+        - |
+          The test length does not tell you how big chance differences are.
+        - |
+          Who ran it does not say whether chance could produce a 6-point gap.
+        - |
+          One individual's score says little about the groups' means or about chance.
+      answer: 0
+    - slug: alg2-u07-w32-q09
+      type: multiple_choice
+      topic_code: "7.15"
+      source: "IM Algebra 2, Unit 7, Lesson 15"
+      points: 1
+      prompt: |
+        Students volunteered for a tutoring program, and the volunteers' test scores rose more than the other students' scores. Why can the randomization method not be used to judge the program?
+      options:
+        - "Test scores cannot be averaged."
+        - "Tutoring programs never have measurable effects."
+        - "The groups were not formed by random assignment, so they may differ in motivation before any tutoring."
+        - "There were too many students."
+      option_explanations:
+        - |
+          Means of test scores are routinely computed; the problem is the design.
+        - |
+          The method can detect real effects; it just needs random assignment to work.
+        - |
+          Correct. Regrouping assumes a chance split; self-selection means chance and treatment are no longer the only explanations.
+        - |
+          More students make the analysis stronger, not weaker, when assignment is random.
+      answer: 2
+    - slug: alg2-u07-w32-q10
+      type: multiple_choice
+      topic_code: "7.7"
+      source: "IM Algebra 2, Unit 7, Lesson 7"
+      points: 1
+      prompt: |
+        The area to the left of z = 1 under the standard normal curve is 0.841. What is the area to the right of z = 1?
+      options:
+        - "0.841"
+        - "0.159"
+        - "0.5"
+        - "0.341"
+      option_explanations:
+        - |
+          0.841 is the area to the left; the question asks for the rest.
+        - |
+          Correct. The total area is 1, so the right tail is 1 − 0.841 = 0.159.
+        - |
+          0.5 is the area to the right of z = 0, the mean, not of z = 1.
+        - |
+          0.341 is the area between z = 0 and z = 1, not the tail beyond 1.
+      answer: 1
+    - slug: alg2-u07-w32-q11
+      type: multiple_choice
+      topic_code: "7.10"
+      source: "IM Algebra 2, Unit 7, Lesson 10"
+      points: 1
+      prompt: |
+        Sample proportions from many random samples have standard deviation 0.02. What is the margin of error?
+      options:
+        - "0.04"
+        - "0.20"
+        - "0.02"
+        - "0.01"
+      option_explanations:
+        - |
+          Correct. The margin of error is two standard deviations of the sample proportions: 2 · 0.02 = 0.04.
+        - |
+          0.20 is ten times the standard deviation; nothing in the method multiplies by 10.
+        - |
+          0.02 is one standard deviation; the margin doubles it to cover about 95% of samples.
+        - |
+          0.01 is half a standard deviation, which covers far fewer than 95% of samples.
+      answer: 0
+    - slug: alg2-u07-w32-q12
+      type: multiple_choice
+      topic_code: "6.10"
+      source: "IM Algebra 2, Unit 6, Lesson 10"
+      points: 1
+      prompt: |
+        What is sin(5π/2)?
+      options:
+        - "√2/2"
+        - "−1"
+        - "0"
+        - "1"
+      option_explanations:
+        - |
+          √2/2 belongs to π/4 and its relatives; 5π/2 lands on the y-axis.
+        - |
+          −1 is sin(3π/2); subtracting 2π from 5π/2 leaves π/2, not 3π/2.
+        - |
+          0 is the sine at multiples of π; 5π/2 is an odd multiple of π/2.
+        - |
+          Correct. 5π/2 − 2π = π/2, the top of the unit circle, where the y-coordinate is 1.
+      answer: 3
+    - slug: alg2-u07-w32-q13
+      type: multiple_choice
+      topic_code: "5.10"
+      source: "IM Algebra 2, Unit 5, Lesson 10"
+      points: 1
+      prompt: |
+        Let f(x) = x + 1 and g(x) = 2x. What is (f · g)(2)?
+      options:
+        - "7"
+        - "12"
+        - "6"
+        - "5"
+      option_explanations:
+        - |
+          7 is f(2) + g(2), the sum function, not the product.
+        - |
+          Correct. f(2) = 3 and g(2) = 4, and the product function multiplies the outputs: 3 · 4 = 12.
+        - |
+          6 is 2 · 3, the coefficient of g times f(2); the product function multiplies the two outputs, 3 · 4 = 12.
+        - |
+          5 is f(4), the composition f(g(2)), not the product of the two outputs.
+      answer: 1
+    - slug: alg2-u07-w32-q14
+      type: multi_select
+      topic_code: "7.15"
+      source: "IM Algebra 2, Unit 7, Lesson 15"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which features make an experiment's conclusion more trustworthy? Select all that apply.
+      options:
+        - "Subjects choose which group to join."
+        - "Subjects and measurers do not know who received the treatment."
+        - "Subjects are assigned to groups at random."
+        - "The significance cutoff is chosen after the results are seen."
+        - "The control group receives a placebo that looks like the treatment."
+      option_explanations:
+        - |
+          Self-selection lets the groups differ before the treatment, which the analysis cannot untangle.
+        - |
+          Correct. Blinding stops expectations from shaping the responses or the measurements.
+        - |
+          Correct. Random assignment makes chance and treatment the only explanations for a difference.
+        - |
+          Choosing the cutoff afterwards invites picking whichever gives the desired answer.
+        - |
+          Correct. A placebo equalises the experience of being treated.
+      answer: [1, 2, 4]
+    - slug: alg2-u07-w32-q15
+      type: multi_select
+      topic_code: "7.14"
+      source: "IM Algebra 2, Unit 7, Lesson 14"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about a randomization distribution of differences in means are true? Select all that apply.
+      options:
+        - "An observed difference far in its tail suggests a real treatment effect."
+        - "It shows the differences that random grouping alone produces."
+        - "It is centred at the observed difference in means."
+        - "It is usually roughly normal in shape."
+        - "It is centred at 0."
+      option_explanations:
+        - |
+          Correct. A difference chance rarely produces is better explained by the treatment.
+        - |
+          Correct. It is built under the assumption that the treatment did nothing.
+        - |
+          The observed difference is what gets compared with the distribution; the distribution itself is centred at 0.
+        - |
+          Correct. Many regroupings give a symmetric bell shape, which is why a normal model fits.
+        - |
+          Correct. Shuffling favours neither group, so the differences average out to 0.
+      answer: [0, 1, 3, 4]
+    - slug: alg2-u07-w32-q16
+      type: true_false
+      topic_code: "7.14"
+      source: "IM Algebra 2, Unit 7, Lesson 14"
+      points: 1
+      prompt: |
+        True or false: a result that is not significant proves that the treatment has no effect.
+      answer: false
+      explanation: |
+        False. Not significant means the experiment did not provide enough evidence of an effect; a small real effect, or a small experiment, can produce that outcome. A larger experiment might detect the effect.
+    - slug: alg2-u07-w32-q17
+      type: true_false
+      topic_code: "1.10"
+      source: "IM Algebra 2, Unit 1, Lesson 10"
+      points: 1
+      prompt: |
+        True or false: the yearly balances of a savings account that earns 3% interest per year, with no other deposits, form a geometric sequence.
+      answer: true
+      explanation: |
+        True. Each balance is the previous one multiplied by 1.03, a constant ratio, which is the defining property of a geometric sequence.
+    - slug: alg2-u07-w32-q18
+      type: fill_blank
+      topic_code: "7.14"
+      source: "IM Algebra 2, Unit 7, Lesson 14"
+      points: 1
+      prompt: |
+        An experiment's observed difference in means is 4.5, and random regroupings give differences with standard deviation 1.5. The z-score of the observed difference is ____
+      answer: ["3", "3.0", "z = 3"]
+      explanation: |
+        z = 4.5/1.5 = 3: the observed difference is three standard deviations from the centre of the randomization distribution.
+    - slug: alg2-u07-w32-q19
+      type: fill_blank
+      topic_code: "3.15"
+      source: "IM Algebra 2, Unit 3, Lesson 15"
+      points: 1
+      prompt: |
+        The quadratic with solutions x = 2 and x = −5 and leading coefficient 1 is x² + ____x − 10.
+      answer: ["3", "+3"]
+      explanation: |
+        (x − 2)(x + 5) = x² + 5x − 2x − 10 = x² + 3x − 10.
+    - slug: alg2-u07-w32-q20
+      type: numeric
+      topic_code: "7.13"
+      source: "IM Algebra 2, Unit 7, Lesson 13"
+      points: 1
+      prompt: |
+        A treatment group's results are 14, 17, 15 and 18; the control group's results are 12, 13, 11 and 14. Find the difference in means (treatment minus control). Give one decimal place.
+      answer: { value: 3.5, tolerance: 0.01 }
+      explanation: |
+        Treatment mean 64/4 = 16; control mean 50/4 = 12.5; difference 3.5.
+    - slug: alg2-u07-w32-q21
+      type: numeric
+      topic_code: "7.14"
+      source: "IM Algebra 2, Unit 7, Lesson 14"
+      points: 1
+      prompt: |
+        An observed difference in means is 2.0, and random regroupings give differences with mean 0 and standard deviation 1.0, roughly normal. The area to the left of z = 2 is 0.977. What proportion of regroupings is at least as extreme as the observed difference, counting both tails? Give three decimal places.
+      answer: { value: 0.046, tolerance: 0.002 }
+      explanation: |
+        z = 2; one tail is 1 − 0.977 = 0.023, and both tails together give 0.046.
+    - slug: alg2-u07-w32-q22
+      type: numeric
+      topic_code: "4.12"
+      source: "IM Algebra 2, Unit 4, Lesson 12"
+      points: 1
+      prompt: |
+        Evaluate e³ to two decimal places.
+      answer: { value: 20.09, tolerance: 0.01 }
+      explanation: |
+        e ≈ 2.71828, and e³ ≈ 20.0855 ≈ 20.09.
+    - slug: alg2-u07-w32-q23
+      type: short_answer
+      topic_code: "7.15"
+      source: "IM Algebra 2, Unit 7, Lesson 15"
+      points: 3
+      prompt: |
+        Forty strawberry plants were randomly split: 20 in a new soil mix and 20 in the old one. Mean yields were 310 g and 280 g. Random regroupings of the 40 yields gave differences in means with mean 0 and standard deviation 18 g, roughly normal. The area to the left of z = 1.67 is about 0.953.
+        (a) Find the observed difference and its z-score.
+        (b) Find the approximate proportion of regroupings at least as extreme, counting both tails.
+        (c) State the conclusion at a 5% cutoff and at a 10% cutoff, in careful words.
+      answer: |
+        (a) 310 − 280 = 30 g; z = 30/18 ≈ 1.67.
+        (b) One tail 1 − 0.953 = 0.047; both tails about 0.094, roughly 9%.
+        (c) At 5% the result is not significant: chance regrouping produces a 30 g gap about 9% of the time, so there is not enough evidence that the new soil raises yield. At 10% it is significant: some evidence of an effect. Either way, a larger experiment would settle the question; the result does not show the soil has no effect.
+      explanation: |
+        Three points, one per part. (a) 30 g and z ≈ 1.67. (b) about 0.09 (both tails; 0.047 for one tail earns no credit unless doubled). (c) not significant at 5%, significant at 10%, with "not enough evidence" rather than "no effect".
+    - slug: alg2-u07-w32-q24
+      type: short_answer
+      topic_code: "7.16"
+      source: "IM Algebra 2, Unit 7, Lesson 16"
+      points: 3
+      prompt: |
+        A class of 30 wants to test whether doing full jumping jacks raises heart rate more than moving only the arms.
+        (a) Name the treatment, the control and the response variable, and describe how to assign students to groups.
+        (b) Say what each student records and what the class computes from the two groups.
+        (c) Describe how the class decides whether the difference is due to the treatment.
+      answer: |
+        (a) Treatment: full jumping jacks; control: arm movements only; response: each student's rise in heart rate (after minus resting, each measured by counting beats for 10 seconds and multiplying by 6). Assign by shuffling 30 slips, 15 marked "jumping jacks", or by coin flips until each group has 15.
+        (b) Each student records resting rate and rate after the activity, hence the rise; the class finds the mean rise of each group and the difference between the means.
+        (c) Shuffle the 30 recorded rises into two groups of 15 at random many times, computing the difference in means each time, to build a randomization distribution; if the observed difference falls in its far tail (beyond the cutoff chosen beforehand, say 5%), the treatment is the likely cause; if it sits among the chance differences, there is not enough evidence.
+      explanation: |
+        Three points, one per part. (a) treatment, control, response and a random assignment method. (b) rise in heart rate per student and the difference in group means. (c) the regrouping distribution and the tail comparison with a cutoff.
+    - slug: alg2-u07-w32-q25
+      type: long_answer
+      topic_code: "7.14"
+      source: "IM Algebra 2, Unit 7, Lesson 14"
+      points: 6
+      prompt: |
+        Twenty students who volunteered for a study were randomly assigned, 10 to a tutoring program and 10 to a control group that got the same amount of unsupervised study time. Over a term the tutoring group's test scores rose by a mean of 8.2 points and the control group's by a mean of 5.0 points. Shuffling the 20 recorded gains into two groups of 10 at random 1,000 times gave differences in means with mean 0 and standard deviation 1.6 points, roughly normal. The area to the left of z = 2 is 0.977 and to the left of z = 2.5 is 0.994. Write a full response that (1) explains what the 1,000 regroupings represent and why their differences centre on 0, (2) finds the observed difference, its z-score and the proportion of regroupings at least as extreme in both tails, (3) states the decision at a 5% cutoff and at a 1% cutoff, and (4) gives two questions about the design you would still want answered and explains what "significant" does not mean here.
+      answer: |
+        (1) Each regrouping pretends tutoring did nothing, so every student's gain would have been the same whichever group they were in; shuffling the 20 gains into two groups of 10 shows how large a difference in means chance assignment alone produces. Shuffling favours neither group, so the differences are as often negative as positive and centre on 0.
+        (2) Observed difference 8.2 − 5.0 = 3.2 points; z = 3.2/1.6 = 2; one tail is 1 − 0.977 = 0.023, so about 0.046 (4.6%) of regroupings are at least as extreme.
+        (3) At a 5% cutoff, 4.6% is below the cutoff: the difference is significant, and tutoring likely caused the extra gain. At a 1% cutoff it is not significant: the evidence is not strong enough to rule out chance at that stricter standard.
+        (4) Design questions (any two): Were the two groups' tests and study conditions otherwise identical? Did the students or the graders know who was tutored (blinding)? Were the 20 volunteers typical of the students the program is meant for, so the result generalises? Was the cutoff fixed before the results were seen? "Significant" does not mean the effect is large or important (3.2 points may or may not matter), does not prove tutoring works for every student, and does not mean chance has been ruled out entirely, only that it is an unlikely explanation.
+      explanation: |
+        Six points: 1 for the meaning of the regroupings and the centre at 0 in (1); 2 for 3.2, z = 2 and about 0.046 in (2) (1 point if the proportion is one-tailed); 1 for both decisions in (3); 1 for two sensible design questions and 1 for what significance does not mean in (4).

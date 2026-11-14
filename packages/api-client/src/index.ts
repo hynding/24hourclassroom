@@ -5,6 +5,10 @@ import type {
   AssignmentResult,
   AssignmentRow,
   Attempt,
+  Comment,
+  CommentReaction,
+  CommentTargetType,
+  CommentThread,
   Connection,
   CourseCandidates,
   CourseInput,
@@ -13,6 +17,7 @@ import type {
   Generation,
   GenerationInput,
   GradeLevel,
+  HandleState,
   Integrations,
   LibraryFilters,
   MaterialShare,
@@ -24,6 +29,7 @@ import type {
   MyAssignment,
   MyAttempt,
   Paginated,
+  ResolvedPath,
   PendingConnections,
   PracticeResult,
   PracticeTest,
@@ -33,6 +39,8 @@ import type {
   SharedMaterial,
   ShareResult,
   SiteConfig,
+  GradingQueueItem,
+  StudentAssignments,
   Subject,
   TeacherSummary,
   Test,
@@ -180,6 +188,20 @@ export class ApiClient {
     return this.get<PublicProfile>(`/api/users/${id}`);
   }
 
+  /** A vanity path (`/courses/<slug>`, `/teachers/<handle>[/<slug>]`) to what it names; 404 if nothing the viewer can open. */
+  async resolvePath(path: string): Promise<ResolvedPath> {
+    return this.get<ResolvedPath>(`/api/resolve?path=${encodeURIComponent(path)}`);
+  }
+
+  async getHandle(): Promise<HandleState> {
+    return this.get<HandleState>('/api/profile/handle');
+  }
+
+  /** Asks for a handle (pending until an admin approves it); null withdraws a pending request. */
+  async requestHandle(handle: string | null): Promise<HandleState> {
+    return this.put<HandleState>('/api/profile/handle', { handle });
+  }
+
   async getProfile(): Promise<Profile> {
     return this.get<Profile>('/api/profile');
   }
@@ -218,6 +240,21 @@ export class ApiClient {
   /** Takes the id of the USER being asked. */
   async requestConnection(userId: number): Promise<void> {
     await this.post(`/api/connections/${userId}`);
+  }
+
+  /** The caller's own connect code, created on first read. */
+  async getConnectCode(): Promise<{ code: string }> {
+    return this.get<{ code: string }>('/api/connections/code');
+  }
+
+  /** Replaces the caller's connect code; the old one stops working. */
+  async rotateConnectCode(): Promise<{ code: string }> {
+    return this.put<{ code: string }>('/api/connections/code');
+  }
+
+  /** Sends a connection request to whoever owns `code`. */
+  async requestConnectionByCode(code: string): Promise<void> {
+    await this.post(`/api/connections/code/${encodeURIComponent(code.trim())}`);
   }
 
   /** Takes the id of the CONNECTION row, not the user. */
@@ -278,6 +315,11 @@ export class ApiClient {
     return this.post<Test>(`/api/tests/${id}/unpublish`);
   }
 
+  /** Turns the test's discussion (its own and every question's) on or off. Author only. */
+  async setTestComments(id: number, enabled: boolean): Promise<Test> {
+    return this.put<Test>(`/api/tests/${id}/comments`, { enabled });
+  }
+
   async copyTest(id: number): Promise<Test> {
     return this.post<Test>(`/api/tests/${id}/copy`);
   }
@@ -311,6 +353,11 @@ export class ApiClient {
     return this.get<{ data: MyAssignment[] }>('/api/assignments');
   }
 
+  /** A connected student's assignments, for a tutor, assistant or guardian. */
+  async studentAssignments(studentId: number): Promise<StudentAssignments> {
+    return this.get<StudentAssignments>(`/api/students/${studentId}/assignments`);
+  }
+
   async myAttempts(): Promise<{ data: MyAttempt[] }> {
     return this.get<{ data: MyAttempt[] }>('/api/attempts');
   }
@@ -331,6 +378,12 @@ export class ApiClient {
     return this.post<Attempt>(`/api/attempts/${id}/submit`);
   }
 
+  /** Submitted attempts with answers still to grade, oldest first, across everything the caller may grade. */
+  async gradingQueue(page?: number): Promise<Paginated<GradingQueueItem>> {
+    const query = page && page > 1 ? `?page=${page}` : '';
+    return this.get<Paginated<GradingQueueItem>>(`/api/grading${query}`);
+  }
+
   async gradeAnswer(attemptId: number, answerId: number, awarded: number): Promise<Attempt> {
     return this.put<Attempt>(`/api/attempts/${attemptId}/answers/${answerId}`, { awarded });
   }
@@ -342,6 +395,7 @@ export class ApiClient {
     if (filters.q) params.set('q', filters.q);
     // `recent` is the server default; only the other order travels.
     if (filters.sort && filters.sort !== 'recent') params.set('sort', filters.sort);
+    if (filters.author) params.set('author', String(filters.author));
     if (filters.page != null && filters.page > 1) params.set('page', String(filters.page));
     const query = params.toString();
     return this.get<Paginated<TestSummary>>(`/api/library${query ? `?${query}` : ''}`);
@@ -364,6 +418,7 @@ export class ApiClient {
     if (filters.grade) params.set('grade', filters.grade);
     if (filters.q) params.set('q', filters.q);
     if (filters.sort && filters.sort !== 'recent') params.set('sort', filters.sort);
+    if (filters.author) params.set('author', String(filters.author));
     if (filters.page != null && filters.page > 1) params.set('page', String(filters.page));
     const query = params.toString();
     return this.get<Paginated<MaterialSummary>>(`/api/library/materials${query ? `?${query}` : ''}`);
@@ -472,6 +527,11 @@ export class ApiClient {
   }
 
   /** A private copy for the caller: its tests copied as their own, materials kept from the original. Returns the BRANCH. */
+  /** Names the course under the author's handle; null clears it. */
+  async setCourseSlug(id: number, slug: string | null): Promise<CourseView> {
+    return this.put<CourseView>(`/api/courses/${id}/slug`, { slug });
+  }
+
   async branchCourse(id: number): Promise<CourseView> {
     return this.post<CourseView>(`/api/courses/${id}/branch`);
   }
@@ -483,6 +543,43 @@ export class ApiClient {
   /** Stateless: grades the run and stores nothing. */
   async checkPractice(courseId: number, testId: number, responses: Record<number, unknown>): Promise<PracticeResult> {
     return this.post<PracticeResult>(`/api/courses/${courseId}/tests/${testId}/check`, { responses });
+  }
+
+  /** The whole discussion on one target, oldest first, replies nested. */
+  async getComments(targetType: CommentTargetType, targetId: number): Promise<CommentThread> {
+    return this.get<CommentThread>(`/api/comments?target_type=${targetType}&target_id=${targetId}`);
+  }
+
+  /** A reply when `parentId` is given; a reply to a reply joins its thread. */
+  async postComment(targetType: CommentTargetType, targetId: number, body: string, parentId?: number): Promise<Comment> {
+    return this.post<Comment>('/api/comments', {
+      target_type: targetType,
+      target_id: targetId,
+      body,
+      ...(parentId ? { parent_id: parentId } : {}),
+    });
+  }
+
+  async updateComment(id: number, body: string): Promise<Comment> {
+    return this.patch<Comment>(`/api/comments/${id}`, { body });
+  }
+
+  /** Deletes its replies with it. */
+  async deleteComment(id: number): Promise<void> {
+    await this.delete(`/api/comments/${id}`);
+  }
+
+  async approveComment(id: number): Promise<Comment> {
+    return this.post<Comment>(`/api/comments/${id}/approve`);
+  }
+
+  async denyComment(id: number): Promise<Comment> {
+    return this.post<Comment>(`/api/comments/${id}/deny`);
+  }
+
+  /** `null` takes the viewer's thumb back. */
+  async reactToComment(id: number, value: CommentReaction | null): Promise<Comment> {
+    return this.put<Comment>(`/api/comments/${id}/reaction`, { value });
   }
 
   /**

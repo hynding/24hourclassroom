@@ -1,0 +1,1538 @@
+week: 34
+description: |
+  A full-length practice final for the whole year: 70 questions, about 2 hours 30 minutes, in unit order and
+  weighted roughly as the course weights its eight units (Unit 1 heaviest, Unit 8 lightest). 44 multiple choice
+  (several in sets of three on one shared figure, table or scenario), 6 select-all (2 points, partial credit),
+  5 true/false, 4 fill-in-the-blank, 6 numeric, 3 short answers (3 points each, from Units 2, 4 and 8) and 2 long
+  answers (8 points each, from Units 5 and 6), 96 points in all. Multiple choice, select-all, true/false and
+  numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and the
+  long answers are graded by your teacher against the scoring notes. Every figure is described in words: sketch
+  it before you compute. Keep π and square roots exact until the last step, then round to the precision each
+  prompt asks for (use π ≈ 3.1416). Sit it in one block if you can: about 75 minutes for items 1–44, a short
+  break, then 75 minutes for items 45–70, leaving at least 20 minutes for each long answer.
+questions:
+  # ======================================================================
+  # Unit 1 · Constructions and Rigid Transformations: q01–q12
+  # Unit 2 · Congruence: q13–q21 · Unit 3 · Similarity: q22–q30
+  # Unit 4 · Right Triangle Trigonometry: q31–q37 · Unit 5 · Solid Geometry: q38–q46
+  # Unit 6 · Coordinate Geometry: q47–q56 · Unit 7 · Circles: q57–q64
+  # Unit 8 · Conditional Probability: q65–q70
+  # ======================================================================
+  # ---- Unit 1 · Set A: a triangle on the grid under three rigid motions (1.11, 1.12, 1.14)
+    - slug: geo-final-q01
+      type: multiple_choice
+      topic_code: "1.11"
+      source: "IM Geometry, Unit 1, Lesson 11"
+      points: 1
+      stimulus: |
+        Figure description: on a coordinate grid, triangle ABC has vertices A(1, 1), B(5, 1) and C(1, 4).
+      prompt: |
+        Triangle ABC is reflected across the x-axis. What is the image of C?
+      options:
+        - "(−1, 4)"
+        - "(4, 1)"
+        - "(1, −4)"
+        - "(−1, −4)"
+      option_explanations:
+        - |
+          (−1, 4) is the reflection across the y-axis, which negates x instead.
+        - |
+          (4, 1) swaps the coordinates, which is the reflection across the line y = x.
+        - |
+          Correct. Reflecting across the x-axis keeps x and negates y: (1, 4) → (1, −4).
+        - |
+          (−1, −4) is a 180° rotation about the origin, which negates both coordinates.
+      answer: 2
+
+    - slug: geo-final-q02
+      type: multiple_choice
+      topic_code: "1.12"
+      source: "IM Geometry, Unit 1, Lesson 12"
+      points: 1
+      stimulus: |
+        Figure description: on a coordinate grid, triangle ABC has vertices A(1, 1), B(5, 1) and C(1, 4).
+      prompt: |
+        A translation takes A to (−2, 3). Where does it take B?
+      options:
+        - "(2, 3)"
+        - "(−6, 3)"
+        - "(2, −1)"
+        - "(8, −1)"
+      option_explanations:
+        - |
+          Correct. The translation moves every point by (−3, +2), so B(5, 1) goes to (2, 3).
+        - |
+          (−6, 3) would need a move of (−11, +2); a translation moves every point by the same vector, (−3, +2).
+        - |
+          (2, −1) has the right x but subtracts 2 from y instead of adding 2.
+        - |
+          (8, −1) moves B by (+3, −2), the opposite direction from the one that takes A to (−2, 3).
+      answer: 0
+
+    - slug: geo-final-q03
+      type: multiple_choice
+      topic_code: "1.14"
+      source: "IM Geometry, Unit 1, Lesson 14"
+      points: 1
+      stimulus: |
+        Figure description: on a coordinate grid, triangle ABC has vertices A(1, 1), B(5, 1) and C(1, 4).
+      prompt: |
+        Triangle ABC is rotated 90° counterclockwise about the origin. What is the image of C?
+      options:
+        - "(−1, −4)"
+        - "(4, 1)"
+        - "(4, −1)"
+        - "(−4, 1)"
+      option_explanations:
+        - |
+          (−1, −4) is a 180° rotation, which negates both coordinates.
+        - |
+          (4, 1) is a reflection across y = x, not a rotation.
+        - |
+          (4, −1) is the 90° clockwise rotation, (x, y) → (y, −x).
+        - |
+          Correct. A 90° counterclockwise rotation about the origin sends (x, y) to (−y, x), so (1, 4) → (−4, 1).
+      answer: 3
+
+    - slug: geo-final-q04
+      type: multiple_choice
+      topic_code: "1.3"
+      source: "IM Geometry, Unit 1, Lesson 3"
+      points: 1
+      prompt: |
+        Which construction produces the perpendicular bisector of segment AB?
+      options:
+        - "Measure AB with a ruler, mark its midpoint, and draw any line through the midpoint"
+        - "Draw circles centred at A and at B with the same radius, larger than half of AB; draw the line through their two intersection points"
+        - "Draw circles centred at A and at B with radius equal to AB; draw the line through A and B"
+        - "Draw a circle centred at A with radius AB; draw the line through A and the point where it crosses AB"
+      option_explanations:
+        - |
+          A compass-and-straightedge construction does not measure, and "any line" through the midpoint need not be perpendicular.
+        - |
+          Correct. Each intersection point is equidistant from A and B, so the line through them is the perpendicular bisector.
+        - |
+          The line through A and B is the segment's own line, not its perpendicular bisector; the circles are drawn but never used.
+        - |
+          A circle centred at A with radius AB passes through B and crosses AB only at B; it locates no midpoint.
+      answer: 1
+
+    - slug: geo-final-q05
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "IM Geometry, Unit 1, Lesson 5"
+      points: 1
+      prompt: |
+        To bisect angle V, an arc centred at V meets the two sides at P and Q; equal arcs centred at P and at Q meet at R; the ray VR is drawn. Why does VR bisect the angle?
+      options:
+        - "Because PR and QR are both perpendicular to the sides of the angle"
+        - "Because VR is parallel to PQ"
+        - "△VPR ≅ △VQR by SSS (VP = VQ, PR = QR, VR common), so ∠PVR = ∠QVR"
+        - "Because R is the midpoint of PQ"
+      option_explanations:
+        - |
+          Nothing in the construction makes PR or QR perpendicular to a side; the argument is about congruent triangles.
+        - |
+          VR crosses PQ (at its midpoint, in fact) rather than running parallel to it.
+        - |
+          Correct. The two triangles share VR, and the equal compass settings give VP = VQ and PR = QR; SSS makes the angles at V equal.
+        - |
+          R is not on PQ at all; it is where the two arcs from P and Q cross, away from the segment.
+      answer: 2
+
+    - slug: geo-final-q06
+      type: multiple_choice
+      topic_code: "1.15"
+      source: "IM Geometry, Unit 1, Lesson 15"
+      points: 1
+      prompt: |
+        Which figure has exactly three lines of symmetry and rotation symmetry of order 3 (it maps to itself under rotations of 120° and 240°)?
+      options:
+        - "An isosceles triangle that is not equilateral"
+        - "An equilateral triangle"
+        - "A rectangle that is not a square"
+        - "A regular hexagon"
+      option_explanations:
+        - |
+          An isosceles triangle has one line of symmetry and no rotation symmetry other than 360°.
+        - |
+          Correct. The three medians are lines of symmetry, and rotating 120° about the centre maps the triangle to itself.
+        - |
+          A rectangle has two lines of symmetry and rotation symmetry of order 2 (180°).
+        - |
+          A regular hexagon has six lines of symmetry and rotation symmetry of order 6.
+      answer: 1
+
+    - slug: geo-final-q07
+      type: multiple_choice
+      topic_code: "1.20"
+      source: "IM Geometry, Unit 1, Lesson 20"
+      points: 1
+      prompt: |
+        Figure description: lines m and n are parallel and are cut by a transversal t. Angles a and b are same-side interior angles, and a = 68°. What is b?
+      options:
+        - "158°"
+        - "22°"
+        - "68°"
+        - "112°"
+      option_explanations:
+        - |
+          158° does not come from 180° − 68°; supplementary angles sum to exactly 180°.
+        - |
+          22° is the complement of 68°; angles between parallel lines are supplementary, not complementary.
+        - |
+          68° would be right for alternate interior or corresponding angles, which are congruent, not for same-side interior angles.
+        - |
+          Correct. Same-side interior angles between parallel lines are supplementary: 180° − 68° = 112°.
+      answer: 3
+
+    - slug: geo-final-q08
+      type: multiple_choice
+      topic_code: "1.21"
+      source: "IM Geometry, Unit 1, Lesson 21"
+      points: 1
+      prompt: |
+        The angles of a triangle measure (2x)°, (3x + 10)° and (x + 20)°. What is the largest angle?
+      options:
+        - "85°"
+        - "25°"
+        - "50°"
+        - "95°"
+      option_explanations:
+        - |
+          Correct. 2x + 3x + 10 + x + 20 = 180 gives 6x = 150, x = 25, so the angles are 50°, 85° and 45°.
+        - |
+          25° is the value of x, not an angle of the triangle.
+        - |
+          50° is the angle 2x; 3x + 10 = 85° is larger.
+        - |
+          95° would need x = 28⅓, which does not make the angles sum to 180°.
+      answer: 0
+
+    - slug: geo-final-q09
+      type: multi_select
+      topic_code: "1.10"
+      source: "IM Geometry, Unit 1, Lesson 10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which transformations are rigid motions, preserving every distance and angle? Select all that apply.
+      options:
+        - "A translation by a given vector"
+        - "A horizontal stretch that triples every x-coordinate"
+        - "A reflection across a line"
+        - "A dilation with scale factor 2"
+        - "A rotation about a point"
+      option_explanations:
+        - |
+          Yes: a translation slides every point the same distance in the same direction.
+        - |
+          No: a stretch changes horizontal lengths but not vertical ones, so distances and angles change.
+        - |
+          Yes: a reflection is a rigid motion; it keeps every length and angle, reversing orientation.
+        - |
+          No: a dilation with factor 2 doubles every length, so it is not rigid.
+        - |
+          Yes: a rotation keeps every distance from the centre and every angle between points.
+      answer: [0, 2, 4]
+
+    - slug: geo-final-q10
+      type: true_false
+      topic_code: "1.4"
+      source: "IM Geometry, Unit 1, Lesson 4"
+      points: 1
+      prompt: |
+        True or false: an equilateral triangle can be constructed on any segment AB by drawing the circles centred at A and at B with radius AB and joining A and B to one of the two points where the circles meet.
+      answer: true
+      explanation: |
+        True. This is Euclid's first proposition: each circle has radius AB, so the intersection point C satisfies AC = AB and BC = AB.
+
+    - slug: geo-final-q11
+      type: fill_blank
+      topic_code: "1.21"
+      source: "IM Geometry, Unit 1, Lesson 21"
+      points: 1
+      prompt: |
+        An exterior angle of a triangle measures 125°, and one of the two remote interior angles measures 40°. The other remote interior angle measures ____°.
+      answer: ["85", "85°"]
+      explanation: |
+        An exterior angle equals the sum of the two remote interior angles: 125° − 40° = 85°.
+
+    - slug: geo-final-q12
+      type: numeric
+      topic_code: "1.13"
+      source: "IM Geometry, Unit 1, Lesson 13"
+      points: 1
+      prompt: |
+        A figure is rotated 150° clockwise about point O, then 70° counterclockwise about the same point O. The combined effect is a single clockwise rotation about O through how many degrees? Give a whole number.
+      answer: { value: 80, tolerance: 0 }
+      explanation: |
+        Rotations about the same centre add with sign: 150° clockwise then 70° counterclockwise is 150° − 70° = 80° clockwise.
+
+  # ---- Unit 2 · Congruence (2.6–2.15): q13–q21
+    - slug: geo-final-q13
+      type: multiple_choice
+      topic_code: "2.6"
+      source: "IM Geometry, Unit 2, Lesson 6"
+      points: 1
+      prompt: |
+        Figure description: segments AC and BD cross at M, and M is the midpoint of both. Which criterion proves △AMB ≅ △CMD?
+      options:
+        - "The triangles cannot be proved congruent from this information"
+        - "SSS: all three pairs of sides are given equal"
+        - "ASA: two pairs of angles and the included sides are given"
+        - "SAS: AM = CM, ∠AMB = ∠CMD (vertical angles), BM = DM"
+      option_explanations:
+        - |
+          Two sides and the included angle are enough; the triangles are congruent by SAS.
+        - |
+          Only two pairs of sides are given; AB = CD is a conclusion of the congruence, not a given.
+        - |
+          Only one pair of angles (the vertical angles) is known before the triangles are proved congruent.
+        - |
+          Correct. The midpoint gives two pairs of equal sides, and the vertical angles between them are equal; that is SAS.
+      answer: 3
+
+    - slug: geo-final-q14
+      type: multiple_choice
+      topic_code: "2.7"
+      source: "IM Geometry, Unit 2, Lesson 7"
+      points: 1
+      prompt: |
+        Figure description: quadrilateral ABCD has AB ∥ DC and AD ∥ BC; diagonal AC is drawn. Which statement proves △ABC ≅ △CDA?
+      options:
+        - "AAA: all three pairs of angles are equal"
+        - "ASA: ∠BAC = ∠DCA and ∠BCA = ∠DAC (alternate interior angles), with AC common"
+        - "SSS: AB = CD, BC = DA and AC = CA, all given"
+        - "SAS: AB = CD, ∠B = ∠D, BC = DA"
+      option_explanations:
+        - |
+          AAA is not a congruence criterion; it only gives similarity.
+        - |
+          Correct. Each pair of parallel sides gives a pair of alternate interior angles at the diagonal, and the diagonal is shared: ASA.
+        - |
+          AB = CD and BC = DA are consequences of the congruence, not givens; only the parallels are given.
+        - |
+          Neither the side equalities nor ∠B = ∠D is given; they follow from the congruence.
+      answer: 1
+
+    - slug: geo-final-q15
+      type: multiple_choice
+      topic_code: "2.11"
+      source: "IM Geometry, Unit 2, Lesson 11"
+      points: 1
+      prompt: |
+        In △ABC and △DEF, AB = DE = 7, BC = EF = 5 and ∠A = ∠D = 40°. Which statement is correct?
+      options:
+        - "The triangles are congruent by SAS"
+        - "The triangles are congruent by SSA"
+        - "The triangles need not be congruent: two sides and a non-included angle (SSA) allow two different triangles here"
+        - "The triangles are congruent by ASA"
+      option_explanations:
+        - |
+          SAS needs the angle between the two sides; here ∠A is at the end of AB but not adjacent to BC.
+        - |
+          SSA is not a congruence criterion; two sides and a non-included angle can fit two different triangles.
+        - |
+          Correct. The 40° angle is not between the two given sides, and the side opposite it (5) is shorter than the other side (7), so the swinging side can land in two places.
+        - |
+          Only one pair of angles is given, so ASA cannot apply.
+      answer: 2
+
+    - slug: geo-final-q16
+      type: multiple_choice
+      topic_code: "2.8"
+      source: "IM Geometry, Unit 2, Lesson 8"
+      points: 1
+      prompt: |
+        Point P satisfies PA = PB for two fixed points A and B. Which statement must be true?
+      options:
+        - "P lies on the perpendicular bisector of AB"
+        - "P lies on the circle with diameter AB"
+        - "P is the midpoint of AB"
+        - "PA is perpendicular to PB"
+      option_explanations:
+        - |
+          Correct. The Perpendicular Bisector Theorem: the points equidistant from A and B are exactly the perpendicular bisector of AB.
+        - |
+          Points on the circle with diameter AB see AB at a right angle; they are not in general equidistant from A and B.
+        - |
+          The midpoint is one such point, but every point of the perpendicular bisector works.
+        - |
+          PA ⊥ PB happens only at the two points of the perpendicular bisector that are half of AB away from the midpoint.
+      answer: 0
+
+    - slug: geo-final-q17
+      type: multiple_choice
+      topic_code: "2.13"
+      source: "IM Geometry, Unit 2, Lesson 13"
+      points: 1
+      prompt: |
+        In parallelogram PQRS the diagonals meet at T. If PT = 3x − 1 and TR = x + 7, what is x?
+      options:
+        - "8"
+        - "4"
+        - "3"
+        - "2"
+      option_explanations:
+        - |
+          8 is the common length PT = TR when x = 4, not the value of x.
+        - |
+          Correct. The diagonals of a parallelogram bisect each other, so PT = TR: 3x − 1 = x + 7 gives x = 4.
+        - |
+          x = 3 gives PT = 8 and TR = 10, which are not equal.
+        - |
+          x = 2 gives PT = 5 and TR = 9, which are not equal.
+      answer: 1
+
+    - slug: geo-final-q18
+      type: multiple_choice
+      topic_code: "2.15"
+      source: "IM Geometry, Unit 2, Lesson 15"
+      points: 1
+      prompt: |
+        Which set of conditions guarantees that a quadrilateral is a parallelogram?
+      options:
+        - "One pair of opposite angles is congruent"
+        - "One pair of opposite sides is congruent and the other pair is parallel"
+        - "Both pairs of opposite sides are congruent"
+        - "The diagonals are congruent"
+      option_explanations:
+        - |
+          A kite has one pair of congruent opposite angles and is not a parallelogram.
+        - |
+          An isosceles trapezoid has one pair of congruent legs and one pair of parallel bases without being a parallelogram.
+        - |
+          Correct. Drawing a diagonal gives two triangles congruent by SSS, whose alternate interior angles make both pairs of sides parallel.
+        - |
+          An isosceles trapezoid has congruent diagonals too; congruent diagonals mark a rectangle only among parallelograms.
+      answer: 2
+
+    - slug: geo-final-q19
+      type: multi_select
+      topic_code: "2.4"
+      source: "IM Geometry, Unit 2, Lesson 4"
+      points: 2
+      partial_credit: true
+      prompt: |
+        In which cases must the two triangles described be congruent? Select all that apply.
+      options:
+        - "Two triangles with sides 3, 4, 5 and sides 3, 4, 5"
+        - "Two triangles with sides 5 and 5 and a 50° angle between them"
+        - "Two triangles with angles 30°, 60°, 90°"
+        - "Two right triangles with hypotenuse 10 and one leg 6"
+        - "Two triangles with sides 6 and 9 and a 35° angle opposite the side of length 6"
+      option_explanations:
+        - |
+          Yes: three pairs of equal sides is the SSS criterion, which fixes the triangle completely.
+        - |
+          Yes: two sides and the included angle is SAS.
+        - |
+          No: equal angles give similar triangles, which can be different sizes.
+        - |
+          Yes: the other leg is forced to be 8 by the Pythagorean Theorem (or use HL), so SSS applies.
+        - |
+          No: this is SSA with the shorter side opposite the angle, which allows two different triangles.
+      answer: [0, 1, 3]
+
+    - slug: geo-final-q20
+      type: true_false
+      topic_code: "2.12"
+      source: "IM Geometry, Unit 2, Lesson 12"
+      points: 1
+      prompt: |
+        True or false: if the diagonals of a quadrilateral are perpendicular, the quadrilateral must be a rhombus.
+      answer: false
+      explanation: |
+        False. A kite has perpendicular diagonals and is not a rhombus. Perpendicular diagonals mark a rhombus only when the quadrilateral is already a parallelogram.
+
+    - slug: geo-final-q21
+      type: short_answer
+      topic_code: "2.10"
+      source: "IM Geometry, Unit 2, Lesson 10"
+      points: 3
+      prompt: |
+        Figure description: △ABC is isosceles with AB = AC, and M is the midpoint of BC. Segment AM is drawn.
+
+        (a) Prove △ABM ≅ △ACM, naming the criterion.
+
+        (b) Use (a) to prove ∠B = ∠C.
+
+        (c) Use (a) to prove AM ⊥ BC.
+      answer: |
+        (a) AB = AC (given); BM = CM (M is the midpoint of BC); AM = AM (common side). So △ABM ≅ △ACM by SSS.
+
+        (b) ∠ABM and ∠ACM are corresponding angles of the congruent triangles, so ∠B = ∠C.
+
+        (c) ∠AMB and ∠AMC are corresponding angles of the congruent triangles, so they are equal; they also form a straight angle at M, so each is 90°. Hence AM ⊥ BC.
+      explanation: |
+        Scoring (3 points): 1 for listing the three pairs of equal sides and citing SSS; 1 for identifying ∠B and ∠C as corresponding parts of the congruent triangles; 1 for the equal angles at M that sum to 180°, hence 90° each. A proof using SAS after first establishing something not given earns no credit for (a).
+
+  # ---- Unit 3 · Set B: a parallel segment inside a triangle (3.5, 3.9, 3.11)
+    - slug: geo-final-q22
+      type: multiple_choice
+      topic_code: "3.11"
+      source: "IM Geometry, Unit 3, Lesson 11"
+      points: 1
+      stimulus: |
+        Figure description: in △ABC, point D lies on side AB and point E lies on side AC, with DE ∥ BC. AD = 4, DB = 6, AE = 3 and DE = 5.
+      prompt: |
+        What is the length of BC?
+      options:
+        - "12.5"
+        - "7.5"
+        - "20"
+        - "11"
+      option_explanations:
+        - |
+          Correct. △ADE ∼ △ABC with scale factor AB/AD = 10/4 = 2.5, so BC = 2.5 × 5 = 12.5.
+        - |
+          7.5 uses the ratio DB/AD = 6/4 instead of AB/AD = 10/4; the whole side AB is 10.
+        - |
+          20 multiplies by 4 for no reason; the scale factor is 10/4.
+        - |
+          11 adds 6 to DE; parallel segments scale, they do not add.
+      answer: 0
+
+    - slug: geo-final-q23
+      type: multiple_choice
+      topic_code: "3.5"
+      source: "IM Geometry, Unit 3, Lesson 5"
+      points: 1
+      stimulus: |
+        Figure description: in △ABC, point D lies on side AB and point E lies on side AC, with DE ∥ BC. AD = 4, DB = 6, AE = 3 and DE = 5.
+      prompt: |
+        What is the length of EC?
+      options:
+        - "2"
+        - "7.5"
+        - "6"
+        - "4.5"
+      option_explanations:
+        - |
+          2 would make AE/EC = 3/2, which does not match AD/DB = 2/3.
+        - |
+          7.5 is the whole side AC (= 2.5 × 3), not the part EC below E.
+        - |
+          6 copies DB; the segments on AC are shorter than the matching segments on AB in the ratio 3 : 4.
+        - |
+          Correct. DE ∥ BC splits the sides proportionally: AE/EC = AD/DB = 4/6, so EC = 3 × 6/4 = 4.5.
+      answer: 3
+
+    - slug: geo-final-q24
+      type: multiple_choice
+      topic_code: "3.9"
+      source: "IM Geometry, Unit 3, Lesson 9"
+      points: 1
+      stimulus: |
+        Figure description: in △ABC, point D lies on side AB and point E lies on side AC, with DE ∥ BC. AD = 4, DB = 6, AE = 3 and DE = 5.
+      prompt: |
+        Which argument shows that △ADE ∼ △ABC?
+      options:
+        - "ASA: two angles and the included side AD = AB"
+        - "SSS∼: all three pairs of sides are in the ratio 2 : 5"
+        - "The triangles share a vertex, and any two triangles sharing a vertex are similar"
+        - "AA: ∠A is shared, and ∠ADE = ∠ABC because they are corresponding angles for the parallel lines DE and BC"
+      option_explanations:
+        - |
+          ASA is a congruence criterion, and AD ≠ AB in any case.
+        - |
+          The ratio is 2 : 5 for AD : AB and AE : AC, but DE : BC and the third pair are conclusions, not givens.
+        - |
+          Sharing a vertex guarantees nothing; the parallel side is what forces the equal angles.
+        - |
+          Correct. Two pairs of equal angles are enough for similarity, and the parallel lines supply the second pair.
+      answer: 3
+
+    - slug: geo-final-q25
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "IM Geometry, Unit 3, Lesson 3"
+      points: 1
+      prompt: |
+        A dilation with centre (0, 0) and scale factor 3 is applied to the point (2, −1). What is its image?
+      options:
+        - "(−6, 3)"
+        - "(6, −3)"
+        - "(5, 2)"
+        - "(2/3, −1/3)"
+      option_explanations:
+        - |
+          (−6, 3) multiplies by −3, which also rotates the point 180° about the centre.
+        - |
+          Correct. A dilation centred at the origin multiplies both coordinates by the scale factor.
+        - |
+          (5, 2) adds 3 to each coordinate, which is a translation, not a dilation.
+        - |
+          (2/3, −1/3) divides by 3, which is the dilation with scale factor 1/3.
+      answer: 1
+
+    - slug: geo-final-q26
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "IM Geometry, Unit 3, Lesson 4"
+      points: 1
+      prompt: |
+        A dilation with centre O and scale factor 1/2 is applied to a line ℓ that does not pass through O. What is the image of ℓ?
+      options:
+        - "A line parallel to ℓ, half as far from O as ℓ is"
+        - "A line through O perpendicular to ℓ"
+        - "The line ℓ itself"
+        - "A line parallel to ℓ, twice as far from O as ℓ is"
+      option_explanations:
+        - |
+          Correct. A dilation maps a line not through the centre to a parallel line, and every distance from O is multiplied by 1/2.
+        - |
+          Dilations preserve directions; the image is parallel to ℓ, not perpendicular.
+        - |
+          A line maps to itself only when it passes through the centre of dilation.
+        - |
+          Twice as far would be scale factor 2; the factor here is 1/2.
+      answer: 0
+
+    - slug: geo-final-q27
+      type: multiple_choice
+      topic_code: "3.14"
+      source: "IM Geometry, Unit 3, Lesson 14"
+      points: 1
+      prompt: |
+        Figure description: right triangle ABC with the right angle at C; the altitude from C meets the hypotenuse AB at D, with AD = 4 and DB = 9. What is CD?
+      options:
+        - "13"
+        - "6.5"
+        - "6"
+        - "36"
+      option_explanations:
+        - |
+          13 is the hypotenuse AD + DB, not the altitude.
+        - |
+          6.5 is half the hypotenuse, the radius of the circumscribed circle, not the altitude.
+        - |
+          Correct. △ADC ∼ △CDB, so CD/AD = DB/CD, giving CD² = 4 × 9 = 36 and CD = 6.
+        - |
+          36 is CD², the product AD · DB; take the square root.
+      answer: 2
+
+    - slug: geo-final-q28
+      type: multi_select
+      topic_code: "3.8"
+      source: "IM Geometry, Unit 3, Lesson 8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements are always true? Select all that apply.
+      options:
+        - "All circles are similar to one another"
+        - "All rectangles are similar to one another"
+        - "All equilateral triangles are similar to one another"
+        - "A triangle with sides 3, 4, 5 is similar to a triangle with sides 6, 8, 10"
+        - "Two similar figures always have equal perimeters"
+      option_explanations:
+        - |
+          Yes: a translation and a dilation map any circle onto any other.
+        - |
+          No: a 1 by 10 rectangle and a 1 by 2 rectangle have different shapes; no dilation maps one to the other.
+        - |
+          Yes: all their angles are 60°, so AA (or a dilation) gives similarity.
+        - |
+          Yes: every side is doubled, which is SSS∼ with scale factor 2.
+        - |
+          No: perimeters scale by the scale factor, which equals 1 only for congruent figures.
+      answer: [0, 2, 3]
+
+    - slug: geo-final-q29
+      type: fill_blank
+      topic_code: "3.13"
+      source: "IM Geometry, Unit 3, Lesson 13"
+      points: 1
+      prompt: |
+        A right triangle has legs of length 9 and 12. Its hypotenuse has length ____.
+      answer: ["15", "fifteen"]
+      explanation: |
+        9² + 12² = 81 + 144 = 225 = 15². This is the 3-4-5 triangle scaled by 3.
+
+    - slug: geo-final-q30
+      type: numeric
+      topic_code: "3.12"
+      source: "IM Geometry, Unit 3, Lesson 12"
+      points: 1
+      prompt: |
+        A person 1.8 m tall casts a shadow 2.4 m long at the same moment a flagpole casts a shadow 16 m long. How tall is the flagpole, in metres? Give your answer to one decimal place.
+      answer: { value: 12, tolerance: 0.05 }
+      explanation: |
+        The sun's rays make similar right triangles: height/shadow is the same for both, so height = 16 × (1.8/2.4) = 16 × 0.75 = 12.0 m.
+
+  # ---- Unit 4 · Right Triangle Trigonometry (4.2–4.10): q31–q37
+    - slug: geo-final-q31
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "IM Geometry, Unit 4, Lesson 2"
+      points: 1
+      prompt: |
+        A square has a diagonal of length 10. What is the length of one side?
+      options:
+        - "5√3"
+        - "5√2"
+        - "10√2"
+        - "5"
+      option_explanations:
+        - |
+          √3 belongs to the 30-60-90 triangle; a square's diagonal makes 45° angles.
+        - |
+          Correct. The diagonal splits the square into 45-45-90 triangles with hypotenuse 10, so each leg is 10/√2 = 5√2 ≈ 7.07.
+        - |
+          10√2 is the diagonal of a square with side 10; here the diagonal is given and the side is shorter.
+        - |
+          5 is half the diagonal; the side is 5√2, since side² + side² = 100.
+      answer: 1
+
+    - slug: geo-final-q32
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "IM Geometry, Unit 4, Lesson 3"
+      points: 1
+      prompt: |
+        A 30-60-90 triangle has hypotenuse 14. What is the length of the longer leg?
+      options:
+        - "7√2"
+        - "7"
+        - "7√3"
+        - "14√3"
+      option_explanations:
+        - |
+          √2 belongs to the 45-45-90 triangle; the 30-60-90 ratios are 1 : √3 : 2.
+        - |
+          7 is the shorter leg, opposite the 30° angle.
+        - |
+          Correct. The short leg is half the hypotenuse, 7, and the long leg is the short leg times √3.
+        - |
+          14√3 would be the long leg of a triangle with short leg 14, not hypotenuse 14.
+      answer: 2
+
+    - slug: geo-final-q33
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "IM Geometry, Unit 4, Lesson 6"
+      points: 1
+      prompt: |
+        Figure description: right triangle PQR with the right angle at Q, PQ = 8 and QR = 15. What is tan P?
+      options:
+        - "8/15"
+        - "8/17"
+        - "15/17"
+        - "15/8"
+      option_explanations:
+        - |
+          8/15 is tan R, the ratio from the other acute angle.
+        - |
+          8/17 is cos P (adjacent over hypotenuse 17), not the tangent.
+        - |
+          15/17 is sin P (opposite over hypotenuse), not the tangent.
+        - |
+          Correct. From P, the opposite side is QR = 15 and the adjacent leg is PQ = 8, so tan P = 15/8.
+      answer: 3
+
+    - slug: geo-final-q34
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "IM Geometry, Unit 4, Lesson 8"
+      points: 1
+      prompt: |
+        In right triangle ABC with the right angle at C, sin A = 0.6. What is cos B?
+      options:
+        - "0.6"
+        - "0.4"
+        - "0.8"
+        - "0.75"
+      option_explanations:
+        - |
+          Correct. A and B are complementary, and the side opposite A is the side adjacent to B, so cos B = sin A = 0.6.
+        - |
+          0.4 is 1 − 0.6, but sine and cosine of complementary angles are equal, not complementary to 1.
+        - |
+          0.8 is cos A (and sin B), the other leg over the hypotenuse.
+        - |
+          0.75 is tan A, the ratio of the legs, not a cosine.
+      answer: 0
+
+    - slug: geo-final-q35
+      type: true_false
+      topic_code: "4.4"
+      source: "IM Geometry, Unit 4, Lesson 4"
+      points: 1
+      prompt: |
+        True or false: the tangent of an acute angle in a right triangle is always less than 1.
+      answer: false
+      explanation: |
+        False. tan θ = opposite/adjacent exceeds 1 whenever the opposite leg is longer, that is, whenever θ > 45°; for example tan 60° = √3 ≈ 1.73. Sine and cosine are the ratios that never exceed 1.
+
+    - slug: geo-final-q36
+      type: numeric
+      topic_code: "4.10"
+      source: "IM Geometry, Unit 4, Lesson 10"
+      points: 1
+      prompt: |
+        From a point on level ground 50 m from the base of a tower, the angle of elevation of the top is 32°. How tall is the tower, in metres? Give your answer to one decimal place.
+      answer: { value: 31.2, tolerance: 0.15 }
+      explanation: |
+        tan 32° = height/50, so height = 50 tan 32° ≈ 50 × 0.6249 ≈ 31.2 m.
+
+    - slug: geo-final-q37
+      type: short_answer
+      topic_code: "4.9"
+      source: "IM Geometry, Unit 4, Lesson 9"
+      points: 3
+      prompt: |
+        A 6 m ladder leans against a vertical wall and reaches 5.2 m up the wall. The ground is level.
+
+        (a) How far is the foot of the ladder from the wall? Give two decimal places.
+
+        (b) What angle does the ladder make with the ground? Give one decimal place.
+
+        (c) A safety guide says the ladder should make an angle between 70° and 80° with the ground. Is this ladder placed safely? If not, how far from the wall should its foot be for a 75° angle? Give two decimal places.
+      answer: |
+        (a) By the Pythagorean Theorem, distance = √(6² − 5.2²) = √(36 − 27.04) = √8.96 ≈ 2.99 m.
+
+        (b) sin θ = 5.2/6 ≈ 0.8667, so θ = sin⁻¹(0.8667) ≈ 60.1°. (Equivalently tan⁻¹(5.2/2.99) ≈ 60.1°.)
+
+        (c) No: 60.1° is below 70°, so the ladder is too shallow. For 75°, the foot should be 6 cos 75° ≈ 6 × 0.2588 ≈ 1.55 m from the wall.
+      explanation: |
+        Scoring (3 points): 1 for 2.99 m by the Pythagorean Theorem (accept 2.99 to 3.00); 1 for about 60.1° from an inverse sine, cosine or tangent (accept 60.0° to 60.1°); 1 for "not safe" with 1.55 m from 6 cos 75° (accept 1.55 to 1.56).
+
+  # ---- Unit 5 · Set C: a cylinder with a cone on top (5.9, 5.14, 5.16)
+    - slug: geo-final-q38
+      type: multiple_choice
+      topic_code: "5.9"
+      source: "IM Geometry, Unit 5, Lesson 9"
+      points: 1
+      stimulus: |
+        Figure description: a solid is made of a cylinder of radius 3 cm and height 8 cm with a cone of radius 3 cm and height 4 cm attached on top, the cone's base coinciding exactly with the cylinder's top face.
+      prompt: |
+        What is the volume of the cylinder part, in cm³?
+      options:
+        - "72π"
+        - "48π"
+        - "144π"
+        - "24π"
+      option_explanations:
+        - |
+          Correct. V = πr²h = π(3²)(8) = 9π × 8 = 72π cm³, about 226.2 cm³.
+        - |
+          48π is the lateral surface area 2πrh, not the volume.
+        - |
+          144π doubles the correct value; perhaps the diameter 6 was used in place of the radius without squaring correctly.
+        - |
+          24π uses r instead of r² in the formula: π · 3 · 8 instead of π · 9 · 8.
+      answer: 0
+
+    - slug: geo-final-q39
+      type: multiple_choice
+      topic_code: "5.14"
+      source: "IM Geometry, Unit 5, Lesson 14"
+      points: 1
+      stimulus: |
+        Figure description: a solid is made of a cylinder of radius 3 cm and height 8 cm with a cone of radius 3 cm and height 4 cm attached on top, the cone's base coinciding exactly with the cylinder's top face.
+      prompt: |
+        What is the total volume of the solid, in cm³?
+      options:
+        - "108π"
+        - "96π"
+        - "76π"
+        - "84π"
+      option_explanations:
+        - |
+          108π forgets the ⅓ in the cone's volume: 72π + 36π.
+        - |
+          96π would need a cone of volume 24π, twice the true 12π; the cone's volume is one third of πr²h.
+        - |
+          76π uses ⅓π · 3 · 4 = 4π for the cone, forgetting to square the radius.
+        - |
+          Correct. The cone adds ⅓π(3²)(4) = 12π, so the total is 72π + 12π = 84π cm³.
+      answer: 3
+
+    - slug: geo-final-q40
+      type: multiple_choice
+      topic_code: "5.16"
+      source: "IM Geometry, Unit 5, Lesson 16"
+      points: 1
+      stimulus: |
+        Figure description: a solid is made of a cylinder of radius 3 cm and height 8 cm with a cone of radius 3 cm and height 4 cm attached on top, the cone's base coinciding exactly with the cylinder's top face.
+      prompt: |
+        What is the total surface area of the solid (the bottom disc, the curved side of the cylinder and the curved surface of the cone), in cm²?
+      options:
+        - "63π"
+        - "72π"
+        - "57π"
+        - "81π"
+      option_explanations:
+        - |
+          63π leaves out the bottom disc, which is part of the surface.
+        - |
+          Correct. Bottom disc 9π, cylinder side 2π(3)(8) = 48π, cone side πrℓ with slant height ℓ = √(3² + 4²) = 5, giving 15π; total 72π.
+        - |
+          57π is the bottom disc plus the cylinder's side, 9π + 48π, leaving out the cone's curved surface entirely.
+        - |
+          81π adds a top disc of 9π, but the cylinder's top face is covered by the cone and is not on the surface.
+      answer: 1
+
+    - slug: geo-final-q41
+      type: multiple_choice
+      topic_code: "5.2"
+      source: "IM Geometry, Unit 5, Lesson 2"
+      points: 1
+      prompt: |
+        Which plane cuts a cube in a cross section that is a regular hexagon?
+      options:
+        - "A plane containing two opposite edges"
+        - "A plane parallel to one face"
+        - "A plane perpendicular to a space diagonal, passing through the midpoints of six edges"
+        - "No plane can; a cube's cross sections have at most four sides"
+      option_explanations:
+        - |
+          A plane through two opposite edges cuts a rectangle (1 by √2 for a unit cube).
+        - |
+          A plane parallel to a face cuts a square congruent to the face.
+        - |
+          Correct. Halfway along a space diagonal, the perpendicular plane meets six edges at their midpoints and the section is a regular hexagon.
+        - |
+          A plane can meet all six faces of a cube, so sections with five and six sides exist.
+      answer: 2
+
+    - slug: geo-final-q42
+      type: multiple_choice
+      topic_code: "5.1"
+      source: "IM Geometry, Unit 5, Lesson 1"
+      points: 1
+      prompt: |
+        A right triangle with legs 3 and 4 is rotated one full turn about the leg of length 4. What solid is produced?
+      options:
+        - "A cone with radius 4 and height 3"
+        - "A cylinder with radius 3 and height 4"
+        - "A sphere of radius 4"
+        - "A cone with radius 3 and height 4"
+      option_explanations:
+        - |
+          Rotating about the leg of length 3 would give a cone of radius 4 and height 3.
+        - |
+          A cylinder comes from rotating a rectangle; the hypotenuse sweeps out a slanted (conical) surface.
+        - |
+          A sphere comes from rotating a semicircle about its diameter.
+        - |
+          Correct. The leg of length 4 is the axis, so it becomes the cone's height; the other leg sweeps out the base circle of radius 3.
+      answer: 3
+
+    - slug: geo-final-q43
+      type: multi_select
+      topic_code: "5.6"
+      source: "IM Geometry, Unit 5, Lesson 6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A solid model is enlarged by a dilation with scale factor 2.5. Which statements are true? Select all that apply.
+      options:
+        - "The surface area is multiplied by 6.25"
+        - "The volume is multiplied by 15.625"
+        - "The volume is multiplied by 7.5"
+        - "The surface area is multiplied by 2.5"
+        - "Every length is multiplied by 2.5"
+      option_explanations:
+        - |
+          Yes: area scales by the square of the factor, 2.5² = 6.25.
+        - |
+          Yes: volume scales by the cube of the factor, 2.5³ = 15.625.
+        - |
+          No: 7.5 is 3 × 2.5, which is not how volume scales; the factor is cubed.
+        - |
+          No: surface area is two-dimensional and scales by 2.5², not 2.5.
+        - |
+          Yes: a dilation multiplies every length by the scale factor.
+      answer: [0, 1, 4]
+
+    - slug: geo-final-q44
+      type: fill_blank
+      topic_code: "5.17"
+      source: "IM Geometry, Unit 5, Lesson 17"
+      points: 1
+      prompt: |
+        A gold bar has volume 50 cm³ and mass 965 g. Its density is ____ g/cm³.
+      answer: ["19.3", "19.30"]
+      explanation: |
+        Density = mass ÷ volume = 965 ÷ 50 = 19.3 g/cm³.
+
+    - slug: geo-final-q45
+      type: numeric
+      topic_code: "5.13"
+      source: "IM Geometry, Unit 5, Lesson 13"
+      points: 1
+      prompt: |
+        A square pyramid has a base of side 10 cm and a height of 12 cm. What is its volume, in cm³? Give a whole number.
+      answer: { value: 400, tolerance: 0 }
+      explanation: |
+        V = ⅓Bh = ⅓ × 10² × 12 = ⅓ × 1200 = 400 cm³.
+
+    - slug: geo-final-q46
+      type: long_answer
+      topic_code: "5.15"
+      source: "IM Geometry, Unit 5, Lesson 15"
+      points: 8
+      prompt: |
+        Figure description: a grain silo is a cylinder of radius 4 m and height 10 m standing on the ground, topped by a cone of radius 4 m and height 3 m. Use π ≈ 3.1416 and round final answers to one decimal place.
+
+        (a) Find the volume of the cylindrical part.
+
+        (b) Find the volume of the cone and the total volume of the silo.
+
+        (c) Stored grain has density 0.75 tonnes per m³. What mass of grain fills the cylindrical part exactly?
+
+        (d) A second silo is similar to this one with scale factor 1.5. Find its total volume without recomputing the formulas, and explain the rule you used.
+
+        (e) The outside of the silo (the curved side of the cylinder and the curved surface of the cone, not the base) is to be painted. Paint covers 5 m² per litre. How many litres are needed?
+      answer: |
+        (a) V = πr²h = π(4²)(10) = 160π ≈ 502.7 m³.
+
+        (b) Cone: ⅓π(4²)(3) = 16π ≈ 50.3 m³. Total: 160π + 16π = 176π ≈ 552.9 m³.
+
+        (c) Mass = density × volume = 0.75 × 160π = 120π ≈ 377.0 tonnes.
+
+        (d) Volume scales by the cube of the scale factor: 1.5³ = 3.375, so the larger silo holds 176π × 3.375 = 594π ≈ 1866.1 m³.
+
+        (e) Slant height of the cone: ℓ = √(4² + 3²) = 5 m. Cone lateral area πrℓ = π(4)(5) = 20π; cylinder lateral area 2πrh = 2π(4)(10) = 80π; total 100π ≈ 314.2 m². Paint: 314.2 ÷ 5 ≈ 62.8 litres, so buy 63 litres.
+      explanation: |
+        Scoring (8 points): 1 for 160π ≈ 502.7 m³; 1 for the cone 16π ≈ 50.3 m³ with the ⅓ used; 1 for the total 176π ≈ 552.9 m³; 1 for 120π ≈ 377.0 tonnes; 1 for the cube rule 1.5³ = 3.375 stated; 1 for 594π ≈ 1866.1 m³; 1 for the slant height 5 and the two lateral areas (20π and 80π, no base); 1 for 100π ≈ 314.2 m² and about 62.8 litres (accept 62.8 to 63). Deduct 1 overall for early rounding that moves a final answer by more than 0.1.
+
+  # ---- Unit 6 · Set D: a quadrilateral on the grid (6.4, 6.11, 6.14)
+    - slug: geo-final-q47
+      type: multiple_choice
+      topic_code: "6.11"
+      source: "IM Geometry, Unit 6, Lesson 11"
+      points: 1
+      stimulus: |
+        Figure description: quadrilateral PQRS has vertices P(−2, 1), Q(2, 4), R(8, −4) and S(4, −7), listed in order around the figure.
+      prompt: |
+        What are the slopes of PQ and QR, and what do they tell you?
+      options:
+        - "4/3 and −3/4; the lines are perpendicular"
+        - "3/4 and −4/3; the product is −1, so PQ ⊥ QR"
+        - "3/4 and 4/3; the slopes are reciprocals, so PQ ∥ QR"
+        - "3/4 and −4/3; the slopes differ, so the sides are not parallel but nothing more can be said"
+      option_explanations:
+        - |
+          The slopes are swapped: rise 3 over run 4 for PQ gives 3/4, not 4/3.
+        - |
+          Correct. Slope PQ = (4 − 1)/(2 − (−2)) = 3/4 and slope QR = (−4 − 4)/(8 − 2) = −8/6 = −4/3; their product is −1.
+        - |
+          The slope of QR is negative (y falls from 4 to −4 as x rises), and reciprocal slopes do not mean parallel.
+        - |
+          The slopes are right, but a product of −1 says more: the sides are perpendicular.
+      answer: 1
+
+    - slug: geo-final-q48
+      type: multiple_choice
+      topic_code: "6.4"
+      source: "IM Geometry, Unit 6, Lesson 4"
+      points: 1
+      stimulus: |
+        Figure description: quadrilateral PQRS has vertices P(−2, 1), Q(2, 4), R(8, −4) and S(4, −7), listed in order around the figure.
+      prompt: |
+        What is the length of the diagonal PR?
+      options:
+        - "5√5"
+        - "5√3"
+        - "15"
+        - "√50"
+      option_explanations:
+        - |
+          Correct. PR = √((8 − (−2))² + (−4 − 1)²) = √(100 + 25) = √125 = 5√5 ≈ 11.18.
+        - |
+          5√3 = √75 does not match 100 + 25 = 125.
+        - |
+          15 adds the changes 10 + 5 instead of using the Pythagorean Theorem.
+        - |
+          √50 would come from 5² + 5², but the horizontal change is 10, not 5.
+      answer: 0
+
+    - slug: geo-final-q49
+      type: multiple_choice
+      topic_code: "6.14"
+      source: "IM Geometry, Unit 6, Lesson 14"
+      points: 1
+      stimulus: |
+        Figure description: quadrilateral PQRS has vertices P(−2, 1), Q(2, 4), R(8, −4) and S(4, −7), listed in order around the figure.
+      prompt: |
+        Which is the most specific correct name for PQRS, with a valid justification?
+      options:
+        - "A square: all four angles are right angles"
+        - "A parallelogram only: opposite sides are parallel, and nothing more can be shown"
+        - "A rectangle: opposite sides are parallel (PQ and SR both have slope 3/4; QR and PS both have slope −4/3), adjacent sides are perpendicular, and PQ = 5 ≠ QR = 10"
+        - "A rhombus: all four sides are congruent"
+      option_explanations:
+        - |
+          Four right angles make a rectangle; a square also needs four equal sides, but PQ = 5 and QR = 10.
+        - |
+          More can be shown: the slopes of adjacent sides multiply to −1, which makes every angle a right angle.
+        - |
+          Correct. Equal slopes make both pairs of opposite sides parallel, the −1 product makes the angles right, and the unequal side lengths rule out a square.
+        - |
+          PQ = √(16 + 9) = 5 while QR = √(36 + 64) = 10, so the sides are not all congruent.
+      answer: 2
+
+    - slug: geo-final-q50
+      type: multiple_choice
+      topic_code: "6.6"
+      source: "IM Geometry, Unit 6, Lesson 6"
+      points: 1
+      prompt: |
+        What are the centre and radius of the circle x² + y² + 8x − 2y − 8 = 0?
+      options:
+        - "Centre (−4, 1), radius 5"
+        - "Centre (4, −1), radius 5"
+        - "Centre (−8, 2), radius 8"
+        - "Centre (−4, 1), radius √8"
+      option_explanations:
+        - |
+          Correct. Completing the square: (x + 4)² − 16 + (y − 1)² − 1 = 8, so (x + 4)² + (y − 1)² = 25.
+        - |
+          The signs are reversed: (x + 4)² has centre x-coordinate −4, and (y − 1)² has centre y-coordinate 1.
+        - |
+          The centre's coordinates are half the coefficients with the sign changed, not the whole coefficients.
+        - |
+          The radius is √(8 + 16 + 1) = √25 = 5; the constants from completing the square must be added to the 8.
+      answer: 0
+
+    - slug: geo-final-q51
+      type: multiple_choice
+      topic_code: "6.7"
+      source: "IM Geometry, Unit 6, Lesson 7"
+      points: 1
+      prompt: |
+        Which equation describes the set of points equidistant from the focus (0, 2) and the directrix y = −2?
+      options:
+        - "y = x²/2"
+        - "y = 8x²"
+        - "y = x²/8"
+        - "y = x²/4"
+      option_explanations:
+        - |
+          y = x²/2 would have focus (0, 1/2) and directrix y = −1/2, a narrower parabola.
+        - |
+          y = 8x² is far narrower, with focus (0, 1/32); the x² and y have been swapped.
+        - |
+          Correct. √(x² + (y − 2)²) = |y + 2|; squaring gives x² + y² − 4y + 4 = y² + 4y + 4, so x² = 8y.
+        - |
+          y = x²/4 is the parabola with focus (0, 1) and directrix y = −1; the focal distance here is 2, not 1.
+      answer: 2
+
+    - slug: geo-final-q52
+      type: multiple_choice
+      topic_code: "6.16"
+      source: "IM Geometry, Unit 6, Lesson 16"
+      points: 1
+      prompt: |
+        What is the centroid of the triangle with vertices (1, 2), (7, 2) and (4, 8)?
+      options:
+        - "(6, 6)"
+        - "(4, 5)"
+        - "(4, 2)"
+        - "(4, 4)"
+      option_explanations:
+        - |
+          (6, 6) halves the sums instead of dividing by 3.
+        - |
+          (4, 5) is the midpoint of the median from (4, 8) to (4, 2); the centroid is two thirds of the way down the median, at (4, 4).
+        - |
+          (4, 2) is the midpoint of the base, not the centroid.
+        - |
+          Correct. The centroid is the average of the vertices: ((1 + 7 + 4)/3, (2 + 2 + 8)/3) = (4, 4).
+      answer: 3
+
+    - slug: geo-final-q53
+      type: multi_select
+      topic_code: "6.10"
+      source: "IM Geometry, Unit 6, Lesson 10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Consider the lines y = 2x + 1, y = 2x − 5, y = −x/2 + 3, x − 2y = 4 and 2x + y = 7. Which statements are true? Select all that apply.
+      options:
+        - "x − 2y = 4 is parallel to y = 2x − 5"
+        - "y = 2x + 1 and y = −x/2 + 3 are perpendicular"
+        - "y = 2x + 1 and y = 2x − 5 are parallel"
+        - "2x + y = 7 is perpendicular to x − 2y = 4"
+        - "y = 2x + 1 and y = −x/2 + 3 meet at (0.8, 2.6)"
+      option_explanations:
+        - |
+          No: x − 2y = 4 is y = x/2 − 2, with slope 1/2, not 2.
+        - |
+          Yes: the slopes 2 and −1/2 multiply to −1.
+        - |
+          Yes: both have slope 2 and different intercepts.
+        - |
+          Yes: 2x + y = 7 has slope −2 and x − 2y = 4 has slope 1/2; the product is −1.
+        - |
+          Yes: 2x + 1 = −x/2 + 3 gives 2.5x = 2, x = 0.8, and then y = 2.6 in both equations.
+      answer: [1, 2, 3, 4]
+
+    - slug: geo-final-q54
+      type: true_false
+      topic_code: "6.15"
+      source: "IM Geometry, Unit 6, Lesson 15"
+      points: 1
+      prompt: |
+        True or false: the point one quarter of the way from A(2, 6) to B(10, −2) is (4, 4).
+      answer: true
+      explanation: |
+        True. A + ¼(B − A) = (2, 6) + ¼(8, −8) = (2 + 2, 6 − 2) = (4, 4).
+
+    - slug: geo-final-q55
+      type: numeric
+      topic_code: "6.13"
+      source: "IM Geometry, Unit 6, Lesson 13"
+      points: 1
+      prompt: |
+        The lines y = 3x − 4 and y = −x + 8 intersect at one point. What is the y-coordinate of that point? Give a whole number.
+      answer: { value: 5, tolerance: 0 }
+      explanation: |
+        3x − 4 = −x + 8 gives 4x = 12, x = 3, and then y = 3(3) − 4 = 5. Check: −3 + 8 = 5.
+
+    - slug: geo-final-q56
+      type: long_answer
+      topic_code: "6.14"
+      source: "IM Geometry, Unit 6, Lesson 14"
+      points: 8
+      prompt: |
+        (a) Use coordinates to prove that the midpoints of the four sides of any quadrilateral are the vertices of a parallelogram. Place the quadrilateral with vertices A(0, 0), B(2a, 0), C(2b, 2c) and D(2d, 2e), find the four midpoints, and show that both pairs of opposite sides of the midpoint figure are parallel.
+
+        (b) Check your proof on the quadrilateral A(0, 0), B(6, 0), C(8, 4), D(2, 6): find the four midpoints and the slopes of the four sides of the midpoint figure.
+      answer: |
+        (a) Midpoints: M₁ of AB = (a, 0); M₂ of BC = (a + b, c); M₃ of CD = (b + d, c + e); M₄ of DA = (d, e).
+
+        Slope of M₁M₂ = (c − 0)/((a + b) − a) = c/b. Slope of M₄M₃ = ((c + e) − e)/((b + d) − d) = c/b. Equal slopes, so M₁M₂ ∥ M₄M₃. (If b = 0 both segments are vertical, still parallel.)
+
+        Slope of M₂M₃ = ((c + e) − c)/((b + d) − (a + b)) = e/(d − a). Slope of M₁M₄ = (e − 0)/(d − a) = e/(d − a). Equal, so M₂M₃ ∥ M₁M₄. (If d = a both are vertical.)
+
+        Both pairs of opposite sides are parallel, so M₁M₂M₃M₄ is a parallelogram. The coordinates were general (a, b, c, d, e arbitrary), so this holds for every quadrilateral.
+
+        (b) Midpoints: AB → (3, 0); BC → (7, 2); CD → (5, 5); DA → (1, 3). Slopes: (3, 0)→(7, 2): 2/4 = 1/2; (1, 3)→(5, 5): 2/4 = 1/2; (7, 2)→(5, 5): 3/(−2) = −3/2; (3, 0)→(1, 3): 3/(−2) = −3/2. Opposite sides have equal slopes, as the proof predicts.
+      explanation: |
+        Scoring (8 points): 1 for the four midpoints in terms of a, b, c, d, e; 2 for the slopes of M₁M₂ and M₄M₃ both equal to c/b (1 each); 2 for the slopes of M₂M₃ and M₁M₄ both equal to e/(d − a) (1 each); 1 for the conclusion that two pairs of parallel opposite sides make a parallelogram, with a sentence noting the coordinates were general; 1 for the four numeric midpoints in (b); 1 for the four slopes in (b) showing the two matching pairs. A proof that instead shows the diagonals of the midpoint figure share a midpoint ((a + b + d)/2, (c + e)/2) earns full credit for the first six points.
+
+  # ---- Unit 7 · Set E: a central angle, its arc and its sector (7.2, 7.8)
+    - slug: geo-final-q57
+      type: multiple_choice
+      topic_code: "7.2"
+      source: "IM Geometry, Unit 7, Lesson 2"
+      points: 1
+      stimulus: |
+        Figure description: a circle with centre O and radius 6 cm. Points A, B and C lie on the circle. The central angle ∠AOB over the minor arc AB measures 100°, and C lies on the major arc AB.
+      prompt: |
+        What is the measure of the inscribed angle ∠ACB?
+      options:
+        - "130°"
+        - "50°"
+        - "80°"
+        - "100°"
+      option_explanations:
+        - |
+          130° would be the inscribed angle from a point on the minor arc (half of 260°), but C is on the major arc.
+        - |
+          Correct. An inscribed angle is half the central angle on the same arc: 100°/2 = 50°.
+        - |
+          80° is the complement-style error 180° − 100°, which is not the inscribed angle.
+        - |
+          100° is the central angle; the inscribed angle on the same arc is half of it.
+      answer: 1
+
+    - slug: geo-final-q58
+      type: multiple_choice
+      topic_code: "7.8"
+      source: "IM Geometry, Unit 7, Lesson 8"
+      points: 1
+      stimulus: |
+        Figure description: a circle with centre O and radius 6 cm. Points A, B and C lie on the circle. The central angle ∠AOB over the minor arc AB measures 100°, and C lies on the major arc AB.
+      prompt: |
+        What is the length of the minor arc AB?
+      options:
+        - "10π cm"
+        - "10π/3 cm"
+        - "5π/3 cm"
+        - "20π/3 cm"
+      option_explanations:
+        - |
+          10π is the sector area (100/360 × 36π), not the arc length.
+        - |
+          Correct. Arc length = (100/360) × 2π(6) = (5/18) × 12π = 10π/3 ≈ 10.47 cm.
+        - |
+          5π/3 uses the radius in place of the circumference: (100/360) × 6π.
+        - |
+          20π/3 doubles the arc length, as if the circumference were 24π.
+      answer: 1
+
+    - slug: geo-final-q59
+      type: multiple_choice
+      topic_code: "7.8"
+      source: "IM Geometry, Unit 7, Lesson 8"
+      points: 1
+      stimulus: |
+        Figure description: a circle with centre O and radius 6 cm. Points A, B and C lie on the circle. The central angle ∠AOB over the minor arc AB measures 100°, and C lies on the major arc AB.
+      prompt: |
+        What is the area of the sector AOB (the one over the minor arc)?
+      options:
+        - "36π cm²"
+        - "5π cm²"
+        - "10π cm²"
+        - "20π cm²"
+      option_explanations:
+        - |
+          36π is the area of the whole circle; the sector is 100/360 of it.
+        - |
+          5π is half the correct area, as if the radius were 6/√2.
+        - |
+          Correct. Sector area = (100/360) × π(6²) = (5/18) × 36π = 10π ≈ 31.4 cm².
+        - |
+          20π would be a 200° sector; the central angle is 100°.
+      answer: 2
+
+    - slug: geo-final-q60
+      type: multiple_choice
+      topic_code: "7.3"
+      source: "IM Geometry, Unit 7, Lesson 3"
+      points: 1
+      prompt: |
+        A line through external point P is tangent to a circle with centre O and radius 5 at point T. If OP = 13, what is PT?
+      options:
+        - "12"
+        - "18"
+        - "√194"
+        - "8"
+      option_explanations:
+        - |
+          Correct. The radius OT is perpendicular to the tangent, so △OTP is right-angled at T and PT = √(13² − 5²) = 12.
+        - |
+          18 is 13 + 5, which has no geometric meaning here.
+        - |
+          √194 = √(13² + 5²) treats OP as a leg; OP is the hypotenuse.
+        - |
+          8 is 13 − 5, which subtracts lengths instead of using the Pythagorean Theorem.
+      answer: 0
+
+    - slug: geo-final-q61
+      type: multiple_choice
+      topic_code: "7.4"
+      source: "IM Geometry, Unit 7, Lesson 4"
+      points: 1
+      prompt: |
+        Quadrilateral ABCD is inscribed in a circle, with ∠A = 75° and ∠B = 110°. What are ∠C and ∠D?
+      options:
+        - "∠C = 70°, ∠D = 105°"
+        - "∠C = 75°, ∠D = 110°"
+        - "∠C = 15°, ∠D = 160°"
+        - "∠C = 105°, ∠D = 70°"
+      option_explanations:
+        - |
+          The pairs are swapped: ∠C is opposite ∠A, and ∠D is opposite ∠B.
+        - |
+          Equal opposite angles belong to a parallelogram; a cyclic quadrilateral has supplementary opposite angles.
+        - |
+          These make ∠A + ∠C = 90°, but the rule is 180°.
+        - |
+          Correct. Opposite angles of a cyclic quadrilateral are supplementary: ∠C = 180° − 75° = 105° and ∠D = 180° − 110° = 70°.
+      answer: 3
+
+    - slug: geo-final-q62
+      type: multi_select
+      topic_code: "7.6"
+      source: "IM Geometry, Unit 7, Lesson 6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about the special points of a triangle are true? Select all that apply.
+      options:
+        - "The circumcentre is equidistant from the three sides"
+        - "The inradius equals the triangle's area divided by its semiperimeter"
+        - "The circumcentre always lies inside the triangle"
+        - "The circumcentre of a right triangle is the midpoint of the hypotenuse"
+        - "The incentre always lies inside the triangle"
+      option_explanations:
+        - |
+          No: the circumcentre is equidistant from the vertices; the incentre is equidistant from the sides.
+        - |
+          Yes: splitting the triangle into three pieces from the incentre gives Area = r × (semiperimeter).
+        - |
+          No: for an obtuse triangle the perpendicular bisectors meet outside it.
+        - |
+          Yes: the hypotenuse is a diameter of the circumscribed circle (angle in a semicircle), so its midpoint is the centre.
+        - |
+          Yes: the angle bisectors always meet inside the triangle.
+      answer: [1, 3, 4]
+
+    - slug: geo-final-q63
+      type: fill_blank
+      topic_code: "7.11"
+      source: "IM Geometry, Unit 7, Lesson 11"
+      points: 1
+      prompt: |
+        An angle of 150° equals 5π/____ radians.
+      answer: ["6", "six"]
+      explanation: |
+        150° × (π/180°) = 150π/180 = 5π/6.
+
+    - slug: geo-final-q64
+      type: numeric
+      topic_code: "7.13"
+      source: "IM Geometry, Unit 7, Lesson 13"
+      points: 1
+      prompt: |
+        A sector has radius 9 cm and central angle 1.4 radians. What is its area, in cm²? Give your answer to one decimal place.
+      answer: { value: 56.7, tolerance: 0.05 }
+      explanation: |
+        Sector area = ½r²θ = ½ × 81 × 1.4 = 56.7 cm². The angle is already in radians, so no conversion is needed.
+
+  # ---- Unit 8 · Set F: a two-way table (8.6, 8.9, 8.10)
+    - slug: geo-final-q65
+      type: multiple_choice
+      topic_code: "8.9"
+      source: "IM Geometry, Unit 8, Lesson 9"
+      points: 1
+      stimulus: |
+        A festival surveyed 800 visitors by age group and whether they bought a reusable cup.
+
+        | | Bought a cup | Did not | Total |
+        |---|---|---|---|
+        | Under 30 | 210 | 190 | 400 |
+        | 30 and over | 150 | 250 | 400 |
+        | Total | 360 | 440 | 800 |
+      prompt: |
+        What is P(bought a cup | under 30)?
+      options:
+        - "0.2625"
+        - "0.583"
+        - "0.45"
+        - "0.525"
+      option_explanations:
+        - |
+          0.2625 is 210/800, the joint probability.
+        - |
+          0.583 is 210/360, P(under 30 | bought a cup): the condition is reversed.
+        - |
+          0.45 is 360/800, P(bought a cup) with no condition.
+        - |
+          Correct. The under-30 row is the sample space: 210/400 = 0.525.
+      answer: 3
+
+    - slug: geo-final-q66
+      type: multiple_choice
+      topic_code: "8.6"
+      source: "IM Geometry, Unit 8, Lesson 6"
+      points: 1
+      stimulus: |
+        A festival surveyed 800 visitors by age group and whether they bought a reusable cup.
+
+        | | Bought a cup | Did not | Total |
+        |---|---|---|---|
+        | Under 30 | 210 | 190 | 400 |
+        | 30 and over | 150 | 250 | 400 |
+        | Total | 360 | 440 | 800 |
+      prompt: |
+        What is P(under 30 or bought a cup)?
+      options:
+        - "0.95"
+        - "0.50"
+        - "0.6875"
+        - "0.2625"
+      option_explanations:
+        - |
+          0.95 adds 400/800 + 360/800 without subtracting the overlap.
+        - |
+          0.50 is P(under 30) alone; the "or" also brings in the older visitors who bought a cup.
+        - |
+          Correct. (400 + 360 − 210)/800 = 550/800 = 0.6875; the 210 in both groups is counted once.
+        - |
+          0.2625 is P(under 30 and bought a cup), the overlap, not the union.
+      answer: 2
+
+    - slug: geo-final-q67
+      type: multiple_choice
+      topic_code: "8.10"
+      source: "IM Geometry, Unit 8, Lesson 10"
+      points: 1
+      stimulus: |
+        A festival surveyed 800 visitors by age group and whether they bought a reusable cup.
+
+        | | Bought a cup | Did not | Total |
+        |---|---|---|---|
+        | Under 30 | 210 | 190 | 400 |
+        | 30 and over | 150 | 250 | 400 |
+        | Total | 360 | 440 | 800 |
+      prompt: |
+        Are "under 30" and "bought a cup" independent?
+      options:
+        - "No: P(bought a cup) = 0.45 but P(bought a cup | under 30) = 0.525"
+        - "Yes: the two age groups have the same size, 400 each"
+        - "Yes: 0.525 and 0.45 are both close to one half"
+        - "No: 210 and 150 are different numbers"
+      option_explanations:
+        - |
+          Correct. The conditional probability differs from the unconditional one, so the events are dependent: younger visitors were more likely to buy a cup.
+        - |
+          Equal group sizes make the comparison easy but say nothing about independence.
+        - |
+          Independence requires the two probabilities to be equal, not merely close.
+        - |
+          Different counts alone do not prove dependence; compare probabilities, which here do differ.
+      answer: 0
+
+    - slug: geo-final-q68
+      type: multiple_choice
+      topic_code: "8.8"
+      source: "IM Geometry, Unit 8, Lesson 8"
+      points: 1
+      prompt: |
+        Two fair dice are rolled. What is P(the sum is 4 | the first die shows an odd number)?
+      options:
+        - "1/12"
+        - "1/9"
+        - "1/18"
+        - "1/6"
+      option_explanations:
+        - |
+          1/12 is P(sum = 4) with no condition: 3/36.
+        - |
+          Correct. The condition leaves 18 equally likely outcomes; of those, (1, 3) and (3, 1) sum to 4, so 2/18 = 1/9.
+        - |
+          1/18 counts only one of the two favourable outcomes.
+        - |
+          1/6 counts the three ways to make 4 against 18 outcomes, but (2, 2) has an even first die.
+      answer: 1
+
+    - slug: geo-final-q69
+      type: true_false
+      topic_code: "8.11"
+      source: "IM Geometry, Unit 8, Lesson 11"
+      points: 1
+      prompt: |
+        True or false: a game that costs $1 to play and pays $6 when one fair die shows a 6 (and nothing otherwise) has an average net result of $0 per play.
+      answer: true
+      explanation: |
+        True. Average winnings are 6 × 1/6 = $1, exactly the cost, so in the long run the player neither gains nor loses. That is a fair price for the game.
+
+    - slug: geo-final-q70
+      type: short_answer
+      topic_code: "8.7"
+      source: "IM Geometry, Unit 8, Lesson 7"
+      points: 3
+      prompt: |
+        A bag holds 4 red and 2 blue tokens. Two tokens are drawn one after the other without replacement.
+
+        (a) Find P(both red).
+
+        (b) Find P(exactly one red).
+
+        (c) Player A wins if the two tokens are the same colour; Player B wins if they are different colours. Is the game fair? If not, who is favoured, and by how much?
+      answer: |
+        (a) P(RR) = (4/6)(3/5) = 12/30 = 2/5.
+
+        (b) P(RB) + P(BR) = (4/6)(2/5) + (2/6)(4/5) = 8/30 + 8/30 = 16/30 = 8/15.
+
+        (c) P(same colour) = P(RR) + P(BB) = 12/30 + (2/6)(1/5) = 12/30 + 2/30 = 14/30 = 7/15; P(different) = 8/15. Not fair: B is favoured, 8/15 to 7/15, a difference of 1/15.
+      explanation: |
+        Scoring (3 points): 1 for 2/5 with the second-draw probability 3/5 (not 4/6); 1 for 8/15 with both orders counted; 1 for 7/15 versus 8/15 and the conclusion that B is favoured.

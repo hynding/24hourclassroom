@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Enums\GradeLevel;
-use App\Enums\Role;
 use App\Enums\Subject;
 use App\Enums\Visibility;
 use App\Models\Material;
@@ -28,7 +27,7 @@ class SaveCourseRequest extends FormRequest
             return true;
         }
 
-        return $this->user()?->role === Role::Teacher;
+        return $this->user()?->role?->authors() === true;
     }
 
     protected function prepareForValidation(): void
@@ -45,6 +44,9 @@ class SaveCourseRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:5000'],
             'subject' => ['required', Rule::enum(Subject::class)],
             'grade_level' => ['required', Rule::enum(GradeLevel::class)],
+            // Thumbs up and down on approved comments. Optional so an older
+            // client's save leaves the setting as it was.
+            'comment_reactions' => ['sometimes', 'boolean'],
             'items' => ['present', 'array', 'max:'.self::MAX_ITEMS],
             'items.*' => ['array'],
             'items.*.kind' => ['required', Rule::in(['test', 'material'])],

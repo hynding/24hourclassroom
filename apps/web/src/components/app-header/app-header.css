@@ -65,6 +65,12 @@ nav a,
   flex: none;
 }
 
+/* Library's shelves, nested one step in under it. */
+:host([orientation='vertical']) nav a.sub {
+  padding-left: var(--space-6);
+  font-size: var(--text-sm);
+}
+
 /* The top bar's links read as text; their icons are the side panel's and
  * the drawer's. (The buttons keep theirs.) */
 nav a .icon,
@@ -210,6 +216,12 @@ nav a:focus-visible,
   justify-content: center;
 }
 
+/* Icons alone can't show nesting, and Library's own icon reaches the same
+ * shelves through its index page, so the sub-entries step aside. */
+:host([orientation='vertical'][collapsed]) nav a.sub {
+  display: none;
+}
+
 :host([orientation='vertical'][collapsed]) .label {
   position: absolute;
   width: 1px;
@@ -288,6 +300,10 @@ nav a:focus-visible,
 
   :host([orientation='vertical'][collapsed]) .badge {
     position: static;
+  }
+
+  :host([orientation='vertical'][collapsed]) nav a.sub {
+    display: flex;
   }
 
   :host([orientation]) .collapse,

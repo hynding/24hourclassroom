@@ -6,6 +6,7 @@ import { coursesStore } from '../../services/courses-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { fileTypeLabel, formatBytes } from '../../services/format';
+import { LIBRARY_SECTIONS } from '../../services/library-sections';
 
 @Component({ tag: 'page-library', styleUrl: 'page-library.css', shadow: true })
 export class PageLibrary {
@@ -35,7 +36,7 @@ export class PageLibrary {
   }
 
   /**
-   * /library, /library/materials and /library/courses resolve to this tag, so Stencil
+   * /library/tests, /library/materials and /library/courses resolve to this tag, so Stencil
    * reuses the element and componentWillLoad does NOT re-run on the switch.
    * Reset the results and the pager -- but never subject/grade/q/sort: those
    * <select>s are uncontrolled, so clearing the state would leave the DOM
@@ -140,13 +141,15 @@ export class PageLibrary {
   }
 
   private get emptyMessage(): string {
+    // An empty shelf with no filter set is not a failed search: say what it is.
+    const filtered = this.subject !== '' || this.grade !== '' || this.q !== '';
     switch (this.kind) {
       case 'materials':
-        return 'No materials match those filters yet.';
+        return filtered ? 'No materials match those filters yet.' : 'No materials have been published yet.';
       case 'tests':
-        return 'No tests match those filters yet.';
+        return filtered ? 'No tests match those filters yet.' : 'No tests have been published yet.';
       case 'courses':
-        return 'No courses match those filters yet.';
+        return filtered ? 'No courses match those filters yet.' : 'No courses have been published yet.';
       default:
         return 'Nothing to show.';
     }
@@ -189,9 +192,10 @@ export class PageLibrary {
         <h1>{this.heading}</h1>
 
         <nav class="segments" aria-label="Library sections">
-          {this.link('/library', 'Tests')}
-          {this.link('/library/materials', 'Materials')}
-          {this.link('/library/courses', 'Courses')}
+          {this.link('/library', 'All')}
+          {LIBRARY_SECTIONS.map((s) => (
+            <a href={s.path} aria-current={s.path === `/library/${this.kind}` ? 'page' : undefined} onClick={(e) => { e.preventDefault(); navigate(s.path); }}>{s.title}</a>
+          ))}
         </nav>
 
         <form onSubmit={this.onSubmit}>

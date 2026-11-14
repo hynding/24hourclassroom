@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,7 +17,7 @@ class CourseCandidatesController extends Controller
     public function __invoke(Request $request): JsonResponse
     {
         // Allowlist, as on every other authoring endpoint.
-        abort_unless($request->user()->role === Role::Teacher, 403);
+        abort_unless($request->user()->role->authors(), 403);
         $me = $request->user();
 
         return response()->json([

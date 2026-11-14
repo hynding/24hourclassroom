@@ -98,7 +98,7 @@ test('only another teacher may branch, and only a public course', function () {
 
     $this->postJson("/api/courses/{$course->id}/branch")->assertStatus(401);
     foreach (Role::cases() as $role) {
-        if ($role === Role::Teacher) {
+        if ($role->authors()) {
             continue;
         }
         $this->actingAs(User::factory()->create(['role' => $role->value]));

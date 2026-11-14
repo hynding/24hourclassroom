@@ -1,4 +1,4 @@
-import { redirectFor, resolveRoute } from './router';
+import { needsResolve, redirectFor, resolveRoute } from './router';
 
 const verified = { id: 1, email_verified_at: '2026-01-01' } as any;
 const unverified = { id: 1, email_verified_at: null } as any;
@@ -108,7 +108,7 @@ describe('test and attempt routes', () => {
     expect(resolveRoute('/tests/new')).toEqual({ tag: 'page-test-editor', testId: undefined });
     // page-library now serves both segments and is switched by a reflected
     // prop, so the route always names which one.
-    expect(resolveRoute('/library')).toEqual({ tag: 'page-library', kind: 'tests' });
+    expect(resolveRoute('/library/tests')).toEqual({ tag: 'page-library', kind: 'tests' });
   });
 
   it('parses /tests/:id and its sub-pages', () => {
@@ -132,7 +132,7 @@ describe('test and attempt routes', () => {
       expect(redirectFor(path, null)).toBe('/login');
       expect(redirectFor(path, unverified)).toBe('/verify-email');
     }
-    for (const path of ['/library', '/tests/5', '/tests/5/print']) {
+    for (const path of ['/library', '/library/tests', '/library/courses', '/tests/5', '/tests/5/print']) {
       expect(redirectFor(path, null)).toBeNull();
       expect(redirectFor(path, unverified)).toBeNull();
     }
@@ -144,6 +144,13 @@ describe('material routes', () => {
     expect(resolveRoute('/materials')).toEqual({ tag: 'page-materials' });
     expect(resolveRoute('/materials/new')).toEqual({ tag: 'page-material-form', materialId: undefined });
     expect(resolveRoute('/library/materials')).toEqual({ tag: 'page-library', kind: 'materials' });
+  });
+
+  it('resolves /library to the index and each shelf to its own URL', () => {
+    expect(resolveRoute('/library')).toEqual({ tag: 'page-library-index' });
+    expect(resolveRoute('/library/tests')).toEqual({ tag: 'page-library', kind: 'tests' });
+    expect(resolveRoute('/library/courses')).toEqual({ tag: 'page-library', kind: 'courses' });
+    expect(resolveRoute('/library/nope').tag).toBe('page-home');
   });
 
   it('parses /materials/:id and its sub-pages', () => {
@@ -205,6 +212,22 @@ describe('generation routes', () => {
     expect(resolveRoute('/generations/7/extra').tag).toBe('page-home');
   });
 
+  it('parses /students/:id and guards it', () => {
+    expect(resolveRoute('/students/40')).toEqual({ tag: 'page-student', studentId: 40 });
+    expect(resolveRoute('/students/x')).toEqual({ tag: 'page-student', studentId: undefined });
+    expect(resolveRoute('/students/40/extra').tag).toBe('page-home');
+    expect(redirectFor('/students/40', null)).toBe('/login');
+    expect(redirectFor('/students/40', unverified)).toBe('/verify-email');
+    expect(redirectFor('/students/40', verified)).toBeNull();
+  });
+
+  it('resolves /grading and guards it', () => {
+    expect(resolveRoute('/grading')).toEqual({ tag: 'page-grading' });
+    expect(redirectFor('/grading', null)).toBe('/login');
+    expect(redirectFor('/grading', unverified)).toBe('/verify-email');
+    expect(redirectFor('/grading', verified)).toBeNull();
+  });
+
   it('guards all three as auth-only', () => {
     for (const path of ['/integrations', '/tests/generate', '/generations/7']) {
       expect(redirectFor(path, null)).toBe('/login');
@@ -250,6 +273,20 @@ describe('course routes', () => {
       expect(redirectFor(path, null)).toBeNull();
       expect(redirectFor(path, unverified)).toBeNull();
       expect(redirectFor(path, verified)).toBeNull();
+    }
+  });
+});
+
+describe('needsResolve', () => {
+  it('names the vanity paths app-root must look up', () => {
+    for (const path of ['/courses/precalculus', '/courses/ap-bio/tests/9', '/teachers/ms-rivera', '/teachers/ms-rivera/algebra-1', '/teachers/ms-rivera/algebra-1/tests/3', '/courses/precalculus/']) {
+      expect(needsResolve(path)).toBe(true);
+    }
+  });
+
+  it('leaves id paths, SPA routes and malformed paths alone', () => {
+    for (const path of ['/courses', '/courses/12', '/courses/new', '/courses/12/edit', '/courses/12/tests/3', '/courses/precalculus/edit', '/courses/precalculus/tests/x', '/teachers', '/teachers/4', '/teachers/Ms-Rivera', '/teachers/ms-rivera/algebra-1/edit', '/tests/9', '/library/courses']) {
+      expect(needsResolve(path)).toBe(false);
     }
   });
 });

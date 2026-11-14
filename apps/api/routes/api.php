@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Auth\OAuthCompletionController;
 use App\Http\Controllers\Api\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerificationNotificationController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ConnectionController;
 use App\Http\Controllers\Api\CourseBranchController;
 use App\Http\Controllers\Api\CourseCandidatesController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\Api\CoursePublishController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\GenerationCancelController;
 use App\Http\Controllers\Api\GenerationController;
+use App\Http\Controllers\Api\GradingQueueController;
 use App\Http\Controllers\Api\IntegrationsController;
 use App\Http\Controllers\Api\LibraryController;
 use App\Http\Controllers\Api\MaterialController;
@@ -33,13 +35,18 @@ use App\Http\Controllers\Api\McpTokenController;
 use App\Http\Controllers\Api\MyAssignmentsController;
 use App\Http\Controllers\Api\MyAttemptsController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\PageHeadController;
 use App\Http\Controllers\Api\ProfileAvatarController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicProfileController;
 use App\Http\Controllers\Api\SharedMaterialController;
 use App\Http\Controllers\Api\SiteController;
+use App\Http\Controllers\Api\SitemapController;
+use App\Http\Controllers\Api\SlugController;
+use App\Http\Controllers\Api\StudentAssignmentsController;
 use App\Http\Controllers\Api\TeacherDirectoryController;
 use App\Http\Controllers\Api\TestAttemptsController;
+use App\Http\Controllers\Api\TestCommentsController;
 use App\Http\Controllers\Api\TestController;
 use App\Http\Controllers\Api\TestCopyController;
 use App\Http\Controllers\Api\TestPublishController;
@@ -70,12 +77,19 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::put('profile', [ProfileController::class, 'update']);
     Route::post('profile/avatar', [ProfileAvatarController::class, 'store']);
     Route::delete('profile/avatar', [ProfileAvatarController::class, 'destroy']);
+    Route::get('profile/handle', [SlugController::class, 'showHandle']);
+    Route::put('profile/handle', [SlugController::class, 'updateHandle']);
 
     Route::post('users/{user}/follow', [FollowController::class, 'store']);
     Route::delete('users/{user}/follow', [FollowController::class, 'destroy']);
 
     Route::get('connections', [ConnectionController::class, 'index']);
     Route::get('connections/pending', [ConnectionController::class, 'pending']);
+    // `user` has no Route::pattern, so connections/code must never be a POST:
+    // it would bind "code" as a user id. Hence rotation is a PUT.
+    Route::get('connections/code', [ConnectionController::class, 'code']);
+    Route::put('connections/code', [ConnectionController::class, 'rotateCode']);
+    Route::post('connections/code/{code}', [ConnectionController::class, 'storeByCode']);
     Route::post('connections/{user}', [ConnectionController::class, 'store']);
     Route::patch('connections/{connection}', [ConnectionController::class, 'update']);
     Route::delete('connections/{connection}', [ConnectionController::class, 'destroy']);
@@ -91,11 +105,13 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::post('tests/{test}/publish', [TestPublishController::class, 'publish']);
     Route::post('tests/{test}/unpublish', [TestPublishController::class, 'unpublish']);
     Route::post('tests/{test}/copy', TestCopyController::class);
+    Route::put('tests/{test}/comments', TestCommentsController::class);
 
     Route::get('tests/{test}/assignments', [AssignmentController::class, 'index']);
     Route::post('tests/{test}/assignments', [AssignmentController::class, 'store']);
     Route::delete('tests/{test}/assignments/{assignment}', [AssignmentController::class, 'destroy']);
     Route::get('assignments', MyAssignmentsController::class);
+    Route::get('students/{user}/assignments', StudentAssignmentsController::class);
 
     Route::get('attempts', MyAttemptsController::class);
     Route::post('tests/{test}/attempts', [AttemptController::class, 'store']);
@@ -104,6 +120,7 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::post('attempts/{attempt}/submit', [AttemptController::class, 'submit']);
     Route::put('attempts/{attempt}/answers/{answer}', AnswerGradeController::class);
     Route::get('tests/{test}/attempts', TestAttemptsController::class);
+    Route::get('grading', GradingQueueController::class);
 
     Route::get('materials', [MaterialController::class, 'index']);
     Route::post('materials', [MaterialController::class, 'store']);
@@ -128,6 +145,20 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::post('courses/{course}/publish', [CoursePublishController::class, 'publish']);
     Route::post('courses/{course}/unpublish', [CoursePublishController::class, 'unpublish']);
     Route::post('courses/{course}/branch', CourseBranchController::class);
+    Route::put('courses/{course}/slug', [SlugController::class, 'updateCourse']);
+
+    // Comments on a test, a question, a material or a course. Signed-in
+    // only, reading included: a discussion names people, and who may see
+    // whose name is decided per viewer (CommentAccess).
+    Route::get('comments', [CommentController::class, 'index']);
+    Route::post('comments', [CommentController::class, 'store']);
+    Route::patch('comments/{comment}', [CommentController::class, 'update']);
+    Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
+    // A public course's discussion is moderated: its author, a connected
+    // teacher assistant and admins approve or deny each comment.
+    Route::post('comments/{comment}/approve', [CommentController::class, 'approve']);
+    Route::post('comments/{comment}/deny', [CommentController::class, 'deny']);
+    Route::put('comments/{comment}/reaction', [CommentController::class, 'react']);
 
     // Teacher-only, and grouped so plan 2's anthropic-key and generation
     // routes join the same gate. `teacher` sits ahead of SubstituteBindings
@@ -159,6 +190,9 @@ Route::middleware(['throttle:60,1', 'active'])->group(function () {
     Route::get('materials/{material}', MaterialShowController::class);
     Route::get('library/courses', CourseLibraryController::class);
     Route::get('courses/{course}', [CourseController::class, 'show']);
+    // A vanity path (/courses/<slug>, /teachers/<handle>[/<slug>]) to the id
+    // path it names, for this viewer. See Slugs.
+    Route::get('resolve', [SlugController::class, 'resolve']);
     // Practice mode: guests included, nothing recorded. `check` is a POST
     // only because a run's responses do not fit a query string; it writes
     // nothing.
@@ -173,6 +207,16 @@ Route::middleware(['throttle:60,1', 'active'])->group(function () {
 // the whole api group, which is fine: AuthenticateSession only ends a session
 // whose password changed, correct on any route.
 Route::middleware('throttle:60,1')->get('site', SiteController::class);
+
+// Every page a guest can open, as SPA URLs; the SPA's robots.txt names it.
+// No `active`: it carries nothing viewer-dependent.
+Route::middleware('throttle:60,1')->get('sitemap.xml', SitemapController::class);
+
+// The <head> of a public page, for the SPA host's index.php (link previews).
+// Every guest shares one per-IP bucket (CLAUDE.md), and every call here comes
+// from the SPA host's own IP, so it has a named limiter of its own. Guest
+// view only; nothing viewer-dependent, so no `active`.
+Route::middleware('throttle:page-head')->get('page-head', PageHeadController::class);
 
 // The file stream: `signed:relative` and its own limiter, deliberately with
 // NO `auth` and NO `active`. The signature covers path and query only, so a

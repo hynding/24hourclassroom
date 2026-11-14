@@ -5,7 +5,11 @@ const connections = jest.fn();
 const pendingConnections = jest.fn();
 const acceptConnection = jest.fn();
 const removeConnection = jest.fn();
+const connectCode = jest.fn();
+const rotateConnectCode = jest.fn();
+const requestConnectionByCode = jest.fn();
 const recoverFromExpiredSession = jest.fn();
+const auth: { currentUser: unknown } = { currentUser: null };
 
 jest.mock('../../services/profile-store', () => ({
   profileStore: {
@@ -13,6 +17,17 @@ jest.mock('../../services/profile-store', () => ({
     pendingConnections: (...a: unknown[]) => pendingConnections(...a),
     acceptConnection: (...a: unknown[]) => acceptConnection(...a),
     removeConnection: (...a: unknown[]) => removeConnection(...a),
+    connectCode: (...a: unknown[]) => connectCode(...a),
+    rotateConnectCode: (...a: unknown[]) => rotateConnectCode(...a),
+    requestConnectionByCode: (...a: unknown[]) => requestConnectionByCode(...a),
+  },
+}));
+
+jest.mock('../../services/auth-store', () => ({
+  authStore: {
+    get currentUser() {
+      return auth.currentUser;
+    },
   },
 }));
 
@@ -33,7 +48,11 @@ describe('page-connections', () => {
     pendingConnections.mockReset().mockResolvedValue({ incoming: [], outgoing: [] });
     acceptConnection.mockReset().mockResolvedValue(undefined);
     removeConnection.mockReset().mockResolvedValue(undefined);
+    connectCode.mockReset().mockResolvedValue({ code: 'ABCDEFGHJK' });
+    rotateConnectCode.mockReset().mockResolvedValue({ code: 'NEWCODE234' });
+    requestConnectionByCode.mockReset().mockResolvedValue(undefined);
     recoverFromExpiredSession.mockReset().mockReturnValue(false);
+    auth.currentUser = null;
   });
 
   const mount = () =>
@@ -307,5 +326,100 @@ describe('page-connections', () => {
       .querySelector('[data-testid="accepted-section"]')
       .querySelector('a');
     expect(link.getAttribute('href')).toBe('/teachers/40');
+  });
+
+  describe('connect codes and supporters', () => {
+    const typeCode = async (spec: any, code: string) => {
+      const input = spec.root.shadowRoot.querySelector('[data-testid="code-section"] input') as HTMLInputElement;
+      input.value = code;
+      input.dispatchEvent(new Event('input'));
+      await spec.waitForChanges();
+      spec.root.shadowRoot.querySelector('[data-testid="code-section"] form').dispatchEvent(new Event('submit'));
+      await spec.waitForChanges();
+      await spec.waitForChanges();
+    };
+
+    it('shows the viewer their own code and lets them replace it', async () => {
+      const spec = await mount();
+      await spec.waitForChanges();
+
+      expect(spec.root.shadowRoot.querySelector('[data-testid="my-code"]').textContent).toBe('ABCDEFGHJK');
+
+      const button = Array.from(spec.root.shadowRoot.querySelectorAll('[data-testid="code-section"] button'))
+        .find((b: any) => b.textContent.includes('New code')) as HTMLButtonElement;
+      button.click();
+      await spec.waitForChanges();
+      await spec.waitForChanges();
+
+      expect(rotateConnectCode).toHaveBeenCalled();
+      expect(spec.root.shadowRoot.querySelector('[data-testid="my-code"]').textContent).toBe('NEWCODE234');
+    });
+
+    it('sends a request by code and reloads the lists', async () => {
+      const spec = await mount();
+      await spec.waitForChanges();
+      pendingConnections.mockClear();
+
+      await typeCode(spec, ' XYZXYZXYZX ');
+
+      expect(requestConnectionByCode).toHaveBeenCalledWith('XYZXYZXYZX');
+      expect(pendingConnections).toHaveBeenCalled();
+      expect(spec.root.shadowRoot.querySelector('[data-testid="code-section"]').textContent).toContain('Request sent');
+    });
+
+    it('says plainly when a code reaches no one', async () => {
+      requestConnectionByCode.mockRejectedValue(new ApiError(404, 'Not Found'));
+      const spec = await mount();
+      await spec.waitForChanges();
+
+      await typeCode(spec, 'NOPENOPE22');
+
+      expect(spec.root.shadowRoot.querySelector('[data-testid="code-section"]').textContent).toContain('No one you can connect with has that code.');
+    });
+
+    it('keeps the page when the code cannot load', async () => {
+      connectCode.mockRejectedValue(new ApiError(500, 'Server Error'));
+      connections.mockResolvedValue({ data: [{ id: 1, user: peer(10, 'Accepted Ada') }] });
+
+      const spec = await mount();
+      await spec.waitForChanges();
+
+      expect(spec.root.shadowRoot.querySelector('[data-testid="accepted-section"]').textContent).toContain('Accepted Ada');
+      expect(spec.root.shadowRoot.querySelector('[data-testid="my-code"]')).toBeNull();
+    });
+
+    it('labels each counterpart with their role', async () => {
+      connections.mockResolvedValue({ data: [{ id: 1, user: { id: 10, name: 'Gail', role: 'guardian', avatar_url: null } }] });
+      const spec = await mount();
+      await spec.waitForChanges();
+
+      expect(spec.root.shadowRoot.querySelector('[data-testid="accepted-section"]').textContent).toContain('Parent or guardian');
+    });
+
+    it('links a supporter to a connected student\'s assignments, and only a student', async () => {
+      auth.currentUser = { id: 1, role: 'guardian' };
+      connections.mockResolvedValue({
+        data: [
+          { id: 4, user: student(40, 'Accepted Ann') },
+          { id: 5, user: peer(50, 'Ms Teacher') },
+        ],
+      });
+
+      const spec = await mount();
+      await spec.waitForChanges();
+
+      expect(spec.root.shadowRoot.querySelector('[data-testid="assignments-4"]').getAttribute('href')).toBe('/students/40');
+      expect(spec.root.shadowRoot.querySelector('[data-testid="assignments-5"]')).toBeNull();
+    });
+
+    it('gives a teacher no assignments link on a student row', async () => {
+      auth.currentUser = { id: 1, role: 'teacher' };
+      connections.mockResolvedValue({ data: [{ id: 4, user: student(40, 'Accepted Ann') }] });
+
+      const spec = await mount();
+      await spec.waitForChanges();
+
+      expect(spec.root.shadowRoot.querySelector('[data-testid="assignments-4"]')).toBeNull();
+    });
   });
 });

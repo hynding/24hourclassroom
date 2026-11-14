@@ -1,0 +1,658 @@
+week: 13
+unit: 3
+title: "Linear Models, Fitting Lines and Residuals"
+topics: ["3.4", "3.5", "3.6"]
+guide: guides/week-13.md
+guide_description: |
+  Interpreting the slope and intercept of a linear model in context and predicting with it, fitting a line
+  to a scatter plot by eye and with technology, what the least-squares line minimises, computing residuals,
+  and reading a residual plot to decide whether a line is the right model.
+flashcards_description: |
+  28 cards on scatter plots, slope and intercept in context, prediction and extrapolation, the line of best
+  fit and how technology finds it, residuals and their signs, and the patterns in a residual plot.
+
+flashcards:
+  - front: Scatter plot → what each dot is
+    back: |
+      One case with two numerical measurements, plotted as (x, y). The explanatory variable goes on the horizontal axis and the response on the vertical axis.
+    topic_code: "3.4"
+  - front: Linear model → definition
+    back: |
+      An equation y = mx + b chosen to describe the overall trend of a scatter plot. It summarises the data; individual points usually do not lie exactly on it.
+    topic_code: "3.4"
+  - front: Slope of a linear model in context
+    back: |
+      The predicted change in y for every 1-unit increase in x, stated with units. In price = −1.8(age) + 24, each year of age is associated with about $1,800 less.
+    topic_code: "3.4"
+  - front: Vertical intercept of a linear model in context
+    back: |
+      The predicted y when x = 0. It is meaningful only when x = 0 makes sense and is near the data, such as a new car's price in a price-against-age model.
+    topic_code: "3.4"
+  - front: Predicting with a linear model
+    back: |
+      Substitute the x-value and evaluate. For y = −1.8x + 24 at x = 5, y = 15, so a 5-year-old car is predicted to cost about $15,000.
+    topic_code: "3.4"
+  - front: Extrapolation → meaning and danger
+    back: |
+      Predicting for an x outside the range of the data. The trend may not continue, so such predictions are unreliable and should be flagged.
+    topic_code: "3.4"
+  - front: Interpolation → meaning
+    back: |
+      Predicting for an x inside the range of the data. It is more trustworthy than extrapolation because the model was fitted to nearby points.
+    topic_code: "3.4"
+  - front: Negative slope in a linear model → what it says about the data
+    back: |
+      As x increases, y tends to decrease. The scatter plot slopes downward from left to right.
+    topic_code: "3.4"
+  - front: Line of best fit → informal definition
+    back: |
+      A line that follows the direction of the cloud of points, passes through its middle and has about as many points above as below, staying as close as possible to all of them.
+    topic_code: "3.5"
+  - front: Least-squares line → what it minimises
+    back: |
+      The sum of the squared residuals. Technology computes it directly from the data; it is the standard line of best fit.
+    topic_code: "3.5"
+  - front: Finding a line of best fit with technology
+    back: |
+      Enter the x-values and y-values in two columns and run a linear regression (LinReg, or add a trendline and show its equation). It returns the slope, the intercept and usually r.
+    topic_code: "3.5"
+  - front: Why a line through the two end points is usually poor
+    back: |
+      The extreme points are the most likely to be unusual, so a line through them tilts away from the main cloud instead of following its centre.
+    topic_code: "3.5"
+  - front: Fitting a line by eye → checklist
+    back: |
+      Follow the direction of the cloud, pass through its middle, balance points above and below, and do not chase a single unusual point.
+    topic_code: "3.5"
+  - front: Two students fit different lines by eye → who is right?
+    back: |
+      Both can be reasonable; fitting by eye is approximate. The least-squares line from technology is the agreed standard when a single answer is needed.
+    topic_code: "3.5"
+  - front: Slope of a fitted line from two points on it
+    back: |
+      Change in y divided by change in x between the two points. For (1, 58.6) and (5, 89.4), slope = 30.8/4 = 7.7.
+    topic_code: "3.5"
+  - front: Residual → definition
+    back: |
+      Actual y minus predicted y for one data point. It measures how far, and in which direction, the point misses the line.
+    topic_code: "3.6"
+  - front: Sign of a residual → position of the point
+    back: |
+      Positive means the point is above the line (actual bigger than predicted); negative means below; zero means exactly on the line.
+    topic_code: "3.6"
+  - front: Computing a residual → the steps
+    back: |
+      1. Substitute the point's x into the model to get the predicted y. 2. Subtract: actual − predicted. Keep the sign.
+    topic_code: "3.6"
+  - front: Residual for (90, 235) with the line y = 2.4x + 15
+    back: |
+      Predicted 2.4(90) + 15 = 231; residual 235 − 231 = +4. The point is 4 units above the line.
+    topic_code: "3.6"
+  - front: Sum of the residuals for the least-squares line
+    back: |
+      Zero, apart from rounding. Points above and below balance exactly, which makes a quick check on a residual table.
+    topic_code: "3.6"
+  - front: Residual plot → what is plotted
+    back: |
+      The x-values on the horizontal axis and the residuals on the vertical axis, with a horizontal line at 0 standing for the model.
+    topic_code: "3.6"
+  - front: Random scatter in a residual plot → conclusion
+    back: |
+      A linear model is appropriate. The line captures the trend, and what is left over looks like noise with no pattern.
+    topic_code: "3.6"
+  - front: Curved pattern in a residual plot → conclusion
+    back: |
+      The data bend, so a line is the wrong shape. Residuals negative at both ends and positive in the middle (or the reverse) are the typical sign.
+    topic_code: "3.6"
+  - front: Fan shape in a residual plot → meaning
+    back: |
+      The line fits well for some x-values and poorly for others; predictions are less reliable where the residuals spread out.
+    topic_code: "3.6"
+  - front: Why look at residuals when the scatter plot is available
+    back: |
+      The residual plot magnifies the vertical distances, so a gentle curve that is invisible among widely spread points stands out clearly.
+    topic_code: "3.6"
+  - front: Large residual for one point → what it suggests
+    back: |
+      The point is unusual relative to the trend. Check for a data error or a special circumstance before deciding whether it should influence the model.
+    topic_code: "3.6"
+  - front: Residual of −4 → how to describe it
+    back: |
+      The actual value is 4 units less than the model predicts, so the model overestimated this case and the point sits 4 units below the line.
+    topic_code: "3.6"
+  - front: Using residuals to compare two candidate lines
+    back: |
+      The line whose residuals are smaller in size overall, with no pattern, fits better. Technology settles it with the sum of squared residuals.
+    topic_code: "3.6"
+
+quiz:
+  description: |
+    25 questions · about 45 minutes · interpreting linear models, fitting lines by eye and with technology,
+    and computing and reading residuals (lessons 3.4 to 3.6), with review of two-way tables, one-variable
+    statistics and linear equations and systems. Multiple choice, select-all, true/false and numeric items
+    are graded at once; fill-in-the-blank items are matched automatically; the short answers and the long
+    answer are graded by your teacher against the scoring notes.
+  questions:
+    # ---- Stimulus set: electricity bill against temperature (3.4, 3.6)
+    - slug: alg1-u03-w13-q01
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "IM Algebra 1, Unit 3, Lesson 4"
+      points: 1
+      stimulus: |
+        A homeowner records the average daily temperature x (°F) and the electricity bill y (dollars) for six summer months: (70, 180), (75, 198), (80, 210), (85, 215), (90, 235), (95, 250). She draws the line y = 2.4x + 15 through the cloud of points by eye.
+      prompt: |
+        What does the slope 2.4 mean in this situation?
+      options:
+        - "Each degree warmer is associated with a bill about $2.40 higher."
+        - "The bill is $2.40 when the temperature is 0 °F."
+        - "The temperature rises 2.4 °F for every dollar on the bill."
+        - "The bill rises $2.40 every month."
+      option_explanations:
+        - |
+          Correct. Slope is the change in y (dollars) per 1-unit change in x (degrees Fahrenheit).
+        - |
+          A value at x = 0 is the intercept, 15, not the slope; and 0 °F is far outside the data anyway.
+        - |
+          This reverses the variables; the slope describes how the bill changes with temperature, not the other way round.
+        - |
+          The x-variable is temperature, not time, so the slope says nothing about change per month.
+      answer: 0
+
+    - slug: alg1-u03-w13-q02
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "IM Algebra 1, Unit 3, Lesson 4"
+      points: 1
+      stimulus: |
+        A homeowner records the average daily temperature x (°F) and the electricity bill y (dollars) for six summer months: (70, 180), (75, 198), (80, 210), (85, 215), (90, 235), (95, 250). She draws the line y = 2.4x + 15 through the cloud of points by eye.
+      prompt: |
+        What bill does the line predict for a month averaging 80 °F?
+      options:
+        - "$192"
+        - "$195"
+        - "$207"
+        - "$210"
+      option_explanations:
+        - |
+          $192 is 2.4 × 80 without adding the intercept of 15.
+        - |
+          $195 would come from 2.4 × 75, the wrong temperature.
+        - |
+          Correct. 2.4(80) + 15 = 192 + 15 = 207 dollars.
+        - |
+          $210 is the actual bill recorded at 80 °F, not the value the line predicts.
+      answer: 2
+
+    - slug: alg1-u03-w13-q03
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "IM Algebra 1, Unit 3, Lesson 6"
+      points: 1
+      stimulus: |
+        A homeowner records the average daily temperature x (°F) and the electricity bill y (dollars) for six summer months: (70, 180), (75, 198), (80, 210), (85, 215), (90, 235), (95, 250). She draws the line y = 2.4x + 15 through the cloud of points by eye.
+      prompt: |
+        What is the residual for the month at 90 °F?
+      options:
+        - "+19"
+        - "+4"
+        - "−4"
+        - "0"
+      option_explanations:
+        - |
+          +19 is 235 − 216, which leaves out the intercept 15 when computing the prediction.
+        - |
+          Correct. Predicted 2.4(90) + 15 = 231, actual 235, residual 235 − 231 = +4; the point is above the line.
+        - |
+          −4 is predicted minus actual; a residual is actual minus predicted, so the sign is positive here.
+        - |
+          The point would have residual 0 only if it lay exactly on the line, but 235 is not 231.
+      answer: 1
+
+    - slug: alg1-u03-w13-q04
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "IM Algebra 1, Unit 3, Lesson 6"
+      points: 1
+      stimulus: |
+        A homeowner records the average daily temperature x (°F) and the electricity bill y (dollars) for six summer months: (70, 180), (75, 198), (80, 210), (85, 215), (90, 235), (95, 250). She draws the line y = 2.4x + 15 through the cloud of points by eye.
+      prompt: |
+        The residual for the month at 70 °F is −3. What does this tell you?
+      options:
+        - "The line is a poor fit for the data."
+        - "The temperature was 3 degrees lower than expected."
+        - "The line predicts a bill $3 lower than the actual bill."
+        - "The actual bill was $3 lower than the line predicts, so the point is below the line."
+      option_explanations:
+        - |
+          One small residual says nothing about overall fit; judging fit needs all the residuals and their pattern.
+        - |
+          Residuals measure vertical distance, in the units of y (dollars), never a difference in x.
+        - |
+          A negative residual means the actual value is below the prediction, not above it.
+        - |
+          Correct. Predicted 2.4(70) + 15 = 183 and actual 180, so 180 − 183 = −3: the point is 3 below the line.
+      answer: 3
+
+    # ---- Multiple choice (3.4–3.6)
+    - slug: alg1-u03-w13-q05
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "IM Algebra 1, Unit 3, Lesson 4"
+      points: 1
+      prompt: |
+        A model for a plant's height in centimetres after d days is h = 0.6d + 4. What does the 4 represent?
+      options:
+        - "The plant's height when measurements began, about 4 cm."
+        - "The number of days before the plant started growing."
+        - "The plant grows 4 cm every day."
+        - "The plant's height after 0.6 days."
+      option_explanations:
+        - |
+          Correct. The intercept is the predicted height at d = 0, the start of the measurements.
+        - |
+          The intercept is a height in centimetres, not a number of days.
+        - |
+          The daily growth is the slope, 0.6 cm per day, not the constant term.
+        - |
+          At d = 0.6 the height would be 0.36 + 4 = 4.36 cm; the 4 belongs to d = 0.
+      answer: 0
+
+    - slug: alg1-u03-w13-q06
+      type: multiple_choice
+      topic_code: "3.5"
+      source: "IM Algebra 1, Unit 3, Lesson 5"
+      points: 1
+      prompt: |
+        When technology computes the least-squares line for a scatter plot, what does it make as small as possible?
+      options:
+        - "The slope of the line"
+        - "The sum of the squared residuals"
+        - "The distance between the first and last points"
+        - "The number of points above the line"
+      option_explanations:
+        - |
+          The slope is whatever the data demand; a steep trend gives a steep line.
+        - |
+          Correct. It chooses the slope and intercept that minimise the total of the squared vertical distances from the points to the line.
+        - |
+          The first and last points have no special role; every point contributes to the fit.
+        - |
+          The least-squares line balances points above and below, but it does not minimise their number.
+      answer: 1
+
+    - slug: alg1-u03-w13-q07
+      type: multiple_choice
+      topic_code: "3.5"
+      source: "IM Algebra 1, Unit 3, Lesson 5"
+      points: 1
+      prompt: |
+        Which description is the poorest way to draw a line of fit by eye for a scatter plot with a clear upward trend?
+      options:
+        - "Draw a line that stays close to most of the points."
+        - "Draw a line through the middle of the cloud following its direction."
+        - "Draw a line with about as many points above as below."
+        - "Draw a line through the lowest point and the highest point."
+      option_explanations:
+        - |
+          Staying close to most points is the goal; this is what least squares measures.
+        - |
+          Following the centre and direction of the cloud is exactly what a good line of fit does.
+        - |
+          Balancing the points above and below is one of the checks for a reasonable line of fit.
+        - |
+          Correct. The extreme points are the most likely to be unusual, so a line through them often tilts away from the trend.
+      answer: 3
+
+    - slug: alg1-u03-w13-q08
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "IM Algebra 1, Unit 3, Lesson 6"
+      points: 1
+      prompt: |
+        A residual plot shows residuals that are negative for small x, positive for middle x and negative again for large x. What should you conclude?
+      options:
+        - "The slope of the line should be increased."
+        - "The data contain an outlier that should be removed."
+        - "The data follow a curve, so a line is not an appropriate model."
+        - "The linear model fits well because the residuals are balanced."
+      option_explanations:
+        - |
+          Changing the slope would move the ends in opposite directions and cannot straighten an arch.
+        - |
+          An arch involves all the points, not a single unusual one, so removing a point will not fix it.
+        - |
+          Correct. Residuals that follow a curve mean the line underestimates in the middle and overestimates at the ends.
+        - |
+          Balance alone is not enough; a clear arch pattern means the line misses the shape of the data.
+      answer: 2
+
+    - slug: alg1-u03-w13-q09
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "IM Algebra 1, Unit 3, Lesson 6"
+      points: 1
+      prompt: |
+        A data point has a residual of +5 with respect to a linear model. Which statement is true?
+      options:
+        - "The point lies 5 units to the right of the line."
+        - "The model predicts a value 5 units larger than the actual value."
+        - "The point lies 5 units above the line."
+        - "The point lies 5 units below the line."
+      option_explanations:
+        - |
+          Residuals are vertical distances measured in the units of y, not horizontal shifts.
+        - |
+          This describes a residual of −5, where the prediction exceeds the actual value.
+        - |
+          Correct. Residual = actual − predicted = +5, so the actual value is 5 more than the prediction: above the line.
+        - |
+          A point below the line has a negative residual, because the actual value is less than the prediction.
+      answer: 2
+
+    - slug: alg1-u03-w13-q10
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "IM Algebra 1, Unit 3, Lesson 4"
+      points: 1
+      prompt: |
+        A linear model for a child's height was fitted to data for ages 2 to 10. Why would using it to predict height at age 40 be unwise?
+      options:
+        - "Because age 40 is far outside the data, and growth does not continue at a constant rate."
+        - "Because the residuals would all be positive."
+        - "Because the slope would become negative."
+        - "Because linear models can only predict for whole-number ages."
+      option_explanations:
+        - |
+          Correct. This is extrapolation: the model was never tested beyond age 10, and people stop growing.
+        - |
+          There are no data at age 40, so there are no residuals there to be positive or negative.
+        - |
+          The slope of the fitted line does not change; the problem is that the real pattern does.
+        - |
+          A linear model accepts any input value; whole numbers are not a restriction.
+      answer: 0
+
+    - slug: alg1-u03-w13-q11
+      type: multiple_choice
+      topic_code: "3.2"
+      source: "IM Algebra 1, Unit 3, Lesson 2"
+      points: 1
+      prompt: |
+        In a two-way table, the cell for "walks to school and lives within a mile" holds 36, the "lives within a mile" column total is 60, and the grand total is 200. What percent of students who live within a mile walk to school?
+      options:
+        - "30%"
+        - "60%"
+        - "18%"
+        - "36%"
+      option_explanations:
+        - |
+          30% is 60/200, the share of all students who live within a mile.
+        - |
+          Correct. "Of students who live within a mile" means divide by that column total: 36/60 = 0.60.
+        - |
+          18% is 36/200, the share of all students, not the share of those living within a mile.
+        - |
+          36% reads the count as a percent; the cell must be divided by the column total.
+      answer: 1
+
+    - slug: alg1-u03-w13-q12
+      type: multiple_choice
+      topic_code: "2.10"
+      source: "IM Algebra 1, Unit 2, Lesson 10"
+      points: 1
+      prompt: |
+        A line passes through (2, 5) and (6, 13). What is its slope?
+      options:
+        - "4"
+        - "1/2"
+        - "8"
+        - "2"
+      option_explanations:
+        - |
+          4 is the change in x alone; the slope compares the change in y to it.
+        - |
+          1/2 divides the change in x by the change in y, the reverse of the slope formula.
+        - |
+          8 is the change in y alone; it must be divided by the change in x, which is 4.
+        - |
+          Correct. Slope = (13 − 5)/(6 − 2) = 8/4 = 2.
+      answer: 3
+
+    - slug: alg1-u03-w13-q13
+      type: multiple_choice
+      topic_code: "1.4"
+      source: "IM Algebra 1, Unit 1, Lesson 4"
+      points: 1
+      prompt: |
+        A histogram of house prices has most values between $150,000 and $250,000 and a long tail stretching to $900,000. How is the distribution described, and which is larger, the mean or the median?
+      options:
+        - "Symmetric; the mean and median are equal."
+        - "Skewed right; the median is larger."
+        - "Skewed right; the mean is larger."
+        - "Skewed left; the median is larger."
+      option_explanations:
+        - |
+          A distribution with a long tail on one side is not symmetric.
+        - |
+          The direction is right, but the extreme values raise the mean, so the median is the smaller measure.
+        - |
+          Correct. The long tail is on the right, and the few very expensive houses pull the mean above the median.
+        - |
+          A tail toward large values is a right skew, and a right tail pulls the mean up, not the median.
+      answer: 2
+
+    # ---- Select-all (3.6, 3.3)
+    - slug: alg1-u03-w13-q14
+      type: multi_select
+      topic_code: "3.6"
+      source: "IM Algebra 1, Unit 3, Lesson 6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about residuals are true? Select all that apply.
+      options:
+        - "A residual is always positive."
+        - "Residuals are measured along the horizontal axis."
+        - "A residual plot with no pattern suggests a linear model is appropriate."
+        - "A residual is the actual value minus the value predicted by the model."
+        - "A point on the line has a residual of 0."
+      option_explanations:
+        - |
+          Residuals are negative for points below the line, so they can have either sign.
+        - |
+          Residuals are vertical distances in the units of y; they are plotted on the vertical axis of a residual plot.
+        - |
+          Correct. Random scatter around 0 means the line has captured the trend and only noise remains.
+        - |
+          Correct. This is the definition, and the order matters for the sign.
+        - |
+          Correct. If actual equals predicted, the difference is 0.
+      answer: [2, 3, 4]
+
+    - slug: alg1-u03-w13-q15
+      type: multi_select
+      topic_code: "3.3"
+      source: "IM Algebra 1, Unit 3, Lesson 3"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which of these survey results show an association between the two variables? Select all that apply.
+      options:
+        - "70% of morning members renewed; 35% of evening members renewed."
+        - "Of 200 students, 80 walkers and 40 bus riders have a pet: 40% versus 40%."
+        - "60 of 100 bus riders and 20 of 100 car riders were late."
+        - "25% of cats and 25% of dogs are over 5 years old."
+        - "Of 50 freshmen, 10 play chess; of 50 seniors, 30 play chess."
+      option_explanations:
+        - |
+          Correct. A 35-point gap in renewal rate between the two groups is a clear association.
+        - |
+          Both groups have the same 40% pet rate, so there is no association despite the different counts.
+        - |
+          Correct. 60% versus 20% late is a 40-point gap; transport and lateness are associated.
+        - |
+          Equal percentages in both groups mean no association.
+        - |
+          Correct. 20% of freshmen versus 60% of seniors is a large gap, so grade and chess are associated.
+      answer: [0, 2, 4]
+
+    # ---- True/false (3.5, 2.6)
+    - slug: alg1-u03-w13-q16
+      type: true_false
+      topic_code: "3.5"
+      source: "IM Algebra 1, Unit 3, Lesson 5"
+      points: 1
+      prompt: |
+        True or false: for the least-squares line of best fit, the residuals add to 0 (apart from rounding).
+      answer: true
+      explanation: |
+        True. The least-squares line balances the points above and below it exactly, so the positive and negative residuals cancel. This gives a quick check on a residual table.
+
+    - slug: alg1-u03-w13-q17
+      type: true_false
+      topic_code: "2.6"
+      source: "IM Algebra 1, Unit 2, Lesson 6"
+      points: 1
+      prompt: |
+        True or false: multiplying both sides of the equation 3x − 2 = 7 by 0 produces an equivalent equation.
+      answer: false
+      explanation: |
+        False. Multiplying by 0 gives 0 = 0, which every value of x satisfies, so the solution set changes from {3} to all numbers. Multiplying by any non-zero number keeps equations equivalent.
+
+    # ---- Fill in the blank (3.6, 1.14)
+    - slug: alg1-u03-w13-q18
+      type: fill_blank
+      topic_code: "3.6"
+      source: "IM Algebra 1, Unit 3, Lesson 6"
+      points: 1
+      prompt: |
+        For one data point, the actual value minus the value predicted by the model is called the ____.
+      answer: ["residual"]
+      explanation: |
+        The residual measures how far above (positive) or below (negative) the line a point lies.
+
+    - slug: alg1-u03-w13-q19
+      type: fill_blank
+      topic_code: "1.14"
+      source: "IM Algebra 1, Unit 1, Lesson 14"
+      points: 1
+      prompt: |
+        A data value more than 1.5 times the IQR above the third quartile or below the first quartile is called an ____.
+      answer: ["outlier"]
+      explanation: |
+        The 1.5 × IQR rule gives the fences Q1 − 1.5·IQR and Q3 + 1.5·IQR; values beyond them are outliers and are investigated before analysis.
+
+    # ---- Numeric (3.4, 3.6, 2.14)
+    - slug: alg1-u03-w13-q20
+      type: numeric
+      topic_code: "3.4"
+      source: "IM Algebra 1, Unit 3, Lesson 4"
+      points: 1
+      prompt: |
+        A model predicts dollars saved after x weeks as y = 3.2x − 5. What does it predict after 10 weeks?
+      answer: { value: 27, tolerance: 0 }
+      explanation: |
+        3.2(10) − 5 = 32 − 5 = 27 dollars.
+
+    - slug: alg1-u03-w13-q21
+      type: numeric
+      topic_code: "3.6"
+      source: "IM Algebra 1, Unit 3, Lesson 6"
+      points: 1
+      prompt: |
+        A model predicts a value of 42 for a point whose actual value is 38. What is the residual?
+      answer: { value: -4, tolerance: 0 }
+      explanation: |
+        Residual = actual − predicted = 38 − 42 = −4; the point is 4 units below the line.
+
+    - slug: alg1-u03-w13-q22
+      type: numeric
+      topic_code: "2.14"
+      source: "IM Algebra 1, Unit 2, Lesson 14"
+      points: 1
+      prompt: |
+        Solve the system x + y = 10 and x − y = 4 by elimination. What is the value of x?
+      answer: { value: 7, tolerance: 0 }
+      explanation: |
+        Adding the equations eliminates y: 2x = 14, so x = 7, and then y = 3.
+
+    # ---- Short answer (3.4/3.5, 2.12)
+    - slug: alg1-u03-w13-q23
+      type: short_answer
+      topic_code: "3.5"
+      source: "IM Algebra 1, Unit 3, Lesson 5"
+      points: 3
+      prompt: |
+        Five students recorded hours studied and quiz score: (1, 60), (2, 65), (3, 75), (4, 78), (5, 92). Technology gives the line of best fit y = 7.7x + 50.9.
+
+        (a) Interpret the slope and the intercept in context.
+        (b) Predict the score for a student who studies 3.5 hours.
+        (c) Find the residual for the student who studied 4 hours and say what it means.
+      answer: |
+        (a) Each additional hour of study is associated with about 7.7 more points; a student who studies 0 hours is predicted to score about 51.
+        (b) 7.7(3.5) + 50.9 = 26.95 + 50.9 ≈ 77.9, so about 78.
+        (c) Predicted 7.7(4) + 50.9 = 81.7; residual 78 − 81.7 = −3.7. That student scored about 3.7 points below what the line predicts, so the point is below the line.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: slope as points per hour and intercept as the predicted score at 0 hours, both with context.
+
+        (b) 1 pt: about 77.9 (accept 78).
+
+        (c) 1 pt: residual −3.7 with the correct sign and an interpretation (below the line).
+
+    - slug: alg1-u03-w13-q24
+      type: short_answer
+      topic_code: "2.12"
+      source: "IM Algebra 1, Unit 2, Lesson 12"
+      points: 3
+      prompt: |
+        A school sold 300 tickets to a play. Adult tickets cost $8 and student tickets cost $5, and the sales totalled $1,950.
+
+        (a) Define variables and write a system of equations for the situation.
+        (b) Solve the system, showing your method.
+        (c) Check your solution in both original equations.
+      answer: |
+        (a) Let a be adult tickets and s student tickets: a + s = 300 and 8a + 5s = 1950.
+        (b) From the first, s = 300 − a. Substituting: 8a + 5(300 − a) = 1950, so 8a + 1500 − 5a = 1950, 3a = 450, a = 150 and s = 150.
+        (c) 150 + 150 = 300 and 8(150) + 5(150) = 1200 + 750 = 1950; both hold.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: variables defined and both equations correct.
+
+        (b) 1 pt: a = 150 and s = 150 by substitution or elimination with work shown.
+
+        (c) 1 pt: both equations checked numerically.
+
+    # ---- Long answer (3.6)
+    - slug: alg1-u03-w13-q25
+      type: long_answer
+      topic_code: "3.6"
+      source: "IM Algebra 1, Unit 3, Lesson 6"
+      points: 6
+      prompt: |
+        A café records the outdoor temperature x (°C) and the number of iced drinks sold y on five days: (10, 14), (15, 22), (20, 34), (25, 40), (30, 55). The least-squares line is y = 2x − 7.
+
+        (1) Compute the predicted value and the residual for each of the five days and present them in a table.
+        (2) Show that the residuals add to 0 and explain why that is expected.
+        (3) Describe what a residual plot of these values would look like and say whether a linear model is appropriate.
+        (4) Predict sales at 22 °C and at 45 °C, and explain which prediction you trust more.
+      answer: |
+        (1) x = 10: predicted 13, residual +1. x = 15: predicted 23, residual −1. x = 20: predicted 33, residual +1. x = 25: predicted 43, residual −3. x = 30: predicted 53, residual +2.
+        (2) 1 − 1 + 1 − 3 + 2 = 0. The least-squares line balances the points above and below it, so its residuals always sum to zero.
+        (3) The residuals alternate in sign and are all small (between −3 and +2) with no curve or fan, so the residual plot is a random scatter around 0 and a linear model is appropriate.
+        (4) At 22 °C: 2(22) − 7 = 37 drinks. At 45 °C: 2(45) − 7 = 83 drinks. The 22 °C prediction is interpolation inside the data (10 to 30 °C) and is trustworthy; 45 °C is well outside the data, so the trend may not hold (extreme heat may keep customers away), and that prediction is unreliable.
+      explanation: |
+        Six points.
+
+        (1) 2 pts: 1 for the five predicted values, 1 for the five residuals with correct signs.
+
+        (2) 1 pt: sum shown to be 0 with the balance explanation.
+
+        (3) 1 pt: no pattern, small residuals, linear model appropriate.
+
+        (4) 2 pts: 1 for both predictions (37 and 83), 1 for identifying 45 °C as extrapolation and explaining why it is less trustworthy.
+
+        Common errors: predicted minus actual; claiming the model is poor because residuals are non-zero; trusting the extrapolated value.

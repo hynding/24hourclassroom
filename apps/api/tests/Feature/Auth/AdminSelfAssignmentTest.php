@@ -59,3 +59,29 @@ test('teacher and student remain accepted on every registration path', function 
 test('Role has an Admin case that is never self-assignable', function () {
     expect(App\Enums\Role::Admin->value)->toBe('admin');
 });
+
+test('tutor, assistant and guardian are accepted on every registration path', function () {
+    foreach (['tutor', 'assistant', 'guardian'] as $role) {
+        $this->postJson('/api/auth/register', [
+            'name' => ucfirst($role), 'email' => "api-{$role}@example.com",
+            'password' => 'password', 'password_confirmation' => 'password',
+            'role' => $role,
+        ])->assertNoContent();
+        $this->post('/logout');
+
+        expect(User::where('email', "api-{$role}@example.com")->first()->role->value)->toBe($role);
+    }
+
+    $this->post('/register', [
+        'name' => 'G', 'email' => 'web-guardian@example.com',
+        'password' => 'password', 'password_confirmation' => 'password',
+        'role' => 'guardian',
+    ])->assertSessionHasNoErrors();
+    $this->post('/logout');
+
+    Session::put('oauth.google', ['id' => 'g-2', 'name' => 'Tess Tutor', 'email' => 'oauth-tutor@example.com']);
+    $this->postJson('/api/auth/oauth/complete', ['role' => 'tutor'])->assertSuccessful();
+
+    expect(User::where('email', 'web-guardian@example.com')->first()->role->value)->toBe('guardian')
+        ->and(User::where('email', 'oauth-tutor@example.com')->first()->role->value)->toBe('tutor');
+});

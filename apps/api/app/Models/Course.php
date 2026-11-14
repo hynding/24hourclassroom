@@ -15,7 +15,9 @@ class Course extends Model
     /** @use HasFactory<\Database\Factories\CourseFactory> */
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'subject', 'grade_level', 'visibility', 'published_at', 'slug', 'branched_from_id'];
+    protected $fillable = ['title', 'description', 'subject', 'grade_level', 'visibility', 'comment_reactions', 'published_at', 'slug', 'branched_from_id'];
+
+    protected $attributes = ['comment_reactions' => false];
 
     protected function casts(): array
     {
@@ -23,6 +25,7 @@ class Course extends Model
             'subject' => Subject::class,
             'grade_level' => GradeLevel::class,
             'visibility' => Visibility::class,
+            'comment_reactions' => 'boolean',
             'published_at' => 'datetime',
         ];
     }

@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import { GENERATION_STATUSES, Generation, MyAssignment, MyAttempt, TestSummary } from '@24hc/shared';
+import { AUTHOR_ROLES, GENERATION_STATUSES, Generation, MyAssignment, MyAttempt, TestSummary, hasRole } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { testsStore } from '../../services/tests-store';
 import { generationStore } from '../../services/generation-store';
@@ -27,9 +27,13 @@ export class PageTests {
   private generationsLoaded = false;
 
   private get role(): 'teacher' | 'student' | 'none' {
-    // Allowlist: anything that is not exactly teacher or student gets the empty state.
+    // Allowlist: an author (teacher, tutor) writes tests, a student takes
+    // them, and anyone else gets the empty state.
     const role = authStore.currentUser?.role;
-    return role === 'teacher' || role === 'student' ? role : 'none';
+    if (hasRole(AUTHOR_ROLES, role)) {
+      return 'teacher';
+    }
+    return role === 'student' ? 'student' : 'none';
   }
 
   async componentWillLoad() {
@@ -141,7 +145,7 @@ export class PageTests {
       <section>
         <h1>My tests</h1>
         <h2>Assigned</h2>
-        {this.loaded && this.assignments.length === 0 && <p>Nothing assigned yet. Browse the {this.link('/library', 'library')} to practise.</p>}
+        {this.loaded && this.assignments.length === 0 && <p>Nothing assigned yet. Browse the {this.link('/library/tests', 'test library')} to practise.</p>}
         <ul class="rows">
           {this.assignments.map((a) => (
             <li>

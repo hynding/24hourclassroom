@@ -83,7 +83,7 @@ final class AdminUserPayload
             // Allowlist from the enum: the page maps these to buttons and
             // never compares role to a literal.
             'role_options' => $actionable
-                ? array_values(array_diff([Role::Teacher->value, Role::Student->value], [$target->role->value]))
+                ? array_values(array_diff(Role::selfAssignableValues(), [$target->role->value]))
                 : [],
         ];
     }

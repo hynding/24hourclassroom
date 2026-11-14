@@ -8,18 +8,20 @@ export interface ResolvedRoute {
   materialId?: number;
   generationId?: number;
   courseId?: number;
+  studentId?: number;
   /** Which library segment page-library is showing. */
   kind?: 'tests' | 'materials' | 'courses';
 }
 
 const GUEST_ONLY = ['/login', '/register', '/forgot-password', '/reset-password'];
-const AUTH_ONLY = ['/profile', '/connections', '/notifications', '/tests', '/tests/new', '/tests/generate', '/materials', '/materials/new', '/courses', '/courses/new', '/integrations'];
+const AUTH_ONLY = ['/profile', '/connections', '/notifications', '/tests', '/tests/new', '/tests/generate', '/materials', '/materials/new', '/courses', '/courses/new', '/integrations', '/grading'];
 const TEACHER_PREFIX = '/teachers/';
 const TESTS_PREFIX = '/tests/';
 const MATERIALS_PREFIX = '/materials/';
 const ATTEMPTS_PREFIX = '/attempts/';
 const GENERATIONS_PREFIX = '/generations/';
 const COURSES_PREFIX = '/courses/';
+const STUDENTS_PREFIX = '/students/';
 const TEST_SUBPAGES: Record<string, string> = {
   edit: 'page-test-editor',
   assign: 'page-test-assign',
@@ -30,6 +32,30 @@ const MATERIAL_SUBPAGES: Record<string, string> = {
   edit: 'page-material-form',
   share: 'page-material-share',
 };
+
+/** A course or teacher slug segment (App\Support\Slugs): never digits only. */
+const SLUG_SEGMENT = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const isSlug = (segment: string | undefined) => segment !== undefined && SLUG_SEGMENT.test(segment) && !/^\d+$/.test(segment);
+
+/**
+ * A vanity path the API must name before the SPA can route it:
+ * /courses/<slug>[/tests/<id>], /teachers/<handle>[/<slug>[/tests/<id>]].
+ * app-root resolves it (GET /api/resolve) and routes on the id path it gets
+ * back. `/courses/new` is the one SPA route of the same shape.
+ */
+export function needsResolve(path: string): boolean {
+  const [, top, first, second, third, fourth, ...rest] = path.replace(/\/+$/, '').split('/');
+  if (rest.length > 0 || !isSlug(first)) {
+    return false;
+  }
+  if (top === 'courses') {
+    return first !== 'new' && (second === undefined || (second === 'tests' && parseId(third) !== undefined && fourth === undefined));
+  }
+  if (top === 'teachers') {
+    return second === undefined || (isSlug(second) && (third === undefined || (third === 'tests' && parseId(fourth) !== undefined)));
+  }
+  return false;
+}
 
 /** Positive integer or undefined; pages render not-found off undefined. */
 function parseId(segment: string | undefined): number | undefined {
@@ -99,7 +125,7 @@ function courseRoute(path: string): ResolvedRoute | null {
 
 /** Public even logged out, so exempt from the verification gate. */
 function isPublic(path: string): boolean {
-  if (path === '/teachers' || path.startsWith(TEACHER_PREFIX) || path === '/library' || path === '/library/materials' || path === '/library/courses') {
+  if (path === '/teachers' || path.startsWith(TEACHER_PREFIX) || path === '/library' || path === '/library/tests' || path === '/library/materials' || path === '/library/courses') {
     return true;
   }
   // '/tests/new', '/tests/generate' and '/materials/new' parse through their
@@ -123,7 +149,7 @@ function isPublic(path: string): boolean {
 }
 
 function isAuthOnly(path: string): boolean {
-  if (AUTH_ONLY.includes(path) || path.startsWith(ATTEMPTS_PREFIX) || path.startsWith(GENERATIONS_PREFIX)) {
+  if (AUTH_ONLY.includes(path) || path.startsWith(ATTEMPTS_PREFIX) || path.startsWith(GENERATIONS_PREFIX) || path.startsWith(STUDENTS_PREFIX)) {
     return true;
   }
   const test = testRoute(path);
@@ -159,6 +185,9 @@ export function resolveRoute(path: string): ResolvedRoute {
   if (path === '/integrations') {
     return { tag: 'page-integrations' };
   }
+  if (path === '/grading') {
+    return { tag: 'page-grading' };
+  }
   if (path === '/materials') {
     return { tag: 'page-materials' };
   }
@@ -166,6 +195,9 @@ export function resolveRoute(path: string): ResolvedRoute {
     return { tag: 'page-material-form', materialId: undefined };
   }
   if (path === '/library') {
+    return { tag: 'page-library-index' };
+  }
+  if (path === '/library/tests') {
     return { tag: 'page-library', kind: 'tests' };
   }
   if (path === '/library/materials') {
@@ -201,6 +233,10 @@ export function resolveRoute(path: string): ResolvedRoute {
     const [idSegment, ...rest] = path.slice(GENERATIONS_PREFIX.length).split('/');
     return rest.length > 0 ? { tag: 'page-home' } : { tag: 'page-generation', generationId: parseId(idSegment) };
   }
+  if (path.startsWith(STUDENTS_PREFIX)) {
+    const [idSegment, ...rest] = path.slice(STUDENTS_PREFIX.length).split('/');
+    return rest.length > 0 ? { tag: 'page-home' } : { tag: 'page-student', studentId: parseId(idSegment) };
+  }
 
   switch (path) {
     case '/login':
@@ -224,6 +260,22 @@ export function resolveRoute(path: string): ResolvedRoute {
     default:
       return { tag: 'page-home' };
   }
+}
+
+/**
+ * Pages a search engine may list: the logged-out-readable views, minus the
+ * print view (a duplicate of the test page) and every form. `/` is the
+ * home page; every unknown path also resolves to page-home, so it is
+ * matched by path, not tag. A page that turns out to be private when it
+ * loads (an author viewing their own draft) says so through page-meta.
+ */
+const INDEXABLE_TAGS = ['page-teachers', 'page-teacher-profile', 'page-library-index', 'page-library', 'page-course', 'page-course-practice', 'page-test', 'page-material'];
+
+export function isIndexable(path: string): boolean {
+  if (path === '/') {
+    return true;
+  }
+  return INDEXABLE_TAGS.includes(resolveRoute(path).tag) && isPublic(path);
 }
 
 export function redirectFor(path: string, user: User | null): string | null {

@@ -57,13 +57,13 @@ test('sharing reports per id: connected teachers and students are shared, everyt
         ->and($student->notifications()->first()->data['user']['role'])->toBe('teacher');
 });
 
-test('every role that is not teacher or student is not_found, even when connected', function () {
+test('every role that cannot receive a share is not_found, even when connected', function () {
     $author = aTeacher();
     $material = aMaterial($author);
     $this->actingAs($author);
 
     foreach (Role::cases() as $role) {
-        if (in_array($role, [Role::Teacher, Role::Student], true)) {
+        if ($role->receivesShares()) {
             continue;
         }
         $target = User::factory()->create(['role' => $role->value]);
@@ -265,9 +265,9 @@ test('the shared list is ordered newest share first', function () {
         ->assertJsonPath('data.1.title', 'Older');
 });
 
-test('only teachers and students may list shared materials', function () {
+test('only roles that receive shares may list shared materials', function () {
     foreach (Role::cases() as $role) {
-        if (in_array($role, [Role::Teacher, Role::Student], true)) {
+        if ($role->receivesShares()) {
             continue;
         }
         $this->actingAs(User::factory()->create(['role' => $role->value]));

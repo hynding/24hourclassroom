@@ -1,0 +1,942 @@
+unit: 4
+description: |
+  45 questions · about 85 minutes · every topic of Unit 4 (4.1 to 4.14): parametric functions and planar
+  motion, rates of change along a path, parametric circles and segments, implicitly defined curves, conic
+  sections and their parametrizations, vectors and vector-valued functions, matrices, determinants and inverses,
+  linear transformations, and transition-matrix models, with a little review of Units 2 and 3. Includes three
+  shared-context sets of three questions (a kicked football, an ellipse, and a transformation matrix),
+  select-all, true/false, fill-in-the-blank and numeric items, two short-answer questions (3 points each) and
+  two extended responses (6 points each). Multiple choice, select-all, true/false and numeric items are graded
+  at once; fill-in-the-blank items are matched automatically; the free-response items are graded by your
+  teacher against the scoring notes. Items marked (Calculator.) need a graphing calculator; the rest are meant
+  to be done by hand. Unit 4 is not assessed on the AP exam.
+questions:
+  # ---- Stimulus set A: a kicked football (4.2, 4.3)
+  - slug: precalc-u04-exam-q01
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "AP Precalculus CED, Topic 4.2"
+    points: 1
+    stimulus: |
+      In a hypothetical model, a football is kicked so that its position in feet t seconds after the kick is x(t) = 45t, y(t) = 2 + 60t − 16t², where x is the horizontal distance from the kicker and y is the height above the ground.
+    prompt: |
+      What is the greatest height the football reaches?
+    options:
+      - "60 ft"
+      - "58.25 ft"
+      - "114.5 ft"
+      - "46 ft"
+    option_explanations:
+      - |
+        60 ft/s is the initial upward speed, the coefficient of t, not a height.
+      - |
+        Correct. The vertex of y is at t = −60/(2 · (−16)) = 1.875 s, and y(1.875) = 2 + 112.5 − 56.25 = 58.25 ft.
+      - |
+        This is 2 + 60(1.875), which leaves out the −16t² term at the vertex time.
+      - |
+        This is y(1) = 2 + 60 − 16; the ball is still rising at t = 1, since the vertex is at t = 1.875.
+    answer: 1
+  - slug: precalc-u04-exam-q02
+    type: multiple_choice
+    topic_code: "4.3"
+    source: "AP Precalculus CED, Topic 4.3"
+    points: 1
+    stimulus: |
+      In a hypothetical model, a football is kicked so that its position in feet t seconds after the kick is x(t) = 45t, y(t) = 2 + 60t − 16t², where x is the horizontal distance from the kicker and y is the height above the ground.
+    prompt: |
+      What is the average rate of change of the football's height with respect to time on the interval [0, 2]?
+    options:
+      - "58 ft/s"
+      - "45 ft/s"
+      - "56 ft/s"
+      - "28 ft/s"
+    option_explanations:
+      - |
+        58 ft is the height y(2), not a change in height per second.
+      - |
+        45 ft/s is Δx/Δt, the horizontal rate, not the rate of change of the height.
+      - |
+        56 ft is the change in height Δy, which still has to be divided by Δt = 2.
+      - |
+        Correct. y(0) = 2 and y(2) = 2 + 120 − 64 = 58, so Δy/Δt = (58 − 2)/2 = 28 ft/s.
+    answer: 3
+  - slug: precalc-u04-exam-q03
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "AP Precalculus CED, Topic 4.2"
+    points: 1
+    stimulus: |
+      In a hypothetical model, a football is kicked so that its position in feet t seconds after the kick is x(t) = 45t, y(t) = 2 + 60t − 16t², where x is the horizontal distance from the kicker and y is the height above the ground.
+    prompt: |
+      (Calculator.) How far from the kicker does the football land?
+    options:
+      - "About 170.2 ft"
+      - "About 168.8 ft"
+      - "About 3.78 ft"
+      - "About 84.4 ft"
+    option_explanations:
+      - |
+        Correct. 16t² − 60t − 2 = 0 has positive root t = (60 + √3728)/32 ≈ 3.783 s, and x ≈ 45 · 3.783 ≈ 170.2 ft.
+      - |
+        This solves 60t − 16t² = 0 (t = 3.75), ignoring the 2-foot starting height, so the landing time is slightly too early.
+      - |
+        3.78 is the landing time in seconds; the question asks for the horizontal distance x at that time.
+      - |
+        This is x at the highest point (t = 1.875), about halfway; the ball keeps travelling until y = 0.
+    answer: 0
+  # ---- Independent items
+  - slug: precalc-u04-exam-q04
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "AP Precalculus CED, Topic 4.1"
+    points: 1
+    prompt: |
+      Which equation in x and y describes the path of x = 3 − t, y = 2t + 1?
+    options:
+      - "y = 2x − 5"
+      - "x = 7 − 2y"
+      - "y = 7 − 2x"
+      - "y = 2x + 7"
+    option_explanations:
+      - |
+        This uses t = x − 3; solving x = 3 − t for t gives t = 3 − x.
+      - |
+        This swaps the roles of x and y in the result.
+      - |
+        Correct. t = 3 − x, so y = 2(3 − x) + 1 = 7 − 2x.
+      - |
+        This mishandles the sign when distributing: 2(3 − x) = 6 − 2x, not 6 + 2x.
+    answer: 2
+  - slug: precalc-u04-exam-q05
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "AP Precalculus CED, Topic 4.1"
+    points: 1
+    prompt: |
+      Which describes the path of x = eᵗ, y = e^(2t), for all real t?
+    options:
+      - "The part of the parabola y = x² with x > 0"
+      - "The entire parabola y = x²"
+      - "The line y = 2x for x > 0"
+      - "The part of the parabola y = x² with x ≥ 1"
+    option_explanations:
+      - |
+        Correct. e^(2t) = (eᵗ)² = x², and x = eᵗ takes every positive value but no others.
+      - |
+        y = x² is right, but x = eᵗ is never zero or negative, so the left half of the parabola is missing.
+      - |
+        e^(2t) is (eᵗ)², not 2eᵗ; doubling the exponent squares the power.
+      - |
+        This assumes t ≥ 0; for negative t, x = eᵗ lies between 0 and 1, which is also part of the path.
+    answer: 0
+  - slug: precalc-u04-exam-q06
+    type: multiple_choice
+    topic_code: "4.3"
+    source: "AP Precalculus CED, Topic 4.3"
+    points: 1
+    prompt: |
+      (Calculator.) A path is given by x(t) = ln(t + 1), y(t) = 2ᵗ. To the nearest hundredth, what is the slope of the segment of the path from t = 1 to t = 3?
+    options:
+      - "0.12"
+      - "3.00"
+      - "0.35"
+      - "8.66"
+    option_explanations:
+      - |
+        This is Δx/Δy = 0.693/6; the slope of the path is Δy/Δx.
+      - |
+        3 is Δy/Δt = 6/2, the vertical rate, not the slope of the path.
+      - |
+        0.35 is Δx/Δt = (ln 4 − ln 2)/2, the horizontal rate.
+      - |
+        Correct. Δx = ln 4 − ln 2 = ln 2 ≈ 0.6931 and Δy = 8 − 2 = 6, so the slope is 6/0.6931 ≈ 8.66.
+    answer: 3
+  - slug: precalc-u04-exam-q07
+    type: multiple_choice
+    topic_code: "4.4"
+    source: "AP Precalculus CED, Topic 4.4"
+    points: 1
+    prompt: |
+      A point moves according to x = 2 + 3 cos(4πt), y = −1 + 3 sin(4πt), with t in seconds. How long does one full revolution take?
+    options:
+      - "2 seconds"
+      - "1/2 second"
+      - "4π seconds"
+      - "π/2 seconds"
+    option_explanations:
+      - |
+        This inverts the period; with b = 4π the point turns twice every second, not once every two seconds.
+      - |
+        Correct. One revolution takes 2π/b = 2π/(4π) = 1/2 second.
+      - |
+        4π is the coefficient b; the time per revolution is 2π divided by b.
+      - |
+        This divides 2π by 4 instead of by the full coefficient 4π.
+    answer: 1
+  - slug: precalc-u04-exam-q08
+    type: multiple_choice
+    topic_code: "4.4"
+    source: "AP Precalculus CED, Topic 4.4"
+    points: 1
+    prompt: |
+      The parametrization x = 4 − 6t, y = 1 + 2t, 0 ≤ t ≤ 1, traces a line segment. Where does it start and end?
+    options:
+      - "From (−6, 2) to (4, 1)"
+      - "From (−2, 3) to (4, 1)"
+      - "From (4, 1) to (−2, 3)"
+      - "From (4, 1) to (−6, 2)"
+    option_explanations:
+      - |
+        (−6, 2) is the change vector, the coefficients of t, not a point on the segment.
+      - |
+        These are the right endpoints in the wrong order: at t = 0 the point is (4, 1).
+      - |
+        Correct. t = 0 gives (4, 1) and t = 1 gives (4 − 6, 1 + 2) = (−2, 3).
+      - |
+        (−6, 2) is the change, which must be added to the start: the end is (4, 1) + (−6, 2) = (−2, 3).
+    answer: 2
+  - slug: precalc-u04-exam-q09
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "AP Precalculus CED, Topic 4.5"
+    points: 1
+    prompt: |
+      Which points of the curve x² − xy + y² = 7 have x = 2?
+    options:
+      - "(2, 3) and (2, −1)"
+      - "(2, −3) and (2, 1)"
+      - "(2, √3) and (2, −√3)"
+      - "(2, 3) only"
+    option_explanations:
+      - |
+        Correct. 4 − 2y + y² = 7 gives y² − 2y − 3 = (y − 3)(y + 1) = 0, so y = 3 or y = −1.
+      - |
+        These solve y² + 2y − 3 = 0; the term −xy at x = 2 is −2y, not +2y.
+      - |
+        This drops the −xy term and solves 4 + y² = 7.
+      - |
+        y = 3 works, but the quadratic has a second root, y = −1: 4 + 2 + 1 = 7.
+    answer: 0
+  - slug: precalc-u04-exam-q10
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "AP Precalculus CED, Topic 4.5"
+    points: 1
+    prompt: |
+      What is the slope of the line tangent to the circle (x − 1)² + (y − 2)² = 25 at the point (−2, 6)?
+    options:
+      - "−4/3"
+      - "4/3"
+      - "−3/4"
+      - "3/4"
+    option_explanations:
+      - |
+        −4/3 is the slope of the radius from (1, 2) to (−2, 6); the tangent is perpendicular to it.
+      - |
+        This is the negative of the radius's slope, not its negative reciprocal.
+      - |
+        This takes the reciprocal of the radius's slope but keeps its sign; perpendicular slopes have opposite signs.
+      - |
+        Correct. The radius has slope (6 − 2)/(−2 − 1) = −4/3, and the tangent is perpendicular, so its slope is 3/4.
+    answer: 3
+  # ---- Stimulus set B: one ellipse (4.6, 4.7)
+  - slug: precalc-u04-exam-q11
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "AP Precalculus CED, Topic 4.6"
+    points: 1
+    stimulus: |
+      Consider the conic 4x² + 9y² − 16x + 54y + 61 = 0.
+    prompt: |
+      Which is the equation of the conic in standard form?
+    options:
+      - "(x − 2)²/9 − (y + 3)²/4 = 1"
+      - "(x − 2)²/9 + (y + 3)²/4 = 1"
+      - "(x + 2)²/9 + (y − 3)²/4 = 1"
+      - "(x − 2)²/4 + (y + 3)²/9 = 1"
+    option_explanations:
+      - |
+        Both squared terms have positive coefficients (4 and 9), so the conic is an ellipse, not a hyperbola.
+      - |
+        Correct. 4(x − 2)² − 16 + 9(y + 3)² − 81 + 61 = 0 gives 4(x − 2)² + 9(y + 3)² = 36; divide by 36.
+      - |
+        The shifts have the wrong signs: x² − 4x completes to (x − 2)² and y² + 6y to (y + 3)².
+      - |
+        Dividing 4(x − 2)² by 36 leaves a denominator of 9 under x, not 4.
+    answer: 1
+  - slug: precalc-u04-exam-q12
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "AP Precalculus CED, Topic 4.6"
+    points: 1
+    stimulus: |
+      Consider the conic 4x² + 9y² − 16x + 54y + 61 = 0.
+    prompt: |
+      Where are the foci of the conic?
+    options:
+      - "(2 ± √13, −3)"
+      - "(2, −3 ± √5)"
+      - "(2 ± √5, −3)"
+      - "(2 ± 5, −3)"
+    option_explanations:
+      - |
+        This uses c² = a² + b² = 13, the hyperbola rule; for an ellipse c² = a² − b².
+      - |
+        c = √5 is right, but the major axis is horizontal (the larger denominator, 9, is under x).
+      - |
+        Correct. The ellipse (x − 2)²/9 + (y + 3)²/4 = 1 has c² = 9 − 4 = 5, so the foci are (2 ± √5, −3).
+      - |
+        5 is c², not c; the foci are √5 from the centre.
+    answer: 2
+  - slug: precalc-u04-exam-q13
+    type: multiple_choice
+    topic_code: "4.7"
+    source: "AP Precalculus CED, Topic 4.7"
+    points: 1
+    stimulus: |
+      Consider the conic 4x² + 9y² − 16x + 54y + 61 = 0.
+    prompt: |
+      Which parametrization traces the conic once for 0 ≤ t ≤ 2π?
+    options:
+      - "x = 2 + 9 cos t, y = −3 + 4 sin t"
+      - "x = 2 + 2 cos t, y = −3 + 3 sin t"
+      - "x = −2 + 3 cos t, y = 3 + 2 sin t"
+      - "x = 2 + 3 cos t, y = −3 + 2 sin t"
+    option_explanations:
+      - |
+        The coefficients must be the semi-axes a = 3 and b = 2, not a² and b².
+      - |
+        The semi-axes are swapped, which would make the ellipse taller than it is wide.
+      - |
+        The shifts have the wrong signs: the centre is (2, −3), not (−2, 3).
+      - |
+        Correct. ((x − 2)/3)² + ((y + 3)/2)² = cos²t + sin²t = 1, which is the standard form (x − 2)²/9 + (y + 3)²/4 = 1.
+    answer: 3
+  # ---- Independent items
+  - slug: precalc-u04-exam-q14
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "AP Precalculus CED, Topic 4.6"
+    points: 1
+    prompt: |
+      What is the directrix of the parabola (y − 1)² = −8(x + 2)?
+    options:
+      - "x = 0"
+      - "x = −4"
+      - "y = 3"
+      - "x = −2"
+    option_explanations:
+      - |
+        Correct. Vertex (−2, 1) and 4p = −8, so p = −2: the parabola opens left, the focus is (−4, 1) and the directrix is x = h − p = −2 + 2 = 0.
+      - |
+        x = −4 passes through the focus; the directrix is on the other side of the vertex.
+      - |
+        The squared variable is y, so the parabola opens sideways and its directrix is a vertical line x = constant.
+      - |
+        x = −2 passes through the vertex; the directrix is |p| = 2 units from the vertex.
+    answer: 0
+  - slug: precalc-u04-exam-q15
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "AP Precalculus CED, Topic 4.6"
+    points: 1
+    prompt: |
+      What are the asymptotes of the hyperbola (y + 1)²/4 − (x − 3)²/9 = 1?
+    options:
+      - "y + 1 = ±(3/2)(x − 3)"
+      - "y + 1 = ±(2/3)(x − 3)"
+      - "y − 1 = ±(2/3)(x + 3)"
+      - "y + 1 = ±(4/9)(x − 3)"
+    option_explanations:
+      - |
+        This inverts the slope. For an up–down hyperbola with a = 2 (under y) and b = 3, the slopes are ±a/b = ±2/3.
+      - |
+        Correct. Setting (y + 1)²/4 = (x − 3)²/9 gives y + 1 = ±(2/3)(x − 3), lines through the centre (3, −1).
+      - |
+        The centre is (3, −1), so the lines use x − 3 and y + 1.
+      - |
+        The slopes use the square roots of the denominators, 2 and 3, not 4 and 9.
+    answer: 1
+  - slug: precalc-u04-exam-q16
+    type: multiple_choice
+    topic_code: "4.7"
+    source: "AP Precalculus CED, Topic 4.7"
+    points: 1
+    prompt: |
+      Which curve is traced by x = 2 + sec t, y = tan t (for t where both are defined)?
+    options:
+      - "(x − 2)² + y² = 1"
+      - "y² − (x − 2)² = 1"
+      - "(x − 2)² − y² = 1"
+      - "(x + 2)² − y² = 1"
+    option_explanations:
+      - |
+        This would come from cosine and sine; secant and tangent satisfy sec²t − tan²t = 1, a difference.
+      - |
+        This has the wrong sign; sec²t − tan²t = 1 puts the x-term first.
+      - |
+        Correct. sec t = x − 2 and tan t = y, and sec²t − tan²t = 1 gives (x − 2)² − y² = 1, a hyperbola opening left and right.
+      - |
+        sec t = x − 2, so the shift is x − 2, centring the hyperbola at (2, 0).
+    answer: 2
+  - slug: precalc-u04-exam-q17
+    type: multiple_choice
+    topic_code: "4.8"
+    source: "AP Precalculus CED, Topic 4.8"
+    points: 1
+    prompt: |
+      What is the direction angle (between 0 and 2π) of the vector ⟨−3, −3⟩?
+    options:
+      - "π/4"
+      - "3π/4"
+      - "7π/4"
+      - "5π/4"
+    option_explanations:
+      - |
+        tan⁻¹((−3)/(−3)) = tan⁻¹(1) = π/4 points into Quadrant I; both components are negative, so the vector is in Quadrant III.
+      - |
+        3π/4 is in Quadrant II, where the x-component is negative but the y-component is positive.
+      - |
+        7π/4 is in Quadrant IV, where the y-component is negative but the x-component is positive.
+      - |
+        Correct. Both components are negative (Quadrant III) and the reference angle is π/4, so θ = π + π/4 = 5π/4.
+    answer: 3
+  - slug: precalc-u04-exam-q18
+    type: multiple_choice
+    topic_code: "4.8"
+    source: "AP Precalculus CED, Topic 4.8"
+    points: 1
+    prompt: |
+      (Calculator.) To the nearest hundredth of a radian, what is the angle between the vectors ⟨2, 1⟩ and ⟨−1, 3⟩?
+    options:
+      - "1.43"
+      - "0.14"
+      - "1.71"
+      - "1.57"
+    option_explanations:
+      - |
+        Correct. u · v = −2 + 3 = 1, ‖u‖ = √5, ‖v‖ = √10, so cos θ = 1/√50 ≈ 0.1414 and θ ≈ 1.43 radians.
+      - |
+        0.14 is cos θ, not θ; take the inverse cosine.
+      - |
+        This uses a dot product of −1 instead of +1; (2)(−1) + (1)(3) = 1.
+      - |
+        1.57 ≈ π/2 would need a dot product of exactly 0; here it is 1, so the angle is slightly less than π/2.
+    answer: 0
+  - slug: precalc-u04-exam-q19
+    type: multiple_choice
+    topic_code: "4.9"
+    source: "AP Precalculus CED, Topic 4.9"
+    points: 1
+    prompt: |
+      (Calculator.) An object's position is p(t) = ⟨2t, 5 − t²⟩. To the nearest hundredth, what is the magnitude of its average velocity on the interval [1, 4]?
+    options:
+      - "16.16"
+      - "5.39"
+      - "7.00"
+      - "4.58"
+    option_explanations:
+      - |
+        16.16 is the magnitude of the displacement ⟨6, −15⟩; it still has to be divided by the 3 seconds elapsed.
+      - |
+        Correct. p(4) − p(1) = ⟨8, −11⟩ − ⟨2, 4⟩ = ⟨6, −15⟩; divided by 3 this is ⟨2, −5⟩, with magnitude √29 ≈ 5.39.
+      - |
+        This adds |2| and |−5|; a magnitude uses the Pythagorean theorem.
+      - |
+        This computes √(25 − 4); the squares of the components add: √(4 + 25).
+    answer: 1
+  # ---- Stimulus set C: one transformation matrix (4.11, 4.12, 4.13)
+  - slug: precalc-u04-exam-q20
+    type: multiple_choice
+    topic_code: "4.12"
+    source: "AP Precalculus CED, Topic 4.12"
+    points: 1
+    stimulus: |
+      Let M = [[2, 1], [−1, 3]] (written row by row) act on column vectors in the plane.
+    prompt: |
+      What is the image of the point (1, 1) under M?
+    options:
+      - "(1, 4)"
+      - "(2, 3)"
+      - "(3, 2)"
+      - "(3, 4)"
+    option_explanations:
+      - |
+        This multiplies by the columns instead of the rows (the transpose of M).
+      - |
+        This uses only the diagonal entries and ignores the off-diagonal 1 and −1.
+      - |
+        Correct. Row 1: 2(1) + 1(1) = 3. Row 2: −1(1) + 3(1) = 2. The image is (3, 2).
+      - |
+        This drops the sign of −1 in row 2: −1 + 3 = 2, not 1 + 3 = 4.
+    answer: 2
+  - slug: precalc-u04-exam-q21
+    type: multiple_choice
+    topic_code: "4.13"
+    source: "AP Precalculus CED, Topic 4.13"
+    points: 1
+    stimulus: |
+      Let M = [[2, 1], [−1, 3]] (written row by row) act on column vectors in the plane.
+    prompt: |
+      M sends the unit square (vertices (0, 0), (1, 0), (1, 1), (0, 1)) to a parallelogram. What is the parallelogram's area?
+    options:
+      - "5"
+      - "1"
+      - "−7"
+      - "7"
+    option_explanations:
+      - |
+        This computes 6 − 1; the determinant is (2)(3) − (1)(−1) = 6 + 1.
+      - |
+        Only transformations with |det| = 1 preserve area; this matrix stretches the square.
+      - |
+        The determinant here is +7, and an area is never negative in any case.
+      - |
+        Correct. The area scale factor is |det M| = |6 − (−1)| = 7, and the unit square has area 1, so the image has area 7.
+    answer: 3
+  - slug: precalc-u04-exam-q22
+    type: multiple_choice
+    topic_code: "4.11"
+    source: "AP Precalculus CED, Topic 4.11"
+    points: 1
+    stimulus: |
+      Let M = [[2, 1], [−1, 3]] (written row by row) act on column vectors in the plane.
+    prompt: |
+      Which matrix represents the transformation that undoes M?
+    options:
+      - "(1/7)[[3, −1], [1, 2]]"
+      - "(1/7)[[2, 1], [−1, 3]]"
+      - "(1/5)[[3, −1], [1, 2]]"
+      - "(1/7)[[−3, 1], [−1, −2]]"
+    option_explanations:
+      - |
+        Correct. M⁻¹ = (1/det M)[[d, −b], [−c, a]] = (1/7)[[3, −1], [1, 2]]. Check: M · [[3, −1], [1, 2]] = [[7, 0], [0, 7]].
+      - |
+        This divides M by its determinant without swapping the diagonal or negating the off-diagonal entries.
+      - |
+        The rearrangement is right, but det M = 6 + 1 = 7, not 5.
+      - |
+        Every sign is flipped; this is −M⁻¹, as if det M were −7.
+    answer: 0
+  # ---- Independent items
+  - slug: precalc-u04-exam-q23
+    type: multiple_choice
+    topic_code: "4.10"
+    source: "AP Precalculus CED, Topic 4.10"
+    points: 1
+    prompt: |
+      What is the product [[1, 0, 2], [−1, 3, 1]] · [[3], [1], [−1]]?
+    options:
+      - "[[3, 0, −2], [−3, 3, −1]]"
+      - "[[1], [−1]]"
+      - "[[5], [−1]]"
+      - "The product is not defined."
+    option_explanations:
+      - |
+        This multiplies each column of the first matrix by an entry of the vector but never adds; each row must be dotted with the column.
+      - |
+        Correct. Row 1: 3 + 0 − 2 = 1. Row 2: −3 + 3 − 1 = −1. A 2 × 3 matrix times a 3 × 1 matrix gives a 2 × 1 matrix.
+      - |
+        Row 1 becomes 3 + 0 + 2 here, ignoring the sign of the −1 in the third entry.
+      - |
+        (2 × 3)(3 × 1) has matching inner dimensions, so the product is defined and is 2 × 1.
+    answer: 1
+  - slug: precalc-u04-exam-q24
+    type: multiple_choice
+    topic_code: "4.11"
+    source: "AP Precalculus CED, Topic 4.11"
+    points: 1
+    prompt: |
+      (Calculator.) Use an inverse matrix to solve the system 1.2x + 0.5y = 3.1, 0.8x − 0.3y = 0.4. To the nearest hundredth, which is the solution?
+    options:
+      - "x = 2.63, y = 1.49"
+      - "x = −1.49, y = −2.63"
+      - "x = 1.49, y = 2.63"
+      - "x = 3.92, y = 2.36"
+    option_explanations:
+      - |
+        The values are swapped; check: 1.2(2.63) + 0.5(1.49) ≈ 3.90, not 3.1.
+      - |
+        Both signs are flipped, as if the determinant −0.76 had been entered as 0.76.
+      - |
+        Correct. With A = [[1.2, 0.5], [0.8, −0.3]], det A = −0.76 and A⁻¹B ≈ [[1.4868], [2.6316]]. Check: 1.2(1.4868) + 0.5(2.6316) ≈ 3.1.
+      - |
+        This multiplies the constants by A instead of A⁻¹: A · [[3.1], [0.4]] = [[3.92], [2.36]]. The solution is X = A⁻¹B.
+    answer: 2
+  - slug: precalc-u04-exam-q25
+    type: multiple_choice
+    topic_code: "4.12"
+    source: "AP Precalculus CED, Topic 4.12"
+    points: 1
+    prompt: |
+      Which matrix reflects every point of the plane in the line y = −x?
+    options:
+      - "[[0, 1], [1, 0]]"
+      - "[[−1, 0], [0, −1]]"
+      - "[[0, −1], [1, 0]]"
+      - "[[0, −1], [−1, 0]]"
+    option_explanations:
+      - |
+        This swaps the coordinates, (x, y) → (y, x), which is the reflection in y = x.
+      - |
+        This sends (x, y) to (−x, −y), the rotation by π about the origin.
+      - |
+        This sends ⟨1, 0⟩ to ⟨0, 1⟩, a counterclockwise rotation by π/2, not a reflection.
+      - |
+        Correct. Reflecting in y = −x sends (x, y) to (−y, −x), so ⟨1, 0⟩ → ⟨0, −1⟩ and ⟨0, 1⟩ → ⟨−1, 0⟩: those are the columns.
+    answer: 3
+  - slug: precalc-u04-exam-q26
+    type: multiple_choice
+    topic_code: "4.13"
+    source: "AP Precalculus CED, Topic 4.13"
+    points: 1
+    prompt: |
+      Let R = [[0, −1], [1, 0]], the counterclockwise rotation by π/2. What is R², and what transformation is it?
+    options:
+      - "[[−1, 0], [0, −1]], the rotation by π"
+      - "[[1, 0], [0, 1]], the identity"
+      - "[[0, −2], [2, 0]], a rotation with dilation by 2"
+      - "[[0, 1], [−1, 0]], the clockwise rotation by π/2"
+    option_explanations:
+      - |
+        Correct. R² = [[0 · 0 + (−1)(1), 0 · (−1) + (−1)(0)], [1 · 0 + 0 · 1, 1 · (−1) + 0]] = [[−1, 0], [0, −1]]: two quarter turns make a half turn.
+      - |
+        Two quarter turns in the same direction add up to a half turn; they do not cancel.
+      - |
+        This is 2R; squaring a matrix means multiplying it by itself, not doubling it.
+      - |
+        This is R⁻¹, the rotation that undoes R, not R applied twice.
+    answer: 0
+  - slug: precalc-u04-exam-q27
+    type: multiple_choice
+    topic_code: "4.14"
+    source: "AP Precalculus CED, Topic 4.14"
+    points: 1
+    prompt: |
+      In a hypothetical model, 600 commuters each week either ride the bus or drive. Each week 95% of bus riders keep riding and 5% switch to driving; 90% of drivers keep driving and 10% switch to the bus. With state vector [[bus], [car]] and T = [[0.95, 0.10], [0.05, 0.90]], what is the steady-state distribution?
+    options:
+      - "300 bus, 300 car"
+      - "400 bus, 200 car"
+      - "200 bus, 400 car"
+      - "570 bus, 30 car"
+    option_explanations:
+      - |
+        An even split is not steady: from it, 15 bus riders leave but 30 drivers join the bus each week.
+      - |
+        Correct. Tx = x requires 0.05b = 0.10c, so b = 2c; with 600 commuters, b = 400 and c = 200. Check: 0.95(400) + 0.10(200) = 400.
+      - |
+        This reverses the ratio; fewer people leave the bus (5%), so the bus ends up with more riders.
+      - |
+        This is 95% and 5% of 600, the first column times the total, not a state that T leaves unchanged.
+    answer: 1
+  - slug: precalc-u04-exam-q28
+    type: multiple_choice
+    topic_code: "3.13"
+    source: "AP Precalculus CED, Topic 3.13"
+    points: 1
+    prompt: |
+      (Calculator.) Which is the polar form of the complex number 3 − 4i, with the angle in radians to the nearest thousandth?
+    options:
+      - "5(cos 0.927 + i sin 0.927)"
+      - "25(cos(−0.927) + i sin(−0.927))"
+      - "5(cos(−0.927) + i sin(−0.927))"
+      - "5(cos 2.214 + i sin 2.214)"
+    option_explanations:
+      - |
+        This is 3 + 4i in Quadrant I; 3 − 4i has a negative imaginary part, so its angle is in Quadrant IV.
+      - |
+        25 is r² = 3² + 4²; the modulus is r = 5.
+      - |
+        Correct. r = √(9 + 16) = 5 and θ = tan⁻¹(−4/3) ≈ −0.927, which is in Quadrant IV like the point (3, −4).
+      - |
+        2.214 = π − 0.927 is in Quadrant II, where the real part would be negative.
+    answer: 2
+  # ---- Select-all
+  - slug: precalc-u04-exam-q29
+    type: multi_select
+    topic_code: "4.3"
+    source: "AP Precalculus CED, Topic 4.3"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A hypothetical toy car's position on a floor, in metres, is recorded each second.
+
+      | t (s) | 0 | 1 | 2 | 3 |
+      |---|---|---|---|---|
+      | x(t) | 4 | 3 | 3 | 5 |
+      | y(t) | 0 | 2 | 5 | 6 |
+
+      Which statements are true? Select all that apply.
+    options:
+      - "On [0, 1] the car moves left and up."
+      - "On [1, 2] the slope of the segment of the path is undefined."
+      - "On [0, 3] the slope of the segment of the path is 1/6."
+      - "On [2, 3] the slope of the segment of the path is 1/2."
+      - "The y-coordinate decreases on at least one of the one-second intervals."
+    option_explanations:
+      - |
+        Correct. x falls from 4 to 3 (left) and y rises from 0 to 2 (up).
+      - |
+        Correct. Δx = 0 and Δy = 3, so the segment is vertical and its slope is undefined.
+      - |
+        On [0, 3], Δx = 1 and Δy = 6, so the slope is 6, not 1/6 (which is Δx/Δy).
+      - |
+        Correct. Δx = 5 − 3 = 2 and Δy = 6 − 5 = 1, so the slope is 1/2.
+      - |
+        y goes 0, 2, 5, 6, increasing on every interval.
+    answer: [0, 1, 3]
+  - slug: precalc-u04-exam-q30
+    type: multi_select
+    topic_code: "4.9"
+    source: "AP Precalculus CED, Topic 4.9"
+    points: 2
+    partial_credit: true
+    prompt: |
+      An object's position is p(t) = ⟨t² − 1, 2t⟩. Which statements are true? Select all that apply.
+    options:
+      - "The object passes through the origin."
+      - "p(1) = ⟨0, 2⟩"
+      - "The displacement from t = 0 to t = 2 is ⟨4, 4⟩."
+      - "The average velocity on [0, 2] is ⟨2, 2⟩."
+      - "The average velocity on [−1, 1] is ⟨0, 4⟩."
+    option_explanations:
+      - |
+        x = 0 needs t = ±1, but then y = ±2, not 0, so the object never reaches the origin.
+      - |
+        Correct. Substituting t = 1 gives p(1) = ⟨1 − 1, 2(1)⟩ = ⟨0, 2⟩.
+      - |
+        Correct. p(2) = ⟨3, 4⟩ and p(0) = ⟨−1, 0⟩, so the displacement is ⟨4, 4⟩.
+      - |
+        Correct. ⟨4, 4⟩ divided by 2 seconds is ⟨2, 2⟩.
+      - |
+        The displacement is p(1) − p(−1) = ⟨0, 2⟩ − ⟨0, −2⟩ = ⟨0, 4⟩, but dividing by Δt = 2 gives ⟨0, 2⟩.
+    answer: [1, 2, 3]
+  - slug: precalc-u04-exam-q31
+    type: multi_select
+    topic_code: "4.10"
+    source: "AP Precalculus CED, Topic 4.10"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Let A = [[2, 0], [1, −1]] and B = [[1, 3], [0, 2]]. Which statements are true? Select all that apply.
+    options:
+      - "AB = [[2, 6], [1, 1]]"
+      - "BA = AB"
+      - "A + B = [[3, 3], [1, 1]]"
+      - "3A = [[6, 0], [3, −3]]"
+      - "AB is defined but BA is not."
+    option_explanations:
+      - |
+        Correct. Row 1 (2, 0) with the columns (1, 0) and (3, 2): 2 and 6. Row 2 (1, −1): 1 and 3 − 2 = 1.
+      - |
+        BA = [[5, −3], [2, −2]], which is different; matrix multiplication is not commutative.
+      - |
+        Correct. Entry by entry: [[2 + 1, 0 + 3], [1 + 0, −1 + 2]] = [[3, 3], [1, 1]].
+      - |
+        Correct. Every entry of A is multiplied by 3.
+      - |
+        Both are 2 × 2, so both products are defined (and both are 2 × 2).
+    answer: [0, 2, 3]
+  - slug: precalc-u04-exam-q32
+    type: multi_select
+    topic_code: "4.14"
+    source: "AP Precalculus CED, Topic 4.14"
+    points: 2
+    partial_credit: true
+    prompt: |
+      In a hypothetical model, members of a gym choose morning (state 1) or evening (state 2) sessions each month, and T = [[0.6, 0.3], [0.4, 0.7]] is the transition matrix with state vector [[morning], [evening]]. Which statements are true? Select all that apply.
+    options:
+      - "The entry 0.3 means that 30% of morning members stay with morning sessions."
+      - "Each column of T sums to 1."
+      - "If x₀ = [[700], [0]], then x₁ = [[420], [210]]."
+      - "Each month 40% of morning members switch to evening sessions."
+      - "For 700 members, the steady state is [[300], [400]]."
+    option_explanations:
+      - |
+        The 0.3 is in column 2, row 1: 30% of evening members switch to morning. Morning members stay at the rate 0.6.
+      - |
+        Correct. 0.6 + 0.4 = 1 and 0.3 + 0.7 = 1: every member ends up in one of the two states.
+      - |
+        x₁ = [[0.6 · 700], [0.4 · 700]] = [[420], [280]]; the total must stay 700.
+      - |
+        Correct. Column 1 (from morning) has 0.4 in row 2 (to evening).
+      - |
+        Correct. Tx = x needs 0.4m = 0.3e, so m : e = 3 : 4, giving [[300], [400]]. Check: 0.6(300) + 0.3(400) = 300.
+    answer: [1, 3, 4]
+  # ---- True/false
+  - slug: precalc-u04-exam-q33
+    type: true_false
+    topic_code: "4.4"
+    source: "AP Precalculus CED, Topic 4.4"
+    points: 1
+    prompt: |
+      True or false: The parametrization x = sin t, y = cos t, for 0 ≤ t ≤ 2π, traces the unit circle counterclockwise.
+    answer: false
+    explanation: |
+      False. At t = 0 the point is (0, 1), the top, and at t = π/2 it is (1, 0), to the right. Moving from the top to the right is clockwise.
+  - slug: precalc-u04-exam-q34
+    type: true_false
+    topic_code: "4.13"
+    source: "AP Precalculus CED, Topic 4.13"
+    points: 1
+    prompt: |
+      True or false: If the matrix of a linear transformation has a negative determinant, the transformation reverses orientation (it includes a reflection).
+    answer: true
+    explanation: |
+      True. The sign of the determinant records orientation: positive keeps the order of ⟨1, 0⟩ and ⟨0, 1⟩ counterclockwise, negative flips it. For example, the reflection [[1, 0], [0, −1]] has determinant −1.
+  - slug: precalc-u04-exam-q35
+    type: true_false
+    topic_code: "3.12"
+    source: "AP Precalculus CED, Topic 3.12"
+    points: 1
+    prompt: |
+      True or false: sin²θ = (1 − cos 2θ)/2 for every real number θ.
+    answer: true
+    explanation: |
+      True. cos 2θ = 1 − 2sin²θ, so 2sin²θ = 1 − cos 2θ and sin²θ = (1 − cos 2θ)/2.
+  # ---- Fill in the blank
+  - slug: precalc-u04-exam-q36
+    type: fill_blank
+    topic_code: "4.8"
+    source: "AP Precalculus CED, Topic 4.8"
+    points: 1
+    prompt: |
+      If u = ⟨4, −3⟩, then the magnitude of −2u is ____.
+    answer: ["10"]
+    explanation: |
+      ‖u‖ = √(16 + 9) = 5, and multiplying by −2 doubles the length (and reverses the direction): ‖−2u‖ = 2 · 5 = 10. Directly: −2u = ⟨−8, 6⟩, √(64 + 36) = 10.
+  - slug: precalc-u04-exam-q37
+    type: fill_blank
+    topic_code: "4.11"
+    source: "AP Precalculus CED, Topic 4.11"
+    points: 1
+    prompt: |
+      The determinant of [[−3, 5], [2, 4]] is ____.
+    answer: ["-22", "−22"]
+    explanation: |
+      ad − bc = (−3)(4) − (5)(2) = −12 − 10 = −22.
+  - slug: precalc-u04-exam-q38
+    type: fill_blank
+    topic_code: "4.7"
+    source: "AP Precalculus CED, Topic 4.7"
+    points: 1
+    prompt: |
+      The parametrization x = 5 cos t, y = 3 sin t traces an ellipse whose foci are (c, 0) and (−c, 0), where c = ____.
+    answer: ["4"]
+    explanation: |
+      The ellipse is x²/25 + y²/9 = 1, with a = 5 and b = 3, so c² = 25 − 9 = 16 and c = 4.
+  # ---- Numeric
+  - slug: precalc-u04-exam-q39
+    type: numeric
+    topic_code: "4.2"
+    source: "AP Precalculus CED, Topic 4.2"
+    points: 1
+    prompt: |
+      A ball rolls off a 256-foot cliff. Its position in feet after t seconds is modelled by x(t) = 15t, y(t) = 256 − 16t². How far from the base of the cliff, in feet, does it land?
+    answer: { value: 60, tolerance: 0 }
+    explanation: |
+      y(t) = 0 gives 16t² = 256, t² = 16, t = 4 s. Then x(4) = 15 · 4 = 60 feet.
+  - slug: precalc-u04-exam-q40
+    type: numeric
+    topic_code: "4.14"
+    source: "AP Precalculus CED, Topic 4.14"
+    points: 1
+    prompt: |
+      (Calculator.) Use the hypothetical commuter model T = [[0.95, 0.10], [0.05, 0.90]], with state vector [[bus], [car]], starting from x₀ = [[300], [300]]. How many bus riders does the model predict after 3 weeks? Give your answer to the nearest tenth.
+    answer: { value: 338.6, tolerance: 0.06 }
+    explanation: |
+      x₁ = [[315], [285]], x₂ = [[327.75], [272.25]], x₃ = T x₂ = [[0.95(327.75) + 0.10(272.25)], [0.05(327.75) + 0.90(272.25)]] ≈ [[338.59], [261.41]]. So about 338.6 bus riders (moving toward the steady state of 400).
+  - slug: precalc-u04-exam-q41
+    type: numeric
+    topic_code: "2.5"
+    source: "AP Precalculus CED, Topic 2.5"
+    points: 1
+    prompt: |
+      A hypothetical substance has a half-life of 6 hours. How many milligrams remain from an 80 mg sample after 18 hours?
+    answer: { value: 10, tolerance: 0 }
+    explanation: |
+      18 hours is 3 half-lives, so the amount is 80 · (1/2)³ = 80/8 = 10 mg. As a model: A(t) = 80(1/2)^(t/6), A(18) = 10.
+  # ---- Short answer
+  - slug: precalc-u04-exam-q42
+    type: short_answer
+    topic_code: "4.4"
+    source: "AP Precalculus CED, Topics 4.4 and 4.5"
+    points: 3
+    prompt: |
+      Consider the circle (x + 1)² + (y − 2)² = 16.
+
+      (a) Write a parametrization, with t in seconds, that traces the circle counterclockwise once every 8 seconds, starting at its rightmost point.
+      (b) Where is the point at t = 2?
+      (c) Find both points of the circle with x = 1, and the first time after t = 0 that your moving point reaches one of them.
+    answer: |
+      (a) Centre (−1, 2), radius 4, b = 2π/8 = π/4: x(t) = −1 + 4 cos(πt/4), y(t) = 2 + 4 sin(πt/4), starting at (3, 2).
+      (b) t = 2: x = −1 + 4 cos(π/2) = −1, y = 2 + 4 sin(π/2) = 6, so (−1, 6), the top of the circle.
+      (c) (1 + 1)² + (y − 2)² = 16 gives (y − 2)² = 12, y = 2 ± 2√3: the points (1, 2 + 2√3) and (1, 2 − 2√3). The moving point reaches x = 1 when cos(πt/4) = 1/2, first at πt/4 = π/3, so t = 4/3 s, at (1, 2 + 2√3) (moving counterclockwise from (3, 2), it goes up first).
+    explanation: |
+      Three points, one per part. (a) a correct parametrization with the right centre, radius, start, direction and period. (b) (−1, 6). (c) both points with x = 1 and the time 4/3 s at (1, 2 + 2√3).
+  - slug: precalc-u04-exam-q43
+    type: short_answer
+    topic_code: "4.12"
+    source: "AP Precalculus CED, Topics 4.12 and 4.13"
+    points: 3
+    prompt: |
+      A transformation first reflects the plane in the x-axis and then stretches it horizontally by a factor of 3.
+
+      (a) Write the matrix of each step and the matrix of the combined transformation.
+      (b) Find the image of the triangle with vertices (0, 0), (1, 0) and (1, 2).
+      (c) Compare the areas of the triangle and its image, and explain the result using the determinant, including what its sign tells you.
+    answer: |
+      (a) Reflection F = [[1, 0], [0, −1]]; stretch S = [[3, 0], [0, 1]]. "F, then S" is SF = [[3, 0], [0, −1]].
+      (b) (0, 0) → (0, 0); (1, 0) → (3, 0); (1, 2) → (3, −2).
+      (c) The triangle has area (1/2)(1)(2) = 1; the image has area (1/2)(3)(2) = 3. det(SF) = −3: |det| = 3 is the area scale factor, and the negative sign shows the orientation is reversed by the reflection.
+    explanation: |
+      Three points, one per part. (a) both step matrices and SF in the correct order (here FS gives the same matrix, but the order must be stated correctly). (b) all three image vertices. (c) areas 1 and 3 with the determinant −3 explained as scale factor 3 plus reversed orientation.
+  # ---- Extended response
+  - slug: precalc-u04-exam-q44
+    type: long_answer
+    topic_code: "4.9"
+    source: "AP Precalculus CED, Topics 4.6, 4.7 and 4.9"
+    points: 6
+    prompt: |
+      In a hypothetical model, a robot patrols an elliptical track. Its position in metres t seconds after it starts is
+
+      p(t) = ⟨6 cos(πt/6), 4 sin(πt/6)⟩.
+
+      (A) (i) Show that the robot's path is the ellipse x²/36 + y²/16 = 1.
+          (ii) How long does one lap take, and in which direction (clockwise or counterclockwise) does the robot travel? Justify.
+      (B) (i) Find the robot's exact position at t = 2 and at t = 3.
+          (ii) Find the displacement and the average velocity of the robot on [0, 3].
+      (C) (i) Find the slope of the segment of the path from t = 2 to t = 3, exactly and to the nearest hundredth.
+          (ii) Find the foci of the track.
+    answer: |
+      (A)(i) x/6 = cos(πt/6) and y/4 = sin(πt/6), so x²/36 + y²/16 = cos²(πt/6) + sin²(πt/6) = 1.
+      (ii) One lap takes 2π/(π/6) = 12 seconds. At t = 0 the robot is at (6, 0); at t = 3 it is at (0, 4), above the centre, so it moves counterclockwise.
+      (B)(i) t = 2: ⟨6 cos(π/3), 4 sin(π/3)⟩ = ⟨3, 2√3⟩. t = 3: ⟨6 cos(π/2), 4 sin(π/2)⟩ = ⟨0, 4⟩.
+      (ii) Displacement p(3) − p(0) = ⟨0, 4⟩ − ⟨6, 0⟩ = ⟨−6, 4⟩. Average velocity ⟨−6, 4⟩/3 = ⟨−2, 4/3⟩ m/s.
+      (C)(i) Δx = 0 − 3 = −3 and Δy = 4 − 2√3, so the slope is (4 − 2√3)/(−3) = (2√3 − 4)/3 ≈ −0.18.
+      (ii) c² = 36 − 16 = 20, c = 2√5 ≈ 4.47, so the foci are (2√5, 0) and (−2√5, 0).
+    explanation: |
+      Six points. (A) 1 point for the identity argument; 1 point for 12 seconds and counterclockwise with a reason. (B) 1 point for both positions; 1 point for the displacement ⟨−6, 4⟩ and average velocity ⟨−2, 4/3⟩. (C) 1 point for the slope (2√3 − 4)/3 ≈ −0.18; 1 point for the foci (±2√5, 0).
+  - slug: precalc-u04-exam-q45
+    type: long_answer
+    topic_code: "4.14"
+    source: "AP Precalculus CED, Topics 4.11 and 4.14"
+    points: 6
+    prompt: |
+      In a hypothetical model, a car-rental company has 500 cars at two locations, the Airport and Downtown. Each week 70% of the cars at the Airport stay there and 30% are returned Downtown; 20% of the cars Downtown are returned to the Airport and 80% stay Downtown. Let xₙ = [[Aₙ], [Dₙ]] be the numbers of cars after n weeks, with xₙ₊₁ = Txₙ. This week, x₀ = [[250], [250]].
+
+      (A) (i) Write the transition matrix T.
+          (ii) Find x₁ and x₂.
+      (B) (i) Find the steady-state distribution of the 500 cars.
+          (ii) The company would like to keep 250 cars at the Airport every week without moving any cars itself. Does the model suggest this is possible? Explain.
+      (C) (i) Find det T and T⁻¹.
+          (ii) Use T⁻¹ to find how many cars were at each location last week.
+    answer: |
+      (A)(i) T = [[0.7, 0.2], [0.3, 0.8]] (column 1: from the Airport; column 2: from Downtown).
+      (ii) x₁ = [[0.7 · 250 + 0.2 · 250], [0.3 · 250 + 0.8 · 250]] = [[225], [275]]. x₂ = [[157.5 + 55], [67.5 + 220]] = [[212.5], [287.5]].
+      (B)(i) Tx = x requires 0.3A = 0.2D, so A : D = 2 : 3; with 500 cars, [[200], [300]]. Check: 0.7(200) + 0.2(300) = 200.
+      (ii) No. Starting from 250 at the Airport, the number falls (225, then 212.5) toward the steady state of 200. Unless the rates change or the company relocates cars, about 50 fewer than wanted will be at the Airport in the long run.
+      (C)(i) det T = 0.56 − 0.06 = 0.5. T⁻¹ = (1/0.5)[[0.8, −0.2], [−0.3, 0.7]] = [[1.6, −0.4], [−0.6, 1.4]].
+      (ii) x₋₁ = T⁻¹x₀ = [[1.6 · 250 − 0.4 · 250], [−0.6 · 250 + 1.4 · 250]] = [[300], [200]]: 300 at the Airport and 200 Downtown. (Check: T · [[300], [200]] = [[210 + 40], [90 + 160]] = [[250], [250]].)
+    explanation: |
+      Six points. (A) 1 point for T with columns as "from" states; 1 point for x₁ and x₂. (B) 1 point for [[200], [300]]; 1 point for "no" with the trend toward 200 as justification. (C) 1 point for det 0.5 and T⁻¹; 1 point for [[300], [200]].

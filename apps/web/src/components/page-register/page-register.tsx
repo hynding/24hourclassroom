@@ -1,5 +1,6 @@
 import { Component, h, Listen, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
+import { REGISTRATION_ROLES, roleLabel } from '@24hc/shared';
 import type { RegistrationRole, SiteConfig } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
@@ -66,14 +67,12 @@ export class PageRegister {
         <form onSubmit={this.onSubmit}>
           <fieldset>
             <legend>I am a</legend>
-            <label>
-              <input type="radio" name="role" checked={this.role === 'teacher'} onInput={() => (this.role = 'teacher')} />
-              Teacher
-            </label>
-            <label>
-              <input type="radio" name="role" checked={this.role === 'student'} onInput={() => (this.role = 'student')} />
-              Student
-            </label>
+            {REGISTRATION_ROLES.map((role) => (
+              <label>
+                <input type="radio" name="role" value={role} checked={this.role === role} onInput={() => (this.role = role)} />
+                {roleLabel(role)}
+              </label>
+            ))}
           </fieldset>
           {this.fieldError('role')}
           <label>

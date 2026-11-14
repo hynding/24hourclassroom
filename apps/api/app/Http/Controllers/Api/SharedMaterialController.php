@@ -15,8 +15,8 @@ class SharedMaterialController extends Controller
     public function __invoke(Request $request): AnonymousResourceCollection
     {
         $user = $request->user();
-        // Allowlist: both roles can receive a share.
-        abort_unless(in_array($user->role, [Role::Teacher, Role::Student], true), 403);
+        // Allowlist: Role::receivesShares().
+        abort_unless($user->role->receivesShares(), 403);
 
         $materials = Material::query()
             ->join('material_shares', 'material_shares.material_id', '=', 'materials.id')

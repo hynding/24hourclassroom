@@ -8,6 +8,8 @@ const siteLoad = jest.fn();
 let siteConfig: any;
 const navigate = jest.fn();
 const authLoad = jest.fn();
+let currentUser: any = null;
+const takeReturnPath = jest.fn();
 
 jest.mock('../../services/theme-store', () => ({
   cachedTheme: (...a: unknown[]) => cachedTheme(...a),
@@ -19,9 +21,13 @@ jest.mock('../../services/site-store', () => ({
   siteStore: { get config() { return siteConfig; }, load: (...a: unknown[]) => siteLoad(...a) },
 }));
 jest.mock('../../services/auth-store', () => ({
-  authStore: { load: (...a: unknown[]) => authLoad(...a), currentUser: null, subscribe: () => () => {} },
+  authStore: { load: (...a: unknown[]) => authLoad(...a), get currentUser() { return currentUser; }, subscribe: () => () => {} },
 }));
-jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a) }));
+jest.mock('../../services/return-path', () => ({ takeReturnPath: (...a: unknown[]) => takeReturnPath(...a) }));
+const adoptCanonicalPath = jest.fn();
+jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a), adoptCanonicalPath: (...a: unknown[]) => adoptCanonicalPath(...a) }));
+const resolvePath = jest.fn();
+jest.mock('../../services/slug-store', () => ({ slugStore: { resolve: (...a: unknown[]) => resolvePath(...a) } }));
 
 import { AppRoot } from './app-root';
 
@@ -137,6 +143,28 @@ describe('app-root theme wiring', () => {
     expect(navigate).toHaveBeenCalledWith('/login');
   });
 
+  describe('returning to the page a visitor left to sign in', () => {
+    beforeEach(() => {
+      takeReturnPath.mockReset().mockReturnValue('/courses/3');
+      authLoad.mockResolvedValue(undefined);
+    });
+    afterEach(() => { currentUser = null; });
+
+    it('sends a verified user landing on / back to the remembered course', async () => {
+      currentUser = { id: 1, email_verified_at: '2026-10-17' };
+      await mountAt('/');
+      expect(navigate).toHaveBeenCalledWith('/courses/3');
+    });
+
+    it('keeps the path for an unverified user, and anywhere but /', async () => {
+      currentUser = { id: 1, email_verified_at: null };
+      await mountAt('/');
+      currentUser = { id: 1, email_verified_at: '2026-10-17' };
+      await mountAt('/teachers');
+      expect(takeReturnPath).not.toHaveBeenCalled();
+    });
+  });
+
   it('slots the page inside app-layout, not beside it', async () => {
     const spec = await mountAt('/teachers');
     const layout = spec.root.shadowRoot.querySelector('app-layout')!;
@@ -183,6 +211,16 @@ describe('app-root theme wiring', () => {
     expect(propOf(share.root.shadowRoot.querySelector('page-material-share'), 'materialId', 'material-id')).toBe('7');
   });
 
+  it('mounts the library index at /library and the tests shelf at /library/tests', async () => {
+    const index = await mountAt('/library');
+    expect(index.root.shadowRoot.querySelector('page-library-index')).not.toBeNull();
+    expect(index.root.shadowRoot.querySelector('page-library')).toBeNull();
+
+    const tests = await mountAt('/library/tests');
+    expect(propOf(tests.root.shadowRoot.querySelector('page-library'), 'kind', 'kind')).toBe('tests');
+
+  });
+
   it('passes kind to page-library for the materials segment', async () => {
     const spec = await mountAt('/library/materials');
     expect(propOf(spec.root.shadowRoot.querySelector('page-library'), 'kind', 'kind')).toBe('materials');
@@ -206,12 +244,12 @@ describe('app-root theme wiring', () => {
 
   it('sets the document title from the cached site name on the first frame and again on site:changed', async () => {
     const spec = await mountAt('/teachers');
-    expect(spec.doc.title).toBe('Night School');
+    expect(spec.doc.title).toBe('Teachers · Night School');
 
     siteConfig = configWith({ layout: 'stacked', palette: 'noon', typeset: 'editorial' }, 'Day School');
     spec.win.dispatchEvent(new (spec.win as any).CustomEvent('site:changed'));
     await spec.waitForChanges();
-    expect(spec.doc.title).toBe('Day School');
+    expect(spec.doc.title).toBe('Teachers · Day School');
   });
 
   it('renders the banner in its own slot above the header', async () => {
@@ -230,4 +268,55 @@ describe('app-root theme wiring', () => {
     expect(children.indexOf(banner)).toBeLessThan(children.indexOf(layout.querySelector('app-header')!));
   });
 
+});
+
+/** Unregistered children get their props as lower-cased attributes. */
+const routedProp = (spec: any, tag: string, prop: string) => spec.root.shadowRoot.querySelector(tag)?.getAttribute(prop.toLowerCase()) ?? null;
+
+describe('app-root vanity paths', () => {
+  beforeEach(() => {
+    cachedTheme.mockReset().mockReturnValue({ layout: 'stacked', palette: 'noon', typeset: 'editorial' });
+    siteConfig = configWith({ layout: 'stacked', palette: 'noon', typeset: 'editorial' });
+    siteLoad.mockReset().mockResolvedValue(siteConfig);
+    authLoad.mockReset().mockResolvedValue(null);
+    navigate.mockReset();
+    adoptCanonicalPath.mockReset();
+    resolvePath.mockReset();
+  });
+
+  it('routes a course slug on the id path the API names', async () => {
+    resolvePath.mockResolvedValue({ target: '/courses/12', canonical: '/courses/precalculus' });
+    const spec = await mountAt('/courses/precalculus');
+    await spec.waitForChanges();
+
+    expect(resolvePath).toHaveBeenCalledWith('/courses/precalculus');
+    expect(routedProp(spec, 'page-course', 'courseId')).toBe('12');
+    expect(adoptCanonicalPath).not.toHaveBeenCalled();
+  });
+
+  it('moves a retired slug to its replacement in place', async () => {
+    resolvePath.mockResolvedValue({ target: '/teachers/4', canonical: '/teachers/ms-rivera' });
+    const spec = await mountAt('/teachers/old-handle');
+    await spec.waitForChanges();
+
+    expect(adoptCanonicalPath).toHaveBeenCalledWith('/teachers/ms-rivera');
+    expect(routedProp(spec, 'page-teacher-profile', 'teacherId')).toBe('4');
+  });
+
+  it('renders the page with no id (not found) when the API names nothing', async () => {
+    resolvePath.mockRejectedValue(new Error('404'));
+    const spec = await mountAt('/teachers/nobody/some-course');
+    await spec.waitForChanges();
+
+    expect(spec.root.shadowRoot.querySelector('page-teacher-profile')).not.toBeNull();
+    expect(routedProp(spec, 'page-teacher-profile', 'teacherId')).toBeNull();
+  });
+
+  it('never asks about an id path', async () => {
+    const spec = await mountAt('/courses/12');
+    await spec.waitForChanges();
+
+    expect(resolvePath).not.toHaveBeenCalled();
+    expect(routedProp(spec, 'page-course', 'courseId')).toBe('12');
+  });
 });

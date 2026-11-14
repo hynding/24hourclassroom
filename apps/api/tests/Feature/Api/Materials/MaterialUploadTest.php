@@ -103,9 +103,9 @@ test('an omitted title falls back to the filename stem, truncated to 160', funct
     expect(strlen(Material::latest('id')->first()->title))->toBe(160);
 });
 
-test('only a teacher may upload or list materials, whatever the body', function () {
+test('only an author (teacher, tutor) may upload or list materials, whatever the body', function () {
     foreach (Role::cases() as $role) {
-        if ($role === Role::Teacher) {
+        if ($role->authors()) {
             continue;
         }
         $this->actingAs(User::factory()->create(['role' => $role->value]));

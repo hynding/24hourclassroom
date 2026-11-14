@@ -99,7 +99,7 @@ test('canCopy is true only for another teacher on a public test', function () {
 
     foreach (Role::cases() as $role) {
         $other = User::factory()->create(['role' => $role->value]);
-        expect(TestAccess::canCopy($other, $public))->toBe($role === Role::Teacher);
+        expect(TestAccess::canCopy($other, $public))->toBe($role->authors());
     }
 
     expect(TestAccess::canCopy($author, $public))->toBeFalse()

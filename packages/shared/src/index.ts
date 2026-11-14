@@ -1,7 +1,59 @@
-export type Role = 'teacher' | 'student' | 'admin';
+export type Role = 'teacher' | 'student' | 'admin' | 'tutor' | 'assistant' | 'guardian';
 
 /** Roles a user may choose for themselves. Admin is assigned, never requested. */
 export type RegistrationRole = Exclude<Role, 'admin'>;
+
+/**
+ * Mirrors `App\Enums\Role`: every case, its label, in enum order. The three
+ * capability lists below mirror the enum's allowlists of the same names; an
+ * API test asserts both directions. Branch on these, never on a role literal
+ * compared with `===` or `!==`: a role added later should be refused by
+ * default (the recurring defect class in CLAUDE.md).
+ */
+export const ROLES: TaxonomyOption<Role>[] = [
+  { value: 'teacher', label: 'Teacher' },
+  { value: 'student', label: 'Student' },
+  { value: 'admin', label: 'Admin' },
+  { value: 'tutor', label: 'Tutor' },
+  { value: 'assistant', label: 'Teacher assistant' },
+  { value: 'guardian', label: 'Parent or guardian' },
+];
+
+/** `Role::selfAssignable()`, in the order registration offers them. */
+export const REGISTRATION_ROLES: RegistrationRole[] = ['teacher', 'student', 'tutor', 'assistant', 'guardian'];
+
+/** `Role::authors()`: writes, assigns and grades tests, materials and courses. */
+export const AUTHOR_ROLES: Role[] = ['teacher', 'tutor'];
+
+/** `Role::isPublic()`: in the directory, with a public profile. */
+export const PUBLIC_ROLES: Role[] = ['teacher', 'tutor'];
+
+/** `Role::supportsStudents()`: reads a connected student's assignments. */
+export const SUPPORTER_ROLES: Role[] = ['tutor', 'assistant', 'guardian'];
+
+/** `Role::seesConnectedStudentAnswers()`: opens a connected student's submitted assigned attempts. */
+export const STUDENT_ANSWER_VIEWER_ROLES: Role[] = ['guardian'];
+
+/** `Role::receivesShares()`: may be shared a material by a connected author. */
+export const SHARE_RECIPIENT_ROLES: Role[] = ['teacher', 'student', 'tutor', 'assistant'];
+
+/** `Role::gradesForConnectedTeachers()`: hand-grades a connected teacher's assignments. */
+export const CONNECTED_GRADER_ROLES: Role[] = ['assistant'];
+
+/** `Role::comments()`: may comment on anything they can see. */
+export const COMMENTER_ROLES: Role[] = ['teacher', 'student', 'tutor', 'assistant', 'guardian'];
+
+/** `Role::moderatesComments()`: may delete anyone's comment. */
+export const COMMENT_MODERATOR_ROLES: Role[] = ['admin'];
+
+/** Absent or unknown roles answer false. */
+export function hasRole(list: readonly Role[], role: Role | null | undefined): boolean {
+  return role !== null && role !== undefined && list.includes(role);
+}
+
+export function roleLabel(role: Role | null | undefined): string {
+  return ROLES.find((r) => r.value === role)?.label ?? 'Member';
+}
 
 export interface User {
   id: number;
@@ -148,6 +200,8 @@ export interface TestSummary {
 
 export interface Test extends TestSummary {
   description: string | null;
+  /** The author's switch for the test's discussion and its questions' threads. */
+  comments_enabled: boolean;
   copied_from_id: number | null;
   questions: Question[];
   created_at: string;
@@ -216,6 +270,20 @@ export interface MyAssignment {
   best: AttemptSummary | null;
 }
 
+/** `GET /api/students/{id}/assignments`, for a connected supporter. */
+/** One row of `GET /api/grading`: a submitted attempt with answers still to grade. */
+export interface GradingQueueItem extends AttemptSummary {
+  student: TestAuthor;
+  test: { id: number; title: string };
+  /** The assigning teacher: the caller themselves, or a teacher they assist. */
+  teacher: TestAuthor;
+}
+
+export interface StudentAssignments {
+  student: TestAuthor;
+  data: MyAssignment[];
+}
+
 export interface AssignmentRow {
   id: number;
   student: TestAuthor;
@@ -246,6 +314,8 @@ export interface LibraryFilters {
   q?: string;
   /** `title` sorts A→Z so a zero-padded course title reads in course order. Default `recent`. */
   sort?: LibrarySort;
+  /** Only this teacher's public work (their profile page). An unknown id is an empty page. */
+  author?: number;
   page?: number;
 }
 
@@ -393,7 +463,46 @@ export interface CourseView extends CourseSummary {
   can_branch: boolean;
   /** The viewer's latest branch of this course, if they have one. */
   my_branch_id: number | null;
+  /** Thumbs up and down on the course discussion's approved comments. */
+  comment_reactions: boolean;
   items: CourseItem[];
+  /** Where the course lives: `/courses/<slug>`, `/teachers/<handle>/<slug>` or `/courses/<id>`. */
+  path: string;
+  /** Author only: the course's name under their handle, and its review state. */
+  slug?: SlugState | null;
+  /** Author only: the site-wide `/courses/<slug>` an admin gave it. */
+  site_slug?: string | null;
+  /** Author only: their approved handle, if any. */
+  handle?: string | null;
+}
+
+/** Mirrors `App\Enums\SlugKind`, in enum order. */
+export const SLUG_KINDS = ['teacher', 'teacher_course', 'site_course'] as const;
+export type SlugKind = (typeof SLUG_KINDS)[number];
+
+/** Mirrors `App\Enums\SlugStatus`, in enum order. */
+export const SLUG_STATUSES = ['pending', 'approved', 'rejected', 'retired'] as const;
+export type SlugStatus = (typeof SLUG_STATUSES)[number];
+
+export interface SlugState {
+  slug: string;
+  status: SlugStatus;
+}
+
+/** GET|PUT /api/profile/handle. */
+export interface HandleState {
+  /** The approved handle, if any. */
+  handle: string | null;
+  /** The teacher's public page: `/teachers/<handle>` or `/teachers/<id>`. */
+  path: string;
+  /** The newest request: pending, rejected, or the approved handle itself. */
+  request: SlugState | null;
+}
+
+/** GET /api/resolve: a vanity path to the id path the SPA routes on, and where the address bar belongs. */
+export interface ResolvedPath {
+  target: string;
+  canonical: string;
 }
 
 export interface CourseItemInput {
@@ -408,6 +517,8 @@ export interface CourseInput {
   description?: string | null;
   subject: Subject;
   grade_level: GradeLevel;
+  /** Left out, the course keeps its setting. */
+  comment_reactions?: boolean;
   items: CourseItemInput[];
 }
 
@@ -423,7 +534,8 @@ export interface CourseCandidates {
  * question), because a public course lets anyone reveal them.
  */
 export interface PracticeTest extends Test {
-  course: { id: number; title: string; author: TestAuthor };
+  /** `path`: the course's canonical address (see CourseView.path). */
+  course: { id: number; title: string; path: string; author: TestAuthor };
 }
 
 /**
@@ -652,6 +764,8 @@ export interface PublicProfile {
   role: Role;
   /** Absent entirely for a student seen by an accepted connection. */
   profile?: Profile;
+  /** The public page's address: `/teachers/<handle>` or `/teachers/<id>`. Present with `profile`. */
+  path?: string;
   /** Absent (not null) on the same name-only student payload as `profile`. */
   is_following?: boolean | null;
   /** Absent (not null) on the same name-only student payload as `profile`. */
@@ -731,5 +845,76 @@ export interface AppNotification {
     material_title?: string;
     course_id?: number;
     course_title?: string;
+    // CommentPosted. `user` is absent when the commenter is not named to
+    // this recipient; `commenter_role` is always there for "A student".
+    comment_id?: number;
+    commenter_role?: Role;
+    target_type?: CommentTargetType;
+    target_id?: number;
+    target_title?: string;
+    is_reply?: boolean;
   };
+}
+
+/** Mirrors `App\Enums\CommentTarget`, in enum order. */
+export const COMMENT_TARGETS = ['test', 'question', 'material', 'course'] as const;
+export type CommentTargetType = (typeof COMMENT_TARGETS)[number];
+
+/** Mirrors `App\Enums\CommentStatus`, in enum order. Deleted is not a status: see `Comment.deleted_at`. */
+export const COMMENT_STATUSES = ['pending', 'approved', 'denied'] as const;
+export type CommentStatus = (typeof COMMENT_STATUSES)[number];
+
+/** Mirrors `App\Enums\CommentReaction`, in enum order. */
+export const COMMENT_REACTIONS = ['up', 'down'] as const;
+export type CommentReaction = (typeof COMMENT_REACTIONS)[number];
+
+/** `CommentController::MAX_BODY`. */
+export const COMMENT_MAX_LENGTH = 2000;
+
+/**
+ * A commenter as this viewer may see them: a UserSummary, or -- when the
+ * viewer may not know who they are (decision 5) -- the role alone with
+ * `id` and `name` null.
+ */
+export interface CommentAuthor {
+  id: number | null;
+  name: string | null;
+  role: Role;
+  avatar_url: string | null;
+}
+
+export interface Comment {
+  id: number;
+  parent_id: number | null;
+  body: string;
+  /** Anything but approved is shown only to its writer and the approvers. */
+  status: CommentStatus;
+  /** Set only on what an administrator is shown: nobody else sees a deleted comment. */
+  deleted_at: string | null;
+  created_at: string;
+  edited_at: string | null;
+  author: CommentAuthor;
+  is_mine: boolean;
+  can_edit: boolean;
+  can_delete: boolean;
+  /** Null unless the course has thumbs switched on and the comment is approved. */
+  reactions: { up: number; down: number; mine: CommentReaction | null } | null;
+  can_react: boolean;
+  /** Top-level comments only; replies are one level deep. */
+  replies?: Comment[];
+}
+
+export interface CommentThread {
+  data: Comment[];
+  /** The viewer's role takes part and they can see the target. */
+  can_comment: boolean;
+  /** The target is theirs, or they are an administrator. */
+  can_moderate: boolean;
+  /** Approves and denies: the course's author, a connected teacher assistant, an administrator. */
+  can_approve: boolean;
+  /** A public course's discussion: new comments wait for approval. */
+  moderated: boolean;
+  reactions_enabled: boolean;
+  /** The test's author turned comments off: no new ones, and only they and administrators see what was said. */
+  closed: boolean;
 }

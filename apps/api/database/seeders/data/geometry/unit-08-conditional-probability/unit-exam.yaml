@@ -1,0 +1,954 @@
+unit: 8
+description: |
+  44 questions · about 80 minutes · covers every lesson of Unit 8 (chance and relative frequency, fair games
+  and experiments, sample spaces, relative frequency tables, combining events with and / or / not, the addition
+  rule, dependent and independent events, conditional probability, two-way tables for conditional probability,
+  testing independence and probabilities in games) with some review of Units 3, 5, 6 and 7. Multiple choice,
+  select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically;
+  the short answers and the long answer are graded by your teacher against the scoring notes. Use π ≈ 3.1416
+  where a decimal is asked for.
+questions:
+    - slug: geo-u08-exam-q01
+      type: multiple_choice
+      topic_code: "8.9"
+      source: "IM Geometry, Unit 8, Lesson 9"
+      points: 1
+      stimulus: |
+        A transit survey recorded 500 commuters by how they travel and whether they listen to podcasts on the way.
+
+        | | Listens to podcasts | Does not | Total |
+        |---|---|---|---|
+        | Drives | 120 | 180 | 300 |
+        | Takes transit | 110 | 90 | 200 |
+        | Total | 230 | 270 | 500 |
+      prompt: |
+        What is P(listens to podcasts | takes transit)?
+      options:
+        - "0.40"
+        - "0.55"
+        - "0.22"
+        - "0.478"
+      option_explanations:
+        - |
+          0.40 is 200/500, the probability of taking transit with no condition at all.
+        - |
+          Correct. The condition "takes transit" makes that row the sample space: 110/200 = 0.55.
+        - |
+          0.22 is 110/500, the joint probability P(transit and podcasts), not a conditional probability.
+        - |
+          0.478 is 110/230, the fraction of podcast listeners who take transit: the condition is reversed.
+      answer: 1
+
+    - slug: geo-u08-exam-q02
+      type: multiple_choice
+      topic_code: "8.9"
+      source: "IM Geometry, Unit 8, Lesson 9"
+      points: 1
+      stimulus: |
+        A transit survey recorded 500 commuters by how they travel and whether they listen to podcasts on the way.
+
+        | | Listens to podcasts | Does not | Total |
+        |---|---|---|---|
+        | Drives | 120 | 180 | 300 |
+        | Takes transit | 110 | 90 | 200 |
+        | Total | 230 | 270 | 500 |
+      prompt: |
+        A podcast listener is chosen at random. What is the probability that this person takes transit? Round to three decimal places.
+      options:
+        - "0.460"
+        - "0.220"
+        - "0.550"
+        - "0.478"
+      option_explanations:
+        - |
+          0.460 is 230/500, the overall fraction of podcast listeners, which ignores the condition.
+        - |
+          0.220 is 110/500, the joint probability, which uses the grand total as denominator.
+        - |
+          0.550 is 110/200, P(podcasts | transit): the row and the column have been swapped.
+        - |
+          Correct. "A podcast listener is chosen" makes the podcast column the sample space: 110/230 ≈ 0.478.
+      answer: 3
+
+    - slug: geo-u08-exam-q03
+      type: multiple_choice
+      topic_code: "8.10"
+      source: "IM Geometry, Unit 8, Lesson 10"
+      points: 1
+      stimulus: |
+        A transit survey recorded 500 commuters by how they travel and whether they listen to podcasts on the way.
+
+        | | Listens to podcasts | Does not | Total |
+        |---|---|---|---|
+        | Drives | 120 | 180 | 300 |
+        | Takes transit | 110 | 90 | 200 |
+        | Total | 230 | 270 | 500 |
+      prompt: |
+        Are the events "drives" and "listens to podcasts" independent? Which statement is correct?
+      options:
+        - "Yes: the table has the same number of rows as columns, so the events cannot affect each other"
+        - "No: 120 and 110 are different numbers, so the events are dependent"
+        - "No: P(podcasts) = 0.46 but P(podcasts | drives) = 0.40, so drivers are less likely to listen"
+        - "Yes: 120/300 and 110/200 are both less than 0.6"
+      option_explanations:
+        - |
+          The shape of the table says nothing about independence; only the probabilities do.
+        - |
+          Different raw counts do not prove dependence, since the row totals differ; compare conditional probabilities.
+        - |
+          Correct. Independence requires P(podcasts | drives) = P(podcasts); 0.40 ≠ 0.46, so knowing someone drives lowers the chance.
+        - |
+          Both being below 0.6 is irrelevant; the test is whether the conditional equals the unconditional probability.
+      answer: 2
+
+    - slug: geo-u08-exam-q04
+      type: multiple_choice
+      topic_code: "8.1"
+      source: "IM Geometry, Unit 8, Lesson 1"
+      points: 1
+      prompt: |
+        A forecast model gives a 30% chance of rain on each of 50 days. It rained on 18 of them. Which conclusion is most reasonable?
+      options:
+        - "The relative frequency 0.36 is close to 0.30; the difference is the kind of variation expected in 50 trials"
+        - "The model should have said 36%, since that is what happened"
+        - "Rain on one day guarantees rain the next, so the model cannot be checked"
+        - "The model is wrong, because 18 is not exactly 15"
+      option_explanations:
+        - |
+          Correct. A probability describes long-run behaviour; 18 out of 50 is well within normal variation around 15.
+        - |
+          One sample of 50 days does not replace a model; a different 50 days would give a different relative frequency.
+        - |
+          Nothing in the data says rain guarantees rain; this does not follow from the counts given.
+        - |
+          Probabilities do not promise exact counts; a 30% chance over 50 days rarely produces exactly 15 rainy days.
+      answer: 0
+
+    - slug: geo-u08-exam-q05
+      type: multiple_choice
+      topic_code: "8.2"
+      source: "IM Geometry, Unit 8, Lesson 2"
+      points: 1
+      prompt: |
+        A bent thumbtack can land point-up or point-down. Which is the best way to estimate P(point-up)?
+      options:
+        - "Say 1/2, because there are exactly two outcomes"
+        - "Drop it many times and compute the relative frequency of point-up landings"
+        - "Measure the angle of the bend and divide it by 360°"
+        - "Drop it once and record what happens"
+      option_explanations:
+        - |
+          Two outcomes are only equally likely when there is a reason for symmetry; a bent tack has none.
+        - |
+          Correct. When outcomes are not equally likely, a probability is estimated from many repeated trials.
+        - |
+          The angle of the bend is not a probability; there is no formula linking the two directly.
+        - |
+          One trial gives a relative frequency of 0 or 1, which says almost nothing about the long run.
+      answer: 1
+
+    - slug: geo-u08-exam-q06
+      type: multiple_choice
+      topic_code: "8.3"
+      source: "IM Geometry, Unit 8, Lesson 3"
+      points: 1
+      prompt: |
+        A locker code is one letter chosen at random from A, B, C followed by one digit chosen at random from 1, 2, 3, 4. How many outcomes are in the sample space, and what is P(the code starts with A)?
+      options:
+        - "12 outcomes; 1/12"
+        - "7 outcomes; 1/7"
+        - "12 outcomes; 1/3"
+        - "12 outcomes; 1/4"
+      option_explanations:
+        - |
+          1/12 is the probability of one particular code, not of all four codes that start with A.
+        - |
+          Adding 3 + 4 counts choices, not outcomes; each letter pairs with each digit, giving 3 × 4.
+        - |
+          Correct. 3 × 4 = 12 equally likely codes, and 4 of them start with A, so 4/12 = 1/3.
+        - |
+          1/4 is the probability of a particular digit, not of the letter A.
+      answer: 2
+
+    - slug: geo-u08-exam-q07
+      type: multiple_choice
+      topic_code: "8.4"
+      source: "IM Geometry, Unit 8, Lesson 4"
+      points: 1
+      prompt: |
+        A relative frequency table built from a survey of 250 students shows 0.12 in the cell "walks to school and owns a bike". How many of the 250 students are in that cell?
+      options:
+        - "30"
+        - "42"
+        - "25"
+        - "12"
+      option_explanations:
+        - |
+          Correct. A relative frequency is count ÷ total, so the count is 0.12 × 250 = 30.
+        - |
+          42 does not come from 0.12 × 250; check the multiplication.
+        - |
+          25 is 10% of 250, not 12%; the cell shows 0.12, so multiply 250 by 0.12.
+        - |
+          12 would be the count only if the total were 100; the table was built from 250 people.
+      answer: 0
+
+    - slug: geo-u08-exam-q08
+      type: multiple_choice
+      topic_code: "8.5"
+      source: "IM Geometry, Unit 8, Lesson 5"
+      points: 1
+      prompt: |
+        One fair die is rolled. Let A = "the number is even" and B = "the number is greater than 4". What is P(A or B)?
+      options:
+        - "1/6"
+        - "1/2"
+        - "5/6"
+        - "2/3"
+      option_explanations:
+        - |
+          1/6 is P(A and B): only the 6 is both even and greater than 4.
+        - |
+          1/2 is P(A) alone; the "or" also brings in the 5.
+        - |
+          5/6 adds 3/6 + 2/6 and counts the 6 twice; it is in both A and B.
+        - |
+          Correct. A or B is {2, 4, 5, 6}, four of the six equally likely outcomes.
+      answer: 3
+
+    - slug: geo-u08-exam-q09
+      type: multiple_choice
+      topic_code: "8.6"
+      source: "IM Geometry, Unit 8, Lesson 6"
+      points: 1
+      prompt: |
+        P(A) = 0.45, P(B) = 0.30 and P(A and B) = 0.10. What is P(A or B)?
+      options:
+        - "0.135"
+        - "0.75"
+        - "0.65"
+        - "0.55"
+      option_explanations:
+        - |
+          0.135 is 0.45 × 0.30, which would be P(A and B) only for independent events, and is not what is asked.
+        - |
+          0.75 adds the two probabilities without subtracting the overlap, which is counted twice.
+        - |
+          Correct. The addition rule gives 0.45 + 0.30 − 0.10 = 0.65.
+        - |
+          0.55 subtracts the overlap twice; it is subtracted only once.
+      answer: 2
+
+    - slug: geo-u08-exam-q10
+      type: multiple_choice
+      topic_code: "8.6"
+      source: "IM Geometry, Unit 8, Lesson 6"
+      points: 1
+      prompt: |
+        Events C and D are mutually exclusive with P(C) = 0.3 and P(D) = 0.5. Which statement is correct?
+      options:
+        - "P(C or D) = 0.5, the larger of the two"
+        - "P(C or D) = 0.8 and P(C and D) = 0.15"
+        - "P(C or D) = 0.65 and P(C and D) = 0.15"
+        - "P(C or D) = 0.8 and P(C and D) = 0"
+      option_explanations:
+        - |
+          "Or" combines the events; its probability is at least as large as either one, here 0.3 + 0.5.
+        - |
+          0.15 is 0.3 × 0.5, the product for independent events; mutually exclusive events have overlap 0.
+        - |
+          Both numbers are wrong: nothing is subtracted, since there is no overlap to remove.
+        - |
+          Correct. Mutually exclusive events never happen together, so the overlap is 0 and the probabilities simply add.
+      answer: 3
+
+    - slug: geo-u08-exam-q11
+      type: multiple_choice
+      topic_code: "8.7"
+      source: "IM Geometry, Unit 8, Lesson 7"
+      points: 1
+      prompt: |
+        A bag holds 5 red and 3 blue tokens. Two are drawn one after the other without replacement. What is P(both red)?
+      options:
+        - "4/7"
+        - "5/14"
+        - "5/28"
+        - "25/64"
+      option_explanations:
+        - |
+          4/7 is only the second factor, the conditional probability of the second draw.
+        - |
+          Correct. P(first red) = 5/8 and then P(second red | first red) = 4/7, so (5/8)(4/7) = 20/56 = 5/14.
+        - |
+          5/28 is half the right answer; the product (5/8)(4/7) is 20/56.
+        - |
+          25/64 is (5/8)², which would be right with replacement; here the first draw changes the bag.
+      answer: 1
+
+    - slug: geo-u08-exam-q12
+      type: multiple_choice
+      topic_code: "8.7"
+      source: "IM Geometry, Unit 8, Lesson 7"
+      points: 1
+      prompt: |
+        Which pair of events is independent?
+      options:
+        - "A die is rolled twice: the first roll shows 6; the second roll shows 6"
+        - "A die is rolled once: it shows an even number; it shows a 4"
+        - "A student is chosen: the student is a senior; the student has a driving licence"
+        - "Two cards are drawn without replacement: the first is an ace; the second is an ace"
+      option_explanations:
+        - |
+          Correct. The die has no memory; the first roll's outcome does not change the chances for the second.
+        - |
+          Knowing the roll is even raises P(4) from 1/6 to 1/3, so these events are dependent.
+        - |
+          Seniors are older and far more likely to hold a licence, so knowing one changes the other.
+        - |
+          Without replacement the first draw changes the deck, so the second probability depends on the first.
+      answer: 0
+
+    - slug: geo-u08-exam-q13
+      type: multiple_choice
+      topic_code: "8.8"
+      source: "IM Geometry, Unit 8, Lesson 8"
+      points: 1
+      prompt: |
+        P(A and B) = 0.18 and P(A) = 0.6. What is P(B | A)?
+      options:
+        - "0.108"
+        - "0.3"
+        - "0.6"
+        - "0.78"
+      option_explanations:
+        - |
+          0.108 multiplies 0.18 by 0.6 instead of dividing; a conditional probability shrinks the sample space to A.
+        - |
+          Correct. P(B | A) = P(A and B) / P(A) = 0.18 / 0.6 = 0.3.
+        - |
+          0.6 is P(A) itself, not the conditional probability of B.
+        - |
+          0.78 adds the two numbers, which has no meaning here.
+      answer: 1
+
+    - slug: geo-u08-exam-q14
+      type: multiple_choice
+      topic_code: "8.8"
+      source: "IM Geometry, Unit 8, Lesson 8"
+      points: 1
+      prompt: |
+        Two fair dice are rolled. What is P(the sum is 8 | the two dice show the same number)?
+      options:
+        - "1/12"
+        - "5/36"
+        - "1/6"
+        - "1/36"
+      option_explanations:
+        - |
+          1/12 does not come from the restricted sample space of six doubles.
+        - |
+          5/36 is P(sum = 8) with no condition: (2,6), (3,5), (4,4), (5,3), (6,2) out of 36.
+        - |
+          Correct. The condition shrinks the sample space to the six doubles; only (4, 4) sums to 8, so 1/6.
+        - |
+          1/36 is P(sum = 8 and doubles), the joint probability; divide it by P(doubles) = 6/36.
+      answer: 2
+
+    - slug: geo-u08-exam-q15
+      type: multiple_choice
+      topic_code: "8.9"
+      source: "IM Geometry, Unit 8, Lesson 9"
+      points: 1
+      prompt: |
+        Of 80 students, 50 take Spanish, 30 take art and 20 take both. A Spanish student is chosen at random. What is the probability that the student also takes art?
+      options:
+        - "0.375"
+        - "0.25"
+        - "0.667"
+        - "0.40"
+      option_explanations:
+        - |
+          0.375 is 30/80, P(art) with no condition.
+        - |
+          0.25 is 20/80, the joint probability over all 80 students.
+        - |
+          0.667 is 20/30, P(Spanish | art): the condition is reversed.
+        - |
+          Correct. The Spanish group is the sample space: 20 of the 50 take art, 20/50 = 0.40.
+      answer: 3
+
+    - slug: geo-u08-exam-q16
+      type: multiple_choice
+      topic_code: "8.10"
+      source: "IM Geometry, Unit 8, Lesson 10"
+      points: 1
+      prompt: |
+        P(A) = 0.5, P(B) = 0.4 and P(A and B) = 0.2. Which statement is correct?
+      options:
+        - "A and B are independent, because P(A and B) = P(A) · P(B)"
+        - "A and B are mutually exclusive, because 0.2 is small"
+        - "A and B are dependent, because P(A) ≠ P(B)"
+        - "Nothing can be decided without P(A or B)"
+      option_explanations:
+        - |
+          Correct. 0.5 × 0.4 = 0.2 = P(A and B), which is exactly the multiplication test for independence.
+        - |
+          Mutually exclusive events have P(A and B) = 0, not 0.2.
+        - |
+          Independence never requires P(A) = P(B); it compares the joint probability with the product.
+        - |
+          P(A or B) can be computed from the three numbers given (0.7) and is not needed for the independence test.
+      answer: 0
+
+    - slug: geo-u08-exam-q17
+      type: multiple_choice
+      topic_code: "8.10"
+      source: "IM Geometry, Unit 8, Lesson 10"
+      points: 1
+      prompt: |
+        A survey finds P(likes jazz) = 0.30 and P(likes jazz | over 50) = 0.50. What is the most reasonable conclusion?
+      options:
+        - "The events are independent because both probabilities are below 1"
+        - "Liking jazz causes people to be over 50"
+        - "P(over 50 | likes jazz) must also be 0.50"
+        - "Liking jazz and being over 50 are dependent; people over 50 are more likely to like jazz"
+      option_explanations:
+        - |
+          Being below 1 is true of every probability; independence requires the two to be equal.
+        - |
+          Dependence is a statement about probabilities, not about causes; age cannot be caused by music taste.
+        - |
+          P(over 50 | likes jazz) uses a different sample space and need not equal P(likes jazz | over 50).
+        - |
+          Correct. The conditional probability differs from the unconditional one, so the events are dependent, and the condition raises the chance.
+      answer: 3
+
+    - slug: geo-u08-exam-q18
+      type: multiple_choice
+      topic_code: "8.11"
+      source: "IM Geometry, Unit 8, Lesson 11"
+      points: 1
+      prompt: |
+        A game costs $1 to play. You win $4 with probability 1/5 and nothing otherwise. Over many plays, what should a player expect?
+      options:
+        - "To lose about $0.20 per play on average, since the average winnings are $0.80"
+        - "To win $4 once every five plays and therefore come out $3 ahead each time"
+        - "To win about $0.80 per play"
+        - "To break even, since $4 × 1/5 pays back the $1"
+      option_explanations:
+        - |
+          Correct. Average winnings are 4 × 1/5 + 0 × 4/5 = $0.80 per play, which is $0.20 less than the $1 cost.
+        - |
+          Winning once in five plays is only an average, and over those five plays the player paid $5 to win $4.
+        - |
+          $0.80 is the average amount won, but each play also costs $1, so the net result is a loss.
+        - |
+          4 × 1/5 = 0.80, not 1; the game does not pay back its cost on average.
+      answer: 0
+
+    - slug: geo-u08-exam-q19
+      type: multiple_choice
+      topic_code: "8.11"
+      source: "IM Geometry, Unit 8, Lesson 11"
+      points: 1
+      prompt: |
+        A fair coin is tossed three times. Player A wins if exactly two heads appear; Player B wins if exactly one head appears; otherwise nobody wins. Which statement is correct?
+      options:
+        - "The game is fair because every turn has a winner"
+        - "The game is fair: each player wins with probability 3/8, and nobody wins on 1/4 of the turns"
+        - "The game is unfair: A wins more often because two heads is more likely than one"
+        - "The game is unfair: B wins with probability 1/2 since one head is half of two"
+      option_explanations:
+        - |
+          Not every turn has a winner (HHH and TTT have none), and that is not what fairness means anyway.
+        - |
+          Correct. Of the 8 outcomes, HHT, HTH, THH give A and HTT, THT, TTH give B; HHH and TTT give nobody.
+        - |
+          Exactly two heads and exactly one head are equally likely, 3/8 each, by the symmetry of heads and tails.
+        - |
+          1/2 does not come from the sample space; B's three winning outcomes out of 8 give 3/8.
+      answer: 1
+
+    - slug: geo-u08-exam-q20
+      type: multiple_choice
+      topic_code: "8.3"
+      source: "IM Geometry, Unit 8, Lesson 3"
+      points: 1
+      stimulus: |
+        A spinner has five equal regions numbered 1, 2, 3, 4, 5. It is spun twice and the two numbers are recorded in order.
+      prompt: |
+        What is P(the sum of the two numbers is 6)?
+      options:
+        - "6/25"
+        - "1/25"
+        - "1/5"
+        - "4/25"
+      option_explanations:
+        - |
+          6/25 counts six pairs, but there are only five ways to make 6 with numbers from 1 to 5.
+        - |
+          1/25 is the probability of one particular ordered pair, not of all pairs with sum 6.
+        - |
+          Correct. The 25 ordered pairs are equally likely; (1,5), (2,4), (3,3), (4,2), (5,1) sum to 6, so 5/25 = 1/5.
+        - |
+          4/25 misses the pair (3, 3), which also sums to 6.
+      answer: 2
+
+    - slug: geo-u08-exam-q21
+      type: multiple_choice
+      topic_code: "8.7"
+      source: "IM Geometry, Unit 8, Lesson 7"
+      points: 1
+      stimulus: |
+        A spinner has five equal regions numbered 1, 2, 3, 4, 5. It is spun twice and the two numbers are recorded in order.
+      prompt: |
+        What is P(both numbers are odd)?
+      options:
+        - "9/25"
+        - "6/25"
+        - "3/5"
+        - "3/10"
+      option_explanations:
+        - |
+          Correct. The spins are independent and each is odd with probability 3/5, so (3/5)(3/5) = 9/25.
+        - |
+          6/25 is (3/5)(2/5), the probability of one odd and one even in a particular order.
+        - |
+          3/5 is the probability that a single spin is odd; two independent spins multiply.
+        - |
+          3/10 would be (3/5)(1/2), but the second spin's chance of odd is also 3/5, not 1/2.
+      answer: 0
+
+    - slug: geo-u08-exam-q22
+      type: multiple_choice
+      topic_code: "8.11"
+      source: "IM Geometry, Unit 8, Lesson 11"
+      points: 1
+      stimulus: |
+        A spinner has five equal regions numbered 1, 2, 3, 4, 5. It is spun twice and the two numbers are recorded in order.
+      prompt: |
+        Player A wins if the sum is even; Player B wins if the product is even. Which statement is correct?
+      options:
+        - "Fair: each player wins with probability 1/2"
+        - "Not fair: P(A wins) = 9/25 and P(B wins) = 16/25"
+        - "Not fair: A is favoured because sums are more often even than products"
+        - "Not fair: P(A wins) = 13/25 and P(B wins) = 16/25, so B is favoured"
+      option_explanations:
+        - |
+          The two winning events overlap and neither has probability 1/2; count the ordered pairs.
+        - |
+          9/25 is only the both-odd case; an even sum also comes from two even numbers (4 more pairs).
+        - |
+          B is favoured, not A: 16/25 is larger than 13/25.
+        - |
+          Correct. The sum is even when both are odd (9) or both even (4), 13/25; the product is even unless both are odd, 16/25.
+      answer: 3
+
+    - slug: geo-u08-exam-q23
+      type: multiple_choice
+      topic_code: "7.8"
+      source: "IM Geometry, Unit 7, Lesson 8"
+      points: 1
+      prompt: |
+        Review. A spinner of radius 8 cm has a winning sector of area 16π cm². What is the probability of winning on one spin?
+      options:
+        - "1/8"
+        - "1/2"
+        - "1/4"
+        - "1/16"
+      option_explanations:
+        - |
+          1/8 compares 16 with 128 or 8 with 64; the ratio of areas is 16π to 64π.
+        - |
+          1/2 would need a sector of area 32π, half the circle.
+        - |
+          Correct. The whole circle has area π · 8² = 64π, so 16π/64π = 1/4.
+        - |
+          1/16 compares the sector's area with the square of the radius squared; the circle's area is 64π, not 256π.
+      answer: 2
+
+    - slug: geo-u08-exam-q24
+      type: multiple_choice
+      topic_code: "7.11"
+      source: "IM Geometry, Unit 7, Lesson 11"
+      points: 1
+      prompt: |
+        Review. A spinner's prize region has central angle 2π/5 radians. What is the probability of landing in it?
+      options:
+        - "0.4π"
+        - "1/5"
+        - "2/5"
+        - "1/10"
+      option_explanations:
+        - |
+          0.4π is the angle itself written as a decimal multiple of π, not a probability.
+        - |
+          Correct. A full turn is 2π radians, so (2π/5) ÷ 2π = 1/5.
+        - |
+          2/5 forgets that the full turn is 2π, not π.
+        - |
+          1/10 divides by 4π; the whole circle is 2π radians.
+      answer: 1
+
+    - slug: geo-u08-exam-q25
+      type: multiple_choice
+      topic_code: "6.4"
+      source: "IM Geometry, Unit 6, Lesson 4"
+      points: 1
+      prompt: |
+        Review. A point is chosen at random inside the square with vertices (0, 0), (10, 0), (10, 10) and (0, 10). What is the probability that it lies within 5 units of the origin?
+      options:
+        - "1/4"
+        - "π/16"
+        - "π/4"
+        - "π/8"
+      option_explanations:
+        - |
+          1/4 would be the probability for a 5 by 5 square corner region, not a quarter circle.
+        - |
+          Correct. The points within 5 of the origin inside the square form a quarter circle of area (1/4)π(5²) = 25π/4; divided by 100 that is π/16 ≈ 0.196.
+        - |
+          π/4 is the ratio for a full circle of radius 5 inside a 10 by 10 square, but only a quarter of that circle lies in this square.
+        - |
+          π/8 is twice the correct value; the quarter circle's area is 25π/4, not 25π/2.
+      answer: 1
+
+    - slug: geo-u08-exam-q26
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "IM Geometry, Unit 5, Lesson 4"
+      points: 1
+      prompt: |
+        Review. A square target contains a smaller square that is a dilation of the target by scale factor 1/3 about its centre. A random point in the target lands in the smaller square with what probability?
+      options:
+        - "1/6"
+        - "1/3"
+        - "1/9"
+        - "2/9"
+      option_explanations:
+        - |
+          1/6 does not come from squaring the scale factor 1/3; the area ratio is (1/3)² = 1/9.
+        - |
+          1/3 is the scale factor for lengths; area scales by its square.
+        - |
+          Correct. Scaling lengths by 1/3 scales area by (1/3)² = 1/9, and probability is the ratio of areas.
+        - |
+          2/9 is twice the correct area ratio; nothing in the dilation doubles the inner square's share.
+      answer: 2
+
+    - slug: geo-u08-exam-q27
+      type: multiple_choice
+      topic_code: "3.13"
+      source: "IM Geometry, Unit 3, Lesson 13"
+      points: 1
+      prompt: |
+        Review. Figure description: right triangle with legs 6 and 8 and hypotenuse 10; the altitude from the right angle to the hypotenuse splits it into two smaller right triangles. A random point inside the big triangle lands in the smaller piece (the one that has the leg of length 6 as its hypotenuse) with what probability?
+      options:
+        - "16/25"
+        - "1/2"
+        - "3/5"
+        - "9/25"
+      option_explanations:
+        - |
+          16/25 is the other piece, whose hypotenuse is the leg of length 8: (8/10)² = 16/25.
+        - |
+          The altitude does not bisect the area; the two pieces have different hypotenuses, 6 and 8.
+        - |
+          3/5 is the scale factor for lengths; the ratio of areas is its square.
+        - |
+          Correct. Each piece is similar to the whole; the piece with hypotenuse 6 has scale factor 6/10, so its area is (6/10)² = 36/100 = 9/25 of the whole.
+      answer: 3
+
+    - slug: geo-u08-exam-q28
+      type: multiple_choice
+      topic_code: "8.1"
+      source: "IM Geometry, Unit 8, Lesson 1"
+      points: 1
+      prompt: |
+        Which of these values cannot be the probability of an event?
+      options:
+        - "1.2"
+        - "0.35"
+        - "0"
+        - "1"
+      option_explanations:
+        - |
+          Correct. A probability is a fraction of outcomes, so it lies between 0 and 1 inclusive; 1.2 is impossible.
+        - |
+          0.35 is an ordinary probability between 0 and 1.
+        - |
+          0 is the probability of an impossible event, which is allowed.
+        - |
+          1 is the probability of a certain event, which is allowed.
+      answer: 0
+
+    - slug: geo-u08-exam-q29
+      type: multi_select
+      topic_code: "8.5"
+      source: "IM Geometry, Unit 8, Lesson 5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A bag holds 2 red, 3 blue and 5 green marbles; one is drawn at random. Which statements are true? Select all that apply.
+      options:
+        - "P(not green) = 0.6"
+        - "P(red) = 0.2"
+        - "P(red or green) = 0.7"
+        - "The events \"red\" and \"blue\" are mutually exclusive"
+        - "P(red or blue) = 0.5"
+      option_explanations:
+        - |
+          No: 5 of the 10 marbles are not green, so P(not green) = 0.5, not 0.6.
+        - |
+          Yes: 2 of the 10 marbles are red, so P(red) = 2/10 = 0.2.
+        - |
+          Yes: 2 + 5 = 7 of the 10 marbles are red or green, so 0.7.
+        - |
+          Yes: one marble has one colour, so the two events have no outcome in common.
+        - |
+          Yes: red and blue cannot both happen on one draw, so 0.2 + 0.3 = 0.5.
+      answer: [1, 2, 3, 4]
+
+    - slug: geo-u08-exam-q30
+      type: multi_select
+      topic_code: "8.10"
+      source: "IM Geometry, Unit 8, Lesson 10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        In a two-way table of 200 people, 120 have property A, 50 have property B and 30 have both. Which statements are true? Select all that apply.
+      options:
+        - "P(B | A) = 0.25"
+        - "P(A | B) = 0.6"
+        - "P(A or B) = 0.70"
+        - "A and B are independent"
+        - "A and B are mutually exclusive"
+      option_explanations:
+        - |
+          Yes: 30 of the 120 with A also have B, so 30/120 = 0.25.
+        - |
+          Yes: 30 of the 50 with B also have A, so 30/50 = 0.6.
+        - |
+          Yes: (120 + 50 − 30)/200 = 140/200 = 0.70 by the addition rule.
+        - |
+          Yes: P(B | A) = 0.25 = P(B) = 50/200, and equivalently 30/200 = 0.15 = 0.6 × 0.25.
+        - |
+          No: 30 people have both, so the events can happen together.
+      answer: [0, 1, 2, 3]
+
+    - slug: geo-u08-exam-q31
+      type: multi_select
+      topic_code: "8.3"
+      source: "IM Geometry, Unit 8, Lesson 3"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A fair coin is tossed three times. Which statements are true? Select all that apply.
+      options:
+        - "P(the first toss is heads | exactly one head) = 1/3"
+        - "P(exactly two heads) = 3/8"
+        - "P(all three tosses match) = 1/8"
+        - "P(at least one head) = 7/8"
+        - "The sample space has 8 equally likely outcomes"
+      option_explanations:
+        - |
+          Yes: given exactly one head, the outcomes are HTT, THT, TTH, and only HTT has heads first.
+        - |
+          Yes: HHT, HTH and THH are the three sequences with exactly two heads.
+        - |
+          No: HHH and TTT both match, so P(all match) = 2/8 = 1/4.
+        - |
+          Yes: the complement is TTT, a single outcome, so 1 − 1/8 = 7/8.
+        - |
+          Yes: 2 × 2 × 2 = 8 sequences, each with probability 1/8.
+      answer: [0, 1, 3, 4]
+
+    - slug: geo-u08-exam-q32
+      type: true_false
+      topic_code: "8.6"
+      source: "IM Geometry, Unit 8, Lesson 6"
+      points: 1
+      prompt: |
+        True or false: if A and B are mutually exclusive, then P(A or B) = P(A) + P(B).
+      answer: true
+      explanation: |
+        True. The addition rule subtracts P(A and B), which is 0 for mutually exclusive events, so nothing is removed.
+
+    - slug: geo-u08-exam-q33
+      type: true_false
+      topic_code: "8.10"
+      source: "IM Geometry, Unit 8, Lesson 10"
+      points: 1
+      prompt: |
+        True or false: if A and B are mutually exclusive and each has probability greater than 0, then A and B cannot be independent.
+      answer: true
+      explanation: |
+        True. Independence needs P(A and B) = P(A) · P(B) > 0, but mutually exclusive events have P(A and B) = 0. Knowing A happened tells you B did not, which is the strongest kind of dependence.
+
+    - slug: geo-u08-exam-q34
+      type: true_false
+      topic_code: "8.8"
+      source: "IM Geometry, Unit 8, Lesson 8"
+      points: 1
+      prompt: |
+        True or false: P(A | B) is always equal to P(B | A).
+      answer: false
+      explanation: |
+        False. They share the numerator P(A and B) but have different denominators, P(B) and P(A). In the commuter table above, P(podcasts | transit) = 0.55 while P(transit | podcasts) ≈ 0.478.
+
+    - slug: geo-u08-exam-q35
+      type: fill_blank
+      topic_code: "8.3"
+      source: "IM Geometry, Unit 8, Lesson 3"
+      points: 1
+      prompt: |
+        A fair coin is tossed four times and the sequence is recorded. The sample space has ____ equally likely outcomes.
+      answer: ["16", "sixteen"]
+      explanation: |
+        Each toss has 2 outcomes and the tosses are independent: 2 × 2 × 2 × 2 = 16.
+
+    - slug: geo-u08-exam-q36
+      type: fill_blank
+      topic_code: "8.8"
+      source: "IM Geometry, Unit 8, Lesson 8"
+      points: 1
+      prompt: |
+        If P(A and B) = 0.24 and P(A) = 0.6, then P(B | A) = ____.
+      answer: ["0.4", "0.40", "2/5", "40%"]
+      explanation: |
+        P(B | A) = P(A and B) / P(A) = 0.24 / 0.6 = 0.4.
+
+    - slug: geo-u08-exam-q37
+      type: fill_blank
+      topic_code: "7.11"
+      source: "IM Geometry, Unit 7, Lesson 11"
+      points: 1
+      prompt: |
+        Review. A spinner region has central angle π/4 radians. The probability of landing in it is 1/____.
+      answer: ["8", "eight"]
+      explanation: |
+        A full turn is 2π radians, and (π/4) ÷ 2π = 1/8.
+
+    - slug: geo-u08-exam-q38
+      type: numeric
+      topic_code: "8.9"
+      source: "IM Geometry, Unit 8, Lesson 9"
+      points: 1
+      prompt: |
+        A company has 600 employees; 35% work remotely. 80% of remote employees and 50% of on-site employees use the chat app daily. An employee who uses the app daily is chosen at random. What is the probability that this employee works remotely? Give your answer as a decimal to three places.
+      answer: { value: 0.463, tolerance: 0.002 }
+      explanation: |
+        Remote app users: 0.35 × 600 × 0.8 = 168. On-site app users: 0.65 × 600 × 0.5 = 195. P(remote | app) = 168/(168 + 195) = 168/363 ≈ 0.463.
+
+    - slug: geo-u08-exam-q39
+      type: numeric
+      topic_code: "8.7"
+      source: "IM Geometry, Unit 8, Lesson 7"
+      points: 1
+      prompt: |
+        Three components work independently, each with probability 0.9 of lasting the year. What is the probability that all three last the year? Give your answer as a decimal.
+      answer: { value: 0.729, tolerance: 0.001 }
+      explanation: |
+        Independent events multiply: 0.9 × 0.9 × 0.9 = 0.729.
+
+    - slug: geo-u08-exam-q40
+      type: numeric
+      topic_code: "8.11"
+      source: "IM Geometry, Unit 8, Lesson 11"
+      points: 1
+      prompt: |
+        A game rolls one fair die: a 6 pays $12, a 5 pays $3, and anything else pays nothing. What are the average winnings per play, in dollars? Give your answer to two decimal places.
+      answer: { value: 2.5, tolerance: 0.01 }
+      explanation: |
+        12 × 1/6 + 3 × 1/6 + 0 × 4/6 = 2 + 0.5 = $2.50. A fair entry fee would be $2.50.
+
+    - slug: geo-u08-exam-q41
+      type: numeric
+      topic_code: "7.8"
+      source: "IM Geometry, Unit 7, Lesson 8"
+      points: 1
+      prompt: |
+        Review. A circular dartboard has radius 20 cm. The outer ring is the region between 10 cm and 20 cm from the centre. A dart that lands at a random point on the board lands in the outer ring with what probability? Give your answer as a decimal.
+      answer: { value: 0.75, tolerance: 0.001 }
+      explanation: |
+        The ring's area is π(20²) − π(10²) = 400π − 100π = 300π, and the board's area is 400π, so 300π/400π = 0.75.
+
+    - slug: geo-u08-exam-q42
+      type: short_answer
+      topic_code: "8.10"
+      source: "IM Geometry, Unit 8, Lesson 10"
+      points: 3
+      prompt: |
+        A school has 300 students. 180 play a sport (S), 120 take a music class (M), and 72 do both.
+
+        (a) Build the two-way table: give the counts for "sport and music", "sport only", "music only" and "neither".
+
+        (b) Compute P(M | S) and P(M).
+
+        (c) Are "plays a sport" and "takes music" independent? Justify with your answers to (b), and state what independence means here in a sentence.
+      answer: |
+        (a) Sport and music: 72. Sport only: 180 − 72 = 108. Music only: 120 − 72 = 48. Neither: 300 − (72 + 108 + 48) = 72.
+
+        (b) P(M | S) = 72/180 = 0.4. P(M) = 120/300 = 0.4.
+
+        (c) Yes, independent: P(M | S) = P(M) (equivalently 72/300 = 0.24 = 0.6 × 0.4). Knowing that a student plays a sport does not change the chance that the student takes music; the music rate is 40% among athletes and 40% overall.
+      explanation: |
+        Scoring (3 points): 1 for the four correct cell counts (72, 108, 48, 72); 1 for both probabilities equal to 0.4 with correct denominators (180 and 300); 1 for "independent" justified by the equality in (b) or by the product test, with a plain-language sentence about knowing S not changing the chance of M.
+
+    - slug: geo-u08-exam-q43
+      type: short_answer
+      topic_code: "8.11"
+      source: "IM Geometry, Unit 8, Lesson 11"
+      points: 3
+      prompt: |
+        A game uses a spinner with three equal regions numbered 1, 2, 3 and a fair coin; both are used once per turn. Player A wins if the spinner shows 3 or the coin shows heads (or both). Player B wins on every other outcome.
+
+        (a) List the sample space and give P(A wins).
+
+        (b) Give P(B wins) and decide whether the game is fair.
+
+        (c) Change one rule so that the game becomes fair, and show that your rule gives each player probability 1/2.
+      answer: |
+        (a) Six equally likely outcomes: (1,H), (2,H), (3,H), (1,T), (2,T), (3,T). A wins on (1,H), (2,H), (3,H), (3,T): P(A wins) = 4/6 = 2/3.
+
+        (b) B wins on (1,T) and (2,T): P(B wins) = 2/6 = 1/3. Not fair; A is favoured 2 to 1.
+
+        (c) One fix: A wins if the coin shows heads, B wins if it shows tails, 3/6 each. Another: A wins on (3,H), (3,T), (1,H) and B wins on the other three outcomes; each has 3/6 = 1/2. Any rule assigning three of the six outcomes to each player works.
+      explanation: |
+        Scoring (3 points): 1 for the six-outcome sample space and P(A) = 2/3; 1 for P(B) = 1/3 and "not fair"; 1 for a rule giving each player exactly three of the six outcomes (or probability 1/2 each) with the check shown.
+
+    - slug: geo-u08-exam-q44
+      type: long_answer
+      topic_code: "8.9"
+      source: "IM Geometry, Unit 8, Lesson 9"
+      points: 8
+      prompt: |
+        A factory uses two machines. Machine X makes 60% of its parts and 2% of X's parts are defective. Machine Y makes the other 40% and 5% of Y's parts are defective.
+
+        (a) Imagine 1,000 parts. Build a two-way table (machine × defective or not) with the expected counts.
+
+        (b) Find P(defective).
+
+        (c) A defective part is found on the floor. Find P(made by X | defective), to three decimal places.
+
+        (d) Are "made by X" and "defective" independent? Justify with probabilities from your table.
+
+        (e) The factory wants its overall defect rate below 2.5% by moving more production to Machine X. If X makes a fraction p of the parts, write an inequality for p and solve it.
+      answer: |
+        (a) X makes 600 parts: 12 defective, 588 good. Y makes 400 parts: 20 defective, 380 good. Totals: 32 defective, 968 good, 1,000.
+
+        | | Defective | Good | Total |
+        |---|---|---|---|
+        | X | 12 | 588 | 600 |
+        | Y | 20 | 380 | 400 |
+        | Total | 32 | 968 | 1000 |
+
+        (b) P(defective) = 32/1000 = 0.032 (equivalently 0.6 × 0.02 + 0.4 × 0.05 = 0.012 + 0.020).
+
+        (c) P(X | defective) = 12/32 = 0.375. Even though X makes most of the parts, most defective parts come from Y, because Y's defect rate is more than double X's.
+
+        (d) Not independent. P(defective | X) = 12/600 = 0.02, but P(defective) = 0.032; the conditional probability differs from the unconditional one. (Equivalently P(X and defective) = 0.012 ≠ 0.6 × 0.032 = 0.0192.)
+
+        (e) The overall defect rate is 0.02p + 0.05(1 − p) = 0.05 − 0.03p. Require 0.05 − 0.03p < 0.025, so 0.03p > 0.025 and p > 0.025/0.03 = 5/6 ≈ 0.833. Machine X must make more than five-sixths of the parts.
+      explanation: |
+        Scoring (8 points): 2 for a correct table (all four cells 12, 588, 20, 380 with correct totals; 1 point if one cell is wrong but the method is right); 1 for P(defective) = 0.032; 1 for P(X | defective) = 12/32 = 0.375 with the defective column as denominator; 1 for "not independent" with a correct comparison (0.02 versus 0.032, or the product test); 1 for setting up the expression 0.02p + 0.05(1 − p) for the overall rate; 1 for the inequality 0.05 − 0.03p < 0.025 correctly simplified; 1 for the solution p > 5/6 (about 83.3%) stated with its meaning. Deduct 1 overall if conditional probabilities are reversed anywhere but the rest is sound.

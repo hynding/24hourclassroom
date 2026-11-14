@@ -1,0 +1,797 @@
+unit: 1
+description: |
+  40 questions · about 70 minutes · every lesson of Unit 1 (1.1 to 1.11): describing and classifying sequences,
+  recursive and explicit definitions, sequences as functions and their graphs, nth-term formulas, modelling
+  situations with sequences, and partial sums. Because this is the first unit there is no earlier material to
+  review. Includes two shared-context sets of three questions, select-all, true/false, fill-in-the-blank and
+  numeric items, one short-answer question (3 points) and one extended response (6 points). Multiple choice,
+  select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically;
+  the free-response items are graded by your teacher against the scoring notes.
+questions:
+  - slug: alg2-u01-exam-q01
+    type: multiple_choice
+    topic_code: "1.3"
+    source: "IM Algebra 2, Unit 1, Lesson 3"
+    points: 1
+    prompt: |
+      Which sequence is geometric?
+    options:
+      - "12, 9, 6, 3, 0"
+      - "12, 6, 3, 1.5, 0.75"
+      - "12, 6, 4, 3, 2.4"
+      - "12, 13, 15, 18, 22"
+    option_explanations:
+      - |
+        The differences are all −3, so this sequence is arithmetic, not geometric.
+      - |
+        Correct. Each term is half the one before, so the common ratio is 1/2.
+      - |
+        These are 12/1, 12/2, 12/3, 12/4, 12/5; ratios 1/2, 2/3, 3/4 are not constant.
+      - |
+        The differences 1, 2, 3, 4 grow by one each step; neither arithmetic nor geometric.
+    answer: 1
+  - slug: alg2-u01-exam-q02
+    type: multiple_choice
+    topic_code: "1.1"
+    source: "IM Algebra 2, Unit 1, Lesson 1"
+    points: 1
+    prompt: |
+      A sequence is defined by a(1) = 5 and a(n) = 2·a(n − 1) − 3. What is a(4)?
+    options:
+      - "7"
+      - "11"
+      - "19"
+      - "35"
+    option_explanations:
+      - |
+        7 is a(2): 2·5 − 3 = 7. Two more steps are needed.
+      - |
+        11 is a(3): 2·7 − 3 = 11. One more step is needed.
+      - |
+        Correct. a(2) = 7, a(3) = 11, a(4) = 2·11 − 3 = 19.
+      - |
+        35 would be a(5) (2·19 − 3). The question asks for the fourth term.
+    answer: 2
+  - slug: alg2-u01-exam-q03
+    type: multiple_choice
+    topic_code: "1.2"
+    source: "IM Algebra 2, Unit 1, Lesson 2"
+    points: 1
+    prompt: |
+      The common ratio of the geometric sequence 0.3, 1.5, 7.5, 37.5, … is
+    options:
+      - "0.2"
+      - "1.2"
+      - "5"
+      - "6"
+    option_explanations:
+      - |
+        0.2 is 0.3/1.5, the earlier term divided by the later one; the ratio goes the other way.
+      - |
+        1.2 is the difference 1.5 − 0.3, and the differences are not constant anyway.
+      - |
+        Correct. 1.5/0.3 = 5, 7.5/1.5 = 5 and 37.5/7.5 = 5.
+      - |
+        6 is 7.5 − 1.5; a ratio is a quotient, not a difference.
+    answer: 2
+  - slug: alg2-u01-exam-q04
+    type: multiple_choice
+    topic_code: "1.8"
+    source: "IM Algebra 2, Unit 1, Lesson 8"
+    points: 1
+    prompt: |
+      An arithmetic sequence has a(1) = 83 and common difference −7. What is a(15)?
+    options:
+      - "−22"
+      - "−15"
+      - "−8"
+      - "188"
+    option_explanations:
+      - |
+        −22 is a(16), fifteen steps from the first term rather than fourteen.
+      - |
+        Correct. a(15) = 83 + 14·(−7) = 83 − 98 = −15.
+      - |
+        −8 is a(14), thirteen steps from the first term.
+      - |
+        188 adds 7 fourteen times instead of subtracting; the sequence is decreasing.
+    answer: 1
+  - slug: alg2-u01-exam-q05
+    type: multiple_choice
+    topic_code: "1.5"
+    source: "IM Algebra 2, Unit 1, Lesson 5"
+    points: 1
+    prompt: |
+      Which statement correctly describes a sequence as a function?
+    options:
+      - "Its domain is all real numbers and its graph is a continuous curve."
+      - "Its domain is a set of whole numbers such as 1, 2, 3, … and its graph is a set of separate points."
+      - "Its domain is the set of terms and its range is the set of term numbers."
+      - "It is not a function because the same value can appear more than once."
+    option_explanations:
+      - |
+        A sequence has no value at non-integer inputs such as 2.5, so it is not defined on all real numbers.
+      - |
+        Correct. The inputs are positions and the outputs are terms, so the graph consists of isolated points.
+      - |
+        This reverses the roles: the term numbers are the inputs (domain) and the terms are the outputs.
+      - |
+        Repeated outputs are allowed in a function; the constant sequence 5, 5, 5 is still a function of n.
+    answer: 1
+  - slug: alg2-u01-exam-q06
+    type: multiple_choice
+    topic_code: "1.4"
+    source: "IM Algebra 2, Unit 1, Lesson 4"
+    points: 1
+    prompt: |
+      A spreadsheet has 1000 in cell B2 and `=B2*1.1` in cell B3, filled down. Which cell is the first to show a value above 1500?
+    options:
+      - "B5"
+      - "B6"
+      - "B7"
+      - "B8"
+    option_explanations:
+      - |
+        B5 holds 1000 · 1.1³ = 1331, still below 1500.
+      - |
+        B6 holds 1000 · 1.1⁴ = 1464.1, still below 1500.
+      - |
+        Correct. B7 holds 1000 · 1.1⁵ ≈ 1610.5, the first value above 1500.
+      - |
+        B8 holds about 1771.6, but B7 was already above 1500.
+    answer: 2
+  - slug: alg2-u01-exam-q07
+    type: multiple_choice
+    topic_code: "1.6"
+    source: "IM Algebra 2, Unit 1, Lesson 6"
+    points: 1
+    prompt: |
+      Graph description: the points (1, −4), (2, −1), (3, 2), (4, 5) are plotted. Which explicit formula describes the sequence?
+    options:
+      - "a(n) = −4 + 3n"
+      - "a(n) = 3n − 7"
+      - "a(n) = −4 · 3ⁿ⁻¹"
+      - "a(n) = −7 + 3(n + 1)"
+    option_explanations:
+      - |
+        This gives a(1) = −1, but the first point is (1, −4).
+      - |
+        Correct. The points rise by 3 each step from −4, so a(n) = −4 + 3(n − 1) = 3n − 7.
+      - |
+        The sequence adds 3 each step; it does not multiply by 3.
+      - |
+        This simplifies to 3n − 4, which gives a(1) = −1 rather than −4.
+    answer: 1
+  - slug: alg2-u01-exam-q08
+    type: multiple_choice
+    topic_code: "1.7"
+    source: "IM Algebra 2, Unit 1, Lesson 7"
+    points: 1
+    prompt: |
+      Which description fits the graph of the geometric sequence a(n) = 100 · 0.5ⁿ⁻¹?
+    options:
+      - "Points on a line falling by 50 each step"
+      - "Points that fall quickly at first and then flatten toward the horizontal axis"
+      - "Points that alternate above and below the horizontal axis"
+      - "Points that rise faster and faster"
+    option_explanations:
+      - |
+        The drops are 50, 25, 12.5, …, not a constant 50, so the points are not on a line.
+      - |
+        Correct. Halving each step gives 100, 50, 25, 12.5, …, decreasing toward 0 ever more slowly.
+      - |
+        Alternating signs need a negative ratio; 0.5 is positive.
+      - |
+        Rising faster and faster needs a ratio greater than 1.
+    answer: 1
+  - slug: alg2-u01-exam-q09
+    type: multiple_choice
+    topic_code: "1.9"
+    source: "IM Algebra 2, Unit 1, Lesson 9"
+    points: 1
+    prompt: |
+      A sequence is given by the table n = 0 → 6, n = 1 → 9, n = 2 → 13.5, n = 3 → 20.25. Which equation matches?
+    options:
+      - "a(n) = 6 · 1.5ⁿ⁻¹"
+      - "a(n) = 6 · 1.5ⁿ"
+      - "a(n) = 6 + 3n"
+      - "a(n) = 9 · 1.5ⁿ"
+    option_explanations:
+      - |
+        This gives a(0) = 4, not 6. With the first value at n = 0 the exponent is n.
+      - |
+        Correct. Ratios 9/6, 13.5/9 and 20.25/13.5 are all 1.5, and a(0) = 6.
+      - |
+        The differences 3, 4.5, 6.75 are not constant, so the sequence is not arithmetic.
+      - |
+        This gives a(0) = 9, but the table shows 6 at n = 0.
+    answer: 1
+  - slug: alg2-u01-exam-q10
+    type: multiple_choice
+    topic_code: "1.10"
+    source: "IM Algebra 2, Unit 1, Lesson 10"
+    points: 1
+    prompt: |
+      Which situation is best modelled by an arithmetic sequence?
+    options:
+      - "A cup of coffee cools so that the difference between its temperature and room temperature shrinks by 10% each minute."
+      - "A bacteria colony doubles every 20 minutes."
+      - "A candle burns 1.2 cm shorter every hour."
+      - "A radioactive sample halves every 5 years."
+    option_explanations:
+      - |
+        Shrinking by 10% multiplies by 0.9 each minute, a geometric pattern.
+      - |
+        Doubling multiplies by 2, so the counts are geometric.
+      - |
+        Correct. The same 1.2 cm is removed each hour, a constant difference.
+      - |
+        Halving multiplies by 0.5, which is geometric.
+    answer: 2
+  - slug: alg2-u01-exam-q11
+    type: multiple_choice
+    topic_code: "1.11"
+    source: "IM Algebra 2, Unit 1, Lesson 11"
+    points: 1
+    prompt: |
+      What is 8 + 14 + 20 + … + 128?
+    options:
+      - "1360"
+      - "1428"
+      - "2720"
+      - "2856"
+    option_explanations:
+      - |
+        1360 uses 20 terms, but 8 + 6(n − 1) = 128 gives n = 21.
+      - |
+        Correct. There are 21 terms and S = 21 · (8 + 128)/2 = 21 · 68 = 1428.
+      - |
+        2720 is 20 · 136, which forgets both the correct term count and the division by 2.
+      - |
+        2856 is 21 · 136 without the division by 2.
+    answer: 1
+  - slug: alg2-u01-exam-q12
+    type: multiple_choice
+    topic_code: "1.8"
+    source: "IM Algebra 2, Unit 1, Lesson 8"
+    points: 1
+    prompt: |
+      For the geometric sequence a(n) = 2 · 5ⁿ⁻¹, which term equals 1250?
+    options:
+      - "n = 4"
+      - "n = 5"
+      - "n = 6"
+      - "n = 625"
+    option_explanations:
+      - |
+        a(4) = 2 · 5³ = 2 · 125 = 250, which is a fifth of 1250.
+      - |
+        Correct. 2 · 5ⁿ⁻¹ = 1250 gives 5ⁿ⁻¹ = 625 = 5⁴, so n = 5.
+      - |
+        a(6) = 2 · 5⁵ = 2 · 3125 = 6250, five times too large.
+      - |
+        625 is the value of 5ⁿ⁻¹, not the term number.
+    answer: 1
+  - slug: alg2-u01-exam-q13
+    type: multiple_choice
+    topic_code: "1.3"
+    source: "IM Algebra 2, Unit 1, Lesson 3"
+    points: 1
+    prompt: |
+      An arithmetic sequence has a(6) = 40 and a(11) = 15. What is a(1)?
+    options:
+      - "65"
+      - "60"
+      - "70"
+      - "45"
+    option_explanations:
+      - |
+        Correct. Five steps change the value by −25, so d = −5, and a(1) = 40 − 5·(−5) = 65.
+      - |
+        60 is a(2); the first term is five steps back from a(6), not four.
+      - |
+        70 would be a(0), six steps back from a(6); the first term is five steps back.
+      - |
+        45 is a(5), only one step back from a(6); the first term is five steps back.
+    answer: 0
+  - slug: alg2-u01-exam-q14
+    type: multiple_choice
+    topic_code: "1.2"
+    source: "IM Algebra 2, Unit 1, Lesson 2"
+    points: 1
+    prompt: |
+      A geometric sequence has a(1) = −3 and r = −2. Which list gives its first five terms?
+    options:
+      - "−3, −6, −12, −24, −48"
+      - "−3, 6, −12, 24, −48"
+      - "−3, −5, −7, −9, −11"
+      - "3, −6, 12, −24, 48"
+    option_explanations:
+      - |
+        This multiplies by 2, not −2; the signs should alternate.
+      - |
+        Correct. Each term is the previous times −2: −3, 6, −12, 24, −48.
+      - |
+        This subtracts 2 each step, which is arithmetic.
+      - |
+        The first term is −3, not 3; this list has every sign flipped.
+    answer: 1
+  # ---- Stimulus set A: the seedling (1.9, 1.10, 1.11)
+  - slug: alg2-u01-exam-q15
+    type: multiple_choice
+    topic_code: "1.9"
+    source: "IM Algebra 2, Unit 1, Lesson 9"
+    points: 1
+    stimulus: |
+      A seedling is 6 cm tall when planted. A gardener records its height at the end of each week:
+
+      | Week | 0 | 1 | 2 | 3 | 4 |
+      |---|---|---|---|---|---|
+      | Height (cm) | 6 | 9.5 | 13 | 16.5 | 20 |
+    prompt: |
+      Which equation gives the height h(n), in cm, after n weeks?
+    options:
+      - "h(n) = 6 · 1.58ⁿ"
+      - "h(n) = 6 + 3.5n"
+      - "h(n) = 6 + 3.5(n − 1)"
+      - "h(n) = 9.5 + 3.5n"
+    option_explanations:
+      - |
+        The ratios 9.5/6 ≈ 1.58 and 13/9.5 ≈ 1.37 are not constant; the growth is not geometric.
+      - |
+        Correct. The height rises by 3.5 cm every week from 6 cm at week 0, so h(n) = 6 + 3.5n.
+      - |
+        This gives h(0) = 2.5, but the plant was 6 cm at week 0.
+      - |
+        9.5 is the height at week 1, not week 0; this formula is one week off.
+    answer: 1
+  - slug: alg2-u01-exam-q16
+    type: multiple_choice
+    topic_code: "1.10"
+    source: "IM Algebra 2, Unit 1, Lesson 10"
+    points: 1
+    stimulus: |
+      A seedling is 6 cm tall when planted. A gardener records its height at the end of each week:
+
+      | Week | 0 | 1 | 2 | 3 | 4 |
+      |---|---|---|---|---|---|
+      | Height (cm) | 6 | 9.5 | 13 | 16.5 | 20 |
+    prompt: |
+      The gardener uses the pattern to predict the plant's height after 2 years (104 weeks). Which comment is most appropriate?
+    options:
+      - "The model predicts 370 cm, which is reliable because the pattern has held for 4 weeks."
+      - "The model predicts 370 cm, but a plant does not keep growing at a constant rate indefinitely, so the prediction is not trustworthy."
+      - "The model cannot be used because the sequence is geometric."
+      - "The model predicts a negative height, so it cannot be used."
+    option_explanations:
+      - |
+        Four weeks of data say nothing about two years; constant growth cannot continue forever.
+      - |
+        Correct. 6 + 3.5 · 104 = 370 cm is what the formula gives, but the arithmetic model has left the range where it describes real growth.
+      - |
+        The sequence is arithmetic, and the model can be evaluated at 104; the issue is whether the answer means anything.
+      - |
+        The model's values keep increasing; they never become negative.
+    answer: 1
+  - slug: alg2-u01-exam-q17
+    type: numeric
+    topic_code: "1.11"
+    source: "IM Algebra 2, Unit 1, Lesson 11"
+    points: 1
+    stimulus: |
+      A seedling is 6 cm tall when planted. A gardener records its height at the end of each week:
+
+      | Week | 0 | 1 | 2 | 3 | 4 |
+      |---|---|---|---|---|---|
+      | Height (cm) | 6 | 9.5 | 13 | 16.5 | 20 |
+    prompt: |
+      If the pattern continues, what is the sum of the recorded heights from week 0 through week 10 inclusive? Give your answer in cm.
+    answer: { value: 258.5, tolerance: 0.01 }
+    explanation: |
+      The heights from week 0 to week 10 are 11 arithmetic terms from 6 to h(10) = 6 + 35 = 41. S = 11 · (6 + 41)/2 = 11 · 23.5 = 258.5 cm.
+  # ---- Stimulus set B: two investment plans (1.10, 1.8, 1.4)
+  - slug: alg2-u01-exam-q18
+    type: multiple_choice
+    topic_code: "1.10"
+    source: "IM Algebra 2, Unit 1, Lesson 10"
+    points: 1
+    stimulus: |
+      Two plans for a $2,000 fund are compared. Plan P adds $120 at the end of every year. Plan Q grows the fund by 5% at the end of every year. In both plans n = 0 is the starting year.
+    prompt: |
+      Which pair of equations models the value of the fund after n years?
+    options:
+      - "P(n) = 2000 + 120n and Q(n) = 2000 · 1.05ⁿ"
+      - "P(n) = 2000 · 120ⁿ and Q(n) = 2000 + 0.05n"
+      - "P(n) = 2000 + 120(n − 1) and Q(n) = 2000 · 1.05ⁿ⁻¹"
+      - "P(n) = 2000 + 120n and Q(n) = 2000 + 100n"
+    option_explanations:
+      - |
+        Correct. Plan P adds a fixed $120 (arithmetic); Plan Q multiplies by 1.05 (geometric); both start at n = 0.
+      - |
+        This swaps the types: adding $120 does not multiply, and 5% growth is not adding 0.05.
+      - |
+        With n = 0 as the start, these formulas give P(0) = 1880 and Q(0) ≈ 1905, not 2000.
+      - |
+        Plan Q adds $100 only in the first year; after that 5% of a larger balance is more than $100.
+    answer: 0
+  - slug: alg2-u01-exam-q19
+    type: multiple_choice
+    topic_code: "1.4"
+    source: "IM Algebra 2, Unit 1, Lesson 4"
+    points: 1
+    stimulus: |
+      Two plans for a $2,000 fund are compared. Plan P adds $120 at the end of every year. Plan Q grows the fund by 5% at the end of every year. In both plans n = 0 is the starting year.
+    prompt: |
+      A spreadsheet lists both plans year by year. In which year does Plan Q first exceed Plan P?
+    options:
+      - "Year 7"
+      - "Year 8"
+      - "Year 9"
+      - "Plan Q never exceeds Plan P"
+    option_explanations:
+      - |
+        In year 7, P = 2840 and Q = 2000 · 1.05⁷ ≈ 2814.20, so P is still ahead.
+      - |
+        In year 8, P = 2960 and Q ≈ 2954.91, so P is still ahead by about $5.
+      - |
+        Correct. In year 9, P = 3080 and Q = 2000 · 1.05⁹ ≈ 3102.66, the first year Q is larger; from then on Q pulls further ahead each year.
+      - |
+        A geometric sequence with ratio above 1 always overtakes an arithmetic one eventually; here it happens in year 9.
+    answer: 2
+  - slug: alg2-u01-exam-q20
+    type: numeric
+    topic_code: "1.8"
+    source: "IM Algebra 2, Unit 1, Lesson 8"
+    points: 1
+    stimulus: |
+      Two plans for a $2,000 fund are compared. Plan P adds $120 at the end of every year. Plan Q grows the fund by 5% at the end of every year. In both plans n = 0 is the starting year.
+    prompt: |
+      What is the value of Plan Q after 10 years? Give your answer in dollars to the nearest cent.
+    answer: { value: 3257.79, tolerance: 0.02 }
+    explanation: |
+      Q(10) = 2000 · 1.05¹⁰ = 2000 · 1.628895 ≈ $3,257.79. Plan P after 10 years is only $3,200.
+  - slug: alg2-u01-exam-q21
+    type: multiple_choice
+    topic_code: "1.7"
+    source: "IM Algebra 2, Unit 1, Lesson 7"
+    points: 1
+    prompt: |
+      The graph of a geometric sequence passes through (2, 12) and (4, 108), and all of its terms are positive. What is the first term?
+    options:
+      - "4"
+      - "3"
+      - "6"
+      - "36"
+    option_explanations:
+      - |
+        Correct. r² = 108/12 = 9, so r = 3, and a(1) = 12/3 = 4.
+      - |
+        3 is the common ratio, not the first term.
+      - |
+        6 would come from r = 2, but two steps multiply by 9, not 4.
+      - |
+        36 is a(3), the term between the two given points.
+    answer: 0
+  - slug: alg2-u01-exam-q22
+    type: multiple_choice
+    topic_code: "1.11"
+    source: "IM Algebra 2, Unit 1, Lesson 11"
+    points: 1
+    prompt: |
+      What is the sum of the first six terms of the geometric sequence 5, 10, 20, …?
+    options:
+      - "160"
+      - "315"
+      - "320"
+      - "635"
+    option_explanations:
+      - |
+        160 is the sixth term (5 · 2⁵), not the sum.
+      - |
+        Correct. 5 + 10 + 20 + 40 + 80 + 160 = 315, which is 5 · (2⁶ − 1).
+      - |
+        320 is the seventh term, 5 · 2⁶, not the sum of the first six terms.
+      - |
+        635 is the sum of the first seven terms.
+    answer: 1
+  - slug: alg2-u01-exam-q23
+    type: multiple_choice
+    topic_code: "1.5"
+    source: "IM Algebra 2, Unit 1, Lesson 5"
+    points: 1
+    prompt: |
+      For the sequence defined by b(0) = 1 and b(n) = 3 · b(n − 1) for n ≥ 1, which statement is true?
+    options:
+      - "b(n) = 3ⁿ⁻¹ and the domain is the positive integers."
+      - "b(n) = 3ⁿ and the domain is the whole numbers 0, 1, 2, …"
+      - "b(n) = 3n and the graph is a line through the origin."
+      - "b(2.5) = 15.6 is a value of the sequence."
+    option_explanations:
+      - |
+        With the first term at n = 0, b(n) = 3ⁿ; the formula 3ⁿ⁻¹ would give b(0) = 1/3.
+      - |
+        Correct. Starting from b(0) = 1 and tripling n times gives 3ⁿ, and the inputs are 0, 1, 2, …
+      - |
+        Tripling is multiplication, so the sequence is geometric, not the linear 3n.
+      - |
+        A sequence has no values at non-integer inputs.
+    answer: 1
+  - slug: alg2-u01-exam-q24
+    type: multiple_choice
+    topic_code: "1.10"
+    source: "IM Algebra 2, Unit 1, Lesson 10"
+    points: 1
+    prompt: |
+      A shop's stock of a product falls by 15% each week. If the stock is 2,000 units now, which expression gives the stock after 6 weeks?
+    options:
+      - "2000 − 6 · 300"
+      - "2000 · 0.15⁶"
+      - "2000 · 0.85⁶"
+      - "2000 · 0.85 · 6"
+    option_explanations:
+      - |
+        Subtracting 300 each week would be a 15% drop of the original stock every week; percent change applies to the current stock, so it multiplies.
+      - |
+        Multiplying by 0.15 keeps 15% each week; the stock keeps 85%.
+      - |
+        Correct. Falling by 15% means keeping 85%, so six weeks multiply by 0.85 six times.
+      - |
+        Multiplying by 0.85 once and then by 6 is not repeated multiplication.
+    answer: 2
+  - slug: alg2-u01-exam-q25
+    type: multiple_choice
+    topic_code: "1.1"
+    source: "IM Algebra 2, Unit 1, Lesson 1"
+    points: 1
+    prompt: |
+      The Tower of Hanoi puzzle with 5 discs takes 31 moves. Using the rule a(n) = 2·a(n − 1) + 1, how many moves does the 7-disc puzzle take?
+    options:
+      - "63"
+      - "95"
+      - "127"
+      - "129"
+    option_explanations:
+      - |
+        63 is the 6-disc count; one more application of the rule is needed.
+      - |
+        95 is 3·31 + 2, which is not the rule; the rule doubles and adds one.
+      - |
+        Correct. 2·31 + 1 = 63 for 6 discs, then 2·63 + 1 = 127 for 7 discs (also 2⁷ − 1).
+      - |
+        129 is 2⁷ + 1; the count is one less than the power of 2, not one more.
+    answer: 2
+  - slug: alg2-u01-exam-q26
+    type: multiple_choice
+    topic_code: "1.6"
+    source: "IM Algebra 2, Unit 1, Lesson 6"
+    points: 1
+    prompt: |
+      Which recursive definition produces the arithmetic sequence whose explicit formula is a(n) = 9 − 4(n − 1)?
+    options:
+      - "a(1) = 9, a(n) = a(n − 1) − 4"
+      - "a(1) = 5, a(n) = a(n − 1) − 4"
+      - "a(1) = 9, a(n) = −4 · a(n − 1)"
+      - "a(1) = 13, a(n) = a(n − 1) − 4"
+    option_explanations:
+      - |
+        Correct. The first term is a(1) = 9 and each step subtracts 4.
+      - |
+        5 is a(2), one step after the first term; the sequence starts at 9.
+      - |
+        Multiplying by −4 is geometric with alternating signs; this sequence subtracts 4.
+      - |
+        13 would be a(0), one step before the first term; the first term is 9.
+    answer: 0
+  - slug: alg2-u01-exam-q27
+    type: multiple_choice
+    topic_code: "1.9"
+    source: "IM Algebra 2, Unit 1, Lesson 9"
+    points: 1
+    prompt: |
+      A sequence has the recursive definition c(1) = 2, c(n) = c(n − 1) + 2n − 1 for n ≥ 2 (the amount added grows each step). Which statement is correct?
+    options:
+      - "The sequence is arithmetic with d = 3."
+      - "The sequence is geometric with r = 2."
+      - "The sequence is 2, 5, 10, 17, 26, … and is neither arithmetic nor geometric."
+      - "The sequence is 2, 4, 6, 8, … and is arithmetic."
+    option_explanations:
+      - |
+        The differences 3, 5, 7, 9 are not constant, so it is not arithmetic.
+      - |
+        The ratios 2.5, 2, 1.7, … are not constant, so it is not geometric.
+      - |
+        Correct. c(2) = 2 + 3 = 5, c(3) = 5 + 5 = 10, c(4) = 10 + 7 = 17, c(5) = 17 + 9 = 26; the differences grow by 2 each step (each term is n² + 1).
+      - |
+        Adding 2n − 1 adds 3, then 5, then 7, not a constant 2.
+    answer: 2
+  - slug: alg2-u01-exam-q28
+    type: multi_select
+    topic_code: "1.3"
+    source: "IM Algebra 2, Unit 1, Lesson 3"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of the following sequences are arithmetic? Select all that apply.
+    options:
+      - "2.5, 4, 5.5, 7, 8.5"
+      - "−8, −8, −8, −8"
+      - "1, 1/2, 1/4, 1/8"
+      - "30, 21, 12, 3, −6"
+      - "1, 4, 9, 16, 25"
+    option_explanations:
+      - |
+        Correct. Every difference is 1.5, so this sequence is arithmetic.
+      - |
+        Correct. A constant sequence is arithmetic with d = 0 (and geometric with r = 1).
+      - |
+        Each term is half the previous one: geometric with r = 1/2, and the differences shrink.
+      - |
+        Correct. Every difference is −9, so this sequence is arithmetic.
+      - |
+        The differences 3, 5, 7, 9 are not constant; these are the perfect squares.
+    answer: [0, 1, 3]
+  - slug: alg2-u01-exam-q29
+    type: multi_select
+    topic_code: "1.8"
+    source: "IM Algebra 2, Unit 1, Lesson 8"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A geometric sequence has a(1) = 1/2 and common ratio 4. Which statements are true? Select all that apply.
+    options:
+      - "a(n) = (1/2) · 4ⁿ⁻¹"
+      - "a(4) = 32"
+      - "a(n) = 2 · 4ⁿ⁻²"
+      - "The term equal to 512 is a(6)"
+      - "The sequence is 1/2, 2, 8, 32, 128, 512, …"
+    option_explanations:
+      - |
+        Correct. First term 1/2 at n = 1, multiply by 4 for each of the n − 1 steps.
+      - |
+        Correct. (1/2) · 4³ = (1/2) · 64 = 32, three steps from the first term.
+      - |
+        Correct. 2 · 4ⁿ⁻² = (1/2) · 4 · 4ⁿ⁻² = (1/2) · 4ⁿ⁻¹, the same formula started from a(2) = 2.
+      - |
+        Correct. (1/2) · 4ⁿ⁻¹ = 512 gives 4ⁿ⁻¹ = 1024 = 4⁵, so n = 6.
+      - |
+        Correct. Each term is four times the previous: 1/2, 2, 8, 32, 128, 512.
+    answer: [0, 1, 2, 3, 4]
+  - slug: alg2-u01-exam-q30
+    type: multi_select
+    topic_code: "1.11"
+    source: "IM Algebra 2, Unit 1, Lesson 11"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about partial sums are true? Select all that apply.
+    options:
+      - "The sum of the first n terms of an arithmetic sequence is n times the average of the first and last terms."
+      - "The sum 1 + 2 + 4 + … + 2ⁿ⁻¹ equals 2ⁿ − 1."
+      - "The formula n(a(1) + a(n))/2 works for geometric sequences too."
+      - "The sum of the first 20 positive odd numbers is 400."
+      - "To find the sum of 3 + 8 + 13 + … + 98 you must first find that there are 20 terms."
+    option_explanations:
+      - |
+        Correct. This is the pairing argument: n pairs each adding to a(1) + a(n), counted twice.
+      - |
+        Correct. The partial sums 1, 3, 7, 15, … are each one less than the next power of 2.
+      - |
+        The pairing argument needs equal gaps; for 1, 2, 4, 8 the formula gives 18 but the sum is 15.
+      - |
+        Correct. The odd numbers 1 to 39 are 20 arithmetic terms: 20 · (1 + 39)/2 = 400.
+      - |
+        Correct. 3 + 5(n − 1) = 98 gives n = 20, and only then can the sum 20 · (3 + 98)/2 = 1010 be computed.
+    answer: [0, 1, 3, 4]
+  - slug: alg2-u01-exam-q31
+    type: true_false
+    topic_code: "1.2"
+    source: "IM Algebra 2, Unit 1, Lesson 2"
+    points: 1
+    prompt: |
+      True or false: A geometric sequence can have terms that alternate between positive and negative values.
+    answer: true
+    explanation: |
+      True. A negative common ratio flips the sign every step: 2, −6, 18, −54 has r = −3 and is geometric.
+  - slug: alg2-u01-exam-q32
+    type: true_false
+    topic_code: "1.5"
+    source: "IM Algebra 2, Unit 1, Lesson 5"
+    points: 1
+    prompt: |
+      True or false: If a sequence's first term is a(1), then a(n) = a(1) · rⁿ is the correct explicit formula for a geometric sequence with ratio r.
+    answer: false
+    explanation: |
+      False. That formula gives a(1) = a(1) · r, which is wrong unless r = 1. From a(1) to a(n) is n − 1 steps, so the exponent must be n − 1. The exponent n belongs with a first term at n = 0.
+  - slug: alg2-u01-exam-q33
+    type: true_false
+    topic_code: "1.10"
+    source: "IM Algebra 2, Unit 1, Lesson 10"
+    points: 1
+    prompt: |
+      True or false: "The number of subscribers grows by 300 every month" and "the number of subscribers grows by 3% every month" both describe arithmetic sequences.
+    answer: false
+    explanation: |
+      False. Growing by 300 is a constant difference, so it is arithmetic. Growing by 3% multiplies the current number by 1.03, a constant ratio, so it is geometric and the monthly increase itself grows.
+  - slug: alg2-u01-exam-q34
+    type: fill_blank
+    topic_code: "1.3"
+    source: "IM Algebra 2, Unit 1, Lesson 3"
+    points: 1
+    prompt: |
+      The common difference of the arithmetic sequence −2, 3.5, 9, 14.5, … is ____.
+    answer: ["5.5", "d = 5.5", "11/2"]
+    explanation: |
+      3.5 − (−2) = 5.5, and 9 − 3.5 = 5.5, 14.5 − 9 = 5.5. The common difference is the later term minus the earlier one.
+  - slug: alg2-u01-exam-q35
+    type: fill_blank
+    topic_code: "1.8"
+    source: "IM Algebra 2, Unit 1, Lesson 8"
+    points: 1
+    prompt: |
+      For the arithmetic sequence a(n) = 6 + 9(n − 1), the term equal to 213 is a(____).
+    answer: ["24", "n = 24"]
+    explanation: |
+      6 + 9(n − 1) = 213 gives 9(n − 1) = 207, n − 1 = 23, so n = 24. Check: 6 + 9·23 = 213.
+  - slug: alg2-u01-exam-q36
+    type: fill_blank
+    topic_code: "1.7"
+    source: "IM Algebra 2, Unit 1, Lesson 7"
+    points: 1
+    prompt: |
+      The explicit formula for the geometric sequence 7, 14, 28, 56, … with first term a(1) is a(n) = ____.
+    answer: ["7 · 2ⁿ⁻¹", "7·2ⁿ⁻¹", "7 * 2^(n-1)", "7*2^(n-1)", "7(2)^(n-1)", "7 · 2^(n − 1)", "7·2^(n−1)", "7 · 2^(n-1)"]
+    explanation: |
+      The first term is 7 and the ratio is 2, so a(n) = 7 · 2ⁿ⁻¹. Check: a(4) = 7 · 8 = 56.
+  - slug: alg2-u01-exam-q37
+    type: numeric
+    topic_code: "1.11"
+    source: "IM Algebra 2, Unit 1, Lesson 11"
+    points: 1
+    prompt: |
+      Find the sum of the first 25 terms of the arithmetic sequence 100, 94, 88, … Give the exact value.
+    answer: { value: 700, tolerance: 0 }
+    explanation: |
+      a(25) = 100 − 6·24 = −44. S(25) = 25 · (100 + (−44))/2 = 25 · 28 = 700.
+  - slug: alg2-u01-exam-q38
+    type: numeric
+    topic_code: "1.2"
+    source: "IM Algebra 2, Unit 1, Lesson 2"
+    points: 1
+    prompt: |
+      A geometric sequence has a(1) = 6250 and common ratio 0.2. What is a(6)? Give the exact value.
+    answer: { value: 2, tolerance: 0 }
+    explanation: |
+      Five multiplications by 0.2: 6250, 1250, 250, 50, 10, 2. So a(6) = 2.
+  - slug: alg2-u01-exam-q39
+    type: short_answer
+    topic_code: "1.10"
+    source: "IM Algebra 2, Unit 1, Lesson 10"
+    points: 3
+    prompt: |
+      A gym's membership is 400 people. Model X assumes 25 new members join each month and no one leaves. Model Y assumes membership grows by 6% each month.
+
+      (a) Write an equation for each model, taking n = 0 as now.
+      (b) Find each model's prediction after 12 months (nearest whole person).
+      (c) Explain which model you would trust more for a prediction 5 years from now, and why.
+    answer: |
+      (a) X(n) = 400 + 25n; Y(n) = 400 · 1.06ⁿ.
+      (b) X(12) = 700; Y(12) = 400 · 2.0122 ≈ 805.
+      (c) Neither is reliable at 60 months, but Model Y is worse: it predicts 400 · 1.06⁶⁰ ≈ 13,177 members, far beyond what a gym can hold, whereas Model X predicts 1,900, which is at least conceivable. Growth by a fixed percentage cannot go on indefinitely in a space-limited business, and both models ignore members leaving.
+    explanation: |
+      Three points, one per part. (a) needs both equations with n (not n − 1). (b) accept 804 or 805 for Y. (c) the point is for recognising the limits of unbounded growth with a reason; a student who prefers X with the "space limit" argument or who rejects both with a sound reason earns it.
+  - slug: alg2-u01-exam-q40
+    type: long_answer
+    topic_code: "1.11"
+    source: "IM Algebra 2, Unit 1, Lesson 11"
+    points: 6
+    prompt: |
+      A pile of pipes is stacked so that the bottom layer has 30 pipes and each layer above has one fewer pipe than the layer below. The top layer has 11 pipes.
+
+      Write a full response that (1) writes an explicit formula for p(n), the number of pipes in layer n counted from the bottom, (2) finds the number of layers, showing the equation you solve, (3) finds the total number of pipes using the pairing idea and explains why the pairs all have the same total, and (4) checks the total with the formula S(n) = n(a(1) + a(n))/2 and comments on whether the formula would work if each layer had, say, half as many pipes as the one below.
+    answer: |
+      (1) p(1) = 30, d = −1, so p(n) = 30 − (n − 1) = 31 − n.
+      (2) 31 − n = 11 gives n = 20 layers.
+      (3) Pair the bottom with the top (30 + 11), the second with the second-from-top (29 + 12), and so on. Each pair adds to 41, because moving up one layer removes 1 pipe from one member of the pair and adds 1 to the other. Twenty layers make 10 pairs, so the total is 10 · 41 = 410 pipes.
+      (4) S(20) = 20 · (30 + 11)/2 = 20 · 20.5 = 410, which agrees. If each layer had half as many pipes as the one below, the sequence would be geometric; the gaps would not be equal, the pairs would not add to a constant, and the formula would not apply. You would add the terms directly instead.
+    explanation: |
+      Six points: 1 for a correct formula for p(n); 1 for 20 layers with the equation; 2 for the total 410 by pairing with the explanation of why pairs are constant (1 if only the number is right); 1 for the formula check; 1 for explaining that the formula fails for a geometric stack because the gaps are unequal.

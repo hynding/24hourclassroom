@@ -18,7 +18,7 @@ final class AdminTarget
     public static function isActionable(User $actor, User $target): bool
     {
         return $target->id !== $actor->id
-            && in_array($target->role, [Role::Teacher, Role::Student], true);
+            && in_array($target->role, Role::selfAssignable(), true);
     }
 
     public static function assertActionable(User $actor, User $target): void

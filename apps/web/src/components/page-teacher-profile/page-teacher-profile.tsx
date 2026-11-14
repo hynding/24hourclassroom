@@ -1,9 +1,13 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
-import { GRADE_LEVELS, PublicProfile, SUBJECTS } from '@24hc/shared';
+import { GRADE_LEVELS, MaterialSummary, PUBLIC_ROLES, Paginated, PublicProfile, REGISTRATION_ROLES, SUBJECTS, TestSummary, hasRole, roleLabel } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
+import { materialsStore } from '../../services/materials-store';
+import { adoptCanonicalPath, navigate } from '../../services/navigate';
+import { setPageMeta, teacherMeta } from '../../services/page-meta';
 import { profileStore } from '../../services/profile-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
+import { testsStore } from '../../services/tests-store';
 
 @Component({ tag: 'page-teacher-profile', styleUrl: 'page-teacher-profile.css', shadow: true })
 export class PageTeacherProfile {
@@ -13,6 +17,14 @@ export class PageTeacherProfile {
   @State() notFound = false;
   @State() loadError = false;
   @State() busy = false;
+
+  /**
+   * The teacher's public work: the first library page of each, by author.
+   * null until it arrives, or when the library could not be reached -- the
+   * profile is still worth showing without it.
+   */
+  @State() tests: Paginated<TestSummary> | null = null;
+  @State() materials: Paginated<MaterialSummary> | null = null;
 
   async componentWillLoad() {
     await this.load();
@@ -26,6 +38,16 @@ export class PageTeacherProfile {
 
     try {
       this.teacher = await profileStore.teacher(this.teacherId);
+      if (this.teacher.path) {
+        adoptCanonicalPath(this.teacher.path, `/teachers/${this.teacherId}`);
+      }
+      setPageMeta(teacherMeta(this.teacher));
+      // Allowlist: only a public role (teacher, tutor) has public work. A
+      // name-only payload (seen through an accepted connection) gets no
+      // library call.
+      if (hasRole(PUBLIC_ROLES, this.teacher.role)) {
+        await this.loadWork(this.teacher.id);
+      }
     } catch (err) {
       // A genuine 404 means the teacher doesn't exist; anything else (network
       // failure, 500, etc.) is transient and should not be reported to the
@@ -36,6 +58,46 @@ export class PageTeacherProfile {
         this.loadError = true;
       }
     }
+  }
+
+  /**
+   * Both lists at once, each failing on its own: a library hiccup leaves
+   * that section out rather than turning the whole profile into an error.
+   */
+  private async loadWork(id: number) {
+    const [tests, materials] = await Promise.all([
+      testsStore.library({ author: id }).catch(() => null),
+      materialsStore.materialsLibrary({ author: id }).catch(() => null),
+    ]);
+    this.tests = tests;
+    this.materials = materials;
+  }
+
+  private link(path: string, text: string) {
+    return <a href={path} onClick={(e) => { e.preventDefault(); navigate(path); }}>{text}</a>;
+  }
+
+  /** One section of public work: heading with the total, the first page as links. */
+  private renderWork(heading: string, page: Paginated<TestSummary> | Paginated<MaterialSummary> | null, prefix: string, meta: (item: TestSummary | MaterialSummary) => string) {
+    if (!page || page.meta.total === 0) {
+      return null;
+    }
+    return (
+      <section class="work">
+        <h2>{heading} <span class="count">({page.meta.total})</span></h2>
+        <ul class="rows">
+          {page.data.map((item) => (
+            <li>
+              {this.link(`${prefix}/${item.id}`, item.title)}
+              <span class="meta">{meta(item)}</span>
+            </li>
+          ))}
+        </ul>
+        {page.meta.total > page.data.length && (
+          <p class="meta">Showing the {page.data.length} most recent of {page.meta.total}.</p>
+        )}
+      </section>
+    );
   }
 
   async toggleFollow() {
@@ -109,9 +171,10 @@ export class PageTeacherProfile {
   }
 
   /**
-   * The server enforces connections as teacher<->teacher or
-   * teacher<->student (spec line 14), guarding the ACTOR as well as the
-   * target, so an admin's Connect click 404s. 404 is not a recovery case,
+   * The server allowlists connection pairs (Role::canConnect), guarding the
+   * ACTOR as well as the target. Every self-assignable role may connect
+   * with a public one (teacher, tutor); an admin may not, so an admin's
+   * Connect click 404s. 404 is not a recovery case,
    * so connectAction() resyncs to the identical state and the button looks
    * live while doing nothing -- the same dead affordance as B3's
    * unverified viewer.
@@ -122,7 +185,7 @@ export class PageTeacherProfile {
    * spec permits "anyone -> teachers" there.
    */
   private get viewerMayInitiateConnection(): boolean {
-    return authStore.currentUser?.role !== 'admin';
+    return hasRole(REGISTRATION_ROLES, authStore.currentUser?.role);
   }
 
   private connectLabel(connection: PublicProfile['connection']): string {
@@ -170,6 +233,7 @@ export class PageTeacherProfile {
       <section>
         {profile?.avatar_url && <img src={profile.avatar_url} alt={`${name}'s avatar`} />}
         <h1>{name}</h1>
+        {this.teacher.role && this.teacher.role !== 'teacher' && <p class="pill">{roleLabel(this.teacher.role)}</p>}
         {profile?.school && <p>{profile.school}</p>}
         {profile?.bio && <p>{profile.bio}</p>}
         {profile?.specialties && <p>{profile.specialties}</p>}
@@ -212,7 +276,7 @@ export class PageTeacherProfile {
                 // affordance -- so an existing row keeps its
                 // Accept/Cancel/Disconnect button.
                 <p data-testid="admin-connect-hint">
-                  Only teachers and students can start a connection.
+                  Admin accounts cannot start a connection.
                 </p>
               )}
             </div>
@@ -225,6 +289,8 @@ export class PageTeacherProfile {
               Verify your email address to follow or connect with teachers.
             </p>
           ))}
+        {this.renderWork('Public tests', this.tests, '/tests', (t) => `${this.label(SUBJECTS, t.subject)} · ${this.label(GRADE_LEVELS, t.grade_level)} · ${(t as TestSummary).question_count} question${(t as TestSummary).question_count === 1 ? '' : 's'}`)}
+        {this.renderWork('Public materials', this.materials, '/materials', (m) => `${this.label(SUBJECTS, m.subject)} · ${this.label(GRADE_LEVELS, m.grade_level)}`)}
       </section>
     );
   }

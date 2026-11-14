@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\Role;
 use App\Enums\Visibility;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveCourseRequest;
@@ -29,7 +28,7 @@ class CourseController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         // Allowlist: only a teacher has a courses shelf. Admin is not a teacher here.
-        abort_unless($request->user()->role === Role::Teacher, 403);
+        abort_unless($request->user()->role->authors(), 403);
 
         $own = fn (string $table) => fn (Builder $q) => $q->whereColumn("{$table}.user_id", 'courses.user_id');
         $material = fn (Builder $q) => $q->where(fn (Builder $m) => $m
@@ -64,7 +63,7 @@ class CourseController extends Controller
         $data = $request->validated();
 
         $course = DB::transaction(function () use ($request, $data) {
-            $course = $request->user()->courses()->create(Arr::only($data, ['title', 'description', 'subject', 'grade_level']));
+            $course = $request->user()->courses()->create(Arr::only($data, ['title', 'description', 'subject', 'grade_level', 'comment_reactions']));
             CourseWriter::syncItems($course, $data['items']);
 
             return $course;
@@ -78,7 +77,7 @@ class CourseController extends Controller
         $data = $request->validated();
 
         DB::transaction(function () use ($course, $data) {
-            $course->update(Arr::only($data, ['title', 'description', 'subject', 'grade_level']));
+            $course->update(Arr::only($data, ['title', 'description', 'subject', 'grade_level', 'comment_reactions']));
             CourseWriter::syncItems($course, $data['items']);
         });
 

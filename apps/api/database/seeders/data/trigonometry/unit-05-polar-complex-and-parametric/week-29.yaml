@@ -1,0 +1,593 @@
+week: 29
+unit: 5
+title: "De Moivre's Theorem and Complex Roots"
+topics: ["5.7", "5.8"]
+guide: guides/week-29.md
+guide_description: |
+  Powers and roots in trigonometric form: De Moivre's theorem [r cis θ]ⁿ = rⁿ cis(nθ) and why it follows from
+  the product rule, multiple-angle identities from De Moivre, the nth-root formula ⁿ√r cis((θ + 2πk)/n), roots
+  as the vertices of a regular n-gon, roots of unity, and solving zⁿ = w. Worked examples: (1 + i)⁸ = 16,
+  (√3 − i)⁶ = −64, (−1 + √3 i)⁵ in rectangular form, cos 3θ = 4 cos³θ − 3 cos θ, the cube roots of 8, the
+  four solutions of z⁴ = −16, the cube roots of 8i, the sixth roots of unity, and the square roots of
+  −5 + 12i by algebra.
+flashcards_description: |
+  30 cards on De Moivre's theorem, powers of special complex numbers, identities from De Moivre, the root
+  formula, roots as regular polygons, roots of unity, and solving zⁿ = w.
+
+flashcards:
+  - front: De Moivre's theorem → statement
+    back: |
+      [r(cos θ + i sin θ)]ⁿ = rⁿ(cos nθ + i sin nθ) for every positive integer n: raise the modulus to the power, multiply the argument by it.
+    topic_code: "5.7"
+  - front: Why De Moivre's theorem holds → reason
+    back: |
+      Repeated use of the product rule: each extra factor of r cis θ multiplies the modulus by r and adds θ to the argument.
+    topic_code: "5.7"
+  - front: (1 + i)⁸ by De Moivre → value
+    back: |
+      (√2 cis(π/4))⁸ = 16 cis(2π) = 16. Check: (1 + i)² = 2i and (2i)⁴ = 16.
+    topic_code: "5.7"
+  - front: (√3 − i)⁶ by De Moivre → value
+    back: |
+      √3 − i = 2 cis(11π/6), so the power is 64 cis(11π) = 64 cis π = −64.
+    topic_code: "5.7"
+  - front: (−1 + √3 i)⁵ in the form a + bi → value
+    back: |
+      (2 cis(2π/3))⁵ = 32 cis(10π/3) = 32 cis(4π/3) = −16 − 16√3 i.
+    topic_code: "5.7"
+  - front: (1 − i)⁴ → value
+    back: |
+      (√2 cis(7π/4))⁴ = 4 cis(7π) = 4 cis π = −4. Or (1 − i)² = −2i, and (−2i)² = −4.
+    topic_code: "5.7"
+  - front: (2 cis(π/9))³ → value
+    back: |
+      8 cis(π/3) = 4 + 4√3 i.
+    topic_code: "5.7"
+  - front: Modulus of z⁴ when |z| = 3 → value
+    back: |
+      |z⁴| = |z|⁴ = 81. The modulus is raised to the power, not multiplied by it.
+    topic_code: "5.7"
+  - front: cos 3θ from De Moivre → identity and method
+    back: |
+      Expand (cos θ + i sin θ)³ and match real parts: cos 3θ = cos³θ − 3 cos θ sin²θ = 4 cos³θ − 3 cos θ.
+    topic_code: "5.7"
+  - front: sin 3θ from De Moivre → identity
+    back: |
+      Matching imaginary parts of (cos θ + i sin θ)³: sin 3θ = 3 cos²θ sin θ − sin³θ = 3 sin θ − 4 sin³θ.
+    topic_code: "5.7"
+  - front: De Moivre with n = 2 → which identities appear
+    back: |
+      (cos θ + i sin θ)² = cos²θ − sin²θ + 2i sin θ cos θ, so cos 2θ = cos²θ − sin²θ and sin 2θ = 2 sin θ cos θ.
+    topic_code: "5.7"
+  - front: nth roots of r cis θ → formula
+    back: |
+      ⁿ√r cis((θ + 2πk)/n) for k = 0, 1, …, n − 1. Exactly n distinct roots when r > 0.
+    topic_code: "5.8"
+  - front: Where the 2πk in the root formula comes from → reason
+    back: |
+      Arguments only have to agree up to full turns: nφ = θ + 2πk. Dividing by n spreads those turns into n different angles.
+    topic_code: "5.8"
+  - front: nth roots of a complex number in the plane → picture
+    back: |
+      The vertices of a regular n-gon centred at 0, on the circle of radius ⁿ√r, with consecutive arguments 2π/n apart.
+    topic_code: "5.8"
+  - front: Solutions of z³ = 8 → all three
+    back: |
+      2 cis(2πk/3): 2, −1 + √3 i and −1 − √3 i, an equilateral triangle on the circle of radius 2.
+    topic_code: "5.8"
+  - front: Solutions of z⁴ = −16 → all four
+    back: |
+      2 cis(π/4 + kπ/2): √2 + √2 i, −√2 + √2 i, −√2 − √2 i, √2 − √2 i, the corners of a square.
+    topic_code: "5.8"
+  - front: Is 2i a solution of z⁴ = −16? → answer and reason
+    back: |
+      No. Its modulus is right, but (2i)⁴ = 16i⁴ = 16. A root needs the right argument too.
+    topic_code: "5.8"
+  - front: Cube roots of 8i → all three
+    back: |
+      2 cis(π/6), 2 cis(5π/6), 2 cis(3π/2): √3 + i, −√3 + i and −2i.
+    topic_code: "5.8"
+  - front: nth roots of unity → formula
+    back: |
+      cis(2πk/n) for k = 0, 1, …, n − 1: a regular n-gon on the unit circle with a vertex at 1.
+    topic_code: "5.8"
+  - front: Sixth roots of unity → all six
+    back: |
+      1, 1/2 + (√3/2)i, −1/2 + (√3/2)i, −1, −1/2 − (√3/2)i, 1/2 − (√3/2)i: a regular hexagon.
+    topic_code: "5.8"
+  - front: Sum of the nth roots of unity (n ≥ 2) → value
+    back: |
+      0: the regular polygon is balanced about its centre.
+    topic_code: "5.8"
+  - front: Principal root times the nth roots of unity → result
+    back: |
+      All the nth roots of w: multiplying by cis(2πk/n) rotates the principal root to each other vertex.
+    topic_code: "5.8"
+  - front: Square roots of −5 + 12i by algebra → method and answer
+    back: |
+      (a + bi)² = a² − b² + 2abi; a² − b² = −5 and ab = 6 give a = 2, b = 3. Roots ±(2 + 3i).
+    topic_code: "5.8"
+  - front: Modulus of each cube root of 10 + 10i → value
+    back: |
+      ∛|10 + 10i| = ∛(10√2) = 200^(1/6) ≈ 2.42.
+    topic_code: "5.8"
+  - front: Fourth roots of −1 + √3 i → trigonometric forms
+    back: |
+      −1 + √3 i = 2 cis(2π/3), so the roots are ⁴√2 cis(π/6 + kπ/2): arguments π/6, 2π/3, 7π/6, 5π/3.
+    topic_code: "5.8"
+  - front: Checking z³ = 8 by algebra → factorisation
+    back: |
+      z³ − 8 = (z − 2)(z² + 2z + 4), and z² + 2z + 4 = 0 gives z = −1 ± √3 i.
+    topic_code: "5.8"
+  - front: Number of solutions of z⁵ = w, w ≠ 0 → count
+    back: |
+      Exactly 5, all with modulus ⁵√|w| and arguments 2π/5 apart.
+    topic_code: "5.8"
+  - front: Error-spot → "The fourth roots of 16 cis(π) are 2 cis(π/4) only"
+    back: |
+      That is the principal root. Add 2π/4 = π/2 repeatedly: 2 cis(π/4), 2 cis(3π/4), 2 cis(5π/4), 2 cis(7π/4).
+    topic_code: "5.8"
+  - front: Error-spot → "(2 cis(π/5))³ = 6 cis(3π/5)"
+    back: |
+      The modulus is cubed, not tripled: 8 cis(3π/5).
+    topic_code: "5.7"
+  - front: Error-spot → "64 cis(11π) is 64, since 11π is a whole number of half-turns"
+    back: |
+      An odd number of half-turns faces the negative real axis: 11π = π + 5(2π), so 64 cis(11π) = −64.
+    topic_code: "5.7"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 5.7 and 5.8: De Moivre's theorem, identities
+    from it, nth roots, roots of unity and solving zⁿ = w), with about a third reviewing weeks 26 to 28 (polar
+    equations, the complex plane, trigonometric form, products and quotients) and Unit 3 (double-angle
+    formulas). Includes a shared-context set on z⁴ = −16. Multiple choice, select-all, true/false and numeric
+    items are graded at once; fill-in-the-blank items are matched automatically; the short answers and the long
+    answer are graded by your teacher against the scoring notes. Items marked (Calculator.) need a calculator;
+    the rest are designed to be done by hand. Arguments are in radians with 0 ≤ θ < 2π unless an item says
+    otherwise.
+  questions:
+    # ---- Stimulus set: the fourth roots of −16 (5.8)
+    - slug: trig-u05-w29-q01
+      type: multiple_choice
+      topic_code: "5.8"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      stimulus: |
+        Consider the equation z⁴ = −16 over the complex numbers.
+      prompt: |
+        What is the modulus of each solution?
+      options:
+        - "2"
+        - "4"
+        - "16"
+        - "−2"
+      option_explanations:
+        - |
+          Correct. |z|⁴ = |−16| = 16, so |z| = ⁴√16 = 2 for every solution.
+        - |
+          4 is 16 divided by 4; the modulus is the fourth root of 16, not a quarter of it.
+        - |
+          16 is the modulus of −16 itself; each root's modulus is its fourth root.
+        - |
+          A modulus is a distance and is never negative; the sign of −16 lives in its argument, π.
+      answer: 0
+    - slug: trig-u05-w29-q02
+      type: multiple_choice
+      topic_code: "5.8"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      stimulus: |
+        Consider the equation z⁴ = −16 over the complex numbers.
+      prompt: |
+        Of the solutions, the one with the smallest argument in [0, 2π) has which argument?
+      options:
+        - "π"
+        - "π/2"
+        - "π/4"
+        - "0"
+      option_explanations:
+        - |
+          π is the argument of −16 itself; each root's argument is a quarter of π + 2πk.
+        - |
+          π/2 is the spacing between consecutive roots (2π/4), not the first argument.
+        - |
+          Correct. −16 = 16 cis π, so the arguments are (π + 2πk)/4; k = 0 gives π/4.
+        - |
+          An argument of 0 would make the root a positive real number, whose fourth power is positive, not −16.
+      answer: 2
+    - slug: trig-u05-w29-q03
+      type: multiple_choice
+      topic_code: "5.8"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      stimulus: |
+        Consider the equation z⁴ = −16 over the complex numbers.
+      prompt: |
+        Which of these is NOT a solution?
+      options:
+        - "√2 + √2 i"
+        - "−√2 + √2 i"
+        - "√2 − √2 i"
+        - "2i"
+      option_explanations:
+        - |
+          √2 + √2 i = 2 cis(π/4), and (2 cis(π/4))⁴ = 16 cis π = −16, so it is a solution.
+        - |
+          −√2 + √2 i = 2 cis(3π/4), and its fourth power is 16 cis(3π) = −16, so it is a solution.
+        - |
+          √2 − √2 i = 2 cis(7π/4), and its fourth power is 16 cis(7π) = −16, so it is a solution.
+        - |
+          Correct. 2i has the right modulus, but (2i)⁴ = 16i⁴ = 16, not −16: its argument π/2 times 4 is 2π, not an odd multiple of π.
+      answer: 3
+    - slug: trig-u05-w29-q04
+      type: multiple_choice
+      topic_code: "5.8"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      stimulus: |
+        Consider the equation z⁴ = −16 over the complex numbers.
+      prompt: |
+        Which describes the solutions plotted in the complex plane?
+      options:
+        - "Four points on the real axis"
+        - "The vertices of a square inscribed in the circle of radius 2 about 0"
+        - "The vertices of a square inscribed in the circle of radius 16 about 0"
+        - "Four equally spaced points on the circle of radius 4 about 0"
+      option_explanations:
+        - |
+          A real number's fourth power is never negative, so no solution lies on the real axis.
+        - |
+          Correct. All four roots have modulus 2 and arguments π/4, 3π/4, 5π/4, 7π/4, a quarter turn apart: a square.
+        - |
+          The square is right, but its radius is the fourth root of 16, which is 2.
+        - |
+          The spacing is right, but the radius is ⁴√16 = 2, not 16/4 = 4.
+      answer: 1
+    # ---- Topics 5.7 and 5.8
+    - slug: trig-u05-w29-q05
+      type: multiple_choice
+      topic_code: "5.7"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      prompt: |
+        Use De Moivre's theorem to find (1 + i)⁸.
+      options:
+        - "8√2"
+        - "16i"
+        - "16"
+        - "256"
+      option_explanations:
+        - |
+          8√2 multiplies the modulus √2 by 8; De Moivre raises it to the eighth power, (√2)⁸ = 16.
+        - |
+          The modulus 16 is right, but the argument is 8 · π/4 = 2π, which points along the positive real axis, not π/2.
+        - |
+          Correct. 1 + i = √2 cis(π/4), so (1 + i)⁸ = (√2)⁸ cis(2π) = 16.
+        - |
+          256 = 2⁸ treats the modulus as 2; |1 + i| = √2, and (√2)⁸ = 2⁴ = 16.
+      answer: 2
+    - slug: trig-u05-w29-q06
+      type: multiple_choice
+      topic_code: "5.7"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      prompt: |
+        Use De Moivre's theorem to find (√3 − i)⁶.
+      options:
+        - "64"
+        - "−64"
+        - "−64i"
+        - "−12"
+      option_explanations:
+        - |
+          64 cis(11π) is not 64: 11π is an odd multiple of π, which points along the negative real axis.
+        - |
+          Correct. √3 − i = 2 cis(11π/6), so the sixth power is 64 cis(11π) = 64 cis π = −64.
+        - |
+          −64i comes from multiplying the argument by 3 instead of 6 (cis(11π/2) = −i); the argument is multiplied by the power, 6.
+        - |
+          −12 multiplies the modulus 2 by 6; De Moivre raises it to the sixth power, 2⁶ = 64.
+      answer: 1
+    - slug: trig-u05-w29-q07
+      type: multiple_choice
+      topic_code: "5.7"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      prompt: |
+        Write (2 cis(π/9))³ in the form a + bi.
+      options:
+        - "6 cis(π/3)"
+        - "8 cis(π/27)"
+        - "8 cis(π/9)"
+        - "4 + 4√3 i"
+      option_explanations:
+        - |
+          The argument is tripled correctly, but the modulus is cubed (2³ = 8), not tripled; this is also not in a + bi form.
+        - |
+          The argument is multiplied by the power, 3 · π/9 = π/3, not divided by it.
+        - |
+          The modulus is cubed correctly, but the argument must be tripled as well.
+        - |
+          Correct. (2 cis(π/9))³ = 8 cis(π/3) = 8(1/2) + 8(√3/2)i = 4 + 4√3 i.
+      answer: 3
+    - slug: trig-u05-w29-q08
+      type: multiple_choice
+      topic_code: "5.8"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      prompt: |
+        Which list gives all the solutions of z³ = 8?
+      options:
+        - "2, −1 + √3 i, −1 − √3 i"
+        - "2, −2, 2i"
+        - "2 only"
+        - "2, 1 + √3 i, 1 − √3 i"
+      option_explanations:
+        - |
+          Correct. 8 = 8 cis 0, so the roots are 2 cis(2πk/3): 2, 2 cis(2π/3) = −1 + √3 i and 2 cis(4π/3) = −1 − √3 i.
+        - |
+          (−2)³ = −8 and (2i)³ = −8i, so neither is a cube root of 8; the roots are 2π/3 apart, not π/2 or π.
+        - |
+          2 is the only real cube root, but a nonzero number has three complex cube roots.
+        - |
+          1 + √3 i = 2 cis(π/3), and its cube is 8 cis π = −8; the arguments must be multiples of 2π/3.
+      answer: 0
+    # ---- Spiral review
+    - slug: trig-u05-w29-q09
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "Original item; Common Core HSF-TF.C.9 (extension)"
+      points: 1
+      prompt: |
+        By De Moivre's theorem, (cos θ + i sin θ)² = cos 2θ + i sin 2θ. Expanding the left side and comparing imaginary parts gives which identity?
+      options:
+        - "sin 2θ = 2 sin θ"
+        - "sin 2θ = 2 sin θ cos θ"
+        - "cos 2θ = cos²θ − sin²θ"
+        - "sin 2θ = cos²θ − sin²θ"
+      option_explanations:
+        - |
+          Doubling the angle does not double the sine; the imaginary part of the square is 2 sin θ cos θ.
+        - |
+          Correct. (cos θ + i sin θ)² = cos²θ − sin²θ + 2i sin θ cos θ, and the imaginary part gives sin 2θ = 2 sin θ cos θ.
+        - |
+          This identity is true, but it comes from comparing the real parts, not the imaginary parts.
+        - |
+          cos²θ − sin²θ is the real part of the square, which equals cos 2θ, not sin 2θ.
+      answer: 1
+    - slug: trig-u05-w29-q10
+      type: multiple_choice
+      topic_code: "5.8"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      prompt: |
+        Which pair is the two square roots of −5 + 12i?
+      options:
+        - "3 + 2i and −3 − 2i"
+        - "2 − 3i and −2 + 3i"
+        - "√13 and −√13"
+        - "2 + 3i and −2 − 3i"
+      option_explanations:
+        - |
+          (3 + 2i)² = 9 + 12i − 4 = 5 + 12i; the real part has the wrong sign because a and b are swapped.
+        - |
+          (2 − 3i)² = 4 − 12i − 9 = −5 − 12i, the conjugate of the target.
+        - |
+          √13 is the modulus of each root, but real numbers square to positive reals, not to −5 + 12i.
+        - |
+          Correct. (2 + 3i)² = 4 + 12i + 9i² = −5 + 12i, and the other root is its negative.
+      answer: 3
+    - slug: trig-u05-w29-q11
+      type: multiple_choice
+      topic_code: "5.6"
+      source: "Original item; Common Core HSN-CN.B.5"
+      points: 1
+      prompt: |
+        Write the product 3 cis(2π/9) · 2 cis(π/9) in the form a + bi.
+      options:
+        - "3 + 3√3 i"
+        - "5 cis(π/3)"
+        - "6 cis(2π/81)"
+        - "3√3 + 3i"
+      option_explanations:
+        - |
+          Correct. 6 cis(2π/9 + π/9) = 6 cis(π/3) = 6(1/2) + 6(√3/2)i = 3 + 3√3 i.
+        - |
+          Moduli multiply, 3 · 2 = 6; adding them gives 5. It is also not in a + bi form.
+        - |
+          Arguments add when numbers multiply; multiplying the arguments gives 2π²/81, not a meaningful angle.
+        - |
+          This swaps cos(π/3) = 1/2 and sin(π/3) = √3/2; it is 6 cis(π/6).
+      answer: 0
+    - slug: trig-u05-w29-q12
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "Original item; Common Core HSN-CN.B.4 (extension)"
+      points: 1
+      prompt: |
+        The three cube roots of 8 all lie on one polar graph. Which polar equation is it?
+      options:
+        - "r = 8"
+        - "r = 2 cos θ"
+        - "r = 2"
+        - "θ = 2π/3"
+      option_explanations:
+        - |
+          r = 8 is the circle through 8 itself; the roots have modulus ∛8 = 2.
+        - |
+          r = 2 cos θ is a circle of radius 1 through the pole, which passes through 2 but not through −1 ± √3 i.
+        - |
+          Correct. Every cube root of 8 has modulus 2, so all three lie on the circle r = 2 about the pole.
+        - |
+          θ = 2π/3 is a line through the pole; only one root lies on it.
+      answer: 2
+    - slug: trig-u05-w29-q13
+      type: multi_select
+      topic_code: "5.8"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which numbers are sixth roots of unity (solutions of z⁶ = 1)? Select all that apply.
+      options:
+        - "1"
+        - "i"
+        - "−1"
+        - "1/2 + (√3/2)i"
+        - "√3/2 + (1/2)i"
+      option_explanations:
+        - |
+          Correct. 1⁶ = 1; this is the root with k = 0.
+        - |
+          i⁶ = i⁴ · i² = −1, so i is a fourth root of unity but not a sixth root.
+        - |
+          Correct. (−1)⁶ = 1; it is cis π, the root with k = 3.
+        - |
+          Correct. 1/2 + (√3/2)i = cis(π/3), and (cis(π/3))⁶ = cis(2π) = 1.
+        - |
+          √3/2 + i/2 = cis(π/6), and its sixth power is cis π = −1, not 1.
+      answer: [0, 2, 3]
+    - slug: trig-u05-w29-q14
+      type: multi_select
+      topic_code: "5.5"
+      source: "Original item; Common Core HSN-CN.B.4"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which expressions are equal to the complex number 2 cis(5π/6)? Select all that apply.
+      options:
+        - "√3 − i"
+        - "−√3 + i"
+        - "2 cis(−7π/6)"
+        - "2 cis(π/6)"
+        - "2 cis(17π/6)"
+      option_explanations:
+        - |
+          √3 − i is the negative of the number, 2 cis(11π/6), on the opposite side of 0.
+        - |
+          Correct. 2 cos(5π/6) = −√3 and 2 sin(5π/6) = 1.
+        - |
+          Correct. −7π/6 = 5π/6 − 2π, a coterminal argument.
+        - |
+          π/6 is the reference angle; 2 cis(π/6) = √3 + i is in quadrant I.
+        - |
+          Correct. 17π/6 = 5π/6 + 2π, a coterminal argument.
+      answer: [1, 2, 4]
+    - slug: trig-u05-w29-q15
+      type: true_false
+      topic_code: "5.7"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      prompt: |
+        True or false: If |z| = 3, then |z⁴| = 12.
+      answer: false
+      explanation: |
+        False. By De Moivre's theorem the modulus is raised to the power: |z⁴| = |z|⁴ = 3⁴ = 81.
+    - slug: trig-u05-w29-q16
+      type: true_false
+      topic_code: "5.2"
+      source: "Original item; Common Core HSN-CN.B.4 (extension)"
+      points: 1
+      prompt: |
+        True or false: The graph of the polar equation r = −3 csc θ is the horizontal line y = −3.
+      answer: true
+      explanation: |
+        True. r = −3/sin θ gives r sin θ = −3, and r sin θ = y, so y = −3.
+    - slug: trig-u05-w29-q17
+      type: fill_blank
+      topic_code: "5.7"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      prompt: |
+        Written as a single real number, (1 − i)⁴ = ____.
+      answer: ["-4", "−4", "-4 + 0i", "−4 + 0i", "-4+0i", "−4+0i"]
+      explanation: |
+        1 − i = √2 cis(7π/4), so (1 − i)⁴ = 4 cis(7π) = 4 cis π = −4. Check: (1 − i)² = −2i and (−2i)² = −4.
+    - slug: trig-u05-w29-q18
+      type: fill_blank
+      topic_code: "5.4"
+      source: "Original item; Common Core HSN-CN.B.4"
+      points: 1
+      prompt: |
+        The modulus |−6 + 8i| equals ____.
+      answer: ["10"]
+      explanation: |
+        |−6 + 8i| = √(36 + 64) = √100 = 10.
+    - slug: trig-u05-w29-q19
+      type: numeric
+      topic_code: "5.8"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 1
+      prompt: |
+        (Calculator.) All three cube roots of 10 + 10i have the same modulus. Find it to the nearest hundredth.
+      answer: { value: 2.42, tolerance: 0.01 }
+      explanation: |
+        |10 + 10i| = 10√2 ≈ 14.142, and each cube root has modulus ∛14.142 ≈ 2.418, which is 2.42 to the nearest hundredth.
+    - slug: trig-u05-w29-q20
+      type: numeric
+      topic_code: "5.5"
+      source: "Original item; Common Core HSN-CN.B.4"
+      points: 1
+      prompt: |
+        (Calculator.) Find the argument of −5 + 2i with 0 ≤ θ < 2π, in radians to the nearest hundredth.
+      answer: { value: 2.76, tolerance: 0.01 }
+      explanation: |
+        tan⁻¹(2/(−5)) = tan⁻¹(−0.4) ≈ −0.381, a quadrant IV angle. −5 + 2i is in quadrant II, so add π: θ ≈ 2.761, which is 2.76 to the nearest hundredth.
+    - slug: trig-u05-w29-q21
+      type: short_answer
+      topic_code: "5.8"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 3
+      prompt: |
+        Find the cube roots of 8i.
+
+        (a) Write 8i in trigonometric form.
+        (b) Write all three cube roots in trigonometric form.
+        (c) Write the three cube roots in the form a + bi, and name the polygon they form.
+      answer: |
+        (a) 8i = 8 cis(π/2).
+        (b) 2 cis((π/2 + 2πk)/3) for k = 0, 1, 2: 2 cis(π/6), 2 cis(5π/6), 2 cis(3π/2).
+        (c) √3 + i, −√3 + i and −2i. They are the vertices of an equilateral triangle inscribed in the circle of radius 2 about 0.
+      explanation: |
+        Three points, one per part. (a) 8 cis(π/2). (b) all three roots with modulus 2 and arguments π/6, 5π/6, 3π/2. (c) all three rectangular forms and "equilateral triangle".
+    - slug: trig-u05-w29-q22
+      type: short_answer
+      topic_code: "5.6"
+      source: "Original item; Common Core HSN-CN.B.5"
+      points: 3
+      prompt: |
+        Let z = 4 cis(7π/12) and w = 2 cis(π/4).
+
+        (a) Find zw in trigonometric form and in the form a + bi.
+        (b) Find z/w in trigonometric form and in the form a + bi.
+        (c) Use your answer to (b) to find (z/w)³.
+      answer: |
+        (a) zw = 8 cis(7π/12 + π/4) = 8 cis(5π/6) = 8(−√3/2) + 8(1/2)i = −4√3 + 4i.
+        (b) z/w = 2 cis(7π/12 − π/4) = 2 cis(π/3) = 1 + √3 i.
+        (c) (z/w)³ = 2³ cis(3 · π/3) = 8 cis π = −8.
+      explanation: |
+        Three points, one per part. (a) 8 cis(5π/6) and −4√3 + 4i. (b) 2 cis(π/3) and 1 + √3 i. (c) −8, by De Moivre or by multiplying out.
+    - slug: trig-u05-w29-q23
+      type: long_answer
+      topic_code: "5.8"
+      source: "Original item; Common Core HSN-CN.B.5 (extension)"
+      points: 6
+      prompt: |
+        Let z = −1 + √3 i.
+
+        (A) (i) Write z in trigonometric form.
+        (ii) Use De Moivre's theorem to find z³, and explain what your answer says about z and the equation w³ = 8.
+
+        (B) Use De Moivre's theorem to write z⁵ in the form a + bi.
+
+        (C) (i) Find all four fourth roots of z in trigonometric form.
+        (ii) Write the root with the smallest argument in the form a + bi, exactly, and explain why the four roots form a square.
+      answer: |
+        (A) (i) |z| = √(1 + 3) = 2; tan θ = −√3 with z in quadrant II, so θ = 2π/3 and z = 2 cis(2π/3).
+        (ii) z³ = 2³ cis(3 · 2π/3) = 8 cis(2π) = 8. So z is one of the three solutions of w³ = 8 (a cube root of 8), along with 2 and −1 − √3 i.
+        (B) z⁵ = 32 cis(10π/3) = 32 cis(4π/3) = 32(−1/2) + 32(−√3/2)i = −16 − 16√3 i.
+        (C) (i) ⁴√2 cis((2π/3 + 2πk)/4) = ⁴√2 cis(π/6 + kπ/2) for k = 0, 1, 2, 3: ⁴√2 cis(π/6), ⁴√2 cis(2π/3), ⁴√2 cis(7π/6), ⁴√2 cis(5π/3).
+        (ii) ⁴√2 cis(π/6) = ⁴√2(√3/2) + ⁴√2(1/2)i = (⁴√2 · √3)/2 + (⁴√2/2)i ≈ 1.03 + 0.59i. All four roots have modulus ⁴√2 and their arguments are π/2 apart, so they are equally spaced on the circle of radius ⁴√2: the vertices of a square.
+      explanation: |
+        Six points. (A) 1 point for 2 cis(2π/3); 1 point for z³ = 8 with the conclusion that z is a cube root of 8. (B) 1 point for −16 − 16√3 i (argument reduced correctly). (C) 1 point for modulus ⁴√2 with the correct general argument; 1 point for all four arguments π/6, 2π/3, 7π/6, 5π/3; 1 point for the exact rectangular form and the square explained by equal modulus and spacing π/2.

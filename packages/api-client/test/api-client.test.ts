@@ -363,6 +363,19 @@ describe('tests endpoints', () => {
     expect(fetchFn.mock.calls[2][0]).toBe('https://api.test/api/library/materials?sort=title');
   });
 
+  it('library and materialsLibrary send the author filter for a teacher profile', async () => {
+    const fetchFn = vi.fn().mockImplementation(() =>
+      okJson({ data: [], meta: { current_page: 1, last_page: 1, per_page: 15, total: 0 } }),
+    );
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.library({ author: 7 });
+    await client.materialsLibrary({ author: 7, page: 2 });
+
+    expect(fetchFn.mock.calls[0][0]).toBe('https://api.test/api/library?author=7');
+    expect(fetchFn.mock.calls[1][0]).toBe('https://api.test/api/library/materials?author=7&page=2');
+  });
+
   it('assignTest sends student_ids and an optional due_at', async () => {
     const fetchFn = vi.fn().mockImplementation((url: string) =>
       url.endsWith('/sanctum/csrf-cookie') ? okJson({}) : okJson({ results: [{ id: 2, status: 'assigned' }] }),
@@ -807,5 +820,53 @@ describe('course endpoints', () => {
     expect(call?.[1].method).toBe('POST');
     expect(JSON.parse(call?.[1].body)).toEqual({ responses: { 11: 1, 12: [0, 2] } });
     expect(result.max_score).toBe(2);
+  });
+});
+
+describe('comments', () => {
+  const okJson = (body: unknown) => jsonResponse(200, body);
+  const okFetch = (body: unknown = {}) =>
+    vi.fn().mockImplementation((url: string) =>
+      url.endsWith('/sanctum/csrf-cookie') ? jsonResponse(204, null) : okJson(body),
+    );
+
+  it('reads by target, posts with an optional parent, edits and deletes by id', async () => {
+    const fetchFn = okFetch({ id: 7 });
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.getComments('question', 12);
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/comments?target_type=question&target_id=12', expect.objectContaining({ method: 'GET' }));
+
+    await client.postComment('test', 3, 'Nice quiz');
+    let call = fetchFn.mock.calls.filter((c) => c[0] === 'https://api.test/api/comments').pop();
+    expect(call?.[1].method).toBe('POST');
+    expect(JSON.parse(call?.[1].body)).toEqual({ target_type: 'test', target_id: 3, body: 'Nice quiz' });
+
+    await client.postComment('test', 3, 'Agreed', 7);
+    call = fetchFn.mock.calls.filter((c) => c[0] === 'https://api.test/api/comments').pop();
+    expect(JSON.parse(call?.[1].body)).toEqual({ target_type: 'test', target_id: 3, body: 'Agreed', parent_id: 7 });
+
+    await client.updateComment(7, 'Edited');
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/comments/7', expect.objectContaining({ method: 'PATCH', body: JSON.stringify({ body: 'Edited' }) }));
+
+    await client.deleteComment(7);
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/comments/7', expect.objectContaining({ method: 'DELETE' }));
+  });
+
+  it('approves, denies and sets or clears a thumb', async () => {
+    const fetchFn = okFetch({ id: 7 });
+    const client = new ApiClient({ baseUrl: 'https://api.test', fetchFn });
+
+    await client.approveComment(7);
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/comments/7/approve', expect.objectContaining({ method: 'POST' }));
+
+    await client.denyComment(7);
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/comments/7/deny', expect.objectContaining({ method: 'POST' }));
+
+    await client.reactToComment(7, 'up');
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/comments/7/reaction', expect.objectContaining({ method: 'PUT', body: JSON.stringify({ value: 'up' }) }));
+
+    await client.reactToComment(7, null);
+    expect(fetchFn).toHaveBeenLastCalledWith('https://api.test/api/comments/7/reaction', expect.objectContaining({ method: 'PUT', body: JSON.stringify({ value: null }) }));
   });
 });

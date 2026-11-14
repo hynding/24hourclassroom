@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\CommentAdminController;
 use App\Http\Controllers\Admin\CourseAdminController;
 use App\Http\Controllers\Admin\GenerationAdminController;
 use App\Http\Controllers\Admin\MaterialAdminController;
 use App\Http\Controllers\Admin\RelationshipAdminController;
 use App\Http\Controllers\Admin\SiteSettingsController;
 use App\Http\Controllers\Admin\SiteThemeController;
+use App\Http\Controllers\Admin\SlugAdminController;
 use App\Http\Controllers\Admin\TestAdminController;
 use App\Http\Controllers\Admin\UserAccountController;
 use App\Http\Controllers\Admin\UserAdminController;
@@ -50,6 +52,17 @@ Route::middleware(['auth', 'verified', 'active', 'admin'])->prefix('admin')->gro
     Route::get('courses', [CourseAdminController::class, 'index'])->name('admin.courses');
     Route::post('courses/{course}/unpublish', [CourseAdminController::class, 'unpublish']);
     Route::delete('courses/{course}', [CourseAdminController::class, 'destroy']);
+
+    Route::get('comments', [CommentAdminController::class, 'index'])->name('admin.comments');
+    Route::post('comments/{comment}/approve', [CommentAdminController::class, 'approve']);
+    Route::post('comments/{comment}/deny', [CommentAdminController::class, 'deny']);
+    Route::delete('comments/{comment}', [CommentAdminController::class, 'destroy']);
+    Route::post('comments/{comment}/restore', [CommentAdminController::class, 'restore'])->withTrashed();
+
+    Route::get('slugs', [SlugAdminController::class, 'index'])->name('admin.slugs');
+    Route::post('slugs/{slug}/approve', [SlugAdminController::class, 'approve']);
+    Route::post('slugs/{slug}/reject', [SlugAdminController::class, 'reject']);
+    Route::put('slugs/site-course', [SlugAdminController::class, 'siteCourse']);
 
     Route::get('generations', [GenerationAdminController::class, 'index'])->name('admin.generations');
     Route::get('generations/{generation}', [GenerationAdminController::class, 'show']);

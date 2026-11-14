@@ -1,0 +1,1339 @@
+week: 34
+description: |
+  A full practice final: 70 questions · about 2 hours 15 minutes · all seven units in course order,
+  weighted as the units are (Unit 2 heaviest; Units 1 and 5 lightest). Each unit's block opens with a
+  shared-context set of three questions (a sequence, an open box, two complex numbers, a growing population,
+  a function given by points, a Ferris wheel, and battery lifetimes with the normal-table values you need).
+  Multiple choice, select-all, true/false and numeric items (1 point each; select-all 2 points with partial
+  credit) are graded at once; fill-in-the-blank items are matched automatically; the three short-answer
+  questions (3 points each) and the two extended responses (6 points each) are graded by your teacher against
+  the scoring notes. A scientific calculator is allowed; keep it in radian mode for the trigonometry items.
+questions:
+  # ======================================================================
+  # Unit 1 (6 items): q01-q06 · Unit 2 (16): q07-q22 · Unit 3 (11): q23-q33
+  # Unit 4 (11): q34-q44 · Unit 5 (6): q45-q50 · Unit 6 (12): q51-q62 · Unit 7 (8): q63-q70
+  # ======================================================================
+  # ---- Unit 1 set: the sequence 5, 8, 11, 14, … (1.3, 1.8, 1.11)
+  - slug: alg2-final-q01
+    type: multiple_choice
+    topic_code: "1.3"
+    source: "IM Algebra 2, Unit 1, Lesson 3"
+    points: 1
+    stimulus: |
+      A sequence begins 5, 8, 11, 14, … and continues with the same pattern.
+    prompt: |
+      What kind of sequence is it, and what is its constant?
+    options:
+      - "Geometric, with common ratio 8/5"
+      - "Geometric, with common ratio 3"
+      - "Arithmetic, with common difference 3"
+      - "Arithmetic, with common difference 5"
+    option_explanations:
+      - |
+        The ratios of consecutive terms change, so there is no common ratio.
+      - |
+        A geometric sequence multiplies by a constant; 8/5, 11/8 and 14/11 are not equal.
+      - |
+        Correct. Each term is the previous term plus 3, the mark of an arithmetic sequence.
+      - |
+        5 is the first term, not the difference between terms.
+    answer: 2
+  - slug: alg2-final-q02
+    type: multiple_choice
+    topic_code: "1.8"
+    source: "IM Algebra 2, Unit 1, Lesson 8"
+    points: 1
+    stimulus: |
+      A sequence begins 5, 8, 11, 14, … and continues with the same pattern.
+    prompt: |
+      Which rule gives the nth term a(n) for n ≥ 1?
+    options:
+      - "a(n) = 3n + 5"
+      - "a(n) = 3n + 2"
+      - "a(n) = 5 · 3^(n−1)"
+      - "a(n) = 5n + 3"
+    option_explanations:
+      - |
+        This gives a(1) = 8; the first term must be 5.
+      - |
+        Correct. a(n) = 5 + 3(n − 1) = 3n + 2; check a(1) = 5, a(2) = 8.
+      - |
+        That is a geometric rule, tripling each step: 5, 15, 45.
+      - |
+        This gives a(1) = 8 and grows by 5 each step; the sequence grows by 3.
+    answer: 1
+  - slug: alg2-final-q03
+    type: multiple_choice
+    topic_code: "1.11"
+    source: "IM Algebra 2, Unit 1, Lesson 11"
+    points: 1
+    stimulus: |
+      A sequence begins 5, 8, 11, 14, … and continues with the same pattern.
+    prompt: |
+      What is the sum of the first 20 terms?
+    options:
+      - "335"
+      - "1,340"
+      - "620"
+      - "670"
+    option_explanations:
+      - |
+        335 is half of the correct sum 670: the formula is 20 · (5 + 62)/2 = 20 · 67/2 = 670, and halving a second time is the error.
+      - |
+        1,340 forgets to halve: the sum is the number of terms times the average of the first and last.
+      - |
+        620 is 20 · 31, using the 9th term instead of averaging the first and last.
+      - |
+        Correct. The 20th term is 3(20) + 2 = 62, and the sum is 20 · (5 + 62)/2 = 670.
+    answer: 3
+  - slug: alg2-final-q04
+    type: multiple_choice
+    topic_code: "1.2"
+    source: "IM Algebra 2, Unit 1, Lesson 2"
+    points: 1
+    prompt: |
+      A geometric sequence begins 2, 6, 18, … Which expression gives its nth term?
+    options:
+      - "2 · 3^(n−1)"
+      - "2 + 4(n − 1)"
+      - "2 · 3ⁿ"
+      - "3 · 2^(n−1)"
+    option_explanations:
+      - |
+        Correct. The ratio is 3 and the first term is 2; n − 1 multiplications by 3 reach the nth term.
+      - |
+        That is an arithmetic rule with difference 4: 2, 6, 10.
+      - |
+        2 · 3ⁿ gives 6 for n = 1; the first term must be 2.
+      - |
+        This formula starts at 3 and doubles: 3, 6, 12, …, which matches neither the first term nor the ratio of the given sequence.
+    answer: 0
+  - slug: alg2-final-q05
+    type: true_false
+    topic_code: "1.5"
+    source: "IM Algebra 2, Unit 1, Lesson 5"
+    points: 1
+    prompt: |
+      True or false: a sequence can be thought of as a function whose domain is the positive integers (or whole numbers), with the term number as input and the term as output.
+    answer: true
+    explanation: |
+      True. Writing a(n) for the nth term is function notation; the inputs are the positions 1, 2, 3, … and the graph is a set of separate points.
+  - slug: alg2-final-q06
+    type: numeric
+    topic_code: "1.10"
+    source: "IM Algebra 2, Unit 1, Lesson 10"
+    points: 1
+    prompt: |
+      A ball dropped from 200 cm rebounds to 60% of its previous height on each bounce. How high does it rise after the third bounce? Give one decimal place in centimetres.
+    answer: { value: 43.2, tolerance: 0.05 }
+    explanation: |
+      Geometric with ratio 0.6: 200 · 0.6³ = 200 · 0.216 = 43.2 cm.
+  # ---- Unit 2 set: the open box (2.1, 2.3, 2.8)
+  - slug: alg2-final-q07
+    type: multiple_choice
+    topic_code: "2.1"
+    source: "IM Algebra 2, Unit 2, Lesson 1"
+    points: 1
+    stimulus: |
+      An open-top box is made from a 20 cm by 30 cm sheet of card by cutting a square of side x cm from each corner and folding up the sides.
+    prompt: |
+      Which expression gives the volume of the box in cubic centimetres?
+    options:
+      - "V(x) = (20 − 2x)(30 − 2x)"
+      - "V(x) = x(20 − x)(30 − x)"
+      - "V(x) = 600x"
+      - "V(x) = x(20 − 2x)(30 − 2x)"
+    option_explanations:
+      - |
+        This is the area of the base; the volume also multiplies by the height x.
+      - |
+        Each dimension loses x at both ends, so 2x is removed from each.
+      - |
+        600x would be the volume if the base stayed 20 by 30, but folding shrinks it.
+      - |
+        Correct. Each side loses two squares of side x, and the height is x.
+    answer: 3
+  - slug: alg2-final-q08
+    type: multiple_choice
+    topic_code: "2.3"
+    source: "IM Algebra 2, Unit 2, Lesson 3"
+    points: 1
+    stimulus: |
+      An open-top box is made from a 20 cm by 30 cm sheet of card by cutting a square of side x cm from each corner and folding up the sides.
+    prompt: |
+      For which values of x does the box make sense, and what is the degree of the volume polynomial?
+    options:
+      - "0 < x < 20; degree 2"
+      - "0 < x < 15; degree 3"
+      - "0 < x < 10; degree 3"
+      - "x > 0; degree 1"
+    option_explanations:
+      - |
+        Three factors of x each give a cubic, not a quadratic, and x must stay under 10.
+      - |
+        At x = 12 the side 20 − 2x is negative; the 20 cm side is the limit, not the 30 cm side.
+      - |
+        Correct. The shorter side, 20 − 2x, must stay positive, so x < 10; multiplying three linear factors gives degree 3.
+      - |
+        The volume is a product of three factors in x, and large x destroys the box.
+    answer: 2
+  - slug: alg2-final-q09
+    type: multiple_choice
+    topic_code: "2.8"
+    source: "IM Algebra 2, Unit 2, Lesson 8"
+    points: 1
+    stimulus: |
+      An open-top box is made from a 20 cm by 30 cm sheet of card by cutting a square of side x cm from each corner and folding up the sides.
+    prompt: |
+      Multiplied out, V(x) = 4x³ − 100x² + 600x. What is its end behavior?
+    options:
+      - "As x → ∞, V → ∞; as x → −∞, V → −∞"
+      - "Both ends go to −∞"
+      - "As x → ∞, V → −∞; as x → −∞, V → ∞"
+      - "Both ends go to ∞"
+    option_explanations:
+      - |
+        Correct. The leading term 4x³ has odd degree and a positive coefficient, so the ends go in opposite directions, up on the right.
+      - |
+        Both ends down needs even degree and a negative leading coefficient.
+      - |
+        That would need a negative leading coefficient.
+      - |
+        Both ends up is the behavior of an even-degree polynomial with positive leading coefficient.
+    answer: 0
+  - slug: alg2-final-q10
+    type: multiple_choice
+    topic_code: "2.4"
+    source: "IM Algebra 2, Unit 2, Lesson 4"
+    points: 1
+    prompt: |
+      What is (x + 3)(x² − 2x + 5)?
+    options:
+      - "x³ − 2x² + 5x + 15"
+      - "x³ + x² − x + 15"
+      - "x³ + x² + 11x + 15"
+      - "x³ + 5x² − x + 15"
+    option_explanations:
+      - |
+        This multiplies only by x and adds 15; the 3 must multiply every term of the quadratic.
+      - |
+        Correct. x³ − 2x² + 5x + 3x² − 6x + 15 = x³ + x² − x + 15.
+      - |
+        The x terms combine as 5x − 6x = −x, not 11x; subtracting a negative term is the sign slip here.
+      - |
+        The x² terms are −2x² + 3x² = x², not 5x².
+    answer: 1
+  - slug: alg2-final-q11
+    type: multiple_choice
+    topic_code: "2.7"
+    source: "IM Algebra 2, Unit 2, Lesson 7"
+    points: 1
+    prompt: |
+      A cubic polynomial has zeros at x = −2, 1 and 3 and y-intercept 12. Which is it?
+    options:
+      - "p(x) = (x + 2)(x − 1)(x − 3)"
+      - "p(x) = 12(x + 2)(x − 1)(x − 3)"
+      - "p(x) = 2(x + 2)(x − 1)(x − 3)"
+      - "p(x) = 2(x − 2)(x + 1)(x + 3)"
+    option_explanations:
+      - |
+        This has the right zeros but p(0) = 6, not 12.
+      - |
+        This polynomial gives p(0) = 12 · (2)(−1)(−3) = 12 · 6 = 72, which does not match the required y-intercept; the leading coefficient must be 2, not 12.
+      - |
+        Correct. At x = 0 the factors give (2)(−1)(−3) = 6, so the leading coefficient must be 2 to make p(0) = 12.
+      - |
+        These factors have zeros at 2, −1 and −3, the opposites of the required ones.
+    answer: 2
+  - slug: alg2-final-q12
+    type: multiple_choice
+    topic_code: "2.9"
+    source: "IM Algebra 2, Unit 2, Lesson 9"
+    points: 1
+    prompt: |
+      What is the end behavior of q(x) = −x⁴ + 3x?
+    options:
+      - "Both ends go up."
+      - "Left end down, right end up."
+      - "Left end up, right end down."
+      - "Both ends go down (q → −∞ as x → ∞ and as x → −∞)."
+    option_explanations:
+      - |
+        That would need a positive leading coefficient with even degree.
+      - |
+        Opposite ends require odd degree; x⁴ is even.
+      - |
+        Opposite ends require odd degree; x⁴ is even.
+      - |
+        Correct. The leading term −x⁴ has even degree and a negative coefficient; the 3x cannot compete for large |x|.
+    answer: 3
+  - slug: alg2-final-q13
+    type: multiple_choice
+    topic_code: "2.10"
+    source: "IM Algebra 2, Unit 2, Lesson 10"
+    points: 1
+    prompt: |
+      How does the graph of r(x) = (x + 1)³(x − 2)² behave at its zeros?
+    options:
+      - "Touches and turns at −1; crosses at 2."
+      - "Crosses the x-axis at −1, flattening as it crosses; touches and turns at 2."
+      - "Touches and turns at both −1 and 2."
+      - "Crosses in a straight line at both −1 and 2."
+    option_explanations:
+      - |
+        The even multiplicity is at 2, not at −1.
+      - |
+        Correct. Multiplicity 3 (odd, above 1) crosses with a flattening; multiplicity 2 (even) bounces.
+      - |
+        The zero at −1 has odd multiplicity, so the graph crosses there.
+      - |
+        Neither zero has multiplicity 1, so neither crossing is straight.
+    answer: 1
+  - slug: alg2-final-q14
+    type: multiple_choice
+    topic_code: "2.13"
+    source: "IM Algebra 2, Unit 2, Lesson 13"
+    points: 1
+    prompt: |
+      What is (x³ − 7x + 6) ÷ (x − 2)?
+    options:
+      - "x² + 2x − 3"
+      - "x² − 7 with remainder 6"
+      - "x² − 2x − 3"
+      - "x² + 2x + 3"
+    option_explanations:
+      - |
+        Correct. (x − 2)(x² + 2x − 3) = x³ + 2x² − 3x − 2x² − 4x + 6 = x³ − 7x + 6.
+      - |
+        x − 2 is a factor (p(2) = 8 − 14 + 6 = 0), so the remainder is 0, and the quotient must be found by division.
+      - |
+        (x − 2)(x² − 2x − 3) = x³ − 4x² + x + 6, not the given polynomial.
+      - |
+        (x − 2)(x² + 2x + 3) = x³ − x − 6, not the given polynomial.
+    answer: 0
+  - slug: alg2-final-q15
+    type: multiple_choice
+    topic_code: "2.15"
+    source: "IM Algebra 2, Unit 2, Lesson 15"
+    points: 1
+    prompt: |
+      What is the remainder when p(x) = x³ − 7x + 6 is divided by x − 3?
+    options:
+      - "3"
+      - "12"
+      - "−6"
+      - "0"
+    option_explanations:
+      - |
+        3 is the value substituted, not the remainder.
+      - |
+        Correct. By the remainder theorem the remainder is p(3) = 27 − 21 + 6 = 12.
+      - |
+        p(−3) = −27 + 21 + 6 = 0 is the value at −3, which answers a question about x + 3.
+      - |
+        0 would mean x − 3 is a factor; p(3) is not 0 (the zeros are 1, 2 and −3).
+    answer: 1
+  - slug: alg2-final-q16
+    type: multiple_choice
+    topic_code: "2.18"
+    source: "IM Algebra 2, Unit 2, Lesson 18"
+    points: 1
+    prompt: |
+      For f(x) = (2x − 4)/(x + 1), what are the vertical asymptote, the zero and the horizontal asymptote?
+    options:
+      - "x = −1; x = 2; y = 0"
+      - "x = 2; x = −1; y = 2"
+      - "x = −1; x = −4; y = −4"
+      - "x = −1; x = 2; y = 2"
+    option_explanations:
+      - |
+        y = 0 would need the denominator's degree to exceed the numerator's; here they are equal.
+      - |
+        The asymptote comes from the denominator and the zero from the numerator, not the reverse.
+      - |
+        −4 is the y-intercept, f(0); it is neither a zero nor an asymptote.
+      - |
+        Correct. Denominator 0 at x = −1; numerator 0 at x = 2; equal degrees give y = 2/1.
+    answer: 3
+  - slug: alg2-final-q17
+    type: multiple_choice
+    topic_code: "2.19"
+    source: "IM Algebra 2, Unit 2, Lesson 19"
+    points: 1
+    prompt: |
+      What is the end behavior of g(x) = (x² + 1)/(x − 3)?
+    options:
+      - "No horizontal asymptote; for large |x| the graph behaves like y = x."
+      - "Horizontal asymptote y = 0."
+      - "Horizontal asymptote y = 3."
+      - "Horizontal asymptote y = 1."
+    option_explanations:
+      - |
+        Correct. The numerator's degree is one more than the denominator's, so the quotient grows like x.
+      - |
+        y = 0 happens when the denominator has the larger degree; here the numerator does.
+      - |
+        x = 3 is the vertical asymptote; there is no horizontal one.
+      - |
+        y = 1 would need equal degrees with leading coefficients 1 and 1.
+    answer: 0
+  - slug: alg2-final-q18
+    type: multiple_choice
+    topic_code: "2.22"
+    source: "IM Algebra 2, Unit 2, Lesson 22"
+    points: 1
+    prompt: |
+      Solve 1/(x − 1) + 1/2 = 3/(x − 1).
+    options:
+      - "x = 1"
+      - "x = 3"
+      - "x = 5"
+      - "x = −3"
+    option_explanations:
+      - |
+        x = 1 makes both denominators zero; it is excluded from the start.
+      - |
+        At x = 3: 1/2 + 1/2 = 1 but 3/2 on the right; not a solution.
+      - |
+        Correct. Multiplying by 2(x − 1): 2 + (x − 1) = 6, so x = 5; check: 1/4 + 1/2 = 3/4 ✓.
+      - |
+        At x = −3: −1/4 + 1/2 = 1/4 but −3/4 on the right; not a solution.
+    answer: 2
+  - slug: alg2-final-q19
+    type: true_false
+    topic_code: "2.23"
+    source: "IM Algebra 2, Unit 2, Lesson 23"
+    points: 1
+    prompt: |
+      True or false: (a + b)² − (a − b)² = 4ab for all a and b.
+    answer: true
+    explanation: |
+      True. (a² + 2ab + b²) − (a² − 2ab + b²) = 4ab; it holds for every a and b, so it is an identity.
+  - slug: alg2-final-q20
+    type: numeric
+    topic_code: "2.25"
+    source: "IM Algebra 2, Unit 2, Lesson 25"
+    points: 1
+    prompt: |
+      Find the sum 1 + 3 + 9 + 27 + 81 + 243 + 729.
+    answer: { value: 1093, tolerance: 0 }
+    explanation: |
+      Seven terms of a geometric sequence with ratio 3: (3⁷ − 1)/(3 − 1) = 2186/2 = 1093.
+  - slug: alg2-final-q21
+    type: short_answer
+    topic_code: "2.6"
+    source: "IM Algebra 2, Unit 2, Lesson 6"
+    points: 3
+    prompt: |
+      Let p(x) = x³ − x² − 6x.
+      (a) Write p(x) in factored form.
+      (b) Give the zeros of p and the y-intercept.
+      (c) Describe the graph: its end behavior and where it is above the x-axis.
+    answer: |
+      (a) p(x) = x(x² − x − 6) = x(x − 3)(x + 2).
+      (b) Zeros at x = −2, 0 and 3; y-intercept 0 (the graph passes through the origin).
+      (c) Odd degree with positive leading coefficient: down on the left, up on the right. Testing a point in each interval, p is positive on (−2, 0) and on (3, ∞), negative on (−∞, −2) and (0, 3); each zero has multiplicity 1, so the graph crosses at all three.
+    explanation: |
+      Three points, one per part. (a) x(x − 3)(x + 2). (b) −2, 0, 3 and intercept 0. (c) end behavior and the positive intervals (−2, 0) and (3, ∞).
+  - slug: alg2-final-q22
+    type: long_answer
+    topic_code: "2.21"
+    source: "IM Algebra 2, Unit 2, Lesson 21"
+    points: 6
+    prompt: |
+      A small workshop pays $500 a month in fixed costs and $3 in materials for each candle it makes. The average cost per candle when it makes x candles in a month is C(x) = (500 + 3x)/x. Write a full response that (1) explains where each part of the formula comes from, (2) finds C(100) and C(500) and describes what happens to the average cost as x grows, naming the horizontal asymptote and interpreting it, (3) finds how many candles must be made for the average cost to be $4, showing the equation you solve and checking the answer, and (4) explains why the graph has a vertical asymptote at x = 0 and what the domain of the model is in context.
+    answer: |
+      (1) Total cost for x candles is 500 + 3x (fixed plus $3 each); dividing by the number of candles gives the average cost per candle.
+      (2) C(100) = 800/100 = $8; C(500) = 2,000/500 = $4. As x grows the fixed $500 is spread over more candles and C(x) = 3 + 500/x falls toward 3: the horizontal asymptote y = 3 means the average cost can approach but never reach the $3 materials cost per candle.
+      (3) (500 + 3x)/x = 4 gives 500 + 3x = 4x, so x = 500. Check: (500 + 1,500)/500 = 4 ✓.
+      (4) At x = 0 the denominator is 0 while the numerator is 500: making no candles gives no average cost, and as x approaches 0 the average cost grows without bound because the fixed cost is spread over almost nothing. In context the domain is positive whole numbers of candles, x = 1, 2, 3, …
+    explanation: |
+      Six points: 1 for the total-cost-over-count explanation in (1); 2 for C(100) = 8, C(500) = 4 and the asymptote y = 3 with its meaning in (2); 2 for the equation and x = 500 with a check in (3); 1 for the vertical asymptote reason and the positive-integer domain in (4).
+  # ---- Unit 3: Complex Numbers and Rational Exponents (q23–q33) ----
+  - slug: alg2-final-q23
+    type: multiple_choice
+    topic_code: "3.12"
+    source: "IM Algebra 2, Unit 3, Lesson 12"
+    points: 1
+    stimulus: |
+      Let z = 3 − 2i and w = 1 + 4i.
+    prompt: |
+      What is z + w?
+    options:
+      - "3 − 8i"
+      - "4 − 6i"
+      - "2 − 6i"
+      - "4 + 2i"
+    option_explanations:
+      - |
+        This multiplies the imaginary parts (−2 · 4 = −8) instead of adding them; addition never multiplies coefficients.
+      - |
+        The imaginary parts are −2 and 4; their sum is +2, not −6. Subtracting instead of adding gives −6.
+      - |
+        This subtracts w from z: (3 − 1) + (−2 − 4)i = 2 − 6i. The question asks for the sum.
+      - |
+        Correct. Add real parts and imaginary parts separately: (3 + 1) + (−2 + 4)i = 4 + 2i.
+    answer: 3
+  - slug: alg2-final-q24
+    type: multiple_choice
+    topic_code: "3.13"
+    source: "IM Algebra 2, Unit 3, Lesson 13"
+    points: 1
+    stimulus: |
+      Let z = 3 − 2i and w = 1 + 4i.
+    prompt: |
+      What is the product zw?
+    options:
+      - "11 + 10i"
+      - "3 + 10i − 8i²"
+      - "−5 + 10i"
+      - "3 − 8i"
+    option_explanations:
+      - |
+        Correct. (3 − 2i)(1 + 4i) = 3 + 12i − 2i − 8i² = 3 + 10i + 8 = 11 + 10i, since i² = −1.
+      - |
+        This is a correct intermediate step, but it is not simplified: replace i² with −1 and combine the real parts.
+      - |
+        This uses i² = +1 and gets 3 + 10i − 8 = −5 + 10i. The defining property of i is i² = −1, so −8i² = +8.
+      - |
+        This multiplies only the real parts (3 · 1) and only the imaginary parts (−2i · 4i, wrongly kept as −8i). Use the distributive property on all four pairs.
+    answer: 0
+  - slug: alg2-final-q25
+    type: multiple_choice
+    topic_code: "3.14"
+    source: "IM Algebra 2, Unit 3, Lesson 14"
+    points: 1
+    stimulus: |
+      Let z = 3 − 2i and w = 1 + 4i.
+    prompt: |
+      What is z², written in the form a + bi?
+    options:
+      - "9 − 4i"
+      - "5 − 12i"
+      - "9 + 4i"
+      - "13 − 12i"
+    option_explanations:
+      - |
+        This squares each part separately and keeps the sign of the imaginary part; the middle term −12i and the −4 from (−2i)² are both missing.
+      - |
+        Correct. (3 − 2i)² = 9 − 12i + 4i² = 9 − 12i − 4 = 5 − 12i.
+      - |
+        This squares 3 and squares 2i as if (a + b)² = a² + b² and drops the sign; squaring a binomial produces a middle term 2ab.
+      - |
+        This gets the middle term −12i right but uses (−2i)² = +4; since i² = −1, (−2i)² = −4 and the real part is 9 − 4 = 5.
+    answer: 1
+  - slug: alg2-final-q26
+    type: numeric
+    topic_code: "3.4"
+    source: "IM Algebra 2, Unit 3, Lesson 4"
+    points: 1
+    prompt: |
+      Evaluate 32^(3/5) without a calculator. Give the exact whole-number value.
+    answer: { value: 8, tolerance: 0 }
+    explanation: |
+      32 = 2⁵, so 32^(3/5) = (2⁵)^(3/5) = 2³ = 8. Equivalently, the fifth root of 32 is 2 and 2³ = 8.
+  - slug: alg2-final-q27
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "IM Algebra 2, Unit 3, Lesson 5"
+    points: 1
+    prompt: |
+      Which value equals 9^(−3/2)?
+    options:
+      - "1/6"
+      - "−1/27"
+      - "1/27"
+      - "−27"
+    option_explanations:
+      - |
+        This multiplies 9 by 3/2 and then takes a reciprocal in some form; exponents are not multiplied into the base. The exponent 3/2 means square root, then cube.
+      - |
+        The negative sign in the exponent does not make the answer negative; a positive base to any real power is positive.
+      - |
+        Correct. 9^(3/2) = (√9)³ = 3³ = 27, and the negative exponent takes the reciprocal: 1/27.
+      - |
+        A negative exponent means a reciprocal, not a negative result: 9^(−3/2) = 1/9^(3/2), and 9^(3/2) = 27.
+    answer: 2
+  - slug: alg2-final-q28
+    type: multiple_choice
+    topic_code: "3.9"
+    source: "IM Algebra 2, Unit 3, Lesson 9"
+    points: 1
+    prompt: |
+      Solve √(x + 7) = x − 5.
+    options:
+      - "x = 2 and x = 9"
+      - "x = 9 only"
+      - "x = 2 only"
+      - "No solution"
+    option_explanations:
+      - |
+        Squaring gives x + 7 = x² − 10x + 25, so x² − 11x + 18 = 0 and (x − 9)(x − 2) = 0. But x = 2 makes the right side −3 while a square root is never negative, so 2 is extraneous.
+      - |
+        Correct. Both candidates 9 and 2 come from the squared equation; checking, √16 = 4 = 9 − 5 works, while √9 = 3 ≠ 2 − 5 = −3 fails. Only x = 9 solves the original.
+      - |
+        x = 2 is the extraneous one: it satisfies the squared equation but makes the right side −3, which a square root cannot equal. x = 9 is the solution that survives the check.
+      - |
+        There is a solution: x = 9 gives √16 = 4 on the left and 9 − 5 = 4 on the right.
+    answer: 1
+  - slug: alg2-final-q29
+    type: fill_blank
+    topic_code: "3.8"
+    source: "IM Algebra 2, Unit 3, Lesson 8"
+    points: 1
+    prompt: |
+      The solution of ∛(x − 1) = −2 is x = ____.
+    answer: ["-7", "x = -7", "x=-7", "−7", "x = −7"]
+    explanation: |
+      Cube both sides: x − 1 = (−2)³ = −8, so x = −7. Cubing does not create extraneous solutions, and ∛(−8) = −2 checks.
+  - slug: alg2-final-q30
+    type: multiple_choice
+    topic_code: "3.18"
+    source: "IM Algebra 2, Unit 3, Lesson 18"
+    points: 1
+    prompt: |
+      What are the solutions of x² − 6x + 13 = 0?
+    options:
+      - "x = 3 ± 2"
+      - "x = −3 ± 2i"
+      - "x = 3 ± 2i"
+      - "x = 3 ± 4i"
+    option_explanations:
+      - |
+        The discriminant is 36 − 52 = −16, which is negative, so the solutions are non-real; 3 ± 2 would need a discriminant of +16.
+      - |
+        The real part comes from −b/(2a) = 6/2 = +3; the sign of b is −6, so −b is +6.
+      - |
+        Correct. The quadratic formula gives x = (6 ± √(36 − 52))/2 = (6 ± √(−16))/2 = (6 ± 4i)/2 = 3 ± 2i.
+      - |
+        √(−16) = 4i is right, but the formula divides the whole numerator by 2, so 4i/2 = 2i, not 4i.
+    answer: 2
+  - slug: alg2-final-q31
+    type: multiple_choice
+    topic_code: "3.19"
+    source: "IM Algebra 2, Unit 3, Lesson 19"
+    points: 1
+    prompt: |
+      Without solving, how many real solutions does 2x² + 3x + 5 = 0 have?
+    options:
+      - "No real solutions, because the discriminant 3² − 4(2)(5) = −31 is negative"
+      - "No real solutions, because all the coefficients are positive"
+      - "One real solution, because 3² = 9 is a perfect square"
+      - "Two real solutions, because the leading coefficient is positive"
+    option_explanations:
+      - |
+        Correct. b² − 4ac = 9 − 40 = −31 < 0, so the quadratic formula produces a square root of a negative number and both solutions are non-real.
+      - |
+        The conclusion is right but the reason is not: x² + 3x + 1 = 0 has all positive coefficients and two real solutions. Only the discriminant settles it.
+      - |
+        One real solution needs a discriminant of exactly 0; here b² − 4ac = 9 − 40 = −31, which is not zero.
+      - |
+        The sign of the leading coefficient says which way the parabola opens, not how many times it crosses the x-axis; the discriminant decides that.
+    answer: 0
+  - slug: alg2-final-q32
+    type: true_false
+    topic_code: "3.11"
+    source: "IM Algebra 2, Unit 3, Lesson 11"
+    points: 1
+    prompt: |
+      True or false: √(−16) = 4i.
+    answer: true
+    explanation: |
+      True. By definition i = √(−1), so √(−16) = √16 · √(−1) = 4i, and (4i)² = 16i² = −16 checks.
+  - slug: alg2-final-q33
+    type: multi_select
+    topic_code: "3.7"
+    source: "IM Algebra 2, Unit 3, Lesson 7"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which operations on an equation can introduce an extraneous solution, one that solves the new equation but not the original? Select all that apply.
+    options:
+      - "Adding the same number to both sides"
+      - "Squaring both sides"
+      - "Multiplying both sides by an expression that contains the variable"
+      - "Cubing both sides"
+      - "Dividing both sides by a nonzero constant"
+    option_explanations:
+      - |
+        Adding a constant to both sides is reversible (subtract it back), so the solution set does not change.
+      - |
+        Correct. Squaring turns a = b and a = −b into the same equation a² = b², so a solution of a = −b appears as a candidate for a = b.
+      - |
+        Correct. Multiplying by, say, (x − 2) makes x = 2 satisfy the new equation whether or not it satisfied the original, and it may be excluded from the original's domain.
+      - |
+        Cubing is one-to-one on the real numbers (every real number has exactly one real cube root), so it does not create extraneous solutions.
+      - |
+        Dividing by a nonzero constant is reversible, so the two equations have exactly the same solutions.
+    answer: [1, 2]
+  # ---- Unit 4: Exponential Functions and Equations (q34–q44) ----
+  - slug: alg2-final-q34
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "IM Algebra 2, Unit 4, Lesson 2"
+    points: 1
+    stimulus: |
+      A bacteria population is modeled by p(t) = 800 · 1.5ᵗ, where t is measured in hours since the start of an experiment.
+    prompt: |
+      What does the model say about the population?
+    options:
+      - "It starts at 1.5 and grows by 800 every hour"
+      - "It starts at 800 and grows by 150% every hour"
+      - "It starts at 800 and grows by 1.5 bacteria every hour"
+      - "It starts at 800 and grows by 50% every hour"
+    option_explanations:
+      - |
+        The coefficient 800 is the value at t = 0 and the base 1.5 is the factor applied each hour; these roles are swapped here.
+      - |
+        A growth factor of 1.5 is a 50% increase; 150% growth would mean a factor of 2.5. Do not confuse the factor with the percent change.
+      - |
+        Multiplying by 1.5 each hour is proportional growth, not adding 1.5. Adding a constant each hour would be a linear model.
+      - |
+        Correct. p(0) = 800 is the starting value and the growth factor 1.5 = 1 + 0.5 means a 50% increase each hour.
+    answer: 3
+  - slug: alg2-final-q35
+    type: numeric
+    topic_code: "4.4"
+    source: "IM Algebra 2, Unit 4, Lesson 4"
+    points: 1
+    stimulus: |
+      A bacteria population is modeled by p(t) = 800 · 1.5ᵗ, where t is measured in hours since the start of an experiment.
+    prompt: |
+      What is the population after half an hour? Give your answer to two decimal places.
+    answer: { value: 979.80, tolerance: 0.05 }
+    explanation: |
+      p(1/2) = 800 · 1.5^(1/2) = 800 · √1.5 ≈ 800 · 1.22474 ≈ 979.80. A half-hour multiplies the population by the square root of the hourly factor.
+  - slug: alg2-final-q36
+    type: multiple_choice
+    topic_code: "4.8"
+    source: "IM Algebra 2, Unit 4, Lesson 8"
+    points: 1
+    stimulus: |
+      A bacteria population is modeled by p(t) = 800 · 1.5ᵗ, where t is measured in hours since the start of an experiment.
+    prompt: |
+      When does the population reach 2,700?
+    options:
+      - "t = 4 hours"
+      - "t = 3.375 hours"
+      - "t = 3 hours"
+      - "t = 2 hours"
+    option_explanations:
+      - |
+        1.5⁴ = 5.0625 and 800 · 5.0625 = 4,050, well past 2,700. The population reaches 2,700 an hour earlier.
+      - |
+        3.375 is the value of 1.5ᵗ (the ratio 2,700/800), not the time. The time is the exponent that produces 3.375, which is 3.
+      - |
+        Correct. 800 · 1.5ᵗ = 2,700 gives 1.5ᵗ = 3.375, and 1.5³ = 3.375, so t = 3.
+      - |
+        1.5² = 2.25 and 800 · 2.25 = 1,800, which is short of 2,700. Another hour is needed.
+    answer: 2
+  - slug: alg2-final-q37
+    type: multiple_choice
+    topic_code: "4.11"
+    source: "IM Algebra 2, Unit 4, Lesson 11"
+    points: 1
+    prompt: |
+      What is log₂(1/32)?
+    options:
+      - "−5"
+      - "−16"
+      - "5"
+      - "1/5"
+    option_explanations:
+      - |
+        Correct. log₂(1/32) asks for the exponent that gives 1/32 from base 2: 2⁻⁵ = 1/32, so the answer is −5.
+      - |
+        This halves 32 and makes it negative; a logarithm is an exponent, and 2 raised to −16 is far smaller than 1/32.
+      - |
+        2⁵ = 32, not 1/32. The reciprocal corresponds to a negative exponent.
+      - |
+        The logarithm is an exponent, not a reciprocal of one. Since 2⁻⁵ = 1/32, the exponent is −5, not 1/5.
+    answer: 0
+  - slug: alg2-final-q38
+    type: multiple_choice
+    topic_code: "4.9"
+    source: "IM Algebra 2, Unit 4, Lesson 9"
+    points: 1
+    prompt: |
+      Between which two whole numbers is log₃(50)?
+    options:
+      - "Between 2 and 3"
+      - "Between 3 and 4"
+      - "Between 16 and 17"
+      - "Between 49 and 51"
+    option_explanations:
+      - |
+        3² = 9 and 3³ = 27 are both below 50, so the exponent needed is more than 3.
+      - |
+        Correct. 3³ = 27 < 50 < 81 = 3⁴, so the exponent that makes 3 equal 50 lies between 3 and 4 (it is about 3.56).
+      - |
+        This divides 50 by 3; a logarithm is an exponent, not a quotient.
+      - |
+        log₃(50) is the exponent, which is small; the input 50 is not the answer.
+    answer: 1
+  - slug: alg2-final-q39
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "IM Algebra 2, Unit 4, Lesson 6"
+    points: 1
+    prompt: |
+      An exponential function passes through (0, 3) and (2, 48). Which equation defines it?
+    options:
+      - "f(x) = 3 + 45x/2"
+      - "f(x) = 3 · 16ˣ"
+      - "f(x) = 48 · 4ˣ"
+      - "f(x) = 3 · 4ˣ"
+    option_explanations:
+      - |
+        This is the linear function through the two points. The question asks for the exponential one, which multiplies by a constant factor rather than adding a constant.
+      - |
+        16 is the factor over two steps (48/3), so the one-step factor is √16 = 4, not 16.
+      - |
+        The coefficient is the value at x = 0, which is 3; 48 is the value at x = 2.
+      - |
+        Correct. The starting value is f(0) = 3, and 3 · b² = 48 gives b² = 16, so b = 4 (positive for an exponential base).
+    answer: 3
+  - slug: alg2-final-q40
+    type: numeric
+    topic_code: "4.13"
+    source: "IM Algebra 2, Unit 4, Lesson 13"
+    points: 1
+    prompt: |
+      An account grows continuously at 5% per year: A(t) = 1000 · e^(0.05t). What is the balance after 20 years? Give your answer in dollars to two decimal places.
+    answer: { value: 2718.28, tolerance: 0.05 }
+    explanation: |
+      0.05 · 20 = 1, so A(20) = 1000 · e¹ = 1000 · 2.71828… ≈ 2718.28.
+  - slug: alg2-final-q41
+    type: numeric
+    topic_code: "4.14"
+    source: "IM Algebra 2, Unit 4, Lesson 14"
+    points: 1
+    prompt: |
+      Solve 10ˣ = 500. Give x to two decimal places.
+    answer: { value: 2.70, tolerance: 0.01 }
+    explanation: |
+      x = log(500) = log(5 · 100) = log(5) + 2 ≈ 0.699 + 2 = 2.699 ≈ 2.70. It makes sense: 10² = 100 < 500 < 1,000 = 10³.
+  - slug: alg2-final-q42
+    type: multiple_choice
+    topic_code: "4.17"
+    source: "IM Algebra 2, Unit 4, Lesson 17"
+    points: 1
+    prompt: |
+      Where does the graph of g(x) = log₂(x) + 3 cross the x-axis?
+    options:
+      - "At x = 1"
+      - "At x = 1/8"
+      - "At x = −3"
+      - "At x = 8"
+    option_explanations:
+      - |
+        x = 1 is the x-intercept of log₂(x) itself; shifting the graph up by 3 moves the intercept to where log₂(x) = −3.
+      - |
+        Correct. Set log₂(x) + 3 = 0, so log₂(x) = −3 and x = 2⁻³ = 1/8.
+      - |
+        A logarithm is defined only for positive inputs, so the graph never reaches x = −3; −3 is the output of log₂(x) at the intercept, not the input.
+      - |
+        log₂(8) = 3, so g(8) = 6, not 0. The intercept needs log₂(x) = −3, which is the reciprocal, 1/8.
+    answer: 1
+  - slug: alg2-final-q43
+    type: fill_blank
+    topic_code: "4.12"
+    source: "IM Algebra 2, Unit 4, Lesson 12"
+    points: 1
+    prompt: |
+      ln(e⁴) = ____.
+    answer: ["4"]
+    explanation: |
+      The natural logarithm is the base-e logarithm, so ln(e⁴) asks for the exponent on e that gives e⁴: it is 4.
+  - slug: alg2-final-q44
+    type: short_answer
+    topic_code: "4.18"
+    source: "IM Algebra 2, Unit 4, Lesson 18"
+    points: 3
+    prompt: |
+      The pH of a solution is pH = −log(H), where H is the hydrogen ion concentration in moles per liter.
+      (a) Find the pH of a solution with H = 10⁻⁴.
+      (b) A solution has pH 2.5. Find H to three significant figures.
+      (c) One solution has a pH that is 3 units lower than another's. How many times greater is its hydrogen ion concentration? Explain.
+    answer: |
+      (a) pH = −log(10⁻⁴) = −(−4) = 4.
+      (b) 2.5 = −log(H), so log(H) = −2.5 and H = 10^(−2.5) ≈ 0.00316 moles per liter.
+      (c) 1,000 times greater. Each unit of pH is one power of 10 in H (pH is a base-10 logarithm), so 3 units lower means H is 10³ = 1,000 times larger.
+    explanation: |
+      Three points, one per part. (a) pH = 4. (b) H = 10^(−2.5) ≈ 0.00316 (accept 3.16 × 10⁻³). (c) 1,000 times, with the reason that pH is a base-10 logarithm so each unit is a factor of 10.
+  # ---- Unit 5: Transformations of Functions (q45–q50) ----
+  - slug: alg2-final-q45
+    type: multiple_choice
+    topic_code: "5.7"
+    source: "IM Algebra 2, Unit 5, Lesson 7"
+    points: 1
+    stimulus: |
+      The graph of a function f passes through the points (1, 4), (3, −2) and (5, 0).
+    prompt: |
+      Which three points lie on the graph of y = 2f(x) − 1?
+    options:
+      - "(1, 7), (3, −5), (5, −1)"
+      - "(1, 6), (3, −6), (5, −2)"
+      - "(1, 8), (3, −4), (5, 0)"
+      - "(2, 3), (6, −3), (10, −1)"
+    option_explanations:
+      - |
+        Correct. Each output is doubled and then reduced by 1: 2(4) − 1 = 7, 2(−2) − 1 = −5, 2(0) − 1 = −1. The inputs do not change.
+      - |
+        These are 2(f(x) − 1), which subtracts 1 before doubling. In 2f(x) − 1 the doubling happens first.
+      - |
+        These points are on y = 2f(x); the −1 shifts every output down one more unit.
+      - |
+        The inputs are not changed by an outside transformation; 2f(x) − 1 acts on outputs only.
+    answer: 0
+  - slug: alg2-final-q46
+    type: multiple_choice
+    topic_code: "5.9"
+    source: "IM Algebra 2, Unit 5, Lesson 9"
+    points: 1
+    stimulus: |
+      The graph of a function f passes through the points (1, 4), (3, −2) and (5, 0).
+    prompt: |
+      Which three points lie on the graph of y = f(2x)?
+    options:
+      - "(1, 8), (3, −4), (5, 0)"
+      - "(2, 4), (6, −2), (10, 0)"
+      - "(0.5, 4), (1.5, −2), (2.5, 0)"
+      - "(1, 4), (3, −2), (5, 0)"
+    option_explanations:
+      - |
+        This doubles the outputs; the 2 is inside the function, so it acts on the inputs, not the outputs.
+      - |
+        These would be on y = f(x/2), which stretches the graph horizontally. Replacing x with 2x compresses it: the input must be half as large to reach the same output.
+      - |
+        Correct. f(2x) = 4 when 2x = 1, that is x = 0.5; likewise x = 1.5 and x = 2.5. Each x-coordinate is halved and the outputs stay the same.
+      - |
+        f(2x) is not the same function as f(x) unless f is constant; the inputs are halved.
+    answer: 2
+  - slug: alg2-final-q47
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "IM Algebra 2, Unit 5, Lesson 4"
+    points: 1
+    stimulus: |
+      The graph of a function f passes through the points (1, 4), (3, −2) and (5, 0).
+    prompt: |
+      Which three points lie on the graph of y = −f(−x)?
+    options:
+      - "(−1, 4), (−3, −2), (−5, 0)"
+      - "(−1, −4), (−3, −2), (−5, 0)"
+      - "(1, −4), (3, 2), (5, 0)"
+      - "(−1, −4), (−3, 2), (−5, 0)"
+    option_explanations:
+      - |
+        These are on y = f(−x), the reflection across the y-axis only. The minus outside also negates every output.
+      - |
+        The inputs are correctly negated, but the outputs must be negated too; (3, −2) becomes (−3, 2), not (−3, −2).
+      - |
+        These are on y = −f(x), the reflection across the x-axis only. The −x inside also negates every input.
+      - |
+        Correct. The −x reflects across the y-axis (negate inputs) and the outer minus reflects across the x-axis (negate outputs): (1, 4) → (−1, −4), (3, −2) → (−3, 2), (5, 0) → (−5, 0).
+    answer: 3
+  - slug: alg2-final-q48
+    type: multiple_choice
+    topic_code: "5.6"
+    source: "IM Algebra 2, Unit 5, Lesson 6"
+    points: 1
+    prompt: |
+      Which of the following functions satisfies f(−x) = −f(x) for every x, making it an odd function?
+    options:
+      - "f(x) = x³ − 5x"
+      - "f(x) = x² + 1"
+      - "f(x) = |x|"
+      - "f(x) = x³ + 1"
+    option_explanations:
+      - |
+        Correct. f(−x) = (−x)³ − 5(−x) = −x³ + 5x = −(x³ − 5x) = −f(x); every term has an odd power.
+      - |
+        f(−x) = x² + 1 = f(x), so this function is even (symmetric across the y-axis), not odd.
+      - |
+        |−x| = |x|, so the absolute value function is even, not odd.
+      - |
+        f(−x) = −x³ + 1, which is neither f(x) nor −f(x) = −x³ − 1; the constant term breaks the symmetry.
+    answer: 0
+  - slug: alg2-final-q49
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "IM Algebra 2, Unit 5, Lesson 3"
+    points: 1
+    prompt: |
+      The graph of y = √x is shifted 1 unit left, stretched vertically by a factor of 2, and then shifted 3 units up. Which equation describes the result?
+    options:
+      - "y = √(2x + 1) + 3"
+      - "y = 2√(x + 1) + 3"
+      - "y = 2√(x + 3) + 1"
+      - "y = 2√(x − 1) + 3"
+    option_explanations:
+      - |
+        The 2 multiplying x inside the root is a horizontal compression, not a vertical stretch; a vertical stretch multiplies the whole output.
+      - |
+        Correct. Left 1 gives √(x + 1), the vertical stretch multiplies the output by 2, and up 3 adds 3: y = 2√(x + 1) + 3.
+      - |
+        The shifts are swapped: +3 inside the root is a horizontal shift of 3, and +1 outside is a vertical shift of 1.
+      - |
+        x − 1 inside the root shifts the graph right, not left. A shift left by 1 replaces x with x + 1.
+    answer: 1
+  - slug: alg2-final-q50
+    type: numeric
+    topic_code: "5.10"
+    source: "IM Algebra 2, Unit 5, Lesson 10"
+    points: 1
+    prompt: |
+      Let f(x) = x² − 1 and g(x) = 2x + 3. Find (f − g)(3), the value of f(3) − g(3). Give the exact value.
+    answer: { value: -1, tolerance: 0 }
+    explanation: |
+      f(3) = 9 − 1 = 8 and g(3) = 6 + 3 = 9, so (f − g)(3) = 8 − 9 = −1.
+  # ---- Unit 6: Trigonometric Functions (q51–q62) ----
+  - slug: alg2-final-q51
+    type: multiple_choice
+    topic_code: "6.18"
+    source: "IM Algebra 2, Unit 6, Lesson 18"
+    points: 1
+    stimulus: |
+      A Ferris wheel has a radius of 16 meters and its center is 18 meters above the ground. It turns at a steady rate, taking 48 seconds for one full revolution. A rider boards at the lowest point at time t = 0 seconds.
+    prompt: |
+      Which function gives the rider's height h in meters after t seconds?
+    options:
+      - "h(t) = 18 − 16 cos(48t)"
+      - "h(t) = 16 − 18 cos(πt/24)"
+      - "h(t) = 18 − 16 cos(πt/24)"
+      - "h(t) = 18 + 16 cos(πt/24)"
+    option_explanations:
+      - |
+        The argument 48t has period 2π/48, a fraction of a second. A period of 48 seconds needs the coefficient 2π/48 = π/24.
+      - |
+        The midline (center height) and amplitude (radius) are swapped. This function would dip to a negative height.
+      - |
+        Correct. The midline is the center height 18, the amplitude is the radius 16, the period 48 gives 2π/48 = π/24, and the negative cosine starts at the minimum h(0) = 18 − 16 = 2, the bottom of the wheel.
+      - |
+        This starts at the top: h(0) = 18 + 16 = 34. The rider boards at the bottom, so the cosine must be reflected.
+    answer: 2
+  - slug: alg2-final-q52
+    type: numeric
+    topic_code: "6.18"
+    source: "IM Algebra 2, Unit 6, Lesson 18"
+    points: 1
+    stimulus: |
+      A Ferris wheel has a radius of 16 meters and its center is 18 meters above the ground. It turns at a steady rate, taking 48 seconds for one full revolution. A rider boards at the lowest point at time t = 0 seconds.
+    prompt: |
+      How high above the ground, in meters, is the rider after 16 seconds? Give the exact value.
+    answer: { value: 26, tolerance: 0.01 }
+    explanation: |
+      16 seconds is one third of a revolution, so the wheel has turned 2π/3 from the bottom. h(16) = 18 − 16 cos(2π/3) = 18 − 16(−1/2) = 18 + 8 = 26 meters.
+  - slug: alg2-final-q53
+    type: multiple_choice
+    topic_code: "6.16"
+    source: "IM Algebra 2, Unit 6, Lesson 16"
+    points: 1
+    stimulus: |
+      A Ferris wheel has a radius of 16 meters and its center is 18 meters above the ground. It turns at a steady rate, taking 48 seconds for one full revolution. A rider boards at the lowest point at time t = 0 seconds.
+    prompt: |
+      During the first revolution, for which times is the rider higher than 18 meters?
+    options:
+      - "t > 12"
+      - "0 < t < 24"
+      - "24 < t < 48"
+      - "12 < t < 36"
+    option_explanations:
+      - |
+        After t = 36 the rider is back below the midline, so "t > 12" includes times that are too low. The interval closes at 36.
+      - |
+        The first half of the ride is the climb from the bottom (2 m) to the top (34 m); the rider passes 18 m at t = 12, so the first 12 seconds are below the midline.
+      - |
+        The second half of the ride descends from the top at t = 24 to the bottom at t = 48; the rider is above 18 m only until t = 36.
+      - |
+        Correct. 18 m is the center height. The rider is at the center's level at t = 12 (a quarter turn) and again at t = 36 (three quarters), and is above it in between, when the cosine is negative.
+    answer: 3
+  - slug: alg2-final-q54
+    type: multiple_choice
+    topic_code: "6.4"
+    source: "IM Algebra 2, Unit 6, Lesson 4"
+    points: 1
+    prompt: |
+      Which angle in degrees equals 7π/6 radians?
+    options:
+      - "210°"
+      - "105°"
+      - "420°"
+      - "150°"
+    option_explanations:
+      - |
+        Correct. π/6 is 30°, so 7π/6 is 7 · 30° = 210°, a third-quadrant angle.
+      - |
+        This halves the correct value. π radians is 180°, so 7π/6 = 7 · 30° = 210°.
+      - |
+        This uses 2π = 360° as if π/6 were 60°; π/6 is 30°.
+      - |
+        150° is 5π/6, the second-quadrant angle with the same reference angle. 7π/6 is 30° past 180°.
+    answer: 0
+  - slug: alg2-final-q55
+    type: multiple_choice
+    topic_code: "6.3"
+    source: "IM Algebra 2, Unit 6, Lesson 3"
+    points: 1
+    prompt: |
+      What are the coordinates of the point on the unit circle at angle 3π/4?
+    options:
+      - "(√2/2, √2/2)"
+      - "(−1/2, √3/2)"
+      - "(−√2/2, √2/2)"
+      - "(−√2/2, −√2/2)"
+    option_explanations:
+      - |
+        This is the point at π/4, in the first quadrant. 3π/4 is in the second quadrant, where x is negative.
+      - |
+        This is the point at 2π/3 (120°), whose reference angle is π/3. The reference angle of 3π/4 is π/4, which gives equal magnitudes √2/2.
+      - |
+        Correct. 3π/4 is 135°, in the second quadrant with reference angle π/4, so x = −√2/2 and y = √2/2.
+      - |
+        Both coordinates negative is the third quadrant, the point at 5π/4. At 3π/4 the y-coordinate is still positive.
+    answer: 2
+  - slug: alg2-final-q56
+    type: fill_blank
+    topic_code: "6.5"
+    source: "IM Algebra 2, Unit 6, Lesson 5"
+    points: 1
+    prompt: |
+      If sin θ = −3/5 and θ is in the third quadrant, then cos θ = ____.
+    answer: ["-4/5", "−4/5", "-0.8", "−0.8", "cos θ = -4/5"]
+    explanation: |
+      cos²θ = 1 − sin²θ = 1 − 9/25 = 16/25, so cos θ = ±4/5. In the third quadrant the x-coordinate is negative, so cos θ = −4/5.
+  - slug: alg2-final-q57
+    type: numeric
+    topic_code: "6.7"
+    source: "IM Algebra 2, Unit 6, Lesson 7"
+    points: 1
+    prompt: |
+      A point moves counterclockwise around a circle of radius 25 centered at the origin, starting from (25, 0). What angle in radians, between 0 and 2π, has it turned through when it reaches (−7, 24)? Give your answer to two decimal places.
+    answer: { value: 1.85, tolerance: 0.02 }
+    explanation: |
+      The point is in the second quadrant (x < 0, y > 0). Its reference angle satisfies tan(α) = 24/7, so α = arctan(24/7) ≈ 1.287, and the angle is π − 1.287 ≈ 1.85 radians. (Check: 25 cos(1.85) ≈ −6.9 and 25 sin(1.85) ≈ 24.0.)
+  - slug: alg2-final-q58
+    type: multiple_choice
+    topic_code: "6.11"
+    source: "IM Algebra 2, Unit 6, Lesson 11"
+    points: 1
+    prompt: |
+      What is cos(−π/3)?
+    options:
+      - "−√3/2"
+      - "√3/2"
+      - "−1/2"
+      - "1/2"
+    option_explanations:
+      - |
+        This is sin(−π/3), the y-coordinate of the point at −π/3. The cosine is the x-coordinate, 1/2.
+      - |
+        √3/2 is the magnitude of the sine at this angle, not the cosine. cos(π/3) = 1/2.
+      - |
+        A negative angle does not make the cosine negative. The point at −π/3 is in the fourth quadrant, where x is positive.
+      - |
+        Correct. Cosine is an even function, so cos(−π/3) = cos(π/3) = 1/2; the point at −π/3 is (1/2, −√3/2) and cosine is its x-coordinate.
+    answer: 3
+  - slug: alg2-final-q59
+    type: multiple_choice
+    topic_code: "6.12"
+    source: "IM Algebra 2, Unit 6, Lesson 12"
+    points: 1
+    prompt: |
+      What is tan(4π/3)?
+    options:
+      - "1/√3"
+      - "√3"
+      - "−1/2"
+      - "−√3"
+    option_explanations:
+      - |
+        1/√3 is tan(π/6); the reference angle here is π/3, so the magnitude is √3.
+      - |
+        Correct. 4π/3 is in the third quadrant, where sine and cosine are both negative: sin = −√3/2, cos = −1/2, and tan = sin/cos = √3.
+      - |
+        −1/2 is the cosine of 4π/3, not the tangent. Tangent is the ratio sine over cosine.
+      - |
+        Tangent is negative in the second and fourth quadrants. In the third quadrant both coordinates are negative, so their ratio is positive.
+    answer: 1
+  - slug: alg2-final-q60
+    type: multi_select
+    topic_code: "6.14"
+    source: "IM Algebra 2, Unit 6, Lesson 14"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Consider the function g(θ) = −4 sin(3θ) + 2. Which statements about its graph are true? Select all that apply.
+    options:
+      - "Its maximum value is 4"
+      - "Its period is 2π/3"
+      - "At θ = 0 the graph is at its minimum"
+      - "Its midline is y = 2"
+      - "Its amplitude is 4"
+    option_explanations:
+      - |
+        The maximum is midline plus amplitude, 2 + 4 = 6, not 4.
+      - |
+        Correct. Multiplying θ by 3 compresses the period from 2π to 2π/3.
+      - |
+        At θ = 0, sin(0) = 0, so g(0) = 2, the midline value; the graph is falling through the midline there because of the negative coefficient, not at its minimum.
+      - |
+        Correct. The constant +2 raises the midline from y = 0 to y = 2.
+      - |
+        Correct. The amplitude is the absolute value of the coefficient of the sine, |−4| = 4; the sign only reflects the graph.
+    answer: [1, 3, 4]
+  - slug: alg2-final-q61
+    type: true_false
+    topic_code: "6.17"
+    source: "IM Algebra 2, Unit 6, Lesson 17"
+    points: 1
+    prompt: |
+      True or false: the graph of y = cos θ is the graph of y = sin θ shifted π/2 to the left, so cos θ = sin(θ + π/2) for every θ.
+    answer: true
+    explanation: |
+      True. Sine reaches its maximum at π/2 and cosine at 0, so moving the sine graph π/2 to the left lines the two up; check θ = 0: sin(π/2) = 1 = cos(0).
+  - slug: alg2-final-q62
+    type: short_answer
+    topic_code: "6.19"
+    source: "IM Algebra 2, Unit 6, Lesson 19"
+    points: 3
+    prompt: |
+      In a certain city the longest day of the year has about 14.6 hours of daylight (day 172) and the shortest has about 9.4 hours (day 355). Let D(t) be the hours of daylight on day t of the year, modeled by a cosine function with a period of 365 days.
+      (a) Find the midline and amplitude of the model.
+      (b) Write a formula for D(t) that reaches its maximum on day 172.
+      (c) Use your model to estimate the daylight on day 0 (January 1), to one decimal place.
+    answer: |
+      (a) Midline (14.6 + 9.4)/2 = 12 hours; amplitude (14.6 − 9.4)/2 = 2.6 hours.
+      (b) D(t) = 12 + 2.6 cos(2π(t − 172)/365). The cosine is at its maximum when t = 172 and the period is 365.
+      (c) D(0) = 12 + 2.6 cos(−2π · 172/365) = 12 + 2.6 cos(−2.961) ≈ 12 + 2.6(−0.984) ≈ 9.4 hours, close to the shortest day, as expected for early January.
+    explanation: |
+      Three points, one per part. (a) midline 12, amplitude 2.6. (b) a cosine with amplitude 2.6, midline 12, period 365 and a horizontal shift of 172 (an equivalent sine form with the correct shift earns the point). (c) about 9.4 hours (accept 9.3–9.5), computed in radian mode.
+  # ---- Unit 7: Statistical Inferences (q63–q70) ----
+  - slug: alg2-final-q63
+    type: multiple_choice
+    topic_code: "7.5"
+    source: "IM Algebra 2, Unit 7, Lesson 5"
+    points: 1
+    stimulus: |
+      The lifetimes of a brand of battery are approximately normally distributed with mean 50 hours and standard deviation 4 hours. Use these areas under the standard normal curve to the left of z: z = −1 → 0.159, z = 1.5 → 0.933, z = 2 → 0.977.
+    prompt: |
+      About what percent of these batteries last between 42 and 58 hours?
+    options:
+      - "About 95%"
+      - "About 68%"
+      - "About 50%"
+      - "About 99.7%"
+    option_explanations:
+      - |
+        Correct. 42 = 50 − 2(4) and 58 = 50 + 2(4), and about 95% of a normal distribution lies within two standard deviations of the mean (0.977 − 0.023 = 0.954).
+      - |
+        68% is the share within one standard deviation, 46 to 54 hours. The interval 42 to 58 is two standard deviations on each side.
+      - |
+        Half the batteries last longer than the mean of 50, but the question asks for a symmetric interval around it, which captures much more than half.
+      - |
+        99.7% is the share within three standard deviations, 38 to 62 hours.
+    answer: 0
+  - slug: alg2-final-q64
+    type: multiple_choice
+    topic_code: "7.7"
+    source: "IM Algebra 2, Unit 7, Lesson 7"
+    points: 1
+    stimulus: |
+      The lifetimes of a brand of battery are approximately normally distributed with mean 50 hours and standard deviation 4 hours. Use these areas under the standard normal curve to the left of z: z = −1 → 0.159, z = 1.5 → 0.933, z = 2 → 0.977.
+    prompt: |
+      What proportion of the batteries last less than 46 hours?
+    options:
+      - "0.841"
+      - "0.159"
+      - "0.067"
+      - "0.341"
+    option_explanations:
+      - |
+        0.841 is the area to the left of z = +1, that is, the share lasting less than 54 hours. For 46 hours the z-score is −1.
+      - |
+        Correct. 46 hours is z = (46 − 50)/4 = −1, and the area to the left of z = −1 is 0.159, so about 15.9% of batteries fail before 46 hours.
+      - |
+        0.067 is the area beyond 1.5 standard deviations (below 44 hours), not below 46.
+      - |
+        0.341 is the area between the mean and one standard deviation below it; the question asks for everything below 46, which is the left tail.
+    answer: 1
+  - slug: alg2-final-q65
+    type: numeric
+    topic_code: "7.7"
+    source: "IM Algebra 2, Unit 7, Lesson 7"
+    points: 1
+    stimulus: |
+      The lifetimes of a brand of battery are approximately normally distributed with mean 50 hours and standard deviation 4 hours. Use these areas under the standard normal curve to the left of z: z = −1 → 0.159, z = 1.5 → 0.933, z = 2 → 0.977.
+    prompt: |
+      What proportion of the batteries last between 46 and 56 hours? Give your answer as a decimal to three places.
+    answer: { value: 0.774, tolerance: 0.005 }
+    explanation: |
+      46 hours is z = −1 and 56 hours is z = (56 − 50)/4 = 1.5. The area between them is 0.933 − 0.159 = 0.774.
+  - slug: alg2-final-q66
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "IM Algebra 2, Unit 7, Lesson 2"
+    points: 1
+    prompt: |
+      A researcher wants to know whether a new fertilizer increases tomato yield. She randomly assigns 40 plants to receive the fertilizer and 40 plants to receive none, then compares the yields. What kind of study is this, and what does it allow her to conclude?
+    options:
+      - "A sample survey; she can generalize to all tomato plants but not claim causation"
+      - "An observational study; she can describe an association but cannot claim the fertilizer caused it"
+      - "An experiment; but because only 80 plants were used, nothing can be concluded"
+      - "An experiment; because the treatment was randomly assigned, a large difference can be attributed to the fertilizer"
+    option_explanations:
+      - |
+        A survey collects responses from a sample of a population; no treatment is given. Random assignment of a treatment is the hallmark of an experiment.
+      - |
+        An observational study records what already happens without assigning a treatment. Here the researcher chose at random which plants got fertilizer, so this is an experiment.
+      - |
+        Sample size affects how large a difference must be to stand out from chance, but 80 randomly assigned plants is a perfectly usable experiment.
+      - |
+        Correct. The researcher imposed the treatment and assigned it at random, which balances other influences between the groups; a difference larger than random assignment alone would produce supports a causal claim.
+    answer: 3
+  - slug: alg2-final-q67
+    type: true_false
+    topic_code: "7.10"
+    source: "IM Algebra 2, Unit 7, Lesson 10"
+    points: 1
+    prompt: |
+      True or false: in this course, the margin of error for an estimate is taken to be twice the standard deviation of the sample statistics from many random samples of the same size, so that about 95% of such samples give a statistic within the margin of error of the population value.
+    answer: true
+    explanation: |
+      True. The sample proportions (or means) from repeated random samples are approximately normal, and about 95% of a normal distribution lies within two standard deviations of its center, which is the population value.
+  - slug: alg2-final-q68
+    type: numeric
+    topic_code: "7.11"
+    source: "IM Algebra 2, Unit 7, Lesson 11"
+    points: 1
+    prompt: |
+      Random samples of 100 students give sample proportions whose margin of error is 0.12. If the sample size is increased to 400 students, what is the new margin of error? Give your answer as a decimal to two places.
+    answer: { value: 0.06, tolerance: 0.005 }
+    explanation: |
+      The standard deviation of sample proportions shrinks in proportion to the square root of the sample size. Quadrupling the sample size (100 → 400) multiplies the spread by 1/√4 = 1/2, so the margin of error halves from 0.12 to 0.06.
+  - slug: alg2-final-q69
+    type: numeric
+    topic_code: "7.4"
+    source: "IM Algebra 2, Unit 7, Lesson 4"
+    points: 1
+    prompt: |
+      A sample of six quiz scores is 4, 9, 2, 7, 5, 8. What is the median? Give the exact value.
+    answer: { value: 6, tolerance: 0 }
+    explanation: |
+      In order the scores are 2, 4, 5, 7, 8, 9. With an even count the median is the mean of the two middle values: (5 + 7)/2 = 6.
+  - slug: alg2-final-q70
+    type: long_answer
+    topic_code: "7.14"
+    source: "IM Algebra 2, Unit 7, Lesson 14"
+    points: 6
+    prompt: |
+      Thirty volunteers with mild headaches were randomly assigned to two groups of 15. One group took a new pain reliever and the other took a placebo pill that looked identical; neither the volunteers nor the nurse recording results knew who had which. After an hour each person rated their pain relief on a 0–10 scale. The treatment group's mean rating was 6.4 and the placebo group's was 4.6, a difference of 1.8. The researchers then re-randomized the 30 ratings into two groups of 15 many times with a computer and recorded the difference in means each time; those differences were approximately normal with mean 0 and standard deviation 1.1.
+      Write a full response that (1) explains why this is an experiment and what the random assignment, the placebo and the blinding each accomplish, (2) explains what the re-randomization distribution represents, (3) uses the standard deviation of 1.1 to decide whether the observed difference of 1.8 is unusual enough to attribute to the pain reliever, showing your reasoning, and (4) states the conclusion carefully, including one limitation of the study.
+    answer: |
+      (1) It is an experiment because the researchers imposed a treatment and chose at random who received it. Random assignment spreads other influences (age, headache severity, expectations) evenly across the groups so that the only systematic difference is the pill. The placebo makes the two groups' experiences identical except for the active ingredient, so any difference is not just the effect of taking a pill. Blinding both the volunteers and the nurse keeps expectations from shaping the ratings or the recording.
+      (2) The re-randomization distribution shows what differences in means arise from the random grouping alone when the treatment has no effect: if the pill did nothing, the 30 ratings would be the same whichever group each person landed in, so shuffling them into two groups of 15 shows the spread of differences that chance alone produces. It is centered at 0 with standard deviation 1.1.
+      (3) The observed difference of 1.8 is 1.8/1.1 ≈ 1.6 standard deviations above 0. Using the usual cutoff of about two standard deviations (roughly the middle 95% of a normal distribution), 1.8 is inside the range that random assignment alone could produce fairly often (a difference at least this large in either direction would occur in roughly 10% of random groupings). So the result is suggestive but not strong enough to attribute to the pain reliever.
+      (4) Conclusion: the treatment group reported more relief on average, but the difference is not large enough, compared with the variation from random assignment, to rule out chance; the study does not establish that the pain reliever works better than a placebo. Limitations: only 15 people per group gives a wide chance distribution, so a real but modest effect could easily be missed; the volunteers were self-selected with mild headaches, so the result may not generalize; self-reported pain ratings are subjective.
+    explanation: |
+      Six points: 1 for identifying an experiment with the roles of random assignment, placebo and blinding in (1); 1 for explaining the re-randomization distribution as the chance-only differences in (2); 2 for comparing 1.8 with 1.1 (about 1.6 standard deviations, under the two-standard-deviation cutoff) and concluding that chance is not ruled out in (3); 2 for a carefully worded conclusion that does not overclaim plus at least one sensible limitation in (4). A response that uses a different stated cutoff consistently and reaches a defensible conclusion earns full credit for (3).

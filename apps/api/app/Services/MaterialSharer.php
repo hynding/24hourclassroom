@@ -35,7 +35,7 @@ final class MaterialSharer
             // cannot classify ids (decision 6). Allowlist on role: a denylist
             // over an open enum breaks the next time the enum grows.
             $eligible = $target !== null
-                && in_array($target->role, [Role::Teacher, Role::Student], true)
+                && $target->role->receivesShares()
                 && $target->isActive()
                 && $target->id !== $author->id
                 && Connection::acceptedBetween($author, $target);

@@ -1,0 +1,893 @@
+unit: 7
+description: |
+  40 questions · about 75 minutes · every topic of unit 7 (7.1 to 7.6: exothermic and endothermic reactions,
+  calorimetry, Hess's law and enthalpies of formation, reaction rates and collision theory, rate factors and
+  catalysts, equilibrium and Le Châtelier's principle), with review of heat and temperature (1.6), the mole (4.4)
+  and heating curves (5.5). Two data sets (a dissolving in a calorimeter and the NO₂/N₂O₄ equilibrium) each carry
+  three questions. Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank
+  items are matched automatically; the short answers and the long answer are graded by your teacher against the
+  scoring notes. Constants: water c = 4.184 J/(g·°C); molar masses H 1.008, N 14.01, O 16.00 g/mol.
+questions:
+  # ---- Stimulus set A: ammonium nitrate dissolving in a calorimeter (7.1, 7.2)
+  - slug: chem-u07-exam-q01
+    type: multiple_choice
+    topic_code: "7.1"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A student dissolves 8.00 g of ammonium nitrate (NH₄NO₃, molar mass 80.04 g/mol) in 100.0 g of water in a coffee-cup calorimeter. The temperature of the water falls from 22.0 °C to 16.4 °C. Assume the solution has the specific heat of water, 4.184 J/(g·°C), and that the cup absorbs no heat.
+    prompt: |
+      What does the temperature change tell you about the dissolving of ammonium nitrate?
+    options:
+      - "It is exothermic, because heat left the system."
+      - "It is endothermic, because the system absorbed heat from the water and ΔH is positive."
+      - "It is exothermic, because the water lost heat."
+      - "It involves no energy change, because dissolving is a physical process."
+    option_explanations:
+      - |
+        Heat left the water, which is the surroundings, and entered the dissolving salt, which is the system; that is an endothermic process.
+      - |
+        Correct. The water cooled, so it gave heat to the dissolving process. The system gained heat, ΔH > 0, and the pack-style cooling is the sign of an endothermic change.
+      - |
+        The water did lose heat, but the water is the surroundings; a system that takes heat from its surroundings is endothermic.
+      - |
+        Dissolving can absorb or release heat; ammonium nitrate is the classic endothermic case used in cold packs.
+    answer: 1
+    explanation: |
+      The system is the dissolving salt; the water is its surroundings. Surroundings cooling means the system absorbed heat: endothermic, ΔH positive.
+
+  - slug: chem-u07-exam-q02
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A student dissolves 8.00 g of ammonium nitrate (NH₄NO₃, molar mass 80.04 g/mol) in 100.0 g of water in a coffee-cup calorimeter. The temperature of the water falls from 22.0 °C to 16.4 °C. Assume the solution has the specific heat of water, 4.184 J/(g·°C), and that the cup absorbs no heat.
+    prompt: |
+      How much heat did the water lose?
+    options:
+      - "23.4 J"
+      - "418 J"
+      - "9,200 J"
+      - "2,340 J"
+    option_explanations:
+      - |
+        This uses the temperature change without the mass or the specific heat; q needs all three factors.
+      - |
+        418 J would be the heat for a 1 °C change in 100 g of water; the change here is 5.6 °C.
+      - |
+        This multiplies by the final temperature instead of the temperature change; ΔT is 5.6 °C, not 22 °C.
+      - |
+        Correct. q = m × c × ΔT = 100.0 g × 4.184 J/(g·°C) × 5.6 °C = 2,343 J, about 2,340 J lost by the water.
+    answer: 3
+    explanation: |
+      q = mcΔT with ΔT = 22.0 − 16.4 = 5.6 °C gives 2,343 J. The water lost this heat; the dissolving absorbed it.
+
+  - slug: chem-u07-exam-q03
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      A student dissolves 8.00 g of ammonium nitrate (NH₄NO₃, molar mass 80.04 g/mol) in 100.0 g of water in a coffee-cup calorimeter. The temperature of the water falls from 22.0 °C to 16.4 °C. Assume the solution has the specific heat of water, 4.184 J/(g·°C), and that the cup absorbs no heat.
+    prompt: |
+      What is the enthalpy change for dissolving ammonium nitrate, in kJ per mole?
+    options:
+      - "+23.4 kJ/mol"
+      - "−23.4 kJ/mol"
+      - "+2.34 kJ/mol"
+      - "+293 kJ/mol"
+    option_explanations:
+      - |
+        Correct. Moles = 8.00 g ÷ 80.04 g/mol = 0.0999 mol. ΔH = +2,343 J ÷ 0.0999 mol = +23,400 J/mol = +23.4 kJ/mol, positive because the process absorbed heat.
+      - |
+        The magnitude is right but the sign is wrong: the water cooled, so the dissolving absorbed heat and ΔH is positive.
+      - |
+        This divides the heat in kJ by the mass in grams rather than by the moles; 8.00 g is only about 0.1 mol.
+      - |
+        This multiplies by the molar mass instead of dividing the mass by it; ΔH per mole uses the number of moles dissolved.
+    answer: 0
+    explanation: |
+      ΔH = q(system) ÷ n = +2,343 J ÷ 0.0999 mol = +23.4 kJ/mol (the accepted value is about +26 kJ/mol; heat from the cup makes a student's result smaller).
+
+  # ---- Stimulus set B: the NO₂ / N₂O₄ equilibrium (7.6)
+  - slug: chem-u07-exam-q04
+    type: multiple_choice
+    topic_code: "7.6"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Brown nitrogen dioxide and colourless dinitrogen tetroxide are in equilibrium in a sealed gas syringe at room temperature:
+
+      2NO₂(g) ⇌ N₂O₄(g), ΔH = −58 kJ
+    prompt: |
+      Which is the correct equilibrium constant expression for the reaction as written?
+    options:
+      - "Kc = [NO₂]² ÷ [N₂O₄]"
+      - "Kc = 2[NO₂] ÷ [N₂O₄]"
+      - "Kc = [N₂O₄] ÷ [NO₂]²"
+      - "Kc = [N₂O₄] ÷ 2[NO₂]"
+    option_explanations:
+      - |
+        This is the expression for the reverse reaction, N₂O₄ ⇌ 2NO₂; products go on top for the reaction as written.
+      - |
+        Coefficients become exponents, not multipliers, and the product N₂O₄ belongs in the numerator.
+      - |
+        Correct. The product N₂O₄ is on top; the reactant NO₂ is on the bottom raised to its coefficient of 2.
+      - |
+        The coefficient 2 must appear as the exponent on [NO₂], not as a multiplier.
+    answer: 2
+    explanation: |
+      Kc = [products]^coefficients ÷ [reactants]^coefficients = [N₂O₄] ÷ [NO₂]².
+
+  - slug: chem-u07-exam-q05
+    type: multiple_choice
+    topic_code: "7.6"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Brown nitrogen dioxide and colourless dinitrogen tetroxide are in equilibrium in a sealed gas syringe at room temperature:
+
+      2NO₂(g) ⇌ N₂O₄(g), ΔH = −58 kJ
+    prompt: |
+      The plunger is pushed in, halving the volume, and the syringe is kept at constant temperature. After the initial darkening caused by squeezing the gas into less space, what is observed, and why?
+    options:
+      - "The colour stays as dark as it became, because the equilibrium does not respond to volume."
+      - "The colour becomes lighter than it was immediately after compression, because the equilibrium shifts toward N₂O₄, the side with fewer gas moles."
+      - "The colour becomes darker still, because the equilibrium shifts toward NO₂ to use up the added pressure."
+      - "The colour disappears completely, because all the NO₂ is converted."
+    option_explanations:
+      - |
+        Two gas moles become one in this reaction, so a volume change does shift the equilibrium.
+      - |
+        Correct. Compressing raises the pressure; the system shifts toward fewer gas moles (N₂O₄), converting some brown NO₂ into colourless N₂O₄ and lightening the colour partway back.
+      - |
+        A shift toward NO₂ would increase the number of molecules and raise the pressure further, the opposite of counteracting the change.
+      - |
+        The shift is partial; Kc still requires some NO₂ to be present at the new, higher pressure.
+    answer: 1
+    explanation: |
+      Le Châtelier: increased pressure shifts toward the side with fewer gas moles. Here that lightens the colour, though not all the way back.
+
+  - slug: chem-u07-exam-q06
+    type: multiple_choice
+    topic_code: "7.6"
+    source: "general knowledge"
+    points: 1
+    stimulus: |
+      Brown nitrogen dioxide and colourless dinitrogen tetroxide are in equilibrium in a sealed gas syringe at room temperature:
+
+      2NO₂(g) ⇌ N₂O₄(g), ΔH = −58 kJ
+    prompt: |
+      The syringe is placed in ice water. What happens to the colour and to Kc?
+    options:
+      - "The colour darkens and Kc decreases."
+      - "The colour darkens and Kc is unchanged."
+      - "The colour lightens and Kc is unchanged."
+      - "The colour lightens and Kc increases."
+    option_explanations:
+      - |
+        Cooling an exothermic reaction favours the forward direction, which produces colourless N₂O₄, so the colour lightens; Kc rises, not falls.
+      - |
+        The direction is wrong for cooling an exothermic reaction, and temperature always changes Kc.
+      - |
+        The colour change is right, but temperature is the one change that alters Kc; a shift toward products means a larger Kc.
+      - |
+        Correct. The forward reaction is exothermic, so heat is a product; removing heat shifts the equilibrium right toward colourless N₂O₄, and the product-favouring Kc increases.
+    answer: 3
+    explanation: |
+      Cooling favours the exothermic direction. Here that is the forward reaction, so the mixture lightens and Kc increases.
+
+  # ---- Singles
+  - slug: chem-u07-exam-q07
+    type: multiple_choice
+    topic_code: "7.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      For 2H₂(g) + O₂(g) → 2H₂O(g), ΔH = −483.6 kJ. What is ΔH for H₂O(g) → H₂(g) + ½O₂(g)?
+    options:
+      - "+241.8 kJ"
+      - "−241.8 kJ"
+      - "+483.6 kJ"
+      - "−967.2 kJ"
+    option_explanations:
+      - |
+        Correct. The target is reversed (sign flips to +483.6 kJ) and halved (+241.8 kJ).
+      - |
+        The equation is reversed, so the sign must change from negative to positive.
+      - |
+        The sign is right but the target equation involves one mole of water, half of the given equation.
+      - |
+        This doubles the magnitude and keeps the wrong sign; the target is reversed and halved.
+    answer: 0
+    explanation: |
+      Reverse: +483.6 kJ. Halve: +241.8 kJ. Decomposing one mole of water vapour absorbs 241.8 kJ.
+
+  - slug: chem-u07-exam-q08
+    type: multiple_choice
+    topic_code: "7.1"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      On an energy diagram the reactants are drawn at 100 kJ, the peak at 250 kJ and the products at 160 kJ. Which description is correct?
+    options:
+      - "Exothermic, ΔH = −60 kJ, Ea = 150 kJ"
+      - "Exothermic, ΔH = −90 kJ, Ea = 250 kJ"
+      - "Endothermic, ΔH = +60 kJ, Ea = 150 kJ"
+      - "Endothermic, ΔH = +150 kJ, Ea = 60 kJ"
+    option_explanations:
+      - |
+        The products are above the reactants, so the reaction absorbs energy and ΔH is positive.
+      - |
+        The sign and the value of ΔH are wrong, and Ea is measured from the reactants' level (250 − 100), not from zero.
+      - |
+        Correct. Products above reactants means endothermic; ΔH = 160 − 100 = +60 kJ; Ea = 250 − 100 = 150 kJ.
+      - |
+        The two numbers are swapped: ΔH is the product-reactant difference (60 kJ) and Ea is the climb to the peak (150 kJ).
+    answer: 2
+    explanation: |
+      ΔH = products − reactants = +60 kJ (endothermic). Ea(forward) = peak − reactants = 150 kJ.
+
+  - slug: chem-u07-exam-q09
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Equal masses of water (c = 4.184 J/(g·°C)) and copper (c = 0.385 J/(g·°C)) each absorb 1,000 J of heat. Which statement is correct?
+    options:
+      - "Both warm by the same amount, because they absorbed the same heat."
+      - "The copper warms about eleven times as much as the water, because its specific heat is lower."
+      - "The water warms more, because it has a higher specific heat."
+      - "The copper warms less, because metals conduct heat away."
+    option_explanations:
+      - |
+        The temperature rise depends on specific heat as well as heat and mass; equal heat gives unequal rises.
+      - |
+        Correct. ΔT = q ÷ (m × c); with q and m equal, ΔT is inversely proportional to c, and 4.184 ÷ 0.385 is about 11.
+      - |
+        A higher specific heat means more heat is needed per degree, so the water warms less, not more.
+      - |
+        Conduction affects how fast heat spreads, not the final temperature rise for a given amount absorbed; copper's low specific heat makes it warm more.
+    answer: 1
+    explanation: |
+      Specific heat is the heat needed to warm 1 g by 1 °C. The lower the specific heat, the larger the temperature rise for the same heat.
+
+  - slug: chem-u07-exam-q10
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      In the method of mixtures, a hot metal is dropped into cool water in an insulated cup and the final temperature is recorded. Which relationship is the basis of the calculation?
+    options:
+      - "The metal and the water end at different temperatures proportional to their specific heats."
+      - "The heat lost by the metal equals the heat lost by the water."
+      - "The temperature change of the metal equals the temperature change of the water."
+      - "The heat lost by the metal equals the heat gained by the water, assuming no loss to the surroundings."
+    option_explanations:
+      - |
+        At the end both are at the same temperature; thermal equilibrium is the whole point of waiting for the final reading.
+      - |
+        The water gains heat while the metal loses it; the two quantities are equal in size and opposite in sign.
+      - |
+        The temperature changes are usually very different, because the masses and specific heats differ; it is the heats that match.
+      - |
+        Correct. Energy is conserved: −q(metal) = q(water), so m(metal) × c(metal) × ΔT(metal) = −m(water) × 4.184 × ΔT(water), which is solved for c(metal).
+    answer: 3
+    explanation: |
+      Conservation of energy in an insulated system: the heat the metal loses is the heat the water gains. Both reach the same final temperature.
+
+  - slug: chem-u07-exam-q11
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      To find ΔH for C(graphite) + ½O₂(g) → CO(g) from C(graphite) + O₂(g) → CO₂(g), ΔH = −393.5 kJ, and CO(g) + ½O₂(g) → CO₂(g), ΔH = −283.0 kJ, what must be done to the second equation?
+    options:
+      - "Reverse it, so that CO appears on the product side, and change the sign of its ΔH to +283.0 kJ."
+      - "Double it, so that the oxygen cancels, and double its ΔH."
+      - "Leave it unchanged and add the two ΔH values."
+      - "Reverse it but keep its ΔH as −283.0 kJ, since enthalpy is a state function."
+    option_explanations:
+      - |
+        Correct. The target has CO as a product; the second equation has it as a reactant, so it is reversed and its ΔH becomes +283.0 kJ. Adding gives −393.5 + 283.0 = −110.5 kJ.
+      - |
+        Doubling does not move CO to the product side; the oxygen does not need to cancel but to net to ½O₂ on the left.
+      - |
+        Adding as written would give the sum of two combustion reactions, not the formation of CO.
+      - |
+        Reversing a reaction always reverses the sign of its ΔH; the state-function property is what makes adding the steps valid, not a reason to keep the sign.
+    answer: 0
+    explanation: |
+      Hess's law move: reverse the second equation (ΔH → +283.0 kJ) and add. CO₂ cancels and the sum is −110.5 kJ.
+
+  - slug: chem-u07-exam-q12
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which of these has a standard enthalpy of formation of zero?
+    options:
+      - "H₂O(l)"
+      - "O₃(g)"
+      - "N₂(g)"
+      - "CO₂(g)"
+    option_explanations:
+      - |
+        Water is a compound; its ΔH°f is −285.8 kJ/mol.
+      - |
+        Ozone is an element but not oxygen's standard state (O₂); its ΔH°f is +142.7 kJ/mol.
+      - |
+        Correct. Nitrogen gas is the stable form of the element at 1 bar and 25 °C, the reference point of the formation scale.
+      - |
+        Carbon dioxide is a compound; its ΔH°f is −393.5 kJ/mol.
+    answer: 2
+    explanation: |
+      Only elements in their standard states have ΔH°f = 0. N₂(g) qualifies; compounds and non-standard forms such as ozone do not.
+
+  - slug: chem-u07-exam-q13
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Using ΔH°f values of −74.8 kJ/mol for CH₄(g), −393.5 kJ/mol for CO₂(g) and −285.8 kJ/mol for H₂O(l), what is ΔH° for CH₄(g) + 2O₂(g) → CO₂(g) + 2H₂O(l)?
+    options:
+      - "−604.5 kJ"
+      - "−890.3 kJ"
+      - "−1,039.9 kJ"
+      - "+890.3 kJ"
+    option_explanations:
+      - |
+        This uses one mole of water instead of two; the coefficient 2 multiplies the water value.
+      - |
+        Correct. Products: −393.5 + 2(−285.8) = −965.1 kJ. Reactants: −74.8 + 0. ΔH° = −965.1 − (−74.8) = −890.3 kJ.
+      - |
+        This adds the methane value rather than subtracting it: reactants are subtracted from products.
+      - |
+        The magnitude is right but combustion is exothermic; products minus reactants gives a negative value.
+    answer: 1
+    explanation: |
+      ΔH° = [(−393.5) + 2(−285.8)] − [(−74.8) + 2(0)] = −890.3 kJ, the standard heat of combustion of methane.
+
+  - slug: chem-u07-exam-q14
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A student estimates ΔH for a gas-phase reaction from average bond energies and gets −185 kJ; the tabulated value is −184.6 kJ. For a reaction that produces an ionic solid the same method gives an answer hundreds of kJ off. Why?
+    options:
+      - "Bond energies apply only to reactions that are endothermic."
+      - "The student must have made an arithmetic error in the second calculation."
+      - "Ionic compounds have no bonds, so there is nothing to subtract."
+      - "Bond energies are averages for bonds in gaseous molecules and leave out the lattice energy of an ionic solid."
+    option_explanations:
+      - |
+        The method works for exothermic and endothermic gas reactions alike; the sign of ΔH is not the issue.
+      - |
+        The discrepancy is built into the method, not the arithmetic: a lattice is not a collection of molecular bonds.
+      - |
+        Ionic compounds are held together by very strong attractions among many ions; the point is that those are not the molecular bonds the table describes.
+      - |
+        Correct. The method counts bonds within discrete molecules; the energy of an ionic lattice is not a sum of such bonds, so the estimate misses it entirely.
+    answer: 3
+    explanation: |
+      Bond-energy estimates are approximate even for gases (average values) and inapplicable to ionic solids, whose lattice energy the method cannot represent.
+
+  - slug: chem-u07-exam-q15
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      In a reaction that produces oxygen gas, 36 mL is collected in the first 30 s, and the total reaches 60 mL at 90 s. What is the average rate over the interval from 30 s to 90 s?
+    options:
+      - "0.40 mL/s"
+      - "1.2 mL/s"
+      - "0.67 mL/s"
+      - "2.0 mL/s"
+    option_explanations:
+      - |
+        Correct. Volume produced between 30 s and 90 s is 60 − 36 = 24 mL over 60 s: 24 ÷ 60 = 0.40 mL/s.
+      - |
+        1.2 mL/s is the rate over the first 30 s (36 ÷ 30); the question asks about the later interval, when the rate has fallen.
+      - |
+        0.67 mL/s is the average over the whole 90 s (60 ÷ 90), not over the 30–90 s interval.
+      - |
+        2.0 mL/s would be 60 mL over 30 s; both the volume change and the time interval are wrong for this choice.
+    answer: 0
+    explanation: |
+      Average rate = change in volume ÷ time interval = 24 mL ÷ 60 s = 0.40 mL/s. Rate falls as the reactant is used up.
+
+  - slug: chem-u07-exam-q16
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which collision between reactant particles will produce products?
+    options:
+      - "Any collision, because particles react whenever they touch."
+      - "A collision with high energy, whatever the orientation."
+      - "A collision with energy at least equal to the activation energy and the correct orientation."
+      - "A collision between two particles moving in the same direction."
+    option_explanations:
+      - |
+        Most collisions are ineffective; if every collision reacted, reactions would finish in microseconds.
+      - |
+        Energy is necessary but not sufficient; the reacting atoms must also meet in the right positions.
+      - |
+        Correct. Collision theory requires both enough energy to reach the activated complex and an orientation that lets the new bonds form.
+      - |
+        Direction of travel has nothing to do with it; what matters is the energy and the geometry at the moment of impact.
+    answer: 2
+    explanation: |
+      Effective collisions need energy ≥ Ea and the right orientation. The rate is the rate of effective collisions.
+
+  - slug: chem-u07-exam-q17
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A reaction has Ea(forward) = 50 kJ and ΔH = +20 kJ. What is Ea(reverse)?
+    options:
+      - "70 kJ"
+      - "30 kJ"
+      - "50 kJ"
+      - "20 kJ"
+    option_explanations:
+      - |
+        70 kJ would apply if ΔH were −20 kJ (products below the reactants); here the products are above.
+      - |
+        Correct. The products are 20 kJ above the reactants, so from the products the peak is only 50 − 20 = 30 kJ up.
+      - |
+        The forward and reverse activation energies are equal only when ΔH is zero.
+      - |
+        20 kJ is ΔH, the difference between products and reactants, not an activation energy.
+    answer: 1
+    explanation: |
+      Ea(reverse) = Ea(forward) − ΔH = 50 − 20 = 30 kJ. An endothermic forward reaction has an easier reverse.
+
+  - slug: chem-u07-exam-q18
+    type: multiple_choice
+    topic_code: "7.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which best explains why raising the temperature increases the rate of a reaction?
+    options:
+      - "It lowers the activation energy."
+      - "It makes the reaction more exothermic."
+      - "It increases the concentration of the reactants."
+      - "It raises the fraction of collisions with energy above the activation energy, and makes collisions somewhat more frequent."
+    option_explanations:
+      - |
+        Ea is fixed by the pathway; temperature changes how many particles can reach it, not its height.
+      - |
+        ΔH is almost unaffected by temperature and does not govern rate in any case.
+      - |
+        Concentration is unchanged by heating (in a closed vessel); the effect is on particle energies.
+      - |
+        Correct. The energy distribution shifts so that many more collisions exceed Ea; the slight increase in collision frequency is the smaller part of the effect.
+    answer: 3
+    explanation: |
+      Temperature acts mainly through the fraction of effective collisions, which is why a 10 °C rise can double the rate.
+
+  - slug: chem-u07-exam-q19
+    type: multiple_choice
+    topic_code: "7.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which statement about a catalyst is correct?
+    options:
+      - "It increases the amount of product formed at equilibrium."
+      - "It is used up during the reaction."
+      - "It provides an alternative pathway with a lower activation energy and is unchanged at the end."
+      - "It raises the kinetic energy of the reactant particles."
+    option_explanations:
+      - |
+        A catalyst changes the time taken to reach the final amount, not the amount itself.
+      - |
+        A catalyst takes part but is regenerated; the same mass is present at the end.
+      - |
+        Correct. The lower-Ea route lets a larger fraction of existing collisions succeed; the catalyst is recovered unchanged.
+      - |
+        Particle energies depend on temperature, which a catalyst does not alter; it moves the Ea line, not the energy distribution.
+    answer: 2
+    explanation: |
+      Catalyst: lower Ea, same ΔH, same products, same equilibrium, faster. Not consumed.
+
+  - slug: chem-u07-exam-q20
+    type: multiple_choice
+    topic_code: "7.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Two identical samples of zinc, one a lump and one a powder, react with equal volumes of the same acid, the zinc being the limiting reactant. Which graph description of hydrogen volume against time is correct?
+    options:
+      - "The powder's curve is steeper and reaches the same plateau sooner."
+      - "The powder's curve is steeper and reaches a higher plateau."
+      - "The two curves are identical, because the mass of zinc is the same."
+      - "The lump's curve is steeper, because a lump is more concentrated."
+    option_explanations:
+      - |
+        Correct. Surface area raises the rate (steeper start) but not the amount of product (same plateau), which is fixed by the limiting zinc.
+      - |
+        The plateau is set by the moles of zinc, which are equal; only the slope differs.
+      - |
+        Equal mass gives equal product but not equal rate; the powder exposes far more surface to collisions.
+      - |
+        "Concentration" does not apply to a solid lump; the lump has less exposed surface and reacts more slowly.
+    answer: 0
+    explanation: |
+      Rate factors change the slope; the limiting reactant sets the plateau. Same zinc, same hydrogen, different time.
+
+  - slug: chem-u07-exam-q21
+    type: multiple_choice
+    topic_code: "7.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Which statement is true of a reversible reaction that has reached equilibrium in a closed container?
+    options:
+      - "The forward reaction has stopped and only the reverse reaction continues."
+      - "The forward and reverse reactions continue at equal rates and the concentrations no longer change."
+      - "The reactants have been completely converted into products."
+      - "The concentrations of all reactants and products are equal."
+    option_explanations:
+      - |
+        Both reactions continue; neither stops at equilibrium.
+      - |
+        Correct. Equal opposing rates keep every concentration constant while both reactions go on; this is what dynamic equilibrium means.
+      - |
+        Complete conversion is the opposite of equilibrium; both reactants and products remain.
+      - |
+        Concentrations are constant, not equal; the value of Kc fixes their ratio.
+    answer: 1
+    explanation: |
+      Dynamic equilibrium: ongoing opposite reactions at equal rates, constant concentrations, closed system.
+
+  - slug: chem-u07-exam-q22
+    type: multiple_choice
+    topic_code: "7.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Reaction X has Kc = 2 × 10⁸ and reaction Y has Kc = 5 × 10⁻⁹ at the same temperature. Which comparison is correct?
+    options:
+      - "X is much faster than Y."
+      - "Y produces far more product than X."
+      - "Both reactions reach equilibrium with roughly equal amounts of reactants and products."
+      - "At equilibrium X consists almost entirely of products and Y almost entirely of reactants."
+    option_explanations:
+      - |
+        Kc says nothing about speed; a reaction with an enormous Kc can be extremely slow.
+      - |
+        A tiny Kc means almost no product at equilibrium; Y makes far less than X.
+      - |
+        Roughly equal amounts correspond to Kc near 1; these values are eight orders of magnitude away from 1 in opposite directions.
+      - |
+        Correct. Kc far above 1 means the numerator (products) dominates; Kc far below 1 means the denominator (reactants) dominates.
+    answer: 3
+    explanation: |
+      The size of Kc tells where the equilibrium lies, not how quickly it is reached.
+
+  - slug: chem-u07-exam-q23
+    type: multiple_choice
+    topic_code: "1.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A bathtub of warm water at 40 °C and a cup of boiling water at 100 °C are compared. Which statement is correct?
+    options:
+      - "The cup contains more thermal energy because its temperature is higher."
+      - "The two contain the same thermal energy because both are water."
+      - "The bathtub contains more thermal energy, although the average kinetic energy of its particles is lower."
+      - "Temperature and thermal energy are the same quantity measured in different units."
+    option_explanations:
+      - |
+        Temperature measures the average energy per particle, not the total; the tub has vastly more particles.
+      - |
+        Thermal energy depends on the amount of substance as well as its temperature, and the amounts differ enormously.
+      - |
+        Correct. Review of 1.6: temperature is the average kinetic energy of the particles (higher in the cup), while thermal energy is the total (far higher in the tub because of its mass).
+      - |
+        Temperature is an intensive measure of average particle energy; heat and thermal energy are extensive amounts in joules.
+    answer: 2
+    explanation: |
+      Review of 1.6: temperature is average particle kinetic energy; thermal energy is the total and scales with mass, which is why q = mcΔT includes m.
+
+  - slug: chem-u07-exam-q24
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      On a heating curve for water, the temperature stays at 100 °C while the liquid boils even though heat is being added steadily. Where is the added energy going?
+    options:
+      - "Into overcoming the attractions between molecules so they can separate into a gas, raising potential energy rather than kinetic energy."
+      - "Into speeding up the molecules, which is why steam is hotter than water."
+      - "Into breaking the O–H bonds inside the water molecules."
+      - "It is lost to the surroundings, so none of it reaches the water."
+    option_explanations:
+      - |
+        Correct. Review of 5.5: during a phase change the energy goes into separating molecules against intermolecular forces, so the temperature (average kinetic energy) stays constant until the change is complete.
+      - |
+        Average kinetic energy is what temperature measures, and the temperature is not rising during boiling.
+      - |
+        Covalent O–H bonds stay intact when water boils; only the attractions between molecules are overcome.
+      - |
+        Heat is reaching the water; it is being used for the phase change, which is why boiling continues.
+    answer: 0
+    explanation: |
+      Review of 5.5: the flat parts of a heating curve are phase changes, where added heat raises potential energy (molecules separating) and the heat of vaporisation, not the temperature.
+
+  # ---- Multi-select
+  - slug: chem-u07-exam-q25
+    type: multi_select
+    topic_code: "7.3"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about enthalpy changes are correct? Select all that apply.
+    options:
+      - "Reversing a reaction changes the sign of ΔH."
+      - "Doubling the coefficients of an equation doubles its ΔH."
+      - "The ΔH of a reaction depends on the number of steps it takes."
+      - "An element in its standard state has ΔH°f = 0."
+      - "Breaking bonds releases energy."
+      - "ΔH°rxn = Σ n·ΔH°f(products) − Σ n·ΔH°f(reactants)."
+    option_explanations:
+      - |
+        Correct. The reverse process exchanges heat in the opposite direction.
+      - |
+        Correct. ΔH belongs to the amounts written; twice the amounts means twice the heat.
+      - |
+        Enthalpy is a state function; the path, however many steps, does not change ΔH. That is Hess's law.
+      - |
+        Correct. The standard state of each element is the zero of the formation scale.
+      - |
+        Breaking bonds always costs energy; forming bonds releases it.
+      - |
+        Correct. Products minus reactants, each weighted by its coefficient.
+    answer: [0, 1, 3, 5]
+    explanation: |
+      The two false statements are the two classic misconceptions: that the path matters, and that breaking bonds releases energy.
+
+  - slug: chem-u07-exam-q26
+    type: multi_select
+    topic_code: "7.5"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A marble chip (calcium carbonate) reacts with dilute hydrochloric acid. Which changes would increase the rate? Select all that apply.
+    options:
+      - "Grinding the marble to a powder"
+      - "Using more concentrated acid"
+      - "Cooling the acid in an ice bath"
+      - "Warming the acid to 50 °C"
+      - "Using a larger volume of acid at the same concentration"
+    option_explanations:
+      - |
+        Correct. Greater surface area means more carbonate exposed to collisions with H⁺ ions.
+      - |
+        Correct. More H⁺ ions per volume means more collisions per second at the marble surface.
+      - |
+        Cooling lowers the fraction of collisions with energy above Ea and reduces the rate.
+      - |
+        Correct. Warming increases both the collision frequency and, especially, the fraction of effective collisions.
+      - |
+        At the same concentration the collisions per second at the chip's surface are unchanged; more volume changes only how much acid is available in total.
+    answer: [0, 1, 3]
+    explanation: |
+      Surface area, concentration and temperature are rate factors; volume at fixed concentration is not.
+
+  - slug: chem-u07-exam-q27
+    type: multi_select
+    topic_code: "7.6"
+    source: "general knowledge"
+    points: 2
+    partial_credit: true
+    prompt: |
+      For N₂(g) + 3H₂(g) ⇌ 2NH₃(g), ΔH = −92 kJ, which changes shift the equilibrium toward ammonia? Select all that apply.
+    options:
+      - "Increasing the pressure by decreasing the volume"
+      - "Raising the temperature"
+      - "Removing ammonia as it forms"
+      - "Adding an iron catalyst"
+      - "Adding more nitrogen"
+      - "Lowering the temperature"
+    option_explanations:
+      - |
+        Correct. Four gas moles become two, so compression shifts toward the right.
+      - |
+        The forward reaction is exothermic, so heating shifts the equilibrium left, away from ammonia.
+      - |
+        Correct. Removing a product makes the system replace some of it by shifting right.
+      - |
+        A catalyst speeds both directions equally and does not shift the equilibrium.
+      - |
+        Correct. Adding a reactant shifts the equilibrium away from it, toward products.
+      - |
+        Correct. Heat is a product of an exothermic reaction; removing heat shifts right and increases Kc.
+    answer: [0, 2, 4, 5]
+    explanation: |
+      Pressure, product removal, added reactant and cooling all favour ammonia; heating opposes it; a catalyst changes nothing but the time.
+
+  # ---- True/false
+  - slug: chem-u07-exam-q28
+    type: true_false
+    topic_code: "7.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: in a gas at room temperature nearly every collision between reactant molecules results in a reaction.
+    answer: false
+    explanation: |
+      False. Most collisions lack the activation energy or the correct orientation and simply bounce apart. Only the small fraction of effective collisions produces products, which is why reactions take measurable time.
+
+  - slug: chem-u07-exam-q29
+    type: true_false
+    topic_code: "7.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: adding a catalyst to a reaction at equilibrium increases the value of Kc.
+    answer: false
+    explanation: |
+      False. A catalyst lowers the activation energy of the forward and reverse reactions equally, so it changes neither the position of equilibrium nor Kc. Only a temperature change alters Kc.
+
+  - slug: chem-u07-exam-q30
+    type: true_false
+    topic_code: "7.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      True or false: because water has an unusually high specific heat, it needs more energy to warm by one degree than the same mass of most other substances, which is why coastal climates are mild.
+    answer: true
+    explanation: |
+      True. At 4.184 J/(g·°C), water's specific heat is far above those of metals and rock, so large bodies of water warm and cool slowly and moderate the temperature of nearby land.
+
+  # ---- Fill in the blank
+  - slug: chem-u07-exam-q31
+    type: fill_blank
+    topic_code: "7.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      The enthalpy change when one mole of a compound is made from its elements in their standard states is its standard enthalpy of ____.
+    answer:
+      - "formation"
+    explanation: |
+      ΔH°f, the standard enthalpy of formation. Tables of these values allow ΔH of any reaction among listed substances to be calculated.
+
+  - slug: chem-u07-exam-q32
+    type: fill_blank
+    topic_code: "7.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      The unstable, highest-energy arrangement of atoms at the top of the energy hump, with old bonds partly broken and new bonds partly formed, is called the ____.
+    answer:
+      - "activated complex"
+      - "transition state"
+    explanation: |
+      The activated complex, or transition state, exists only momentarily and cannot be isolated. Its energy above the reactants is the activation energy.
+
+  - slug: chem-u07-exam-q33
+    type: fill_blank
+    topic_code: "4.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      The molar mass of ammonium nitrate, NH₄NO₃, is ____ g/mol. (Use N 14.01, H 1.008, O 16.00; give two decimal places.)
+    answer:
+      - "80.04"
+      - "80.04 g/mol"
+      - "80.05"
+      - "80.0"
+    explanation: |
+      Review of 4.4: 2(14.01) + 4(1.008) + 3(16.00) = 28.02 + 4.032 + 48.00 = 80.05, usually rounded to 80.04 or 80.05 g/mol. Both are accepted.
+
+  # ---- Numeric
+  - slug: chem-u07-exam-q34
+    type: numeric
+    topic_code: "7.2"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      How much heat, in joules, is needed to warm a 25.0 g copper coin from 20.0 °C to 80.0 °C? The specific heat of copper is 0.385 J/(g·°C). Give your answer to the nearest joule.
+    answer: { value: 578, tolerance: 2 }
+    explanation: |
+      q = m × c × ΔT = 25.0 g × 0.385 J/(g·°C) × 60.0 °C = 577.5 J, about 578 J. The same mass of water would need 6,276 J.
+
+  - slug: chem-u07-exam-q35
+    type: numeric
+    topic_code: "7.3"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      Using ΔH°f = −110.5 kJ/mol for CO(g) and −393.5 kJ/mol for CO₂(g), calculate ΔH° in kJ for CO(g) + ½O₂(g) → CO₂(g). Give the signed value to one decimal place.
+    answer: { value: -283.0, tolerance: 0.2 }
+    explanation: |
+      ΔH° = (−393.5) − [(−110.5) + ½(0)] = −283.0 kJ. Burning carbon monoxide to carbon dioxide releases 283.0 kJ per mole.
+
+  - slug: chem-u07-exam-q36
+    type: numeric
+    topic_code: "7.4"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      A reaction has a forward activation energy of 60 kJ and ΔH = +25 kJ. Calculate the activation energy of the reverse reaction in kJ.
+    answer: { value: 35, tolerance: 1 }
+    explanation: |
+      Ea(reverse) = Ea(forward) − ΔH = 60 − 25 = 35 kJ. The products are 25 kJ above the reactants, so the reverse climb is 25 kJ shorter.
+
+  - slug: chem-u07-exam-q37
+    type: numeric
+    topic_code: "7.6"
+    source: "general knowledge"
+    points: 1
+    prompt: |
+      At a certain temperature, an equilibrium mixture for H₂(g) + I₂(g) ⇌ 2HI(g) contains [H₂] = 0.010 M, [I₂] = 0.010 M and [HI] = 0.080 M. Calculate Kc (no units) to two significant figures.
+    answer: { value: 64, tolerance: 1 }
+    explanation: |
+      Kc = [HI]² ÷ ([H₂][I₂]) = (0.080)² ÷ (0.010 × 0.010) = 0.0064 ÷ 0.00010 = 64.
+
+  # ---- Short answer
+  - slug: chem-u07-exam-q38
+    type: short_answer
+    topic_code: "7.3"
+    source: "general knowledge"
+    points: 3
+    prompt: |
+      Methane reacts with chlorine in light: CH₄(g) + Cl₂(g) → CH₃Cl(g) + HCl(g). Average bond energies (kJ/mol): C–H 413, Cl–Cl 243, C–Cl 339, H–Cl 432.
+      (a) Identify the bonds broken and the bonds formed. (Only one C–H bond is broken.)
+      (b) Estimate ΔH for the reaction and state whether it is exothermic or endothermic.
+      (c) Explain, in terms of bond strengths, why the reaction has the sign you found.
+    answer: |
+      (a) Broken: one C–H (413) and one Cl–Cl (243). Formed: one C–Cl (339) and one H–Cl (432). (b) ΔH ≈ (413 + 243) − (339 + 432) = 656 − 771 = −115 kJ; exothermic. (c) The bonds formed (C–Cl and H–Cl, 771 kJ in total) are stronger overall than the bonds broken (C–H and Cl–Cl, 656 kJ), so more energy is released in forming the new bonds than was absorbed in breaking the old ones, and the difference leaves as heat.
+    explanation: |
+      1 point for (a) the correct two bonds broken and two formed. 1 point for (b) about −115 kJ and exothermic. 1 point for (c) an explanation comparing total energy of bonds formed with bonds broken. Deduct if the student says energy is released by breaking bonds.
+
+  - slug: chem-u07-exam-q39
+    type: short_answer
+    topic_code: "7.5"
+    source: "general knowledge"
+    points: 3
+    stimulus: |
+      A student measures the time for a fixed amount of magnesium ribbon to disappear completely in 25 mL of 1.0 M hydrochloric acid at different temperatures.
+
+      | Temperature (°C) | 10 | 20 | 30 | 40 |
+      | --- | --- | --- | --- | --- |
+      | Time for ribbon to disappear (s) | 160 | 80 | 41 | 20 |
+    prompt: |
+      (a) Describe the pattern in the data and express it as a rule relating temperature to rate.
+      (b) Explain the pattern using collision theory, making clear which effect of temperature is the more important.
+      (c) The student repeats the 20 °C trial with 2.0 M acid and the ribbon disappears in 40 s. Explain this result using collision theory, and state whether the amount of hydrogen produced changed.
+    answer: |
+      (a) Each 10 °C rise roughly halves the time, so the rate (proportional to 1 ÷ time) roughly doubles for every 10 °C increase. (b) At a higher temperature the particles have a higher average kinetic energy. Collisions are slightly more frequent, but the dominant effect is that the energy distribution shifts to higher energies, so a much larger fraction of collisions has energy above the activation energy; many more collisions are effective, and the rate rises steeply. (c) Doubling the concentration doubles the number of H⁺ ions per volume, so collisions with the magnesium surface are twice as frequent and the rate doubles (time halves to 40 s). The amount of hydrogen is unchanged because the magnesium is the limiting reactant and the acid is in excess in both trials.
+    explanation: |
+      1 point for (a) the doubling-per-10 °C pattern stated in terms of rate. 1 point for (b) the fraction of collisions above Ea identified as the main effect, with collision frequency as the minor one. 1 point for (c) collision frequency doubling with concentration and the amount of hydrogen unchanged because magnesium limits.
+
+  # ---- Long answer
+  - slug: chem-u07-exam-q40
+    type: long_answer
+    topic_code: "7.6"
+    source: "general knowledge"
+    points: 6
+    prompt: |
+      Hydrogen peroxide decomposes slowly on its own: 2H₂O₂(l) → 2H₂O(l) + O₂(g). A pinch of manganese dioxide makes the same reaction fizz vigorously. Standard enthalpies of formation: H₂O₂(l) −187.8 kJ/mol; H₂O(l) −285.8 kJ/mol. Write an account that: (1) calculates ΔH° for the reaction as written and states whether it is exothermic or endothermic; (2) describes, in words, the energy diagram for the uncatalysed and catalysed reactions on the same axes, naming what the catalyst changes and what it leaves unchanged; (3) explains using collision theory why the catalysed reaction is so much faster at the same temperature; (4) describes an experiment that would measure the rate of the catalysed reaction and how you would show that the manganese dioxide is not used up; (5) explains why, if the reaction were reversible and at equilibrium, the catalyst would not change the amount of oxygen present at equilibrium.
+    answer: |
+      (1) ΔH° = [2(−285.8) + 0] − [2(−187.8)] = −571.6 + 375.6 = −196.0 kJ; exothermic. (2) Both curves start at the reactants' level and end at the products' level, 196 kJ lower. The uncatalysed curve rises to a high peak (large Ea); the catalysed curve rises to a much lower peak, possibly with small intermediate dips because the catalysed route has several steps. The catalyst lowers the activation energy; it leaves the reactant and product levels, and so ΔH, unchanged. (3) At a given temperature the particles have a fixed distribution of energies. With the high uncatalysed Ea only a tiny fraction of collisions have enough energy to react; the catalysed route's lower Ea means a far larger fraction of the same collisions are effective, so the rate rises dramatically even though the particles are no more energetic. (4) Put a measured volume of hydrogen peroxide of known concentration in a flask connected to a gas syringe, add a weighed mass of manganese dioxide, and record the volume of oxygen every 10 s; the rate is the volume change per unit time, found from the slope of the graph. To show the catalyst is not consumed, filter, dry and reweigh the manganese dioxide after the reaction: its mass is unchanged, and it will catalyse a fresh sample just as well. (5) A catalyst lowers the activation energy of the forward and reverse reactions by the same amount, so both rates increase by the same factor. The equilibrium position, which is set by the balance of the two rates and by Kc (a function of temperature only), is therefore unchanged; the catalyst would only shorten the time taken to reach the same amount of oxygen.
+    explanation: |
+      6 points. 1 point: ΔH° = −196.0 kJ, exothermic. 1 point: energy diagram described with two peaks of different height and the same start and end levels, naming Ea changed and ΔH unchanged. 1 point: collision-theory explanation based on the fraction of collisions above Ea. 1 point: a workable rate measurement (gas syringe or mass loss against time). 1 point: a method showing the catalyst is recovered unchanged (reweighing or reuse). 1 point: both directions accelerated equally, so position and Kc unchanged. Deduct 1 point for a positive ΔH or for claiming the catalyst changes ΔH.

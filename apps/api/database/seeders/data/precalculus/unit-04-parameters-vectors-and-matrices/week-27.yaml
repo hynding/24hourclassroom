@@ -1,0 +1,594 @@
+week: 27
+unit: 4
+title: "Parametric Functions and Planar Motion"
+topics: ["4.1", "4.2", "4.3"]
+guide: guides/week-27.md
+guide_description: |
+  Parametric functions as a pair x(t), y(t) driven by one input: tables of (t, x, y), sketching the path with its
+  direction, and eliminating the parameter while keeping track of restrictions; modelling planar motion,
+  including a projectile with linear x(t) and quadratic y(t); and average rates of change of x and y with respect
+  to t, the slope of the path as (Δy/Δt)/(Δx/Δt), and reading left/right and up/down motion from the signs.
+  Worked examples: a sideways parabola from x = t² − 1, y = 2t + 1, a thrown ball's highest point and landing,
+  and a hypothetical drone tracked in a table.
+flashcards_description: |
+  30 cards on parametric functions and their paths, direction of motion, eliminating the parameter, projectile
+  models, and average rates of change and slopes along a path.
+
+flashcards:
+  - front: Parametric function → what it is
+    back: |
+      A pair of functions x(t) and y(t) of one input t. Each t gives a point (x(t), y(t)); as t runs, the point traces a path.
+    topic_code: "4.1"
+  - front: The parameter t on a parametric sketch → where it appears
+    back: |
+      Not on an axis. You plot x against y and label a few points with their t-values; t is the clock that moves the point.
+    topic_code: "4.1"
+  - front: Orientation of a parametric path → meaning
+    back: |
+      The direction the point moves as t increases, shown with arrows. The same curve can be traced in either direction by different parametrizations.
+    topic_code: "4.1"
+  - front: Table for x = t² − 1, y = 2t + 1 at t = −2 … 2 → points
+    back: |
+      (3, −3), (0, −1), (−1, 1), (0, 3), (3, 5): a parabola opening right with leftmost point (−1, 1), traced upward because y increases with t.
+    topic_code: "4.1"
+  - front: Eliminating the parameter → the usual method
+    back: |
+      Solve the simpler equation for t and substitute into the other. From y = 2t + 1, t = (y − 1)/2, so x = t² − 1 becomes x = (y − 1)²/4 − 1.
+    topic_code: "4.1"
+  - front: Eliminate t from x = 3t − 2, y = 6t + 5 → result
+    back: |
+      t = (x + 2)/3, so y = 2(x + 2) + 5 = 2x + 9. The path is a line of slope 6/3 = 2.
+    topic_code: "4.1"
+  - front: Eliminate t from x = √t, y = t → result with restriction
+    back: |
+      y = x², but only for x ≥ 0, because √t is never negative. The path is the right half of the parabola.
+    topic_code: "4.1"
+  - front: Parametric path and the vertical line test → relationship
+    back: |
+      A parametric path need not pass it. x = t² − 1, y = 2t + 1 has two points with x = 0, yet x(t) and y(t) are each functions of t.
+    topic_code: "4.1"
+  - front: Polar curve r = f(θ) → as a parametric function
+    back: |
+      x = f(θ) cos θ, y = f(θ) sin θ, with θ as the parameter. For r = 4 cos θ: x = 4cos²θ, y = 4 cos θ sin θ.
+    topic_code: "4.1"
+  - front: Eliminate t from x = eᵗ, y = 2t → result
+    back: |
+      t = ln x, so y = 2 ln x, and x > 0 because eᵗ is always positive.
+    topic_code: "4.1"
+  - front: Planar motion → what x(t) and y(t) describe
+    back: |
+      x(t) is the horizontal position and y(t) the vertical position at time t. Each can be analysed on its own, then combined into the path.
+    topic_code: "4.2"
+  - front: Projectile model in feet → form of y(t)
+    back: |
+      y(t) = h₀ + v₀t − 16t², where h₀ is the starting height and v₀ the initial upward speed (in metres, about −4.9t²). Air resistance is ignored.
+    topic_code: "4.2"
+  - front: Projectile model → why x(t) is linear
+    back: |
+      With no air resistance nothing pushes the object sideways, so its horizontal speed stays constant: x(t) = (horizontal speed) · t + starting x.
+    topic_code: "4.2"
+  - front: Launch at speed s, angle θ → horizontal and vertical starting speeds
+    back: |
+      Horizontal s cos θ, vertical s sin θ, the coordinates of a point on a circle of radius s. At 50 ft/s and π/6: 25√3 ≈ 43.3 ft/s across, 25 ft/s up.
+    topic_code: "4.2"
+  - front: Ball with x = 40t, y = 6 + 48t − 16t² → highest point
+    back: |
+      Vertex of y at t = 48/32 = 1.5 s: y = 6 + 72 − 36 = 42 ft, at x = 60 ft.
+    topic_code: "4.2"
+  - front: Landing time of a projectile → how to find it
+    back: |
+      Solve y(t) = 0 and keep the positive root. For 6 + 48t − 16t² = 0, t = (48 + √2688)/32 ≈ 3.12 s; the negative root is before the throw.
+    topic_code: "4.2"
+  - front: Stone from a 64-ft cliff, x = 30t, y = 64 − 16t² → landing
+    back: |
+      64 − 16t² = 0 gives t = 2 s, and x(2) = 60 ft from the base of the cliff.
+    topic_code: "4.2"
+  - front: Path of x = 40t, y = 6 + 48t − 16t² in x and y → equation
+    back: |
+      t = x/40, so y = 6 + 1.2x − 0.01x²: a downward parabola in x, the familiar shape of a thrown ball.
+    topic_code: "4.2"
+  - front: Average rate of change of x(t) on [a, b] → formula and meaning
+    back: |
+      (x(b) − x(a))/(b − a): horizontal change per unit of t. If t is time, it is the average horizontal velocity, in units like m/s.
+    topic_code: "4.3"
+  - front: Sign of Δx/Δt and Δy/Δt → direction of motion
+    back: |
+      Δx/Δt > 0 means moving right, < 0 left; Δy/Δt > 0 means moving up, < 0 down.
+    topic_code: "4.3"
+  - front: Slope of a parametric path between t = a and t = b → formula
+    back: |
+      Δy/Δx = (Δy/Δt)/(Δx/Δt), provided Δx ≠ 0. The Δt cancels, so it is the slope of the segment joining the two points.
+    topic_code: "4.3"
+  - front: Δx = 0 but Δy ≠ 0 on an interval → slope of the path
+    back: |
+      The segment is vertical, so the slope is undefined. As far as the two points show, the object moved straight up or down.
+    topic_code: "4.3"
+  - front: Ball x = 40t, y = 6 + 48t − 16t² on [0, 1], [1, 2], [2, 3] → path slopes
+    back: |
+      Δx/Δt = 40 each time; Δy/Δt = 32, 0, −32; slopes 0.8, 0, −0.8. Rising, levelling over the top, then falling symmetrically.
+    topic_code: "4.3"
+  - front: Drone table x = 0, 6, 10, 12, 12 and y = 5, 9, 11, 9, 4 at t = 0, 2, 4, 6, 8 → slope on [0, 4]
+    back: |
+      Δx = 10, Δy = 6, so the slope is 0.6: on average 0.6 m of climb per metre of horizontal travel.
+    topic_code: "4.3"
+  - front: Slope of a path at a point → how to estimate it
+    back: |
+      Compute Δy/Δx over shorter and shorter intervals around that t. The values settle toward the slope at the point, which calculus writes as (dy/dt)/(dx/dt).
+    topic_code: "4.3"
+  - front: x = 2t + 1, y = t³ on [1, 3] → rates and slope
+    back: |
+      Δx/Δt = 2, Δy/Δt = (27 − 1)/2 = 13, slope 13/2 = 6.5.
+    topic_code: "4.3"
+  - front: Units of the slope of a path → what they are
+    back: |
+      Units of y per unit of x (feet per foot, so often unitless). Rates with respect to t carry time units, such as ft/s.
+    topic_code: "4.3"
+  - front: Error-spot → "slope of the path = (Δx/Δt)/(Δy/Δt)"
+    back: |
+      Upside down. Slope is rise over run: Δy/Δx = (Δy/Δt)/(Δx/Δt). For Δx/Δt = 40 and Δy/Δt = 32 the slope is 0.8, not 1.25.
+    topic_code: "4.3"
+  - front: Error-spot → "x = t², y = t² + 1 is the whole line y = x + 1"
+    back: |
+      x = t² is never negative, so the path is only the ray of y = x + 1 with x ≥ 0, starting at (0, 1). Check what x and y can actually be.
+    topic_code: "4.1"
+  - front: Error-spot → "the ball lands at t = −0.12 s"
+    back: |
+      The negative root of y(t) = 0 is a time before the throw. Keep the root that lies in the time interval the model describes.
+    topic_code: "4.2"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 4.1 to 4.3: parametric functions, planar motion
+    and projectiles, and rates of change along a path), with about a third reviewing Units 2 and 3 (polar
+    coordinates and graphs, sinusoids, unit-circle values, exponential models). Opens with a shared-context set
+    on a hypothetical robot vacuum tracked in a table. Multiple choice, select-all, true/false and numeric items
+    are graded at once; fill-in-the-blank items are matched automatically; the short answers and the long answer
+    are graded by your teacher against the scoring notes. A calculator is needed only for the item marked
+    (Calculator.).
+  questions:
+    # ---- Stimulus set: robot vacuum table (4.1, 4.3)
+    - slug: precalc-u04-w27-q01
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "AP Precalculus CED, Topic 4.3"
+      points: 1
+      stimulus: |
+        A hypothetical robot vacuum's position on a floor, in metres from one corner of the room, is recorded every second.
+
+        | t (s) | 0 | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | x(t) (m) | 1 | 3 | 4 | 4 | 2 |
+        | y(t) (m) | 0 | 1 | 3 | 6 | 7 |
+      prompt: |
+        What is the average rate of change of x with respect to t on the interval [1, 4]?
+      options:
+        - "1/3 m/s"
+        - "−1 m/s"
+        - "−1/3 m/s"
+        - "−3 m/s"
+      option_explanations:
+        - |
+          The sign is wrong: x goes from 3 down to 2, so the change in x is −1 and the average rate is negative.
+        - |
+          −1 m is the change in x, but it happened over 3 seconds; it still has to be divided by Δt = 3.
+        - |
+          Correct. (x(4) − x(1))/(4 − 1) = (2 − 3)/3 = −1/3 m/s; on average the vacuum moved left at 1/3 metre per second.
+        - |
+          This divides Δt by Δx (3/(−1)), which inverts the rate; the change in x goes in the numerator.
+      answer: 2
+    - slug: precalc-u04-w27-q02
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "AP Precalculus CED, Topic 4.3"
+      points: 1
+      stimulus: |
+        A hypothetical robot vacuum's position on a floor, in metres from one corner of the room, is recorded every second.
+
+        | t (s) | 0 | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | x(t) (m) | 1 | 3 | 4 | 4 | 2 |
+        | y(t) (m) | 0 | 1 | 3 | 6 | 7 |
+      prompt: |
+        What is the slope of the segment of the path joining the positions at t = 1 and t = 3?
+      options:
+        - "5"
+        - "1/5"
+        - "5/2"
+        - "1/2"
+      option_explanations:
+        - |
+          Correct. Δx = 4 − 3 = 1 and Δy = 6 − 1 = 5, so the slope is Δy/Δx = 5/1 = 5 (equivalently (5/2)/(1/2)).
+        - |
+          This is Δx/Δy, run over rise; the slope of the path is Δy/Δx.
+        - |
+          5/2 m/s is Δy/Δt, the average vertical rate; the slope of the path divides that by Δx/Δt = 1/2.
+        - |
+          1/2 m/s is Δx/Δt, the average horizontal rate, not the slope of the path.
+      answer: 0
+    - slug: precalc-u04-w27-q03
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "AP Precalculus CED, Topic 4.1"
+      points: 1
+      stimulus: |
+        A hypothetical robot vacuum's position on a floor, in metres from one corner of the room, is recorded every second.
+
+        | t (s) | 0 | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | x(t) (m) | 1 | 3 | 4 | 4 | 2 |
+        | y(t) (m) | 0 | 1 | 3 | 6 | 7 |
+      prompt: |
+        According to the table, during which one-second interval does the vacuum move to the left (x decreasing)?
+      options:
+        - "Between t = 0 and t = 1"
+        - "Between t = 2 and t = 3"
+        - "Between t = 3 and t = 4"
+        - "Between t = 1 and t = 2"
+      option_explanations:
+        - |
+          x rises from 1 to 3 here, so the vacuum moves right, not left.
+        - |
+          x stays at 4 here while y rises, so as far as the table shows the vacuum moves straight up the room, not left.
+        - |
+          Correct. x falls from 4 to 2, so Δx/Δt = −2 m/s and the vacuum moves left (while y still increases).
+        - |
+          x rises from 3 to 4 here, so the motion is to the right.
+      answer: 2
+    # ---- Independent items
+    - slug: precalc-u04-w27-q04
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "AP Precalculus CED, Topic 4.1"
+      points: 1
+      prompt: |
+        Which equation in x and y describes the path of x(t) = t − 3, y(t) = t² + 1?
+      options:
+        - "y = (x − 3)² + 1"
+        - "y = (x + 3)² + 1"
+        - "y = x² + 4"
+        - "x = (y + 3)² + 1"
+      option_explanations:
+        - |
+          Solving x = t − 3 for t gives t = x + 3, not x − 3; the sign was flipped.
+        - |
+          Correct. t = x + 3, and substituting into y = t² + 1 gives y = (x + 3)² + 1.
+        - |
+          This adds the constants instead of substituting t = x + 3 inside the square.
+        - |
+          This swaps the roles of x and y; it is x, not y, that equals t − 3.
+      answer: 1
+    - slug: precalc-u04-w27-q05
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "AP Precalculus CED, Topic 4.1"
+      points: 1
+      prompt: |
+        A point moves according to x(t) = 4 − t, y(t) = 2t + 1. As t increases, how does the point move?
+      options:
+        - "Right and up"
+        - "Right and down"
+        - "Left and down"
+        - "Left and up"
+      option_explanations:
+        - |
+          x = 4 − t decreases as t increases, so the point cannot be moving right.
+        - |
+          Both directions are reversed: x decreases (left) and y increases (up).
+        - |
+          y = 2t + 1 increases with t, so the point moves up, not down.
+        - |
+          Correct. x decreases by 1 and y increases by 2 for each unit of t, so the point moves left and up along a line of slope −2.
+      answer: 3
+    - slug: precalc-u04-w27-q06
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Precalculus CED, Topic 4.2"
+      points: 1
+      prompt: |
+        In a model, a ball's height in feet after t seconds is y(t) = 5 + 64t − 16t², and its horizontal position is x(t) = 30t. What is the ball's greatest height?
+      options:
+        - "69 feet"
+        - "133 feet"
+        - "64 feet"
+        - "53 feet"
+      option_explanations:
+        - |
+          Correct. The vertex of y is at t = −64/(2 · (−16)) = 2, and y(2) = 5 + 128 − 64 = 69 feet.
+        - |
+          This is 5 + 64 · 2, which leaves out the −16t² term at t = 2.
+        - |
+          64 ft/s is the initial upward speed, not a height.
+        - |
+          This is y(1) = 5 + 64 − 16; the ball is still rising at t = 1, since the vertex is at t = 2.
+      answer: 0
+    - slug: precalc-u04-w27-q07
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Precalculus CED, Topic 4.2"
+      points: 1
+      prompt: |
+        A ball is launched from the ground at 80 ft/s at an angle of π/3 above the horizontal. Ignoring air resistance, which pair models its position in feet after t seconds?
+      options:
+        - "x(t) = 40√3 t, y(t) = 40t − 16t²"
+        - "x(t) = 40t, y(t) = 40√3 t − 16t²"
+        - "x(t) = 80t, y(t) = 80t − 16t²"
+        - "x(t) = 80 cos t, y(t) = 80 sin t − 16t²"
+      option_explanations:
+        - |
+          This swaps sine and cosine: the horizontal speed is 80 cos(π/3) = 40 and the vertical is 80 sin(π/3) = 40√3.
+        - |
+          Correct. Horizontal speed 80 cos(π/3) = 40 ft/s and vertical speed 80 sin(π/3) = 40√3 ft/s, with gravity's −16t² on the height.
+        - |
+          The full 80 ft/s cannot go both across and up; it splits into s cos θ and s sin θ.
+        - |
+          This puts the time t where the fixed launch angle π/3 belongs.
+      answer: 1
+    - slug: precalc-u04-w27-q08
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "AP Precalculus CED, Topic 4.1"
+      points: 1
+      prompt: |
+        Which describes the path of x(t) = t², y(t) = 3t² + 1, for all real t?
+      options:
+        - "The whole line y = 3x + 1"
+        - "The ray (half-line) of y = 3x + 1 starting at (0, 1), with x ≥ 0"
+        - "The parabola y = 3x² + 1"
+        - "The ray of y = 3x + 1 starting at (0, 1), with x ≤ 0"
+      option_explanations:
+        - |
+          Eliminating t gives y = 3x + 1, but x = t² can never be negative, so only part of the line is traced.
+        - |
+          Correct. Substituting x = t² gives y = 3x + 1, and x = t² ≥ 0, so the path is the ray from (0, 1) to the right (traced inward then back out as t runs through 0).
+        - |
+          This substitutes t = x instead of t² = x; y is 3 times x plus 1, not 3 times x².
+        - |
+          x = t² is never negative, so the ray goes to the right of (0, 1), not the left.
+      answer: 1
+    - slug: precalc-u04-w27-q09
+      type: multiple_choice
+      topic_code: "3.13"
+      source: "AP Precalculus CED, Topic 3.13"
+      points: 1
+      prompt: |
+        Which rectangular point has polar coordinates (r, θ) = (4, 2π/3)?
+      options:
+        - "(2, 2√3)"
+        - "(−2√3, 2)"
+        - "(−2, −2√3)"
+        - "(−2, 2√3)"
+      option_explanations:
+        - |
+          cos(2π/3) is negative, so x = 4 cos(2π/3) = −2, not 2; 2π/3 is in Quadrant II.
+        - |
+          This swaps cosine and sine: x = r cos θ = −2 and y = r sin θ = 2√3.
+        - |
+          sin(2π/3) = √3/2 is positive, so y is positive in Quadrant II.
+        - |
+          Correct. x = 4 cos(2π/3) = 4 · (−1/2) = −2 and y = 4 sin(2π/3) = 4 · (√3/2) = 2√3.
+      answer: 3
+    - slug: precalc-u04-w27-q10
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Precalculus CED, Topic 3.6"
+      points: 1
+      prompt: |
+        What is the period of f(t) = 3 sin(πt/4) + 2?
+      options:
+        - "π/4"
+        - "4"
+        - "8"
+        - "π²/2"
+      option_explanations:
+        - |
+          π/4 is the coefficient b of t, not the period; the period is 2π/b.
+        - |
+          This is half the period; 2π/(π/4) = 8, not 4.
+        - |
+          Correct. The period of sin(bt) is 2π/b = 2π/(π/4) = 8.
+        - |
+          This multiplies 2π by b instead of dividing 2π by b.
+      answer: 2
+    - slug: precalc-u04-w27-q11
+      type: multiple_choice
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 1
+      prompt: |
+        In a hypothetical lab culture, 500 cells grow by 8% every hour. Which function models the number of cells after t hours?
+      options:
+        - "P(t) = 500(1.08)ᵗ"
+        - "P(t) = 500(0.08)ᵗ"
+        - "P(t) = 500 + 40t"
+        - "P(t) = 500(1.8)ᵗ"
+      option_explanations:
+        - |
+          Correct. Growing by 8% means multiplying by 1 + 0.08 = 1.08 each hour, so P(t) = 500(1.08)ᵗ.
+        - |
+          A base of 0.08 would shrink the population to 8% of its size each hour; the growth factor is 1.08.
+        - |
+          Adding 40 cells (8% of 500) every hour is linear growth; percent growth compounds on the current amount.
+        - |
+          1.8 is 80% growth; 8% as a decimal is 0.08, giving the factor 1.08.
+      answer: 0
+    - slug: precalc-u04-w27-q12
+      type: multi_select
+      topic_code: "4.3"
+      source: "AP Precalculus CED, Topic 4.3"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A point moves according to x(t) = t² − 2t, y(t) = 3t + 1 for 0 ≤ t ≤ 4. Which statements are true? Select all that apply.
+      options:
+        - "On [0, 1] the point moves left."
+        - "On [0, 2] the average rate of change of x with respect to t is 0."
+        - "The slope of the path on [2, 4] is 3/4."
+        - "The point moves down at some time in [0, 4]."
+        - "The slope of the path on [1, 3] is 2."
+      option_explanations:
+        - |
+          Correct. x(0) = 0 and x(1) = −1, so x decreases and the point moves left.
+        - |
+          Correct. x(0) = 0 and x(2) = 4 − 4 = 0, so Δx/Δt = 0/2 = 0.
+        - |
+          Correct. x(2) = 0, x(4) = 8, y(2) = 7, y(4) = 13, so the slope is 6/8 = 3/4.
+        - |
+          y = 3t + 1 increases for every t, so the point is always moving up.
+        - |
+          On [1, 3], Δx = 3 − (−1) = 4 and Δy = 10 − 4 = 6, so the slope is 3/2. The value 2 is Δx/Δt, not the slope.
+      answer: [0, 1, 2]
+    - slug: precalc-u04-w27-q13
+      type: multi_select
+      topic_code: "3.14"
+      source: "AP Precalculus CED, Topic 3.14"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Consider the polar curve r = 2 + 2 cos θ for 0 ≤ θ < 2π. Which statements are true? Select all that apply.
+      options:
+        - "r is negative for some θ."
+        - "The curve is a cardioid."
+        - "The curve is symmetric about the y-axis."
+        - "The curve passes through the pole at θ = π."
+        - "The point on the curve at θ = π/2 has rectangular coordinates (0, 2)."
+      option_explanations:
+        - |
+          cos θ ≥ −1, so r = 2 + 2 cos θ ≥ 0 for every θ; r is never negative.
+        - |
+          Correct. r = a + a cos θ with equal constants (a = 2) is a cardioid.
+        - |
+          Replacing θ by −θ leaves cos θ unchanged, so the curve is symmetric about the x-axis (the polar axis), not the y-axis.
+        - |
+          Correct. r(π) = 2 + 2(−1) = 0, so the curve touches the pole there.
+        - |
+          Correct. r(π/2) = 2 + 0 = 2, and (2 cos(π/2), 2 sin(π/2)) = (0, 2).
+      answer: [1, 3, 4]
+    - slug: precalc-u04-w27-q14
+      type: true_false
+      topic_code: "4.1"
+      source: "AP Precalculus CED, Topic 4.1"
+      points: 1
+      prompt: |
+        True or false: If x(t) and y(t) are both functions of t, then the path they trace in the xy-plane must pass the vertical line test.
+      answer: false
+      explanation: |
+        False. x(t) = t², y(t) = t traces the sideways parabola x = y², which has two points with x = 1, namely (1, 1) at t = 1 and (1, −1) at t = −1. Being a function of t says nothing about y being a function of x.
+    - slug: precalc-u04-w27-q15
+      type: true_false
+      topic_code: "3.15"
+      source: "AP Precalculus CED, Topic 3.15"
+      points: 1
+      prompt: |
+        True or false: For the polar function r = 1 + sin θ, the distance between the point on the curve and the pole is increasing on the interval 0 < θ < π/2.
+      answer: true
+      explanation: |
+        True. On (0, π/2), sin θ increases, so r = 1 + sin θ increases, and r is positive (between 1 and 2). When r is positive and increasing, the distance from the pole, |r|, increases.
+    - slug: precalc-u04-w27-q16
+      type: fill_blank
+      topic_code: "4.2"
+      source: "AP Precalculus CED, Topic 4.2"
+      points: 1
+      prompt: |
+        A ball rolls off the edge of a 144-foot platform. Its position in feet after t seconds is modelled by x(t) = 12t, y(t) = 144 − 16t². The ball hits the ground after ____ seconds.
+      answer: ["3", "3 seconds", "3 s", "3.0"]
+      explanation: |
+        Set y(t) = 0: 16t² = 144, so t² = 9 and t = 3 (the root t = −3 is before the ball leaves the platform).
+    - slug: precalc-u04-w27-q17
+      type: fill_blank
+      topic_code: "4.3"
+      source: "AP Precalculus CED, Topic 4.3"
+      points: 1
+      prompt: |
+        For x(t) = t + 1, y(t) = t², the slope of the segment of the path from t = 1 to t = 3 is ____.
+      answer: ["4", "4.0"]
+      explanation: |
+        x(1) = 2, x(3) = 4, so Δx = 2; y(1) = 1, y(3) = 9, so Δy = 8. The slope is Δy/Δx = 8/2 = 4.
+    - slug: precalc-u04-w27-q18
+      type: fill_blank
+      topic_code: "3.3"
+      source: "AP Precalculus CED, Topic 3.3"
+      points: 1
+      prompt: |
+        The exact value of sin(7π/6) is ____.
+      answer: ["-1/2", "−1/2", "-0.5", "−0.5", "-.5", "−.5"]
+      explanation: |
+        7π/6 is in Quadrant III with reference angle π/6. sin(π/6) = 1/2, and sine is negative in Quadrant III, so sin(7π/6) = −1/2.
+    - slug: precalc-u04-w27-q19
+      type: numeric
+      topic_code: "4.2"
+      source: "AP Precalculus CED, Topic 4.2"
+      points: 1
+      prompt: |
+        (Calculator.) In a model, a softball is hit from a height of 3 feet, and its position in feet after t seconds is x(t) = 30t, y(t) = 3 + 40t − 16t². How far does the ball travel horizontally before it hits the ground? Give your answer to the nearest tenth of a foot.
+      answer: { value: 77.2, tolerance: 0.06 }
+      explanation: |
+        Solve 3 + 40t − 16t² = 0, i.e. 16t² − 40t − 3 = 0. The positive root is t = (40 + √(1600 + 192))/32 = (40 + √1792)/32 ≈ 2.5729 s. Then x ≈ 30 · 2.5729 ≈ 77.2 feet.
+    - slug: precalc-u04-w27-q20
+      type: numeric
+      topic_code: "4.3"
+      source: "AP Precalculus CED, Topic 4.3"
+      points: 1
+      prompt: |
+        A hypothetical kite's position in feet after t seconds is x(t) = 3t + 2, y(t) = 40 − (t − 4)². What is the average rate of change of the kite's height y with respect to t on the interval [1, 5], in feet per second?
+      answer: { value: 2, tolerance: 0 }
+      explanation: |
+        y(1) = 40 − 9 = 31 and y(5) = 40 − 1 = 39, so Δy/Δt = (39 − 31)/(5 − 1) = 8/4 = 2 ft/s. On average the kite rose 2 feet per second.
+    - slug: precalc-u04-w27-q21
+      type: short_answer
+      topic_code: "4.1"
+      source: "AP Precalculus CED, Topic 4.1"
+      points: 3
+      prompt: |
+        A path is given by x(t) = 2t − 1, y(t) = t² − t for −1 ≤ t ≤ 2.
+
+        (a) Complete a table of t, x and y for t = −1, 0, 1, 2.
+        (b) Eliminate the parameter to write y as a function of x, simplified.
+        (c) State the interval of x-values on the path and the direction in which it is traced as t increases.
+      answer: |
+        (a) t = −1: (−3, 2); t = 0: (−1, 0); t = 1: (1, 0); t = 2: (3, 2).
+        (b) t = (x + 1)/2, so y = ((x + 1)/2)² − (x + 1)/2 = (x² + 2x + 1)/4 − (2x + 2)/4 = (x² − 1)/4.
+        (c) x runs from −3 to 3, so −3 ≤ x ≤ 3. Since x = 2t − 1 increases with t, the path (part of the upward parabola y = (x² − 1)/4) is traced from left to right, from (−3, 2) to (3, 2).
+      explanation: |
+        Three points, one per part. (a) all four points correct. (b) a correct substitution and the simplified y = (x² − 1)/4 (accept unsimplified but correct). (c) the interval −3 ≤ x ≤ 3 and left to right with a reason.
+    - slug: precalc-u04-w27-q22
+      type: short_answer
+      topic_code: "3.14"
+      source: "AP Precalculus CED, Topic 3.14"
+      points: 3
+      prompt: |
+        The polar curve r = 2 cos θ can be written as a parametric function with θ as the parameter.
+
+        (a) Write x(θ) and y(θ).
+        (b) Find the rectangular points for θ = 0, θ = π/4 and θ = π/2.
+        (c) Use x² + y² = r² and x = r cos θ to write a rectangular equation for the curve, and identify it.
+      answer: |
+        (a) x(θ) = r cos θ = 2cos²θ, y(θ) = r sin θ = 2 cos θ sin θ.
+        (b) θ = 0: (2, 0). θ = π/4: x = 2(1/2) = 1, y = 2(√2/2)(√2/2) = 1, so (1, 1). θ = π/2: (0, 0).
+        (c) Multiply r = 2 cos θ by r: r² = 2r cos θ, so x² + y² = 2x. Completing the square, (x − 1)² + y² = 1: the circle with centre (1, 0) and radius 1.
+      explanation: |
+        Three points, one per part. (a) both component functions. (b) all three points. (c) the equation x² + y² = 2x or (x − 1)² + y² = 1 with centre and radius identified.
+    - slug: precalc-u04-w27-q23
+      type: long_answer
+      topic_code: "4.2"
+      source: "AP Precalculus CED, Topics 4.2 and 4.3"
+      points: 6
+      prompt: |
+        In a hypothetical model, a soccer ball is kicked from the ground. Its horizontal and vertical positions, in feet, t seconds after the kick are
+
+        x(t) = 36t and y(t) = 48t − 16t², for 0 ≤ t ≤ 3.
+
+        (A) (i) Find the time at which the ball is highest and its height then.
+            (ii) Find the time at which the ball lands and its horizontal distance from the kick at that time.
+        (B) (i) Find the average rate of change of y with respect to t on [0, 1] and on [2, 3], with units.
+            (ii) Interpret the signs of your two answers in the context of the ball's motion.
+        (C) (i) Find the slope of the path of the ball between t = 0 and t = 1.
+            (ii) A wall 8 feet tall stands 99 feet from the kick, in the ball's path. Does the ball pass over the wall? Justify your answer.
+      answer: |
+        (A)(i) y(t) = −16t² + 48t has its vertex at t = −48/(2 · (−16)) = 1.5 s, and y(1.5) = 72 − 36 = 36 feet.
+        (ii) y(t) = 16t(3 − t) = 0 at t = 0 and t = 3; the ball lands at t = 3 s, when x(3) = 108 feet.
+        (B)(i) y(0) = 0, y(1) = 32, y(2) = 32, y(3) = 0. On [0, 1]: (32 − 0)/1 = 32 ft/s. On [2, 3]: (0 − 32)/1 = −32 ft/s.
+        (ii) Positive on [0, 1]: the ball is rising, gaining 32 feet of height per second on average. Negative on [2, 3]: the ball is falling, losing 32 feet per second on average.
+        (C)(i) Δx = 36 and Δy = 32 on [0, 1], so the slope is 32/36 = 8/9.
+        (ii) The ball reaches x = 99 when 36t = 99, t = 2.75 s. Then y(2.75) = 48(2.75) − 16(2.75)² = 132 − 121 = 11 feet. Since 11 > 8, the ball passes over the wall (by 3 feet).
+      explanation: |
+        Six points. (A) 1 point for t = 1.5 s and 36 ft; 1 point for t = 3 s and 108 ft. (B) 1 point for 32 ft/s and −32 ft/s with units; 1 point for interpreting rising versus falling in context. (C) 1 point for the slope 8/9; 1 point for finding t = 2.75 and y = 11 ft and concluding the ball clears the 8-foot wall.

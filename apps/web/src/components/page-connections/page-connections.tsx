@@ -1,5 +1,8 @@
 import { Component, h, State } from '@stencil/core';
+import { PUBLIC_ROLES, SUPPORTER_ROLES, hasRole, roleLabel } from '@24hc/shared';
 import type { Connection } from '@24hc/shared';
+import { ApiError } from '@24hc/api-client';
+import { authStore } from '../../services/auth-store';
 import { profileStore } from '../../services/profile-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { navigate } from '../../services/navigate';
@@ -12,9 +15,73 @@ export class PageConnections {
   @State() loaded = false;
   @State() error = false;
   @State() busy = false;
+  /** The viewer's own connect code; null until it loads, or if it cannot. */
+  @State() code: string | null = null;
+  @State() codeInput = '';
+  @State() codeMessage: { kind: 'ok' | 'error'; text: string } | null = null;
 
   async componentWillLoad() {
-    await this.load();
+    await Promise.all([this.load(), this.loadCode()]);
+  }
+
+  /**
+   * Separate from load() and allowed to fail quietly: the code is a
+   * convenience beside the list, so a failure hides its section rather than
+   * replacing the whole page with an error.
+   */
+  private async loadCode() {
+    try {
+      this.code = (await profileStore.connectCode()).code;
+    } catch {
+      this.code = null;
+    }
+  }
+
+  async rotateCode() {
+    this.busy = true;
+    try {
+      this.code = (await profileStore.rotateConnectCode()).code;
+    } catch (e) {
+      recoverFromExpiredSession(e);
+    } finally {
+      this.busy = false;
+    }
+  }
+
+  async sendByCode(event: Event) {
+    event.preventDefault();
+    const code = this.codeInput.trim();
+    if (code === '') {
+      return;
+    }
+    this.busy = true;
+    this.codeMessage = null;
+    try {
+      await profileStore.requestConnectionByCode(code);
+      this.codeInput = '';
+      this.codeMessage = { kind: 'ok', text: 'Request sent. It appears below until they accept.' };
+      await this.load();
+    } catch (e) {
+      if (recoverFromExpiredSession(e)) {
+        return;
+      }
+      // The server answers every miss -- unknown code, a pair the roles do
+      // not allow -- with the same 404, so the page cannot say which.
+      if (e instanceof ApiError && e.status === 422) {
+        this.codeMessage = { kind: 'error', text: e.errors?.user?.[0] ?? 'You are already connected, or a request is waiting.' };
+      } else if (e instanceof ApiError && e.status === 404) {
+        this.codeMessage = { kind: 'error', text: 'No one you can connect with has that code.' };
+      } else {
+        this.codeMessage = { kind: 'error', text: 'We could not send that request. Please try again.' };
+      }
+    } finally {
+      this.busy = false;
+    }
+  }
+
+  /** Allowlist (Role::supportsStudents): who gets a student's assignments link. */
+  private get viewerSupportsStudents(): boolean {
+    return hasRole(SUPPORTER_ROLES, authStore.currentUser?.role);
   }
 
   private async load() {
@@ -96,7 +163,54 @@ export class PageConnections {
    * pending sections, not applied to every student.
    */
   private pendingIsLinkable(connection: Connection): boolean {
-    return connection.user.role === 'teacher';
+    return hasRole(PUBLIC_ROLES, connection.user.role);
+  }
+
+  /** Absent on a redacted outgoing row, so nothing is shown there. */
+  private roleTag(connection: Connection) {
+    return connection.user.role ? <span class="pill">{roleLabel(connection.user.role)}</span> : null;
+  }
+
+  /** Strict equality: an allowlist of one, and `role` may be absent. */
+  private studentLink(connection: Connection) {
+    if (!this.viewerSupportsStudents || connection.user.role !== 'student') {
+      return null;
+    }
+    const path = `/students/${connection.user.id}`;
+    return (
+      <a href={path} data-testid={`assignments-${connection.id}`} onClick={(e) => { e.preventDefault(); navigate(path); }}>
+        Assignments and scores
+      </a>
+    );
+  }
+
+  private renderCode() {
+    return (
+      <section data-testid="code-section">
+        <h2>Connect with a code</h2>
+        {this.code !== null && (
+          <p>
+            Your code is <strong data-testid="my-code">{this.code}</strong>. Anyone you share it with can send you a request.{' '}
+            <button type="button" class="btn" disabled={this.busy} onClick={() => this.rotateCode()}>
+              New code
+            </button>
+          </p>
+        )}
+        <form onSubmit={(e) => this.sendByCode(e)}>
+          <label>
+            Someone else's code
+            <input
+              type="text"
+              autocomplete="off"
+              value={this.codeInput}
+              onInput={(e) => (this.codeInput = (e.target as HTMLInputElement).value)}
+            />
+          </label>
+          <button type="submit" class="btn-primary" disabled={this.busy}>Send request</button>
+        </form>
+        {this.codeMessage && <p class={this.codeMessage.kind === 'error' ? 'error' : 'notice'} role="status">{this.codeMessage.text}</p>}
+      </section>
+    );
   }
 
   private person(connection: Connection, linkable: boolean) {
@@ -147,6 +261,7 @@ export class PageConnections {
               {this.incoming.map((connection) => (
                 <li key={connection.id}>
                   {this.person(connection, this.pendingIsLinkable(connection))}
+                  {this.roleTag(connection)}
                   <button
                     type="button"
                     class="btn-primary"
@@ -178,6 +293,7 @@ export class PageConnections {
               {this.outgoing.map((connection) => (
                 <li key={connection.id}>
                   {this.person(connection, this.pendingIsLinkable(connection))}
+                  {this.roleTag(connection)}
                   <button
                     type="button"
                     class="btn"
@@ -201,6 +317,8 @@ export class PageConnections {
               {this.accepted.map((connection) => (
                 <li key={connection.id}>
                   {this.person(connection, true)}
+                  {this.roleTag(connection)}
+                  {this.studentLink(connection)}
                   <button
                     type="button"
                     class="btn"
@@ -215,6 +333,8 @@ export class PageConnections {
             </ul>
           )}
         </section>
+
+        {this.renderCode()}
       </section>
     );
   }

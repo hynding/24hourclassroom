@@ -29,12 +29,12 @@ final class UserSummary
             //
             // Written as an allowlist rather than `=== Role::Student`: a
             // denylist over an open enum breaks every time the enum grows, and
-            // this one grew inside this very milestone. A teacher is the only
-            // role that is publicly discoverable (GET /api/teachers), so a
-            // teacher is the only role whose avatar travels. The key stays
+            // this one grew inside this very milestone. Only a Role::isPublic()
+            // role is publicly discoverable (GET /api/teachers), so only theirs
+            // is an avatar that travels. The key stays
             // (@24hc/shared declares `string | null`) so the payload's shape
             // does not itself announce the role.
-            'avatar_url' => $user->role === Role::Teacher ? $user->profile?->avatar_url : null,
+            'avatar_url' => $user->role->isPublic() ? $user->profile?->avatar_url : null,
         ];
     }
 }

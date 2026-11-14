@@ -177,7 +177,7 @@ test('only a teacher may cancel', function () {
     $generation = Generation::factory()->create(['user_id' => $owner->id]);
 
     foreach (Role::cases() as $role) {
-        if ($role === Role::Teacher) {
+        if ($role->authors()) {
             continue;
         }
 

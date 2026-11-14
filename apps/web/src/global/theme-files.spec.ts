@@ -126,6 +126,12 @@ describe('palette files', () => {
         expect(contrast(v['--color-on-accent'], v['--color-accent'])).toBeGreaterThanOrEqual(4.5);
       });
 
+      it('passes WCAG AA for every text token on the comment moderation surfaces', () => {
+        for (const surface of ['--color-pending-surface', '--color-denied-surface', '--color-deleted-surface']) {
+          for (const t of TEXT_TOKENS) expect(contrast(v[t], v[surface])).toBeGreaterThanOrEqual(4.5);
+        }
+      });
+
       it('matches the PALETTES metadata the boot script paints from', () => {
         expect(v['--color-surface']).toBe(option.surface);
         expect(v['color-scheme']).toBe(option.scheme);

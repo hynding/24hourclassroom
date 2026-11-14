@@ -1,4 +1,5 @@
 import { Component, Element, h, Listen, Prop, State, Watch } from '@stencil/core';
+import { AUTHOR_ROLES, CONNECTED_GRADER_ROLES, REGISTRATION_ROLES, SHARE_RECIPIENT_ROLES, hasRole } from '@24hc/shared';
 import type { SiteConfig, User } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { profileStore } from '../../services/profile-store';
@@ -7,6 +8,7 @@ import { navigate } from '../../services/navigate';
 import { siteStore } from '../../services/site-store';
 import { StaleIdentityError } from '../../services/stale-identity';
 import { navIcon, NavIcon } from '../../services/nav-icons';
+import { LIBRARY_SECTIONS } from '../../services/library-sections';
 
 /** Per-browser memory of the collapsed side panel. A convenience, so a failed read or write is harmless. */
 const COLLAPSED_KEY = '24hc.nav.collapsed.v1';
@@ -184,44 +186,52 @@ export class AppHeader {
     navigate('/');
   };
 
-  /** Allowlist: teachers author, students take. An admin has no tests shelf. */
+  /** Allowlist: authors write, students take. An admin, assistant or guardian has no tests shelf. */
   private showsTests(): boolean {
-    return this.user !== null && (this.user.role === 'teacher' || this.user.role === 'student');
+    return this.user !== null && (hasRole(AUTHOR_ROLES, this.user.role) || this.user.role === 'student');
   }
 
-  /** Allowlist: teachers upload, students receive. An admin has no materials shelf. */
+  /** Allowlist: authors upload, share recipients receive. An admin or guardian has no materials shelf. */
   private showsMaterials(): boolean {
-    return this.user !== null && (this.user.role === 'teacher' || this.user.role === 'student');
+    return this.user !== null && (hasRole(AUTHOR_ROLES, this.user.role) || hasRole(SHARE_RECIPIENT_ROLES, this.user.role));
   }
 
   /**
-   * Allowlist: only a teacher builds courses (the API refuses everyone
+   * Allowlist: only an author builds courses (the API refuses everyone
    * else a shelf). Everyone finds published courses in the library.
    */
   private showsCourses(): boolean {
-    return this.user !== null && this.user.role === 'teacher';
+    return this.user !== null && hasRole(AUTHOR_ROLES, this.user.role);
   }
 
   /**
-   * Allowlist: connections exist between teachers and students only (the
-   * server refuses every other role), so only they get the page.
+   * Allowlist: authors grade their own assignments, connected graders
+   * (teacher assistants) grade their teachers' (GradingAccess).
+   */
+  private showsGrading(): boolean {
+    return this.user !== null && (hasRole(AUTHOR_ROLES, this.user.role) || hasRole(CONNECTED_GRADER_ROLES, this.user.role));
+  }
+
+  /**
+   * Allowlist: every self-assignable role has connection partners
+   * (Role::canConnect); an admin has none, so gets no page.
    */
   private showsConnections(): boolean {
-    return this.user !== null && (this.user.role === 'teacher' || this.user.role === 'student');
+    return this.user !== null && hasRole(REGISTRATION_ROLES, this.user.role);
   }
 
   /**
-   * Allowlist: only a teacher can hold an Anthropic key or an MCP token --
-   * every generation endpoint and every MCP tool admits Role::Teacher alone.
+   * Allowlist: only an author can hold an Anthropic key or an MCP token --
+   * every generation endpoint and every MCP tool admits Role::authors() alone.
    */
   private showsIntegrations(): boolean {
-    return this.user !== null && this.user.role === 'teacher';
+    return this.user !== null && hasRole(AUTHOR_ROLES, this.user.role);
   }
 
   /** One side-panel entry: icon, label (visually hidden when collapsed), and a tooltip. */
-  private item(path: string, label: string, icon: NavIcon, extra?: unknown) {
+  private item(path: string, label: string, icon: NavIcon, extra?: unknown, cls?: string) {
     return (
-      <a href={path} title={label} onClick={(e) => this.onNav(e, path)}>
+      <a href={path} class={cls} title={label} onClick={(e) => this.onNav(e, path)}>
         {navIcon(icon)}
         <span class="label">{label}</span>
         {extra}
@@ -263,9 +273,11 @@ export class AppHeader {
         <nav id="site-menu" aria-label="Main">
           {this.item('/teachers', 'Teachers', 'teachers')}
           {this.item('/library', 'Library', 'library')}
+          {LIBRARY_SECTIONS.map((s) => this.item(s.path, s.title, s.icon, undefined, 'sub'))}
           {this.showsTests() && this.item('/tests', 'Tests', 'tests')}
           {this.showsMaterials() && this.item('/materials', 'Materials', 'materials')}
           {this.showsCourses() && this.item('/courses', 'Courses', 'courses')}
+          {this.showsGrading() && this.item('/grading', 'To grade', 'grading')}
           {this.showsConnections() && this.item('/connections', 'Connections', 'connections')}
           {this.showsIntegrations() && this.item('/integrations', 'Integrations', 'integrations')}
           {user && this.item('/notifications', 'Notifications', 'notifications',

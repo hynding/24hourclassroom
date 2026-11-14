@@ -65,6 +65,9 @@ function AdminOverview({ metrics }: { metrics: AdminMetrics }) {
                 <ul className="space-y-1">
                     <Stat label="Teachers" value={people.by_role.teacher} />
                     <Stat label="Students" value={people.by_role.student} />
+                    <Stat label="Tutors" value={people.by_role.tutor} />
+                    <Stat label="Teacher assistants" value={people.by_role.assistant} />
+                    <Stat label="Parents and guardians" value={people.by_role.guardian} />
                     <Stat label="Admins" value={people.by_role.admin} />
                     <Stat label="Verified" value={`${people.verified_percentage}%`} />
                     <Stat label="New, 7 days" value={people.new_7d} />

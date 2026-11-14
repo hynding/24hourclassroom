@@ -9,6 +9,8 @@ import {
   MaterialSummary,
   SUBJECTS,
   Subject,
+  AUTHOR_ROLES,
+  hasRole,
 } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { generationStore } from '../../services/generation-store';
@@ -32,9 +34,9 @@ export class PageTestGenerate {
   @State() busy = false;
   @State() loading = true;
 
-  /** Allowlist: anything that is not exactly teacher gets the empty state. */
+  /** Allowlist: anything that is not an author (teacher, tutor) gets the empty state. */
   private get role(): 'teacher' | 'none' {
-    return authStore.currentUser?.role === 'teacher' ? 'teacher' : 'none';
+    return hasRole(AUTHOR_ROLES, authStore.currentUser?.role) ? 'teacher' : 'none';
   }
 
   async componentWillLoad() {

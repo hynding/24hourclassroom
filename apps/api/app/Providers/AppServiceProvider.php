@@ -49,6 +49,8 @@ class AppServiceProvider extends ServiceProvider
         // /courses/candidates.
         Route::pattern('course', '[0-9]+');
 
+        Route::pattern('comment', '[0-9]+');
+
         // {share} is resolved by hand inside MaterialShareController::destroy
         // (after the author check, so share ids are not an oracle); without a
         // pattern a non-numeric segment would reach `int $share` as a string.
@@ -81,6 +83,13 @@ class AppServiceProvider extends ServiceProvider
         // one counter with both throttle:60,1 API groups (the CLAUDE.md
         // shared-bucket gotcha), so an admin who had just used the SPA would
         // get a raw 429 on their first click.
+        // GET /api/page-head: every call comes from the SPA host's IP (its
+        // index.php asks on each page load), so it must not share the guest
+        // per-IP bucket the site config and auth routes draw on. Named, so
+        // the key carries the limiter name.
+        RateLimiter::for('page-head', fn (Request $request) => Limit::perMinute(600)
+            ->by('page-head:'.$request->ip()));
+
         RateLimiter::for('admin-resend', fn (Request $request) => Limit::perMinute(6)
             ->by('admin-resend:'.($request->user()?->id ?? $request->ip())));
     }

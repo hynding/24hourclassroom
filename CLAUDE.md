@@ -69,6 +69,17 @@ every shadow root by Stencil (so element and class rules reach components).
 `app-layout` lives inside `app-root`'s shadow root, so a top-level
 `document.querySelector('app-layout')` finds nothing — pierce `.shadowRoot`.
 
+**Server-rendered heads (link previews).** The SPA host's `.htaccess` sends
+every page that isn't a file to `index.php` (`apps/web/src/server/`, copied
+into `www/` by Stencil), which asks `GET /api/page-head?path=` and splices the
+returned `<title>`/description/canonical/Open Graph/JSON-LD into `index.html`;
+any failure serves `index.html` unchanged. The API side is
+`App\Support\PageHead`, always the guest view (a private page gets the site
+head and `noindex`), and it mirrors `services/page-meta.ts`, which takes the
+same tags over after load: change the two together. `page-head` has its own
+named limiter because every call comes from the web host's one IP. The web
+host therefore needs PHP (7.4+) enabled.
+
 ## Styling contract (`apps/web`)
 
 Enforced by specs in `src/global/`. These fail CI, not review:
@@ -91,8 +102,9 @@ Enforced by specs in `src/global/`. These fail CI, not review:
 ## Admin accounts
 
 **Nothing in the application can create an admin.** All four role-accepting
-entry points allowlist teacher/student only — SPA registration, web
-registration, OAuth completion, *and the admin UI's own role editor*. That is
+entry points allowlist `Role::selfAssignable()` (teacher, student, tutor,
+assistant, guardian) — SPA registration, web registration, OAuth completion,
+*and the admin UI's own role editor*. That is
 deliberate: a stolen admin session cannot mint persistent admins. It also means
 provisioning always needs shell access.
 
@@ -107,7 +119,7 @@ the command warns you which one is still closed.
 
 The admin UI is Inertia on the **API host** (`/admin/users`,
 `/admin/users/{user}`, `/admin/site-theme`, `/admin/site`, `/admin/tests`,
-`/admin/materials`, `/admin/courses`, `/admin/generations`), not the Stencil SPA. Log in there,
+`/admin/materials`, `/admin/courses`, `/admin/comments`, `/admin/slugs`, `/admin/generations`), not the Stencil SPA. Log in there,
 not on the SPA host.
 
 Middleware order in `bootstrap/app.php` is load-bearing: `EnsureUserIsAdmin` is
@@ -121,6 +133,39 @@ JSON entry points, `isOpen()` + redirect on the web register page, the OAuth
 callback's new-account branch); `RegistrationGateTest` scans `app/` for
 `User::create(` and fails until a new creator is gated. Shell commands,
 seeders and factories are deliberately ungated.
+
+## Roles
+
+`App\Enums\Role` holds every capability as an allowlist method; branch on those,
+never on a role literal. `packages/shared` mirrors each list (`AUTHOR_ROLES`,
+`PUBLIC_ROLES`, …) and `RoleMirrorTest` asserts both directions.
+
+- `authors()` — teacher, tutor: tests, materials, courses, assigning, grading,
+  integrations. A tutor is a teacher in every gate.
+- `isPublic()` — teacher, tutor: directory, public profile, follow, avatar.
+- `supportsStudents()` — tutor, assistant (teacher assistant), guardian
+  (parent or guardian): `GET /api/students/{id}/assignments`, read-only scores
+  for a student they hold an accepted connection with. 404 for anything else.
+- `seesConnectedStudentAnswers()` — guardian: also opens, read-only, each
+  *submitted, assigned* attempt of a connected, active student at
+  `GET /api/attempts/{id}` (the student's own review: answers, correct
+  answers, explanations). Never an open attempt or self-practice.
+  `page-student` links "See answers"; `page-attempt` then names the student.
+- `gradesForConnectedTeachers()` — assistant: reads and hand-grades the
+  submitted attempts on a connected teacher's assignments
+  (`App\Support\GradingAccess`: assistant↔teacher and teacher↔student
+  connections accepted, teacher and student active; no assistant↔student
+  connection needed). `graded_by` records who graded. `GET /api/grading`
+  (SPA `/grading`, "To grade") is the queue of attempts still awaiting a hand
+  grade, for authors (their own) and assistants (every connected teacher's).
+- `receivesShares()` — teacher, student, tutor, assistant.
+- `comments()` — everyone but admin; `moderatesComments()` — admin (see Comments).
+- `Role::canConnect($a, $b)` — the symmetric pair matrix (no admin, no
+  student↔student, guardian/assistant only with teacher, tutor, student).
+
+Non-public roles are reached through **connect codes** (`users.connect_code`,
+hidden, minted on first `GET /api/connections/code`, rotated by `PUT`):
+`POST /api/connections/code/{code}` sends a request; every miss is one 404.
 
 ## Courses
 
@@ -161,16 +206,119 @@ movable and removable in the editor, never newly addable. Later changes to the
 original do not reach a branch. `page-course` watches `courseId`: a branch and
 its original are the same tag, so Stencil reuses the element.
 
-## Seeded AP Biology course
+## Page addresses (slugs)
 
-`php artisan db:seed --class=ApBiologySeeder` (also called from `DatabaseSeeder`)
+Ids keep working everywhere; a slug only adds a readable address.
+`App\Support\Slugs` holds every rule over one `url_slugs` table (`SlugKind`,
+`SlugStatus`, mirrored in `@24hc/shared`):
+
+- `/teachers/<handle>`: a teacher or tutor asks on their profile
+  (`PUT /api/profile/handle`); an admin approves or declines at `/admin/slugs`.
+- `/teachers/<handle>/<slug>`: the author names a course in its editor
+  (`PUT /api/courses/{course}/slug`). **Approved automatically once the
+  handle is** (the owner's call, 2026-11-13): pending until then.
+- `/courses/<slug>`: site-wide, set by an admin only at `/admin/slugs`.
+  `/courses/precalculus` comes from the migration (existing installs) and
+  `site_slug` in the Precalculus `course.yaml` (fresh seeds).
+- A replaced slug is **retired**, never deleted: it keeps resolving and is
+  never issued to anything else. A declined handle is never reissued either.
+- The canonical address prefers the site slug, then the teacher's, then the
+  id (`CourseView.path`, `PublicProfile.path`, practice `course.path`, the
+  sitemap, `PageHead`). The SPA resolves a vanity path through
+  `GET /api/resolve` in `app-root` (`needsResolve()` in `router.ts`) and
+  routes on the id path it names; a page opened by id rewrites the address
+  bar to its canonical path with `adoptCanonicalPath`.
+- Resolving never widens access: `CourseAccess::canView` and the public
+  profile rule apply, and everything else is a 404. Don't reuse
+  `courses.slug` for any of this: it is the seeder's idempotency key.
+
+## Comments
+
+Signed-in people discuss a test, any one of its questions, a material or a
+course (`GET|POST /api/comments?target_type=&target_id=`, `PATCH|DELETE
+/api/comments/{comment}`; SPA `comment-thread`, compact per question on
+`page-test`). `App\Support\CommentAccess` holds every rule:
+
+- A discussion is exactly as visible as its target (`TestAccess`,
+  `MaterialAccess`, `CourseAccess`; a question goes through its test): 404
+  otherwise. Guests read nothing: a discussion names people.
+- Posting is `Role::comments()` (everyone but admin); `Role::moderatesComments()`
+  (admin) deletes anything it can see; the target's author deletes anything on
+  their own content; the writer edits and deletes their own.
+- Names follow decision 5: a `Role::isPublic()` commenter is named to all,
+  anyone else only to themselves, their accepted connections and admins;
+  others see the role ("A student"). `CommentPosted` notifications apply the
+  same rule per recipient at write time.
+- One nullable FK per target type (`CommentTarget`), so a deleted target takes
+  its discussion with it. Replies are one level deep; deleting a comment
+  deletes its replies. Deactivated people's comments are hidden, not deleted.
+- **Moderation** (`CommentStatus`: pending, approved, denied): only a *public
+  course's* own discussion is moderated. A comment there starts pending unless
+  its writer can approve (`CommentAccess::canApprove`: the course's author, an
+  assistant connected to them via `Role::approvesConnectedComments()`, an
+  admin); pending and denied comments are shown only to their writer and the
+  approvers (`CommentAccess::visible`). A writer's edit there sends the
+  comment back to pending. `POST /api/comments/{c}/approve|deny`. A reply's
+  notice to the person it answers waits for approval.
+- **Deleting is soft** (`deleted_at`, replies with it): only admins are ever
+  sent a deleted comment, marked by `deleted_at`. Existing comments migrated
+  as approved.
+- **Thumbs** (`PUT /api/comments/{c}/reaction`): the course's
+  `comment_reactions` switch, off by default and set in the course editor;
+  one per person, on someone else's approved comment.
+- **Comments off** (`tests.comments_enabled`, on by default; `PUT
+  /api/tests/{test}/comments`, the "Allow comments" box on `page-test`): the
+  author closes a test's discussion and all its question threads, because
+  question threads can leak answers among students assigned the same private
+  test. Closed means no posts, and existing comments are shown only to the
+  author and admins (`CommentAccess::isClosed` / `canRead`; a single-comment
+  route is a 404 to anyone else). The thread payload carries `closed`, and
+  `page-test` draws no threads for a non-author. A copy keeps the setting.
+- **Practice mode** (`page-course-practice`) carries the same test and
+  per-question threads as `page-test` (so no new audience: a practice test
+  is public), under the same comments-off rule, with a `hint` on
+  `comment-thread` telling posters to quote an option's words, not its
+  letter, because options are shuffled per run.
+- **Admin list** (`/admin/comments`, `CommentAdminController`): every
+  comment, deleted ones included, newest first; search body or commenter,
+  filter by status (pending, approved, denied, deleted) and target kind.
+  Approve/deny (course discussions only, and an approved reply sends its
+  held-back notice through `CommentNotifier`), delete (soft, with replies),
+  restore (with the replies deleted alongside it; a reply under a deleted
+  comment cannot come back alone).
+- The SPA's state tints are tokens (`--color-pending-surface`,
+  `--color-denied-surface`, `--color-deleted-surface`) in every palette, held
+  to 4.5:1 for every text token by `theme-files.spec.ts`.
+
+## Seeded courses (AP Biology, AP U.S. History, Algebra 1, Geometry, Algebra 2, Precalculus, Trigonometry, Chemistry, AP Chemistry, AP World History)
+
+Ten full-year courses are seeded from YAML, each by a thin subclass of
+`Database\Seeders\Curriculum\CurriculumSeeder` that names its data directory:
+
+| Seeder | Command | Data | Slug | Demo accounts |
+|---|---|---|---|---|
+| `ApBiologySeeder` | `course:seed-ap-biology` | `data/ap-biology/` (adapted from CC BY OpenStax) | `apbio` | `apbio@`, `apbio-student@example.com` |
+| `ApUsHistorySeeder` | `course:seed-ap-us-history` | `data/ap-us-history/` (original, public-domain quotations) | `apush` | `apush@`, `apush-student@example.com` |
+| `Algebra1Seeder` | `course:seed-algebra-1` | `data/algebra-1/` (adapted from CC BY 4.0 IM 9–12 Math) | `alg1` | `algebra1@`, `algebra1-student@example.com` |
+| `GeometrySeeder` | `course:seed-geometry` | `data/geometry/` (adapted from CC BY 4.0 IM 9–12 Math) | `geo` | `geometry@`, `geometry-student@example.com` |
+| `Algebra2Seeder` | `course:seed-algebra-2` | `data/algebra-2/` (adapted from CC BY 4.0 IM 9–12 Math) | `alg2` | `algebra2@`, `algebra2-student@example.com` |
+| `PrecalculusSeeder` | `course:seed-precalculus` | `data/precalculus/` (original, AP Precalculus CED) | `precalc` | `precalc@`, `precalc-student@example.com` |
+| `TrigonometrySeeder` | `course:seed-trigonometry` | `data/trigonometry/` (original, Common Core trigonometry standards) | `trig` | `trig@`, `trig-student@example.com` |
+| `ChemistrySeeder` | `course:seed-chemistry` | `data/chemistry/` (original, public-domain data) | `chem` | `chemistry@`, `chemistry-student@example.com` |
+| `ApChemistrySeeder` | `course:seed-ap-chemistry` | `data/ap-chemistry/` (original, public-domain data) | `apchem` | `apchem@`, `apchem-student@example.com` |
+| `ApWorldHistorySeeder` | `course:seed-ap-world-history` | `data/ap-world-history/` (original, public-domain quotations) | `apworld` | `apworld@`, `apworld-student@example.com` |
+
+Everything below applies to all of them; AP Biology is the worked example.
+
+`php artisan db:seed --class=ApBiologySeeder` (all of them are also called from `DatabaseSeeder`)
 builds a full-year course from YAML under
 `apps/api/database/seeders/data/ap-biology/` (`course.yaml` = week → unit → CED
-topic map; `unit-NN-*/week-NN.yaml` = guide path + flashcards + quiz;
+topic map, plus the course's title `prefix`, its `slug` and its `attribution_markers`;
+`unit-NN-*/week-NN.yaml` = guide path + flashcards + quiz;
 `unit-exam.yaml`, `unit-summary.md`; `review/` = practice exam and prep guide).
-`Database\Seeders\ApBiology\Course` loads it and composes every title and slug
-(`AP Biology · Week 07 · Quiz · …`) so the library's `sort=title` reads in course
-order. Idempotent through nullable `slug` columns on `tests`, `questions` and
+`Database\Seeders\Curriculum\Course` loads it and composes every title and slug
+(`AP Biology · Week 07 · Quiz · …`, `apbio-w07-quiz`) so the library's `sort=title` reads in course
+order and two courses never collide. Idempotent through nullable `slug` columns on `tests`, `questions` and
 `materials`: a re-run updates in place and questions keep their ids. By default
 it creates `apbio@example.com` / `apbio-student@example.com`, connects them, and
 assigns every test to the student with a due date from `start_date` (null = no
@@ -185,6 +333,15 @@ migrations, never seeders, so this is a one-off shell step per environment:
 
 ```bash
 php artisan course:seed-ap-biology --teacher=you@example.com --no-student --force
+php artisan course:seed-ap-us-history --teacher=you@example.com --no-student --force
+php artisan course:seed-algebra-1 --teacher=you@example.com --no-student --force
+php artisan course:seed-geometry --teacher=you@example.com --no-student --force
+php artisan course:seed-algebra-2 --teacher=you@example.com --no-student --force
+php artisan course:seed-precalculus --teacher=you@example.com --no-student --force
+php artisan course:seed-trigonometry --teacher=you@example.com --no-student --force
+php artisan course:seed-chemistry --teacher=you@example.com --no-student --force
+php artisan course:seed-ap-chemistry --teacher=you@example.com --no-student --force
+php artisan course:seed-ap-world-history --teacher=you@example.com --no-student --force
 ```
 
 `--teacher` must name an existing, verified, active teacher; the command never
@@ -198,12 +355,82 @@ or a fresh `config:cache`; the admin setting takes effect immediately. `--studen
 assigns the course to an existing student; `--no-student` skips the student,
 connection and assignments. Re-running with a different `--teacher` moves every
 course test and material to that account. Plain `db:seed` also seeds the course
-with the demo accounts and creates `test@example.com`: never run it on a server. `ApBiologyContentTest` lints the data
-directory (provenance, rationales, spiral review, duplicates, attribution) and
-`ApBiologySeederTest` proves idempotency on `tests/Fixtures/course`.
+with the demo accounts and creates `test@example.com`: never run it on a server. `CurriculumContentTest` runs
+`Curriculum\ContentLint` over every course's data directory (provenance, rationales,
+spiral review, duplicates, attribution) and `ApBiologySeederTest` proves idempotency
+on `tests/Fixtures/course`. A new course is a `course.yaml`, its data, a
+`CurriculumSeeder` subclass, a `SeedCurriculum` command and a row in the lint's
+dataset.
+
+AP U.S. History is **original writing**, not adapted: OpenStax *U.S. History* is
+now CC BY-NC-SA and bars LLM ingestion, so it is only linked as further reading.
+Its quotations are limited to public-domain texts (federal government works,
+pre-1931 publications); never quote copyrighted 20th-century private writing
+into it. Its guides end with the CED name and `public domain` (its
+`attribution_markers`). Each course is 72–74 files: one teacher owning more than
+one needs the file cap raised at `/admin/site` (about 75 per course).
+
+The three math courses (Algebra 1, Geometry, Algebra 2) are **adapted** from
+IM 9–12 Math by Illustrative Mathematics, © 2019, CC BY 4.0, rewritten in our
+own words with original examples and items; their topic codes are IM lesson
+numbers (`"2.14"` = Unit 2, Lesson 14) and their guides end with
+`Illustrative Mathematics` and `CC BY 4.0`. The IM name and logo are excluded
+from that licence: credit IM in attribution text only, never as branding.
+OpenStax is no longer usable for new courses (every book is now CC BY-NC-SA
+with a no-LLM clause). Math is written in plain Unicode (x², √, π, ≤) because
+`rich-text` renders no LaTeX and no HTML; figures are described in words.
+
+Precalculus is **original writing** (no CC BY precalculus text exists: Lippman
+& Rasmussen is CC BY-SA, Stitz–Zeager NC-SA, OpenStax NC-SA with the no-LLM
+clause). It follows the AP Precalculus CED's four units and topic codes,
+Unit 4 included although the AP exam skips it (markers `AP Precalculus Course
+and Exam Description`, `CC BY 4.0`); modelling data is invented. Its practice
+final opens with the May 2027 AP shape (29 no-calculator and 13 calculator
+multiple choice, then the four 6-point free-response types) and adds 24 items
+on Unit 4 and the other item types.
+
+Trigonometry is **original writing** too (no full trigonometry text is CC BY:
+Yoshiwara and Corral are GFDL, Boelkins CC BY-SA, Weimerskirch CC BY-NC,
+Sundstrom–Schlicker and OpenStax NC-SA; research in the project files). It has
+five self-designed units with its own topic codes (`"3.4"` = Unit 3, topic 4),
+cites Common Core codes (HSG-SRT, HSF-TF, HSN-CN, HSN-VM) in each item's
+`source`, and goes past Precalculus's Unit 3: laws of sines and cosines,
+the full identity toolkit, vectors and dot products, complex numbers in
+trigonometric form with De Moivre's theorem, parametric and polar conics.
+Weeks 1–10 follow the approach of IM 9–12 Math's CC BY trigonometry lessons
+and credit them in their footer; markers are `written for this course` and
+`CC BY 4.0`. Its practice final is a regular cumulative final (70 items: no-
+calculator MC, calculator items, select-all/true-false/fill-in, then four short
+and four long free-response items).
+
+Chemistry, AP Chemistry and AP World History: Modern are **original writing**
+like AP U.S. History: no textbook is adapted. The two chemistry courses take
+every constant and data value from public-domain U.S. government sources
+(NIST Chemistry WebBook, CODATA, PubChem) and write formulas in plain Unicode
+(H₂O, SO₄²⁻, ⇌, ΔH°); Chemistry is NGSS-aligned with self-designed units
+(markers `written for this course`, `public domain`), AP Chemistry follows the
+CED's nine units and topic codes (markers `AP Chemistry Course and Exam
+Description`, `public domain`) and its practice exam has the real shape (60
+Section I items, then four 4-point and three 10-point free-response items).
+AP World History: Modern follows the CED's nine units (markers `AP World
+History: Modern Course and Exam Description`, `public domain`) under the same
+quotation rule as AP U.S. History: pre-1931 editions and translations or U.S.
+government works only, each listed in its ATTRIBUTION.md; post-1930 sources
+are described, never quoted. Its practice exam follows the 2027 format (55
+stimulus-based multiple choice, three SAQs, a DBQ scored out of 7 and an LEQ
+scored out of 6).
+
+**Licence.** Every seeded course's own writing is © 24 Hour Classroom under
+CC BY 4.0 (the owner's call, 2026-10-19), so the courses can be listed in open
+educational resource directories. Each `ATTRIBUTION.md` says so under
+`## Licence` (with the upstream CC BY credit for the adapted courses, and the
+College Board trademark note for AP), and each `course.yaml` description ends
+by saying so; `ContentLint::licence()` fails a course missing either, AP
+Literature included. A new course must carry both.
 
 Content contract the lint enforces: every option carries an
-`option_explanations` entry; `fill_blank` prompts contain `____` and `answer` is a
+`option_explanations` entry; no rationale or explanation names an option by
+letter ("option A"), because students see options shuffled; `fill_blank` prompts contain `____` and `answer` is a
 list of accepted strings (`auto_grade: false` hands the item to the teacher);
 `long_answer` is 4–10 points and its `explanation` is the point-by-point
 acceptable-answer summary; a `stimulus` repeated verbatim across consecutive
@@ -212,6 +439,51 @@ items renders once. Flashcard decks are materials named `*.flashcards.md`
 any small `.md`/`.txt` in-app through `rich-text`, a vnode-only markdown subset
 with no HTML and no `innerHTML`. `MaterialWriter` is the one path that puts a
 file on the materials disk, for uploads and the seeder alike.
+
+## Seeded AP Literature course
+
+`php artisan db:seed --class=ApLiteratureSeeder` (also called from
+`DatabaseSeeder`) and `php artisan course:seed-ap-literature --teacher=EMAIL
+[--student=EMAIL|--no-student] --force` work exactly like their AP Biology
+twins (same owner checks, quota check, idempotent slugs, private course row,
+slug `aplit`, demo accounts `aplit@example.com` / `aplit-student@example.com`).
+It runs on the shared Curriculum classes like the other ten
+(`ApLiteratureSeeder extends CurriculumSeeder`, `SeedApLiterature extends
+SeedCurriculum`, `prefix`/`slug`/`attribution_markers` in its `course.yaml`),
+but keeps its own lint. Data lives under
+`apps/api/database/seeders/data/ap-literature/`, same layout as AP Biology,
+nine units in the CED order (Short Fiction / Poetry / Longer Fiction or Drama,
+three times) over 32 weeks plus an exam-prep guide (week 33) and a practice
+exam shaped like the real one (55 MC in five passage sets, then three 6-point
+essays). It is 74 files against the per-teacher cap, so one teacher owning
+it and another seeded course needs the cap raised accordingly (147 with AP
+Biology).
+
+Two differences from biology. The literature CED has skills, not numbered
+topics, so a `topic_code` is a CED skill code (`1.A` ... `7.E`, listed once
+under `skills` in `course.yaml`; each unit lists the skills the CED gives it;
+each week's `topics` are its focus skills). A top-level `skills` key is what
+switches `Curriculum\Course` into this mode (`bySkill()`: `topics()` returns
+the skills, `unitTopics()` the unit's skills, descriptions say "CED skills"). And every quoted text must be in
+the US public domain: week files list their `texts` with year and a link, an
+item's `source` carries the work's year in parentheses (or is `general
+knowledge`), and the lint rejects anything after
+`Lint::PUBLIC_DOMAIN_THROUGH` (1930; bump it each January). The lint lives in
+`Database\Seeders\ApLiterature\Lint`, not the test, so it can run on one
+unit (`(new Lint($course))->run([3])`); `ApLiteratureContentTest` runs it over
+everything.
+
+## Shuffled options
+
+Wherever a student answers, multiple-choice and select-all options are shown
+in a shuffled order (`services/option-order.ts`): seeded per attempt
+(`attempt-<id>`: the same on reload and in the review, new on a retake) and
+per practice run. It is purely presentational. Responses, answers and
+`option_explanations` stay in authored indices, so `AttemptGrader` and every
+teacher view (editor, `page-test`, results, print and its answer key) are
+unchanged. A question whose options point at each other ("All of the
+above", "Both A and B", "A and C only") keeps its authored order, and so do
+true/false items.
 
 ## Gotchas
 

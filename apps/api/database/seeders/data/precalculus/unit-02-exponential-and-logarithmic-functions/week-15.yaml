@@ -1,0 +1,612 @@
+week: 15
+unit: 2
+title: "Logarithmic Functions and Their Properties"
+topics: ["2.11", "2.12"]
+guide: guides/week-15.md
+guide_description: |
+  The graph of a logarithmic function (domain, vertical asymptote, intercept, concavity, slow growth, limit
+  notation at both ends) and the "multiply inputs, add outputs" pattern that identifies logarithmic data; then
+  the product, quotient and power properties, change of base, and why a horizontal dilation of a log graph is
+  a vertical translation. Worked examples: building a log model from a doubling table, expanding and
+  condensing, estimating log₂ 12 from log₂ 3, and rewriting log₂(8x) as 3 + log₂ x.
+flashcards_description: |
+  30 cards on graphs of logarithmic functions, their limits and concavity, logarithmic patterns in tables,
+  the product, quotient and power properties, change of base, and log transformations.
+
+flashcards:
+  - front: Graph of y = log₂ x → domain, range, intercept, asymptote
+    back: |
+      Domain x > 0, range all real numbers, horizontal intercept (1, 0), vertical asymptote x = 0. There is no vertical intercept.
+    topic_code: "2.11"
+  - front: lim (x → 0⁺) log₂ x → value and meaning
+    back: |
+      −∞. As x approaches 0 from the right, the outputs decrease without bound: the graph runs down along the asymptote x = 0. Only the right-hand limit exists as a question, since log₂ x is undefined for x ≤ 0.
+    topic_code: "2.11"
+  - front: lim (x → ∞) log₂ x → value and how fast
+    back: |
+      ∞, but slowly: reaching an output of 20 takes x = 2²⁰, over a million. Any increasing linear or exponential function eventually outgrows it.
+    topic_code: "2.11"
+  - front: Concavity of y = log_b x for b > 1 → which way and why
+    back: |
+      Concave down. It is increasing, but over equal-length input intervals the increases shrink (log₂: 1 to 2 adds 1, 2 to 3 adds about 0.585), so the rate of change decreases.
+    topic_code: "2.11"
+  - front: Graph of y = log_(1/2) x → direction and concavity
+    back: |
+      Decreasing and concave up, with lim (x → 0⁺) = ∞ and lim (x → ∞) = −∞. It is the reflection of log₂ x across the x-axis, since log_(1/2) x = −log₂ x.
+    topic_code: "2.11"
+  - front: Logarithmic pattern in a table → what to look for
+    back: |
+      When the inputs are multiplied by a constant factor, the outputs change by a constant amount. x = 3, 6, 12, 24 with y = 5, 7, 9, 11 is logarithmic.
+    topic_code: "2.11"
+  - front: Linear vs exponential vs logarithmic → the input/output change patterns
+    back: |
+      Linear: add to inputs, add to outputs. Exponential: add to inputs, multiply outputs. Logarithmic: multiply inputs, add to outputs.
+    topic_code: "2.11"
+  - front: y = log₃(x + 2) → domain, asymptote, intercept
+    back: |
+      Domain x > −2, vertical asymptote x = −2, horizontal intercept where x + 2 = 1, at (−1, 0). A shift inside the log moves the asymptote.
+    topic_code: "2.11"
+  - front: y = a log_b x with a < 0 and b > 1 → shape
+    back: |
+      Decreasing and concave up: a vertical stretch by |a| and a reflection across the x-axis. It still passes through (1, 0) with asymptote x = 0.
+    topic_code: "2.11"
+  - front: log x versus x/100 for large x → which wins
+    back: |
+      x/100. At x = 10⁶, log x = 6 while x/100 = 10,000. Both go to ∞, but the logarithm grows far more slowly.
+    topic_code: "2.11"
+  - front: Product property of logarithms → statement and source
+    back: |
+      log_b(MN) = log_b M + log_b N for M, N > 0. It restates bᵐ · bⁿ = b^(m+n): multiplying powers adds exponents.
+    topic_code: "2.12"
+  - front: Quotient property of logarithms → statement
+    back: |
+      log_b(M/N) = log_b M − log_b N for M, N > 0, from bᵐ / bⁿ = b^(m−n).
+    topic_code: "2.12"
+  - front: Power property of logarithms → statement
+    back: |
+      log_b(Mᵏ) = k log_b M for M > 0, from (bᵐ)ᵏ = b^(mk). The exponent comes out front as a multiplier: log(x³) = 3 log x.
+    topic_code: "2.12"
+  - front: log₃(9x⁴/y) → expand
+    back: |
+      2 + 4 log₃ x − log₃ y (x, y > 0): log₃ 9 = 2, the power property gives 4 log₃ x, and the quotient property subtracts log₃ y.
+    topic_code: "2.12"
+  - front: 2 ln x − ln(x + 1) + ln 5 → condense
+    back: |
+      ln(5x²/(x + 1)) for x > 0. Move coefficients inside as exponents first, then combine sums as products and differences as quotients.
+    topic_code: "2.12"
+  - front: log₂ 12 from log₂ 3 ≈ 1.585 → estimate
+    back: |
+      log₂ 12 = log₂ 4 + log₂ 3 = 2 + 1.585 ≈ 3.585.
+    topic_code: "2.12"
+  - front: log 18 and log 1.5 from log 2 ≈ 0.301, log 3 ≈ 0.477 → estimate
+    back: |
+      log 18 = log 2 + 2 log 3 ≈ 1.255; log 1.5 = log 3 − log 2 ≈ 0.176.
+    topic_code: "2.12"
+  - front: Change-of-base formula → statement
+    back: |
+      log_b x = (ln x)/(ln b) = (log x)/(log b). For example log₅ 40 = ln 40 / ln 5 ≈ 2.292.
+    topic_code: "2.12"
+  - front: Change of base as a graph fact → what it says about all log functions
+    back: |
+      log_b x = (1/ln b) · ln x, so every log function is a constant multiple of ln x: all log graphs are vertical dilations of one another.
+    topic_code: "2.12"
+  - front: log₈ x in terms of log₂ x → rewrite
+    back: |
+      log₈ x = log₂ x / log₂ 8 = (1/3) log₂ x: a vertical compression of y = log₂ x by a factor of 1/3.
+    topic_code: "2.12"
+  - front: y = log₂(8x) → as a translation of y = log₂ x
+    back: |
+      log₂(8x) = 3 + log₂ x, so the graph is log₂ x shifted up 3. A horizontal compression by 1/8 gives the same graph as a vertical shift up 3.
+    topic_code: "2.12"
+  - front: Horizontal dilation of a log graph → why it equals a vertical translation
+    back: |
+      log_b(kx) = log_b k + log_b x for k > 0, so replacing x by kx adds the constant log_b k to every output.
+    topic_code: "2.12"
+  - front: y = log(x³) → as a transformation of y = log x
+    back: |
+      A vertical stretch by 3, since log(x³) = 3 log x for x > 0. A power inside the log becomes a vertical dilation.
+    topic_code: "2.12"
+  - front: ln(x²) versus 2 ln x → are they the same function
+    back: |
+      No. ln(x²) is defined for every x ≠ 0, while 2 ln x needs x > 0. They agree for x > 0; for all x ≠ 0, ln(x²) = 2 ln |x|.
+    topic_code: "2.12"
+  - front: ln(e²x) − 4 → as a single translation of ln x
+    back: |
+      ln(e²x) = 2 + ln x, so ln(e²x) − 4 = ln x − 2: the graph of ln x shifted down 2.
+    topic_code: "2.12"
+  - front: log₃(kx) = log₃ x + 4 for all x > 0 → find k
+    back: |
+      log₃(kx) = log₃ k + log₃ x, so log₃ k = 4 and k = 3⁴ = 81.
+    topic_code: "2.12"
+  - front: Error-spot → "log(x + 5) = log x + log 5"
+    back: |
+      There is no sum rule. The product property says log x + log 5 = log(5x). Test x = 5: log 10 = 1, but log 5 + log 5 ≈ 1.40.
+    topic_code: "2.12"
+  - front: Error-spot → "log(3x) = 3 log x"
+    back: |
+      Only an exponent comes out front. log(3x) = log 3 + log x; log(x³) = 3 log x.
+    topic_code: "2.12"
+  - front: Error-spot → "log(M/N) = log M / log N"
+    back: |
+      The quotient property gives a difference: log M − log N. A quotient of logs is what change of base produces: log M / log N = log_N M.
+    topic_code: "2.12"
+  - front: Error-spot → "log₂ x is concave up because it keeps increasing"
+    back: |
+      Increasing and concave are separate questions. log₂ x increases at a decreasing rate, so it is concave down.
+    topic_code: "2.11"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 2.11 and 2.12: graphs, limits and concavity of
+    logarithmic functions, logarithmic patterns in tables, the log properties, change of base and log
+    transformations), with 7 of 24 reviewing earlier weeks (logarithmic expressions and inverses, exponential
+    models, choosing models with residuals, composition and inverses, and end behaviour of rational functions).
+    Opens with a shared-context set on one transformed log function. Multiple choice, select-all, true/false and
+    numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and
+    the long answer are graded by your teacher against the scoring notes. A calculator is useful only for the
+    long answer.
+  questions:
+    # ---- Stimulus set: one transformed logarithmic function (2.11)
+    - slug: precalc-u02-w15-q01
+      type: multiple_choice
+      topic_code: "2.11"
+      source: "AP Precalculus CED, Topic 2.11"
+      points: 1
+      stimulus: |
+        Let f(x) = log₂(x − 3) + 1.
+      prompt: |
+        What is the domain of f?
+      options:
+        - "x > 0"
+        - "x > −3"
+        - "x > 3"
+        - "All real numbers"
+      option_explanations:
+        - |
+          x > 0 is the domain of the parent log₂ x; the shift inside the log moves the boundary to 3.
+        - |
+          The argument x − 3 must be positive, which happens for x > 3; x > −3 reverses the direction of the shift.
+        - |
+          Correct. The argument x − 3 must be positive, so x > 3. The +1 outside the log does not affect the domain.
+        - |
+          Logarithms need positive arguments, so inputs with x − 3 ≤ 0 are excluded.
+      answer: 2
+    - slug: precalc-u02-w15-q02
+      type: multiple_choice
+      topic_code: "2.11"
+      source: "AP Precalculus CED, Topic 2.11"
+      points: 1
+      stimulus: |
+        Let f(x) = log₂(x − 3) + 1.
+      prompt: |
+        Which limit statement describes the behaviour of f near its vertical asymptote?
+      options:
+        - "lim (x → 3⁺) f(x) = −∞"
+        - "lim (x → 3⁻) f(x) = −∞"
+        - "lim (x → 3⁺) f(x) = 1"
+        - "lim (x → 0⁺) f(x) = −∞"
+      option_explanations:
+        - |
+          Correct. As x → 3 from the right, x − 3 → 0⁺, so log₂(x − 3) → −∞ and adding 1 does not change that.
+        - |
+          f is not defined for x < 3, so a limit from the left of 3 does not describe the graph.
+        - |
+          1 is the vertical shift, not a limit. Near x = 3 the log term decreases without bound.
+        - |
+          This is the asymptote of the parent function log₂ x. f is not even defined near x = 0.
+      answer: 0
+    - slug: precalc-u02-w15-q03
+      type: multiple_choice
+      topic_code: "2.11"
+      source: "AP Precalculus CED, Topic 2.11"
+      points: 1
+      stimulus: |
+        Let f(x) = log₂(x − 3) + 1.
+      prompt: |
+        Where does the graph of f cross the x-axis?
+      options:
+        - "(4, 0)"
+        - "(5, 0)"
+        - "(1, 0)"
+        - "(3.5, 0)"
+      option_explanations:
+        - |
+          At x = 4 the log term is 0, so f(4) = 1, not 0. This forgets the +1.
+        - |
+          At x = 5, log₂ 2 = 1 and f(5) = 2. This comes from solving log₂(x − 3) = +1 instead of −1.
+        - |
+          (1, 0) is the intercept of the parent log₂ x; x = 1 is not even in the domain of f.
+        - |
+          Correct. f(x) = 0 means log₂(x − 3) = −1, so x − 3 = 2⁻¹ = 1/2 and x = 3.5.
+      answer: 3
+    - slug: precalc-u02-w15-q04
+      type: multiple_choice
+      topic_code: "2.11"
+      source: "AP Precalculus CED, Topic 2.11"
+      points: 1
+      prompt: |
+        Which table of values could come from a logarithmic function?
+      options:
+        - "x: 1, 2, 3, 4 and y: 2, 4, 8, 16"
+        - "x: 1, 3, 9, 27 and y: 2, 4, 6, 8"
+        - "x: 1, 2, 3, 4 and y: 2, 4, 6, 8"
+        - "x: 1, 3, 9, 27 and y: 2, 6, 18, 54"
+      option_explanations:
+        - |
+          Equal additive steps in x with outputs doubling each time is the exponential pattern, the reverse of logarithmic.
+        - |
+          Correct. The inputs are multiplied by 3 each time while the outputs increase by 2 each time: multiply inputs, add to outputs. (y = 2 + 2 log₃ x.)
+        - |
+          Equal steps in x with equal steps in y is the linear pattern (y = 2x).
+        - |
+          Here the outputs are multiplied by 3 when the inputs are: y = 2x, which is linear, not logarithmic.
+      answer: 1
+    - slug: precalc-u02-w15-q05
+      type: multiple_choice
+      topic_code: "2.11"
+      source: "AP Precalculus CED, Topic 2.11"
+      points: 1
+      prompt: |
+        Which statement describes the graph of y = log₅ x?
+      options:
+        - "It is increasing and concave down."
+        - "It is increasing and concave up."
+        - "It is decreasing and concave up."
+        - "It is increasing at a constant rate."
+      option_explanations:
+        - |
+          Correct. With base 5 > 1 the function increases, but its increases over equal-length intervals keep shrinking, so it is concave down.
+        - |
+          Concave up would mean the rate of change grows, as for 5ˣ. The logarithm's rate of change shrinks.
+        - |
+          Decreasing and concave up describes log_b x for 0 < b < 1, not base 5.
+        - |
+          A constant rate of change describes a linear function. log₅ x rises 1 from x = 1 to 5 but only about 0.37 from 5 to 9.
+      answer: 0
+    - slug: precalc-u02-w15-q06
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Precalculus CED, Topic 2.12"
+      points: 1
+      prompt: |
+        For x > 0 and y > 0, which expression is equivalent to log₃(9x²/y)?
+      options:
+        - "2 + 2 log₃ x / log₃ y"
+        - "9 + 2 log₃ x − log₃ y"
+        - "2 + 2 log₃ x − log₃ y"
+        - "2 log₃(9x) − log₃ y"
+      option_explanations:
+        - |
+          The quotient property gives a difference of logs, not a quotient of logs.
+        - |
+          log₃ 9 is 2, not 9; the constant factor inside must be replaced by its logarithm.
+        - |
+          Correct. log₃ 9 + log₃(x²) − log₃ y = 2 + 2 log₃ x − log₃ y.
+        - |
+          The exponent 2 applies only to x. 2 log₃(9x) = log₃(81x²), which is 2 more than the original.
+      answer: 2
+    - slug: precalc-u02-w15-q07
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Precalculus CED, Topic 2.12"
+      points: 1
+      prompt: |
+        For x > 0, which single logarithm is equivalent to ln 8 − 2 ln 2 + ln x?
+      options:
+        - "ln(4x)"
+        - "ln(4 + x)"
+        - "ln(32x)"
+        - "ln(2x)"
+      option_explanations:
+        - |
+          This drops the coefficient 2: it computes ln 8 − ln 2 + ln x. The 2 must become an exponent, giving ln 4.
+        - |
+          Logs of separate terms cannot be combined by adding or subtracting the arguments; differences of logs become quotients.
+        - |
+          32 = 8 · 4 comes from adding ln 4 instead of subtracting it.
+        - |
+          Correct. 2 ln 2 = ln 4, so the expression is ln 8 − ln 4 + ln x = ln(8x/4) = ln(2x).
+      answer: 3
+    - slug: precalc-u02-w15-q08
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Precalculus CED, Topic 2.12"
+      points: 1
+      prompt: |
+        Which expression is equal to log₄ 20?
+      options:
+        - "log 20 − log 4"
+        - "(ln 20)/(ln 4)"
+        - "(ln 4)/(ln 20)"
+        - "5"
+      option_explanations:
+        - |
+          log 20 − log 4 = log 5, by the quotient property. Change of base gives a quotient of logs, not a difference.
+        - |
+          Correct. By change of base, log₄ 20 = ln 20 / ln 4 ≈ 2.161.
+        - |
+          This is inverted: it equals log₂₀ 4, which is less than 1.
+        - |
+          5 is 20 ÷ 4. A logarithm is an exponent: 4⁵ = 1,024, not 20.
+      answer: 1
+    - slug: precalc-u02-w15-q09
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Precalculus CED, Topic 2.12"
+      points: 1
+      prompt: |
+        The graph of y = log₂(16x) can be obtained from the graph of y = log₂ x by which single transformation?
+      options:
+        - "A horizontal stretch by a factor of 16"
+        - "A vertical translation up 16 units"
+        - "A vertical translation up 4 units"
+        - "A vertical stretch by a factor of 4"
+      option_explanations:
+        - |
+          Replacing x by 16x compresses the graph horizontally by a factor of 1/16; it does not stretch it.
+        - |
+          The vertical shift is log₂ 16 = 4, not 16 itself; the factor inside becomes its logarithm.
+        - |
+          Correct. log₂(16x) = log₂ 16 + log₂ x = 4 + log₂ x, so every output rises by 4.
+        - |
+          A vertical stretch by 4 would be 4 log₂ x = log₂(x⁴), a power inside, not a factor inside.
+      answer: 2
+    - slug: precalc-u02-w15-q10
+      type: multiple_choice
+      topic_code: "2.9"
+      source: "AP Precalculus CED, Topic 2.9"
+      points: 1
+      prompt: |
+        If log_b 81 = 4, what is b?
+      options:
+        - "3"
+        - "81/4"
+        - "9"
+        - "324"
+      option_explanations:
+        - |
+          Correct. log_b 81 = 4 means b⁴ = 81, so b = 3 (the base must be positive).
+        - |
+          81/4 treats the logarithm as a quotient. (81/4)⁴ is about 168,000, not 81.
+        - |
+          9 solves b² = 81, using the wrong exponent; 9⁴ = 6,561.
+        - |
+          324 = 81 · 4 multiplies the numbers instead of solving b⁴ = 81.
+      answer: 0
+    - slug: precalc-u02-w15-q11
+      type: multiple_choice
+      topic_code: "2.5"
+      source: "AP Precalculus CED, Topic 2.5"
+      points: 1
+      prompt: |
+        A hypothetical town's population is modelled by P(t) = 12,000(1.03)ᵗ, where t is years after 2020. Which statement is supported by the model?
+      options:
+        - "The population increases by 3 people each year."
+        - "The population increases by 103% each year."
+        - "The population in 2020 was 12,360."
+        - "The population increases by 3% each year."
+      option_explanations:
+        - |
+          An exponential model changes by a constant percent, not a constant amount; 3 people per year would be linear.
+        - |
+          The growth factor 1.03 means each year's population is 103% of the previous year's, an increase of 3%, not 103%.
+        - |
+          12,360 is P(1), the population in 2021. In 2020, t = 0 and P(0) = 12,000.
+        - |
+          Correct. The growth factor 1.03 = 1 + 0.03, so the population grows by 3% per year.
+      answer: 3
+    - slug: precalc-u02-w15-q12
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "AP Precalculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        What is lim (x → ∞) (4x² − 1)/(2x² + 5x)?
+      options:
+        - "∞"
+        - "2"
+        - "0"
+        - "4"
+      option_explanations:
+        - |
+          The numerator and denominator have the same degree, so their ratio approaches a finite number, not ∞.
+        - |
+          Correct. Equal degrees, so the limit is the ratio of leading coefficients, 4/2 = 2.
+        - |
+          The limit is 0 only when the denominator has the higher degree.
+        - |
+          4 is the numerator's leading coefficient alone; it must be divided by the denominator's leading coefficient 2.
+      answer: 1
+    - slug: precalc-u02-w15-q13
+      type: multiple_choice
+      topic_code: "2.6"
+      source: "AP Precalculus CED, Topic 2.6"
+      points: 1
+      prompt: |
+        A student fits a linear model and an exponential model to the same data. The linear model's residuals form a clear U-shaped pattern. The exponential model's residuals are small and scattered with no pattern around 0. What should the student conclude?
+      options:
+        - "The exponential model is more appropriate for these data."
+        - "The linear model is more appropriate, because its residuals show a pattern."
+        - "The models are equally appropriate, because both have residuals."
+        - "Neither model is appropriate, because a good model has all residuals equal to 0."
+      option_explanations:
+        - |
+          Correct. A patterned residual plot shows the linear model misses the shape of the data; small random residuals suggest the exponential model captures it.
+        - |
+          A pattern in the residuals is evidence against a model: it means the model is systematically too high in some places and too low in others.
+        - |
+          Every model has residuals; what matters is their size and whether they show a pattern.
+        - |
+          Real data almost never fit exactly. Small residuals without a pattern are the sign of a good model.
+      answer: 0
+    - slug: precalc-u02-w15-q14
+      type: multi_select
+      topic_code: "2.12"
+      source: "AP Precalculus CED, Topic 2.12"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which expressions are equal to log 12? Select all that apply.
+      options:
+        - "log 3 + log 4"
+        - "log 2 + log 6"
+        - "log 24 − log 2"
+        - "log 3 · log 4"
+        - "2 log 6"
+        - "log 10 + log 2"
+      option_explanations:
+        - |
+          Correct. By the product property, log 3 + log 4 = log(3 · 4) = log 12.
+        - |
+          Correct. log 2 + log 6 = log(2 · 6) = log 12.
+        - |
+          Correct. By the quotient property, log 24 − log 2 = log(24/2) = log 12.
+        - |
+          There is no property for a product of logs; log 3 · log 4 ≈ 0.477 · 0.602 ≈ 0.287, while log 12 ≈ 1.079.
+        - |
+          2 log 6 = log(6²) = log 36. Doubling the log squares the argument; it does not double it.
+        - |
+          log 10 + log 2 = log 20. Adding logs multiplies the arguments, so it does not give log(10 + 2).
+      answer: [0, 1, 2]
+    - slug: precalc-u02-w15-q15
+      type: multi_select
+      topic_code: "2.11"
+      source: "AP Precalculus CED, Topic 2.11"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let g(x) = log_(1/3) x. Which statements are true? Select all that apply.
+      options:
+        - "The graph of g passes through (3, 1)."
+        - "g is decreasing on its domain."
+        - "The range of g is y > 0."
+        - "The graph of g is concave up."
+        - "The graph of g has the vertical asymptote x = 0."
+      option_explanations:
+        - |
+          (1/3)¹ = 1/3, not 3, so g(3) = −1 and the graph passes through (3, −1). The point (1/3, 1) is on it.
+        - |
+          Correct. The base 1/3 is between 0 and 1, so g(x) = −log₃ x decreases.
+        - |
+          The range of every logarithmic function is all real numbers; g(3) = −1 is a negative output.
+        - |
+          Correct. g = −log₃ x is the reflection of a concave-down graph across the x-axis, so it is concave up.
+        - |
+          Correct. Like every basic log function, g is defined for x > 0 and has the asymptote x = 0 (here g(x) → ∞ as x → 0⁺).
+      answer: [1, 3, 4]
+    - slug: precalc-u02-w15-q16
+      type: true_false
+      topic_code: "2.12"
+      source: "AP Precalculus CED, Topic 2.12"
+      points: 1
+      prompt: |
+        True or false: The functions f(x) = ln(x²) and g(x) = 2 ln x are the same function.
+      answer: false
+      explanation: |
+        False. They agree for x > 0, but f is defined for every x ≠ 0 (for example f(−1) = ln 1 = 0), while g is undefined for x ≤ 0. Functions with different domains are different functions. For all x ≠ 0, ln(x²) = 2 ln |x|.
+    - slug: precalc-u02-w15-q17
+      type: true_false
+      topic_code: "2.10"
+      source: "AP Precalculus CED, Topic 2.10"
+      points: 1
+      prompt: |
+        True or false: The point (1/9, −2) lies on the graph of the inverse of y = 3ˣ.
+      answer: true
+      explanation: |
+        True. 3⁻² = 1/9, so (−2, 1/9) is on y = 3ˣ. The inverse, y = log₃ x, swaps the coordinates, so (1/9, −2) is on its graph: log₃(1/9) = −2.
+    - slug: precalc-u02-w15-q18
+      type: fill_blank
+      topic_code: "2.12"
+      source: "AP Precalculus CED, Topic 2.12"
+      points: 1
+      prompt: |
+        Given that log₂ 5 ≈ 2.32, the value of log₂ 40 is approximately ____ (to the nearest hundredth).
+      answer: ["5.32"]
+      explanation: |
+        40 = 8 · 5, so log₂ 40 = log₂ 8 + log₂ 5 ≈ 3 + 2.32 = 5.32.
+    - slug: precalc-u02-w15-q19
+      type: fill_blank
+      topic_code: "2.8"
+      source: "AP Precalculus CED, Topic 2.8"
+      points: 1
+      prompt: |
+        The inverse of f(x) = (x + 4)/3 can be written f⁻¹(x) = 3x − ____
+      answer: ["4"]
+      explanation: |
+        Swap and solve: x = (y + 4)/3 gives 3x = y + 4, so y = 3x − 4. Check: f(2) = 2 and 3 · 2 − 4 = 2.
+    - slug: precalc-u02-w15-q20
+      type: numeric
+      topic_code: "2.12"
+      source: "AP Precalculus CED, Topic 2.12"
+      points: 1
+      prompt: |
+        Find the constant k for which log₅(kx) = 2 + log₅ x for all x > 0.
+      answer: { value: 25, tolerance: 0 }
+      explanation: |
+        By the product property, log₅(kx) = log₅ k + log₅ x. Matching the constant terms gives log₅ k = 2, so k = 5² = 25.
+    - slug: precalc-u02-w15-q21
+      type: numeric
+      topic_code: "2.7"
+      source: "AP Precalculus CED, Topic 2.7"
+      points: 1
+      prompt: |
+        Let f(x) = x² − 1 and g(x) = 2x + 3. Find f(g(−1)).
+      answer: { value: 0, tolerance: 0 }
+      explanation: |
+        Inside first: g(−1) = 2(−1) + 3 = 1. Then f(1) = 1² − 1 = 0.
+    - slug: precalc-u02-w15-q22
+      type: short_answer
+      topic_code: "2.11"
+      source: "AP Precalculus CED, Topic 2.11"
+      points: 3
+      prompt: |
+        A table gives values of a function h.
+
+        x: 2, 4, 8, 16, 32
+        h(x): 1, 2.5, 4, 5.5, 7
+
+        (a) Explain why a logarithmic function is a suitable model for h.
+        (b) Find a model of the form h(x) = a + b log₂ x that fits the table exactly.
+        (c) Use your model to predict h(128), and state whether h is concave up or concave down.
+      answer: |
+        (a) Each input is double the one before, and each output is 1.5 more than the one before: when inputs are multiplied by a constant factor, outputs change by a constant amount. That is the logarithmic pattern.
+        (b) Each doubling adds 1.5, so b = 1.5. At x = 2: a + 1.5 · 1 = 1, so a = −0.5. h(x) = −0.5 + 1.5 log₂ x. (Check: h(32) = −0.5 + 1.5 · 5 = 7.)
+        (c) h(128) = −0.5 + 1.5 · 7 = 10. h is concave down: it is increasing, but it takes ever longer input intervals to add the same 1.5 (b > 0 and base 2 > 1).
+      explanation: |
+        Three points, one per part. (a) must name both the multiplicative input pattern and the additive output pattern. (b) correct a and b (an equivalent correct model such as 1.5 log₂(x/2) + 1 earns the point). (c) the value 10 and concave down with a reason.
+    - slug: precalc-u02-w15-q23
+      type: short_answer
+      topic_code: "2.12"
+      source: "AP Precalculus CED, Topic 2.12"
+      points: 3
+      prompt: |
+        (a) For x > 0 and y > 0, expand log₂(8x³/√y) completely.
+        (b) For x > 0, write ln x + 2 ln(x + 3) − ln 4 as a single logarithm.
+        (c) Using log 2 ≈ 0.301 and log 3 ≈ 0.477, estimate log 0.6 without a calculator. Show the properties you use.
+      answer: |
+        (a) log₂ 8 + log₂(x³) − log₂(y^(1/2)) = 3 + 3 log₂ x − (1/2) log₂ y.
+        (b) ln x + ln((x + 3)²) − ln 4 = ln(x(x + 3)²/4).
+        (c) 0.6 = 6/10 = (2 · 3)/10, so log 0.6 = log 2 + log 3 − log 10 ≈ 0.301 + 0.477 − 1 = −0.222.
+      explanation: |
+        Three points, one per part. (a) all three terms correct, including log₂ 8 = 3 and the coefficient 1/2. (b) a single correct logarithm. (c) −0.222 (accept −0.22) with the properties shown; a negative value is expected because 0.6 < 1.
+    - slug: precalc-u02-w15-q24
+      type: long_answer
+      topic_code: "2.11"
+      source: "AP Precalculus CED, Topic 2.11"
+      points: 6
+      prompt: |
+        (Calculator.) In a hypothetical study, a learner's score on a vocabulary test after t weeks of practice with an app is modelled by S(t) = 20 + 12 log₂(t + 1), for 0 ≤ t ≤ 31.
+
+        (A) (i) Find S(0) and S(7), and the average rate of change of S over 0 ≤ t ≤ 7. Include units.
+            (ii) Find the average rate of change of S over 7 ≤ t ≤ 15. Use your two rates to explain whether the graph of S is concave up or concave down on 0 ≤ t ≤ 15.
+        (B) (i) Use the change-of-base formula to write S in the form S(t) = 20 + k ln(t + 1). Give k to the nearest hundredth.
+            (ii) Use a property of logarithms to show that whenever t + 1 doubles, the model's score rises by exactly 12 points.
+        (C) A student says the model predicts that the score will eventually exceed every number, so it is fine to use it for t = 1,000. Use a limit to describe the model's end behaviour, and give one reason the model should not be used far beyond its domain.
+      answer: |
+        (A)(i) S(0) = 20 + 12 log₂ 1 = 20 points. S(7) = 20 + 12 log₂ 8 = 20 + 36 = 56 points. Average rate of change = (56 − 20)/(7 − 0) = 36/7 ≈ 5.14 points per week.
+        (A)(ii) S(15) = 20 + 12 log₂ 16 = 68, so the rate over [7, 15] is (68 − 56)/8 = 1.5 points per week. The average rate of change decreases from about 5.14 to 1.5 over consecutive intervals while S keeps increasing, which is consistent with a graph that is concave down.
+        (B)(i) log₂(t + 1) = ln(t + 1)/ln 2, so S(t) = 20 + (12/ln 2) ln(t + 1) ≈ 20 + 17.31 ln(t + 1).
+        (B)(ii) If t + 1 is replaced by 2(t + 1), then 12 log₂(2(t + 1)) = 12(log₂ 2 + log₂(t + 1)) = 12 + 12 log₂(t + 1). So the score is 12 points higher.
+        (C) lim (t → ∞) S(t) = ∞: the formula increases without bound, though very slowly (S(1,000) ≈ 139.6). But the model was built only for 0 ≤ t ≤ 31, and a real test has a maximum possible score, so extrapolating to t = 1,000 is not justified.
+      explanation: |
+        Six points. (A)(i) 1 point: S(0) = 20, S(7) = 56 and 36/7 ≈ 5.14 points per week (units required). (A)(ii) 2 points: 1 for 1.5 points per week; 1 for concluding concave down because the rate decreases. (B)(i) 1 point: k ≈ 17.31 (accept 17.3) with the change-of-base step shown. (B)(ii) 1 point: a correct use of the product property showing the increase of 12. (C) 1 point: the limit statement (or equivalent words) together with one valid limitation, such as the domain of the data or a maximum test score.

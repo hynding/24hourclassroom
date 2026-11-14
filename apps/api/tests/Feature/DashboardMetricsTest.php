@@ -24,7 +24,7 @@ test('people: counts by role, verified share, the two sign-up windows, stale unv
     $this->actingAs($admin);
     $people = $this->get('/dashboard')->viewData('page')['props']['metrics']['people'];
 
-    expect($people['by_role'])->toBe(['teacher' => 2, 'student' => 1, 'admin' => 1])
+    expect($people['by_role'])->toBe(['teacher' => 2, 'student' => 1, 'admin' => 1, 'tutor' => 0, 'assistant' => 0, 'guardian' => 0])
         ->and($people['verified_percentage'])->toBe(75)
         ->and($people['new_7d'])->toBe(2)
         ->and($people['new_30d'])->toBe(3)
@@ -98,7 +98,7 @@ test('an empty site is all zeroes with every status key present and no division 
     $this->actingAs(User::factory()->create(['role' => 'admin']));
     $metrics = $this->get('/dashboard')->viewData('page')['props']['metrics'];
 
-    expect($metrics['people']['by_role'])->toBe(['teacher' => 0, 'student' => 0, 'admin' => 1])
+    expect($metrics['people']['by_role'])->toBe(['teacher' => 0, 'student' => 0, 'admin' => 1, 'tutor' => 0, 'assistant' => 0, 'guardian' => 0])
         ->and($metrics['people']['verified_percentage'])->toBe(100)
         ->and($metrics['content']['tests'])->toBe(['private' => 0, 'public' => 0, 'published_30d' => 0])
         ->and($metrics['generations']['by_status'])->toBe(array_fill_keys(array_column(GenerationStatus::cases(), 'value'), 0))

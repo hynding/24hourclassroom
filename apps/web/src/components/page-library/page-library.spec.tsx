@@ -46,8 +46,15 @@ describe('page-library', () => {
     expect(materialsLibrary).not.toHaveBeenCalled();
   });
 
-  it('says so when no course matches', async () => {
+  it('says so when no course matches, distinguishing an empty shelf from a failed search', async () => {
     const page = await mount('kind="courses"');
+    await page.waitForChanges();
+    expect(page.root.shadowRoot.textContent).toContain('No courses have been published yet.');
+
+    const search = page.root.shadowRoot.querySelector('input[type="search"]') as HTMLInputElement;
+    search.value = 'frogs';
+    search.dispatchEvent(new (page.win as any).Event('input'));
+    page.root.shadowRoot.querySelector('form').dispatchEvent(new (page.win as any).Event('submit'));
     await page.waitForChanges();
     expect(page.root.shadowRoot.textContent).toContain('No courses match those filters yet.');
   });
@@ -65,10 +72,18 @@ describe('page-library', () => {
     expect(materialsLibrary).not.toHaveBeenCalled();
   });
 
+  it('links every shelf and marks the current one', async () => {
+    const page = await mount('kind="materials"');
+    await page.waitForChanges();
+    const links = Array.from(page.root.shadowRoot.querySelectorAll('.segments a'));
+    expect(links.map((a) => a.getAttribute('href'))).toEqual(['/library', '/library/tests', '/library/materials', '/library/courses']);
+    expect(links.filter((a) => a.getAttribute('aria-current') === 'page').map((a) => a.getAttribute('href'))).toEqual(['/library/materials']);
+  });
+
   it('shows an empty state and resets to page 1 on a new search', async () => {
     const page = await mount();
     await page.waitForChanges();
-    expect(page.root.shadowRoot.textContent).toContain('No tests match');
+    expect(page.root.shadowRoot.textContent).toContain('No tests have been published yet.');
     const cmp = page.rootInstance as PageLibrary;
     cmp.page = 3;
     await cmp.submitSearch();
@@ -92,8 +107,8 @@ describe('page-library', () => {
   it('switches its own empty-state copy with the kind', async () => {
     const page = await mount('kind="materials"');
     await page.waitForChanges();
-    expect(page.root.shadowRoot.textContent).toContain('No materials match');
-    expect(page.root.shadowRoot.textContent).not.toContain('No tests match');
+    expect(page.root.shadowRoot.textContent).toContain('No materials have been published yet.');
+    expect(page.root.shadowRoot.textContent).not.toContain('No tests have');
   });
 
   it('reflects kind as an attribute so page-library.css can key on it', async () => {

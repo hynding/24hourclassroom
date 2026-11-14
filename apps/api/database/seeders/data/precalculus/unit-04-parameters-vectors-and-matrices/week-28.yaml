@@ -1,0 +1,579 @@
+week: 28
+unit: 4
+title: "Parametric Circles and Lines; Implicitly Defined Functions"
+topics: ["4.4", "4.5"]
+guide: guides/week-28.md
+guide_description: |
+  Parametrizing circles with x = h + r cos t, y = k + r sin t, and changing the direction, starting point, speed
+  and arc; parametrizing line segments and lines from two points; implicitly defined relations, testing points,
+  finding the y-values for a given x, splitting a curve into branches, and locating horizontal and vertical
+  tangents without calculus; and level curves. Worked examples: a hypothetical Ferris wheel rider as a
+  parametric circle, a robot on a straight segment, and the vertical tangents of x² + xy + y² = 7.
+flashcards_description: |
+  30 cards on parametric circles (centre, radius, direction, speed, arcs), line segments, implicit relations,
+  branches, tangent lines on circles and ellipses, and level curves.
+
+flashcards:
+  - front: x = h + r cos t, y = k + r sin t, 0 ≤ t ≤ 2π → what it traces
+    back: |
+      The circle with centre (h, k) and radius r, once, counterclockwise, starting at (h + r, k), the point directly right of the centre.
+    topic_code: "4.4"
+  - front: Eliminating t from a parametric circle → which identity
+    back: |
+      cos²t + sin²t = 1. With cos t = (x − h)/r and sin t = (y − k)/r this gives (x − h)² + (y − k)² = r².
+    topic_code: "4.4"
+  - front: Making a parametric circle clockwise → the change
+    back: |
+      Change the sign of the sine term: x = h + r cos t, y = k − r sin t. From (h + r, k) the point now moves down first.
+    topic_code: "4.4"
+  - front: x = 3 + 5 cos t, y = −1 + 5 sin t → centre, radius, start
+    back: |
+      Centre (3, −1), radius 5, starting at (8, −1) and moving counterclockwise; equation (x − 3)² + (y + 1)² = 25.
+    topic_code: "4.4"
+  - front: x = 2 cos t, y = −2 sin t → direction
+    back: |
+      Clockwise: t = 0 gives (2, 0) and t = π/2 gives (0, −2), so the point goes down from the rightmost point.
+    topic_code: "4.4"
+  - front: Time per revolution of x = h + r cos(bt), y = k + r sin(bt) → formula
+    back: |
+      2π/b, the same as the period of a sinusoid. For one lap every 10 seconds use b = 2π/10 = π/5.
+    topic_code: "4.4"
+  - front: x = cos 2t, y = sin 2t on 0 ≤ t ≤ 2π → how many laps
+    back: |
+      Two laps, because one revolution takes 2π/2 = π units of t.
+    topic_code: "4.4"
+  - front: Starting a counterclockwise circle at the top (h, k + r) → parametrization
+    back: |
+      x = h − r sin t, y = k + r cos t. At t = 0 the point is at the top, and x decreases at first, so it moves left: counterclockwise.
+    topic_code: "4.4"
+  - front: Arc traced by x = cos t, y = sin t for π/2 ≤ t ≤ π → which arc
+    back: |
+      The Quadrant II quarter of the unit circle, from (0, 1) to (−1, 0). Restricting t traces only an arc.
+    topic_code: "4.4"
+  - front: Hypothetical Ferris wheel, radius 20 m, centre 22 m up, 4 min per turn, boarding at the bottom moving right → parametrization
+    back: |
+      x(t) = 20 sin(πt/2), y(t) = 22 − 20 cos(πt/2), t in minutes. It starts at (0, 2) and reaches (20, 22) at t = 1.
+    topic_code: "4.4"
+  - front: Segment from (x₁, y₁) to (x₂, y₂) → parametrization
+    back: |
+      x = x₁ + (x₂ − x₁)t, y = y₁ + (y₂ − y₁)t, 0 ≤ t ≤ 1. Start plus a fraction t of the change.
+    topic_code: "4.4"
+  - front: Midpoint of a parametrized segment with 0 ≤ t ≤ 1 → which t
+    back: |
+      t = 1/2. For x = 2 + 6t, y = −1 + 4t the midpoint is (5, 1); t = 1/4 gives the point a quarter of the way, (3.5, 0).
+    topic_code: "4.4"
+  - front: Segment from (2, −1) to (8, 3) → parametrization
+    back: |
+      Δx = 6, Δy = 4: x = 2 + 6t, y = −1 + 4t, 0 ≤ t ≤ 1.
+    topic_code: "4.4"
+  - front: Straight-line trip from (0, 10) to (12, 1) in 3 seconds → position
+    back: |
+      x(t) = 4t, y(t) = 10 − 3t, 0 ≤ t ≤ 3. Divide each change by 3 to get the rate per second.
+    topic_code: "4.4"
+  - front: Segment versus whole line in a parametrization → difference
+    back: |
+      0 ≤ t ≤ 1 gives only the segment between the two points; letting t be any real number gives the entire line through them.
+    topic_code: "4.4"
+  - front: Implicitly defined relation → meaning
+    back: |
+      An equation linking x and y that is not solved for y, such as x² + xy + y² = 7. Its graph is every point that makes the equation true.
+    topic_code: "4.5"
+  - front: Testing (2, 1) on x² + xy + y² = 7 → result
+    back: |
+      4 + 2 + 1 = 7, so the point is on the curve. (1, 1) gives 3, so it is not.
+    topic_code: "4.5"
+  - front: Points of x² + xy + y² = 7 with x = 1 → find them
+    back: |
+      y² + y − 6 = 0, so y = 2 or y = −3: the points (1, 2) and (1, −3). Two outputs for one input, so not a function of x.
+    topic_code: "4.5"
+  - front: Branches of x² + y² = 25 → the two functions
+    back: |
+      y = √(25 − x²) (top semicircle) and y = −√(25 − x²) (bottom semicircle). Each passes the vertical line test.
+    topic_code: "4.5"
+  - front: Tangent slope to x² + y² = 25 at (3, 4) → value and reason
+    back: |
+      −3/4. A tangent to a circle is perpendicular to the radius, whose slope is 4/3.
+    topic_code: "4.5"
+  - front: Vertical tangents of a circle → where and why
+    back: |
+      At the far left and right, (h ± r, k): the two branches y = k ± √(r² − (x − h)²) meet there because the square root is 0.
+    topic_code: "4.5"
+  - front: Horizontal tangents of a circle → where
+    back: |
+      At the top and bottom, (h, k ± r), the highest and lowest points of the curve.
+    topic_code: "4.5"
+  - front: Ellipse x² + 4y² = 16 → tangent points
+    back: |
+      Vertical tangents at (±4, 0), where the branches y = ±(1/2)√(16 − x²) meet; horizontal tangents at (0, ±2).
+    topic_code: "4.5"
+  - front: Vertical tangents of x² + xy + y² = 7 → method and result
+    back: |
+      As a quadratic in y the discriminant is 28 − 3x²; it is 0 at x = ±√(28/3) ≈ ±3.06, where the two branches meet, so the tangents there are vertical.
+    topic_code: "4.5"
+  - front: Level curve → meaning
+    back: |
+      All points (x, y) where a quantity depending on position equals one value c. Each is an implicit curve, like a contour line on a map.
+    topic_code: "4.5"
+  - front: Hypothetical plate temperature T = 100 − x² − 2y² → level curve T = 84
+    back: |
+      x² + 2y² = 16, an ellipse. Lower temperatures give larger ellipses, so the plate cools moving outward.
+    topic_code: "4.5"
+  - front: Implicit curves on a graphing calculator → two workarounds
+    back: |
+      Graph it parametrically (for circles and ellipses), or solve for y and enter both branches, such as Y₁ = √(25 − X²) and Y₂ = −√(25 − X²).
+    topic_code: "4.5"
+  - front: Error-spot → "x = 2 + 6t, y = −1 + 4t starts at (8, 3)"
+    back: |
+      At t = 0 the point is (2, −1); (8, 3) is where it ends at t = 1. The constants are the start, the coefficients of t are the changes.
+    topic_code: "4.4"
+  - front: Error-spot → "x² + y² = 25 means y = √(25 − x²)"
+    back: |
+      Taking a square root gives ±. The positive root is only the top half; the bottom half is y = −√(25 − x²).
+    topic_code: "4.5"
+  - front: Error-spot → "a circle has vertical tangents at its top and bottom"
+    back: |
+      The tangents at the top and bottom are horizontal. Vertical tangents are at the leftmost and rightmost points, where the curve turns back.
+    topic_code: "4.5"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 4.4 and 4.5: parametric circles and line
+    segments, implicitly defined relations, branches and tangent lines), with about a third reviewing week 27
+    and Units 2 and 3 (parametric paths and projectiles, sinusoidal models, trigonometric equations, inverse
+    functions, exponential equations). Opens with a shared-context set on one parametric circle. Multiple choice,
+    select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes.
+    No calculator is needed.
+  questions:
+    # ---- Stimulus set: one parametric circle (4.4)
+    - slug: precalc-u04-w28-q01
+      type: multiple_choice
+      topic_code: "4.4"
+      source: "AP Precalculus CED, Topic 4.4"
+      points: 1
+      stimulus: |
+        A point moves according to x(t) = 3 + 5 cos t, y(t) = −1 + 5 sin t, for 0 ≤ t ≤ 2π.
+      prompt: |
+        What are the centre and radius of the circle the point traces?
+      options:
+        - "Centre (−3, 1), radius 5"
+        - "Centre (3, −1), radius 5"
+        - "Centre (3, −1), radius 25"
+        - "Centre (3, −1), radius √5"
+      option_explanations:
+        - |
+          The signs are reversed: x = 3 + 5 cos t is centred on x = 3 and y = −1 + 5 sin t on y = −1.
+        - |
+          Correct. The constants give the centre (3, −1) and the coefficient of cos t and sin t gives the radius 5.
+        - |
+          25 is r², which appears in the rectangular equation; the radius itself is 5.
+        - |
+          The coefficient 5 multiplies cos t and sin t directly, so it is the radius, not r².
+      answer: 1
+    - slug: precalc-u04-w28-q02
+      type: multiple_choice
+      topic_code: "4.4"
+      source: "AP Precalculus CED, Topic 4.4"
+      points: 1
+      stimulus: |
+        A point moves according to x(t) = 3 + 5 cos t, y(t) = −1 + 5 sin t, for 0 ≤ t ≤ 2π.
+      prompt: |
+        Where is the point at t = π/2?
+      options:
+        - "(8, −1)"
+        - "(3, 5)"
+        - "(−2, −1)"
+        - "(3, 4)"
+      option_explanations:
+        - |
+          (8, −1) is the starting point at t = 0, where cos t = 1 and sin t = 0.
+        - |
+          This forgets the shift: y = −1 + 5 sin(π/2) = −1 + 5 = 4, not 5.
+        - |
+          (−2, −1) is the point at t = π, where cos t = −1.
+        - |
+          Correct. cos(π/2) = 0 and sin(π/2) = 1, so the point is (3 + 0, −1 + 5) = (3, 4), directly above the centre.
+      answer: 3
+    - slug: precalc-u04-w28-q03
+      type: multiple_choice
+      topic_code: "4.4"
+      source: "AP Precalculus CED, Topic 4.4"
+      points: 1
+      stimulus: |
+        A point moves according to x(t) = 3 + 5 cos t, y(t) = −1 + 5 sin t, for 0 ≤ t ≤ 2π.
+      prompt: |
+        Which rectangular equation does the path satisfy?
+      options:
+        - "(x − 3)² + (y + 1)² = 25"
+        - "(x + 3)² + (y − 1)² = 25"
+        - "(x − 3)² + (y + 1)² = 5"
+        - "x² + y² = 25"
+      option_explanations:
+        - |
+          Correct. cos t = (x − 3)/5 and sin t = (y + 1)/5, and cos²t + sin²t = 1 gives (x − 3)² + (y + 1)² = 25.
+        - |
+          The shifts have the wrong signs; the centre is (3, −1), so the equation uses x − 3 and y + 1.
+        - |
+          The right side of the circle equation is r² = 25, not r.
+        - |
+          This is a circle centred at the origin; the parametrization is shifted to centre (3, −1).
+      answer: 0
+    # ---- Independent items
+    - slug: precalc-u04-w28-q04
+      type: multiple_choice
+      topic_code: "4.4"
+      source: "AP Precalculus CED, Topic 4.4"
+      points: 1
+      prompt: |
+        Which parametrization traces the line segment from (2, −1) at t = 0 to (8, 3) at t = 1?
+      options:
+        - "x = 8 + 6t, y = 3 + 4t"
+        - "x = 2 + 8t, y = −1 + 3t"
+        - "x = 2 + 6t, y = −1 + 4t"
+        - "x = 2 + 4t, y = −1 + 6t"
+      option_explanations:
+        - |
+          This starts at (8, 3), the endpoint, and moves away from the segment.
+        - |
+          The coefficients of t must be the changes x₂ − x₁ = 6 and y₂ − y₁ = 4, not the endpoint coordinates; at t = 1 this gives (10, 2).
+        - |
+          Correct. Start at (2, −1) and add t times the change (6, 4); t = 1 gives (8, 3).
+        - |
+          The changes are swapped between x and y; at t = 1 this reaches (6, 5).
+      answer: 2
+    - slug: precalc-u04-w28-q05
+      type: multiple_choice
+      topic_code: "4.4"
+      source: "AP Precalculus CED, Topic 4.4"
+      points: 1
+      prompt: |
+        Which parametrization traces the circle x² + y² = 4 exactly once, clockwise, starting at (2, 0), for 0 ≤ t ≤ 2π?
+      options:
+        - "x = 2 cos t, y = 2 sin t"
+        - "x = 2 cos t, y = −2 sin t"
+        - "x = 2 sin t, y = 2 cos t"
+        - "x = −2 cos t, y = 2 sin t"
+      option_explanations:
+        - |
+          This starts at (2, 0) but moves counterclockwise: at t = π/2 it is at (0, 2), above the centre.
+        - |
+          Correct. t = 0 gives (2, 0), and t = π/2 gives (0, −2), so the point moves down from the rightmost point: clockwise.
+        - |
+          This is clockwise, but it starts at (0, 2), the top of the circle, not at (2, 0).
+        - |
+          This starts at (−2, 0), the leftmost point, not at (2, 0).
+      answer: 1
+    - slug: precalc-u04-w28-q06
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Precalculus CED, Topic 4.5"
+      points: 1
+      prompt: |
+        The curve x² + xy + y² = 7 meets the vertical line x = 1 at which y-values?
+      options:
+        - "y = 2 only"
+        - "y = −2 or y = 3"
+        - "y = ±√6"
+        - "y = 2 or y = −3"
+      option_explanations:
+        - |
+          y = 2 works, but the quadratic y² + y − 6 = 0 has a second root, y = −3, which also lies on the curve.
+        - |
+          These are the roots of y² − y − 6 = 0; the xy term at x = 1 is +y, giving y² + y − 6 = 0.
+        - |
+          This drops the xy term: 1 + y² = 7 ignores the middle term xy = y.
+        - |
+          Correct. 1 + y + y² = 7 gives y² + y − 6 = (y + 3)(y − 2) = 0, so y = 2 or y = −3.
+      answer: 3
+    - slug: precalc-u04-w28-q07
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Precalculus CED, Topic 4.5"
+      points: 1
+      prompt: |
+        Which point lies on the curve defined implicitly by y³ + xy = 10?
+      options:
+        - "(1, 2)"
+        - "(2, 1)"
+        - "(−1, 2)"
+        - "(2, 2)"
+      option_explanations:
+        - |
+          Correct. Substituting x = 1, y = 2 gives 2³ + (1)(2) = 8 + 2 = 10.
+        - |
+          This swaps the coordinates: 1³ + (2)(1) = 3, not 10.
+        - |
+          With x = −1 the xy term is negative: 8 − 2 = 6, not 10.
+        - |
+          2³ + (2)(2) = 8 + 4 = 12, which overshoots 10.
+      answer: 0
+    - slug: precalc-u04-w28-q08
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Precalculus CED, Topic 4.5"
+      points: 1
+      prompt: |
+        At which points does the ellipse x² + 4y² = 16 have vertical tangent lines?
+      options:
+        - "(0, 2) and (0, −2)"
+        - "(2, 0) and (−2, 0)"
+        - "(4, 0) and (−4, 0)"
+        - "(0, 4) and (0, −4)"
+      option_explanations:
+        - |
+          These are the top and bottom of the ellipse, where the tangent lines are horizontal.
+        - |
+          At x = ±2, 4y² = 12 gives y = ±√3, so these points are not even on the ellipse.
+        - |
+          Correct. The branches y = ±(1/2)√(16 − x²) meet where 16 − x² = 0, at (±4, 0), the leftmost and rightmost points, so the tangents there are vertical.
+        - |
+          At x = 0, 4y² = 16 gives y = ±2, so (0, ±4) is not on the ellipse.
+      answer: 2
+    - slug: precalc-u04-w28-q09
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "AP Precalculus CED, Topic 4.3"
+      points: 1
+      prompt: |
+        For the parametric function x(t) = t³, y(t) = 2t + 3, what is the slope of the segment of the path from t = 0 to t = 2?
+      options:
+        - "2"
+        - "8"
+        - "4"
+        - "1/2"
+      option_explanations:
+        - |
+          This is Δx/Δy = 8/4; the slope of the path is Δy/Δx.
+        - |
+          8 is Δx = x(2) − x(0), the horizontal change alone.
+        - |
+          4 is Δx/Δt = 8/2 (also equal to Δy here), not the slope of the path.
+        - |
+          Correct. Δx = 8 − 0 = 8 and Δy = 7 − 3 = 4, so the slope is 4/8 = 1/2.
+      answer: 3
+    - slug: precalc-u04-w28-q10
+      type: multiple_choice
+      topic_code: "3.7"
+      source: "AP Precalculus CED, Topic 3.7"
+      points: 1
+      prompt: |
+        In a hypothetical model, a Ferris wheel rider's height in metres after t minutes is h(t) = 22 − 20 cos(πt/2). What is the rider's greatest height, and how often is it reached?
+      options:
+        - "42 m, every 4 minutes"
+        - "22 m, every 4 minutes"
+        - "42 m, every π/2 minutes"
+        - "20 m, every 2 minutes"
+      option_explanations:
+        - |
+          Correct. The maximum is midline + amplitude = 22 + 20 = 42 m, and the period is 2π/(π/2) = 4 minutes.
+        - |
+          22 m is the midline, the height of the wheel's centre, not the greatest height.
+        - |
+          π/2 is the coefficient b; the period is 2π/b = 4 minutes.
+        - |
+          20 m is the amplitude (the radius) and 2 minutes is half the period.
+      answer: 0
+    - slug: precalc-u04-w28-q11
+      type: multiple_choice
+      topic_code: "2.8"
+      source: "AP Precalculus CED, Topic 2.8"
+      points: 1
+      prompt: |
+        What is the inverse of f(x) = (x − 5)/3?
+      options:
+        - "f⁻¹(x) = 3x − 5"
+        - "f⁻¹(x) = (x + 5)/3"
+        - "f⁻¹(x) = 3x + 5"
+        - "f⁻¹(x) = 3/(x − 5)"
+      option_explanations:
+        - |
+          Undoing "subtract 5" means adding 5 back: from x = (y − 5)/3, 3x = y − 5 and y = 3x + 5.
+        - |
+          This undoes the subtraction but not the division; the inverse must multiply by 3.
+        - |
+          Correct. Swap and solve: x = (y − 5)/3, so 3x = y − 5 and y = 3x + 5. Check: f(3x + 5) = (3x)/3 = x.
+        - |
+          This is the reciprocal 1/f(x), not the inverse function; f⁻¹ undoes f, it does not divide 1 by it.
+      answer: 2
+    - slug: precalc-u04-w28-q12
+      type: multi_select
+      topic_code: "4.5"
+      source: "AP Precalculus CED, Topic 4.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Consider the curve x² + y² = 25. Which statements are true? Select all that apply.
+      options:
+        - "The equation defines y as a function of x."
+        - "The top half of the curve is the graph of y = √(25 − x²)."
+        - "The tangent line at (3, 4) has slope −3/4."
+        - "The curve has vertical tangent lines at (0, 5) and (0, −5)."
+        - "The point (−4, −3) is on the curve."
+      option_explanations:
+        - |
+          At x = 3 both y = 4 and y = −4 satisfy the equation, so y is not a function of x.
+        - |
+          Correct. Solving gives y = ±√(25 − x²); the positive branch is the top semicircle.
+        - |
+          Correct. The radius to (3, 4) has slope 4/3, and a tangent to a circle is perpendicular to the radius, so its slope is −3/4.
+        - |
+          (0, ±5) are the top and bottom, where the tangents are horizontal; the vertical tangents are at (±5, 0).
+        - |
+          Correct. (−4)² + (−3)² = 16 + 9 = 25, so the point satisfies the equation.
+      answer: [1, 2, 4]
+    - slug: precalc-u04-w28-q13
+      type: multi_select
+      topic_code: "4.2"
+      source: "AP Precalculus CED, Topic 4.2"
+      points: 2
+      partial_credit: true
+      prompt: |
+        In a model, an object's position in feet after t seconds is x(t) = 20t, y(t) = 4 + 32t − 16t². Which statements are true? Select all that apply.
+      options:
+        - "The path of the object in the xy-plane is a straight line."
+        - "The object starts at a height of 4 feet."
+        - "The object is back at a height of 4 feet at t = 1."
+        - "The object is highest at t = 1, at a height of 20 feet."
+        - "The object's horizontal position increases by 20 feet every second."
+      option_explanations:
+        - |
+          y is quadratic in t while x is linear, so eliminating t (t = x/20) gives a parabola in x, not a line.
+        - |
+          Correct. At t = 0, y(0) = 4 + 0 − 0 = 4 feet, the launch height.
+        - |
+          y(1) = 4 + 32 − 16 = 20; the object returns to 4 feet at t = 2, when 32t = 16t².
+        - |
+          Correct. The vertex of y is at t = 32/32 = 1, and y(1) = 20 feet.
+        - |
+          Correct. x(t) = 20t is linear with rate 20 ft/s.
+      answer: [1, 3, 4]
+    - slug: precalc-u04-w28-q14
+      type: true_false
+      topic_code: "4.4"
+      source: "AP Precalculus CED, Topic 4.4"
+      points: 1
+      prompt: |
+        True or false: The parametric function x = cos 2t, y = sin 2t, for 0 ≤ t ≤ 2π, traces the unit circle exactly once.
+      answer: false
+      explanation: |
+        False. One revolution takes 2π/2 = π units of t, so on 0 ≤ t ≤ 2π the unit circle is traced twice. Restricting to 0 ≤ t ≤ π would trace it once.
+    - slug: precalc-u04-w28-q15
+      type: true_false
+      topic_code: "3.10"
+      source: "AP Precalculus CED, Topic 3.10"
+      points: 1
+      prompt: |
+        True or false: The equation sin x = 1/2 has exactly two solutions in the interval [0, 2π).
+      answer: true
+      explanation: |
+        True. Sine is positive in Quadrants I and II, and the reference angle is π/6, so the solutions are x = π/6 and x = 5π/6.
+    - slug: precalc-u04-w28-q16
+      type: fill_blank
+      topic_code: "4.4"
+      source: "AP Precalculus CED, Topic 4.4"
+      points: 1
+      prompt: |
+        A segment is parametrized by x = −2 + 10t, y = 7 − 4t, 0 ≤ t ≤ 1. The x-coordinate of its midpoint is ____.
+      answer: ["3", "3.0"]
+      explanation: |
+        The midpoint is at t = 1/2: x = −2 + 10(1/2) = 3 (and y = 7 − 2 = 5). Check: the endpoints are (−2, 7) and (8, 3), whose x-coordinates average to 3.
+    - slug: precalc-u04-w28-q17
+      type: fill_blank
+      topic_code: "4.5"
+      source: "AP Precalculus CED, Topic 4.5"
+      points: 1
+      prompt: |
+        On the curve xy = 12, the point with x = −3 has y = ____.
+      answer: ["-4", "−4"]
+      explanation: |
+        Substitute x = −3: −3y = 12, so y = −4. The point (−3, −4) is on the branch of the hyperbola in Quadrant III.
+    - slug: precalc-u04-w28-q18
+      type: fill_blank
+      topic_code: "4.1"
+      source: "AP Precalculus CED, Topic 4.1"
+      points: 1
+      prompt: |
+        Eliminating the parameter from x = t + 2, y = 3t gives y = 3x − ____.
+      answer: ["6"]
+      explanation: |
+        From x = t + 2, t = x − 2. Then y = 3(x − 2) = 3x − 6.
+    - slug: precalc-u04-w28-q19
+      type: numeric
+      topic_code: "4.4"
+      source: "AP Precalculus CED, Topic 4.4"
+      points: 1
+      prompt: |
+        A point moves on a circle according to x = 4 cos(πt/3), y = 4 sin(πt/3), with t in seconds. How many seconds does one full revolution take?
+      answer: { value: 6, tolerance: 0 }
+      explanation: |
+        One revolution takes 2π/b seconds with b = π/3: 2π/(π/3) = 6 seconds.
+    - slug: precalc-u04-w28-q20
+      type: numeric
+      topic_code: "2.13"
+      source: "AP Precalculus CED, Topic 2.13"
+      points: 1
+      prompt: |
+        Solve 3 · 2ˣ = 48 for x. Give the exact value.
+      answer: { value: 4, tolerance: 0 }
+      explanation: |
+        Divide by 3: 2ˣ = 16 = 2⁴, so x = 4. (Using logs: x = log₂ 16 = 4.)
+    - slug: precalc-u04-w28-q21
+      type: short_answer
+      topic_code: "4.4"
+      source: "AP Precalculus CED, Topic 4.4"
+      points: 3
+      prompt: |
+        In a hypothetical model, a Ferris wheel has radius 20 m, its centre is 22 m above the ground, and it turns once every 4 minutes. A rider boards at the bottom and first moves to the right. Place the centre at x = 0, with y measured from the ground.
+
+        (a) Write parametric equations x(t), y(t) for the rider's position t minutes after boarding.
+        (b) Find the rider's position at t = 1 and at t = 3, and say where on the wheel each is.
+        (c) Find the two times in the first revolution when the rider is 32 m above the ground.
+      answer: |
+        (a) x(t) = 20 sin(πt/2), y(t) = 22 − 20 cos(πt/2). (Start (0, 2); b = 2π/4 = π/2; moving right from the bottom is counterclockwise.)
+        (b) t = 1: (20 sin(π/2), 22 − 20 cos(π/2)) = (20, 22), the right end of the horizontal diameter. t = 3: (20 sin(3π/2), 22 − 20 cos(3π/2)) = (−20, 22), the left end.
+        (c) 22 − 20 cos(πt/2) = 32 gives cos(πt/2) = −1/2, so πt/2 = 2π/3 or 4π/3, giving t = 4/3 and t = 8/3 minutes.
+      explanation: |
+        Three points, one per part. (a) both equations with the correct start and direction (accept any equivalent form that starts at (0, 2) and moves right). (b) both positions with descriptions. (c) both times, 4/3 and 8/3 minutes.
+    - slug: precalc-u04-w28-q22
+      type: short_answer
+      topic_code: "4.5"
+      source: "AP Precalculus CED, Topic 4.5"
+      points: 3
+      prompt: |
+        Consider the curve defined implicitly by x² + xy + y² = 7.
+
+        (a) Show that the point (2, 1) lies on the curve.
+        (b) Find every point on the curve with x = 2.
+        (c) Treat the equation as a quadratic in y. Find the x-values at which a vertical line meets the curve at exactly one point, and explain what this says about the tangent lines there.
+      answer: |
+        (a) 2² + (2)(1) + 1² = 4 + 2 + 1 = 7, so (2, 1) is on the curve.
+        (b) 4 + 2y + y² = 7 gives y² + 2y − 3 = (y + 3)(y − 1) = 0, so y = 1 or y = −3: the points (2, 1) and (2, −3).
+        (c) y² + xy + (x² − 7) = 0 has discriminant x² − 4(x² − 7) = 28 − 3x². Exactly one y when 28 − 3x² = 0, so x = ±√(28/3) = ±2√21/3 ≈ ±3.06. For larger |x| there are no points, so these are the left and right edges of the curve, where the two branches meet; the tangent lines there are vertical.
+      explanation: |
+        Three points, one per part. (a) the substitution giving 7. (b) both points. (c) the discriminant 28 − 3x², the values x = ±√(28/3), and the conclusion that the tangents are vertical where the branches meet.
+    - slug: precalc-u04-w28-q23
+      type: long_answer
+      topic_code: "4.4"
+      source: "AP Precalculus CED, Topics 4.4 and 4.5"
+      points: 6
+      prompt: |
+        In a hypothetical model, a cyclist rides around a circular track centred at the origin. Her position in metres t seconds after she passes the point (50, 0) is
+
+        x(t) = 50 cos(πt/30), y(t) = 50 sin(πt/30).
+
+        (A) (i) How many seconds does one lap take?
+            (ii) Find her exact position at t = 10.
+        (B) A straight service path runs across the track from (50, 0) to (−30, 40).
+            (i) Write a parametrization of the path for 0 ≤ s ≤ 1, starting at (50, 0).
+            (ii) Show that (−30, 40) is on the track, and find the midpoint of the service path.
+        (C) (i) Write an equation in x and y, not involving t, for the track.
+            (ii) Find both points of the track with x = 30. Explain why the track is not the graph of a function of x, and state which of the two points the cyclist reaches first after t = 0.
+      answer: |
+        (A)(i) Period 2π/(π/30) = 60 seconds.
+        (ii) At t = 10 the angle is π/3: (50 cos(π/3), 50 sin(π/3)) = (25, 25√3).
+        (B)(i) Changes −80 and 40: x(s) = 50 − 80s, y(s) = 40s, 0 ≤ s ≤ 1.
+        (ii) (−30)² + 40² = 900 + 1600 = 2500 = 50², so the point is on the track. Midpoint at s = 1/2: (10, 20).
+        (C)(i) x² + y² = 2500.
+        (ii) 900 + y² = 2500 gives y² = 1600, y = ±40: the points (30, 40) and (30, −40). One x-value gives two y-values, so the track fails the vertical line test. She rides counterclockwise from (50, 0) (y becomes positive first), so she reaches (30, 40), in Quadrant I, before (30, −40).
+      explanation: |
+        Six points. (A) 1 point for 60 seconds; 1 point for (25, 25√3). (B) 1 point for a correct segment parametrization; 1 point for verifying (−30, 40) and the midpoint (10, 20). (C) 1 point for x² + y² = 2500; 1 point for both points, the vertical-line reason and (30, 40) first with a reason based on direction.

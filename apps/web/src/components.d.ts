@@ -5,9 +5,9 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Layout, QuestionInput } from "@24hc/shared";
+import { CommentTargetType, Layout, QuestionInput } from "@24hc/shared";
 import { Flashcard } from "./services/flashcards";
-export { Layout, QuestionInput } from "@24hc/shared";
+export { CommentTargetType, Layout, QuestionInput } from "@24hc/shared";
 export { Flashcard } from "./services/flashcards";
 export namespace Components {
     /**
@@ -58,6 +58,34 @@ export namespace Components {
     interface AppRoot {
     }
     /**
+     * The discussion under a test, a question, a material or a course. The API
+     * decides everything -- who may post, edit, delete, and whose name this
+     * viewer may see -- and this only renders its answers. `compact` starts
+     * closed behind a "Discuss" toggle, for the per-question threads on a test
+     * page, and loads only when opened.
+     * On a public course's discussion every comment waits for approval. A
+     * comment that is not approved carries its state in the top right corner --
+     * a pause sign while it waits, a barred ring once denied, a bin for what an
+     * administrator sees deleted -- and a light wash of that state behind it.
+     * Approvers get Approve and Deny beside the sign.
+     */
+    interface CommentThread {
+        /**
+          * @default false
+         */
+        "compact": boolean;
+        /**
+          * @default 'Discussion'
+         */
+        "heading": string;
+        /**
+          * A line shown above the box to anyone who may post (practice mode warns that options are shuffled).
+         */
+        "hint"?: string;
+        "targetId": number;
+        "targetType": CommentTargetType;
+    }
+    /**
      * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
      * flip to the back, step or shuffle. All state is local -- nothing is
      * persisted, so reloading starts the deck over.
@@ -95,6 +123,10 @@ export namespace Components {
      * responses live in this component and vanish with it -- so there is no
      * autosave and no attempt; "finish" is one stateless check the server
      * grades with the same scorer a real attempt uses.
+     * The test's discussion and each question's sit here too: the same
+     * threads as on the test's own page (target `test` / `question`), so a
+     * practice page widens nobody's access. The author's comments-off switch
+     * hides them from everyone else, as page-test does.
      */
     interface PageCoursePractice {
         "courseId"?: number;
@@ -110,6 +142,13 @@ export namespace Components {
     interface PageGeneration {
         "generationId"?: number;
     }
+    /**
+     * Everything waiting for a hand grade, oldest submission first: a teacher's
+     * own assignments, and for a teacher assistant every connected teacher's
+     * (GET /api/grading). Grading here is the same call the results page makes.
+     */
+    interface PageGrading {
+    }
     interface PageHome {
     }
     interface PageIntegrations {
@@ -120,6 +159,11 @@ export namespace Components {
           * @default 'tests'
          */
         "kind": 'tests' | 'materials' | 'courses';
+    }
+    /**
+     * /library: an index of the library's shelves, one card each.
+     */
+    interface PageLibraryIndex {
     }
     interface PageLogin {
     }
@@ -146,6 +190,16 @@ export namespace Components {
     interface PageRegisterRole {
     }
     interface PageResetPassword {
+    }
+    /**
+     * A connected student's assignments, for a tutor, teacher assistant or
+     * parent/guardian. Read-only. Titles are plain text, not links: a private
+     * test 404s for anyone but its author and the student it was assigned to.
+     * A parent or guardian (STUDENT_ANSWER_VIEWER_ROLES) also gets a link to
+     * each submitted attempt's answers.
+     */
+    interface PageStudent {
+        "studentId"?: number;
     }
     interface PageTeacherProfile {
         "teacherId"?: number;
@@ -175,6 +229,13 @@ export namespace Components {
     interface PageTests {
     }
     interface PageVerifyEmail {
+    }
+    /**
+     * A teacher's (or tutor's) handle: /teachers/<handle>, admin-approved
+     * (App\Support\Slugs). Only a Role::isPublic() role has a public page to
+     * name, so anyone else sees nothing. Lives on page-profile.
+     */
+    interface ProfileHandle {
     }
     /**
      * Author text -- a prompt, a stimulus, a rationale, a study guide -- in the
@@ -253,6 +314,24 @@ declare global {
         new (): HTMLAppRootElement;
     };
     /**
+     * The discussion under a test, a question, a material or a course. The API
+     * decides everything -- who may post, edit, delete, and whose name this
+     * viewer may see -- and this only renders its answers. `compact` starts
+     * closed behind a "Discuss" toggle, for the per-question threads on a test
+     * page, and loads only when opened.
+     * On a public course's discussion every comment waits for approval. A
+     * comment that is not approved carries its state in the top right corner --
+     * a pause sign while it waits, a barred ring once denied, a bin for what an
+     * administrator sees deleted -- and a light wash of that state behind it.
+     * Approvers get Approve and Deny beside the sign.
+     */
+    interface HTMLCommentThreadElement extends Components.CommentThread, HTMLStencilElement {
+    }
+    var HTMLCommentThreadElement: {
+        prototype: HTMLCommentThreadElement;
+        new (): HTMLCommentThreadElement;
+    };
+    /**
      * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
      * flip to the back, step or shuffle. All state is local -- nothing is
      * persisted, so reloading starts the deck over.
@@ -294,6 +373,10 @@ declare global {
      * responses live in this component and vanish with it -- so there is no
      * autosave and no attempt; "finish" is one stateless check the server
      * grades with the same scorer a real attempt uses.
+     * The test's discussion and each question's sit here too: the same
+     * threads as on the test's own page (target `test` / `question`), so a
+     * practice page widens nobody's access. The author's comments-off switch
+     * hides them from everyone else, as page-test does.
      */
     interface HTMLPageCoursePracticeElement extends Components.PageCoursePractice, HTMLStencilElement {
     }
@@ -322,6 +405,17 @@ declare global {
         prototype: HTMLPageGenerationElement;
         new (): HTMLPageGenerationElement;
     };
+    /**
+     * Everything waiting for a hand grade, oldest submission first: a teacher's
+     * own assignments, and for a teacher assistant every connected teacher's
+     * (GET /api/grading). Grading here is the same call the results page makes.
+     */
+    interface HTMLPageGradingElement extends Components.PageGrading, HTMLStencilElement {
+    }
+    var HTMLPageGradingElement: {
+        prototype: HTMLPageGradingElement;
+        new (): HTMLPageGradingElement;
+    };
     interface HTMLPageHomeElement extends Components.PageHome, HTMLStencilElement {
     }
     var HTMLPageHomeElement: {
@@ -339,6 +433,15 @@ declare global {
     var HTMLPageLibraryElement: {
         prototype: HTMLPageLibraryElement;
         new (): HTMLPageLibraryElement;
+    };
+    /**
+     * /library: an index of the library's shelves, one card each.
+     */
+    interface HTMLPageLibraryIndexElement extends Components.PageLibraryIndex, HTMLStencilElement {
+    }
+    var HTMLPageLibraryIndexElement: {
+        prototype: HTMLPageLibraryIndexElement;
+        new (): HTMLPageLibraryIndexElement;
     };
     interface HTMLPageLoginElement extends Components.PageLogin, HTMLStencilElement {
     }
@@ -399,6 +502,19 @@ declare global {
     var HTMLPageResetPasswordElement: {
         prototype: HTMLPageResetPasswordElement;
         new (): HTMLPageResetPasswordElement;
+    };
+    /**
+     * A connected student's assignments, for a tutor, teacher assistant or
+     * parent/guardian. Read-only. Titles are plain text, not links: a private
+     * test 404s for anyone but its author and the student it was assigned to.
+     * A parent or guardian (STUDENT_ANSWER_VIEWER_ROLES) also gets a link to
+     * each submitted attempt's answers.
+     */
+    interface HTMLPageStudentElement extends Components.PageStudent, HTMLStencilElement {
+    }
+    var HTMLPageStudentElement: {
+        prototype: HTMLPageStudentElement;
+        new (): HTMLPageStudentElement;
     };
     interface HTMLPageTeacherProfileElement extends Components.PageTeacherProfile, HTMLStencilElement {
     }
@@ -461,6 +577,17 @@ declare global {
         new (): HTMLPageVerifyEmailElement;
     };
     /**
+     * A teacher's (or tutor's) handle: /teachers/<handle>, admin-approved
+     * (App\Support\Slugs). Only a Role::isPublic() role has a public page to
+     * name, so anyone else sees nothing. Lives on page-profile.
+     */
+    interface HTMLProfileHandleElement extends Components.ProfileHandle, HTMLStencilElement {
+    }
+    var HTMLProfileHandleElement: {
+        prototype: HTMLProfileHandleElement;
+        new (): HTMLProfileHandleElement;
+    };
+    /**
      * Author text -- a prompt, a stimulus, a rationale, a study guide -- in the
      * markdown subset `services/rich-text` understands. Vnodes only; see that
      * file for why there is no sanitizer.
@@ -496,6 +623,7 @@ declare global {
         "app-header": HTMLAppHeaderElement;
         "app-layout": HTMLAppLayoutElement;
         "app-root": HTMLAppRootElement;
+        "comment-thread": HTMLCommentThreadElement;
         "flashcard-deck": HTMLFlashcardDeckElement;
         "page-attempt": HTMLPageAttemptElement;
         "page-connections": HTMLPageConnectionsElement;
@@ -505,9 +633,11 @@ declare global {
         "page-courses": HTMLPageCoursesElement;
         "page-forgot-password": HTMLPageForgotPasswordElement;
         "page-generation": HTMLPageGenerationElement;
+        "page-grading": HTMLPageGradingElement;
         "page-home": HTMLPageHomeElement;
         "page-integrations": HTMLPageIntegrationsElement;
         "page-library": HTMLPageLibraryElement;
+        "page-library-index": HTMLPageLibraryIndexElement;
         "page-login": HTMLPageLoginElement;
         "page-material": HTMLPageMaterialElement;
         "page-material-form": HTMLPageMaterialFormElement;
@@ -518,6 +648,7 @@ declare global {
         "page-register": HTMLPageRegisterElement;
         "page-register-role": HTMLPageRegisterRoleElement;
         "page-reset-password": HTMLPageResetPasswordElement;
+        "page-student": HTMLPageStudentElement;
         "page-teacher-profile": HTMLPageTeacherProfileElement;
         "page-teachers": HTMLPageTeachersElement;
         "page-test": HTMLPageTestElement;
@@ -528,11 +659,14 @@ declare global {
         "page-test-results": HTMLPageTestResultsElement;
         "page-tests": HTMLPageTestsElement;
         "page-verify-email": HTMLPageVerifyEmailElement;
+        "profile-handle": HTMLProfileHandleElement;
         "rich-text": HTMLRichTextElement;
         "test-question-editor": HTMLTestQuestionEditorElement;
     }
 }
 declare namespace LocalJSX {
+    type OneOf<K extends string, PropT, AttrT = PropT> = { [P in K]: PropT } & { [P in `attr:${K}`]?: never } | { [P in `attr:${K}`]: AttrT } & { [P in K]?: never };
+
     /**
      * The site-wide announcement. An <aside>, not a live region: it is static
      * content, not a response to a user action, and live regions inside shadow
@@ -581,6 +715,34 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     /**
+     * The discussion under a test, a question, a material or a course. The API
+     * decides everything -- who may post, edit, delete, and whose name this
+     * viewer may see -- and this only renders its answers. `compact` starts
+     * closed behind a "Discuss" toggle, for the per-question threads on a test
+     * page, and loads only when opened.
+     * On a public course's discussion every comment waits for approval. A
+     * comment that is not approved carries its state in the top right corner --
+     * a pause sign while it waits, a barred ring once denied, a bin for what an
+     * administrator sees deleted -- and a light wash of that state behind it.
+     * Approvers get Approve and Deny beside the sign.
+     */
+    interface CommentThread {
+        /**
+          * @default false
+         */
+        "compact"?: boolean;
+        /**
+          * @default 'Discussion'
+         */
+        "heading"?: string;
+        /**
+          * A line shown above the box to anyone who may post (practice mode warns that options are shuffled).
+         */
+        "hint"?: string;
+        "targetId": number;
+        "targetType": CommentTargetType;
+    }
+    /**
      * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
      * flip to the back, step or shuffle. All state is local -- nothing is
      * persisted, so reloading starts the deck over.
@@ -618,6 +780,10 @@ declare namespace LocalJSX {
      * responses live in this component and vanish with it -- so there is no
      * autosave and no attempt; "finish" is one stateless check the server
      * grades with the same scorer a real attempt uses.
+     * The test's discussion and each question's sit here too: the same
+     * threads as on the test's own page (target `test` / `question`), so a
+     * practice page widens nobody's access. The author's comments-off switch
+     * hides them from everyone else, as page-test does.
      */
     interface PageCoursePractice {
         "courseId"?: number;
@@ -633,6 +799,13 @@ declare namespace LocalJSX {
     interface PageGeneration {
         "generationId"?: number;
     }
+    /**
+     * Everything waiting for a hand grade, oldest submission first: a teacher's
+     * own assignments, and for a teacher assistant every connected teacher's
+     * (GET /api/grading). Grading here is the same call the results page makes.
+     */
+    interface PageGrading {
+    }
     interface PageHome {
     }
     interface PageIntegrations {
@@ -643,6 +816,11 @@ declare namespace LocalJSX {
           * @default 'tests'
          */
         "kind"?: 'tests' | 'materials' | 'courses';
+    }
+    /**
+     * /library: an index of the library's shelves, one card each.
+     */
+    interface PageLibraryIndex {
     }
     interface PageLogin {
     }
@@ -669,6 +847,16 @@ declare namespace LocalJSX {
     interface PageRegisterRole {
     }
     interface PageResetPassword {
+    }
+    /**
+     * A connected student's assignments, for a tutor, teacher assistant or
+     * parent/guardian. Read-only. Titles are plain text, not links: a private
+     * test 404s for anyone but its author and the student it was assigned to.
+     * A parent or guardian (STUDENT_ANSWER_VIEWER_ROLES) also gets a link to
+     * each submitted attempt's answers.
+     */
+    interface PageStudent {
+        "studentId"?: number;
     }
     interface PageTeacherProfile {
         "teacherId"?: number;
@@ -698,6 +886,13 @@ declare namespace LocalJSX {
     interface PageTests {
     }
     interface PageVerifyEmail {
+    }
+    /**
+     * A teacher's (or tutor's) handle: /teachers/<handle>, admin-approved
+     * (App\Support\Slugs). Only a Role::isPublic() role has a public page to
+     * name, so anyone else sees nothing. Lives on page-profile.
+     */
+    interface ProfileHandle {
     }
     /**
      * Author text -- a prompt, a stimulus, a rationale, a study guide -- in the
@@ -740,6 +935,13 @@ declare namespace LocalJSX {
         "layout": Layout;
         "bare": boolean;
     }
+    interface CommentThreadAttributes {
+        "targetType": CommentTargetType;
+        "targetId": number;
+        "compact": boolean;
+        "heading": string;
+        "hint": string;
+    }
     interface FlashcardDeckAttributes {
         "flipped": boolean;
     }
@@ -770,6 +972,9 @@ declare namespace LocalJSX {
     }
     interface PageMaterialShareAttributes {
         "materialId": number;
+    }
+    interface PageStudentAttributes {
+        "studentId": number;
     }
     interface PageTeacherProfileAttributes {
         "teacherId": number;
@@ -805,6 +1010,7 @@ declare namespace LocalJSX {
         "app-header": Omit<AppHeader, keyof AppHeaderAttributes> & { [K in keyof AppHeader & keyof AppHeaderAttributes]?: AppHeader[K] } & { [K in keyof AppHeader & keyof AppHeaderAttributes as `attr:${K}`]?: AppHeaderAttributes[K] } & { [K in keyof AppHeader & keyof AppHeaderAttributes as `prop:${K}`]?: AppHeader[K] };
         "app-layout": Omit<AppLayout, keyof AppLayoutAttributes> & { [K in keyof AppLayout & keyof AppLayoutAttributes]?: AppLayout[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `attr:${K}`]?: AppLayoutAttributes[K] } & { [K in keyof AppLayout & keyof AppLayoutAttributes as `prop:${K}`]?: AppLayout[K] };
         "app-root": AppRoot;
+        "comment-thread": Omit<CommentThread, keyof CommentThreadAttributes> & { [K in keyof CommentThread & keyof CommentThreadAttributes]?: CommentThread[K] } & { [K in keyof CommentThread & keyof CommentThreadAttributes as `attr:${K}`]?: CommentThreadAttributes[K] } & { [K in keyof CommentThread & keyof CommentThreadAttributes as `prop:${K}`]?: CommentThread[K] } & OneOf<"targetType", CommentThread["targetType"], CommentThreadAttributes["targetType"]> & OneOf<"targetId", CommentThread["targetId"], CommentThreadAttributes["targetId"]>;
         "flashcard-deck": Omit<FlashcardDeck, keyof FlashcardDeckAttributes> & { [K in keyof FlashcardDeck & keyof FlashcardDeckAttributes]?: FlashcardDeck[K] } & { [K in keyof FlashcardDeck & keyof FlashcardDeckAttributes as `attr:${K}`]?: FlashcardDeckAttributes[K] } & { [K in keyof FlashcardDeck & keyof FlashcardDeckAttributes as `prop:${K}`]?: FlashcardDeck[K] };
         "page-attempt": Omit<PageAttempt, keyof PageAttemptAttributes> & { [K in keyof PageAttempt & keyof PageAttemptAttributes]?: PageAttempt[K] } & { [K in keyof PageAttempt & keyof PageAttemptAttributes as `attr:${K}`]?: PageAttemptAttributes[K] } & { [K in keyof PageAttempt & keyof PageAttemptAttributes as `prop:${K}`]?: PageAttempt[K] };
         "page-connections": PageConnections;
@@ -814,9 +1020,11 @@ declare namespace LocalJSX {
         "page-courses": PageCourses;
         "page-forgot-password": PageForgotPassword;
         "page-generation": Omit<PageGeneration, keyof PageGenerationAttributes> & { [K in keyof PageGeneration & keyof PageGenerationAttributes]?: PageGeneration[K] } & { [K in keyof PageGeneration & keyof PageGenerationAttributes as `attr:${K}`]?: PageGenerationAttributes[K] } & { [K in keyof PageGeneration & keyof PageGenerationAttributes as `prop:${K}`]?: PageGeneration[K] };
+        "page-grading": PageGrading;
         "page-home": PageHome;
         "page-integrations": PageIntegrations;
         "page-library": Omit<PageLibrary, keyof PageLibraryAttributes> & { [K in keyof PageLibrary & keyof PageLibraryAttributes]?: PageLibrary[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `attr:${K}`]?: PageLibraryAttributes[K] } & { [K in keyof PageLibrary & keyof PageLibraryAttributes as `prop:${K}`]?: PageLibrary[K] };
+        "page-library-index": PageLibraryIndex;
         "page-login": PageLogin;
         "page-material": Omit<PageMaterial, keyof PageMaterialAttributes> & { [K in keyof PageMaterial & keyof PageMaterialAttributes]?: PageMaterial[K] } & { [K in keyof PageMaterial & keyof PageMaterialAttributes as `attr:${K}`]?: PageMaterialAttributes[K] } & { [K in keyof PageMaterial & keyof PageMaterialAttributes as `prop:${K}`]?: PageMaterial[K] };
         "page-material-form": Omit<PageMaterialForm, keyof PageMaterialFormAttributes> & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes]?: PageMaterialForm[K] } & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes as `attr:${K}`]?: PageMaterialFormAttributes[K] } & { [K in keyof PageMaterialForm & keyof PageMaterialFormAttributes as `prop:${K}`]?: PageMaterialForm[K] };
@@ -827,6 +1035,7 @@ declare namespace LocalJSX {
         "page-register": PageRegister;
         "page-register-role": PageRegisterRole;
         "page-reset-password": PageResetPassword;
+        "page-student": Omit<PageStudent, keyof PageStudentAttributes> & { [K in keyof PageStudent & keyof PageStudentAttributes]?: PageStudent[K] } & { [K in keyof PageStudent & keyof PageStudentAttributes as `attr:${K}`]?: PageStudentAttributes[K] } & { [K in keyof PageStudent & keyof PageStudentAttributes as `prop:${K}`]?: PageStudent[K] };
         "page-teacher-profile": Omit<PageTeacherProfile, keyof PageTeacherProfileAttributes> & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes]?: PageTeacherProfile[K] } & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes as `attr:${K}`]?: PageTeacherProfileAttributes[K] } & { [K in keyof PageTeacherProfile & keyof PageTeacherProfileAttributes as `prop:${K}`]?: PageTeacherProfile[K] };
         "page-teachers": PageTeachers;
         "page-test": Omit<PageTest, keyof PageTestAttributes> & { [K in keyof PageTest & keyof PageTestAttributes]?: PageTest[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `attr:${K}`]?: PageTestAttributes[K] } & { [K in keyof PageTest & keyof PageTestAttributes as `prop:${K}`]?: PageTest[K] };
@@ -837,6 +1046,7 @@ declare namespace LocalJSX {
         "page-test-results": Omit<PageTestResults, keyof PageTestResultsAttributes> & { [K in keyof PageTestResults & keyof PageTestResultsAttributes]?: PageTestResults[K] } & { [K in keyof PageTestResults & keyof PageTestResultsAttributes as `attr:${K}`]?: PageTestResultsAttributes[K] } & { [K in keyof PageTestResults & keyof PageTestResultsAttributes as `prop:${K}`]?: PageTestResults[K] };
         "page-tests": PageTests;
         "page-verify-email": PageVerifyEmail;
+        "profile-handle": ProfileHandle;
         "rich-text": Omit<RichText, keyof RichTextAttributes> & { [K in keyof RichText & keyof RichTextAttributes]?: RichText[K] } & { [K in keyof RichText & keyof RichTextAttributes as `attr:${K}`]?: RichTextAttributes[K] } & { [K in keyof RichText & keyof RichTextAttributes as `prop:${K}`]?: RichText[K] };
         "test-question-editor": Omit<TestQuestionEditor, keyof TestQuestionEditorAttributes> & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes]?: TestQuestionEditor[K] } & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes as `attr:${K}`]?: TestQuestionEditorAttributes[K] } & { [K in keyof TestQuestionEditor & keyof TestQuestionEditorAttributes as `prop:${K}`]?: TestQuestionEditor[K] };
     }
@@ -863,6 +1073,19 @@ declare module "@stencil/core" {
             "app-layout": LocalJSX.IntrinsicElements["app-layout"] & JSXBase.HTMLAttributes<HTMLAppLayoutElement>;
             "app-root": LocalJSX.IntrinsicElements["app-root"] & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             /**
+             * The discussion under a test, a question, a material or a course. The API
+             * decides everything -- who may post, edit, delete, and whose name this
+             * viewer may see -- and this only renders its answers. `compact` starts
+             * closed behind a "Discuss" toggle, for the per-question threads on a test
+             * page, and loads only when opened.
+             * On a public course's discussion every comment waits for approval. A
+             * comment that is not approved carries its state in the top right corner --
+             * a pause sign while it waits, a barred ring once denied, a bin for what an
+             * administrator sees deleted -- and a light wash of that state behind it.
+             * Approvers get Approve and Deny beside the sign.
+             */
+            "comment-thread": LocalJSX.IntrinsicElements["comment-thread"] & JSXBase.HTMLAttributes<HTMLCommentThreadElement>;
+            /**
              * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
              * flip to the back, step or shuffle. All state is local -- nothing is
              * persisted, so reloading starts the deck over.
@@ -879,6 +1102,10 @@ declare module "@stencil/core" {
              * responses live in this component and vanish with it -- so there is no
              * autosave and no attempt; "finish" is one stateless check the server
              * grades with the same scorer a real attempt uses.
+             * The test's discussion and each question's sit here too: the same
+             * threads as on the test's own page (target `test` / `question`), so a
+             * practice page widens nobody's access. The author's comments-off switch
+             * hides them from everyone else, as page-test does.
              */
             "page-course-practice": LocalJSX.IntrinsicElements["page-course-practice"] & JSXBase.HTMLAttributes<HTMLPageCoursePracticeElement>;
             /**
@@ -887,9 +1114,19 @@ declare module "@stencil/core" {
             "page-courses": LocalJSX.IntrinsicElements["page-courses"] & JSXBase.HTMLAttributes<HTMLPageCoursesElement>;
             "page-forgot-password": LocalJSX.IntrinsicElements["page-forgot-password"] & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
             "page-generation": LocalJSX.IntrinsicElements["page-generation"] & JSXBase.HTMLAttributes<HTMLPageGenerationElement>;
+            /**
+             * Everything waiting for a hand grade, oldest submission first: a teacher's
+             * own assignments, and for a teacher assistant every connected teacher's
+             * (GET /api/grading). Grading here is the same call the results page makes.
+             */
+            "page-grading": LocalJSX.IntrinsicElements["page-grading"] & JSXBase.HTMLAttributes<HTMLPageGradingElement>;
             "page-home": LocalJSX.IntrinsicElements["page-home"] & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-integrations": LocalJSX.IntrinsicElements["page-integrations"] & JSXBase.HTMLAttributes<HTMLPageIntegrationsElement>;
             "page-library": LocalJSX.IntrinsicElements["page-library"] & JSXBase.HTMLAttributes<HTMLPageLibraryElement>;
+            /**
+             * /library: an index of the library's shelves, one card each.
+             */
+            "page-library-index": LocalJSX.IntrinsicElements["page-library-index"] & JSXBase.HTMLAttributes<HTMLPageLibraryIndexElement>;
             "page-login": LocalJSX.IntrinsicElements["page-login"] & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
             "page-material": LocalJSX.IntrinsicElements["page-material"] & JSXBase.HTMLAttributes<HTMLPageMaterialElement>;
             "page-material-form": LocalJSX.IntrinsicElements["page-material-form"] & JSXBase.HTMLAttributes<HTMLPageMaterialFormElement>;
@@ -900,6 +1137,14 @@ declare module "@stencil/core" {
             "page-register": LocalJSX.IntrinsicElements["page-register"] & JSXBase.HTMLAttributes<HTMLPageRegisterElement>;
             "page-register-role": LocalJSX.IntrinsicElements["page-register-role"] & JSXBase.HTMLAttributes<HTMLPageRegisterRoleElement>;
             "page-reset-password": LocalJSX.IntrinsicElements["page-reset-password"] & JSXBase.HTMLAttributes<HTMLPageResetPasswordElement>;
+            /**
+             * A connected student's assignments, for a tutor, teacher assistant or
+             * parent/guardian. Read-only. Titles are plain text, not links: a private
+             * test 404s for anyone but its author and the student it was assigned to.
+             * A parent or guardian (STUDENT_ANSWER_VIEWER_ROLES) also gets a link to
+             * each submitted attempt's answers.
+             */
+            "page-student": LocalJSX.IntrinsicElements["page-student"] & JSXBase.HTMLAttributes<HTMLPageStudentElement>;
             "page-teacher-profile": LocalJSX.IntrinsicElements["page-teacher-profile"] & JSXBase.HTMLAttributes<HTMLPageTeacherProfileElement>;
             "page-teachers": LocalJSX.IntrinsicElements["page-teachers"] & JSXBase.HTMLAttributes<HTMLPageTeachersElement>;
             "page-test": LocalJSX.IntrinsicElements["page-test"] & JSXBase.HTMLAttributes<HTMLPageTestElement>;
@@ -910,6 +1155,12 @@ declare module "@stencil/core" {
             "page-test-results": LocalJSX.IntrinsicElements["page-test-results"] & JSXBase.HTMLAttributes<HTMLPageTestResultsElement>;
             "page-tests": LocalJSX.IntrinsicElements["page-tests"] & JSXBase.HTMLAttributes<HTMLPageTestsElement>;
             "page-verify-email": LocalJSX.IntrinsicElements["page-verify-email"] & JSXBase.HTMLAttributes<HTMLPageVerifyEmailElement>;
+            /**
+             * A teacher's (or tutor's) handle: /teachers/<handle>, admin-approved
+             * (App\Support\Slugs). Only a Role::isPublic() role has a public page to
+             * name, so anyone else sees nothing. Lives on page-profile.
+             */
+            "profile-handle": LocalJSX.IntrinsicElements["profile-handle"] & JSXBase.HTMLAttributes<HTMLProfileHandleElement>;
             /**
              * Author text -- a prompt, a stimulus, a rationale, a study guide -- in the
              * markdown subset `services/rich-text` understands. Vnodes only; see that

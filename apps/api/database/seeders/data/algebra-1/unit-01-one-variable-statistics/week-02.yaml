@@ -1,0 +1,649 @@
+week: 2
+unit: 1
+title: "Measuring Centre and Spread, by Hand and by Spreadsheet"
+topics: ["1.5", "1.6", "1.7", "1.8"]
+guide: guides/week-02.md
+guide_description: |
+  Mean, median, mean absolute deviation and interquartile range computed by hand with full working, then the
+  spreadsheet skills that do the same job at scale: reading a mystery formula, writing formulas with cell
+  references and the SUM, AVERAGE, MEDIAN, MIN, MAX and COUNT functions, filling down, and locking a reference
+  with dollar signs.
+flashcards_description: |
+  28 cards on the four measures (mean, median, MAD, IQR), what each one tells you, and the spreadsheet vocabulary
+  of cells, ranges, functions, fill-down and absolute references.
+
+flashcards:
+  - front: Mean of a data set → how to compute it and what it means on a dot plot
+    back: |
+      Add all the values and divide by how many there are. On a dot plot the mean is the balance point: the dots would balance on a pivot placed there.
+    topic_code: "1.5"
+  - front: Mean vs median → which is a balance point and which is a position
+    back: |
+      The mean is the balance point of the values, so it depends on every value's size. The median is a position: the middle of the ordered list, so it depends only on which values are above and below it.
+    topic_code: "1.5"
+  - front: Deviation from the mean → formula and sign
+    back: |
+      value − mean. Values below the mean have negative deviations, values above have positive ones, and the signed deviations of a data set always add to zero.
+    topic_code: "1.5"
+  - front: Mean absolute deviation (MAD) → the steps
+    back: |
+      1. Find the mean. 2. Find each value's distance from the mean (absolute value of the deviation). 3. Average those distances. The MAD is the typical distance of a value from the mean.
+    topic_code: "1.5"
+  - front: Why the MAD uses absolute values
+    back: |
+      Signed deviations cancel: the ones below the mean exactly balance the ones above, so their mean is always zero. Taking absolute values turns every deviation into a distance that can be averaged.
+    topic_code: "1.5"
+  - front: Interquartile range (IQR) → formula and picture
+    back: |
+      IQR = Q3 − Q1, the width of the box in a box plot. It measures the spread of the middle half of the data.
+    topic_code: "1.5"
+  - front: IQR vs range → the difference
+    back: |
+      Range = maximum − minimum uses the two extremes; IQR = Q3 − Q1 uses the quartiles and ignores the extremes. Two data sets can share a range and have very different IQRs.
+    topic_code: "1.5"
+  - front: Measure of centre vs measure of variability → what each answers
+    back: |
+      A measure of centre (mean, median) answers "what is a typical value?". A measure of variability (MAD, IQR, range) answers "how spread out are the values?". A good summary reports one of each.
+    topic_code: "1.5"
+  - front: MAD of 2, 3, 5, 6, 9 → worked result
+    back: |
+      Mean = 25/5 = 5. Distances from 5: 3, 2, 0, 1, 4, which sum to 10. MAD = 10/5 = 2.
+    topic_code: "1.5"
+  - front: IQR of 2, 3, 5, 6, 9 → worked result
+    back: |
+      Five values: the median 5 is left out of both halves. Q1 = median of 2, 3 = 2.5; Q3 = median of 6, 9 = 7.5; IQR = 7.5 − 2.5 = 5.
+    topic_code: "1.5"
+  - front: Two data sets with the same mean → what else to compare
+    back: |
+      Their variability. One can have every value within a point of the mean (small MAD and IQR) while the other spans a huge range (large MAD and IQR). Centre alone does not describe a distribution.
+    topic_code: "1.5"
+  - front: Spreadsheet cell reference → how to read B4
+    back: |
+      Column B, row 4. Columns are letters across the top, rows are numbers down the side, and a reference names one cell by its column then its row.
+    topic_code: "1.6"
+  - front: Spreadsheet formula → what every formula starts with
+    back: |
+      An equals sign. `=A1+A2` computes; `A1+A2` without the equals sign is stored as plain text and computes nothing.
+    topic_code: "1.6"
+  - front: Mystery formula → how to work out what a column is computing
+    back: |
+      Guess a rule from one input-output pair, then test it on every other pair. If inputs 3, 5, 8 give outputs 7, 11, 17, the rule "double and add one" fits all three, so the formula is `=2*A1+1`.
+    topic_code: "1.6"
+  - front: Order of operations in a spreadsheet formula
+    back: |
+      The same as algebra: parentheses, then exponents (`^`), then multiplication and division, then addition and subtraction. `=A1+A2*3` triples A2 first; `=(A1+A2)*3` triples the sum.
+    topic_code: "1.6"
+  - front: Spreadsheet exponent → how to square the value in A1
+    back: |
+      `=A1^2`. The caret is the exponent operator, so `=A1^3` cubes and `=2^A1` raises 2 to the power in A1.
+    topic_code: "1.6"
+  - front: Spreadsheet range A2:A21 → what it means
+    back: |
+      Every cell from A2 down to A21, twenty cells. The colon spans a block; `A2+A21` would add just the two end cells.
+    topic_code: "1.7"
+  - front: AVERAGE, MEDIAN, MIN, MAX → what each spreadsheet function returns
+    back: |
+      `=AVERAGE(range)` the mean, `=MEDIAN(range)` the median, `=MIN(range)` the smallest value, `=MAX(range)` the largest. Each takes a range such as A2:A21.
+    topic_code: "1.7"
+  - front: SUM and COUNT → what each returns
+    back: |
+      `=SUM(range)` adds the values; `=COUNT(range)` tells how many cells in the range hold numbers. The mean equals SUM divided by COUNT.
+    topic_code: "1.7"
+  - front: ABS in a spreadsheet → what it does and where you need it
+    back: |
+      `=ABS(x)` returns the absolute value of x. It turns a signed deviation such as `A2-$C$1` into a distance, which is the first step of a MAD column.
+    topic_code: "1.7"
+  - front: Building a MAD column in a spreadsheet → the four steps
+    back: |
+      Put the mean in one cell (`=AVERAGE(A2:A21)` in C1). In B2 write `=ABS(A2-$C$1)`. Fill B2 down to B21. Average column B: `=AVERAGE(B2:B21)` is the MAD.
+    topic_code: "1.7"
+  - front: Checking a spreadsheet formula → the habit
+    back: |
+      Test it on a tiny data set whose answer you can compute by hand (1, 2, 6 has mean 3 and MAD 2). If the sheet agrees, trust it on the big data set.
+    topic_code: "1.7"
+  - front: Fill down → what happens to the references
+    back: |
+      Each copied formula's row numbers increase by one per row: `=A2*2` becomes `=A3*2`, then `=A4*2`. The same rule is applied to each row's own values.
+    topic_code: "1.8"
+  - front: Absolute reference $C$1 → what the dollar signs do
+    back: |
+      They lock the reference so it does not change when the formula is copied or filled. `$C$1` stays C1 in every row; a plain C1 would become C2, C3 and so on.
+    topic_code: "1.8"
+  - front: When do you need a locked reference?
+    back: |
+      Whenever every row must use the same single cell, such as a mean, a tax rate or a conversion factor stored once at the top of the sheet.
+    topic_code: "1.8"
+  - front: Fill-down shortcut for a number pattern
+    back: |
+      Type the first two values of the pattern (1 and 2, or 5 and 10), select both and drag the fill handle; the spreadsheet continues the pattern (3, 4, 5 or 15, 20, 25).
+    topic_code: "1.8"
+  - front: Error to spot → `=AVERAGE(A2+A11)` for the mean of a column
+    back: |
+      The plus adds only cells A2 and A11 and then averages that single number. The range must be written with a colon: `=AVERAGE(A2:A11)`.
+    topic_code: "1.7"
+  - front: Error to spot → `=ABS(A3-C2)` appearing after filling down from `=ABS(A2-C1)`
+    back: |
+      The reference to the mean moved because it was not locked. The original should have been `=ABS(A2-$C$1)` so that every row subtracts the same mean.
+    topic_code: "1.8"
+
+quiz:
+  description: |
+    25 questions · about 45 minutes · mean, median, MAD and IQR by hand, spreadsheet formulas, functions,
+    fill-down and absolute references (lessons 1.5 to 1.8), with review of displays and shape from week 1.
+    Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are
+    matched automatically; the short answers and the long answer are graded by your teacher against the scoring
+    notes.
+  questions:
+    - slug: alg1-u01-w02-q01
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "IM Algebra 1, Unit 1, Lesson 5"
+      points: 1
+      prompt: |
+        What is the mean of 4, 9, 10, 13?
+      options:
+        - "9"
+        - "9.5"
+        - "36"
+        - "10"
+      option_explanations:
+        - |
+          Correct. The sum is 4 + 9 + 10 + 13 = 36, and dividing by the four values gives 36/4 = 9.
+        - |
+          9.5 is the median (the mean of the two middle values 9 and 10), not the mean of all four values.
+        - |
+          36 is the sum of the values before dividing by the number of values; the mean is 36/4.
+        - |
+          10 is one of the data values; the mean is the total of all four values divided by four, which is 9.
+      answer: 0
+
+    - slug: alg1-u01-w02-q02
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "IM Algebra 1, Unit 1, Lesson 5"
+      points: 1
+      prompt: |
+        The data 3, 5, 5, 7, 10 have mean 6. What is the mean absolute deviation?
+      options:
+        - "8"
+        - "1.6"
+        - "2"
+        - "0"
+      option_explanations:
+        - |
+          8 is not the sum of the distances; recompute each |value − 6| and add them: 10, then divide by 5.
+        - |
+          1.6 would be the result of dividing 8 by 5; check the sum of the distances, which is 3 + 1 + 1 + 1 + 4 = 10.
+        - |
+          Correct. Distances from 6 are 3, 1, 1, 1 and 4; their sum is 10 and 10/5 = 2.
+        - |
+          Zero is the mean of the signed deviations, which always cancel; the MAD averages the absolute deviations.
+      answer: 2
+
+    - slug: alg1-u01-w02-q03
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "IM Algebra 1, Unit 1, Lesson 5"
+      points: 1
+      prompt: |
+        For the ordered data 6, 8, 11, 12, 15, 19, 20, 24, what is the interquartile range?
+      options:
+        - "12"
+        - "10"
+        - "18"
+        - "8"
+      option_explanations:
+        - |
+          12 is the fourth value, not a quartile difference.
+        - |
+          Correct. Q1 is the median of 6, 8, 11, 12, which is 9.5; Q3 is the median of 15, 19, 20, 24, which is 19.5; IQR = 19.5 − 9.5 = 10.
+        - |
+          18 is the range, 24 − 6; the IQR uses the quartiles, not the extremes.
+        - |
+          8 is a data value; the IQR is a difference of quartiles. Q1 = (8 + 11)/2 = 9.5 and Q3 = (19 + 20)/2 = 19.5.
+      answer: 1
+
+    - slug: alg1-u01-w02-q04
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "IM Algebra 1, Unit 1, Lesson 5"
+      points: 1
+      prompt: |
+        Two classes both have a mean quiz score of 7.5. Class A has MAD 0.4 and class B has MAD 2.1. Which statement must be true?
+      options:
+        - "Class B has a higher median than class A."
+        - "Class A has more students than class B."
+        - "Every student in class A scored exactly 7.5."
+        - "Class B's scores are more spread out around the mean than class A's."
+      option_explanations:
+        - |
+          The MAD says nothing about where the median sits; both classes could have the same median or either could be higher.
+        - |
+          The MAD does not depend on the number of students; it is an average distance.
+        - |
+          A MAD of 0.4 means scores are typically 0.4 from the mean, not all equal to it; only a MAD of 0 would mean that.
+        - |
+          Correct. A larger MAD means the typical distance from the mean is larger, so class B's scores vary more.
+      answer: 3
+
+    - slug: alg1-u01-w02-q05
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "IM Algebra 1, Unit 1, Lesson 6"
+      points: 1
+      stimulus: |
+        | Cell A | Cell B |
+        |---|---|
+        | 2 | 5 |
+        | 5 | 14 |
+        | 10 | 29 |
+      prompt: |
+        Column B of a spreadsheet is computed from column A by the same hidden formula in every row, shown in the table. Which formula is in B1?
+      options:
+        - "=3*A1-1"
+        - "=A1+3"
+        - "=A1^2+1"
+        - "=2*A1+1"
+      option_explanations:
+        - |
+          Correct. 3·2 − 1 = 5, 3·5 − 1 = 14 and 3·10 − 1 = 29, so the rule fits every row.
+        - |
+          A1 + 3 gives 5 for the first row but 8 for the second, not 14.
+        - |
+          2² + 1 = 5 fits the first row, but 5² + 1 = 26, not 14.
+        - |
+          2·2 + 1 = 5 fits the first row, but 2·5 + 1 = 11, not 14.
+      answer: 0
+
+    - slug: alg1-u01-w02-q06
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "IM Algebra 1, Unit 1, Lesson 6"
+      points: 1
+      prompt: |
+        Cell A1 holds 4 and cell A2 holds 6. What does the formula =A1+A2*2 display?
+      options:
+        - "14"
+        - "20"
+        - "12"
+        - "16"
+      option_explanations:
+        - |
+          14 would be 4·2 + 6, multiplying the wrong cell.
+        - |
+          20 is (4 + 6)·2, which would need parentheses: =(A1+A2)*2.
+        - |
+          12 is A2·2 alone; the formula then adds A1, which is 4, to reach 16.
+        - |
+          Correct. Multiplication happens before addition, so A2·2 = 12 is computed first and 4 + 12 = 16.
+      answer: 3
+
+    - slug: alg1-u01-w02-q07
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "IM Algebra 1, Unit 1, Lesson 7"
+      points: 1
+      prompt: |
+        Fifty test scores are stored in cells B2 through B51. Which formula gives the median score?
+      options:
+        - "=MIDDLE(B2:B51)"
+        - "=MEDIAN(B2:B51)"
+        - "=MEDIAN(B2+B51)"
+        - "=AVERAGE(B2:B51)"
+      option_explanations:
+        - |
+          There is no MIDDLE function; the spreadsheet function for the median is MEDIAN.
+        - |
+          Correct. B2:B51 is the range of all fifty cells, and MEDIAN returns their middle value.
+        - |
+          The plus sign adds only cells B2 and B51; the function would receive a single number.
+        - |
+          AVERAGE returns the mean, which is generally different from the median.
+      answer: 1
+
+    - slug: alg1-u01-w02-q08
+      type: multiple_choice
+      topic_code: "1.8"
+      source: "IM Algebra 1, Unit 1, Lesson 8"
+      points: 1
+      prompt: |
+        Cell C2 holds the formula =B2*$E$1. After filling C2 down to C6, what does C6 hold?
+      options:
+        - "=B2*$E$1"
+        - "=B6*E5"
+        - "=B6*$E$1"
+        - "=B6*$E$5"
+      option_explanations:
+        - |
+          The unlocked reference B2 moves with the formula: four rows down it becomes B6.
+        - |
+          Without dollar signs E1 would shift, but the formula locks it, and the copied formula keeps the dollar signs.
+        - |
+          Correct. B2 shifts to B6 because it is relative, while $E$1 stays fixed because it is absolute.
+        - |
+          The dollar signs lock E1, so it does not advance to E5 when the formula moves down.
+      answer: 2
+
+    - slug: alg1-u01-w02-q09
+      type: multiple_choice
+      topic_code: "1.8"
+      source: "IM Algebra 1, Unit 1, Lesson 8"
+      points: 1
+      prompt: |
+        The mean of a data set is stored in cell D1. A student types =ABS(A2-D1) in B2 and fills it down to B30 to build the absolute deviations, but the results in B3 onward are wrong. What went wrong?
+      options:
+        - "The formula should have used AVERAGE instead of ABS."
+        - "ABS cannot be used with subtraction."
+        - "Fill-down only works with ranges, not single cells."
+        - "The reference to D1 was not locked, so B3 subtracts D2, B4 subtracts D3, and so on."
+      option_explanations:
+        - |
+          AVERAGE would compute a mean, not a distance; ABS is the right function for a deviation.
+        - |
+          ABS works on any expression; =ABS(A2-D1) is a valid absolute deviation for row 2.
+        - |
+          Fill-down works on any formula; the problem is which references it shifts.
+        - |
+          Correct. Filling down shifts every unlocked reference, so the mean reference drifts away from D1. Writing $D$1 fixes it.
+      answer: 3
+
+    - slug: alg1-u01-w02-q10
+      type: multiple_choice
+      topic_code: "1.2"
+      source: "IM Algebra 1, Unit 1, Lesson 2"
+      points: 1
+      prompt: |
+        Which value in a box plot is NOT part of the five-number summary?
+      options:
+        - "The mean"
+        - "The third quartile"
+        - "The median"
+        - "The minimum"
+      option_explanations:
+        - |
+          Correct. A box plot is built from the minimum, Q1, median, Q3 and maximum; the mean is not drawn.
+        - |
+          The third quartile Q3 is the right edge of the box and belongs to the five-number summary.
+        - |
+          The median is the line inside the box, one of the five numbers.
+        - |
+          The minimum is the left end of the left whisker.
+      answer: 0
+
+    - slug: alg1-u01-w02-q11
+      type: multiple_choice
+      topic_code: "1.4"
+      source: "IM Algebra 1, Unit 1, Lesson 4"
+      points: 1
+      prompt: |
+        Graph description: a histogram of the number of days 120 library books were checked out has a tall bar at 0–7 days, a slightly shorter bar at 7–14 days, and bars that shrink steadily out to 63–70 days. Which word describes the shape?
+      options:
+        - "Symmetric"
+        - "Skewed right"
+        - "Skewed left"
+        - "Bimodal"
+      option_explanations:
+        - |
+          The two halves are not mirror images; the left is tall and the right is a long thin tail.
+        - |
+          Correct. The tall bars are at the low end and the tail of short bars trails toward large values on the right.
+        - |
+          A left skew would have its tall bars on the right and its tail trailing toward small values.
+        - |
+          A bimodal shape needs two separate peaks; this histogram has a single peak at 0–7 days.
+      answer: 1
+
+    - slug: alg1-u01-w02-q12
+      type: multi_select
+      topic_code: "1.7"
+      source: "IM Algebra 1, Unit 1, Lesson 7"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Cells A1 to A5 hold 2, 4, 4, 6, 9. Which formulas display the value 5? Select all that apply.
+      options:
+        - "=MAX(A1:A5)-MIN(A1:A5)"
+        - "=AVERAGE(A1:A5)"
+        - "=MEDIAN(A1:A5)"
+        - "=COUNT(A1:A5)"
+        - "=SUM(A1:A5)/COUNT(A1:A5)"
+      option_explanations:
+        - |
+          MAX minus MIN is the range, 9 − 2 = 7, which is not 5.
+        - |
+          Correct. The sum is 25 and there are five values, so the mean is 5.
+        - |
+          The median is the third value of the ordered list, 4.
+        - |
+          Correct. COUNT returns how many cells hold numbers, which is 5.
+        - |
+          Correct. Sum divided by count is 25/5 = 5, the mean written out by hand.
+      answer: [1, 3, 4]
+
+    - slug: alg1-u01-w02-q13
+      type: multi_select
+      topic_code: "1.5"
+      source: "IM Algebra 1, Unit 1, Lesson 5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which of the following are measures of variability? Select all that apply.
+      options:
+        - "Mean absolute deviation"
+        - "Range"
+        - "Interquartile range"
+        - "Mean"
+        - "Median"
+      option_explanations:
+        - |
+          Correct. The MAD is the average distance of the values from the mean, a measure of spread.
+        - |
+          Correct. The range, maximum − minimum, is the crudest measure of spread.
+        - |
+          Correct. The IQR, Q3 − Q1, measures the spread of the middle half.
+        - |
+          The mean is a measure of centre, the balance point of the data.
+        - |
+          The median is a measure of centre: the middle of the ordered data.
+      answer: [0, 1, 2]
+
+    - slug: alg1-u01-w02-q14
+      type: true_false
+      topic_code: "1.5"
+      source: "IM Algebra 1, Unit 1, Lesson 5"
+      points: 1
+      prompt: |
+        True or false: the signed deviations from the mean of any data set add up to zero.
+      answer: true
+      explanation: |
+        True. The mean is the balance point, so the total distance of values below it equals the total distance of values above it. That is why the MAD uses absolute values.
+
+    - slug: alg1-u01-w02-q15
+      type: true_false
+      topic_code: "1.1"
+      source: "IM Algebra 1, Unit 1, Lesson 1"
+      points: 1
+      prompt: |
+        True or false: because student ID numbers are written with digits, they are numerical data and their mean is a meaningful summary.
+      answer: false
+      explanation: |
+        False. An ID number is a label that identifies a person; averaging labels means nothing. Data are numerical only when the values are measurements or counts on a scale where differences make sense.
+
+    - slug: alg1-u01-w02-q16
+      type: fill_blank
+      topic_code: "1.5"
+      source: "IM Algebra 1, Unit 1, Lesson 5"
+      points: 1
+      prompt: |
+        The difference between the third quartile and the first quartile, Q3 − Q1, is called the ____.
+      answer: ["interquartile range", "IQR", "inter-quartile range"]
+      explanation: |
+        The interquartile range is the width of the box in a box plot and measures the spread of the middle 50% of the data.
+
+    - slug: alg1-u01-w02-q17
+      type: fill_blank
+      topic_code: "1.8"
+      source: "IM Algebra 1, Unit 1, Lesson 8"
+      points: 1
+      prompt: |
+        To stop a cell reference from changing when a formula is filled down, write it with dollar signs, for example ____ for the cell at column B, row 1.
+      answer: ["$B$1", "=$B$1", "B$1"]
+      explanation: |
+        $B$1 locks both the column and the row; the reference stays B1 in every copied formula. B$1 locks only the row, which is enough for filling down a single column.
+
+    - slug: alg1-u01-w02-q18
+      type: numeric
+      topic_code: "1.5"
+      source: "IM Algebra 1, Unit 1, Lesson 5"
+      points: 1
+      prompt: |
+        Find the mean absolute deviation of 10, 12, 15, 19, 24. Give your answer to one decimal place.
+      answer: { value: 4.4, tolerance: 0.05 }
+      explanation: |
+        Mean = 80/5 = 16. Distances from 16: 6, 4, 1, 3, 8, which sum to 22. MAD = 22/5 = 4.4.
+
+    - slug: alg1-u01-w02-q19
+      type: numeric
+      topic_code: "1.2"
+      source: "IM Algebra 1, Unit 1, Lesson 2"
+      points: 1
+      prompt: |
+        Find the third quartile (Q3) of 3, 7, 8, 8, 12, 14, 15, 20, 21. Give your answer to one decimal place.
+      answer: { value: 17.5, tolerance: 0.01 }
+      explanation: |
+        Nine values: the median is the 5th, 12, and is left out of both halves. Q3 is the median of the upper half 14, 15, 20, 21, which is (15 + 20)/2 = 17.5. (Q1 = 7.5, so the IQR is 10.)
+
+    - slug: alg1-u01-w02-q23
+      type: multiple_choice
+      topic_code: "1.2"
+      source: "IM Algebra 1, Unit 1, Lesson 2"
+      points: 1
+      prompt: |
+        Graph description: a dot plot of the number of goals scored in 11 soccer matches has one dot at 0, three dots at 1, four dots at 2, two dots at 3 and one dot at 5. What is the median number of goals?
+      options:
+        - "3"
+        - "1"
+        - "2"
+        - "2.5"
+      option_explanations:
+        - |
+          3 is the 9th and 10th value, in the upper quarter of the data, not the middle.
+        - |
+          The 4th value is the last 1; the median of 11 values is the 6th value, which lies among the four 2s.
+        - |
+          Correct. Ordered, the data are 0, 1, 1, 1, 2, 2, 2, 2, 3, 3, 5; the 6th of 11 values is 2.
+        - |
+          2.5 would require averaging two middle values, which only happens with an even count; there are 11 matches.
+      answer: 2
+
+    - slug: alg1-u01-w02-q24
+      type: multiple_choice
+      topic_code: "1.3"
+      source: "IM Algebra 1, Unit 1, Lesson 3"
+      points: 1
+      prompt: |
+        A biologist has 2,400 measurements of fish lengths and wants to see whether the lengths form one cluster or two. Which display should she make?
+      options:
+        - "A list of the five-number summary values"
+        - "A dot plot, because it shows every value"
+        - "A box plot, because it shows the five-number summary"
+        - "A histogram, because it shows the shape of a large data set and would reveal two peaks"
+      option_explanations:
+        - |
+          Five summary numbers cannot distinguish one cluster from two.
+        - |
+          A dot plot with 2,400 dots is unreadable; its strength, showing each value, is a weakness here.
+        - |
+          A box plot collapses the data to five numbers and cannot show two clusters.
+        - |
+          Correct. A histogram handles thousands of values and shows peaks, so a bimodal shape would appear as two humps.
+      answer: 3
+
+    - slug: alg1-u01-w02-q25
+      type: true_false
+      topic_code: "1.2"
+      source: "IM Algebra 1, Unit 1, Lesson 2"
+      points: 1
+      prompt: |
+        True or false: from a histogram with bins 0–10, 10–20 and 20–30 you can read the exact value of each data point.
+      answer: false
+      explanation: |
+        False. A histogram records only how many values fall in each bin, so a bar of height 6 over 10–20 tells you six values are somewhere between 10 and 20, not what they are. A dot plot shows the individual values.
+
+    - slug: alg1-u01-w02-q20
+      type: short_answer
+      topic_code: "1.5"
+      source: "IM Algebra 1, Unit 1, Lesson 5"
+      points: 3
+      prompt: |
+        A runner's times for eight 400-metre sprints, in seconds, are 62, 64, 64, 65, 66, 68, 70, 77.
+
+        (a) Find the mean and the median.
+        (b) Find the IQR, showing the quartiles.
+        (c) The runner's coach says the IQR describes the runner's consistency better than the range does. Give one reason the coach might say that.
+      answer: |
+        (a) Mean = 536/8 = 67; median = (65 + 66)/2 = 65.5.
+        (b) Lower half 62, 64, 64, 65 gives Q1 = 64; upper half 66, 68, 70, 77 gives Q3 = 69; IQR = 5.
+        (c) The range (77 − 62 = 15) is driven entirely by the single slow sprint of 77 seconds, while the IQR of 5 describes the middle half of the sprints, where the runner is usually found, and is not affected by that one unusual time.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: both the mean (67) and the median (65.5). Half credit is not available; both values must be right.
+
+        (b) 1 pt: Q1 = 64, Q3 = 69, IQR = 5, with the halves split correctly.
+
+        (c) 1 pt: the IQR ignores the extreme values (the 77) while the range depends on them, or an equivalent statement about the middle half.
+
+    - slug: alg1-u01-w02-q21
+      type: short_answer
+      topic_code: "1.7"
+      source: "IM Algebra 1, Unit 1, Lesson 7"
+      points: 3
+      prompt: |
+        Thirty heights in centimetres are stored in cells A2 through A31 of a spreadsheet.
+
+        (a) Write a formula for cell C1 that computes the mean height.
+        (b) Write a formula for cell B2 that computes the absolute deviation of the first height from the mean in C1, in a form that can be filled down to B31 correctly.
+        (c) Write a formula that computes the mean absolute deviation once column B is filled, and explain how you would check that the whole setup is working.
+      answer: |
+        (a) =AVERAGE(A2:A31)
+        (b) =ABS(A2-$C$1), with the dollar signs locking the mean so that B3 becomes =ABS(A3-$C$1), not =ABS(A3-C2).
+        (c) =AVERAGE(B2:B31). To check, replace the data with a tiny set whose MAD is known by hand (for example 1, 2, 6 has mean 3 and MAD 2) and confirm the sheet shows the same numbers, or compute one row's deviation by hand and compare it with column B.
+      explanation: |
+        Three points, one per part.
+
+        (a) 1 pt: =AVERAGE(A2:A31) or =SUM(A2:A31)/COUNT(A2:A31) or =SUM(A2:A31)/30.
+
+        (b) 1 pt: ABS of the difference with the mean reference locked ($C$1 or C$1). An unlocked C1 earns zero because the fill would break.
+
+        (c) 1 pt: =AVERAGE(B2:B31) plus a sensible check (a small known data set or a hand computation of one cell).
+
+    - slug: alg1-u01-w02-q22
+      type: long_answer
+      topic_code: "1.5"
+      source: "IM Algebra 1, Unit 1, Lesson 5"
+      points: 6
+      prompt: |
+        Two cafés recorded how many minutes ten customers each waited for their order.
+
+        Café North: 2, 3, 3, 4, 4, 4, 5, 5, 6, 14
+        Café South: 4, 4, 5, 5, 5, 5, 6, 6, 6, 7
+
+        Compare the two cafés. Compute the mean and median for each, compute the MAD or the IQR for each (state which you chose), describe the shape of each distribution, and write a conclusion recommending which café a customer in a hurry should choose, with reasons drawn from your numbers.
+      answer: |
+        Café North: sum 50, mean 5.0; median (4 + 4)/2 = 4. IQR: lower half 2, 3, 3, 4, 4 has Q1 = 3; upper half 4, 5, 5, 6, 14 has Q3 = 5; IQR = 2. MAD: distances from 5 are 3, 2, 2, 1, 1, 1, 0, 0, 1, 9, sum 20, MAD = 2.0.
+        Café South: sum 53, mean 5.3; median (5 + 5)/2 = 5. IQR: Q1 = 5 (median of 4, 4, 5, 5, 5), Q3 = 6 (median of 5, 6, 6, 6, 7), IQR = 1. MAD: distances from 5.3 are 1.3, 1.3, 0.3, 0.3, 0.3, 0.3, 0.7, 0.7, 0.7, 1.7, sum 7.6, MAD = 0.76.
+        Shape: North is skewed right because of the 14-minute wait (most waits are 2 to 6); South is roughly symmetric and tightly clustered from 4 to 7.
+        Conclusion: North's typical wait (median 4) is shorter than South's (median 5), so a customer in a hurry is usually served faster at North. But North is less predictable (larger MAD and a 14-minute outlier), while South almost never takes more than 7 minutes. A customer who cannot risk a long wait should choose South; one who wants the shortest typical wait should choose North.
+      explanation: |
+        Six points.
+
+        Centres (2 pts): 1 pt for both means (5.0 and 5.3), 1 pt for both medians (4 and 5).
+
+        Variability (2 pts): 1 pt for a correctly computed MAD or IQR for each café (North IQR 2 or MAD 2.0; South IQR 1 or MAD 0.76), 1 pt for interpreting it (North is more spread out).
+
+        Shape (1 pt): North skewed right with an unusually large value; South roughly symmetric.
+
+        Conclusion (1 pt): a recommendation that uses the numbers and acknowledges the trade-off between a shorter typical wait at North and more predictable waits at South.
+
+        Common errors: computing the mean but calling it the median; including the median in both halves when finding quartiles; recommending a café without citing any statistic.

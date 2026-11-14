@@ -9,8 +9,10 @@ jest.mock('../../services/courses-store', () => ({
     checkPractice: (...a: unknown[]) => checkPractice(...a),
   },
 }));
-jest.mock('../../services/navigate', () => ({ navigate: jest.fn() }));
+jest.mock('../../services/navigate', () => ({ navigate: jest.fn(), adoptCanonicalPath: jest.fn() }));
 jest.mock('../../services/session-recovery', () => ({ recoverFromExpiredSession: () => false }));
+const me: { value: { id: number } | null } = { value: null };
+jest.mock('../../services/auth-store', () => ({ authStore: { get currentUser() { return me.value; }, load: async () => me.value } }));
 
 import { PageCoursePractice } from './page-course-practice';
 import { RichText } from '../rich-text/rich-text';
@@ -25,8 +27,8 @@ const deepText = (node: Node): string => {
 
 const practice = {
   id: 9, title: 'AP Biology · Week 01 · Quiz · Water', description: null, subject: 'science', grade_level: '9-12', visibility: 'public',
-  published_at: '2026-09-01', copied_from_id: null, question_count: 3, author: { id: 1, name: 'Ms K' }, created_at: '', updated_at: '',
-  course: { id: 3, title: 'AP Biology', author: { id: 1, name: 'Ms K' } },
+  published_at: '2026-09-01', comments_enabled: true, copied_from_id: null, question_count: 3, author: { id: 1, name: 'Ms K' }, created_at: '', updated_at: '',
+  course: { id: 3, title: 'AP Biology', path: '/courses/3', author: { id: 1, name: 'Ms K' } },
   questions: [
     {
       id: 10, position: 0, type: 'multiple_choice', prompt: 'Powerhouse?', stimulus: null, options: ['Nucleus', 'Mitochondria'], points: 2,
@@ -153,5 +155,30 @@ describe('page-course-practice', () => {
     await (page.rootInstance as PageCoursePractice).finish();
     await page.waitForChanges();
     expect(page.root.shadowRoot.textContent).toContain('Practice not available');
+  });
+
+  it('carries the test\'s discussion and one per question, warning that options are shuffled', async () => {
+    const page = await mount();
+    // Not registered in this spec, so the props land as attributes.
+    const threads = Array.from(page.root.shadowRoot.querySelectorAll('comment-thread'));
+    expect(threads.map((t) => `${t.getAttribute('targettype')}:${t.getAttribute('targetid')}:${t.hasAttribute('compact') ? 'compact' : 'full'}`)).toEqual([
+      'question:10:compact', 'question:11:compact', 'question:12:compact', 'test:9:full',
+    ]);
+    expect(threads.every((t) => /shuffled/.test(t.getAttribute('hint')))).toBe(true);
+  });
+
+  it('hides every thread when the author turned comments off, except from the author', async () => {
+    const closed = { ...practice, comments_enabled: false };
+    const visitor = await mount(closed);
+    expect(visitor.root.shadowRoot.querySelectorAll('comment-thread')).toHaveLength(0);
+    expect(visitor.root.shadowRoot.textContent).toContain('Comments are turned off for this test.');
+
+    me.value = { id: 1 };
+    try {
+      const author = await mount(closed);
+      expect(author.root.shadowRoot.querySelectorAll('comment-thread')).toHaveLength(4);
+    } finally {
+      me.value = null;
+    }
   });
 });

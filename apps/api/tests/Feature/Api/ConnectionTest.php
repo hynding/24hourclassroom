@@ -363,7 +363,7 @@ test('the connections list gives an accepted student the same payload the profil
         ->and($profile)->not->toHaveKey('avatar_url');
 });
 
-test('only teachers and students are valid connection targets; every other role 404s like a nonexistent id', function () {
+test('a teacher may connect with every self-assignable role; an admin 404s like a nonexistent id', function () {
     // A3's reproduction runs verbatim with Admin substituted for Student:
     // GET /api/users/{admin} -> 404, POST /api/connections/{admin} -> 204,
     // then one read of pending() hands back the name, the literal
@@ -371,17 +371,17 @@ test('only teachers and students are valid connection targets; every other role 
     // administrator list A8 closed, through a different endpoint, and fires a
     // ConnectionRequested at the admin on every probe.
     //
-    // Driven off Role::cases() on purpose: the allowlist is spec line 14
-    // (teacher<->teacher and teacher<->student), so a role added later is
-    // invalid by default and this test starts covering it for free. It fails
-    // the moment someone widens the allowlist without widening the spec.
+    // Driven off Role::cases() on purpose: the allowlist is Role::canConnect,
+    // so a role added later is invalid by default and this test starts
+    // covering it for free. It fails the moment someone widens the allowlist
+    // without widening this list.
     config(['app.debug' => false]);
 
     $this->actingAs(teacher());
     $missing = $this->postJson('/api/connections/999999');
     expect($missing->status())->toBe(404);
 
-    $valid = [Role::Teacher, Role::Student];
+    $valid = [Role::Teacher, Role::Student, Role::Tutor, Role::Assistant, Role::Guardian];
     $rowsExpected = 0;
 
     foreach (Role::cases() as $role) {
@@ -404,7 +404,7 @@ test('only teachers and students are valid connection targets; every other role 
     }
 
     expect(Connection::count())->toBe($rowsExpected)
-        ->and($rowsExpected)->toBe(2);
+        ->and($rowsExpected)->toBe(5);
 });
 
 test('a student attacker learns nothing about an admin from the connect endpoint', function () {
@@ -451,7 +451,7 @@ test('an admin cannot initiate a connection either', function () {
     expect($t->notifications()->count())->toBe(0);
 });
 
-test('an outgoing pending counterpart is named only when they are a teacher', function () {
+test('an outgoing pending counterpart is named only when their role is public', function () {
     // outgoingSummary() was a denylist (=== Student), so every non-student
     // including Admin got the full summary. Rows for non-teacher counterparts
     // still arise legitimately after store()'s guard -- a teacher who is
@@ -491,12 +491,12 @@ test('an outgoing pending counterpart is named only when they are a teacher', fu
     foreach ($counterparts as $roleValue => $other) {
         $user = $outgoing[$other->id]['user'];
 
-        if ($roleValue === Role::Teacher->value) {
-            // Inclusion: teachers are publicly discoverable via the directory,
-            // so the redaction must not swallow them too.
+        if (Role::from($roleValue)->isPublic()) {
+            // Inclusion: teachers and tutors are publicly discoverable via
+            // the directory, so the redaction must not swallow them too.
             expect($user['name'])->toBe($other->name)
-                ->and($user['role'])->toBe('teacher')
-                ->and($user['avatar_url'])->toContain('avatars/teacher.png');
+                ->and($user['role'])->toBe($roleValue)
+                ->and($user['avatar_url'])->toContain("avatars/{$roleValue}.png");
 
             continue;
         }

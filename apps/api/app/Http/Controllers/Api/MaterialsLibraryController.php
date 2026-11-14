@@ -22,6 +22,10 @@ class MaterialsLibraryController extends Controller
             'grade' => ['nullable', Rule::enum(GradeLevel::class)],
             'q' => ['nullable', 'string', 'max:100'],
             'sort' => LibrarySort::rule(),
+            // A teacher's public profile lists their own work through this.
+            // No existence check: an unknown id is an empty page, not an
+            // oracle on the users table.
+            'author' => ['nullable', 'integer', 'min:1'],
         ]);
 
         $materials = Material::query()
@@ -30,6 +34,7 @@ class MaterialsLibraryController extends Controller
             ->with('author')
             ->when($filters['subject'] ?? null, fn ($q, $s) => $q->where('subject', $s))
             ->when($filters['grade'] ?? null, fn ($q, $g) => $q->where('grade_level', $g))
+            ->when($filters['author'] ?? null, fn ($q, $id) => $q->where('user_id', $id))
             ->when($filters['q'] ?? null, function ($q, $term) {
                 $escaped = addcslashes($term, '\\%_');
 

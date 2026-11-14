@@ -54,6 +54,7 @@ final class CoursePayload
             'created_at' => $course->created_at,
             'updated_at' => $course->updated_at,
             'is_author' => CourseAccess::canAuthor($viewer, $course),
+            'comment_reactions' => (bool) $course->comment_reactions,
             // Named only while the viewer could open it: an original made
             // private since is not this branch's to announce.
             'branched_from' => $source !== null && CourseAccess::canView($viewer, $source)
@@ -66,7 +67,22 @@ final class CoursePayload
                 ? $course->branches()->where('user_id', $viewer->id)->latest('id')->value('id')
                 : null,
             'items' => $items->map(fn (CourseItem $item) => self::item($item))->all(),
-        ]);
+            // Where this course lives: its site slug, its slug under the
+            // author's handle, or its id. The SPA rewrites the address to it.
+            'path' => Slugs::coursePath($course),
+        ], CourseAccess::canAuthor($viewer, $course) ? self::slugs($course) : []);
+    }
+
+    /** The author's view of the course's names. @return array<string, mixed> */
+    private static function slugs(Course $course): array
+    {
+        $own = Slugs::courseRequest($course);
+
+        return [
+            'slug' => $own ? ['slug' => $own->slug, 'status' => $own->status->value] : null,
+            'site_slug' => Slugs::siteSlug($course),
+            'handle' => Slugs::handle($course->author),
+        ];
     }
 
     /** @return array<string, mixed> */

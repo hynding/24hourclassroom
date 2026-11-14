@@ -18,16 +18,19 @@ export class TestsStore {
   publishTest(id: number) { return this.client.publishTest(id); }
   unpublishTest(id: number) { return this.client.unpublishTest(id); }
   copyTest(id: number) { return this.client.copyTest(id); }
+  setTestComments(id: number, enabled: boolean) { return this.client.setTestComments(id, enabled); }
   listAssignments(testId: number) { return this.client.listAssignments(testId); }
   assignTest(testId: number, studentIds: number[], dueAt?: string | null) { return this.client.assignTest(testId, studentIds, dueAt); }
   unassign(testId: number, assignmentId: number) { return this.client.unassign(testId, assignmentId); }
   listTestAttempts(testId: number, page?: number) { return this.client.listTestAttempts(testId, page); }
   myAssignments() { return this.client.myAssignments(); }
+  studentAssignments(studentId: number) { return this.client.studentAssignments(studentId); }
   myAttempts() { return this.client.myAttempts(); }
   startAttempt(testId: number) { return this.client.startAttempt(testId); }
   getAttempt(id: number) { return this.client.getAttempt(id); }
   saveAttempt(id: number, responses: Record<number, unknown>) { return this.client.saveAttempt(id, responses); }
   submitAttempt(id: number) { return this.client.submitAttempt(id); }
+  gradingQueue(page?: number) { return this.client.gradingQueue(page); }
   gradeAnswer(attemptId: number, answerId: number, awarded: number) { return this.client.gradeAnswer(attemptId, answerId, awarded); }
   library(filters: LibraryFilters = {}) { return this.client.library(filters); }
 }

@@ -15,7 +15,7 @@ class EnsureUserIsTeacher
 {
     public function handle(Request $request, Closure $next): Response
     {
-        abort_unless($request->user()?->role === Role::Teacher, 403);
+        abort_unless($request->user()?->role?->authors() === true, 403);
 
         return $next($request);
     }

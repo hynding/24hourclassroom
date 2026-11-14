@@ -7,6 +7,22 @@ beforeEach(function () {
     Storage::fake(config('materials.disk'));
 });
 
+test('author= narrows the library to one teacher\'s public materials and nothing else', function () {
+    $a = aTeacher();
+    $b = aTeacher();
+    $mine = aMaterial($a, ['visibility' => 'public', 'published_at' => now(), 'title' => 'Mine']);
+    aMaterial($a, ['title' => 'My private draft']);
+    aMaterial($b, ['visibility' => 'public', 'published_at' => now(), 'title' => 'Theirs']);
+    $gone = aTeacher();
+    aMaterial($gone, ['visibility' => 'public', 'published_at' => now(), 'title' => 'By a deactivated author']);
+    $gone->forceFill(['deactivated_at' => now()])->save();
+
+    $this->getJson("/api/library/materials?author={$a->id}")->assertOk()->assertJsonCount(1, 'data')->assertJsonPath('data.0.id', $mine->id);
+    $this->getJson("/api/library/materials?author={$gone->id}")->assertOk()->assertJsonCount(0, 'data');
+    $this->getJson('/api/library/materials?author=999999')->assertOk()->assertJsonCount(0, 'data');
+    $this->getJson('/api/library/materials?author=abc')->assertStatus(422);
+});
+
 test('the library lists public materials by active authors, newest published first, with filters', function () {
     $author = aTeacher();
     $math = aMaterial($author, ['visibility' => 'public', 'published_at' => now()->subDay(), 'subject' => 'math', 'grade_level' => '3-5', 'title' => 'Fractions', 'description' => 'Numerators.']);
