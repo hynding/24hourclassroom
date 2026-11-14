@@ -32,6 +32,58 @@ test('a public course gets its own title, description, canonical and Course JSON
         ->not->toContain('noindex');
 });
 
+test('every head carries the page\'s share card as a large-image preview', function () {
+    config(['app.url' => 'https://api.classroom.test/']);
+    $author = aTeacher(['name' => 'Ada Lovelace']);
+    $tests = Test::factory()->for($author, 'author')->published()->count(2)->create();
+    $course = aCourse($author, $tests->all(), ['visibility' => 'public', 'published_at' => now(), 'title' => 'Engines']);
+
+    expect(pageHead($this, "/courses/{$course->id}"))
+        ->toMatch("#<meta property=\"og:image\" content=\"https://api\\.classroom\\.test/api/page-image\\?path=%2Fcourses%2F{$course->id}&amp;v=[0-9a-f]{12}\" data-page-meta>#")
+        ->toContain('<meta property="og:image:width" content="1200" data-page-meta>')
+        ->toContain('<meta property="og:image:height" content="630" data-page-meta>')
+        ->toContain('<meta property="og:image:alt" content="Engines" data-page-meta>')
+        ->toContain('<meta name="twitter:card" content="summary_large_image" data-page-meta>');
+
+    $head = new App\Support\PageHead;
+    expect($head->card($head->resolve("/courses/{$course->id}")))->toMatchArray([
+        'kicker' => 'Free course',
+        'title' => 'Engines',
+        'detail' => '2 practice tests · 0 study materials · by Ada Lovelace',
+        'host' => 'classroom.test',
+    ]);
+    expect($head->card($head->resolve('/library/courses')))->toMatchArray(['kicker' => 'Browse', 'title' => 'Free courses']);
+    expect($head->card($head->resolve('/')))->toMatchArray(['title' => SiteSetting::current()->name, 'kicker' => 'Free courses, tests and study materials']);
+});
+
+test('the image URL changes when the card does, and hidden pages share the site card\'s', function () {
+    $author = aTeacher();
+    $course = aCourse($author, [], ['visibility' => 'public', 'published_at' => now(), 'title' => 'Engines']);
+    $private = aCourse($author, [], ['title' => 'Secret plans']);
+    $image = fn (string $path) => preg_match('#og:image" content="([^"]+)"#', pageHead($this, $path), $m) ? html_entity_decode($m[1]) : null;
+
+    $before = $image("/courses/{$course->id}");
+    $course->update(['title' => 'Steam engines']);
+    expect($image("/courses/{$course->id}"))->not->toBe($before);
+
+    $site = $image('/');
+    $v = fn (?string $url) => parse_url((string) $url, PHP_URL_QUERY) ? Illuminate\Support\Str::after($url, '&v=') : null;
+    expect($v($image("/courses/{$private->id}")))->toBe($v($site));
+    expect($v($image('/courses/999999')))->toBe($v($site));
+});
+
+test('text the card fonts cannot draw never reaches a card', function () {
+    $author = aTeacher(['name' => 'Пётр Чайковский']);
+    $cjk = aCourse($author, [], ['visibility' => 'public', 'published_at' => now(), 'title' => '微积分入门']);
+    $latin = aCourse($author, [], ['visibility' => 'public', 'published_at' => now(), 'title' => 'Calculus']);
+    $head = new App\Support\PageHead;
+
+    expect($head->card($head->resolve("/courses/{$cjk->id}")))->toMatchArray(['is_site' => true, 'title' => SiteSetting::current()->name]);
+    expect($head->card($head->resolve("/courses/{$latin->id}")))->toMatchArray(['is_site' => false, 'title' => 'Calculus', 'detail' => null]);
+    expect(App\Support\ShareCard::covers('Café – “naïve” résumé…'))->toBeTrue();
+    expect(App\Support\ShareCard::covers('π'))->toBeFalse();
+});
+
 test('a private course, a missing one and a deactivated author\'s look the same: site head, noindex', function () {
     $author = aTeacher();
     $private = aCourse($author, [], ['title' => 'Secret plans']);
@@ -120,6 +172,32 @@ describe('the web host\'s index.php helpers', function () {
             ->not->toContain('Static.')
             ->toContain('app.esm.js');
         expect(strpos($out, '<title>Engines</title>'))->toBeLessThan(strpos($out, '</head>'));
+    });
+
+    test('drops index.html\'s link-preview defaults for the page\'s own', function () use ($html) {
+        $withDefaults = str_replace('</head>', "  <meta property=\"og:title\" content=\"Default\" />\n    <meta property=\"og:image\" content=\"/assets/share-card.png\" />\n    <meta name=\"twitter:card\" content=\"summary_large_image\" />\n  </head>", $html);
+        $out = page_head_splice($withDefaults, '<meta property="og:title" content="Engines" data-page-meta>');
+
+        expect($out)->not->toContain('Default')
+            ->not->toContain('share-card.png')
+            ->not->toContain('twitter:card')
+            ->toContain('content="Engines"');
+    });
+
+    test('an unspliced page gets the default card at an absolute address on its own origin', function () use ($html) {
+        $withImage = str_replace('</head>', "  <meta property=\"og:image\" content=\"/assets/share-card.png\" />\n  </head>", $html);
+
+        expect(page_head_render($withImage, '/login', 'https://api.test', fn () => null, 'https://classroom.test'))
+            ->toContain('<meta property="og:image" content="https://classroom.test/assets/share-card.png" />');
+        expect(page_head_render($withImage, '/login', 'https://api.test', fn () => null))
+            ->toContain('content="/assets/share-card.png"');
+
+        expect(page_head_origin(['HTTP_HOST' => 'Classroom.test', 'HTTPS' => 'on']))->toBe('https://classroom.test');
+        expect(page_head_origin(['HTTP_HOST' => 'classroom.test:8080', 'HTTP_X_FORWARDED_PROTO' => 'https']))->toBe('https://classroom.test:8080');
+        expect(page_head_origin(['HTTP_HOST' => 'classroom.test', 'HTTPS' => 'off']))->toBe('http://classroom.test');
+        foreach (['', 'evil.test"><script>', 'a b', 'x/y'] as $bad) {
+            expect(page_head_origin(['HTTP_HOST' => $bad]))->toBe('', $bad);
+        }
     });
 
     test('asks only for public pages, and any failure serves index.html unchanged', function () use ($html) {
