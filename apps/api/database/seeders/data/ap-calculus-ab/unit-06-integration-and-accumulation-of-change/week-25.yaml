@@ -1,0 +1,599 @@
+week: 25
+unit: 6
+title: "Antiderivatives and Integration by Substitution"
+topics: ["6.8", "6.9"]
+guide: guides/week-25.md
+guide_description: |
+  Indefinite integral notation and the constant of integration; the basic antiderivative rules for powers, 1/x,
+  exponentials and the six trigonometric derivatives read backwards; rewriting before integrating; finding a
+  particular antiderivative from an initial condition; then u-substitution for indefinite and definite integrals,
+  with changed limits and with a back-substitution for leftover x. Worked examples: ∫ (4x³ − 6/x² + 2) dx, f from
+  f′(x) = 6x² − 4 and f(1) = 3, ∫ from 0 to 2 of x(x² + 1)³ dx with new limits, ∫ eˣ/(1 + eˣ) dx, and
+  ∫ from 0 to 4 of x/√(2x + 1) dx by back-substitution.
+flashcards_description: |
+  32 cards on indefinite integral notation, +C, power, log, exponential and trigonometric antiderivatives,
+  initial conditions, choosing u, adjusting constants, changing limits, back-substitution, and checking by
+  differentiating.
+
+flashcards:
+  - front: Indefinite integral ∫ f(x) dx → what it denotes
+    back: |
+      The family of all antiderivatives of f: F(x) + C, where F′ = f. It is a family of functions, not a number.
+    topic_code: "6.8"
+  - front: The + C in an indefinite integral → why it is required
+    back: |
+      Any two antiderivatives of f on an interval differ by a constant, so F(x) + C describes them all. Leaving it out names only one.
+    topic_code: "6.8"
+  - front: Power rule for antiderivatives, ∫ xⁿ dx → formula and restriction
+    back: |
+      xⁿ⁺¹/(n + 1) + C, for n ≠ −1. Raise the power by one, then divide by the new power.
+    topic_code: "6.8"
+  - front: ∫ (1/x) dx → result and why the absolute value
+    back: |
+      ln |x| + C. The absolute value covers x < 0, where 1/x is also defined; d/dx ln |x| = 1/x for every x ≠ 0.
+    topic_code: "6.8"
+  - front: ∫ eˣ dx and ∫ aˣ dx → results
+    back: |
+      eˣ + C, and aˣ/ln a + C for a > 0, a ≠ 1.
+    topic_code: "6.8"
+  - front: ∫ cos x dx and ∫ sin x dx → results with signs
+    back: |
+      ∫ cos x dx = sin x + C; ∫ sin x dx = −cos x + C. The minus sign belongs to sine's antiderivative.
+    topic_code: "6.8"
+  - front: ∫ sec²x dx and ∫ csc²x dx → results
+    back: |
+      tan x + C, and −cot x + C.
+    topic_code: "6.8"
+  - front: ∫ sec x tan x dx and ∫ csc x cot x dx → results
+    back: |
+      sec x + C, and −csc x + C.
+    topic_code: "6.8"
+  - front: ∫ 1/√(1 − x²) dx and ∫ 1/(1 + x²) dx → results
+    back: |
+      arcsin x + C, and arctan x + C.
+    topic_code: "6.8"
+  - front: ∫ (4x³ − 6/x² + 2) dx → result
+    back: |
+      Write −6/x² as −6x⁻²: x⁴ + 6x⁻¹ + 2x + C = x⁴ + 6/x + 2x + C.
+    topic_code: "6.8"
+  - front: ∫ (x² + 1)/√x dx → first step
+    back: |
+      Split and rewrite as powers: x^(3/2) + x^(−1/2). Then (2/5)x^(5/2) + 2x^(1/2) + C.
+    topic_code: "6.8"
+  - front: Particular antiderivative from f′(x) = 6x² − 4 and f(1) = 3 → f(x)
+    back: |
+      f(x) = 2x³ − 4x + C; f(1) = −2 + C = 3 gives C = 5. So f(x) = 2x³ − 4x + 5.
+    topic_code: "6.8"
+  - front: Checking an antiderivative → the one test that always works
+    back: |
+      Differentiate your answer. If you get the integrand back exactly, the antiderivative is right.
+    topic_code: "6.8"
+  - front: Antiderivatives of 2 sin x cos x → why sin²x and −cos²x are both correct
+    back: |
+      sin²x − (−cos²x) = sin²x + cos²x = 1, a constant. Antiderivatives may differ by a constant and look nothing alike.
+    topic_code: "6.8"
+  - front: u-substitution → the pattern to look for
+    back: |
+      An inner function u = g(x) together with its derivative g′(x) (up to a constant factor) multiplying everything else: ∫ f(g(x)) g′(x) dx = ∫ f(u) du.
+    topic_code: "6.9"
+  - front: u-substitution → the chain rule connection
+    back: |
+      It is the chain rule in reverse: d/dx F(g(x)) = F′(g(x)) g′(x), so ∫ F′(g(x)) g′(x) dx = F(g(x)) + C.
+    topic_code: "6.9"
+  - front: Choosing u → three good first guesses
+    back: |
+      The inside of a power or root, the exponent of e, or the denominator, especially when its derivative appears elsewhere.
+    topic_code: "6.9"
+  - front: ∫ x(x² + 1)³ dx → substitution and result
+    back: |
+      u = x² + 1, du = 2x dx, so x dx = du/2: (1/2)∫ u³ du = u⁴/8 + C = (x² + 1)⁴/8 + C.
+    topic_code: "6.9"
+  - front: du = 2x dx but the integrand has only x dx → fix
+    back: |
+      Write x dx = (1/2) du. Constant factors can be adjusted; a missing variable factor cannot.
+    topic_code: "6.9"
+  - front: ∫ cos(5x) dx → result
+    back: |
+      (1/5) sin(5x) + C. Linear inside: divide by the coefficient of x.
+    topic_code: "6.9"
+  - front: ∫ e^(3x − 1) dx → result
+    back: |
+      (1/3)e^(3x − 1) + C, from u = 3x − 1, du = 3 dx.
+    topic_code: "6.9"
+  - front: ∫ eˣ/(1 + eˣ) dx → result
+    back: |
+      u = 1 + eˣ, du = eˣ dx: ∫ du/u = ln(1 + eˣ) + C (no absolute value needed, since 1 + eˣ > 0).
+    topic_code: "6.9"
+  - front: ∫ tan x dx → by substitution
+    back: |
+      Write sin x/cos x; u = cos x, du = −sin x dx: −∫ du/u = −ln |cos x| + C (= ln |sec x| + C).
+    topic_code: "6.9"
+  - front: Definite integral with u-substitution → what happens to the limits
+    back: |
+      Change them to u-values: x = a becomes u = g(a) and x = b becomes u = g(b). Then never return to x.
+    topic_code: "6.9"
+  - front: ∫ from 0 to 2 of x(x² + 1)³ dx → in u with new limits and value
+    back: |
+      (1/2) ∫ from 1 to 5 of u³ du = (1/8)(625 − 1) = 78.
+    topic_code: "6.9"
+  - front: ∫ from 0 to π/2 of sin x cos²x dx → value
+    back: |
+      u = cos x runs from 1 to 0: −∫ from 1 to 0 of u² du = ∫ from 0 to 1 of u² du = 1/3.
+    topic_code: "6.9"
+  - front: Back-substitution → when it is needed
+    back: |
+      When an x is left over after du is used, as in ∫ x/√(2x + 1) dx: solve u = 2x + 1 for x = (u − 1)/2 and substitute.
+    topic_code: "6.9"
+  - front: ∫ from 0 to 4 of x/√(2x + 1) dx → value
+    back: |
+      u = 2x + 1 from 1 to 9, x = (u − 1)/2, dx = du/2: (1/4)∫ from 1 to 9 of (u^(1/2) − u^(−1/2)) du = 10/3.
+    topic_code: "6.9"
+  - front: ∫ (x² + 4)² dx → why not substitute u = x² + 4
+    back: |
+      du = 2x dx needs a factor of x that is not there. Expand instead: x⁴ + 8x² + 16, giving x⁵/5 + 8x³/3 + 16x + C.
+    topic_code: "6.9"
+  - front: Error-spot → "∫ cos(5x) dx = 5 sin(5x) + C"
+    back: |
+      Differentiating 5 sin(5x) gives 25 cos(5x). Divide by 5, do not multiply: (1/5) sin(5x) + C.
+    topic_code: "6.9"
+  - front: Error-spot → "∫ from 0 to 2 of x(x² + 1)³ dx = (1/2) ∫ from 0 to 2 of u³ du"
+    back: |
+      The limits 0 and 2 are x-values. In terms of u = x² + 1 they become 1 and 5.
+    topic_code: "6.9"
+  - front: Error-spot → "∫ x · cos x dx = (x²/2) · sin x + C"
+    back: |
+      Antiderivatives do not split over products. Differentiating (x²/2) sin x gives x sin x + (x²/2) cos x, not x cos x. (This one needs a BC technique.)
+    topic_code: "6.8"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 6.8 and 6.9: indefinite integrals and the basic
+    antiderivative rules, initial conditions, and u-substitution for indefinite and definite integrals), with 7
+    questions (about 30%) reviewing weeks 7, 13, 19, 23 and 24 (differentiability, motion, concavity, accumulation
+    functions, properties of definite integrals and the second Fundamental Theorem). Opens with a shared-context set
+    on one substitution integral. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. No calculator is needed.
+  questions:
+    # ---- Stimulus set: one substitution integral (6.9, 6.4)
+    - slug: apcalcab-u06-w25-q01
+      type: multiple_choice
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      stimulus: |
+        Consider the integral ∫ from 0 to 2 of x(x² + 1)³ dx and the substitution u = x² + 1.
+      prompt: |
+        Which integral is equivalent to the given integral after the substitution?
+      options:
+        - "(1/2) ∫ from 0 to 2 of u³ du"
+        - "(1/2) ∫ from 1 to 5 of u³ du"
+        - "2 ∫ from 1 to 5 of u³ du"
+        - "∫ from 1 to 5 of u³ du"
+      option_explanations:
+        - |
+          The integrand is right, but 0 and 2 are x-values. The limits must become u(0) = 1 and u(2) = 5.
+        - |
+          Correct. du = 2x dx, so x dx = (1/2) du, and the limits change to u(0) = 0² + 1 = 1 and u(2) = 2² + 1 = 5.
+        - |
+          This inverts the constant: from du = 2x dx, x dx equals du/2, not 2 du.
+        - |
+          This drops the constant: x dx is only half of du, so a factor of 1/2 is needed.
+      answer: 1
+    - slug: apcalcab-u06-w25-q02
+      type: numeric
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      stimulus: |
+        Consider the integral ∫ from 0 to 2 of x(x² + 1)³ dx and the substitution u = x² + 1.
+      prompt: |
+        What is the value of the integral?
+      answer: { value: 78, tolerance: 0 }
+      explanation: |
+        (1/2) ∫ from 1 to 5 of u³ du = (1/2) · u⁴/4 from 1 to 5 = (1/8)(625 − 1) = 624/8 = 78.
+    - slug: apcalcab-u06-w25-q03
+      type: multiple_choice
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      stimulus: |
+        Consider the integral ∫ from 0 to 2 of x(x² + 1)³ dx and the substitution u = x² + 1.
+      prompt: |
+        Which is the indefinite integral ∫ x(x² + 1)³ dx?
+      options:
+        - "(x² + 1)⁴/4 + C"
+        - "(x²/2) · (x² + 1)⁴/4 + C"
+        - "x(x² + 1)⁴/4 + C"
+        - "(x² + 1)⁴/8 + C"
+      option_explanations:
+        - |
+          This forgets the factor 1/2 from x dx = du/2; differentiating (x² + 1)⁴/4 gives 2x(x² + 1)³, twice the integrand.
+        - |
+          This integrates the two factors separately and multiplies the results; antiderivatives do not split over products.
+        - |
+          The x outside is absorbed into du; leaving it in front gives a function whose derivative has extra terms from the product rule.
+        - |
+          Correct. (1/2) ∫ u³ du = u⁴/8 + C = (x² + 1)⁴/8 + C. Check: d/dx gives 4(x² + 1)³ · 2x/8 = x(x² + 1)³.
+      answer: 3
+    - slug: apcalcab-u06-w25-q04
+      type: multiple_choice
+      topic_code: "6.4"
+      source: "AP Calculus CED, Topic 6.4"
+      points: 1
+      stimulus: |
+        Consider the integral ∫ from 0 to 2 of x(x² + 1)³ dx and the substitution u = x² + 1.
+      prompt: |
+        Let G(x) = ∫ from 0 to x of t(t² + 1)³ dt. What is G′(1)?
+      options:
+        - "8"
+        - "15/8"
+        - "32"
+        - "0"
+      option_explanations:
+        - |
+          Correct. By the first Fundamental Theorem, G′(x) = x(x² + 1)³, so G′(1) = 1 · 2³ = 8.
+        - |
+          15/8 is G(1) = ((1 + 1)⁴ − 1)/8, the accumulated value, not its derivative.
+        - |
+          32 is the derivative of the integrand at t = 1, which would be G″(1), not G′(1).
+        - |
+          G(0) = 0, but G′ is the integrand evaluated at x; at x = 1 it is not 0.
+      answer: 0
+    # ---- Independent items
+    - slug: apcalcab-u06-w25-q05
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "AP Calculus CED, Topic 6.8"
+      points: 1
+      prompt: |
+        ∫ (4x³ − 6/x² + 2) dx =
+      options:
+        - "x⁴ − 6/x + 2x + C"
+        - "12x² + 12/x³ + C"
+        - "x⁴ + 6/x + 2x + C"
+        - "x⁴ + 2/x³ + 2x + C"
+      option_explanations:
+        - |
+          The sign of the middle term is lost: ∫ −6x⁻² dx = −6 · x⁻¹/(−1) = +6x⁻¹, so the term is +6/x.
+        - |
+          This differentiates the integrand instead of finding an antiderivative.
+        - |
+          Correct. Rewrite −6/x² as −6x⁻²: ∫ 4x³ dx = x⁴, ∫ −6x⁻² dx = 6x⁻¹, ∫ 2 dx = 2x. So x⁴ + 6/x + 2x + C.
+        - |
+          This lowers the power of x⁻² to x⁻³ (as in differentiation) instead of raising it to x⁻¹.
+      answer: 2
+    - slug: apcalcab-u06-w25-q06
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "AP Calculus CED, Topic 6.8"
+      points: 1
+      prompt: |
+        ∫ (3 cos x − 2eˣ) dx =
+      options:
+        - "3 sin x − 2eˣ + C"
+        - "−3 sin x − 2eˣ + C"
+        - "3 sin x − 2eˣ⁺¹/(x + 1) + C"
+        - "−3 sin x + 2eˣ + C"
+      option_explanations:
+        - |
+          Correct. ∫ cos x dx = sin x and ∫ eˣ dx = eˣ, so the result is 3 sin x − 2eˣ + C. Differentiating returns 3 cos x − 2eˣ.
+        - |
+          The antiderivative of cos x is +sin x; the minus sign belongs to the antiderivative of sin x, which is −cos x.
+        - |
+          The power rule does not apply to eˣ, where x is the exponent; eˣ is its own antiderivative.
+        - |
+          Both signs are flipped; differentiating −3 sin x + 2eˣ gives −3 cos x + 2eˣ, the negative of the integrand.
+      answer: 0
+    - slug: apcalcab-u06-w25-q07
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "AP Calculus CED, Topic 6.8"
+      points: 1
+      prompt: |
+        A function f satisfies f′(x) = 6x² − 4 and f(1) = 3. What is f(2)?
+      options:
+        - "8"
+        - "11"
+        - "20"
+        - "13"
+      option_explanations:
+        - |
+          8 is 2x³ − 4x at x = 2 with C = 0; the condition f(1) = 3 requires C = 5.
+        - |
+          11 uses C = 3, the given value f(1), as the constant; C must be solved from f(1) = 2 − 4 + C = 3.
+        - |
+          20 is f′(2) = 24 − 4, the slope at x = 2, not the value of f.
+        - |
+          Correct. f(x) = 2x³ − 4x + C and f(1) = −2 + C = 3, so C = 5 and f(2) = 16 − 8 + 5 = 13.
+      answer: 3
+    - slug: apcalcab-u06-w25-q08
+      type: multiple_choice
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        ∫ cos(5x) dx =
+      options:
+        - "5 sin(5x) + C"
+        - "(1/5) sin(5x) + C"
+        - "sin(5x) + C"
+        - "−(1/5) sin(5x) + C"
+      option_explanations:
+        - |
+          Differentiating 5 sin(5x) gives 25 cos(5x); the inner derivative 5 must be divided out, not multiplied in.
+        - |
+          Correct. With u = 5x, du = 5 dx, so ∫ cos(5x) dx = (1/5) ∫ cos u du = (1/5) sin(5x) + C.
+        - |
+          Differentiating sin(5x) gives 5 cos(5x), five times too much: the factor 1/5 is missing.
+        - |
+          The antiderivative of cosine is positive sine; the factor 1/5 is right but the sign is not.
+      answer: 1
+    - slug: apcalcab-u06-w25-q09
+      type: multiple_choice
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        ∫ eˣ/(1 + eˣ) dx =
+      options:
+        - "ln(1 + eˣ) + C"
+        - "eˣ ln(1 + eˣ) + C"
+        - "−1/(1 + eˣ) + C"
+        - "(1 + eˣ)²/2 + C"
+      option_explanations:
+        - |
+          Correct. With u = 1 + eˣ, du = eˣ dx, the integral is ∫ du/u = ln |u| + C = ln(1 + eˣ) + C, since 1 + eˣ > 0.
+        - |
+          The numerator eˣ is used up as du; it does not stay as a factor in front.
+        - |
+          This integrates as if the integrand were du/u², whose antiderivative is −1/u; here the power of u is −1, giving a logarithm.
+        - |
+          This treats u as being in the numerator, integrating u du; the u is in the denominator.
+      answer: 0
+    - slug: apcalcab-u06-w25-q10
+      type: multiple_choice
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 0 to π/2 of sin x cos²x dx?
+      options:
+        - "−1/3"
+        - "0"
+        - "1"
+        - "1/3"
+      option_explanations:
+        - |
+          This replaces sin x dx by du instead of −du, giving ∫ from 1 to 0 of u² du = −1/3; the minus sign from du = −sin x dx is missing.
+        - |
+          This evaluates −cos³x/3 only at the upper limit, where it is 0; the value at the lower limit, −1/3, must be subtracted.
+        - |
+          1 is ∫ from 0 to π/2 of sin x dx; the factor cos²x reduces the integral.
+        - |
+          Correct. u = cos x, du = −sin x dx, limits 1 to 0: −∫ from 1 to 0 of u² du = ∫ from 0 to 1 of u² du = 1/3.
+      answer: 3
+    - slug: apcalcab-u06-w25-q11
+      type: multiple_choice
+      topic_code: "5.6"
+      source: "AP Calculus CED, Topic 5.6"
+      points: 1
+      prompt: |
+        On which interval is the graph of f(x) = x⁴ − 6x² concave down?
+      options:
+        - "x < −1 and x > 1"
+        - "−√3 < x < √3"
+        - "−1 < x < 1"
+        - "x < 0"
+      option_explanations:
+        - |
+          On these intervals f″(x) = 12x² − 12 > 0, so the graph is concave up there.
+        - |
+          ±√3 are the nonzero zeros of f′(x) = 4x³ − 12x, which locate extrema; concavity comes from the sign of f″.
+        - |
+          Correct. f″(x) = 12x² − 12 = 12(x − 1)(x + 1) is negative for −1 < x < 1.
+        - |
+          For x < −1, f″(x) = 12x² − 12 > 0, so the graph is concave up on part of x < 0; concave down needs f″ < 0, which holds only for −1 < x < 1.
+      answer: 2
+    - slug: apcalcab-u06-w25-q12
+      type: multiple_choice
+      topic_code: "2.4"
+      source: "AP Calculus CED, Topic 2.4"
+      points: 1
+      prompt: |
+        Let f(x) = x² for x ≤ 1 and f(x) = 2x + k for x > 1. For which value of k is f continuous at x = 1, and for that k, is f differentiable at x = 1?
+      options:
+        - "k = −1, and f is not differentiable at x = 1"
+        - "k = −1, and f is differentiable at x = 1"
+        - "k = 1, and f is differentiable at x = 1"
+        - "k = 1, and f is not differentiable at x = 1"
+      option_explanations:
+        - |
+          k = −1 is right, but the one-sided derivatives match: 2x gives 2 from the left and the line 2x − 1 has slope 2 from the right.
+        - |
+          Correct. Continuity needs 1² = 2(1) + k, so k = −1. Then the left derivative 2(1) = 2 equals the right derivative 2, and f is continuous, so f is differentiable at 1.
+        - |
+          With k = 1 the right-hand limit is 3, not 1, so f has a jump and cannot be differentiable at x = 1.
+        - |
+          k = 1 makes the pieces meet at different heights (1 and 3), so the continuity condition fails.
+      answer: 1
+    - slug: apcalcab-u06-w25-q13
+      type: multiple_choice
+      topic_code: "6.7"
+      source: "AP Calculus CED, Topic 6.7"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 1 to 2 of (2x − 1/x²) dx?
+      options:
+        - "4.5"
+        - "3.5"
+        - "2.5"
+        - "2.75"
+      option_explanations:
+        - |
+          4.5 is F(2) = 4 + 1/2 alone; F(1) = 1 + 1 = 2 must be subtracted.
+        - |
+          This uses x² − 1/x as the antiderivative; ∫ −x⁻² dx = +x⁻¹, so the antiderivative is x² + 1/x.
+        - |
+          Correct. An antiderivative is x² + 1/x, so the integral is (4 + 1/2) − (1 + 1) = 2.5.
+        - |
+          2.75 subtracts values of the integrand, f(2) − f(1) = 3.75 − 1, instead of values of an antiderivative.
+      answer: 2
+    - slug: apcalcab-u06-w25-q14
+      type: multi_select
+      topic_code: "6.8"
+      source: "AP Calculus CED, Topic 6.8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which functions are antiderivatives of 2 sin x cos x? Select all that apply.
+      options:
+        - "sin²x"
+        - "−cos²x"
+        - "−(1/2) cos(2x)"
+        - "cos²x − 1"
+        - "sin(2x)"
+      option_explanations:
+        - |
+          Correct. d/dx sin²x = 2 sin x · cos x by the chain rule.
+        - |
+          Correct. d/dx (−cos²x) = −2 cos x · (−sin x) = 2 sin x cos x.
+        - |
+          Correct. d/dx (−(1/2) cos(2x)) = (1/2) · 2 sin(2x) = sin(2x) = 2 sin x cos x.
+        - |
+          d/dx (cos²x − 1) = −2 sin x cos x, the negative of the integrand.
+        - |
+          d/dx sin(2x) = 2 cos(2x), which is not 2 sin x cos x (that equals sin(2x) itself).
+      answer: [0, 1, 2]
+    - slug: apcalcab-u06-w25-q15
+      type: multi_select
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 2
+      partial_credit: true
+      prompt: |
+        For which integrals does the substitution u = x² + 4 turn the integrand into a function of u times a constant multiple of du, with no x left over? Select all that apply.
+      options:
+        - "∫ x√(x² + 4) dx"
+        - "∫ x/(x² + 4)³ dx"
+        - "∫ √(x² + 4) dx"
+        - "∫ 5x e^(x² + 4) dx"
+        - "∫ (x² + 4)² dx"
+      option_explanations:
+        - |
+          Correct. x dx = du/2, giving (1/2) ∫ √u du.
+        - |
+          Correct. x dx = du/2, giving (1/2) ∫ u⁻³ du.
+        - |
+          There is no factor of x to pair with dx, so du = 2x dx cannot be formed; an x would be left over.
+        - |
+          Correct. 5x dx = (5/2) du, giving (5/2) ∫ eᵘ du.
+        - |
+          There is no factor of x; expand to x⁴ + 8x² + 16 and use the power rule instead.
+      answer: [0, 1, 3]
+    - slug: apcalcab-u06-w25-q16
+      type: true_false
+      topic_code: "6.6"
+      source: "AP Calculus CED, Topic 6.6"
+      points: 1
+      prompt: |
+        True or false: For continuous functions f and g, ∫ from 0 to 1 of f(x)g(x) dx always equals (∫ from 0 to 1 of f(x) dx) · (∫ from 0 to 1 of g(x) dx).
+      answer: false
+      explanation: |
+        False. There is no product property for integrals. With f(x) = g(x) = x, the left side is ∫ from 0 to 1 of x² dx = 1/3 and the right side is (1/2)(1/2) = 1/4.
+    - slug: apcalcab-u06-w25-q17
+      type: true_false
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        True or false: If the substitution u = g(x) is used in ∫ from a to b of f(g(x))g′(x) dx, the integral equals ∫ from g(a) to g(b) of f(u) du.
+      answer: true
+      explanation: |
+        True. When x = a, u = g(a), and when x = b, u = g(b). Changing the limits this way lets you evaluate in u without returning to x.
+    - slug: apcalcab-u06-w25-q18
+      type: fill_blank
+      topic_code: "6.8"
+      source: "AP Calculus CED, Topic 6.8"
+      points: 1
+      prompt: |
+        F is an antiderivative of f(x) = 6x² with F(0) = 4. Then F(1) = ____.
+      answer: ["6"]
+      explanation: |
+        F(x) = 2x³ + C, and F(0) = C = 4. So F(1) = 2 + 4 = 6.
+    - slug: apcalcab-u06-w25-q19
+      type: fill_blank
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        ∫ from 0 to 1 of 2x e^(x²) dx = ____. (Give the exact value or a decimal to three places.)
+      answer: ["e − 1", "e - 1", "e−1", "e-1", "−1 + e", "-1 + e", "1.718"]
+      explanation: |
+        u = x², du = 2x dx, limits 0 to 1: ∫ from 0 to 1 of eᵘ du = e¹ − e⁰ = e − 1 ≈ 1.718.
+    - slug: apcalcab-u06-w25-q20
+      type: numeric
+      topic_code: "6.6"
+      source: "AP Calculus CED, Topic 6.6"
+      points: 1
+      prompt: |
+        A continuous function f satisfies ∫ from 0 to 5 of f(x) dx = 8 and ∫ from 0 to 2 of f(x) dx = 3. What is ∫ from 2 to 5 of (2f(x) + 1) dx?
+      answer: { value: 13, tolerance: 0 }
+      explanation: |
+        ∫ from 2 to 5 of f(x) dx = 8 − 3 = 5. Then ∫ from 2 to 5 of (2f(x) + 1) dx = 2 · 5 + 1 · (5 − 2) = 10 + 3 = 13.
+    - slug: apcalcab-u06-w25-q21
+      type: short_answer
+      topic_code: "4.2"
+      source: "AP Calculus CED, Topic 4.2"
+      points: 3
+      prompt: |
+        A particle moves along the x-axis with velocity v(t) = 3t² − 12t + 9 for t ≥ 0, where t is in seconds and v(t) is in meters per second.
+
+        (a) Find the acceleration of the particle at t = 2.
+        (b) At what times is the particle at rest?
+        (c) Is the speed of the particle increasing or decreasing at t = 4? Justify.
+      answer: |
+        (a) a(t) = v′(t) = 6t − 12, so a(2) = 0 meters per second per second.
+        (b) v(t) = 3(t² − 4t + 3) = 3(t − 1)(t − 3) = 0 at t = 1 and t = 3 seconds.
+        (c) v(4) = 48 − 48 + 9 = 9 > 0 and a(4) = 24 − 12 = 12 > 0. Velocity and acceleration have the same sign, so the speed is increasing at t = 4.
+      explanation: |
+        Three points, one per part. (a) a(2) = 0. (b) both t = 1 and t = 3. (c) "increasing" with the signs of both v(4) and a(4) compared; a conclusion from a(4) alone earns no point.
+    - slug: apcalcab-u06-w25-q22
+      type: short_answer
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 3
+      prompt: |
+        Evaluate ∫ from 0 to 4 of x/√(2x + 1) dx using the substitution u = 2x + 1.
+
+        (a) Express x and dx in terms of u and du, and find the new limits of integration.
+        (b) Write the integral entirely in terms of u.
+        (c) Evaluate the integral.
+      answer: |
+        (a) u = 2x + 1 gives x = (u − 1)/2 and dx = du/2. When x = 0, u = 1; when x = 4, u = 9.
+        (b) ∫ from 1 to 9 of ((u − 1)/2) · u^(−1/2) · (1/2) du = (1/4) ∫ from 1 to 9 of (u^(1/2) − u^(−1/2)) du.
+        (c) (1/4)[(2/3)u^(3/2) − 2u^(1/2)] from 1 to 9 = (1/4)[(18 − 6) − (2/3 − 2)] = (1/4)(12 + 4/3) = (1/4)(40/3) = 10/3.
+      explanation: |
+        Three points, one per part. (a) x = (u − 1)/2, dx = du/2 and limits 1 and 9. (b) a correct integrand in u with matching limits. (c) 10/3 (about 3.333).
+    - slug: apcalcab-u06-w25-q23
+      type: long_answer
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 6
+      prompt: |
+        Let f be a function with f′(x) = x√(x² + 9) for all x, and f(0) = 2.
+
+        (A) Find ∫ x√(x² + 9) dx. Show the substitution you use.
+
+        (B) Evaluate ∫ from 0 to 4 of x√(x² + 9) dx, changing the limits of integration.
+
+        (C) Find f(x).
+
+        (D) Use your answer to (B) and the value f(0) = 2 to find f(4), and confirm that it agrees with your answer to (C).
+      answer: |
+        (A) u = x² + 9, du = 2x dx, so x dx = du/2: (1/2) ∫ u^(1/2) du = (1/2)(2/3)u^(3/2) + C = (1/3)(x² + 9)^(3/2) + C.
+        (B) When x = 0, u = 9; when x = 4, u = 25. (1/2) ∫ from 9 to 25 of u^(1/2) du = (1/3)(25^(3/2) − 9^(3/2)) = (1/3)(125 − 27) = 98/3.
+        (C) f(x) = (1/3)(x² + 9)^(3/2) + C. f(0) = (1/3)(27) + C = 9 + C = 2, so C = −7 and f(x) = (1/3)(x² + 9)^(3/2) − 7.
+        (D) f(4) = f(0) + ∫ from 0 to 4 of f′(x) dx = 2 + 98/3 = 104/3. From (C), f(4) = 125/3 − 7 = 104/3. They agree.
+      explanation: |
+        Six points. (A) 1 point for the substitution with du and the antiderivative including + C. (B) 1 point for the new limits 9 and 25 and 1 point for 98/3. (C) 1 point for using f(0) = 2 to find C = −7 and 1 point for the complete f(x). (D) 1 point for f(4) = 104/3 from the net change form, with the agreement checked.

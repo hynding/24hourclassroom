@@ -1,0 +1,953 @@
+unit: 3
+description: |
+  45 questions · about 90 minutes · every topic of Unit 3 (3.1 to 3.6): the chain rule from formulas and tables,
+  implicit differentiation with tangent lines and horizontal and vertical tangents, derivatives of inverse functions
+  and of inverse trigonometric functions, choosing and combining derivative rules, and second and higher-order
+  derivatives. Includes three shared-context sets (a table of two functions, an implicitly defined curve, and a
+  function with an inverse), select-all, true/false, fill-in-the-blank and numeric items, two short-answer questions
+  (3 points each) and two free-response questions in the AP style (9 points each: one calculator-active context, one
+  no-calculator analysis of a curve). Items marked (Calculator.) need a graphing calculator; the rest are meant to be
+  done by hand. Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank
+  items are matched automatically; the short answers and free-response items are graded by your teacher against
+  the scoring notes.
+questions:
+  # ---- Stimulus set A: a table of f, f′, g, g′ (3.1, 3.3, 3.5)
+  - slug: apcalcab-u03-exam-q01
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "AP Calculus CED, Topic 3.1"
+    points: 1
+    stimulus: |
+      The functions f and g are differentiable for all real numbers, and f is increasing, so it has an inverse. Selected values are shown.
+
+      | x | 1 | 2 | 3 | 4 |
+      |---|---|---|---|---|
+      | f(x) | 2 | 3 | 5 | 8 |
+      | f′(x) | 1 | 3 | 2 | 4 |
+      | g(x) | 4 | 3 | 1 | 2 |
+      | g′(x) | −2 | 5 | −1 | 3 |
+    prompt: |
+      Let h(x) = f(g(x)). What is h′(2)?
+    options:
+      - "10"
+      - "15"
+      - "2"
+      - "5"
+    option_explanations:
+      - |
+        Correct. g(2) = 3, so h′(2) = f′(g(2)) · g′(2) = f′(3) · 5 = 2 · 5 = 10.
+      - |
+        15 is f′(2) · g′(2): the outer derivative was evaluated at 2 instead of at the inner value g(2) = 3.
+      - |
+        2 is f′(g(2)) = f′(3) alone; the chain rule also multiplies by the inner derivative g′(2) = 5.
+      - |
+        5 is the inner derivative g′(2) alone; it must be multiplied by f′(g(2)) = 2.
+    answer: 0
+  - slug: apcalcab-u03-exam-q02
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "AP Calculus CED, Topic 3.1"
+    points: 1
+    stimulus: |
+      The functions f and g are differentiable for all real numbers, and f is increasing, so it has an inverse. Selected values are shown.
+
+      | x | 1 | 2 | 3 | 4 |
+      |---|---|---|---|---|
+      | f(x) | 2 | 3 | 5 | 8 |
+      | f′(x) | 1 | 3 | 2 | 4 |
+      | g(x) | 4 | 3 | 1 | 2 |
+      | g′(x) | −2 | 5 | −1 | 3 |
+    prompt: |
+      Let k(x) = g(f(x)). What is k′(2)?
+    options:
+      - "15"
+      - "−3"
+      - "−1"
+      - "3"
+    option_explanations:
+      - |
+        15 is g′(2) · f′(2): g′ must be evaluated at the inner value f(2) = 3, not at 2.
+      - |
+        Correct. f(2) = 3, so k′(2) = g′(f(2)) · f′(2) = g′(3) · 3 = (−1)(3) = −3.
+      - |
+        −1 is g′(f(2)) = g′(3) alone; the inner derivative f′(2) = 3 was left off.
+      - |
+        3 is g(3) · f′(2): the value g(3) = 1 was used where the derivative g′(3) = −1 belongs.
+    answer: 1
+  - slug: apcalcab-u03-exam-q03
+    type: multiple_choice
+    topic_code: "3.3"
+    source: "AP Calculus CED, Topic 3.3"
+    points: 1
+    stimulus: |
+      The functions f and g are differentiable for all real numbers, and f is increasing, so it has an inverse. Selected values are shown.
+
+      | x | 1 | 2 | 3 | 4 |
+      |---|---|---|---|---|
+      | f(x) | 2 | 3 | 5 | 8 |
+      | f′(x) | 1 | 3 | 2 | 4 |
+      | g(x) | 4 | 3 | 1 | 2 |
+      | g′(x) | −2 | 5 | −1 | 3 |
+    prompt: |
+      Let F be the inverse function of f. What is F′(3)?
+    options:
+      - "1/2"
+      - "3"
+      - "1/3"
+      - "1/5"
+    option_explanations:
+      - |
+        1/2 is 1/f′(3): f′ was evaluated at the inverse's input 3 instead of at the matching input 2.
+      - |
+        3 is f′(2) itself; the inverse's derivative is its reciprocal.
+      - |
+        Correct. f(2) = 3, so F(3) = 2 and F′(3) = 1/f′(2) = 1/3.
+      - |
+        1/5 is 1/f(3), the reciprocal of a function value, not of a derivative.
+    answer: 2
+  - slug: apcalcab-u03-exam-q04
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "AP Calculus CED, Topic 3.5"
+    points: 1
+    stimulus: |
+      The functions f and g are differentiable for all real numbers, and f is increasing, so it has an inverse. Selected values are shown.
+
+      | x | 1 | 2 | 3 | 4 |
+      |---|---|---|---|---|
+      | f(x) | 2 | 3 | 5 | 8 |
+      | f′(x) | 1 | 3 | 2 | 4 |
+      | g(x) | 4 | 3 | 1 | 2 |
+      | g′(x) | −2 | 5 | −1 | 3 |
+    prompt: |
+      Let p(x) = f(x)/g(x). What is p′(4)?
+    options:
+      - "4"
+      - "−16"
+      - "4/3"
+      - "−4"
+    option_explanations:
+      - |
+        The quotient rule's numerator was reversed, f(4)g′(4) − f′(4)g(4), which flips the sign.
+      - |
+        −16 is the quotient rule's numerator; it still has to be divided by [g(4)]² = 4.
+      - |
+        4/3 is f′(4)/g′(4); the derivative of a quotient is not the quotient of derivatives.
+      - |
+        Correct. p′(4) = [f′(4)g(4) − f(4)g′(4)]/[g(4)]² = (4 · 2 − 8 · 3)/4 = −16/4 = −4.
+    answer: 3
+  # ---- Stimulus set B: an implicit curve (3.2, 3.6)
+  - slug: apcalcab-u03-exam-q05
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "AP Calculus CED, Topic 3.2"
+    points: 1
+    stimulus: |
+      Consider the curve given by y² − 3xy + x² = −1. The points (1, 1), (1, 2) and (2, 1) lie on the curve.
+    prompt: |
+      Which expression gives dy/dx for this curve?
+    options:
+      - "(2x − 3y)/(2y − 3x)"
+      - "(3y − 2x)/(2y − 3x)"
+      - "−x/y"
+      - "(3y − 2x)/(2y)"
+    option_explanations:
+      - |
+        The terms were moved to the wrong side: 2y(dy/dx) − 3x(dy/dx) = 3y − 2x, so the numerator is 3y − 2x, not its negative.
+      - |
+        Correct. 2y(dy/dx) − 3[y + x(dy/dx)] + 2x = 0, so (2y − 3x)(dy/dx) = 3y − 2x.
+      - |
+        This ignores the −3xy term entirely, as if the curve were x² + y² = −1.
+      - |
+        The product rule on −3xy gives −3y − 3x(dy/dx); the −3x(dy/dx) term was dropped from the denominator.
+    answer: 1
+  - slug: apcalcab-u03-exam-q06
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "AP Calculus CED, Topic 3.2"
+    points: 1
+    stimulus: |
+      Consider the curve given by y² − 3xy + x² = −1. The points (1, 1), (1, 2) and (2, 1) lie on the curve.
+    prompt: |
+      What is the slope of the line tangent to the curve at the point (1, 2)?
+    options:
+      - "1/4"
+      - "−4"
+      - "4"
+      - "1"
+    option_explanations:
+      - |
+        This inverts the slope, dividing 2y − 3x by 3y − 2x.
+      - |
+        The sign is wrong: at (1, 2) both 3y − 2x = 4 and 2y − 3x = 1 are positive.
+      - |
+        Correct. dy/dx = (3 · 2 − 2 · 1)/(2 · 2 − 3 · 1) = 4/1 = 4.
+      - |
+        1 comes from the denominator 2y without the −3x term, (6 − 2)/4.
+    answer: 2
+  - slug: apcalcab-u03-exam-q07
+    type: multiple_choice
+    topic_code: "3.6"
+    source: "AP Calculus CED, Topic 3.6"
+    points: 1
+    stimulus: |
+      Consider the curve given by y² − 3xy + x² = −1. The points (1, 1), (1, 2) and (2, 1) lie on the curve.
+    prompt: |
+      What is the value of d²y/dx² at the point (1, 2)?
+    options:
+      - "4"
+      - "10"
+      - "16"
+      - "−10"
+    option_explanations:
+      - |
+        4 is dy/dx at (1, 2), the first derivative, not the second.
+      - |
+        This differentiates (3y − 2x)/(2y − 3x) treating y as a constant, which gives 5y/(2y − 3x)² = 10; the dy/dx terms change the result.
+      - |
+        16 is (dy/dx)² = 4²; the second derivative is the derivative of dy/dx, not its square.
+      - |
+        Correct. Quotient rule with dy/dx = 4 substituted: [(3 · 4 − 2)(1) − (4)(2 · 4 − 3)]/1² = (10 − 20)/1 = −10.
+    answer: 3
+  # ---- Stimulus set C: a function and its inverse (3.4, 3.3, 3.6)
+  - slug: apcalcab-u03-exam-q08
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "AP Calculus CED, Topic 3.4"
+    points: 1
+    stimulus: |
+      Let f(x) = x³ + x + arctan x. The function f is increasing for all real numbers, so it has an inverse function g. Note that f(1) = 2 + π/4.
+    prompt: |
+      Which expression is f′(x)?
+    options:
+      - "3x² + 1 + 1/(1 + x²)"
+      - "3x² + 1 + 1/√(1 − x²)"
+      - "3x² + 1 − 1/(1 + x²)"
+      - "3x² + 1 + sec²x"
+    option_explanations:
+      - |
+        Correct. The derivative of arctan x is 1/(1 + x²), added to the derivative 3x² + 1 of the polynomial.
+      - |
+        1/√(1 − x²) is the derivative of arcsin x, not arctan x.
+      - |
+        The derivative of arctan x is positive; the minus sign is a slip.
+      - |
+        sec²x is the derivative of tan x; arctan is its inverse, whose derivative is 1/(1 + x²).
+    answer: 0
+  - slug: apcalcab-u03-exam-q09
+    type: multiple_choice
+    topic_code: "3.3"
+    source: "AP Calculus CED, Topic 3.3"
+    points: 1
+    stimulus: |
+      Let f(x) = x³ + x + arctan x. The function f is increasing for all real numbers, so it has an inverse function g. Note that f(1) = 2 + π/4.
+    prompt: |
+      What is g′(2 + π/4)?
+    options:
+      - "9/2"
+      - "1/4"
+      - "2/9"
+      - "4/(8 + π)"
+    option_explanations:
+      - |
+        9/2 is f′(1) = 3 + 1 + 1/2 itself; the inverse's slope is its reciprocal.
+      - |
+        1/4 leaves out the arctangent term: f′(1) is 3 + 1 + 1/2, not 3 + 1.
+      - |
+        Correct. g(2 + π/4) = 1, and f′(1) = 3 + 1 + 1/2 = 9/2, so g′(2 + π/4) = 1/f′(1) = 2/9.
+      - |
+        4/(8 + π) is 1/(2 + π/4), the reciprocal of the input value, not of the derivative.
+    answer: 2
+  - slug: apcalcab-u03-exam-q10
+    type: multiple_choice
+    topic_code: "3.6"
+    source: "AP Calculus CED, Topic 3.6"
+    points: 1
+    stimulus: |
+      Let f(x) = x³ + x + arctan x. The function f is increasing for all real numbers, so it has an inverse function g. Note that f(1) = 2 + π/4.
+    prompt: |
+      (Calculator.) What is f″(1.2), to three decimal places?
+    options:
+      - "7.200"
+      - "6.797"
+      - "7.603"
+      - "6.216"
+    option_explanations:
+      - |
+        7.200 is 6x at 1.2, the second derivative of x³ alone; the arctangent term also contributes.
+      - |
+        Correct. f″(x) = 6x − 2x/(1 + x²)², so f″(1.2) = 7.2 − 2.4/2.44² ≈ 7.2 − 0.403 = 6.797.
+      - |
+        This adds 0.403 instead of subtracting it: the derivative of (1 + x²)⁻¹ is −2x(1 + x²)⁻².
+      - |
+        This forgets to square 1 + x² in the denominator, subtracting 2.4/2.44 ≈ 0.984.
+    answer: 1
+  # ---- Independent items
+  - slug: apcalcab-u03-exam-q11
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "AP Calculus CED, Topic 3.1"
+    points: 1
+    prompt: |
+      What is d/dx √(1 − 4x)?
+    options:
+      - "1/(2√(1 − 4x))"
+      - "2/√(1 − 4x)"
+      - "−4/√(1 − 4x)"
+      - "−2/√(1 − 4x)"
+    option_explanations:
+      - |
+        This differentiates the square root but leaves off the inner derivative −4.
+      - |
+        The inner derivative is −4, not +4, so the result must be negative.
+      - |
+        The factor 1/2 from the power rule on u^(1/2) was dropped.
+      - |
+        Correct. (1/2)(1 − 4x)^(−1/2) · (−4) = −2/√(1 − 4x).
+    answer: 3
+  - slug: apcalcab-u03-exam-q12
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "AP Calculus CED, Topic 3.1"
+    points: 1
+    prompt: |
+      What is the derivative of y = tan(5x)?
+    options:
+      - "5 sec²(5x)"
+      - "sec²(5x)"
+      - "5 sec(5x) tan(5x)"
+      - "5 sec²x"
+    option_explanations:
+      - |
+        Correct. sec²(5x) times the inner derivative 5.
+      - |
+        The chain rule's inner derivative 5 is missing.
+      - |
+        sec u tan u is the derivative of sec u, not of tan u.
+      - |
+        The angle must stay 5x inside the secant; only the factor 5 comes outside.
+    answer: 0
+  - slug: apcalcab-u03-exam-q13
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "AP Calculus CED, Topic 3.1"
+    points: 1
+    prompt: |
+      What is d/dx ln(cos x), for −π/2 < x < π/2?
+    options:
+      - "1/cos x"
+      - "tan x"
+      - "−tan x"
+      - "−1/sin x"
+    option_explanations:
+      - |
+        This differentiates ln u as 1/u but forgets to multiply by the inner derivative −sin x.
+      - |
+        The derivative of cos x is −sin x, so the result is negative; the sign was lost.
+      - |
+        Correct. By the chain rule, (1/cos x) · (−sin x) = −tan x.
+      - |
+        This takes the reciprocal of the inner derivative; d/dx ln u is u′/u, not 1/u′.
+    answer: 2
+  - slug: apcalcab-u03-exam-q14
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "AP Calculus CED, Topic 3.1"
+    points: 1
+    prompt: |
+      The function g is differentiable with g′(5) = −2. Let f(x) = g(3x − 1). What is f′(2)?
+    options:
+      - "−2"
+      - "−6"
+      - "−2/3"
+      - "−10"
+    option_explanations:
+      - |
+        −2 is g′(5) alone; the inner function 3x − 1 contributes a factor 3.
+      - |
+        Correct. f′(x) = 3g′(3x − 1), and 3(2) − 1 = 5, so f′(2) = 3 · (−2) = −6.
+      - |
+        −2/3 divides g′(5) by the inner derivative 3; the chain rule multiplies by it.
+      - |
+        −10 multiplies by the inner value 5 instead of the inner derivative 3.
+    answer: 1
+  - slug: apcalcab-u03-exam-q15
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "AP Calculus CED, Topic 3.1"
+    points: 1
+    prompt: |
+      Let y = u³ and u = 2x + 1. What is dy/dx when x = 1?
+    options:
+      - "27"
+      - "6"
+      - "18"
+      - "54"
+    option_explanations:
+      - |
+        27 is dy/du = 3u² at u = 3 alone; it must be multiplied by du/dx = 2.
+      - |
+        6 is 3 · 2, which leaves out the factor u² = 9 from dy/du.
+      - |
+        18 uses 3u instead of 3u² for dy/du (3 · 3 · 2).
+      - |
+        Correct. dy/dx = (dy/du)(du/dx) = 3u² · 2; at x = 1, u = 3, so 3 · 9 · 2 = 54.
+    answer: 3
+  - slug: apcalcab-u03-exam-q16
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "AP Calculus CED, Topic 3.2"
+    points: 1
+    prompt: |
+      For the curve xy = 12, what is dy/dx at the point (3, 4)?
+    options:
+      - "−4/3"
+      - "−3/4"
+      - "4/3"
+      - "−4"
+    option_explanations:
+      - |
+        Correct. Product rule: y + x(dy/dx) = 0, so dy/dx = −y/x = −4/3.
+      - |
+        This inverts the slope, giving −x/y = −3/4 instead of −y/x.
+      - |
+        The sign is wrong: y + x(dy/dx) = 0 makes dy/dx = −y/x.
+      - |
+        This solves y + x(dy/dx) = 0 as dy/dx = −y, forgetting to divide by x.
+    answer: 0
+  - slug: apcalcab-u03-exam-q17
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "AP Calculus CED, Topic 3.2"
+    points: 1
+    prompt: |
+      For the curve x² + y² − 6x = 7, dy/dx = (3 − x)/y. At which points does the curve have a horizontal tangent line?
+    options:
+      - "(−1, 0) and (7, 0)"
+      - "(0, √7) and (0, −√7)"
+      - "(3, 4) and (3, −4)"
+      - "(3, 0) only"
+    option_explanations:
+      - |
+        At (−1, 0) and (7, 0) the denominator y is 0, so the tangent lines there are vertical.
+      - |
+        These are the y-intercepts of the curve; at x = 0 the slope is 3/y, not 0.
+      - |
+        Correct. 3 − x = 0 gives x = 3; then 9 + y² − 18 = 7 gives y = ±4, and y ≠ 0 at both points.
+      - |
+        (3, 0) is not on the curve (9 − 18 = −9, not 7); x = 3 must be substituted into the curve's equation to find y.
+    answer: 2
+  - slug: apcalcab-u03-exam-q18
+    type: multiple_choice
+    topic_code: "3.3"
+    source: "AP Calculus CED, Topic 3.3"
+    points: 1
+    prompt: |
+      Let f(x) = e^(2x) + x, and let g be the inverse function of f. What is g′(1)?
+    options:
+      - "3"
+      - "1/3"
+      - "1/(2e² + 1)"
+      - "−1/3"
+    option_explanations:
+      - |
+        3 is f′(0); the inverse's derivative is the reciprocal.
+      - |
+        Correct. f(0) = 1 + 0 = 1, and f′(x) = 2e^(2x) + 1 gives f′(0) = 3, so g′(1) = 1/3.
+      - |
+        This is 1/f′(1): f′ must be evaluated at the matching input 0, not at the inverse's input 1.
+      - |
+        Reflection in y = x takes the reciprocal of the slope, without changing its sign.
+    answer: 1
+  - slug: apcalcab-u03-exam-q19
+    type: multiple_choice
+    topic_code: "3.3"
+    source: "AP Calculus CED, Topic 3.3"
+    points: 1
+    prompt: |
+      Let f(x) = x³ + 1, and let g be the inverse function of f. Which statement about g at x = 1 is true?
+    options:
+      - "g′(1) = 0"
+      - "g′(1) = 3"
+      - "g′(1) = 1/3"
+      - "g is not differentiable at x = 1; its graph has a vertical tangent there."
+    option_explanations:
+      - |
+        f′(0) = 0, so the inverse's slope 1/f′(0) is undefined, not 0: horizontal on f becomes vertical on g.
+      - |
+        3 is f′(1); the matching input for g at 1 is 0, because f(0) = 1.
+      - |
+        1/3 is 1/f′(1), which uses the wrong input; the matching input is 0, where f′ is 0.
+      - |
+        Correct. f(0) = 1 and f′(0) = 0, so f has a horizontal tangent at (0, 1) and its reflection g has a vertical tangent at (1, 0).
+    answer: 3
+  - slug: apcalcab-u03-exam-q20
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "AP Calculus CED, Topic 3.4"
+    points: 1
+    prompt: |
+      What is d/dx arccos(2x)?
+    options:
+      - "−2/√(1 − 4x²)"
+      - "−1/√(1 − 4x²)"
+      - "2/√(1 − 4x²)"
+      - "−2/(1 + 4x²)"
+    option_explanations:
+      - |
+        Correct. −u′/√(1 − u²) with u = 2x gives −2/√(1 − 4x²).
+      - |
+        The chain rule's inner derivative 2 is missing.
+      - |
+        The arccosine derivative is negative; this is the derivative of arcsin(2x).
+      - |
+        This uses the arctangent form 1/(1 + u²) in place of 1/√(1 − u²).
+    answer: 0
+  - slug: apcalcab-u03-exam-q21
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "AP Calculus CED, Topic 3.4"
+    points: 1
+    prompt: |
+      Let f(x) = x arctan x. What is f′(1)?
+    options:
+      - "1/2"
+      - "π/4"
+      - "π/4 + 1/2"
+      - "π/4 + 2"
+    option_explanations:
+      - |
+        1/2 is the product of the derivatives, 1 · 1/(1 + 1); the product rule adds two terms.
+      - |
+        π/4 is only the first product-rule term, arctan 1; the term x · 1/(1 + x²) = 1/2 is missing.
+      - |
+        Correct. f′(x) = arctan x + x/(1 + x²), so f′(1) = π/4 + 1/2.
+      - |
+        This uses 1 + x² instead of its reciprocal for the derivative of arctan x.
+    answer: 2
+  - slug: apcalcab-u03-exam-q22
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "AP Calculus CED, Topic 3.4"
+    points: 1
+    prompt: |
+      What is d/dx arctan(1/x), for x ≠ 0?
+    options:
+      - "1/(1 + x²)"
+      - "−1/(1 + x²)"
+      - "−1/(x² + x)"
+      - "x²/(1 + x²)"
+    option_explanations:
+      - |
+        The inner derivative of 1/x is −1/x², which makes the result negative.
+      - |
+        Correct. [1/(1 + 1/x²)] · (−1/x²) = −1/(x² + 1).
+      - |
+        This uses 1 + 1/x instead of 1 + (1/x)²: the inner function must be squared.
+      - |
+        This is 1/(1 + 1/x²) without the inner derivative −1/x².
+    answer: 1
+  - slug: apcalcab-u03-exam-q23
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "AP Calculus CED, Topic 3.5"
+    points: 1
+    prompt: |
+      What is the derivative of y = x²e^(−x)?
+    options:
+      - "−2xe^(−x)"
+      - "2xe^(−x)"
+      - "xe^(−x)(2 + x)"
+      - "xe^(−x)(2 − x)"
+    option_explanations:
+      - |
+        This multiplies the derivatives 2x and −e^(−x); the product rule adds two terms.
+      - |
+        This differentiates x² and keeps e^(−x) unchanged, leaving out the term x² · (−e^(−x)).
+      - |
+        The derivative of e^(−x) is −e^(−x); dropping the chain-rule sign gives +x².
+      - |
+        Correct. 2xe^(−x) + x² · (−e^(−x)) = xe^(−x)(2 − x).
+    answer: 3
+  - slug: apcalcab-u03-exam-q24
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "AP Calculus CED, Topic 3.5"
+    points: 1
+    prompt: |
+      What is d/dx [(x² + 1)/x], for x ≠ 0?
+    options:
+      - "1 − 1/x²"
+      - "2x"
+      - "1 + 1/x²"
+      - "(3x² + 1)/x²"
+    option_explanations:
+      - |
+        Correct. Rewrite as x + x⁻¹; the derivative is 1 − x⁻² = 1 − 1/x².
+      - |
+        2x is the ratio of the derivatives, 2x/1; a quotient is not differentiated piece by piece.
+      - |
+        The derivative of x⁻¹ is −x⁻²; the sign was lost.
+      - |
+        The quotient rule's numerator should be 2x · x − (x² + 1) · 1 = x² − 1; adding the second term instead gives (3x² + 1)/x².
+    answer: 0
+  - slug: apcalcab-u03-exam-q25
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "AP Calculus CED, Topic 3.5"
+    points: 1
+    prompt: |
+      What is d/dx ln(√(x + 1)), for x > −1?
+    options:
+      - "1/√(x + 1)"
+      - "1/(x + 1)"
+      - "1/(2(x + 1))"
+      - "1/(2√(x + 1))"
+    option_explanations:
+      - |
+        This is 1/u with u = √(x + 1), without the inner derivative 1/(2√(x + 1)).
+      - |
+        The factor 1/2 is missing: ln(√(x + 1)) = (1/2)ln(x + 1).
+      - |
+        Correct. Rewrite as (1/2)ln(x + 1); its derivative is 1/(2(x + 1)).
+      - |
+        This is the derivative of √(x + 1) itself; the logarithm adds a factor 1/√(x + 1).
+    answer: 2
+  - slug: apcalcab-u03-exam-q26
+    type: multiple_choice
+    topic_code: "3.6"
+    source: "AP Calculus CED, Topic 3.6"
+    points: 1
+    prompt: |
+      If y = x³ − 2/x, what is d²y/dx²?
+    options:
+      - "6x + 4/x³"
+      - "6x − 4/x³"
+      - "6x − 2/x²"
+      - "3x² + 2/x²"
+    option_explanations:
+      - |
+        The second derivative of −2x⁻¹ is −4x⁻³; a sign was lost along the way.
+      - |
+        Correct. y′ = 3x² + 2x⁻², so y″ = 6x − 4x⁻³ = 6x − 4/x³.
+      - |
+        The derivative of 2x⁻² was written as −2x⁻², without multiplying by the full exponent factor or lowering the power; d/dx 2x⁻² = −4x⁻³.
+      - |
+        This is the first derivative; the question asks for the second.
+    answer: 1
+  - slug: apcalcab-u03-exam-q27
+    type: multiple_choice
+    topic_code: "3.6"
+    source: "AP Calculus CED, Topic 3.6"
+    points: 1
+    prompt: |
+      Let f(x) = e^(−x²). What is f″(0)?
+    options:
+      - "0"
+      - "1"
+      - "2"
+      - "−2"
+    option_explanations:
+      - |
+        0 is f′(0); the second derivative at 0 is not zero.
+      - |
+        1 is f(0) = e⁰, the value of the function, not its second derivative.
+      - |
+        The sign is wrong: f″(x) = (4x² − 2)e^(−x²), which is −2 at x = 0.
+      - |
+        Correct. f′(x) = −2xe^(−x²) and f″(x) = −2e^(−x²) + 4x²e^(−x²), so f″(0) = −2.
+    answer: 3
+  - slug: apcalcab-u03-exam-q28
+    type: multiple_choice
+    topic_code: "3.6"
+    source: "AP Calculus CED, Topic 3.6"
+    points: 1
+    prompt: |
+      What is the 99th derivative of sin x?
+    options:
+      - "−cos x"
+      - "cos x"
+      - "−sin x"
+      - "sin x"
+    option_explanations:
+      - |
+        Correct. The derivatives cycle with period 4 (cos, −sin, −cos, sin); 99 = 4 · 24 + 3, so the 99th matches the 3rd, −cos x.
+      - |
+        cos x is the 1st derivative (and every order with remainder 1); 99 has remainder 3 on division by 4.
+      - |
+        −sin x is the 2nd derivative (remainder 2), one step short of the 99th.
+      - |
+        sin x returns at orders that are multiples of 4; 99 is not one.
+    answer: 0
+  - slug: apcalcab-u03-exam-q29
+    type: multiple_choice
+    topic_code: "3.6"
+    source: "AP Calculus CED, Topic 3.6"
+    points: 1
+    prompt: |
+      If f′(x) = √(x² + 5), what is f″(2)?
+    options:
+      - "2/3"
+      - "1/6"
+      - "3"
+      - "4/3"
+    option_explanations:
+      - |
+        Correct. f″(x) = 2x/(2√(x² + 5)) = x/√(x² + 5), so f″(2) = 2/3.
+      - |
+        1/6 is 1/(2√9) without the inner derivative 2x = 4.
+      - |
+        3 is f′(2) = √9, the first derivative's value.
+      - |
+        4/3 is 2x/√(x² + 5) at 2: the factor 1/2 from the square root was dropped.
+    answer: 0
+  - slug: apcalcab-u03-exam-q30
+    type: multi_select
+    topic_code: "3.1"
+    source: "AP Calculus CED, Topic 3.1"
+    points: 2
+    partial_credit: true
+    prompt: |
+      For which functions is the derivative at x = 0 equal to 2? Select all that apply.
+    options:
+      - "sin(2x)"
+      - "e^(2x) − 1"
+      - "cos(2x)"
+      - "ln(2x + 1)"
+      - "(2x + 1)³"
+    option_explanations:
+      - |
+        Correct. The derivative 2cos(2x) equals 2 · 1 = 2 at x = 0.
+      - |
+        Correct. The derivative 2e^(2x) equals 2 · 1 = 2 at x = 0.
+      - |
+        The derivative −2sin(2x) is 0 at x = 0, not 2.
+      - |
+        Correct. The derivative 2/(2x + 1) equals 2/1 = 2 at x = 0.
+      - |
+        The derivative 3(2x + 1)² · 2 equals 6 at x = 0; the chain-rule factor triples the 2.
+    answer: [0, 1, 3]
+  - slug: apcalcab-u03-exam-q31
+    type: multi_select
+    topic_code: "3.6"
+    source: "AP Calculus CED, Topic 3.6"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Let y = e^(−x). Which statements are true? Select all that apply.
+    options:
+      - "d²y/dx² = −e^(−x)"
+      - "d²y/dx² = e^(−x)"
+      - "d³y/dx³ = −e^(−x)"
+      - "d¹⁰y/dx¹⁰ = −e^(−x)"
+      - "d⁴y/dx⁴ = y"
+    option_explanations:
+      - |
+        Two factors of −1 multiply to +1, so the second derivative is +e^(−x).
+      - |
+        Correct. y′ = −e^(−x), and differentiating again gives y″ = e^(−x).
+      - |
+        Correct. Three chain-rule factors of −1 multiply to −1, so y‴ = −e^(−x).
+      - |
+        An even number of differentiations gives +e^(−x); the nth derivative is (−1)ⁿe^(−x).
+      - |
+        Correct. (−1)⁴ = 1, so the fourth derivative is e^(−x) = y.
+    answer: [1, 2, 4]
+  - slug: apcalcab-u03-exam-q32
+    type: multi_select
+    topic_code: "3.3"
+    source: "AP Calculus CED, Topic 3.3"
+    points: 2
+    partial_credit: true
+    prompt: |
+      The function f is differentiable and increasing, with f(1) = 2 and f′(1) = 5. Let g be the inverse function of f. Which statements are true? Select all that apply.
+    options:
+      - "g(2) = 1"
+      - "g′(2) = 5"
+      - "g′(2) = 1/5"
+      - "The line tangent to the graph of g at x = 2 is y = 1 + (1/5)(x − 2)."
+      - "g′(1) = 1/5"
+    option_explanations:
+      - |
+        Correct. f(1) = 2 means the inverse sends 2 back to 1, so g(2) = 1.
+      - |
+        5 is f′(1); the inverse's derivative is its reciprocal.
+      - |
+        Correct. g′(2) = 1/f′(g(2)) = 1/f′(1) = 1/5.
+      - |
+        Correct. The point (2, 1) and the slope 1/5 give this line.
+      - |
+        g′(1) = 1/f′(g(1)) needs the input a with f(a) = 1, which the data do not give; 1/5 belongs to g′(2).
+    answer: [0, 2, 3]
+  - slug: apcalcab-u03-exam-q33
+    type: true_false
+    topic_code: "3.2"
+    source: "AP Calculus CED, Topic 3.2"
+    points: 1
+    prompt: |
+      True or false: For the circle x² + y² = 25, the slope of the tangent line at the point (3, 4) is 3/4.
+    answer: false
+    explanation: |
+      False. 2x + 2y(dy/dx) = 0 gives dy/dx = −x/y = −3/4. The radius to (3, 4) has slope 4/3, and the tangent is perpendicular to it, so its slope is −3/4.
+  - slug: apcalcab-u03-exam-q34
+    type: true_false
+    topic_code: "3.4"
+    source: "AP Calculus CED, Topic 3.4"
+    points: 1
+    prompt: |
+      True or false: For −1 < x < 1, the derivative of arcsin x plus the derivative of arccos x equals 0.
+    answer: true
+    explanation: |
+      True. 1/√(1 − x²) + (−1/√(1 − x²)) = 0. This matches the identity arcsin x + arccos x = π/2, whose derivative is 0.
+  - slug: apcalcab-u03-exam-q35
+    type: true_false
+    topic_code: "3.6"
+    source: "AP Calculus CED, Topic 3.6"
+    points: 1
+    prompt: |
+      True or false: For y = x², the second derivative d²y/dx² is equal to (dy/dx)².
+    answer: false
+    explanation: |
+      False. d²y/dx² = 2, while (dy/dx)² = (2x)² = 4x². The second derivative is the derivative of the derivative, not its square.
+  - slug: apcalcab-u03-exam-q36
+    type: fill_blank
+    topic_code: "3.1"
+    source: "AP Calculus CED, Topic 3.1"
+    points: 1
+    prompt: |
+      If f(x) = sin(πx), then f′(1) = ____. Give the exact value or a decimal to three places.
+    answer: ["-π", "−π", "-pi", "−pi", "- π", "− π", "-3.142", "−3.142"]
+    explanation: |
+      f′(x) = π cos(πx), so f′(1) = π cos π = −π ≈ −3.142.
+  - slug: apcalcab-u03-exam-q37
+    type: fill_blank
+    topic_code: "3.4"
+    source: "AP Calculus CED, Topic 3.4"
+    points: 1
+    prompt: |
+      The derivative of arctan(x/3) at x = 0 is ____.
+    answer: ["1/3", "1 / 3", "0.333", ".333"]
+    explanation: |
+      d/dx arctan(x/3) = (1/3)/(1 + x²/9) = 3/(9 + x²), which is 3/9 = 1/3 at x = 0.
+  - slug: apcalcab-u03-exam-q38
+    type: fill_blank
+    topic_code: "3.6"
+    source: "AP Calculus CED, Topic 3.6"
+    points: 1
+    prompt: |
+      If f(x) = x⁶, then the sixth derivative f⁽⁶⁾(x) = ____.
+    answer: ["720"]
+    explanation: |
+      Each derivative multiplies by the current exponent and lowers it by one: 6 · 5 · 4 · 3 · 2 · 1 = 6! = 720.
+  - slug: apcalcab-u03-exam-q39
+    type: numeric
+    topic_code: "3.1"
+    source: "AP Calculus CED, Topic 3.1"
+    points: 1
+    prompt: |
+      (Calculator.) Let h(x) = √(1 + eˣ). Find h′(1). Give your answer to three decimal places.
+    answer: { value: 0.705, tolerance: 0.001 }
+    explanation: |
+      h′(x) = eˣ/(2√(1 + eˣ)), so h′(1) = e/(2√(1 + e)) ≈ 2.71828/3.85657 ≈ 0.705.
+  - slug: apcalcab-u03-exam-q40
+    type: numeric
+    topic_code: "3.3"
+    source: "AP Calculus CED, Topic 3.3"
+    points: 1
+    prompt: |
+      Let f(x) = 2x + cos x, which is increasing because f′(x) = 2 − sin x > 0. Let g be the inverse function of f. Find g′(1), as a decimal.
+    answer: { value: 0.5, tolerance: 0 }
+    explanation: |
+      f(0) = 0 + 1 = 1, so g(1) = 0. f′(0) = 2 − 0 = 2, so g′(1) = 1/f′(0) = 1/2 = 0.5.
+  - slug: apcalcab-u03-exam-q41
+    type: numeric
+    topic_code: "3.6"
+    source: "AP Calculus CED, Topic 3.6"
+    points: 1
+    prompt: |
+      (Calculator.) Let f(x) = x² ln x. Find f″(2). Give your answer to three decimal places.
+    answer: { value: 4.386, tolerance: 0.001 }
+    explanation: |
+      f′(x) = 2x ln x + x, and f″(x) = 2 ln x + 2 + 1 = 2 ln x + 3. So f″(2) = 2 ln 2 + 3 ≈ 4.386.
+  - slug: apcalcab-u03-exam-q42
+    type: short_answer
+    topic_code: "3.2"
+    source: "AP Calculus CED, Topic 3.2"
+    points: 3
+    prompt: |
+      Consider the curve given by e^y + xy = e.
+
+      (a) Find dy/dx in terms of x and y.
+      (b) Verify that (0, 1) is on the curve, and write an equation for the line tangent to the curve there.
+      (c) Show that the curve has no horizontal tangent lines.
+    answer: |
+      (a) e^y(dy/dx) + y + x(dy/dx) = 0, so dy/dx = −y/(e^y + x).
+      (b) e¹ + 0 · 1 = e, so (0, 1) is on the curve. Slope: −1/(e + 0) = −1/e. Tangent line: y = 1 − (1/e)x.
+      (c) A horizontal tangent needs the numerator −y = 0, so y = 0. Substituting y = 0 into the curve gives e⁰ + 0 = 1, and 1 ≠ e, so no point of the curve has y = 0; the curve has no horizontal tangents.
+    explanation: |
+      Three points, one per part. (a) a correct implicit derivative with the product rule on xy and the chain rule on e^y. (b) verification and the line with slope −1/e. (c) the argument that y = 0 is required and that no point with y = 0 lies on the curve.
+  - slug: apcalcab-u03-exam-q43
+    type: short_answer
+    topic_code: "3.4"
+    source: "AP Calculus CED, Topic 3.4"
+    points: 3
+    prompt: |
+      Let y = arctan x.
+
+      (a) Starting from tan y = x, use implicit differentiation to show that dy/dx = 1/(1 + x²).
+      (b) Find the slope of the graph of y = arctan x at x = √3.
+      (c) Write an equation for the line tangent to the graph of y = arctan x at x = 1.
+    answer: |
+      (a) Differentiate tan y = x: sec²y · (dy/dx) = 1, so dy/dx = 1/sec²y. Since sec²y = 1 + tan²y = 1 + x², dy/dx = 1/(1 + x²).
+      (b) 1/(1 + 3) = 1/4.
+      (c) arctan 1 = π/4 and the slope is 1/(1 + 1) = 1/2, so y = π/4 + (1/2)(x − 1).
+    explanation: |
+      Three points, one per part. (a) the implicit derivative sec²y(dy/dx) = 1 and the identity sec²y = 1 + tan²y used to rewrite in x. (b) 1/4. (c) the point (1, π/4) and slope 1/2 in a correct line.
+  # ---- Free response 1 (calculator): a diver's temperature (3.1, 3.3)
+  - slug: apcalcab-u03-exam-q44
+    type: long_answer
+    topic_code: "3.1"
+    source: "AP Calculus CED, Topic 3.1"
+    points: 9
+    prompt: |
+      (Calculator.) In a hypothetical lake, the water temperature at depth x meters is W(x) = 4 + 18e^(−0.15x) degrees Celsius. A diver's depth, in meters, t minutes after starting a survey is d(t) = 10 + 6 sin(0.5t), for 0 ≤ t ≤ 12. Let D(t) = W(d(t)) be the water temperature at the diver's location at time t.
+
+      (A) Find an expression for D′(t). Show the chain-rule structure.
+
+      (B) Find D′(2). Using correct units, interpret the meaning of D′(2) in the context of the problem.
+
+      (C) Find all times t in 0 ≤ t ≤ 12 at which D′(t) = 0. Justify your answer using your expression from part (A).
+
+      (D) On the interval 0 ≤ t ≤ π the depth d is increasing, so it has an inverse function T, where T(x) is the time at which the diver is at depth x. Find the time at which the diver is at depth 13 meters, and find T′(13). Interpret T′(13) with units.
+    answer: |
+      (A) W′(x) = 18(−0.15)e^(−0.15x) = −2.7e^(−0.15x), and d′(t) = 3cos(0.5t). By the chain rule, D′(t) = W′(d(t)) · d′(t) = −2.7e^(−0.15(10 + 6 sin(0.5t))) · 3cos(0.5t) = −8.1cos(0.5t)e^(−0.15(10 + 6 sin(0.5t))).
+      (B) D′(2) ≈ −0.458. At time t = 2 minutes, the water temperature at the diver's location is decreasing at about 0.458 degrees Celsius per minute (the diver is descending into colder water).
+      (C) D′(t) = W′(d(t)) · d′(t). W′(x) = −2.7e^(−0.15x) is never 0, so D′(t) = 0 exactly when d′(t) = 3cos(0.5t) = 0, that is when 0.5t = π/2 or 3π/2. So t = π ≈ 3.142 and t = 3π ≈ 9.425 minutes (the diver is momentarily at constant depth).
+      (D) 10 + 6 sin(0.5t) = 13 gives sin(0.5t) = 1/2, so 0.5t = π/6 and t = π/3 ≈ 1.047 minutes; T(13) = π/3. d′(π/3) = 3cos(π/6) = 3√3/2 ≈ 2.598 meters per minute, so T′(13) = 1/d′(π/3) = 2/(3√3) ≈ 0.385 minutes per meter. When the diver is at a depth of 13 meters, each additional meter of depth takes about 0.385 minutes (about 23 seconds) to descend.
+    explanation: |
+      Nine points. (A) 2 points: 1 for the chain-rule structure W′(d(t)) · d′(t), 1 for a correct expression (any equivalent form). (B) 2 points: 1 for D′(2) ≈ −0.458 (accept −0.457 or −0.458), 1 for an interpretation with "decreasing" (or "changing at −0.458"), units of degrees Celsius per minute and the time t = 2. (C) 2 points: 1 for the reasoning that W′ is never zero so d′(t) must be 0, 1 for both times t = π and t = 3π (decimals accepted). (D) 3 points: 1 for T(13) = π/3 (≈ 1.047), 1 for T′(13) = 1/d′(π/3) ≈ 0.385 (accept 2/(3√3) or 0.384 to 0.385), 1 for the interpretation in minutes per meter.
+  # ---- Free response 2 (no calculator): analysis of a curve (3.2, 3.6)
+  - slug: apcalcab-u03-exam-q45
+    type: long_answer
+    topic_code: "3.2"
+    source: "AP Calculus CED, Topic 3.2"
+    points: 9
+    prompt: |
+      Consider the curve given by x² + xy + y² = 7.
+
+      (A) Show that dy/dx = −(2x + y)/(x + 2y).
+
+      (B) The point (−1, 3) is on the curve. Write an equation for the line tangent to the curve at this point.
+
+      (C) Find the coordinates of every point on the curve at which the tangent line is horizontal.
+
+      (D) The point (1, 2) is on the curve. Find the value of d²y/dx² at (1, 2). Is the curve concave up or concave down at this point? Explain.
+    answer: |
+      (A) Differentiate: 2x + [y + x(dy/dx)] + 2y(dy/dx) = 0. So (x + 2y)(dy/dx) = −(2x + y), and dy/dx = −(2x + y)/(x + 2y).
+      (B) At (−1, 3): dy/dx = −(−2 + 3)/(−1 + 6) = −1/5. Tangent line: y = 3 − (1/5)(x + 1).
+      (C) Horizontal: 2x + y = 0 with x + 2y ≠ 0. Substitute y = −2x: x² − 2x² + 4x² = 3x² = 7, so x = ±√(7/3) = ±√21/3. Points (√21/3, −2√21/3) and (−√21/3, 2√21/3). At these points x + 2y = −3x ≠ 0, so the tangent lines are horizontal.
+      (D) At (1, 2), dy/dx = −4/5. Differentiate dy/dx = −(2x + y)/(x + 2y) with the quotient rule:
+      d²y/dx² = −[(2 + y′)(x + 2y) − (2x + y)(1 + 2y′)]/(x + 2y)².
+      At (1, 2) with y′ = −4/5: (2 − 4/5)(5) − (4)(1 − 8/5) = 6 + 12/5 = 42/5, and (x + 2y)² = 25, so d²y/dx² = −(42/5)/25 = −42/125. Since d²y/dx² < 0, the curve is concave down at (1, 2).
+    explanation: |
+      Nine points. (A) 2 points: 1 for a correct implicit derivative including the product-rule term y + x(dy/dx), 1 for solving to the given expression. (B) 1 point: slope −1/5 in a correct line through (−1, 3). (C) 3 points: 1 for setting 2x + y = 0, 1 for substituting into the curve to get 3x² = 7, 1 for both points (√21/3, −2√21/3) and (−√21/3, 2√21/3) (equivalent forms such as x = ±√(7/3) accepted). (D) 3 points: 1 for a correct quotient-rule expression for d²y/dx² that treats y as a function of x, 1 for −42/125 (−0.336 accepted), 1 for concave down justified by d²y/dx² < 0.

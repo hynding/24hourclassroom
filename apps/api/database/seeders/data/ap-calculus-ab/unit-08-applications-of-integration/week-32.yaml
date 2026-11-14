@@ -1,0 +1,640 @@
+week: 32
+unit: 8
+title: "Volumes: Cross Sections, Discs and Washers"
+topics: ["8.7", "8.8", "8.9", "8.10", "8.11", "8.12"]
+guide: guides/week-32.md
+guide_description: |
+  Volume as the integral of cross-sectional area; solids with known cross sections (squares, rectangles,
+  semicircles, equilateral and isosceles right triangles) perpendicular to either axis; the disc method about the
+  x- or y-axis and about other horizontal or vertical lines; and the washer method, outer radius squared minus inner
+  radius squared, about the axes and about other lines. Worked examples: square and semicircle cross sections on the
+  region under y = 4 − x², equilateral-triangle cross sections perpendicular to the y-axis, discs for the same
+  region about the x-axis and the y-axis, a disc about the line y = 1, washers for the region between y = x and
+  y = x² about the x-axis, and the same region about y = −1 and x = −1.
+flashcards_description: |
+  34 cards on cross-sectional area formulas, slicing perpendicular to each axis, disc and washer radii about the
+  axes and about other lines, choosing dx or dy, and the errors that cost the most points.
+
+flashcards:
+  - front: Volume by slicing → general formula
+    back: |
+      V = ∫ from a to b of A(x) dx, where A(x) is the area of the cross section at x (or ∫ A(y) dy for slices perpendicular to the y-axis).
+    topic_code: "8.7"
+  - front: Square cross sections perpendicular to the x-axis → area of one slice
+    back: |
+      A(x) = s², where s is the length of the slice across the base: s = top − bottom.
+    topic_code: "8.7"
+  - front: Rectangle cross sections with height k times the base → area of one slice
+    back: |
+      A(x) = s · ks = ks², where s = top − bottom of the base region at x.
+    topic_code: "8.7"
+  - front: Cross sections perpendicular to the y-axis → what changes
+    back: |
+      The slice length is right − left, written in y; the limits are y-values; integrate dy.
+    topic_code: "8.7"
+  - front: Squares on the base under y = 4 − x², 0 ≤ x ≤ 2 → volume
+    back: |
+      ∫ from 0 to 2 of (4 − x²)² dx = 32 − 64/3 + 32/5 = 256/15.
+    topic_code: "8.7"
+  - front: Squares perpendicular to the y-axis on the triangle under y = x, 0 ≤ x ≤ 2 → setup
+    back: |
+      At height y the slice runs from x = y to x = 2, so s = 2 − y. V = ∫ from 0 to 2 of (2 − y)² dy = 8/3.
+    topic_code: "8.7"
+  - front: Semicircle cross sections, diameter s in the base → area of one slice
+    back: |
+      Radius s/2, so A = (1/2)π(s/2)² = (π/8)s².
+    topic_code: "8.8"
+  - front: Equilateral triangle cross sections, side s in the base → area of one slice
+    back: |
+      A = (√3/4)s².
+    topic_code: "8.8"
+  - front: Isosceles right triangle cross sections, a leg in the base → area of one slice
+    back: |
+      Both legs are s, so A = (1/2)s².
+    topic_code: "8.8"
+  - front: Isosceles right triangle cross sections, the hypotenuse in the base → area of one slice
+    back: |
+      Each leg is s/√2, so A = (1/2)(s/√2)² = s²/4.
+    topic_code: "8.8"
+  - front: Semicircles on the base under y = 4 − x², 0 ≤ x ≤ 2 → volume
+    back: |
+      (π/8) ∫ from 0 to 2 of (4 − x²)² dx = (π/8)(256/15) = 32π/15.
+    topic_code: "8.8"
+  - front: Equilateral triangles on the base under y = √x, 0 ≤ x ≤ 4 → volume
+    back: |
+      (√3/4) ∫ from 0 to 4 of (√x)² dx = (√3/4)(8) = 2√3.
+    topic_code: "8.8"
+  - front: Disc method about the x-axis → formula
+    back: |
+      V = π ∫ from a to b of [R(x)]² dx, where R(x) is the distance from the axis to the curve, here simply f(x).
+    topic_code: "8.9"
+  - front: Disc method about the y-axis → formula
+    back: |
+      V = π ∫ from c to d of [R(y)]² dy, with the curve written as x = R(y). Slices are horizontal, perpendicular to the axis.
+    topic_code: "8.9"
+  - front: Disc versus washer → how to tell
+    back: |
+      Disc: every slice of the region touches the axis of rotation (no hole). Washer: there is a gap between the region and the axis, so each slice is a ring.
+    topic_code: "8.9"
+  - front: Region under y = 4 − x², 0 ≤ x ≤ 2, about the x-axis → volume
+    back: |
+      π ∫ from 0 to 2 of (4 − x²)² dx = 256π/15.
+    topic_code: "8.9"
+  - front: Region under y = 4 − x² in the first quadrant, about the y-axis → volume
+    back: |
+      x = √(4 − y): π ∫ from 0 to 4 of (4 − y) dy = π(16 − 8) = 8π.
+    topic_code: "8.9"
+  - front: Region under y = x, 0 ≤ x ≤ 3, about the x-axis → solid and volume
+    back: |
+      A cone of radius 3 and height 3: π ∫ from 0 to 3 of x² dx = 9π, matching (1/3)π(3²)(3).
+    topic_code: "8.9"
+  - front: Disc about a horizontal line y = k → radius
+    back: |
+      The distance from the line to the curve: R = k − f(x) if the curve is below the line, f(x) − k if above. Always a positive distance.
+    topic_code: "8.10"
+  - front: Disc about a vertical line x = h → radius and variable
+    back: |
+      Slices are horizontal, so integrate dy: R = h − g(y) or g(y) − h, the distance from the line to the curve x = g(y).
+    topic_code: "8.10"
+  - front: Region between y = x² and y = 1, about y = 1 → volume
+    back: |
+      Every slice touches y = 1, radius 1 − x²: π ∫ from −1 to 1 of (1 − x²)² dx = 16π/15.
+    topic_code: "8.10"
+  - front: Region under y = x², 0 ≤ x ≤ 2, about x = 2 → setup
+    back: |
+      Horizontal discs touching x = 2, radius 2 − √y, y from 0 to 4: π ∫ from 0 to 4 of (2 − √y)² dy = 8π/3.
+    topic_code: "8.10"
+  - front: Washer method → formula
+    back: |
+      V = π ∫ ([R]² − [r]²), where R is the outer radius (axis to the far curve) and r the inner radius (axis to the near curve).
+    topic_code: "8.11"
+  - front: Region between y = x and y = x², about the x-axis → volume
+    back: |
+      Outer R = x, inner r = x², on [0, 1]: π ∫ from 0 to 1 of (x² − x⁴) dx = π(1/3 − 1/5) = 2π/15.
+    topic_code: "8.11"
+  - front: Region between y = x and y = x², about the y-axis → volume
+    back: |
+      Horizontal washers: outer x = √y, inner x = y, on [0, 1]: π ∫ from 0 to 1 of (y − y²) dy = π/6.
+    topic_code: "8.11"
+  - front: Region under y = √x, 0 ≤ x ≤ 4, about the y-axis → setup
+    back: |
+      Horizontal washers: outer radius 4 (the line x = 4), inner radius y² (the curve), y from 0 to 2: π ∫ from 0 to 2 of (16 − y⁴) dy = 128π/5.
+    topic_code: "8.11"
+  - front: Washer about y = −k (a line below the region) → radii
+    back: |
+      Add k to each height: R = (upper curve) + k, r = (lower curve) + k.
+    topic_code: "8.12"
+  - front: Washer about y = k (a line above the region) → radii
+    back: |
+      Subtract from k: R = k − (lower curve), r = k − (upper curve). The lower curve is now farther from the axis.
+    topic_code: "8.12"
+  - front: Region between y = x and y = x², about y = −1 → setup and volume
+    back: |
+      R = x + 1, r = x² + 1: π ∫ from 0 to 1 of [(x + 1)² − (x² + 1)²] dx = 7π/15.
+    topic_code: "8.12"
+  - front: Region between y = x and y = x², about x = −1 → setup and volume
+    back: |
+      Horizontal washers: R = √y + 1, r = y + 1: π ∫ from 0 to 1 of [(√y + 1)² − (y + 1)²] dy = π/2.
+    topic_code: "8.12"
+  - front: Region under y = 4 − x² in the first quadrant, about y = 4 → setup
+    back: |
+      Washer: R = 4 (from y = 4 to the x-axis), r = 4 − (4 − x²) = x². π ∫ from 0 to 2 of (16 − x⁴) dx = 128π/5.
+    topic_code: "8.12"
+  - front: Error-spot → "washer volume π ∫ (R − r)² dx"
+    back: |
+      The area of a ring is πR² − πr², not π(R − r)². Square each radius first, then subtract.
+    topic_code: "8.11"
+  - front: Error-spot → "about y = −1, the outer radius of the curve y = x is x − 1"
+    back: |
+      The axis is below the region, so the distance from y = −1 up to y = x is x − (−1) = x + 1.
+    topic_code: "8.12"
+  - front: Error-spot → "semicircle cross sections with diameter s have area (π/2)s²"
+    back: |
+      That uses s as the radius. The radius is s/2, so the area is (1/2)π(s/2)² = (π/8)s².
+    topic_code: "8.8"
+
+quiz:
+  description: |
+    25 questions · about 45 minutes · mostly on this week (topics 8.7 to 8.12: volumes with square, rectangle,
+    triangle and semicircle cross sections, and the disc and washer methods about the axes and about other lines),
+    with 8 questions (about a third) reviewing earlier weeks (substitution from week 25, and average value, motion,
+    accumulation and area between curves from weeks 30 and 31). Opens with a shared-context set of five questions on
+    one region. Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items
+    are matched automatically; the short answers and the long answer are graded by your teacher against the scoring
+    notes. Items marked (Calculator.) need a graphing calculator; the rest are done by hand.
+  questions:
+    # ---- Stimulus set: one region, five solids (8.9, 8.12, 8.7, 8.8)
+    - slug: apcalcab-u08-w32-q01
+      type: multiple_choice
+      topic_code: "8.9"
+      source: "AP Calculus CED, Topic 8.9"
+      points: 1
+      stimulus: |
+        Let R be the region in the first quadrant bounded by the graph of y = 4 − x², the x-axis and the y-axis, so 0 ≤ x ≤ 2 and 0 ≤ y ≤ 4. Useful facts: ∫ from 0 to 2 of (4 − x²) dx = 16/3 and ∫ from 0 to 2 of (4 − x²)² dx = 256/15.
+      prompt: |
+        What is the volume of the solid generated when R is revolved about the x-axis?
+      options:
+        - "256π/15"
+        - "16π/3"
+        - "256/15"
+        - "128π/5"
+      option_explanations:
+        - |
+          Correct. Each slice touches the x-axis, so it is a disc of radius 4 − x²: V = π ∫ from 0 to 2 of (4 − x²)² dx = 256π/15.
+        - |
+          16π/3 = π ∫ (4 − x²) dx forgets to square the radius. A disc's area is πR².
+        - |
+          256/15 is ∫ (4 − x²)² dx without the factor π, so it is not the area of a circular slice.
+        - |
+          128π/5 = π ∫ (16 − x⁴) dx squares each term separately: (4 − x²)² is 16 − 8x² + x⁴, not 16 − x⁴.
+      answer: 0
+    - slug: apcalcab-u08-w32-q02
+      type: multiple_choice
+      topic_code: "8.9"
+      source: "AP Calculus CED, Topic 8.9"
+      points: 1
+      stimulus: |
+        Let R be the region in the first quadrant bounded by the graph of y = 4 − x², the x-axis and the y-axis, so 0 ≤ x ≤ 2 and 0 ≤ y ≤ 4. Useful facts: ∫ from 0 to 2 of (4 − x²) dx = 16/3 and ∫ from 0 to 2 of (4 − x²)² dx = 256/15.
+      prompt: |
+        What is the volume of the solid generated when R is revolved about the y-axis?
+      options:
+        - "256π/15"
+        - "16π/3"
+        - "8π"
+        - "16π"
+      option_explanations:
+        - |
+          256π/15 is the volume about the x-axis. About the y-axis the slices are horizontal and the radius is a function of y.
+        - |
+          16π/3 = π ∫ from 0 to 4 of √(4 − y) dy uses the radius without squaring it.
+        - |
+          Correct. Horizontal slices touch the y-axis; solving y = 4 − x² gives radius x = √(4 − y). V = π ∫ from 0 to 4 of (4 − y) dy = π(16 − 8) = 8π.
+        - |
+          16π is a cylinder of radius 2 and height 4: it uses the largest radius for every slice, but the radius shrinks to 0 at y = 4.
+      answer: 2
+    - slug: apcalcab-u08-w32-q03
+      type: multiple_choice
+      topic_code: "8.12"
+      source: "AP Calculus CED, Topic 8.12"
+      points: 1
+      stimulus: |
+        Let R be the region in the first quadrant bounded by the graph of y = 4 − x², the x-axis and the y-axis, so 0 ≤ x ≤ 2 and 0 ≤ y ≤ 4. Useful facts: ∫ from 0 to 2 of (4 − x²) dx = 16/3 and ∫ from 0 to 2 of (4 − x²)² dx = 256/15.
+      prompt: |
+        Which integral gives the volume of the solid generated when R is revolved about the line y = 4?
+      options:
+        - "π ∫ from 0 to 2 of [(4 − x²)² − 16] dx"
+        - "π ∫ from 0 to 2 of [16 − x⁴] dx"
+        - "π ∫ from 0 to 2 of x⁴ dx"
+        - "π ∫ from 0 to 2 of [16 − (4 − x²)²] dx"
+      option_explanations:
+        - |
+          The order is reversed: the outer radius must be the larger one. Here the integrand is negative.
+        - |
+          Correct. The axis y = 4 is above R. The far edge, the x-axis, gives outer radius R = 4 − 0 = 4; the near edge, the curve, gives inner radius r = 4 − (4 − x²) = x². V = π ∫ (16 − x⁴) dx = 128π/5.
+        - |
+          π ∫ x⁴ dx revolves the region between the curve and the line y = 4 (outside R), which touches the axis. R itself leaves a hole.
+        - |
+          This uses the curve's height above the x-axis, 4 − x², as the inner radius. Radii are measured from the axis y = 4, so the inner radius is x².
+      answer: 1
+    - slug: apcalcab-u08-w32-q04
+      type: multiple_choice
+      topic_code: "8.7"
+      source: "AP Calculus CED, Topic 8.7"
+      points: 1
+      stimulus: |
+        Let R be the region in the first quadrant bounded by the graph of y = 4 − x², the x-axis and the y-axis, so 0 ≤ x ≤ 2 and 0 ≤ y ≤ 4. Useful facts: ∫ from 0 to 2 of (4 − x²) dx = 16/3 and ∫ from 0 to 2 of (4 − x²)² dx = 256/15.
+      prompt: |
+        R is the base of a solid whose cross sections perpendicular to the x-axis are squares. What is the volume of the solid?
+      options:
+        - "16/3"
+        - "256π/15"
+        - "256/9"
+        - "256/15"
+      option_explanations:
+        - |
+          16/3 is the area of the base R. Each square has area (4 − x²)², which must be integrated.
+        - |
+          The factor π belongs to circular slices. A square of side s has area s², with no π.
+        - |
+          256/9 = (16/3)² squares the whole area of the base. Each slice is squared, then the slices are added.
+        - |
+          Correct. At x the square's side is 4 − x², so A(x) = (4 − x²)² and V = ∫ from 0 to 2 of (4 − x²)² dx = 256/15.
+      answer: 3
+    - slug: apcalcab-u08-w32-q05
+      type: multiple_choice
+      topic_code: "8.8"
+      source: "AP Calculus CED, Topic 8.8"
+      points: 1
+      stimulus: |
+        Let R be the region in the first quadrant bounded by the graph of y = 4 − x², the x-axis and the y-axis, so 0 ≤ x ≤ 2 and 0 ≤ y ≤ 4. Useful facts: ∫ from 0 to 2 of (4 − x²) dx = 16/3 and ∫ from 0 to 2 of (4 − x²)² dx = 256/15.
+      prompt: |
+        R is the base of a solid whose cross sections perpendicular to the x-axis are semicircles with diameters in R. What is the volume of the solid?
+      options:
+        - "128π/15"
+        - "64π/15"
+        - "32π/15"
+        - "256π/15"
+      option_explanations:
+        - |
+          128π/15 = (π/2) ∫ (4 − x²)² dx treats the slice length as the radius. It is the diameter.
+        - |
+          64π/15 = (π/4) ∫ (4 − x²)² dx is the area of full circles with diameter 4 − x². The slices are half circles.
+        - |
+          Correct. The diameter is 4 − x², so the radius is (4 − x²)/2 and A(x) = (1/2)π((4 − x²)/2)² = (π/8)(4 − x²)². V = (π/8)(256/15) = 32π/15.
+        - |
+          256π/15 is the solid of revolution about the x-axis, whose slices are full discs of radius 4 − x².
+      answer: 2
+    - slug: apcalcab-u08-w32-q06
+      type: multiple_choice
+      topic_code: "8.10"
+      source: "AP Calculus CED, Topic 8.10"
+      points: 1
+      prompt: |
+        The region enclosed by y = x² and y = 1 is revolved about the line y = 1. What is the volume of the solid?
+      options:
+        - "16π/15"
+        - "8π/5"
+        - "8π/15"
+        - "4π/3"
+      option_explanations:
+        - |
+          Correct. Every slice touches the axis y = 1, so it is a disc of radius 1 − x², for x from −1 to 1: π ∫ from −1 to 1 of (1 − x²)² dx = 2π(1 − 2/3 + 1/5) = 16π/15.
+        - |
+          8π/5 = π ∫ from −1 to 1 of (1 − x⁴) dx is a washer about the x-axis (outer 1, inner x²). The axis here is y = 1.
+        - |
+          8π/15 integrates only from 0 to 1. The region runs from x = −1 to x = 1.
+        - |
+          4π/3 = π ∫ from −1 to 1 of (1 − x²) dx forgets to square the radius.
+      answer: 0
+    - slug: apcalcab-u08-w32-q07
+      type: multiple_choice
+      topic_code: "8.11"
+      source: "AP Calculus CED, Topic 8.11"
+      points: 1
+      prompt: |
+        The region enclosed by y = x and y = x² is revolved about the x-axis. What is the volume of the solid?
+      options:
+        - "π/30"
+        - "π/6"
+        - "π/3"
+        - "2π/15"
+      option_explanations:
+        - |
+          π/30 = π ∫ from 0 to 1 of (x − x²)² dx squares the difference of the radii. A washer's area is πR² − πr².
+        - |
+          π/6 = π ∫ from 0 to 1 of (x − x²) dx does not square the radii at all.
+        - |
+          π/3 = π ∫ from 0 to 1 of x² dx uses only the outer radius and ignores the hole.
+        - |
+          Correct. The curves meet at x = 0 and 1; y = x is farther from the axis. R = x, r = x²: π ∫ from 0 to 1 of (x² − x⁴) dx = π(1/3 − 1/5) = 2π/15.
+      answer: 3
+    - slug: apcalcab-u08-w32-q08
+      type: multiple_choice
+      topic_code: "8.12"
+      source: "AP Calculus CED, Topic 8.12"
+      points: 1
+      prompt: |
+        The region enclosed by y = x and y = x² is revolved about the line y = −1. Which integral gives the volume?
+      options:
+        - "π ∫ from 0 to 1 of [(x − 1)² − (x² − 1)²] dx"
+        - "π ∫ from 0 to 1 of [(x + 1)² − (x² + 1)²] dx"
+        - "π ∫ from 0 to 1 of [(x + 1) − (x² + 1)]² dx"
+        - "π ∫ from 0 to 1 of [(x² + 1)² − (x + 1)²] dx"
+      option_explanations:
+        - |
+          Subtracting 1 gives radii for the axis y = 1. The axis y = −1 is below the region, so the distance up to a curve is (height) + 1.
+        - |
+          Correct. From y = −1, the outer radius to y = x is x + 1 and the inner radius to y = x² is x² + 1. The volume is 7π/15.
+        - |
+          This squares the difference of the radii. Washers need R² − r².
+        - |
+          The radii are swapped: y = x is the curve farther from y = −1 on (0, 1), so (x + 1)² comes first. As written the integral is negative.
+      answer: 1
+    - slug: apcalcab-u08-w32-q09
+      type: multiple_choice
+      topic_code: "8.10"
+      source: "AP Calculus CED, Topic 8.10"
+      points: 1
+      prompt: |
+        The region bounded by y = x², the x-axis and the line x = 2 is revolved about the line x = 2. Which integral gives the volume?
+      options:
+        - "π ∫ from 0 to 2 of (2 − x²)² dx"
+        - "π ∫ from 0 to 4 of (4 − y) dy"
+        - "π ∫ from 0 to 4 of (2 − √y)² dy"
+        - "π ∫ from 0 to 4 of (2 + √y)² dy"
+      option_explanations:
+        - |
+          The axis x = 2 is vertical, so discs perpendicular to it are horizontal and the integral must be in y. Also 2 − x² is not a distance to the axis.
+        - |
+          This is a washer with outer radius 2 and inner √y measured from the y-axis. Radii must be measured from x = 2, and the slices touch that axis, so there is no hole.
+        - |
+          Correct. At height y the region runs from x = √y to x = 2, which touches the axis. The disc radius is 2 − √y, for y from 0 to 4. The volume is 8π/3.
+        - |
+          2 + √y adds the distances. The curve x = √y lies to the left of x = 2, so the distance is 2 − √y.
+      answer: 2
+    - slug: apcalcab-u08-w32-q10
+      type: multiple_choice
+      topic_code: "8.8"
+      source: "AP Calculus CED, Topic 8.8"
+      points: 1
+      prompt: |
+        The base of a solid is the region bounded by y = √x, the x-axis and the line x = 4. Cross sections perpendicular to the x-axis are equilateral triangles. What is the volume of the solid?
+      options:
+        - "8"
+        - "4"
+        - "4√3"
+        - "2√3"
+      option_explanations:
+        - |
+          8 = ∫ from 0 to 4 of x dx is the volume with square cross sections. An equilateral triangle of side s has area (√3/4)s².
+        - |
+          4 = (1/2) ∫ from 0 to 4 of x dx is the volume with isosceles right triangles whose legs are in the base.
+        - |
+          4√3 uses (√3/2)s², confusing the triangle's height (√3/2)s with its area.
+        - |
+          Correct. The side is s = √x, so A(x) = (√3/4)x and V = (√3/4) ∫ from 0 to 4 of x dx = (√3/4)(8) = 2√3.
+      answer: 3
+    - slug: apcalcab-u08-w32-q11
+      type: multiple_choice
+      topic_code: "8.4"
+      source: "AP Calculus CED, Topic 8.4"
+      points: 1
+      prompt: |
+        What is the area of the region enclosed by y = x and y = x²?
+      options:
+        - "1/6"
+        - "1/2"
+        - "5/6"
+        - "1/3"
+      option_explanations:
+        - |
+          Correct. The curves meet at x = 0 and 1, and x ≥ x² between them: ∫ from 0 to 1 of (x − x²) dx = 1/2 − 1/3 = 1/6.
+        - |
+          1/2 = ∫ from 0 to 1 of x dx is the area under the line alone; the area under the parabola must be subtracted.
+        - |
+          5/6 = ∫ from 0 to 1 of (x + x²) dx adds the curves instead of subtracting.
+        - |
+          1/3 = ∫ from 0 to 1 of x² dx is the area under the lower curve only.
+      answer: 0
+    - slug: apcalcab-u08-w32-q12
+      type: multiple_choice
+      topic_code: "8.2"
+      source: "AP Calculus CED, Topic 8.2"
+      points: 1
+      prompt: |
+        A particle has acceleration a(t) = 6t and velocity v(0) = −3. What is v(2)?
+      options:
+        - "12"
+        - "9"
+        - "15"
+        - "21"
+      option_explanations:
+        - |
+          12 is the change in velocity, ∫ from 0 to 2 of 6t dt (and also a(2)). The starting velocity −3 must be added.
+        - |
+          Correct. v(2) = v(0) + ∫ from 0 to 2 of 6t dt = −3 + [3t²] from 0 to 2 = −3 + 12 = 9.
+        - |
+          15 = 12 + 3 adds the initial velocity with the wrong sign.
+        - |
+          21 = −3 + a(2) · 2 treats the acceleration as constant at its final value 12 for 2 seconds; it grew from 0 to 12.
+      answer: 1
+    - slug: apcalcab-u08-w32-q13
+      type: multiple_choice
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        Evaluate ∫ from 0 to 1 of x(x² + 1)³ dx.
+      options:
+        - "15/4"
+        - "2"
+        - "15/8"
+        - "15/2"
+      option_explanations:
+        - |
+          15/4 forgets the factor 1/2 from x dx = du/2: it computes ∫ from 1 to 2 of u³ du.
+        - |
+          2 = (1/8)(2⁴) evaluates the antiderivative at the upper limit only; at x = 0 it is (1/8)(1⁴) = 1/8.
+        - |
+          Correct. Let u = x² + 1, du = 2x dx; the limits become 1 and 2. (1/2) ∫ from 1 to 2 of u³ du = (1/8)(16 − 1) = 15/8.
+        - |
+          15/2 multiplies by 2 instead of dividing by 2: 2 · ∫ from 1 to 2 of u³ du = 2 · 15/4 = 15/2. Since x dx = du/2, the factor is 1/2.
+      answer: 2
+    - slug: apcalcab-u08-w32-q14
+      type: multi_select
+      topic_code: "8.11"
+      source: "AP Calculus CED, Topic 8.11"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Region Q is bounded by y = √x, the x-axis and the line x = 4 (so 0 ≤ y ≤ 2). Which statements are true? Select all that apply.
+      options:
+        - "Revolving Q about the x-axis gives volume π ∫ from 0 to 4 of x dx = 8π."
+        - "Revolving Q about the y-axis gives volume π ∫ from 0 to 2 of (16 − y⁴) dy."
+        - "Revolving Q about the y-axis gives volume π ∫ from 0 to 2 of (4 − y²)² dy."
+        - "Revolving Q about the line x = 4 gives volume π ∫ from 0 to 2 of (4 − y²)² dy."
+        - "Revolving Q about the x-axis gives volume π ∫ from 0 to 4 of √x dx."
+      option_explanations:
+        - |
+          Correct. The slices touch the x-axis: discs of radius √x, so π ∫ from 0 to 4 of (√x)² dx = π · 8.
+        - |
+          Correct. About the y-axis there is a hole: horizontal washers with outer radius 4 (the line x = 4) and inner radius y² (the curve x = y²).
+        - |
+          This squares the difference of the radii, 4 − y². Washers need 4² − (y²)².
+        - |
+          Correct. Horizontal slices run from x = y² to x = 4, touching the axis x = 4: discs of radius 4 − y².
+        - |
+          The radius √x must be squared; π ∫ √x dx is not a disc volume.
+      answer: [0, 1, 3]
+    - slug: apcalcab-u08-w32-q15
+      type: multi_select
+      topic_code: "8.8"
+      source: "AP Calculus CED, Topic 8.8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        The base of a solid is the triangle bounded by y = x, the x-axis and the line x = 3. Cross sections perpendicular to the x-axis have one side (or a diameter) in the base, of length x. Which statements are true? Select all that apply.
+      options:
+        - "With square cross sections, the volume is 9."
+        - "With semicircle cross sections, the volume is (π/2) ∫ from 0 to 3 of x² dx."
+        - "With semicircle cross sections, the volume is 9π/8."
+        - "With isosceles right triangle cross sections having a leg in the base, the volume is 9/2."
+        - "With equilateral triangle cross sections, the volume is (√3/2) ∫ from 0 to 3 of x² dx."
+      option_explanations:
+        - |
+          Correct. Each square has side x and area x², so V = ∫ from 0 to 3 of x² dx = 9.
+        - |
+          (π/2)x² is the area of a semicircle of radius x. The diameter is x, so the area is (π/8)x².
+        - |
+          Correct. (π/8) ∫ from 0 to 3 of x² dx = (π/8)(9) = 9π/8.
+        - |
+          Correct. A = (1/2)x², so V = (1/2)(9) = 9/2.
+        - |
+          (√3/2)x is the height of an equilateral triangle of side x, so (√3/2)x² is twice its area. The area is (√3/4)x².
+      answer: [0, 2, 3]
+    - slug: apcalcab-u08-w32-q16
+      type: true_false
+      topic_code: "8.9"
+      source: "AP Calculus CED, Topic 8.9"
+      points: 1
+      prompt: |
+        True or false: The volume π ∫ from 0 to 2 of x² dx, from revolving the region under y = x about the x-axis, equals π(∫ from 0 to 2 of x dx)².
+      answer: false
+      explanation: |
+        False. π ∫ from 0 to 2 of x² dx = 8π/3, while π(∫ from 0 to 2 of x dx)² = π · 2² = 4π. Each disc's radius is squared before the discs are added; squaring the integral is a different operation.
+    - slug: apcalcab-u08-w32-q17
+      type: true_false
+      topic_code: "8.5"
+      source: "AP Calculus CED, Topic 8.5"
+      points: 1
+      prompt: |
+        True or false: If f(y) ≥ g(y) for c ≤ y ≤ d, the area of the region between the curves x = f(y) and x = g(y) for c ≤ y ≤ d is ∫ from c to d of (f(y) − g(y)) dy.
+      answer: true
+      explanation: |
+        True. Horizontal slices have length right − left = f(y) − g(y) and thickness dy, so adding them gives ∫ from c to d of (f(y) − g(y)) dy. (The same horizontal slices, spun about a vertical axis, become this week's discs and washers.)
+    - slug: apcalcab-u08-w32-q18
+      type: fill_blank
+      topic_code: "8.9"
+      source: "AP Calculus CED, Topic 8.9"
+      points: 1
+      prompt: |
+        The region bounded by y = x, the x-axis and the line x = 3 is revolved about the x-axis. The volume of the solid is ____ (give the exact value in terms of π, or a decimal to three places).
+      answer: ["9π", "9pi", "9 π", "9 pi", "9*π", "9*pi", "28.274"]
+      explanation: |
+        Discs of radius x: π ∫ from 0 to 3 of x² dx = π · 9 = 9π ≈ 28.274. The solid is a cone of radius 3 and height 3, and (1/3)π(3²)(3) = 9π agrees.
+    - slug: apcalcab-u08-w32-q19
+      type: fill_blank
+      topic_code: "8.1"
+      source: "AP Calculus CED, Topic 8.1"
+      points: 1
+      prompt: |
+        The average value of f(x) = 3x² + 1 on the interval [0, 2] is ____.
+      answer: ["5", "5.0"]
+      explanation: |
+        (1/2) ∫ from 0 to 2 of (3x² + 1) dx = (1/2)[x³ + x] from 0 to 2 = (1/2)(10) = 5.
+    - slug: apcalcab-u08-w32-q20
+      type: numeric
+      topic_code: "8.11"
+      source: "AP Calculus CED, Topic 8.11"
+      points: 1
+      prompt: |
+        (Calculator.) The graphs of y = ln(x + 1) and y = x/2 intersect at x = 0 and at x = A, where A ≈ 2.513. The region enclosed between them is revolved about the x-axis. Find the volume of the solid. Give your answer to three decimal places.
+      answer: { value: 1.324, tolerance: 0.001 }
+      explanation: |
+        On (0, A), ln(x + 1) is above x/2 (at x = 1, 0.693 > 0.5), so R = ln(x + 1) and r = x/2. V = π ∫ from 0 to A of [(ln(x + 1))² − x²/4] dx ≈ 1.324, with A stored from the calculator's intersect feature.
+    - slug: apcalcab-u08-w32-q21
+      type: numeric
+      topic_code: "8.6"
+      source: "AP Calculus CED, Topic 8.6"
+      points: 1
+      prompt: |
+        The graphs of y = x³ and y = x² + 2x intersect at x = −1, 0 and 2. Find the total area of the regions they enclose. Give your answer as a decimal correct to three decimal places.
+      answer: { value: 3.083, tolerance: 0.001 }
+      explanation: |
+        On [−1, 0], x³ is on top (at x = −0.5, −0.125 > −0.75): ∫ from −1 to 0 of (x³ − x² − 2x) dx = 5/12. On [0, 2], x² + 2x is on top: ∫ from 0 to 2 of (x² + 2x − x³) dx = 8/3. Total 5/12 + 32/12 = 37/12 ≈ 3.083.
+    - slug: apcalcab-u08-w32-q22
+      type: numeric
+      topic_code: "8.3"
+      source: "AP Calculus CED, Topic 8.3"
+      points: 1
+      prompt: |
+        (Calculator.) Oil leaks from a hypothetical tank at a rate of r(t) = 5e^(−0.2t) gallons per hour, where t is in hours. How many gallons leak out during the first 4 hours? Give your answer to three decimal places.
+      answer: { value: 13.767, tolerance: 0.001 }
+      explanation: |
+        ∫ from 0 to 4 of 5e^(−0.2t) dt = [−25e^(−0.2t)] from 0 to 4 = 25(1 − e^(−0.8)) ≈ 13.767 gallons.
+    - slug: apcalcab-u08-w32-q23
+      type: short_answer
+      topic_code: "8.7"
+      source: "AP Calculus CED, Topic 8.7"
+      points: 3
+      prompt: |
+        The base of a solid is the region enclosed by the parabola x = y² and the line x = 4.
+
+        (a) Cross sections perpendicular to the x-axis are squares. Find the volume.
+        (b) Cross sections perpendicular to the y-axis are squares. Write an integral for the volume and evaluate it.
+        (c) Cross sections perpendicular to the x-axis are semicircles with diameters in the base. Find the volume.
+      answer: |
+        (a) At x the base runs from y = −√x to y = √x, so s = 2√x and A(x) = 4x. V = ∫ from 0 to 4 of 4x dx = 32.
+        (b) At height y the base runs from x = y² to x = 4, so s = 4 − y². V = ∫ from −2 to 2 of (4 − y²)² dy = 512/15.
+        (c) A(x) = (π/8)(2√x)² = (π/2)x. V = (π/2) ∫ from 0 to 4 of x dx = 4π.
+      explanation: |
+        Three points, one per part. (a) the side 2√x (not √x) and 32. (b) an integral in y with side 4 − y² and limits −2 to 2, and 512/15. (c) (π/8)s² with s = 2√x, and 4π.
+    - slug: apcalcab-u08-w32-q24
+      type: short_answer
+      topic_code: "8.5"
+      source: "AP Calculus CED, Topic 8.5"
+      points: 3
+      prompt: |
+        Region W is enclosed by the curve x = 2y − y² and the y-axis.
+
+        (a) Find the y-values where the curve meets the y-axis.
+        (b) Write an integral with respect to y for the area of W, and evaluate it.
+        (c) Write an integral for the volume of the solid generated when W is revolved about the y-axis, and evaluate it.
+      answer: |
+        (a) 2y − y² = 0 gives y = 0 and y = 2.
+        (b) ∫ from 0 to 2 of (2y − y²) dy = 4 − 8/3 = 4/3.
+        (c) Horizontal discs of radius 2y − y²: π ∫ from 0 to 2 of (2y − y²)² dy = π(32/3 − 16 + 32/5) = 16π/15.
+      explanation: |
+        Three points, one per part. (a) y = 0 and y = 2. (b) right − left = (2y − y²) − 0 integrated in y, with value 4/3. (c) the disc integral with the radius squared, and 16π/15.
+    - slug: apcalcab-u08-w32-q25
+      type: long_answer
+      topic_code: "8.12"
+      source: "AP Calculus CED, Topic 8.12"
+      points: 6
+      prompt: |
+        Let R be the region enclosed by the graphs of y = √x and y = x/2, which intersect at (0, 0) and (4, 2).
+
+        (A) Find the area of R.
+
+        (B) Find the volume of the solid generated when R is revolved about the x-axis.
+
+        (C) Write, but do not evaluate, an integral expression for the volume of the solid generated when R is revolved about the line y = 2.
+
+        (D) R is the base of a solid whose cross sections perpendicular to the x-axis are squares. Write an integral for its volume and evaluate it.
+      answer: |
+        (A) √x ≥ x/2 on [0, 4] (at x = 1, 1 > 1/2). Area = ∫ from 0 to 4 of (√x − x/2) dx = 16/3 − 4 = 4/3.
+        (B) Washers: R = √x, r = x/2. V = π ∫ from 0 to 4 of (x − x²/4) dx = π(8 − 16/3) = 8π/3.
+        (C) The axis y = 2 is above R, so the far curve is the line: outer radius 2 − x/2, inner radius 2 − √x. V = π ∫ from 0 to 4 of [(2 − x/2)² − (2 − √x)²] dx.
+        (D) The side is √x − x/2: V = ∫ from 0 to 4 of (√x − x/2)² dx = ∫ from 0 to 4 of (x − x^(3/2) + x²/4) dx = 8 − 64/5 + 16/3 = 8/15.
+      explanation: |
+        Six points. (A) 1 point: 4/3 from top − bottom. (B) 2 points: 1 for the washer integrand π(x − x²/4) with limits 0 and 4, 1 for 8π/3. (C) 2 points: 1 for the outer radius 2 − x/2 and inner radius 2 − √x (in the right order), 1 for the complete integral with π, limits and squares. (D) 1 point: the integral of (√x − x/2)² and the value 8/15.

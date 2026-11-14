@@ -1,0 +1,650 @@
+week: 7
+unit: 2
+title: "Estimating Derivatives and When Derivatives Exist"
+topics: ["2.3", "2.4"]
+guide: guides/week-07.md
+guide_description: |
+  Estimating a derivative from a table (choosing the closest bracketing data, uneven spacing, units), from a
+  graph's tangent line, and with forward, backward and symmetric difference quotients or a calculator's numerical
+  derivative; then differentiability: why differentiable implies continuous, and the four ways a derivative fails
+  to exist (discontinuity, corner, cusp, vertical tangent), with one-sided difference quotients for piecewise
+  functions. Worked examples: a hypothetical bakery oven's temperature table, symmetric estimates for 2ˣ at x = 1,
+  the corner of |2x − 6|, the vertical tangent of ∛x, and matching a piecewise function's value and slope.
+flashcards_description: |
+  30 cards on estimating derivatives from tables, graphs and difference quotients, calculator numerical
+  derivatives, differentiability versus continuity, corners, cusps, vertical tangents, and piecewise checks.
+
+flashcards:
+  - front: Estimating f′(a) from a table → which two data points to use
+    back: |
+      The closest inputs on either side of a (bracketing a). Divide the change in f by the change in x, and attach units.
+    topic_code: "2.3"
+  - front: Unevenly spaced table → the trap when estimating a derivative
+    back: |
+      Divide by the actual gap in the inputs, not by 1 or by the number of rows. From t = 2 to t = 5 the denominator is 3.
+    topic_code: "2.3"
+  - front: Forward difference quotient for f′(a) → formula
+    back: |
+      (f(a + h) − f(a))/h for a small h > 0: the slope of the secant to the right of a.
+    topic_code: "2.3"
+  - front: Backward difference quotient for f′(a) → formula
+    back: |
+      (f(a) − f(a − h))/h for a small h > 0: the slope of the secant to the left of a.
+    topic_code: "2.3"
+  - front: Symmetric difference quotient for f′(a) → formula and why it is preferred
+    back: |
+      (f(a + h) − f(a − h))/(2h). It uses points on both sides, so for smooth functions its errors largely cancel; it is usually more accurate than a one-sided quotient with the same h.
+    topic_code: "2.3"
+  - front: Symmetric quotient with f(1.9) = 5.62 and f(2.1) = 6.44 → estimate of f′(2)
+    back: |
+      (6.44 − 5.62)/(2.1 − 1.9) = 0.82/0.2 = 4.1. Remember the denominator is 2h = 0.2.
+    topic_code: "2.3"
+  - front: Estimating f′(a) from a graph → method
+    back: |
+      Sketch or read the tangent line at (a, f(a)), pick two points on that line far apart, and compute rise over run. Not two points on the curve.
+    topic_code: "2.3"
+  - front: Tangent line to g at x = 1 passes through (1, 3) and (3, 7) → g′(1)
+    back: |
+      Slope of the tangent: (7 − 3)/(3 − 1) = 2. So g′(1) = 2.
+    topic_code: "2.3"
+  - front: Calculator numerical derivative (nDeriv or d/dx) → what it computes
+    back: |
+      A symmetric difference quotient with a tiny h. It is an estimate; it can report a number even where the derivative does not exist, as at the corner of |x|.
+    topic_code: "2.3"
+  - front: 2ˣ at x = 1, symmetric quotient with h = 0.001 → estimate
+    back: |
+      (2^1.001 − 2^0.999)/0.002 ≈ 1.386. (The exact value, met in Unit 3, is 2 ln 2.)
+    topic_code: "2.3"
+  - front: Table where average rates over equal steps decrease → what it suggests about f′
+    back: |
+      f′ is decreasing on that interval: f is rising more and more slowly (or falling faster), so the graph appears concave down.
+    topic_code: "2.3"
+  - front: Bakery oven temperature table, 52 °C at 5 min and 34 °C at 2 min → estimate of the rate at 4 min
+    back: |
+      (52 − 34)/(5 − 2) = 6 °C per minute, from the bracketing data at t = 2 and t = 5.
+    topic_code: "2.3"
+  - front: Differentiable at x = a → definition
+    back: |
+      f′(a) exists as a finite number: the difference quotient has the same finite limit from the left and from the right.
+    topic_code: "2.4"
+  - front: Differentiability and continuity → which implies which
+    back: |
+      Differentiable at a ⟹ continuous at a. The converse fails: continuous does not imply differentiable (|x| at 0).
+    topic_code: "2.4"
+  - front: Contrapositive of "differentiable implies continuous" → statement and use
+    back: |
+      Not continuous at a ⟹ not differentiable at a. A jump, hole or asymptote at a rules out a derivative there immediately.
+    topic_code: "2.4"
+  - front: Four ways f′(a) can fail to exist → list
+    back: |
+      A discontinuity at a; a corner (different one-sided slopes); a cusp (one-sided slopes go to ∞ and −∞); a vertical tangent (both one-sided slopes go to the same infinity).
+    topic_code: "2.4"
+  - front: Corner → what the one-sided difference quotients do
+    back: |
+      They approach two different finite numbers. Example: |x − 3| at 3, with left slope −1 and right slope 1.
+    topic_code: "2.4"
+  - front: "|2x − 6| at x = 3 → left and right difference-quotient limits"
+    back: |
+      Left: −2. Right: 2. They differ, so the function is continuous but not differentiable at x = 3 (a corner).
+    topic_code: "2.4"
+  - front: ∛x at x = 0 → differentiable?
+    back: |
+      No. The difference quotient ∛h/h = 1/∛(h²) → ∞ from both sides: a vertical tangent line at the origin. The function is still continuous there.
+    topic_code: "2.4"
+  - front: x^(2/3) at x = 0 → what kind of failure
+    back: |
+      A cusp: the difference quotient 1/∛h → ∞ from the right and −∞ from the left. Continuous, not differentiable.
+    topic_code: "2.4"
+  - front: x|x| at x = 0 → differentiable?
+    back: |
+      Yes. The difference quotient is h|h|/h = |h| → 0 from both sides, so the derivative at 0 is 0. Not every absolute value makes a corner.
+    topic_code: "2.4"
+  - front: "|x² − 4| → where it is not differentiable"
+    back: |
+      At x = −2 and x = 2, where x² − 4 changes sign and the graph folds up into corners. At x = 0 it is smooth (the slope there is 0).
+    topic_code: "2.4"
+  - front: Piecewise function joined at x = c → two checks for differentiability at c
+    back: |
+      1. Continuity: both pieces give the same value at c. 2. Matching slopes: the derivatives of the two pieces agree at c. Both must hold.
+    topic_code: "2.4"
+  - front: f(x) = x² for x ≤ 1 and 2x − 1 for x > 1 → differentiable at 1?
+    back: |
+      Yes. Values: 1 and 1 (continuous). Slopes: 2x = 2 and 2 (match). The line is the parabola's tangent line at x = 1.
+    topic_code: "2.4"
+  - front: f(x) = ax² + b for x ≤ 2 and 8x − 4 for x > 2, differentiable at 2 → a and b
+    back: |
+      Slopes: 4a = 8, so a = 2. Values: 4a + b = 12, so b = 4.
+    topic_code: "2.4"
+  - front: Hiker elevation model 1200 + 250t then 1450 + 140(t − 1) at t = 1 → continuous, differentiable?
+    back: |
+      Continuous (both pieces give 1450) but not differentiable: the one-sided rates 250 and 140 metres per hour differ, a corner.
+    topic_code: "2.4"
+  - front: Graph with a sharp point at x = a → what the derivative graph shows there
+    back: |
+      A jump in f′ (or f′ undefined at a): the slopes just left and just right of a are different numbers.
+    topic_code: "2.4"
+  - front: Error-spot → "the symmetric estimate of f′(2) is (f(2.1) − f(1.9))/0.1"
+    back: |
+      The inputs are 0.2 apart, so divide by 0.2. Dividing by h instead of 2h doubles the estimate.
+    topic_code: "2.3"
+  - front: Error-spot → "|x − 3| is continuous at 3, so it is differentiable at 3"
+    back: |
+      Continuity does not imply differentiability. The one-sided slopes are −1 and 1, so the derivative does not exist at the corner.
+    topic_code: "2.4"
+  - front: Error-spot → "the calculator gives nDeriv(|x|, x, 0) = 0, so the derivative of |x| at 0 is 0"
+    back: |
+      The symmetric quotient (|h| − |−h|)/(2h) is always 0, which hides the corner. One-sided quotients give −1 and 1, so the derivative does not exist.
+    topic_code: "2.3"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (topics 2.3 and 2.4: estimating derivatives from tables,
+    graphs and difference quotients, and differentiability versus continuity, including corners, cusps, vertical
+    tangents and piecewise functions), with 8 questions (32%) reviewing weeks 3 to 6 (squeeze theorem, removable
+    discontinuities, limits at infinity, the IVT, average rates and the limit definition of the derivative). Opens
+    with a shared-context set on a hypothetical oven-temperature table. Multiple choice, select-all, true/false and
+    numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and the
+    long answer are graded by your teacher against the scoring notes. One numeric item is marked (Calculator.);
+    everything else is meant to be done by hand.
+  questions:
+    # ---- Stimulus set: oven temperature table (2.3)
+    - slug: apcalcab-u02-w07-q01
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "AP Calculus CED, Topic 2.3"
+      points: 1
+      stimulus: |
+        A bakery tests a new oven. The temperature of the oven, T(t), in degrees Celsius, is recorded at selected times t minutes after it is switched on. T is differentiable, and the data are hypothetical.
+
+        | t (minutes) | 0 | 2 | 5 | 6 | 9 |
+        |---|---|---|---|---|---|
+        | T(t) (°C) | 20 | 34 | 52 | 57 | 70 |
+      prompt: |
+        Using the data, what is the best estimate of T′(4)?
+      options:
+        - "18 °C per minute"
+        - "6.4 °C per minute"
+        - "6 °C per minute"
+        - "5.75 °C per minute"
+      option_explanations:
+        - |
+          18 °C is the change in temperature from t = 2 to t = 5; it still has to be divided by the 3 minutes between those readings.
+        - |
+          6.4 uses the interval [0, 5], (52 − 20)/5; the readings at t = 2 and t = 5 bracket t = 4 more closely.
+        - |
+          Correct. The closest readings on either side of t = 4 are at t = 2 and t = 5, so T′(4) ≈ (52 − 34)/(5 − 2) = 18/3 = 6 °C per minute.
+        - |
+          5.75 uses [2, 6], (57 − 34)/4; t = 5 is closer to 4 than t = 6 is, so [2, 5] gives the better estimate.
+      answer: 2
+    - slug: apcalcab-u02-w07-q02
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "AP Calculus CED, Topic 2.3"
+      points: 1
+      stimulus: |
+        A bakery tests a new oven. The temperature of the oven, T(t), in degrees Celsius, is recorded at selected times t minutes after it is switched on. T is differentiable, and the data are hypothetical.
+
+        | t (minutes) | 0 | 2 | 5 | 6 | 9 |
+        |---|---|---|---|---|---|
+        | T(t) (°C) | 20 | 34 | 52 | 57 | 70 |
+      prompt: |
+        On which interval between consecutive readings is the average rate of change of T greatest?
+      options:
+        - "0 ≤ t ≤ 2"
+        - "2 ≤ t ≤ 5"
+        - "6 ≤ t ≤ 9"
+        - "5 ≤ t ≤ 6"
+      option_explanations:
+        - |
+          Correct. The average rates are 14/2 = 7, 18/3 = 6, 5/1 = 5 and 13/3 ≈ 4.33 °C per minute, so [0, 2] has the greatest.
+        - |
+          [2, 5] has the largest change in temperature, 18 °C, but it is spread over 3 minutes, so its rate is only 6 °C per minute.
+        - |
+          [6, 9] has a change of 13 °C over 3 minutes, about 4.33 °C per minute, the smallest of the four rates.
+        - |
+          [5, 6] is the shortest interval, but a short interval does not make a rate large: its rate is 5 °C per minute.
+      answer: 0
+    - slug: apcalcab-u02-w07-q03
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "AP Calculus CED, Topic 2.3"
+      points: 1
+      stimulus: |
+        A bakery tests a new oven. The temperature of the oven, T(t), in degrees Celsius, is recorded at selected times t minutes after it is switched on. T is differentiable, and the data are hypothetical.
+
+        | t (minutes) | 0 | 2 | 5 | 6 | 9 |
+        |---|---|---|---|---|---|
+        | T(t) (°C) | 20 | 34 | 52 | 57 | 70 |
+      prompt: |
+        Which conclusion about the oven is best supported by the data?
+      options:
+        - "The temperature is decreasing for t > 6."
+        - "T′(9) = 70 °C per minute."
+        - "The temperature rises by 7 °C every minute."
+        - "The oven is heating up, but at a decreasing rate."
+      option_explanations:
+        - |
+          Every reading is higher than the one before, so the temperature is still increasing after t = 6; it is the rate that is falling.
+        - |
+          70 °C is the temperature T(9), not the rate of change; a derivative has units of °C per minute.
+        - |
+          7 °C per minute is the average rate on [0, 2] only; on later intervals the rates are 6, 5 and about 4.33.
+        - |
+          Correct. T increases throughout, while the average rates over successive intervals (7, 6, 5, about 4.33 °C per minute) decrease, so T′ appears to be decreasing.
+      answer: 3
+    - slug: apcalcab-u02-w07-q04
+      type: numeric
+      topic_code: "2.3"
+      source: "AP Calculus CED, Topic 2.3"
+      points: 1
+      stimulus: |
+        A bakery tests a new oven. The temperature of the oven, T(t), in degrees Celsius, is recorded at selected times t minutes after it is switched on. T is differentiable, and the data are hypothetical.
+
+        | t (minutes) | 0 | 2 | 5 | 6 | 9 |
+        |---|---|---|---|---|---|
+        | T(t) (°C) | 20 | 34 | 52 | 57 | 70 |
+      prompt: |
+        Using the data, estimate T′(1) in degrees Celsius per minute.
+      answer: { value: 7, tolerance: 0 }
+      explanation: |
+        The readings at t = 0 and t = 2 bracket t = 1, so T′(1) ≈ (34 − 20)/(2 − 0) = 7 °C per minute.
+    # ---- Independent items
+    - slug: apcalcab-u02-w07-q05
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "AP Calculus CED, Topic 2.3"
+      points: 1
+      prompt: |
+        The graph of a differentiable function g passes through the point (1, 3). The line tangent to the graph at that point also passes through (3, 7). What is g′(1)?
+      options:
+        - "3"
+        - "2"
+        - "1/2"
+        - "7/3"
+      option_explanations:
+        - |
+          3 is g(1), the height of the graph at x = 1; the derivative is the slope of the tangent line there.
+        - |
+          Correct. The tangent line's slope is (7 − 3)/(3 − 1) = 4/2 = 2, and that slope is g′(1).
+        - |
+          1/2 inverts the slope, dividing the change in x by the change in y.
+        - |
+          7/3 divides the coordinates of the second point; a slope needs the changes between two points.
+      answer: 1
+    - slug: apcalcab-u02-w07-q06
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "AP Calculus CED, Topic 2.3"
+      points: 1
+      prompt: |
+        A differentiable function f has f(1.9) = 5.62, f(2) = 6.00 and f(2.1) = 6.44. Using the symmetric difference quotient with h = 0.1, what is the estimate of f′(2)?
+      options:
+        - "4.4"
+        - "3.8"
+        - "4.1"
+        - "8.2"
+      option_explanations:
+        - |
+          4.4 is the forward quotient (6.44 − 6.00)/0.1, which uses only the point to the right of 2.
+        - |
+          3.8 is the backward quotient (6.00 − 5.62)/0.1, which uses only the point to the left of 2.
+        - |
+          Correct. (f(2.1) − f(1.9))/(2 · 0.1) = (6.44 − 5.62)/0.2 = 0.82/0.2 = 4.1.
+        - |
+          8.2 divides the change 0.82 by h = 0.1 instead of by 2h = 0.2, the actual distance between 1.9 and 2.1.
+      answer: 2
+    - slug: apcalcab-u02-w07-q07
+      type: multiple_choice
+      topic_code: "2.4"
+      source: "AP Calculus CED, Topic 2.4"
+      points: 1
+      prompt: |
+        Let f(x) = |x − 3| + 1. Which statement about f at x = 3 is true?
+      options:
+        - "f is continuous at x = 3 but not differentiable there."
+        - "f is differentiable at x = 3, with f′(3) = 0."
+        - "f is not continuous at x = 3."
+        - "f is differentiable at x = 3 but not continuous there."
+      option_explanations:
+        - |
+          Correct. lim (x→3) f(x) = 1 = f(3), so f is continuous; but the difference quotient tends to −1 from the left and 1 from the right, a corner, so f′(3) does not exist.
+        - |
+          The graph has its lowest point at x = 3, but it is a sharp corner, not a flat spot; the one-sided slopes −1 and 1 do not agree.
+        - |
+          Absolute value graphs have no breaks: both one-sided limits at 3 equal 1, which is f(3).
+        - |
+          This cannot happen for any function: differentiability at a point forces continuity there.
+      answer: 0
+    - slug: apcalcab-u02-w07-q08
+      type: multiple_choice
+      topic_code: "2.4"
+      source: "AP Calculus CED, Topic 2.4"
+      points: 1
+      prompt: |
+        Which function is continuous at x = 0 but not differentiable at x = 0?
+      options:
+        - "f(x) = x³ − x"
+        - "f(x) = ∛x"
+        - "f(x) = x|x|"
+        - "f(x) = 1/x"
+      option_explanations:
+        - |
+          A polynomial is differentiable everywhere; its difference quotient at 0 is h² − 1, which tends to −1.
+        - |
+          Correct. ∛x is continuous at 0, but the difference quotient ∛h/h = 1/∛(h²) grows without bound from both sides: a vertical tangent, so no derivative.
+        - |
+          The absolute value suggests a corner, but h|h|/h = |h| → 0 from both sides, so x|x| is differentiable at 0 with derivative 0.
+        - |
+          1/x is not defined at 0, so it is not continuous there; the question asks for a continuous function.
+      answer: 1
+    - slug: apcalcab-u02-w07-q09
+      type: multiple_choice
+      topic_code: "2.4"
+      source: "AP Calculus CED, Topic 2.4"
+      points: 1
+      prompt: |
+        Let f(x) = x² for x ≤ 1 and f(x) = 2x − 1 for x > 1. Which statement about f at x = 1 is true? (The derivative of x² is 2x.)
+      options:
+        - "f is not continuous at x = 1."
+        - "f is continuous at x = 1 but not differentiable there."
+        - "f is differentiable at x = 1 but not continuous there."
+        - "f is both continuous and differentiable at x = 1."
+      option_explanations:
+        - |
+          Both pieces give the value 1 at x = 1 (1² = 1 and 2 − 1 = 1), so the graph has no break.
+        - |
+          A function defined in pieces need not have a corner: the left slope 2(1) = 2 equals the right slope 2.
+        - |
+          Differentiability always forces continuity, so this combination is impossible.
+        - |
+          Correct. The values match (1 = 1), so f is continuous, and the slopes match (2x = 2 at x = 1, and the line has slope 2), so f′(1) = 2.
+      answer: 3
+    - slug: apcalcab-u02-w07-q10
+      type: multiple_choice
+      topic_code: "2.4"
+      source: "AP Calculus CED, Topic 2.4"
+      points: 1
+      prompt: |
+        Let f(x) = |2x − 6|. What is lim (h→0⁻) (f(3 + h) − f(3))/h?
+      options:
+        - "−2"
+        - "2"
+        - "0"
+        - "−1"
+      option_explanations:
+        - |
+          Correct. f(3) = 0 and f(3 + h) = |2h| = −2h for h < 0, so the quotient is −2h/h = −2.
+        - |
+          2 is the right-hand limit (h > 0, where |2h| = 2h); the left-hand limit uses h < 0.
+        - |
+          0 is f(3), the function value at the corner, not the limit of the slopes.
+        - |
+          −1 is the left-hand slope of |x − 3|; the factor 2 inside |2x − 6| doubles the slopes.
+      answer: 0
+    # ---- Review items
+    - slug: apcalcab-u02-w07-q11
+      type: multiple_choice
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 1
+      prompt: |
+        What is lim (h→0) (√(16 + h) − 4)/h?
+      options:
+        - "1/4"
+        - "1/8"
+        - "4"
+        - "The limit does not exist."
+      option_explanations:
+        - |
+          1/4 is 1/√16; the derivative of √x is 1/(2√x), so the factor 2 is missing.
+        - |
+          Correct. This is f′(16) for f(x) = √x. Multiplying by the conjugate gives 1/(√(16 + h) + 4), which tends to 1/8.
+        - |
+          4 is √16 = f(16), the function value, not the derivative.
+        - |
+          The quotient starts as 0/0, but that is the signal to simplify; after the conjugate step the limit is 1/8.
+      answer: 1
+    - slug: apcalcab-u02-w07-q12
+      type: multiple_choice
+      topic_code: "2.1"
+      source: "AP Calculus CED, Topic 2.1"
+      points: 1
+      prompt: |
+        What is the average rate of change of f(x) = x² − 2x on the interval [1, 4]?
+      options:
+        - "9"
+        - "2"
+        - "3"
+        - "6"
+      option_explanations:
+        - |
+          9 is the change f(4) − f(1) = 8 − (−1); it has not been divided by 4 − 1 = 3.
+        - |
+          2 is f(4)/4 = 8/4, which uses an output instead of the change in output and the wrong interval length.
+        - |
+          Correct. f(1) = −1 and f(4) = 8, so (8 − (−1))/(4 − 1) = 9/3 = 3.
+        - |
+          6 is f′(4) = 2(4) − 2, the instantaneous rate at x = 4, not the average over [1, 4].
+      answer: 2
+    - slug: apcalcab-u02-w07-q13
+      type: multiple_choice
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 1
+      prompt: |
+        The derivative of f(x) = √x is f′(x) = 1/(2√x). Which is an equation of the line tangent to the graph of f at x = 9?
+      options:
+        - "y = 3 + (1/18)(x − 9)"
+        - "y = 9 + (1/6)(x − 3)"
+        - "y = (1/6)x + 3"
+        - "y = 3 + (1/6)(x − 9)"
+      option_explanations:
+        - |
+          1/18 is 1/(2 · 9); the formula takes the square root first, 1/(2√9) = 1/6.
+        - |
+          This swaps the point: the tangent passes through (9, f(9)) = (9, 3), not (3, 9).
+        - |
+          This uses f(9) = 3 as the y-intercept; the line must pass through (9, 3), but this one gives y = 4.5 at x = 9.
+        - |
+          Correct. f(9) = 3 and f′(9) = 1/(2 · 3) = 1/6, so y = 3 + (1/6)(x − 9).
+      answer: 3
+    - slug: apcalcab-u02-w07-q14
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "AP Calculus CED, Topic 1.13"
+      points: 1
+      prompt: |
+        Let g(x) = (x² − 5x + 6)/(x − 2) for x ≠ 2, and g(2) = k. For what value of k is g continuous at x = 2?
+      options:
+        - "−1"
+        - "1"
+        - "0"
+        - "3"
+      option_explanations:
+        - |
+          Correct. x² − 5x + 6 = (x − 2)(x − 3), so g(x) = x − 3 for x ≠ 2 and lim (x→2) g(x) = −1; setting k = −1 removes the discontinuity.
+        - |
+          A sign slip evaluating x − 3 at x = 2: the result is −1, not 1.
+        - |
+          0 comes from substituting into the numerator alone; the quotient is 0/0, so it must be simplified first.
+        - |
+          3 is the constant term 6 divided by 2, not the limit of the simplified expression x − 3.
+      answer: 0
+    - slug: apcalcab-u02-w07-q15
+      type: multiple_choice
+      topic_code: "1.8"
+      source: "AP Calculus CED, Topic 1.8"
+      points: 1
+      prompt: |
+        What is lim (x→0) x² cos(1/x)?
+      options:
+        - "1"
+        - "0"
+        - "The limit does not exist because cos(1/x) oscillates."
+        - "∞"
+      option_explanations:
+        - |
+          This treats cos(1/x) as if it tended to cos 0 = 1, but 1/x does not tend to 0 as x → 0.
+        - |
+          Correct. −x² ≤ x² cos(1/x) ≤ x² for x ≠ 0, and both bounds tend to 0, so by the squeeze theorem the limit is 0.
+        - |
+          cos(1/x) oscillates, but it stays between −1 and 1 while x² shrinks to 0, which forces the product to 0.
+        - |
+          1/x grows without bound, but it sits inside the cosine, which never exceeds 1 in size.
+      answer: 1
+    - slug: apcalcab-u02-w07-q16
+      type: multi_select
+      topic_code: "2.4"
+      source: "AP Calculus CED, Topic 2.4"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let f(x) = |x² − 4|. At which values of x is f not differentiable? Select all that apply.
+      options:
+        - "x = −2"
+        - "x = 0"
+        - "x = 2"
+        - "x = 4"
+        - "x = −4"
+      option_explanations:
+        - |
+          Correct. x² − 4 changes sign at −2, so the graph folds into a corner: the one-sided slopes there are 4 and −4.
+        - |
+          Near x = 0, x² − 4 is negative, so f(x) = 4 − x², a smooth parabola with a horizontal tangent at 0.
+        - |
+          Correct. x² − 4 changes sign at 2, giving a corner with one-sided slopes −4 and 4.
+        - |
+          Near x = 4, x² − 4 is positive, so f(x) = x² − 4, which is differentiable there.
+        - |
+          Near x = −4, x² − 4 is positive, so f(x) = x² − 4, which is differentiable there.
+      answer: [0, 2]
+    - slug: apcalcab-u02-w07-q17
+      type: multi_select
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let f(x) = x³. Which limits are equal to f′(1)? Select all that apply.
+      options:
+        - "lim (h→0) ((1 + h)³ − 1)/h"
+        - "lim (x→1) (x³ − 1)/(x − 1)"
+        - "lim (h→0) (1 + h)³/h"
+        - "lim (h→0) ((1 + h)³ − 1)/(1 + h)"
+        - "lim (x→1) (x³ − 1)/(x + 1)"
+      option_explanations:
+        - |
+          Correct. The h-form: (f(1 + h) − f(1))/h with f(1) = 1.
+        - |
+          Correct. The x-form: (f(x) − f(1))/(x − 1).
+        - |
+          The term f(1) = 1 is not subtracted, so the numerator tends to 1 and the quotient is unbounded.
+        - |
+          The denominator must be the change in input, h, not the new input 1 + h; this limit is 0/1 = 0.
+        - |
+          The denominator must be x − 1, the change from 1; with x + 1 the limit is 0/2 = 0.
+      answer: [0, 1]
+    - slug: apcalcab-u02-w07-q18
+      type: true_false
+      topic_code: "2.4"
+      source: "AP Calculus CED, Topic 2.4"
+      points: 1
+      prompt: |
+        True or false: If f is differentiable at x = a, then f is continuous at x = a.
+      answer: true
+      explanation: |
+        True. If f′(a) exists, then f(a + h) − f(a) = h · (f(a + h) − f(a))/h → 0 · f′(a) = 0 as h → 0, so lim (h→0) f(a + h) = f(a).
+    - slug: apcalcab-u02-w07-q19
+      type: true_false
+      topic_code: "2.4"
+      source: "AP Calculus CED, Topic 2.4"
+      points: 1
+      prompt: |
+        True or false: If f is continuous at x = a, then f′(a) exists.
+      answer: false
+      explanation: |
+        False. f(x) = |x| is continuous at 0, but its one-sided slopes are −1 and 1, so f′(0) does not exist. ∛x (vertical tangent) is another counterexample.
+    - slug: apcalcab-u02-w07-q20
+      type: fill_blank
+      topic_code: "2.3"
+      source: "AP Calculus CED, Topic 2.3"
+      points: 1
+      prompt: |
+        The line tangent to the graph of a function f at x = 4 passes through the points (4, 10) and (6, 3). Then f′(4) = ____ (give a decimal or a fraction).
+      answer: ["-3.5", "−3.5", "-7/2", "−7/2", "-7 / 2", "−7 / 2"]
+      explanation: |
+        f′(4) is the slope of the tangent line: (3 − 10)/(6 − 4) = −7/2 = −3.5.
+    - slug: apcalcab-u02-w07-q21
+      type: fill_blank
+      topic_code: "1.15"
+      source: "AP Calculus CED, Topic 1.15"
+      points: 1
+      prompt: |
+        lim (x→−∞) (4x³ + 1)/(2x³ − x) = ____.
+      answer: ["2"]
+      explanation: |
+        The numerator and denominator both have degree 3, so the limit is the ratio of leading coefficients, 4/2 = 2, whether x → ∞ or x → −∞.
+    - slug: apcalcab-u02-w07-q22
+      type: numeric
+      topic_code: "2.3"
+      source: "AP Calculus CED, Topic 2.3"
+      points: 1
+      prompt: |
+        (Calculator.) Use the symmetric difference quotient with h = 0.001 to estimate the derivative of f(x) = 2ˣ at x = 1. Give your answer to three decimal places.
+      answer: { value: 1.386, tolerance: 0.001 }
+      explanation: |
+        (2^1.001 − 2^0.999)/0.002 ≈ (2.001387 − 1.998614)/0.002 ≈ 1.386. A calculator's numerical derivative gives the same value; the exact derivative, 2 ln 2, comes in Unit 3.
+    - slug: apcalcab-u02-w07-q23
+      type: short_answer
+      topic_code: "2.4"
+      source: "AP Calculus CED, Topic 2.4"
+      points: 3
+      prompt: |
+        Let f(x) = ax² + b for x ≤ 2 and f(x) = 8x − 4 for x > 2, where a and b are constants. You may use the fact that the derivative of x² is 2x.
+        (a) Write the condition on a and b that makes f continuous at x = 2.
+        (b) Find the values of a and b that make f differentiable at x = 2, and justify.
+      answer: |
+        (a) The left piece gives 4a + b at x = 2 and the right piece tends to 8(2) − 4 = 12, so continuity requires 4a + b = 12.
+        (b) Differentiability also needs the one-sided slopes to match: the left piece has slope 2a · 2 = 4a at x = 2 and the right piece has slope 8, so 4a = 8 and a = 2. Then 4(2) + b = 12 gives b = 4. With a = 2 and b = 4, f is continuous and its one-sided derivatives are both 8, so f′(2) = 8 exists.
+      explanation: |
+        Three points. (a) 1 point for 4a + b = 12. (b) 1 point for matching slopes 4a = 8 (a = 2); 1 point for b = 4 with the statement that both continuity and equal one-sided derivatives are needed. Finding a and b from the slope condition alone, without checking continuity, earns at most 2 points.
+    - slug: apcalcab-u02-w07-q24
+      type: short_answer
+      topic_code: "1.16"
+      source: "AP Calculus CED, Topic 1.16"
+      points: 2
+      prompt: |
+        A function h is continuous on [0, 4] and has the values below.
+
+        | x | 0 | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | h(x) | 5 | 1 | −2 | 3 | 6 |
+
+        What is the least number of solutions the equation h(x) = 0 must have on [0, 4]? Justify your answer.
+      answer: |
+        At least 2. h is continuous on [1, 2] with h(1) = 1 > 0 and h(2) = −2 < 0, so by the Intermediate Value Theorem h(c) = 0 for some c in (1, 2). Likewise h is continuous on [2, 3] with h(2) = −2 < 0 < 3 = h(3), so h(d) = 0 for some d in (2, 3). These intervals do not overlap, so c ≠ d.
+      explanation: |
+        Two points. 1 point for the answer 2 with the two intervals (1, 2) and (2, 3). 1 point for invoking the Intermediate Value Theorem with its hypotheses: continuity on each closed interval and 0 between the endpoint values.
+    - slug: apcalcab-u02-w07-q25
+      type: long_answer
+      topic_code: "2.3"
+      source: "AP Calculus CED, Topic 2.3"
+      points: 6
+      prompt: |
+        A hiker climbs a trail. Her elevation above sea level, E(t), in metres, is recorded at selected times t hours after she starts. E is differentiable on 0 < t < 4, and the data are hypothetical.
+
+        | t (hours) | 0 | 1 | 1.5 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | E(t) (m) | 1200 | 1450 | 1520 | 1610 | 1580 |
+
+        (A) Use the data to estimate E′(1.25). Show the computation and interpret your answer in context, with units.
+        (B) Find the average rate of change of E over 0 ≤ t ≤ 4, with units.
+        (C) Use the secant line through the data at t = 1.5 and t = 3 to estimate E(2).
+        (D) A simpler model for the first 1.5 hours is M(t) = 1200 + 250t for 0 ≤ t ≤ 1 and M(t) = 1450 + 140(t − 1) for 1 < t ≤ 1.5. Is M continuous at t = 1? Is M differentiable at t = 1? Justify both answers.
+      answer: |
+        (A) E′(1.25) ≈ (E(1.5) − E(1))/(1.5 − 1) = (1520 − 1450)/0.5 = 140 metres per hour. About 1 hour 15 minutes into the hike, her elevation is increasing at roughly 140 metres per hour.
+        (B) (E(4) − E(0))/(4 − 0) = (1580 − 1200)/4 = 380/4 = 95 metres per hour.
+        (C) The secant slope is (1610 − 1520)/(3 − 1.5) = 90/1.5 = 60 metres per hour, so E(2) ≈ 1520 + 60(2 − 1.5) = 1550 metres.
+        (D) Continuous: lim (t→1⁻) M(t) = 1200 + 250 = 1450, lim (t→1⁺) M(t) = 1450 + 0 = 1450, and M(1) = 1450. Not differentiable: the left-hand rate is 250 metres per hour and the right-hand rate is 140 metres per hour; the one-sided derivatives differ, so the graph has a corner at t = 1 and M′(1) does not exist.
+      explanation: |
+        Six points. (A) 1 point for 140 from the bracketing data at t = 1 and t = 1.5; 1 point for an interpretation naming the time (t = 1.25 hours), "increasing" and metres per hour. (B) 1 point for 95 metres per hour. (C) 1 point for 1550 metres from the secant line. (D) 1 point for continuity justified by both one-sided limits equalling M(1) = 1450; 1 point for "not differentiable" justified by the unequal one-sided rates 250 and 140.

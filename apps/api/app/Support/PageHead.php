@@ -54,12 +54,12 @@ final class PageHead
      * Null when the path is not a page this describes (the caller serves
      * index.html untouched).
      *
-     * @return array{title: ?string, description: ?string, indexable: bool, type: string, path: string, json_ld: ?array<string, mixed>}|null
+     * @return array{title: ?string, description: ?string, indexable: bool, type: string, path: string, json_ld: ?array<string, mixed>, card: array{kicker: string, detail: ?string}}|null
      */
     public function resolve(string $path): ?array
     {
         if (array_key_exists($path, self::LISTINGS)) {
-            return $this->meta($path, self::LISTINGS[$path], null, true);
+            return $this->meta($path, self::LISTINGS[$path], null, true, 'website', null, 'Browse', self::summarize($this->tagline, 140));
         }
 
         // A vanity path describes what it names, at its canonical address.
@@ -109,7 +109,11 @@ final class PageHead
         $tags[] = $this->tag('meta', 'property', 'og:type', $meta['type']);
         $tags[] = $this->tag('meta', 'property', 'og:url', $url);
         $tags[] = $this->tag('meta', 'property', 'og:site_name', $this->siteName);
-        $tags[] = $this->tag('meta', 'name', 'twitter:card', 'summary');
+        $tags[] = $this->tag('meta', 'property', 'og:image', self::imageUrl($meta['path'], $this->card($meta)));
+        $tags[] = $this->tag('meta', 'property', 'og:image:width', (string) ShareCard::WIDTH);
+        $tags[] = $this->tag('meta', 'property', 'og:image:height', (string) ShareCard::HEIGHT);
+        $tags[] = $this->tag('meta', 'property', 'og:image:alt', $meta['title'] ?? $this->siteName);
+        $tags[] = $this->tag('meta', 'name', 'twitter:card', 'summary_large_image');
 
         if ($meta['json_ld'] !== null && $meta['indexable']) {
             // JSON_HEX_TAG turns every < and > into < / >, so
@@ -149,10 +153,55 @@ final class PageHead
         return "<{$tag} {$key}=\"".e($keyValue)."\" {$attr}=\"".e($value).'" data-page-meta>';
     }
 
-    /** @return array{title: ?string, description: ?string, indexable: bool, type: string, path: string, json_ld: ?array<string, mixed>} */
-    private function meta(string $path, ?string $title, ?string $description, bool $indexable, string $type = 'website', ?array $jsonLd = null): array
+    /** @return array{title: ?string, description: ?string, indexable: bool, type: string, path: string, json_ld: ?array<string, mixed>, card: array{kicker: string, detail: ?string}} */
+    private function meta(string $path, ?string $title, ?string $description, bool $indexable, string $type = 'website', ?array $jsonLd = null, string $kicker = '', ?string $detail = null): array
     {
-        return ['title' => $title, 'description' => $description, 'indexable' => $indexable, 'type' => $type, 'path' => $path, 'json_ld' => $jsonLd];
+        return ['title' => $title, 'description' => $description, 'indexable' => $indexable, 'type' => $type, 'path' => $path, 'json_ld' => $jsonLd, 'card' => ['kicker' => $kicker, 'detail' => $detail]];
+    }
+
+    /**
+     * What the share card (og:image, ShareCard) draws for a page: never more
+     * than its head already says, so a hidden page gets the site's own card.
+     *
+     * @param  array{title: ?string, card: array{kicker: string, detail: ?string}}  $meta
+     * @return array{kicker: string, title: string, detail: ?string, site: string, host: string, is_site: bool}
+     */
+    public function card(array $meta): array
+    {
+        // A title the fonts can't draw would leave a blank card (ShareCard::covers):
+        // the site's own card instead; an undrawable detail is left off.
+        $isSite = $meta['title'] === null || ! ShareCard::covers($meta['title']);
+        $detail = $isSite ? self::summarize($this->tagline, 140) : $meta['card']['detail'];
+
+        return [
+            'kicker' => $isSite ? 'Free courses, tests and study materials' : $meta['card']['kicker'],
+            'title' => $isSite ? $this->siteName : $meta['title'],
+            'detail' => $detail !== null && ShareCard::covers($detail) ? $detail : null,
+            'site' => $this->siteName,
+            'host' => (string) parse_url($this->origin, PHP_URL_HOST),
+            'is_site' => $isSite,
+        ];
+    }
+
+    /**
+     * The og:image URL for a page: the API's own share-card route. `v`, a
+     * hash of what the card draws, changes the URL whenever the card does,
+     * because preview bots cache images by URL; the route ignores it. The
+     * site's card has one hash, so `v` says nothing about a hidden page.
+     *
+     * @param  array<string, mixed>|null  $card  PageHead::card() for the page
+     */
+    public static function imageUrl(string $path, ?array $card = null): string
+    {
+        $url = rtrim((string) config('app.url'), '/').'/api/page-image?path='.rawurlencode($path);
+
+        return $card === null ? $url : $url.'&v='.self::cardHash($card);
+    }
+
+    /** @param  array<string, mixed>  $card */
+    public static function cardHash(array $card): string
+    {
+        return substr(sha1(ShareCard::VERSION.json_encode($card, JSON_THROW_ON_ERROR)), 0, 12);
     }
 
     /** A page a guest cannot open: the site's own head, kept out of the index. */
@@ -182,7 +231,7 @@ final class PageHead
             'author' => $this->person($course->author),
             'provider' => ['@type' => 'Organization', 'name' => $this->siteName, 'url' => $this->origin],
             'isAccessibleForFree' => true,
-        ] + $this->topics($course));
+        ] + $this->topics($course), 'Free course', self::count($tests, 'practice test').' · '.self::count($materials, 'study material', 'study materials')." · by {$course->author->name}");
     }
 
     private function practice(int $courseId, int $testId): ?array
@@ -205,7 +254,7 @@ final class PageHead
             'author' => $this->person($test->author),
             'isAccessibleForFree' => true,
             'isPartOf' => ['@type' => 'Course', 'name' => $course->title, 'url' => $this->origin.$coursePath],
-        ] + $this->topics($test));
+        ] + $this->topics($test), 'Practice test', self::count($test->questions_count, 'question')." with answers · from {$course->title}");
     }
 
     private function test(int $id): ?array
@@ -225,7 +274,7 @@ final class PageHead
             'url' => $this->origin.$path,
             'author' => $this->person($test->author),
             'isAccessibleForFree' => true,
-        ] + $this->topics($test));
+        ] + $this->topics($test), self::label(TaxonomyLabels::subjects(), $test->subject).' test', self::count($test->questions_count, 'question')." · by {$test->author->name}");
     }
 
     private function material(int $id): ?array
@@ -246,7 +295,7 @@ final class PageHead
             'author' => $this->person($material->author),
             'encodingFormat' => $material->mime_type,
             'isAccessibleForFree' => true,
-        ] + $this->topics($material));
+        ] + $this->topics($material), self::label(TaxonomyLabels::subjects(), $material->subject).' study material', "by {$material->author->name}");
     }
 
     /** PublicProfileController's guest branch: an active Role::isPublic() user only. */
@@ -265,7 +314,12 @@ final class PageHead
             $person['affiliation'] = ['@type' => 'EducationalOrganization', 'name' => $school];
         }
 
-        return $this->meta($path, $user->name, $description, true, 'profile', ['@type' => 'ProfilePage', 'mainEntity' => $person]);
+        return $this->meta($path, $user->name, $description, true, 'profile', ['@type' => 'ProfilePage', 'mainEntity' => $person], 'Teacher', $school ?: 'Tests, study materials and courses');
+    }
+
+    private static function count(int $n, string $one, ?string $many = null): string
+    {
+        return $n.' '.($n === 1 ? $one : ($many ?? "{$one}s"));
     }
 
     /** @return array<string, string> */

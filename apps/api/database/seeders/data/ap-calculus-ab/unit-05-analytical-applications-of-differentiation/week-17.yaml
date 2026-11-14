@@ -1,0 +1,630 @@
+week: 17
+unit: 5
+title: "The Mean Value Theorem, the Extreme Value Theorem and Critical Points"
+topics: ["5.1", "5.2"]
+guide: guides/week-17.md
+guide_description: |
+  The Mean Value Theorem as an existence theorem (its two hypotheses, what it guarantees, Rolle's theorem as the
+  special case f(a) = f(b), and how to apply it to a table), the Extreme Value Theorem and why both of its
+  hypotheses matter, local versus global extrema, and critical points where f′ is zero or undefined. Worked
+  examples: the MVT value for x² − 4x + 1 on [1, 4], a hypothetical delivery-van table justified with the MVT,
+  functions that fail the hypotheses (|x|, 1/x, x^(2/3)), the critical points of x^(2/3)(x − 5), and the global
+  extrema of x⁴ − 2x² on [−2, 2].
+flashcards_description: |
+  32 cards on the Mean Value Theorem and Rolle's theorem, the AP justification sentence for each, the Extreme
+  Value Theorem and its hypotheses, local versus global extrema, Fermat's theorem and critical points.
+
+flashcards:
+  - front: Mean Value Theorem → the two hypotheses
+    back: |
+      f is continuous on the closed interval [a, b] and differentiable on the open interval (a, b).
+    topic_code: "5.1"
+  - front: Mean Value Theorem → the conclusion
+    back: |
+      There is at least one c in (a, b) with f′(c) = (f(b) − f(a))/(b − a): somewhere the instantaneous rate equals the average rate.
+    topic_code: "5.1"
+  - front: Mean Value Theorem → the picture
+    back: |
+      Somewhere strictly between a and b, the tangent line is parallel to the secant line through (a, f(a)) and (b, f(b)).
+    topic_code: "5.1"
+  - front: Rolle's theorem → how it relates to the MVT
+    back: |
+      It is the MVT when f(a) = f(b): the secant slope is 0, so f′(c) = 0 for some c in (a, b). Same two hypotheses.
+    topic_code: "5.1"
+  - front: MVT justification sentence for a table of a differentiable function → what to write
+    back: |
+      "f is differentiable, so it is continuous on [a, b] and differentiable on (a, b). By the Mean Value Theorem there is a c in (a, b) with f′(c) = (f(b) − f(a))/(b − a) = …"
+    topic_code: "5.1"
+  - front: Differentiable on an interval → does that give continuity too?
+    back: |
+      Yes. Differentiability implies continuity, so "f is differentiable on [a, b]" covers both MVT hypotheses at once.
+    topic_code: "5.1"
+  - front: MVT for x² − 4x + 1 on [1, 4] → the value of c
+    back: |
+      Secant slope (1 − (−2))/3 = 1. Solve 2c − 4 = 1: c = 5/2, which lies in (1, 4).
+    topic_code: "5.1"
+  - front: MVT for √x on [0, 4] → the value of c
+    back: |
+      Secant slope (2 − 0)/4 = 1/2. Solve 1/(2√c) = 1/2: c = 1. Continuity at the endpoint 0 is enough; f need not be differentiable at 0.
+    topic_code: "5.1"
+  - front: "|x| on [−1, 1] → why the MVT fails"
+    back: |
+      Not differentiable at 0 (a corner). The secant slope is 0, but f′ is only ever −1 or 1.
+    topic_code: "5.1"
+  - front: 1/x on [−1, 1] → why the MVT fails
+    back: |
+      Not continuous at 0 (not even defined there), so the first hypothesis fails before you look at derivatives.
+    topic_code: "5.1"
+  - front: Table of a differentiable g with g(2) = g(5) → what is guaranteed
+    back: |
+      By the MVT (Rolle), g′(c) = 0 for some c in (2, 5): g has a horizontal tangent somewhere in that interval.
+    topic_code: "5.1"
+  - front: MVT versus IVT → which quantity each guarantees
+    back: |
+      IVT (continuity) guarantees a value of f itself. MVT (continuity + differentiability) guarantees a value of f′, the average rate.
+    topic_code: "5.1"
+  - front: Speeding ticket from two toll booths 60 miles apart, 48 minutes → the MVT argument
+    back: |
+      Average speed 60/0.8 = 75 mph. Position is differentiable, so by the MVT the speedometer read exactly 75 mph at some instant.
+    topic_code: "5.1"
+  - front: Error-spot → "By the MVT, f′(c) = 3 at the midpoint of [5, 9]"
+    back: |
+      The MVT says some c exists in (5, 9); it never says where. The midpoint is not guaranteed.
+    topic_code: "5.1"
+  - front: Error-spot → "f(1) = f(3), so by the MVT f′(2) = 0"
+    back: |
+      Two mistakes: the hypotheses were not stated, and the theorem names no specific point. Write "there is a c in (1, 3) with f′(c) = 0".
+    topic_code: "5.1"
+  - front: Extreme Value Theorem → hypotheses and conclusion
+    back: |
+      If f is continuous on a closed interval [a, b], then f attains an absolute maximum and an absolute minimum on [a, b].
+    topic_code: "5.2"
+  - front: x² on the open interval (0, 2) → why the EVT says nothing
+    back: |
+      The interval is not closed. The outputs approach 4 and 0 but never reach them, so there is no absolute maximum or minimum.
+    topic_code: "5.2"
+  - front: 1/(x − 2) on [0, 3] → why the EVT says nothing
+    back: |
+      f is not continuous at x = 2, which is inside the interval. The outputs are unbounded near 2.
+    topic_code: "5.2"
+  - front: EVT → what it does not tell you
+    back: |
+      Where the extrema are or what they equal. It only guarantees they exist; the candidates test finds them.
+    topic_code: "5.2"
+  - front: Relative (local) maximum at c → definition
+    back: |
+      f(c) ≥ f(x) for all x in some open interval around c. It is about nearby inputs only.
+    topic_code: "5.2"
+  - front: Absolute (global) maximum on an interval → definition
+    back: |
+      f(c) ≥ f(x) for every x in the whole interval. It may occur at an endpoint, where a relative extremum (in the AP sense) cannot.
+    topic_code: "5.2"
+  - front: Critical point of f → definition
+    back: |
+      An input c in the domain of f where f′(c) = 0 or f′(c) does not exist.
+    topic_code: "5.2"
+  - front: Fermat's theorem → link between relative extrema and critical points
+    back: |
+      If f has a relative extremum at c, then c is a critical point. The converse is false.
+    topic_code: "5.2"
+  - front: x³ at x = 0 → what it shows about critical points
+    back: |
+      f′(0) = 0, so 0 is a critical point, but x³ is increasing through 0: no extremum. A critical point is only a candidate.
+    topic_code: "5.2"
+  - front: x^(2/3)(x − 5) → critical points
+    back: |
+      f′(x) = 5(x − 2)/(3x^(1/3)). f′(2) = 0 and f′(0) does not exist (0 is in the domain): critical points 0 and 2.
+    topic_code: "5.2"
+  - front: x⁴ − 2x² on [−2, 2] → global extrema
+    back: |
+      Critical points −1, 0, 1. Values f(±1) = −1, f(0) = 0, f(±2) = 8. Absolute maximum 8 (at ±2), absolute minimum −1 (at ±1).
+    topic_code: "5.2"
+  - front: Continuous f on [a, b] → where the global extrema can occur
+    back: |
+      Only at critical points inside (a, b) or at the endpoints a and b. Nowhere else.
+    topic_code: "5.2"
+  - front: f with domain x > 0 and f′(x) = (x − 4)/√x → is 0 a critical point?
+    back: |
+      No. f′ is undefined at 0, but 0 is not in the domain of f, and a critical point must lie in the domain. The only critical point is 4.
+    topic_code: "5.2"
+  - front: Error-spot → "x = 0 is a critical point of 1/x because 1/x has no derivative there"
+    back: |
+      0 is not in the domain of 1/x, so it cannot be a critical point. A critical point needs f(c) to exist.
+    topic_code: "5.2"
+  - front: Relative extremum versus critical point → which implies which
+    back: |
+      Relative extremum ⟹ critical point (for f defined around c). Critical point ⟹ nothing on its own; test it.
+    topic_code: "5.2"
+  - front: Continuous g on [0, 6] with critical points 1 and 4, g(0) = 3, g(1) = 7, g(4) = −2, g(6) = 5 → global extrema
+    back: |
+      Compare all four values: absolute maximum 7 at x = 1, absolute minimum −2 at x = 4.
+    topic_code: "5.2"
+  - front: Extreme value versus where it occurs → how to report each
+    back: |
+      The extreme value is the output f(c); "where" is the input c. "The absolute maximum is 8, at x = 2."
+    topic_code: "5.2"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 5.1 and 5.2: the Mean Value Theorem and Rolle's
+    theorem, the Extreme Value Theorem, local and global extrema, and critical points), with 8 questions (about
+    35%) reviewing weeks 5 to 16 (the Intermediate Value Theorem, estimating derivatives from tables,
+    differentiability, the chain rule, motion, related rates, linearization and L'Hospital's rule). Opens with a
+    shared-context set on a table of a balloon's altitude. Multiple choice, select-all, true/false and numeric
+    items are graded at once; fill-in-the-blank items are matched automatically; the short answers and the long
+    answer are graded by your teacher against the scoring notes. No calculator is needed.
+  questions:
+    # ---- Stimulus set: a balloon's altitude from a table (5.1, 2.3, 1.16)
+    - slug: apcalcab-u05-w17-q01
+      type: multiple_choice
+      topic_code: "5.1"
+      source: "AP Calculus CED, Topic 5.1"
+      points: 1
+      stimulus: |
+        The altitude of a hypothetical weather balloon is modeled by a differentiable function A, where A(t) is measured in hundreds of meters and t is measured in minutes, for 0 ≤ t ≤ 12. Selected values are shown.
+
+        | t (minutes) | 0 | 2 | 5 | 9 | 12 |
+        |---|---|---|---|---|---|
+        | A(t) (hundreds of meters) | 10 | 18 | 18 | 30 | 6 |
+      prompt: |
+        Which conclusion about A on the interval 5 < t < 9 is guaranteed by the Mean Value Theorem?
+      options:
+        - "A′(c) = 0 for some c in (5, 9)"
+        - "A(c) = 3 for some c in (5, 9)"
+        - "A′(c) = 3 for some c in (5, 9)"
+        - "A′(7) = 3"
+      option_explanations:
+        - |
+          A′ = 0 would need A(5) = A(9). Here A rises from 18 to 30, so the guaranteed derivative value is the secant slope 3, not 0.
+        - |
+          This puts the average rate on A itself. The MVT guarantees a value of the derivative A′, not of A; nothing in the data forces A to take the value 3 on (5, 9).
+        - |
+          Correct. A is differentiable, so it is continuous on [5, 9] and differentiable on (5, 9). The secant slope is (30 − 18)/(9 − 5) = 3, so A′(c) = 3 for some c in (5, 9).
+        - |
+          The MVT guarantees that some c exists in (5, 9) but never says where. Nothing forces the derivative to equal 3 at the midpoint t = 7.
+      answer: 2
+    - slug: apcalcab-u05-w17-q02
+      type: multiple_choice
+      topic_code: "5.1"
+      source: "AP Calculus CED, Topic 5.1"
+      points: 1
+      stimulus: |
+        The altitude of a hypothetical weather balloon is modeled by a differentiable function A, where A(t) is measured in hundreds of meters and t is measured in minutes, for 0 ≤ t ≤ 12. Selected values are shown.
+
+        | t (minutes) | 0 | 2 | 5 | 9 | 12 |
+        |---|---|---|---|---|---|
+        | A(t) (hundreds of meters) | 10 | 18 | 18 | 30 | 6 |
+      prompt: |
+        On which interval do the data and the Mean Value Theorem guarantee a time c at which A′(c) = 0?
+      options:
+        - "(0, 2)"
+        - "(2, 5)"
+        - "(5, 9)"
+        - "(9, 12)"
+      option_explanations:
+        - |
+          A changes from 10 to 18 on [0, 2], so the secant slope is 4, not 0. The MVT guarantees A′ = 4 there, not A′ = 0.
+        - |
+          Correct. A(2) = A(5) = 18, so the secant slope on [2, 5] is 0. A is continuous on [2, 5] and differentiable on (2, 5), so by the MVT (Rolle's theorem) A′(c) = 0 for some c in (2, 5).
+        - |
+          A rises from 18 to 30 on [5, 9], so the guaranteed derivative value is 3. The data allow A′ to stay positive throughout.
+        - |
+          A falls from 30 to 6 on [9, 12], so the guaranteed value is A′(c) = −8. A large drop is not a zero derivative.
+      answer: 1
+    - slug: apcalcab-u05-w17-q03
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "AP Calculus CED, Topic 2.3"
+      points: 1
+      stimulus: |
+        The altitude of a hypothetical weather balloon is modeled by a differentiable function A, where A(t) is measured in hundreds of meters and t is measured in minutes, for 0 ≤ t ≤ 12. Selected values are shown.
+
+        | t (minutes) | 0 | 2 | 5 | 9 | 12 |
+        |---|---|---|---|---|---|
+        | A(t) (hundreds of meters) | 10 | 18 | 18 | 30 | 6 |
+      prompt: |
+        Using the data, what is the best estimate of A′(10.5), in hundreds of meters per minute?
+      options:
+        - "8"
+        - "−24"
+        - "−2"
+        - "−8"
+      option_explanations:
+        - |
+          The size is right but the sign is wrong: A falls from 30 to 6 between t = 9 and t = 12, so the rate is negative.
+        - |
+          −24 is the change in altitude, 6 − 30. It still has to be divided by the change in time, 12 − 9 = 3.
+        - |
+          This divides the change −24 by 12, the time value, instead of by the length of the interval 12 − 9 = 3.
+        - |
+          Correct. 10.5 lies between the table entries t = 9 and t = 12, so A′(10.5) ≈ (6 − 30)/(12 − 9) = −24/3 = −8 hundred meters per minute.
+      answer: 3
+    - slug: apcalcab-u05-w17-q04
+      type: multiple_choice
+      topic_code: "1.16"
+      source: "AP Calculus CED, Topic 1.16"
+      points: 1
+      stimulus: |
+        The altitude of a hypothetical weather balloon is modeled by a differentiable function A, where A(t) is measured in hundreds of meters and t is measured in minutes, for 0 ≤ t ≤ 12. Selected values are shown.
+
+        | t (minutes) | 0 | 2 | 5 | 9 | 12 |
+        |---|---|---|---|---|---|
+        | A(t) (hundreds of meters) | 10 | 18 | 18 | 30 | 6 |
+      prompt: |
+        For which altitude value k does the Intermediate Value Theorem guarantee a time t in (9, 12) with A(t) = k?
+      options:
+        - "k = 20"
+        - "k = 35"
+        - "k = 5"
+        - "k = 0"
+      option_explanations:
+        - |
+          Correct. A is differentiable, hence continuous on [9, 12], and 20 lies between A(12) = 6 and A(9) = 30. By the IVT, A(t) = 20 for some t in (9, 12).
+        - |
+          35 is above both endpoint values 30 and 6, so the IVT says nothing about it. A might never reach 35.
+        - |
+          5 is below both endpoint values 30 and 6. The IVT only covers values between A(9) and A(12).
+        - |
+          0 is below A(12) = 6. Ending at 6 does not force the balloon to reach altitude 0 on the way.
+      answer: 0
+    # ---- Independent items
+    - slug: apcalcab-u05-w17-q05
+      type: multiple_choice
+      topic_code: "5.1"
+      source: "AP Calculus CED, Topic 5.1"
+      points: 1
+      prompt: |
+        Let f(x) = x² − 4x + 1. What value of c in (1, 4) satisfies the conclusion of the Mean Value Theorem for f on [1, 4]?
+      options:
+        - "2"
+        - "3/2"
+        - "1"
+        - "5/2"
+      option_explanations:
+        - |
+          c = 2 solves f′(c) = 0. That would be Rolle's theorem, but f(1) = −2 and f(4) = 1 are not equal, so the secant slope is 1, not 0.
+        - |
+          This comes from solving 2c − 4 = −1, a sign slip in the secant slope. The slope is (1 − (−2))/3 = +1.
+        - |
+          1 is the secant slope, the value f′(c) must equal. The question asks for the input c where that happens.
+        - |
+          Correct. The secant slope is (f(4) − f(1))/(4 − 1) = (1 − (−2))/3 = 1. Setting f′(c) = 2c − 4 = 1 gives c = 5/2, which is in (1, 4).
+      answer: 3
+    - slug: apcalcab-u05-w17-q06
+      type: multiple_choice
+      topic_code: "5.1"
+      source: "AP Calculus CED, Topic 5.1"
+      points: 1
+      prompt: |
+        For which function are the hypotheses of the Mean Value Theorem satisfied on the interval [−1, 1]?
+      options:
+        - "k(x) = x³ − x"
+        - "f(x) = |x|"
+        - "g(x) = 1/x"
+        - "h(x) = x^(2/3)"
+      option_explanations:
+        - |
+          Correct. A polynomial is continuous and differentiable everywhere, so it is continuous on [−1, 1] and differentiable on (−1, 1).
+        - |
+          |x| is continuous but has a corner at x = 0, so it is not differentiable on (−1, 1). Its slopes are only −1 and 1, never the secant slope 0.
+        - |
+          1/x is undefined at x = 0, so it is not continuous on [−1, 1]. The first hypothesis already fails.
+        - |
+          x^(2/3) is continuous but its derivative (2/3)x^(−1/3) does not exist at x = 0 (a cusp), so it is not differentiable on (−1, 1).
+      answer: 0
+    - slug: apcalcab-u05-w17-q07
+      type: multiple_choice
+      topic_code: "5.2"
+      source: "AP Calculus CED, Topic 5.2"
+      points: 1
+      prompt: |
+        Let f(x) = x^(2/3)(x − 5), so that f′(x) = 5(x − 2)/(3x^(1/3)). What are all the critical points of f?
+      options:
+        - "x = 2 only"
+        - "x = 0 and x = 2"
+        - "x = 0 and x = 5"
+        - "x = 2 and x = 5"
+      option_explanations:
+        - |
+          This finds only where f′ = 0. f′ is also undefined at x = 0, and 0 is in the domain of f, so 0 is a critical point too.
+        - |
+          Correct. f′(2) = 0, and f′(0) does not exist while f(0) = 0 does. Critical points are where f′ is zero or undefined, so x = 0 and x = 2.
+        - |
+          These are the zeros of f itself, not of f′. Where the graph crosses the axis has nothing to do with critical points.
+        - |
+          x = 5 is a zero of f, not of f′ (f′(5) = 5 · 3/(3 · 5^(1/3)) ≠ 0), and the point x = 0 where f′ is undefined is missed.
+      answer: 1
+    - slug: apcalcab-u05-w17-q08
+      type: multiple_choice
+      topic_code: "5.2"
+      source: "AP Calculus CED, Topic 5.2"
+      points: 1
+      prompt: |
+        For which function and interval does the Extreme Value Theorem guarantee an absolute maximum?
+      options:
+        - "f(x) = 1/(x − 2) on [0, 3]"
+        - "g(x) = x² on (0, 2)"
+        - "h(x) = √(x + 1) on [0, 8]"
+        - "k(x) = tan x on [0, π]"
+      option_explanations:
+        - |
+          f is not continuous at x = 2, which lies inside [0, 3]; f(x) → ∞ as x → 2⁺, so there is no absolute maximum.
+        - |
+          The interval is open. g(x) gets close to 4 as x → 2 but never reaches it, so g has no absolute maximum on (0, 2).
+        - |
+          Correct. h is continuous on the closed interval [0, 8] (x + 1 ≥ 1 > 0 there), so by the EVT it attains an absolute maximum (h(8) = 3) and an absolute minimum.
+        - |
+          tan x is not continuous at x = π/2, which is inside [0, π], and it is unbounded near π/2, so the EVT does not apply.
+      answer: 2
+    - slug: apcalcab-u05-w17-q09
+      type: multiple_choice
+      topic_code: "5.2"
+      source: "AP Calculus CED, Topic 5.2"
+      points: 1
+      prompt: |
+        A function f is differentiable for all real numbers, and f′(3) = 0. Which statement must be true?
+      options:
+        - "f has a relative extremum at x = 3."
+        - "f has an absolute maximum at x = 3."
+        - "f″(3) = 0"
+        - "x = 3 is a critical point of f."
+      option_explanations:
+        - |
+          A zero derivative does not force an extremum: f(x) = (x − 3)³ has f′(3) = 0 and is increasing through x = 3.
+        - |
+          Nothing says f(3) is the largest output. f(x) = (x − 3)² has f′(3) = 0 and an absolute minimum there instead.
+        - |
+          f′(3) = 0 says nothing about f″(3). For f(x) = (x − 3)², f″(3) = 2.
+        - |
+          Correct. A critical point is an input in the domain where f′ is zero or undefined. f′(3) = 0, so 3 is a critical point, whether or not it gives an extremum.
+      answer: 3
+    - slug: apcalcab-u05-w17-q10
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        Let f(x) = e^(x² − 4x). Which expression is f′(x)?
+      options:
+        - "(2x − 4)e^(x² − 4x)"
+        - "e^(x² − 4x)"
+        - "(x² − 4x)e^(x² − 4x − 1)"
+        - "e^(2x − 4)"
+      option_explanations:
+        - |
+          Correct. By the chain rule, d/dx [e^u] = eᵘ · u′ with u = x² − 4x and u′ = 2x − 4. (So the only critical point is x = 2.)
+        - |
+          This forgets the chain rule: e^u differentiates to e^u times the derivative of the inner function u = x² − 4x.
+        - |
+          This treats e^u like a power function, bringing the exponent down and subtracting 1. The power rule does not apply when the variable is in the exponent.
+        - |
+          This differentiates only the exponent and keeps it upstairs. The derivative of the inner function multiplies e^(x² − 4x); it does not replace the exponent.
+      answer: 0
+    - slug: apcalcab-u05-w17-q11
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Calculus CED, Topic 4.2"
+      points: 1
+      prompt: |
+        A particle moves along the x-axis with velocity v(t) = t² − 6t + 8 for t ≥ 0. At what times is the particle at rest?
+      options:
+        - "t = 3 only"
+        - "t = 2 and t = 4"
+        - "t = 0 only"
+        - "t = 8 only"
+      option_explanations:
+        - |
+          t = 3 is where the acceleration v′(t) = 2t − 6 is 0. At rest means velocity 0, and v(3) = −1.
+        - |
+          Correct. At rest means v(t) = 0: t² − 6t + 8 = (t − 2)(t − 4) = 0, so t = 2 and t = 4.
+        - |
+          At t = 0 the velocity is v(0) = 8, so the particle is moving. Starting the clock is not the same as being at rest.
+        - |
+          8 is the velocity at t = 0, not a time. The question asks when v(t) = 0.
+      answer: 1
+    - slug: apcalcab-u05-w17-q12
+      type: multiple_choice
+      topic_code: "2.4"
+      source: "AP Calculus CED, Topic 2.4"
+      points: 1
+      prompt: |
+        Let f(x) = x² for x ≤ 1 and f(x) = 2x − 1 for x > 1. Which statement about f at x = 1 is true?
+      options:
+        - "f is continuous but not differentiable at x = 1."
+        - "f is not continuous at x = 1."
+        - "f is continuous and differentiable at x = 1."
+        - "f is differentiable but not continuous at x = 1."
+      option_explanations:
+        - |
+          The pieces do meet without a corner: the left slope 2x → 2 and the right slope 2 agree, so f is differentiable at 1, not just continuous.
+        - |
+          Both pieces give 1 at x = 1 (1² = 1 and 2(1) − 1 = 1), and f(1) = 1, so f is continuous there.
+        - |
+          Correct. The one-sided limits are both 1 = f(1), so f is continuous; the one-sided derivatives are 2(1) = 2 and 2, so f′(1) = 2 exists. (So the MVT applies to f on [0, 2].)
+        - |
+          This combination is impossible: differentiability at a point always implies continuity there.
+      answer: 2
+    - slug: apcalcab-u05-w17-q13
+      type: multiple_choice
+      topic_code: "5.2"
+      source: "AP Calculus CED, Topic 5.2"
+      points: 1
+      prompt: |
+        A function g is continuous on [0, 6], and its only critical points in (0, 6) are x = 1 and x = 4. Also g(0) = 3, g(1) = 7, g(4) = −2 and g(6) = 5. What is the absolute maximum value of g on [0, 6]?
+      options:
+        - "5"
+        - "6"
+        - "1"
+        - "7"
+      option_explanations:
+        - |
+          5 is the value at the right endpoint. Endpoints must be compared with the critical points, and g(1) = 7 is larger.
+        - |
+          6 is the right endpoint of the interval, an input, not an output of g.
+        - |
+          1 is where the maximum occurs. The maximum value is the output g(1) = 7.
+        - |
+          Correct. By the EVT a maximum exists, and it occurs at a critical point or an endpoint. Comparing g(0) = 3, g(1) = 7, g(4) = −2 and g(6) = 5, the largest is 7.
+      answer: 3
+    - slug: apcalcab-u05-w17-q14
+      type: multi_select
+      topic_code: "5.1"
+      source: "AP Calculus CED, Topic 5.1"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A function f is differentiable for all real numbers, with f(1) = 4 and f(6) = −6. Which statements must be true? Select all that apply.
+      options:
+        - "f′(c) = −2 for some c in (1, 6)."
+        - "f(c) = 0 for some c in (1, 6)."
+        - "f′(c) = 0 for some c in (1, 6)."
+        - "f is decreasing on [1, 6]."
+        - "f′(x) = −2 for every x in (1, 6)."
+      option_explanations:
+        - |
+          Correct. f is continuous on [1, 6] and differentiable on (1, 6), and the secant slope is (−6 − 4)/(6 − 1) = −2, so the MVT gives such a c.
+        - |
+          Correct. f is continuous on [1, 6] and 0 is between f(6) = −6 and f(1) = 4, so the IVT gives such a c.
+        - |
+          Not guaranteed. f(1) ≠ f(6), so Rolle's theorem does not apply; a linear function from 4 down to −6 never has slope 0.
+        - |
+          Not guaranteed. The endpoint values only fix the average rate; f could rise first and then fall steeply.
+        - |
+          The MVT promises at least one point with slope −2, not that the slope is −2 everywhere. That would make f linear.
+      answer: [0, 1]
+    - slug: apcalcab-u05-w17-q15
+      type: multi_select
+      topic_code: "5.2"
+      source: "AP Calculus CED, Topic 5.2"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let f(x) = x⁴ − 2x², considered on the closed interval [−2, 2]. Which statements are true? Select all that apply.
+      options:
+        - "x = 0 is a critical point of f."
+        - "The absolute minimum value of f on [−2, 2] is −1."
+        - "The absolute maximum value of f on [−2, 2] is 0."
+        - "f has exactly two critical points."
+        - "f attains its absolute maximum on [−2, 2] at the endpoints."
+      option_explanations:
+        - |
+          Correct. f′(x) = 4x³ − 4x = 4x(x − 1)(x + 1), and f′(0) = 0.
+        - |
+          Correct. The candidates are f(−2) = 8, f(−1) = −1, f(0) = 0, f(1) = −1, f(2) = 8; the smallest value is −1, at x = ±1.
+        - |
+          0 is f(0), a relative maximum only. The endpoint values f(±2) = 16 − 8 = 8 are larger.
+        - |
+          f′(x) = 4x(x − 1)(x + 1) has three zeros, x = −1, 0 and 1, so there are three critical points.
+        - |
+          Correct. The largest candidate value is 8, at x = −2 and x = 2, the endpoints of the interval.
+      answer: [0, 1, 4]
+    - slug: apcalcab-u05-w17-q16
+      type: true_false
+      topic_code: "5.1"
+      source: "AP Calculus CED, Topic 5.1"
+      points: 1
+      prompt: |
+        True or false: If f is differentiable on the open interval (a, b) and f(a) = f(b), then f′(c) = 0 for some c in (a, b).
+      answer: false
+      explanation: |
+        False. Continuity on the closed interval [a, b] is missing. Example: f(x) = x for 0 ≤ x < 1 and f(1) = 0. Then f is differentiable on (0, 1) with f′(x) = 1 everywhere there, and f(0) = f(1) = 0, but f′ is never 0. The jump at the endpoint breaks the theorem.
+    - slug: apcalcab-u05-w17-q17
+      type: true_false
+      topic_code: "5.2"
+      source: "AP Calculus CED, Topic 5.2"
+      points: 1
+      prompt: |
+        True or false: If f is differentiable for all real numbers and has a relative minimum at x = 4, then f′(4) = 0.
+      answer: true
+      explanation: |
+        True. This is Fermat's theorem: at a relative extremum the derivative is 0 or does not exist. Here f′(4) exists because f is differentiable everywhere, so it must be 0. (The converse is false: f′(c) = 0 does not guarantee an extremum.)
+    - slug: apcalcab-u05-w17-q18
+      type: fill_blank
+      topic_code: "5.1"
+      source: "AP Calculus CED, Topic 5.1"
+      points: 1
+      prompt: |
+        For f(x) = √x on [0, 4], the value of c that satisfies the conclusion of the Mean Value Theorem is c = ____.
+      answer: ["1", "1.0"]
+      explanation: |
+        f is continuous on [0, 4] and differentiable on (0, 4). The secant slope is (√4 − √0)/(4 − 0) = 1/2. Setting f′(c) = 1/(2√c) = 1/2 gives √c = 1, so c = 1.
+    - slug: apcalcab-u05-w17-q19
+      type: fill_blank
+      topic_code: "4.6"
+      source: "AP Calculus CED, Topic 4.6"
+      points: 1
+      prompt: |
+        A differentiable function f has f(2) = 5 and f′(2) = −3. Using the tangent line at x = 2, the approximation of f(2.1) is ____.
+      answer: ["4.7", "4.70"]
+      explanation: |
+        The tangent line is L(x) = 5 − 3(x − 2). L(2.1) = 5 − 3(0.1) = 4.7.
+    - slug: apcalcab-u05-w17-q20
+      type: numeric
+      topic_code: "4.7"
+      source: "AP Calculus CED, Topic 4.7"
+      points: 1
+      prompt: |
+        Find lim (x→0) (e^(3x) − 1)/sin x. Give the exact value.
+      answer: { value: 3, tolerance: 0 }
+      explanation: |
+        Direct substitution gives 0/0, and both numerator and denominator are differentiable, so L'Hospital's rule applies: lim (x→0) 3e^(3x)/cos x = 3 · 1/1 = 3.
+    - slug: apcalcab-u05-w17-q21
+      type: short_answer
+      topic_code: "5.1"
+      source: "AP Calculus CED, Topic 5.1"
+      points: 3
+      prompt: |
+        The volume of water in a hypothetical rain barrel is modeled by a differentiable function W, where W(t) is in liters and t is in hours after a storm begins. Selected values are shown.
+
+        | t (hours) | 0 | 1 | 3 | 4 | 6 |
+        |---|---|---|---|---|---|
+        | W(t) (liters) | 20 | 26 | 38 | 38 | 50 |
+
+        (a) Find the average rate of change of W over 1 ≤ t ≤ 3, with units.
+        (b) Explain why there must be a time t in (1, 3) at which W′(t) equals your answer to (a).
+        (c) Is there a time in (0, 6) at which W′(t) = 0? Justify your answer.
+      answer: |
+        (a) (38 − 26)/(3 − 1) = 6 liters per hour.
+        (b) W is differentiable, so it is continuous on [1, 3] and differentiable on (1, 3). By the Mean Value Theorem there is a c in (1, 3) with W′(c) = (W(3) − W(1))/(3 − 1) = 6.
+        (c) Yes. W(3) = W(4) = 38, and W is continuous on [3, 4] and differentiable on (3, 4), so by the Mean Value Theorem (Rolle's theorem) there is a c in (3, 4) with W′(c) = (38 − 38)/(4 − 3) = 0.
+      explanation: |
+        Three points, one per part. (a) 6 with units of liters per hour. (b) Both hypotheses (continuous on [1, 3], differentiable on (1, 3), which follow from W being differentiable) and the theorem named. (c) Yes, using W(3) = W(4) with the MVT or Rolle's theorem and the interval (3, 4). A conclusion with no theorem or no hypotheses earns no point.
+    - slug: apcalcab-u05-w17-q22
+      type: short_answer
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 3
+      prompt: |
+        A block of ice in the shape of a cube is melting so that each edge shrinks at a constant rate of 0.2 cm per minute.
+
+        (a) Find the rate at which the volume is changing when the edge is 5 cm. Include units.
+        (b) Find the rate at which the total surface area is changing at that same instant. Include units.
+        (c) Is the volume decreasing faster when the edge is 5 cm or when it is 3 cm? Explain.
+      answer: |
+        (a) V = s³, so dV/dt = 3s² ds/dt = 3(25)(−0.2) = −15 cm³ per minute.
+        (b) A = 6s², so dA/dt = 12s ds/dt = 12(5)(−0.2) = −12 cm² per minute.
+        (c) At s = 3, dV/dt = 3(9)(−0.2) = −5.4 cm³ per minute. The volume is decreasing faster when the edge is 5 cm, because |dV/dt| = 3s²(0.2) grows with s.
+      explanation: |
+        Three points. (a) −15 cm³/min, with ds/dt = −0.2 (a positive answer loses the point). (b) −12 cm²/min. (c) 5 cm, supported by comparing −15 with −5.4 or by the factor 3s².
+    - slug: apcalcab-u05-w17-q23
+      type: long_answer
+      topic_code: "5.2"
+      source: "AP Calculus CED, Topic 5.2"
+      points: 6
+      prompt: |
+        Let g(x) = x³ − 6x² + 9x + 1, considered on the closed interval [0, 4].
+
+        (A) Explain why the Mean Value Theorem applies to g on [0, 4], and find every value of c in (0, 4) that satisfies its conclusion. Exact values are expected.
+
+        (B) Find the critical points of g.
+
+        (C) Explain why g must have an absolute maximum and an absolute minimum on [0, 4]. Find both values and every x at which each occurs.
+
+        (D) Explain why there must be a value c in (1, 3) with g′(c) = −2.
+      answer: |
+        (A) g is a polynomial, so it is continuous on [0, 4] and differentiable on (0, 4). g(0) = 1 and g(4) = 64 − 96 + 36 + 1 = 5, so the secant slope is (5 − 1)/4 = 1. g′(x) = 3x² − 12x + 9 = 1 gives 3x² − 12x + 8 = 0, so x = (12 ± √48)/6 = 2 ± (2√3)/3. Both (about 0.845 and 3.155) lie in (0, 4).
+        (B) g′(x) = 3(x² − 4x + 3) = 3(x − 1)(x − 3), so the critical points are x = 1 and x = 3.
+        (C) g is continuous on the closed interval [0, 4], so by the Extreme Value Theorem it attains both. Candidates: g(0) = 1, g(1) = 5, g(3) = 27 − 54 + 27 + 1 = 1, g(4) = 5. Absolute maximum 5, at x = 1 and x = 4; absolute minimum 1, at x = 0 and x = 3.
+        (D) g is continuous on [1, 3] and differentiable on (1, 3), and (g(3) − g(1))/(3 − 1) = (1 − 5)/2 = −2, so by the Mean Value Theorem g′(c) = −2 for some c in (1, 3).
+      explanation: |
+        Six points. (A) 2 points: 1 for the hypotheses (polynomial, so continuous on [0, 4] and differentiable on (0, 4)) with the secant slope 1; 1 for both values 2 ± (2√3)/3 (equivalently (6 ± 2√3)/3). (B) 1 point for x = 1 and x = 3 from g′ = 0. (C) 2 points: 1 for citing the EVT with continuity on a closed interval; 1 for maximum 5 at x = 1 and 4 and minimum 1 at x = 0 and 3, from a comparison of all four candidates (a missing tie location loses the point). (D) 1 point for the secant slope −2 with the MVT and its hypotheses on [1, 3].

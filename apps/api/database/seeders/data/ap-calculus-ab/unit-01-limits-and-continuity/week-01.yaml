@@ -1,0 +1,638 @@
+week: 1
+unit: 1
+title: "Introducing Limits: Instantaneous Change, Graphs and Tables"
+topics: ["1.1", "1.2", "1.3", "1.4"]
+guide: guides/week-01.md
+guide_description: |
+  Why calculus needs limits (an instantaneous rate is a limit of average rates); limit notation and what
+  lim (x→c) f(x) = L does and does not say; one-sided limits and when a two-sided limit exists; reading limits
+  from a graph, including holes, jumps, unbounded behaviour and oscillation; and estimating limits from tables
+  that approach from both sides. Worked examples: average velocities of a hypothetical drone with height t³
+  closing in on 12 m/s, a three-piece function whose limit at x = 2 differs from its value, a graph read
+  point by point, and a table for (2ˣ − 1)/x settling near 0.693.
+flashcards_description: |
+  31 cards on average versus instantaneous rates, limit notation and its meaning, one-sided limits, reading
+  limits from graphs (holes, jumps, asymptotes, oscillation), estimating limits from tables, and the
+  precalculus algebra the unit leans on.
+
+flashcards:
+  - front: Average rate of change of f on [a, b] → formula and picture
+    back: |
+      (f(b) − f(a))/(b − a): the slope of the secant line through (a, f(a)) and (b, f(b)).
+    topic_code: "1.1"
+  - front: Instantaneous rate of change at t = a → why it needs a limit
+    back: |
+      A rate needs two times, but an instant has only one. So take average rates over [a, a + h] and let h → 0: the value they approach is the instantaneous rate.
+    topic_code: "1.1"
+  - front: Drone with height t³ metres → average velocities over [2, 2 + h] as h shrinks
+    back: |
+      h = 0.1: 12.61 m/s; h = 0.01: 12.0601 m/s; h = 0.001: 12.006001 m/s. They close in on 12 m/s, the instantaneous velocity at t = 2.
+    topic_code: "1.1"
+  - front: Secant line versus tangent line → how calculus connects them
+    back: |
+      Slide the second point of a secant toward the first. The secant slopes approach the slope of the tangent line, the curve's slope at that single point.
+    topic_code: "1.1"
+  - front: Difference quotient (f(a + h) − f(a))/h → what it measures
+    back: |
+      The average rate of change of f between a and a + h. Its limit as h → 0, when it exists, is the instantaneous rate at a.
+    topic_code: "1.1"
+  - front: lim (x→c) f(x) = L → how to read it aloud and what it means
+    back: |
+      "The limit of f(x) as x approaches c is L": f(x) can be made as close to L as we like by taking x close enough to c, from both sides, with x ≠ c.
+    topic_code: "1.2"
+  - front: Does lim (x→c) f(x) depend on f(c)?
+    back: |
+      No. The limit looks only at inputs near c, never at c itself. f(c) can differ from the limit or be undefined.
+    topic_code: "1.2"
+  - front: lim (x→c⁻) f(x) → meaning of the small minus sign
+    back: |
+      The left-hand limit: x approaches c through values less than c only.
+    topic_code: "1.2"
+  - front: lim (x→c⁺) f(x) → meaning of the small plus sign
+    back: |
+      The right-hand limit: x approaches c through values greater than c only.
+    topic_code: "1.2"
+  - front: Two-sided limit at c → the existence test
+    back: |
+      lim (x→c) f(x) = L exactly when both one-sided limits exist and both equal L.
+    topic_code: "1.2"
+  - front: Left limit 7, right limit 7, f(5) = 2 at x = 5 → the limit
+    back: |
+      lim (x→5) f(x) = 7. The one-sided limits agree; the value f(5) = 2 is irrelevant to the limit.
+    topic_code: "1.2"
+  - front: g(x) = x² − 1 for x < 2, g(2) = 7, 2x − 1 for x > 2 → lim (x→2) g(x)
+    back: |
+      Left: 2² − 1 = 3. Right: 2(2) − 1 = 3. They agree, so the limit is 3, even though g(2) = 7.
+    topic_code: "1.2"
+  - front: lim (x→c) f(x) = ∞ → what the notation says about existence
+    back: |
+      The values grow without bound. It describes why the limit does not exist as a real number; ∞ is not a value the limit equals.
+    topic_code: "1.2"
+  - front: Three ways a limit at c can fail to exist
+    back: |
+      (1) The one-sided limits differ (a jump). (2) The values grow without bound (unbounded). (3) The values oscillate without settling.
+    topic_code: "1.3"
+  - front: Graph with an open circle at (−2, 4) and a solid dot at (−2, 1) → limit and value
+    back: |
+      lim (x→−2) h(x) = 4 (where the curve heads); h(−2) = 1 (the solid dot).
+    topic_code: "1.3"
+  - front: Graph with a jump at x = 3 from height 1 (left) to −2 (right) → limits there
+    back: |
+      lim (x→3⁻) = 1, lim (x→3⁺) = −2; the two-sided limit does not exist because the one-sided limits differ.
+    topic_code: "1.3"
+  - front: Open circle versus solid dot on a graph → which one gives the function value
+    back: |
+      The solid dot is the value. An open circle marks where the curve is heading but the function is not defined (or is defined elsewhere).
+    topic_code: "1.3"
+  - front: Graph near a vertical asymptote x = a → reading the limit
+    back: |
+      If the graph rises or falls without bound as x → a, the limit does not exist; describe it with ∞ or −∞ on each side.
+    topic_code: "1.3"
+  - front: Graph that wiggles between −1 and 1 ever faster near x = 0 → limit at 0
+    back: |
+      Does not exist: the values never settle on one number, however close x gets to 0.
+    topic_code: "1.3"
+  - front: Limit at the left endpoint of a graph drawn on [−3, 5] → which limit makes sense
+    back: |
+      Only the right-hand limit lim (x→−3⁺): there are no inputs to the left inside the domain shown.
+    topic_code: "1.3"
+  - front: Estimating a limit from a table → what a good table shows
+    back: |
+      Inputs closing in on c from both sides (such as c ± 0.1, ± 0.01, ± 0.001) and outputs that settle toward one number on both sides.
+    topic_code: "1.4"
+  - front: (2ˣ − 1)/x near x = 0 → table estimate of the limit
+    back: |
+      x = ±0.001 gives 0.6929 and 0.6934; the outputs settle near 0.693 (the exact value is ln 2).
+    topic_code: "1.4"
+  - front: (e^(3x) − 1)/x near x = 0 → table estimate of the limit
+    back: |
+      x = −0.001 gives 2.9955 and x = 0.001 gives 3.0045, so the limit appears to be 3.
+    topic_code: "1.4"
+  - front: Table with left outputs near 4 and right outputs near −1 at x = 2 → conclusion
+    back: |
+      The one-sided limits appear to be 4 and −1. They differ, so lim (x→2) f(x) does not exist.
+    topic_code: "1.4"
+  - front: Why a table can only suggest a limit
+    back: |
+      It shows finitely many inputs. A function could change behaviour between or beyond the listed values, so a table supports an estimate; algebra or a theorem confirms it.
+    topic_code: "1.4"
+  - front: sin(2x)/x near x = 0 → table estimate
+    back: |
+      At x = ±0.01 the value is 1.99987; at ±0.001 it rounds to 2.0000. The limit appears to be 2.
+    topic_code: "1.4"
+  - front: (x² − 9)/(x − 3) for x ≠ 3 → simplified form and the limit at 3
+    back: |
+      (x − 3)(x + 3)/(x − 3) = x + 3 for x ≠ 3, so the outputs approach 6 as x → 3. (Precalculus factoring.)
+    topic_code: "1.2"
+  - front: Precalculus check → average rate of change of x² on [1, 3]
+    back: |
+      (9 − 1)/(3 − 1) = 4. Not 8 (forgot to divide) and not 1/4 (divided upside down).
+    topic_code: "1.1"
+  - front: Error-spot → "f(4) is undefined, so lim (x→4) f(x) does not exist"
+    back: |
+      A hole at x = 4 does not stop the limit. The limit asks where f(x) heads near 4, not what happens at 4.
+    topic_code: "1.2"
+  - front: Error-spot → "the left limit is 4 and the right limit is −1, so the limit is 3/2"
+    back: |
+      Limits are never averaged. Unequal one-sided limits mean the two-sided limit does not exist.
+    topic_code: "1.3"
+  - front: Error-spot → "the table outputs at x = 0.1 is 3.4986, so the limit is about 3.5"
+    back: |
+      Use the inputs closest to c, from both sides. At x = ±0.001 the values are 2.9955 and 3.0045, pointing to 3.
+    topic_code: "1.4"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · all on this week (topics 1.1 to 1.4: instantaneous rates as limits of
+    average rates, limit notation and its meaning, one-sided limits, and estimating limits from graphs and
+    tables), with two precalculus warm-up items (factoring and average rate of change). This is the first week,
+    so there is no review of earlier weeks. Opens with a shared-context set on one graph described in words.
+    Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are
+    matched automatically; the short answers and the long answer are graded by your teacher against the scoring
+    notes. No calculator is needed; the long answer's arithmetic is short.
+  questions:
+    # ---- Stimulus set: one graph described in words (1.3, 1.2)
+    - slug: apcalcab-u01-w01-q01
+      type: multiple_choice
+      topic_code: "1.3"
+      source: "AP Calculus CED, Topic 1.3"
+      points: 1
+      stimulus: |
+        The graph of a function f on −3 ≤ x ≤ 5 is made of three pieces.
+
+        - For −3 ≤ x < 1: a line segment from the solid point (−3, −1) to an open circle at (1, 3).
+        - At x = 1: a solid dot at (1, 0).
+        - For 1 < x ≤ 3: a line segment from an open circle at (1, 3) to the solid point (3, 1).
+        - For 3 < x ≤ 5: a line segment from an open circle at (3, −2) to the solid point (5, 0).
+      prompt: |
+        What is lim (x→1) f(x)?
+      options:
+        - "0"
+        - "3"
+        - "The limit does not exist."
+        - "1"
+      option_explanations:
+        - |
+          0 is the value f(1), the solid dot. The limit ignores x = 1 itself and looks at where the graph heads.
+        - |
+          Correct. From the left the segment heads to the open circle at height 3, and from the right the next segment starts at the same open circle, so both one-sided limits are 3.
+        - |
+          Both one-sided limits equal 3, so the limit exists; a mismatched function value does not stop a limit from existing.
+        - |
+          1 is the input x = 1, not an output. The limit is the height the graph approaches.
+      answer: 1
+    - slug: apcalcab-u01-w01-q02
+      type: multiple_choice
+      topic_code: "1.3"
+      source: "AP Calculus CED, Topic 1.3"
+      points: 1
+      stimulus: |
+        The graph of a function f on −3 ≤ x ≤ 5 is made of three pieces.
+
+        - For −3 ≤ x < 1: a line segment from the solid point (−3, −1) to an open circle at (1, 3).
+        - At x = 1: a solid dot at (1, 0).
+        - For 1 < x ≤ 3: a line segment from an open circle at (1, 3) to the solid point (3, 1).
+        - For 3 < x ≤ 5: a line segment from an open circle at (3, −2) to the solid point (5, 0).
+      prompt: |
+        What is lim (x→3⁺) f(x)?
+      options:
+        - "1"
+        - "−1/2"
+        - "The limit does not exist."
+        - "−2"
+      option_explanations:
+        - |
+          1 is the left-hand limit (and f(3)), where the middle segment ends; from the right the graph is on the lowest piece.
+        - |
+          −1/2 averages the left height 1 and the right height −2. One-sided limits are read separately and never averaged.
+        - |
+          The two-sided limit at 3 fails to exist, but the right-hand limit by itself exists: the last piece heads to one height.
+        - |
+          Correct. For x slightly greater than 3 the graph is the last segment, which starts at the open circle (3, −2), so the right-hand limit is −2.
+      answer: 3
+    - slug: apcalcab-u01-w01-q03
+      type: multi_select
+      topic_code: "1.2"
+      source: "AP Calculus CED, Topic 1.2"
+      points: 2
+      partial_credit: true
+      stimulus: |
+        The graph of a function f on −3 ≤ x ≤ 5 is made of three pieces.
+
+        - For −3 ≤ x < 1: a line segment from the solid point (−3, −1) to an open circle at (1, 3).
+        - At x = 1: a solid dot at (1, 0).
+        - For 1 < x ≤ 3: a line segment from an open circle at (1, 3) to the solid point (3, 1).
+        - For 3 < x ≤ 5: a line segment from an open circle at (3, −2) to the solid point (5, 0).
+      prompt: |
+        Which statements about f are true? Select all that apply.
+      options:
+        - "f(1) = 0"
+        - "lim (x→3) f(x) exists."
+        - "lim (x→3⁻) f(x) = f(3)"
+        - "lim (x→1) f(x) = f(1)"
+        - "lim (x→2) f(x) = 2"
+      option_explanations:
+        - |
+          Correct. The solid dot at (1, 0) gives the function value f(1) = 0.
+        - |
+          The left-hand limit at 3 is 1 and the right-hand limit is −2; they differ, so the two-sided limit does not exist.
+        - |
+          Correct. The middle segment ends at the solid point (3, 1), so the left-hand limit is 1 and f(3) = 1 as well.
+        - |
+          The limit at 1 is 3, the height of the open circle, but f(1) = 0. They are not equal.
+        - |
+          Correct. The middle segment runs from (1, 3) to (3, 1), slope −1, so at x = 2 it is at height 2 and the graph approaches 2 from both sides.
+      answer: [0, 2, 4]
+    # ---- Independent items
+    - slug: apcalcab-u01-w01-q04
+      type: multiple_choice
+      topic_code: "1.1"
+      source: "AP Calculus CED, Topic 1.1"
+      points: 1
+      prompt: |
+        A hypothetical drone's height is h(t) = t³ metres after t seconds. Its average velocities over [2, 2 + Δt] are shown.
+
+        | Δt (s) | 0.1 | 0.01 | 0.001 |
+        |---|---|---|---|
+        | average velocity (m/s) | 12.61 | 12.0601 | 12.006001 |
+
+        Which value is the best estimate of the drone's instantaneous velocity at t = 2?
+      options:
+        - "8 m/s"
+        - "12.61 m/s"
+        - "12 m/s"
+        - "4 m/s"
+      option_explanations:
+        - |
+          8 is h(2) = 2³, the height in metres at t = 2, not a velocity.
+        - |
+          12.61 is the average velocity over the widest interval, [2, 2.1]; narrower intervals give better estimates.
+        - |
+          Correct. As Δt shrinks the average velocities 12.61, 12.0601, 12.006001 close in on 12, so the instantaneous velocity is about 12 m/s.
+        - |
+          4 is the average velocity over [0, 2], (8 − 0)/2. That interval is far too wide to describe the instant t = 2.
+      answer: 2
+    - slug: apcalcab-u01-w01-q05
+      type: multiple_choice
+      topic_code: "1.1"
+      source: "AP Calculus CED, Topic 1.1"
+      points: 1
+      prompt: |
+        A car's position s(t) is known at every time t. Which quantity cannot be found from two position values alone and needs a limit?
+      options:
+        - "The car's velocity at the instant t = 2"
+        - "The car's average velocity from t = 1 to t = 3"
+        - "The car's change in position from t = 1 to t = 3"
+        - "The slope of the secant line between t = 1 and t = 3"
+      option_explanations:
+        - |
+          Correct. An instant gives only one time, so the change in time would be 0. The velocity at t = 2 is the limit of average velocities over shrinking intervals around t = 2.
+        - |
+          Average velocity is (s(3) − s(1))/(3 − 1), computed directly from two values, with no limit.
+        - |
+          Change in position is s(3) − s(1), a single subtraction of two known values.
+        - |
+          The secant slope between t = 1 and t = 3 is the average velocity on [1, 3]; two values are enough.
+      answer: 0
+    - slug: apcalcab-u01-w01-q06
+      type: multiple_choice
+      topic_code: "1.2"
+      source: "AP Calculus CED, Topic 1.2"
+      points: 1
+      prompt: |
+        Which statement gives the meaning of lim (x→4) g(x) = −2?
+      options:
+        - "g(4) = −2"
+        - "As x gets close to −2, g(x) gets close to 4."
+        - "g(x) = −2 for every x close to 4."
+        - "As x gets arbitrarily close to 4 (with x ≠ 4), g(x) gets arbitrarily close to −2."
+      option_explanations:
+        - |
+          This confuses the limit with the function value. g(4) may be a different number or undefined; the limit statement says nothing about it.
+        - |
+          This swaps the roles of input and output: 4 is where x is heading and −2 is where the outputs head.
+        - |
+          The outputs need only approach −2; they do not have to equal −2 near 4 (for example g(x) = x − 6 approaches −2 without staying there).
+        - |
+          Correct. A limit describes the outputs as the input closes in on 4 from both sides, excluding x = 4 itself.
+      answer: 3
+    - slug: apcalcab-u01-w01-q07
+      type: multiple_choice
+      topic_code: "1.2"
+      source: "AP Calculus CED, Topic 1.2"
+      points: 1
+      prompt: |
+        A function f satisfies lim (x→5⁻) f(x) = 7, lim (x→5⁺) f(x) = 7 and f(5) = 2. What is lim (x→5) f(x)?
+      options:
+        - "2"
+        - "7"
+        - "The limit does not exist."
+        - "9/2"
+      option_explanations:
+        - |
+          2 is the function value f(5). The limit depends only on inputs near 5, not at 5.
+        - |
+          Correct. Both one-sided limits exist and equal 7, so the two-sided limit is 7, whatever f(5) is.
+        - |
+          A limit exists when the one-sided limits agree. The mismatch with f(5) affects continuity (week 4), not the limit.
+        - |
+          9/2 averages the limit 7 and the value 2. Limits and values are never averaged.
+      answer: 1
+    - slug: apcalcab-u01-w01-q08
+      type: multiple_choice
+      topic_code: "1.4"
+      source: "AP Calculus CED, Topic 1.4"
+      points: 1
+      prompt: |
+        The table gives values of F(x) = (2ˣ − 1)/x, rounded to four decimal places.
+
+        | x | −0.1 | −0.01 | −0.001 | 0.001 | 0.01 | 0.1 |
+        |---|---|---|---|---|---|---|
+        | F(x) | 0.6697 | 0.6908 | 0.6929 | 0.6934 | 0.6956 | 0.7177 |
+
+        Which is the best estimate of lim (x→0) F(x)?
+      options:
+        - "0.693"
+        - "0, because the numerator 2ˣ − 1 approaches 0"
+        - "1, because 2⁰ = 1"
+        - "The limit does not exist, because F(0) is undefined."
+      option_explanations:
+        - |
+          Correct. From both sides the outputs close in on a value between 0.6929 and 0.6934, about 0.693.
+        - |
+          The denominator approaches 0 too. A 0/0 form tells you nothing by itself; the table shows the ratio settling near 0.693.
+        - |
+          2⁰ = 1 is the value of 2ˣ at 0, not of the quotient (2ˣ − 1)/x.
+        - |
+          F(0) being undefined does not prevent a limit; the outputs clearly settle as x → 0 from both sides.
+      answer: 0
+    - slug: apcalcab-u01-w01-q09
+      type: multiple_choice
+      topic_code: "1.4"
+      source: "AP Calculus CED, Topic 1.4"
+      points: 1
+      prompt: |
+        The table gives selected values of a function f.
+
+        | x | 1.9 | 1.99 | 1.999 | 2.001 | 2.01 | 2.1 |
+        |---|---|---|---|---|---|---|
+        | f(x) | 3.71 | 3.97 | 3.997 | −1.003 | −1.03 | −1.3 |
+
+        Based on the table, what is lim (x→2) f(x)?
+      options:
+        - "4"
+        - "−1"
+        - "The limit does not exist."
+        - "3/2"
+      option_explanations:
+        - |
+          4 is only the left-hand limit suggested by the table; from the right the outputs approach −1.
+        - |
+          −1 is only the right-hand limit suggested by the table; from the left the outputs approach 4.
+        - |
+          Correct. The left-hand values approach 4 and the right-hand values approach −1. The one-sided limits differ, so the two-sided limit does not exist.
+        - |
+          3/2 averages 4 and −1. When one-sided limits disagree, the limit does not exist; it is not their average.
+      answer: 2
+    - slug: apcalcab-u01-w01-q10
+      type: multiple_choice
+      topic_code: "1.3"
+      source: "AP Calculus CED, Topic 1.3"
+      points: 1
+      prompt: |
+        Near x = 0 the graph of a function g oscillates between the horizontal lines y = −1 and y = 1, crossing between them infinitely many times on every interval around 0, however small. What can be concluded about lim (x→0) g(x)?
+      options:
+        - "It equals 0, the average of −1 and 1."
+        - "It equals 1, the largest value g reaches."
+        - "It equals g(0), if g(0) is defined."
+        - "It does not exist, because the values of g do not settle on a single number."
+      option_explanations:
+        - |
+          The values keep swinging all the way between −1 and 1, so they never stay close to 0; averaging is not a limit.
+        - |
+          The values keep returning to −1 as well, so they do not stay close to 1.
+        - |
+          The limit never depends on g(0); and here the outputs near 0 do not approach any number at all.
+        - |
+          Correct. However close x gets to 0, g still takes values near −1 and near 1, so no single number L has the outputs staying close to it.
+      answer: 3
+    - slug: apcalcab-u01-w01-q11
+      type: multiple_choice
+      topic_code: "1.2"
+      source: "general knowledge"
+      points: 1
+      prompt: |
+        Precalculus warm-up. For x ≠ 3, which expression equals (x² − 9)/(x − 3)?
+      options:
+        - "x − 3"
+        - "x + 3"
+        - "x² − 3"
+        - "x"
+      option_explanations:
+        - |
+          This treats x² − 9 as (x − 3)². It factors as a difference of squares, (x − 3)(x + 3).
+        - |
+          Correct. x² − 9 = (x − 3)(x + 3), and the common factor x − 3 cancels for x ≠ 3, leaving x + 3.
+        - |
+          This cancels the 9 against the 3 term by term; only common factors cancel, never parts of a sum.
+        - |
+          This cancels x² against x and 9 against 3 separately, which is not a legal cancellation.
+      answer: 1
+    - slug: apcalcab-u01-w01-q12
+      type: multiple_choice
+      topic_code: "1.3"
+      source: "AP Calculus CED, Topic 1.3"
+      points: 1
+      prompt: |
+        The graph of a function h is a smooth curve that passes through an open circle at (−2, 4), and h has a solid dot at (−2, 1). Which statement is true?
+      options:
+        - "lim (x→−2) h(x) = 4 and h(−2) = 1"
+        - "lim (x→−2) h(x) = 1 and h(−2) = 4"
+        - "lim (x→−2) h(x) does not exist, because the curve has a hole at x = −2."
+        - "lim (x→−2) h(x) = 1 and h(−2) = 1"
+      option_explanations:
+        - |
+          Correct. The curve approaches the open circle at height 4 from both sides, so the limit is 4; the solid dot gives the value h(−2) = 1.
+        - |
+          This swaps the roles: the open circle shows where the curve heads (the limit) and the solid dot is the value.
+        - |
+          A hole does not stop a limit: the curve still approaches height 4 from both sides.
+        - |
+          The value is 1, but the curve near x = −2 heads to height 4, not to the isolated dot.
+      answer: 0
+    - slug: apcalcab-u01-w01-q13
+      type: multiple_choice
+      topic_code: "1.1"
+      source: "general knowledge"
+      points: 1
+      prompt: |
+        Precalculus warm-up. What is the average rate of change of f(x) = x² on the interval [1, 3]?
+      options:
+        - "8"
+        - "1/4"
+        - "4"
+        - "5"
+      option_explanations:
+        - |
+          8 is the change in output f(3) − f(1) = 9 − 1; it still needs dividing by the change in input, 2.
+        - |
+          1/4 divides the change in input by the change in output, (3 − 1)/(9 − 1): the fraction is upside down.
+        - |
+          Correct. (f(3) − f(1))/(3 − 1) = (9 − 1)/2 = 4.
+        - |
+          5 averages the outputs (9 + 1)/2. A rate of change compares the change in output with the change in input.
+      answer: 2
+    - slug: apcalcab-u01-w01-q14
+      type: multi_select
+      topic_code: "1.4"
+      source: "AP Calculus CED, Topic 1.4"
+      points: 2
+      partial_credit: true
+      prompt: |
+        The table gives values of k(x) = (e^(3x) − 1)/x, rounded to four decimal places.
+
+        | x | −0.1 | −0.01 | −0.001 | 0.001 | 0.01 | 0.1 |
+        |---|---|---|---|---|---|---|
+        | k(x) | 2.5918 | 2.9554 | 2.9955 | 3.0045 | 3.0455 | 3.4986 |
+
+        Which statements are supported by the table? Select all that apply.
+      options:
+        - "lim (x→0⁻) k(x) appears to be 3."
+        - "lim (x→0⁺) k(x) appears to be 3."
+        - "k(0) = 3"
+        - "The listed values of k increase as x increases."
+        - "lim (x→0) k(x) appears to be about 3.5."
+      option_explanations:
+        - |
+          Correct. From the left the values 2.5918, 2.9554, 2.9955 close in on 3.
+        - |
+          Correct. From the right the values 3.4986, 3.0455, 3.0045 close in on 3.
+        - |
+          k(0) is undefined (0 in the denominator), and a table of nearby inputs never tells you the value at x = 0 anyway.
+        - |
+          Correct. Reading left to right, each output is larger than the one before: 2.5918 < 2.9554 < … < 3.4986.
+        - |
+          3.4986 is the value at x = 0.1, the input farthest from 0. The inputs closest to 0 point to 3.
+      answer: [0, 1, 3]
+    - slug: apcalcab-u01-w01-q15
+      type: true_false
+      topic_code: "1.2"
+      source: "AP Calculus CED, Topic 1.2"
+      points: 1
+      prompt: |
+        True or false: If f(c) is undefined, then lim (x→c) f(x) cannot exist.
+      answer: false
+      explanation: |
+        False. The limit looks only at inputs near c, never at c. For example f(x) = (x² − 9)/(x − 3) is undefined at 3, yet its outputs approach 6 as x → 3, so lim (x→3) f(x) = 6.
+    - slug: apcalcab-u01-w01-q16
+      type: true_false
+      topic_code: "1.2"
+      source: "AP Calculus CED, Topic 1.2"
+      points: 1
+      prompt: |
+        True or false: lim (x→c) f(x) = L exactly when lim (x→c⁻) f(x) and lim (x→c⁺) f(x) both exist and both equal L.
+      answer: true
+      explanation: |
+        True. A two-sided limit requires the outputs to approach L whichever side x comes from, so both one-sided limits must exist and equal L; and if they do, the two-sided limit is L.
+    - slug: apcalcab-u01-w01-q17
+      type: fill_blank
+      topic_code: "1.1"
+      source: "AP Calculus CED, Topic 1.1"
+      points: 1
+      prompt: |
+        A hypothetical drone's height is h(t) = t³ metres after t seconds. Its average velocity over the interval [2, 2.5] is ____ metres per second.
+      answer: ["15.25", "15.250", "61/4"]
+      explanation: |
+        h(2.5) = 15.625 and h(2) = 8, so the average velocity is (15.625 − 8)/(2.5 − 2) = 7.625/0.5 = 15.25 m/s.
+    - slug: apcalcab-u01-w01-q18
+      type: fill_blank
+      topic_code: "1.2"
+      source: "AP Calculus CED, Topic 1.2"
+      points: 1
+      prompt: |
+        Let g(x) = x² + 1 for x < 1 and g(x) = 3x − 4 for x ≥ 1. Then lim (x→1⁺) g(x) = ____.
+      answer: ["-1", "−1"]
+      explanation: |
+        For x slightly greater than 1, g(x) = 3x − 4, which approaches 3(1) − 4 = −1. (From the left the outputs approach 1² + 1 = 2, so the two-sided limit does not exist.)
+    - slug: apcalcab-u01-w01-q19
+      type: numeric
+      topic_code: "1.4"
+      source: "AP Calculus CED, Topic 1.4"
+      points: 1
+      prompt: |
+        The table gives values of q(x) = sin(2x)/x, with x in radians, rounded to five decimal places.
+
+        | x | −0.1 | −0.01 | −0.001 | 0.001 | 0.01 | 0.1 |
+        |---|---|---|---|---|---|---|
+        | q(x) | 1.98669 | 1.99987 | 2.00000 | 2.00000 | 1.99987 | 1.98669 |
+
+        Estimate lim (x→0) q(x) to the nearest integer.
+      answer: { value: 2, tolerance: 0 }
+      explanation: |
+        From both sides the values close in on 2 (1.98669, 1.99987, 2.00000), so the limit appears to be 2. Week 2 confirms this algebraically.
+    - slug: apcalcab-u01-w01-q20
+      type: numeric
+      topic_code: "1.2"
+      source: "AP Calculus CED, Topic 1.2"
+      points: 1
+      prompt: |
+        Let p(x) = 2x² − x for x ≠ −1, and p(−1) = 10. Find lim (x→−1) p(x).
+      answer: { value: 3, tolerance: 0 }
+      explanation: |
+        For x near −1 but not equal to it, p(x) = 2x² − x, which approaches 2(1) − (−1) = 3. The value p(−1) = 10 plays no part in the limit.
+    - slug: apcalcab-u01-w01-q21
+      type: short_answer
+      topic_code: "1.3"
+      source: "AP Calculus CED, Topic 1.3"
+      points: 3
+      prompt: |
+        The graph of a function g on −4 ≤ x ≤ 4 consists of a line segment from the solid point (−4, 0) to an open circle at (0, 2), and a line segment from the solid point (0, −1) to the solid point (4, 3).
+
+        (a) Find lim (x→0⁻) g(x) and lim (x→0⁺) g(x).
+        (b) Find g(0). Which one-sided limit equals g(0)?
+        (c) Does lim (x→0) g(x) exist? Justify your answer.
+      answer: |
+        (a) lim (x→0⁻) g(x) = 2 (the left segment heads to the open circle at height 2); lim (x→0⁺) g(x) = −1.
+        (b) g(0) = −1 (the solid point). The right-hand limit equals g(0).
+        (c) No. The left-hand limit 2 and the right-hand limit −1 are not equal, so the two-sided limit does not exist.
+      explanation: |
+        Three points, one per part. (a) both one-sided limits correct. (b) g(0) = −1 and the right-hand limit identified. (c) "does not exist" with the reason that the one-sided limits differ (naming both values or saying they are unequal); "does not exist" with no reason earns no point.
+    - slug: apcalcab-u01-w01-q22
+      type: short_answer
+      topic_code: "1.1"
+      source: "AP Calculus CED, Topic 1.1"
+      points: 3
+      prompt: |
+        Let f(x) = √x. Note that √4.41 = 2.1, √4.0401 = 2.01 and √3.9601 = 1.99.
+
+        (a) Find the slope of the secant line through (4, f(4)) and (4.41, f(4.41)).
+        (b) Find the slopes of the secant lines from x = 4 to x = 4.0401 and from x = 3.9601 to x = 4, to four decimal places.
+        (c) Use your results to estimate the slope of the graph of f at x = 4, and write the limit your estimate approximates.
+      answer: |
+        (a) (2.1 − 2)/(4.41 − 4) = 0.1/0.41 ≈ 0.2439.
+        (b) (2.01 − 2)/0.0401 = 0.01/0.0401 ≈ 0.2494; (2 − 1.99)/(4 − 3.9601) = 0.01/0.0399 ≈ 0.2506.
+        (c) The slopes close in on 0.25 from both sides, so the slope at x = 4 is about 0.25 (1/4). It approximates lim (h→0) (√(4 + h) − 2)/h.
+      explanation: |
+        Three points. (a) 1 point for 0.1/0.41 ≈ 0.244. (b) 1 point for both slopes (0.2494 and 0.2506, or equivalent fractions). (c) 1 point for the estimate 0.25 together with a correct limit of difference quotients (an equivalent form such as lim (x→4) (√x − 2)/(x − 4) earns the point).
+    - slug: apcalcab-u01-w01-q23
+      type: long_answer
+      topic_code: "1.1"
+      source: "AP Calculus CED, Topic 1.1"
+      points: 6
+      prompt: |
+        A hypothetical cyclist leaves a checkpoint, and her distance from it after t seconds is D(t) = 2t² + 3t metres, for 0 ≤ t ≤ 10.
+
+        (A) Find the cyclist's average velocity over [3, 4]. Include units.
+
+        (B) Find her average velocities over [3, 3.1] and over [2.9, 3]. Show the values of D that you use.
+
+        (C) Use your answers to estimate her instantaneous velocity at t = 3, and write a limit expression, in terms of D, whose value is that instantaneous velocity.
+
+        (D) A classmate estimates the velocity at t = 3 by computing D(3)/3. Find the classmate's value and explain why it is a poor estimate of the velocity at the instant t = 3.
+      answer: |
+        (A) D(4) = 32 + 12 = 44 and D(3) = 18 + 9 = 27. Average velocity = (44 − 27)/(4 − 3) = 17 m/s.
+        (B) D(3.1) = 2(9.61) + 9.3 = 28.52, so (28.52 − 27)/0.1 = 15.2 m/s. D(2.9) = 2(8.41) + 8.7 = 25.52, so (27 − 25.52)/0.1 = 14.8 m/s.
+        (C) The averages on either side of t = 3 are 15.2 and 14.8, closing in on 15, so the instantaneous velocity is about 15 m/s. It is lim (h→0) (D(3 + h) − D(3))/h (equivalently lim (t→3) (D(t) − D(3))/(t − 3)).
+        (D) D(3)/3 = 27/3 = 9 m/s. This is the average velocity over [0, 3], a three-second interval during which she is speeding up, so it describes the whole interval, not the instant t = 3; the short intervals around t = 3 show the velocity there is near 15 m/s.
+      explanation: |
+        Six points. (A) 1 point: 17 m/s with units (no units, no point). (B) 2 points: 1 for each average velocity, 15.2 and 14.8, supported by D(3.1) = 28.52 and D(2.9) = 25.52. (C) 2 points: 1 for an estimate of 15 m/s (accept 15 or "about 15"), 1 for a correct limit of difference quotients in terms of D. (D) 1 point: 9 m/s together with the reason that it averages over the whole interval [0, 3] rather than an interval shrinking around t = 3.

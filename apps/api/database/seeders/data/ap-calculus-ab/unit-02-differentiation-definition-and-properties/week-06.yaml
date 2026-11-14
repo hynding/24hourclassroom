@@ -1,0 +1,628 @@
+week: 6
+unit: 2
+title: "Rates of Change and the Definition of the Derivative"
+topics: ["2.1", "2.2"]
+guide: guides/week-06.md
+guide_description: |
+  Average rate of change as the slope of a secant line; instantaneous rate of change as the limit of average rates
+  over shrinking intervals; the derivative at a point as the limit of a difference quotient in both forms
+  (h → 0 and x → a); the derivative as a function; derivative notation; and the equation of a tangent line.
+  Worked examples: shrinking-interval rates for a hypothetical drone altitude table, the derivative of x² − 3x from
+  the definition, the derivative of √x using the conjugate, recognising lim (h→0) ((2 + h)⁴ − 16)/h as a
+  derivative, and the tangent line to 1/x at x = 2.
+flashcards_description: |
+  31 cards on average and instantaneous rates of change, secant and tangent lines, the two limit forms of the
+  derivative, derivative notation, recognising a limit as a derivative, and tangent-line equations.
+
+flashcards:
+  - front: Average rate of change as the first step toward a derivative → formula, picture and units
+    back: |
+      (f(b) − f(a))/(b − a): the slope of the secant line through (a, f(a)) and (b, f(b)). Units: output units per input unit.
+    topic_code: "2.1"
+  - front: Instantaneous rate of change of f at x = a → how it is defined
+    back: |
+      The limit of the average rates of change over [a, a + h] as h → 0, when that limit exists. It is the slope of the tangent line at x = a.
+    topic_code: "2.1"
+  - front: Secant line versus tangent line at x = a → difference
+    back: |
+      A secant joins two points of the graph; a tangent touches the graph at one point with the graph's slope there. The tangent is the limit of secants as the second point slides toward the first.
+    topic_code: "2.1"
+  - front: Secant slopes of x² from x = 1 to x = 1 + h → formula and limit
+    back: |
+      ((1 + h)² − 1)/h = (2h + h²)/h = 2 + h for h ≠ 0. As h → 0 the slopes approach 2, the slope of the tangent at x = 1.
+    topic_code: "2.1"
+  - front: Average velocity of a moving object on [t₁, t₂] → formula
+    back: |
+      (s(t₂) − s(t₁))/(t₂ − t₁), change in position over elapsed time. It says nothing about the speed at any one instant.
+    topic_code: "2.1"
+  - front: Ball with height h(t) = 2 + 15t − 5t² → average velocity on [0, 2]
+    back: |
+      h(0) = 2 and h(2) = 12, so (12 − 2)/(2 − 0) = 5 metres per second.
+    topic_code: "2.1"
+  - front: Shrinking-interval table of average rates near x = a → how to read off the instantaneous rate
+    back: |
+      Compute average rates on [a, a + h] (and [a − h, a]) for h = 0.1, 0.01, 0.001. The value they settle toward from both sides is the estimate of the instantaneous rate.
+    topic_code: "2.1"
+  - front: Average rate of change is 0 on an interval → what it does and does not mean
+    back: |
+      The endpoint outputs are equal. The function may still rise and fall inside the interval; the instantaneous rate need not be 0 anywhere you pick.
+    topic_code: "2.1"
+  - front: Derivative of f at x = a, h-form → the limit
+    back: |
+      f′(a) = lim (h→0) (f(a + h) − f(a))/h, provided the limit exists.
+    topic_code: "2.2"
+  - front: Derivative of f at x = a, x-form → the limit
+    back: |
+      f′(a) = lim (x→a) (f(x) − f(a))/(x − a), provided the limit exists. Same number as the h-form, with x = a + h.
+    topic_code: "2.2"
+  - front: Difference quotient (f(x + h) − f(x))/h → what it measures
+    back: |
+      The average rate of change of f on [x, x + h] (or [x + h, x] when h < 0): the slope of a secant line.
+    topic_code: "2.2"
+  - front: Derivative as a function f′(x) → definition
+    back: |
+      f′(x) = lim (h→0) (f(x + h) − f(x))/h, with x left as a variable. Its domain is the set of x where the limit exists.
+    topic_code: "2.2"
+  - front: Derivative notation → four common ways to write it
+    back: |
+      f′(x), y′, dy/dx and d/dx [f(x)]. At a point: f′(3), or dy/dx evaluated at x = 3, written dy/dx |ₓ₌₃.
+    topic_code: "2.2"
+  - front: Δy/Δx versus dy/dx → difference
+    back: |
+      Δy/Δx is an average rate over an interval (a secant slope). dy/dx is the limit of Δy/Δx as Δx → 0 (a tangent slope).
+    topic_code: "2.2"
+  - front: Definition-of-derivative algebra for a polynomial → the step that must happen
+    back: |
+      Expand f(x + h), cancel the f(x) terms, then factor h out of every remaining term in the numerator and cancel it with the denominator before letting h → 0.
+    topic_code: "2.2"
+  - front: f(x) = 3x² − x from the definition → simplified quotient and derivative
+    back: |
+      (f(x + h) − f(x))/h = 6x + 3h − 1 for h ≠ 0, so f′(x) = 6x − 1.
+    topic_code: "2.2"
+  - front: f(x) = √x from the definition → the trick and the result
+    back: |
+      Multiply by the conjugate (√(x + h) + √x)/(√(x + h) + √x): the quotient becomes 1/(√(x + h) + √x), so f′(x) = 1/(2√x) for x > 0.
+    topic_code: "2.2"
+  - front: f(x) = 1/(x + 2) from the definition → the trick and the result
+    back: |
+      Combine the fractions over (x + h + 2)(x + 2): the quotient becomes −1/((x + h + 2)(x + 2)), so f′(x) = −1/(x + 2)².
+    topic_code: "2.2"
+  - front: lim (h→0) ((5 + h)² − 25)/h → which derivative, and its value
+    back: |
+      f′(5) for f(x) = x². The quotient simplifies to 10 + h, so the value is 10.
+    topic_code: "2.2"
+  - front: lim (x→2) (x³ − 8)/(x − 2) → read as a derivative
+    back: |
+      The x-form of f′(2) for f(x) = x³ (since 8 = 2³). Factoring x³ − 8 = (x − 2)(x² + 2x + 4) gives 4 + 4 + 4 = 12.
+    topic_code: "2.2"
+  - front: Limit lim (h→0) (f(a + h) − f(a))/h → how to spot f and a
+    back: |
+      The term with h inside tells you f and a: (a + h) is plugged into f. The subtracted constant must equal f(a); check it.
+    topic_code: "2.2"
+  - front: Tangent line to y = f(x) at x = a → point-slope equation
+    back: |
+      y = f(a) + f′(a)(x − a). You need two numbers: the point's height f(a) and the slope f′(a).
+    topic_code: "2.2"
+  - front: Tangent line to f(x) = x² − 4x at x = 3 → equation
+    back: |
+      f(3) = −3 and f′(x) = 2x − 4 gives f′(3) = 2, so y = −3 + 2(x − 3), that is y = 2x − 9.
+    topic_code: "2.2"
+  - front: Tangent line to y = 1/x at x = 2 → equation
+    back: |
+      f(2) = 1/2 and f′(x) = −1/x² gives slope −1/4, so y = 1/2 − (1/4)(x − 2).
+    topic_code: "2.2"
+  - front: f′(a) > 0, f′(a) < 0, f′(a) = 0 → what the graph does at x = a
+    back: |
+      Positive: rising through that point. Negative: falling. Zero: a horizontal tangent line.
+    topic_code: "2.2"
+  - front: Units of f′(t) when f is in litres and t in minutes → units
+    back: |
+      Litres per minute: output units divided by input units, the same as an average rate.
+    topic_code: "2.1"
+  - front: h′(2) = −5 for a ball's height in metres, t in seconds → interpretation
+    back: |
+      At t = 2 seconds the ball's height is decreasing at 5 metres per second. (Not "the ball is 5 m lower", which describes a change, not a rate.)
+    topic_code: "2.1"
+  - front: Derivative exists at x = a → which limit must exist
+    back: |
+      The limit of the difference quotient, from both sides, as a finite number. If the two one-sided limits disagree or are infinite, f′(a) does not exist.
+    topic_code: "2.2"
+  - front: Error-spot → "f′(3) for f(x) = x² is lim (h→0) ((3 + h)² − 3)/h"
+    back: |
+      The subtracted term must be f(3) = 9, not 3. With 3 the numerator does not go to 0 and the limit does not exist.
+    topic_code: "2.2"
+  - front: Error-spot → "the tangent to f(x) = x² − 4x at x = 3 is y = (2x − 4)(x − 3) − 3"
+    back: |
+      The slope must be the number f′(3) = 2, not the formula f′(x). A tangent line is a line: y = 2(x − 3) − 3.
+    topic_code: "2.2"
+  - front: Error-spot → "the ball's average velocity on [0, 2] is h(2)/2 = 6 m/s"
+    back: |
+      Average velocity uses the change in height, (h(2) − h(0))/2 = (12 − 2)/2 = 5 m/s, not the height itself.
+    topic_code: "2.1"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (topics 2.1 and 2.2: average and instantaneous rates of
+    change, secant and tangent lines, the limit definition of the derivative in both forms, derivative notation and
+    tangent-line equations), with 8 questions (about 32%) reviewing weeks 1 to 5 (limit properties and algebra,
+    discontinuities, continuity, asymptotes and the Intermediate Value Theorem). Opens with a shared-context set on
+    a tossed ball. Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank
+    items are matched automatically; the short answers and the long answer are graded by your teacher against the
+    scoring notes. No calculator is needed; the one decimal answer in the long answer can be left exact.
+  questions:
+    # ---- Stimulus set: a tossed ball (2.1, 2.2)
+    - slug: apcalcab-u02-w06-q01
+      type: multiple_choice
+      topic_code: "2.1"
+      source: "AP Calculus CED, Topic 2.1"
+      points: 1
+      stimulus: |
+        A ball is tossed upward in a hypothetical experiment. Its height above the ground, in metres, t seconds after it is released is h(t) = 2 + 15t − 5t² for 0 ≤ t ≤ 3.
+      prompt: |
+        What is the average velocity of the ball over the interval 0 ≤ t ≤ 2?
+      options:
+        - "6 metres per second"
+        - "5 metres per second"
+        - "10 metres per second"
+        - "−5 metres per second"
+      option_explanations:
+        - |
+          6 is h(2)/2 = 12/2: it divides the height at t = 2 by the time instead of dividing the change in height h(2) − h(0) = 10.
+        - |
+          Correct. h(0) = 2 and h(2) = 2 + 30 − 20 = 12, so the average velocity is (12 − 2)/(2 − 0) = 5 metres per second.
+        - |
+          10 is the change in height, h(2) − h(0) = 10 metres; it still has to be divided by the 2 seconds elapsed.
+        - |
+          −5 is the instantaneous velocity at t = 2 (h′(2) = 15 − 20), not the average over the whole interval.
+      answer: 1
+    - slug: apcalcab-u02-w06-q02
+      type: multiple_choice
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 1
+      stimulus: |
+        A ball is tossed upward in a hypothetical experiment. Its height above the ground, in metres, t seconds after it is released is h(t) = 2 + 15t − 5t² for 0 ≤ t ≤ 3.
+      prompt: |
+        For k ≠ 0, which expression is equal to the difference quotient (h(1 + k) − h(1))/k?
+      options:
+        - "5k − 5k²"
+        - "15 − 5k"
+        - "5 − 5k"
+        - "5 + 5k"
+      option_explanations:
+        - |
+          5k − 5k² is the numerator h(1 + k) − h(1); it has not yet been divided by k.
+        - |
+          This comes from expanding (1 + k)² as 1 + k², which drops the −10k term: h(1 + k) would wrongly be 12 + 15k − 5k².
+        - |
+          Correct. h(1 + k) = 2 + 15 + 15k − 5(1 + 2k + k²) = 12 + 5k − 5k² and h(1) = 12, so the quotient is (5k − 5k²)/k = 5 − 5k.
+        - |
+          A sign slip distributing −5 over (1 + 2k + k²): the k² term must be −5k², which gives −5k after dividing by k, not +5k.
+      answer: 2
+    - slug: apcalcab-u02-w06-q03
+      type: multiple_choice
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 1
+      stimulus: |
+        A ball is tossed upward in a hypothetical experiment. Its height above the ground, in metres, t seconds after it is released is h(t) = 2 + 15t − 5t² for 0 ≤ t ≤ 3.
+      prompt: |
+        Using the limit of the difference quotient, what is the instantaneous velocity of the ball at t = 1?
+      options:
+        - "12 metres per second"
+        - "0 metres per second"
+        - "−5 metres per second"
+        - "5 metres per second"
+      option_explanations:
+        - |
+          12 is h(1), the ball's height in metres at t = 1; it is a position, not a rate.
+        - |
+          0 is the average velocity over [1, 2], since h(1) = h(2) = 12; it is not the velocity at the instant t = 1.
+        - |
+          −5 is the instantaneous velocity at t = 2, where the ball is already falling; at t = 1 it is still rising.
+        - |
+          Correct. h′(1) = lim (k→0) (h(1 + k) − h(1))/k = lim (k→0) (5 − 5k) = 5 metres per second.
+      answer: 3
+    - slug: apcalcab-u02-w06-q04
+      type: multiple_choice
+      topic_code: "2.1"
+      source: "AP Calculus CED, Topic 2.1"
+      points: 1
+      stimulus: |
+        A ball is tossed upward in a hypothetical experiment. Its height above the ground, in metres, t seconds after it is released is h(t) = 2 + 15t − 5t² for 0 ≤ t ≤ 3.
+      prompt: |
+        It can be shown that h′(2) = −5. Which statement interprets this value in context?
+      options:
+        - "At t = 2 seconds, the ball's height is decreasing at a rate of 5 metres per second."
+        - "At t = 2 seconds, the ball is 5 metres below its starting height."
+        - "Over the first 2 seconds, the ball's height decreased by 5 metres on average."
+        - "The ball reaches the ground 5 seconds after it is released."
+      option_explanations:
+        - |
+          Correct. A derivative is an instantaneous rate: the negative sign means the height is decreasing, and the units are metres per second.
+        - |
+          This reads the derivative as a change in position. In fact h(2) = 12 metres, which is 10 metres above the starting height of 2 metres.
+        - |
+          This describes an average over an interval; over [0, 2] the height actually rose, at an average of 5 metres per second.
+        - |
+          This treats the derivative as a time. The derivative's units are metres per second, and h(5) is outside the model's domain.
+      answer: 0
+    # ---- Independent items
+    - slug: apcalcab-u02-w06-q05
+      type: multiple_choice
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 1
+      prompt: |
+        Let f(x) = x³. Which limit is equal to f′(2)?
+      options:
+        - "lim (h→0) ((2 + h)³ − 2)/h"
+        - "lim (h→0) ((2 + h)³ − 8)/h"
+        - "lim (x→2) (x³ − 8)/(x + 2)"
+        - "lim (h→0) (h³ − 8)/h"
+      option_explanations:
+        - |
+          The subtracted term must be f(2) = 8, not the input 2; with 2 the numerator tends to 6 and the limit does not exist.
+        - |
+          Correct. This is the h-form f′(2) = lim (h→0) (f(2 + h) − f(2))/h with f(2 + h) = (2 + h)³ and f(2) = 8.
+        - |
+          The x-form needs x − 2 in the denominator, the change in input from 2; x + 2 tends to 4 and the quotient tends to 0.
+        - |
+          This plugs h, not 2 + h, into f, so it compares f(h) with f(2); the input must be the shifted point 2 + h.
+      answer: 1
+    - slug: apcalcab-u02-w06-q06
+      type: multiple_choice
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 1
+      prompt: |
+        The limit lim (h→0) ((5 + h)² − 25)/h represents the derivative of a function f at a number a. Which gives f, a and the value of the limit?
+      options:
+        - "f(x) = x², a = 5, value 10"
+        - "f(x) = x², a = 25, value 50"
+        - "f(x) = x², a = 5, value 25"
+        - "f(x) = 2x, a = 5, value 10"
+      option_explanations:
+        - |
+          Correct. The quotient is (f(5 + h) − f(5))/h for f(x) = x², and it simplifies to (10h + h²)/h = 10 + h, which tends to 10.
+        - |
+          25 is f(5), the subtracted output, not the input a; the input is the number added to h, which is 5.
+        - |
+          25 is the function value f(5) = 5², not the derivative; the limit of the quotient is the slope 10.
+        - |
+          2x is the derivative of x², not the function being differenced; the expression squares 5 + h, so f(x) = x².
+      answer: 0
+    - slug: apcalcab-u02-w06-q07
+      type: multiple_choice
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 1
+      prompt: |
+        The derivative of f(x) = x² − 4x is f′(x) = 2x − 4. Which is an equation of the line tangent to the graph of f at x = 3?
+      options:
+        - "y = 2x − 3"
+        - "y = −3x + 11"
+        - "y = 2x − 9"
+        - "y = (2x − 4)(x − 3) − 3"
+      option_explanations:
+        - |
+          This uses the correct slope 2 but treats f(3) = −3 as the y-intercept; the line must pass through (3, −3), and this one gives y = 3 at x = 3.
+        - |
+          This swaps the two numbers: it uses f(3) = −3 as the slope and f′(3) = 2 as the height, giving y − 2 = −3(x − 3).
+        - |
+          Correct. f(3) = 9 − 12 = −3 and f′(3) = 2, so y = −3 + 2(x − 3) = 2x − 9.
+        - |
+          This uses the formula f′(x) as the slope instead of the number f′(3) = 2; the result is a parabola, not a line.
+      answer: 2
+    - slug: apcalcab-u02-w06-q08
+      type: multiple_choice
+      topic_code: "2.1"
+      source: "AP Calculus CED, Topic 2.1"
+      points: 1
+      prompt: |
+        What is the average rate of change of g(x) = 1/x on the interval [1, 4]?
+      options:
+        - "−3/4"
+        - "1/4"
+        - "−4"
+        - "−1/4"
+      option_explanations:
+        - |
+          −3/4 is the change g(4) − g(1) = 1/4 − 1; it still has to be divided by the change in x, 4 − 1 = 3.
+        - |
+          This has the right size but the wrong sign: g(4) = 1/4 is less than g(1) = 1, so g decreased and the rate is negative.
+        - |
+          This inverts the quotient, dividing the change in x by the change in g: 3/(−3/4) = −4.
+        - |
+          Correct. (g(4) − g(1))/(4 − 1) = (1/4 − 1)/3 = (−3/4)/3 = −1/4.
+      answer: 3
+    - slug: apcalcab-u02-w06-q09
+      type: multiple_choice
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 1
+      prompt: |
+        For y = f(x), which expression does NOT denote the derivative of f at a general x?
+      options:
+        - "dy/dx"
+        - "f′(x)"
+        - "d/dx [f(x)]"
+        - "Δy/Δx"
+      option_explanations:
+        - |
+          dy/dx is Leibniz notation for the derivative of y with respect to x, so it does denote the derivative.
+        - |
+          f′(x), read "f prime of x", is Lagrange notation for the derivative function, so it does denote the derivative.
+        - |
+          d/dx [f(x)] is the operator form: "the derivative with respect to x of f(x)". It does denote the derivative.
+        - |
+          Correct. Δy/Δx is a quotient of finite changes, an average rate of change over an interval; the derivative is its limit as Δx → 0.
+      answer: 3
+    # ---- Review items
+    - slug: apcalcab-u02-w06-q10
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Calculus CED, Topic 1.5"
+      points: 1
+      prompt: |
+        Suppose lim (x→1) f(x) = 3 and lim (x→1) g(x) = −2. What is lim (x→1) ([f(x)]² − 3g(x))?
+      options:
+        - "15"
+        - "3"
+        - "12"
+        - "9"
+      option_explanations:
+        - |
+          Correct. By the power, constant multiple and difference properties, the limit is 3² − 3(−2) = 9 + 6 = 15.
+        - |
+          A sign slip: −3 · (−2) is +6, not −6, so the result is 9 + 6, not 9 − 6.
+        - |
+          This doubles 3 instead of squaring it: [f(x)]² tends to 3² = 9, not 2 · 3 = 6.
+        - |
+          9 is only the limit of [f(x)]²; the term −3g(x) tends to +6 and must be included.
+      answer: 0
+    - slug: apcalcab-u02-w06-q11
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        What is lim (x→3) (x² − 9)/(x − 3)?
+      options:
+        - "0"
+        - "6"
+        - "The limit does not exist."
+        - "∞"
+      option_explanations:
+        - |
+          Substitution gives 0/0, which is indeterminate, not 0; the expression must be simplified first.
+        - |
+          Correct. x² − 9 = (x − 3)(x + 3), so for x ≠ 3 the quotient equals x + 3, which tends to 6.
+        - |
+          0/0 does not mean the limit fails to exist; it means more work is needed. After cancelling, the limit is 6.
+        - |
+          A zero denominator gives an infinite limit only when the numerator tends to a nonzero number; here both tend to 0.
+      answer: 1
+    - slug: apcalcab-u02-w06-q12
+      type: multiple_choice
+      topic_code: "1.11"
+      source: "AP Calculus CED, Topic 1.11"
+      points: 1
+      prompt: |
+        Let f(x) = x² + k for x < 2 and f(x) = 3x − 1 for x ≥ 2. For what value of k is f continuous at x = 2?
+      options:
+        - "k = 5"
+        - "k = −1"
+        - "k = 1"
+        - "k = 9"
+      option_explanations:
+        - |
+          5 is f(2) = 3(2) − 1, the value the left piece must reach; the left piece already contributes 2² = 4, so k must make 4 + k = 5.
+        - |
+          A sign slip solving 4 + k = 5: subtracting 4 gives k = 1, not −1.
+        - |
+          Correct. Continuity needs lim (x→2⁻) f(x) = 4 + k to equal f(2) = lim (x→2⁺) f(x) = 5, so k = 1.
+        - |
+          This adds 4 to 5 instead of subtracting it when solving 4 + k = 5.
+      answer: 2
+    - slug: apcalcab-u02-w06-q13
+      type: multiple_choice
+      topic_code: "1.15"
+      source: "AP Calculus CED, Topic 1.15"
+      points: 1
+      prompt: |
+        What is lim (x→∞) (3x² − x)/(5 − 2x²)?
+      options:
+        - "−3/2"
+        - "3/2"
+        - "3/5"
+        - "0"
+      option_explanations:
+        - |
+          Correct. The degrees are equal, so the limit is the ratio of leading coefficients, 3/(−2) = −3/2. (Divide every term by x² to see it.)
+        - |
+          This drops the sign of the leading coefficient −2 in the denominator.
+        - |
+          3/5 compares the first-written terms, but 5 is the constant; the leading term of the denominator is −2x².
+        - |
+          0 is the limit only when the denominator has higher degree; here both have degree 2.
+      answer: 0
+    - slug: apcalcab-u02-w06-q14
+      type: multi_select
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A function f is defined for all real numbers, and f′(4) = 7. Which statements must be true? Select all that apply.
+      options:
+        - "lim (h→0) (f(4 + h) − f(4))/h = 7"
+        - "The line tangent to the graph of f at x = 4 has slope 7."
+        - "lim (x→4) (f(x) − f(4))/(x − 4) = 7"
+        - "f(4) = 7"
+        - "The average rate of change of f on [0, 4] is 7."
+      option_explanations:
+        - |
+          Correct. This is the h-form of the definition of f′(4).
+        - |
+          Correct. The derivative at a point is the slope of the tangent line there.
+        - |
+          Correct. This is the x-form of the definition of f′(4); it gives the same number.
+        - |
+          The derivative is a slope, not an output; f′(4) = 7 says nothing about the value of f(4).
+        - |
+          An average rate over [0, 4] is a secant slope; it can differ from the tangent slope at x = 4.
+      answer: [0, 1, 2]
+    - slug: apcalcab-u02-w06-q15
+      type: multi_select
+      topic_code: "1.16"
+      source: "AP Calculus CED, Topic 1.16"
+      points: 2
+      partial_credit: true
+      prompt: |
+        The function g is continuous on [1, 5], with g(1) = −2 and g(5) = 6. Which statements must be true? Select all that apply.
+      options:
+        - "g(c) = 0 for at least one c in (1, 5)."
+        - "g(c) = 5 for at least one c in (1, 5)."
+        - "g(c) = 7 for at least one c in (1, 5)."
+        - "g is increasing on [1, 5]."
+        - "g(3) = 2"
+      option_explanations:
+        - |
+          Correct. 0 is between g(1) = −2 and g(5) = 6 and g is continuous on [1, 5], so the Intermediate Value Theorem guarantees such a c.
+        - |
+          Correct. 5 is also between −2 and 6, so the Intermediate Value Theorem applies again.
+        - |
+          7 is not between −2 and 6, so the theorem guarantees nothing; g might never reach 7.
+        - |
+          Continuity and the endpoint values do not force g to be increasing; it may rise and fall in between.
+        - |
+          2 is the midpoint of −2 and 6, but nothing forces g to take that value at the midpoint input x = 3.
+      answer: [0, 1]
+    - slug: apcalcab-u02-w06-q16
+      type: true_false
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 1
+      prompt: |
+        True or false: If f(2) = 0, then f′(2) = 0.
+      answer: false
+      explanation: |
+        False. The value of a function and its slope are unrelated. For example f(x) = 3x − 6 has f(2) = 0 but f′(2) = 3: the graph crosses the axis at x = 2 while rising.
+    - slug: apcalcab-u02-w06-q17
+      type: true_false
+      topic_code: "1.14"
+      source: "AP Calculus CED, Topic 1.14"
+      points: 1
+      prompt: |
+        True or false: If lim (x→3⁺) f(x) = ∞, then the line x = 3 is a vertical asymptote of the graph of f.
+      answer: true
+      explanation: |
+        True. A vertical asymptote at x = a needs only one one-sided limit at a to be ∞ or −∞; the behaviour on the other side does not matter.
+    - slug: apcalcab-u02-w06-q18
+      type: fill_blank
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 1
+      prompt: |
+        For f(x) = x² + 5x, the difference quotient (f(1 + h) − f(1))/h simplifies to 7 + h for h ≠ 0, so f′(1) = ____.
+      answer: ["7"]
+      explanation: |
+        f(1 + h) = 1 + 2h + h² + 5 + 5h = 6 + 7h + h² and f(1) = 6, so the quotient is (7h + h²)/h = 7 + h, which tends to 7 as h → 0.
+    - slug: apcalcab-u02-w06-q19
+      type: fill_blank
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        lim (x→0) (√(x + 9) − 3)/x = ____ (give an exact fraction or a three-place decimal).
+      answer: ["1/6", "1 / 6", "0.167", ".167", "0.1667"]
+      explanation: |
+        Multiply by the conjugate: (√(x + 9) − 3)(√(x + 9) + 3) = x, so for x ≠ 0 the quotient equals 1/(√(x + 9) + 3), which tends to 1/(3 + 3) = 1/6.
+    - slug: apcalcab-u02-w06-q20
+      type: numeric
+      topic_code: "2.1"
+      source: "AP Calculus CED, Topic 2.1"
+      points: 1
+      prompt: |
+        What is the slope of the secant line to the graph of f(x) = x³ between x = 2 and x = 2.1? Give your answer to two decimal places.
+      answer: { value: 12.61, tolerance: 0.001 }
+      explanation: |
+        f(2.1) = 9.261 and f(2) = 8, so the slope is (9.261 − 8)/(2.1 − 2) = 1.261/0.1 = 12.61. (The tangent slope at x = 2 is 12; the secant is a little steeper because the cubic curves upward.)
+    - slug: apcalcab-u02-w06-q21
+      type: numeric
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 1
+      prompt: |
+        The limit lim (x→4) (√x − 2)/(x − 4) is the derivative of f(x) = √x at x = 4. Find its value as a decimal.
+      answer: { value: 0.25, tolerance: 0.0001 }
+      explanation: |
+        Factor x − 4 = (√x − 2)(√x + 2), so for x ≠ 4 the quotient is 1/(√x + 2), which tends to 1/4 = 0.25. This matches f′(x) = 1/(2√x) at x = 4.
+    - slug: apcalcab-u02-w06-q22
+      type: short_answer
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 3
+      prompt: |
+        Let f(x) = 1/(x + 2).
+        (a) Use the limit definition of the derivative to show that f′(x) = −1/(x + 2)².
+        (b) Write an equation of the line tangent to the graph of f at x = 0.
+      answer: |
+        (a) f(x + h) − f(x) = 1/(x + h + 2) − 1/(x + 2) = ((x + 2) − (x + h + 2))/((x + h + 2)(x + 2)) = −h/((x + h + 2)(x + 2)). Dividing by h gives −1/((x + h + 2)(x + 2)) for h ≠ 0, and as h → 0 this tends to −1/(x + 2)².
+        (b) f(0) = 1/2 and f′(0) = −1/4, so y = 1/2 − (1/4)x.
+      explanation: |
+        Three points. (a) 1 point for setting up lim (h→0) (f(x + h) − f(x))/h and combining the fractions correctly; 1 point for cancelling h and taking the limit to reach −1/(x + 2)². (b) 1 point for y = 1/2 − x/4 or any equivalent form, such as y − 1/2 = −(1/4)(x − 0).
+    - slug: apcalcab-u02-w06-q23
+      type: short_answer
+      topic_code: "1.10"
+      source: "AP Calculus CED, Topic 1.10"
+      points: 2
+      prompt: |
+        Let r(x) = (x² − x − 2)/(x² − 4). Identify each value of x at which r is discontinuous, classify each discontinuity as removable, jump or infinite, and justify with limits or factoring.
+      answer: |
+        r(x) = (x − 2)(x + 1)/((x − 2)(x + 2)), so r is undefined at x = 2 and x = −2.
+        At x = 2: for x ≠ 2, r(x) = (x + 1)/(x + 2), so lim (x→2) r(x) = 3/4 exists but r(2) is undefined: a removable discontinuity (a hole at (2, 3/4)).
+        At x = −2: the numerator tends to 3 while the denominator tends to 0, so r is unbounded there: an infinite discontinuity (vertical asymptote x = −2).
+      explanation: |
+        Two points. 1 point for x = 2 classified as removable, with the limit 3/4 or the cancelled factor as justification. 1 point for x = −2 classified as infinite, with the nonzero numerator over a zero denominator (or a one-sided limit of ±∞) as justification.
+    - slug: apcalcab-u02-w06-q24
+      type: multiple_choice
+      topic_code: "2.1"
+      source: "AP Calculus CED, Topic 2.1"
+      points: 1
+      prompt: |
+        A hypothetical table gives the average rate of change of a function f on intervals [1, 1 + h] for shrinking h: 4.62 for h = 0.1, 4.0602 for h = 0.01 and 4.006 for h = 0.001. What is the best estimate of the instantaneous rate of change of f at x = 1?
+      options:
+        - "4.62"
+        - "4.006"
+        - "0"
+        - "4"
+      option_explanations:
+        - |
+          4.62 is the average rate over the widest interval, the least accurate of the three estimates.
+        - |
+          4.006 is the closest single average rate, but the pattern 4.62, 4.0602, 4.006 shows the rates settling toward 4 as h → 0.
+        - |
+          0 is the limit of the interval width h, not of the average rates; the rates approach 4, not 0.
+        - |
+          Correct. The instantaneous rate is the limit of the average rates as h → 0, and the values approach 4.
+      answer: 3
+    - slug: apcalcab-u02-w06-q25
+      type: long_answer
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 6
+      prompt: |
+        A hypothetical robot moves along a straight track. Its position, in metres from a marker, t seconds after it starts is x(t) = t³ − 6t for 0 ≤ t ≤ 4.
+        (A) Find the average velocity of the robot over the interval 1 ≤ t ≤ 3. Include units.
+        (B) Use the limit definition of the derivative to find x′(t). Show the algebra.
+        (C) Find the time t in the interval 1 < t < 3 at which the instantaneous velocity x′(t) equals the average velocity from part (A). An exact answer is acceptable.
+        (D) Write an equation of the line tangent to the graph of x at t = 2, and interpret x′(2) in context with units.
+      answer: |
+        (A) x(1) = 1 − 6 = −5 and x(3) = 27 − 18 = 9, so the average velocity is (9 − (−5))/(3 − 1) = 14/2 = 7 metres per second.
+        (B) x(t + h) − x(t) = (t³ + 3t²h + 3th² + h³ − 6t − 6h) − (t³ − 6t) = 3t²h + 3th² + h³ − 6h. Dividing by h gives 3t² + 3th + h² − 6 for h ≠ 0, and as h → 0 this tends to x′(t) = 3t² − 6.
+        (C) 3t² − 6 = 7 gives t² = 13/3, so t = √(13/3) ≈ 2.082 seconds, which is in (1, 3). (The negative root is rejected.)
+        (D) x(2) = 8 − 12 = −4 and x′(2) = 12 − 6 = 6, so the tangent line is y = −4 + 6(t − 2). At t = 2 seconds the robot's position is increasing at 6 metres per second: it is moving in the positive direction at 6 m/s.
+      explanation: |
+        Six points. (A) 1 point for 7 with units of metres per second (m/s). (B) 2 points: 1 for a correct difference quotient with the expansion of (t + h)³, 1 for cancelling h and taking the limit to get 3t² − 6; an answer with no limit work earns at most 1 point. (C) 1 point for t = √(13/3) (about 2.082), consistent with part (B). (D) 1 point for the tangent line through (2, −4) with slope 6 in any equivalent form; 1 point for an interpretation that names the time t = 2, "increasing" (or moving in the positive direction) and the rate 6 metres per second.

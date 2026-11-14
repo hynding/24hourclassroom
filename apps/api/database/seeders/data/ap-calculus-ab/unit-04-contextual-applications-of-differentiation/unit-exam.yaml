@@ -1,0 +1,923 @@
+unit: 4
+description: |
+  44 questions · about 90 minutes · every topic of Unit 4 (4.1 to 4.7): interpreting derivatives in context with
+  units, straight-line motion, rates of change in applied contexts, setting up and solving related-rates
+  problems, local linear approximation with over- and underestimates, and L'Hospital's Rule. Includes three
+  shared-context sets (a hypothetical rain tank's data table, a particle's motion, and a growing sand pile),
+  select-all, true/false, fill-in-the-blank and numeric items, two short-answer questions (3 points each) and two
+  free-response questions in the AP style (9 points each: one calculator-active question on a hypothetical
+  reservoir model, one no-calculator question on particle motion and L'Hospital's Rule). Items marked
+  (Calculator.) need a graphing calculator; the rest are meant to be done by hand. Multiple choice, select-all,
+  true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the
+  short-answer and free-response items are graded by your teacher against the scoring notes. Every rate in an
+  answer must carry units.
+questions:
+  # ---- Stimulus set A: a rain tank (4.1, 4.6)
+  - slug: apcalcab-u04-exam-q01
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "AP Calculus CED, Topic 4.1"
+    points: 1
+    stimulus: |
+      W(t) is the amount of water in a hypothetical rain tank, in litres, t hours after a storm begins. W is twice differentiable, and W′(5) = 3 litres per hour. Selected values are shown.
+
+      | t (hours) | 0 | 2 | 5 | 6 | 9 |
+      |---|---|---|---|---|---|
+      | W(t) (litres) | 120 | 135 | 150 | 152 | 140 |
+    prompt: |
+      Using the data in the table, what is the best estimate of W′(5.5)?
+    options:
+      - "4.25 litres per hour"
+      - "2 litres per hour"
+      - "About 2.22 litres per hour"
+      - "2 litres"
+    option_explanations:
+      - |
+        This uses the interval [2, 6], (152 − 135)/4; the closest values straddling 5.5 are at t = 5 and t = 6.
+      - |
+        Correct. W′(5.5) ≈ (W(6) − W(5))/(6 − 5) = (152 − 150)/1 = 2 litres per hour.
+      - |
+        This is the average rate over the whole table, (140 − 120)/9, which blurs the rise and the fall together.
+      - |
+        The value is right but a rate of change needs units of litres per hour, not litres.
+    answer: 1
+  - slug: apcalcab-u04-exam-q02
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "AP Calculus CED, Topic 4.1"
+    points: 1
+    stimulus: |
+      W(t) is the amount of water in a hypothetical rain tank, in litres, t hours after a storm begins. W is twice differentiable, and W′(5) = 3 litres per hour. Selected values are shown.
+
+      | t (hours) | 0 | 2 | 5 | 6 | 9 |
+      |---|---|---|---|---|---|
+      | W(t) (litres) | 120 | 135 | 150 | 152 | 140 |
+    prompt: |
+      (W(9) − W(6))/(9 − 6) = −4. Which statement is the best interpretation of this value?
+    options:
+      - "At t = 9 hours, the amount of water is decreasing at 4 litres per hour."
+      - "From t = 6 to t = 9 hours, the tank loses 4 litres of water."
+      - "From t = 6 to t = 9 hours, the amount of water decreases at an average rate of 4 litres per hour per hour."
+      - "From t = 6 to t = 9 hours, the amount of water decreases at an average rate of 4 litres per hour."
+    option_explanations:
+      - |
+        A difference quotient over [6, 9] is an average rate over the interval, not the rate at the instant t = 9.
+      - |
+        The total loss over the interval is W(6) − W(9) = 12 litres; −4 is that change divided by 3 hours.
+      - |
+        Litres per hour per hour are the units of a second derivative; this quotient is in litres per hour.
+      - |
+        Correct. It is the average rate of change of W on [6, 9]: (140 − 152)/3 = −4 litres per hour.
+    answer: 3
+  - slug: apcalcab-u04-exam-q03
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "AP Calculus CED, Topic 4.6"
+    points: 1
+    stimulus: |
+      W(t) is the amount of water in a hypothetical rain tank, in litres, t hours after a storm begins. W is twice differentiable, and W′(5) = 3 litres per hour. Selected values are shown.
+
+      | t (hours) | 0 | 2 | 5 | 6 | 9 |
+      |---|---|---|---|---|---|
+      | W(t) (litres) | 120 | 135 | 150 | 152 | 140 |
+    prompt: |
+      Use the line tangent to the graph of W at t = 5 to estimate W(5.4).
+    options:
+      - "151.2 litres"
+      - "153 litres"
+      - "148.8 litres"
+      - "1.2 litres"
+    option_explanations:
+      - |
+        Correct. W(5.4) ≈ W(5) + W′(5)(5.4 − 5) = 150 + 3(0.4) = 151.2 litres.
+      - |
+        This uses a step of 1 hour; the step from t = 5 to t = 5.4 is 0.4 hours.
+      - |
+        W′(5) = 3 is positive, so the estimate should be above 150, not below.
+      - |
+        1.2 litres is the estimated change, W′(5)(0.4); it has to be added to W(5) = 150.
+    answer: 0
+  - slug: apcalcab-u04-exam-q04
+    type: numeric
+    topic_code: "4.1"
+    source: "AP Calculus CED, Topic 4.1"
+    points: 1
+    stimulus: |
+      W(t) is the amount of water in a hypothetical rain tank, in litres, t hours after a storm begins. W is twice differentiable, and W′(5) = 3 litres per hour. Selected values are shown.
+
+      | t (hours) | 0 | 2 | 5 | 6 | 9 |
+      |---|---|---|---|---|---|
+      | W(t) (litres) | 120 | 135 | 150 | 152 | 140 |
+    prompt: |
+      What is the average rate of change of W over the first 5 hours, in litres per hour?
+    answer: { value: 6, tolerance: 0 }
+    explanation: |
+      (W(5) − W(0))/(5 − 0) = (150 − 120)/5 = 30/5 = 6 litres per hour.
+  # ---- Stimulus set B: a particle (4.2)
+  - slug: apcalcab-u04-exam-q05
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "AP Calculus CED, Topic 4.2"
+    points: 1
+    stimulus: |
+      A particle moves along the x-axis. Its position at time t seconds is x(t) = t³ − 9t² + 15t + 4 metres, for 0 ≤ t ≤ 6.
+    prompt: |
+      On which interval is the particle moving to the left?
+    options:
+      - "0 < t < 3"
+      - "3 < t < 6"
+      - "1 < t < 5"
+      - "0 < t < 1 and 5 < t < 6"
+    option_explanations:
+      - |
+        This is where the acceleration a(t) = 6t − 18 is negative; direction comes from the velocity.
+      - |
+        This is where the acceleration is positive; the velocity is still negative on 3 < t < 5.
+      - |
+        Correct. v(t) = 3t² − 18t + 15 = 3(t − 1)(t − 5), which is negative exactly when 1 < t < 5.
+      - |
+        These are the intervals where v(t) > 0, so the particle moves right there, not left.
+    answer: 2
+  - slug: apcalcab-u04-exam-q06
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "AP Calculus CED, Topic 4.2"
+    points: 1
+    stimulus: |
+      A particle moves along the x-axis. Its position at time t seconds is x(t) = t³ − 9t² + 15t + 4 metres, for 0 ≤ t ≤ 6.
+    prompt: |
+      On which intervals is the particle speeding up?
+    options:
+      - "1 < t < 3 and 5 < t < 6"
+      - "3 < t < 6 only"
+      - "0 < t < 1 and 3 < t < 5"
+      - "1 < t < 5 only"
+    option_explanations:
+      - |
+        Correct. v = 3(t − 1)(t − 5) and a = 6t − 18. On 1 < t < 3 both are negative; on 5 < t < 6 both are positive. Same signs mean speeding up.
+      - |
+        This is where a > 0, ignoring the velocity; on 3 < t < 5, v < 0 while a > 0, so the particle slows down there.
+      - |
+        These are exactly the intervals where v and a have opposite signs, so the particle is slowing down there.
+      - |
+        This is where v < 0, the interval of leftward motion; speed also depends on the sign of a.
+    answer: 0
+  - slug: apcalcab-u04-exam-q07
+    type: numeric
+    topic_code: "4.2"
+    source: "AP Calculus CED, Topic 4.2"
+    points: 1
+    stimulus: |
+      A particle moves along the x-axis. Its position at time t seconds is x(t) = t³ − 9t² + 15t + 4 metres, for 0 ≤ t ≤ 6.
+    prompt: |
+      What is the total distance, in metres, that the particle travels for 0 ≤ t ≤ 6?
+    answer: { value: 46, tolerance: 0 }
+    explanation: |
+      The particle turns around at t = 1 and t = 5. x(0) = 4, x(1) = 11, x(5) = −21, x(6) = −14. Distance = 7 + 32 + 7 = 46 metres (displacement −18 metres).
+  - slug: apcalcab-u04-exam-q08
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "AP Calculus CED, Topic 4.2"
+    points: 1
+    stimulus: |
+      A particle moves along the x-axis. Its position at time t seconds is x(t) = t³ − 9t² + 15t + 4 metres, for 0 ≤ t ≤ 6.
+    prompt: |
+      The velocity of the particle is smallest at t = 3. What are the particle's velocity and speed at t = 3?
+    options:
+      - "Velocity 12 m/s, speed 12 m/s"
+      - "Velocity −12 m/s, speed −12 m/s"
+      - "Velocity 0 m/s, speed 0 m/s"
+      - "Velocity −12 m/s, speed 12 m/s"
+    option_explanations:
+      - |
+        v(3) = 27 − 54 + 15 = −12, so the velocity is negative; only the speed drops the sign.
+      - |
+        Speed is the absolute value of velocity and is never negative.
+      - |
+        t = 3 is where the acceleration is 0, not the velocity; the particle is moving left fastest there.
+      - |
+        Correct. v(3) = 3(9) − 18(3) + 15 = −12 m/s, and speed = |v(3)| = 12 m/s.
+    answer: 3
+  # ---- Stimulus set C: a sand pile (4.5)
+  - slug: apcalcab-u04-exam-q09
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "AP Calculus CED, Topic 4.5"
+    points: 1
+    stimulus: |
+      Sand falls from a hypothetical conveyor belt at 12 cubic metres per minute and forms a conical pile whose height h always equals the radius r of its base. (The volume of a cone is V = (1/3)πr²h.)
+    prompt: |
+      Which expression gives the volume of the pile in terms of h alone?
+    options:
+      - "V = πh³"
+      - "V = (1/3)πh³"
+      - "V = (1/3)πh²"
+      - "V = (4/3)πh³"
+    option_explanations:
+      - |
+        The factor 1/3 from the cone formula has been dropped; πr²h is a cylinder's volume.
+      - |
+        Correct. Substituting r = h gives V = (1/3)πh²·h = (1/3)πh³.
+      - |
+        Only r was replaced; the factor h in the formula is still there, so the power is 3.
+      - |
+        (4/3)πr³ is the volume of a sphere, not a cone.
+    answer: 1
+  - slug: apcalcab-u04-exam-q10
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "AP Calculus CED, Topic 4.5"
+    points: 1
+    stimulus: |
+      Sand falls from a hypothetical conveyor belt at 12 cubic metres per minute and forms a conical pile whose height h always equals the radius r of its base. (The volume of a cone is V = (1/3)πr²h.)
+    prompt: |
+      How fast is the height of the pile increasing when the pile is 2 metres high?
+    options:
+      - "9/π metres per minute"
+      - "π/3 metres per minute"
+      - "3/π metres per minute"
+      - "3/π cubic metres per minute"
+    option_explanations:
+      - |
+        This differentiates (1/3)πh³ as (1/3)πh²·dh/dt, without bringing down the exponent 3.
+      - |
+        The equation 12 = 4π·dh/dt was solved upside down, as dh/dt = 4π/12.
+      - |
+        Correct. dV/dt = πh²·dh/dt, so 12 = π(4)·dh/dt and dh/dt = 3/π ≈ 0.955 metres per minute.
+      - |
+        The number is right, but a height changes in metres per minute.
+    answer: 2
+  - slug: apcalcab-u04-exam-q11
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "AP Calculus CED, Topic 4.5"
+    points: 1
+    stimulus: |
+      Sand falls from a hypothetical conveyor belt at 12 cubic metres per minute and forms a conical pile whose height h always equals the radius r of its base. (The volume of a cone is V = (1/3)πr²h.)
+    prompt: |
+      At the moment the pile is 2 metres high, how fast is the area of its circular base increasing?
+    options:
+      - "12 square metres per minute"
+      - "4π square metres"
+      - "6 square metres per minute"
+      - "12 metres per minute"
+    option_explanations:
+      - |
+        Correct. A = πr² with r = h, so dA/dt = 2πr·dr/dt = 2π(2)(3/π) = 12 square metres per minute.
+      - |
+        4π m² is the area of the base at that moment, not its rate of change.
+      - |
+        This uses πr·dr/dt, dropping the 2 from the derivative of r².
+      - |
+        The number is right, but an area changes in square metres per minute.
+    answer: 0
+  # ---- Independent items
+  - slug: apcalcab-u04-exam-q12
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "AP Calculus CED, Topic 4.1"
+    points: 1
+    prompt: |
+      C(t) is the concentration of a pollutant in a hypothetical lake, in parts per million (ppm), t days after a spill. What are the units of C″(t)?
+    options:
+      - "ppm"
+      - "ppm per day"
+      - "days per ppm per ppm"
+      - "ppm per day per day"
+    option_explanations:
+      - |
+        ppm are the units of C itself; each derivative adds a "per day".
+      - |
+        ppm per day are the units of C′(t), the first derivative.
+      - |
+        This turns the ratio upside down; derivatives are output units over input units.
+      - |
+        Correct. C″ is the rate of change of C′ (ppm per day), so its units are ppm per day per day.
+    answer: 3
+  - slug: apcalcab-u04-exam-q13
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "AP Calculus CED, Topic 4.1"
+    points: 1
+    prompt: |
+      F(d) is the amount of fuel, in litres, left in a hypothetical car's tank after it has been driven d kilometres on a trip. Which is the best interpretation of F′(100) = −0.08?
+    options:
+      - "After 100 minutes, the fuel is decreasing at 0.08 litres per minute."
+      - "After 100 km, the amount of fuel in the tank is decreasing at 0.08 litres per kilometre."
+      - "After 100 km, the tank holds 0.08 litres of fuel."
+      - "During the first 100 km, the car uses 0.08 litres of fuel."
+    option_explanations:
+      - |
+        The input is distance in kilometres, not time; nothing here is per minute.
+      - |
+        Correct. F′(100) is the rate of change of fuel with respect to distance at d = 100: decreasing at 0.08 litres per kilometre.
+      - |
+        This reads the derivative F′(100) as the amount F(100).
+      - |
+        Fuel used over the first 100 km is a total change, F(0) − F(100), not the rate at d = 100.
+    answer: 1
+  - slug: apcalcab-u04-exam-q14
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "AP Calculus CED, Topic 4.2"
+    points: 1
+    prompt: |
+      A particle moves along a line with velocity v(t) = 2 sin t, for 0 < t < 2π. At which time or times does the particle change direction?
+    options:
+      - "t = π only"
+      - "t = π/2 and t = 3π/2"
+      - "t = π/2 only"
+      - "t = 0, t = π and t = 2π"
+    option_explanations:
+      - |
+        Correct. 2 sin t changes from positive to negative at t = π, its only zero in 0 < t < 2π.
+      - |
+        These are where the velocity is largest and smallest (acceleration 0), not where it changes sign.
+      - |
+        At t = π/2 the velocity is at its maximum, 2, so the particle is moving right fastest, not turning.
+      - |
+        t = 0 and t = 2π are outside the open interval, and the particle cannot change direction at an endpoint.
+    answer: 0
+  - slug: apcalcab-u04-exam-q15
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "AP Calculus CED, Topic 4.2"
+    points: 1
+    prompt: |
+      A particle moves along a line with velocity v(t) = t² − 2t − 3 feet per second, for t > 0. What is the particle's acceleration at the moment it is at rest?
+    options:
+      - "0 ft/s²"
+      - "3 ft/s²"
+      - "4 ft/s²"
+      - "−4 ft/s²"
+    option_explanations:
+      - |
+        Being at rest means v = 0, not a = 0; the particle can be accelerating while momentarily stopped.
+      - |
+        3 is the time t at which the particle is at rest, not its acceleration.
+      - |
+        Correct. v(t) = (t − 3)(t + 1) = 0 at t = 3 (t > 0). a(t) = 2t − 2, so a(3) = 4 ft/s².
+      - |
+        This uses the root t = −1, which is outside t > 0.
+    answer: 2
+  - slug: apcalcab-u04-exam-q16
+    type: multiple_choice
+    topic_code: "4.3"
+    source: "AP Calculus CED, Topic 4.3"
+    points: 1
+    prompt: |
+      A hypothetical bacteria population is N(t) = 200 · 2^(t/3) cells, t hours after a culture starts. At what rate is the population growing at t = 6?
+    options:
+      - "800/3 cells per hour"
+      - "800 cells per hour"
+      - "800 ln 2 cells per hour"
+      - "(800 ln 2)/3 cells per hour, about 184.8"
+    option_explanations:
+      - |
+        The derivative of aᵘ includes the factor ln a; ln 2 is missing.
+      - |
+        800 is N(6) = 200 · 2², the population itself, not its rate of growth.
+      - |
+        The chain-rule factor 1/3 from the exponent t/3 is missing.
+      - |
+        Correct. N′(t) = 200 · 2^(t/3) · ln 2 · (1/3), so N′(6) = 200 · 4 · ln 2/3 = (800 ln 2)/3 ≈ 184.8 cells per hour.
+    answer: 3
+  - slug: apcalcab-u04-exam-q17
+    type: multiple_choice
+    topic_code: "4.3"
+    source: "AP Calculus CED, Topic 4.3"
+    points: 1
+    prompt: |
+      A hypothetical workshop's cost of making q chairs is C(q) = 0.01q³ − 0.6q² + 15q + 100 dollars. What is the marginal cost C′(20)?
+    options:
+      - "$240"
+      - "$3 per chair"
+      - "$7 per chair"
+      - "$0 per chair per chair"
+    option_explanations:
+      - |
+        $240 is C(20), the total cost of 20 chairs, not the marginal cost.
+      - |
+        Correct. C′(q) = 0.03q² − 1.2q + 15, so C′(20) = 12 − 24 + 15 = 3 dollars per chair.
+      - |
+        $7 per chair is the average rate (C(20) − C(0))/20 = 140/20, not the rate at q = 20.
+      - |
+        0 is C″(20) = 0.06(20) − 1.2, the rate of change of the marginal cost.
+    answer: 1
+  - slug: apcalcab-u04-exam-q18
+    type: multiple_choice
+    topic_code: "4.4"
+    source: "AP Calculus CED, Topic 4.4"
+    points: 1
+    prompt: |
+      x and y are functions of t with y = x³ + 2x. When x = 1, dx/dt = 4. What is dy/dt at that moment?
+    options:
+      - "20"
+      - "5"
+      - "12"
+      - "14"
+    option_explanations:
+      - |
+        Correct. dy/dt = (3x² + 2)·dx/dt = (3 + 2)(4) = 20.
+      - |
+        5 is dy/dx at x = 1; it still has to be multiplied by dx/dt = 4.
+      - |
+        This drops the derivative of 2x, keeping only 3x²·dx/dt.
+      - |
+        This attaches dx/dt to the 3x² term only: 3(1)(4) + 2; the 2x term needs it too.
+    answer: 0
+  - slug: apcalcab-u04-exam-q19
+    type: multiple_choice
+    topic_code: "4.4"
+    source: "AP Calculus CED, Topic 4.4"
+    points: 1
+    prompt: |
+      The length of a rectangle is increasing at 3 cm per second and its width is decreasing at 2 cm per second. At what rate is its area changing when the length is 10 cm and the width is 6 cm?
+    options:
+      - "−6 cm² per second"
+      - "38 cm² per second"
+      - "−2 cm² per second"
+      - "2 cm² per second"
+    option_explanations:
+      - |
+        This multiplies the two rates, (3)(−2); the product rule pairs each rate with the other dimension.
+      - |
+        This treats the width as increasing: 10(2) + 6(3). A decreasing width has dw/dt = −2.
+      - |
+        Correct. A = lw, so dA/dt = l·dw/dt + w·dl/dt = 10(−2) + 6(3) = −2 cm² per second.
+      - |
+        The signs are reversed: the area is decreasing, because the width's shrinking outweighs the length's growth.
+    answer: 2
+  - slug: apcalcab-u04-exam-q20
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "AP Calculus CED, Topic 4.5"
+    points: 1
+    prompt: |
+      A triangle has two sides of fixed lengths 6 cm and 8 cm, and the angle θ between them increases at 0.1 radian per second. Its area is A = (1/2)(6)(8) sin θ. How fast is the area increasing when θ = π/3?
+    options:
+      - "2.4 cm² per second"
+      - "1.2 cm² per second"
+      - "About 2.078 cm² per second"
+      - "12 cm² per second"
+    option_explanations:
+      - |
+        This leaves out the factor cos θ = 1/2 from differentiating sin θ.
+      - |
+        Correct. dA/dt = 24 cos θ·dθ/dt = 24(1/2)(0.1) = 1.2 cm² per second.
+      - |
+        This uses sin(π/3) instead of cos(π/3): the derivative of sin θ is cos θ.
+      - |
+        12 = 24 cos(π/3) is dA/dθ; it still has to be multiplied by dθ/dt = 0.1.
+    answer: 1
+  - slug: apcalcab-u04-exam-q21
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "AP Calculus CED, Topic 4.6"
+    points: 1
+    prompt: |
+      Using the local linear approximation of f(x) = (1 + x)¹⁰ at x = 0, what is the estimate of (1.02)¹⁰?
+    options:
+      - "1.02"
+      - "1.18"
+      - "0.2"
+      - "1.2"
+    option_explanations:
+      - |
+        This uses slope 1; the slope at 0 is f′(0) = 10(1)⁹ = 10.
+      - |
+        This uses the lowered exponent 9 as the slope; the power rule brings down 10.
+      - |
+        0.2 is the estimated change f′(0)(0.02); it must be added to f(0) = 1.
+      - |
+        Correct. f(0) = 1 and f′(0) = 10, so L(x) = 1 + 10x and (1.02)¹⁰ ≈ 1 + 10(0.02) = 1.2.
+    answer: 3
+  - slug: apcalcab-u04-exam-q22
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "AP Calculus CED, Topic 4.6"
+    points: 1
+    prompt: |
+      A differentiable function f has the values below.
+
+      | x | 1 | 4 |
+      |---|---|---|
+      | f(x) | 3 | 10 |
+      | f′(x) | 0.5 | −2 |
+
+      Using a tangent line, what is the best estimate of f(4.3)?
+    options:
+      - "9.4"
+      - "10.6"
+      - "4.65"
+      - "−0.6"
+    option_explanations:
+      - |
+        Correct. Use the data at x = 4, the closest point: f(4.3) ≈ 10 + (−2)(0.3) = 9.4.
+      - |
+        The slope at x = 4 is −2, so the estimate falls below 10; the sign was dropped.
+      - |
+        This uses the tangent line at x = 1, which is far from 4.3: 3 + 0.5(3.3).
+      - |
+        −0.6 is only the estimated change; add it to f(4) = 10.
+    answer: 0
+  - slug: apcalcab-u04-exam-q23
+    type: multiple_choice
+    topic_code: "4.7"
+    source: "AP Calculus CED, Topic 4.7"
+    points: 1
+    prompt: |
+      What is lim (x→0) (eˣ − 1 − x)/x²?
+    options:
+      - "1"
+      - "0"
+      - "1/2"
+      - "The limit is infinite."
+    option_explanations:
+      - |
+        After one application the quotient is (eˣ − 1)/(2x); treating it as (eˣ − 1)/x → 1 forgets the factor 1/2.
+      - |
+        The numerator does approach 0, but so does the denominator; 0/0 needs further work.
+      - |
+        Correct. 0/0: (eˣ − 1)/(2x), still 0/0; again: eˣ/2 → 1/2.
+      - |
+        The numerator approaches 0 as fast as x², so the quotient stays bounded.
+    answer: 2
+  - slug: apcalcab-u04-exam-q24
+    type: multiple_choice
+    topic_code: "4.7"
+    source: "AP Calculus CED, Topic 4.7"
+    points: 1
+    prompt: |
+      What is lim (x→0⁺) x ln x?
+    options:
+      - "−∞"
+      - "0"
+      - "1"
+      - "−1"
+    option_explanations:
+      - |
+        ln x → −∞ while x → 0, so the product is the indeterminate form 0 · ∞; it is not automatically −∞, and here the factor x wins.
+      - |
+        Correct. Rewrite as (ln x)/(1/x), a −∞/∞ form. L'Hospital's Rule gives (1/x)/(−1/x²) = −x → 0.
+      - |
+        This would follow from treating the form 0 · ∞ as 1, which it is not.
+      - |
+        This mixes up the derivative of 1/x; (1/x)/(−1/x²) simplifies to −x, which approaches 0.
+    answer: 1
+  - slug: apcalcab-u04-exam-q25
+    type: multiple_choice
+    topic_code: "4.7"
+    source: "AP Calculus CED, Topic 4.7"
+    points: 1
+    prompt: |
+      What is lim (x→π) (sin x)/(x − π)?
+    options:
+      - "1"
+      - "0"
+      - "π"
+      - "−1"
+    option_explanations:
+      - |
+        This uses the familiar lim (x→0) (sin x)/x = 1; here x approaches π, where cos π = −1.
+      - |
+        The numerator approaches 0, but so does the denominator; the form is 0/0.
+      - |
+        π is the value x approaches, not the limit.
+      - |
+        Correct. 0/0, so by L'Hospital's Rule the limit is lim (x→π) cos x/1 = cos π = −1.
+    answer: 3
+  - slug: apcalcab-u04-exam-q26
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "AP Calculus CED, Topic 4.5"
+    points: 1
+    prompt: |
+      Water drains from a hypothetical cylindrical tank of radius 3 metres at 0.9π cubic metres per minute. How fast is the water level changing?
+    options:
+      - "−0.1 metres per minute"
+      - "−0.3 metres per minute"
+      - "0.1 metres per minute"
+      - "−0.1 cubic metres per minute"
+    option_explanations:
+      - |
+        Correct. V = π(3)²h = 9πh, so dV/dt = 9π·dh/dt, and −0.9π = 9π·dh/dt gives dh/dt = −0.1 metres per minute.
+      - |
+        This divides by πr = 3π instead of πr² = 9π.
+      - |
+        Draining makes dV/dt negative, so the level falls; the sign was dropped.
+      - |
+        The number is right, but a water level changes in metres per minute.
+    answer: 0
+  - slug: apcalcab-u04-exam-q27
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "AP Calculus CED, Topic 4.6"
+    points: 1
+    prompt: |
+      For which function does the tangent-line approximation at x = 0 overestimate the function's values for x near 0?
+    options:
+      - "f(x) = eˣ"
+      - "f(x) = x² + x"
+      - "f(x) = cos x"
+      - "f(x) = sec x"
+    option_explanations:
+      - |
+        f″(x) = eˣ > 0, so eˣ is concave up and its tangent line underestimates.
+      - |
+        f″(x) = 2 > 0: concave up, so the tangent line y = x lies below the parabola.
+      - |
+        Correct. f″(0) = −cos 0 = −1 < 0, so cos x is concave down near 0 and lies below its tangent line y = 1: the line overestimates.
+      - |
+        f″(0) = 1 > 0 for sec x, so it is concave up near 0 and the tangent line y = 1 underestimates.
+    answer: 2
+  - slug: apcalcab-u04-exam-q28
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "AP Calculus CED, Topic 4.2"
+    points: 1
+    prompt: |
+      A particle's position is x(t) = 3cos(πt/2) metres at time t seconds. What is its velocity at t = 1?
+    options:
+      - "−3 m/s"
+      - "−3π/2 m/s"
+      - "3π/2 m/s"
+      - "0 m"
+    option_explanations:
+      - |
+        This leaves out the chain-rule factor π/2 from the inside function πt/2.
+      - |
+        Correct. v(t) = −3 sin(πt/2) · (π/2), so v(1) = −(3π/2) sin(π/2) = −3π/2 metres per second.
+      - |
+        The derivative of cos u is −sin u; the negative sign was lost.
+      - |
+        x(1) = 3cos(π/2) = 0 is the position at t = 1, not the velocity.
+    answer: 1
+  # ---- Select all, true/false, fill-in, numeric
+  - slug: apcalcab-u04-exam-q29
+    type: multi_select
+    topic_code: "4.2"
+    source: "AP Calculus CED, Topic 4.2"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A particle moves along a line with velocity v(t) = (t − 2)²(t − 5) metres per second, for 0 ≤ t ≤ 6. Which statements are true? Select all that apply.
+    options:
+      - "The particle is at rest at t = 2 and at t = 5."
+      - "The particle changes direction at t = 2."
+      - "The particle changes direction at t = 5."
+      - "The particle moves right on 0 < t < 2."
+      - "The particle's velocity at t = 6 is 16 m/s."
+    option_explanations:
+      - |
+        Correct. v(2) = (0)²(−3) = 0 and v(5) = (3)²(0) = 0, so it is at rest at both times.
+      - |
+        (t − 2)² ≥ 0 does not change sign, so v is negative on both sides of t = 2: the particle stops but keeps moving left.
+      - |
+        Correct. The factor (t − 5) changes sign at t = 5, so v changes from negative to positive.
+      - |
+        For 0 < t < 2, (t − 2)² > 0 and t − 5 < 0, so v < 0: the particle moves left.
+      - |
+        Correct. v(6) = (4)²(1) = 16 metres per second.
+    answer: [0, 2, 4]
+  - slug: apcalcab-u04-exam-q30
+    type: multi_select
+    topic_code: "4.7"
+    source: "AP Calculus CED, Topic 4.7"
+    points: 2
+    partial_credit: true
+    prompt: |
+      To which limits can L'Hospital's Rule be applied directly, as written? Select all that apply.
+    options:
+      - "lim (x→0) (sin 2x)/x"
+      - "lim (x→∞) eˣ/x²"
+      - "lim (x→0) (1 + x)/x"
+      - "lim (x→1) (x² − 1)/(x − 1)"
+      - "lim (x→0⁺) x ln x"
+    option_explanations:
+      - |
+        Correct. The form is 0/0; the rule gives 2cos 2x/1 → 2.
+      - |
+        Correct. The form is ∞/∞; applying the rule twice gives eˣ/2 → ∞.
+      - |
+        The form is 1/0, not indeterminate, so the rule does not apply.
+      - |
+        Correct. The form is 0/0; the rule gives 2x/1 → 2 (factoring works too).
+      - |
+        This is a 0 · ∞ product, not a quotient; it must first be rewritten, for example as (ln x)/(1/x).
+    answer: [0, 1, 3]
+  - slug: apcalcab-u04-exam-q31
+    type: multi_select
+    topic_code: "4.4"
+    source: "AP Calculus CED, Topic 4.4"
+    points: 2
+    partial_credit: true
+    prompt: |
+      All variables below are functions of t. Which derivatives with respect to t are correct? Select all that apply.
+    options:
+      - "d/dt [sin θ] = cos θ"
+      - "d/dt [x²y] = 2xy·(dx/dt) + x²·(dy/dt)"
+      - "If x + y = 10, then dx/dt = dy/dt."
+      - "d/dt [(4/3)πr³] = 4πr²·(dr/dt)"
+      - "d/dt [√x] = (1/(2√x))·(dx/dt)"
+    option_explanations:
+      - |
+        θ depends on t, so the chain rule adds a factor: d/dt [sin θ] = cos θ·dθ/dt.
+      - |
+        Correct. Product rule with a chain-rule factor on each variable.
+      - |
+        Differentiating gives dx/dt + dy/dt = 0, so dx/dt = −dy/dt: as one grows, the other shrinks.
+      - |
+        Correct. Power rule with the chain-rule factor dr/dt.
+      - |
+        Correct. The derivative of √x is 1/(2√x), times dx/dt by the chain rule.
+    answer: [1, 3, 4]
+  - slug: apcalcab-u04-exam-q32
+    type: true_false
+    topic_code: "4.6"
+    source: "AP Calculus CED, Topic 4.6"
+    points: 1
+    prompt: |
+      True or false: If f″(x) > 0 for all x near a, then the tangent-line approximation of f at x = a gives overestimates for x near a.
+    answer: false
+    explanation: |
+      False. f″ > 0 means f is concave up, so its graph lies above the tangent line and the approximation gives underestimates.
+  - slug: apcalcab-u04-exam-q33
+    type: true_false
+    topic_code: "4.2"
+    source: "AP Calculus CED, Topic 4.2"
+    points: 1
+    prompt: |
+      True or false: A particle's speed must be decreasing whenever its acceleration is negative.
+    answer: false
+    explanation: |
+      False. If the velocity is also negative, velocity and acceleration share a sign and the speed is increasing. Speed decreases only when v and a have opposite signs.
+  - slug: apcalcab-u04-exam-q34
+    type: true_false
+    topic_code: "4.7"
+    source: "AP Calculus CED, Topic 4.7"
+    points: 1
+    prompt: |
+      True or false: lim (x→∞) x¹⁰/eˣ = 0.
+    answer: true
+    explanation: |
+      True. The form is ∞/∞. Ten applications of L'Hospital's Rule give 10!/eˣ, which approaches 0: exponentials outgrow every power of x.
+  - slug: apcalcab-u04-exam-q35
+    type: fill_blank
+    topic_code: "4.1"
+    source: "AP Calculus CED, Topic 4.1"
+    points: 1
+    prompt: |
+      P(t) is the number of people in a hypothetical museum, t hours after it opens. P′(t) is measured in people per hour, and P″(t) is measured in people per hour per ____.
+    answer: ["hour", "hours", "hr"]
+    explanation: |
+      P″ is the rate of change of P′ (people per hour) with respect to t (hours): people per hour per hour.
+  - slug: apcalcab-u04-exam-q36
+    type: fill_blank
+    topic_code: "4.7"
+    source: "AP Calculus CED, Topic 4.7"
+    points: 1
+    prompt: |
+      lim (x→0) (e^(3x) − 1)/(2x) = ____
+    answer: ["3/2", "1.5", "3 / 2", "1 1/2"]
+    explanation: |
+      0/0, so by L'Hospital's Rule the limit is lim 3e^(3x)/2 = 3/2.
+  - slug: apcalcab-u04-exam-q37
+    type: fill_blank
+    topic_code: "4.6"
+    source: "AP Calculus CED, Topic 4.6"
+    points: 1
+    prompt: |
+      Using the line tangent to y = ln x at x = 1, the approximation of ln(0.97) is ____.
+    answer: ["-0.03", "−0.03", "-.03", "−.03", "-0.030", "−0.030"]
+    explanation: |
+      L(x) = x − 1, so ln(0.97) ≈ 0.97 − 1 = −0.03.
+  - slug: apcalcab-u04-exam-q38
+    type: numeric
+    topic_code: "4.4"
+    source: "AP Calculus CED, Topic 4.4"
+    points: 1
+    prompt: |
+      The volume of a cube is increasing at 12 cubic centimetres per second. How fast, in centimetres per second, is the edge length increasing when the edge is 2 centimetres?
+    answer: { value: 1, tolerance: 0 }
+    explanation: |
+      V = s³, so dV/dt = 3s²·ds/dt. Then 12 = 3(4)·ds/dt, so ds/dt = 1 cm per second.
+  - slug: apcalcab-u04-exam-q39
+    type: numeric
+    topic_code: "4.5"
+    source: "AP Calculus CED, Topic 4.5"
+    points: 1
+    prompt: |
+      A hypothetical weather balloon rises vertically at 3 metres per second from a launch point 100 metres from an observer. How fast, in metres per second, is the distance between the observer and the balloon increasing when the balloon is 75 metres high?
+    answer: { value: 1.8, tolerance: 0.001 }
+    explanation: |
+      s² = 100² + h². When h = 75, s = 125. s·ds/dt = h·dh/dt, so ds/dt = (75/125)(3) = 1.8 metres per second.
+  - slug: apcalcab-u04-exam-q40
+    type: numeric
+    topic_code: "4.3"
+    source: "AP Calculus CED, Topic 4.3"
+    points: 1
+    prompt: |
+      (Calculator.) A hypothetical pie taken from an oven has temperature T(t) = 20 + 70e^(−0.1t) degrees Celsius, t minutes later. Find T′(5), in degrees Celsius per minute, to three decimal places.
+    answer: { value: -4.246, tolerance: 0.001 }
+    explanation: |
+      T′(t) = −7e^(−0.1t), so T′(5) = −7e^(−0.5) ≈ −4.246 °C per minute: at t = 5 minutes the pie is cooling at about 4.246 °C per minute.
+  # ---- Short answer
+  - slug: apcalcab-u04-exam-q41
+    type: short_answer
+    topic_code: "4.3"
+    source: "AP Calculus CED, Topic 4.3"
+    points: 3
+    prompt: |
+      In a hypothetical lake, the dissolved oxygen level at depth d metres is O(d) = 9 − 0.4d + 0.005d² milligrams per litre (mg/L), for 0 ≤ d ≤ 30.
+
+      (a) Find O′(10) and interpret it in context, with units.
+      (b) Find O″(10) and explain what its sign says about how the oxygen level changes with depth.
+      (c) Find the average rate of change of O for 0 ≤ d ≤ 20, with units, and explain how it differs in meaning from O′(10).
+    answer: |
+      (a) O′(d) = −0.4 + 0.01d, so O′(10) = −0.3. At a depth of 10 metres, the oxygen level is decreasing at 0.3 mg/L per metre of depth.
+      (b) O″(d) = 0.01 mg/L per metre per metre, positive: the rate of change of the oxygen level is increasing with depth, so the oxygen level falls less steeply as you go deeper.
+      (c) (O(20) − O(0))/20 = (3 − 9)/20 = −0.3 mg/L per metre. This is the average rate over the top 20 metres, while O′(10) is the rate at the single depth 10 metres; here they happen to be equal.
+    explanation: |
+      Three points, one per part. (a) −0.3 with an interpretation naming depth 10 m, "decreasing", and units mg/L per metre. (b) 0.01 with the sign interpreted as the rate increasing (the decline slowing). (c) −0.3 mg/L per metre with the average-over-an-interval versus at-one-depth distinction.
+  - slug: apcalcab-u04-exam-q42
+    type: short_answer
+    topic_code: "4.7"
+    source: "AP Calculus CED, Topic 4.7"
+    points: 3
+    prompt: |
+      Functions f and g are differentiable with continuous derivatives, and
+
+      | x | 3 |
+      |---|---|
+      | f(x) | 0 |
+      | g(x) | 0 |
+      | f′(x) | 6 |
+      | g′(x) | 2 |
+
+      (a) Explain why L'Hospital's Rule can be used to find lim (x→3) f(x)/g(x).
+      (b) Find lim (x→3) f(x)/g(x).
+      (c) Find lim (x→3) f(x)/(x − 3).
+    answer: |
+      (a) f and g are differentiable, hence continuous, so lim (x→3) f(x) = f(3) = 0 and lim (x→3) g(x) = g(3) = 0: the quotient has the indeterminate form 0/0, and g′(3) = 2 ≠ 0.
+      (b) By L'Hospital's Rule, lim f′(x)/g′(x) = f′(3)/g′(3) = 6/2 = 3.
+      (c) Both f(x) → 0 and x − 3 → 0, so the rule gives lim f′(x)/1 = f′(3) = 6.
+    explanation: |
+      Three points, one per part. (a) both limits are 0 (with continuity named or implied). (b) 3. (c) 6, with the 0/0 form noted.
+  # ---- Free response
+  - slug: apcalcab-u04-exam-q43
+    type: long_answer
+    topic_code: "4.3"
+    source: "AP Calculus CED, Topic 4.3"
+    points: 9
+    prompt: |
+      (Calculator.) In a hypothetical model, the depth of water in a reservoir is H(t) = 6 + 2.5 sin(0.4t) − 0.08t² metres, t days after the start of a monitoring period, for 0 ≤ t ≤ 6.
+
+      (A) Find H′(3). Using correct units, interpret the meaning of H′(3) in the context of the problem.
+
+      (B) Find H″(3). Using correct units, explain what the sign of H″(3) says about the depth of the water at t = 3.
+
+      (C) Find the time t at which the depth of the water is greatest for 0 ≤ t ≤ 6, and the greatest depth. Justify your answer.
+
+      (D) Use the line tangent to the graph of H at t = 3 to approximate H(3.5). Is the approximation an overestimate or an underestimate? Give a reason for your answer.
+    answer: |
+      (A) H′(t) = cos(0.4t) − 0.16t, so H′(3) = cos(1.2) − 0.48 ≈ −0.118. At t = 3 days, the depth of the water is decreasing at about 0.118 metres per day.
+      (B) H″(t) = −0.4 sin(0.4t) − 0.16, so H″(3) ≈ −0.533 metres per day per day. Negative: the rate of change of the depth is decreasing at t = 3, so the depth is falling faster and faster.
+      (C) H′(t) = 0 at t ≈ 2.776 (calculator). H″(t) = −0.4 sin(0.4t) − 0.16 < 0 on [0, 6], so H′ is decreasing and changes sign only once: H′ > 0 before t ≈ 2.776 and H′ < 0 after. H increases and then decreases, so the depth is greatest at t ≈ 2.776 days, where H ≈ 7.623 metres. (Endpoint check: H(0) = 6 and H(6) ≈ 4.809 are smaller.)
+      (D) H(3) ≈ 7.610. L(t) = 7.610 − 0.118(t − 3), so H(3.5) ≈ 7.610 − 0.059 = 7.551 metres. Overestimate: H″(t) < 0 on 3 ≤ t ≤ 3.5, so H is concave down there and its graph lies below the tangent line.
+    explanation: |
+      Nine points.
+      (A) 2 points: 1 for H′(3) ≈ −0.118 (accept −0.117 or −0.118); 1 for the interpretation with time t = 3 days, "decreasing", and units metres per day.
+      (B) 2 points: 1 for H″(3) ≈ −0.533 (accept −0.532 or −0.533); 1 for explaining that the rate of change of depth is decreasing (the depth falls ever faster), with units metres per day per day.
+      (C) 3 points: 1 for t ≈ 2.776 from H′(t) = 0; 1 for the justification that H′ changes from positive to negative there (or a candidates comparison including both endpoints); 1 for the greatest depth ≈ 7.623 metres.
+      (D) 2 points: 1 for the tangent line and the approximation ≈ 7.551 m (accept 7.550 to 7.552); 1 for "overestimate" with the reason H″ < 0 on the interval, so the graph is concave down and lies below its tangent line. A reason based only on H′ < 0 earns no credit.
+  - slug: apcalcab-u04-exam-q44
+    type: long_answer
+    topic_code: "4.2"
+    source: "AP Calculus CED, Topic 4.2"
+    points: 9
+    prompt: |
+      No calculator is allowed for this question. A particle moves along the x-axis. Its position at time t seconds is x(t) = 2t³ − 21t² + 60t − 10 metres, for 0 ≤ t ≤ 6.
+
+      (A) Find the velocity and acceleration of the particle at t = 3. Is the particle speeding up or slowing down at t = 3? Give a reason for your answer.
+
+      (B) On what open intervals is the particle moving to the right? Justify your answer.
+
+      (C) Find the total distance the particle travels for 0 ≤ t ≤ 6.
+
+      (D) What is the greatest x-coordinate the particle reaches for 0 ≤ t ≤ 6? Justify your answer.
+
+      (E) Let v(t) be the particle's velocity. Find lim (t→2) v(t)/(t² − 4). Show the work that justifies your method.
+    answer: |
+      (A) v(t) = 6t² − 42t + 60 = 6(t − 2)(t − 5) and a(t) = 12t − 42. v(3) = 6(1)(−2) = −12 m/s and a(3) = −6 m/s². Velocity and acceleration are both negative, so the particle is speeding up at t = 3.
+      (B) v(t) = 6(t − 2)(t − 5) > 0 when 0 < t < 2 and when 5 < t < 6, so the particle moves right on (0, 2) and (5, 6).
+      (C) The particle turns around at t = 2 and t = 5. x(0) = −10, x(2) = 42, x(5) = 15, x(6) = 26. Distance = |42 − (−10)| + |15 − 42| + |26 − 15| = 52 + 27 + 11 = 90 metres.
+      (D) The greatest x-coordinate occurs at an endpoint or where v changes from positive to negative (t = 2). x(0) = −10, x(2) = 42, x(6) = 26, so the greatest x-coordinate is 42, at t = 2.
+      (E) lim (t→2) v(t) = v(2) = 0 and lim (t→2) (t² − 4) = 0, so the form is 0/0. By L'Hospital's Rule the limit is lim (t→2) v′(t)/(2t) = a(2)/4 = (24 − 42)/4 = −9/2.
+    explanation: |
+      Nine points.
+      (A) 2 points: 1 for v(3) = −12 m/s and a(3) = −6 m/s²; 1 for "speeding up" because v(3) and a(3) have the same sign. A reason using only the sign of a(3) earns no credit for the conclusion.
+      (B) 1 point: (0, 2) and (5, 6) with the justification v(t) > 0 there.
+      (C) 2 points: 1 for identifying the turning times t = 2 and t = 5 and using them to split the interval; 1 for 90 metres.
+      (D) 2 points: 1 for considering the endpoints and t = 2 (where v changes from positive to negative); 1 for the answer 42.
+      (E) 2 points: 1 for showing both limits are 0 before applying the rule; 1 for −9/2.

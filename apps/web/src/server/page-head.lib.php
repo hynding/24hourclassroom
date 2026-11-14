@@ -1,6 +1,6 @@
 <?php
 // Helpers for index.php, kept apart so the API's Pest suite can test them
-// (tests/Feature/Api/PageHeadSpliceTest.php). Plain PHP 7.4+, no Composer:
+// (tests/Feature/Api/PageHeadTest.php). Plain PHP 7.4+, no Composer:
 // this runs on the static web host, not inside Laravel.
 
 /**
@@ -46,8 +46,9 @@ function page_head_fetch(string $url): ?string
 }
 
 /**
- * index.html with its static <title> and description replaced by the
- * fragment, placed just before </head>. Unchanged if there is no </head>.
+ * index.html with its static <title>, description and link-preview
+ * defaults replaced by the fragment, placed just before </head>. Unchanged
+ * if there is no </head>.
  */
 function page_head_splice(string $html, string $fragment): string
 {
@@ -58,17 +59,45 @@ function page_head_splice(string $html, string $fragment): string
     $head = substr($html, 0, $at);
     $head = preg_replace('#\s*<title>.*?</title>#is', '', $head);
     $head = preg_replace('#\s*<meta\s+name="description"[^>]*>#i', '', $head);
+    // index.html's link-preview defaults (og:*, twitter:*) give way to the page's own.
+    $head = preg_replace('#\s*<meta\s+(?:property="og:|name="twitter:)[^>]*>#i', '', $head);
 
     return $head . '  ' . $fragment . "\n  " . substr($html, $at);
 }
 
+/**
+ * index.html's default og:image is a root-relative path; preview bots need
+ * an absolute URL, so it is prefixed with this host's origin.
+ */
+function page_head_absolute_image(string $html, string $origin): string
+{
+    if ($origin === '') {
+        return $html;
+    }
+
+    return str_replace('<meta property="og:image" content="/', '<meta property="og:image" content="' . htmlspecialchars(rtrim($origin, '/'), ENT_QUOTES) . '/', $html);
+}
+
+/** The request's own origin (scheme and host), or '' when the host looks wrong. */
+function page_head_origin(array $server): string
+{
+    $host = (string) ($server['HTTP_HOST'] ?? '');
+    if (! preg_match('/^[a-z0-9.-]+(:\d{1,5})?$/i', $host)) {
+        return '';
+    }
+    $https = ($server['HTTPS'] ?? '') !== '' && strtolower((string) $server['HTTPS']) !== 'off'
+        || strtolower((string) ($server['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https';
+
+    return ($https ? 'https' : 'http') . '://' . strtolower($host);
+}
+
 /** @param callable(string): ?string $fetch */
-function page_head_render(string $html, string $path, string $api, callable $fetch): string
+function page_head_render(string $html, string $path, string $api, callable $fetch, string $origin = ''): string
 {
     if ($api === '' || ! page_head_wanted($path)) {
-        return $html;
+        return page_head_absolute_image($html, $origin);
     }
     $fragment = $fetch(rtrim($api, '/') . '/api/page-head?path=' . rawurlencode($path));
 
-    return $fragment === null ? $html : page_head_splice($html, $fragment);
+    return $fragment === null ? page_head_absolute_image($html, $origin) : page_head_splice($html, $fragment);
 }

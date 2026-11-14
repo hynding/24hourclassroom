@@ -1,0 +1,655 @@
+week: 27
+unit: 7
+title: "Modeling with Differential Equations, Verifying Solutions and Slope Fields"
+topics: ["7.1", "7.2", "7.3"]
+guide: guides/week-27.md
+guide_description: |
+  Translating "the rate of change is proportional to…" sentences into differential equations, reading what each
+  term of a model means, verifying that a function (or a family of functions) solves a differential equation by
+  substituting it in, and building a slope field as a table of slopes at grid points and describing it in words.
+  Worked examples: a hypothetical cooling cup of tea and a hypothetical school announcement spreading, checking
+  y = Ce^(−x) + x − 1 against dy/dx = x − y, checking y = sin(2x) against y″ + 4y = 0 (and a function that fails),
+  a slope table for dy/dx = x − y with its line solution y = x − 1, and matching slope patterns to equations.
+flashcards_description: |
+  31 cards on writing differential equations from words, proportionality, equilibrium values, general and
+  particular solutions, verifying solutions by substitution, and computing, reading and describing slope fields.
+
+flashcards:
+  - front: Differential equation → what it is
+    back: |
+      An equation that relates an unknown function to one or more of its derivatives, such as dy/dx = x − y or y″ + 4y = 0. A solution is a function, not a number.
+    topic_code: "7.1"
+  - front: "\"The rate of change of y is proportional to y\" → equation"
+    back: |
+      dy/dt = ky for some constant k. The rate is the derivative; "proportional to" means "a constant times".
+    topic_code: "7.1"
+  - front: "\"y decreases at a rate proportional to √y\" → equation with k > 0"
+    back: |
+      dy/dt = −k√y with k > 0. The minus sign carries "decreases", so k itself stays positive.
+    topic_code: "7.1"
+  - front: "\"The rate of change of y is inversely proportional to x²\" → equation"
+    back: |
+      dy/dx = k/x². Inversely proportional means a constant divided by the quantity.
+    topic_code: "7.1"
+  - front: Cooling cup of tea in a 21 °C room → model in words and symbols
+    back: |
+      Temperature changes at a rate proportional to the difference from room temperature: dT/dt = −k(T − 21), k > 0. Hotter than the room means T − 21 > 0, so dT/dt < 0.
+    topic_code: "7.1"
+  - front: dW/dt = 3 − 0.1W for water W (litres) in a tank → meaning of each term
+    back: |
+      3 litres per minute flow in at a constant rate; 0.1W litres per minute leave, an outflow proportional to the amount present.
+    topic_code: "7.1"
+  - front: Equilibrium (constant) solution of dW/dt = 3 − 0.1W → how to find it
+    back: |
+      Set the rate to 0: 3 − 0.1W = 0, so W = 30. The function W(t) = 30 has derivative 0, which matches the right side.
+    topic_code: "7.1"
+  - front: Value of dy/dt at a given state → what it tells you
+    back: |
+      Whether the quantity is increasing (positive) or decreasing (negative) at that moment, and how fast, in output units per input unit.
+    topic_code: "7.1"
+  - front: Verifying a solution of a differential equation → the method
+    back: |
+      Differentiate the proposed function, substitute the function and its derivatives into both sides, and simplify. It is a solution only if both sides agree for every x in an interval.
+    topic_code: "7.2"
+  - front: y = Ce^(−x) + x − 1 and dy/dx = x − y → verify
+    back: |
+      Left: dy/dx = −Ce^(−x) + 1. Right: x − (Ce^(−x) + x − 1) = 1 − Ce^(−x). Equal for every C, so the whole family solves it.
+    topic_code: "7.2"
+  - front: y = sin(2x) and y″ + 4y = 0 → verify
+    back: |
+      y′ = 2cos(2x), y″ = −4sin(2x). Then y″ + 4y = −4sin(2x) + 4sin(2x) = 0. It is a solution.
+    topic_code: "7.2"
+  - front: General solution vs particular solution → difference
+    back: |
+      The general solution is a family with an arbitrary constant (y = Ce^(−x) + x − 1). A particular solution fixes the constant using an initial condition, such as y(0) = 4.
+    topic_code: "7.2"
+  - front: Initial condition y(0) = 4 for y = Ce^(−x) + x − 1 → find C
+    back: |
+      4 = C · 1 + 0 − 1, so C = 5 and the particular solution is y = 5e^(−x) + x − 1.
+    topic_code: "7.2"
+  - front: y = e^(kx) in y″ − y′ − 6y = 0 → which k work
+    back: |
+      Substituting gives e^(kx)(k² − k − 6) = 0. Since e^(kx) is never 0, k² − k − 6 = 0, so k = 3 or k = −2.
+    topic_code: "7.2"
+  - front: Constant function y = c as a solution of dy/dx = f(x, y) → test
+    back: |
+      y = c has derivative 0, so it is a solution exactly when f(x, c) = 0 for every x. Example: y = 5 solves dy/dx = (y − 5)(x + 1).
+    topic_code: "7.2"
+  - front: Slope field → what it shows
+    back: |
+      At each grid point (x, y), a short segment with slope dy/dx evaluated there. Every solution curve is tangent to the segments it passes through.
+    topic_code: "7.3"
+  - front: Slope at (−1, 5) for dy/dx = x(y − 2) → compute
+    back: |
+      Substitute both coordinates: (−1)(5 − 2) = −3. A slope field entry needs both x and y.
+    topic_code: "7.3"
+  - front: Slope table for dy/dx = x − y → where slopes are 0
+    back: |
+      Along the line y = x (x − y = 0): horizontal segments all along that diagonal.
+    topic_code: "7.3"
+  - front: Slope field for dy/dx = x − y along y = x − 1 → what is special
+    back: |
+      Every slope on that line is x − (x − 1) = 1, the line's own slope. So y = x − 1 is itself a solution curve.
+    topic_code: "7.3"
+  - front: Slopes depend only on x (dy/dx = f(x)) → pattern in the field
+    back: |
+      Segments are parallel along every vertical line (column). Solutions are vertical shifts of one another: y = ∫ f(x) dx + C.
+    topic_code: "7.3"
+  - front: Slopes depend only on y (dy/dx = g(y)) → pattern in the field
+    back: |
+      Segments are parallel along every horizontal line (row). Solutions are horizontal shifts of one another.
+    topic_code: "7.3"
+  - front: Isocline (curve of equal slope) → how to use it
+    back: |
+      Set dy/dx equal to a constant m and solve for y. Every segment along that curve has slope m, which lets you fill a slope field quickly.
+    topic_code: "7.3"
+  - front: dy/dx = x(y − 2) → where segments are horizontal
+    back: |
+      Wherever x(y − 2) = 0: along the whole y-axis (x = 0) and along the line y = 2. Either factor being 0 is enough.
+    topic_code: "7.3"
+  - front: dy/dx = x/y → where segments are vertical or undefined
+    back: |
+      Along the x-axis (y = 0), where the slope x/0 is undefined (except at the origin, where it is 0/0). Horizontal segments lie along the y-axis, away from the origin.
+    topic_code: "7.3"
+  - front: dy/dx = y² − 4 → sign of the slopes by region
+    back: |
+      Positive for y > 2 and for y < −2; negative for −2 < y < 2; zero along y = 2 and y = −2.
+    topic_code: "7.3"
+  - front: Second derivative from a differential equation → method
+    back: |
+      Differentiate dy/dx implicitly with respect to x, treating y as a function of x, then replace dy/dx by the right-hand side. For dy/dx = x(y − 2): d²y/dx² = (y − 2) + x · x(y − 2) = (y − 2)(1 + x²).
+    topic_code: "7.3"
+  - front: Steepness in a slope field → what makes a segment steep
+    back: |
+      A large |dy/dx|. For dy/dx = x(y − 2), segments get steeper as you move away from the y-axis and away from the line y = 2.
+    topic_code: "7.3"
+  - front: Matching a slope table to an equation → fastest test
+    back: |
+      Check where the slopes are 0, then test one or two points with nonzero slope in each candidate equation. One mismatch rules a candidate out.
+    topic_code: "7.3"
+  - front: Error-spot → "dT/dt = k(T − 21) with k > 0 models a cooling cup of tea"
+    back: |
+      With k > 0, a cup hotter than 21 °C would get hotter. Cooling needs dT/dt = −k(T − 21) with k > 0 (or k(T − 21) with k < 0).
+    topic_code: "7.1"
+  - front: Error-spot → "y = 2x solves dy/dx = 2 because I checked x = 1"
+    back: |
+      True here, but the method is wrong in general: a solution must make both sides agree for every x in an interval, not at one sample point. Substitute symbolically.
+    topic_code: "7.2"
+  - front: Error-spot → "for dy/dx = x(y − 2), the slope at (3, 2) is 3"
+    back: |
+      The slope uses both coordinates: 3 · (2 − 2) = 0. Along y = 2 every segment is horizontal.
+    topic_code: "7.3"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 7.1–7.3: writing differential equations from
+    words, interpreting a model's terms, verifying solutions, and computing and reading slope fields), with 8
+    questions (about 33%) reviewing earlier units (the chain rule, higher derivatives, interpreting derivatives,
+    local linearity, first derivative test, antiderivatives, substitution and the Fundamental Theorem). Opens with
+    a shared-context set on one differential equation. Multiple choice, select-all, true/false and numeric items
+    are graded at once; fill-in-the-blank items are matched automatically; the short answers and the long answer
+    are graded by your teacher against the scoring notes. No calculator is needed.
+  questions:
+    # ---- Stimulus set: dy/dx = x(y − 2) (7.3, 7.2, 3.6)
+    - slug: apcalcab-u07-w27-q01
+      type: multiple_choice
+      topic_code: "7.3"
+      source: "AP Calculus CED, Topic 7.3"
+      points: 1
+      stimulus: |
+        Consider the differential equation dy/dx = x(y − 2).
+      prompt: |
+        What is the slope of the segment drawn at the point (−1, 5) in the slope field for this differential equation?
+      options:
+        - "3"
+        - "−7"
+        - "−3"
+        - "−15"
+      option_explanations:
+        - |
+          The sign of x was dropped: x = −1, so the product is (−1)(3), which is negative.
+        - |
+          This computes x(y + 2) = (−1)(7); the factor is y − 2, not y + 2.
+        - |
+          Correct. Substitute x = −1 and y = 5: (−1)(5 − 2) = (−1)(3) = −3.
+        - |
+          This swaps the roles of the coordinates, computing (x − 2)y = (−3)(5). The equation multiplies x by y − 2.
+      answer: 2
+    - slug: apcalcab-u07-w27-q02
+      type: multiple_choice
+      topic_code: "7.3"
+      source: "AP Calculus CED, Topic 7.3"
+      points: 1
+      stimulus: |
+        Consider the differential equation dy/dx = x(y − 2).
+      prompt: |
+        Where in the slope field are the segments horizontal?
+      options:
+        - "Along the line y = 2 and along the y-axis (x = 0)"
+        - "Only along the line y = 2"
+        - "Along the line x = 2 and along the x-axis (y = 0)"
+        - "Only at the point (0, 2)"
+      option_explanations:
+        - |
+          Correct. A product is 0 when either factor is 0: x = 0 gives every point on the y-axis, and y = 2 gives every point on that horizontal line.
+        - |
+          This forgets the factor x: at (0, 7), for example, the slope is 0 · 5 = 0, so the y-axis is horizontal too.
+        - |
+          This swaps x and y: at (2, 5) the slope is 2 · 3 = 6, not 0, so the line x = 2 is not horizontal.
+        - |
+          This requires both factors to be 0 at once. Only one factor needs to vanish for the product to be 0.
+      answer: 0
+    - slug: apcalcab-u07-w27-q03
+      type: multiple_choice
+      topic_code: "7.3"
+      source: "AP Calculus CED, Topic 7.3"
+      points: 1
+      stimulus: |
+        Consider the differential equation dy/dx = x(y − 2).
+      prompt: |
+        In which region of the plane are all the slopes negative?
+      options:
+        - "x > 0 and y > 2"
+        - "y < 2, for every x"
+        - "x < 0 and y < 2"
+        - "x > 0 and y < 2, or x < 0 and y > 2"
+      option_explanations:
+        - |
+          Here both factors are positive, so the slopes are positive: at (1, 3) the slope is 1 · 1 = 1.
+        - |
+          This ignores the factor x: at (−1, 0) the slope is (−1)(−2) = 2, which is positive.
+        - |
+          Two negative factors give a positive product: at (−1, 1) the slope is (−1)(−1) = 1.
+        - |
+          Correct. The product x(y − 2) is negative exactly when the factors have opposite signs: x positive with y − 2 negative, or x negative with y − 2 positive.
+      answer: 3
+    - slug: apcalcab-u07-w27-q04
+      type: multiple_choice
+      topic_code: "7.2"
+      source: "AP Calculus CED, Topic 7.2"
+      points: 1
+      stimulus: |
+        Consider the differential equation dy/dx = x(y − 2).
+      prompt: |
+        Which function is a solution of this differential equation?
+      options:
+        - "y = 2 + 3eˣ"
+        - "y = 2 + 3e^(x²/2)"
+        - "y = 3e^(x²/2)"
+        - "y = −2 + 3e^(x²/2)"
+      option_explanations:
+        - |
+          y′ = 3eˣ, but x(y − 2) = 3xeˣ. These differ (at x = 0 they are 3 and 0), so the exponent must be x²/2 for the chain rule to produce the factor x.
+        - |
+          Correct. y′ = 3e^(x²/2) · x by the chain rule, and x(y − 2) = x · 3e^(x²/2). Both sides agree for every x.
+        - |
+          y′ = 3xe^(x²/2) = xy, which solves dy/dx = xy, not x(y − 2). The +2 is needed so that y − 2 equals the exponential part.
+        - |
+          Here y − 2 = −4 + 3e^(x²/2), so x(y − 2) ≠ 3xe^(x²/2) = y′. This function solves dy/dx = x(y + 2): a sign slip.
+      answer: 1
+    - slug: apcalcab-u07-w27-q05
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Calculus CED, Topic 3.6"
+      points: 1
+      stimulus: |
+        Consider the differential equation dy/dx = x(y − 2).
+      prompt: |
+        Find d²y/dx² in terms of x and y for a solution y of this differential equation.
+      options:
+        - "y − 2"
+        - "x²(y − 2)"
+        - "(y − 2) + x"
+        - "(y − 2)(1 + x²)"
+      option_explanations:
+        - |
+          This treats y as a constant when differentiating. y is a function of x, so the product rule gives a second term x · dy/dx.
+        - |
+          This keeps only x · dy/dx = x · x(y − 2) and drops the first product-rule term, 1 · (y − 2).
+        - |
+          This differentiates y − 2 as if dy/dx were 1. The derivative of y − 2 is dy/dx = x(y − 2), so the second term is x · x(y − 2).
+        - |
+          Correct. Product rule: d²y/dx² = 1 · (y − 2) + x · dy/dx = (y − 2) + x · x(y − 2) = (y − 2)(1 + x²).
+      answer: 3
+    # ---- Modeling and verifying (7.1, 7.2)
+    - slug: apcalcab-u07-w27-q06
+      type: multiple_choice
+      topic_code: "7.1"
+      source: "AP Calculus CED, Topic 7.1"
+      points: 1
+      prompt: |
+        The area A, in square metres, covered by algae on a hypothetical pond increases at a rate proportional to the square root of the area covered. Which differential equation models this, where k is a positive constant and t is time in days?
+      options:
+        - "dA/dt = k√t"
+        - "dA/dt = kA"
+        - "dA/dt = k√A"
+        - "dA/dt = √A + k"
+      option_explanations:
+        - |
+          This makes the rate depend on elapsed time, not on the area covered. The sentence ties the rate to the area A.
+        - |
+          This says the rate is proportional to A itself, not to its square root.
+        - |
+          Correct. "The rate of change of A" is dA/dt, and "proportional to √A" means a constant times √A. With k > 0 the area increases.
+        - |
+          Proportional means multiplied by a constant, not added to one: √A + k is not a constant multiple of √A.
+      answer: 2
+    - slug: apcalcab-u07-w27-q07
+      type: multiple_choice
+      topic_code: "7.1"
+      source: "AP Calculus CED, Topic 7.1"
+      points: 1
+      prompt: |
+        A bowl of soup at 90 °C is set on a table in a room kept at 20 °C. The soup's temperature T, in °C, changes at a rate proportional to the difference between its temperature and the room's temperature. Which differential equation models this, with k > 0 and t in minutes?
+      options:
+        - "dT/dt = k(T − 20)"
+        - "dT/dt = −k(T − 20)"
+        - "dT/dt = −k(T − 90)"
+        - "dT/dt = −kT"
+      option_explanations:
+        - |
+          With k > 0 and T > 20 this rate is positive, so the soup would heat up. The cooling model needs a minus sign.
+        - |
+          Correct. The difference is T − 20. While the soup is hotter than the room, T − 20 > 0 and −k(T − 20) < 0, so T decreases toward 20.
+        - |
+          90 °C is the starting temperature, not the room's. The difference that drives the cooling is between T and the surroundings, 20 °C.
+        - |
+          This is proportional to T itself, so the soup would cool toward 0 °C rather than toward the room temperature of 20 °C.
+      answer: 1
+    - slug: apcalcab-u07-w27-q08
+      type: multiple_choice
+      topic_code: "7.1"
+      source: "AP Calculus CED, Topic 7.1"
+      points: 1
+      prompt: |
+        The amount of water W, in litres, in a hypothetical tank satisfies dW/dt = 3 − 0.1W, where t is in minutes. Which statement is true at the moment when the tank holds 20 litres?
+      options:
+        - "W is increasing at 1 litre per minute."
+        - "W is decreasing at 1 litre per minute."
+        - "W is increasing at 3 litres per minute."
+        - "W is equal to 1 litre."
+      option_explanations:
+        - |
+          Correct. dW/dt = 3 − 0.1(20) = 3 − 2 = 1, which is positive, so the amount is increasing at 1 litre per minute.
+        - |
+          The sign is wrong: 3 − 2 = 1 is positive. Water is entering faster than it leaves.
+        - |
+          3 litres per minute is only the inflow. The outflow 0.1W = 2 litres per minute must be subtracted.
+        - |
+          This confuses the rate dW/dt with the amount W. The tank holds 20 litres; the value 1 is a rate in litres per minute.
+      answer: 0
+    - slug: apcalcab-u07-w27-q09
+      type: multiple_choice
+      topic_code: "7.2"
+      source: "AP Calculus CED, Topic 7.2"
+      points: 1
+      prompt: |
+        For which values of the constant C is y = Cx³ a solution of the differential equation x · dy/dx = 3y?
+      options:
+        - "C = 3 only"
+        - "C = 0 only"
+        - "Every real number C"
+        - "C = 1/3 only"
+      option_explanations:
+        - |
+          This matches the 3 in the equation to C. Substituting shows the 3 comes from the exponent, and C cancels.
+        - |
+          y = 0 is a solution, but it is not the only one: for example y = 2x³ gives x · 6x² = 6x³ = 3 · 2x³.
+        - |
+          Correct. dy/dx = 3Cx², so x · dy/dx = 3Cx³ = 3(Cx³) = 3y for every x and every C.
+        - |
+          This divides by 3 as if solving C · 3 = 1. No condition on C arises: both sides equal 3Cx³.
+      answer: 2
+    - slug: apcalcab-u07-w27-q10
+      type: multiple_choice
+      topic_code: "7.3"
+      source: "AP Calculus CED, Topic 7.3"
+      points: 1
+      prompt: |
+        A slope field is described by the slopes at nine grid points in the table below (rows are y-values, columns are x-values).
+
+        | | x = −1 | x = 0 | x = 1 |
+        |---|---|---|---|
+        | y = 2 | 3 | 2 | 1 |
+        | y = 1 | 2 | 1 | 0 |
+        | y = 0 | 1 | 0 | −1 |
+
+        Which differential equation could the slope field represent?
+      options:
+        - "dy/dx = x − y"
+        - "dy/dx = x + y"
+        - "dy/dx = xy"
+        - "dy/dx = y − x"
+      option_explanations:
+        - |
+          This has every sign reversed: at (−1, 2) it gives −1 − 2 = −3, but the table shows 3.
+        - |
+          At (1, 0) this gives 1, but the table shows −1. (It also fails at (−1, 2): 1 versus 3.)
+        - |
+          At (0, 2) this gives 0, but the table shows 2: the slopes are not 0 along the y-axis.
+        - |
+          Correct. Every entry equals y − x: for example (−1, 2) gives 2 + 1 = 3, (1, 0) gives −1, and the slopes are 0 along y = x at (0, 0) and (1, 1).
+      answer: 3
+    - slug: apcalcab-u07-w27-q11
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Calculus CED, Topic 5.4"
+      points: 1
+      prompt: |
+        Every solution of the differential equation dy/dx = (x − 1)e^(−x) has a horizontal tangent at x = 1. What happens to each solution curve at x = 1?
+      options:
+        - "It has a relative maximum."
+        - "It has a relative minimum."
+        - "It has a point of inflection but no extremum."
+        - "Nothing can be decided without the value of y."
+      option_explanations:
+        - |
+          The sign change is the other way round: e^(−x) > 0, so dy/dx has the sign of x − 1, negative before x = 1 and positive after.
+        - |
+          Correct. Since e^(−x) > 0, dy/dx < 0 for x < 1 and dy/dx > 0 for x > 1. The derivative changes from negative to positive, so by the first derivative test each solution has a relative minimum at x = 1.
+        - |
+          The derivative changes sign at x = 1, which is what makes an extremum. An inflection point needs the second derivative to change sign.
+        - |
+          The right-hand side depends only on x, so the sign of dy/dx near x = 1 is the same for every solution, whatever its y-values.
+      answer: 1
+    # ---- Spiral review (6.9, 6.8, 4.1)
+    - slug: apcalcab-u07-w27-q12
+      type: multiple_choice
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        Find ∫ x e^(x²) dx.
+      options:
+        - "(1/2)e^(x²) + C"
+        - "e^(x²) + C"
+        - "(x²/2)e^(x²) + C"
+        - "2x e^(x²) + C"
+      option_explanations:
+        - |
+          Correct. Let u = x², du = 2x dx, so x dx = (1/2) du and the integral is (1/2)∫ eᵘ du = (1/2)e^(x²) + C. Check: the derivative is (1/2)e^(x²) · 2x = x e^(x²).
+        - |
+          This forgets the factor 1/2 from du = 2x dx. Its derivative is 2x e^(x²), twice the integrand.
+        - |
+          This integrates the factors x and e^(x²) separately and multiplies. Antiderivatives do not distribute over a product.
+        - |
+          This differentiates e^(x²) instead of integrating x e^(x²).
+      answer: 0
+    - slug: apcalcab-u07-w27-q13
+      type: multiple_choice
+      topic_code: "6.8"
+      source: "AP Calculus CED, Topic 6.8"
+      points: 1
+      prompt: |
+        Which function is an antiderivative of 3/x on the interval x < 0?
+      options:
+        - "3 ln x"
+        - "−3/x²"
+        - "3 ln|x|"
+        - "ln|3x|"
+      option_explanations:
+        - |
+          ln x is not defined for x < 0. The absolute value is needed for negative inputs.
+        - |
+          This is the derivative of 3/x, not an antiderivative.
+        - |
+          Correct. For x < 0, ln|x| = ln(−x), whose derivative is (1/(−x)) · (−1) = 1/x. So d/dx [3 ln|x|] = 3/x.
+        - |
+          ln|3x| = ln 3 + ln|x| has derivative 1/x: the coefficient 3 has turned into an added constant and been lost.
+      answer: 2
+    - slug: apcalcab-u07-w27-q14
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "AP Calculus CED, Topic 4.1"
+      points: 1
+      prompt: |
+        T(t) is the temperature, in °C, of a bowl of soup t minutes after it is served, and T′(10) = −2.4. Which is the best interpretation?
+      options:
+        - "Over the first 10 minutes the soup cools by 2.4 °C per minute on average."
+        - "At t = 10 minutes the soup's temperature is −2.4 °C."
+        - "The soup cools by exactly 2.4 °C between t = 10 and t = 11."
+        - "At t = 10 minutes the soup's temperature is decreasing at 2.4 °C per minute."
+      option_explanations:
+        - |
+          That describes the average rate of change on [0, 10]. T′(10) is an instantaneous rate at t = 10.
+        - |
+          This confuses the rate T′(10) with the value T(10). The units of T′ are °C per minute.
+        - |
+          The derivative only approximates the change over the next minute; the rate itself may change during that minute.
+        - |
+          Correct. T′(10) is the instantaneous rate of change of temperature at t = 10, in °C per minute, and the negative sign means the temperature is falling.
+      answer: 3
+    # ---- Select-all
+    - slug: apcalcab-u07-w27-q15
+      type: multi_select
+      topic_code: "7.2"
+      source: "AP Calculus CED, Topic 7.2"
+      points: 2
+      partial_credit: true
+      prompt: |
+        For which values of the constant k is y = e^(kx) a solution of y″ − y′ − 6y = 0? Select all that apply.
+      options:
+        - "k = 3"
+        - "k = −2"
+        - "k = −3"
+        - "k = 2"
+        - "k = 6"
+      option_explanations:
+        - |
+          Correct. Substituting y = e^(kx) gives e^(kx)(k² − k − 6) = e^(kx)(k − 3)(k + 2) = 0, and k = 3 makes the bracket 0.
+        - |
+          Correct. k = −2 is the other root of k² − k − 6 = 0: 4 + 2 − 6 = 0.
+        - |
+          k = −3 gives 9 + 3 − 6 = 6 ≠ 0. It comes from factoring as (k + 3)(k − 2), a sign slip.
+        - |
+          k = 2 gives 4 − 2 − 6 = −4 ≠ 0; the same sign slip in the factoring.
+        - |
+          k = 6 reads the constant term as a root. It gives 36 − 6 − 6 = 24 ≠ 0.
+      answer: [0, 1]
+    - slug: apcalcab-u07-w27-q16
+      type: multi_select
+      topic_code: "7.3"
+      source: "AP Calculus CED, Topic 7.3"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Consider the slope field for dy/dx = y² − 4. Which statements are true? Select all that apply.
+      options:
+        - "The segments are horizontal along the lines y = 2 and y = −2."
+        - "The segments at (0, 3) and (5, 3) have the same slope."
+        - "The slopes are positive for −2 < y < 2."
+        - "The slope at (1, 0) is −4."
+        - "The segments along the y-axis are all horizontal."
+      option_explanations:
+        - |
+          Correct. y² − 4 = 0 when y = 2 or y = −2, for every x.
+        - |
+          Correct. The right side depends only on y, so every point with y = 3 has slope 9 − 4 = 5.
+        - |
+          For −2 < y < 2, y² < 4, so y² − 4 is negative. For example at y = 0 the slope is −4.
+        - |
+          Correct. At y = 0 the slope is 0 − 4 = −4; x does not appear in the equation.
+        - |
+          Along the y-axis x = 0, but the slope does not depend on x: at (0, 3) the slope is 5.
+      answer: [0, 1, 3]
+    # ---- True/false
+    - slug: apcalcab-u07-w27-q17
+      type: true_false
+      topic_code: "7.2"
+      source: "AP Calculus CED, Topic 7.2"
+      points: 1
+      prompt: |
+        True or false: The constant function y = 5 is a solution of the differential equation dy/dx = (y − 5)(x + 1).
+      answer: true
+      explanation: |
+        True. For y = 5 the left side is dy/dx = 0, and the right side is (5 − 5)(x + 1) = 0 for every x. Both sides agree, so y = 5 is an equilibrium solution.
+    - slug: apcalcab-u07-w27-q18
+      type: true_false
+      topic_code: "7.3"
+      source: "AP Calculus CED, Topic 7.3"
+      points: 1
+      prompt: |
+        True or false: In the slope field for dy/dx = x/y, the segments along the x-axis are horizontal.
+      answer: false
+      explanation: |
+        False. Along the x-axis y = 0, so x/y is undefined there (the segments would be vertical, and at the origin there is no slope at all). The horizontal segments lie along the y-axis, where x = 0 and y ≠ 0.
+    # ---- Fill-in
+    - slug: apcalcab-u07-w27-q19
+      type: fill_blank
+      topic_code: "7.1"
+      source: "AP Calculus CED, Topic 7.1"
+      points: 1
+      prompt: |
+        The amount of water W, in litres, in a hypothetical tank satisfies dW/dt = 3 − 0.1W. The amount stays constant when the tank holds ____ litres.
+      answer: ["30", "30 litres", "30 liters", "30 l", "w = 30", "w=30", "30.0"]
+      explanation: |
+        The amount is constant when dW/dt = 0: 3 − 0.1W = 0 gives W = 30. At 30 litres the inflow of 3 litres per minute exactly balances the outflow 0.1 · 30 = 3 litres per minute.
+    - slug: apcalcab-u07-w27-q20
+      type: fill_blank
+      topic_code: "6.7"
+      source: "AP Calculus CED, Topic 6.7"
+      points: 1
+      prompt: |
+        ∫₁³ (2x − 1) dx = ____
+      answer: ["6", "6.0"]
+      explanation: |
+        An antiderivative is x² − x. By the Fundamental Theorem, (9 − 3) − (1 − 1) = 6 − 0 = 6.
+    # ---- Numeric
+    - slug: apcalcab-u07-w27-q21
+      type: numeric
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        Let y = 4e^(−0.5t). Find the value of dy/dt when t = 0.
+      answer: { value: -2, tolerance: 0 }
+      explanation: |
+        By the chain rule, dy/dt = 4e^(−0.5t) · (−0.5) = −2e^(−0.5t). At t = 0 this is −2. (Notice dy/dt = −0.5y, so this function solves the differential equation dy/dt = −0.5y.)
+    # ---- Short answer
+    - slug: apcalcab-u07-w27-q22
+      type: short_answer
+      topic_code: "7.2"
+      source: "AP Calculus CED, Topic 7.2"
+      points: 3
+      prompt: |
+        Consider the differential equation x · dy/dx + y = 4x for x > 0.
+
+        (a) Show that y = 2x + C/x is a solution for every constant C.
+        (b) Find the particular solution with y(1) = 5.
+        (c) Explain why the particular solution in (b) is a solution only on an interval that excludes x = 0.
+      answer: |
+        (a) dy/dx = 2 − C/x². Then x · dy/dx + y = (2x − C/x) + (2x + C/x) = 4x, the right side, for every x ≠ 0 and every C.
+        (b) y(1) = 2 + C = 5, so C = 3 and y = 2x + 3/x.
+        (c) 3/x is undefined at x = 0, so the function and its derivative do not exist there. A solution must be differentiable on an interval, so this one lives on x > 0, the interval containing the initial point x = 1.
+      explanation: |
+        Three points, one per part. (a) the correct derivative and a substitution that simplifies to 4x (a check at one value of x does not earn the point). (b) C = 3 and y = 2x + 3/x. (c) the reason (3/x, or the derivative, undefined at 0) and the interval x > 0 containing x = 1.
+    - slug: apcalcab-u07-w27-q23
+      type: short_answer
+      topic_code: "4.6"
+      source: "AP Calculus CED, Topic 4.6"
+      points: 3
+      prompt: |
+        The function y = f(x) is the solution of dy/dx = 2x + y with f(0) = 3.
+
+        (a) Write an equation of the line tangent to the graph of f at x = 0.
+        (b) Use the tangent line to approximate f(0.1).
+        (c) Find d²y/dx² in terms of x and y, and use it to decide whether the approximation in (b) is an overestimate or an underestimate. Justify.
+      answer: |
+        (a) At (0, 3), dy/dx = 2(0) + 3 = 3, so the tangent line is y = 3 + 3x.
+        (b) f(0.1) ≈ 3 + 3(0.1) = 3.3.
+        (c) d²y/dx² = 2 + dy/dx = 2 + 2x + y. At (0, 3) this is 2 + 0 + 3 = 5 > 0, so the graph of f is concave up near x = 0 and lies above its tangent line there. The approximation 3.3 is an underestimate.
+      explanation: |
+        Three points, one per part. (a) slope 3 and the line y = 3 + 3x (any equivalent form). (b) 3.3. (c) the second derivative 2 + 2x + y, its positive value at (0, 3), and the conclusion "underestimate" linked to concave up.
+    # ---- Long answer
+    - slug: apcalcab-u07-w27-q24
+      type: long_answer
+      topic_code: "7.1"
+      source: "AP Calculus CED, Topic 7.1"
+      points: 6
+      prompt: |
+        A hypothetical intravenous drip delivers a medicine into a patient's bloodstream at a constant 4 milligrams per hour, and the body removes the medicine at a rate proportional to the amount present. The amount M, in milligrams, of medicine in the bloodstream t hours after the drip starts satisfies
+
+        dM/dt = 4 − 0.5M, with M(0) = 0.
+
+        (A) Explain what the terms 4 and −0.5M represent in this context.
+
+        (B) Complete a table of slopes for the slope field at the points with t = 0, 1, 2 and M = 0, 4, 8, 12. Explain why every column of the table is the same.
+
+        (C) Describe the slope field in words: where the segments are horizontal, where they are positive, and where they are negative. What does this suggest about M in the long run?
+
+        (D) Verify that M(t) = 8 − 8e^(−0.5t) is the solution with M(0) = 0.
+      answer: |
+        (A) 4 is the rate, in mg per hour, at which the drip adds medicine. −0.5M is the rate at which the body removes medicine: 0.5M mg per hour, proportional to the amount present (the minus sign means removal).
+        (B) The slope is 4 − 0.5M: M = 0 gives 4, M = 4 gives 2, M = 8 gives 0, M = 12 gives −2, for each of t = 0, 1, 2. The columns match because dM/dt does not depend on t.
+
+        | | t = 0 | t = 1 | t = 2 |
+        |---|---|---|---|
+        | M = 12 | −2 | −2 | −2 |
+        | M = 8 | 0 | 0 | 0 |
+        | M = 4 | 2 | 2 | 2 |
+        | M = 0 | 4 | 4 | 4 |
+
+        (C) Horizontal along M = 8; positive (rising) for M < 8 and negative (falling) for M > 8, flatter the closer M is to 8. Solutions are pushed toward 8 from both sides, so the amount should approach 8 mg in the long run.
+        (D) dM/dt = −8e^(−0.5t) · (−0.5) = 4e^(−0.5t). And 4 − 0.5M = 4 − 4 + 4e^(−0.5t) = 4e^(−0.5t). Both sides agree, and M(0) = 8 − 8 = 0.
+      explanation: |
+        Six points. (A) 1 point for interpreting both terms (constant input rate; removal proportional to amount), with units or context. (B) 2 points: 1 for the four correct slope values 4, 2, 0, −2; 1 for explaining that the slope does not depend on t. (C) 1 point for horizontal at M = 8, positive below and negative above, with the long-run conclusion M → 8. (D) 2 points: 1 for the derivative 4e^(−0.5t) and substitution showing both sides agree; 1 for checking M(0) = 0.

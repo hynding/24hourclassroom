@@ -22,4 +22,4 @@ $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
 
 header('Content-Type: text/html; charset=UTF-8');
 header('Cache-Control: no-cache');
-echo page_head_render($html, is_string($path) ? $path : '/', $api, 'page_head_fetch');
+echo page_head_render($html, is_string($path) ? $path : '/', $api, 'page_head_fetch', page_head_origin($_SERVER));

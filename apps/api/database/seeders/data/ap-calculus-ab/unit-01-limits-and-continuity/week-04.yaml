@@ -1,0 +1,666 @@
+week: 4
+unit: 1
+title: "Continuity at a Point, on an Interval, and Removing Discontinuities"
+topics: ["1.11", "1.12", "1.13"]
+guide: guides/week-04.md
+guide_description: |
+  The three-part definition of continuity at a point and how to write a continuity justification; one-sided
+  continuity at endpoints and continuity on an interval; which families of functions are continuous on their
+  domains, and how to find where a combination is continuous; and removing discontinuities by defining a value
+  or choosing constants in a piecewise function. Worked examples: checking a four-piece function at x = 1 and
+  x = 4, the domain-based continuity of √(x − 2)/(x − 5), filling the hole of (x² − 16)/(x − 4), and choosing
+  k so that kx + 1 and x² + k meet at x = 2.
+flashcards_description: |
+  31 cards on the three conditions for continuity, one-sided and interval continuity, continuity of the
+  standard function families, sums, products, quotients and compositions, and removing discontinuities by
+  redefining values or solving for constants.
+
+flashcards:
+  - front: Continuity of f at x = c → the three conditions
+    back: |
+      (1) f(c) is defined. (2) lim (x→c) f(x) exists. (3) lim (x→c) f(x) = f(c).
+    topic_code: "1.11"
+  - front: Continuity at a point → the one-line version
+    back: |
+      lim (x→c) f(x) = f(c). (This single equation quietly requires both sides to exist.)
+    topic_code: "1.11"
+  - front: Continuity justification → what the AP reader wants to see
+    back: |
+      The value f(c), the limit (both one-sided limits at a break point), and the explicit statement that they are equal, so f is continuous at c.
+    topic_code: "1.11"
+  - front: Removable discontinuity → which continuity condition fails
+    back: |
+      Condition 1 (f(c) undefined) or condition 3 (f(c) ≠ the limit). The limit itself exists.
+    topic_code: "1.11"
+  - front: Jump or infinite discontinuity → which continuity condition fails
+    back: |
+      Condition 2: lim (x→c) f(x) does not exist.
+    topic_code: "1.11"
+  - front: f continuous at 3 with f(3) = 5 → two limits you know for free
+    back: |
+      lim (x→3) f(x) = 5, and therefore both one-sided limits at 3 are 5 as well.
+    topic_code: "1.11"
+  - front: Four-piece h with left limit 2, right limit 2 and h(1) = 3 at x = 1 → continuous?
+    back: |
+      No: the limit 2 exists but does not equal h(1) = 3. Removable discontinuity.
+    topic_code: "1.11"
+  - front: Continuity on an open interval (a, b) → meaning
+    back: |
+      f is continuous at every point of (a, b).
+    topic_code: "1.12"
+  - front: Continuity on a closed interval [a, b] → meaning
+    back: |
+      Continuous on (a, b), plus right-continuous at a (lim (x→a⁺) f(x) = f(a)) and left-continuous at b (lim (x→b⁻) f(x) = f(b)).
+    topic_code: "1.12"
+  - front: Function families continuous on their whole domains → the list
+    back: |
+      Polynomials, rational functions, roots, sine, cosine, tangent, exponentials and logarithms (and inverse trig functions).
+    topic_code: "1.12"
+  - front: Sums, products and quotients of continuous functions → continuity rule
+    back: |
+      f ± g and f·g are continuous wherever both are; f/g is continuous wherever both are and g ≠ 0.
+    topic_code: "1.12"
+  - front: Composition f(g(x)) → continuity rule
+    back: |
+      Continuous at c when g is continuous at c and f is continuous at g(c).
+    topic_code: "1.12"
+  - front: √(x − 2)/(x − 5) → where continuous
+    back: |
+      Need x − 2 ≥ 0 and x ≠ 5: continuous on [2, 5) ∪ (5, ∞) (right-continuous at 2).
+    topic_code: "1.12"
+  - front: (x + 3)/(x² − x − 6) → where not continuous
+    back: |
+      Denominator (x − 3)(x + 2) = 0: x = 3 and x = −2. Continuous everywhere else.
+    topic_code: "1.12"
+  - front: tan x → where not continuous
+    back: |
+      Where cos x = 0: x = π/2 + nπ for every integer n (vertical asymptotes).
+    topic_code: "1.12"
+  - front: ln(x − 1) → interval of continuity
+    back: |
+      (1, ∞), its domain. Logarithms are continuous wherever they are defined.
+    topic_code: "1.12"
+  - front: x/(x² + 1) → where continuous and why
+    back: |
+      Everywhere: x² + 1 ≥ 1 is never 0, so the rational function's domain is all real numbers.
+    topic_code: "1.12"
+  - front: Piecewise function made of continuous pieces → where to check continuity
+    back: |
+      Only at the break points (and anywhere a piece itself is undefined). Inside each piece's interval continuity is inherited.
+    topic_code: "1.12"
+  - front: Removing a removable discontinuity → recipe
+    back: |
+      Compute lim (x→c) f(x) (usually by cancelling) and define, or redefine, f(c) to be that number.
+    topic_code: "1.13"
+  - front: (x² − 16)/(x − 4) → value at x = 4 that removes the discontinuity
+    back: |
+      8: the quotient is x + 4 for x ≠ 4, which approaches 8.
+    topic_code: "1.13"
+  - front: (√(x + 1) − 2)/(x − 3) → value at x = 3 for continuity
+    back: |
+      1/4: rationalise to 1/(√(x + 1) + 2) → 1/4.
+    topic_code: "1.13"
+  - front: kx + 1 for x < 2 and x² + k for x ≥ 2 → k for continuity
+    back: |
+      Make the one-sided limits equal at 2: 2k + 1 = 4 + k, so k = 3 (both sides then equal 7).
+    topic_code: "1.13"
+  - front: ax² for x ≤ 1 and 6 − ax for x > 1 → a for continuity
+    back: |
+      a = 6 − a, so a = 3.
+    topic_code: "1.13"
+  - front: Piecewise with two unknown constants and two break points → strategy
+    back: |
+      Write one equation per break point (left limit = right limit = value) and solve the system. Start where only one constant appears.
+    topic_code: "1.13"
+  - front: Can a jump discontinuity be removed by redefining f(c)?
+    back: |
+      No. The limit does not exist, so no value of f(c) can equal it.
+    topic_code: "1.13"
+  - front: Can an infinite discontinuity be removed by redefining f(c)?
+    back: |
+      No. The outputs are unbounded near c, so there is no finite limit to match.
+    topic_code: "1.13"
+  - front: (x² − 4)/(x² − 3x + 2) → where continuous and what is removable
+    back: |
+      (x − 2)(x + 2)/((x − 1)(x − 2)): not continuous at 1 (infinite) or 2 (removable; define the value 4 there).
+    topic_code: "1.13"
+  - front: Defining f(c) as the limit → what the new function's graph looks like
+    back: |
+      The same curve with the hole filled in: the stray point (if any) moves into the gap.
+    topic_code: "1.13"
+  - front: Error-spot → "f(2) = 7 is defined, so f is continuous at 2"
+    back: |
+      A value is only condition 1. The limit must also exist and equal 7.
+    topic_code: "1.11"
+  - front: Error-spot → "√x is not continuous at 0 because there is no left-hand limit"
+    back: |
+      At an endpoint of the domain, continuity is one-sided: lim (x→0⁺) √x = 0 = √0, so √x is continuous on [0, ∞).
+    topic_code: "1.12"
+  - front: Error-spot → "kx + 1 = x² + k at x = 2, so k − k = 4 − 1"
+    back: |
+      Substitute x = 2 first: 2k + 1 = 4 + k gives k = 3. Do not cancel unknowns before substituting.
+    topic_code: "1.13"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (topics 1.11 to 1.13: the three conditions for
+    continuity, continuity on intervals and of the standard functions, and removing discontinuities), with 8
+    questions (32%) reviewing weeks 1 to 3 (limits from graphs and tables, limit properties, algebraic and
+    trigonometric limits, the squeeze theorem and types of discontinuity). Opens with a shared-context set of
+    four questions on one piecewise function. Multiple choice, select-all, true/false and numeric items are
+    graded at once; fill-in-the-blank items are matched automatically; the short answers and the long answer
+    are graded by your teacher against the scoring notes. No calculator.
+  questions:
+    # ---- Stimulus set: one four-piece function (1.11, 1.13, 1.10)
+    - slug: apcalcab-u01-w04-q01
+      type: multiple_choice
+      topic_code: "1.11"
+      source: "AP Calculus CED, Topic 1.11"
+      points: 1
+      stimulus: |
+        The function h is defined by
+
+        h(x) = (x² − 1)/(x − 1) for x < 1,
+        h(1) = 3,
+        h(x) = 3x − 1 for 1 < x ≤ 4,
+        h(x) = √(x + 5) + 8 for x > 4.
+      prompt: |
+        Which condition for continuity fails for h at x = 1?
+      options:
+        - "h(1) is defined."
+        - "lim (x→1) h(x) exists."
+        - "lim (x→1) h(x) = h(1)"
+        - "No condition fails; h is continuous at x = 1."
+      option_explanations:
+        - |
+          This condition holds: h(1) = 3 is given directly.
+        - |
+          This condition holds: the left piece simplifies to x + 1 → 2 and the right piece gives 3(1) − 1 = 2, so the limit is 2.
+        - |
+          Correct. The limit is 2 (both one-sided limits equal 2), but h(1) = 3, so the limit does not equal the value.
+        - |
+          The limit 2 and the value 3 differ, so h is not continuous at x = 1.
+      answer: 2
+    - slug: apcalcab-u01-w04-q02
+      type: multiple_choice
+      topic_code: "1.11"
+      source: "AP Calculus CED, Topic 1.11"
+      points: 1
+      stimulus: |
+        The function h is defined by
+
+        h(x) = (x² − 1)/(x − 1) for x < 1,
+        h(1) = 3,
+        h(x) = 3x − 1 for 1 < x ≤ 4,
+        h(x) = √(x + 5) + 8 for x > 4.
+      prompt: |
+        Is h continuous at x = 4?
+      options:
+        - "Yes: h(4) = 11 and both one-sided limits at 4 equal 11."
+        - "No: the pieces are given by different formulas on either side of 4."
+        - "No: lim (x→4⁺) h(x) = 3, which differs from h(4)."
+        - "It cannot be decided without a graph."
+      option_explanations:
+        - |
+          Correct. h(4) = 3(4) − 1 = 11; the left-hand limit is also 11; the right-hand limit is √9 + 8 = 11. The limit exists and equals h(4), so h is continuous at 4.
+        - |
+          Different formulas are allowed; continuity depends only on whether the limits and the value match.
+        - |
+          3 is √(4 + 5) alone; the right piece also adds 8, giving 11.
+        - |
+          The formulas give every value and limit needed; a graph is not required to decide.
+      answer: 0
+    - slug: apcalcab-u01-w04-q03
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "AP Calculus CED, Topic 1.13"
+      points: 1
+      stimulus: |
+        The function h is defined by
+
+        h(x) = (x² − 1)/(x − 1) for x < 1,
+        h(1) = 3,
+        h(x) = 3x − 1 for 1 < x ≤ 4,
+        h(x) = √(x + 5) + 8 for x > 4.
+      prompt: |
+        To what value should h(1) be changed so that h is continuous at x = 1?
+      options:
+        - "0, the value of x² − 1 at x = 1"
+        - "3, its current value"
+        - "1, the value of x at the break point"
+        - "2"
+      option_explanations:
+        - |
+          0 is the numerator at x = 1. The limit of the quotient is found after cancelling, and it is 2.
+        - |
+          The current value 3 is exactly what breaks continuity; it does not match the limit 2.
+        - |
+          1 is the input. Continuity needs h(1) to equal the limit of the outputs, which is 2.
+        - |
+          Correct. Both one-sided limits at 1 equal 2, so defining h(1) = 2 makes lim (x→1) h(x) = h(1).
+      answer: 3
+    - slug: apcalcab-u01-w04-q04
+      type: multiple_choice
+      topic_code: "1.10"
+      source: "AP Calculus CED, Topic 1.10"
+      points: 1
+      stimulus: |
+        The function h is defined by
+
+        h(x) = (x² − 1)/(x − 1) for x < 1,
+        h(1) = 3,
+        h(x) = 3x − 1 for 1 < x ≤ 4,
+        h(x) = √(x + 5) + 8 for x > 4.
+      prompt: |
+        What type of discontinuity does h have at x = 1, as defined?
+      options:
+        - "Jump"
+        - "Removable"
+        - "Infinite"
+        - "h has no discontinuity at x = 1."
+      option_explanations:
+        - |
+          A jump needs unequal one-sided limits; both one-sided limits at 1 are 2.
+        - |
+          Correct. The limit exists (it is 2) but differs from h(1) = 3: a misplaced point, which one new value can fix.
+        - |
+          All the pieces stay bounded near x = 1, so there is no vertical asymptote.
+        - |
+          The limit 2 does not equal h(1) = 3, so h is discontinuous at 1.
+      answer: 1
+    # ---- Independent items
+    - slug: apcalcab-u01-w04-q05
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "AP Calculus CED, Topic 1.13"
+      points: 1
+      prompt: |
+        Let f(x) = kx + 1 for x < 2 and f(x) = x² + k for x ≥ 2, where k is a constant. For what value of k is f continuous at x = 2?
+      options:
+        - "3"
+        - "1"
+        - "3/2"
+        - "−3"
+      option_explanations:
+        - |
+          Correct. The left-hand limit is 2k + 1 and the right-hand limit and value are 4 + k. Setting 2k + 1 = 4 + k gives k = 3 (both sides equal 7).
+        - |
+          k = 1 comes from a sign slip, solving 2k + 1 = 4 − k.
+        - |
+          3/2 solves 2k + 1 = 4, forgetting the k in the right piece x² + k.
+        - |
+          −3 is a sign slip when moving terms: 2k − k = 4 − 1 gives k = 3, not −3.
+      answer: 0
+    - slug: apcalcab-u01-w04-q06
+      type: multiple_choice
+      topic_code: "1.12"
+      source: "AP Calculus CED, Topic 1.12"
+      points: 1
+      prompt: |
+        On which set is f(x) = √(x − 2)/(x − 5) continuous?
+      options:
+        - "(2, ∞)"
+        - "(−∞, 5) ∪ (5, ∞)"
+        - "[2, 5) ∪ (5, ∞)"
+        - "[2, ∞)"
+      option_explanations:
+        - |
+          This leaves out x = 2, where f is defined (f(2) = 0) and right-continuous, and wrongly includes x = 5.
+        - |
+          The square root needs x − 2 ≥ 0, so inputs below 2 are not in the domain.
+        - |
+          Correct. f is a quotient of continuous functions, so it is continuous on its domain: x ≥ 2 for the root, and x ≠ 5 for the denominator.
+        - |
+          The denominator is 0 at x = 5, so f is undefined (and not continuous) there.
+      answer: 2
+    - slug: apcalcab-u01-w04-q07
+      type: multiple_choice
+      topic_code: "1.12"
+      source: "AP Calculus CED, Topic 1.12"
+      points: 1
+      prompt: |
+        Which function is continuous at every real number?
+      options:
+        - "y = tan x"
+        - "y = 1/(x² − 1)"
+        - "y = √x"
+        - "y = x/(x² + 1)"
+      option_explanations:
+        - |
+          tan x = sin x/cos x is undefined where cos x = 0, such as x = π/2.
+        - |
+          The denominator is 0 at x = 1 and x = −1, giving infinite discontinuities.
+        - |
+          √x is undefined for x < 0, so it is not continuous at negative numbers.
+        - |
+          Correct. The denominator x² + 1 is at least 1 and never 0, so this rational function is defined, and continuous, for all real x.
+      answer: 3
+    - slug: apcalcab-u01-w04-q08
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "AP Calculus CED, Topic 1.13"
+      points: 1
+      prompt: |
+        Let g(x) = (x² − 16)/(x − 4) for x ≠ 4. What value should g(4) be given so that g is continuous at x = 4?
+      options:
+        - "0"
+        - "8"
+        - "4"
+        - "No value works, because g is undefined at 4."
+      option_explanations:
+        - |
+          0 is the value of the numerator at x = 4. The quotient's limit, after cancelling, is 8.
+        - |
+          Correct. For x ≠ 4, g(x) = (x − 4)(x + 4)/(x − 4) = x + 4, which approaches 8. Defining g(4) = 8 makes the limit equal the value.
+        - |
+          4 is the input, not the limit of the outputs.
+        - |
+          Being undefined is exactly what a new definition fixes; the limit exists, so the discontinuity is removable.
+      answer: 1
+    - slug: apcalcab-u01-w04-q09
+      type: multiple_choice
+      topic_code: "1.11"
+      source: "AP Calculus CED, Topic 1.11"
+      points: 1
+      prompt: |
+        Which statement is the definition of "f is continuous at x = c"?
+      options:
+        - "f(c) is defined."
+        - "lim (x→c) f(x) exists."
+        - "lim (x→c) f(x) = f(c)"
+        - "The graph of f has no vertical asymptote at x = c."
+      option_explanations:
+        - |
+          A defined value is necessary but not enough: f could jump at c, or have its dot in the wrong place.
+        - |
+          The limit can exist while f(c) is undefined or different (a removable discontinuity).
+        - |
+          Correct. The limit must exist, the value must exist, and they must be equal; this one equation says all three.
+        - |
+          No asymptote still allows holes and jumps, so this is not enough for continuity.
+      answer: 2
+    - slug: apcalcab-u01-w04-q10
+      type: multiple_choice
+      topic_code: "1.12"
+      source: "AP Calculus CED, Topic 1.12"
+      points: 1
+      prompt: |
+        At which values of x is f(x) = (x + 3)/(x² − x − 6) not continuous?
+      options:
+        - "x = −2 and x = 3"
+        - "x = −3 only"
+        - "x = −3, x = −2 and x = 3"
+        - "x = 2 and x = −3"
+      option_explanations:
+        - |
+          Correct. A rational function is continuous except where its denominator is 0: x² − x − 6 = (x − 3)(x + 2) = 0 at x = 3 and x = −2.
+        - |
+          x = −3 is a zero of the numerator, where f(−3) = 0 is defined and continuous.
+        - |
+          At x = −3 the denominator is 9 + 3 − 6 = 6 ≠ 0, so f is continuous there.
+        - |
+          This factors the denominator with the wrong signs; (x − 2)(x + 3) = x² + x − 6, not x² − x − 6.
+      answer: 0
+    - slug: apcalcab-u01-w04-q11
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "AP Calculus CED, Topic 1.13"
+      points: 1
+      prompt: |
+        Let f(x) = x + 1 for x < 0 and f(x) = x − 1 for x > 0, with f(0) not yet defined. Which statement is true?
+      options:
+        - "Defining f(0) = 0, the average of the one-sided limits, makes f continuous at 0."
+        - "Defining f(0) = 1 makes f continuous at 0."
+        - "Defining f(0) = −1 makes f continuous at 0."
+        - "No value of f(0) makes f continuous at 0, because lim (x→0) f(x) does not exist."
+      option_explanations:
+        - |
+          Averaging does not create a limit; the outputs still approach 1 from the left and −1 from the right.
+        - |
+          f(0) = 1 matches only the left-hand limit; the right-hand limit is −1.
+        - |
+          f(0) = −1 matches only the right-hand limit; the left-hand limit is 1.
+        - |
+          Correct. The one-sided limits are 1 and −1, so the two-sided limit does not exist (a jump), and continuity needs a limit to match.
+      answer: 3
+    # ---- Spiral review: weeks 1 to 3
+    - slug: apcalcab-u01-w04-q12
+      type: multiple_choice
+      topic_code: "1.8"
+      source: "AP Calculus CED, Topic 1.8"
+      points: 1
+      prompt: |
+        For all x near 0, 2 − x² ≤ f(x) ≤ 1 + cos x. What is lim (x→0) f(x)?
+      options:
+        - "1"
+        - "2"
+        - "0"
+        - "It cannot be determined from the inequality."
+      option_explanations:
+        - |
+          1 is the constant in the upper bound alone; 1 + cos x approaches 1 + 1 = 2.
+        - |
+          Correct. lim (x→0) (2 − x²) = 2 and lim (x→0) (1 + cos x) = 1 + 1 = 2. The bounds agree, so by the squeeze theorem the limit is 2.
+        - |
+          0 is the limit of x² (or of cos x − 1), not of the bounds.
+        - |
+          The bounds have the same limit, so the squeeze theorem does decide it.
+      answer: 1
+    - slug: apcalcab-u01-w04-q13
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        What is lim (x→0) (sin x cos x)/(3x)?
+      options:
+        - "3"
+        - "1"
+        - "1/3"
+        - "0"
+      option_explanations:
+        - |
+          3 inverts the constant: the 3 is in the denominator.
+        - |
+          1 uses (sin x)/x → 1 but forgets the factor 1/3.
+        - |
+          Correct. (sin x cos x)/(3x) = (1/3) · (sin x/x) · cos x → (1/3)(1)(1) = 1/3.
+        - |
+          Substitution gives 0/0, which is indeterminate, not 0.
+      answer: 2
+    - slug: apcalcab-u01-w04-q14
+      type: multiple_choice
+      topic_code: "1.9"
+      source: "AP Calculus CED, Topic 1.9"
+      points: 1
+      prompt: |
+        A table of values of f near x = 1 shows outputs approaching −2 from both sides. The graph of f has an open circle at (1, −2) and a solid dot at (1, 4). Which statement is true?
+      options:
+        - "lim (x→1) f(x) = −2, f(1) = 4, and f is not continuous at x = 1."
+        - "lim (x→1) f(x) = 4, f(1) = −2, and f is not continuous at x = 1."
+        - "lim (x→1) f(x) = −2, f(1) = 4, and f is continuous at x = 1."
+        - "lim (x→1) f(x) does not exist, because the table and graph disagree."
+      option_explanations:
+        - |
+          Correct. The table and the open circle both give the limit −2; the solid dot gives f(1) = 4; since −2 ≠ 4, f is not continuous at 1.
+        - |
+          This swaps the limit and the value: the open circle shows where the curve heads, the dot shows the value.
+        - |
+          Continuity needs the limit to equal the value, and −2 ≠ 4.
+        - |
+          The table and graph agree on the limit −2; the dot at height 4 is the value, which tables of nearby inputs never show.
+      answer: 0
+    - slug: apcalcab-u01-w04-q15
+      type: multi_select
+      topic_code: "1.12"
+      source: "AP Calculus CED, Topic 1.12"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which functions are continuous on the closed interval [0, 2]? Select all that apply.
+      options:
+        - "y = x³ − 4x"
+        - "y = 1/(x − 1)"
+        - "y = √(4 − x²)"
+        - "y = |x − 1|"
+        - "y = (x² − 1)/(x − 1)"
+      option_explanations:
+        - |
+          Correct. Polynomials are continuous everywhere.
+        - |
+          Undefined at x = 1, which lies inside [0, 2]: an infinite discontinuity.
+        - |
+          Correct. 4 − x² ≥ 0 on [0, 2], and at the endpoint 2 the function is left-continuous (lim (x→2⁻) √(4 − x²) = 0 = f(2)).
+        - |
+          Correct. The absolute value of a continuous function is continuous; the corner at x = 1 is not a break.
+        - |
+          Undefined at x = 1 (a hole), so it is not continuous on the whole interval, even though the limit there exists.
+      answer: [0, 2, 3]
+    - slug: apcalcab-u01-w04-q16
+      type: multi_select
+      topic_code: "1.11"
+      source: "AP Calculus CED, Topic 1.11"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A function f is continuous at x = 3, and f(3) = 5. Which statements must be true? Select all that apply.
+      options:
+        - "lim (x→3) f(x) = 5"
+        - "lim (x→3⁻) f(x) = 5"
+        - "f is continuous on the interval (2, 4)."
+        - "lim (x→3) (f(x))² = 25"
+        - "f(x) = 5 for all x close to 3."
+      option_explanations:
+        - |
+          Correct. Continuity at 3 means exactly that lim (x→3) f(x) = f(3) = 5.
+        - |
+          Correct. A two-sided limit of 5 forces both one-sided limits to be 5.
+        - |
+          Continuity at one point says nothing about other points; f could have breaks at, say, x = 2.5.
+        - |
+          Correct. By the power property, lim (f(x))² = (lim f(x))² = 5² = 25.
+        - |
+          The outputs approach 5; they need not equal 5. For example f(x) = x + 2 is continuous at 3 with f(3) = 5.
+      answer: [0, 1, 3]
+    - slug: apcalcab-u01-w04-q17
+      type: true_false
+      topic_code: "1.12"
+      source: "AP Calculus CED, Topic 1.12"
+      points: 1
+      prompt: |
+        True or false: Every rational function is continuous at every real number.
+      answer: false
+      explanation: |
+        False. A rational function is continuous on its domain, which excludes the zeros of its denominator. For example 1/(x − 2) is not continuous at x = 2.
+    - slug: apcalcab-u01-w04-q18
+      type: true_false
+      topic_code: "1.10"
+      source: "AP Calculus CED, Topic 1.10"
+      points: 1
+      prompt: |
+        True or false: If f is discontinuous at x = c but lim (x→c) f(x) exists, then the discontinuity at c is removable.
+      answer: true
+      explanation: |
+        True. If the limit exists, the only possible failures are that f(c) is undefined or different from the limit, which is the definition of a removable discontinuity. Jumps and infinite discontinuities have no two-sided limit.
+    - slug: apcalcab-u01-w04-q19
+      type: fill_blank
+      topic_code: "1.13"
+      source: "AP Calculus CED, Topic 1.13"
+      points: 1
+      prompt: |
+        Let f(x) = ax² for x ≤ 1 and f(x) = 6 − ax for x > 1. f is continuous at x = 1 when a = ____.
+      answer: ["3"]
+      explanation: |
+        The left-hand limit and value are a(1)² = a; the right-hand limit is 6 − a. Setting a = 6 − a gives a = 3 (both sides equal 3).
+    - slug: apcalcab-u01-w04-q20
+      type: fill_blank
+      topic_code: "1.7"
+      source: "AP Calculus CED, Topic 1.7"
+      points: 1
+      prompt: |
+        lim (x→3) (x² − 9)/(x² − 3x) = ____.
+      answer: ["2"]
+      explanation: |
+        Substitution gives 0/0, so factor: (x − 3)(x + 3)/(x(x − 3)) = (x + 3)/x for x ≠ 3, which approaches 6/3 = 2.
+    - slug: apcalcab-u01-w04-q21
+      type: numeric
+      topic_code: "1.13"
+      source: "AP Calculus CED, Topic 1.13"
+      points: 1
+      prompt: |
+        Let f(x) = (√(x + 1) − 2)/(x − 3) for x ≠ 3. What value of f(3) makes f continuous at x = 3? Give an exact decimal.
+      answer: { value: 0.25, tolerance: 0 }
+      explanation: |
+        Multiply by the conjugate: (x + 1 − 4)/((x − 3)(√(x + 1) + 2)) = 1/(√(x + 1) + 2) for x ≠ 3, which approaches 1/(2 + 2) = 1/4 = 0.25. Define f(3) = 0.25.
+    - slug: apcalcab-u01-w04-q22
+      type: numeric
+      topic_code: "1.5"
+      source: "AP Calculus CED, Topic 1.5"
+      points: 1
+      prompt: |
+        Given lim (x→−2) f(x) = 2 and lim (x→−2) g(x) = −3, find lim (x→−2) [2f(x) − 3g(x)].
+      answer: { value: 13, tolerance: 0 }
+      explanation: |
+        By the constant multiple and difference properties, the limit is 2(2) − 3(−3) = 4 + 9 = 13.
+    - slug: apcalcab-u01-w04-q23
+      type: short_answer
+      topic_code: "1.12"
+      source: "AP Calculus CED, Topic 1.12"
+      points: 3
+      prompt: |
+        Let p(x) = (x² − 4)/(x² − 3x + 2).
+
+        (a) On what set is p continuous? Explain.
+        (b) Classify each discontinuity of p.
+        (c) Define a new function q, equal to p wherever p is defined, that is continuous at as many points as possible. Where is q still discontinuous?
+      answer: |
+        (a) p is rational, so it is continuous on its domain. The denominator (x − 1)(x − 2) is 0 at x = 1 and x = 2, so p is continuous on (−∞, 1) ∪ (1, 2) ∪ (2, ∞).
+        (b) p(x) = (x − 2)(x + 2)/((x − 1)(x − 2)) = (x + 2)/(x − 1) for x ≠ 2. At x = 2 the factor cancels and the limit is 4/1 = 4: removable. At x = 1 the denominator of (x + 2)/(x − 1) is 0 and the numerator is 3: infinite.
+        (c) q(x) = p(x) for x ≠ 2 and q(2) = 4 (that is, q(x) = (x + 2)/(x − 1) for x ≠ 1). q is still discontinuous at x = 1, an infinite discontinuity that no value can remove.
+      explanation: |
+        Three points, one per part. (a) the set excluding 1 and 2, with the reason (rational function, continuous on its domain). (b) removable at 2 (limit 4) and infinite at 1, both correct. (c) q(2) = 4 and x = 1 named as the remaining discontinuity.
+    - slug: apcalcab-u01-w04-q24
+      type: short_answer
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 3
+      prompt: |
+        Evaluate each limit, showing the rewriting you use.
+
+        (a) lim (x→0) (1 − cos x)/x²
+        (b) lim (x→0) x/sin(3x)
+        (c) lim (x→1) (1/x − 1)/(x − 1)
+      answer: |
+        (a) Multiply by (1 + cos x)/(1 + cos x): (1 − cos²x)/(x²(1 + cos x)) = (sin x/x)² · 1/(1 + cos x) → 1² · 1/2 = 1/2.
+        (b) x/sin(3x) = (1/3) · (3x)/sin(3x) → (1/3)(1) = 1/3.
+        (c) (1/x − 1) = (1 − x)/x, so the quotient is (1 − x)/(x(x − 1)) = −1/x for x ≠ 1, which approaches −1.
+      explanation: |
+        Three points, one per part; each needs a valid rewrite and the correct value (1/2, 1/3, −1). A value with no algebra earns no point.
+    - slug: apcalcab-u01-w04-q25
+      type: long_answer
+      topic_code: "1.13"
+      source: "AP Calculus CED, Topic 1.13"
+      points: 6
+      prompt: |
+        Let a and b be constants, and let f be defined by
+
+        f(x) = x² + a for x ≤ 1,
+        f(x) = bx − 1 for 1 < x < 3,
+        f(x) = (x² − 9)/(x − 3) + 2 for x > 3.
+
+        f(3) is not defined.
+
+        (A) Find lim (x→3⁺) f(x). Then find the value of b for which lim (x→3) f(x) exists.
+
+        (B) Using that value of b, find the value of a for which f is continuous at x = 1. Justify using the definition of continuity.
+
+        (C) With these values of a and b, classify the discontinuity of f at x = 3, and state the value f(3) should be given to remove it.
+
+        (D) With a, b and f(3) chosen as above, explain why f is continuous for all real numbers.
+      answer: |
+        (A) For x > 3, (x − 3)(x + 3)/(x − 3) + 2 = x + 5, so lim (x→3⁺) f(x) = 8. lim (x→3⁻) f(x) = 3b − 1. The limit exists when 3b − 1 = 8, so b = 3.
+        (B) f(1) = 1 + a = lim (x→1⁻) f(x), and lim (x→1⁺) f(x) = 3(1) − 1 = 2. Continuity at 1 needs lim (x→1) f(x) = f(1), so 1 + a = 2 and a = 1. Then f(1) = 2 and both one-sided limits equal 2.
+        (C) The limit at 3 is 8 but f(3) is undefined: a removable discontinuity. Define f(3) = 8.
+        (D) On x < 1 f is a polynomial, on 1 < x < 3 a linear function, and on x > 3 it equals x + 5; each is continuous on its interval. At the break points, lim (x→1) f(x) = 2 = f(1) and lim (x→3) f(x) = 8 = f(3). So f is continuous at every real number.
+      explanation: |
+        Six points. (A) 2 points: 1 for the right-hand limit 8 (with the cancellation), 1 for b = 3 from equating the one-sided limits. (B) 2 points: 1 for a = 1, 1 for a justification naming f(1) and both one-sided limits equal to 2 and stating that the limit equals the value. (C) 1 point: "removable" and f(3) = 8. (D) 1 point: each piece continuous on its own interval plus the two break points checked.

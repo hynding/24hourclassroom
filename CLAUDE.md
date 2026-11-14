@@ -80,6 +80,24 @@ same tags over after load: change the two together. `page-head` has its own
 named limiter because every call comes from the web host's one IP. The web
 host therefore needs PHP (7.4+) enabled.
 
+Each head's `og:image` is a **share card**: `GET /api/page-image?path=`
+(`PageImageController`, own `page-image` limiter) draws a 1200×630 PNG with
+GD/FreeType (`App\Support\ShareCard`) from `PageHead::card()`: kicker, title,
+one detail line, site name. A page a guest can't open, or any path PageHead
+doesn't describe, gets the site's own card, so an image never says more than
+the head. The image URL carries `v=` (`PageHead::cardHash`), so it changes
+whenever the card does (bots cache images by URL); the client mirror omits it.
+One cache entry per page holds the PNG and that hash, redrawn in place (bump
+`ShareCard::VERSION` when the drawing changes). The fonts in
+`resources/fonts` are Latin-only static instances of the SPA's variable
+Literata and Manrope (OFL), because FreeType draws a variable font only at its
+default weight; GD draws a missing glyph as nothing, so a title outside
+`fonts/coverage.php` gets the site card and such a detail line is dropped. Without GD the route redirects to `apps/web/src/assets/share-card.png`,
+the same site card, which `index.html`'s static link-preview defaults also name
+(`index.php` drops those defaults when it splices and otherwise makes the image
+absolute on the request's own origin). The OG image URL is built on `APP_URL`
+server-side and `Env.apiBaseUrl` client-side.
+
 ## Styling contract (`apps/web`)
 
 Enforced by specs in `src/global/`. These fail CI, not review:
@@ -290,9 +308,9 @@ course (`GET|POST /api/comments?target_type=&target_id=`, `PATCH|DELETE
   `--color-denied-surface`, `--color-deleted-surface`) in every palette, held
   to 4.5:1 for every text token by `theme-files.spec.ts`.
 
-## Seeded courses (AP Biology, AP U.S. History, Algebra 1, Geometry, Algebra 2, Precalculus, Trigonometry, Chemistry, AP Chemistry, AP World History)
+## Seeded courses (AP Biology, AP U.S. History, Algebra 1, Geometry, Algebra 2, Precalculus, Trigonometry, AP Calculus AB, Chemistry, AP Chemistry, AP World History)
 
-Ten full-year courses are seeded from YAML, each by a thin subclass of
+Eleven full-year courses are seeded from YAML, each by a thin subclass of
 `Database\Seeders\Curriculum\CurriculumSeeder` that names its data directory:
 
 | Seeder | Command | Data | Slug | Demo accounts |
@@ -304,6 +322,7 @@ Ten full-year courses are seeded from YAML, each by a thin subclass of
 | `Algebra2Seeder` | `course:seed-algebra-2` | `data/algebra-2/` (adapted from CC BY 4.0 IM 9–12 Math) | `alg2` | `algebra2@`, `algebra2-student@example.com` |
 | `PrecalculusSeeder` | `course:seed-precalculus` | `data/precalculus/` (original, AP Precalculus CED) | `precalc` | `precalc@`, `precalc-student@example.com` |
 | `TrigonometrySeeder` | `course:seed-trigonometry` | `data/trigonometry/` (original, Common Core trigonometry standards) | `trig` | `trig@`, `trig-student@example.com` |
+| `ApCalculusAbSeeder` | `course:seed-ap-calculus-ab` | `data/ap-calculus-ab/` (original, AP Calculus AB and BC CED, AB topics) | `apcalcab` | `apcalcab@`, `apcalcab-student@example.com` |
 | `ChemistrySeeder` | `course:seed-chemistry` | `data/chemistry/` (original, public-domain data) | `chem` | `chemistry@`, `chemistry-student@example.com` |
 | `ApChemistrySeeder` | `course:seed-ap-chemistry` | `data/ap-chemistry/` (original, public-domain data) | `apchem` | `apchem@`, `apchem-student@example.com` |
 | `ApWorldHistorySeeder` | `course:seed-ap-world-history` | `data/ap-world-history/` (original, public-domain quotations) | `apworld` | `apworld@`, `apworld-student@example.com` |
@@ -339,6 +358,7 @@ php artisan course:seed-geometry --teacher=you@example.com --no-student --force
 php artisan course:seed-algebra-2 --teacher=you@example.com --no-student --force
 php artisan course:seed-precalculus --teacher=you@example.com --no-student --force
 php artisan course:seed-trigonometry --teacher=you@example.com --no-student --force
+php artisan course:seed-ap-calculus-ab --teacher=you@example.com --no-student --force
 php artisan course:seed-chemistry --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-chemistry --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-world-history --teacher=you@example.com --no-student --force
@@ -402,6 +422,16 @@ and credit them in their footer; markers are `written for this course` and
 `CC BY 4.0`. Its practice final is a regular cumulative final (70 items: no-
 calculator MC, calculator items, select-all/true-false/fill-in, then four short
 and four long free-response items).
+
+AP Calculus AB is **original writing** as well (OpenStax *Calculus* is NC-SA
+with the no-LLM clause; *Active Calculus* is CC BY-SA, *CLP* and *APEX*
+non-commercial). It follows the CED's eight units and topic codes for **AB
+only**, so the BC-only numbers (6.11–6.13, 7.5, 7.9, 8.13) are skipped in
+`course.yaml` (markers `AP Calculus AB and BC Course and Exam Description`,
+`CC BY 4.0`; site slug `/courses/ap-calculus-ab`). Its practice final opens
+with the May 2027 AP shape (29 no-calculator and 13 calculator multiple choice,
+then two calculator and four no-calculator 9-point free-response questions)
+and adds 22 items in the other types; unit exams carry two 9-point FRQs each.
 
 Chemistry, AP Chemistry and AP World History: Modern are **original writing**
 like AP U.S. History: no textbook is adapted. The two chemistry courses take

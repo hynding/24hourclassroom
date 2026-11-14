@@ -36,6 +36,7 @@ use App\Http\Controllers\Api\MyAssignmentsController;
 use App\Http\Controllers\Api\MyAttemptsController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PageHeadController;
+use App\Http\Controllers\Api\PageImageController;
 use App\Http\Controllers\Api\ProfileAvatarController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicProfileController;
@@ -217,6 +218,10 @@ Route::middleware('throttle:60,1')->get('sitemap.xml', SitemapController::class)
 // from the SPA host's own IP, so it has a named limiter of its own. Guest
 // view only; nothing viewer-dependent, so no `active`.
 Route::middleware('throttle:page-head')->get('page-head', PageHeadController::class);
+
+// The share card a link preview shows (og:image). Fetched by preview bots
+// from many IPs, so it has its own per-IP limiter; guest view only.
+Route::middleware('throttle:page-image')->get('page-image', PageImageController::class);
 
 // The file stream: `signed:relative` and its own limiter, deliberately with
 // NO `auth` and NO `active`. The signature covers path and query only, so a

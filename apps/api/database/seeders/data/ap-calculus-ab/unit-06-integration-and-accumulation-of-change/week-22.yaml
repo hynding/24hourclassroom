@@ -1,0 +1,622 @@
+week: 22
+unit: 6
+title: "Accumulation of Change and Riemann Sums"
+topics: ["6.1", "6.2"]
+guide: guides/week-22.md
+guide_description: |
+  Accumulation as the area between a rate graph and the t-axis, with units (rate units times input units) and with
+  negative rates counting as decreases; then approximating that area with left, right and midpoint Riemann sums and
+  trapezoidal sums, from formulas and from tables with unequal subintervals, and deciding when a sum is an
+  overestimate or an underestimate. Worked examples: a hypothetical cyclist's piecewise-linear velocity, a tank that
+  fills and drains, left, right and midpoint sums for x² on [0, 2], and a hypothetical rain-barrel inflow table with
+  unequal widths.
+flashcards_description: |
+  32 cards on accumulation from a rate, units of area under a rate graph, net versus total change, left, right,
+  midpoint and trapezoidal sums, unequal subintervals, and over- and underestimates from monotonicity and concavity.
+
+flashcards:
+  - front: Area between a rate graph r(t) and the t-axis on [a, b] → what it measures
+    back: |
+      The accumulated change in the quantity whose rate is r, from t = a to t = b. Above the axis it adds; below the axis it subtracts.
+    topic_code: "6.1"
+  - front: Units of the area under a rate graph in liters per minute against minutes → result
+    back: |
+      (liters per minute) × (minutes) = liters. Area units are always the rate's units times the input's units.
+    topic_code: "6.1"
+  - front: Velocity graph in meters per second, area from t = 0 to t = 8 → what it gives
+    back: |
+      The displacement (net change in position) in meters over those 8 seconds. If the velocity is never negative, it is also the distance traveled.
+    topic_code: "6.1"
+  - front: Constant rate of 15 gallons per hour for 4 hours → accumulated change and the picture
+    back: |
+      15 · 4 = 60 gallons: the area of a 4-by-15 rectangle under a horizontal rate graph.
+    topic_code: "6.1"
+  - front: Rate graph below the t-axis on an interval → effect on the accumulated amount
+    back: |
+      The amount decreases there. The region's area is subtracted when finding the net change.
+    topic_code: "6.1"
+  - front: Net change versus total change from a rate graph → how each uses the areas
+    back: |
+      Net change: (area above) − (area below). Total change (for velocity, total distance): (area above) + (area below).
+    topic_code: "6.1"
+  - front: Tank inflow-minus-outflow rate positive on [0, 5], negative on [5, 9] → when is the water greatest on [0, 9]?
+    back: |
+      At t = 5. The amount rises while the net rate is positive and falls once it turns negative, so it peaks where the rate changes from positive to negative.
+    topic_code: "6.1"
+  - front: Piecewise-linear velocity graph → fastest way to get distance
+    back: |
+      Split at the corners and add areas of rectangles, triangles and trapezoids; no formula for v is needed.
+    topic_code: "6.1"
+  - front: Accumulated change versus final amount → what extra fact turns one into the other
+    back: |
+      The starting amount. Final amount = initial amount + accumulated change over the interval.
+    topic_code: "6.1"
+  - front: Riemann sum → the general recipe
+    back: |
+      Split [a, b] into subintervals; on each, multiply the width by a sample height of the function; add the products.
+    topic_code: "6.2"
+  - front: Left Riemann sum → which heights it uses
+    back: |
+      The function value at the left endpoint of each subinterval: f(x₀), f(x₁), …, f(xₙ₋₁). The last table value is never used.
+    topic_code: "6.2"
+  - front: Right Riemann sum → which heights it uses
+    back: |
+      The function value at the right endpoint of each subinterval: f(x₁), …, f(xₙ). The first table value is never used.
+    topic_code: "6.2"
+  - front: Midpoint Riemann sum from a table → what the table must contain
+    back: |
+      The function value at the middle of every subinterval. With a table, choose subintervals whose midpoints are listed inputs.
+    topic_code: "6.2"
+  - front: Trapezoidal sum on one subinterval of width Δx → formula
+    back: |
+      Δx · (f(left) + f(right))/2, the area of a trapezoid whose parallel sides are the two endpoint heights.
+    topic_code: "6.2"
+  - front: Trapezoidal sum versus left and right sums on the same partition → relation
+    back: |
+      It is exactly their average: T = (L + R)/2, subinterval by subinterval.
+    topic_code: "6.2"
+  - front: Equal widths Δx = (b − a)/n → when it applies
+    back: |
+      Only when the subintervals are equal. With a table of unequal spacing, use each subinterval's own width.
+    topic_code: "6.2"
+  - front: Table with inputs 0, 2, 5, 9, 10 → the four subinterval widths
+    back: |
+      2, 3, 4 and 1. Multiply each height by its own width; never use a single common Δx here.
+    topic_code: "6.2"
+  - front: Left, right and midpoint sums for x² on [0, 2] with four equal subintervals → values
+    back: |
+      Left 1.75, right 3.75, midpoint 2.625. The exact area is 8/3 ≈ 2.667.
+    topic_code: "6.2"
+  - front: Increasing function on [a, b] → which of left and right sums overestimates
+    back: |
+      Right overestimates (each rectangle uses the highest point of its strip); left underestimates.
+    topic_code: "6.2"
+  - front: Decreasing function on [a, b] → which of left and right sums overestimates
+    back: |
+      Left overestimates; right underestimates.
+    topic_code: "6.2"
+  - front: Concave up function → trapezoidal sum over or under?
+    back: |
+      Overestimate: each chord lies above the curve. (The midpoint sum is then an underestimate.)
+    topic_code: "6.2"
+  - front: Concave down function → trapezoidal sum over or under?
+    back: |
+      Underestimate: each chord lies below the curve. (The midpoint sum is then an overestimate.)
+    topic_code: "6.2"
+  - front: Function that increases then decreases on [a, b] → can you call the left sum an under- or overestimate?
+    back: |
+      Not for the whole interval. The verdict needs the function to be monotonic on the whole interval; split it if you can.
+    topic_code: "6.2"
+  - front: More subintervals in a Riemann sum → what happens to the approximation
+    back: |
+      For a well-behaved function it gets closer to the exact accumulated change; the limit as the widths shrink is the definite integral.
+    topic_code: "6.2"
+  - front: Rain-barrel inflow table 4, 7, 9, 6, 5 L/min at t = 0, 2, 5, 9, 10 → right Riemann sum
+    back: |
+      7·2 + 9·3 + 6·4 + 5·1 = 70 liters.
+    topic_code: "6.2"
+  - front: Same rain-barrel table → trapezoidal sum
+    back: |
+      11 + 24 + 30 + 5.5 = 70.5 liters, the average of the left sum 71 and the right sum 70.
+    topic_code: "6.2"
+  - front: Riemann sum of a rate in context → the sentence that interprets it
+    back: |
+      "This approximates the total [quantity, with units] [added/traveled/produced] from t = a to t = b." Name the quantity, the units and the time interval.
+    topic_code: "6.2"
+  - front: Rectangle heights from a rate table in people per hour, widths in hours → units of each product
+    back: |
+      People. Each product estimates how many people arrived during that subinterval.
+    topic_code: "6.2"
+  - front: Riemann sum for a function that is negative on part of the interval → sign of those terms
+    back: |
+      Negative: a negative height times a positive width. The sum estimates net change, not total area.
+    topic_code: "6.2"
+  - front: Error-spot → "the left Riemann sum from the table uses every value"
+    back: |
+      A left sum with n subintervals uses n heights: every listed value except the last. Using all n + 1 values double-counts.
+    topic_code: "6.2"
+  - front: Error-spot → "the area under a velocity graph is measured in meters per second"
+    back: |
+      Area multiplies the vertical units by the horizontal units: (m/s)(s) = m. The area is a distance or displacement, not a velocity.
+    topic_code: "6.1"
+  - front: Error-spot → "f is concave up, so the right sum overestimates"
+    back: |
+      Concavity decides the trapezoidal and midpoint sums. Left and right sums are decided by whether f is increasing or decreasing.
+    topic_code: "6.2"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 6.1 and 6.2: accumulation from a rate graph, units
+    and net change, and left, right, midpoint and trapezoidal sums, including tables with unequal widths and over- or
+    underestimates), with 7 questions (about 30%) reviewing weeks 7, 10, 13, 16, 17 and 18 (estimating a derivative
+    from a table, the chain rule, motion, linearization, the Mean Value Theorem, increasing intervals and absolute
+    extrema). Opens with a shared-context set on a rain-barrel inflow table. Multiple choice, select-all, true/false
+    and numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and
+    the long answer are graded by your teacher against the scoring notes. No calculator is needed.
+  questions:
+    # ---- Stimulus set: rain-barrel inflow table (6.2, 6.1, 2.3)
+    - slug: apcalcab-u06-w22-q01
+      type: multiple_choice
+      topic_code: "6.2"
+      source: "AP Calculus CED, Topic 6.2"
+      points: 1
+      stimulus: |
+        During a hypothetical storm, rainwater flows into a barrel at a rate of r(t) liters per minute, where t is measured in minutes. The function r is differentiable, and selected values are shown in the table.
+
+        | t (minutes) | 0 | 2 | 5 | 9 | 10 |
+        |---|---|---|---|---|---|
+        | r(t) (liters per minute) | 4 | 7 | 9 | 6 | 5 |
+      prompt: |
+        What is the value of the right Riemann sum for r on 0 ≤ t ≤ 10, using the four subintervals indicated by the table?
+      options:
+        - "71 liters"
+        - "27 liters"
+        - "70.5 liters"
+        - "70 liters"
+      option_explanations:
+        - |
+          71 is the left Riemann sum, 4·2 + 7·3 + 9·4 + 6·1; a right sum uses the right endpoint of each subinterval.
+        - |
+          27 adds the right-endpoint heights 7 + 9 + 6 + 5 without multiplying each by its subinterval width.
+        - |
+          70.5 is the trapezoidal sum, the average of the left and right sums, not the right sum itself.
+        - |
+          Correct. The widths are 2, 3, 4 and 1, so the right sum is 7·2 + 9·3 + 6·4 + 5·1 = 14 + 27 + 24 + 5 = 70 liters.
+      answer: 3
+    - slug: apcalcab-u06-w22-q02
+      type: multiple_choice
+      topic_code: "6.1"
+      source: "AP Calculus CED, Topic 6.1"
+      points: 1
+      stimulus: |
+        During a hypothetical storm, rainwater flows into a barrel at a rate of r(t) liters per minute, where t is measured in minutes. The function r is differentiable, and selected values are shown in the table.
+
+        | t (minutes) | 0 | 2 | 5 | 9 | 10 |
+        |---|---|---|---|---|---|
+        | r(t) (liters per minute) | 4 | 7 | 9 | 6 | 5 |
+      prompt: |
+        A trapezoidal sum with the four subintervals of the table gives 70.5. Which interpretation of this number is correct?
+      options:
+        - "The barrel holds approximately 70.5 liters of water at t = 10 minutes."
+        - "Approximately 70.5 liters of rainwater flow into the barrel from t = 0 to t = 10 minutes."
+        - "Rainwater flows into the barrel at approximately 70.5 liters per minute at t = 10 minutes."
+        - "On average, rainwater flows into the barrel at approximately 70.5 liters per minute during the first 10 minutes."
+      option_explanations:
+        - |
+          The sum estimates the water added, not the amount in the barrel; the barrel might have held some water at t = 0, which is not given.
+        - |
+          Correct. Area under a rate graph in liters per minute over minutes is in liters, and it measures the accumulated inflow over 0 ≤ t ≤ 10.
+        - |
+          The units are wrong: (liters per minute) × (minutes) = liters, a total, not a rate at an instant. The rate at t = 10 is r(10) = 5.
+        - |
+          An average rate would be 70.5/10 = 7.05 liters per minute; 70.5 itself is an amount in liters.
+      answer: 1
+    - slug: apcalcab-u06-w22-q03
+      type: multiple_choice
+      topic_code: "6.2"
+      source: "AP Calculus CED, Topic 6.2"
+      points: 1
+      stimulus: |
+        During a hypothetical storm, rainwater flows into a barrel at a rate of r(t) liters per minute, where t is measured in minutes. The function r is differentiable, and selected values are shown in the table.
+
+        | t (minutes) | 0 | 2 | 5 | 9 | 10 |
+        |---|---|---|---|---|---|
+        | r(t) (liters per minute) | 4 | 7 | 9 | 6 | 5 |
+      prompt: |
+        Suppose r is increasing on 0 ≤ t ≤ 5. A left Riemann sum with the subintervals [0, 2] and [2, 5] estimates the water that flows in during the first 5 minutes. What is the estimate, and how does it compare with the actual amount?
+      options:
+        - "29 liters, an overestimate"
+        - "41 liters, an underestimate"
+        - "29 liters, an underestimate"
+        - "41 liters, an overestimate"
+      option_explanations:
+        - |
+          The value 29 is right, but on an increasing function each left rectangle sits below the curve, so the left sum is too small, not too big.
+        - |
+          41 is the right sum, 7·2 + 9·3, and for an increasing function a right sum overestimates rather than underestimates.
+        - |
+          Correct. 4·2 + 7·3 = 8 + 21 = 29 liters. Because r is increasing, the left endpoint is the lowest point of each subinterval, so every rectangle lies under the graph: an underestimate.
+        - |
+          41 is the right Riemann sum (7·2 + 9·3); the question asks for the left sum, which uses r(0) and r(2).
+      answer: 2
+    - slug: apcalcab-u06-w22-q04
+      type: numeric
+      topic_code: "2.3"
+      source: "AP Calculus CED, Topic 2.3"
+      points: 1
+      stimulus: |
+        During a hypothetical storm, rainwater flows into a barrel at a rate of r(t) liters per minute, where t is measured in minutes. The function r is differentiable, and selected values are shown in the table.
+
+        | t (minutes) | 0 | 2 | 5 | 9 | 10 |
+        |---|---|---|---|---|---|
+        | r(t) (liters per minute) | 4 | 7 | 9 | 6 | 5 |
+      prompt: |
+        Use the data in the table to estimate r′(7), in liters per minute per minute. Give your answer as a decimal.
+      answer: { value: -0.75, tolerance: 0.001 }
+      explanation: |
+        The closest table values that straddle t = 7 are at t = 5 and t = 9, so r′(7) ≈ (r(9) − r(5))/(9 − 5) = (6 − 9)/4 = −0.75 liters per minute per minute. The rate of inflow is falling at about 0.75 L/min each minute around t = 7.
+    # ---- Independent items
+    - slug: apcalcab-u06-w22-q05
+      type: multiple_choice
+      topic_code: "6.1"
+      source: "AP Calculus CED, Topic 6.1"
+      points: 1
+      prompt: |
+        A hypothetical scooter's velocity v(t), in meters per second, increases linearly from 0 at t = 0 to 12 at t = 4 seconds, then stays at 12 until t = 10 seconds. How far does the scooter travel from t = 0 to t = 10?
+      options:
+        - "120 meters"
+        - "72 meters"
+        - "96 meters"
+        - "9.6 meters"
+      option_explanations:
+        - |
+          120 is the 10-by-12 rectangle, as if the scooter had moved at 12 m/s from the start; the first 4 seconds form a triangle, not a rectangle.
+        - |
+          72 counts only the rectangle from t = 4 to t = 10 (6 · 12) and leaves out the triangle from the first 4 seconds.
+        - |
+          Correct. The triangle from 0 to 4 has area ½ · 4 · 12 = 24 and the rectangle from 4 to 10 has area 6 · 12 = 72, so the distance is 24 + 72 = 96 meters.
+        - |
+          9.6 divides the distance by the 10 seconds: that is the average velocity in m/s, not the distance traveled.
+      answer: 2
+    - slug: apcalcab-u06-w22-q06
+      type: multiple_choice
+      topic_code: "6.1"
+      source: "AP Calculus CED, Topic 6.1"
+      points: 1
+      prompt: |
+        The net rate R(t) at which water enters a tank, in liters per hour, is positive on 0 < t < 4 and negative on 4 < t < 6. The region between the graph of R and the t-axis has area 12 on 0 ≤ t ≤ 4 and area 5 on 4 ≤ t ≤ 6. What is the net change in the amount of water in the tank from t = 0 to t = 6?
+      options:
+        - "An increase of 7 liters"
+        - "An increase of 17 liters"
+        - "A decrease of 7 liters"
+        - "An increase of 12 liters"
+      option_explanations:
+        - |
+          Correct. The region above the axis adds 12 liters and the region below subtracts 5 liters, so the net change is 12 − 5 = 7 liters.
+        - |
+          17 adds both areas as if both were inflow; the region below the axis represents water leaving, so its area is subtracted.
+        - |
+          The inflow region (area 12) is larger than the outflow region (area 5), so the amount rises overall rather than falls.
+        - |
+          12 liters is the change only up to t = 4; from t = 4 to t = 6 water leaves and 5 liters must be subtracted.
+      answer: 0
+    - slug: apcalcab-u06-w22-q07
+      type: multiple_choice
+      topic_code: "6.2"
+      source: "AP Calculus CED, Topic 6.2"
+      points: 1
+      prompt: |
+        What is the left Riemann sum for f(x) = x² on the interval [0, 2] using four subintervals of equal width?
+      options:
+        - "3.5"
+        - "1.75"
+        - "3.75"
+        - "2.625"
+      option_explanations:
+        - |
+          3.5 is the sum of the left heights 0 + 0.25 + 1 + 2.25 without multiplying by the width 0.5.
+        - |
+          Correct. Δx = 0.5 and the left endpoints are 0, 0.5, 1, 1.5, so the sum is 0.5(0 + 0.25 + 1 + 2.25) = 0.5 · 3.5 = 1.75.
+        - |
+          3.75 is the right Riemann sum, 0.5(0.25 + 1 + 2.25 + 4), which uses the right endpoints 0.5, 1, 1.5, 2.
+        - |
+          2.625 is the midpoint sum, which evaluates f at 0.25, 0.75, 1.25 and 1.75 rather than at the left endpoints.
+      answer: 1
+    - slug: apcalcab-u06-w22-q08
+      type: multiple_choice
+      topic_code: "6.2"
+      source: "AP Calculus CED, Topic 6.2"
+      points: 1
+      prompt: |
+        A function g is positive, decreasing and concave up on [1, 5]. Using four equal subintervals, which approximation of the area under the graph of g on [1, 5] must be an underestimate?
+      options:
+        - "The left Riemann sum"
+        - "The trapezoidal sum"
+        - "The left Riemann sum with eight equal subintervals"
+        - "The right Riemann sum"
+      option_explanations:
+        - |
+          For a decreasing function the left endpoint is the highest point of each subinterval, so the left sum overestimates.
+        - |
+          On a concave up graph each trapezoid's top edge (a chord) lies above the curve, so the trapezoidal sum overestimates.
+        - |
+          More subintervals make the left sum closer to the true area, but each rectangle still uses the highest point of its strip, so it still overestimates.
+        - |
+          Correct. g is decreasing, so the right endpoint of each subinterval gives the lowest height and every rectangle lies under the graph.
+      answer: 3
+    - slug: apcalcab-u06-w22-q09
+      type: multiple_choice
+      topic_code: "6.2"
+      source: "AP Calculus CED, Topic 6.2"
+      points: 1
+      prompt: |
+        Selected values of a continuous function f are shown.
+
+        | x | 0 | 1 | 2 | 4 | 6 | 7 | 8 |
+        |---|---|---|---|---|---|---|---|
+        | f(x) | 1 | 3 | 4 | 5 | 3 | 2 | 0 |
+
+        Using the three subintervals [0, 2], [2, 6] and [6, 8], what is the midpoint Riemann sum approximation of the area under the graph of f on [0, 8]?
+      options:
+        - "24"
+        - "10"
+        - "30"
+        - "20"
+      option_explanations:
+        - |
+          24 is the left Riemann sum on these subintervals, 2·1 + 4·4 + 2·3, which uses f(0), f(2) and f(6) instead of the midpoints.
+        - |
+          10 adds the midpoint heights f(1) + f(4) + f(7) = 3 + 5 + 2 without multiplying each by its width.
+        - |
+          Correct. The midpoints are 1, 4 and 7 and the widths are 2, 4 and 2, so the sum is 2·3 + 4·5 + 2·2 = 6 + 20 + 4 = 30.
+        - |
+          20 is the right Riemann sum on these subintervals, 2·4 + 4·3 + 2·0, which uses f(2), f(6) and f(8).
+      answer: 2
+    - slug: apcalcab-u06-w22-q10
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "AP Calculus CED, Topic 5.3"
+      points: 1
+      prompt: |
+        The derivative of a function f is f′(x) = (x − 1)(x + 3)². On which interval or intervals is f increasing?
+      options:
+        - "x > 1 only"
+        - "x < −3 and x > 1"
+        - "−3 < x < 1"
+        - "x > −3"
+      option_explanations:
+        - |
+          Correct. (x + 3)² ≥ 0 never changes sign, so the sign of f′ is the sign of x − 1: f′ > 0 exactly when x > 1 (f′(−3) = 0 is an isolated zero, not a change).
+        - |
+          This treats x = −3 as a sign change. The squared factor keeps f′ negative on both sides of −3 (for example f′(−4) = −5).
+        - |
+          On −3 < x < 1, x − 1 < 0 and (x + 3)² > 0, so f′ < 0 and f is decreasing there.
+        - |
+          f′ is negative for −3 < x < 1 (f′(0) = −9), so f is not increasing on all of x > −3.
+      answer: 0
+    - slug: apcalcab-u06-w22-q11
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Calculus CED, Topic 4.2"
+      points: 1
+      prompt: |
+        A particle moves along the x-axis with velocity v(t) = t² − 4t + 3 for t ≥ 0. During which time interval is the particle moving to the left?
+      options:
+        - "0 < t < 1 and t > 3"
+        - "t > 2"
+        - "0 < t < 2"
+        - "1 < t < 3"
+      option_explanations:
+        - |
+          On these intervals v(t) = (t − 1)(t − 3) is positive, so the particle moves to the right there.
+        - |
+          t > 2 is where the acceleration a(t) = 2t − 4 is positive; the direction of motion depends on the sign of v, not a.
+        - |
+          0 < t < 2 is where a(t) = 2t − 4 < 0, which says the velocity is decreasing, not that the particle moves left.
+        - |
+          Correct. v(t) = (t − 1)(t − 3) is negative between its zeros, so the particle moves left for 1 < t < 3.
+      answer: 3
+    - slug: apcalcab-u06-w22-q12
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        What is d/dx [sin(3x²)]?
+      options:
+        - "cos(3x²)"
+        - "6x cos(3x²)"
+        - "−6x cos(3x²)"
+        - "cos(6x)"
+      option_explanations:
+        - |
+          This differentiates the outer sine but forgets the chain rule factor, the derivative 6x of the inner function 3x².
+        - |
+          Correct. Outer derivative cos(3x²) times inner derivative 6x gives 6x cos(3x²).
+        - |
+          The derivative of sine is positive cosine; the negative sign belongs to the derivative of cosine.
+        - |
+          This differentiates the inside and leaves it inside the cosine; the chain rule multiplies by the inner derivative instead.
+      answer: 1
+    - slug: apcalcab-u06-w22-q13
+      type: multi_select
+      topic_code: "6.2"
+      source: "AP Calculus CED, Topic 6.2"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A function h is positive, increasing and concave down on [1, 5]. The area under its graph on [1, 5] is approximated with four equal subintervals. Which statements must be true? Select all that apply.
+      options:
+        - "The left Riemann sum is an underestimate."
+        - "The right Riemann sum is an overestimate."
+        - "The trapezoidal sum is an underestimate."
+        - "The trapezoidal sum is an overestimate."
+        - "The midpoint Riemann sum is an underestimate."
+      option_explanations:
+        - |
+          Correct. h is increasing, so each left endpoint is the lowest point of its subinterval and every left rectangle lies under the graph.
+        - |
+          Correct. h is increasing, so each right endpoint is the highest point of its subinterval and every right rectangle extends above the graph.
+        - |
+          Correct. On a concave down graph the chord joining two points lies below the curve, so each trapezoid misses a sliver of area.
+        - |
+          A trapezoidal sum overestimates only for a concave up graph; here the chords lie under the curve.
+        - |
+          For a concave down function the midpoint sum overestimates: each midpoint rectangle has the same area as the tangent-line trapezoid at the midpoint, and that tangent line lies above the curve.
+      answer: [0, 1, 2]
+    - slug: apcalcab-u06-w22-q14
+      type: multi_select
+      topic_code: "6.1"
+      source: "AP Calculus CED, Topic 6.1"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A hypothetical factory's electrical power use is P(t) kilowatts, t hours after 6 a.m., with P(t) > 0 for 0 ≤ t ≤ 3. Which statements about the area A between the graph of P and the t-axis on 0 ≤ t ≤ 3 are true? Select all that apply.
+      options:
+        - "A is measured in kilowatt-hours."
+        - "A represents the energy the factory uses from 6 a.m. to 9 a.m."
+        - "A is measured in kilowatts per hour."
+        - "Because P(t) > 0, the total energy used since 6 a.m. increases throughout 0 ≤ t ≤ 3."
+        - "P(3) gives the energy used from 6 a.m. to 9 a.m."
+      option_explanations:
+        - |
+          Correct. Area multiplies the vertical units by the horizontal units: kilowatts × hours = kilowatt-hours.
+        - |
+          Correct. P is a rate of energy use, so the area under it over 3 hours is the energy accumulated in those 3 hours.
+        - |
+          Kilowatts per hour would be the units of the rate of change of power, P′(t), not of the area under P.
+        - |
+          Correct. A positive rate means energy keeps accumulating, so the running total is increasing.
+        - |
+          P(3) is the power, a rate in kilowatts, at 9 a.m.; energy used over the interval is the area, not a single rate value.
+      answer: [0, 1, 3]
+    - slug: apcalcab-u06-w22-q15
+      type: true_false
+      topic_code: "6.2"
+      source: "AP Calculus CED, Topic 6.2"
+      points: 1
+      prompt: |
+        True or false: If f is increasing on [a, b], then for any partition of [a, b], the right Riemann sum is greater than or equal to the left Riemann sum.
+      answer: true
+      explanation: |
+        True. On each subinterval the right endpoint value is at least the left endpoint value because f is increasing, and both are multiplied by the same width, so every right term is at least the matching left term.
+    - slug: apcalcab-u06-w22-q16
+      type: true_false
+      topic_code: "6.1"
+      source: "AP Calculus CED, Topic 6.1"
+      points: 1
+      prompt: |
+        True or false: If the rate at which a quantity changes is negative on an interval, the accumulated change in the quantity over that interval is positive, because areas are always positive.
+      answer: false
+      explanation: |
+        False. The geometric area of the region is positive, but the region lies below the t-axis, so it represents a decrease: the accumulated (net) change over the interval is negative.
+    - slug: apcalcab-u06-w22-q17
+      type: fill_blank
+      topic_code: "6.2"
+      source: "AP Calculus CED, Topic 6.2"
+      points: 1
+      prompt: |
+        The right Riemann sum for f(x) = 3x on [0, 4] using two subintervals of equal width is ____.
+      answer: ["36"]
+      explanation: |
+        Δx = 2 and the right endpoints are 2 and 4, so the sum is 2(f(2) + f(4)) = 2(6 + 12) = 36. (The exact area is 24; the right sum overestimates because f is increasing.)
+    - slug: apcalcab-u06-w22-q18
+      type: fill_blank
+      topic_code: "5.5"
+      source: "AP Calculus CED, Topic 5.5"
+      points: 1
+      prompt: |
+        The absolute maximum value of f(x) = x³ − 3x on the closed interval [0, 2] is ____.
+      answer: ["2"]
+      explanation: |
+        f′(x) = 3x² − 3 = 0 at x = 1 in the interval. Candidates: f(0) = 0, f(1) = −2, f(2) = 8 − 6 = 2. The largest is 2, at x = 2.
+    - slug: apcalcab-u06-w22-q19
+      type: numeric
+      topic_code: "6.2"
+      source: "AP Calculus CED, Topic 6.2"
+      points: 1
+      prompt: |
+        Selected values of a continuous function g are shown.
+
+        | x | 0 | 0.5 | 1.5 | 3 |
+        |---|---|---|---|---|
+        | g(x) | 2 | 3 | 5 | 4 |
+
+        What is the trapezoidal sum approximation of the area under g on [0, 3], using the three subintervals of the table?
+      answer: { value: 12, tolerance: 0.001 }
+      explanation: |
+        The widths are 0.5, 1 and 1.5. T = 0.5 · (2 + 3)/2 + 1 · (3 + 5)/2 + 1.5 · (5 + 4)/2 = 1.25 + 4 + 6.75 = 12.
+    - slug: apcalcab-u06-w22-q20
+      type: numeric
+      topic_code: "4.6"
+      source: "AP Calculus CED, Topic 4.6"
+      points: 1
+      prompt: |
+        Use the line tangent to f(x) = √x at x = 9 to approximate √9.4. Give your answer to three decimal places.
+      answer: { value: 3.067, tolerance: 0.001 }
+      explanation: |
+        f(9) = 3 and f′(x) = 1/(2√x), so f′(9) = 1/6. The tangent line is L(x) = 3 + (1/6)(x − 9), and L(9.4) = 3 + 0.4/6 ≈ 3.067.
+    - slug: apcalcab-u06-w22-q21
+      type: short_answer
+      topic_code: "5.1"
+      source: "AP Calculus CED, Topic 5.1"
+      points: 3
+      prompt: |
+        The temperature of a hypothetical cup of cocoa being reheated is T(t) degrees Fahrenheit, t minutes after heating starts. T is differentiable, and selected values are shown.
+
+        | t (minutes) | 0 | 5 | 12 | 20 |
+        |---|---|---|---|---|
+        | T(t) (°F) | 70 | 82 | 96 | 104 |
+
+        (a) Find the average rate of change of T over 5 ≤ t ≤ 12, with units.
+        (b) Must there be a time t in 5 < t < 12 at which T′(t) equals your answer to (a)? Justify.
+        (c) Must there be a time t in 5 < t < 12 at which T(t) = 90? Justify.
+      answer: |
+        (a) (96 − 82)/(12 − 5) = 14/7 = 2 degrees Fahrenheit per minute.
+        (b) Yes. T is differentiable, so it is continuous on [5, 12] and differentiable on (5, 12). By the Mean Value Theorem there is a c in (5, 12) with T′(c) = (T(12) − T(5))/(12 − 5) = 2.
+        (c) Yes. T is continuous on [5, 12] (differentiable implies continuous) and T(5) = 82 < 90 < 96 = T(12), so by the Intermediate Value Theorem there is a t in (5, 12) with T(t) = 90.
+      explanation: |
+        Three points. (a) 1 point for 2 °F per minute with units. (b) 1 point for invoking the Mean Value Theorem with its hypotheses (continuous on the closed interval, differentiable on the open interval, both following from differentiability). (c) 1 point for invoking the Intermediate Value Theorem with continuity and 82 < 90 < 96.
+    - slug: apcalcab-u06-w22-q22
+      type: short_answer
+      topic_code: "6.1"
+      source: "AP Calculus CED, Topic 6.1"
+      points: 3
+      prompt: |
+        A hypothetical cyclist's velocity v(t), in meters per second, is linear from v(0) = 2 to v(4) = 6, constant at 6 from t = 4 to t = 7, and then linear from v(7) = 6 down to v(9) = 0, with t in seconds.
+
+        (a) Find the distance the cyclist travels from t = 0 to t = 9 seconds. Show the geometry you use.
+        (b) Explain why the area under the velocity graph gives a distance, referring to units.
+        (c) At what time on 0 ≤ t ≤ 9 has the cyclist traveled exactly half of the distance in (a)?
+      answer: |
+        (a) Trapezoid on [0, 4]: 4 · (2 + 6)/2 = 16 m. Rectangle on [4, 7]: 3 · 6 = 18 m. Triangle on [7, 9]: ½ · 2 · 6 = 6 m. Total 16 + 18 + 6 = 40 meters.
+        (b) Each thin strip has height in meters per second and width in seconds, so its area is (m/s)(s) = meters, the distance covered in that short time; adding the strips accumulates the distance. Since v ≥ 0, the net change in position equals the distance traveled.
+        (c) Half is 20 m. By t = 4 the cyclist has gone 16 m, and from then on travels 6 m each second, so 4 more meters takes 4/6 = 2/3 s: t = 4 + 2/3 = 14/3 ≈ 4.667 seconds.
+      explanation: |
+        Three points, one per part. (a) 40 meters with the three regions shown. (b) the units argument (m/s times s gives m) tied to accumulation. (c) t = 14/3 seconds (about 4.667), found from 16 m by t = 4 plus 4 m at 6 m/s.
+    - slug: apcalcab-u06-w22-q23
+      type: long_answer
+      topic_code: "6.2"
+      source: "AP Calculus CED, Topic 6.2"
+      points: 6
+      prompt: |
+        Visitors enter a hypothetical museum at a rate of E(t) people per hour, where t is the number of hours after the museum opens. E is continuous, increasing on 0 ≤ t ≤ 4 and decreasing on 4 ≤ t ≤ 8. Selected values are shown.
+
+        | t (hours) | 0 | 1 | 3 | 4 | 7 | 8 |
+        |---|---|---|---|---|---|---|
+        | E(t) (people per hour) | 120 | 180 | 260 | 300 | 210 | 150 |
+
+        (A) In the context of the problem, explain what the area between the graph of E and the t-axis on 0 ≤ t ≤ 8 represents, and give its units.
+
+        (B) Use a left Riemann sum with the five subintervals indicated by the table to approximate the number of people who enter during the first 8 hours.
+
+        (C) Use a trapezoidal sum with the same five subintervals to approximate the same quantity.
+
+        (D) Using the left Riemann sum on the three subintervals of 0 ≤ t ≤ 4 only, approximate the number of people who enter during the first 4 hours. Is this approximation an overestimate or an underestimate? Explain.
+      answer: |
+        (A) It represents the total number of people who enter the museum during the first 8 hours after it opens. Units: (people per hour) × (hours) = people.
+        (B) Widths 1, 2, 1, 3, 1. L = 120·1 + 180·2 + 260·1 + 300·3 + 210·1 = 120 + 360 + 260 + 900 + 210 = 1850 people.
+        (C) T = 1·(120 + 180)/2 + 2·(180 + 260)/2 + 1·(260 + 300)/2 + 3·(300 + 210)/2 + 1·(210 + 150)/2 = 150 + 440 + 280 + 765 + 180 = 1815 people.
+        (D) 120·1 + 180·2 + 260·1 = 740 people. It is an underestimate: E is increasing on 0 ≤ t ≤ 4, so on each subinterval the left endpoint gives the smallest value of E and each rectangle lies below the graph.
+      explanation: |
+        Six points. (A) 1 point for the interpretation (number of people entering over the 8 hours) and 1 point for the units, people. (B) 1 point for 1850 with the unequal widths used correctly. (C) 1 point for 1815. (D) 1 point for 740 and 1 point for "underestimate" justified by E increasing on the interval (left endpoints are the minimum heights). A verdict without the increasing reason earns no point for the justification.

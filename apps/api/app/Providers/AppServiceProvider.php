@@ -90,6 +90,11 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('page-head', fn (Request $request) => Limit::perMinute(600)
             ->by('page-head:'.$request->ip()));
 
+        // GET /api/page-image: preview bots fetch a card per shared link; a
+        // card is drawn once and then served from the cache.
+        RateLimiter::for('page-image', fn (Request $request) => Limit::perMinute(120)
+            ->by('page-image:'.$request->ip()));
+
         RateLimiter::for('admin-resend', fn (Request $request) => Limit::perMinute(6)
             ->by('admin-resend:'.($request->user()?->id ?? $request->ip())));
     }

@@ -1,0 +1,666 @@
+week: 5
+unit: 1
+title: "Infinite Limits, Limits at Infinity and the Intermediate Value Theorem"
+topics: ["1.14", "1.15", "1.16"]
+guide: guides/week-05.md
+guide_description: |
+  Infinite limits and how sign analysis decides ∞ or −∞ on each side of a vertical asymptote (and why a
+  cancelled factor gives a hole instead); limits at infinity for rational functions by degree, for functions
+  with √(x²) where the two ends differ, and for exponentials, with horizontal asymptotes as their graphs; and
+  the Intermediate Value Theorem, its hypotheses and the sentence that earns the point. Worked examples: the
+  one-sided limits of (2x² − 2)/(x² − 4x + 3), three rational limits at infinity, the two horizontal asymptotes
+  of (4x − 1)/√(x² + 3), a zero of x³ + x − 1 on [0, 1], and a hypothetical greenhouse temperature table.
+flashcards_description: |
+  31 cards on infinite limits and vertical asymptotes, sign analysis, limits at infinity and horizontal
+  asymptotes (rational, radical and exponential cases), and the Intermediate Value Theorem with its
+  hypotheses and typical uses.
+
+flashcards:
+  - front: lim (x→c) f(x) = ∞ → meaning and graph
+    back: |
+      f(x) grows past every bound as x → c. The limit does not exist as a number; the line x = c is a vertical asymptote.
+    topic_code: "1.14"
+  - front: Vertical asymptote x = c → limit definition
+    back: |
+      At least one of lim (x→c⁻) f(x) and lim (x→c⁺) f(x) is ∞ or −∞.
+    topic_code: "1.14"
+  - front: Nonzero numerator over a denominator approaching 0 → how to decide ∞ or −∞
+    back: |
+      Test the sign of numerator and denominator just to the left and just to the right of c. Same signs give ∞; opposite signs give −∞.
+    topic_code: "1.14"
+  - front: (x + 1)/(x − 3) as x → 3⁺ and x → 3⁻ → one-sided limits
+    back: |
+      Numerator → 4. Right: denominator small positive, so ∞. Left: small negative, so −∞.
+    topic_code: "1.14"
+  - front: (2 − x)/(x² − 1) as x → 1⁻ → limit
+    back: |
+      Numerator → 1; (x − 1)(x + 1) is a small negative number, so the limit is −∞.
+    topic_code: "1.14"
+  - front: Squared factor (x − c)² in a denominator → behaviour on the two sides
+    back: |
+      (x − c)² is positive on both sides, so both one-sided limits have the same sign (both ∞ or both −∞).
+    topic_code: "1.14"
+  - front: Zero of the denominator that cancels with the numerator → asymptote or hole?
+    back: |
+      A hole (removable), as long as no factor (x − c) is left in the denominator. Example: (x² − 4)/(x² − x − 2) has a hole at x = 2 and an asymptote at x = −1.
+    topic_code: "1.14"
+  - front: (2x² − 2)/(x² − 4x + 3) → hole and vertical asymptote
+    back: |
+      2(x − 1)(x + 1)/((x − 1)(x − 3)): hole at (1, −2); vertical asymptote x = 3, with −∞ from the left and ∞ from the right.
+    topic_code: "1.14"
+  - front: Other common vertical asymptotes → tan x and ln x
+    back: |
+      tan x at x = π/2 + nπ; ln x at x = 0 (lim (x→0⁺) ln x = −∞).
+    topic_code: "1.14"
+  - front: lim (x→∞) f(x) = L → meaning and graph
+    back: |
+      f(x) gets as close to L as we like for all large enough x. The line y = L is a horizontal asymptote.
+    topic_code: "1.15"
+  - front: Rational limit at ±∞, degree of numerator < degree of denominator → limit
+    back: |
+      0. Horizontal asymptote y = 0.
+    topic_code: "1.15"
+  - front: Rational limit at ±∞, equal degrees → limit
+    back: |
+      The ratio of leading coefficients. (3x² − 5x)/(6x² + 1) → 3/6 = 1/2.
+    topic_code: "1.15"
+  - front: Rational limit at ±∞, numerator degree larger → limit
+    back: |
+      Unbounded (∞ or −∞; check the signs of the leading terms). No horizontal asymptote.
+    topic_code: "1.15"
+  - front: Dividing by the highest power of x → why it works at infinity
+    back: |
+      Every term like 5/x or 1/x² approaches 0, leaving only the ratio of the leading terms.
+    topic_code: "1.15"
+  - front: (5x³ − x)/(1 − 2x³) as x → −∞ → limit
+    back: |
+      Equal degrees: 5/(−2) = −5/2.
+    topic_code: "1.15"
+  - front: √(x²) as x → −∞ → what to replace it with
+    back: |
+      |x| = −x for negative x. Dividing √(x² + 3) by x when x < 0 gives −√(1 + 3/x²).
+    topic_code: "1.15"
+  - front: (4x − 1)/√(x² + 3) → its two horizontal asymptotes
+    back: |
+      y = 4 as x → ∞ and y = −4 as x → −∞ (because √(x²) = |x|).
+    topic_code: "1.15"
+  - front: eˣ at the two ends → limits
+    back: |
+      lim (x→−∞) eˣ = 0 (asymptote y = 0); lim (x→∞) eˣ = ∞.
+    topic_code: "1.15"
+  - front: (cos x)/x as x → ∞ → limit and method
+    back: |
+      0, by squeezing: −1/x ≤ (cos x)/x ≤ 1/x for x > 0, and both bounds → 0.
+    topic_code: "1.15"
+  - front: Growth order at infinity → ranking
+    back: |
+      ln x grows slower than any positive power of x, which grows slower than eˣ.
+    topic_code: "1.15"
+  - front: Intermediate Value Theorem → full statement
+    back: |
+      If f is continuous on [a, b] and N is any number between f(a) and f(b), then f(c) = N for at least one c in (a, b).
+    topic_code: "1.16"
+  - front: IVT justification → the two things to state
+    back: |
+      (1) f is continuous on [a, b] (and why). (2) N is between f(a) and f(b), with both values shown. Then conclude: there is c in (a, b) with f(c) = N.
+    topic_code: "1.16"
+  - front: IVT for zeros → special case
+    back: |
+      If f is continuous on [a, b] and f(a), f(b) have opposite signs, f has a zero in (a, b).
+    topic_code: "1.16"
+  - front: x³ + x − 1 on [0, 1] → IVT conclusion
+    back: |
+      Polynomial, so continuous; f(0) = −1 < 0 < 1 = f(1). There is c in (0, 1) with f(c) = 0.
+    topic_code: "1.16"
+  - front: IVT → what it does not tell you
+    back: |
+      Where c is, or how many such c exist (only "at least one"). And nothing at all if f is not continuous.
+    topic_code: "1.16"
+  - front: Greenhouse temperatures 14, 19, 26, 22, 17 at t = 0, 3, 5, 8, 12 → fewest times T = 20
+    back: |
+      Two: once on (3, 5) (19 to 26) and once on (8, 12) (22 to 17), assuming T is continuous.
+    topic_code: "1.16"
+  - front: Table question with IVT → how to count guaranteed solutions
+    back: |
+      Count consecutive intervals where the target value lies strictly between (or equals) the endpoint values. Each gives at least one solution.
+    topic_code: "1.16"
+  - front: 1/(x − 0.5) on [0, 1] → why IVT does not give a zero
+    back: |
+      The values change sign (−2 to 2), but the function is not continuous at 0.5, and in fact it is never 0.
+    topic_code: "1.16"
+  - front: Error-spot → "lim (x→3) (x + 1)/(x − 3) = ∞"
+    back: |
+      The two sides differ: −∞ from the left, ∞ from the right. Write the one-sided limits separately.
+    topic_code: "1.14"
+  - front: Error-spot → "(4x − 1)/√(x² + 3) → 4 at both ends"
+    back: |
+      √(x²) = |x|, which is −x when x is negative, so the limit as x → −∞ is −4.
+    topic_code: "1.15"
+  - front: Error-spot → "f(1) = −2 and f(3) = 5, so f has a zero in (1, 3)"
+    back: |
+      Only if f is continuous on [1, 3]. State that hypothesis, with a reason, before applying the IVT.
+    topic_code: "1.16"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (topics 1.14 to 1.16: infinite limits and vertical
+    asymptotes, limits at infinity and horizontal asymptotes, and the Intermediate Value Theorem), with 8
+    questions (32%) reviewing weeks 1 to 4 (average rate of change, algebraic limits, the squeeze theorem,
+    discontinuity types, continuity and removing discontinuities). Opens with a shared-context set of four
+    questions on a hypothetical greenhouse temperature table. Multiple choice, select-all, true/false and numeric
+    items are graded at once; fill-in-the-blank items are matched automatically; the short answers and the long
+    answer are graded by your teacher against the scoring notes. No calculator.
+  questions:
+    # ---- Stimulus set: a greenhouse temperature table (1.16, 1.1)
+    - slug: apcalcab-u01-w05-q01
+      type: multiple_choice
+      topic_code: "1.16"
+      source: "AP Calculus CED, Topic 1.16"
+      points: 1
+      stimulus: |
+        The temperature inside a hypothetical greenhouse, T(t) degrees Celsius, is a continuous function of time t, in hours after 6 a.m., for 0 ≤ t ≤ 12. Selected values are shown.
+
+        | t (hours) | 0 | 3 | 5 | 8 | 12 |
+        |---|---|---|---|---|---|
+        | T(t) (°C) | 14 | 19 | 26 | 22 | 17 |
+      prompt: |
+        On which interval or intervals does the Intermediate Value Theorem guarantee a time when T(t) = 24?
+      options:
+        - "(3, 5) and (5, 8)"
+        - "(3, 5) only"
+        - "(8, 12) only"
+        - "(0, 3) and (3, 5)"
+      option_explanations:
+        - |
+          Correct. 24 is between T(3) = 19 and T(5) = 26, and also between T(5) = 26 and T(8) = 22. T is continuous, so each interval contains a time with T(t) = 24.
+        - |
+          This misses (5, 8): the temperature falls from 26 to 22, passing 24 on the way down.
+        - |
+          On [8, 12] the temperature goes from 22 to 17; 24 is not between those values.
+        - |
+          On [0, 3] the temperature goes from 14 to 19; 24 is not between them.
+      answer: 0
+    - slug: apcalcab-u01-w05-q02
+      type: multiple_choice
+      topic_code: "1.16"
+      source: "AP Calculus CED, Topic 1.16"
+      points: 1
+      stimulus: |
+        The temperature inside a hypothetical greenhouse, T(t) degrees Celsius, is a continuous function of time t, in hours after 6 a.m., for 0 ≤ t ≤ 12. Selected values are shown.
+
+        | t (hours) | 0 | 3 | 5 | 8 | 12 |
+        |---|---|---|---|---|---|
+        | T(t) (°C) | 14 | 19 | 26 | 22 | 17 |
+      prompt: |
+        What is the least number of times in 0 < t < 12 at which T(t) = 20 must occur?
+      options:
+        - "1"
+        - "2"
+        - "3"
+        - "0, because 20 is not in the table"
+      option_explanations:
+        - |
+          One crossing occurs on (3, 5), but the temperature also falls from 22 to 17 on (8, 12), passing 20 again.
+        - |
+          Correct. 20 lies between 19 and 26 (on (3, 5)) and between 22 and 17 (on (8, 12)). The IVT gives at least one time in each, so at least two.
+        - |
+          On (5, 8) the temperature goes from 26 to 22, both above 20, so no crossing is guaranteed there.
+        - |
+          The IVT finds values that are not listed; it only needs 20 to be between two listed values of a continuous function.
+      answer: 1
+    - slug: apcalcab-u01-w05-q03
+      type: multiple_choice
+      topic_code: "1.16"
+      source: "AP Calculus CED, Topic 1.16"
+      points: 1
+      stimulus: |
+        The temperature inside a hypothetical greenhouse, T(t) degrees Celsius, is a continuous function of time t, in hours after 6 a.m., for 0 ≤ t ≤ 12. Selected values are shown.
+
+        | t (hours) | 0 | 3 | 5 | 8 | 12 |
+        |---|---|---|---|---|---|
+        | T(t) (°C) | 14 | 19 | 26 | 22 | 17 |
+      prompt: |
+        Which conclusion about the greenhouse is justified by the Intermediate Value Theorem?
+      options:
+        - "The temperature was never above 26 °C."
+        - "The temperature was increasing on 0 < t < 5."
+        - "At some time between t = 0 and t = 3, the temperature was exactly 16 °C."
+        - "The temperature was exactly 26 °C at only one time."
+      option_explanations:
+        - |
+          The table gives only five values; T could rise above 26 between them. The IVT gives values between data, not bounds.
+        - |
+          Increasing or decreasing behaviour cannot be read from the IVT; T could dip between the listed times.
+        - |
+          Correct. T is continuous on [0, 3] and 16 is between T(0) = 14 and T(3) = 19, so T(c) = 16 for some c in (0, 3).
+        - |
+          The IVT guarantees at least one time for a value, never exactly one.
+      answer: 2
+    - slug: apcalcab-u01-w05-q04
+      type: multiple_choice
+      topic_code: "1.1"
+      source: "AP Calculus CED, Topic 1.1"
+      points: 1
+      stimulus: |
+        The temperature inside a hypothetical greenhouse, T(t) degrees Celsius, is a continuous function of time t, in hours after 6 a.m., for 0 ≤ t ≤ 12. Selected values are shown.
+
+        | t (hours) | 0 | 3 | 5 | 8 | 12 |
+        |---|---|---|---|---|---|
+        | T(t) (°C) | 14 | 19 | 26 | 22 | 17 |
+      prompt: |
+        What is the average rate of change of T over 5 ≤ t ≤ 12?
+      options:
+        - "−9 °C per hour"
+        - "−7/9 °C per hour"
+        - "17/12 °C per hour"
+        - "−9/7 °C per hour"
+      option_explanations:
+        - |
+          −9 °C is the change in temperature; it still has to be divided by the 7 hours that pass.
+        - |
+          −7/9 divides the change in time by the change in temperature: the fraction is upside down.
+        - |
+          17/12 divides T(12) by 12, which is an average from t = 0 using only one temperature, not a rate on [5, 12].
+        - |
+          Correct. (T(12) − T(5))/(12 − 5) = (17 − 26)/7 = −9/7 °C per hour.
+      answer: 3
+    # ---- Independent items
+    - slug: apcalcab-u01-w05-q05
+      type: multiple_choice
+      topic_code: "1.14"
+      source: "AP Calculus CED, Topic 1.14"
+      points: 1
+      prompt: |
+        What is lim (x→3⁺) (x + 1)/(x − 3)?
+      options:
+        - "−∞"
+        - "1"
+        - "∞"
+        - "0"
+      option_explanations:
+        - |
+          −∞ is the left-hand limit. For x slightly greater than 3, x − 3 is positive.
+        - |
+          1 is the limit as x → ∞ (equal degrees, leading coefficients 1 and 1), not as x → 3.
+        - |
+          Correct. The numerator approaches 4 and the denominator is a small positive number for x slightly greater than 3, so the quotient grows without bound: ∞.
+        - |
+          A denominator heading to 0 makes the quotient large, not small.
+      answer: 2
+    - slug: apcalcab-u01-w05-q06
+      type: multiple_choice
+      topic_code: "1.14"
+      source: "AP Calculus CED, Topic 1.14"
+      points: 1
+      prompt: |
+        Which lines are vertical asymptotes of the graph of y = (x² − 4)/(x² − x − 2)?
+      options:
+        - "x = −1 only"
+        - "x = 2 and x = −1"
+        - "x = 2 only"
+        - "x = −2 and x = 2"
+      option_explanations:
+        - |
+          Correct. (x − 2)(x + 2)/((x − 2)(x + 1)) = (x + 2)/(x + 1) for x ≠ 2. The factor x − 2 cancels (a hole at x = 2); x + 1 remains, so x = −1 is the only vertical asymptote.
+        - |
+          x = 2 makes the original denominator 0, but the factor cancels, giving a hole, not an asymptote.
+        - |
+          x = 2 is the hole. The remaining denominator factor x + 1 gives the asymptote x = −1.
+        - |
+          These are the zeros of the numerator; x = −2 is an x-intercept and x = 2 is a hole.
+      answer: 0
+    - slug: apcalcab-u01-w05-q07
+      type: multiple_choice
+      topic_code: "1.14"
+      source: "AP Calculus CED, Topic 1.14"
+      points: 1
+      prompt: |
+        What is lim (x→1⁻) (2 − x)/(x² − 1)?
+      options:
+        - "∞"
+        - "1/2"
+        - "0"
+        - "−∞"
+      option_explanations:
+        - |
+          ∞ is the right-hand limit. For x slightly less than 1, x² − 1 is negative.
+        - |
+          1/2 would come from cancelling a factor, but 2 − x is not a factor of x² − 1; the numerator approaches 1, not 0.
+        - |
+          A nonzero numerator over a denominator approaching 0 gives an unbounded quotient, not 0.
+        - |
+          Correct. The numerator approaches 1. For x slightly less than 1, (x − 1)(x + 1) is a small negative number, so the quotient is large and negative.
+      answer: 3
+    - slug: apcalcab-u01-w05-q08
+      type: multiple_choice
+      topic_code: "1.15"
+      source: "AP Calculus CED, Topic 1.15"
+      points: 1
+      prompt: |
+        What is lim (x→∞) (3x² − 5x)/(6x² + 1)?
+      options:
+        - "0"
+        - "1/2"
+        - "∞"
+        - "−5"
+      option_explanations:
+        - |
+          0 is the limit when the denominator has the higher degree; here the degrees are equal.
+        - |
+          Correct. Divide every term by x²: (3 − 5/x)/(6 + 1/x²) → 3/6 = 1/2.
+        - |
+          The numerator does grow without bound, but so does the denominator, at the same rate.
+        - |
+          −5 is the ratio of the x-coefficient to the constant term; at infinity the leading terms dominate.
+      answer: 1
+    - slug: apcalcab-u01-w05-q09
+      type: multiple_choice
+      topic_code: "1.15"
+      source: "AP Calculus CED, Topic 1.15"
+      points: 1
+      prompt: |
+        Which lines are horizontal asymptotes of the graph of y = (4x − 1)/√(x² + 3)?
+      options:
+        - "y = 4 and y = −4"
+        - "y = 4 only"
+        - "y = 0 only"
+        - "There are none."
+      option_explanations:
+        - |
+          Correct. √(x² + 3) behaves like |x|. As x → ∞ the quotient → 4x/x = 4; as x → −∞ it → 4x/(−x) = −4.
+        - |
+          This treats √(x²) as x for negative x too; for x < 0, √(x²) = −x, giving −4 at the left end.
+        - |
+          The numerator and denominator both grow like a first power of x, so the quotient does not shrink to 0.
+        - |
+          The quotient approaches finite values at both ends, so asymptotes exist.
+      answer: 0
+    - slug: apcalcab-u01-w05-q10
+      type: multiple_choice
+      topic_code: "1.15"
+      source: "AP Calculus CED, Topic 1.15"
+      points: 1
+      prompt: |
+        What is lim (x→∞) (x³ + 1)/(2x² − 7)?
+      options:
+        - "1/2"
+        - "0"
+        - "∞"
+        - "−1/7"
+      option_explanations:
+        - |
+          1/2 is the ratio of leading coefficients, which is the limit only when the degrees are equal.
+        - |
+          0 is the limit when the denominator's degree is larger; here the numerator's is.
+        - |
+          Correct. The numerator has degree 3 and the denominator degree 2; dividing by x² gives (x + 1/x²)/(2 − 7/x²), which grows without bound.
+        - |
+          −1/7 is the ratio of constant terms, the value at x = 0, not the behaviour at infinity.
+      answer: 2
+    - slug: apcalcab-u01-w05-q11
+      type: multiple_choice
+      topic_code: "1.16"
+      source: "AP Calculus CED, Topic 1.16"
+      points: 1
+      prompt: |
+        For which function does the Intermediate Value Theorem guarantee a zero in the interval (0, 1)?
+      options:
+        - "f(x) = 1/(x − 0.5)"
+        - "f(x) = x² + 1"
+        - "f(x) = −1 for x < 0.5 and f(x) = 1 for x ≥ 0.5"
+        - "f(x) = x³ + x − 1"
+      option_explanations:
+        - |
+          The values at 0 and 1 have opposite signs (−2 and 2), but f is not continuous at x = 0.5, so the IVT does not apply; and f is never 0.
+        - |
+          x² + 1 is continuous, but f(0) = 1 and f(1) = 2 are both positive, so no sign change is guaranteed (it has no real zeros).
+        - |
+          The values change sign, but the jump at 0.5 breaks continuity, and f never equals 0.
+        - |
+          Correct. A polynomial is continuous on [0, 1], and f(0) = −1 < 0 < 1 = f(1), so f(c) = 0 for some c in (0, 1).
+      answer: 3
+    - slug: apcalcab-u01-w05-q12
+      type: multiple_choice
+      topic_code: "1.16"
+      source: "AP Calculus CED, Topic 1.16"
+      points: 1
+      prompt: |
+        A function g is continuous on [2, 6], with g(2) = 9 and g(6) = −3. Which statement must be true?
+      options:
+        - "g(4) = 3"
+        - "g(c) = 0 for some c in (2, 6)."
+        - "g is decreasing on [2, 6]."
+        - "g(c) = 10 for some c in (2, 6)."
+      option_explanations:
+        - |
+          The IVT says g takes the value 3 somewhere in (2, 6), not that it does so at the midpoint.
+        - |
+          Correct. g is continuous on [2, 6] and 0 is between g(6) = −3 and g(2) = 9, so by the IVT g(c) = 0 for some c in (2, 6).
+        - |
+          A continuous function can rise and fall between its endpoint values; only the endpoint values are known.
+        - |
+          10 is not between −3 and 9, so the IVT says nothing about it (g might or might not reach 10).
+      answer: 1
+    # ---- Spiral review: weeks 1 to 4
+    - slug: apcalcab-u01-w05-q13
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "AP Calculus CED, Topic 1.13"
+      points: 1
+      prompt: |
+        Let f(x) = 3x − k for x < 1 and f(x) = kx² + 1 for x ≥ 1. For what value of k is f continuous at x = 1?
+      options:
+        - "2"
+        - "−1"
+        - "1"
+        - "1/2"
+      option_explanations:
+        - |
+          k = 2 solves 3 − k = 1, forgetting the k in the right piece k(1)² + 1.
+        - |
+          −1 is a sign slip: from 3 − k = k + 1, 2 = 2k gives k = 1, not −1.
+        - |
+          Correct. Left-hand limit 3 − k; right-hand limit and value k + 1. Setting 3 − k = k + 1 gives k = 1 (both sides equal 2).
+        - |
+          1/2 comes from solving 3 − k = k + 2, adding 1 twice on the right.
+      answer: 2
+    - slug: apcalcab-u01-w05-q14
+      type: multiple_choice
+      topic_code: "1.10"
+      source: "AP Calculus CED, Topic 1.10"
+      points: 1
+      prompt: |
+        What type of discontinuity does f(x) = (x² − 1)/(x² + x − 2) have at x = 1?
+      options:
+        - "Infinite"
+        - "Jump"
+        - "f is continuous at x = 1."
+        - "Removable"
+      option_explanations:
+        - |
+          The factor x − 1 cancels completely, so the outputs stay bounded near 1; the infinite discontinuity is at x = −2.
+        - |
+          A rational function cannot jump: away from asymptotes both sides of the simplified formula approach the same value.
+        - |
+          f(1) is undefined (the denominator is 1 + 1 − 2 = 0), so f is not continuous there.
+        - |
+          Correct. (x − 1)(x + 1)/((x + 2)(x − 1)) = (x + 1)/(x + 2) for x ≠ 1, with limit 2/3 at x = 1, but f(1) is undefined: a hole.
+      answer: 3
+    - slug: apcalcab-u01-w05-q15
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        What is lim (x→0) (√(4 + x) − 2)/(3x)?
+      options:
+        - "1/12"
+        - "1/4"
+        - "1/6"
+        - "0"
+      option_explanations:
+        - |
+          Correct. Multiply by the conjugate: (4 + x − 4)/(3x(√(4 + x) + 2)) = 1/(3(√(4 + x) + 2)), which approaches 1/(3 · 4) = 1/12.
+        - |
+          1/4 is the limit without the factor 3 in the denominator.
+        - |
+          1/6 evaluates √(4 + x) + 2 as 2 instead of 4, then keeps the factor 3.
+        - |
+          Substitution gives 0/0, which is indeterminate, not 0.
+      answer: 0
+    - slug: apcalcab-u01-w05-q16
+      type: multi_select
+      topic_code: "1.15"
+      source: "AP Calculus CED, Topic 1.15"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let f(x) = (2x² + 3)/(x² − 9). Which statements are true? Select all that apply.
+      options:
+        - "The line y = 2 is a horizontal asymptote of the graph of f."
+        - "The lines x = 3 and x = −3 are vertical asymptotes of the graph of f."
+        - "lim (x→3⁺) f(x) = ∞"
+        - "lim (x→−∞) f(x) = −2"
+        - "The line y = 0 is a horizontal asymptote of the graph of f."
+      option_explanations:
+        - |
+          Correct. Equal degrees: the limit at ±∞ is 2/1 = 2.
+        - |
+          Correct. x² − 9 = (x − 3)(x + 3) is 0 at ±3, and the numerator 2x² + 3 is never 0, so nothing cancels.
+        - |
+          Correct. The numerator approaches 21 > 0 and, for x slightly greater than 3, the denominator is a small positive number.
+        - |
+          Even powers make both ends behave the same: the limit as x → −∞ is also 2.
+        - |
+          y = 0 would need the denominator to have the higher degree; the degrees are equal.
+      answer: [0, 1, 2]
+    - slug: apcalcab-u01-w05-q17
+      type: multi_select
+      topic_code: "1.12"
+      source: "AP Calculus CED, Topic 1.12"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which functions are continuous on the closed interval [−1, 3]? Select all that apply.
+      options:
+        - "y = √(x + 1)"
+        - "y = 1/(x − 4)"
+        - "y = ln x"
+        - "y = (x + 1)/(x² − 4)"
+        - "y = eˣ sin x"
+      option_explanations:
+        - |
+          Correct. Defined for x ≥ −1 and right-continuous at −1 (lim (x→−1⁺) √(x + 1) = 0), so continuous on [−1, 3].
+        - |
+          Correct. The only break is at x = 4, outside the interval.
+        - |
+          ln x is undefined for x ≤ 0, which includes part of [−1, 3].
+        - |
+          The denominator is 0 at x = 2, inside the interval (and at x = −2, outside it).
+        - |
+          Correct. A product of functions continuous everywhere is continuous everywhere.
+      answer: [0, 1, 4]
+    - slug: apcalcab-u01-w05-q18
+      type: true_false
+      topic_code: "1.16"
+      source: "AP Calculus CED, Topic 1.16"
+      points: 1
+      prompt: |
+        True or false: If f(a) and f(b) have opposite signs, then f has a zero somewhere in (a, b).
+      answer: false
+      explanation: |
+        False. The IVT needs f to be continuous on [a, b]. For example f(x) = 1/x has f(−1) = −1 and f(1) = 1 but is never 0; it is not continuous at x = 0.
+    - slug: apcalcab-u01-w05-q19
+      type: true_false
+      topic_code: "1.14"
+      source: "AP Calculus CED, Topic 1.14"
+      points: 1
+      prompt: |
+        True or false: A rational function has a vertical asymptote at every zero of its denominator.
+      answer: false
+      explanation: |
+        False. If the factor causing the zero cancels completely with the numerator, the graph has a hole instead. For example (x² − 4)/(x − 2) = x + 2 for x ≠ 2 has a hole at x = 2 and no asymptote.
+    - slug: apcalcab-u01-w05-q20
+      type: fill_blank
+      topic_code: "1.15"
+      source: "AP Calculus CED, Topic 1.15"
+      points: 1
+      prompt: |
+        lim (x→−∞) (5x³ − x)/(1 − 2x³) = ____.
+      answer: ["-5/2", "−5/2", "-2.5", "−2.5"]
+      explanation: |
+        The degrees are equal (3 and 3), so the limit is the ratio of leading coefficients: 5/(−2) = −5/2. Dividing every term by x³ gives (5 − 1/x²)/(1/x³ − 2) → 5/(−2).
+    - slug: apcalcab-u01-w05-q21
+      type: fill_blank
+      topic_code: "1.11"
+      source: "AP Calculus CED, Topic 1.11"
+      points: 1
+      prompt: |
+        Let f(x) = x² + 1 for x < 2, f(2) = c, and f(x) = 3x − 1 for x > 2. f is continuous at x = 2 when c = ____.
+      answer: ["5"]
+      explanation: |
+        lim (x→2⁻) f(x) = 4 + 1 = 5 and lim (x→2⁺) f(x) = 6 − 1 = 5, so lim (x→2) f(x) = 5. Continuity needs f(2) = 5.
+    - slug: apcalcab-u01-w05-q22
+      type: numeric
+      topic_code: "1.8"
+      source: "AP Calculus CED, Topic 1.8"
+      points: 1
+      prompt: |
+        For all x near 0, 5 − x² ≤ f(x) ≤ 5 + |x|. Find lim (x→0) f(x).
+      answer: { value: 5, tolerance: 0 }
+      explanation: |
+        lim (x→0) (5 − x²) = 5 and lim (x→0) (5 + |x|) = 5. The bounds agree, so by the squeeze theorem lim (x→0) f(x) = 5.
+    - slug: apcalcab-u01-w05-q23
+      type: short_answer
+      topic_code: "1.14"
+      source: "AP Calculus CED, Topic 1.14"
+      points: 3
+      prompt: |
+        Let r(x) = (2x² − 2)/(x² − 4x + 3).
+
+        (a) Find the location of the hole in the graph of r, with both coordinates.
+        (b) Find the vertical asymptote, and give lim (x→c⁻) r(x) and lim (x→c⁺) r(x) at it, justifying the signs.
+        (c) Find the horizontal asymptote, using a limit.
+      answer: |
+        (a) r(x) = 2(x − 1)(x + 1)/((x − 1)(x − 3)) = 2(x + 1)/(x − 3) for x ≠ 1. At x = 1 the simplified form gives 2(2)/(−2) = −2: a hole at (1, −2).
+        (b) x = 3. Near 3 the numerator 2(x + 1) approaches 8 > 0. For x slightly less than 3, x − 3 < 0, so lim (x→3⁻) r(x) = −∞; for x slightly greater, x − 3 > 0, so lim (x→3⁺) r(x) = ∞.
+        (c) lim (x→±∞) r(x) = 2/1 = 2 (equal degrees), so y = 2 is the horizontal asymptote.
+      explanation: |
+        Three points, one per part. (a) the hole at (1, −2), both coordinates. (b) x = 3 with both one-sided limits and the sign reasoning. (c) y = 2 supported by a limit at infinity.
+    - slug: apcalcab-u01-w05-q24
+      type: short_answer
+      topic_code: "1.13"
+      source: "AP Calculus CED, Topic 1.13"
+      points: 3
+      prompt: |
+        (a) Let f(x) = sin(2x)/x for x ≠ 0. What value of f(0) makes f continuous at 0? Show the limit.
+        (b) Let g(x) = (x² + ax − 6)/(x − 2) for x ≠ 2. Find the value of a for which lim (x→2) g(x) exists.
+        (c) With that value of a, what value of g(2) makes g continuous at x = 2?
+      answer: |
+        (a) lim (x→0) sin(2x)/x = 2 · lim (x→0) sin(2x)/(2x) = 2, so define f(0) = 2.
+        (b) The denominator approaches 0, so the numerator must too (otherwise the quotient is unbounded): 4 + 2a − 6 = 0, so a = 1.
+        (c) x² + x − 6 = (x + 3)(x − 2), so g(x) = x + 3 for x ≠ 2, with limit 5. Define g(2) = 5.
+      explanation: |
+        Three points, one per part. (a) f(0) = 2 with the limit shown. (b) a = 1 with the reason that the numerator must approach 0. (c) g(2) = 5 from the factored form.
+    - slug: apcalcab-u01-w05-q25
+      type: long_answer
+      topic_code: "1.16"
+      source: "AP Calculus CED, Topic 1.16"
+      points: 6
+      prompt: |
+        A hypothetical reservoir's depth, in metres, is modelled by D(t) = (6t² + 5)/(t² + 1), where t is the time in months after a dry season ends, t ≥ 0.
+
+        (A) Explain why D is continuous on the interval [0, 3].
+
+        (B) Use the Intermediate Value Theorem to show that the depth is 5.6 metres at some time between t = 0 and t = 2. Show the values you use.
+
+        (C) Find lim (t→∞) D(t), and interpret it in the context of the reservoir.
+
+        (D) Show that D(t) = 6 has no solution, and explain why this does not contradict your answer to part (C).
+      answer: |
+        (A) D is a rational function, so it is continuous on its domain. Its denominator t² + 1 is at least 1 and never 0, so D is continuous for all t, in particular on [0, 3].
+        (B) D(0) = 5/1 = 5 and D(2) = (24 + 5)/(4 + 1) = 29/5 = 5.8. D is continuous on [0, 2] and 5 < 5.6 < 5.8, so by the Intermediate Value Theorem there is a time c in (0, 2) with D(c) = 5.6 metres.
+        (C) Equal degrees: lim (t→∞) D(t) = 6/1 = 6. In the long run the reservoir's depth approaches 6 metres (the horizontal asymptote D = 6).
+        (D) 6t² + 5 = 6(t² + 1) gives 5 = 6, which is false, so the depth is never exactly 6 m. A limit at infinity describes values the function approaches, not values it must reach: D(t) = 6 − 1/(t² + 1) stays just below 6 for every t.
+      explanation: |
+        Six points. (A) 1 point: rational function with a denominator that is never 0 (so continuous). (B) 2 points: 1 for D(0) = 5 and D(2) = 5.8, 1 for the IVT conclusion with continuity and 5 < 5.6 < 5.8 stated. (C) 2 points: 1 for the limit 6, 1 for the interpretation with units (the depth approaches 6 m in the long run). (D) 1 point: the algebra showing no solution together with the explanation that a limit need not be attained.
