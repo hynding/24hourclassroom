@@ -1,6 +1,6 @@
 # Unit 5 · Analytical Applications of Differentiation · The night-before sheet
 
-**AP exam weight:** 15–20% of the exam, the largest share of any AB unit
+**AP exam weight:** 15–20% of the exam, tied with Unit 6 for the largest share of any AB unit
 **Topics:** 5.1 Using the Mean Value Theorem · 5.2 Extreme Value Theorem, Global Versus Local Extrema, and Critical Points · 5.3 Determining Intervals on Which a Function Is Increasing or Decreasing · 5.4 Using the First Derivative Test to Determine Relative (Local) Extrema · 5.5 Using the Candidates Test to Determine Absolute (Global) Extrema · 5.6 Determining Concavity of Functions over Their Domains · 5.7 Using the Second Derivative Test to Determine Extrema · 5.8 Sketching Graphs of Functions and Their Derivatives · 5.9 Connecting a Function, Its First Derivative, and Its Second Derivative · 5.10 Introduction to Optimization Problems · 5.11 Solving Optimization Problems · 5.12 Exploring Behaviors of Implicit Relations
 **Practices:** 3 (Justification), 2 (Connecting Representations), 1 (Implementing Mathematical Processes), 4 (Communication and Notation)
 **Framework:** AP Calculus AB and BC CED, Unit 5, Topics 5.1–5.12, in our own words

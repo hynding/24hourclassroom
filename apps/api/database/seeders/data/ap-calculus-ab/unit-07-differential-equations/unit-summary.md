@@ -39,7 +39,7 @@
 ## The sentences that earn AP points
 
 - **Separation of variables (the five-point pattern on many FRQs):** separate correctly; antidifferentiate both sides; include the constant of integration; use the initial condition; solve for y. Write all five steps. A response with no constant of integration loses most of the points, and a response that never separates earns none.
-- **Absolute values:** "Since y(0) = 190 > 25 and the solution cannot cross the equilibrium T = 25, T − 25 > 0, so |T − 25| = T − 25."
+- **Absolute values:** "Since T(0) = 190 > 25 and the solution cannot cross the equilibrium T = 25, T − 25 > 0, so |T − 25| = T − 25."
 - **Domain:** "The solution is defined on −1 < x < 1, the interval containing the initial value x = 0 on which 1 − x² ≠ 0."
 - **Concavity and tangent-line estimates:** "d²y/dx² = 4 > 0 at (0, 1), so the graph of f is concave up there and lies above its tangent line; the approximation 1.1 is an underestimate."
 - **Extrema of a solution:** "dy/dx = 0 at x = 3 and dy/dx changes from negative to positive there, so the solution has a relative minimum at x = 3."

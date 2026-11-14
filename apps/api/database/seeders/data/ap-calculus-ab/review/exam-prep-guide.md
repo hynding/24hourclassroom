@@ -122,7 +122,7 @@ Six questions, 9 points each. The contexts change every year; the shapes are ste
 - Critical points are where f′ = 0 or f′ does not exist. They are candidates, not answers.
 - **First derivative test sentence:** "f has a relative minimum at x = 4 because f′ changes from negative to positive there."
 - **Candidates test:** for an absolute extremum on [a, b], evaluate f at the endpoints and every critical point; the largest value is the maximum. Say so in words.
-- Concavity: concave up where f″ > 0 (equivalently, f′ increasing). **Point of inflection sentence:** "the graph of f has a point of inflection at x = 3 because f″ changes sign there" (or because f′ changes from increasing to decreasing).
+- Concavity: concave up where f″ > 0 (equivalently, f′ increasing). **Point of inflection sentence:** "the graph of f has a point of inflection at x = 3 because f″ changes sign there" (or because f′ changes from increasing to decreasing, or from decreasing to increasing, there).
 - Second derivative test: f′(c) = 0 and f″(c) < 0 gives a relative maximum; f″(c) > 0 a relative minimum.
 - Optimization: write the quantity as a function of one variable, state the domain, find critical points, and justify the maximum or minimum (first derivative test on the domain or a candidates test).
 
