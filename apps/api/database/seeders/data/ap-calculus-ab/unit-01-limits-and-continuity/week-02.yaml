@@ -1,0 +1,639 @@
+week: 2
+unit: 1
+title: "Determining Limits Algebraically"
+topics: ["1.5", "1.6", "1.7"]
+guide: guides/week-02.md
+guide_description: |
+  The algebraic properties of limits (sum, difference, constant multiple, product, quotient, power and root
+  rules) and direct substitution; what to do when substitution gives 0/0 (factor and cancel, rationalise,
+  combine complex fractions, use lim (x→0) (sin x)/x = 1); what a nonzero number over 0 signals; and a decision
+  routine for choosing a method. Worked examples: limit-law arithmetic from given limits, a factor-and-cancel
+  limit at x = −3, rationalising (√x − 3)/(x − 9), a complex-fraction limit, sin(5x)/x and tan(3x)/(2x), and a
+  piecewise function whose two sides need different methods.
+flashcards_description: |
+  32 cards on the limit properties, direct substitution, indeterminate 0/0 forms, factoring, rationalising,
+  complex fractions, the special trigonometric limits, and choosing a procedure.
+
+flashcards:
+  - front: Sum and difference rule for limits → statement
+    back: |
+      If lim f = L and lim g = M (both as x → c), then lim (f ± g) = L ± M.
+    topic_code: "1.5"
+  - front: Constant multiple rule for limits → statement
+    back: |
+      lim k·f(x) = k·L for any constant k, when lim f(x) = L.
+    topic_code: "1.5"
+  - front: Product rule for limits → statement
+    back: |
+      lim f(x)g(x) = L·M when lim f = L and lim g = M both exist.
+    topic_code: "1.5"
+  - front: Quotient rule for limits → statement and its one condition
+    back: |
+      lim f(x)/g(x) = L/M, provided M ≠ 0.
+    topic_code: "1.5"
+  - front: Power and root rules for limits → statement
+    back: |
+      lim [f(x)]ⁿ = Lⁿ; lim ⁿ√f(x) = ⁿ√L (for even n, L must be positive or zero).
+    topic_code: "1.5"
+  - front: lim f = 5 and lim g = −2 at x = 2 → lim (x→2) [3f(x) − (g(x))²]
+    back: |
+      3(5) − (−2)² = 15 − 4 = 11.
+    topic_code: "1.5"
+  - front: Direct substitution → when it is allowed
+    back: |
+      For polynomials, and for rational, root, trigonometric, exponential and logarithmic functions at inputs in their domain: the limit is just f(c).
+    topic_code: "1.5"
+  - front: lim (x→π) x cos x → value by substitution
+    back: |
+      π · cos π = π(−1) = −π.
+    topic_code: "1.5"
+  - front: Limit laws applied to lim f(g(x)) → what extra fact is needed
+    back: |
+      The limit of g alone is not enough: you also need f to behave well (be continuous) at lim g. Knowing lim f at c tells you nothing about f near a different input.
+    topic_code: "1.5"
+  - front: Substitution gives 0/0 → what it means
+    back: |
+      Indeterminate form: no conclusion yet. The limit could be any number or fail to exist; rewrite the expression and try again.
+    topic_code: "1.7"
+  - front: Substitution gives a nonzero number over 0 → what it means
+    back: |
+      The limit does not exist as a real number: the quotient is unbounded near c. Check signs on each side for ∞ or −∞.
+    topic_code: "1.7"
+  - front: Why cancelling a common factor is legal inside a limit
+    back: |
+      The two expressions agree for every x ≠ c, and a limit never looks at x = c, so they have the same limit.
+    topic_code: "1.6"
+  - front: (x² + x − 6)/(x + 3) as x → −3 → method and value
+    back: |
+      Factor: (x + 3)(x − 2)/(x + 3) = x − 2 for x ≠ −3. Limit −3 − 2 = −5.
+    topic_code: "1.6"
+  - front: (x³ + 1)/(x + 1) as x → −1 → method and value
+    back: |
+      Sum of cubes: (x + 1)(x² − x + 1)/(x + 1) = x² − x + 1 → 1 + 1 + 1 = 3.
+    topic_code: "1.6"
+  - front: (√x − 3)/(x − 9) as x → 9 → method and value
+    back: |
+      Multiply by the conjugate (√x + 3): (x − 9)/((x − 9)(√x + 3)) = 1/(√x + 3) → 1/6.
+    topic_code: "1.6"
+  - front: (x − 4)/(√x − 2) as x → 4 → quickest rewrite
+    back: |
+      x − 4 = (√x − 2)(√x + 2), so the quotient is √x + 2 → 4.
+    topic_code: "1.6"
+  - front: (√(x + 7) − 3)/(x − 2) as x → 2 → value
+    back: |
+      Conjugate: (x + 7 − 9)/((x − 2)(√(x + 7) + 3)) = 1/(√(x + 7) + 3) → 1/6.
+    topic_code: "1.6"
+  - front: Complex fraction (1/(x + 2) − 1/2)/x as x → 0 → method and value
+    back: |
+      Common denominator: (2 − (x + 2))/(2x(x + 2)) = −1/(2(x + 2)) → −1/4.
+    topic_code: "1.6"
+  - front: lim (x→0) (sin x)/x → value and the condition on x
+    back: |
+      1, with x in radians. (In degrees the limit would be π/180.)
+    topic_code: "1.6"
+  - front: lim (x→0) (1 − cos x)/x → value
+    back: |
+      0. Multiply by (1 + cos x): sin²x/(x(1 + cos x)) = (sin x/x)(sin x/(1 + cos x)) → 1 · 0 = 0.
+    topic_code: "1.6"
+  - front: sin(5x)/x as x → 0 → rewrite and value
+    back: |
+      5 · sin(5x)/(5x) → 5 · 1 = 5.
+    topic_code: "1.6"
+  - front: tan(3x)/(2x) as x → 0 → rewrite and value
+    back: |
+      (sin 3x/(3x)) · 3/(2 cos 3x) → 1 · 3/2 = 3/2.
+    topic_code: "1.6"
+  - front: sin(3x)/sin(2x) as x → 0 → value
+    back: |
+      (sin 3x/(3x)) · (2x/sin 2x) · (3/2) → 3/2.
+    topic_code: "1.6"
+  - front: (x² − 2x)/(x² − 4) as x → 2 → value
+    back: |
+      x(x − 2)/((x − 2)(x + 2)) = x/(x + 2) → 2/4 = 1/2.
+    topic_code: "1.6"
+  - front: Choosing a limit method → the four-step routine
+    back: |
+      1. Substitute. 2. Number → done; nonzero/0 → unbounded, DNE. 3. 0/0 → factor, rationalise, combine fractions or use a trig limit. 4. Still stuck → graph or table to guide, squeeze theorem (week 3).
+    topic_code: "1.7"
+  - front: Square root in a 0/0 quotient → which method to try first
+    back: |
+      Multiply numerator and denominator by the conjugate, then cancel the factor that caused the zero.
+    topic_code: "1.7"
+  - front: Piecewise function at a break point → procedure
+    back: |
+      Use the left piece for the left-hand limit and the right piece for the right-hand limit, each by its own method; the limit exists only if they agree.
+    topic_code: "1.7"
+  - front: lim (x→1) (x² + 1)/(x − 1) → what substitution shows
+    back: |
+      2/0: a nonzero number over 0. The quotient is unbounded near 1 (−∞ from the left, ∞ from the right), so the limit does not exist.
+    topic_code: "1.7"
+  - front: Limit at a hole of a rational function → how to get it
+    back: |
+      Cancel the shared factor, then substitute into what is left. The result is the y-coordinate of the hole.
+    topic_code: "1.7"
+  - front: Error-spot → "substitution gives 0/0, so the limit is 0"
+    back: |
+      0/0 is indeterminate, not zero. (x² − 9)/(x − 3) gives 0/0 at 3 and its limit is 6.
+    topic_code: "1.7"
+  - front: Error-spot → "lim sin(5x)/x = 1 because sin x/x → 1"
+    back: |
+      The angle and the denominator must match. Rewrite as 5 · sin(5x)/(5x), which approaches 5.
+    topic_code: "1.6"
+  - front: Error-spot → "√(x + 9) − 3 over x simplifies to (√x + 3 − 3)/x"
+    back: |
+      √(x + 9) is not √x + 3. Multiply by the conjugate √(x + 9) + 3 instead; the limit at 0 is 1/6.
+    topic_code: "1.6"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 1.5 to 1.7: limit properties and direct
+    substitution, factoring, rationalising, complex fractions, the special trigonometric limit, and choosing a
+    method), with 8 questions (33%) reviewing week 1 (instantaneous rates, limit notation, one-sided limits,
+    and limits from graphs and tables). Opens with a shared-context set on given limit values. Multiple choice,
+    select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes.
+    No calculator.
+  questions:
+    # ---- Stimulus set: given limits (1.5)
+    - slug: apcalcab-u01-w02-q01
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Calculus CED, Topic 1.5"
+      points: 1
+      stimulus: |
+        Functions f and g satisfy lim (x→2) f(x) = 5 and lim (x→2) g(x) = −2.
+      prompt: |
+        What is lim (x→2) [3f(x) − (g(x))²]?
+      options:
+        - "19"
+        - "17"
+        - "11"
+        - "3"
+      option_explanations:
+        - |
+          19 treats (−2)² as −4, so it subtracts −4. A square of a negative number is positive: (−2)² = 4.
+        - |
+          17 forgets to square g: 15 − (−2) = 17. The expression subtracts (g(x))², whose limit is 4.
+        - |
+          Correct. By the constant multiple, power and difference rules, the limit is 3(5) − (−2)² = 15 − 4 = 11.
+        - |
+          3 multiplies the whole difference by 3, as if the expression were 3[f(x) − (g(x))²] = 3(5 − 4). The 3 multiplies f only.
+      answer: 2
+    - slug: apcalcab-u01-w02-q02
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Calculus CED, Topic 1.5"
+      points: 1
+      stimulus: |
+        Functions f and g satisfy lim (x→2) f(x) = 5 and lim (x→2) g(x) = −2.
+      prompt: |
+        What is lim (x→2) f(x)g(x)/(x + 1)?
+      options:
+        - "−10/3"
+        - "−10"
+        - "1"
+        - "10/3"
+      option_explanations:
+        - |
+          Correct. The numerator approaches 5(−2) = −10 by the product rule, and x + 1 approaches 3 ≠ 0, so the quotient rule gives −10/3.
+        - |
+          −10 is the limit of the numerator only; the denominator x + 1 approaches 3, not 1.
+        - |
+          1 adds f and g (5 + (−2) = 3) and divides by 3; the numerator is a product, not a sum.
+        - |
+          10/3 drops the negative sign of g's limit: 5 · (−2) = −10, not 10.
+      answer: 0
+    - slug: apcalcab-u01-w02-q03
+      type: multi_select
+      topic_code: "1.5"
+      source: "AP Calculus CED, Topic 1.5"
+      points: 2
+      partial_credit: true
+      stimulus: |
+        Functions f and g satisfy lim (x→2) f(x) = 5 and lim (x→2) g(x) = −2.
+      prompt: |
+        Which statements must be true? Select all that apply.
+      options:
+        - "lim (x→2) √(f(x) + 4) = 3"
+        - "lim (x→2) (f(x))³ = 125"
+        - "lim (x→2) f(x)/g(x) = −5/2"
+        - "lim (x→2) f(x)/(g(x) + 2) = 0"
+        - "lim (x→2) f(g(x)) = 5"
+      option_explanations:
+        - |
+          Correct. f(x) + 4 approaches 9, and the root rule gives √9 = 3.
+        - |
+          Correct. The power rule gives lim (f(x))³ = (lim f(x))³ = 5³ = 125.
+        - |
+          Correct. The denominator's limit is −2 ≠ 0, so the quotient rule gives 5/(−2) = −5/2.
+        - |
+          The denominator approaches −2 + 2 = 0 while the numerator approaches 5, so the quotient is unbounded; the limit does not exist and is certainly not 0.
+        - |
+          g(x) approaches −2, so f(g(x)) depends on how f behaves near −2. We only know f near 2, so this cannot be concluded.
+      answer: [0, 1, 2]
+    # ---- Independent items
+    - slug: apcalcab-u01-w02-q04
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        What is lim (x→−3) (x² + x − 6)/(x + 3)?
+      options:
+        - "0"
+        - "1"
+        - "The limit does not exist, because substitution gives 0/0."
+        - "−5"
+      option_explanations:
+        - |
+          Substitution gives 0/0, which is indeterminate, not 0. The expression must be rewritten.
+        - |
+          1 comes from evaluating x − 2 at x = 3 instead of x = −3 after cancelling: a sign slip.
+        - |
+          0/0 means more work is needed, not that the limit fails to exist; after cancelling, the expression approaches a number.
+        - |
+          Correct. x² + x − 6 = (x + 3)(x − 2), so for x ≠ −3 the quotient is x − 2, which approaches −3 − 2 = −5.
+      answer: 3
+    - slug: apcalcab-u01-w02-q05
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        What is lim (x→9) (√x − 3)/(x − 9)?
+      options:
+        - "1/3"
+        - "1/6"
+        - "6"
+        - "0"
+      option_explanations:
+        - |
+          1/3 is 1/√9; after rationalising, the denominator is √x + 3, which approaches 3 + 3 = 6.
+        - |
+          Correct. Multiply by (√x + 3)/(√x + 3): (x − 9)/((x − 9)(√x + 3)) = 1/(√x + 3), which approaches 1/6.
+        - |
+          6 is the reciprocal of the answer: the simplified expression is 1/(√x + 3), not √x + 3.
+        - |
+          The numerator approaches 0, but so does the denominator; 0/0 is indeterminate and the limit is not 0.
+      answer: 1
+    - slug: apcalcab-u01-w02-q06
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        What is lim (x→0) sin(5x)/x?
+      options:
+        - "1"
+        - "1/5"
+        - "5"
+        - "0"
+      option_explanations:
+        - |
+          1 applies the special limit without matching the angle: sin(5x)/x is not of the form sin(u)/u.
+        - |
+          1/5 matches the angle the wrong way, dividing by 5 instead of multiplying by 5.
+        - |
+          Correct. sin(5x)/x = 5 · sin(5x)/(5x), and sin(5x)/(5x) → 1 as x → 0, so the limit is 5.
+        - |
+          sin(5x) → 0, but so does x; the 0/0 form is indeterminate.
+      answer: 2
+    - slug: apcalcab-u01-w02-q07
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        What is lim (x→0) (1/(x + 2) − 1/2)/x?
+      options:
+        - "−1/4"
+        - "1/4"
+        - "−1/2"
+        - "0"
+      option_explanations:
+        - |
+          Correct. Combine: 1/(x + 2) − 1/2 = (2 − (x + 2))/(2(x + 2)) = −x/(2(x + 2)). Dividing by x leaves −1/(2(x + 2)), which approaches −1/4.
+        - |
+          1/4 loses the sign when subtracting: 2 − (x + 2) = −x, not x.
+        - |
+          −1/2 drops the factor x + 2 from the denominator; at x = 0 it contributes another factor of 2.
+        - |
+          The numerator approaches 0 and so does the denominator; the limit of a 0/0 form must be found by rewriting.
+      answer: 0
+    - slug: apcalcab-u01-w02-q08
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Calculus CED, Topic 1.7"
+      points: 1
+      prompt: |
+        Direct substitution of x = c into a quotient p(x)/q(x) gives 0/0. Which conclusion is justified?
+      options:
+        - "The limit as x → c is 0."
+        - "The limit as x → c does not exist."
+        - "The limit as x → c is 1, because 0/0 = 1."
+        - "No conclusion yet: rewrite the quotient (factor, rationalise, or combine fractions) and try again."
+      option_explanations:
+        - |
+          A zero numerator does not make the quotient 0 when the denominator is also 0; (x² − 9)/(x − 3) gives 0/0 at 3 and has limit 6.
+        - |
+          0/0 does not rule out a limit; many 0/0 forms, like those at holes, have limits.
+        - |
+          0/0 is undefined, not 1. Treating it as 1 would make every such limit equal 1, which is false.
+        - |
+          Correct. 0/0 is an indeterminate form: the limit could be any number or fail to exist, so the expression must be rewritten before deciding.
+      answer: 3
+    - slug: apcalcab-u01-w02-q09
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Calculus CED, Topic 1.7"
+      points: 1
+      prompt: |
+        Substituting x = 1 into (x² + 1)/(x − 1) gives 2/0. What can be concluded about lim (x→1) (x² + 1)/(x − 1)?
+      options:
+        - "It equals 0."
+        - "It does not exist: the quotient is unbounded near x = 1."
+        - "It equals 2."
+        - "It can be found by factoring and cancelling x − 1."
+      option_explanations:
+        - |
+          Dividing by a number near 0 makes the quotient large in size, not near 0.
+        - |
+          Correct. A numerator near 2 over a denominator near 0 gives quotients of huge size (negative just left of 1, positive just right), so there is no finite limit.
+        - |
+          2 is only the numerator's limit; the denominator heading to 0 changes everything.
+        - |
+          x − 1 is not a factor of x² + 1 (which is 2 at x = 1, not 0), so nothing cancels.
+      answer: 1
+    - slug: apcalcab-u01-w02-q10
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Calculus CED, Topic 1.5"
+      points: 1
+      prompt: |
+        What is lim (x→π) x cos x?
+      options:
+        - "π"
+        - "0"
+        - "−π"
+        - "−1"
+      option_explanations:
+        - |
+          π comes from using cos π = 1; in fact cos π = −1, so the product is negative.
+        - |
+          0 confuses cos π with sin π, which is the trigonometric value equal to 0.
+        - |
+          Correct. x cos x is continuous, so substitute: π · cos π = π · (−1) = −π.
+        - |
+          −1 is cos π alone; it still has to be multiplied by x → π.
+      answer: 2
+    - slug: apcalcab-u01-w02-q11
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        What is lim (x→0) tan(3x)/(2x)?
+      options:
+        - "1"
+        - "2/3"
+        - "3"
+        - "3/2"
+      option_explanations:
+        - |
+          1 applies the special limit without matching the angle to the denominator.
+        - |
+          2/3 inverts the ratio of the coefficients; the 3 belongs in the numerator.
+        - |
+          3 ignores the 2 in the denominator: the limit of tan(3x)/x is 3, and the 2x halves it.
+        - |
+          Correct. tan(3x)/(2x) = (sin 3x/(3x)) · 3/(2 cos 3x). As x → 0 this approaches 1 · 3/(2 · 1) = 3/2.
+      answer: 3
+    # ---- Spiral review: week 1
+    - slug: apcalcab-u01-w02-q12
+      type: multiple_choice
+      topic_code: "1.3"
+      source: "AP Calculus CED, Topic 1.3"
+      points: 1
+      prompt: |
+        The graph of a function p consists of the curve y = x² + 1 for x < −1, ending in an open circle at (−1, 2), and the ray y = x + 4 for x ≥ −1, starting at the solid point (−1, 3). Which statement is true?
+      options:
+        - "lim (x→−1⁻) p(x) = 2 and lim (x→−1⁺) p(x) = 3"
+        - "lim (x→−1) p(x) = 3"
+        - "lim (x→−1) p(x) = 5/2"
+        - "lim (x→−1⁻) p(x) = 3"
+      option_explanations:
+        - |
+          Correct. From the left the curve heads to the open circle at height 2; from the right the ray starts at height 3.
+        - |
+          3 is p(−1) and the right-hand limit, but the left-hand limit is 2, so the two-sided limit does not exist.
+        - |
+          5/2 averages the one-sided limits; unequal one-sided limits mean the limit does not exist.
+        - |
+          The solid dot belongs to the right-hand piece. From the left the graph approaches the open circle at height 2.
+      answer: 0
+    - slug: apcalcab-u01-w02-q13
+      type: multiple_choice
+      topic_code: "1.4"
+      source: "AP Calculus CED, Topic 1.4"
+      points: 1
+      prompt: |
+        The table gives values of G(x) = (x³ − 1)/(x − 1).
+
+        | x | 0.9 | 0.99 | 0.999 | 1.001 | 1.01 | 1.1 |
+        |---|---|---|---|---|---|---|
+        | G(x) | 2.71 | 2.9701 | 2.997 | 3.003 | 3.0301 | 3.31 |
+
+        What does the table suggest about lim (x→1) G(x)?
+      options:
+        - "It is 0, because x³ − 1 = 0 at x = 1."
+        - "It is 3."
+        - "It is about 3.31."
+        - "It does not exist, because G(1) is undefined."
+      option_explanations:
+        - |
+          The denominator is also 0 at x = 1; the table shows the quotient near 3, not 0.
+        - |
+          Correct. From both sides the outputs close in on 3 (2.997 and 3.003 at x = 0.999 and 1.001). Algebra agrees: G(x) = x² + x + 1 for x ≠ 1.
+        - |
+          3.31 is the output at x = 1.1, the input farthest from 1 on the right. Use the inputs closest to 1.
+        - |
+          An undefined value at x = 1 does not prevent a limit; the outputs settle near 3.
+      answer: 1
+    - slug: apcalcab-u01-w02-q14
+      type: multiple_choice
+      topic_code: "1.2"
+      source: "AP Calculus CED, Topic 1.2"
+      points: 1
+      prompt: |
+        A function f has lim (x→a⁻) f(x) = 4 and lim (x→a⁺) f(x) = 4, and f(a) is undefined. Which statement is true?
+      options:
+        - "lim (x→a) f(x) does not exist, because f(a) is undefined."
+        - "lim (x→a) f(x) = f(a)"
+        - "lim (x→a) f(x) = 4"
+        - "lim (x→a) f(x) = 8"
+      option_explanations:
+        - |
+          The limit never depends on f(a); matching one-sided limits are all that is needed.
+        - |
+          f(a) is undefined, so it cannot equal anything; the limit is still 4.
+        - |
+          Correct. Both one-sided limits exist and equal 4, so the two-sided limit is 4.
+        - |
+          8 adds the one-sided limits. When they agree, the two-sided limit is their common value.
+      answer: 2
+    - slug: apcalcab-u01-w02-q15
+      type: multi_select
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which of these limits equal 2? Select all that apply.
+      options:
+        - "lim (x→1) (x² − 1)/(x − 1)"
+        - "lim (x→0) sin(2x)/x"
+        - "lim (x→4) (x − 4)/(√x − 2)"
+        - "lim (x→0) (√(x + 1) − 1)/x"
+        - "lim (x→0) (x² + 2x)/x"
+      option_explanations:
+        - |
+          Correct. (x − 1)(x + 1)/(x − 1) = x + 1 for x ≠ 1, which approaches 2.
+        - |
+          Correct. sin(2x)/x = 2 · sin(2x)/(2x), which approaches 2 · 1 = 2.
+        - |
+          x − 4 = (√x − 2)(√x + 2), so the quotient is √x + 2, which approaches 4, not 2.
+        - |
+          Rationalising gives 1/(√(x + 1) + 1), which approaches 1/2, not 2.
+        - |
+          Correct. (x² + 2x)/x = x + 2 for x ≠ 0, which approaches 2.
+      answer: [0, 1, 4]
+    - slug: apcalcab-u01-w02-q16
+      type: true_false
+      topic_code: "1.2"
+      source: "AP Calculus CED, Topic 1.2"
+      points: 1
+      prompt: |
+        True or false: If lim (x→3) f(x) = 8, then f(3) = 8.
+      answer: false
+      explanation: |
+        False. A limit says nothing about the value at the input itself. f(3) could be 8, some other number, or undefined; for example f(x) = (x² − 9)/(x − 3) + 2 has limit 8 at 3 and no value there.
+    - slug: apcalcab-u01-w02-q17
+      type: true_false
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        True or false: The fact lim (x→0) (sin x)/x = 1 depends on x being measured in radians.
+      answer: true
+      explanation: |
+        True. The limit 1 comes from the radian definition of angle (arc length on the unit circle). If x were in degrees, sin x/x would approach π/180 instead.
+    - slug: apcalcab-u01-w02-q18
+      type: fill_blank
+      topic_code: "1.1"
+      source: "AP Calculus CED, Topic 1.1"
+      points: 1
+      prompt: |
+        The average rate of change of f(x) = x² + x over the interval [2, 2.1] is ____.
+      answer: ["5.1", "5.10", "51/10"]
+      explanation: |
+        f(2.1) = 4.41 + 2.1 = 6.51 and f(2) = 6, so (6.51 − 6)/0.1 = 5.1. Over shorter intervals these averages approach 5, the instantaneous rate at x = 2.
+    - slug: apcalcab-u01-w02-q19
+      type: fill_blank
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        lim (x→−1) (x³ + 1)/(x + 1) = ____.
+      answer: ["3"]
+      explanation: |
+        Sum of cubes: x³ + 1 = (x + 1)(x² − x + 1). For x ≠ −1 the quotient is x² − x + 1, which approaches 1 + 1 + 1 = 3.
+    - slug: apcalcab-u01-w02-q20
+      type: numeric
+      topic_code: "1.4"
+      source: "AP Calculus CED, Topic 1.4"
+      points: 1
+      prompt: |
+        The table gives values of R(x) = (√(x + 4) − 2)/x, rounded to five decimal places.
+
+        | x | −0.1 | −0.01 | −0.001 | 0.001 | 0.01 | 0.1 |
+        |---|---|---|---|---|---|---|
+        | R(x) | 0.25158 | 0.25016 | 0.25002 | 0.24998 | 0.24984 | 0.24846 |
+
+        Estimate lim (x→0) R(x) to two decimal places.
+      answer: { value: 0.25, tolerance: 0.005 }
+      explanation: |
+        From the left the outputs fall toward 0.25 and from the right they rise toward 0.25. Rationalising confirms it: R(x) = 1/(√(x + 4) + 2) → 1/4.
+    - slug: apcalcab-u01-w02-q21
+      type: numeric
+      topic_code: "1.2"
+      source: "AP Calculus CED, Topic 1.2"
+      points: 1
+      prompt: |
+        Let m(x) = 4 − x² for x < 1, m(1) = 0, and m(x) = 2x + 1 for x > 1. Find lim (x→1) m(x).
+      answer: { value: 3, tolerance: 0 }
+      explanation: |
+        Left: 4 − 1² = 3. Right: 2(1) + 1 = 3. The one-sided limits agree, so the limit is 3; the value m(1) = 0 does not matter.
+    - slug: apcalcab-u01-w02-q22
+      type: short_answer
+      topic_code: "1.3"
+      source: "AP Calculus CED, Topic 1.3"
+      points: 3
+      prompt: |
+        The graph of a function r on −2 ≤ x ≤ 6 is described below.
+
+        - For −2 ≤ x < 4: a curve that starts at (−2, 1), rises through an open circle at (1, 4), and keeps rising without bound as x approaches 4 from the left.
+        - A solid dot at (1, 2).
+        - For 4 < x ≤ 6: a curve that comes down from arbitrarily large values just to the right of x = 4 and decreases to the solid point (6, 3).
+
+        (a) Find lim (x→1) r(x) and r(1).
+        (b) Describe the behaviour of r as x → 4, using limit notation.
+        (c) For which values of c in the open interval (−2, 6) does lim (x→c) r(x) fail to exist? Explain.
+      answer: |
+        (a) lim (x→1) r(x) = 4 (the curve approaches the open circle from both sides); r(1) = 2.
+        (b) lim (x→4⁻) r(x) = ∞ and lim (x→4⁺) r(x) = ∞, so lim (x→4) r(x) = ∞: r is unbounded and the limit does not exist.
+        (c) Only c = 4, where r grows without bound. At c = 1 the limit exists (it is 4) despite the misplaced dot, and everywhere else the curve is unbroken.
+      explanation: |
+        Three points, one per part. (a) limit 4 and value 2. (b) unbounded behaviour from both sides expressed with ∞ (or in words), with the limit not existing. (c) c = 4 only, with the reason; listing c = 1 loses the point.
+    - slug: apcalcab-u01-w02-q23
+      type: short_answer
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 3
+      prompt: |
+        Evaluate each limit, showing the algebra that justifies it.
+
+        (a) lim (x→4) (x − 4)/(√x − 2)
+        (b) lim (x→0) sin(3x)/sin(2x)
+        (c) lim (x→2) (x² − 2x)/(x² − 4)
+      answer: |
+        (a) x − 4 = (√x − 2)(√x + 2), so for x ≠ 4 the quotient is √x + 2 → 2 + 2 = 4. (Multiplying by the conjugate gives the same result.)
+        (b) sin(3x)/sin(2x) = [sin(3x)/(3x)] · [(2x)/sin(2x)] · (3/2) → 1 · 1 · 3/2 = 3/2.
+        (c) x(x − 2)/((x − 2)(x + 2)) = x/(x + 2) for x ≠ 2 → 2/4 = 1/2.
+      explanation: |
+        Three points, one per part: each needs the correct value supported by a valid rewrite. A correct value from a table or with no work earns no point. Keeping "lim" on each line is expected; missing notation alone is noted, not penalised, in this quiz.
+    - slug: apcalcab-u01-w02-q24
+      type: long_answer
+      topic_code: "1.7"
+      source: "AP Calculus CED, Topic 1.7"
+      points: 6
+      prompt: |
+        Let f be the function defined by
+
+        f(x) = (x² − x − 2)/(x − 2) for x < 2,
+        f(2) = 1,
+        f(x) = (√(x + 7) − 3)/(x − 2) for x > 2.
+
+        (A) Find lim (x→2⁻) f(x). Show the work that leads to your answer.
+
+        (B) Find lim (x→2⁺) f(x). Show the work that leads to your answer.
+
+        (C) Does lim (x→2) f(x) exist? Justify your answer, and say whether its value (if any) is related to f(2).
+
+        (D) Find lim (x→0) f(x), and explain why a different procedure from part (A) is appropriate.
+      answer: |
+        (A) Substitution gives 0/0. Factor: (x − 2)(x + 1)/(x − 2) = x + 1 for x < 2, so lim (x→2⁻) f(x) = lim (x→2⁻) (x + 1) = 3.
+        (B) Substitution gives 0/0. Multiply by the conjugate: (√(x + 7) − 3)(√(x + 7) + 3)/((x − 2)(√(x + 7) + 3)) = (x − 2)/((x − 2)(√(x + 7) + 3)) = 1/(√(x + 7) + 3). So lim (x→2⁺) f(x) = 1/(3 + 3) = 1/6.
+        (C) No. The left-hand limit 3 and the right-hand limit 1/6 are not equal, so lim (x→2) f(x) does not exist. The value f(2) = 1 plays no part in whether the limit exists.
+        (D) Near x = 0 the left piece applies, and substituting gives (0 − 0 − 2)/(0 − 2) = 1, a number with a nonzero denominator, so direct substitution is valid: lim (x→0) f(x) = 1. No factoring is needed because the denominator is not 0 there.
+      explanation: |
+        Six points. (A) 2 points: 1 for factoring and cancelling (or an equivalent valid rewrite), 1 for the answer 3. (B) 2 points: 1 for rationalising with the conjugate, 1 for the answer 1/6. (C) 1 point: "does not exist" with the reason that the one-sided limits (3 and 1/6) differ; the point is not earned for reasoning from f(2). (D) 1 point: the value 1 with the reason that substitution gives a defined value (denominator −2 ≠ 0).

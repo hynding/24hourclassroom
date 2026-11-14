@@ -1,6 +1,7 @@
 <?php
 
 use Database\Seeders\Algebra1Seeder;
+use Database\Seeders\ApCalculusAbSeeder;
 use Database\Seeders\Algebra2Seeder;
 use Database\Seeders\ApBiologySeeder;
 use Database\Seeders\ApChemistrySeeder;
@@ -31,6 +32,8 @@ dataset('seeded courses', [
     'AP World History' => [ApWorldHistorySeeder::class, ['units' => 9, 'topics' => ['1.7', '2.7', '3.4', '4.8', '5.10', '6.8', '7.9', '8.9', '9.9'], 'email' => 'apworld@example.com', 'student' => 'apworld-student@example.com']],
     'Algebra 2' => [Algebra2Seeder::class, ['units' => 7, 'topics' => ['1.1', '2.1', '3.1', '4.1', '5.1', '6.1', '7.1'], 'email' => 'algebra2@example.com', 'student' => 'algebra2-student@example.com']],
     'Precalculus' => [PrecalculusSeeder::class, ['units' => 4, 'topics' => ['1.14', '2.15', '3.15', '4.14'], 'email' => 'precalc@example.com', 'student' => 'precalc-student@example.com']],
+    // AB topics only: the CED's BC-only numbers (6.11-6.13, 7.5, 7.9) are skipped.
+    'AP Calculus AB' => [ApCalculusAbSeeder::class, ['units' => 8, 'topics' => ['1.16', '2.10', '3.6', '4.7', '5.12', '6.14', '7.8', '8.12'], 'email' => 'apcalcab@example.com', 'student' => 'apcalcab-student@example.com']],
     'Trigonometry' => [TrigonometrySeeder::class, ['units' => 5, 'topics' => ['1.12', '2.12', '3.12', '4.10', '5.12'], 'email' => 'trig@example.com', 'student' => 'trig-student@example.com']],
 ]);
 
@@ -55,6 +58,6 @@ test('the course fits the default per-teacher file cap', function (string $seede
 })->with('seeded courses');
 
 test('no two seeded courses share a slug', function () {
-    $slugs = array_map(fn ($seeder) => (new Course($seeder::defaultDir()))->slug, [ApBiologySeeder::class, ApUsHistorySeeder::class, Algebra1Seeder::class, GeometrySeeder::class, Algebra2Seeder::class, ChemistrySeeder::class, ApChemistrySeeder::class, ApWorldHistorySeeder::class, PrecalculusSeeder::class, TrigonometrySeeder::class, ApLiteratureSeeder::class]);
+    $slugs = array_map(fn ($seeder) => (new Course($seeder::defaultDir()))->slug, [ApBiologySeeder::class, ApUsHistorySeeder::class, Algebra1Seeder::class, GeometrySeeder::class, Algebra2Seeder::class, ChemistrySeeder::class, ApChemistrySeeder::class, ApWorldHistorySeeder::class, PrecalculusSeeder::class, TrigonometrySeeder::class, ApCalculusAbSeeder::class, ApLiteratureSeeder::class]);
     expect(array_unique($slugs))->toHaveCount(count($slugs));
 });

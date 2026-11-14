@@ -1,0 +1,640 @@
+week: 3
+unit: 1
+title: "The Squeeze Theorem, Multiple Representations and Discontinuities"
+topics: ["1.8", "1.9", "1.10"]
+guide: guides/week-03.md
+guide_description: |
+  The squeeze theorem (its hypotheses, how to build the bounding functions from −1 ≤ sin ≤ 1, and how to write
+  the conclusion); moving between graphs, tables and formulas for the same limit and checking that they agree;
+  and the three kinds of discontinuity (removable, jump and infinite) with the limit facts that identify each.
+  Worked examples: x² cos(1/x) squeezed between −x² and x², a squeeze from 4x − 9 ≤ f(x) ≤ x² − 2x at x = 3, a
+  formula, table and graph for (x² − 4)/(x − 2) + 1 that agree, and one piecewise function with all three
+  discontinuity types.
+flashcards_description: |
+  30 cards on the squeeze theorem and its hypotheses, bounding oscillating factors, connecting graphs, tables
+  and formulas, and classifying removable, jump and infinite discontinuities.
+
+flashcards:
+  - front: Squeeze theorem → full statement
+    back: |
+      If g(x) ≤ f(x) ≤ h(x) for all x near c (except possibly at c) and lim (x→c) g(x) = lim (x→c) h(x) = L, then lim (x→c) f(x) = L.
+    topic_code: "1.8"
+  - front: Squeeze theorem → the two hypotheses to check in writing
+    back: |
+      (1) The inequality g ≤ f ≤ h holds near c. (2) The outer limits are equal (same L). Both must be stated before concluding.
+    topic_code: "1.8"
+  - front: Bounding sin(anything) or cos(anything) → the inequality to start from
+    back: |
+      −1 ≤ sin(u) ≤ 1 and −1 ≤ cos(u) ≤ 1 for every u, however wild u is (such as u = 1/x).
+    topic_code: "1.8"
+  - front: x² cos(1/x) as x → 0 → bounds and limit
+    back: |
+      −x² ≤ x² cos(1/x) ≤ x² (multiply −1 ≤ cos(1/x) ≤ 1 by x² ≥ 0). Both bounds → 0, so the limit is 0.
+    topic_code: "1.8"
+  - front: x sin(1/x) as x → 0 → bounds and limit
+    back: |
+      −|x| ≤ x sin(1/x) ≤ |x|. Both bounds → 0, so the limit is 0. (Use |x| because x can be negative.)
+    topic_code: "1.8"
+  - front: sin(1/x) alone as x → 0 → why squeeze fails
+    back: |
+      Its only bounds are −1 and 1, which have different limits. The function oscillates and the limit does not exist.
+    topic_code: "1.8"
+  - front: 4x − 9 ≤ f(x) ≤ x² − 2x near x = 3 → lim (x→3) f(x)
+    back: |
+      Both bounds equal 3 at x = 3 (12 − 9 and 9 − 6) and are continuous, so the limit is 3.
+    topic_code: "1.8"
+  - front: 3 − x² ≤ g(x) ≤ 3 + x² near 0 → lim (x→0) g(x)
+    back: |
+      3: both bounds approach 3 as x → 0.
+    topic_code: "1.8"
+  - front: Squeeze theorem → how it proves lim (x→0) (sin x)/x = 1
+    back: |
+      A unit-circle area argument gives cos x ≤ (sin x)/x ≤ 1 near 0. Both bounds → 1, so the middle → 1.
+    topic_code: "1.8"
+  - front: Multiple representations of a limit → the three views to compare
+    back: |
+      Formula (algebra gives the exact value), table (outputs approach it from both sides), graph (curve heads to that height). All three must agree.
+    topic_code: "1.9"
+  - front: (x² − 4)/(x − 2) + 1 near x = 2 → formula, table and graph
+    back: |
+      Formula: x + 3 for x ≠ 2, limit 5. Table: 4.99 at 1.99, 5.01 at 2.01. Graph: the line y = x + 3 with a hole at (2, 5).
+    topic_code: "1.9"
+  - front: Graph of y = (sin x)/x near x = 0 → what it looks like
+    back: |
+      A smooth curve rising to a hole at (0, 1): no vertical asymptote, no point at x = 0.
+    topic_code: "1.9"
+  - front: Calculator graph versus a hole → caution
+    back: |
+      A graphing window usually draws right over a hole. Use the formula or a table near the input to detect it.
+    topic_code: "1.9"
+  - front: Table and graph disagree about a limit → what to do
+    back: |
+      Check the algebra and use inputs closer to c from both sides. The exact (algebraic) value settles it; tables and pixels only suggest.
+    topic_code: "1.9"
+  - front: Removable discontinuity → limit facts that identify it
+    back: |
+      lim (x→c) f(x) exists (finite), but f(c) is undefined or f(c) ≠ the limit. A hole or a misplaced point.
+    topic_code: "1.10"
+  - front: Jump discontinuity → limit facts that identify it
+    back: |
+      Both one-sided limits exist (finite) but are different.
+    topic_code: "1.10"
+  - front: Infinite discontinuity → limit facts that identify it
+    back: |
+      At least one one-sided limit is ∞ or −∞; the graph has a vertical asymptote at x = c.
+    topic_code: "1.10"
+  - front: Why a removable discontinuity is called removable
+    back: |
+      Defining (or redefining) f(c) as the limit fills the hole and makes f continuous at c. A jump or asymptote cannot be fixed by one value.
+    topic_code: "1.10"
+  - front: "|x|/x at x = 0 → type of discontinuity"
+    back: |
+      Jump: the left-hand limit is −1 and the right-hand limit is 1.
+    topic_code: "1.10"
+  - front: 1/x² at x = 0 → type of discontinuity
+    back: |
+      Infinite: both one-sided limits are ∞ (vertical asymptote x = 0).
+    topic_code: "1.10"
+  - front: (x² − 9)/(x² − 5x + 6) → discontinuities and their types
+    back: |
+      (x − 3)(x + 3)/((x − 2)(x − 3)): removable at x = 3 (limit 6), infinite at x = 2.
+    topic_code: "1.10"
+  - front: (x² + 3x + 2)/(x + 1) for x < 1 joined to 5/(x − 3) for x ≥ 1 → three discontinuities
+    back: |
+      Removable at x = −1 (limit 1); jump at x = 1 (left 3, right −5/2); infinite at x = 3.
+    topic_code: "1.10"
+  - front: Shared factor (x − c) in a rational function → hole or asymptote?
+    back: |
+      If it cancels completely from the denominator, a hole (removable). If a factor (x − c) remains in the denominator after cancelling, an asymptote (infinite).
+    topic_code: "1.10"
+  - front: (x³ − 8)/(x − 2) → where its graph has a hole
+    back: |
+      At (2, 12): x³ − 8 = (x − 2)(x² + 2x + 4), and 4 + 4 + 4 = 12.
+    topic_code: "1.10"
+  - front: Discontinuity type from one-sided limits 3 and 3 with f(c) = 7 → classification
+    back: |
+      Removable: the limit exists (3) but does not equal f(c).
+    topic_code: "1.10"
+  - front: Discontinuity type from one-sided limits 4 and −4 → classification
+    back: |
+      Jump: both one-sided limits are finite and unequal.
+    topic_code: "1.10"
+  - front: Discontinuity type when one one-sided limit is −∞ → classification
+    back: |
+      Infinite, whatever happens on the other side.
+    topic_code: "1.10"
+  - front: Error-spot → "x sin(1/x) has no limit at 0 because sin(1/x) oscillates"
+    back: |
+      The factor x shrinks the oscillation to nothing: −|x| ≤ x sin(1/x) ≤ |x| squeezes it to 0.
+    topic_code: "1.8"
+  - front: Error-spot → "the bounds are −1 and 1, so by squeeze theorem the limit is 0"
+    back: |
+      The squeeze needs the two bounds to have the same limit. −1 and 1 do not, so no conclusion follows.
+    topic_code: "1.8"
+  - front: Error-spot → "the graph has a hole, so it is a jump discontinuity"
+    back: |
+      A hole is removable: the limit exists. A jump needs two different one-sided limits.
+    topic_code: "1.10"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 1.8 to 1.10: the squeeze theorem, connecting
+    graphs, tables and formulas, and removable, jump and infinite discontinuities), with 8 questions (33%)
+    reviewing weeks 1 and 2 (rates of change, limits from graphs and tables, limit properties and algebraic
+    manipulation). Opens with a shared-context set on one piecewise function. Multiple choice, select-all,
+    true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the
+    short answers and the long answer are graded by your teacher against the scoring notes. No calculator.
+  questions:
+    # ---- Stimulus set: one piecewise function (1.10, 1.6)
+    - slug: apcalcab-u01-w03-q01
+      type: multiple_choice
+      topic_code: "1.10"
+      source: "AP Calculus CED, Topic 1.10"
+      points: 1
+      stimulus: |
+        Let f(x) = (x² + 3x + 2)/(x + 1) for x < 1, and f(x) = 5/(x − 3) for x ≥ 1, x ≠ 3. The function is undefined at x = −1 and at x = 3.
+      prompt: |
+        What type of discontinuity does f have at x = −1?
+      options:
+        - "Jump"
+        - "Removable"
+        - "Infinite"
+        - "None; f is continuous at x = −1."
+      option_explanations:
+        - |
+          A jump needs two different one-sided limits; here both sides approach the same number.
+        - |
+          Correct. For x ≠ −1, (x + 1)(x + 2)/(x + 1) = x + 2, so the limit at −1 is 1, but f(−1) is undefined: a hole.
+        - |
+          The factor x + 1 cancels completely, so the outputs stay bounded near −1; there is no vertical asymptote.
+        - |
+          f(−1) is undefined, so f cannot be continuous there, even though the limit exists.
+      answer: 1
+    - slug: apcalcab-u01-w03-q02
+      type: multiple_choice
+      topic_code: "1.10"
+      source: "AP Calculus CED, Topic 1.10"
+      points: 1
+      stimulus: |
+        Let f(x) = (x² + 3x + 2)/(x + 1) for x < 1, and f(x) = 5/(x − 3) for x ≥ 1, x ≠ 3. The function is undefined at x = −1 and at x = 3.
+      prompt: |
+        What type of discontinuity does f have at x = 1?
+      options:
+        - "Removable, because both pieces are defined near x = 1"
+        - "Infinite, because the right piece has a denominator"
+        - "None; f(1) is defined."
+        - "Jump, because the left-hand limit is 3 and the right-hand limit is −5/2"
+      option_explanations:
+        - |
+          A removable discontinuity needs the two-sided limit to exist; here the one-sided limits differ.
+        - |
+          The denominator x − 3 is −2 at x = 1, not 0, so the right piece is bounded near 1.
+        - |
+          f(1) = 5/(1 − 3) = −5/2 is defined, but the left-hand limit is 3, so the limit does not exist and f is not continuous.
+        - |
+          Correct. From the left f(x) = x + 2 → 3; from the right 5/(x − 3) → 5/(−2) = −5/2. Finite and unequal: a jump.
+      answer: 3
+    - slug: apcalcab-u01-w03-q03
+      type: multiple_choice
+      topic_code: "1.10"
+      source: "AP Calculus CED, Topic 1.10"
+      points: 1
+      stimulus: |
+        Let f(x) = (x² + 3x + 2)/(x + 1) for x < 1, and f(x) = 5/(x − 3) for x ≥ 1, x ≠ 3. The function is undefined at x = −1 and at x = 3.
+      prompt: |
+        Which statement describes the discontinuity of f at x = 3?
+      options:
+        - "Infinite: lim (x→3⁻) f(x) = −∞ and lim (x→3⁺) f(x) = ∞"
+        - "Infinite: lim (x→3⁻) f(x) = ∞ and lim (x→3⁺) f(x) = −∞"
+        - "Removable: f(3) is simply undefined"
+        - "Jump: the outputs change sign at x = 3"
+      option_explanations:
+        - |
+          Correct. Just left of 3, x − 3 is a small negative number, so 5/(x − 3) is a large negative number; just right, it is large and positive. A vertical asymptote: infinite discontinuity.
+        - |
+          The signs are reversed: for x slightly less than 3 the denominator is negative, making the quotient negative.
+        - |
+          Being undefined is not enough for removable; the limit must exist, and here the outputs are unbounded.
+        - |
+          The outputs do change sign, but they do so by growing without bound, not by jumping between two finite values.
+      answer: 0
+    - slug: apcalcab-u01-w03-q04
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 1
+      stimulus: |
+        Let f(x) = (x² + 3x + 2)/(x + 1) for x < 1, and f(x) = 5/(x − 3) for x ≥ 1, x ≠ 3. The function is undefined at x = −1 and at x = 3.
+      prompt: |
+        What is lim (x→−1) f(x)?
+      options:
+        - "0, because the numerator is 0 at x = −1"
+        - "The limit does not exist."
+        - "1"
+        - "−5/4"
+      option_explanations:
+        - |
+          The denominator is also 0 at x = −1; 0/0 needs rewriting, and the result is not 0.
+        - |
+          After cancelling x + 1 the expression x + 2 approaches a number from both sides, so the limit exists.
+        - |
+          Correct. Near −1 the left piece applies: (x + 1)(x + 2)/(x + 1) = x + 2 for x ≠ −1, which approaches 1.
+        - |
+          −5/4 uses the right piece 5/(x − 3) at x = −1, but that piece applies only for x ≥ 1.
+      answer: 2
+    # ---- Independent items
+    - slug: apcalcab-u01-w03-q05
+      type: multiple_choice
+      topic_code: "1.8"
+      source: "AP Calculus CED, Topic 1.8"
+      points: 1
+      prompt: |
+        What is lim (x→0) x² cos(4/x)?
+      options:
+        - "0"
+        - "1"
+        - "The limit does not exist, because cos(4/x) oscillates."
+        - "x²"
+      option_explanations:
+        - |
+          Correct. Since −1 ≤ cos(4/x) ≤ 1, multiplying by x² ≥ 0 gives −x² ≤ x² cos(4/x) ≤ x². Both bounds approach 0, so by the squeeze theorem the limit is 0.
+        - |
+          1 is the upper bound of cos(4/x) alone; the factor x² drives the product toward 0.
+        - |
+          cos(4/x) alone has no limit at 0, but the factor x² squeezes the oscillations to 0.
+        - |
+          A limit is a number, not an expression in x; letting x → 0 is the whole point.
+      answer: 0
+    - slug: apcalcab-u01-w03-q06
+      type: multiple_choice
+      topic_code: "1.8"
+      source: "AP Calculus CED, Topic 1.8"
+      points: 1
+      prompt: |
+        For all x near 0, 3 − x² ≤ g(x) ≤ 3 + x². What is lim (x→0) g(x)?
+      options:
+        - "0"
+        - "It cannot be determined without a formula for g."
+        - "6"
+        - "3"
+      option_explanations:
+        - |
+          0 is where x² heads; the bounds themselves head to 3.
+        - |
+          The squeeze theorem needs only the inequality and the bounds' common limit; no formula for g is required.
+        - |
+          6 adds the two bounds' limits; g is trapped between them, not their sum.
+        - |
+          Correct. lim (x→0) (3 − x²) = 3 and lim (x→0) (3 + x²) = 3, so by the squeeze theorem lim (x→0) g(x) = 3.
+      answer: 3
+    - slug: apcalcab-u01-w03-q07
+      type: multiple_choice
+      topic_code: "1.8"
+      source: "AP Calculus CED, Topic 1.8"
+      points: 1
+      prompt: |
+        For all real x, 4x − 9 ≤ f(x) ≤ x² − 2x. What is lim (x→3) f(x)?
+      options:
+        - "It cannot be determined, because the bounds are different functions."
+        - "3"
+        - "−3"
+        - "0"
+      option_explanations:
+        - |
+          The bounds may be different functions; the squeeze theorem only needs their limits at x = 3 to agree.
+        - |
+          Correct. lim (x→3) (4x − 9) = 3 and lim (x→3) (x² − 2x) = 9 − 6 = 3, so by the squeeze theorem lim (x→3) f(x) = 3.
+        - |
+          −3 comes from a sign slip in 4(3) − 9 or 9 − 6; both bounds equal +3 at x = 3.
+        - |
+          0 is the limit at x = 0 of the upper bound, not at x = 3.
+      answer: 1
+    - slug: apcalcab-u01-w03-q08
+      type: multiple_choice
+      topic_code: "1.8"
+      source: "AP Calculus CED, Topic 1.8"
+      points: 1
+      prompt: |
+        Suppose g(x) ≤ f(x) ≤ h(x) for all x near c, except possibly at c. Which additional fact allows you to conclude that lim (x→c) f(x) = 7?
+      options:
+        - "g(c) = 7 and h(c) = 7"
+        - "lim (x→c) g(x) = 6 and lim (x→c) h(x) = 8"
+        - "lim (x→c) g(x) = 7 and lim (x→c) h(x) = 7"
+        - "lim (x→c) h(x) = 7"
+      option_explanations:
+        - |
+          Values at c say nothing about limits; the bounds' limits as x → c are what must equal 7.
+        - |
+          Different outer limits leave f anywhere between 6 and 8; the squeeze theorem needs them equal.
+        - |
+          Correct. With f trapped between g and h, and both g and h approaching 7, f must approach 7 too.
+        - |
+          One bound alone does not trap f; f could stay well below 7 while h approaches 7.
+      answer: 2
+    - slug: apcalcab-u01-w03-q09
+      type: multiple_choice
+      topic_code: "1.9"
+      source: "AP Calculus CED, Topic 1.9"
+      points: 1
+      prompt: |
+        A function f is undefined at x = 2, and the table gives some of its values.
+
+        | x | 1.9 | 1.99 | 2.01 | 2.1 |
+        |---|---|---|---|---|
+        | f(x) | 4.9 | 4.99 | 5.01 | 5.1 |
+
+        Which formula could define f?
+      options:
+        - "f(x) = (x² − 4)/(x − 2) + 1"
+        - "f(x) = (x² − 4)/(x − 2)"
+        - "f(x) = (x² − 4)/(x + 2)"
+        - "f(x) = (x + 2)/(x − 2)"
+      option_explanations:
+        - |
+          Correct. For x ≠ 2 this is x + 2 + 1 = x + 3, which gives 4.9, 4.99, 5.01, 5.1 at the listed inputs and is undefined at 2.
+        - |
+          This simplifies to x + 2, which gives 3.9 at x = 1.9, not 4.9.
+        - |
+          This is defined at x = 2 (it equals 0 there) and simplifies to x − 2, giving −0.1 at x = 1.9.
+        - |
+          This is unbounded near x = 2: at x = 1.9 it equals −39, nothing like the table.
+      answer: 0
+    - slug: apcalcab-u01-w03-q10
+      type: multiple_choice
+      topic_code: "1.9"
+      source: "AP Calculus CED, Topic 1.9"
+      points: 1
+      prompt: |
+        Which description fits the graph of y = (sin x)/x near x = 0?
+      options:
+        - "A vertical asymptote at x = 0"
+        - "A smooth curve passing through the point (0, 1)"
+        - "A smooth curve with a hole at (0, 0)"
+        - "A smooth curve with a hole at (0, 1)"
+      option_explanations:
+        - |
+          The quotient is not unbounded near 0: its limit is 1, so there is no asymptote.
+        - |
+          The function is undefined at x = 0 (division by 0), so the point (0, 1) is not on the graph.
+        - |
+          The numerator approaches 0, but the quotient approaches 1, not 0.
+        - |
+          Correct. lim (x→0) (sin x)/x = 1, so the curve heads to height 1 from both sides, but x = 0 is not in the domain: a hole at (0, 1).
+      answer: 3
+    - slug: apcalcab-u01-w03-q11
+      type: multiple_choice
+      topic_code: "1.10"
+      source: "AP Calculus CED, Topic 1.10"
+      points: 1
+      prompt: |
+        Which function has a jump discontinuity at x = 0?
+      options:
+        - "y = (sin x)/x"
+        - "y = |x|/x"
+        - "y = 1/x²"
+        - "y = (x² + x)/x"
+      option_explanations:
+        - |
+          (sin x)/x has limit 1 at 0, so its discontinuity there is removable.
+        - |
+          Correct. For x < 0, |x|/x = −1 and for x > 0 it is 1; the one-sided limits −1 and 1 are finite and unequal.
+        - |
+          1/x² grows without bound on both sides of 0: an infinite discontinuity.
+        - |
+          (x² + x)/x = x + 1 for x ≠ 0, which has limit 1: removable.
+      answer: 1
+    - slug: apcalcab-u01-w03-q12
+      type: multiple_choice
+      topic_code: "1.3"
+      source: "AP Calculus CED, Topic 1.3"
+      points: 1
+      prompt: |
+        The graph of w is a line segment ending at the solid point (2, 5) for x ≤ 2, and a line segment starting at an open circle at (2, 1) for x > 2. What is lim (x→2⁺) w(x)?
+      options:
+        - "5"
+        - "3"
+        - "1"
+        - "The limit does not exist."
+      option_explanations:
+        - |
+          5 is w(2) and the left-hand limit; from the right the graph heads to the open circle at height 1.
+        - |
+          3 averages the two heights 5 and 1; a one-sided limit uses one side only.
+        - |
+          Correct. For x slightly greater than 2 the graph is the right segment, which heads to the open circle at (2, 1).
+        - |
+          The two-sided limit fails to exist, but the right-hand limit alone exists and is 1.
+      answer: 2
+    - slug: apcalcab-u01-w03-q13
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Calculus CED, Topic 1.7"
+      points: 1
+      prompt: |
+        What is lim (x→0) (√(x + 16) − 4)/x?
+      options:
+        - "1/4"
+        - "8"
+        - "0"
+        - "1/8"
+      option_explanations:
+        - |
+          1/4 is 1/√16; after rationalising, the denominator is √(x + 16) + 4, which approaches 8.
+        - |
+          8 is the reciprocal of the answer: the simplified expression is 1/(√(x + 16) + 4).
+        - |
+          Substitution gives 0/0, which is indeterminate, not 0.
+        - |
+          Correct. Multiply by the conjugate: (x + 16 − 16)/(x(√(x + 16) + 4)) = 1/(√(x + 16) + 4), which approaches 1/8.
+      answer: 3
+    - slug: apcalcab-u01-w03-q14
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Calculus CED, Topic 1.5"
+      points: 1
+      prompt: |
+        Given lim (x→1) f(x) = −3 and lim (x→1) g(x) = 4, what is lim (x→1) (f(x) + g(x))/(g(x) − x)?
+      options:
+        - "1/3"
+        - "1/4"
+        - "−1/3"
+        - "1/5"
+      option_explanations:
+        - |
+          Correct. The numerator approaches −3 + 4 = 1 and the denominator approaches 4 − 1 = 3 ≠ 0, so the quotient approaches 1/3.
+        - |
+          1/4 forgets that x → 1 in the denominator: g(x) − x approaches 4 − 1, not 4.
+        - |
+          −1/3 is a sign slip in the numerator: −3 + 4 = 1, not −1.
+        - |
+          1/5 adds x instead of subtracting it in the denominator.
+      answer: 0
+    - slug: apcalcab-u01-w03-q15
+      type: multi_select
+      topic_code: "1.10"
+      source: "AP Calculus CED, Topic 1.10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let k(x) = (x² − 9)/(x² − 5x + 6). Which statements are true? Select all that apply.
+      options:
+        - "k has a removable discontinuity at x = 3."
+        - "k has an infinite discontinuity at x = 2."
+        - "k has a jump discontinuity at x = 2."
+        - "lim (x→3) k(x) = 6"
+        - "k has a vertical asymptote at x = 3."
+      option_explanations:
+        - |
+          Correct. k(x) = (x − 3)(x + 3)/((x − 2)(x − 3)); the factor x − 3 cancels, so the limit at 3 exists but k(3) is undefined.
+        - |
+          Correct. After cancelling, (x + 3)/(x − 2) still has x − 2 in the denominator, so k is unbounded near 2.
+        - |
+          The outputs near 2 are unbounded, not approaching two finite values, so this is infinite, not a jump.
+        - |
+          Correct. (x + 3)/(x − 2) at x = 3 is 6/1 = 6.
+        - |
+          The factor x − 3 cancels completely, so x = 3 is a hole, not an asymptote.
+      answer: [0, 1, 3]
+    - slug: apcalcab-u01-w03-q16
+      type: multi_select
+      topic_code: "1.8"
+      source: "AP Calculus CED, Topic 1.8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which limits equal 0? Select all that apply.
+      options:
+        - "lim (x→0) x sin(1/x)"
+        - "lim (x→0) x² cos(3/x)"
+        - "lim (x→0) sin(1/x)"
+        - "lim (x→0) (sin x)/x"
+        - "lim (x→0⁺) √x cos(1/x)"
+      option_explanations:
+        - |
+          Correct. −|x| ≤ x sin(1/x) ≤ |x|, and both bounds approach 0.
+        - |
+          Correct. −x² ≤ x² cos(3/x) ≤ x², and both bounds approach 0.
+        - |
+          sin(1/x) oscillates between −1 and 1 with no shrinking factor; the limit does not exist.
+        - |
+          This is the special limit, equal to 1, not 0.
+        - |
+          Correct. For x > 0, −√x ≤ √x cos(1/x) ≤ √x, and both bounds approach 0 as x → 0⁺.
+      answer: [0, 1, 4]
+    - slug: apcalcab-u01-w03-q17
+      type: true_false
+      topic_code: "1.10"
+      source: "AP Calculus CED, Topic 1.10"
+      points: 1
+      prompt: |
+        True or false: If f has a jump discontinuity at x = c, then lim (x→c) f(x) exists.
+      answer: false
+      explanation: |
+        False. A jump means the one-sided limits exist but are different, so the two-sided limit does not exist. (It is a removable discontinuity that has a two-sided limit.)
+    - slug: apcalcab-u01-w03-q18
+      type: true_false
+      topic_code: "1.1"
+      source: "AP Calculus CED, Topic 1.1"
+      points: 1
+      prompt: |
+        True or false: The slope of the secant line through (1, f(1)) and (3, f(3)) gives the instantaneous rate of change of f at x = 1.
+      answer: false
+      explanation: |
+        False. The secant slope is the average rate of change over [1, 3]. The instantaneous rate at x = 1 is the limit of such slopes as the second point approaches x = 1.
+    - slug: apcalcab-u01-w03-q19
+      type: fill_blank
+      topic_code: "1.8"
+      source: "AP Calculus CED, Topic 1.8"
+      points: 1
+      prompt: |
+        For all x near 0, 1 − x²/4 ≤ u(x) ≤ 1 + x²/2. By the squeeze theorem, lim (x→0) u(x) = ____.
+      answer: ["1"]
+      explanation: |
+        Both bounds are continuous and equal 1 at x = 0, so both approach 1, and the squeeze theorem gives lim (x→0) u(x) = 1.
+    - slug: apcalcab-u01-w03-q20
+      type: fill_blank
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        lim (x→0) sin(6x)/(2x) = ____.
+      answer: ["3"]
+      explanation: |
+        sin(6x)/(2x) = 3 · sin(6x)/(6x), and sin(6x)/(6x) → 1, so the limit is 3.
+    - slug: apcalcab-u01-w03-q21
+      type: numeric
+      topic_code: "1.4"
+      source: "AP Calculus CED, Topic 1.4"
+      points: 1
+      prompt: |
+        The table gives values of T(x) = (3ˣ − 1)/x, rounded to four decimal places.
+
+        | x | −0.1 | −0.01 | −0.001 | 0.001 | 0.01 | 0.1 |
+        |---|---|---|---|---|---|---|
+        | T(x) | 1.0404 | 1.0926 | 1.0980 | 1.0992 | 1.1047 | 1.1612 |
+
+        Estimate lim (x→0) T(x) to two decimal places.
+      answer: { value: 1.10, tolerance: 0.005 }
+      explanation: |
+        The values nearest 0 are 1.0980 and 1.0992, so the limit is about 1.10 (it is exactly ln 3 ≈ 1.0986).
+    - slug: apcalcab-u01-w03-q22
+      type: short_answer
+      topic_code: "1.8"
+      source: "AP Calculus CED, Topic 1.8"
+      points: 3
+      prompt: |
+        Let f(x) = x⁴ cos(2/x) + 3 for x ≠ 0.
+
+        (a) Write an inequality that bounds x⁴ cos(2/x) above and below for x ≠ 0, and explain where it comes from.
+        (b) Use it to bound f(x), and find the limits of both bounding functions as x → 0.
+        (c) State lim (x→0) f(x), naming the theorem and the conditions that make it apply.
+      answer: |
+        (a) −1 ≤ cos(2/x) ≤ 1 for every x ≠ 0; multiplying by x⁴ > 0 keeps the direction: −x⁴ ≤ x⁴ cos(2/x) ≤ x⁴.
+        (b) Adding 3: 3 − x⁴ ≤ f(x) ≤ 3 + x⁴. lim (x→0) (3 − x⁴) = 3 and lim (x→0) (3 + x⁴) = 3.
+        (c) lim (x→0) f(x) = 3 by the squeeze theorem, because f is trapped between two functions near 0 and both of those functions approach the same limit, 3.
+      explanation: |
+        Three points, one per part. (a) the inequality with the reason (cosine is between −1 and 1, and x⁴ is positive). (b) the bounds for f and both limits equal to 3. (c) limit 3 with the squeeze theorem named and both conditions (the inequality and the equal outer limits) mentioned.
+    - slug: apcalcab-u01-w03-q23
+      type: short_answer
+      topic_code: "1.7"
+      source: "AP Calculus CED, Topic 1.7"
+      points: 3
+      prompt: |
+        For each limit, choose a method, then evaluate the limit or explain why it does not exist.
+
+        (a) lim (x→2) (x³ − 8)/(x − 2)
+        (b) lim (x→−2) (x² + 5)/(x + 3)
+        (c) lim (x→1) (x + 2)/(x − 1)²
+      answer: |
+        (a) Substitution gives 0/0. Difference of cubes: (x − 2)(x² + 2x + 4)/(x − 2) = x² + 2x + 4 → 4 + 4 + 4 = 12.
+        (b) Substitution works because the denominator is −2 + 3 = 1 ≠ 0: (4 + 5)/1 = 9.
+        (c) Substitution gives 3/0, a nonzero number over 0. The denominator is positive on both sides, so the quotient grows without bound: lim (x→1) (x + 2)/(x − 1)² = ∞ and the limit does not exist.
+      explanation: |
+        Three points, one per part. (a) factoring and 12. (b) 9 with substitution justified by the nonzero denominator. (c) "does not exist" (or "= ∞") with the reason: a nonzero numerator over a denominator approaching 0.
+    - slug: apcalcab-u01-w03-q24
+      type: long_answer
+      topic_code: "1.10"
+      source: "AP Calculus CED, Topic 1.10"
+      points: 6
+      prompt: |
+        Let g be the function defined by
+
+        g(x) = (x² − 2x − 3)/(x − 3) for x < 3,
+        g(3) = 1,
+        g(x) = 7 − x for 3 < x < 6,
+        g(x) = 4/(x − 7) for x ≥ 6, x ≠ 7.
+
+        (A) Find lim (x→3) g(x). Compare it with g(3), and classify the discontinuity of g at x = 3.
+
+        (B) Find lim (x→6⁻) g(x) and lim (x→6⁺) g(x), and classify the discontinuity of g at x = 6.
+
+        (C) Describe the behaviour of g near x = 7 using one-sided limits, and classify the discontinuity there.
+
+        (D) What value could replace g(3) = 1 so that lim (x→3) g(x) = g(3)? Explain why no single value can achieve this at x = 6.
+      answer: |
+        (A) Left: (x − 3)(x + 1)/(x − 3) = x + 1 → 4. Right: 7 − x → 4. So lim (x→3) g(x) = 4, but g(3) = 1 ≠ 4: a removable discontinuity.
+        (B) lim (x→6⁻) g(x) = 7 − 6 = 1; lim (x→6⁺) g(x) = 4/(6 − 7) = −4. The one-sided limits are finite and unequal: a jump discontinuity.
+        (C) For x slightly less than 7, x − 7 is a small negative number, so lim (x→7⁻) g(x) = −∞; for x slightly greater, lim (x→7⁺) g(x) = ∞. An infinite discontinuity (vertical asymptote x = 7).
+        (D) g(3) = 4. At x = 6 the one-sided limits (1 and −4) disagree, so lim (x→6) g(x) does not exist and no choice of g(6) can equal it.
+      explanation: |
+        Six points. (A) 2 points: 1 for the limit 4 from both pieces (left piece simplified by factoring), 1 for "removable" with the comparison g(3) = 1 ≠ 4. (B) 2 points: 1 for both one-sided limits 1 and −4, 1 for "jump" justified by unequal finite one-sided limits. (C) 1 point: both one-sided infinite limits with correct signs and "infinite". (D) 1 point: the value 4 and the reason that the limit at 6 does not exist.

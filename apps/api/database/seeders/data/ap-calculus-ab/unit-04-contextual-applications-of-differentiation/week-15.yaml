@@ -1,0 +1,578 @@
+week: 15
+unit: 4
+title: "Solving Related Rates Problems"
+topics: ["4.5"]
+guide: guides/week-15.md
+guide_description: |
+  A complete method for related-rates problems: drawing and labelling a picture at a general moment, choosing
+  the right relationship (the Pythagorean theorem, similar triangles, area and volume formulas, right-triangle
+  trigonometry), eliminating an extra variable before differentiating, and reporting the answer with its sign
+  and units. Worked examples: the distance from an observer to a hypothetical drone flying at constant altitude,
+  the falling water level in a draining conical funnel, the length and tip speed of a walker's shadow under a
+  streetlamp, and the rate at which an observer's angle of elevation to a rising hot-air balloon changes.
+flashcards_description: |
+  30 cards on the related-rates method, the Pythagorean, similar-triangle, cone and trigonometric set-ups, sign
+  conventions, units, radians for angle rates, and the classic errors.
+
+flashcards:
+  - front: Related-rates solution → the full checklist
+    back: |
+      Draw a picture at a general moment; label changing quantities with letters and fixed ones with numbers; list given and wanted rates with signs; write an equation; eliminate extra variables if needed; differentiate with respect to t; substitute; answer with units.
+    topic_code: "4.5"
+  - front: Labelling a related-rates picture → which quantities get letters
+    back: |
+      Everything that changes gets a letter (x, h, θ). Only quantities that stay fixed throughout get numbers. Writing "x = 30" on the picture freezes x.
+    topic_code: "4.5"
+  - front: Two objects moving at right angles from a point → the relationship
+    back: |
+      Pythagorean theorem: x² + y² = D². Differentiated: x·dx/dt + y·dy/dt = D·dD/dt.
+    topic_code: "4.5"
+  - front: Cars 80 m east (15 m/s) and 60 m north (20 m/s) of a crossing, both moving away → dD/dt
+    back: |
+      D = 100 and dD/dt = (80·15 + 60·20)/100 = 24 m/s. Not 25: the rates do not combine by Pythagoras unless the distances are in the same ratio as the speeds.
+    topic_code: "4.5"
+  - front: Drone at a fixed 40 m altitude flying away at 6 m/s → ds/dt to the observer below its path when x = 30 m
+    back: |
+      s² = x² + 40², so ds/dt = (x/s)·dx/dt = (30/50)(6) = 3.6 m/s. The altitude is a constant; its rate is 0.
+    topic_code: "4.5"
+  - front: Plank of length 5 m sliding down a wall, bottom moving out at 0.4 m/s → top's rate when the bottom is 3 m out
+    back: |
+      x² + y² = 25 gives dy/dt = −(x/y)·dx/dt = −(3/4)(0.4) = −0.3 m/s: the top slides down at 0.3 m/s.
+    topic_code: "4.5"
+  - front: Similar triangles in a cone (height H, top radius R) → how to use them
+    back: |
+      r/h = R/H, so r = (R/H)h. Substitute into V = (1/3)πr²h before differentiating, leaving V in terms of h alone.
+    topic_code: "4.5"
+  - front: Funnel 12 cm deep with top radius 4 cm → volume in terms of depth h
+    back: |
+      r = h/3, so V = (1/3)π(h/3)²h = πh³/27, and dV/dt = (π/9)h²·dh/dt.
+    topic_code: "4.5"
+  - front: Funnel V = πh³/27 draining at 2 cm³/s → dh/dt when h = 6 cm
+    back: |
+      −2 = (π/9)(36)·dh/dt = 4π·dh/dt, so dh/dt = −1/(2π) ≈ −0.159 cm/s. The level falls at about 0.159 cm per second.
+    topic_code: "4.5"
+  - front: Cone tank 8 ft deep with top radius 6 ft → volume in terms of depth
+    back: |
+      r = 3h/4, so V = (1/3)π(9h²/16)h = 3πh³/16.
+    topic_code: "4.5"
+  - front: Constant inflow into a vertex-down cone → does the depth rise at a constant rate?
+    back: |
+      No. dh/dt = (dV/dt)/(πr²): the surface widens as it fills, so the same inflow raises the level more slowly.
+    topic_code: "4.5"
+  - front: Streetlamp shadow problem → the relationship
+    back: |
+      Similar triangles: lamp height/(distance from lamp to tip of shadow) = person's height/(shadow length).
+    topic_code: "4.5"
+  - front: 6 m lamp, 1.8 m walker moving away at 1.5 m/s → shadow length rate
+    back: |
+      6/(x + s) = 1.8/s gives s = (3/7)x, so ds/dt = (3/7)(1.5) = 9/14 ≈ 0.643 m/s, at every distance.
+    topic_code: "4.5"
+  - front: Shadow tip speed versus shadow length rate → the difference
+    back: |
+      The tip is at x + s from the lamp, so it moves at dx/dt + ds/dt. With 1.5 and 9/14 m/s, the tip moves at 15/7 ≈ 2.143 m/s.
+    topic_code: "4.5"
+  - front: Angle of elevation problems → the relationship
+    back: |
+      Usually tan θ = opposite/adjacent. Differentiate: sec²θ·dθ/dt = (rate of the side expression).
+    topic_code: "4.5"
+  - front: Balloon rising at 5 m/s seen from 300 m away → dθ/dt when the balloon is 300 m up
+    back: |
+      tan θ = h/300, so sec²θ·dθ/dt = (1/300)(5). At h = 300, θ = π/4 and sec²θ = 2: dθ/dt = 5/600 = 1/120 radian per second.
+    topic_code: "4.5"
+  - front: Rocket rising at 20 m/s, camera 50 m from the pad → dθ/dt when the rocket is 50 m up
+    back: |
+      tan θ = h/50; sec²θ = 2 at θ = π/4, so dθ/dt = (20/50)/2 = 0.2 radian per second.
+    topic_code: "4.5"
+  - front: Units of dθ/dt in related rates → what to write and why
+    back: |
+      Radians per unit time. The derivative of tan θ is sec²θ only when θ is in radians.
+    topic_code: "4.5"
+  - front: Finding sec²θ at the instant → quickest way
+    back: |
+      Use the triangle at that moment: sec θ = hypotenuse/adjacent, or sec²θ = 1 + tan²θ. No need to find θ itself.
+    topic_code: "4.5"
+  - front: Spherical snowball with dr/dt = −0.25 cm/min → dV/dt when r = 4 cm
+    back: |
+      dV/dt = 4πr²·dr/dt = 4π(16)(−0.25) = −16π cm³ per minute: the volume decreases at 16π cm³ per minute.
+    topic_code: "4.5"
+  - front: Balloon inflated at a constant 50 cm³/s → dS/dt for its surface area
+    back: |
+      dr/dt = 50/(4πr²), and S = 4πr² gives dS/dt = 8πr·dr/dt = 100/r cm² per second (20 at r = 5).
+    topic_code: "4.5"
+  - front: Triangular trough, 4 m long, ends 2 m wide at the top and 1 m deep → volume when the water is h deep
+    back: |
+      The water surface is 2h wide, so the end area is (1/2)(2h)(h) = h² and V = 4h².
+    topic_code: "4.5"
+  - front: Rate of the area of the right triangle with legs x and y → formula
+    back: |
+      A = xy/2, so dA/dt = (x·dy/dt + y·dx/dt)/2 (product rule).
+    topic_code: "4.5"
+  - front: Sign of the answer in related rates → how to report it
+    back: |
+      A negative rate means that quantity is decreasing. Say it in words: "the depth is decreasing at 0.159 cm/s" (or give −0.159 cm/s with "decreasing" implied).
+    topic_code: "4.5"
+  - front: Object moving toward a point → sign of its distance rate
+    back: |
+      Negative: the distance to that point is shrinking. A plane approaching a radar station has dx/dt < 0.
+    topic_code: "4.5"
+  - front: Plane at 6 km altitude approaching a radar station at 480 km/h → ds/dt when s = 10 km
+    back: |
+      x = 8 km; ds/dt = (x/s)·dx/dt = (8/10)(−480) = −384 km/h: the distance shrinks at 384 km/h.
+    topic_code: "4.5"
+  - front: Distance rate when the plane is directly over the station → value and reason
+    back: |
+      ds/dt = (x/s)·dx/dt = 0 because x = 0: at that instant the distance stops decreasing and starts increasing.
+    topic_code: "4.5"
+  - front: Error-spot → "the cone's radius is 3 at this moment, so V = 3πh and dV/dt = 3π·dh/dt"
+    back: |
+      The radius changes as the depth changes. Replace r with its similar-triangles expression in h before differentiating.
+    topic_code: "4.5"
+  - front: Error-spot → "the cars move at 15 and 20 m/s, so the distance between them grows at 35 m/s"
+    back: |
+      Rates in perpendicular directions do not add. Differentiate x² + y² = D² and use the positions at that instant.
+    topic_code: "4.5"
+  - front: Error-spot → "tan θ = h/50, so dθ/dt = (1/50)·dh/dt"
+    back: |
+      The left side is tan θ, whose derivative is sec²θ·dθ/dt. Dividing by sec²θ at the instant is required.
+    topic_code: "4.5"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topic 4.5: solving related-rates problems with the
+    Pythagorean theorem, similar triangles, cone and sphere volumes, and angles of elevation), with 8 questions
+    (about 35%) reviewing weeks 5 to 13 (vertical asymptotes, the Intermediate Value Theorem, the chain rule,
+    implicit differentiation, choosing derivative rules, derivatives in context and straight-line motion). Opens
+    with a shared-context set on two cars leaving an intersection. Multiple choice, select-all, true/false and
+    numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and
+    the long answer are graded by your teacher against the scoring notes. No calculator is needed; every rate
+    answer must carry units.
+  questions:
+    # ---- Stimulus set: two cars (4.5)
+    - slug: apcalcab-u04-w15-q01
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 1
+      stimulus: |
+        Two hypothetical cars leave a crossroads along perpendicular roads. Car A drives east away from the crossroads at 15 metres per second and car B drives north away from it at 20 metres per second. Let x be car A's distance from the crossroads, y car B's distance, and D the straight-line distance between the cars, all in metres. At a certain instant x = 80 and y = 60.
+      prompt: |
+        Which equation correctly relates the rates of change of x, y and D?
+      options:
+        - "x·(dx/dt) + y·(dy/dt) = dD/dt"
+        - "2x·(dx/dt) + 2y·(dy/dt) = 2D·(dD/dt)"
+        - "dx/dt + dy/dt = dD/dt"
+        - "(dx/dt)² + (dy/dt)² = (dD/dt)²"
+      option_explanations:
+        - |
+          The right side forgot the chain rule on D²: d/dt [D²] = 2D·dD/dt, so after dividing by 2 the right side is D·dD/dt.
+        - |
+          Correct. Differentiate x² + y² = D² with respect to t, using the chain rule on each squared quantity.
+        - |
+          Distances in perpendicular directions are not added, so their rates are not added either.
+        - |
+          This applies the Pythagorean theorem to the rates, which is not what differentiating x² + y² = D² gives.
+      answer: 1
+    - slug: apcalcab-u04-w15-q02
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 1
+      stimulus: |
+        Two hypothetical cars leave a crossroads along perpendicular roads. Car A drives east away from the crossroads at 15 metres per second and car B drives north away from it at 20 metres per second. Let x be car A's distance from the crossroads, y car B's distance, and D the straight-line distance between the cars, all in metres. At a certain instant x = 80 and y = 60.
+      prompt: |
+        How fast is the distance between the cars increasing at that instant?
+      options:
+        - "25 m/s"
+        - "35 m/s"
+        - "24 m/s"
+        - "2400 m/s"
+      option_explanations:
+        - |
+          25 = √(15² + 20²) applies Pythagoras to the speeds; the positions at the instant must be used.
+        - |
+          35 adds the two speeds, as if the cars moved along one line in opposite directions.
+        - |
+          Correct. D = √(80² + 60²) = 100, and dD/dt = (80·15 + 60·20)/100 = 2400/100 = 24 metres per second.
+        - |
+          This is x·dx/dt + y·dy/dt without dividing by D = 100, from leaving the factor D off the right side.
+      answer: 2
+    - slug: apcalcab-u04-w15-q03
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 1
+      stimulus: |
+        Two hypothetical cars leave a crossroads along perpendicular roads. Car A drives east away from the crossroads at 15 metres per second and car B drives north away from it at 20 metres per second. Let x be car A's distance from the crossroads, y car B's distance, and D the straight-line distance between the cars, all in metres. At a certain instant x = 80 and y = 60.
+      prompt: |
+        Suppose instead that car B were driving south, toward the crossroads, at 20 metres per second, with car A unchanged and the same positions x = 80 and y = 60. What would dD/dt be at that instant?
+      options:
+        - "0 m/s"
+        - "24 m/s"
+        - "−24 m/s"
+        - "−5 m/s"
+      option_explanations:
+        - |
+          Correct. Now dy/dt = −20, so dD/dt = (80·15 + 60·(−20))/100 = (1200 − 1200)/100 = 0 metres per second.
+        - |
+          This keeps dy/dt = +20; a distance that is shrinking has a negative rate.
+        - |
+          This makes both rates negative; car A is still moving away, so dx/dt stays +15.
+        - |
+          −5 = 15 − 20 just combines the speeds; the positions 80 and 60 must weight them.
+      answer: 0
+    - slug: apcalcab-u04-w15-q04
+      type: numeric
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 1
+      stimulus: |
+        Two hypothetical cars leave a crossroads along perpendicular roads. Car A drives east away from the crossroads at 15 metres per second and car B drives north away from it at 20 metres per second. Let x be car A's distance from the crossroads, y car B's distance, and D the straight-line distance between the cars, all in metres. At a certain instant x = 80 and y = 60.
+      prompt: |
+        The crossroads and the two cars are the corners of a right triangle. At the instant described, how fast is the area of that triangle increasing, in square metres per second?
+      answer: { value: 1250, tolerance: 0 }
+      explanation: |
+        A = xy/2, so dA/dt = (x·dy/dt + y·dx/dt)/2 = (80·20 + 60·15)/2 = (1600 + 900)/2 = 1250 square metres per second.
+    # ---- Independent items
+    - slug: apcalcab-u04-w15-q05
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 1
+      prompt: |
+        A hypothetical tank is a cone with its vertex pointing down, 8 feet deep, with a top radius of 6 feet. Water flows in at 3 cubic feet per minute. How fast is the water level rising when the water is 4 feet deep?
+      options:
+        - "1/π ft per minute"
+        - "27/(256π) ft per minute"
+        - "1/(3π) ft³ per minute"
+        - "1/(3π) ft per minute"
+      option_explanations:
+        - |
+          This treats the radius as fixed at its value 3 ft for that instant (dV/dt = 3π·dh/dt); the radius changes as the depth changes.
+        - |
+          This uses r = 4h/3, turning the similar-triangles ratio upside down; the ratio is r/h = 6/8.
+        - |
+          The number is right, but a water level rises in feet per minute, not cubic feet per minute.
+        - |
+          Correct. r = 3h/4, so V = 3πh³/16 and dV/dt = (9π/16)h²·dh/dt. At h = 4: 3 = 9π·dh/dt, so dh/dt = 1/(3π) ≈ 0.106 ft per minute.
+      answer: 3
+    - slug: apcalcab-u04-w15-q06
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 1
+      prompt: |
+        A 5-metre plank leans against a vertical wall. Its bottom slides away from the wall at 0.4 metres per second. How fast is the top of the plank moving when the bottom is 3 metres from the wall?
+      options:
+        - "Down the wall at 0.3 m/s"
+        - "Down the wall at 0.4 m/s"
+        - "Down the wall at about 0.533 m/s"
+        - "Up the wall at 0.3 m/s"
+      option_explanations:
+        - |
+          Correct. x² + y² = 25 with x = 3 gives y = 4, and dy/dt = −(x/y)·dx/dt = −(3/4)(0.4) = −0.3 m/s, so the top slides down at 0.3 m/s.
+        - |
+          The two ends do not move at the same rate; the rates are weighted by the positions x and y.
+        - |
+          This uses −(y/x)·dx/dt = −(4/3)(0.4), swapping x and y when solving.
+        - |
+          dy/dt is negative: as the bottom moves out, the top must come down for the length to stay 5 m.
+      answer: 0
+    - slug: apcalcab-u04-w15-q07
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 1
+      prompt: |
+        A child 1 metre tall walks directly away from a streetlamp 5 metres high at 1.2 metres per second. How fast is the length of the child's shadow increasing?
+      options:
+        - "1.5 m/s"
+        - "6 m/s"
+        - "0.3 m/s"
+        - "0.24 m/s"
+      option_explanations:
+        - |
+          1.5 m/s is the speed of the tip of the shadow, dx/dt + ds/dt = 1.2 + 0.3, not the rate of the shadow's length.
+        - |
+          This multiplies the walking speed by the lamp's height; the similar triangles give a ratio, not a product.
+        - |
+          Correct. Similar triangles: 5/(x + s) = 1/s, so 5s = x + s and s = x/4. Then ds/dt = (1/4)(1.2) = 0.3 metres per second.
+        - |
+          This uses s = x/5, measuring the lamp's triangle from the child instead of from the tip of the shadow.
+      answer: 2
+    - slug: apcalcab-u04-w15-q08
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 1
+      prompt: |
+        A camera on the ground 50 metres from a launch pad follows a hypothetical rocket rising straight up. When the rocket is 50 metres high it is rising at 20 metres per second. How fast is the camera's angle of elevation θ increasing at that moment?
+      options:
+        - "0.4 radian per second"
+        - "0.2 radian per second"
+        - "0.8 radian per second"
+        - "0.2 metre per second"
+      option_explanations:
+        - |
+          This differentiates tan θ = h/50 as if the left side were θ, leaving out the factor sec²θ = 2.
+        - |
+          Correct. tan θ = h/50, so sec²θ·dθ/dt = (1/50)·dh/dt. At h = 50, θ = π/4 and sec²θ = 2, so dθ/dt = (20/50)/2 = 0.2 radian per second.
+        - |
+          This multiplies by sec²θ = 2 instead of dividing by it.
+        - |
+          An angle changes in radians per second, not metres per second.
+      answer: 1
+    - slug: apcalcab-u04-w15-q09
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 1
+      prompt: |
+        A spherical snowball melts so that its radius decreases at 0.25 cm per minute. At what rate is its volume changing when the radius is 4 cm?
+      options:
+        - "16π cm³ per minute"
+        - "−16π/3 cm³ per minute"
+        - "−256π/3 cm³"
+        - "−16π cm³ per minute"
+      option_explanations:
+        - |
+          The radius is decreasing, so dr/dt = −0.25 and the volume must be decreasing too; the sign was dropped.
+        - |
+          This differentiates (4/3)πr³ without bringing down the exponent 3, giving (4/3)πr²·dr/dt.
+        - |
+          −256π/3 is minus the volume (4/3)π(4)³, not a rate; the units have no "per minute".
+        - |
+          Correct. V = (4/3)πr³, so dV/dt = 4πr²·dr/dt = 4π(16)(−0.25) = −16π cm³ per minute.
+      answer: 3
+    # ---- Spiral review
+    - slug: apcalcab-u04-w15-q10
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Calculus CED, Topic 4.2"
+      points: 1
+      prompt: |
+        A particle moves along the x-axis with position x(t) = t²e^(−t) for t > 0. On which interval is the particle moving to the left?
+      options:
+        - "t > 2"
+        - "0 < t < 2"
+        - "t > 0"
+        - "t > 2 + √2"
+      option_explanations:
+        - |
+          Correct. v(t) = 2te^(−t) − t²e^(−t) = te^(−t)(2 − t), which is negative exactly when t > 2.
+        - |
+          On 0 < t < 2 the velocity te^(−t)(2 − t) is positive, so the particle moves right.
+        - |
+          The factor e^(−t) is decreasing, but the direction of motion comes from the sign of v(t), which is positive before t = 2.
+        - |
+          t = 2 + √2 is where the acceleration changes sign; direction depends on velocity, not acceleration.
+      answer: 0
+    - slug: apcalcab-u04-w15-q11
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        What is d/dx [e^(sin x)]?
+      options:
+        - "e^(cos x)"
+        - "e^(sin x)"
+        - "cos x · e^(sin x)"
+        - "sin x · e^(sin x − 1)"
+      option_explanations:
+        - |
+          This differentiates the exponent and leaves it in place; the outer function eᵘ keeps its exponent and is multiplied by u′.
+        - |
+          eˣ is its own derivative, but e^(sin x) needs the chain-rule factor cos x.
+        - |
+          Correct. Chain rule: d/dx [eᵘ] = eᵘ · u′ with u = sin x, so the derivative is cos x · e^(sin x).
+        - |
+          This treats e^(sin x) like a power function xⁿ; the variable is in the exponent, so the power rule does not apply.
+      answer: 2
+    - slug: apcalcab-u04-w15-q12
+      type: multiple_choice
+      topic_code: "1.16"
+      source: "AP Calculus CED, Topic 1.16"
+      points: 1
+      prompt: |
+        A function f is continuous on [1, 4], with f(1) = −2 and f(4) = 5. Which statement must be true?
+      options:
+        - "f′(c) = 7/3 for some c in (1, 4)."
+        - "f(c) = 0 for some c in (1, 4)."
+        - "The maximum value of f on [1, 4] is 5."
+        - "f is increasing on [1, 4]."
+      option_explanations:
+        - |
+          That is the Mean Value Theorem's conclusion, which also needs f differentiable on (1, 4); only continuity is given.
+        - |
+          Correct. By the Intermediate Value Theorem, f is continuous on [1, 4] and 0 lies between f(1) = −2 and f(4) = 5, so f(c) = 0 for some c in (1, 4).
+        - |
+          f could rise above 5 somewhere inside the interval; the endpoint values do not cap it.
+        - |
+          The endpoint values say nothing about what f does in between; it could rise and fall.
+      answer: 1
+    - slug: apcalcab-u04-w15-q13
+      type: multi_select
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Air is pumped into a spherical balloon at a constant 50 cubic centimetres per second. Which statements are true? Select all that apply.
+      options:
+        - "The radius increases more slowly as the balloon gets bigger."
+        - "When the radius is 5 cm, the radius is increasing at 1/(2π) cm per second."
+        - "dV/dt depends on the radius."
+        - "When the radius is 5 cm, the surface area is increasing at 20 cm² per second."
+        - "The radius increases at a constant rate."
+      option_explanations:
+        - |
+          Correct. 50 = 4πr²·dr/dt gives dr/dt = 50/(4πr²), which decreases as r grows.
+        - |
+          Correct. dr/dt = 50/(4π · 25) = 50/(100π) = 1/(2π) ≈ 0.159 cm per second.
+        - |
+          dV/dt is the constant pumping rate, 50 cm³ per second, at every radius.
+        - |
+          Correct. S = 4πr², so dS/dt = 8πr·dr/dt = 8π(5)(1/(2π)) = 20 cm² per second.
+        - |
+          dr/dt = 50/(4πr²) changes with r, so the radius does not grow at a constant rate.
+      answer: [0, 1, 3]
+    - slug: apcalcab-u04-w15-q14
+      type: multi_select
+      topic_code: "3.5"
+      source: "AP Calculus CED, Topic 3.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which derivative statements are true? Select all that apply.
+      options:
+        - "d/dx [ln(2x)] = 1/x"
+        - "d/dx [e^(3x)] = e^(3x)"
+        - "d/dx [sec x] = sec x tan x"
+        - "d/dx [arcsin x] = 1/√(1 − x²)"
+        - "d/dx [cos(x²)] = −sin(x²)"
+      option_explanations:
+        - |
+          Correct. The chain rule gives (1/(2x)) · 2 = 1/x; equivalently ln(2x) = ln 2 + ln x.
+        - |
+          The chain rule gives 3e^(3x); the factor 3 from the inside function is missing.
+        - |
+          Correct. This is the standard derivative of the secant function.
+        - |
+          Correct. This is the standard derivative of the inverse sine, for −1 < x < 1.
+        - |
+          The chain rule gives −sin(x²) · 2x = −2x sin(x²); the inner derivative 2x is missing.
+      answer: [0, 2, 3]
+    - slug: apcalcab-u04-w15-q15
+      type: true_false
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 1
+      prompt: |
+        True or false: If water flows at a constant rate into a conical tank whose vertex points down, the depth of the water rises at a constant rate.
+      answer: false
+      explanation: |
+        False. dV/dt = πr²·dh/dt, where r is the radius of the water's surface. As the tank fills, r grows, so with dV/dt constant, dh/dt = (dV/dt)/(πr²) decreases: the level rises more and more slowly.
+    - slug: apcalcab-u04-w15-q16
+      type: true_false
+      topic_code: "1.14"
+      source: "AP Calculus CED, Topic 1.14"
+      points: 1
+      prompt: |
+        True or false: If lim (x→2⁺) f(x) = ∞, then the line x = 2 is a vertical asymptote of the graph of f.
+      answer: true
+      explanation: |
+        True. One infinite one-sided limit at x = 2 is enough for x = 2 to be a vertical asymptote.
+    - slug: apcalcab-u04-w15-q17
+      type: fill_blank
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 1
+      prompt: |
+        The circumference of a circle is increasing at 6π centimetres per second. The radius is increasing at ____ centimetres per second.
+      answer: ["3", "3.0"]
+      explanation: |
+        C = 2πr, so dC/dt = 2π·dr/dt. Then 6π = 2π·dr/dt gives dr/dt = 3 cm per second, at every radius.
+    - slug: apcalcab-u04-w15-q18
+      type: fill_blank
+      topic_code: "4.1"
+      source: "AP Calculus CED, Topic 4.1"
+      points: 1
+      prompt: |
+        W(t) is the weight of a puppy in kilograms, t weeks after birth. The derivative W′(t) is measured in kilograms per ____.
+      answer: ["week", "weeks", "wk"]
+      explanation: |
+        A derivative's units are output units per input unit: kilograms per week.
+    - slug: apcalcab-u04-w15-q19
+      type: numeric
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 1
+      prompt: |
+        A hypothetical kite flies at a constant height of 30 metres and moves horizontally away from the person holding its string at 2 metres per second. Assuming the string is straight, how fast, in metres per second, is string being let out when 50 metres of string are out?
+      answer: { value: 1.6, tolerance: 0.001 }
+      explanation: |
+        s² = x² + 30². When s = 50, x = 40. Then s·ds/dt = x·dx/dt gives ds/dt = (40/50)(2) = 1.6 metres per second.
+    - slug: apcalcab-u04-w15-q20
+      type: numeric
+      topic_code: "3.2"
+      source: "AP Calculus CED, Topic 3.2"
+      points: 1
+      prompt: |
+        The curve x²y = 36 passes through (3, 4). Find dy/dx at (3, 4). Give your answer to three decimal places.
+      answer: { value: -2.667, tolerance: 0.001 }
+      explanation: |
+        2xy + x²·dy/dx = 0, so dy/dx = −2y/x = −8/3 ≈ −2.667.
+    - slug: apcalcab-u04-w15-q21
+      type: short_answer
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 3
+      prompt: |
+        A hypothetical water trough is 4 metres long. Its ends are isosceles triangles, vertex down, 2 metres wide at the top and 1 metre deep. Water is poured in at 0.2 cubic metres per minute.
+
+        (a) Show that when the water is h metres deep, the volume of water is V = 4h².
+        (b) How fast is the water level rising when the water is 0.5 metres deep? Include units.
+        (c) Explain, using your work, whether the level rises faster or slower when the water is 0.8 metres deep.
+      answer: |
+        (a) By similar triangles the width of the water's surface w satisfies w/h = 2/1, so w = 2h. The wet end has area (1/2)(2h)(h) = h², and V = 4h².
+        (b) dV/dt = 8h·dh/dt. With dV/dt = 0.2 and h = 0.5: 0.2 = 4·dh/dt, so dh/dt = 0.05 metres per minute.
+        (c) Slower: dh/dt = 0.2/(8h) decreases as h increases; at h = 0.8 it is 0.2/6.4 = 0.03125 m per minute.
+      explanation: |
+        Three points, one per part. (a) w = 2h from similar triangles and V = 4h². (b) dV/dt = 8h·dh/dt and 0.05 m per minute with units. (c) slower, supported by dh/dt = 0.2/(8h) or the value at h = 0.8.
+    - slug: apcalcab-u04-w15-q22
+      type: short_answer
+      topic_code: "4.2"
+      source: "AP Calculus CED, Topic 4.2"
+      points: 2
+      prompt: |
+        A particle moves along the x-axis with position x(t) = t³ − 3t² − 9t + 2 metres, for t ≥ 0 seconds.
+
+        (a) On what interval is the particle moving to the left? Justify.
+        (b) Is the particle speeding up or slowing down at t = 2? Justify.
+      answer: |
+        (a) v(t) = 3t² − 6t − 9 = 3(t − 3)(t + 1). For t ≥ 0, v(t) < 0 when 0 ≤ t < 3, so the particle moves left on [0, 3).
+        (b) v(2) = 12 − 12 − 9 = −9 m/s and a(t) = 6t − 6 gives a(2) = 6 m/s². Velocity and acceleration have opposite signs, so the particle is slowing down.
+      explanation: |
+        Two points. (a) 1 point for 0 ≤ t < 3 (or 0 < t < 3) with v(t) < 0 as the reason. (b) 1 point for slowing down because v(2) < 0 and a(2) > 0.
+    - slug: apcalcab-u04-w15-q23
+      type: long_answer
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 6
+      prompt: |
+        A hypothetical aircraft flies at a constant altitude of 6 kilometres on a straight path that passes directly over a radar station. The aircraft approaches the station at 480 kilometres per hour. Let x be the horizontal distance from the aircraft to the point directly above the station, s the straight-line distance from the station to the aircraft, and θ the angle of elevation from the station to the aircraft.
+
+        (A) Find the rate at which s is changing when s = 10 km. Include units, and say whether s is increasing or decreasing.
+
+        (B) Find the rate at which θ is changing at that same moment. Include units.
+
+        (C) Explain what the sign of your answer to (B) means in context.
+
+        (D) What is ds/dt at the moment the aircraft is directly over the station? Explain why this makes sense.
+      answer: |
+        (A) s² = x² + 6². When s = 10, x = 8. Differentiating, s·ds/dt = x·dx/dt, with dx/dt = −480 (x is shrinking). ds/dt = (8/10)(−480) = −384 km/h: the distance is decreasing at 384 km per hour.
+        (B) tan θ = 6/x, so sec²θ·dθ/dt = −(6/x²)·dx/dt. At x = 8, sec θ = s/x = 10/8, so sec²θ = 100/64. Then dθ/dt = [−(6/64)(−480)]/(100/64) = 2880/100 = 28.8 radians per hour.
+        (C) dθ/dt > 0: the angle of elevation is increasing, so the radar must tilt upward faster to follow the aircraft as it approaches.
+        (D) At x = 0, ds/dt = (x/s)·dx/dt = (0/6)(−480) = 0. Directly overhead the distance is at its minimum, 6 km: it has stopped decreasing and is about to start increasing, so its rate is momentarily 0.
+      explanation: |
+        Six points. (A) 1 point for the Pythagorean relation differentiated correctly, 1 point for −384 km per hour (or "decreasing at 384 km/h"). (B) 1 point for differentiating tan θ = 6/x (or an equivalent trigonometric relation) with sec²θ·dθ/dt, 1 point for 28.8 radians per hour. (C) 1 point for interpreting the positive sign as the angle increasing. (D) 1 point for ds/dt = 0 with the explanation that the distance reaches its minimum directly overhead.

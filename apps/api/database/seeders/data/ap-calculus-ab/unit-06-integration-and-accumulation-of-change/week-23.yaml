@@ -1,0 +1,585 @@
+week: 23
+unit: 6
+title: "Definite Integrals and Accumulation Functions"
+topics: ["6.3", "6.4"]
+guide: guides/week-23.md
+guide_description: |
+  Summation notation for Riemann sums, the definite integral as the limit of Riemann sums as the widths shrink,
+  translating between a limit of sums and an integral, and evaluating integrals of lines, absolute values and
+  semicircles by geometry; then accumulation functions g(x) = ∫ from a to x of f(t) dt, the first part of the
+  Fundamental Theorem of Calculus (g′(x) = f(x)), variable upper limits with the chain rule, and reading g from a
+  graph of f. Worked examples: x² on [1, 3] as a limit of right sums, ∫ from 0 to 4 of √(16 − x²) dx as a quarter
+  circle, the derivative of ∫ from 0 to x³ of √(1 + t²) dt, and an accumulation function built from a
+  piecewise-linear graph.
+flashcards_description: |
+  31 cards on sigma notation, right-sum limits and the integrals they define, definite integral notation and its
+  parts, geometric evaluation, accumulation functions, the first Fundamental Theorem of Calculus, and the chain rule
+  with variable limits.
+
+flashcards:
+  - front: ∑ (k = 1 to n) aₖ → how to read it
+    back: |
+      "The sum of aₖ as k runs from 1 to n": a₁ + a₂ + … + aₙ. k is the index; it disappears once the sum is written out.
+    topic_code: "6.3"
+  - front: Right Riemann sum for f on [a, b] with n equal pieces → sigma form
+    back: |
+      ∑ (k = 1 to n) f(a + kΔx) · Δx, with Δx = (b − a)/n. The kth right endpoint is a + kΔx.
+    topic_code: "6.3"
+  - front: Left Riemann sum for f on [a, b] with n equal pieces → sigma form
+    back: |
+      ∑ (k = 0 to n − 1) f(a + kΔx) · Δx, or equivalently ∑ (k = 1 to n) f(a + (k − 1)Δx) · Δx.
+    topic_code: "6.3"
+  - front: Definite integral ∫ from a to b of f(x) dx → definition
+    back: |
+      The limit of Riemann sums as the number of subintervals grows and every width shrinks to 0: lim (n→∞) ∑ (k = 1 to n) f(xₖ*) Δx.
+    topic_code: "6.3"
+  - front: Parts of ∫ from a to b of f(x) dx → names
+    back: |
+      a is the lower limit, b the upper limit, f(x) the integrand, dx says x is the variable of integration (and stands for the shrinking width Δx).
+    topic_code: "6.3"
+  - front: lim (n→∞) ∑ (k = 1 to n) (2/n)(1 + 2k/n)² → as an integral
+    back: |
+      Δx = 2/n and xₖ = 1 + 2k/n run from 1 to 3, so it is ∫ from 1 to 3 of x² dx (equivalently ∫ from 0 to 2 of (1 + x)² dx). Value 26/3.
+    topic_code: "6.3"
+  - front: Limit of a Riemann sum → three things to identify before writing the integral
+    back: |
+      Δx (the factor like 3/n), the sample point xₖ (the expression inside f), and the interval: start a, length b − a = nΔx.
+    topic_code: "6.3"
+  - front: lim (n→∞) ∑ (k = 1 to n) (1/n)(k/n)³ → integral
+    back: |
+      ∫ from 0 to 1 of x³ dx: Δx = 1/n, xₖ = k/n runs from 0 to 1.
+    topic_code: "6.3"
+  - front: ∫ from 0 to 4 of √(16 − x²) dx → value by geometry
+    back: |
+      y = √(16 − x²) is the upper half of a circle of radius 4; from 0 to 4 it is a quarter circle: (1/4)π · 16 = 4π.
+    topic_code: "6.3"
+  - front: ∫ from 0 to 4 of |x − 1| dx → value by geometry
+    back: |
+      Two triangles: ½ · 1 · 1 = 0.5 on [0, 1] and ½ · 3 · 3 = 4.5 on [1, 4]. Total 5.
+    topic_code: "6.3"
+  - front: ∫ from −1 to 3 of (2x − 2) dx → value and why
+    back: |
+      0. The line crosses zero at x = 1; the triangle below on [−1, 1] (area 4) cancels the triangle above on [1, 3] (area 4).
+    topic_code: "6.3"
+  - front: Definite integral of a function that is negative on [a, b] (with a < b) → sign
+    back: |
+      Negative: every Riemann sum term is a negative height times a positive width.
+    topic_code: "6.3"
+  - front: Definite integral versus area → when they differ
+    back: |
+      When f dips below the axis. The integral counts area below as negative; the geometric area counts it as positive.
+    topic_code: "6.3"
+  - front: Dummy variable in ∫ from 2 to 5 of t² dt → does renaming t matter?
+    back: |
+      No. ∫ from 2 to 5 of t² dt = ∫ from 2 to 5 of u² du; the value is a number that depends only on the limits and the function.
+    topic_code: "6.3"
+  - front: Continuous f on [a, b] → is it integrable?
+    back: |
+      Yes. Continuity (even with finitely many jump discontinuities) guarantees the Riemann sums approach one limit.
+    topic_code: "6.3"
+  - front: Accumulation function g(x) = ∫ from a to x of f(t) dt → what it measures
+    back: |
+      The accumulated (signed) area under f from the fixed starting point a to the moving endpoint x. Its input is the upper limit x.
+    topic_code: "6.4"
+  - front: g(x) = ∫ from a to x of f(t) dt → value at x = a
+    back: |
+      g(a) = 0: no width, no area. The starting point is always a zero of the accumulation function.
+    topic_code: "6.4"
+  - front: Fundamental Theorem of Calculus, first part → statement
+    back: |
+      If f is continuous on an interval containing a, then g(x) = ∫ from a to x of f(t) dt is differentiable there and g′(x) = f(x).
+    topic_code: "6.4"
+  - front: d/dx ∫ from 2 to x of cos(t²) dt → result
+    back: |
+      cos(x²). Replace t by x in the integrand; the constant lower limit 2 does not appear.
+    topic_code: "6.4"
+  - front: d/dx ∫ from a to u(x) of f(t) dt → chain rule form
+    back: |
+      f(u(x)) · u′(x): the integrand at the upper limit, times the derivative of the upper limit.
+    topic_code: "6.4"
+  - front: d/dx ∫ from 0 to x³ of √(1 + t²) dt → result
+    back: |
+      √(1 + x⁶) · 3x² = 3x²√(1 + x⁶).
+    topic_code: "6.4"
+  - front: d/dx ∫ from x to 5 of e^(t²) dt → result
+    back: |
+      −e^(x²). Flip the limits first: −∫ from 5 to x of e^(t²) dt, then apply the theorem.
+    topic_code: "6.4"
+  - front: g(x) = ∫ from 0 to x of f(t) dt with f graphed → where g increases
+    back: |
+      Where f > 0: g′ = f is positive there. g decreases where the graph of f is below the axis.
+    topic_code: "6.4"
+  - front: Accumulation function g with g′ = f → where g has a relative maximum
+    back: |
+      Where f changes from positive to negative: g′ changes sign from + to −.
+    topic_code: "6.4"
+  - front: g(x) = ∫ from a to x of f(t) dt → what g″ is
+    back: |
+      g″(x) = f′(x): g is concave up where f is increasing and concave down where f is decreasing.
+    topic_code: "6.4"
+  - front: F(x) = ∫ from 0 to x of (t² − 4) dt → F′(x), F′(3) and where F decreases on x ≥ 0
+    back: |
+      F′(x) = x² − 4, F′(3) = 5, and F decreases on 0 < x < 2, where x² − 4 < 0.
+    topic_code: "6.4"
+  - front: g(x) = ∫ from 0 to x of f(t) dt, x negative → how to find g(x) from the graph
+    back: |
+      g(x) = −∫ from x to 0 of f(t) dt: find the signed area from x to 0, then change its sign.
+    topic_code: "6.4"
+  - front: Accumulation function from a piecewise-linear graph of f → how to tabulate g
+    back: |
+      Start at g(a) = 0 and walk right, adding each piece's signed area (triangles, rectangles, trapezoids); walk left by subtracting.
+    topic_code: "6.4"
+  - front: Error-spot → "d/dx ∫ from 1 to x of t³ dt = x³ − 1"
+    back: |
+      That is the value of the integral before differentiating, x⁴/4 − 1/4, confused with the integrand. The theorem gives d/dx = x³ directly.
+    topic_code: "6.4"
+  - front: Error-spot → "d/dx ∫ from 0 to x² of sin t dt = sin(x²)"
+    back: |
+      The upper limit is x², not x, so the chain rule applies: sin(x²) · 2x.
+    topic_code: "6.4"
+  - front: Error-spot → "the sum ∑ (k = 1 to n) (3/n)(2 + 3k/n) is a left sum because it starts at k = 1"
+    back: |
+      Starting at k = 1 and using a + kΔx (here 2 + 3k/n) picks right endpoints. A left sum would use 2 + 3(k − 1)/n.
+    topic_code: "6.3"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 6.3 and 6.4: summation notation, limits of Riemann
+    sums as definite integrals, geometric evaluation, accumulation functions and the first Fundamental Theorem of
+    Calculus with the chain rule), with 7 questions (about 30%) reviewing weeks 9, 11, 15, 16, 18 and 22 (the
+    quotient rule, implicit differentiation, related rates, L'Hospital's Rule, the First Derivative Test, Riemann sum
+    estimates and distance from a velocity graph). Opens with a shared-context set on an accumulation function built
+    from a piecewise-linear graph. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. No calculator is needed.
+  questions:
+    # ---- Stimulus set: accumulation function from a piecewise-linear graph (6.4, 6.3, 5.4)
+    - slug: apcalcab-u06-w23-q01
+      type: multiple_choice
+      topic_code: "6.4"
+      source: "AP Calculus CED, Topic 6.4"
+      points: 1
+      stimulus: |
+        The graph of a continuous function f on −2 ≤ t ≤ 6 consists of four line segments joining the points (−2, −2), (0, 2), (2, 2), (4, −2) and (6, 0). The function g is defined by g(x) = ∫ from 0 to x of f(t) dt for −2 ≤ x ≤ 6.
+      prompt: |
+        What is the value of g(4)?
+      options:
+        - "6"
+        - "4"
+        - "5"
+        - "−2"
+      option_explanations:
+        - |
+          6 adds the areas 4, 1 and 1 as if all were positive; the triangle on [3, 4] lies below the axis and must be subtracted.
+        - |
+          Correct. On [0, 2] the rectangle gives 4; on [2, 3] the triangle above gives +1 and on [3, 4] the triangle below gives −1. g(4) = 4 + 1 − 1 = 4.
+        - |
+          5 is g(3), the accumulated area up to where f crosses zero; the region from 3 to 4 below the axis lowers it back to 4.
+        - |
+          −2 is f(4), the height of the graph at t = 4, not the accumulated area g(4).
+      answer: 1
+    - slug: apcalcab-u06-w23-q02
+      type: multiple_choice
+      topic_code: "6.4"
+      source: "AP Calculus CED, Topic 6.4"
+      points: 1
+      stimulus: |
+        The graph of a continuous function f on −2 ≤ t ≤ 6 consists of four line segments joining the points (−2, −2), (0, 2), (2, 2), (4, −2) and (6, 0). The function g is defined by g(x) = ∫ from 0 to x of f(t) dt for −2 ≤ x ≤ 6.
+      prompt: |
+        What is the value of g′(5)?
+      options:
+        - "2.5"
+        - "1"
+        - "−1.5"
+        - "−1"
+      option_explanations:
+        - |
+          2.5 is g(5) = 4 − 1.5, the accumulated area, not its rate of change.
+        - |
+          1 is the slope of the segment from (4, −2) to (6, 0), which is f′(5) = g″(5), not g′(5).
+        - |
+          −1.5 is ∫ from 4 to 5 of f(t) dt, the signed area of the trapezoid between t = 4 and t = 5, not the derivative.
+        - |
+          Correct. By the Fundamental Theorem, g′(x) = f(x), and the segment from (4, −2) to (6, 0) gives f(5) = −1.
+      answer: 3
+    - slug: apcalcab-u06-w23-q03
+      type: numeric
+      topic_code: "6.3"
+      source: "AP Calculus CED, Topic 6.3"
+      points: 1
+      stimulus: |
+        The graph of a continuous function f on −2 ≤ t ≤ 6 consists of four line segments joining the points (−2, −2), (0, 2), (2, 2), (4, −2) and (6, 0). The function g is defined by g(x) = ∫ from 0 to x of f(t) dt for −2 ≤ x ≤ 6.
+      prompt: |
+        What is the value of ∫ from −2 to 6 of f(t) dt?
+      answer: { value: 2, tolerance: 0 }
+      explanation: |
+        Signed areas: [−2, 0] gives −1 + 1 = 0 (f crosses zero at t = −1); [0, 2] gives 4; [2, 4] gives +1 − 1 = 0 (crossing at t = 3); [4, 6] is a triangle below the axis with area ½ · 2 · 2 = 2, so −2. Total 0 + 4 + 0 − 2 = 2.
+    - slug: apcalcab-u06-w23-q04
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Calculus CED, Topic 5.4"
+      points: 1
+      stimulus: |
+        The graph of a continuous function f on −2 ≤ t ≤ 6 consists of four line segments joining the points (−2, −2), (0, 2), (2, 2), (4, −2) and (6, 0). The function g is defined by g(x) = ∫ from 0 to x of f(t) dt for −2 ≤ x ≤ 6.
+      prompt: |
+        At what value of x in the open interval −2 < x < 6 does g have a relative maximum?
+      options:
+        - "x = 2"
+        - "x = −1"
+        - "x = 3"
+        - "x = 4"
+      option_explanations:
+        - |
+          At x = 2 the graph of f stops being constant and starts to decrease, but f is still positive there, so g keeps increasing.
+        - |
+          At x = −1, g′ = f changes from negative to positive, which gives a relative minimum of g, not a maximum.
+        - |
+          Correct. g′(x) = f(x), and f changes from positive to negative at x = 3, so by the First Derivative Test g has a relative maximum there.
+        - |
+          At x = 4, f reaches its lowest value, −2, but f stays negative on both sides, so g′ does not change sign there.
+      answer: 2
+    # ---- Independent items
+    - slug: apcalcab-u06-w23-q05
+      type: multiple_choice
+      topic_code: "6.3"
+      source: "AP Calculus CED, Topic 6.3"
+      points: 1
+      prompt: |
+        Which definite integral is equal to lim (n→∞) ∑ (k = 1 to n) (2/n)(1 + 2k/n)²?
+      options:
+        - "∫ from 1 to 3 of x² dx"
+        - "∫ from 0 to 2 of x² dx"
+        - "∫ from 1 to 3 of (1 + x)² dx"
+        - "∫ from 0 to 1 of x² dx"
+      option_explanations:
+        - |
+          Correct. Δx = 2/n and the sample points xₖ = 1 + 2k/n start just after 1 and end at 3 when k = n, with f(x) = x², so the limit is ∫ from 1 to 3 of x² dx.
+        - |
+          The sample points 1 + 2k/n run from 1 to 3, not from 0 to 2; with limits 0 to 2 the integrand would have to be (1 + x)².
+        - |
+          This shifts twice: the 1 is already part of the sample point x = 1 + 2k/n, so writing (1 + x)² on [1, 3] adds it again.
+        - |
+          The width factor 2/n means the interval has length 2, not 1.
+      answer: 0
+    - slug: apcalcab-u06-w23-q06
+      type: multiple_choice
+      topic_code: "6.3"
+      source: "AP Calculus CED, Topic 6.3"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 0 to 4 of √(16 − x²) dx?
+      options:
+        - "16π"
+        - "8π"
+        - "π"
+        - "4π"
+      option_explanations:
+        - |
+          16π is the area of the whole circle of radius 4; the graph is only the top half, and only from x = 0 to x = 4.
+        - |
+          8π is the area of the semicircle from x = −4 to x = 4; the integral covers only the right half of it.
+        - |
+          π would be a quarter circle of radius 2; the radius here is √16 = 4.
+        - |
+          Correct. y = √(16 − x²) is the upper half of the circle x² + y² = 16, and from 0 to 4 the region is a quarter circle: (1/4) · π · 4² = 4π.
+      answer: 3
+    - slug: apcalcab-u06-w23-q07
+      type: multiple_choice
+      topic_code: "6.4"
+      source: "AP Calculus CED, Topic 6.4"
+      points: 1
+      prompt: |
+        What is d/dx ∫ from 2 to x of cos(t²) dt?
+      options:
+        - "cos(x²) − cos(4)"
+        - "cos(x²)"
+        - "−2x sin(x²)"
+        - "2x cos(x²)"
+      option_explanations:
+        - |
+          This subtracts the integrand at the lower limit, as if evaluating an antiderivative; differentiating removes the constant lower limit entirely.
+        - |
+          Correct. The integrand is continuous, so by the first Fundamental Theorem the derivative is the integrand evaluated at the upper limit: cos(x²).
+        - |
+          This differentiates the integrand cos(x²) instead of applying the Fundamental Theorem, which returns the integrand itself.
+        - |
+          The upper limit is x, whose derivative is 1, so no chain rule factor 2x appears.
+      answer: 1
+    - slug: apcalcab-u06-w23-q08
+      type: multiple_choice
+      topic_code: "6.4"
+      source: "AP Calculus CED, Topic 6.4"
+      points: 1
+      prompt: |
+        If H(x) = ∫ from 0 to x³ of √(1 + t²) dt, what is H′(x)?
+      options:
+        - "√(1 + x⁶)"
+        - "3x²√(1 + x²)"
+        - "3x²√(1 + x⁶)"
+        - "√(1 + x⁶) − 1"
+      option_explanations:
+        - |
+          This substitutes the upper limit but forgets the chain rule factor, the derivative 3x² of x³.
+        - |
+          The chain rule factor is right, but the integrand must be evaluated at the upper limit x³, giving √(1 + (x³)²) = √(1 + x⁶).
+        - |
+          Correct. With u = x³, H′(x) = √(1 + u²) · du/dx = √(1 + x⁶) · 3x².
+        - |
+          Subtracting the integrand at the lower limit is not part of the derivative, and the chain rule factor 3x² is missing.
+      answer: 2
+    - slug: apcalcab-u06-w23-q09
+      type: multiple_choice
+      topic_code: "6.4"
+      source: "AP Calculus CED, Topic 6.4"
+      points: 1
+      prompt: |
+        What is d/dx ∫ from x to 5 of e^(t²) dt?
+      options:
+        - "−e^(x²)"
+        - "e^(x²)"
+        - "e^25 − e^(x²)"
+        - "2x e^(x²)"
+      option_explanations:
+        - |
+          Correct. ∫ from x to 5 of e^(t²) dt = −∫ from 5 to x of e^(t²) dt, whose derivative is −e^(x²).
+        - |
+          The variable is the lower limit, so the integral decreases as x grows; switching the limits introduces a negative sign.
+        - |
+          This treats the integral as if an antiderivative were e^(t²); the derivative of the integral with respect to x is not a difference of integrand values.
+        - |
+          This differentiates the integrand e^(x²) instead of applying the Fundamental Theorem, and it also misses the sign from the variable lower limit.
+      answer: 0
+    - slug: apcalcab-u06-w23-q10
+      type: multiple_choice
+      topic_code: "6.2"
+      source: "AP Calculus CED, Topic 6.2"
+      points: 1
+      prompt: |
+        A left Riemann sum with two equal subintervals approximates the area under f(x) = 1/x on [1, 3]. What is the value of the sum, and is it an overestimate or an underestimate?
+      options:
+        - "5/6, an underestimate"
+        - "1.5, an underestimate"
+        - "5/6, an overestimate"
+        - "1.5, an overestimate"
+      option_explanations:
+        - |
+          5/6 = f(2) + f(3) is the right Riemann sum, which uses right endpoints, and for this decreasing function that one is the underestimate.
+        - |
+          The value 1.5 is right, but 1/x is decreasing on [1, 3], so each left endpoint is the highest point of its strip, which makes the sum too large.
+        - |
+          5/6 is the right sum, and a right sum of a decreasing function is an underestimate, not an overestimate.
+        - |
+          Correct. Δx = 1, so the sum is f(1) + f(2) = 1 + 1/2 = 1.5. Because 1/x is decreasing, each left rectangle rises above the graph: an overestimate.
+      answer: 3
+    - slug: apcalcab-u06-w23-q11
+      type: multiple_choice
+      topic_code: "2.9"
+      source: "AP Calculus CED, Topic 2.9"
+      points: 1
+      prompt: |
+        What is d/dx [x/(x² + 4)]?
+      options:
+        - "(x² − 4)/(x² + 4)²"
+        - "(4 − x²)/(x² + 4)²"
+        - "(3x² + 4)/(x² + 4)²"
+        - "1/(2x)"
+      option_explanations:
+        - |
+          This reverses the order in the numerator of the quotient rule; it should be (bottom)(top)′ − (top)(bottom)′ = (x² + 4) − 2x².
+        - |
+          Correct. ((x² + 4)(1) − x(2x))/(x² + 4)² = (4 − x²)/(x² + 4)².
+        - |
+          This adds the two products in the numerator; the quotient rule subtracts x(2x), giving x² + 4 − 2x², not x² + 4 + 2x².
+        - |
+          This divides the derivative of the top by the derivative of the bottom, which is not the quotient rule.
+      answer: 1
+    - slug: apcalcab-u06-w23-q12
+      type: multiple_choice
+      topic_code: "3.2"
+      source: "AP Calculus CED, Topic 3.2"
+      points: 1
+      prompt: |
+        For the curve x² + xy + y² = 7, what is the value of dy/dx at the point (1, 2)?
+      options:
+        - "4/5"
+        - "−2/5"
+        - "−4/5"
+        - "−5/4"
+      option_explanations:
+        - |
+          The sign is lost: solving 2x + y + (x + 2y) dy/dx = 0 gives dy/dx = −(2x + y)/(x + 2y), which is negative here.
+        - |
+          This differentiates xy as dy/dx alone, forgetting the product rule term y; the correct derivative of xy is y + x dy/dx.
+        - |
+          Correct. Differentiating gives 2x + y + x dy/dx + 2y dy/dx = 0, so dy/dx = −(2x + y)/(x + 2y) = −(2 + 2)/(1 + 4) = −4/5.
+        - |
+          This is the reciprocal: it divides (x + 2y) by (2x + y) instead of the other way round.
+      answer: 2
+    - slug: apcalcab-u06-w23-q13
+      type: multi_select
+      topic_code: "6.3"
+      source: "AP Calculus CED, Topic 6.3"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let f be continuous on [a, b] with a < b. Which statements about ∫ from a to b of f(x) dx are true? Select all that apply.
+      options:
+        - "It equals the limit of right Riemann sums for f on [a, b] as the number of equal subintervals goes to infinity."
+        - "It equals the limit of left Riemann sums for f on [a, b] as the number of equal subintervals goes to infinity."
+        - "It always equals the area of the region between the graph of f and the x-axis."
+        - "If f(x) < 0 for all x in [a, b], then the integral is negative."
+        - "Replacing every x by t, as in ∫ from a to b of f(t) dt, does not change its value."
+      option_explanations:
+        - |
+          Correct. For a continuous function every kind of Riemann sum approaches the same limit, the definite integral.
+        - |
+          Correct. Left sums approach the same limit as right sums when f is continuous.
+        - |
+          Area below the axis counts negatively in the integral, so the integral equals the area only when f ≥ 0 on [a, b].
+        - |
+          Correct. Every Riemann sum term is a negative height times a positive width, so the sums and their limit are negative.
+        - |
+          Correct. The variable of integration is a dummy variable; the value depends only on f, a and b.
+      answer: [0, 1, 3, 4]
+    - slug: apcalcab-u06-w23-q14
+      type: multi_select
+      topic_code: "6.4"
+      source: "AP Calculus CED, Topic 6.4"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let F(x) = ∫ from 0 to x of (t² − 4) dt. Which statements are true? Select all that apply.
+      options:
+        - "F(0) = 0"
+        - "F′(3) = 5"
+        - "F is increasing on 0 < x < 2."
+        - "F″(x) = 2x"
+        - "F′(x) = x³/3 − 4x"
+      option_explanations:
+        - |
+          Correct. The integral from 0 to 0 has no width, so F(0) = 0.
+        - |
+          Correct. By the Fundamental Theorem F′(x) = x² − 4, so F′(3) = 9 − 4 = 5.
+        - |
+          On 0 < x < 2, F′(x) = x² − 4 < 0, so F is decreasing there, not increasing.
+        - |
+          Correct. F′(x) = x² − 4 by the Fundamental Theorem, and differentiating again gives F″(x) = 2x.
+        - |
+          x³/3 − 4x is F(x) itself (the accumulated area); its derivative F′(x) is the integrand x² − 4.
+      answer: [0, 1, 3]
+    - slug: apcalcab-u06-w23-q15
+      type: true_false
+      topic_code: "6.3"
+      source: "AP Calculus CED, Topic 6.3"
+      points: 1
+      prompt: |
+        True or false: lim (n→∞) ∑ (k = 1 to n) (1/n)(k/n)³ = ∫ from 0 to 1 of x³ dx.
+      answer: true
+      explanation: |
+        True. Δx = 1/n, the right endpoints xₖ = k/n run from 1/n up to 1, and the heights are xₖ³. These are right Riemann sums for x³ on [0, 1], and their limit is the integral (its value is 1/4).
+    - slug: apcalcab-u06-w23-q16
+      type: true_false
+      topic_code: "6.4"
+      source: "AP Calculus CED, Topic 6.4"
+      points: 1
+      prompt: |
+        True or false: If g(x) = ∫ from 3 to x of f(t) dt for a continuous function f, then g(3) = f(3).
+      answer: false
+      explanation: |
+        False. g(3) = ∫ from 3 to 3 of f(t) dt = 0, since the interval has no width. It is the derivative that equals f: g′(3) = f(3).
+    - slug: apcalcab-u06-w23-q17
+      type: fill_blank
+      topic_code: "6.4"
+      source: "AP Calculus CED, Topic 6.4"
+      points: 1
+      prompt: |
+        If g(x) = ∫ from 0 to x of (t³ + 1) dt, then g′(2) = ____.
+      answer: ["9"]
+      explanation: |
+        By the Fundamental Theorem, g′(x) = x³ + 1, so g′(2) = 8 + 1 = 9.
+    - slug: apcalcab-u06-w23-q18
+      type: fill_blank
+      topic_code: "6.3"
+      source: "AP Calculus CED, Topic 6.3"
+      points: 1
+      prompt: |
+        Using geometry, ∫ from 0 to 4 of |x − 1| dx = ____.
+      answer: ["5", "5.0"]
+      explanation: |
+        The graph is a V with its vertex at (1, 0). Triangle on [0, 1]: ½ · 1 · 1 = 0.5. Triangle on [1, 4]: ½ · 3 · 3 = 4.5. Both lie above the axis, so the integral is 0.5 + 4.5 = 5.
+    - slug: apcalcab-u06-w23-q19
+      type: numeric
+      topic_code: "6.1"
+      source: "AP Calculus CED, Topic 6.1"
+      points: 1
+      prompt: |
+        A particle moves along a line with velocity v(t) = t − 2 meters per second for 0 ≤ t ≤ 5. What is the total distance, in meters, that the particle travels over this interval?
+      answer: { value: 6.5, tolerance: 0.001 }
+      explanation: |
+        v < 0 on 0 < t < 2: a triangle below the axis with area ½ · 2 · 2 = 2. v > 0 on 2 < t < 5: a triangle above with area ½ · 3 · 3 = 4.5. Total distance adds the areas: 2 + 4.5 = 6.5 meters. (The displacement would be 4.5 − 2 = 2.5 meters.)
+    - slug: apcalcab-u06-w23-q20
+      type: numeric
+      topic_code: "4.7"
+      source: "AP Calculus CED, Topic 4.7"
+      points: 1
+      prompt: |
+        Find lim (x→0) (e^(3x) − 1)/sin x.
+      answer: { value: 3, tolerance: 0 }
+      explanation: |
+        Direct substitution gives 0/0, so L'Hospital's Rule applies: lim (x→0) 3e^(3x)/cos x = 3 · 1/1 = 3.
+    - slug: apcalcab-u06-w23-q21
+      type: short_answer
+      topic_code: "6.3"
+      source: "AP Calculus CED, Topic 6.3"
+      points: 3
+      prompt: |
+        Consider lim (n→∞) ∑ (k = 1 to n) (3/n)(2 + 3k/n).
+
+        (a) Write this limit as a definite integral.
+        (b) Evaluate the integral using geometry.
+        (c) For n = 3, compute the sum (without the limit). Is it an overestimate or an underestimate of the integral? Explain.
+      answer: |
+        (a) Δx = 3/n and xₖ = 2 + 3k/n runs from 2 to 5, so the limit is ∫ from 2 to 5 of x dx (equivalently ∫ from 0 to 3 of (2 + x) dx).
+        (b) The region under y = x from 2 to 5 is a trapezoid with parallel sides 2 and 5 and width 3: 3 · (2 + 5)/2 = 10.5.
+        (c) With n = 3, Δx = 1 and the sample points are 3, 4, 5, so the sum is 3 + 4 + 5 = 12. These are right endpoints and y = x is increasing, so each rectangle extends above the graph: an overestimate (12 > 10.5).
+      explanation: |
+        Three points, one per part. (a) a correct integral with matching limits and integrand (either form). (b) 10.5 (or 21/2) by geometry. (c) 12 with "overestimate" justified by right endpoints of an increasing function.
+    - slug: apcalcab-u06-w23-q22
+      type: short_answer
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 3
+      prompt: |
+        A hypothetical spherical balloon is being inflated so that its radius increases at a constant 0.5 centimeters per second. (The volume of a sphere is V = (4/3)πr³ and its surface area is S = 4πr².)
+
+        (a) Write an equation relating dV/dt and dr/dt.
+        (b) Find the rate at which the volume is increasing when the radius is 10 cm. Include units.
+        (c) Find the rate at which the surface area is increasing at that same instant. Include units.
+      answer: |
+        (a) dV/dt = 4πr² · dr/dt.
+        (b) dV/dt = 4π(10)²(0.5) = 200π ≈ 628.3 cubic centimeters per second.
+        (c) dS/dt = 8πr · dr/dt = 8π(10)(0.5) = 40π ≈ 125.7 square centimeters per second.
+      explanation: |
+        Three points, one per part. (a) the differentiated relation with the chain rule factor dr/dt. (b) 200π cm³/s with units. (c) 40π cm²/s with units.
+    - slug: apcalcab-u06-w23-q23
+      type: long_answer
+      topic_code: "6.4"
+      source: "AP Calculus CED, Topic 6.4"
+      points: 6
+      prompt: |
+        The graph of a continuous function f on −1 ≤ t ≤ 5 consists of three line segments joining the points (−1, 3), (1, −1), (3, −1) and (5, 3). Let h(x) = ∫ from −1 to x of f(t) dt.
+
+        (A) Find h(1) and h(5).
+
+        (B) Find h′(2) and h″(4).
+
+        (C) Find each x in −1 < x < 5 at which h has a relative extremum. Classify each and justify your answers.
+
+        (D) Find the absolute maximum value of h on −1 ≤ x ≤ 5. Justify your answer.
+      answer: |
+        (A) f crosses zero at t = 0.5 (on the first segment) and at t = 3.5 (on the last). h(1) = ½ · 1.5 · 3 − ½ · 0.5 · 1 = 2.25 − 0.25 = 2. On [1, 3] the rectangle below the axis gives −2, so h(3) = 0; on [3, 5], −0.25 + 2.25 = 2, so h(5) = 2.
+        (B) h′(x) = f(x), so h′(2) = f(2) = −1. h″(x) = f′(x), and the segment from (3, −1) to (5, 3) has slope 2, so h″(4) = 2.
+        (C) h′ = f changes from positive to negative at x = 0.5, so h has a relative maximum there. h′ = f changes from negative to positive at x = 3.5, so h has a relative minimum there.
+        (D) Candidates: h(−1) = 0, h(0.5) = 2.25, h(3.5) = h(3) − 0.25 = −0.25, h(5) = 2. The absolute maximum value is 2.25, at x = 0.5.
+      explanation: |
+        Six points. (A) 1 point for h(1) = 2 and 1 point for h(5) = 2. (B) 1 point for both h′(2) = −1 and h″(4) = 2. (C) 1 point for the relative maximum at x = 0.5 and 1 point for the relative minimum at x = 3.5, each justified by the sign change of h′ = f. (D) 1 point for 2.25 using a Candidates Test that includes both endpoints and the critical points.

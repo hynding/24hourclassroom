@@ -1,0 +1,652 @@
+week: 29
+unit: 7
+title: "Exponential Models with Differential Equations"
+topics: ["7.8"]
+guide: guides/week-29.md
+guide_description: |
+  Why dy/dt = ky forces exponential growth or decay, solving it by separation (and why the constant is the
+  initial value), finding k from a doubling time, half-life or a second data point, the relative growth rate,
+  and the shifted model dy/dt = k(y − M) behind Newton's law of cooling, with long-run behaviour and concavity.
+  Worked examples: deriving y = y₀e^(kt), a hypothetical bacteria culture that doubles every 5 hours, a
+  hypothetical medicine with a 6-hour half-life, a hypothetical cup of coffee cooling from 90 °C to 60 °C in 10
+  minutes in a 20 °C room, and turning "proportional to the amount present" into a model.
+flashcards_description: |
+  30 cards on the exponential differential equation dy/dt = ky, its solution and the meaning of y₀ and k,
+  growth and decay constants from doubling times, half-lives and data, the relative rate of change, and
+  Newton's law of cooling as dy/dt = k(y − M).
+
+flashcards:
+  - front: dy/dt = ky → what it says in words
+    back: |
+      The rate of change of y is proportional to y itself. The bigger y is, the faster it changes.
+    topic_code: "7.8"
+  - front: dy/dt = ky with y(0) = y₀ → solution
+    back: |
+      y = y₀e^(kt). Every solution of dy/dt = ky is a constant times e^(kt), and the constant is the value at t = 0.
+    topic_code: "7.8"
+  - front: Deriving y = y₀e^(kt) by separation → key steps
+    back: |
+      dy/y = k dt, ln|y| = kt + C, |y| = e^C e^(kt), y = Ae^(kt) with A any real number; t = 0 gives A = y₀.
+    topic_code: "7.8"
+  - front: Sign of k in dy/dt = ky (with y > 0) → meaning
+    back: |
+      k > 0: exponential growth. k < 0: exponential decay. k = 0: y is constant.
+    topic_code: "7.8"
+  - front: Relative growth rate (1/y)(dy/dt) for dy/dt = ky → value
+    back: |
+      Exactly k, constant. A constant relative rate is the signature of an exponential model.
+    topic_code: "7.8"
+  - front: Doubling time for y = y₀e^(kt), k > 0 → formula
+    back: |
+      Solve e^(kT) = 2: T = ln 2 / k. It does not depend on y₀.
+    topic_code: "7.8"
+  - front: Half-life for y = y₀e^(−kt), k > 0 → formula
+    back: |
+      Solve e^(−kT) = 1/2: T = ln 2 / k. Conversely k = ln 2 / (half-life).
+    topic_code: "7.8"
+  - front: Hypothetical culture that doubles every 5 hours → growth constant k
+    back: |
+      e^(5k) = 2, so k = ln 2 / 5 ≈ 0.1386 per hour.
+    topic_code: "7.8"
+  - front: y triples every 4 hours under dy/dt = ky → k
+    back: |
+      e^(4k) = 3, so k = ln 3 / 4 ≈ 0.2747 per hour.
+    topic_code: "7.8"
+  - front: Half-life of 10 days, decay written dA/dt = −kA → k
+    back: |
+      k = ln 2 / 10 ≈ 0.0693 per day, positive because the minus sign is already in the equation.
+    topic_code: "7.8"
+  - front: Hypothetical 80 g sample with half-life 10 days → amount after 30 days
+    back: |
+      30 days is three half-lives: 80 → 40 → 20 → 10 g.
+    topic_code: "7.8"
+  - front: Hypothetical medicine, 200 mg, half-life 6 hours → amount after 15 hours
+    back: |
+      200 · (1/2)^(15/6) = 200 · (1/2)^2.5 ≈ 35.355 mg.
+    topic_code: "7.8"
+  - front: Finding k from two data points y(0) = y₀ and y(t₁) = y₁ → method
+    back: |
+      y₁ = y₀e^(kt₁), so k = ln(y₁/y₀) / t₁. Divide first, then take ln.
+    topic_code: "7.8"
+  - front: y(0) = 50 and y(2) = 200 under dy/dt = ky → y(4)
+    back: |
+      The factor over 2 time units is 4, so over 4 units it is 4² = 16: y(4) = 800. No need to compute k.
+    topic_code: "7.8"
+  - front: Equal time intervals in an exponential model → what stays the same
+    back: |
+      The ratio (growth factor), not the difference. From 100 to 200 takes as long as from 500 to 1000.
+    topic_code: "7.8"
+  - front: Continuous rate k vs growth factor b in y = y₀bᵗ → link
+    back: |
+      b = eᵏ and k = ln b. A rate of 0.08 per year means a factor e^0.08 ≈ 1.0833, not 1.08.
+    topic_code: "7.8"
+  - front: Concavity of y = y₀e^(kt) with y₀ > 0 → always
+    back: |
+      Concave up for any k ≠ 0: d²y/dt² = k²y > 0. Growth curves bend up steeply; decay curves flatten toward 0.
+    topic_code: "7.8"
+  - front: dP/dt = 0.08P for a hypothetical fish population → rate when P = 1200
+    back: |
+      0.08 · 1200 = 96 fish per year. The rate depends on the current population, not on time directly.
+    topic_code: "7.8"
+  - front: Newton's law of cooling → differential equation and solution
+    back: |
+      dT/dt = −k(T − M), k > 0, M the surrounding temperature. Solution: T = M + (T₀ − M)e^(−kt).
+    topic_code: "7.8"
+  - front: Solving dT/dt = −k(T − M) by separation → the absolute value step
+    back: |
+      ln|T − M| = −kt + C. If T starts above M then T − M > 0 for all t; if below, T − M < 0 and the constant T₀ − M is negative.
+    topic_code: "7.8"
+  - front: Cold drink at 4 °C warming in a 24 °C room → solution form
+    back: |
+      T = 24 − 20e^(−kt). The constant T₀ − M = 4 − 24 = −20 is negative, so T rises toward 24.
+    topic_code: "7.8"
+  - front: Long-run temperature in Newton's law of cooling → value
+    back: |
+      lim (t→∞) T = M, the surrounding temperature, because e^(−kt) → 0.
+    topic_code: "7.8"
+  - front: Coffee from 90 °C to 60 °C in 10 minutes in a 20 °C room → k
+    back: |
+      T = 20 + 70e^(−kt) and 60 = 20 + 70e^(−10k), so e^(−10k) = 4/7 and k = ln(7/4)/10 ≈ 0.0560 per minute.
+    topic_code: "7.8"
+  - front: dy/dt = k(y − M) → how to recognise it as exponential
+    back: |
+      Let u = y − M. Then du/dt = ku, so u = u₀e^(kt) and y = M + (y₀ − M)e^(kt): exponential, shifted by M.
+    topic_code: "7.8"
+  - front: dy/dt = 0.5(y − 12) → general solution
+    back: |
+      y = 12 + Ce^(0.5t). The equilibrium is y = 12; solutions move away from it because k > 0.
+    topic_code: "7.8"
+  - front: "\"Decreases at a rate proportional to the amount present\" → model with k > 0"
+    back: |
+      dA/dt = −kA, so A = A₀e^(−kt). Write the minus sign when the problem says k is positive.
+    topic_code: "7.8"
+  - front: y = 40e^(−0.3t) → the differential equation and initial condition it solves
+    back: |
+      dy/dt = −0.3y with y(0) = 40. Read k from the exponent and y₀ from the coefficient.
+    topic_code: "7.8"
+  - front: Error-spot → "y = 5 + 2e^(0.3t) satisfies dy/dt = 0.3y"
+    back: |
+      dy/dt = 0.6e^(0.3t) = 0.3(y − 5), not 0.3y. A vertical shift changes the differential equation.
+    topic_code: "7.8"
+  - front: Error-spot → "half-life 10 days, so 80 g becomes 80/3 g after 30 days"
+    back: |
+      Half-lives multiply by 1/2 each time, they do not divide by the count: 80 · (1/2)³ = 10 g.
+    topic_code: "7.8"
+  - front: Error-spot → "doubling time for dP/dt = 0.08P is 2/0.08 = 25 years"
+    back: |
+      Solve e^(0.08T) = 2: T = ln 2 / 0.08 ≈ 8.66 years. The logarithm is essential.
+    topic_code: "7.8"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (topic 7.8: dy/dt = ky and its solution, growth and decay
+    constants, doubling time and half-life, and Newton's law of cooling), with 8 questions (about 32%) reviewing
+    weeks 27 and 28 (slope fields, reasoning about solutions, separation of variables, particular solutions) and
+    earlier units (the chain rule, related rates, the Fundamental Theorem, the first derivative test). Opens with a
+    shared-context set on a hypothetical fish population. Multiple choice, select-all, true/false and numeric
+    items are graded at once; fill-in-the-blank items are matched automatically; the short answers and the long
+    answer are graded by your teacher against the scoring notes. Items marked (Calculator.) need a calculator.
+  questions:
+    # ---- Stimulus set: a hypothetical fish population (7.8, 7.4)
+    - slug: apcalcab-u07-w29-q01
+      type: multiple_choice
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 1
+      stimulus: |
+        The number of fish P in a hypothetical pond is modelled by dP/dt = 0.08P, with P(0) = 500, where t is measured in years.
+      prompt: |
+        Which formula gives P(t)?
+      options:
+        - "P(t) = 500(1.08)ᵗ"
+        - "P(t) = 0.08e^(500t)"
+        - "P(t) = 500e^(0.08t)"
+        - "P(t) = 500 + e^(0.08t)"
+      option_explanations:
+        - |
+          This treats 0.08 as an annual percentage. dP/dt = 0.08P gives the growth factor e^0.08 ≈ 1.0833 per year, not 1.08.
+        - |
+          The constants are swapped: the initial value multiplies the exponential and the rate constant goes in the exponent.
+        - |
+          Correct. dP/dt = kP has solution P = P(0)e^(kt), so P = 500e^(0.08t). Check: P′ = 0.08 · 500e^(0.08t) = 0.08P.
+        - |
+          The initial value is added rather than multiplied. Here P(0) = 501, and P′ = 0.08e^(0.08t) is not 0.08P.
+      answer: 2
+    - slug: apcalcab-u07-w29-q02
+      type: multiple_choice
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 1
+      stimulus: |
+        The number of fish P in a hypothetical pond is modelled by dP/dt = 0.08P, with P(0) = 500, where t is measured in years.
+      prompt: |
+        At the moment when there are 1,200 fish, how fast is the population growing?
+      options:
+        - "96 fish per year"
+        - "0.08 fish per year"
+        - "1,200 fish per year"
+        - "96 years"
+      option_explanations:
+        - |
+          Correct. dP/dt = 0.08 · 1200 = 96, in fish per year.
+        - |
+          0.08 is the relative growth rate (per year), not the rate in fish per year. Multiply by P.
+        - |
+          1,200 is the population P, not its rate of change dP/dt.
+        - |
+          The value 96 is right but the units are wrong: dP/dt is measured in fish per year.
+      answer: 0
+    - slug: apcalcab-u07-w29-q03
+      type: multiple_choice
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 1
+      stimulus: |
+        The number of fish P in a hypothetical pond is modelled by dP/dt = 0.08P, with P(0) = 500, where t is measured in years.
+      prompt: |
+        How long does it take the population to double?
+      options:
+        - "2/0.08 = 25 years"
+        - "0.08 · ln 2 ≈ 0.055 years"
+        - "ln 1000 / 0.08 ≈ 86.35 years"
+        - "ln 2 / 0.08 ≈ 8.66 years"
+      option_explanations:
+        - |
+          This skips the logarithm. Doubling means e^(0.08t) = 2, which needs ln 2, not 2.
+        - |
+          This inverts the formula. From 0.08t = ln 2, divide by 0.08 rather than multiplying.
+        - |
+          This sets 500e^(0.08t) = 1000 but then takes ln 1000 without dividing by 500 first. Divide first: e^(0.08t) = 2.
+        - |
+          Correct. 500e^(0.08t) = 1000 gives e^(0.08t) = 2, so t = ln 2 / 0.08 ≈ 8.66 years.
+      answer: 3
+    - slug: apcalcab-u07-w29-q04
+      type: multiple_choice
+      topic_code: "7.4"
+      source: "AP Calculus CED, Topic 7.4"
+      points: 1
+      stimulus: |
+        The number of fish P in a hypothetical pond is modelled by dP/dt = 0.08P, with P(0) = 500, where t is measured in years.
+      prompt: |
+        Using only the differential equation, which describes the graph of P for t ≥ 0?
+      options:
+        - "Increasing and concave down"
+        - "Increasing and concave up"
+        - "Increasing at a constant rate"
+        - "Decreasing and concave up"
+      option_explanations:
+        - |
+          The second derivative is positive, not negative: the rate of growth itself increases as P grows.
+        - |
+          Correct. P > 0 makes dP/dt = 0.08P > 0, and d²P/dt² = 0.08 · dP/dt = 0.0064P > 0. Increasing and concave up.
+        - |
+          The rate 0.08P depends on P, which keeps growing, so the rate is not constant.
+        - |
+          dP/dt = 0.08P is positive for P > 0, so P is increasing.
+      answer: 1
+    # ---- Decay and modeling (7.8)
+    - slug: apcalcab-u07-w29-q05
+      type: multiple_choice
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 1
+      prompt: |
+        A hypothetical isotope decays according to dA/dt = −kA, where k > 0 and t is in days. Its half-life is 10 days. What is k?
+      options:
+        - "ln 2 / 10"
+        - "−ln 2 / 10"
+        - "10 / ln 2"
+        - "1/20"
+      option_explanations:
+        - |
+          Correct. A = A₀e^(−kt), and e^(−10k) = 1/2 gives −10k = −ln 2, so k = ln 2 / 10 ≈ 0.0693 per day.
+        - |
+          The minus sign is already in the equation dA/dt = −kA, and k is stated to be positive.
+        - |
+          This is the reciprocal: 10/ln 2 ≈ 14.4 would be in days, not per day. Solve 10k = ln 2 for k.
+        - |
+          This assumes the sample loses half its amount evenly over 10 days, a linear model. Exponential decay needs ln 2.
+      answer: 0
+    - slug: apcalcab-u07-w29-q06
+      type: multiple_choice
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 1
+      prompt: |
+        A hypothetical 80-gram sample of that isotope (half-life 10 days) is stored for 30 days. How much remains?
+      options:
+        - "20 grams"
+        - "80/3 ≈ 26.7 grams"
+        - "10 grams"
+        - "0 grams"
+      option_explanations:
+        - |
+          This counts only two half-lives (80 → 40 → 20). Thirty days is three half-lives.
+        - |
+          This divides by the number of half-lives. Each half-life multiplies by 1/2: 80 · (1/2)³.
+        - |
+          Correct. 30 days is three half-lives: 80 · (1/2)³ = 80/8 = 10 grams. Equivalently 80e^(−30k) with k = ln 2 / 10.
+        - |
+          This subtracts 40 grams every 10 days, as if the decay were linear. An exponential model never reaches 0.
+      answer: 2
+    - slug: apcalcab-u07-w29-q07
+      type: multiple_choice
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 1
+      prompt: |
+        The function y = 40e^(−0.3t) is the solution of which initial-value problem?
+      options:
+        - "dy/dt = 40y, y(0) = −0.3"
+        - "dy/dt = 0.3y, y(0) = 40"
+        - "dy/dt = −0.3y, y(0) = −12"
+        - "dy/dt = −0.3y, y(0) = 40"
+      option_explanations:
+        - |
+          The roles are swapped: the exponent's coefficient is k and the leading coefficient is y(0).
+        - |
+          The sign of k is lost. y′ = −12e^(−0.3t) = −0.3y, so the solution decays.
+        - |
+          −12 is y′(0), the initial rate, not the initial value y(0) = 40.
+        - |
+          Correct. y′ = 40 · (−0.3)e^(−0.3t) = −0.3y, and y(0) = 40e⁰ = 40.
+      answer: 3
+    - slug: apcalcab-u07-w29-q08
+      type: multiple_choice
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 1
+      prompt: |
+        A hypothetical pot of soup cools in a kitchen so that its temperature, in °C, is T(t) = 20 + 70e^(−kt) for some k > 0, with t in minutes. What is lim (t→∞) T(t)?
+      options:
+        - "90 °C"
+        - "20 °C"
+        - "0 °C"
+        - "70 °C"
+      option_explanations:
+        - |
+          90 °C = 20 + 70 is the starting temperature T(0), not the long-run value.
+        - |
+          Correct. With k > 0, e^(−kt) → 0, so T → 20 + 0 = 20 °C, the kitchen temperature.
+        - |
+          This treats the model as plain decay to 0. The constant 20 remains: the soup cools to room temperature, not to 0 °C.
+        - |
+          70 is the initial difference between the soup and the room, which shrinks to 0.
+      answer: 1
+    - slug: apcalcab-u07-w29-q09
+      type: multiple_choice
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 1
+      prompt: |
+        A quantity y satisfies dy/dt = ky and triples every 4 hours. What is k, per hour?
+      options:
+        - "3/4"
+        - "ln 4 / 3"
+        - "ln 3 / 4"
+        - "ln(3/4)"
+      option_explanations:
+        - |
+          This skips the logarithm: e^(4k) = 3 requires ln 3.
+        - |
+          The numbers are swapped: the tripling factor 3 goes inside the logarithm and the time 4 in the denominator.
+        - |
+          Correct. y₀e^(4k) = 3y₀, so e^(4k) = 3 and k = ln 3 / 4 ≈ 0.275 per hour.
+        - |
+          ln(3/4) is negative, which would mean decay. The factor 3 and the time 4 are not divided inside the logarithm.
+      answer: 2
+    # ---- Spiral review (7.6, 7.7, 7.3, 4.5, 6.7)
+    - slug: apcalcab-u07-w29-q10
+      type: multiple_choice
+      topic_code: "7.6"
+      source: "AP Calculus CED, Topic 7.6"
+      points: 1
+      prompt: |
+        Which is the general solution of dy/dt = 0.5(y − 12), where C is an arbitrary constant?
+      options:
+        - "y = 12 + Ce^(0.5t)"
+        - "y = Ce^(0.5t) − 12"
+        - "y = Ce^(0.5t)"
+        - "y = 12e^(0.5t) + C"
+      option_explanations:
+        - |
+          Correct. dy/(y − 12) = 0.5 dt, ln|y − 12| = 0.5t + K, so y − 12 = Ce^(0.5t) and y = 12 + Ce^(0.5t).
+        - |
+          The shift has the wrong sign: from y − 12 = Ce^(0.5t), add 12 to both sides.
+        - |
+          This ignores the 12. Ce^(0.5t) solves dy/dt = 0.5y, not 0.5(y − 12).
+        - |
+          The constants are in the wrong places. y = 12e^(0.5t) + C has y′ = 6e^(0.5t), which is not 0.5(y − 12) in general.
+      answer: 0
+    - slug: apcalcab-u07-w29-q11
+      type: multiple_choice
+      topic_code: "7.7"
+      source: "AP Calculus CED, Topic 7.7"
+      points: 1
+      prompt: |
+        For x > 0, which is the particular solution of dy/dx = y/x with y(1) = 3?
+      options:
+        - "y = x + 2"
+        - "y = 3 + ln x"
+        - "y = x³"
+        - "y = 3x"
+      option_explanations:
+        - |
+          From ln|y| = ln x + C this adds the constant after exponentiating; e^(ln x + C) = e^C · x, a product.
+        - |
+          This integrates only the right side. The left side ∫ dy/y = ln|y| must be integrated too.
+        - |
+          The constant ended up as an exponent. y = x³ gives y′ = 3x² but y/x = x², so it is not a solution.
+        - |
+          Correct. dy/y = dx/x gives ln|y| = ln x + C, so y = Ax; y(1) = 3 gives A = 3. Check: y′ = 3 = 3x/x.
+      answer: 3
+    - slug: apcalcab-u07-w29-q12
+      type: multiple_choice
+      topic_code: "7.3"
+      source: "AP Calculus CED, Topic 7.3"
+      points: 1
+      prompt: |
+        In the slope field for dy/dx = 0.5y, how do the segments at (0, 2) and (3, 2) compare?
+      options:
+        - "Slope 1 at (0, 2) and slope 2.5 at (3, 2)"
+        - "Both have slope 1."
+        - "Slope 0 at (0, 2), since x = 0 there"
+        - "Both have slope 2."
+      option_explanations:
+        - |
+          This adds the coordinates as if the equation were dy/dx = 0.5(x + y). The right side depends only on y.
+        - |
+          Correct. The slope depends only on y: at y = 2 it is 0.5 · 2 = 1, at every x.
+        - |
+          x does not appear in the equation, so x = 0 does not make the slope 0.
+        - |
+          This drops the factor 0.5: the slope is 0.5 · 2 = 1, not 2.
+      answer: 1
+    - slug: apcalcab-u07-w29-q13
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 1
+      prompt: |
+        The radius of a circular oil slick on a hypothetical lake grows at 0.5 metres per minute. How fast is the area of the slick growing when the radius is 20 metres?
+      options:
+        - "π square metres per minute"
+        - "400π square metres per minute"
+        - "20π square metres per minute"
+        - "40π square metres per minute"
+      option_explanations:
+        - |
+          This drops r: dA/dt = 2πr · dr/dt needs r = 20, not just 2π · 0.5.
+        - |
+          400π is the area πr² at r = 20, not its rate of change.
+        - |
+          Correct. A = πr², so dA/dt = 2πr · dr/dt = 2π(20)(0.5) = 20π m²/min ≈ 62.8 m²/min.
+        - |
+          This forgets the chain-rule factor dr/dt = 0.5: 2π · 20 = 40π is dA/dr, in square metres per metre.
+      answer: 2
+    - slug: apcalcab-u07-w29-q14
+      type: multiple_choice
+      topic_code: "6.7"
+      source: "AP Calculus CED, Topic 6.7"
+      points: 1
+      prompt: |
+        A hypothetical town's population grows at a rate of R(t) = 60e^(0.05t) people per year, with t in years. By how many people does the population increase over the first 10 years?
+      options:
+        - "60(e^0.5 − 1)"
+        - "1200e^0.5"
+        - "3(e^0.5 − 1)"
+        - "1200(e^0.5 − 1)"
+      option_explanations:
+        - |
+          This forgets to divide by 0.05 when antidifferentiating e^(0.05t); the antiderivative is 20e^(0.05t) times 60.
+        - |
+          This evaluates the antiderivative only at the upper limit. Subtract its value at t = 0, which is 1200.
+        - |
+          This multiplies by 0.05 instead of dividing by it.
+        - |
+          Correct. The increase is ∫ from 0 to 10 of 60e^(0.05t) dt = [1200e^(0.05t)] from 0 to 10 = 1200(e^0.5 − 1) ≈ 778 people.
+      answer: 3
+    # ---- Select-all
+    - slug: apcalcab-u07-w29-q15
+      type: multi_select
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which functions are solutions of the differential equation dy/dt = −0.4y? Select all that apply.
+      options:
+        - "y = 7e^(−0.4t)"
+        - "y = 0"
+        - "y = −3e^(−0.4t)"
+        - "y = e^(−0.4t) + 5"
+        - "y = e^(0.4t)"
+      option_explanations:
+        - |
+          Correct. y′ = −2.8e^(−0.4t) = −0.4 · 7e^(−0.4t).
+        - |
+          Correct. y = 0 gives 0 = −0.4 · 0. It is the member of Ae^(−0.4t) with A = 0.
+        - |
+          Correct. y′ = 1.2e^(−0.4t) = −0.4 · (−3e^(−0.4t)). The constant can be negative.
+        - |
+          y′ = −0.4e^(−0.4t), but −0.4y = −0.4e^(−0.4t) − 2. The added 5 breaks it.
+        - |
+          y′ = 0.4e^(0.4t) = 0.4y, the growth equation, not −0.4y.
+      answer: [0, 1, 2]
+    - slug: apcalcab-u07-w29-q16
+      type: multi_select
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let y = y₀e^(kt) with y₀ > 0 and k < 0. Which statements are true for t ≥ 0? Select all that apply.
+      options:
+        - "y is decreasing."
+        - "The half-life depends on y₀."
+        - "The graph of y is concave up."
+        - "lim (t→∞) y = 0"
+        - "y reaches 0 at t = −y₀/k."
+      option_explanations:
+        - |
+          Correct. y′ = ky₀e^(kt), negative since k < 0 and y₀e^(kt) > 0.
+        - |
+          The half-life is ln 2/|k|, the same whatever the starting amount.
+        - |
+          Correct. y″ = k²y₀e^(kt), positive because k² > 0 and y₀e^(kt) > 0.
+        - |
+          Correct. With k < 0, e^(kt) → 0 as t → ∞.
+        - |
+          e^(kt) is never 0, so y is positive for every t; it only approaches 0. The formula −y₀/k is what a linear model would give.
+      answer: [0, 2, 3]
+    # ---- True/false
+    - slug: apcalcab-u07-w29-q17
+      type: true_false
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 1
+      prompt: |
+        True or false: If y grows according to dy/dt = ky with k > 0, the time it takes y to grow from 100 to 200 equals the time it takes to grow from 500 to 1,000.
+      answer: true
+      explanation: |
+        True. Both are doublings. From y₀e^(kt) = 2y₀ the time is ln 2/k whatever y₀ is, so every doubling takes the same time.
+    - slug: apcalcab-u07-w29-q18
+      type: true_false
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 1
+      prompt: |
+        True or false: The function y = 5 + 2e^(0.3t) satisfies dy/dt = 0.3y.
+      answer: false
+      explanation: |
+        False. dy/dt = 0.6e^(0.3t), while 0.3y = 1.5 + 0.6e^(0.3t). It satisfies dy/dt = 0.3(y − 5) instead: a shifted exponential solves a shifted equation.
+    # ---- Fill-in
+    - slug: apcalcab-u07-w29-q19
+      type: fill_blank
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 1
+      prompt: |
+        A quantity satisfies dy/dt = ky with y(0) = 50 and y(2) = 200. Then y(4) = ____.
+      answer: ["800", "800.0"]
+      explanation: |
+        e^(2k) = 200/50 = 4, so y(4) = 50e^(4k) = 50(e^(2k))² = 50 · 16 = 800. Over equal time intervals an exponential multiplies by the same factor.
+    - slug: apcalcab-u07-w29-q20
+      type: fill_blank
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        If y = 100e^(−0.2t), then the value of dy/dt at t = 0 is ____.
+      answer: ["-20", "−20", "-20.0", "−20.0"]
+      explanation: |
+        By the chain rule, dy/dt = 100e^(−0.2t) · (−0.2) = −20e^(−0.2t), which is −20 at t = 0.
+    # ---- Numeric
+    - slug: apcalcab-u07-w29-q21
+      type: numeric
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 1
+      prompt: |
+        (Calculator.) A hypothetical yeast culture starts with 400 cells and grows according to dN/dt = kN, tripling every 6 hours. After how many hours will there be 5,000 cells? Give your answer to three decimal places.
+      answer: { value: 13.794, tolerance: 0.001 }
+      explanation: |
+        k = ln 3 / 6. Solve 400e^(kt) = 5000: e^(kt) = 12.5, so t = ln 12.5 / k = 6 ln 12.5 / ln 3 ≈ 13.794 hours.
+    - slug: apcalcab-u07-w29-q22
+      type: numeric
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 1
+      prompt: |
+        (Calculator.) A hypothetical mug of coffee at 85 °C is placed in a room at 22 °C. Its temperature satisfies dT/dt = −k(T − 22), and after 5 minutes it is 70 °C. What is its temperature after 15 minutes, in °C? Give your answer to three decimal places.
+      answer: { value: 49.864, tolerance: 0.001 }
+      explanation: |
+        T = 22 + 63e^(−kt). At t = 5: 70 = 22 + 63e^(−5k), so e^(−5k) = 48/63. Then T(15) = 22 + 63(e^(−5k))³ = 22 + 63(48/63)³ ≈ 49.864 °C.
+    # ---- Short answer
+    - slug: apcalcab-u07-w29-q23
+      type: short_answer
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 3
+      prompt: |
+        (Calculator.) The amount A, in milligrams, of a hypothetical medicine in a patient's body decreases at a rate proportional to the amount present. There are 120 mg at t = 0 and 90 mg at t = 2 hours.
+
+        (a) Write a differential equation for A, using a constant k > 0.
+        (b) Find A(t).
+        (c) When will 30 mg remain? Give your answer to three decimal places.
+      answer: |
+        (a) dA/dt = −kA.
+        (b) A = 120e^(−kt). At t = 2: 90 = 120e^(−2k), so e^(−2k) = 3/4 and k = ln(4/3)/2 ≈ 0.1438. So A(t) = 120e^(−(ln(4/3)/2)t) = 120(3/4)^(t/2).
+        (c) 120(3/4)^(t/2) = 30 gives (3/4)^(t/2) = 1/4, so t = 2 ln 4 / ln(4/3) ≈ 9.638 hours. (Or: 30 mg is a quarter of 120 mg.)
+      explanation: |
+        Three points, one per part. (a) dA/dt = −kA (or kA with k stated negative). (b) the value of k from the data, exact or to three decimals, and a correct formula for A. (c) t ≈ 9.638 hours, with the equation that produced it.
+    - slug: apcalcab-u07-w29-q24
+      type: short_answer
+      topic_code: "5.4"
+      source: "AP Calculus CED, Topic 5.4"
+      points: 3
+      prompt: |
+        Consider the differential equation dy/dx = (x − 3)y.
+
+        (a) For a solution with y > 0, on which intervals is the solution increasing, and on which decreasing? Explain.
+        (b) Show that such a solution has a relative minimum at x = 3, justifying with the first derivative test.
+        (c) What happens at x = 3 instead for the solution through the point (3, −2)? Justify.
+      answer: |
+        (a) With y > 0, dy/dx has the same sign as x − 3: negative for x < 3 and positive for x > 3. The solution is decreasing on x < 3 and increasing on x > 3.
+        (b) dy/dx = 0 at x = 3 and dy/dx changes from negative to positive there, so the solution has a relative minimum at x = 3.
+        (c) Now y < 0 (a solution through a point below the equilibrium y = 0 stays below it), so dy/dx has the opposite sign to x − 3: positive for x < 3 and negative for x > 3. dy/dx changes from positive to negative at x = 3, so this solution has a relative maximum there.
+      explanation: |
+        Three points, one per part. (a) both intervals, with the sign of dy/dx explained by the sign of x − 3 when y > 0. (b) dy/dx = 0 at x = 3 and the sign change negative to positive named as the reason. (c) relative maximum, justified by the reversed sign change because y < 0.
+    # ---- Long answer
+    - slug: apcalcab-u07-w29-q25
+      type: long_answer
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 8
+      prompt: |
+        A hypothetical pie is taken out of an oven at 190 °C and left to cool in a kitchen kept at 25 °C. Its temperature T, in °C, t minutes later satisfies
+
+        dT/dt = −k(T − 25), with T(0) = 190, where k is a positive constant.
+
+        (A) Use separation of variables to find T(t) in terms of k. Explain how you handle the absolute value.
+
+        (B) After 10 minutes the pie is at 130 °C. Find the exact value of k.
+
+        (C) (Calculator.) The pie can be served when it reaches 50 °C. How many minutes after it leaves the oven is that? Give your answer to three decimal places.
+
+        (D) Find dT/dt at t = 10, using correct units, and interpret it.
+
+        (E) Find d²T/dt² in terms of T and decide whether the graph of T is concave up or concave down. What does this say about how the pie cools?
+      answer: |
+        (A) dT/(T − 25) = −k dt, so ln|T − 25| = −kt + C. The pie starts above 25 °C and a solution cannot cross the equilibrium T = 25, so T − 25 > 0 and |T − 25| = T − 25. Then T − 25 = e^C e^(−kt); at t = 0, 165 = e^C. So T(t) = 25 + 165e^(−kt).
+        (B) 130 = 25 + 165e^(−10k), so e^(−10k) = 105/165 = 7/11 and k = (1/10) ln(11/7) ≈ 0.0452 per minute.
+        (C) 25 + 165e^(−kt) = 50 gives e^(−kt) = 25/165 = 5/33, so t = ln(33/5)/k = 10 ln(6.6)/ln(11/7) ≈ 41.751 minutes.
+        (D) dT/dt = −k(130 − 25) = −105k ≈ −4.746 °C per minute. Ten minutes after leaving the oven, the pie's temperature is falling at about 4.746 °C per minute.
+        (E) d²T/dt² = −k · dT/dt = k²(T − 25), which is positive since T > 25. The graph is concave up: the temperature keeps falling, but more and more slowly as the pie approaches room temperature.
+      explanation: |
+        Eight points.
+        (A) 4 points: 1 for separating the variables; 1 for the antiderivatives ln|T − 25| and −kt with a constant of integration; 1 for using T(0) = 190 to find the constant (e^C = 165, or equivalent); 1 for T = 25 + 165e^(−kt) with the absolute value justified by T > 25. No constant of integration: at most 2 of these 4 points.
+        (B) 1 point: k = (1/10) ln(11/7) or an equivalent exact form.
+        (C) 1 point: about 41.751 minutes (accept 41.750 to 41.752).
+        (D) 1 point: about −4.746 °C per minute with an interpretation that says the temperature is decreasing at that rate at t = 10.
+        (E) 1 point: d²T/dt² = k²(T − 25) > 0, concave up, with the interpretation that the cooling slows down.

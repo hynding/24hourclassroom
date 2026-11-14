@@ -1,0 +1,624 @@
+week: 10
+unit: 3
+title: "The Chain Rule"
+topics: ["3.1"]
+guide: guides/week-10.md
+guide_description: |
+  Composite functions and how to spot the inner and outer function; the chain rule in function notation,
+  f′(g(x)) · g′(x), and in Leibniz notation, dy/dx = dy/du · du/dx; the chain rule combined with the power,
+  trigonometric, exponential and logarithmic rules; chain rule inside the product and quotient rules; and the
+  chain rule from tables of values. Worked examples: the derivative of (3x² − 5)⁴, sin(x³) against sin³x, e^(4x − x²)
+  and ln(x² + 1), the triple composite sin²(3x), a composite read from a table, and the tangent line to y = √(2x + 5)
+  at x = 2.
+flashcards_description: |
+  32 cards on decomposing composites, the chain rule in both notations, chain rule with powers, roots, trig,
+  exponential and logarithmic outer functions, chain rule from tables, nested composites, and the commonest slips.
+
+flashcards:
+  - front: Composite f(g(x)) → which function is "outer" and which is "inner"
+    back: |
+      g is the inner function (applied first to x); f is the outer function (applied to the result). In (x² + 1)⁷ the inner is x² + 1 and the outer is u⁷.
+    topic_code: "3.1"
+  - front: Chain rule in function notation → the formula for d/dx [f(g(x))]
+    back: |
+      f′(g(x)) · g′(x): the derivative of the outer, evaluated at the inner, times the derivative of the inner.
+    topic_code: "3.1"
+  - front: Chain rule in Leibniz notation, y = f(u) and u = g(x) → dy/dx
+    back: |
+      dy/dx = (dy/du) · (du/dx). Write dy/du in terms of u, then replace u by g(x) at the end.
+    topic_code: "3.1"
+  - front: General power rule, d/dx [u(x)]ⁿ → result
+    back: |
+      n[u(x)]ⁿ⁻¹ · u′(x). Lower the exponent by one and multiply by the inner derivative.
+    topic_code: "3.1"
+  - front: d/dx (3x² − 5)⁴ → derivative
+    back: |
+      4(3x² − 5)³ · 6x = 24x(3x² − 5)³.
+    topic_code: "3.1"
+  - front: d/dx √(u(x)) → chain rule form
+    back: |
+      u′(x) / (2√(u(x))). From (1/2)u^(−1/2) · u′.
+    topic_code: "3.1"
+  - front: d/dx √(2x + 5) → derivative and value at x = 2
+    back: |
+      2/(2√(2x + 5)) = 1/√(2x + 5); at x = 2 it is 1/3.
+    topic_code: "3.1"
+  - front: d/dx 1/(u(x)) written as a power → result
+    back: |
+      d/dx u⁻¹ = −u⁻² · u′ = −u′/u². Example: d/dx (2x + 1)⁻¹ = −2/(2x + 1)².
+    topic_code: "3.1"
+  - front: d/dx sin(x³) → derivative
+    back: |
+      cos(x³) · 3x² = 3x² cos(x³). The angle x³ stays inside the cosine.
+    topic_code: "3.1"
+  - front: d/dx sin³x, that is (sin x)³ → derivative
+    back: |
+      3 sin²x · cos x. Here the outer function is the cube, the inner is sin x.
+    topic_code: "3.1"
+  - front: d/dx cos(kx) for a constant k → derivative
+    back: |
+      −k sin(kx). Example: d/dx cos(5x) = −5 sin(5x).
+    topic_code: "3.1"
+  - front: d/dx cos²x → derivative
+    back: |
+      2 cos x · (−sin x) = −2 sin x cos x (also written −sin(2x)).
+    topic_code: "3.1"
+  - front: d/dx tan(u(x)) → chain rule form
+    back: |
+      sec²(u(x)) · u′(x). Example: d/dx tan(4x) = 4 sec²(4x).
+    topic_code: "3.1"
+  - front: d/dx e^(u(x)) → chain rule form
+    back: |
+      e^(u(x)) · u′(x). The exponential reproduces itself; only the inner derivative is new.
+    topic_code: "3.1"
+  - front: d/dx e^(4x − x²) → derivative
+    back: |
+      (4 − 2x)e^(4x − x²).
+    topic_code: "3.1"
+  - front: d/dx e^(−3x) → derivative
+    back: |
+      −3e^(−3x). A negative inner coefficient makes the derivative negative.
+    topic_code: "3.1"
+  - front: d/dx ln(u(x)) → chain rule form
+    back: |
+      u′(x)/u(x), for u(x) > 0. Example: d/dx ln(x² + 1) = 2x/(x² + 1).
+    topic_code: "3.1"
+  - front: d/dx ln(4x) → derivative, and why the 4 vanishes
+    back: |
+      4/(4x) = 1/x. Equivalently ln(4x) = ln 4 + ln x, and ln 4 is a constant.
+    topic_code: "3.1"
+  - front: d/dx sin²(3x), a triple composite → derivative
+    back: |
+      2 sin(3x) · cos(3x) · 3 = 6 sin(3x) cos(3x). Three layers: square, sine, 3x; one factor per layer.
+    topic_code: "3.1"
+  - front: Nested composite f(g(h(x))) → derivative
+    back: |
+      f′(g(h(x))) · g′(h(x)) · h′(x). Peel from the outside in, multiplying one derivative per layer.
+    topic_code: "3.1"
+  - front: h(x) = f(g(x)) from a table → how to find h′(a)
+    back: |
+      Look up g(a) and g′(a) first, then f′ at the input g(a). h′(a) = f′(g(a)) · g′(a).
+    topic_code: "3.1"
+  - front: Table with g(1) = 2, g′(1) = 4, f′(2) = 5 → h′(1) for h = f∘g
+    back: |
+      h′(1) = f′(g(1)) · g′(1) = f′(2) · 4 = 5 · 4 = 20.
+    topic_code: "3.1"
+  - front: m(x) = [f(x)]³ with f(4) = 2 and f′(4) = −1 → m′(4)
+    back: |
+      3[f(4)]² · f′(4) = 3 · 4 · (−1) = −12.
+    topic_code: "3.1"
+  - front: d/dx f(2x) for a differentiable f → result
+    back: |
+      2f′(2x). A horizontal compression by 2 doubles every slope.
+    topic_code: "3.1"
+  - front: d/dx f(x²) at x = 3 → which values are needed
+    back: |
+      f′(9) · 6. The inner x² sends 3 to 9, and its derivative 2x is 6 at x = 3.
+    topic_code: "3.1"
+  - front: f(g(x)) versus g(f(x)) for f(x) = e^(2x), g(x) = x² − 3 → are the derivatives equal?
+    back: |
+      No. (f∘g)′ = 4x e^(2x² − 6) and (g∘f)′ = 4e^(4x); at x = 0 they are 0 and 4. Composition order matters.
+    topic_code: "3.1"
+  - front: Product rule with a chain rule inside, y = x²(4x − 1)³ → derivative
+    back: |
+      2x(4x − 1)³ + x² · 3(4x − 1)² · 4 = 2x(4x − 1)²(10x − 1).
+    topic_code: "3.1"
+  - front: Chain rule and the tangent line to a composite → the two numbers you need
+    back: |
+      The point (a, h(a)) and the slope h′(a) = f′(g(a))g′(a); then y = h(a) + h′(a)(x − a).
+    topic_code: "3.1"
+  - front: Chain rule as a rate statement → meaning of dy/dx = dy/du · du/dx
+    back: |
+      Rates multiply: if y changes 3 units per unit of u and u changes 2 units per unit of x, y changes 6 units per unit of x.
+    topic_code: "3.1"
+  - front: Error-spot → "d/dx (x² + 1)⁵ = 5(x² + 1)⁴"
+    back: |
+      The inner derivative 2x is missing. Correct: 5(x² + 1)⁴ · 2x = 10x(x² + 1)⁴.
+    topic_code: "3.1"
+  - front: Error-spot → "d/dx f(g(x)) = f′(x) · g′(x)"
+    back: |
+      The outer derivative must be evaluated at the inner function, f′(g(x)), not at x.
+    topic_code: "3.1"
+  - front: Error-spot → "d/dx sin(x³) = cos(3x²)"
+    back: |
+      The inner function was differentiated inside the cosine. Correct: cos(x³) · 3x²; the angle stays x³ and 3x² multiplies outside.
+    topic_code: "3.1"
+
+quiz:
+  description: |
+    22 questions · about 40 minutes · mostly on this week (topic 3.1: the chain rule with powers, roots, trig,
+    exponential and logarithmic functions, from formulas and from tables, and tangent lines to composites), with
+    7 questions (about 32%) reviewing Units 1 and 2 (limits by algebra, the limit definition of the derivative,
+    differentiability, average rate of change, and the product, quotient and trigonometric rules). Opens with a
+    shared-context set on a table of two functions and their derivatives. Multiple choice, select-all, true/false
+    and numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and
+    the long answer are graded by your teacher against the scoring notes. No calculator is needed.
+  questions:
+    # ---- Stimulus set: a table of f, f′, g, g′ (3.1, 2.8)
+    - slug: apcalcab-u03-w10-q01
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      stimulus: |
+        The functions f and g are differentiable for all real numbers. Selected values of f, f′, g and g′ are shown.
+
+        | x | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|
+        | f(x) | 3 | 4 | 1 | 2 |
+        | f′(x) | −2 | 5 | 3 | −1 |
+        | g(x) | 2 | 3 | 4 | 1 |
+        | g′(x) | 4 | −3 | 6 | 2 |
+      prompt: |
+        Let h(x) = f(g(x)). What is h′(1)?
+      options:
+        - "−1"
+        - "−8"
+        - "20"
+        - "5"
+      option_explanations:
+        - |
+          −1 is f′(g′(1)) = f′(4): the inner derivative was used as the input to f′ instead of the inner value g(1).
+        - |
+          −8 is f′(1) · g′(1): the outer derivative was evaluated at x = 1 instead of at g(1) = 2.
+        - |
+          Correct. h′(1) = f′(g(1)) · g′(1) = f′(2) · 4 = 5 · 4 = 20.
+        - |
+          5 is f′(g(1)) = f′(2) alone; the chain rule also multiplies by the inner derivative g′(1) = 4.
+      answer: 2
+    - slug: apcalcab-u03-w10-q02
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      stimulus: |
+        The functions f and g are differentiable for all real numbers. Selected values of f, f′, g and g′ are shown.
+
+        | x | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|
+        | f(x) | 3 | 4 | 1 | 2 |
+        | f′(x) | −2 | 5 | 3 | −1 |
+        | g(x) | 2 | 3 | 4 | 1 |
+        | g′(x) | 4 | −3 | 6 | 2 |
+      prompt: |
+        Let k(x) = g(f(x)). What is k′(3)?
+      options:
+        - "12"
+        - "18"
+        - "6"
+        - "4"
+      option_explanations:
+        - |
+          Correct. f(3) = 1, so k′(3) = g′(f(3)) · f′(3) = g′(1) · 3 = 4 · 3 = 12.
+        - |
+          18 is g′(3) · f′(3): the outer derivative g′ was evaluated at 3 instead of at the inner value f(3) = 1.
+        - |
+          6 is g′(f′(3)) = g′(3): the inner derivative was fed into g′, and nothing was multiplied by f′(3).
+        - |
+          4 is g′(f(3)) = g′(1) alone; the inner derivative f′(3) = 3 was left off.
+      answer: 0
+    - slug: apcalcab-u03-w10-q03
+      type: multiple_choice
+      topic_code: "2.8"
+      source: "AP Calculus CED, Topic 2.8"
+      points: 1
+      stimulus: |
+        The functions f and g are differentiable for all real numbers. Selected values of f, f′, g and g′ are shown.
+
+        | x | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|
+        | f(x) | 3 | 4 | 1 | 2 |
+        | f′(x) | −2 | 5 | 3 | −1 |
+        | g(x) | 2 | 3 | 4 | 1 |
+        | g′(x) | 4 | −3 | 6 | 2 |
+      prompt: |
+        Let p(x) = f(x) · g(x). What is p′(2)?
+      options:
+        - "−15"
+        - "27"
+        - "12"
+        - "3"
+      option_explanations:
+        - |
+          −15 is f′(2) · g′(2): the derivative of a product is not the product of the derivatives.
+        - |
+          27 comes from f′(2)g(2) − f(2)g′(2) = 15 + 12: the minus sign belongs to the quotient rule, not the product rule.
+        - |
+          12 is f(2) · g(2) = p(2), the value of the product, not its derivative.
+        - |
+          Correct. p′(2) = f′(2)g(2) + f(2)g′(2) = 5 · 3 + 4 · (−3) = 15 − 12 = 3.
+      answer: 3
+    - slug: apcalcab-u03-w10-q04
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      stimulus: |
+        The functions f and g are differentiable for all real numbers. Selected values of f, f′, g and g′ are shown.
+
+        | x | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|
+        | f(x) | 3 | 4 | 1 | 2 |
+        | f′(x) | −2 | 5 | 3 | −1 |
+        | g(x) | 2 | 3 | 4 | 1 |
+        | g′(x) | 4 | −3 | 6 | 2 |
+      prompt: |
+        Let m(x) = [f(x)]³. What is m′(4)?
+      options:
+        - "12"
+        - "−12"
+        - "−1"
+        - "3"
+      option_explanations:
+        - |
+          12 is 3[f(4)]² = 3 · 4 with the inner derivative f′(4) = −1 left off, so the sign is lost.
+        - |
+          Correct. m′(4) = 3[f(4)]² · f′(4) = 3 · 2² · (−1) = −12.
+        - |
+          −1 is [f′(4)]³: the derivative was cubed instead of applying the power rule to f and multiplying by f′.
+        - |
+          3 is 3[f′(4)]²: the power rule was applied to f′ instead of to f.
+      answer: 1
+    # ---- Independent items
+    - slug: apcalcab-u03-w10-q05
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        What is d/dx (3x² − 5)⁴?
+      options:
+        - "4(3x² − 5)³"
+        - "4(6x)³"
+        - "24x(3x² − 5)⁴"
+        - "24x(3x² − 5)³"
+      option_explanations:
+        - |
+          This applies the power rule to the outside but forgets to multiply by the inner derivative 6x.
+        - |
+          This differentiates the inside and then applies the power rule to the derivative; the outer function must keep 3x² − 5 inside.
+        - |
+          The inner derivative is right, but the exponent was not lowered from 4 to 3.
+        - |
+          Correct. 4(3x² − 5)³ · 6x = 24x(3x² − 5)³.
+      answer: 3
+    - slug: apcalcab-u03-w10-q06
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        What is the derivative of y = sin(x³)?
+      options:
+        - "cos(3x²)"
+        - "3x² cos(x³)"
+        - "cos(x³)"
+        - "−3x² cos(x³)"
+      option_explanations:
+        - |
+          This replaces the angle x³ by its derivative; the angle must stay x³ and 3x² multiplies outside the cosine.
+        - |
+          Correct. The outer function is sine and the inner is x³: cos(x³) · 3x².
+        - |
+          This differentiates the sine but forgets to multiply by the inner derivative 3x².
+        - |
+          The derivative of sine is positive cosine; the minus sign belongs to the derivative of cosine.
+      answer: 1
+    - slug: apcalcab-u03-w10-q07
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        What is the derivative of y = e^(4x − x²)?
+      options:
+        - "(4 − 2x)e^(4x − x²)"
+        - "e^(4x − x²)"
+        - "(4x − x²)e^(4x − x² − 1)"
+        - "(4 − 2x)e^(4 − 2x)"
+      option_explanations:
+        - |
+          Correct. d/dx e^u = eᵘ · u′ with u = 4x − x², so the derivative is e^(4x − x²) · (4 − 2x).
+        - |
+          eˣ is its own derivative, but here the exponent is not x, so the inner derivative 4 − 2x must multiply.
+        - |
+          This treats the exponential like a power and applies the power rule; the power rule does not apply when the variable is in the exponent.
+        - |
+          The exponent of e must stay 4x − x²; only a factor of the inner derivative is added.
+      answer: 0
+    - slug: apcalcab-u03-w10-q08
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        What is d/dx ln(x² + 1)?
+      options:
+        - "1/(x² + 1)"
+        - "1/(2x)"
+        - "2x/(x² + 1)"
+        - "2x ln(x² + 1)"
+      option_explanations:
+        - |
+          This differentiates ln u as 1/u but leaves off the inner derivative 2x.
+        - |
+          This takes the reciprocal of the inner derivative; d/dx ln u is u′/u, not 1/u′.
+        - |
+          Correct. d/dx ln u = u′/u with u = x² + 1, so the derivative is 2x/(x² + 1).
+        - |
+          The logarithm does not survive differentiation; its derivative is a reciprocal, not a multiple of itself.
+      answer: 2
+    - slug: apcalcab-u03-w10-q09
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        What is the derivative of y = cos²x?
+      options:
+        - "−2 sin x cos x"
+        - "2 cos x"
+        - "2 sin x cos x"
+        - "−sin²x"
+      option_explanations:
+        - |
+          Correct. cos²x = (cos x)², so the derivative is 2 cos x · (−sin x) = −2 sin x cos x.
+        - |
+          This applies the power rule but forgets to multiply by the derivative of the inner function cos x.
+        - |
+          The inner derivative of cos x is −sin x; dropping its sign gives this result.
+        - |
+          This replaces cos x by its derivative −sin x and keeps the square; the outer square must be differentiated by the power rule, 2 cos x, and multiplied by the inner derivative −sin x.
+      answer: 0
+    - slug: apcalcab-u03-w10-q10
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        Which is an equation of the line tangent to the graph of y = √(2x + 5) at x = 2?
+      options:
+        - "y = 3 + (1/6)(x − 2)"
+        - "y = 3 + (1/3)(x − 2)"
+        - "y = 2 + (1/3)(x − 3)"
+        - "y = 3 + 3(x − 2)"
+      option_explanations:
+        - |
+          1/6 is 1/(2√9) without the inner derivative 2; the chain rule doubles it to 1/3.
+        - |
+          Correct. y(2) = √9 = 3 and y′ = 2/(2√(2x + 5)) = 1/√(2x + 5), so y′(2) = 1/3.
+        - |
+          The coordinates of the point are swapped: the point of tangency is (2, 3), not (3, 2).
+        - |
+          3 is the y-value, not the slope; the slope is the derivative at x = 2, which is 1/3.
+      answer: 1
+    - slug: apcalcab-u03-w10-q11
+      type: multiple_choice
+      topic_code: "2.2"
+      source: "AP Calculus CED, Topic 2.2"
+      points: 1
+      prompt: |
+        What is the value of lim (h→0) [(2 + h)³ − 8]/h?
+      options:
+        - "0"
+        - "8"
+        - "12"
+        - "6"
+      option_explanations:
+        - |
+          Substituting h = 0 gives 0/0, an indeterminate form, not the value 0; the limit must be found another way.
+        - |
+          8 is the value 2³ of the function, not its rate of change at x = 2.
+        - |
+          Correct. The limit is the derivative of x³ at x = 2, which is 3 · 2² = 12 (expanding gives 12 + 6h + h² → 12).
+        - |
+          6 is 3 · 2, the derivative 3x² with the square forgotten.
+      answer: 2
+    - slug: apcalcab-u03-w10-q12
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "AP Calculus CED, Topic 1.6"
+      points: 1
+      prompt: |
+        What is lim (x→4) (√x − 2)/(x − 4)?
+      options:
+        - "0"
+        - "It does not exist."
+        - "1/2"
+        - "1/4"
+      option_explanations:
+        - |
+          Direct substitution gives 0/0, which is indeterminate; it does not mean the limit is 0.
+        - |
+          The 0/0 form signals that algebra is needed, not that the limit fails to exist; the common factor cancels.
+        - |
+          1/2 comes from cancelling incorrectly to 1/√x at x = 4; the factor is √x + 2, not √x.
+        - |
+          Correct. x − 4 = (√x − 2)(√x + 2), so the expression is 1/(√x + 2) for x ≠ 4, which approaches 1/4.
+      answer: 3
+    - slug: apcalcab-u03-w10-q13
+      type: multi_select
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which derivatives are correct? Select all that apply.
+      options:
+        - "d/dx sin(5x) = 5 cos(5x)"
+        - "d/dx (2x + 1)⁻¹ = −2(2x + 1)⁻²"
+        - "d/dx e^(3x) = e^(3x)"
+        - "d/dx √(x² + 9) = x/√(x² + 9)"
+        - "d/dx ln(4x) = 4/x"
+      option_explanations:
+        - |
+          Correct. cos(5x) times the inner derivative 5.
+        - |
+          Correct. −1(2x + 1)⁻² times the inner derivative 2.
+        - |
+          The inner derivative 3 is missing: d/dx e^(3x) = 3e^(3x).
+        - |
+          Correct. 2x/(2√(x² + 9)) simplifies to x/√(x² + 9).
+        - |
+          d/dx ln(4x) = 4/(4x) = 1/x; the 4 cancels because ln(4x) = ln 4 + ln x.
+      answer: [0, 1, 3]
+    - slug: apcalcab-u03-w10-q14
+      type: multi_select
+      topic_code: "2.10"
+      source: "AP Calculus CED, Topic 2.10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which derivative formulas for trigonometric functions are correct? Select all that apply.
+      options:
+        - "d/dx sec x = sec x tan x"
+        - "d/dx cot x = csc²x"
+        - "d/dx csc x = −csc x cot x"
+        - "d/dx tan x = sec²x"
+        - "d/dx cos x = sin x"
+      option_explanations:
+        - |
+          Correct. From the quotient rule on 1/cos x: sin x/cos²x = sec x tan x.
+        - |
+          The sign is missing: d/dx cot x = −csc²x (every co-function derivative carries a minus sign).
+        - |
+          Correct. From the quotient rule on 1/sin x: −cos x/sin²x = −csc x cot x.
+        - |
+          Correct. From the quotient rule on sin x/cos x: (cos²x + sin²x)/cos²x = sec²x.
+        - |
+          The derivative of cos x is −sin x; the sign is wrong.
+      answer: [0, 2, 3]
+    - slug: apcalcab-u03-w10-q15
+      type: true_false
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        True or false: If h(x) = f(g(x)) for differentiable functions f and g, then h′(x) = f′(x) · g′(x).
+      answer: false
+      explanation: |
+        False. The outer derivative must be evaluated at the inner function: h′(x) = f′(g(x)) · g′(x). For example, with f(u) = u² and g(x) = x + 1, h(x) = (x + 1)² has h′(x) = 2(x + 1), while f′(x)g′(x) = 2x.
+    - slug: apcalcab-u03-w10-q16
+      type: true_false
+      topic_code: "2.4"
+      source: "AP Calculus CED, Topic 2.4"
+      points: 1
+      prompt: |
+        True or false: If a function is differentiable at x = a, then it is continuous at x = a.
+      answer: true
+      explanation: |
+        True. Differentiability implies continuity. (The converse fails: |x − 3| is continuous at x = 3 but has a corner there, so it is not differentiable.)
+    - slug: apcalcab-u03-w10-q17
+      type: fill_blank
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        If f(x) = (x² + 1)⁵, then f′(1) = ____.
+      answer: ["160"]
+      explanation: |
+        f′(x) = 5(x² + 1)⁴ · 2x = 10x(x² + 1)⁴, so f′(1) = 10 · 1 · 2⁴ = 160.
+    - slug: apcalcab-u03-w10-q18
+      type: fill_blank
+      topic_code: "2.9"
+      source: "AP Calculus CED, Topic 2.9"
+      points: 1
+      prompt: |
+        If q(x) = x/(x + 1), then q′(1) = ____.
+      answer: ["1/4", "1 / 4", "0.25", ".25"]
+      explanation: |
+        Quotient rule: q′(x) = [(x + 1) · 1 − x · 1]/(x + 1)² = 1/(x + 1)², so q′(1) = 1/4.
+    - slug: apcalcab-u03-w10-q19
+      type: numeric
+      topic_code: "2.1"
+      source: "AP Calculus CED, Topic 2.1"
+      points: 1
+      prompt: |
+        What is the average rate of change of f(x) = √x over the interval [1, 9]? Give the exact value as a decimal.
+      answer: { value: 0.25, tolerance: 0 }
+      explanation: |
+        (f(9) − f(1))/(9 − 1) = (3 − 1)/8 = 2/8 = 0.25.
+    - slug: apcalcab-u03-w10-q20
+      type: short_answer
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 3
+      prompt: |
+        Let y = x²(4x − 1)³.
+
+        (a) Name the two derivative rules needed, and say which part of the expression each one handles.
+        (b) Find dy/dx and write it in factored form.
+        (c) Find the slope of the graph at x = 1.
+      answer: |
+        (a) The product rule for x² times (4x − 1)³, and the chain rule (general power rule) to differentiate (4x − 1)³.
+        (b) dy/dx = 2x(4x − 1)³ + x² · 3(4x − 1)² · 4 = 2x(4x − 1)³ + 12x²(4x − 1)² = 2x(4x − 1)²[(4x − 1) + 6x] = 2x(4x − 1)²(10x − 1).
+        (c) At x = 1: 2 · 1 · 3² · 9 = 162.
+      explanation: |
+        Three points, one per part. (a) product rule and chain rule, each matched to its part of the expression. (b) a correct derivative including the inner factor 4; the factored form 2x(4x − 1)²(10x − 1) or an equivalent factored expression. (c) 162 (follow-through from an incorrect derivative earns this point only if evaluated correctly).
+    - slug: apcalcab-u03-w10-q21
+      type: short_answer
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 3
+      prompt: |
+        Let f(x) = e^(2x) and g(x) = x² − 3.
+
+        (a) Find the derivative of f(g(x)).
+        (b) Find the derivative of g(f(x)).
+        (c) Evaluate both derivatives at x = 0 and explain what the comparison shows.
+      answer: |
+        (a) f(g(x)) = e^(2(x² − 3)) = e^(2x² − 6); its derivative is e^(2x² − 6) · 4x = 4x e^(2x² − 6).
+        (b) g(f(x)) = (e^(2x))² − 3 = e^(4x) − 3; its derivative is 4e^(4x). (Equivalently 2e^(2x) · 2e^(2x).)
+        (c) At x = 0 the first is 0 and the second is 4. The two composites are different functions with different derivatives: the order of composition matters, and the chain rule must follow it.
+      explanation: |
+        Three points, one per part. (a) 4x e^(2x² − 6) or equivalent. (b) 4e^(4x) or an equivalent such as 2e^(2x) · 2e^(2x). (c) both values 0 and 4 with the statement that order of composition matters.
+    - slug: apcalcab-u03-w10-q22
+      type: long_answer
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 6
+      prompt: |
+        The function f is differentiable for all real numbers, and selected values of f and f′ are given in the table. Let g(x) = x² − 2x + 2, and let h(x) = f(g(x)).
+
+        | x | 0 | 1 | 2 | 3 |
+        |---|---|---|---|---|
+        | f(x) | 3 | 2 | 0 | −1 |
+        | f′(x) | −2 | −1 | −3 | 1 |
+
+        (A) Find h′(2). Show the work that leads to your answer.
+
+        (B) Write an equation for the line tangent to the graph of h at x = 2.
+
+        (C) Let k(x) = [f(x)]². Find k′(1).
+
+        (D) Let m(x) = e^(f(x)). Find m′(3).
+
+        (E) Is there a value of x in the interval 0 < x < 2 at which h′(x) = 0? Justify your answer.
+      answer: |
+        (A) g(2) = 4 − 4 + 2 = 2 and g′(x) = 2x − 2, so g′(2) = 2. h′(2) = f′(g(2)) · g′(2) = f′(2) · 2 = (−3)(2) = −6.
+        (B) h(2) = f(g(2)) = f(2) = 0. Tangent line: y = 0 + (−6)(x − 2), that is y = −6(x − 2).
+        (C) k′(x) = 2f(x)f′(x), so k′(1) = 2 · 2 · (−1) = −4.
+        (D) m′(x) = e^(f(x)) · f′(x), so m′(3) = e^(−1) · 1 = 1/e.
+        (E) Yes, x = 1. g(1) = 1 and g′(1) = 0, so h′(1) = f′(g(1)) · g′(1) = f′(1) · 0 = (−1)(0) = 0.
+      explanation: |
+        Six points. (A) 1 point: −6 with the chain-rule expression f′(g(2)) · g′(2) shown. (B) 1 point: the point (2, 0) and slope from (A) in a correct line (follow-through on the slope from (A)). (C) 1 point: −4 from 2f(1)f′(1). (D) 2 points: 1 for m′(x) = e^(f(x)) f′(x), 1 for the value 1/e (e^(−1) accepted). (E) 1 point: x = 1 with the justification that g′(1) = 0 makes the product f′(g(1))g′(1) zero; "yes" without that reason earns no point.

@@ -1,0 +1,586 @@
+week: 14
+unit: 4
+title: "Rates of Change in Applied Contexts and Introduction to Related Rates"
+topics: ["4.3", "4.4"]
+guide: guides/week-14.md
+guide_description: |
+  Derivatives as rates in contexts other than motion (biology, medicine, economics, physical science), where
+  the input need not be time; reading units, signs and maxima from a rate; and the first steps of related
+  rates: differentiating an equation that links several quantities with respect to time, with the chain rule
+  supplying every dx/dt, and substituting values only after differentiating. Worked examples: a hypothetical
+  bacteria culture P(t) = 500e^(0.2t), a hypothetical drug concentration C(t) = 12t/(t² + 4), the area of a
+  spreading circular ripple, and the radius of a spherical balloon being inflated.
+flashcards_description: |
+  30 cards on rates in applied contexts (units, signs, maxima, rates with non-time inputs, exponential and
+  rational models) and on the setup of related rates (differentiating with respect to t, the chain rule factor,
+  the order of steps, and the standard area and volume relationships).
+
+flashcards:
+  - front: Rate of change in a non-motion context → what the derivative measures
+    back: |
+      How fast one quantity changes per unit of another at a particular input: cells per hour, dollars per item, degrees per centimetre. The units follow the same output-per-input rule as velocity.
+    topic_code: "4.3"
+  - front: Bacteria culture P(t) = 500e^(0.2t) cells, t in hours → P′(t) and P′(5)
+    back: |
+      P′(t) = 100e^(0.2t), so P′(5) = 100e ≈ 271.8 cells per hour. The culture's growth rate is itself growing.
+    topic_code: "4.3"
+  - front: Exponential model P(t) = P₀e^(kt) → link between rate and amount
+    back: |
+      P′(t) = kP(t): the rate of growth is proportional to the current amount. With k = 0.2, the rate is always 20% of the amount per unit time.
+    topic_code: "4.3"
+  - front: Drug concentration C(t) = 12t/(t² + 4) mg/L, t in hours → C′(t)
+    back: |
+      Quotient rule: C′(t) = 12(4 − t²)/(t² + 4)². C′(1) = 36/25 = 1.44 mg/L per hour.
+    topic_code: "4.3"
+  - front: C(t) = 12t/(t² + 4) → when the concentration peaks and why
+    back: |
+      At t = 2 hours: C′(t) = 12(4 − t²)/(t² + 4)² changes from positive to negative there, so C stops increasing and starts decreasing.
+    topic_code: "4.3"
+  - front: Temperature T(x) °C at distance x cm along a rod, T′(15) = −2 → meaning
+    back: |
+      At 15 cm from the end, the temperature decreases by about 2 °C for each additional centimetre along the rod. The input is distance, not time, so the rate is "per centimetre".
+    topic_code: "4.3"
+  - front: Marginal revenue R′(q) with R in dollars, q in units sold → units and meaning
+    back: |
+      Dollars per unit. R′(100) estimates the extra revenue from selling the 101st unit.
+    topic_code: "4.3"
+  - front: City population P(t) = 80 + 4t − 0.1t² thousand → P′(5) with units
+    back: |
+      P′(t) = 4 − 0.2t, so P′(5) = 3 thousand people per year. Not 3.5, which is the average rate on [0, 5].
+    topic_code: "4.3"
+  - front: Applied rate equals zero and changes sign → what it tells you about the quantity
+    back: |
+      The quantity reaches a peak (rate + to −) or a low point (rate − to +) there: the longest queue, the highest concentration, the lowest temperature.
+    topic_code: "4.3"
+  - front: Queue length L(t) = 30 + 18t − t² people → when the line is longest
+    back: |
+      L′(t) = 18 − 2t is 0 at t = 9 and changes from positive to negative, so the line is longest 9 minutes after the gates open.
+    topic_code: "4.3"
+  - front: Pond volume V(t) = 200 + 30 ln(t + 1) m³ → rate at t = 4 days
+    back: |
+      V′(t) = 30/(t + 1), so V′(4) = 6 cubic metres per day.
+    topic_code: "4.3"
+  - front: Related rates → the idea in one line
+    back: |
+      Two or more quantities are linked by an equation and all change with time; differentiating the equation with respect to t links their rates.
+    topic_code: "4.4"
+  - front: d/dt [x²] when x depends on t → result
+    back: |
+      2x · dx/dt. The chain rule supplies the dx/dt; forgetting it is the most common related-rates error.
+    topic_code: "4.4"
+  - front: d/dt [xy] when both x and y depend on t → result
+    back: |
+      x · dy/dt + y · dx/dt (product rule, with a chain-rule factor on each).
+    topic_code: "4.4"
+  - front: Related rates → when to substitute the given values
+    back: |
+      After differentiating. Substituting a changing quantity first turns it into a constant and its rate into 0.
+    topic_code: "4.4"
+  - front: Related rates set-up → the four steps
+    back: |
+      (1) Name the variables and list known and wanted rates. (2) Write an equation linking the quantities. (3) Differentiate with respect to t. (4) Substitute the values at the instant and solve.
+    topic_code: "4.4"
+  - front: Circle area A = πr² → related-rates equation
+    back: |
+      dA/dt = 2πr · dr/dt.
+    topic_code: "4.4"
+  - front: Ripple radius growing at 3 cm/s → dA/dt when r = 10 cm
+    back: |
+      dA/dt = 2π(10)(3) = 60π ≈ 188.5 cm² per second.
+    topic_code: "4.4"
+  - front: Sphere volume V = (4/3)πr³ → related-rates equation
+    back: |
+      dV/dt = 4πr² · dr/dt. Note 4πr² is the surface area: volume grows at surface area times the rate the radius grows.
+    topic_code: "4.4"
+  - front: Balloon inflated at 100 cm³/s → dr/dt when r = 5 cm
+    back: |
+      100 = 4π(25) · dr/dt, so dr/dt = 1/π ≈ 0.318 cm per second.
+    topic_code: "4.4"
+  - front: Cube volume V = s³ → related-rates equation
+    back: |
+      dV/dt = 3s² · ds/dt.
+    topic_code: "4.4"
+  - front: Square area A = s² with ds/dt = 0.5 cm/s → dA/dt when s = 6 cm
+    back: |
+      dA/dt = 2s · ds/dt = 2(6)(0.5) = 6 cm² per second.
+    topic_code: "4.4"
+  - front: Cone V = (1/3)πr²h with r and h both changing → derivative with respect to t
+    back: |
+      dV/dt = (1/3)π(2rh · dr/dt + r² · dh/dt), product rule with a chain-rule factor on each variable.
+    topic_code: "4.4"
+  - front: Cylinder of fixed radius R, V = πR²h → link between dV/dt and dh/dt
+    back: |
+      dV/dt = πR² · dh/dt. With R constant, the water level changes at a constant rate when the volume does.
+    topic_code: "4.4"
+  - front: Circle x² + y² = 25 with dx/dt = 3 at (3, 4) → dy/dt
+    back: |
+      2x · dx/dt + 2y · dy/dt = 0, so dy/dt = −(x/y)(dx/dt) = −(3/4)(3) = −9/4.
+    topic_code: "4.4"
+  - front: Sign of a rate in related rates → how to read it
+    back: |
+      Positive: that quantity is increasing. Negative: decreasing. A draining tank has dV/dt < 0, and that negative sign must go into the equation.
+    topic_code: "4.4"
+  - front: Units of a related rate dA/dt when A is in m² and t in minutes → what to write
+    back: |
+      Square metres per minute. Each rate carries its own quantity's units over the time unit.
+    topic_code: "4.4"
+  - front: Error-spot → "r = 10, so A = 100π and dA/dt = 0"
+    back: |
+      r = 10 holds only at one instant. Substituting before differentiating freezes r; differentiate A = πr² first, then put r = 10.
+    topic_code: "4.4"
+  - front: Error-spot → "d/dt [r³] = 3r²"
+    back: |
+      r depends on t, so the chain rule adds a factor: d/dt [r³] = 3r² · dr/dt.
+    topic_code: "4.4"
+  - front: Error-spot → "C′(1) = 1.44 means the concentration is 1.44 mg/L after 1 hour"
+    back: |
+      C′(1) is a rate: at t = 1 hour, the concentration is increasing at 1.44 mg/L per hour. The concentration itself is C(1) = 12/5 = 2.4 mg/L.
+    topic_code: "4.3"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 4.3 and 4.4: rates of change in biology,
+    medicine, economics and physical contexts, including inputs other than time, and setting up and
+    differentiating related-rates equations), with 7 questions (about 30%) reviewing weeks 5 to 13 (limits at
+    infinity, differentiability, the quotient rule, inverse trigonometric derivatives, choosing derivative rules,
+    higher-order derivatives and straight-line motion). Opens with a shared-context set on a hypothetical
+    medication model. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. Only the item marked (Calculator.) needs a graphing calculator; every rate
+    answer must carry units.
+  questions:
+    # ---- Stimulus set: a medication model (4.3)
+    - slug: apcalcab-u04-w14-q01
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "AP Calculus CED, Topic 4.3"
+      points: 1
+      stimulus: |
+        In a hypothetical model, the amount of a medication in a patient's bloodstream is A(t) = 40t·e^(−0.5t) milligrams, t hours after a dose is given, for 0 ≤ t ≤ 10.
+      prompt: |
+        Which gives A′(1), with correct units?
+      options:
+        - "40e^(−0.5) milligrams per hour"
+        - "60e^(−0.5) milligrams per hour"
+        - "20e^(−0.5) milligrams per hour"
+        - "20e^(−0.5) milligrams"
+      option_explanations:
+        - |
+          This differentiates 40t and leaves e^(−0.5t) alone, multiplying the derivatives' pieces without the product rule's second term.
+        - |
+          This comes from differentiating e^(−0.5t) as +0.5e^(−0.5t), a sign slip in the chain rule: 40e^(−0.5) + 20e^(−0.5).
+        - |
+          Correct. Product and chain rules: A′(t) = 40e^(−0.5t) − 20t·e^(−0.5t) = 20e^(−0.5t)(2 − t), so A′(1) = 20e^(−0.5) ≈ 12.13 mg per hour.
+        - |
+          The value is right, but a derivative is a rate: milligrams per hour, not milligrams.
+      answer: 2
+    - slug: apcalcab-u04-w14-q02
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "AP Calculus CED, Topic 4.3"
+      points: 1
+      stimulus: |
+        In a hypothetical model, the amount of a medication in a patient's bloodstream is A(t) = 40t·e^(−0.5t) milligrams, t hours after a dose is given, for 0 ≤ t ≤ 10.
+      prompt: |
+        At what time does the amount of medication in the bloodstream stop increasing and start decreasing?
+      options:
+        - "t = 2 hours"
+        - "t = 4 hours"
+        - "t = 0.5 hours"
+        - "t = 0 hours"
+      option_explanations:
+        - |
+          Correct. A′(t) = 20e^(−0.5t)(2 − t) is positive for t < 2 and negative for t > 2, so A switches from increasing to decreasing at t = 2.
+        - |
+          t = 4 is where A″(t) = 0, where the rate of decrease is greatest; the amount is already falling there.
+        - |
+          This solves 1 − 2t = 0 after factoring incorrectly; the factor from the derivative is (2 − t).
+        - |
+          A(0) = 0 is where the amount is zero, not where the rate changes sign.
+      answer: 0
+    - slug: apcalcab-u04-w14-q03
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "AP Calculus CED, Topic 4.3"
+      points: 1
+      stimulus: |
+        In a hypothetical model, the amount of a medication in a patient's bloodstream is A(t) = 40t·e^(−0.5t) milligrams, t hours after a dose is given, for 0 ≤ t ≤ 10.
+      prompt: |
+        A′(4) ≈ −5.41. Which is the best interpretation?
+      options:
+        - "Between t = 0 and t = 4 hours, the patient's body removes about 5.41 milligrams of the medication."
+        - "At t = 4 hours, there are about 5.41 milligrams less medication than at t = 3 hours."
+        - "At t = 4 hours, the rate of change of the amount is decreasing at 5.41 milligrams per hour per hour."
+        - "At t = 4 hours, the amount of medication in the bloodstream is decreasing at about 5.41 milligrams per hour."
+      option_explanations:
+        - |
+          A loss over the interval [0, 4] is a total change; A′(4) is the rate at the single instant t = 4.
+        - |
+          A′(4) only approximates the change over a short interval near t = 4, and the difference A(4) − A(3) is not the derivative itself.
+        - |
+          That describes A″(4), with units of milligrams per hour per hour; A′(4) is the rate of the amount itself.
+        - |
+          Correct. A′(4) = 20e^(−2)(−2) = −40e^(−2) ≈ −5.41: at that instant the amount is falling at about 5.41 mg per hour.
+      answer: 3
+    - slug: apcalcab-u04-w14-q04
+      type: numeric
+      topic_code: "4.3"
+      source: "AP Calculus CED, Topic 4.3"
+      points: 1
+      stimulus: |
+        In a hypothetical model, the amount of a medication in a patient's bloodstream is A(t) = 40t·e^(−0.5t) milligrams, t hours after a dose is given, for 0 ≤ t ≤ 10.
+      prompt: |
+        (Calculator.) Find the average rate of change of A over the first 2 hours, in milligrams per hour. Give your answer to three decimal places.
+      answer: { value: 14.715, tolerance: 0.001 }
+      explanation: |
+        (A(2) − A(0))/(2 − 0) = (80e^(−1) − 0)/2 = 40e^(−1) ≈ 14.715 milligrams per hour.
+    # ---- Independent items
+    - slug: apcalcab-u04-w14-q05
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "AP Calculus CED, Topic 4.3"
+      points: 1
+      prompt: |
+        The population of a hypothetical city is modelled by P(t) = 80 + 4t − 0.1t² thousand people, t years after 2020. What is the rate of change of the population in 2025?
+      options:
+        - "3.5 thousand people per year"
+        - "3 thousand people per year"
+        - "97.5 thousand people"
+        - "−0.2 thousand people per year per year"
+      option_explanations:
+        - |
+          3.5 is the average rate (P(5) − P(0))/5 = 17.5/5 over 2020 to 2025, not the instantaneous rate in 2025.
+        - |
+          Correct. P′(t) = 4 − 0.2t, so P′(5) = 4 − 1 = 3 thousand people per year.
+        - |
+          97.5 thousand is the population P(5) itself, not its rate of change.
+        - |
+          −0.2 is P″(t), the rate at which the growth rate changes, not the growth rate.
+      answer: 1
+    - slug: apcalcab-u04-w14-q06
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "AP Calculus CED, Topic 4.3"
+      points: 1
+      prompt: |
+        A metal rod is heated at one end. T(x) is the temperature, in degrees Celsius, at a point x centimetres from the heated end, and T′(15) = −2. Which statement is best supported?
+      options:
+        - "At a point 15 cm from the heated end, the temperature is decreasing at 2 °C per minute."
+        - "The temperature 15 cm from the heated end is −2 °C."
+        - "At a point 15 cm from the heated end, the temperature drops by about 2 °C for each additional centimetre farther from the heated end."
+        - "Over the first 15 cm of the rod, the temperature drops by 2 °C."
+      option_explanations:
+        - |
+          The input here is distance, not time, so the rate is per centimetre; nothing is said about how temperature changes over time.
+        - |
+          This reads the derivative T′(15) as the temperature T(15).
+        - |
+          Correct. T′(15) = −2 °C per cm: near x = 15, moving 1 cm farther along lowers the temperature by about 2 °C.
+        - |
+          A drop over [0, 15] is a total change, T(15) − T(0); the derivative is a rate at x = 15 only.
+      answer: 2
+    - slug: apcalcab-u04-w14-q07
+      type: multiple_choice
+      topic_code: "4.4"
+      source: "AP Calculus CED, Topic 4.4"
+      points: 1
+      prompt: |
+        x and y are functions of t with x² + y² = 25. At the instant when x = 3, y = 4 and dx/dt = 3, what is dy/dt?
+      options:
+        - "−3/4"
+        - "9/4"
+        - "−4"
+        - "−9/4"
+      option_explanations:
+        - |
+          This is dy/dx = −x/y; the given dx/dt = 3 still has to multiply it.
+        - |
+          The sign is lost when 2x·dx/dt is moved to the other side.
+        - |
+          This uses −(y/x)·dx/dt, swapping x and y when solving.
+        - |
+          Correct. 2x·dx/dt + 2y·dy/dt = 0, so dy/dt = −(x/y)·dx/dt = −(3/4)(3) = −9/4.
+      answer: 3
+    - slug: apcalcab-u04-w14-q08
+      type: multiple_choice
+      topic_code: "4.4"
+      source: "AP Calculus CED, Topic 4.4"
+      points: 1
+      prompt: |
+        The radius of a circle is increasing at 2 centimetres per second. How fast is the area increasing when the radius is 5 centimetres?
+      options:
+        - "20π cm² per second"
+        - "10π cm² per second"
+        - "25π cm² per second"
+        - "20π cm per second"
+      option_explanations:
+        - |
+          Correct. A = πr², so dA/dt = 2πr·dr/dt = 2π(5)(2) = 20π cm² per second.
+        - |
+          10π is dA/dr = 2πr at r = 5; the chain-rule factor dr/dt = 2 was left out.
+        - |
+          25π cm² is the area at r = 5, not its rate of change.
+        - |
+          The number is right but the units are not: area changes in square centimetres per second.
+      answer: 0
+    - slug: apcalcab-u04-w14-q09
+      type: multiple_choice
+      topic_code: "4.4"
+      source: "AP Calculus CED, Topic 4.4"
+      points: 1
+      prompt: |
+        The volume of a cone is V = (1/3)πr²h, where the radius r and height h both change with time t. Which equation is correct?
+      options:
+        - "dV/dt = (1/3)π(2r · dr/dt)(dh/dt)"
+        - "dV/dt = (1/3)π(2rh · dr/dt + r² · dh/dt)"
+        - "dV/dt = (1/3)πr² · dh/dt"
+        - "dV/dt = (2/3)πrh"
+      option_explanations:
+        - |
+          The derivative of a product is not the product of the derivatives; the product rule gives a sum of two terms.
+        - |
+          Correct. Product rule on r²·h, with chain-rule factors: d/dt [r²h] = 2r·(dr/dt)·h + r²·(dh/dt).
+        - |
+          This treats r as a constant; it is correct only if the radius is not changing.
+        - |
+          This differentiates with respect to r and drops h's change and every time derivative.
+      answer: 1
+    # ---- Spiral review
+    - slug: apcalcab-u04-w14-q10
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Calculus CED, Topic 4.2"
+      points: 1
+      prompt: |
+        A particle's position is x(t) = 4 + sin(2t) metres at time t seconds. What is its velocity at t = π/2?
+      options:
+        - "−1 m/s"
+        - "2 m/s"
+        - "−2 m/s"
+        - "4 m"
+      option_explanations:
+        - |
+          This differentiates sin(2t) as cos(2t), leaving out the chain-rule factor 2.
+        - |
+          cos(π) is −1, not 1; the sign of the cosine was lost.
+        - |
+          Correct. v(t) = 2cos(2t), so v(π/2) = 2cos(π) = −2 metres per second.
+        - |
+          4 + sin(π) = 4 is the position at t = π/2, in metres, not the velocity.
+      answer: 2
+    - slug: apcalcab-u04-w14-q11
+      type: multiple_choice
+      topic_code: "2.9"
+      source: "AP Calculus CED, Topic 2.9"
+      points: 1
+      prompt: |
+        What is d/dx [2x/(x² + 3)]?
+      options:
+        - "(2x² − 6)/(x² + 3)²"
+        - "1/x"
+        - "(6x² + 6)/(x² + 3)²"
+        - "(6 − 2x²)/(x² + 3)²"
+      option_explanations:
+        - |
+          The numerator is subtracted in the wrong order (bottom-prime first); the quotient rule is (bottom · top′ − top · bottom′)/bottom².
+        - |
+          This divides the derivative of the top by the derivative of the bottom; that is not the quotient rule.
+        - |
+          The two terms in the numerator are added instead of subtracted: 2(x² + 3) + 4x².
+        - |
+          Correct. ((x² + 3)(2) − 2x(2x))/(x² + 3)² = (6 − 2x²)/(x² + 3)².
+      answer: 3
+    - slug: apcalcab-u04-w14-q12
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "AP Calculus CED, Topic 3.4"
+      points: 1
+      prompt: |
+        What is d/dx [arctan(3x)]?
+      options:
+        - "1/(1 + 9x²)"
+        - "3/(1 + 9x²)"
+        - "3/(1 + 3x²)"
+        - "3/√(1 − 9x²)"
+      option_explanations:
+        - |
+          This leaves out the chain-rule factor 3 from the inside function 3x.
+        - |
+          Correct. d/dx [arctan u] = u′/(1 + u²) with u = 3x: 3/(1 + 9x²).
+        - |
+          The inside must be squared as a whole: (3x)² = 9x², not 3x².
+        - |
+          This uses the derivative pattern of arcsin, 1/√(1 − u²), instead of arctan.
+      answer: 1
+    - slug: apcalcab-u04-w14-q13
+      type: multi_select
+      topic_code: "4.3"
+      source: "AP Calculus CED, Topic 4.3"
+      points: 2
+      partial_credit: true
+      prompt: |
+        At a hypothetical stadium gate, the number of people waiting in line t minutes after the gates open is L(t) = 30 + 18t − t², for 0 ≤ t ≤ 20. Which statements are true? Select all that apply.
+      options:
+        - "At t = 4 minutes, the line is growing at 10 people per minute."
+        - "The line is longest at t = 9 minutes."
+        - "L″(t) = −2 means the line loses 2 people every minute."
+        - "The average rate of change of L on [0, 9] is 18 people per minute."
+        - "At t = 12 minutes, the line is shrinking at 6 people per minute."
+      option_explanations:
+        - |
+          Correct. L′(t) = 18 − 2t, so L′(4) = 10 people per minute, positive, so the line is growing.
+        - |
+          Correct. L′(t) = 18 − 2t changes from positive to negative at t = 9, so L has its maximum there.
+        - |
+          L″ = −2 says the rate L′ falls by 2 people per minute each minute; it is not the rate at which the line itself changes.
+        - |
+          18 is L′(0). The average rate is (L(9) − L(0))/9 = (111 − 30)/9 = 9 people per minute.
+        - |
+          Correct. L′(12) = 18 − 24 = −6, so the line is decreasing at 6 people per minute.
+      answer: [0, 1, 4]
+    - slug: apcalcab-u04-w14-q14
+      type: multi_select
+      topic_code: "3.5"
+      source: "AP Calculus CED, Topic 3.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        For which functions f is f′(0) = 1? Select all that apply.
+      options:
+        - "f(x) = cos x"
+        - "f(x) = sin x"
+        - "f(x) = e^(2x)"
+        - "f(x) = x² + x"
+        - "f(x) = tan x"
+      option_explanations:
+        - |
+          The derivative of cos x is −sin x, so f′(0) = −sin 0 = 0, not 1.
+        - |
+          Correct. The derivative of sin x is cos x, and cos 0 = 1.
+        - |
+          The chain rule gives f′(x) = 2e^(2x), so f′(0) = 2.
+        - |
+          Correct. By the power and sum rules f′(x) = 2x + 1, so f′(0) = 1.
+        - |
+          Correct. f′(x) = sec² x, and sec² 0 = 1/cos² 0 = 1.
+      answer: [1, 3, 4]
+    - slug: apcalcab-u04-w14-q15
+      type: true_false
+      topic_code: "4.4"
+      source: "AP Calculus CED, Topic 4.4"
+      points: 1
+      prompt: |
+        True or false: In a related-rates problem, you may substitute the values of the changing quantities at the given instant before differentiating the equation with respect to t.
+      answer: false
+      explanation: |
+        False. Substituting first turns a changing quantity into a constant, whose derivative is 0, and loses its rate. Differentiate with respect to t first, then substitute the values at the instant.
+    - slug: apcalcab-u04-w14-q16
+      type: true_false
+      topic_code: "2.4"
+      source: "AP Calculus CED, Topic 2.4"
+      points: 1
+      prompt: |
+        True or false: If a function f is differentiable at x = a, then f is continuous at x = a.
+      answer: true
+      explanation: |
+        True. Differentiability implies continuity. (The converse fails: |x| is continuous at 0 but not differentiable there.)
+    - slug: apcalcab-u04-w14-q17
+      type: fill_blank
+      topic_code: "4.4"
+      source: "AP Calculus CED, Topic 4.4"
+      points: 1
+      prompt: |
+        The side of a square is increasing at 0.5 cm per second. When the side is 6 cm, the area of the square is increasing at ____ square centimetres per second.
+      answer: ["6", "6.0"]
+      explanation: |
+        A = s², so dA/dt = 2s·ds/dt = 2(6)(0.5) = 6 cm² per second.
+    - slug: apcalcab-u04-w14-q18
+      type: fill_blank
+      topic_code: "1.15"
+      source: "AP Calculus CED, Topic 1.15"
+      points: 1
+      prompt: |
+        lim (x→∞) (4x² − x)/(2x² + 5) = ____
+      answer: ["2", "2.0"]
+      explanation: |
+        The degrees are equal, so the limit is the ratio of the leading coefficients, 4/2 = 2.
+    - slug: apcalcab-u04-w14-q19
+      type: numeric
+      topic_code: "4.3"
+      source: "AP Calculus CED, Topic 4.3"
+      points: 1
+      prompt: |
+        The volume of water in a hypothetical spring-fed pond is V(t) = 200 + 30 ln(t + 1) cubic metres, t days after measurements begin. At what rate, in cubic metres per day, is the volume increasing at t = 4?
+      answer: { value: 6, tolerance: 0 }
+      explanation: |
+        V′(t) = 30/(t + 1), so V′(4) = 30/5 = 6 cubic metres per day.
+    - slug: apcalcab-u04-w14-q20
+      type: numeric
+      topic_code: "3.6"
+      source: "AP Calculus CED, Topic 3.6"
+      points: 1
+      prompt: |
+        Let f(x) = x⁴ − 2x³. What is f″(2)?
+      answer: { value: 24, tolerance: 0 }
+      explanation: |
+        f′(x) = 4x³ − 6x² and f″(x) = 12x² − 12x, so f″(2) = 48 − 24 = 24.
+    - slug: apcalcab-u04-w14-q21
+      type: short_answer
+      topic_code: "4.3"
+      source: "AP Calculus CED, Topic 4.3"
+      points: 3
+      prompt: |
+        During a hypothetical snowfall, the depth of snow on a flat roof is D(t) = 10 + 4√t − t centimetres, t hours after midnight, for 0 ≤ t ≤ 12. (Snow is falling and also melting.)
+
+        (a) Find D′(1) and interpret it in context, with units.
+        (b) Find D′(9) and interpret it in context, with units.
+        (c) At what time is the snow deepest? Justify your answer.
+      answer: |
+        (a) D′(t) = 2/√t − 1, so D′(1) = 1. At 1 a.m. (t = 1 hour), the snow depth is increasing at 1 centimetre per hour.
+        (b) D′(9) = 2/3 − 1 = −1/3. At 9 a.m., the snow depth is decreasing at 1/3 centimetre per hour.
+        (c) D′(t) = 0 when √t = 2, so t = 4. D′ changes from positive to negative at t = 4, so the snow is deepest at 4 a.m.
+      explanation: |
+        Three points. (a) D′(1) = 1 with interpretation and units cm per hour. (b) D′(9) = −1/3 with "decreasing at 1/3 cm per hour". (c) t = 4 justified by D′ changing from positive to negative.
+    - slug: apcalcab-u04-w14-q22
+      type: short_answer
+      topic_code: "4.4"
+      source: "AP Calculus CED, Topic 4.4"
+      points: 3
+      prompt: |
+        A hypothetical oil slick spreads in a circle. Its area is increasing at 50 square metres per minute.
+
+        (a) Write an equation relating the area A and the radius r, and differentiate it with respect to time t.
+        (b) Find how fast the radius is increasing at the instant the radius is 10 metres. Give an exact answer and a decimal to three places, with units.
+        (c) Will dr/dt be larger or smaller when the radius is 20 metres? Explain using your equation.
+      answer: |
+        (a) A = πr², so dA/dt = 2πr·dr/dt.
+        (b) 50 = 2π(10)·dr/dt, so dr/dt = 50/(20π) = 5/(2π) ≈ 0.796 metres per minute.
+        (c) Smaller: dr/dt = 50/(2πr) gets smaller as r grows, so at r = 20 it is half as large (5/(4π) ≈ 0.398 m per minute).
+      explanation: |
+        Three points, one per part. (a) the area equation and its derivative with the dr/dt factor. (b) 5/(2π) ≈ 0.796 m per minute with units. (c) smaller, with a reason from dr/dt = 50/(2πr).
+    - slug: apcalcab-u04-w14-q23
+      type: long_answer
+      topic_code: "4.4"
+      source: "AP Calculus CED, Topic 4.4"
+      points: 6
+      prompt: |
+        Two hypothetical water tanks are being used in an experiment.
+
+        Tank 1 is a cylinder with radius 2 metres. Water drains from it at 0.6 cubic metres per minute. Let h be the depth of the water in metres.
+
+        (A) Write the volume V of water in Tank 1 in terms of h, and find dh/dt when h = 3 metres. Include units.
+
+        (B) Explain why the answer to (A) is the same at every depth.
+
+        Tank 2 is a cone with its vertex pointing down. When the water is h metres deep, the surface of the water is a circle of radius h/2 metres. Water is pumped into Tank 2 at 0.6 cubic metres per minute.
+
+        (C) Show that the volume of water in Tank 2 is V = πh³/12, and find dh/dt when h = 2 metres. Include units.
+
+        (D) As Tank 2 fills, does the water level rise faster or slower? Justify your answer.
+      answer: |
+        (A) V = π(2)²h = 4πh. dV/dt = 4π·dh/dt, and dV/dt = −0.6 (draining), so dh/dt = −0.6/(4π) = −0.15/π ≈ −0.048 metres per minute: the depth is falling at about 0.048 m per minute.
+        (B) The radius is fixed, so dV/dt = 4π·dh/dt holds with the same constant 4π at every depth; h does not appear in the equation.
+        (C) V = (1/3)π(h/2)²h = (1/3)π(h²/4)h = πh³/12. dV/dt = (π/4)h²·dh/dt. With dV/dt = 0.6 and h = 2: 0.6 = π·dh/dt, so dh/dt = 0.6/π ≈ 0.191 metres per minute.
+        (D) Slower: dh/dt = 0.6/((π/4)h²) = 2.4/(πh²), which decreases as h increases, because the surface of the water gets wider as the cone fills.
+      explanation: |
+        Six points. (A) 1 point for V = 4πh, 1 point for dh/dt = −0.15/π ≈ −0.048 m per minute (negative sign, or the word "falling", and units required). (B) 1 point for the fixed radius making dh/dt independent of h. (C) 1 point for substituting r = h/2 to get πh³/12, 1 point for dh/dt = 0.6/π ≈ 0.191 m per minute. (D) 1 point for "slower" with a reason from dh/dt = 2.4/(πh²) or from the widening surface.
