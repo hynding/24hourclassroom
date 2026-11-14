@@ -1,0 +1,896 @@
+unit: 6
+description: |
+  44 questions · about 90 minutes · every topic of Unit 6 (6.1 to 6.10 and 6.14): accumulation from a rate, Riemann
+  and trapezoidal sums (including unequal widths), summation and definite integral notation, accumulation functions
+  and both parts of the Fundamental Theorem of Calculus, properties of definite integrals, antiderivatives,
+  substitution, long division and completing the square, and choosing a technique. Includes two shared-context sets
+  of four questions (a reservoir inflow table and an accumulation function built from a graph), select-all,
+  true/false, fill-in-the-blank and numeric items, two short-answer questions (3 points each) and two free-response
+  questions in the AP style (9 points each: one calculator-active rate-in, rate-out context, one no-calculator
+  analysis of an accumulation function). Items marked (Calculator.) need a graphing calculator; the rest are meant
+  to be done by hand. Multiple choice, select-all, true/false and numeric items are graded at once;
+  fill-in-the-blank items are matched automatically; the short answers and free-response items are graded by your
+  teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: a reservoir inflow table (6.2, 6.1, 6.5)
+  - slug: apcalcab-u06-exam-q01
+    type: multiple_choice
+    topic_code: "6.2"
+    source: "AP Calculus CED, Topic 6.2"
+    points: 1
+    stimulus: |
+      Water flows into a hypothetical reservoir at a rate of R(t) cubic meters per hour, where t is measured in hours and R is continuous. The reservoir holds 5000 cubic meters at t = 0. Selected values of R are shown.
+
+      | t (hours) | 0 | 3 | 5 | 9 | 12 |
+      |---|---|---|---|---|---|
+      | R(t) (m³ per hour) | 150 | 210 | 240 | 180 | 120 |
+    prompt: |
+      What is the left Riemann sum approximation of ∫ from 0 to 12 of R(t) dt, using the four subintervals indicated by the table?
+    options:
+      - "2190 m³"
+      - "780 m³"
+      - "2370 m³"
+      - "2280 m³"
+    option_explanations:
+      - |
+        2190 is the right Riemann sum, 210·3 + 240·2 + 180·4 + 120·3, which uses the right endpoint of each subinterval.
+      - |
+        780 adds the four left heights 150 + 210 + 240 + 180 without multiplying each by its width.
+      - |
+        Correct. The widths are 3, 2, 4 and 3, so L = 150·3 + 210·2 + 240·4 + 180·3 = 450 + 420 + 960 + 540 = 2370 m³.
+      - |
+        2280 is the trapezoidal sum, the average of the left sum 2370 and the right sum 2190.
+    answer: 2
+  - slug: apcalcab-u06-exam-q02
+    type: multiple_choice
+    topic_code: "6.1"
+    source: "AP Calculus CED, Topic 6.1"
+    points: 1
+    stimulus: |
+      Water flows into a hypothetical reservoir at a rate of R(t) cubic meters per hour, where t is measured in hours and R is continuous. The reservoir holds 5000 cubic meters at t = 0. Selected values of R are shown.
+
+      | t (hours) | 0 | 3 | 5 | 9 | 12 |
+      |---|---|---|---|---|---|
+      | R(t) (m³ per hour) | 150 | 210 | 240 | 180 | 120 |
+    prompt: |
+      Which statement best describes the meaning of ∫ from 0 to 12 of R(t) dt?
+    options:
+      - "The number of cubic meters of water that flow into the reservoir from t = 0 to t = 12 hours"
+      - "The number of cubic meters of water in the reservoir at t = 12 hours"
+      - "The rate, in cubic meters per hour, at which water flows into the reservoir at t = 12 hours"
+      - "The average rate, in cubic meters per hour, at which water flows into the reservoir over the 12 hours"
+    option_explanations:
+      - |
+        Correct. The integral of a rate over an interval is the accumulated change: (m³ per hour) × (hours) = m³ of water added during the 12 hours.
+      - |
+        The integral gives only the water added; the amount in the reservoir also includes the 5000 m³ present at t = 0.
+      - |
+        The rate at t = 12 is R(12) = 120 m³ per hour; the integral is an amount, not a rate.
+      - |
+        The average rate is the integral divided by 12; the integral itself is measured in cubic meters.
+    answer: 0
+  - slug: apcalcab-u06-exam-q03
+    type: numeric
+    topic_code: "6.2"
+    source: "AP Calculus CED, Topic 6.2"
+    points: 1
+    stimulus: |
+      Water flows into a hypothetical reservoir at a rate of R(t) cubic meters per hour, where t is measured in hours and R is continuous. The reservoir holds 5000 cubic meters at t = 0. Selected values of R are shown.
+
+      | t (hours) | 0 | 3 | 5 | 9 | 12 |
+      |---|---|---|---|---|---|
+      | R(t) (m³ per hour) | 150 | 210 | 240 | 180 | 120 |
+    prompt: |
+      Using a trapezoidal sum with the four subintervals indicated by the table, approximate ∫ from 0 to 12 of R(t) dt, in cubic meters.
+    answer: { value: 2280, tolerance: 0.001 }
+    explanation: |
+      T = 3·(150 + 210)/2 + 2·(210 + 240)/2 + 4·(240 + 180)/2 + 3·(180 + 120)/2 = 540 + 450 + 840 + 450 = 2280 m³.
+  - slug: apcalcab-u06-exam-q04
+    type: multiple_choice
+    topic_code: "6.5"
+    source: "AP Calculus CED, Topic 6.5"
+    points: 1
+    stimulus: |
+      Water flows into a hypothetical reservoir at a rate of R(t) cubic meters per hour, where t is measured in hours and R is continuous. The reservoir holds 5000 cubic meters at t = 0. Selected values of R are shown.
+
+      | t (hours) | 0 | 3 | 5 | 9 | 12 |
+      |---|---|---|---|---|---|
+      | R(t) (m³ per hour) | 150 | 210 | 240 | 180 | 120 |
+    prompt: |
+      No water leaves the reservoir during these 12 hours. Using the trapezoidal sum, what is the best estimate of the amount of water in the reservoir at t = 12?
+    options:
+      - "2280 m³"
+      - "7280 m³"
+      - "7370 m³"
+      - "5120 m³"
+    option_explanations:
+      - |
+        2280 m³ is only the water added; the 5000 m³ already in the reservoir at t = 0 must be included.
+      - |
+        Correct. Amount = initial amount + accumulated inflow ≈ 5000 + 2280 = 7280 m³.
+      - |
+        7370 uses the left Riemann sum 2370, but the question asks for the estimate based on the trapezoidal sum.
+      - |
+        5120 adds the rate R(12) = 120 to the initial amount; a rate must be accumulated over time, not added to an amount.
+    answer: 1
+  # ---- Stimulus set B: an accumulation function built from a graph (6.4, 6.5)
+  - slug: apcalcab-u06-exam-q05
+    type: multiple_choice
+    topic_code: "6.4"
+    source: "AP Calculus CED, Topic 6.4"
+    points: 1
+    stimulus: |
+      A continuous function f is defined on 0 ≤ t ≤ 8. On 0 ≤ t ≤ 4 its graph is the lower half of the circle of radius 2 centered at (2, 0), so f(t) = −√(4 − (t − 2)²). On 4 ≤ t ≤ 8 its graph consists of two line segments joining (4, 0) to (6, 2) and (6, 2) to (8, 2). Let g(x) = ∫ from 0 to x of f(t) dt.
+    prompt: |
+      What is the value of g(4)?
+    options:
+      - "2π"
+      - "−4π"
+      - "−π"
+      - "−2π"
+    option_explanations:
+      - |
+        2π is the area of the half-disk, but the region lies below the t-axis, so the integral is negative.
+      - |
+        −4π uses the area of the whole circle (π · 2² = 4π); only the lower half lies between t = 0 and t = 4.
+      - |
+        −π is half of the correct value, as if the region were a quarter circle; from t = 0 to t = 4 the whole lower half-disk is covered.
+      - |
+        Correct. The region between the graph and the t-axis on [0, 4] is a half-disk of radius 2 below the axis, with area (1/2)π(2²) = 2π, so g(4) = −2π.
+    answer: 3
+  - slug: apcalcab-u06-exam-q06
+    type: multiple_choice
+    topic_code: "6.5"
+    source: "AP Calculus CED, Topic 6.5"
+    points: 1
+    stimulus: |
+      A continuous function f is defined on 0 ≤ t ≤ 8. On 0 ≤ t ≤ 4 its graph is the lower half of the circle of radius 2 centered at (2, 0), so f(t) = −√(4 − (t − 2)²). On 4 ≤ t ≤ 8 its graph consists of two line segments joining (4, 0) to (6, 2) and (6, 2) to (8, 2). Let g(x) = ∫ from 0 to x of f(t) dt.
+    prompt: |
+      At what value of x does g attain its absolute maximum on the interval 0 ≤ x ≤ 8?
+    options:
+      - "x = 0"
+      - "x = 8"
+      - "x = 4"
+      - "x = 6"
+    option_explanations:
+      - |
+        Correct. g decreases on 0 < x < 4 (f < 0) and increases on 4 < x < 8 (f > 0). Candidates: g(0) = 0 and g(8) = −2π + 2 + 4 = 6 − 2π ≈ −0.28. The larger is g(0) = 0.
+      - |
+        g increases from x = 4 to x = 8, but it starts that climb at −2π and reaches only 6 − 2π ≈ −0.28, which is less than g(0) = 0.
+      - |
+        At x = 4, g′ = f changes from negative to positive, which makes g(4) = −2π the absolute minimum, not the maximum.
+      - |
+        f is still positive after x = 6, so g keeps increasing there; x = 6 is not an extremum of g.
+    answer: 0
+  - slug: apcalcab-u06-exam-q07
+    type: multiple_choice
+    topic_code: "6.4"
+    source: "AP Calculus CED, Topic 6.4"
+    points: 1
+    stimulus: |
+      A continuous function f is defined on 0 ≤ t ≤ 8. On 0 ≤ t ≤ 4 its graph is the lower half of the circle of radius 2 centered at (2, 0), so f(t) = −√(4 − (t − 2)²). On 4 ≤ t ≤ 8 its graph consists of two line segments joining (4, 0) to (6, 2) and (6, 2) to (8, 2). Let g(x) = ∫ from 0 to x of f(t) dt.
+    prompt: |
+      What is the value of g″(7)?
+    options:
+      - "2"
+      - "1"
+      - "0"
+      - "4 − 2π"
+    option_explanations:
+      - |
+        2 is f(7) = g′(7), the first derivative of g, not the second.
+      - |
+        1 is the slope of the segment from (4, 0) to (6, 2), which gives g″ on 4 < x < 6, not at x = 7.
+      - |
+        Correct. g″(x) = f′(x), and on 6 < t < 8 the graph of f is horizontal, so f′(7) = 0.
+      - |
+        4 − 2π is g(7) = −2π + 2 + 2, the accumulated value, not a derivative.
+    answer: 2
+  - slug: apcalcab-u06-exam-q08
+    type: multiple_choice
+    topic_code: "6.5"
+    source: "AP Calculus CED, Topic 6.5"
+    points: 1
+    stimulus: |
+      A continuous function f is defined on 0 ≤ t ≤ 8. On 0 ≤ t ≤ 4 its graph is the lower half of the circle of radius 2 centered at (2, 0), so f(t) = −√(4 − (t − 2)²). On 4 ≤ t ≤ 8 its graph consists of two line segments joining (4, 0) to (6, 2) and (6, 2) to (8, 2). Let g(x) = ∫ from 0 to x of f(t) dt.
+    prompt: |
+      On which open interval is the graph of g concave up?
+    options:
+      - "4 < x < 8"
+      - "2 < x < 6"
+      - "0 < x < 2"
+      - "2 < x < 4 only"
+    option_explanations:
+      - |
+        On 4 < x < 8, f > 0, which makes g increasing; concavity depends on whether f is increasing, and f is constant on 6 < x < 8.
+      - |
+        Correct. g′ = f, and f increases from its lowest point at t = 2 up through t = 4 to t = 6. Since g′ is increasing on 2 < x < 6, g is concave up there.
+      - |
+        On 0 < x < 2 the semicircle falls toward its lowest point, so f is decreasing and g is concave down.
+      - |
+        f keeps increasing after t = 4 along the segment to (6, 2), so the concave up interval continues to x = 6.
+    answer: 1
+  # ---- Independent items
+  - slug: apcalcab-u06-exam-q09
+    type: multiple_choice
+    topic_code: "6.1"
+    source: "AP Calculus CED, Topic 6.1"
+    points: 1
+    prompt: |
+      A particle moves along a line with velocity v(t) = 4 − 2t meters per second for 0 ≤ t ≤ 4. What is the total distance the particle travels over this interval?
+    options:
+      - "0 meters"
+      - "4 meters"
+      - "−4 meters"
+      - "8 meters"
+    option_explanations:
+      - |
+        0 is the displacement: the area above the axis (4) and the area below (4) cancel. Total distance adds the areas.
+      - |
+        4 meters is the distance for 0 ≤ t ≤ 2 only; the particle also moves 4 meters back for 2 ≤ t ≤ 4.
+      - |
+        −4 is the signed area on 2 ≤ t ≤ 4 alone; distance is never negative.
+      - |
+        Correct. v > 0 on 0 < t < 2 (triangle with area ½ · 2 · 4 = 4) and v < 0 on 2 < t < 4 (triangle with area 4 below). Distance = 4 + 4 = 8 meters.
+    answer: 3
+  - slug: apcalcab-u06-exam-q10
+    type: multiple_choice
+    topic_code: "6.2"
+    source: "AP Calculus CED, Topic 6.2"
+    points: 1
+    prompt: |
+      What is the midpoint Riemann sum for f(x) = x³ on [0, 4] using two subintervals of equal width?
+    options:
+      - "16"
+      - "56"
+      - "144"
+      - "80"
+    option_explanations:
+      - |
+        16 is the left Riemann sum, 2(f(0) + f(2)) = 2(0 + 8).
+      - |
+        Correct. Δx = 2 and the midpoints are 1 and 3, so the sum is 2(1³ + 3³) = 2(1 + 27) = 56.
+      - |
+        144 is the right Riemann sum, 2(f(2) + f(4)) = 2(8 + 64).
+      - |
+        80 is the trapezoidal sum, the average of the left and right sums.
+    answer: 1
+  - slug: apcalcab-u06-exam-q11
+    type: multiple_choice
+    topic_code: "6.2"
+    source: "AP Calculus CED, Topic 6.2"
+    points: 1
+    prompt: |
+      A function f is positive and concave up on [a, b]. Let I = ∫ from a to b of f(x) dx, and let M and T be the midpoint and trapezoidal sums with the same four equal subintervals. Which ordering must be true?
+    options:
+      - "M < I < T"
+      - "T < I < M"
+      - "I < M < T"
+      - "M < T < I"
+    option_explanations:
+      - |
+        Correct. For a concave up graph each chord lies above the curve, so T overestimates, and each midpoint rectangle equals the area under a tangent line, which lies below the curve, so M underestimates.
+      - |
+        This is the ordering for a concave down graph, where the chords lie below the curve and the tangent lines above it.
+      - |
+        The midpoint sum underestimates for a concave up graph, so M is below I, not above it.
+      - |
+        The trapezoidal sum overestimates for a concave up graph, so T is above I, not below it.
+    answer: 0
+  - slug: apcalcab-u06-exam-q12
+    type: multiple_choice
+    topic_code: "6.3"
+    source: "AP Calculus CED, Topic 6.3"
+    points: 1
+    prompt: |
+      Which definite integral equals lim (n→∞) ∑ (k = 1 to n) (5/n)√(1 + 5k/n)?
+    options:
+      - "∫ from 0 to 5 of √x dx"
+      - "∫ from 1 to 6 of √(1 + x) dx"
+      - "∫ from 1 to 6 of √x dx"
+      - "∫ from 0 to 1 of √(1 + 5x) dx"
+    option_explanations:
+      - |
+        The sample points 1 + 5k/n run from 1 to 6, so with integrand √x the limits must be 1 and 6 (or the integrand must be √(1 + x) on [0, 5]).
+      - |
+        This adds the 1 twice: the sample point x = 1 + 5k/n already includes it, so the integrand on [1, 6] is √x.
+      - |
+        Correct. Δx = 5/n and xₖ = 1 + 5k/n run over [1, 6], with heights √xₖ, so the limit is ∫ from 1 to 6 of √x dx.
+      - |
+        This integral has the right shape inside but on [0, 1] its Riemann sums carry a width factor 1/n, not 5/n; its value is one fifth of the limit.
+    answer: 2
+  - slug: apcalcab-u06-exam-q13
+    type: multiple_choice
+    topic_code: "6.3"
+    source: "AP Calculus CED, Topic 6.3"
+    points: 1
+    prompt: |
+      What is the value of ∫ from −2 to 2 of √(4 − x²) dx?
+    options:
+      - "4π"
+      - "π"
+      - "8"
+      - "2π"
+    option_explanations:
+      - |
+        4π is the area of the whole circle of radius 2; the graph of √(4 − x²) is only the upper half.
+      - |
+        π is a quarter of the circle, the value of the integral from 0 to 2 only.
+      - |
+        8 is the area of the 4-by-2 rectangle that encloses the semicircle, not the semicircle itself.
+      - |
+        Correct. y = √(4 − x²) is the upper half of the circle x² + y² = 4, so the integral is the area of a half-disk: (1/2)π(2²) = 2π.
+    answer: 3
+  - slug: apcalcab-u06-exam-q14
+    type: multiple_choice
+    topic_code: "6.4"
+    source: "AP Calculus CED, Topic 6.4"
+    points: 1
+    prompt: |
+      If H(x) = ∫ from 0 to sin x of √(1 + t³) dt, what is H′(x)?
+    options:
+      - "√(1 + sin³x) · cos x"
+      - "√(1 + sin³x)"
+      - "√(1 + x³) · cos x"
+      - "3 sin²x cos x/(2√(1 + sin³x))"
+    option_explanations:
+      - |
+        Correct. Evaluate the integrand at the upper limit and multiply by its derivative: √(1 + (sin x)³) · cos x.
+      - |
+        This forgets the chain rule factor cos x, the derivative of the upper limit sin x.
+      - |
+        The integrand must be evaluated at the upper limit sin x, not at x.
+      - |
+        This differentiates the integrand √(1 + sin³x) instead of applying the Fundamental Theorem, which returns the integrand itself.
+    answer: 0
+  - slug: apcalcab-u06-exam-q15
+    type: multiple_choice
+    topic_code: "6.4"
+    source: "AP Calculus CED, Topic 6.4"
+    points: 1
+    prompt: |
+      Let F(x) = ∫ from 1 to x of √(t² + 8) dt. Which is an equation of the line tangent to the graph of F at x = 1?
+    options:
+      - "y = 3x"
+      - "y = 3(x − 1)"
+      - "y − 3 = 3(x − 1)"
+      - "y = (1/3)(x − 1)"
+    option_explanations:
+      - |
+        The slope 3 is right, but this line passes through (0, 0); the point of tangency is (1, F(1)) = (1, 0).
+      - |
+        Correct. F(1) = ∫ from 1 to 1 = 0 and F′(1) = √(1 + 8) = 3, so the tangent line is y − 0 = 3(x − 1).
+      - |
+        This uses F(1) = 3, confusing the value of F with its derivative; F(1) = 0 because the interval has no width.
+      - |
+        This takes the reciprocal of F′(1) = 3, which would be the slope of an inverse function, not of F.
+    answer: 1
+  - slug: apcalcab-u06-exam-q16
+    type: multiple_choice
+    topic_code: "6.6"
+    source: "AP Calculus CED, Topic 6.6"
+    points: 1
+    prompt: |
+      If ∫ from 1 to 4 of f(x) dx = 6 and ∫ from 4 to 1 of g(x) dx = 2, what is ∫ from 1 to 4 of (3f(x) + 2g(x)) dx?
+    options:
+      - "22"
+      - "18"
+      - "14"
+      - "−14"
+    option_explanations:
+      - |
+        22 uses ∫ from 1 to 4 of g = 2; the given integral runs from 4 to 1, so ∫ from 1 to 4 of g = −2.
+      - |
+        18 is 3 · 6 alone; the g term contributes 2 · (−2) = −4.
+      - |
+        Correct. ∫ from 1 to 4 of g = −∫ from 4 to 1 of g = −2, so 3(6) + 2(−2) = 18 − 4 = 14.
+      - |
+        This reverses the sign of the whole answer; only the g integral has its limits reversed.
+    answer: 2
+  - slug: apcalcab-u06-exam-q17
+    type: multiple_choice
+    topic_code: "6.6"
+    source: "AP Calculus CED, Topic 6.6"
+    points: 1
+    prompt: |
+      A continuous function f satisfies ∫ from −1 to 5 of f(x) dx = 8, ∫ from 2 to 5 of f(x) dx = 3 and ∫ from −1 to 0 of f(x) dx = 1. What is ∫ from 0 to 2 of f(x) dx?
+    options:
+      - "12"
+      - "6"
+      - "2"
+      - "4"
+    option_explanations:
+      - |
+        12 adds all three given integrals; the pieces [−1, 0] and [2, 5] must be subtracted from the whole interval [−1, 5].
+      - |
+        6 subtracts only one piece, 8 − 3 + 1; both [2, 5] and [−1, 0] lie inside [−1, 5] and are removed.
+      - |
+        2 subtracts ∫ from 2 to 5 twice (8 − 3 − 3); the three adjacent pieces [−1, 0], [0, 2], [2, 5] add to 8, so the missing piece is 8 − 1 − 3.
+      - |
+        Correct. ∫ from −1 to 0 + ∫ from 0 to 2 + ∫ from 2 to 5 = ∫ from −1 to 5, so 1 + ∫ from 0 to 2 of f + 3 = 8, giving 4.
+    answer: 3
+  - slug: apcalcab-u06-exam-q18
+    type: multiple_choice
+    topic_code: "6.7"
+    source: "AP Calculus CED, Topic 6.7"
+    points: 1
+    prompt: |
+      What is the value of ∫ from 0 to π of (sin x + cos x) dx?
+    options:
+      - "0"
+      - "2"
+      - "−2"
+      - "π"
+    option_explanations:
+      - |
+        0 is the cosine part alone (sin π − sin 0); the sine part contributes −cos π + cos 0 = 2.
+      - |
+        Correct. An antiderivative is −cos x + sin x. At π: −(−1) + 0 = 1. At 0: −1 + 0 = −1. The integral is 1 − (−1) = 2.
+      - |
+        −2 uses cos x as the antiderivative of sin x; the antiderivative is −cos x.
+      - |
+        π is the length of the interval; the integrand is not the constant 1.
+    answer: 1
+  - slug: apcalcab-u06-exam-q19
+    type: multiple_choice
+    topic_code: "6.7"
+    source: "AP Calculus CED, Topic 6.7"
+    points: 1
+    prompt: |
+      What is the value of ∫ from 1 to 9 of 1/√x dx?
+    options:
+      - "4"
+      - "6"
+      - "−2/3"
+      - "52/3"
+    option_explanations:
+      - |
+        Correct. ∫ x^(−1/2) dx = 2x^(1/2), so the integral is 2√9 − 2√1 = 6 − 2 = 4.
+      - |
+        6 is the antiderivative's value at 9 alone; its value at 1, which is 2, must be subtracted.
+      - |
+        −2/3 subtracts integrand values, 1/√9 − 1/√1 = 1/3 − 1; the theorem uses values of an antiderivative.
+      - |
+        52/3 uses (2/3)x^(3/2), the antiderivative of √x, not of 1/√x.
+    answer: 0
+  - slug: apcalcab-u06-exam-q20
+    type: multiple_choice
+    topic_code: "6.8"
+    source: "AP Calculus CED, Topic 6.8"
+    points: 1
+    prompt: |
+      ∫ (x − 1)(x + 3) dx =
+    options:
+      - "(x²/2 − x)(x²/2 + 3x) + C"
+      - "2x + 2 + C"
+      - "x³/3 + x² − 3x + C"
+      - "x³/3 + 2x² − 3x + C"
+    option_explanations:
+      - |
+        This integrates each factor and multiplies the results; antiderivatives do not split over products, so expand first.
+      - |
+        2x + 2 is the derivative of the product x² + 2x − 3, not an antiderivative.
+      - |
+        Correct. Expand to x² + 2x − 3 and integrate term by term: x³/3 + x² − 3x + C.
+      - |
+        The middle term 2x integrates to x², not 2x²: the power rule divides by the new exponent 2.
+    answer: 2
+  - slug: apcalcab-u06-exam-q21
+    type: multiple_choice
+    topic_code: "6.8"
+    source: "AP Calculus CED, Topic 6.8"
+    points: 1
+    prompt: |
+      ∫ (2/x + 3eˣ − 4 sin x) dx =
+    options:
+      - "−2/x² + 3eˣ − 4 cos x + C"
+      - "2 ln |x| + 3eˣ − 4 cos x + C"
+      - "2 ln |x| + 3xeˣ + 4 cos x + C"
+      - "2 ln |x| + 3eˣ + 4 cos x + C"
+    option_explanations:
+      - |
+        −2/x² is the derivative of 2/x, not its antiderivative, and the sign of the cosine term is also wrong.
+      - |
+        The antiderivative of sin x is −cos x, so −4 sin x integrates to +4 cos x, not −4 cos x.
+      - |
+        eˣ is its own antiderivative; no factor of x appears.
+      - |
+        Correct. ∫ 2/x dx = 2 ln |x|, ∫ 3eˣ dx = 3eˣ and ∫ −4 sin x dx = 4 cos x.
+    answer: 3
+  - slug: apcalcab-u06-exam-q22
+    type: multiple_choice
+    topic_code: "6.9"
+    source: "AP Calculus CED, Topic 6.9"
+    points: 1
+    prompt: |
+      ∫ sin x/cos³x dx =
+    options:
+      - "−1/(2cos²x) + C"
+      - "1/(2cos²x) + C"
+      - "−1/(4cos⁴x) + C"
+      - "1/(4cos⁴x) + C"
+    option_explanations:
+      - |
+        This misses the minus sign from du = −sin x dx: the integral is −∫ u⁻³ du, and −(u⁻²/(−2)) is positive.
+      - |
+        Correct. u = cos x, du = −sin x dx: −∫ u⁻³ du = −u⁻²/(−2) + C = 1/(2cos²x) + C.
+      - |
+        This lowers the exponent from −3 to −4 as in differentiation; the power rule for antiderivatives raises it to −2.
+      - |
+        The exponent should rise from −3 to −2, not fall to −4.
+    answer: 1
+  - slug: apcalcab-u06-exam-q23
+    type: multiple_choice
+    topic_code: "6.9"
+    source: "AP Calculus CED, Topic 6.9"
+    points: 1
+    prompt: |
+      What is the value of ∫ from 1 to e of (ln x)/x dx?
+    options:
+      - "1/2"
+      - "1"
+      - "(e² − 1)/2"
+      - "−1/2"
+    option_explanations:
+      - |
+        Correct. u = ln x, du = dx/x, and the limits become ln 1 = 0 and ln e = 1: ∫ from 0 to 1 of u du = 1/2.
+      - |
+        1 is ∫ from 1 to e of (1/x) dx; the extra factor ln x makes the integrand u du, whose integral is u²/2.
+      - |
+        This keeps the x-limits 1 and e after substituting; in terms of u = ln x they become 0 and 1.
+      - |
+        The limits are in the right order (0 to 1) and the integrand is positive on (1, e), so the value is positive.
+    answer: 0
+  - slug: apcalcab-u06-exam-q24
+    type: multiple_choice
+    topic_code: "6.9"
+    source: "AP Calculus CED, Topic 6.9"
+    points: 1
+    prompt: |
+      ∫ (3x² + 2)/(x³ + 2x + 1) dx =
+    options:
+      - "(x³ + 2x)/(x⁴/4 + x² + x) + C"
+      - "−1/(x³ + 2x + 1)² + C"
+      - "ln |x³ + 2x + 1| + C"
+      - "(3x² + 2) ln |x³ + 2x + 1| + C"
+    option_explanations:
+      - |
+        Numerator and denominator cannot be integrated separately.
+      - |
+        This integrates as if the integrand were du/u³; here the numerator is du and the denominator is u to the first power.
+      - |
+        Correct. u = x³ + 2x + 1 gives du = (3x² + 2) dx, so the integral is ∫ du/u = ln |x³ + 2x + 1| + C.
+      - |
+        The numerator 3x² + 2 is used up as du; it does not remain as a factor.
+    answer: 2
+  - slug: apcalcab-u06-exam-q25
+    type: multiple_choice
+    topic_code: "6.10"
+    source: "AP Calculus CED, Topic 6.10"
+    points: 1
+    prompt: |
+      ∫ (x² + x + 1)/(x − 1) dx =
+    options:
+      - "x²/2 + 2x − 3 ln |x − 1| + C"
+      - "x²/2 + 3 ln |x − 1| + C"
+      - "x²/2 + 2x + ln |x − 1| + C"
+      - "x²/2 + 2x + 3 ln |x − 1| + C"
+    option_explanations:
+      - |
+        The remainder is +3: (x − 1)(x + 2) = x² + x − 2, and 1 − (−2) = 3.
+      - |
+        The quotient is x + 2, not x; the constant 2 integrates to 2x.
+      - |
+        The remainder is 3, not 1, so the logarithm term has coefficient 3.
+      - |
+        Correct. x² + x + 1 = (x − 1)(x + 2) + 3, so the integrand is x + 2 + 3/(x − 1), giving x²/2 + 2x + 3 ln |x − 1| + C.
+    answer: 3
+  - slug: apcalcab-u06-exam-q26
+    type: multiple_choice
+    topic_code: "6.10"
+    source: "AP Calculus CED, Topic 6.10"
+    points: 1
+    prompt: |
+      ∫ 1/(x² − 4x + 8) dx =
+    options:
+      - "arctan(x − 2) + C"
+      - "(1/2) arctan((x − 2)/2) + C"
+      - "(1/4) arctan((x − 2)/2) + C"
+      - "ln |x² − 4x + 8| + C"
+    option_explanations:
+      - |
+        The completed square is (x − 2)² + 4, so a = 2, not 1.
+      - |
+        Correct. x² − 4x + 8 = (x − 2)² + 2², and ∫ 1/(u² + a²) du = (1/a) arctan(u/a) + C with a = 2.
+      - |
+        The coefficient is 1/a = 1/2, not 1/a² = 1/4.
+      - |
+        A logarithm would need 2x − 4 in the numerator; with a constant numerator, complete the square.
+    answer: 1
+  - slug: apcalcab-u06-exam-q27
+    type: multiple_choice
+    topic_code: "6.14"
+    source: "AP Calculus CED, Topic 6.14"
+    points: 1
+    prompt: |
+      ∫ e^(√x)/√x dx =
+    options:
+      - "2e^(√x) + C"
+      - "(1/2)e^(√x) + C"
+      - "e^(√x) + C"
+      - "2√x e^(√x) + C"
+    option_explanations:
+      - |
+        Correct. u = √x, du = dx/(2√x), so dx/√x = 2 du and the integral is 2∫ eᵘ du = 2e^(√x) + C.
+      - |
+        This inverts the constant: dx/√x equals 2 du, not (1/2) du.
+      - |
+        Differentiating e^(√x) gives e^(√x)/(2√x), half the integrand; a factor 2 is needed.
+      - |
+        The 1/√x is absorbed into du; nothing of √x remains as a factor outside the exponential.
+    answer: 0
+  - slug: apcalcab-u06-exam-q28
+    type: multi_select
+    topic_code: "6.2"
+    source: "AP Calculus CED, Topic 6.2"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A function f is positive, decreasing and concave down on [0, 6]. The area under its graph is approximated using three equal subintervals. Which statements must be true? Select all that apply.
+    options:
+      - "The left Riemann sum is an overestimate."
+      - "The right Riemann sum is an overestimate."
+      - "The trapezoidal sum is an underestimate."
+      - "The midpoint Riemann sum is an overestimate."
+      - "The trapezoidal sum equals the average of the left and right Riemann sums."
+    option_explanations:
+      - |
+        Correct. f is decreasing, so each left endpoint is the highest point of its subinterval.
+      - |
+        f is decreasing, so each right endpoint is the lowest point of its subinterval: the right sum underestimates.
+      - |
+        Correct. f is concave down, so each chord lies below the graph.
+      - |
+        Correct. f is concave down, so each midpoint rectangle equals the area under a tangent line, which lies above the graph.
+      - |
+        Correct. On every subinterval the trapezoid's area is the average of the left and right rectangles, so the sums agree for any function.
+    answer: [0, 2, 3, 4]
+  - slug: apcalcab-u06-exam-q29
+    type: multi_select
+    topic_code: "6.7"
+    source: "AP Calculus CED, Topic 6.7"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Let f be differentiable with f(2) = 5, and suppose ∫ from 2 to 6 of f′(x) dx = 9 and F is an antiderivative of f. Which statements must be true? Select all that apply.
+    options:
+      - "f(6) = 14"
+      - "f(6) − f(2) = 9"
+      - "∫ from 2 to 6 of f(x) dx = F(6) − F(2)"
+      - "f′(6) = 9"
+      - "∫ from 6 to 2 of f′(x) dx = 9"
+    option_explanations:
+      - |
+        Correct. f(6) = f(2) + ∫ from 2 to 6 of f′(x) dx = 5 + 9 = 14.
+      - |
+        Correct. The integral of a derivative is the net change of the function over the interval.
+      - |
+        Correct. This is the second Fundamental Theorem applied to f with antiderivative F.
+      - |
+        The integral gives the net change in f, not a value of its derivative; f′(6) is not determined.
+      - |
+        Reversing the limits reverses the sign: ∫ from 6 to 2 of f′(x) dx = −9.
+    answer: [0, 1, 2]
+  - slug: apcalcab-u06-exam-q30
+    type: multi_select
+    topic_code: "6.14"
+    source: "AP Calculus CED, Topic 6.14"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of the following are antiderivatives of f(x) = 2x/(x² + 1)? Select all that apply.
+    options:
+      - "ln(x² + 1)"
+      - "ln(x² + 1) + 5"
+      - "ln(3x² + 3)"
+      - "2 arctan x"
+      - "1/(x² + 1)"
+    option_explanations:
+      - |
+        Correct. u = x² + 1, du = 2x dx gives ∫ du/u = ln(x² + 1).
+      - |
+        Correct. Adding a constant does not change the derivative.
+      - |
+        Correct. ln(3x² + 3) = ln 3 + ln(x² + 1), which differs from ln(x² + 1) by the constant ln 3.
+      - |
+        d/dx 2 arctan x = 2/(1 + x²); the numerator 2x is missing, so this fits 2/(x² + 1), not f.
+      - |
+        By the chain rule, d/dx (x² + 1)⁻¹ = −2x/(x² + 1)², which is not f.
+    answer: [0, 1, 2]
+  - slug: apcalcab-u06-exam-q31
+    type: true_false
+    topic_code: "6.4"
+    source: "AP Calculus CED, Topic 6.4"
+    points: 1
+    prompt: |
+      True or false: If f is continuous and positive for all x, then g(x) = ∫ from 0 to x of f(t) dt is increasing for all x, including negative x.
+    answer: true
+    explanation: |
+      True. By the first Fundamental Theorem, g′(x) = f(x) > 0 for every x, so g is increasing everywhere. (For negative x, g(x) is negative, but it still increases as x increases.)
+  - slug: apcalcab-u06-exam-q32
+    type: true_false
+    topic_code: "6.8"
+    source: "AP Calculus CED, Topic 6.8"
+    points: 1
+    prompt: |
+      True or false: ∫ (1/x) dx = ln x + C is a correct antiderivative formula on the whole domain of 1/x.
+    answer: false
+    explanation: |
+      False. ln x is defined only for x > 0, but 1/x is also defined for x < 0. The formula that works on the whole domain is ln |x| + C, since d/dx ln |x| = 1/x for every x ≠ 0.
+  - slug: apcalcab-u06-exam-q33
+    type: true_false
+    topic_code: "6.10"
+    source: "AP Calculus CED, Topic 6.10"
+    points: 1
+    prompt: |
+      True or false: Completing the square shows that ∫ 1/(x² + 2x + 2) dx = arctan(x + 1) + C.
+    answer: true
+    explanation: |
+      True. x² + 2x + 2 = (x + 1)² + 1, so with u = x + 1 and a = 1 the arctangent pattern gives arctan(x + 1) + C. Check: d/dx arctan(x + 1) = 1/(1 + (x + 1)²).
+  - slug: apcalcab-u06-exam-q34
+    type: fill_blank
+    topic_code: "6.7"
+    source: "AP Calculus CED, Topic 6.7"
+    points: 1
+    prompt: |
+      ∫ from 0 to 1 of (4x³ + 6x) dx = ____.
+    answer: ["4"]
+    explanation: |
+      An antiderivative is x⁴ + 3x², so the integral is (1 + 3) − 0 = 4.
+  - slug: apcalcab-u06-exam-q35
+    type: fill_blank
+    topic_code: "6.9"
+    source: "AP Calculus CED, Topic 6.9"
+    points: 1
+    prompt: |
+      ∫ from 0 to π/6 of cos(3x) dx = ____. (Give the exact value or a decimal to three places.)
+    answer: ["1/3", "0.333", ".333"]
+    explanation: |
+      u = 3x, du = 3 dx, limits 0 to π/2: (1/3) ∫ from 0 to π/2 of cos u du = (1/3)(sin(π/2) − sin 0) = 1/3.
+  - slug: apcalcab-u06-exam-q36
+    type: fill_blank
+    topic_code: "6.3"
+    source: "AP Calculus CED, Topic 6.3"
+    points: 1
+    prompt: |
+      Using geometry, ∫ from 0 to 6 of |x − 2| dx = ____.
+    answer: ["10"]
+    explanation: |
+      Two triangles above the axis: on [0, 2], ½ · 2 · 2 = 2; on [2, 6], ½ · 4 · 4 = 8. Total 10.
+  - slug: apcalcab-u06-exam-q37
+    type: numeric
+    topic_code: "6.3"
+    source: "AP Calculus CED, Topic 6.3"
+    points: 1
+    prompt: |
+      (Calculator.) Evaluate ∫ from 0 to 2 of e^(−x²) dx. Give your answer to three decimal places.
+    answer: { value: 0.882, tolerance: 0.001 }
+    explanation: |
+      e^(−x²) has no elementary antiderivative, so use the calculator's numerical integration: ∫ from 0 to 2 of e^(−x²) dx ≈ 0.882.
+  - slug: apcalcab-u06-exam-q38
+    type: numeric
+    topic_code: "6.5"
+    source: "AP Calculus CED, Topic 6.5"
+    points: 1
+    prompt: |
+      The amount of a substance in a hypothetical container is A(t) = 20 + ∫ from 0 to t of (3s² − 4s) ds grams, for t ≥ 0 hours. What is A(3), in grams?
+    answer: { value: 29, tolerance: 0 }
+    explanation: |
+      ∫ from 0 to 3 of (3s² − 4s) ds = (s³ − 2s²) from 0 to 3 = 27 − 18 = 9, so A(3) = 20 + 9 = 29 grams.
+  - slug: apcalcab-u06-exam-q39
+    type: numeric
+    topic_code: "6.8"
+    source: "AP Calculus CED, Topic 6.8"
+    points: 1
+    prompt: |
+      A function f satisfies f′(x) = 2 cos x + 1 and f(0) = 3. Find f(π/2). Give your answer to three decimal places.
+    answer: { value: 6.571, tolerance: 0.001 }
+    explanation: |
+      f(x) = 2 sin x + x + C, and f(0) = C = 3. So f(π/2) = 2 + π/2 + 3 = 5 + π/2 ≈ 6.571.
+  - slug: apcalcab-u06-exam-q40
+    type: numeric
+    topic_code: "6.2"
+    source: "AP Calculus CED, Topic 6.2"
+    points: 1
+    prompt: |
+      Selected values of a continuous function g are shown.
+
+      | x | 1 | 2 | 4 | 7 |
+      |---|---|---|---|---|
+      | g(x) | 3 | −1 | 2 | 5 |
+
+      What is the right Riemann sum approximation of ∫ from 1 to 7 of g(x) dx, using the three subintervals of the table?
+    answer: { value: 18, tolerance: 0 }
+    explanation: |
+      The widths are 1, 2 and 3, and the right endpoints are 2, 4 and 7: 1·(−1) + 2·2 + 3·5 = −1 + 4 + 15 = 18.
+  - slug: apcalcab-u06-exam-q41
+    type: short_answer
+    topic_code: "6.4"
+    source: "AP Calculus CED, Topic 6.4"
+    points: 3
+    prompt: |
+      Let h(x) = ∫ from 0 to x² of cos t dt.
+
+      (a) Use the Fundamental Theorem of Calculus and the chain rule to find h′(x).
+      (b) Find h′(√π).
+      (c) Use the second part of the Fundamental Theorem to write h(x) without an integral, and differentiate it to confirm your answer to (a).
+    answer: |
+      (a) h′(x) = cos(x²) · 2x = 2x cos(x²).
+      (b) h′(√π) = 2√π · cos(π) = −2√π ≈ −3.545.
+      (c) h(x) = sin t from 0 to x² = sin(x²) − sin 0 = sin(x²). Then h′(x) = cos(x²) · 2x, which agrees with (a).
+    explanation: |
+      Three points, one per part. (a) 2x cos(x²) with the chain rule factor. (b) −2√π. (c) h(x) = sin(x²) and a derivative that matches (a).
+  - slug: apcalcab-u06-exam-q42
+    type: short_answer
+    topic_code: "6.9"
+    source: "AP Calculus CED, Topic 6.9"
+    points: 3
+    prompt: |
+      Evaluate ∫ from 0 to 3 of x√(x + 1) dx using the substitution u = x + 1.
+
+      (a) Rewrite the integral entirely in terms of u, including the new limits.
+      (b) Find an antiderivative in terms of u.
+      (c) Evaluate the integral exactly.
+    answer: |
+      (a) x = u − 1, dx = du, and the limits are u = 1 to u = 4: ∫ from 1 to 4 of (u − 1)√u du = ∫ from 1 to 4 of (u^(3/2) − u^(1/2)) du.
+      (b) (2/5)u^(5/2) − (2/3)u^(3/2).
+      (c) At u = 4: (2/5)(32) − (2/3)(8) = 64/5 − 16/3 = 112/15. At u = 1: 2/5 − 2/3 = −4/15. Value: 112/15 + 4/15 = 116/15 ≈ 7.733.
+    explanation: |
+      Three points, one per part. (a) a correct integrand in u (with x = u − 1) and limits 1 and 4. (b) a correct antiderivative. (c) 116/15.
+  - slug: apcalcab-u06-exam-q43
+    type: long_answer
+    topic_code: "6.5"
+    source: "AP Calculus CED, Topic 6.5"
+    points: 9
+    prompt: |
+      (Calculator.) During a 12-hour storm, rainwater flows into a hypothetical retention pond at a rate modeled by R(t) = 40 + 25 sin(t/2) cubic meters per hour, for 0 ≤ t ≤ 12, where t is measured in hours. Throughout the storm, a pump removes water from the pond at a constant rate of 50 cubic meters per hour. At t = 0 the pond holds 800 cubic meters of water.
+
+      (A) How many cubic meters of rainwater flow into the pond during the 12 hours? Show the integral you use.
+
+      (B) Is the amount of water in the pond increasing or decreasing at t = 9 hours? Give a reason for your answer.
+
+      (C) Write an expression involving an integral for A(t), the amount of water in the pond at time t, and find A(12).
+
+      (D) At what time t, for 0 ≤ t ≤ 12, is the amount of water in the pond at an absolute minimum? Justify your answer.
+    answer: |
+      (A) ∫ from 0 to 12 of R(t) dt ≈ 481.991 cubic meters.
+      (B) A′(9) = R(9) − 50 ≈ 15.562 − 50 = −34.438 < 0, so the amount of water is decreasing at t = 9.
+      (C) A(t) = 800 + ∫ from 0 to t of (R(s) − 50) ds. A(12) = 800 + 481.991 − 600 ≈ 681.991 cubic meters.
+      (D) A′(t) = R(t) − 50 = 0 when 25 sin(t/2) = 10, which on 0 ≤ t ≤ 12 gives t = a ≈ 0.823 and t = b ≈ 5.460. A′ < 0 on (0, a), A′ > 0 on (a, b), A′ < 0 on (b, 12). Candidates: A(0) = 800, A(a) = 800 + ∫ from 0 to a of (R(s) − 50) ds ≈ 795.944, A(b) ≈ 841.224, A(12) ≈ 681.991. The absolute minimum is at t = 12 hours, with about 681.991 cubic meters.
+    explanation: |
+      Nine points. (A) 1 point for the integral ∫ from 0 to 12 of R(t) dt, 1 point for 481.991 (accept 481.99 or 482.0 when the integral is shown). (B) 1 point for A′(9) = R(9) − 50 (or comparing R(9) ≈ 15.562 with 50) and 1 point for "decreasing" with that reason. (C) 1 point for the integrand R(s) − 50 with initial condition 800, and 1 point for A(12) ≈ 681.991. (D) 1 point for setting R(t) = 50 to find the critical times (about 0.823 and 5.460), 1 point for evaluating A at the critical times and both endpoints, and 1 point for the answer t = 12 justified by the Candidates Test. Stating only that t = 0.823 is a relative minimum does not earn the last point.
+  - slug: apcalcab-u06-exam-q44
+    type: long_answer
+    topic_code: "6.4"
+    source: "AP Calculus CED, Topic 6.4"
+    points: 9
+    prompt: |
+      No calculator. A continuous function f is defined on −2 ≤ t ≤ 6. On −2 ≤ t ≤ 2 its graph is the upper half of the circle of radius 2 centered at the origin, so f(t) = √(4 − t²). On 2 ≤ t ≤ 6 its graph consists of two line segments joining (2, 0) to (4, −2) and (4, −2) to (6, 0). Let g(x) = 3 + ∫ from 0 to x of f(t) dt for −2 ≤ x ≤ 6.
+
+      (A) Find g(2), g(−2) and g(6).
+
+      (B) Find g′(1) and g″(3).
+
+      (C) Find the absolute maximum value and the absolute minimum value of g on −2 ≤ x ≤ 6. Justify your answers.
+
+      (D) Find the x-coordinate of each point of inflection of the graph of g on the open interval −2 < x < 6. Justify your answer.
+
+      (E) Find ∫ from 2 to 6 of (2f(t) + 1) dt.
+    answer: |
+      (A) ∫ from 0 to 2 of f is a quarter disk of radius 2: π. So g(2) = 3 + π. g(−2) = 3 − ∫ from −2 to 0 of f = 3 − π. On [2, 6] the triangle below the axis has area ½ · 4 · 2 = 4, so g(6) = 3 + π − 4 = π − 1.
+      (B) g′(1) = f(1) = √3. g″(3) = f′(3) = −1 (slope of the segment from (2, 0) to (4, −2)).
+      (C) g′ = f > 0 on −2 < x < 2 and f < 0 on 2 < x < 6, so the only critical point inside the interval where g′ changes sign is x = 2. Candidates: g(−2) = 3 − π ≈ −0.14, g(2) = 3 + π, g(6) = π − 1 ≈ 2.14. Absolute maximum 3 + π (at x = 2); absolute minimum 3 − π (at x = −2).
+      (D) g″ = f′. f is increasing on (−2, 0), decreasing on (0, 4) and increasing on (4, 6), so g″ changes sign at x = 0 and x = 4. The graph of g has points of inflection at x = 0 and x = 4.
+      (E) 2 ∫ from 2 to 6 of f(t) dt + ∫ from 2 to 6 of 1 dt = 2(−4) + 4 = −4.
+    explanation: |
+      Nine points. (A) 1 point for g(2) = 3 + π and g(−2) = 3 − π; 1 point for g(6) = π − 1. (B) 1 point for both g′(1) = √3 and g″(3) = −1. (C) 1 point for identifying x = 2 as the only interior candidate (g′ = f changes sign there), 1 point for the absolute maximum 3 + π and 1 point for the absolute minimum 3 − π, each supported by a Candidates Test including both endpoints. (D) 1 point for x = 0 and x = 4, and 1 point for the justification that f changes from increasing to decreasing (or the reverse) there, so g″ changes sign. Naming a point where f = 0 instead earns no point. (E) 1 point for −4 using linearity and the constant integral.

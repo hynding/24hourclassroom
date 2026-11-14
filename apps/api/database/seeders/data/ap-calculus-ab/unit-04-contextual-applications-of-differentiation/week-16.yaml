@@ -1,0 +1,592 @@
+week: 16
+unit: 4
+title: "Local Linearity and L'Hospital's Rule"
+topics: ["4.6", "4.7"]
+guide: guides/week-16.md
+guide_description: |
+  Local linearity: the tangent line L(x) = f(a) + f′(a)(x − a) as an approximation of f near a, using it with
+  formulas, tables and contexts, and using concavity to decide whether the approximation is an overestimate or an
+  underestimate. Then L'Hospital's Rule for the indeterminate forms 0/0 and ∞/∞: checking the hypotheses,
+  differentiating numerator and denominator separately, applying it more than once, and using given derivative
+  values. Worked examples: estimating √4.1, estimating a hypothetical water tank's volume from W(10) and W′(10),
+  lim (x→0) (e^(2x) − 1)/sin(3x), lim (x→∞) (ln x)/√x, and a limit from a table of f, g and their derivatives.
+flashcards_description: |
+  30 cards on tangent-line approximation (formula, error and concavity, estimates from tables and in context)
+  and on L'Hospital's Rule (hypotheses, the forms it handles, repeated use, limits from derivative values, and
+  the classic errors).
+
+flashcards:
+  - front: Local linear approximation of f near x = a → formula
+    back: |
+      L(x) = f(a) + f′(a)(x − a): the tangent line at a, used in place of f for x close to a.
+    topic_code: "4.6"
+  - front: Local linearity → why the tangent line approximates f well
+    back: |
+      Zooming in on a differentiable function at a point makes its graph look straight: near a, f and its tangent line are almost indistinguishable.
+    topic_code: "4.6"
+  - front: √x near 4 → linearisation and the estimate of √4.1
+    back: |
+      L(x) = 2 + (1/4)(x − 4), so √4.1 ≈ 2 + 0.025 = 2.025 (true value 2.02485).
+    topic_code: "4.6"
+  - front: ∛x near 8 → estimate of ∛8.3
+    back: |
+      f′(x) = (1/3)x^(−2/3), so f′(8) = 1/12 and ∛8.3 ≈ 2 + 0.3/12 = 2.025.
+    topic_code: "4.6"
+  - front: ln x near 1 → linearisation and the estimate of ln(1.04)
+    back: |
+      L(x) = 0 + 1·(x − 1) = x − 1, so ln(1.04) ≈ 0.04 (an overestimate, since ln x is concave down).
+    topic_code: "4.6"
+  - front: eˣ and sin x near 0 → their tangent-line approximations
+    back: |
+      eˣ ≈ 1 + x (underestimate, concave up) and sin x ≈ x (for small x > 0 an overestimate, concave down on (0, π)).
+    topic_code: "4.6"
+  - front: Tangent-line estimate when f is concave up near a → over or under?
+    back: |
+      Underestimate: a concave-up graph lies above its tangent lines, so L(x) < f(x) near a.
+    topic_code: "4.6"
+  - front: Tangent-line estimate when f is concave down near a → over or under?
+    back: |
+      Overestimate: a concave-down graph lies below its tangent lines, so L(x) > f(x) near a.
+    topic_code: "4.6"
+  - front: Justifying over- or underestimate on the AP exam → the sentence
+    back: |
+      "f″(x) < 0 on the interval, so the graph of f is concave down there and lies below its tangent line; the approximation is an overestimate." Name the sign of f″ and the interval.
+    topic_code: "4.6"
+  - front: Tank volume W(10) = 420 L, W′(10) = −15 L/min → estimate W(10.4)
+    back: |
+      W(10.4) ≈ 420 + (−15)(0.4) = 414 litres.
+    topic_code: "4.6"
+  - front: Reservoir with R(20) = 150, R′(20) = −4 → tangent line
+    back: |
+      y = 150 − 4(t − 20). Use it for t near 20, such as R(22) ≈ 142.
+    topic_code: "4.6"
+  - front: Accuracy of a linear approximation → what makes it worse
+    back: |
+      Moving farther from a, and stronger curvature (larger |f″|). It is exact only for linear functions.
+    topic_code: "4.6"
+  - front: Linear approximation with a table → which point to use
+    back: |
+      The listed point closest to the input you want, with its derivative value: f(x) ≈ f(a) + f′(a)(x − a).
+    topic_code: "4.6"
+  - front: L'Hospital's Rule → statement for 0/0
+    back: |
+      If f(a) = g(a) = 0 (limits 0), f and g are differentiable near a and g′(x) ≠ 0 near a, then lim (x→a) f(x)/g(x) = lim (x→a) f′(x)/g′(x), provided the second limit exists or is ±∞.
+    topic_code: "4.7"
+  - front: L'Hospital's Rule → which indeterminate forms it applies to
+    back: |
+      0/0 and ∞/∞ (including −∞). Other forms such as 0 · ∞ must first be rewritten as a quotient.
+    topic_code: "4.7"
+  - front: L'Hospital's Rule → what to differentiate
+    back: |
+      The numerator and the denominator separately: f′(x)/g′(x). Not the quotient rule on f/g.
+    topic_code: "4.7"
+  - front: lim (x→0) (e^(2x) − 1)/sin(3x) → value
+    back: |
+      0/0, so take 2e^(2x)/(3cos(3x)) → 2/3.
+    topic_code: "4.7"
+  - front: lim (x→∞) (ln x)/√x → value
+    back: |
+      ∞/∞, so take (1/x)/(1/(2√x)) = 2/√x → 0. Logarithms grow more slowly than any positive power.
+    topic_code: "4.7"
+  - front: lim (x→0) (1 − cos x)/x² → value
+    back: |
+      0/0 twice: sin x/(2x) → still 0/0 → cos x/2 → 1/2.
+    topic_code: "4.7"
+  - front: lim (x→∞) (3x² + x)/eˣ → value
+    back: |
+      ∞/∞ twice: (6x + 1)/eˣ, then 6/eˣ → 0. Exponentials outgrow every polynomial.
+    topic_code: "4.7"
+  - front: f(2) = g(2) = 0, f′(2) = 3, g′(2) = −4 → lim (x→2) f(x)/g(x)
+    back: |
+      0/0 with differentiable f and g, so the limit is f′(2)/g′(2) = −3/4 (given f′, g′ continuous at 2 and g′(2) ≠ 0).
+    topic_code: "4.7"
+  - front: L'Hospital's Rule more than once → when it is allowed
+    back: |
+      Each time, check that the new quotient is still 0/0 or ∞/∞. Stop as soon as direct substitution gives a value.
+    topic_code: "4.7"
+  - front: lim (x→0) cos x / x → can L'Hospital's Rule be used?
+    back: |
+      No: the form is 1/0, not indeterminate. Here the one-sided limits are ±∞, so the two-sided limit does not exist.
+    topic_code: "4.7"
+  - front: lim (x→1) (ln x)/(x − 1) → value by L'Hospital's Rule
+    back: |
+      0/0, so take (1/x)/1 → 1.
+    topic_code: "4.7"
+  - front: AP justification for using L'Hospital's Rule → what to write
+    back: |
+      Show the limits of numerator and denominator are both 0 (or both ±∞) before differentiating: "Since lim f(x) = 0 and lim g(x) = 0, by L'Hospital's Rule …".
+    topic_code: "4.7"
+  - front: lim (x→0) tan x / x → value
+    back: |
+      0/0, so take sec² x / 1 → 1.
+    topic_code: "4.7"
+  - front: L'Hospital's Rule versus algebra → when algebra is enough
+    back: |
+      Factoring and cancelling, or dividing by the highest power, still work and are often quicker for rational functions. L'Hospital's Rule shines with eˣ, ln x and trig.
+    topic_code: "4.7"
+  - front: Error-spot → "lim (x→0) (1 − cos x)/x² does not exist, because it is 0/0"
+    back: |
+      0/0 is indeterminate, not a verdict. It means more work is needed; here the limit is 1/2.
+    topic_code: "4.7"
+  - front: Error-spot → "by L'Hospital, lim f/g = lim (g·f′ − f·g′)/g²"
+    back: |
+      That is the quotient rule. L'Hospital's Rule takes the derivatives of the top and bottom separately: lim f′/g′.
+    topic_code: "4.7"
+  - front: Error-spot → "f is concave up, so the tangent-line estimate is too big"
+    back: |
+      Backwards. Concave up means the graph lies above the tangent, so the tangent-line value is too small: an underestimate.
+    topic_code: "4.6"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 4.6 and 4.7: tangent-line approximation from
+    formulas, tables and contexts, over- and underestimates from concavity, and L'Hospital's Rule for 0/0 and ∞/∞
+    forms), with 7 questions (about 30%) reviewing weeks 3 to 15 (the Squeeze Theorem, the product and chain
+    rules, motion, applied rates and related rates). Opens with a shared-context set on a hypothetical reservoir.
+    Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are
+    matched automatically; the short answers and the long answer are graded by your teacher against the scoring
+    notes. No calculator is needed; estimates in context must carry units.
+  questions:
+    # ---- Stimulus set: a reservoir (4.6)
+    - slug: apcalcab-u04-w16-q01
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "AP Calculus CED, Topic 4.6"
+      points: 1
+      stimulus: |
+        R(t) is the volume of water in a hypothetical reservoir, in millions of gallons, t days after the start of a dry spell. R is twice differentiable, R(20) = 150, R′(20) = −4, and R″(t) > 0 for 15 ≤ t ≤ 25.
+      prompt: |
+        Which is an equation of the line tangent to the graph of R at t = 20?
+      options:
+        - "y = 150 + 4(t − 20)"
+        - "y = −4 + 150(t − 20)"
+        - "y = 150 − 4(t + 20)"
+        - "y = 150 − 4(t − 20)"
+      option_explanations:
+        - |
+          The slope must be R′(20) = −4, not +4; the sign of the derivative was lost.
+        - |
+          The value and slope are swapped: the point is (20, 150) and the slope is −4.
+        - |
+          The point-slope form uses (t − 20), the distance from the point of tangency, not (t + 20).
+        - |
+          Correct. L(t) = R(20) + R′(20)(t − 20) = 150 − 4(t − 20).
+      answer: 3
+    - slug: apcalcab-u04-w16-q02
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "AP Calculus CED, Topic 4.6"
+      points: 1
+      stimulus: |
+        R(t) is the volume of water in a hypothetical reservoir, in millions of gallons, t days after the start of a dry spell. R is twice differentiable, R(20) = 150, R′(20) = −4, and R″(t) > 0 for 15 ≤ t ≤ 25.
+      prompt: |
+        Using the tangent line at t = 20, what is the estimate of R(22)?
+      options:
+        - "158 million gallons"
+        - "142 million gallons"
+        - "146 million gallons"
+        - "−8 million gallons"
+      option_explanations:
+        - |
+          This adds 4 per day instead of subtracting; R′(20) = −4 means the volume is falling.
+        - |
+          Correct. R(22) ≈ 150 + (−4)(22 − 20) = 150 − 8 = 142 million gallons.
+        - |
+          This uses a step of 1 day; from t = 20 to t = 22 the step is 2 days.
+        - |
+          −8 is the estimated change in volume, not the estimated volume; add it to R(20) = 150.
+      answer: 1
+    - slug: apcalcab-u04-w16-q03
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "AP Calculus CED, Topic 4.6"
+      points: 1
+      stimulus: |
+        R(t) is the volume of water in a hypothetical reservoir, in millions of gallons, t days after the start of a dry spell. R is twice differentiable, R(20) = 150, R′(20) = −4, and R″(t) > 0 for 15 ≤ t ≤ 25.
+      prompt: |
+        Is the tangent-line estimate of R(22) an overestimate or an underestimate, and why?
+      options:
+        - "An underestimate, because R is concave up on 15 ≤ t ≤ 25, so its graph lies above the tangent line."
+        - "An overestimate, because R is decreasing at t = 20."
+        - "An overestimate, because R″(t) > 0, so the graph lies below the tangent line."
+        - "An underestimate, because R′(20) < 0."
+      option_explanations:
+        - |
+          Correct. R″ > 0 means R is concave up there, and a concave-up graph lies above its tangent lines, so the line's value 142 is below the true R(22).
+        - |
+          Whether R is increasing or decreasing does not decide; concavity does.
+        - |
+          R″ > 0 means concave up, and a concave-up graph lies above, not below, its tangent line.
+        - |
+          The conclusion is right but the reason is not: the sign of R′ does not decide; the sign of R″ does.
+      answer: 0
+    - slug: apcalcab-u04-w16-q04
+      type: numeric
+      topic_code: "4.6"
+      source: "AP Calculus CED, Topic 4.6"
+      points: 1
+      stimulus: |
+        R(t) is the volume of water in a hypothetical reservoir, in millions of gallons, t days after the start of a dry spell. R is twice differentiable, R(20) = 150, R′(20) = −4, and R″(t) > 0 for 15 ≤ t ≤ 25.
+      prompt: |
+        Use the tangent line at t = 20 to estimate the day t on which the reservoir holds 130 million gallons.
+      answer: { value: 25, tolerance: 0 }
+      explanation: |
+        Solve 150 − 4(t − 20) = 130: 4(t − 20) = 20, so t − 20 = 5 and t = 25 days. (Because the graph lies above the tangent line, the true day is a little later.)
+    # ---- Independent items
+    - slug: apcalcab-u04-w16-q05
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "AP Calculus CED, Topic 4.6"
+      points: 1
+      prompt: |
+        Using the local linear approximation of f(x) = ∛x at x = 8, what is the estimate of ∛8.3?
+      options:
+        - "2.1"
+        - "2.0125"
+        - "2.025"
+        - "2.3"
+      option_explanations:
+        - |
+          This uses a slope of 1/3, the derivative's coefficient alone, forgetting the factor x^(−2/3) = 1/4 at x = 8.
+        - |
+          This uses a slope of (1/3) · 8^(−1) = 1/24 instead of (1/3) · 8^(−2/3) = 1/12.
+        - |
+          Correct. f′(x) = (1/3)x^(−2/3), so f′(8) = (1/3)(1/4) = 1/12, and ∛8.3 ≈ 2 + (1/12)(0.3) = 2.025.
+        - |
+          This adds the change in x, 0.3, directly to 2, as if the slope were 1.
+      answer: 2
+    - slug: apcalcab-u04-w16-q06
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "AP Calculus CED, Topic 4.6"
+      points: 1
+      prompt: |
+        Using the line tangent to y = ln x at x = 1, what is the approximation of ln(1.04)?
+      options:
+        - "0.04"
+        - "1.04"
+        - "0"
+        - "−0.04"
+      option_explanations:
+        - |
+          Correct. At x = 1, ln 1 = 0 and the slope is 1/1 = 1, so L(x) = x − 1 and ln(1.04) ≈ 0.04.
+        - |
+          This evaluates the line y = x instead of y = x − 1; the tangent passes through (1, 0).
+        - |
+          0 is ln 1, the starting value; the slope times the step 0.04 still has to be added.
+        - |
+          The slope of ln x at 1 is +1, so moving right increases the estimate.
+      answer: 0
+    - slug: apcalcab-u04-w16-q07
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "AP Calculus CED, Topic 4.7"
+      points: 1
+      prompt: |
+        What is lim (x→0) (1 − cos x)/x²?
+      options:
+        - "1"
+        - "1/2"
+        - "−1/2"
+        - "The limit does not exist, because direct substitution gives 0/0."
+      option_explanations:
+        - |
+          After one application the quotient is sin x/(2x); treating it as sin x/x → 1 drops the factor 1/2.
+        - |
+          Correct. 0/0, so take sin x/(2x), still 0/0; again: cos x/2 → 1/2.
+        - |
+          This differentiates 1 − cos x as −sin x; the derivative of −cos x is +sin x.
+        - |
+          0/0 is indeterminate: it means more work is needed, not that the limit fails to exist.
+      answer: 1
+    - slug: apcalcab-u04-w16-q08
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "AP Calculus CED, Topic 4.7"
+      points: 1
+      prompt: |
+        What is lim (x→∞) (3x² + x)/eˣ?
+      options:
+        - "∞"
+        - "6"
+        - "3"
+        - "0"
+      option_explanations:
+        - |
+          The numerator grows without bound, but eˣ grows much faster; the quotient shrinks.
+        - |
+          After two applications the quotient is 6/eˣ; taking just the numerator 6 forgets that eˣ → ∞.
+        - |
+          3 is the leading coefficient; comparing leading coefficients only works for two polynomials.
+        - |
+          Correct. ∞/∞: (6x + 1)/eˣ, still ∞/∞; again: 6/eˣ → 0.
+      answer: 3
+    - slug: apcalcab-u04-w16-q09
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "AP Calculus CED, Topic 4.7"
+      points: 1
+      prompt: |
+        To which limit can L'Hospital's Rule be applied directly, without rewriting?
+      options:
+        - "lim (x→0) (cos x)/x"
+        - "lim (x→1) (ln x)/x"
+        - "lim (x→0) (sin x)/x"
+        - "lim (x→∞) x·e^(−x)"
+      option_explanations:
+        - |
+          The form is 1/0, not indeterminate, so the rule does not apply.
+        - |
+          The form is 0/1 = 0, not indeterminate; direct substitution gives the limit 0.
+        - |
+          Correct. Both numerator and denominator approach 0, so the 0/0 form allows L'Hospital's Rule: cos x/1 → 1.
+        - |
+          This is an ∞ · 0 product; it must be rewritten as x/eˣ before the rule can be used.
+      answer: 2
+    - slug: apcalcab-u04-w16-q10
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "AP Calculus CED, Topic 4.7"
+      points: 1
+      prompt: |
+        Functions f and g have continuous derivatives, with f(2) = 0, g(2) = 0, f′(2) = 3 and g′(2) = −4. What is lim (x→2) f(x)/g(x)?
+      options:
+        - "−3/4"
+        - "−4/3"
+        - "0"
+        - "The limit does not exist, because g(2) = 0."
+      option_explanations:
+        - |
+          Correct. The form is 0/0, so by L'Hospital's Rule the limit is f′(2)/g′(2) = 3/(−4) = −3/4.
+        - |
+          The quotient is turned upside down: the numerator's derivative goes on top.
+        - |
+          A numerator approaching 0 gives 0 only when the denominator does not also approach 0.
+        - |
+          A zero denominator together with a zero numerator is the indeterminate form 0/0, which L'Hospital's Rule resolves.
+      answer: 0
+    # ---- Spiral review
+    - slug: apcalcab-u04-w16-q11
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 1
+      prompt: |
+        The diagonal of a square is increasing at 2 centimetres per second. How fast is the area of the square increasing when the diagonal is 10 centimetres?
+      options:
+        - "10 cm² per second"
+        - "40 cm² per second"
+        - "20 cm² per second"
+        - "20 cm per second"
+      option_explanations:
+        - |
+          This is dA/dd = d at d = 10; it forgets to multiply by the rate dd/dt = 2.
+        - |
+          This uses A = d², the area of a square whose side is d; with diagonal d, the area is d²/2.
+        - |
+          Correct. A = d²/2, so dA/dt = d·(dd/dt) = 10 · 2 = 20 cm² per second.
+        - |
+          The number is right but an area changes in square centimetres per second.
+      answer: 2
+    - slug: apcalcab-u04-w16-q12
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "AP Calculus CED, Topic 4.3"
+      points: 1
+      prompt: |
+        A hypothetical theatre's weekly ticket revenue is R(p) = p(200 − 4p) dollars when the ticket price is p dollars. Which is the best interpretation of R′(20)?
+      options:
+        - "When the price is $20, weekly revenue is $2,400."
+        - "When the price is $20, revenue increases by about $40 for each $1 increase in the price."
+        - "When the price is $20, revenue decreases by about $40 for each $1 increase in the price."
+        - "When the price is $20, revenue increases by about $40 for each extra ticket sold."
+      option_explanations:
+        - |
+          $2,400 is R(20) = 20 · 120, the revenue itself, not its rate of change.
+        - |
+          Correct. R(p) = 200p − 4p², so R′(p) = 200 − 8p and R′(20) = 40 dollars per dollar of price.
+        - |
+          R′(20) = 40 is positive, so revenue is increasing with price at p = 20.
+        - |
+          The input is the price in dollars, not the number of tickets, so the rate is per dollar of price.
+      answer: 1
+    - slug: apcalcab-u04-w16-q13
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        If f(x) = ln(x² + 1), what is f′(1)?
+      options:
+        - "1/2"
+        - "ln 2"
+        - "2"
+        - "1"
+      option_explanations:
+        - |
+          This uses 1/(x² + 1) and forgets the chain-rule factor 2x.
+        - |
+          ln 2 is the value f(1), not the derivative.
+        - |
+          This keeps the inner derivative 2x but forgets to divide by x² + 1 = 2.
+        - |
+          Correct. f′(x) = 2x/(x² + 1), so f′(1) = 2/2 = 1.
+      answer: 3
+    - slug: apcalcab-u04-w16-q14
+      type: multi_select
+      topic_code: "4.6"
+      source: "AP Calculus CED, Topic 4.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        f is twice differentiable and L(x) is its local linear approximation at x = a. Which statements are true? Select all that apply.
+      options:
+        - "L(x) is the equation of the line tangent to the graph of f at x = a."
+        - "If f is concave down near a, then L(x) underestimates f(x) for x near a."
+        - "If f is a linear function, then L(x) = f(x) for every x."
+        - "L(x) = f(a) + f′(x)(x − a)"
+        - "The approximation generally becomes less accurate as x moves farther from a."
+      option_explanations:
+        - |
+          Correct. L(x) = f(a) + f′(a)(x − a) passes through (a, f(a)) with slope f′(a): the tangent line.
+        - |
+          A concave-down graph lies below its tangent line, so L(x) overestimates f(x).
+        - |
+          Correct. The tangent line to a line is the line itself, so the approximation is exact.
+        - |
+          The slope must be the fixed number f′(a), not f′(x); otherwise L is not a line.
+        - |
+          Correct. The graph curves away from the tangent line, so the gap usually grows with distance from a.
+      answer: [0, 2, 4]
+    - slug: apcalcab-u04-w16-q15
+      type: multi_select
+      topic_code: "4.7"
+      source: "AP Calculus CED, Topic 4.7"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which limits are equal to 1? Select all that apply.
+      options:
+        - "lim (x→0) (sin x)/x"
+        - "lim (x→0) (e^(2x) − 1)/x"
+        - "lim (x→∞) (ln x)/x"
+        - "lim (x→1) (ln x)/(x − 1)"
+        - "lim (x→0) (tan x)/x"
+      option_explanations:
+        - |
+          Correct. 0/0, and L'Hospital's Rule gives cos x/1 → 1.
+        - |
+          0/0, and L'Hospital's Rule gives 2e^(2x)/1 → 2, not 1.
+        - |
+          ∞/∞, and L'Hospital's Rule gives (1/x)/1 → 0, not 1.
+        - |
+          Correct. 0/0, and L'Hospital's Rule gives (1/x)/1 → 1.
+        - |
+          Correct. 0/0, and L'Hospital's Rule gives sec² x/1 → sec² 0 = 1.
+      answer: [0, 3, 4]
+    - slug: apcalcab-u04-w16-q16
+      type: true_false
+      topic_code: "4.7"
+      source: "AP Calculus CED, Topic 4.7"
+      points: 1
+      prompt: |
+        True or false: L'Hospital's Rule states that, for a 0/0 form, lim (x→a) f(x)/g(x) equals the limit of the derivative of the quotient f(x)/g(x).
+      answer: false
+      explanation: |
+        False. The rule differentiates the numerator and the denominator separately: lim f(x)/g(x) = lim f′(x)/g′(x). The derivative of the quotient (quotient rule) is something else.
+    - slug: apcalcab-u04-w16-q17
+      type: true_false
+      topic_code: "4.2"
+      source: "AP Calculus CED, Topic 4.2"
+      points: 1
+      prompt: |
+        True or false: If a particle's velocity is 0 at t = c, then the particle must change direction at t = c.
+      answer: false
+      explanation: |
+        False. The velocity must change sign. For v(t) = (t − 1)², the particle is at rest at t = 1 but moves right both before and after.
+    - slug: apcalcab-u04-w16-q18
+      type: fill_blank
+      topic_code: "4.6"
+      source: "AP Calculus CED, Topic 4.6"
+      points: 1
+      prompt: |
+        Using the line tangent to f(x) = √x at x = 9, the estimate of √9.6 is ____.
+      answer: ["3.1", "3.10"]
+      explanation: |
+        f(9) = 3 and f′(x) = 1/(2√x), so f′(9) = 1/6. L(9.6) = 3 + (1/6)(0.6) = 3.1.
+    - slug: apcalcab-u04-w16-q19
+      type: fill_blank
+      topic_code: "1.8"
+      source: "AP Calculus CED, Topic 1.8"
+      points: 1
+      prompt: |
+        lim (x→0) x²·sin(1/x) = ____
+      answer: ["0"]
+      explanation: |
+        −x² ≤ x²·sin(1/x) ≤ x² for x ≠ 0, and both bounds approach 0, so by the Squeeze Theorem the limit is 0. (L'Hospital's Rule does not apply: this is not a 0/0 quotient.)
+    - slug: apcalcab-u04-w16-q20
+      type: numeric
+      topic_code: "2.8"
+      source: "AP Calculus CED, Topic 2.8"
+      points: 1
+      prompt: |
+        Let g(x) = x²·cos x. Find g′(π). Give your answer to three decimal places.
+      answer: { value: -6.283, tolerance: 0.001 }
+      explanation: |
+        Product rule: g′(x) = 2x cos x − x² sin x. g′(π) = 2π(−1) − π²(0) = −2π ≈ −6.283.
+    - slug: apcalcab-u04-w16-q21
+      type: short_answer
+      topic_code: "4.6"
+      source: "AP Calculus CED, Topic 4.6"
+      points: 3
+      prompt: |
+        H(t) is the depth of water in a hypothetical rain barrel, in centimetres, t hours after a storm begins. H(4) = 30, H′(4) = 1.5 cm per hour, and H″(t) < 0 for 3 ≤ t ≤ 5.
+
+        (a) Write an equation of the line tangent to the graph of H at t = 4.
+        (b) Use it to estimate the depth at t = 4.6 hours. Include units.
+        (c) Is your estimate an overestimate or an underestimate? Justify your answer.
+      answer: |
+        (a) y = 30 + 1.5(t − 4).
+        (b) H(4.6) ≈ 30 + 1.5(0.6) = 30.9 centimetres.
+        (c) Overestimate: H″(t) < 0 on 3 ≤ t ≤ 5, so H is concave down there and its graph lies below the tangent line.
+      explanation: |
+        Three points, one per part. (a) the tangent line. (b) 30.9 cm with units. (c) overestimate with a reason that names H″ < 0 (concave down) and the graph lying below the tangent line.
+    - slug: apcalcab-u04-w16-q22
+      type: short_answer
+      topic_code: "4.5"
+      source: "AP Calculus CED, Topic 4.5"
+      points: 3
+      prompt: |
+        A spotlight on the ground shines on a vertical wall 12 metres away. A person 2 metres tall walks from the spotlight straight toward the wall at 1.5 metres per second, casting a shadow on the wall.
+
+        (a) Let x be the person's distance from the spotlight and y the height of the shadow on the wall. Use similar triangles to show that y = 24/x.
+        (b) How fast is the height of the shadow changing when the person is 4 metres from the wall? Include units.
+        (c) Is the shadow getting taller or shorter? Explain using your answer to (b).
+      answer: |
+        (a) The light ray over the person's head makes two similar right triangles with a common vertex at the spotlight: y/12 = 2/x, so y = 24/x.
+        (b) dy/dt = −(24/x²)·dx/dt. The person is 4 m from the wall, so x = 8, and dx/dt = 1.5. dy/dt = −(24/64)(1.5) = −0.5625 metres per second.
+        (c) dy/dt is negative, so the shadow is getting shorter, at 0.5625 m per second.
+      explanation: |
+        Three points, one per part. (a) the similar-triangles ratio y/12 = 2/x. (b) the differentiated relation and −0.5625 m per second (x = 8 must be used, not 4). (c) shorter, tied to the negative sign.
+    - slug: apcalcab-u04-w16-q23
+      type: long_answer
+      topic_code: "4.7"
+      source: "AP Calculus CED, Topic 4.7"
+      points: 6
+      prompt: |
+        A function h is twice differentiable for x > 0, with h(2) = 0, h′(2) = 4 and h″(x) = −1/x² for x > 0.
+
+        (A) Write an equation of the line tangent to the graph of h at x = 2, and use it to estimate h(2.1).
+
+        (B) Is the estimate in (A) an overestimate or an underestimate? Justify your answer.
+
+        (C) Find lim (x→2) h(x)/(x² − 4). Show the work that justifies your method.
+
+        (D) Find lim (x→2) (h(x) − 4x + 8)/(x − 2)². Show the work that justifies your method.
+      answer: |
+        (A) y = 0 + 4(x − 2) = 4(x − 2). h(2.1) ≈ 4(0.1) = 0.4.
+        (B) Overestimate: h″(x) = −1/x² < 0 for x > 0, so h is concave down and its graph lies below its tangent line.
+        (C) lim (x→2) h(x) = h(2) = 0 (h is continuous) and lim (x→2) (x² − 4) = 0, so the form is 0/0. By L'Hospital's Rule the limit is lim (x→2) h′(x)/(2x) = 4/4 = 1.
+        (D) Numerator → h(2) − 8 + 8 = 0 and denominator → 0: 0/0. L'Hospital's Rule gives lim (h′(x) − 4)/(2(x − 2)). Again numerator → h′(2) − 4 = 0 and denominator → 0: 0/0. Applying the rule again gives lim h″(x)/2 = (−1/4)/2 = −1/8.
+      explanation: |
+        Six points. (A) 1 point for the tangent line, 1 point for the estimate 0.4. (B) 1 point for overestimate with the reason h″ < 0 (concave down). (C) 1 point for showing both limits are 0 before using the rule, together with the value 1. (D) 1 point for verifying 0/0 at both applications, 1 point for −1/8. A value obtained by L'Hospital's Rule without checking the indeterminate form earns the answer point only.

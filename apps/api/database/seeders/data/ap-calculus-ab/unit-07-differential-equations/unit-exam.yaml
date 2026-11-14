@@ -1,0 +1,944 @@
+unit: 7
+description: |
+  44 questions · about 90 minutes · every topic of Unit 7 (7.1 to 7.8, AB topics only): writing differential
+  equations from words, verifying solutions, slope fields as tables and descriptions, reasoning about solution
+  curves, separation of variables with general and particular solutions and their domains, and exponential
+  models including Newton's law of cooling. Includes three shared-context sets of three or four questions (a
+  separable equation, a hypothetical bacteria culture, and a table of slopes), select-all, true/false,
+  fill-in-the-blank and numeric items, two short-answer questions (3 points each) and two free-response questions
+  in the AP style (9 points each: one calculator-active context, one no-calculator analytical question). Items
+  marked (Calculator.) need a graphing calculator; the rest are meant to be done by hand. Multiple choice,
+  select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically;
+  the short answers and free-response items are graded by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: dy/dx = (4 − y)(x + 1) (7.3, 7.4, 7.6, 7.7)
+  - slug: apcalcab-u07-exam-q01
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "AP Calculus CED, Topic 7.3"
+    points: 1
+    stimulus: |
+      Consider the differential equation dy/dx = (4 − y)(x + 1).
+    prompt: |
+      What is the slope of the slope-field segment at the point (1, 6)?
+    options:
+      - "4"
+      - "−2"
+      - "−4"
+      - "20"
+    option_explanations:
+      - |
+        This uses y − 4 instead of 4 − y. With y = 6, 4 − y = −2 is negative, so the slope is negative.
+      - |
+        This drops the +1: (4 − 6)(1) = −2. The second factor is x + 1 = 2.
+      - |
+        Correct. Substitute x = 1 and y = 6: (4 − 6)(1 + 1) = (−2)(2) = −4.
+      - |
+        This computes (4 + 6)(1 + 1), a sign slip in the first factor. The factor is 4 − y = −2.
+    answer: 2
+  - slug: apcalcab-u07-exam-q02
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "AP Calculus CED, Topic 7.4"
+    points: 1
+    stimulus: |
+      Consider the differential equation dy/dx = (4 − y)(x + 1).
+    prompt: |
+      Let y = f(x) be the solution with f(0) = 1. What is lim (x→∞) f(x)?
+    options:
+      - "4"
+      - "1"
+      - "∞"
+      - "0"
+    option_explanations:
+      - |
+        Correct. For x > −1 and y < 4 the slopes are positive, and they flatten toward 0 as y nears the equilibrium y = 4, which the solution cannot cross. (The solution is 4 − 3e^(−(x²/2 + x)), which tends to 4.)
+      - |
+        1 is the starting value. At (0, 1) the slope is (3)(1) = 3, so the solution rises immediately.
+      - |
+        The solution cannot cross the equilibrium line y = 4, so it cannot grow without bound.
+      - |
+        For x > −1 and y < 4 the slopes are positive, so the solution increases from 1; it does not fall to 0.
+    answer: 0
+  - slug: apcalcab-u07-exam-q03
+    type: multiple_choice
+    topic_code: "7.6"
+    source: "AP Calculus CED, Topic 7.6"
+    points: 1
+    stimulus: |
+      Consider the differential equation dy/dx = (4 − y)(x + 1).
+    prompt: |
+      Which is the general solution, where A is an arbitrary constant?
+    options:
+      - "y = 4 + Ae^(x²/2 + x)"
+      - "y = 4 + Ae^(−(x²/2 + x))"
+      - "y = 4 + e^(−(x²/2 + x)) + A"
+      - "y = Ae^(−(x²/2 + x))"
+    option_explanations:
+      - |
+        This misses the minus sign in ∫ dy/(4 − y) = −ln|4 − y|. The resulting functions move away from y = 4, but the slope field pushes solutions toward it for x > −1.
+      - |
+        Correct. dy/(4 − y) = (x + 1) dx gives −ln|4 − y| = x²/2 + x + C, so |4 − y| = e^(−C)e^(−(x²/2 + x)) and y = 4 + Ae^(−(x²/2 + x)) with A any real number.
+      - |
+        The constant is added after exponentiating. e^(−(x²/2 + x) + C) is a product e^C · e^(−(x²/2 + x)), not a sum.
+      - |
+        This drops the 4. Its derivative is −(x + 1)y, which equals (4 − y)(x + 1) only if 4 = 0.
+    answer: 1
+  - slug: apcalcab-u07-exam-q04
+    type: multiple_choice
+    topic_code: "7.7"
+    source: "AP Calculus CED, Topic 7.7"
+    points: 1
+    stimulus: |
+      Consider the differential equation dy/dx = (4 − y)(x + 1).
+    prompt: |
+      Which is the particular solution with y(0) = 1?
+    options:
+      - "y = 4 + 3e^(−(x²/2 + x))"
+      - "y = 1 + 3e^(−(x²/2 + x))"
+      - "y = 4 − e^(−(x²/2 + x))"
+      - "y = 4 − 3e^(−(x²/2 + x))"
+    option_explanations:
+      - |
+        This forces the constant to be positive. At x = 0 it gives 4 + 3 = 7, not 1: the constant must be negative because the solution starts below 4.
+      - |
+        This swaps the roles of the equilibrium value and the initial value. At x = 0 it gives 4, and its derivative does not match (4 − y)(x + 1).
+      - |
+        This takes A = −1, perhaps from y(0) = 1 with the sign flipped. At x = 0 it gives 3, not 1.
+      - |
+        Correct. y = 4 + Ae^(−(x²/2 + x)) with 1 = 4 + A gives A = −3. Check: y′ = −3e^(−(x²/2 + x)) · (−(x + 1)) = 3(x + 1)e^(−(x²/2 + x)) = (x + 1)(4 − y).
+    answer: 3
+  # ---- Stimulus set B: a hypothetical bacteria culture (7.8)
+  - slug: apcalcab-u07-exam-q05
+    type: multiple_choice
+    topic_code: "7.8"
+    source: "AP Calculus CED, Topic 7.8"
+    points: 1
+    stimulus: |
+      The number of bacteria N in a hypothetical laboratory culture grows at a rate proportional to N. There are 2,000 bacteria at t = 0 and 5,000 bacteria at t = 3, where t is measured in hours.
+    prompt: |
+      What is the constant k in dN/dt = kN?
+    options:
+      - "2.5/3"
+      - "ln(3000)/3"
+      - "ln(2.5)/3"
+      - "ln(5000)/3"
+    option_explanations:
+      - |
+        This skips the logarithm: e^(3k) = 2.5 needs ln 2.5.
+      - |
+        This uses the difference 5000 − 2000. Exponential models depend on the ratio 5000/2000 = 2.5.
+      - |
+        Correct. 2000e^(3k) = 5000 gives e^(3k) = 2.5 and k = ln(2.5)/3 ≈ 0.305 per hour.
+      - |
+        This takes ln 5000 without first dividing by the initial 2000.
+    answer: 2
+  - slug: apcalcab-u07-exam-q06
+    type: multiple_choice
+    topic_code: "7.8"
+    source: "AP Calculus CED, Topic 7.8"
+    points: 1
+    stimulus: |
+      The number of bacteria N in a hypothetical laboratory culture grows at a rate proportional to N. There are 2,000 bacteria at t = 0 and 5,000 bacteria at t = 3, where t is measured in hours.
+    prompt: |
+      How many bacteria does the model predict at t = 6?
+    options:
+      - "12,500"
+      - "8,000"
+      - "10,000"
+      - "31,250"
+    option_explanations:
+      - |
+        Correct. Every 3 hours the count is multiplied by 2.5, so N(6) = 2000 · 2.5² = 12,500.
+      - |
+        This adds 3,000 every 3 hours, a linear model. Exponential growth multiplies by the same factor each 3 hours.
+      - |
+        This doubles 5,000. The 3-hour factor is 2.5, not 2.
+      - |
+        This applies the factor 2.5 twice starting from 5,000 rather than from 2,000 (that would be t = 9).
+    answer: 0
+  - slug: apcalcab-u07-exam-q07
+    type: numeric
+    topic_code: "7.8"
+    source: "AP Calculus CED, Topic 7.8"
+    points: 1
+    stimulus: |
+      The number of bacteria N in a hypothetical laboratory culture grows at a rate proportional to N. There are 2,000 bacteria at t = 0 and 5,000 bacteria at t = 3, where t is measured in hours.
+    prompt: |
+      (Calculator.) At what time t will the culture contain 20,000 bacteria? Give your answer to three decimal places.
+    answer: { value: 7.539, tolerance: 0.001 }
+    explanation: |
+      N = 2000e^(kt) with k = ln(2.5)/3. 2000e^(kt) = 20000 gives e^(kt) = 10, so t = ln 10 / k = 3 ln 10 / ln 2.5 ≈ 7.539 hours.
+  # ---- Stimulus set C: a table of slopes (7.3, 7.2, 7.4)
+  - slug: apcalcab-u07-exam-q08
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "AP Calculus CED, Topic 7.3"
+    points: 1
+    stimulus: |
+      The table gives the slopes of a slope field at sixteen grid points (rows are y-values, columns are x-values).
+
+      | | x = −1 | x = 0 | x = 1 | x = 2 |
+      |---|---|---|---|---|
+      | y = 2 | −4 | −2 | 0 | 2 |
+      | y = 1 | −3 | −1 | 1 | 3 |
+      | y = 0 | −2 | 0 | 2 | 4 |
+      | y = −1 | −1 | 1 | 3 | 5 |
+    prompt: |
+      Which differential equation could this slope field represent?
+    options:
+      - "dy/dx = y − 2x"
+      - "dy/dx = x − 2y"
+      - "dy/dx = 2x + y"
+      - "dy/dx = 2x − y"
+    option_explanations:
+      - |
+        Every sign is reversed: at (2, −1) this gives −5, but the table shows 5.
+      - |
+        At (1, 0) this gives 1, but the table shows 2. The coefficient 2 belongs on x.
+      - |
+        At (0, 2) this gives 2, but the table shows −2: y must be subtracted.
+      - |
+        Correct. Each entry equals 2x − y: (−1, 2) gives −4, (2, −1) gives 5, (0, 0) gives 0, and the slopes are 0 along y = 2x.
+    answer: 3
+  - slug: apcalcab-u07-exam-q09
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "AP Calculus CED, Topic 7.2"
+    points: 1
+    stimulus: |
+      The table gives the slopes of a slope field at sixteen grid points (rows are y-values, columns are x-values).
+
+      | | x = −1 | x = 0 | x = 1 | x = 2 |
+      |---|---|---|---|---|
+      | y = 2 | −4 | −2 | 0 | 2 |
+      | y = 1 | −3 | −1 | 1 | 3 |
+      | y = 0 | −2 | 0 | 2 | 4 |
+      | y = −1 | −1 | 1 | 3 | 5 |
+    prompt: |
+      Which straight line is a solution curve of the differential equation shown in the table?
+    options:
+      - "y = 2x"
+      - "y = 2x − 2"
+      - "y = 2x + 2"
+      - "y = x − 2"
+    option_explanations:
+      - |
+        Along y = 2x every slope is 2x − 2x = 0, but the line itself has slope 2, so the segments are not tangent to it.
+      - |
+        Correct. Along y = 2x − 2 every slope is 2x − (2x − 2) = 2, which equals the line's own slope. In the table, (1, 0) and (2, 2) lie on it and both show slope 2.
+      - |
+        Along y = 2x + 2 every slope is 2x − (2x + 2) = −2, but the line has slope 2.
+      - |
+        Along y = x − 2 the slope is 2x − (x − 2) = x + 2, which changes with x, so it cannot match the constant slope 1 of the line.
+    answer: 1
+  - slug: apcalcab-u07-exam-q10
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "AP Calculus CED, Topic 7.4"
+    points: 1
+    stimulus: |
+      The table gives the slopes of a slope field at sixteen grid points (rows are y-values, columns are x-values).
+
+      | | x = −1 | x = 0 | x = 1 | x = 2 |
+      |---|---|---|---|---|
+      | y = 2 | −4 | −2 | 0 | 2 |
+      | y = 1 | −3 | −1 | 1 | 3 |
+      | y = 0 | −2 | 0 | 2 | 4 |
+      | y = −1 | −1 | 1 | 3 | 5 |
+    prompt: |
+      What happens at the origin on the solution curve that passes through (0, 0)?
+    options:
+      - "It has a relative minimum."
+      - "It has a relative maximum."
+      - "It has a point of inflection."
+      - "It is increasing through the origin."
+    option_explanations:
+      - |
+        Correct. dy/dx = 2(0) − 0 = 0 there, and d²y/dx² = 2 − dy/dx = 2 − 0 = 2 > 0. By the second derivative test, a relative minimum.
+      - |
+        The second derivative 2 − dy/dx is +2 at the origin, which signals a minimum, not a maximum.
+      - |
+        d²y/dx² = 2 ≠ 0 at the origin, so concavity does not change there.
+      - |
+        The slope at the origin is 0 (the table shows 0 at (0, 0)), and it is a turning point, not a rising one.
+    answer: 0
+  # ---- Modeling (7.1)
+  - slug: apcalcab-u07-exam-q11
+    type: multiple_choice
+    topic_code: "7.1"
+    source: "AP Calculus CED, Topic 7.1"
+    points: 1
+    prompt: |
+      A hypothetical snowball melts so that its volume V decreases at a rate proportional to its surface area. For a sphere, surface area is proportional to V^(2/3). Which differential equation models V, with k > 0?
+    options:
+      - "dV/dt = −kV"
+      - "dV/dt = −kV^(3/2)"
+      - "dV/dt = −kV^(2/3)"
+      - "dV/dt = kV^(2/3)"
+    option_explanations:
+      - |
+        This makes the rate proportional to the volume itself, not to the surface area.
+      - |
+        The exponent is inverted. Surface area grows like V^(2/3), the two-thirds power.
+      - |
+        Correct. The rate is a constant times the surface area, which is a constant times V^(2/3); the constants combine into one k, and the minus sign records melting.
+      - |
+        With k > 0 this makes the snowball grow. Melting needs a negative rate.
+    answer: 2
+  - slug: apcalcab-u07-exam-q12
+    type: multiple_choice
+    topic_code: "7.1"
+    source: "AP Calculus CED, Topic 7.1"
+    points: 1
+    prompt: |
+      The amount of salt Q, in grams, in a hypothetical mixing tank satisfies dQ/dt = 50 − 0.02Q, with t in minutes. What does the 50 represent?
+    options:
+      - "The tank initially contains 50 grams of salt."
+      - "Salt leaves the tank at 50 grams per minute."
+      - "The amount of salt levels off at 50 grams."
+      - "Salt enters the tank at a constant 50 grams per minute."
+    option_explanations:
+      - |
+        The equation describes rates, not the starting amount; an initial condition would be stated separately as Q(0).
+      - |
+        The 50 is added, so it increases Q: it is an inflow. The outflow is the term 0.02Q.
+      - |
+        The level-off (equilibrium) value is where 50 − 0.02Q = 0, which is Q = 2,500 grams, not 50.
+      - |
+        Correct. 50 is a constant positive contribution to dQ/dt in grams per minute: salt flowing in. The −0.02Q term is salt flowing out at a rate proportional to the amount present.
+    answer: 3
+  # ---- Verifying (7.2)
+  - slug: apcalcab-u07-exam-q13
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "AP Calculus CED, Topic 7.2"
+    points: 1
+    prompt: |
+      Which function is a solution of y″ + 9y = 0?
+    options:
+      - "y = 4cos(9x)"
+      - "y = 4cos(3x)"
+      - "y = 4e^(3x)"
+      - "y = 4cos(x/3)"
+    option_explanations:
+      - |
+        y″ = −324cos(9x), so y″ + 9y = −288cos(9x) ≠ 0. The inner coefficient must square to 9.
+      - |
+        Correct. y′ = −12sin(3x) and y″ = −36cos(3x) = −9y, so y″ + 9y = 0.
+      - |
+        y″ = 36e^(3x) = 9y, so y″ − 9y = 0, not y″ + 9y = 0: the sign is wrong.
+      - |
+        y″ = −(4/9)cos(x/3) = −y/9, so y″ + 9y = (80/9)cos(x/3) ≠ 0.
+    answer: 1
+  - slug: apcalcab-u07-exam-q14
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "AP Calculus CED, Topic 7.2"
+    points: 1
+    prompt: |
+      For every constant C, the function y = Ce^(2x) − 3 is a solution of which differential equation?
+    options:
+      - "dy/dx = 2y + 6"
+      - "dy/dx = 2y − 6"
+      - "dy/dx = 2y"
+      - "dy/dx = 2y + 3"
+    option_explanations:
+      - |
+        Correct. y′ = 2Ce^(2x), and 2y + 6 = 2Ce^(2x) − 6 + 6 = 2Ce^(2x).
+      - |
+        2y − 6 = 2Ce^(2x) − 12, which is 12 less than y′: the sign of the shift was flipped.
+      - |
+        2y = 2Ce^(2x) − 6 ≠ y′. The −3 shift adds a term that must be cancelled.
+      - |
+        2y + 3 = 2Ce^(2x) − 3. Doubling y doubles the −3 as well, so the correction must be +6.
+    answer: 0
+  # ---- Slope fields and reasoning (7.3, 7.4)
+  - slug: apcalcab-u07-exam-q15
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "AP Calculus CED, Topic 7.3"
+    points: 1
+    prompt: |
+      A slope field has these features: along every horizontal line the segments are parallel; the segments are horizontal along the x-axis; above the x-axis the slopes are negative and get steeper as y increases; below it they are positive. Which differential equation fits?
+    options:
+      - "dy/dx = y"
+      - "dy/dx = −x"
+      - "dy/dx = −y"
+      - "dy/dx = x − y"
+    option_explanations:
+      - |
+        This has positive slopes above the x-axis, the opposite of the description.
+      - |
+        Its slopes depend on x, so the parallel segments would run along vertical lines, not horizontal ones.
+      - |
+        Correct. The slope depends only on y (rows are parallel), is 0 when y = 0, negative for y > 0 with size growing like y, and positive for y < 0.
+      - |
+        This depends on x as well, so segments along a horizontal line would not be parallel.
+    answer: 2
+  - slug: apcalcab-u07-exam-q16
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "AP Calculus CED, Topic 7.4"
+    points: 1
+    prompt: |
+      Let y = g(x) be the solution of dy/dx = y − 1 with g(0) = 3. Reasoning from the slope field, what is lim (x→−∞) g(x)?
+    options:
+      - "3"
+      - "−∞"
+      - "0"
+      - "1"
+    option_explanations:
+      - |
+        3 is the value at x = 0, not a limit. The slope there is 2, so g changes as x moves away from 0.
+      - |
+        Moving left, g decreases, but it cannot cross the equilibrium y = 1, so it cannot fall without bound.
+      - |
+        Reaching 0 would require crossing the equilibrium line y = 1.
+      - |
+        Correct. Above y = 1 the slopes are positive, so moving left the curve descends, and the slopes flatten as y nears 1. The curve approaches y = 1 without crossing it. (Indeed g(x) = 1 + 2eˣ.)
+    answer: 3
+  # ---- Separation of variables (7.6)
+  - slug: apcalcab-u07-exam-q17
+    type: multiple_choice
+    topic_code: "7.6"
+    source: "AP Calculus CED, Topic 7.6"
+    points: 1
+    prompt: |
+      Which is the general solution of dy/dx = y/x² (for x ≠ 0), where A is an arbitrary constant?
+    options:
+      - "y = Ae^(1/x)"
+      - "y = Ae^(−1/x)"
+      - "y = e^(−1/x) + A"
+      - "y = −1/x + A"
+    option_explanations:
+      - |
+        This uses 1/x as an antiderivative of 1/x². In fact ∫ x⁻² dx = −x⁻¹ = −1/x.
+      - |
+        Correct. dy/y = x⁻² dx, ln|y| = −1/x + C, so y = Ae^(−1/x). Check: y′ = Ae^(−1/x) · (1/x²) = y/x².
+      - |
+        The constant must multiply after exponentiating: e^(−1/x + C) = e^C · e^(−1/x).
+      - |
+        This integrates only the right side. The left side ∫ dy/y = ln|y| must be integrated too.
+    answer: 1
+  - slug: apcalcab-u07-exam-q18
+    type: multiple_choice
+    topic_code: "7.6"
+    source: "AP Calculus CED, Topic 7.6"
+    points: 1
+    prompt: |
+      Which differential equation is separable?
+    options:
+      - "dy/dx = x + y"
+      - "dy/dx = sin(xy)"
+      - "dy/dx = x²y − y"
+      - "dy/dx = x² + y²"
+    option_explanations:
+      - |
+        A sum of x and y cannot be written as a function of x times a function of y.
+      - |
+        sin(xy) does not factor into g(x) · h(y); the variables are locked together inside the sine.
+      - |
+        Correct. x²y − y = y(x² − 1), so dy/y = (x² − 1) dx.
+      - |
+        A sum of squares cannot be factored into a function of x times a function of y.
+    answer: 2
+  # ---- Particular solutions (7.7)
+  - slug: apcalcab-u07-exam-q19
+    type: multiple_choice
+    topic_code: "7.7"
+    source: "AP Calculus CED, Topic 7.7"
+    points: 1
+    prompt: |
+      Which is the particular solution of dy/dx = 2xeʸ with y(0) = 0?
+    options:
+      - "y = −ln(1 − x²)"
+      - "y = ln(x² + 1)"
+      - "y = −ln(x² + 1)"
+      - "y = x²"
+    option_explanations:
+      - |
+        Correct. e^(−y) dy = 2x dx gives −e^(−y) = x² + C; at (0, 0), C = −1. So e^(−y) = 1 − x² and y = −ln(1 − x²), defined for −1 < x < 1.
+      - |
+        This separates as eʸ dy = 2x dx, moving eʸ without inverting it. Its derivative 2x/(x² + 1) is not 2xeʸ = 2x(x² + 1).
+      - |
+        This drops the minus sign in ∫ e^(−y) dy = −e^(−y), getting e^(−y) = x² + 1.
+      - |
+        This replaces eʸ by its initial value e⁰ = 1 and integrates 2x. eʸ changes as y changes, so it must be separated.
+    answer: 0
+  - slug: apcalcab-u07-exam-q20
+    type: multiple_choice
+    topic_code: "7.7"
+    source: "AP Calculus CED, Topic 7.7"
+    points: 1
+    prompt: |
+      Which is the particular solution of dy/dx = (cos x)/y with y(0) = −2?
+    options:
+      - "y = √(2 sin x + 4)"
+      - "y = −√(sin x + 4)"
+      - "y = −√(2 sin x) − 2"
+      - "y = −√(2 sin x + 4)"
+    option_explanations:
+      - |
+        This gives y(0) = 2. The initial value is negative, so the negative square root is needed.
+      - |
+        This forgets to double sin x when clearing the 1/2 from y²/2 = sin x + C.
+      - |
+        The constant was attached after taking the square root. Find C from y²/2 = sin x + C first: C = 2.
+      - |
+        Correct. y dy = cos x dx, y²/2 = sin x + C, and y(0) = −2 gives C = 2, so y² = 2 sin x + 4. Since y(0) < 0, y = −√(2 sin x + 4), defined for all x because 2 sin x + 4 ≥ 2.
+    answer: 3
+  # ---- Exponential models (7.8)
+  - slug: apcalcab-u07-exam-q21
+    type: multiple_choice
+    topic_code: "7.8"
+    source: "AP Calculus CED, Topic 7.8"
+    points: 1
+    prompt: |
+      A hypothetical medical tracer has a half-life of 8 hours. What fraction of an injected dose remains after one day?
+    options:
+      - "1/3"
+      - "1/8"
+      - "1/4"
+      - "1/16"
+    option_explanations:
+      - |
+        This divides by the number of half-lives (24/8 = 3). Each half-life multiplies by 1/2.
+      - |
+        Correct. One day is 24/8 = 3 half-lives, so (1/2)³ = 1/8 remains.
+      - |
+        This counts two half-lives; 24 hours is three periods of 8 hours.
+      - |
+        This counts four half-lives; 24 hours is three periods of 8 hours.
+    answer: 1
+  - slug: apcalcab-u07-exam-q22
+    type: multiple_choice
+    topic_code: "7.8"
+    source: "AP Calculus CED, Topic 7.8"
+    points: 1
+    prompt: |
+      The relative rate of change (1/P)(dP/dt) of a hypothetical town's population is constant at −0.03 per year. Which statement is true?
+    options:
+      - "The population decreases by exactly 0.03 people per year."
+      - "P = P₀(0.97)ᵗ, since the town loses exactly 3% each year."
+      - "P = P₀e^(−0.03t), so the population halves every ln 2 / 0.03 ≈ 23.1 years."
+      - "The population reaches 0 after 1/0.03 ≈ 33.3 years."
+    option_explanations:
+      - |
+        −0.03 is a relative rate (a fraction of P per year), not an absolute number of people per year.
+      - |
+        A continuous rate of −0.03 gives a yearly factor e^(−0.03) ≈ 0.9704, a loss of about 2.96%, not exactly 3%.
+      - |
+        Correct. dP/dt = −0.03P has solution P₀e^(−0.03t), and the half-life is ln 2 / 0.03 ≈ 23.1 years.
+      - |
+        e^(−0.03t) is never 0, so the model never reaches 0. The value 1/0.03 comes from a linear way of thinking.
+    answer: 2
+  - slug: apcalcab-u07-exam-q23
+    type: multiple_choice
+    topic_code: "7.8"
+    source: "AP Calculus CED, Topic 7.8"
+    points: 1
+    prompt: |
+      A hypothetical can of juice at 4 °C is left in a room at 24 °C. Its temperature satisfies dT/dt = −k(T − 24) with k > 0. Which formula gives T(t)?
+    options:
+      - "T = 24 − 20e^(−kt)"
+      - "T = 24 + 20e^(−kt)"
+      - "T = 4 + 20e^(−kt)"
+      - "T = 20e^(−kt) − 24"
+    option_explanations:
+      - |
+        Correct. T = 24 + (T₀ − 24)e^(−kt) with T₀ − 24 = 4 − 24 = −20. The negative constant makes T rise toward 24, and T(0) = 4.
+      - |
+        This forces the constant positive. T(0) would be 44 °C, and the can would cool toward 24 rather than warm.
+      - |
+        T(0) = 24 and T → 4: the starting and surrounding temperatures have been swapped.
+      - |
+        T(0) = −4 and T → −24; this is not a shifted solution of the given equation (its derivative is −k(T + 24)).
+    answer: 0
+  - slug: apcalcab-u07-exam-q24
+    type: multiple_choice
+    topic_code: "7.1"
+    source: "AP Calculus CED, Topic 7.1"
+    points: 1
+    prompt: |
+      Water drains from a hypothetical tank so that the depth h decreases at a rate proportional to the square root of the depth. Which equation models this, with k > 0 and t the time?
+    options:
+      - "dh/dt = −kh"
+      - "dh/dt = −k/√h"
+      - "dh/dt = −k√t"
+      - "dh/dt = −k√h"
+    option_explanations:
+      - |
+        This is proportional to the depth, not to its square root.
+      - |
+        This is inversely proportional to √h: deeper water would drain more slowly, the opposite of the description.
+      - |
+        This ties the rate to elapsed time instead of to the depth.
+      - |
+        Correct. Proportional to √h means a constant times √h, and the minus sign records that the depth decreases.
+    answer: 3
+  - slug: apcalcab-u07-exam-q25
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "AP Calculus CED, Topic 7.3"
+    points: 1
+    prompt: |
+      In the slope field for dy/dx = x/(y − 1), where is the slope undefined (the segments would be vertical)?
+    options:
+      - "Along the y-axis"
+      - "Along the line y = 1"
+      - "Along the line x = 1"
+      - "Along the x-axis"
+    option_explanations:
+      - |
+        Along the y-axis x = 0, which makes the slope 0 (horizontal), not undefined, wherever y ≠ 1.
+      - |
+        Correct. The denominator y − 1 is 0 along y = 1, so the slope is undefined there (at (0, 1) it is 0/0, with no slope at all).
+      - |
+        x = 1 makes the numerator 1, which causes no problem. The trouble is a zero denominator.
+      - |
+        Along the x-axis y = 0, giving slope x/(−1) = −x, which is defined.
+    answer: 1
+  - slug: apcalcab-u07-exam-q26
+    type: multiple_choice
+    topic_code: "7.6"
+    source: "AP Calculus CED, Topic 7.6"
+    points: 1
+    prompt: |
+      Separating and integrating dy/dx = x√y (for y > 0) gives which equation?
+    options:
+      - "√y / 2 = x²/2 + C"
+      - "(2/3)y^(3/2) = x²/2 + C"
+      - "2√y = x²/2 + C"
+      - "2√y = x²/2"
+    option_explanations:
+      - |
+        ∫ y^(−1/2) dy = y^(1/2)/(1/2) = 2√y: this divides by 2 instead of multiplying.
+      - |
+        This integrates √y rather than 1/√y; after separating, the dy side is y^(−1/2) dy.
+      - |
+        Correct. dy/√y = x dx, and ∫ y^(−1/2) dy = 2y^(1/2), ∫ x dx = x²/2, plus one constant.
+      - |
+        The constant of integration is missing, so this describes only one solution, not the general solution.
+    answer: 2
+  - slug: apcalcab-u07-exam-q27
+    type: multiple_choice
+    topic_code: "7.7"
+    source: "AP Calculus CED, Topic 7.7"
+    points: 1
+    prompt: |
+      Which is the particular solution of dy/dx = −3y with y(1) = −2?
+    options:
+      - "y = −2e^(−3x)"
+      - "y = 2e^(3 − 3x)"
+      - "y = −2e^(3x − 3)"
+      - "y = −2e^(3 − 3x)"
+    option_explanations:
+      - |
+        This treats y(1) = −2 as if it were y(0) = −2. At x = 1 it gives −2e^(−3), not −2.
+      - |
+        The constant was forced positive. At x = 1 this gives 2, but the initial value is −2.
+      - |
+        The exponent has the wrong sign: this solves dy/dx = 3y.
+      - |
+        Correct. y = Ae^(−3x) and −2 = Ae^(−3) give A = −2e³, so y = −2e³e^(−3x) = −2e^(3 − 3x).
+    answer: 3
+  - slug: apcalcab-u07-exam-q28
+    type: multiple_choice
+    topic_code: "7.8"
+    source: "AP Calculus CED, Topic 7.8"
+    points: 1
+    prompt: |
+      A hypothetical quantity y is measured at equal time steps.
+
+      | t | 0 | 1 | 2 | 3 |
+      |---|---|---|---|---|
+      | y | 40 | 50 | 62.5 | 78.125 |
+
+      Which differential equation is consistent with these data?
+    options:
+      - "dy/dt = (ln 1.25)y"
+      - "dy/dt = 1.25y"
+      - "dy/dt = 0.25y"
+      - "dy/dt = 10"
+    option_explanations:
+      - |
+        Correct. Each step multiplies y by 1.25, so y = 40e^(kt) with eᵏ = 1.25, i.e. k = ln 1.25 ≈ 0.223.
+      - |
+        1.25 is the growth factor per step, not the continuous rate k; dy/dt = 1.25y would multiply y by e^1.25 ≈ 3.49 each step.
+      - |
+        0.25 is the percentage increase per step, but the continuous rate is ln 1.25 ≈ 0.223, slightly smaller.
+      - |
+        The differences are 10, 12.5, 15.625, not constant, so the data are not linear.
+    answer: 0
+  - slug: apcalcab-u07-exam-q29
+    type: multiple_choice
+    topic_code: "7.6"
+    source: "AP Calculus CED, Topic 7.6"
+    points: 1
+    prompt: |
+      To solve dy/dx = (y − 5)x by separation, you divide both sides by y − 5. Which solution of the differential equation does this step miss, so that it must be checked separately?
+    options:
+      - "y = 0"
+      - "y = 5"
+      - "x = 0"
+      - "y = −5"
+    option_explanations:
+      - |
+        y = 0 gives dy/dx = 0 but (0 − 5)x = −5x ≠ 0, so it is not a solution at all.
+      - |
+        Correct. Dividing by y − 5 assumes y ≠ 5. The constant function y = 5 has derivative 0 and makes (y − 5)x = 0, so it is a solution that separation does not produce.
+      - |
+        x = 0 is a vertical line, not a function of x, so it cannot be a solution curve.
+      - |
+        y = −5 gives (−10)x ≠ 0 = dy/dx, so it is not a solution.
+    answer: 1
+  - slug: apcalcab-u07-exam-q30
+    type: multiple_choice
+    topic_code: "7.1"
+    source: "AP Calculus CED, Topic 7.1"
+    points: 1
+    prompt: |
+      A hypothetical boat coasting after its engine stops has velocity v that decreases at a rate proportional to the square of the velocity. Which equation models this, with k > 0?
+    options:
+      - "dv/dt = −kv"
+      - "dv/dt = −k√v"
+      - "dv/dt = kv²"
+      - "dv/dt = −kv²"
+    option_explanations:
+      - |
+        This makes the rate proportional to v itself, not to the square of v.
+      - |
+        This is proportional to the square root of v, not its square.
+      - |
+        With k > 0 this makes the boat speed up; the minus sign is needed for a decrease.
+      - |
+        Correct. "Proportional to the square of the velocity" is kv², and "decreases" with k > 0 needs the minus sign.
+    answer: 3
+  # ---- Select-all
+  - slug: apcalcab-u07-exam-q31
+    type: multi_select
+    topic_code: "7.2"
+    source: "AP Calculus CED, Topic 7.2"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which functions are solutions of dy/dx = 2y/x on x > 0? Select all that apply.
+    options:
+      - "y = x²"
+      - "y = x² + 1"
+      - "y = −5x²"
+      - "y = 0"
+      - "y = 2x"
+    option_explanations:
+      - |
+        Correct. y′ = 2x and 2y/x = 2x²/x = 2x, so both sides agree.
+      - |
+        y′ = 2x but 2y/x = 2x + 2/x. The added constant spoils it.
+      - |
+        Correct. y′ = −10x and 2(−5x²)/x = −10x. Negative constants work too.
+      - |
+        Correct. y = 0 gives y′ = 0 and 2 · 0/x = 0, so both sides are 0.
+      - |
+        y′ = 2 but 2(2x)/x = 4, so the sides differ.
+    answer: [0, 2, 3]
+  - slug: apcalcab-u07-exam-q32
+    type: multi_select
+    topic_code: "7.8"
+    source: "AP Calculus CED, Topic 7.8"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Let y = 50e^(−0.2t). Which statements are true? Select all that apply.
+    options:
+      - "The graph of y is concave down."
+      - "y satisfies dy/dt = −0.2y."
+      - "y decreases by exactly 20% per unit of time."
+      - "y(0) = 50"
+      - "The half-life of y is 5 ln 2 ≈ 3.47 time units."
+    option_explanations:
+      - |
+        y″ = 0.04 · 50e^(−0.2t) > 0, so the graph is concave up.
+      - |
+        Correct. y′ = 50(−0.2)e^(−0.2t) = −0.2y.
+      - |
+        Each unit of time multiplies y by e^(−0.2) ≈ 0.819, a decrease of about 18.1%, not 20%.
+      - |
+        Correct. At t = 0, y = 50e⁰ = 50 · 1 = 50.
+      - |
+        Correct. e^(−0.2T) = 1/2 gives T = ln 2 / 0.2 = 5 ln 2 ≈ 3.47.
+    answer: [1, 3, 4]
+  # ---- True/false
+  - slug: apcalcab-u07-exam-q33
+    type: true_false
+    topic_code: "7.6"
+    source: "AP Calculus CED, Topic 7.6"
+    points: 1
+    prompt: |
+      True or false: The differential equation dy/dx = (x + 1)(y² + 1) is separable.
+    answer: true
+    explanation: |
+      True. The right side is a function of x times a function of y, so dy/(y² + 1) = (x + 1) dx, which integrates to arctan y = x²/2 + x + C.
+  - slug: apcalcab-u07-exam-q34
+    type: true_false
+    topic_code: "7.7"
+    source: "AP Calculus CED, Topic 7.7"
+    points: 1
+    prompt: |
+      True or false: Every particular solution of a separable differential equation is defined for all real numbers x.
+    answer: false
+    explanation: |
+      False. For example dy/dx = 2xy² with y(0) = 1 has solution y = 1/(1 − x²), which is defined only on −1 < x < 1, the interval containing the initial point.
+  - slug: apcalcab-u07-exam-q35
+    type: true_false
+    topic_code: "7.4"
+    source: "AP Calculus CED, Topic 7.4"
+    points: 1
+    prompt: |
+      True or false: If a differential equation has the form dy/dx = g(y), with no x on the right side, then shifting any solution curve left or right gives another solution curve.
+    answer: true
+    explanation: |
+      True. If y = f(x) is a solution, let h(x) = f(x − c). Then h′(x) = f′(x − c) = g(f(x − c)) = g(h(x)), so h is a solution too. In the slope field this shows as every horizontal row having parallel segments.
+  # ---- Fill-in
+  - slug: apcalcab-u07-exam-q36
+    type: fill_blank
+    topic_code: "7.3"
+    source: "AP Calculus CED, Topic 7.3"
+    points: 1
+    prompt: |
+      In the slope field for dy/dx = x²y − 1, the segment at the point (2, 1) has slope ____.
+    answer: ["3", "3.0"]
+    explanation: |
+      2² · 1 − 1 = 4 − 1 = 3.
+  - slug: apcalcab-u07-exam-q37
+    type: fill_blank
+    topic_code: "7.8"
+    source: "AP Calculus CED, Topic 7.8"
+    points: 1
+    prompt: |
+      A hypothetical quantity decays exponentially, starting at y(0) = 12 and halving every 5 years. The model gives y(15) = ____.
+    answer: ["1.5", "3/2", "1.50"]
+    explanation: |
+      15 years is three half-lives: 12 · (1/2)³ = 12/8 = 1.5.
+  - slug: apcalcab-u07-exam-q38
+    type: fill_blank
+    topic_code: "7.2"
+    source: "AP Calculus CED, Topic 7.2"
+    points: 1
+    prompt: |
+      The function y = e^(rx) is a solution of y″ = 16y when r = 4 and when r = ____.
+    answer: ["-4", "−4", "r = -4", "r = −4", "r=-4", "r=−4"]
+    explanation: |
+      Substituting gives r²e^(rx) = 16e^(rx), so r² = 16 and r = ±4. The other value is −4.
+  # ---- Numeric
+  - slug: apcalcab-u07-exam-q39
+    type: numeric
+    topic_code: "7.7"
+    source: "AP Calculus CED, Topic 7.7"
+    points: 1
+    prompt: |
+      (Calculator.) Let y be the solution of dy/dx = xy with y(0) = 2. Find y(1.5), to three decimal places.
+    answer: { value: 6.160, tolerance: 0.001 }
+    explanation: |
+      dy/y = x dx gives ln|y| = x²/2 + C, so y = Ae^(x²/2) with A = y(0) = 2. Then y(1.5) = 2e^(1.125) ≈ 6.160.
+  - slug: apcalcab-u07-exam-q40
+    type: numeric
+    topic_code: "7.8"
+    source: "AP Calculus CED, Topic 7.8"
+    points: 1
+    prompt: |
+      A quantity satisfies dy/dt = ky with y(0) = 10 and y(5) = 30. Find y(10).
+    answer: { value: 90, tolerance: 0 }
+    explanation: |
+      e^(5k) = 30/10 = 3, so y(10) = 10e^(10k) = 10 · 3² = 90. Each 5-unit interval multiplies y by 3.
+  # ---- Short answer
+  - slug: apcalcab-u07-exam-q41
+    type: short_answer
+    topic_code: "7.7"
+    source: "AP Calculus CED, Topic 7.7"
+    points: 3
+    prompt: |
+      Find the particular solution y = f(x) of dy/dx = y² sin x with f(0) = 1/3, and state the interval on which it is defined.
+    answer: |
+      Separate: dy/y² = sin x dx. Integrate: −1/y = −cos x + C. At (0, 1/3): −3 = −1 + C, so C = −2. Then −1/y = −cos x − 2, so 1/y = cos x + 2 and y = 1/(cos x + 2).
+      Since cos x + 2 ≥ 1 > 0 for every x, the solution is defined for all real numbers.
+    explanation: |
+      Three points. 1 point for separating and both antiderivatives (−1/y and −cos x) with a constant of integration. 1 point for using f(0) = 1/3 to get C = −2. 1 point for y = 1/(cos x + 2) and the domain all real numbers with a reason. No constant of integration: at most 1 point.
+  - slug: apcalcab-u07-exam-q42
+    type: short_answer
+    topic_code: "7.2"
+    source: "AP Calculus CED, Topic 7.2"
+    points: 3
+    prompt: |
+      Consider the differential equation dy/dx = 1 − y.
+
+      (a) Verify that y = 1 + Ce^(−x) is a solution for every constant C.
+      (b) Find the particular solution whose graph passes through (0, −2).
+      (c) Describe the behaviour of the solution in (b) as x increases, and give lim (x→∞) y. Use the differential equation to explain why it is increasing.
+    answer: |
+      (a) dy/dx = −Ce^(−x), and 1 − y = 1 − 1 − Ce^(−x) = −Ce^(−x). Both sides agree for every x and every C.
+      (b) −2 = 1 + C, so C = −3 and y = 1 − 3e^(−x).
+      (c) The solution stays below 1, where dy/dx = 1 − y > 0, so it is increasing; it rises toward the equilibrium y = 1 and lim (x→∞) y = 1 (since e^(−x) → 0).
+    explanation: |
+      Three points, one per part. (a) the derivative and a substitution showing both sides equal −Ce^(−x). (b) C = −3 and y = 1 − 3e^(−x). (c) increasing because 1 − y > 0 for y < 1, with limit 1.
+  # ---- Free response 1 (calculator-active context)
+  - slug: apcalcab-u07-exam-q43
+    type: long_answer
+    topic_code: "7.8"
+    source: "AP Calculus CED, Topic 7.8"
+    points: 9
+    prompt: |
+      (Calculator.) A treatment plant removes a dissolved mineral from a hypothetical reservoir. The mass M of mineral in the reservoir, in kilograms, t weeks after treatment begins satisfies
+
+      dM/dt = −0.15(M − 200), with M(0) = 600.
+
+      (A) Is M increasing or decreasing at t = 0? Find dM/dt at t = 0, using correct units.
+
+      (B) Use separation of variables to find M(t). Explain how you handle the absolute value.
+
+      (C) The reservoir is considered safe when M is 300 kg. How many weeks after treatment begins does this happen? Give your answer to three decimal places.
+
+      (D) Find d²M/dt² in terms of M. Is the graph of M concave up or concave down? Explain what this means in context.
+
+      (E) Find lim (t→∞) M(t) and interpret it in context.
+    answer: |
+      (A) dM/dt = −0.15(600 − 200) = −60 kg per week, so M is decreasing at t = 0.
+      (B) dM/(M − 200) = −0.15 dt, so ln|M − 200| = −0.15t + C. M starts above 200 and cannot cross the equilibrium M = 200, so M − 200 > 0 and |M − 200| = M − 200. Then M − 200 = e^C e^(−0.15t); at t = 0, e^C = 400. So M(t) = 200 + 400e^(−0.15t).
+      (C) 200 + 400e^(−0.15t) = 300 gives e^(−0.15t) = 1/4, so t = ln 4 / 0.15 ≈ 9.242 weeks.
+      (D) d²M/dt² = −0.15 · dM/dt = 0.0225(M − 200), which is positive since M > 200. The graph is concave up: the mineral is removed quickly at first and then more and more slowly.
+      (E) lim (t→∞) M(t) = 200 kg. In the long run the treatment brings the mass down toward 200 kg but no lower; the reservoir keeps about 200 kg of the mineral.
+    explanation: |
+      Nine points.
+      (A) 1 point: −60 kg per week (units required) and "decreasing".
+      (B) 4 points: 1 for separating the variables; 1 for the antiderivatives ln|M − 200| and −0.15t with a constant of integration; 1 for using M(0) = 600 to find the constant (400, or C = ln 400); 1 for M = 200 + 400e^(−0.15t) with the absolute value handled (M > 200). No constant of integration: at most 2 of these 4 points. No separation: 0 of 4.
+      (C) 2 points: 1 for setting M(t) = 300 (or e^(−0.15t) = 1/4); 1 for t ≈ 9.242 weeks (accept 9.241 to 9.243).
+      (D) 1 point: d²M/dt² = 0.0225(M − 200) > 0, concave up, with the interpretation that removal slows down.
+      (E) 1 point: 200 kg with an interpretation in context.
+  # ---- Free response 2 (no calculator, analytical)
+  - slug: apcalcab-u07-exam-q44
+    type: long_answer
+    topic_code: "7.7"
+    source: "AP Calculus CED, Topic 7.7"
+    points: 9
+    prompt: |
+      Consider the differential equation dy/dx = x²(y − 2)². Let y = f(x) be the particular solution with f(1) = 3. No calculator is allowed.
+
+      (A) Find dy/dx at each of the points (−1, 3), (0, 3), (1, 3), (1, 2), (−1, 1) and (2, 4). Describe where the segments of the slope field are horizontal, and explain why no segment has negative slope.
+
+      (B) Write an equation of the line tangent to the graph of f at x = 1, and use it to approximate f(1.1).
+
+      (C) Find d²y/dx² in terms of x, y and dy/dx. Use it to decide whether the approximation in (B) is an overestimate or an underestimate. Justify your answer.
+
+      (D) Use separation of variables to find y = f(x), and state the interval on which it is defined.
+    answer: |
+      (A) Slopes: (−1, 3): 1 · 1 = 1; (0, 3): 0; (1, 3): 1; (1, 2): 0; (−1, 1): 1 · 1 = 1; (2, 4): 4 · 4 = 16. The segments are horizontal along the y-axis (x = 0) and along the line y = 2. Both factors x² and (y − 2)² are squares, so dy/dx ≥ 0 everywhere: no slope is negative.
+      (B) At (1, 3) the slope is 1, so the tangent line is y = 3 + (x − 1), and f(1.1) ≈ 3.1.
+      (C) d²y/dx² = 2x(y − 2)² + x² · 2(y − 2) · dy/dx. At (1, 3), with dy/dx = 1: 2 · 1 · 1 + 1 · 2 · 1 · 1 = 4 > 0. The graph of f is concave up near x = 1, so it lies above the tangent line and 3.1 is an underestimate.
+      (D) dy/(y − 2)² = x² dx. Integrating: −1/(y − 2) = x³/3 + C. At (1, 3): −1 = 1/3 + C, so C = −4/3. Then −1/(y − 2) = (x³ − 4)/3, so y − 2 = 3/(4 − x³) and y = 2 + 3/(4 − x³).
+      The formula breaks down where x³ = 4, at x = ∛4 ≈ 1.587. The interval containing x = 1 is x < ∛4, so f is defined for −∞ < x < ∛4.
+    explanation: |
+      Nine points.
+      (A) 2 points: 1 for all six slopes (1, 0, 1, 0, 1, 16); 1 for horizontal along x = 0 and y = 2 together with the reason no slope is negative (product of squares).
+      (B) 1 point: y = 3 + (x − 1) and f(1.1) ≈ 3.1.
+      (C) 2 points: 1 for a correct d²y/dx² (product rule and chain rule on (y − 2)²); 1 for the value 4 > 0 at (1, 3) and "underestimate" because the graph is concave up.
+      (D) 4 points: 1 for separating the variables; 1 for the antiderivatives −1/(y − 2) and x³/3 with a constant of integration; 1 for using f(1) = 3 to get C = −4/3 and solving y = 2 + 3/(4 − x³); 1 for the interval x < ∛4. No constant of integration: at most 2 of these 4 points.

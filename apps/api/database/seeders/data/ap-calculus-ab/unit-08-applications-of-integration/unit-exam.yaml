@@ -1,0 +1,935 @@
+unit: 8
+description: |
+  45 questions · about 90 minutes · every topic of Unit 8 (8.1 to 8.12): average value, motion and accumulation
+  in context, area between curves with vertical and horizontal slices and with several crossings, and volumes with
+  known cross sections and by discs and washers about the axes and about other lines. Includes three shared-context
+  sets (a cyclist's velocity table, one region and its solids, and one cubic and its accumulation function),
+  select-all, true/false, fill-in-the-blank and numeric items, two short-answer questions (3 points each) and two
+  free-response questions in the AP style (9 points each: one calculator-active rate-in/rate-out context, one
+  no-calculator area and volume question). Items marked (Calculator.) need a graphing calculator; the rest are
+  meant to be done by hand. Multiple choice, select-all, true/false and numeric items are graded at once;
+  fill-in-the-blank items are matched automatically; the free-response items are graded by your teacher against
+  the scoring notes.
+questions:
+  # ---- Stimulus set A: a cyclist's velocity table (8.2, 8.3, 8.1)
+  - slug: apcalcab-u08-exam-q01
+    type: multiple_choice
+    topic_code: "8.2"
+    source: "AP Calculus CED, Topic 8.2"
+    points: 1
+    stimulus: |
+      A cyclist rides east along a straight road. Her velocity v(t), in metres per second, is a differentiable function of time t in seconds, with v(t) > 0 throughout. Selected values are shown; the data are hypothetical. At t = 0 she is 100 metres east of a signpost.
+
+      | t (seconds) | 0 | 20 | 30 | 50 | 60 |
+      |---|---|---|---|---|---|
+      | v(t) (m/s) | 4 | 8 | 10 | 6 | 5 |
+    prompt: |
+      Using a trapezoidal sum with the four subintervals shown in the table, what is the approximate value of ∫ from 0 to 60 of v(t) dt?
+    options:
+      - "420"
+      - "430"
+      - "425"
+      - "396"
+    option_explanations:
+      - |
+        420 is the left Riemann sum: 20(4) + 10(8) + 20(10) + 10(6). A trapezoidal sum averages the two endpoint values on each subinterval.
+      - |
+        430 is the right Riemann sum: 20(8) + 10(10) + 20(6) + 10(5).
+      - |
+        Correct. 20(4 + 8)/2 + 10(8 + 10)/2 + 20(10 + 6)/2 + 10(6 + 5)/2 = 120 + 90 + 160 + 55 = 425.
+      - |
+        396 = 60 × 6.6 multiplies the plain average of the five table values by 60, ignoring that the subintervals have different widths.
+    answer: 2
+  - slug: apcalcab-u08-exam-q02
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "AP Calculus CED, Topic 8.3"
+    points: 1
+    stimulus: |
+      A cyclist rides east along a straight road. Her velocity v(t), in metres per second, is a differentiable function of time t in seconds, with v(t) > 0 throughout. Selected values are shown; the data are hypothetical. At t = 0 she is 100 metres east of a signpost.
+
+      | t (seconds) | 0 | 20 | 30 | 50 | 60 |
+      |---|---|---|---|---|---|
+      | v(t) (m/s) | 4 | 8 | 10 | 6 | 5 |
+    prompt: |
+      Using the trapezoidal approximation ∫ from 0 to 60 of v(t) dt ≈ 425, approximately how far east of the signpost is the cyclist at t = 60?
+    options:
+      - "525 metres"
+      - "425 metres"
+      - "105 metres"
+      - "325 metres"
+    option_explanations:
+      - |
+        Correct. Position = starting position + displacement = 100 + ∫ from 0 to 60 of v(t) dt ≈ 100 + 425 = 525 metres east.
+      - |
+        425 metres is how far she rode, the displacement. She started 100 metres east of the signpost, so add 100.
+      - |
+        105 = 100 + v(60) adds a velocity in m/s to a position in metres.
+      - |
+        325 = 425 − 100 subtracts the starting position. She is moving east from a point already east of the signpost, so the distances add.
+    answer: 0
+  - slug: apcalcab-u08-exam-q03
+    type: multiple_choice
+    topic_code: "8.1"
+    source: "AP Calculus CED, Topic 8.1"
+    points: 1
+    stimulus: |
+      A cyclist rides east along a straight road. Her velocity v(t), in metres per second, is a differentiable function of time t in seconds, with v(t) > 0 throughout. Selected values are shown; the data are hypothetical. At t = 0 she is 100 metres east of a signpost.
+
+      | t (seconds) | 0 | 20 | 30 | 50 | 60 |
+      |---|---|---|---|---|---|
+      | v(t) (m/s) | 4 | 8 | 10 | 6 | 5 |
+    prompt: |
+      Which is the best estimate of the cyclist's average velocity over 0 ≤ t ≤ 60?
+    options:
+      - "(4 + 5)/2 = 4.5 m/s"
+      - "(5 − 4)/60 ≈ 0.017 m/s"
+      - "(4 + 8 + 10 + 6 + 5)/5 = 6.6 m/s"
+      - "425/60 ≈ 7.08 m/s"
+    option_explanations:
+      - |
+        This averages only the first and last velocities. Average velocity is the average value of v over the whole interval.
+      - |
+        (v(60) − v(0))/60 is the average acceleration, in metres per second per second.
+      - |
+        The table's intervals are unequal (20, 10, 20 and 10 seconds), so a plain average of the listed values weights them wrongly.
+      - |
+        Correct. Average velocity = (1/60) ∫ from 0 to 60 of v(t) dt ≈ 425/60 ≈ 7.08 metres per second.
+    answer: 3
+  - slug: apcalcab-u08-exam-q04
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "AP Calculus CED, Topic 8.3"
+    points: 1
+    stimulus: |
+      A cyclist rides east along a straight road. Her velocity v(t), in metres per second, is a differentiable function of time t in seconds, with v(t) > 0 throughout. Selected values are shown; the data are hypothetical. At t = 0 she is 100 metres east of a signpost.
+
+      | t (seconds) | 0 | 20 | 30 | 50 | 60 |
+      |---|---|---|---|---|---|
+      | v(t) (m/s) | 4 | 8 | 10 | 6 | 5 |
+    prompt: |
+      Which is the best interpretation of (1/30) ∫ from 20 to 50 of v(t) dt?
+    options:
+      - "The average acceleration of the cyclist, in metres per second per second, over 20 ≤ t ≤ 50"
+      - "The average velocity of the cyclist, in metres per second, over 20 ≤ t ≤ 50"
+      - "The distance, in metres, the cyclist travels between t = 20 and t = 50"
+      - "The change in the cyclist's velocity, in metres per second, between t = 20 and t = 50"
+    option_explanations:
+      - |
+        Average acceleration would be (v(50) − v(20))/30. Integrating v and dividing by the interval length averages the velocity itself.
+      - |
+        Correct. Dividing the integral of v over [20, 50] by the length 30 gives the average value of v there: an average velocity in metres per second.
+      - |
+        The distance is ∫ from 20 to 50 of v(t) dt alone (v > 0). The factor 1/30 turns that distance into an average rate.
+      - |
+        The change in velocity is v(50) − v(20) = ∫ from 20 to 50 of v′(t) dt, an integral of acceleration, not of velocity.
+    answer: 1
+  # ---- Stimulus set B: one region and its solids (8.4, 8.11, 8.12, 8.7)
+  - slug: apcalcab-u08-exam-q05
+    type: multiple_choice
+    topic_code: "8.4"
+    source: "AP Calculus CED, Topic 8.4"
+    points: 1
+    stimulus: |
+      Let R be the region enclosed by the graphs of y = 4x − x² and y = x. The graphs intersect at (0, 0) and (3, 3), and 4x − x² ≥ x for 0 ≤ x ≤ 3.
+    prompt: |
+      What is the area of R?
+    options:
+      - "9"
+      - "9/2"
+      - "8/3"
+      - "−9/2"
+    option_explanations:
+      - |
+        9 = ∫ from 0 to 3 of (4x − x²) dx is the area under the parabola only; the area under y = x must be subtracted.
+      - |
+        Correct. ∫ from 0 to 3 of [(4x − x²) − x] dx = ∫ from 0 to 3 of (3x − x²) dx = 27/2 − 9 = 9/2.
+      - |
+        8/3 uses x = 4, the parabola's zero, as the upper limit. The region ends where the curves meet, at x = 3.
+      - |
+        −9/2 is bottom minus top. An area must be positive.
+    answer: 1
+  - slug: apcalcab-u08-exam-q06
+    type: multiple_choice
+    topic_code: "8.11"
+    source: "AP Calculus CED, Topic 8.11"
+    points: 1
+    stimulus: |
+      Let R be the region enclosed by the graphs of y = 4x − x² and y = x. The graphs intersect at (0, 0) and (3, 3), and 4x − x² ≥ x for 0 ≤ x ≤ 3.
+    prompt: |
+      Which integral gives the volume of the solid generated when R is revolved about the x-axis?
+    options:
+      - "π ∫ from 0 to 3 of (3x − x²)² dx"
+      - "π ∫ from 0 to 3 of [x² − (4x − x²)²] dx"
+      - "π ∫ from 0 to 4 of [(4x − x²)² − x²] dx"
+      - "π ∫ from 0 to 3 of [(4x − x²)² − x²] dx"
+    option_explanations:
+      - |
+        (3x − x²)² is the squared difference of the radii. A washer's area is πR² − πr².
+      - |
+        The radii are swapped: the parabola is farther from the x-axis, so (4x − x²)² is the outer term. As written the integral is negative.
+      - |
+        The upper limit 4 is where the parabola meets the x-axis, not where the two curves meet (x = 3).
+      - |
+        Correct. Washers with outer radius 4x − x² and inner radius x, for x from 0 to 3.
+    answer: 3
+  - slug: apcalcab-u08-exam-q07
+    type: multiple_choice
+    topic_code: "8.12"
+    source: "AP Calculus CED, Topic 8.12"
+    points: 1
+    stimulus: |
+      Let R be the region enclosed by the graphs of y = 4x − x² and y = x. The graphs intersect at (0, 0) and (3, 3), and 4x − x² ≥ x for 0 ≤ x ≤ 3.
+    prompt: |
+      Which integral gives the volume of the solid generated when R is revolved about the line y = −2?
+    options:
+      - "π ∫ from 0 to 3 of [(4x − x² + 2)² − (x + 2)²] dx"
+      - "π ∫ from 0 to 3 of [(4x − x² − 2)² − (x − 2)²] dx"
+      - "π ∫ from 0 to 3 of [(4x − x² + 2) − (x + 2)]² dx"
+      - "π ∫ from 0 to 3 of [(x + 2)² − (4x − x² + 2)²] dx"
+    option_explanations:
+      - |
+        Correct. The axis y = −2 is below R, so each radius is the curve's height plus 2: outer 4x − x² + 2, inner x + 2.
+      - |
+        Subtracting 2 measures from y = 2. The distance from y = −2 up to height h is h + 2.
+      - |
+        This squares the difference of the radii, which simplifies to π(3x − x²)²; washers need R² − r².
+      - |
+        Outer and inner are swapped, so the integral is negative. The parabola is farther from y = −2.
+    answer: 0
+  - slug: apcalcab-u08-exam-q08
+    type: multiple_choice
+    topic_code: "8.7"
+    source: "AP Calculus CED, Topic 8.7"
+    points: 1
+    stimulus: |
+      Let R be the region enclosed by the graphs of y = 4x − x² and y = x. The graphs intersect at (0, 0) and (3, 3), and 4x − x² ≥ x for 0 ≤ x ≤ 3.
+    prompt: |
+      R is the base of a solid whose cross sections perpendicular to the x-axis are squares. What is the volume of the solid?
+    options:
+      - "81/4"
+      - "81π/10"
+      - "81/10"
+      - "9/2"
+    option_explanations:
+      - |
+        81/4 = (9/2)² squares the area of the base instead of squaring each slice.
+      - |
+        Square cross sections have no factor π; π belongs to circular slices.
+      - |
+        Correct. The side is (4x − x²) − x = 3x − x², so V = ∫ from 0 to 3 of (3x − x²)² dx = ∫ (9x² − 6x³ + x⁴) dx = 81 − 243/2 + 243/5 = 81/10.
+      - |
+        9/2 is the area of the base R. Each square's area (3x − x²)² must be integrated.
+    answer: 2
+  # ---- Stimulus set C: one cubic and its accumulation function (8.6, 8.1, 8.3)
+  - slug: apcalcab-u08-exam-q09
+    type: multiple_choice
+    topic_code: "8.6"
+    source: "AP Calculus CED, Topic 8.6"
+    points: 1
+    stimulus: |
+      Let f(x) = x³ − 6x² + 8x = x(x − 2)(x − 4). An antiderivative is F(x) = x⁴/4 − 2x³ + 4x², with F(0) = 0, F(2) = 4 and F(4) = 0. Let A(x) = ∫ from 0 to x of f(t) dt for 0 ≤ x ≤ 4.
+    prompt: |
+      What is the total area of the regions between the graph of f and the x-axis for 0 ≤ x ≤ 4?
+    options:
+      - "0"
+      - "4"
+      - "−4"
+      - "8"
+    option_explanations:
+      - |
+        0 = F(4) − F(0) is the net integral: the region above the axis on (0, 2) cancels the region below on (2, 4).
+      - |
+        4 is the area of the region on [0, 2] only. There is a second region, below the axis, on [2, 4].
+      - |
+        −4 = ∫ from 2 to 4 of f(x) dx is the signed integral over the lower piece; an area is never negative and there are two pieces.
+      - |
+        Correct. f ≥ 0 on [0, 2] and f ≤ 0 on [2, 4]. Area = (F(2) − F(0)) + |F(4) − F(2)| = 4 + 4 = 8.
+    answer: 3
+  - slug: apcalcab-u08-exam-q10
+    type: multiple_choice
+    topic_code: "8.1"
+    source: "AP Calculus CED, Topic 8.1"
+    points: 1
+    stimulus: |
+      Let f(x) = x³ − 6x² + 8x = x(x − 2)(x − 4). An antiderivative is F(x) = x⁴/4 − 2x³ + 4x², with F(0) = 0, F(2) = 4 and F(4) = 0. Let A(x) = ∫ from 0 to x of f(t) dt for 0 ≤ x ≤ 4.
+    prompt: |
+      What is the average value of f on the interval [0, 4]?
+    options:
+      - "2"
+      - "0"
+      - "8"
+      - "4"
+    option_explanations:
+      - |
+        2 divides the total area 8 by 4. The average value uses the signed integral, which is 0.
+      - |
+        Correct. (1/(4 − 0)) ∫ from 0 to 4 of f(x) dx = (1/4)(F(4) − F(0)) = (1/4)(0) = 0.
+      - |
+        8 is the total area, neither divided by the interval length nor signed.
+      - |
+        4 = ∫ from 0 to 2 of f(x) dx covers half the interval and is not divided by its length.
+    answer: 1
+  - slug: apcalcab-u08-exam-q11
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "AP Calculus CED, Topic 8.3"
+    points: 1
+    stimulus: |
+      Let f(x) = x³ − 6x² + 8x = x(x − 2)(x − 4). An antiderivative is F(x) = x⁴/4 − 2x³ + 4x², with F(0) = 0, F(2) = 4 and F(4) = 0. Let A(x) = ∫ from 0 to x of f(t) dt for 0 ≤ x ≤ 4.
+    prompt: |
+      At which value of x in [0, 4] does A attain its absolute maximum?
+    options:
+      - "x = 4"
+      - "x = 2 − 2/√3 ≈ 0.845"
+      - "x = 2"
+      - "x = 0"
+    option_explanations:
+      - |
+        A(4) = 0: after x = 2 the integrand is negative, so A decreases back to 0.
+      - |
+        This is where f itself has its relative maximum (f′ = 0). A is largest where f, its derivative, changes from positive to negative.
+      - |
+        Correct. A′(x) = f(x) changes from positive to negative at x = 2. Candidates: A(0) = 0, A(2) = 4, A(4) = 0, so the maximum is 4 at x = 2.
+      - |
+        A(0) = 0 is the smallest value (tied with A(4)). A increases on (0, 2) because f > 0 there.
+    answer: 2
+  # ---- Average value, motion and accumulation (8.1–8.3)
+  - slug: apcalcab-u08-exam-q12
+    type: multiple_choice
+    topic_code: "8.1"
+    source: "AP Calculus CED, Topic 8.1"
+    points: 1
+    prompt: |
+      What is the average value of g(x) = √x on the interval [0, 4]?
+    options:
+      - "4/3"
+      - "16/3"
+      - "1"
+      - "√2"
+    option_explanations:
+      - |
+        Correct. (1/4) ∫ from 0 to 4 of x^(1/2) dx = (1/4)(2/3)(4^(3/2)) = (1/4)(16/3) = 4/3.
+      - |
+        16/3 is the integral; divide by the interval length 4.
+      - |
+        1 averages the endpoint values g(0) = 0 and g(4) = 2, which works only for linear functions.
+      - |
+        √2 is g at the midpoint x = 2. For a concave function the midpoint value is not the average value.
+    answer: 0
+  - slug: apcalcab-u08-exam-q13
+    type: multiple_choice
+    topic_code: "8.1"
+    source: "AP Calculus CED, Topic 8.1"
+    points: 1
+    prompt: |
+      Let h(x) = 2x + 1. For what value of c in [1, 3] does h(c) equal the average value of h on [1, 3]?
+    options:
+      - "c = 5"
+      - "c = 4.5"
+      - "c = 3"
+      - "c = 2"
+    option_explanations:
+      - |
+        5 is the average value itself, h(c), not the input c. Also 5 is not in [1, 3].
+      - |
+        4.5 solves 2c + 1 = 10, using the integral 10 without dividing by the interval length 2.
+      - |
+        c = 3 gives h(3) = 7, the maximum of h on the interval, not its average.
+      - |
+        Correct. Average value = (1/2) ∫ from 1 to 3 of (2x + 1) dx = (1/2)[x² + x] from 1 to 3 = (1/2)(12 − 2) = 5, and 2c + 1 = 5 gives c = 2.
+    answer: 3
+  - slug: apcalcab-u08-exam-q14
+    type: multiple_choice
+    topic_code: "8.2"
+    source: "AP Calculus CED, Topic 8.2"
+    points: 1
+    prompt: |
+      A particle moves along a line with velocity v(t) = 3t² − 12 for 0 ≤ t ≤ 3. What is the total distance it travels?
+    options:
+      - "9"
+      - "23"
+      - "−9"
+      - "16"
+    option_explanations:
+      - |
+        9 is the size of the displacement, |∫ from 0 to 3 of v(t) dt|. The particle turns around at t = 2, so the pieces must be added as absolute values.
+      - |
+        Correct. v = 3(t² − 4) changes sign at t = 2. ∫ from 0 to 2 of v dt = 8 − 24 = −16 and ∫ from 2 to 3 of v dt = (27 − 36) − (8 − 24) = 7. Distance = 16 + 7 = 23.
+      - |
+        −9 is the displacement. A distance cannot be negative.
+      - |
+        16 is the distance until the particle turns at t = 2; it travels another 7 units on [2, 3].
+    answer: 1
+  - slug: apcalcab-u08-exam-q15
+    type: multiple_choice
+    topic_code: "8.2"
+    source: "AP Calculus CED, Topic 8.2"
+    points: 1
+    prompt: |
+      A particle moves along a line with velocity v(t) = 2t + 1. Its position at t = 1 is x(1) = 3. What is x(4)?
+    options:
+      - "18"
+      - "23"
+      - "21"
+      - "9"
+    option_explanations:
+      - |
+        18 = ∫ from 1 to 4 of (2t + 1) dt is the displacement; add the position 3 at t = 1.
+      - |
+        23 = 3 + ∫ from 0 to 4 of (2t + 1) dt starts the integral at t = 0, but the known position is at t = 1.
+      - |
+        Correct. x(4) = x(1) + ∫ from 1 to 4 of (2t + 1) dt = 3 + [t² + t] from 1 to 4 = 3 + (20 − 2) = 21.
+      - |
+        9 is the velocity v(4) = 2(4) + 1, a rate in units per time, not a position.
+    answer: 2
+  - slug: apcalcab-u08-exam-q16
+    type: multiple_choice
+    topic_code: "8.2"
+    source: "AP Calculus CED, Topic 8.2"
+    points: 1
+    prompt: |
+      (Calculator.) A particle moves along a line with velocity v(t) = cos(t²) for 0 ≤ t ≤ 2. What is the total distance the particle travels, to three decimal places?
+    options:
+      - "0.461"
+      - "1.493"
+      - "1.091"
+      - "0.654"
+    option_explanations:
+      - |
+        0.461 ≈ ∫ from 0 to 2 of cos(t²) dt is the displacement. v changes sign at t = √(π/2) and again at t = √(3π/2), so integrate |v|.
+      - |
+        Correct. Total distance = ∫ from 0 to 2 of |cos(t²)| dt ≈ 1.493.
+      - |
+        1.091 ≈ ∫ from 0 to 2 of |cos t| dt drops the square inside the cosine; the velocity is cos(t²), not cos t.
+      - |
+        0.654 is |v(2)| = |cos 4|, a speed at one instant, not a distance.
+    answer: 1
+  - slug: apcalcab-u08-exam-q17
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "AP Calculus CED, Topic 8.3"
+    points: 1
+    prompt: |
+      People enter a hypothetical stadium at a rate of E(t) people per hour and leave at a rate of L(t) people per hour, where t is hours after the gates open. There are 300 people inside when the gates open. Which expression gives the number of people inside at time t = T?
+    options:
+      - "∫ from 0 to T of (E(t) − L(t)) dt"
+      - "300 + E(T) − L(T)"
+      - "300 + ∫ from 0 to T of (L(t) − E(t)) dt"
+      - "300 + ∫ from 0 to T of (E(t) − L(t)) dt"
+    option_explanations:
+      - |
+        This is only the net change in the crowd since the gates opened; the 300 people already inside must be added.
+      - |
+        E(T) − L(T) is the net rate at time T, in people per hour, and cannot be added to a number of people.
+      - |
+        L − E is the rate at which the crowd shrinks; it reverses the sign of the change.
+      - |
+        Correct. Initial amount plus the integral of (rate in − rate out) from 0 to T.
+    answer: 3
+  - slug: apcalcab-u08-exam-q18
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "AP Calculus CED, Topic 8.3"
+    points: 1
+    prompt: |
+      Water flows into and out of a hypothetical tank for 0 ≤ t ≤ 8 hours. The rate in minus the rate out, E(t) − L(t), is continuous, positive for 0 < t < 5, zero at t = 5, and negative for 5 < t < 8. At what time is the amount of water in the tank greatest?
+    options:
+      - "t = 5"
+      - "t = 8"
+      - "t = 0"
+      - "It cannot be determined without the amount at t = 0."
+    option_explanations:
+      - |
+        Correct. The amount's derivative E − L changes from positive to negative at t = 5, its only critical point, so the amount rises until t = 5 and falls afterwards: t = 5 gives the absolute maximum.
+      - |
+        After t = 5 water leaves faster than it enters, so the amount decreases on (5, 8); t = 8 cannot be the maximum.
+      - |
+        The amount increases on (0, 5), so it is larger at t = 5 than at t = 0.
+      - |
+        The initial amount shifts every value by the same constant; it does not change when the maximum occurs.
+    answer: 0
+  # ---- Area between curves (8.4–8.6)
+  - slug: apcalcab-u08-exam-q19
+    type: multiple_choice
+    topic_code: "8.4"
+    source: "AP Calculus CED, Topic 8.4"
+    points: 1
+    prompt: |
+      What is the area of the region bounded by y = eˣ, y = x, x = 0 and x = 1?
+    options:
+      - "e − 1/2"
+      - "3/2 − e"
+      - "e − 3/2"
+      - "e − 1"
+    option_explanations:
+      - |
+        e − 1/2 forgets to subtract e⁰ = 1 at the lower limit.
+      - |
+        3/2 − e is bottom minus top: eˣ > x on [0, 1], so this is negative.
+      - |
+        Correct. ∫ from 0 to 1 of (eˣ − x) dx = [eˣ − x²/2] from 0 to 1 = (e − 1/2) − 1 = e − 3/2.
+      - |
+        e − 1 = ∫ from 0 to 1 of eˣ dx is the area under the top curve only.
+    answer: 2
+  - slug: apcalcab-u08-exam-q20
+    type: multiple_choice
+    topic_code: "8.5"
+    source: "AP Calculus CED, Topic 8.5"
+    points: 1
+    prompt: |
+      What is the area of the region enclosed by the curve x = y² − 4 and the y-axis?
+    options:
+      - "−32/3"
+      - "16/3"
+      - "32/3"
+      - "16"
+    option_explanations:
+      - |
+        −32/3 is left minus right: ∫ (y² − 4) dy. The y-axis, x = 0, is the right boundary.
+      - |
+        16/3 covers only 0 ≤ y ≤ 2. The curve meets the y-axis at y = −2 and y = 2.
+      - |
+        Correct. y² − 4 = 0 at y = ±2. ∫ from −2 to 2 of [0 − (y² − 4)] dy = ∫ from −2 to 2 of (4 − y²) dy = 16 − 16/3 = 32/3.
+      - |
+        16 is the 4-by-4 rectangle from x = −4 to 0 and y = −2 to 2; the curved part outside the region was not subtracted.
+    answer: 2
+  - slug: apcalcab-u08-exam-q21
+    type: multiple_choice
+    topic_code: "8.5"
+    source: "AP Calculus CED, Topic 8.5"
+    points: 1
+    prompt: |
+      The region T is enclosed by the line y = x − 1 and the parabola y² = 2x + 6, which intersect at (−1, −2) and (5, 4). Which expression gives the area of T with a single integral?
+    options:
+      - "∫ from −2 to 4 of [(y + 1) − (y² − 6)/2] dy"
+      - "∫ from −2 to 4 of [(y² − 6)/2 − (y + 1)] dy"
+      - "∫ from −1 to 5 of [(y + 1) − (y² − 6)/2] dy"
+      - "∫ from −3 to 5 of [√(2x + 6) − (x − 1)] dx"
+    option_explanations:
+      - |
+        Correct. In terms of y, the line is x = y + 1 (right) and the parabola is x = (y² − 6)/2 (left), for y from −2 to 4. The area is 18.
+      - |
+        This is left minus right; at y = 0 the line gives x = 1 and the parabola x = −3, so the line is on the right.
+      - |
+        −1 and 5 are the x-coordinates of the intersections. A dy integral needs the y-coordinates −2 and 4.
+      - |
+        With vertical slices the bottom boundary changes: from x = −3 to −1 it is the lower branch −√(2x + 6), not the line. One dx integral cannot describe T.
+    answer: 0
+  - slug: apcalcab-u08-exam-q22
+    type: multiple_choice
+    topic_code: "8.6"
+    source: "AP Calculus CED, Topic 8.6"
+    points: 1
+    prompt: |
+      What is the total area of the regions between y = sin x and y = cos x for 0 ≤ x ≤ π?
+    options:
+      - "2"
+      - "2√2"
+      - "−2"
+      - "√2 − 1"
+    option_explanations:
+      - |
+        2 = |∫ from 0 to π of (cos x − sin x) dx| takes the absolute value after the pieces have partly cancelled.
+      - |
+        Correct. The curves cross at x = π/4. ∫ from 0 to π/4 of (cos x − sin x) dx = √2 − 1 and ∫ from π/4 to π of (sin x − cos x) dx = 1 + √2. Total 2√2.
+      - |
+        −2 = ∫ from 0 to π of (cos x − sin x) dx is the net integral, not split at the crossing.
+      - |
+        √2 − 1 is the area of the first region only, on [0, π/4].
+    answer: 1
+  # ---- Cross sections (8.7, 8.8)
+  - slug: apcalcab-u08-exam-q23
+    type: multiple_choice
+    topic_code: "8.7"
+    source: "AP Calculus CED, Topic 8.7"
+    points: 1
+    prompt: |
+      The base of a solid is the region enclosed by y = x² and y = 4. Cross sections perpendicular to the x-axis are rectangles of height 2. What is the volume of the solid?
+    options:
+      - "32/3"
+      - "512/15"
+      - "128/3"
+      - "64/3"
+    option_explanations:
+      - |
+        32/3 is the area of the base; each rectangle's area is 2 times its base length, so the volume is twice this.
+      - |
+        512/15 = ∫ from −2 to 2 of (4 − x²)² dx is the volume with square cross sections.
+      - |
+        128/3 doubles for symmetry while already integrating over the whole interval [−2, 2].
+      - |
+        Correct. The base length is 4 − x², so A(x) = 2(4 − x²) and V = ∫ from −2 to 2 of 2(4 − x²) dx = 2(32/3) = 64/3.
+    answer: 3
+  - slug: apcalcab-u08-exam-q24
+    type: multiple_choice
+    topic_code: "8.8"
+    source: "AP Calculus CED, Topic 8.8"
+    points: 1
+    prompt: |
+      The base of a solid is the triangle bounded by the line y = 2 − x/2 and the coordinate axes. Cross sections perpendicular to the x-axis are semicircles with diameters in the base. Given ∫ from 0 to 4 of (2 − x/2)² dx = 16/3, what is the volume?
+    options:
+      - "8π/3"
+      - "4π/3"
+      - "2π/3"
+      - "16/3"
+    option_explanations:
+      - |
+        8π/3 = (π/2)(16/3) uses the slice length as the radius rather than the diameter.
+      - |
+        4π/3 = (π/4)(16/3) is the volume with full circles of diameter 2 − x/2. The cross sections are half circles.
+      - |
+        Correct. A semicircle on diameter s has area (π/8)s², so V = (π/8) ∫ from 0 to 4 of (2 − x/2)² dx = (π/8)(16/3) = 2π/3.
+      - |
+        16/3 is the volume with square cross sections.
+    answer: 2
+  # ---- Discs and washers (8.9–8.12)
+  - slug: apcalcab-u08-exam-q25
+    type: multiple_choice
+    topic_code: "8.9"
+    source: "AP Calculus CED, Topic 8.9"
+    points: 1
+    prompt: |
+      The region bounded by y = x³, the line y = 8 and the y-axis is revolved about the y-axis. What is the volume of the solid?
+    options:
+      - "96π/5"
+      - "12π"
+      - "768π/7"
+      - "128π/7"
+    option_explanations:
+      - |
+        Correct. Horizontal discs with radius x = y^(1/3): π ∫ from 0 to 8 of y^(2/3) dy = π(3/5)(8^(5/3)) = π(3/5)(32) = 96π/5.
+      - |
+        12π = π ∫ from 0 to 8 of y^(1/3) dy forgets to square the radius.
+      - |
+        768π/7 = π ∫ from 0 to 2 of (64 − x⁶) dx revolves the region about the x-axis instead.
+      - |
+        128π/7 = π ∫ from 0 to 2 of x⁶ dx uses vertical slices with the curve as radius, which revolves the region under the curve about the x-axis, a different solid.
+    answer: 0
+  - slug: apcalcab-u08-exam-q26
+    type: multiple_choice
+    topic_code: "8.10"
+    source: "AP Calculus CED, Topic 8.10"
+    points: 1
+    prompt: |
+      The region bounded by y = √x, the line y = 2 and the y-axis is revolved about the line y = 2. Which integral gives the volume?
+    options:
+      - "π ∫ from 0 to 4 of (4 − x) dx"
+      - "π ∫ from 0 to 4 of (2 − √x)² dx"
+      - "π ∫ from 0 to 4 of (2 + √x)² dx"
+      - "π ∫ from 0 to 2 of (2 − y²)² dy"
+    option_explanations:
+      - |
+        4 − x = 2² − (√x)² treats the solid as a washer about the x-axis. The slices touch the axis y = 2, so they are discs of radius 2 − √x.
+      - |
+        Correct. Each vertical slice runs from the curve up to the axis y = 2, so it is a disc of radius 2 − √x, for x from 0 to 4. The volume is 8π/3.
+      - |
+        2 + √x adds the distances; the curve is below the axis by 2 − √x.
+      - |
+        Horizontal slices are parallel to the horizontal axis y = 2, so they do not make discs about it.
+    answer: 1
+  - slug: apcalcab-u08-exam-q27
+    type: multiple_choice
+    topic_code: "8.11"
+    source: "AP Calculus CED, Topic 8.11"
+    points: 1
+    prompt: |
+      The region enclosed by y = 2x and y = x² is revolved about the y-axis. Which integral gives the volume?
+    options:
+      - "π ∫ from 0 to 4 of (√y − y/2)² dy"
+      - "π ∫ from 0 to 2 of (4x² − x⁴) dx"
+      - "π ∫ from 0 to 4 of (y − y²/4) dy"
+      - "π ∫ from 0 to 4 of (y²/4 − y) dy"
+    option_explanations:
+      - |
+        This squares the difference of the radii. Washers need (√y)² − (y/2)².
+      - |
+        This is the washer integral for revolving about the x-axis. About the y-axis the slices are horizontal and the radii are in y.
+      - |
+        Correct. In terms of y the parabola is x = √y (outer) and the line is x = y/2 (inner), for y from 0 to 4: π ∫ [(√y)² − (y/2)²] dy = 8π/3.
+      - |
+        Inner and outer are swapped: √y ≥ y/2 on [0, 4], so this integral is negative.
+    answer: 2
+  - slug: apcalcab-u08-exam-q28
+    type: multiple_choice
+    topic_code: "8.12"
+    source: "AP Calculus CED, Topic 8.12"
+    points: 1
+    prompt: |
+      The region enclosed by y = x and y = x² is revolved about the line x = −1. Which integral gives the volume?
+    options:
+      - "π ∫ from 0 to 1 of [(√y − 1)² − (y − 1)²] dy"
+      - "π ∫ from 0 to 1 of [(√y + 1) − (y + 1)]² dy"
+      - "π ∫ from 0 to 1 of [(x + 1)² − (x² + 1)²] dx"
+      - "π ∫ from 0 to 1 of [(√y + 1)² − (y + 1)²] dy"
+    option_explanations:
+      - |
+        Subtracting 1 measures from x = 1. The axis x = −1 is to the left, so add 1 to each x-value.
+      - |
+        This squares the difference of the radii; the volume needs R² − r².
+      - |
+        This is the washer integral about the horizontal line y = −1. A vertical axis needs horizontal slices and an integral in y.
+      - |
+        Correct. In terms of y the curves are x = √y (farther from the axis) and x = y. Radii from x = −1: R = √y + 1, r = y + 1. The volume is π/2.
+    answer: 3
+  - slug: apcalcab-u08-exam-q29
+    type: multiple_choice
+    topic_code: "8.9"
+    source: "AP Calculus CED, Topic 8.9"
+    points: 1
+    prompt: |
+      The region under y = sec x for 0 ≤ x ≤ π/4 (and above the x-axis) is revolved about the x-axis. What is the volume of the solid?
+    options:
+      - "π"
+      - "1"
+      - "2π"
+      - "π²/4"
+    option_explanations:
+      - |
+        Correct. Discs of radius sec x: π ∫ from 0 to π/4 of sec² x dx = π[tan x] from 0 to π/4 = π(1 − 0) = π.
+      - |
+        1 is ∫ sec² x dx without the factor π from the disc area πR².
+      - |
+        2π uses sec²(π/4) = 2, a value of the integrand, instead of its antiderivative tan x.
+      - |
+        π²/4 treats sec² x as if it were 1 on the interval, giving π times the interval length π/4.
+    answer: 0
+  # ---- Select-all, true/false, fill-in and numeric
+  - slug: apcalcab-u08-exam-q30
+    type: multi_select
+    topic_code: "8.2"
+    source: "AP Calculus CED, Topic 8.2"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A particle moves along the x-axis with velocity v(t) = t² − 4t for 0 ≤ t ≤ 6, and x(0) = 5. Which statements are true? Select all that apply.
+    options:
+      - "The particle changes direction at t = 4."
+      - "The displacement over 0 ≤ t ≤ 6 is 0."
+      - "The total distance travelled over 0 ≤ t ≤ 6 is 0."
+      - "The position of the particle at t = 6 is 5."
+      - "The particle is farthest left at t = 2."
+    option_explanations:
+      - |
+        Correct. v = t(t − 4) is negative on (0, 4) and positive on (4, 6), so it changes sign at t = 4.
+      - |
+        Correct. ∫ from 0 to 6 of (t² − 4t) dt = [t³/3 − 2t²] from 0 to 6 = 72 − 72 = 0.
+      - |
+        The particle moves left 32/3 units on [0, 4] and right 32/3 units on [4, 6]; the distance is 64/3, not 0.
+      - |
+        Correct. x(6) = 5 + 0 = 5: the particle returns to its starting point.
+      - |
+        The particle keeps moving left until t = 4, where v changes sign; it is farthest left at t = 4 (x = 5 − 32/3 = −17/3).
+    answer: [0, 1, 3]
+  - slug: apcalcab-u08-exam-q31
+    type: multi_select
+    topic_code: "8.12"
+    source: "AP Calculus CED, Topic 8.12"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Let R be the region enclosed by y = 1 + x and y = 1 + x² for 0 ≤ x ≤ 1 (the line is above the parabola there). Which statements are true? Select all that apply.
+    options:
+      - "Revolving R about the x-axis gives π ∫ from 0 to 1 of [(1 + x)² − (1 + x²)²] dx."
+      - "Revolving R about the line y = 1 gives π ∫ from 0 to 1 of (x² − x⁴) dx."
+      - "Revolving R about the line y = 2 gives π ∫ from 0 to 1 of [(1 − x)² − (1 − x²)²] dx."
+      - "Revolving R about the line y = 2 gives π ∫ from 0 to 1 of [(1 − x²)² − (1 − x)²] dx."
+      - "Revolving R about the x-axis gives π ∫ from 0 to 1 of (x − x²)² dx."
+    option_explanations:
+      - |
+        Correct. Washers about y = 0 with outer radius 1 + x and inner radius 1 + x².
+      - |
+        Correct. Measured from y = 1, the line is x above and the parabola x² above: R = x, r = x².
+      - |
+        From y = 2 (above R) the parabola is farther: R = 2 − (1 + x²) = 1 − x² and r = 2 − (1 + x) = 1 − x. This has them reversed, so it is negative.
+      - |
+        Correct. With y = 2 above the region, the lower curve y = 1 + x² is the outer radius 1 − x² and the line gives the inner radius 1 − x.
+      - |
+        (x − x²)² squares the difference of the radii; it does not describe any of these washers.
+    answer: [0, 1, 3]
+  - slug: apcalcab-u08-exam-q32
+    type: true_false
+    topic_code: "8.1"
+    source: "AP Calculus CED, Topic 8.1"
+    points: 1
+    prompt: |
+      True or false: If f is continuous on [2, 6] and ∫ from 2 to 6 of f(x) dx = 12, then f(c) = 3 for at least one c in [2, 6].
+    answer: true
+    explanation: |
+      True. The average value is 12/(6 − 2) = 3, and because f is continuous on [2, 6], the Mean Value Theorem for integrals guarantees some c in [2, 6] with f(c) = 3.
+  - slug: apcalcab-u08-exam-q33
+    type: true_false
+    topic_code: "8.6"
+    source: "AP Calculus CED, Topic 8.6"
+    points: 1
+    prompt: |
+      True or false: If the graphs of f and g cross at x = 2 inside [0, 5], then ∫ from 0 to 5 of (f(x) − g(x)) dx is always equal to the area between the graphs on [0, 5].
+    answer: false
+    explanation: |
+      False. Once the curves cross, the sign of f − g changes, and the piece where g is on top counts negatively in the integral. The area is ∫ from 0 to 5 of |f(x) − g(x)| dx, found by splitting at x = 2.
+  - slug: apcalcab-u08-exam-q34
+    type: true_false
+    topic_code: "8.10"
+    source: "AP Calculus CED, Topic 8.10"
+    points: 1
+    prompt: |
+      True or false: When the region between y = f(x) and the line y = 5 (with f(x) ≤ 5 on [a, b]) is revolved about the line y = 5, the volume is π ∫ from a to b of (5 − f(x))² dx.
+    answer: true
+    explanation: |
+      True. The region touches the axis y = 5 along its whole length, so each vertical slice sweeps out a disc whose radius is the distance from the axis down to the curve, 5 − f(x).
+  - slug: apcalcab-u08-exam-q35
+    type: fill_blank
+    topic_code: "8.1"
+    source: "AP Calculus CED, Topic 8.1"
+    points: 1
+    prompt: |
+      The average value of cos x on the interval [0, π/2] is ____ (exact, or a decimal to three places).
+    answer: ["2/π", "2/pi", "2 / π", "2 / pi", "0.637"]
+    explanation: |
+      (1/(π/2)) ∫ from 0 to π/2 of cos x dx = (2/π)(sin(π/2) − sin 0) = 2/π ≈ 0.637.
+  - slug: apcalcab-u08-exam-q36
+    type: fill_blank
+    topic_code: "8.5"
+    source: "AP Calculus CED, Topic 8.5"
+    points: 1
+    prompt: |
+      The area of the region enclosed by the curves x = y² and x = 2 − y² is ____ (exact, or a decimal to three places).
+    answer: ["8/3", "2.667"]
+    explanation: |
+      y² = 2 − y² at y = ±1. The right curve is x = 2 − y². ∫ from −1 to 1 of (2 − 2y²) dy = 4 − 4/3 = 8/3 ≈ 2.667.
+  - slug: apcalcab-u08-exam-q37
+    type: fill_blank
+    topic_code: "8.7"
+    source: "AP Calculus CED, Topic 8.7"
+    points: 1
+    prompt: |
+      The base of a solid is the region between y = x and y = −x for 0 ≤ x ≤ 3. Cross sections perpendicular to the x-axis are squares. The volume of the solid is ____.
+    answer: ["36"]
+    explanation: |
+      At x the base runs from y = −x to y = x, so the side is 2x and A(x) = 4x². V = ∫ from 0 to 3 of 4x² dx = 4 · 9 = 36.
+  - slug: apcalcab-u08-exam-q38
+    type: numeric
+    topic_code: "8.4"
+    source: "AP Calculus CED, Topic 8.4"
+    points: 1
+    prompt: |
+      (Calculator.) Find the area of the region enclosed by the graphs of y = 2 cos x and y = x². Give your answer to three decimal places.
+    answer: { value: 2.701, tolerance: 0.001 }
+    explanation: |
+      The graphs meet at x = ±a with a ≈ 1.0217 (calculator intersect), and 2 cos x is on top between them. Area = ∫ from −a to a of (2 cos x − x²) dx ≈ 2.701.
+  - slug: apcalcab-u08-exam-q39
+    type: numeric
+    topic_code: "8.12"
+    source: "AP Calculus CED, Topic 8.12"
+    points: 1
+    prompt: |
+      (Calculator.) The region bounded by y = e^(x/2), the line y = 1 and the line x = 2 is revolved about the line y = −1. Find the volume of the solid. Give your answer to three decimal places.
+    answer: { value: 22.815, tolerance: 0.001 }
+    explanation: |
+      On [0, 2], e^(x/2) ≥ 1. From the axis y = −1: R = e^(x/2) + 1 and r = 1 + 1 = 2. V = π ∫ from 0 to 2 of [(e^(x/2) + 1)² − 4] dx ≈ 22.815.
+  - slug: apcalcab-u08-exam-q40
+    type: numeric
+    topic_code: "8.3"
+    source: "AP Calculus CED, Topic 8.3"
+    points: 1
+    prompt: |
+      (Calculator.) A hypothetical filter holds 3 kg of sediment at t = 0. Sediment collects at a rate of r(t) = 0.5t e^(−0.25t) kg per day, and none is removed. How many kilograms of sediment does the filter hold at t = 8 days? Give your answer to three decimal places.
+    answer: { value: 7.752, tolerance: 0.001 }
+    explanation: |
+      3 + ∫ from 0 to 8 of 0.5t e^(−0.25t) dt ≈ 3 + 4.752 = 7.752 kg.
+  - slug: apcalcab-u08-exam-q41
+    type: numeric
+    topic_code: "8.11"
+    source: "AP Calculus CED, Topic 8.11"
+    points: 1
+    prompt: |
+      The region in the first quadrant enclosed by y = x and y = x³ is revolved about the x-axis. Find the volume of the solid. Give your answer to three decimal places.
+    answer: { value: 0.598, tolerance: 0.001 }
+    explanation: |
+      The curves meet at x = 0 and 1, with x ≥ x³ between. Washers: π ∫ from 0 to 1 of (x² − x⁶) dx = π(1/3 − 1/7) = 4π/21 ≈ 0.598.
+  # ---- Short answers (3 points each)
+  - slug: apcalcab-u08-exam-q42
+    type: short_answer
+    topic_code: "8.8"
+    source: "AP Calculus CED, Topic 8.8"
+    points: 3
+    prompt: |
+      The base of a solid is the triangle bounded by the line y = 3 − x and the coordinate axes.
+
+      (a) Cross sections perpendicular to the x-axis are squares. Find the volume.
+      (b) Cross sections perpendicular to the x-axis are semicircles with diameters in the base. Find the volume.
+      (c) Cross sections perpendicular to the y-axis are isosceles right triangles with the hypotenuse in the base. Find the volume.
+    answer: |
+      (a) Side 3 − x: V = ∫ from 0 to 3 of (3 − x)² dx = 9.
+      (b) A(x) = (π/8)(3 − x)²: V = (π/8)(9) = 9π/8.
+      (c) At height y the base runs from x = 0 to x = 3 − y, so the hypotenuse is s = 3 − y and A(y) = s²/4. V = (1/4) ∫ from 0 to 3 of (3 − y)² dy = 9/4.
+    explanation: |
+      Three points, one per part. (a) 9. (b) the semicircle area (π/8)s² and 9π/8. (c) the hypotenuse area formula s²/4 (legs s/√2) in terms of y, and 9/4.
+  - slug: apcalcab-u08-exam-q43
+    type: short_answer
+    topic_code: "8.6"
+    source: "AP Calculus CED, Topic 8.6"
+    points: 3
+    prompt: |
+      Consider the curve x = y³ − 4y and the y-axis.
+
+      (a) Find the y-values where the curve meets the y-axis.
+      (b) Write a sum of integrals with respect to y, without absolute values, for the total area of the regions enclosed by the curve and the y-axis.
+      (c) Find that total area.
+    answer: |
+      (a) y³ − 4y = y(y − 2)(y + 2) = 0: y = −2, 0, 2.
+      (b) On [−2, 0], y³ − 4y ≥ 0 (at y = −1, x = 3), so the curve is to the right of the y-axis; on [0, 2] it is to the left (at y = 1, x = −3). Area = ∫ from −2 to 0 of (y³ − 4y) dy + ∫ from 0 to 2 of (4y − y³) dy.
+      (c) Each integral is 4 (for example ∫ from 0 to 2 of (4y − y³) dy = 8 − 4 = 4), so the total area is 8.
+    explanation: |
+      Three points, one per part. (a) all three y-values. (b) two integrals in y, each right − left. (c) 8.
+  # ---- Free response (9 points each)
+  - slug: apcalcab-u08-exam-q44
+    type: long_answer
+    topic_code: "8.3"
+    source: "AP Calculus CED, Topic 8.3"
+    points: 9
+    prompt: |
+      (Calculator.) A hypothetical stormwater retention pond holds 500 cubic metres of water at time t = 0, where t is measured in hours. For 0 ≤ t ≤ 10, rainwater flows into the pond at a rate of R(t) = 40 + 25 sin(0.4t) cubic metres per hour, and water is pumped out at a rate of P(t) = 30 + 2t cubic metres per hour.
+
+      (A) Find the average rate at which rainwater flows into the pond over 0 ≤ t ≤ 10. Show the setup.
+
+      (B) Using correct units, explain the meaning of ∫ from 2 to 5 of R(t) dt in the context of this problem.
+
+      (C) Is the amount of water in the pond increasing or decreasing at time t = 6? Give a reason for your answer.
+
+      (D) How much water is in the pond at time t = 10?
+
+      (E) At what time t, for 0 ≤ t ≤ 10, is the amount of water in the pond greatest? Find that greatest amount, and justify your answer.
+    answer: |
+      (A) (1/10) ∫ from 0 to 10 of R(t) dt ≈ 503.353/10 ≈ 50.335 cubic metres per hour.
+      (B) ∫ from 2 to 5 of R(t) dt (≈ 189.553) is the total volume of rainwater, in cubic metres, that flows into the pond between t = 2 and t = 5 hours.
+      (C) R(6) − P(6) ≈ 56.887 − 42 ≈ 14.887 > 0, so the amount of water is increasing at t = 6.
+      (D) W(10) = 500 + ∫ from 0 to 10 of (R(t) − P(t)) dt ≈ 500 + 503.353 − 400 = 603.353 cubic metres.
+      (E) W′(t) = R(t) − P(t) = 0 at t ≈ 7.376 (the only zero in the interval); W′ > 0 before it and W′ < 0 after it. Candidates: W(0) = 500, W(7.376) = 500 + ∫ from 0 to 7.376 of (R(t) − P(t)) dt ≈ 643.216, W(10) ≈ 603.353. The greatest amount is about 643.216 cubic metres, at t ≈ 7.376 hours.
+    explanation: |
+      Nine points. (A) 2 points: 1 for (1/10) ∫ from 0 to 10 of R(t) dt, 1 for 50.335 (accept 50.33 or 50.34) with units. (B) 1 point: total amount of rainwater entering, in cubic metres, between t = 2 and t = 5 (all three of quantity, units and interval needed). (C) 1 point: increasing, with R(6) − P(6) > 0 (or R(6) > P(6)) as the reason. (D) 2 points: 1 for 500 + ∫ from 0 to 10 of (R − P) dt, 1 for 603.353. (E) 3 points: 1 for setting R(t) − P(t) = 0 and finding t ≈ 7.376, 1 for a candidates test (or a sign-change argument for the only critical point), 1 for the greatest amount 643.216 (accept 643.21 or 643.22).
+  - slug: apcalcab-u08-exam-q45
+    type: long_answer
+    topic_code: "8.12"
+    source: "AP Calculus CED, Topic 8.12"
+    points: 9
+    prompt: |
+      Let f(x) = 8 − x² and g(x) = x². Let R be the region enclosed by the graphs of f and g. Do not use a calculator.
+
+      (A) Find the area of R.
+
+      (B) Find the volume of the solid generated when R is revolved about the x-axis.
+
+      (C) Write, but do not evaluate, an integral expression for the volume of the solid generated when R is revolved about the line y = 10.
+
+      (D) R is the base of a solid whose cross sections perpendicular to the x-axis are semicircles with diameters in R. Find the volume of the solid.
+
+      (E) Does the horizontal line y = 4 divide R into two regions of equal area? Justify your answer.
+    answer: |
+      (A) 8 − x² = x² at x = ±2, and f ≥ g on [−2, 2] (at x = 0, 8 > 0). Area = ∫ from −2 to 2 of (8 − 2x²) dx = 32 − 32/3 = 64/3.
+      (B) Washers with R = 8 − x² and r = x²: (8 − x²)² − x⁴ = 64 − 16x², so V = π ∫ from −2 to 2 of (64 − 16x²) dx = π(256 − 256/3) = 512π/3.
+      (C) The axis y = 10 is above R, so the lower curve g is farther: outer radius 10 − x², inner radius 10 − (8 − x²) = 2 + x². V = π ∫ from −2 to 2 of [(10 − x²)² − (2 + x²)²] dx.
+      (D) Diameter s = 8 − 2x², area (π/8)s². V = (π/8) ∫ from −2 to 2 of (8 − 2x²)² dx = (π/8) ∫ from −2 to 2 of (64 − 32x² + 4x⁴) dx = (π/8)(256 − 512/3 + 256/5) = (π/8)(2048/15) = 256π/15.
+      (E) Yes. f(x) − 4 = 4 − x² and 4 − g(x) = 4 − x², so at every x the part of the slice above y = 4 has the same length as the part below. Each part has area ∫ from −2 to 2 of (4 − x²) dx = 32/3, half of 64/3.
+    explanation: |
+      Nine points. (A) 2 points: 1 for the integral of (8 − 2x²) with limits −2 and 2, 1 for 64/3. (B) 2 points: 1 for the washer integrand π[(8 − x²)² − (x²)²], 1 for 512π/3. (C) 2 points: 1 for the outer radius 10 − x² and inner radius 2 + x² in the correct order, 1 for the complete expression with π, squares and limits. (D) 2 points: 1 for the semicircle area (π/8)(8 − 2x²)², 1 for 256π/15. (E) 1 point: yes, with a supporting argument (equal slice lengths above and below y = 4, or both areas computed as 32/3).

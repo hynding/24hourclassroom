@@ -1,0 +1,600 @@
+week: 31
+unit: 8
+title: "Area Between Curves"
+topics: ["8.4", "8.5", "8.6"]
+guide: guides/week-31.md
+guide_description: |
+  Area between two curves as the integral of (top − bottom) with vertical slices, or of (right − left) with
+  horizontal slices; finding the limits from intersection points; choosing the variable that needs only one
+  integral; and regions where the curves cross more than twice, split at every intersection or handled with an
+  absolute value on a calculator. Worked examples: the region between y = 4 − x² and y = x + 2, the region between
+  x = y² and x = y + 2 done both ways, the two-lobe region between y = x³ and y = 4x, a horizontal line that halves
+  an area, and a calculator-active region between y = 2 sin x and y = x.
+flashcards_description: |
+  30 cards on top-minus-bottom and right-minus-left integrals, finding limits from intersections, choosing dx or
+  dy, splitting at crossings, net integral versus area, and setting up an area-halving equation.
+
+flashcards:
+  - front: Area between y = f(x) and y = g(x) on [a, b] with f ≥ g → integral
+    back: |
+      ∫ from a to b of (f(x) − g(x)) dx: top minus bottom, with vertical slices of height f − g and width dx.
+    topic_code: "8.4"
+  - front: Area between curves → where the limits of integration come from
+    back: |
+      Usually from solving f(x) = g(x) for the intersection points; otherwise from the vertical (or horizontal) boundary lines given.
+    topic_code: "8.4"
+  - front: Area between curves when both lie below the x-axis → does the formula change?
+    back: |
+      No. ∫ (top − bottom) dx works wherever the curves are; the height of a slice is the difference, which is positive whenever the top is above the bottom.
+    topic_code: "8.4"
+  - front: Region between y = 4 − x² and y = x + 2 → limits and area
+    back: |
+      4 − x² = x + 2 gives x = −2 and x = 1. Area ∫ from −2 to 1 of (2 − x − x²) dx = 9/2.
+    topic_code: "8.4"
+  - front: Region between y = x² and y = 2x → area
+    back: |
+      Intersections x = 0 and x = 2; 2x is on top. ∫ from 0 to 2 of (2x − x²) dx = 4 − 8/3 = 4/3.
+    topic_code: "8.4"
+  - front: Area integral comes out negative → what went wrong
+    back: |
+      The functions were subtracted in the wrong order (bottom − top, or left − right). An area is never negative.
+    topic_code: "8.4"
+  - front: Average vertical distance between two curves on [a, b] → formula
+    back: |
+      (1/(b − a)) ∫ from a to b of (top − bottom) dx: the area divided by the width.
+    topic_code: "8.4"
+  - front: Vertical line x = k that halves the area of a region → equation to solve
+    back: |
+      ∫ from a to k of (top − bottom) dx = (1/2) · (total area). Solve for k in (a, b).
+    topic_code: "8.4"
+  - front: Region from y = 6x − x² down to y = x² − 2x → area
+    back: |
+      Intersections x = 0 and x = 4. ∫ from 0 to 4 of (8x − 2x²) dx = 64 − 128/3 = 64/3.
+    topic_code: "8.4"
+  - front: Area between x = f(y) and x = g(y) on [c, d] with f ≥ g → integral
+    back: |
+      ∫ from c to d of (f(y) − g(y)) dy: right minus left, with horizontal slices of length f − g and thickness dy.
+    topic_code: "8.5"
+  - front: Horizontal slices → when they beat vertical slices
+    back: |
+      When the left and right boundaries are each a single curve but the top or bottom changes partway (vertical slices would need two integrals), or when the curves are given as x = f(y).
+    topic_code: "8.5"
+  - front: Limits for a dy integral → what they are
+    back: |
+      y-values: the lowest and highest y of the region, usually the y-coordinates of the intersection points. Not the x-values.
+    topic_code: "8.5"
+  - front: y = √x rewritten for horizontal slices → form
+    back: |
+      x = y², for y ≥ 0. Every curve in a dy integral must be written as x in terms of y.
+    topic_code: "8.5"
+  - front: Region between x = y² and x = y + 2 → area with dy
+    back: |
+      y² = y + 2 gives y = −1 and y = 2; x = y + 2 is on the right. ∫ from −1 to 2 of (y + 2 − y²) dy = 9/2.
+    topic_code: "8.5"
+  - front: Region between x = y² and x = y + 2 → why dx is awkward
+    back: |
+      The bottom boundary changes: from x = 0 to 1 the region runs from y = −√x to √x, and from x = 1 to 4 from y = x − 2 to √x. Two integrals instead of one.
+    topic_code: "8.5"
+  - front: Region between x = 3y − y² and the y-axis → area
+    back: |
+      3y − y² = 0 at y = 0 and y = 3. ∫ from 0 to 3 of (3y − y²) dy = 27/2 − 9 = 9/2.
+    topic_code: "8.5"
+  - front: Region between y = x² and y = 2x, done with dy → integral
+    back: |
+      Right boundary x = √y, left x = y/2, y from 0 to 4. ∫ from 0 to 4 of (√y − y/2) dy = 16/3 − 4 = 4/3, as with dx.
+    topic_code: "8.5"
+  - front: Curves that cross inside [a, b] → how to find the area by hand
+    back: |
+      Find every intersection, split the interval there, integrate (top − bottom) on each piece with the correct top, and add.
+    topic_code: "8.6"
+  - front: Curves that cross inside [a, b] → one-line form for a calculator
+    back: |
+      ∫ from a to b of |f(x) − g(x)| dx. The absolute value makes every slice height positive.
+    topic_code: "8.6"
+  - front: ∫ from a to b of (f − g) dx when f and g cross → what it measures
+    back: |
+      The net (signed) area: area where f is on top minus area where g is on top. It can be 0 even when the region is large.
+    topic_code: "8.6"
+  - front: Region between y = x³ and y = 4x → intersections and area
+    back: |
+      x³ = 4x at x = −2, 0, 2. On [−2, 0] x³ is on top, on [0, 2] 4x is. Area 4 + 4 = 8.
+    topic_code: "8.6"
+  - front: y = x³ and y = x on [−1, 1] → net integral versus area
+    back: |
+      ∫ from −1 to 1 of (x − x³) dx = 0, but the area is 1/4 + 1/4 = 1/2.
+    topic_code: "8.6"
+  - front: y = sin x and y = cos x on [0, π] → area
+    back: |
+      They cross at x = π/4. (√2 − 1) on [0, π/4] plus (1 + √2) on [π/4, π] gives 2√2.
+    topic_code: "8.6"
+  - front: Odd function with the x-axis on [−a, a] → area shortcut
+    back: |
+      The net integral is 0, but the area is 2 ∫ from 0 to a of |f(x)| dx (split further if f changes sign on [0, a]).
+    topic_code: "8.6"
+  - front: Which curve is on top on a piece → quick test
+    back: |
+      Evaluate both functions at one convenient x inside the piece. Between consecutive intersections the order cannot change.
+    topic_code: "8.6"
+  - front: Area with a calculator → what to write before the number
+    back: |
+      The integral itself, with limits and integrand (for example ∫ from 0 to 3 of |2 sin x − x| dx), then the value to three decimal places.
+    topic_code: "8.6"
+  - front: Area between y = 2 sin x and y = x on [0, 3] → value
+    back: |
+      They cross at x ≈ 1.895. ∫ from 0 to 3 of |2 sin x − x| dx ≈ 2.203; the net integral ≈ −0.520 is not the area.
+    topic_code: "8.6"
+  - front: Error-spot → "area between y = x² and y = 2x is ∫ from 0 to 4 of (2x − x²) dx"
+    back: |
+      0 to 4 are the y-coordinates of the intersections. For a dx integral the limits are x-values: 0 to 2.
+    topic_code: "8.4"
+  - front: Error-spot → "for the dy integral I used ∫ (y + 2 − y²) dx"
+    back: |
+      Horizontal slices have thickness dy, and both the integrand and the limits must be in y. Mixing variables gives a meaningless integral.
+    topic_code: "8.5"
+  - front: Error-spot → "the area between y = x³ − 9x and the x-axis on [−3, 3] is 0"
+    back: |
+      0 is the net integral; the two lobes cancel. The area is 81/4 + 81/4 = 81/2.
+    topic_code: "8.6"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 8.4 to 8.6: area between curves with vertical
+    slices, with horizontal slices, and when the curves cross more than twice), with 8 questions (one third)
+    reviewing earlier weeks (accumulation functions from week 24, substitution from week 25, and average value,
+    motion and accumulation in context from week 30, plus properties of definite integrals from week 24). Opens with
+    a shared-context set on one region. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. Items marked (Calculator.) need a graphing calculator; the rest are done by
+    hand.
+  questions:
+    # ---- Stimulus set: one region (8.4, 8.5, 8.1)
+    - slug: apcalcab-u08-w31-q01
+      type: multiple_choice
+      topic_code: "8.4"
+      source: "AP Calculus CED, Topic 8.4"
+      points: 1
+      stimulus: |
+        Let R be the region enclosed by the graphs of y = x² and y = 2x. The graphs intersect at (0, 0) and (2, 4), and 2x ≥ x² for 0 ≤ x ≤ 2.
+      prompt: |
+        What is the area of R?
+      options:
+        - "−4/3"
+        - "4/3"
+        - "8/3"
+        - "20/3"
+      option_explanations:
+        - |
+          −4/3 comes from ∫ from 0 to 2 of (x² − 2x) dx, bottom minus top. An area must be positive: subtract in the order top − bottom.
+        - |
+          Correct. ∫ from 0 to 2 of (2x − x²) dx = [x² − x³/3] from 0 to 2 = 4 − 8/3 = 4/3.
+        - |
+          8/3 = ∫ from 0 to 2 of x² dx is the area under the parabola alone, not the region between the two graphs.
+        - |
+          20/3 = ∫ from 0 to 2 of (2x + x²) dx adds the functions instead of subtracting them.
+      answer: 1
+    - slug: apcalcab-u08-w31-q02
+      type: multiple_choice
+      topic_code: "8.5"
+      source: "AP Calculus CED, Topic 8.5"
+      points: 1
+      stimulus: |
+        Let R be the region enclosed by the graphs of y = x² and y = 2x. The graphs intersect at (0, 0) and (2, 4), and 2x ≥ x² for 0 ≤ x ≤ 2.
+      prompt: |
+        Which integral gives the area of R using horizontal slices?
+      options:
+        - "∫ from 0 to 4 of (y/2 − √y) dy"
+        - "∫ from 0 to 2 of (√y − y/2) dy"
+        - "∫ from 0 to 4 of (2y − y²) dy"
+        - "∫ from 0 to 4 of (√y − y/2) dy"
+      option_explanations:
+        - |
+          This is left minus right: on 0 < y < 4, y/2 < √y (for example at y = 1, 1/2 < 1), so the integral is negative.
+        - |
+          The limits 0 and 2 are the x-coordinates of the intersections. A dy integral needs the y-coordinates, 0 and 4.
+        - |
+          The curves must be rewritten as x in terms of y. Replacing x by y in the original formulas does not describe the same region.
+        - |
+          Correct. Solving for x, the parabola is x = √y (the right boundary) and the line is x = y/2 (the left boundary), for y from 0 to 4. The value is 16/3 − 4 = 4/3, as before.
+      answer: 3
+    - slug: apcalcab-u08-w31-q03
+      type: multiple_choice
+      topic_code: "8.4"
+      source: "AP Calculus CED, Topic 8.4"
+      points: 1
+      stimulus: |
+        Let R be the region enclosed by the graphs of y = x² and y = 2x. The graphs intersect at (0, 0) and (2, 4), and 2x ≥ x² for 0 ≤ x ≤ 2.
+      prompt: |
+        The vertical line x = k, with 0 < k < 2, divides R into two regions of equal area. Which equation can be solved to find k?
+      options:
+        - "∫ from 0 to k of (2x − x²) dx = 2/3"
+        - "∫ from 0 to k of (2x − x²) dx = 4/3"
+        - "2k − k² = 2/3"
+        - "∫ from 0 to k of (2x − x²) dx = ∫ from k to 2 of (x² − 2x) dx"
+      option_explanations:
+        - |
+          Correct. The total area is 4/3, so the part of R to the left of x = k must have area half of that, 2/3.
+        - |
+          4/3 is the whole area of R. The left part should be half of it.
+        - |
+          2k − k² is the height of the slice at x = k, not the area to its left; the area needs an integral.
+        - |
+          The right-hand integral is bottom minus top, so it is negative, while the left side is positive. Equal areas need the same order, top minus bottom, on both sides.
+      answer: 0
+    - slug: apcalcab-u08-w31-q04
+      type: multiple_choice
+      topic_code: "8.1"
+      source: "AP Calculus CED, Topic 8.1"
+      points: 1
+      stimulus: |
+        Let R be the region enclosed by the graphs of y = x² and y = 2x. The graphs intersect at (0, 0) and (2, 4), and 2x ≥ x² for 0 ≤ x ≤ 2.
+      prompt: |
+        What is the average value of the vertical distance d(x) = 2x − x² between the two graphs on 0 ≤ x ≤ 2?
+      options:
+        - "4/3"
+        - "1"
+        - "2/3"
+        - "1/2"
+      option_explanations:
+        - |
+          4/3 is ∫ from 0 to 2 of d(x) dx, the area of R. An average value divides the integral by the interval length 2.
+        - |
+          1 is the largest vertical distance, d(1) = 2 − 1 = 1. The average of d is smaller than its maximum.
+        - |
+          Correct. (1/(2 − 0)) ∫ from 0 to 2 of (2x − x²) dx = (1/2)(4/3) = 2/3.
+        - |
+          1/2 averages d(0) = 0 and d(1) = 1, two sample values, instead of integrating d over the whole interval.
+      answer: 2
+    - slug: apcalcab-u08-w31-q05
+      type: multiple_choice
+      topic_code: "8.4"
+      source: "AP Calculus CED, Topic 8.4"
+      points: 1
+      prompt: |
+        What is the area of the region enclosed by the graphs of y = 4 − x² and y = x + 2?
+      options:
+        - "9/2"
+        - "−9/2"
+        - "7/6"
+        - "10/3"
+      option_explanations:
+        - |
+          Correct. 4 − x² = x + 2 gives x² + x − 2 = 0, so x = −2 and x = 1. The parabola is on top (at x = 0, 4 > 2). ∫ from −2 to 1 of (2 − x − x²) dx = 7/6 − (−10/3) = 9/2.
+        - |
+          −9/2 comes from subtracting the parabola from the line. Area uses top − bottom, so it is positive.
+        - |
+          7/6 is ∫ from 0 to 1 of (2 − x − x²) dx: the lower limit should be the intersection x = −2, not the y-axis.
+        - |
+          10/3 is ∫ from −2 to 0 only. The region continues to the right intersection at x = 1.
+      answer: 0
+    - slug: apcalcab-u08-w31-q06
+      type: multiple_choice
+      topic_code: "8.5"
+      source: "AP Calculus CED, Topic 8.5"
+      points: 1
+      prompt: |
+        What is the area of the region enclosed by the curves x = y² and x = 2y + 3?
+      options:
+        - "−32/3"
+        - "9"
+        - "32/3"
+        - "5/3"
+      option_explanations:
+        - |
+          −32/3 is left minus right. On −1 < y < 3 the line x = 2y + 3 is to the right of the parabola (at y = 0, 3 > 0).
+        - |
+          9 is ∫ from 0 to 3 of (2y + 3 − y²) dy: the lower limit should be the intersection y = −1, not y = 0.
+        - |
+          Correct. y² = 2y + 3 gives y = −1 and y = 3. ∫ from −1 to 3 of (2y + 3 − y²) dy = [y² + 3y − y³/3] from −1 to 3 = 9 − (−5/3) = 32/3.
+        - |
+          5/3 is only the part from y = −1 to y = 0. The region continues up to y = 3.
+      answer: 2
+    - slug: apcalcab-u08-w31-q07
+      type: multiple_choice
+      topic_code: "8.6"
+      source: "AP Calculus CED, Topic 8.6"
+      points: 1
+      prompt: |
+        What is the total area of the regions between the graphs of y = x³ and y = x for −1 ≤ x ≤ 1?
+      options:
+        - "0"
+        - "1/4"
+        - "1"
+        - "1/2"
+      option_explanations:
+        - |
+          0 is ∫ from −1 to 1 of (x − x³) dx without splitting. The curves cross at x = 0 and the two signed pieces cancel.
+        - |
+          1/4 is the area of one region only, ∫ from 0 to 1 of (x − x³) dx. There is a matching region on [−1, 0].
+        - |
+          1 = 2 ∫ from 0 to 1 of x dx forgets to subtract x³ from the top curve.
+        - |
+          Correct. The curves meet at x = −1, 0, 1. On [−1, 0] x³ is on top and on [0, 1] x is: ∫ from −1 to 0 of (x³ − x) dx + ∫ from 0 to 1 of (x − x³) dx = 1/4 + 1/4 = 1/2.
+      answer: 3
+    - slug: apcalcab-u08-w31-q08
+      type: multiple_choice
+      topic_code: "8.4"
+      source: "AP Calculus CED, Topic 8.4"
+      points: 1
+      prompt: |
+        The graphs of y = √x and y = x/2 intersect at (0, 0) and (4, 2). Which expression gives the area of the region they enclose?
+      options:
+        - "∫ from 0 to 4 of (x/2 − √x) dx"
+        - "∫ from 0 to 4 of (√x − x/2) dx"
+        - "∫ from 0 to 2 of (√x − x/2) dx"
+        - "∫ from 0 to 2 of (y² − 2y) dy"
+      option_explanations:
+        - |
+          This is bottom minus top: at x = 1, √1 = 1 is above 1/2, so √x is the upper curve and this integral is negative.
+        - |
+          Correct. √x is on top for 0 < x < 4, so the area is ∫ from 0 to 4 of (√x − x/2) dx = 16/3 − 4 = 4/3.
+        - |
+          0 to 2 are the y-coordinates of the intersections; a dx integral runs over the x-values 0 to 4.
+        - |
+          With horizontal slices the right curve is x = 2y and the left is x = y². This integrand is left minus right, so it is negative.
+      answer: 1
+    - slug: apcalcab-u08-w31-q09
+      type: multiple_choice
+      topic_code: "8.5"
+      source: "AP Calculus CED, Topic 8.5"
+      points: 1
+      prompt: |
+        Region S is bounded by the curve x = 4 − y² and the y-axis. Its area is ∫ from −2 to 2 of (4 − y²) dy. Which integral with respect to x also gives the area of S?
+      options:
+        - "∫ from 0 to 4 of 2√(4 − x) dx"
+        - "∫ from 0 to 4 of √(4 − x) dx"
+        - "∫ from −2 to 2 of √(4 − x) dx"
+        - "∫ from 0 to 4 of (4 − x²) dx"
+      option_explanations:
+        - |
+          Correct. Solving x = 4 − y² gives y = ±√(4 − x), so a vertical slice at x runs from −√(4 − x) to √(4 − x): length 2√(4 − x), for x from 0 to 4. Both integrals equal 32/3.
+        - |
+          This covers only the upper half, y = √(4 − x). The lower boundary is y = −√(4 − x), so the slice length is twice this.
+        - |
+          The limits −2 and 2 are y-values. Vertical slices run across the x-values of S, from 0 to 4.
+        - |
+          Swapping the letters x and y does not rewrite the curve; it reflects it. The boundary must be solved for y in terms of x.
+      answer: 0
+    - slug: apcalcab-u08-w31-q10
+      type: multiple_choice
+      topic_code: "8.3"
+      source: "AP Calculus CED, Topic 8.3"
+      points: 1
+      prompt: |
+        A hypothetical lake's fish population grows at a rate of P′(t) = 40e^(0.1t) fish per year, where t is in years, and P(0) = 500. What is P(10)?
+      options:
+        - "400(e − 1)"
+        - "500 + 40e"
+        - "500 + 400(e − 1)"
+        - "500 + 400e"
+      option_explanations:
+        - |
+          400(e − 1) ≈ 687 is the change in population, ∫ from 0 to 10 of P′(t) dt. The starting 500 fish must be added.
+        - |
+          500 + 40e adds the growth rate P′(10) = 40e fish per year to a population. Rates must be integrated before they are added.
+        - |
+          Correct. P(10) = 500 + ∫ from 0 to 10 of 40e^(0.1t) dt = 500 + [400e^(0.1t)] from 0 to 10 = 500 + 400(e − 1) ≈ 1187 fish.
+        - |
+          500 + 400e evaluates the antiderivative only at t = 10, forgetting to subtract its value 400e⁰ = 400 at t = 0.
+      answer: 2
+    - slug: apcalcab-u08-w31-q11
+      type: multiple_choice
+      topic_code: "6.5"
+      source: "AP Calculus CED, Topic 6.5"
+      points: 1
+      prompt: |
+        Let g(x) = ∫ from 0 to x of (t² − 4) dt. On which interval is g decreasing?
+      options:
+        - "x > 2"
+        - "x < 0"
+        - "x < −2 or x > 2"
+        - "−2 < x < 2"
+      option_explanations:
+        - |
+          For x > 2, g′(x) = x² − 4 > 0, so g is increasing there.
+        - |
+          g decreasing has nothing to do with the sign of x; it depends on the sign of g′(x) = x² − 4, which is positive for x < −2.
+        - |
+          These are the intervals where g′(x) = x² − 4 > 0, so g is increasing on them.
+        - |
+          Correct. By the Fundamental Theorem, g′(x) = x² − 4, which is negative exactly when −2 < x < 2.
+      answer: 3
+    - slug: apcalcab-u08-w31-q12
+      type: multiple_choice
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        Find ∫ x/(x² + 1) dx.
+      options:
+        - "ln(x² + 1) + C"
+        - "(1/2) ln(x² + 1) + C"
+        - "arctan x + C"
+        - "2 ln(x² + 1) + C"
+      option_explanations:
+        - |
+          With u = x² + 1, du = 2x dx, so x dx = du/2. Leaving out the 1/2 gives an antiderivative whose derivative is 2x/(x² + 1).
+        - |
+          Correct. u = x² + 1, du = 2x dx: ∫ x/(x² + 1) dx = (1/2) ∫ du/u = (1/2) ln(x² + 1) + C (x² + 1 > 0, so no absolute value is needed).
+        - |
+          arctan x is the antiderivative of 1/(x² + 1). The extra factor x in the numerator calls for substitution instead.
+        - |
+          The factor 2 is multiplied in instead of divided out: x dx = du/2, not 2 du.
+      answer: 1
+    - slug: apcalcab-u08-w31-q13
+      type: multi_select
+      topic_code: "8.6"
+      source: "AP Calculus CED, Topic 8.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let f(x) = x³ − 9x, which has zeros at x = −3, 0 and 3. Which statements are true? Select all that apply.
+      options:
+        - "∫ from −3 to 3 of f(x) dx = 0."
+        - "The area of the region between the graph of f and the x-axis for −3 ≤ x ≤ 3 is 0."
+        - "That area equals ∫ from −3 to 0 of f(x) dx + ∫ from 0 to 3 of (−f(x)) dx."
+        - "That area is 81/2."
+        - "That area equals |∫ from −3 to 3 of f(x) dx|."
+      option_explanations:
+        - |
+          Correct. f is odd, so the signed areas on [−3, 0] and [0, 3] cancel: 81/4 − 81/4 = 0.
+        - |
+          The net integral is 0, but area counts both lobes as positive; the region is not empty.
+        - |
+          Correct. f ≥ 0 on [−3, 0] (for example f(−1) = 8) and f ≤ 0 on [0, 3], so the area is ∫ f on the first piece plus ∫ (−f) on the second.
+        - |
+          Correct. Each piece is 81/4: ∫ from −3 to 0 of (x³ − 9x) dx = 0 − (81/4 − 81/2) = 81/4. Total 81/2.
+        - |
+          The absolute value is applied after the cancellation, giving |0| = 0. The absolute value must go inside: ∫ |f(x)| dx.
+      answer: [0, 2, 3]
+    - slug: apcalcab-u08-w31-q14
+      type: multi_select
+      topic_code: "8.5"
+      source: "AP Calculus CED, Topic 8.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Region Q is bounded by y = √x, the x-axis and the line x = 4. Which statements are true? Select all that apply.
+      options:
+        - "The area of Q is ∫ from 0 to 4 of √x dx."
+        - "The area of Q is ∫ from 0 to 2 of (4 − y²) dy."
+        - "The area of Q is ∫ from 0 to 2 of y² dy."
+        - "The area of Q is ∫ from 0 to 4 of (4 − √x) dx."
+        - "The area of Q is 16/3."
+      option_explanations:
+        - |
+          Correct. With vertical slices the top is y = √x and the bottom is y = 0, for x from 0 to 4.
+        - |
+          Correct. With horizontal slices the right boundary is x = 4 and the left is x = y², for y from 0 to 2.
+        - |
+          ∫ from 0 to 2 of y² dy = 8/3 is the region to the left of the curve x = y² (between it and the y-axis), not Q.
+        - |
+          4 − √x is the vertical distance from the curve up to y = 4, which is not a boundary of Q. This integral is 32/3.
+        - |
+          Correct. ∫ from 0 to 4 of √x dx = (2/3)(8) = 16/3, and ∫ from 0 to 2 of (4 − y²) dy = 8 − 8/3 = 16/3 agrees.
+      answer: [0, 1, 4]
+    - slug: apcalcab-u08-w31-q15
+      type: true_false
+      topic_code: "6.6"
+      source: "AP Calculus CED, Topic 6.6"
+      points: 1
+      prompt: |
+        True or false: If f is a continuous even function, then ∫ from −a to a of f(x) dx = 2 ∫ from 0 to a of f(x) dx.
+      answer: true
+      explanation: |
+        True. An even function's graph is symmetric about the y-axis, so the signed area on [−a, 0] equals the signed area on [0, a]. This symmetry shortcut is handy for regions like the one between y = 9 and y = x².
+    - slug: apcalcab-u08-w31-q16
+      type: true_false
+      topic_code: "8.6"
+      source: "AP Calculus CED, Topic 8.6"
+      points: 1
+      prompt: |
+        True or false: ∫ from 0 to 2π of sin x dx gives the area of the region between y = sin x and the x-axis for 0 ≤ x ≤ 2π.
+      answer: false
+      explanation: |
+        False. The integral is 0, because sin x is positive on (0, π) and negative on (π, 2π) and the pieces cancel. The area is ∫ from 0 to π of sin x dx + ∫ from π to 2π of (−sin x) dx = 2 + 2 = 4.
+    - slug: apcalcab-u08-w31-q17
+      type: fill_blank
+      topic_code: "8.4"
+      source: "AP Calculus CED, Topic 8.4"
+      points: 1
+      prompt: |
+        The area of the region enclosed by the graphs of y = x² and y = 9 is ____.
+      answer: ["36"]
+      explanation: |
+        x² = 9 at x = −3 and x = 3, and y = 9 is on top. ∫ from −3 to 3 of (9 − x²) dx = 2 ∫ from 0 to 3 of (9 − x²) dx = 2(27 − 9) = 36.
+    - slug: apcalcab-u08-w31-q18
+      type: fill_blank
+      topic_code: "8.2"
+      source: "AP Calculus CED, Topic 8.2"
+      points: 1
+      prompt: |
+        A particle moves along a line with velocity v(t) = 3t², and its position at t = 1 is x(1) = 2. Its position at t = 2 is x(2) = ____.
+      answer: ["9"]
+      explanation: |
+        x(2) = x(1) + ∫ from 1 to 2 of 3t² dt = 2 + [t³] from 1 to 2 = 2 + (8 − 1) = 9.
+    - slug: apcalcab-u08-w31-q19
+      type: numeric
+      topic_code: "8.6"
+      source: "AP Calculus CED, Topic 8.6"
+      points: 1
+      prompt: |
+        (Calculator.) The graphs of y = 2 sin x and y = x intersect at x = 0 and at one other point in 0 < x < 3. Find the total area of the regions between the two graphs for 0 ≤ x ≤ 3. Give your answer to three decimal places.
+      answer: { value: 2.203, tolerance: 0.001 }
+      explanation: |
+        The second intersection is at x ≈ 1.895. Area = ∫ from 0 to 3 of |2 sin x − x| dx ≈ 0.842 + 1.362 ≈ 2.203. (Without the absolute value the integral is ≈ −0.520, a net value, not an area.)
+    - slug: apcalcab-u08-w31-q20
+      type: numeric
+      topic_code: "8.1"
+      source: "AP Calculus CED, Topic 8.1"
+      points: 1
+      prompt: |
+        Find the average value of f(x) = 1/x on the interval [1, e]. Give your answer to three decimal places.
+      answer: { value: 0.582, tolerance: 0.001 }
+      explanation: |
+        (1/(e − 1)) ∫ from 1 to e of (1/x) dx = (1/(e − 1))(ln e − ln 1) = 1/(e − 1) ≈ 0.582.
+    - slug: apcalcab-u08-w31-q21
+      type: short_answer
+      topic_code: "8.6"
+      source: "AP Calculus CED, Topic 8.6"
+      points: 3
+      prompt: |
+        Consider the graphs of y = x³ and y = 4x.
+
+        (a) Find all points where the graphs intersect.
+        (b) Write a sum of integrals, without absolute values, that gives the total area of the regions enclosed by the two graphs.
+        (c) Find that total area.
+      answer: |
+        (a) x³ = 4x gives x(x − 2)(x + 2) = 0: the points (−2, −8), (0, 0) and (2, 8).
+        (b) On [−2, 0], x³ ≥ 4x (at x = −1, −1 > −4); on [0, 2], 4x ≥ x³. Area = ∫ from −2 to 0 of (x³ − 4x) dx + ∫ from 0 to 2 of (4x − x³) dx.
+        (c) Each integral is 4: ∫ from 0 to 2 of (4x − x³) dx = 8 − 4 = 4, and the first is the same by symmetry. Total area 8.
+      explanation: |
+        Three points, one per part. (a) all three intersection points (x-values alone acceptable). (b) two integrals with the correct top curve on each piece. (c) 8.
+    - slug: apcalcab-u08-w31-q22
+      type: short_answer
+      topic_code: "8.5"
+      source: "AP Calculus CED, Topic 8.5"
+      points: 3
+      prompt: |
+        Region T is enclosed by the parabola y² = x and the line y = x − 2.
+
+        (a) Find the points where the curves intersect.
+        (b) Explain why horizontal slices need one integral for T while vertical slices need two.
+        (c) Write an integral with respect to y for the area of T, and evaluate it.
+      answer: |
+        (a) With x = y² and x = y + 2: y² = y + 2 gives y = −1 or y = 2, so the points are (1, −1) and (4, 2).
+        (b) Every horizontal slice runs from the parabola x = y² on the left to the line x = y + 2 on the right. A vertical slice at x between 0 and 1 runs from y = −√x to y = √x, but for x between 1 and 4 it runs from the line y = x − 2 to y = √x: the lower boundary changes at x = 1, so two integrals are needed.
+        (c) ∫ from −1 to 2 of (y + 2 − y²) dy = [y²/2 + 2y − y³/3] from −1 to 2 = 10/3 − (−7/6) = 9/2.
+      explanation: |
+        Three points, one per part. (a) both intersection points. (b) the change in the lower boundary at x = 1 (or an equivalent description). (c) the integral right − left with limits −1 and 2, and the value 9/2.
+    - slug: apcalcab-u08-w31-q23
+      type: numeric
+      topic_code: "8.2"
+      source: "AP Calculus CED, Topic 8.2"
+      points: 1
+      prompt: |
+        A particle moves along a line with velocity v(t) = t² − 4 for 0 ≤ t ≤ 3. Find the total distance it travels. Give the exact value or a decimal to three places.
+      answer: { value: 7.667, tolerance: 0.001 }
+      explanation: |
+        v changes sign at t = 2. ∫ from 0 to 2 of (t² − 4) dt = 8/3 − 8 = −16/3 and ∫ from 2 to 3 of (t² − 4) dt = (9 − 12) − (8/3 − 8) = 7/3. Distance = 16/3 + 7/3 = 23/3 ≈ 7.667.
+    - slug: apcalcab-u08-w31-q24
+      type: long_answer
+      topic_code: "8.4"
+      source: "AP Calculus CED, Topic 8.4"
+      points: 6
+      prompt: |
+        Let f(x) = 6x − x² and g(x) = x² − 2x. Let R be the region enclosed by the graphs of f and g.
+
+        (A) Find the x-coordinates of the points where the graphs intersect, and find the area of R.
+
+        (B) The vertical line x = k divides R into two regions of equal area. Write an equation involving an integral that k satisfies, and show that k = 2.
+
+        (C) Find the average value of the vertical distance f(x) − g(x) between the graphs over the interval from part (A).
+
+        (D) At what x is the vertical distance f(x) − g(x) greatest? Justify your answer.
+      answer: |
+        (A) 6x − x² = x² − 2x gives 2x² − 8x = 0, so x = 0 and x = 4. On (0, 4), f ≥ g (at x = 1, 5 > −1). Area = ∫ from 0 to 4 of (8x − 2x²) dx = [4x² − (2/3)x³] from 0 to 4 = 64 − 128/3 = 64/3.
+        (B) ∫ from 0 to k of (8x − 2x²) dx = 32/3. With k = 2: 4(4) − (2/3)(8) = 16 − 16/3 = 32/3, so k = 2 works. (Also, 8x − 2x² is symmetric about x = 2.)
+        (C) (1/(4 − 0)) · (64/3) = 16/3.
+        (D) d(x) = 8x − 2x² has d′(x) = 8 − 4x, which is 0 at x = 2 and changes from positive to negative there. Since x = 2 is the only critical point on (0, 4), d has its absolute maximum there: the greatest distance is d(2) = 8, at x = 2.
+      explanation: |
+        Six points. (A) 2 points: 1 for x = 0 and x = 4, 1 for the area 64/3 from an integral of top − bottom. (B) 2 points: 1 for an equation setting the area from 0 to k equal to half the total (32/3), 1 for verifying k = 2. (C) 1 point: 16/3 from area divided by 4. (D) 1 point: x = 2 with a reason (d′ changes from positive to negative at the only critical point, or a candidates test comparing d(0) = d(4) = 0 with d(2) = 8).

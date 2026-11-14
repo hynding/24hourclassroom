@@ -1,0 +1,604 @@
+week: 21
+unit: 5
+title: "Optimization"
+topics: ["5.10", "5.11"]
+guide: guides/week-21.md
+guide_description: |
+  Turning a word problem into a function of one variable (naming quantities, the constraint, the objective
+  and its domain), then finding and justifying the absolute maximum or minimum with the Candidates Test, the
+  single-critical-point argument or the Second Derivative Test, and answering in context with units. Worked
+  examples: a hypothetical riverside pen with 240 m of fencing, an open box of volume 32 cm³, the point on
+  y = √x nearest (3, 0), a rectangle under y = 12 − x², a poster with margins, and a hypothetical pipeline from
+  an island to a refinery.
+flashcards_description: |
+  30 cards on the optimization procedure, constraint and objective equations, contextual domains, the three
+  ways to justify an absolute extremum, and the answers to the week's standard problems.
+
+flashcards:
+  - front: Optimization problem → the five steps
+    back: |
+      (1) Draw and name the quantities. (2) Write the objective. (3) Use the constraint to reduce to one variable. (4) State the domain. (5) Find critical points and justify the absolute extremum; answer the question asked, with units.
+    topic_code: "5.10"
+  - front: Objective function versus constraint → which is which
+    back: |
+      The objective is the quantity to maximize or minimize (area, cost, distance). The constraint is the fixed condition (fence length, volume) used to eliminate a variable.
+    topic_code: "5.10"
+  - front: Domain of an optimization function → why it matters
+    back: |
+      It decides which critical points count and supplies the endpoints for the Candidates Test. Lengths must be nonnegative and fit the constraint.
+    topic_code: "5.10"
+  - front: Riverside pen, 240 m of fence, no fence on the river side → area function
+    back: |
+      Two sides of length x and one of 240 − 2x: A(x) = x(240 − 2x), domain 0 ≤ x ≤ 120.
+    topic_code: "5.10"
+  - front: Riverside pen with 240 m of fence → the optimum
+    back: |
+      A′ = 240 − 4x = 0 at x = 60. Sides 60 m, 60 m and 120 m; maximum area 7,200 m².
+    topic_code: "5.11"
+  - front: Open box with square base, volume 32 cm³ → surface area function
+    back: |
+      Base x², height 32/x²: S(x) = x² + 4x(32/x²) = x² + 128/x, for x > 0.
+    topic_code: "5.10"
+  - front: Open box with square base, volume 32 cm³ → least material
+    back: |
+      S′ = 2x − 128/x² = 0 gives x³ = 64, x = 4 cm, height 2 cm, S = 48 cm².
+    topic_code: "5.11"
+  - front: Two positive numbers with product 64 → least sum
+    back: |
+      Minimize x + 64/x: derivative 1 − 64/x² = 0 at x = 8. Both numbers are 8; least sum 16.
+    topic_code: "5.11"
+  - front: Two numbers with sum 30 → greatest product
+    back: |
+      P = x(30 − x), P′ = 30 − 2x = 0 at x = 15. Greatest product 225.
+    topic_code: "5.11"
+  - front: Point on y = √x closest to (3, 0) → the trick and the answer
+    back: |
+      Minimize the squared distance (x − 3)² + x (same minimizer, no square root). Derivative 2x − 5 = 0: the point (5/2, √(5/2)).
+    topic_code: "5.11"
+  - front: Minimizing distance → why minimize D² instead of D
+    back: |
+      D ≥ 0, and squaring is increasing for nonnegative numbers, so D and D² are smallest at the same x. D² has no square root to differentiate.
+    topic_code: "5.10"
+  - front: Rectangle under y = 12 − x² with base on the x-axis → area function
+    back: |
+      Vertices (±x, 0) and (±x, 12 − x²): A(x) = 2x(12 − x²), domain 0 ≤ x ≤ √12.
+    topic_code: "5.10"
+  - front: Rectangle under y = 12 − x² → largest area
+    back: |
+      A′ = 24 − 6x² = 0 at x = 2. Width 4, height 8, area 32 (endpoints give area 0).
+    topic_code: "5.11"
+  - front: Hypothetical revenue R(p) = p(400 − 20p), 0 ≤ p ≤ 20 → best price
+    back: |
+      R′ = 400 − 40p = 0 at p = 10. Maximum revenue R(10) = 2,000 (R(0) = R(20) = 0).
+    topic_code: "5.11"
+  - front: Justifying an absolute extremum on a closed interval → method
+    back: |
+      Candidates Test: evaluate the objective at each critical point and both endpoints, and pick the largest or smallest.
+    topic_code: "5.11"
+  - front: Justifying an absolute extremum with one critical point → method
+    back: |
+      If the critical point is the only one in the domain and the First (or Second) Derivative Test makes it a relative max (min), it is the absolute max (min).
+    topic_code: "5.11"
+  - front: Justifying an absolute extremum with concavity → method
+    back: |
+      If f″ < 0 on the whole domain, the graph is concave down everywhere, so a critical point is the absolute maximum (f″ > 0: absolute minimum).
+    topic_code: "5.11"
+  - front: Optimization answer → what the question usually wants
+    back: |
+      Reread it: the dimensions, the input, or the optimal value itself. "What is the maximum area?" wants 7,200 m², not x = 60.
+    topic_code: "5.11"
+  - front: No critical points inside a closed interval → where the optimum is
+    back: |
+      At an endpoint. A continuous objective on [a, b] still has both extrema by the EVT, and they must be at a or b.
+    topic_code: "5.11"
+  - front: Hypothetical island pipeline, C(x) = 5√(x² + 9) + 4(8 − x) → the optimal landing point
+    back: |
+      C′ = 5x/√(x² + 9) − 4 = 0 gives x = 4 km. C(4) = 41, beating C(0) = 47 and C(8) = 5√73 ≈ 42.72 (thousand dollars).
+    topic_code: "5.11"
+  - front: Poster with 384 cm² print, margins 3 cm top and bottom, 2 cm at sides → least paper
+    back: |
+      Total (w + 4)(384/w + 6). Derivative 6 − 1536/w² = 0 at w = 16: print 16 × 24, poster 20 cm × 30 cm.
+    topic_code: "5.11"
+  - front: Can with volume 500 cm³ → surface area function
+    back: |
+      h = 500/(πr²), so S(r) = 2πr² + 2πrh = 2πr² + 1000/r, for r > 0.
+    topic_code: "5.10"
+  - front: Can with volume 500 cm³ → least surface area (calculator)
+    back: |
+      S′ = 4πr − 1000/r² = 0 gives r³ = 250/π, r ≈ 4.301 cm, and h = 2r ≈ 8.603 cm.
+    topic_code: "5.11"
+  - front: Constraint equation → when to solve it for a variable
+    back: |
+      Before differentiating: solve it for the variable that is easier to isolate, substitute into the objective, and get a function of one variable.
+    topic_code: "5.10"
+  - front: Optimizing along a curve y = f(x) → the variable to use
+    back: |
+      Use x and write the point as (x, f(x)); every distance or area then becomes a function of x alone.
+    topic_code: "5.10"
+  - front: Fixed perimeter P → rectangle of greatest area
+    back: |
+      The square of side P/4 (A = x(P/2 − x) peaks at x = P/4). With one side free (a wall), the side parallel to the wall is twice the others.
+    topic_code: "5.11"
+  - front: Error-spot → "A′(60) = 0, so A(60) is the maximum area"
+    back: |
+      A zero derivative is only a candidate. Add the reason it is an absolute maximum: a sign change with one critical point, A″ < 0, or the Candidates Test.
+    topic_code: "5.11"
+  - front: Error-spot → "the domain of the riverside pen is x > 0"
+    back: |
+      The third side 240 − 2x must be nonnegative too, so x ≤ 120. A domain that is too wide can admit false critical points or miss endpoints.
+    topic_code: "5.10"
+  - front: Error-spot → "the box's surface area is 2x² + 128/x"
+    back: |
+      That counts a lid. Read the problem: an open box has a base and four sides, x² + 128/x.
+    topic_code: "5.10"
+  - front: Optimization in context → units of the derivative
+    back: |
+      Objective units per input unit. For the pen, A′(30) = 120 m² per meter: widening by a meter adds about 120 m².
+    topic_code: "5.10"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 5.10 and 5.11: setting up objective and
+    constraint equations with a domain, finding the optimum, and justifying it as an absolute extremum), with 7
+    questions (about 30%) reviewing weeks 5 to 20 (the IVT, rates in context, linearization, the Candidates
+    Test, concavity, reading a graph of f′ and implicit curves). Opens with a shared-context set on a fenced pen.
+    Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are
+    matched automatically; the short answers and the long answer are graded by your teacher against the scoring
+    notes. One numeric item needs a graphing calculator and says so; the rest are meant to be done by hand.
+  questions:
+    # ---- Stimulus set: a riverside pen (5.10, 5.11, 4.3)
+    - slug: apcalcab-u05-w21-q01
+      type: multiple_choice
+      topic_code: "5.10"
+      source: "AP Calculus CED, Topic 5.10"
+      points: 1
+      stimulus: |
+        A hypothetical farmer has 240 meters of fencing to make a rectangular pen beside a straight river. No fence is needed along the river. Let x be the length, in meters, of each of the two sides perpendicular to the river.
+      prompt: |
+        Which function gives the area A of the pen, in square meters?
+      options:
+        - "A(x) = x(240 − x)"
+        - "A(x) = x(240 − 2x)"
+        - "A(x) = x(120 − x)"
+        - "A(x) = 2x + 240"
+      option_explanations:
+        - |
+          This subtracts only one perpendicular side from the fence. There are two sides of length x, so the side along the river is 240 − 2x.
+        - |
+          Correct. The two perpendicular sides use 2x meters, leaving 240 − 2x meters for the side parallel to the river, so A = x(240 − 2x).
+        - |
+          This fences all four sides (perimeter 240 gives x + y = 120). Here the river side needs no fence.
+        - |
+          This adds lengths instead of multiplying them, and it is a perimeter-style expression, not an area.
+      answer: 1
+    - slug: apcalcab-u05-w21-q02
+      type: multiple_choice
+      topic_code: "5.10"
+      source: "AP Calculus CED, Topic 5.10"
+      points: 1
+      stimulus: |
+        A hypothetical farmer has 240 meters of fencing to make a rectangular pen beside a straight river. No fence is needed along the river. Let x be the length, in meters, of each of the two sides perpendicular to the river.
+      prompt: |
+        What is the domain of the area function in this context?
+      options:
+        - "0 ≤ x ≤ 120"
+        - "0 ≤ x ≤ 240"
+        - "0 ≤ x ≤ 60"
+        - "x ≥ 0"
+      option_explanations:
+        - |
+          Correct. x cannot be negative, and the parallel side 240 − 2x cannot be negative, so x ≤ 120. (The endpoints give degenerate pens of area 0.)
+        - |
+          At x = 200, for example, the parallel side would be 240 − 400 < 0. Both perpendicular sides come out of the 240 m.
+        - |
+          60 is where the maximum area occurs, not the edge of the domain. x can be any value up to 120.
+        - |
+          This allows lengths that use more fence than the farmer has: the side 240 − 2x must also be nonnegative.
+      answer: 0
+    - slug: apcalcab-u05-w21-q03
+      type: multiple_choice
+      topic_code: "5.11"
+      source: "AP Calculus CED, Topic 5.11"
+      points: 1
+      stimulus: |
+        A hypothetical farmer has 240 meters of fencing to make a rectangular pen beside a straight river. No fence is needed along the river. Let x be the length, in meters, of each of the two sides perpendicular to the river.
+      prompt: |
+        What value of x gives the pen of greatest area?
+      options:
+        - "x = 120"
+        - "x = 80"
+        - "x = 60"
+        - "x = 30"
+      option_explanations:
+        - |
+          At x = 120 the parallel side is 240 − 240 = 0, a pen of area 0: the right endpoint of the domain.
+        - |
+          80 splits the fence into three equal sides, but equal sides are not optimal here: A(80) = 80 · 80 = 6,400 < A(60) = 7,200.
+        - |
+          Correct. A(x) = 240x − 2x², so A′(x) = 240 − 4x = 0 at x = 60. A′ changes from positive to negative there, and A(60) = 60 · 120 = 7,200 m² beats A(0) = A(120) = 0.
+        - |
+          This comes from A′(x) = 240 − 8x, doubling the derivative of 2x² twice. The derivative of 2x² is 4x.
+      answer: 2
+    - slug: apcalcab-u05-w21-q04
+      type: multiple_choice
+      topic_code: "5.11"
+      source: "AP Calculus CED, Topic 5.11"
+      points: 1
+      stimulus: |
+        A hypothetical farmer has 240 meters of fencing to make a rectangular pen beside a straight river. No fence is needed along the river. Let x be the length, in meters, of each of the two sides perpendicular to the river.
+      prompt: |
+        Which statement correctly justifies that x = 60 gives the absolute maximum area?
+      options:
+        - "A′(60) = 0, so A(60) is the maximum."
+        - "A(60) = 7,200 is positive."
+        - "A″(60) = 0, so x = 60 is a point of inflection."
+        - "A′ changes from positive to negative at x = 60, the only critical point in the domain, so A(60) is the absolute maximum."
+      option_explanations:
+        - |
+          A′(60) = 0 only makes 60 a candidate. A full justification needs a sign change, concavity or a comparison with the endpoints.
+        - |
+          Being positive does not make a value the largest; A(50) = 7,000 is positive too.
+        - |
+          A″(x) = −4, never 0; and an inflection point would not justify a maximum anyway.
+        - |
+          Correct. With a single critical point in the domain, a relative maximum found by the First Derivative Test is also the absolute maximum. (Comparing A(0) = 0, A(60) = 7,200 and A(120) = 0 also works.)
+      answer: 3
+    - slug: apcalcab-u05-w21-q05
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "AP Calculus CED, Topic 4.3"
+      points: 1
+      stimulus: |
+        A hypothetical farmer has 240 meters of fencing to make a rectangular pen beside a straight river. No fence is needed along the river. Let x be the length, in meters, of each of the two sides perpendicular to the river.
+      prompt: |
+        For the area A(x) = x(240 − 2x), A′(30) = 120. Which is the best interpretation?
+      options:
+        - "When x = 30, the area of the pen is 120 square meters."
+        - "Increasing x from 0 to 30 increases the area by 120 square meters."
+        - "When x is 30 meters, the area is increasing at 120 square meters per meter of increase in x."
+        - "When x = 30, the side parallel to the river is 120 meters."
+      option_explanations:
+        - |
+          This reads the derivative as the area. A(30) = 30 · 180 = 5,400 m²; A′(30) is a rate.
+        - |
+          This describes a total change over an interval; A′(30) is an instantaneous rate at x = 30. (The actual change is A(30) − A(0) = 5,400.)
+        - |
+          Correct. A′(30) = 240 − 4(30) = 120 m² per meter: near x = 30, each extra meter of x adds about 120 m² of area.
+        - |
+          At x = 30 the parallel side is 240 − 60 = 180 m. The number 120 is the rate of change of area, not a length.
+      answer: 2
+    # ---- Independent items
+    - slug: apcalcab-u05-w21-q06
+      type: multiple_choice
+      topic_code: "5.11"
+      source: "AP Calculus CED, Topic 5.11"
+      points: 1
+      prompt: |
+        Two positive numbers have product 64. What is the least possible value of their sum?
+      options:
+        - "16"
+        - "8"
+        - "32"
+        - "65"
+      option_explanations:
+        - |
+          Correct. Minimize S(x) = x + 64/x for x > 0: S′(x) = 1 − 64/x² = 0 at x = 8. S′ changes from negative to positive there, so the least sum is 8 + 8 = 16.
+        - |
+          8 is the value of each number at the minimum, not their sum.
+        - |
+          32 is 64/2, as if the numbers summed rather than multiplied to 64. S(8) = 16 is smaller.
+        - |
+          65 = 1 + 64 is one possible sum, but not the least; the derivative shows the minimum is at x = 8.
+      answer: 0
+    - slug: apcalcab-u05-w21-q07
+      type: multiple_choice
+      topic_code: "5.11"
+      source: "AP Calculus CED, Topic 5.11"
+      points: 1
+      prompt: |
+        Which point on the graph of y = √x is closest to the point (3, 0)?
+      options:
+        - "(3, √3)"
+        - "(7/2, √(7/2))"
+        - "(0, 0)"
+        - "(5/2, √(5/2))"
+      option_explanations:
+        - |
+          The point directly above (3, 0) is not the closest; the curve's slope means a point to the left is nearer. Its squared distance is 3, versus 11/4 at x = 5/2.
+        - |
+          This comes from writing the squared distance as (x − 3)² − x, a sign slip: (√x)² = x is added, not subtracted.
+        - |
+          The origin is 3 units away, farther than the point at x = 5/2, where the distance is √(11)/2 ≈ 1.66.
+        - |
+          Correct. Minimize D² = (x − 3)² + (√x)² = x² − 5x + 9. Its derivative 2x − 5 = 0 at x = 5/2, and the second derivative 2 > 0, so this is the minimum.
+      answer: 3
+    - slug: apcalcab-u05-w21-q08
+      type: multiple_choice
+      topic_code: "5.10"
+      source: "AP Calculus CED, Topic 5.10"
+      points: 1
+      prompt: |
+        An open-top box has a square base of side x cm and a volume of 32 cm³. Which function gives the area S of material needed, in cm²?
+      options:
+        - "S(x) = 2x² + 128/x"
+        - "S(x) = x² + 128/x"
+        - "S(x) = x² + 32/x"
+        - "S(x) = x³ + 4x"
+      option_explanations:
+        - |
+          2x² counts a lid as well as the base. An open-top box has only the base.
+        - |
+          Correct. The height is h = 32/x². The base has area x² and the four sides 4xh = 4x · 32/x² = 128/x.
+        - |
+          32/x is the area of only one side (x · 32/x²). There are four sides.
+        - |
+          x³ is the volume of a cube, and 4x is a sum of edges; neither is the area of the box's material.
+      answer: 1
+    - slug: apcalcab-u05-w21-q09
+      type: multiple_choice
+      topic_code: "5.11"
+      source: "AP Calculus CED, Topic 5.11"
+      points: 1
+      prompt: |
+        The open-top box with a square base and volume 32 cm³ uses the least material when S(x) = x² + 128/x is minimized. What base length x gives the minimum?
+      options:
+        - "2 cm"
+        - "8 cm"
+        - "4 cm"
+        - "∛32 cm"
+      option_explanations:
+        - |
+          2 cm is the height of the optimal box (h = 32/4² = 2), not its base length.
+        - |
+          This comes from solving 2x = 128/x instead of 2x = 128/x², dropping the square on x when differentiating 128/x.
+        - |
+          Correct. S′(x) = 2x − 128/x² = 0 gives x³ = 64, so x = 4. S″(x) = 2 + 256/x³ > 0 for x > 0, so this is the absolute minimum on x > 0.
+        - |
+          ∛32 is the side of a cube with volume 32, which is not optimal for an open box: S(4) = 48 is smaller than S(∛32) ≈ 50.4.
+      answer: 2
+    - slug: apcalcab-u05-w21-q10
+      type: multiple_choice
+      topic_code: "5.11"
+      source: "AP Calculus CED, Topic 5.11"
+      points: 1
+      prompt: |
+        In a hypothetical model, a theater's ticket revenue is R(p) = p(400 − 20p) dollars when the price is p dollars, for 0 ≤ p ≤ 20. What price maximizes revenue?
+      options:
+        - "$10"
+        - "$20"
+        - "$2,000"
+        - "$5"
+      option_explanations:
+        - |
+          Correct. R(p) = 400p − 20p², R′(p) = 400 − 40p = 0 at p = 10. Candidates: R(0) = 0, R(10) = 2,000, R(20) = 0, so p = $10.
+        - |
+          At p = 20 no tickets sell (400 − 20 · 20 = 0), so revenue is 0: the worst price, not the best.
+        - |
+          2,000 dollars is the maximum revenue R(10), not the price that produces it.
+        - |
+          This comes from R′(p) = 400 − 80p, doubling the derivative of 20p². R(5) = 1,500 < R(10).
+      answer: 0
+    - slug: apcalcab-u05-w21-q11
+      type: multiple_choice
+      topic_code: "5.11"
+      source: "AP Calculus CED, Topic 5.11"
+      points: 1
+      prompt: |
+        A continuous objective function f on a closed interval [a, b] has a derivative that is never zero and always defined on (a, b). Where does the absolute maximum of f occur?
+      options:
+        - "At the midpoint of [a, b]"
+        - "There is no absolute maximum."
+        - "At a point where f″ = 0"
+        - "At one of the endpoints a or b"
+      option_explanations:
+        - |
+          Nothing special happens at the midpoint. With no critical points inside, f is monotonic on [a, b].
+        - |
+          f is continuous on a closed interval, so the Extreme Value Theorem guarantees an absolute maximum.
+        - |
+          f″ = 0 locates possible inflection points, not extrema; and the maximum must be at a critical point or endpoint.
+        - |
+          Correct. By the EVT a maximum exists, and it can only be at a critical point or an endpoint. There are no critical points in (a, b), so it is at a or b.
+      answer: 3
+    - slug: apcalcab-u05-w21-q12
+      type: multiple_choice
+      topic_code: "5.9"
+      source: "AP Calculus CED, Topic 5.9"
+      points: 1
+      prompt: |
+        On the interval 0 < x < 3, the graph of f′ lies above the x-axis and is falling. Which describes f on that interval?
+      options:
+        - "Decreasing and concave down"
+        - "Increasing and concave down"
+        - "Increasing and concave up"
+        - "Decreasing and concave up"
+      option_explanations:
+        - |
+          The f′ graph is above the axis, so f′ > 0 and f is increasing. Falling f′ makes f concave down, but not decreasing.
+        - |
+          Correct. f′ > 0 (above the axis) means f is increasing; f′ falling means f′ is decreasing, so f is concave down.
+        - |
+          f is increasing, but a falling f′ graph means f′ is decreasing, so f is concave down, not up.
+        - |
+          Both are reversed: above the axis means increasing, and falling means concave down.
+      answer: 1
+    - slug: apcalcab-u05-w21-q13
+      type: multiple_choice
+      topic_code: "5.12"
+      source: "AP Calculus CED, Topic 5.12"
+      points: 1
+      prompt: |
+        At which points does the ellipse x² + 4y² = 16 have vertical tangent lines?
+      options:
+        - "(0, 2) and (0, −2)"
+        - "(2, 0) and (−2, 0)"
+        - "(4, 0) and (−4, 0)"
+        - "(0, 4) and (0, −4)"
+      option_explanations:
+        - |
+          At (0, ±2), dy/dx = −x/(4y) = 0, so these are the horizontal tangents (the top and bottom of the ellipse).
+        - |
+          (±2, 0) are not on the ellipse: 4 + 0 ≠ 16.
+        - |
+          Correct. 2x + 8y dy/dx = 0 gives dy/dx = −x/(4y), undefined when y = 0 (with x ≠ 0). Then x² = 16, so x = ±4.
+        - |
+          (0, ±4) are not on the ellipse: 0 + 4 · 16 = 64 ≠ 16.
+      answer: 2
+    - slug: apcalcab-u05-w21-q14
+      type: multi_select
+      topic_code: "5.11"
+      source: "AP Calculus CED, Topic 5.11"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A rectangle has its base on the x-axis and its upper corners on the parabola y = 12 − x², with corners at (±x, 0) and (±x, 12 − x²). Its area is A(x) = 2x(12 − x²) for 0 ≤ x ≤ √12. Which statements are true? Select all that apply.
+      options:
+        - "The greatest possible area is 32."
+        - "The greatest area occurs when the rectangle is 4 units wide."
+        - "A″(2) < 0"
+        - "The greatest area occurs at the endpoint x = √12."
+        - "The rectangle of greatest area is 12 units tall."
+      option_explanations:
+        - |
+          Correct. A′(x) = 24 − 6x² = 0 at x = 2 (in the domain). A(2) = 4 · 8 = 32, while A(0) = A(√12) = 0.
+        - |
+          Correct. The corners are at x = ±2, so the width is 2x = 4.
+        - |
+          Correct. A″(x) = −12x, so A″(2) = −24 < 0, consistent with a maximum.
+        - |
+          At x = √12 the height 12 − x² is 0, so the area is 0, the smallest possible.
+        - |
+          The height is 12 − 2² = 8. A height of 12 would need x = 0, a rectangle of width 0.
+      answer: [0, 1, 2]
+    - slug: apcalcab-u05-w21-q15
+      type: multi_select
+      topic_code: "5.6"
+      source: "AP Calculus CED, Topic 5.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let f(x) = x⁴ − 4x³, so that f′(x) = 4x²(x − 3) and f″(x) = 12x(x − 2). Which statements about f and its graph are true? Select all that apply.
+      options:
+        - "f has a relative maximum at x = 0."
+        - "The graph of f has a point of inflection at x = 0."
+        - "The graph of f is concave up on 0 < x < 2."
+        - "The graph of f has a point of inflection at x = 2."
+        - "f has a relative minimum at x = 3."
+      option_explanations:
+        - |
+          f′(x) = 4x²(x − 3) is negative on both sides of 0, so f has no extremum there.
+        - |
+          Correct. f″(x) = 12x² − 24x = 12x(x − 2) changes from positive to negative at x = 0.
+        - |
+          f″(x) = 12x(x − 2) is negative on 0 < x < 2, so the graph is concave down there.
+        - |
+          Correct. f″ changes from negative to positive at x = 2.
+        - |
+          Correct. f′(3) = 0 and f″(3) = 36 > 0, so f has a relative minimum at x = 3.
+      answer: [1, 3, 4]
+    - slug: apcalcab-u05-w21-q16
+      type: true_false
+      topic_code: "5.11"
+      source: "AP Calculus CED, Topic 5.11"
+      points: 1
+      prompt: |
+        True or false: If a function is continuous on an open interval and has exactly one critical point there, at which it has a relative maximum, then that relative maximum is the absolute maximum on the interval.
+      answer: true
+      explanation: |
+        True. If some other point had a larger value, the function would have to turn around between the two points, creating a second critical point (a relative minimum) in the interval, which contradicts there being only one. This is the single-critical-point argument used to justify most optimization answers.
+    - slug: apcalcab-u05-w21-q17
+      type: true_false
+      topic_code: "1.16"
+      source: "AP Calculus CED, Topic 1.16"
+      points: 1
+      prompt: |
+        True or false: The Intermediate Value Theorem guarantees that g(x) = x³ − 4x − 1 has a zero between x = 2 and x = 3.
+      answer: true
+      explanation: |
+        True. g is a polynomial, so it is continuous on [2, 3]. g(2) = 8 − 8 − 1 = −1 < 0 and g(3) = 27 − 12 − 1 = 14 > 0, so 0 lies between g(2) and g(3), and the IVT gives a c in (2, 3) with g(c) = 0.
+    - slug: apcalcab-u05-w21-q18
+      type: fill_blank
+      topic_code: "5.11"
+      source: "AP Calculus CED, Topic 5.11"
+      points: 1
+      prompt: |
+        Two real numbers have a sum of 30. The greatest possible value of their product is ____.
+      answer: ["225"]
+      explanation: |
+        With numbers x and 30 − x, P(x) = 30x − x². P′(x) = 30 − 2x = 0 at x = 15, and P″ = −2 < 0 everywhere, so the absolute maximum is P(15) = 15 · 15 = 225.
+    - slug: apcalcab-u05-w21-q19
+      type: fill_blank
+      topic_code: "5.5"
+      source: "AP Calculus CED, Topic 5.5"
+      points: 1
+      prompt: |
+        The absolute minimum value of f(x) = x² − 6x + 10 on the closed interval [0, 2] is ____.
+      answer: ["2", "2.0"]
+      explanation: |
+        f′(x) = 2x − 6 = 0 only at x = 3, outside [0, 2], so the candidates are the endpoints: f(0) = 10 and f(2) = 4 − 12 + 10 = 2. The minimum is 2.
+    - slug: apcalcab-u05-w21-q20
+      type: numeric
+      topic_code: "5.11"
+      source: "AP Calculus CED, Topic 5.11"
+      points: 1
+      prompt: |
+        (Calculator.) A closed cylindrical can must hold 500 cm³. Its surface area is S(r) = 2πr² + 1000/r, where r is the radius in centimeters. Find the radius that minimizes the surface area. Give your answer to three decimal places.
+      answer: { value: 4.301, tolerance: 0.001 }
+      explanation: |
+        S′(r) = 4πr − 1000/r² = 0 gives r³ = 250/π, so r = (250/π)^(1/3) ≈ 4.301 cm. S″(r) = 4π + 2000/r³ > 0 for r > 0, so this single critical point is the absolute minimum. (The height is then 500/(πr²) ≈ 8.603 cm, twice the radius.)
+    - slug: apcalcab-u05-w21-q21
+      type: short_answer
+      topic_code: "5.11"
+      source: "AP Calculus CED, Topic 5.11"
+      points: 3
+      prompt: |
+        A hypothetical poster must have 384 cm² of printed area, with margins of 3 cm at the top and bottom and 2 cm on each side. Let w be the width of the printed area in centimeters.
+
+        (a) Write the total area of the poster as a function of w, and state its domain.
+        (b) Find the value of w that minimizes the total area.
+        (c) Justify that your answer gives the absolute minimum, and give the poster's dimensions.
+      answer: |
+        (a) The printed height is 384/w, so the poster is (w + 4) by (384/w + 6): T(w) = (w + 4)(384/w + 6) = 408 + 6w + 1536/w, for w > 0.
+        (b) T′(w) = 6 − 1536/w² = 0 gives w² = 256, so w = 16.
+        (c) T′ changes from negative to positive at w = 16, the only critical point for w > 0 (or T″(w) = 3072/w³ > 0), so T(16) is the absolute minimum. The printed area is 16 by 24 cm, and the poster is 20 cm wide and 30 cm tall (600 cm²).
+      explanation: |
+        Three points. (a) the total-area function with the domain w > 0. (b) w = 16 from T′ = 0. (c) a valid absolute-minimum argument (one critical point with a sign change, or T″ > 0 on the domain) and the dimensions 20 cm by 30 cm.
+    - slug: apcalcab-u05-w21-q22
+      type: short_answer
+      topic_code: "4.6"
+      source: "AP Calculus CED, Topic 4.6"
+      points: 3
+      prompt: |
+        Let f(x) = √x.
+
+        (a) Write the equation of the line tangent to the graph of f at x = 4.
+        (b) Use the tangent line to approximate √4.2.
+        (c) Is your approximation an overestimate or an underestimate? Justify using f″.
+      answer: |
+        (a) f(4) = 2 and f′(x) = 1/(2√x), so f′(4) = 1/4. The tangent line is y = 2 + (1/4)(x − 4).
+        (b) √4.2 ≈ 2 + (1/4)(0.2) = 2.05.
+        (c) f″(x) = −1/(4x^(3/2)) < 0 for x > 0, so the graph is concave down and lies below its tangent lines: 2.05 is an overestimate. (√4.2 ≈ 2.0494.)
+      explanation: |
+        Three points, one per part. (a) the line with slope 1/4 through (4, 2). (b) 2.05. (c) overestimate, justified by f″ < 0 (concave down).
+    - slug: apcalcab-u05-w21-q23
+      type: long_answer
+      topic_code: "5.11"
+      source: "AP Calculus CED, Topic 5.11"
+      points: 6
+      prompt: |
+        A hypothetical oil company needs a pipeline from an island to a refinery. The island is 3 km from the nearest point P on a straight shoreline, and the refinery is on the shoreline 8 km from P. The pipeline will run underwater in a straight line from the island to a point Q on the shore, x km from P toward the refinery, and then along the shore to the refinery. Underwater pipe costs $5,000 per km and pipe along the shore costs $4,000 per km.
+
+        (A) Show that the cost, in thousands of dollars, is C(x) = 5√(x² + 9) + 4(8 − x), and state the domain.
+
+        (B) Find C′(x).
+
+        (C) Find the value of x that minimizes the cost, and justify that it gives the absolute minimum on the domain. You may use √73 > 8.2.
+
+        (D) Find the minimum cost, and interpret C′(2) < 0 in context.
+      answer: |
+        (A) The underwater run is the hypotenuse of a right triangle with legs 3 and x: √(x² + 9) km at 5 thousand dollars per km. The shore run is 8 − x km at 4 thousand dollars per km. So C(x) = 5√(x² + 9) + 4(8 − x), for 0 ≤ x ≤ 8.
+        (B) C′(x) = 5x/√(x² + 9) − 4.
+        (C) C′(x) = 0 when 5x = 4√(x² + 9), so 25x² = 16x² + 144, x² = 16, x = 4 (x ≥ 0). Candidates: C(0) = 15 + 32 = 47, C(4) = 5(5) + 16 = 41, C(8) = 5√73 > 5(8.2) = 41. So the absolute minimum on [0, 8] is at x = 4.
+        (D) The minimum cost is C(4) = 41 thousand dollars, $41,000. C′(2) = 10/√13 − 4 < 0 means that moving the landing point Q a little farther from P than 2 km would lower the cost (at about $1,230 per km at that point): x = 2 is not yet optimal.
+      explanation: |
+        Six points. (A) 1 point for both terms of C with their reasons and the domain 0 ≤ x ≤ 8. (B) 1 point for C′ (chain rule on the square root). (C) 3 points: 1 for solving C′ = 0 to get x = 4; 1 for the candidate values C(0) = 47 and C(4) = 41; 1 for C(8) = 5√73 > 41 and the conclusion (a sign-change argument with x = 4 the only critical point also earns these last 2 points). (D) 1 point for $41,000 with an interpretation of C′(2) < 0 as cost decreasing as x increases past 2.

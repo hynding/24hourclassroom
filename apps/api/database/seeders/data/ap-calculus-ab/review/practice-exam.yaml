@@ -1,0 +1,1435 @@
+week: 34
+description: |
+  A full practice final: 70 questions · about 4 hours · all eight units. Questions 1–48 are a mock AP
+  Calculus AB exam in the May 2027 format. The real exam is a hybrid digital exam on Monday, May 10, 2027
+  (2027-05-10), session 1: multiple-choice answers are entered in the Bluebook app and free responses are
+  handwritten in a paper booklet. Section I is 42 multiple-choice questions in 1 hour 40 minutes, 50% of the
+  score: Part A, questions 1–29, no calculator (62 minutes); Part B, questions 30–42, graphing calculator
+  required (38 minutes; marked "(Calculator.)"). Section II is six free-response questions in 1 hour 30
+  minutes, 50% of the score: Part A, questions 43–44, graphing calculator required (30 minutes: a
+  rate-in/rate-out basin and a table of a cyclist's velocities); Part B, questions 45–48, no calculator (60
+  minutes: particle motion, a graph of f′, a differential equation with a slope field, and an area and volume
+  question). Questions 49–70 (about 45 minutes) are not AP format: select-all, true/false, fill-in-the-blank,
+  numeric and short-answer practice across all eight units, opening with a shared-context set on a table of
+  values of f, f′, g and g′. Multiple choice, select-all, true/false and numeric items are graded at once;
+  fill-in-the-blank items are matched automatically; the short answers (3 points each) and the six
+  free-response questions (9 points each, scored like the AP exam) are graded by your teacher against the
+  scoring notes. Keep the calculator in radian mode and give decimal answers to three decimal places.
+questions:
+  # ---- Section I, Part A: no calculator (q01-q29).
+  - slug: apcalcab-final-q01
+    type: multiple_choice
+    topic_code: "1.6"
+    source: "AP Calculus CED, Topic 1.6"
+    points: 1
+    prompt: |
+      What is lim (x→3) (x² − 9)/(x² − x − 6)?
+    options:
+      - "0"
+      - "1"
+      - "6/5"
+      - "The limit does not exist."
+    option_explanations:
+      - |
+        This substitutes x = 3 into the numerator only and stops; the denominator is also 0, so the 0/0 form needs factoring, not a value of 0.
+      - |
+        1 is the ratio of the leading coefficients, which gives a limit as x → ∞, not as x → 3.
+      - |
+        Correct. Both factor: (x − 3)(x + 3)/((x − 3)(x + 2)) = (x + 3)/(x + 2) for x ≠ 3, and this tends to 6/5 as x → 3.
+      - |
+        Direct substitution gives 0/0, which is indeterminate, not a sign that the limit fails to exist; after cancelling x − 3 the limit is 6/5.
+    answer: 2
+  - slug: apcalcab-final-q02
+    type: multiple_choice
+    topic_code: "1.15"
+    source: "AP Calculus CED, Topic 1.15"
+    points: 1
+    prompt: |
+      What is lim (x→∞) (4x³ − x)/(5 − 2x³)?
+    options:
+      - "−2"
+      - "2"
+      - "4/5"
+      - "0"
+    option_explanations:
+      - |
+        Correct. Divide numerator and denominator by x³: (4 − 1/x²)/(5/x³ − 2) → 4/(−2) = −2.
+      - |
+        This takes the ratio of the leading coefficients as 4/2 and drops the negative sign on −2x³.
+      - |
+        This divides the first written term of each polynomial, 4x³ by 5, instead of comparing the highest-degree terms 4x³ and −2x³.
+      - |
+        A limit at infinity of 0 needs the denominator's degree to be higher; here both have degree 3, so the limit is the ratio of leading coefficients.
+    answer: 0
+  - slug: apcalcab-final-q03
+    type: multiple_choice
+    topic_code: "1.12"
+    source: "AP Calculus CED, Topic 1.12"
+    points: 1
+    prompt: |
+      The function f is defined by f(x) = kx + 1 for x < 2 and f(x) = x² − k for x ≥ 2. For what value of k is f continuous at x = 2?
+    options:
+      - "3/2"
+      - "3"
+      - "5/3"
+      - "1"
+    option_explanations:
+      - |
+        This drops the −k from the right-hand piece, solving 2k + 1 = 4.
+      - |
+        This is a sign slip moving k across: 2k + 1 = 4 + k gives k = 3.
+      - |
+        This moves the 1 to the wrong side: 3k = 4 + 1 gives 5/3; the correct step is 3k = 4 − 1.
+      - |
+        Correct. Continuity needs the one-sided limits to agree with f(2): 2k + 1 = 4 − k, so 3k = 3 and k = 1.
+    answer: 3
+  - slug: apcalcab-final-q04
+    type: multiple_choice
+    topic_code: "1.16"
+    source: "AP Calculus CED, Topic 1.16"
+    points: 1
+    prompt: |
+      The function f is continuous on [1, 5], with f(1) = 4 and f(5) = −2. Which statement must be true?
+    options:
+      - "f′(c) = −3/2 for at least one c in (1, 5)."
+      - "f(c) = 0 for at least one c in (1, 5)."
+      - "The maximum value of f on [1, 5] is 4."
+      - "f(3) = 1."
+    option_explanations:
+      - |
+        This is the Mean Value Theorem's conclusion, which needs f to be differentiable on (1, 5); only continuity is given.
+      - |
+        Correct. f is continuous on [1, 5] and 0 lies between f(1) = 4 and f(5) = −2, so the Intermediate Value Theorem guarantees such a c.
+      - |
+        Continuity guarantees a maximum exists, but f could rise above 4 between x = 1 and x = 5.
+      - |
+        This assumes f is linear, taking the midpoint value; a continuous function need not pass through (3, 1).
+    answer: 1
+  - slug: apcalcab-final-q05
+    type: multiple_choice
+    topic_code: "2.2"
+    source: "AP Calculus CED, Topic 2.2"
+    points: 1
+    prompt: |
+      What is lim (h→0) ((2 + h)³ − 8)/h?
+    options:
+      - "8"
+      - "12"
+      - "6"
+      - "0"
+    option_explanations:
+      - |
+        8 is the value 2³ of the function at x = 2, not its derivative there.
+      - |
+        Correct. This is the definition of the derivative of x³ at x = 2, so it equals 3(2)² = 12.
+      - |
+        This differentiates x³ as 3x instead of 3x², giving 3 · 2 = 6.
+      - |
+        Substituting h = 0 gives 0/0, which is indeterminate; the expression is a difference quotient whose limit is the derivative.
+    answer: 1
+  - slug: apcalcab-final-q06
+    type: multiple_choice
+    topic_code: "2.4"
+    source: "AP Calculus CED, Topic 2.4"
+    points: 1
+    prompt: |
+      Let f(x) = x² + 1 for x ≤ 2 and f(x) = 4x − 3 for x > 2. Which statement about f at x = 2 is true?
+    options:
+      - "f is continuous but not differentiable at x = 2."
+      - "f is not continuous at x = 2."
+      - "f is differentiable but not continuous at x = 2."
+      - "f is continuous and differentiable at x = 2."
+    option_explanations:
+      - |
+        This assumes a piecewise function must have a corner at the join; here the left slope 2(2) = 4 matches the right slope 4.
+      - |
+        Both pieces give 5 at x = 2: 2² + 1 = 5 and 4(2) − 3 = 5, so the one-sided limits agree with f(2).
+      - |
+        Differentiability implies continuity, so this combination can never happen for any function.
+      - |
+        Correct. Both pieces equal 5 at x = 2, so f is continuous, and both one-sided derivatives equal 4 (2x at x = 2, and the slope 4), so f is differentiable.
+    answer: 3
+  - slug: apcalcab-final-q07
+    type: multiple_choice
+    topic_code: "2.8"
+    source: "AP Calculus CED, Topic 2.8"
+    points: 1
+    prompt: |
+      If y = x² sin x, what is the value of dy/dx at x = π?
+    options:
+      - "−π²"
+      - "π²"
+      - "−2π"
+      - "0"
+    option_explanations:
+      - |
+        Correct. dy/dx = 2x sin x + x² cos x; at x = π this is 2π · 0 + π² · (−1) = −π².
+      - |
+        This takes cos π as 1 instead of −1 in the term x² cos x.
+      - |
+        This multiplies the two derivatives, 2x · cos x, instead of using the product rule.
+      - |
+        This keeps only the term 2x sin x, which is 0 at π, and forgets the term x² cos x.
+    answer: 0
+  - slug: apcalcab-final-q08
+    type: multiple_choice
+    topic_code: "2.9"
+    source: "AP Calculus CED, Topic 2.9"
+    points: 1
+    prompt: |
+      If y = (3x + 1)/(x − 2), what is the value of dy/dx at x = 3?
+    options:
+      - "7"
+      - "3"
+      - "−7"
+      - "13"
+    option_explanations:
+      - |
+        This reverses the numerator of the quotient rule, computing (3x + 1)(1) − 3(x − 2).
+      - |
+        This divides the derivative of the numerator by the derivative of the denominator, 3/1, which is not the quotient rule.
+      - |
+        Correct. dy/dx = (3(x − 2) − (3x + 1)(1))/(x − 2)² = −7/(x − 2)²; at x = 3 this is −7/1 = −7.
+      - |
+        This adds the two products in the numerator, 3(1) + 10(1), instead of subtracting them.
+    answer: 2
+  - slug: apcalcab-final-q09
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "AP Calculus CED, Topic 3.1"
+    points: 1
+    prompt: |
+      If f(x) = e^(x² − 3x), what is f′(3)?
+    options:
+      - "1"
+      - "−3"
+      - "e³"
+      - "3"
+    option_explanations:
+      - |
+        This forgets the chain rule factor 2x − 3 and reports e⁰ = 1.
+      - |
+        This differentiates the exponent as 3 − 2x, a sign slip in the inner derivative.
+      - |
+        This replaces the exponent by its derivative, writing e^(2x − 3), instead of multiplying by it.
+      - |
+        Correct. f′(x) = e^(x² − 3x) · (2x − 3); at x = 3 the exponent is 0, so f′(3) = 1 · 3 = 3.
+    answer: 3
+  - slug: apcalcab-final-q10
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "AP Calculus CED, Topic 3.2"
+    points: 1
+    prompt: |
+      The point (−1, 2) lies on the curve x² − xy + y² = 7. What is the slope of the tangent line to the curve at (−1, 2)?
+    options:
+      - "2/3"
+      - "4/5"
+      - "−4/5"
+      - "1"
+    option_explanations:
+      - |
+        This differentiates xy as dy/dx alone, missing the product rule term y: 2x − dy/dx + 2y dy/dx = 0 gives 2/3.
+      - |
+        Correct. 2x − y − x(dy/dx) + 2y(dy/dx) = 0, so dy/dx = (y − 2x)/(2y − x) = (2 + 2)/(4 + 1) = 4/5.
+      - |
+        This is a sign slip when solving for dy/dx; the expression (y − 2x)/(2y − x) is positive at (−1, 2).
+      - |
+        This keeps the y from the product rule but drops the x(dy/dx) term, giving −4 + 4(dy/dx) = 0.
+    answer: 1
+  - slug: apcalcab-final-q11
+    type: multiple_choice
+    topic_code: "3.3"
+    source: "AP Calculus CED, Topic 3.3"
+    points: 1
+    prompt: |
+      Let f(x) = x⁵ + 2x³ + x − 1, and let g be the inverse function of f. What is g′(3)?
+    options:
+      - "1/460"
+      - "12"
+      - "1/12"
+      - "460"
+    option_explanations:
+      - |
+        This evaluates f′ at 3 instead of at g(3) = 1: f′(3) = 405 + 54 + 1 = 460.
+      - |
+        This is f′(1) itself; the inverse's derivative is its reciprocal.
+      - |
+        Correct. f(1) = 1 + 2 + 1 − 1 = 3, so g(3) = 1 and g′(3) = 1/f′(1) = 1/(5 + 6 + 1) = 1/12.
+      - |
+        This is f′(3), with neither the reciprocal nor the switch to the input g(3) = 1.
+    answer: 2
+  - slug: apcalcab-final-q12
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "AP Calculus CED, Topic 4.1"
+    points: 1
+    prompt: |
+      The amount of water in a tank, in gallons, is W(t), where t is measured in minutes. Which is the best interpretation of W′(5) = −3?
+    options:
+      - "At t = 5 minutes, the amount of water in the tank is decreasing at a rate of 3 gallons per minute."
+      - "During the first 5 minutes, the amount of water in the tank decreased by 3 gallons."
+      - "At t = 5 minutes, the tank holds 3 gallons less than it did at t = 0."
+      - "At t = 5 minutes, the rate at which water leaves is decreasing by 3 gallons per minute per minute."
+    option_explanations:
+      - |
+        Correct. W′(5) is the instantaneous rate of change of W at t = 5, in gallons per minute, and the negative sign means the amount is decreasing.
+      - |
+        This reads a derivative as a total change over an interval; W′(5) describes a rate at the instant t = 5.
+      - |
+        This is a statement about W(5) − W(0), an accumulated change, not about the rate W′(5).
+      - |
+        This describes W″(5), the rate of change of the rate, with units of gallons per minute per minute.
+    answer: 0
+  - slug: apcalcab-final-q13
+    type: multiple_choice
+    topic_code: "4.4"
+    source: "AP Calculus CED, Topic 4.4"
+    points: 1
+    prompt: |
+      An oil spill spreads in a circle whose radius increases at 2 metres per minute. How fast is the area of the spill increasing when the radius is 5 metres?
+    options:
+      - "10π square metres per minute"
+      - "25π square metres per minute"
+      - "20π square metres per minute"
+      - "4π square metres per minute"
+    option_explanations:
+      - |
+        This differentiates A = πr² with respect to r and forgets to multiply by dr/dt = 2.
+      - |
+        25π is the area at r = 5, not the rate at which the area changes.
+      - |
+        Correct. A = πr², so dA/dt = 2πr · dr/dt = 2π(5)(2) = 20π.
+      - |
+        This drops r from dA/dt = 2πr · dr/dt, computing 2π · 2.
+    answer: 2
+  - slug: apcalcab-final-q14
+    type: multiple_choice
+    topic_code: "4.7"
+    source: "AP Calculus CED, Topic 4.7"
+    points: 1
+    prompt: |
+      What is lim (x→0) (e^(3x) − 1 − 3x)/x²?
+    options:
+      - "3/2"
+      - "9/2"
+      - "9"
+      - "0"
+    option_explanations:
+      - |
+        This forgets the chain rule the second time, differentiating 3e^(3x) as 3e^(3x) instead of 9e^(3x).
+      - |
+        Correct. 0/0, so apply L'Hospital's Rule: (3e^(3x) − 3)/(2x), still 0/0; again: 9e^(3x)/2 → 9/2.
+      - |
+        This differentiates the denominator 2x as 1 instead of 2 in the second application.
+      - |
+        This stops after one application and substitutes into (3e^(3x) − 3)/(2x), which is still the indeterminate 0/0, not 0.
+    answer: 1
+  - slug: apcalcab-final-q15
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "AP Calculus CED, Topic 5.1"
+    points: 1
+    prompt: |
+      The function f(x) = x² − 4x satisfies the hypotheses of the Mean Value Theorem on [0, 3]. What value of c in (0, 3) satisfies the conclusion?
+    options:
+      - "2"
+      - "5/2"
+      - "1"
+      - "3/2"
+    option_explanations:
+      - |
+        This sets f′(c) = 0 as in Rolle's Theorem, but f(0) ≠ f(3), so the required slope is −1, not 0.
+      - |
+        This is a sign slip, solving 2c − 4 = 1 instead of 2c − 4 = −1.
+      - |
+        This solves f(c) = f(3) = −3 instead of f′(c) = −1, matching a function value rather than a slope.
+      - |
+        Correct. The average rate of change is (f(3) − f(0))/3 = (−3 − 0)/3 = −1, and f′(c) = 2c − 4 = −1 gives c = 3/2.
+    answer: 3
+  - slug: apcalcab-final-q16
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "AP Calculus CED, Topic 5.4"
+    points: 1
+    prompt: |
+      The derivative of a function f is f′(x) = (x − 1)²(x + 2)(x − 4). At which values of x does f have a relative minimum?
+    options:
+      - "x = −2 only"
+      - "x = 1 and x = 4"
+      - "x = 4 only"
+      - "x = −2, x = 1 and x = 4"
+    option_explanations:
+      - |
+        At x = −2, f′ changes from positive to negative, which is a relative maximum, not a minimum.
+      - |
+        f′(1) = 0 but f′ is negative on both sides of x = 1 because (x − 1)² does not change sign, so there is no extremum there.
+      - |
+        Correct. f′ is negative on (1, 4) and positive for x > 4, so f′ changes from negative to positive at x = 4; at x = 1 the squared factor means f′ does not change sign.
+      - |
+        These are all the critical points; a critical point is only a candidate, and the sign of f′ must change from negative to positive for a minimum.
+    answer: 2
+  - slug: apcalcab-final-q17
+    type: multiple_choice
+    topic_code: "5.6"
+    source: "AP Calculus CED, Topic 5.6"
+    points: 1
+    prompt: |
+      Let f(x) = x³ − 6x² + 9x + 2. On which interval is the graph of f concave down?
+    options:
+      - "(−∞, 2)"
+      - "(2, ∞)"
+      - "(1, 3)"
+      - "(−∞, 1) and (3, ∞)"
+    option_explanations:
+      - |
+        Correct. f″(x) = 6x − 12 is negative for x < 2.
+      - |
+        f″(x) = 6x − 12 is positive for x > 2, so the graph is concave up there.
+      - |
+        f′(x) = 3(x − 1)(x − 3) is negative on (1, 3): that is where f decreases, which is not concavity.
+      - |
+        These are the intervals where f′ > 0, so f increases there; concavity depends on the sign of f″.
+    answer: 0
+  - slug: apcalcab-final-q18
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "AP Calculus CED, Topic 5.5"
+    points: 1
+    prompt: |
+      What is the absolute maximum value of g(x) = x³ − 3x on the closed interval [0, 3]?
+    options:
+      - "−2"
+      - "18"
+      - "2"
+      - "0"
+    option_explanations:
+      - |
+        −2 = g(1) is the absolute minimum on [0, 3]; the maximum comes from the endpoint x = 3.
+      - |
+        Correct. g′(x) = 3x² − 3 = 0 at x = 1 in the interval. Candidates: g(0) = 0, g(1) = −2, g(3) = 27 − 9 = 18, so the maximum is 18.
+      - |
+        2 = g(−1) comes from the critical point x = −1, which lies outside [0, 3].
+      - |
+        This checks only the left endpoint; the candidates test needs every critical point and both endpoints.
+    answer: 1
+  - slug: apcalcab-final-q19
+    type: multiple_choice
+    topic_code: "5.9"
+    source: "AP Calculus CED, Topic 5.9"
+    points: 1
+    prompt: |
+      On an open interval, f′(x) > 0 and f″(x) < 0. Which describes the graph of f on that interval?
+    options:
+      - "Increasing and concave up"
+      - "Decreasing and concave down"
+      - "Decreasing and concave up"
+      - "Increasing and concave down"
+    option_explanations:
+      - |
+        Concave up would need f″ > 0; here f″ < 0.
+      - |
+        f′ > 0 makes f increasing; this reads the sign of f″ as the direction of f.
+      - |
+        Both signs are reversed: f′ > 0 means increasing and f″ < 0 means concave down.
+      - |
+        Correct. f′ > 0 means f is increasing; f″ < 0 means f′ is decreasing, so the graph is concave down.
+    answer: 3
+  - slug: apcalcab-final-q20
+    type: multiple_choice
+    topic_code: "6.3"
+    source: "AP Calculus CED, Topic 6.3"
+    points: 1
+    prompt: |
+      Which definite integral equals lim (n→∞) ∑ (k = 1 to n) (3/n)(1 + 3k/n)²?
+    options:
+      - "∫ from 0 to 3 of x² dx"
+      - "∫ from 1 to 4 of x² dx"
+      - "∫ from 1 to 4 of (1 + x)² dx"
+      - "∫ from 0 to 1 of (1 + 3x)² dx"
+    option_explanations:
+      - |
+        This uses the width 3 but forgets that the sample points start at 1, not 0; it equals 9, not 21.
+      - |
+        Correct. Δx = 3/n and xₖ = 1 + 3k/n run from 1 to 1 + 3 = 4, and the function is x², so the sum is a right Riemann sum for ∫ from 1 to 4 of x² dx = 21.
+      - |
+        This shifts twice: with xₖ = 1 + 3k/n already running over [1, 4], the function is x², not (1 + x)².
+      - |
+        This uses Δx = 1/n instead of 3/n, dropping the factor 3; it equals 7, one third of the sum's limit.
+    answer: 1
+  - slug: apcalcab-final-q21
+    type: multiple_choice
+    topic_code: "6.4"
+    source: "AP Calculus CED, Topic 6.4"
+    points: 1
+    prompt: |
+      What is d/dx ∫ from 2 to x² of cos t dt?
+    options:
+      - "2x cos(x²)"
+      - "cos(x²)"
+      - "2x sin(x²)"
+      - "cos(x²) − cos 2"
+    option_explanations:
+      - |
+        Correct. By the Fundamental Theorem with the chain rule: cos(x²) · d/dx (x²) = 2x cos(x²).
+      - |
+        This forgets the chain rule factor 2x from the upper limit x².
+      - |
+        This antidifferentiates cos t and then differentiates the upper limit, mixing two steps; the derivative of the accumulation function returns the integrand.
+      - |
+        The constant lower limit contributes nothing to the derivative, and the chain rule factor 2x is missing.
+    answer: 0
+  - slug: apcalcab-final-q22
+    type: multiple_choice
+    topic_code: "6.6"
+    source: "AP Calculus CED, Topic 6.6"
+    points: 1
+    prompt: |
+      If ∫ from 1 to 5 of f(x) dx = 8 and ∫ from 1 to 3 of f(x) dx = 3, what is ∫ from 5 to 3 of 2f(x) dx?
+    options:
+      - "10"
+      - "−5"
+      - "22"
+      - "−10"
+    option_explanations:
+      - |
+        This forgets that reversing the limits from 3→5 to 5→3 changes the sign.
+      - |
+        This reverses the limits correctly but forgets the constant factor 2.
+      - |
+        This adds the two integrals, 2(8 + 3), instead of subtracting to get the integral over [3, 5].
+      - |
+        Correct. ∫ from 3 to 5 of f = 8 − 3 = 5, so ∫ from 5 to 3 of f = −5, and doubling gives −10.
+    answer: 3
+  - slug: apcalcab-final-q23
+    type: multiple_choice
+    topic_code: "6.9"
+    source: "AP Calculus CED, Topic 6.9"
+    points: 1
+    prompt: |
+      What is ∫ from 0 to 1 of x(x² + 1)³ dx?
+    options:
+      - "15/4"
+      - "1/8"
+      - "15/8"
+      - "2"
+    option_explanations:
+      - |
+        This forgets the factor 1/2 from x dx = du/2.
+      - |
+        This keeps the x-limits 0 and 1 after substituting u, computing (1/2)(1⁴ − 0⁴)/4.
+      - |
+        Correct. With u = x² + 1, du = 2x dx, the integral is (1/2) ∫ from 1 to 2 of u³ du = (1/2)(16 − 1)/4 = 15/8.
+      - |
+        This evaluates (x² + 1)⁴/8 at x = 1 and subtracts 0 instead of (0² + 1)⁴/8 at the lower limit.
+    answer: 2
+  - slug: apcalcab-final-q24
+    type: multiple_choice
+    topic_code: "6.10"
+    source: "AP Calculus CED, Topic 6.10"
+    points: 1
+    prompt: |
+      Which is ∫ (x² + 1)/x dx?
+    options:
+      - "x²/2 + ln|x| + C"
+      - "(x³/3 + x)/(x²/2) + C"
+      - "x²/2 − 1/x² + C"
+      - "x² + ln|x| + C"
+    option_explanations:
+      - |
+        Correct. Divide first: (x² + 1)/x = x + 1/x, whose antiderivative is x²/2 + ln|x| + C.
+      - |
+        This antidifferentiates the numerator and denominator separately; there is no quotient rule for integrals.
+      - |
+        This differentiates 1/x instead of antidifferentiating it; the antiderivative of 1/x is ln|x|.
+      - |
+        This forgets to divide by the new power 2 when antidifferentiating x.
+    answer: 0
+  - slug: apcalcab-final-q25
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "AP Calculus CED, Topic 7.4"
+    points: 1
+    prompt: |
+      Consider the slope field for the differential equation dy/dx = x − y. Which statement is true?
+    options:
+      - "Every segment on the x-axis is horizontal."
+      - "The segments at (1, 2) and (2, 1) are parallel."
+      - "Every segment on the line y = x is horizontal."
+      - "The slopes depend only on x, so segments in each vertical column are parallel."
+    option_explanations:
+      - |
+        On the x-axis y = 0, so dy/dx = x, which is 0 only at the origin.
+      - |
+        The slopes are 1 − 2 = −1 and 2 − 1 = 1, which are different.
+      - |
+        Correct. On y = x, dy/dx = x − x = 0 at every point.
+      - |
+        dy/dx = x − y depends on y too; it is the columns of dy/dx = f(x) that are parallel.
+    answer: 2
+  - slug: apcalcab-final-q26
+    type: multiple_choice
+    topic_code: "7.7"
+    source: "AP Calculus CED, Topic 7.7"
+    points: 1
+    prompt: |
+      Which function is the solution to dy/dx = 2xy with the initial condition y(0) = 3?
+    options:
+      - "y = e^(x²) + 2"
+      - "y = e^(x² + 3)"
+      - "y = √(2x² + 9)"
+      - "y = 3e^(x²)"
+    option_explanations:
+      - |
+        This adds the constant after exponentiating; e^(x² + C) = e^C · e^(x²), a multiplying constant.
+      - |
+        This uses the initial value 3 as the constant in ln|y| = x² + C; it should be ln 3.
+      - |
+        This separates as y dy = 2x dx, multiplying by y instead of dividing by it.
+      - |
+        Correct. Separate: dy/y = 2x dx, so ln|y| = x² + C and y = Ae^(x²); y(0) = 3 gives A = 3.
+    answer: 3
+  - slug: apcalcab-final-q27
+    type: multiple_choice
+    topic_code: "8.1"
+    source: "AP Calculus CED, Topic 8.1"
+    points: 1
+    prompt: |
+      What is the average value of f(x) = x² + 1 on the interval [0, 3]?
+    options:
+      - "12"
+      - "4"
+      - "11/2"
+      - "3"
+    option_explanations:
+      - |
+        This is the integral ∫ from 0 to 3 of (x² + 1) dx, without dividing by the length of the interval, 3.
+      - |
+        Correct. (1/(3 − 0)) ∫ from 0 to 3 of (x² + 1) dx = (1/3)(9 + 3) = 4.
+      - |
+        This averages the endpoint values (1 + 10)/2, which is not the average value of a nonlinear function.
+      - |
+        This is the average rate of change of f over [0, 3], (10 − 1)/3, not the average value of f.
+    answer: 1
+  - slug: apcalcab-final-q28
+    type: multiple_choice
+    topic_code: "8.4"
+    source: "AP Calculus CED, Topic 8.4"
+    points: 1
+    prompt: |
+      What is the area of the region enclosed by y = x² and y = 2x?
+    options:
+      - "4/3"
+      - "−4/3"
+      - "8/3"
+      - "4"
+    option_explanations:
+      - |
+        Correct. The curves meet at x = 0 and x = 2, with 2x above x² between them: ∫ from 0 to 2 of (2x − x²) dx = 4 − 8/3 = 4/3.
+      - |
+        This subtracts in the wrong order, top minus bottom reversed; an area is never negative.
+      - |
+        This is ∫ from 0 to 2 of x² dx, the area under the lower curve only.
+      - |
+        This is ∫ from 0 to 2 of 2x dx, the area under the upper curve only.
+    answer: 0
+  - slug: apcalcab-final-q29
+    type: multiple_choice
+    topic_code: "8.9"
+    source: "AP Calculus CED, Topic 8.9"
+    points: 1
+    prompt: |
+      The region bounded by y = √x, the x-axis and the line x = 4 is revolved about the x-axis. What is the volume of the solid?
+    options:
+      - "16π/3"
+      - "4π"
+      - "8π"
+      - "8"
+    option_explanations:
+      - |
+        This forgets to square the radius, computing π ∫ from 0 to 4 of √x dx.
+      - |
+        This evaluates πx at x = 4 without antidifferentiating x to x²/2.
+      - |
+        Correct. Discs of radius √x: V = π ∫ from 0 to 4 of (√x)² dx = π ∫ from 0 to 4 of x dx = 8π.
+      - |
+        This forgets the factor π in the disc area πr².
+    answer: 2
+  # ---- Section I, Part B: graphing calculator required (q30-q42).
+  - slug: apcalcab-final-q30
+    type: multiple_choice
+    topic_code: "1.4"
+    source: "AP Calculus CED, Topic 1.4"
+    points: 1
+    prompt: |
+      (Calculator.) Let f(x) = (2ˣ − 1)/x. Evaluating f at values of x close to 0 on both sides suggests that lim (x→0) f(x) is closest to which value?
+    options:
+      - "1"
+      - "0"
+      - "2"
+      - "0.693"
+    option_explanations:
+      - |
+        This treats the 0/0 form as if it equalled 1; the table of values settles near 0.693, not 1.
+      - |
+        This substitutes x = 0 into the numerator only; the denominator also tends to 0, so the quotient need not tend to 0.
+      - |
+        This guesses the base of the exponential; the table values near x = 0 are about 0.693.
+      - |
+        Correct. f(0.001) ≈ 0.6934 and f(−0.001) ≈ 0.6929, so the values approach about 0.693 from both sides (the exact limit is ln 2).
+    answer: 3
+  - slug: apcalcab-final-q31
+    type: multiple_choice
+    topic_code: "2.3"
+    source: "AP Calculus CED, Topic 2.3"
+    points: 1
+    prompt: |
+      (Calculator.) Let f(x) = e^(sin x) + x². What is the value of f′(1.5)?
+    options:
+      - "4.961"
+      - "3.192"
+      - "3.018"
+      - "4.073"
+    option_explanations:
+      - |
+        4.961 is f(1.5), the function value, not its derivative.
+      - |
+        Correct. The calculator's numerical derivative at x = 1.5 (radian mode) gives f′(1.5) ≈ 3.192; by hand, f′(x) = cos x · e^(sin x) + 2x.
+      - |
+        This is the calculator's numerical derivative in degree mode; calculus with trigonometric functions needs radian mode.
+      - |
+        This differentiates e^(sin x) as e^(cos x), evaluating e^(cos 1.5) + 2(1.5); the chain rule gives cos x · e^(sin x).
+    answer: 1
+  - slug: apcalcab-final-q32
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "AP Calculus CED, Topic 4.2"
+    points: 1
+    prompt: |
+      (Calculator.) A particle moves along the x-axis with velocity v(t) = 3 cos(0.8t) + 1 for t ≥ 0. Which statement about the particle at t = 3 is true?
+    options:
+      - "Its speed is increasing, because v(3) and a(3) are both negative."
+      - "Its speed is decreasing, because a(3) is negative."
+      - "Its speed is decreasing, because v(3) and a(3) are both negative."
+      - "Its speed is increasing, because v(3) is positive."
+    option_explanations:
+      - |
+        Correct. v(3) = 3 cos 2.4 + 1 ≈ −1.212 and a(3) = v′(3) = −2.4 sin 2.4 ≈ −1.621. Velocity and acceleration have the same sign, so the speed is increasing.
+      - |
+        Negative acceleration alone does not mean slowing down; when v(3) is also negative, the particle speeds up.
+      - |
+        Same signs of velocity and acceleration mean the speed is increasing, not decreasing.
+      - |
+        In radian mode v(3) = 3 cos 2.4 + 1 ≈ −1.212, which is negative; a positive value comes from degree mode.
+    answer: 0
+  - slug: apcalcab-final-q33
+    type: multiple_choice
+    topic_code: "4.3"
+    source: "AP Calculus CED, Topic 4.3"
+    points: 1
+    prompt: |
+      (Calculator.) The temperature of a cup of soup, in degrees Celsius, is modelled by H(t) = 20 + 70e^(−0.04t), where t is in minutes (hypothetical model). What is H′(10), and what does it mean?
+    options:
+      - "H′(10) ≈ 66.922: at t = 10 the soup is about 66.922 °C."
+      - "H′(10) ≈ −2.308: at t = 10 the soup's temperature is falling at about 2.308 °C per minute."
+      - "H′(10) ≈ −1.877: at t = 10 the soup's temperature is falling at about 1.877 °C per minute."
+      - "H′(10) ≈ −1.877: in the first 10 minutes the soup cooled by about 1.877 °C."
+    option_explanations:
+      - |
+        66.922 is H(10), the temperature itself, not its rate of change.
+      - |
+        −2.308 is the average rate of change over [0, 10], (H(10) − H(0))/10, not the instantaneous rate at t = 10.
+      - |
+        Correct. H′(t) = −2.8e^(−0.04t), so H′(10) = −2.8e^(−0.4) ≈ −1.877 °C per minute, a rate of change at the instant t = 10.
+      - |
+        The number is right but the meaning is not: H′(10) is a rate at one instant, not a total change over 10 minutes.
+    answer: 2
+  - slug: apcalcab-final-q34
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "AP Calculus CED, Topic 5.5"
+    points: 1
+    prompt: |
+      (Calculator.) What is the absolute maximum value of f(x) = sin x + x/2 on the closed interval [0, 6]?
+    options:
+      - "2.721"
+      - "1.913"
+      - "1.228"
+      - "0"
+    option_explanations:
+      - |
+        Correct. f′(x) = cos x + 1/2 = 0 at x = 2π/3 ≈ 2.094 and 4π/3 ≈ 4.189. Candidates: f(0) = 0, f(2.094) ≈ 1.913, f(4.189) ≈ 1.228, f(6) ≈ 2.721. The largest is at the endpoint x = 6.
+      - |
+        1.913 is the relative maximum at x = 2π/3, but the candidates test also checks the endpoints, and f(6) ≈ 2.721 is larger.
+      - |
+        1.228 is f(4π/3), a relative minimum, where f′ changes from negative to positive.
+      - |
+        0 = f(0) is the smallest candidate, the absolute minimum on [0, 6].
+    answer: 0
+  - slug: apcalcab-final-q35
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "AP Calculus CED, Topic 5.3"
+    points: 1
+    prompt: |
+      (Calculator.) The derivative of a function f is f′(x) = x cos(x²). How many relative maxima does f have on the open interval (0, 3)?
+    options:
+      - "3"
+      - "1"
+      - "4"
+      - "2"
+    option_explanations:
+      - |
+        3 counts every critical point; at x ≈ 2.171 f′ changes from negative to positive, which is a relative minimum.
+      - |
+        This misses the zero of f′ at x = √(5π/2) ≈ 2.802, where f′ changes from positive to negative again.
+      - |
+        This includes x = √(7π/2) ≈ 3.316, which lies outside the interval (0, 3).
+      - |
+        Correct. f′ = 0 where x² = π/2, 3π/2, 5π/2, so x ≈ 1.253, 2.171, 2.802. f′ changes from positive to negative at 1.253 and 2.802 (relative maxima) and from negative to positive at 2.171 (a relative minimum).
+    answer: 3
+  - slug: apcalcab-final-q36
+    type: multiple_choice
+    topic_code: "5.11"
+    source: "AP Calculus CED, Topic 5.11"
+    points: 1
+    prompt: |
+      (Calculator.) A rectangle has its base on the x-axis and its upper corners at (−x, y) and (x, y) on the graph of y = 6 cos(x/2), where 0 < x < π. What is the greatest possible area of the rectangle?
+    options:
+      - "1.721"
+      - "13.466"
+      - "6.733"
+      - "26.933"
+    option_explanations:
+      - |
+        1.721 is the x-value of the upper right corner where the area is greatest, not the area itself.
+      - |
+        Correct. With corners at ±x, A(x) = 2x · 6 cos(x/2) = 12x cos(x/2). Solving A′(x) = 12 cos(x/2) − 6x sin(x/2) = 0 on the calculator gives x ≈ 1.721, and A(1.721) ≈ 13.466.
+      - |
+        This uses width x instead of 2x, finding the area of only the half of the rectangle to the right of the y-axis.
+      - |
+        This doubles the height as well as the width; the height of the rectangle is y = 6 cos(x/2), not 2y.
+    answer: 1
+  - slug: apcalcab-final-q37
+    type: multiple_choice
+    topic_code: "6.4"
+    source: "AP Calculus CED, Topic 6.4"
+    points: 1
+    prompt: |
+      (Calculator.) Let g(x) = 4 + ∫ from 1 to x of √(t³ + 1) dt. What is g(3)?
+    options:
+      - "6.230"
+      - "5.292"
+      - "10.230"
+      - "9.292"
+    option_explanations:
+      - |
+        6.230 is the value of the integral alone; g also adds the initial value g(1) = 4.
+      - |
+        5.292 = √28 is g′(3), the integrand at t = 3, not g(3).
+      - |
+        Correct. The calculator's numerical integral gives ∫ from 1 to 3 of √(t³ + 1) dt ≈ 6.230, so g(3) = 4 + 6.230 = 10.230.
+      - |
+        This adds 4 to g′(3) = √28 instead of to the integral.
+    answer: 2
+  - slug: apcalcab-final-q38
+    type: multiple_choice
+    topic_code: "6.5"
+    source: "AP Calculus CED, Topic 6.5"
+    points: 1
+    prompt: |
+      (Calculator.) Let f(x) = x cos x. What is the total area of the regions between the graph of f and the x-axis for 0 ≤ x ≤ 4?
+    options:
+      - "−4.681"
+      - "4.681"
+      - "0.571"
+      - "5.822"
+    option_explanations:
+      - |
+        −4.681 is the net value ∫ from 0 to 4 of x cos x dx; an area counts the region below the axis as positive.
+      - |
+        This takes the absolute value of the net integral, which still lets the region above the axis cancel part of the region below.
+      - |
+        0.571 is only the area of the region above the axis, on [0, π/2].
+      - |
+        Correct. f changes sign at x = π/2, so the area is ∫ from 0 to 4 of |x cos x| dx ≈ 5.822 by the calculator (about 0.571 above the axis plus about 5.252 below).
+    answer: 3
+  - slug: apcalcab-final-q39
+    type: multiple_choice
+    topic_code: "7.8"
+    source: "AP Calculus CED, Topic 7.8"
+    points: 1
+    prompt: |
+      (Calculator.) A population P satisfies dP/dt = kP for a constant k, with P(0) = 500 and P(4) = 800, where t is in months (hypothetical). To the nearest tenth, what does the model predict for P(10)?
+    options:
+      - "1619.1"
+      - "1250.0"
+      - "2240.8"
+      - "1280.0"
+    option_explanations:
+      - |
+        Correct. P(t) = 500e^(kt) with e^(4k) = 1.6, so P(10) = 500 · 1.6^(10/4) ≈ 1619.1.
+      - |
+        This assumes linear growth of 75 per month; dP/dt = kP describes exponential growth.
+      - |
+        This takes k as the fractional growth 0.6 divided by 4, 0.15, instead of k = ln(1.6)/4 ≈ 0.1175.
+      - |
+        This applies the growth factor 1.6 only twice (500 · 1.6²), counting two whole four-month periods instead of 10/4 = 2.5.
+    answer: 0
+  - slug: apcalcab-final-q40
+    type: multiple_choice
+    topic_code: "8.2"
+    source: "AP Calculus CED, Topic 8.2"
+    points: 1
+    prompt: |
+      (Calculator.) A particle moves along a line with velocity v(t) = t sin t − 1 for 0 ≤ t ≤ 4. What is the total distance the particle travels over this interval?
+    options:
+      - "−2.142"
+      - "3.906"
+      - "2.142"
+      - "4.027"
+    option_explanations:
+      - |
+        −2.142 is ∫ from 0 to 4 of v(t) dt, the displacement, which lets motion in opposite directions cancel.
+      - |
+        Correct. Total distance is ∫ from 0 to 4 of |v(t)| dt ≈ 3.906 by the calculator; v changes sign at t ≈ 1.114 and t ≈ 2.773.
+      - |
+        This is the absolute value of the displacement, not the total distance, which adds the distance travelled in each direction.
+      - |
+        4.027 is the speed |v(4)| at the final instant, not a distance.
+    answer: 1
+  - slug: apcalcab-final-q41
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "AP Calculus CED, Topic 8.3"
+    points: 1
+    prompt: |
+      (Calculator.) Water flows into a tank at R(t) = 20 + 10 sin(t/3) litres per hour, for t in hours. The tank holds 100 litres at t = 0, and no water leaves. How many litres does it hold at t = 6?
+    options:
+      - "162.484"
+      - "129.093"
+      - "262.484"
+      - "221.047"
+    option_explanations:
+      - |
+        162.484 is the water added during [0, 6]; the 100 litres already in the tank must be added.
+      - |
+        This adds the rate R(6) ≈ 29.093 litres per hour to 100 instead of the accumulated amount.
+      - |
+        Correct. 100 + ∫ from 0 to 6 of R(t) dt ≈ 100 + 162.484 = 262.484 litres by the calculator.
+      - |
+        This is the result with the calculator in degree mode; sin(t/3) must be evaluated in radians.
+    answer: 2
+  - slug: apcalcab-final-q42
+    type: multiple_choice
+    topic_code: "8.11"
+    source: "AP Calculus CED, Topic 8.11"
+    points: 1
+    prompt: |
+      (Calculator.) The region R bounded by y = 2 + sin x and y = 1 for 0 ≤ x ≤ π is revolved about the x-axis. What is the volume of the solid?
+    options:
+      - "27.371"
+      - "18.996"
+      - "69.546"
+      - "59.676"
+    option_explanations:
+      - |
+        This squares the difference of the radii, π ∫ (1 + sin x)² dx, instead of taking the difference of the squared radii.
+      - |
+        This omits the factor π from the washer area π(R² − r²).
+      - |
+        This uses discs of radius 2 + sin x and forgets to subtract the hole of radius 1.
+      - |
+        Correct. Washers with outer radius 2 + sin x and inner radius 1: π ∫ from 0 to π of ((2 + sin x)² − 1²) dx = π(8 + 7π/2) ≈ 59.676.
+    answer: 3
+  # ---- Section II, Part A: free response, graphing calculator required (q43-q44).
+  - slug: apcalcab-final-q43
+    type: long_answer
+    topic_code: "8.3"
+    source: "AP Calculus CED, Topic 8.3"
+    points: 9
+    stimulus: |
+      Rainwater flows into a storage basin (hypothetical) at the rate R(t) = 20 + 15 sin(t/2) cubic metres per hour, and water is pumped out of the basin at the rate D(t) = 4t + 6 cubic metres per hour, for 0 ≤ t ≤ 10, where t is measured in hours. At time t = 0 the basin holds 200 cubic metres of water.
+    prompt: |
+      (Calculator.) Free-response question 1.
+
+      (A) How many cubic metres of rainwater flow into the basin during the 10 hours, 0 ≤ t ≤ 10? Give your answer to three decimal places.
+
+      (B) Find R′(4). Using correct units, explain the meaning of R′(4) in the context of the problem.
+
+      (C) Is the amount of water in the basin increasing or decreasing at time t = 6? Give a reason for your answer.
+
+      (D) At what time t, for 0 ≤ t ≤ 10, is the amount of water in the basin greatest? Find the greatest amount, to three decimal places. Justify your answer.
+    answer: |
+      (A) ∫ from 0 to 10 of R(t) dt ≈ 221.490 cubic metres (calculator numerical integral).
+      (B) R′(4) ≈ −3.121 (calculator numerical derivative; by hand R′(t) = 7.5 cos(t/2), so R′(4) = 7.5 cos 2). At time t = 4 hours, the rate at which rainwater flows into the basin is decreasing at about 3.121 cubic metres per hour per hour.
+      (C) Let A(t) be the amount of water at time t, so A′(t) = R(t) − D(t). R(6) ≈ 22.117 and D(6) = 30, so A′(6) ≈ −7.883 < 0. The amount is decreasing at t = 6 because water is pumped out faster than rainwater flows in.
+      (D) A(t) = 200 + ∫ from 0 to t of (R(s) − D(s)) ds. A′(t) = R(t) − D(t) = 0 at t ≈ 5.289, the only solution in [0, 10] (graph R and D on the calculator). Candidates: A(0) = 200; A(5.289) = 200 + ∫ from 0 to 5.289 of (R(t) − D(t)) dt ≈ 274.468; A(10) = 200 + 221.490 − 260 = 161.490, since ∫ from 0 to 10 of D(t) dt = 260. The amount is greatest at t ≈ 5.289 hours, when the basin holds about 274.468 cubic metres.
+    explanation: |
+      Nine points.
+      (A) 2 points: 1 for the integral ∫ from 0 to 10 of R(t) dt (limits and integrand); 1 for 221.490 (accept 221.49).
+      (B) 2 points: 1 for R′(4) ≈ −3.121 (accept −3.12); 1 for the meaning: at t = 4 the inflow rate is decreasing at 3.121 cubic metres per hour per hour. The units and the word "rate" are both needed; an answer that says the amount of water is decreasing earns no point.
+      (C) 1 point: decreasing, with the reason R(6) < D(6) (or A′(6) = R(6) − D(6) < 0), showing the values or the sign.
+      (D) 4 points: 1 for setting A′(t) = R(t) − D(t) = 0; 1 for t ≈ 5.289; 1 for the maximum amount 274.468 (accept 274.47); 1 for the justification, either a candidates test that shows A(0) = 200 and A(10) ≈ 161.490 are smaller, or the argument that A′ changes from positive to negative at the only critical point t ≈ 5.289, so it is the absolute maximum. Using the integrand R − D without the initial 200 loses the amount point. Decimal answers must be correct to three places.
+  - slug: apcalcab-final-q44
+    type: long_answer
+    topic_code: "6.2"
+    source: "AP Calculus CED, Topic 6.2"
+    points: 9
+    stimulus: |
+      A cyclist rides along a straight path (hypothetical data). Her velocity v(t), in metres per second, is a differentiable function of t, the time in seconds. Selected values of v(t) are given in the table.
+
+      | t (seconds) | 0 | 4 | 10 | 15 | 20 |
+      |---|---|---|---|---|---|
+      | v(t) (m/s) | 1.5 | 5.3 | 8.4 | 7.4 | 3.5 |
+    prompt: |
+      (Calculator.) Free-response question 2.
+
+      (A) Use the data in the table to estimate v′(12). Using correct units, interpret your estimate in the context of the problem.
+
+      (B) Use a trapezoidal sum with the four subintervals indicated by the table to approximate ∫ from 0 to 20 of v(t) dt. Using correct units, explain the meaning of ∫ from 0 to 20 of v(t) dt in the context of the problem.
+
+      (C) Must there be a time t, for 10 < t < 20, at which v′(t) = −0.49? Justify your answer.
+
+      (D) For 0 ≤ t ≤ 20, the cyclist's velocity is modelled by f(t) = 1.5 + 7 sin(πt/22). Use the model to find the average velocity of the cyclist over 0 ≤ t ≤ 20, to three decimal places.
+    answer: |
+      (A) v′(12) ≈ (v(15) − v(10))/(15 − 10) = (7.4 − 8.4)/5 = −0.2 metres per second per second. At t = 12 seconds the cyclist's velocity is decreasing at about 0.2 metres per second each second.
+      (B) ∫ from 0 to 20 of v(t) dt ≈ 4(1.5 + 5.3)/2 + 6(5.3 + 8.4)/2 + 5(8.4 + 7.4)/2 + 5(7.4 + 3.5)/2 = 13.6 + 41.1 + 39.5 + 27.25 = 121.45. The integral is the distance, in metres, that the cyclist travels during the 20 seconds (her velocity is positive throughout the table, so displacement and distance agree).
+      (C) Yes. v is differentiable, so it is continuous on [10, 20] and differentiable on (10, 20). (v(20) − v(10))/(20 − 10) = (3.5 − 8.4)/10 = −0.49. By the Mean Value Theorem there is a time t with 10 < t < 20 at which v′(t) = −0.49.
+      (D) Average velocity = (1/20) ∫ from 0 to 20 of f(t) dt ≈ 6.303 metres per second (calculator numerical integral: the integral is about 126.054).
+    explanation: |
+      Nine points.
+      (A) 2 points: 1 for the difference quotient using t = 10 and t = 15 and the value −0.2; 1 for an interpretation at t = 12 with units metres per second per second (velocity decreasing at 0.2 m/s each second). An interpretation without units earns no point.
+      (B) 3 points: 1 for a trapezoidal sum with the four unequal widths 4, 6, 5, 5 (a uniform width earns no point); 1 for 121.45; 1 for the meaning: distance travelled in metres from t = 0 to t = 20. "Displacement" is also accepted.
+      (C) 2 points: 1 for the average rate of change (3.5 − 8.4)/(20 − 10) = −0.49; 1 for the Mean Value Theorem conclusion with its hypotheses checked: v is differentiable (hence continuous) on the interval. A conclusion that does not name differentiability or continuity earns no point.
+      (D) 2 points: 1 for (1/20) ∫ from 0 to 20 of f(t) dt (the 1/20 and the limits are both needed); 1 for 6.303.
+  # ---- Section II, Part B: free response, no calculator (q45-q48).
+  - slug: apcalcab-final-q45
+    type: long_answer
+    topic_code: "4.2"
+    source: "AP Calculus CED, Topic 4.2"
+    points: 9
+    stimulus: |
+      A particle moves along the x-axis. Its velocity at time t seconds is v(t) = t² − 6t + 8, for 0 ≤ t ≤ 5, and its position at time t = 0 is x(0) = 3.
+    prompt: |
+      (No calculator.) Free-response question 3.
+
+      (A) On what open intervals of time is the particle moving to the left? Give a reason for your answer.
+
+      (B) Find the acceleration of the particle at t = 1. Is the speed of the particle increasing or decreasing at t = 1? Give a reason for your answer.
+
+      (C) Find the position of the particle at time t = 5.
+
+      (D) Find the total distance the particle travels over the interval 0 ≤ t ≤ 5.
+    answer: |
+      (A) v(t) = (t − 2)(t − 4), which is negative for 2 < t < 4. The particle moves left on (2, 4) because its velocity is negative there.
+      (B) a(t) = v′(t) = 2t − 6, so a(1) = −4. v(1) = 1 − 6 + 8 = 3 > 0 and a(1) < 0. Velocity and acceleration have opposite signs, so the speed is decreasing at t = 1.
+      (C) x(5) = x(0) + ∫ from 0 to 5 of v(t) dt = 3 + [t³/3 − 3t² + 8t] from 0 to 5 = 3 + (125/3 − 75 + 40) = 3 + 20/3 = 29/3.
+      (D) Distance = ∫ from 0 to 5 of |v(t)| dt. With V(t) = t³/3 − 3t² + 8t: ∫ from 0 to 2 of v dt = V(2) − V(0) = 20/3; ∫ from 2 to 4 of v dt = V(4) − V(2) = 16/3 − 20/3 = −4/3; ∫ from 4 to 5 of v dt = V(5) − V(4) = 20/3 − 16/3 = 4/3. Total distance = 20/3 + 4/3 + 4/3 = 28/3.
+    explanation: |
+      Nine points.
+      (A) 2 points: 1 for the interval 2 < t < 4; 1 for the reason v(t) < 0 there. Endpoints included or not is accepted, but the reason must refer to the sign of v.
+      (B) 2 points: 1 for a(1) = −4; 1 for "decreasing" with the reason that v(1) and a(1) have opposite signs (v(1) = 3 > 0, a(1) < 0). "Decreasing because a(1) < 0" alone earns no point.
+      (C) 2 points: 1 for x(0) + ∫ from 0 to 5 of v(t) dt with the antiderivative; 1 for 29/3. Omitting the initial position 3 loses the answer point.
+      (D) 3 points: 1 for ∫ |v(t)| dt or splitting the interval at t = 2 and t = 4; 1 for the three pieces 20/3, −4/3 (or 4/3) and 4/3; 1 for 28/3.
+  - slug: apcalcab-final-q46
+    type: long_answer
+    topic_code: "5.9"
+    source: "AP Calculus CED, Topic 5.9"
+    points: 9
+    stimulus: |
+      The function f is defined on the closed interval [−3, 5], and f(0) = 4. The graph of its derivative, f′, consists of four line segments joining, in order, the points (−3, −2), (−1, 2), (1, 2), (3, −2) and (5, 0).
+    prompt: |
+      (No calculator.) Free-response question 4.
+
+      (A) Find the x-coordinate of each point at which f has a relative minimum or a relative maximum on the open interval (−3, 5). Classify each one and justify your answer.
+
+      (B) On what open intervals is the graph of f concave down? Give a reason for your answer.
+
+      (C) Find f(3) and f(−3).
+
+      (D) Find the absolute maximum value of f on the closed interval [−3, 5]. Justify your answer.
+    answer: |
+      (A) The segments give f′(x) = 2x + 4 on [−3, −1], f′(x) = 2 on [−1, 1], f′(x) = −2x + 4 on [1, 3] and f′(x) = x − 5 on [3, 5], so f′ = 0 at x = −2 and x = 2 in (−3, 5). f has a relative minimum at x = −2 because f′ changes from negative to positive there, and a relative maximum at x = 2 because f′ changes from positive to negative there.
+      (B) The graph of f is concave down on (1, 3), because f′ is decreasing there. (On (−1, 1) f′ is constant, so the graph of f is a line segment there, neither concave up nor concave down.)
+      (C) f(3) = f(0) + ∫ from 0 to 3 of f′(x) dx = 4 + (2 + 1 − 1) = 6, using the rectangle on [0, 1] and the two triangles on [1, 2] (above the axis) and [2, 3] (below). f(−3) = f(0) − ∫ from −3 to 0 of f′(x) dx = 4 − (−1 + 1 + 2) = 2.
+      (D) Candidates: the endpoints and the critical point x = 2 where f′ changes sign from positive to negative. f(−3) = 2; f(2) = 4 + ∫ from 0 to 2 of f′(x) dx = 4 + 2 + 1 = 7; f(5) = f(3) + ∫ from 3 to 5 of f′(x) dx = 6 − 2 = 4. (The relative minimum f(−2) = 1 cannot be the maximum.) The absolute maximum value of f on [−3, 5] is 7, at x = 2.
+    explanation: |
+      Nine points.
+      (A) 2 points: 1 for the relative minimum at x = −2 with the reason "f′ changes from negative to positive"; 1 for the relative maximum at x = 2 with the reason "f′ changes from positive to negative". Reasons about f itself ("f goes down then up") or about the graph of f′ having a minimum earn no point.
+      (B) 2 points: 1 for the interval (1, 3); 1 for the reason "f′ is decreasing" (or f″ < 0). Including (−1, 1) loses the interval point.
+      (C) 2 points: 1 for f(3) = 6; 1 for f(−3) = 2. Both need the initial value f(0) = 4 and the signed areas; the reversed limits for f(−3) are the usual error.
+      (D) 3 points: 1 for considering the endpoints and x = 2 (a candidates test); 1 for the values f(−3) = 2, f(2) = 7 and f(5) = 4; 1 for the answer 7 with the conclusion that it is the largest candidate.
+  - slug: apcalcab-final-q47
+    type: long_answer
+    topic_code: "7.7"
+    source: "AP Calculus CED, Topic 7.7"
+    points: 9
+    stimulus: |
+      Consider the differential equation dy/dx = (y − 2) cos x.
+    prompt: |
+      (No calculator.) Free-response question 5.
+
+      (A) Find the slope given by the differential equation at each of the points (0, 1), (0, 3), (π/2, 3) and (π, 3), and describe the segment a slope field would show at each point. Explain why every segment of the slope field on the line y = 2 is horizontal.
+
+      (B) Let y = f(x) be the particular solution to the differential equation with initial condition f(0) = 3. Write an equation for the line tangent to the graph of f at the point (0, 3), and use it to approximate f(0.2). Find d²y/dx² at the point (0, 3), and use it to determine whether your approximation is an overestimate or an underestimate of f(0.2). Give a reason for your answer.
+
+      (C) Find y = f(x), the particular solution to the differential equation with initial condition f(0) = 3.
+    answer: |
+      (A) At (0, 1): (1 − 2) cos 0 = −1, a segment of slope −1 falling to the right. At (0, 3): (3 − 2) cos 0 = 1, slope 1 rising to the right. At (π/2, 3): (1) cos(π/2) = 0, horizontal. At (π, 3): (1) cos π = −1, slope −1. On the line y = 2 the factor y − 2 is 0, so dy/dx = 0 at every point and every segment is horizontal.
+      (B) The slope at (0, 3) is 1, so the tangent line is y = 3 + 1(x − 0) = x + 3, and f(0.2) ≈ 3.2.
+      d²y/dx² = (dy/dx) cos x − (y − 2) sin x = (y − 2) cos² x − (y − 2) sin x. At (0, 3): (1)(1) − (1)(0) = 1 > 0. The graph of f is concave up near x = 0, so it lies above its tangent line there and 3.2 is an underestimate.
+      (C) Separate: dy/(y − 2) = cos x dx. Antidifferentiate: ln|y − 2| = sin x + C. At (0, 3): ln 1 = sin 0 + C, so C = 0. Then |y − 2| = e^(sin x); since y − 2 = 1 > 0 at the initial condition, y − 2 = e^(sin x), and f(x) = 2 + e^(sin x).
+    explanation: |
+      Nine points.
+      (A) 2 points: 1 for the four slopes −1, 1, 0 and −1 (segments described as falling, rising, horizontal, falling); 1 for explaining that y − 2 = 0 makes dy/dx = 0 on y = 2.
+      (B) 3 points: 1 for the tangent line y = x + 3 and f(0.2) ≈ 3.2; 1 for d²y/dx² = 1 at (0, 3), from implicit differentiation that uses dy/dx (the product rule on (y − 2) cos x); 1 for "underestimate" with the reason that the graph is concave up (d²y/dx² > 0) near x = 0.
+      (C) 4 points: 1 for separating the variables correctly; 1 for both antiderivatives, ln|y − 2| and sin x; 1 for the constant of integration and using the initial condition to find it; 1 for solving for y: f(x) = 2 + e^(sin x). A student who does not separate the variables earns no points in (C); one with no constant of integration earns at most 2 of the 4 points.
+  - slug: apcalcab-final-q48
+    type: long_answer
+    topic_code: "8.12"
+    source: "AP Calculus CED, Topic 8.12"
+    points: 9
+    stimulus: |
+      Let R be the region in the first quadrant enclosed by the graphs of y = 4x − x² and y = x².
+    prompt: |
+      (No calculator.) Free-response question 6.
+
+      (A) Find the area of R.
+
+      (B) Region R is the base of a solid. For the solid, each cross section perpendicular to the x-axis is a square. Find the volume of the solid.
+
+      (C) Write, but do not evaluate, an integral expression for the volume of the solid generated when R is revolved about the horizontal line y = 5.
+
+      (D) The vertical line x = k, where 0 < k < 2, divides R into two regions of equal area. Write, but do not solve, an equation involving one or more integrals whose solution is k.
+    answer: |
+      The curves meet where 4x − x² = x², so 2x(2 − x) = 0 and x = 0 or x = 2. On (0, 2) the upper curve is y = 4x − x² (at x = 1: 3 > 1), so the vertical distance across R is (4x − x²) − x² = 4x − 2x².
+      (A) Area = ∫ from 0 to 2 of (4x − 2x²) dx = [2x² − 2x³/3] from 0 to 2 = 8 − 16/3 = 8/3.
+      (B) Volume = ∫ from 0 to 2 of (4x − 2x²)² dx = ∫ from 0 to 2 of (16x² − 16x³ + 4x⁴) dx = 128/3 − 64 + 128/5 = 64/15.
+      (C) The line y = 5 lies above R (the top curve's greatest value on [0, 2] is 4). Washers: outer radius 5 − x² (to the lower curve), inner radius 5 − (4x − x²) (to the upper curve). Volume = π ∫ from 0 to 2 of [(5 − x²)² − (5 − 4x + x²)²] dx. (Its value is 16π, though the question does not ask for it.)
+      (D) ∫ from 0 to k of (4x − 2x²) dx = (1/2)(8/3) = 4/3, or equivalently ∫ from 0 to k of (4x − 2x²) dx = ∫ from k to 2 of (4x − 2x²) dx.
+    explanation: |
+      Nine points.
+      (A) 2 points: 1 for the integral with integrand 4x − 2x² and limits 0 and 2 (finding x = 2 is part of this point); 1 for 8/3.
+      (B) 3 points: 1 for the integrand (4x − 2x²)², the square of the side length; 1 for the limits and the constant (none here); 1 for 64/15.
+      (C) 3 points: 1 for the constant π and the limits 0 and 2; 2 for the integrand [(5 − x²)² − (5 − 4x + x²)²], 1 for each radius. Radii measured from the x-axis instead of from y = 5 earn neither radius point.
+      (D) 1 point: a correct equation, either half the area 4/3 or the two integrals set equal.
+  # ---- Extra practice across all eight units (q49-q70); q49-q52 share a table.
+  - slug: apcalcab-final-q49
+    type: numeric
+    topic_code: "2.8"
+    source: "AP Calculus CED, Topic 2.8"
+    points: 1
+    stimulus: |
+      The functions f and g are differentiable for all real numbers, and f is increasing. The table gives values of f, f′, g and g′ at selected values of x.
+
+      | x | 1 | 2 | 3 |
+      |---|---|---|---|
+      | f(x) | 2 | 3 | 5 |
+      | f′(x) | 2 | 1 | 4 |
+      | g(x) | 3 | −1 | 2 |
+      | g′(x) | −2 | 5 | 1 |
+    prompt: |
+      Let h(x) = f(x) · g(x). What is h′(2)?
+    answer: { value: 14, tolerance: 0 }
+    explanation: |
+      Product rule: h′(2) = f′(2)g(2) + f(2)g′(2) = (1)(−1) + (3)(5) = −1 + 15 = 14.
+  - slug: apcalcab-final-q50
+    type: fill_blank
+    topic_code: "3.1"
+    source: "AP Calculus CED, Topic 3.1"
+    points: 1
+    stimulus: |
+      The functions f and g are differentiable for all real numbers, and f is increasing. The table gives values of f, f′, g and g′ at selected values of x.
+
+      | x | 1 | 2 | 3 |
+      |---|---|---|---|
+      | f(x) | 2 | 3 | 5 |
+      | f′(x) | 2 | 1 | 4 |
+      | g(x) | 3 | −1 | 2 |
+      | g′(x) | −2 | 5 | 1 |
+    prompt: |
+      Let k(x) = f(g(x)). Then k′(1) = ____.
+    answer: ["-8", "−8"]
+    explanation: |
+      Chain rule: k′(1) = f′(g(1)) · g′(1) = f′(3) · (−2) = 4 · (−2) = −8. Evaluating f′ at 1 instead of at g(1) = 3 gives −4, the usual slip.
+  - slug: apcalcab-final-q51
+    type: numeric
+    topic_code: "3.3"
+    source: "AP Calculus CED, Topic 3.3"
+    points: 1
+    stimulus: |
+      The functions f and g are differentiable for all real numbers, and f is increasing. The table gives values of f, f′, g and g′ at selected values of x.
+
+      | x | 1 | 2 | 3 |
+      |---|---|---|---|
+      | f(x) | 2 | 3 | 5 |
+      | f′(x) | 2 | 1 | 4 |
+      | g(x) | 3 | −1 | 2 |
+      | g′(x) | −2 | 5 | 1 |
+    prompt: |
+      Let f⁻¹ be the inverse function of f. What is the value of (f⁻¹)′(5)? Give your answer as a decimal.
+    answer: { value: 0.25, tolerance: 0.001 }
+    explanation: |
+      f(3) = 5, so f⁻¹(5) = 3 and (f⁻¹)′(5) = 1/f′(f⁻¹(5)) = 1/f′(3) = 1/4 = 0.25. Using 1/f′(5) is the common error: f′(5) is not even in the table.
+  - slug: apcalcab-final-q52
+    type: true_false
+    topic_code: "2.9"
+    source: "AP Calculus CED, Topic 2.9"
+    points: 1
+    stimulus: |
+      The functions f and g are differentiable for all real numbers, and f is increasing. The table gives values of f, f′, g and g′ at selected values of x.
+
+      | x | 1 | 2 | 3 |
+      |---|---|---|---|
+      | f(x) | 2 | 3 | 5 |
+      | f′(x) | 2 | 1 | 4 |
+      | g(x) | 3 | −1 | 2 |
+      | g′(x) | −2 | 5 | 1 |
+    prompt: |
+      True or false: If q(x) = g(x)/f(x), then q′(1) = 5/2.
+    answer: false
+    explanation: |
+      False. q′(1) = (g′(1)f(1) − g(1)f′(1))/(f(1))² = ((−2)(2) − (3)(2))/2² = −10/4 = −5/2. The value 5/2 comes from reversing the order of the subtraction in the quotient rule's numerator.
+  - slug: apcalcab-final-q53
+    type: multi_select
+    topic_code: "1.10"
+    source: "AP Calculus CED, Topic 1.10"
+    points: 1
+    partial_credit: true
+    prompt: |
+      Let f(x) = (x² − 1)/(x² + x − 2). Which statements are true? Select all that apply.
+    options:
+      - "f has a removable discontinuity at x = 1."
+      - "lim (x→1) f(x) = 0."
+      - "The line x = −2 is a vertical asymptote of the graph of f."
+      - "The line y = 0 is a horizontal asymptote of the graph of f."
+      - "lim (x→1) f(x) = 2/3."
+    option_explanations:
+      - |
+        Correct. f(x) = (x − 1)(x + 1)/((x − 1)(x + 2)); the factor x − 1 cancels, so f is undefined at x = 1 but its limit exists there.
+      - |
+        The numerator is 0 at x = 1, but so is the denominator; after cancelling, (x + 1)/(x + 2) → 2/3, not 0.
+      - |
+        Correct. The factor x + 2 stays in the denominator after cancelling, and the numerator x + 1 is −1 ≠ 0 there, so f is unbounded near x = −2.
+      - |
+        The numerator and denominator both have degree 2 with leading coefficients 1, so the horizontal asymptote is y = 1.
+      - |
+        Correct. For x ≠ 1, f(x) = (x + 1)/(x + 2), which tends to 2/3 as x → 1.
+    answer: [0, 2, 4]
+  - slug: apcalcab-final-q54
+    type: fill_blank
+    topic_code: "1.8"
+    source: "AP Calculus CED, Topic 1.8"
+    points: 1
+    prompt: |
+      For x ≠ 0, −x² ≤ x² cos(1/x) ≤ x². By the Squeeze Theorem, lim (x→0) x² cos(1/x) = ____.
+    answer: ["0"]
+    explanation: |
+      Both bounding functions −x² and x² tend to 0 as x → 0, and x² cos(1/x) is trapped between them, so its limit is 0. lim (x→0) cos(1/x) does not exist, so the product rule for limits cannot be used here.
+  - slug: apcalcab-final-q55
+    type: true_false
+    topic_code: "1.16"
+    source: "AP Calculus CED, Topic 1.16"
+    points: 1
+    prompt: |
+      True or false: If f is continuous on [0, 2], f(0) = 1 and f(2) = 5, then the Intermediate Value Theorem guarantees a number c in (0, 2) with f(c) = π.
+    answer: true
+    explanation: |
+      True. f is continuous on the closed interval [0, 2], and π ≈ 3.14 lies between f(0) = 1 and f(2) = 5, so the Intermediate Value Theorem guarantees at least one such c.
+  - slug: apcalcab-final-q56
+    type: numeric
+    topic_code: "1.6"
+    source: "AP Calculus CED, Topic 1.6"
+    points: 1
+    prompt: |
+      What is lim (x→4) (√x − 2)/(x − 4)? Give your answer as a decimal.
+    answer: { value: 0.25, tolerance: 0.001 }
+    explanation: |
+      Factor the denominator as a difference of squares: x − 4 = (√x − 2)(√x + 2). For x ≠ 4 the quotient is 1/(√x + 2), which tends to 1/4 = 0.25. (Multiplying by the conjugate gives the same result.)
+  - slug: apcalcab-final-q57
+    type: fill_blank
+    topic_code: "2.7"
+    source: "AP Calculus CED, Topic 2.7"
+    points: 1
+    prompt: |
+      If f(x) = 5 sin x − 3 cos x, then f′(0) = ____.
+    answer: ["5"]
+    explanation: |
+      f′(x) = 5 cos x + 3 sin x, since the derivative of −3 cos x is +3 sin x. At x = 0: 5(1) + 3(0) = 5.
+  - slug: apcalcab-final-q58
+    type: true_false
+    topic_code: "2.4"
+    source: "AP Calculus CED, Topic 2.4"
+    points: 1
+    prompt: |
+      True or false: If a function f is continuous at x = a, then f is differentiable at x = a.
+    answer: false
+    explanation: |
+      False. f(x) = |x − 2| is continuous at x = 2 but has a corner there: the slopes from the left and right are −1 and 1, so f′(2) does not exist. The converse is true: differentiability at a point implies continuity there.
+  - slug: apcalcab-final-q59
+    type: numeric
+    topic_code: "4.6"
+    source: "AP Calculus CED, Topic 4.6"
+    points: 1
+    prompt: |
+      Use the line tangent to the graph of f(x) = ∛x at x = 8 to approximate ∛8.6. Give your answer to three decimal places.
+    answer: { value: 2.05, tolerance: 0.001 }
+    explanation: |
+      f(8) = 2 and f′(x) = 1/(3x^(2/3)), so f′(8) = 1/(3 · 4) = 1/12. The tangent line is L(x) = 2 + (1/12)(x − 8), and L(8.6) = 2 + 0.6/12 = 2.050. (The true value is about 2.049; the graph of ∛x is concave down, so the tangent line gives an overestimate.)
+  - slug: apcalcab-final-q60
+    type: short_answer
+    topic_code: "4.5"
+    source: "AP Calculus CED, Topic 4.5"
+    points: 3
+    prompt: |
+      A 10-foot board leans against a vertical wall. The bottom of the board slides away from the wall along level ground at a constant 1.5 feet per second.
+      (a) Write an equation relating x, the distance from the bottom of the board to the wall, and y, the height of the top of the board.
+      (b) How fast is the top of the board sliding down the wall at the instant the bottom is 6 feet from the wall? Include units.
+    answer: |
+      (a) x² + y² = 100.
+      (b) Differentiate with respect to t: 2x(dx/dt) + 2y(dy/dt) = 0. When x = 6, y = √(100 − 36) = 8. Then 2(6)(1.5) + 2(8)(dy/dt) = 0, so dy/dt = −18/16 = −9/8. The top slides down the wall at 9/8 = 1.125 feet per second.
+    explanation: |
+      Three points. 1 point: the Pythagorean equation x² + y² = 100. 1 point: differentiating implicitly with respect to t, with both dx/dt and dy/dt, and finding y = 8. 1 point: dy/dt = −9/8 with units feet per second, or the statement that the top slides down at 9/8 feet per second. Substituting x = 6 before differentiating earns no credit for the second and third points.
+  - slug: apcalcab-final-q61
+    type: multi_select
+    topic_code: "4.2"
+    source: "AP Calculus CED, Topic 4.2"
+    points: 1
+    partial_credit: true
+    prompt: |
+      A particle moves along the x-axis with position x(t) = t³ − 6t² + 9t for t ≥ 0. Which statements are true? Select all that apply.
+    options:
+      - "At t = 2.5 the particle is moving to the right."
+      - "The particle is at rest at t = 1 and at t = 3."
+      - "At t = 2.5 the speed of the particle is decreasing."
+      - "At t = 2.5 the speed of the particle is −2.25."
+      - "At t = 2.5 the acceleration of the particle is 3."
+    option_explanations:
+      - |
+        v(t) = 3t² − 12t + 9 = 3(t − 1)(t − 3), so v(2.5) = 3(1.5)(−0.5) = −2.25 < 0: the particle is moving to the left.
+      - |
+        Correct. v(t) = 3(t − 1)(t − 3) is 0 at t = 1 and t = 3.
+      - |
+        Correct. v(2.5) = −2.25 < 0 and a(2.5) = 6(2.5) − 12 = 3 > 0; opposite signs mean the speed is decreasing.
+      - |
+        −2.25 is the velocity; speed is its absolute value, 2.25, and is never negative.
+      - |
+        Correct. a(t) = v′(t) = 6t − 12, so a(2.5) = 15 − 12 = 3.
+    answer: [1, 2, 4]
+  - slug: apcalcab-final-q62
+    type: fill_blank
+    topic_code: "5.6"
+    source: "AP Calculus CED, Topic 5.6"
+    points: 1
+    prompt: |
+      The second derivative of a function f is f″(x) = (x − 3)(x + 1)². The graph of f has a point of inflection only at x = ____.
+    answer: ["3"]
+    explanation: |
+      f″ changes sign only at x = 3 (negative to positive). At x = −1, f″ = 0 but the squared factor keeps f″ negative on both sides, so the concavity does not change there and there is no point of inflection.
+  - slug: apcalcab-final-q63
+    type: short_answer
+    topic_code: "5.12"
+    source: "AP Calculus CED, Topic 5.12"
+    points: 3
+    prompt: |
+      Consider the curve x² + xy + y² = 3.
+      (a) Show that dy/dx = −(2x + y)/(x + 2y).
+      (b) Find all points on the curve at which the tangent line is horizontal.
+      (c) Find all points on the curve at which the tangent line is vertical.
+    answer: |
+      (a) Differentiate implicitly: 2x + y + x(dy/dx) + 2y(dy/dx) = 0, so (x + 2y)(dy/dx) = −(2x + y) and dy/dx = −(2x + y)/(x + 2y).
+      (b) Horizontal where 2x + y = 0 (and x + 2y ≠ 0): y = −2x. Then x² − 2x² + 4x² = 3, so x² = 1 and the points are (1, −2) and (−1, 2).
+      (c) Vertical where x + 2y = 0 (and 2x + y ≠ 0): x = −2y. Then 4y² − 2y² + y² = 3, so y² = 1 and the points are (−2, 1) and (2, −1).
+    explanation: |
+      Three points. 1 point for (a): implicit differentiation with the product rule on xy, solved for dy/dx. 1 point for (b): both points (1, −2) and (−1, 2), from setting the numerator to 0 and substituting into the curve. 1 point for (c): both points (−2, 1) and (2, −1), from setting the denominator to 0 and substituting. A point found but not shown to lie on the curve earns no credit.
+  - slug: apcalcab-final-q64
+    type: true_false
+    topic_code: "5.2"
+    source: "AP Calculus CED, Topic 5.2"
+    points: 1
+    prompt: |
+      True or false: If f is continuous on the closed interval [a, b], then f has both an absolute maximum value and an absolute minimum value on [a, b].
+    answer: true
+    explanation: |
+      True. This is the Extreme Value Theorem. Both hypotheses matter: f(x) = 1/x on (0, 1] (not closed) and a function with a jump on [a, b] (not continuous) can fail to have an absolute maximum.
+  - slug: apcalcab-final-q65
+    type: numeric
+    topic_code: "6.7"
+    source: "AP Calculus CED, Topic 6.7"
+    points: 1
+    prompt: |
+      What is the value of ∫ from 0 to 2 of (3x² − 2x + 1) dx?
+    answer: { value: 6, tolerance: 0 }
+    explanation: |
+      An antiderivative is x³ − x² + x. By the Fundamental Theorem of Calculus the integral is (8 − 4 + 2) − 0 = 6.
+  - slug: apcalcab-final-q66
+    type: fill_blank
+    topic_code: "6.5"
+    source: "AP Calculus CED, Topic 6.5"
+    points: 1
+    prompt: |
+      Let g(x) = ∫ from 1 to x of (t² − 4t + 3) dt. The function g has a relative maximum at x = ____.
+    answer: ["1"]
+    explanation: |
+      g′(x) = x² − 4x + 3 = (x − 1)(x − 3). g′ changes from positive to negative at x = 1, so g has a relative maximum there; at x = 3 g′ changes from negative to positive, a relative minimum.
+  - slug: apcalcab-final-q67
+    type: multi_select
+    topic_code: "6.6"
+    source: "AP Calculus CED, Topic 6.6"
+    points: 1
+    partial_credit: true
+    prompt: |
+      Suppose ∫ from 0 to 3 of f(x) dx = 5 and ∫ from 0 to 3 of g(x) dx = −2. Which statements must be true? Select all that apply.
+    options:
+      - "∫ from 0 to 3 of (f(x) + 2g(x)) dx = 1"
+      - "∫ from 3 to 0 of f(x) dx = −5"
+      - "∫ from 0 to 3 of f(x)g(x) dx = −10"
+      - "∫ from 0 to 3 of (f(x) + 4) dx = 17"
+      - "∫ from 0 to 3 of (f(x))² dx = 25"
+    option_explanations:
+      - |
+        Correct. Integrals are linear: 5 + 2(−2) = 1.
+      - |
+        Correct. Reversing the limits changes the sign of the integral.
+      - |
+        There is no product rule for integrals; the integral of a product is not the product of the integrals and cannot be found from the data.
+      - |
+        Correct. ∫ from 0 to 3 of 4 dx = 12, and 5 + 12 = 17.
+      - |
+        Squaring the integral is not integrating the square; ∫ f² cannot be found from ∫ f alone.
+    answer: [0, 1, 3]
+  - slug: apcalcab-final-q68
+    type: short_answer
+    topic_code: "6.10"
+    source: "AP Calculus CED, Topic 6.10"
+    points: 3
+    prompt: |
+      Find each indefinite integral.
+      (a) ∫ (x² + 3x + 1)/(x + 1) dx
+      (b) ∫ 1/(x² + 6x + 10) dx
+    answer: |
+      (a) Long division: x² + 3x + 1 = (x + 1)(x + 2) − 1, so the integrand is x + 2 − 1/(x + 1), and the integral is x²/2 + 2x − ln|x + 1| + C.
+      (b) Complete the square: x² + 6x + 10 = (x + 3)² + 1, so the integral is arctan(x + 3) + C.
+    explanation: |
+      Three points. 1 point for the division x + 2 − 1/(x + 1) in (a); 1 point for its antiderivative x²/2 + 2x − ln|x + 1| + C; 1 point for (b), arctan(x + 3) + C, which needs the completed square (x + 3)² + 1. A missing + C is penalised once across both parts.
+  - slug: apcalcab-final-q69
+    type: numeric
+    topic_code: "7.8"
+    source: "AP Calculus CED, Topic 7.8"
+    points: 1
+    prompt: |
+      (Calculator.) A substance decays so that dy/dt = −0.2y, where y is the amount in milligrams and t is in hours (hypothetical). At t = 0 there are 50 milligrams. How many milligrams remain at t = 5? Give your answer to three decimal places.
+    answer: { value: 18.394, tolerance: 0.001 }
+    explanation: |
+      dy/dt = ky has solution y = y(0)e^(kt), so y = 50e^(−0.2t) and y(5) = 50e^(−1) ≈ 18.394 milligrams.
+  - slug: apcalcab-final-q70
+    type: fill_blank
+    topic_code: "8.8"
+    source: "AP Calculus CED, Topic 8.8"
+    points: 1
+    prompt: |
+      The region bounded by y = 2x, the x-axis and the line x = 3 is the base of a solid. Each cross section perpendicular to the x-axis is a semicircle whose diameter lies in the region. The volume of the solid is ____ cubic units.
+    answer: ["9π/2", "9pi/2", "9π / 2", "9 π/2", "(9/2)π", "4.5π", "4.5pi", "14.137", "14.14"]
+    explanation: |
+      The diameter at x is 2x, so the radius is x and the area of the semicircle is (π/2)x². Volume = ∫ from 0 to 3 of (π/2)x² dx = (π/2)(9) = 9π/2 ≈ 14.137. Using the diameter 2x as the radius gives 18π, four times too large.

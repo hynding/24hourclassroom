@@ -1,0 +1,610 @@
+week: 12
+unit: 3
+title: "Selecting Procedures and Higher-Order Derivatives"
+topics: ["3.5", "3.6"]
+guide: guides/week-12.md
+guide_description: |
+  How to choose a differentiation procedure by reading an expression's top-level structure (sum, product, quotient,
+  composite, implicit relation, inverse), rewriting before differentiating, and checking an answer; then second and
+  higher-order derivatives, their notation (f″, f‴, f⁽⁴⁾, d²y/dx²), patterns in repeated derivatives, and second
+  derivatives of implicit relations. Worked examples: choosing rules for e^(3x) sin x, (2x + 1)³/x², arctan(√x) and
+  ln(x² + 1); a quotient rewritten as a product; the second derivative of ln(x² + 1); the third derivative of
+  sin(2x); the derivative pattern of x ln x; and d²y/dx² on the circle x² + y² = 4.
+flashcards_description: |
+  31 cards on reading an expression's structure, matching it to a rule, rewriting to simplify, notation for higher
+  derivatives, repeated-derivative patterns for polynomials, exponentials and sines, implicit second derivatives,
+  and the second derivative of an inverse function.
+
+flashcards:
+  - front: Selecting a derivative procedure → the first question to ask
+    back: |
+      What is the last operation performed when you evaluate the expression (its top-level structure)? A sum, a product, a quotient, a composite, or an implicit relation decides the first rule.
+    topic_code: "3.5"
+  - front: e^(3x) sin x → which rules, in what order
+    back: |
+      Top level: a product. Product rule first; the chain rule inside it for e^(3x). Result: e^(3x)(3 sin x + cos x).
+    topic_code: "3.5"
+  - front: (2x + 1)³/x² → which rules
+    back: |
+      Top level: a quotient (quotient rule), with the chain rule for (2x + 1)³. Or rewrite as (2x + 1)³ · x⁻² and use the product rule.
+    topic_code: "3.5"
+  - front: arctan(√x) → which rules
+    back: |
+      A composite: arctan of √x. Chain rule: 1/(1 + x) · 1/(2√x) = 1/(2√x(1 + x)).
+    topic_code: "3.5"
+  - front: Quotient with a constant numerator, such as 5/(x² + 1) → fastest procedure
+    back: |
+      Rewrite as 5(x² + 1)⁻¹ and use the chain rule: −10x/(x² + 1)². No quotient rule needed.
+    topic_code: "3.5"
+  - front: Quotient with a monomial denominator, such as (x³ − 4x)/x → fastest procedure
+    back: |
+      Divide first: x² − 4 (for x ≠ 0), so the derivative is 2x. Simplifying before differentiating saves work.
+    topic_code: "3.5"
+  - front: ln of a product or quotient, such as ln(x(x + 1)) → useful rewrite
+    back: |
+      Split with log properties first: ln x + ln(x + 1), derivative 1/x + 1/(x + 1).
+    topic_code: "3.5"
+  - front: y defined by an equation you can't solve for y → which procedure
+    back: |
+      Implicit differentiation: differentiate both sides, attach dy/dx to each y-term, solve for dy/dx.
+    topic_code: "3.5"
+  - front: Derivative of an inverse at a point when f⁻¹ has no formula → which procedure
+    back: |
+      (f⁻¹)′(b) = 1/f′(a) where f(a) = b. Find the matching input a first.
+    topic_code: "3.5"
+  - front: Checking a derivative answer → two quick tests
+    back: |
+      Evaluate at a convenient point and compare with a numerical slope (calculator nDeriv or a small difference quotient), and check that the sign makes sense from the graph.
+    topic_code: "3.5"
+  - front: d/dx [(2x + 1)³/x²] → simplified form and value at x = 1
+    back: |
+      2(x − 1)(2x + 1)²/x³; at x = 1 it is 0, so the graph has a horizontal tangent there.
+    topic_code: "3.5"
+  - front: Second derivative → definition
+    back: |
+      The derivative of the derivative: f″(x) = d/dx [f′(x)]. It measures how fast the slope is changing.
+    topic_code: "3.6"
+  - front: Higher-order derivative notation → four ways to write the second derivative of y = f(x)
+    back: |
+      f″(x), y″, d²y/dx², and d²/dx² [f(x)].
+    topic_code: "3.6"
+  - front: Third and fourth derivatives → notation
+    back: |
+      f‴(x) or d³y/dx³; f⁽⁴⁾(x) or d⁴y/dx⁴. From the fourth on, use a number in parentheses, not primes.
+    topic_code: "3.6"
+  - front: Polynomial of degree n → its (n + 1)th derivative
+    back: |
+      0. Each derivative lowers the degree by one; the nth derivative is the constant aₙ · n!.
+    topic_code: "3.6"
+  - front: x⁵ → its fourth and fifth derivatives
+    back: |
+      Fourth: 120x. Fifth: 120. Sixth and beyond: 0.
+    topic_code: "3.6"
+  - front: x⁴ − 4x³ → second, third and fourth derivatives
+    back: |
+      12x² − 24x; 24x − 24; 24.
+    topic_code: "3.6"
+  - front: e^(kx) → its nth derivative
+    back: |
+      kⁿe^(kx). Each derivative multiplies by another factor of k. For e^(3x), y″ = 9e^(3x).
+    topic_code: "3.6"
+  - front: sin(2x) → first four derivatives
+    back: |
+      2cos(2x), −4sin(2x), −8cos(2x), 16sin(2x). The pattern repeats every four, gaining a factor 2 each time.
+    topic_code: "3.6"
+  - front: sin x → its 4th, 10th and 23rd derivatives
+    back: |
+      The cycle sin, cos, −sin, −cos has length 4. 4th: sin x. 10th (remainder 2): −sin x. 23rd (remainder 3): −cos x.
+    topic_code: "3.6"
+  - front: ln(x² + 1) → second derivative
+    back: |
+      g′ = 2x/(x² + 1), and the quotient rule gives g″ = (2 − 2x²)/(x² + 1)², which is 2 at x = 0 and 0 at x = ±1.
+    topic_code: "3.6"
+  - front: x ln x → second and third derivatives
+    back: |
+      f′ = ln x + 1, f″ = 1/x, f‴ = −1/x².
+    topic_code: "3.6"
+  - front: f′(x) = x eˣ → f″(x)
+    back: |
+      Product rule: eˣ + x eˣ = (x + 1)eˣ.
+    topic_code: "3.6"
+  - front: Implicit second derivative → method
+    back: |
+      Differentiate dy/dx (a quotient in x and y) with respect to x, using the chain rule on y-terms, then substitute the expression for dy/dx and simplify using the curve's equation.
+    topic_code: "3.6"
+  - front: x² + y² = 4 → d²y/dx²
+    back: |
+      dy/dx = −x/y; then d²y/dx² = −(y − x(dy/dx))/y² = −(x² + y²)/y³ = −4/y³.
+    topic_code: "3.6"
+  - front: x² + y² = 4 at (0, 2) → concavity
+    back: |
+      d²y/dx² = −4/8 = −1/2 < 0, so the top of the circle is concave down.
+    topic_code: "3.6"
+  - front: Second derivative of an inverse g = f⁻¹ → formula
+    back: |
+      g″(x) = −f″(g(x)) · g′(x)/[f′(g(x))]², from differentiating g′(x) = 1/f′(g(x)) with the chain rule.
+    topic_code: "3.6"
+  - front: Second derivative in context, s(t) position → meaning of s″(t)
+    back: |
+      The rate of change of velocity: acceleration. In general f″ is the rate at which the rate of change is changing.
+    topic_code: "3.6"
+  - front: Error-spot → "f(x) = x eˣ, so f″(x) = eˣ because d/dx x = 1 and d/dx eˣ = eˣ"
+    back: |
+      The derivative of a product is not the product of derivatives. f′ = (x + 1)eˣ and f″ = (x + 2)eˣ.
+    topic_code: "3.6"
+  - front: Error-spot → "d²y/dx² = (dy/dx)²"
+    back: |
+      The second derivative is the derivative of dy/dx, not its square. For y = x³: d²y/dx² = 6x, but (dy/dx)² = 9x⁴.
+    topic_code: "3.6"
+  - front: Error-spot → "implicit y″ for x² + y² = 4 is −1/y, from differentiating −x/y with y held fixed"
+    back: |
+      y is a function of x, so the quotient rule must use dy/dx for the derivative of y. The correct result is −4/y³.
+    topic_code: "3.6"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 3.5 and 3.6: choosing and combining derivative
+    rules, rewriting before differentiating, and second and higher-order derivatives, including implicit second
+    derivatives), with 7 questions (about 30%) reviewing weeks 10 and 11 (the chain rule, implicit differentiation,
+    and derivatives of inverse and inverse trigonometric functions). Opens with a shared-context set on one function.
+    Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes. Only
+    the item marked (Calculator.) needs a graphing calculator.
+  questions:
+    # ---- Stimulus set: g(x) = ln(x² + 1) (3.6, 3.5)
+    - slug: apcalcab-u03-w12-q01
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Calculus CED, Topic 3.6"
+      points: 1
+      stimulus: |
+        Let g(x) = ln(x² + 1), defined for all real numbers. Its first derivative is g′(x) = 2x/(x² + 1).
+      prompt: |
+        Which expression is g″(x)?
+      options:
+        - "1/x"
+        - "(6x² + 2)/(x² + 1)²"
+        - "(2 − 2x²)/(x² + 1)²"
+        - "(2x² − 2)/(x² + 1)²"
+      option_explanations:
+        - |
+          This differentiates the numerator and denominator separately, 2/(2x); the quotient rule is not a ratio of derivatives.
+        - |
+          The two numerator terms were added: 2(x² + 1) + 2x · 2x. The quotient rule subtracts the second term.
+        - |
+          Correct. g″(x) = [2(x² + 1) − 2x · 2x]/(x² + 1)² = (2 − 2x²)/(x² + 1)².
+        - |
+          The numerator terms are subtracted in the wrong order, which flips the sign of the whole second derivative.
+      answer: 2
+    - slug: apcalcab-u03-w12-q02
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Calculus CED, Topic 3.6"
+      points: 1
+      stimulus: |
+        Let g(x) = ln(x² + 1), defined for all real numbers. Its first derivative is g′(x) = 2x/(x² + 1).
+      prompt: |
+        What is the value of g″(0)?
+      options:
+        - "0"
+        - "2"
+        - "−2"
+        - "1"
+      option_explanations:
+        - |
+          0 is g′(0), the first derivative at 0; the second derivative there is not zero.
+        - |
+          Correct. g″(x) = (2 − 2x²)/(x² + 1)², so g″(0) = 2/1 = 2.
+        - |
+          The sign comes from reversing the quotient rule's numerator, which gives (2x² − 2)/(x² + 1)².
+        - |
+          1 is the denominator (x² + 1)² at x = 0 alone; the numerator 2 still multiplies it.
+      answer: 1
+    - slug: apcalcab-u03-w12-q03
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Calculus CED, Topic 3.6"
+      points: 1
+      stimulus: |
+        Let g(x) = ln(x² + 1), defined for all real numbers. Its first derivative is g′(x) = 2x/(x² + 1).
+      prompt: |
+        For which values of x is g″(x) < 0?
+      options:
+        - "x < −1 or x > 1"
+        - "−1 < x < 1"
+        - "x < 0"
+        - "x > 1 only"
+      option_explanations:
+        - |
+          Correct. The denominator (x² + 1)² is always positive, and 2 − 2x² < 0 exactly when x² > 1.
+        - |
+          On −1 < x < 1 the numerator 2 − 2x² is positive, so g″ is positive there, not negative.
+        - |
+          x < 0 is where g′(x) < 0; the question asks about the second derivative.
+        - |
+          x² > 1 also holds for x < −1; g″ is an even function, so its sign is symmetric about 0.
+      answer: 0
+    - slug: apcalcab-u03-w12-q04
+      type: multiple_choice
+      topic_code: "3.5"
+      source: "AP Calculus CED, Topic 3.5"
+      points: 1
+      stimulus: |
+        Let g(x) = ln(x² + 1), defined for all real numbers. Its first derivative is g′(x) = 2x/(x² + 1).
+      prompt: |
+        Which is an equation of the line tangent to the graph of g at x = 1?
+      options:
+        - "y = ln 2 + (1/2)(x − 1)"
+        - "y = x − 1"
+        - "y = ln 2"
+        - "y = ln 2 + (x − 1)"
+      option_explanations:
+        - |
+          The slope 1/2 is 1/(x² + 1) at x = 1, the derivative without the inner factor 2x.
+        - |
+          This uses the correct slope but the point (1, 0); g(1) = ln 2, not 0.
+        - |
+          This uses g″(1) = 0 as the slope; the tangent line's slope is the first derivative g′(1) = 1.
+        - |
+          Correct. g(1) = ln 2 and g′(1) = 2/2 = 1, so the tangent line is y = ln 2 + 1 · (x − 1).
+      answer: 3
+    # ---- Independent items
+    - slug: apcalcab-u03-w12-q05
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Calculus CED, Topic 3.6"
+      points: 1
+      prompt: |
+        If y = sin(2x), what is d³y/dx³?
+      options:
+        - "−cos(2x)"
+        - "8 cos(2x)"
+        - "−6 cos(2x)"
+        - "−8 cos(2x)"
+      option_explanations:
+        - |
+          The chain rule factor 2 was dropped at every step; each derivative multiplies by 2, giving 2³ = 8.
+        - |
+          The sign is wrong: y′ = 2cos(2x), y″ = −4sin(2x), y‴ = −8cos(2x).
+        - |
+          The chain-rule factors were added (2 + 2 + 2) instead of multiplied (2 · 2 · 2).
+        - |
+          Correct. y′ = 2cos(2x), y″ = −4sin(2x), y‴ = −8cos(2x).
+      answer: 3
+    - slug: apcalcab-u03-w12-q06
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Calculus CED, Topic 3.6"
+      points: 1
+      prompt: |
+        What is the fourth derivative of f(x) = x⁵?
+      options:
+        - "120x"
+        - "120"
+        - "60x²"
+        - "20x³"
+      option_explanations:
+        - |
+          Correct. f′ = 5x⁴, f″ = 20x³, f‴ = 60x², f⁽⁴⁾ = 120x.
+        - |
+          120 is the fifth derivative; this differentiates one time too many.
+        - |
+          60x² is the third derivative; this stops one step early.
+        - |
+          20x³ is the second derivative; f⁽⁴⁾ means four differentiations.
+      answer: 0
+    - slug: apcalcab-u03-w12-q07
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Calculus CED, Topic 3.6"
+      points: 1
+      prompt: |
+        For the circle x² + y² = 4, dy/dx = −x/y. Which expression is d²y/dx² in terms of y?
+      options:
+        - "−1/y"
+        - "−4/y³"
+        - "4/y³"
+        - "−(y − x)/y²"
+      option_explanations:
+        - |
+          This differentiates −x/y as if y were a constant; y depends on x, so the quotient rule needs dy/dx.
+        - |
+          Correct. d²y/dx² = −[y − x(dy/dx)]/y² = −[y + x²/y]/y² = −(x² + y²)/y³ = −4/y³.
+        - |
+          The leading minus sign of −x/y was lost; the top of the circle (y > 0) must be concave down.
+        - |
+          This treats dy/dx as 1 in the quotient rule instead of substituting −x/y.
+      answer: 1
+    - slug: apcalcab-u03-w12-q08
+      type: multiple_choice
+      topic_code: "3.5"
+      source: "AP Calculus CED, Topic 3.5"
+      points: 1
+      prompt: |
+        What is the derivative of h(x) = e^(3x) sin x?
+      options:
+        - "3e^(3x) cos x"
+        - "e^(3x)(sin x + cos x)"
+        - "e^(3x)(3 sin x + cos x)"
+        - "e^(3x)(3 sin x − cos x)"
+      option_explanations:
+        - |
+          This multiplies the two derivatives; the product rule needs f′g + fg′.
+        - |
+          The product rule is used, but the chain-rule factor 3 on e^(3x) is missing.
+        - |
+          Correct. Product rule with the chain rule: 3e^(3x) sin x + e^(3x) cos x = e^(3x)(3 sin x + cos x).
+        - |
+          The derivative of sin x is +cos x; the minus sign is a slip.
+      answer: 2
+    - slug: apcalcab-u03-w12-q09
+      type: multiple_choice
+      topic_code: "3.5"
+      source: "AP Calculus CED, Topic 3.5"
+      points: 1
+      prompt: |
+        What is d/dx arctan(√x), for x > 0?
+      options:
+        - "1/(1 + x)"
+        - "1/(2√x(1 + x²))"
+        - "1/(2√x(1 + √x))"
+        - "1/(2√x(1 + x))"
+      option_explanations:
+        - |
+          This differentiates the arctangent but forgets the inner derivative 1/(2√x).
+        - |
+          The inner function √x squared is x, not x²; the denominator should contain 1 + x.
+        - |
+          The inner function √x was not squared in 1 + u².
+        - |
+          Correct. 1/(1 + (√x)²) · 1/(2√x) = 1/(2√x(1 + x)).
+      answer: 3
+    - slug: apcalcab-u03-w12-q10
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Calculus CED, Topic 3.6"
+      points: 1
+      prompt: |
+        If f′(x) = x eˣ, what is f″(x)?
+      options:
+        - "(x + 1)eˣ"
+        - "eˣ"
+        - "x eˣ"
+        - "(x − 1)eˣ"
+      option_explanations:
+        - |
+          Correct. Product rule: 1 · eˣ + x · eˣ = (x + 1)eˣ.
+        - |
+          This multiplies the derivatives of the factors, 1 · eˣ; the product rule adds two terms.
+        - |
+          This differentiates eˣ but treats x as a constant, missing the term eˣ from d/dx x = 1.
+        - |
+          The two product-rule terms are added, not subtracted; a minus sign appears only in the quotient rule.
+      answer: 0
+    - slug: apcalcab-u03-w12-q11
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Calculus CED, Topic 3.3"
+      points: 1
+      prompt: |
+        The function f is differentiable and invertible, and the line tangent to its graph at the point (4, 1) is y = 1 + 3(x − 4). Let g be the inverse of f. What is g′(1)?
+      options:
+        - "3"
+        - "1/3"
+        - "−1/3"
+        - "1/4"
+      option_explanations:
+        - |
+          3 is f′(4), the slope of f; the inverse's slope at the reflected point is its reciprocal.
+        - |
+          Correct. f(4) = 1 and f′(4) = 3, so g′(1) = 1/f′(4) = 1/3.
+        - |
+          Reflecting in y = x takes the reciprocal of the slope, not its negative reciprocal (that would be a perpendicular line).
+        - |
+          1/4 is the reciprocal of the x-coordinate 4, not of the slope f′(4).
+      answer: 1
+    - slug: apcalcab-u03-w12-q12
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "AP Calculus CED, Topic 3.4"
+      points: 1
+      prompt: |
+        What is d/dx arcsin(x²)?
+      options:
+        - "1/√(1 − x⁴)"
+        - "2x/√(1 − x²)"
+        - "2x/√(1 − x⁴)"
+        - "2x/(1 + x⁴)"
+      option_explanations:
+        - |
+          The inner derivative 2x is missing from the numerator.
+        - |
+          The inner function x² must be squared inside the root, giving x⁴.
+        - |
+          Correct. u′/√(1 − u²) with u = x² gives 2x/√(1 − x⁴).
+        - |
+          This uses the arctangent formula u′/(1 + u²) in place of the arcsine formula.
+      answer: 2
+    - slug: apcalcab-u03-w12-q13
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        The function f is differentiable with f′(8) = 5. Let h(x) = f(x³). What is h′(2)?
+      options:
+        - "60"
+        - "5"
+        - "12"
+        - "20"
+      option_explanations:
+        - |
+          Correct. h′(x) = f′(x³) · 3x², so h′(2) = f′(8) · 12 = 60.
+        - |
+          5 is f′(8) alone; the chain rule also multiplies by the inner derivative 3x² = 12.
+        - |
+          12 is the inner derivative alone; it must be multiplied by f′(8).
+        - |
+          This uses 2x for the derivative of x³ (giving 4); the derivative of x³ is 3x².
+      answer: 0
+    - slug: apcalcab-u03-w12-q14
+      type: multi_select
+      topic_code: "3.6"
+      source: "AP Calculus CED, Topic 3.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let f(x) = x⁴ − 4x³. Which statements are true? Select all that apply.
+      options:
+        - "f″(x) = 12x² − 24x"
+        - "f″(2) = 0"
+        - "f‴(0) = 0"
+        - "f⁽⁴⁾(x) = 24"
+        - "f⁽⁵⁾(x) = 24"
+      option_explanations:
+        - |
+          Correct. f′(x) = 4x³ − 12x², so f″(x) = 12x² − 24x.
+        - |
+          Correct. Using f″(x) = 12x² − 24x, f″(2) = 48 − 48 = 0.
+        - |
+          f‴(x) = 24x − 24, so f‴(0) = −24, not 0.
+        - |
+          Correct. Differentiating 24x − 24 gives the constant 24.
+        - |
+          The derivative of the constant 24 is 0, so every derivative after the fourth is 0.
+      answer: [0, 1, 3]
+    - slug: apcalcab-u03-w12-q15
+      type: multi_select
+      topic_code: "3.2"
+      source: "AP Calculus CED, Topic 3.2"
+      points: 2
+      partial_credit: true
+      prompt: |
+        The curve y³ + y = x defines y as a differentiable function of x. Which statements are true? Select all that apply.
+      options:
+        - "dy/dx = 1/(3y² + 1)"
+        - "dy/dx > 0 at every point of the curve"
+        - "The slope of the curve at (2, 1) is 1/4."
+        - "dy/dx = 3y² + 1"
+        - "The curve has a horizontal tangent at the origin."
+      option_explanations:
+        - |
+          Correct. 3y²(dy/dx) + dy/dx = 1, so (3y² + 1)(dy/dx) = 1.
+        - |
+          Correct. 3y² + 1 ≥ 1 > 0, so its reciprocal is always positive.
+        - |
+          Correct. (2, 1) is on the curve (1 + 1 = 2), and 1/(3 + 1) = 1/4.
+        - |
+          This is dx/dy, the reciprocal of the slope.
+        - |
+          At the origin y = 0, so dy/dx = 1/(0 + 1) = 1, not 0.
+      answer: [0, 1, 2]
+    - slug: apcalcab-u03-w12-q16
+      type: true_false
+      topic_code: "3.6"
+      source: "AP Calculus CED, Topic 3.6"
+      points: 1
+      prompt: |
+        True or false: If f is a polynomial of degree 4, then f⁽⁵⁾(x) = 0 for every x.
+      answer: true
+      explanation: |
+        True. Each differentiation lowers the degree by one, so f⁽⁴⁾ is a constant (24 times the leading coefficient) and its derivative f⁽⁵⁾ is 0.
+    - slug: apcalcab-u03-w12-q17
+      type: true_false
+      topic_code: "3.3"
+      source: "AP Calculus CED, Topic 3.3"
+      points: 1
+      prompt: |
+        True or false: If g is the inverse of a differentiable function f with f(2) = 7 and f′(2) = 5, then g′(2) = 1/5.
+      answer: false
+      explanation: |
+        False. The matching input for the inverse is 7, not 2: g′(7) = 1/f′(2) = 1/5. Nothing given determines g′(2).
+    - slug: apcalcab-u03-w12-q18
+      type: fill_blank
+      topic_code: "3.6"
+      source: "AP Calculus CED, Topic 3.6"
+      points: 1
+      prompt: |
+        If y = e^(3x), then the value of d²y/dx² at x = 0 is ____.
+      answer: ["9"]
+      explanation: |
+        y′ = 3e^(3x) and y″ = 9e^(3x), so at x = 0, y″ = 9 · 1 = 9.
+    - slug: apcalcab-u03-w12-q19
+      type: fill_blank
+      topic_code: "3.4"
+      source: "AP Calculus CED, Topic 3.4"
+      points: 1
+      prompt: |
+        The derivative of arctan(3x) at x = 0 is ____.
+      answer: ["3"]
+      explanation: |
+        d/dx arctan(3x) = 3/(1 + 9x²), which is 3/1 = 3 at x = 0.
+    - slug: apcalcab-u03-w12-q20
+      type: numeric
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      prompt: |
+        (Calculator.) Let h(x) = sin(x²). Find h′(√π). Give your answer to three decimal places.
+      answer: { value: -3.545, tolerance: 0.001 }
+      explanation: |
+        h′(x) = 2x cos(x²), so h′(√π) = 2√π cos(π) = −2√π ≈ −3.545.
+    - slug: apcalcab-u03-w12-q21
+      type: short_answer
+      topic_code: "3.5"
+      source: "AP Calculus CED, Topic 3.5"
+      points: 3
+      prompt: |
+        Let y = (2x + 1)³/x², for x ≠ 0.
+
+        (a) Name the derivative rules you would use, and say which part of the expression each one handles.
+        (b) Find dy/dx and write it in the factored form 2(x − 1)(2x + 1)²/x³. Show your work.
+        (c) What does your result say about the tangent line to the graph at x = 1?
+      answer: |
+        (a) The quotient rule for the whole fraction, and the chain rule for (2x + 1)³. (Alternatively: rewrite as (2x + 1)³x⁻² and use the product rule, the chain rule and the power rule.)
+        (b) dy/dx = [3(2x + 1)² · 2 · x² − (2x + 1)³ · 2x]/x⁴ = 2x(2x + 1)²[3x − (2x + 1)]/x⁴ = 2(2x + 1)²(x − 1)/x³.
+        (c) At x = 1 the factor x − 1 is 0, so dy/dx = 0: the tangent line is horizontal there (y = 27).
+      explanation: |
+        Three points, one per part. (a) quotient rule (or rewritten product rule) together with the chain rule, matched to their parts. (b) a correct derivative including the chain-rule factor 2, simplified to the given form with the factoring shown. (c) slope 0 at x = 1, so a horizontal tangent line.
+    - slug: apcalcab-u03-w12-q22
+      type: short_answer
+      topic_code: "3.6"
+      source: "AP Calculus CED, Topic 3.6"
+      points: 3
+      prompt: |
+        Let f(x) = x ln x, for x > 0.
+
+        (a) Find f′(x) and f″(x).
+        (b) Find f‴(x) and f⁽⁴⁾(x).
+        (c) Describe the pattern, and use it to write f⁽⁵⁾(x).
+      answer: |
+        (a) f′(x) = ln x + x · (1/x) = ln x + 1, and f″(x) = 1/x.
+        (b) f‴(x) = −1/x² and f⁽⁴⁾(x) = 2/x³.
+        (c) From the second derivative on, each derivative of a power of x lowers the power by one and multiplies by the old exponent: the signs alternate and the coefficients are 1, 1, 2, 6, …, factorials. f⁽⁵⁾(x) = −6/x⁴.
+      explanation: |
+        Three points, one per part. (a) both f′ (product rule) and f″. (b) both −1/x² and 2/x³. (c) −6/x⁴ with a correct description of the pattern (alternating signs, factorial coefficients, or (−1)ⁿ(n − 2)!/xⁿ⁻¹ for n ≥ 2).
+    - slug: apcalcab-u03-w12-q23
+      type: long_answer
+      topic_code: "3.5"
+      source: "AP Calculus CED, Topic 3.5"
+      points: 7
+      prompt: |
+        Let f(x) = x³ + x + 2, and let g be the inverse function of f.
+
+        (A) Find f′(x) and f″(x).
+
+        (B) Find g(4) and g′(4).
+
+        (C) Given that g′(x) = 1/f′(g(x)), find g″(4).
+
+        (D) Let h(x) = f(x) · e^(2x). Find h′(0).
+
+        (E) Let k(x) = arctan(f(x)). Find k′(−1).
+      answer: |
+        (A) f′(x) = 3x² + 1 and f″(x) = 6x.
+        (B) f(1) = 1 + 1 + 2 = 4, so g(4) = 1. g′(4) = 1/f′(1) = 1/(3 + 1) = 1/4.
+        (C) Differentiate g′(x) = [f′(g(x))]⁻¹ with the chain rule: g″(x) = −[f′(g(x))]⁻² · f″(g(x)) · g′(x). At x = 4: g″(4) = −f″(1) · g′(4)/[f′(1)]² = −6 · (1/4)/16 = −3/32.
+        (D) h′(x) = f′(x)e^(2x) + 2f(x)e^(2x). With f(0) = 2 and f′(0) = 1: h′(0) = 1 · 1 + 2 · 2 · 1 = 5.
+        (E) k′(x) = f′(x)/(1 + [f(x)]²). f(−1) = −1 − 1 + 2 = 0 and f′(−1) = 4, so k′(−1) = 4/(1 + 0) = 4.
+      explanation: |
+        Seven points. (A) 1 point: both derivatives. (B) 2 points: 1 for g(4) = 1, 1 for g′(4) = 1/4 with f′ evaluated at 1. (C) 2 points: 1 for a correct chain-rule expression for g″, 1 for −3/32 (follow-through from (B) accepted). (D) 1 point: 5, from the product rule with the chain-rule factor 2 on e^(2x). (E) 1 point: 4, from the arctangent rule with the chain rule.

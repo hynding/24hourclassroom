@@ -1,0 +1,929 @@
+unit: 2
+description: |
+  45 questions · about 90 minutes · every topic of Unit 2 (2.1 to 2.10): average and instantaneous rates of
+  change, the limit definition of the derivative and its notation, estimating derivatives from tables, graphs and
+  difference quotients, differentiability and continuity, the power, constant, sum, difference and constant
+  multiple rules, the derivatives of sin x, cos x, eˣ and ln x, the product and quotient rules, and the
+  derivatives of tan x, cot x, sec x and csc x. Includes three shared-context sets of three questions (a draining
+  tank, a piecewise function, and a table of function and derivative values), select-all, true/false,
+  fill-in-the-blank and numeric items, two short-answer questions (3 points each) and two free-response questions
+  in the AP style (9 points each: one calculator-active reservoir context, one no-calculator analytical question).
+  Items marked (Calculator.) need a graphing calculator; the rest are meant to be done by hand. Multiple choice,
+  select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically;
+  the short answers and free-response items are graded by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: a draining tank (2.3, 2.1)
+  - slug: apcalcab-u02-exam-q01
+    type: multiple_choice
+    topic_code: "2.3"
+    source: "AP Calculus CED, Topic 2.3"
+    points: 1
+    stimulus: |
+      Water drains from a tank. The volume of water in the tank, W(t), in litres, is recorded at selected times t minutes after the drain is opened. W is differentiable, and the data are hypothetical.
+
+      | t (minutes) | 0 | 4 | 6 | 10 | 12 |
+      |---|---|---|---|---|---|
+      | W(t) (litres) | 300 | 268 | 255 | 236 | 230 |
+    prompt: |
+      Using the data, what is the best estimate of W′(5)?
+    options:
+      - "−13 litres per minute"
+      - "−6.5 litres per minute"
+      - "−7.5 litres per minute"
+      - "6.5 litres per minute"
+    option_explanations:
+      - |
+        −13 litres is the change in volume from t = 4 to t = 6; it must be divided by the 2 minutes between the readings.
+      - |
+        Correct. t = 4 and t = 6 bracket t = 5, so W′(5) ≈ (255 − 268)/(6 − 4) = −13/2 = −6.5 litres per minute.
+      - |
+        −7.5 uses the interval [0, 6], (255 − 300)/6; the readings at t = 4 and t = 6 are closer to t = 5.
+      - |
+        The volume is falling, so the rate is negative; 6.5 drops the sign of the change 255 − 268.
+    answer: 1
+  - slug: apcalcab-u02-exam-q02
+    type: multiple_choice
+    topic_code: "2.1"
+    source: "AP Calculus CED, Topic 2.1"
+    points: 1
+    stimulus: |
+      Water drains from a tank. The volume of water in the tank, W(t), in litres, is recorded at selected times t minutes after the drain is opened. W is differentiable, and the data are hypothetical.
+
+      | t (minutes) | 0 | 4 | 6 | 10 | 12 |
+      |---|---|---|---|---|---|
+      | W(t) (litres) | 300 | 268 | 255 | 236 | 230 |
+    prompt: |
+      What is the average rate of change of W over the interval 0 ≤ t ≤ 12?
+    options:
+      - "−70 litres per minute"
+      - "19.17 litres per minute"
+      - "−6 litres per minute"
+      - "About −5.83 litres per minute"
+    option_explanations:
+      - |
+        −70 litres is the total change W(12) − W(0); it must be divided by the 12 minutes elapsed.
+      - |
+        This divides W(12) by 12 instead of using the change in volume W(12) − W(0).
+      - |
+        −6 is the rate on the last interval, (230 − 236)/2, not over the whole 12 minutes.
+      - |
+        Correct. (W(12) − W(0))/(12 − 0) = (230 − 300)/12 = −70/12 ≈ −5.83 litres per minute.
+    answer: 3
+  - slug: apcalcab-u02-exam-q03
+    type: multiple_choice
+    topic_code: "2.1"
+    source: "AP Calculus CED, Topic 2.1"
+    points: 1
+    stimulus: |
+      Water drains from a tank. The volume of water in the tank, W(t), in litres, is recorded at selected times t minutes after the drain is opened. W is differentiable, and the data are hypothetical.
+
+      | t (minutes) | 0 | 4 | 6 | 10 | 12 |
+      |---|---|---|---|---|---|
+      | W(t) (litres) | 300 | 268 | 255 | 236 | 230 |
+    prompt: |
+      Suppose W′(5) = −6.5. Which statement interprets this value in context?
+    options:
+      - "Five minutes after the drain is opened, the volume of water is decreasing at a rate of 6.5 litres per minute."
+      - "Five minutes after the drain is opened, the tank has lost 6.5 litres of water."
+      - "Over the first 5 minutes, the tank loses 6.5 litres per minute on average."
+      - "The tank will be empty after 6.5 minutes."
+    option_explanations:
+      - |
+        Correct. A derivative is an instantaneous rate: at t = 5 the volume is falling (negative sign) at 6.5 litres per minute.
+      - |
+        This reads a rate as an amount. By t = 5 the tank has lost about 39 litres, not 6.5.
+      - |
+        This describes an average over an interval; W′(5) is the rate at the instant t = 5.
+      - |
+        A derivative is not a time. The units of W′ are litres per minute, and at t = 12 the tank still holds 230 litres.
+    answer: 0
+  # ---- Stimulus set B: a piecewise function (2.4, 2.5, 2.2)
+  - slug: apcalcab-u02-exam-q04
+    type: multiple_choice
+    topic_code: "2.4"
+    source: "AP Calculus CED, Topic 2.4"
+    points: 1
+    stimulus: |
+      The function g is defined by g(x) = x² + 2 for x < 1 and g(x) = 4√x − 1 for x ≥ 1.
+    prompt: |
+      Which statement about g at x = 1 is true?
+    options:
+      - "g is not continuous at x = 1."
+      - "g is continuous at x = 1 but not differentiable there."
+      - "g is continuous and differentiable at x = 1."
+      - "g is differentiable at x = 1 but not continuous there."
+    option_explanations:
+      - |
+        Both pieces give 3 at x = 1 (1 + 2 = 3 and 4 − 1 = 3), so there is no break.
+      - |
+        Pieces joining does not force a corner: the left slope 2x = 2 and the right slope 2/√x = 2 agree at x = 1.
+      - |
+        Correct. The one-sided limits both equal g(1) = 3, and the one-sided derivatives are 2(1) = 2 and 4 · 1/(2√1) = 2, so g′(1) = 2.
+      - |
+        Differentiability at a point always forces continuity there, so this combination is impossible.
+    answer: 2
+  - slug: apcalcab-u02-exam-q05
+    type: multiple_choice
+    topic_code: "2.5"
+    source: "AP Calculus CED, Topic 2.5"
+    points: 1
+    stimulus: |
+      The function g is defined by g(x) = x² + 2 for x < 1 and g(x) = 4√x − 1 for x ≥ 1.
+    prompt: |
+      What is g′(4)?
+    options:
+      - "1"
+      - "2"
+      - "7"
+      - "8"
+    option_explanations:
+      - |
+        Correct. For x ≥ 1, g(x) = 4x^(1/2) − 1, so g′(x) = 2x^(−1/2) = 2/√x and g′(4) = 2/2 = 1.
+      - |
+        This forgets the factor 1/2 from the power rule: 4x^(−1/2) at x = 4 is 4/2 = 2, but the derivative is 4 · (1/2)x^(−1/2) = 2/√x, which is 1 at x = 4.
+      - |
+        7 is g(4) = 4 · 2 − 1, the function value, not the slope.
+      - |
+        8 uses the left piece's derivative 2x at x = 4, but x = 4 lies in the domain of the right piece.
+    answer: 0
+  - slug: apcalcab-u02-exam-q06
+    type: multiple_choice
+    topic_code: "2.2"
+    source: "AP Calculus CED, Topic 2.2"
+    points: 1
+    stimulus: |
+      The function g is defined by g(x) = x² + 2 for x < 1 and g(x) = 4√x − 1 for x ≥ 1.
+    prompt: |
+      What is lim (h→0) (g(1 + h) − g(1))/h?
+    options:
+      - "3"
+      - "2"
+      - "The limit does not exist because g is defined in pieces."
+      - "4"
+    option_explanations:
+      - |
+        3 is g(1), the function value; the limit of the difference quotient is the slope.
+      - |
+        Correct. This limit is g′(1). Both one-sided difference quotients tend to 2 (left slope 2x, right slope 2/√x at x = 1), so the limit is 2.
+      - |
+        A piecewise definition does not stop a limit existing; the one-sided limits of the quotient agree here.
+      - |
+        4 differentiates 4√x as if it were 4x; the derivative of 4x^(1/2) is 2x^(−1/2).
+    answer: 1
+  # ---- Stimulus set C: a table of values (2.8, 2.9, 2.6)
+  - slug: apcalcab-u02-exam-q07
+    type: multiple_choice
+    topic_code: "2.8"
+    source: "AP Calculus CED, Topic 2.8"
+    points: 1
+    stimulus: |
+      The differentiable functions f and g have the values below.
+
+      | x | f(x) | f′(x) | g(x) | g′(x) |
+      |---|---|---|---|---|
+      | 0 | 2 | −1 | 5 | 3 |
+      | 1 | 4 | 2 | −2 | 1 |
+    prompt: |
+      What is the derivative of f(x)g(x) at x = 1?
+    options:
+      - "2"
+      - "−8"
+      - "4"
+      - "0"
+    option_explanations:
+      - |
+        2 is f′(1)g′(1) = 2 · 1, the product of the derivatives.
+      - |
+        −8 is either the value f(1)g(1) = 4(−2), or the difference f′g − fg′ = −4 − 4; the product rule adds the two terms.
+      - |
+        4 is only the term f(1)g′(1) = 4 · 1; the term f′(1)g(1) = 2(−2) = −4 is missing.
+      - |
+        Correct. f′(1)g(1) + f(1)g′(1) = 2(−2) + 4(1) = −4 + 4 = 0.
+    answer: 3
+  - slug: apcalcab-u02-exam-q08
+    type: multiple_choice
+    topic_code: "2.9"
+    source: "AP Calculus CED, Topic 2.9"
+    points: 1
+    stimulus: |
+      The differentiable functions f and g have the values below.
+
+      | x | f(x) | f′(x) | g(x) | g′(x) |
+      |---|---|---|---|---|
+      | 0 | 2 | −1 | 5 | 3 |
+      | 1 | 4 | 2 | −2 | 1 |
+    prompt: |
+      What is the derivative of f(x)/g(x) at x = 0?
+    options:
+      - "11/25"
+      - "−1/3"
+      - "−11/25"
+      - "−11/5"
+    option_explanations:
+      - |
+        The numerator was subtracted in the wrong order, fg′ − f′g, which flips the sign.
+      - |
+        −1/3 is f′(0)/g′(0), the quotient of the derivatives.
+      - |
+        Correct. (f′(0)g(0) − f(0)g′(0))/[g(0)]² = ((−1)(5) − (2)(3))/25 = −11/25.
+      - |
+        This divides by g(0) = 5 instead of [g(0)]² = 25.
+    answer: 2
+  - slug: apcalcab-u02-exam-q09
+    type: fill_blank
+    topic_code: "2.6"
+    source: "AP Calculus CED, Topic 2.6"
+    points: 1
+    stimulus: |
+      The differentiable functions f and g have the values below.
+
+      | x | f(x) | f′(x) | g(x) | g′(x) |
+      |---|---|---|---|---|
+      | 0 | 2 | −1 | 5 | 3 |
+      | 1 | 4 | 2 | −2 | 1 |
+    prompt: |
+      Let h(x) = 3f(x) − 2g(x) + x². Then h′(1) = ____.
+    answer: ["6"]
+    explanation: |
+      h′(x) = 3f′(x) − 2g′(x) + 2x, so h′(1) = 3(2) − 2(1) + 2 = 6.
+  # ---- Independent items
+  - slug: apcalcab-u02-exam-q10
+    type: multiple_choice
+    topic_code: "2.1"
+    source: "AP Calculus CED, Topic 2.1"
+    points: 1
+    prompt: |
+      An object's position is s(t) = t² + 1 metres at time t seconds. For h ≠ 0, its average velocity over the interval from t = 1 to t = 1 + h is 2 + h metres per second. What is its instantaneous velocity at t = 1?
+    options:
+      - "3 metres per second"
+      - "2 metres per second"
+      - "2 + h metres per second"
+      - "0 metres per second"
+    option_explanations:
+      - |
+        3 is the average velocity for h = 1, over [1, 2]; the instantaneous velocity is the limit as h → 0.
+      - |
+        Correct. The instantaneous velocity is lim (h→0) (2 + h) = 2 metres per second.
+      - |
+        2 + h still depends on the interval width; a velocity at one instant is the limit as h → 0, a single number.
+      - |
+        0 is the limit of h, not of the average velocities 2 + h.
+    answer: 1
+  - slug: apcalcab-u02-exam-q11
+    type: multiple_choice
+    topic_code: "2.2"
+    source: "AP Calculus CED, Topic 2.2"
+    points: 1
+    prompt: |
+      Let f(x) = √x. Which limit is equal to f′(3)?
+    options:
+      - "lim (x→3) (√x − √3)/(x − 3)"
+      - "lim (x→3) (√x − 3)/(x − 3)"
+      - "lim (h→0) (√(3 + h) − √3)/(3 + h)"
+      - "lim (h→0) (√h − √3)/h"
+    option_explanations:
+      - |
+        Correct. This is the x-form (f(x) − f(3))/(x − 3) with f(3) = √3.
+      - |
+        The subtracted term must be f(3) = √3, not 3; with 3 the numerator does not tend to 0.
+      - |
+        The denominator must be the change in input, h, not the new input 3 + h.
+      - |
+        This compares f(h) with f(3); the shifted input must be 3 + h, not h.
+    answer: 0
+  - slug: apcalcab-u02-exam-q12
+    type: multiple_choice
+    topic_code: "2.2"
+    source: "AP Calculus CED, Topic 2.2"
+    points: 1
+    prompt: |
+      What is lim (h→0) ((1 + h)⁸ − 1)/h?
+    options:
+      - "1"
+      - "0"
+      - "7"
+      - "8"
+    option_explanations:
+      - |
+        1 is f(1) = 1⁸, the subtracted value, not the derivative.
+      - |
+        Substitution gives 0/0, which is indeterminate, not 0; the limit is a derivative.
+      - |
+        7 is the lowered exponent; the power rule also brings down the 8 as a coefficient.
+      - |
+        Correct. This is f′(1) for f(x) = x⁸, and f′(x) = 8x⁷, so the value is 8.
+    answer: 3
+  - slug: apcalcab-u02-exam-q13
+    type: multiple_choice
+    topic_code: "2.2"
+    source: "AP Calculus CED, Topic 2.2"
+    points: 1
+    prompt: |
+      Which is an equation of the line tangent to the graph of y = x³ − x at x = 2?
+    options:
+      - "y = 6 + 12(x − 2)"
+      - "y = 11 + 6(x − 2)"
+      - "y = 6 + 11(x − 2)"
+      - "y = 11x + 6"
+    option_explanations:
+      - |
+        12 is 3x² at x = 2; the term −x contributes −1 to the slope, so the slope is 11.
+      - |
+        This swaps the height and the slope: the point is (2, 6) and the slope is 11.
+      - |
+        Correct. y(2) = 8 − 2 = 6 and dy/dx = 3x² − 1 = 11 at x = 2, so y = 6 + 11(x − 2).
+      - |
+        This uses y(2) = 6 as the y-intercept; the line must pass through (2, 6), but this one gives y = 28 at x = 2.
+    answer: 2
+  - slug: apcalcab-u02-exam-q14
+    type: multiple_choice
+    topic_code: "2.1"
+    source: "AP Calculus CED, Topic 2.1"
+    points: 1
+    prompt: |
+      What is the average rate of change of f(x) = eˣ on the interval [0, ln 3]?
+    options:
+      - "2"
+      - "ln 3/2"
+      - "2/ln 3"
+      - "3"
+    option_explanations:
+      - |
+        2 is the change e^(ln 3) − e⁰ = 3 − 1; it must be divided by the width of the interval, ln 3.
+      - |
+        This inverts the quotient, dividing the change in x by the change in f.
+      - |
+        Correct. (e^(ln 3) − e⁰)/(ln 3 − 0) = (3 − 1)/ln 3 = 2/ln 3, about 1.82.
+      - |
+        3 is f(ln 3) = e^(ln 3), the value at the right endpoint, or the instantaneous rate there; the average uses the change over the interval.
+    answer: 2
+  - slug: apcalcab-u02-exam-q15
+    type: multiple_choice
+    topic_code: "2.3"
+    source: "AP Calculus CED, Topic 2.3"
+    points: 1
+    prompt: |
+      The line tangent to the graph of a differentiable function f at x = −2 has equation y = 3x + 7. What are f(−2) and f′(−2)?
+    options:
+      - "f(−2) = 7 and f′(−2) = 3"
+      - "f(−2) = 1 and f′(−2) = 3"
+      - "f(−2) = 3 and f′(−2) = 1"
+      - "f(−2) = 1 and f′(−2) = 7"
+    option_explanations:
+      - |
+        7 is the line's y-intercept (its height at x = 0); f(−2) is the line's height at x = −2.
+      - |
+        Correct. The tangent line touches the graph at x = −2, so f(−2) = 3(−2) + 7 = 1, and its slope 3 is f′(−2).
+      - |
+        This swaps the two numbers: the slope of the line is 3 and its height at x = −2 is 1.
+      - |
+        7 is the y-intercept, not the slope; the slope of y = 3x + 7 is 3.
+    answer: 1
+  - slug: apcalcab-u02-exam-q16
+    type: multiple_choice
+    topic_code: "2.3"
+    source: "AP Calculus CED, Topic 2.3"
+    points: 1
+    prompt: |
+      A differentiable function f has f(2.9) = 7.21 and f(3.1) = 8.05. What estimate of f′(3) does the symmetric difference quotient give?
+    options:
+      - "4.2"
+      - "8.4"
+      - "0.84"
+      - "−4.2"
+    option_explanations:
+      - |
+        Correct. (f(3.1) − f(2.9))/(3.1 − 2.9) = 0.84/0.2 = 4.2.
+      - |
+        This divides by h = 0.1 instead of 2h = 0.2, the actual distance between 2.9 and 3.1.
+      - |
+        0.84 is the change in f; it still has to be divided by the change in x, 0.2.
+      - |
+        This subtracts in the wrong order, f(2.9) − f(3.1), over the positive width 0.2; f increased from 2.9 to 3.1, so the estimate is positive.
+    answer: 0
+  - slug: apcalcab-u02-exam-q17
+    type: multiple_choice
+    topic_code: "2.4"
+    source: "AP Calculus CED, Topic 2.4"
+    points: 1
+    prompt: |
+      Which best describes the graph of f(x) = (x − 2)^(2/3) at x = 2?
+    options:
+      - "A corner: f is continuous, and the one-sided slopes are two different finite numbers."
+      - "A vertical tangent: both one-sided slopes approach ∞."
+      - "A jump discontinuity, so f is not differentiable."
+      - "A cusp: f is continuous, and the one-sided slopes approach ∞ and −∞."
+    option_explanations:
+      - |
+        The one-sided difference quotients are not finite here: 1/h^(1/3) grows without bound as h → 0.
+      - |
+        The quotient 1/h^(1/3) is negative for h < 0, so the left-hand slopes approach −∞, not ∞.
+      - |
+        f is continuous at 2: (x − 2)^(2/3) → 0 = f(2) from both sides.
+      - |
+        Correct. The difference quotient is h^(2/3)/h = 1/h^(1/3), which → ∞ as h → 0⁺ and −∞ as h → 0⁻, while f is continuous at 2: a cusp, so f′(2) does not exist.
+    answer: 3
+  - slug: apcalcab-u02-exam-q18
+    type: multiple_choice
+    topic_code: "2.4"
+    source: "AP Calculus CED, Topic 2.4"
+    points: 1
+    prompt: |
+      Let f(x) = 3x − 1 for x < 2 and f(x) = x² + 1 for x ≥ 2. Which statement about f at x = 2 is true?
+    options:
+      - "f is continuous at x = 2 but not differentiable there."
+      - "f is continuous and differentiable at x = 2."
+      - "f is not continuous at x = 2."
+      - "f is differentiable at x = 2 but not continuous there."
+    option_explanations:
+      - |
+        Correct. Both pieces give 5 at x = 2, so f is continuous; but the left slope is 3 and the right slope is 2x = 4, so there is a corner and f′(2) does not exist.
+      - |
+        The values match, but the slopes do not: 3 from the left and 4 from the right.
+      - |
+        3(2) − 1 = 5 and 2² + 1 = 5, so both one-sided limits equal f(2) = 5.
+      - |
+        Differentiability always forces continuity, so this combination cannot occur.
+    answer: 0
+  - slug: apcalcab-u02-exam-q19
+    type: multiple_choice
+    topic_code: "2.5"
+    source: "AP Calculus CED, Topic 2.5"
+    points: 1
+    prompt: |
+      If y = 8/√x, what is dy/dx?
+    options:
+      - "4/√x"
+      - "−4x^(−1/2)"
+      - "−4x^(−3/2)"
+      - "4x^(−3/2)"
+    option_explanations:
+      - |
+        This differentiates √x in the denominator by itself; rewrite 8/√x = 8x^(−1/2) and use the power rule.
+      - |
+        The coefficient is right, but the exponent must be lowered by 1: −1/2 − 1 = −3/2.
+      - |
+        Correct. y = 8x^(−1/2), so dy/dx = 8 · (−1/2)x^(−3/2) = −4x^(−3/2).
+      - |
+        This drops the sign: the exponent −1/2 comes down as a negative coefficient, 8 · (−1/2) = −4.
+    answer: 2
+  - slug: apcalcab-u02-exam-q20
+    type: multiple_choice
+    topic_code: "2.6"
+    source: "AP Calculus CED, Topic 2.6"
+    points: 1
+    prompt: |
+      What is d/dx [(x² + 1)²]? (Expand before differentiating.)
+    options:
+      - "2(x² + 1)"
+      - "4x³ + 4x"
+      - "4x³ + 2x"
+      - "4x³"
+    option_explanations:
+      - |
+        This treats (x² + 1)² as if it were u² with derivative 2u, ignoring that x² + 1 changes too; expand first.
+      - |
+        Correct. (x² + 1)² = x⁴ + 2x² + 1, whose derivative is 4x³ + 4x.
+      - |
+        The middle term of the expansion is 2x², not x²; its derivative is 4x.
+      - |
+        This keeps only x⁴ from the expansion; the middle term 2x² is missing.
+    answer: 1
+  - slug: apcalcab-u02-exam-q21
+    type: multiple_choice
+    topic_code: "2.6"
+    source: "AP Calculus CED, Topic 2.6"
+    points: 1
+    prompt: |
+      For x ≠ 0, what is d/dx [(x³ − 2x)/x]?
+    options:
+      - "(3x² − 2)/1"
+      - "3x² − 2"
+      - "x² − 2"
+      - "2x"
+    option_explanations:
+      - |
+        This divides the derivative of the top by the derivative of the bottom, which is not a valid rule.
+      - |
+        3x² − 2 is the derivative of the numerator alone; the division by x must be done first.
+      - |
+        x² − 2 is the simplified function itself, not its derivative.
+      - |
+        Correct. For x ≠ 0, (x³ − 2x)/x = x² − 2, whose derivative is 2x.
+    answer: 3
+  - slug: apcalcab-u02-exam-q22
+    type: multiple_choice
+    topic_code: "2.7"
+    source: "AP Calculus CED, Topic 2.7"
+    points: 1
+    prompt: |
+      What is d/dx [2 ln x − 3 sin x + e²]?
+    options:
+      - "2/x − 3 cos x"
+      - "2/x + 3 cos x"
+      - "2/x − 3 cos x + 2e"
+      - "2x − 3 cos x"
+    option_explanations:
+      - |
+        Correct. d/dx [ln x] = 1/x, d/dx [sin x] = cos x and e² is a constant with derivative 0.
+      - |
+        The derivative of sin x is +cos x, so −3 sin x gives −3 cos x.
+      - |
+        e² is a constant (about 7.39), so its derivative is 0, not 2e.
+      - |
+        The derivative of ln x is 1/x, not x; 2x is the derivative of x², not of 2 ln x.
+    answer: 0
+  - slug: apcalcab-u02-exam-q23
+    type: multiple_choice
+    topic_code: "2.7"
+    source: "AP Calculus CED, Topic 2.7"
+    points: 1
+    prompt: |
+      What is the slope of the graph of y = eˣ + cos x at x = π/2?
+    options:
+      - "e^(π/2) + 1"
+      - "e^(π/2)"
+      - "e^(π/2) − 1"
+      - "(π/2)e^(π/2 − 1) − 1"
+    option_explanations:
+      - |
+        This uses d/dx [cos x] = sin x; the derivative of cos x is −sin x, which is −1 at π/2.
+      - |
+        e^(π/2) is the height y(π/2) = e^(π/2) + cos(π/2), not the slope.
+      - |
+        Correct. dy/dx = eˣ − sin x, so at x = π/2 the slope is e^(π/2) − 1.
+      - |
+        This applies the power rule to eˣ; the variable is in the exponent, and d/dx [eˣ] = eˣ.
+    answer: 2
+  - slug: apcalcab-u02-exam-q24
+    type: multiple_choice
+    topic_code: "2.8"
+    source: "AP Calculus CED, Topic 2.8"
+    points: 1
+    prompt: |
+      What is d/dx [x cos x]?
+    options:
+      - "−sin x"
+      - "cos x − x sin x"
+      - "cos x + x sin x"
+      - "−x sin x"
+    option_explanations:
+      - |
+        −sin x is the product of the derivatives, 1 · (−sin x).
+      - |
+        Correct. (x)′ cos x + x (cos x)′ = cos x + x(−sin x) = cos x − x sin x.
+      - |
+        The derivative of cos x is −sin x, so the second term is −x sin x.
+      - |
+        This differentiates only cos x; the factor x changes too, contributing cos x.
+    answer: 1
+  - slug: apcalcab-u02-exam-q25
+    type: multiple_choice
+    topic_code: "2.9"
+    source: "AP Calculus CED, Topic 2.9"
+    points: 1
+    prompt: |
+      For x > 0, what is d/dx [ln x/x]?
+    options:
+      - "(ln x − 1)/x²"
+      - "1/x"
+      - "(1 − ln x)/x"
+      - "(1 − ln x)/x²"
+    option_explanations:
+      - |
+        The numerator was subtracted in the wrong order; the top's derivative term (1/x) · x = 1 comes first.
+      - |
+        1/x is (1/x)/1, the derivative of the top over the derivative of the bottom.
+      - |
+        The denominator of the quotient rule is x², not x.
+      - |
+        Correct. ((1/x) · x − ln x · 1)/x² = (1 − ln x)/x².
+    answer: 3
+  - slug: apcalcab-u02-exam-q26
+    type: multiple_choice
+    topic_code: "2.10"
+    source: "AP Calculus CED, Topic 2.10"
+    points: 1
+    prompt: |
+      What is d/dx [x tan x]?
+    options:
+      - "tan x + x sec² x"
+      - "sec² x"
+      - "tan x + x sec x tan x"
+      - "x sec² x"
+    option_explanations:
+      - |
+        Correct. By the product rule, (x)′ tan x + x (tan x)′ = tan x + x sec² x.
+      - |
+        sec² x is the product of the derivatives, 1 · sec² x.
+      - |
+        sec x tan x is the derivative of sec x; the derivative of tan x is sec² x.
+      - |
+        This differentiates only tan x; the factor x contributes tan x as well.
+    answer: 0
+  - slug: apcalcab-u02-exam-q27
+    type: multiple_choice
+    topic_code: "2.10"
+    source: "AP Calculus CED, Topic 2.10"
+    points: 1
+    prompt: |
+      If f(x) = sec x, what is f′(π/3)?
+    options:
+      - "2"
+      - "4"
+      - "2√3"
+      - "√3/2"
+    option_explanations:
+      - |
+        2 is sec(π/3), the function value; the derivative also has the factor tan(π/3) = √3.
+      - |
+        4 is sec²(π/3), which is the derivative of tan x at π/3, not of sec x.
+      - |
+        Correct. f′(x) = sec x tan x, and sec(π/3) = 2, tan(π/3) = √3, so f′(π/3) = 2√3.
+      - |
+        √3/2 is sin(π/3); the derivative of sec x is sec x tan x.
+    answer: 2
+  - slug: apcalcab-u02-exam-q28
+    type: multiple_choice
+    topic_code: "2.9"
+    source: "AP Calculus CED, Topic 2.9"
+    points: 1
+    prompt: |
+      At which x-values does the graph of y = x/(x² + 4) have a horizontal tangent line?
+    options:
+      - "x = 0 only"
+      - "x = −2 and x = 2"
+      - "x = 4 only"
+      - "There are none."
+    option_explanations:
+      - |
+        x = 0 is where y = 0, a zero of the function; the slope there is 4/16 = 1/4, not 0.
+      - |
+        Correct. y′ = ((1)(x² + 4) − x(2x))/(x² + 4)² = (4 − x²)/(x² + 4)², which is 0 when x² = 4.
+      - |
+        This drops the square root when solving 4 − x² = 0: x² = 4 gives x = ±2.
+      - |
+        The numerator of y′, 4 − x², is 0 at x = ±2, while the denominator is never 0, so horizontal tangents exist.
+    answer: 1
+  - slug: apcalcab-u02-exam-q29
+    type: multiple_choice
+    topic_code: "2.10"
+    source: "AP Calculus CED, Topic 2.10"
+    points: 1
+    prompt: |
+      What is the slope of the graph of y = cot x at x = π/4?
+    options:
+      - "2"
+      - "−1"
+      - "−√2"
+      - "−2"
+    option_explanations:
+      - |
+        The derivative of cot x carries a minus sign: d/dx [cot x] = −csc² x.
+      - |
+        −1 is −cot(π/4) or −tan(π/4); the derivative of cot x is −csc² x.
+      - |
+        −√2 is −csc(π/4); the derivative uses csc squared.
+      - |
+        Correct. dy/dx = −csc² x, and csc(π/4) = √2, so the slope is −(√2)² = −2.
+    answer: 3
+  - slug: apcalcab-u02-exam-q30
+    type: multi_select
+    topic_code: "2.4"
+    source: "AP Calculus CED, Topic 2.4"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Let f(x) = |x − 1| + ∛(x − 3). At which values of x is f not differentiable? Select all that apply.
+    options:
+      - "x = 1"
+      - "x = 3"
+      - "x = 0"
+      - "x = 2"
+      - "x = −1"
+    option_explanations:
+      - |
+        Correct. |x − 1| has a corner at x = 1 (one-sided slopes −1 and 1), and ∛(x − 3) is smooth there, so the sum has a corner.
+      - |
+        Correct. ∛(x − 3) has a vertical tangent at x = 3 (its difference quotient → ∞), so the sum has no derivative there.
+      - |
+        At x = 0 both terms are differentiable, so f is too.
+      - |
+        At x = 2 both terms are differentiable, so f is too.
+      - |
+        At x = −1 both terms are differentiable, so f is too.
+    answer: [0, 1]
+  - slug: apcalcab-u02-exam-q31
+    type: multi_select
+    topic_code: "2.10"
+    source: "AP Calculus CED, Topic 2.10"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which derivative statements are correct? Select all that apply.
+    options:
+      - "d/dx [tan x] = sec² x"
+      - "d/dx [csc x] = −csc x cot x"
+      - "d/dx [ln x] = 1/x"
+      - "d/dx [cos x] = sin x"
+      - "d/dx [sec x] = sec² x"
+    option_explanations:
+      - |
+        Correct. From the quotient rule on sin x/cos x and sin² x + cos² x = 1.
+      - |
+        Correct. From the quotient rule on 1/sin x: −cos x/sin² x = −csc x cot x.
+      - |
+        Correct. This holds for x > 0, the domain of ln x.
+      - |
+        The derivative of cos x is −sin x; cos x is falling at x = π/2, so its slope there must be negative.
+      - |
+        sec² x is the derivative of tan x; the derivative of sec x is sec x tan x.
+    answer: [0, 1, 2]
+  - slug: apcalcab-u02-exam-q32
+    type: multi_select
+    topic_code: "2.8"
+    source: "AP Calculus CED, Topic 2.8"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Let y = eˣ sin x. Which statements are true? Select all that apply.
+    options:
+      - "dy/dx = eˣ(sin x + cos x)"
+      - "The slope of the graph at x = 0 is 1."
+      - "dy/dx = eˣ cos x"
+      - "The slope of the graph at x = π is −e^π."
+      - "The graph has a horizontal tangent at x = π/2."
+    option_explanations:
+      - |
+        Correct. By the product rule, eˣ sin x + eˣ cos x = eˣ(sin x + cos x).
+      - |
+        Correct. At x = 0 the derivative is e⁰(sin 0 + cos 0) = 1 · (0 + 1) = 1.
+      - |
+        eˣ cos x is the product of the derivatives; the term eˣ sin x is missing.
+      - |
+        Correct. At x = π: e^π(0 + (−1)) = −e^π.
+      - |
+        At x = π/2 the slope is e^(π/2)(1 + 0) = e^(π/2), not 0.
+    answer: [0, 1, 3]
+  - slug: apcalcab-u02-exam-q33
+    type: true_false
+    topic_code: "2.4"
+    source: "AP Calculus CED, Topic 2.4"
+    points: 1
+    prompt: |
+      True or false: If f is not continuous at x = a, then f is not differentiable at x = a.
+    answer: true
+    explanation: |
+      True. This is the contrapositive of "differentiable at a implies continuous at a", so it is equally true.
+  - slug: apcalcab-u02-exam-q34
+    type: true_false
+    topic_code: "2.9"
+    source: "AP Calculus CED, Topic 2.9"
+    points: 1
+    prompt: |
+      True or false: For differentiable f and g with g(x) ≠ 0, d/dx [f(x)/g(x)] = (f(x)g′(x) − f′(x)g(x))/[g(x)]².
+    answer: false
+    explanation: |
+      False. The order is reversed: the quotient rule is (f′(x)g(x) − f(x)g′(x))/[g(x)]². The stated formula gives the negative of the derivative; for example with f(x) = x and g(x) = 1 it gives −1 instead of 1.
+  - slug: apcalcab-u02-exam-q35
+    type: true_false
+    topic_code: "2.5"
+    source: "AP Calculus CED, Topic 2.5"
+    points: 1
+    prompt: |
+      True or false: The power rule cannot be used to differentiate x⁻³ because the exponent is negative.
+    answer: false
+    explanation: |
+      False. The power rule holds for every real constant exponent: d/dx [x⁻³] = −3x⁻⁴, for x ≠ 0.
+  - slug: apcalcab-u02-exam-q36
+    type: fill_blank
+    topic_code: "2.5"
+    source: "AP Calculus CED, Topic 2.5"
+    points: 1
+    prompt: |
+      The slope of the graph of y = x⁴ at x = −1 is ____.
+    answer: ["-4", "−4"]
+    explanation: |
+      dy/dx = 4x³, and 4(−1)³ = −4.
+  - slug: apcalcab-u02-exam-q37
+    type: fill_blank
+    topic_code: "2.7"
+    source: "AP Calculus CED, Topic 2.7"
+    points: 1
+    prompt: |
+      The slope of the graph of y = ln x at x = 1/2 is ____.
+    answer: ["2"]
+    explanation: |
+      dy/dx = 1/x, and 1/(1/2) = 2.
+  - slug: apcalcab-u02-exam-q38
+    type: numeric
+    topic_code: "2.3"
+    source: "AP Calculus CED, Topic 2.3"
+    points: 1
+    prompt: |
+      (Calculator.) Use your calculator's numerical derivative to estimate the derivative of f(x) = xˣ at x = 2. Give your answer to three decimal places.
+    answer: { value: 6.773, tolerance: 0.001 }
+    explanation: |
+      The numerical derivative gives about 6.773. (The exact value, 4(1 + ln 2), uses techniques from Unit 3; the power rule does not apply because the exponent is not constant.)
+  - slug: apcalcab-u02-exam-q39
+    type: numeric
+    topic_code: "2.2"
+    source: "AP Calculus CED, Topic 2.2"
+    points: 1
+    prompt: |
+      Evaluate lim (x→9) (√x − 3)/(x − 9). Give your answer to three decimal places.
+    answer: { value: 0.167, tolerance: 0.001 }
+    explanation: |
+      This is f′(9) for f(x) = √x, which is 1/(2√9) = 1/6 ≈ 0.167. (Algebraically, x − 9 = (√x − 3)(√x + 3), so the quotient is 1/(√x + 3) → 1/6.)
+  - slug: apcalcab-u02-exam-q40
+    type: numeric
+    topic_code: "2.8"
+    source: "AP Calculus CED, Topic 2.8"
+    points: 1
+    prompt: |
+      Let k(x) = x² ln x. Find k′(e) to three decimal places (e ≈ 2.71828).
+    answer: { value: 8.155, tolerance: 0.001 }
+    explanation: |
+      k′(x) = 2x ln x + x² · (1/x) = 2x ln x + x. At x = e: 2e(1) + e = 3e ≈ 8.155.
+  - slug: apcalcab-u02-exam-q41
+    type: numeric
+    topic_code: "2.1"
+    source: "AP Calculus CED, Topic 2.1"
+    points: 1
+    prompt: |
+      What is the average rate of change of f(x) = x³ on the interval [1, 3]?
+    answer: { value: 13, tolerance: 0 }
+    explanation: |
+      (f(3) − f(1))/(3 − 1) = (27 − 1)/2 = 13.
+  - slug: apcalcab-u02-exam-q42
+    type: short_answer
+    topic_code: "2.2"
+    source: "AP Calculus CED, Topic 2.2"
+    points: 3
+    prompt: |
+      Let f(x) = 2x² − x + 3.
+      (a) Use the limit definition of the derivative to find f′(x). Show the algebra.
+      (b) Write an equation of the line tangent to the graph of f at x = 2.
+    answer: |
+      (a) f(x + h) = 2x² + 4xh + 2h² − x − h + 3, so f(x + h) − f(x) = 4xh + 2h² − h. For h ≠ 0 the difference quotient is 4x + 2h − 1, and as h → 0 it tends to f′(x) = 4x − 1.
+      (b) f(2) = 8 − 2 + 3 = 9 and f′(2) = 7, so y = 9 + 7(x − 2).
+    explanation: |
+      Three points. (a) 1 point for a correct difference quotient with f(x + h) expanded; 1 point for cancelling h and taking the limit to get 4x − 1. A result from the power rule with no limit work earns no credit in (a). (b) 1 point for y = 9 + 7(x − 2) or an equivalent form.
+  - slug: apcalcab-u02-exam-q43
+    type: short_answer
+    topic_code: "2.4"
+    source: "AP Calculus CED, Topic 2.4"
+    points: 3
+    prompt: |
+      Let f(x) = aeˣ + b for x ≤ 0 and f(x) = 3x + 1 for x > 0, where a and b are constants. Find the values of a and b for which f is differentiable at x = 0. Justify your answer.
+    answer: |
+      Differentiability at 0 requires continuity at 0 and equal one-sided derivatives.
+      Slopes: the left piece has derivative aeˣ, which is a at x = 0; the right piece has derivative 3. So a = 3.
+      Continuity: the left piece gives ae⁰ + b = a + b at x = 0 and the right piece tends to 1, so a + b = 1 and b = −2.
+      With a = 3 and b = −2, f is continuous at 0 and both one-sided derivatives equal 3, so f′(0) = 3 exists.
+    explanation: |
+      Three points. 1 point for the slope condition a = 3 (using d/dx [eˣ] = eˣ). 1 point for the continuity condition a + b = 1 giving b = −2. 1 point for stating that both conditions are needed (continuity and equal one-sided derivatives) in the justification.
+  - slug: apcalcab-u02-exam-q44
+    type: long_answer
+    topic_code: "2.3"
+    source: "AP Calculus CED, Topic 2.3"
+    points: 9
+    prompt: |
+      (Calculator.) The volume of water in a reservoir, V(t), in millions of litres, is measured at selected times t days after a storm. V is differentiable, and the data are hypothetical.
+
+      | t (days) | 0 | 2 | 5 | 9 | 10 |
+      |---|---|---|---|---|---|
+      | V(t) (millions of litres) | 40 | 43.2 | 46.1 | 47.0 | 46.5 |
+
+      An engineer models the volume with M(t) = 40 + 3√t − 0.25t for 0 ≤ t ≤ 10.
+      (A) Use the data to estimate V′(7). Show the computation and interpret your answer in context, with units.
+      (B) Find M′(t). Then find M′(7) to three decimal places and compare it with your estimate from part (A).
+      (C) Find the time t in the interval 0 < t < 10 at which the instantaneous rate of change of M equals the average rate of change of M over 0 ≤ t ≤ 10.
+      (D) The concentration of a dissolved mineral in the reservoir is c(t) = 2 + 0.1t milligrams per litre. Using the model, the mass of the mineral is A(t) = M(t) · c(t), in kilograms (one million litres at one milligram per litre is one kilogram). Find A′(4), show the rule you use, and interpret A′(4) in context.
+    answer: |
+      (A) V′(7) ≈ (V(9) − V(5))/(9 − 5) = (47.0 − 46.1)/4 = 0.225 million litres per day. About 7 days after the storm, the volume of water in the reservoir is increasing at roughly 0.225 million litres per day.
+      (B) M′(t) = 3 · (1/2)t^(−1/2) − 0.25 = 1.5/√t − 0.25. M′(7) = 1.5/√7 − 0.25 ≈ 0.317 million litres per day, a little larger than the estimate 0.225 from the data.
+      (C) The average rate is (M(10) − M(0))/10 = (3√10 − 2.5)/10 ≈ 0.699 million litres per day. Solving 1.5/√t − 0.25 = 0.699 on the calculator (or exactly: 1.5/√t = 0.3√10, √t = √10/2) gives t = 2.5 days.
+      (D) M(4) = 40 + 6 − 1 = 45, M′(4) = 1.5/2 − 0.25 = 0.5, c(4) = 2.4 and c′(4) = 0.1. By the product rule, A′(4) = M′(4)c(4) + M(4)c′(4) = 0.5(2.4) + 45(0.1) = 1.2 + 4.5 = 5.7. Four days after the storm, the mass of dissolved mineral in the reservoir is increasing at 5.7 kilograms per day (according to the model).
+    explanation: |
+      Nine points. (A) 1 point for 0.225 from the bracketing data at t = 5 and t = 9; 1 point for an interpretation naming the time (t = 7 days), "increasing" and millions of litres per day. (B) 1 point for M′(t) = 1.5/√t − 0.25; 1 point for M′(7) ≈ 0.317 with a comparison to part (A). (C) 1 point for the average rate (3√10 − 2.5)/10 ≈ 0.699; 1 point for t = 2.5. (D) 1 point for the product rule setup M′c + Mc′; 1 point for 5.7; 1 point for an interpretation with units of kilograms per day and the time t = 4.
+  - slug: apcalcab-u02-exam-q45
+    type: long_answer
+    topic_code: "2.4"
+    source: "AP Calculus CED, Topic 2.4"
+    points: 9
+    prompt: |
+      No calculator is allowed for this question. Let g be the function defined by g(x) = 2 sin x + 1 for x ≤ 0 and g(x) = x² + 2x + 1 for x > 0.
+      (A) Show that g is continuous at x = 0.
+      (B) Is g differentiable at x = 0? Justify your answer using one-sided derivatives.
+      (C) Write an equation of the line tangent to the graph of g at x = −π/6.
+      (D) Let h(x) = g(x)/(x² + 1). Find h′(1).
+      (E) Let k(x) = x · g(x). Find k′(−π/2).
+    answer: |
+      (A) lim (x→0⁻) g(x) = 2 sin 0 + 1 = 1, lim (x→0⁺) g(x) = 0 + 0 + 1 = 1, and g(0) = 2 sin 0 + 1 = 1. The one-sided limits both equal g(0), so g is continuous at 0.
+      (B) Yes. For x < 0, g′(x) = 2 cos x, which gives 2 cos 0 = 2 at x = 0. For x > 0, g′(x) = 2x + 2, which gives 2 at x = 0. Since g is continuous at 0 and the one-sided derivatives are equal, g′(0) = 2 exists.
+      (C) g(−π/6) = 2(−1/2) + 1 = 0 and g′(−π/6) = 2 cos(−π/6) = 2(√3/2) = √3. The tangent line is y = √3(x + π/6).
+      (D) For x > 0, h(x) = (x² + 2x + 1)/(x² + 1). By the quotient rule, h′(x) = ((2x + 2)(x² + 1) − (x² + 2x + 1)(2x))/(x² + 1)². At x = 1: ((4)(2) − (4)(2))/4 = 0.
+      (E) By the product rule, k′(x) = g(x) + x g′(x). g(−π/2) = 2(−1) + 1 = −1 and g′(−π/2) = 2 cos(−π/2) = 0, so k′(−π/2) = −1 + (−π/2)(0) = −1.
+    explanation: |
+      Nine points. (A) 1 point for both one-sided limits and g(0), all equal to 1, with the conclusion. (B) 1 point for both one-sided derivatives equal to 2; 1 point for the conclusion that g is differentiable, citing continuity from (A) and the equal one-sided derivatives. (C) 1 point for the point (−π/6, 0); 1 point for the slope √3 and a correct tangent-line equation. (D) 1 point for a correct quotient-rule setup with the numerator in the right order; 1 point for h′(1) = 0. (E) 1 point for the product rule k′ = g + xg′; 1 point for −1.

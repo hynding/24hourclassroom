@@ -1,0 +1,602 @@
+week: 24
+unit: 6
+title: "Accumulation in Context, Integral Properties and the Fundamental Theorem"
+topics: ["6.5", "6.6", "6.7"]
+guide: guides/week-24.md
+guide_description: |
+  Reading an accumulation function's behavior (increasing, decreasing, extrema, concavity) from the graph of its
+  integrand, including amount = initial amount + accumulated net change in context; the properties of definite
+  integrals (reversing limits, zero-width intervals, splitting intervals, sums and constant multiples); and the second
+  part of the Fundamental Theorem of Calculus, ∫ from a to b of f(x) dx = F(b) − F(a), with the net change form
+  f(b) = f(a) + ∫ from a to b of f′(x) dx. Worked examples: a hypothetical tank with a piecewise-linear net flow rate,
+  combining given integral values with the properties, ∫ from 1 to 4 of (3√x + 1) dx, a piecewise-defined integrand
+  split at its break point, and recovering f(5) from f(1) and ∫ of f′.
+flashcards_description: |
+  31 cards on accumulation functions in context, reading extrema and concavity from a rate graph, the properties of
+  definite integrals, the second Fundamental Theorem of Calculus, net change, and the error patterns in evaluating
+  F(b) − F(a).
+
+flashcards:
+  - front: Amount at time t from an initial amount and a net rate R → formula
+    back: |
+      A(t) = A(0) + ∫ from 0 to t of R(s) ds. The integral is the change since t = 0; the constant is where it started.
+    topic_code: "6.5"
+  - front: W(t) = 40 + ∫ from 0 to t of R(s) ds gallons → meaning of W(6) = 85
+    back: |
+      There are 85 gallons at t = 6. The amount added during the first 6 hours is 85 − 40 = 45 gallons.
+    topic_code: "6.5"
+  - front: Amount A(t) = A(0) + ∫ from 0 to t of R(s) ds → A′(t)
+    back: |
+      A′(t) = R(t): the rate of change of the amount is the net rate. The constant A(0) differentiates to 0.
+    topic_code: "6.5"
+  - front: Net rate in minus out → when the amount is at a maximum on a closed interval
+    back: |
+      Compare the endpoints with the times where the net rate changes from positive to negative; the largest amount wins (Candidates Test).
+    topic_code: "6.5"
+  - front: Rate in E(t) and rate out L(t) → when is the amount increasing?
+    back: |
+      When E(t) > L(t), because the amount's derivative is E(t) − L(t) > 0.
+    topic_code: "6.5"
+  - front: Accumulation function g(x) = ∫ from 1 to x of (t² − 6t + 8) dt → where decreasing and concave up
+    back: |
+      g′ = (x − 2)(x − 4) < 0 on 2 < x < 4; g″ = 2x − 6 > 0 for x > 3. Both: 3 < x < 4.
+    topic_code: "6.5"
+  - front: Accumulation function g with g′ = f → point of inflection of g from the graph of f
+    back: |
+      Where f has a relative maximum or minimum, that is where f changes from increasing to decreasing or the reverse (g″ = f′ changes sign).
+    topic_code: "6.5"
+  - front: Tank with net rate R positive on (0, 4), negative on (4, 8), starting at 50 L → when is the water greatest?
+    back: |
+      Candidates t = 0, 4, 8. W rises until 4 and then falls, so the maximum is W(4) = 50 + ∫ from 0 to 4 of R(t) dt.
+    topic_code: "6.5"
+  - front: ∫ from a to a of f(x) dx → value
+    back: |
+      0. An interval of zero width has no area.
+    topic_code: "6.6"
+  - front: ∫ from b to a of f(x) dx versus ∫ from a to b of f(x) dx → relation
+    back: |
+      ∫ from b to a of f(x) dx = −∫ from a to b of f(x) dx. Reversing the limits reverses the sign.
+    topic_code: "6.6"
+  - front: Splitting ∫ from a to c of f at b → property
+    back: |
+      ∫ from a to b of f + ∫ from b to c of f = ∫ from a to c of f, for any order of a, b, c where f is integrable.
+    topic_code: "6.6"
+  - front: ∫ from a to b of (f(x) ± g(x)) dx → property
+    back: |
+      ∫ from a to b of f(x) dx ± ∫ from a to b of g(x) dx. Integrals split over sums and differences.
+    topic_code: "6.6"
+  - front: ∫ from a to b of k·f(x) dx for a constant k → property
+    back: |
+      k · ∫ from a to b of f(x) dx. Constants factor out.
+    topic_code: "6.6"
+  - front: ∫ from a to b of k dx for a constant k → value
+    back: |
+      k(b − a), the signed area of a rectangle of height k and width b − a.
+    topic_code: "6.6"
+  - front: ∫ from 0 to 3 of f = 5 and ∫ from 0 to 7 of f = 2 → ∫ from 3 to 7 of f
+    back: |
+      2 − 5 = −3, because ∫ from 0 to 3 + ∫ from 3 to 7 = ∫ from 0 to 7.
+    topic_code: "6.6"
+  - front: ∫ of a product f(x)g(x) → can it be split into (∫ f)(∫ g)?
+    back: |
+      No. There is no product property for integrals; only sums, differences and constant multiples split.
+    topic_code: "6.6"
+  - front: Piecewise integrand with a break at x = c inside [a, b] → how to integrate
+    back: |
+      Split at c: ∫ from a to c with the first formula plus ∫ from c to b with the second.
+    topic_code: "6.6"
+  - front: Fundamental Theorem of Calculus, second part → statement
+    back: |
+      If f is continuous on [a, b] and F is any antiderivative of f, then ∫ from a to b of f(x) dx = F(b) − F(a).
+    topic_code: "6.7"
+  - front: Bracket notation F(x) |ₐᵇ or [F(x)] from a to b → meaning
+    back: |
+      F(b) − F(a): evaluate the antiderivative at the upper limit, then subtract its value at the lower limit.
+    topic_code: "6.7"
+  - front: Why the +C is left out when evaluating ∫ from a to b → reason
+    back: |
+      (F(b) + C) − (F(a) + C) = F(b) − F(a): the constant cancels, so any antiderivative gives the same value.
+    topic_code: "6.7"
+  - front: ∫ from 1 to 4 of (3√x + 1) dx → antiderivative and value
+    back: |
+      2x^(3/2) + x; (16 + 4) − (2 + 1) = 17.
+    topic_code: "6.7"
+  - front: ∫ from 0 to π/3 of sec²x dx → value
+    back: |
+      tan(π/3) − tan 0 = √3.
+    topic_code: "6.7"
+  - front: ∫ from 0 to ln 3 of eˣ dx → value
+    back: |
+      e^(ln 3) − e⁰ = 3 − 1 = 2.
+    topic_code: "6.7"
+  - front: ∫ from 1 to e² of (1/x) dx → value
+    back: |
+      ln(e²) − ln 1 = 2 − 0 = 2.
+    topic_code: "6.7"
+  - front: Net change theorem → f(b) from f(a) and f′
+    back: |
+      f(b) = f(a) + ∫ from a to b of f′(x) dx. The integral of a rate of change is the net change.
+    topic_code: "6.7"
+  - front: f(1) = 4 and ∫ from 1 to 5 of f′(x) dx = −7 → f(5)
+    back: |
+      4 + (−7) = −3.
+    topic_code: "6.7"
+  - front: ∫ from 0 to 2 of (3x² + 1) dx → value
+    back: |
+      (x³ + x) from 0 to 2 = (8 + 2) − 0 = 10.
+    topic_code: "6.7"
+  - front: First versus second part of the Fundamental Theorem → one line each
+    back: |
+      First: d/dx ∫ from a to x of f(t) dt = f(x) (accumulating, then differentiating, gives f back). Second: ∫ from a to b of f = F(b) − F(a) (evaluate with an antiderivative).
+    topic_code: "6.7"
+  - front: Error-spot → "∫ from 1 to 4 of (3√x + 1) dx = f(4) − f(1) = 7 − 4 = 3"
+    back: |
+      That subtracts values of the integrand. The theorem subtracts values of an antiderivative: F(4) − F(1) with F(x) = 2x^(3/2) + x.
+    topic_code: "6.7"
+  - front: Error-spot → "∫ from 0 to 2 of 3x² dx = 2³ = 8, so I can ignore the lower limit"
+    back: |
+      The answer happens to be right only because F(0) = 0. Always subtract F(a); with x³ + 5 as antiderivative and limits 1 to 2 you would be off.
+    topic_code: "6.7"
+  - front: Error-spot → "W(6) = 85 means 85 gallons flowed in during the first 6 hours"
+    back: |
+      W includes the initial 40 gallons. The inflow during those hours is ∫ from 0 to 6 of R(s) ds = 85 − 40 = 45 gallons.
+    topic_code: "6.5"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 6.5, 6.6 and 6.7: accumulation functions in context,
+    the properties of definite integrals, and evaluating integrals with the second Fundamental Theorem, including net
+    change), with 7 questions (about 30%) reviewing weeks 11, 14, 19, 21, 22 and 23 (inverse function derivatives,
+    rates in context, the Second Derivative Test, optimization, trapezoidal sums with unequal widths, accumulation
+    functions and limits of Riemann sums). Opens with a shared-context set on given integral values. Multiple choice,
+    select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically;
+    the short answers and the long answer are graded by your teacher against the scoring notes. No calculator is
+    needed.
+  questions:
+    # ---- Stimulus set: given integral values (6.6, 6.4)
+    - slug: apcalcab-u06-w24-q01
+      type: multiple_choice
+      topic_code: "6.6"
+      source: "AP Calculus CED, Topic 6.6"
+      points: 1
+      stimulus: |
+        The functions f and g are continuous for all real numbers, and
+
+        ∫ from 0 to 3 of f(x) dx = 5,  ∫ from 0 to 7 of f(x) dx = 2,  ∫ from 3 to 7 of g(x) dx = −4.
+      prompt: |
+        What is the value of ∫ from 3 to 7 of f(x) dx?
+      options:
+        - "−3"
+        - "7"
+        - "3"
+        - "2"
+      option_explanations:
+        - |
+          Correct. ∫ from 0 to 3 of f + ∫ from 3 to 7 of f = ∫ from 0 to 7 of f, so 5 + ∫ from 3 to 7 of f = 2, giving −3.
+        - |
+          7 adds the two given integrals; the interval [0, 3] is part of [0, 7], so its integral must be subtracted from the whole.
+        - |
+          3 subtracts in the wrong order, 5 − 2; the piece from 3 to 7 is the whole (2) minus the first part (5).
+        - |
+          2 is the integral over the whole interval [0, 7], not over the piece [3, 7].
+      answer: 0
+    - slug: apcalcab-u06-w24-q02
+      type: multiple_choice
+      topic_code: "6.6"
+      source: "AP Calculus CED, Topic 6.6"
+      points: 1
+      stimulus: |
+        The functions f and g are continuous for all real numbers, and
+
+        ∫ from 0 to 3 of f(x) dx = 5,  ∫ from 0 to 7 of f(x) dx = 2,  ∫ from 3 to 7 of g(x) dx = −4.
+      prompt: |
+        What is the value of ∫ from 7 to 3 of (2f(x) − g(x)) dx?
+      options:
+        - "2"
+        - "−2"
+        - "10"
+        - "−10"
+      option_explanations:
+        - |
+          Correct. ∫ from 3 to 7 of (2f − g) = 2(−3) − (−4) = −2, and reversing the limits changes the sign: 2.
+        - |
+          −2 is the integral from 3 to 7; the limits here run from 7 to 3, which reverses the sign.
+        - |
+          10 treats −g as +g, giving 2(−3) + (−4) = −10, and then flips the sign; the minus in front of g must be kept.
+        - |
+          −10 adds g instead of subtracting it and also forgets that the limits are reversed.
+      answer: 0
+    - slug: apcalcab-u06-w24-q03
+      type: numeric
+      topic_code: "6.6"
+      source: "AP Calculus CED, Topic 6.6"
+      points: 1
+      stimulus: |
+        The functions f and g are continuous for all real numbers, and
+
+        ∫ from 0 to 3 of f(x) dx = 5,  ∫ from 0 to 7 of f(x) dx = 2,  ∫ from 3 to 7 of g(x) dx = −4.
+      prompt: |
+        What is the value of ∫ from 3 to 7 of (f(x) + 3) dx?
+      answer: { value: 9, tolerance: 0 }
+      explanation: |
+        ∫ from 3 to 7 of f(x) dx + ∫ from 3 to 7 of 3 dx = −3 + 3(7 − 3) = −3 + 12 = 9. The constant 3 integrates to a rectangle of height 3 and width 4.
+    - slug: apcalcab-u06-w24-q04
+      type: multiple_choice
+      topic_code: "6.4"
+      source: "AP Calculus CED, Topic 6.4"
+      points: 1
+      stimulus: |
+        The functions f and g are continuous for all real numbers, and
+
+        ∫ from 0 to 3 of f(x) dx = 5,  ∫ from 0 to 7 of f(x) dx = 2,  ∫ from 3 to 7 of g(x) dx = −4.
+      prompt: |
+        Let F(x) = ∫ from 3 to x of f(t) dt. What is F(0)?
+      options:
+        - "5"
+        - "0"
+        - "−5"
+        - "−3"
+      option_explanations:
+        - |
+          5 is ∫ from 0 to 3 of f; F(0) = ∫ from 3 to 0 of f has its limits in the opposite order, so the sign changes.
+        - |
+          F is zero at its starting point x = 3, not at x = 0.
+        - |
+          Correct. F(0) = ∫ from 3 to 0 of f(t) dt = −∫ from 0 to 3 of f(t) dt = −5.
+        - |
+          −3 is F(7) = ∫ from 3 to 7 of f, not F(0).
+      answer: 2
+    # ---- Independent items
+    - slug: apcalcab-u06-w24-q05
+      type: multiple_choice
+      topic_code: "6.7"
+      source: "AP Calculus CED, Topic 6.7"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 1 to 4 of (3√x + 1) dx?
+      options:
+        - "20"
+        - "17"
+        - "14"
+        - "3"
+      option_explanations:
+        - |
+          20 is F(4) = 2(4)^(3/2) + 4 alone; the value of the antiderivative at the lower limit, F(1) = 3, must be subtracted.
+        - |
+          Correct. An antiderivative is F(x) = 2x^(3/2) + x, so the integral is F(4) − F(1) = (16 + 4) − (2 + 1) = 17.
+        - |
+          14 drops the antiderivative of the constant 1; ∫ 1 dx = x contributes 4 − 1 = 3 more.
+        - |
+          3 subtracts values of the integrand, f(4) − f(1) = 7 − 4; the theorem uses values of an antiderivative.
+      answer: 1
+    - slug: apcalcab-u06-w24-q06
+      type: multiple_choice
+      topic_code: "6.7"
+      source: "AP Calculus CED, Topic 6.7"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 0 to π/3 of sec²x dx?
+      options:
+        - "4"
+        - "√3/3"
+        - "√3 − 1"
+        - "√3"
+      option_explanations:
+        - |
+          4 is sec²(π/3), the integrand at the upper limit; the integral needs an antiderivative evaluated at both limits.
+        - |
+          √3/3 is tan(π/6); the upper limit is π/3, where tan(π/3) = √3.
+        - |
+          This uses tan 0 = 1; in fact tan 0 = 0, so nothing is subtracted.
+        - |
+          Correct. d/dx tan x = sec²x, so the integral is tan(π/3) − tan 0 = √3 − 0 = √3.
+      answer: 3
+    - slug: apcalcab-u06-w24-q07
+      type: multiple_choice
+      topic_code: "6.5"
+      source: "AP Calculus CED, Topic 6.5"
+      points: 1
+      prompt: |
+        The amount of water in a hypothetical cistern is W(t) = 40 + ∫ from 0 to t of R(s) ds gallons, where R(s) is the net rate of flow in gallons per hour and t is in hours. Which is the best interpretation of W(6) = 85?
+      options:
+        - "85 gallons of water flow into the cistern during the first 6 hours."
+        - "Water flows into the cistern at a net rate of 85 gallons per hour at t = 6."
+        - "The cistern contains 85 gallons of water at t = 6 hours."
+        - "On average, water flows into the cistern at 85 gallons per hour during the first 6 hours."
+      option_explanations:
+        - |
+          W includes the initial 40 gallons. The net inflow over the first 6 hours is ∫ from 0 to 6 of R(s) ds = 85 − 40 = 45 gallons.
+        - |
+          The rate at t = 6 is W′(6) = R(6), measured in gallons per hour; W(6) is an amount in gallons.
+        - |
+          Correct. W(t) is the initial 40 gallons plus the net change since t = 0, so W(6) = 85 is the amount in the cistern at t = 6.
+        - |
+          An average rate would be (W(6) − W(0))/6 = 45/6 = 7.5 gallons per hour; 85 is an amount, not a rate.
+      answer: 2
+    - slug: apcalcab-u06-w24-q08
+      type: multiple_choice
+      topic_code: "6.5"
+      source: "AP Calculus CED, Topic 6.5"
+      points: 1
+      prompt: |
+        Let g(x) = ∫ from 1 to x of (t² − 6t + 8) dt. On which interval is g both decreasing and concave up?
+      options:
+        - "3 < x < 4"
+        - "2 < x < 4"
+        - "2 < x < 3"
+        - "x > 4"
+      option_explanations:
+        - |
+          Correct. g′(x) = x² − 6x + 8 = (x − 2)(x − 4) is negative on 2 < x < 4, and g″(x) = 2x − 6 is positive for x > 3. Both hold on 3 < x < 4.
+        - |
+          g is decreasing on all of 2 < x < 4, but g″(x) = 2x − 6 is negative for x < 3, so g is concave down on part of it.
+        - |
+          On 2 < x < 3, g is decreasing but g″(x) = 2x − 6 < 0, so g is concave down there.
+        - |
+          For x > 4, g′(x) = (x − 2)(x − 4) > 0, so g is increasing there.
+      answer: 0
+    - slug: apcalcab-u06-w24-q09
+      type: multiple_choice
+      topic_code: "6.7"
+      source: "AP Calculus CED, Topic 6.7"
+      points: 1
+      prompt: |
+        A differentiable function f has f(1) = 4 and ∫ from 1 to 5 of f′(x) dx = −7. What is f(5)?
+      options:
+        - "11"
+        - "−7"
+        - "3"
+        - "−3"
+      option_explanations:
+        - |
+          11 subtracts the net change instead of adding it: f(5) = f(1) + ∫ from 1 to 5 of f′(x) dx = 4 + (−7).
+        - |
+          −7 is the net change f(5) − f(1), not the value f(5); the starting value f(1) = 4 must be added.
+        - |
+          3 drops the negative sign on the net change: 7 − 4 = 3 reverses both the sign and the order.
+        - |
+          Correct. By the Fundamental Theorem, ∫ from 1 to 5 of f′(x) dx = f(5) − f(1), so f(5) = 4 + (−7) = −3.
+      answer: 3
+    - slug: apcalcab-u06-w24-q10
+      type: multiple_choice
+      topic_code: "5.7"
+      source: "AP Calculus CED, Topic 5.7"
+      points: 1
+      prompt: |
+        For f(x) = x³ − 12x, what does the Second Derivative Test conclude about the critical point x = 2?
+      options:
+        - "f has a relative maximum at x = 2, because f″(2) = 12 > 0."
+        - "f has a relative minimum at x = 2, because f′(2) = 0 and f″(2) = 12 > 0."
+        - "f has a point of inflection at x = 2, because f′(2) = 0."
+        - "The test is inconclusive at x = 2, because f″(2) ≠ 0."
+      option_explanations:
+        - |
+          A positive second derivative means concave up, and a concave up graph with a horizontal tangent has a minimum, not a maximum.
+        - |
+          Correct. f′(x) = 3x² − 12 = 0 at x = 2, and f″(x) = 6x gives f″(2) = 12 > 0, so the graph is concave up there: a relative minimum.
+        - |
+          f′(2) = 0 marks a critical point, not a point of inflection; an inflection point needs f″ to change sign, which happens at x = 0.
+        - |
+          The test is inconclusive only when f″ equals 0 at the critical point; here f″(2) = 12 gives a clear answer.
+      answer: 1
+    - slug: apcalcab-u06-w24-q11
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Calculus CED, Topic 3.3"
+      points: 1
+      prompt: |
+        Let f(x) = x⁵ + 2x³ + 4, and let g be the inverse function of f. What is g′(7)?
+      options:
+        - "1/11"
+        - "1/12299"
+        - "11"
+        - "1/7"
+      option_explanations:
+        - |
+          Correct. f(1) = 1 + 2 + 4 = 7, so g(7) = 1. f′(x) = 5x⁴ + 6x² gives f′(1) = 11, and g′(7) = 1/f′(g(7)) = 1/11.
+        - |
+          1/12299 uses f′(7) = 12299; the derivative of f must be taken at g(7) = 1, the input of f that produces 7.
+        - |
+          11 is f′(1); the derivative of the inverse is the reciprocal of that value.
+        - |
+          1/7 takes the reciprocal of the input 7; the formula is the reciprocal of f′ evaluated at g(7).
+      answer: 0
+    - slug: apcalcab-u06-w24-q12
+      type: multiple_choice
+      topic_code: "6.3"
+      source: "AP Calculus CED, Topic 6.3"
+      points: 1
+      prompt: |
+        What is the value of lim (n→∞) ∑ (k = 1 to n) (3/n)(3k/n)²?
+      options:
+        - "27"
+        - "1/3"
+        - "9"
+        - "3"
+      option_explanations:
+        - |
+          27 is x³ at x = 3, the antiderivative x³/3 multiplied by 3 again; the antiderivative of x² is x³/3.
+        - |
+          1/3 is ∫ from 0 to 1 of x² dx; the width factor 3/n means the interval is [0, 3], not [0, 1].
+        - |
+          Correct. Δx = 3/n and xₖ = 3k/n run over [0, 3], so the limit is ∫ from 0 to 3 of x² dx = 27/3 − 0 = 9.
+        - |
+          3 is the length of the interval, not the value of the integral of x² over it.
+      answer: 2
+    - slug: apcalcab-u06-w24-q13
+      type: multi_select
+      topic_code: "6.6"
+      source: "AP Calculus CED, Topic 6.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let f and g be continuous on [a, b] with a < b, and let c be a constant. Which statements are always true? Select all that apply.
+      options:
+        - "∫ from a to b of (f(x) + g(x)) dx = ∫ from a to b of f(x) dx + ∫ from a to b of g(x) dx"
+        - "∫ from a to b of f(x)g(x) dx = (∫ from a to b of f(x) dx) · (∫ from a to b of g(x) dx)"
+        - "∫ from a to b of c·f(x) dx = c · ∫ from a to b of f(x) dx"
+        - "∫ from a to b of f(x) dx = −∫ from b to a of f(x) dx"
+        - "∫ from a to b of f(x) dx ≥ 0"
+      option_explanations:
+        - |
+          Correct. Each Riemann sum of f + g splits into a Riemann sum of f plus one of g, and so do the limits.
+        - |
+          There is no product rule for integrals. With f(x) = g(x) = x on [0, 1], the left side is 1/3 but the right side is (1/2)(1/2) = 1/4.
+        - |
+          Correct. A constant factor comes out of every Riemann sum and therefore out of the integral.
+        - |
+          Correct. Reversing the limits of integration changes the sign of the integral.
+        - |
+          The integral is negative when f is negative on [a, b], for example ∫ from 0 to 1 of (−1) dx = −1.
+      answer: [0, 2, 3]
+    - slug: apcalcab-u06-w24-q14
+      type: multi_select
+      topic_code: "6.5"
+      source: "AP Calculus CED, Topic 6.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        At a hypothetical park, people enter at a rate of E(t) people per hour and leave at a rate of L(t) people per hour, t hours after 8 a.m. There are 120 people in the park at 8 a.m., and the number in the park is P(t) = 120 + ∫ from 0 to t of (E(s) − L(s)) ds. Which statements are true? Select all that apply.
+      options:
+        - "P(0) = 120"
+        - "P′(t) = E(t) − L(t)"
+        - "If E(3) > L(3), the number of people in the park is increasing at t = 3."
+        - "At any time t when E(t) = L(t), the number of people in the park is at a maximum."
+        - "∫ from 0 to 4 of E(s) ds is the number of people in the park at noon."
+      option_explanations:
+        - |
+          Correct. The integral from 0 to 0 is 0, so P(0) = 120.
+        - |
+          Correct. By the first Fundamental Theorem the integral's derivative is E(t) − L(t), and the constant 120 has derivative 0.
+        - |
+          Correct. P′(3) = E(3) − L(3) > 0, so P is increasing at that instant.
+        - |
+          E(t) = L(t) makes P′(t) = 0, a candidate only: it could be a minimum (if E − L changes from negative to positive) or neither.
+        - |
+          That integral counts the people who entered between 8 a.m. and noon. It ignores the 120 already there and everyone who left.
+      answer: [0, 1, 2]
+    - slug: apcalcab-u06-w24-q15
+      type: true_false
+      topic_code: "6.6"
+      source: "AP Calculus CED, Topic 6.6"
+      points: 1
+      prompt: |
+        True or false: If f is continuous on [2, 8], then ∫ from 2 to 5 of f(x) dx + ∫ from 5 to 8 of f(x) dx = ∫ from 2 to 8 of f(x) dx.
+      answer: true
+      explanation: |
+        True. This is the additivity property: the signed area from 2 to 8 is the signed area from 2 to 5 plus the signed area from 5 to 8.
+    - slug: apcalcab-u06-w24-q16
+      type: true_false
+      topic_code: "6.7"
+      source: "AP Calculus CED, Topic 6.7"
+      points: 1
+      prompt: |
+        True or false: If f is continuous on [a, b] and F′(x) = f(x), then ∫ from a to b of f(x) dx = F(a) − F(b).
+      answer: false
+      explanation: |
+        False. The order is reversed. The second Fundamental Theorem gives ∫ from a to b of f(x) dx = F(b) − F(a): the antiderivative at the upper limit minus its value at the lower limit.
+    - slug: apcalcab-u06-w24-q17
+      type: fill_blank
+      topic_code: "6.7"
+      source: "AP Calculus CED, Topic 6.7"
+      points: 1
+      prompt: |
+        ∫ from 0 to 2 of (3x² + 1) dx = ____.
+      answer: ["10"]
+      explanation: |
+        An antiderivative is x³ + x, so the integral is (8 + 2) − (0 + 0) = 10.
+    - slug: apcalcab-u06-w24-q18
+      type: fill_blank
+      topic_code: "6.7"
+      source: "AP Calculus CED, Topic 6.7"
+      points: 1
+      prompt: |
+        ∫ from 0 to ln 3 of eˣ dx = ____.
+      answer: ["2"]
+      explanation: |
+        eˣ is its own antiderivative, so the integral is e^(ln 3) − e⁰ = 3 − 1 = 2.
+    - slug: apcalcab-u06-w24-q19
+      type: numeric
+      topic_code: "5.11"
+      source: "AP Calculus CED, Topic 5.11"
+      points: 1
+      prompt: |
+        A hypothetical farmer has 120 meters of fencing to enclose a rectangular plot beside a straight river. No fence is needed along the river. What is the largest area, in square meters, that the plot can have?
+      answer: { value: 1800, tolerance: 0 }
+      explanation: |
+        With the two sides perpendicular to the river each w meters long, the side parallel to the river is 120 − 2w, so A(w) = w(120 − 2w) for 0 < w < 60. A′(w) = 120 − 4w = 0 at w = 30, and A″(w) = −4 < 0, so this is the maximum: A(30) = 30 · 60 = 1800 square meters.
+    - slug: apcalcab-u06-w24-q20
+      type: numeric
+      topic_code: "6.2"
+      source: "AP Calculus CED, Topic 6.2"
+      points: 1
+      prompt: |
+        Selected values of a continuous function f are shown.
+
+        | x | 0 | 1 | 4 | 6 |
+        |---|---|---|---|---|
+        | f(x) | 3 | 5 | 2 | 4 |
+
+        Using a trapezoidal sum with the three subintervals of the table, approximate ∫ from 0 to 6 of f(x) dx.
+      answer: { value: 20.5, tolerance: 0.001 }
+      explanation: |
+        The widths are 1, 3 and 2. T = 1 · (3 + 5)/2 + 3 · (5 + 2)/2 + 2 · (2 + 4)/2 = 4 + 10.5 + 6 = 20.5.
+    - slug: apcalcab-u06-w24-q21
+      type: short_answer
+      topic_code: "6.6"
+      source: "AP Calculus CED, Topic 6.6"
+      points: 3
+      prompt: |
+        Let f(x) = x² for x ≤ 1 and f(x) = 2x − 1 for x > 1. (The function is continuous at x = 1.)
+
+        (a) Evaluate ∫ from −1 to 1 of f(x) dx.
+        (b) Evaluate ∫ from 1 to 3 of f(x) dx.
+        (c) Find ∫ from −1 to 3 of f(x) dx, naming the property of definite integrals that you use.
+      answer: |
+        (a) ∫ from −1 to 1 of x² dx = x³/3 from −1 to 1 = 1/3 − (−1/3) = 2/3.
+        (b) ∫ from 1 to 3 of (2x − 1) dx = (x² − x) from 1 to 3 = (9 − 3) − (1 − 1) = 6.
+        (c) By additivity over adjacent intervals, ∫ from −1 to 3 of f = ∫ from −1 to 1 of f + ∫ from 1 to 3 of f = 2/3 + 6 = 20/3.
+      explanation: |
+        Three points, one per part. (a) 2/3 with the antiderivative evaluated at both limits. (b) 6. (c) 20/3 (about 6.667) with the splitting (additivity) property named or clearly used.
+    - slug: apcalcab-u06-w24-q22
+      type: short_answer
+      topic_code: "4.3"
+      source: "AP Calculus CED, Topic 4.3"
+      points: 3
+      prompt: |
+        The number of hypothetical fish in a pond is modeled by P(t) = 200 + 30t − t², where t is measured in months, for 0 ≤ t ≤ 20.
+
+        (a) Find P′(5) and interpret it in context, with units.
+        (b) Find the time when P′(t) = 0 and explain what happens to the fish population at that time.
+        (c) Find the average rate of change of P over 0 ≤ t ≤ 10, with units.
+      answer: |
+        (a) P′(t) = 30 − 2t, so P′(5) = 20 fish per month: at t = 5 months the population is increasing at a rate of 20 fish per month.
+        (b) P′(t) = 0 at t = 15. P′ changes from positive to negative there, so the population stops increasing and starts decreasing: it reaches its maximum, P(15) = 425 fish.
+        (c) P(10) = 200 + 300 − 100 = 400 and P(0) = 200, so the average rate is (400 − 200)/10 = 20 fish per month.
+      explanation: |
+        Three points, one per part. (a) 20 fish per month with an interpretation that says "rate at t = 5". (b) t = 15 with the sign change giving a maximum (the value 425 is not required). (c) 20 fish per month with units.
+    - slug: apcalcab-u06-w24-q23
+      type: long_answer
+      topic_code: "6.5"
+      source: "AP Calculus CED, Topic 6.5"
+      points: 6
+      prompt: |
+        A hypothetical tank holds 50 liters of water at t = 0. For 0 ≤ t ≤ 8 minutes, water flows in and out at a net rate of R(t) liters per minute. The graph of R consists of three line segments joining the points (0, 6), (2, 6), (5, −3) and (8, 0). Let W(t) be the number of liters of water in the tank at time t.
+
+        (A) Write an expression for W(t) involving an integral, and find W(8).
+
+        (B) At what time t in 0 ≤ t ≤ 8 is the amount of water in the tank greatest? Justify your answer.
+
+        (C) Find W′(3). Interpret its meaning in context, with units.
+
+        (D) Is the graph of W concave up or concave down at t = 6? Give a reason, and explain what it means about the water.
+
+        (E) Must the tank hold exactly 60 liters at some time t in 0 < t < 4? Justify.
+      answer: |
+        (A) W(t) = 50 + ∫ from 0 to t of R(s) ds. R crosses zero at t = 4. Signed areas: [0, 2] rectangle 12; [2, 4] triangle +6; [4, 5] triangle −1.5; [5, 8] triangle −4.5. W(8) = 50 + 12 + 6 − 1.5 − 4.5 = 62 liters.
+        (B) W′(t) = R(t), which changes from positive to negative only at t = 4. Candidates: W(0) = 50, W(4) = 50 + 18 = 68, W(8) = 62. The water is greatest at t = 4 minutes (68 liters).
+        (C) W′(3) = R(3) = 3 liters per minute (on the segment from (2, 6) to (5, −3), R(3) = 6 − 3 = 3). At t = 3 minutes, the amount of water is increasing at 3 liters per minute.
+        (D) Concave up: W″(t) = R′(t), and R is increasing on 5 < t < 8 (slope 1), so W″(6) = 1 > 0. The water is still draining (R(6) = −2 < 0), but it is draining more and more slowly.
+        (E) Yes. W is continuous because it is differentiable (W′ = R). W(0) = 50 and W(4) = 68, and 50 < 60 < 68, so by the Intermediate Value Theorem W(t) = 60 for some t in (0, 4).
+      explanation: |
+        Six points. (A) 1 point for the expression and W(8) = 62 with signed areas. (B) 1 point for t = 4 justified by a Candidates Test (W(0), W(4), W(8)) or by W′ = R changing from positive to negative with a global argument. (C) 1 point for 3 liters per minute with an interpretation stating the amount is increasing at t = 3. (D) 1 point for concave up with R increasing (W″ = R′ > 0) and an interpretation. (E) 1 point for continuity of W, the values 50 and 68 and the Intermediate Value Theorem; 1 point for a fully correct conclusion with the inequality 50 < 60 < 68 stated.

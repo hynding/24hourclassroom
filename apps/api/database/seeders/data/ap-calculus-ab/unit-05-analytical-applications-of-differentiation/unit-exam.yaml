@@ -1,0 +1,926 @@
+unit: 5
+description: |
+  45 questions · about 90 minutes · every topic of Unit 5 (5.1 to 5.12): the Mean Value Theorem, the Extreme
+  Value Theorem and critical points, increasing and decreasing intervals, the First Derivative Test, the
+  Candidates Test, concavity and points of inflection, the Second Derivative Test, connecting the graphs of f,
+  f′ and f″, implicit curves, and optimization. Includes three shared-context sets of three questions (an oven's
+  temperature table, a piecewise-linear graph of f′, and an implicitly defined curve), select-all, true/false,
+  fill-in-the-blank and numeric items, two short-answer questions (3 points each) and two free-response
+  questions in the AP style (9 points each: one calculator-active question on a flood-gauge model, one
+  no-calculator analytical question on a quartic). Items marked (Calculator.) need a graphing calculator; the
+  rest are meant to be done by hand. Multiple choice, select-all, true/false and numeric items are graded at
+  once; fill-in-the-blank items are matched automatically; the short answers and free-response items are graded
+  by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: an oven's temperature (5.1, 5.2)
+  - slug: apcalcab-u05-exam-q01
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "AP Calculus CED, Topic 5.1"
+    points: 1
+    stimulus: |
+      The temperature inside a hypothetical test oven is modeled by a differentiable function T, where T(t) is in degrees Celsius and t is in minutes after the oven is switched on, for 0 ≤ t ≤ 20. Selected values are shown.
+
+      | t (minutes) | 0 | 4 | 10 | 15 | 20 |
+      |---|---|---|---|---|---|
+      | T(t) (°C) | 20 | 140 | 200 | 200 | 180 |
+    prompt: |
+      Which value must T′(c) equal for some c in (4, 10), according to the Mean Value Theorem?
+    options:
+      - "0 °C per minute"
+      - "60 °C per minute"
+      - "10 °C per minute"
+      - "17 °C per minute"
+    option_explanations:
+      - |
+        A zero derivative would need T(4) = T(10). Here T rises from 140 to 200, so the guaranteed derivative value is the secant slope 10.
+      - |
+        60 is the change in temperature, 200 − 140. It must be divided by the change in time, 10 − 4 = 6.
+      - |
+        Correct. T is differentiable, so it is continuous on [4, 10] and differentiable on (4, 10). The secant slope is (200 − 140)/(10 − 4) = 10, so T′(c) = 10 °C per minute for some c in (4, 10).
+      - |
+        This is 200/12, dividing a temperature by an unrelated time. The MVT uses (T(10) − T(4))/(10 − 4).
+    answer: 2
+  - slug: apcalcab-u05-exam-q02
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "AP Calculus CED, Topic 5.1"
+    points: 1
+    stimulus: |
+      The temperature inside a hypothetical test oven is modeled by a differentiable function T, where T(t) is in degrees Celsius and t is in minutes after the oven is switched on, for 0 ≤ t ≤ 20. Selected values are shown.
+
+      | t (minutes) | 0 | 4 | 10 | 15 | 20 |
+      |---|---|---|---|---|---|
+      | T(t) (°C) | 20 | 140 | 200 | 200 | 180 |
+    prompt: |
+      On which interval does the Mean Value Theorem guarantee a time at which the temperature is momentarily not changing?
+    options:
+      - "(0, 4)"
+      - "(4, 10)"
+      - "(15, 20)"
+      - "(10, 15)"
+    option_explanations:
+      - |
+        T rises from 20 to 140 on [0, 4], so the guaranteed rate is 30 °C per minute, not 0.
+      - |
+        T rises from 140 to 200 on [4, 10], so the guaranteed rate is 10 °C per minute. T′ may stay positive there.
+      - |
+        T falls from 200 to 180 on [15, 20], so the guaranteed rate is −4 °C per minute; the data allow T′ < 0 throughout.
+      - |
+        Correct. T(10) = T(15) = 200 and T is continuous on [10, 15] and differentiable on (10, 15), so by the MVT (Rolle's theorem) T′(c) = 0 for some c in (10, 15).
+    answer: 3
+  - slug: apcalcab-u05-exam-q03
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "AP Calculus CED, Topic 5.2"
+    points: 1
+    stimulus: |
+      The temperature inside a hypothetical test oven is modeled by a differentiable function T, where T(t) is in degrees Celsius and t is in minutes after the oven is switched on, for 0 ≤ t ≤ 20. Selected values are shown.
+
+      | t (minutes) | 0 | 4 | 10 | 15 | 20 |
+      |---|---|---|---|---|---|
+      | T(t) (°C) | 20 | 140 | 200 | 200 | 180 |
+    prompt: |
+      Which statement about the absolute maximum of T on [0, 20] must be true?
+    options:
+      - "T has an absolute maximum on [0, 20], and its value is at least 200 °C."
+      - "The absolute maximum value of T on [0, 20] is exactly 200 °C."
+      - "The absolute maximum of T occurs at t = 10 or t = 15."
+      - "T need not have an absolute maximum, because only five values are known."
+    option_explanations:
+      - |
+        Correct. T is continuous on the closed interval [0, 20], so by the Extreme Value Theorem it has an absolute maximum, and that maximum is at least the largest known value, 200.
+      - |
+        The table shows only five times. Between t = 10 and t = 15, T may rise above 200, so the maximum could be larger.
+      - |
+        The maximum could occur between table values (for example at some time between 10 and 15), not necessarily at a listed time.
+      - |
+        The EVT guarantees a maximum from continuity on a closed interval, however few values are listed.
+    answer: 0
+  # ---- Stimulus set B: a piecewise-linear graph of f′ (5.4, 5.6, 5.9)
+  - slug: apcalcab-u05-exam-q04
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "AP Calculus CED, Topic 5.4"
+    points: 1
+    stimulus: |
+      A function f is continuous on [0, 8] and differentiable on (0, 8). The graph of its derivative f′ consists of three line segments joining the points (0, 3), (3, −3), (6, 3) and (8, −1). So f′ crosses the x-axis at x = 1.5, x = 4.5 and x = 7.5.
+    prompt: |
+      At which value of x in (0, 8) does f have a relative minimum?
+    options:
+      - "x = 3"
+      - "x = 4.5"
+      - "x = 1.5 and x = 7.5"
+      - "x = 6"
+    option_explanations:
+      - |
+        x = 3 is the lowest point of the f′ graph, where f is decreasing most steeply: a point of inflection of f, not a minimum.
+      - |
+        Correct. f′ changes from negative to positive at x = 4.5 (the segment rises from −3 at x = 3 to 3 at x = 6), so f has a relative minimum there.
+      - |
+        At x = 1.5 and x = 7.5, f′ changes from positive to negative, so those are relative maxima.
+      - |
+        x = 6 is the peak of the f′ graph, a point of inflection of f; f′(6) = 3 ≠ 0.
+    answer: 1
+  - slug: apcalcab-u05-exam-q05
+    type: multiple_choice
+    topic_code: "5.6"
+    source: "AP Calculus CED, Topic 5.6"
+    points: 1
+    stimulus: |
+      A function f is continuous on [0, 8] and differentiable on (0, 8). The graph of its derivative f′ consists of three line segments joining the points (0, 3), (3, −3), (6, 3) and (8, −1). So f′ crosses the x-axis at x = 1.5, x = 4.5 and x = 7.5.
+    prompt: |
+      On which interval is the graph of f concave up?
+    options:
+      - "4.5 < x < 7.5"
+      - "1.5 < x < 4.5"
+      - "3 < x < 6"
+      - "6 < x < 8"
+    option_explanations:
+      - |
+        f′ > 0 on 4.5 < x < 7.5, so f is increasing there, but f′ is falling on 6 < x < 7.5, so part of this interval is concave down.
+      - |
+        f′ < 0 on 1.5 < x < 4.5, which makes f decreasing; f′ is falling on 1.5 < x < 3, so that part is concave down.
+      - |
+        Correct. On 3 < x < 6 the f′ graph rises from −3 to 3, so f′ is increasing and the graph of f is concave up.
+      - |
+        The f′ graph falls from 3 to −1 on 6 < x < 8, so f is concave down there.
+    answer: 2
+  - slug: apcalcab-u05-exam-q06
+    type: multiple_choice
+    topic_code: "5.9"
+    source: "AP Calculus CED, Topic 5.9"
+    points: 1
+    stimulus: |
+      A function f is continuous on [0, 8] and differentiable on (0, 8). The graph of its derivative f′ consists of three line segments joining the points (0, 3), (3, −3), (6, 3) and (8, −1). So f′ crosses the x-axis at x = 1.5, x = 4.5 and x = 7.5.
+    prompt: |
+      What is f″(5)?
+    options:
+      - "1"
+      - "−2"
+      - "0"
+      - "2"
+    option_explanations:
+      - |
+        1 is f′(5), the height of the f′ graph at x = 5 (−3 + 2 · 2), not its slope.
+      - |
+        −2 is the slope of the first and third segments. At x = 5 the f′ graph is on the rising middle segment.
+      - |
+        f″(5) = 0 would need the f′ graph to be flat at x = 5; it is rising there.
+      - |
+        Correct. f″(5) is the slope of the f′ graph at x = 5, on the segment from (3, −3) to (6, 3): (3 − (−3))/(6 − 3) = 2.
+    answer: 3
+  # ---- Stimulus set C: an implicitly defined curve (5.12)
+  - slug: apcalcab-u05-exam-q07
+    type: multiple_choice
+    topic_code: "5.12"
+    source: "AP Calculus CED, Topic 5.12"
+    points: 1
+    stimulus: |
+      Consider the curve x² + 2xy + 3y² = 6, which passes through the point (1, 1). Implicit differentiation gives dy/dx = −(x + y)/(x + 3y).
+    prompt: |
+      What is the slope of the curve at the point (1, 1)?
+    options:
+      - "−1/2"
+      - "−2"
+      - "1/2"
+      - "−1"
+    option_explanations:
+      - |
+        Correct. dy/dx = −(1 + 1)/(1 + 3 · 1) = −2/4 = −1/2.
+      - |
+        This is the reciprocal: the numerator x + y and the denominator x + 3y were swapped.
+      - |
+        The minus sign in front of the fraction was dropped.
+      - |
+        This uses x + y in both numerator and denominator, as if the 3y were y.
+    answer: 0
+  - slug: apcalcab-u05-exam-q08
+    type: multiple_choice
+    topic_code: "5.12"
+    source: "AP Calculus CED, Topic 5.12"
+    points: 1
+    stimulus: |
+      Consider the curve x² + 2xy + 3y² = 6, which passes through the point (1, 1). Implicit differentiation gives dy/dx = −(x + y)/(x + 3y).
+    prompt: |
+      At which points does the curve have a vertical tangent line?
+    options:
+      - "(√3, −√3) and (−√3, √3)"
+      - "(3, −1) and (−3, 1)"
+      - "(√6, 0) and (−√6, 0)"
+      - "(0, √2) and (0, −√2)"
+    option_explanations:
+      - |
+        These are where y = −x, so the numerator x + y is 0: the horizontal tangents.
+      - |
+        Correct. Vertical tangents need x + 3y = 0 (with x + y ≠ 0). Substituting x = −3y: 9y² − 6y² + 3y² = 6y² = 6, so y = ±1, giving (−3, 1) and (3, −1). There x + y = ∓2 ≠ 0.
+      - |
+        These are the x-intercepts (y = 0). There dy/dx = −x/x = −1, which is defined.
+      - |
+        These are the y-intercepts (x = 0). There dy/dx = −y/(3y) = −1/3, which is defined.
+    answer: 1
+  - slug: apcalcab-u05-exam-q09
+    type: multiple_choice
+    topic_code: "5.12"
+    source: "AP Calculus CED, Topic 5.12"
+    points: 1
+    stimulus: |
+      Consider the curve x² + 2xy + 3y² = 6, which passes through the point (1, 1). Implicit differentiation gives dy/dx = −(x + y)/(x + 3y).
+    prompt: |
+      What is the value of d²y/dx² at the point (1, 1), and what does it say about the curve there?
+    options:
+      - "3/16; concave up"
+      - "−1/2; concave down"
+      - "0; a point of inflection"
+      - "−3/16; concave down"
+    option_explanations:
+      - |
+        The size is right but the leading minus sign of the quotient was dropped, which reverses the concavity.
+      - |
+        −1/2 is dy/dx at (1, 1), the slope, not the second derivative.
+      - |
+        The second derivative is not 0 here; and even if it were, a single zero would not establish an inflection point.
+      - |
+        Correct. d²y/dx² = −[(1 + y′)(x + 3y) − (x + y)(1 + 3y′)]/(x + 3y)². With y′ = −1/2 at (1, 1): −[(1/2)(4) − (2)(−1/2)]/16 = −(2 + 1)/16 = −3/16 < 0.
+    answer: 3
+  # ---- Independent multiple choice
+  - slug: apcalcab-u05-exam-q10
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "AP Calculus CED, Topic 5.1"
+    points: 1
+    prompt: |
+      For which function do the hypotheses of the Mean Value Theorem fail on the interval [0, 2]?
+    options:
+      - "f(x) = x³ − 2x"
+      - "g(x) = √(x + 1)"
+      - "h(x) = |x − 1|"
+      - "k(x) = eˣ sin x"
+    option_explanations:
+      - |
+        A polynomial is continuous and differentiable everywhere, so the hypotheses hold on [0, 2].
+      - |
+        √(x + 1) is continuous on [0, 2] and differentiable for x > −1, which includes (0, 2).
+      - |
+        Correct. |x − 1| is continuous, but it has a corner at x = 1 inside (0, 2), so it is not differentiable on (0, 2).
+      - |
+        A product of differentiable functions is differentiable everywhere, so the hypotheses hold.
+    answer: 2
+  - slug: apcalcab-u05-exam-q11
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "AP Calculus CED, Topic 5.2"
+    points: 1
+    prompt: |
+      What are all the critical points of f(x) = x − 3x^(1/3)?
+    options:
+      - "x = −1, x = 0 and x = 1"
+      - "x = −1 and x = 1"
+      - "x = 0 only"
+      - "x = 0 and x = 3√3"
+    option_explanations:
+      - |
+        Correct. f′(x) = 1 − x^(−2/3) = 1 − 1/x^(2/3). It is 0 when x^(2/3) = 1, so x = ±1, and undefined at x = 0, which is in the domain of f.
+      - |
+        These are the zeros of f′, but f′ is also undefined at x = 0, which is in the domain, so 0 is a critical point too.
+      - |
+        This keeps only the point where f′ is undefined and misses the zeros x = ±1.
+      - |
+        These are zeros of f itself (x = 3x^(1/3) gives x = 0, ±3√3), not of f′.
+    answer: 0
+  - slug: apcalcab-u05-exam-q12
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "AP Calculus CED, Topic 5.3"
+    points: 1
+    prompt: |
+      On which interval is f(x) = x²eˣ decreasing?
+    options:
+      - "x < −2"
+      - "−2 < x < 0"
+      - "x > 0"
+      - "x < 0"
+    option_explanations:
+      - |
+        For x < −2, f′(x) = x(x + 2)eˣ is a product of two negatives and a positive, so f′ > 0 and f is increasing.
+      - |
+        Correct. f′(x) = 2xeˣ + x²eˣ = x(x + 2)eˣ. Since eˣ > 0, f′ < 0 exactly when x and x + 2 have opposite signs: −2 < x < 0.
+      - |
+        For x > 0 every factor of x(x + 2)eˣ is positive, so f is increasing.
+      - |
+        This uses only the factor 2xeˣ, forgetting the product rule's second term x²eˣ.
+    answer: 1
+  - slug: apcalcab-u05-exam-q13
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "AP Calculus CED, Topic 5.4"
+    points: 1
+    prompt: |
+      A function f is differentiable for all real numbers, and f′(x) = (x + 3)(x − 1)²(x − 4). At which x does f have a relative maximum?
+    options:
+      - "x = 1"
+      - "x = 4"
+      - "x = −3 and x = 4"
+      - "x = −3"
+    option_explanations:
+      - |
+        f′ is negative on both sides of x = 1 (the factor (x − 1)² does not change sign), so there is no extremum there.
+      - |
+        f′ changes from negative to positive at x = 4, which is a relative minimum.
+      - |
+        x = 4 is a relative minimum, not a maximum; only x = −3 has f′ changing from positive to negative.
+      - |
+        Correct. For x < −3, f′ = (−)(+)(−) > 0; for −3 < x < 1, f′ = (+)(+)(−) < 0. f′ changes from positive to negative at x = −3, so f has a relative maximum there.
+    answer: 3
+  - slug: apcalcab-u05-exam-q14
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "AP Calculus CED, Topic 5.5"
+    points: 1
+    prompt: |
+      What is the absolute minimum value of f(x) = x³ − 12x + 1 on the interval [0, 3]?
+    options:
+      - "−8"
+      - "1"
+      - "−15"
+      - "2"
+    option_explanations:
+      - |
+        −8 = f(3), the value at the right endpoint. The critical point x = 2 gives a smaller value.
+      - |
+        1 = f(0) is the absolute maximum on [0, 3], not the minimum.
+      - |
+        Correct. f′(x) = 3x² − 12 = 0 at x = ±2; only x = 2 is in [0, 3]. Candidates: f(0) = 1, f(2) = 8 − 24 + 1 = −15, f(3) = −8. The smallest is −15.
+      - |
+        2 is where the minimum occurs, not the minimum value f(2) = −15.
+    answer: 2
+  - slug: apcalcab-u05-exam-q15
+    type: multiple_choice
+    topic_code: "5.6"
+    source: "AP Calculus CED, Topic 5.6"
+    points: 1
+    prompt: |
+      Which describes the concavity of the graph of f(x) = ln x − x² on its domain x > 0?
+    options:
+      - "Concave down for all x > 0"
+      - "Concave up for all x > 0"
+      - "Concave up for 0 < x < 1/√2 and concave down for x > 1/√2"
+      - "Concave down for 0 < x < 1/√2 and concave up for x > 1/√2"
+    option_explanations:
+      - |
+        Correct. f′(x) = 1/x − 2x and f″(x) = −1/x² − 2, which is negative for every x > 0.
+      - |
+        Both terms of f″(x) = −1/x² − 2 are negative, so f″ is never positive.
+      - |
+        x = 1/√2 is where f′ = 0 (the maximum of f), which says nothing about a change of concavity.
+      - |
+        This also treats the critical point 1/√2 as a concavity change, with the signs reversed. f″ < 0 everywhere.
+    answer: 0
+  - slug: apcalcab-u05-exam-q16
+    type: multiple_choice
+    topic_code: "5.7"
+    source: "AP Calculus CED, Topic 5.7"
+    points: 1
+    prompt: |
+      Let f(x) = x⁴ − 8x². What does the Second Derivative Test conclude about f at x = 0?
+    options:
+      - "Nothing, because f′(0) = 0"
+      - "f has a relative maximum at x = 0."
+      - "f has a relative minimum at x = 0."
+      - "The graph of f has a point of inflection at x = 0."
+    option_explanations:
+      - |
+        f′(0) = 0 is exactly the condition the test needs; it is f″(0) = 0 that would make it inconclusive, and f″(0) = −16.
+      - |
+        Correct. f′(x) = 4x³ − 16x, so f′(0) = 0; f″(x) = 12x² − 16, so f″(0) = −16 < 0. By the Second Derivative Test f has a relative maximum at x = 0.
+      - |
+        A negative second derivative at a horizontal tangent means concave down, a maximum. The minima are at x = ±2.
+      - |
+        f″(0) = −16 ≠ 0 and the graph is concave down on both sides of 0; the inflection points are at x = ±2/√3.
+    answer: 1
+  - slug: apcalcab-u05-exam-q17
+    type: multiple_choice
+    topic_code: "5.8"
+    source: "AP Calculus CED, Topic 5.8"
+    points: 1
+    prompt: |
+      A function f satisfies f′(x) > 0 for x < 1, f′(x) < 0 for x > 1 and f″(x) < 0 for all x. Which could be f?
+    options:
+      - "f(x) = (x − 1)² + 5"
+      - "f(x) = (x − 1)³"
+      - "f(x) = 5 − (x − 1)²"
+      - "f(x) = 5 − (x − 1)³"
+    option_explanations:
+      - |
+        This parabola opens upward: decreasing then increasing with f″ = 2 > 0, the opposite of every condition.
+      - |
+        f′(x) = 3(x − 1)² ≥ 0, so this cubic never decreases, and its concavity changes at x = 1.
+      - |
+        Correct. f′(x) = −2(x − 1) is positive for x < 1 and negative for x > 1, and f″(x) = −2 < 0 everywhere.
+      - |
+        f′(x) = −3(x − 1)² ≤ 0, so this function never increases, and f″(x) = −6(x − 1) is positive for x < 1.
+    answer: 2
+  - slug: apcalcab-u05-exam-q18
+    type: multiple_choice
+    topic_code: "5.9"
+    source: "AP Calculus CED, Topic 5.9"
+    points: 1
+    prompt: |
+      A function f is twice differentiable, with f′(3) = 0 and f″(x) > 0 for 2 < x < 4. Which statement must be true?
+    options:
+      - "f has a relative maximum at x = 3."
+      - "The graph of f has a point of inflection at x = 3."
+      - "f is increasing on 2 < x < 4."
+      - "f has a relative minimum at x = 3."
+    option_explanations:
+      - |
+        A horizontal tangent on a concave-up stretch of graph is a minimum, not a maximum.
+      - |
+        f″ > 0 on both sides of 3, so the concavity does not change there.
+      - |
+        f′ is increasing on (2, 4) and equals 0 at x = 3, so f′ < 0 on (2, 3): f is decreasing there.
+      - |
+        Correct. f′ is increasing on (2, 4) (because f″ > 0) and f′(3) = 0, so f′ < 0 just left of 3 and f′ > 0 just right: a relative minimum (also the Second Derivative Test, since f″(3) > 0).
+    answer: 3
+  - slug: apcalcab-u05-exam-q19
+    type: multiple_choice
+    topic_code: "5.10"
+    source: "AP Calculus CED, Topic 5.10"
+    points: 1
+    prompt: |
+      A hypothetical rectangular garden of area 200 m² is fenced on three sides; the fourth side is a wall. Let x be the length of each side perpendicular to the wall. Which function gives the total length L of fence?
+    options:
+      - "L(x) = 2x + 200/x"
+      - "L(x) = 2x + 400/x"
+      - "L(x) = x + 200/x"
+      - "L(x) = 200 − 2x"
+    option_explanations:
+      - |
+        Correct. The side parallel to the wall is 200/x, and there are two perpendicular sides of length x, so L = 2x + 200/x.
+      - |
+        This fences all four sides: 2x for the perpendicular sides plus 2(200/x) for both parallel sides. The side along the wall needs no fence.
+      - |
+        This counts only one perpendicular side; the garden has two sides of length x touching the wall.
+      - |
+        This treats 200 as a length of fence. 200 is the area, which fixes the parallel side as 200/x.
+    answer: 0
+  - slug: apcalcab-u05-exam-q20
+    type: multiple_choice
+    topic_code: "5.11"
+    source: "AP Calculus CED, Topic 5.11"
+    points: 1
+    prompt: |
+      For the garden of area 200 m² fenced on three sides, the fence length is L(x) = 2x + 200/x for x > 0. What is the least possible length of fence?
+    options:
+      - "10 m"
+      - "40 m"
+      - "20√2 m"
+      - "56.6 m"
+    option_explanations:
+      - |
+        10 m is the length x of each perpendicular side at the optimum, not the total fence.
+      - |
+        Correct. L′(x) = 2 − 200/x² = 0 at x = 10, and L″(x) = 400/x³ > 0 for x > 0, so this is the absolute minimum: L(10) = 20 + 20 = 40 m.
+      - |
+        20√2 ≈ 28.3 comes from minimizing x + 200/x, which counts only one perpendicular side.
+      - |
+        56.6 ≈ 40√2 comes from fencing all four sides, 2x + 400/x.
+    answer: 1
+  - slug: apcalcab-u05-exam-q21
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "AP Calculus CED, Topic 5.5"
+    points: 1
+    prompt: |
+      What is the absolute maximum value of f(x) = x + 2 cos x on the interval [0, π]?
+    options:
+      - "2"
+      - "π − 2"
+      - "π/6 + √3"
+      - "5π/6 − √3"
+    option_explanations:
+      - |
+        2 = f(0), the left endpoint. The critical point π/6 gives a larger value, about 2.256.
+      - |
+        π − 2 ≈ 1.142 is f(π), the right endpoint, smaller than f(π/6).
+      - |
+        Correct. f′(x) = 1 − 2 sin x = 0 when sin x = 1/2: x = π/6 and 5π/6. Candidates: f(0) = 2, f(π/6) = π/6 + √3 ≈ 2.256, f(5π/6) = 5π/6 − √3 ≈ 0.886, f(π) = π − 2 ≈ 1.142.
+      - |
+        5π/6 − √3 ≈ 0.886 is the absolute minimum on [0, π], at the relative minimum x = 5π/6.
+    answer: 2
+  - slug: apcalcab-u05-exam-q22
+    type: multiple_choice
+    topic_code: "5.11"
+    source: "AP Calculus CED, Topic 5.11"
+    points: 1
+    prompt: |
+      Which points on the parabola y = x² are closest to the point (0, 2)?
+    options:
+      - "(0, 0)"
+      - "(±√2, 2)"
+      - "(±1, 1)"
+      - "(±√(3/2), 3/2)"
+    option_explanations:
+      - |
+        (0, 0) is a critical point of the squared distance but a relative maximum of it; its distance 2 is larger than √7/2 ≈ 1.32.
+      - |
+        These points are level with (0, 2) at distance √2 ≈ 1.41, which is not the minimum.
+      - |
+        These have distance √2 ≈ 1.41, larger than √7/2 ≈ 1.32 at x = ±√(3/2).
+      - |
+        Correct. D² = x² + (x² − 2)² = x⁴ − 3x² + 4. Its derivative 4x³ − 6x = 2x(2x² − 3) is 0 at x = 0 and ±√(3/2). D²(0) = 4 and D²(±√(3/2)) = 9/4 − 9/2 + 4 = 7/4, so the closest points are (±√(3/2), 3/2).
+    answer: 3
+  - slug: apcalcab-u05-exam-q23
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "AP Calculus CED, Topic 5.3"
+    points: 1
+    prompt: |
+      (Calculator.) A function f has derivative f′(x) = cos(x²). On which interval within 0 < x < 2 is f increasing?
+    options:
+      - "0 < x < 1.253"
+      - "1.253 < x < 2"
+      - "0 < x < 1.571"
+      - "0 < x < 2"
+    option_explanations:
+      - |
+        Correct. cos(x²) > 0 while x² < π/2, that is x < √(π/2) ≈ 1.253; it stays negative from there until x² = 3π/2 (x ≈ 2.171), beyond 2.
+      - |
+        On this interval x² is between π/2 and 4 < 3π/2, so cos(x²) < 0 and f is decreasing.
+      - |
+        1.571 is π/2, the value of x² where cos(x²) = 0. The x-value is √(π/2) ≈ 1.253.
+      - |
+        cos(x²) becomes negative once x passes about 1.253, so f is not increasing on the whole interval.
+    answer: 0
+  - slug: apcalcab-u05-exam-q24
+    type: multiple_choice
+    topic_code: "5.8"
+    source: "AP Calculus CED, Topic 5.8"
+    points: 1
+    prompt: |
+      The graph of a twice-differentiable function f is concave up everywhere, and f has its absolute minimum at x = 2. Which could be the graph of f′?
+    options:
+      - "A line with negative slope crossing the x-axis at x = 2"
+      - "A line with positive slope crossing the x-axis at x = 2"
+      - "A parabola opening upward with vertex (2, 0)"
+      - "The horizontal line y = 2"
+    option_explanations:
+      - |
+        A decreasing f′ means f is concave down, and f′ changing from + to − at 2 would give a maximum.
+      - |
+        Correct. An increasing f′ means f is concave up, and f′ changing from negative to positive at x = 2 gives the minimum there.
+      - |
+        This f′ is never negative, so f never decreases and has no minimum at 2; also f′ decreases for x < 2, so f would be concave down there.
+      - |
+        f′ = 2 > 0 means f is always increasing (a line), with no minimum and no concavity.
+    answer: 1
+  - slug: apcalcab-u05-exam-q25
+    type: multiple_choice
+    topic_code: "5.10"
+    source: "AP Calculus CED, Topic 5.10"
+    points: 1
+    prompt: |
+      An open box is made from a 20 cm by 30 cm sheet of card by cutting a square of side x cm from each corner and folding up the sides. What is the domain of the volume function V(x) = x(20 − 2x)(30 − 2x) in this context?
+    options:
+      - "0 ≤ x ≤ 15"
+      - "0 ≤ x ≤ 20"
+      - "x ≥ 0"
+      - "0 ≤ x ≤ 10"
+    option_explanations:
+      - |
+        For 10 < x < 15 the width 20 − 2x would be negative. The shorter side limits the cut.
+      - |
+        20 is the length of the shorter side; cutting x from each end uses 2x, so x ≤ 10.
+      - |
+        Lengths must also make 20 − 2x and 30 − 2x nonnegative; otherwise the formula gives meaningless (or negative) volumes.
+      - |
+        Correct. x ≥ 0 and the width 20 − 2x ≥ 0, so x ≤ 10 (the length 30 − 2x is then positive too).
+    answer: 3
+  - slug: apcalcab-u05-exam-q26
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "AP Calculus CED, Topic 5.4"
+    points: 1
+    prompt: |
+      Which statement describes the relative extrema of f(x) = |x² − 4|?
+    options:
+      - "A relative minimum at x = 0 only"
+      - "A relative maximum at x = 0 only"
+      - "A relative maximum at x = 0 and relative minima at x = −2 and x = 2"
+      - "Relative minima at x = −2 and x = 2 only, because f′ does not exist there"
+    option_explanations:
+      - |
+        Between −2 and 2, f(x) = 4 − x², which has its peak (not its lowest point) at x = 0.
+      - |
+        The maximum at 0 is right, but f also has relative minima at x = ±2, where its value 0 is lower than nearby values.
+      - |
+        Correct. For |x| < 2, f(x) = 4 − x² with f′ = −2x changing from + to − at 0 (maximum 4). At x = ±2, f′ changes from − to + across corners where f′ does not exist (minima 0).
+      - |
+        The minima at ±2 are right, but the reason is the sign change of f′, not the corner itself; and the maximum at x = 0 is missed.
+    answer: 2
+  - slug: apcalcab-u05-exam-q27
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "AP Calculus CED, Topic 5.2"
+    points: 1
+    prompt: |
+      The function f(x) = x³ − 3x has a relative maximum of 2 at x = −1. Which statement about f on the interval [−2, 3] is true?
+    options:
+      - "The absolute maximum of f on [−2, 3] is 18, at x = 3."
+      - "The absolute maximum of f on [−2, 3] is 2, at x = −1."
+      - "f has no absolute maximum on [−2, 3]."
+      - "The absolute maximum of f on [−2, 3] is 2, at x = −1 and x = 2."
+    option_explanations:
+      - |
+        Correct. f is continuous on [−2, 3], so by the EVT it has an absolute maximum, at a critical point (±1) or an endpoint. f(−2) = −2, f(−1) = 2, f(1) = −2, f(3) = 18. The largest is 18.
+      - |
+        A relative maximum need not be absolute: the endpoint value f(3) = 27 − 9 = 18 is larger.
+      - |
+        f is a polynomial on a closed interval, so the EVT guarantees an absolute maximum.
+      - |
+        f(2) = 2 does tie the relative maximum, but f(3) = 18 is larger than both.
+    answer: 0
+  - slug: apcalcab-u05-exam-q28
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "AP Calculus CED, Topic 5.1"
+    points: 1
+    prompt: |
+      A hypothetical train's position along a straight track is a differentiable function of time. It travels 150 km in 1.5 hours. Which statement must be true?
+    options:
+      - "The train's speed was 100 km/h for the entire trip."
+      - "At some instant during the trip the train's velocity was exactly 100 km/h."
+      - "The train's velocity was 100 km/h exactly halfway through the trip."
+      - "The train's velocity was never more than 100 km/h."
+    option_explanations:
+      - |
+        The average is 100 km/h, but the train can speed up and slow down; a constant speed is not forced.
+      - |
+        Correct. Position is continuous and differentiable on the trip's time interval, so by the Mean Value Theorem the velocity at some instant equals the average velocity 150/1.5 = 100 km/h.
+      - |
+        The MVT guarantees some instant, never a particular one such as the halfway time.
+      - |
+        If the train went slower for part of the trip it must have gone faster than 100 km/h at other times.
+    answer: 1
+  # ---- Select all
+  - slug: apcalcab-u05-exam-q29
+    type: multi_select
+    topic_code: "5.4"
+    source: "AP Calculus CED, Topic 5.4"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A function f is differentiable for all real numbers, with f′(x) = x²(x − 2)(x + 1). Which statements are true? Select all that apply.
+    options:
+      - "f has a relative maximum at x = −1."
+      - "f has a relative minimum at x = 0."
+      - "f has a relative minimum at x = 2."
+      - "f is decreasing on −1 < x < 2."
+      - "f is increasing on x > 0."
+    option_explanations:
+      - |
+        Correct. For x < −1, f′ = (+)(−)(−) > 0; for −1 < x < 0, f′ = (+)(−)(+) < 0. f′ changes from positive to negative at −1.
+      - |
+        x² ≥ 0 keeps f′ negative on both sides of 0, so there is no extremum at x = 0.
+      - |
+        Correct. f′ changes from negative (0 < x < 2) to positive (x > 2) at x = 2.
+      - |
+        Correct. f′ ≤ 0 on −1 < x < 2, equal to 0 only at the single point x = 0, so f is decreasing there.
+      - |
+        f′ < 0 on 0 < x < 2, so f decreases there; it increases only for x > 2.
+    answer: [0, 2, 3]
+  - slug: apcalcab-u05-exam-q30
+    type: multi_select
+    topic_code: "5.2"
+    source: "AP Calculus CED, Topic 5.2"
+    points: 2
+    partial_credit: true
+    prompt: |
+      For which functions and intervals does the Extreme Value Theorem guarantee both an absolute maximum and an absolute minimum? Select all that apply.
+    options:
+      - "f(x) = x² on [−1, 2]"
+      - "g(x) = 1/x on [1, 3]"
+      - "h(x) = tan x on [0, π/2)"
+      - "k(x) = |x| on [−2, 2]"
+      - "m(x) = 1/(x − 1) on [0, 2]"
+    option_explanations:
+      - |
+        Correct. A polynomial is continuous on the closed interval [−1, 2].
+      - |
+        Correct. 1/x is continuous on [1, 3] because its only discontinuity, x = 0, is outside the interval.
+      - |
+        The interval is not closed, and tan x grows without bound as x → π/2⁻, so there is no absolute maximum.
+      - |
+        Correct. |x| is continuous everywhere (its corner does not matter for the EVT), and [−2, 2] is closed.
+      - |
+        m is not continuous at x = 1, which lies inside [0, 2]; it is unbounded there.
+    answer: [0, 1, 3]
+  - slug: apcalcab-u05-exam-q31
+    type: multi_select
+    topic_code: "5.9"
+    source: "AP Calculus CED, Topic 5.9"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Let f(x) = x³ − 6x², so that f′(x) = 3x² − 12x and f″(x) = 6x − 12. Which statements are true? Select all that apply.
+    options:
+      - "f is decreasing on 0 < x < 4."
+      - "The graph of f has a point of inflection at x = 2."
+      - "The graph of f is concave up for x < 2."
+      - "f has a relative maximum at x = 0."
+      - "f′ has a relative maximum at x = 2."
+    option_explanations:
+      - |
+        Correct. f′(x) = 3x(x − 4) < 0 between its zeros 0 and 4.
+      - |
+        Correct. f″(x) = 6x − 12 changes from negative to positive at x = 2.
+      - |
+        f″(x) = 6x − 12 < 0 for x < 2, so the graph is concave down there.
+      - |
+        Correct. f′ changes from positive to negative at x = 0 (also f″(0) = −12 < 0 with f′(0) = 0).
+      - |
+        f′ is an upward parabola, so x = 2 (where f″ changes from − to +) is a minimum of f′, not a maximum.
+    answer: [0, 1, 3]
+  # ---- True or false
+  - slug: apcalcab-u05-exam-q32
+    type: true_false
+    topic_code: "5.1"
+    source: "AP Calculus CED, Topic 5.1"
+    points: 1
+    prompt: |
+      True or false: Because h(x) = x^(2/3) has h(−1) = h(1), Rolle's theorem guarantees a horizontal tangent to its graph somewhere in (−1, 1).
+    answer: false
+    explanation: |
+      False. h is continuous on [−1, 1], but h′(x) = (2/3)x^(−1/3) does not exist at x = 0, so h is not differentiable on (−1, 1) and the theorem does not apply. In fact h′ is never 0: the graph has a cusp at the origin instead of a horizontal tangent.
+  - slug: apcalcab-u05-exam-q33
+    type: true_false
+    topic_code: "5.7"
+    source: "AP Calculus CED, Topic 5.7"
+    points: 1
+    prompt: |
+      True or false: If f′(c) = 0 and f″(c) = 0, then f has neither a relative maximum nor a relative minimum at x = c.
+    answer: false
+    explanation: |
+      False. When f″(c) = 0 the Second Derivative Test is inconclusive; anything can happen. f(x) = x⁴ has f′(0) = f″(0) = 0 and a relative minimum at 0; −x⁴ has a maximum; x³ has neither. Use the First Derivative Test instead.
+  - slug: apcalcab-u05-exam-q34
+    type: true_false
+    topic_code: "5.11"
+    source: "AP Calculus CED, Topic 5.11"
+    points: 1
+    prompt: |
+      True or false: When finding the point of a curve closest to a given point, minimizing the squared distance D² gives the same point as minimizing the distance D.
+    answer: true
+    explanation: |
+      True. D ≥ 0, and for nonnegative numbers squaring preserves order (if 0 ≤ a < b, then a² < b²), so D and D² are smallest at the same input. Minimizing D² avoids differentiating a square root.
+  # ---- Fill in the blank
+  - slug: apcalcab-u05-exam-q35
+    type: fill_blank
+    topic_code: "5.1"
+    source: "AP Calculus CED, Topic 5.1"
+    points: 1
+    prompt: |
+      For f(x) = x³ on the interval [−1, 2], the value of c in (−1, 2) that satisfies the conclusion of the Mean Value Theorem is c = ____.
+    answer: ["1", "1.0"]
+    explanation: |
+      The secant slope is (8 − (−1))/(2 − (−1)) = 9/3 = 3. Solving f′(c) = 3c² = 3 gives c = ±1, but −1 is an endpoint, not in the open interval (−1, 2), so c = 1.
+  - slug: apcalcab-u05-exam-q36
+    type: fill_blank
+    topic_code: "5.6"
+    source: "AP Calculus CED, Topic 5.6"
+    points: 1
+    prompt: |
+      The graph of f(x) = x³ + 3x² − 9x + 1 has a point of inflection at x = ____.
+    answer: ["-1", "−1", "-1.0", "−1.0"]
+    explanation: |
+      f′(x) = 3x² + 6x − 9 and f″(x) = 6x + 6, which changes from negative to positive at x = −1.
+  - slug: apcalcab-u05-exam-q37
+    type: fill_blank
+    topic_code: "5.5"
+    source: "AP Calculus CED, Topic 5.5"
+    points: 1
+    prompt: |
+      The absolute maximum value of f(x) = 3x − x³ on the interval [0, 2] is ____.
+    answer: ["2", "2.0"]
+    explanation: |
+      f′(x) = 3 − 3x² = 0 at x = ±1; only x = 1 is in [0, 2]. Candidates: f(0) = 0, f(1) = 2, f(2) = 6 − 8 = −2. The largest is 2.
+  # ---- Numeric
+  - slug: apcalcab-u05-exam-q38
+    type: numeric
+    topic_code: "5.2"
+    source: "AP Calculus CED, Topic 5.2"
+    points: 1
+    prompt: |
+      How many critical points does f(x) = x⁴ − 4x³ + 4x² have?
+    answer: { value: 3, tolerance: 0 }
+    explanation: |
+      f′(x) = 4x³ − 12x² + 8x = 4x(x² − 3x + 2) = 4x(x − 1)(x − 2). f′ exists everywhere and is 0 at x = 0, 1 and 2: three critical points.
+  - slug: apcalcab-u05-exam-q39
+    type: numeric
+    topic_code: "5.11"
+    source: "AP Calculus CED, Topic 5.11"
+    points: 1
+    prompt: |
+      A rectangle has a perimeter of 50 cm. What is the greatest possible area of the rectangle, in square centimeters? Give the exact value as a decimal.
+    answer: { value: 156.25, tolerance: 0 }
+    explanation: |
+      With sides x and 25 − x, A(x) = x(25 − x) for 0 ≤ x ≤ 25. A′(x) = 25 − 2x = 0 at x = 12.5, and A(0) = A(25) = 0, so the maximum is A(12.5) = 12.5² = 156.25 cm² (a square).
+  - slug: apcalcab-u05-exam-q40
+    type: numeric
+    topic_code: "5.6"
+    source: "AP Calculus CED, Topic 5.6"
+    points: 1
+    prompt: |
+      (Calculator.) Find the x-coordinate of the point of inflection of f(x) = eˣ − 3x². Give your answer to three decimal places.
+    answer: { value: 1.792, tolerance: 0.001 }
+    explanation: |
+      f″(x) = eˣ − 6, which is 0 at x = ln 6 ≈ 1.792 and changes from negative to positive there (eˣ is increasing), so the concavity changes at x ≈ 1.792.
+  - slug: apcalcab-u05-exam-q41
+    type: numeric
+    topic_code: "5.5"
+    source: "AP Calculus CED, Topic 5.5"
+    points: 1
+    prompt: |
+      (Calculator.) In a hypothetical model, the concentration of a medicine in the blood is C(t) = 5t/(1 + 0.2t³) mg/L, t hours after a dose, for 0 ≤ t ≤ 6. At what time is the concentration greatest? Give your answer to three decimal places.
+    answer: { value: 1.357, tolerance: 0.001 }
+    explanation: |
+      C′(t) = 5(1 + 0.2t³ − 0.6t³)/(1 + 0.2t³)² = 5(1 − 0.4t³)/(1 + 0.2t³)², which is 0 at t = 2.5^(1/3) ≈ 1.357. C(0) = 0, C(1.357) ≈ 4.524 and C(6) ≈ 0.679, so the maximum is at t ≈ 1.357 hours.
+  # ---- Short answer
+  - slug: apcalcab-u05-exam-q42
+    type: short_answer
+    topic_code: "5.7"
+    source: "AP Calculus CED, Topic 5.7"
+    points: 3
+    prompt: |
+      Let f(x) = x³ − 3x² − 24x + 5.
+
+      (a) Find the critical points of f.
+      (b) Use the Second Derivative Test to classify each critical point.
+      (c) Find the x-coordinate of the point of inflection of the graph of f, and justify that it is one.
+    answer: |
+      (a) f′(x) = 3x² − 6x − 24 = 3(x − 4)(x + 2), so the critical points are x = −2 and x = 4.
+      (b) f″(x) = 6x − 6. f″(−2) = −18 < 0, so f has a relative maximum at x = −2. f″(4) = 18 > 0, so f has a relative minimum at x = 4.
+      (c) x = 1, because f″(x) = 6x − 6 changes from negative to positive at x = 1.
+    explanation: |
+      Three points, one per part. (a) both critical points. (b) both classifications, each citing f′ = 0 and the sign of f″ at the point. (c) x = 1 with the sign change of f″ (not just f″(1) = 0).
+  - slug: apcalcab-u05-exam-q43
+    type: short_answer
+    topic_code: "5.11"
+    source: "AP Calculus CED, Topic 5.11"
+    points: 3
+    prompt: |
+      Nonnegative numbers x and y satisfy x + 2y = 12. The product P = xy² is to be made as large as possible.
+
+      (a) Write P as a function of y alone, and state its domain.
+      (b) Find the value of y that maximizes P.
+      (c) Justify that your answer gives the absolute maximum, and give the maximum product.
+    answer: |
+      (a) x = 12 − 2y, so P(y) = (12 − 2y)y² = 12y² − 2y³, for 0 ≤ y ≤ 6.
+      (b) P′(y) = 24y − 6y² = 6y(4 − y) = 0 at y = 0 and y = 4; the interior critical point is y = 4.
+      (c) Candidates Test on [0, 6]: P(0) = 0, P(4) = (4)(16) = 64, P(6) = 0. The absolute maximum is 64, at y = 4, x = 4.
+    explanation: |
+      Three points, one per part. (a) the one-variable function with the domain 0 ≤ y ≤ 6. (b) y = 4 from P′ = 0. (c) a valid absolute-maximum argument (candidates including both endpoints, or a sign change at the only interior critical point) and the value 64.
+  # ---- Free response
+  - slug: apcalcab-u05-exam-q44
+    type: long_answer
+    topic_code: "5.5"
+    source: "AP Calculus CED, Topic 5.5"
+    points: 9
+    prompt: |
+      (Calculator.) After a hypothetical storm, the depth of floodwater at a river gauge is modeled by W(t) = 40 + 15t e^(−0.25t), where W(t) is in centimeters and t is in hours, for 0 ≤ t ≤ 12.
+
+      (A) Find W′(6). Using correct units, interpret the meaning of W′(6) in the context of the problem.
+
+      (B) Find the time at which the depth of the water is greatest on 0 ≤ t ≤ 12, and the greatest depth. Justify your answer.
+
+      (C) Explain why there must be a time t in (0, 12) at which W′(t) equals the average rate of change of W over 0 ≤ t ≤ 12. Find that time.
+
+      (D) At what time in 4 ≤ t ≤ 12 is the water level falling fastest? Justify your answer.
+    answer: |
+      (A) W′(t) = 15e^(−0.25t)(1 − 0.25t), so W′(6) = 15e^(−1.5)(−0.5) ≈ −1.673. At t = 6 hours the depth is decreasing at about 1.673 cm per hour.
+      (B) W′(t) = 0 only at t = 4. Candidates: W(0) = 40, W(4) = 40 + 60e^(−1) ≈ 62.073, W(12) = 40 + 180e^(−3) ≈ 48.962. The greatest depth is about 62.073 cm, at t = 4 hours.
+      (C) W is differentiable, so it is continuous on [0, 12] and differentiable on (0, 12). The average rate is (W(12) − W(0))/12 ≈ 0.747 cm per hour. By the Mean Value Theorem W′(c) = 0.747 for some c in (0, 12); solving W′(t) = 0.747 gives t ≈ 3.520 hours.
+      (D) The water falls fastest where W′ is least. W″(t) = 15e^(−0.25t)(0.0625t − 0.5) = 0 at t = 8, and W″ changes from negative to positive there. Candidates for the minimum of W′ on [4, 12]: W′(4) = 0, W′(8) = −15e^(−2) ≈ −2.030, W′(12) = −30e^(−3) ≈ −1.494. The level falls fastest at t = 8 hours, at about 2.030 cm per hour.
+    explanation: |
+      Nine points. (A) 2 points: 1 for W′(6) ≈ −1.673 (or −1.674); 1 for the interpretation with units (cm per hour) and "decreasing" at t = 6. (B) 3 points: 1 for W′(t) = 0 at t = 4; 1 for comparing W at t = 0, 4 and 12 (Candidates Test); 1 for the answer t = 4, depth ≈ 62.073 cm. (C) 2 points: 1 for the MVT with its hypotheses (W differentiable, hence continuous) and the average rate ≈ 0.747; 1 for t ≈ 3.520 (3.519 or 3.520). (D) 2 points: 1 for identifying t = 8 from W″ = 0 (the critical point of W′); 1 for the comparison with W′ at the endpoints, or an equivalent argument, and the answer t = 8. Values must be correct to three decimal places.
+  - slug: apcalcab-u05-exam-q45
+    type: long_answer
+    topic_code: "5.4"
+    source: "AP Calculus CED, Topic 5.4"
+    points: 9
+    prompt: |
+      Let f(x) = (1/4)x⁴ − 2x³ + (9/2)x² + 2. Then f′(x) = x³ − 6x² + 9x and f″(x) = 3x² − 12x + 9. No calculator is allowed.
+
+      (A) Find the critical points of f. For each, determine whether f has a relative maximum, a relative minimum or neither. Justify your answers.
+
+      (B) Find the intervals on which the graph of f is concave down and the x-coordinates of all points of inflection. Justify your answers.
+
+      (C) Find the absolute maximum and absolute minimum values of f on the interval [−1, 4]. Justify your answer.
+
+      (D) Explain why there is a value c in (0, 4) with f′(c) = 2.
+    answer: |
+      (A) f′(x) = x(x − 3)², zero at x = 0 and x = 3. Since (x − 3)² ≥ 0, f′ has the sign of x: negative for x < 0, positive for 0 < x < 3 and for x > 3. f has a relative minimum at x = 0 because f′ changes from negative to positive there. f has neither at x = 3 because f′ does not change sign there.
+      (B) f″(x) = 3(x − 1)(x − 3): positive for x < 1, negative for 1 < x < 3, positive for x > 3. The graph is concave down on 1 < x < 3. Points of inflection at x = 1 and x = 3, because f″ changes sign at each.
+      (C) f is continuous on [−1, 4]. Candidates: f(−1) = 1/4 + 2 + 9/2 + 2 = 35/4, f(0) = 2, f(3) = 81/4 − 54 + 81/2 + 2 = 35/4, f(4) = 64 − 128 + 72 + 2 = 10. The absolute maximum is 10, at x = 4; the absolute minimum is 2, at x = 0.
+      (D) f is a polynomial, so it is continuous on [0, 4] and differentiable on (0, 4). (f(4) − f(0))/(4 − 0) = (10 − 2)/4 = 2, so by the Mean Value Theorem f′(c) = 2 for some c in (0, 4).
+    explanation: |
+      Nine points. (A) 3 points: 1 for the critical points 0 and 3; 1 for the relative minimum at x = 0 justified by f′ changing from negative to positive; 1 for neither at x = 3 justified by no sign change of f′ (f′(3) = 0 alone earns nothing). (B) 2 points: 1 for concave down on 1 < x < 3; 1 for inflection points at x = 1 and x = 3 justified by the sign change of f″. (C) 3 points: 1 for considering all candidates −1, 0, 3 and 4; 1 for the correct values; 1 for maximum 10 at x = 4 and minimum 2 at x = 0. (D) 1 point for the secant slope 2 with the MVT and its hypotheses.

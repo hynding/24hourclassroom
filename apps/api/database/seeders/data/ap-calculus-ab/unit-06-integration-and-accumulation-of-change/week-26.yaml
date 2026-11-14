@@ -1,0 +1,590 @@
+week: 26
+unit: 6
+title: "Long Division, Completing the Square and Choosing a Technique"
+topics: ["6.10", "6.14"]
+guide: guides/week-26.md
+guide_description: |
+  Polynomial long division to rewrite a rational integrand as a polynomial plus a proper fraction; completing the
+  square to reach the arctangent and arcsine patterns, with the constants they need; and a decision routine for
+  choosing among the basic rules, algebraic rewriting, u-substitution, long division and completing the square.
+  Worked examples: ∫ (x² + 3x + 5)/(x + 1) dx, ∫ 1/(x² + 6x + 13) dx, ∫ 1/√(4x − x²) dx, and a family of three
+  integrals built on x² + 4x + 7 that need three different techniques.
+flashcards_description: |
+  30 cards on when to divide, carrying out the division, completing the square, the arctangent and arcsine
+  patterns with a constant, splitting a numerator, and recognising which technique an integrand calls for.
+
+flashcards:
+  - front: Rational integrand with numerator degree ≥ denominator degree → first step
+    back: |
+      Polynomial long division: rewrite as (polynomial) + (remainder)/(divisor), then integrate each part.
+    topic_code: "6.10"
+  - front: (x² + 3x + 5)/(x + 1) → result of long division
+    back: |
+      x + 2 + 3/(x + 1), since (x + 1)(x + 2) = x² + 3x + 2 and the remainder is 3.
+    topic_code: "6.10"
+  - front: ∫ (x² + 3x + 5)/(x + 1) dx → result
+    back: |
+      x²/2 + 2x + 3 ln |x + 1| + C.
+    topic_code: "6.10"
+  - front: ∫ (2x + 5)/(x + 2) dx → rewrite and result
+    back: |
+      2 + 1/(x + 2), so 2x + ln |x + 2| + C.
+    topic_code: "6.10"
+  - front: ∫ k/(x − a) dx → result
+    back: |
+      k ln |x − a| + C: a linear denominator to the first power always gives a logarithm.
+    topic_code: "6.10"
+  - front: (x³ + 2x² − x + 1)/(x + 2) → quotient and remainder
+    back: |
+      Quotient x² − 1, remainder 3: the integrand is x² − 1 + 3/(x + 2).
+    topic_code: "6.10"
+  - front: (x² + 2)/(x² + 1) → rewrite before integrating
+    back: |
+      1 + 1/(x² + 1). Equal degrees still call for division; the result integrates to x + arctan x + C.
+    topic_code: "6.10"
+  - front: Completing the square in x² + bx + c → pattern
+    back: |
+      x² + bx + c = (x + b/2)² + (c − b²/4).
+    topic_code: "6.10"
+  - front: x² + 6x + 13 → completed square
+    back: |
+      (x + 3)² + 4.
+    topic_code: "6.10"
+  - front: ∫ 1/(u² + a²) du → result
+    back: |
+      (1/a) arctan(u/a) + C. Do not forget the 1/a in front.
+    topic_code: "6.10"
+  - front: ∫ 1/√(a² − u²) du → result
+    back: |
+      arcsin(u/a) + C, for a > 0. Here no 1/a is left in front: it cancels with the chain rule.
+    topic_code: "6.10"
+  - front: ∫ 1/(x² + 6x + 13) dx → result
+    back: |
+      ∫ 1/((x + 3)² + 2²) dx = (1/2) arctan((x + 3)/2) + C.
+    topic_code: "6.10"
+  - front: 4x − x² → completed square under a root
+    back: |
+      −(x² − 4x) = −((x − 2)² − 4) = 4 − (x − 2)².
+    topic_code: "6.10"
+  - front: ∫ 1/√(4x − x²) dx → result
+    back: |
+      ∫ 1/√(4 − (x − 2)²) dx = arcsin((x − 2)/2) + C.
+    topic_code: "6.10"
+  - front: ∫ 1/(x² − 2x + 10) dx → result
+    back: |
+      (x − 1)² + 9 in the denominator: (1/3) arctan((x − 1)/3) + C.
+    topic_code: "6.10"
+  - front: Quadratic denominator with no real zeros and constant numerator → technique
+    back: |
+      Complete the square and use the arctangent pattern. (A factorable denominator would need partial fractions, a BC topic.)
+    topic_code: "6.10"
+  - front: ∫ x/(x² + 9) dx versus ∫ 1/(x² + 9) dx → techniques and results
+    back: |
+      With x on top: u = x² + 9, giving (1/2) ln(x² + 9) + C. Without it: arctangent, (1/3) arctan(x/3) + C.
+    topic_code: "6.14"
+  - front: Numerator x + 5 over x² + 4x + 7 → how to split it
+    back: |
+      x + 5 = (x + 2) + 3. The (x + 2) part is half the denominator's derivative (logarithm); the 3 part goes to an arctangent.
+    topic_code: "6.14"
+  - front: Selecting a technique → the first question to ask
+    back: |
+      Is it a basic rule after simple algebra (expanding, splitting a single-term denominator, rewriting roots as powers)? Try that before anything else.
+    topic_code: "6.14"
+  - front: Selecting a technique → when u-substitution is the choice
+    back: |
+      When an inner function's derivative appears as a factor (up to a constant): x(x² + 1)⁵, eˣ/(1 + eˣ), sin x cos³x.
+    topic_code: "6.14"
+  - front: Selecting a technique → when long division is the choice
+    back: |
+      A rational function whose numerator's degree is at least the denominator's, and where the numerator is not a multiple of the denominator's derivative.
+    topic_code: "6.14"
+  - front: ∫ (x + 1)²/x dx → technique and result
+    back: |
+      Expand and split: x + 2 + 1/x, giving x²/2 + 2x + ln |x| + C.
+    topic_code: "6.14"
+  - front: ∫ from 1 to e of (x + 1)/x dx → value
+    back: |
+      ∫ from 1 to e of (1 + 1/x) dx = (e − 1) + (1 − 0) = e.
+    topic_code: "6.14"
+  - front: ∫ sec x tan x dx versus ∫ sec²x dx → results
+    back: |
+      sec x + C and tan x + C. Recognise derivative patterns before reaching for substitution.
+    topic_code: "6.14"
+  - front: ∫ 1/(x² + 4x + 7) dx → result
+    back: |
+      (x + 2)² + 3: (1/√3) arctan((x + 2)/√3) + C.
+    topic_code: "6.14"
+  - front: Checking any antiderivative from a long-division or completed-square problem → how
+    back: |
+      Differentiate it. For arctangent answers, the chain rule factor must cancel the constant in front exactly.
+    topic_code: "6.14"
+  - front: Integrands in AB that need a BC technique → recognise and stop
+    back: |
+      A product like x eˣ or x sin x (integration by parts) or 1/(x² − 1) with factorable denominator (partial fractions) is not an AB integral; AB problems avoid them.
+    topic_code: "6.14"
+  - front: Error-spot → "∫ 1/(x² + 9) dx = (1/2) ln(x² + 9) + C"
+    back: |
+      u = x² + 9 needs a factor of x for du = 2x dx; there is none. The answer is (1/3) arctan(x/3) + C.
+    topic_code: "6.14"
+  - front: Error-spot → "∫ 1/(x² + 6x + 13) dx = arctan(x + 3) + C"
+    back: |
+      The completed square is (x + 3)² + 4, so a = 2: (1/2) arctan((x + 3)/2) + C. The answer as written fits 1/((x + 3)² + 1).
+    topic_code: "6.10"
+  - front: Error-spot → "∫ (x² + 3x + 5)/(x + 1) dx = (x³/3 + 3x²/2 + 5x)/(x²/2 + x) + C"
+    back: |
+      Numerator and denominator cannot be integrated separately. Divide first: x + 2 + 3/(x + 1).
+    topic_code: "6.10"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 6.10 and 6.14: long division, completing the square
+    for arctangent and arcsine integrals, and selecting a technique), with 7 questions (about 30%) reviewing weeks 5,
+    20, 23, 24 and 25 (infinite limits, horizontal tangents of an implicit curve, accumulation functions with the
+    chain rule, accumulation in context, evaluating definite integrals, and substitution). Opens with a
+    shared-context set on one rational function. Multiple choice, select-all, true/false and numeric items are graded
+    at once; fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by
+    your teacher against the scoring notes. A calculator helps only on the one numeric item that asks for a decimal;
+    every answer can also be found by hand.
+  questions:
+    # ---- Stimulus set: one rational function (6.10, 1.14)
+    - slug: apcalcab-u06-w26-q01
+      type: multiple_choice
+      topic_code: "6.10"
+      source: "AP Calculus CED, Topic 6.10"
+      points: 1
+      stimulus: |
+        Let f(x) = (x² + 3x + 5)/(x + 1) for x ≠ −1.
+      prompt: |
+        Which expression is equal to f(x) for x ≠ −1?
+      options:
+        - "x + 3 + 5/(x + 1)"
+        - "x + 4 + 1/(x + 1)"
+        - "x + 2 + 3/(x + 1)"
+        - "x + 2 + 3/x"
+      option_explanations:
+        - |
+          This divides term by term as if x² + 3x + 5 split over x + 1 like a single-term denominator; check: (x + 1)(x + 3) + 5 = x² + 4x + 8, not the numerator.
+        - |
+          This adds instead of subtracting in the first step: (x² + 3x) − (x² + x) is 2x, not 4x.
+        - |
+          Correct. (x + 1)(x + 2) = x² + 3x + 2, which leaves a remainder of 5 − 2 = 3, so f(x) = x + 2 + 3/(x + 1).
+        - |
+          The quotient is right, but the remainder is divided by the divisor x + 1, not by x.
+      answer: 2
+    - slug: apcalcab-u06-w26-q02
+      type: multiple_choice
+      topic_code: "6.10"
+      source: "AP Calculus CED, Topic 6.10"
+      points: 1
+      stimulus: |
+        Let f(x) = (x² + 3x + 5)/(x + 1) for x ≠ −1.
+      prompt: |
+        Which is ∫ f(x) dx?
+      options:
+        - "x²/2 + 2x + 3 ln |x + 1| + C"
+        - "x²/2 + 2x − 3/(x + 1)² + C"
+        - "(x³/3 + 3x²/2 + 5x)/(x²/2 + x) + C"
+        - "x²/2 + 2x + 3 ln |x| + C"
+      option_explanations:
+        - |
+          Correct. After division, ∫ (x + 2 + 3/(x + 1)) dx = x²/2 + 2x + 3 ln |x + 1| + C.
+        - |
+          This lowers the power of (x + 1)⁻¹ as in differentiation; the antiderivative of 1/(x + 1) is ln |x + 1|.
+        - |
+          The numerator and denominator cannot be integrated separately; divide first.
+        - |
+          The logarithm must contain the denominator x + 1: d/dx ln |x| = 1/x, not 1/(x + 1).
+      answer: 0
+    - slug: apcalcab-u06-w26-q03
+      type: numeric
+      topic_code: "6.10"
+      source: "AP Calculus CED, Topic 6.10"
+      points: 1
+      stimulus: |
+        Let f(x) = (x² + 3x + 5)/(x + 1) for x ≠ −1.
+      prompt: |
+        Find ∫ from 0 to 2 of f(x) dx. Give your answer as a decimal to three decimal places.
+      answer: { value: 9.296, tolerance: 0.001 }
+      explanation: |
+        (x²/2 + 2x + 3 ln |x + 1|) from 0 to 2 = (2 + 4 + 3 ln 3) − (0 + 0 + 3 ln 1) = 6 + 3 ln 3 ≈ 9.296.
+    - slug: apcalcab-u06-w26-q04
+      type: multiple_choice
+      topic_code: "1.14"
+      source: "AP Calculus CED, Topic 1.14"
+      points: 1
+      stimulus: |
+        Let f(x) = (x² + 3x + 5)/(x + 1) for x ≠ −1.
+      prompt: |
+        What is lim (x→−1⁺) f(x)?
+      options:
+        - "3"
+        - "−∞"
+        - "0"
+        - "∞"
+      option_explanations:
+        - |
+          3 is the numerator's value at x = −1 (1 − 3 + 5) or the remainder; dividing it by a denominator near 0 makes the quotient unbounded.
+        - |
+          From the right, x + 1 is a small positive number, and the numerator is near 3 > 0, so the quotient is positive, not negative.
+        - |
+          The numerator does not approach 0 (it approaches 3), so the denominator approaching 0 makes the quotient grow without bound.
+        - |
+          Correct. As x → −1⁺ the numerator approaches 3 > 0 and the denominator x + 1 approaches 0 through positive values, so f(x) → ∞.
+      answer: 3
+    # ---- Independent items
+    - slug: apcalcab-u06-w26-q05
+      type: multiple_choice
+      topic_code: "6.10"
+      source: "AP Calculus CED, Topic 6.10"
+      points: 1
+      prompt: |
+        ∫ 1/(x² + 6x + 13) dx =
+      options:
+        - "arctan(x + 3) + C"
+        - "(1/2) arctan((x + 3)/2) + C"
+        - "(1/4) arctan((x + 3)/2) + C"
+        - "ln |x² + 6x + 13| + C"
+      option_explanations:
+        - |
+          The completed square is (x + 3)² + 4, not (x + 3)² + 1, so the arctangent needs (x + 3)/2 and a factor 1/2.
+        - |
+          Correct. x² + 6x + 13 = (x + 3)² + 2², and ∫ 1/(u² + a²) du = (1/a) arctan(u/a) + C with u = x + 3 and a = 2.
+        - |
+          The factor in front is 1/a = 1/2, not 1/a² = 1/4; differentiating this answer gives half the integrand.
+        - |
+          A logarithm needs the derivative of the denominator, 2x + 6, in the numerator; here the numerator is 1.
+      answer: 1
+    - slug: apcalcab-u06-w26-q06
+      type: multiple_choice
+      topic_code: "6.10"
+      source: "AP Calculus CED, Topic 6.10"
+      points: 1
+      prompt: |
+        ∫ 1/√(4x − x²) dx =
+      options:
+        - "arcsin((x − 2)/2) + C"
+        - "arcsin(x − 2) + C"
+        - "(1/2) arcsin((x − 2)/2) + C"
+        - "2√(4x − x²) + C"
+      option_explanations:
+        - |
+          Correct. 4x − x² = 4 − (x − 2)², and ∫ 1/√(a² − u²) du = arcsin(u/a) + C with u = x − 2 and a = 2.
+        - |
+          This treats the square as 1 − (x − 2)²; the constant is 4, so the argument must be (x − 2)/2.
+        - |
+          For the arcsine pattern the 1/a from the chain rule cancels with the a pulled out of the root, so no factor 1/2 remains.
+        - |
+          This treats the integrand like u^(−1/2) with du present; the derivative of 4x − x² is not in the numerator.
+      answer: 0
+    - slug: apcalcab-u06-w26-q07
+      type: multiple_choice
+      topic_code: "6.10"
+      source: "AP Calculus CED, Topic 6.10"
+      points: 1
+      prompt: |
+        ∫ (2x + 5)/(x + 2) dx =
+      options:
+        - "2 ln |x + 2| + C"
+        - "2x + 5 ln |x + 2| + C"
+        - "2x + ln |x + 2| + C"
+        - "2x − ln |x + 2| + C"
+      option_explanations:
+        - |
+          This treats the numerator as a multiple of the denominator's derivative; 2x + 5 is not a constant, so divide first.
+        - |
+          After dividing, the remainder is 1, not 5: 2x + 5 = 2(x + 2) + 1.
+        - |
+          Correct. 2x + 5 = 2(x + 2) + 1, so the integrand is 2 + 1/(x + 2), with antiderivative 2x + ln |x + 2| + C.
+        - |
+          The remainder is +1 (5 − 4), so the logarithm term is added, not subtracted.
+      answer: 2
+    - slug: apcalcab-u06-w26-q08
+      type: multiple_choice
+      topic_code: "6.14"
+      source: "AP Calculus CED, Topic 6.14"
+      points: 1
+      prompt: |
+        ∫ x/(x² + 9) dx =
+      options:
+        - "(1/3) arctan(x/3) + C"
+        - "ln(x² + 9) + C"
+        - "2 ln(x² + 9) + C"
+        - "(1/2) ln(x² + 9) + C"
+      option_explanations:
+        - |
+          The arctangent pattern applies when the numerator is a constant; here the numerator x is half the derivative of the denominator.
+        - |
+          With u = x² + 9, du = 2x dx, so x dx = du/2; this answer is missing the factor 1/2.
+        - |
+          This inverts the constant: x dx equals du/2, not 2 du.
+        - |
+          Correct. u = x² + 9, du = 2x dx: (1/2) ∫ du/u = (1/2) ln(x² + 9) + C (no absolute value needed, since x² + 9 > 0).
+      answer: 3
+    - slug: apcalcab-u06-w26-q09
+      type: multiple_choice
+      topic_code: "6.14"
+      source: "AP Calculus CED, Topic 6.14"
+      points: 1
+      prompt: |
+        ∫ 1/(x² + 9) dx =
+      options:
+        - "(1/2) ln(x² + 9) + C"
+        - "(1/3) arctan(x/3) + C"
+        - "arctan(x/3) + C"
+        - "(1/9) arctan(x/3) + C"
+      option_explanations:
+        - |
+          A logarithm would need a factor of x in the numerator to form du = 2x dx; there is none.
+        - |
+          Correct. With a = 3, ∫ 1/(x² + a²) dx = (1/a) arctan(x/a) + C = (1/3) arctan(x/3) + C.
+        - |
+          Differentiating arctan(x/3) gives (1/3)/(1 + x²/9) = 3/(x² + 9), three times the integrand; the factor 1/3 is missing.
+        - |
+          The factor is 1/a = 1/3, not 1/a² = 1/9.
+      answer: 1
+    - slug: apcalcab-u06-w26-q10
+      type: multiple_choice
+      topic_code: "6.14"
+      source: "AP Calculus CED, Topic 6.14"
+      points: 1
+      prompt: |
+        ∫ (x + 1)²/x dx =
+      options:
+        - "(x + 1)³/(3x) + C"
+        - "x²/2 + 2x + ln |x| + C"
+        - "x²/2 + x + ln |x| + C"
+        - "x²/2 + 2x − 1/x² + C"
+      option_explanations:
+        - |
+          The numerator and denominator cannot be integrated separately; expand and split first.
+        - |
+          Correct. (x + 1)²/x = (x² + 2x + 1)/x = x + 2 + 1/x, which integrates to x²/2 + 2x + ln |x| + C.
+        - |
+          This expands (x + 1)² as x² + 1, dropping the middle term 2x; the quotient is x + 2 + 1/x.
+        - |
+          The antiderivative of 1/x is ln |x|; −1/x² is its derivative pattern run the wrong way.
+      answer: 1
+    - slug: apcalcab-u06-w26-q11
+      type: multiple_choice
+      topic_code: "5.12"
+      source: "AP Calculus CED, Topic 5.12"
+      points: 1
+      prompt: |
+        For the curve x² − xy + y² = 3, dy/dx = (y − 2x)/(2y − x). At which points does the curve have a horizontal tangent line?
+      options:
+        - "(1, 2) and (−1, −2)"
+        - "(2, 1) and (−2, −1)"
+        - "(0, √3) and (0, −√3)"
+        - "(√3, 0) and (−√3, 0)"
+      option_explanations:
+        - |
+          Correct. A horizontal tangent needs y − 2x = 0 with 2y − x ≠ 0. Substituting y = 2x gives x² − 2x² + 4x² = 3, so x = ±1: the points (1, 2) and (−1, −2), where 2y − x = ±3 ≠ 0.
+        - |
+          At these points 2y − x = 0, which makes the tangent vertical, not horizontal.
+        - |
+          These are the y-intercepts; there dy/dx = (y − 0)/(2y) = 1/2, not 0.
+        - |
+          These are the x-intercepts; there dy/dx = (−2x)/(−x) = 2, not 0.
+      answer: 0
+    - slug: apcalcab-u06-w26-q12
+      type: multiple_choice
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 0 to 1 of x²(x³ + 1)⁴ dx?
+      options:
+        - "31/5"
+        - "32/15"
+        - "1/15"
+        - "31/15"
+      option_explanations:
+        - |
+          31/5 drops the factor 1/3: from du = 3x² dx, x² dx = du/3.
+        - |
+          32/15 is (1/15)u⁵ at u = 2 only; its value at the lower limit u = 1, 1/15, must be subtracted.
+        - |
+          1/15 keeps the x-limits 0 and 1 after substituting; in terms of u = x³ + 1 they become 1 and 2.
+        - |
+          Correct. u = x³ + 1, du = 3x² dx, limits 1 to 2: (1/3) ∫ from 1 to 2 of u⁴ du = (1/15)(32 − 1) = 31/15.
+      answer: 3
+    - slug: apcalcab-u06-w26-q13
+      type: multiple_choice
+      topic_code: "6.4"
+      source: "AP Calculus CED, Topic 6.4"
+      points: 1
+      prompt: |
+        What is d/dx ∫ from 1 to x² of 1/(1 + t) dt?
+      options:
+        - "1/(1 + x²)"
+        - "1/(1 + x²) − 1/2"
+        - "2x/(1 + x²)"
+        - "2x ln(1 + x²)"
+      option_explanations:
+        - |
+          This evaluates the integrand at the upper limit but leaves out the chain rule factor, the derivative 2x of x².
+        - |
+          The lower limit is a constant and contributes nothing to the derivative, and the factor 2x is missing.
+        - |
+          Correct. By the Fundamental Theorem and the chain rule, the derivative is 1/(1 + x²) · 2x.
+        - |
+          This mixes the antiderivative ln(1 + t) into the answer; the derivative of the integral is the integrand at x² times 2x.
+      answer: 2
+    - slug: apcalcab-u06-w26-q14
+      type: multi_select
+      topic_code: "6.14"
+      source: "AP Calculus CED, Topic 6.14"
+      points: 2
+      partial_credit: true
+      prompt: |
+        For which integrals is polynomial long division the appropriate first step? Select all that apply.
+      options:
+        - "∫ (x² + 1)/(x − 1) dx"
+        - "∫ (x³ + x)/(x² + 1) dx"
+        - "∫ x/(x² + 1) dx"
+        - "∫ (3x + 4)/(x + 1) dx"
+        - "∫ 1/(x² + 4x + 5) dx"
+      option_explanations:
+        - |
+          Correct. Degree 2 over degree 1: x² + 1 = (x − 1)(x + 1) + 2, giving x + 1 + 2/(x − 1).
+        - |
+          Correct. Degree 3 over degree 2: dividing (or factoring x(x² + 1)) reduces the integrand to x.
+        - |
+          The numerator's degree is lower, and x is half the derivative of x² + 1: use u-substitution.
+        - |
+          Correct. Equal degrees: 3x + 4 = 3(x + 1) + 1, giving 3 + 1/(x + 1).
+        - |
+          A constant numerator over a quadratic with no real zeros calls for completing the square: (x + 2)² + 1.
+      answer: [0, 1, 3]
+    - slug: apcalcab-u06-w26-q15
+      type: multi_select
+      topic_code: "6.10"
+      source: "AP Calculus CED, Topic 6.10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Consider ∫ 1/(x² − 2x + 10) dx. Which statements are true? Select all that apply.
+      options:
+        - "x² − 2x + 10 = (x − 1)² + 9"
+        - "An antiderivative is (1/3) arctan((x − 1)/3)."
+        - "The substitution u = x − 1 turns the integral into ∫ 1/(u² + 9) du."
+        - "An antiderivative is ln |x² − 2x + 10|."
+        - "The denominator has two real zeros."
+      option_explanations:
+        - |
+          Correct. (x − 1)² = x² − 2x + 1, and 1 + 9 = 10.
+        - |
+          Correct. With u = x − 1 and a = 3, (1/a) arctan(u/a) is an antiderivative; differentiating gives (1/3) · (1/3)/(1 + (x − 1)²/9) = 1/((x − 1)² + 9).
+        - |
+          Correct. du = dx, and the denominator becomes u² + 9.
+        - |
+          A logarithm needs 2x − 2, the derivative of the denominator, in the numerator; the numerator is 1.
+        - |
+          (x − 1)² + 9 ≥ 9 > 0 for every x, so there are no real zeros.
+      answer: [0, 1, 2]
+    - slug: apcalcab-u06-w26-q16
+      type: true_false
+      topic_code: "6.10"
+      source: "AP Calculus CED, Topic 6.10"
+      points: 1
+      prompt: |
+        True or false: If the numerator of a rational function has degree greater than or equal to the degree of its denominator, polynomial long division can rewrite the function as a polynomial plus a fraction whose numerator has lower degree than its denominator.
+      answer: true
+      explanation: |
+        True. Division gives numerator = (divisor)(quotient) + remainder with the remainder's degree below the divisor's, so the function equals quotient + remainder/divisor. This is the standard first step before integrating such a function.
+    - slug: apcalcab-u06-w26-q17
+      type: true_false
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        True or false: Using u = x² + 4, ∫ 1/(x² + 4) dx = (1/(2x)) ln(x² + 4) + C.
+      answer: false
+      explanation: |
+        False. du = 2x dx cannot be formed because there is no factor of x, and a variable such as 1/(2x) cannot be moved outside the integral. Differentiating the proposed answer does not return 1/(x² + 4). The correct antiderivative is (1/2) arctan(x/2) + C.
+    - slug: apcalcab-u06-w26-q18
+      type: fill_blank
+      topic_code: "6.10"
+      source: "AP Calculus CED, Topic 6.10"
+      points: 1
+      prompt: |
+        ∫ from 0 to 1 of (x² + 2)/(x² + 1) dx = ____. (Give the exact value or a decimal to three places.)
+      answer: ["1 + π/4", "1+π/4", "1 + pi/4", "1+pi/4", "π/4 + 1", "π/4+1", "pi/4 + 1", "pi/4+1", "1.785"]
+      explanation: |
+        Divide: (x² + 2)/(x² + 1) = 1 + 1/(x² + 1). Then (x + arctan x) from 0 to 1 = 1 + π/4 ≈ 1.785.
+    - slug: apcalcab-u06-w26-q19
+      type: fill_blank
+      topic_code: "6.14"
+      source: "AP Calculus CED, Topic 6.14"
+      points: 1
+      prompt: |
+        ∫ from 1 to e of (x + 1)/x dx = ____. (Give the exact value or a decimal to three places.)
+      answer: ["e", "2.718"]
+      explanation: |
+        Split: (x + 1)/x = 1 + 1/x. Then (x + ln x) from 1 to e = (e + 1) − (1 + 0) = e ≈ 2.718.
+    - slug: apcalcab-u06-w26-q20
+      type: numeric
+      topic_code: "6.7"
+      source: "AP Calculus CED, Topic 6.7"
+      points: 1
+      prompt: |
+        Evaluate ∫ from 0 to π/4 of sec x tan x dx. Give your answer as a decimal to three decimal places.
+      answer: { value: 0.414, tolerance: 0.001 }
+      explanation: |
+        d/dx sec x = sec x tan x, so the integral is sec(π/4) − sec 0 = √2 − 1 ≈ 0.414.
+    - slug: apcalcab-u06-w26-q21
+      type: short_answer
+      topic_code: "6.5"
+      source: "AP Calculus CED, Topic 6.5"
+      points: 3
+      prompt: |
+        Let g(x) = ∫ from 0 to x of (t² − 1)/(t² + 1) dt for all real x.
+
+        (a) On which interval or intervals is g decreasing? Justify.
+        (b) Find the x-values of all relative extrema of g, and classify each. Justify.
+        (c) Find the exact value of g(1). (Hint: divide first.)
+      answer: |
+        (a) g′(x) = (x² − 1)/(x² + 1). The denominator is always positive, so g′ < 0 exactly when x² < 1: g is decreasing on −1 < x < 1.
+        (b) g′ changes from positive to negative at x = −1, so g has a relative maximum there; g′ changes from negative to positive at x = 1, so g has a relative minimum there.
+        (c) (t² − 1)/(t² + 1) = 1 − 2/(t² + 1). g(1) = (t − 2 arctan t) from 0 to 1 = 1 − 2(π/4) = 1 − π/2.
+      explanation: |
+        Three points, one per part. (a) −1 < x < 1 with g′ = integrand and the sign argument. (b) relative maximum at x = −1 and relative minimum at x = 1, each with the sign change of g′. (c) 1 − π/2 (about −0.571) from the divided form.
+    - slug: apcalcab-u06-w26-q22
+      type: short_answer
+      topic_code: "6.10"
+      source: "AP Calculus CED, Topic 6.10"
+      points: 3
+      prompt: |
+        Consider ∫ (x³ + 2x² − x + 1)/(x + 2) dx.
+
+        (a) Use polynomial long division to rewrite the integrand.
+        (b) Find the indefinite integral.
+        (c) Evaluate ∫ from 0 to 1 of (x³ + 2x² − x + 1)/(x + 2) dx. Give an exact answer.
+      answer: |
+        (a) x³ + 2x² − x + 1 = (x + 2)(x² − 1) + 3, so the integrand is x² − 1 + 3/(x + 2).
+        (b) x³/3 − x + 3 ln |x + 2| + C.
+        (c) (1/3 − 1 + 3 ln 3) − (0 − 0 + 3 ln 2) = −2/3 + 3 ln 3 − 3 ln 2 = −2/3 + 3 ln(3/2) ≈ 0.550.
+      explanation: |
+        Three points, one per part. (a) quotient x² − 1 and remainder 3. (b) the antiderivative with + C. (c) −2/3 + 3 ln(3/2) or an equivalent exact form.
+    - slug: apcalcab-u06-w26-q23
+      type: long_answer
+      topic_code: "6.14"
+      source: "AP Calculus CED, Topic 6.14"
+      points: 6
+      prompt: |
+        Each integral below involves the quadratic x² + 4x + 7. Choose an appropriate technique for each, and show your work.
+
+        (A) Find ∫ (x² + 4x + 7)/(x + 2) dx.
+
+        (B) Find ∫ (x + 2)/(x² + 4x + 7) dx.
+
+        (C) Find ∫ 1/(x² + 4x + 7) dx.
+
+        (D) Use your answers to (B) and (C) to find ∫ (x + 5)/(x² + 4x + 7) dx.
+      answer: |
+        (A) Long division: x² + 4x + 7 = (x + 2)(x + 2) + 3, so the integrand is x + 2 + 3/(x + 2), and the integral is x²/2 + 2x + 3 ln |x + 2| + C.
+        (B) Substitution: u = x² + 4x + 7, du = (2x + 4) dx = 2(x + 2) dx. So (1/2) ∫ du/u = (1/2) ln(x² + 4x + 7) + C (the quadratic is always positive).
+        (C) Complete the square: x² + 4x + 7 = (x + 2)² + 3. With u = x + 2 and a = √3: (1/√3) arctan((x + 2)/√3) + C.
+        (D) x + 5 = (x + 2) + 3, so the integral is (1/2) ln(x² + 4x + 7) + 3 · (1/√3) arctan((x + 2)/√3) + C = (1/2) ln(x² + 4x + 7) + √3 arctan((x + 2)/√3) + C.
+      explanation: |
+        Six points. (A) 1 point for the division (quotient x + 2, remainder 3) and 1 point for the antiderivative. (B) 1 point for the substitution with the factor 1/2 and the logarithm. (C) 1 point for the completed square (x + 2)² + 3 and 1 point for the arctangent with the constant 1/√3. (D) 1 point for splitting x + 5 = (x + 2) + 3 and combining correctly. Missing + C is penalised once in the whole question.

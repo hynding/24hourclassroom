@@ -1,0 +1,606 @@
+week: 30
+unit: 8
+title: "Average Value, Motion and Accumulation in Context"
+topics: ["8.1", "8.2", "8.3"]
+guide: guides/week-30.md
+guide_description: |
+  The average value of a function on an interval and the Mean Value Theorem for integrals; displacement, total
+  distance and position from a velocity function, and velocity from acceleration; and definite integrals of rates
+  in applied contexts, including rate-in/rate-out amount problems and how to interpret an integral in a sentence
+  with units. Worked examples: the average value of 3√x on [1, 4] and where it is attained, displacement and total
+  distance for v(t) = 3t² − 12t + 9, velocity from a(t) = 6t − 4, a hypothetical cistern with water flowing in and
+  out, and a calculator-active hypothetical bike-share docking station.
+flashcards_description: |
+  31 cards on average value, the Mean Value Theorem for integrals, displacement versus total distance, position and
+  velocity from initial conditions, the net change theorem, rate-in/rate-out amounts, and interpreting integrals
+  of rates with units.
+
+flashcards:
+  - front: Average value of f on [a, b] → formula
+    back: |
+      (1/(b − a)) · ∫ from a to b of f(x) dx. Integrate, then divide by the length of the interval.
+    topic_code: "8.1"
+  - front: Average value of f on [a, b] → picture
+    back: |
+      The height of the rectangle on [a, b] whose area equals the signed area between f and the x-axis on [a, b].
+    topic_code: "8.1"
+  - front: Mean Value Theorem for integrals → statement and hypothesis
+    back: |
+      If f is continuous on [a, b], there is at least one c in [a, b] with f(c) equal to the average value of f on [a, b]. Continuity is the hypothesis to name.
+    topic_code: "8.1"
+  - front: Average value of x³ on [0, 2] → value
+    back: |
+      (1/2) · ∫ from 0 to 2 of x³ dx = (1/2)(16/4) = (1/2)(4) = 2.
+    topic_code: "8.1"
+  - front: Average value of f versus average rate of change of f on [a, b] → the difference
+    back: |
+      Average value of f: (1/(b − a))∫ f(x) dx, in the units of f. Average rate of change of f: (f(b) − f(a))/(b − a), which is the average value of f′, in units of f per unit of x.
+    topic_code: "8.1"
+  - front: Average value of a velocity function on [a, b] → its name
+    back: |
+      The average velocity: displacement ∫ v(t) dt divided by (b − a). Its sign tells the net direction.
+    topic_code: "8.1"
+  - front: Average value of 3√x on [1, 4] → value and where it is attained
+    back: |
+      (1/3)[2x^(3/2)] from 1 to 4 = (1/3)(16 − 2) = 14/3. Solving 3√c = 14/3 gives c = 196/81 ≈ 2.42, inside [1, 4].
+    topic_code: "8.1"
+  - front: Displacement of a particle on [a, b] → integral
+    back: |
+      ∫ from a to b of v(t) dt: final position minus initial position. It can be negative.
+    topic_code: "8.2"
+  - front: Total distance traveled on [a, b] → integral
+    back: |
+      ∫ from a to b of |v(t)| dt. By hand, split at every t where v changes sign and add the absolute values of the pieces.
+    topic_code: "8.2"
+  - front: Position at time t from velocity → formula with an initial condition
+    back: |
+      x(t) = x(a) + ∫ from a to t of v(s) ds. Starting position plus displacement.
+    topic_code: "8.2"
+  - front: Velocity at time t from acceleration → formula with an initial condition
+    back: |
+      v(t) = v(a) + ∫ from a to t of a(s) ds. Starting velocity plus the change in velocity.
+    topic_code: "8.2"
+  - front: v(t) = 3t² − 12t + 9 on [0, 4] → displacement and total distance
+    back: |
+      v = 3(t − 1)(t − 3). Pieces: 4 on [0, 1], −4 on [1, 3], 4 on [3, 4]. Displacement 4; total distance 12.
+    topic_code: "8.2"
+  - front: a(t) = 6t − 4 with v(0) = 1 → velocity at t = 2
+    back: |
+      v(2) = 1 + ∫ from 0 to 2 of (6t − 4) dt = 1 + (12 − 8) = 5.
+    topic_code: "8.2"
+  - front: Units of ∫ from 0 to 30 of v(t) dt, with v in metres per second and t in seconds → units
+    back: |
+      Metres: (metres per second) × seconds. The integral of a rate has the units of the accumulated quantity.
+    topic_code: "8.2"
+  - front: Speed versus velocity in an integral → which gives total distance
+    back: |
+      Speed |v(t)|. ∫ speed dt is total distance; ∫ velocity dt is displacement.
+    topic_code: "8.2"
+  - front: Average speed on [a, b] → formula
+    back: |
+      Total distance divided by (b − a), that is (1/(b − a))∫ |v(t)| dt. Not the same as |average velocity| if the particle turns around.
+    topic_code: "8.2"
+  - front: Particle farthest right on [a, b] → method
+    back: |
+      Candidates test on x(t): evaluate x at the endpoints and at each time v changes sign, using x(t) = x(a) + ∫ v. The largest value wins.
+    topic_code: "8.2"
+  - front: ∫ from 0 to 4 of |v(t)| dt versus |∫ from 0 to 4 of v(t) dt| → comparison
+    back: |
+      The first is always at least the second. They are equal exactly when v does not change sign on the interval.
+    topic_code: "8.2"
+  - front: Net change theorem → statement
+    back: |
+      ∫ from a to b of F′(t) dt = F(b) − F(a). Integrating a rate of change gives the change in the quantity, not the quantity itself.
+    topic_code: "8.3"
+  - front: Amount at time T, rate in E(t) and rate out L(t) → formula
+    back: |
+      A(T) = A(0) + ∫ from 0 to T of (E(t) − L(t)) dt. Initial amount plus net change.
+    topic_code: "8.3"
+  - front: Rate-in/rate-out tank → when the amount is increasing
+    back: |
+      When A′(t) = E(t) − L(t) > 0, that is when water enters faster than it leaves. Compare the two rates, not the amounts.
+    topic_code: "8.3"
+  - front: Rate-in/rate-out tank → when the amount is greatest
+    back: |
+      Find where E(t) − L(t) changes from positive to negative, then compare A there with A at both endpoints (candidates test).
+    topic_code: "8.3"
+  - front: Hypothetical cistern, 500 L, in at 60 L/h, out at 10t L/h → maximum amount
+    back: |
+      A(t) = 500 + 60t − 5t². A′ = 60 − 10t changes sign at t = 6, so the maximum is A(6) = 680 L.
+    topic_code: "8.3"
+  - front: (1/(b − a)) ∫ from a to b of R(t) dt, R a rate → meaning in context
+    back: |
+      The average rate over a ≤ t ≤ b, in the units of R (for example litres per hour).
+    topic_code: "8.3"
+  - front: Integral of a rate → sentence template for an AP answer
+    back: |
+      "∫ from a to b of R(t) dt is the total number of [units] of [quantity] that [entered / were produced …] from time t = a to time t = b." Name the quantity, the units and the time interval.
+    topic_code: "8.3"
+  - front: Power P(t) in kilowatts over a day, t in hours → meaning of ∫ from 0 to 24 of P(t) dt
+    back: |
+      The energy used over the 24 hours, in kilowatt-hours.
+    topic_code: "8.3"
+  - front: Population P with growth rate P′(t) → population at t = b
+    back: |
+      P(b) = P(a) + ∫ from a to b of P′(t) dt. The integral is the change; add the starting population.
+    topic_code: "8.3"
+  - front: Rate given only as a table → how to find the accumulated amount
+    back: |
+      Approximate the integral with a left, right, midpoint or trapezoidal sum using the table's (possibly unequal) intervals, then add any initial amount.
+    topic_code: "8.3"
+  - front: Error-spot → "the average value of f on [1, 5] is (f(1) + f(5))/2"
+    back: |
+      That averages two outputs. The average value uses every output: (1/4)∫ from 1 to 5 of f(x) dx. They agree only for special cases such as linear f.
+    topic_code: "8.1"
+  - front: Error-spot → "∫ from 0 to 6 of v(t) dt = 0, so the particle did not move"
+    back: |
+      Zero displacement means it ended where it started. It may have gone out and back; the distance ∫ |v(t)| dt can be large.
+    topic_code: "8.2"
+  - front: Error-spot → "the tank holds ∫ from 0 to 5 of (E(t) − L(t)) dt litres at t = 5"
+    back: |
+      That is only the change over [0, 5]. Add the amount at t = 0: A(5) = A(0) + ∫ from 0 to 5 of (E − L) dt.
+    topic_code: "8.3"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 8.1 to 8.3: average value of a function,
+    displacement, total distance and position from velocity, and integrals of rates in applied contexts), with 8
+    questions (one third) reviewing earlier weeks (motion and speed from week 13, the Mean Value Theorem from week 17,
+    Riemann and trapezoidal sums from week 22, accumulation functions from week 23, the Fundamental Theorem from week
+    24, substitution from week 25, separation of variables from week 28 and exponential models from week 29). Opens
+    with a shared-context set on one particle. Multiple choice, select-all, true/false and numeric items are graded at
+    once; fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. Items marked (Calculator.) need a graphing calculator; the rest are done by
+    hand.
+  questions:
+    # ---- Stimulus set: one particle (8.2, 8.1, 4.2)
+    - slug: apcalcab-u08-w30-q01
+      type: multiple_choice
+      topic_code: "8.2"
+      source: "AP Calculus CED, Topic 8.2"
+      points: 1
+      stimulus: |
+        A particle moves along the x-axis with velocity v(t) = t² − 6t + 8 for 0 ≤ t ≤ 5, where t is in seconds and v(t) is in metres per second. At time t = 0 the particle is at x = 2. Note that v(t) = (t − 2)(t − 4).
+      prompt: |
+        What is the displacement of the particle over 0 ≤ t ≤ 5?
+      options:
+        - "28/3 metres"
+        - "26/3 metres"
+        - "20/3 metres"
+        - "4/3 metres"
+      option_explanations:
+        - |
+          28/3 is the total distance, ∫ |v(t)| dt = 20/3 + 4/3 + 4/3. Displacement keeps the sign of v, so the leftward motion on (2, 4) is subtracted, not added.
+        - |
+          26/3 is the position x(5) = 2 + 20/3. Displacement is the change in position, so the starting position 2 must not be added.
+        - |
+          Correct. ∫ from 0 to 5 of (t² − 6t + 8) dt = [t³/3 − 3t² + 8t] from 0 to 5 = 125/3 − 75 + 40 = 20/3 metres.
+        - |
+          4/3 is the average velocity, the displacement divided by 5. The question asks for the displacement itself.
+      answer: 2
+    - slug: apcalcab-u08-w30-q02
+      type: multiple_choice
+      topic_code: "8.2"
+      source: "AP Calculus CED, Topic 8.2"
+      points: 1
+      stimulus: |
+        A particle moves along the x-axis with velocity v(t) = t² − 6t + 8 for 0 ≤ t ≤ 5, where t is in seconds and v(t) is in metres per second. At time t = 0 the particle is at x = 2. Note that v(t) = (t − 2)(t − 4).
+      prompt: |
+        What is the total distance the particle travels over 0 ≤ t ≤ 5?
+      options:
+        - "28/3 metres"
+        - "20/3 metres"
+        - "8 metres"
+        - "26/3 metres"
+      option_explanations:
+        - |
+          Correct. v changes sign at t = 2 and t = 4. The pieces are ∫₀² v dt = 20/3, ∫₂⁴ v dt = −4/3 and ∫₄⁵ v dt = 4/3, so the distance is 20/3 + 4/3 + 4/3 = 28/3 metres.
+        - |
+          20/3 is the displacement: integrating v without absolute values lets the leftward piece −4/3 cancel the final rightward piece 4/3.
+        - |
+          8 = 20/3 + 4/3 splits correctly at t = 2 and t = 4 but stops at t = 4, leaving out the 4/3 metres travelled on [4, 5].
+        - |
+          26/3 is the position at t = 5, not a distance. Distance adds the absolute value of every piece of motion.
+      answer: 0
+    - slug: apcalcab-u08-w30-q03
+      type: multiple_choice
+      topic_code: "8.1"
+      source: "AP Calculus CED, Topic 8.1"
+      points: 1
+      stimulus: |
+        A particle moves along the x-axis with velocity v(t) = t² − 6t + 8 for 0 ≤ t ≤ 5, where t is in seconds and v(t) is in metres per second. At time t = 0 the particle is at x = 2. Note that v(t) = (t − 2)(t − 4).
+      prompt: |
+        What is the average value of v(t) over 0 ≤ t ≤ 5?
+      options:
+        - "28/15 metres per second"
+        - "4/3 metres per second"
+        - "11/2 metres per second"
+        - "20/3 metres per second"
+      option_explanations:
+        - |
+          28/15 is the total distance divided by 5, the average speed. The average value of v uses ∫ v dt, which keeps signs.
+        - |
+          Correct. (1/(5 − 0)) ∫ from 0 to 5 of v(t) dt = (1/5)(20/3) = 4/3 metres per second, the average velocity.
+        - |
+          11/2 averages only the endpoint values v(0) = 8 and v(5) = 3. The average value of a function uses all of its values through the integral.
+        - |
+          20/3 is the integral itself; it still needs to be divided by the interval length 5.
+      answer: 1
+    - slug: apcalcab-u08-w30-q04
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Calculus CED, Topic 4.2"
+      points: 1
+      stimulus: |
+        A particle moves along the x-axis with velocity v(t) = t² − 6t + 8 for 0 ≤ t ≤ 5, where t is in seconds and v(t) is in metres per second. At time t = 0 the particle is at x = 2. Note that v(t) = (t − 2)(t − 4).
+      prompt: |
+        Is the speed of the particle increasing or decreasing at t = 1, and why?
+      options:
+        - "Increasing, because v(1) = 3 > 0"
+        - "Decreasing, because a(1) = −4 < 0, and negative acceleration always means slowing down"
+        - "Increasing, because |a(1)| = 4 is greater than |v(1)| = 3"
+        - "Decreasing, because v(1) and a(1) have opposite signs"
+      option_explanations:
+        - |
+          A positive velocity says the particle moves right; it says nothing about whether the speed is growing. That depends on the sign of a compared with v.
+        - |
+          The conclusion is right but the reason is not: negative acceleration with negative velocity means speeding up (at t = 2.5, v = −0.75 and a = −1, so the speed is increasing).
+        - |
+          Comparing the sizes of a and v has no meaning; they have different units. Speed changes according to whether a and v share a sign.
+        - |
+          Correct. v(1) = 1 − 6 + 8 = 3 > 0 and a(t) = v′(t) = 2t − 6, so a(1) = −4 < 0. Velocity and acceleration have opposite signs, so the speed is decreasing.
+      answer: 3
+    - slug: apcalcab-u08-w30-q05
+      type: multiple_choice
+      topic_code: "8.1"
+      source: "AP Calculus CED, Topic 8.1"
+      points: 1
+      prompt: |
+        What is the average value of f(x) = 3x² on the interval [1, 3]?
+      options:
+        - "26"
+        - "13"
+        - "15"
+        - "26/3"
+      option_explanations:
+        - |
+          26 = ∫ from 1 to 3 of 3x² dx = 27 − 1. The integral must still be divided by the interval length 3 − 1 = 2.
+        - |
+          Correct. (1/(3 − 1)) ∫ from 1 to 3 of 3x² dx = (1/2)[x³] from 1 to 3 = (1/2)(27 − 1) = 13.
+        - |
+          15 averages the endpoint values f(1) = 3 and f(3) = 27. A quadratic is not linear, so this is not its average value.
+        - |
+          26/3 divides by b = 3 instead of by b − a = 2.
+      answer: 1
+    - slug: apcalcab-u08-w30-q06
+      type: multiple_choice
+      topic_code: "8.1"
+      source: "AP Calculus CED, Topic 8.1"
+      points: 1
+      prompt: |
+        What is the average value of g(x) = sin x on the interval [0, π]?
+      options:
+        - "2"
+        - "0"
+        - "2/π"
+        - "−2/π"
+      option_explanations:
+        - |
+          2 is ∫ from 0 to π of sin x dx. Divide by the interval length π to get the average value.
+        - |
+          0 comes from assuming the positive and negative parts of sin x cancel, as they do over a full period [0, 2π]. On (0, π) sin x is positive throughout, so its integral and average are positive.
+        - |
+          Correct. ∫ from 0 to π of sin x dx = [−cos x] from 0 to π = 1 − (−1) = 2, and 2/(π − 0) = 2/π ≈ 0.637.
+        - |
+          −2/π uses cos x as the antiderivative of sin x. The antiderivative is −cos x, which gives a positive integral.
+      answer: 2
+    - slug: apcalcab-u08-w30-q07
+      type: multiple_choice
+      topic_code: "8.3"
+      source: "AP Calculus CED, Topic 8.3"
+      points: 1
+      prompt: |
+        A hypothetical tank holds 50 litres of water at time t = 0. Water flows in at a rate of R(t) = 20 + 4t litres per minute for 0 ≤ t ≤ 10, and none flows out. How many litres are in the tank at t = 5?
+      options:
+        - "200"
+        - "150"
+        - "250"
+        - "90"
+      option_explanations:
+        - |
+          Correct. 50 + ∫ from 0 to 5 of (20 + 4t) dt = 50 + [20t + 2t²] from 0 to 5 = 50 + 100 + 50 = 200 litres.
+        - |
+          150 is the amount that flowed in, ∫ from 0 to 5 of R(t) dt. The 50 litres already in the tank must be added.
+        - |
+          250 = 50 + R(5) · 5 treats the rate as if it had been 40 L/min for the whole 5 minutes; the rate grew from 20 to 40, so the integral is needed.
+        - |
+          90 = 50 + R(5) adds a rate (litres per minute) to an amount (litres). R(5) = 40 is how fast water enters at t = 5, not how much entered.
+      answer: 0
+    - slug: apcalcab-u08-w30-q08
+      type: multiple_choice
+      topic_code: "8.3"
+      source: "AP Calculus CED, Topic 8.3"
+      points: 1
+      prompt: |
+        Customers arrive at a hypothetical shop at a rate of C(t) customers per hour, where t is the number of hours after 8 a.m. Which is the best interpretation of ∫ from 2 to 5 of C(t) dt?
+      options:
+        - "The average number of customers per hour arriving between 10 a.m. and 1 p.m."
+        - "The rate at which the arrival rate is changing between 10 a.m. and 1 p.m."
+        - "The number of customers in the shop at 1 p.m."
+        - "The number of customers who arrive between 10 a.m. and 1 p.m."
+      option_explanations:
+        - |
+          The average arrival rate would be (1/3) ∫ from 2 to 5 of C(t) dt, in customers per hour. Without the 1/3 the integral is a count.
+        - |
+          The rate of change of the arrival rate is C′(t), a derivative. Integrating C goes the other way, to an accumulated amount.
+        - |
+          The integral counts only arrivals between t = 2 and t = 5. It ignores anyone already in the shop and everyone who left.
+        - |
+          Correct. Integrating a rate in customers per hour over hours gives customers: the total number arriving from t = 2 (10 a.m.) to t = 5 (1 p.m.).
+      answer: 3
+    - slug: apcalcab-u08-w30-q09
+      type: multiple_choice
+      topic_code: "8.2"
+      source: "AP Calculus CED, Topic 8.2"
+      points: 1
+      prompt: |
+        A particle moves along a line with velocity v(t) = 4 cos t. Its position at t = 0 is x(0) = −1. What is its position at t = π/6?
+      options:
+        - "2"
+        - "−3"
+        - "1"
+        - "−1 + 2√3"
+      option_explanations:
+        - |
+          2 = ∫ from 0 to π/6 of 4 cos t dt is the displacement. The starting position −1 must be added.
+        - |
+          −3 uses −4 sin t as the antiderivative of 4 cos t. The antiderivative of cos t is sin t, with a plus sign.
+        - |
+          Correct. x(π/6) = −1 + ∫ from 0 to π/6 of 4 cos t dt = −1 + 4 sin(π/6) = −1 + 2 = 1.
+        - |
+          −1 + 4 cos(π/6) adds the velocity at t = π/6 to the position instead of adding the displacement.
+      answer: 2
+    - slug: apcalcab-u08-w30-q10
+      type: multiple_choice
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        Evaluate ∫ from 0 to 1 of 2x e^(x²) dx.
+      options:
+        - "e"
+        - "e − 1"
+        - "2e − 2"
+        - "(e − 1)/2"
+      option_explanations:
+        - |
+          e is the antiderivative at the upper limit only. At the lower limit e^(0²) = 1, which must be subtracted.
+        - |
+          Correct. With u = x², du = 2x dx and the limits become 0 and 1: ∫ from 0 to 1 of eᵘ du = e − 1.
+        - |
+          2e − 2 keeps the factor 2 after it has already been used up as du = 2x dx.
+        - |
+          (e − 1)/2 divides by 2 as if du were x dx; here the integrand already contains the full 2x dx.
+      answer: 1
+    - slug: apcalcab-u08-w30-q11
+      type: multiple_choice
+      topic_code: "6.4"
+      source: "AP Calculus CED, Topic 6.4"
+      points: 1
+      prompt: |
+        Let G(x) = ∫ from 1 to x² of √(1 + t³) dt. What is G′(x)?
+      options:
+        - "√(1 + x⁶)"
+        - "√(1 + x³)"
+        - "2x√(1 + x⁶) − √2"
+        - "2x√(1 + x⁶)"
+      option_explanations:
+        - |
+          This substitutes the upper limit x² correctly but forgets the chain rule factor d/dx [x²] = 2x.
+        - |
+          √(1 + x³) would be the derivative if the upper limit were x. With upper limit x², substitute t = x² and multiply by 2x.
+        - |
+          The constant lower limit contributes nothing to the derivative; subtracting the integrand's value at t = 1 is a mix-up with evaluating a definite integral.
+        - |
+          Correct. By the Fundamental Theorem and the chain rule, G′(x) = √(1 + (x²)³) · 2x = 2x√(1 + x⁶).
+      answer: 3
+    - slug: apcalcab-u08-w30-q12
+      type: multiple_choice
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 1
+      prompt: |
+        A hypothetical bacteria culture grows so that dy/dt = 0.3y, where y is the number of bacteria (in thousands) and t is in hours, and y(0) = 50. What is y(10)?
+      options:
+        - "50e³"
+        - "50e^0.3"
+        - "50 + e³"
+        - "200"
+      option_explanations:
+        - |
+          Correct. dy/dt = ky has solution y = y(0)e^(kt) = 50e^(0.3t), so y(10) = 50e³ ≈ 1004.3 thousand.
+        - |
+          50e^0.3 is y(1). The exponent is kt = 0.3 · 10 = 3.
+        - |
+          50 + e³ adds the initial value instead of multiplying by it: separating variables gives ln y = 0.3t + C, so y = Ce^(0.3t) with C = 50.
+        - |
+          200 = 50 + 0.3 · 50 · 10 assumes the growth rate stays at its starting value 15, which is linear growth. Here the rate grows with y.
+      answer: 0
+    - slug: apcalcab-u08-w30-q13
+      type: multi_select
+      topic_code: "8.2"
+      source: "AP Calculus CED, Topic 8.2"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A particle moves along the x-axis for 0 ≤ t ≤ 8. Its velocity v(t) is piecewise linear: v rises from 0 at t = 0 to 4 at t = 2, stays at 4 until t = 4, then decreases linearly to −4 at t = 8. Which statements are true? Select all that apply.
+      options:
+        - "The displacement over 0 ≤ t ≤ 8 is 12."
+        - "The total distance travelled over 0 ≤ t ≤ 8 is 12."
+        - "The particle changes direction at t = 6."
+        - "The particle is farthest to the right at t = 4."
+        - "The acceleration is −2 for 4 < t < 8."
+      option_explanations:
+        - |
+          Correct. Signed areas: 4 on [0, 2], 8 on [2, 4], 4 on [4, 6] (v reaches 0 at t = 6) and −4 on [6, 8]. Sum: 12.
+        - |
+          The total distance adds absolute values: 4 + 8 + 4 + 4 = 20. Only the displacement is 12.
+        - |
+          Correct. v falls from 4 to −4 between t = 4 and t = 8, passing through 0 at t = 6, and changes from positive to negative there.
+        - |
+          After t = 4 the velocity is still positive until t = 6, so the particle keeps moving right. It is farthest right at t = 6.
+        - |
+          Correct. On 4 < t < 8 the velocity graph is a line with slope (−4 − 4)/(8 − 4) = −2, and a(t) = v′(t).
+      answer: [0, 2, 4]
+    - slug: apcalcab-u08-w30-q14
+      type: multi_select
+      topic_code: "8.1"
+      source: "AP Calculus CED, Topic 8.1"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let g be a continuous function with ∫ from 0 to 6 of g(x) dx = 18. Which statements must be true? Select all that apply.
+      options:
+        - "The average value of g on [0, 6] is 3."
+        - "g(c) = 3 for at least one c in [0, 6]."
+        - "g(3) = 3."
+        - "∫ from 0 to 6 of (g(x) + 2) dx = 20."
+        - "The average value of 2g(x) on [0, 6] is 6."
+      option_explanations:
+        - |
+          Correct. The average value is (1/(6 − 0)) · ∫ from 0 to 6 of g(x) dx = 18/6 = 3.
+        - |
+          Correct. g is continuous on [0, 6], so by the Mean Value Theorem for integrals g attains its average value 3 somewhere in the interval.
+        - |
+          The theorem guarantees some c, not the midpoint. For example g(x) = x²/4 has ∫ from 0 to 6 of g(x) dx = 216/12 = 18, but g(3) = 9/4, not 3.
+        - |
+          The constant 2 integrates to 2 · 6 = 12 over an interval of length 6, so the integral is 18 + 12 = 30, not 18 + 2.
+        - |
+          Correct. ∫ 2g = 36, and 36/6 = 6: doubling a function doubles its average value.
+      answer: [0, 1, 4]
+    - slug: apcalcab-u08-w30-q15
+      type: true_false
+      topic_code: "8.2"
+      source: "AP Calculus CED, Topic 8.2"
+      points: 1
+      prompt: |
+        True or false: For a particle moving along a line, the total distance travelled on [a, b] always equals |∫ from a to b of v(t) dt|.
+      answer: false
+      explanation: |
+        False. |∫ v dt| is the size of the displacement. If v changes sign, leftward and rightward motion cancel inside the integral, so the distance ∫ |v(t)| dt is larger. They agree only when v keeps one sign on [a, b].
+    - slug: apcalcab-u08-w30-q16
+      type: true_false
+      topic_code: "5.1"
+      source: "AP Calculus CED, Topic 5.1"
+      points: 1
+      prompt: |
+        True or false: For f(x) = x³ on [0, 2], the Mean Value Theorem guarantees a value c in (0, 2) with f′(c) = 4.
+      answer: true
+      explanation: |
+        True. f is a polynomial, so it is continuous on [0, 2] and differentiable on (0, 2). The average rate of change is (8 − 0)/(2 − 0) = 4, so some c in (0, 2) has f′(c) = 4. Here 3c² = 4 gives c = 2/√3 ≈ 1.155.
+    - slug: apcalcab-u08-w30-q17
+      type: fill_blank
+      topic_code: "8.1"
+      source: "AP Calculus CED, Topic 8.1"
+      points: 1
+      prompt: |
+        The average value of f(x) = 6x on the interval [0, 4] is ____.
+      answer: ["12"]
+      explanation: |
+        (1/4) ∫ from 0 to 4 of 6x dx = (1/4)[3x²] from 0 to 4 = (1/4)(48) = 12.
+    - slug: apcalcab-u08-w30-q18
+      type: fill_blank
+      topic_code: "6.2"
+      source: "AP Calculus CED, Topic 6.2"
+      points: 1
+      prompt: |
+        A continuous function r has r(0) = 4, r(2) = 8, r(5) = 10 and r(6) = 6. The trapezoidal sum with the three subintervals [0, 2], [2, 5] and [5, 6] approximates ∫ from 0 to 6 of r(t) dt as ____.
+      answer: ["47"]
+      explanation: |
+        The widths are unequal, so compute each trapezoid: 2(4 + 8)/2 = 12, 3(8 + 10)/2 = 27 and 1(10 + 6)/2 = 8. The sum is 12 + 27 + 8 = 47.
+    - slug: apcalcab-u08-w30-q19
+      type: numeric
+      topic_code: "8.3"
+      source: "AP Calculus CED, Topic 8.3"
+      points: 1
+      prompt: |
+        (Calculator.) A hypothetical sand pile holds 40 cubic feet of sand at t = 0. Sand is added at a rate of S(t) = 10 + 3 sin(t/2) cubic feet per hour, and none is removed. How many cubic feet of sand are in the pile at t = 6 hours? Give your answer to three decimal places.
+      answer: { value: 111.940, tolerance: 0.001 }
+      explanation: |
+        Amount = 40 + ∫ from 0 to 6 of (10 + 3 sin(t/2)) dt. A calculator gives the integral ≈ 71.940 (exactly 60 + 6(1 − cos 3)), so the pile holds about 111.940 cubic feet.
+    - slug: apcalcab-u08-w30-q20
+      type: numeric
+      topic_code: "7.7"
+      source: "AP Calculus CED, Topic 7.7"
+      points: 1
+      prompt: |
+        Let y = f(x) be the particular solution of dy/dx = 2xy with f(0) = 3. What is f(1)? Give your answer to three decimal places.
+      answer: { value: 8.155, tolerance: 0.001 }
+      explanation: |
+        Separate: dy/y = 2x dx, so ln|y| = x² + C and y = Ae^(x²). f(0) = 3 gives A = 3, so f(x) = 3e^(x²) and f(1) = 3e ≈ 8.155.
+    - slug: apcalcab-u08-w30-q21
+      type: short_answer
+      topic_code: "8.2"
+      source: "AP Calculus CED, Topic 8.2"
+      points: 3
+      prompt: |
+        A particle moves along the x-axis with velocity v(t) = 2t − 6 for 0 ≤ t ≤ 5. Its position at t = 0 is x(0) = 4.
+
+        (a) At what time does the particle change direction? Justify your answer.
+        (b) Find the position of the particle at t = 5.
+        (c) Find the total distance the particle travels over 0 ≤ t ≤ 5.
+      answer: |
+        (a) v(t) = 0 at t = 3, and v changes from negative to positive there (v(2) = −2, v(4) = 2), so the particle changes direction at t = 3.
+        (b) x(5) = 4 + ∫ from 0 to 5 of (2t − 6) dt = 4 + [t² − 6t] from 0 to 5 = 4 + (25 − 30) = −1.
+        (c) ∫ from 0 to 3 of (2t − 6) dt = −9 and ∫ from 3 to 5 of (2t − 6) dt = 4, so the distance is 9 + 4 = 13.
+      explanation: |
+        Three points, one per part. (a) t = 3 with the sign change of v as the reason (v = 0 alone is not enough). (b) x(5) = −1, with the initial position added. (c) 13, from splitting at t = 3 (or ∫ |2t − 6| dt).
+    - slug: apcalcab-u08-w30-q22
+      type: short_answer
+      topic_code: "8.3"
+      source: "AP Calculus CED, Topic 8.3"
+      points: 3
+      prompt: |
+        A hypothetical bakery's flour bin holds 120 kg of flour at t = 0, where t is in hours. Flour is added at a constant 15 kg per hour and used at a rate of U(t) = 6t kg per hour for 0 ≤ t ≤ 8.
+
+        (a) Write an expression involving an integral for A(t), the amount of flour in the bin at time t.
+        (b) At what time t in [0, 8] is the amount of flour greatest? Justify your answer.
+        (c) Is the amount of flour increasing or decreasing at t = 4? At what rate?
+      answer: |
+        (a) A(t) = 120 + ∫ from 0 to t of (15 − 6s) ds (which simplifies to 120 + 15t − 3t²).
+        (b) A′(t) = 15 − 6t = 0 at t = 2.5. Candidates: A(0) = 120, A(2.5) = 138.75, A(8) = 48. The greatest amount is 138.75 kg at t = 2.5 hours. (Or: A′ changes from positive to negative at t = 2.5, the only critical point, so it is the absolute maximum.)
+        (c) A′(4) = 15 − 24 = −9, so the amount is decreasing at 9 kg per hour.
+      explanation: |
+        Three points, one per part. (a) the initial 120 plus the integral of (rate in − rate out). (b) t = 2.5 with a candidates test or a sign-change argument for the only critical point. (c) decreasing, with A′(4) = −9 kg per hour (units required).
+    - slug: apcalcab-u08-w30-q23
+      type: numeric
+      topic_code: "6.7"
+      source: "AP Calculus CED, Topic 6.7"
+      points: 1
+      prompt: |
+        Evaluate ∫ from 0 to π/2 of (cos x + 2x) dx. Give your answer to three decimal places.
+      answer: { value: 3.467, tolerance: 0.001 }
+      explanation: |
+        An antiderivative is sin x + x². Evaluate: (sin(π/2) + π²/4) − (0 + 0) = 1 + π²/4 ≈ 1 + 2.467 = 3.467.
+    - slug: apcalcab-u08-w30-q24
+      type: long_answer
+      topic_code: "8.3"
+      source: "AP Calculus CED, Topic 8.3"
+      points: 6
+      prompt: |
+        A hypothetical water-treatment tank holds 200 gallons of water at time t = 0, where t is in hours. For 0 ≤ t ≤ 12, water is pumped in at a rate of W(t) = 30 + 10 sin(πt/6) gallons per hour and drains out at a rate of D(t) = 2t + 20 gallons per hour.
+
+        (A) Find the average rate at which water is pumped in over 0 ≤ t ≤ 12. Show the integral you use.
+
+        (B) Is the amount of water in the tank increasing or decreasing at t = 6? Give a reason.
+
+        (C) How many gallons of water are in the tank at t = 12?
+
+        (D) (Calculator.) A graphing calculator shows that W(t) − D(t) = 0 on 0 < t < 12 only at t ≈ 5.723, and that ∫ from 0 to 5.723 of (W(t) − D(t)) dt ≈ 62.474. At what time in 0 ≤ t ≤ 12 is the amount of water in the tank greatest, and what is that greatest amount? Justify your answer.
+      answer: |
+        (A) (1/12) ∫ from 0 to 12 of (30 + 10 sin(πt/6)) dt = (1/12)(360 + 0) = 30 gallons per hour. (The sine term runs over exactly one period, 12 hours, so its integral is 0: [−(60/π) cos(πt/6)] from 0 to 12 = −(60/π)(1 − 1) = 0.)
+        (B) W(6) = 30 + 10 sin π = 30 and D(6) = 32. W(6) − D(6) = −2 < 0, so the amount is decreasing at t = 6.
+        (C) A(12) = 200 + ∫ from 0 to 12 of (W(t) − D(t)) dt = 200 + 360 − [t² + 20t] from 0 to 12 = 200 + 360 − 384 = 176 gallons.
+        (D) A′(t) = W(t) − D(t), which is positive for 0 ≤ t < 5.723 and negative for 5.723 < t ≤ 12 (for example A′(0) = 10 and A′(12) = −14). Candidates: A(0) = 200, A(5.723) ≈ 200 + 62.474 = 262.474, A(12) = 176. The greatest amount is about 262.474 gallons, at t ≈ 5.723 hours.
+      explanation: |
+        Six points. (A) 1 point: the average-value integral with 1/12 and the answer 30 gallons per hour. (B) 1 point: decreasing, supported by W(6) − D(6) = −2 < 0 (comparing the two rates, not the amounts). (C) 2 points: 1 for 200 + ∫ from 0 to 12 of (W − D) dt, 1 for 176 gallons. (D) 2 points: 1 for identifying A′ = W − D and using the critical point with the endpoints (candidates test) or the sign change of A′ from positive to negative at its only critical point, 1 for t ≈ 5.723 and about 262.474 gallons (accept 262.47 or 262.5 with work shown).

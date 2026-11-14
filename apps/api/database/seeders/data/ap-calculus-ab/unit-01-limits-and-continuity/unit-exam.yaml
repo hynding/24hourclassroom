@@ -1,0 +1,986 @@
+unit: 1
+description: |
+  45 questions · about 90 minutes · every topic of Unit 1 (1.1 to 1.16): instantaneous rates as limits,
+  limit notation and one-sided limits, limits from graphs and tables, limit properties, algebraic and
+  trigonometric limits, choosing a method, the squeeze theorem, connecting representations, types of
+  discontinuity, continuity at a point and on an interval, removing discontinuities, infinite limits and
+  vertical asymptotes, limits at infinity and horizontal asymptotes, and the Intermediate Value Theorem.
+  Includes two shared-context sets (a four-question set on one piecewise function and a three-question set on
+  a hypothetical concentration table), select-all, true/false, fill-in-the-blank and numeric items, two
+  short-answer questions (3 points each) and two free-response questions in the AP style (9 points each: one
+  no-calculator analysis of a rational function, one calculator-active context). Items marked (Calculator.)
+  need a graphing calculator; the rest are meant to be done by hand. Multiple choice, select-all, true/false
+  and numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers
+  and free-response items are graded by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: one piecewise function (1.6, 1.11, 1.14, 1.10)
+  - slug: apcalcab-u01-exam-q01
+    type: multiple_choice
+    topic_code: "1.6"
+    source: "AP Calculus CED, Topic 1.6"
+    points: 1
+    stimulus: |
+      The function f is defined by
+
+      f(x) = (x² − 6x + 8)/(x − 2) for x < 2,
+      f(2) = 1,
+      f(x) = √(x + 2) − 4 for 2 < x < 7,
+      f(x) = 1/(x − 7) for x > 7.
+    prompt: |
+      What is lim (x→2⁻) f(x)?
+    options:
+      - "0"
+      - "1"
+      - "−2"
+      - "−6"
+    option_explanations:
+      - |
+        Substitution gives 0/0, which is indeterminate; after factoring, the left piece is x − 4, which approaches −2.
+      - |
+        1 is the value f(2). A one-sided limit looks at inputs near 2, not at 2.
+      - |
+        Correct. x² − 6x + 8 = (x − 2)(x − 4), so for x < 2 the left piece is x − 4, which approaches 2 − 4 = −2.
+      - |
+        −6 comes from a sign slip, evaluating x − 4 as −x − 4 at x = 2 (or factoring as (x − 2)(x + 4)).
+    answer: 2
+  - slug: apcalcab-u01-exam-q02
+    type: multiple_choice
+    topic_code: "1.11"
+    source: "AP Calculus CED, Topic 1.11"
+    points: 1
+    stimulus: |
+      The function f is defined by
+
+      f(x) = (x² − 6x + 8)/(x − 2) for x < 2,
+      f(2) = 1,
+      f(x) = √(x + 2) − 4 for 2 < x < 7,
+      f(x) = 1/(x − 7) for x > 7.
+    prompt: |
+      Which statement about f at x = 2 is true?
+    options:
+      - "f is continuous at x = 2, because both one-sided limits equal −2."
+      - "f is not continuous at x = 2, because lim (x→2) f(x) = −2 but f(2) = 1."
+      - "f is not continuous at x = 2, because lim (x→2) f(x) does not exist."
+      - "f is continuous at x = 2, because f(2) is defined."
+    option_explanations:
+      - |
+        Equal one-sided limits make the limit exist, but continuity also needs the limit to equal f(2) = 1.
+      - |
+        Correct. Left: x − 4 → −2. Right: √4 − 4 = −2. The limit is −2, but f(2) = 1, so the third condition for continuity fails.
+      - |
+        Both one-sided limits equal −2, so the limit does exist; the failure is that it differs from f(2).
+      - |
+        A defined value is only one of the three conditions; the limit must equal it.
+    answer: 1
+  - slug: apcalcab-u01-exam-q03
+    type: multiple_choice
+    topic_code: "1.14"
+    source: "AP Calculus CED, Topic 1.14"
+    points: 1
+    stimulus: |
+      The function f is defined by
+
+      f(x) = (x² − 6x + 8)/(x − 2) for x < 2,
+      f(2) = 1,
+      f(x) = √(x + 2) − 4 for 2 < x < 7,
+      f(x) = 1/(x − 7) for x > 7.
+    prompt: |
+      What is lim (x→7⁺) f(x)?
+    options:
+      - "−1"
+      - "−∞"
+      - "0"
+      - "∞"
+    option_explanations:
+      - |
+        −1 is the left-hand limit, √9 − 4, from the middle piece; for x > 7 the last piece applies.
+      - |
+        −∞ would be the behaviour of 1/(x − 7) from the left, where x − 7 is negative; here x approaches 7 from the right.
+      - |
+        A numerator of 1 over a denominator approaching 0 gives a large quotient, not a small one.
+      - |
+        Correct. For x slightly greater than 7, x − 7 is a small positive number, so 1/(x − 7) grows without bound.
+    answer: 3
+  - slug: apcalcab-u01-exam-q04
+    type: multiple_choice
+    topic_code: "1.10"
+    source: "AP Calculus CED, Topic 1.10"
+    points: 1
+    stimulus: |
+      The function f is defined by
+
+      f(x) = (x² − 6x + 8)/(x − 2) for x < 2,
+      f(2) = 1,
+      f(x) = √(x + 2) − 4 for 2 < x < 7,
+      f(x) = 1/(x − 7) for x > 7.
+    prompt: |
+      What type of discontinuity does f have at x = 7?
+    options:
+      - "Infinite"
+      - "Jump"
+      - "Removable"
+      - "f is continuous at x = 7."
+    option_explanations:
+      - |
+        Correct. The right-hand limit is ∞, so the graph has a vertical asymptote at x = 7: an infinite discontinuity (whatever the left side does).
+      - |
+        A jump needs both one-sided limits finite; the right-hand limit here is infinite.
+      - |
+        Removable needs the two-sided limit to exist, and the right side is unbounded.
+      - |
+        f(7) is not defined by any piece, and the right side is unbounded, so f is not continuous at 7.
+    answer: 0
+  # ---- Stimulus set B: a concentration table (1.16, 1.1)
+  - slug: apcalcab-u01-exam-q05
+    type: multiple_choice
+    topic_code: "1.16"
+    source: "AP Calculus CED, Topic 1.16"
+    points: 1
+    stimulus: |
+      The concentration of a nutrient in a hypothetical laboratory culture, C(t) milligrams per litre, is a continuous function of time t, in hours, for 0 ≤ t ≤ 12. Selected values are shown.
+
+      | t (hours) | 0 | 2 | 5 | 9 | 12 |
+      |---|---|---|---|---|---|
+      | C(t) (mg/L) | 3.1 | 4.6 | 4.0 | 5.2 | 2.8 |
+    prompt: |
+      What is the least number of times in 0 < t < 12 at which C(t) = 4.5 must occur?
+    options:
+      - "2"
+      - "3"
+      - "4"
+      - "1"
+    option_explanations:
+      - |
+        This counts only the rises; C also falls through 4.5 on (2, 5) and on (9, 12).
+      - |
+        This misses one of the four intervals; 4.5 lies between the endpoint values on every one of them.
+      - |
+        Correct. 4.5 is between 3.1 and 4.6, between 4.6 and 4.0, between 4.0 and 5.2, and between 5.2 and 2.8. C is continuous, so the IVT gives a time in each of the four intervals.
+      - |
+        The IVT applies separately on each interval between consecutive table values; one time is far too few.
+    answer: 2
+  - slug: apcalcab-u01-exam-q06
+    type: multiple_choice
+    topic_code: "1.1"
+    source: "AP Calculus CED, Topic 1.1"
+    points: 1
+    stimulus: |
+      The concentration of a nutrient in a hypothetical laboratory culture, C(t) milligrams per litre, is a continuous function of time t, in hours, for 0 ≤ t ≤ 12. Selected values are shown.
+
+      | t (hours) | 0 | 2 | 5 | 9 | 12 |
+      |---|---|---|---|---|---|
+      | C(t) (mg/L) | 3.1 | 4.6 | 4.0 | 5.2 | 2.8 |
+    prompt: |
+      What is the average rate of change of C over 2 ≤ t ≤ 9?
+    options:
+      - "0.6 mg/L per hour"
+      - "4.9 mg/L per hour"
+      - "0.6/7 ≈ 0.086 mg/L per hour"
+      - "7/0.6 ≈ 11.7 mg/L per hour"
+    option_explanations:
+      - |
+        0.6 mg/L is the change in concentration; it must be divided by the 7 hours elapsed.
+      - |
+        4.9 averages the two concentrations, (4.6 + 5.2)/2. A rate of change compares the change in C with the change in t.
+      - |
+        Correct. (C(9) − C(2))/(9 − 2) = (5.2 − 4.6)/7 = 0.6/7 ≈ 0.086 mg/L per hour.
+      - |
+        This inverts the rate, dividing the change in time by the change in concentration.
+    answer: 2
+  - slug: apcalcab-u01-exam-q07
+    type: multiple_choice
+    topic_code: "1.16"
+    source: "AP Calculus CED, Topic 1.16"
+    points: 1
+    stimulus: |
+      The concentration of a nutrient in a hypothetical laboratory culture, C(t) milligrams per litre, is a continuous function of time t, in hours, for 0 ≤ t ≤ 12. Selected values are shown.
+
+      | t (hours) | 0 | 2 | 5 | 9 | 12 |
+      |---|---|---|---|---|---|
+      | C(t) (mg/L) | 3.1 | 4.6 | 4.0 | 5.2 | 2.8 |
+    prompt: |
+      Which statement must be true?
+    options:
+      - "The greatest concentration on 0 ≤ t ≤ 12 is 5.2 mg/L."
+      - "C is increasing on 5 < t < 9."
+      - "C(t) = 2 mg/L at some time in 0 < t < 12."
+      - "C(t) = 5 mg/L at some time in 5 < t < 9."
+    option_explanations:
+      - |
+        The concentration could exceed 5.2 between the listed times; the table only gives five values.
+      - |
+        The IVT says nothing about increasing; C could rise and fall between t = 5 and t = 9.
+      - |
+        2 is below every listed value, so it is not between any two of them; the IVT does not guarantee it.
+      - |
+        Correct. C is continuous on [5, 9] and 5 is between C(5) = 4.0 and C(9) = 5.2, so by the IVT C(c) = 5 for some c in (5, 9).
+    answer: 3
+  # ---- Independent multiple choice
+  - slug: apcalcab-u01-exam-q08
+    type: multiple_choice
+    topic_code: "1.1"
+    source: "AP Calculus CED, Topic 1.1"
+    points: 1
+    prompt: |
+      The position of a particle is s(t) = t² + 1 metres at time t seconds. Which expression gives the particle's velocity at the instant t = 3?
+    options:
+      - "lim (h→0) (s(3 + h) − s(3))/h"
+      - "(s(3) − s(0))/3"
+      - "lim (h→0) (s(3 + h) − s(3))"
+      - "lim (h→0) s(3 + h)/h"
+    option_explanations:
+      - |
+        Correct. This is the limit of average velocities over [3, 3 + h] as the interval shrinks to the instant t = 3 (its value is 6 m/s).
+      - |
+        This is the average velocity over [0, 3], a whole interval, not the instant t = 3.
+      - |
+        Without dividing by h this measures only the change in position, which approaches 0.
+      - |
+        This divides a position, not a change in position, by h; it grows without bound.
+    answer: 0
+  - slug: apcalcab-u01-exam-q09
+    type: multiple_choice
+    topic_code: "1.2"
+    source: "AP Calculus CED, Topic 1.2"
+    points: 1
+    prompt: |
+      What does lim (x→−1⁺) g(x) = 6 mean?
+    options:
+      - "g(−1) = 6"
+      - "As x approaches −1 through values less than −1, g(x) approaches 6."
+      - "As x approaches −1 through values greater than −1, g(x) approaches 6."
+      - "As x approaches 6 from the right, g(x) approaches −1."
+    option_explanations:
+      - |
+        A limit never states the value at −1; g(−1) might be anything or undefined.
+      - |
+        The superscript plus means from the right, through values greater than −1, not less.
+      - |
+        Correct. The right-hand limit describes the outputs as x closes in on −1 from above.
+      - |
+        This swaps the input target −1 and the output target 6.
+    answer: 2
+  - slug: apcalcab-u01-exam-q10
+    type: multiple_choice
+    topic_code: "1.3"
+    source: "AP Calculus CED, Topic 1.3"
+    points: 1
+    prompt: |
+      The graph of a function k has a vertical asymptote at x = 0, with k(x) → −∞ as x → 0⁻ and k(x) → ∞ as x → 0⁺. The graph also passes through an open circle at (2, 3) and has a solid dot at (2, 1). Which statement is true?
+    options:
+      - "lim (x→0) k(x) = ∞"
+      - "lim (x→2) k(x) = 1"
+      - "lim (x→0) k(x) = 0"
+      - "lim (x→2) k(x) = 3"
+    option_explanations:
+      - |
+        The two sides go to −∞ and ∞, so even the description "= ∞" does not fit; the limit does not exist.
+      - |
+        1 is the value k(2), the solid dot; the curve heads to the open circle at height 3.
+      - |
+        The outputs near 0 are unbounded in both directions; they do not approach 0.
+      - |
+        Correct. The curve approaches the open circle at (2, 3) from both sides, so the limit is 3, whatever the solid dot says.
+    answer: 3
+  - slug: apcalcab-u01-exam-q11
+    type: multiple_choice
+    topic_code: "1.4"
+    source: "AP Calculus CED, Topic 1.4"
+    points: 1
+    prompt: |
+      (Calculator.) Evaluate f(x) = (sin x − x)/x³, with x in radians, at x = ±0.1 and ±0.01. Which is the best estimate of lim (x→0) f(x)?
+    options:
+      - "0"
+      - "−0.167"
+      - "1"
+      - "−6"
+    option_explanations:
+      - |
+        The numerator approaches 0, but so does x³; the table values stay near −0.1667, not 0.
+      - |
+        Correct. f(±0.1) ≈ −0.16658 and f(±0.01) ≈ −0.16667 (f is even, so both sides agree). The limit appears to be about −0.167 (exactly −1/6).
+      - |
+        1 is the limit of (sin x)/x, a different expression; here x is subtracted and the result divided by x³.
+      - |
+        −6 is the reciprocal of the estimate −1/6.
+    answer: 1
+  - slug: apcalcab-u01-exam-q12
+    type: multiple_choice
+    topic_code: "1.5"
+    source: "AP Calculus CED, Topic 1.5"
+    points: 1
+    prompt: |
+      Given lim (x→4) f(x) = 9 and lim (x→4) g(x) = −2, what is lim (x→4) [f(x)g(x) + √(f(x))]?
+    options:
+      - "−21"
+      - "−18"
+      - "3"
+      - "−15"
+    option_explanations:
+      - |
+        −21 subtracts √9 = 3 from the product −18 instead of adding it.
+      - |
+        −18 is only the product term; the √(f(x)) term adds √9 = 3.
+      - |
+        3 is only the root term; the product term contributes 9(−2) = −18.
+      - |
+        Correct. By the product, root and sum properties: 9(−2) + √9 = −18 + 3 = −15.
+    answer: 3
+  - slug: apcalcab-u01-exam-q13
+    type: multiple_choice
+    topic_code: "1.6"
+    source: "AP Calculus CED, Topic 1.6"
+    points: 1
+    prompt: |
+      What is lim (x→5) (x² − 25)/(x² − 4x − 5)?
+    options:
+      - "5/3"
+      - "1"
+      - "0"
+      - "The limit does not exist."
+    option_explanations:
+      - |
+        Correct. (x − 5)(x + 5)/((x − 5)(x + 1)) = (x + 5)/(x + 1) for x ≠ 5, which approaches 10/6 = 5/3.
+      - |
+        1 is the ratio of leading coefficients, the limit as x → ∞, not as x → 5.
+      - |
+        Substitution gives 0/0, which is indeterminate, not 0.
+      - |
+        The shared factor x − 5 cancels, leaving an expression with a nonzero denominator at 5, so the limit exists.
+    answer: 0
+  - slug: apcalcab-u01-exam-q14
+    type: multiple_choice
+    topic_code: "1.6"
+    source: "AP Calculus CED, Topic 1.6"
+    points: 1
+    prompt: |
+      What is lim (x→−3) (1/x + 1/3)/(x + 3)?
+    options:
+      - "1/9"
+      - "−1/9"
+      - "−1/3"
+      - "0"
+    option_explanations:
+      - |
+        1/9 loses the sign: after simplifying, the expression is 1/(3x), which is negative near x = −3.
+      - |
+        Correct. 1/x + 1/3 = (3 + x)/(3x). Dividing by x + 3 leaves 1/(3x) for x ≠ −3, which approaches 1/(3(−3)) = −1/9.
+      - |
+        −1/3 is 1/x at x = −3 alone, forgetting the factor 3 in the common denominator 3x.
+      - |
+        Substitution gives 0/0, which is indeterminate, not 0.
+    answer: 1
+  - slug: apcalcab-u01-exam-q15
+    type: multiple_choice
+    topic_code: "1.6"
+    source: "AP Calculus CED, Topic 1.6"
+    points: 1
+    prompt: |
+      What is lim (x→0) sin²(3x)/x²?
+    options:
+      - "9"
+      - "1"
+      - "3"
+      - "1/9"
+    option_explanations:
+      - |
+        Correct. sin²(3x)/x² = (sin(3x)/x)² = (3 · sin(3x)/(3x))², which approaches (3 · 1)² = 9.
+      - |
+        1 ignores the 3 inside the sine; the angle and the denominator must match.
+      - |
+        3 is the limit of sin(3x)/x; the expression is that quotient squared.
+      - |
+        1/9 puts the factor 3 in the denominator instead of the numerator.
+    answer: 0
+  - slug: apcalcab-u01-exam-q16
+    type: multiple_choice
+    topic_code: "1.7"
+    source: "AP Calculus CED, Topic 1.7"
+    points: 1
+    prompt: |
+      Substituting x = 2 into (x² + 4)/(x − 2)² gives 8/0. What is lim (x→2) (x² + 4)/(x − 2)²?
+    options:
+      - "∞"
+      - "−∞"
+      - "It does not exist, because the one-sided limits have opposite signs."
+      - "2"
+    option_explanations:
+      - |
+        Correct. The numerator approaches 8 > 0 and (x − 2)² is a small positive number on both sides of 2, so the quotient grows without bound from both sides.
+      - |
+        Both the numerator and the squared denominator are positive near 2, so the quotient is positive.
+      - |
+        A squared denominator is positive on both sides, so the one-sided limits are both ∞.
+      - |
+        2 is the input; a nonzero number over a denominator approaching 0 gives an unbounded quotient.
+    answer: 0
+  - slug: apcalcab-u01-exam-q17
+    type: multiple_choice
+    topic_code: "1.8"
+    source: "AP Calculus CED, Topic 1.8"
+    points: 1
+    prompt: |
+      A function f satisfies |f(x) − 4| ≤ 2|x − 1| for all x. What is lim (x→1) f(x)?
+    options:
+      - "2"
+      - "4"
+      - "0"
+      - "It cannot be determined without a formula for f."
+    option_explanations:
+      - |
+        2 is the coefficient in the bound, not the value f approaches.
+      - |
+        Correct. The inequality means 4 − 2|x − 1| ≤ f(x) ≤ 4 + 2|x − 1|. Both bounds approach 4 as x → 1, so by the squeeze theorem lim (x→1) f(x) = 4.
+      - |
+        0 is the limit of the difference |f(x) − 4|, not of f(x).
+      - |
+        The squeeze theorem needs only the bounds, and these bounds share the limit 4.
+    answer: 1
+  - slug: apcalcab-u01-exam-q18
+    type: multiple_choice
+    topic_code: "1.9"
+    source: "AP Calculus CED, Topic 1.9"
+    points: 1
+    prompt: |
+      Which description matches the graph of y = (x² + x − 12)/(x − 3)?
+    options:
+      - "The line y = x + 4 with a vertical asymptote at x = 3"
+      - "The line y = x − 4 with a hole at (3, −1)"
+      - "The line y = x + 4 with a hole at (3, 7)"
+      - "The line y = x + 4, including the point (3, 7)"
+    option_explanations:
+      - |
+        The factor x − 3 cancels completely, so the outputs stay bounded near 3; there is a hole, not an asymptote.
+      - |
+        This factors x² + x − 12 with the wrong signs; it is (x − 3)(x + 4), not (x + 3)(x − 4).
+      - |
+        Correct. (x − 3)(x + 4)/(x − 3) = x + 4 for x ≠ 3, and the function is undefined at 3, so the graph is the line with the point (3, 7) missing.
+      - |
+        The original expression is undefined at x = 3 (division by 0), so (3, 7) is not on the graph.
+    answer: 2
+  - slug: apcalcab-u01-exam-q19
+    type: multiple_choice
+    topic_code: "1.10"
+    source: "AP Calculus CED, Topic 1.10"
+    points: 1
+    prompt: |
+      Which function has a jump discontinuity at x = 2?
+    options:
+      - "y = (x² − 4)/(x − 2)"
+      - "y = 1/(x − 2)"
+      - "y = |x − 2|"
+      - "y = |x − 2|/(x − 2)"
+    option_explanations:
+      - |
+        This equals x + 2 for x ≠ 2, with limit 4: a removable discontinuity.
+      - |
+        This is unbounded near 2: an infinite discontinuity.
+      - |
+        |x − 2| is continuous everywhere; its corner at 2 is not a break.
+      - |
+        Correct. For x < 2 the quotient is −1 and for x > 2 it is 1: finite, unequal one-sided limits.
+    answer: 3
+  - slug: apcalcab-u01-exam-q20
+    type: multiple_choice
+    topic_code: "1.11"
+    source: "AP Calculus CED, Topic 1.11"
+    points: 1
+    prompt: |
+      Which pair of facts guarantees that f is continuous at x = 3?
+    options:
+      - "f(3) = 4 and lim (x→3⁻) f(x) = 4"
+      - "f(3) = 4 and lim (x→3) f(x) = 4"
+      - "lim (x→3⁻) f(x) = lim (x→3⁺) f(x)"
+      - "f(3) is defined, and the graph of f has no vertical asymptote at x = 3."
+    option_explanations:
+      - |
+        The right-hand limit is unknown; f could jump on the right side of 3.
+      - |
+        Correct. The value exists, the limit exists, and they are equal: lim (x→3) f(x) = f(3).
+      - |
+        Equal one-sided limits give a limit, but f(3) might be undefined or different from it.
+      - |
+        This still allows a jump or a misplaced point at x = 3.
+    answer: 1
+  - slug: apcalcab-u01-exam-q21
+    type: multiple_choice
+    topic_code: "1.12"
+    source: "AP Calculus CED, Topic 1.12"
+    points: 1
+    prompt: |
+      On which interval is f(x) = ln(4 − x²) continuous?
+    options:
+      - "[−2, 2]"
+      - "(−∞, 2)"
+      - "(−2, 2)"
+      - "All real numbers"
+    option_explanations:
+      - |
+        At x = ±2 the argument 4 − x² is 0, and ln 0 is undefined, so the endpoints are excluded.
+      - |
+        For x ≤ −2 the argument 4 − x² is zero or negative, so ln is undefined there.
+      - |
+        Correct. A logarithm is continuous on its domain; 4 − x² > 0 exactly when −2 < x < 2.
+      - |
+        ln needs a positive input, which fails whenever |x| ≥ 2.
+    answer: 2
+  - slug: apcalcab-u01-exam-q22
+    type: multiple_choice
+    topic_code: "1.12"
+    source: "AP Calculus CED, Topic 1.12"
+    points: 1
+    prompt: |
+      At which values of x is f(x) = (x − 1)/(x² + 2x − 3) not continuous?
+    options:
+      - "x = −3 and x = 1"
+      - "x = −3 only"
+      - "x = 1 only"
+      - "x = 3 and x = −1"
+    option_explanations:
+      - |
+        Correct. The denominator (x + 3)(x − 1) is 0 at x = −3 and x = 1, so f is undefined, and not continuous, at both (a hole at 1 and an asymptote at −3).
+      - |
+        Cancelling x − 1 removes the asymptote at 1 but not the fact that f(1) is undefined; f is still discontinuous there.
+      - |
+        At x = −3 the denominator is 0 and the numerator is −4, an infinite discontinuity.
+      - |
+        This factors x² + 2x − 3 with the wrong signs; it is (x + 3)(x − 1).
+    answer: 0
+  - slug: apcalcab-u01-exam-q23
+    type: multiple_choice
+    topic_code: "1.13"
+    source: "AP Calculus CED, Topic 1.13"
+    points: 1
+    prompt: |
+      Let f(x) = x² + kx for x < 3 and f(x) = 2x + k for x ≥ 3. For what value of k is f continuous at x = 3?
+    options:
+      - "3/2"
+      - "−3"
+      - "−3/4"
+      - "−3/2"
+    option_explanations:
+      - |
+        3/2 has the sign reversed: 9 + 3k = 6 + k gives 2k = −3.
+      - |
+        −3 comes from treating the right piece as 2x + 2k, so that 9 + 3k = 6 + 2k; the right piece is 2x + k.
+      - |
+        −3/4 is a sign slip, solving 9 + 3k = 6 − k (so 4k = −3); the right piece adds k.
+      - |
+        Correct. Left-hand limit 9 + 3k; right-hand limit and value 6 + k. Setting 9 + 3k = 6 + k gives k = −3/2 (both sides equal 4.5).
+    answer: 3
+  - slug: apcalcab-u01-exam-q24
+    type: multiple_choice
+    topic_code: "1.13"
+    source: "AP Calculus CED, Topic 1.13"
+    points: 1
+    prompt: |
+      Let g(x) = (x³ − 27)/(x − 3) for x ≠ 3. What value of g(3) makes g continuous at x = 3?
+    options:
+      - "9"
+      - "27"
+      - "0"
+      - "3"
+    option_explanations:
+      - |
+        9 is x² at x = 3, only the first term of the quotient x² + 3x + 9.
+      - |
+        Correct. Difference of cubes: (x − 3)(x² + 3x + 9)/(x − 3) = x² + 3x + 9 for x ≠ 3, which approaches 9 + 9 + 9 = 27.
+      - |
+        0 is the numerator's value at 3; the 0/0 form has to be simplified first.
+      - |
+        3 is the input, not the limit of the outputs.
+    answer: 1
+  - slug: apcalcab-u01-exam-q25
+    type: multiple_choice
+    topic_code: "1.14"
+    source: "AP Calculus CED, Topic 1.14"
+    points: 1
+    prompt: |
+      Which lines are vertical asymptotes of the graph of y = (x + 1)/(x² − 1)?
+    options:
+      - "x = 1 and x = −1"
+      - "x = −1 only"
+      - "x = 1 only"
+      - "y = 0"
+    option_explanations:
+      - |
+        At x = −1 the factor x + 1 cancels completely, giving a hole, not an asymptote.
+      - |
+        x = −1 is the hole. The remaining denominator factor x − 1 gives the asymptote.
+      - |
+        Correct. (x + 1)/((x − 1)(x + 1)) = 1/(x − 1) for x ≠ −1, so the only vertical asymptote is x = 1.
+      - |
+        y = 0 is the horizontal asymptote; the question asks about vertical ones.
+    answer: 2
+  - slug: apcalcab-u01-exam-q26
+    type: multiple_choice
+    topic_code: "1.15"
+    source: "AP Calculus CED, Topic 1.15"
+    points: 1
+    prompt: |
+      Which lines are horizontal asymptotes of the graph of y = (2eˣ − 3)/(eˣ + 5)?
+    options:
+      - "y = 2 only"
+      - "y = 2 and y = −3/5"
+      - "y = −3/5 only"
+      - "y = 2 and y = 0"
+    option_explanations:
+      - |
+        This misses the left end: as x → −∞, eˣ → 0 and the quotient approaches −3/5.
+      - |
+        Correct. As x → ∞, divide by eˣ: (2 − 3e⁻ˣ)/(1 + 5e⁻ˣ) → 2. As x → −∞, eˣ → 0, so the quotient → −3/5.
+      - |
+        This misses the right end, where the eˣ terms dominate and the quotient approaches 2.
+      - |
+        0 is the limit of eˣ alone as x → −∞; the whole quotient approaches −3/5.
+    answer: 1
+  - slug: apcalcab-u01-exam-q27
+    type: multiple_choice
+    topic_code: "1.15"
+    source: "AP Calculus CED, Topic 1.15"
+    points: 1
+    prompt: |
+      What is lim (x→∞) √(16x⁴ + x)/(2x² − 1)?
+    options:
+      - "2"
+      - "8"
+      - "∞"
+      - "4"
+    option_explanations:
+      - |
+        Correct. For large x, √(16x⁴ + x) = x²√(16 + 1/x³), so the quotient is √(16 + 1/x³)/(2 − 1/x²) → 4/2 = 2.
+      - |
+        8 uses 16 instead of √16 = 4 for the numerator's leading behaviour.
+      - |
+        √(16x⁴) = 4x² has the same degree as 2x², so the quotient stays bounded.
+      - |
+        4 is √16, forgetting to divide by the leading coefficient 2 of the denominator.
+    answer: 0
+  - slug: apcalcab-u01-exam-q28
+    type: multiple_choice
+    topic_code: "1.16"
+    source: "AP Calculus CED, Topic 1.16"
+    points: 1
+    prompt: |
+      Let f(x) = x³ − 4x + 1. On which interval does the Intermediate Value Theorem guarantee a zero of f?
+    options:
+      - "(−1, 0)"
+      - "(2, 3)"
+      - "(3, 4)"
+      - "(0, 1)"
+    option_explanations:
+      - |
+        f(−1) = 4 and f(0) = 1 are both positive, so no sign change is guaranteed.
+      - |
+        f(2) = 1 and f(3) = 16 are both positive.
+      - |
+        f(3) = 16 and f(4) = 49 are both positive.
+      - |
+        Correct. f is a polynomial, so it is continuous on [0, 1], and f(0) = 1 > 0 > −2 = f(1). By the IVT, f(c) = 0 for some c in (0, 1).
+    answer: 3
+  # ---- Select all that apply
+  - slug: apcalcab-u01-exam-q29
+    type: multi_select
+    topic_code: "1.14"
+    source: "AP Calculus CED, Topic 1.14"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Let g(x) = (x² − x − 6)/(x² − 9). Which statements are true? Select all that apply.
+    options:
+      - "The graph of g has a hole at x = 3."
+      - "The line x = 3 is a vertical asymptote of the graph of g."
+      - "lim (x→−3⁺) g(x) = −∞"
+      - "The line y = 1 is a horizontal asymptote of the graph of g."
+      - "lim (x→3) g(x) = 1"
+    option_explanations:
+      - |
+        Correct. g(x) = (x − 3)(x + 2)/((x − 3)(x + 3)); the factor x − 3 cancels completely.
+      - |
+        The factor x − 3 cancels, so x = 3 is a hole, not an asymptote.
+      - |
+        Correct. Near −3, g(x) = (x + 2)/(x + 3): the numerator approaches −1 and, for x slightly greater than −3, the denominator is a small positive number, so the quotient → −∞.
+      - |
+        Correct. Equal degrees with leading coefficients 1 and 1: the limit at ±∞ is 1.
+      - |
+        After cancelling, (x + 2)/(x + 3) at x = 3 is 5/6, not 1.
+    answer: [0, 2, 3]
+  - slug: apcalcab-u01-exam-q30
+    type: multi_select
+    topic_code: "1.16"
+    source: "AP Calculus CED, Topic 1.16"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A function f is continuous on [1, 4], with f(1) = −3 and f(4) = 6. Which statements must be true? Select all that apply.
+    options:
+      - "f(c) = 0 for some c in (1, 4)."
+      - "f(c) = 5 for some c in (1, 4)."
+      - "f(c) = 7 for some c in (1, 4)."
+      - "f is increasing on [1, 4]."
+      - "lim (x→2) f(x) = f(2)"
+    option_explanations:
+      - |
+        Correct. 0 is between −3 and 6, so the IVT applies.
+      - |
+        Correct. 5 is between −3 and 6, so the IVT applies.
+      - |
+        7 is not between −3 and 6; f might reach 7, but nothing guarantees it.
+      - |
+        Endpoint values say nothing about the behaviour in between; f could dip and rise.
+      - |
+        Correct. f is continuous at every point of [1, 4], including x = 2, and that is exactly what this equation says.
+    answer: [0, 1, 4]
+  - slug: apcalcab-u01-exam-q31
+    type: multi_select
+    topic_code: "1.15"
+    source: "AP Calculus CED, Topic 1.15"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of these limits at infinity equal 0? Select all that apply.
+    options:
+      - "lim (x→∞) (ln x)/x"
+      - "lim (x→−∞) eˣ"
+      - "lim (x→∞) (x² + 1)/(x + 1)"
+      - "lim (x→∞) (cos x)/x"
+      - "lim (x→∞) 3x/(x + 2)"
+    option_explanations:
+      - |
+        Correct. ln x grows more slowly than any positive power of x, so the quotient approaches 0.
+      - |
+        Correct. As x → −∞, eˣ = 1/e^(−x) approaches 0.
+      - |
+        The numerator has the higher degree, so the quotient grows without bound.
+      - |
+        Correct. −1/x ≤ (cos x)/x ≤ 1/x for x > 0, and both bounds approach 0 (squeeze theorem).
+      - |
+        Equal degrees: the limit is the ratio of leading coefficients, 3/1 = 3, not 0.
+    answer: [0, 1, 3]
+  # ---- True or false
+  - slug: apcalcab-u01-exam-q32
+    type: true_false
+    topic_code: "1.2"
+    source: "AP Calculus CED, Topic 1.2"
+    points: 1
+    prompt: |
+      True or false: If lim (x→c⁻) f(x) and lim (x→c⁺) f(x) both exist, then lim (x→c) f(x) exists.
+    answer: false
+    explanation: |
+      False. Both one-sided limits must exist and be equal. At a jump, such as |x|/x at 0, the one-sided limits −1 and 1 exist but differ, so the limit does not exist.
+  - slug: apcalcab-u01-exam-q33
+    type: true_false
+    topic_code: "1.8"
+    source: "AP Calculus CED, Topic 1.8"
+    points: 1
+    prompt: |
+      True or false: If g(x) ≤ f(x) ≤ h(x) for all x near c, and lim (x→c) g(x) = lim (x→c) h(x) = 2, then lim (x→c) f(x) = 2.
+    answer: true
+    explanation: |
+      True. This is the squeeze theorem: f is trapped between two functions that both approach 2, so f approaches 2 as well.
+  - slug: apcalcab-u01-exam-q34
+    type: true_false
+    topic_code: "1.15"
+    source: "AP Calculus CED, Topic 1.15"
+    points: 1
+    prompt: |
+      True or false: The graph of a function can cross one of its horizontal asymptotes.
+    answer: true
+    explanation: |
+      True. A horizontal asymptote describes behaviour as x → ±∞ only. For example y = x/(x² + 1) has horizontal asymptote y = 0 and crosses it at x = 0; (sin x)/x crosses y = 0 infinitely often.
+  # ---- Fill in the blank
+  - slug: apcalcab-u01-exam-q35
+    type: fill_blank
+    topic_code: "1.6"
+    source: "AP Calculus CED, Topic 1.6"
+    points: 1
+    prompt: |
+      lim (x→0) (tan x)/(5x) = ____.
+    answer: ["1/5", "0.2", ".2"]
+    explanation: |
+      (tan x)/(5x) = (1/5) · (sin x/x) · (1/cos x), which approaches (1/5)(1)(1) = 1/5.
+  - slug: apcalcab-u01-exam-q36
+    type: fill_blank
+    topic_code: "1.13"
+    source: "AP Calculus CED, Topic 1.13"
+    points: 1
+    prompt: |
+      Let f(x) = (x² − 2x − 8)/(x − 4) for x ≠ 4. f is continuous at x = 4 if f(4) is defined to be ____.
+    answer: ["6"]
+    explanation: |
+      (x − 4)(x + 2)/(x − 4) = x + 2 for x ≠ 4, which approaches 6. Defining f(4) = 6 makes the limit equal the value.
+  - slug: apcalcab-u01-exam-q37
+    type: fill_blank
+    topic_code: "1.15"
+    source: "AP Calculus CED, Topic 1.15"
+    points: 1
+    prompt: |
+      lim (x→∞) (7 − 3x)/(2x + 9) = ____.
+    answer: ["-3/2", "−3/2", "-1.5", "−1.5"]
+    explanation: |
+      Equal degrees: divide by x to get (7/x − 3)/(2 + 9/x), which approaches −3/2.
+  - slug: apcalcab-u01-exam-q38
+    type: fill_blank
+    topic_code: "1.1"
+    source: "AP Calculus CED, Topic 1.1"
+    points: 1
+    prompt: |
+      A particle's position is s(t) = t³ − t metres at time t seconds. Its average velocity over the interval [1, 3] is ____ metres per second.
+    answer: ["12"]
+    explanation: |
+      s(3) = 27 − 3 = 24 and s(1) = 1 − 1 = 0, so the average velocity is (24 − 0)/(3 − 1) = 12 m/s.
+  # ---- Numeric
+  - slug: apcalcab-u01-exam-q39
+    type: numeric
+    topic_code: "1.4"
+    source: "AP Calculus CED, Topic 1.4"
+    points: 1
+    prompt: |
+      (Calculator.) Make a table of values of (5ˣ − 1)/x for x approaching 0 from both sides, and use it to estimate lim (x→0) (5ˣ − 1)/x to three decimal places.
+    answer: { value: 1.609, tolerance: 0.002 }
+    explanation: |
+      At x = −0.001 the value is about 1.6081 and at x = 0.001 about 1.6107; with x = ±0.0001 the values are about 1.6093 and 1.6096. The limit is about 1.609 (exactly ln 5 ≈ 1.6094).
+  - slug: apcalcab-u01-exam-q40
+    type: numeric
+    topic_code: "1.5"
+    source: "AP Calculus CED, Topic 1.5"
+    points: 1
+    prompt: |
+      Given lim (x→1) f(x) = 4 and lim (x→1) g(x) = −2, find lim (x→1) [(f(x))² − 3g(x)].
+    answer: { value: 22, tolerance: 0 }
+    explanation: |
+      By the power, constant multiple and difference properties: 4² − 3(−2) = 16 + 6 = 22.
+  - slug: apcalcab-u01-exam-q41
+    type: numeric
+    topic_code: "1.16"
+    source: "AP Calculus CED, Topic 1.16"
+    points: 1
+    prompt: |
+      A function f is continuous on [0, 6], with the values below.
+
+      | x | 0 | 1 | 3 | 4 | 6 |
+      |---|---|---|---|---|---|
+      | f(x) | 2 | −1 | −3 | 1 | −2 |
+
+      What is the least number of zeros f must have on (0, 6)?
+    answer: { value: 3, tolerance: 0 }
+    explanation: |
+      f changes sign on [0, 1] (2 to −1), on [3, 4] (−3 to 1) and on [4, 6] (1 to −2). f is continuous, so the IVT gives a zero in each of these three intervals. On [1, 3] both values are negative, so no zero is guaranteed there.
+  # ---- Short answer
+  - slug: apcalcab-u01-exam-q42
+    type: short_answer
+    topic_code: "1.9"
+    source: "AP Calculus CED, Topic 1.9"
+    points: 3
+    prompt: |
+      Let h(x) = (x³ − 2x² − 3x)/(x − 3).
+
+      (a) Complete the table of values of h, exactly.
+
+      | x | 2.9 | 2.99 | 3.01 | 3.1 |
+      |---|---|---|---|---|
+      | h(x) | | | | |
+
+      (b) Find lim (x→3) h(x) algebraically, and say whether the table supports your answer.
+      (c) Describe the graph of h near x = 3.
+    answer: |
+      (a) For x ≠ 3, h(x) = x(x − 3)(x + 1)/(x − 3) = x² + x. Values: 11.31, 11.9301, 12.0701, 12.71.
+      (b) lim (x→3) h(x) = lim (x→3) (x² + x) = 9 + 3 = 12. The table supports it: the outputs approach 12 from below on the left and from above on the right.
+      (c) The graph is the parabola y = x² + x with a hole at (3, 12), because h(3) is undefined.
+    explanation: |
+      Three points, one per part. (a) all four values (from the simplified form or direct computation). (b) the limit 12 by factoring, with the table comparison. (c) a hole at (3, 12), both coordinates, on the parabola y = x² + x.
+  - slug: apcalcab-u01-exam-q43
+    type: short_answer
+    topic_code: "1.13"
+    source: "AP Calculus CED, Topic 1.13"
+    points: 3
+    prompt: |
+      Let a and b be constants, and let
+
+      f(x) = ax + 2 for x < 1,
+      f(x) = x² + b for 1 ≤ x ≤ 3,
+      f(x) = 4x − a for x > 3.
+
+      (a) Write the equation that a and b must satisfy for f to be continuous at x = 1.
+      (b) Write the equation that a and b must satisfy for f to be continuous at x = 3.
+      (c) Find a and b, and verify that f is then continuous at both break points.
+    answer: |
+      (a) lim (x→1⁻) f(x) = a + 2 must equal f(1) = 1 + b: a + 2 = 1 + b.
+      (b) f(3) = 9 + b must equal lim (x→3⁺) f(x) = 12 − a: 9 + b = 12 − a.
+      (c) From (a), b = a + 1; substituting into (b), 9 + a + 1 = 12 − a, so 2a = 2, a = 1 and b = 2. Check: at x = 1 both sides equal 3 and f(1) = 3; at x = 3 both sides equal 11 and f(3) = 11.
+    explanation: |
+      Three points, one per part. (a) a + 2 = 1 + b. (b) 9 + b = 12 − a. (c) a = 1 and b = 2 with both break points checked.
+  # ---- Free response
+  - slug: apcalcab-u01-exam-q44
+    type: long_answer
+    topic_code: "1.14"
+    source: "AP Calculus CED, Topic 1.14"
+    points: 9
+    prompt: |
+      No calculator is allowed for this question.
+
+      Let g be the function defined by g(x) = (2x² − 8)/(x² − 3x + 2).
+
+      (A) Find the values of x at which g is not continuous. Justify your answer.
+
+      (B) Find lim (x→2) g(x). Classify the discontinuity of g at x = 2, and state how g(2) could be defined to remove it.
+
+      (C) Find lim (x→1⁻) g(x) and lim (x→1⁺) g(x). Classify the discontinuity of g at x = 1.
+
+      (D) Find lim (x→∞) g(x) and lim (x→−∞) g(x), and give the equation of each horizontal asymptote of the graph of g.
+
+      (E) g(0) = −4 and g(3) = 5. A student says, "By the Intermediate Value Theorem, g has a zero in the interval (0, 3)." Explain why the theorem does not support this claim, and show that g in fact has no zero in (0, 3).
+
+      (F) Use the Intermediate Value Theorem to show that g has a zero in the interval (−3, −1).
+    answer: |
+      (A) g is a rational function, continuous on its domain. The denominator x² − 3x + 2 = (x − 1)(x − 2) is 0 at x = 1 and x = 2, so g is not continuous at x = 1 and x = 2 only.
+      (B) g(x) = 2(x − 2)(x + 2)/((x − 1)(x − 2)) = 2(x + 2)/(x − 1) for x ≠ 2. lim (x→2) g(x) = 2(4)/1 = 8. The limit exists but g(2) is undefined: removable. Defining g(2) = 8 removes it.
+      (C) Near x = 1, g(x) = 2(x + 2)/(x − 1); the numerator approaches 6 > 0. For x slightly less than 1, x − 1 < 0, so lim (x→1⁻) g(x) = −∞; for x slightly greater, lim (x→1⁺) g(x) = ∞. Infinite discontinuity (vertical asymptote x = 1).
+      (D) Equal degrees with leading coefficients 2 and 1: lim (x→∞) g(x) = lim (x→−∞) g(x) = 2. One horizontal asymptote, y = 2.
+      (E) The IVT requires g to be continuous on [0, 3], but g is not continuous at x = 1 or x = 2, which lie in that interval, so the theorem does not apply. The zeros of g come from 2(x + 2) = 0 with x ≠ 1, 2, so the only zero is x = −2, which is not in (0, 3).
+      (F) g(−3) = 2(−1)/(−4) = 1/2 and g(−1) = 2(1)/(−2) = −1. g has no discontinuities in [−3, −1], so it is continuous there, and −1 < 0 < 1/2. By the IVT there is c in (−3, −1) with g(c) = 0 (it is c = −2).
+    explanation: |
+      Nine points.
+      (A) 1 point: x = 1 and x = 2 with the reason (denominator 0; a rational function is continuous elsewhere on its domain).
+      (B) 2 points: 1 for the limit 8 via cancellation; 1 for "removable" together with defining g(2) = 8.
+      (C) 2 points: 1 for both one-sided limits with correct signs, supported by sign analysis; 1 for "infinite" (or "vertical asymptote x = 1").
+      (D) 1 point: both limits equal 2 and the asymptote y = 2.
+      (E) 2 points: 1 for identifying the failed hypothesis (g not continuous on [0, 3], naming x = 1 or x = 2); 1 for showing the only zero is x = −2.
+      (F) 1 point: g(−3) = 1/2 and g(−1) = −1, continuity on [−3, −1] stated, and the IVT conclusion. A conclusion without the continuity statement earns no point.
+  - slug: apcalcab-u01-exam-q45
+    type: long_answer
+    topic_code: "1.16"
+    source: "AP Calculus CED, Topic 1.16"
+    points: 9
+    prompt: |
+      (Calculator.) A graphing calculator is required for this question.
+
+      Hypothetical model: water in an insulated tank cools after a pump stops, and a heater switches on 10 minutes later. The water temperature, in degrees Celsius, t minutes after the pump stops is
+
+      H(t) = 20 + 60e^(−0.15t) for 0 ≤ t ≤ 10,
+      H(t) = a + 2.5(t − 10) for 10 < t ≤ 20,
+
+      where a is a constant.
+
+      (A) Find H(0) and interpret it in context.
+
+      (B) Find the value of a for which H is continuous at t = 10. Justify your answer using one-sided limits. Give a to three decimal places.
+
+      (C) Explain why there must be a time t in (0, 10) at which the water temperature is 40 °C.
+
+      (D) Find the average rate of change of H over 0 ≤ t ≤ 10, with units. Then estimate the rate at which the temperature is changing at the instant t = 5, using average rates of change over [4.99, 5.01]. Give both answers to three decimal places.
+
+      (E) Suppose instead that the heater never switches on, so that the temperature is W(t) = 20 + 60e^(−0.15t) for all t ≥ 0. Find lim (t→∞) W(t) and explain what it means for the water.
+    answer: |
+      (A) H(0) = 20 + 60 = 80. The water is at 80 °C when the pump stops.
+      (B) lim (t→10⁻) H(t) = H(10) = 20 + 60e^(−1.5) ≈ 33.388. lim (t→10⁺) H(t) = a + 2.5(0) = a. For continuity at 10 these must be equal, so a = 20 + 60e^(−1.5) ≈ 33.388.
+      (C) On [0, 10], H(t) = 20 + 60e^(−0.15t) is a sum of a constant and a multiple of an exponential, so it is continuous. H(0) = 80 and H(10) ≈ 33.388, and 33.388 < 40 < 80. By the Intermediate Value Theorem, H(c) = 40 for some c in (0, 10).
+      (D) (H(10) − H(0))/(10 − 0) ≈ (33.388 − 80)/10 ≈ −4.661 °C per minute. (H(5.01) − H(4.99))/0.02 ≈ −4.251, so at t = 5 the temperature is decreasing at about 4.251 °C per minute.
+      (E) As t → ∞, e^(−0.15t) → 0, so lim (t→∞) W(t) = 20. Without the heater the water temperature would approach 20 °C (the room temperature in this model), getting ever closer but never dropping below it.
+    explanation: |
+      Nine points.
+      (A) 1 point: 80 with the interpretation (temperature in °C when the pump stops).
+      (B) 2 points: 1 for both one-sided limits (left ≈ 33.388, right = a); 1 for a ≈ 33.388 with the statement that the one-sided limits must be equal (and equal H(10)). Accept 33.387 or 33.388.
+      (C) 2 points: 1 for continuity of H on [0, 10] with a reason; 1 for H(0) = 80, H(10) ≈ 33.388, 40 between them, and the IVT conclusion.
+      (D) 2 points: 1 for −4.661 °C per minute (units required); 1 for −4.251 (accept −4.25 to −4.252) as the estimate of the instantaneous rate, with "decreasing" or the negative sign.
+      (E) 2 points: 1 for the limit 20; 1 for the interpretation in context (the temperature approaches 20 °C in the long run).

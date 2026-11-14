@@ -1,0 +1,648 @@
+week: 28
+unit: 7
+title: "Reasoning with Slope Fields and Separation of Variables"
+topics: ["7.4", "7.6", "7.7"]
+guide: guides/week-28.md
+guide_description: |
+  Reading solution behaviour from a slope field (tracing a curve through a point, equilibrium lines that solutions
+  cannot cross, long-run limits, concavity from d²y/dx²), solving separable differential equations by separating,
+  integrating both sides and including one constant, handling ln|y| and the sign of the constant when
+  exponentiating, and using an initial condition to choose the constant, the square-root branch and the domain of
+  a particular solution. Worked examples: solution curves of dy/dx = x + y and dy/dx = 2 − y, the general
+  solutions of dy/dx = x/y and dy/dx = 3x²y, and the particular solutions of dy/dx = x/y with y(1) = −2,
+  dy/dx = 2xy² with y(0) = 1 (defined only on −1 < x < 1) and dy/dx = e^(x − y) with y(0) = ln 2.
+flashcards_description: |
+  31 cards on sketching and reasoning about solution curves from slope fields, separable equations, the steps of
+  separation of variables, absolute values and the sign of the constant, lost equilibrium solutions, choosing the
+  branch from an initial condition, and finding the domain of a particular solution.
+
+flashcards:
+  - front: Solution curve through a point in a slope field → how to sketch it
+    back: |
+      Start at the point and follow the segments, staying tangent to them; never cut across them. Extend in both directions as far as the field allows.
+    topic_code: "7.4"
+  - front: Equilibrium line in a slope field (e.g. y = 2 for dy/dx = 2 − y) → can a solution cross it?
+    back: |
+      No. For these equations, a solution that starts off the line never reaches or crosses it; it may approach it. A solution that starts on it stays on it.
+    topic_code: "7.4"
+  - front: dy/dx = 2 − y, solution with y(0) = 7 → long-run behaviour
+    back: |
+      Slopes are negative above y = 2 and flatten as y nears 2, so the solution decreases toward 2: lim (x→∞) y = 2.
+    topic_code: "7.4"
+  - front: dy/dx = 2 − y, solution with y(0) = −1 → long-run behaviour
+    back: |
+      Slopes are positive below y = 2, so the solution increases toward 2 from below, never reaching it.
+    topic_code: "7.4"
+  - front: dy/dx = x + y → straight-line solution
+    back: |
+      y = −x − 1: along it the slope is x + (−x − 1) = −1, the line's own slope.
+    topic_code: "7.4"
+  - front: Concavity of a solution of dy/dx = x + y at (1, −3) → method and result
+    back: |
+      d²y/dx² = 1 + dy/dx = 1 + x + y. At (1, −3): dy/dx = −2 and d²y/dx² = −1, so the solution is decreasing and concave down there.
+    topic_code: "7.4"
+  - front: Relative extremum of a solution curve from its differential equation → test
+    back: |
+      Need dy/dx = 0 at the point. Then d²y/dx² > 0 there means a relative minimum and d²y/dx² < 0 a relative maximum (second derivative test).
+    topic_code: "7.4"
+  - front: dy/dx = (y − 1)cos x, solution through (0, 0.5) → where it stays
+    back: |
+      Below y = 1 for all x: y = 1 is an equilibrium solution and other solutions cannot cross it. (It oscillates and never approaches 1.)
+    topic_code: "7.4"
+  - front: Separable differential equation → definition
+    back: |
+      One that can be written dy/dx = g(x) · h(y), a function of x times a function of y. Then dy/h(y) = g(x) dx.
+    topic_code: "7.6"
+  - front: dy/dx = x + y → separable?
+    back: |
+      No. A sum x + y cannot be written as g(x) · h(y), so the variables cannot be separated.
+    topic_code: "7.6"
+  - front: dy/dx = x²y − y → separable?
+    back: |
+      Yes: factor to y(x² − 1), so dy/y = (x² − 1) dx.
+    topic_code: "7.6"
+  - front: Separation of variables → the four steps
+    back: |
+      (1) Separate: all y with dy, all x with dx. (2) Integrate both sides. (3) Add one constant C, immediately. (4) Use an initial condition if given, then solve for y.
+    topic_code: "7.6"
+  - front: Why only one constant of integration in separation of variables
+    back: |
+      Constants from both sides combine: ∫ … dy + C₁ = ∫ … dx + C₂ is the same as one C = C₂ − C₁ on the x side.
+    topic_code: "7.6"
+  - front: dy/dx = x/y → general solution
+    back: |
+      y dy = x dx, so y²/2 = x²/2 + C, i.e. y² = x² + K. Solving for y needs a sign choice: y = √(x² + K) or y = −√(x² + K).
+    topic_code: "7.6"
+  - front: dy/dx = 3x²y → general solution
+    back: |
+      dy/y = 3x² dx, ln|y| = x³ + C, |y| = e^C e^(x³), so y = Ae^(x³) with A any real number (A = ±e^C, and A = 0 restores y = 0).
+    topic_code: "7.6"
+  - front: ln|y| = h(x) + C → why y = Ae^(h(x)) allows negative A
+    back: |
+      |y| = e^C e^(h(x)) gives y = ±e^C e^(h(x)). The ± and the positive e^C combine into one constant A that can be any nonzero real number.
+    topic_code: "7.6"
+  - front: Dividing by h(y) during separation → what can be lost
+    back: |
+      Constant solutions y = c with h(c) = 0. For dy/dx = (y − 5)x, check y = 5 separately: it solves the equation but the division by y − 5 excluded it.
+    topic_code: "7.6"
+  - front: ∫ dy/(1 + y²) in separation of variables → result
+    back: |
+      arctan y. So dy/dx = x(1 + y²) gives arctan y = x²/2 + C, y = tan(x²/2 + C).
+    topic_code: "7.6"
+  - front: dy/dx = e^y sin x → correct separation
+    back: |
+      e^(−y) dy = sin x dx. Then −e^(−y) = −cos x + C.
+    topic_code: "7.6"
+  - front: Initial condition in separation of variables → when to use it
+    back: |
+      Right after integrating, to find C, before solving for y. Substituting early keeps the algebra simple and avoids misplacing the constant.
+    topic_code: "7.7"
+  - front: dy/dx = x/y with y(1) = −2 → particular solution
+    back: |
+      y² = x² + C gives 4 = 1 + C, so C = 3 and y² = x² + 3. Since y(1) < 0, take the negative root: y = −√(x² + 3), for all real x.
+    topic_code: "7.7"
+  - front: Choosing the square-root branch → rule
+    back: |
+      Match the sign of the initial y-value. y(0) = −3 with y² = 9 − x² gives y = −√(9 − x²), never the positive root.
+    topic_code: "7.7"
+  - front: dy/dx = 2xy² with y(0) = 1 → particular solution and domain
+    back: |
+      −1/y = x² + C, C = −1, so y = 1/(1 − x²). Domain: the interval containing x = 0 where it is defined, −1 < x < 1.
+    topic_code: "7.7"
+  - front: Domain of a particular solution → rule
+    back: |
+      The largest open interval that contains the initial x-value on which the solution and its derivative are defined. Not a union of pieces.
+    topic_code: "7.7"
+  - front: dy/dx = e^(x − y) with y(0) = ln 2 → particular solution
+    back: |
+      e^y dy = e^x dx, e^y = e^x + C, 2 = 1 + C, so e^y = e^x + 1 and y = ln(eˣ + 1), for all real x.
+    topic_code: "7.7"
+  - front: dy/dx = −2y with y(0) = −5 → particular solution
+    back: |
+      y = Ae^(−2x) with A = y(0) = −5: y = −5e^(−2x). The constant is negative because the initial value is.
+    topic_code: "7.7"
+  - front: dy/dx = x(1 + y²) with y(0) = 1 → domain of the solution
+    back: |
+      arctan y = x²/2 + π/4, y = tan(x²/2 + π/4). Need x²/2 + π/4 < π/2, so |x| < √(π/2) ≈ 1.253.
+    topic_code: "7.7"
+  - front: Checking a particular solution → two tests
+    back: |
+      Substitute it into the differential equation (both sides agree) and into the initial condition (the point lies on it).
+    topic_code: "7.7"
+  - front: Error-spot → "ln|y| = x² + C, so y = e^(x²) + C"
+    back: |
+      e^(x² + C) = e^C · e^(x²), a product, not a sum. Correct: y = Ae^(x²).
+    topic_code: "7.6"
+  - front: Error-spot → "y² = 9 − x² and y(0) = −3, so y = √(9 − x²)"
+    back: |
+      The positive root gives y(0) = 3. The initial value is negative, so y = −√(9 − x²).
+    topic_code: "7.7"
+  - front: Error-spot → "y = 1/(4 − x²) with y(0) = 1/4 is a solution for all x ≠ ±2"
+    back: |
+      A solution lives on one interval containing the initial point. Here that is −2 < x < 2.
+    topic_code: "7.7"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (topics 7.4, 7.6, 7.7: reasoning about solution curves
+    from slope fields, separation of variables, general and particular solutions, the sign of the constant and the
+    domain of a solution), with 8 questions (about 32%) reviewing week 27 (modeling, verifying solutions, slope
+    values) and Unit 6 (substitution, the Fundamental Theorem and accumulation functions). Opens with a
+    shared-context set on one separable equation. Multiple choice, select-all, true/false and numeric items are
+    graded at once; fill-in-the-blank items are matched automatically; the short answers and the long answer are
+    graded by your teacher against the scoring notes. Only the item marked (Calculator.) needs a calculator.
+  questions:
+    # ---- Stimulus set: dy/dx = (y − 1)cos x (7.3, 7.6, 7.7, 7.4)
+    - slug: apcalcab-u07-w28-q01
+      type: multiple_choice
+      topic_code: "7.3"
+      source: "AP Calculus CED, Topic 7.3"
+      points: 1
+      stimulus: |
+        Consider the differential equation dy/dx = (y − 1)cos x.
+      prompt: |
+        What is the slope of the solution curve through the point (0, 3)?
+      options:
+        - "−2"
+        - "2"
+        - "0"
+        - "3"
+      option_explanations:
+        - |
+          This uses (1 − y) instead of (y − 1). With y = 3 the factor is 3 − 1 = 2, which is positive.
+        - |
+          Correct. Substitute x = 0 and y = 3: (3 − 1) · cos 0 = 2 · 1 = 2.
+        - |
+          This uses sin 0 = 0 in place of cos 0 = 1. The equation has cos x.
+        - |
+          This uses y instead of y − 1: 3 · cos 0 = 3. The factor is y − 1 = 2.
+      answer: 1
+    - slug: apcalcab-u07-w28-q02
+      type: multiple_choice
+      topic_code: "7.6"
+      source: "AP Calculus CED, Topic 7.6"
+      points: 1
+      stimulus: |
+        Consider the differential equation dy/dx = (y − 1)cos x.
+      prompt: |
+        Which is the general solution, where A is an arbitrary constant?
+      options:
+        - "y = 1 + Ae^(−sin x)"
+        - "y = Ae^(sin x) − 1"
+        - "y = 1 + sin x + A"
+        - "y = 1 + Ae^(sin x)"
+      option_explanations:
+        - |
+          This uses −sin x as an antiderivative of cos x. Since d/dx [sin x] = cos x, the antiderivative is +sin x.
+        - |
+          The 1 moved to the wrong side with the wrong sign: from y − 1 = Ae^(sin x), adding 1 gives y = 1 + Ae^(sin x).
+        - |
+          This stops at ln|y − 1| = sin x + C and drops the logarithm instead of exponentiating both sides.
+        - |
+          Correct. dy/(y − 1) = cos x dx, so ln|y − 1| = sin x + C, |y − 1| = e^C e^(sin x), and y − 1 = Ae^(sin x) with A any real number.
+      answer: 3
+    - slug: apcalcab-u07-w28-q03
+      type: multiple_choice
+      topic_code: "7.7"
+      source: "AP Calculus CED, Topic 7.7"
+      points: 1
+      stimulus: |
+        Consider the differential equation dy/dx = (y − 1)cos x.
+      prompt: |
+        Which is the particular solution with y(0) = 3?
+      options:
+        - "y = 1 + 3e^(sin x)"
+        - "y = 3e^(sin x)"
+        - "y = 1 + 2e^(sin x)"
+        - "y = 2 + e^(sin x)"
+      option_explanations:
+        - |
+          This sets A equal to y(0). At x = 0 it gives 1 + 3 = 4, not 3. The condition is 3 = 1 + A.
+        - |
+          This drops the 1: its derivative is 3e^(sin x)cos x = y cos x, which solves dy/dx = y cos x, not (y − 1)cos x.
+        - |
+          Correct. y = 1 + Ae^(sin x) and y(0) = 1 + A · e⁰ = 1 + A = 3, so A = 2.
+        - |
+          This writes e^(sin x + C) as e^(sin x) + C, adding the constant instead of multiplying. Its derivative e^(sin x)cos x is not (y − 1)cos x = (1 + e^(sin x))cos x.
+      answer: 2
+    - slug: apcalcab-u07-w28-q04
+      type: multiple_choice
+      topic_code: "7.4"
+      source: "AP Calculus CED, Topic 7.4"
+      points: 1
+      stimulus: |
+        Consider the differential equation dy/dx = (y − 1)cos x.
+      prompt: |
+        Which statement describes the solution curve that passes through the point (0, 0.5)?
+      options:
+        - "It stays below the line y = 1 for all x."
+        - "It crosses the line y = 1 wherever cos x = 0."
+        - "It increases for all x."
+        - "It approaches the line y = 1 as x → ∞."
+      option_explanations:
+        - |
+          Correct. y = 1 is an equilibrium solution (the slope is 0 all along it), and other solutions cannot cross it. The solution is y = 1 − 0.5e^(sin x), which is always less than 1.
+        - |
+          Where cos x = 0 the solution has a horizontal tangent, not a crossing. Its height there is 1 − 0.5e^(±1), still below 1.
+        - |
+          Below y = 1 the factor y − 1 is negative, so the slope has the opposite sign to cos x: the curve decreases where cos x > 0 and increases where cos x < 0.
+        - |
+          e^(sin x) oscillates between e^(−1) and e, so the solution keeps oscillating; it has no limit as x → ∞.
+      answer: 0
+    # ---- Separation of variables (7.6, 7.7)
+    - slug: apcalcab-u07-w28-q05
+      type: multiple_choice
+      topic_code: "7.6"
+      source: "AP Calculus CED, Topic 7.6"
+      points: 1
+      prompt: |
+        Which is a correct separation of variables for dy/dx = eʸ sin x?
+      options:
+        - "eʸ dy = sin x dx"
+        - "e^(−y) dy = (1/sin x) dx"
+        - "e^(−y) dy = sin x dx"
+        - "dy = eʸ sin x dx, then integrate the right side treating y as a constant"
+      option_explanations:
+        - |
+          eʸ was moved to the left without inverting it. Dividing both sides by eʸ puts e^(−y) with dy.
+        - |
+          This divides by sin x instead of multiplying both sides by dx. sin x stays as a factor on the x side.
+        - |
+          Correct. Divide by eʸ and multiply by dx: e^(−y) dy = sin x dx. Each side now has one variable.
+        - |
+          y depends on x, so it cannot be treated as a constant while integrating with respect to x. The y-factor must be moved to the dy side first.
+      answer: 2
+    - slug: apcalcab-u07-w28-q06
+      type: multiple_choice
+      topic_code: "7.6"
+      source: "AP Calculus CED, Topic 7.6"
+      points: 1
+      prompt: |
+        Which is the general solution of dy/dx = 4x³y, where A is an arbitrary constant?
+      options:
+        - "y = e^(x⁴) + A"
+        - "y = Ae^(x⁴)"
+        - "y = Ae^(12x²)"
+        - "y = Ae^(x⁴/4)"
+      option_explanations:
+        - |
+          e^(x⁴ + C) = e^C · e^(x⁴): the constant multiplies, it does not add. y = e^(x⁴) + A has y′ = 4x³e^(x⁴) ≠ 4x³y unless A = 0.
+        - |
+          Correct. dy/y = 4x³ dx, ln|y| = x⁴ + C, |y| = e^C e^(x⁴), so y = Ae^(x⁴) with A any real number. Check: y′ = 4x³Ae^(x⁴) = 4x³y.
+        - |
+          12x² is the derivative of 4x³, not its antiderivative. ∫ 4x³ dx = x⁴.
+        - |
+          This divides by 4 as well as raising the power: ∫ 4x³ dx = 4 · x⁴/4 = x⁴, not x⁴/4.
+      answer: 1
+    - slug: apcalcab-u07-w28-q07
+      type: multiple_choice
+      topic_code: "7.7"
+      source: "AP Calculus CED, Topic 7.7"
+      points: 1
+      prompt: |
+        Which is the particular solution of dy/dx = −x/y with y(0) = −3?
+      options:
+        - "y = √(9 − x²)"
+        - "y = −√(x² + 9)"
+        - "y = −√(3 − x²)"
+        - "y = −√(9 − x²)"
+      option_explanations:
+        - |
+          This gives y(0) = 3. The initial value is negative, so the negative square root is needed.
+        - |
+          The sign of x² was lost: y dy = −x dx gives y²/2 = −x²/2 + C, so y² = 9 − x², not x² + 9.
+        - |
+          The constant was taken as y(0) = −3 (or 3) without squaring. From y² = −x² + K, (−3)² = K gives K = 9.
+        - |
+          Correct. y dy = −x dx, so y² = −x² + K; y(0) = −3 gives K = 9. Since y(0) < 0, take y = −√(9 − x²), on −3 < x < 3.
+      answer: 3
+    - slug: apcalcab-u07-w28-q08
+      type: multiple_choice
+      topic_code: "7.7"
+      source: "AP Calculus CED, Topic 7.7"
+      points: 1
+      prompt: |
+        The particular solution of dy/dx = 2xy² with y(0) = 1/4 is y = 1/(4 − x²). On which interval is this particular solution defined?
+      options:
+        - "−2 < x < 2"
+        - "All real numbers"
+        - "All real numbers except x = −2 and x = 2"
+        - "0 ≤ x < 2"
+      option_explanations:
+        - |
+          Correct. y and y′ are undefined at x = ±2, and a solution must live on one open interval that contains the initial value x = 0: that interval is −2 < x < 2.
+        - |
+          This ignores the vertical asymptotes at x = ±2, where 4 − x² = 0 and y is undefined.
+        - |
+          These are three separate intervals. A particular solution is defined on the single interval containing the initial point x = 0.
+        - |
+          The solution extends to the left of the initial point too: it is defined for −2 < x < 0 as well.
+      answer: 0
+    # ---- Reasoning about solutions (7.4)
+    - slug: apcalcab-u07-w28-q09
+      type: multiple_choice
+      topic_code: "7.4"
+      source: "AP Calculus CED, Topic 7.4"
+      points: 1
+      prompt: |
+        Let y = f(x) be the solution of dy/dx = 3 − y with f(0) = 10. Using the slope field, find lim (x→∞) f(x).
+      options:
+        - "10"
+        - "3"
+        - "∞"
+        - "0"
+      option_explanations:
+        - |
+          10 is the starting value. At y = 10 the slope is 3 − 10 = −7, so the solution immediately decreases.
+        - |
+          Correct. Above y = 3 every slope is negative and the slopes flatten to 0 as y approaches 3, so the solution decreases toward the equilibrium line y = 3 without crossing it.
+        - |
+          The slopes are negative above y = 3, so the solution falls rather than grows without bound.
+        - |
+          To reach 0 the solution would have to cross the equilibrium line y = 3, which it cannot do.
+      answer: 1
+    - slug: apcalcab-u07-w28-q10
+      type: multiple_choice
+      topic_code: "7.4"
+      source: "AP Calculus CED, Topic 7.4"
+      points: 1
+      prompt: |
+        A solution curve of dy/dx = x + y passes through the point (1, −3). At that point, the solution is
+      options:
+        - "increasing and concave up"
+        - "decreasing and concave up"
+        - "decreasing and concave down"
+        - "increasing and concave down"
+      option_explanations:
+        - |
+          dy/dx = 1 + (−3) = −2 is negative, so the solution is decreasing, not increasing.
+        - |
+          This treats dy/dx inside d²y/dx² = 1 + dy/dx as if it were 1, getting 2. Substituting dy/dx = −2 gives 1 − 2 = −1.
+        - |
+          Correct. dy/dx = 1 − 3 = −2 < 0, and d²y/dx² = 1 + dy/dx = 1 + x + y = −1 < 0. Decreasing and concave down.
+        - |
+          The slope −2 is negative, so the solution is decreasing at the point.
+      answer: 2
+    # ---- Spiral review (7.2, 7.1, 6.9)
+    - slug: apcalcab-u07-w28-q11
+      type: multiple_choice
+      topic_code: "7.2"
+      source: "AP Calculus CED, Topic 7.2"
+      points: 1
+      prompt: |
+        The function y = x² + 1 is a solution of which differential equation (for x ≠ 0)?
+      options:
+        - "dy/dx = 2y/x"
+        - "dy/dx = y − 1"
+        - "dy/dx = x(y − 1)"
+        - "dy/dx = 2(y − 1)/x"
+      option_explanations:
+        - |
+          2y/x = 2(x² + 1)/x = 2x + 2/x, which is not y′ = 2x. The +1 spoils it.
+        - |
+          y − 1 = x², but y′ = 2x. These agree only at x = 0 and x = 2, not on an interval.
+        - |
+          x(y − 1) = x³, which is not 2x for every x.
+        - |
+          Correct. y′ = 2x and 2(y − 1)/x = 2x²/x = 2x for every x ≠ 0.
+      answer: 3
+    - slug: apcalcab-u07-w28-q12
+      type: multiple_choice
+      topic_code: "7.1"
+      source: "AP Calculus CED, Topic 7.1"
+      points: 1
+      prompt: |
+        The rate of change of a quantity y with respect to time t is inversely proportional to the square of y. Which differential equation models this, with k a nonzero constant?
+      options:
+        - "dy/dt = k/y²"
+        - "dy/dt = ky²"
+        - "dy/dt = k/t²"
+        - "dy/dt = k − y²"
+      option_explanations:
+        - |
+          Correct. Inversely proportional to y² means a constant divided by y².
+        - |
+          This is directly proportional to y², the opposite relationship.
+        - |
+          This divides by the square of time, but the sentence ties the rate to the square of the quantity y.
+        - |
+          Proportional relationships multiply or divide by a constant; subtracting y² from a constant is not inverse proportion.
+      answer: 0
+    - slug: apcalcab-u07-w28-q13
+      type: multiple_choice
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        Find ∫ sin x · e^(cos x) dx.
+      options:
+        - "e^(cos x) + C"
+        - "cos x · e^(cos x) + C"
+        - "−e^(cos x) + C"
+        - "−e^(sin x) + C"
+      option_explanations:
+        - |
+          The sign is missing: with u = cos x, du = −sin x dx, so sin x dx = −du. The derivative of e^(cos x) is −sin x · e^(cos x).
+        - |
+          Its derivative, by the product rule, is −sin x · e^(cos x) − cos x · sin x · e^(cos x), not the integrand. Use substitution with u = cos x instead.
+        - |
+          Correct. Let u = cos x, du = −sin x dx. The integral becomes −∫ eᵘ du = −eᵘ + C = −e^(cos x) + C. Check: d/dx [−e^(cos x)] = sin x · e^(cos x).
+        - |
+          The exponent changed from cos x to sin x. Substitution keeps the inner function: the answer is in terms of e^(cos x).
+      answer: 2
+    - slug: apcalcab-u07-w28-q14
+      type: multiple_choice
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        Find ∫ 2x/(x² + 1) dx.
+      options:
+        - "2 ln(x² + 1) + C"
+        - "ln(x² + 1) + C"
+        - "x²/(x³/3 + x) + C"
+        - "−1/(x² + 1) + C"
+      option_explanations:
+        - |
+          The 2x is exactly du for u = x² + 1, so it is used up by the substitution; keeping an extra 2 doubles the result.
+        - |
+          Correct. With u = x² + 1, du = 2x dx, the integral is ∫ du/u = ln|u| + C = ln(x² + 1) + C; no absolute value is needed since x² + 1 > 0.
+        - |
+          This integrates the numerator and denominator separately. A quotient is not integrated piece by piece.
+        - |
+          −1/u is an antiderivative of 1/u², not of 1/u. Here the integrand is du/u.
+      answer: 1
+    # ---- Select-all
+    - slug: apcalcab-u07-w28-q15
+      type: multi_select
+      topic_code: "7.6"
+      source: "AP Calculus CED, Topic 7.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Separating dy/dx = −2y and integrating gives ln|y| = −2x + C. Which statements are true? Select all that apply.
+      options:
+        - "|y| = e^C · e^(−2x)"
+        - "y = Ae^(−2x), with A any real number, describes every solution."
+        - "A must be positive, because A = e^C."
+        - "The solution with y(0) = −5 is y = −5e^(−2x)."
+        - "y = e^(−2x) + C is the general solution."
+      option_explanations:
+        - |
+          Correct. Exponentiate both sides: |y| = e^(−2x + C) = e^C e^(−2x).
+        - |
+          Correct. Removing the absolute value gives y = ±e^C e^(−2x); A = ±e^C covers every nonzero value, and A = 0 gives the equilibrium solution y = 0 that the division by y excluded.
+        - |
+          The absolute value means y = ±e^C e^(−2x), so A can be negative; A = 0 also works.
+        - |
+          Correct. A = y(0) = −5, and y′ = 10e^(−2x) = −2(−5e^(−2x)).
+        - |
+          e^(−2x + C) is a product e^C · e^(−2x), not a sum. y = e^(−2x) + 3, for example, has y′ = −2e^(−2x) ≠ −2y.
+      answer: [0, 1, 3]
+    - slug: apcalcab-u07-w28-q16
+      type: multi_select
+      topic_code: "7.4"
+      source: "AP Calculus CED, Topic 7.4"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let y = f(x) be the solution of dy/dx = x² − y with f(1) = 2. Which statements are true? Select all that apply.
+      options:
+        - "f′(1) = −1"
+        - "f is decreasing at x = 1."
+        - "f″(1) = 3, so the graph of f is concave up at x = 1."
+        - "f has a relative minimum at x = 1."
+        - "The tangent line at x = 1 gives f(1.2) ≈ 2.2."
+      option_explanations:
+        - |
+          Correct. Substitute x = 1 and y = f(1) = 2: f′(1) = 1² − 2 = −1.
+        - |
+          Correct. f′(1) = −1 < 0, so f is decreasing at x = 1.
+        - |
+          Correct. d²y/dx² = 2x − dy/dx = 2x − (x² − y). At (1, 2): 2 − (−1) = 3 > 0.
+        - |
+          A relative extremum needs f′(1) = 0 (or undefined); here f′(1) = −1.
+        - |
+          The tangent line is y = 2 − (x − 1), so f(1.2) ≈ 2 − 0.2 = 1.8. The value 2.2 uses slope +1, a sign slip.
+      answer: [0, 1, 2]
+    # ---- True/false
+    - slug: apcalcab-u07-w28-q17
+      type: true_false
+      topic_code: "7.6"
+      source: "AP Calculus CED, Topic 7.6"
+      points: 1
+      prompt: |
+        True or false: The differential equation dy/dx = x + y can be separated as dy/y = x dx.
+      answer: false
+      explanation: |
+        False. Dividing x + y by y gives x/y + 1, not x. The right side x + y is a sum and cannot be written as g(x) · h(y), so the equation is not separable at all.
+    - slug: apcalcab-u07-w28-q18
+      type: true_false
+      topic_code: "7.7"
+      source: "AP Calculus CED, Topic 7.7"
+      points: 1
+      prompt: |
+        True or false: The solution of dy/dx = y² with y(0) = 0 is the constant function y = 0.
+      answer: true
+      explanation: |
+        True. y = 0 has derivative 0 and y² = 0, so it satisfies the equation and the initial condition. Separation (dividing by y²) cannot find it, because it divides by zero; this is the lost equilibrium solution you must check separately.
+    # ---- Fill-in
+    - slug: apcalcab-u07-w28-q19
+      type: fill_blank
+      topic_code: "7.7"
+      source: "AP Calculus CED, Topic 7.7"
+      points: 1
+      prompt: |
+        Let y be the solution of dy/dx = 2x/y with y(0) = −4. Then y(3) = ____ (give the exact value or a decimal rounded to three places).
+      answer: ["-√34", "−√34", "-√(34)", "−√(34)", "-sqrt(34)", "−sqrt(34)", "-5.831", "−5.831"]
+      explanation: |
+        y dy = 2x dx gives y²/2 = x² + C, so y² = 2x² + K. y(0) = −4 gives K = 16. Since y(0) < 0, y = −√(2x² + 16), and y(3) = −√(18 + 16) = −√34 ≈ −5.831.
+    - slug: apcalcab-u07-w28-q20
+      type: fill_blank
+      topic_code: "7.3"
+      source: "AP Calculus CED, Topic 7.3"
+      points: 1
+      prompt: |
+        In the slope field for dy/dx = (x + 1)/(y − 2), the segment at the point (3, 4) has slope ____.
+      answer: ["2", "2.0"]
+      explanation: |
+        (3 + 1)/(4 − 2) = 4/2 = 2.
+    # ---- Numeric
+    - slug: apcalcab-u07-w28-q21
+      type: numeric
+      topic_code: "6.7"
+      source: "AP Calculus CED, Topic 6.7"
+      points: 1
+      prompt: |
+        Evaluate ∫ from 0 to ln 3 of eˣ dx exactly.
+      answer: { value: 2, tolerance: 0 }
+      explanation: |
+        An antiderivative of eˣ is eˣ, so the integral is e^(ln 3) − e⁰ = 3 − 1 = 2.
+    - slug: apcalcab-u07-w28-q22
+      type: numeric
+      topic_code: "7.7"
+      source: "AP Calculus CED, Topic 7.7"
+      points: 1
+      prompt: |
+        (Calculator.) The general solution of dy/dx = 3x²y is y = Ae^(x³). For the particular solution whose graph passes through (0, 4), find y(1). Give your answer to three decimal places.
+      answer: { value: 10.873, tolerance: 0.001 }
+      explanation: |
+        y(0) = A · e⁰ = A = 4, so y = 4e^(x³) and y(1) = 4e ≈ 10.873.
+    # ---- Short answer
+    - slug: apcalcab-u07-w28-q23
+      type: short_answer
+      topic_code: "7.7"
+      source: "AP Calculus CED, Topic 7.7"
+      points: 3
+      prompt: |
+        Find the particular solution y = f(x) of dy/dx = x(1 + y²) with f(0) = 1, and state the interval on which it is defined.
+      answer: |
+        Separate: dy/(1 + y²) = x dx. Integrate: arctan y = x²/2 + C. At (0, 1): arctan 1 = π/4 = C. So arctan y = x²/2 + π/4 and y = tan(x²/2 + π/4).
+        Domain: arctan y lies strictly between −π/2 and π/2, so we need x²/2 + π/4 < π/2, i.e. x² < π/2. The solution is defined for −√(π/2) < x < √(π/2) (about −1.253 < x < 1.253).
+      explanation: |
+        Three points. 1 point for the correct separation and both antiderivatives (arctan y and x²/2) with a constant of integration. 1 point for using the initial condition to get C = π/4 and solving y = tan(x²/2 + π/4). 1 point for the interval |x| < √(π/2), with a reason (tangent's argument must stay below π/2). A solution with no constant of integration earns at most the first point's antiderivatives.
+    - slug: apcalcab-u07-w28-q24
+      type: short_answer
+      topic_code: "6.4"
+      source: "AP Calculus CED, Topic 6.4"
+      points: 3
+      prompt: |
+        Let y = 3 + ∫ from 2 to x of e^(−t²) dt.
+
+        (a) Find dy/dx.
+        (b) Show that y satisfies the initial condition y(2) = 3.
+        (c) Without evaluating any integral, explain why y(5) > 3.
+      answer: |
+        (a) By the Fundamental Theorem of Calculus, dy/dx = e^(−x²). So y solves the differential equation dy/dx = e^(−x²).
+        (b) y(2) = 3 + ∫ from 2 to 2 of e^(−t²) dt = 3 + 0 = 3.
+        (c) dy/dx = e^(−x²) > 0 for every x, so y is increasing; since 5 > 2, y(5) > y(2) = 3. (Equivalently, the integral from 2 to 5 of a positive function is positive.)
+      explanation: |
+        Three points, one per part. (a) e^(−x²), citing or clearly using the Fundamental Theorem. (b) an integral with equal limits is 0. (c) a reason based on the positive integrand or y increasing, linked to 5 > 2.
+    # ---- Long answer
+    - slug: apcalcab-u07-w28-q25
+      type: long_answer
+      topic_code: "7.7"
+      source: "AP Calculus CED, Topic 7.7"
+      points: 9
+      prompt: |
+        Consider the differential equation dy/dx = (2x + 1)y². Let y = f(x) be the particular solution with f(0) = 1.
+
+        (A) Find the slope dy/dx at each of the points (−1, 1), (0, 1), (1, 1), (−1, −1), (0, −1) and (1, −1), and describe where the segments of the slope field are horizontal.
+
+        (B) Find d²y/dx² in terms of x and y. Is the graph of f concave up or concave down at the point (0, 1)? Justify your answer.
+
+        (C) Write an equation of the line tangent to the graph of f at x = 0, and use it to approximate f(0.1). Is the approximation an overestimate or an underestimate? Explain.
+
+        (D) Use separation of variables to find y = f(x), and state the interval on which it is defined.
+      answer: |
+        (A) The slopes are (2x + 1)y²: at x = −1, −1; at x = 0, 1; at x = 1, 3; the same for y = 1 and y = −1 because y² is the same. The segments are horizontal along the x-axis (y = 0) and along the line x = −1/2.
+        (B) d²y/dx² = 2y² + (2x + 1) · 2y · dy/dx = 2y² + 2y(2x + 1)²y² = 2y² + 2(2x + 1)²y³. At (0, 1): 2 + 2 · 1 · 1 = 4 > 0, so the graph of f is concave up at (0, 1).
+        (C) dy/dx at (0, 1) is 1, so the tangent line is y = 1 + x and f(0.1) ≈ 1.1. Since f is concave up near x = 0, its graph lies above the tangent line, so 1.1 is an underestimate.
+        (D) dy/y² = (2x + 1) dx. Integrating: −1/y = x² + x + C. At (0, 1): −1 = C. So −1/y = x² + x − 1 and y = 1/(1 − x − x²).
+        The denominator is 0 at x = (−1 ± √5)/2. The solution is defined on the interval containing x = 0 between those zeros: (−1 − √5)/2 < x < (−1 + √5)/2, about −1.618 < x < 0.618.
+      explanation: |
+        Nine points.
+        (A) 1 point: all six slopes (−1, 1, 3, −1, 1, 3) with horizontal segments along y = 0 and x = −1/2.
+        (B) 2 points: 1 for a correct d²y/dx² (implicit differentiation with dy/dx substituted or left as dy/dx and then evaluated); 1 for the value 4 at (0, 1) and "concave up" with that justification.
+        (C) 1 point: the tangent line y = 1 + x, the approximation 1.1 and "underestimate" because f is concave up.
+        (D) 5 points: 1 for separating the variables; 1 for the antiderivatives −1/y and x² + x; 1 for the constant of integration and using f(0) = 1 to get C = −1; 1 for solving y = 1/(1 − x − x²); 1 for the interval (−1 − √5)/2 < x < (−1 + √5)/2. A response with no constant of integration earns at most 2 of the 5 points in (D), and a response that does not separate earns none.
