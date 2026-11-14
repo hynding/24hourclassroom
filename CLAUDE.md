@@ -85,11 +85,14 @@ Each head's `og:image` is a **share card**: `GET /api/page-image?path=`
 GD/FreeType (`App\Support\ShareCard`) from `PageHead::card()`: kicker, title,
 one detail line, site name. A page a guest can't open, or any path PageHead
 doesn't describe, gets the site's own card, so an image never says more than
-the head. Cards are cached a week by what they draw (bump
-`PageImageController::VERSION` when the drawing changes). The fonts in
-`resources/fonts` are static instances of the SPA's variable Literata and
-Manrope (OFL), because FreeType draws a variable font only at its default
-weight. Without GD the route redirects to `apps/web/src/assets/share-card.png`,
+the head. The image URL carries `v=` (`PageHead::cardHash`), so it changes
+whenever the card does (bots cache images by URL); the client mirror omits it.
+One cache entry per page holds the PNG and that hash, redrawn in place (bump
+`ShareCard::VERSION` when the drawing changes). The fonts in
+`resources/fonts` are Latin-only static instances of the SPA's variable
+Literata and Manrope (OFL), because FreeType draws a variable font only at its
+default weight; GD draws a missing glyph as nothing, so a title outside
+`fonts/coverage.php` gets the site card and such a detail line is dropped. Without GD the route redirects to `apps/web/src/assets/share-card.png`,
 the same site card, which `index.html`'s static link-preview defaults also name
 (`index.php` drops those defaults when it splices and otherwise makes the image
 absolute on the request's own origin). The OG image URL is built on `APP_URL`

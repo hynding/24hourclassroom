@@ -39,7 +39,7 @@ test('every head carries the page\'s share card as a large-image preview', funct
     $course = aCourse($author, $tests->all(), ['visibility' => 'public', 'published_at' => now(), 'title' => 'Engines']);
 
     expect(pageHead($this, "/courses/{$course->id}"))
-        ->toContain("<meta property=\"og:image\" content=\"https://api.classroom.test/api/page-image?path=%2Fcourses%2F{$course->id}\" data-page-meta>")
+        ->toMatch("#<meta property=\"og:image\" content=\"https://api\\.classroom\\.test/api/page-image\\?path=%2Fcourses%2F{$course->id}&amp;v=[0-9a-f]{12}\" data-page-meta>#")
         ->toContain('<meta property="og:image:width" content="1200" data-page-meta>')
         ->toContain('<meta property="og:image:height" content="630" data-page-meta>')
         ->toContain('<meta property="og:image:alt" content="Engines" data-page-meta>')
@@ -54,6 +54,34 @@ test('every head carries the page\'s share card as a large-image preview', funct
     ]);
     expect($head->card($head->resolve('/library/courses')))->toMatchArray(['kicker' => 'Browse', 'title' => 'Free courses']);
     expect($head->card($head->resolve('/')))->toMatchArray(['title' => SiteSetting::current()->name, 'kicker' => 'Free courses, tests and study materials']);
+});
+
+test('the image URL changes when the card does, and hidden pages share the site card\'s', function () {
+    $author = aTeacher();
+    $course = aCourse($author, [], ['visibility' => 'public', 'published_at' => now(), 'title' => 'Engines']);
+    $private = aCourse($author, [], ['title' => 'Secret plans']);
+    $image = fn (string $path) => preg_match('#og:image" content="([^"]+)"#', pageHead($this, $path), $m) ? html_entity_decode($m[1]) : null;
+
+    $before = $image("/courses/{$course->id}");
+    $course->update(['title' => 'Steam engines']);
+    expect($image("/courses/{$course->id}"))->not->toBe($before);
+
+    $site = $image('/');
+    $v = fn (?string $url) => parse_url((string) $url, PHP_URL_QUERY) ? Illuminate\Support\Str::after($url, '&v=') : null;
+    expect($v($image("/courses/{$private->id}")))->toBe($v($site));
+    expect($v($image('/courses/999999')))->toBe($v($site));
+});
+
+test('text the card fonts cannot draw never reaches a card', function () {
+    $author = aTeacher(['name' => 'Пётр Чайковский']);
+    $cjk = aCourse($author, [], ['visibility' => 'public', 'published_at' => now(), 'title' => '微积分入门']);
+    $latin = aCourse($author, [], ['visibility' => 'public', 'published_at' => now(), 'title' => 'Calculus']);
+    $head = new App\Support\PageHead;
+
+    expect($head->card($head->resolve("/courses/{$cjk->id}")))->toMatchArray(['is_site' => true, 'title' => SiteSetting::current()->name]);
+    expect($head->card($head->resolve("/courses/{$latin->id}")))->toMatchArray(['is_site' => false, 'title' => 'Calculus', 'detail' => null]);
+    expect(App\Support\ShareCard::covers('Café – “naïve” résumé…'))->toBeTrue();
+    expect(App\Support\ShareCard::covers('π'))->toBeFalse();
 });
 
 test('a private course, a missing one and a deactivated author\'s look the same: site head, noindex', function () {

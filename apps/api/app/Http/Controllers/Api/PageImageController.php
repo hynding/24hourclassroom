@@ -16,15 +16,13 @@ use Symfony\Component\HttpFoundation\Response;
  * a page a guest cannot open, or a path PageHead does not describe, gets the
  * site's own card, so an image never names a private course.
  *
- * Cards are cached by what they draw (title, detail, site name), so an edit
- * to a course draws a new card on the next fetch. Without GD's FreeType the
- * route redirects to the static card the SPA host serves.
+ * One cache entry per page (the site's card is one entry for every hidden
+ * or unknown path), holding the hash of what it draws, so an edit redraws
+ * the card in place rather than leaving the old one behind. Without GD's
+ * FreeType the route redirects to the static card the SPA host serves.
  */
 class PageImageController extends Controller
 {
-    /** Bump when ShareCard's drawing changes, so cached cards are redrawn. */
-    private const VERSION = 1;
-
     public function __invoke(Request $request): Response
     {
         $path = $request->query('path');
@@ -38,14 +36,19 @@ class PageImageController extends Controller
         $meta = $pageHead->resolve($path) ?? $pageHead->resolve('/');
         $card = $pageHead->card($meta);
 
-        $key = 'page-image:'.self::VERSION.':'.sha1(json_encode($card, JSON_THROW_ON_ERROR));
-        $png = Cache::remember($key, now()->addWeek(), fn () => base64_encode(
-            ShareCard::png($card['kicker'], $card['title'], $card['detail'], $card['site'], $card['host'])
-        ));
+        $hash = PageHead::cardHash($card);
+        $key = 'page-image:'.sha1($card['is_site'] ? '' : $meta['path']);
+        $cached = Cache::get($key);
+        if (is_array($cached) && ($cached['hash'] ?? null) === $hash && is_string($cached['png'] ?? null)) {
+            $png = $cached['png'];
+        } else {
+            $png = base64_encode(ShareCard::png($card['kicker'], $card['title'], $card['detail'], $card['site'], $card['host']));
+            Cache::put($key, ['hash' => $hash, 'png' => $png], now()->addWeek());
+        }
 
         return response(base64_decode($png), 200, [
             'Content-Type' => 'image/png',
-            'Cache-Control' => 'public, max-age=3600',
+            'Cache-Control' => 'public, max-age=600',
         ]);
     }
 }

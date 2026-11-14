@@ -107,7 +107,11 @@ export function applyHead(): void {
   }
 }
 
-/** GET /api/page-image for $path, as PageHead::imageUrl builds it. */
+/**
+ * GET /api/page-image for this path, as PageHead::imageUrl builds it minus
+ * its `v` cache-buster (a hash only the server can compute; bots read the
+ * server's tag, which this replaces only after load).
+ */
 export function pageImageUrl(path: string): string {
   const api = (Env?.apiBaseUrl ?? 'http://localhost:8000').replace(/\/+$/, '');
   return `${api}/api/page-image?path=${encodeURIComponent(path)}`;

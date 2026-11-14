@@ -109,7 +109,7 @@ final class PageHead
         $tags[] = $this->tag('meta', 'property', 'og:type', $meta['type']);
         $tags[] = $this->tag('meta', 'property', 'og:url', $url);
         $tags[] = $this->tag('meta', 'property', 'og:site_name', $this->siteName);
-        $tags[] = $this->tag('meta', 'property', 'og:image', self::imageUrl($meta['path']));
+        $tags[] = $this->tag('meta', 'property', 'og:image', self::imageUrl($meta['path'], $this->card($meta)));
         $tags[] = $this->tag('meta', 'property', 'og:image:width', (string) ShareCard::WIDTH);
         $tags[] = $this->tag('meta', 'property', 'og:image:height', (string) ShareCard::HEIGHT);
         $tags[] = $this->tag('meta', 'property', 'og:image:alt', $meta['title'] ?? $this->siteName);
@@ -164,25 +164,44 @@ final class PageHead
      * than its head already says, so a hidden page gets the site's own card.
      *
      * @param  array{title: ?string, card: array{kicker: string, detail: ?string}}  $meta
-     * @return array{kicker: string, title: string, detail: ?string, site: string, host: string}
+     * @return array{kicker: string, title: string, detail: ?string, site: string, host: string, is_site: bool}
      */
     public function card(array $meta): array
     {
-        $isSite = $meta['title'] === null;
+        // A title the fonts can't draw would leave a blank card (ShareCard::covers):
+        // the site's own card instead; an undrawable detail is left off.
+        $isSite = $meta['title'] === null || ! ShareCard::covers($meta['title']);
+        $detail = $isSite ? self::summarize($this->tagline, 140) : $meta['card']['detail'];
 
         return [
             'kicker' => $isSite ? 'Free courses, tests and study materials' : $meta['card']['kicker'],
-            'title' => $meta['title'] ?? $this->siteName,
-            'detail' => $isSite ? self::summarize($this->tagline, 140) : $meta['card']['detail'],
+            'title' => $isSite ? $this->siteName : $meta['title'],
+            'detail' => $detail !== null && ShareCard::covers($detail) ? $detail : null,
             'site' => $this->siteName,
             'host' => (string) parse_url($this->origin, PHP_URL_HOST),
+            'is_site' => $isSite,
         ];
     }
 
-    /** The og:image URL for a page: the API's own share-card route. */
-    public static function imageUrl(string $path): string
+    /**
+     * The og:image URL for a page: the API's own share-card route. `v`, a
+     * hash of what the card draws, changes the URL whenever the card does,
+     * because preview bots cache images by URL; the route ignores it. The
+     * site's card has one hash, so `v` says nothing about a hidden page.
+     *
+     * @param  array<string, mixed>|null  $card  PageHead::card() for the page
+     */
+    public static function imageUrl(string $path, ?array $card = null): string
     {
-        return rtrim((string) config('app.url'), '/').'/api/page-image?path='.rawurlencode($path);
+        $url = rtrim((string) config('app.url'), '/').'/api/page-image?path='.rawurlencode($path);
+
+        return $card === null ? $url : $url.'&v='.self::cardHash($card);
+    }
+
+    /** @param  array<string, mixed>  $card */
+    public static function cardHash(array $card): string
+    {
+        return substr(sha1(ShareCard::VERSION.json_encode($card, JSON_THROW_ON_ERROR)), 0, 12);
     }
 
     /** A page a guest cannot open: the site's own head, kept out of the index. */

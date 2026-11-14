@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Material;
 use App\Models\Test;
 use App\Support\ShareCard;
 
@@ -40,6 +41,19 @@ test('a private course, a missing one and an undescribed path all get the site c
     }
 });
 
+test('hidden tests, materials and practice pages get the site card too', function () {
+    $author = aTeacher();
+    $test = Test::factory()->for($author, 'author')->create(['title' => 'Private quiz']);
+    $material = Material::factory()->for($author, 'author')->create(['title' => 'Private notes']);
+    $course = aCourse($author, [$test], ['visibility' => 'public', 'published_at' => now()]);
+    $gone = aTeacher(['deactivated_at' => now()]);
+    $site = pageImage($this, '/');
+
+    foreach (["/tests/{$test->id}", "/materials/{$material->id}", "/courses/{$course->id}/tests/{$test->id}", "/teachers/{$gone->id}"] as $path) {
+        expect(pageImage($this, $path))->toBe($site, $path);
+    }
+});
+
 test('a card is cached by what it draws, so an edit draws a new one', function () {
     $author = aTeacher();
     $course = aCourse($author, [], ['visibility' => 'public', 'published_at' => now(), 'title' => 'Engines']);
@@ -49,6 +63,11 @@ test('a card is cached by what it draws, so an edit draws a new one', function (
 
     $course->update(['title' => 'Steam engines']);
     expect(pageImage($this, "/courses/{$course->id}"))->not->toBe($first);
+
+    // Redrawn in place: one entry per page, not one per version of it.
+    $entry = Illuminate\Support\Facades\Cache::get('page-image:'.sha1("/courses/{$course->id}"));
+    $head = new App\Support\PageHead;
+    expect($entry['hash'])->toBe(App\Support\PageHead::cardHash($head->card($head->resolve("/courses/{$course->id}"))));
 });
 
 test('long titles and details are drawn without error', function () {
