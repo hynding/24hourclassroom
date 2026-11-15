@@ -1,0 +1,614 @@
+week: 10
+unit: 2
+title: "Mutually Exclusive Events, Conditional Probability and Independence"
+topics: ["2.5", "2.6", "2.7"]
+guide: guides/week-10.md
+guide_description: |
+  Mutually exclusive events and the addition rule that goes with them; conditional probability from two-way
+  tables, from tree diagrams and from P(A and B)/P(B), and the danger of swapping the conditional; the
+  multiplication rule, including draws without replacement; checking independence by comparing P(A | B) with
+  P(A); the general addition rule; and why mutually exclusive events with positive probabilities are never
+  independent. Worked examples: a student's first class of the day, a gym's membership plans and attendance, a
+  school spam filter on a tree diagram, and two independent traffic lights.
+flashcards_description: |
+  31 cards on mutually exclusive events, conditional probability from tables and trees, the multiplication rule,
+  checking independence, the general addition rule, and telling "mutually exclusive" apart from "independent".
+
+flashcards:
+  - front: Mutually exclusive events → definition
+    back: |
+      Events that cannot happen on the same repetition: they share no outcomes, so P(A and B) = 0.
+    topic_code: "2.5"
+  - front: Addition rule for mutually exclusive events → formula
+    back: |
+      P(A or B) = P(A) + P(B). Valid only when A and B cannot happen together.
+    topic_code: "2.5"
+  - front: First class is math (0.28) or English (0.25) → P(math or English) and why adding is allowed
+    back: |
+      0.28 + 0.25 = 0.53. A student has exactly one first class, so the events are mutually exclusive.
+    topic_code: "2.5"
+  - front: "\"Takes math this year\" and \"takes English this year\" → mutually exclusive?"
+    back: |
+      No. Most students take both, so the events overlap and their probabilities cannot simply be added.
+    topic_code: "2.5"
+  - front: "\"Or\" in probability → what it includes"
+    back: |
+      A happens, B happens, or both happen (the union). It is the inclusive "or".
+    topic_code: "2.7"
+  - front: Conditional probability P(A | B) → formula
+    back: |
+      P(A | B) = P(A and B) ÷ P(B), provided P(B) > 0.
+    topic_code: "2.6"
+  - front: Conditional probability from a two-way table → which total is the denominator
+    back: |
+      The total of the row or column for the given event (the event after the bar). Only those individuals count.
+    topic_code: "2.6"
+  - front: Gym table (600 members) → P(attends 3+ a week | annual plan)
+    back: |
+      96/240 = 0.40.
+    topic_code: "2.6"
+  - front: Gym table → P(annual plan | attends 3+ a week)
+    back: |
+      96/168 ≈ 0.571. The same cell as P(frequent | annual) but divided by the frequent-attender total.
+    topic_code: "2.6"
+  - front: General multiplication rule → formula
+    back: |
+      P(A and B) = P(A) · P(B | A) = P(B) · P(A | B). Works for any two events.
+    topic_code: "2.6"
+  - front: Tree diagram → how to get an "and" probability and an overall probability
+    back: |
+      Multiply the probabilities along a path for "and". Add the end-of-path probabilities of every path that leads to the event.
+    topic_code: "2.6"
+  - front: Tree diagram second-stage branches → what kind of probability they hold
+    back: |
+      Conditional probabilities: the probability of the second-stage outcome given the first-stage branch they grow from.
+    topic_code: "2.6"
+  - front: Spam filter (30% spam, flags 92% of spam and 4% of legitimate mail) → P(flagged)
+    back: |
+      0.30 × 0.92 + 0.70 × 0.04 = 0.276 + 0.028 = 0.304.
+    topic_code: "2.6"
+  - front: Spam filter → P(spam | flagged)
+    back: |
+      0.276 ÷ 0.304 ≈ 0.908. Reverse a conditional by dividing the "and" path by the total for the given event.
+    topic_code: "2.6"
+  - front: Two names from 4 boys and 6 girls without replacement → P(both girls)
+    back: |
+      (6/10)(5/9) = 1/3 ≈ 0.333. The second factor is conditional because one girl is gone.
+    topic_code: "2.6"
+  - front: Independent events → definition
+    back: |
+      Knowing that one event occurred does not change the probability of the other: P(A | B) = P(A).
+    topic_code: "2.7"
+  - front: Checking independence from a two-way table → the comparison to make
+    back: |
+      Compare a conditional proportion with the overall proportion, such as P(job | athlete) with P(job). Equal → independent; different → not.
+    topic_code: "2.7"
+  - front: Multiplication rule for independent events → formula
+    back: |
+      P(A and B) = P(A) · P(B). Use it only after independence is given or checked.
+    topic_code: "2.7"
+  - front: Gym table → are annual plan and frequent attendance independent?
+    back: |
+      No: P(frequent | annual) = 0.40 but P(frequent) = 0.28.
+    topic_code: "2.7"
+  - front: General addition rule → formula
+    back: |
+      P(A or B) = P(A) + P(B) − P(A and B). The subtraction removes the double-counted overlap.
+    topic_code: "2.7"
+  - front: Gym table → P(annual plan or attends 3+ a week)
+    back: |
+      0.40 + 0.28 − 0.16 = 0.52.
+    topic_code: "2.7"
+  - front: Two independent traffic lights (green 0.55 and 0.40) → P(both green) and P(at least one green)
+    back: |
+      Both: 0.55 × 0.40 = 0.22. At least one: 0.55 + 0.40 − 0.22 = 0.73, or 1 − 0.45 × 0.60 = 0.73.
+    topic_code: "2.7"
+  - front: "\"At least one\" for independent events → complement shortcut"
+    back: |
+      P(at least one) = 1 − P(none), and P(none) is the product of the individual "fails" when the events are independent.
+    topic_code: "2.7"
+  - front: Mutually exclusive events with positive probabilities → independent or dependent?
+    back: |
+      Dependent. If A happens, B cannot, so P(B | A) = 0, which differs from P(B) > 0.
+    topic_code: "2.7"
+  - front: P(A and B) for mutually exclusive versus independent events → the two values
+    back: |
+      Mutually exclusive: 0. Independent: P(A) · P(B).
+    topic_code: "2.7"
+  - front: P(A) = 0.5, P(B) = 0.4, P(A and B) = 0.2 → independent?
+    back: |
+      Yes: 0.5 × 0.4 = 0.2, so P(A and B) = P(A) · P(B) (equivalently P(A | B) = 0.2/0.4 = 0.5 = P(A)).
+    topic_code: "2.7"
+  - front: Independence and association → how they connect for two categorical variables
+    back: |
+      Independence is the probability version of "no association": every conditional distribution equals the marginal distribution.
+    topic_code: "2.7"
+  - front: Independent events in a real setting → how you usually know
+    back: |
+      From how the outcomes are produced (separate coin tosses, separately timed lights, a random sample from a large population) or by checking P(A | B) = P(A) in data.
+    topic_code: "2.7"
+  - front: Error-spot → "P(flagged | spam) = 0.92, so 92% of flagged emails are spam"
+    back: |
+      That swaps the conditional. P(spam | flagged) needs the tree: 0.276/0.304 ≈ 0.908.
+    topic_code: "2.6"
+  - front: Error-spot → "A and B are mutually exclusive, so they are independent"
+    back: |
+      Disjoint events with positive probabilities are dependent: one happening rules the other out.
+    topic_code: "2.7"
+  - front: Error-spot → "P(A or B) = P(A) + P(B) = 0.6 + 0.5 = 1.1"
+    back: |
+      A probability above 1 signals overlap. Subtract P(A and B): the general addition rule.
+    topic_code: "2.7"
+
+quiz:
+  description: |
+    22 questions · about 40 minutes · mostly on this week (topics 2.5 to 2.7: mutually exclusive events,
+    conditional probability from tables and trees, the multiplication rule, independence and the general
+    addition rule), with 8 questions (36%) reviewing weeks 4 to 9 (sampling, boxplots, two-way tables,
+    simulation and basic probability). Opens with a shared-context set on one two-way table. Multiple choice,
+    select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes.
+    Calculators are allowed.
+  questions:
+    # ---- Stimulus set: sports and part-time jobs (2.5, 2.6, 2.7)
+    - slug: apstats-u02-w10-q01
+      type: multiple_choice
+      topic_code: "2.6"
+      source: "AP Statistics CED, Topic 2.6"
+      points: 1
+      stimulus: |
+        A hypothetical high school surveyed a random sample of 400 students about whether they play a school sport and whether they have a part-time job. One student is chosen at random from the 400.
+
+        | | Part-time job | No job | Total |
+        |---|---|---|---|
+        | Plays a sport | 54 | 126 | 180 |
+        | No sport | 66 | 154 | 220 |
+        | Total | 120 | 280 | 400 |
+      prompt: |
+        Given that the chosen student has a part-time job, what is the probability that the student plays a sport?
+      options:
+        - "0.300"
+        - "0.135"
+        - "0.450"
+        - "0.550"
+      option_explanations:
+        - |
+          54/180 = 0.300 is P(job | sport), the reversed conditional; the given event is having a job.
+        - |
+          54/400 = 0.135 is P(sport and job), a joint probability with the grand total as denominator.
+        - |
+          Correct. Restrict to the 120 students with a job; 54 of them play a sport: P(sport | job) = 54/120 = 0.45.
+        - |
+          66/120 = 0.550 is the probability that a student with a job does not play a sport.
+      answer: 2
+    - slug: apstats-u02-w10-q02
+      type: multiple_choice
+      topic_code: "2.7"
+      source: "AP Statistics CED, Topic 2.7"
+      points: 1
+      stimulus: |
+        A hypothetical high school surveyed a random sample of 400 students about whether they play a school sport and whether they have a part-time job. One student is chosen at random from the 400.
+
+        | | Part-time job | No job | Total |
+        |---|---|---|---|
+        | Plays a sport | 54 | 126 | 180 |
+        | No sport | 66 | 154 | 220 |
+        | Total | 120 | 280 | 400 |
+      prompt: |
+        What is the probability that the chosen student plays a sport or has a part-time job?
+      options:
+        - "0.615"
+        - "0.750"
+        - "0.135"
+        - "0.385"
+      option_explanations:
+        - |
+          Correct. General addition rule: 180/400 + 120/400 − 54/400 = 0.45 + 0.30 − 0.135 = 246/400 = 0.615.
+        - |
+          0.45 + 0.30 = 0.75 counts the 54 students who do both twice; the events are not mutually exclusive.
+        - |
+          0.135 is P(sport and job), the overlap only, not the union.
+        - |
+          154/400 = 0.385 is the probability of neither, the complement of the union.
+      answer: 0
+    - slug: apstats-u02-w10-q03
+      type: multiple_choice
+      topic_code: "2.7"
+      source: "AP Statistics CED, Topic 2.7"
+      points: 1
+      stimulus: |
+        A hypothetical high school surveyed a random sample of 400 students about whether they play a school sport and whether they have a part-time job. One student is chosen at random from the 400.
+
+        | | Part-time job | No job | Total |
+        |---|---|---|---|
+        | Plays a sport | 54 | 126 | 180 |
+        | No sport | 66 | 154 | 220 |
+        | Total | 120 | 280 | 400 |
+      prompt: |
+        For the chosen student, are the events "plays a sport" and "has a part-time job" independent?
+      options:
+        - "No, because 54 students do both."
+        - "No, because more students without a sport (66) than with a sport (54) have jobs."
+        - "Yes, because the two events are mutually exclusive."
+        - "Yes, because P(job | sport) = 54/180 = 0.30, which equals P(job) = 120/400 = 0.30."
+      option_explanations:
+        - |
+          Students doing both shows the events are not mutually exclusive; independent events can and do happen together.
+        - |
+          Counts from groups of different sizes do not settle independence; as proportions, 54/180 and 66/220 are both 0.30.
+        - |
+          54 students do both, so the events are not mutually exclusive, and mutually exclusive events with positive probabilities are dependent anyway.
+        - |
+          Correct. Knowing the student plays a sport does not change the probability of having a job (0.30 either way), so the events are independent. Check: 0.45 × 0.30 = 0.135 = 54/400.
+      answer: 3
+    - slug: apstats-u02-w10-q04
+      type: multiple_choice
+      topic_code: "2.5"
+      source: "AP Statistics CED, Topic 2.5"
+      points: 1
+      stimulus: |
+        A hypothetical high school surveyed a random sample of 400 students about whether they play a school sport and whether they have a part-time job. One student is chosen at random from the 400.
+
+        | | Part-time job | No job | Total |
+        |---|---|---|---|
+        | Plays a sport | 54 | 126 | 180 |
+        | No sport | 66 | 154 | 220 |
+        | Total | 120 | 280 | 400 |
+      prompt: |
+        Which pair of events is mutually exclusive for the chosen student?
+      options:
+        - "Plays a sport; has a part-time job"
+        - "Plays a sport; does not play a sport"
+        - "Has no job; does not play a sport"
+        - "Has a part-time job; does not play a sport"
+      option_explanations:
+        - |
+          54 students both play a sport and have a job, so these events can happen together.
+        - |
+          Correct. A student cannot both play and not play a sport; the events share no outcomes, so P(both) = 0.
+        - |
+          154 students have no job and play no sport, so these events overlap.
+        - |
+          66 students have a job and play no sport, so these events overlap.
+      answer: 1
+    # ---- Independent items
+    - slug: apstats-u02-w10-q05
+      type: multiple_choice
+      topic_code: "2.5"
+      source: "AP Statistics CED, Topic 2.5"
+      points: 1
+      prompt: |
+        At a hypothetical high school, a randomly chosen student's lunch period is first lunch with probability 0.35 and second lunch with probability 0.40. Every student has exactly one lunch period. What is the probability that a randomly chosen student has first or second lunch?
+      options:
+        - "0.14"
+        - "0.75"
+        - "0.61"
+        - "0.25"
+      option_explanations:
+        - |
+          0.35 × 0.40 = 0.14 multiplies as if the events could happen together independently; a student cannot have both lunch periods.
+        - |
+          Correct. The events are mutually exclusive (one lunch period per student), so P(first or second) = 0.35 + 0.40 = 0.75.
+        - |
+          0.35 + 0.40 − 0.14 = 0.61 subtracts an overlap that does not exist; for mutually exclusive events P(both) = 0.
+        - |
+          0.25 = 1 − 0.75 is the probability of neither first nor second lunch.
+      answer: 1
+    - slug: apstats-u02-w10-q06
+      type: multiple_choice
+      topic_code: "2.6"
+      source: "AP Statistics CED, Topic 2.6"
+      points: 1
+      prompt: |
+        In a hypothetical town, 70% of high school students live within 2 miles of school. Of those, 40% walk to school; of the students who live farther away, 5% walk. Given that a randomly chosen student walks to school, what is the probability that the student lives within 2 miles?
+      options:
+        - "0.400"
+        - "0.280"
+        - "0.295"
+        - "0.949"
+      option_explanations:
+        - |
+          0.40 is P(walk | within 2 miles), the reverse of what is asked.
+        - |
+          0.70 × 0.40 = 0.280 is P(within 2 miles and walks), the numerator only.
+        - |
+          0.28 + 0.015 = 0.295 is P(walks), the denominator only.
+        - |
+          Correct. P(walk) = 0.70 × 0.40 + 0.30 × 0.05 = 0.28 + 0.015 = 0.295, so P(within 2 miles | walk) = 0.28/0.295 ≈ 0.949.
+      answer: 3
+    - slug: apstats-u02-w10-q07
+      type: multiple_choice
+      topic_code: "2.7"
+      source: "AP Statistics CED, Topic 2.7"
+      points: 1
+      prompt: |
+        A hypothetical student's alarm clock fails on a given morning with probability 0.04, and her phone alarm, set separately, fails with probability 0.10. The two fail independently. What is the probability that both fail on the same morning?
+      options:
+        - "0.004"
+        - "0.140"
+        - "0.136"
+        - "0.864"
+      option_explanations:
+        - |
+          Correct. For independent events, P(both fail) = 0.04 × 0.10 = 0.004.
+        - |
+          0.04 + 0.10 = 0.14 adds the probabilities, which estimates "at least one fails" (and even then double counts the overlap).
+        - |
+          0.04 + 0.10 − 0.004 = 0.136 is P(at least one fails), the union, not both.
+        - |
+          0.96 × 0.90 = 0.864 is the probability that neither fails.
+      answer: 0
+    - slug: apstats-u02-w10-q08
+      type: multiple_choice
+      topic_code: "2.7"
+      source: "AP Statistics CED, Topic 2.7"
+      points: 1
+      prompt: |
+        Events A and B have P(A) = 0.3 and P(B) = 0.5, and A and B are mutually exclusive. Which statement is true?
+      options:
+        - "A and B are independent, because they have nothing to do with each other."
+        - "P(A and B) = 0.15"
+        - "A and B are not independent, because P(B | A) = 0, which is not equal to P(B) = 0.5."
+        - "P(A or B) = 0.65"
+      option_explanations:
+        - |
+          Mutually exclusive events with positive probabilities are dependent: knowing A happened tells you B did not.
+        - |
+          0.3 × 0.5 = 0.15 would be P(A and B) if they were independent; mutually exclusive means P(A and B) = 0.
+        - |
+          Correct. If A occurs, B cannot, so P(B | A) = 0 ≠ 0.5 = P(B); the events are dependent.
+        - |
+          0.3 + 0.5 − 0.15 = 0.65 subtracts an independence overlap; for mutually exclusive events P(A or B) = 0.3 + 0.5 = 0.8.
+      answer: 2
+    - slug: apstats-u02-w10-q09
+      type: multiple_choice
+      topic_code: "2.4"
+      source: "AP Statistics CED, Topic 2.4"
+      points: 1
+      prompt: |
+        In a hypothetical survey, the probability that a randomly chosen adult in a city owns a bicycle is 0.37. What is the probability that a randomly chosen adult in the city does not own a bicycle?
+      options:
+        - "0.63"
+        - "0.37"
+        - "0.137"
+        - "It cannot be found without the number of adults surveyed."
+      option_explanations:
+        - |
+          Correct. By the complement rule, P(no bicycle) = 1 − 0.37 = 0.63.
+        - |
+          0.37 is the probability of owning a bicycle; the complement must add with it to 1.
+        - |
+          0.37² ≈ 0.137 squares the probability, which has no meaning here.
+        - |
+          The complement rule needs only the probability, not the sample size.
+      answer: 0
+    - slug: apstats-u02-w10-q10
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "AP Statistics CED, Topic 2.3"
+      points: 1
+      prompt: |
+        A coach will choose 3 of her 12 players (5 seniors and 7 juniors) at random to be captains. Which simulation correctly estimates the probability that all three captains are seniors?
+      options:
+        - "Assign digits 0–4 to seniors and 5–9 to juniors; read 3 digits and record whether all are 0–4."
+        - "Use a die: 1–3 = senior, 4–6 = junior; roll 3 times and record whether all are seniors."
+        - "Label players 01–12 with 01–05 the seniors; read pairs of digits, ignoring 00, 13–99 and repeats, until 3 labels appear; record whether all are 01–05; repeat many times."
+        - "Label players 01–12 with 01–05 the seniors; read pairs of digits, allowing repeats, until 3 labels appear; record whether all are 01–05; repeat many times."
+      option_explanations:
+        - |
+          This gives each pick probability 0.5 of being a senior and allows the same person twice; the real proportion is 5/12 and choices are without replacement.
+        - |
+          A die gives each pick a probability of 1/2 of being a senior, not 5/12, and ignores that a chosen player cannot be chosen again.
+        - |
+          Correct. Each player has a label, unused labels are skipped, and repeats are skipped because the same player cannot be a captain twice.
+        - |
+          Allowing repeats lets one player fill two captain spots, which is impossible; the draw is without replacement.
+      answer: 2
+    - slug: apstats-u02-w10-q11
+      type: multiple_choice
+      topic_code: "2.1"
+      source: "AP Statistics CED, Topic 2.1"
+      points: 1
+      prompt: |
+        In a hypothetical survey of 250 shoppers, 90 paid by phone, and 36 of those 90 were under 25 years old. Altogether 80 shoppers were under 25. What proportion of all 250 shoppers were under 25 and paid by phone?
+      options:
+        - "0.400"
+        - "0.450"
+        - "0.360"
+        - "0.144"
+      option_explanations:
+        - |
+          36/90 = 0.400 is the conditional proportion of phone payers who were under 25.
+        - |
+          36/80 = 0.450 is the conditional proportion of under-25 shoppers who paid by phone.
+        - |
+          90/250 = 0.360 is the marginal proportion who paid by phone, ignoring age.
+        - |
+          Correct. This is a joint relative frequency: 36/250 = 0.144.
+      answer: 3
+    - slug: apstats-u02-w10-q12
+      type: multiple_choice
+      topic_code: "1.11"
+      source: "AP Statistics CED, Topic 1.11"
+      points: 1
+      prompt: |
+        A hypothetical district wants to estimate the mean commute time of its high school students. Students in rural schools tend to have much longer commutes than students in city schools. Why would a stratified random sample with rural and city schools as strata be a good choice?
+      options:
+        - "It avoids the need for random selection within each stratum."
+        - "Commute times are similar within each stratum, so the estimate of the overall mean will vary less than with a simple random sample of the same size."
+        - "It guarantees that the sample mean equals the population mean."
+        - "It is cheaper because only one stratum needs to be surveyed."
+      option_explanations:
+        - |
+          Stratified sampling still requires random selection within each stratum; it adds structure, not a shortcut.
+        - |
+          Correct. Strata that are internally similar (homogeneous) in the variable of interest make the stratified estimate less variable than a simple random sample of the same size.
+        - |
+          No random sampling method guarantees the sample mean equals the population mean; stratifying reduces variability, it does not remove it.
+        - |
+          A stratified sample takes a random sample from every stratum; surveying only one would be like a cluster sample of one group.
+      answer: 1
+    - slug: apstats-u02-w10-q13
+      type: multi_select
+      topic_code: "2.7"
+      source: "AP Statistics CED, Topics 2.6–2.7"
+      points: 2
+      partial_credit: true
+      prompt: |
+        For events A and B, P(A) = 0.5, P(B) = 0.4 and P(A and B) = 0.2. Which statements are true? Select all that apply.
+      options:
+        - "A and B are independent."
+        - "P(A | B) = 0.5"
+        - "P(A or B) = 0.7"
+        - "A and B are mutually exclusive."
+        - "P(B | A) = 0.5"
+      option_explanations:
+        - |
+          Correct. P(A) · P(B) = 0.5 × 0.4 = 0.2 = P(A and B), so the events are independent.
+        - |
+          Correct. P(A | B) = P(A and B)/P(B) = 0.2/0.4 = 0.5, equal to P(A) as independence requires.
+        - |
+          Correct. General addition rule: 0.5 + 0.4 − 0.2 = 0.7.
+        - |
+          P(A and B) = 0.2, not 0, so A and B can happen together.
+        - |
+          P(B | A) = 0.2/0.5 = 0.4, which equals P(B); 0.5 is P(A | B).
+      answer: [0, 1, 2]
+    - slug: apstats-u02-w10-q14
+      type: multi_select
+      topic_code: "2.4"
+      source: "AP Statistics CED, Topic 2.4"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A hypothetical survey models the number of siblings of a randomly chosen student as: 0 siblings 0.18, 1 sibling 0.41, 2 siblings 0.26, 3 or more siblings 0.15. Which statements are true? Select all that apply.
+      options:
+        - "This is a valid probability model."
+        - "P(at least one sibling) = 0.82"
+        - "P(fewer than 2 siblings) = 0.41"
+        - "P(1 or 2 siblings) = 0.67"
+        - "Because 1 sibling is most likely, a student with 0 siblings is impossible."
+      option_explanations:
+        - |
+          Correct. Every probability is between 0 and 1 and 0.18 + 0.41 + 0.26 + 0.15 = 1.
+        - |
+          Correct. Complement rule: 1 − P(0 siblings) = 1 − 0.18 = 0.82.
+        - |
+          Fewer than 2 means 0 or 1 siblings: 0.18 + 0.41 = 0.59. 0.41 is exactly 1 sibling.
+        - |
+          Correct. The outcomes 1 and 2 are mutually exclusive, so 0.41 + 0.26 = 0.67.
+        - |
+          The most likely outcome is not the only possible one; 0 siblings has probability 0.18.
+      answer: [0, 1, 3]
+    - slug: apstats-u02-w10-q15
+      type: true_false
+      topic_code: "2.5"
+      source: "AP Statistics CED, Topic 2.5"
+      points: 1
+      prompt: |
+        True or false: If two events A and B are mutually exclusive, with P(A) = 0.3 and P(B) = 0.4, then P(A and B) = 0.12.
+      answer: false
+      explanation: |
+        False. Mutually exclusive events cannot happen together, so P(A and B) = 0. The product 0.3 × 0.4 = 0.12 is the rule for independent events, and mutually exclusive events with positive probabilities are not independent.
+    - slug: apstats-u02-w10-q16
+      type: true_false
+      topic_code: "1.8"
+      source: "AP Statistics CED, Topic 1.8"
+      points: 1
+      prompt: |
+        True or false: A boxplot of students' reaction times will always reveal whether the distribution has two separate peaks.
+      answer: false
+      explanation: |
+        False. A boxplot shows only the five-number summary and any outliers. Two very different distributions, one with a single peak and one with two peaks, can have the same five-number summary; a histogram or dotplot shows the shape in more detail.
+    - slug: apstats-u02-w10-q17
+      type: fill_blank
+      topic_code: "2.6"
+      source: "AP Statistics CED, Topic 2.6"
+      points: 1
+      prompt: |
+        For a randomly chosen customer of a hypothetical bakery, P(buys coffee and a muffin) = 0.12 and P(buys a muffin) = 0.30. Then P(buys coffee | buys a muffin), as a decimal, is ____.
+      answer: ["0.4", "0.40", ".4", ".40", "40%", "2/5"]
+      explanation: |
+        P(coffee | muffin) = P(coffee and muffin)/P(muffin) = 0.12/0.30 = 0.40.
+    - slug: apstats-u02-w10-q18
+      type: fill_blank
+      topic_code: "2.4"
+      source: "AP Statistics CED, Topic 2.4"
+      points: 1
+      prompt: |
+        Two fair six-sided dice are rolled. The probability that the sum is 7, written as a fraction in lowest terms, is ____.
+      answer: ["1/6", "6/36", "0.167", ".167", "0.1667", "16.7%"]
+      explanation: |
+        Six of the 36 equally likely ordered pairs give a sum of 7: (1, 6), (2, 5), (3, 4), (4, 3), (5, 2), (6, 1). So the probability is 6/36 = 1/6.
+    - slug: apstats-u02-w10-q19
+      type: numeric
+      topic_code: "2.7"
+      source: "AP Statistics CED, Topic 2.7"
+      points: 1
+      prompt: |
+        A hypothetical school building has three smoke detectors in one hallway. Each detects a fire with probability 0.8, independently of the others. Find the probability that at least one detector detects a fire, to three decimal places.
+      answer: { value: 0.992, tolerance: 0.0006 }
+      explanation: |
+        P(none detects) = 0.2 × 0.2 × 0.2 = 0.008 because the detectors are independent. By the complement rule, P(at least one) = 1 − 0.008 = 0.992.
+    - slug: apstats-u02-w10-q20
+      type: short_answer
+      topic_code: "2.6"
+      source: "AP Statistics CED, Topics 2.6–2.7"
+      points: 3
+      prompt: |
+        On a hypothetical streaming service, 35% of accounts are family plans and the rest are individual plans. 60% of family-plan accounts and 20% of individual-plan accounts watch mostly on a TV. An account is chosen at random.
+
+        (a) Find the probability that the account watches mostly on a TV.
+        (b) Given that the account watches mostly on a TV, find the probability that it is a family plan.
+        (c) Are the events "family plan" and "watches mostly on a TV" independent? Justify.
+      answer: |
+        (a) P(TV) = 0.35 × 0.60 + 0.65 × 0.20 = 0.21 + 0.13 = 0.34.
+        (b) P(family | TV) = 0.21/0.34 ≈ 0.618.
+        (c) No. P(TV | family) = 0.60 but P(TV) = 0.34; knowing the plan type changes the probability (equivalently P(family | TV) ≈ 0.618 ≠ P(family) = 0.35).
+      explanation: |
+        Three points, one per part. (a) 0.34 with the work shown (a tree or the two products added). (b) 0.618 (accept 0.62) from P(family and TV)/P(TV). (c) "not independent" justified by comparing a conditional probability with the matching unconditional probability; a bare "no" earns nothing.
+    - slug: apstats-u02-w10-q21
+      type: short_answer
+      topic_code: "2.3"
+      source: "AP Statistics CED, Topic 2.3"
+      points: 2
+      prompt: |
+        A game uses a coin that is supposed to be fair. In 50 tosses it landed heads 32 times. A student simulated 200 sets of 50 tosses of a fair coin and found 32 or more heads in 6 of the 200 sets.
+
+        (a) Estimate the probability of getting 32 or more heads in 50 tosses of a fair coin.
+        (b) Does the result give convincing evidence that the coin is biased toward heads? Explain.
+      answer: |
+        (a) 6/200 = 0.03.
+        (b) Yes. If the coin were fair, 32 or more heads in 50 tosses would happen only about 3% of the time. That is unusual enough that chance alone is not a plausible explanation, so the result is convincing evidence that the coin lands heads more than half the time.
+      explanation: |
+        Two points. (a) 1 point: 0.03. (b) 1 point: a conclusion in context based on the estimate being small (assuming the coin is fair, the result is unusual), stated as evidence rather than proof.
+    - slug: apstats-u02-w10-q22
+      type: long_answer
+      topic_code: "2.6"
+      source: "AP Statistics CED, Topics 2.5–2.7"
+      points: 6
+      prompt: |
+        A hypothetical media company surveyed a random sample of 800 adults about their age group and their main source of news.
+
+        | Age group | Online | TV | Print | Total |
+        |---|---|---|---|---|
+        | Under 40 | 252 | 84 | 24 | 360 |
+        | 40 and over | 154 | 198 | 88 | 440 |
+        | Total | 406 | 282 | 112 | 800 |
+
+        One adult is chosen at random from the 800.
+
+        (A) Find P(online) and P(online | under 40).
+
+        (B) Find P(under 40 or online).
+
+        (C) Are "under 40" and "online" independent? Justify your answer.
+
+        (D) Two different adults are chosen at random from the 800, without replacement. Find the probability that both name print as their main source.
+      answer: |
+        (A) P(online) = 406/800 ≈ 0.508. P(online | under 40) = 252/360 = 0.70.
+        (B) P(under 40 or online) = 360/800 + 406/800 − 252/800 = 514/800 ≈ 0.643.
+        (C) No. P(online | under 40) = 0.70, but P(online) ≈ 0.508. Knowing the adult is under 40 changes the probability of online news, so the events are not independent. (Equivalently, P(under 40) · P(online) = 0.45 × 0.5075 ≈ 0.228 ≠ P(under 40 and online) = 0.315.)
+        (D) P(both print) = (112/800)(111/799) ≈ 0.0194.
+      explanation: |
+        Six points. (A) 2 points: 1 for P(online) ≈ 0.508 and 1 for P(online | under 40) = 0.70, each with the correct denominator. (B) 1 point: 0.643 by the general addition rule (or by adding the cells 252 + 84 + 24 + 154 = 514). (C) 2 points: 1 for comparing P(online | under 40) with P(online) (or the product check), 1 for the correct conclusion "not independent" in context. (D) 1 point: (112/800)(111/799) ≈ 0.0194, with the second factor conditional on the first draw. (112/800)² ≈ 0.0196 treats the draws as independent (with replacement) and does not earn the point.

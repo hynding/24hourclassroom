@@ -1,0 +1,939 @@
+unit: 3
+description: |
+  42 questions · about 90 minutes · every topic of Unit 3 (3.1 to 3.15): estimators and bias, the sampling
+  distribution of p̂, one-sample z-intervals and the claims they support, setting up and carrying out a one-sample
+  z-test, p-values, Type I and Type II errors and power, the sampling distribution of p̂₁ − p̂₂, two-sample
+  z-intervals and the claims they support, two-sample z-tests, and chi-square tests for homogeneity and
+  independence. Includes three shared-context sets (a four-question set on a district breakfast survey, a four-
+  question set on a randomized tutoring experiment, and a three-question set on a two-way table of streaming
+  plans and devices), select-all, true/false, fill-in-the-blank and numeric items, two short-answer questions
+  (3 points each) and two free-response questions in the 2027 AP style (10 points each: one on experimental
+  design and a two-proportion interval, one chi-square test for independence). A calculator is allowed
+  throughout. Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank
+  items are matched automatically; the short answers and free-response questions are graded by your teacher
+  against the scoring notes.
+questions:
+  # ---- Stimulus set A: breakfast survey (3.3, 3.4, 3.5, 3.7)
+  - slug: apstats-u03-exam-q01
+    type: multiple_choice
+    topic_code: "3.3"
+    source: "AP Statistics CED, Topic 3.3"
+    points: 1
+    stimulus: |
+      A large hypothetical school district (about 12,000 students) surveys a random sample of 400 of its students. 148 of them say they ate breakfast before school every day last week. The district's nutrition office has claimed that 40% of its students eat breakfast every school day. Let p be the proportion of all students in the district who ate breakfast before school every day last week.
+    prompt: |
+      Which is the 95% confidence interval for p?
+    options:
+      - "(0.330, 0.410)"
+      - "(0.323, 0.417)"
+      - "(0.369, 0.371)"
+      - "(0.322, 0.418)"
+    option_explanations:
+      - |
+        This uses z* = 1.645, which gives a 90% interval rather than a 95% one.
+      - |
+        Correct. p̂ = 148/400 = 0.37, SE = √(0.37·0.63/400) ≈ 0.0241, and 0.37 ± 1.96(0.0241) = 0.37 ± 0.047.
+      - |
+        This forgets the square root: 1.96 · (0.37·0.63/400) is a margin of only about 0.001.
+      - |
+        This uses p₀ = 0.40 in the standard error; an interval estimates p and uses p̂ = 0.37 instead.
+    answer: 1
+  - slug: apstats-u03-exam-q02
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "AP Statistics CED, Topic 3.4"
+    points: 1
+    stimulus: |
+      A large hypothetical school district (about 12,000 students) surveys a random sample of 400 of its students. 148 of them say they ate breakfast before school every day last week. The district's nutrition office has claimed that 40% of its students eat breakfast every school day. Let p be the proportion of all students in the district who ate breakfast before school every day last week.
+    prompt: |
+      What does the 95% confidence interval say about the nutrition office's claim of 40%?
+    options:
+      - "The claim is false, because the sample proportion is 0.37, not 0.40."
+      - "The claim is proven, because 0.40 is inside the interval."
+      - "The claim is false, because 0.40 is close to the upper endpoint."
+      - "0.40 is a plausible value of p, so the interval does not give convincing evidence against the claim."
+    option_explanations:
+      - |
+        Sample proportions vary from the parameter by chance; the interval, not p̂ alone, decides whether 0.40 is plausible.
+      - |
+        A value inside the interval is plausible, not proven; many other values are plausible too.
+      - |
+        Every value inside the interval is plausible, wherever it lies.
+      - |
+        Correct. 0.40 lies between 0.323 and 0.417, so it is a plausible value; the data do not contradict the claim.
+    answer: 3
+  - slug: apstats-u03-exam-q03
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "AP Statistics CED, Topic 3.5"
+    points: 1
+    stimulus: |
+      A large hypothetical school district (about 12,000 students) surveys a random sample of 400 of its students. 148 of them say they ate breakfast before school every day last week. The district's nutrition office has claimed that 40% of its students eat breakfast every school day. Let p be the proportion of all students in the district who ate breakfast before school every day last week.
+    prompt: |
+      A school board member suspects that fewer than 40% of the district's students eat breakfast every school day. Which hypotheses should be tested?
+    options:
+      - "H₀: p = 0.40; Hₐ: p < 0.40"
+      - "H₀: p̂ = 0.40; Hₐ: p̂ < 0.40"
+      - "H₀: p = 0.37; Hₐ: p < 0.37"
+      - "H₀: p < 0.40; Hₐ: p = 0.40"
+    option_explanations:
+      - |
+        Correct. The null hypothesis is the claimed value; the board member's suspicion (fewer than 40%) is the one-sided alternative.
+      - |
+        Hypotheses are about the parameter p, not the sample proportion, which is already known to be 0.37.
+      - |
+        0.37 is the sample result; hypotheses use the claimed value 0.40, and must be set before seeing the data.
+      - |
+        These are reversed: the equality belongs in H₀ and the suspicion being tested in Hₐ.
+    answer: 0
+  - slug: apstats-u03-exam-q04
+    type: multiple_choice
+    topic_code: "3.7"
+    source: "AP Statistics CED, Topic 3.7"
+    points: 1
+    stimulus: |
+      A large hypothetical school district (about 12,000 students) surveys a random sample of 400 of its students. 148 of them say they ate breakfast before school every day last week. The district's nutrition office has claimed that 40% of its students eat breakfast every school day. Let p be the proportion of all students in the district who ate breakfast before school every day last week.
+    prompt: |
+      The board member carries out a one-sample z-test of the hypotheses in the previous question at α = 0.05. Which result and conclusion are correct?
+    options:
+      - "z ≈ −1.24, p-value ≈ 0.107; fail to reject H₀"
+      - "z ≈ −1.22, p-value ≈ 0.221; fail to reject H₀"
+      - "z ≈ −1.22, p-value ≈ 0.110; fail to reject H₀. There is not convincing evidence that fewer than 40% of all students in the district eat breakfast every school day."
+      - "z ≈ −1.22, p-value ≈ 0.110; accept H₀. Exactly 40% of the district's students eat breakfast every school day."
+    option_explanations:
+      - |
+        This uses p̂ = 0.37 in the standard deviation; a test assumes H₀ and uses p₀ = 0.40: √(0.4·0.6/400) ≈ 0.0245.
+      - |
+        0.221 doubles the tail area, as for a two-sided test, but the alternative here is p < 0.40.
+      - |
+        Correct. z = (0.37 − 0.40)/√(0.40·0.60/400) ≈ −1.22 and P(Z ≤ −1.22) ≈ 0.110 > 0.05, so fail to reject H₀.
+      - |
+        A test never accepts H₀ or shows the parameter equals 0.40; it only fails to find convincing evidence against it.
+    answer: 2
+  # ---- Stimulus set B: tutoring experiment (3.12, 3.13, 3.10, 3.11)
+  - slug: apstats-u03-exam-q05
+    type: multiple_choice
+    topic_code: "3.12"
+    source: "AP Statistics CED, Topic 3.12"
+    points: 1
+    stimulus: |
+      A hypothetical high school wants to compare two kinds of help for ninth graders who failed a first algebra quiz. It randomly assigns 300 such students: 150 to weekly peer tutoring and 150 to an online video series. On the retake, 99 of the tutoring group and 81 of the video group pass. Let p_T and p_V be the true proportions of students like these who would pass the retake with each kind of help. The school asks whether the pass rates differ.
+    prompt: |
+      Which hypotheses match the school's question?
+    options:
+      - "H₀: p_T − p_V = 0; Hₐ: p_T − p_V > 0"
+      - "H₀: p_T − p_V = 0; Hₐ: p_T − p_V ≠ 0"
+      - "H₀: p̂_T − p̂_V = 0; Hₐ: p̂_T − p̂_V ≠ 0"
+      - "H₀: p_T − p_V ≠ 0; Hₐ: p_T − p_V = 0"
+    option_explanations:
+      - |
+        The school asks whether the pass rates differ, not whether tutoring is better, so the alternative is two-sided.
+      - |
+        Correct. No difference under H₀; "differ" gives the two-sided alternative.
+      - |
+        Hypotheses concern the true proportions, not the sample proportions.
+      - |
+        The equality belongs in H₀; these hypotheses are reversed.
+    answer: 1
+  - slug: apstats-u03-exam-q06
+    type: multiple_choice
+    topic_code: "3.13"
+    source: "AP Statistics CED, Topic 3.13"
+    points: 1
+    stimulus: |
+      A hypothetical high school wants to compare two kinds of help for ninth graders who failed a first algebra quiz. It randomly assigns 300 such students: 150 to weekly peer tutoring and 150 to an online video series. On the retake, 99 of the tutoring group and 81 of the video group pass. Let p_T and p_V be the true proportions of students like these who would pass the retake with each kind of help. The school asks whether the pass rates differ.
+    prompt: |
+      Which is the result of the two-sample z-test at α = 0.05?
+    options:
+      - "z ≈ 2.12, p-value ≈ 0.017; reject H₀"
+      - "z ≈ 3.00, p-value ≈ 0.003; reject H₀"
+      - "z ≈ 2.12, p-value ≈ 0.034; fail to reject H₀, because the p-value is less than α"
+      - "z ≈ 2.12, p-value ≈ 0.034; reject H₀"
+    option_explanations:
+      - |
+        0.017 is the one-tail area; the school's two-sided question needs both tails, 2(0.017) ≈ 0.034.
+      - |
+        3.00 uses √(p̂_c(1 − p̂_c)/150), one group's sample size only; the SD needs (1/150 + 1/150).
+      - |
+        The decision rule is backwards: a p-value below α means H₀ is rejected.
+      - |
+        Correct. p̂_c = 180/300 = 0.60; SD = √(0.6·0.4·(2/150)) ≈ 0.0566; z = 0.12/0.0566 ≈ 2.12; two-sided p ≈ 0.034 < 0.05.
+    answer: 3
+  - slug: apstats-u03-exam-q07
+    type: multiple_choice
+    topic_code: "3.10"
+    source: "AP Statistics CED, Topic 3.10"
+    points: 1
+    stimulus: |
+      A hypothetical high school wants to compare two kinds of help for ninth graders who failed a first algebra quiz. It randomly assigns 300 such students: 150 to weekly peer tutoring and 150 to an online video series. On the retake, 99 of the tutoring group and 81 of the video group pass. Let p_T and p_V be the true proportions of students like these who would pass the retake with each kind of help. The school asks whether the pass rates differ.
+    prompt: |
+      Which is the 95% two-sample z-interval for p_T − p_V?
+    options:
+      - "(0.010, 0.230)"
+      - "(0.028, 0.212)"
+      - "(−0.230, −0.010)"
+      - "(−0.036, 0.276)"
+    option_explanations:
+      - |
+        Correct. 0.66 − 0.54 = 0.12; SE = √(0.66·0.34/150 + 0.54·0.46/150) ≈ 0.0561; 0.12 ± 1.96(0.0561) = 0.12 ± 0.110.
+      - |
+        This uses z* = 1.645, giving a 90% interval.
+      - |
+        This is the interval for p_V − p_T, the reverse order of subtraction.
+      - |
+        This uses the sum of the two standard errors (about 0.079) instead of the combined SE.
+    answer: 0
+  - slug: apstats-u03-exam-q08
+    type: multiple_choice
+    topic_code: "3.11"
+    source: "AP Statistics CED, Topic 3.11"
+    points: 1
+    stimulus: |
+      A hypothetical high school wants to compare two kinds of help for ninth graders who failed a first algebra quiz. It randomly assigns 300 such students: 150 to weekly peer tutoring and 150 to an online video series. On the retake, 99 of the tutoring group and 81 of the video group pass. Let p_T and p_V be the true proportions of students like these who would pass the retake with each kind of help. The school asks whether the pass rates differ.
+    prompt: |
+      Based on the 95% interval for p_T − p_V, which conclusion is justified?
+    options:
+      - "Tutoring raises the pass rate by exactly 12 percentage points."
+      - "Tutoring would raise the pass rate for all ninth graders in the country."
+      - "There is convincing evidence that peer tutoring leads to a higher pass rate than the videos for students like these, and the difference can be attributed to the kind of help."
+      - "No cause-and-effect conclusion is possible, because the students were not a random sample."
+    option_explanations:
+      - |
+        0.12 is the point estimate, one plausible value; the interval gives a range from about 1 to 23 points.
+      - |
+        The students were not randomly selected from all ninth graders, so the result applies to students like these only.
+      - |
+        Correct. Every plausible value is positive, and random assignment supports a causal conclusion for students like these.
+      - |
+        Random assignment, not random sampling, is what supports cause and effect; random sampling governs generalisation.
+    answer: 2
+  # ---- Stimulus set C: streaming plans (3.14, 3.15)
+  - slug: apstats-u03-exam-q09
+    type: multiple_choice
+    topic_code: "3.14"
+    source: "AP Statistics CED, Topic 3.14"
+    points: 1
+    stimulus: |
+      A hypothetical streaming service takes one random sample of 300 of its customers (it has over 200,000) and records each customer's plan and the device they watch on most.
+
+      | Plan | TV | Phone | Computer | Total |
+      |---|---|---|---|---|
+      | Basic | 40 | 22 | 18 | 80 |
+      | Standard | 52 | 30 | 38 | 120 |
+      | Premium | 28 | 20 | 52 | 100 |
+      | Total | 120 | 72 | 108 | 300 |
+    prompt: |
+      Assuming there is no association between plan and main device, what is the expected count of premium customers who watch mostly on a computer?
+    options:
+      - "52"
+      - "36"
+      - "33.3"
+      - "28.8"
+    option_explanations:
+      - |
+        52 is the observed count, not the count H₀ predicts.
+      - |
+        Correct. Expected count = (row total)(column total)/(table total) = 100 · 108/300 = 36.
+      - |
+        33.3 splits the premium row evenly across three devices, ignoring the column totals.
+      - |
+        28.8 = 80 · 108/300 uses the basic row's total instead of the premium row's.
+    answer: 1
+  - slug: apstats-u03-exam-q10
+    type: multiple_choice
+    topic_code: "3.15"
+    source: "AP Statistics CED, Topic 3.15"
+    points: 1
+    stimulus: |
+      A hypothetical streaming service takes one random sample of 300 of its customers (it has over 200,000) and records each customer's plan and the device they watch on most.
+
+      | Plan | TV | Phone | Computer | Total |
+      |---|---|---|---|---|
+      | Basic | 40 | 22 | 18 | 80 |
+      | Standard | 52 | 30 | 38 | 120 |
+      | Premium | 28 | 20 | 52 | 100 |
+      | Total | 120 | 72 | 108 | 300 |
+    prompt: |
+      A chi-square test for independence gives χ² ≈ 18.85. What are the degrees of freedom and the p-value?
+    options:
+      - "df = 8, p-value ≈ 0.016"
+      - "df = 9, p-value ≈ 0.027"
+      - "df = 4, p-value ≈ 0.9992"
+      - "df = 4, p-value ≈ 0.0008"
+    option_explanations:
+      - |
+        df = 8 is the number of cells minus 1; for a two-way table df = (3 − 1)(3 − 1) = 4.
+      - |
+        df = 9 is the number of cells; for a two-way table df = (rows − 1)(columns − 1).
+      - |
+        0.9992 is the area to the left of 18.85; the chi-square p-value is the upper tail.
+      - |
+        Correct. df = (3 − 1)(3 − 1) = 4, and P(χ² ≥ 18.85) with 4 df ≈ 0.0008.
+    answer: 3
+  - slug: apstats-u03-exam-q11
+    type: multiple_choice
+    topic_code: "3.15"
+    source: "AP Statistics CED, Topic 3.15"
+    points: 1
+    stimulus: |
+      A hypothetical streaming service takes one random sample of 300 of its customers (it has over 200,000) and records each customer's plan and the device they watch on most.
+
+      | Plan | TV | Phone | Computer | Total |
+      |---|---|---|---|---|
+      | Basic | 40 | 22 | 18 | 80 |
+      | Standard | 52 | 30 | 38 | 120 |
+      | Premium | 28 | 20 | 52 | 100 |
+      | Total | 120 | 72 | 108 | 300 |
+    prompt: |
+      Which conclusion and follow-up are correct at α = 0.05?
+    options:
+      - "There is convincing evidence of an association between plan and main device among all the service's customers; premium customers watch on a computer more often than independence would predict."
+      - "There is convincing evidence that choosing the premium plan causes customers to watch on a computer."
+      - "There is not convincing evidence of an association, because some observed counts are below 25."
+      - "There is convincing evidence of an association; basic customers watch on a computer more often than expected."
+    option_explanations:
+      - |
+        Correct. p ≈ 0.0008 < 0.05, so reject H₀. The largest contribution is premium/computer: (52 − 36)²/36 ≈ 7.11, with more observed than expected.
+      - |
+        One random sample shows an association, not causation; no plans were assigned.
+      - |
+        The decision comes from the p-value, not from the size of individual counts; the expected-count condition (all at least 5) is met.
+      - |
+        Basic customers watch on a computer less often than expected: 18 observed against 28.8 expected.
+    answer: 0
+  # ---- Independent items
+  - slug: apstats-u03-exam-q12
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "AP Statistics CED, Topic 3.1"
+    points: 1
+    prompt: |
+      A sampling method for estimating the proportion of a town's households with solar panels produces sample proportions whose sampling distribution is centered at the true proportion but is very spread out. How should the method be described?
+    options:
+      - "Biased with low variability"
+      - "Biased with high variability"
+      - "Unbiased with high variability"
+      - "Unbiased with low variability"
+    option_explanations:
+      - |
+        The distribution is centered at the true proportion, so the method is not biased, and it is widely spread, not tightly clustered.
+      - |
+        Being centered at the parameter means the method is unbiased; the wide spread is variability, not bias.
+      - |
+        Correct. Centered at the parameter means unbiased; a wide spread means high variability (a larger sample would reduce it).
+      - |
+        The method is unbiased, but a very spread-out distribution means high, not low, variability.
+    answer: 2
+  - slug: apstats-u03-exam-q13
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "AP Statistics CED, Topic 3.1"
+    points: 1
+    prompt: |
+      Three statistics are proposed for estimating the proportion of all students at a hypothetical university who own a car. Statistic 1's sampling distribution is centered at the true proportion with SD 0.02. Statistic 2's is centered at the true proportion with SD 0.05. Statistic 3's is centered 0.06 above the true proportion with SD 0.02. Which statistic is the best estimator?
+    options:
+      - "Statistic 2, because a wider spread is more likely to include the true value"
+      - "Statistic 1, because it is unbiased and has the smallest variability"
+      - "Statistic 3, because it has small variability"
+      - "All three are equally good, because they have the same sample size"
+    option_explanations:
+      - |
+        A wider spread means individual estimates miss by more; an estimator is a single number, not an interval.
+      - |
+        Correct. Statistic 1 is both unbiased (centered at the parameter) and the least variable.
+      - |
+        Statistic 3 has low variability but is biased: its estimates cluster around the wrong value.
+      - |
+        The three statistics behave differently, so they are not equally good, whatever the sample size.
+    answer: 1
+  - slug: apstats-u03-exam-q14
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "AP Statistics CED, Topic 3.2"
+    points: 1
+    prompt: |
+      At a large hypothetical bicycle chain, 12% of all bicycles sold are electric. For random samples of 150 sales, what is the standard deviation of the sampling distribution of p̂, the sample proportion of electric bicycles?
+    options:
+      - "About 0.0265"
+      - "About 0.325"
+      - "About 0.0007"
+      - "About 0.0086"
+    option_explanations:
+      - |
+        Correct. SD(p̂) = √(0.12·0.88/150) = √0.000704 ≈ 0.0265 (valid because 150 is less than 10% of the chain's sales).
+      - |
+        0.325 is √(0.12·0.88), the SD for a single sale; it has not been divided by n.
+      - |
+        0.0007 is the variance p(1 − p)/n; the square root has not been taken.
+      - |
+        0.0086 is p(1 − p)/√n, which takes the square root of n only.
+    answer: 0
+  - slug: apstats-u03-exam-q15
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "AP Statistics CED, Topic 3.2"
+    points: 1
+    prompt: |
+      In a hypothetical large city, 30% of all adults commute by public transit. For a random sample of 200 adults, what is the approximate probability that the sample proportion who commute by transit is at least 0.35?
+    options:
+      - "About 0.939"
+      - "About 0.457"
+      - "About 0.122"
+      - "About 0.061"
+    option_explanations:
+      - |
+        0.939 is the probability that p̂ is less than 0.35, the wrong tail.
+      - |
+        0.457 uses √(0.3·0.7) as the SD, forgetting to divide by n.
+      - |
+        0.122 doubles the tail area as if the question were two-sided.
+      - |
+        Correct. SD = √(0.3·0.7/200) ≈ 0.0324 (60 and 140 ≥ 10, so approximately normal); z = 0.05/0.0324 ≈ 1.54; P(Z ≥ 1.54) ≈ 0.061.
+    answer: 3
+  - slug: apstats-u03-exam-q16
+    type: multiple_choice
+    topic_code: "3.3"
+    source: "AP Statistics CED, Topic 3.3"
+    points: 1
+    prompt: |
+      A hypothetical polling club wants a 95% confidence interval for the proportion of all voters in a state who support a ballot measure, with a margin of error of at most 0.03. It has no prior estimate of the proportion. What is the smallest sample size that guarantees this?
+    options:
+      - "33"
+      - "752"
+      - "1,068"
+      - "1,067"
+    option_explanations:
+      - |
+        33 comes from (1.96/0.03) · 0.5 without squaring; the formula is n = (z*/m)² p*(1 − p*).
+      - |
+        752 uses z* = 1.645, the 90% critical value.
+      - |
+        Correct. n = (1.96/0.03)² · 0.5 · 0.5 ≈ 1,067.1, and the sample size is always rounded up, to 1,068.
+      - |
+        1,067 rounds down; with 1,067 the margin of error would be slightly over 0.03, so round up.
+    answer: 2
+  - slug: apstats-u03-exam-q17
+    type: multiple_choice
+    topic_code: "3.4"
+    source: "AP Statistics CED, Topic 3.4"
+    points: 1
+    prompt: |
+      A 99% confidence interval for the proportion of all residents of a hypothetical county who support a new library tax is (0.56, 0.64). Does the interval give convincing evidence that a majority of residents support the tax?
+    options:
+      - "No, because a 99% interval is too wide to support any claim."
+      - "Yes, because every plausible value in the interval is greater than 0.50."
+      - "Yes, because 99% of residents support the tax."
+      - "No, because 0.50 is not in the interval, so the claim cannot be judged."
+    option_explanations:
+      - |
+        A 99% interval is wider, but this one still lies entirely above 0.50, which supports the claim.
+      - |
+        Correct. The whole interval is above 0.50, so there is convincing evidence that more than half of all residents support the tax.
+      - |
+        99% is the confidence level of the method, not the proportion of supporters.
+      - |
+        0.50 lying outside (below) the interval is exactly what makes "a majority" convincing.
+    answer: 1
+  - slug: apstats-u03-exam-q18
+    type: multiple_choice
+    topic_code: "3.5"
+    source: "AP Statistics CED, Topic 3.5"
+    points: 1
+    prompt: |
+      A hypothetical school says that 25% of its students bike to school. A student believes the true proportion is higher and plans to survey a random sample. With p = the proportion of all students at the school who bike to school, which hypotheses should she use?
+    options:
+      - "H₀: p = 0.25; Hₐ: p > 0.25"
+      - "H₀: p̂ = 0.25; Hₐ: p̂ > 0.25"
+      - "H₀: p > 0.25; Hₐ: p = 0.25"
+      - "H₀: p = 0.25; Hₐ: p ≠ 0.25"
+    option_explanations:
+      - |
+        Correct. The school's claim is the null value; the student's belief that it is higher gives a one-sided alternative.
+      - |
+        Hypotheses are statements about the parameter p, not the sample statistic.
+      - |
+        The null hypothesis takes the equality; the belief being tested goes in Hₐ.
+      - |
+        The student suspects a higher proportion, so the alternative should be one-sided (>), chosen before seeing data.
+    answer: 0
+  - slug: apstats-u03-exam-q19
+    type: multiple_choice
+    topic_code: "3.6"
+    source: "AP Statistics CED, Topic 3.6"
+    points: 1
+    prompt: |
+      A hypothetical pizza shop tests H₀: p = 0.15 against Hₐ: p > 0.15, where p is the proportion of all its deliveries that arrive late. In a random sample of deliveries, p̂ = 0.19 and the p-value is 0.04. Which is the correct interpretation of the p-value?
+    options:
+      - "There is a 0.04 probability that 15% of all deliveries arrive late."
+      - "There is a 0.04 probability that the sample proportion of 0.19 is wrong."
+      - "4% of all deliveries arrive later than expected."
+      - "Assuming 15% of all deliveries arrive late, there is a 0.04 probability of getting a sample proportion of 0.19 or greater by chance alone."
+    option_explanations:
+      - |
+        The p-value is computed by assuming H₀ is true; it is not the probability that H₀ is true.
+      - |
+        The sample proportion is a fact about the sample; the p-value describes how unusual it would be under H₀.
+      - |
+        The p-value is a probability about the test statistic, not a proportion of deliveries.
+      - |
+        Correct. It states the assumption (p = 0.15), the observed result, the direction ("or greater") and "by chance alone".
+    answer: 3
+  - slug: apstats-u03-exam-q20
+    type: multiple_choice
+    topic_code: "3.6"
+    source: "AP Statistics CED, Topic 3.6"
+    points: 1
+    prompt: |
+      A one-sample z-test of H₀: p = 0.50 against Hₐ: p ≠ 0.50, about the proportion of all adults in a hypothetical city who prefer a four-day school week, gives z = 2.45. What is the p-value?
+    options:
+      - "About 0.007"
+      - "About 0.993"
+      - "About 0.014"
+      - "About 0.986"
+    option_explanations:
+      - |
+        0.007 is one tail; the two-sided alternative needs both tails.
+      - |
+        0.993 is the area to the left of 2.45, the wrong tail.
+      - |
+        Correct. p-value = 2 · P(Z ≥ 2.45) ≈ 2(0.0071) ≈ 0.014.
+      - |
+        0.986 is 1 minus the two-sided p-value, the area between −2.45 and 2.45.
+    answer: 2
+  - slug: apstats-u03-exam-q21
+    type: multiple_choice
+    topic_code: "3.7"
+    source: "AP Statistics CED, Topic 3.7"
+    points: 1
+    prompt: |
+      A test of H₀: p = 0.60 against Hₐ: p > 0.60, where p is the proportion of all customers at a hypothetical gym who renew their membership, gives a p-value of 0.08. Using α = 0.05, which conclusion is correct?
+    options:
+      - "Reject H₀; there is convincing evidence that more than 60% of customers renew."
+      - "Fail to reject H₀; there is not convincing evidence that more than 60% of all the gym's customers renew."
+      - "Fail to reject H₀; exactly 60% of the gym's customers renew."
+      - "Reject H₀, because 0.08 is close to 0.05."
+    option_explanations:
+      - |
+        The p-value 0.08 is greater than α = 0.05, so H₀ is not rejected.
+      - |
+        Correct. 0.08 > 0.05, so fail to reject H₀, stated with "not convincing evidence" in context.
+      - |
+        Failing to reject H₀ never shows that p equals 0.60.
+      - |
+        The decision compares the p-value with α; "close" does not count.
+    answer: 1
+  - slug: apstats-u03-exam-q22
+    type: multiple_choice
+    topic_code: "3.8"
+    source: "AP Statistics CED, Topic 3.8"
+    points: 1
+    prompt: |
+      A hypothetical electronics store tests H₀: p = 0.10 against Hₐ: p > 0.10, where p is the proportion of all batteries from a supplier that are defective. If the test shows convincing evidence for Hₐ, the store will change suppliers. Which describes a Type I error?
+    options:
+      - "Concluding that more than 10% of the batteries are defective, and changing suppliers, when in fact 10% are defective"
+      - "Concluding that 10% are defective when in fact more than 10% are"
+      - "Failing to find convincing evidence that more than 10% are defective when in fact more than 10% are"
+      - "Finding a sample proportion of defective batteries above 0.10"
+    option_explanations:
+      - |
+        Correct. A Type I error rejects a true H₀: the store abandons a supplier whose defect rate really is 10%.
+      - |
+        A test never concludes that H₀ is true; this also describes missing a real problem, which is a Type II error.
+      - |
+        This is a Type II error: failing to reject H₀ when Hₐ is true.
+      - |
+        A sample result is not a decision; errors are wrong decisions about the parameter.
+    answer: 0
+  - slug: apstats-u03-exam-q23
+    type: multiple_choice
+    topic_code: "3.8"
+    source: "AP Statistics CED, Topic 3.8"
+    points: 1
+    prompt: |
+      For a test about the proportion of all students at a hypothetical school who use the library each week, the significance level is changed from 0.01 to 0.05 with the sample size unchanged. What happens to the probabilities of the two errors?
+    options:
+      - "Both decrease."
+      - "P(Type I) decreases and P(Type II) increases."
+      - "Both increase."
+      - "P(Type I) increases and P(Type II) decreases."
+    option_explanations:
+      - |
+        For a fixed sample size the two error probabilities move in opposite directions; reducing both needs a larger sample.
+      - |
+        This is the effect of lowering α, the opposite change.
+      - |
+        Making rejection easier cannot increase the chance of failing to reject a false H₀.
+      - |
+        Correct. α = P(Type I) rises to 0.05; rejecting is easier, so power rises and P(Type II) falls.
+    answer: 3
+  - slug: apstats-u03-exam-q24
+    type: multiple_choice
+    topic_code: "3.8"
+    source: "AP Statistics CED, Topic 3.8"
+    points: 1
+    prompt: |
+      A hypothetical city will replace its water filters with a cheaper model only if a test gives convincing evidence that the cheaper model removes a contaminant from at least as large a proportion of samples as required. Wrongly concluding that the cheaper model is good enough could put residents at risk. Which significance level is most appropriate?
+    options:
+      - "α = 0.10, because it gives the test the most power"
+      - "α = 0.50, because the two errors are equally likely"
+      - "α = 0.01, because a Type I error here is serious, so its probability should be kept small"
+      - "The level does not matter, because the p-value decides"
+    option_explanations:
+      - |
+        A larger α raises power but also raises the chance of the dangerous Type I error.
+      - |
+        α = 0.50 would reject H₀ half the time even when it is true; that is not a sensible test.
+      - |
+        Correct. The serious mistake is wrongly rejecting H₀ (a Type I error), whose probability is α, so α should be small.
+      - |
+        The decision compares the p-value with α, so the choice of α matters and should reflect the consequences of each error.
+    answer: 2
+  - slug: apstats-u03-exam-q25
+    type: multiple_choice
+    topic_code: "3.9"
+    source: "AP Statistics CED, Topic 3.9"
+    points: 1
+    prompt: |
+      At two large hypothetical high schools, 45% of all students at Oak and 38% of all students at Pine have a library card. Independent random samples of 200 Oak students and 180 Pine students are taken. What are the mean and standard deviation of the sampling distribution of p̂_Oak − p̂_Pine?
+    options:
+      - "Mean 0.07, SD about 0.0025"
+      - "Mean 0.07, SD about 0.0505"
+      - "Mean 0.83, SD about 0.0505"
+      - "Mean 0.07, SD about 0.0714"
+    option_explanations:
+      - |
+        0.0025 is the variance (the sum under the square root); the SD is its square root.
+      - |
+        Correct. Mean = 0.45 − 0.38 = 0.07; SD = √(0.45·0.55/200 + 0.38·0.62/180) ≈ 0.0505.
+      - |
+        0.83 adds the two proportions; the mean of a difference is the difference p₁ − p₂.
+      - |
+        0.0714 adds the two separate SDs; the terms are added under one square root.
+    answer: 1
+  - slug: apstats-u03-exam-q26
+    type: multiple_choice
+    topic_code: "3.9"
+    source: "AP Statistics CED, Topic 3.9"
+    points: 1
+    prompt: |
+      For the Oak and Pine samples in the previous question (p_Oak = 0.45, p_Pine = 0.38, samples of 200 and 180), what is the approximate probability that the Pine sample has a higher proportion of library-card holders than the Oak sample?
+    options:
+      - "About 0.083"
+      - "About 0.917"
+      - "About 0.500"
+      - "About 0.165"
+    option_explanations:
+      - |
+        Correct. The event is p̂_Oak − p̂_Pine < 0. z = (0 − 0.07)/0.0505 ≈ −1.39 and P(Z < −1.39) ≈ 0.083 (all four counts are at least 10, so normal).
+      - |
+        0.917 is the probability that Oak's sample proportion is higher, the complement.
+      - |
+        0.500 would be right only if p_Oak = p_Pine; the distribution is centered at 0.07.
+      - |
+        0.165 doubles the tail as if the question were two-sided.
+    answer: 0
+  - slug: apstats-u03-exam-q27
+    type: multiple_choice
+    topic_code: "3.10"
+    source: "AP Statistics CED, Topic 3.10"
+    points: 1
+    prompt: |
+      A hypothetical health survey reports a 95% confidence interval of (0.03, 0.11) for the difference between the proportions of all teenagers and all adults in a state who drink a sugary drink every day. What does the 95% confidence level mean?
+    options:
+      - "95% of teenagers drink between 3 and 11 percentage points more sugary drinks than adults."
+      - "There is a 95% probability that the true difference lies between 0.03 and 0.11."
+      - "95% of all samples will give a difference in sample proportions between 0.03 and 0.11."
+      - "If many pairs of random samples were taken and a 95% interval built from each, about 95% of the intervals would capture the true difference in proportions."
+    option_explanations:
+      - |
+        The interval is about a difference between two population proportions, not about how individuals behave.
+      - |
+        The true difference is fixed; this particular interval either captures it or not.
+      - |
+        Sample differences vary around the true difference, not around this interval.
+      - |
+        Correct. The confidence level is the long-run capture rate of the method.
+    answer: 3
+  - slug: apstats-u03-exam-q28
+    type: multiple_choice
+    topic_code: "3.12"
+    source: "AP Statistics CED, Topic 3.12"
+    points: 1
+    prompt: |
+      Independent random samples from two large hypothetical towns find that 12 of 80 adults in East Town and 30 of 90 adults in West Town own an electric car. Which is a correct Large Counts check for a two-sample z-test of H₀: p_E = p_W?
+    options:
+      - "Met, because both samples have at least 30 adults."
+      - "Met, because 12 + 30 = 42 is at least 10."
+      - "Met: p̂_c = 42/170 ≈ 0.247, and 80(0.247) ≈ 19.8, 80(0.753) ≈ 60.2, 90(0.247) ≈ 22.2 and 90(0.753) ≈ 67.8 are all at least 10."
+      - "Not met, because East Town's sample proportion, 0.15, is less than 0.5."
+    option_explanations:
+      - |
+        "At least 30" is the rule for means; proportions need expected successes and failures of at least 10 in each group.
+      - |
+        The total number of successes is not the check; each group needs at least 10 expected successes and 10 expected failures.
+      - |
+        Correct. A test assumes H₀, so the counts are computed with the pooled proportion, and all four are at least 10.
+      - |
+        A proportion does not need to be near 0.5; it only needs enough expected successes and failures.
+    answer: 2
+  - slug: apstats-u03-exam-q29
+    type: multiple_choice
+    topic_code: "3.14"
+    source: "AP Statistics CED, Topic 3.14"
+    points: 1
+    prompt: |
+      A hypothetical sleep researcher randomly assigns 150 volunteers to use one of three sleep apps (50 each) for a month, then records each volunteer's usual bedtime category (before 10 p.m., 10–11 p.m., 11 p.m.–midnight, after midnight). Which test should be used to decide whether the bedtime distribution differs by app?
+    options:
+      - "A chi-square test for independence"
+      - "A chi-square test for homogeneity"
+      - "A two-sample z-test for p₁ − p₂"
+      - "A one-sample z-test for p"
+    option_explanations:
+      - |
+        Independence uses one sample classified on two variables; here the researcher created three treatment groups by random assignment.
+      - |
+        Correct. Three randomly assigned treatment groups and one categorical response: compare the response distributions with a test for homogeneity.
+      - |
+        A two-sample z-test compares one proportion in two groups; there are three groups and four categories.
+      - |
+        A one-sample test is about one proportion in one population.
+    answer: 1
+  - slug: apstats-u03-exam-q30
+    type: multiple_choice
+    topic_code: "3.15"
+    source: "AP Statistics CED, Topic 3.15"
+    points: 1
+    prompt: |
+      A chi-square test for independence on a two-way table of counts gives χ² = 5.2. If every count in the table were doubled, keeping the same proportions, what would happen?
+    options:
+      - "χ² would double to 10.4, the df would stay the same, and the p-value would be smaller."
+      - "χ² would stay at 5.2, because the proportions are unchanged."
+      - "χ² would double, and the df would double too, so the p-value would stay the same."
+      - "χ² would be halved, because the expected counts double."
+    option_explanations:
+      - |
+        Correct. Each (O − E)²/E doubles when O and E both double, so χ² doubles; df depends only on the table's shape, so the p-value falls.
+      - |
+        χ² depends on the counts, not only the proportions; this is why the test must use counts.
+      - |
+        df = (r − 1)(c − 1) depends on the number of rows and columns, which have not changed.
+      - |
+        The numerator (O − E)² grows by a factor of 4 while E grows by 2, so each term doubles, not halves.
+    answer: 0
+  - slug: apstats-u03-exam-q31
+    type: multi_select
+    topic_code: "3.1"
+    source: "AP Statistics CED, Topic 3.1"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about estimators are true? Select all that apply.
+    options:
+      - "A larger sample removes the bias of a voluntary-response survey."
+      - "Increasing the sample size reduces the variability of an estimator."
+      - "An unbiased estimator gives the exact value of the parameter in every sample."
+      - "p̂ from a simple random sample is an unbiased estimator of p."
+      - "A biased estimator's sampling distribution is centered away from the parameter."
+    option_explanations:
+      - |
+        Bias comes from the method; more voluntary responses repeat the same bias with more precision.
+      - |
+        Correct. Variability shrinks as n grows (for p̂, like 1/√n).
+      - |
+        Unbiased means correct on average over many samples; individual estimates still vary.
+      - |
+        Correct. The mean of the sampling distribution of p̂ is p.
+      - |
+        Correct. That is what bias means: the center of the sampling distribution is not the parameter.
+    answer: [1, 3, 4]
+  - slug: apstats-u03-exam-q32
+    type: multi_select
+    topic_code: "3.7"
+    source: "AP Statistics CED, Topic 3.7"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A hypothetical transit authority tests H₀: p = 0.80 against Hₐ: p < 0.80, where p is the proportion of all its bus trips that run on time, using a random sample of trips. The p-value is 0.003 and α = 0.05. Which statements are correct? Select all that apply.
+    options:
+      - "Reject H₀."
+      - "There is convincing evidence that fewer than 80% of all the authority's bus trips run on time."
+      - "The test proves that the on-time proportion is below 80%."
+      - "If 80% of all trips really ran on time, a sample proportion this low or lower would happen about 0.3% of the time by chance."
+      - "There is a 0.3% chance that 80% of all trips run on time."
+    option_explanations:
+      - |
+        Correct. The p-value 0.003 is less than α = 0.05, so H₀ is rejected.
+      - |
+        Correct. This is the conclusion in context with "convincing evidence" language.
+      - |
+        Tests give evidence, not proof; a Type I error remains possible.
+      - |
+        Correct. This is the meaning of the p-value.
+      - |
+        The p-value assumes H₀; it is not the probability that H₀ is true.
+    answer: [0, 1, 3]
+  - slug: apstats-u03-exam-q33
+    type: true_false
+    topic_code: "3.6"
+    source: "AP Statistics CED, Topic 3.6"
+    points: 1
+    prompt: |
+      True or false: If the p-value of a test about the proportion of all students who carpool is greater than α, then the null hypothesis is true.
+    answer: false
+    explanation: |
+      False. A p-value greater than α means we fail to reject H₀: there is not convincing evidence against it. H₀ may still be false (a Type II error).
+  - slug: apstats-u03-exam-q34
+    type: true_false
+    topic_code: "3.15"
+    source: "AP Statistics CED, Topic 3.15"
+    points: 1
+    prompt: |
+      True or false: When a chi-square test for independence on one random sample of adults finds convincing evidence of an association between exercise habits and diet type, it shows that one variable causes the other.
+    answer: false
+    explanation: |
+      False. A random sample supports generalising the association to the population, but without random assignment it cannot show that either variable causes the other.
+  - slug: apstats-u03-exam-q35
+    type: fill_blank
+    topic_code: "3.3"
+    source: "AP Statistics CED, Topic 3.3"
+    points: 1
+    prompt: |
+      To three decimal places, the critical value z* for a 99% confidence interval for a proportion is ____.
+    answer: ["2.576", "2.575", "+2.576"]
+    explanation: |
+      A 99% interval leaves 0.5% in each tail; the z-value with 0.995 of the area to its left is about 2.576.
+  - slug: apstats-u03-exam-q36
+    type: fill_blank
+    topic_code: "3.14"
+    source: "AP Statistics CED, Topic 3.14"
+    points: 1
+    prompt: |
+      A chi-square test for homogeneity compares two hypothetical schools on students' favourite of four lunch options. The two-way table has 2 rows and 4 columns, so the test has ____ degrees of freedom.
+    answer: ["3", "three"]
+    explanation: |
+      df = (rows − 1)(columns − 1) = (2 − 1)(4 − 1) = 3.
+  - slug: apstats-u03-exam-q37
+    type: numeric
+    topic_code: "3.7"
+    source: "AP Statistics CED, Topic 3.7"
+    points: 1
+    prompt: |
+      A hypothetical town tests H₀: p = 0.50 against Hₐ: p > 0.50, where p is the proportion of all residents who want a new dog park. In a random sample of 250 residents, 145 say yes. Find the test statistic. Give your answer to two decimal places.
+    answer: { value: 2.53, tolerance: 0.01 }
+    explanation: |
+      p̂ = 145/250 = 0.58. z = (0.58 − 0.50)/√(0.50·0.50/250) = 0.08/0.0316 ≈ 2.53.
+  - slug: apstats-u03-exam-q38
+    type: numeric
+    topic_code: "3.10"
+    source: "AP Statistics CED, Topic 3.10"
+    points: 1
+    prompt: |
+      In independent random samples of 250 customers at each of two hypothetical cafés, 130 at the first and 105 at the second order a pastry with their drink. Find the margin of error of a 90% two-sample z-interval for p₁ − p₂. Give your answer to three decimal places.
+    answer: { value: 0.073, tolerance: 0.001 }
+    explanation: |
+      p̂₁ = 0.52, p̂₂ = 0.42. SE = √(0.52·0.48/250 + 0.42·0.58/250) ≈ 0.0444. Margin of error = 1.645 · 0.0444 ≈ 0.073.
+  - slug: apstats-u03-exam-q39
+    type: short_answer
+    topic_code: "3.8"
+    source: "AP Statistics CED, Topic 3.8"
+    points: 3
+    prompt: |
+      A hypothetical utility company will replace all the water meters in a neighbourhood if it finds convincing evidence that more than 5% of them read incorrectly. It tests H₀: p = 0.05 against Hₐ: p > 0.05, where p is the proportion of all meters in the neighbourhood that read incorrectly, using a random sample of meters.
+
+      (a) Describe a Type I error in context and give one consequence.
+      (b) Describe a Type II error in context and give one consequence.
+      (c) Residents are overcharged when faulty meters stay in service. Which error would residents consider more serious, and should the company use α = 0.01 or α = 0.10 to protect them? Explain.
+    answer: |
+      (a) Concluding that more than 5% of the meters read incorrectly when in fact 5% do. Consequence: the company spends money replacing meters that did not need replacing.
+      (b) Not finding convincing evidence that more than 5% read incorrectly when in fact more than 5% do. Consequence: faulty meters stay in service and residents may be overcharged.
+      (c) The Type II error. To make it less likely, the company should use the larger significance level, α = 0.10, which increases power (at the cost of more Type I errors).
+    explanation: |
+      Three points, one per part. (a) Type I error in context with a plausible consequence. (b) Type II error in context with a plausible consequence. (c) Type II named as more serious for residents, α = 0.10 chosen, with the reason that a larger α increases power / lowers P(Type II).
+  - slug: apstats-u03-exam-q40
+    type: short_answer
+    topic_code: "3.2"
+    source: "AP Statistics CED, Topic 3.2"
+    points: 3
+    prompt: |
+      At a hypothetical university with about 30,000 students, 35% of all students live on campus. A student newspaper surveys a random sample of 250 students.
+
+      (a) Give the mean and standard deviation of the sampling distribution of p̂, the sample proportion who live on campus, and justify the SD formula.
+      (b) Explain why the sampling distribution is approximately normal.
+      (c) Find the probability that fewer than 30% of the sample live on campus.
+    answer: |
+      (a) Mean = p = 0.35. SD = √(0.35·0.65/250) ≈ 0.0302. The formula applies because 250 is less than 10% of 30,000 students.
+      (b) np = 250(0.35) = 87.5 and n(1 − p) = 250(0.65) = 162.5 are both at least 10.
+      (c) z = (0.30 − 0.35)/0.0302 ≈ −1.66; P(p̂ < 0.30) ≈ P(Z < −1.66) ≈ 0.049.
+    explanation: |
+      Three points, one per part. (a) mean 0.35 and SD ≈ 0.030 with the 10% condition. (b) both counts shown to be at least 10. (c) a probability of about 0.049 (0.048 to 0.05 accepted) with the z-score or calculator inputs shown.
+  - slug: apstats-u03-exam-q41
+    type: long_answer
+    topic_code: "3.11"
+    source: "AP Statistics CED, Topic 3.11"
+    points: 10
+    prompt: |
+      A hypothetical high school wants to know whether a 10-minute guided mindfulness session at the start of each school day reduces the proportion of students who report feeling highly stressed. 240 students volunteer for a six-week study. Half of them will do the morning session, and half will spend the 10 minutes in a regular homeroom. At the end of the six weeks, each student answers a survey question: "In the past week, have you felt highly stressed most days?" (yes or no).
+
+      (A) Identify the explanatory variable and the response variable.
+
+      (B) Describe how to randomly assign the 240 volunteers to the two groups.
+
+      (C) The school considers blocking by grade level (9, 10, 11, 12). Explain why blocking by grade might be useful here, and describe how the random assignment would change.
+
+      (D) The study is carried out without blocking. 46 of the 120 mindfulness students and 64 of the 120 homeroom students answer "yes". Construct a 95% confidence interval for p_M − p_H, the difference in the true proportions of students like these who would report feeling highly stressed under each condition. Show the conditions.
+
+      (E) Does the interval give convincing evidence that the mindfulness session reduces the proportion of students who feel highly stressed? Explain, and state to whom the conclusion applies.
+    answer: |
+      (A) Explanatory variable: the morning activity (mindfulness session or regular homeroom). Response variable: whether the student reports feeling highly stressed most days in the past week (yes or no).
+      (B) Number the volunteers 1 to 240. Use a random number generator to choose 120 different numbers from 1 to 240 (ignoring repeats); those students do the mindfulness session and the remaining 120 have regular homeroom. (Equivalently, write the names on identical slips, mix them well and draw 120 for the mindfulness group.)
+      (C) Stress levels may differ by grade (for example, seniors with applications and exams may report more stress), and grade may also affect how students respond to the session. Blocking by grade makes the treatment groups balanced on grade and lets the comparison be made within grades, reducing variability so a treatment effect is easier to detect. The assignment would be done separately within each grade: in each grade's group of volunteers, randomly assign half to mindfulness and half to homeroom.
+      (D) Two-sample z-interval for p_M − p_H. Random: students were randomly assigned to the two conditions. 10%: not needed (random assignment, not sampling). Large Counts: 46, 74, 64 and 56 are all at least 10. p̂_M = 46/120 ≈ 0.383, p̂_H = 64/120 ≈ 0.533; difference = −0.150. SE = √(0.383·0.617/120 + 0.533·0.467/120) ≈ 0.0636. −0.150 ± 1.96(0.0636) = −0.150 ± 0.125, from about −0.275 to −0.025.
+      (E) Yes. Every value in the interval is negative, so 0 is not a plausible value of p_M − p_H: there is convincing evidence that the mindfulness session reduces the proportion of students who report feeling highly stressed (by roughly 2.5 to 27.5 percentage points). Because the conditions were randomly assigned, the reduction can be attributed to the session. Because the students were volunteers, not a random sample of the school, the conclusion applies to students like these volunteers.
+    explanation: |
+      Ten points (2027 format).
+      (A) 1 point: both variables identified correctly, the response as a categorical variable.
+      (B) 2 points: 1 for a random mechanism (numbers with a random number generator, slips drawn from a container) that a reader could carry out; 1 for producing two groups of 120 (handling repeats, or the remaining students forming the second group).
+      (C) 2 points: 1 for explaining that grade is related to stress (the response), so blocking reduces variability or makes groups comparable on grade; 1 for describing random assignment within each grade.
+      (D) 3 points: 1 for the procedure with Random and Large Counts (four counts) and the 10% condition correctly set aside; 1 for the point estimate and SE; 1 for the interval (−0.275, −0.025), allowing rounding.
+      (E) 2 points: 1 for "yes" because the whole interval is below 0 (0 not plausible), with "convincing evidence" in context; 1 for scope: causal because of random assignment, and limited to volunteers like these because there was no random sample.
+  - slug: apstats-u03-exam-q42
+    type: long_answer
+    topic_code: "3.15"
+    source: "AP Statistics CED, Topic 3.15"
+    points: 10
+    prompt: |
+      A hypothetical city library takes one random sample of 320 of its cardholders (it has about 60,000) and records each person's age group and preferred book format.
+
+      | Age group | Print | E-book | Audiobook | Total |
+      |---|---|---|---|---|
+      | Teen (13–19) | 30 | 45 | 25 | 100 |
+      | Adult (20–59) | 48 | 52 | 40 | 140 |
+      | Senior (60+) | 42 | 23 | 15 | 80 |
+      | Total | 120 | 120 | 80 | 320 |
+
+      (A) Name the appropriate chi-square test and explain why it, rather than the other chi-square test for two-way tables, fits this design.
+
+      (B) State the hypotheses.
+
+      (C) Compute the expected counts for the senior row, and check all conditions for the test.
+
+      (D) The test statistic is χ² ≈ 11.79. Give the degrees of freedom and the p-value, and state the conclusion at α = 0.05 in context.
+
+      (E) Identify the cell with the largest contribution to χ², and describe what it shows about preferred formats.
+
+      (F) A library board member says, "This proves that getting older makes people prefer print." Give two reasons this statement is not justified.
+    answer: |
+      (A) A chi-square test for independence: the library took one random sample and classified each cardholder on two categorical variables (age group and format). A test for homogeneity would need separate random samples from each age group.
+      (B) H₀: there is no association between age group and preferred book format among all the library's cardholders. Hₐ: there is an association between age group and preferred format among all the cardholders.
+      (C) Senior row: 80 · 120/320 = 30 (print), 80 · 120/320 = 30 (e-book), 80 · 80/320 = 20 (audiobook). Random: one random sample of cardholders. 10%: 320 < 10% of about 60,000. Large Counts: the expected counts are 37.5, 37.5, 25 (teen), 52.5, 52.5, 35 (adult) and 30, 30, 20 (senior), all at least 5.
+      (D) df = (3 − 1)(3 − 1) = 4. p-value = P(χ² ≥ 11.79) ≈ 0.019. Because 0.019 < α = 0.05, reject H₀. There is convincing evidence of an association between age group and preferred book format among all of the library's cardholders.
+      (E) Senior/print: (42 − 30)²/30 = 4.80. Seniors prefer print more often than they would if format preference were unrelated to age (42 observed against 30 expected).
+      (F) First, a significance test gives convincing evidence, never proof (a Type I error is possible). Second, this is an observational study (a random sample with no random assignment), so it shows an association, not that age causes the preference; other variables, such as habits formed before e-books existed or comfort with devices, may explain it. (Also acceptable: the sample shows a difference between age groups at one time, not a change within people as they age.)
+    explanation: |
+      Ten points (2027 format).
+      (A) 1 point: test for independence, with the reason (one sample classified on two variables).
+      (B) 1 point: hypotheses in words about association in the population of cardholders.
+      (C) 2 points: 1 for the three senior expected counts (30, 30, 20); 1 for Random, 10% and all expected counts at least 5. Checking observed counts instead earns nothing for the second point.
+      (D) 3 points: 1 for df = 4; 1 for p-value ≈ 0.019; 1 for rejecting H₀ by comparing with α and a "convincing evidence" conclusion in context. "Accept" or causal language loses the third point.
+      (E) 1 point: senior/print identified, with observed above expected interpreted in context.
+      (F) 2 points: 1 for "tests do not prove" (or convincing evidence only); 1 for "association, not causation" because there was no random assignment (or the cross-sectional point).

@@ -1,0 +1,674 @@
+week: 27
+unit: 4
+title: "Confidence Intervals for the Difference Between Two Population Means"
+topics: ["4.7", "4.8"]
+guide: guides/week-27.md
+guide_description: |
+  The two-sample t-interval for μ₁ − μ₂ in four steps (state the procedure and the parameter with its order of
+  subtraction, check Random, 10% and Normal / large sample for both groups, compute with the calculator's
+  unpooled df or the conservative df = smaller n − 1, conclude in context); interpreting the interval and the
+  confidence level; what changes the width; using the interval to judge claims (is 0 plausible, is a claimed
+  difference plausible); scope of inference; and paired versus two-sample intervals. Worked examples: screen
+  time of 9th and 12th graders, basil seedlings randomly assigned to LED or fluorescent light, two claims judged
+  from the screen-time interval, and weekend versus weekday café orders.
+flashcards_description: |
+  30 cards on building, interpreting and using two-sample t-intervals for μ₁ − μ₂: the four steps, the
+  conditions for each group, choosing df, the width, claims about 0 or a specific difference, and scope.
+
+flashcards:
+  - front: Two-sample t-interval for μ₁ − μ₂ → formula
+    back: |
+      (x̄₁ − x̄₂) ± t* · √(s₁²/n₁ + s₂²/n₂), with t* from the calculator's unpooled df or the conservative df = smaller n − 1.
+    topic_code: "4.7"
+  - front: Two-sample t-interval → the four steps
+    back: |
+      State (procedure, parameters defined with the order of subtraction, confidence level); Plan (conditions for both groups); Do (estimate ± t* · SE, with df named); Conclude (interpret in context).
+    topic_code: "4.7"
+  - front: Defining the parameter for a two-sample t-interval → what it must include
+    back: |
+      Both means in context and the order: "μ₁ − μ₂, where μ₁ = the true mean ___ of all ___ and μ₂ = the true mean ___ of all ___."
+    topic_code: "4.7"
+  - front: Normal condition for a two-sample t-interval with n₁ = 12 and n₂ = 40 → what to check
+    back: |
+      The group of 40 passes by n ≥ 30. For the group of 12, graph its data and check for no strong skew and no outliers.
+    topic_code: "4.7"
+  - front: 10% condition in a randomized experiment comparing two means → needed?
+    back: |
+      No: there is no sampling from a population. Random assignment supplies the randomness, and the 10% check applies only to sampling without replacement.
+    topic_code: "4.7"
+  - front: Two-sample t-interval on a calculator → the setting to avoid
+    back: |
+      Pooled: Yes. The AP course uses the unpooled standard error √(s₁²/n₁ + s₂²/n₂), so choose Pooled: No.
+    topic_code: "4.7"
+  - front: Conservative df for two samples of 18 and 25 → df and 95% t*
+    back: |
+      df = 18 − 1 = 17; t* ≈ 2.110.
+    topic_code: "4.7"
+  - front: Calculator df vs conservative df → which interval is wider
+    back: |
+      The conservative one: smaller df means a larger t*. The difference is usually small.
+    topic_code: "4.7"
+  - front: Screen time, 9th vs 12th graders (x̄ = 212, 187; s = 58, 64; n = 35, 32) → 95% interval
+    back: |
+      25 ± 1.998 × 14.97, calculator df ≈ 62.8: (−4.9, 54.9) minutes. Conservative df = 31 gives (−5.5, 55.5).
+    topic_code: "4.7"
+  - front: Basil under LED vs fluorescent light (12 seedlings each) → 90% interval for μ_LED − μ_F
+    back: |
+      2.28 ± 1.719 × 0.550, calculator df ≈ 21.5: (1.34, 3.23) cm. Conservative df = 11 gives (1.30, 3.27).
+    topic_code: "4.7"
+  - front: Interpreting a two-sample t-interval → template
+    back: |
+      "We are 95% confident that the interval from ___ to ___ captures the true difference (group 1 minus group 2) in the mean ___ of all ___."
+    topic_code: "4.7"
+  - front: Interpreting the 90% confidence level of a two-sample t-interval → template
+    back: |
+      "If we took many pairs of random samples (or repeated the random assignment many times) and built a 90% interval each time, about 90% of the intervals would capture the true difference in means."
+    topic_code: "4.7"
+  - front: Margin of error of a two-sample t-interval → formula
+    back: |
+      t* · √(s₁²/n₁ + s₂²/n₂): half the width of the interval.
+    topic_code: "4.7"
+  - front: Raising the confidence level of a two-sample t-interval → effect on width
+    back: |
+      Wider: t* gets larger, so the margin of error grows.
+    topic_code: "4.7"
+  - front: Larger samples in both groups → effect on a two-sample t-interval
+    back: |
+      Narrower: the SE shrinks (each s²/n term gets smaller) and t* drops slightly with more df.
+    topic_code: "4.7"
+  - front: Point estimate in a two-sample t-interval → where to find it
+    back: |
+      x̄₁ − x̄₂, the midpoint of the interval: (lower + upper)/2.
+    topic_code: "4.7"
+  - front: Margin of error from a reported interval (1.34, 3.23) → how to recover it
+    back: |
+      (upper − lower)/2 = (3.23 − 1.34)/2 ≈ 0.945 cm.
+    topic_code: "4.7"
+  - front: Interval for μ₁ − μ₂ contains 0 → what to conclude
+    back: |
+      A difference of 0 is plausible, so there is not convincing evidence that the population means differ. It does not show they are equal.
+    topic_code: "4.8"
+  - front: Interval for μ₁ − μ₂ entirely above 0 → what to conclude
+    back: |
+      Convincing evidence that μ₁ > μ₂ (at α = 1 − C for a two-sided claim): every plausible difference is positive.
+    topic_code: "4.8"
+  - front: Interval for μ₁ − μ₂ entirely below 0 → what to conclude
+    back: |
+      Convincing evidence that μ₁ < μ₂: every plausible difference is negative.
+    topic_code: "4.8"
+  - front: Claimed difference of 60 minutes vs interval (−4.9, 54.9) → verdict
+    back: |
+      60 is outside (above) the interval, so the claim is not plausible at the 95% level.
+    topic_code: "4.8"
+  - front: Two-sided test at α = 0.05 and a 95% interval for μ₁ − μ₂ → the link
+    back: |
+      The test rejects H₀: μ₁ − μ₂ = 0 exactly when 0 is outside the 95% interval (the two procedures agree when they use the same df).
+    topic_code: "4.8"
+  - front: Scope for a two-sample t-interval from two random samples → what you can say
+    back: |
+      Generalise to the two populations sampled; no cause-and-effect claim, because the groups were not assigned.
+    topic_code: "4.8"
+  - front: Scope for a two-sample t-interval from a randomized experiment on volunteers → what you can say
+    back: |
+      Cause and effect (the treatment caused the difference), but only for subjects like those in the study.
+    topic_code: "4.8"
+  - front: Weekend vs weekday café orders, 99% interval (0.42, 3.86) dollars → conclusion
+    back: |
+      0 is outside, so convincing evidence that weekend orders have a higher mean total; no causal claim, since days were not assigned.
+    topic_code: "4.8"
+  - front: Paired t-interval vs two-sample t-interval → the deciding question
+    back: |
+      Are the two measurements linked (same subject twice, matched pairs)? Paired: one-sample interval on differences, df = n − 1. Independent groups: two-sample interval.
+    topic_code: "4.7"
+  - front: Twelve students each type one passage on two keyboards → which interval, and which df
+    back: |
+      A paired t-interval on the 12 differences (one keyboard minus the other), df = 11. Not a two-sample interval: each student supplies both values, so the samples are not independent.
+    topic_code: "4.7"
+  - front: Error-spot → "0 is in the 95% interval, so the two schools have the same mean"
+    back: |
+      0 is only one plausible value among many. Say "there is not convincing evidence of a difference in means."
+    topic_code: "4.8"
+  - front: Error-spot → "there is a 95% probability that μ₁ − μ₂ is between 1.34 and 3.23"
+    back: |
+      μ₁ − μ₂ is fixed; 95% describes the long-run capture rate of the method. Say "we are 95% confident the interval captures μ₁ − μ₂."
+    topic_code: "4.7"
+  - front: Error-spot → "n₁ + n₂ = 36 ≥ 30, so the Normal condition is met for the two-sample t-interval"
+    back: |
+      Check each group: each n ≥ 30, or a graph of each small sample with no strong skew or outliers.
+    topic_code: "4.7"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 4.7 and 4.8: constructing and interpreting
+    two-sample t-intervals for μ₁ − μ₂, conditions for both groups, choosing df, width, and using an interval to
+    judge a claim, with scope of inference), with 8 questions (33%) reviewing weeks 19, 20 and 23–26 (the
+    two-proportion interval, the sampling distribution of x̄ and of x̄₁ − x̄₂, one-sample t-procedures, paired
+    designs). Opens with a shared-context set on physical activity at two schools. Intervals use the calculator's
+    unpooled df unless an item names the conservative df. Multiple choice, select-all, true/false and numeric
+    items are graded at once; fill-in-the-blank items are matched automatically; the short answers and the long
+    answer are graded by your teacher against the scoring notes. Calculators are allowed throughout.
+  questions:
+    # ---- Stimulus set: physical activity at two schools (4.6, 4.7, 4.8)
+    - slug: apstats-u04-w27-q01
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 1
+      stimulus: |
+        A district wellness coordinator selects independent random samples of students from two large high schools (each has more than 1,200 students) and records each student's minutes of moderate-to-vigorous physical activity on one school day. Hypothetical results:
+
+        | School | n | x̄ (minutes) | s (minutes) |
+        |---|---|---|---|
+        | North | 38 | 47.3 | 16.2 |
+        | South | 34 | 39.8 | 14.5 |
+
+        A calculator's 2-SampTInt (Pooled: No) reports df ≈ 70.0.
+      prompt: |
+        The distribution of activity minutes at each school is somewhat right-skewed. Why is it still reasonable to treat the sampling distribution of x̄N − x̄S as approximately normal?
+      options:
+        - "Because the two samples were selected independently"
+        - "Because each sample has at least 30 students, so the Central Limit Theorem applies to each sample mean"
+        - "Because the combined sample of 72 students is at least 30"
+        - "Because each sample is less than 10% of its school"
+      option_explanations:
+        - |
+          Independence is needed for the standard error formula, but it does not make a sampling distribution normal.
+        - |
+          Correct. With 38 and 34 students, the Central Limit Theorem makes each sample mean, and so their difference, approximately normal despite the skew.
+        - |
+          The large-sample check applies to each group separately; a large total does not guarantee that each sample mean is normal.
+        - |
+          The 10% condition justifies treating observations as independent; it says nothing about the shape of the sampling distribution.
+      answer: 1
+    - slug: apstats-u04-w27-q02
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "AP Statistics CED, Topic 4.7"
+      points: 1
+      stimulus: |
+        A district wellness coordinator selects independent random samples of students from two large high schools (each has more than 1,200 students) and records each student's minutes of moderate-to-vigorous physical activity on one school day. Hypothetical results:
+
+        | School | n | x̄ (minutes) | s (minutes) |
+        |---|---|---|---|
+        | North | 38 | 47.3 | 16.2 |
+        | South | 34 | 39.8 | 14.5 |
+
+        A calculator's 2-SampTInt (Pooled: No) reports df ≈ 70.0.
+      prompt: |
+        Which procedure is appropriate for estimating how much the mean daily activity differs between the two schools?
+      options:
+        - "A paired t-interval for the mean difference"
+        - "A two-sample z-interval for the difference between two proportions"
+        - "A one-sample t-interval for the mean of the combined 72 students"
+        - "A two-sample t-interval for μN − μS"
+      option_explanations:
+        - |
+          The students at North are not linked to particular students at South, and the sample sizes differ, so the data are not paired.
+        - |
+          The response, minutes of activity, is quantitative; proportions would need a yes/no response.
+        - |
+          Combining the schools would hide the very difference we want to estimate.
+        - |
+          Correct. Two independent random samples with a quantitative response and unknown population SDs call for a two-sample t-interval for μN − μS.
+      answer: 3
+    - slug: apstats-u04-w27-q03
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "AP Statistics CED, Topic 4.7"
+      points: 1
+      stimulus: |
+        A district wellness coordinator selects independent random samples of students from two large high schools (each has more than 1,200 students) and records each student's minutes of moderate-to-vigorous physical activity on one school day. Hypothetical results:
+
+        | School | n | x̄ (minutes) | s (minutes) |
+        |---|---|---|---|
+        | North | 38 | 47.3 | 16.2 |
+        | South | 34 | 39.8 | 14.5 |
+
+        A calculator's 2-SampTInt (Pooled: No) reports df ≈ 70.0.
+      prompt: |
+        Which is the 95% confidence interval for μN − μS, in minutes?
+      options:
+        - "(0.28, 14.72)"
+        - "(0.41, 14.59)"
+        - "(−2.70, 17.70)"
+        - "(1.47, 13.53)"
+      option_explanations:
+        - |
+          Correct. 7.5 ± 1.994 × √(16.2²/38 + 14.5²/34) = 7.5 ± 1.994 × 3.618 = 7.5 ± 7.22, using t* for df ≈ 70.0.
+        - |
+          This uses z* = 1.96. With sample standard deviations, the critical value comes from a t distribution (t* ≈ 1.994 here).
+        - |
+          This adds the two standard errors (2.628 + 2.487 ≈ 5.115) instead of adding the variances under one square root.
+        - |
+          This is the 90% interval (t* ≈ 1.667). A 95% interval needs a larger critical value and is wider.
+      answer: 0
+    - slug: apstats-u04-w27-q04
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "AP Statistics CED, Topic 4.7"
+      points: 1
+      stimulus: |
+        A district wellness coordinator selects independent random samples of students from two large high schools (each has more than 1,200 students) and records each student's minutes of moderate-to-vigorous physical activity on one school day. Hypothetical results:
+
+        | School | n | x̄ (minutes) | s (minutes) |
+        |---|---|---|---|
+        | North | 38 | 47.3 | 16.2 |
+        | South | 34 | 39.8 | 14.5 |
+
+        A calculator's 2-SampTInt (Pooled: No) reports df ≈ 70.0.
+      prompt: |
+        Which is the best interpretation of the 95% interval from 0.28 to 14.72 minutes?
+      options:
+        - "95% of North students get between 0.28 and 14.72 more minutes of activity than South students."
+        - "There is a 95% probability that the difference between the two sample means is between 0.28 and 14.72 minutes."
+        - "We are 95% confident that the interval from 0.28 to 14.72 minutes captures the true difference (North minus South) in mean daily activity for all students at the two schools."
+        - "We are 95% confident that North students are more active than South students on every school day."
+      option_explanations:
+        - |
+          The interval estimates a difference in population means, not differences between individual students.
+        - |
+          The sample means are known exactly (their difference is 7.5); the interval is about the population difference μN − μS.
+        - |
+          Correct. It names the confidence level, the parameter in context and the order of subtraction.
+        - |
+          The interval concerns mean activity, not every student or every day.
+      answer: 2
+    - slug: apstats-u04-w27-q05
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "AP Statistics CED, Topic 4.8"
+      points: 1
+      stimulus: |
+        A district wellness coordinator selects independent random samples of students from two large high schools (each has more than 1,200 students) and records each student's minutes of moderate-to-vigorous physical activity on one school day. Hypothetical results:
+
+        | School | n | x̄ (minutes) | s (minutes) |
+        |---|---|---|---|
+        | North | 38 | 47.3 | 16.2 |
+        | South | 34 | 39.8 | 14.5 |
+
+        A calculator's 2-SampTInt (Pooled: No) reports df ≈ 70.0.
+      prompt: |
+        The North principal claims that North's new activity breaks cause North students to be more active than South students. Based on the 95% interval (0.28, 14.72), which response is best?
+      options:
+        - "The claim is proven, because the interval is entirely above 0."
+        - "There is no evidence of a difference, because the interval includes values close to 0."
+        - "There is convincing evidence of a causal effect, because the samples were random."
+        - "There is convincing evidence that North's mean is higher, but the activity breaks cannot be shown to be the cause, because this was not an experiment."
+      option_explanations:
+        - |
+          Statistical evidence never proves a claim, and the interval cannot identify the activity breaks as the cause.
+        - |
+          Values near 0 inside the interval do not matter; 0 itself is outside, so there is convincing evidence of a positive difference.
+        - |
+          Random sampling allows generalising to the two schools; only random assignment of treatments supports cause and effect.
+        - |
+          Correct. Every plausible value of μN − μS is positive, so North's mean is convincingly higher, but schools were not randomly assigned to have activity breaks, so other differences between the schools could explain it.
+      answer: 3
+    # ---- Independent items
+    - slug: apstats-u04-w27-q06
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "AP Statistics CED, Topic 4.7"
+      points: 1
+      prompt: |
+        A student computes a 95% two-sample t-interval by hand for random samples of 12 and 15 pancakes from two diners, using the conservative degrees of freedom. Which critical value should she use?
+      options:
+        - "t* = 2.060 (df = 25)"
+        - "t* = 2.201 (df = 11)"
+        - "t* = 2.145 (df = 14)"
+        - "z* = 1.960"
+      option_explanations:
+        - |
+          df = 25 is n₁ + n₂ − 2, the pooled df. The conservative df is the smaller n − 1.
+        - |
+          Correct. Conservative df = smaller n − 1 = 12 − 1 = 11, and the 95% t* for df = 11 is 2.201.
+        - |
+          df = 14 uses the larger sample (15 − 1). The conservative rule uses the smaller sample.
+        - |
+          z* applies when population SDs are known; with sample SDs the critical value comes from t.
+      answer: 1
+    - slug: apstats-u04-w27-q07
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "AP Statistics CED, Topic 4.7"
+      points: 1
+      prompt: |
+        A researcher reports a 90% two-sample t-interval for the difference in mean commute times between two towns. What does "90% confidence" mean here?
+      options:
+        - "If we took many pairs of random samples and built a 90% interval from each, about 90% of the intervals would capture the true difference in mean commute times."
+        - "There is a 90% probability that the true difference in mean commute times is in this interval."
+        - "About 90% of commuters in the two towns have commute times whose difference lies in the interval."
+        - "If the study were repeated, there is a 90% chance the new sample difference would fall in this interval."
+      option_explanations:
+        - |
+          Correct. The confidence level is the long-run capture rate of the method over repeated sampling.
+        - |
+          Once computed, the interval either captures the fixed parameter or it does not; 90% describes the method, not this interval.
+        - |
+          The interval is about a difference in means, not about individual commuters.
+        - |
+          The confidence level is about capturing the parameter, not about where a future sample statistic will fall.
+      answer: 0
+    - slug: apstats-u04-w27-q08
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "AP Statistics CED, Topic 4.8"
+      points: 1
+      prompt: |
+        A 95% confidence interval for μA − μB, the difference in mean battery life (hours) between two tablet models, is (−2.1, 5.4). Which conclusion is correct?
+      options:
+        - "Model A has the longer mean battery life, because most of the interval is positive."
+        - "The two models have the same mean battery life, because 0 is in the interval."
+        - "There is not convincing evidence that the mean battery lives differ, because 0 is a plausible value of μA − μB."
+        - "There is convincing evidence that the means differ, because the interval is wide."
+      option_explanations:
+        - |
+          Being mostly positive is suggestive at most; because 0 is inside the interval, a difference of 0 is plausible.
+        - |
+          0 being plausible does not prove the means are equal: values from −2.1 to 5.4 are all plausible.
+        - |
+          Correct. Because 0 lies within the interval, "no difference" is plausible, so the data do not give convincing evidence of a difference.
+        - |
+          Width measures uncertainty; a wide interval containing 0 gives less evidence, not more.
+      answer: 2
+    - slug: apstats-u04-w27-q09
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "AP Statistics CED, Topic 4.7"
+      points: 1
+      prompt: |
+        A two-sample t-interval for the difference in mean test scores between two teaching methods is too wide to be useful. Which change would make the next interval narrower, assuming everything else stays the same?
+      options:
+        - "Raise the confidence level from 95% to 99%."
+        - "Use the conservative df instead of the calculator df."
+        - "Take smaller samples so the data are easier to check."
+        - "Take larger samples in both groups."
+      option_explanations:
+        - |
+          A higher confidence level needs a larger t*, which widens the interval.
+        - |
+          The conservative df is smaller, so t* is larger and the interval is wider.
+        - |
+          Smaller samples increase √(s₁²/n₁ + s₂²/n₂), widening the interval.
+        - |
+          Correct. Larger n₁ and n₂ shrink each s²/n term (and slightly reduce t*), so the margin of error decreases.
+      answer: 3
+    - slug: apstats-u04-w27-q10
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "AP Statistics CED, Topic 4.8"
+      points: 1
+      prompt: |
+        Forty volunteers from a running club are randomly assigned, 20 to a new stretching routine and 20 to their usual warm-up. A 95% interval for μ_new − μ_usual, the difference in mean 400-meter times (seconds), is (−3.8, −0.9). Which conclusion is justified?
+      options:
+        - "The new routine lowers 400-meter times for all runners in the country."
+        - "The new routine causes lower mean 400-meter times for runners like these volunteers."
+        - "The routines differ, but no cause-and-effect conclusion is possible, because volunteers were used."
+        - "The new routine does not affect times, because the interval contains negative values."
+      option_explanations:
+        - |
+          The subjects were volunteers from one club, not a random sample of all runners, so the result cannot be generalised that widely.
+        - |
+          Correct. The interval is entirely below 0, and random assignment supports a causal conclusion, limited to runners like the volunteers.
+        - |
+          Volunteers limit generalisation, not causation: random assignment of treatments is what allows a cause-and-effect conclusion.
+        - |
+          Negative values mean the new routine's mean time is lower (faster); an interval entirely below 0 is evidence of an effect.
+      answer: 1
+    - slug: apstats-u04-w27-q11
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 1
+      prompt: |
+        A mechanic measures the fuel efficiency (miles per gallon) of each of 20 cars once with regular fuel and once with a premium fuel, in random order. Which interval should she use to estimate the effect of the premium fuel?
+      options:
+        - "A paired t-interval for the mean difference (premium − regular)"
+        - "A two-sample t-interval for μ_premium − μ_regular with df = 19"
+        - "A two-sample t-interval for μ_premium − μ_regular with df = 38"
+        - "A two-sample z-interval for p_premium − p_regular"
+      option_explanations:
+        - |
+          Correct. Each car is measured with both fuels, so the 20 differences form one sample: x̄_d ± t* · s_d/√20 with df = 19.
+        - |
+          The two sets of measurements come from the same cars, so they are not independent; a two-sample interval is the wrong procedure whatever df is used.
+        - |
+          df = 38 treats the measurements as 40 independent values, ignoring that each car appears twice.
+        - |
+          Fuel efficiency is quantitative, so an interval for proportions does not apply.
+      answer: 0
+    - slug: apstats-u04-w27-q12
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 1
+      prompt: |
+        Population 1 has σ₁ = 9 and population 2 has σ₂ = 12. For independent random samples of n₁ = 36 and n₂ = 48, what is the standard deviation of the sampling distribution of x̄₁ − x̄₂?
+      options:
+        - "1.50"
+        - "0.87"
+        - "2.29"
+        - "3.23"
+      option_explanations:
+        - |
+          1.50 is σ₁/√n₁ alone; the second sample's variability must be added in.
+        - |
+          This is √(3 − 2.25), from subtracting the variance terms. Variance terms add.
+        - |
+          Correct. √(9²/36 + 12²/48) = √(2.25 + 3) = √5.25 ≈ 2.29.
+        - |
+          This adds the two standard deviations, 9/√36 + 12/√48 ≈ 1.50 + 1.73 = 3.23. Square them, add, then take one square root.
+      answer: 2
+    - slug: apstats-u04-w27-q13
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Statistics CED, Topic 4.5"
+      points: 1
+      prompt: |
+        A cereal company tests H₀: μ = 50 versus Hₐ: μ > 50, where μ is the mean weight (grams) of its snack packs. A random sample of 25 packs has x̄ = 52.4 grams and s = 6.0 grams. What is the test statistic?
+      options:
+        - "t = 0.40"
+        - "t = 2.00"
+        - "t = 10.00"
+        - "t = −2.00"
+      option_explanations:
+        - |
+          This divides 2.4 by s = 6 instead of by the standard error s/√n = 6/5 = 1.2.
+        - |
+          Correct. t = (52.4 − 50)/(6.0/√25) = 2.4/1.2 = 2.00, with df = 24.
+        - |
+          This divides by s/n = 0.24 instead of s/√n = 1.2.
+        - |
+          The sign is reversed: the statistic is (x̄ − μ₀)/SE, and x̄ is above 50.
+      answer: 1
+    - slug: apstats-u04-w27-q14
+      type: multiple_choice
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 1
+      prompt: |
+        In independent random samples, 72 of 150 juniors (p̂ = 0.48) and 70 of 180 seniors (p̂ ≈ 0.39) say they have a part-time job. Which is the 95% two-sample z-interval for p_juniors − p_seniors?
+      options:
+        - "(−0.017, 0.197)"
+        - "(0.000, 0.180)"
+        - "(0.035, 0.145)"
+        - "(−0.090, 0.090)"
+      option_explanations:
+        - |
+          Correct. 0.09 ± 1.96 √(0.48 · 0.52/150 + 0.39 · 0.61/180) = 0.09 ± 1.96 × 0.0546 = 0.09 ± 0.107.
+        - |
+          This uses z* = 1.645, the 90% critical value.
+        - |
+          This adds one standard error (0.055) instead of z* standard errors: the margin of error was left out of the multiplication.
+        - |
+          An interval is centered at the observed difference 0.09, not at 0.
+      answer: 0
+    - slug: apstats-u04-w27-q15
+      type: multi_select
+      topic_code: "4.7"
+      source: "AP Statistics CED, Topic 4.7"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A student plans a two-sample t-interval for the difference in mean commute times between Town X and Town Y. She has random samples of 14 commuters from Town X (each town has several thousand commuters) and 16 from Town Y. A dotplot of the Town X sample is roughly symmetric with no outliers; the Town Y dotplot has one extreme high outlier. Which statements are correct? Select all that apply.
+      options:
+        - "The Random condition is met."
+        - "The 10% condition is met for both samples."
+        - "Because the Town Y sample is small and has an extreme outlier, the Normal condition is questionable for Town Y, so the interval may not be reliable."
+        - "The Normal condition is met because n₁ + n₂ = 30."
+        - "The data should be analysed as paired, because the sample sizes are almost equal."
+      option_explanations:
+        - |
+          Correct. Both samples were selected at random, independently of each other.
+        - |
+          Correct. 14 and 16 are far less than 10% of several thousand commuters in each town.
+        - |
+          Correct. With only 16 values, an extreme outlier is a sign the population may be strongly skewed, so the t procedure is risky for Town Y.
+        - |
+          The large-sample rule applies to each sample separately, and neither sample reaches 30.
+        - |
+          Paired data need a natural link between particular values; two separate samples from different towns are independent regardless of their sizes.
+      answer: [0, 1, 2]
+    - slug: apstats-u04-w27-q16
+      type: multi_select
+      topic_code: "4.8"
+      source: "AP Statistics CED, Topic 4.8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Sixty students who volunteered for a study were randomly assigned, 30 to an after-school tutoring program (T) and 30 to a control group (C). A 95% confidence interval for μT − μC, the difference in mean scores on a final quiz, is (3.1, 12.7) points. Which statements are supported? Select all that apply.
+      options:
+        - "There is convincing evidence that the tutoring program increases the mean quiz score for students like these."
+        - "A true difference of 10 points is plausible."
+        - "A true difference of 0 points is plausible."
+        - "95% of tutored students scored between 3.1 and 12.7 points higher than control students."
+        - "A 99% interval from the same data would be wider than (3.1, 12.7)."
+      option_explanations:
+        - |
+          Correct. The whole interval is above 0, and random assignment supports a cause-and-effect conclusion for students like the volunteers.
+        - |
+          Correct. 10 points lies inside the interval (3.1, 12.7), so it is a plausible value of μT − μC.
+        - |
+          0 lies below the interval, so it is not a plausible value of μT − μC.
+        - |
+          The interval is about the difference in mean scores, not about individual students.
+        - |
+          Correct. Higher confidence needs a larger t*, so the interval widens.
+      answer: [0, 1, 4]
+    - slug: apstats-u04-w27-q17
+      type: true_false
+      topic_code: "4.8"
+      source: "AP Statistics CED, Topic 4.8"
+      points: 1
+      prompt: |
+        True or false: A 95% two-sample t-interval for μ₁ − μ₂ of (−1.4, 2.9) shows that the two population means are equal.
+      answer: false
+      explanation: |
+        False. Because 0 is inside the interval, a difference of 0 is plausible, so there is not convincing evidence of a difference; but every value from −1.4 to 2.9 is also plausible. An interval can never show that two means are exactly equal.
+    - slug: apstats-u04-w27-q18
+      type: true_false
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 1
+      prompt: |
+        True or false: For the same confidence level, the critical value t* for a one-sample t-interval with df = 9 is larger than z*.
+      answer: true
+      explanation: |
+        True. t distributions have heavier tails than the standard normal, so their critical values are larger: for 95%, t* = 2.262 with df = 9 versus z* = 1.960. As df grows, t* approaches z*.
+    - slug: apstats-u04-w27-q19
+      type: fill_blank
+      topic_code: "4.7"
+      source: "AP Statistics CED, Topic 4.7"
+      points: 1
+      prompt: |
+        A two-sample t-interval is built by hand from random samples of 18 and 25 students. Using the conservative rule, the degrees of freedom are ____.
+      answer: ["17"]
+      explanation: |
+        Conservative df = smaller n − 1 = 18 − 1 = 17.
+    - slug: apstats-u04-w27-q20
+      type: fill_blank
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        Daily step counts of a school's teachers have standard deviation 1,200 steps. For random samples of 36 teachers, the standard deviation of the sampling distribution of x̄ is ____ steps.
+      answer: ["200", "200.0"]
+      explanation: |
+        σ/√n = 1,200/√36 = 1,200/6 = 200 steps.
+    - slug: apstats-u04-w27-q21
+      type: numeric
+      topic_code: "4.7"
+      source: "AP Statistics CED, Topic 4.7"
+      points: 1
+      prompt: |
+        Random samples of 22 bags of brand P popcorn and 26 bags of brand Q popcorn give unpopped-kernel counts with s_P = 3.4 and s_Q = 4.1. For a 95% two-sample t-interval, the calculator's df is about 46.0 and t* = 2.013. Find the margin of error, to three decimal places.
+      answer: { value: 2.179, tolerance: 0.002 }
+      explanation: |
+        SE = √(3.4²/22 + 4.1²/26) = √(0.5255 + 0.6465) = √1.1720 ≈ 1.0826. Margin of error = 2.013 × 1.0826 ≈ 2.179 kernels.
+    - slug: apstats-u04-w27-q22
+      type: short_answer
+      topic_code: "4.8"
+      source: "AP Statistics CED, Topic 4.8"
+      points: 3
+      prompt: |
+        A middle school randomly assigns 50 volunteer classrooms, 25 to standing desks (S) and 25 to regular desks (R). After a month, a 99% confidence interval for μS − μR, the difference in mean daily step counts per student, is (210, 1,480) steps.
+
+        (a) Do the data give convincing evidence that standing desks increase mean daily steps? Explain, including what kind of conclusion the design allows.
+        (b) A furniture company claims standing desks add 2,000 steps a day on average. Is that claim plausible? Explain.
+        (c) Would a 95% interval from the same data contain 0? Explain without computing it.
+      answer: |
+        (a) Yes. The entire interval is above 0, so 0 is not a plausible value of μS − μR, and the classrooms were randomly assigned to desk type, so we can conclude that standing desks cause an increase in mean daily steps (for classrooms like these volunteers).
+        (b) No. 2,000 steps is above the interval, so it is not a plausible value of the mean difference at the 99% level.
+        (c) No. A 95% interval is centered at the same estimate (845 steps) but is narrower than the 99% interval, so it lies inside (210, 1,480) and still excludes 0.
+      explanation: |
+        Three points, one per part. (a) yes, with "0 is not in the interval" and the causal conclusion justified by random assignment (scope limited to classrooms like these is acceptable but not required). (b) not plausible because 2,000 is outside (above) the interval. (c) no, because the 95% interval is narrower with the same center, so it stays inside (210, 1,480).
+    - slug: apstats-u04-w27-q23
+      type: short_answer
+      topic_code: "4.4"
+      source: "AP Statistics CED, Topic 4.4"
+      points: 3
+      prompt: |
+        A computer teacher wants to know whether students type faster on a split keyboard than on a standard keyboard. Each of 15 randomly selected students types the same passage on both keyboards, in a random order, and words per minute are recorded.
+
+        (a) Name the appropriate test and explain why it is the right one.
+        (b) Define the parameter and state the hypotheses.
+        (c) Why does the teacher randomise the order of the keyboards?
+      answer: |
+        (a) A paired t-test for a population mean difference, because each student types on both keyboards, so the two measurements are linked; we analyse the 15 differences (split − standard).
+        (b) μ_d = the true mean difference in typing speed (split − standard, words per minute) for all students at the school. H₀: μ_d = 0; Hₐ: μ_d > 0.
+        (c) So that practice or fatigue effects (typing the passage a second time) are not confounded with the keyboard: neither keyboard always gets the benefit of going second.
+      explanation: |
+        Three points, one per part. (a) paired t-test (for a mean difference) with the reason that each student gives both measurements. (b) μ_d defined in context with the direction of subtraction, and correct one-sided hypotheses about μ_d (not about x̄_d). (c) a reason tied to order effects such as learning the passage or fatigue.
+    - slug: apstats-u04-w27-q24
+      type: long_answer
+      topic_code: "4.7"
+      source: "AP Statistics CED, Topic 4.7"
+      points: 6
+      prompt: |
+        A physics class compares two paper-airplane designs. Twenty identical sheets of paper are randomly assigned, 10 to Design A and 10 to Design B; each airplane is thrown once by the same launcher. Flight distances (meters):
+
+        | Design | Distances (m) |
+        |---|---|
+        | A | 11.2, 13.5, 9.8, 12.7, 14.1, 10.9, 12.2, 13.8, 11.6, 12.9 |
+        | B | 10.1, 9.4, 11.8, 8.7, 10.6, 12.0, 9.9, 10.8, 9.2, 11.1 |
+
+        Summary statistics: Design A x̄ = 12.27, s = 1.389; Design B x̄ = 10.36, s = 1.099. Neither sample has outliers, and dotplots of both are roughly symmetric.
+
+        (A) Name the appropriate procedure and define the parameter.
+
+        (B) Check the conditions for the procedure.
+
+        (C) Construct a 95% confidence interval. State which degrees of freedom you used.
+
+        (D) Interpret the interval, and say whether it gives convincing evidence that Design A flies farther on average.
+      answer: |
+        (A) A two-sample t-interval for μA − μB, where μA = the true mean flight distance of airplanes made with Design A and μB = the true mean flight distance with Design B (thrown by this launcher).
+        (B) Random: the sheets were randomly assigned to the two designs. 10%: not needed, because this is an experiment, not a sample from a population. Normal: both samples are small (10 each), but the dotplots are roughly symmetric with no outliers, so a t procedure is reasonable.
+        (C) x̄A − x̄B = 1.91 m. SE = √(1.389²/10 + 1.099²/10) ≈ 0.560. Calculator df ≈ 17.1, t* ≈ 2.109: 1.91 ± 1.181, giving (0.73, 3.09) m. (Conservative df = 9, t* = 2.262: 1.91 ± 1.267, giving (0.64, 3.18) m.)
+        (D) We are 95% confident that the interval from 0.73 to 3.09 m captures the true difference (A minus B) in mean flight distance for airplanes like these. Because the whole interval is above 0, there is convincing evidence that Design A flies farther on average, and because the designs were randomly assigned, the design caused the difference (for this launcher and paper).
+      explanation: |
+        Six points.
+        (A) 1 point: two-sample t-interval named, with μA and μB defined in context (the order of subtraction clear).
+        (B) 2 points: 1 for Random (random assignment); 1 for Normal checked with the dotplots for both small samples (no strong skew, no outliers). Claiming n ≥ 30 or checking only one group earns 0 for Normal.
+        (C) 2 points: 1 for the point estimate 1.91 and SE ≈ 0.560 (or the formula with values); 1 for the interval (0.73, 3.09) with calculator df ≈ 17.1, or (0.64, 3.18) with conservative df = 9, and the df named. An interval without the df stated earns at most 1 point in (C).
+        (D) 1 point: interpretation with "confident", the parameter in context and the order of subtraction, plus "convincing evidence" because 0 is not in the interval.

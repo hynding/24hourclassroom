@@ -1,0 +1,603 @@
+week: 11
+unit: 2
+title: "Random Variables, Probability Distributions and Their Parameters"
+topics: ["2.8", "2.9"]
+guide: guides/week-11.md
+guide_description: |
+  Random variables defined in context, discrete versus continuous, building a discrete probability distribution
+  from a random process, checking validity, probability histograms and cumulative probabilities, and the
+  wording of "at least", "more than" and "at most"; then the mean (expected value) and standard deviation of a
+  discrete random variable, their AP interpretations as long-run quantities, net gain, fair games and using an
+  expected value to compare choices. Worked examples: the number of correct guesses on two four-option
+  questions, the number of people per car at a school drop-off (distribution, cumulative probabilities, mean
+  1.90 and standard deviation 0.995), a school raffle's expected net gain of −$3.40, and a phone repair plan.
+flashcards_description: |
+  30 cards on defining random variables, discrete and continuous variables, valid distributions, cumulative
+  probabilities, computing and interpreting the mean and standard deviation of a discrete random variable, net
+  gain and fair games.
+
+flashcards:
+  - front: Random variable → definition
+    back: |
+      A variable whose numerical value is determined by the outcome of a random process, such as X = the number of correct guesses.
+    topic_code: "2.8"
+  - front: Defining a random variable on the AP exam → what to write
+    back: |
+      "X = the number of ... in a randomly chosen ..." in context, before any computation, with units if it has them.
+    topic_code: "2.8"
+  - front: Discrete random variable → definition and example
+    back: |
+      Takes a countable set of separate values, such as the number of people in a car (1, 2, 3, 4).
+    topic_code: "2.8"
+  - front: Continuous random variable → definition and example
+    back: |
+      Takes any value in an interval, such as the time to run a mile. Probabilities are areas under a density curve.
+    topic_code: "2.8"
+  - front: Continuous random variable → P(X equals one exact value)
+    back: |
+      0. Only intervals have positive probability, so P(X ≤ a) and P(X < a) are the same for a continuous variable.
+    topic_code: "2.8"
+  - front: Valid discrete probability distribution → the two checks
+    back: |
+      Every probability is between 0 and 1, and the probabilities add to exactly 1.
+    topic_code: "2.8"
+  - front: Probability histogram → what the bars show
+    back: |
+      One bar per value of X, with height equal to P(X = x). Its shape is described like a data distribution: symmetric, skewed right or skewed left.
+    topic_code: "2.8"
+  - front: Cumulative probability P(X ≤ x) → how to find it from a table
+    back: |
+      Add the probabilities of every value up to and including x.
+    topic_code: "2.8"
+  - front: "\"At least 3\", \"more than 3\", \"at most 3\", \"fewer than 3\" → which values each includes"
+    back: |
+      At least 3: 3 and above. More than 3: 4 and above. At most 3: 3 and below. Fewer than 3: 2 and below (for whole-number values).
+    topic_code: "2.8"
+  - front: Guessing on two four-option questions → distribution of the number correct
+    back: |
+      P(0) = 9/16 = 0.5625, P(1) = 6/16 = 0.375 (two orders), P(2) = 1/16 = 0.0625. Skewed right.
+    topic_code: "2.8"
+  - front: Values 0, 1, 2, 3 with probabilities 0.1, 0.3, k, 2k → k
+    back: |
+      0.4 + 3k = 1, so k = 0.2 (and P(X = 3) = 0.4).
+    topic_code: "2.8"
+  - front: Mean (expected value) of a discrete random variable → formula
+    back: |
+      μ_X = Σ x · P(x): multiply each value by its probability and add.
+    topic_code: "2.9"
+  - front: Expected value → interpretation template
+    back: |
+      "If the random process were repeated many, many times, the average value of X would be about μ_X," in context.
+    topic_code: "2.9"
+  - front: Expected value → must it be a possible value of X?
+    back: |
+      No. A mean of 1.90 people per car is fine even though no car holds 1.9 people.
+    topic_code: "2.9"
+  - front: Variance of a discrete random variable → formula
+    back: |
+      σ²_X = Σ (x − μ_X)² · P(x): the probability-weighted average of squared distances from the mean.
+    topic_code: "2.9"
+  - front: Standard deviation of a discrete random variable → formula
+    back: |
+      σ_X = √(Σ (x − μ_X)² · P(x)). No n − 1: it is a parameter of a model, not a sample statistic.
+    topic_code: "2.9"
+  - front: Standard deviation of a random variable → interpretation template
+    back: |
+      "The value of X for a randomly chosen ... typically varies from the mean of μ_X by about σ_X," in context with units.
+    topic_code: "2.9"
+  - front: Cars at drop-off (1, 2, 3, 4 people with 0.45, 0.30, 0.15, 0.10) → mean and standard deviation
+    back: |
+      μ_X = 1.90 people; σ²_X = 0.99, so σ_X ≈ 0.995 people.
+    topic_code: "2.9"
+  - front: Mean and standard deviation of a discrete distribution on a calculator → setup
+    back: |
+      Values in one list, probabilities in another; run one-variable statistics with the probability list as the frequency list.
+    topic_code: "2.9"
+  - front: Net gain in a game or raffle → how to set up the values
+    back: |
+      Subtract the cost of playing from every payout, including the winning ones; a losing outcome has net gain equal to minus the cost.
+    topic_code: "2.9"
+  - front: School raffle (500 tickets at $5; prizes $500, 2 × $100, 5 × $20) → expected net gain
+    back: |
+      495(0.002) + 95(0.004) + 15(0.010) − 5(0.984) = −$3.40 per ticket: buyers lose $3.40 per ticket in the long run.
+    topic_code: "2.9"
+  - front: Fair game → definition in terms of expected value
+    back: |
+      The expected net gain is 0: in the long run, players neither win nor lose money on average.
+    topic_code: "2.9"
+  - front: Phone repair plan ($40) versus a 0.12 chance of a $250 repair → expected comparison
+    back: |
+      Expected repair cost without the plan is 0.12 × 250 = $30, less than $40, so skipping the plan costs less on average in the long run.
+    topic_code: "2.9"
+  - front: Large standard deviation for a raffle's net gain → what it reflects
+    back: |
+      Rare, very large prizes: most tickets lose a little, a few win a lot, so individual outcomes sit far from the mean.
+    topic_code: "2.9"
+  - front: Mean of a random variable versus mean of a sample → the difference
+    back: |
+      μ_X is a parameter of the probability model (the long-run average); x̄ is a statistic computed from observed data, which varies from sample to sample.
+    topic_code: "2.9"
+  - front: Shape of a probability histogram with most probability at the smallest values → description
+    back: |
+      Skewed right: a long tail toward the larger values, which pulls the mean above the median.
+    topic_code: "2.8"
+  - front: Number of AP exams (0 to 4 with 0.30, 0.25, 0.25, 0.15, 0.05) → mean and standard deviation
+    back: |
+      μ_X = 1.40 exams; σ²_X = 1.44, so σ_X = 1.20 exams.
+    topic_code: "2.9"
+  - front: Error-spot → "the mean of X with values 0, 1, 2, 3, 4 is (0 + 1 + 2 + 3 + 4)/5 = 2"
+    back: |
+      That ignores the probabilities. Weight each value: μ_X = Σ x · P(x).
+    topic_code: "2.9"
+  - front: Error-spot → "σ²_X = 1.44, so the standard deviation is 1.44"
+    back: |
+      1.44 is the variance. The standard deviation is √1.44 = 1.20.
+    topic_code: "2.9"
+  - front: Error-spot → "the expected number of people in the next car is 1.90, so the next car will have about 2 people"
+    back: |
+      The expected value is a long-run average over many cars, not a prediction for one car; the next car could hold 1 or 4.
+    topic_code: "2.9"
+
+quiz:
+  description: |
+    22 questions · about 40 minutes · mostly on this week (topics 2.8 and 2.9: random variables, discrete
+    probability distributions, cumulative probabilities, and the mean and standard deviation of a random
+    variable), with 7 questions (32%) reviewing weeks 7 to 10 (experimental design, two-way tables, conditional
+    probability, independence and the addition rules). Opens with a shared-context set on one probability
+    distribution. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. Calculators are allowed.
+  questions:
+    # ---- Stimulus set: number of AP exams (2.8, 2.9)
+    - slug: apstats-u02-w11-q01
+      type: multiple_choice
+      topic_code: "2.8"
+      source: "AP Statistics CED, Topic 2.8"
+      points: 1
+      stimulus: |
+        At a hypothetical high school, let X = the number of AP exams a randomly chosen junior will take this spring. Its probability distribution is:
+
+        | x | 0 | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | P(X = x) | 0.30 | 0.25 | 0.25 | 0.15 | 0.05 |
+      prompt: |
+        What is the probability that a randomly chosen junior will take at least 2 AP exams?
+      options:
+        - "0.25"
+        - "0.45"
+        - "0.20"
+        - "0.55"
+      option_explanations:
+        - |
+          0.25 is P(X = 2) only; "at least 2" also includes 3 and 4 exams.
+        - |
+          Correct. P(X ≥ 2) = 0.25 + 0.15 + 0.05 = 0.45.
+        - |
+          0.15 + 0.05 = 0.20 is P(X > 2), which leaves out exactly 2 exams.
+        - |
+          0.30 + 0.25 = 0.55 is P(X ≤ 1), the complement of the event asked for.
+      answer: 1
+    - slug: apstats-u02-w11-q02
+      type: multiple_choice
+      topic_code: "2.9"
+      source: "AP Statistics CED, Topic 2.9"
+      points: 1
+      stimulus: |
+        At a hypothetical high school, let X = the number of AP exams a randomly chosen junior will take this spring. Its probability distribution is:
+
+        | x | 0 | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | P(X = x) | 0.30 | 0.25 | 0.25 | 0.15 | 0.05 |
+      prompt: |
+        What is the mean of X?
+      options:
+        - "2.00"
+        - "0.20"
+        - "1.00"
+        - "1.40"
+      option_explanations:
+        - |
+          2.00 averages the values 0 to 4 as if they were equally likely; the probabilities must be used as weights.
+        - |
+          0.20 is the average of the five probabilities (1/5), not a weighted average of the values.
+        - |
+          1.00 is the median (P(X ≤ 1) = 0.55 first passes 0.5 at 1), not the mean; the right skew pulls the mean higher.
+        - |
+          Correct. μ_X = 0(0.30) + 1(0.25) + 2(0.25) + 3(0.15) + 4(0.05) = 0 + 0.25 + 0.50 + 0.45 + 0.20 = 1.40 exams.
+      answer: 3
+    - slug: apstats-u02-w11-q03
+      type: multiple_choice
+      topic_code: "2.9"
+      source: "AP Statistics CED, Topic 2.9"
+      points: 1
+      stimulus: |
+        At a hypothetical high school, let X = the number of AP exams a randomly chosen junior will take this spring. Its probability distribution is:
+
+        | x | 0 | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | P(X = x) | 0.30 | 0.25 | 0.25 | 0.15 | 0.05 |
+      prompt: |
+        Which is the best interpretation of the mean of X?
+      options:
+        - "If we chose many, many juniors at random, the average number of AP exams per junior would be about 1.40."
+        - "A typical junior will take exactly 1.40 AP exams."
+        - "40% of juniors will take more than one AP exam."
+        - "The next junior chosen will most likely take 1.40 exams."
+      option_explanations:
+        - |
+          Correct. The expected value is a long-run average over many randomly chosen juniors.
+        - |
+          No junior takes 1.40 exams; the mean is an average over many juniors, not a value any one junior has.
+        - |
+          The decimal part of the mean is not a percentage; P(X > 1) is actually 0.45.
+        - |
+          The single most likely value is 0 (probability 0.30); the mean describes the long run, not one junior.
+      answer: 0
+    - slug: apstats-u02-w11-q04
+      type: multiple_choice
+      topic_code: "2.9"
+      source: "AP Statistics CED, Topic 2.9"
+      points: 1
+      stimulus: |
+        At a hypothetical high school, let X = the number of AP exams a randomly chosen junior will take this spring. Its probability distribution is:
+
+        | x | 0 | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | P(X = x) | 0.30 | 0.25 | 0.25 | 0.15 | 0.05 |
+      prompt: |
+        What is the standard deviation of X?
+      options:
+        - "1.44"
+        - "1.41"
+        - "1.20"
+        - "1.18"
+      option_explanations:
+        - |
+          1.44 is the variance, Σ (x − 1.4)² · P(x); the standard deviation is its square root.
+        - |
+          1.41 is the standard deviation of the values 0 to 4 treated as equally likely, ignoring the probabilities.
+        - |
+          Correct. σ²_X = (1.96)(0.30) + (0.16)(0.25) + (0.36)(0.25) + (2.56)(0.15) + (6.76)(0.05) = 0.588 + 0.04 + 0.09 + 0.384 + 0.338 = 1.44, so σ_X = 1.20 exams.
+        - |
+          √1.40 ≈ 1.18 takes the square root of the mean, not of the variance.
+      answer: 2
+    # ---- Independent items
+    - slug: apstats-u02-w11-q05
+      type: multiple_choice
+      topic_code: "2.8"
+      source: "AP Statistics CED, Topic 2.8"
+      points: 1
+      prompt: |
+        Which of these random variables is continuous?
+      options:
+        - "The time, in seconds, a randomly chosen runner takes to finish a 400-meter race"
+        - "The number of text messages a randomly chosen student sends in a day"
+        - "The number of heads in 10 tosses of a coin"
+        - "The number of students absent from a randomly chosen class"
+      option_explanations:
+        - |
+          Correct. Time can take any value in an interval (such as 61.37 seconds), so it is continuous.
+        - |
+          A count of messages takes separate whole-number values, so it is discrete, however large the counts.
+        - |
+          The number of heads can only be 0, 1, ..., 10, a countable list of values: discrete.
+        - |
+          A count of absent students takes whole-number values only, so it is discrete.
+      answer: 0
+    - slug: apstats-u02-w11-q06
+      type: multiple_choice
+      topic_code: "2.8"
+      source: "AP Statistics CED, Topic 2.8"
+      points: 1
+      prompt: |
+        A student guesses at random on two questions, each with three options, and the guesses are independent. Let X = the number of correct answers. What is P(X = 1)?
+      options:
+        - "1/9"
+        - "1/3"
+        - "4/9"
+        - "2/9"
+      option_explanations:
+        - |
+          1/9 = (1/3)(1/3) is P(X = 2), both answers correct.
+        - |
+          1/3 is the chance of getting one particular question right, not the chance of exactly one correct out of two.
+        - |
+          Correct. Exactly one correct can happen two ways: (1/3)(2/3) + (2/3)(1/3) = 4/9 ≈ 0.444.
+        - |
+          (1/3)(2/3) = 2/9 counts only "right then wrong" and misses "wrong then right".
+      answer: 2
+    - slug: apstats-u02-w11-q07
+      type: multiple_choice
+      topic_code: "2.9"
+      source: "AP Statistics CED, Topic 2.9"
+      points: 1
+      prompt: |
+        A hypothetical store offers a one-year repair plan for a $300 phone for $40. Without the plan, there is a 0.12 probability that the phone needs a $250 repair during the year and a 0.88 probability that it needs no repair. What is the expected repair cost for a customer without the plan?
+      options:
+        - "$40"
+        - "$250"
+        - "$125"
+        - "$30"
+      option_explanations:
+        - |
+          $40 is the price of the plan, not the expected cost of going without it.
+        - |
+          $250 is the cost if a repair is needed, which happens only 12% of the time.
+        - |
+          $125 averages $0 and $250 as if they were equally likely; the probabilities are 0.88 and 0.12.
+        - |
+          Correct. E(cost) = 0.12 × 250 + 0.88 × 0 = $30, less than the $40 plan.
+      answer: 3
+    - slug: apstats-u02-w11-q08
+      type: multiple_choice
+      topic_code: "2.9"
+      source: "AP Statistics CED, Topic 2.9"
+      points: 1
+      prompt: |
+        At a hypothetical bakery, X = the number of loaves of bread a randomly chosen customer buys has mean 2.3 loaves and standard deviation 0.9 loaves. Which is the best interpretation of the standard deviation?
+      options:
+        - "About 90% of customers buy between 1.4 and 3.2 loaves."
+        - "The number of loaves a randomly chosen customer buys typically varies from the mean of 2.3 by about 0.9 loaves."
+        - "Each customer buys 0.9 loaves fewer than the mean."
+        - "The probability that a customer buys more than 2.3 loaves is 0.9."
+      option_explanations:
+        - |
+          The standard deviation is not a percentage, and no fixed percentage falls within one standard deviation without knowing the shape.
+        - |
+          Correct. σ_X describes the typical distance between a value of X and its mean in the long run.
+        - |
+          The standard deviation describes spread on both sides of the mean, not a fixed shortfall for every customer.
+        - |
+          0.9 is a number of loaves, not a probability; it measures spread.
+      answer: 1
+    - slug: apstats-u02-w11-q09
+      type: multiple_choice
+      topic_code: "2.8"
+      source: "AP Statistics CED, Topic 2.8"
+      points: 1
+      prompt: |
+        A random variable X takes the values 0, 1, 2 and 3 with probabilities 0.1, 0.3, k and 2k. What is P(X = 3)?
+      options:
+        - "0.2"
+        - "0.6"
+        - "0.25"
+        - "0.4"
+      option_explanations:
+        - |
+          0.2 is the value of k itself, but the probability of X = 3 is 2k, twice as large.
+        - |
+          0.6 = 3k is P(X = 2) + P(X = 3) combined.
+        - |
+          0.25 assumes the four values are equally likely, which ignores the probabilities given.
+        - |
+          Correct. The probabilities must add to 1: 0.1 + 0.3 + k + 2k = 1, so 3k = 0.6, k = 0.2 and P(X = 3) = 2k = 0.4.
+      answer: 3
+    - slug: apstats-u02-w11-q10
+      type: multiple_choice
+      topic_code: "2.6"
+      source: "AP Statistics CED, Topic 2.6"
+      points: 1
+      prompt: |
+        For a randomly chosen visitor to a hypothetical museum, P(buys a ticket to the special exhibit) = 0.45 and P(buys a special-exhibit ticket and visits the gift shop) = 0.18. What is P(visits the gift shop | buys a special-exhibit ticket)?
+      options:
+        - "0.40"
+        - "0.081"
+        - "0.18"
+        - "0.63"
+      option_explanations:
+        - |
+          Correct. P(gift shop | ticket) = P(ticket and gift shop)/P(ticket) = 0.18/0.45 = 0.40.
+        - |
+          0.45 × 0.18 ≈ 0.081 multiplies the two given probabilities, which has no meaning here.
+        - |
+          0.18 is the joint probability of both events, not the conditional probability.
+        - |
+          0.45 + 0.18 = 0.63 adds a probability to a joint probability that is already part of it.
+      answer: 0
+    - slug: apstats-u02-w11-q11
+      type: multiple_choice
+      topic_code: "2.7"
+      source: "AP Statistics CED, Topic 2.7"
+      points: 1
+      prompt: |
+        At a hypothetical restaurant, 30% of all customers order dessert, but 42% of customers who dine with children order dessert. What can you conclude about the events "orders dessert" and "dines with children" for a randomly chosen customer?
+      options:
+        - "They are independent, because both percentages are under 50%."
+        - "They are mutually exclusive, because the percentages differ."
+        - "They are not independent, because P(dessert | children) = 0.42 is not equal to P(dessert) = 0.30."
+        - "They are independent, because 0.42 − 0.30 is small."
+      option_explanations:
+        - |
+          Independence has nothing to do with percentages being below 50%; it requires the conditional and unconditional probabilities to be equal.
+        - |
+          Mutually exclusive would mean no customer with children orders dessert, but 42% of them do.
+        - |
+          Correct. Knowing a customer dines with children changes the probability of ordering dessert, so the events are dependent.
+        - |
+          These are given probabilities, not sample estimates; any difference between P(A | B) and P(A) means the events are not independent.
+      answer: 2
+    - slug: apstats-u02-w11-q12
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "AP Statistics CED, Topic 1.13"
+      points: 1
+      prompt: |
+        In a hypothetical experiment, 80 tomato seedlings are randomly assigned to receive either a new fertiliser or the standard one. What is the main purpose of the random assignment?
+      options:
+        - "To make sure the results can be generalised to all tomato plants everywhere"
+        - "To create two groups that are roughly equivalent in other variables, so that a difference in growth can be attributed to the fertiliser"
+        - "To guarantee that each group has exactly the same average seedling height at the start"
+        - "To remove all variability in plant growth"
+      option_explanations:
+        - |
+          Generalising to a population requires random sampling from that population, not random assignment.
+        - |
+          Correct. Random assignment balances other variables (soil, sunlight, seed quality) between the groups on average, so a large difference can be credited to the treatment.
+        - |
+          Random assignment makes groups similar on average; it does not guarantee identical starting values.
+        - |
+          Natural variation among plants remains; random assignment only keeps it from systematically favouring one treatment.
+      answer: 1
+    - slug: apstats-u02-w11-q13
+      type: multi_select
+      topic_code: "2.9"
+      source: "AP Statistics CED, Topics 2.8–2.9"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let X = the number of goals a hypothetical high school soccer team scores in a randomly chosen game.
+
+        | x | 0 | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | P(X = x) | 0.25 | 0.35 | 0.25 | 0.10 | 0.05 |
+
+        Which statements are true? Select all that apply.
+      options:
+        - "P(X ≥ 2) = 0.40"
+        - "The mean of X is 1.35 goals."
+        - "The mean of X must be 2, the middle value."
+        - "P(X < 1) = 0.25"
+        - "X is a continuous random variable."
+      option_explanations:
+        - |
+          Correct. At least 2 goals means 2, 3 or 4: 0.25 + 0.10 + 0.05 = 0.40.
+        - |
+          Correct. μ_X = 0(0.25) + 1(0.35) + 2(0.25) + 3(0.10) + 4(0.05) = 0.35 + 0.50 + 0.30 + 0.20 = 1.35.
+        - |
+          The mean weights the values by their probabilities; the larger probabilities at 0 and 1 pull it to 1.35.
+        - |
+          Correct. Fewer than 1 goal means 0 goals, with probability 0.25.
+        - |
+          Goals are counted in whole numbers, so X is discrete.
+      answer: [0, 1, 3]
+    - slug: apstats-u02-w11-q14
+      type: multi_select
+      topic_code: "2.6"
+      source: "AP Statistics CED, Topics 2.6–2.7"
+      points: 2
+      partial_credit: true
+      prompt: |
+        At a hypothetical school, 60% of students ride the bus. 10% of bus riders and 20% of other students arrive late on a given day. A student is chosen at random. Which statements are true? Select all that apply.
+      options:
+        - "P(late) = 0.14"
+        - "P(bus and late) = 0.06"
+        - "P(bus | late) = 0.10"
+        - "Riding the bus and arriving late are independent."
+        - "P(not late) = 0.86"
+      option_explanations:
+        - |
+          Correct. P(late) = 0.60 × 0.10 + 0.40 × 0.20 = 0.06 + 0.08 = 0.14.
+        - |
+          Correct. Multiply along the path: 0.60 × 0.10 = 0.06.
+        - |
+          0.10 is P(late | bus). The reverse is P(bus | late) = 0.06/0.14 ≈ 0.429.
+        - |
+          P(late | bus) = 0.10 differs from P(late) = 0.14, so the events are not independent.
+        - |
+          Correct. By the complement rule, 1 − 0.14 = 0.86.
+      answer: [0, 1, 4]
+    - slug: apstats-u02-w11-q15
+      type: true_false
+      topic_code: "2.9"
+      source: "AP Statistics CED, Topic 2.9"
+      points: 1
+      prompt: |
+        True or false: The expected value of a discrete random variable must be one of the values the random variable can take.
+      answer: false
+      explanation: |
+        False. The expected value is a probability-weighted average, so it can fall between possible values. For example, the mean number of AP exams in this quiz's distribution is 1.40, although every junior takes a whole number of exams.
+    - slug: apstats-u02-w11-q16
+      type: true_false
+      topic_code: "2.7"
+      source: "AP Statistics CED, Topic 2.7"
+      points: 1
+      prompt: |
+        True or false: For events A and B with positive probabilities, if P(A | B) = P(A), then P(B | A) = P(B).
+      answer: true
+      explanation: |
+        True. P(A | B) = P(A) means P(A and B) = P(A) · P(B). Dividing both sides by P(A) gives P(B | A) = P(A and B)/P(A) = P(B). Independence works in both directions.
+    - slug: apstats-u02-w11-q17
+      type: fill_blank
+      topic_code: "2.8"
+      source: "AP Statistics CED, Topic 2.8"
+      points: 1
+      prompt: |
+        For the random variable X with P(X = 0) = 0.30, P(X = 1) = 0.25, P(X = 2) = 0.25, P(X = 3) = 0.15 and P(X = 4) = 0.05, the cumulative probability P(X ≤ 1), as a decimal, is ____.
+      answer: ["0.55", ".55", "55%", "0.550", "11/20"]
+      explanation: |
+        P(X ≤ 1) = P(X = 0) + P(X = 1) = 0.30 + 0.25 = 0.55.
+    - slug: apstats-u02-w11-q18
+      type: fill_blank
+      topic_code: "2.6"
+      source: "AP Statistics CED, Topic 2.6"
+      points: 1
+      prompt: |
+        For events A and B, P(A) = 0.6 and P(B | A) = 0.5. Then P(A and B), as a decimal, is ____.
+      answer: ["0.3", "0.30", ".3", ".30", "30%", "3/10"]
+      explanation: |
+        By the multiplication rule, P(A and B) = P(A) · P(B | A) = 0.6 × 0.5 = 0.30.
+    - slug: apstats-u02-w11-q19
+      type: numeric
+      topic_code: "2.9"
+      source: "AP Statistics CED, Topic 2.9"
+      points: 1
+      prompt: |
+        At a hypothetical pizza shop, X = the number of slices a randomly chosen lunch customer orders has the distribution P(X = 1) = 0.2, P(X = 2) = 0.5, P(X = 3) = 0.3. Find the standard deviation of X, rounded to two decimal places.
+      answer: { value: 0.70, tolerance: 0.006 }
+      explanation: |
+        μ_X = 1(0.2) + 2(0.5) + 3(0.3) = 2.1. σ²_X = (1 − 2.1)²(0.2) + (2 − 2.1)²(0.5) + (3 − 2.1)²(0.3) = 0.242 + 0.005 + 0.243 = 0.49. σ_X = √0.49 = 0.70 slices.
+    - slug: apstats-u02-w11-q20
+      type: short_answer
+      topic_code: "2.9"
+      source: "AP Statistics CED, Topics 2.8–2.9"
+      points: 3
+      prompt: |
+        A hypothetical school club sells 300 raffle tickets for $2 each. One ticket wins $100 and two tickets win $25 each. Let X = the net gain for a person who buys one ticket.
+
+        (a) Give the probability distribution of X.
+        (b) Find the expected value of X.
+        (c) Interpret the expected value in context.
+      answer: |
+        (a) X = 98 with probability 1/300; X = 23 with probability 2/300; X = −2 with probability 297/300.
+        (b) E(X) = 98(1/300) + 23(2/300) + (−2)(297/300) = (98 + 46 − 594)/300 = −450/300 = −$1.50.
+        (c) If a person bought many, many tickets in raffles like this one, the average net gain would be about −$1.50 per ticket: buyers lose about $1.50 per ticket in the long run.
+      explanation: |
+        Three points, one per part. (a) all three net values (prize minus the $2 cost) with correct probabilities that add to 1. (b) −$1.50 with work shown (using gross payouts of 100, 25 and 0 and subtracting 2 at the end is also acceptable). (c) a long-run average interpretation in context; "you will lose $1.50 on your ticket" does not earn the point.
+    - slug: apstats-u02-w11-q21
+      type: short_answer
+      topic_code: "2.7"
+      source: "AP Statistics CED, Topic 2.7"
+      points: 2
+      prompt: |
+        For a randomly chosen student at a hypothetical school, P(takes Spanish) = 0.45, P(plays in the orchestra) = 0.30, and P(takes Spanish or plays in the orchestra) = 0.60.
+
+        (a) Find P(takes Spanish and plays in the orchestra).
+        (b) Are the two events independent? Justify.
+      answer: |
+        (a) By the general addition rule, 0.60 = 0.45 + 0.30 − P(both), so P(both) = 0.15.
+        (b) No. If they were independent, P(both) would be 0.45 × 0.30 = 0.135, but it is 0.15. (Equivalently, P(orchestra | Spanish) = 0.15/0.45 ≈ 0.333 ≠ 0.30.)
+      explanation: |
+        Two points. (a) 1 point: 0.15 from the general addition rule. (b) 1 point: "not independent" with a correct numerical justification (the product check or a conditional-probability comparison).
+    - slug: apstats-u02-w11-q22
+      type: long_answer
+      topic_code: "2.9"
+      source: "AP Statistics CED, Topics 2.8–2.9"
+      points: 6
+      prompt: |
+        A hypothetical school fair runs a dice game. It costs $2 to play. The player rolls two fair six-sided dice. If the dice show doubles (the same number), the player receives $8. If the sum is 7, the player receives $3. Otherwise the player receives nothing. Let X = the player's net gain for one play.
+
+        (A) Give the probability distribution of X.
+
+        (B) Find the mean of X and interpret it in context.
+
+        (C) Find the standard deviation of X.
+
+        (D) The organisers want the game to be fair. If the $3 prize for a sum of 7 stays the same, what amount should the doubles prize be? Show your work.
+      answer: |
+        (A) Doubles: 6 of 36 outcomes; sum 7: 6 of 36 (no overlap, since doubles have even sums); other: 24 of 36.
+        X = 6 (8 − 2) with probability 6/36 = 1/6; X = 1 (3 − 2) with probability 1/6; X = −2 with probability 24/36 = 2/3.
+        (B) μ_X = 6(1/6) + 1(1/6) + (−2)(2/3) = 1 + 0.1667 − 1.3333 ≈ −$0.17. If many, many games were played, players would lose about 17 cents per play on average.
+        (C) σ²_X = (6 + 0.1667)²(1/6) + (1 + 0.1667)²(1/6) + (−2 + 0.1667)²(2/3) ≈ 6.338 + 0.227 + 2.241 = 8.806, so σ_X ≈ $2.97.
+        (D) Let the doubles prize be w. Fair means μ_X = 0: (w − 2)(1/6) + 1(1/6) + (−2)(2/3) = 0. Multiply by 6: w − 2 + 1 − 8 = 0, so w = $9.
+      explanation: |
+        Six points. (A) 2 points: 1 for correct probabilities 1/6, 1/6, 2/3 (adding to 1); 1 for net-gain values 6, 1 and −2 (gross payouts lose this point). (B) 2 points: 1 for μ_X ≈ −0.17; 1 for a long-run average interpretation in context (players lose about 17 cents per play over many plays). (C) 1 point: σ_X ≈ 2.97 (accept 2.96 to 2.98). (D) 1 point: setting the expected net gain to 0 and solving to get a $9 doubles prize.

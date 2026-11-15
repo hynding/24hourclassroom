@@ -1,0 +1,641 @@
+week: 31
+unit: 5
+title: "Residuals and Residual Plots"
+topics: ["5.4"]
+guide: guides/week-31.md
+guide_description: |
+  Residuals as actual minus predicted (y − ŷ): calculating them, the template for interpreting one in context,
+  what positive and negative residuals say about over- and underprediction, why least-squares residuals add to
+  0, and how to read a residual plot (random scatter, curved pattern, fan shape, one large residual) to decide
+  whether a linear model is appropriate. Worked examples: residuals and a text residual plot for eight
+  students' arm spans and heights, a cooling cup of coffee whose r = −0.968 hides a U-shaped residual plot,
+  and a fan-shaped residual plot for part-time earnings against hours worked.
+flashcards_description: |
+  30 cards on calculating and interpreting residuals, over- and underprediction, the residual plot and what
+  each pattern means, why r cannot judge linearity, and fan shapes.
+
+flashcards:
+  - front: Residual in regression → formula
+    back: |
+      residual = actual − predicted = y − ŷ.
+    topic_code: "5.4"
+  - front: Residual in regression → what it measures on the scatterplot
+    back: |
+      The signed vertical distance from the point to the regression line, in the units of y.
+    topic_code: "5.4"
+  - front: Positive residual → where the point is and what the model did
+    back: |
+      The point is above the line; the model underpredicted (actual y is greater than ŷ).
+    topic_code: "5.4"
+  - front: Negative residual → where the point is and what the model did
+    back: |
+      The point is below the line; the model overpredicted (actual y is less than ŷ).
+    topic_code: "5.4"
+  - front: Residual of 0 → meaning
+    back: |
+      The point lies exactly on the regression line: the prediction was exactly right for that individual.
+    topic_code: "5.4"
+  - front: Template for interpreting a residual
+    back: |
+      "The actual [y in context] for [individual] is [|residual| with units] [more/less] than predicted by the regression line using [x in context]."
+    topic_code: "5.4"
+  - front: Arm-span student 7 (arm span 179 cm, height 183 cm, ŷ = 178.78) → residual and interpretation
+    back: |
+      183 − 178.78 = 4.22 cm: his actual height is 4.22 cm greater than predicted from his arm span of 179 cm.
+    topic_code: "5.4"
+  - front: Arm-span student 2 (arm span 158 cm, height 157 cm, ŷ = 159.72) → residual and interpretation
+    back: |
+      157 − 159.72 = −2.72 cm: her actual height is 2.72 cm less than predicted from her arm span of 158 cm.
+    topic_code: "5.4"
+  - front: Least-squares residuals → their sum and mean
+    back: |
+      They always add to 0, so their mean is 0; positive and negative misses balance.
+    topic_code: "5.4"
+  - front: Residual plot → what goes on each axis
+    back: |
+      The explanatory variable x (or the predicted values ŷ) on the horizontal axis, residuals on the vertical axis, with a reference line at 0.
+    topic_code: "5.4"
+  - front: Residual plot → what you hope to see
+    back: |
+      No pattern: residuals scattered randomly above and below 0, with roughly the same spread everywhere.
+    topic_code: "5.4"
+  - front: Residual plot with random scatter → conclusion
+    back: |
+      A linear model is appropriate for the relationship between the two variables.
+    topic_code: "5.4"
+  - front: Residual plot with a U shape or an arch → conclusion
+    back: |
+      The relationship is curved, so a linear model is not appropriate; a curved model would describe the data better.
+    topic_code: "5.4"
+  - front: Residual plot that fans out as x increases → conclusion
+    back: |
+      The variability around the line grows with x, so predictions are less precise for larger x-values.
+    topic_code: "5.4"
+  - front: One residual far from the others in a residual plot → what it signals
+    back: |
+      An outlier in the y direction: a point the line predicts badly. Investigate it, and check (week 32) whether it is influential.
+    topic_code: "5.4"
+  - front: Why a residual plot shows problems a scatterplot hides
+    back: |
+      It removes the linear trend, magnifying whatever is left over: a gentle curve or changing spread becomes obvious.
+    topic_code: "5.4"
+  - front: Cooling coffee data (r = −0.968) → why the line is still inappropriate
+    back: |
+      The residuals are positive at both ends and negative in the middle (a U shape): the temperature drops fast, then slowly, so the form is curved.
+    topic_code: "5.4"
+  - front: Can a high correlation show that a linear model is appropriate?
+    back: |
+      No. Curved data can have |r| near 1. Only the residual plot (no leftover pattern) supports a linear model.
+    topic_code: "5.4"
+  - front: Curved residual plot → where the line over- and underpredicts
+    back: |
+      For a U shape, it underpredicts at both ends (positive residuals) and overpredicts in the middle (negative residuals); for an arch, the reverse.
+    topic_code: "5.4"
+  - front: Part-time earnings on hours worked, residuals within ±$5 at 2 hours and ±$45 at 25+ hours → description
+    back: |
+      The residuals fan out as hours increase: the line fits the average trend, but prediction errors are much larger for students working long hours.
+    topic_code: "5.4"
+  - front: Residuals plotted against ŷ instead of x → does the reading change?
+    back: |
+      No (for a simple linear regression): the pattern looks the same, mirrored if the slope is negative. Look for curves and fans either way.
+    topic_code: "5.4"
+  - front: Units of a residual
+    back: |
+      The units of the response y (cm, dollars, minutes), because it is y − ŷ.
+    topic_code: "5.4"
+  - front: Calculating a residual from an equation → two steps
+    back: |
+      (1) Substitute x into the equation to get ŷ. (2) Subtract: y − ŷ.
+    topic_code: "5.4"
+  - front: Line ŷ = 52 + 0.4x, observed point (60, 70) → residual
+    back: |
+      ŷ = 52 + 24 = 76, so the residual is 70 − 76 = −6: the point is 6 units below the line.
+    topic_code: "5.4"
+  - front: Finding an actual value from a residual
+    back: |
+      y = ŷ + residual. A predicted 25.48 with residual −1.79 means an actual value of 23.69.
+    topic_code: "5.4"
+  - front: Residual plot with no pattern → does it prove causation?
+    back: |
+      No. It only says a straight line describes the form of the association well; causation still needs random assignment.
+    topic_code: "5.4"
+  - front: Re-expressing (transforming) curved data → is it on this course?
+    back: |
+      No. When a residual plot is curved, say a linear model is not appropriate and that a curved model would fit better; transformations are not tested.
+    topic_code: "5.4"
+  - front: Error-spot → "residual = predicted − actual = 2.72 for student 2"
+    back: |
+      Backwards. Residual = actual − predicted = 157 − 159.72 = −2.72; the sign tells you the model overpredicted.
+    topic_code: "5.4"
+  - front: Error-spot → "the residual plot is just scattered dots, so there is no relationship"
+    back: |
+      Random scatter in a residual plot is the good outcome: it means the line captured the relationship and nothing systematic is left.
+    topic_code: "5.4"
+  - front: Error-spot → "r = −0.97, so the straight line fits the coffee data well"
+    back: |
+      A strong r does not rule out curvature. The U-shaped residual plot shows the line is the wrong form.
+    topic_code: "5.4"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topic 5.4: calculating and interpreting residuals,
+    over- and underprediction, residual plots, curved and fan-shaped patterns, and why r cannot judge
+    linearity), with 9 questions (38%) reviewing earlier weeks (predicted values and slope from week 30,
+    correlation from week 29, describing distributions, experimental design, mutually exclusive events,
+    expected value, a one-sample t statistic and setting up a chi-square test). Opens with a shared-context set
+    on six small businesses. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. Calculators are allowed throughout.
+  questions:
+    # ---- Stimulus set: advertising and revenue (5.3, 5.4)
+    - slug: apstats-u05-w31-q01
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      stimulus: |
+        Six hypothetical small businesses in one town report their monthly advertising spending (x, in hundreds of dollars) and monthly revenue (y, in thousands of dollars). The regression line is ŷ = 9.31 + 2.31x.
+
+        | Business | A | B | C | D | E | F |
+        |---|---|---|---|---|---|---|
+        | Advertising ($100s) | 2 | 4 | 5 | 7 | 8 | 10 |
+        | Revenue ($1000s) | 14 | 19 | 20 | 27 | 26 | 33 |
+      prompt: |
+        What is the predicted monthly revenue for business D, which spends $700 on advertising?
+      options:
+        - "$27,000"
+        - "$16,170"
+        - "$25,480"
+        - "$1,520"
+      option_explanations:
+        - |
+          $27,000 is the actual revenue of business D (y), not the value the line predicts (ŷ).
+        - |
+          This multiplies 2.31 by 7 but forgets to add the intercept 9.31.
+        - |
+          Correct. ŷ = 9.31 + 2.31(7) = 9.31 + 16.17 = 25.48 thousand dollars, or $25,480.
+        - |
+          $1,520 is the residual for business D (27 − 25.48 = 1.52 thousand), not the prediction.
+      answer: 2
+    - slug: apstats-u05-w31-q02
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 1
+      stimulus: |
+        Six hypothetical small businesses in one town report their monthly advertising spending (x, in hundreds of dollars) and monthly revenue (y, in thousands of dollars). The regression line is ŷ = 9.31 + 2.31x.
+
+        | Business | A | B | C | D | E | F |
+        |---|---|---|---|---|---|---|
+        | Advertising ($100s) | 2 | 4 | 5 | 7 | 8 | 10 |
+        | Revenue ($1000s) | 14 | 19 | 20 | 27 | 26 | 33 |
+      prompt: |
+        Which is the correct residual for business D, with its interpretation?
+      options:
+        - "1.52: business D's actual monthly revenue is $1,520 more than predicted by the line from its $700 of advertising."
+        - "−1.52: business D's actual monthly revenue is $1,520 less than predicted from its advertising."
+        - "1.52: business D should spend $152 more on advertising to reach the line."
+        - "25.48: business D's revenue is $25,480 from advertising."
+      option_explanations:
+        - |
+          Correct. Residual = y − ŷ = 27 − 25.48 = 1.52 thousand dollars; positive, so D is above the line and the model underpredicted.
+        - |
+          This computes predicted minus actual. The residual is actual minus predicted, so it is positive here.
+        - |
+          A residual is a vertical distance in the units of y (thousands of dollars of revenue), not an adjustment to x.
+        - |
+          25.48 is the predicted revenue ŷ, not the residual.
+      answer: 0
+    - slug: apstats-u05-w31-q03
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 1
+      stimulus: |
+        Six hypothetical small businesses in one town report their monthly advertising spending (x, in hundreds of dollars) and monthly revenue (y, in thousands of dollars). The regression line is ŷ = 9.31 + 2.31x.
+
+        | Business | A | B | C | D | E | F |
+        |---|---|---|---|---|---|---|
+        | Advertising ($100s) | 2 | 4 | 5 | 7 | 8 | 10 |
+        | Revenue ($1000s) | 14 | 19 | 20 | 27 | 26 | 33 |
+      prompt: |
+        For which business does the line overpredict revenue by the largest amount?
+      options:
+        - "Business F, because it has the largest revenue"
+        - "Business D, because it has the largest residual"
+        - "Business A, because it spends the least on advertising"
+        - "Business E, whose residual is 26 − 27.79 = −1.79"
+      option_explanations:
+        - |
+          F's residual is 33 − 32.41 = +0.59, so the line slightly underpredicts F; large y does not mean overprediction.
+        - |
+          D's residual is the largest positive one (+1.52), which means the biggest underprediction, not overprediction.
+        - |
+          A's residual is 14 − 13.93 = +0.07, almost exactly on the line.
+        - |
+          Correct. ŷ = 9.31 + 2.31(8) = 27.79, and the residual 26 − 27.79 = −1.79 is the most negative, so E is furthest below the line.
+      answer: 3
+    - slug: apstats-u05-w31-q04
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 1
+      stimulus: |
+        Six hypothetical small businesses in one town report their monthly advertising spending (x, in hundreds of dollars) and monthly revenue (y, in thousands of dollars). The regression line is ŷ = 9.31 + 2.31x.
+
+        | Business | A | B | C | D | E | F |
+        |---|---|---|---|---|---|---|
+        | Advertising ($100s) | 2 | 4 | 5 | 7 | 8 | 10 |
+        | Revenue ($1000s) | 14 | 19 | 20 | 27 | 26 | 33 |
+      prompt: |
+        A student adds up all six residuals using the rounded line and gets −0.02. What explains this result?
+      options:
+        - "The line is a poor fit, because a good fit would have a large positive sum."
+        - "Least-squares residuals always add to 0; the small −0.02 comes from rounding the intercept and slope."
+        - "Most businesses lie below the line, so the line overpredicts."
+        - "The student made an error, because residuals are distances and must all be positive."
+      option_explanations:
+        - |
+          The sum of residuals is 0 for every least-squares line, good fit or poor; it cannot measure fit.
+        - |
+          Correct. The exact least-squares residuals sum to 0. The residuals here are +0.07, +0.45, −0.86, +1.52, −1.79 and +0.59, and the tiny −0.02 is rounding error.
+        - |
+          Four of the six residuals are positive, and in any case the positive and negative residuals balance exactly.
+        - |
+          Residuals are signed: points below the line have negative residuals.
+      answer: 1
+    # ---- Topic 5.4
+    - slug: apstats-u05-w31-q05
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 1
+      prompt: |
+        A residual plot for a regression of tomato yield on the amount of fertilizer shows residuals that are negative for small amounts, positive for middle amounts and negative again for large amounts. What should you conclude?
+      options:
+        - "The linear model is appropriate, because the residuals are both positive and negative."
+        - "The linear model is not appropriate, because the residuals show a curved (arch-shaped) pattern."
+        - "The linear model is appropriate only if r is close to 1."
+        - "The fertilizer causes the yield to rise and then fall."
+      option_explanations:
+        - |
+          Every least-squares line has both positive and negative residuals; what matters is whether they form a pattern.
+        - |
+          Correct. A systematic arch means the line overpredicts at both ends and underpredicts in the middle: the relationship is curved.
+        - |
+          r cannot rescue a curved residual plot; strongly curved data can still have |r| near 1.
+        - |
+          The residual plot describes the form of the relationship; whether fertilizer causes the change depends on whether amounts were randomly assigned.
+      answer: 1
+    - slug: apstats-u05-w31-q06
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 1
+      prompt: |
+        A regression predicts a student's 100-metre sprint time from the student's height. One student has a residual of −0.8 seconds. What does this mean?
+      options:
+        - "The student is 0.8 inches shorter than the line predicts."
+        - "The student ran 0.8 seconds slower than predicted from his height."
+        - "The line is wrong for this student and should be refitted without him."
+        - "The student ran 0.8 seconds faster than predicted from his height."
+      option_explanations:
+        - |
+          Residuals are in the units of the response (seconds), not of the explanatory variable (height).
+        - |
+          A negative residual means the actual time is less than predicted. A smaller time is faster, not slower.
+        - |
+          Every individual has a residual; a modest one is expected and is not a reason to remove the point.
+        - |
+          Correct. Actual − predicted = −0.8, so the actual time is 0.8 seconds less than predicted; for a sprint, a lower time is faster.
+      answer: 3
+    - slug: apstats-u05-w31-q07
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 1
+      prompt: |
+        A regression of a household's monthly water bill on the number of people in the household has a residual plot in which the residuals are close to 0 for one- and two-person households but spread widely for households of six or more, with no curve. Which statement is best?
+      options:
+        - "The trend is linear, but predictions of the water bill are less precise for large households than for small ones."
+        - "The relationship is curved, so a line is not appropriate at all."
+        - "The line overpredicts every large household."
+        - "The residual plot shows that larger households cause higher water bills."
+      option_explanations:
+        - |
+          Correct. A fan shape with no curve means the line follows the average trend, but the scatter around it grows with household size, so predictions for large households are less reliable.
+        - |
+          A curve would be a U or an arch. A fan describes changing spread, not a wrong form.
+        - |
+          Wide spread means large residuals in both directions: some large households are above the line and some below.
+        - |
+          A residual plot describes how well a line fits; it says nothing about causation.
+      answer: 0
+    - slug: apstats-u05-w31-q08
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 1
+      prompt: |
+        For a hypothetical sample of cyclists on exercise bikes, the regression of heart rate (beats per minute) on cadence (pedal strokes per minute) is ŷ = 52 + 0.4x. A cyclist pedalling at 60 strokes per minute has a heart rate of 70 beats per minute. What is her residual?
+      options:
+        - "6 beats per minute"
+        - "18 beats per minute"
+        - "−6 beats per minute"
+        - "−18 beats per minute"
+      option_explanations:
+        - |
+          The size is right but the sign is backwards: this is predicted minus actual (76 − 70).
+        - |
+          18 is 70 − 52, which ignores the slope term 0.4 × 60 = 24.
+        - |
+          Correct. ŷ = 52 + 0.4(60) = 76, so the residual is 70 − 76 = −6 beats per minute: her heart rate is 6 beats per minute lower than predicted.
+        - |
+          This subtracts the intercept from the slope term (52 − 70) rather than computing ŷ first.
+      answer: 2
+    - slug: apstats-u05-w31-q09
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 1
+      prompt: |
+        A student wants to make a residual plot for a regression of reaction time on hours of sleep. What should she plot?
+      options:
+        - "Reaction time against hours of sleep"
+        - "The residuals on the vertical axis against hours of sleep on the horizontal axis"
+        - "Hours of sleep on the vertical axis against the residuals on the horizontal axis"
+        - "A histogram of reaction times"
+      option_explanations:
+        - |
+          That is the original scatterplot, which still contains the linear trend; a residual plot removes it.
+        - |
+          Correct. A residual plot puts x (or ŷ) on the horizontal axis and the residuals on the vertical axis, with a reference line at 0.
+        - |
+          The axes are swapped: the residuals always go on the vertical axis.
+        - |
+          A histogram of the response says nothing about how well a line fits the relationship.
+      answer: 1
+    - slug: apstats-u05-w31-q10
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 1
+      prompt: |
+        A phone's battery percentage is recorded every 30 minutes while a video plays. The regression of battery percentage on time has r = −0.98, but the residual plot shows a clear U shape. A classmate says, "With r = −0.98 the line must be a great model." What is the best reply?
+      options:
+        - "He is right, because any |r| above 0.9 means the linear model is appropriate."
+        - "He is right, because the residuals add to 0."
+        - "He is wrong, because a U-shaped residual plot always means r is close to 0."
+        - "He is wrong: the U-shaped residual plot shows the relationship is curved, so a linear model is not appropriate even though r is strong."
+      option_explanations:
+        - |
+          No value of r guarantees linearity. Curved data can have r very close to ±1.
+        - |
+          Residuals of a least-squares line add to 0 whether or not the model is appropriate.
+        - |
+          A U-shaped residual plot can go with a strong r, as here; the two measure different things.
+        - |
+          Correct. r measures linear strength, while the residual plot checks the form. A leftover curve means a line is the wrong model.
+      answer: 3
+    # ---- Spiral review
+    - slug: apstats-u05-w31-q11
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      prompt: |
+        For 35 hypothetical students, a regression of the price paid for a used graphing calculator (dollars) on its age (years) gives ŷ = 96 − 11.5x. Which is the correct interpretation of −11.5?
+      options:
+        - "For each additional year of age, the predicted price of a used calculator decreases by $11.50."
+        - "A used calculator loses exactly $11.50 every year."
+        - "A calculator that is 0 years old is predicted to cost −$11.50."
+        - "For each additional dollar of price, the predicted age decreases by 11.5 years."
+      option_explanations:
+        - |
+          Correct. −11.5 is the slope, in dollars per year, and the interpretation includes "predicted".
+        - |
+          Individual calculators vary around the line; the slope describes predicted, not exact, change.
+        - |
+          That confuses the slope with the intercept; a new calculator is predicted to cost $96.
+        - |
+          The roles are reversed: the slope is the change in predicted price per year of age.
+      answer: 0
+    - slug: apstats-u05-w31-q12
+      type: multiple_choice
+      topic_code: "5.2"
+      source: "AP Statistics CED, Topic 5.2"
+      points: 1
+      prompt: |
+        A researcher measures the length of 40 hypothetical fish in inches and their mass in ounces and finds r = 0.88. She then converts length to centimetres and mass to grams. What is the new correlation?
+      options:
+        - "0.88 × 2.54 = 2.24"
+        - "Somewhat smaller than 0.88, because the numbers get bigger"
+        - "0.88"
+        - "It cannot be found without the new data."
+      option_explanations:
+        - |
+          r cannot exceed 1, and multiplying by the conversion factor applies to slopes, not to r.
+        - |
+          Larger numbers do not weaken the association; a change of units leaves every z-score the same.
+        - |
+          Correct. Converting units is a linear change that does not alter any z-score, so r stays 0.88.
+        - |
+          Because r is unitless and unaffected by linear changes of units, the new value is known without the new data.
+      answer: 2
+    - slug: apstats-u05-w31-q13
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "AP Statistics CED, Topic 1.6"
+      points: 1
+      prompt: |
+        A histogram of the 30 residuals from a regression of apartment rent on size shows a single peak near 0, values from about −$170 to +$170, and roughly equal numbers of residuals on each side with similar tails. Which description of the distribution of residuals is best?
+      options:
+        - "Strongly skewed to the right, centred near −$170"
+        - "Bimodal, with no clear centre"
+        - "Roughly symmetric and unimodal, centred near $0, with a range of about $340"
+        - "Uniform, because the residuals add to 0"
+      option_explanations:
+        - |
+          Similar tails on each side mean the distribution is not skewed, and the centre is at the peak near 0, not at an endpoint.
+        - |
+          The histogram has a single peak, so it is unimodal, not bimodal.
+        - |
+          Correct. One peak near 0, balanced tails and values from −170 to +170 describe a roughly symmetric, unimodal distribution centred at about $0 with a range of about $340.
+        - |
+          Residuals add to 0 for any least-squares line; that fact says nothing about whether the histogram is flat.
+      answer: 2
+    # ---- Mixed formats
+    - slug: apstats-u05-w31-q14
+      type: multi_select
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 1
+      partial_credit: true
+      prompt: |
+        A regression of the time to run a mile (minutes) on the number of push-ups a student can do has a residual plot showing random scatter around 0 with roughly constant spread, and one student with a residual of +3.4 minutes, far larger than all others (the next largest is +1.1). Which statements are correct? Select all that apply.
+      options:
+        - "A linear model is appropriate for the relationship between push-ups and mile time."
+        - "The student with residual +3.4 ran the mile 3.4 minutes slower than predicted from her push-ups."
+        - "The student with residual +3.4 is an outlier in the response direction."
+        - "Because one residual is large, the relationship must be curved."
+        - "The residuals add to 0, so the student with +3.4 must be balanced by one student with −3.4."
+      option_explanations:
+        - |
+          Correct. Random scatter with constant spread means no leftover pattern, so a line describes the form well.
+        - |
+          Correct. Actual − predicted = +3.4 minutes, and a larger mile time is slower.
+        - |
+          Correct. A residual far from all the others marks a point unusually far from the line in the y direction.
+        - |
+          One large residual is an outlier, not a curve; a curve needs a systematic pattern across many points.
+        - |
+          The residuals add to 0 overall; the balancing can be spread across many small negative residuals.
+      answer: [0, 1, 2]
+    - slug: apstats-u05-w31-q15
+      type: multi_select
+      topic_code: "1.13"
+      source: "AP Statistics CED, Topic 1.13"
+      points: 1
+      partial_credit: true
+      prompt: |
+        A class wants to know whether the amount of fertilizer (0, 5, 10 or 15 grams) affects tomato yield. It has 40 plants in a greenhouse. Which features would make this a well-designed experiment? Select all that apply.
+      options:
+        - "Randomly assigning 10 plants to each fertilizer amount"
+        - "Keeping light, water and pot size the same for every plant"
+        - "Letting students choose which plants get the most fertilizer"
+        - "Measuring the yield of every plant in the same way at the same time"
+        - "Using only one plant at each fertilizer amount to save space"
+      option_explanations:
+        - |
+          Correct. Random assignment balances unmeasured differences among plants across the four groups.
+        - |
+          Correct. Controlling other variables keeps them from being confounded with fertilizer amount.
+        - |
+          Letting students choose can create bias, for example giving the healthiest plants the most fertilizer.
+        - |
+          Correct. Measuring the response consistently avoids differences caused by the measuring process.
+        - |
+          One plant per treatment gives no replication, so chance variation between plants could not be separated from the effect of fertilizer.
+      answer: [0, 1, 3]
+    - slug: apstats-u05-w31-q16
+      type: true_false
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 1
+      prompt: |
+        True or false: If a residual plot shows random scatter with no pattern, then the explanatory variable causes changes in the response variable.
+      answer: false
+      explanation: |
+        False. A patternless residual plot shows only that a straight line describes the form of the association well. Causation requires a randomized experiment; with observational data, lurking variables remain possible.
+    - slug: apstats-u05-w31-q17
+      type: true_false
+      topic_code: "2.5"
+      source: "AP Statistics CED, Topic 2.5"
+      points: 1
+      prompt: |
+        True or false: For a randomly chosen student, the events "rides the bus to school" and "walks to school" (each student uses only one mode) are mutually exclusive, so they are also independent.
+      answer: false
+      explanation: |
+        False. Mutually exclusive events with positive probabilities cannot be independent: if the student rides the bus, the probability that she walks drops to 0, so knowing one event changes the probability of the other.
+    - slug: apstats-u05-w31-q18
+      type: fill_blank
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 1
+      prompt: |
+        A residual is the actual value of the response minus the ____ value of the response.
+      answer: ["predicted", "predicted value", "estimated", "fitted"]
+      explanation: |
+        Residual = actual − predicted = y − ŷ. The predicted value ŷ comes from substituting x into the regression equation.
+    - slug: apstats-u05-w31-q19
+      type: fill_blank
+      topic_code: "2.9"
+      source: "AP Statistics CED, Topic 2.9"
+      points: 1
+      prompt: |
+        At a school café, the number of hot drinks X bought by a randomly chosen customer has P(X = 0) = 0.5, P(X = 1) = 0.3 and P(X = 2) = 0.2. The expected value of X is ____.
+      answer: ["0.7", ".7", "0.70", "7/10"]
+      explanation: |
+        E(X) = 0(0.5) + 1(0.3) + 2(0.2) = 0 + 0.3 + 0.4 = 0.7 hot drinks per customer, on average over many customers.
+    - slug: apstats-u05-w31-q20
+      type: numeric
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 1
+      prompt: |
+        In a lab, the regression of cress seedling height (cm) on days since planting is ŷ = 1.8 + 0.65x. On day 12 one seedling is 9.0 cm tall. Find its residual, in centimetres, to one decimal place.
+      answer: { value: -0.6, tolerance: 0.051 }
+      explanation: |
+        ŷ = 1.8 + 0.65(12) = 1.8 + 7.8 = 9.6 cm. Residual = 9.0 − 9.6 = −0.6 cm: the seedling is 0.6 cm shorter than predicted for day 12.
+    - slug: apstats-u05-w31-q21
+      type: numeric
+      topic_code: "4.5"
+      source: "AP Statistics CED, Topic 4.5"
+      points: 1
+      prompt: |
+        A school tests H₀: μ = 8 against Hₐ: μ < 8, where μ is the mean hours of sleep per school night for all its students. A random sample of 36 students gives x̄ = 7.4 hours and s = 1.5 hours. Find the test statistic t, to two decimal places.
+      answer: { value: -2.40, tolerance: 0.006 }
+      explanation: |
+        t = (x̄ − μ₀)/(s/√n) = (7.4 − 8)/(1.5/√36) = −0.6/0.25 = −2.40, with df = 35.
+    - slug: apstats-u05-w31-q22
+      type: short_answer
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 3
+      prompt: |
+        For 20 hypothetical used bicycles, a regression of resale price (dollars) on age (years) gives ŷ = 410 − 32x. A 5-year-old bicycle sold for $190.
+
+        (a) Calculate the residual for this bicycle.
+        (b) Interpret the residual in context.
+        (c) The residual plot for all 20 bicycles shows residuals that are positive for the youngest and oldest bicycles and negative for middle-aged ones. What does this suggest about the linear model?
+      answer: |
+        (a) ŷ = 410 − 32(5) = 250 dollars, so the residual is 190 − 250 = −60 dollars.
+        (b) The actual resale price of this 5-year-old bicycle is $60 less than the price predicted by the regression line from its age.
+        (c) The residuals form a U-shaped (curved) pattern, so the relationship between age and price is curved and a linear model is not appropriate (prices drop quickly at first and then level off).
+      explanation: |
+        Three points, one per part. (a) −60 with the predicted value 250 shown. (b) "$60 less than predicted" with context (resale price, age of 5 years); a wrong sign from (a) carried through correctly earns this point. (c) curved/U-shaped pattern, so a linear model is not appropriate.
+    - slug: apstats-u05-w31-q23
+      type: short_answer
+      topic_code: "3.14"
+      source: "AP Statistics CED, Topic 3.14"
+      points: 3
+      prompt: |
+        A random sample of 80 ninth graders and an independent random sample of 80 twelfth graders at a large school report how they usually get to school.
+
+        | | Bus | Car | Walk | Total |
+        |---|---|---|---|---|
+        | Ninth grade | 42 | 24 | 14 | 80 |
+        | Twelfth grade | 18 | 46 | 16 | 80 |
+        | Total | 60 | 70 | 30 | 160 |
+
+        (a) Name the appropriate chi-square test and state its hypotheses.
+        (b) Find the expected count of twelfth graders who usually travel by car, and explain whether the expected counts condition is met.
+      answer: |
+        (a) A chi-square test for homogeneity, because there are two separate random samples (one per grade). H₀: the distribution of usual travel mode is the same for all ninth graders and all twelfth graders at the school. Hₐ: the distributions of travel mode are not the same for the two grades.
+        (b) Expected = (80 × 70)/160 = 35. The smallest expected count is (80 × 30)/160 = 15, so all expected counts (30, 35 and 15 in each row) are at least 5 and the condition is met.
+      explanation: |
+        Three points. (a) 2 points: 1 for "chi-square test for homogeneity" (a test for independence with a correct reason earns no credit here, because there are two samples), 1 for hypotheses about the population distributions of travel mode for the two grades. (b) 1 point: expected count 35 with the calculation, and all expected counts ≥ 5.
+    - slug: apstats-u05-w31-q24
+      type: long_answer
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 6
+      prompt: |
+        A veterinary clinic records the age (weeks) and weight (kg) of 9 hypothetical puppies of one breed. The regression line is ŷ = 0.722 + 0.4167x, with r = 0.962.
+
+        | Age (weeks) | 8 | 10 | 12 | 14 | 16 | 18 | 20 | 22 | 24 |
+        |---|---|---|---|---|---|---|---|---|---|
+        | Weight (kg) | 3.1 | 4.6 | 6.0 | 7.2 | 8.1 | 8.8 | 9.3 | 9.6 | 9.8 |
+        | Residual | ? | −0.29 | 0.28 | 0.64 | ? | 0.58 | 0.24 | −0.29 | −0.92 |
+
+        (A) Calculate the two missing residuals (ages 8 and 16 weeks).
+        (B) Interpret the residual for the 16-week-old puppy in context.
+        (C) Describe the pattern a residual plot of these residuals against age would show.
+        (D) A student says, "r = 0.962, so the linear model is clearly appropriate." Do you agree? Explain, and describe what the residual pattern says about the line's predictions for very young and older puppies.
+      answer: |
+        (A) Age 8: ŷ = 0.722 + 0.4167(8) = 4.06, residual = 3.1 − 4.06 = −0.96 kg. Age 16: ŷ = 0.722 + 0.4167(16) = 7.39, residual = 8.1 − 7.39 = 0.71 kg.
+        (B) The actual weight of the 16-week-old puppy is 0.71 kg more than the weight predicted by the regression line from its age.
+        (C) The residuals are negative at the youngest ages, positive in the middle (12 to 20 weeks) and negative again at the oldest ages: an arch (curved) pattern, not random scatter.
+        (D) Disagree. A high r measures linear strength but cannot show the form is linear; the arch in the residual plot shows the growth curve bends (puppies gain quickly and then level off). The line overpredicts the weights of the youngest and the oldest puppies (negative residuals) and underpredicts in the middle, so a linear model is not appropriate; a curved model would fit better.
+      explanation: |
+        Six points. (A) 2 points: 1 for each residual (−0.96 and 0.71; accept −0.95 to −0.96 and 0.71 to 0.72), each with ŷ shown. (B) 1 point: 0.71 kg more than predicted, in context (weight, 16 weeks). (C) 1 point: negative, positive, negative (an arch or curve), described as a systematic pattern. (D) 2 points: 1 for disagreeing because r cannot establish linearity and the residual plot is curved; 1 for stating that the line overpredicts at both ends (young and older puppies) and underpredicts in the middle.

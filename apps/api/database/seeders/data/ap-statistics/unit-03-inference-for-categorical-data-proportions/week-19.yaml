@@ -1,0 +1,642 @@
+week: 19
+unit: 3
+title: "Comparing Two Proportions: Sampling Distributions and Confidence Intervals"
+topics: ["3.9", "3.10"]
+guide: guides/week-19.md
+guide_description: |
+  The sampling distribution of p̂₁ − p̂₂ (its center p₁ − p₂, its standard deviation from the formula sheet, the
+  10% and Large Counts checks for normality) and the two-sample z-interval for p₁ − p₂: when to use it, the
+  Random, 10% and Large Counts conditions in context, the arithmetic, the interpretation of the interval and of
+  the confidence level, and what changes the margin of error. Worked examples: the chance that a sample of
+  North High students buys school lunch less often than a sample of South High students, a 95% interval for the
+  ninth-grade minus twelfth-grade difference in getting 8 hours of sleep, a 90% interval from a randomized seed-
+  soaking experiment, and the effect of quadrupling the sample sizes or raising the confidence level.
+flashcards_description: |
+  32 cards on the sampling distribution of p̂₁ − p̂₂, the two-sample z-interval for p₁ − p₂ and its conditions,
+  the order of subtraction, interpreting the interval and the confidence level, and what moves the margin of
+  error.
+
+flashcards:
+  - front: Sampling distribution of p̂₁ − p̂₂ → its mean
+    back: |
+      p₁ − p₂. The difference of sample proportions is an unbiased estimator of the difference of population proportions.
+    topic_code: "3.9"
+  - front: Sampling distribution of p̂₁ − p̂₂ → its standard deviation (from the population proportions)
+    back: |
+      √(p₁(1 − p₁)/n₁ + p₂(1 − p₂)/n₂). Add the two p(1 − p)/n terms, then take one square root.
+    topic_code: "3.9"
+  - front: Sampling distribution of p̂₁ − p̂₂ → when it is approximately normal
+    back: |
+      When n₁p₁, n₁(1 − p₁), n₂p₂ and n₂(1 − p₂) are all at least 10.
+    topic_code: "3.9"
+  - front: Sampling distribution of p̂₁ − p̂₂ → what the 10% condition protects
+    back: |
+      The SD formula, which assumes independent observations. When sampling without replacement, n₁ ≤ 10% of population 1 and n₂ ≤ 10% of population 2.
+    topic_code: "3.9"
+  - front: Two independent samples for comparing proportions → what "independent" means here
+    back: |
+      The samples are chosen separately (or formed by random assignment), so the outcome of one sample tells nothing about the other. Not paired, not one sample asked two questions.
+    topic_code: "3.9"
+  - front: North High p = 0.55 vs South High p = 0.45 buying lunch, samples of 120 and 100 → P(p̂_N − p̂_S < 0)
+    back: |
+      Mean 0.10, SD √(0.55·0.45/120 + 0.45·0.55/100) ≈ 0.0674, z ≈ −1.48, probability ≈ 0.069.
+    topic_code: "3.9"
+  - front: Positive p₁ − p₂ but a negative p̂₁ − p̂₂ in one pair of samples → what explains it
+    back: |
+      Sampling variability. Each p̂ varies from sample to sample, so an individual difference can land on the other side of 0, especially when the SD is large compared with p₁ − p₂.
+    topic_code: "3.9"
+  - front: Doubling only n₁ in the SD of p̂₁ − p̂₂ → effect
+    back: |
+      Only the first term under the square root shrinks (it is halved), so the SD gets smaller, but by less than a factor of √2.
+    topic_code: "3.9"
+  - front: Two-sample z-interval for p₁ − p₂ → formula
+    back: |
+      (p̂₁ − p̂₂) ± z* · √(p̂₁(1 − p̂₁)/n₁ + p̂₂(1 − p̂₂)/n₂).
+    topic_code: "3.10"
+  - front: SE(p̂₁ − p̂₂) in an interval versus SD(p̂₁ − p̂₂) → the difference
+    back: |
+      The SD uses the unknown p₁ and p₂; the SE plugs in the sample proportions p̂₁ and p̂₂, because the population values are what we are estimating.
+    topic_code: "3.10"
+  - front: Two-sample z-interval for p₁ − p₂ → when it is the right procedure
+    back: |
+      A categorical (success/failure) response compared across two independent random samples or two randomly assigned treatment groups.
+    topic_code: "3.10"
+  - front: Two-sample z-interval for p₁ − p₂ → the three conditions
+    back: |
+      Random (two independent random samples or random assignment); 10% (each n ≤ 10% of its population, when sampling without replacement); Large Counts (n₁p̂₁, n₁(1 − p̂₁), n₂p̂₂, n₂(1 − p̂₂) all ≥ 10).
+    topic_code: "3.10"
+  - front: Large Counts for a two-sample z-interval → which four numbers to check
+    back: |
+      The successes and failures in each sample: n₁p̂₁, n₁(1 − p̂₁), n₂p̂₂, n₂(1 − p̂₂). All must be at least 10.
+    topic_code: "3.10"
+  - front: 10% condition in a randomized experiment comparing two treatments → what to write
+    back: |
+      It does not apply: subjects were randomly assigned, not sampled without replacement from a population. Say so instead of checking it.
+    topic_code: "3.10"
+  - front: Two-proportion interval → defining the parameter correctly
+    back: |
+      Name both proportions in context and the order: "p₉ − p₁₂, where p₉ = the proportion of all ninth graders in the district who … and p₁₂ = the same for all twelfth graders."
+    topic_code: "3.10"
+  - front: Two-proportion interval → z* for 90%, 95% and 99%
+    back: |
+      1.645, 1.960 and 2.576 (the same critical values as for one proportion).
+    topic_code: "3.10"
+  - front: 63 of 150 ninth graders vs 35 of 140 twelfth graders sleeping 8 hours → 95% interval for p₉ − p₁₂
+    back: |
+      0.42 − 0.25 = 0.17; SE ≈ 0.0544; 0.17 ± 0.107, from 0.063 to 0.277.
+    topic_code: "3.10"
+  - front: Soaked seeds 80/100 vs dry seeds 66/100 sprouting → 90% interval for p_soak − p_dry
+    back: |
+      0.14 ± 1.645(0.062) = 0.14 ± 0.102, from 0.038 to 0.242.
+    topic_code: "3.10"
+  - front: Interpreting a two-proportion confidence interval → the sentence template
+    back: |
+      "We are C% confident that the interval from L to U captures the true difference (group 1 minus group 2) in the proportions of all … who …."
+    topic_code: "3.10"
+  - front: Interpreting the confidence level of a two-proportion interval → the sentence template
+    back: |
+      "If we took many pairs of random samples (or repeated the random assignment) and built an interval each time, about C% of the intervals would capture the true difference p₁ − p₂."
+    topic_code: "3.10"
+  - front: Reversing the order of subtraction in a two-proportion interval → effect
+    back: |
+      Both endpoints change sign and swap places: (0.06, 0.28) for p₁ − p₂ becomes (−0.28, −0.06) for p₂ − p₁. Same information.
+    topic_code: "3.10"
+  - front: Quadrupling both sample sizes in a two-proportion interval → effect on margin of error
+    back: |
+      Halves it (with the same sample proportions): every term under the square root is divided by 4, so the SE is divided by 2.
+    topic_code: "3.10"
+  - front: Raising the confidence level of a two-proportion interval from 95% to 99% → effect
+    back: |
+      z* rises from 1.960 to 2.576, so the margin of error grows by about 31% and the interval gets wider.
+    topic_code: "3.10"
+  - front: Margin of error of a two-proportion interval → what it does not cover
+    back: |
+      Only sampling variability. Bias from undercoverage, nonresponse or wording is not included in z* · SE.
+    topic_code: "3.10"
+  - front: Point estimate and margin of error from a two-proportion interval (L, U) → how to recover them
+    back: |
+      Point estimate = (L + U)/2; margin of error = (U − L)/2.
+    topic_code: "3.10"
+  - front: Two-proportion interval from random samples of two populations → scope of inference
+    back: |
+      Generalise to the two populations sampled. No cause-and-effect claim: the groups were not formed by random assignment.
+    topic_code: "3.10"
+  - front: Two-proportion interval from a randomized experiment → scope of inference
+    back: |
+      A difference can be attributed to the treatments (random assignment), for subjects like those in the experiment; generalising further needs a random sample.
+    topic_code: "3.10"
+  - front: The four-step write-up for a two-proportion interval → the steps
+    back: |
+      State (procedure, parameter with order, level) · Plan (conditions) · Do (estimate, SE, interval) · Conclude (interpret in context).
+    topic_code: "3.10"
+  - front: Calculator command for a two-proportion interval → what to enter
+    back: |
+      The counts of successes x₁, x₂ (whole numbers), n₁, n₂ and the C-level (on a TI-84: 2-PropZInt). Report the interval and name the procedure; the calculator name alone earns nothing.
+    topic_code: "3.10"
+  - front: Error-spot → "SD(p̂₁ − p̂₂) = SD(p̂₁) + SD(p̂₂)"
+    back: |
+      The p(1 − p)/n terms are added under one square root. Adding the SDs overstates the spread.
+    topic_code: "3.9"
+  - front: Error-spot → "There is a 95% probability that p₉ − p₁₂ is between 0.063 and 0.277"
+    back: |
+      The parameter is fixed; this interval either captures it or not. The 95% describes the long-run capture rate of the method.
+    topic_code: "3.10"
+  - front: Error-spot → "Large Counts is met because n₁ + n₂ = 290 is at least 30"
+    back: |
+      Large Counts for proportions needs at least 10 successes and 10 failures in each sample, four separate checks.
+    topic_code: "3.10"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 3.9 and 3.10: the sampling distribution of
+    p̂₁ − p̂₂ and the two-sample z-interval for p₁ − p₂), with 8 questions (33%) reviewing weeks 15 to 18
+    (estimators, the sampling distribution of p̂, one-sample intervals and claims, p-values and errors in tests).
+    Opens with a shared-context set on a district survey of planner-app use. Multiple choice, select-all,
+    true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the
+    short answers and the long answer are graded by your teacher against the scoring notes. A calculator is
+    allowed throughout.
+  questions:
+    # ---- Stimulus set: planner-app survey (3.9, 3.10)
+    - slug: apstats-u03-w19-q01
+      type: multiple_choice
+      topic_code: "3.9"
+      source: "AP Statistics CED, Topic 3.9"
+      points: 1
+      stimulus: |
+        A large school district wants to compare how often its ninth and twelfth graders use a planner app. It takes a random sample of 180 ninth graders and an independent random sample of 160 twelfth graders; the district enrols about 2,400 ninth graders and 2,200 twelfth graders. 72 of the ninth graders and 92 of the twelfth graders say they use a planner app every school day. Let p₁₂ be the proportion of all twelfth graders in the district who use a planner app every school day, and p₉ the same proportion for all ninth graders.
+      prompt: |
+        What is the point estimate of p₁₂ − p₉?
+      options:
+        - "−0.175"
+        - "0.175"
+        - "20"
+        - "0.482"
+      option_explanations:
+        - |
+          This subtracts in the wrong order: 0.400 − 0.575. The parameter asked for is twelfth graders minus ninth graders.
+        - |
+          Correct. p̂₁₂ = 92/160 = 0.575 and p̂₉ = 72/180 = 0.400, so p̂₁₂ − p̂₉ = 0.175.
+        - |
+          92 − 72 = 20 compares counts from samples of different sizes; proportions must be compared, not raw counts.
+        - |
+          0.482 is the combined proportion 164/340 for both grades together, not a difference between the grades.
+      answer: 1
+    - slug: apstats-u03-w19-q02
+      type: multiple_choice
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 1
+      stimulus: |
+        A large school district wants to compare how often its ninth and twelfth graders use a planner app. It takes a random sample of 180 ninth graders and an independent random sample of 160 twelfth graders; the district enrols about 2,400 ninth graders and 2,200 twelfth graders. 72 of the ninth graders and 92 of the twelfth graders say they use a planner app every school day. Let p₁₂ be the proportion of all twelfth graders in the district who use a planner app every school day, and p₉ the same proportion for all ninth graders.
+      prompt: |
+        What is the standard error of p̂₁₂ − p̂₉ used in a confidence interval for p₁₂ − p₉?
+      options:
+        - "0.0029"
+        - "0.0756"
+        - "0.0535"
+        - "0.6957"
+      option_explanations:
+        - |
+          0.0029 is the sum of the two p̂(1 − p̂)/n terms before the square root is taken: a variance, not a standard error.
+        - |
+          0.0756 adds the two separate standard errors, √(0.575·0.425/160) + √(0.4·0.6/180). The terms are added under one square root instead.
+        - |
+          Correct. √(0.575·0.425/160 + 0.400·0.600/180) = √(0.001527 + 0.001333) = √0.002861 ≈ 0.0535.
+        - |
+          0.6957 forgets to divide by the sample sizes: √(0.575·0.425 + 0.4·0.6).
+      answer: 2
+    - slug: apstats-u03-w19-q03
+      type: multiple_choice
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 1
+      stimulus: |
+        A large school district wants to compare how often its ninth and twelfth graders use a planner app. It takes a random sample of 180 ninth graders and an independent random sample of 160 twelfth graders; the district enrols about 2,400 ninth graders and 2,200 twelfth graders. 72 of the ninth graders and 92 of the twelfth graders say they use a planner app every school day. Let p₁₂ be the proportion of all twelfth graders in the district who use a planner app every school day, and p₉ the same proportion for all ninth graders.
+      prompt: |
+        Which is the 95% two-sample z-interval for p₁₂ − p₉?
+      options:
+        - "(0.070, 0.280)"
+        - "(0.087, 0.263)"
+        - "(0.027, 0.323)"
+        - "(−0.280, −0.070)"
+      option_explanations:
+        - |
+          Correct. 0.175 ± 1.960(0.0535) = 0.175 ± 0.105, from 0.070 to 0.280.
+        - |
+          This uses z* = 1.645, which gives a 90% interval, not a 95% one.
+        - |
+          This uses the sum of the two standard errors (0.0756) instead of the combined SE, which makes the interval too wide.
+        - |
+          This is the interval for p₉ − p₁₂, the reverse order of subtraction from the parameter asked for.
+      answer: 0
+    - slug: apstats-u03-w19-q04
+      type: multiple_choice
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 1
+      stimulus: |
+        A large school district wants to compare how often its ninth and twelfth graders use a planner app. It takes a random sample of 180 ninth graders and an independent random sample of 160 twelfth graders; the district enrols about 2,400 ninth graders and 2,200 twelfth graders. 72 of the ninth graders and 92 of the twelfth graders say they use a planner app every school day. Let p₁₂ be the proportion of all twelfth graders in the district who use a planner app every school day, and p₉ the same proportion for all ninth graders.
+      prompt: |
+        Which is a correct interpretation of the 95% confidence interval for p₁₂ − p₉?
+      options:
+        - "There is a 95% probability that the true difference p₁₂ − p₉ lies in the interval."
+        - "About 95% of twelfth graders use the app between 7.0 and 28.0 percentage points more often than ninth graders."
+        - "95% of all pairs of samples will have a difference in sample proportions inside this interval."
+        - "We are 95% confident that the interval captures the true difference (twelfth minus ninth) in the proportions of all district students in those grades who use a planner app every school day."
+      option_explanations:
+        - |
+          Once computed, the interval either contains p₁₂ − p₉ or not; 95% describes the method's long-run capture rate, not a probability about this interval.
+        - |
+          The interval is about a difference in two population proportions, not about how individual students behave.
+        - |
+          Sample differences vary around p₁₂ − p₉, not around this particular interval; the 95% refers to intervals capturing the parameter.
+        - |
+          Correct. It names the confidence, the parameter in context (the difference in population proportions, with the order) and uses "captures".
+      answer: 3
+    # ---- Independent items
+    - slug: apstats-u03-w19-q05
+      type: multiple_choice
+      topic_code: "3.9"
+      source: "AP Statistics CED, Topic 3.9"
+      points: 1
+      prompt: |
+        At a hypothetical coffee shop, 35% of all customers at the downtown location and 25% of all customers at the campus location order a pastry. A manager takes a random sample of 150 downtown customers and an independent random sample of 120 campus customers. What is the mean of the sampling distribution of p̂_downtown − p̂_campus?
+      options:
+        - "0, because the two samples are independent"
+        - "0.60"
+        - "0.10"
+        - "It cannot be found without the actual sample results."
+      option_explanations:
+        - |
+          Independence affects the SD formula, not the center; the center is p_downtown − p_campus, which is not 0 here.
+        - |
+          0.60 adds the two proportions. The statistic is a difference, so its mean is the difference p₁ − p₂.
+        - |
+          Correct. The mean of the sampling distribution of p̂₁ − p̂₂ is p₁ − p₂ = 0.35 − 0.25 = 0.10.
+        - |
+          The center of a sampling distribution depends only on the population proportions, which are given.
+      answer: 2
+    - slug: apstats-u03-w19-q06
+      type: multiple_choice
+      topic_code: "3.9"
+      source: "AP Statistics CED, Topic 3.9"
+      points: 1
+      prompt: |
+        At a hypothetical large high school, 60% of all juniors and 50% of all sophomores have a driver's permit. Independent random samples of 100 juniors and 80 sophomores are selected. What is the standard deviation of the sampling distribution of p̂_juniors − p̂_sophomores?
+      options:
+        - "0.0743"
+        - "0.1049"
+        - "0.7000"
+        - "0.0055"
+      option_explanations:
+        - |
+          Correct. √(0.6·0.4/100 + 0.5·0.5/80) = √(0.0024 + 0.003125) = √0.005525 ≈ 0.0743.
+        - |
+          0.1049 adds the two standard deviations, 0.0490 + 0.0559; the p(1 − p)/n terms are added under one square root instead.
+        - |
+          0.7000 forgets to divide each p(1 − p) by its sample size.
+        - |
+          0.0055 is the variance; the square root has not been taken.
+      answer: 0
+    - slug: apstats-u03-w19-q07
+      type: multiple_choice
+      topic_code: "3.9"
+      source: "AP Statistics CED, Topic 3.9"
+      points: 1
+      prompt: |
+        At hypothetical Ridge High, 30% of all students play a school sport; at Valley High, 25% do. Both schools are large. A reporter takes independent random samples of 200 Ridge students and 150 Valley students. What is the approximate probability that p̂_Ridge − p̂_Valley is at least 0.10?
+      options:
+        - "0.019"
+        - "0.851"
+        - "0.230"
+        - "0.149"
+      option_explanations:
+        - |
+          0.019 centers the distribution at 0 instead of at p_Ridge − p_Valley = 0.05.
+        - |
+          0.851 is the probability of a difference below 0.10: the wrong tail.
+        - |
+          0.230 uses the sum of the two SDs (about 0.068) as the spread, which is too large.
+        - |
+          Correct. Mean 0.05, SD √(0.3·0.7/200 + 0.25·0.75/150) ≈ 0.0480; counts 60, 140, 37.5, 112.5 are all ≥ 10, so normal. z = (0.10 − 0.05)/0.0480 ≈ 1.04 and P(Z ≥ 1.04) ≈ 0.149.
+      answer: 3
+    - slug: apstats-u03-w19-q08
+      type: multiple_choice
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 1
+      prompt: |
+        A student is building a 90% two-sample z-interval for the difference between the proportions of all customers at two branches of a hypothetical bakery who pay by phone. Which critical value should she use?
+      options:
+        - "1.282"
+        - "1.645"
+        - "1.960"
+        - "2.576"
+      option_explanations:
+        - |
+          1.282 has 90% of the area to its left (10% in one tail); a 90% interval needs 5% in each tail.
+        - |
+          Correct. A 90% interval leaves 5% in each tail, and the z-value with 95% of the area to its left is 1.645.
+        - |
+          1.960 is the critical value for 95% confidence, which would make the interval wider than needed.
+        - |
+          2.576 is the critical value for 99% confidence.
+      answer: 1
+    - slug: apstats-u03-w19-q09
+      type: multiple_choice
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 1
+      prompt: |
+        A researcher builds a 95% interval for p₁ − p₂, the difference between the proportions of all residents of two hypothetical towns who own a bicycle. If she had used samples four times as large in each town and obtained the same sample proportions, how would the margin of error change?
+      options:
+        - "It would be four times as large."
+        - "It would be one-fourth as large."
+        - "It would be half as large."
+        - "It would not change, because the sample proportions are the same."
+      option_explanations:
+        - |
+          Larger samples give more precise estimates, so the margin of error gets smaller, not larger.
+        - |
+          The sample sizes are under a square root, so multiplying them by 4 divides the SE by √4 = 2, not by 4.
+        - |
+          Correct. Each p̂(1 − p̂)/n term is divided by 4, so the SE (and the margin of error) is divided by √4 = 2.
+        - |
+          The margin of error depends on the sample sizes through the SE, not only on the sample proportions.
+      answer: 2
+    - slug: apstats-u03-w19-q10
+      type: multiple_choice
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 1
+      prompt: |
+        A county library reports a 90% confidence interval for the difference between the proportions of all adults in two hypothetical counties who hold a library card. What does "90% confidence" mean?
+      options:
+        - "If many pairs of random samples were taken and an interval built from each pair, about 90% of the intervals would capture the true difference in proportions."
+        - "There is a 90% chance that the true difference in proportions is in the reported interval."
+        - "90% of the adults surveyed hold a library card."
+        - "The difference in sample proportions is within the interval 90% of the time."
+      option_explanations:
+        - |
+          Correct. The confidence level is the long-run capture rate of the method, over repeated random sampling.
+        - |
+          This treats the fixed parameter as random. The reported interval either contains it or does not.
+        - |
+          The confidence level has nothing to do with the proportion of people who have a card.
+        - |
+          The sample difference is always at the center of its own interval; the 90% describes capturing the parameter.
+      answer: 0
+    - slug: apstats-u03-w19-q11
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 1
+      prompt: |
+        A school nurse tests H₀: p = 0.20 against Hₐ: p > 0.20, where p is the proportion of all students at her school who skip breakfast. Which describes a Type II error in this context?
+      options:
+        - "Concluding that more than 20% of students skip breakfast when in fact 20% do"
+        - "Not finding convincing evidence that more than 20% of students skip breakfast when in fact more than 20% do"
+        - "Concluding that exactly 20% of students skip breakfast"
+        - "Finding that the sample proportion is greater than 0.20"
+      option_explanations:
+        - |
+          This is a Type I error: rejecting a true null hypothesis.
+        - |
+          Correct. A Type II error is failing to reject H₀ when Hₐ is true: the rate really is above 20%, but the test misses it.
+        - |
+          A test never concludes that H₀ is exactly true; it either rejects H₀ or fails to reject it.
+        - |
+          This is a statement about a statistic, not a decision about the parameter; it is not an error at all.
+      answer: 1
+    - slug: apstats-u03-w19-q12
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      prompt: |
+        In a random sample of 300 students from a large hypothetical school district, 132 say they read for fun at least once a week. Which is the 95% confidence interval for the proportion of all students in the district who read for fun at least once a week?
+      options:
+        - "(0.393, 0.487)"
+        - "(0.438, 0.442)"
+        - "(0.411, 0.469)"
+        - "(0.384, 0.496)"
+      option_explanations:
+        - |
+          This uses z* = 1.645, giving a 90% interval instead of a 95% one.
+        - |
+          This forgets the square root: 1.96 · (0.44·0.56/300) is a margin of about 0.0016, far too small.
+        - |
+          This uses the standard error 0.0287 as the margin of error, leaving out the critical value z* = 1.96.
+        - |
+          Correct. p̂ = 0.44, SE = √(0.44·0.56/300) ≈ 0.0287, and 0.44 ± 1.96(0.0287) = 0.44 ± 0.056.
+      answer: 3
+    - slug: apstats-u03-w19-q13
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Statistics CED, Topic 3.6"
+      points: 1
+      prompt: |
+        A town council tests H₀: p = 0.50 against Hₐ: p > 0.50, where p is the proportion of all voters in the town who favour building a skate park. In a random sample, p̂ = 0.56 and the p-value is 0.04. Which is the correct interpretation of the p-value?
+      options:
+        - "Assuming 50% of all voters favour the park, there is a 0.04 probability of getting a sample proportion of 0.56 or greater by chance alone."
+        - "There is a 0.04 probability that 50% of all voters favour the park."
+        - "There is a 0.04 probability that the sample result happened by chance."
+        - "There is a 0.96 probability that more than 50% of all voters favour the park."
+      option_explanations:
+        - |
+          Correct. A p-value is computed assuming H₀ is true, and is the probability of a result at least as extreme as the one observed.
+        - |
+          The p-value is not the probability that H₀ is true; it is computed by assuming H₀ is true.
+        - |
+          This omits the condition "assuming H₀ is true" and the "as extreme or more extreme" part, which are both essential.
+        - |
+          1 − p-value is not the probability that Hₐ is true; tests give no probability for a hypothesis.
+      answer: 0
+    - slug: apstats-u03-w19-q14
+      type: multiple_choice
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 1
+      prompt: |
+        At a hypothetical cinema, 20% of all tickets are bought online. For random samples of 400 tickets, what is the standard deviation of the sampling distribution of p̂, the sample proportion bought online?
+      options:
+        - "0.4"
+        - "0.0004"
+        - "0.02"
+        - "0.008"
+      option_explanations:
+        - |
+          0.4 is √(0.2·0.8), the SD for a single ticket; it has not been divided by the sample size.
+        - |
+          0.0004 is p(1 − p)/n, the variance; the square root has not been taken.
+        - |
+          Correct. SD(p̂) = √(0.2·0.8/400) = √0.0004 = 0.02.
+        - |
+          0.008 is p(1 − p)/√n = 0.16/20, which takes the square root of n only.
+      answer: 2
+    - slug: apstats-u03-w19-q15
+      type: multi_select
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A school's science club randomly assigns 120 pea seeds to be soaked overnight and 120 to be planted dry. 87 soaked seeds and 70 dry seeds sprout. The club plans a 90% two-sample z-interval for p_soak − p_dry. Which statements are correct? Select all that apply.
+      options:
+        - "The Random condition is met because the seeds were randomly assigned to the two treatments."
+        - "The 10% condition must be checked by comparing 120 with 10% of all pea seeds of this variety."
+        - "Large Counts is met because 87, 33, 70 and 50 are all at least 10."
+        - "Large Counts is met because the total sample size, 240, is at least 30."
+        - "The interval is about 0.142 ± 0.100."
+      option_explanations:
+        - |
+          Correct. In an experiment, random assignment to treatments satisfies the Random condition.
+        - |
+          The 10% condition is for sampling without replacement from a population; in a randomized experiment it does not apply.
+        - |
+          Correct. Each group has at least 10 successes and 10 failures: 87 and 33 sprouted and not; 70 and 50.
+        - |
+          The "n ≥ 30" rule belongs to means. For proportions, check successes and failures in each group.
+        - |
+          Correct. 0.725 − 0.583 = 0.142; SE = √(0.725·0.275/120 + 0.583·0.417/120) ≈ 0.0607; 1.645 · 0.0607 ≈ 0.100.
+      answer: [0, 2, 4]
+    - slug: apstats-u03-w19-q16
+      type: multi_select
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A city tests H₀: p = 0.40 against Hₐ: p > 0.40, where p is the proportion of all households that compost. Which changes would increase the power of the test? Select all that apply.
+      options:
+        - "Using a significance level of 0.01 instead of 0.05"
+        - "Surveying a larger random sample of households"
+        - "The true proportion of households that compost being 0.50 rather than 0.45"
+        - "Using a significance level of 0.10 instead of 0.05"
+        - "Switching to a two-sided alternative Hₐ: p ≠ 0.40 when the true proportion is above 0.40"
+      option_explanations:
+        - |
+          A smaller α makes rejecting H₀ harder, so power goes down (and Type II errors become more likely).
+        - |
+          Correct. A larger sample reduces the variability of p̂, making a true difference easier to detect.
+        - |
+          Correct. A true value farther from p₀ = 0.40 is easier to detect.
+        - |
+          Correct. A larger α makes rejection easier, so power increases (at the cost of more Type I errors).
+        - |
+          Splitting α between two tails makes it harder to reject in the correct direction, lowering power.
+      answer: [1, 2, 3]
+    - slug: apstats-u03-w19-q17
+      type: true_false
+      topic_code: "3.9"
+      source: "AP Statistics CED, Topic 3.9"
+      points: 1
+      prompt: |
+        True or false: The standard deviation of the sampling distribution of p̂₁ − p̂₂ is equal to SD(p̂₁) + SD(p̂₂).
+      answer: false
+      explanation: |
+        False. SD(p̂₁ − p̂₂) = √(p₁(1 − p₁)/n₁ + p₂(1 − p₂)/n₂): the p(1 − p)/n terms are added under one square root, which gives a value smaller than SD(p̂₁) + SD(p̂₂).
+    - slug: apstats-u03-w19-q18
+      type: true_false
+      topic_code: "3.7"
+      source: "AP Statistics CED, Topic 3.7"
+      points: 1
+      prompt: |
+        True or false: In a test of H₀: p = 0.40 about the proportion of all students at a school who bike to school, a p-value of 0.03 means there is a 3% probability that p = 0.40.
+      answer: false
+      explanation: |
+        False. The p-value is computed assuming p = 0.40; it is the probability, under that assumption, of a sample result at least as extreme as the one observed. It is not the probability that H₀ is true.
+    - slug: apstats-u03-w19-q19
+      type: fill_blank
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 1
+      prompt: |
+        In independent random samples from a large high school, 48 of 120 juniors and 33 of 110 seniors say they had a summer job. As a decimal, the point estimate of p_juniors − p_seniors is ____.
+      answer: ["0.10", "0.1", ".1", ".10"]
+      explanation: |
+        p̂_juniors = 48/120 = 0.40 and p̂_seniors = 33/110 = 0.30, so the point estimate is 0.40 − 0.30 = 0.10.
+    - slug: apstats-u03-w19-q20
+      type: fill_blank
+      topic_code: "3.1"
+      source: "AP Statistics CED, Topic 3.1"
+      points: 1
+      prompt: |
+        A statistic is an unbiased estimator when the mean of its sampling distribution equals the value of the ____ it estimates.
+      answer: ["parameter", "population parameter", "the parameter"]
+      explanation: |
+        Unbiased means the sampling distribution is centered at the parameter. For example, the mean of the sampling distribution of p̂₁ − p̂₂ is p₁ − p₂.
+    - slug: apstats-u03-w19-q21
+      type: numeric
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 1
+      prompt: |
+        At two branches of a hypothetical bike shop, independent random samples of customers who bought a bike were taken: 45 of 90 at the first branch and 30 of 80 at the second bought a helmet too. Find the margin of error of a 99% two-sample z-interval for p₁ − p₂. Give your answer to three decimal places.
+      answer: { value: 0.195, tolerance: 0.001 }
+      explanation: |
+        p̂₁ = 0.500, p̂₂ = 0.375. SE = √(0.5·0.5/90 + 0.375·0.625/80) ≈ 0.0755. Margin of error = 2.576 · 0.0755 ≈ 0.195.
+    - slug: apstats-u03-w19-q22
+      type: short_answer
+      topic_code: "3.9"
+      source: "AP Statistics CED, Topic 3.9"
+      points: 3
+      prompt: |
+        At hypothetical North High, 40% of all students walk to school; at South High, 30% do. Each school has about 2,000 students. A reporter takes a random sample of 150 North students and an independent random sample of 120 South students.
+
+        (a) Give the mean and standard deviation of the sampling distribution of p̂_N − p̂_S.
+        (b) Explain why the sampling distribution is approximately normal and why the SD formula is appropriate.
+        (c) Find the probability that the South sample has the higher proportion of walkers.
+      answer: |
+        (a) Mean = 0.40 − 0.30 = 0.10. SD = √(0.4·0.6/150 + 0.3·0.7/120) = √(0.0016 + 0.00175) ≈ 0.0579.
+        (b) Large Counts: 150(0.4) = 60, 150(0.6) = 90, 120(0.3) = 36, 120(0.7) = 84 are all at least 10, so approximately normal. 10%: 150 and 120 are each less than 10% of about 2,000 students, so the SD formula applies.
+        (c) South higher means p̂_N − p̂_S < 0. z = (0 − 0.10)/0.0579 ≈ −1.73; P(Z < −1.73) ≈ 0.042.
+      explanation: |
+        Three points, one per part. (a) mean 0.10 and SD ≈ 0.058 (both needed). (b) all four counts shown to be at least 10 and the 10% condition checked for both schools. (c) the event written as p̂_N − p̂_S < 0 and a probability of about 0.042 (0.04 accepted from a table).
+    - slug: apstats-u03-w19-q23
+      type: short_answer
+      topic_code: "3.4"
+      source: "AP Statistics CED, Topic 3.4"
+      points: 3
+      prompt: |
+        A 95% confidence interval for the proportion of all students in a large hypothetical school district who have a part-time job is (0.31, 0.39). The superintendent says that 40% of the district's students have a part-time job.
+
+        (a) Is the superintendent's claim plausible according to the interval? Explain.
+        (b) Does the interval give convincing evidence that fewer than 40% of the district's students have a part-time job? Explain.
+        (c) Name one value that the interval suggests is plausible for the true proportion.
+      answer: |
+        (a) No. 0.40 is not inside the interval, so it is not a plausible value for the true proportion.
+        (b) Yes. Every plausible value in the interval, 0.31 to 0.39, is less than 0.40, so the interval gives convincing evidence that the true proportion is below 0.40.
+        (c) Any value from 0.31 to 0.39, such as 0.35.
+      explanation: |
+        Three points. (a) "not plausible" because 0.40 is outside the interval. (b) "convincing evidence" because the whole interval is below 0.40 (not "proves"). (c) any value in the interval. Language about the sample rather than the population proportion loses the point for that part.
+    - slug: apstats-u03-w19-q24
+      type: long_answer
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 6
+      prompt: |
+        A hypothetical regional transit agency wants to compare interest in a new weekend bus line in two cities. It surveys a random sample of 240 adult commuters in Riverton (about 30,000 commuters) and an independent random sample of 230 adult commuters in Millbrook (about 25,000 commuters). In Riverton, 156 say they would use the line; in Millbrook, 121 say so.
+
+        (A) Name the appropriate procedure for estimating the difference, and define the parameter in context.
+
+        (B) Check the conditions for the procedure.
+
+        (C) Construct a 95% confidence interval for the parameter.
+
+        (D) Interpret the interval in context.
+
+        (E) Interpret the 95% confidence level in context.
+      answer: |
+        (A) A two-sample z-interval for p_R − p_M, where p_R is the proportion of all adult commuters in Riverton who would use the weekend line and p_M is the same proportion for all adult commuters in Millbrook.
+        (B) Random: two independent random samples. 10%: 240 < 10% of 30,000 and 230 < 10% of 25,000. Large Counts: 156, 84, 121 and 109 are all at least 10.
+        (C) p̂_R = 156/240 = 0.650, p̂_M = 121/230 ≈ 0.526; difference ≈ 0.124. SE = √(0.65·0.35/240 + 0.526·0.474/230) ≈ 0.0451. 0.124 ± 1.96(0.0451) = 0.124 ± 0.088, from about 0.036 to 0.212.
+        (D) We are 95% confident that the interval from 0.036 to 0.212 captures the true difference (Riverton minus Millbrook) in the proportions of all adult commuters who would use the weekend bus line.
+        (E) If the agency repeatedly took independent random samples of these sizes from both cities and built a 95% interval each time, about 95% of those intervals would capture the true difference p_R − p_M.
+      explanation: |
+        Six points.
+        (A) 1 point: procedure named (two-sample z-interval for a difference in proportions) and the parameter defined with both populations and the order of subtraction.
+        (B) 2 points: 1 for Random and 10% for both cities; 1 for all four Large Counts shown to be at least 10. Writing "n ≥ 30" for Large Counts earns nothing for that point.
+        (C) 1 point: interval (0.036, 0.212), allowing (0.035, 0.213) from rounding, with the point estimate and SE shown or the calculator procedure named with its inputs.
+        (D) 1 point: "95% confident" that the interval captures the difference in population proportions, in context, with the order. Statements about samples or individual commuters earn nothing.
+        (E) 1 point: long-run capture rate of the method over repeated sampling, in context. "95% probability that the true difference is in this interval" earns nothing.

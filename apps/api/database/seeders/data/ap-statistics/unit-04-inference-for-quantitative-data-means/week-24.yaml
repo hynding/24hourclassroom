@@ -1,0 +1,630 @@
+week: 24
+unit: 4
+title: "Confidence Intervals for a Population Mean or Mean Difference"
+topics: ["4.2", "4.3"]
+guide: guides/week-24.md
+guide_description: |
+  The one-sample t-interval for a population mean μ and the paired t-interval for a population mean difference
+  μ_diff: the formula x̄ ± t* · s/√n, finding t* with n − 1 degrees of freedom, the Random, 10% and Normal/large
+  sample conditions, how to recognise paired data, interpreting the interval and the confidence level, how
+  confidence level and sample size change the margin of error, and how to use an interval to judge a claim
+  about μ or μ_diff. Worked examples: a 95% interval for the mean sugar content of a bakery's granola bars
+  (and a 99% version and an n = 80 version), a 90% paired interval for the gap in typing speed between a
+  physical keyboard and a phone for 10 students, and a label's claim of 12 grams judged against the interval.
+flashcards_description: |
+  30 cards on the one-sample and paired t-intervals: the formula, t* and degrees of freedom, the three
+  conditions checked in context, recognising paired data, the interpretation templates for the interval and the
+  confidence level, what changes the margin of error, and justifying claims from an interval.
+
+flashcards:
+  - front: One-sample t-interval for μ → formula
+    back: |
+      x̄ ± t* · s/√n, with t* from the t distribution with df = n − 1.
+    topic_code: "4.2"
+  - front: One-sample t-interval for μ → the three conditions
+    back: |
+      Random: a random sample or random assignment. 10%: n ≤ 10% of the population when sampling without replacement. Normal/large sample: n ≥ 30, or the sample data show no strong skew or outliers.
+    topic_code: "4.2"
+  - front: Checking the Normal condition with n = 14 → what to say
+    back: |
+      n < 30, so look at a graph of the sample data (dotplot, boxplot): "The dotplot shows no strong skew and no outliers, so a t procedure is reasonable."
+    topic_code: "4.2"
+  - front: n = 14 with a clear high outlier → can you use a t-interval?
+    back: |
+      No. With a small sample, an outlier (or strong skew) makes the t procedure unreliable. Report that the Normal condition fails.
+    topic_code: "4.2"
+  - front: Finding t* for a 95% interval with n = 25
+    back: |
+      df = 24; t* = 2.064 (invT(0.975, 24)). Not 1.96, which is z*.
+    topic_code: "4.2"
+  - front: t* for 90%, 95%, 99% with df = 11
+    back: |
+      1.796, 2.201 and 3.106. Higher confidence needs a larger critical value.
+    topic_code: "4.2"
+  - front: Margin of error of a one-sample t-interval → formula
+    back: |
+      t* · s/√n: the critical value times the standard error.
+    topic_code: "4.2"
+  - front: Margin of error from an interval (12.4, 15.8) → how to find it
+    back: |
+      Half the width: (15.8 − 12.4)/2 = 1.7. The point estimate is the midpoint, 14.1.
+    topic_code: "4.2"
+  - front: Raising the confidence level of a t-interval (same data) → effect on width
+    back: |
+      Wider: t* grows. More confidence costs precision.
+    topic_code: "4.2"
+  - front: Quadrupling n for a t-interval → effect on margin of error
+    back: |
+      Roughly halved (s/√n halves, and t* shrinks a little because df grows).
+    topic_code: "4.2"
+  - front: Paired data → how to recognise it
+    back: |
+      Each value in one group is linked to one value in the other: the same individual measured twice, or matched pairs (twins, matched subjects). The pairing is part of the design.
+    topic_code: "4.2"
+  - front: Paired t-interval for μ_diff → formula
+    back: |
+      x̄_diff ± t* · s_diff/√n_diff, where the differences are computed for each pair and df = (number of pairs) − 1.
+    topic_code: "4.2"
+  - front: Paired t-interval → the conditions, applied to what
+    back: |
+      Random (random sample of pairs or random assignment of treatment order), 10% for the pairs, and Normal/large sample for the differences: n_diff ≥ 30, or the differences show no strong skew or outliers.
+    topic_code: "4.2"
+  - front: Defining μ_diff in context → example
+    back: |
+      μ_diff = the true mean difference (physical keyboard − phone) in typing speed, in words per minute, for all students at the school. State the order of subtraction.
+    topic_code: "4.2"
+  - front: Typing speed, 10 students, differences with mean 18 and SD 4.76 → 90% interval
+    back: |
+      df = 9, t* = 1.833. 18 ± 1.833 · 4.76/√10 = 18 ± 2.76, from 15.24 to 20.76 words per minute.
+    topic_code: "4.2"
+  - front: Granola bars, n = 20, x̄ = 11.6 g, s = 1.9 g → 95% interval
+    back: |
+      df = 19, t* = 2.093. 11.6 ± 2.093 · 1.9/√20 = 11.6 ± 0.89, from 10.71 to 12.49 grams.
+    topic_code: "4.2"
+  - front: Interpreting a t-interval for a mean → template
+    back: |
+      "We are 95% confident that the interval from 10.71 to 12.49 grams captures the true mean sugar content of all granola bars in the batch."
+    topic_code: "4.2"
+  - front: Interpreting the confidence level of a t-interval → template
+    back: |
+      "If we took many random samples of 20 bars and built a 95% t-interval from each, about 95% of those intervals would capture the true mean sugar content."
+    topic_code: "4.2"
+  - front: Interpreting a paired interval that is entirely above 0
+    back: |
+      Every plausible value of μ_diff is positive, so the first condition in the subtraction has the higher mean, on average, for the population of pairs.
+    topic_code: "4.3"
+  - front: Claim value inside a t-interval → what you may conclude
+    back: |
+      The claimed mean is plausible, so the interval gives no convincing evidence against it. It does not prove the claim: many other values are plausible too.
+    topic_code: "4.3"
+  - front: Claim value outside a t-interval → what you may conclude
+    back: |
+      The claimed mean is not plausible at that confidence level, so there is convincing evidence that the true mean differs from it (and in which direction).
+    topic_code: "4.3"
+  - front: Granola label says 12 g, interval 10.71 to 12.49 → judgment
+    back: |
+      12 is inside, so 12 g is plausible; no convincing evidence that the mean differs from the label.
+    topic_code: "4.3"
+  - front: Paired interval for μ_diff contains 0 → judgment
+    back: |
+      0 is plausible, so there is no convincing evidence of a mean difference between the two conditions.
+    topic_code: "4.3"
+  - front: Sleep interval 6.38 to 7.30 hours versus a claim of 8 hours
+    back: |
+      Every plausible value is below 8, so there is convincing evidence that the mean school-night sleep is less than 8 hours.
+    topic_code: "4.3"
+  - front: Scope of a t-interval → random sample versus random assignment
+    back: |
+      A random sample lets the interval describe the population sampled; random assignment of treatments (or treatment order) lets a paired difference be attributed to the treatment.
+    topic_code: "4.3"
+  - front: Paired versus two-sample analysis → why it matters
+    back: |
+      Pairing removes person-to-person variation, so the paired SD of differences is usually much smaller; treating paired data as two independent samples wastes that and is the wrong procedure.
+    topic_code: "4.2"
+  - front: Confidence level of a t-interval → what it describes
+    back: |
+      The method's long-run capture rate, not the chance that this one interval is right. After the data are in, the interval either captures μ or it does not.
+    topic_code: "4.2"
+  - front: Error-spot → "there is a 95% probability that μ is between 6.38 and 7.30"
+    back: |
+      μ is fixed; the 95% describes the method. Say "We are 95% confident that the interval from 6.38 to 7.30 captures μ."
+    topic_code: "4.2"
+  - front: Error-spot → "95% of students sleep between 6.38 and 7.30 hours"
+    back: |
+      The interval estimates the population mean, not where individual values fall. Individual students vary far more.
+    topic_code: "4.2"
+  - front: Error-spot → "7 is in the interval, so the study proves the mean is 7"
+    back: |
+      An interval cannot prove one value; it only shows 7 is plausible, along with every other value in the interval.
+    topic_code: "4.3"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 4.2 and 4.3: one-sample and paired t-intervals,
+    their conditions, interpretations and margins of error, and claims based on an interval), with 8 questions
+    (33%) reviewing earlier weeks (the sampling distribution of x̄ and the t distributions, matched-pairs design,
+    and intervals and claims for proportions). Opens with a shared-context set on students' school-night sleep.
+    Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are
+    matched automatically; the short answers and the long answer are graded by your teacher against the scoring
+    notes. Calculator allowed throughout.
+  questions:
+    # ---- Stimulus set: school-night sleep (4.2, 4.3)
+    - slug: apstats-u04-w24-q01
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 1
+      stimulus: |
+        A health teacher in a large school district selects a random sample of 25 eleventh graders from the district's 3,200 eleventh graders. Each student records sleep on school nights for two weeks, and the teacher computes each student's average. The 25 averages have mean x̄ = 6.84 hours and standard deviation s = 1.12 hours. A dotplot of the 25 values is roughly symmetric with no outliers.
+      prompt: |
+        What critical value should the teacher use for a 95% confidence interval for the mean school-night sleep of all eleventh graders in the district?
+      options:
+        - "z* = 1.960"
+        - "t* = 2.064"
+        - "t* = 2.060"
+        - "t* = 1.711"
+      option_explanations:
+        - |
+          1.960 is z*, which assumes σ is known. With s in the standard error, use t with n − 1 degrees of freedom.
+        - |
+          Correct. The one-sample t-interval uses df = n − 1 = 24, and the critical value with 2.5% in each tail is t* = 2.064.
+        - |
+          2.060 is t* for df = 25; the degrees of freedom are n − 1 = 24, not n.
+        - |
+          1.711 puts 5% in one tail (the 90% critical value for df = 24); a 95% interval needs 2.5% in each tail.
+      answer: 1
+    - slug: apstats-u04-w24-q02
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 1
+      stimulus: |
+        A health teacher in a large school district selects a random sample of 25 eleventh graders from the district's 3,200 eleventh graders. Each student records sleep on school nights for two weeks, and the teacher computes each student's average. The 25 averages have mean x̄ = 6.84 hours and standard deviation s = 1.12 hours. A dotplot of the 25 values is roughly symmetric with no outliers.
+      prompt: |
+        Which is the 95% confidence interval for μ, the mean school-night sleep of all eleventh graders in the district?
+      options:
+        - "From 4.53 to 9.15 hours"
+        - "From 6.40 to 7.28 hours"
+        - "From 6.37 to 7.31 hours"
+        - "From 6.38 to 7.30 hours"
+      option_explanations:
+        - |
+          This uses s = 1.12 as the standard error, forgetting to divide by √25; it describes individual students, not the mean.
+        - |
+          This uses z* = 1.96 in place of t* = 2.064, which makes the interval too narrow.
+        - |
+          This divides s by √24 instead of √25; the standard error is s/√n, and n − 1 is only the degrees of freedom.
+        - |
+          Correct. One-sample t-interval: 6.84 ± 2.064 · 1.12/√25 = 6.84 ± 0.462, from about 6.38 to 7.30 hours.
+      answer: 3
+    - slug: apstats-u04-w24-q03
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 1
+      stimulus: |
+        A health teacher in a large school district selects a random sample of 25 eleventh graders from the district's 3,200 eleventh graders. Each student records sleep on school nights for two weeks, and the teacher computes each student's average. The 25 averages have mean x̄ = 6.84 hours and standard deviation s = 1.12 hours. A dotplot of the 25 values is roughly symmetric with no outliers.
+      prompt: |
+        Which is the correct interpretation of the 95% confidence interval from 6.38 to 7.30 hours?
+      options:
+        - "We are 95% confident that the interval from 6.38 to 7.30 hours captures the true mean school-night sleep of all eleventh graders in the district."
+        - "About 95% of eleventh graders in the district sleep between 6.38 and 7.30 hours on school nights."
+        - "There is a 95% probability that the mean of these 25 students is between 6.38 and 7.30 hours."
+        - "If the study were repeated, 95% of sample means would fall between 6.38 and 7.30 hours."
+      option_explanations:
+        - |
+          Correct. The interval estimates the population mean μ, and the confidence is in the method that produced it.
+        - |
+          The interval estimates the mean, not the range of individual students; individuals vary much more (s = 1.12 hours).
+        - |
+          The sample mean is known exactly (6.84); the interval is about the unknown population mean, and that is not a probability statement.
+        - |
+          Future sample means vary around μ, not around this particular interval; 95% describes how often intervals capture μ.
+      answer: 0
+    - slug: apstats-u04-w24-q04
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "AP Statistics CED, Topic 4.3"
+      points: 1
+      stimulus: |
+        A health teacher in a large school district selects a random sample of 25 eleventh graders from the district's 3,200 eleventh graders. Each student records sleep on school nights for two weeks, and the teacher computes each student's average. The 25 averages have mean x̄ = 6.84 hours and standard deviation s = 1.12 hours. A dotplot of the 25 values is roughly symmetric with no outliers.
+      prompt: |
+        A district newsletter claims that eleventh graders average 8 hours of sleep on school nights, and a parent claims they average 7 hours. Based on the 95% interval from 6.38 to 7.30 hours, which conclusion is justified?
+      options:
+        - "Both claims are plausible, because each is close to the sample mean."
+        - "The data prove that the true mean is 7 hours."
+        - "There is convincing evidence against the newsletter's 8 hours, but 7 hours is a plausible value for the mean."
+        - "There is convincing evidence against both claims, because neither equals 6.84."
+      option_explanations:
+        - |
+          8 is outside the interval, so it is not a plausible value of μ at 95% confidence; being near x̄ is not the test.
+        - |
+          7 is plausible, but so is every other value from 6.38 to 7.30; an interval cannot prove a single value.
+        - |
+          Correct. 8 lies above the whole interval, so there is convincing evidence that the mean is less than 8 hours; 7 lies inside, so the data give no convincing evidence against it.
+        - |
+          A claim is judged by whether it lies in the interval, not whether it equals the sample mean; 7 is inside the interval.
+      answer: 2
+    # ---- Independent items
+    - slug: apstats-u04-w24-q05
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "AP Statistics CED, Topic 1.13"
+      points: 1
+      prompt: |
+        Which study produces paired data?
+      options:
+        - "A random sample of 40 juniors and a separate random sample of 40 seniors report weekly hours of homework."
+        - "Thirty plants are randomly assigned, 15 to a new fertiliser and 15 to the old one, and their heights are compared."
+        - "A random sample of 50 students report hours of sleep and their grade point average."
+        - "Twenty students each take a reaction-time test once with music and once in silence, in a randomly chosen order."
+      option_explanations:
+        - |
+          The two groups are separate, unlinked samples, which is a two-sample setting, not paired data.
+        - |
+          Each plant receives only one fertiliser and nothing links a plant in one group to a plant in the other: a completely randomised design with two independent groups.
+        - |
+          Two variables are measured on each student; that is bivariate quantitative data for regression, not a comparison of two conditions.
+        - |
+          Correct. Each student is measured under both conditions, so each music time is linked to one silence time: a matched-pairs design whose differences are analysed.
+      answer: 3
+    - slug: apstats-u04-w24-q06
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 1
+      prompt: |
+        Twelve randomly selected volunteers each take a reaction-time test with music playing and in silence, in random order. The differences (music − silence) have mean 14.2 milliseconds and standard deviation 19.6 milliseconds, with no strong skew or outliers. Which is the 95% paired t-interval for the true mean difference?
+      options:
+        - "14.2 ± 11.1 milliseconds"
+        - "14.2 ± 12.5 milliseconds"
+        - "14.2 ± 12.3 milliseconds"
+        - "14.2 ± 43.1 milliseconds"
+      option_explanations:
+        - |
+          11.1 uses z* = 1.96; with s_diff and 12 pairs the critical value is t* = 2.201.
+        - |
+          Correct. df = 12 − 1 = 11, t* = 2.201, and 2.201 · 19.6/√12 ≈ 12.5, so the interval is about 1.7 to 26.7 milliseconds.
+        - |
+          12.3 uses t* for df = 12; the degrees of freedom are the number of pairs minus 1, which is 11.
+        - |
+          43.1 = 2.201 · 19.6 forgets to divide the SD of the differences by √12.
+      answer: 1
+    - slug: apstats-u04-w24-q07
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "AP Statistics CED, Topic 4.3"
+      points: 1
+      prompt: |
+        For the reaction-time study above, the 95% paired t-interval for μ_diff (music − silence) is from 1.7 to 26.7 milliseconds. The order of conditions was randomly assigned. Which conclusion is best?
+      options:
+        - "Because the whole interval is above 0, there is convincing evidence that music increases mean reaction time for volunteers like these."
+        - "Because the interval is wide, no conclusion about the mean difference is possible."
+        - "Because 14.2 is the centre, music increases every volunteer's reaction time by about 14 milliseconds."
+        - "Because the interval contains small values such as 2, there is no evidence that music matters."
+      option_explanations:
+        - |
+          Correct. Every plausible value of μ_diff is positive, so music slows reactions on average; random assignment of order lets us attribute it to the music for volunteers like these.
+        - |
+          A wide interval is less precise, but it still rules out 0 and every negative value, so a conclusion about the sign is justified.
+        - |
+          The interval describes the mean difference, not each person; individual differences varied a lot (SD 19.6).
+        - |
+          Small positive values are still positive; only the inclusion of 0 would leave "no difference" plausible.
+      answer: 0
+    - slug: apstats-u04-w24-q08
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 1
+      prompt: |
+        A biologist builds a 95% t-interval for the mean length of a fish species from a random sample of 20 fish. Which change, with everything else the same, would make the interval narrower?
+      options:
+        - "Using a 99% confidence level"
+        - "Using a sample of 15 fish"
+        - "Using a 90% confidence level"
+        - "Measuring fish in centimetres instead of inches"
+      option_explanations:
+        - |
+          Higher confidence needs a larger t*, which widens the interval.
+        - |
+          A smaller sample raises s/√n and also raises t* (fewer df), so the interval gets wider.
+        - |
+          Correct. A lower confidence level uses a smaller t*, so the margin of error t* · s/√n shrinks.
+        - |
+          Changing units rescales the interval but does not make it more precise relative to the data; the numbers grow in centimetres.
+      answer: 2
+    - slug: apstats-u04-w24-q09
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 1
+      prompt: |
+        A random sample of 15 small businesses in a town report monthly electricity costs. A boxplot of the 15 values is strongly skewed to the right with two high outliers. Is a one-sample t-interval for the mean monthly cost appropriate?
+      options:
+        - "Yes, because the businesses were randomly selected."
+        - "Yes, because the t distribution has heavy tails that allow for outliers."
+        - "Yes, if fewer than 10% of the town's businesses were sampled."
+        - "No, because n = 15 is less than 30 and the sample shows strong skew and outliers."
+      option_explanations:
+        - |
+          Random selection satisfies the Random condition only; the Normal/large sample condition must also hold.
+        - |
+          The heavier tails of t account for estimating σ with s, not for a skewed population with outliers.
+        - |
+          The 10% condition supports independence, but it does nothing to fix the shape problem in a small sample.
+        - |
+          Correct. With a small sample, the Normal condition requires no strong skew or outliers in the data; this sample has both, so the t-interval is not reliable.
+      answer: 3
+    - slug: apstats-u04-w24-q10
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 1
+      prompt: |
+        A coffee shop owner builds a 90% t-interval for the mean time customers wait for their order. What does "90% confident" mean?
+      options:
+        - "There is a 90% chance that the true mean wait time is in this interval."
+        - "If many random samples of the same size were taken and a 90% t-interval built from each, about 90% of the intervals would capture the true mean wait time."
+        - "90% of customers wait a time within the interval."
+        - "The sample mean is within the interval 90% of the time."
+      option_explanations:
+        - |
+          After the data are collected, the interval either captures μ or not; the 90% describes the method, not this interval.
+        - |
+          Correct. The confidence level is the long-run capture rate of the method over repeated random samples.
+        - |
+          The interval estimates the mean wait time, not the spread of individual customers' waits.
+        - |
+          The sample mean is always at the centre of its own interval; the capture rate is about the parameter.
+      answer: 1
+    - slug: apstats-u04-w24-q11
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        Scores on a standardised science test are approximately normal with mean 50 and standard deviation 10. For a random sample of 25 students, what is the probability that the sample mean score is greater than 53?
+      options:
+        - "About 0.067"
+        - "About 0.382"
+        - "About 0.933"
+        - "About 0.001"
+      option_explanations:
+        - |
+          Correct. x̄ is normal with mean 50 and SD 10/√25 = 2, so z = (53 − 50)/2 = 1.5 and P(z > 1.5) ≈ 0.067.
+        - |
+          0.382 uses SD 10 (one student), giving z = 0.3; a mean of 25 has SD 2.
+        - |
+          0.933 is P(x̄ < 53): the right z-score of 1.5, but the area in the wrong tail.
+        - |
+          0.001 divides by n (10/25 = 0.4) instead of √n, giving z = 7.5 and almost no probability.
+      answer: 0
+    - slug: apstats-u04-w24-q12
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "AP Statistics CED, Topic 3.4"
+      points: 1
+      prompt: |
+        A candidate for student body president claims a majority of the school's students support her. A 95% confidence interval for the proportion of all students at the school who support her, from a random sample, is from 0.53 to 0.61. Which conclusion is justified?
+      options:
+        - "The interval proves that exactly 57% support her."
+        - "The interval gives no evidence about a majority because it does not contain 0.50."
+        - "Because every value in the interval is above 0.50, there is convincing evidence that a majority of students support her."
+        - "There is a 95% probability that a majority supports her."
+      option_explanations:
+        - |
+          0.57 is only the point estimate; every value from 0.53 to 0.61 is plausible.
+        - |
+          Excluding 0.50 is exactly what provides evidence: every plausible proportion is above one half.
+        - |
+          Correct. All plausible values of p exceed 0.50, so the interval gives convincing evidence of majority support.
+        - |
+          Confidence is not a probability about the parameter; the 95% describes the method's capture rate.
+      answer: 2
+    - slug: apstats-u04-w24-q13
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "AP Statistics CED, Topic 1.13"
+      points: 1
+      prompt: |
+        In a matched-pairs study, each of 16 runners runs a timed mile once in an old shoe and once in a new shoe on different days. Why should a coin flip decide which shoe each runner wears first?
+      options:
+        - "So the runners form a random sample of all runners"
+        - "So the number of runners in each shoe is the same"
+        - "So the differences will be approximately normal"
+        - "So any effect of running order (such as practice or fatigue) is not confounded with the shoe"
+      option_explanations:
+        - |
+          Randomising order does not change who is in the study; a random sample would require choosing the runners at random.
+        - |
+          Every runner wears both shoes, so the groups are equal anyway; randomising order is not needed for that.
+        - |
+          The shape of the differences depends on the runners, not on the order of treatments.
+        - |
+          Correct. If everyone wore the new shoe second, improvement from practice would be mixed up with the shoe; random order balances it out.
+      answer: 3
+    - slug: apstats-u04-w24-q14
+      type: multi_select
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A researcher computes a 95% one-sample t-interval for the mean daily water intake of adults in a city from a random sample of 40 adults. Which changes, each made on its own with everything else the same, would produce a narrower interval? Select all that apply.
+      options:
+        - "Taking a random sample of 160 adults instead of 40"
+        - "Using a 90% confidence level"
+        - "Using a 99% confidence level"
+        - "A sample whose standard deviation turned out larger"
+        - "Taking a random sample of 20 adults instead of 40"
+      option_explanations:
+        - |
+          Correct. Quadrupling n roughly halves s/√n, and t* also drops slightly with more degrees of freedom.
+        - |
+          Correct. Lower confidence means a smaller t* and a smaller margin of error.
+        - |
+          Higher confidence means a larger t*, so the interval widens.
+        - |
+          A larger s increases the standard error s/√n and widens the interval.
+        - |
+          Halving n raises the standard error s/√n by a factor of √2 and also raises t* (19 df instead of 39), so the interval gets wider.
+      answer: [0, 1]
+    - slug: apstats-u04-w24-q15
+      type: multi_select
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A teacher wants a paired t-interval for the mean difference (after − before) in vocabulary quiz scores for 18 students who used a flashcard app for a month. Which conditions must be checked? Select all that apply.
+      options:
+        - "The 18 students are a random sample (or the data come from a randomised design)."
+        - "The 18 differences show no strong skew or outliers, since n < 30."
+        - "18 students are no more than 10% of the population they represent."
+        - "The before scores and the after scores are independent of each other."
+        - "At least 10 students improved and at least 10 did not."
+      option_explanations:
+        - |
+          Correct. Random: the inference reaches a population only from a random sample, or a cause only from random assignment.
+        - |
+          Correct. Normal/large sample is checked on the differences, the one variable a paired procedure analyses.
+        - |
+          Correct. 10%: the pairs must be independent of one another, so with sampling without replacement n ≤ 10% of the population.
+        - |
+          Before and after scores for the same student are deliberately linked; that dependence is why we analyse differences.
+        - |
+          That is a Large Counts check for proportions; a t procedure for means uses the Normal/large sample condition instead.
+      answer: [0, 1, 2]
+    - slug: apstats-u04-w24-q16
+      type: true_false
+      topic_code: "4.3"
+      source: "AP Statistics CED, Topic 4.3"
+      points: 1
+      prompt: |
+        True or false: A 95% t-interval for the mean weight of a factory's cereal boxes is from 365.2 to 369.8 grams. Because 368 grams is in the interval, the data prove that the mean weight is 368 grams.
+      answer: false
+      explanation: |
+        False. 368 is a plausible value of the mean, so there is no convincing evidence against it, but every value from 365.2 to 369.8 is equally plausible. An interval can rule values out; it cannot prove one value.
+    - slug: apstats-u04-w24-q17
+      type: true_false
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        True or false: The t distribution with 24 degrees of freedom has heavier tails than the standard normal distribution.
+      answer: true
+      explanation: |
+        True. Every t distribution has heavier tails than the standard normal, because using s in place of σ adds variability; the difference shrinks as df grows. That is why t* = 2.064 for 95% with 24 df, larger than z* = 1.96.
+    - slug: apstats-u04-w24-q18
+      type: fill_blank
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 1
+      prompt: |
+        A report gives a 95% confidence interval for the mean number of text messages students send per day as 12.4 to 15.8 messages. The margin of error is ____ messages.
+      answer: ["1.7", "1.70"]
+      explanation: |
+        The margin of error is half the width: (15.8 − 12.4)/2 = 3.4/2 = 1.7. The point estimate is the midpoint, 14.1.
+    - slug: apstats-u04-w24-q19
+      type: fill_blank
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        A pilot study used n = 20. To cut the standard deviation of the sampling distribution of x̄ in half, the main study needs a sample size of n = ____.
+      answer: ["80"]
+      explanation: |
+        SD(x̄) = σ/√n. Halving it requires √n to double, so n must be multiplied by 4: 4 · 20 = 80.
+    - slug: apstats-u04-w24-q20
+      type: numeric
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 1
+      prompt: |
+        A random sample of 18 tomato plants grown in a school greenhouse has mean height x̄ = 42.6 cm and standard deviation s = 5.3 cm, with no strong skew or outliers. Find the upper endpoint of a 90% confidence interval for the mean height of all such plants. Give your answer to two decimal places.
+      answer: { value: 44.77, tolerance: 0.01 }
+      explanation: |
+        df = 17, t* = 1.740. Margin of error = 1.740 · 5.3/√18 ≈ 2.17. Upper endpoint = 42.6 + 2.17 ≈ 44.77 cm (the interval is about 40.43 to 44.77 cm).
+    - slug: apstats-u04-w24-q21
+      type: numeric
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      prompt: |
+        In a random sample of 400 adults in a county, 58% say they would use a new bike-share program. Find the margin of error of a 95% confidence interval for the proportion of all adults in the county who would use it. Give your answer to three decimal places.
+      answer: { value: 0.048, tolerance: 0.001 }
+      explanation: |
+        Margin of error = z* · √(p̂(1 − p̂)/n) = 1.96 · √(0.58 · 0.42/400) ≈ 1.96 · 0.0247 ≈ 0.048.
+    - slug: apstats-u04-w24-q22
+      type: short_answer
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 3
+      prompt: |
+        A gym teacher records the number of push-ups six students complete in the morning and again in the afternoon of the same day.
+
+        | Student | 1 | 2 | 3 | 4 | 5 | 6 |
+        |---|---|---|---|---|---|---|
+        | Morning | 18 | 25 | 12 | 30 | 22 | 15 |
+        | Afternoon | 21 | 27 | 15 | 31 | 26 | 16 |
+
+        (a) Explain why these data should be analysed as paired data.
+        (b) Compute the differences (afternoon − morning), their mean and their standard deviation.
+        (c) Explain why a two-sample procedure that compares the morning mean with the afternoon mean would be inappropriate here.
+      answer: |
+        (a) Each student is measured twice, so each morning count is linked to one afternoon count from the same student.
+        (b) Differences: 3, 2, 3, 1, 4, 1. Mean x̄_diff ≈ 2.33 push-ups; s_diff ≈ 1.21 push-ups.
+        (c) The two sets of counts are not independent samples. Students differ a lot in strength (12 to 31 push-ups), and a two-sample procedure would treat that person-to-person variation as noise, hiding the small but consistent within-student gain that the differences reveal.
+      explanation: |
+        Three points, one per part. (a) the same students measured twice (or "the values are linked by student"). (b) all six differences, with mean 2.33 and SD 1.21 (accept 2.3 and 1.2). (c) the samples are dependent, not independent, with the idea that pairing removes between-student variation. A response that only says "because it is paired" in (c) earns no credit.
+    - slug: apstats-u04-w24-q23
+      type: short_answer
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 2
+      prompt: |
+        A school compares the proportion of students who bring lunch from home at two campuses. From independent random samples, a 95% confidence interval for p_North − p_South is from −0.02 to 0.09, where p_North and p_South are the proportions of all students at each campus who bring lunch from home.
+
+        (a) Interpret the interval in context.
+        (b) Does the interval give convincing evidence that the two campuses differ? Explain.
+      answer: |
+        (a) We are 95% confident that the interval from −0.02 to 0.09 captures the true difference (North − South) in the proportions of all students who bring lunch from home.
+        (b) No. The interval contains 0, so no difference is a plausible value; there is not convincing evidence that the proportions differ.
+      explanation: |
+        Two points. (a) "95% confident" with the interval, the order of subtraction and the parameter in context (proportions of all students at the two campuses). (b) "no" because 0 is in the interval. Claiming the campuses are the same (accepting no difference) loses point (b).
+    - slug: apstats-u04-w24-q24
+      type: long_answer
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 6
+      prompt: |
+        A cross-country coach wants to know whether a new racing shoe lowers mile times. Eight runners on the team each run a timed mile in their old shoe and in the new shoe, a week apart, with a coin flip deciding which shoe each runner wears first. The times, in seconds:
+
+        | Runner | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+        |---|---|---|---|---|---|---|---|---|
+        | Old shoe | 412 | 385 | 448 | 401 | 395 | 430 | 377 | 419 |
+        | New shoe | 405 | 381 | 440 | 399 | 389 | 428 | 375 | 410 |
+
+        (A) Explain why a paired procedure is appropriate, and define the parameter you will estimate.
+
+        (B) The differences (old − new) are 7, 4, 8, 2, 6, 2, 2, 9 seconds; a dotplot of them shows no strong skew or outliers. Check the conditions for a paired t-interval.
+
+        (C) Construct a 95% confidence interval for the parameter.
+
+        (D) Interpret the interval in context.
+
+        (E) The shoe's maker claims it lowers mile times by 10 seconds on average. Does the interval support this claim? Explain.
+      answer: |
+        (A) Each runner ran in both shoes, so the two times for a runner are linked; we analyse the differences. μ_diff = the true mean difference in mile time (old shoe − new shoe), in seconds, for runners like these.
+        (B) Random: the order of the shoes was randomly assigned for each runner (the runners are not a random sample, so results apply to runners like these). 10%: not needed for inference about a treatment with random assignment (no sampling from a population). Normal: n = 8 < 30, but the dotplot of differences shows no strong skew or outliers, so a t procedure is reasonable.
+        (C) Paired t-interval for μ_diff: x̄_diff = 5.0, s_diff ≈ 2.88, df = 7, t* = 2.365. 5.0 ± 2.365 · 2.88/√8 = 5.0 ± 2.41, from about 2.59 to 7.41 seconds.
+        (D) We are 95% confident that the interval from 2.59 to 7.41 seconds captures the true mean difference (old − new) in mile time for runners like these; that is, the new shoe lowers mean mile time by between about 2.6 and 7.4 seconds.
+        (E) No. 10 seconds is above the whole interval, so it is not a plausible value of μ_diff; there is convincing evidence that the mean improvement is less than 10 seconds. (The interval does give convincing evidence of some improvement, since it lies entirely above 0, and random assignment of order lets us attribute it to the shoe.)
+      explanation: |
+        Six points.
+        (A) 1 point: the reason for pairing (each runner measured in both shoes) and μ_diff defined in context with the order of subtraction.
+        (B) 1 point: Random (random order of shoes) and Normal (n < 30, differences show no strong skew or outliers) both checked in context. Checking the Normal condition on the two sets of times rather than the differences does not earn the point.
+        (C) 2 points: 1 for naming the paired t-interval with correct x̄_diff = 5.0, s_diff ≈ 2.88 and df = 7 (t* = 2.365); 1 for the interval (2.59, 7.41), with values from 2.5 to 2.7 and 7.3 to 7.5 accepted.
+        (D) 1 point: "95% confident" with the endpoints, "true mean difference" and context, including the order of subtraction. Language about individual runners or a probability that μ_diff is in the interval loses the point.
+        (E) 1 point: "no" because 10 is outside (above) the interval, with "plausible" or "convincing evidence" language.

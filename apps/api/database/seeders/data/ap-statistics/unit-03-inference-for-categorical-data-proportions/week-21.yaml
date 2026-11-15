@@ -1,0 +1,639 @@
+week: 21
+unit: 3
+title: "Testing a Difference Between Two Proportions"
+topics: ["3.12", "3.13"]
+guide: guides/week-21.md
+guide_description: |
+  The two-sample z-test for p₁ − p₂: when to use it, hypotheses about the population or true treatment
+  proportions, why the test pools the samples into p̂_c, the Random, 10% and Large Counts conditions, the test
+  statistic, one- and two-sided p-values, the decision and the conclusion in context, Type I and Type II errors,
+  and how a two-sided test matches a confidence interval. Worked examples: a randomized practice-quiz experiment
+  tested one-sided (z ≈ 1.99, p ≈ 0.023), a two-sided comparison of pastry sales at two bakery locations (z ≈
+  1.64, p ≈ 0.10) with its matching interval, and comparing two sample-size plans by their power.
+flashcards_description: |
+  31 cards on setting up and carrying out a two-sample z-test for p₁ − p₂: hypotheses, the pooled proportion,
+  conditions, the test statistic, one- and two-sided p-values, conclusions, errors and power, and the link to
+  the interval for p₁ − p₂.
+
+flashcards:
+  - front: Two-sample z-test for p₁ − p₂ → when it is the right procedure
+    back: |
+      A categorical response, two independent random samples or two randomly assigned treatment groups, and a question about whether the two proportions differ (or one is larger).
+    topic_code: "3.12"
+  - front: Two-sample z-test for p₁ − p₂ → the null hypothesis
+    back: |
+      H₀: p₁ − p₂ = 0 (equivalently p₁ = p₂): no difference between the population or true treatment proportions.
+    topic_code: "3.12"
+  - front: Two-sample z-test for p₁ − p₂ → the three possible alternatives
+    back: |
+      Hₐ: p₁ − p₂ > 0, Hₐ: p₁ − p₂ < 0, or Hₐ: p₁ − p₂ ≠ 0, chosen from the research question before seeing the data.
+    topic_code: "3.12"
+  - front: Two-sample z-test → defining the parameters
+    back: |
+      "p₁ = the proportion of all … in population 1 who …; p₂ = the same for population 2", or the true proportions for subjects like these under each treatment.
+    topic_code: "3.12"
+  - front: Pooled proportion p̂_c in a two-proportion test → formula
+    back: |
+      p̂_c = (x₁ + x₂)/(n₁ + n₂): total successes over total observations.
+    topic_code: "3.12"
+  - front: Pooled proportion p̂_c in a two-proportion test → why we pool
+    back: |
+      The test assumes H₀: p₁ = p₂, so both samples estimate one common proportion; combining them gives the best estimate of it.
+    topic_code: "3.12"
+  - front: Large Counts for a two-proportion test → the four checks
+    back: |
+      n₁p̂_c, n₁(1 − p̂_c), n₂p̂_c and n₂(1 − p̂_c) are all at least 10.
+    topic_code: "3.12"
+  - front: Random and 10% conditions for a two-proportion test → what to write
+    back: |
+      Random: two independent random samples or random assignment. 10%: each sample ≤ 10% of its population when sampling without replacement; not needed after random assignment.
+    topic_code: "3.12"
+  - front: Two-proportion test with 12/60 and 6/50 successes → Large Counts?
+    back: |
+      p̂_c = 18/110 ≈ 0.164; 50(0.164) ≈ 8.2 < 10, and 60(0.164) ≈ 9.8 < 10. Not met; the normal approximation is doubtful.
+    topic_code: "3.12"
+  - front: Choosing the alternative after seeing the data in a two-proportion test → why it is wrong
+    back: |
+      Picking the direction that matches the data roughly halves the p-value, inflating the Type I error rate. The alternative must come from the question.
+    topic_code: "3.12"
+  - front: Two-sample z-test for p₁ − p₂ → test statistic formula
+    back: |
+      z = (p̂₁ − p̂₂ − 0)/√(p̂_c(1 − p̂_c)(1/n₁ + 1/n₂)).
+    topic_code: "3.13"
+  - front: Two-proportion test statistic → what z measures
+    back: |
+      How many standard deviations the observed difference p̂₁ − p̂₂ is from 0, the difference H₀ predicts.
+    topic_code: "3.13"
+  - front: Two-proportion test p-value for Hₐ p₁ − p₂ > 0, < 0, ≠ 0 → how to find each
+    back: |
+      P(Z ≥ z); P(Z ≤ z); 2 · P(Z ≥ |z|).
+    topic_code: "3.13"
+  - front: Two-proportion test, two-sided, z = 2.10 → p-value
+    back: |
+      2 · P(Z ≥ 2.10) ≈ 2(0.0179) ≈ 0.036.
+    topic_code: "3.13"
+  - front: Practice-quiz experiment, 54/120 vs 39/120 passing → z and one-sided p-value
+    back: |
+      p̂_c = 0.3875, SD ≈ 0.0629, z ≈ 1.99, p ≈ 0.023: reject H₀ at α = 0.05.
+    topic_code: "3.13"
+  - front: Bakery receipts, Main 95/250 vs Harbor 71/230 with a pastry → two-sided test result
+    back: |
+      z ≈ 1.64, p ≈ 0.10 > 0.05: fail to reject; not convincing evidence the proportions differ.
+    topic_code: "3.13"
+  - front: Interpreting a two-proportion p-value → the sentence template
+    back: |
+      "Assuming there is no difference in the true proportions (p₁ = p₂), there is a [p-value] probability of getting a difference in sample proportions of [observed] or more extreme by chance alone."
+    topic_code: "3.13"
+  - front: Two-proportion test conclusion when p-value < α → the sentence template
+    back: |
+      "Because p-value = … < α = …, we reject H₀. There is convincing evidence that the proportion of all … is greater for group 1 than for group 2."
+    topic_code: "3.13"
+  - front: Two-proportion test conclusion when p-value > α → the sentence template
+    back: |
+      "Because p-value = … > α = …, we fail to reject H₀. There is not convincing evidence that the proportions of all … differ." Never "accept H₀".
+    topic_code: "3.13"
+  - front: Type I error in a two-proportion test → meaning in context
+    back: |
+      Concluding there is a difference (rejecting p₁ = p₂) when the true proportions are actually equal. Probability α.
+    topic_code: "3.13"
+  - front: Type II error in a two-proportion test → meaning in context
+    back: |
+      Failing to find convincing evidence of a difference when the true proportions really do differ.
+    topic_code: "3.13"
+  - front: After rejecting H₀ in a two-proportion test → which error is possible
+    back: |
+      Only a Type I error (you can be wrong only by having rejected a true H₀).
+    topic_code: "3.13"
+  - front: Power of a two-proportion test → three ways to increase it
+    back: |
+      Larger samples, a larger α, or a larger true difference between p₁ and p₂.
+    topic_code: "3.13"
+  - front: Two-sided two-proportion test at α = 0.05 and a 95% interval for p₁ − p₂ → how they agree
+    back: |
+      Rejecting H₀ matches an interval excluding 0; failing to reject matches one containing 0. They can disagree in rare borderline cases (pooled vs unpooled SD).
+    topic_code: "3.13"
+  - front: What a two-proportion interval adds after a significant test
+    back: |
+      The plausible size of the difference. A test says only whether there is convincing evidence of one.
+    topic_code: "3.13"
+  - front: Two-proportion test from a randomized experiment → scope of a rejection
+    back: |
+      The treatment caused the difference, for subjects like those in the study.
+    topic_code: "3.13"
+  - front: Two-proportion test from two random samples → scope of a rejection
+    back: |
+      The populations differ; generalise to both populations, but no causal claim.
+    topic_code: "3.13"
+  - front: Calculator command for a two-proportion test → what to enter
+    back: |
+      x₁, n₁, x₂, n₂ (whole-number counts) and the direction of Hₐ (on a TI-84: 2-PropZTest). Still write the hypotheses, conditions, z, p-value and conclusion.
+    topic_code: "3.13"
+  - front: "Error-spot → \"H₀: p̂₁ = p̂₂\""
+    back: |
+      Hypotheses are about parameters. Write H₀: p₁ = p₂ (or p₁ − p₂ = 0).
+    topic_code: "3.12"
+  - front: Error-spot → "The test SD is √(p̂₁(1 − p̂₁)/n₁ + p̂₂(1 − p̂₂)/n₂)"
+    back: |
+      That is the interval's SE. The test assumes p₁ = p₂ and uses the pooled √(p̂_c(1 − p̂_c)(1/n₁ + 1/n₂)).
+    topic_code: "3.13"
+  - front: Error-spot → "p = 0.14, so we accept that the two schools have the same CPR rate"
+    back: |
+      Fail to reject H₀: there is not convincing evidence of a difference. A test never shows the proportions are equal.
+    topic_code: "3.13"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 3.12 and 3.13: setting up and carrying out a
+    two-sample z-test for p₁ − p₂), with 8 questions (33%) reviewing weeks 15 to 20 (one-sample intervals and
+    tests, errors and power, the sampling distribution of p̂₁ − p̂₂, and intervals for p₁ − p₂ and the claims they
+    support). Opens with a shared-context set on a randomized vocabulary-program experiment. Multiple choice,
+    select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes. A
+    calculator is allowed throughout.
+  questions:
+    # ---- Stimulus set: vocabulary programs experiment (3.12, 3.13, 3.8)
+    - slug: apstats-u03-w21-q01
+      type: multiple_choice
+      topic_code: "3.12"
+      source: "AP Statistics CED, Topic 3.12"
+      points: 1
+      stimulus: |
+        A hypothetical school district randomly assigns 260 volunteer tenth graders to one of two six-week vocabulary programs: 130 use a flashcard app and 130 use printed word lists. At the end, 78 of the app group and 61 of the list group pass a vocabulary test. The district wants to know whether the app leads to a higher pass rate. Let p_app and p_list be the true proportions of students like these who would pass after each program. Use α = 0.05.
+      prompt: |
+        Which are the correct hypotheses?
+      options:
+        - "H₀: p̂_app − p̂_list = 0; Hₐ: p̂_app − p̂_list > 0"
+        - "H₀: p_app − p_list = 0; Hₐ: p_app − p_list ≠ 0"
+        - "H₀: p_app − p_list = 0; Hₐ: p_app − p_list > 0"
+        - "H₀: p_app − p_list > 0; Hₐ: p_app − p_list = 0"
+      option_explanations:
+        - |
+          Hypotheses are about the true proportions, not the sample proportions, which are already known.
+        - |
+          The district asks whether the app leads to a higher pass rate, a one-sided question, so the alternative should be > 0.
+        - |
+          Correct. H₀ says no difference; the research question (is the app better?) gives the one-sided alternative.
+        - |
+          The null hypothesis is always the "no difference" statement with an equals sign; the claim being sought goes in Hₐ.
+      answer: 2
+    - slug: apstats-u03-w21-q02
+      type: multiple_choice
+      topic_code: "3.12"
+      source: "AP Statistics CED, Topic 3.12"
+      points: 1
+      stimulus: |
+        A hypothetical school district randomly assigns 260 volunteer tenth graders to one of two six-week vocabulary programs: 130 use a flashcard app and 130 use printed word lists. At the end, 78 of the app group and 61 of the list group pass a vocabulary test. The district wants to know whether the app leads to a higher pass rate. Let p_app and p_list be the true proportions of students like these who would pass after each program. Use α = 0.05.
+      prompt: |
+        What is the pooled proportion p̂_c used in the test?
+      options:
+        - "About 0.535"
+        - "About 0.131"
+        - "0.600"
+        - "About 0.469"
+      option_explanations:
+        - |
+          Correct. p̂_c = (78 + 61)/(130 + 130) = 139/260 ≈ 0.535.
+        - |
+          0.131 is the difference p̂_app − p̂_list = 0.600 − 0.469, not the pooled proportion.
+        - |
+          0.600 is the app group's proportion alone; pooling combines the successes from both groups.
+        - |
+          0.469 is the list group's proportion alone; pooling combines both groups.
+      answer: 0
+    - slug: apstats-u03-w21-q03
+      type: multiple_choice
+      topic_code: "3.13"
+      source: "AP Statistics CED, Topic 3.13"
+      points: 1
+      stimulus: |
+        A hypothetical school district randomly assigns 260 volunteer tenth graders to one of two six-week vocabulary programs: 130 use a flashcard app and 130 use printed word lists. At the end, 78 of the app group and 61 of the list group pass a vocabulary test. The district wants to know whether the app leads to a higher pass rate. Let p_app and p_list be the true proportions of students like these who would pass after each program. Use α = 0.05.
+      prompt: |
+        What is the value of the test statistic?
+      options:
+        - "z ≈ 2.99"
+        - "z ≈ 2.11"
+        - "z ≈ 34.2"
+        - "z ≈ 0.017"
+      option_explanations:
+        - |
+          2.99 divides by √(p̂_c(1 − p̂_c)/130), using only one group's sample size; the SD needs (1/130 + 1/130).
+        - |
+          Correct. SD = √(0.535 · 0.465 · (1/130 + 1/130)) ≈ 0.0619, and z = 0.131/0.0619 ≈ 2.11.
+        - |
+          34.2 divides by the variance 0.0038 without taking its square root.
+        - |
+          0.017 is the one-sided p-value for z ≈ 2.11, not the test statistic.
+      answer: 1
+    - slug: apstats-u03-w21-q04
+      type: multiple_choice
+      topic_code: "3.13"
+      source: "AP Statistics CED, Topic 3.13"
+      points: 1
+      stimulus: |
+        A hypothetical school district randomly assigns 260 volunteer tenth graders to one of two six-week vocabulary programs: 130 use a flashcard app and 130 use printed word lists. At the end, 78 of the app group and 61 of the list group pass a vocabulary test. The district wants to know whether the app leads to a higher pass rate. Let p_app and p_list be the true proportions of students like these who would pass after each program. Use α = 0.05.
+      prompt: |
+        The p-value is about 0.017. Which conclusion is correct?
+      options:
+        - "Fail to reject H₀, because 0.017 is less than 0.05."
+        - "Reject H₀. The test proves that the app raises the pass rate."
+        - "Reject H₀. There is a 0.017 probability that the two programs are equally effective."
+        - "Reject H₀. There is convincing evidence that the app leads to a higher pass rate than word lists for students like these."
+      option_explanations:
+        - |
+          The decision rule is backwards: a p-value below α leads to rejecting H₀.
+        - |
+          Tests give convincing evidence, never proof; there is still a chance of a Type I error.
+        - |
+          The p-value is computed assuming H₀ is true; it is not the probability that H₀ is true.
+        - |
+          Correct. 0.017 < 0.05, so reject H₀; random assignment lets the district attribute the higher pass rate to the app, for volunteers like these.
+      answer: 3
+    - slug: apstats-u03-w21-q05
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 1
+      stimulus: |
+        A hypothetical school district randomly assigns 260 volunteer tenth graders to one of two six-week vocabulary programs: 130 use a flashcard app and 130 use printed word lists. At the end, 78 of the app group and 61 of the list group pass a vocabulary test. The district wants to know whether the app leads to a higher pass rate. Let p_app and p_list be the true proportions of students like these who would pass after each program. Use α = 0.05.
+      prompt: |
+        Given the decision in this study, which error could the district have made, and what would it mean?
+      options:
+        - "A Type I error: concluding the app raises the pass rate when in fact the two programs are equally effective"
+        - "A Type II error: concluding the app raises the pass rate when in fact the two programs are equally effective"
+        - "A Type II error: failing to find that the app is better when it really is"
+        - "No error is possible, because the p-value is below α."
+      option_explanations:
+        - |
+          Correct. The district rejected H₀, so the only possible mistake is rejecting a true H₀, a Type I error.
+        - |
+          The description is right but the name is wrong: rejecting a true H₀ is a Type I error.
+        - |
+          A Type II error requires failing to reject H₀, but the district rejected it.
+        - |
+          A small p-value makes a Type I error unlikely, not impossible; chance alone can produce such a result.
+      answer: 0
+    # ---- Independent items
+    - slug: apstats-u03-w21-q06
+      type: multiple_choice
+      topic_code: "3.12"
+      source: "AP Statistics CED, Topic 3.12"
+      points: 1
+      prompt: |
+        A researcher uses independent random samples of adults from two hypothetical cities to test whether the proportion who use a bike-share programme differs between the cities. Which is a correct definition of the parameter?
+      options:
+        - "p̂_A − p̂_B, the difference between the proportions of adults in the two samples who use the bike-share"
+        - "The proportion of all adults in both cities combined who use the bike-share"
+        - "p_A − p_B, where p_A and p_B are the proportions of all adults in City A and City B who use the bike-share"
+        - "The mean number of bike-share trips per adult in each city"
+      option_explanations:
+        - |
+          This is the statistic computed from the samples, not the parameter the test is about.
+        - |
+          The test compares the two cities, so the parameter is a difference, not one combined proportion.
+        - |
+          Correct. The parameter is the difference between the two population proportions, each defined in context.
+        - |
+          The variable is categorical (uses the programme or not), so the parameter is about proportions, not means.
+      answer: 2
+    - slug: apstats-u03-w21-q07
+      type: multiple_choice
+      topic_code: "3.12"
+      source: "AP Statistics CED, Topic 3.12"
+      points: 1
+      prompt: |
+        A gardener compares two fungus treatments on randomly assigned plants: 12 of 60 plants with the first treatment and 6 of 50 with the second develop leaf spots. She wants a two-sample z-test for p₁ − p₂. Is the Large Counts condition met?
+      options:
+        - "Yes, because both samples have at least 30 plants."
+        - "No, because with p̂_c = 18/110 ≈ 0.164, the expected counts 60(0.164) ≈ 9.8 and 50(0.164) ≈ 8.2 are less than 10."
+        - "Yes, because 110(0.164) ≈ 18 is at least 10."
+        - "Yes, because the plants were randomly assigned."
+      option_explanations:
+        - |
+          "At least 30" is the large-sample rule for means; proportions need at least 10 expected successes and failures in each group.
+        - |
+          Correct. Each group needs n·p̂_c ≥ 10 and n(1 − p̂_c) ≥ 10; the expected successes in both groups fall short.
+        - |
+          The counts must be checked separately for each group, not for the combined sample.
+        - |
+          Random assignment satisfies the Random condition; it says nothing about Large Counts.
+      answer: 1
+    - slug: apstats-u03-w21-q08
+      type: multiple_choice
+      topic_code: "3.13"
+      source: "AP Statistics CED, Topic 3.13"
+      points: 1
+      prompt: |
+        A consumer group tests H₀: p₁ − p₂ = 0 against Hₐ: p₁ − p₂ > 0, where p₁ and p₂ are the proportions of all customers of two hypothetical phone carriers who would recommend their carrier. Independent random samples give p̂₁ − p̂₂ = 0.09 and a p-value of 0.018. Which is the correct interpretation of the p-value?
+      options:
+        - "There is a 0.018 probability that the two carriers have the same proportion of customers who would recommend them."
+        - "There is a 0.018 probability that the first carrier's customers are more likely to recommend it."
+        - "If the study were repeated, 1.8% of samples would show a difference of 0.09."
+        - "Assuming the true proportions are equal, there is a 0.018 probability of getting a difference in sample proportions of 0.09 or greater by chance alone."
+      option_explanations:
+        - |
+          This treats the p-value as the probability that H₀ is true, but the p-value is computed assuming H₀ is true.
+        - |
+          The p-value is not a probability about Hₐ; it describes how surprising the data would be under H₀.
+        - |
+          This drops the condition "assuming H₀ is true" and the "or greater" part of the definition.
+        - |
+          Correct. It states the assumption (p₁ = p₂), the observed difference, the direction ("or greater") and "by chance alone".
+      answer: 3
+    - slug: apstats-u03-w21-q09
+      type: multiple_choice
+      topic_code: "3.13"
+      source: "AP Statistics CED, Topic 3.13"
+      points: 1
+      prompt: |
+        A two-sample z-test of H₀: p₁ − p₂ = 0 against Hₐ: p₁ − p₂ ≠ 0, comparing the proportions of all students at two hypothetical schools who walk to school, gives z = 2.10. What is the p-value?
+      options:
+        - "About 0.018"
+        - "About 0.036"
+        - "About 0.964"
+        - "About 0.982"
+      option_explanations:
+        - |
+          0.018 is the one-tail area P(Z ≥ 2.10); a two-sided alternative needs both tails.
+        - |
+          Correct. p-value = 2 · P(Z ≥ 2.10) ≈ 2(0.0179) ≈ 0.036.
+        - |
+          0.964 is 1 minus the two-sided p-value, the area between −2.10 and 2.10.
+        - |
+          0.982 is the area to the left of z = 2.10, the wrong tail.
+      answer: 1
+    - slug: apstats-u03-w21-q10
+      type: multiple_choice
+      topic_code: "3.12"
+      source: "AP Statistics CED, Topic 3.12"
+      points: 1
+      prompt: |
+        Why does a two-sample z-test for p₁ − p₂ use the pooled proportion p̂_c in its standard deviation, while a two-sample z-interval does not?
+      options:
+        - "The test assumes H₀: p₁ = p₂, so both samples estimate the same proportion and are combined to estimate it; the interval makes no such assumption."
+        - "Pooling makes the test statistic larger, which makes it easier to reject H₀."
+        - "The interval needs a larger margin of error, so it avoids pooling."
+        - "Pooling is required whenever the two sample sizes are different."
+      option_explanations:
+        - |
+          Correct. The test statistic is computed as if H₀ were true; under p₁ = p₂ the best estimate of the common p pools both samples.
+        - |
+          Pooling is not chosen to make rejection easier; it follows from assuming H₀, and it can make z slightly smaller or larger.
+        - |
+          The interval estimates p₁ and p₂ separately because it does not assume they are equal, not to change its width.
+        - |
+          The test pools whatever the sample sizes, because the reason is the null hypothesis, not unequal samples.
+      answer: 0
+    - slug: apstats-u03-w21-q11
+      type: multiple_choice
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 1
+      prompt: |
+        A 95% confidence interval for p₁ − p₂, the difference between the proportions of all members of two hypothetical libraries who borrow e-books, is (−0.02, 0.10). What would a two-sided test of H₀: p₁ = p₂ at α = 0.05 most likely conclude?
+      options:
+        - "Reject H₀, because most of the interval is positive."
+        - "Reject H₀, because 0.10 is far from 0."
+        - "Fail to reject H₀, because 0 is a plausible value of p₁ − p₂."
+        - "Accept H₀, because the interval contains 0."
+      option_explanations:
+        - |
+          What matters is whether 0 is in the interval, not how much of the interval is positive.
+        - |
+          The upper endpoint being far from 0 does not matter while the interval still contains 0.
+        - |
+          Correct. A 95% interval containing 0 matches a two-sided test at α = 0.05 that fails to reject H₀ (apart from rare borderline cases).
+        - |
+          A test never accepts H₀; it either rejects H₀ or fails to reject it.
+      answer: 2
+    - slug: apstats-u03-w21-q12
+      type: multiple_choice
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 1
+      prompt: |
+        Independent random samples of 200 riders from each of two hypothetical bus routes show that 88 on Route 1 and 66 on Route 2 ride at least five days a week. Which is the 90% confidence interval for p₁ − p₂?
+      options:
+        - "(0.015, 0.205)"
+        - "(−0.190, −0.030)"
+        - "(0.062, 0.158)"
+        - "(0.030, 0.190)"
+      option_explanations:
+        - |
+          This uses z* = 1.960, which gives a 95% interval.
+        - |
+          This is the interval for p₂ − p₁, the reverse order of subtraction.
+        - |
+          This uses the SE, about 0.0483, as the margin of error and leaves out the critical value z* = 1.645.
+        - |
+          Correct. 0.44 − 0.33 = 0.11; SE ≈ 0.0483; 0.11 ± 1.645(0.0483) = 0.11 ± 0.080.
+      answer: 3
+    - slug: apstats-u03-w21-q13
+      type: multiple_choice
+      topic_code: "3.9"
+      source: "AP Statistics CED, Topic 3.9"
+      points: 1
+      prompt: |
+        In which situation would the sampling distribution of p̂₁ − p̂₂ not be approximately normal?
+      options:
+        - "p₁ = 0.06 with n₁ = 120, and p₂ = 0.10 with n₂ = 150"
+        - "p₁ = 0.40 with n₁ = 80, and p₂ = 0.50 with n₂ = 80"
+        - "p₁ = 0.25 with n₁ = 100, and p₂ = 0.30 with n₂ = 200"
+        - "p₁ = 0.70 with n₁ = 60, and p₂ = 0.60 with n₂ = 90"
+      option_explanations:
+        - |
+          Correct. n₁p₁ = 120(0.06) = 7.2 is less than 10, so the Large Counts check fails for the first sample.
+        - |
+          Here 32, 48, 40 and 40 are all at least 10, so the distribution is approximately normal.
+        - |
+          Here 25, 75, 60 and 140 are all at least 10, so the distribution is approximately normal.
+        - |
+          Here 42, 18, 54 and 36 are all at least 10, so the distribution is approximately normal.
+      answer: 0
+    - slug: apstats-u03-w21-q14
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      prompt: |
+        A student plans a one-sample z-interval for the proportion of all students at her large school who drink coffee daily. Which change would make the interval narrower?
+      options:
+        - "Raising the confidence level from 95% to 99%"
+        - "Surveying 50 students instead of 100"
+        - "Lowering the confidence level from 95% to 90%"
+        - "Sampling from a larger school with the same sample size"
+      option_explanations:
+        - |
+          A higher confidence level uses a larger z*, making the interval wider.
+        - |
+          A smaller sample gives a larger standard error and a wider interval.
+        - |
+          Correct. A lower confidence level uses a smaller z* (1.645 instead of 1.960), so the margin of error shrinks.
+        - |
+          As long as the sample is under 10% of the population, the population size has essentially no effect on the margin of error.
+      answer: 2
+    - slug: apstats-u03-w21-q15
+      type: multi_select
+      topic_code: "3.13"
+      source: "AP Statistics CED, Topic 3.13"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A hypothetical energy office uses independent random samples of homeowners in two counties to test H₀: p₁ = p₂ against Hₐ: p₁ ≠ p₂, where p₁ and p₂ are the proportions of all homeowners in each county with solar panels. The p-value is 0.003 and α = 0.01. Which statements are correct? Select all that apply.
+      options:
+        - "Reject H₀, because 0.003 < 0.01."
+        - "There is convincing evidence that the proportions of all homeowners with solar panels differ between the two counties."
+        - "There is a 0.003 probability that the proportions are equal."
+        - "Living in one of the counties causes homeowners to install solar panels."
+        - "A 99% confidence interval for p₁ − p₂ from these data would be expected not to contain 0."
+      option_explanations:
+        - |
+          Correct. The p-value is below α, so H₀ is rejected.
+        - |
+          Correct. Rejecting H₀ with random samples gives convincing evidence of a difference between the two populations.
+        - |
+          The p-value assumes H₀ is true; it is not the probability that H₀ is true.
+        - |
+          Random samples, not random assignment, so there is no cause-and-effect conclusion.
+        - |
+          Correct. A two-sided test rejecting at α = 0.01 corresponds to a 99% interval that excludes 0.
+      answer: [0, 1, 4]
+    - slug: apstats-u03-w21-q16
+      type: multi_select
+      topic_code: "3.12"
+      source: "AP Statistics CED, Topic 3.12"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which pairs are valid hypotheses for a two-sample z-test comparing the proportions of all customers at two hypothetical cafés who order oat milk? Select all that apply.
+      options:
+        - "H₀: p̂₁ = p̂₂; Hₐ: p̂₁ > p̂₂"
+        - "H₀: p₁ − p₂ = 0; Hₐ: p₁ − p₂ ≠ 0"
+        - "H₀: p₁ = p₂; Hₐ: p₁ < p₂"
+        - "H₀: p₁ − p₂ = 0; Hₐ: p₁ − p₂ > 0"
+        - "H₀: p₁ − p₂ > 0; Hₐ: p₁ − p₂ = 0"
+      option_explanations:
+        - |
+          Hypotheses must be about the population proportions, not the sample proportions.
+        - |
+          Correct. A two-sided test of no difference against any difference.
+        - |
+          Correct. Writing p₁ = p₂ is equivalent to p₁ − p₂ = 0; the alternative is one-sided.
+        - |
+          Correct. A one-sided test of no difference against p₁ larger.
+        - |
+          The equality belongs in H₀ and the claim being sought in Hₐ; these are reversed.
+      answer: [1, 2, 3]
+    - slug: apstats-u03-w21-q17
+      type: true_false
+      topic_code: "3.13"
+      source: "AP Statistics CED, Topic 3.13"
+      points: 1
+      prompt: |
+        True or false: If a two-sample z-test comparing the proportions of all adults in two towns who volunteer fails to reject H₀: p₁ = p₂, the test has shown that the two proportions are equal.
+      answer: false
+      explanation: |
+        False. Failing to reject H₀ means there is not convincing evidence of a difference. The proportions could still differ by an amount the samples were too small to detect (a Type II error is possible).
+    - slug: apstats-u03-w21-q18
+      type: true_false
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 1
+      prompt: |
+        True or false: With the sample size fixed, lowering the significance level of a test about the proportion of all students who walk to school from 0.05 to 0.01 increases the power of the test.
+      answer: false
+      explanation: |
+        False. A smaller α makes H₀ harder to reject, so the power decreases and the probability of a Type II error increases (while the probability of a Type I error falls).
+    - slug: apstats-u03-w21-q19
+      type: fill_blank
+      topic_code: "3.12"
+      source: "AP Statistics CED, Topic 3.12"
+      points: 1
+      prompt: |
+        A hypothetical survey finds 45 of 150 randomly selected juniors and 35 of 100 randomly selected seniors at a large school take a bus to school. For a two-sample z-test, the pooled proportion p̂_c is ____ (as a decimal).
+      answer: ["0.32", ".32"]
+      explanation: |
+        p̂_c = (45 + 35)/(150 + 100) = 80/250 = 0.32.
+    - slug: apstats-u03-w21-q20
+      type: fill_blank
+      topic_code: "3.7"
+      source: "AP Statistics CED, Topic 3.7"
+      points: 1
+      prompt: |
+        A test of H₀: p = 0.50, where p is the proportion of all voters in a hypothetical town who favour a new library, uses a random sample of 100 voters with p̂ = 0.60. The test statistic is z = ____.
+      answer: ["2", "2.0", "2.00", "+2"]
+      explanation: |
+        z = (0.60 − 0.50)/√(0.50·0.50/100) = 0.10/0.05 = 2.00. The test uses p₀ = 0.50 in the standard deviation.
+    - slug: apstats-u03-w21-q21
+      type: numeric
+      topic_code: "3.13"
+      source: "AP Statistics CED, Topic 3.13"
+      points: 1
+      prompt: |
+        Independent random samples of seniors at two large hypothetical high schools are asked whether they plan to attend a four-year college: 64 of 160 at Central and 45 of 150 at Westside say yes. Find the test statistic of a two-sample z-test of H₀: p_C = p_W, with p̂_C − p̂_W in the numerator. Give your answer to two decimal places.
+      answer: { value: 1.84, tolerance: 0.01 }
+      explanation: |
+        p̂_C = 0.400, p̂_W = 0.300; p̂_c = 109/310 ≈ 0.3516. SD = √(0.3516 · 0.6484 · (1/160 + 1/150)) ≈ 0.0543. z = 0.100/0.0543 ≈ 1.84.
+    - slug: apstats-u03-w21-q22
+      type: short_answer
+      topic_code: "3.12"
+      source: "AP Statistics CED, Topic 3.12"
+      points: 3
+      prompt: |
+        A hypothetical city wants to know whether a smaller proportion of households on its east side than on its west side recycle glass. It surveys independent random samples of 300 east-side households (132 recycle glass) and 280 west-side households (147 recycle glass). Each side has more than 20,000 households.
+
+        (a) Define the parameters and state the hypotheses.
+        (b) Compute the pooled proportion and check all conditions for a two-sample z-test.
+        (c) Explain why the pooled proportion, rather than the two separate sample proportions, is used in this test's standard deviation.
+      answer: |
+        (a) p_E = the proportion of all east-side households that recycle glass; p_W = the same for all west-side households. H₀: p_E − p_W = 0; Hₐ: p_E − p_W < 0.
+        (b) p̂_c = (132 + 147)/(300 + 280) = 279/580 ≈ 0.481. Random: independent random samples from each side. 10%: 300 and 280 are each less than 10% of more than 20,000 households. Large Counts: 300(0.481) ≈ 144.3, 300(0.519) ≈ 155.7, 280(0.481) ≈ 134.7, 280(0.519) ≈ 145.3, all at least 10.
+        (c) The test statistic is computed assuming H₀ is true, so both samples estimate the same proportion; combining them gives the best estimate of that common proportion.
+      explanation: |
+        Three points, one per part. (a) both parameters defined in context and hypotheses about parameters with the < alternative. (b) p̂_c ≈ 0.481 and all three conditions (Random, 10% for both sides, all four Large Counts). (c) the reason: the test assumes H₀: p_E = p_W.
+    - slug: apstats-u03-w21-q23
+      type: short_answer
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 3
+      prompt: |
+        A hypothetical seed company randomly assigns 400 garden plots to be planted with a new or an old variety of carrot seed (200 each). A 95% interval for p_new − p_old, the difference in the true proportions of seeds that germinate, is (−0.08, 0.02). A competitor's advertisement says, "The new seed germinates less often than the old seed."
+
+        (a) Does the interval give convincing evidence for the advertisement's claim? Explain.
+        (b) A sales manager says the interval shows the two seeds germinate equally often. Is this correct? Explain.
+        (c) If the interval had been (−0.12, −0.03), what could the company conclude, and could it attribute the difference to the seed variety? Explain.
+      answer: |
+        (a) No. The interval contains 0, so a difference of 0 is plausible; there is not convincing evidence that the new seed germinates less often.
+        (b) No. 0 is plausible, but so are differences from −0.08 to 0.02; the interval does not show the proportions are equal.
+        (c) Every plausible value would be negative, giving convincing evidence that the new seed germinates less often (by about 3 to 12 percentage points). Because the varieties were randomly assigned to plots, the difference could be attributed to the variety.
+      explanation: |
+        Three points, one per part. (a) "no" because 0 is in the interval. (b) "no": not convincing evidence of a difference is not evidence of equality. (c) convincing evidence that p_new < p_old with the reason (interval entirely below 0) and causation justified by random assignment.
+    - slug: apstats-u03-w21-q24
+      type: long_answer
+      topic_code: "3.13"
+      source: "AP Statistics CED, Topic 3.13"
+      points: 7
+      prompt: |
+        A hypothetical health department asks whether the proportion of students who have completed a CPR course differs between two large high schools, Hilltop (about 2,400 students) and Lakeside (about 2,300 students). In a random sample of 210 Hilltop students, 84 have completed a CPR course; in an independent random sample of 200 Lakeside students, 66 have.
+
+        (A) Define the parameters and state the hypotheses.
+
+        (B) Name the procedure and check its conditions.
+
+        (C) Compute the test statistic and the p-value.
+
+        (D) State the conclusion at α = 0.05 in context.
+
+        (E) Based on your conclusion, which type of error could have been made? Describe it in context.
+      answer: |
+        (A) p_H = the proportion of all Hilltop students who have completed a CPR course; p_L = the same for all Lakeside students. H₀: p_H − p_L = 0; Hₐ: p_H − p_L ≠ 0.
+        (B) Two-sample z-test for p_H − p_L. Random: independent random samples from each school. 10%: 210 < 10% of 2,400 = 240 and 200 < 10% of 2,300 = 230. Large Counts: p̂_c = 150/410 ≈ 0.366; 210(0.366) ≈ 76.8, 210(0.634) ≈ 133.2, 200(0.366) ≈ 73.2, 200(0.634) ≈ 126.8, all at least 10.
+        (C) p̂_H = 0.400, p̂_L = 0.330, difference 0.070. SD = √(0.366 · 0.634 · (1/210 + 1/200)) ≈ 0.0476. z ≈ 1.47. p-value = 2 · P(Z ≥ 1.47) ≈ 0.141.
+        (D) Because the p-value 0.141 > α = 0.05, we fail to reject H₀. There is not convincing evidence that the proportions of all students who have completed a CPR course differ between Hilltop and Lakeside.
+        (E) A Type II error: the proportions of students with CPR training really do differ between the two schools, but the test did not find convincing evidence of the difference.
+      explanation: |
+        Seven points.
+        (A) 1 point: both parameters defined in context and two-sided hypotheses about parameters.
+        (B) 2 points: 1 for naming the two-sample z-test for a difference in proportions and checking Random; 1 for the 10% condition for both schools and Large Counts with all four values (computed with p̂_c, or with the observed counts 84, 126, 66, 134).
+        (C) 2 points: 1 for z ≈ 1.47 with the pooled SD shown (or the calculator procedure with inputs); 1 for the two-sided p-value ≈ 0.14. A one-sided p-value (≈ 0.07) earns only the first point.
+        (D) 1 point: fail to reject, comparing p-value with α, with "not convincing evidence" of a difference in context. "Accept H₀" or "the proportions are equal" earns nothing.
+        (E) 1 point: Type II error, described in context as failing to detect a difference that exists.

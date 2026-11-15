@@ -1,0 +1,587 @@
+week: 17
+unit: 3
+title: "Setting Up a Test for a Proportion and p-Values"
+topics: ["3.5", "3.6"]
+guide: guides/week-17.md
+guide_description: |
+  Writing null and alternative hypotheses about a population proportion, with the parameter defined in context
+  and the direction taken from the question; the conditions for a one-sample z-test for p (Large Counts with
+  p₀); the test statistic; and computing, interpreting and estimating p-values, including what a p-value is not.
+  Worked examples: hypotheses for bike riding, a game spinner and seed sprouting; setting up a test of whether
+  more students buy the school lunch after a menu change (z ≈ 2.19, p-value ≈ 0.014); a two-sided test of
+  parents' support for a four-day school week (p-value ≈ 0.101); and a simulated p-value for a basketball
+  player's free throws.
+flashcards_description: |
+  30 cards on hypotheses for a population proportion, one- and two-sided alternatives, the conditions for a
+  one-sample z-test for p, the test statistic, computing and interpreting p-values, simulated p-values and the
+  usual p-value misreadings.
+
+flashcards:
+  - front: Null hypothesis for a one-sample z-test for p → form
+    back: |
+      H₀: p = p₀, a specific value that represents "no change" or "the claim is correct". It always holds the equals sign.
+    topic_code: "3.5"
+  - front: Alternative hypothesis for a one-sample z-test for p → three possible forms
+    back: |
+      Hₐ: p > p₀, Hₐ: p < p₀ or Hₐ: p ≠ p₀, chosen from the wording of the question before seeing the data.
+    topic_code: "3.5"
+  - front: Bike racks question ("has biking gone up from 22%?") → hypotheses
+    back: |
+      H₀: p = 0.22, Hₐ: p > 0.22, where p = the proportion of all students at the school who now bike to school.
+    topic_code: "3.5"
+  - front: Fair-spinner question ("is it unfair?") → hypotheses
+    back: |
+      H₀: p = 0.5, Hₐ: p ≠ 0.5, where p = the long-run proportion of spins landing on red. "Unfair" has no direction.
+    topic_code: "3.5"
+  - front: Seed packet claim of 85%, gardener suspects lower → hypotheses
+    back: |
+      H₀: p = 0.85, Hₐ: p < 0.85, where p = the proportion of all seeds of this kind that sprout.
+    topic_code: "3.5"
+  - front: One-sided vs two-sided alternative → how to choose
+    back: |
+      One-sided if the question names a direction ("increased", "less than", "more than"); two-sided if it asks "different", "changed" or "unfair".
+    topic_code: "3.5"
+  - front: Hypotheses in a proportion test → parameter or statistic?
+    back: |
+      Always the parameter p (with a definition in context). p̂ is already known, so there is nothing to test about it.
+    topic_code: "3.5"
+  - front: Conditions for a one-sample z-test for p → the three checks
+    back: |
+      Random: random sample or random assignment. 10%: n ≤ 10% of the population. Large Counts: np₀ ≥ 10 and n(1 − p₀) ≥ 10.
+    topic_code: "3.5"
+  - front: Large Counts in a test uses p₀ → why
+    back: |
+      The test is carried out assuming H₀ is true, so the expected numbers of successes and failures come from p₀.
+    topic_code: "3.5"
+  - front: Test statistic for a one-sample z-test for p → formula
+    back: |
+      z = (p̂ − p₀) / √(p₀(1 − p₀)/n): how many standard deviations p̂ is from the null value.
+    topic_code: "3.5"
+  - front: Any test statistic in AP Statistics → general form
+    back: |
+      (statistic − null value of the parameter) / (standard deviation or standard error of the statistic).
+    topic_code: "3.5"
+  - front: Sampling distribution of p̂ assumed by a z-test → mean and SD
+    back: |
+      Approximately normal with mean p₀ and SD √(p₀(1 − p₀)/n), assuming H₀ is true and the conditions hold.
+    topic_code: "3.5"
+  - front: p-value → definition
+    back: |
+      Assuming H₀ is true, the probability of getting a statistic at least as extreme as the one observed, in the direction(s) given by Hₐ.
+    topic_code: "3.6"
+  - front: Interpreting a p-value for a one-proportion test → template
+    back: |
+      "Assuming H₀ is true (p = p₀), there is a [p-value] probability of getting a sample proportion of [p̂] or [greater / less / farther from p₀] by chance alone."
+    topic_code: "3.6"
+  - front: 'p-value for Hₐ: p > p₀, p < p₀ and p ≠ p₀ → which areas'
+    back: |
+      P(Z ≥ z); P(Z ≤ z); 2 · P(Z ≥ |z|).
+    topic_code: "3.6"
+  - front: 'Cafeteria test (117 of 250 buy lunch, H₀: p = 0.40, Hₐ: p > 0.40) → z and p-value'
+    back: |
+      p̂ = 0.468; z = (0.468 − 0.40)/√(0.4 · 0.6 / 250) ≈ 2.19; p-value = P(Z ≥ 2.19) ≈ 0.014.
+    topic_code: "3.6"
+  - front: 'Four-day-week test (79 of 180, H₀: p = 0.5, Hₐ: p ≠ 0.5) → z and p-value'
+    back: |
+      p̂ ≈ 0.439; z ≈ −1.64; two-sided p-value ≈ 0.101 (a one-sided p-value would be about 0.051).
+    topic_code: "3.6"
+  - front: Small p-value → what it tells you
+    back: |
+      The observed result would rarely happen by chance if H₀ were true, so the data give evidence against H₀ and in favour of Hₐ.
+    topic_code: "3.6"
+  - front: Large p-value → what it tells you
+    back: |
+      A result like the observed one is quite likely when H₀ is true; the data give no convincing evidence against H₀. It does not show H₀ is true.
+    topic_code: "3.6"
+  - front: Simulated p-value → how to estimate it
+    back: |
+      Simulate many samples assuming H₀ is true; p-value ≈ (number of simulated statistics at least as extreme as observed) / (number of simulations).
+    topic_code: "3.6"
+  - front: Free throws, 7 of 200 simulated sets at 85% or better → estimated p-value
+    back: |
+      7/200 = 0.035 (the exact binomial value is about 0.024).
+    topic_code: "3.6"
+  - front: Significance level α → what it is and when it is chosen
+    back: |
+      The cut-off for "small enough" p-values (often 0.05), chosen before the data are collected.
+    topic_code: "3.6"
+  - front: Doubling for a two-sided test → why
+    back: |
+      "At least as extreme" counts results as far from p₀ in either direction, so both tails count.
+    topic_code: "3.6"
+  - front: Choosing the direction of Hₐ after seeing the data → why it is wrong
+    back: |
+      It halves the p-value unfairly and makes evidence look stronger than it is. The question, not the sample, sets the direction.
+    topic_code: "3.5"
+  - front: Larger |z| in a one-proportion test → effect on the p-value
+    back: |
+      Smaller p-value: the farther p̂ is from p₀ in standard deviations, the rarer such a result is under H₀.
+    topic_code: "3.6"
+  - front: Same p̂ − p₀ with a larger n → effect on z and the p-value
+    back: |
+      The SD √(p₀(1 − p₀)/n) shrinks, so |z| grows and the p-value falls: the same difference is stronger evidence from a bigger sample.
+    topic_code: "3.6"
+  - front: 'Website test (48 purchases in 200 visits, H₀: p = 0.30, Hₐ: p < 0.30) → z and p-value'
+    back: |
+      p̂ = 0.24; z = (0.24 − 0.30)/√(0.3 · 0.7 / 200) ≈ −1.85; p-value ≈ 0.032.
+    topic_code: "3.6"
+  - front: 'Error-spot → "H₀: p̂ = 0.40, Hₐ: p̂ > 0.40"'
+    back: |
+      Hypotheses are about the population proportion p, never the sample proportion: H₀: p = 0.40, Hₐ: p > 0.40.
+    topic_code: "3.5"
+  - front: Error-spot → "the p-value is 0.014, so there is a 1.4% chance that H₀ is true"
+    back: |
+      The p-value is computed assuming H₀ is true; it is the probability of data this extreme, not of H₀.
+    topic_code: "3.6"
+  - front: 'Error-spot → "Large Counts for the test: 117 and 133 are both at least 10"'
+    back: |
+      Those are the observed counts, used for an interval. A test checks np₀ = 250(0.40) = 100 and n(1 − p₀) = 150.
+    topic_code: "3.5"
+
+quiz:
+  description: |
+    22 questions · about 40 minutes · mostly on this week (topics 3.5 and 3.6: writing hypotheses, checking
+    conditions, the z test statistic, and computing and interpreting p-values), with 7 questions (32%) reviewing
+    weeks 12, 15 and 16 (binomial probabilities, the sampling distribution of p̂, and constructing and using
+    confidence intervals). Opens with a shared-context set on part-time jobs at one school. Multiple choice,
+    select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes.
+    A calculator is allowed throughout.
+  questions:
+    # ---- Stimulus set: part-time jobs (3.5, 3.6)
+    - slug: apstats-u03-w17-q01
+      type: multiple_choice
+      topic_code: "3.5"
+      source: "AP Statistics CED, Topic 3.5"
+      points: 1
+      stimulus: |
+        A hypothetical high school's principal says that 30% of the school's 2,100 students have a part-time job. The student newspaper suspects the true proportion is higher. Its reporters take a simple random sample of 160 students and find that 58 of them have a part-time job.
+      prompt: |
+        Which hypotheses should the newspaper test, where p is the proportion of all students at the school who have a part-time job?
+      options:
+        - "H₀: p̂ = 0.30, Hₐ: p̂ > 0.30"
+        - "H₀: p = 0.30, Hₐ: p ≠ 0.30"
+        - "H₀: p = 0.30, Hₐ: p > 0.30"
+        - "H₀: p > 0.30, Hₐ: p = 0.30"
+      option_explanations:
+        - |
+          Hypotheses are about the population proportion p; the sample proportion p̂ = 0.3625 is already known.
+        - |
+          The newspaper suspects the proportion is higher, a direction, so the alternative should be one-sided.
+        - |
+          Correct. The null is the principal's claim, p = 0.30; the newspaper's suspicion gives Hₐ: p > 0.30.
+        - |
+          The hypotheses are swapped: the null hypothesis carries the equals sign and the claim being tested against.
+      answer: 2
+    - slug: apstats-u03-w17-q02
+      type: multiple_choice
+      topic_code: "3.5"
+      source: "AP Statistics CED, Topic 3.5"
+      points: 1
+      stimulus: |
+        A hypothetical high school's principal says that 30% of the school's 2,100 students have a part-time job. The student newspaper suspects the true proportion is higher. Its reporters take a simple random sample of 160 students and find that 58 of them have a part-time job.
+      prompt: |
+        Which is the correct Large Counts check for this significance test?
+      options:
+        - "160(0.30) = 48 and 160(0.70) = 112 are both at least 10."
+        - "58 and 102 are both at least 10."
+        - "160 is at least 30."
+        - "160 is less than 10% of 2,100."
+      option_explanations:
+        - |
+          Correct. A test assumes H₀ is true, so the expected counts use p₀ = 0.30: np₀ = 48 and n(1 − p₀) = 112.
+        - |
+          58 and 102 are the observed successes and failures, which are what a confidence interval checks; a test uses p₀.
+        - |
+          n ≥ 30 is a guideline for means; it is not the Large Counts condition for a proportion.
+        - |
+          160 ≤ 210 is the 10% condition, which justifies independence, not the normal shape.
+      answer: 0
+    - slug: apstats-u03-w17-q03
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Statistics CED, Topic 3.6"
+      points: 1
+      stimulus: |
+        A hypothetical high school's principal says that 30% of the school's 2,100 students have a part-time job. The student newspaper suspects the true proportion is higher. Its reporters take a simple random sample of 160 students and find that 58 of them have a part-time job.
+      prompt: |
+        What is the value of the test statistic, to two decimal places?
+      options:
+        - "z = 1.64"
+        - "z = 0.14"
+        - "z = −1.73"
+        - "z = 1.73"
+      option_explanations:
+        - |
+          1.64 uses p̂ in the standard deviation, √(0.3625 · 0.6375 / 160); a test uses p₀ = 0.30.
+        - |
+          0.14 divides by √(0.30 · 0.70) without dividing by n = 160 inside the square root.
+        - |
+          The subtraction is reversed; z = (p̂ − p₀)/SD is positive because p̂ = 0.3625 is above 0.30.
+        - |
+          Correct. p̂ = 58/160 = 0.3625; SD = √(0.30 · 0.70 / 160) ≈ 0.0362; z = (0.3625 − 0.30)/0.0362 ≈ 1.73.
+      answer: 3
+    - slug: apstats-u03-w17-q04
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Statistics CED, Topic 3.6"
+      points: 1
+      stimulus: |
+        A hypothetical high school's principal says that 30% of the school's 2,100 students have a part-time job. The student newspaper suspects the true proportion is higher. Its reporters take a simple random sample of 160 students and find that 58 of them have a part-time job.
+      prompt: |
+        What is the p-value of the test, to three decimal places?
+      options:
+        - "0.085"
+        - "0.042"
+        - "0.958"
+        - "0.063"
+      option_explanations:
+        - |
+          0.085 doubles the tail area, which is the two-sided p-value; the alternative here is one-sided (greater than).
+        - |
+          Correct. For Hₐ: p > 0.30, p-value = P(Z ≥ 1.73) ≈ 0.042.
+        - |
+          0.958 is the area below z = 1.73, the wrong tail for Hₐ: p > 0.30.
+        - |
+          0.063 is p̂ − p₀ = 0.0625, a difference in proportions, not a probability.
+      answer: 1
+    - slug: apstats-u03-w17-q05
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Statistics CED, Topic 3.6"
+      points: 1
+      stimulus: |
+        A hypothetical high school's principal says that 30% of the school's 2,100 students have a part-time job. The student newspaper suspects the true proportion is higher. Its reporters take a simple random sample of 160 students and find that 58 of them have a part-time job.
+      prompt: |
+        Which is a correct interpretation of the p-value of this test?
+      options:
+        - "There is a 0.042 probability that the principal's claim of 30% is true."
+        - "There is a 0.042 probability that the newspaper's sample result happened by chance."
+        - "4.2% of the school's students have a part-time job."
+        - "Assuming 30% of all students have a part-time job, there is a 0.042 probability of getting a sample proportion of 0.3625 or higher by chance alone."
+      option_explanations:
+        - |
+          The p-value is computed assuming the claim is true, so it cannot be the probability that the claim is true.
+        - |
+          This leaves out the assumption that H₀ is true and the "at least as extreme" part, which are what the p-value is about.
+        - |
+          The p-value is a probability about samples, not a proportion of students.
+        - |
+          Correct. It states the assumption (p = 0.30), the probability, and a result at least as extreme as observed, in context.
+      answer: 3
+    # ---- Independent items
+    - slug: apstats-u03-w17-q06
+      type: multiple_choice
+      topic_code: "3.5"
+      source: "AP Statistics CED, Topic 3.5"
+      points: 1
+      prompt: |
+        A ferry company claims that 60% of its passengers travel with a car. A port official suspects the proportion is lower. Which is a correct pair of hypotheses, where p is the proportion of all the company's passengers who travel with a car?
+      options:
+        - "H₀: p̂ = 0.60, Hₐ: p̂ < 0.60"
+        - "H₀: p < 0.60, Hₐ: p = 0.60"
+        - "H₀: p = 0.60, Hₐ: p < 0.60"
+        - "H₀: p = 0.60, Hₐ: p < 0.55"
+      option_explanations:
+        - |
+          Hypotheses must be about the parameter p, not the sample statistic p̂.
+        - |
+          The equals sign belongs in the null hypothesis; this pair is reversed.
+        - |
+          Correct. The null is the company's claim; the official's suspicion of a lower proportion gives a one-sided alternative.
+        - |
+          The alternative must use the same value as the null: it is any value below 0.60, not below some other number.
+      answer: 2
+    - slug: apstats-u03-w17-q07
+      type: multiple_choice
+      topic_code: "3.5"
+      source: "AP Statistics CED, Topic 3.5"
+      points: 1
+      prompt: |
+        A national report says 25% of high school students take a language other than English. A teacher wants to know whether the proportion at her large school is different from the national figure. Which alternative hypothesis fits her question?
+      options:
+        - "Hₐ: p ≠ 0.25"
+        - "Hₐ: p > 0.25"
+        - "Hₐ: p < 0.25"
+        - "Hₐ: p = 0.25"
+      option_explanations:
+        - |
+          Correct. "Different" has no direction, so the alternative is two-sided.
+        - |
+          A one-sided alternative would be right only if she asked whether her school's proportion is higher.
+        - |
+          A one-sided alternative would be right only if she asked whether her school's proportion is lower.
+        - |
+          p = 0.25 is the null hypothesis; the alternative cannot contain the equals sign.
+      answer: 0
+    - slug: apstats-u03-w17-q08
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Statistics CED, Topic 3.6"
+      points: 1
+      prompt: |
+        A researcher tests H₀: p = 0.50 against Hₐ: p > 0.50 for the proportion of a city's commuters who work from home at least one day a week, and gets a p-value of 0.21. What does this p-value tell the researcher?
+      options:
+        - "The null hypothesis is true, so exactly half of the commuters work from home at least one day a week."
+        - "There is a 0.21 probability that the null hypothesis is true."
+        - "There is a 0.79 probability that the alternative hypothesis is true."
+        - "If p = 0.50, a sample proportion at least as large as the one observed would occur about 21% of the time, so the result is not unusual."
+      option_explanations:
+        - |
+          A large p-value means the data are consistent with H₀; it never proves H₀ is true.
+        - |
+          The p-value is computed assuming H₀; it is not the probability that H₀ is true.
+        - |
+          The p-value says nothing about the probability of the alternative; 1 − p-value has no such meaning.
+        - |
+          Correct. The p-value is the probability, assuming H₀, of a result at least as extreme as observed; 0.21 means such results are common, so there is no convincing evidence against H₀.
+      answer: 3
+    - slug: apstats-u03-w17-q09
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Statistics CED, Topic 3.6"
+      points: 1
+      prompt: |
+        In a test of H₀: p = 0.70 against Hₐ: p ≠ 0.70, the test statistic is z = −2.10. What is the p-value?
+      options:
+        - "0.018"
+        - "0.036"
+        - "0.982"
+        - "0.964"
+      option_explanations:
+        - |
+          0.018 is one tail, P(Z ≤ −2.10); a two-sided alternative counts both tails.
+        - |
+          Correct. p-value = 2 · P(Z ≤ −2.10) = 2(0.0179) ≈ 0.036.
+        - |
+          0.982 is the area above −2.10, the side opposite to the observed result.
+        - |
+          0.964 is the area between −2.10 and 2.10, the complement of the two-sided p-value.
+      answer: 1
+    - slug: apstats-u03-w17-q10
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "AP Statistics CED, Topic 3.4"
+      points: 1
+      prompt: |
+        A clothing factory claims that 5% of its shirts have a flaw. From a random sample of shirts, an inspector builds a 95% confidence interval for the proportion of all the factory's shirts with a flaw: (0.031, 0.069). Which conclusion is best?
+      options:
+        - "The interval proves that exactly 5% of the shirts have a flaw."
+        - "Because 0.05 is in the middle of the interval, the factory's claim is false."
+        - "0.05 is a plausible value, so the data do not give convincing evidence against the factory's claim."
+        - "0.05 is outside the interval, so there is convincing evidence that the proportion differs from 0.05."
+      option_explanations:
+        - |
+          An interval contains many plausible values; it does not prove any one of them.
+        - |
+          A value inside the interval is plausible; being near the middle makes it more consistent with the data, not less.
+        - |
+          Correct. 0.05 lies inside (0.031, 0.069), so it is plausible; there is no convincing evidence that the factory's claim is wrong.
+        - |
+          0.05 is between 0.031 and 0.069, so it is inside the interval, not outside.
+      answer: 2
+    - slug: apstats-u03-w17-q11
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      prompt: |
+        A 90% confidence interval for the proportion of all commuters in a hypothetical city who carpool is (0.18, 0.26). What are the point estimate and the margin of error?
+      options:
+        - "Point estimate 0.22, margin of error 0.04"
+        - "Point estimate 0.22, margin of error 0.08"
+        - "Point estimate 0.18, margin of error 0.26"
+        - "Point estimate 0.22, margin of error 0.02"
+      option_explanations:
+        - |
+          Correct. The point estimate is the midpoint, (0.18 + 0.26)/2 = 0.22, and the margin of error is half the width, (0.26 − 0.18)/2 = 0.04.
+        - |
+          0.08 is the full width of the interval; the margin of error is half of it.
+        - |
+          0.18 and 0.26 are the endpoints of the interval, not the estimate and the margin.
+        - |
+          0.02 is a quarter of the width; the margin of error is the distance from the centre to either end, 0.04.
+      answer: 0
+    - slug: apstats-u03-w17-q12
+      type: multiple_choice
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 1
+      prompt: |
+        Suppose that 40% of all students at a large school buy the school lunch. For simple random samples of 250 students, what are the mean and standard deviation of the sampling distribution of p̂?
+      options:
+        - "Mean 0.468, standard deviation 0.032"
+        - "Mean 0.40, standard deviation 0.031"
+        - "Mean 0.40, standard deviation 0.490"
+        - "Mean 100, standard deviation 7.75"
+      option_explanations:
+        - |
+          The sampling distribution is centred at the population proportion 0.40, not at one sample's result.
+        - |
+          Correct. The mean is p = 0.40 and the SD is √(0.40 · 0.60 / 250) ≈ 0.031.
+        - |
+          0.490 = √(0.40 · 0.60) forgets to divide by n = 250.
+        - |
+          100 and 7.75 are the mean and SD of the count of lunch buyers, not of the proportion.
+      answer: 1
+    - slug: apstats-u03-w17-q13
+      type: multi_select
+      topic_code: "3.5"
+      source: "AP Statistics CED, Topic 3.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A quality inspector plans to test H₀: p = 0.10 against Hₐ: p > 0.10, where p is the proportion of defective parts in a batch of 600. She selects a random sample of 80 parts without replacement and finds 13 defective. Which statements about the conditions are correct? Select all that apply.
+      options:
+        - "The 10% condition is met, because 80 is less than 10% of 600."
+        - "The Large Counts condition is not met, because 80(0.10) = 8 is less than 10."
+        - "The Large Counts condition is met, because the sample has 13 defective and 67 non-defective parts."
+        - "The 10% condition is not met, because 80 is more than 60."
+        - "The normal model is appropriate, because 80 is at least 30."
+      option_explanations:
+        - |
+          Incorrect. 10% of 600 is 60, and 80 is more than 60.
+        - |
+          Correct. A test checks np₀ = 8 and n(1 − p₀) = 72; 8 is below 10, so the z-test's normal model is not justified.
+        - |
+          Incorrect. The observed counts are what an interval checks; a test must use p₀.
+        - |
+          Correct. The sample is more than 10% of the batch, so the observations are not close enough to independent.
+        - |
+          Incorrect. n ≥ 30 is a guideline for means, not the condition for proportions.
+      answer: [1, 3]
+    - slug: apstats-u03-w17-q14
+      type: multi_select
+      topic_code: "3.6"
+      source: "AP Statistics CED, Topic 3.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A town tests H₀: p = 0.45 against Hₐ: p < 0.45 for the proportion of its residents who recycle glass, and obtains z = −1.88 with a p-value of 0.03. Which statements are true? Select all that apply.
+      options:
+        - "Assuming 45% of all residents recycle glass, there is a 0.03 probability of a sample proportion as low as or lower than the observed one by chance alone."
+        - "There is a 0.03 probability that 45% of residents recycle glass."
+        - "The data give some evidence that fewer than 45% of residents recycle glass."
+        - "With the same z and a two-sided alternative, the p-value would be about 0.06."
+        - "There is a 0.97 probability that fewer than 45% of residents recycle glass."
+      option_explanations:
+        - |
+          True. This is the p-value interpretation: assume H₀, then the probability of a result at least as extreme in the direction of Hₐ.
+        - |
+          False. A p-value is not the probability that H₀ is true; it is computed assuming H₀ is true.
+        - |
+          True. A small p-value means the observed result would be unusual if p = 0.45, which is evidence for Hₐ.
+        - |
+          True. A two-sided test counts both tails, doubling the one-sided p-value: 2(0.03) = 0.06.
+        - |
+          False. 1 − p-value is not the probability that Hₐ is true.
+      answer: [0, 2, 3]
+    - slug: apstats-u03-w17-q15
+      type: true_false
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      prompt: |
+        True or false: With the same sample data, a 99% confidence interval for a population proportion is narrower than a 90% confidence interval.
+      answer: false
+      explanation: |
+        False. Higher confidence needs a larger critical value (2.576 instead of 1.645) multiplying the same standard error, so the 99% interval is wider.
+    - slug: apstats-u03-w17-q16
+      type: true_false
+      topic_code: "3.4"
+      source: "AP Statistics CED, Topic 3.4"
+      points: 1
+      prompt: |
+        True or false: If a 95% confidence interval for the proportion of a district's voters who support a library tax is (0.52, 0.61), then 0.50 is a plausible value for that proportion.
+      answer: false
+      explanation: |
+        False. 0.50 is below the lower end, 0.52, so it is not in the interval and not plausible. The interval gives convincing evidence that more than half support the tax.
+    - slug: apstats-u03-w17-q17
+      type: fill_blank
+      topic_code: "3.5"
+      source: "AP Statistics CED, Topic 3.5"
+      points: 1
+      prompt: |
+        In a significance test, the hypothesis that states "no change" or "no difference" and contains the equals sign is called the ____ hypothesis.
+      answer: ["null", "null hypothesis"]
+      explanation: |
+        The null hypothesis, H₀: p = p₀, is assumed true while the test is carried out; the alternative Hₐ is the claim we look for evidence of.
+    - slug: apstats-u03-w17-q18
+      type: fill_blank
+      topic_code: "3.6"
+      source: "AP Statistics CED, Topic 3.6"
+      points: 1
+      prompt: |
+        A class simulated 500 random samples assuming the null hypothesis is true. In 12 of them the simulated sample proportion was at least as extreme as the class's observed sample proportion. The estimated p-value, as a decimal, is ____.
+      answer: ["0.024", ".024", "2.4%", "12/500", "3/125"]
+      explanation: |
+        The estimated p-value is the fraction of simulated results at least as extreme as the observed one: 12/500 = 0.024.
+    - slug: apstats-u03-w17-q19
+      type: numeric
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      prompt: |
+        In a simple random sample of 500 adults in a large state, 24% say they listen to podcasts every day. Find the margin of error for a 95% confidence interval for the proportion of all adults in the state who listen to podcasts every day. Give your answer to three decimal places.
+      answer: { value: 0.037, tolerance: 0.001 }
+      explanation: |
+        SE = √(0.24 · 0.76 / 500) ≈ 0.0191; margin of error = 1.96 · 0.0191 ≈ 0.037.
+    - slug: apstats-u03-w17-q20
+      type: short_answer
+      topic_code: "3.5"
+      source: "AP Statistics CED, Topic 3.5"
+      points: 3
+      prompt: |
+        A hypothetical town reports that 18% of its 6,000 households compost food scraps. After a campaign, an environmental club wants to know whether the proportion has increased. The club plans to survey a simple random sample of 150 households.
+
+        (a) State the hypotheses the club should test, defining the parameter.
+        (b) Check the conditions for a one-sample z-test for a proportion.
+        (c) Explain why the Large Counts check uses 0.18 rather than the club's sample proportion.
+      answer: |
+        (a) H₀: p = 0.18, Hₐ: p > 0.18, where p = the proportion of all households in the town that compost food scraps after the campaign.
+        (b) Random: a simple random sample of households. 10%: 150 ≤ 10% of 6,000 = 600. Large Counts: 150(0.18) = 27 and 150(0.82) = 123 are both at least 10.
+        (c) The test is carried out assuming the null hypothesis is true, so the expected numbers of successes and failures are based on p₀ = 0.18.
+      explanation: |
+        Three points, one per part. (a) both hypotheses about p with a one-sided ">" alternative and p defined in context. (b) all three conditions checked with numbers and context. (c) the reason: a test assumes H₀ is true. Hypotheses written with p̂ earn no credit for (a).
+    - slug: apstats-u03-w17-q21
+      type: short_answer
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 3
+      prompt: |
+        A student suspects a coin is biased toward heads. She flips it 12 times and gets 10 heads.
+
+        (a) If the coin is fair, what is the distribution of X, the number of heads in 12 flips? Name it and give its parameters.
+        (b) Find P(X ≥ 10) if the coin is fair.
+        (c) What does your answer to (b) suggest about the coin? Explain.
+      answer: |
+        (a) Binomial with n = 12 and p = 0.5 (fixed number of independent flips, each heads or tails, same probability).
+        (b) P(X ≥ 10) = P(10) + P(11) + P(12) = (66 + 12 + 1)/4096 = 79/4096 ≈ 0.019.
+        (c) If the coin were fair, 10 or more heads in 12 flips would happen only about 1.9% of the time, so this result is unusual and gives evidence that the coin is biased toward heads. (This probability is a p-value from the binomial distribution.)
+      explanation: |
+        Three points. (a) binomial with both parameters, n = 12 and p = 0.5. (b) 0.019, with work (the three binomial probabilities or binomcdf: 1 − binomcdf(12, 0.5, 9)). Computing only P(X = 10) ≈ 0.016 does not earn (b). (c) a conclusion that the result is unusual if the coin is fair, so there is evidence of bias toward heads; "proves the coin is biased" does not earn (c).
+    - slug: apstats-u03-w17-q22
+      type: long_answer
+      topic_code: "3.6"
+      source: "AP Statistics CED, Topic 3.6"
+      points: 6
+      prompt: |
+        A hypothetical national survey found that 25% of high school students sleep 8 or more hours on school nights. A counsellor wants to know whether the proportion at her school of 1,800 students is different. She takes a simple random sample of 120 students; 21 of them sleep 8 or more hours on school nights.
+
+        (A) State the hypotheses, defining the parameter.
+
+        (B) Name the procedure and check the conditions.
+
+        (C) Compute the test statistic and the p-value.
+
+        (D) Interpret the p-value in context.
+
+        (E) Suppose the counsellor had asked instead whether the proportion at her school is lower than 25%, before collecting data. What would the p-value be, and why?
+      answer: |
+        (A) H₀: p = 0.25, Hₐ: p ≠ 0.25, where p = the proportion of all 1,800 students at the school who sleep 8 or more hours on school nights.
+        (B) One-sample z-test for a population proportion. Random: SRS. 10%: 120 ≤ 180. Large Counts: 120(0.25) = 30 and 120(0.75) = 90 are both at least 10.
+        (C) p̂ = 21/120 = 0.175. SD = √(0.25 · 0.75 / 120) ≈ 0.0395. z = (0.175 − 0.25)/0.0395 ≈ −1.90. p-value = 2 · P(Z ≤ −1.90) ≈ 0.058.
+        (D) Assuming 25% of all students at the school sleep 8 or more hours, there is a 0.058 probability of getting a sample proportion at least as far from 0.25 as 0.175 (in either direction) by chance alone.
+        (E) About 0.029: with Hₐ: p < 0.25 only the lower tail counts, P(Z ≤ −1.90) ≈ 0.029, half of the two-sided p-value.
+      explanation: |
+        Six points. (A) 1 point: hypotheses about p with a two-sided alternative and p defined in context. (B) 1 point: procedure named and all three conditions checked, with Large Counts using p₀ (30 and 90). (C) 2 points: 1 for z ≈ −1.90 with the formula shown using p₀; 1 for the two-sided p-value ≈ 0.058 (0.057 to 0.058). (D) 1 point: the interpretation includes the assumption p = 0.25, the probability, and "at least as far from 0.25 as 0.175" in context; omitting the assumption earns no credit. (E) 1 point: ≈ 0.029 with the reason that only one tail counts.

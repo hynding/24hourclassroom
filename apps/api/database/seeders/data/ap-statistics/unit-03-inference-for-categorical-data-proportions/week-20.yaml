@@ -1,0 +1,634 @@
+week: 20
+unit: 3
+title: "Justifying Claims with an Interval for p₁ − p₂"
+topics: ["3.11"]
+guide: guides/week-20.md
+guide_description: |
+  Using a two-sample z-interval for p₁ − p₂ to judge claims: whether 0 is a plausible value, what the sign of
+  the plausible values says about which proportion is larger (and why the order of subtraction matters), claims
+  about the size of a difference, how the confidence level can change a borderline conclusion, why "0 is
+  plausible" never proves the proportions are equal, and the scope of the conclusion for samples and
+  experiments. Worked examples: a randomized homework-reminder experiment with an all-positive interval, a park-
+  bond survey of two towns whose interval contains 0, a claim that one district's early-smartphone rate is more
+  than 10 points higher, and one student-council data set at 90%, 95% and 99% confidence.
+flashcards_description: |
+  30 cards on judging claims with an interval for p₁ − p₂: 0 as the benchmark, the sign and the order of
+  subtraction, claims about the size of a gap, the effect of the confidence level, the wording of conclusions
+  and the scope of inference for surveys and experiments.
+
+flashcards:
+  - front: Interval for p₁ − p₂ with both endpoints positive → conclusion
+    back: |
+      Every plausible value is positive, so 0 is not plausible: convincing evidence that p₁ > p₂.
+    topic_code: "3.11"
+  - front: Interval for p₁ − p₂ with both endpoints negative → conclusion
+    back: |
+      Every plausible value is negative: convincing evidence that p₁ < p₂ (equivalently p₂ > p₁).
+    topic_code: "3.11"
+  - front: Interval for p₁ − p₂ that contains 0 → conclusion
+    back: |
+      0 is plausible, so there is not convincing evidence of a difference. Positive and negative differences are plausible too; the data do not show the proportions are equal.
+    topic_code: "3.11"
+  - front: Why 0 is the benchmark value in an interval for p₁ − p₂
+    back: |
+      p₁ − p₂ = 0 means the two population proportions are equal, so "is 0 plausible?" is the question "could there be no difference?".
+    topic_code: "3.11"
+  - front: Claim "the gap is at least 0.10" with an interval for p₁ − p₂ → when it is supported
+    back: |
+      Only when every plausible value is at least 0.10, i.e. the lower endpoint is at least 0.10.
+    topic_code: "3.11"
+  - front: Claim "the gap is at least 0.10" with an interval (0.07, 0.24) → verdict
+    back: |
+      Not convincing: values from 0.07 to 0.10 are plausible. The claim is plausible but not established.
+    topic_code: "3.11"
+  - front: Claim "the gap is exactly 0.10" with an interval (0.12, 0.26) → verdict
+    back: |
+      0.10 is not plausible; the data suggest the gap is larger than 0.10.
+    topic_code: "3.11"
+  - front: Plausible value in an interval for p₁ − p₂ → what it does not mean
+    back: |
+      It does not mean that value is the true difference, or more likely than other values in the interval. Every value in the interval is consistent with the data.
+    topic_code: "3.11"
+  - front: Order of subtraction and the claim (p_text − p_email interval (0.05, 0.23)) → which group is higher
+    back: |
+      Texts. For p_email − p_text the interval is (−0.23, −0.05), which says the same thing.
+    topic_code: "3.11"
+  - front: Same data at 95% excludes 0 but at 99% includes 0 → explanation
+    back: |
+      The 99% interval is wider (z* 2.576 instead of 1.960), so it reaches 0. Evidence is convincing at 95% confidence but not at 99%. No contradiction.
+    topic_code: "3.11"
+  - front: Student-council juniors 75/160 vs seniors 56/160 → conclusion at 90%, 95%, 99%
+    back: |
+      Intervals (0.029, 0.209), (0.012, 0.226), (−0.022, 0.259): convincing evidence juniors are more likely to attend at 90% and 95%, not at 99%.
+    topic_code: "3.11"
+  - front: Choosing the confidence level for a claim about p₁ − p₂ → when to do it
+    back: |
+      Before looking at the data. Picking the level that gives the answer you want is not honest inference.
+    topic_code: "3.11"
+  - front: Homework-reminder experiment, 168/210 vs 141/205 on time → 95% interval and claim
+    back: |
+      0.112 ± 0.083 = (0.029, 0.196); all positive, so convincing evidence the reminder raises the on-time proportion; causal because of random assignment.
+    topic_code: "3.11"
+  - front: Park-bond survey, Ashford 212/400 vs Belmont 198/380 → 95% interval and claim
+    back: |
+      (−0.061, 0.079) contains 0: not convincing evidence that support differs between the towns.
+    topic_code: "3.11"
+  - front: Early-smartphone survey, East 132/240 vs West 99/250 → is the gap more than 10 points?
+    back: |
+      95% interval (0.067, 0.241): convincing evidence East is higher, but not that the gap exceeds 0.10.
+    topic_code: "3.11"
+  - front: Two-proportion interval conclusion → the sentence that earns the point
+    back: |
+      "Because every value in the interval is positive (0 is not in it), there is convincing evidence that the proportion of all … is greater for group 1 than for group 2."
+    topic_code: "3.11"
+  - front: Two-proportion interval containing 0 → the sentence that earns the point
+    back: |
+      "Because 0 is in the interval, a difference of 0 is plausible, so we do not have convincing evidence that the proportions of all … differ."
+    topic_code: "3.11"
+  - front: Claim supported by an interval for p₁ − p₂ from two random samples → causal or not?
+    back: |
+      Not causal. Random samples let you generalise to the two populations; only random assignment supports cause and effect.
+    topic_code: "3.11"
+  - front: Claim supported by an interval for p₁ − p₂ from a randomized experiment on volunteers → scope
+    back: |
+      The treatment caused the difference, for subjects like those volunteers. Generalising to a wider population needs random selection.
+    topic_code: "3.11"
+  - front: Interval for p₁ − p₂ when the study had neither random sampling nor random assignment → what to say
+    back: |
+      The Random condition fails, so the interval should not be used for inference about a population or a treatment effect; describe the observed groups only.
+    topic_code: "3.11"
+  - front: Interval for p₁ − p₂ (0.03, 0.17) → the plausible range in percentage points
+    back: |
+      Group 1's proportion is plausibly between 3 and 17 percentage points higher than group 2's.
+    topic_code: "3.11"
+  - front: Upper endpoint of an interval for p₁ − p₂ just below 0 → conclusion
+    back: |
+      Still convincing evidence that p₁ < p₂, but the plausible gap may be tiny; statistical evidence of a difference is not evidence the difference is large.
+    topic_code: "3.11"
+  - front: Very wide interval for p₁ − p₂ containing 0 → what it tells you about the study
+    back: |
+      The samples were too small (or the proportions too variable) to estimate the difference precisely; a larger study might settle the question.
+    topic_code: "3.11"
+  - front: Interval for p₁ − p₂ and a two-sided test of H₀ p₁ = p₂ → the link
+    back: |
+      A C% interval that excludes 0 corresponds (approximately) to rejecting H₀: p₁ = p₂ in a two-sided test at α = 1 − C. Week 21 develops this.
+    topic_code: "3.11"
+  - front: Comparing a claimed value with an interval for p₁ − p₂ → three possible verdicts
+    back: |
+      Every plausible value meets the claim: supported. No plausible value meets it: contradicted. Some do and some do not: plausible but not established.
+    topic_code: "3.11"
+  - front: Reporting a two-proportion claim → what context must appear
+    back: |
+      The two populations or treatments, the variable (the "success"), the order of subtraction, and the confidence level.
+    topic_code: "3.11"
+  - front: Gym experiment, 96/150 vs 78/150 still attending → 95% interval and claim
+    back: |
+      0.12 ± 0.111 = (0.009, 0.231): convincing evidence the free session raises the proportion, but not that it raises it by at least 0.15.
+    topic_code: "3.11"
+  - front: Error-spot → "The interval (−0.06, 0.08) proves both towns support the bond equally"
+    back: |
+      0 is plausible but so are other values; say "not convincing evidence of a difference". Intervals never prove equality.
+    topic_code: "3.11"
+  - front: Error-spot → "0.20 is in the interval, so the reminder raises returns by 20 points"
+    back: |
+      0.20 is one plausible value among many; the interval does not single it out.
+    topic_code: "3.11"
+  - front: Error-spot → "The interval is all positive, so living in the north causes more exercise"
+    back: |
+      Two random samples show an association between region and exercise, not causation; there was no random assignment.
+    topic_code: "3.11"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topic 3.11: judging claims with a two-sample z-interval
+    for p₁ − p₂, claims about the size of a gap, the confidence level and the scope of conclusions), with 9
+    questions (38%) reviewing weeks 15 to 19 (the sampling distribution of p̂, one-sample intervals, claims and
+    tests, p-values, errors and power, and the two-sample interval itself). Opens with a shared-context set on a
+    library's randomized reminder experiment. Multiple choice, select-all, true/false and numeric items are
+    graded at once; fill-in-the-blank items are matched automatically; the short answers and the long answer are
+    graded by your teacher against the scoring notes. A calculator is allowed throughout.
+  questions:
+    # ---- Stimulus set: library reminder experiment (3.11, 3.10)
+    - slug: apstats-u03-w20-q01
+      type: multiple_choice
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 1
+      stimulus: |
+        A hypothetical city library randomly assigned 420 cardholders who had an overdue book to two groups of 210. One group received a text-message reminder and the other an email reminder. Within a week, 147 of the text group and 118 of the email group returned their books. A 95% two-sample z-interval for p_text − p_email, the difference in the true proportions of cardholders like these who would return their books within a week, is (0.047, 0.229).
+      prompt: |
+        Does the interval give convincing evidence that text reminders lead to a higher return proportion than email reminders?
+      options:
+        - "No, because the interval does not contain 0."
+        - "Yes, because every value in the interval is positive, so 0 is not a plausible value of p_text − p_email."
+        - "Yes, because the sample proportion for texts, 0.70, is greater than the sample proportion for emails, about 0.56."
+        - "No, because the confidence level is less than 100%."
+      option_explanations:
+        - |
+          This reverses the logic: an interval that excludes 0 is exactly what gives convincing evidence of a difference.
+        - |
+          Correct. All plausible values of p_text − p_email are positive, so there is convincing evidence that texts produce a higher return proportion.
+        - |
+          The sample proportions always differ a little by chance; the interval is what tells us whether the difference is convincing.
+        - |
+          No confidence level is ever 100%; convincing evidence is judged at the stated level, 95%.
+      answer: 1
+    - slug: apstats-u03-w20-q02
+      type: multiple_choice
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 1
+      stimulus: |
+        A hypothetical city library randomly assigned 420 cardholders who had an overdue book to two groups of 210. One group received a text-message reminder and the other an email reminder. Within a week, 147 of the text group and 118 of the email group returned their books. A 95% two-sample z-interval for p_text − p_email, the difference in the true proportions of cardholders like these who would return their books within a week, is (0.047, 0.229).
+      prompt: |
+        Can the library conclude that sending a text instead of an email causes more cardholders like these to return their books?
+      options:
+        - "Yes, because the cardholders were randomly assigned to the two reminder types and the interval excludes 0."
+        - "No, because this was an observational study."
+        - "No, because a confidence interval can never support a cause-and-effect conclusion."
+        - "Yes, because both groups had more than 30 cardholders."
+      option_explanations:
+        - |
+          Correct. Random assignment makes the groups comparable apart from the reminder type, so a convincing difference can be attributed to the reminders.
+        - |
+          The library imposed the treatments by random assignment, which makes this an experiment, not an observational study.
+        - |
+          A confidence interval from a randomized experiment does support a causal conclusion; the design, not the procedure, decides.
+        - |
+          Sample size affects precision, not whether a causal conclusion is justified; that needs random assignment.
+      answer: 0
+    - slug: apstats-u03-w20-q03
+      type: multiple_choice
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 1
+      stimulus: |
+        A hypothetical city library randomly assigned 420 cardholders who had an overdue book to two groups of 210. One group received a text-message reminder and the other an email reminder. Within a week, 147 of the text group and 118 of the email group returned their books. A 95% two-sample z-interval for p_text − p_email, the difference in the true proportions of cardholders like these who would return their books within a week, is (0.047, 0.229).
+      prompt: |
+        A librarian claims that texts raise the return proportion by exactly 20 percentage points compared with emails. What does the interval say about this claim?
+      options:
+        - "It confirms the claim, because 0.20 is inside the interval."
+        - "It refutes the claim, because the point estimate is about 0.138, not 0.20."
+        - "0.20 is a plausible value, but so is every other value from 0.047 to 0.229, so the interval neither confirms nor rules out the claim."
+        - "It refutes the claim, because 0.20 is closer to the upper endpoint than to the center."
+      option_explanations:
+        - |
+          A plausible value is not thereby the true value; many other differences are equally consistent with the data.
+        - |
+          The point estimate will almost never equal the parameter exactly; 0.20 is inside the interval, so it is not ruled out.
+        - |
+          Correct. 0.20 lies in the interval, so it is plausible, but the interval cannot single it out from the other plausible values.
+        - |
+          Every value inside the interval is plausible, wherever it sits; only values outside are ruled out.
+      answer: 2
+    - slug: apstats-u03-w20-q04
+      type: multiple_choice
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 1
+      stimulus: |
+        A hypothetical city library randomly assigned 420 cardholders who had an overdue book to two groups of 210. One group received a text-message reminder and the other an email reminder. Within a week, 147 of the text group and 118 of the email group returned their books. A 95% two-sample z-interval for p_text − p_email, the difference in the true proportions of cardholders like these who would return their books within a week, is (0.047, 0.229).
+      prompt: |
+        Which is a correct check of the conditions for this interval?
+      options:
+        - "10%: 210 is less than 10% of all cardholders; and both groups have n ≥ 30."
+        - "Large Counts: 147 and 118 are both at least 10."
+        - "Random: the cardholders are a random sample of all city residents."
+        - "Random: the cardholders were randomly assigned to the reminder types. Large Counts: 147, 63, 118 and 92 are all at least 10."
+      option_explanations:
+        - |
+          The 10% condition is not needed after random assignment, and "n ≥ 30" is the large-sample rule for means, not proportions.
+        - |
+          Only the successes are checked; the failures, 63 and 92, must be at least 10 as well.
+        - |
+          Nothing says the cardholders were randomly selected; the randomness here is the random assignment.
+        - |
+          Correct. Random assignment satisfies Random, and each group has at least 10 returns and 10 non-returns.
+      answer: 3
+    # ---- Independent items
+    - slug: apstats-u03-w20-q05
+      type: multiple_choice
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 1
+      prompt: |
+        A 95% confidence interval for p_A − p_B, the difference between the proportions of all students at two large hypothetical high schools who buy a yearbook, is (−0.03, 0.11). Which conclusion is appropriate?
+      options:
+        - "The proportions are equal at the two schools, because 0 is in the interval."
+        - "School A has the higher proportion, because most of the interval is positive."
+        - "School B has the higher proportion, because the interval includes negative values."
+        - "There is not convincing evidence that the proportions at the two schools differ, because 0 is a plausible value."
+      option_explanations:
+        - |
+          0 is plausible, but so are differences up to 0.11 and down to −0.03; an interval cannot show the proportions are equal.
+        - |
+          Convincing evidence needs every plausible value to be positive; here 0 and small negative values are plausible.
+        - |
+          Negative values are plausible, but so are positive ones; the interval does not favour either school convincingly.
+        - |
+          Correct. Because the interval contains 0, a difference of 0 is plausible, so the evidence of a difference is not convincing.
+      answer: 3
+    - slug: apstats-u03-w20-q06
+      type: multiple_choice
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 1
+      prompt: |
+        In a randomized experiment, a garden centre compares a new soil mix with its old mix. A 95% interval for p_new − p_old, the difference in the true proportions of seedlings that survive transplanting, is (0.07, 0.19). The supplier claims the new mix raises the survival proportion by at least 5 percentage points. Is the claim supported?
+      options:
+        - "Yes, because every plausible value of p_new − p_old is greater than 0.05."
+        - "No, because 0.05 is not in the interval."
+        - "No, because the interval would need to be entirely above 0.19."
+        - "It cannot be judged, because the claim is about percentage points and the interval is about proportions."
+      option_explanations:
+        - |
+          Correct. The smallest plausible value, 0.07, already exceeds 0.05, so there is convincing evidence the increase is at least 5 points.
+        - |
+          0.05 lying below the interval is exactly what supports the claim: no plausible increase is as small as 0.05.
+        - |
+          The claim only needs every plausible value to be at least 0.05, which the interval shows.
+        - |
+          A difference of 0.05 in proportions is 5 percentage points; the two are the same scale.
+      answer: 0
+    - slug: apstats-u03-w20-q07
+      type: multiple_choice
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 1
+      prompt: |
+        Independent random samples of 150 adults in each of two large hypothetical neighbourhoods are asked whether they used the community pool last summer: 66 in Elmwood and 48 in Fairview said yes. The 95% interval for p_E − p_F is (0.011, 0.229). Which statement about the 99% interval is correct?
+      options:
+        - "It is narrower, about (0.029, 0.211), and gives convincing evidence that Elmwood's proportion is higher."
+        - "It is identical, because the same data are used."
+        - "It is wider, about (−0.023, 0.263), and does not give convincing evidence of a difference."
+        - "It is wider, about (−0.023, 0.263), and gives convincing evidence that the proportions are equal."
+      option_explanations:
+        - |
+          That is the 90% interval. Higher confidence uses a larger z*, so the 99% interval is wider, not narrower.
+        - |
+          The confidence level changes z* (2.576 instead of 1.960), so the width changes even with the same data.
+        - |
+          Correct. 0.12 ± 2.576(0.0556) = 0.12 ± 0.143 gives about (−0.023, 0.263), which contains 0, so the evidence is not convincing at 99% confidence.
+        - |
+          An interval containing 0 shows that a difference of 0 is plausible, never that the proportions are equal.
+      answer: 2
+    - slug: apstats-u03-w20-q08
+      type: multiple_choice
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 1
+      prompt: |
+        A music blog claims that the proportion of all teenagers in a hypothetical city who stream music every day is exactly 10 percentage points higher than the proportion of all adults there. Independent random samples give a 95% interval for p_teen − p_adult of (0.12, 0.26). What does the interval suggest?
+      options:
+        - "The claim is correct, because the interval is entirely positive."
+        - "The claim is not plausible, and the data suggest the gap is larger than 10 percentage points."
+        - "The claim is not plausible, and the data suggest teenagers stream less than adults."
+        - "The claim is plausible, because 0.10 is close to the lower endpoint."
+      option_explanations:
+        - |
+          An all-positive interval shows teens stream more, but the claim is about a specific gap, 0.10, which lies outside the interval.
+        - |
+          Correct. 0.10 is below every plausible value, so a 10-point gap is not plausible; all plausible gaps are larger, from 12 to 26 points.
+        - |
+          The interval is for p_teen − p_adult and is entirely positive, so the teenagers' proportion is the higher one.
+        - |
+          Being close to an endpoint does not make a value plausible; only values inside the interval are plausible.
+      answer: 1
+    - slug: apstats-u03-w20-q09
+      type: multiple_choice
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 1
+      prompt: |
+        A 95% interval for p_boys − p_girls, the difference in the proportions of all students at a large hypothetical middle school who play a musical instrument, is (0.04, 0.15). What is the 95% interval for p_girls − p_boys, and what does it show?
+      options:
+        - "(−0.15, −0.04): convincing evidence that a smaller proportion of girls play an instrument"
+        - "(0.04, 0.15): convincing evidence that a larger proportion of girls play an instrument"
+        - "(−0.04, 0.15): not convincing evidence of a difference"
+        - "(−0.15, −0.04): not convincing evidence of a difference, because the values are negative"
+      option_explanations:
+        - |
+          Correct. Reversing the order of subtraction negates and swaps the endpoints. All plausible values are negative, so girls' proportion is convincingly lower, the same conclusion as before.
+        - |
+          Reversing the subtraction must change the signs; this keeps the original interval and then misreads which group is higher.
+        - |
+          Only one endpoint has been negated; both must change sign and swap places.
+        - |
+          A negative interval is still convincing evidence of a difference, just in the other direction.
+      answer: 0
+    - slug: apstats-u03-w20-q10
+      type: multiple_choice
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 1
+      prompt: |
+        A health agency surveys independent random samples of adults in two hypothetical states. The 95% interval for p_north − p_south, the difference in the proportions of all adults who exercise at least three days a week, is (0.04, 0.12). Which conclusion is justified?
+      options:
+        - "Living in the northern state causes adults to exercise more."
+        - "In the samples, at least 4% more northern adults exercised, but nothing can be said about the states' populations."
+        - "There is convincing evidence that a higher proportion of all adults in the northern state exercise at least three days a week, but the study cannot show that the state causes it."
+        - "There is not convincing evidence of a difference, because the interval does not contain 0."
+      option_explanations:
+        - |
+          Two random samples show an association between state and exercise; without random assignment there is no causal conclusion.
+        - |
+          Random sampling is what allows a conclusion about the populations; the interval is about all adults in the two states.
+        - |
+          Correct. All plausible values are positive, and random sampling allows generalising to both states' adults; the observational design rules out a causal claim.
+        - |
+          This reverses the rule: excluding 0 gives convincing evidence of a difference.
+      answer: 2
+    - slug: apstats-u03-w20-q11
+      type: multiple_choice
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 1
+      prompt: |
+        In independent random samples of shoppers at two hypothetical grocery stores, 54 of 120 at the first store and 40 of 125 at the second used a reusable bag. What is the standard error of p̂₁ − p̂₂ for a confidence interval?
+      options:
+        - "0.0871"
+        - "0.0038"
+        - "0.6820"
+        - "0.0617"
+      option_explanations:
+        - |
+          0.0871 adds the two separate standard errors (0.0454 + 0.0417); the terms belong under one square root.
+        - |
+          0.0038 is the sum under the square root, a variance; the square root has not been taken.
+        - |
+          0.6820 forgets to divide each p̂(1 − p̂) by its sample size.
+        - |
+          Correct. p̂₁ = 0.45, p̂₂ = 0.32; SE = √(0.45·0.55/120 + 0.32·0.68/125) = √0.0038 ≈ 0.0617.
+      answer: 3
+    - slug: apstats-u03-w20-q12
+      type: multiple_choice
+      topic_code: "3.9"
+      source: "AP Statistics CED, Topic 3.9"
+      points: 1
+      prompt: |
+        Suppose the proportion of all students who carpool to school is the same at two large hypothetical high schools. Independent random samples are taken from each. Which statement about p̂₁ − p̂₂ is true?
+      options:
+        - "p̂₁ − p̂₂ will equal 0 for every pair of samples."
+        - "Its sampling distribution is centered at 0, but individual differences vary from sample to sample."
+        - "Its sampling distribution is centered at the average of the two sample proportions."
+        - "Its standard deviation is 0, because the population proportions are equal."
+      option_explanations:
+        - |
+          Each sample proportion varies by chance, so their difference is rarely exactly 0 even when p₁ = p₂.
+        - |
+          Correct. The mean of p̂₁ − p̂₂ is p₁ − p₂ = 0, while sampling variability spreads individual differences around 0.
+        - |
+          The center of the sampling distribution is a parameter, p₁ − p₂, not a combination of statistics.
+        - |
+          Equal population proportions do not remove sampling variability; the SD is still √(p(1 − p)/n₁ + p(1 − p)/n₂).
+      answer: 1
+    - slug: apstats-u03-w20-q13
+      type: multiple_choice
+      topic_code: "3.7"
+      source: "AP Statistics CED, Topic 3.7"
+      points: 1
+      prompt: |
+        A transit planner tests H₀: p = 0.25 against Hₐ: p > 0.25, where p is the proportion of all bus riders in a hypothetical city who pay with a phone app. In a random sample of 200 riders, p̂ = 0.31. What is the test statistic?
+      options:
+        - "z ≈ 1.96"
+        - "z ≈ 1.83"
+        - "z ≈ 0.14"
+        - "z ≈ 0.025"
+      option_explanations:
+        - |
+          Correct. z = (0.31 − 0.25)/√(0.25·0.75/200) = 0.06/0.0306 ≈ 1.96. A test uses p₀ in the standard deviation.
+        - |
+          1.83 uses p̂ = 0.31 in the standard deviation; a significance test assumes H₀ and uses p₀ = 0.25.
+        - |
+          0.14 forgets to divide by n inside the square root: 0.06/√(0.25·0.75).
+        - |
+          0.025 is roughly the p-value for z = 1.96, not the test statistic.
+      answer: 0
+    - slug: apstats-u03-w20-q14
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "AP Statistics CED, Topic 3.4"
+      points: 1
+      prompt: |
+        A 95% confidence interval for the proportion of all residents of a hypothetical town who support a later school start time is (0.52, 0.61). Does the interval give convincing evidence that a majority of residents support it?
+      options:
+        - "No, because 0.50 is a plausible value."
+        - "No, because the interval is not centered at 0.50."
+        - "Yes, because every plausible value in the interval is greater than 0.50."
+        - "Yes, because 95% of the residents surveyed support it."
+      option_explanations:
+        - |
+          0.50 is below the interval's lower endpoint, so it is not a plausible value.
+        - |
+          The location of the center does not decide the claim; what matters is whether every plausible value exceeds 0.50.
+        - |
+          Correct. The whole interval lies above 0.50, so there is convincing evidence that more than half of all residents support the change.
+        - |
+          95% is the confidence level of the method, not the proportion of supporters in the sample.
+      answer: 2
+    - slug: apstats-u03-w20-q15
+      type: multi_select
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Researchers randomly assigned 400 adult volunteers either to follow a daily hydration plan or to continue as usual. A 95% interval for p_plan − p_usual, the difference in the true proportions who report fewer headaches after a month, is (0.03, 0.17). Which claims does the interval support? Select all that apply.
+      options:
+        - "There is convincing evidence that the hydration plan raises the proportion of volunteers like these who report fewer headaches."
+        - "The plan raises the proportion by exactly 10 percentage points."
+        - "A difference of 0.15 is plausible."
+        - "There is convincing evidence that the plan raises the proportion by more than 5 percentage points."
+        - "Because the volunteers were randomly assigned, the difference can be attributed to the plan for volunteers like these."
+      option_explanations:
+        - |
+          Correct. Every plausible value is positive, so 0 is not plausible.
+        - |
+          0.10 is the point estimate, one plausible value among many; the interval does not pin the difference to 0.10.
+        - |
+          Correct. 0.15 lies inside the interval from 0.03 to 0.17, so it is a plausible difference.
+        - |
+          Values from 0.03 to 0.05 are plausible, so a gap of more than 5 points is not established.
+        - |
+          Correct. Random assignment supports a cause-and-effect conclusion, limited to volunteers like these.
+      answer: [0, 2, 4]
+    - slug: apstats-u03-w20-q16
+      type: multi_select
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A food truck owner tests H₀: p = 0.30 against Hₐ: p > 0.30, where p is the proportion of all customers who order a drink, at α = 0.05. Which statements are correct? Select all that apply.
+      options:
+        - "A Type I error is failing to reject H₀ when more than 30% of customers order a drink."
+        - "The probability of a Type I error is 0.05 when p = 0.30."
+        - "A Type II error can happen only if the owner fails to reject H₀."
+        - "The power of the test is the probability of a Type II error."
+        - "For a fixed α, a larger random sample lowers the probability of a Type II error when p > 0.30."
+      option_explanations:
+        - |
+          That describes a Type II error; a Type I error is rejecting H₀ when p really is 0.30.
+        - |
+          Correct. α is the probability of rejecting H₀ when H₀ is true.
+        - |
+          Correct. A Type II error is failing to reject a false H₀, so it requires a fail-to-reject decision.
+        - |
+          Power is 1 − P(Type II error): the probability of correctly rejecting a false H₀.
+        - |
+          Correct. A larger sample increases power, which lowers the chance of a Type II error.
+      answer: [1, 2, 4]
+    - slug: apstats-u03-w20-q17
+      type: true_false
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 1
+      prompt: |
+        True or false: If a 95% confidence interval for the difference between the proportions of all customers at two stores who use a loyalty card contains 0, the study has shown that the two proportions are equal.
+      answer: false
+      explanation: |
+        False. 0 being in the interval means a difference of 0 is plausible, so there is not convincing evidence of a difference. Other positive and negative differences are plausible too, so equality has not been shown.
+    - slug: apstats-u03-w20-q18
+      type: true_false
+      topic_code: "3.6"
+      source: "AP Statistics CED, Topic 3.6"
+      points: 1
+      prompt: |
+        True or false: In a test about the proportion of all students who own a tablet, a smaller p-value gives stronger evidence against the null hypothesis.
+      answer: true
+      explanation: |
+        True. A smaller p-value means the observed result would be less likely by chance alone if H₀ were true, which is stronger evidence against H₀.
+    - slug: apstats-u03-w20-q19
+      type: fill_blank
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 1
+      prompt: |
+        A 95% confidence interval for p_A − p_B, the difference in the proportions of all members of two hypothetical gyms who attend a group class, is (0.06, 0.18). As a decimal, the point estimate of p_A − p_B is ____.
+      answer: ["0.12", ".12"]
+      explanation: |
+        The point estimate is the midpoint of the interval: (0.06 + 0.18)/2 = 0.12. The margin of error is (0.18 − 0.06)/2 = 0.06.
+    - slug: apstats-u03-w20-q20
+      type: fill_blank
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 1
+      prompt: |
+        In a hypothetical city, 35% of all households have a dog. For random samples of 250 households, the mean of the sampling distribution of p̂ is ____ (as a decimal).
+      answer: ["0.35", ".35"]
+      explanation: |
+        p̂ is an unbiased estimator of p, so the mean of its sampling distribution is p = 0.35, whatever the sample size.
+    - slug: apstats-u03-w20-q21
+      type: numeric
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 1
+      prompt: |
+        A report gives a 90% confidence interval of (0.031, 0.169) for the difference between the proportions of all ninth and tenth graders in a hypothetical district who joined a club. What is the margin of error? Give your answer to three decimal places.
+      answer: { value: 0.069, tolerance: 0.0005 }
+      explanation: |
+        The margin of error is half the width: (0.169 − 0.031)/2 = 0.069. (The point estimate is the midpoint, 0.100.)
+    - slug: apstats-u03-w20-q22
+      type: short_answer
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 3
+      prompt: |
+        A hypothetical regional planning office compares the proportions of all commuters in two large suburbs who carpool, using independent random samples. For p_A − p_B it reports a 90% interval of (0.012, 0.148) and a 99% interval of (−0.026, 0.186).
+
+        (a) What does the 90% interval let the office conclude?
+        (b) What does the 99% interval let the office conclude?
+        (c) A council member says the two intervals contradict each other. Explain why they do not.
+      answer: |
+        (a) Every plausible value in the 90% interval is positive, so at 90% confidence there is convincing evidence that a higher proportion of all commuters in suburb A carpool than in suburb B.
+        (b) The 99% interval contains 0, so at 99% confidence there is not convincing evidence that the proportions differ.
+        (c) Both come from the same data and point estimate (0.08). The 99% interval uses a larger z* (2.576 instead of 1.645), so it is wider and reaches 0. Requiring more confidence widens the set of plausible values; the evidence is convincing at one level and not at the other.
+      explanation: |
+        Three points, one per part. (a) convincing evidence that p_A > p_B, in context, with the reason (interval entirely above 0). (b) not convincing evidence of a difference because 0 is in the interval; saying the proportions are equal loses the point. (c) higher confidence → larger z* → wider interval from the same data.
+    - slug: apstats-u03-w20-q23
+      type: short_answer
+      topic_code: "3.5"
+      source: "AP Statistics CED, Topic 3.5"
+      points: 3
+      prompt: |
+        A school cafeteria manager believes that more than 30% of all students at the school buy a smoothie at least once a week. She plans to survey a random sample of students.
+
+        (a) Define the parameter of interest in context.
+        (b) State the null and alternative hypotheses.
+        (c) Explain why the hypotheses are written about p and not about p̂.
+      answer: |
+        (a) p = the proportion of all students at the school who buy a smoothie at least once a week.
+        (b) H₀: p = 0.30; Hₐ: p > 0.30.
+        (c) The question is about all students at the school (the population). The sample proportion p̂ is known exactly once the survey is done; hypotheses are claims about the unknown parameter that the sample is used to judge.
+      explanation: |
+        Three points, one per part. (a) the parameter as a population proportion with the population and the variable named. (b) both hypotheses correct, about p, with 0.30 and the one-sided alternative. (c) the explanation that hypotheses concern the population parameter, not the statistic we already observe.
+    - slug: apstats-u03-w20-q24
+      type: long_answer
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 7
+      prompt: |
+        A hypothetical fitness centre wants to know whether offering new members a free personal-training session helps them keep coming. Of 300 people who joined in January, 150 were randomly assigned to be offered the session and 150 were not. Three months later, 96 of those offered the session and 78 of the others were still visiting at least once a week.
+
+        (A) Name the appropriate procedure for estimating the difference, define the parameter, and check the conditions.
+
+        (B) Construct a 95% confidence interval for the parameter.
+
+        (C) The manager claims that the free session increases the proportion of members who keep visiting weekly. Does the interval support the claim? Explain.
+
+        (D) The owner claims that the session increases that proportion by at least 15 percentage points. Does the interval support this claim? Explain.
+
+        (E) To whom can the conclusion in part (C) be applied, and is it a cause-and-effect conclusion? Explain.
+      answer: |
+        (A) A two-sample z-interval for p_S − p_N, where p_S and p_N are the true proportions of new members like these who would still visit at least weekly after three months when offered the session and when not offered it. Random: members were randomly assigned to the two groups. 10%: not needed, since no sampling from a population. Large Counts: 96, 54, 78 and 72 are all at least 10.
+        (B) p̂_S = 96/150 = 0.64, p̂_N = 78/150 = 0.52, difference 0.12. SE = √(0.64·0.36/150 + 0.52·0.48/150) ≈ 0.0566. 0.12 ± 1.96(0.0566) = 0.12 ± 0.111, from about 0.009 to 0.231.
+        (C) Yes. Every value in the interval is positive, so 0 is not plausible: there is convincing evidence that offering the session increases the proportion of members like these who keep visiting weekly.
+        (D) No. Increases of 0.15 or more are plausible, but so are increases from about 0.009 to 0.15, so the interval does not give convincing evidence of an increase of at least 15 percentage points (the claim is plausible but not established).
+        (E) Because the session was randomly assigned, the conclusion is causal: the offer caused the increase. The members were not a random sample of all members (they were January joiners at one centre), so the conclusion applies to new members like these.
+      explanation: |
+        Seven points.
+        (A) 2 points: 1 for the procedure with the parameter defined (both treatments, the response and the order); 1 for Random (random assignment) and all four Large Counts, with the 10% condition correctly set aside or not required.
+        (B) 1 point: interval about (0.009, 0.231), with work or the calculator procedure and its inputs named.
+        (C) 2 points: 1 for "yes" because the interval is entirely above 0; 1 for the conclusion in context using "convincing evidence" (not "proves").
+        (D) 1 point: "no" with the reason that plausible values below 0.15 exist (the lower endpoint is below 0.15).
+        (E) 1 point: causal because of random assignment, and the conclusion limited to members like these because there was no random sample.
