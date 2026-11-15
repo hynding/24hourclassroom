@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Test;
 use App\Services\AttemptGrader;
 use App\Support\CourseAccess;
+use App\Support\Metrics;
 use App\Support\ResponseRules;
 use App\Support\Slugs;
 use App\Support\TestPayload;
@@ -64,6 +65,9 @@ class CoursePracticeController extends Controller
             }
             $results[] = ['question_id' => $question->id, 'awarded' => $awarded, 'points' => $question->points];
         }
+
+        // A finished practice run, counted per course (no person recorded).
+        Metrics::bump(Metrics::PRACTICE_CHECK, $course->id);
 
         return response()->json([
             'score' => round($score, 2),
