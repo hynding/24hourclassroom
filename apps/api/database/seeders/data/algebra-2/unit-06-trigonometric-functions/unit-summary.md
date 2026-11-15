@@ -25,10 +25,10 @@
 | Exact values | π/6: (√3/2, 1/2); π/4: (√2/2, √2/2); π/3: (1/2, √3/2); axes: 0, ±1 |
 | Other quadrants | reference angle + quadrant signs |
 | sin θ from cos θ | sin θ = ±√(1 − cos²θ); quadrant picks the sign |
-| Angle from a point (x, y) | α = arccos(|x|/r); θ = α, π − α, π + α, 2π − α by quadrant |
+| Angle from a point (x, y) | α = arccos(\|x\|/r); θ = α, π − α, π + α, 2π − α by quadrant |
 | Angle beyond 2π or negative | add or subtract 2π until in [0, 2π) |
 | tan θ | sin θ / cos θ = y/x; undefined where cos θ = 0 |
-| Midline, amplitude | k, |a|; from a graph (max + min)/2, (max − min)/2 |
+| Midline, amplitude | k, \|a\|; from a graph (max + min)/2, (max − min)/2 |
 | Period | 2π/b; b = 2π/period |
 | Shift | h in a sin(b(θ − h)) + k; factor b out first |
 | Wheel in time, period T | b = 2π/T; +cos top, −cos bottom, +sin level rising |

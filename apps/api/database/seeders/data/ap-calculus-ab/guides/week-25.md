@@ -38,7 +38,7 @@ and call it the **indefinite integral**. It is a family of functions. The defini
 | Derivative fact | Antiderivative rule |
 |---|---|
 | d/dx xⁿ⁺¹ = (n + 1)xⁿ | ∫ xⁿ dx = xⁿ⁺¹/(n + 1) + C, n ≠ −1 |
-| d/dx ln |x| = 1/x | ∫ (1/x) dx = ln |x| + C |
+| d/dx ln \|x\| = 1/x | ∫ (1/x) dx = ln \|x\| + C |
 | d/dx eˣ = eˣ | ∫ eˣ dx = eˣ + C |
 | d/dx aˣ = aˣ ln a | ∫ aˣ dx = aˣ/ln a + C |
 | d/dx sin x = cos x | ∫ cos x dx = sin x + C |

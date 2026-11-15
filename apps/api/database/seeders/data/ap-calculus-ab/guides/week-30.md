@@ -21,8 +21,8 @@
 | Average value of f on [a, b] | (1/(b − a)) ∫ from a to b of f(x) dx; the height of the rectangle on [a, b] with the same signed area as f. |
 | Mean Value Theorem for integrals | If f is continuous on [a, b], then f(c) equals the average value for some c in [a, b]. |
 | Displacement | Change in position, ∫ from a to b of v(t) dt. Can be negative. |
-| Total distance | ∫ from a to b of |v(t)| dt. Never negative. |
-| Speed | |v(t)|. |
+| Total distance | ∫ from a to b of \|v(t)\| dt. Never negative. |
+| Speed | \|v(t)\|. |
 | Net change theorem | ∫ from a to b of Q′(t) dt = Q(b) − Q(a): integrating a rate gives a change. |
 | Rate in / rate out | Two rates affecting one amount; the amount changes at (rate in) − (rate out). |
 

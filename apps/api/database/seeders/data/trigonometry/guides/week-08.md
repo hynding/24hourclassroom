@@ -18,7 +18,7 @@
 | Sinusoid | Any graph that is a transformed sine curve: y = a sin(b(x − h)) + k. Every transformed cosine is one too. |
 | Phase shift | The horizontal translation h: the graph of y = a sin(bx) moved h units right (h > 0) or left (h < 0). |
 | Vertical shift | The constant k that moves the graph up or down; the midline becomes y = k. |
-| Midline | y = k, halfway between the maximum value k + |a| and the minimum value k − |a|. |
+| Midline | y = k, halfway between the maximum value k + \|a\| and the minimum value k − \|a\|. |
 | Standard form | y = a sin(b(x − h)) + k, with b factored out so that h can be read directly. |
 
 ## The four numbers in y = a sin(b(x − h)) + k (2.3)
@@ -27,8 +27,8 @@ Each number does one job.
 
 | Number | Effect | Reads as |
 |---|---|---|
-| a | vertical stretch; a < 0 reflects | amplitude |a| |
-| b | horizontal stretch | period 2π/|b| |
+| a | vertical stretch; a < 0 reflects | amplitude \|a\| |
+| b | horizontal stretch | period 2π/\|b\| |
 | h | horizontal shift | phase shift h (right if positive) |
 | k | vertical shift | midline y = k |
 

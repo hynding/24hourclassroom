@@ -29,7 +29,7 @@
 | Amount at time t | A(0) + ∫ from 0 to t of (rate in − rate out) ds |
 | ∫ from a to b of f(x) dx | F(b) − F(a) |
 | ∫ xⁿ dx (n ≠ −1) | xⁿ⁺¹/(n + 1) + C |
-| ∫ (1/x) dx, ∫ eˣ dx | ln |x| + C, eˣ + C |
+| ∫ (1/x) dx, ∫ eˣ dx | ln \|x\| + C, eˣ + C |
 | ∫ cos x dx, ∫ sin x dx | sin x + C, −cos x + C |
 | ∫ sec²x dx, ∫ sec x tan x dx | tan x + C, sec x + C |
 | ∫ 1/(u² + a²) du | (1/a) arctan(u/a) + C |

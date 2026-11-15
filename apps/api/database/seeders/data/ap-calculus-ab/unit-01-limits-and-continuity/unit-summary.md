@@ -36,7 +36,7 @@
 | Constant for continuity | left-hand limit = right-hand limit = f(c) at each break point |
 | Vertical asymptote vs hole | factor; a factor left in the denominator → asymptote; fully cancelled → hole |
 | Rational limit at ±∞ | degree top < bottom: 0; equal: ratio of leading coefficients; top > bottom: ±∞ |
-| √(x²) at −∞ | equals |x| = −x |
+| √(x²) at −∞ | equals \|x\| = −x |
 | Growth at ∞ | ln x ≪ xⁿ ≪ eˣ |
 | IVT | f continuous on [a, b], N between f(a) and f(b) ⟹ f(c) = N for some c in (a, b) |
 

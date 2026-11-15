@@ -32,14 +32,14 @@
 | Regular n-gon, circumradius R | ½nR² sin(360°/n) |
 | Bearing → direction angle | θ = 90° − bearing (add 360° if negative) |
 | Vector from P to Q | ⟨x₂ − x₁, y₂ − y₁⟩ |
-| Magnitude, direction | |v| = √(a² + b²); θ from tan⁻¹(b/a) placed in v's quadrant |
-| From magnitude and direction | v = ⟨|v| cos θ, |v| sin θ⟩ |
-| Unit vector | v/|v| |
-| Dot product | u · v = u₁v₁ + u₂v₂ = |u||v| cos θ |
-| Angle between vectors | cos θ = (u · v)/(|u||v|), 0° ≤ θ ≤ 180° |
+| Magnitude, direction | \|v\| = √(a² + b²); θ from tan⁻¹(b/a) placed in v's quadrant |
+| From magnitude and direction | v = ⟨\|v\| cos θ, \|v\| sin θ⟩ |
+| Unit vector | v/\|v\| |
+| Dot product | u · v = u₁v₁ + u₂v₂ = \|u\|\|v\| cos θ |
+| Angle between vectors | cos θ = (u · v)/(\|u\|\|v\|), 0° ≤ θ ≤ 180° |
 | Orthogonal | u · v = 0 |
-| Scalar component, projection | compᵥ u = (u · v)/|v|; projᵥ u = ((u · v)/|v|²) v |
-| Work | W = F · d = |F||d| cos θ |
+| Scalar component, projection | compᵥ u = (u · v)/\|v\|; projᵥ u = ((u · v)/\|v\|²) v |
+| Work | W = F · d = \|F\|\|d\| cos θ |
 | Equilibrium | ΣF = ⟨0, 0⟩: horizontal sum 0 and vertical sum 0 |
 | Ramp at θ, weight w | along slope w sin θ; into slope w cos θ |
 | Symmetric cables at θ | T = w/(2 sin θ) |

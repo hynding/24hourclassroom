@@ -22,7 +22,7 @@
 | End behaviour | What f(x) does as x → ∞ (far right) and x → −∞ (far left). |
 | lim as x → ∞ of f(x) = L | As x increases without bound, f(x) gets as close to L as we like. |
 | lim as x → ∞ of f(x) = ∞ | As x increases without bound, f(x) increases without bound. |
-| Leading term | The term of highest degree, aₙxⁿ; for large |x| it outweighs the others. |
+| Leading term | The term of highest degree, aₙxⁿ; for large \|x\| it outweighs the others. |
 | Rational function | r(x) = p(x)/q(x) with p and q polynomials and q not the zero polynomial. |
 | Horizontal asymptote | A line y = L with lim as x → ∞ or x → −∞ of r(x) equal to L. |
 | Slant (oblique) asymptote | A non-horizontal line y = mx + b that r(x) approaches as x → ±∞. |

@@ -18,16 +18,16 @@
 | Term | Meaning |
 |---|---|
 | Polar function | r = f(θ): for each angle θ, a directed distance r. |
-| Distance from the pole | |r|, the absolute value of r, whatever the sign of r. |
+| Distance from the pole | \|r\|, the absolute value of r, whatever the sign of r. |
 | Increasing r | Larger θ gives larger r (more positive or less negative). |
 | Average rate of change of r | (f(θ₂) − f(θ₁))/(θ₂ − θ₁): the change in r per radian of change in θ, the slope of a secant on the θ–r graph. |
-| Relative maximum distance | A point of the curve farther from the pole than nearby points; it happens where |r| has a relative maximum. |
+| Relative maximum distance | A point of the curve farther from the pole than nearby points; it happens where \|r\| has a relative maximum. |
 
 ## r versus distance: the four cases (3.15)
 
 The value r is a *directed* distance. The actual distance between the point (r, θ) and the pole is |r|. So "r is increasing" and "the point is moving away from the pole" are not the same statement. There are four cases:
 
-| Sign of r | r is ... | Distance |r| is ... | The point is moving ... |
+| Sign of r | r is ... | Distance \|r\| is ... | The point is moving ... |
 |---|---|---|---|
 | positive | increasing | increasing | away from the pole |
 | positive | decreasing | decreasing | toward the pole |

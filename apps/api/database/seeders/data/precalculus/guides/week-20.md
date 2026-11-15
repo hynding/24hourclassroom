@@ -19,9 +19,9 @@
 |---|---|
 | Sinusoidal function | Any function that can be written f(θ) = a sin(b(θ + c)) + d with a ≠ 0 and b ≠ 0 (or the same with cosine). |
 | Midline | The horizontal line y = d halfway between the maximum and minimum values. |
-| Amplitude | The vertical distance from the midline to a maximum (or minimum): |a| = (max − min)/2. Always positive. |
-| Period | The horizontal length of one cycle: 2π/|b| for a sinusoid. |
-| Frequency | The number of cycles per unit of input: |b|/(2π), the reciprocal of the period. |
+| Amplitude | The vertical distance from the midline to a maximum (or minimum): \|a\| = (max − min)/2. Always positive. |
+| Period | The horizontal length of one cycle: 2π/\|b\| for a sinusoid. |
+| Frequency | The number of cycles per unit of input: \|b\|/(2π), the reciprocal of the period. |
 | Phase shift | A horizontal translation of the graph; f(θ) = a sin(b(θ + c)) + d is the graph of a sin(bθ) + d shifted c units left (right if c < 0). |
 | Point of inflection | A point where the concavity changes; for a sinusoid these are the midline crossings. |
 

@@ -22,11 +22,11 @@
 
 | Want | Use |
 |---|---|
-| Amplitude, period of a sin(bx) or a cos(bx) | |a|; 2π/|b| |
-| Period of tan(bx), cot(bx) | π/|b| |
+| Amplitude, period of a sin(bx) or a cos(bx) | \|a\|; 2π/\|b\| |
+| Period of tan(bx), cot(bx) | π/\|b\| |
 | Asymptotes of tan(bx) | bx = π/2 + kπ |
 | Asymptotes of sec(bx) / csc(bx) | where cos(bx) = 0 / sin(bx) = 0 |
-| Midline and amplitude from data | k = (max + min)/2; |a| = (max − min)/2 |
+| Midline and amplitude from data | k = (max + min)/2; \|a\| = (max − min)/2 |
 | b from a period P | b = 2π/P (half-period given? double it first) |
 | Harmonic motion | d = a sin ωt or a cos ωt; P = 2π/ω; f = ω/(2π) |
 | Ranges of sin⁻¹, cos⁻¹, tan⁻¹ | [−π/2, π/2]; [0, π]; (−π/2, π/2) |
@@ -34,7 +34,7 @@
 | tan(sin⁻¹ x), cos(tan⁻¹ x) | x/√(1 − x²); 1/√(1 + x²) |
 | cos(sin⁻¹ x), sin(cos⁻¹ x) | √(1 − x²) (both never negative) |
 | Damped oscillation | y = a e^(−ct) cos ωt; envelopes ±a e^(−ct); below level L when t > ln(a/L)/c |
-| Beats | beat frequency |f₁ − f₂| |
+| Beats | beat frequency \|f₁ − f₂\| |
 
 ## Classic question types and how to attack them
 
