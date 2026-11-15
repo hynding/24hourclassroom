@@ -1,0 +1,597 @@
+week: 23
+unit: 5
+title: "Newton's Second Law in Rotational Form"
+topics: ["5.6"]
+guide: guides/week-23.md
+guide_description: |
+  Newton's second law in rotational form, α = Στ/I about a fixed axis: the angular acceleration points the
+  way of the net torque, doubling the torque doubles α and doubling I halves it, and a torque changes ω rather
+  than setting it. Connected systems solved with one equation per object and the non-slip link a = Rα, why the
+  tension on a hanging object is less than its weight and differs on the two sides of a massive pulley, and
+  limiting-case checks. Worked examples: pushing a merry-go-round against axle friction, a bucket hanging from
+  a winch drum (and why the drum's radius drops out), an Atwood machine with a 4.0 kg pulley, a hinged meter
+  stick whose free end falls faster than g, and measuring a turntable's rotational inertia from a graph of
+  torque against angular acceleration.
+flashcards_description: |
+  30 cards on Στ = Iα: its meaning and direction, applying it with rotational kinematics, pulleys with mass,
+  tension on each side, Atwood machines, the falling rod, functional dependence and limiting cases, and the
+  torque-against-angular-acceleration lab.
+
+flashcards:
+  - front: Newton's second law in rotational form → statement
+    back: |
+      α = Στ/I: the angular acceleration about a fixed axis equals the net torque about that axis divided by the rotational inertia about the same axis.
+    topic_code: "5.6"
+  - front: Direction of α under Στ = Iα → which way it points
+    back: |
+      The same way as the net torque. It can be opposite to ω: a friction torque on a spinning wheel gives α against the spin, so the wheel slows.
+    topic_code: "5.6"
+  - front: Same net torque on a hoop and a solid disk of equal mass and radius → which has the larger α
+    back: |
+      The disk: I = ½MR² is half the hoop's MR², so its angular acceleration is twice as large.
+    topic_code: "5.6"
+  - front: Στ = Iα doubling rules → torque doubled, I doubled
+    back: |
+      Doubling the net torque doubles α. Doubling the rotational inertia halves α.
+    topic_code: "5.6"
+  - front: Large torque on a wheel for a very short time → does it make ω large?
+    back: |
+      Not necessarily. Torque sets α, the rate of change of ω. The change in ω is αΔt, so a brief torque gives only a small change.
+    topic_code: "5.6"
+  - front: Merry-go-round, I = 500 kg·m², 150 N tangential push at 2.0 m, 50 N·m axle friction → α
+    back: |
+      Στ = 300 − 50 = 250 N·m, so α = 250/500 = 0.50 rad/s². From rest, after 5.0 s, ω = 2.5 rad/s.
+    topic_code: "5.6"
+  - front: Pulley with mass in a connected-object problem → the method
+    back: |
+      One free-body diagram and equation per object (ΣF = ma for blocks, Στ = Iα for the pulley), then link them with a = Rα and solve together.
+    topic_code: "5.6"
+  - front: Non-slip string on a pulley rim → link between a and α
+    back: |
+      a = Rα, where a is the string's (and hanging block's) acceleration and R is the radius where the string leaves the pulley.
+    topic_code: "5.6"
+  - front: Bucket of mass m hanging from a solid drum of mass M → acceleration
+    back: |
+      a = mg/(m + ½M). The drum acts like an extra ½M of mass to be accelerated (its I/R²).
+    topic_code: "5.6"
+  - front: Well bucket 2.0 kg on a 4.0 kg, 0.10 m solid drum → a, T and α
+    back: |
+      a = 19.6/(2.0 + 2.0) = 4.9 m/s²; T = ½Ma = 9.8 N; α = a/R = 49 rad/s².
+    topic_code: "5.6"
+  - front: Hanging block accelerating downward from a pulley → tension compared with its weight
+    back: |
+      Less than its weight. If T equalled mg, the net force on the block would be zero and it could not accelerate.
+    topic_code: "5.6"
+  - front: Hanging mass on a solid drum, drum radius doubled at the same mass → effect on a and α
+    back: |
+      a = mg/(m + ½M) is unchanged (R cancels); α = a/R halves. The longer lever arm is offset by the larger I.
+    topic_code: "5.6"
+  - front: Drum mass → 0 or drum mass → very large → limiting cases for a hanging bucket
+    back: |
+      M → 0 gives a → g (free fall, massless pulley). M → very large gives a → 0 (the bucket barely moves). A correct expression must do both.
+    topic_code: "5.6"
+  - front: Atwood machine with a massive pulley → tensions on the two sides
+    back: |
+      Different: the tension on the heavier block's side is larger. The difference times R is the net torque that angularly accelerates the pulley: (T₁ − T₂)R = Iα.
+    topic_code: "5.6"
+  - front: Atwood machine, 5.0 kg and 3.0 kg on a 4.0 kg solid-disk pulley → a and tensions
+    back: |
+      a = (2.0)(9.8)/(5.0 + 3.0 + 2.0) = 1.96 m/s²; T₁ = 5.0(9.8 − 1.96) = 39.2 N; T₂ = 3.0(9.8 + 1.96) ≈ 35.3 N.
+    topic_code: "5.6"
+  - front: Atwood machine acceleration with a solid-disk pulley → general expression
+    back: |
+      a = (m₁ − m₂)g/(m₁ + m₂ + ½M): net driving force over everything accelerated, with the disk contributing ½M.
+    topic_code: "5.6"
+  - front: "\"The tension is the same everywhere in a string\" → when it fails"
+    back: |
+      When the string passes over a pulley with significant rotational inertia (or axle friction). It holds only for a massless, frictionless pulley.
+    topic_code: "5.6"
+  - front: Uniform rod hinged at one end, released from horizontal → α at release
+    back: |
+      τ = Mg(L/2), I = (1/3)ML², so α = 3g/(2L). Mass cancels; a longer rod has a smaller α.
+    topic_code: "5.6"
+  - front: Hinged meter stick released from horizontal → acceleration of its free end
+    back: |
+      a = αL = (3/2)g ≈ 14.7 m/s², more than g. A coin on the far end is left behind.
+    topic_code: "5.6"
+  - front: Torque and rotational inertia in Στ = Iα → about which axis?
+    back: |
+      Both about the same fixed axis (or both about the centre of mass). Mixing axes gives wrong answers.
+    topic_code: "5.6"
+  - front: Forces at the axle of a pulley (weight, axle push) → their torque about the axle
+    back: |
+      Zero: they act at the axis, so their lever arm is zero. Only the string tensions at the rim (and any friction torque) appear in Στ.
+    topic_code: "5.6"
+  - front: Flywheel slowed to rest by constant friction → how to find the friction torque
+    back: |
+      Find α from the kinematics (α = Δω/Δt, or ω² = ω₀² + 2αΔθ), then τ = Iα.
+    topic_code: "5.6"
+  - front: Pulling a string on a spool with force F versus hanging a block of weight F → which spins up faster
+    back: |
+      Pulling with F: the tension is exactly F. A hanging block accelerates, so its string's tension is less than its weight and the torque is smaller.
+    topic_code: "5.6"
+  - front: Turntable lab with a hanging mass on a spool → what to graph to find I
+    back: |
+      Torque τ = m(g − a)r on the vertical axis against angular acceleration α = a/r on the horizontal: a straight line whose slope is I.
+    topic_code: "5.6"
+  - front: Turntable lab τ against α graph with a positive vertical intercept → meaning
+    back: |
+      A friction torque at the axle: that much applied torque is used up before the turntable accelerates at all.
+    topic_code: "5.6"
+  - front: Turntable lab, finding α from a falling mass → the measurements
+    back: |
+      Drop height h and fall time t (from rest): a = 2h/t², then α = a/r with r the spool radius.
+    topic_code: "5.6"
+  - front: Children move from the centre of a merry-go-round to its rim → effect on α for the same push
+    back: |
+      Their mass is now farther from the axis, so I increases and α = τ/I decreases.
+    topic_code: "5.6"
+  - front: Error-spot → "the tension in the rope holding the falling bucket equals the bucket's weight"
+    back: |
+      Then the bucket's net force would be zero. Since it accelerates downward, T is less than mg.
+    topic_code: "5.6"
+  - front: Error-spot → "a larger net torque gives a larger angular velocity"
+    back: |
+      A larger net torque gives a larger angular acceleration. The angular velocity also depends on how long the torque acts and on the initial ω.
+    topic_code: "5.6"
+  - front: Error-spot → "both sides of the heavy pulley in the Atwood machine have the same tension"
+    back: |
+      Equal tensions would give zero net torque, so the pulley could not angularly accelerate. The heavier side's tension is larger.
+    topic_code: "5.6"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topic 5.6: Στ = Iα about a fixed axis, angular
+    acceleration from net torque, connected systems with a massive pulley, tensions on each side, the falling
+    rod, functional dependence and limiting cases, and measuring rotational inertia), with 8 questions (33%)
+    reviewing earlier weeks (rotational kinematics and linear–angular links from week 19, torque from week 20,
+    rotational inertia from week 21, rotational equilibrium from week 22 and Newton's second law for
+    translation from week 7). Opens with a shared-context set on a block hanging from a pulley with mass.
+    Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are
+    matched automatically; the short answers and the long answer are graded by your teacher against the
+    scoring notes. Calculator and equation sheet allowed throughout; use g = 9.8 m/s².
+  questions:
+    # ---- Stimulus set: block hanging from a pulley with mass (5.6)
+    - slug: apphys1-u05-w23-q01
+      type: multiple_choice
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 1
+      stimulus: |
+        A 0.50 kg block hangs from a light string wrapped many times around a pulley that is a uniform solid disk of mass 3.0 kg and radius 0.080 m (I = ½MR²). The pulley turns on a frictionless horizontal axle, and the string does not slip. The block is released from rest. Use g = 9.8 m/s².
+      prompt: |
+        While the block falls, how does the tension in the string compare with the block's weight, 4.9 N?
+      options:
+        - "The tension equals 4.9 N, because the string supports the block."
+        - "The tension is greater than 4.9 N, because the string must also turn the pulley."
+        - "The tension is less than 4.9 N, because the block accelerates downward."
+        - "The tension is zero, because the block is falling."
+      option_explanations:
+        - |
+          A tension of 4.9 N would make the net force on the block zero, so it could not accelerate. That happens only if the pulley cannot turn.
+        - |
+          The pulley is turned by the string, but the string pulls up on the block with T; T larger than mg would make the block accelerate upward.
+        - |
+          Correct. The block accelerates downward, so mg − T = ma is positive and T is less than mg (here T ≈ 3.7 N). The pulley's rotational inertia keeps T above zero.
+        - |
+          T = 0 only for a pulley with no rotational inertia and no string tension, which would mean free fall. A massive pulley resists, so the string stays taut.
+      answer: 2
+    - slug: apphys1-u05-w23-q02
+      type: multiple_choice
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 1
+      stimulus: |
+        A 0.50 kg block hangs from a light string wrapped many times around a pulley that is a uniform solid disk of mass 3.0 kg and radius 0.080 m (I = ½MR²). The pulley turns on a frictionless horizontal axle, and the string does not slip. The block is released from rest. Use g = 9.8 m/s².
+      prompt: |
+        What is the magnitude of the block's acceleration?
+      options:
+        - "2.45 m/s²"
+        - "9.8 m/s²"
+        - "1.40 m/s²"
+        - "3.27 m/s²"
+      option_explanations:
+        - |
+          Correct. Block: mg − T = ma. Pulley: TR = ½MR²(a/R), so T = ½Ma. Adding: a = mg/(m + ½M) = 4.9/(0.50 + 1.5) = 2.45 m/s².
+        - |
+          9.8 m/s² is free fall; it ignores the pulley's rotational inertia, which slows the block.
+        - |
+          1.40 m/s² = 4.9/(0.50 + 3.0) uses I = MR² (a hoop); the pulley is a solid disk with I = ½MR².
+        - |
+          3.27 m/s² = 4.9/1.5 assumes the tension equals the block's weight and leaves out the block's own inertia (the m in m + ½M).
+      answer: 0
+    - slug: apphys1-u05-w23-q03
+      type: numeric
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 1
+      stimulus: |
+        A 0.50 kg block hangs from a light string wrapped many times around a pulley that is a uniform solid disk of mass 3.0 kg and radius 0.080 m (I = ½MR²). The pulley turns on a frictionless horizontal axle, and the string does not slip. The block is released from rest. Use g = 9.8 m/s².
+      prompt: |
+        What is the tension in the string while the block falls? Give your answer in newtons, to three significant figures.
+      answer: { value: 3.68, tolerance: 0.04 }
+      explanation: |
+        From the pulley, T = ½Ma = ½(3.0 kg)(2.45 m/s²) ≈ 3.68 N. Check with the block: T = m(g − a) = 0.50(9.8 − 2.45) = 3.675 N.
+    - slug: apphys1-u05-w23-q04
+      type: multiple_choice
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 1
+      stimulus: |
+        A 0.50 kg block hangs from a light string wrapped many times around a pulley that is a uniform solid disk of mass 3.0 kg and radius 0.080 m (I = ½MR²). The pulley turns on a frictionless horizontal axle, and the string does not slip. The block is released from rest. Use g = 9.8 m/s².
+      prompt: |
+        The pulley is replaced by a uniform solid disk of the same mass, 3.0 kg, but twice the radius. How does the block's acceleration change?
+      options:
+        - "It doubles, because the string's tension now has twice the lever arm."
+        - "It halves, because the pulley's rotational inertia is larger."
+        - "It becomes one quarter as large, because I depends on R²."
+        - "It stays the same, because the larger lever arm and the larger rotational inertia cancel."
+      option_explanations:
+        - |
+          The lever arm doubles, but I = ½MR² quadruples, and a = Rα brings in another factor of R; the effects cancel exactly.
+        - |
+          I does grow, but so do the lever arm and the factor a = Rα. The pulley's angular acceleration halves; the block's linear acceleration does not.
+        - |
+          I quadruples, but the torque doubles and a = Rα doubles too, so a is unchanged. One quarter forgets those two factors.
+        - |
+          Correct. a = mg/(m + ½M) contains no R: TR = ½MR²(a/R) gives T = ½Ma for any radius. Only α = a/R changes (it halves).
+      answer: 3
+    - slug: apphys1-u05-w23-q05
+      type: multiple_choice
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 1
+      prompt: |
+        A small carousel has rotational inertia 320 kg·m² about its axle and radius 1.6 m. A student pushes tangentially at its rim with a steady 120 N force. Friction is negligible. What is the carousel's angular acceleration?
+      options:
+        - "0.375 rad/s²"
+        - "0.60 rad/s²"
+        - "0.23 rad/s²"
+        - "0.96 rad/s²"
+      option_explanations:
+        - |
+          0.375 = F/I divides the force, not the torque, by the rotational inertia; the 1.6 m lever arm is missing.
+        - |
+          Correct. τ = rF = (1.6 m)(120 N) = 192 N·m, so α = τ/I = 192/320 = 0.60 rad/s².
+        - |
+          0.23 uses τ = F/r = 75 N·m, dividing by the radius instead of multiplying.
+        - |
+          0.96 multiplies the force by r² (307 N·m); torque is r times the perpendicular force, not r² times it.
+      answer: 1
+    - slug: apphys1-u05-w23-q06
+      type: multiple_choice
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 1
+      prompt: |
+        A uniform rod 1.2 m long is hinged at one end and held horizontal, then released. Its rotational inertia about the hinge is (1/3)ML². What is its angular acceleration just after release?
+      options:
+        - "8.2 rad/s²"
+        - "49 rad/s²"
+        - "12 rad/s²"
+        - "4.1 rad/s²"
+      option_explanations:
+        - |
+          8.2 rad/s² = g/L assumes the free end falls at g. Using τ = Iα gives a larger value: the end falls faster than g.
+        - |
+          49 rad/s² = 6g/L uses I = (1/12)ML² about the centre with the torque about the hinge; τ and I must be about the same axis.
+        - |
+          Correct. τ = Mg(L/2) about the hinge, I = (1/3)ML², so α = 3g/(2L) = 3(9.8)/(2.4) ≈ 12 rad/s².
+        - |
+          4.1 rad/s² = g/(2L) treats the rod as a point mass at its end (I = ML²) while keeping the weight at the centre.
+      answer: 2
+    - slug: apphys1-u05-w23-q07
+      type: multiple_choice
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 1
+      prompt: |
+        A thin hoop and a solid disk have the same mass and the same radius, and each turns on a frictionless axle through its centre. A string wrapped around each rim is pulled with the same constant force. How do their angular accelerations compare?
+      options:
+        - "The disk's is twice the hoop's."
+        - "They are equal, because the torques are equal."
+        - "The hoop's is twice the disk's, because its mass is at the rim where the force acts."
+        - "The disk's is four times the hoop's."
+      option_explanations:
+        - |
+          Correct. The torques are equal (same F, same R), and α = τ/I. The disk's I = ½MR² is half the hoop's MR², so its α is twice as large.
+        - |
+          Equal torques give equal α only for equal rotational inertias. The hoop's mass is all at the rim, so its I is larger.
+        - |
+          Mass at the rim raises rotational inertia, which lowers α. Where the force acts sets the torque, and that is the same for both.
+        - |
+          The ratio of rotational inertias is 2, not 4; the radii are equal, so no squared ratio appears.
+      answer: 0
+    - slug: apphys1-u05-w23-q08
+      type: multiple_choice
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 1
+      prompt: |
+        Two blocks, of 3.0 kg (left) and 2.0 kg (right), hang from a string over a pulley that is a uniform disk of significant mass. The axle is frictionless. As the left block falls, how do the string tensions on the left (T_L) and right (T_R) compare?
+      options:
+        - "T_L = T_R, because it is one string"
+        - "T_R is greater than T_L, because the right block accelerates upward"
+        - "T_L = 3.0g and T_R = 2.0g, each equal to its block's weight"
+        - "T_L is greater than T_R, because a net torque must turn the pulley toward the falling block"
+      option_explanations:
+        - |
+          A single tension holds only for a massless pulley. Equal tensions would give zero net torque, so a massive pulley could not angularly accelerate.
+        - |
+          T_R is greater than the right block's weight, but the pulley turns toward the left side, so the left tension must be the larger one.
+        - |
+          Both blocks accelerate, so neither tension equals its block's weight: T_L is less than 3.0g and T_R is greater than 2.0g.
+        - |
+          Correct. The pulley's angular acceleration is toward the falling 3.0 kg block, so (T_L − T_R)R = Iα must be positive: T_L is larger.
+      answer: 3
+    - slug: apphys1-u05-w23-q09
+      type: multiple_choice
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 1
+      prompt: |
+        A flywheel with rotational inertia 0.25 kg·m² spins at 40 rad/s. A constant friction torque brings it to rest in 8.0 s. What is the magnitude of the friction torque?
+      options:
+        - "10 N·m"
+        - "1.25 N·m"
+        - "5.0 N·m"
+        - "0.050 N·m"
+      option_explanations:
+        - |
+          10 = Iω multiplies the rotational inertia by the angular velocity; torque is Iα, and α depends on how quickly ω changes.
+        - |
+          Correct. α = Δω/Δt = 40/8.0 = 5.0 rad/s², so τ = Iα = (0.25)(5.0) = 1.25 N·m.
+        - |
+          5.0 is the angular acceleration in rad/s², not the torque; it still has to be multiplied by I.
+        - |
+          0.050 uses t/ω = 0.20 as the angular acceleration, inverting α = Δω/Δt.
+      answer: 1
+    - slug: apphys1-u05-w23-q10
+      type: multiple_choice
+      topic_code: "5.5"
+      source: "AP Physics 1 CED, Topic 5.5"
+      points: 1
+      prompt: |
+        A light rod 0.60 m long hangs horizontally from a string tied 0.20 m from its left end. A 0.30 kg ornament hangs from the left end. What mass hung from the right end keeps the rod horizontal and at rest?
+      options:
+        - "0.60 kg"
+        - "0.30 kg"
+        - "0.15 kg"
+        - "0.10 kg"
+      option_explanations:
+        - |
+          0.60 kg inverts the ratio. The right end is farther from the string (0.40 m), so it needs the smaller mass.
+        - |
+          Equal masses balance only at equal distances; the string is not at the rod's middle.
+        - |
+          Correct. Στ = 0 about the string: (0.30 kg)g(0.20 m) = M g(0.40 m), so M = 0.15 kg.
+        - |
+          0.10 kg uses the whole rod length, 0.60 m, as the right mass's lever arm; it is 0.60 − 0.20 = 0.40 m from the string.
+      answer: 2
+    - slug: apphys1-u05-w23-q11
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 1
+      prompt: |
+        Four objects have the same mass M and the same radius R: a solid sphere, a solid disk, a hollow thin-walled sphere and a thin hoop. Each rotates about an axis through its centre (the disk and hoop about the axis perpendicular to their faces). Which has the greatest rotational inertia?
+      options:
+        - "The solid sphere, because its mass fills the most space"
+        - "The hollow sphere, because all its mass is at distance R"
+        - "The solid disk"
+        - "The thin hoop"
+      option_explanations:
+        - |
+          A solid sphere has much of its mass near the axis; I = (2/5)MR², the smallest of the four.
+        - |
+          Every bit of the hollow sphere is R from its centre, but not R from the axis: points near the poles are close to it, so I = (2/3)MR².
+        - |
+          A solid disk spreads its mass from the axis out to R; I = ½MR², less than the hoop's.
+        - |
+          Correct. All of the hoop's mass is at distance R from the axis, so I = MR², the largest possible for this mass and radius.
+      answer: 3
+    - slug: apphys1-u05-w23-q12
+      type: multiple_choice
+      topic_code: "5.1"
+      source: "AP Physics 1 CED, Topic 5.1"
+      points: 1
+      prompt: |
+        A spinning bicycle wheel slows uniformly from 20 rad/s to 8.0 rad/s in 3.0 s. Through what angle does it turn during that time?
+      options:
+        - "42 rad"
+        - "36 rad"
+        - "60 rad"
+        - "4.0 rad"
+      option_explanations:
+        - |
+          Correct. With constant α, Δθ = ½(ω₀ + ω)t = ½(20 + 8.0)(3.0) = 42 rad.
+        - |
+          36 rad = (Δω)t multiplies the change in angular velocity by the time; the angle uses the average angular velocity.
+        - |
+          60 rad = ω₀t assumes the wheel kept its initial 20 rad/s for the whole 3.0 s.
+        - |
+          4.0 is the magnitude of the angular acceleration in rad/s², not the angle.
+      answer: 0
+    - slug: apphys1-u05-w23-q13
+      type: multiple_choice
+      topic_code: "5.2"
+      source: "AP Physics 1 CED, Topic 5.2"
+      points: 1
+      prompt: |
+        A string unwinds without slipping from a pulley of radius 0.050 m as a block falls 0.60 m. Through what angle does the pulley turn?
+      options:
+        - "0.030 rad"
+        - "12 rad"
+        - "1.9 rad"
+        - "6.0 rad"
+      option_explanations:
+        - |
+          0.030 multiplies the distance by the radius; the arc length is s = rθ, so θ = s/r.
+        - |
+          Correct. θ = s/r = 0.60 m / 0.050 m = 12 rad (about 1.9 revolutions).
+        - |
+          1.9 is the number of revolutions, 12/(2π), not the angle in radians.
+        - |
+          6.0 rad divides by the diameter (0.10 m) instead of the radius.
+      answer: 1
+    - slug: apphys1-u05-w23-q14
+      type: multi_select
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A block hangs from a string wrapped around a uniform solid-disk pulley on a frictionless axle. Which changes, made one at a time, would increase the pulley's angular acceleration? Select all that apply.
+      options:
+        - "Hanging a heavier block from the string"
+        - "Replacing the pulley with a thin hoop of the same mass and radius"
+        - "Adding friction at the axle"
+        - "Replacing the pulley with a solid disk of the same radius but less mass"
+        - "Replacing the pulley with a solid disk of the same mass but a larger radius"
+      option_explanations:
+        - |
+          Correct. a = mg/(m + ½M) grows with m (toward g), and α = a/R grows with it.
+        - |
+          A hoop's I = MR² is twice the disk's, so the same string tension gives a smaller angular acceleration.
+        - |
+          A friction torque opposes the string's torque, reducing the net torque and so α.
+        - |
+          Correct. Less pulley mass means a smaller I; a = mg/(m + ½M) increases and so does α = a/R.
+        - |
+          The block's acceleration a = mg/(m + ½M) does not depend on R, so α = a/R decreases with a larger radius.
+      answer: [0, 3]
+    - slug: apphys1-u05-w23-q15
+      type: multi_select
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about a rigid wheel turning on a fixed axle are correct? Select all that apply.
+      options:
+        - "Στ = Iα holds when the torques and the rotational inertia are both taken about the axle."
+        - "The angular acceleration points in the same direction as the net torque."
+        - "If the net torque becomes zero, the wheel gradually slows to a stop."
+        - "Every point on the wheel has the same angular acceleration."
+        - "Every point on the wheel has the same tangential acceleration."
+      option_explanations:
+        - |
+          Correct. τ and I must be computed about the same axis; for a fixed axle that axis is the axle.
+        - |
+          Correct. The net torque sets the direction of α, whatever the direction of ω.
+        - |
+          Zero net torque means zero angular acceleration: the wheel keeps its angular velocity (Newton's first law in rotational form).
+        - |
+          Correct. A rigid object turns as a unit, so all points share the same ω and α.
+        - |
+          Tangential acceleration a_t = rα grows with distance from the axle; points nearer the rim have larger a_t.
+      answer: [0, 1, 3]
+    - slug: apphys1-u05-w23-q16
+      type: true_false
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 1
+      prompt: |
+        True or false: Of two identical wheels, the one that experiences the larger net torque must be turning with the larger angular velocity.
+      answer: false
+      explanation: |
+        False. A net torque sets the angular acceleration (α = Στ/I), the rate at which ω changes. The angular velocity also depends on the starting value and on how long the torque has acted; a wheel with a large torque that has just started from rest can be turning more slowly than one already spinning with no torque at all.
+    - slug: apphys1-u05-w23-q17
+      type: true_false
+      topic_code: "5.3"
+      source: "AP Physics 1 CED, Topic 5.3"
+      points: 1
+      prompt: |
+        True or false: The weight of a pulley, which acts at its axle, exerts no torque about that axle.
+      answer: true
+      explanation: |
+        True. A force whose line of action passes through the axis has zero lever arm, so τ = r⊥F = 0. This is why only the string tensions at the rim (and any friction torque) appear in the pulley's Στ = Iα.
+    - slug: apphys1-u05-w23-q18
+      type: fill_blank
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 1
+      prompt: |
+        A net torque of 3.0 N·m acts on a wheel with rotational inertia 0.20 kg·m² about its axle. The wheel's angular acceleration is ____ rad/s².
+      answer: ["15", "15.0"]
+      explanation: |
+        α = Στ/I = 3.0 N·m / 0.20 kg·m² = 15 rad/s².
+    - slug: apphys1-u05-w23-q19
+      type: fill_blank
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 1
+      prompt: |
+        A uniform solid disk of mass 4.0 kg and radius 0.50 m (I = ½MR²) has a rotational inertia about its central axis of ____ kg·m².
+      answer: ["0.5", "0.50", "0.500"]
+      explanation: |
+        I = ½MR² = ½(4.0 kg)(0.50 m)² = 0.50 kg·m².
+    - slug: apphys1-u05-w23-q20
+      type: numeric
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 1
+      prompt: |
+        Blocks of 3.0 kg and 2.0 kg hang on either side of a pulley that is a uniform solid disk of mass 2.0 kg (I = ½MR²). The string does not slip and the axle is frictionless. What is the magnitude of the blocks' acceleration? Give your answer in m/s², to three significant figures.
+      answer: { value: 1.63, tolerance: 0.02 }
+      explanation: |
+        Equations: 3.0g − T₁ = 3.0a; T₂ − 2.0g = 2.0a; (T₁ − T₂)R = ½MR²(a/R), so T₁ − T₂ = ½Ma = 1.0a. Adding: (3.0 − 2.0)g = (3.0 + 2.0 + 1.0)a, so a = 9.8/6.0 ≈ 1.63 m/s². (With a massless pulley it would be 9.8/5.0 = 1.96 m/s².)
+    - slug: apphys1-u05-w23-q21
+      type: numeric
+      topic_code: "2.5"
+      source: "AP Physics 1 CED, Topic 2.5"
+      points: 1
+      prompt: |
+        A 2.0 kg cart on a level track is pulled by a horizontal string with a 6.0 N force while a 1.0 N friction force opposes its motion. What is the magnitude of the cart's acceleration? Give your answer in m/s², to two significant figures.
+      answer: { value: 2.5, tolerance: 0.03 }
+      explanation: |
+        ΣF = 6.0 − 1.0 = 5.0 N, so a = ΣF/m = 5.0/2.0 = 2.5 m/s². This is the translational twin of α = Στ/I: net cause over inertia.
+    - slug: apphys1-u05-w23-q22
+      type: short_answer
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 3
+      prompt: |
+        A spool on a fixed, frictionless axle has a light string wrapped around it. In trial 1, a student pulls the free end of the string straight down with a constant 20 N force. In trial 2, the student instead hangs a block whose weight is 20 N from the string and lets go. In which trial does the spool have the larger angular acceleration? Make a claim and justify it, using free-body reasoning for the block and Στ = Iα for the spool.
+      answer: |
+        Claim: trial 1 gives the larger angular acceleration.
+        Trial 1: the tension in the string is the student's pull, exactly 20 N, so the torque on the spool is (20 N)r.
+        Trial 2: the block accelerates downward, so the net force on it is downward: 20 N − T = ma with a greater than zero, so T is less than 20 N. The torque on the spool, Tr, is therefore less than (20 N)r.
+        Since α = Tr/I with the same r and I in both trials, the larger tension in trial 1 gives the larger α.
+      explanation: |
+        Three points. 1 point: the claim (trial 1). 1 point: in trial 2 the tension is less than the block's weight because the block accelerates downward (a free-body or ΣF = ma argument). 1 point: connects the tension to the torque on the spool and to α = Στ/I with I and r unchanged. "They are the same, because both are 20 N" earns no credit.
+    - slug: apphys1-u05-w23-q23
+      type: short_answer
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 3
+      prompt: |
+        Four children ride a merry-go-round. A parent gives it the same tangential push, at the rim and for the same time, on two occasions: once with all four children sitting near the centre and once with all four sitting at the rim. Predict on which occasion the merry-go-round reaches the larger angular velocity, and justify your prediction in terms of rotational inertia and Στ = Iα.
+      answer: |
+        Prediction: with the children near the centre, the merry-go-round reaches the larger angular velocity.
+        Rotational inertia: each child adds about m r² to I. At the rim r is large, so the system's rotational inertia is much larger than with the children near the axle.
+        Στ = Iα: the push gives the same torque in both cases, so the angular acceleration α = τ/I is smaller when I is larger. Over the same time, ω = αt is therefore smaller with the children at the rim.
+      explanation: |
+        Three points. 1 point: correct prediction (children near the centre). 1 point: explains that moving mass farther from the axis increases I (I = Σmr² or the r² dependence). 1 point: same torque and same time, so a larger I gives a smaller α and a smaller final ω. Saying "the children are heavier at the rim" or using the children's speed instead of I earns at most the prediction point.
+    - slug: apphys1-u05-w23-q24
+      type: long_answer
+      topic_code: "5.6"
+      source: "AP Physics 1 CED, Topic 5.6"
+      points: 6
+      prompt: |
+        Mathematical routines. A 4.0 kg block rests on a level table; the coefficient of kinetic friction between block and table is 0.20. A light string attached to the block runs horizontally to a pulley at the table's edge and down to a hanging 1.5 kg block. The pulley is a uniform solid disk of mass 1.0 kg and radius 0.10 m (I = ½MR²) on a frictionless axle, and the string does not slip. The system is released and the blocks move. Use g = 9.8 m/s².
+
+        (A) Write an equation for each of the three objects (the table block, the hanging block and the pulley), and combine them to derive an expression for the acceleration a of the blocks in terms of the masses, μ_k and g.
+
+        (B) Calculate a, the tension T_h in the vertical part of the string and the tension T_t in the horizontal part.
+
+        (C) Explain, with reference to the pulley, why the two tensions in (B) are different. Then use your expression from (A) to state what a would be if the pulley's mass were negligible, and explain whether that limiting value is consistent with the answer in (B).
+      answer: |
+        (A) Table block (4.0 kg, m₁): T_t − μ_k m₁ g = m₁a. Hanging block (1.5 kg, m₂): m₂g − T_h = m₂a. Pulley: (T_h − T_t)R = (½MR²)(a/R), so T_h − T_t = ½Ma. Adding the three: m₂g − μ_k m₁ g = (m₁ + m₂ + ½M)a, so a = (m₂ − μ_k m₁)g/(m₁ + m₂ + ½M).
+        (B) a = (1.5 − 0.20 × 4.0)(9.8)/(4.0 + 1.5 + 0.50) = (0.70)(9.8)/6.0 ≈ 1.14 m/s². T_h = m₂(g − a) = 1.5(9.8 − 1.143) ≈ 13.0 N. T_t = m₁a + μ_k m₁ g = 4.0(1.143) + 7.84 ≈ 12.4 N.
+        (C) The pulley has rotational inertia and accelerates angularly in the direction the hanging block pulls it, so it needs a net torque in that direction: (T_h − T_t)R = Iα, which requires T_h larger than T_t (here by ½Ma ≈ 0.57 N). With M = 0, a = (m₂ − μ_k m₁)g/(m₁ + m₂) = 6.86/5.5 ≈ 1.25 m/s², slightly larger than 1.14 m/s². That is consistent: removing the pulley's inertia removes something that had to be accelerated, so the blocks speed up faster, and the two tensions become equal.
+      explanation: |
+        Six points.
+        (A) 2 points: 1 for three correct equations (including friction μ_k m₁ g on the table block and different tensions on the two sides of the pulley, with a = Rα); 1 for the combined expression a = (m₂ − μ_k m₁)g/(m₁ + m₂ + ½M) or an equivalent form.
+        (B) 2 points: 1 for a ≈ 1.14 m/s² (accept 1.13–1.15; 1.17 m/s² with g = 10 if stated); 1 for both tensions, T_h ≈ 13.0 N and T_t ≈ 12.4 N, consistent with the student's a.
+        (C) 2 points: 1 for explaining that a net torque is needed to give the massive pulley angular acceleration, so the tension on the hanging side is larger; 1 for the massless limit ≈ 1.25 m/s² with the reasoning that it should be (and is) larger than the value in (B). Using a single tension throughout loses the first point of (A) and the first point of (C).
