@@ -1,0 +1,881 @@
+unit: 8
+description: |
+  42 questions · about 90 minutes · every topic of Unit 8 (8.1 to 8.4): the fluid and ideal-fluid models
+  and density, pressure and its growth with depth, absolute and gauge pressure, Pascal's principle and
+  hydraulics, buoyancy and Archimedes' principle treated with free-body diagrams and Newton's laws, the
+  continuity equation, Bernoulli's equation and Torricelli's outflow. Includes three shared-context sets (a
+  four-question set on a water-filled aquarium tank, a four-question set on a floating plastic block and a
+  four-question set on water flowing through a pipe that narrows), select-all, true/false, fill-in-the-blank
+  and numeric items, two short-answer questions (3 points each) and two free-response questions in the 2027
+  AP style (10 points each: a mathematical routines question on a siphon, and an experimental design and
+  analysis question on buoyancy measured with a spring scale). Use g = 9.8 m/s², ρ_water = 1000 kg/m³ and
+  atmospheric pressure 1.0 × 10⁵ Pa unless a question says otherwise. Calculators and the equation sheet
+  are allowed throughout. Multiple choice, select-all, true/false and numeric items are graded at once;
+  fill-in-the-blank items are matched automatically; the short answers and free-response questions are
+  graded by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: an aquarium tank (8.1, 8.2)
+  - slug: apphys1-u08-exam-q01
+    type: multiple_choice
+    topic_code: "8.1"
+    source: "AP Physics 1 CED, Topic 8.1"
+    points: 1
+    stimulus: |
+      An open aquarium tank has vertical sides and a flat rectangular base of area 0.30 m². It holds fresh water (1000 kg/m³) to a depth of 0.60 m. Atmospheric pressure is 1.0 × 10⁵ Pa.
+    prompt: |
+      What is the mass of the water in the tank?
+    options:
+      - "0.18 kg"
+      - "180 kg"
+      - "1764 kg"
+      - "300 kg"
+    option_explanations:
+      - |
+        0.18 is the volume in cubic metres; mass is the volume times the density, 1000 kg/m³.
+      - |
+        Correct. V = 0.30 m² × 0.60 m = 0.18 m³, and m = ρV = 1000 × 0.18 = 180 kg.
+      - |
+        This multiplies by g: 180 × 9.8 = 1764 is the weight of the water in newtons, not its mass in kilograms.
+      - |
+        This treats the base area (0.30 m²) as if it were the volume, leaving out the depth; volume is base area times depth, 0.18 m³.
+    answer: 1
+  - slug: apphys1-u08-exam-q02
+    type: multiple_choice
+    topic_code: "8.2"
+    source: "AP Physics 1 CED, Topic 8.2"
+    points: 1
+    stimulus: |
+      An open aquarium tank has vertical sides and a flat rectangular base of area 0.30 m². It holds fresh water (1000 kg/m³) to a depth of 0.60 m. Atmospheric pressure is 1.0 × 10⁵ Pa.
+    prompt: |
+      What is the gauge pressure at the bottom of the tank?
+    options:
+      - "1.06 × 10⁵ Pa"
+      - "600 Pa"
+      - "5.9 × 10⁵ Pa"
+      - "5.9 × 10³ Pa"
+    option_explanations:
+      - |
+        This is the absolute pressure, P₀ + ρgh; gauge pressure leaves out the atmosphere.
+      - |
+        This is ρh without g; the pressure from a column of liquid is ρgh.
+      - |
+        This uses the depth in centimetres (60) instead of metres (0.60); with h in metres, ρgh = 5880 Pa.
+      - |
+        Correct. P_gauge = ρgh = 1000 × 9.8 × 0.60 = 5880 Pa ≈ 5.9 × 10³ Pa.
+    answer: 3
+  - slug: apphys1-u08-exam-q03
+    type: multiple_choice
+    topic_code: "8.2"
+    source: "AP Physics 1 CED, Topic 8.2"
+    points: 1
+    stimulus: |
+      An open aquarium tank has vertical sides and a flat rectangular base of area 0.30 m². It holds fresh water (1000 kg/m³) to a depth of 0.60 m. Atmospheric pressure is 1.0 × 10⁵ Pa.
+    prompt: |
+      How does the force on the base due to the water's gauge pressure compare with the weight of the water?
+    options:
+      - "They are equal, about 1.8 × 10³ N, because the vertical walls carry none of the water's weight."
+      - "The force is larger, because pressure acts in all directions."
+      - "The force is smaller, because part of the water's weight is held up by the walls."
+      - "The force is zero, because the atmosphere pushes up on the base from below."
+    option_explanations:
+      - |
+        Correct. F = P_gauge A = 5880 × 0.30 ≈ 1760 N, and the water's weight is 180 × 9.8 ≈ 1760 N. With vertical walls the fluid's pushes on the walls are horizontal, so the base supports the whole weight.
+      - |
+        Pressure acts in all directions at a point, but the force on the base is only the perpendicular push on its area, which equals the weight here.
+      - |
+        Walls carry part of the weight only when they slope outward; vertical walls push horizontally and support no weight.
+      - |
+        The atmosphere pushing on the water's surface is the part removed by using gauge pressure; the water's own weight still presses on the base.
+    answer: 0
+  - slug: apphys1-u08-exam-q04
+    type: multiple_choice
+    topic_code: "8.2"
+    source: "AP Physics 1 CED, Topic 8.2"
+    points: 1
+    stimulus: |
+      An open aquarium tank has vertical sides and a flat rectangular base of area 0.30 m². It holds fresh water (1000 kg/m³) to a depth of 0.60 m. Atmospheric pressure is 1.0 × 10⁵ Pa.
+    prompt: |
+      All the water is poured into a second tank with vertical sides and half the base area. How do the gauge pressure at the bottom and the force of the water on the base change?
+    options:
+      - "Pressure the same; force halved"
+      - "Pressure halved; force the same"
+      - "Pressure doubled; force the same"
+      - "Pressure doubled; force doubled"
+    option_explanations:
+      - |
+        The same volume over half the area stands twice as deep, so the pressure ρgh doubles; the force stays equal to the unchanged weight.
+      - |
+        Halving the area doubles the depth, so the pressure rises, not falls.
+      - |
+        Correct. Depth doubles to 1.20 m, so ρgh doubles to about 1.18 × 10⁴ Pa. The force is pressure × area = doubled pressure × half the area, still equal to the water's weight.
+      - |
+        The pressure doubles, but it acts on half the area, so the force on the base is unchanged.
+    answer: 2
+  # ---- Stimulus set B: a floating plastic block (8.3)
+  - slug: apphys1-u08-exam-q05
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "AP Physics 1 CED, Topic 8.3"
+    points: 1
+    stimulus: |
+      A solid plastic block measures 0.20 m × 0.20 m × 0.10 m and has a density of 700 kg/m³. It floats at rest in fresh water with its largest faces horizontal (the 0.10 m edges vertical).
+    prompt: |
+      How deep below the water surface is the block's bottom face?
+    options:
+      - "0.030 m"
+      - "0.10 m"
+      - "0.070 m"
+      - "0.14 m"
+    option_explanations:
+      - |
+        0.030 m is the height of the part above the water; the submerged fraction is ρ_block/ρ_water = 0.70.
+      - |
+        That would mean the block is fully submerged, which happens only if its density equals water's.
+      - |
+        Correct. Floating: V_sub/V = 700/1000 = 0.70, so 0.70 × 0.10 m = 0.070 m of the block is below the surface.
+      - |
+        This divides 0.10 m by 0.70, inverting the density ratio; the submerged depth must be less than the block's height.
+    answer: 2
+  - slug: apphys1-u08-exam-q06
+    type: numeric
+    topic_code: "8.3"
+    source: "AP Physics 1 CED, Topic 8.3"
+    points: 1
+    stimulus: |
+      A solid plastic block measures 0.20 m × 0.20 m × 0.10 m and has a density of 700 kg/m³. It floats at rest in fresh water with its largest faces horizontal (the 0.10 m edges vertical).
+    prompt: |
+      Coins are stacked on top of the block until its top face is exactly level with the water surface and everything floats at rest, with no coins in the water. What is the total mass of the coins? Give your answer in kg, to two significant figures.
+    answer: { value: 1.2, tolerance: 0.03 }
+    explanation: |
+      V = 0.20 × 0.20 × 0.10 = 4.0 × 10⁻³ m³. Fully submerged, F_b = 1000 × 4.0 × 10⁻³ × 9.8 = 39.2 N. The block's weight is 700 × 4.0 × 10⁻³ × 9.8 = 27.4 N. The coins supply the difference: m_coins g = 39.2 − 27.4 = 11.8 N, so m_coins = (1000 − 700) × 4.0 × 10⁻³ = 1.2 kg.
+  - slug: apphys1-u08-exam-q07
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "AP Physics 1 CED, Topic 8.3"
+    points: 1
+    stimulus: |
+      A solid plastic block measures 0.20 m × 0.20 m × 0.10 m and has a density of 700 kg/m³. It floats at rest in fresh water with its largest faces horizontal (the 0.10 m edges vertical).
+    prompt: |
+      With the coins on top and the block just submerged at rest, which describes the free-body diagram of the block alone?
+    options:
+      - "Weight down and buoyant force up, of equal size"
+      - "Weight down, a normal force from the coins down, and buoyant force up equal to the sum of the two downward forces"
+      - "Weight of the block and coins together down, and buoyant force up"
+      - "Weight down, buoyant force up, and a normal force from the water up"
+    option_explanations:
+      - |
+        The coins push down on the block; leaving them out makes the buoyant force (39.2 N) appear unbalanced against the block's 27.4 N weight.
+      - |
+        Correct. On the block alone: F_g = 27.4 N down, the coins' normal force 11.8 N down, and F_b = 39.2 N up. Newton's first law: F_b = mg + F_coins.
+      - |
+        The coins' weight acts on the coins, not on the block; what acts on the block is the normal force the coins exert on it (equal in size here).
+      - |
+        The water's upward push on the block is the buoyant force; there is no separate normal force from the water.
+    answer: 1
+  - slug: apphys1-u08-exam-q08
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "AP Physics 1 CED, Topic 8.3"
+    points: 1
+    stimulus: |
+      A solid plastic block measures 0.20 m × 0.20 m × 0.10 m and has a density of 700 kg/m³. It floats at rest in fresh water with its largest faces horizontal (the 0.10 m edges vertical).
+    prompt: |
+      The coins are removed and the block is placed in oil of density 800 kg/m³, where it floats at rest. Compared with floating in water, which is correct?
+    options:
+      - "Greater buoyant force; 70% submerged"
+      - "Smaller buoyant force; 87.5% submerged"
+      - "Same buoyant force; 70% submerged"
+      - "Same buoyant force; 87.5% submerged"
+    option_explanations:
+      - |
+        Floating at rest, the buoyant force equals the unchanged weight in any liquid; and the less dense oil requires more submerged volume.
+      - |
+        The buoyant force still equals the weight; only the submerged volume changes.
+      - |
+        The buoyant force is unchanged, but the fraction submerged depends on the liquid's density: 700/800, not 700/1000.
+      - |
+        Correct. F_b = mg in both liquids. In oil, V_sub/V = 700/800 = 0.875, so 87.5% of the block is submerged.
+    answer: 3
+  # ---- Stimulus set C: a pipe that narrows (8.4)
+  - slug: apphys1-u08-exam-q09
+    type: multiple_choice
+    topic_code: "8.4"
+    source: "AP Physics 1 CED, Topic 8.4"
+    points: 1
+    stimulus: |
+      Water flows steadily through a horizontal pipe. In the wide section the cross-sectional area is 20 cm², the speed is 1.5 m/s and the absolute pressure is 1.20 × 10⁵ Pa. The pipe then narrows to a section of area 5.0 cm². Treat the water as an ideal fluid.
+    prompt: |
+      What is the speed of the water in the narrow section?
+    options:
+      - "6.0 m/s"
+      - "0.38 m/s"
+      - "3.0 m/s"
+      - "24 m/s"
+    option_explanations:
+      - |
+        Correct. Continuity: v₂ = v₁(A₁/A₂) = 1.5 × (20/5.0) = 6.0 m/s.
+      - |
+        This inverts the area ratio; the water speeds up in the narrower section.
+      - |
+        This uses the square root of the area ratio, as if the areas were diameters; areas are given, so the ratio is used directly.
+      - |
+        This squares the area ratio, as if 20 and 5.0 were diameters; the speed scales with the area ratio itself.
+    answer: 0
+  - slug: apphys1-u08-exam-q10
+    type: numeric
+    topic_code: "8.4"
+    source: "AP Physics 1 CED, Topic 8.4"
+    points: 1
+    stimulus: |
+      Water flows steadily through a horizontal pipe. In the wide section the cross-sectional area is 20 cm², the speed is 1.5 m/s and the absolute pressure is 1.20 × 10⁵ Pa. The pipe then narrows to a section of area 5.0 cm². Treat the water as an ideal fluid.
+    prompt: |
+      What is the volume flow rate through the pipe? Give your answer in litres per second (1 L = 10⁻³ m³), to two significant figures.
+    answer: { value: 3.0, tolerance: 0.05 }
+    explanation: |
+      Q = A₁v₁ = (20 × 10⁻⁴ m²)(1.5 m/s) = 3.0 × 10⁻³ m³/s = 3.0 L/s. The narrow section gives the same: (5.0 × 10⁻⁴)(6.0) = 3.0 × 10⁻³ m³/s.
+  - slug: apphys1-u08-exam-q11
+    type: multiple_choice
+    topic_code: "8.4"
+    source: "AP Physics 1 CED, Topic 8.4"
+    points: 1
+    stimulus: |
+      Water flows steadily through a horizontal pipe. In the wide section the cross-sectional area is 20 cm², the speed is 1.5 m/s and the absolute pressure is 1.20 × 10⁵ Pa. The pipe then narrows to a section of area 5.0 cm². Treat the water as an ideal fluid.
+    prompt: |
+      What is the absolute pressure in the narrow section?
+    options:
+      - "1.37 × 10⁵ Pa"
+      - "1.02 × 10⁵ Pa"
+      - "1.03 × 10⁵ Pa"
+      - "3.0 × 10⁴ Pa"
+    option_explanations:
+      - |
+        This adds the change in kinetic energy per volume; faster flow at the same height has lower pressure.
+      - |
+        This subtracts ½ρv₂² = 18 000 Pa but forgets to add back ½ρv₁² = 1125 Pa from the wide section.
+      - |
+        Correct. P₂ = P₁ − ½ρ(v₂² − v₁²) = 1.20 × 10⁵ − 500 × (36 − 2.25) = 1.20 × 10⁵ − 16 875 ≈ 1.03 × 10⁵ Pa.
+      - |
+        This divides the pressure by the area ratio of 4; pressure changes according to Bernoulli's equation, not in proportion to area.
+    answer: 2
+  - slug: apphys1-u08-exam-q12
+    type: multiple_choice
+    topic_code: "8.4"
+    source: "AP Physics 1 CED, Topic 8.4"
+    points: 1
+    stimulus: |
+      Water flows steadily through a horizontal pipe. In the wide section the cross-sectional area is 20 cm², the speed is 1.5 m/s and the absolute pressure is 1.20 × 10⁵ Pa. The pipe then narrows to a section of area 5.0 cm². Treat the water as an ideal fluid.
+    prompt: |
+      Thin vertical tubes open to the air are attached to the top of the pipe, one at the wide section and one at the narrow section. Water rises in each tube until it is at rest. Which is correct?
+    options:
+      - "The water stands higher in the tube on the narrow section, because the water there moves faster."
+      - "The water stands higher in the tube on the wide section, by about 1.7 m."
+      - "The water stands at the same height in both tubes, because the pipe is horizontal."
+      - "The water stands higher in the tube on the wide section, by about 17 m."
+    option_explanations:
+      - |
+        A column in an open tube rises until ρgh equals the gauge pressure in the pipe below it; the narrow section has the lower pressure, so its column is shorter.
+      - |
+        Correct. The pressure difference is 16 875 Pa, and each column's height is its gauge pressure divided by ρg, so the difference is 16 875/(1000 × 9.8) ≈ 1.7 m, with the wide section higher.
+      - |
+        The pipe is horizontal, but the pressures in the two sections differ because the speeds differ, so the columns differ.
+      - |
+        This leaves g out of the division (16 875/1000); the height difference is ΔP/(ρg) ≈ 1.7 m.
+    answer: 1
+  # ---- Density and pressure (8.1, 8.2)
+  - slug: apphys1-u08-exam-q13
+    type: multiple_choice
+    topic_code: "8.1"
+    source: "AP Physics 1 CED, Topic 8.1"
+    points: 1
+    prompt: |
+      For which of these situations is the ideal-fluid assumption of incompressibility least appropriate?
+    options:
+      - "Water flowing through a garden hose"
+      - "Oil pushed through a hydraulic car lift"
+      - "Sea water at the bottom of a 10 m deep harbour"
+      - "Air being pumped into a bicycle tyre"
+    option_explanations:
+      - |
+        Water's density hardly changes at hose pressures (well under 0.1%), so treating it as incompressible works well.
+      - |
+        Hydraulic oil is chosen because it is nearly incompressible; that is what lets the lift transmit pressure.
+      - |
+        Even at 10 m the extra pressure changes water's density by only a few hundredths of a percent.
+      - |
+        Correct. A pump squeezes more and more air into the same tyre volume, so the air's density rises a lot; a gas being compressed is not incompressible.
+    answer: 3
+  - slug: apphys1-u08-exam-q14
+    type: multiple_choice
+    topic_code: "8.1"
+    source: "AP Physics 1 CED, Topic 8.1"
+    points: 1
+    prompt: |
+      An empty, sealed aluminium drink can has a mass of 0.015 kg and an outer volume of 355 mL (3.55 × 10⁻⁴ m³). What is the average density of the can and the air inside it?
+    options:
+      - "About 42 kg/m³"
+      - "2700 kg/m³, the density of aluminium"
+      - "About 0.042 kg/m³"
+      - "About 4.2 × 10⁴ kg/m³"
+    option_explanations:
+      - |
+        Correct. ρ_avg = 0.015 kg/3.55 × 10⁻⁴ m³ ≈ 42 kg/m³; the enclosed air is counted in the volume.
+      - |
+        That is the metal's density; the average density divides the total mass by the whole enclosed volume, mostly air.
+      - |
+        This divides by 0.355 (the volume in litres) instead of 3.55 × 10⁻⁴ m³.
+      - |
+        This divides 15 (the mass in grams) by the volume in cubic metres; the units must match.
+    answer: 0
+  - slug: apphys1-u08-exam-q15
+    type: multiple_choice
+    topic_code: "8.2"
+    source: "AP Physics 1 CED, Topic 8.2"
+    points: 1
+    prompt: |
+      In a hydraulic jack, the large piston has 50 times the area of the small piston, both at the same height. A mechanic pushes the small piston down 0.40 m. How far does the large piston rise?
+    options:
+      - "20 m"
+      - "8.0 mm"
+      - "0.40 m"
+      - "57 mm"
+    option_explanations:
+      - |
+        This multiplies the distance by the area ratio; the large piston moves less, because the oil's volume is fixed.
+      - |
+        Correct. The oil is incompressible, so A₁d₁ = A₂d₂ and d₂ = 0.40 m/50 = 0.0080 m = 8.0 mm. The force is multiplied by 50 and the distance divided by 50, so the work in equals the work out.
+      - |
+        Equal distances would mean equal volumes only if the areas were equal; the large piston sweeps 50 times the area.
+      - |
+        This divides by √50 ≈ 7.1, as if 50 were a ratio of radii; it is a ratio of areas.
+    answer: 1
+  - slug: apphys1-u08-exam-q16
+    type: multiple_choice
+    topic_code: "8.2"
+    source: "AP Physics 1 CED, Topic 8.2"
+    points: 1
+    prompt: |
+      An open U-tube holds water, both surfaces level. A student blows gently into the left arm, raising the air pressure above the left surface by 980 Pa while the right arm stays open to the room. When the water comes to rest, which is correct?
+    options:
+      - "The left surface is 0.10 m higher than the right surface."
+      - "The surfaces stay level, because the pressure is transmitted equally to both arms."
+      - "The right surface is 0.10 m higher than the left surface."
+      - "The right surface is about 1.0 m higher than the left surface."
+    option_explanations:
+      - |
+        The extra pressure pushes the left surface down, not up.
+      - |
+        Pascal's principle passes the extra pressure through the water, but the right surface still has only atmospheric pressure on it, so the water moves until a height difference balances the extra 980 Pa.
+      - |
+        Correct. At the level of the lower (left) surface, the pressures in the two arms must be equal: P₀ + 980 = P₀ + ρgΔh, so Δh = 980/(1000 × 9.8) = 0.10 m, with the right surface higher.
+      - |
+        This divides 980 Pa by 1000 kg/m³ and leaves out g; Δh = ΔP/(ρg).
+    answer: 2
+  - slug: apphys1-u08-exam-q17
+    type: multiple_choice
+    topic_code: "8.2"
+    source: "AP Physics 1 CED, Topic 8.2"
+    points: 1
+    prompt: |
+      A small, flat pressure sensor is held 2.0 m below the surface of a pond. Its sensing face is first pointed up, then sideways, then down. How do the three readings compare?
+    options:
+      - "Largest pointing up, because the water above pushes down on it"
+      - "Largest pointing down, because pressure increases toward the bottom"
+      - "Smallest pointing sideways, because water pushes only up and down"
+      - "The same in all three orientations"
+    option_explanations:
+      - |
+        Pressure is a scalar; at a point in a fluid at rest it is the same in every direction, whichever way the sensor faces.
+      - |
+        The sensor's face is still at 2.0 m whichever way it points; the increase with depth matters only if the sensor moves deeper.
+      - |
+        A fluid at rest pushes perpendicular to any surface it touches, sideways surfaces included, with the same pressure.
+      - |
+        Correct. At a given point in a fluid at rest the pressure is the same in all directions, so a small sensor at 2.0 m reads P₀ + ρgh ≈ 1.2 × 10⁵ Pa in every orientation.
+    answer: 3
+  # ---- Buoyancy (8.3)
+  - slug: apphys1-u08-exam-q18
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "AP Physics 1 CED, Topic 8.3"
+    points: 1
+    prompt: |
+      A 1.0 kg block of aluminium and a 1.0 kg block of lead are both held completely under water. Which experiences the larger buoyant force?
+    options:
+      - "The aluminium block, because it has the larger volume"
+      - "The lead block, because it is denser"
+      - "Neither: equal masses feel equal buoyant forces"
+      - "Neither: blocks that sink feel no buoyant force"
+    option_explanations:
+      - |
+        Correct. Aluminium is less dense (2700 against about 11 300 kg/m³), so 1.0 kg of it occupies more volume, displaces more water and feels a larger ρ_water V g.
+      - |
+        Higher density means a smaller volume for the same mass, so lead displaces less water and feels less buoyant force.
+      - |
+        The buoyant force depends on the displaced volume, not on the object's mass; equal masses of different materials have different volumes.
+      - |
+        Sinking objects still feel a buoyant force; it is just smaller than their weight.
+    answer: 0
+  - slug: apphys1-u08-exam-q19
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "AP Physics 1 CED, Topic 8.3"
+    points: 1
+    prompt: |
+      A helium balloon of volume 0.012 m³ is tied to a table by a light string and floats at rest. The balloon's rubber and helium together have a mass of 0.0050 kg. The density of air is 1.2 kg/m³. What is the tension in the string?
+    options:
+      - "About 0.14 N"
+      - "About 0.092 N"
+      - "About 0.049 N"
+      - "About 0.19 N"
+    option_explanations:
+      - |
+        This is the whole buoyant force, ρ_air V g = 0.141 N; the balloon's own weight also pulls down, so the string supplies less.
+      - |
+        Correct. F_b = 1.2 × 0.012 × 9.8 ≈ 0.141 N up; weight = 0.0050 × 9.8 = 0.049 N down; the string pulls down with T = 0.141 − 0.049 ≈ 0.092 N.
+      - |
+        This is the balloon's weight, not the string's tension.
+      - |
+        This adds the weight to the buoyant force; at rest the string and the weight together balance the buoyant force.
+    answer: 1
+  - slug: apphys1-u08-exam-q20
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "AP Physics 1 CED, Topic 8.3"
+    points: 1
+    prompt: |
+      An ice cube floats in a glass filled to the brim with fresh water. When the ice has completely melted, what happens to the water level?
+    options:
+      - "It rises and water spills, because the ice adds its whole volume to the water"
+      - "It falls, because liquid water is denser than ice"
+      - "It stays the same, because the floating ice already displaced its own weight of water"
+      - "It falls, because the part of the ice above the surface disappears"
+    option_explanations:
+      - |
+        The ice was already displacing water while it floated; only the part below the surface was taking up space in the water.
+      - |
+        The ice does shrink as it melts, but it shrinks to exactly the volume it was already displacing, so the level does not fall.
+      - |
+        Correct. Floating, the ice displaced water equal to its own weight. Melted, it becomes water of that same weight, which fills exactly the volume it was displacing, so the level is unchanged.
+      - |
+        The above-surface part does not vanish; its mass becomes water that fills the space the submerged part was already occupying.
+    answer: 2
+  - slug: apphys1-u08-exam-q21
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "AP Physics 1 CED, Topic 8.3"
+    points: 1
+    prompt: |
+      A beaker of water on an electronic scale reads 10.0 N. A 4.0 N metal block hanging from a string is lowered until fully submerged; the buoyant force on it is 1.5 N. The string is then cut and the block comes to rest on the bottom of the beaker. What does the scale read now?
+    options:
+      - "11.5 N"
+      - "10.0 N"
+      - "12.5 N"
+      - "14.0 N"
+    option_explanations:
+      - |
+        That was the reading while the block hung from the string; once the string is cut, the beaker supports the block's whole weight.
+      - |
+        The block is now inside the beaker and pushing on it; the scale must support the block as well as the water.
+      - |
+        This adds the block's apparent weight (4.0 − 1.5 = 2.5 N) but leaves out the 1.5 N that the block's push on the water already contributes.
+      - |
+        Correct. With nothing else holding the block, the scale supports the beaker, the water and the whole block: 10.0 + 4.0 = 14.0 N (the 1.5 N push on the water plus the 2.5 N normal force on the bottom).
+    answer: 3
+  # ---- Flow (8.4)
+  - slug: apphys1-u08-exam-q22
+    type: multiple_choice
+    topic_code: "8.4"
+    source: "AP Physics 1 CED, Topic 8.4"
+    points: 1
+    prompt: |
+      Water leaves a small hole in the side of a large open tank at speed v when the surface is a height h above the hole. The tank is refilled until the surface is 4h above the hole. What is the new outflow speed?
+    options:
+      - "2v"
+      - "4v"
+      - "16v"
+      - "v, because the hole is the same size"
+    option_explanations:
+      - |
+        Correct. Torricelli: v = √(2gh), so multiplying h by 4 multiplies v by √4 = 2.
+      - |
+        The speed depends on the square root of the depth, not on the depth itself.
+      - |
+        This squares the factor instead of taking its square root.
+      - |
+        The hole's size affects the flow rate Q = Av, not the speed, which is set by the depth.
+    answer: 0
+  - slug: apphys1-u08-exam-q23
+    type: multiple_choice
+    topic_code: "8.4"
+    source: "AP Physics 1 CED, Topic 8.4"
+    points: 1
+    prompt: |
+      During a storm, wind blows fast and steadily across the flat roof of a closed shed, while the air inside the shed is still. What is the net force of the air on the roof?
+    options:
+      - "Downward, because the moving air pushes down on the roof"
+      - "Upward, because the pressure above the roof is lower than the pressure inside"
+      - "Zero, because the air above and below is at the same height"
+      - "Horizontal, in the direction of the wind, with no vertical part"
+    option_explanations:
+      - |
+        Fast-moving air does not push harder on a surface parallel to its flow; by Bernoulli's equation its pressure is lower.
+      - |
+        Correct. Along a streamline P + ½ρv² is constant (at nearly equal heights), so the fast air above the roof has lower pressure than the still air inside, giving a net upward force.
+      - |
+        Equal heights cancel the ρgy terms, but the speeds differ, so the pressures differ.
+      - |
+        The wind's drag along the roof is small; the main effect is the pressure difference, which acts perpendicular to the roof, upward.
+    answer: 1
+  - slug: apphys1-u08-exam-q24
+    type: multiple_choice
+    topic_code: "8.4"
+    source: "AP Physics 1 CED, Topic 8.4"
+    points: 1
+    prompt: |
+      Water flows steadily up through a building. On the first floor the pipe has an area of 4.0 cm², the speed is 2.0 m/s and the pressure is 3.00 × 10⁵ Pa. On a floor 4.0 m higher the pipe has an area of 2.0 cm². What is the pressure there?
+    options:
+      - "About 2.6 × 10⁵ Pa"
+      - "About 2.9 × 10⁵ Pa"
+      - "About 3.5 × 10⁵ Pa"
+      - "About 2.5 × 10⁵ Pa"
+    option_explanations:
+      - |
+        This accounts for the 4.0 m rise (39 200 Pa) but not for the water's speed doubling to 4.0 m/s, which costs another 6000 Pa.
+      - |
+        This accounts for the speed change but forgets the rise of 4.0 m, which costs ρgΔy = 39 200 Pa.
+      - |
+        This adds the energy terms; both the rise and the speed-up take energy per volume from the pressure, so it must decrease.
+      - |
+        Correct. Continuity: v₂ = 2.0 × (4.0/2.0) = 4.0 m/s. Bernoulli: P₂ = 3.00 × 10⁵ − 1000 × 9.8 × 4.0 − 500 × (16 − 4) = 3.00 × 10⁵ − 39 200 − 6000 ≈ 2.5 × 10⁵ Pa.
+    answer: 3
+  - slug: apphys1-u08-exam-q25
+    type: multiple_choice
+    topic_code: "8.4"
+    source: "AP Physics 1 CED, Topic 8.4"
+    points: 1
+    prompt: |
+      A student records energy per unit volume (in J/m³) for water at two points along one streamline of steady flow in a pipe:
+
+      | Point | P | ρgy | ½ρv² |
+      |---|---|---|---|
+      | 1 | 150 000 | 0 | 2000 |
+      | 2 | 120 600 | 29 400 | 2000 |
+
+      Which description of the pipe between the two points is consistent with the table?
+    options:
+      - "It rises 3.0 m with an unchanged cross-section."
+      - "It stays level and narrows."
+      - "It falls 3.0 m and widens."
+      - "It rises 3.0 m and narrows."
+    option_explanations:
+      - |
+        Correct. ½ρv² is unchanged, so the speed and (by continuity) the area are unchanged; ρgy grows by 29 400 J/m³, a rise of 29 400/(1000 × 9.8) = 3.0 m; and the total, 152 000 J/m³, is the same at both points.
+      - |
+        A level pipe would keep ρgy the same, but it increases; and narrowing would increase ½ρv², which is unchanged.
+      - |
+        Falling would decrease ρgy, but it increases; and widening would decrease ½ρv², which is unchanged.
+      - |
+        The rise is right, but narrowing would make the water faster and increase ½ρv², which stays at 2000 J/m³.
+    answer: 0
+  - slug: apphys1-u08-exam-q26
+    type: multiple_choice
+    topic_code: "8.2"
+    source: "AP Physics 1 CED, Topic 8.2"
+    points: 1
+    prompt: |
+      A tyre gauge reads 220 kPa on a car tyre. Atmospheric pressure is 100 kPa. What is the absolute pressure of the air in the tyre?
+    options:
+      - "220 kPa"
+      - "120 kPa"
+      - "320 kPa"
+      - "It cannot be found without the tyre's volume."
+    option_explanations:
+      - |
+        A tyre gauge reads gauge pressure, the amount above atmospheric; the absolute pressure adds the atmosphere.
+      - |
+        This subtracts the atmosphere; absolute pressure = gauge pressure + atmospheric pressure.
+      - |
+        Correct. P_abs = P_gauge + P₀ = 220 + 100 = 320 kPa.
+      - |
+        Pressure is force per area at a point; converting gauge to absolute pressure needs only the atmospheric pressure, not the volume.
+    answer: 2
+  - slug: apphys1-u08-exam-q27
+    type: multiple_choice
+    topic_code: "8.3"
+    source: "AP Physics 1 CED, Topic 8.3"
+    points: 1
+    prompt: |
+      A hydrometer (a sealed, weighted glass float with a thin stem) floats upright in liquid A with more of its stem below the surface than when it floats in liquid B. What can you conclude?
+    options:
+      - "Liquid A is denser than liquid B."
+      - "Liquid A is less dense than liquid B."
+      - "The buoyant force on the hydrometer is greater in liquid A."
+      - "The buoyant force on the hydrometer is smaller in liquid A."
+    option_explanations:
+      - |
+        A denser liquid would support the same weight with less submerged volume, so the hydrometer would ride higher in A, not lower.
+      - |
+        Correct. Floating in both, F_b = mg, so ρ_A V_A g = ρ_B V_B g. A larger submerged volume in A means ρ_A is smaller.
+      - |
+        The buoyant force equals the hydrometer's weight in both liquids, so it is the same.
+      - |
+        The hydrometer floats at rest in both, so the buoyant force equals its unchanged weight both times.
+    answer: 1
+  - slug: apphys1-u08-exam-q28
+    type: multiple_choice
+    topic_code: "8.4"
+    source: "AP Physics 1 CED, Topic 8.4"
+    points: 1
+    prompt: |
+      An open water cooler drains through a small tap near its bottom, with no refilling. How does the volume flow rate out of the tap change as the cooler empties?
+    options:
+      - "It decreases, because the depth of water above the tap decreases, so the outflow speed decreases"
+      - "It stays the same, because the tap's opening does not change"
+      - "It increases, because the water accelerates as it falls toward the tap"
+      - "It decreases, because the water becomes less dense as the level falls"
+    option_explanations:
+      - |
+        Correct. The outflow speed is √(2gh) with h the depth above the tap, and Q = A_tap v; as h falls, v and Q both fall.
+      - |
+        The opening's area is fixed, but Q = Av also depends on the speed, which depends on the depth.
+      - |
+        The outflow speed is set by the remaining depth through √(2gh), which shrinks as the cooler empties.
+      - |
+        Water is incompressible; its density does not change with the level.
+    answer: 0
+  # ---- Select-all, true/false, fill-in and numeric
+  - slug: apphys1-u08-exam-q29
+    type: multi_select
+    topic_code: "8.2"
+    source: "AP Physics 1 CED, Topic 8.2"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about pressure in a liquid at rest are correct? Select all that apply.
+    options:
+      - "Two points at the same depth in one connected body of the liquid have the same pressure."
+      - "The gauge pressure is proportional to the depth below the open surface."
+      - "Pressure is a vector that points downward, because it comes from the weight of the liquid above."
+      - "Doubling the depth doubles the absolute pressure."
+      - "A hydraulic lift multiplies force but not work."
+    option_explanations:
+      - |
+        Correct. Otherwise the liquid would be pushed sideways and would not be at rest.
+      - |
+        Correct. P_gauge = ρgh, which is proportional to h for a given liquid.
+      - |
+        Pressure is a scalar; the force it produces on a surface is perpendicular to that surface, whatever its orientation.
+      - |
+        The absolute pressure P₀ + ρgh includes the constant P₀, so doubling h does not double it.
+      - |
+        Correct. The force is multiplied by the area ratio, but the distance moved is divided by the same ratio, so F₁d₁ = F₂d₂.
+    answer: [0, 1, 4]
+  - slug: apphys1-u08-exam-q30
+    type: multi_select
+    topic_code: "8.3"
+    source: "AP Physics 1 CED, Topic 8.3"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A solid toy is held at the bottom of a swimming pool and released. It rises to the surface and then floats at rest, partly submerged. Which statements are true? Select all that apply.
+    options:
+      - "While fully submerged, the buoyant force on it is greater than its weight."
+      - "Its average density is less than that of water."
+      - "The buoyant force grows as it rises toward the surface while still fully submerged."
+      - "Once floating at rest, the buoyant force on it equals its weight."
+      - "Once floating at rest, it displaces a volume of water equal to its own volume."
+    option_explanations:
+      - |
+        Correct. It accelerates upward from rest, so the net force is upward: F_b is greater than mg.
+      - |
+        Correct. Since F_b = ρ_water V g exceeds mg = ρ_toy V g when fully submerged, ρ_toy must be less than ρ_water.
+      - |
+        While fully submerged, the displaced volume and so F_b = ρ_water V g are the same at every depth.
+      - |
+        Correct. At rest the net force is zero, and the only forces are the weight and the buoyant force.
+      - |
+        Floating partly submerged, it displaces only its submerged volume, which is less than its whole volume.
+    answer: [0, 1, 3]
+  - slug: apphys1-u08-exam-q31
+    type: multi_select
+    topic_code: "8.4"
+    source: "AP Physics 1 CED, Topic 8.4"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about the equations of fluid flow for an ideal fluid are correct? Select all that apply.
+    options:
+      - "Bernoulli's equation is a statement of conservation of energy."
+      - "The continuity equation is a statement of conservation of mass."
+      - "With the fluid at rest everywhere, Bernoulli's equation reduces to P = P₀ + ρgh."
+      - "In a horizontal pipe, the pressure is highest where the fluid moves fastest."
+      - "Torricelli's outflow speed from a hole in an open tank is smaller for a denser liquid."
+    option_explanations:
+      - |
+        Correct. Its terms are pressure work, kinetic energy and gravitational potential energy, each per unit volume.
+      - |
+        Correct. A₁v₁ = A₂v₂ says that the mass (and, for constant density, the volume) entering each second equals that leaving.
+      - |
+        Correct. With v = 0, P + ρgy is constant, so going down a depth h raises the pressure by ρgh.
+      - |
+        At equal heights P + ½ρv² is constant, so the pressure is lowest where the fluid moves fastest.
+      - |
+        ρ cancels from ρgh = ½ρv², so v = √(2gh) for any ideal liquid.
+    answer: [0, 1, 2]
+  - slug: apphys1-u08-exam-q32
+    type: true_false
+    topic_code: "8.1"
+    source: "AP Physics 1 CED, Topic 8.1"
+    points: 1
+    prompt: |
+      True or false: A 2 kg brick and a 20 kg block cut from the same uniform clay have the same density.
+    answer: true
+    explanation: |
+      True. The larger block has ten times the mass and ten times the volume, so ρ = m/V is the same. Density is a property of the material, not of the size of the sample.
+  - slug: apphys1-u08-exam-q33
+    type: true_false
+    topic_code: "8.3"
+    source: "AP Physics 1 CED, Topic 8.3"
+    points: 1
+    prompt: |
+      True or false: A sealed, rigid steel box held fully under water feels a larger buoyant force at 8 m deep than at 2 m deep, because the water pressure is greater deeper down.
+    answer: false
+    explanation: |
+      False. The pressures on the top and bottom both increase by the same ρgΔh, so their difference, the buoyant force, is unchanged. Equivalently, the rigid box displaces the same volume at any depth, so F_b = ρ_water V g is the same.
+  - slug: apphys1-u08-exam-q34
+    type: true_false
+    topic_code: "8.4"
+    source: "AP Physics 1 CED, Topic 8.4"
+    points: 1
+    prompt: |
+      True or false: In the steady flow of an ideal fluid through an unbranched pipe of changing width, the mass of fluid passing each cross-section per second is the same everywhere along the pipe.
+    answer: true
+    explanation: |
+      True. Mass cannot pile up or disappear between two cross-sections in steady flow, so the mass flow rate ρAv is the same everywhere; with constant ρ this is the continuity equation A₁v₁ = A₂v₂.
+  - slug: apphys1-u08-exam-q35
+    type: fill_blank
+    topic_code: "8.2"
+    source: "AP Physics 1 CED, Topic 8.2"
+    points: 1
+    prompt: |
+      In sea water of density 1025 kg/m³, with atmospheric pressure 1.0 × 10⁵ Pa, the gauge pressure reaches 2.0 × 10⁵ Pa at a depth of ____ m (to the nearest metre).
+    answer: ["20", "20.0"]
+    explanation: |
+      ρgh = 2.0 × 10⁵ Pa gives h = 2.0 × 10⁵/(1025 × 9.8) ≈ 19.9 m, which is 20 m to the nearest metre. At that depth the absolute pressure is about 3.0 × 10⁵ Pa.
+  - slug: apphys1-u08-exam-q36
+    type: fill_blank
+    topic_code: "8.3"
+    source: "AP Physics 1 CED, Topic 8.3"
+    points: 1
+    prompt: |
+      A floating raft is moved from fresh water into a liquid twice as dense, where it still floats at rest. The volume of the raft below the surface ____ (answer with one word).
+    answer: ["halves", "halved", "half"]
+    explanation: |
+      The buoyant force still equals the raft's weight, so ρ_fluid V_sub g is unchanged. Doubling ρ_fluid therefore halves V_sub: the raft floats higher.
+  - slug: apphys1-u08-exam-q37
+    type: numeric
+    topic_code: "8.3"
+    source: "AP Physics 1 CED, Topic 8.3"
+    points: 1
+    prompt: |
+      A metal statuette hangs from a spring scale. The scale reads 7.84 N in air and 7.00 N when the statuette hangs fully submerged in fresh water. What is the statuette's average density? Give your answer in kg/m³, to three significant figures.
+    answer: { value: 9330, tolerance: 100 }
+    explanation: |
+      F_b = 7.84 − 7.00 = 0.84 N = ρ_water V g. The density ratio is ρ/ρ_water = (weight in air)/(loss of weight) = 7.84/0.84 ≈ 9.33, so ρ ≈ 9.33 × 10³ kg/m³. (Volume V = 0.84/9800 ≈ 8.6 × 10⁻⁵ m³; mass 0.80 kg.) Accept 9230 to 9430 kg/m³.
+  - slug: apphys1-u08-exam-q38
+    type: numeric
+    topic_code: "8.4"
+    source: "AP Physics 1 CED, Topic 8.4"
+    points: 1
+    prompt: |
+      A large open rain barrel has a small hole of area 1.5 cm² near its base, 3.0 m below the water surface (a tall barrel on a stand). Treating the water as an ideal fluid, what is the volume flow rate out of the hole at that moment? Give your answer in litres per second (1 L = 10⁻³ m³), to three significant figures.
+    answer: { value: 1.15, tolerance: 0.02 }
+    explanation: |
+      v = √(2gh) = √(2 × 9.8 × 3.0) ≈ 7.67 m/s. Q = Av = 1.5 × 10⁻⁴ m² × 7.67 m/s ≈ 1.15 × 10⁻³ m³/s = 1.15 L/s. Leaving out the factor of 2 in Torricelli's result gives 0.81 L/s.
+  # ---- Short answers
+  - slug: apphys1-u08-exam-q39
+    type: short_answer
+    topic_code: "8.3"
+    source: "AP Physics 1 CED, Topic 8.3"
+    points: 3
+    prompt: |
+      A 60 kg student whose average density is 985 kg/m³ floats at rest, first in a freshwater pool (1000 kg/m³), then in a very salty lake (1240 kg/m³). (a) Describe the student's free-body diagram while floating, and state how the buoyant force in the lake compares with that in the pool. (b) Calculate the volume of the student's body that is above the surface in the lake. (c) Explain why floating is so much easier in the lake.
+    answer: |
+      (a) Two forces: a downward arrow labelled F_g = mg ≈ 590 N and an upward arrow labelled F_b of equal length. The buoyant force equals the weight in both places, so it is the same (about 590 N) in the lake and the pool.
+      (b) V = m/ρ = 60/985 ≈ 0.0609 m³. Submerged fraction in the lake: 985/1240 ≈ 0.794, so the fraction above is about 0.206 and the volume above is about 0.206 × 0.0609 ≈ 0.0125 m³ (12.5 L). (In the pool only 1.5%, about 0.0009 m³, is above.)
+      (c) The salty water is denser, so a smaller submerged volume displaces enough water to equal the student's weight; about a fifth of the body stays out of the water instead of a tiny fraction.
+    explanation: |
+      Three points, one per part. (a) two equal and opposite forces, weight and buoyant force, and "the same" buoyant force in both. (b) about 0.0125 m³ (accept 0.012 to 0.013 m³), from V = m/ρ and the fraction 1 − 985/1240. (c) explains with the denser liquid needing less displaced volume for the same buoyant force. Saying the lake gives "more buoyant force" loses the point in (a).
+  - slug: apphys1-u08-exam-q40
+    type: short_answer
+    topic_code: "8.4"
+    source: "AP Physics 1 CED, Topic 8.4"
+    points: 3
+    prompt: |
+      Wind blows at 30 m/s across the flat roof of a closed garage, while the air inside is still. The roof has an area of 100 m², and the density of air is 1.2 kg/m³. (a) Use Bernoulli's equation to explain which side of the roof has the higher pressure. (b) Estimate the pressure difference and the net force of the air on the roof, ignoring the small difference in height between the two sides. (c) Predict how the net force would change if the wind speed doubled.
+    answer: |
+      (a) Along a streamline at about the same height, P + ½ρv² is constant. The air above the roof moves fast and the air inside is still, so the pressure inside is higher than the pressure above the roof.
+      (b) ΔP = ½ρv² = ½ × 1.2 × 30² = 540 Pa. Net force F = ΔP × A = 540 × 100 = 5.4 × 10⁴ N, upward.
+      (c) ΔP is proportional to v², so doubling the wind speed multiplies the force by 4, to about 2.2 × 10⁵ N.
+    explanation: |
+      Three points, one per part. (a) higher pressure inside (still air), lower above (fast air), with Bernoulli's equation as the reason. (b) 540 Pa and 5.4 × 10⁴ N upward (direction required). (c) four times as large, with the v² dependence named. Saying the force doubles loses the point in (c).
+  # ---- Free-response question 1: mathematical routines (8.4, 8.2)
+  - slug: apphys1-u08-exam-q41
+    type: long_answer
+    topic_code: "8.4"
+    source: "AP Physics 1 CED, Topic 8.4"
+    points: 10
+    prompt: |
+      Mathematical routines (10 points). A student drains an aquarium with a siphon: a flexible tube of uniform cross-sectional area 1.0 cm², completely filled with water, runs from below the water surface in the tank, up over the tank's rim to its highest point, a height y_top above the tank's water surface, and then down to an open outlet a distance d below the tank's water surface. The tank is wide, so the water surface moves down negligibly slowly. Treat the water as an ideal fluid of density ρ, with atmospheric pressure P₀ acting on the tank's surface and at the outlet.
+
+      (A) Derive an expression for the speed v of the water leaving the outlet, in terms of g and d. Name the conservation law you use.
+
+      (B) Explain why the water in the tube at the highest point moves at the same speed v. Then derive an expression for the absolute pressure P_top in the water at the highest point, in terms of P₀, ρ, g, y_top and d.
+
+      (C) For y_top = 0.50 m and d = 0.80 m, with P₀ = 1.0 × 10⁵ Pa and ρ = 1000 kg/m³, calculate v, the volume flow rate in litres per second, and P_top.
+
+      (D) The student lowers the outlet to make the tank drain faster. Using your expression from (B), explain how P_top changes. Then calculate the greatest height y_top that the top of the tube could have above the water surface, with d = 0.80 m, before the siphon stops working because P_top would have to fall below zero.
+    answer: |
+      (A) Conservation of energy (Bernoulli's equation) from the tank's surface (P₀, speed ≈ 0, height d above the outlet) to the outlet (P₀, speed v, height 0): P₀ + ρgd = P₀ + ½ρv², so v = √(2gd).
+      (B) The tube has a uniform cross-section and water is incompressible, so continuity (conservation of mass, Av constant) gives the same speed v everywhere in the tube. Bernoulli between the highest point (height y_top + d above the outlet) and the outlet: P_top + ρg(y_top + d) + ½ρv² = P₀ + 0 + ½ρv², so P_top = P₀ − ρg(y_top + d).
+      (C) v = √(2 × 9.8 × 0.80) ≈ 3.96 m/s ≈ 4.0 m/s. Q = Av = 1.0 × 10⁻⁴ × 3.96 ≈ 3.96 × 10⁻⁴ m³/s ≈ 0.40 L/s. P_top = 1.0 × 10⁵ − 1000 × 9.8 × (0.50 + 0.80) = 1.0 × 10⁵ − 12 740 ≈ 8.7 × 10⁴ Pa.
+      (D) A larger d makes ρg(y_top + d) larger, so P_top decreases (the water also moves faster, and its pressure at the top is lower). The siphon fails when P_top = 0: y_top = P₀/(ρg) − d = 1.0 × 10⁵/(1000 × 9.8) − 0.80 ≈ 10.2 − 0.80 ≈ 9.4 m.
+    explanation: |
+      Ten points.
+      (A) 2 points: 1 for applying Bernoulli (or energy conservation for a parcel, mgd = ½mv²) between the surface and the outlet with equal pressures P₀ and negligible surface speed; 1 for v = √(2gd) with conservation of energy named.
+      (B) 3 points: 1 for using continuity with a uniform tube to justify the same speed at the top; 1 for a correct Bernoulli equation between the top and the outlet (or the surface) with the correct heights; 1 for P_top = P₀ − ρg(y_top + d) or an equivalent form. Using y_top alone instead of y_top + d loses the last point.
+      (C) 3 points: 1 for v ≈ 4.0 m/s (accept 3.9 to 4.0); 1 for Q ≈ 0.40 L/s (4.0 × 10⁻⁴ m³/s), with consistent unit conversion; 1 for P_top ≈ 8.7 × 10⁴ Pa.
+      (D) 2 points: 1 for "P_top decreases" justified from the expression (a larger d increases the subtracted term); 1 for y_top ≈ 9.4 m from setting P_top = 0. An answer of 10.2 m (ignoring d) earns only the first point.
+  # ---- Free-response question 2: experimental design and analysis (8.3)
+  - slug: apphys1-u08-exam-q42
+    type: long_answer
+    topic_code: "8.3"
+    source: "AP Physics 1 CED, Topic 8.3"
+    points: 10
+    prompt: |
+      Experimental design and analysis (10 points). A lab group wants to find the density of a salt solution. They have a solid metal cylinder 0.12 m tall with a flat base of area 2.0 × 10⁻³ m², a spring scale that hangs from a clamp stand, a ruler, and a tall beaker of the solution. The cylinder is denser than the solution.
+
+      (A) Describe a procedure the group could use to collect data from which the solution's density can be found by graphing. State what they measure, which quantity they vary and how, and one way to reduce the uncertainty in the measurements.
+
+      (B) The group's invented data are below, where d is the depth of the cylinder's bottom face below the liquid surface (the cylinder hangs upright and is never fully submerged in these trials) and T is the spring scale reading.
+
+      | d (m) | 0.00 | 0.02 | 0.04 | 0.06 | 0.08 | 0.10 |
+      |---|---|---|---|---|---|---|
+      | T (N) | 6.00 | 5.59 | 5.18 | 4.76 | 4.35 | 3.94 |
+
+      Starting from a free-body diagram of the cylinder, derive an equation for T in terms of d that shows which quantities to graph to get a straight line. State what the slope and vertical intercept represent, and calculate the slope from the data.
+
+      (C) Use your slope to calculate the density of the salt solution.
+
+      (D) Predict how T would change if the group continued lowering the cylinder from d = 0.12 m to d = 0.15 m without it touching the bottom. Justify your prediction.
+    answer: |
+      (A) Hang the cylinder upright from the spring scale and record its reading in air. Lower the clamp in steps so that the cylinder's bottom face is at measured depths d below the liquid surface (for example every 0.02 m, measured with the ruler against the cylinder, which can be marked in 1 cm steps beforehand), and record the scale reading T at each depth once the cylinder is still. Reduce uncertainty by reading the ruler and scale at eye level, waiting for the cylinder to stop swinging, repeating each depth and averaging, and taking many depths over the whole range so the graph's slope averages out random errors.
+      (B) Free-body diagram: tension T up, buoyant force F_b up, weight mg down. At rest: T + F_b = mg, and F_b = ρ_s g (A d), since the submerged volume is A d. So T = mg − (ρ_s g A) d. Graph T (vertical) against d (horizontal): a straight line with slope −ρ_s g A and vertical intercept mg, the cylinder's weight (about 6.00 N). Slope from the end points: (3.94 − 6.00)/(0.10 − 0.00) = −20.6 N/m (a best-fit line gives about −20.6 N/m).
+      (C) ρ_s = −slope/(gA) = 20.6/(9.8 × 2.0 × 10⁻³) ≈ 1.05 × 10³ kg/m³.
+      (D) Once d passes 0.12 m the cylinder is fully submerged, so the displaced volume stops growing. The buoyant force stays at ρ_s g A(0.12 m) ≈ 2.47 N and T stays constant at about 6.00 − 2.47 ≈ 3.53 N; the graph becomes a horizontal line from d = 0.12 m to 0.15 m.
+    explanation: |
+      Ten points.
+      (A) 3 points: 1 for measuring the scale reading T at several measured submerged depths (the independent variable d, varied by lowering the clamp, measured with the ruler); 1 for a coherent procedure that keeps the cylinder upright, not touching the beaker, and reads T at rest; 1 for a specific, valid way to reduce uncertainty (repeat and average, read at eye level, many data points across the range, wait for the system to settle). A procedure that only measures the cylinder fully submerged once earns at most 1 point.
+      (B) 4 points: 1 for the free-body diagram (T and F_b up, mg down) leading to T = mg − ρ_s g A d; 1 for choosing T against d (or an equivalent linear pair); 1 for identifying the slope as −ρ_s g A and the intercept as the weight; 1 for a slope of −20.6 N/m (accept −20 to −21 N/m, sign or magnitude stated clearly).
+      (C) 1 point: ρ_s ≈ 1.05 × 10³ kg/m³ (accept 1020 to 1080 kg/m³), using the slope rather than a single data point.
+      (D) 2 points: 1 for predicting that T stays constant (about 3.5 N); 1 for the reasoning that the displaced volume, and so F_b, stops increasing once the cylinder is fully submerged. Predicting that T keeps falling because "deeper means more pressure" earns no points.

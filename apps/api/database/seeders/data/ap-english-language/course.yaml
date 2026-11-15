@@ -1,0 +1,132 @@
+# The AP English Language and Composition course map. Week files live under
+# unit-NN-<slug>/week-NN.yaml. Titles and slugs are composed by
+# Database\Seeders\Curriculum\Course from the numbers here, so nothing in a
+# week file repeats the naming convention.
+#
+# Like AP Literature, the language CED organises its learning objectives by
+# skill, not by numbered topic, and the same skills return across the year.
+# So a `topic_code` here is a CED skill code from `skills` below, each unit
+# lists the skills the CED gives it, and each week's `topics` names the skills
+# that week puts in focus. The CED leaves unit titles to the teacher; the
+# titles below are this course's.
+title: AP English Language and Composition
+# Every title starts with `prefix`; every test, material and course slug with `slug`.
+prefix: AP Language
+slug: aplang
+site_slug: ap-english-language
+# The course page's introduction. Folded (`>`): one paragraph, not hard line breaks.
+description: >
+  A full school year of AP English Language and Composition, one week at a
+  time: a reading and writing guide, flashcards and a quiz every week, a
+  summary and an exam at the end of each of the nine units, and an exam-prep
+  guide and full practice exam before the May exam. The arguments read are in
+  the public domain in the United States, from Swift, Franklin, Wollstonecraft,
+  Douglass, Thoreau and Lincoln to Woolf and the speeches of U.S. presidents,
+  so every passage can be read in full online; the revision drafts and
+  synthesis sources were written for this course.
+  Free to copy, adapt and share under CC BY 4.0, crediting 24 Hour
+  Classroom.
+teacher: { name: "AP Language Teacher", email: aplang@example.com }
+student: { name: "AP Language Student", email: aplang-student@example.com }
+# Monday of week 1. Null means no due dates: the whole course is open at once.
+# 36 weeks before the exam week (Monday 2027-05-10; the AP English Language
+# exam is Wednesday 2027-05-12); weeks 33-34 review, 35-36 buffer.
+start_date: 2026-08-31
+exam_date: 2027-05-12
+subject: english-language-arts
+grade_level: "9-12"
+review:
+  prep_guide_week: 33
+  practice_exam_week: 34
+  prep_guide_description: Format, timing, the three essay rubrics, the reading and revision set routines and a two-week review plan.
+# Every guide and summary must end with all of these (Curriculum\Course::endsWithAttribution).
+attribution_markers: [public domain, AP English Language and Composition Course and Exam Description, written for this course]
+# ApLiterature\Lint settings for this course (see that class).
+lint:
+  # Section I: 45 multiple choice in five sets (reading and revision);
+  # Section II: synthesis, rhetorical analysis and argument, each out of 6.
+  practice_exam: { multiple_choice: 45, sets: 5, set_min: 6, set_max: 13, essays: 3 }
+  # Revision drafts and synthesis sources invented for the course.
+  original_sources: [written for this course]
+  # Speeches and papers of the U.S. federal government after 1930 are public
+  # domain as government works (17 U.S.C. 105).
+  us_government_works: true
+  text_hosts: [www.archives.gov, founders.archives.gov, www.presidency.ucsb.edu, avalon.law.yale.edu, www.govinfo.gov, www.congress.gov, history.nasa.gov, www.nasa.gov, www.jfklibrary.org, www.fdrlibrary.org, millercenter.org]
+# The CED's skills, from the AP English Language and Composition Course and
+# Exam Description (fall 2024). Reading skills are odd categories, writing
+# skills even. The weights in the comments are each reading/writing pair's
+# share of the multiple-choice section.
+skills:
+  # Rhetorical situation (11-14%)
+  "1.A": "Identify and describe components of the rhetorical situation: the exigence, audience, writer, purpose, context, and message."
+  "1.B": "Explain how an argument demonstrates understanding of an audience's beliefs, values, or needs."
+  "2.A": "Write introductions and conclusions appropriate to the purpose and context of the rhetorical situation."
+  "2.B": "Demonstrate an understanding of an audience's beliefs, values, or needs."
+  # Claims and evidence (13-16%)
+  "3.A": "Identify and explain claims and evidence within an argument."
+  "3.B": "Identify and describe the overarching thesis of an argument, and any indication it provides of the argument's structure."
+  "3.C": "Explain ways claims are qualified through modifiers, counterarguments, and alternative perspectives."
+  "4.A": "Develop a paragraph that includes a claim and evidence supporting the claim."
+  "4.B": "Write a thesis statement that requires proof or defense and that may preview the structure of the argument."
+  "4.C": "Qualify a claim using modifiers, counterarguments, or alternative perspectives."
+  # Reasoning and organization (13-16%)
+  "5.A": "Describe the line of reasoning and explain whether it supports an argument's overarching thesis."
+  "5.B": "Explain how the organization of a text creates unity and coherence and reflects a line of reasoning."
+  "5.C": "Recognize and explain the use of methods of development to accomplish a purpose."
+  "6.A": "Develop a line of reasoning and commentary that explains it throughout an argument."
+  "6.B": "Use transitional elements to guide the reader through the line of reasoning of an argument."
+  "6.C": "Use appropriate methods of development to advance an argument."
+  # Style (11-14%)
+  "7.A": "Explain how word choice, comparisons, and syntax contribute to the specific tone or style of a text."
+  "7.B": "Explain how writers create, combine, and place independent and dependent clauses to show relationships between and among ideas."
+  "7.C": "Explain how grammar and mechanics contribute to the clarity and effectiveness of an argument."
+  "8.A": "Strategically use words, comparisons, and syntax to convey a specific tone or style in an argument."
+  "8.B": "Write sentences that clearly convey ideas and arguments."
+  "8.C": "Use established conventions of grammar and mechanics to communicate clearly and effectively."
+# Nine units with the CED's skill focus for each.
+units:
+  - number: 1
+    slug: unit-01-claims-and-evidence
+    title: Claims, Evidence and the Rhetorical Situation
+    weeks: [1, 2, 3, 4]
+    skills: ["1.A", "3.A", "4.A"]
+  - number: 2
+    slug: unit-02-audience-and-thesis
+    title: Audience, Purpose and Thesis
+    weeks: [5, 6, 7, 8]
+    skills: ["1.B", "2.B", "3.A", "4.A", "3.B", "4.B"]
+  - number: 3
+    slug: unit-03-reasoning-and-development
+    title: Line of Reasoning and Methods of Development
+    weeks: [9, 10, 11]
+    skills: ["3.A", "4.A", "5.A", "6.A", "5.C", "6.C"]
+  - number: 4
+    slug: unit-04-introductions-and-conclusions
+    title: Introductions, Conclusions and Thesis Structure
+    weeks: [12, 13, 14, 15]
+    skills: ["1.A", "2.A", "3.B", "4.B", "5.C", "6.C"]
+  - number: 5
+    slug: unit-05-commentary-and-coherence
+    title: Commentary, Organization and Transitions
+    weeks: [16, 17, 18]
+    skills: ["5.A", "6.A", "5.B", "6.B", "7.A", "8.A"]
+  - number: 6
+    slug: unit-06-position-and-tone
+    title: Position, Perspective, Bias and Tone
+    weeks: [19, 20, 21, 22]
+    skills: ["3.A", "4.A", "3.B", "4.B", "7.A", "8.A"]
+  - number: 7
+    slug: unit-07-qualifying-and-sentences
+    title: Qualifying Claims and Building Sentences
+    weeks: [23, 24, 25]
+    skills: ["1.A", "2.A", "3.C", "4.C", "7.B", "8.B", "7.C", "8.C"]
+  - number: 8
+    slug: unit-08-style-and-audience
+    title: Style for an Audience
+    weeks: [26, 27, 28, 29]
+    skills: ["1.B", "2.B", "7.A", "8.A", "7.B", "8.B"]
+  - number: 9
+    slug: unit-09-concession-and-rebuttal
+    title: Concession, Rebuttal and Refutation
+    weeks: [30, 31, 32]
+    skills: ["3.C", "4.C"]

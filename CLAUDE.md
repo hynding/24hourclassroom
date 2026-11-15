@@ -308,9 +308,9 @@ course (`GET|POST /api/comments?target_type=&target_id=`, `PATCH|DELETE
   `--color-denied-surface`, `--color-deleted-surface`) in every palette, held
   to 4.5:1 for every text token by `theme-files.spec.ts`.
 
-## Seeded courses (AP Biology, AP U.S. History, Algebra 1, Geometry, Algebra 2, Precalculus, Trigonometry, AP Calculus AB, AP Calculus BC, AP Statistics, Chemistry, AP Chemistry, AP World History)
+## Seeded courses (AP Biology, AP U.S. History, Algebra 1, Geometry, Algebra 2, Precalculus, Trigonometry, AP Calculus AB, AP Calculus BC, AP Statistics, AP Physics 1, Chemistry, AP Chemistry, AP World History)
 
-Thirteen full-year courses are seeded from YAML, each by a thin subclass of
+Fourteen full-year courses are seeded from YAML, each by a thin subclass of
 `Database\Seeders\Curriculum\CurriculumSeeder` that names its data directory:
 
 | Seeder | Command | Data | Slug | Demo accounts |
@@ -325,6 +325,7 @@ Thirteen full-year courses are seeded from YAML, each by a thin subclass of
 | `ApCalculusAbSeeder` | `course:seed-ap-calculus-ab` | `data/ap-calculus-ab/` (original, AP Calculus AB and BC CED, AB topics) | `apcalcab` | `apcalcab@`, `apcalcab-student@example.com` |
 | `ApCalculusBcSeeder` | `course:seed-ap-calculus-bc` | `data/ap-calculus-bc/` (original; builds on AB, adds the BC topics) | `apcalcbc` | `apcalcab@` (AB's teacher), `apcalcbc-student@example.com` |
 | `ApStatisticsSeeder` | `course:seed-ap-statistics` | `data/ap-statistics/` (original, redesigned AP Statistics CED, fall 2026) | `apstats` | `apstats@`, `apstats-student@example.com` |
+| `ApPhysics1Seeder` | `course:seed-ap-physics-1` | `data/ap-physics-1/` (original, AP Physics 1: Algebra-Based CED, fall 2024) | `apphys1` | `apphys1@`, `apphys1-student@example.com` |
 | `ChemistrySeeder` | `course:seed-chemistry` | `data/chemistry/` (original, public-domain data) | `chem` | `chemistry@`, `chemistry-student@example.com` |
 | `ApChemistrySeeder` | `course:seed-ap-chemistry` | `data/ap-chemistry/` (original, public-domain data) | `apchem` | `apchem@`, `apchem-student@example.com` |
 | `ApWorldHistorySeeder` | `course:seed-ap-world-history` | `data/ap-world-history/` (original, public-domain quotations) | `apworld` | `apworld@`, `apworld-student@example.com` |
@@ -363,6 +364,7 @@ php artisan course:seed-trigonometry --teacher=you@example.com --no-student --fo
 php artisan course:seed-ap-calculus-ab --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-calculus-bc --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-statistics --teacher=you@example.com --no-student --force
+php artisan course:seed-ap-physics-1 --teacher=you@example.com --no-student --force
 php artisan course:seed-chemistry --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-chemistry --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-world-history --teacher=you@example.com --no-student --force
@@ -473,6 +475,21 @@ practice final opens with the May 2027 shape (42 multiple choice, then four
 10-point free-response questions: Practices 1–2, Practices 3–4, inference,
 Practices 2–4) and adds 24 items in the other types.
 
+AP Physics 1: Algebra-Based is **original writing** with invented lab data
+(OpenStax *College Physics for AP Courses* is NC-SA with the no-LLM clause).
+It follows the revised CED (effective fall 2024): eight units and 43 topics,
+Fluids included and circuits and waves left out, algebra and trigonometry
+only (markers `AP Physics 1: Algebra-Based Course and Exam Description`,
+`CC BY 4.0`; site slug `/courses/ap-physics-1`). Multiple choice has four
+options. Its free-response items use the exam's four types and 2026
+points (mathematical routines 10, translation between representations 12,
+experimental design and analysis 10, qualitative/quantitative translation
+8); because a long answer is capped at 10 points, a 12-point TBR is an
+8-point long answer followed by its 4-point part D as a short answer on the
+same stimulus. Its practice final opens with the May 2027 shape (42
+multiple choice, then the four free-response types) and adds 23 items in
+the other types.
+
 Chemistry, AP Chemistry and AP World History: Modern are **original writing**
 like AP U.S. History: no textbook is adapted. The two chemistry courses take
 every constant and data value from public-domain U.S. government sources
@@ -510,7 +527,7 @@ any small `.md`/`.txt` in-app through `rich-text`, a vnode-only markdown subset
 with no HTML and no `innerHTML`. `MaterialWriter` is the one path that puts a
 file on the materials disk, for uploads and the seeder alike.
 
-## Seeded AP Literature course
+## Seeded AP Literature and AP English Language courses
 
 `php artisan db:seed --class=ApLiteratureSeeder` (also called from
 `DatabaseSeeder`) and `php artisan course:seed-ap-literature --teacher=EMAIL
@@ -542,6 +559,29 @@ knowledge`), and the lint rejects anything after
 `Database\Seeders\ApLiterature\Lint`, not the test, so it can run on one
 unit (`(new Lint($course))->run([3])`); `ApLiteratureContentTest` runs it over
 everything.
+
+**AP English Language and Composition** (`ApEnglishLanguageSeeder`,
+`course:seed-ap-english-language`, slug `aplang`, site slug
+`/courses/ap-english-language`, demo accounts `aplang@example.com` /
+`aplang-student@example.com`) is the same kind of course: skills mode (the
+CED's 22 skills, `1.A` ... `8.C`), nine units with this course's own titles
+(the CED leaves them to the teacher), 32 weeks, an exam-prep guide and a
+practice exam in the May 2027 shape (45 MC in five sets, reading and
+revision, then synthesis, rhetorical analysis and argument, each out of 6).
+It is original writing around public-domain arguments, linted by the same
+`ApLiterature\Lint` through the `lint:` block of its `course.yaml`, which
+overrides AP Literature's defaults: `practice_exam` (the exam's shape),
+`original_sources` (`written for this course`, for invented revision drafts
+and synthesis sources, which must never pose as real people or
+publications), `us_government_works: true` (a post-1930 federal work is
+allowed when its `texts` entry says `us_government_work: true` and its
+`source` says `U.S. government work`) and `text_hosts`. Martin Luther King
+Jr.'s speeches and other copyrighted modern writing are described, never
+quoted. `ApEnglishLanguageContentTest` runs the lint and tests those
+settings. Every quotation was checked word for word against the Project
+Gutenberg text named in `ATTRIBUTION.md`. It is 74 files against the cap;
+on a server, `php artisan course:seed-ap-english-language
+--teacher=you@example.com --no-student --force`.
 
 ## Usage analytics
 

@@ -1,0 +1,627 @@
+week: 21
+unit: 5
+title: "Rotational Inertia"
+topics: ["5.4"]
+guide: guides/week-21.md
+guide_description: |
+  Rotational inertia as a rigid object's resistance to changes in its rotation about a named axis: I = mr² for
+  a point mass and I = Σmr² for a system, why distance enters squared and mass on the axis adds nothing, adding
+  the rotational inertias of parts about one axis, using given shape expressions (hoop MR², solid disc ½MR², rod
+  ML²/12 and ML²/3), and the parallel axis theorem I = I_cm + Md². Worked examples: a 4.0 kg dumbbell about three
+  axes, a 180 kg merry-go-round with a 40 kg child at the rim and at 1.0 m, a rod swung from its end and from a
+  point 0.20 m off centre (checked two ways), and a lab table of sliding collars linearised as I against d².
+flashcards_description: |
+  30 cards on rotational inertia: its meaning and unit, I = mr² and Σmr², dependence on the axis and on mass
+  distribution, adding parts, hoop versus disc, the parallel axis theorem, ranking objects, linearising
+  sliding-mass data, functional dependence, and three error-spot cards.
+
+flashcards:
+  - front: Rotational inertia I → what it measures and its unit
+    back: |
+      A rigid object's resistance to changes in its angular velocity about a given axis, in kg·m².
+    topic_code: "5.4"
+  - front: Rotational inertia vs inertial mass → the extra thing I depends on
+    back: |
+      Where the mass is relative to the axis. Mass alone sets translational inertia; I depends on mass and its distribution.
+    topic_code: "5.4"
+  - front: Point mass m at distance r from an axis → rotational inertia
+    back: |
+      I = mr², with r the perpendicular distance from the axis.
+    topic_code: "5.4"
+  - front: System of point masses → rotational inertia
+    back: |
+      I = Σmᵢrᵢ², every mass times the square of its own distance from the same axis.
+    topic_code: "5.4"
+  - front: Mass placed exactly on the axis of rotation → its contribution to I
+    back: |
+      Zero, because r = 0.
+    topic_code: "5.4"
+  - front: "\"What is the rotational inertia of this object?\" → what is missing from the question"
+    back: |
+      The axis. One object has a different I about every axis.
+    topic_code: "5.4"
+  - front: Dumbbell, two 2.0 kg balls on a light 0.60 m rod, axis at the centre → I
+    back: |
+      2(2.0)(0.30)² = 0.36 kg·m².
+    topic_code: "5.4"
+  - front: Same dumbbell, axis through one ball → I
+    back: |
+      0 + (2.0)(0.60)² = 0.72 kg·m², twice the value about the centre.
+    topic_code: "5.4"
+  - front: Rotational inertia of a system of parts → how to combine them
+    back: |
+      Add the parts' rotational inertias, all about the same axis: I_total = I₁ + I₂ + ….
+    topic_code: "5.4"
+  - front: Merry-go-round disc (180 kg, 2.0 m) with a 40 kg child at the rim → I
+    back: |
+      ½(180)(2.0)² + (40)(2.0)² = 360 + 160 = 520 kg·m².
+    topic_code: "5.4"
+  - front: Child on the 180 kg merry-go-round moves from the rim to 1.0 m → new I
+    back: |
+      360 + (40)(1.0)² = 400 kg·m². Same mass, smaller distance, a quarter of the child's contribution.
+    topic_code: "5.4"
+  - front: Hoop vs solid disc of equal mass and radius → which has the larger I, and by how much
+    back: |
+      The hoop: MR² against ½MR², twice as large, because all its mass is at the rim.
+    topic_code: "5.4"
+  - front: Coefficient k in I = kMR² → what it describes
+    back: |
+      The mass distribution: k = 1 when all the mass is at radius R, smaller the more mass lies near the axis.
+    topic_code: "5.4"
+  - front: Expressions for a rod, disc or hoop on the AP exam → do you memorise them?
+    back: |
+      No; they are given. You must know how to use, add and compare them.
+    topic_code: "5.4"
+  - front: Parallel axis theorem → statement
+    back: |
+      I = I_cm + Md²: the rotational inertia about any axis equals that about the parallel axis through the centre of mass plus total mass times the squared distance between the axes.
+    topic_code: "5.4"
+  - front: Family of parallel axes through a rigid object → which axis gives the smallest I
+    back: |
+      The one through the centre of mass, because Md² is never negative.
+    topic_code: "5.4"
+  - front: Uniform rod 1.2 kg, 0.90 m, I_cm = 0.081 kg·m² → I about one end
+    back: |
+      0.081 + (1.2)(0.45)² = 0.324 kg·m², matching (1/3)ML².
+    topic_code: "5.4"
+  - front: Solid disc pivoted at a point on its rim, axis perpendicular to the disc → I
+    back: |
+      ½MR² + MR² = (3/2)MR², by the parallel axis theorem with d = R.
+    topic_code: "5.4"
+  - front: Point mass moved to three times its distance from the axis → I
+    back: |
+      9 times as large, because r is squared.
+    topic_code: "5.4"
+  - front: Hoop's radius doubled at the same mass → I
+    back: |
+      4 times as large: I = MR².
+    topic_code: "5.4"
+  - front: Every mass in a rigid system doubled, distances unchanged → I
+    back: |
+      Doubles: I is proportional to mass.
+    topic_code: "5.4"
+  - front: Light object with mass far out vs heavy object with mass near the axis → which has more I?
+    back: |
+      It depends on Σmr²; the lighter one can win because distance is squared. More mass does not guarantee more rotational inertia.
+    topic_code: "5.4"
+  - front: Sliding collars at distance d on a rod (lab) → what to graph for a straight line
+    back: |
+      I against d². Slope = 2m (total collar mass), intercept = rotational inertia of the rod and axle.
+    topic_code: "5.4"
+  - front: Collar data with slope 0.50 kg on an I–d² graph → what it confirms
+    back: |
+      The model I = I_apparatus + 2md² with m = 0.25 kg per collar, since 2m = 0.50 kg.
+    topic_code: "5.4"
+  - front: Spinning skater pulls her arms in → what happens to her rotational inertia alone
+    back: |
+      Decreases: the arms' mass moves closer to the spin axis, so each piece's mr² shrinks.
+    topic_code: "5.4"
+  - front: Tightrope walker's long pole → why it helps
+    back: |
+      Its mass far from her body gives a large rotational inertia, so an unbalanced torque tips her slowly enough to correct.
+    topic_code: "5.4"
+  - front: Larger I with the same net torque → effect on angular acceleration (preview of week 23)
+    back: |
+      A smaller angular acceleration, just as a larger mass gets a smaller acceleration from the same net force.
+    topic_code: "5.4"
+  - front: Error-spot → "I = mr, so moving a mass twice as far out doubles its rotational inertia"
+    back: |
+      I = mr²: twice the distance gives four times the rotational inertia.
+    topic_code: "5.4"
+  - front: Error-spot → adding a rod's I_cm to a ball's mr² measured from the rod's end
+    back: |
+      Inertias add only about the same axis. Move the rod's I to the end first: I_end = I_cm + M(L/2)².
+    topic_code: "5.4"
+  - front: Error-spot → "I = I_cm + Md², where I_cm is about the rod's end"
+    back: |
+      The theorem starts from the centre-of-mass axis only; d is measured from the centre of mass to the new axis.
+    topic_code: "5.4"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (topic 5.4: rotational inertia of point masses and
+    systems, dependence on the axis and the mass distribution, adding parts, shape expressions and the parallel
+    axis theorem), with 8 questions (32%) reviewing earlier weeks (rotational kinematics, v = rω, torque and net
+    torque from weeks 19–20, and Newton's second law). Opens with a shared-context set on a four-ball rotor.
+    Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are
+    matched automatically; the short answers and the long answer are graded by your teacher against the scoring
+    notes. Calculator and equation sheet allowed throughout.
+  questions:
+    # ---- Stimulus set: a four-ball rotor (5.4)
+    - slug: apphys1-u05-w21-q01
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 1
+      stimulus: |
+        A lab group builds a rotor from two light rods crossed at right angles and joined at their midpoints. A small 0.10 kg clay ball is fixed to each of the four rod ends, 0.20 m from the joint. The rotor turns about a vertical axle through the joint, perpendicular to both rods. Treat the balls as point masses and the rods as massless.
+      prompt: |
+        What is the rotational inertia of the rotor about the axle?
+      options:
+        - "0.080 kg·m²"
+        - "0.016 kg·m²"
+        - "0.0040 kg·m²"
+        - "0.064 kg·m²"
+      option_explanations:
+        - |
+          0.080 = 4(0.10)(0.20) uses r instead of r²; rotational inertia grows with the square of distance.
+        - |
+          Correct. I = Σmr² = 4(0.10 kg)(0.20 m)² = 4(0.0040) = 0.016 kg·m².
+        - |
+          0.0040 kg·m² is the contribution of one ball; all four balls contribute equally and must be added.
+        - |
+          0.064 uses 0.40 m, the full length of a rod; r is each ball's distance from the axle, 0.20 m.
+      answer: 1
+    - slug: apphys1-u05-w21-q02
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 1
+      stimulus: |
+        A lab group builds a rotor from two light rods crossed at right angles and joined at their midpoints. A small 0.10 kg clay ball is fixed to each of the four rod ends, 0.20 m from the joint. The rotor turns about a vertical axle through the joint, perpendicular to both rods. Treat the balls as point masses and the rods as massless.
+      prompt: |
+        The group replaces one rod with a longer light rod so that two opposite balls are now 0.40 m from the axle; the other two stay at 0.20 m. What is the new rotational inertia about the axle?
+      options:
+        - "0.024 kg·m²"
+        - "0.032 kg·m²"
+        - "0.064 kg·m²"
+        - "0.040 kg·m²"
+      option_explanations:
+        - |
+          0.024 doubles the moved balls' contribution (from 0.008 to 0.016) as if I grew in proportion to r; doubling r quadruples mr².
+        - |
+          0.032 kg·m² is only the two moved balls, 2(0.10)(0.40)²; the two balls still at 0.20 m add 0.008 kg·m².
+        - |
+          0.064 moves all four balls to 0.40 m; only two of them moved.
+        - |
+          Correct. I = 2(0.10)(0.20)² + 2(0.10)(0.40)² = 0.008 + 0.032 = 0.040 kg·m².
+      answer: 3
+    - slug: apphys1-u05-w21-q03
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 1
+      stimulus: |
+        A lab group builds a rotor from two light rods crossed at right angles and joined at their midpoints. A small 0.10 kg clay ball is fixed to each of the four rod ends, 0.20 m from the joint. The rotor turns about a vertical axle through the joint, perpendicular to both rods. Treat the balls as point masses and the rods as massless.
+      prompt: |
+        Starting from the original rotor, which change leaves its rotational inertia about the axle unchanged?
+      options:
+        - "Replacing every ball with a 0.40 kg ball fixed 0.10 m from the axle"
+        - "Replacing every ball with a 0.20 kg ball fixed 0.10 m from the axle"
+        - "Replacing every ball with a 0.050 kg ball fixed 0.40 m from the axle"
+        - "Adding a fifth 0.10 kg ball 0.10 m from the axle"
+      option_explanations:
+        - |
+          Correct. Each ball now gives (0.40)(0.10)² = 0.0040 kg·m², exactly as before: four times the mass at half the distance leaves mr² unchanged.
+        - |
+          Doubling the mass while halving the distance gives 2m(r/2)² = ½mr², so the rotor's I halves to 0.008 kg·m².
+        - |
+          Half the mass at twice the distance gives (m/2)(2r)² = 2mr², doubling I to 0.032 kg·m².
+        - |
+          An added ball always adds its own mr² = (0.10)(0.10)² = 0.001 kg·m², raising I to 0.017 kg·m².
+      answer: 0
+    - slug: apphys1-u05-w21-q04
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 1
+      stimulus: |
+        A lab group builds a rotor from two light rods crossed at right angles and joined at their midpoints. A small 0.10 kg clay ball is fixed to each of the four rod ends, 0.20 m from the joint. The rotor turns about a vertical axle through the joint, perpendicular to both rods. Treat the balls as point masses and the rods as massless.
+      prompt: |
+        The original rotor is remounted so that it turns about a vertical axle through one of the balls, parallel to the original axle. What is its rotational inertia about the new axle?
+      options:
+        - "0.016 kg·m², because the rotor's mass has not changed"
+        - "0.080 kg·m²"
+        - "0.032 kg·m²"
+        - "0.020 kg·m²"
+      option_explanations:
+        - |
+          Rotational inertia depends on the axis: moving the axle away from the centre of mass always increases I.
+        - |
+          0.080 uses d = 0.40 m in Md²; the distance between the axes is from the joint (the centre of mass) to the ball, 0.20 m.
+        - |
+          Correct. Parallel axis theorem: I = I_cm + Md² = 0.016 + (0.40 kg)(0.20 m)² = 0.032 kg·m². (Directly: 0 + 0.10(0.40)² + 2(0.10)(0.0800) = 0.032 kg·m².)
+        - |
+          0.020 adds only one ball's mass times d², (0.10)(0.20)²; the theorem uses the rotor's total mass, 0.40 kg.
+      answer: 2
+    # ---- Independent items
+    - slug: apphys1-u05-w21-q05
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 1
+      prompt: |
+        A thin hoop (I = MR²), a solid disc (I = ½MR²) and a solid sphere (I = (2/5)MR²) have the same mass and the same radius. Which ranks their rotational inertias about axes through their centres, from largest to smallest?
+      options:
+        - "Hoop, disc, sphere"
+        - "Sphere, disc, hoop"
+        - "All equal, because the masses and radii are equal"
+        - "Disc, hoop, sphere"
+      option_explanations:
+        - |
+          Correct. 1 > ½ > 2/5: the hoop has all its mass at R, the disc has some mass close to the axis, and the sphere has even more of its mass near the axis.
+        - |
+          This reverses the order; the object with its mass farthest from the axis, the hoop, has the largest I.
+        - |
+          Equal mass and radius do not fix I; the distribution of mass within that radius does.
+        - |
+          A hoop puts all its mass at the rim, so it beats a disc of the same mass and radius.
+      answer: 0
+    - slug: apphys1-u05-w21-q06
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 1
+      prompt: |
+        A uniform metre stick can be made to turn about any of these axes, each perpendicular to the stick. About which axis is its rotational inertia smallest?
+      options:
+        - "An axis through the 0 cm end"
+        - "An axis through the 50 cm mark"
+        - "An axis through the 25 cm mark"
+        - "An axis 10 cm beyond the 100 cm end, with the stick held by a light arm"
+      option_explanations:
+        - |
+          At an end the whole stick lies on one side of the axis, as far as 1.0 m away: I = (1/3)ML², four times the central value.
+        - |
+          Correct. 50 cm is the centre of mass, and by the parallel axis theorem I = I_cm + Md² is smallest when d = 0.
+        - |
+          At 25 cm, d = 0.25 m from the centre of mass, so I = I_cm + M(0.25)², larger than I_cm.
+        - |
+          An axis outside the stick is 0.60 m from its centre of mass, giving the largest I of the four.
+      answer: 1
+    - slug: apphys1-u05-w21-q07
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 1
+      prompt: |
+        A light rod pivots about one end. A 0.50 kg mass is fixed 0.30 m from the pivot and a 0.20 kg mass is fixed 0.60 m from the pivot. What is the rotational inertia of the system about the pivot?
+      options:
+        - "0.27 kg·m²"
+        - "0.25 kg·m²"
+        - "0.063 kg·m²"
+        - "0.12 kg·m²"
+      option_explanations:
+        - |
+          0.27 = (0.50)(0.30) + (0.20)(0.60) uses m × r; each term needs r².
+        - |
+          0.25 = (0.70)(0.60)² puts both masses at the far end; the 0.50 kg mass is only 0.30 m out.
+        - |
+          0.063 = (0.70)(0.30)² puts both masses at 0.30 m; the 0.20 kg mass is twice as far out and contributes four times as much per kilogram.
+        - |
+          Correct. I = (0.50)(0.30)² + (0.20)(0.60)² = 0.045 + 0.072 = 0.117 ≈ 0.12 kg·m².
+      answer: 3
+    - slug: apphys1-u05-w21-q08
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 1
+      prompt: |
+        A uniform solid disc of mass 2.0 kg and radius 0.25 m has I = ½MR² about its central axis. A hole is drilled at a point on its rim and it is hung on a horizontal peg there, free to swing with the peg's axis parallel to the central axis. What is its rotational inertia about the peg?
+      options:
+        - "0.0625 kg·m²"
+        - "0.125 kg·m²"
+        - "0.19 kg·m²"
+        - "0.25 kg·m²"
+      option_explanations:
+        - |
+          0.0625 kg·m² is ½MR² about the centre; moving the axis to the rim adds Md².
+        - |
+          0.125 = MR² is the Md² term alone; the disc's own I_cm must be added to it.
+        - |
+          Correct. I = I_cm + Md² = ½(2.0)(0.25)² + (2.0)(0.25)² = 0.0625 + 0.125 = 0.1875 ≈ 0.19 kg·m².
+        - |
+          0.25 = 2MR² treats the disc as a hoop (MR²) before adding Md²; a solid disc's I_cm is ½MR².
+      answer: 2
+    - slug: apphys1-u05-w21-q09
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 1
+      prompt: |
+        A bicycle-rim maker produces a thin hoop rim. A second design uses the same mass of metal but has twice the radius. How does the second rim's rotational inertia about its centre compare with the first's?
+      options:
+        - "It is twice as large."
+        - "It is four times as large."
+        - "It is eight times as large."
+        - "It is the same, because the mass is the same."
+      option_explanations:
+        - |
+          Doubling would hold if I grew in proportion to R; for a hoop I = MR², so the factor is 2² = 4.
+        - |
+          Correct. I = MR² with M unchanged: (2R)² = 4R², so I is four times as large.
+        - |
+          Eight times would need the mass to double as well; here the mass is the same.
+        - |
+          Equal mass does not mean equal rotational inertia: the metal is now farther from the axis.
+      answer: 1
+    - slug: apphys1-u05-w21-q10
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "AP Physics 1 CED, Topic 5.3"
+      points: 1
+      prompt: |
+        A plumber pushes with 60 N on the end of a 0.50 m pipe wrench, at 70° to the handle. What is the magnitude of the torque on the pipe?
+      options:
+        - "30 N·m"
+        - "10 N·m"
+        - "14 N·m"
+        - "28 N·m"
+      option_explanations:
+        - |
+          30 N·m = rF assumes the push is perpendicular to the handle; at 70° only F sin 70° turns the pipe.
+        - |
+          10 N·m uses cos 70°, the component along the handle, which does not turn the pipe.
+        - |
+          14 N·m uses half the handle length; r runs from the pipe to the point of the push, the full 0.50 m.
+        - |
+          Correct. τ = rF sin θ = (0.50)(60)(sin 70°) ≈ 28 N·m.
+      answer: 3
+    - slug: apphys1-u05-w21-q11
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "AP Physics 1 CED, Topic 5.3"
+      points: 1
+      prompt: |
+        A uniform seesaw pivots at its centre. A 20 kg child sits 1.5 m to the left of the pivot and a 25 kg child sits 1.0 m to the right. With counterclockwise positive (left side going down), what is the net torque about the pivot?
+      options:
+        - "+49 N·m: the left side starts to go down"
+        - "−49 N·m: the right side starts to go down"
+        - "Zero, because the heavier child is closer to the pivot"
+        - "+539 N·m"
+      option_explanations:
+        - |
+          Correct. τ_left = +(1.5)(20)(9.8) = +294 N·m; τ_right = −(1.0)(25)(9.8) = −245 N·m; the board's weight and the pivot force act at the axis. Στ = +49 N·m.
+        - |
+          The heavier child does not automatically win: torque depends on mass times distance, and 20 × 1.5 = 30 beats 25 × 1.0 = 25 kg·m.
+        - |
+          Balance needs equal mass × distance on each side; 30 kg·m and 25 kg·m are not equal.
+        - |
+          539 adds the two torques' magnitudes; they act in opposite directions.
+      answer: 0
+    - slug: apphys1-u05-w21-q12
+      type: multiple_choice
+      topic_code: "5.2"
+      source: "AP Physics 1 CED, Topic 5.2"
+      points: 1
+      prompt: |
+        A Ferris wheel of radius 20 m turns at a steady rate, making one revolution every 60 s. What is the speed of a rider?
+      options:
+        - "0.33 m/s"
+        - "0.10 m/s"
+        - "2.1 m/s"
+        - "126 m/s"
+      option_explanations:
+        - |
+          0.33 = 20/60 divides the radius by the period; in one period the rider travels the circumference, 2πr.
+        - |
+          0.10 is the angular speed in rad/s (2π/60); the rider's speed is v = rω.
+        - |
+          Correct. ω = 2π/60 = 0.105 rad/s, so v = rω = (20)(0.105) ≈ 2.1 m/s.
+        - |
+          126 m is the distance travelled in one revolution (2π × 20); it still has to be divided by 60 s.
+      answer: 2
+    - slug: apphys1-u05-w21-q13
+      type: multiple_choice
+      topic_code: "2.5"
+      source: "AP Physics 1 CED, Topic 2.5"
+      points: 1
+      prompt: |
+        A student pulls a 3.0 kg cart along a level floor with a horizontal 12 N force. A 3.0 N frictional force opposes the motion. What is the cart's acceleration?
+      options:
+        - "4.0 m/s²"
+        - "3.0 m/s²"
+        - "5.0 m/s²"
+        - "36 m/s²"
+      option_explanations:
+        - |
+          4.0 m/s² = 12/3.0 uses the applied force alone; the net force is 12 − 3.0 = 9.0 N.
+        - |
+          Correct. a = F_net/m = (12 − 3.0)/3.0 = 3.0 m/s² in the direction of the pull.
+        - |
+          5.0 m/s² adds the friction to the pull; friction opposes the motion, so it subtracts.
+        - |
+          36 multiplies force by mass; Newton's second law divides the net force by the mass.
+      answer: 1
+    - slug: apphys1-u05-w21-q14
+      type: multi_select
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about rotational inertia are correct? Select all that apply.
+      options:
+        - "The same rigid object can have different rotational inertias about different axes."
+        - "Of two objects, the one with more mass always has the larger rotational inertia about its centre."
+        - "The rotational inertia of a system about an axis is the sum of its parts' rotational inertias about that axis."
+        - "Moving part of an object's mass closer to the axis decreases its rotational inertia about that axis."
+        - "A small object placed exactly on the axis adds its mass times the object's length squared to the rotational inertia."
+      option_explanations:
+        - |
+          Correct. I = Σmr² depends on every piece's distance from the chosen axis, which changes with the axis.
+        - |
+          Distribution matters: a light hoop can have a larger I than a heavier disc of smaller radius.
+        - |
+          Correct. Because I is a sum over all the mass, the parts' rotational inertias about one axis add.
+        - |
+          Correct. Each piece contributes mr², so a smaller r gives a smaller contribution.
+        - |
+          A point mass on the axis has r = 0 and contributes nothing; its length is not the distance from the axis.
+      answer: [0, 2, 3]
+    - slug: apphys1-u05-w21-q15
+      type: multi_select
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A bicycle wheel spins about its axle. Which changes, each made alone, increase the wheel's rotational inertia about the axle? Select all that apply.
+      options:
+        - "Fitting a heavier tyre of the same size"
+        - "Moving the spoke reflectors from near the rim to near the hub"
+        - "Fixing small weights to the rim"
+        - "Replacing the steel rim with a lighter aluminium rim of the same size"
+        - "Using a larger-diameter rim and tyre of the same total mass, with longer spokes"
+      option_explanations:
+        - |
+          Correct. The tyre sits at the largest radius, so extra tyre mass adds a large mr².
+        - |
+          Moving mass toward the axle reduces r, so the reflectors' contribution falls.
+        - |
+          Correct. Added mass at the rim adds (mass) × R² to I.
+        - |
+          A lighter rim puts less mass at the same radius, so Σmr² and the wheel's rotational inertia go down.
+        - |
+          Correct. The same mass farther from the axle gives a larger Σmr².
+      answer: [0, 2, 4]
+    - slug: apphys1-u05-w21-q16
+      type: true_false
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 1
+      prompt: |
+        True or false: Two objects with equal masses always have equal rotational inertias about axes through their centres of mass.
+      answer: false
+      explanation: |
+        False. Rotational inertia depends on how the mass is distributed relative to the axis, not only on the total mass. A hoop and a solid disc of equal mass and radius have I = MR² and ½MR²; a long rod and a compact ball of equal mass differ even more.
+    - slug: apphys1-u05-w21-q17
+      type: true_false
+      topic_code: "5.1"
+      source: "AP Physics 1 CED, Topic 5.1"
+      points: 1
+      prompt: |
+        True or false: A wheel's angular-velocity–time graph is a horizontal line at 5.0 rad/s. The wheel's angular acceleration is zero, so no point on the wheel is accelerating.
+      answer: false
+      explanation: |
+        False. The flat ω–t graph does mean α = 0, so no point has a tangential acceleration. But every point off the axis still moves in a circle and has a centripetal acceleration ω²r = (5.0)²r toward the axle.
+    - slug: apphys1-u05-w21-q18
+      type: fill_blank
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 1
+      prompt: |
+        A small clay ball on a light rod is moved from 0.10 m to 0.30 m from the axis of rotation. Its rotational inertia about that axis becomes ____ times as large.
+      answer: ["9", "9.0", "nine"]
+      explanation: |
+        I = mr². Tripling r multiplies r², and so I, by 3² = 9.
+    - slug: apphys1-u05-w21-q19
+      type: fill_blank
+      topic_code: "5.3"
+      source: "AP Physics 1 CED, Topic 5.3"
+      points: 1
+      prompt: |
+        A 30 N force is applied perpendicular to a lever at a point 0.40 m from its pivot. The magnitude of the force's torque about the pivot is ____ N·m.
+      answer: ["12", "12.0"]
+      explanation: |
+        τ = rF sin 90° = (0.40 m)(30 N) = 12 N·m.
+    - slug: apphys1-u05-w21-q20
+      type: numeric
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 1
+      prompt: |
+        A playground merry-go-round is a uniform solid disc of mass 150 kg and radius 1.8 m (I = ½MR² about its axle). Two 30 kg children sit at its rim. Treating the children as point masses, find the rotational inertia of the merry-go-round and children about the axle. Give your answer in kg·m², to three significant figures.
+      answer: { value: 437, tolerance: 4 }
+      explanation: |
+        Disc: ½(150)(1.8)² = 243 kg·m². Children: 2(30)(1.8)² = 194.4 kg·m². Total: 243 + 194.4 = 437.4 ≈ 437 kg·m².
+    - slug: apphys1-u05-w21-q21
+      type: numeric
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 1
+      prompt: |
+        A uniform rod of mass 0.80 kg and length 1.5 m has rotational inertia (1/12)ML² about a perpendicular axis through its centre. Find its rotational inertia about a parallel axis 0.50 m from its centre. Give your answer in kg·m², to two significant figures.
+      answer: { value: 0.35, tolerance: 0.004 }
+      explanation: |
+        I_cm = (1/12)(0.80)(1.5)² = 0.15 kg·m². Parallel axis theorem: I = I_cm + Md² = 0.15 + (0.80)(0.50)² = 0.15 + 0.20 = 0.35 kg·m².
+    - slug: apphys1-u05-w21-q22
+      type: numeric
+      topic_code: "5.1"
+      source: "AP Physics 1 CED, Topic 5.1"
+      points: 1
+      prompt: |
+        A spinning bike wheel on a repair stand slows steadily from 30 rad/s to rest in 6.0 s. Through what angle does it turn while stopping? Give your answer in radians, to two significant figures.
+      answer: { value: 90, tolerance: 1 }
+      explanation: |
+        With constant α, Δθ = ½(ω₀ + ω)t = ½(30 + 0)(6.0) = 90 rad (about 14 revolutions).
+    - slug: apphys1-u05-w21-q23
+      type: short_answer
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 3
+      prompt: |
+        A tightrope walker carries a long, light pole with a 4.0 kg weight fixed at each end, 3.0 m from her body's centre line.
+
+        (a) Calculate the rotational inertia that the two weights add about an axis along the rope (through her body's centre line). Treat the weights as point masses.
+        (b) She slides both weights in to 1.5 m from her centre line. Find the new contribution and state the factor by which it changed.
+        (c) Explain, using rotational inertia, why the weights at the ends help her keep her balance better than the same weights held close to her body.
+      answer: |
+        (a) I = 2(4.0)(3.0)² = 72 kg·m².
+        (b) I = 2(4.0)(1.5)² = 18 kg·m², one quarter of the original, because halving r quarters r².
+        (c) With the weights far out, the walker-and-pole system has a much larger rotational inertia about the rope, so a small unbalanced torque (a gust, a slight lean) changes her angular velocity much more slowly. That gives her time to shift and correct before she tips far. Held close, the same mass adds little rotational inertia.
+      explanation: |
+        Three points, one per part. (a) 72 kg·m² from Σmr² with both weights. (b) 18 kg·m² and "a quarter" (or "decreases by a factor of 4"), with reference to r being squared. (c) A larger rotational inertia means the same torque produces a smaller change in rotation, so she tips more slowly and can correct; the answer must connect the distance of the mass from the axis to resistance to angular acceleration. "The pole makes her heavier" earns nothing.
+    - slug: apphys1-u05-w21-q24
+      type: short_answer
+      topic_code: "5.3"
+      source: "AP Physics 1 CED, Topic 5.3"
+      points: 3
+      prompt: |
+        A uniform 5.0 kg bar, 2.0 m long, is horizontal. Its left end rests on a pivot and its right end hangs from a vertical string. A 3.0 kg box sits on the bar 0.50 m from the pivot.
+
+        (a) Describe in words an extended force diagram of the bar, saying where each force acts.
+        (b) Calculate the torque about the pivot of the bar's weight and of the box's push on the bar, giving each a direction.
+        (c) Which force on the bar exerts no torque about the pivot, and why?
+      answer: |
+        (a) A downward arrow F_g (49 N, the bar's weight) at the bar's midpoint, 1.0 m from the pivot; a downward arrow F_N,box (29.4 N, the box's normal force on the bar) at 0.50 m from the pivot; an upward arrow F_T (string tension) at the right end, 2.0 m from the pivot; an upward arrow from the pivot (F_pivot) at the left end.
+        (b) Bar's weight: τ = (1.0)(5.0)(9.8) = 49 N·m, clockwise. Box: τ = (0.50)(3.0)(9.8) = 14.7 ≈ 15 N·m, clockwise.
+        (c) The pivot's force: it acts at the axis, so its lever arm, and its torque about the pivot, is zero.
+      explanation: |
+        Three points, one per part. (a) all four forces, each placed at its point of application (weight at the centre of mass, not at an end); a box force drawn as the box's weight acting on the bar is acceptable if placed at 0.50 m. (b) 49 N·m and 14.7 N·m (accept 15), both clockwise. (c) the pivot force, with the zero-lever-arm reason. The string's tension is not an acceptable answer to (c).
+    - slug: apphys1-u05-w21-q25
+      type: long_answer
+      topic_code: "5.4"
+      source: "AP Physics 1 CED, Topic 5.4"
+      points: 6
+      prompt: |
+        Qualitative/quantitative translation. A uniform rod of mass M and length L turns about a perpendicular axis through its centre; about that axis I_rod = (1/12)ML². Two small beads, each of mass m, can slide along the rod and be locked in place, always symmetric about the centre.
+
+        (A) Without equations, explain how the rotational inertia of the rod-and-beads system about the central axis changes as the beads are slid from the centre out to the two ends.
+
+        (B) Derive an expression for the system's rotational inertia about the central axis with the beads locked at the two ends, in terms of M, m, L and physical constants as appropriate.
+
+        (C) Show that your expression from (B) agrees with your reasoning in (A), and check it in one limiting case.
+
+        (D) For M = 0.30 kg, L = 0.80 m and m = 0.10 kg, with the beads at the ends, calculate the rotational inertia about the central axis, and then about a parallel axis through one end of the rod.
+      answer: |
+        (A) The rod's own contribution does not change. The beads' contribution grows as they move out, because each bit of mass contributes more the farther it is from the axis (in proportion to the square of the distance), so the system's rotational inertia increases steadily, faster and faster, as the beads approach the ends.
+        (B) I = (1/12)ML² + 2m(L/2)² = (1/12)ML² + ½mL².
+        (C) With the beads at the centre (r = 0) they add nothing and I = (1/12)ML²; at the ends they add ½mL², which is positive, so I is larger, matching (A). Limiting case: if m → 0, I → (1/12)ML², the bare rod, as it must. (Or: if M → 0, I → ½mL² = 2m(L/2)², two point masses on a light rod.)
+        (D) Central axis: I = (1/12)(0.30)(0.80)² + ½(0.10)(0.80)² = 0.016 + 0.032 = 0.048 kg·m². The system's centre of mass is still at the rod's centre (the beads are symmetric), and its total mass is M + 2m = 0.50 kg, so about an end: I = 0.048 + (0.50)(0.40)² = 0.048 + 0.080 = 0.128 ≈ 0.13 kg·m².
+      explanation: |
+        Six points.
+        (A) 1 point: I increases as the beads move outward, with reasoning that a mass's contribution grows with its distance from the axis (squared). "Stays the same because the mass is the same" earns nothing.
+        (B) 2 points: 1 for adding the rod's I to the beads' contribution about the same axis; 1 for the beads' term 2m(L/2)² = ½mL² (a missing factor of 2 or using L instead of L/2 loses this point).
+        (C) 1 point: connects the expression to (A) (beads at centre give the smaller (1/12)ML²) and gives a correct limiting case (m → 0 or M → 0).
+        (D) 2 points: 1 for 0.048 kg·m² about the centre; 1 for 0.128 kg·m² (accept 0.13) about the end using the parallel axis theorem with the total mass 0.50 kg and d = 0.40 m (or by direct summation: (1/3)ML² + m(0)² + mL²). Using only the rod's mass in Md² loses the second point.

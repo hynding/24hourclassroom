@@ -1,0 +1,940 @@
+unit: 1
+description: |
+  43 questions · about 90 minutes · every topic of Unit 1 (1.1 to 1.5): scalars and vectors, displacement,
+  velocity and acceleration, motion graphs and the constant-acceleration equations, free fall, reference frames
+  and relative motion, vector components and projectile motion. Includes three shared-context sets (a
+  four-question set on an elevator's velocity table, a four-question set on a ferry crossing a river and a
+  three-question set on a stone thrown from a cliff), select-all, true/false, fill-in-the-blank and numeric
+  items, two short-answer questions (3 points each) and two free-response questions in the 2027 AP style: an
+  experimental design and analysis question (10 points) on finding g from horizontal launches, and a
+  translation between representations question on a model rocket (12 points, written as an 8-point long
+  answer followed by its 4-point part D). Use g = 9.8 m/s². Calculators are allowed throughout, as on the AP
+  exam. Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items
+  are matched automatically; the short answers and free-response questions are graded by your teacher against
+  the scoring notes.
+questions:
+  # ---- Stimulus set A: an elevator's velocity table (1.3, 1.2)
+  - slug: apphys1-u01-exam-q01
+    type: multiple_choice
+    topic_code: "1.3"
+    source: "AP Physics 1 CED, Topic 1.3"
+    points: 1
+    stimulus: |
+      A student rides an elevator from the ground floor to the top of a building and records its velocity with a phone app (up is positive). Between the listed times the velocity changes at a steady rate.
+
+      | t (s) | 0 | 1 | 2 | 5 | 8 | 9.5 | 11 |
+      |---|---|---|---|---|---|---|---|
+      | v (m/s) | 0 | 1.5 | 3.0 | 3.0 | 3.0 | 1.5 | 0 |
+    prompt: |
+      What is the elevator's acceleration from t = 0 to t = 2 s?
+    options:
+      - "1.5 m/s² upward"
+      - "3.0 m/s² upward"
+      - "6.0 m/s² upward"
+      - "0, because the elevator starts from rest"
+    option_explanations:
+      - |
+        Correct. The slope of the velocity data is Δv/Δt = (3.0 − 0)/2 = 1.5 m/s², positive, so upward.
+      - |
+        3.0 m/s is the velocity reached at t = 2 s, not the rate at which the velocity changes.
+      - |
+        This multiplies the velocity change by the time (3.0 × 2) instead of dividing.
+      - |
+        Starting from rest does not make the acceleration zero; the velocity is changing from 0 to 3.0 m/s.
+    answer: 0
+  - slug: apphys1-u01-exam-q02
+    type: multiple_choice
+    topic_code: "1.3"
+    source: "AP Physics 1 CED, Topic 1.3"
+    points: 1
+    stimulus: |
+      A student rides an elevator from the ground floor to the top of a building and records its velocity with a phone app (up is positive). Between the listed times the velocity changes at a steady rate.
+
+      | t (s) | 0 | 1 | 2 | 5 | 8 | 9.5 | 11 |
+      |---|---|---|---|---|---|---|---|
+      | v (m/s) | 0 | 1.5 | 3.0 | 3.0 | 3.0 | 1.5 | 0 |
+    prompt: |
+      How far does the elevator rise from t = 0 to t = 11 s?
+    options:
+      - "33 m"
+      - "21 m"
+      - "25.5 m"
+      - "18 m"
+    option_explanations:
+      - |
+        This multiplies the top speed by the whole 11 s, as if the elevator moved at 3.0 m/s throughout.
+      - |
+        This counts the speeding-up triangle (3 m) and the constant-speed rectangle (18 m) but leaves out the slowing-down triangle.
+      - |
+        Correct. Area under the v–t graph: ½(2)(3.0) + (6)(3.0) + ½(3)(3.0) = 3 + 18 + 4.5 = 25.5 m.
+      - |
+        This counts only the constant-speed stage from t = 2 s to t = 8 s.
+    answer: 2
+  - slug: apphys1-u01-exam-q03
+    type: multiple_choice
+    topic_code: "1.2"
+    source: "AP Physics 1 CED, Topic 1.2"
+    points: 1
+    stimulus: |
+      A student rides an elevator from the ground floor to the top of a building and records its velocity with a phone app (up is positive). Between the listed times the velocity changes at a steady rate.
+
+      | t (s) | 0 | 1 | 2 | 5 | 8 | 9.5 | 11 |
+      |---|---|---|---|---|---|---|---|
+      | v (m/s) | 0 | 1.5 | 3.0 | 3.0 | 3.0 | 1.5 | 0 |
+    prompt: |
+      What is the elevator's average velocity for the whole 11 s ride?
+    options:
+      - "3.0 m/s upward"
+      - "1.5 m/s upward"
+      - "0, because it starts and ends at rest"
+      - "2.3 m/s upward"
+    option_explanations:
+      - |
+        3.0 m/s is the top speed; the elevator moves more slowly while speeding up and slowing down.
+      - |
+        This averages the starting and top velocities as if the acceleration were constant over the whole ride; it is not.
+      - |
+        Starting and ending at rest makes the average acceleration zero, not the average velocity; the elevator rose 25.5 m.
+      - |
+        Correct. v_avg = Δy/Δt = 25.5 m / 11 s ≈ 2.3 m/s upward.
+    answer: 3
+  - slug: apphys1-u01-exam-q04
+    type: multiple_choice
+    topic_code: "1.3"
+    source: "AP Physics 1 CED, Topic 1.3"
+    points: 1
+    stimulus: |
+      A student rides an elevator from the ground floor to the top of a building and records its velocity with a phone app (up is positive). Between the listed times the velocity changes at a steady rate.
+
+      | t (s) | 0 | 1 | 2 | 5 | 8 | 9.5 | 11 |
+      |---|---|---|---|---|---|---|---|
+      | v (m/s) | 0 | 1.5 | 3.0 | 3.0 | 3.0 | 1.5 | 0 |
+    prompt: |
+      Which describes the elevator's acceleration–time graph?
+    options:
+      - "+1.5 m/s² from 0 to 2 s, then 0 from 2 to 8 s, then +1.0 m/s² from 8 to 11 s"
+      - "+1.5 m/s² from 0 to 2 s, then 0 from 2 to 8 s, then −1.0 m/s² from 8 to 11 s"
+      - "A line rising from 0 to 3.0 m/s² over 0 to 2 s, flat at 3.0 m/s² until 8 s, then falling to 0 at 11 s"
+      - "+1.5 m/s² from 0 to 2 s, then 0 from 2 to 8 s, then −1.5 m/s² from 8 to 11 s"
+    option_explanations:
+      - |
+        The elevator slows while still moving up, so the acceleration in the last stage is opposite to the velocity: negative.
+      - |
+        Correct. Slopes of the three stages: 3.0/2 = +1.5, 0, and −3.0/3 = −1.0 m/s². The a–t graph is three flat steps.
+      - |
+        This copies the shape of the v–t graph onto the a–t axes, confusing velocity with acceleration.
+      - |
+        The slowing-down stage lasts 3 s, not 2 s: −3.0/3 = −1.0 m/s², not −1.5 m/s².
+    answer: 1
+  # ---- Stimulus set B: a ferry crossing a river (1.4)
+  - slug: apphys1-u01-exam-q05
+    type: multiple_choice
+    topic_code: "1.4"
+    source: "AP Physics 1 CED, Topic 1.4"
+    points: 1
+    stimulus: |
+      A ferry crosses a straight river 300 m wide. The river flows east at 1.5 m/s relative to the ground, and the ferry moves at 4.0 m/s relative to the water. North is straight across the river.
+    prompt: |
+      The ferry points due north. How far downstream of the point directly opposite its dock does it land?
+    options:
+      - "105 m"
+      - "75 m"
+      - "113 m"
+      - "800 m"
+    option_explanations:
+      - |
+        This divides the 300 m width by the ground speed (4.27 m/s) to get the time; the across motion is set by the 4.0 m/s northward component alone.
+      - |
+        75 is the crossing time in seconds (300/4.0), not the drift distance.
+      - |
+        Correct. Crossing time = 300/4.0 = 75 s; drift = 1.5 m/s × 75 s ≈ 113 m (112.5 m) downstream.
+      - |
+        This inverts the ratio of speeds (300 × 4.0/1.5). The drift is width × (current/boat speed).
+    answer: 2
+  - slug: apphys1-u01-exam-q06
+    type: multiple_choice
+    topic_code: "1.4"
+    source: "AP Physics 1 CED, Topic 1.4"
+    points: 1
+    stimulus: |
+      A ferry crosses a straight river 300 m wide. The river flows east at 1.5 m/s relative to the ground, and the ferry moves at 4.0 m/s relative to the water. North is straight across the river.
+    prompt: |
+      While the ferry points due north, what is its speed relative to the ground?
+    options:
+      - "4.3 m/s"
+      - "5.5 m/s"
+      - "2.5 m/s"
+      - "3.7 m/s"
+    option_explanations:
+      - |
+        Correct. The velocities are perpendicular: √(4.0² + 1.5²) ≈ 4.3 m/s.
+      - |
+        This adds the speeds as if the current pushed the ferry forward along its heading.
+      - |
+        This subtracts the speeds as if the ferry headed straight upstream.
+      - |
+        This subtracts the squares, √(4.0² − 1.5²); that is the across speed when the ferry aims upstream to land directly opposite, not its speed here.
+    answer: 0
+  - slug: apphys1-u01-exam-q07
+    type: multiple_choice
+    topic_code: "1.4"
+    source: "AP Physics 1 CED, Topic 1.4"
+    points: 1
+    stimulus: |
+      A ferry crosses a straight river 300 m wide. The river flows east at 1.5 m/s relative to the ground, and the ferry moves at 4.0 m/s relative to the water. North is straight across the river.
+    prompt: |
+      On the return trip the captain wants to travel straight across and land directly opposite. In which direction must the ferry point?
+    options:
+      - "22° east of north"
+      - "68° west of north"
+      - "Due west, straight upstream"
+      - "22° west of north"
+    option_explanations:
+      - |
+        Pointing downstream adds to the current's drift. The ferry must point upstream (west) to cancel it.
+      - |
+        This uses cos θ = 1.5/4.0, measuring the angle from the wrong side; the upstream component 4.0 sin θ must equal 1.5 m/s, which gives 22°.
+      - |
+        Pointing straight upstream gives no across motion at all; only part of the ferry's velocity needs to cancel the current.
+      - |
+        Correct. The westward component must cancel the current: 4.0 sin θ = 1.5, so θ = sin⁻¹(0.375) ≈ 22° west of north.
+    answer: 3
+  - slug: apphys1-u01-exam-q08
+    type: numeric
+    topic_code: "1.4"
+    source: "AP Physics 1 CED, Topic 1.4"
+    points: 1
+    stimulus: |
+      A ferry crosses a straight river 300 m wide. The river flows east at 1.5 m/s relative to the ground, and the ferry moves at 4.0 m/s relative to the water. North is straight across the river.
+    prompt: |
+      How long does the return trip take when the ferry lands directly opposite its starting point? Give your answer in seconds, to two significant figures.
+    answer: { value: 81, tolerance: 1 }
+    explanation: |
+      The across (north) component left after cancelling the current is √(4.0² − 1.5²) ≈ 3.71 m/s, so t = 300/3.71 ≈ 81 s, longer than the 75 s needed when pointing straight across.
+  # ---- Stimulus set C: a stone thrown from a cliff (1.5)
+  - slug: apphys1-u01-exam-q09
+    type: multiple_choice
+    topic_code: "1.5"
+    source: "AP Physics 1 CED, Topic 1.5"
+    points: 1
+    stimulus: |
+      A hiker throws a stone from the edge of a cliff 30 m above a lake. The stone leaves her hand at 12 m/s, 30° above the horizontal, from the height of the cliff top. Air resistance is negligible; use g = 9.8 m/s².
+    prompt: |
+      How high above the cliff top does the stone rise?
+    options:
+      - "7.3 m"
+      - "1.8 m"
+      - "3.7 m"
+      - "0.61 m"
+    option_explanations:
+      - |
+        This uses the full launch speed, 12²/(2 × 9.8); only the vertical component, 6.0 m/s, goes into the vertical motion.
+      - |
+        Correct. v₀ᵧ = 12 sin 30° = 6.0 m/s; at the top v_y = 0, so H = 6.0²/(2 × 9.8) ≈ 1.8 m.
+      - |
+        This drops the 2 in v_y² = v₀ᵧ² − 2gΔy, giving 36/9.8.
+      - |
+        0.61 is the time to the top in seconds (6.0/9.8), not a height.
+    answer: 1
+  - slug: apphys1-u01-exam-q10
+    type: multiple_choice
+    topic_code: "1.5"
+    source: "AP Physics 1 CED, Topic 1.5"
+    points: 1
+    stimulus: |
+      A hiker throws a stone from the edge of a cliff 30 m above a lake. The stone leaves her hand at 12 m/s, 30° above the horizontal, from the height of the cliff top. Air resistance is negligible; use g = 9.8 m/s².
+    prompt: |
+      How long after it is thrown does the stone hit the lake?
+    options:
+      - "1.2 s"
+      - "2.5 s"
+      - "3.7 s"
+      - "3.2 s"
+    option_explanations:
+      - |
+        1.2 s is the time to rise and fall back to the cliff-top height, the level-ground time of flight; the stone still has 30 m to fall.
+      - |
+        This is the time to fall 30 m from rest, √(60/9.8); it ignores the stone's upward launch.
+      - |
+        This adds 1.2 s and 2.5 s, as if the stone dropped from rest after returning to cliff height; it is already moving down at 6.0 m/s then, so the drop is quicker.
+      - |
+        Correct. With up positive and the cliff top at y = 0: −30 = 6.0t − 4.9t², so 4.9t² − 6.0t − 30 = 0 and t = (6.0 + √(36 + 588))/9.8 ≈ 3.2 s.
+    answer: 3
+  - slug: apphys1-u01-exam-q11
+    type: multiple_choice
+    topic_code: "1.5"
+    source: "AP Physics 1 CED, Topic 1.5"
+    points: 1
+    stimulus: |
+      A hiker throws a stone from the edge of a cliff 30 m above a lake. The stone leaves her hand at 12 m/s, 30° above the horizontal, from the height of the cliff top. Air resistance is negligible; use g = 9.8 m/s².
+    prompt: |
+      How far from the base of the cliff does the stone hit the water?
+    options:
+      - "33 m"
+      - "38 m"
+      - "13 m"
+      - "26 m"
+    option_explanations:
+      - |
+        Correct. v₀ₓ = 12 cos 30° ≈ 10.4 m/s, constant; x = 10.4 × 3.16 ≈ 33 m.
+      - |
+        This multiplies the full launch speed by the time; only the horizontal component carries the stone sideways.
+      - |
+        This uses the 1.2 s level-ground flight time, which ends at cliff height, not at the lake.
+      - |
+        This uses the 2.5 s drop-from-rest time, ignoring the stone's upward launch.
+    answer: 0
+  # ---- Single questions
+  - slug: apphys1-u01-exam-q12
+    type: multiple_choice
+    topic_code: "1.1"
+    source: "AP Physics 1 CED, Topic 1.1"
+    points: 1
+    prompt: |
+      Which list contains only scalar quantities?
+    options:
+      - "Displacement, time, speed"
+      - "Velocity, acceleration, displacement"
+      - "Distance, speed, time"
+      - "Speed, velocity, distance"
+    option_explanations:
+      - |
+        Displacement has a direction, so it is a vector; the list is not all scalars.
+      - |
+        All three are vectors: each has a direction.
+      - |
+        Correct. Distance, speed and time each have a size and a unit but no direction.
+      - |
+        Velocity is a vector (speed with a direction), so the list is not all scalars.
+    answer: 2
+  - slug: apphys1-u01-exam-q13
+    type: multiple_choice
+    topic_code: "1.1"
+    source: "AP Physics 1 CED, Topic 1.1"
+    points: 1
+    prompt: |
+      A toy robot on a number line starts at x = +4 m, moves to x = −6 m, and then moves to x = −2 m. What are its displacement and the distance it travels?
+    options:
+      - "Displacement +6 m; distance 14 m"
+      - "Displacement −6 m; distance 14 m"
+      - "Displacement −2 m; distance 6 m"
+      - "Displacement −6 m; distance 6 m"
+    option_explanations:
+      - |
+        The size is right, but the robot ends to the left of where it started, so the displacement is negative.
+      - |
+        Correct. Δx = x_f − x_i = −2 − (+4) = −6 m. Distance = 10 m (from +4 to −6) + 4 m (from −6 to −2) = 14 m.
+      - |
+        −2 m is the final position, not the change in position, and the distance counts both legs.
+      - |
+        The displacement is right, but distance counts every leg: 10 m + 4 m = 14 m.
+    answer: 1
+  - slug: apphys1-u01-exam-q14
+    type: multiple_choice
+    topic_code: "1.2"
+    source: "AP Physics 1 CED, Topic 1.2"
+    points: 1
+    prompt: |
+      A bobsled's velocity changes from −8.0 m/s to −14 m/s in 3.0 s. Which describes its acceleration and motion?
+    options:
+      - "−2.0 m/s²; speeding up in the negative direction"
+      - "+2.0 m/s²; speeding up in the negative direction"
+      - "−2.0 m/s²; slowing down"
+      - "−7.3 m/s²; speeding up in the negative direction"
+    option_explanations:
+      - |
+        Correct. a = (−14 − (−8.0))/3.0 = −6.0/3.0 = −2.0 m/s². Velocity and acceleration share a sign, so the sled speeds up.
+      - |
+        The speed grows from 8 to 14 m/s in the negative direction, so Δv and the acceleration are negative.
+      - |
+        The value is right, but same-sign velocity and acceleration means speeding up, not slowing down.
+      - |
+        This adds the velocities, (−14 + (−8.0))/3.0; acceleration uses their difference.
+    answer: 0
+  - slug: apphys1-u01-exam-q15
+    type: multiple_choice
+    topic_code: "1.2"
+    source: "AP Physics 1 CED, Topic 1.2"
+    points: 1
+    prompt: |
+      A cyclist rides 6.0 km up a hill at 12 km/h and returns 6.0 km down the same road at 36 km/h. What is her average speed for the round trip?
+    options:
+      - "24 km/h"
+      - "0 km/h"
+      - "12 km/h"
+      - "18 km/h"
+    option_explanations:
+      - |
+        This averages the two speeds; she spends three times as long climbing, so the average is pulled toward 12 km/h.
+      - |
+        Zero is the average velocity (she returns to her start); average speed uses distance.
+      - |
+        12 km/h is only the uphill speed; the faster descent raises the average.
+      - |
+        Correct. Times: 6.0/12 = 0.50 h up and 6.0/36 ≈ 0.167 h down. Average speed = 12 km / 0.667 h = 18 km/h.
+    answer: 3
+  - slug: apphys1-u01-exam-q16
+    type: multiple_choice
+    topic_code: "1.2"
+    source: "AP Physics 1 CED, Topic 1.2"
+    points: 1
+    prompt: |
+      Which statement about motion is true?
+    options:
+      - "An object with zero acceleration must be at rest."
+      - "An object's speed and the magnitude of its average velocity are always equal."
+      - "An object moving at constant speed can still be accelerating."
+      - "An object with a large velocity must have a large acceleration."
+    option_explanations:
+      - |
+        Zero acceleration means constant velocity, which can be any value, such as a car on cruise control.
+      - |
+        They differ whenever the path doubles back or turns: a full lap has a nonzero average speed and zero average velocity.
+      - |
+        Correct. Velocity is a vector; if the direction changes (a car rounding a curve at steady speed), the velocity changes, so there is an acceleration.
+      - |
+        Acceleration is the rate of change of velocity, not its size; a fast object at constant velocity has zero acceleration.
+    answer: 2
+  - slug: apphys1-u01-exam-q17
+    type: multiple_choice
+    topic_code: "1.3"
+    source: "AP Physics 1 CED, Topic 1.3"
+    points: 1
+    prompt: |
+      A cart's position–time graph has a positive slope everywhere, but the curve becomes flatter as time goes on. Which describes the cart's motion?
+    options:
+      - "Moving in the positive direction and speeding up"
+      - "Moving in the positive direction and slowing down"
+      - "Moving in the negative direction and slowing down"
+      - "Moving at a constant velocity"
+    option_explanations:
+      - |
+        Speeding up would make the curve steeper over time, not flatter.
+      - |
+        Correct. A positive slope means positive velocity; a flattening curve means the slope (velocity) is decreasing, so the cart slows down.
+      - |
+        The slope is positive, so the cart moves in the positive direction.
+      - |
+        Constant velocity gives a straight x–t line; this one curves.
+    answer: 1
+  - slug: apphys1-u01-exam-q18
+    type: multiple_choice
+    topic_code: "1.3"
+    source: "AP Physics 1 CED, Topic 1.3"
+    points: 1
+    prompt: |
+      A driver moving at 20 m/s sees a hazard. Her reaction time is 0.80 s, during which the car keeps moving at 20 m/s; then she brakes with a constant deceleration of 8.0 m/s². How far does the car travel from the moment she sees the hazard until it stops?
+    options:
+      - "41 m"
+      - "25 m"
+      - "16 m"
+      - "66 m"
+    option_explanations:
+      - |
+        Correct. Reaction stage: 20 × 0.80 = 16 m. Braking stage: v₀²/(2a) = 400/16 = 25 m. Total 41 m.
+      - |
+        This is the braking distance only; the car also travels 16 m during the reaction time.
+      - |
+        This is the reaction distance only; the car still needs 25 m to brake.
+      - |
+        This adds 16 m to v₀²/a = 50 m, dropping the 2 from v² = v₀² + 2aΔx.
+    answer: 0
+  - slug: apphys1-u01-exam-q19
+    type: multiple_choice
+    topic_code: "1.3"
+    source: "AP Physics 1 CED, Topic 1.3"
+    points: 1
+    prompt: |
+      A ball is thrown straight up at 19.6 m/s. Air resistance is negligible. What is its velocity 3.0 s after it is thrown?
+    options:
+      - "49 m/s upward"
+      - "0, because it is at its highest point"
+      - "9.8 m/s upward"
+      - "9.8 m/s downward"
+    option_explanations:
+      - |
+        This adds the change to the launch speed; gravity reduces the upward velocity.
+      - |
+        The ball reaches the top at 19.6/9.8 = 2.0 s; by 3.0 s it has been falling for 1.0 s.
+      - |
+        The size is right, but after the top the velocity points down.
+      - |
+        Correct. Up positive: v = 19.6 − 9.8(3.0) = −9.8 m/s, that is, 9.8 m/s downward.
+    answer: 3
+  - slug: apphys1-u01-exam-q20
+    type: multiple_choice
+    topic_code: "1.3"
+    source: "AP Physics 1 CED, Topic 1.3"
+    points: 1
+    prompt: |
+      A remote-control car moves at a constant +4.0 m/s for 3.0 s, then at a constant −2.0 m/s for the next 2.0 s. What is its displacement over the 5.0 s?
+    options:
+      - "16 m"
+      - "12 m"
+      - "8.0 m"
+      - "1.6 m"
+    option_explanations:
+      - |
+        16 m is the distance (12 m + 4 m); displacement counts the area below the axis as negative.
+      - |
+        This counts only the first stage and ignores the 4.0 m moved backward.
+      - |
+        Correct. Area above the axis 4.0 × 3.0 = +12 m; area below −2.0 × 2.0 = −4.0 m; net +8.0 m.
+      - |
+        1.6 m/s is the average velocity (8.0 m / 5.0 s), not the displacement.
+    answer: 2
+  - slug: apphys1-u01-exam-q21
+    type: multiple_choice
+    topic_code: "1.3"
+    source: "AP Physics 1 CED, Topic 1.3"
+    points: 1
+    prompt: |
+      A lab group drops a ball from rest from several heights h and times each fall t. They plot h on the vertical axis against t² on the horizontal axis and get a straight line through the origin with slope 4.85 m/s². What value of g do their data give?
+    options:
+      - "4.85 m/s²"
+      - "9.7 m/s²"
+      - "2.4 m/s²"
+      - "0.21 m/s²"
+    option_explanations:
+      - |
+        The slope is not g itself: h = ½gt², so the slope is g/2.
+      - |
+        Correct. h = ½gt², so slope = g/2 and g = 2 × 4.85 = 9.7 m/s².
+      - |
+        This halves the slope instead of doubling it.
+      - |
+        This takes the reciprocal of the slope (1/4.85), as if t² had been plotted against h.
+    answer: 1
+  - slug: apphys1-u01-exam-q22
+    type: multiple_choice
+    topic_code: "1.3"
+    source: "AP Physics 1 CED, Topic 1.3"
+    points: 1
+    prompt: |
+      A motion diagram shows a puck's position every 0.5 s as it slides to the right. The first four dots are equally spaced; after that, each gap is smaller than the one before, until the dots overlap. Which describes the puck's motion?
+    options:
+      - "Constant velocity to the right, then slowing down to a stop"
+      - "Speeding up to the right, then moving at constant velocity"
+      - "Constant velocity to the right, then reversing direction"
+      - "At rest, then speeding up"
+    option_explanations:
+      - |
+        Correct. Equal gaps in equal times mean constant velocity; shrinking gaps mean the puck covers less distance each interval, so it slows until the overlapping dots show it at rest.
+      - |
+        This reads the diagram backward: growing gaps would mean speeding up, but here the gaps shrink.
+      - |
+        Reversing would put later dots back to the left of earlier ones; overlapping dots show the puck stopped.
+      - |
+        The puck is moving at first (the dots are spread out) and ends at rest, the opposite order.
+    answer: 0
+  - slug: apphys1-u01-exam-q23
+    type: multiple_choice
+    topic_code: "1.4"
+    source: "AP Physics 1 CED, Topic 1.4"
+    points: 1
+    prompt: |
+      A train travels west at 25 m/s. A passenger runs toward the front of the train at 3.0 m/s relative to the train. What is the passenger's velocity relative to the ground?
+    options:
+      - "22 m/s west"
+      - "3.0 m/s west"
+      - "28 m/s east"
+      - "28 m/s west"
+    option_explanations:
+      - |
+        This subtracts as if she ran toward the back. Running toward the front of a westbound train adds to its westward velocity.
+      - |
+        This is her velocity relative to the train, not relative to the ground.
+      - |
+        The size is right but the direction is reversed; both velocities point west.
+      - |
+        Correct. v(passenger, ground) = v(passenger, train) + v(train, ground) = 3.0 + 25 = 28 m/s west.
+    answer: 3
+  - slug: apphys1-u01-exam-q24
+    type: multiple_choice
+    topic_code: "1.4"
+    source: "AP Physics 1 CED, Topic 1.4"
+    points: 1
+    prompt: |
+      An airliner flies due west at 220 m/s relative to the air into a 30 m/s headwind (the air moves due east relative to the ground). About how long does it take to cover 950 km over the ground?
+    options:
+      - "63 min"
+      - "72 min"
+      - "83 min"
+      - "8.8 h"
+    option_explanations:
+      - |
+        This adds the wind's speed (950,000/250 s); a headwind slows the plane relative to the ground.
+      - |
+        This ignores the wind and uses the airspeed alone (950,000/220 s).
+      - |
+        Correct. Ground speed = 220 − 30 = 190 m/s west; t = 950,000 m / 190 m/s = 5000 s ≈ 83 min.
+      - |
+        This divides the distance by the wind speed alone; the plane's own airspeed is what carries it.
+    answer: 2
+  - slug: apphys1-u01-exam-q25
+    type: multiple_choice
+    topic_code: "1.4"
+    source: "AP Physics 1 CED, Topic 1.4"
+    points: 1
+    prompt: |
+      Car P drives north at 15 m/s and car Q drives east at 20 m/s, approaching the same intersection. What is the speed of car Q as measured by the driver of car P?
+    options:
+      - "35 m/s"
+      - "25 m/s"
+      - "5.0 m/s"
+      - "20 m/s"
+    option_explanations:
+      - |
+        This adds the speeds as if the cars moved along the same line toward each other; the velocities are perpendicular.
+      - |
+        Correct. v(Q, P) = v(Q, ground) − v(P, ground): 20 m/s east plus 15 m/s south, perpendicular, so √(20² + 15²) = 25 m/s.
+      - |
+        This subtracts the speeds as if both cars moved in the same direction.
+      - |
+        This is Q's speed relative to the ground; in P's frame, Q also has a southward component.
+    answer: 1
+  - slug: apphys1-u01-exam-q26
+    type: multiple_choice
+    topic_code: "1.5"
+    source: "AP Physics 1 CED, Topic 1.5"
+    points: 1
+    prompt: |
+      A ball moves at 15 m/s in a direction 20° from the vertical, heading up and to the right. What is the horizontal component of its velocity?
+    options:
+      - "5.1 m/s"
+      - "14 m/s"
+      - "15 m/s"
+      - "7.5 m/s"
+    option_explanations:
+      - |
+        Correct. Measured from the vertical, the horizontal side is opposite the 20° angle: 15 sin 20° ≈ 5.1 m/s.
+      - |
+        15 cos 20° ≈ 14 m/s is the vertical component here, because the angle is measured from the vertical.
+      - |
+        The full speed is along the ball's direction of motion; only part of it is horizontal.
+      - |
+        Halving the speed would be correct only for a 30° angle measured from the vertical (sin 30° = 0.5).
+    answer: 0
+  - slug: apphys1-u01-exam-q27
+    type: multiple_choice
+    topic_code: "1.5"
+    source: "AP Physics 1 CED, Topic 1.5"
+    points: 1
+    prompt: |
+      A projectile is launched from level ground at angle θ with speed v₀ and lands on the same level. If it is launched at the same angle with speed 2v₀, how do its range and time of flight change? Air resistance is negligible.
+    options:
+      - "Range doubles; time of flight doubles."
+      - "Range quadruples; time of flight doubles."
+      - "Range quadruples; time of flight quadruples."
+      - "Range doubles; time of flight is unchanged."
+    option_explanations:
+      - |
+        The time doubles, but the range is v₀ₓ × T and both factors double, so the range quadruples.
+      - |
+        Correct. T = 2v₀ sin θ/g doubles; R = (v₀ cos θ)T has two factors that each double, so R is four times as large.
+      - |
+        The time of flight is proportional to v₀, not v₀², so it only doubles.
+      - |
+        This treats it like a horizontal launch from a fixed height; on level ground a faster launch at the same angle also rises higher and stays up longer.
+    answer: 1
+  - slug: apphys1-u01-exam-q28
+    type: multiple_choice
+    topic_code: "1.5"
+    source: "AP Physics 1 CED, Topic 1.5"
+    points: 1
+    prompt: |
+      A hiker walks 3.0 km north, then 4.0 km east, then 3.0 km south. What is her displacement?
+    options:
+      - "10 km"
+      - "5.0 km, 53° east of north"
+      - "5.8 km"
+      - "4.0 km east"
+    option_explanations:
+      - |
+        10 km is the distance walked; displacement compares only the start and the end.
+      - |
+        This adds only the first two legs and forgets the 3.0 km south, which cancels the 3.0 km north.
+      - |
+        This squares and adds all three lengths, √(9 + 16 + 9); vectors must be added by components, and the north and south legs cancel.
+      - |
+        Correct. North components: 3.0 − 3.0 = 0; east component: 4.0 km. The displacement is 4.0 km east.
+    answer: 3
+  - slug: apphys1-u01-exam-q29
+    type: multiple_choice
+    topic_code: "1.5"
+    source: "AP Physics 1 CED, Topic 1.5"
+    points: 1
+    prompt: |
+      A ball is launched at an angle above level ground and lands at the same height. Air resistance is negligible, and up is positive. Which describes the graphs of its horizontal velocity v_x and vertical velocity v_y against time?
+    options:
+      - "Both are horizontal lines."
+      - "v_x is a straight line with slope −9.8 m/s²; v_y is a horizontal line."
+      - "v_x is a horizontal line; v_y is a straight line with slope −9.8 m/s² that crosses zero at the highest point."
+      - "v_x is a horizontal line; v_y is a curve that flattens at the highest point."
+    option_explanations:
+      - |
+        The vertical velocity changes because of gravity, so its graph cannot be horizontal.
+      - |
+        This swaps the components: gravity acts vertically, so it is v_y that changes.
+      - |
+        Correct. No horizontal acceleration keeps v_x constant; the constant vertical acceleration −g makes v_y a straight line through zero at the top.
+      - |
+        A constant acceleration gives a straight v–t line; it does not flatten at the top, because the acceleration there is still −9.8 m/s².
+    answer: 2
+  - slug: apphys1-u01-exam-q30
+    type: multiple_choice
+    topic_code: "1.5"
+    source: "AP Physics 1 CED, Topic 1.5"
+    points: 1
+    prompt: |
+      Two golf balls are hit from level ground. Both reach the same maximum height, but ball 1 lands farther away than ball 2. Air resistance is negligible. How do their times of flight compare?
+    options:
+      - "They are equal."
+      - "Ball 1's is longer, because it travels farther."
+      - "Ball 2's is longer, because it is launched more steeply."
+      - "It cannot be decided without the launch speeds."
+    option_explanations:
+      - |
+        Correct. The same maximum height means the same initial vertical velocity (H = v₀ᵧ²/2g), and the time of flight 2v₀ᵧ/g depends only on that, so the times are equal. Ball 1 simply has the larger horizontal velocity.
+      - |
+        Travelling farther in the same time needs only a larger horizontal velocity; the time is set by the vertical motion.
+      - |
+        A steeper launch at the same height means the same vertical velocity with a smaller horizontal one, which shortens the range, not lengthens the time.
+      - |
+        The equal heights already fix the vertical launch velocities, which alone set the times of flight.
+    answer: 0
+  - slug: apphys1-u01-exam-q31
+    type: multi_select
+    topic_code: "1.3"
+    source: "AP Physics 1 CED, Topic 1.3"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A cart's velocity is recorded each second; between readings it changes at a steady rate.
+
+      | t (s) | 0 | 1 | 2 | 3 | 4 | 5 |
+      |---|---|---|---|---|---|---|
+      | v (m/s) | 0 | 2 | 4 | 4 | 2 | 0 |
+
+      Which statements are true? Select all that apply.
+    options:
+      - "From t = 0 to t = 2 s, the cart's acceleration is +2.0 m/s²."
+      - "From t = 3 s to t = 5 s, the cart moves in the negative direction."
+      - "The cart's displacement from t = 0 to t = 5 s is 12 m."
+      - "From t = 3 s to t = 5 s, the cart's acceleration is −2.0 m/s²."
+      - "The cart is farthest from its starting point at t = 3 s."
+    option_explanations:
+      - |
+        Correct. The velocity rises steadily from 0 to 4 m/s in 2 s: slope = (4 − 0)/2 = +2.0 m/s².
+      - |
+        The velocity is still positive (decreasing from 4 to 0 m/s), so the cart keeps moving in the positive direction while slowing.
+      - |
+        Correct. Areas: ½(2)(4) = 4 m, (1)(4) = 4 m, ½(2)(4) = 4 m, total 12 m.
+      - |
+        Correct. The velocity falls steadily from 4 m/s to 0 in 2 s: slope = (0 − 4)/2 = −2.0 m/s².
+      - |
+        The velocity stays positive until t = 5 s, so the cart keeps moving away; it is farthest at t = 5 s.
+    answer: [0, 2, 3]
+  - slug: apphys1-u01-exam-q32
+    type: multi_select
+    topic_code: "1.2"
+    source: "AP Physics 1 CED, Topic 1.2"
+    points: 2
+    partial_credit: true
+    prompt: |
+      In which situations is the object slowing down? Select all that apply.
+    options:
+      - "Velocity +5 m/s, acceleration −2 m/s²"
+      - "Velocity −3 m/s, acceleration +1 m/s²"
+      - "Velocity −4 m/s, acceleration −1 m/s²"
+      - "Velocity +2 m/s, acceleration +3 m/s²"
+      - "A ball rising after being thrown straight up"
+    option_explanations:
+      - |
+        Correct. Opposite signs: the acceleration opposes the motion, so the speed decreases.
+      - |
+        Correct. Opposite signs again; the object moves in the negative direction and slows.
+      - |
+        Same signs: the object speeds up in the negative direction.
+      - |
+        Same signs: the object speeds up in the positive direction.
+      - |
+        Correct. The velocity is upward and the acceleration (g) is downward, so the ball slows as it rises.
+    answer: [0, 1, 4]
+  - slug: apphys1-u01-exam-q33
+    type: true_false
+    topic_code: "1.4"
+    source: "AP Physics 1 CED, Topic 1.4"
+    points: 1
+    prompt: |
+      True or false: Two observers in reference frames moving at constant velocity relative to each other always measure the same velocity for a given moving object.
+    answer: false
+    explanation: |
+      False. Their measurements of the object's velocity differ by the relative velocity of the frames (v_AC = v_AB + v_BC). What they do agree on is the object's acceleration and the time intervals between events.
+  - slug: apphys1-u01-exam-q34
+    type: true_false
+    topic_code: "1.5"
+    source: "AP Physics 1 CED, Topic 1.5"
+    points: 1
+    prompt: |
+      True or false: For a given launch speed on level ground, with air resistance negligible, a launch angle of 45° gives the greatest range.
+    answer: true
+    explanation: |
+      True. The range is R = (v₀ cos θ)(2v₀ sin θ/g), which is largest when the product sin θ cos θ is largest, at θ = 45°, giving R = v₀²/g. Angles equally above and below 45° (such as 30° and 60°) give equal, shorter ranges.
+  - slug: apphys1-u01-exam-q35
+    type: fill_blank
+    topic_code: "1.2"
+    source: "AP Physics 1 CED, Topic 1.2"
+    points: 1
+    prompt: |
+      A cart's velocity increases steadily from 1.0 m/s to 7.0 m/s in 3.0 s. The magnitude of its acceleration is ____ m/s².
+    answer: ["2", "2.0", "two"]
+    explanation: |
+      a = Δv/Δt = (7.0 − 1.0)/3.0 = 6.0/3.0 = 2.0 m/s².
+  - slug: apphys1-u01-exam-q36
+    type: fill_blank
+    topic_code: "1.3"
+    source: "AP Physics 1 CED, Topic 1.3"
+    points: 1
+    prompt: |
+      A ball is dropped from rest with air resistance negligible. If the drop height is multiplied by 9, the time it takes to fall is multiplied by ____.
+    answer: ["3", "3.0", "three"]
+    explanation: |
+      From h = ½gt², t = √(2h/g), so t is proportional to √h. Multiplying h by 9 multiplies t by √9 = 3.
+  - slug: apphys1-u01-exam-q37
+    type: numeric
+    topic_code: "1.3"
+    source: "AP Physics 1 CED, Topic 1.3"
+    points: 1
+    prompt: |
+      A model rocket rises straight up from rest on the ground with a constant acceleration of 12 m/s² for 2.0 s, when its engine burns out. It then moves in free fall. Air resistance is negligible. What maximum height above the ground does it reach? Give your answer in metres, to three significant figures.
+    answer: { value: 53.4, tolerance: 0.15 }
+    explanation: |
+      Powered stage: v = 12 × 2.0 = 24 m/s; height = ½(12)(2.0)² = 24 m. Coasting stage: extra rise = 24²/(2 × 9.8) ≈ 29.4 m. Maximum height ≈ 24 + 29.4 = 53.4 m. Each stage has its own constant acceleration, so the kinematic equations are applied to each separately.
+  - slug: apphys1-u01-exam-q38
+    type: numeric
+    topic_code: "1.5"
+    source: "AP Physics 1 CED, Topic 1.5"
+    points: 1
+    prompt: |
+      A gardener holds a hose horizontally 1.2 m above level ground. The water lands 3.0 m from the point directly below the nozzle. Air resistance is negligible. What is the speed of the water leaving the nozzle? Give your answer in m/s, to two significant figures.
+    answer: { value: 6.06, tolerance: 0.05 }
+    explanation: |
+      Fall time from the vertical motion: t = √(2 × 1.2/9.8) ≈ 0.495 s. The horizontal velocity is constant, so v₀ = 3.0/0.495 ≈ 6.1 m/s.
+  - slug: apphys1-u01-exam-q39
+    type: short_answer
+    topic_code: "1.3"
+    source: "AP Physics 1 CED, Topic 1.3"
+    points: 3
+    prompt: |
+      From a bridge a height h above a river, a student throws ball 1 straight down at speed v and, at the same moment, throws ball 2 straight up at the same speed v. Air resistance is negligible. Another student claims that ball 1 hits the water at a greater speed because it was thrown downward.
+
+      (a) Evaluate the claim without equations, using what happens to ball 2 when it comes back down past the bridge.
+      (b) Derive an expression for each ball's speed just before it hits the water, in terms of v, g and h.
+      (c) Which ball hits the water first, and by how much time? Justify your answer.
+    answer: |
+      (a) The claim is wrong. Ball 2 rises, stops and falls back; when it passes the bridge again it is moving down at speed v (the motion is symmetric). From then on it moves exactly as ball 1 did, so the two balls hit the water at the same speed.
+      (b) Using v_f² = v₀² + 2gΔy with down positive and Δy = h, and v₀² = v² for both balls: v_f = √(v² + 2gh) for each. The direction of the launch does not appear, because only v₀² enters.
+      (c) Ball 1 lands first. Ball 2 spends extra time going up and coming back to the bridge: 2v/g (v/g up and v/g down). After that its motion copies ball 1's, so ball 1 lands earlier by 2v/g.
+      (Teachers may accept any equivalent sign convention.)
+    explanation: |
+      Three points, one per part. (a) rejects the claim with the symmetry argument (ball 2 returns past the bridge at speed v downward, then repeats ball 1's motion). (b) √(v² + 2gh) for both balls, from v_f² = v₀² + 2gΔy. (c) ball 1 first, by 2v/g, with the reason (the time ball 2 spends rising and returning to the bridge).
+  - slug: apphys1-u01-exam-q40
+    type: short_answer
+    topic_code: "1.4"
+    source: "AP Physics 1 CED, Topic 1.4"
+    points: 3
+    prompt: |
+      Two swimmers each swim at 1.5 m/s relative to the water in a river whose current is 0.90 m/s. Swimmer A swims straight across the 60 m wide river and back, always aiming upstream just enough to stay on the line straight across. Swimmer B swims 60 m upstream along the bank and 60 m back downstream.
+
+      (a) Calculate swimmer A's round-trip time.
+      (b) Calculate swimmer B's round-trip time.
+      (c) Explain, without numbers, why swimmer B's trip takes longer than it would in still water, even though the current helps on the way back.
+    answer: |
+      (a) Across speed relative to the ground = √(1.5² − 0.90²) = √(2.25 − 0.81) = 1.2 m/s. Time = 2 × 60/1.2 = 100 s.
+      (b) Upstream: 1.5 − 0.90 = 0.60 m/s, time 60/0.60 = 100 s. Downstream: 1.5 + 0.90 = 2.4 m/s, time 60/2.4 = 25 s. Total 125 s.
+      (c) Swimmer B covers equal distances at the slow and fast ground speeds, so she spends much longer at the slow upstream speed than at the fast downstream speed. The time lost going upstream is more than the time gained coming back, so the round trip is slower than in still water (80 s at 1.5 m/s).
+    explanation: |
+      Three points, one per part. (a) 100 s, using the across component √(v_s² − v_c²) = 1.2 m/s (using 1.5 m/s or 1.75 m/s earns nothing). (b) 125 s, from 0.60 m/s upstream and 2.4 m/s downstream. (c) more time is spent at the slower speed, so the loss upstream outweighs the gain downstream (an argument that the two effects cancel earns nothing).
+  # ---- Free-response question 1: experimental design and analysis (1.5)
+  - slug: apphys1-u01-exam-q41
+    type: long_answer
+    topic_code: "1.5"
+    source: "AP Physics 1 CED, Topic 1.5"
+    points: 10
+    prompt: |
+      Experimental design and analysis. A lab group wants to determine the free-fall acceleration g using balls launched horizontally from a table. They can roll a steel ball down a short ramp clamped at the edge of the table so that it leaves the table moving horizontally, and they can change the launch speed by releasing the ball from different points on the ramp.
+
+      (A) Describe a procedure the group could use to collect data from which g can be determined. Name each quantity measured, the equipment used to measure it, and one way to reduce experimental uncertainty.
+
+      The group measures the launch speed v with a photogate at the table edge and the landing distance d from the point on the floor directly below the edge, for a launch height of 0.95 m. Each distance is the mean of three trials.
+
+      | v (m/s) | 1.10 | 1.45 | 1.80 | 2.15 | 2.50 |
+      |---|---|---|---|---|---|
+      | d (m) | 0.49 | 0.63 | 0.80 | 0.94 | 1.11 |
+
+      (B) Which quantities should the group graph to produce a straight line? Justify your choice by deriving the relationship between them.
+
+      (C) Determine the slope of the best-fit line for the quantities you chose, showing your work.
+
+      (D) Use the slope to calculate an experimental value of g.
+
+      (E) A student suggests that the ramp gave the ball a small downward component of velocity at launch, so it did not leave exactly horizontally. Would this make the experimental value of g larger or smaller than it should be? Explain.
+    answer: |
+      (A) Measure the launch height H from the table edge to the floor with a metre stick. Measure the launch speed v with a photogate at the edge (ball diameter ÷ blocking time), or by timing the ball over a known distance on the table. Mark landing spots with carbon paper on white paper taped to the floor and measure each d with a metre stick from a plumb line below the edge. Release from several points on the ramp to vary v. Reduce uncertainty by repeating each release several times and averaging d, or by marking the release point so each trial is the same.
+      (B) Graph d (vertical) against v (horizontal). The fall time t = √(2H/g) is the same for every launch, and d = v t = v√(2H/g), so d is proportional to v: a straight line through the origin with slope √(2H/g).
+      (C) The data lie close to a line through the origin. Using two well-separated points on the best-fit line, slope ≈ (1.11 − 0.49)/(2.50 − 1.10) = 0.62/1.40 ≈ 0.443 s (a fit through the origin gives about 0.441 s).
+      (D) slope = √(2H/g), so g = 2H/slope² = 2(0.95)/(0.443)² ≈ 9.7 m/s².
+      (E) Larger. A downward launch component makes the ball reach the floor sooner, so each d is shorter than the model predicts; the slope comes out smaller and g = 2H/slope² comes out larger than the true value.
+    explanation: |
+      Ten points.
+      (A) 3 points: 1 for measuring H and d with a metre stick or tape (with a way to locate the landing point, such as carbon paper); 1 for measuring v with a stated method (photogate, or timing over a known distance) and varying v by changing the release point; 1 for a valid way to reduce uncertainty (repeat and average, fixed release point, plumb line).
+      (B) 2 points: 1 for choosing d against v (or d against v with axes swapped, or d² against v²); 1 for the derivation: t fixed by H alone, d = v√(2H/g), so the slope is √(2H/g).
+      (C) 2 points: 1 for a slope from a best-fit line using points on the line, not one data pair alone unless it lies on the line; 1 for a value between 0.43 and 0.46 s with units.
+      (D) 2 points: 1 for g = 2H/slope² (or the equivalent for the chosen axes); 1 for a value between 9.0 and 10.3 m/s² consistent with the slope found.
+      (E) 1 point: larger, with the reasoning that a downward launch shortens the flight time and so each d, lowering the slope and raising 2H/slope². The answer must state the direction and give this chain of reasoning.
+  # ---- Free-response question 2: translation between representations (1.3), parts A–C, then part D
+  - slug: apphys1-u01-exam-q42
+    type: long_answer
+    topic_code: "1.3"
+    source: "AP Physics 1 CED, Topic 1.3"
+    points: 8
+    stimulus: |
+      A model rocket is launched straight up from rest on level ground. Its engine gives it a constant upward acceleration of magnitude a for a time t₁, and then burns out. After burnout the rocket moves in free fall until it returns to the ground. Air resistance is negligible, and up is positive.
+    prompt: |
+      Translation between representations, parts A–C.
+
+      (A) Describe the rocket's velocity–time graph from launch until just before it hits the ground. Give the value of the velocity at burnout, the slope of each section, and the time at which the rocket is at its highest point. Then describe the matching acceleration–time graph.
+
+      (B) Starting from your description in (A) or from the kinematic equations, derive an expression for the rocket's maximum height H in terms of a, t₁ and g.
+
+      (C) For a = 20 m/s² and t₁ = 2.5 s, calculate the rocket's speed at burnout, its height at burnout and its maximum height.
+    answer: |
+      (A) v–t graph: a straight line from 0 at t = 0 rising with slope +a to v = at₁ at t = t₁ (burnout); then a straight line with slope −g, crossing zero at t = t₁ + at₁/g (the highest point), and continuing below the axis until the rocket lands. a–t graph: a horizontal line at +a from 0 to t₁, then a horizontal line at −g for the rest of the flight.
+      (B) Height at burnout = area of the first triangle = ½at₁². Extra rise after burnout = area of the second triangle (base at₁/g, height at₁) = ½(at₁)(at₁/g) = a²t₁²/(2g). H = ½at₁² + a²t₁²/(2g) = (at₁²/2)(1 + a/g). (Equivalently, from Δy = ½at₁² and v² = (at₁)² − 2gΔy.)
+      (C) Burnout speed = 20 × 2.5 = 50 m/s. Burnout height = ½(20)(2.5)² = 62.5 m. Extra rise = 50²/(2 × 9.8) ≈ 127.6 m. H ≈ 190 m.
+    explanation: |
+      Eight points.
+      (A) 3 points: 1 for a straight rising section with slope a reaching at₁ at t₁; 1 for a straight section of slope −g after burnout crossing zero at t₁ + at₁/g, which is labelled as the highest point (a graph that turns around at burnout loses this point); 1 for the a–t graph as two horizontal sections, +a then −g.
+      (B) 3 points: 1 for the burnout height ½at₁² (from the area or Δy = ½at²); 1 for the coasting rise (at₁)²/(2g); 1 for combining them into H = ½at₁² + a²t₁²/(2g) or an equivalent form.
+      (C) 2 points: 1 for 50 m/s and 62.5 m; 1 for H ≈ 190 m (accept 188 to 192 m). Using g = 10 m/s² (H = 187.5 m) is accepted only if stated.
+  - slug: apphys1-u01-exam-q43
+    type: short_answer
+    topic_code: "1.3"
+    source: "AP Physics 1 CED, Topic 1.3"
+    points: 4
+    stimulus: |
+      A model rocket is launched straight up from rest on level ground. Its engine gives it a constant upward acceleration of magnitude a for a time t₁, and then burns out. After burnout the rocket moves in free fall until it returns to the ground. Air resistance is negligible, and up is positive.
+    prompt: |
+      Part D of the translation between representations question.
+
+      (D)(i) Explain how the area under your velocity–time graph from part (A), from launch to the highest point, corresponds to your expression for H in part (B).
+
+      (D)(ii) A student builds a second rocket with the same acceleration a but an engine that burns for 2t₁. Use your expression from part (B) to predict how its maximum height compares with the first rocket's. Then explain how the shape of the velocity–time graph supports your prediction.
+    answer: |
+      (D)(i) Up to the highest point the graph lies above the axis and forms two triangles sharing the vertex (t₁, at₁): the first has base t₁ and height at₁, area ½at₁²; the second has base at₁/g and height at₁, area a²t₁²/(2g). Their total area is the displacement from launch to the top, which is exactly H = ½at₁² + a²t₁²/(2g).
+      (D)(ii) Replacing t₁ by 2t₁ multiplies both terms of H by 4, so the maximum height is four times as large (about 760 m for the numbers in part C). On the v–t graph, the burnout velocity a(2t₁) doubles and both triangles keep their slopes (a and −g), so each triangle's base and height double. A triangle with doubled base and height has four times the area, so the area, which is H, quadruples. The equation and the graph agree.
+    explanation: |
+      Four points.
+      (D)(i) 2 points: 1 for identifying the area under the v–t graph up to the top as the displacement H; 1 for showing the two triangle areas, ½at₁² and a²t₁²/(2g), match the two terms of the expression.
+      (D)(ii) 2 points: 1 for predicting four times the maximum height from the expression (both terms contain t₁²); 1 for the graphical argument (burnout velocity doubles, slopes unchanged, so both triangles double in base and height and their area quadruples), explicitly consistent with the prediction.

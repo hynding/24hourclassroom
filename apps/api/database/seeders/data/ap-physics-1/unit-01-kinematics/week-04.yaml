@@ -1,0 +1,625 @@
+week: 4
+unit: 1
+title: "Vectors and Motion in Two Dimensions"
+topics: ["1.5"]
+guide: guides/week-04.md
+guide_description: |
+  Resolving vectors into components with sine and cosine, rebuilding magnitude and direction, adding
+  two-dimensional vectors by components, and projectile motion as two independent motions sharing one clock
+  (constant horizontal velocity, vertical free fall): horizontal launches, angled launches on level ground,
+  time of flight, maximum height, range and velocity at any point. Worked examples: the components of a 12 m/s
+  kick and a 400 m north plus 300 m east walk (500 m at 37° east of north); a marble rolled off a 1.25 m bench at
+  2.0 m/s (0.51 s, 1.0 m, 5.3 m/s at 68° below horizontal) and how doubling the speed changes it; a 20 m/s kick
+  at 30° tabulated as x, y, v_x and v_y (5.1 m high, 35 m range); and the same kick at 60°, with complementary
+  angles, 45° and the limiting cases θ = 0° and 90°.
+flashcards_description: |
+  30 cards on vector components and resultants, adding vectors by components, the independence of horizontal
+  and vertical motion, horizontal launches, angled launches, velocity and acceleration at the top of a flight,
+  range, height and time-of-flight dependence on speed and angle, and three error-spot cards.
+
+flashcards:
+  - front: Components of a vector A at angle θ above the +x axis → formulas
+    back: |
+      A_x = A cos θ, A_y = A sin θ. If θ is measured from the vertical, the roles of sine and cosine swap: draw the triangle.
+    topic_code: "1.5"
+  - front: Vector from its components → magnitude and direction
+    back: |
+      A = √(A_x² + A_y²), θ = tan⁻¹(A_y/A_x), with the quadrant chosen from the signs of the components.
+    topic_code: "1.5"
+  - front: Adding 2D vectors → the method
+    back: |
+      Resolve each vector into x and y components, add all the x's, add all the y's, then rebuild the magnitude and direction.
+    topic_code: "1.5"
+  - front: Walk of 400 m north then 300 m east → resultant displacement
+    back: |
+      √(300² + 400²) = 500 m at tan⁻¹(300/400) ≈ 37° east of north. Distance walked: 700 m.
+    topic_code: "1.5"
+  - front: Kick at 12 m/s, 30° above horizontal → components
+    back: |
+      Horizontal 12 cos 30° ≈ 10.4 m/s; vertical 12 sin 30° = 6.0 m/s.
+    topic_code: "1.5"
+  - front: Projectile's horizontal motion (air resistance negligible) → acceleration and velocity
+    back: |
+      No horizontal acceleration: v_x = v₀ cos θ stays constant for the whole flight.
+    topic_code: "1.5"
+  - front: Projectile's vertical motion → what kind of motion
+    back: |
+      Free fall: acceleration 9.8 m/s² downward, starting from v₀ sin θ.
+    topic_code: "1.5"
+  - front: Independence of horizontal and vertical motion → what links them
+    back: |
+      Only time. Find t from one direction (usually vertical), then use it in the other.
+    topic_code: "1.5"
+  - front: Ball rolled off a table and ball dropped from the same height at the same moment → which lands first
+    back: |
+      Neither: they land together, because their vertical motions are identical.
+    topic_code: "1.5"
+  - front: Horizontal launch → what sets the time in the air
+    back: |
+      Only the drop height and g: t = √(2h/g). The launch speed does not change it.
+    topic_code: "1.5"
+  - front: Marble rolled off a 1.25 m bench at 2.0 m/s → time and landing distance
+    back: |
+      t = √(2 × 1.25/9.8) ≈ 0.51 s; distance 2.0 × 0.505 ≈ 1.0 m from the foot of the bench.
+    topic_code: "1.5"
+  - front: Marble from a 1.25 m bench at 2.0 m/s → velocity at the floor
+    back: |
+      v_x = 2.0 m/s, v_y ≈ 4.9 m/s down; speed ≈ 5.3 m/s at about 68° below horizontal.
+    topic_code: "1.5"
+  - front: Horizontal launch speed doubled, same height → effect on time and landing distance
+    back: |
+      Time unchanged; landing distance doubles.
+    topic_code: "1.5"
+  - front: Horizontal launch height quadrupled, same speed → effect on time and landing distance
+    back: |
+      Time doubles (t ∝ √h), so the landing distance also doubles.
+    topic_code: "1.5"
+  - front: Top of an angled projectile's flight → velocity there
+    back: |
+      Purely horizontal, v₀ cos θ. Only the vertical component is zero; the speed is at its minimum, not zero.
+    topic_code: "1.5"
+  - front: Top of an angled projectile's flight → acceleration there
+    back: |
+      9.8 m/s² downward, as everywhere else in the flight.
+    topic_code: "1.5"
+  - front: Time of flight on level ground → formula
+    back: |
+      T = 2v₀ sin θ/g: twice the time to the top, where v_y = 0.
+    topic_code: "1.5"
+  - front: Maximum height of a projectile → formula
+    back: |
+      H = (v₀ sin θ)²/(2g), from v_y² = v₀ᵧ² − 2gΔy with v_y = 0.
+    topic_code: "1.5"
+  - front: Range on level ground → how to compute
+    back: |
+      R = v₀ₓ × T = (v₀ cos θ)(2v₀ sin θ/g). Only valid when launch and landing heights are equal.
+    topic_code: "1.5"
+  - front: Kick at 20 m/s, 30° on level ground → height, time of flight and range
+    back: |
+      v₀ₓ ≈ 17.3, v₀ᵧ = 10.0 m/s; H ≈ 5.1 m; T ≈ 2.04 s; R ≈ 35 m.
+    topic_code: "1.5"
+  - front: Kick at 20 m/s, 60° on level ground → compared with 30°
+    back: |
+      Same range (≈ 35 m), but higher (≈ 15 m) and longer in the air (≈ 3.5 s).
+    topic_code: "1.5"
+  - front: Complementary launch angles on level ground → what they share
+    back: |
+      Equal ranges at the same launch speed (for example 25° and 65°). The steeper one goes higher and stays up longer.
+    topic_code: "1.5"
+  - front: Launch angle for maximum range on level ground → value
+    back: |
+      45° (air resistance negligible), giving R = v₀²/g.
+    topic_code: "1.5"
+  - front: Launch speed increased by 10%, same angle → effect on range
+    back: |
+      About 21% farther, because the range is proportional to v₀² (1.1² = 1.21).
+    topic_code: "1.5"
+  - front: Launch at θ = 90° → range and limiting-case check
+    back: |
+      Range 0 and height v₀²/(2g): the formulas reduce to week 2's straight-up toss.
+    topic_code: "1.5"
+  - front: Symmetry of a level-ground trajectory → what matches
+    back: |
+      Equal heights at equal times before and after the top; at those points v_y has equal size and opposite sign, and the landing speed equals the launch speed.
+    topic_code: "1.5"
+  - front: Projectile launched from a cliff → which equations to use
+    back: |
+      The full vertical equation y = y₀ + v₀ᵧt − ½gt² with the real heights, not the level-ground formulas for T and R.
+    topic_code: "1.5"
+  - front: Error-spot → "at the top of the arc the ball's velocity is zero"
+    back: |
+      Only v_y is zero. The ball still moves horizontally at v₀ cos θ.
+    topic_code: "1.5"
+  - front: Error-spot → "the vertical component of a 12 m/s kick at 30° is 12 cos 30°"
+    back: |
+      The vertical side is opposite the 30° angle: 12 sin 30° = 6.0 m/s. Cosine gives the horizontal component.
+    topic_code: "1.5"
+  - front: Error-spot → "the faster horizontal throw stays in the air longer"
+    back: |
+      Fall time depends only on height and g. A faster throw lands farther away at the same moment.
+    topic_code: "1.5"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topic 1.5: vector components and resultants, adding
+    vectors, horizontal and angled projectile motion, time of flight, height, range and their dependence on
+    speed and angle), with 8 questions (33%) reviewing weeks 1–3 (average speed and velocity, motion graphs and
+    free fall, and relative motion). Opens with a four-question shared-context set on a lab group's horizontal
+    launches. The long answer is a qualitative/quantitative translation question on two balls thrown from a
+    building. Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank
+    items are matched automatically; the short answers and the long answer are graded by your teacher against
+    the scoring notes. Calculator allowed throughout, as on the AP exam.
+  questions:
+    # ---- Stimulus set: horizontal launches from a lab table (1.5)
+    - slug: apphys1-u01-w04-q01
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 1
+      stimulus: |
+        A lab group launches a small steel ball horizontally from the edge of a table with a spring launcher. The launch point is 0.90 m above the floor. In five trials at the same launcher setting, the ball lands these horizontal distances from the point on the floor directly below the launch point:
+
+        | Trial | 1 | 2 | 3 | 4 | 5 |
+        |---|---|---|---|---|---|
+        | Distance (m) | 1.62 | 1.58 | 1.65 | 1.60 | 1.55 |
+
+        Air resistance is negligible. Use g = 9.8 m/s².
+      prompt: |
+        How long is the ball in the air on each trial?
+      options:
+        - "0.30 s"
+        - "0.43 s"
+        - "0.18 s"
+        - "0.092 s"
+      option_explanations:
+        - |
+          This uses t = √(h/g), dropping the 2 from h = ½gt².
+        - |
+          Correct. The ball starts with no vertical velocity, so 0.90 = ½(9.8)t² and t = √(1.80/9.8) ≈ 0.43 s, whatever the launch speed.
+        - |
+          This is 2h/g = 0.18 without taking the square root; it is t², not t.
+        - |
+          This divides the height by g (0.90/9.8), which gives a quantity in s², not a time, and also drops the factor of 2.
+      answer: 1
+    - slug: apphys1-u01-w04-q02
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 1
+      stimulus: |
+        A lab group launches a small steel ball horizontally from the edge of a table with a spring launcher. The launch point is 0.90 m above the floor. In five trials at the same launcher setting, the ball lands these horizontal distances from the point on the floor directly below the launch point:
+
+        | Trial | 1 | 2 | 3 | 4 | 5 |
+        |---|---|---|---|---|---|
+        | Distance (m) | 1.62 | 1.58 | 1.65 | 1.60 | 1.55 |
+
+        Air resistance is negligible. Use g = 9.8 m/s².
+      prompt: |
+        Using the mean landing distance, what is the ball's launch speed?
+      options:
+        - "1.6 m/s"
+        - "5.3 m/s"
+        - "3.7 m/s"
+        - "4.2 m/s"
+      option_explanations:
+        - |
+          1.60 m is the mean distance; dividing by an assumed 1 s of flight ignores the actual 0.43 s time in the air.
+        - |
+          This divides 1.60 m by 0.30 s, the time from √(h/g) with the 2 missing.
+        - |
+          Correct. Mean distance = 8.00/5 = 1.60 m. Horizontal velocity is constant, so v₀ = 1.60 m / 0.429 s ≈ 3.7 m/s.
+        - |
+          √(2gh) ≈ 4.2 m/s is the vertical speed gained in the fall, not the horizontal launch speed.
+      answer: 2
+    - slug: apphys1-u01-w04-q03
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 1
+      stimulus: |
+        A lab group launches a small steel ball horizontally from the edge of a table with a spring launcher. The launch point is 0.90 m above the floor. In five trials at the same launcher setting, the ball lands these horizontal distances from the point on the floor directly below the launch point:
+
+        | Trial | 1 | 2 | 3 | 4 | 5 |
+        |---|---|---|---|---|---|
+        | Distance (m) | 1.62 | 1.58 | 1.65 | 1.60 | 1.55 |
+
+        Air resistance is negligible. Use g = 9.8 m/s².
+      prompt: |
+        The group changes the launcher setting so the ball leaves the table at twice its original speed, still horizontally from the same point. How do the time in the air and the landing distance change?
+      options:
+        - "The time is unchanged and the landing distance doubles."
+        - "The time halves and the landing distance is unchanged."
+        - "The time and the landing distance both double."
+        - "The time is unchanged and the landing distance quadruples."
+      option_explanations:
+        - |
+          Correct. The fall time depends only on the 0.90 m height, so it is unchanged; the horizontal distance is v₀t, so it doubles (to about 3.2 m).
+        - |
+          A faster horizontal launch does not make the ball fall faster; the vertical motion is independent of the horizontal speed.
+        - |
+          The time is set by the vertical drop alone, which has not changed.
+        - |
+          Distance is proportional to v₀ for a horizontal launch at fixed height. The square law applies to angled launches on level ground, where the time also grows with speed.
+      answer: 0
+    - slug: apphys1-u01-w04-q04
+      type: numeric
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 1
+      stimulus: |
+        A lab group launches a small steel ball horizontally from the edge of a table with a spring launcher. The launch point is 0.90 m above the floor. In five trials at the same launcher setting, the ball lands these horizontal distances from the point on the floor directly below the launch point:
+
+        | Trial | 1 | 2 | 3 | 4 | 5 |
+        |---|---|---|---|---|---|
+        | Distance (m) | 1.62 | 1.58 | 1.65 | 1.60 | 1.55 |
+
+        Air resistance is negligible. Use g = 9.8 m/s².
+      prompt: |
+        Using the mean landing distance, what is the ball's speed just before it hits the floor? Give your answer in m/s, to two significant figures.
+      answer: { value: 5.6, tolerance: 0.05 }
+      explanation: |
+        Horizontal: v_x = 1.60/0.429 ≈ 3.73 m/s (unchanged during the flight). Vertical: v_y = gt = 9.8 × 0.429 = 4.2 m/s downward (or √(2gh) = √(2 × 9.8 × 0.90) = 4.2 m/s). Speed = √(3.73² + 4.2²) ≈ 5.6 m/s, directed about 48° below the horizontal.
+    - slug: apphys1-u01-w04-q05
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 1
+      prompt: |
+        A jet climbs at 70 m/s along a straight line 15° above the horizontal. What is the vertical component of its velocity?
+      options:
+        - "68 m/s"
+        - "4.7 m/s"
+        - "70 m/s"
+        - "18 m/s"
+      option_explanations:
+        - |
+          70 cos 15° ≈ 68 m/s is the horizontal component; the vertical side is opposite the 15° angle, so it uses sine.
+        - |
+          This divides the speed by the angle in degrees (70/15), which is not a trigonometric component.
+        - |
+          The full speed lies along the slanted path; only part of it is vertical for a 15° climb.
+        - |
+          Correct. v_y = 70 sin 15° ≈ 18 m/s (18.1 m/s).
+      answer: 3
+    - slug: apphys1-u01-w04-q06
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 1
+      prompt: |
+        A softball is thrown at an angle of 35° above the horizontal and follows a parabolic path. Air resistance is negligible. Which describes the ball's velocity and acceleration at the highest point of its path?
+      options:
+        - "Velocity zero; acceleration zero"
+        - "Velocity horizontal and not zero; acceleration 9.8 m/s² downward"
+        - "Velocity zero; acceleration 9.8 m/s² downward"
+        - "Velocity horizontal and not zero; acceleration zero"
+      option_explanations:
+        - |
+          Only the vertical component of velocity is zero at the top; the ball keeps moving sideways, and gravity still acts.
+        - |
+          Correct. At the top v_y = 0, so the velocity is entirely horizontal, v₀ cos 35°; the acceleration is g downward throughout the flight.
+        - |
+          This treats the throw as straight up. An angled throw keeps its horizontal velocity at the top.
+        - |
+          The horizontal velocity is right, but gravity does not switch off at the top; the acceleration is still 9.8 m/s² downward.
+      answer: 1
+    - slug: apphys1-u01-w04-q07
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 1
+      prompt: |
+        A water rocket launched at 25° above level ground lands 30 m away. At what other launch angle, with the same launch speed, would it also land 30 m away? Air resistance is negligible.
+      options:
+        - "50°"
+        - "45°"
+        - "65°"
+        - "155°"
+      option_explanations:
+        - |
+          Doubling the angle does not give equal ranges; 50° and 40° are a complementary pair, not 25° and 50°.
+        - |
+          45° gives the maximum range, which is longer than 30 m at this speed.
+        - |
+          Correct. On level ground, complementary angles (adding to 90°) give equal ranges: 90° − 25° = 65°.
+        - |
+          155° points backward; the supplement of the angle is not what produces equal ranges.
+      answer: 2
+    - slug: apphys1-u01-w04-q08
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 1
+      prompt: |
+        A delivery drone flies 6.0 km east and then 8.0 km south. What is its resultant displacement?
+      options:
+        - "10 km, 53° south of east"
+        - "14 km, 53° south of east"
+        - "10 km, 37° south of east"
+        - "2.0 km south"
+      option_explanations:
+        - |
+          Correct. Magnitude √(6.0² + 8.0²) = 10 km; direction tan⁻¹(8.0/6.0) ≈ 53° south of east.
+        - |
+          14 km is the distance flown. Perpendicular displacements combine as a right triangle, not by adding lengths.
+        - |
+          The magnitude is right, but tan⁻¹(6.0/8.0) ≈ 37° is measured from south, not from east; the angle from east is 53°.
+        - |
+          This subtracts the two lengths as if they were along the same line; they are perpendicular.
+      answer: 0
+    - slug: apphys1-u01-w04-q09
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 1
+      prompt: |
+        Two identical marbles roll off the edge of the same level table at the same moment, one at 1.0 m/s and the other at 3.0 m/s. Air resistance is negligible. Which statement is correct?
+      options:
+        - "The faster marble lands first, because it has more speed."
+        - "The slower marble lands first, because it travels a shorter path."
+        - "The faster marble lands first, three times as far away."
+        - "They land at the same time, and the faster marble lands three times as far away."
+      option_explanations:
+        - |
+          Horizontal speed does not change the vertical motion, which alone sets the time to fall.
+        - |
+          The path length does not matter; both marbles start with zero vertical velocity and fall the same height in the same time.
+        - |
+          The distance ratio is right, but the faster marble does not land first; the fall times are equal.
+        - |
+          Correct. Both start with v_y = 0 and fall the same height, so they land together; in that equal time the 3.0 m/s marble covers three times the horizontal distance.
+      answer: 3
+    - slug: apphys1-u01-w04-q10
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 1
+      prompt: |
+        A football is kicked from level ground at 15 m/s, 40° above the horizontal. Air resistance is negligible. How long is the ball in the air?
+      options:
+        - "2.3 s"
+        - "2.0 s"
+        - "1.5 s"
+        - "0.98 s"
+      option_explanations:
+        - |
+          This uses the horizontal component, 2(15 cos 40°)/9.8 ≈ 2.3 s; the time of flight depends on the vertical component.
+        - |
+          Correct. v₀ᵧ = 15 sin 40° ≈ 9.64 m/s; T = 2v₀ᵧ/g = 2(9.64)/9.8 ≈ 2.0 s.
+        - |
+          This uses the full speed with no factor of 2 (15/9.8), ignoring both the angle and the trip down.
+        - |
+          This is the time to the top only, v₀ᵧ/g ≈ 0.98 s; the ball takes as long again to come down.
+      answer: 1
+    - slug: apphys1-u01-w04-q11
+      type: multiple_choice
+      topic_code: "1.4"
+      source: "AP Physics 1 CED, Topic 1.4"
+      points: 1
+      prompt: |
+        Rain falls straight down at 8.0 m/s relative to the ground. A car drives along a level road at 6.0 m/s. What is the speed of the raindrops relative to the car?
+      options:
+        - "10 m/s"
+        - "14 m/s"
+        - "2.0 m/s"
+        - "8.0 m/s"
+      option_explanations:
+        - |
+          Correct. Relative to the car the rain has its 8.0 m/s downward velocity plus 6.0 m/s backward (opposite the car's motion); these are perpendicular, so √(8.0² + 6.0²) = 10 m/s.
+        - |
+          This adds the speeds directly; perpendicular velocities combine as a right triangle.
+        - |
+          This subtracts the speeds as if the velocities were along the same line.
+        - |
+          8.0 m/s is the rain's speed relative to the ground; the car's motion adds a horizontal part in the car's frame.
+      answer: 0
+    - slug: apphys1-u01-w04-q12
+      type: multiple_choice
+      topic_code: "1.3"
+      source: "AP Physics 1 CED, Topic 1.3"
+      points: 1
+      prompt: |
+        A jogger's position–time graph is a straight line from x = 50 m at t = 0 to x = 10 m at t = 20 s. What is the jogger's velocity?
+      options:
+        - "+2.0 m/s"
+        - "2.5 m/s"
+        - "0.50 m/s"
+        - "−2.0 m/s"
+      option_explanations:
+        - |
+          The size of the slope is right, but the position decreases, so the velocity is negative.
+        - |
+          This divides the initial position by the time (50/20); velocity is the change in position over the time.
+        - |
+          This divides the final position by the time (10/20) instead of the change in position.
+        - |
+          Correct. Slope = (10 − 50)/20 = −40/20 = −2.0 m/s, constant because the graph is straight.
+      answer: 3
+    - slug: apphys1-u01-w04-q13
+      type: multiple_choice
+      topic_code: "1.2"
+      source: "AP Physics 1 CED, Topic 1.2"
+      points: 1
+      prompt: |
+        A go-kart completes two full laps of a 1.5 km oval track in 60 s, finishing at its starting line. What is its average speed?
+      options:
+        - "0 m/s"
+        - "25 m/s"
+        - "50 m/s"
+        - "180 m/s"
+      option_explanations:
+        - |
+          This is the average velocity (zero displacement); average speed uses the distance travelled.
+        - |
+          This uses only one lap, 1500 m / 60 s; the go-kart drove two laps.
+        - |
+          Correct. Distance = 2 × 1500 m = 3000 m; average speed = 3000/60 = 50 m/s.
+        - |
+          180 is the speed in km/h (50 × 3.6), not in m/s.
+      answer: 2
+    - slug: apphys1-u01-w04-q14
+      type: multi_select
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A tennis ball is hit at an angle above level ground and lands on the court. Air resistance is negligible. Which statements are true for its flight? Select all that apply.
+      options:
+        - "Its vertical velocity is constant."
+        - "Its acceleration is 9.8 m/s² downward throughout the flight."
+        - "Its horizontal velocity is constant."
+        - "Its speed is zero at the highest point."
+        - "Its speed is smallest at the highest point."
+      option_explanations:
+        - |
+          The vertical velocity changes by 9.8 m/s every second; it is the horizontal velocity that stays constant.
+        - |
+          Correct. Gravity is the only force, so the acceleration is g downward at every point.
+        - |
+          Correct. There is no horizontal acceleration, so v_x keeps its launch value.
+        - |
+          At the top v_y = 0 but v_x is not, so the speed equals v_x, not zero.
+        - |
+          Correct. The speed is √(v_x² + v_y²) with v_x fixed, so it is smallest where v_y = 0, at the top.
+      answer: [1, 2, 4]
+    - slug: apphys1-u01-w04-q15
+      type: multi_select
+      topic_code: "1.4"
+      source: "AP Physics 1 CED, Topic 1.4"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A boat moves at 4.0 m/s relative to the water and points straight across a 40 m wide river whose current is 2.0 m/s. Which statements are true? Select all that apply.
+      options:
+        - "The boat takes 10 s to cross."
+        - "The boat's speed relative to the ground is 6.0 m/s."
+        - "The boat lands 20 m downstream of the point directly opposite."
+        - "The boat's speed relative to the ground is about 4.5 m/s."
+        - "A faster current would make the crossing take longer."
+      option_explanations:
+        - |
+          Correct. The across component is 4.0 m/s, so t = 40/4.0 = 10 s.
+        - |
+          This adds perpendicular speeds directly; they combine as a right triangle.
+        - |
+          Correct. The current carries the boat downstream for the whole crossing: drift = 2.0 m/s × 10 s = 20 m.
+        - |
+          Correct. √(4.0² + 2.0²) = √20 ≈ 4.5 m/s.
+        - |
+          The current is perpendicular to the crossing, so it changes the drift, not the crossing time.
+      answer: [0, 2, 3]
+    - slug: apphys1-u01-w04-q16
+      type: true_false
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 1
+      prompt: |
+        True or false: On level ground with air resistance negligible, a ball fired horizontally from a launcher and a ball released from rest at the same height at the same instant hit the ground at the same time.
+      answer: true
+      explanation: |
+        True. Both balls start with zero vertical velocity and have the same downward acceleration g, so their vertical motions are identical and they land together. The fired ball simply also moves horizontally at constant velocity.
+    - slug: apphys1-u01-w04-q17
+      type: true_false
+      topic_code: "1.3"
+      source: "AP Physics 1 CED, Topic 1.3"
+      points: 1
+      prompt: |
+        True or false: The velocity–time graph of a ball in free fall (air resistance negligible) is a horizontal line.
+      answer: false
+      explanation: |
+        False. The velocity changes by 9.8 m/s every second, so the v–t graph is a straight line with slope −9.8 m/s² (up positive). It is the acceleration–time graph that is a horizontal line, at −9.8 m/s².
+    - slug: apphys1-u01-w04-q18
+      type: fill_blank
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 1
+      prompt: |
+        A frisbee leaves a player's hand at 10 m/s, 60° above the horizontal. The horizontal component of its velocity is ____ m/s.
+      answer: ["5", "5.0", "five"]
+      explanation: |
+        v_x = 10 cos 60° = 10 × 0.5 = 5.0 m/s. (The vertical component is 10 sin 60° ≈ 8.7 m/s.)
+    - slug: apphys1-u01-w04-q19
+      type: fill_blank
+      topic_code: "1.4"
+      source: "AP Physics 1 CED, Topic 1.4"
+      points: 1
+      prompt: |
+        Car A drives north at 30 m/s and car B drives north at 22 m/s on the same straight highway. The velocity of car A relative to car B is ____ m/s north.
+      answer: ["8", "8.0", "eight"]
+      explanation: |
+        v(A, B) = v(A, ground) − v(B, ground) = 30 − 22 = 8.0 m/s north.
+    - slug: apphys1-u01-w04-q20
+      type: numeric
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 1
+      prompt: |
+        A soccer ball is kicked from level ground at 18 m/s, 45° above the horizontal. Air resistance is negligible. How far away does it land? Give your answer in metres, to two significant figures.
+      answer: { value: 33, tolerance: 0.4 }
+      explanation: |
+        v₀ₓ = v₀ᵧ = 18 cos 45° ≈ 12.73 m/s. Time of flight T = 2(12.73)/9.8 ≈ 2.60 s. Range R = 12.73 × 2.60 ≈ 33 m (equivalently v₀²/g = 324/9.8 ≈ 33 m at 45°).
+    - slug: apphys1-u01-w04-q21
+      type: numeric
+      topic_code: "1.3"
+      source: "AP Physics 1 CED, Topic 1.3"
+      points: 1
+      prompt: |
+        A ball is thrown straight up at 14 m/s. Air resistance is negligible. How long does it take to reach its highest point? Give your answer in seconds, to three significant figures.
+      answer: { value: 1.43, tolerance: 0.01 }
+      explanation: |
+        At the top v = 0: 0 = 14 − 9.8t, so t = 14/9.8 ≈ 1.43 s.
+    - slug: apphys1-u01-w04-q22
+      type: short_answer
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 3
+      prompt: |
+        A basketball is launched at 9.0 m/s, 50° above the horizontal, and is caught at the same height it was launched from. Air resistance is negligible.
+
+        (a) Calculate the horizontal and vertical components of the ball's velocity at launch.
+        (b) Describe the ball's velocity vector and acceleration vector at the highest point, with values.
+        (c) Give the horizontal and vertical components of the ball's velocity just before it is caught, and explain how you know them without solving for the time.
+      answer: |
+        (a) v₀ₓ = 9.0 cos 50° ≈ 5.8 m/s; v₀ᵧ = 9.0 sin 50° ≈ 6.9 m/s (upward).
+        (b) Velocity: horizontal, 5.8 m/s (the vertical component is zero). Acceleration: 9.8 m/s² straight down.
+        (c) v_x = 5.8 m/s (no horizontal acceleration) and v_y = 6.9 m/s downward. The vertical motion is symmetric: falling back to the launch height, the ball regains its launch vertical speed (from v_y² = v₀ᵧ² − 2gΔy with Δy = 0), now pointing down.
+      explanation: |
+        Three points, one per part. (a) both components, about 5.8 m/s and 6.9 m/s (sine and cosine swapped earns nothing). (b) a nonzero horizontal velocity of about 5.8 m/s and an acceleration of 9.8 m/s² downward, both stated. (c) 5.8 m/s horizontal and 6.9 m/s downward, justified by constant v_x and the symmetry (or v_y² = v₀ᵧ² − 2gΔy with Δy = 0).
+    - slug: apphys1-u01-w04-q23
+      type: short_answer
+      topic_code: "1.4"
+      source: "AP Physics 1 CED, Topic 1.4"
+      points: 2
+      prompt: |
+        On a windless day, rain falls straight down. A passenger in a moving car notices that the raindrops leave slanted streaks on the side windows. Explain the slant using relative velocity, and predict how the slant changes when the car speeds up.
+      answer: |
+        In the car's frame, the velocity of the rain is v(rain, car) = v(rain, ground) − v(car, ground): the rain's downward velocity plus a horizontal velocity equal in size to the car's speed, pointing toward the back of the car. The sum of these perpendicular velocities slants downward and backward, so the streaks slant. When the car speeds up, the backward component grows while the downward component stays the same, so the streaks tilt farther from vertical (more nearly horizontal).
+      explanation: |
+        Two points. 1 point: explains that in the car's frame the rain has a backward horizontal component equal to the car's speed, which combines with the downward velocity to give a slanted relative velocity. 1 point: predicts that a faster car makes the streaks more slanted (farther from vertical), with the reason that only the horizontal component increases.
+    - slug: apphys1-u01-w04-q24
+      type: long_answer
+      topic_code: "1.5"
+      source: "AP Physics 1 CED, Topic 1.5"
+      points: 6
+      prompt: |
+        Qualitative/quantitative translation. From the flat roof of a building of height h, two students throw identical balls horizontally at the same moment: ball 1 at speed v and ball 2 at speed 2v. Air resistance is negligible.
+
+        (A) Without equations, compare the two balls' times in the air, their landing distances from the base of the building, and their speeds just before landing. Explain why ball 2 does not land twice as fast as ball 1.
+
+        (B) Derive expressions, in terms of h, v and g, for the time in the air, ball 1's landing distance and ball 1's landing speed. Then write ball 2's landing distance and landing speed.
+
+        (C) Show that your expressions agree with your reasoning in (A).
+
+        (D) For h = 20 m and v = 5.0 m/s, calculate both landing speeds.
+      answer: |
+        (A) Both balls fall the same height from zero vertical velocity, so they are in the air for the same time. In that equal time, ball 2 travels horizontally at twice the speed, so it lands twice as far from the base. At landing, both balls have the same vertical velocity (same fall), and ball 2's horizontal velocity is twice ball 1's. The landing speed combines a doubled horizontal part with an unchanged vertical part, so ball 2 lands faster than ball 1 but less than twice as fast.
+        (B) Time: h = ½gt², so t = √(2h/g) for both. Ball 1's distance: x₁ = v√(2h/g); ball 1's landing speed: v₁ = √(v² + (gt)²) = √(v² + 2gh). Ball 2: x₂ = 2v√(2h/g) = 2x₁; landing speed v₂ = √(4v² + 2gh).
+        (C) t does not contain v, so the times are equal; x₂ = 2x₁. v₂/v₁ = √(4v² + 2gh)/√(v² + 2gh): this is greater than 1 because 4v² is more than v², and less than 2 because 4v² + 2gh is less than 4v² + 8gh = 4(v² + 2gh). It approaches 2 only if h approaches 0 (no vertical part), as expected.
+        (D) 2gh = 2(9.8)(20) = 392 m²/s². v₁ = √(25 + 392) ≈ 20 m/s (20.4 m/s); v₂ = √(100 + 392) ≈ 22 m/s (22.2 m/s). Both are in the air √(40/9.8) ≈ 2.0 s.
+      explanation: |
+        Six points.
+        (A) 2 points: 1 for equal times and ball 2 landing twice as far, with the reason (same vertical motion, horizontal motion independent); 1 for explaining that the landing speed combines a doubled horizontal component with an equal vertical component, so ball 2 is faster but less than twice as fast.
+        (B) 2 points: 1 for t = √(2h/g) and x₁ = v√(2h/g) (x₂ = 2x₁); 1 for v₁ = √(v² + 2gh) and v₂ = √(4v² + 2gh) (equivalent forms using gt accepted).
+        (C) 1 point: uses the expressions to show equal times, double distance and a speed ratio between 1 and 2 (an algebraic argument or a correct numerical demonstration tied to the expressions).
+        (D) 1 point: about 20 m/s and 22 m/s (accept 20.4 and 22.2). Answers of 20 and 40 m/s earn nothing.
