@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AnalyticsAdminController;
 use App\Http\Controllers\Admin\CommentAdminController;
 use App\Http\Controllers\Admin\CourseAdminController;
 use App\Http\Controllers\Admin\GenerationAdminController;
@@ -64,6 +65,7 @@ Route::middleware(['auth', 'verified', 'active', 'admin'])->prefix('admin')->gro
     Route::post('slugs/{slug}/reject', [SlugAdminController::class, 'reject']);
     Route::put('slugs/site-course', [SlugAdminController::class, 'siteCourse']);
 
+    Route::get('analytics', [AnalyticsAdminController::class, 'index'])->name('admin.analytics');
     Route::get('generations', [GenerationAdminController::class, 'index'])->name('admin.generations');
     Route::get('generations/{generation}', [GenerationAdminController::class, 'show']);
     Route::post('generations/{generation}/cancel', [GenerationAdminController::class, 'cancel']);

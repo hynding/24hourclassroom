@@ -95,6 +95,14 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('page-image', fn (Request $request) => Limit::perMinute(120)
             ->by('page-image:'.$request->ip()));
 
+        // POST /api/analytics/view: one per page a visitor opens. Its own
+        // bucket, so counting never spends the guest per-IP budget that the
+        // site config and auth routes share (the CLAUDE.md gotcha). Generous,
+        // because a whole school can share one address; Metrics::classify
+        // and bumpCapped are what bound the table.
+        RateLimiter::for('analytics', fn (Request $request) => Limit::perMinute(1200)
+            ->by('analytics:'.$request->ip()));
+
         RateLimiter::for('admin-resend', fn (Request $request) => Limit::perMinute(6)
             ->by('admin-resend:'.($request->user()?->id ?? $request->ip())));
     }

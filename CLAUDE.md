@@ -137,7 +137,7 @@ the command warns you which one is still closed.
 
 The admin UI is Inertia on the **API host** (`/admin/users`,
 `/admin/users/{user}`, `/admin/site-theme`, `/admin/site`, `/admin/tests`,
-`/admin/materials`, `/admin/courses`, `/admin/comments`, `/admin/slugs`, `/admin/generations`), not the Stencil SPA. Log in there,
+`/admin/materials`, `/admin/courses`, `/admin/comments`, `/admin/slugs`, `/admin/analytics`, `/admin/generations`), not the Stencil SPA. Log in there,
 not on the SPA host.
 
 Middleware order in `bootstrap/app.php` is load-bearing: `EnsureUserIsAdmin` is
@@ -524,6 +524,33 @@ knowledge`), and the lint rejects anything after
 `Database\Seeders\ApLiterature\Lint`, not the test, so it can run on one
 unit (`(new Lint($course))->run([3])`); `ApLiteratureContentTest` runs it over
 everything.
+
+## Usage analytics
+
+First-party and cookieless, for a K-12 audience: nothing is stored that
+names or follows a person. `App\Support\Metrics` keeps only daily counters
+in `daily_metrics` (day, metric, dim, count): no IP, user id, visitor id,
+cookie, query string or full referrer. The SPA (`services/analytics.ts`,
+called from `app-root` on load and every navigation) posts the settled
+path to `POST /api/analytics/view` (own `analytics` limiter, always 204)
+with credentials omitted, so a signed-in visitor is counted anonymously
+too. Only the first page of a tab carries `visit` (a sessionStorage flag
+that never leaves the browser), the referrer (kept as its site, never
+this one) and `utm_source`. Nothing is sent under Do Not Track, Global
+Privacy Control or `navigator.webdriver`; the API drops bot user agents.
+The route skips Sanctum's stateful pipeline (`withoutMiddleware`), which
+would demand a CSRF token and write a `sessions` row (IP, user agent) per
+view. `Metrics::classify` keeps only shapes the SPA routes (anything else is
+`(other)`): a page a guest can open is counted at its canonical address,
+any other id becomes `:id` (`/attempts/:id`, a private `/courses/:id`), and
+any course address also bumps `course_view` by course id. Referrers and
+campaigns go through `bumpCapped` (200 a day, then `(other)`). The limiter
+is generous (1,200/min per IP: a school shares one address). There is no
+scheduler: `php artisan analytics:prune [--days=400]` from cron or by hand.
+`CoursePracticeController::check` bumps `practice_check` and a branch
+bumps `branch`, per course. Sign-ups are read from `users`.
+`/admin/analytics` shows the last 7, 30 or 90 days. Never add a counter
+keyed on a person.
 
 ## Shuffled options
 

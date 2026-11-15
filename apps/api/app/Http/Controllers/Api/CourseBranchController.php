@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Support\CourseAccess;
 use App\Support\CourseBrancher;
 use App\Support\CoursePayload;
+use App\Support\Metrics;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,7 @@ class CourseBranchController extends Controller
         abort_unless(CourseAccess::canBranch($me, $course), 403);
 
         $branch = CourseBrancher::branch($course, $me);
+        Metrics::bump(Metrics::BRANCH, $course->id);
 
         return response()->json(CoursePayload::view($branch->fresh(), $me), 201);
     }
