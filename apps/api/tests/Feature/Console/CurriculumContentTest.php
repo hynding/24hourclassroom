@@ -6,6 +6,7 @@ use Database\Seeders\ApBiologySeeder;
 use Database\Seeders\ApCalculusAbSeeder;
 use Database\Seeders\ApCalculusBcSeeder;
 use Database\Seeders\ApChemistrySeeder;
+use Database\Seeders\ApEnglishLanguageSeeder;
 use Database\Seeders\ApLiteratureSeeder;
 use Database\Seeders\ApPhysics1Seeder;
 use Database\Seeders\ApStatisticsSeeder;
@@ -66,6 +67,6 @@ test('the course fits the default per-teacher file cap', function (string $seede
 })->with('seeded courses');
 
 test('no two seeded courses share a slug', function () {
-    $slugs = array_map(fn ($seeder) => (new Course($seeder::defaultDir()))->slug, [ApBiologySeeder::class, ApUsHistorySeeder::class, Algebra1Seeder::class, GeometrySeeder::class, Algebra2Seeder::class, ChemistrySeeder::class, ApChemistrySeeder::class, ApWorldHistorySeeder::class, PrecalculusSeeder::class, TrigonometrySeeder::class, ApCalculusAbSeeder::class, ApCalculusBcSeeder::class, ApStatisticsSeeder::class, ApPhysics1Seeder::class, ApLiteratureSeeder::class]);
+    $slugs = array_map(fn ($seeder) => (new Course($seeder::defaultDir()))->slug, [ApBiologySeeder::class, ApUsHistorySeeder::class, Algebra1Seeder::class, GeometrySeeder::class, Algebra2Seeder::class, ChemistrySeeder::class, ApChemistrySeeder::class, ApWorldHistorySeeder::class, PrecalculusSeeder::class, TrigonometrySeeder::class, ApCalculusAbSeeder::class, ApCalculusBcSeeder::class, ApStatisticsSeeder::class, ApPhysics1Seeder::class, ApLiteratureSeeder::class, ApEnglishLanguageSeeder::class]);
     expect(array_unique($slugs))->toHaveCount(count($slugs));
 });
