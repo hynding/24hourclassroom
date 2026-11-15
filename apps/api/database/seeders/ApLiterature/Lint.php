@@ -11,12 +11,22 @@ use Illuminate\Validation\ValidationException;
 use RuntimeException;
 
 /**
- * The content lint for the AP Literature data directory: every rule the
+ * The content lint for the skill-organised English courses (AP Literature,
+ * AP English Language): every rule the
  * seeder's validator does NOT enforce -- provenance and the public-domain
  * cutoff, rationale quality, spiral review, passage sets, the exam's shape,
  * duplicates, attribution. Returns problems as strings instead of failing on
  * the first, so ApLiteratureContentTest can print them all and an author can
  * lint one unit while the rest of the course is still being written.
+ *
+ * A course.yaml may tune it under `lint` (AP Literature's values are the
+ * defaults): `practice_exam` {multiple_choice, sets, set_min, set_max,
+ * essays}; `original_sources`, provenance strings that mark writing made
+ * for the course (a revision draft, an invented synthesis source);
+ * `us_government_works: true`, which lets a work of the U.S. federal
+ * government past the cutoff when its `texts` entry says
+ * `us_government_work: true` and its item `source` says `U.S. government
+ * work`; and `text_hosts`, more hosts a `texts` url may point at.
  */
 final class Lint
 {
@@ -47,6 +57,21 @@ final class Lint
     private array $fronts = [];
 
     public function __construct(private readonly Course $course) {}
+
+    /** A `lint` setting from course.yaml, or its default. */
+    private function setting(string $key, mixed $default): mixed
+    {
+        return $this->course->config['lint'][$key] ?? $default;
+    }
+
+    /** @return array{multiple_choice: int, sets: int, set_min: int, set_max: int, essays: int} */
+    private function examShape(): array
+    {
+        return array_map('intval', array_merge(
+            ['multiple_choice' => 55, 'sets' => 5, 'set_min' => 8, 'set_max' => 13, 'essays' => 3],
+            (array) $this->setting('practice_exam', []),
+        ));
+    }
 
     /**
      * Lint the whole course, or only some units (and then the course-wide
@@ -234,8 +259,9 @@ final class Lint
     }
 
     /**
-     * The exam's shape: Section I is 55 multiple-choice items in five passage
-     * sets of 8-13; Section II is the three essays, each on the 6-point rubric.
+     * The exam's shape (AP Literature by default, see examShape): Section I is
+     * 55 multiple-choice items in five passage sets of 8-13; Section II is the
+     * three essays, each on the 6-point rubric.
      *
      * @param  array<string, mixed>  $data
      */
@@ -247,8 +273,10 @@ final class Lint
 
         $mc = array_values(array_filter($questions, fn ($q) => ($q['type'] ?? '') === 'multiple_choice'));
         $essays = array_values(array_filter($questions, fn ($q) => ($q['type'] ?? '') === 'long_answer'));
-        if (count($mc) !== 55 || count($essays) !== 3 || count($questions) !== 58) {
-            $this->fail($where, sprintf('%d multiple choice and %d essays of %d items (want 55 + 3 = 58)', count($mc), count($essays), count($questions)));
+        $shape = $this->examShape();
+        $total = $shape['multiple_choice'] + $shape['essays'];
+        if (count($mc) !== $shape['multiple_choice'] || count($essays) !== $shape['essays'] || count($questions) !== $total) {
+            $this->fail($where, sprintf('%d multiple choice and %d essays of %d items (want %d + %d = %d)', count($mc), count($essays), count($questions), $shape['multiple_choice'], $shape['essays'], $total));
         }
         $bySet = [];
         foreach ($mc as $q) {
@@ -258,12 +286,12 @@ final class Lint
             }
             $bySet[$s] = ($bySet[$s] ?? 0) + 1;
         }
-        if (count($bySet) !== 5) {
-            $this->fail($where, count($bySet).' passages in Section I (want 5)');
+        if (count($bySet) !== $shape['sets']) {
+            $this->fail($where, count($bySet)." passages in Section I (want {$shape['sets']})");
         }
         foreach ($bySet as $count) {
-            if ($count < 8 || $count > 13) {
-                $this->fail($where, "a Section I set has {$count} items (want 8-13)");
+            if ($count < $shape['set_min'] || $count > $shape['set_max']) {
+                $this->fail($where, "a Section I set has {$count} items (want {$shape['set_min']}-{$shape['set_max']})");
             }
         }
         foreach ($essays as $q) {
@@ -346,7 +374,7 @@ final class Lint
         }
         try {
             TestDraftValidator::validate([
-                'title' => $where, 'subject' => 'english-language-arts', 'grade_level' => '9-12', 'questions' => $bodies,
+                'title' => $where, 'subject' => (string) ($this->course->config['subject'] ?? 'english-language-arts'), 'grade_level' => '9-12', 'questions' => $bodies,
             ]);
         } catch (ValidationException $e) {
             foreach ($e->errors() as $key => $messages) {
@@ -358,20 +386,25 @@ final class Lint
     /**
      * An item's provenance: `general knowledge` (craft and terminology, no
      * quoted text), or a citation carrying the quoted work's publication year
-     * in parentheses -- which must be in the US public domain.
+     * in parentheses -- which must be in the US public domain, unless the
+     * course allows U.S. government works and the source says it is one. A
+     * course's `original_sources` (writing made for it) need no year.
      */
     private function source(string $at, string $source): void
     {
-        if (strcasecmp(trim($source), 'general knowledge') === 0) {
-            return;
+        foreach (['general knowledge', ...(array) $this->setting('original_sources', [])] as $plain) {
+            if (strcasecmp(trim($source), (string) $plain) === 0) {
+                return;
+            }
         }
         if (! preg_match_all('/\([^()]*?\b(1[0-9]{3})\)/', $source, $m)) {
             $this->fail($at, "source `{$source}` needs the work's publication year in parentheses, or `general knowledge`");
 
             return;
         }
+        $government = $this->setting('us_government_works', false) === true && stripos($source, 'U.S. government work') !== false;
         foreach ($m[1] as $year) {
-            if ((int) $year > self::PUBLIC_DOMAIN_THROUGH) {
+            if ((int) $year > self::PUBLIC_DOMAIN_THROUGH && ! $government) {
                 $this->fail($at, "source `{$source}` is too recent to be in the public domain");
             }
         }
@@ -392,11 +425,12 @@ final class Lint
                     continue 2;
                 }
             }
-            if ((int) $text['year'] > self::PUBLIC_DOMAIN_THROUGH) {
+            $government = $this->setting('us_government_works', false) === true && ($text['us_government_work'] ?? false) === true;
+            if ((int) $text['year'] > self::PUBLIC_DOMAIN_THROUGH && ! $government) {
                 $this->fail($at, "{$text['title']} ({$text['year']}) is too recent to be in the public domain");
             }
             $host = parse_url((string) $text['url'], PHP_URL_HOST);
-            if (! in_array($host, self::TEXT_HOSTS, true) || ! str_starts_with((string) $text['url'], 'https://')) {
+            if (! in_array($host, [...self::TEXT_HOSTS, ...(array) $this->setting('text_hosts', [])], true) || ! str_starts_with((string) $text['url'], 'https://')) {
                 $this->fail($at, "url {$text['url']} is not an https link to an allowed host");
             }
         }

@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             ApBiologySeeder::class,
             ApUsHistorySeeder::class,
             ApLiteratureSeeder::class,
+            ApEnglishLanguageSeeder::class,
             Algebra1Seeder::class,
             GeometrySeeder::class,
             Algebra2Seeder::class,

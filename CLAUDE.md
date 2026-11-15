@@ -527,7 +527,7 @@ any small `.md`/`.txt` in-app through `rich-text`, a vnode-only markdown subset
 with no HTML and no `innerHTML`. `MaterialWriter` is the one path that puts a
 file on the materials disk, for uploads and the seeder alike.
 
-## Seeded AP Literature course
+## Seeded AP Literature and AP English Language courses
 
 `php artisan db:seed --class=ApLiteratureSeeder` (also called from
 `DatabaseSeeder`) and `php artisan course:seed-ap-literature --teacher=EMAIL
@@ -559,6 +559,29 @@ knowledge`), and the lint rejects anything after
 `Database\Seeders\ApLiterature\Lint`, not the test, so it can run on one
 unit (`(new Lint($course))->run([3])`); `ApLiteratureContentTest` runs it over
 everything.
+
+**AP English Language and Composition** (`ApEnglishLanguageSeeder`,
+`course:seed-ap-english-language`, slug `aplang`, site slug
+`/courses/ap-english-language`, demo accounts `aplang@example.com` /
+`aplang-student@example.com`) is the same kind of course: skills mode (the
+CED's 22 skills, `1.A` ... `8.C`), nine units with this course's own titles
+(the CED leaves them to the teacher), 32 weeks, an exam-prep guide and a
+practice exam in the May 2027 shape (45 MC in five sets, reading and
+revision, then synthesis, rhetorical analysis and argument, each out of 6).
+It is original writing around public-domain arguments, linted by the same
+`ApLiterature\Lint` through the `lint:` block of its `course.yaml`, which
+overrides AP Literature's defaults: `practice_exam` (the exam's shape),
+`original_sources` (`written for this course`, for invented revision drafts
+and synthesis sources, which must never pose as real people or
+publications), `us_government_works: true` (a post-1930 federal work is
+allowed when its `texts` entry says `us_government_work: true` and its
+`source` says `U.S. government work`) and `text_hosts`. Martin Luther King
+Jr.'s speeches and other copyrighted modern writing are described, never
+quoted. `ApEnglishLanguageContentTest` runs the lint and tests those
+settings. Every quotation was checked word for word against the Project
+Gutenberg text named in `ATTRIBUTION.md`. It is 74 files against the cap;
+on a server, `php artisan course:seed-ap-english-language
+--teacher=you@example.com --no-student --force`.
 
 ## Usage analytics
 
