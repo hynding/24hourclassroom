@@ -1,0 +1,879 @@
+unit: 9
+description: |
+  44 questions · about 90 minutes · every topic of Unit 9 (9.1 to 9.9): defining and differentiating parametric
+  equations, second derivatives and concavity of parametric curves, parametric arc length, vector-valued functions
+  and their derivatives and integrals, motion along a parametric or vector path (velocity, speed, acceleration,
+  displacement and total distance), polar coordinates and slopes of polar curves, and the area of a polar region
+  bounded by one curve or by two curves. Includes three shared-context sets of four questions (a parametric curve, a
+  particle with a vector position function and a limaçon), select-all, true/false, fill-in-the-blank and numeric
+  items, two short-answer questions (3 points each) and two free-response questions in the AP style (9 points each:
+  one calculator-active particle moving along a parametric path, one no-calculator question on the areas and
+  tangent lines of two polar curves). Items marked (Calculator.) need a graphing calculator; the rest are meant to
+  be done by hand. Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank
+  items are matched automatically; the short answers and free-response items are graded by your teacher against
+  the scoring notes.
+questions:
+  # ---- Stimulus set A: a parametric curve (9.1, 9.2, 9.3)
+  - slug: apcalcbc-u09-exam-q01
+    type: multiple_choice
+    topic_code: "9.1"
+    source: "AP Calculus CED, Topic 9.1"
+    points: 1
+    stimulus: |
+      A curve C is defined by the parametric equations x(t) = t² − 1 and y(t) = t³ − 3t for all real t.
+    prompt: |
+      What is the slope of the line tangent to C at the point where t = 2?
+    options:
+      - "4/9"
+      - "9"
+      - "9/4"
+      - "3"
+    option_explanations:
+      - |
+        4/9 is (dx/dt)/(dy/dt), the reciprocal of the slope. The slope of the curve is dy/dx = (dy/dt)/(dx/dt).
+      - |
+        9 is dy/dt = 3(2)² − 3 at t = 2 alone; it is the rate of change of y with respect to t, not with respect to x.
+      - |
+        Correct. dy/dt = 3t² − 3 = 9 and dx/dt = 2t = 4 at t = 2, so dy/dx = (dy/dt)/(dx/dt) = 9/4.
+      - |
+        3 comes from dropping the −3 in dy/dt (using 3t² = 12) and dividing by dx/dt = 4; the constant multiple of t in y also contributes to dy/dt.
+    answer: 2
+  - slug: apcalcbc-u09-exam-q02
+    type: multiple_choice
+    topic_code: "9.1"
+    source: "AP Calculus CED, Topic 9.1"
+    points: 1
+    stimulus: |
+      A curve C is defined by the parametric equations x(t) = t² − 1 and y(t) = t³ − 3t for all real t.
+    prompt: |
+      At which points (x, y) does C have a horizontal tangent line?
+    options:
+      - "(0, −2) and (0, 2)"
+      - "(−1, 0) only"
+      - "(1, −2) and (−1, 2)"
+      - "(0, −2), (0, 2) and (−1, 0)"
+    option_explanations:
+      - |
+        Correct. dy/dt = 3t² − 3 = 0 at t = ±1, where dx/dt = 2t = ±2 ≠ 0. At t = 1 the point is (0, −2); at t = −1 it is (0, 2).
+      - |
+        (−1, 0) is where dx/dt = 2t = 0 (t = 0) while dy/dt = −3 ≠ 0: that is a vertical tangent, not a horizontal one.
+      - |
+        These pair the parameter values t = 1 and t = −1 with the y-values; the x-coordinate must be computed from x(t) = t² − 1, which is 0 for both.
+      - |
+        This list includes (−1, 0), where dx/dt = 0 and the tangent is vertical; a horizontal tangent needs dy/dt = 0 with dx/dt ≠ 0.
+    answer: 0
+  - slug: apcalcbc-u09-exam-q03
+    type: multiple_choice
+    topic_code: "9.2"
+    source: "AP Calculus CED, Topic 9.2"
+    points: 1
+    stimulus: |
+      A curve C is defined by the parametric equations x(t) = t² − 1 and y(t) = t³ − 3t for all real t.
+    prompt: |
+      What is the value of d²y/dx² at t = 2?
+    options:
+      - "15/8"
+      - "6"
+      - "15/2"
+      - "15/32"
+    option_explanations:
+      - |
+        15/8 is d/dt (dy/dx) at t = 2, with dy/dx = (3t² − 3)/(2t). It still has to be divided by dx/dt = 4.
+      - |
+        6 is (d²y/dt²)/(d²x/dt²) = 6t/2 at t = 2. The second derivative of a parametric curve is not a ratio of second derivatives.
+      - |
+        15/2 multiplies d/dt (dy/dx) = 15/8 by dx/dt = 4 instead of dividing by it.
+      - |
+        Correct. dy/dx = (3t² − 3)/(2t) = (3/2)(t − 1/t), so d/dt (dy/dx) = (3/2)(1 + 1/t²) = 15/8 at t = 2. Then d²y/dx² = (15/8)/(dx/dt) = (15/8)/4 = 15/32.
+    answer: 3
+  - slug: apcalcbc-u09-exam-q04
+    type: multiple_choice
+    topic_code: "9.3"
+    source: "AP Calculus CED, Topic 9.3"
+    points: 1
+    stimulus: |
+      A curve C is defined by the parametric equations x(t) = t² − 1 and y(t) = t³ − 3t for all real t.
+    prompt: |
+      Which expression gives the length of C from t = 0 to t = 2?
+    options:
+      - "∫ from 0 to 2 of √((t² − 1)² + (t³ − 3t)²) dt"
+      - "∫ from 0 to 2 of √(4t² + (3t² − 3)²) dt"
+      - "∫ from 0 to 2 of √(1 + ((3t² − 3)/(2t))²) dt"
+      - "∫ from 0 to 2 of (2t + 3t² − 3) dt"
+    option_explanations:
+      - |
+        This uses x(t) and y(t) themselves. Arc length adds the speed √((dx/dt)² + (dy/dt)²), which is built from the derivatives.
+      - |
+        Correct. dx/dt = 2t and dy/dt = 3t² − 3, so the length is ∫ from 0 to 2 of √((2t)² + (3t² − 3)²) dt.
+      - |
+        √(1 + (dy/dx)²) is the integrand for a curve y = f(x) integrated with respect to x. With dt, the factor dx/dt is missing (and dx/dt = 0 at t = 0, so the integrand is not even defined there).
+      - |
+        This adds dx/dt and dy/dt without squaring and taking the root, which is not the length of the velocity vector.
+    answer: 1
+  # ---- Stimulus set B: a particle with a vector position function (9.4, 9.6)
+  - slug: apcalcbc-u09-exam-q05
+    type: multiple_choice
+    topic_code: "9.4"
+    source: "AP Calculus CED, Topic 9.4"
+    points: 1
+    stimulus: |
+      A particle moves in the xy-plane so that its position at time t ≥ 0 is r(t) = ⟨t³ − 3t², 2t² − 8t⟩.
+    prompt: |
+      What is the velocity vector of the particle at t = 3?
+    options:
+      - "⟨0, −6⟩"
+      - "⟨9, 4⟩"
+      - "⟨12, 4⟩"
+      - "⟨21, 4⟩"
+    option_explanations:
+      - |
+        ⟨0, −6⟩ is the position r(3) = ⟨27 − 27, 18 − 24⟩; the velocity is the derivative of the position.
+      - |
+        Correct. v(t) = r′(t) = ⟨3t² − 6t, 4t − 8⟩, so v(3) = ⟨27 − 18, 12 − 8⟩ = ⟨9, 4⟩.
+      - |
+        ⟨12, 4⟩ is the acceleration a(3) = ⟨6t − 6, 4⟩ at t = 3, one derivative too many.
+      - |
+        ⟨21, 4⟩ differentiates 3t² as 6 instead of 6t, giving x′(t) = 3t² − 6 and x′(3) = 21.
+    answer: 1
+  - slug: apcalcbc-u09-exam-q06
+    type: numeric
+    topic_code: "9.6"
+    source: "AP Calculus CED, Topic 9.6"
+    points: 1
+    stimulus: |
+      A particle moves in the xy-plane so that its position at time t ≥ 0 is r(t) = ⟨t³ − 3t², 2t² − 8t⟩.
+    prompt: |
+      What is the speed of the particle at t = 1?
+    answer: { value: 5, tolerance: 0.001 }
+    explanation: |
+      v(1) = ⟨3 − 6, 4 − 8⟩ = ⟨−3, −4⟩, so the speed is |v(1)| = √(9 + 16) = 5.
+  - slug: apcalcbc-u09-exam-q07
+    type: multiple_choice
+    topic_code: "9.6"
+    source: "AP Calculus CED, Topic 9.6"
+    points: 1
+    stimulus: |
+      A particle moves in the xy-plane so that its position at time t ≥ 0 is r(t) = ⟨t³ − 3t², 2t² − 8t⟩.
+    prompt: |
+      At what time or times t ≥ 0 is the particle at rest?
+    options:
+      - "t = 0 and t = 2"
+      - "t = 0 only"
+      - "t = 1 only"
+      - "t = 2 only"
+    option_explanations:
+      - |
+        x′(t) = 3t(t − 2) is 0 at both t = 0 and t = 2, but at t = 0 the vertical velocity is y′(0) = −8 ≠ 0, so the particle is moving then.
+      - |
+        At t = 0, x′(0) = 0 but y′(0) = −8, so the particle is moving straight down, not at rest.
+      - |
+        t = 1 is where the horizontal acceleration 6t − 6 is 0; rest requires both velocity components to be 0.
+      - |
+        Correct. At rest means v(t) = ⟨0, 0⟩. y′(t) = 4t − 8 = 0 only at t = 2, and x′(2) = 12 − 12 = 0 too, so t = 2 is the only time.
+    answer: 3
+  - slug: apcalcbc-u09-exam-q08
+    type: multiple_choice
+    topic_code: "9.6"
+    source: "AP Calculus CED, Topic 9.6"
+    points: 1
+    stimulus: |
+      A particle moves in the xy-plane so that its position at time t ≥ 0 is r(t) = ⟨t³ − 3t², 2t² − 8t⟩.
+    prompt: |
+      Is the speed of the particle increasing or decreasing at t = 1, and why?
+    options:
+      - "Decreasing, because v(1) · a(1) = −16 < 0"
+      - "Increasing, because a(1) = ⟨0, 4⟩ has a positive component"
+      - "Decreasing, because x′(1) = −3 < 0"
+      - "Increasing, because the speed at t = 1 is 5 > 0"
+    option_explanations:
+      - |
+        Correct. v(1) = ⟨−3, −4⟩ and a(1) = ⟨0, 4⟩, so v(1) · a(1) = 0 − 16 = −16. A negative dot product means the acceleration opposes the motion and the speed is decreasing.
+      - |
+        A positive acceleration component does not by itself increase the speed; here it points against the downward velocity component, and the dot product with v is negative.
+      - |
+        The sign of x′ tells only that the particle moves left; speed changes according to the sign of v · a, not the sign of one velocity component.
+      - |
+        A speed is never negative, so speed > 0 says nothing about whether it is increasing; that depends on the sign of v · a.
+    answer: 0
+  # ---- Stimulus set C: a limaçon (9.7, 9.8)
+  - slug: apcalcbc-u09-exam-q09
+    type: multiple_choice
+    topic_code: "9.7"
+    source: "AP Calculus CED, Topic 9.7"
+    points: 1
+    stimulus: |
+      The polar curve r = 3 + 2cos θ, for 0 ≤ θ ≤ 2π, is a limaçon that does not pass through the pole.
+    prompt: |
+      What are the rectangular coordinates (x, y) of the point on the curve where θ = 2π/3?
+    options:
+      - "(√3, −1)"
+      - "(2, 2π/3)"
+      - "(−1, √3)"
+      - "(−2, 2√3)"
+    option_explanations:
+      - |
+        (√3, −1) swaps the formulas; x = r cos θ and y = r sin θ, with r = 2: x = 2(−1/2) = −1, y = 2(√3/2) = √3.
+      - |
+        (2, 2π/3) is the point's polar form (r, θ), not its rectangular coordinates.
+      - |
+        Correct. r = 3 + 2cos(2π/3) = 3 − 1 = 2, so x = 2cos(2π/3) = −1 and y = 2sin(2π/3) = √3.
+      - |
+        (−2, 2√3) uses r = 4, from a sign slip cos(2π/3) = +1/2; cos(2π/3) is −1/2, so r = 2.
+    answer: 2
+  - slug: apcalcbc-u09-exam-q10
+    type: multiple_choice
+    topic_code: "9.7"
+    source: "AP Calculus CED, Topic 9.7"
+    points: 1
+    stimulus: |
+      The polar curve r = 3 + 2cos θ, for 0 ≤ θ ≤ 2π, is a limaçon that does not pass through the pole.
+    prompt: |
+      What is the slope dy/dx of the curve at the point where θ = π/2?
+    options:
+      - "2/3"
+      - "3/2"
+      - "−2"
+      - "−2/3"
+    option_explanations:
+      - |
+        Correct. With r′ = dr/dθ = −2sin θ, dy/dx = (r′ sin θ + r cos θ)/(r′ cos θ − r sin θ). At θ = π/2, r = 3 and r′ = −2: dy/dx = (−2 + 0)/(0 − 3) = 2/3.
+      - |
+        3/2 is (dx/dθ)/(dy/dθ), the reciprocal of the slope.
+      - |
+        −2 is dr/dθ at θ = π/2, the rate of change of r with respect to θ; the slope of the curve is (dy/dθ)/(dx/dθ).
+      - |
+        −2/3 drops the minus sign in dx/dθ = r′ cos θ − r sin θ, writing the denominator as +3.
+    answer: 0
+  - slug: apcalcbc-u09-exam-q11
+    type: multiple_choice
+    topic_code: "9.7"
+    source: "AP Calculus CED, Topic 9.7"
+    points: 1
+    stimulus: |
+      The polar curve r = 3 + 2cos θ, for 0 ≤ θ ≤ 2π, is a limaçon that does not pass through the pole.
+    prompt: |
+      Which statement about the curve at θ = π/3 is true?
+    options:
+      - "dr/dθ = √3, so the point on the curve is moving away from the pole as θ increases."
+      - "dr/dθ = −√3, so the point on the curve is moving toward the pole as θ increases."
+      - "dr/dθ = −√3, so the curve is decreasing (its slope dy/dx is negative) there."
+      - "dr/dθ = 4, so the point on the curve is 4 units from the pole."
+    option_explanations:
+      - |
+        This drops the minus sign in the derivative of cos θ; dr/dθ = −2sin θ = −√3, which is negative.
+      - |
+        Correct. dr/dθ = −2sin(π/3) = −√3 < 0, so r (the distance from the pole, since r > 0) is decreasing: the point moves toward the pole.
+      - |
+        dr/dθ describes how the distance from the pole changes, not the slope of the curve in the xy-plane, which needs the full dy/dx formula.
+      - |
+        4 is r(π/3) = 3 + 2(1/2), the distance from the pole, not the derivative dr/dθ.
+    answer: 1
+  - slug: apcalcbc-u09-exam-q12
+    type: multiple_choice
+    topic_code: "9.8"
+    source: "AP Calculus CED, Topic 9.8"
+    points: 1
+    stimulus: |
+      The polar curve r = 3 + 2cos θ, for 0 ≤ θ ≤ 2π, is a limaçon that does not pass through the pole.
+    prompt: |
+      What is the area of the region enclosed by the curve?
+    options:
+      - "22π"
+      - "13π"
+      - "11π/2"
+      - "11π"
+    option_explanations:
+      - |
+        22π is ∫ from 0 to 2π of r² dθ without the factor 1/2 from the area of a sector, (1/2)r² Δθ.
+      - |
+        13π treats cos²θ as 1: (1/2)∫ from 0 to 2π of (9 + 12cos θ + 4) dθ = 13π. Over a full period cos²θ averages 1/2.
+      - |
+        11π/2 integrates only from 0 to π, which traces the upper half of the curve.
+      - |
+        Correct. Area = (1/2)∫ from 0 to 2π of (3 + 2cos θ)² dθ = (1/2)∫ from 0 to 2π of (9 + 12cos θ + 4cos²θ) dθ = (1/2)(18π + 0 + 4π) = 11π.
+    answer: 3
+  # ---- Single items
+  - slug: apcalcbc-u09-exam-q13
+    type: multiple_choice
+    topic_code: "9.1"
+    source: "AP Calculus CED, Topic 9.1"
+    points: 1
+    prompt: |
+      A curve is given by x = 2 + 3cos t and y = −1 + 3sin t for 0 ≤ t ≤ 2π. Which rectangular equation describes the curve?
+    options:
+      - "(x + 2)² + (y − 1)² = 9"
+      - "(x − 2)² + (y + 1)² = 3"
+      - "(x − 2)² + (y + 1)² = 9"
+      - "x² + y² = 9"
+    option_explanations:
+      - |
+        The signs of the center are reversed. From x − 2 = 3cos t and y + 1 = 3sin t, the center is (2, −1).
+      - |
+        The radius is 3, so the right side is 3² = 9: (3cos t)² + (3sin t)² = 9(cos²t + sin²t) = 9.
+      - |
+        Correct. cos t = (x − 2)/3 and sin t = (y + 1)/3, and cos²t + sin²t = 1 gives (x − 2)² + (y + 1)² = 9, a circle of radius 3 centered at (2, −1).
+      - |
+        x² + y² = 9 ignores the shifts 2 and −1 added to the cosine and sine terms; that circle is centered at the origin.
+    answer: 2
+  - slug: apcalcbc-u09-exam-q14
+    type: multiple_choice
+    topic_code: "9.1"
+    source: "AP Calculus CED, Topic 9.1"
+    points: 1
+    prompt: |
+      A curve is given by x = e^(2t) and y = sin(πt). Which is an equation of the line tangent to the curve at t = 0?
+    options:
+      - "y = (π/2)(x − 1)"
+      - "y = (2/π)(x − 1)"
+      - "y = (π/2)x"
+      - "y = π(x − 1)"
+    option_explanations:
+      - |
+        Correct. At t = 0 the point is (e⁰, sin 0) = (1, 0). dy/dt = π cos(πt) = π and dx/dt = 2e^(2t) = 2, so the slope is π/2 and the line is y = (π/2)(x − 1).
+      - |
+        2/π is (dx/dt)/(dy/dt), the reciprocal of the slope.
+      - |
+        The slope π/2 is right, but the line must pass through the point (1, 0), where x = e⁰ = 1, not through the origin.
+      - |
+        π comes from forgetting the chain-rule factor 2 in dx/dt = 2e^(2t), taking dx/dt = 1.
+    answer: 0
+  - slug: apcalcbc-u09-exam-q15
+    type: multiple_choice
+    topic_code: "9.2"
+    source: "AP Calculus CED, Topic 9.2"
+    points: 1
+    prompt: |
+      A curve is given by x = 3 − 2t and y = t³ − 3t for all real t. For which values of t is the curve concave up?
+    options:
+      - "Exactly when t < 0"
+      - "Exactly when t > 0"
+      - "Exactly when |t| > 1"
+      - "Exactly when |t| < 1"
+    option_explanations:
+      - |
+        This uses d/dt (dy/dx) = −3t without dividing by dx/dt = −2. Because dx/dt is negative, skipping the division reverses the sign.
+      - |
+        Correct. dy/dx = (3t² − 3)/(−2), so d/dt (dy/dx) = −3t and d²y/dx² = (−3t)/(−2) = 3t/2, which is positive exactly when t > 0.
+      - |
+        |t| > 1 is where dy/dt = 3t² − 3 is positive; the sign of dy/dt is not the concavity of the curve.
+      - |
+        |t| < 1 is where dy/dx = −(3t² − 3)/2 is positive, which tells where the curve rises as x increases, not where it is concave up.
+    answer: 1
+  - slug: apcalcbc-u09-exam-q16
+    type: multiple_choice
+    topic_code: "9.3"
+    source: "AP Calculus CED, Topic 9.3"
+    points: 1
+    prompt: |
+      What is the length of the curve x = t², y = t³/3 from t = 0 to t = √5?
+    options:
+      - "38/3"
+      - "9"
+      - "5 + 5√5/3"
+      - "19/3"
+    option_explanations:
+      - |
+        38/3 drops the 1/2 in the substitution u = 4 + t², du = 2t dt; the antiderivative of t√(4 + t²) is (1/3)(4 + t²)^(3/2), not (2/3)(4 + t²)^(3/2).
+      - |
+        9 evaluates (1/3)(4 + t²)^(3/2) only at the upper limit, (1/3)(27), and forgets to subtract the value 8/3 at t = 0.
+      - |
+        5 + 5√5/3 is ∫ from 0 to √5 of (2t + t²) dt, adding dx/dt and dy/dt instead of taking the length of the velocity vector.
+      - |
+        Correct. √((2t)² + (t²)²) = t√(4 + t²) for t ≥ 0, so L = ∫ from 0 to √5 of t√(4 + t²) dt = (1/3)(4 + t²)^(3/2) from 0 to √5 = (27 − 8)/3 = 19/3.
+    answer: 3
+  - slug: apcalcbc-u09-exam-q17
+    type: multiple_choice
+    topic_code: "9.4"
+    source: "AP Calculus CED, Topic 9.4"
+    points: 1
+    prompt: |
+      For the vector-valued function r(t) = ⟨e^(2t), ln(t + 1)⟩, what is r″(0)?
+    options:
+      - "⟨4, 1⟩"
+      - "⟨2, −1⟩"
+      - "⟨4, −1⟩"
+      - "⟨2, 1⟩"
+    option_explanations:
+      - |
+        The second component has the wrong sign: d/dt [1/(t + 1)] = −1/(t + 1)², which is −1 at t = 0.
+      - |
+        ⟨2, −1⟩ applies the chain-rule factor 2 only once to e^(2t); the second derivative of e^(2t) is 4e^(2t).
+      - |
+        Correct. r′(t) = ⟨2e^(2t), 1/(t + 1)⟩ and r″(t) = ⟨4e^(2t), −1/(t + 1)²⟩, so r″(0) = ⟨4, −1⟩.
+      - |
+        ⟨2, 1⟩ is r′(0), the first derivative; the question asks for the second derivative.
+    answer: 2
+  - slug: apcalcbc-u09-exam-q18
+    type: multiple_choice
+    topic_code: "9.5"
+    source: "AP Calculus CED, Topic 9.5"
+    points: 1
+    prompt: |
+      Evaluate ∫ from 0 to 1 of ⟨4t³, π cos(πt/2)⟩ dt.
+    options:
+      - "⟨1, 2⟩"
+      - "⟨1, π⟩"
+      - "⟨1, π²/2⟩"
+      - "3"
+    option_explanations:
+      - |
+        Correct. Integrate each component: ∫ from 0 to 1 of 4t³ dt = 1, and ∫ from 0 to 1 of π cos(πt/2) dt = π · (2/π) sin(πt/2) from 0 to 1 = 2. The result is the vector ⟨1, 2⟩.
+      - |
+        ⟨1, π⟩ forgets to divide by the inner derivative π/2 when antidifferentiating cos(πt/2).
+      - |
+        ⟨1, π²/2⟩ multiplies by the inner derivative π/2 instead of dividing by it.
+      - |
+        3 adds the two components; the integral of a vector-valued function is a vector, found component by component.
+    answer: 0
+  - slug: apcalcbc-u09-exam-q19
+    type: multiple_choice
+    topic_code: "9.5"
+    source: "AP Calculus CED, Topic 9.5"
+    points: 1
+    prompt: |
+      A particle's velocity is v(t) = ⟨2t + 1, 3t² − 4⟩, and its position at t = 0 is ⟨1, −2⟩. What is its position at t = 2?
+    options:
+      - "⟨6, 0⟩"
+      - "⟨5, 8⟩"
+      - "⟨5, 2⟩"
+      - "⟨7, −2⟩"
+    option_explanations:
+      - |
+        ⟨6, 0⟩ is the displacement ∫ from 0 to 2 of v(t) dt; the initial position ⟨1, −2⟩ must be added.
+      - |
+        ⟨5, 8⟩ is the velocity v(2), not the position.
+      - |
+        ⟨5, 2⟩ subtracts the initial position from the displacement instead of adding it.
+      - |
+        Correct. ∫ from 0 to 2 of v(t) dt = ⟨t² + t, t³ − 4t⟩ from 0 to 2 = ⟨6, 0⟩, so r(2) = ⟨1, −2⟩ + ⟨6, 0⟩ = ⟨7, −2⟩.
+    answer: 3
+  - slug: apcalcbc-u09-exam-q20
+    type: multiple_choice
+    topic_code: "9.6"
+    source: "AP Calculus CED, Topic 9.6"
+    points: 1
+    prompt: |
+      (Calculator.) A particle moves in the plane with velocity v(t) = ⟨ln(1 + t²), 2cos t⟩. What is the total distance the particle travels from t = 0 to t = 2?
+    options:
+      - "2.315"
+      - "3.040"
+      - "3.252"
+      - "1.812"
+    option_explanations:
+      - |
+        2.315 is the length of the displacement vector, |⟨∫ ln(1 + t²) dt, ∫ 2cos t dt⟩| from 0 to 2, which is the straight-line distance from start to finish, not the distance along the path.
+      - |
+        Correct. Distance = ∫ from 0 to 2 of √((ln(1 + t²))² + (2cos t)²) dt ≈ 3.040, the integral of the speed.
+      - |
+        3.252 is ∫ from 0 to 2 of (ln(1 + t²) + 2cos t) dt, adding the components instead of integrating the speed.
+      - |
+        1.812 is the speed at t = 2, |v(2)|; distance is the accumulated speed over the whole interval.
+    answer: 1
+  - slug: apcalcbc-u09-exam-q21
+    type: multiple_choice
+    topic_code: "9.7"
+    source: "AP Calculus CED, Topic 9.7"
+    points: 1
+    prompt: |
+      Which rectangular equation describes the polar curve r = 6sin θ?
+    options:
+      - "x² + (y − 6)² = 36"
+      - "(x − 3)² + y² = 9"
+      - "x² + (y − 3)² = 9"
+      - "x² + y² = 6"
+    option_explanations:
+      - |
+        This takes 6 as the radius. Completing the square in x² + y² = 6y gives x² + (y − 3)² = 9: the diameter is 6, the radius 3.
+      - |
+        This circle is centered on the x-axis, which is the graph of r = 6cos θ. With sin θ, y = r sin θ appears and the center is on the y-axis.
+      - |
+        Correct. Multiply by r: r² = 6r sin θ, so x² + y² = 6y. Completing the square, x² + (y − 3)² = 9, a circle of radius 3 centered at (0, 3).
+      - |
+        This replaces r with x² + y² and drops sin θ; r² (not r) equals x² + y², and r sin θ = y must be used.
+    answer: 2
+  - slug: apcalcbc-u09-exam-q22
+    type: multiple_choice
+    topic_code: "9.7"
+    source: "AP Calculus CED, Topic 9.7"
+    points: 1
+    prompt: |
+      What is the slope of the spiral r = θ at the point where θ = π/2?
+    options:
+      - "−2/π"
+      - "1"
+      - "−π/2"
+      - "2/π"
+    option_explanations:
+      - |
+        Correct. With r = θ and r′ = 1, dy/dx = (r′ sin θ + r cos θ)/(r′ cos θ − r sin θ) = (1 · 1 + (π/2) · 0)/(1 · 0 − (π/2) · 1) = −2/π.
+      - |
+        1 is dr/dθ, the rate at which r changes with θ, not the slope dy/dx of the curve.
+      - |
+        −π/2 is (dx/dθ)/(dy/dθ), the reciprocal of the slope.
+      - |
+        2/π drops the minus sign in dx/dθ = r′ cos θ − r sin θ.
+    answer: 0
+  - slug: apcalcbc-u09-exam-q23
+    type: multiple_choice
+    topic_code: "9.8"
+    source: "AP Calculus CED, Topic 9.8"
+    points: 1
+    prompt: |
+      The rose r = 4sin(3θ) has three petals. What is the area of one petal?
+    options:
+      - "8π/3"
+      - "4π"
+      - "4/3"
+      - "4π/3"
+    option_explanations:
+      - |
+        8π/3 leaves out the factor 1/2: ∫ from 0 to π/3 of 16sin²(3θ) dθ = 8π/3.
+      - |
+        4π is the area of all three petals, 3 · 4π/3.
+      - |
+        4/3 integrates r instead of r²: (1/2)∫ from 0 to π/3 of 4sin(3θ) dθ = 4/3.
+      - |
+        Correct. One petal is traced for 0 ≤ θ ≤ π/3 (where 4sin(3θ) ≥ 0 between consecutive zeros). Area = (1/2)∫ from 0 to π/3 of 16sin²(3θ) dθ = 8 · (π/6) = 4π/3.
+    answer: 3
+  - slug: apcalcbc-u09-exam-q24
+    type: multiple_choice
+    topic_code: "9.8"
+    source: "AP Calculus CED, Topic 9.8"
+    points: 1
+    prompt: |
+      The limaçon r = 1 + 2cos θ has an inner loop. Which expression gives the area enclosed by the inner loop?
+    options:
+      - "(1/2)∫ from −2π/3 to 2π/3 of (1 + 2cos θ)² dθ"
+      - "(1/2)∫ from 2π/3 to 4π/3 of (1 + 2cos θ)² dθ"
+      - "∫ from 2π/3 to 4π/3 of (1 + 2cos θ)² dθ"
+      - "(1/2)∫ from π/3 to 5π/3 of (1 + 2cos θ)² dθ"
+    option_explanations:
+      - |
+        For −2π/3 ≤ θ ≤ 2π/3, r ≥ 0 and the curve traces the large outer loop; this integral is the area inside the outer loop.
+      - |
+        Correct. r = 0 when cos θ = −1/2, at θ = 2π/3 and θ = 4π/3. Between them r ≤ 0 and the curve traces the inner loop, so its area is (1/2)∫ from 2π/3 to 4π/3 of r² dθ.
+      - |
+        The limits are right, but the factor 1/2 from the sector area (1/2)r² Δθ is missing.
+      - |
+        π/3 and 5π/3 solve cos θ = 1/2, a sign slip; the curve reaches the pole where 1 + 2cos θ = 0, that is cos θ = −1/2.
+    answer: 1
+  - slug: apcalcbc-u09-exam-q25
+    type: multiple_choice
+    topic_code: "9.9"
+    source: "AP Calculus CED, Topic 9.9"
+    points: 1
+    prompt: |
+      What is the area of the region inside the circle r = 1 and outside the cardioid r = 1 − cos θ?
+    options:
+      - "π/4"
+      - "4 − π/2"
+      - "2 − π/4"
+      - "1 − π/8"
+    option_explanations:
+      - |
+        π/4 is (1/2)∫ from −π/2 to π/2 of (1 − (1 − cos θ))² dθ, squaring the difference of the radii; the area uses the difference of the squares, r_outer² − r_inner².
+      - |
+        4 − π/2 leaves out the factor 1/2 in front of the integral.
+      - |
+        Correct. The curves meet where cos θ = 0, at θ = ±π/2, and the circle is outside the cardioid for −π/2 < θ < π/2. Area = (1/2)∫ from −π/2 to π/2 of (1 − (1 − cos θ)²) dθ = (1/2)∫ (2cos θ − cos²θ) dθ = (1/2)(4 − π/2) = 2 − π/4.
+      - |
+        1 − π/8 integrates only from 0 to π/2, which is the half of the region above the polar axis.
+    answer: 2
+  - slug: apcalcbc-u09-exam-q26
+    type: multiple_choice
+    topic_code: "9.9"
+    source: "AP Calculus CED, Topic 9.9"
+    points: 1
+    prompt: |
+      What is the area of the region inside both circles r = 2sin θ and r = 2cos θ?
+    options:
+      - "π/4 − 1/2"
+      - "0"
+      - "π − 2"
+      - "π/2 − 1"
+    option_explanations:
+      - |
+        π/4 − 1/2 is only the part for 0 ≤ θ ≤ π/4, bounded by r = 2sin θ; the part for π/4 ≤ θ ≤ π/2, bounded by r = 2cos θ, has the same area and must be added.
+      - |
+        0 comes from (1/2)∫ from 0 to π/2 of (4cos²θ − 4sin²θ) dθ, subtracting one curve from the other across the whole quarter; the common region is bounded by whichever curve is closer to the pole.
+      - |
+        π − 2 is twice the area: the factor 1/2 in (1/2)r² was left out.
+      - |
+        Correct. The circles meet at θ = π/4. For 0 ≤ θ ≤ π/4 the region is bounded by r = 2sin θ, and by symmetry the other half matches: Area = 2 · (1/2)∫ from 0 to π/4 of 4sin²θ dθ = 4(π/8 − 1/4) = π/2 − 1.
+    answer: 3
+  # ---- Select all
+  - slug: apcalcbc-u09-exam-q27
+    type: multi_select
+    topic_code: "9.4"
+    source: "AP Calculus CED, Topic 9.4"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Let r(t) = ⟨t², t³ − 3t⟩. Which statements are true? Select all that apply.
+    options:
+      - "r′(t) = ⟨2t, 3t² − 3⟩"
+      - "The line tangent to the curve traced by r at t = 1 is horizontal."
+      - "r″(1) = ⟨2, 6⟩"
+      - "r′(t) is perpendicular to r″(t) for every t."
+      - "The speed at t = 0 is −3."
+    option_explanations:
+      - |
+        Correct. Differentiate each component: d/dt t² = 2t and d/dt (t³ − 3t) = 3t² − 3.
+      - |
+        Correct. r′(1) = ⟨2, 0⟩: the vertical component of the tangent vector is 0 while the horizontal one is not, so the tangent line is horizontal.
+      - |
+        Correct. r″(t) = ⟨2, 6t⟩, so r″(1) = ⟨2, 6⟩.
+      - |
+        r′(t) · r″(t) = 4t + 6t(3t² − 3) = 18t³ − 14t, which is not 0 for every t (it is 0 at t = 0, for instance, but 4 at t = 1).
+      - |
+        Speed is |r′(0)| = |⟨0, −3⟩| = 3; a magnitude is never negative.
+    answer: [0, 1, 2]
+  - slug: apcalcbc-u09-exam-q28
+    type: multi_select
+    topic_code: "9.7"
+    source: "AP Calculus CED, Topic 9.7"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which polar coordinates (r, θ) name the same point as (2, π/3)? Select all that apply.
+    options:
+      - "(2, 7π/3)"
+      - "(−2, 4π/3)"
+      - "(−2, π/3)"
+      - "(2, −5π/3)"
+      - "(−2, −π/3)"
+    option_explanations:
+      - |
+        Correct. 7π/3 = π/3 + 2π, a full extra turn, so the point is unchanged.
+      - |
+        Correct. A negative r points the opposite way: 4π/3 = π/3 + π, and going −2 along that ray lands on (2, π/3).
+      - |
+        (−2, π/3) is the reflection of (2, π/3) through the pole, which is the point (2, 4π/3).
+      - |
+        Correct. −5π/3 = π/3 − 2π, one full turn clockwise, so the point is unchanged.
+      - |
+        (−2, −π/3) is the same as (2, −π/3 + π) = (2, 2π/3), a different point.
+    answer: [0, 1, 3]
+  - slug: apcalcbc-u09-exam-q29
+    type: multi_select
+    topic_code: "9.1"
+    source: "AP Calculus CED, Topic 9.1"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A curve is given by x = t² − 4t and y = t³ − 12t. Which statements are true? Select all that apply.
+    options:
+      - "The curve has a horizontal tangent line at the point where t = −2."
+      - "The curve has a vertical tangent line at the point where t = 2."
+      - "dy/dx = 3 at t = 0."
+      - "d²y/dx² > 0 at t = 0."
+      - "The curve passes through the origin."
+    option_explanations:
+      - |
+        Correct. dy/dt = 3t² − 12 = 0 at t = −2, and dx/dt = 2t − 4 = −8 ≠ 0 there.
+      - |
+        At t = 2 both dx/dt and dy/dt are 0, so the slope cannot be read from dx/dt = 0. Cancelling the common factor, dy/dx = 3(t + 2)/2 → 6 as t → 2: the tangent has slope 6, not vertical.
+      - |
+        Correct. dy/dx = (3t² − 12)/(2t − 4) = (−12)/(−4) = 3 at t = 0.
+      - |
+        dy/dx = 3(t + 2)/2 for t ≠ 2, so d/dt (dy/dx) = 3/2 and d²y/dx² = (3/2)/(2t − 4) = −3/8 at t = 0: the curve is concave down there.
+      - |
+        Correct. At t = 0, x = 0² − 4(0) = 0 and y = 0³ − 12(0) = 0, so the curve passes through (0, 0).
+    answer: [0, 2, 4]
+  # ---- True / false
+  - slug: apcalcbc-u09-exam-q30
+    type: true_false
+    topic_code: "9.3"
+    source: "AP Calculus CED, Topic 9.3"
+    points: 1
+    prompt: |
+      True or false: The integral ∫ from 0 to 4π of √((dx/dt)² + (dy/dt)²) dt for x = cos t, y = sin t equals 2π, the circumference of the unit circle.
+    answer: false
+    explanation: |
+      False. The speed is √(sin²t + cos²t) = 1, so the integral is 4π. On 0 ≤ t ≤ 4π the particle goes around the circle twice; the arc length formula counts the distance traveled, which is twice the circumference.
+  - slug: apcalcbc-u09-exam-q31
+    type: true_false
+    topic_code: "9.5"
+    source: "AP Calculus CED, Topic 9.5"
+    points: 1
+    prompt: |
+      True or false: If v(t) is a particle's velocity vector, then ∫ from a to b of |v(t)| dt is its displacement vector from t = a to t = b.
+    answer: false
+    explanation: |
+      False. ∫ from a to b of |v(t)| dt is a number: the total distance traveled. The displacement is the vector ∫ from a to b of v(t) dt, found by integrating each component.
+  - slug: apcalcbc-u09-exam-q32
+    type: true_false
+    topic_code: "9.8"
+    source: "AP Calculus CED, Topic 9.8"
+    points: 1
+    prompt: |
+      True or false: The area enclosed by the circle r = 2cos θ is (1/2)∫ from 0 to π of 4cos²θ dθ.
+    answer: true
+    explanation: |
+      True. The circle r = 2cos θ is traced exactly once as θ goes from 0 to π, so the integral counts each part of the region once. It equals 2 · (π/2) = π, the area of a circle of radius 1. (Integrating from 0 to 2π would trace the circle twice and give 2π.)
+  - slug: apcalcbc-u09-exam-q33
+    type: true_false
+    topic_code: "9.6"
+    source: "AP Calculus CED, Topic 9.6"
+    points: 1
+    prompt: |
+      True or false: If a particle moves in the plane with constant nonzero speed, then at every time its velocity vector is perpendicular to its acceleration vector (whenever the acceleration is not the zero vector).
+    answer: true
+    explanation: |
+      True. Speed squared is v · v, which is constant, so d/dt (v · v) = 2v · a = 0. A zero dot product between nonzero vectors means they are perpendicular. Uniform circular motion is the standard picture.
+  # ---- Fill in the blank
+  - slug: apcalcbc-u09-exam-q34
+    type: fill_blank
+    topic_code: "9.1"
+    source: "AP Calculus CED, Topic 9.1"
+    points: 1
+    prompt: |
+      For the curve x = t³ + 1, y = t² − 2t, the value of dy/dx at t = 2 is ____. (Give the exact value or a decimal to three places.)
+    answer: ["1/6", "1 / 6", "0.167", ".167"]
+    explanation: |
+      dy/dt = 2t − 2 = 2 and dx/dt = 3t² = 12 at t = 2, so dy/dx = 2/12 = 1/6.
+  - slug: apcalcbc-u09-exam-q35
+    type: fill_blank
+    topic_code: "9.8"
+    source: "AP Calculus CED, Topic 9.8"
+    points: 1
+    prompt: |
+      The lemniscate r² = 8sin(2θ) has two loops. The area enclosed by one loop is ____.
+    answer: ["4"]
+    explanation: |
+      One loop is traced for 0 ≤ θ ≤ π/2, where sin(2θ) ≥ 0. Area = (1/2)∫ from 0 to π/2 of 8sin(2θ) dθ = 4 · [−cos(2θ)/2] from 0 to π/2 = 4 · (1/2 + 1/2) = 4. (Here r² is integrated directly; no square root is needed.)
+  - slug: apcalcbc-u09-exam-q36
+    type: fill_blank
+    topic_code: "9.6"
+    source: "AP Calculus CED, Topic 9.6"
+    points: 1
+    prompt: |
+      A particle's position at time t is (3cos(2t), 3sin(2t)). Its speed at every time t is ____.
+    answer: ["6"]
+    explanation: |
+      v(t) = ⟨−6sin(2t), 6cos(2t)⟩, so the speed is √(36sin²(2t) + 36cos²(2t)) = 6 for every t.
+  # ---- Numeric
+  - slug: apcalcbc-u09-exam-q37
+    type: numeric
+    topic_code: "9.3"
+    source: "AP Calculus CED, Topic 9.3"
+    points: 1
+    prompt: |
+      (Calculator.) Find the length of the curve x = e^(t/2), y = t² for 0 ≤ t ≤ 2. Give your answer to three decimal places.
+    answer: { value: 4.412, tolerance: 0.001 }
+    explanation: |
+      dx/dt = (1/2)e^(t/2) and dy/dt = 2t, so L = ∫ from 0 to 2 of √(eᵗ/4 + 4t²) dt ≈ 4.412.
+  - slug: apcalcbc-u09-exam-q38
+    type: numeric
+    topic_code: "9.9"
+    source: "AP Calculus CED, Topic 9.9"
+    points: 1
+    prompt: |
+      (Calculator.) Find the area of the region that lies inside the curve r = 2 + sin(3θ) and outside the circle r = 2. Give your answer to three decimal places.
+    answer: { value: 4.785, tolerance: 0.001 }
+    explanation: |
+      The curves meet where sin(3θ) = 0. The rose-like curve is outside the circle where sin(3θ) > 0: on (0, π/3), (2π/3, π) and (4π/3, 5π/3), three congruent pieces. Area = 3 · (1/2)∫ from 0 to π/3 of ((2 + sin(3θ))² − 4) dθ = 4 + π/4 ≈ 4.785.
+  - slug: apcalcbc-u09-exam-q39
+    type: numeric
+    topic_code: "9.5"
+    source: "AP Calculus CED, Topic 9.5"
+    points: 1
+    prompt: |
+      (Calculator.) A particle has velocity v(t) = ⟨e^(−t) + 1, cos(t²)⟩ and is at the point (1, 2) at t = 0. Find the y-coordinate of the particle at t = 2. Give your answer to three decimal places.
+    answer: { value: 2.461, tolerance: 0.001 }
+    explanation: |
+      y(2) = y(0) + ∫ from 0 to 2 of cos(t²) dt = 2 + 0.461 ≈ 2.461. Only the second component of the velocity is needed for the y-coordinate.
+  - slug: apcalcbc-u09-exam-q40
+    type: numeric
+    topic_code: "9.7"
+    source: "AP Calculus CED, Topic 9.7"
+    points: 1
+    prompt: |
+      (Calculator.) Find the slope dy/dx of the polar curve r = θ + sin(2θ) at θ = 1. Give your answer to three decimal places.
+    answer: { value: -0.774, tolerance: 0.001 }
+    explanation: |
+      x = r cos θ and y = r sin θ with r′ = 1 + 2cos(2θ). dy/dx = (r′ sin θ + r cos θ)/(r′ cos θ − r sin θ). At θ = 1: r ≈ 1.909297 and r′ ≈ 0.167706, so dy/dx ≈ (0.141120 + 1.031598)/(0.090612 − 1.606618) ≈ −0.774.
+  # ---- Short answer
+  - slug: apcalcbc-u09-exam-q41
+    type: short_answer
+    topic_code: "9.2"
+    source: "AP Calculus CED, Topic 9.2"
+    points: 3
+    prompt: |
+      A curve is given by x = eᵗ and y = e^(2t) − 4eᵗ for all real t.
+
+      (a) Find dy/dx in terms of t.
+      (b) Find the point (x, y) where the curve has a horizontal tangent line.
+      (c) Find d²y/dx² and use it to state whether the curve is concave up or concave down. Give a reason.
+    answer: |
+      (a) dx/dt = eᵗ and dy/dt = 2e^(2t) − 4eᵗ, so dy/dx = (2e^(2t) − 4eᵗ)/eᵗ = 2eᵗ − 4.
+      (b) dy/dx = 0 when eᵗ = 2, so t = ln 2. Then x = 2 and y = 4 − 8 = −4: the point is (2, −4).
+      (c) d/dt (dy/dx) = 2eᵗ, so d²y/dx² = 2eᵗ/eᵗ = 2. Since d²y/dx² = 2 > 0 for every t, the curve is concave up everywhere.
+    explanation: |
+      Three points, one per part. (a) dy/dx = 2eᵗ − 4 (or the unsimplified quotient). (b) The point (2, −4); giving only t = ln 2 does not earn the point. (c) d²y/dx² = 2 found by dividing d/dt (dy/dx) by dx/dt, and "concave up because d²y/dx² > 0". A student who reports d²y/dt² or forgets to divide by dx/dt does not earn the point.
+  - slug: apcalcbc-u09-exam-q42
+    type: short_answer
+    topic_code: "9.5"
+    source: "AP Calculus CED, Topic 9.5"
+    points: 3
+    prompt: |
+      A particle moves in the plane with acceleration a(t) = ⟨6t, −2⟩ for t ≥ 0. At t = 0 its velocity is ⟨−3, 4⟩ and its position is (0, 1).
+
+      (a) Find the velocity vector v(t).
+      (b) Find the position vector r(t).
+      (c) Find the position of the particle at the time t > 0 when it is moving straight up or straight down. Explain how you know the motion is vertical then.
+    answer: |
+      (a) v(t) = ⟨3t² + C₁, −2t + C₂⟩ with v(0) = ⟨−3, 4⟩, so v(t) = ⟨3t² − 3, 4 − 2t⟩.
+      (b) r(t) = ⟨t³ − 3t + D₁, 4t − t² + D₂⟩ with r(0) = ⟨0, 1⟩, so r(t) = ⟨t³ − 3t, 1 + 4t − t²⟩.
+      (c) The motion is vertical when x′(t) = 3t² − 3 = 0 and y′(t) ≠ 0. For t > 0 that is t = 1, where y′(1) = 2 ≠ 0. The position is r(1) = ⟨1 − 3, 1 + 4 − 1⟩ = (−2, 4).
+    explanation: |
+      Three points, one per part. (a) v(t) = ⟨3t² − 3, 4 − 2t⟩ with both constants from v(0). (b) r(t) = ⟨t³ − 3t, 1 + 4t − t²⟩ with both constants from r(0). (c) (−2, 4) with the reason x′(1) = 0 and y′(1) ≠ 0. Omitting the check that y′(1) ≠ 0 loses the point only if the answer is not otherwise justified.
+  # ---- Free response
+  - slug: apcalcbc-u09-exam-q43
+    type: long_answer
+    topic_code: "9.6"
+    source: "AP Calculus CED, Topic 9.6"
+    points: 9
+    prompt: |
+      (Calculator.) A hypothetical delivery robot moves across a flat warehouse floor, modeled as the xy-plane with distances in meters. For 0 ≤ t ≤ 3 minutes its velocity is given by
+
+      dx/dt = 4cos(t²/3) and dy/dt = 1 + ln(1 + t).
+
+      At t = 0 the robot is at the point (2, −1).
+
+      (A) Find the speed of the robot at t = 2, and find its acceleration vector at t = 2.
+
+      (B) Find the x-coordinate of the robot's position at t = 3.
+
+      (C) Find the total distance the robot travels from t = 0 to t = 3.
+
+      (D) For 0 ≤ t ≤ 3, at what time is the robot farthest to the right (largest x-coordinate)? Find that x-coordinate and justify your answer.
+    answer: |
+      (A) At t = 2: dx/dt = 4cos(4/3) ≈ 0.941 and dy/dt = 1 + ln 3 ≈ 2.099. Speed = √((dx/dt)² + (dy/dt)²) ≈ 2.300 meters per minute. The acceleration is a(2) = ⟨x″(2), y″(2)⟩ ≈ ⟨−5.184, 0.333⟩ (x″(t) = −(8t/3)sin(t²/3) and y″(t) = 1/(1 + t)).
+      (B) x(3) = 2 + ∫ from 0 to 3 of 4cos(t²/3) dt ≈ 2 + 4.871 = 6.871 meters.
+      (C) Distance = ∫ from 0 to 3 of √((4cos(t²/3))² + (1 + ln(1 + t))²) dt ≈ 10.740 meters.
+      (D) x′(t) = 4cos(t²/3) = 0 when t²/3 = π/2, so t = √(3π/2) ≈ 2.171 in the interval. x′ > 0 on (0, 2.171) and x′ < 0 on (2.171, 3), so x has a relative maximum there. Candidates: x(0) = 2, x(2.171) = 2 + ∫ from 0 to 2.171 of 4cos(t²/3) dt ≈ 8.772, x(3) ≈ 6.871. The robot is farthest right at t ≈ 2.171 minutes, with x ≈ 8.772 meters.
+    explanation: |
+      Nine points. (A) 1 point for the speed 2.300 (accept 2.299 or 2.3 with the expression shown); 1 point for the acceleration vector ⟨−5.184, 0.333⟩ (both components needed). (B) 1 point for the integral with the initial condition, 2 + ∫ from 0 to 3 of x′(t) dt; 1 point for 6.871. (C) 1 point for the integral of the speed with correct limits; 1 point for 10.740 (accept 10.739 or 10.74). (D) 1 point for setting x′(t) = 0 to find t ≈ 2.171; 1 point for comparing x at t = 0, t ≈ 2.171 and t = 3 (or for a sign analysis of x′ showing the only change from positive to negative); 1 point for the answer t ≈ 2.171 with x ≈ 8.772. Reporting t ≈ 2.171 from x′ = 0 alone, without a sign change or Candidates Test, earns only the first point of (D). Units are not required for the points but should be correct when given.
+  - slug: apcalcbc-u09-exam-q44
+    type: long_answer
+    topic_code: "9.9"
+    source: "AP Calculus CED, Topic 9.9"
+    points: 9
+    prompt: |
+      No calculator. The circle r = 3cos θ (traced once for −π/2 ≤ θ ≤ π/2) and the limaçon r = 2 − cos θ (for 0 ≤ θ ≤ 2π) intersect at two points.
+
+      (A) Find the polar angles θ of the two intersection points with −π/2 ≤ θ ≤ π/2. Then find the area of the region that is inside the circle and outside the limaçon.
+
+      (B) Find the slope of the line tangent to the limaçon at the point where θ = π/2, and write an equation of that tangent line in rectangular coordinates.
+
+      (C) A particle moves along the limaçon so that dθ/dt = 3 for all time t. Find dr/dt at the instant the particle is at θ = π/3. Is the particle moving toward or away from the pole at that instant? Give a reason.
+
+      (D) Write, but do not evaluate, an expression involving one or more integrals for the area of the region that is inside both the circle and the limaçon.
+    answer: |
+      (A) 3cos θ = 2 − cos θ gives cos θ = 1/2, so θ = −π/3 and θ = π/3. On −π/3 < θ < π/3 the circle is farther from the pole. Area = (1/2)∫ from −π/3 to π/3 of (9cos²θ − (2 − cos θ)²) dθ = (1/2)∫ from −π/3 to π/3 of (8cos²θ + 4cos θ − 4) dθ = (1/2)∫ from −π/3 to π/3 of (4cos(2θ) + 4cos θ) dθ = (1/2)[2sin(2θ) + 4sin θ] from −π/3 to π/3 = (1/2)(2√3 + 4√3) = 3√3.
+      (B) r = 2 − cos θ and r′ = sin θ. At θ = π/2: r = 2, r′ = 1. dy/dθ = r′ sin θ + r cos θ = 1 and dx/dθ = r′ cos θ − r sin θ = −2, so dy/dx = −1/2. The point is (x, y) = (2cos(π/2), 2sin(π/2)) = (0, 2). Tangent line: y = 2 − x/2.
+      (C) dr/dt = (dr/dθ)(dθ/dt) = sin θ · 3 = 3√3/2 at θ = π/3. Because r = 2 − cos(π/3) = 3/2 > 0 and dr/dt > 0, the distance from the pole is increasing: the particle is moving away from the pole.
+      (D) For |θ| ≤ π/3 the limaçon is closer to the pole; for π/3 ≤ |θ| ≤ π/2 the circle is. By symmetry about the polar axis, Area = 2[(1/2)∫ from 0 to π/3 of (2 − cos θ)² dθ + (1/2)∫ from π/3 to π/2 of 9cos²θ dθ] (which equals 9π/4 − 3√3, the circle's area minus the answer to (A)).
+    explanation: |
+      Nine points. (A) 1 point for θ = ±π/3; 1 point for the integral (1/2)∫ from −π/3 to π/3 of (9cos²θ − (2 − cos θ)²) dθ, with the 1/2, the difference of squares and the limits (an equivalent form using symmetry, ∫ from 0 to π/3, is fine); 1 point for 3√3. (B) 1 point for dy/dx = −1/2 using dy/dθ and dx/dθ; 1 point for the tangent line y = 2 − x/2 (or y − 2 = −(1/2)(x − 0)) at the point (0, 2). (C) 1 point for dr/dt = 3√3/2 by the chain rule; 1 point for "away from the pole because r > 0 and dr/dt > 0". (D) 1 point for the limaçon piece on 0 ≤ θ ≤ π/3 (or −π/3 to π/3) and 1 point for the circle piece on π/3 ≤ θ ≤ π/2, each with the factor 1/2 (and doubled for symmetry, or written over both symmetric intervals). An answer of 9π/4 − 3√3 with a correct expression also earns both points.

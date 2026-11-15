@@ -11,6 +11,7 @@ use App\Models\Assignment;
 use App\Models\Connection;
 use App\Models\Course as CourseRow;
 use App\Models\Material;
+use App\Models\SiteSetting;
 use App\Models\Test;
 use App\Models\UrlSlug;
 use App\Models\User;
@@ -95,11 +96,23 @@ abstract class CurriculumSeeder extends Seeder
 
         // 1. Validate every question before writing anything. A bad item
         //    fails loudly with its file and index; nothing is half-seeded.
+        //    A course built on another (AP Calculus BC on AB) validates the
+        //    base too, and the owner's quota covers both.
         $plan = $this->plan();
+        $base = $this->course->base !== null ? $this->baseSeeder() : null;
+        $all = [...($base?->plannedMaterials() ?? []), ...$plan['materials']];
 
         // 2. Resolve the accounts. Named accounts are checked (and the
         //    owner's quota with them) before anything is written.
-        $this->accounts($plan['materials']);
+        $this->accounts($all);
+
+        // 3. The base course's rows must be this owner's own: seed it first,
+        //    for the same teacher and without a student (idempotent, like any
+        //    run), unless it belongs to someone else.
+        if ($base !== null) {
+            $this->assertBaseOwner();
+            $base->run();
+        }
 
         foreach ($plan['tests'] as $spec) {
             $this->test($spec);
@@ -107,6 +120,7 @@ abstract class CurriculumSeeder extends Seeder
         foreach ($plan['materials'] as $spec) {
             $this->material($spec);
         }
+        $this->assignReused($plan['reused']);
         $course = $this->course($plan);
 
         $this->command?->info(sprintf(
@@ -129,12 +143,27 @@ abstract class CurriculumSeeder extends Seeder
      */
     private function plan(): array
     {
+        $this->counts['general_knowledge'] = 0;
         $c = $this->course;
         $tests = [];
         $materials = [];
 
+        $reused = [];
+
         foreach ($c->weeks() as $week => ['file' => $file, 'data' => $data]) {
             $unit = $c->unitForWeek($week);
+            if (Course::isReuse($data)) {
+                // The base course's own rows, placed at this week of this course.
+                foreach ($c->reusedWeeks($data) as $i => $w) {
+                    // `sub` keeps each reused week's guide, cards and quiz together, in list order.
+                    $at = ['week' => $week, 'sub' => $i, 'section' => $c->sectionTitle($unit)];
+                    $reused[] = ['kind' => 'material', 'rank' => self::RANK_GUIDE, 'slug' => $c->base->slug.sprintf('-w%02d-guide', $w)] + $at;
+                    $reused[] = ['kind' => 'material', 'rank' => self::RANK_CARDS, 'slug' => $c->base->slug.sprintf('-w%02d-cards', $w)] + $at;
+                    $reused[] = ['kind' => 'test', 'rank' => self::RANK_QUIZ, 'slug' => $c->base->slug.sprintf('-w%02d-quiz', $w)] + $at;
+                }
+
+                continue;
+            }
             $topics = (array) ($data['topics'] ?? []);
             $title = (string) ($data['title'] ?? "Week {$week}");
             $section = $c->sectionTitle($unit);
@@ -172,6 +201,14 @@ abstract class CurriculumSeeder extends Seeder
                     'body' => Course::deckMarkdown($deckTitle, (array) $data['flashcards']),
                     'cards' => count((array) $data['flashcards']),
                 ];
+            }
+        }
+
+        foreach ($c->config['units'] as $unit) {
+            if ($c->reusesUnitExam($unit)) {
+                $at = ['week' => max((array) $unit['weeks']), 'sub' => PHP_INT_MAX, 'section' => $c->sectionTitle($unit)];
+                $reused[] = ['kind' => 'material', 'rank' => self::RANK_UNIT_SUMMARY, 'slug' => $c->base->slug.sprintf('-u%02d-summary', $unit['number'])] + $at;
+                $reused[] = ['kind' => 'test', 'rank' => self::RANK_UNIT_EXAM, 'slug' => $c->base->slug.sprintf('-u%02d-exam', $unit['number'])] + $at;
             }
         }
 
@@ -226,7 +263,7 @@ abstract class CurriculumSeeder extends Seeder
             throw new RuntimeException(sprintf('The course has %d materials; the per-teacher cap is %d.', count($materials), $cap));
         }
 
-        return ['tests' => $tests, 'materials' => $materials];
+        return ['tests' => $tests, 'materials' => $materials, 'reused' => $reused];
     }
 
     /** @param  array<int, array<string, mixed>>  $questions @return array<string, mixed> */
@@ -273,6 +310,10 @@ abstract class CurriculumSeeder extends Seeder
         }
 
         $this->teacher = $teacher ?? $this->demo($this->course->config['teacher'], Role::Teacher);
+        if ($teacher === null) {
+            $this->fitDemoQuota($materials);
+            $this->assertRoomFor($this->teacher, $materials);
+        }
         $this->student = $this->withStudent ? ($student ?? $this->demo($this->course->config['student'], Role::Student)) : null;
 
         if ($this->student === null) {
@@ -337,12 +378,12 @@ abstract class CurriculumSeeder extends Seeder
 
         if ($files > $maxFiles) {
             throw new RuntimeException(sprintf(
-                '--teacher: the course needs %d materials and %s already has %d others; the per-teacher cap is %d (raise it under Materials on the admin Site settings page).',
+                'The course needs %d materials and %s already has %d others; the per-teacher cap is %d (raise it under Materials on the admin Site settings page).',
                 count($materials), $owner->email, (int) $others->files, $maxFiles,
             ));
         }
         if ($bytes > $maxBytes) {
-            throw new RuntimeException(sprintf('--teacher: the course would take %s over the per-teacher storage cap.', $owner->email));
+            throw new RuntimeException(sprintf('The course would take %s over the per-teacher storage cap.', $owner->email));
         }
     }
 
@@ -466,6 +507,106 @@ abstract class CurriculumSeeder extends Seeder
     }
 
     /**
+     * The demo teacher owns the base course and this one: together more files
+     * than the default per-teacher cap (AP Calculus AB and BC: about 100).
+     * For a demo run only, and only while no admin has set a cap, raise the
+     * server default for this process to fit them. A named --teacher is held
+     * to the real cap (raise it at /admin/site).
+     *
+     * @param  list<array<string, mixed>>  $materials  this course's and its base's
+     */
+    private function fitDemoQuota(array $materials): void
+    {
+        if ($this->course->base === null || SiteSetting::query()->find(1)?->max_materials_per_teacher !== null) {
+            return;
+        }
+        $others = Material::where('user_id', $this->teacher->id)
+            ->where(fn ($q) => $q->whereNull('slug')->orWhereNotIn('slug', array_column($materials, 'slug')))
+            ->count();
+        $needed = $others + count($materials);
+        if ($needed > MaterialQuota::maxFiles()) {
+            config(['materials.max_files_per_teacher' => $needed]);
+        }
+    }
+
+    /** The base course (`builds_on`) for this course's teacher, without a student. */
+    private function baseSeeder(): CurriculumSeeder
+    {
+        $base = new class($this->course->base->dir, $this->teacherEmail ?? $this->course->config['teacher']['email'], null, false) extends CurriculumSeeder
+        {
+            public static function defaultDir(): string
+            {
+                throw new RuntimeException('A base course is always seeded from its own directory.');
+            }
+        };
+        if ($this->command !== null) {
+            $base->setCommand($this->command);
+        }
+        $base->setContainer($this->container ?? app());
+
+        return $base;
+    }
+
+    /** The materials a run would write, validated, without writing anything. */
+    public function plannedMaterials(): array
+    {
+        $this->course = new Course($this->dir ?? static::defaultDir());
+
+        return $this->plan()['materials'];
+    }
+
+    /**
+     * Seeding this course reseeds its base for the same teacher, which moves
+     * the base's rows. That is only allowed when they are unowned, already the
+     * teacher's, or move together with this course (both owned by this
+     * course's current owner): never take a base course from someone else.
+     */
+    private function assertBaseOwner(): void
+    {
+        $prefix = $this->course->base->slug.'-';
+        $pairOwner = CourseRow::where('slug', $this->course->slug)->value('user_id');
+        $owners = collect([
+            ...Test::where('slug', 'like', $prefix.'%')->distinct()->pluck('user_id'),
+            ...Material::where('slug', 'like', $prefix.'%')->distinct()->pluck('user_id'),
+            ...CourseRow::where('slug', $this->course->base->slug)->pluck('user_id'),
+        ])->unique()->reject(fn ($id) => $id === $this->teacher->id || ($pairOwner !== null && $id === $pairOwner));
+
+        if ($owners->isNotEmpty()) {
+            $emails = User::whereIn('id', $owners)->pluck('email')->implode(', ');
+            throw new RuntimeException(sprintf(
+                '%s builds on %s, which %s owns. Seed %s for %s first (or seed this course for its owner); nothing was written.',
+                $this->course->prefix, $this->course->base->prefix, $emails, $this->course->base->prefix, $this->teacher->email,
+            ));
+        }
+    }
+
+    /**
+     * The demo or named student gets the reused tests too, due on this
+     * course's calendar.
+     *
+     * @param  list<array<string, mixed>>  $reused
+     */
+    private function assignReused(array $reused): void
+    {
+        if ($this->student === null) {
+            return;
+        }
+        foreach ($reused as $e) {
+            if ($e['kind'] !== 'test') {
+                continue;
+            }
+            $test = Test::where('slug', $e['slug'])->where('user_id', $this->teacher->id)->first();
+            if ($test === null) {
+                continue; // course() names what is missing
+            }
+            $assignment = Assignment::firstOrNew(['test_id' => $test->id, 'student_id' => $this->student->id]);
+            $assignment->teacher_id = $this->teacher->id;
+            $assignment->due_at = $this->dueDate($e['week']);
+            $assignment->save();
+        }
+    }
+
+    /**
      * The course row: every seeded test and material in teaching order --
      * by week, and within a week guide, flashcards, quiz, then the unit's
      * summary and exam -- under one heading per unit. Created PRIVATE:
@@ -474,20 +615,29 @@ abstract class CurriculumSeeder extends Seeder
      * to the current owner, keeps the visibility the owner has chosen since,
      * and rewrites the item list from the YAML.
      *
-     * @param  array{tests: list<array<string, mixed>>, materials: list<array<string, mixed>>}  $plan
+     * @param  array{tests: list<array<string, mixed>>, materials: list<array<string, mixed>>, reused: list<array<string, mixed>>}  $plan
      */
     private function course(array $plan): CourseRow
     {
         $entries = [
             ...array_map(fn ($spec) => ['kind' => 'test'] + $spec, $plan['tests']),
             ...array_map(fn ($spec) => ['kind' => 'material'] + $spec, $plan['materials']),
+            ...$plan['reused'],
         ];
-        usort($entries, fn ($a, $b) => [$a['week'], $a['rank']] <=> [$b['week'], $b['rank']]);
+        // By week; within a week each reused base week in list order, then this
+        // course's own rows (a reuse week has none), then a reused unit's summary and exam.
+        usort($entries, fn ($a, $b) => [$a['week'], $a['sub'] ?? 0, $a['rank']] <=> [$b['week'], $b['sub'] ?? 0, $b['rank']]);
 
+        $slugs = fn (string $kind) => array_column(array_filter($entries, fn ($e) => $e['kind'] === $kind), 'slug');
         $ids = [
-            'test' => Test::whereIn('slug', array_column($plan['tests'], 'slug'))->pluck('id', 'slug'),
-            'material' => Material::whereIn('slug', array_column($plan['materials'], 'slug'))->pluck('id', 'slug'),
+            'test' => Test::whereIn('slug', $slugs('test'))->where('user_id', $this->teacher->id)->pluck('id', 'slug'),
+            'material' => Material::whereIn('slug', $slugs('material'))->where('user_id', $this->teacher->id)->pluck('id', 'slug'),
         ];
+        foreach ($entries as $e) {
+            if (! isset($ids[$e['kind']][$e['slug']])) {
+                throw new RuntimeException("The course needs {$e['kind']} {$e['slug']}, which {$this->teacher->email} does not own.");
+            }
+        }
         $items = array_map(fn ($e) => [
             'kind' => $e['kind'],
             'id' => $ids[$e['kind']][$e['slug']],

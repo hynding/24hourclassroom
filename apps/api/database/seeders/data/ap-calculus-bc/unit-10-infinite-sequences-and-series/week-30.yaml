@@ -1,0 +1,602 @@
+week: 30
+unit: 10
+title: "Alternating Series Error Bound and Taylor Polynomial Approximations"
+topics: ["10.10", "10.11"]
+guide: guides/week-30.md
+guide_description: |
+  How far a partial sum of an alternating series can be from the true sum (the alternating series error bound, its
+  hypotheses, and the sign of the error), and how to build Taylor polynomials Pₙ(x) centered at x = a from derivative
+  values, use them to approximate function values, and read derivatives back from the coefficients. Worked examples:
+  bounding the error of S₄ for ∑ (n = 1 to ∞) (−1)^(n+1)/n³ and deciding whether it is too big or too small, finding
+  how many terms of ∑ (−1)^(n+1)/n² guarantee an error below 0.0005, P₃ for ln x about x = 1, P₂ for √x about x = 4
+  to estimate √4.2, P₃ from a table of derivative values at x = 1, and approximating cos(0.5) with P₄ and bounding
+  the error.
+flashcards_description: |
+  31 cards on the alternating series error bound (its conditions, the first-omitted-term rule, over- and
+  underestimates, how many terms are needed), Taylor and Maclaurin polynomials (the coefficient formula, centering,
+  reading derivatives from coefficients, polynomials for eˣ, sin x, cos x, ln x and 1/(1 − x)), and the error
+  patterns in both.
+
+flashcards:
+  - front: Alternating series error bound → statement
+    back: |
+      If ∑ (−1)ⁿ aₙ satisfies the Alternating Series Test (aₙ > 0, decreasing, aₙ → 0) with sum S, then |S − Sₙ| ≤ aₙ₊₁, the size of the first term left out.
+    topic_code: "10.10"
+  - front: Alternating series error bound → the three hypotheses to check first
+    back: |
+      The terms alternate in sign, their sizes aₙ decrease (at least eventually, from the partial sum you use onward), and lim aₙ = 0.
+    topic_code: "10.10"
+  - front: Alternating series error bound → the sign of the error S − Sₙ
+    back: |
+      S − Sₙ has the same sign as the first omitted term. If that term is negative, Sₙ is an overestimate; if positive, Sₙ is an underestimate.
+    topic_code: "10.10"
+  - front: ∑ (n = 1 to ∞) (−1)^(n+1)/n³ → error bound for S₄
+    back: |
+      |S − S₄| ≤ a₅ = 1/125 = 0.008.
+    topic_code: "10.10"
+  - front: ∑ (n = 1 to ∞) (−1)^(n+1)/n³ → is S₄ too big or too small?
+    back: |
+      Too small (an underestimate): the first omitted term, +1/125, is positive, so S = S₄ + (something positive).
+    topic_code: "10.10"
+  - front: ∑ (n = 0 to ∞) (−1)ⁿ/n! → error bound for S₅ = 1 − 1 + 1/2 − 1/6 + 1/24 − 1/120
+    back: |
+      The first omitted term is 1/6! = 1/720 ≈ 0.00139, so |S − S₅| ≤ 1/720. (The sum is 1/e.)
+    topic_code: "10.10"
+  - front: ∑ (n = 1 to ∞) (−1)^(n+1)/n² → how many terms make the error less than 0.0005?
+    back: |
+      Need 1/(N + 1)² < 0.0005, so (N + 1)² > 2000, N + 1 ≥ 45: N = 44 terms.
+    topic_code: "10.10"
+  - front: How many terms for a given accuracy → the inequality to solve
+    back: |
+      aₙ₊₁ < tolerance, using the first omitted term's size. Solve for n, then round up to a whole number of terms.
+    topic_code: "10.10"
+  - front: Alternating Taylor series sin x at x = 0.2 using x − x³/6 → error bound
+    back: |
+      The first omitted term is x⁵/5! = 0.2⁵/120 ≈ 2.67 × 10⁻⁶; the series alternates with decreasing terms, so the error is at most that.
+    topic_code: "10.10"
+  - front: Alternating series error bound versus a series that is not alternating → can it be used?
+    back: |
+      No. For ∑ 1/n² or eˣ at x = 0.3 (all terms positive) the bound does not apply; use Lagrange (week 31) or a comparison instead.
+    topic_code: "10.10"
+  - front: Taylor polynomial of degree n for f centered at x = a → formula
+    back: |
+      Pₙ(x) = f(a) + f′(a)(x − a) + f″(a)/2! (x − a)² + ⋯ + f⁽ⁿ⁾(a)/n! (x − a)ⁿ.
+    topic_code: "10.11"
+  - front: Maclaurin polynomial → what it means
+    back: |
+      A Taylor polynomial centered at a = 0: Pₙ(x) = ∑ (k = 0 to n) f⁽ᵏ⁾(0)/k! xᵏ.
+    topic_code: "10.11"
+  - front: Coefficient of (x − a)ᵏ in a Taylor polynomial → formula
+    back: |
+      cₖ = f⁽ᵏ⁾(a)/k!. Read backwards: f⁽ᵏ⁾(a) = k! · cₖ.
+    topic_code: "10.11"
+  - front: P₃(x) = 5 − 3x + 7x² + 4x³ is the Maclaurin polynomial for f → f″(0) and f‴(0)
+    back: |
+      f″(0) = 2! · 7 = 14 and f‴(0) = 3! · 4 = 24.
+    topic_code: "10.11"
+  - front: Matching conditions of Pₙ at the center a → what agrees
+    back: |
+      Pₙ and f have the same value and the same first n derivatives at x = a: Pₙ⁽ᵏ⁾(a) = f⁽ᵏ⁾(a) for k = 0, 1, …, n.
+    topic_code: "10.11"
+  - front: P₁(x) for f centered at a → what familiar object it is
+    back: |
+      The tangent line (local linearization) f(a) + f′(a)(x − a) from week 9. P₂ adds a concavity correction.
+    topic_code: "10.11"
+  - front: Maclaurin polynomial P₄ for eˣ → terms
+    back: |
+      1 + x + x²/2 + x³/6 + x⁴/24, since every derivative of eˣ equals 1 at x = 0.
+    topic_code: "10.11"
+  - front: Maclaurin polynomial P₅ for sin x → terms
+    back: |
+      x − x³/3! + x⁵/5! = x − x³/6 + x⁵/120. Only odd powers appear (sin is odd).
+    topic_code: "10.11"
+  - front: Maclaurin polynomial P₄ for cos x → terms
+    back: |
+      1 − x²/2! + x⁴/4! = 1 − x²/2 + x⁴/24. Only even powers appear (cos is even).
+    topic_code: "10.11"
+  - front: Maclaurin polynomial P₄ for cos(2x) → terms
+    back: |
+      Replace x by 2x in 1 − x²/2 + x⁴/24: 1 − 2x² + (2/3)x⁴.
+    topic_code: "10.11"
+  - front: Taylor polynomial P₃ for ln x centered at x = 1 → terms
+    back: |
+      (x − 1) − (x − 1)²/2 + (x − 1)³/3, from f′ = 1/x, f″ = −1/x², f‴ = 2/x³ at x = 1 divided by 1!, 2!, 3!.
+    topic_code: "10.11"
+  - front: Taylor polynomial P₂ for √x centered at x = 4 → terms and the estimate of √4.2
+    back: |
+      2 + (x − 4)/4 − (x − 4)²/64; P₂(4.2) = 2 + 0.05 − 0.000625 = 2.049375.
+    topic_code: "10.11"
+  - front: Maclaurin polynomial P₃ for 1/(1 − x) → terms
+    back: |
+      1 + x + x² + x³: the kth derivative at 0 is k!, so every coefficient is k!/k! = 1.
+    topic_code: "10.11"
+  - front: Table f(2) = 3, f′(2) = −1, f″(2) = 4, f‴(2) = 12 → P₃ about x = 2
+    back: |
+      3 − (x − 2) + 2(x − 2)² + 2(x − 2)³ (divide 4 by 2! and 12 by 3!).
+    topic_code: "10.11"
+  - front: f⁽ⁿ⁾(0) = (−1)ⁿ (n + 1)!/3ⁿ → the general coefficient of the Maclaurin series
+    back: |
+      f⁽ⁿ⁾(0)/n! = (−1)ⁿ (n + 1)/3ⁿ, so P₃(x) = 1 − 2x/3 + x²/3 − 4x³/27.
+    topic_code: "10.11"
+  - front: Taylor polynomial approximation → why it is better near the center
+    back: |
+      The error grows with |x − a| (it behaves like (x − a)ⁿ⁺¹), so the same polynomial is far more accurate at a + 0.1 than at a + 1.
+    topic_code: "10.11"
+  - front: Higher degree Taylor polynomial at a fixed x near the center → effect on accuracy
+    back: |
+      Usually more accurate: each extra term matches one more derivative. Week 31's Lagrange bound turns this into a number.
+    topic_code: "10.11"
+  - front: Taylor polynomial of an even function centered at 0 → which powers appear
+    back: |
+      Only even powers, because every odd derivative of an even function is 0 at x = 0 (cos x, cos(2x), e^(x²)).
+    topic_code: "10.11"
+  - front: Error-spot → "P₃ for f with f‴(2) = 12 has the term 12(x − 2)³"
+    back: |
+      The factorial is missing: the coefficient is f‴(2)/3! = 12/6 = 2, so the term is 2(x − 2)³.
+    topic_code: "10.11"
+  - front: Error-spot → "P₃ for ln x about x = 1 is x − x²/2 + x³/3"
+    back: |
+      That polynomial is centered at 0 (and ln 0 is undefined). Centered at 1 every power must be of (x − 1).
+    topic_code: "10.11"
+  - front: Error-spot → "∑ (−1)^(n+1)/n² with 10 terms has error at most 1/100"
+    back: |
+      1/100 = a₁₀ is the last term used. The bound is the first omitted term, a₁₁ = 1/121.
+    topic_code: "10.10"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 10.10 and 10.11: the alternating series error bound
+    and Taylor polynomial approximations), with 7 questions (about 30%) reviewing weeks 16, 24, 27, 28 and 29
+    (integration by parts, parametric second derivatives, geometric series, p-series, the Alternating Series Test, the
+    Ratio Test and absolute convergence). Opens with a shared-context set on one alternating series. Multiple choice,
+    select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically;
+    the short answers and the long answer are graded by your teacher against the scoring notes. No calculator is
+    needed.
+  questions:
+    # ---- Stimulus set: one alternating series (10.7, 10.10, 10.9)
+    - slug: apcalcbc-u10-w30-q01
+      type: multiple_choice
+      topic_code: "10.7"
+      source: "AP Calculus CED, Topic 10.7"
+      points: 1
+      stimulus: |
+        Consider the series S = ∑ (n = 1 to ∞) (−1)^(n+1)/(n·2ⁿ) = 1/2 − 1/8 + 1/24 − 1/64 + 1/160 − ⋯, and let Sₙ be its nth partial sum.
+      prompt: |
+        Which statement correctly justifies that the series converges?
+      options:
+        - "It converges because its terms alternate in sign."
+        - "It converges by the nth Term Test, because lim (n→∞) 1/(n·2ⁿ) = 0."
+        - "It converges by the Alternating Series Test: the terms alternate in sign, 1/(n·2ⁿ) decreases, and lim (n→∞) 1/(n·2ⁿ) = 0."
+        - "It diverges, because its partial sums go up and down and never settle."
+      option_explanations:
+        - |
+          Alternation alone is not enough: ∑ (−1)ⁿ (1 + 1/n) alternates but diverges. The decreasing and limit-zero conditions are also needed.
+        - |
+          The nth Term Test can only show divergence. A limit of 0 says nothing about convergence (the harmonic series has terms going to 0).
+        - |
+          Correct. All three hypotheses hold: alternating signs, (n + 1)·2ⁿ⁺¹ > n·2ⁿ so the sizes decrease, and the sizes go to 0.
+        - |
+          The partial sums do oscillate, but by shrinking amounts that go to 0, so they close in on a limit; oscillation is not divergence.
+      answer: 2
+    - slug: apcalcbc-u10-w30-q02
+      type: multiple_choice
+      topic_code: "10.10"
+      source: "AP Calculus CED, Topic 10.10"
+      points: 1
+      stimulus: |
+        Consider the series S = ∑ (n = 1 to ∞) (−1)^(n+1)/(n·2ⁿ) = 1/2 − 1/8 + 1/24 − 1/64 + 1/160 − ⋯, and let Sₙ be its nth partial sum.
+      prompt: |
+        By the alternating series error bound, which value is the smallest guaranteed upper bound on |S − S₃|?
+      options:
+        - "1/24"
+        - "1/64"
+        - "1/160"
+        - "5/12"
+      option_explanations:
+        - |
+          1/24 is the third term, the last one included in S₃. The bound uses the first term left out, the fourth.
+        - |
+          Correct. S₃ uses the first three terms, so the error is at most the size of the fourth term, 1/(4·2⁴) = 1/64.
+        - |
+          1/160 is the fifth term; that bounds the error of S₄, not of S₃.
+        - |
+          5/12 is the value of S₃ = 1/2 − 1/8 + 1/24 itself, not a bound on how far it is from S.
+      answer: 1
+    - slug: apcalcbc-u10-w30-q03
+      type: multiple_choice
+      topic_code: "10.10"
+      source: "AP Calculus CED, Topic 10.10"
+      points: 1
+      stimulus: |
+        Consider the series S = ∑ (n = 1 to ∞) (−1)^(n+1)/(n·2ⁿ) = 1/2 − 1/8 + 1/24 − 1/64 + 1/160 − ⋯, and let Sₙ be its nth partial sum.
+      prompt: |
+        S₃ = 5/12. Which statement about S₃ as an approximation of S is correct?
+      options:
+        - "S₃ is an underestimate, because all of its terms after the first are smaller than 1/2."
+        - "S₃ is an underestimate, because the first omitted term, 1/64, is positive in size."
+        - "It cannot be determined whether S₃ is too large or too small without knowing S."
+        - "S₃ is an overestimate, because the first omitted term, −1/64, is negative."
+      option_explanations:
+        - |
+          The sizes of the included terms do not decide the direction. What matters is the sign of the first term left out of the sum.
+        - |
+          Every term has a positive size; the sign matters. The fourth term is (−1)⁵/64 = −1/64, which is negative.
+        - |
+          For a series meeting the Alternating Series Test, S − Sₙ has the sign of the first omitted term, so the direction is known.
+        - |
+          Correct. S − S₃ has the same sign as the first omitted term, −1/64, so S < S₃: S₃ is too large. (Indeed S = ln 1.5 ≈ 0.405 < 0.417.)
+      answer: 3
+    - slug: apcalcbc-u10-w30-q04
+      type: multiple_choice
+      topic_code: "10.9"
+      source: "AP Calculus CED, Topic 10.9"
+      points: 1
+      stimulus: |
+        Consider the series S = ∑ (n = 1 to ∞) (−1)^(n+1)/(n·2ⁿ) = 1/2 − 1/8 + 1/24 − 1/64 + 1/160 − ⋯, and let Sₙ be its nth partial sum.
+      prompt: |
+        How is the series best classified?
+      options:
+        - "Absolutely convergent, because ∑ (n = 1 to ∞) 1/(n·2ⁿ) converges by direct comparison with ∑ (n = 1 to ∞) (1/2)ⁿ."
+        - "Conditionally convergent, because it converges by the Alternating Series Test."
+        - "Conditionally convergent, because ∑ (n = 1 to ∞) 1/(n·2ⁿ) diverges like the harmonic series."
+        - "Divergent, because the terms contain 1/n and ∑ (n = 1 to ∞) 1/n diverges."
+      option_explanations:
+        - |
+          Correct. 1/(n·2ⁿ) ≤ (1/2)ⁿ for n ≥ 1, and the geometric series with ratio 1/2 converges, so the series of absolute values converges.
+        - |
+          The Alternating Series Test shows convergence but does not decide the type; conditional also requires the absolute series to diverge, and it does not.
+        - |
+          The factor 2ⁿ in the denominator makes the terms much smaller than 1/n; the absolute series converges by comparison with a geometric series.
+        - |
+          The extra factor 1/2ⁿ shrinks every term; comparing with a larger divergent series proves nothing, and this series converges.
+      answer: 0
+    # ---- Independent items
+    - slug: apcalcbc-u10-w30-q05
+      type: multiple_choice
+      topic_code: "10.10"
+      source: "AP Calculus CED, Topic 10.10"
+      points: 1
+      prompt: |
+        The series ∑ (n = 0 to ∞) (−1)ⁿ/n! converges to 1/e. The partial sum S₅ = 1 − 1 + 1/2 − 1/6 + 1/24 − 1/120 is used to approximate 1/e. Which is the best bound on the error that the alternating series error bound gives?
+      options:
+        - "1/120"
+        - "1/24"
+        - "1/720"
+        - "1/5040"
+      option_explanations:
+        - |
+          1/120 = 1/5! is the last term included in S₅; the bound is the first term omitted.
+        - |
+          1/24 = 1/4! is two terms back; it bounds the error of S₃, not S₅.
+        - |
+          Correct. S₅ runs through n = 5, so the first omitted term is the n = 6 term, of size 1/6! = 1/720 ≈ 0.0014.
+        - |
+          1/5040 = 1/7! skips a term; it would bound the error of S₆.
+      answer: 2
+    - slug: apcalcbc-u10-w30-q06
+      type: multiple_choice
+      topic_code: "10.10"
+      source: "AP Calculus CED, Topic 10.10"
+      points: 1
+      prompt: |
+        What is the least number of terms of ∑ (n = 1 to ∞) (−1)^(n+1)/n² that must be added to guarantee, by the alternating series error bound, that the partial sum is within 0.001 of the sum?
+      options:
+        - "31"
+        - "32"
+        - "999"
+        - "10"
+      option_explanations:
+        - |
+          Correct. With N terms the error is at most 1/(N + 1)². Need (N + 1)² > 1000, so N + 1 ≥ 32 (31² = 961 is too small) and N = 31.
+        - |
+          32 makes the last included term 1/32² < 0.001; the bound uses the next term, so 31 terms already suffice.
+        - |
+          999 treats the terms as 1/n instead of 1/n², solving 1/(N + 1) < 0.001 too loosely; the squares make the terms shrink much faster.
+        - |
+          10 solves 1/(N + 1)³ < 0.001, as if the terms were 1/n³; with squares, 1/11² ≈ 0.0083 is still too big.
+      answer: 0
+    - slug: apcalcbc-u10-w30-q07
+      type: multiple_choice
+      topic_code: "10.11"
+      source: "AP Calculus CED, Topic 10.11"
+      points: 1
+      prompt: |
+        Which is the third-degree Taylor polynomial for f(x) = ln x about x = 1?
+      options:
+        - "(x − 1) − (x − 1)²/2 + (x − 1)³/6"
+        - "(x − 1) + (x − 1)²/2 + (x − 1)³/3"
+        - "x − x²/2 + x³/3"
+        - "(x − 1) − (x − 1)²/2 + (x − 1)³/3"
+      option_explanations:
+        - |
+          This divides f‴(1) = 2 by 12 instead of 3! = 6, or uses f‴(1) = 1; 2/3! = 1/3 is the correct coefficient.
+        - |
+          This drops the sign of f″(x) = −1/x², which gives f″(1) = −1 and a negative quadratic term.
+        - |
+          This is centered at 0, where ln x is not even defined. A polynomial about x = 1 is written in powers of (x − 1).
+        - |
+          Correct. f(1) = 0, f′(1) = 1, f″(1) = −1, f‴(1) = 2; dividing by 1!, 2!, 3! gives 1, −1/2, 1/3.
+      answer: 3
+    - slug: apcalcbc-u10-w30-q08
+      type: multiple_choice
+      topic_code: "10.11"
+      source: "AP Calculus CED, Topic 10.11"
+      points: 1
+      prompt: |
+        A function f has f(2) = 3, f′(2) = −1, f″(2) = 4 and f‴(2) = 12. Which is the third-degree Taylor polynomial for f about x = 2?
+      options:
+        - "3 − (x − 2) + 4(x − 2)² + 12(x − 2)³"
+        - "3 − (x − 2) + 2(x − 2)² + 2(x − 2)³"
+        - "3 − (x − 2) + 2(x − 2)² + 4(x − 2)³"
+        - "3 − x + 2x² + 2x³"
+      option_explanations:
+        - |
+          This leaves out the factorials; the coefficient of (x − a)ᵏ is f⁽ᵏ⁾(a)/k!, so 4/2! and 12/3!.
+        - |
+          Correct. Coefficients 3, −1/1!, 4/2! = 2 and 12/3! = 2, each multiplying a power of (x − 2).
+        - |
+          This divides f‴(2) by 3 instead of 3! = 6; the cubic coefficient is 12/6 = 2.
+        - |
+          The coefficients are right but the powers are of x, which centers the polynomial at 0 instead of at 2.
+      answer: 1
+    - slug: apcalcbc-u10-w30-q09
+      type: multiple_choice
+      topic_code: "10.11"
+      source: "AP Calculus CED, Topic 10.11"
+      points: 1
+      prompt: |
+        The third-degree Maclaurin polynomial for a function f is P₃(x) = 5 − 3x + 7x² + 4x³. What is f‴(0)?
+      options:
+        - "4"
+        - "12"
+        - "24"
+        - "8"
+      option_explanations:
+        - |
+          4 is the coefficient c₃ = f‴(0)/3!; the derivative itself is 3! times the coefficient.
+        - |
+          12 multiplies the coefficient by 3 instead of 3! = 6.
+        - |
+          Correct. c₃ = f‴(0)/3!, so f‴(0) = 3! · 4 = 24. (Equivalently, the third derivative of 4x³ is 24.)
+        - |
+          8 multiplies the coefficient by 2, the factorial for the x² term rather than the x³ term.
+      answer: 2
+    - slug: apcalcbc-u10-w30-q10
+      type: multiple_choice
+      topic_code: "10.11"
+      source: "AP Calculus CED, Topic 10.11"
+      points: 1
+      prompt: |
+        Which is the fourth-degree Maclaurin polynomial for f(x) = cos(2x)?
+      options:
+        - "1 − 2x² + (2/3)x⁴"
+        - "1 − x²/2 + x⁴/24"
+        - "1 − 4x² + 16x⁴"
+        - "1 + 2x² + (2/3)x⁴"
+      option_explanations:
+        - |
+          Correct. Substitute 2x into 1 − x²/2 + x⁴/24: 1 − 4x²/2 + 16x⁴/24 = 1 − 2x² + (2/3)x⁴.
+        - |
+          This is the polynomial for cos x; x was never replaced by 2x.
+        - |
+          This substitutes (2x)² = 4x² and (2x)⁴ = 16x⁴ but drops the factorials 2! and 4!.
+        - |
+          The signs of a cosine polynomial alternate: f″(0) = −4, so the x² term is negative.
+      answer: 0
+    - slug: apcalcbc-u10-w30-q11
+      type: multiple_choice
+      topic_code: "10.8"
+      source: "AP Calculus CED, Topic 10.8"
+      points: 1
+      prompt: |
+        What does the Ratio Test conclude about ∑ (n = 1 to ∞) n²/3ⁿ?
+      options:
+        - "The test is inconclusive, because the limit of the ratio is 1."
+        - "The series diverges, because the limit of the ratio is 3."
+        - "The series diverges, because n² grows without bound."
+        - "The series converges, because the limit of the ratio is 1/3."
+      option_explanations:
+        - |
+          The polynomial part gives (n + 1)²/n² → 1, but the factor 3ⁿ/3ⁿ⁺¹ = 1/3 remains, so the limit is 1/3, not 1.
+        - |
+          3 inverts the ratio; aₙ₊₁/aₙ = (n + 1)²/n² · 3ⁿ/3ⁿ⁺¹, and 3ⁿ/3ⁿ⁺¹ = 1/3.
+        - |
+          The numerator grows, but 3ⁿ grows much faster, so the terms go to 0; the test compares consecutive terms.
+        - |
+          Correct. aₙ₊₁/aₙ = ((n + 1)/n)² · (1/3) → 1/3 < 1, so the series converges (absolutely).
+      answer: 3
+    - slug: apcalcbc-u10-w30-q12
+      type: multiple_choice
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 1
+      prompt: |
+        Which is ∫ x sin(2x) dx?
+      options:
+        - "−(x/2)cos(2x) − (1/4)sin(2x) + C"
+        - "−(x/2)cos(2x) + (1/4)sin(2x) + C"
+        - "−x cos(2x) + sin(2x) + C"
+        - "(x²/2)(−cos(2x)/2) + C"
+      option_explanations:
+        - |
+          The parts formula subtracts ∫ v du = ∫ −(1/2)cos(2x) dx, and subtracting a negative gives +(1/4)sin(2x), not −.
+        - |
+          Correct. With u = x and dv = sin(2x) dx, v = −(1/2)cos(2x): −(x/2)cos(2x) + ∫ (1/2)cos(2x) dx = −(x/2)cos(2x) + (1/4)sin(2x) + C.
+        - |
+          This antidifferentiates sin(2x) as −cos(2x) and cos(2x) as sin(2x), forgetting the factor 1/2 from the chain rule each time.
+        - |
+          This integrates each factor separately and multiplies the results; there is no product rule for integrals.
+      answer: 1
+    - slug: apcalcbc-u10-w30-q13
+      type: multi_select
+      topic_code: "10.10"
+      source: "AP Calculus CED, Topic 10.10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        For which series does the alternating series error bound |S − Sₙ| ≤ aₙ₊₁ apply? Select all that apply.
+      options:
+        - "∑ (n = 0 to ∞) (−1)ⁿ/√(n + 1)"
+        - "∑ (n = 1 to ∞) (−1)ⁿ n/(n + 1)"
+        - "∑ (n = 0 to ∞) (−1)ⁿ/(n² + 1)"
+        - "∑ (n = 1 to ∞) 1/n²"
+        - "∑ (n = 1 to ∞) (−1)ⁿ/ln(n + 1)"
+      option_explanations:
+        - |
+          Correct. The signs alternate and 1/√(n + 1) decreases to 0, so the Alternating Series Test hypotheses hold.
+        - |
+          n/(n + 1) → 1, not 0, so the series diverges by the nth Term Test; there is no sum to bound the error against.
+        - |
+          Correct. 1/(n² + 1) is positive, decreasing and tends to 0, and the signs alternate.
+        - |
+          The terms are all positive, so the series is not alternating; its partial sums always underestimate, but this bound does not apply.
+        - |
+          Correct. ln(n + 1) increases without bound, so 1/ln(n + 1) decreases to 0 while the signs alternate.
+      answer: [0, 2, 4]
+    - slug: apcalcbc-u10-w30-q14
+      type: multi_select
+      topic_code: "10.11"
+      source: "AP Calculus CED, Topic 10.11"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let f have derivatives of all orders, and let P₃ be the third-degree Taylor polynomial for f about x = 2. Which statements must be true? Select all that apply.
+      options:
+        - "P₃(2) = f(2)"
+        - "The coefficient of (x − 2)² in P₃ is f″(2)."
+        - "The coefficient of (x − 2)³ in P₃ is f‴(2)/6."
+        - "P₃″(2) = f″(2)"
+        - "P₃(x) = f(x) for every x in an open interval containing 2."
+      option_explanations:
+        - |
+          Correct. Every term except the constant f(2) contains a factor (x − 2), which is 0 at x = 2.
+        - |
+          The coefficient is f″(2)/2!; the factorial is what makes the second derivative of P₃ come out equal to f″(2).
+        - |
+          Correct. The coefficient of (x − a)ᵏ is f⁽ᵏ⁾(a)/k!, and 3! = 6.
+        - |
+          Correct. Differentiating twice leaves f″(2) + f‴(2)(x − 2), which equals f″(2) at x = 2.
+        - |
+          P₃ only matches f's value and first three derivatives at the center; in general it differs from f at every other point (try f(x) = eˣ).
+      answer: [0, 2, 3]
+    - slug: apcalcbc-u10-w30-q15
+      type: true_false
+      topic_code: "10.10"
+      source: "AP Calculus CED, Topic 10.10"
+      points: 1
+      prompt: |
+        True or false: For S = ∑ (n = 1 to ∞) (−1)^(n+1)/n³, the partial sum S₄ = 1 − 1/8 + 1/27 − 1/64 is less than S.
+      answer: true
+      explanation: |
+        True. The series meets the Alternating Series Test, so S − S₄ has the sign of the first omitted term, +1/125. That is positive, so S = S₄ + (a positive amount at most 1/125) and S₄ < S.
+    - slug: apcalcbc-u10-w30-q16
+      type: true_false
+      topic_code: "10.5"
+      source: "AP Calculus CED, Topic 10.5"
+      points: 1
+      prompt: |
+        True or false: The series ∑ (n = 1 to ∞) 1/n^0.9 converges, because its terms approach 0.
+      answer: false
+      explanation: |
+        False. It is a p-series with p = 0.9 ≤ 1, so it diverges. Terms approaching 0 is necessary for convergence but not sufficient.
+    - slug: apcalcbc-u10-w30-q17
+      type: fill_blank
+      topic_code: "10.11"
+      source: "AP Calculus CED, Topic 10.11"
+      points: 1
+      prompt: |
+        In the second-degree Taylor polynomial for f(x) = √x about x = 4, the coefficient of (x − 4)² is ____. (Give an exact fraction or a decimal.)
+      answer: ["-1/64", "−1/64", "- 1/64", "−0.015625", "-0.015625", "-.015625", "−.015625"]
+      explanation: |
+        f″(x) = −(1/4)x^(−3/2), so f″(4) = −(1/4)(1/8) = −1/32, and the coefficient is f″(4)/2! = −1/64. The polynomial is 2 + (x − 4)/4 − (x − 4)²/64.
+    - slug: apcalcbc-u10-w30-q18
+      type: fill_blank
+      topic_code: "10.10"
+      source: "AP Calculus CED, Topic 10.10"
+      points: 1
+      prompt: |
+        If S₄ = 1 − 1/8 + 1/27 − 1/64 is used to approximate the sum of ∑ (n = 1 to ∞) (−1)^(n+1)/n³, the alternating series error bound guarantees that the error is at most ____.
+      answer: ["1/125", "0.008", ".008", "1 / 125"]
+      explanation: |
+        The series meets the Alternating Series Test, so the error is at most the first omitted term's size, 1/5³ = 1/125 = 0.008.
+    - slug: apcalcbc-u10-w30-q19
+      type: numeric
+      topic_code: "10.11"
+      source: "AP Calculus CED, Topic 10.11"
+      points: 1
+      prompt: |
+        A function f has f(2) = 3, f′(2) = −1, f″(2) = 4 and f‴(2) = 12. Use the third-degree Taylor polynomial for f about x = 2 to approximate f(2.1). Give your answer to three decimal places.
+      answer: { value: 2.922, tolerance: 0.001 }
+      explanation: |
+        P₃(x) = 3 − (x − 2) + 2(x − 2)² + 2(x − 2)³. At x = 2.1: 3 − 0.1 + 2(0.01) + 2(0.001) = 3 − 0.1 + 0.02 + 0.002 = 2.922.
+    - slug: apcalcbc-u10-w30-q20
+      type: numeric
+      topic_code: "10.2"
+      source: "AP Calculus CED, Topic 10.2"
+      points: 1
+      prompt: |
+        Find the sum of the geometric series ∑ (n = 1 to ∞) 3(−2/5)ⁿ. Give your answer to three decimal places.
+      answer: { value: -0.857, tolerance: 0.001 }
+      explanation: |
+        The first term (n = 1) is 3(−2/5) = −6/5 and the ratio is r = −2/5, with |r| < 1. Sum = (first term)/(1 − r) = (−6/5)/(7/5) = −6/7 ≈ −0.857.
+    - slug: apcalcbc-u10-w30-q21
+      type: short_answer
+      topic_code: "10.10"
+      source: "AP Calculus CED, Topic 10.10"
+      points: 3
+      prompt: |
+        The Maclaurin series for sin x is x − x³/3! + x⁵/5! − x⁷/7! + ⋯.
+
+        (a) Use the third-degree Maclaurin polynomial for sin x to approximate sin(0.2). Give the value to five decimal places.
+        (b) Use the alternating series error bound to find an upper bound on the error of the approximation in part (a).
+        (c) Is your approximation in part (a) greater than or less than sin(0.2)? Explain.
+      answer: |
+        (a) P₃(0.2) = 0.2 − 0.2³/6 = 0.2 − 0.008/6 ≈ 0.2 − 0.001333 = 0.19867.
+        (b) At x = 0.2 the series alternates and its terms decrease in size to 0, so the error is at most the first omitted term: 0.2⁵/5! = 0.00032/120 ≈ 2.67 × 10⁻⁶.
+        (c) Less than. The first omitted term, +0.2⁵/120, is positive, so sin(0.2) = P₃(0.2) + (a positive amount): the approximation is an underestimate.
+      explanation: |
+        Three points, one per part. (a) 0.19867 (accept 0.198667 or the exact 0.2 − 0.008/6). (b) 0.2⁵/120 ≈ 0.0000027, with the bound identified as the first omitted term (accept a statement that the series is alternating with decreasing terms). (c) Less than, justified by the positive sign of the first omitted term; an answer without a reason earns no point.
+    - slug: apcalcbc-u10-w30-q22
+      type: short_answer
+      topic_code: "9.2"
+      source: "AP Calculus CED, Topic 9.2"
+      points: 3
+      prompt: |
+        A curve is defined by the parametric equations x = t² and y = t³ − 3t for t > 0.
+
+        (a) Find dy/dx in terms of t.
+        (b) Find the value of dy/dx at t = 2.
+        (c) Find d²y/dx² at t = 2 and state whether the curve is concave up or concave down there.
+      answer: |
+        (a) dy/dx = (dy/dt)/(dx/dt) = (3t² − 3)/(2t).
+        (b) At t = 2: (12 − 3)/4 = 9/4.
+        (c) dy/dx = (3/2)t − 3/(2t), so d/dt (dy/dx) = 3/2 + 3/(2t²), which is 3/2 + 3/8 = 15/8 at t = 2. Then d²y/dx² = (15/8)/(dx/dt) = (15/8)/4 = 15/32 > 0, so the curve is concave up at t = 2.
+      explanation: |
+        Three points, one per part. (a) (3t² − 3)/(2t) or an equivalent form. (b) 9/4. (c) 15/32 with concave up; the point requires dividing d/dt (dy/dx) by dx/dt (an answer of 15/8 earns nothing for (c)).
+    - slug: apcalcbc-u10-w30-q23
+      type: long_answer
+      topic_code: "10.11"
+      source: "AP Calculus CED, Topic 10.11"
+      points: 6
+      prompt: |
+        A function f has derivatives of all orders for x > −3. Its derivatives at x = 0 are given by f(0) = 1 and
+
+        f⁽ⁿ⁾(0) = (−1)ⁿ (n + 1)!/3ⁿ for n ≥ 1.
+
+        (A) Write the third-degree Taylor polynomial for f about x = 0.
+
+        (B) Use your polynomial from part (A) to approximate f(1).
+
+        (C) The Taylor series for f about x = 0 converges to f(1) at x = 1, and at x = 1 it is an alternating series whose terms decrease in size to 0. Use the alternating series error bound to show that your approximation in part (B) differs from f(1) by less than 0.07.
+
+        (D) Is your approximation in part (B) greater than or less than f(1)? Give a reason.
+
+        (E) Find the value of f⁽⁴⁾(0).
+      answer: |
+        (A) Coefficients f⁽ⁿ⁾(0)/n! = (−1)ⁿ (n + 1)/3ⁿ: 1, −2/3, 3/9 = 1/3, −4/27. P₃(x) = 1 − (2/3)x + (1/3)x² − (4/27)x³.
+        (B) P₃(1) = 1 − 2/3 + 1/3 − 4/27 = 2/3 − 4/27 = 14/27 ≈ 0.519.
+        (C) The first omitted term is the x⁴ term at x = 1: (+1)(5/81)(1)⁴ = 5/81 ≈ 0.0617. By the alternating series error bound, |f(1) − P₃(1)| ≤ 5/81 < 0.07.
+        (D) Less than. The first omitted term, 5/81, is positive, so f(1) − P₃(1) > 0 and P₃(1) underestimates f(1).
+        (E) f⁽⁴⁾(0) = (−1)⁴ · 5!/3⁴ = 120/81 = 40/27.
+      explanation: |
+        Six points. (A) 2 points: 1 for the coefficients −2/3 and 1/3 with correct powers of x, 1 for the cubic term −(4/27)x³ (an answer with no factorials earns at most 1). (B) 1 point for 14/27 (about 0.519), consistent with the student's P₃. (C) 1 point for identifying the bound as the first omitted term 5/81 and concluding 5/81 < 0.07. (D) 1 point for "less than" with the reason that the first omitted term is positive. (E) 1 point for 40/27 (accept 120/81). For reference, f(x) = 9/(3 + x)², so f(1) = 9/16 = 0.5625 and the actual error is about 0.044.

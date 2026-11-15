@@ -1,0 +1,612 @@
+week: 32
+unit: 10
+title: "Finding Taylor and Maclaurin Series and Representing Functions as Power Series"
+topics: ["10.14", "10.15"]
+guide: guides/week-32.md
+guide_description: |
+  The Taylor series of a function and its general term, the five Maclaurin series to know cold (eˣ, sin x, cos x,
+  1/(1 − x) and ln(1 + x), plus arctan x) with their intervals of convergence, and how to build new series from them
+  by substitution, multiplication by a power of x, and term-by-term differentiation and integration; then using a
+  series to read off high-order derivatives, evaluate limits, approximate integrals and recognize sums. Worked
+  examples: the series for x²e^(−x) and for sin(x²), the arctan x series by integrating 1/(1 + x²), 1/(1 − x)² by
+  differentiating and the sum ∑ n/2ⁿ, f⁽⁶⁾(0) for e^(x²), lim (x→0) (sin x − x)/x³, ∫ from 0 to 1 of e^(−x²) dx
+  with an error bound, and 1/x as a series about x = 2.
+flashcards_description: |
+  32 cards on the Taylor series formula, the standard Maclaurin series and their intervals of convergence, building
+  series by substitution, multiplication, differentiation and integration, geometric-series representations of
+  rational functions about any center, reading derivatives from coefficients, series for limits, integrals and sums,
+  and the error patterns that come with them.
+
+flashcards:
+  - front: Taylor series of f about x = a → general formula
+    back: |
+      ∑ (n = 0 to ∞) f⁽ⁿ⁾(a)/n! · (x − a)ⁿ = f(a) + f′(a)(x − a) + f″(a)/2! (x − a)² + ⋯
+    topic_code: "10.14"
+  - front: Maclaurin series for eˣ → general term and interval
+    back: |
+      ∑ (n = 0 to ∞) xⁿ/n! = 1 + x + x²/2! + x³/3! + ⋯, converging for all real x.
+    topic_code: "10.14"
+  - front: Maclaurin series for sin x → general term and interval
+    back: |
+      ∑ (n = 0 to ∞) (−1)ⁿ x^(2n+1)/(2n + 1)! = x − x³/3! + x⁵/5! − ⋯, for all real x.
+    topic_code: "10.14"
+  - front: Maclaurin series for cos x → general term and interval
+    back: |
+      ∑ (n = 0 to ∞) (−1)ⁿ x^(2n)/(2n)! = 1 − x²/2! + x⁴/4! − ⋯, for all real x.
+    topic_code: "10.14"
+  - front: Maclaurin series for 1/(1 − x) → general term and interval
+    back: |
+      ∑ (n = 0 to ∞) xⁿ = 1 + x + x² + ⋯, for −1 < x < 1 (geometric; both endpoints diverge).
+    topic_code: "10.15"
+  - front: Maclaurin series for ln(1 + x) → general term and interval
+    back: |
+      ∑ (n = 1 to ∞) (−1)^(n+1) xⁿ/n = x − x²/2 + x³/3 − ⋯, for −1 < x ≤ 1.
+    topic_code: "10.15"
+  - front: Maclaurin series for arctan x → general term and interval
+    back: |
+      ∑ (n = 0 to ∞) (−1)ⁿ x^(2n+1)/(2n + 1) = x − x³/3 + x⁵/5 − ⋯, for −1 ≤ x ≤ 1. It comes from integrating 1/(1 + x²).
+    topic_code: "10.15"
+  - front: Series by substitution → method
+    back: |
+      Replace x in a known series by an expression (−x, 2x, x², −x²...). Adjust the interval the same way: e.g. |x²| < 1 for 1/(1 − x²).
+    topic_code: "10.14"
+  - front: Maclaurin series for x²e^(−x) → general term
+    back: |
+      Substitute −x into eˣ, then multiply by x²: ∑ (n = 0 to ∞) (−1)ⁿ x^(n+2)/n! = x² − x³ + x⁴/2 − x⁵/6 + ⋯
+    topic_code: "10.14"
+  - front: Maclaurin series for sin(x²) → first three nonzero terms
+    back: |
+      x² − x⁶/3! + x¹⁰/5! = x² − x⁶/6 + x¹⁰/120. Substitute x² for x in the sin series.
+    topic_code: "10.14"
+  - front: Maclaurin series for e^(x²) → f⁽⁶⁾(0)
+    back: |
+      e^(x²) = ∑ x^(2n)/n!. The x⁶ term is x⁶/3!, so f⁽⁶⁾(0)/6! = 1/6 and f⁽⁶⁾(0) = 720/6 = 120.
+    topic_code: "10.14"
+  - front: Reading f⁽ᵏ⁾(a) from a known series → rule
+    back: |
+      f⁽ᵏ⁾(a) = k! × (coefficient of (x − a)ᵏ). A missing power means that derivative is 0.
+    topic_code: "10.14"
+  - front: Maclaurin series of sin(2x) → coefficient of x⁵
+    back: |
+      (2x)⁵/5! = 32x⁵/120, so the coefficient is 4/15.
+    topic_code: "10.14"
+  - front: lim (x→0) (sin x − x)/x³ by series → value
+    back: |
+      sin x − x = −x³/6 + x⁵/120 − ⋯, so the quotient is −1/6 + x²/120 − ⋯ → −1/6.
+    topic_code: "10.14"
+  - front: lim (x→0) (1 − cos(2x))/x² by series → value
+    back: |
+      1 − cos(2x) = 2x² − (2/3)x⁴ + ⋯, so the quotient → 2.
+    topic_code: "10.14"
+  - front: ∑ (n = 0 to ∞) (−1)ⁿ π^(2n+1)/(4^(2n+1) (2n + 1)!) → value
+    back: |
+      The sin series at x = π/4: sin(π/4) = √2/2.
+    topic_code: "10.14"
+  - front: ∑ (n = 0 to ∞) 2ⁿ/n! → value
+    back: |
+      The eˣ series at x = 2: e².
+    topic_code: "10.14"
+  - front: Function given by f(x) = ∑ (n = 0 to ∞) (−1)ⁿ x^(2n)/(n + 1)! → f⁽⁴⁾(0)
+    back: |
+      The x⁴ coefficient is (−1)²/3! = 1/6, so f⁽⁴⁾(0) = 4!/6 = 4.
+    topic_code: "10.14"
+  - front: Term-by-term differentiation and integration of a power series → what is allowed
+    back: |
+      Inside the open interval of convergence, f′ and ∫ f are the series of the derivatives and integrals of the terms, with the same radius. Recheck endpoints.
+    topic_code: "10.15"
+  - front: Series for 1/(1 − x)² → how to get it
+    back: |
+      Differentiate 1/(1 − x) = ∑ xⁿ: 1/(1 − x)² = ∑ (n = 1 to ∞) n x^(n−1) = 1 + 2x + 3x² + ⋯, for −1 < x < 1.
+    topic_code: "10.15"
+  - front: ∑ (n = 1 to ∞) n/2ⁿ → value via 1/(1 − x)²
+    back: |
+      ∑ n x^(n−1) = 1/(1 − x)²; at x = 1/2 that is 4. Multiply by x = 1/2: ∑ n/2ⁿ = 2.
+    topic_code: "10.15"
+  - front: Series for ln(1 − x) → how to get it and the result
+    back: |
+      Integrate 1/(1 − x) = ∑ xⁿ from 0 to x and negate: ln(1 − x) = −∑ (n = 1 to ∞) xⁿ/n, for −1 ≤ x < 1.
+    topic_code: "10.15"
+  - front: Series for x/(1 + 4x) → general term and interval
+    back: |
+      x · 1/(1 − (−4x)) = ∑ (n = 0 to ∞) (−4)ⁿ x^(n+1), for |4x| < 1, that is −1/4 < x < 1/4.
+    topic_code: "10.15"
+  - front: Series for 1/(3 − x) about x = 0 → general term and interval
+    back: |
+      (1/3) · 1/(1 − x/3) = ∑ (n = 0 to ∞) xⁿ/3ⁿ⁺¹, for −3 < x < 3.
+    topic_code: "10.15"
+  - front: Series for 1/x about x = 2 → general term and interval
+    back: |
+      1/(2 + (x − 2)) = (1/2) · 1/(1 + (x − 2)/2) = ∑ (n = 0 to ∞) (−1)ⁿ (x − 2)ⁿ/2ⁿ⁺¹, for 0 < x < 4.
+    topic_code: "10.15"
+  - front: Series for ln(2 + x) − ln 2 → from 1/(2 + x)
+    back: |
+      Integrate 1/(2 + x) = ∑ (−1)ⁿ xⁿ/2ⁿ⁺¹ from 0 to x: ∑ (−1)ⁿ x^(n+1)/((n + 1)2ⁿ⁺¹) = x/2 − x²/8 + x³/24 − ⋯, for −2 < x ≤ 2.
+    topic_code: "10.15"
+  - front: ∫ from 0 to 1 of e^(−x²) dx by series → first four terms and error bound
+    back: |
+      1 − 1/3 + 1/10 − 1/42 ≈ 0.7429; the series alternates with decreasing terms, so the error is at most the next term, 1/216 ≈ 0.0046.
+    topic_code: "10.15"
+  - front: Maclaurin series with only odd powers → what it says about f
+    back: |
+      f is odd (f(−x) = −f(x)), e.g. sin x, arctan x, x cos x. Only even powers means f is even.
+    topic_code: "10.14"
+  - front: Taylor series of a polynomial such as x³ − 2x about x = 1 → what happens
+    back: |
+      It stops: all derivatives past the degree are 0, so the series is the polynomial rewritten in powers of (x − 1): −1 + (x − 1) + 3(x − 1)² + (x − 1)³.
+    topic_code: "10.14"
+  - front: Error-spot → "sin(x²) = x² − x⁶/3 + x¹⁰/5 − ⋯"
+    back: |
+      The factorials vanished: substitution changes the powers only. It is x² − x⁶/3! + x¹⁰/5! = x² − x⁶/6 + x¹⁰/120.
+    topic_code: "10.14"
+  - front: Error-spot → "e^(x²) has f⁽⁶⁾(0) = 1/6 because the x⁶ term is x⁶/3!"
+    back: |
+      1/6 is the coefficient, f⁽⁶⁾(0)/6!. The derivative is 6! · (1/6) = 120.
+    topic_code: "10.14"
+  - front: Error-spot → "1/(1 + x²) = 1 + x² + x⁴ + ⋯"
+    back: |
+      The substitution is −x² for x in 1/(1 − x): the signs alternate, 1 − x² + x⁴ − x⁶ + ⋯.
+    topic_code: "10.15"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 10.14 and 10.15: finding Taylor and Maclaurin
+    series and representing functions as power series), with 7 questions (about 30%) reviewing weeks 11, 20, 30 and
+    31 (the Second Derivative Test, Euler's method, the alternating series error bound, the Lagrange error bound and
+    intervals of convergence). Opens with a shared-context set on a function defined by its Maclaurin series.
+    Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes. No
+    calculator is needed.
+  questions:
+    # ---- Stimulus set: a function defined by its Maclaurin series (10.14, 10.15, 5.7, 10.10)
+    - slug: apcalcbc-u10-w32-q01
+      type: multiple_choice
+      topic_code: "10.14"
+      source: "AP Calculus CED, Topic 10.14"
+      points: 1
+      stimulus: |
+        The function f is defined for all real x by its Maclaurin series
+
+        f(x) = 1 − x²/2! + x⁴/3! − x⁶/4! + ⋯ + (−1)ⁿ x^(2n)/(n + 1)! + ⋯
+      prompt: |
+        What is the value of f⁽⁴⁾(0)?
+      options:
+        - "1/6"
+        - "24"
+        - "1/24"
+        - "4"
+      option_explanations:
+        - |
+          1/6 is the coefficient of x⁴, which equals f⁽⁴⁾(0)/4!; the derivative is 4! times the coefficient.
+        - |
+          24 is 4! alone; it must be multiplied by the coefficient 1/3! = 1/6.
+        - |
+          1/24 divides the coefficient by 4 instead of multiplying it by 4!.
+        - |
+          Correct. The x⁴ term is x⁴/3!, so f⁽⁴⁾(0)/4! = 1/6 and f⁽⁴⁾(0) = 24/6 = 4.
+      answer: 3
+    - slug: apcalcbc-u10-w32-q02
+      type: multiple_choice
+      topic_code: "10.15"
+      source: "AP Calculus CED, Topic 10.15"
+      points: 1
+      stimulus: |
+        The function f is defined for all real x by its Maclaurin series
+
+        f(x) = 1 − x²/2! + x⁴/3! − x⁶/4! + ⋯ + (−1)ⁿ x^(2n)/(n + 1)! + ⋯
+      prompt: |
+        Which are the first three nonzero terms of the Maclaurin series for f′(x)?
+      options:
+        - "−x + (2/3)x³ − (1/4)x⁵"
+        - "1 − x + (2/3)x³"
+        - "−x/2 + x³/6 − x⁵/24"
+        - "−x³/6 + x⁵/30 − x⁷/168"
+      option_explanations:
+        - |
+          Correct. Differentiate term by term: −2x/2 + 4x³/6 − 6x⁵/24 = −x + (2/3)x³ − (1/4)x⁵.
+        - |
+          The constant 1 differentiates to 0, so it cannot appear in the series for f′.
+        - |
+          This lowers each power but keeps the old coefficients; the power rule also multiplies each term by its exponent.
+        - |
+          This integrates the nonconstant terms instead of differentiating them: −x²/2 becomes −x³/6 and x⁴/6 becomes x⁵/30, raising each power instead of lowering it.
+      answer: 0
+    - slug: apcalcbc-u10-w32-q03
+      type: multiple_choice
+      topic_code: "5.7"
+      source: "AP Calculus CED, Topic 5.7"
+      points: 1
+      stimulus: |
+        The function f is defined for all real x by its Maclaurin series
+
+        f(x) = 1 − x²/2! + x⁴/3! − x⁶/4! + ⋯ + (−1)ⁿ x^(2n)/(n + 1)! + ⋯
+      prompt: |
+        What can be concluded about f at x = 0?
+      options:
+        - "f has a relative minimum at x = 0, because f(0) = 1 > 0."
+        - "f has a relative maximum at x = 0, because f′(0) = 0 and f″(0) = −1 < 0."
+        - "f has a point of inflection at x = 0, because f′(0) = 0."
+        - "Nothing can be concluded, because the series has infinitely many terms."
+      option_explanations:
+        - |
+          The sign of f(0) says nothing about extrema; the Second Derivative Test uses f′(0) and the sign of f″(0).
+        - |
+          Correct. There is no x term, so f′(0) = 0. The x² coefficient is −1/2 = f″(0)/2!, so f″(0) = −1 < 0: a relative maximum by the Second Derivative Test.
+        - |
+          f′(0) = 0 marks a critical point; an inflection point needs f″ to change sign, and here f″(0) = −1 is not even 0.
+        - |
+          The coefficients give every derivative at 0 exactly, which is all the Second Derivative Test needs.
+      answer: 1
+    - slug: apcalcbc-u10-w32-q04
+      type: multiple_choice
+      topic_code: "10.10"
+      source: "AP Calculus CED, Topic 10.10"
+      points: 1
+      stimulus: |
+        The function f is defined for all real x by its Maclaurin series
+
+        f(x) = 1 − x²/2! + x⁴/3! − x⁶/4! + ⋯ + (−1)ⁿ x^(2n)/(n + 1)! + ⋯
+      prompt: |
+        Integrating the first three terms gives ∫ from 0 to 1 of f(x) dx ≈ 1 − 1/6 + 1/30. The integrated series is alternating with terms decreasing to 0. What bound does the alternating series error bound give for this approximation?
+      options:
+        - "1/24"
+        - "1/30"
+        - "1/168"
+        - "1/120"
+      option_explanations:
+        - |
+          1/24 is the coefficient of the next term, x⁶/4!, before integrating; the bound uses the next term of the integrated series.
+        - |
+          1/30 is the last term included in the approximation, not the first one left out.
+        - |
+          Correct. The next term of f is −x⁶/24; integrated from 0 to 1 it is −1/(7·24) = −1/168, so the error is at most 1/168.
+        - |
+          1/120 is the coefficient of x⁸ in f, two terms beyond the approximation and not yet integrated.
+      answer: 2
+    # ---- Independent items
+    - slug: apcalcbc-u10-w32-q05
+      type: multiple_choice
+      topic_code: "10.14"
+      source: "AP Calculus CED, Topic 10.14"
+      points: 1
+      prompt: |
+        Which is the Maclaurin series for x²e^(−x)?
+      options:
+        - "∑ (n = 0 to ∞) x^(n+2)/n!"
+        - "∑ (n = 0 to ∞) (−1)ⁿ x^(n+2)/n!"
+        - "∑ (n = 0 to ∞) (−1)ⁿ x^(2n)/n!"
+        - "∑ (n = 0 to ∞) (−1)ⁿ x^(n+2)/(n + 2)!"
+      option_explanations:
+        - |
+          This is x²eˣ; substituting −x for x puts (−1)ⁿ on each term.
+        - |
+          Correct. e^(−x) = ∑ (−1)ⁿ xⁿ/n!, and multiplying by x² raises every power by 2 without changing the coefficients.
+        - |
+          This substitutes x² for x (giving e^(−x²)) instead of multiplying the series by x².
+        - |
+          Multiplying by x² shifts the powers but leaves the factorials as n!; changing them to (n + 2)! gives a different function.
+      answer: 1
+    - slug: apcalcbc-u10-w32-q06
+      type: multiple_choice
+      topic_code: "10.14"
+      source: "AP Calculus CED, Topic 10.14"
+      points: 1
+      prompt: |
+        Which are the first three nonzero terms of the Maclaurin series for sin(x²)?
+      options:
+        - "x² − x⁶/6 + x¹⁰/120"
+        - "x² − x⁶/3 + x¹⁰/5"
+        - "x² − x⁴/6 + x⁶/120"
+        - "x − x³/6 + x⁵/120"
+      option_explanations:
+        - |
+          Correct. Replace x by x² in x − x³/3! + x⁵/5!: x² − x⁶/6 + x¹⁰/120.
+        - |
+          The substitution changes only the powers; the factorials 3! = 6 and 5! = 120 stay.
+        - |
+          This is x·sin x: it multiplies the sin series by x instead of substituting x² for x, so the powers are x⁴ and x⁶ rather than (x²)³ = x⁶ and (x²)⁵ = x¹⁰.
+        - |
+          This is the series for sin x; x was never replaced by x².
+      answer: 0
+    - slug: apcalcbc-u10-w32-q07
+      type: multiple_choice
+      topic_code: "10.15"
+      source: "AP Calculus CED, Topic 10.15"
+      points: 1
+      prompt: |
+        Starting from 1/(1 + t²) = 1 − t² + t⁴ − t⁶ + ⋯ for |t| < 1, which is the Maclaurin series for arctan x = ∫ from 0 to x of 1/(1 + t²) dt?
+      options:
+        - "x + x³/3 + x⁵/5 + x⁷/7 + ⋯"
+        - "−2x + 4x³ − 6x⁵ + ⋯"
+        - "1 − x²/3 + x⁴/5 − ⋯"
+        - "x − x³/3 + x⁵/5 − x⁷/7 + ⋯"
+      option_explanations:
+        - |
+          The alternating signs of 1 − t² + t⁴ − ⋯ carry through integration; dropping them gives a different function.
+        - |
+          This differentiates the series for 1/(1 + x²) instead of integrating it.
+        - |
+          This divides by the new exponent but forgets to raise each power by 1; ∫ t² dt from 0 to x is x³/3, not x²/3.
+        - |
+          Correct. Integrating term by term from 0 to x: x − x³/3 + x⁵/5 − x⁷/7 + ⋯, with no constant since arctan 0 = 0.
+      answer: 3
+    - slug: apcalcbc-u10-w32-q08
+      type: multiple_choice
+      topic_code: "10.15"
+      source: "AP Calculus CED, Topic 10.15"
+      points: 1
+      prompt: |
+        Which gives a power series for x/(1 + 4x) and the interval on which it represents the function?
+      options:
+        - "∑ (n = 0 to ∞) 4ⁿ x^(n+1), for −1/4 < x < 1/4"
+        - "∑ (n = 0 to ∞) (−4)ⁿ x^(n+1), for −4 < x < 4"
+        - "∑ (n = 0 to ∞) (−4)ⁿ x^(n+1), for −1/4 < x < 1/4"
+        - "∑ (n = 0 to ∞) (−1)ⁿ xⁿ⁺¹/4ⁿ, for −4 < x < 4"
+      option_explanations:
+        - |
+          The ratio is −4x, not 4x, because 1 + 4x = 1 − (−4x); without the (−1)ⁿ this is the series for x/(1 − 4x).
+        - |
+          The geometric condition is |−4x| < 1, so |x| < 1/4, not |x| < 4.
+        - |
+          Correct. x · 1/(1 − (−4x)) = x ∑ (−4x)ⁿ = ∑ (−4)ⁿ x^(n+1), valid when |4x| < 1, that is −1/4 < x < 1/4.
+        - |
+          This uses the ratio −x/4, which is the series for x/(1 + x/4), a different function.
+      answer: 2
+    - slug: apcalcbc-u10-w32-q09
+      type: multiple_choice
+      topic_code: "10.14"
+      source: "AP Calculus CED, Topic 10.14"
+      points: 1
+      prompt: |
+        Let f(x) = e^(x²). What is f⁽⁶⁾(0)?
+      options:
+        - "120"
+        - "1/6"
+        - "720"
+        - "0"
+      option_explanations:
+        - |
+          Correct. e^(x²) = 1 + x² + x⁴/2! + x⁶/3! + ⋯. The x⁶ coefficient is 1/6 = f⁽⁶⁾(0)/6!, so f⁽⁶⁾(0) = 720/6 = 120.
+        - |
+          1/6 is the coefficient of x⁶, which is f⁽⁶⁾(0) divided by 6!.
+        - |
+          720 is 6!, which must be multiplied by the coefficient 1/3! = 1/6.
+        - |
+          Only odd derivatives of e^(x²) are 0 at x = 0 (it is even); the x⁶ term is present.
+      answer: 0
+    - slug: apcalcbc-u10-w32-q10
+      type: multiple_choice
+      topic_code: "10.14"
+      source: "AP Calculus CED, Topic 10.14"
+      points: 1
+      prompt: |
+        Use the Maclaurin series for sin x to find lim (x→0) (sin x − x)/x³.
+      options:
+        - "0"
+        - "−1/6"
+        - "1/6"
+        - "The limit does not exist."
+      option_explanations:
+        - |
+          After the x terms cancel, the x³ term −x³/6 remains, and dividing by x³ leaves −1/6, not 0.
+        - |
+          Correct. sin x − x = −x³/6 + x⁵/120 − ⋯, so (sin x − x)/x³ = −1/6 + x²/120 − ⋯ → −1/6.
+        - |
+          The x³ term of sin x is −x³/3!, negative; the sign was dropped.
+        - |
+          The numerator's series starts at x³, matching the denominator, so the quotient has a finite limit.
+      answer: 1
+    - slug: apcalcbc-u10-w32-q11
+      type: multiple_choice
+      topic_code: "10.14"
+      source: "AP Calculus CED, Topic 10.14"
+      points: 1
+      prompt: |
+        What is the sum of ∑ (n = 0 to ∞) (−1)ⁿ π^(2n+1)/(4^(2n+1) (2n + 1)!)?
+      options:
+        - "π/4"
+        - "e^(−π/4)"
+        - "1/2"
+        - "√2/2"
+      option_explanations:
+        - |
+          π/4 is only the first term (n = 0); the rest of the series changes the value.
+        - |
+          The eˣ series has every power and n! factorials; this series has only odd powers over odd factorials with alternating signs, which is sin.
+        - |
+          1/2 is sin(π/6); the series has (π/4)^(2n+1), so it is the sin series at x = π/4.
+        - |
+          Correct. The terms are (−1)ⁿ (π/4)^(2n+1)/(2n + 1)!, the Maclaurin series for sin x at x = π/4, so the sum is sin(π/4) = √2/2.
+      answer: 3
+    - slug: apcalcbc-u10-w32-q12
+      type: multiple_choice
+      topic_code: "10.13"
+      source: "AP Calculus CED, Topic 10.13"
+      points: 1
+      prompt: |
+        On what interval does the series x − x²/2 + x³/3 − x⁴/4 + ⋯ = ∑ (n = 1 to ∞) (−1)^(n+1) xⁿ/n converge?
+      options:
+        - "−1 < x < 1"
+        - "−1 ≤ x < 1"
+        - "−1 < x ≤ 1"
+        - "−1 ≤ x ≤ 1"
+      option_explanations:
+        - |
+          The radius is 1, but x = 1 gives the alternating harmonic series, which converges, so 1 belongs in the interval.
+        - |
+          The endpoints are reversed: x = −1 gives −∑ 1/n, which diverges, and x = 1 gives the alternating harmonic series, which converges.
+        - |
+          Correct. The Ratio Test gives |x| < 1. At x = 1 the series is ∑ (−1)^(n+1)/n (converges by the Alternating Series Test); at x = −1 it is −∑ 1/n (diverges).
+        - |
+          At x = −1 every term is −1/n, giving the negative of the harmonic series, which diverges.
+      answer: 2
+    - slug: apcalcbc-u10-w32-q13
+      type: multi_select
+      topic_code: "10.15"
+      source: "AP Calculus CED, Topic 10.15"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which equations are correct for all x with −1 < x < 1? Select all that apply.
+      options:
+        - "1/(1 − x)² = ∑ (n = 1 to ∞) n x^(n−1)"
+        - "ln(1 − x) = −∑ (n = 1 to ∞) xⁿ/n"
+        - "1/(1 + x) = ∑ (n = 0 to ∞) xⁿ"
+        - "arctan x = ∑ (n = 1 to ∞) (−1)ⁿ x^(2n)/(2n)"
+        - "x/(1 − x²) = ∑ (n = 0 to ∞) x^(2n+1)"
+      option_explanations:
+        - |
+          Correct. Differentiate 1/(1 − x) = ∑ xⁿ term by term; the radius stays 1.
+        - |
+          Correct. ∫ from 0 to x of 1/(1 − t) dt = −ln(1 − x), and integrating ∑ tⁿ gives ∑ x^(n+1)/(n + 1) = ∑ (n = 1 to ∞) xⁿ/n.
+        - |
+          1/(1 + x) = 1/(1 − (−x)) needs (−x)ⁿ, so the signs alternate: ∑ (−1)ⁿ xⁿ.
+        - |
+          arctan x has odd powers and odd denominators: ∑ (n = 0 to ∞) (−1)ⁿ x^(2n+1)/(2n + 1). This series is ln(1 + x²)/2 up to sign.
+        - |
+          Correct. 1/(1 − x²) = ∑ x^(2n) (substitute x² for x, valid since x² < 1); multiplying by x gives ∑ x^(2n+1).
+      answer: [0, 1, 4]
+    - slug: apcalcbc-u10-w32-q14
+      type: multi_select
+      topic_code: "10.14"
+      source: "AP Calculus CED, Topic 10.14"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which functions have a Maclaurin series containing only odd powers of x? Select all that apply.
+      options:
+        - "sin(2x)"
+        - "e^(−x)"
+        - "arctan x"
+        - "cos(3x)"
+        - "x cos x"
+      option_explanations:
+        - |
+          Correct. Substituting 2x into the sin series keeps the powers odd: 2x − 8x³/6 + ⋯.
+        - |
+          e^(−x) = 1 − x + x²/2 − ⋯ has every power, odd and even.
+        - |
+          Correct. arctan x = x − x³/3 + x⁵/5 − ⋯, odd powers only (it is an odd function).
+        - |
+          cos(3x) = 1 − 9x²/2 + ⋯ has only even powers.
+        - |
+          Correct. Multiplying the even-power cos series by x makes every power odd: x − x³/2 + x⁵/24 − ⋯.
+      answer: [0, 2, 4]
+    - slug: apcalcbc-u10-w32-q15
+      type: true_false
+      topic_code: "10.13"
+      source: "AP Calculus CED, Topic 10.13"
+      points: 1
+      prompt: |
+        True or false: The series ∑ (n = 0 to ∞) (−1)ⁿ (x − 2)ⁿ/2ⁿ⁺¹, which equals 1/x where it converges, converges exactly for 0 < x < 4.
+      answer: true
+      explanation: |
+        True. It is geometric with ratio −(x − 2)/2, so it converges when |x − 2| < 2, that is 0 < x < 4. At x = 0 and x = 4 the terms have size 1/2 and do not approach 0, so both endpoints diverge.
+    - slug: apcalcbc-u10-w32-q16
+      type: true_false
+      topic_code: "10.12"
+      source: "AP Calculus CED, Topic 10.12"
+      points: 1
+      prompt: |
+        True or false: The Lagrange error bound for the second-degree Taylor polynomial P₂ about x = a uses a bound on the second derivative of f between a and x.
+      answer: false
+      explanation: |
+        False. For Pₙ the bound uses the (n + 1)st derivative. For P₂ that is f‴: |f(x) − P₂(x)| ≤ M|x − a|³/3!, where M bounds |f‴(z)| between a and x.
+    - slug: apcalcbc-u10-w32-q17
+      type: fill_blank
+      topic_code: "10.14"
+      source: "AP Calculus CED, Topic 10.14"
+      points: 1
+      prompt: |
+        In the Maclaurin series for sin(2x), the coefficient of x⁵ is ____. (Give an exact fraction.)
+      answer: ["4/15", "32/120", "4 / 15", "0.267", "0.2667"]
+      explanation: |
+        The x⁵ term of sin u is u⁵/5!. With u = 2x, (2x)⁵/120 = 32x⁵/120 = (4/15)x⁵.
+    - slug: apcalcbc-u10-w32-q18
+      type: fill_blank
+      topic_code: "10.14"
+      source: "AP Calculus CED, Topic 10.14"
+      points: 1
+      prompt: |
+        Using the Maclaurin series for cos x, lim (x→0) (1 − cos(2x))/x² = ____.
+      answer: ["2"]
+      explanation: |
+        cos(2x) = 1 − (2x)²/2! + (2x)⁴/4! − ⋯ = 1 − 2x² + (2/3)x⁴ − ⋯, so 1 − cos(2x) = 2x² − (2/3)x⁴ + ⋯ and the quotient is 2 − (2/3)x² + ⋯ → 2.
+    - slug: apcalcbc-u10-w32-q19
+      type: numeric
+      topic_code: "10.15"
+      source: "AP Calculus CED, Topic 10.15"
+      points: 1
+      prompt: |
+        Use the first four nonzero terms of the Maclaurin series for e^(−x²), integrated term by term, to approximate ∫ from 0 to 1 of e^(−x²) dx. Give your answer to three decimal places.
+      answer: { value: 0.743, tolerance: 0.001 }
+      explanation: |
+        e^(−x²) ≈ 1 − x² + x⁴/2 − x⁶/6. Integrating from 0 to 1: 1 − 1/3 + 1/10 − 1/42 ≈ 0.742857, or 0.743. (The integral itself is about 0.7468; the alternating series error bound limits the error to the next term, 1/(9·24) = 1/216 ≈ 0.0046.)
+    - slug: apcalcbc-u10-w32-q20
+      type: numeric
+      topic_code: "7.5"
+      source: "AP Calculus CED, Topic 7.5"
+      points: 1
+      prompt: |
+        Let y = f(x) be the solution to dy/dx = 2x − y with f(1) = 3. Use Euler's method with two steps of size 0.25, starting at x = 1, to approximate f(1.5). Give your answer to four decimal places.
+      answer: { value: 2.6875, tolerance: 0.001 }
+      explanation: |
+        At (1, 3) the slope is 2(1) − 3 = −1, so f(1.25) ≈ 3 + 0.25(−1) = 2.75. At (1.25, 2.75) the slope is 2.5 − 2.75 = −0.25, so f(1.5) ≈ 2.75 + 0.25(−0.25) = 2.6875.
+    - slug: apcalcbc-u10-w32-q21
+      type: short_answer
+      topic_code: "10.15"
+      source: "AP Calculus CED, Topic 10.15"
+      points: 3
+      prompt: |
+        The geometric series 1/(1 − x) = ∑ (n = 0 to ∞) xⁿ holds for −1 < x < 1.
+
+        (a) Use term-by-term differentiation to write a power series for 1/(1 − x)², giving its first four terms and its general term.
+        (b) State the interval of convergence of your series in part (a), with a reason for each endpoint.
+        (c) Use your series to find the exact value of ∑ (n = 1 to ∞) n/2ⁿ.
+      answer: |
+        (a) 1/(1 − x)² = d/dx [1/(1 − x)] = 1 + 2x + 3x² + 4x³ + ⋯ = ∑ (n = 1 to ∞) n x^(n−1).
+        (b) The radius stays 1. At x = 1 the terms are n and at x = −1 they are ±n; neither goes to 0, so both endpoints diverge by the nth Term Test. Interval: −1 < x < 1.
+        (c) ∑ n/2ⁿ = (1/2) ∑ n (1/2)^(n−1) = (1/2) · 1/(1 − 1/2)² = (1/2)(4) = 2.
+      explanation: |
+        Three points, one per part. (a) The four terms and the general term n x^(n−1) (or (n + 1)xⁿ from n = 0). (b) −1 < x < 1 with the nth Term Test (or "terms do not approach 0") at both endpoints. (c) 2, with the factor 1/2 pulled out and x = 1/2 substituted; an answer of 4 shows the missing factor and earns no point.
+    - slug: apcalcbc-u10-w32-q22
+      type: short_answer
+      topic_code: "10.12"
+      source: "AP Calculus CED, Topic 10.12"
+      points: 3
+      prompt: |
+        Let g(x) = e^(2x).
+
+        (a) Find the second-degree Maclaurin polynomial P₂(x) for g and use it to approximate g(0.1).
+        (b) Use the Lagrange error bound, together with the fact that e^0.2 < 1.25, to bound |g(0.1) − P₂(0.1)|.
+        (c) Use parts (a) and (b) to show that g(0.1) < 1.222.
+      answer: |
+        (a) g(0) = 1, g′(0) = 2, g″(0) = 4, so P₂(x) = 1 + 2x + 2x², and P₂(0.1) = 1 + 0.2 + 0.02 = 1.22.
+        (b) g‴(z) = 8e^(2z), which is increasing, so on [0, 0.1] it is at most 8e^0.2 < 8(1.25) = 10. With M = 10, the error is at most 10(0.1)³/3! = 0.01/6 ≈ 0.00167.
+        (c) g(0.1) ≤ 1.22 + 0.00167 = 1.22167 < 1.222.
+      explanation: |
+        Three points, one per part. (a) 1 + 2x + 2x² and 1.22. (b) A valid M for g‴ on [0, 0.1] (M = 10, or 8e^0.2) and the bound M(0.1)³/3! ≈ 0.0017; M = 8 (the value at 0) earns no point because it is not a bound on the whole interval. (c) The upper estimate P₂(0.1) + bound compared explicitly with 1.222.
+    - slug: apcalcbc-u10-w32-q23
+      type: long_answer
+      topic_code: "10.15"
+      source: "AP Calculus CED, Topic 10.15"
+      points: 6
+      prompt: |
+        Let g(x) = 1/(2 + x), and let f(x) = ln(2 + x) − ln 2, so that f(x) = ∫ from 0 to x of g(t) dt for x > −2.
+
+        (A) Using the geometric series 1/(1 − u) = 1 + u + u² + ⋯, write the first four nonzero terms and the general term of the Maclaurin series for g.
+
+        (B) Find the interval of convergence of the series in part (A).
+
+        (C) Use your answer to part (A) to write the first four nonzero terms and the general term of the Maclaurin series for f.
+
+        (D) Find the interval of convergence of the series for f. Justify your conclusion at each endpoint.
+
+        (E) Use the first two nonzero terms of the series for f to approximate f(1/2) = ln(5/4). Show that the approximation differs from f(1/2) by less than 0.006.
+      answer: |
+        (A) g(x) = (1/2) · 1/(1 + x/2) = (1/2) · 1/(1 − (−x/2)) = 1/2 − x/4 + x²/8 − x³/16 + ⋯ = ∑ (n = 0 to ∞) (−1)ⁿ xⁿ/2ⁿ⁺¹.
+        (B) Geometric with ratio −x/2: converges when |x/2| < 1, so −2 < x < 2 (at x = ±2 the terms have size 1/2 and do not go to 0).
+        (C) Integrating from 0 to x: f(x) = x/2 − x²/8 + x³/24 − x⁴/64 + ⋯ = ∑ (n = 0 to ∞) (−1)ⁿ x^(n+1)/((n + 1)2ⁿ⁺¹).
+        (D) The radius is still 2. At x = 2: ∑ (−1)ⁿ 2ⁿ⁺¹/((n + 1)2ⁿ⁺¹) = ∑ (−1)ⁿ/(n + 1), the alternating harmonic series, which converges by the Alternating Series Test. At x = −2: ∑ (−1)ⁿ(−2)ⁿ⁺¹/((n + 1)2ⁿ⁺¹) = −∑ 1/(n + 1), which diverges (harmonic). Interval: −2 < x ≤ 2.
+        (E) f(1/2) ≈ (1/2)/2 − (1/2)²/8 = 1/4 − 1/32 = 7/32 = 0.21875. At x = 1/2 the series alternates and its terms (1/2)^(n+1)/((n + 1)2ⁿ⁺¹) = 1/((n + 1)4ⁿ⁺¹) decrease to 0, so the error is at most the next term, (1/2)³/24 = 1/192 ≈ 0.0052 < 0.006.
+      explanation: |
+        Six points. (A) 1 point for the four terms and the general term (−1)ⁿ xⁿ/2ⁿ⁺¹ (equivalent forms accepted). (B) 1 point for −2 < x < 2. (C) 1 point for the four terms and general term of f, obtained by integrating (a missing or wrong constant of integration loses the point; f(0) = 0 means none is needed). (D) 1 point for −2 < x ≤ 2 with the Alternating Series Test at x = 2 and the harmonic series at x = −2. (E) 1 point for 7/32; 1 point for the alternating series error bound, its conditions, and 1/192 < 0.006. For reference, ln 1.25 ≈ 0.22314, so the actual error is about 0.0044.
