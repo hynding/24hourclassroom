@@ -1,0 +1,626 @@
+week: 30
+unit: 5
+title: "Linear Regression Models"
+topics: ["5.3"]
+guide: guides/week-30.md
+guide_description: |
+  The linear regression model ŷ = a + bx: the difference between y and ŷ, defining variables in context,
+  calculating predicted values, the interpretation templates for slope and y-intercept (with units and the word
+  "predicted"), when an intercept has no practical meaning, interpolation versus extrapolation, and why a line
+  that predicts y from x should not be solved backwards for x. Worked examples: commute time on distance for 40
+  students (ŷ = 4.2 + 2.6x), pizza price on diameter with a meaningless negative intercept, a bean-seedling
+  growth line fitted by technology (ŷ = 0.217 + 0.679x) with a day-60 extrapolation, and a used-car price line
+  that predicts a negative price at 20 years.
+flashcards_description: |
+  30 cards on the regression equation and its notation, predicted values, interpreting slope and y-intercept
+  with units, meaningless intercepts, interpolation and extrapolation, and predicting in the right direction.
+
+flashcards:
+  - front: Linear regression model → general equation and what each letter is
+    back: |
+      ŷ = a + bx: ŷ is the predicted response, x the explanatory variable, a the y-intercept, b the slope.
+    topic_code: "5.3"
+  - front: y versus ŷ in a regression model → the difference
+    back: |
+      y is an actual observed response; ŷ is the value the line predicts for that x. Most points have y ≠ ŷ.
+    topic_code: "5.3"
+  - front: Writing a regression equation on the AP exam → two requirements
+    back: |
+      Use ŷ (or "predicted"), and define x and ŷ in context with units, for example "predicted commute time = 4.2 + 2.6 (distance in miles)".
+    topic_code: "5.3"
+  - front: Commute line ŷ = 4.2 + 2.6x (x in miles, ŷ in minutes) → prediction for 10 miles
+    back: |
+      ŷ = 4.2 + 2.6(10) = 30.2 minutes: the predicted commute time for students who live 10 miles away.
+    topic_code: "5.3"
+  - front: Template for interpreting the slope of a regression line
+    back: |
+      "For each one-unit increase in [x in context], the predicted [y in context] increases (or decreases) by [|b| with units]."
+    topic_code: "5.3"
+  - front: Template for interpreting the y-intercept of a regression line
+    back: |
+      "When [x in context] is 0, the predicted [y in context] is [a with units]." Then say whether x = 0 makes sense.
+    topic_code: "5.3"
+  - front: Commute line ŷ = 4.2 + 2.6x → slope interpretation
+    back: |
+      For each additional mile from school, the predicted commute time increases by 2.6 minutes.
+    topic_code: "5.3"
+  - front: Units of the slope of a regression line
+    back: |
+      Units of y per unit of x: minutes per mile, centimetres per day, dollars per inch.
+    topic_code: "5.3"
+  - front: Units of the y-intercept of a regression line
+    back: |
+      The units of y alone (minutes, centimetres, dollars).
+    topic_code: "5.3"
+  - front: Pizza price line ŷ = −4.10 + 1.45x (diameter 10–18 in) → intercept meaning
+    back: |
+      A 0-inch pizza would have a predicted price of −$4.10: impossible and far outside the data, so the intercept has no practical meaning.
+    topic_code: "5.3"
+  - front: When a y-intercept has no meaningful interpretation → two warning signs
+    back: |
+      x = 0 is impossible or nonsensical in context, or x = 0 lies far outside the range of the observed x-values.
+    topic_code: "5.3"
+  - front: Bean-seedling line ŷ = 0.217 + 0.679x (days 4–18) → slope interpretation
+    back: |
+      For each additional day after sprouting, the predicted seedling height increases by 0.679 cm.
+    topic_code: "5.3"
+  - front: Bean-seedling line → prediction for day 9 and why it is reasonable
+    back: |
+      0.217 + 0.679(9) = 6.33 cm. Day 9 is inside the observed range of 4 to 18 days (interpolation).
+    topic_code: "5.3"
+  - front: Bean-seedling line at day 60 → what goes wrong
+    back: |
+      It predicts 40.96 cm, but the line was fitted on days 4 to 18; plant growth slows later, so this extrapolation is unreliable.
+    topic_code: "5.3"
+  - front: Interpolation → definition
+    back: |
+      Predicting the response for an x-value inside the range of the x-values used to fit the line.
+    topic_code: "5.3"
+  - front: Extrapolation → definition and why it is risky
+    back: |
+      Predicting for an x-value outside the observed range. The linear pattern may bend, level off or stop making sense there.
+    topic_code: "5.3"
+  - front: Used-car line ŷ = 27.5 − 1.9x (ages 1–10, price in $1000s) → prediction at 20 years
+    back: |
+      27.5 − 1.9(20) = −10.5, a predicted price of −$10,500: an absurd extrapolation, because prices level off for old cars.
+    topic_code: "5.3"
+  - front: Used-car line ŷ = 27.5 − 1.9x → slope interpretation with units
+    back: |
+      For each additional year of age, the predicted price decreases by 1.9 thousand dollars ($1,900).
+    topic_code: "5.3"
+  - front: Slope from two predicted points on a line (x = 10 gives 74, x = 14 gives 86)
+    back: |
+      b = (86 − 74)/(14 − 10) = 3 units of y per unit of x.
+    topic_code: "5.3"
+  - front: Slope written first (ŷ = 2.6x + 4.2) or as b₁ in output → how to read it
+    back: |
+      The slope is always the coefficient of x, wherever it appears; the constant term is the y-intercept.
+    topic_code: "5.3"
+  - front: Predicting x from a line that predicts y → why not to solve backwards
+    back: |
+      The regression of y on x is built to predict y. To predict x, fit a new line with the roles swapped; the two lines agree only if r = ±1.
+    topic_code: "5.3"
+  - front: Rounding the slope before predicting → the risk
+    back: |
+      Small rounding errors grow with x. Rounding 0.679 to 0.7 moves the day-18 bean prediction from 12.44 cm to 12.82 cm. Keep the output's digits.
+    topic_code: "5.3"
+  - front: Why the word "predicted" belongs in every slope interpretation
+    back: |
+      Individuals scatter around the line, so the slope describes the model's average change in y, not what happens to each individual.
+    topic_code: "5.3"
+  - front: Slope from observational data → causal language to avoid
+    back: |
+      Say "predicted commute time is 2.6 minutes higher per extra mile", not "an extra mile causes 2.6 more minutes"; causation needs random assignment.
+    topic_code: "5.3"
+  - front: Regression line for a curved scatterplot → is it a good model?
+    back: |
+      No. A linear model is appropriate only when the scatterplot is roughly linear; check the plot (and, in week 31, a residual plot) first.
+    topic_code: "5.3"
+  - front: Negative slope b in a regression line → interpretation word
+    back: |
+      Use "decreases": "for each additional mile trained per week, the predicted 5K time decreases by 0.21 minutes."
+    topic_code: "5.3"
+  - front: Regression line passes through the point → which point always
+    back: |
+      (x̄, ȳ): predicting at the mean of x always gives the mean of y. (Week 32 shows why.)
+    topic_code: "5.3"
+  - front: Error-spot → "y = 4.2 + 2.6x, where x is distance"
+    back: |
+      Missing hat: it should be ŷ (predicted commute time). Without it, the equation claims every student is exactly on the line.
+    topic_code: "5.3"
+  - front: Error-spot → "for every mile, the commute time goes up by 2.6 minutes"
+    back: |
+      Needs "predicted" (or "on average") and "each additional mile": individual commutes vary around the line.
+    topic_code: "5.3"
+  - front: Error-spot → "a 20-year-old car is predicted to cost −$10,500, so the car is worthless"
+    back: |
+      The real problem is extrapolation: 20 years is outside the 1 to 10 year data, so the line says nothing reliable there.
+    topic_code: "5.3"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topic 5.3: the regression equation, predicted values,
+    interpreting slope and y-intercept, meaningless intercepts, interpolation and extrapolation), with 9
+    questions (38%) reviewing earlier weeks (scatterplots and correlation from week 29, comparing distributions,
+    sampling bias, conditional probability, the Central Limit Theorem, intervals for a proportion and a mean,
+    and Type I and Type II errors). Opens with a shared-context set on a cross-country team. Multiple choice,
+    select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes.
+    Calculators are allowed throughout.
+  questions:
+    # ---- Stimulus set: training miles and 5K time (5.3)
+    - slug: apstats-u05-w30-q01
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      stimulus: |
+        A coach records, for the 18 runners on a hypothetical cross-country team, the average number of miles each ran per week in training (x, from 5 to 40 miles) and the runner's time in a 5-kilometre race (y, in minutes). The scatterplot is linear, and the regression line is
+
+        predicted 5K time = 27.8 − 0.21 (weekly miles)
+      prompt: |
+        Which is the correct interpretation of the slope?
+      options:
+        - "Each runner's 5K time drops by 0.21 minutes for every mile he or she runs."
+        - "For each additional mile run per week in training, the predicted 5K time decreases by 0.21 minutes."
+        - "For each additional minute of 5K time, the predicted weekly mileage decreases by 0.21 miles."
+        - "Running one more mile per week causes a runner's time to fall by 0.21 minutes."
+      option_explanations:
+        - |
+          Individual runners vary around the line; the slope describes the predicted change, not a guaranteed change for each runner.
+        - |
+          Correct. The slope −0.21 minutes per mile is the predicted change in 5K time for each one-mile increase in weekly training.
+        - |
+          The roles are reversed: x is weekly miles and y is time, so the slope is minutes per mile, not miles per minute.
+        - |
+          The data are observational (runners chose their mileage), so the slope cannot be read as a causal effect.
+      answer: 1
+    - slug: apstats-u05-w30-q02
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      stimulus: |
+        A coach records, for the 18 runners on a hypothetical cross-country team, the average number of miles each ran per week in training (x, from 5 to 40 miles) and the runner's time in a 5-kilometre race (y, in minutes). The scatterplot is linear, and the regression line is
+
+        predicted 5K time = 27.8 − 0.21 (weekly miles)
+      prompt: |
+        What is the predicted 5K time for a runner who trains 25 miles per week?
+      options:
+        - "33.05 minutes"
+        - "5.25 minutes"
+        - "27.59 minutes"
+        - "22.55 minutes"
+      option_explanations:
+        - |
+          This adds 0.21 × 25 = 5.25 instead of subtracting it; the slope is negative.
+        - |
+          5.25 is only the change from the intercept (0.21 × 25), not the predicted time.
+        - |
+          This subtracts 0.21 once instead of multiplying it by 25 miles.
+        - |
+          Correct. ŷ = 27.8 − 0.21(25) = 27.8 − 5.25 = 22.55 minutes.
+      answer: 3
+    - slug: apstats-u05-w30-q03
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      stimulus: |
+        A coach records, for the 18 runners on a hypothetical cross-country team, the average number of miles each ran per week in training (x, from 5 to 40 miles) and the runner's time in a 5-kilometre race (y, in minutes). The scatterplot is linear, and the regression line is
+
+        predicted 5K time = 27.8 − 0.21 (weekly miles)
+      prompt: |
+        Which statement about the y-intercept, 27.8, is best?
+      options:
+        - "It is the predicted 5K time for a runner who trains 0 miles per week, but no runner trained fewer than 5 miles, so this is an extrapolation."
+        - "It is the average 5K time of the 18 runners on the team."
+        - "It is the slowest 5K time recorded by any runner on the team."
+        - "It is the number of miles a runner must train to finish in 0 minutes."
+      option_explanations:
+        - |
+          Correct. The intercept is ŷ at x = 0, with the units of y (minutes). Because 0 miles lies outside the observed range of 5 to 40, the value is not supported by the data.
+        - |
+          The mean time ȳ is predicted at x̄, not at x = 0. The intercept equals ȳ only if x̄ = 0.
+        - |
+          The intercept is a predicted value from the line, not an observed time.
+        - |
+          The intercept has the units of y (minutes), and setting x = 0 does not give a time of 0.
+      answer: 0
+    - slug: apstats-u05-w30-q04
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      stimulus: |
+        A coach records, for the 18 runners on a hypothetical cross-country team, the average number of miles each ran per week in training (x, from 5 to 40 miles) and the runner's time in a 5-kilometre race (y, in minutes). The scatterplot is linear, and the regression line is
+
+        predicted 5K time = 27.8 − 0.21 (weekly miles)
+      prompt: |
+        A college runner trains 80 miles per week. The line predicts 27.8 − 0.21(80) = 11.0 minutes. What is the best comment?
+      options:
+        - "The prediction is reliable, because the scatterplot is linear."
+        - "The prediction is too high; the correct value uses 80 as the y-intercept."
+        - "80 miles is far outside the 5 to 40 miles in the data, so this is an extrapolation and should not be trusted (11 minutes would be a world record)."
+        - "The prediction is reliable as long as the correlation is close to −1."
+      option_explanations:
+        - |
+          Linearity was seen only between 5 and 40 miles. Nothing in the data shows whether the pattern continues to 80 miles.
+        - |
+          80 is the value of x, not the intercept; substituting it for x was the right arithmetic.
+        - |
+          Correct. Predicting far outside the observed x-values is extrapolation; times must level off well before 11 minutes for a 5K.
+        - |
+          Even a correlation near −1 describes only the observed range; it gives no protection against extrapolation.
+      answer: 2
+    # ---- Topic 5.3
+    - slug: apstats-u05-w30-q05
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      prompt: |
+        A regression of weekly grocery spending on household size gives ŷ = 42 + 31x. A household of 3 spent $158 last week. Which statement is correct?
+      options:
+        - "y = 135 for this household, because that is what the equation gives."
+        - "The household's spending is wrong, because it does not match the line."
+        - "For this household, ŷ = $135 is the predicted spending and y = $158 is the actual spending."
+        - "ŷ = $158 and y = $135 for this household."
+      option_explanations:
+        - |
+          The equation gives ŷ, the predicted value, not the observed y. The observed spending is $158.
+        - |
+          Real households scatter around the line; an observed value that differs from the prediction is normal, not an error.
+        - |
+          Correct. ŷ = 42 + 31(3) = 135 dollars is the model's prediction; the household's actual value y is $158.
+        - |
+          The labels are swapped: ŷ is what the line predicts ($135) and y is the observed value ($158).
+      answer: 2
+    - slug: apstats-u05-w30-q06
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      prompt: |
+        A regression line for predicted test score on hours of study predicts a score of 62 for 10 hours and a score of 74 for 14 hours. What is the slope of the line?
+      options:
+        - "12 points per hour"
+        - "3 points per hour"
+        - "0.33 points per hour"
+        - "6.2 points per hour"
+      option_explanations:
+        - |
+          12 is the change in predicted score, but it happened over 4 hours, not 1; divide by the change in x.
+        - |
+          Correct. b = (74 − 62)/(14 − 10) = 12/4 = 3 points per additional hour.
+        - |
+          This is change in x divided by change in y (4/12), which is upside down.
+        - |
+          This is 62/10, which treats the line as passing through the origin; the slope uses two points.
+      answer: 1
+    - slug: apstats-u05-w30-q07
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      prompt: |
+        A regression of shoe length (cm) on height (cm) for 50 hypothetical teenagers gives predicted shoe length = −3.6 + 0.17 (height). A detective finds a 26 cm shoe print and wants to estimate the wearer's height. What should she do?
+      options:
+        - "Solve 26 = −3.6 + 0.17 (height) for height."
+        - "Substitute 26 for height in the equation."
+        - "Use the slope 0.17 as the predicted height."
+        - "Fit a new regression line with shoe length as the explanatory variable and height as the response, then substitute 26."
+      option_explanations:
+        - |
+          The line was built to predict shoe length from height. Solving it backwards gives a different (and worse) prediction than the line of height on shoe length, unless r = ±1.
+        - |
+          26 cm is a shoe length, not a height; substituting it for height answers a different question entirely.
+        - |
+          The slope is a rate (cm of shoe per cm of height), not a height.
+        - |
+          Correct. To predict height, height must be the response. The regression of height on shoe length minimises errors in the height direction.
+      answer: 3
+    - slug: apstats-u05-w30-q08
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      prompt: |
+        For 30 hypothetical students, a regression of backpack weight (kg) on the number of textbooks carried gives ŷ = 1.3 + 0.95x. What does 0.95 represent?
+      options:
+        - "The predicted increase in backpack weight, 0.95 kg, for each additional textbook carried"
+        - "The predicted backpack weight, 0.95 kg, for a student carrying no textbooks"
+        - "The correlation between textbooks carried and backpack weight"
+        - "The average number of textbooks carried, 0.95"
+      option_explanations:
+        - |
+          Correct. The coefficient of x is the slope, in kilograms per textbook.
+        - |
+          That describes the y-intercept, which is 1.3 kg, not 0.95.
+        - |
+          A slope has units (kg per textbook) and is not r; they are equal only when both variables are standardized.
+        - |
+          0.95 is the coefficient of x, a rate of change, not a mean of x.
+      answer: 0
+    - slug: apstats-u05-w30-q09
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      prompt: |
+        A regression of a houseplant's height on its age used plants aged 2 to 12 months. For which age would a prediction from the line be an extrapolation?
+      options:
+        - "3 months"
+        - "11.5 months"
+        - "15 months"
+        - "7 months"
+      option_explanations:
+        - |
+          3 months lies inside the 2 to 12 month range, so this is interpolation.
+        - |
+          11.5 months is still inside the observed range, so this is interpolation.
+        - |
+          Correct. 15 months is outside the 2 to 12 month range of the data, so the line may not describe growth there.
+        - |
+          7 months is near the middle of the observed ages: interpolation.
+      answer: 2
+    # ---- Spiral review
+    - slug: apstats-u05-w30-q10
+      type: multiple_choice
+      topic_code: "5.2"
+      source: "AP Statistics CED, Topic 5.2"
+      points: 1
+      prompt: |
+        A student reports that the correlation between hours of daylight and electricity used for lighting in a hypothetical town is r = −1.12. What can you conclude?
+      options:
+        - "The association is extremely strong and negative."
+        - "The association is negative but weak, because r is far from 0."
+        - "The scatterplot must be curved."
+        - "The student made an error, because r must be between −1 and 1."
+      option_explanations:
+        - |
+          No association can be stronger than r = −1; a value beyond −1 is impossible, not extra strong.
+        - |
+          Values of r far from 0 indicate strong association; in any case, −1.12 is not a possible correlation.
+        - |
+          Curvature affects how well r summarises the data, but it cannot push r outside −1 to 1.
+        - |
+          Correct. r is an average of z-score products that always lies between −1 and 1, so −1.12 is a calculation or reporting error (perhaps the slope was reported).
+      answer: 3
+    - slug: apstats-u05-w30-q11
+      type: multiple_choice
+      topic_code: "5.1"
+      source: "AP Statistics CED, Topic 5.1"
+      points: 1
+      prompt: |
+        A town planner asks, "For homes in this town, does the size of a home in square feet help predict its monthly heating bill?" Which variable belongs on the horizontal axis of the scatterplot?
+      options:
+        - "Home size in square feet, because it is the explanatory variable"
+        - "Monthly heating bill, because it is the variable of interest"
+        - "Monthly heating bill, because it is measured in dollars"
+        - "The number of homes, because a scatterplot counts individuals"
+      option_explanations:
+        - |
+          Correct. Size is used to predict the bill, so size is explanatory and goes on the x-axis.
+        - |
+          The variable of interest that we want to predict is the response, which goes on the vertical axis.
+        - |
+          The units of a variable do not decide its axis; its role in the question does.
+        - |
+          A scatterplot shows one dot per home at (size, bill); it does not plot counts.
+      answer: 0
+    - slug: apstats-u05-w30-q12
+      type: multiple_choice
+      topic_code: "1.9"
+      source: "AP Statistics CED, Topic 1.9"
+      points: 1
+      prompt: |
+        Commute times (minutes) for random samples of students at two hypothetical schools have these five-number summaries. School North: 6, 14, 21, 27, 44. School South: 9, 18, 24, 35, 52. Which comparison is correct?
+      options:
+        - "North has the larger median and the larger IQR."
+        - "South has the larger median (24 versus 21 minutes) and the larger IQR (17 versus 13 minutes)."
+        - "The two schools have the same spread, because both ranges start below 10."
+        - "South's commutes are longer for every student, because its maximum is larger."
+      option_explanations:
+        - |
+          North's median (21) and IQR (27 − 14 = 13) are both smaller than South's.
+        - |
+          Correct. Medians are 21 and 24, and IQRs are 27 − 14 = 13 and 35 − 18 = 17, so South is higher in centre and more variable.
+        - |
+          The minimums say nothing about spread on their own; the IQRs (13 and 17) and ranges (38 and 43) differ.
+        - |
+          Summaries describe distributions, not every individual; many North students have longer commutes than many South students.
+      answer: 1
+    - slug: apstats-u05-w30-q13
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      prompt: |
+        In a random sample of 160 students at a large school, 112 say they run at least once a week. Which is the 95% confidence interval for the proportion of all students at the school who run at least once a week?
+      options:
+        - "0.70 ± 0.036"
+        - "0.70 ± 0.060"
+        - "0.70 ± 0.071"
+        - "0.70 ± 0.093"
+      option_explanations:
+        - |
+          0.036 is the standard error √(0.70 × 0.30/160) without multiplying by z* = 1.96.
+        - |
+          This uses z* = 1.645, the critical value for 90% confidence, not 95%.
+        - |
+          Correct. p̂ = 112/160 = 0.70 and the margin of error is 1.96 √(0.70 × 0.30/160) = 1.96 × 0.0362 = 0.071 (conditions: random sample, 160 < 10% of a large school, 112 and 48 successes and failures are both at least 10).
+        - |
+          This uses z* = 2.576, the critical value for 99% confidence.
+      answer: 2
+    # ---- Mixed formats
+    - slug: apstats-u05-w30-q14
+      type: multi_select
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      partial_credit: true
+      prompt: |
+        For 40 hypothetical students aged 12 to 18, a regression of the number of push-ups completed in one minute on age in years gives ŷ = −8.0 + 2.5x. Which statements are correct? Select all that apply.
+      options:
+        - "For each additional year of age, the predicted number of push-ups increases by 2.5."
+        - "The y-intercept has no practical meaning, because age 0 is far outside the data and a negative count is impossible."
+        - "The predicted number of push-ups for a 16-year-old is 32."
+        - "Using the line for a 30-year-old would be an extrapolation."
+        - "A 16-year-old who completed 35 push-ups must have been measured incorrectly."
+      option_explanations:
+        - |
+          Correct. The slope 2.5 is in push-ups per year, and the interpretation uses "predicted".
+        - |
+          Correct. ŷ at age 0 is −8 push-ups, an impossible value for an age far outside 12 to 18.
+        - |
+          Correct. ŷ = −8.0 + 2.5(16) = −8.0 + 40 = 32 push-ups.
+        - |
+          Correct. 30 is outside the 12 to 18 year range used to fit the line.
+        - |
+          Individual students scatter around the line; an actual value 3 above the prediction is perfectly ordinary.
+      answer: [0, 1, 2, 3]
+    - slug: apstats-u05-w30-q15
+      type: multi_select
+      topic_code: "1.12"
+      source: "AP Statistics CED, Topic 1.12"
+      points: 1
+      partial_credit: true
+      prompt: |
+        To study students' weekly running mileage, a coach collects data in several ways. Which methods are likely to produce biased estimates of the mean mileage of all students at the school? Select all that apply.
+      options:
+        - "Asking only the members of the cross-country team"
+        - "Posting an online survey and using whoever chooses to respond"
+        - "Choosing 80 students at random from the school roster and getting responses from all of them"
+        - "Asking students in a loud hallway, \"You run at least a few miles a week, right?\""
+      option_explanations:
+        - |
+          Correct. This is undercoverage (or a convenience sample): team members run far more than typical students, so the mean would be too high.
+        - |
+          Correct. Voluntary response: students who run are more likely to bother responding, which biases the estimate upward.
+        - |
+          A simple random sample with full response is unbiased; it has sampling variability but no systematic error.
+        - |
+          Correct. The leading wording invites students to agree, which is response bias.
+      answer: [0, 1, 3]
+    - slug: apstats-u05-w30-q16
+      type: true_false
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      prompt: |
+        True or false: The y-intercept of a regression line always has a meaningful interpretation in context, because it is the predicted response when x = 0.
+      answer: false
+      explanation: |
+        False. The intercept is always the predicted value at x = 0, but if x = 0 is impossible or far outside the observed x-values (a 0-inch pizza, a 0-year-old asking for an allowance), that prediction is an extrapolation with no practical meaning.
+    - slug: apstats-u05-w30-q17
+      type: true_false
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      prompt: |
+        True or false: Weekly running mileage for students at a school is strongly right-skewed. By the Central Limit Theorem, the sampling distribution of the sample mean for random samples of 60 students is approximately Normal.
+      answer: true
+      explanation: |
+        True. The Central Limit Theorem says that for a large enough sample size (n ≥ 30 is the usual guide), the sampling distribution of x̄ is approximately Normal whatever the shape of the population. The population itself stays skewed; only the distribution of sample means becomes Normal.
+    - slug: apstats-u05-w30-q18
+      type: fill_blank
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      prompt: |
+        A regression of a reading-test score on the number of books read over the summer is ŷ = 12.5 + 0.8x. For a student who read 40 books, the predicted score is ____.
+      answer: ["44.5", "44.50"]
+      explanation: |
+        ŷ = 12.5 + 0.8(40) = 12.5 + 32 = 44.5.
+    - slug: apstats-u05-w30-q19
+      type: fill_blank
+      topic_code: "2.6"
+      source: "AP Statistics CED, Topic 2.6"
+      points: 1
+      prompt: |
+        At a hypothetical school, 48 of the 120 students surveyed ride the bus, and 12 of the bus riders were late at least once last month. For a randomly chosen student from this survey, P(late at least once | rides the bus) = ____ (as a decimal).
+      answer: ["0.25", ".25", "1/4", "25%"]
+      explanation: |
+        Condition on bus riders: 12 of the 48 bus riders were late, so P(late | bus) = 12/48 = 0.25. (Dividing by 120 would give P(late and bus) = 0.10 instead.)
+    - slug: apstats-u05-w30-q20
+      type: numeric
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      prompt: |
+        At a hypothetical garden shop, a regression of a houseplant's price in dollars on its height in inches (heights 6 to 30 inches) gives ŷ = 3.85 + 0.62x. Find the predicted price of a 12.5-inch plant, in dollars, to the nearest cent.
+      answer: { value: 11.60, tolerance: 0.006 }
+      explanation: |
+        ŷ = 3.85 + 0.62(12.5) = 3.85 + 7.75 = 11.60 dollars. 12.5 inches is inside the 6 to 30 inch range, so this is interpolation.
+    - slug: apstats-u05-w30-q21
+      type: numeric
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 1
+      prompt: |
+        A random sample of 25 students at a school reports a mean of 7.1 hours of sleep per school night with standard deviation 1.3 hours, and the sample data show no strong skew or outliers. Find the upper endpoint of the 95% one-sample t-interval for the mean hours of sleep of all students at the school. Give your answer to three decimal places.
+      answer: { value: 7.637, tolerance: 0.002 }
+      explanation: |
+        df = 24, t* = 2.064. Margin of error = 2.064 × 1.3/√25 = 2.064 × 0.26 = 0.537. Upper endpoint = 7.1 + 0.537 = 7.637 hours (interval 6.563 to 7.637).
+    - slug: apstats-u05-w30-q22
+      type: short_answer
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 3
+      prompt: |
+        A hypothetical school records the daily heating cost of its gym (dollars) and the outdoor high temperature (°F) on 40 winter and spring days with highs from 20°F to 75°F. The regression line is
+
+        predicted heating cost = 68.5 − 0.86 (temperature)
+
+        (a) Interpret the slope in context.
+        (b) Interpret the y-intercept in context, and say whether the data support it.
+        (c) A colleague uses the line to predict the heating cost on a 90°F day. Compute the prediction and comment on it.
+      answer: |
+        (a) For each additional degree Fahrenheit of outdoor high temperature, the predicted daily heating cost decreases by $0.86.
+        (b) On a day with an outdoor high of 0°F, the predicted heating cost is $68.50. 0°F is outside the observed range of 20°F to 75°F, so this is an extrapolation and the data do not directly support it.
+        (c) ŷ = 68.5 − 0.86(90) = −8.90 dollars. A negative cost is impossible; 90°F is outside the range of the data (heating cost cannot fall below 0, so the pattern must level off), so this extrapolation is not trustworthy.
+      explanation: |
+        Three points, one per part. (a) slope with "predicted", the direction (decreases), units (dollars per degree) and context. (b) intercept as the predicted cost at 0°F, with the comment that 0°F is outside the data. (c) −$8.90 (or −8.9) and the comment that it is an extrapolation outside 20 to 75°F; just saying "negative" without naming extrapolation earns no point.
+    - slug: apstats-u05-w30-q23
+      type: short_answer
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 3
+      prompt: |
+        A school will install more bike racks if there is convincing evidence that more than 15% of its students bike to school. It tests H₀: p = 0.15 against Hₐ: p > 0.15, where p is the proportion of all students at the school who bike to school, using a random sample.
+
+        (a) Describe a Type I error in context, and its consequence.
+        (b) Describe a Type II error in context, and its consequence.
+        (c) Name one way the school could reduce the probability of a Type II error.
+      answer: |
+        (a) A Type I error would be concluding that more than 15% of students bike when in fact the true proportion is 0.15. The school would spend money on racks that are not needed.
+        (b) A Type II error would be failing to find convincing evidence that more than 15% bike when the true proportion really is greater than 0.15. The school would not install racks, and bikes would be crowded or locked to fences.
+        (c) Take a larger random sample (or use a larger α, which raises the Type I error risk).
+      explanation: |
+        Three points, one per part. (a) rejecting H₀ when p = 0.15 is true, in context, with a consequence. (b) failing to reject H₀ when p > 0.15 is true, in context, with a consequence. (c) increase the sample size (or increase α, acknowledging the trade-off). Do not award (a) or (b) for answers that only restate "reject a true null" without context.
+    - slug: apstats-u05-w30-q24
+      type: long_answer
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 6
+      prompt: |
+        An English teacher records, for 8 hypothetical book reports, the length in pages and the number of minutes she needed to grade it.
+
+        | Pages | 2 | 3 | 4 | 5 | 6 | 8 | 9 | 10 |
+        |---|---|---|---|---|---|---|---|---|
+        | Minutes to grade | 7 | 9 | 10 | 13 | 14 | 17 | 20 | 21 |
+
+        The scatterplot shows a strong, positive, linear pattern.
+
+        (A) Use technology to find the equation of the regression line for predicting grading time from pages. Define any variables you use.
+        (B) Interpret the slope of the line in context.
+        (C) Interpret the y-intercept in context. Does it have a sensible meaning here? Explain.
+        (D) Predict the grading time for a 7-page report and for a 30-page report. Which prediction is more trustworthy? Explain.
+      answer: |
+        (A) predicted minutes = 3.51 + 1.764 (pages), where pages is the length of the report and predicted minutes is the predicted grading time. (Technology: a = 3.5096, b = 1.7643.)
+        (B) For each additional page in a report, the predicted grading time increases by about 1.76 minutes.
+        (C) For a report with 0 pages, the predicted grading time is about 3.5 minutes. It has a loose meaning (fixed time to read the rubric and enter the grade), but no report had fewer than 2 pages, so 0 pages is outside the data and the value is an extrapolation.
+        (D) 7 pages: 3.51 + 1.764(7) ≈ 15.9 minutes. 30 pages: 3.51 + 1.764(30) ≈ 56.4 minutes. The 7-page prediction is more trustworthy: 7 is inside the observed 2 to 10 page range (interpolation), while 30 is far outside it (extrapolation), where grading time might grow differently.
+      explanation: |
+        Six points. (A) 2 points: 1 for a ≈ 3.51 and b ≈ 1.76 (accept 3.5 and 1.76 or better), 1 for ŷ or "predicted" with both variables defined in context. (B) 1 point: "predicted", increase of about 1.76 minutes per additional page, context. (C) 1 point: the predicted time at 0 pages, with a comment that 0 pages is outside the data (an answer that says it has a reasonable meaning as fixed overhead also earns the point if it notes x = 0 was not observed). (D) 2 points: 1 for both predictions (about 15.9 and 56.4 minutes), 1 for choosing 7 pages with interpolation versus extrapolation explained.

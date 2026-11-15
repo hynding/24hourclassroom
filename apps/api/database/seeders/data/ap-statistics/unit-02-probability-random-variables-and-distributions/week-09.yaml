@@ -1,0 +1,606 @@
+week: 9
+unit: 2
+title: "Simulation and the Language of Probability"
+topics: ["2.3", "2.4"]
+guide: guides/week-09.md
+guide_description: |
+  Probability as long-run relative frequency and the law of large numbers (and the gambler's fallacy it does
+  not support); sample spaces, equally likely outcomes, valid probability models and the complement rule; the
+  four parts of a complete simulation (model, trial, repeat, estimate), matching digits to probabilities and
+  skipping repeats when sampling without replacement; and using simulation to judge whether a result is
+  surprising under a claimed model. Worked examples: sums and "at least one six" with two dice, a household pet
+  model with a missing probability, a free-throw simulation from a line of random digits, and whether five
+  senior presenters in a row suggest an unfair draw.
+flashcards_description: |
+  30 cards on long-run relative frequency, the law of large numbers, sample spaces, valid probability models,
+  the complement rule, designing and describing simulations, and using simulated results to judge whether an
+  outcome is surprising.
+
+flashcards:
+  - front: Probability of an event → long-run relative frequency meaning
+    back: |
+      The proportion of times the event would occur in a very long series of repetitions of the same random process.
+    topic_code: "2.4"
+  - front: Law of large numbers → what it says
+    back: |
+      As a random process is repeated more and more times, the relative frequency of an event gets closer to its true probability.
+    topic_code: "2.3"
+  - front: Law of large numbers → what it does not say
+    back: |
+      It does not say outcomes balance out in the short run. A fair coin that just landed heads five times still has P(heads) = 0.5 next toss.
+    topic_code: "2.3"
+  - front: Gambler's fallacy → definition
+    back: |
+      Believing an outcome is "due" because it has not happened lately. Independent random outcomes have no memory.
+    topic_code: "2.4"
+  - front: "Weather app's \"30% chance of rain\" → correct interpretation"
+    back: |
+      On many days with conditions like these, it rains on about 30% of them. It is not a prediction that it will rain 30% of the day.
+    topic_code: "2.4"
+  - front: Sample space → definition
+    back: |
+      The list of all possible outcomes of a random process, such as the 36 ordered pairs for two dice.
+    topic_code: "2.4"
+  - front: Event → definition
+    back: |
+      Any collection of outcomes from the sample space, such as "the sum of two dice is 8".
+    topic_code: "2.4"
+  - front: Equally likely outcomes → formula for P(A)
+    back: |
+      P(A) = number of outcomes in A ÷ number of outcomes in the sample space.
+    topic_code: "2.4"
+  - front: Valid probability model → the two rules
+    back: |
+      Every probability is between 0 and 1 inclusive, and the probabilities of all outcomes in the sample space add to exactly 1.
+    topic_code: "2.4"
+  - front: Complement rule → formula
+    back: |
+      P(Aᶜ) = 1 − P(A), where Aᶜ is the event that A does not happen.
+    topic_code: "2.4"
+  - front: Two fair dice → P(sum is 8)
+    back: |
+      5/36 ≈ 0.139: (2, 6), (3, 5), (4, 4), (5, 3), (6, 2) out of 36 equally likely ordered pairs.
+    topic_code: "2.4"
+  - front: Two fair dice → P(at least one six) by the complement
+    back: |
+      No six happens in 5 × 5 = 25 of the 36 pairs, so P(at least one six) = 1 − 25/36 = 11/36 ≈ 0.306.
+    topic_code: "2.4"
+  - front: "\"At least one\" probabilities → the usual shortcut"
+    back: |
+      Find the probability of "none" and subtract it from 1.
+    topic_code: "2.4"
+  - front: Household pet model (none 0.38, dog 0.29, cat 0.21) → P(other) and P(some pet)
+    back: |
+      P(other) = 1 − 0.88 = 0.12. P(some pet) = 1 − 0.38 = 0.62.
+    topic_code: "2.4"
+  - front: Simulation → the four parts of a complete description
+    back: |
+      (1) Model: which digits stand for which outcome, with assumptions. (2) Trial: how many digits, repeats or not, what is recorded. (3) Repeat many times. (4) Estimate: proportion of trials with the event.
+    topic_code: "2.3"
+  - front: Simulating an outcome with probability 0.7 → digit assignment
+    back: |
+      One random digit: 0–6 = success (7 of 10 digits), 7–9 = failure.
+    topic_code: "2.3"
+  - front: Simulating an outcome with probability 0.15 → digit assignment
+    back: |
+      Pairs of digits: 00–14 = success (15 of 100 pairs), 15–99 = failure. Single digits cannot give 0.15.
+    topic_code: "2.3"
+  - front: Simulating draws without replacement (names, committees, cards) → rule for repeated labels
+    back: |
+      Skip a label that has already appeared in the trial, and skip labels that stand for no one (such as 00 and 25–99 for 24 students).
+    topic_code: "2.3"
+  - front: Simulation trial → what it must end with
+    back: |
+      One recorded result, such as "the count of makes" or "yes, all five were seniors", that can be tallied across trials.
+    topic_code: "2.3"
+  - front: Estimated probability from a simulation → formula
+    back: |
+      Number of trials in which the event occurred ÷ total number of trials.
+    topic_code: "2.3"
+  - front: Free-throw simulation (70% shooter, 5 shots) → estimate from 531 of 1,000 trials
+    back: |
+      531/1,000 ≈ 0.53 for at least 4 makes, close to the exact value of about 0.528.
+    topic_code: "2.3"
+  - front: More simulated trials → effect on the estimate
+    back: |
+      The estimate tends to be closer to the true probability (law of large numbers); it varies less from one simulation to another.
+    topic_code: "2.3"
+  - front: Using a simulation to judge a claim → the logic
+    back: |
+      Assume the claim is true, simulate, and see how often a result at least as extreme as the observed one occurs. Rare → evidence against the claim; common → chance is a plausible explanation.
+    topic_code: "2.3"
+  - front: Presentation draw (8 juniors, 16 seniors) → conclusion from 98 of 1,000 trials with five seniors
+    back: |
+      About a 10% chance under random drawing: not unusual, so no convincing evidence that the teacher favours seniors.
+    topic_code: "2.3"
+  - front: Simulated result in fewer than about 5% of trials → usual reading
+    back: |
+      Surprising enough under the claimed model to count as convincing evidence against that model.
+    topic_code: "2.3"
+  - front: "\"Not surprising\" result in a simulation → what it does and does not show"
+    back: |
+      Chance alone could explain the result, so there is no convincing evidence against the claim. It does not prove the claim is true.
+    topic_code: "2.3"
+  - front: Assumptions to state when simulating repeated attempts (shots, flights, games) → the usual one
+    back: |
+      That the attempts are independent and the probability of success stays the same from attempt to attempt.
+    topic_code: "2.3"
+  - front: Error-spot → "for probability 0.15, let 00–15 be success"
+    back: |
+      00–15 is 16 pairs out of 100, giving 0.16. Use 00–14 (or any 15 pairs).
+    topic_code: "2.3"
+  - front: Error-spot → "P(at least one six in two rolls) = 1/6 + 1/6 = 1/3"
+    back: |
+      Adding counts (6, 6) twice. Count directly or use the complement: 1 − 25/36 = 11/36.
+    topic_code: "2.4"
+  - front: Error-spot → "the simulation found the result in 30% of trials, so the claim is proven true"
+    back: |
+      A common result only fails to give evidence against the claim; simulation cannot prove a claim.
+    topic_code: "2.3"
+
+quiz:
+  description: |
+    22 questions · about 40 minutes · mostly on this week (topics 2.3 and 2.4: designing and reading simulations,
+    the law of large numbers, sample spaces, probability models and the complement rule), with 7 questions (32%)
+    reviewing weeks 6 to 8 (two-way tables and association, experimental design, sampling bias and observational
+    studies). Opens with a shared-context set on one simulation. Multiple choice, select-all, true/false and
+    numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and
+    the long answer are graded by your teacher against the scoring notes. Calculators are allowed.
+  questions:
+    # ---- Stimulus set: simulating a lunch-from-home claim (2.3)
+    - slug: apstats-u02-w09-q01
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "AP Statistics CED, Topic 2.3"
+      points: 1
+      stimulus: |
+        A hypothetical large high school claims that 40% of its students bring lunch from home. Maya surveys a random sample of 20 students and finds that only 3 bring lunch from home. To see whether this is surprising, she simulates: each random digit is one student, with 0–3 = brings lunch and 4–9 = does not. She reads 20 digits, records how many students bring lunch, and repeats this 200 times.
+
+        | Number who bring lunch | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |
+        |---|---|---|---|---|---|---|---|---|---|---|---|---|
+        | Number of trials | 4 | 3 | 12 | 23 | 34 | 37 | 32 | 29 | 16 | 4 | 5 | 1 |
+
+        No trial gave fewer than 3 or more than 14.
+      prompt: |
+        In Maya's simulation, what does one trial represent?
+      options:
+        - "One student, who either brings lunch or does not"
+        - "One random sample of 20 students, assuming 40% of all students bring lunch"
+        - "The 200 repetitions taken together"
+        - "One sample of 20 students in which exactly 3 bring lunch"
+      option_explanations:
+        - |
+          A single digit models one student; a trial is a complete repetition of the sampling process, which takes 20 digits.
+        - |
+          Correct. One trial reads 20 digits, imitating one random sample of 20 students from a school where the claim (40%) is true, and records the count who bring lunch.
+        - |
+          The 200 repetitions make up the whole simulation; each one of them is a trial.
+        - |
+          A trial imitates the process under the claim, so its count varies; only some trials happen to give exactly 3.
+      answer: 1
+    - slug: apstats-u02-w09-q02
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "AP Statistics CED, Topic 2.3"
+      points: 1
+      stimulus: |
+        A hypothetical large high school claims that 40% of its students bring lunch from home. Maya surveys a random sample of 20 students and finds that only 3 bring lunch from home. To see whether this is surprising, she simulates: each random digit is one student, with 0–3 = brings lunch and 4–9 = does not. She reads 20 digits, records how many students bring lunch, and repeats this 200 times.
+
+        | Number who bring lunch | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |
+        |---|---|---|---|---|---|---|---|---|---|---|---|---|
+        | Number of trials | 4 | 3 | 12 | 23 | 34 | 37 | 32 | 29 | 16 | 4 | 5 | 1 |
+
+        No trial gave fewer than 3 or more than 14.
+      prompt: |
+        Based on the simulation, what is the estimated probability that a random sample of 20 students would include 3 or fewer who bring lunch, if the school's claim is true?
+      options:
+        - "0.15"
+        - "0.035"
+        - "0.02"
+        - "0.40"
+      option_explanations:
+        - |
+          3/20 = 0.15 is Maya's sample proportion, not the proportion of simulated trials at least as extreme as her result.
+        - |
+          (4 + 3)/200 = 0.035 counts trials with 4 or fewer; the event is 3 or fewer.
+        - |
+          Correct. Only the 4 trials at 3 had 3 or fewer students bringing lunch, so the estimate is 4/200 = 0.02.
+        - |
+          0.40 is the claimed population proportion used to build the simulation, not the probability of a result this low.
+      answer: 2
+    - slug: apstats-u02-w09-q03
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "AP Statistics CED, Topic 2.3"
+      points: 1
+      stimulus: |
+        A hypothetical large high school claims that 40% of its students bring lunch from home. Maya surveys a random sample of 20 students and finds that only 3 bring lunch from home. To see whether this is surprising, she simulates: each random digit is one student, with 0–3 = brings lunch and 4–9 = does not. She reads 20 digits, records how many students bring lunch, and repeats this 200 times.
+
+        | Number who bring lunch | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |
+        |---|---|---|---|---|---|---|---|---|---|---|---|---|
+        | Number of trials | 4 | 3 | 12 | 23 | 34 | 37 | 32 | 29 | 16 | 4 | 5 | 1 |
+
+        No trial gave fewer than 3 or more than 14.
+      prompt: |
+        Which conclusion is best supported by the simulation?
+      options:
+        - "A result as low as Maya's happened in only about 2% of samples under the claim, so her sample gives convincing evidence that fewer than 40% of the school's students bring lunch."
+        - "Maya's result occurred in the simulation, so it is consistent with the claim and gives no evidence against it."
+        - "The simulation proves that exactly 15% of the school's students bring lunch from home."
+        - "Because 8 was the most common simulated count, the true percent who bring lunch must be 40%."
+      option_explanations:
+        - |
+          Correct. Assuming 40% is true, 3 or fewer occurred in 4 of 200 trials (about 0.02). That is rare, so chance alone is not a plausible explanation and the data are convincing evidence against the claim.
+        - |
+          The question is not whether the result can happen but how often; a result that occurs only about 2% of the time is surprising under the claim.
+        - |
+          A simulation built on the 40% claim cannot prove any value; 3/20 = 0.15 is only Maya's sample proportion.
+        - |
+          The simulated counts center near 8 because the simulation assumed 40%; that says nothing about whether 40% is the truth.
+      answer: 0
+    - slug: apstats-u02-w09-q04
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "AP Statistics CED, Topic 2.3"
+      points: 1
+      stimulus: |
+        A hypothetical large high school claims that 40% of its students bring lunch from home. Maya surveys a random sample of 20 students and finds that only 3 bring lunch from home. To see whether this is surprising, she simulates: each random digit is one student, with 0–3 = brings lunch and 4–9 = does not. She reads 20 digits, records how many students bring lunch, and repeats this 200 times.
+
+        | Number who bring lunch | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |
+        |---|---|---|---|---|---|---|---|---|---|---|---|---|
+        | Number of trials | 4 | 3 | 12 | 23 | 34 | 37 | 32 | 29 | 16 | 4 | 5 | 1 |
+
+        No trial gave fewer than 3 or more than 14.
+      prompt: |
+        Why did Maya assign the digits 0–3 to "brings lunch"?
+      options:
+        - "Because 3 students in her sample brought lunch"
+        - "Because digits 0–3 come up less often in random digit tables"
+        - "Because her sample proportion was close to 0.30"
+        - "Because four of the ten equally likely digits gives probability 0.40, matching the school's claim"
+      option_explanations:
+        - |
+          The observed count is what the simulation is compared against; it must not be built into the model, or the simulation would assume the answer.
+        - |
+          In a random digit table each digit 0–9 is equally likely, with probability 0.1; no digit is rarer than another.
+        - |
+          Her sample proportion was 0.15, and the model must reflect the claim being tested, not the sample.
+        - |
+          Correct. Each digit has probability 0.1, so four digits (0, 1, 2, 3) give 0.40: the simulation imitates sampling from a school where the claim is true.
+      answer: 3
+    # ---- Independent items
+    - slug: apstats-u02-w09-q05
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "AP Statistics CED, Topic 2.3"
+      points: 1
+      prompt: |
+        A spinner at a hypothetical school fair lands on "prize" with probability 0.25. Which statement about spinning it many times is true?
+      options:
+        - "In every 4 spins there will be exactly one prize."
+        - "After 6 spins without a prize, a prize becomes more likely on the next spin."
+        - "As the number of spins grows, the proportion of prizes will get closer to 0.25."
+        - "After 1,000 spins the number of prizes will be exactly 250."
+      option_explanations:
+        - |
+          Probability describes the long run, not each small group of spins; four spins can easily produce zero or two prizes.
+        - |
+          This is the gambler's fallacy: each spin is independent of earlier spins, so the probability stays 0.25.
+        - |
+          Correct. By the law of large numbers, the relative frequency of prizes approaches the probability 0.25 as the spins accumulate.
+        - |
+          The proportion will be close to 0.25, but the count will vary around 250; exactly 250 is not guaranteed.
+      answer: 2
+    - slug: apstats-u02-w09-q06
+      type: multiple_choice
+      topic_code: "2.3"
+      source: "AP Statistics CED, Topic 2.3"
+      points: 1
+      prompt: |
+        In a hypothetical town, 15% of drivers use a toll-road pass. Which assignment of random digits correctly simulates whether one randomly chosen driver uses a pass?
+      options:
+        - "Single digits: 0 and 1 = uses a pass; 2–9 = does not."
+        - "Pairs of digits: 00–14 = uses a pass; 15–99 = does not."
+        - "Pairs of digits: 00–15 = uses a pass; 16–99 = does not."
+        - "Pairs of digits: 00–14 = uses a pass; 15–99 = does not, skipping any pair already used in the trial."
+      option_explanations:
+        - |
+          Two of ten digits gives a probability of 0.20, not 0.15; single digits can only produce multiples of 0.1.
+        - |
+          Correct. 00–14 is 15 of the 100 equally likely pairs, so each driver uses a pass with probability 0.15.
+        - |
+          00–15 is 16 pairs, which gives a probability of 0.16, not 0.15.
+        - |
+          Skipping repeats imitates sampling without replacement from 100 labels and changes the probabilities; drivers from a large town should be modelled independently.
+      answer: 1
+    - slug: apstats-u02-w09-q07
+      type: multiple_choice
+      topic_code: "2.4"
+      source: "AP Statistics CED, Topic 2.4"
+      points: 1
+      prompt: |
+        A probability model for the number of AP courses taken by a randomly chosen senior at a hypothetical school is: 0 courses 0.22, 1 course 0.18, 2 courses 0.25, 3 courses 0.20, 4 or more courses (missing). What is the probability that a randomly chosen senior takes at least one AP course?
+      options:
+        - "0.15"
+        - "0.63"
+        - "0.18"
+        - "0.78"
+      option_explanations:
+        - |
+          0.15 is the missing probability for 4 or more courses, only part of "at least one".
+        - |
+          0.18 + 0.25 + 0.20 = 0.63 leaves out the 4-or-more category, whose probability is 0.15.
+        - |
+          0.18 is the probability of exactly one course; "at least one" includes 1, 2, 3 and 4 or more.
+        - |
+          Correct. By the complement rule, P(at least one) = 1 − P(0) = 1 − 0.22 = 0.78.
+      answer: 3
+    - slug: apstats-u02-w09-q08
+      type: multiple_choice
+      topic_code: "2.4"
+      source: "AP Statistics CED, Topic 2.4"
+      points: 1
+      prompt: |
+        A hypothetical study finds that the probability a randomly chosen bus on a city route arrives more than 5 minutes late is 0.2. What is the best interpretation of this probability?
+      options:
+        - "Over many, many bus arrivals on this route, about 20% arrive more than 5 minutes late."
+        - "Out of the next 5 buses, exactly 1 will arrive more than 5 minutes late."
+        - "Each bus is late for about 20% of its route."
+        - "If the last four buses were on time, the next one will almost certainly be late."
+      option_explanations:
+        - |
+          Correct. A probability is a long-run relative frequency: over a very large number of arrivals, about 20% are more than 5 minutes late.
+        - |
+          Probability does not guarantee a fixed count in a small number of trials; 5 buses could include 0, 1, 2 or more late arrivals.
+        - |
+          The probability refers to the proportion of buses that are late, not the fraction of a route that one bus spends late.
+        - |
+          This is the gambler's fallacy; on-time buses do not make a late one "due".
+      answer: 0
+    - slug: apstats-u02-w09-q09
+      type: multiple_choice
+      topic_code: "2.4"
+      source: "AP Statistics CED, Topic 2.4"
+      points: 1
+      prompt: |
+        A hypothetical student council vote has three possible outcomes for each member: yes, no or abstain. Which assignment could be a valid probability model for one randomly chosen member's vote?
+      options:
+        - "Yes 0.50, no 0.40, abstain 0.20"
+        - "Yes 0.60, no 0.50, abstain −0.10"
+        - "Yes 0.45, no 0.35, abstain 0.20"
+        - "Yes 0.30, no 0.30, abstain 0.30"
+      option_explanations:
+        - |
+          These add to 1.10; the probabilities of all outcomes in a model must add to exactly 1.
+        - |
+          These add to 1, but a probability can never be negative.
+        - |
+          Correct. Each value is between 0 and 1, and 0.45 + 0.35 + 0.20 = 1.
+        - |
+          These add to only 0.90, so 10% of the probability is unaccounted for.
+      answer: 2
+    - slug: apstats-u02-w09-q10
+      type: multiple_choice
+      topic_code: "2.1"
+      source: "AP Statistics CED, Topic 2.1"
+      points: 1
+      prompt: |
+        In a hypothetical survey of 200 students, 64 of the 110 juniors and 30 of the 90 seniors have a learner's driving permit. Among the students with a permit, what proportion are juniors?
+      options:
+        - "0.582"
+        - "0.681"
+        - "0.320"
+        - "0.470"
+      option_explanations:
+        - |
+          64/110 ≈ 0.582 is the proportion of juniors who have a permit, the reversed conditional.
+        - |
+          Correct. 64 + 30 = 94 students have a permit, and 64 of them are juniors: 64/94 ≈ 0.681.
+        - |
+          64/200 = 0.320 is the joint relative frequency of "junior with a permit" out of all students.
+        - |
+          94/200 = 0.470 is the marginal proportion of all students who have a permit.
+      answer: 1
+    - slug: apstats-u02-w09-q11
+      type: multiple_choice
+      topic_code: "2.2"
+      source: "AP Statistics CED, Topic 2.2"
+      points: 1
+      prompt: |
+        A segmented bar chart shows how students at three hypothetical schools get to school (bus, car, bike). At each school the bike segment is 12% of the bar, the car segment is 38% and the bus segment is 50%. The schools have 400, 900 and 1,500 students. What does the chart show?
+      options:
+        - "School and travel mode are associated, because the schools have different numbers of students."
+        - "The largest school has the most bike riders, so it is the most bike-friendly."
+        - "Travel mode is associated with school, because bus is the most common mode."
+        - "There is no association between school and travel mode in these data."
+      option_explanations:
+        - |
+          Different school sizes do not create an association; association depends on whether the conditional distributions differ.
+        - |
+          The largest school has the most bike riders only because it has the most students; the proportion who bike is the same, 12%, everywhere.
+        - |
+          Bus being most common describes each distribution, but it is most common at every school in the same proportion, which shows no association.
+        - |
+          Correct. The conditional distribution of travel mode (50% bus, 38% car, 12% bike) is identical at all three schools, so the variables are not associated.
+      answer: 3
+    - slug: apstats-u02-w09-q12
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "AP Statistics CED, Topic 1.13"
+      points: 1
+      prompt: |
+        A hypothetical teacher wants to test whether a vocabulary app improves quiz scores more than flashcards. Her 60 volunteers include 30 ninth graders and 30 eleventh graders, and she expects eleventh graders to score higher regardless of method. Which design is best?
+      options:
+        - "Randomly assign 15 ninth graders and 15 eleventh graders to each method, and compare methods within each grade."
+        - "Let each student choose the method they prefer, then compare average scores."
+        - "Assign the app to all ninth graders and flashcards to all eleventh graders."
+        - "Randomly assign 30 students to each method, then compare only the eleventh graders."
+      option_explanations:
+        - |
+          Correct. This is a randomized block design with grade as the blocking variable: it removes the expected grade difference from the comparison of methods.
+        - |
+          With self-selection, students who pick the app may differ in motivation, which is confounded with the method.
+        - |
+          Grade would be confounded with method, so a difference in scores could be caused by grade rather than the app.
+        - |
+          Random assignment is good, but dropping the ninth graders throws away half the data and the blocking benefit.
+      answer: 0
+    - slug: apstats-u02-w09-q13
+      type: multi_select
+      topic_code: "2.4"
+      source: "AP Statistics CED, Topic 2.4"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A game has players toss a fair coin and roll a fair four-sided die numbered 1 to 4. Which statements are true? Select all that apply.
+      options:
+        - "The sample space has 8 equally likely outcomes."
+        - "P(heads and an even number) = 2/8 = 0.25"
+        - "P(tails or a 4) = 1/2 + 1/4 = 0.75"
+        - "P(not rolling a 1) = 3/4"
+        - "Heads and tails are not equally likely, because there are more die faces than coin faces."
+      option_explanations:
+        - |
+          Correct. Two coin outcomes times four die outcomes gives 8 equally likely pairs, H1 to H4 and T1 to T4.
+        - |
+          Correct. H2 and H4 are the outcomes in the event, 2 of the 8.
+        - |
+          Adding counts T4 twice. The outcomes are T1, T2, T3, T4 and H4, so the probability is 5/8 = 0.625.
+        - |
+          Correct. By the complement rule, 1 − 1/4 = 3/4.
+        - |
+          The coin is fair, so heads and tails each have probability 1/2 whatever the die does.
+      answer: [0, 1, 3]
+    - slug: apstats-u02-w09-q14
+      type: multi_select
+      topic_code: "1.12"
+      source: "AP Statistics CED, Topic 1.12"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A hypothetical city wants to estimate the proportion of residents who support a new skate park. Which features of a survey could bias the estimate? Select all that apply.
+      options:
+        - "Asking \"Don't you agree the city's teens deserve a safe place to skate?\""
+        - "Choosing 1,500 residents with a random number generator instead of 500"
+        - "40% of the randomly selected residents never respond to the survey."
+        - "Surveying only people at the existing skate shop downtown"
+        - "Selecting residents by simple random sampling from a complete list of addresses"
+      option_explanations:
+        - |
+          Correct. The leading wording pushes people toward agreeing, which is response bias.
+        - |
+          A larger random sample reduces variability; it does not introduce bias.
+        - |
+          Correct. Nonresponse bias: people who do not respond may differ in their views from those who do.
+        - |
+          Correct. A convenience sample of skate-shop customers would overrepresent supporters.
+        - |
+          A simple random sample from a complete list is the standard way to avoid selection bias.
+      answer: [0, 2, 3]
+    - slug: apstats-u02-w09-q15
+      type: true_false
+      topic_code: "2.3"
+      source: "AP Statistics CED, Topic 2.3"
+      points: 1
+      prompt: |
+        True or false: A fair coin has just landed heads five times in a row, so by the law of large numbers the probability of tails on the next toss is greater than 0.5.
+      answer: false
+      explanation: |
+        False. The tosses are independent, so the probability of tails is still 0.5. The law of large numbers describes the long-run proportion; it does not make short-run outcomes compensate (that belief is the gambler's fallacy).
+    - slug: apstats-u02-w09-q16
+      type: true_false
+      topic_code: "1.13"
+      source: "AP Statistics CED, Topic 1.13"
+      points: 1
+      prompt: |
+        True or false: A study in which hypothetical volunteers record their own daily caffeine intake and hours of sleep for a month is an experiment, because the researchers measure both variables carefully.
+      answer: false
+      explanation: |
+        False. In an experiment the researchers impose a treatment, ideally by random assignment. Here the volunteers choose their own caffeine intake, so it is an observational study, however carefully the variables are measured.
+    - slug: apstats-u02-w09-q17
+      type: fill_blank
+      topic_code: "2.4"
+      source: "AP Statistics CED, Topic 2.4"
+      points: 1
+      prompt: |
+        Two fair six-sided dice are rolled. The probability that the sum of the two dice equals 8, written as a fraction, is ____.
+      answer: ["5/36", "0.139", ".139", "0.1389", "13.9%"]
+      explanation: |
+        There are 36 equally likely ordered pairs. A sum of 8 comes from (2, 6), (3, 5), (4, 4), (5, 3) and (6, 2), so the probability is 5/36 ≈ 0.139.
+    - slug: apstats-u02-w09-q18
+      type: fill_blank
+      topic_code: "2.2"
+      source: "AP Statistics CED, Topic 2.2"
+      points: 1
+      prompt: |
+        In a hypothetical survey, 62% of freshmen and 47% of seniors said they use the school library at least once a week. The difference in conditional proportions (freshmen minus seniors), as a decimal, is ____.
+      answer: ["0.15", ".15", "15%", "0.150", "3/20"]
+      explanation: |
+        0.62 − 0.47 = 0.15: the proportion who use the library weekly is 15 percentage points higher among freshmen.
+    - slug: apstats-u02-w09-q19
+      type: numeric
+      topic_code: "2.3"
+      source: "AP Statistics CED, Topic 2.3"
+      points: 1
+      prompt: |
+        A student simulates a game 500 times and the player wins in 137 of the simulated games. Give the estimated probability of winning, to three decimal places.
+      answer: { value: 0.274, tolerance: 0.0006 }
+      explanation: |
+        The estimate is the relative frequency of wins in the simulated trials: 137/500 = 0.274.
+    - slug: apstats-u02-w09-q20
+      type: short_answer
+      topic_code: "2.3"
+      source: "AP Statistics CED, Topic 2.3"
+      points: 3
+      prompt: |
+        A hypothetical regional airline says 85% of its flights arrive on time. Describe how to use a table of random digits to estimate the probability that at least 9 of the airline's next 10 flights arrive on time. State any assumption you make.
+      answer: |
+        Assume the flights are independent and each arrives on time with probability 0.85.
+        Model: read pairs of digits; 00–84 = on time, 85–99 = late (85 of 100 pairs).
+        Trial: read 10 pairs (one per flight) and count how many are on time; record whether the count is 9 or 10.
+        Repeat this many times (for example, 1,000 trials). The estimated probability is the number of trials with at least 9 on-time flights divided by the number of trials.
+      explanation: |
+        Three points. 1 point: a correct digit assignment giving probability 0.85 (pairs, such as 00–84) with independence stated or implied. 1 point: one trial clearly described (10 pairs, count on-time flights, record whether the count is at least 9). 1 point: repeat many times and estimate the probability as the proportion of trials with at least 9 on time.
+    - slug: apstats-u02-w09-q21
+      type: short_answer
+      topic_code: "2.2"
+      source: "AP Statistics CED, Topics 2.1–2.2"
+      points: 2
+      prompt: |
+        In a hypothetical survey of 160 students, 48 of the 64 students with a public library card and 36 of the 96 students without one said they read for pleasure every week.
+
+        (a) Compute the proportion who read for pleasure weekly in each group.
+        (b) Is having a library card associated with reading for pleasure in this sample? Justify.
+      answer: |
+        (a) Card: 48/64 = 0.75. No card: 36/96 = 0.375.
+        (b) Yes. Students with a library card are twice as likely to read for pleasure weekly (0.75 versus 0.375); because the conditional proportions differ, the variables are associated in this sample.
+      explanation: |
+        Two points. (a) 1 point: both conditional proportions (0.75 and 0.375). (b) 1 point: "associated" justified by comparing the conditional proportions (not counts). A causal claim does not earn the point.
+    - slug: apstats-u02-w09-q22
+      type: long_answer
+      topic_code: "2.3"
+      source: "AP Statistics CED, Topics 2.3–2.4"
+      points: 6
+      prompt: |
+        A hypothetical coffee shop says that 1 in 5 of its scratch cards wins a free drink. Jordan gets one card on each of 10 visits and wins nothing. He wonders whether the shop's claim is true.
+
+        (A) Describe how to use random digits to simulate Jordan's 10 cards, assuming the shop's claim is true.
+
+        (B) A computer ran 100 trials of your simulation and recorded the number of winning cards in each trial:
+
+        | Wins | 0 | 1 | 2 | 3 | 4 | 5 |
+        |---|---|---|---|---|---|---|
+        | Trials | 9 | 27 | 30 | 26 | 6 | 2 |
+
+        Use the results to estimate the probability of no wins in 10 cards if the claim is true.
+
+        (C) Does Jordan's result give convincing evidence that fewer than 1 in 5 cards win? Explain.
+
+        (D) Jordan's friend says, "Run 1,000 trials instead and the estimate will be exactly right." Is the friend correct? Explain.
+      answer: |
+        (A) Assume the cards are independent, each winning with probability 0.2. Use one digit per card: 0–1 = win, 2–9 = no win. One trial: read 10 digits and count the wins; record the number of wins (or whether there were 0).
+        (B) 9 of the 100 trials had 0 wins, so the estimate is 9/100 = 0.09.
+        (C) No. If the shop's claim is true, getting no wins in 10 cards happens about 9% of the time, which is not unusual. Chance alone is a plausible explanation, so Jordan's result is not convincing evidence that fewer than 1 in 5 cards win (though it does not prove the claim is true either).
+        (D) No. By the law of large numbers, more trials make the estimate tend to be closer to the true probability, but a simulation still has random variation, so 1,000 trials will give a better estimate, not an exact one.
+      explanation: |
+        Six points. (A) 2 points: 1 for a digit assignment giving probability 0.2 (such as 0–1 = win) with independence stated or implied; 1 for one trial (10 digits, count wins) and what is recorded. (B) 1 point: 9/100 = 0.09. (C) 2 points: 1 for interpreting 0.09 as the chance of this result when the claim is true (not unusual); 1 for the conclusion in context, "not convincing evidence", without claiming the claim is proven. (D) 1 point: not exact; more trials make the estimate closer on average (law of large numbers) but random variation remains.

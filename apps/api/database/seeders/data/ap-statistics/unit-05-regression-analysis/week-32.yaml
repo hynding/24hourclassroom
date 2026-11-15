@@ -1,0 +1,663 @@
+week: 32
+unit: 5
+title: "Least-Squares Regression"
+topics: ["5.5"]
+guide: guides/week-32.md
+guide_description: |
+  The least-squares criterion (minimising the sum of squared residuals), the slope and intercept from summary
+  statistics (b = r · s_y/sₓ, a = ȳ − b x̄, the line through (x̄, ȳ) and regression to the mean), the
+  interpretation templates for r² and s, reading the equation, s, r² and r from computer output (and which
+  columns to ignore), and outliers, high-leverage points and influential points. Worked examples: two lines
+  with residuals summing to 0 but squared sums 6.80 and 8.00 for the week 29 free-throw data, a line for
+  reaction time on sleep from summary statistics, computer output for 20 pine trees' diameter and height,
+  and a typing student's speed with three different added points.
+flashcards_description: |
+  31 cards on the least-squares criterion, the slope and intercept formulas, the point (x̄, ȳ), regression
+  to the mean, interpreting r² and s, reading computer output, and outliers, leverage and influence.
+
+flashcards:
+  - front: Least-squares regression line → the criterion that defines it
+    back: |
+      Of all lines, it makes the sum of the squared residuals, Σ(y − ŷ)², as small as possible.
+    topic_code: "5.5"
+  - front: Why least squares squares the residuals instead of adding them
+    back: |
+      Signed residuals always cancel to 0 for any line through (x̄, ȳ), so their sum cannot choose a line; squaring makes every miss count and penalises large misses heavily.
+    topic_code: "5.5"
+  - front: Free-throw data, lines ŷ = 7 + 1.2x and ŷ = 6 + 1.4x → which is least squares and why
+    back: |
+      ŷ = 7 + 1.2x: its sum of squared residuals is 6.80, smaller than 8.00, even though both lines' residuals add to 0.
+    topic_code: "5.5"
+  - front: Least-squares slope from summary statistics → formula
+    back: |
+      b = r · s_y/sₓ (the response's standard deviation on top).
+    topic_code: "5.5"
+  - front: Least-squares intercept from summary statistics → formula
+    back: |
+      a = ȳ − b x̄.
+    topic_code: "5.5"
+  - front: Point that every least-squares line passes through
+    back: |
+      (x̄, ȳ): substituting x = x̄ gives ŷ = ȳ − b x̄ + b x̄ = ȳ.
+    topic_code: "5.5"
+  - front: Sign of the least-squares slope → what it matches
+    back: |
+      The sign of r, because b = r · s_y/sₓ and both standard deviations are positive.
+    topic_code: "5.5"
+  - front: Sleep and reaction time (x̄ = 7.1, sₓ = 1.2, ȳ = 285, s_y = 32, r = −0.62) → the line
+    back: |
+      b = −0.62 × 32/1.2 = −16.53 ms per hour; a = 285 + 16.53 × 7.1 = 402.39; predicted reaction time = 402.39 − 16.53 (hours of sleep).
+    topic_code: "5.5"
+  - front: One standard deviation change in x → predicted change in y in standard deviations
+    back: |
+      r standard deviations of y. With |r| < 1 the prediction moves less than one SD: regression to the mean.
+    topic_code: "5.5"
+  - front: Coefficient of determination r² → what it measures
+    back: |
+      The proportion of the variation in y that is accounted for by the linear model with x.
+    topic_code: "5.5"
+  - front: Template for interpreting r²
+    back: |
+      "About [r² as a %] of the variation in [y in context] is accounted for by the linear model relating [y] to [x]."
+    topic_code: "5.5"
+  - front: Pine trees, R-sq = 92.1% → interpretation
+    back: |
+      About 92.1% of the variation in tree height is accounted for by the linear model relating height to trunk diameter.
+    topic_code: "5.5"
+  - front: Standard deviation of the residuals s → formula and meaning
+    back: |
+      s = √(Σ(y − ŷ)²/(n − 2)): the typical size of a prediction error, in the units of y.
+    topic_code: "5.5"
+  - front: Template for interpreting s in regression
+    back: |
+      "The actual [y in context] typically varies by about [s with units] from the value predicted by the least-squares line using [x in context]."
+    topic_code: "5.5"
+  - front: Pine trees, S = 0.4931 → interpretation
+    back: |
+      Actual tree heights typically vary by about 0.49 m from the heights predicted by the line using trunk diameter.
+    topic_code: "5.5"
+  - front: s versus s_y → the difference
+    back: |
+      s_y is the spread of y around its mean ȳ; s is the spread of y around the regression line. A useful line has s well below s_y.
+    topic_code: "5.5"
+  - front: Computer output → where the intercept and slope are
+    back: |
+      Coef column: the Constant row is the intercept a; the row named after the explanatory variable is the slope b.
+    topic_code: "5.5"
+  - front: Computer output → the SE Coef, T and P columns on this course
+    back: |
+      Ignore them: they are for inference about the slope, which the redesigned AP Statistics course does not include.
+    topic_code: "5.5"
+  - front: Recovering r from R-sq in computer output
+    back: |
+      r = ±√(R-sq as a decimal), with the sign of the slope. R-sq = 83.1% and slope 0.4828 give r = +0.912.
+    topic_code: "5.5"
+  - front: R-sq(adj) in simple regression output → what to report
+    back: |
+      Report R-sq. The adjusted version is meant for models with several predictors.
+    topic_code: "5.5"
+  - front: Outlier in regression → definition and usual effect
+    back: |
+      A point with a large residual (far from the line vertically). It usually lowers |r| and raises s.
+    topic_code: "5.5"
+  - front: High-leverage point → definition
+    back: |
+      A point whose x-value is far from x̄ (far from the other points horizontally); it has the potential to swing the line.
+    topic_code: "5.5"
+  - front: Influential point → definition
+    back: |
+      A point whose removal noticeably changes the slope, the intercept or the correlation.
+    topic_code: "5.5"
+  - front: High-leverage point that follows the pattern → effect of removing it
+    back: |
+      Little change in slope or intercept; r usually drops a little, because the point strengthened the linear pattern.
+    topic_code: "5.5"
+  - front: Typing data, adding (16 weeks, 60 wpm) → what happens and why
+    back: |
+      Slope falls from 7.417 to 2.120 and r from 0.994 to 0.553: a high-leverage point off the pattern pulls the right end of the line down. Influential.
+    topic_code: "5.5"
+  - front: Outlier located at x = x̄ → effect on slope and intercept
+    back: |
+      The slope does not change; the line shifts up or down (the intercept changes), r drops and s rises.
+    topic_code: "5.5"
+  - front: An influential point → what to do with it
+    back: |
+      Investigate it (error or genuine?), never delete it silently, and report the analysis with and without it.
+    topic_code: "5.5"
+  - front: Judging a regression model → the three things to check
+    back: |
+      A patternless residual plot (form), a large r² (proportion explained), and a small s relative to the size of y (typical error).
+    topic_code: "5.5"
+  - front: Error-spot → "r² = 0.83 means 83% of the points lie on the line"
+    back: |
+      r² is the proportion of the variation in y accounted for by the linear model, not a percentage of points (and not a percentage caused by x).
+    topic_code: "5.5"
+  - front: Error-spot → "b = r · sₓ/s_y"
+    back: |
+      Upside down. b = r · s_y/sₓ, so that the slope has units of y per unit of x.
+    topic_code: "5.5"
+  - front: Error-spot → "R-sq = 64% with a negative slope, so r = 0.8"
+    back: |
+      Take the sign from the slope: r = −0.8.
+    topic_code: "5.5"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topic 5.5: the least-squares criterion, slope and
+    intercept from summary statistics, r² and s, computer output, and outliers, leverage and influence), with 8
+    questions (33%) reviewing earlier weeks (residuals and extrapolation from weeks 30 and 31, summary
+    statistics, sampling, the sampling distribution of a sample proportion, and inference for two proportions
+    and two means). Opens with a shared-context set on computer output for study time and quiz scores.
+    Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are
+    matched automatically; the short answers and the long answer are graded by your teacher against the
+    scoring notes. Calculators are allowed throughout.
+  questions:
+    # ---- Stimulus set: computer output for study time and quiz score (5.5, 5.4)
+    - slug: apstats-u05-w32-q01
+      type: multiple_choice
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 1
+      stimulus: |
+        A teacher records, for 25 hypothetical students, the minutes spent on an online practice set (x, from 12 to 88 minutes) and the score on the next quiz (y, out of 100). The scatterplot is linear and the residual plot shows no pattern. Regression output:
+
+        | Predictor | Coef | SE Coef | T | P |
+        |---|---|---|---|---|
+        | Constant | 45.4513 | 2.4149 | 18.82 | 0.000 |
+        | Minutes | 0.4828 | 0.0453 | 10.65 | 0.000 |
+
+        S = 5.1091 · R-sq = 83.1% · R-sq(adj) = 82.4%
+      prompt: |
+        What is the equation of the least-squares regression line?
+      options:
+        - "predicted minutes = 45.4513 + 0.4828 (quiz score)"
+        - "predicted quiz score = 45.4513 + 0.4828 (minutes)"
+        - "predicted quiz score = 0.4828 + 45.4513 (minutes)"
+        - "predicted quiz score = 2.4149 + 0.0453 (minutes)"
+      option_explanations:
+        - |
+          The roles are reversed: the output predicts quiz score (the response) from minutes (the predictor in the second row).
+        - |
+          Correct. The Constant row's Coef is the intercept and the Minutes row's Coef is the slope.
+        - |
+          The intercept and slope are swapped; the coefficient in the Minutes row multiplies minutes.
+        - |
+          These are the SE Coef values, which are used for inference about the slope, not the coefficients of the line.
+      answer: 1
+    - slug: apstats-u05-w32-q02
+      type: multiple_choice
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 1
+      stimulus: |
+        A teacher records, for 25 hypothetical students, the minutes spent on an online practice set (x, from 12 to 88 minutes) and the score on the next quiz (y, out of 100). The scatterplot is linear and the residual plot shows no pattern. Regression output:
+
+        | Predictor | Coef | SE Coef | T | P |
+        |---|---|---|---|---|
+        | Constant | 45.4513 | 2.4149 | 18.82 | 0.000 |
+        | Minutes | 0.4828 | 0.0453 | 10.65 | 0.000 |
+
+        S = 5.1091 · R-sq = 83.1% · R-sq(adj) = 82.4%
+      prompt: |
+        Which is the correct interpretation of R-sq = 83.1%?
+      options:
+        - "83.1% of the students' quiz scores are predicted correctly by the line."
+        - "Practice minutes cause 83.1% of the differences in quiz scores."
+        - "The correlation between practice minutes and quiz score is 0.831."
+        - "About 83.1% of the variation in quiz scores is accounted for by the linear model relating quiz score to practice minutes."
+      option_explanations:
+        - |
+          r² is not a percentage of individuals predicted correctly; almost no student lies exactly on the line.
+        - |
+          r² describes how much variation the linear model accounts for in these observational data, not a causal share.
+        - |
+          0.831 is r², not r; the correlation is √0.831 = 0.912.
+        - |
+          Correct. This is the r² template: the proportion of the variation in y accounted for by the linear model with x.
+      answer: 3
+    - slug: apstats-u05-w32-q03
+      type: multiple_choice
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 1
+      stimulus: |
+        A teacher records, for 25 hypothetical students, the minutes spent on an online practice set (x, from 12 to 88 minutes) and the score on the next quiz (y, out of 100). The scatterplot is linear and the residual plot shows no pattern. Regression output:
+
+        | Predictor | Coef | SE Coef | T | P |
+        |---|---|---|---|---|
+        | Constant | 45.4513 | 2.4149 | 18.82 | 0.000 |
+        | Minutes | 0.4828 | 0.0453 | 10.65 | 0.000 |
+
+        S = 5.1091 · R-sq = 83.1% · R-sq(adj) = 82.4%
+      prompt: |
+        Which is the correct interpretation of S = 5.1091?
+      options:
+        - "Actual quiz scores typically vary by about 5.1 points from the scores predicted by the line using practice minutes."
+        - "Quiz scores typically vary by about 5.1 points from the mean quiz score."
+        - "Each additional minute of practice changes the predicted quiz score by 5.1 points."
+        - "The line's predictions are off by exactly 5.1 points for every student."
+      option_explanations:
+        - |
+          Correct. s is the standard deviation of the residuals: the typical distance between actual and predicted quiz scores, in points.
+        - |
+          That describes s_y, the spread of scores around ȳ; s measures spread around the regression line.
+        - |
+          That is the role of the slope (0.4828 points per minute), not s.
+        - |
+          s is a typical size of prediction error, not an exact error for each student; residuals vary from student to student.
+      answer: 0
+    - slug: apstats-u05-w32-q04
+      type: multiple_choice
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 1
+      stimulus: |
+        A teacher records, for 25 hypothetical students, the minutes spent on an online practice set (x, from 12 to 88 minutes) and the score on the next quiz (y, out of 100). The scatterplot is linear and the residual plot shows no pattern. Regression output:
+
+        | Predictor | Coef | SE Coef | T | P |
+        |---|---|---|---|---|
+        | Constant | 45.4513 | 2.4149 | 18.82 | 0.000 |
+        | Minutes | 0.4828 | 0.0453 | 10.65 | 0.000 |
+
+        S = 5.1091 · R-sq = 83.1% · R-sq(adj) = 82.4%
+      prompt: |
+        What is the correlation between practice minutes and quiz score?
+      options:
+        - "0.831"
+        - "−0.912"
+        - "0.912"
+        - "0.691"
+      option_explanations:
+        - |
+          0.831 is r²; the correlation is its square root.
+        - |
+          The square root is right but the sign is wrong: the slope is positive, so r is positive.
+        - |
+          Correct. r = +√0.831 = 0.912, positive because the slope 0.4828 is positive.
+        - |
+          This squares 0.831 (0.831² ≈ 0.691) instead of taking its square root.
+      answer: 2
+    - slug: apstats-u05-w32-q05
+      type: multiple_choice
+      topic_code: "5.4"
+      source: "AP Statistics CED, Topic 5.4"
+      points: 1
+      stimulus: |
+        A teacher records, for 25 hypothetical students, the minutes spent on an online practice set (x, from 12 to 88 minutes) and the score on the next quiz (y, out of 100). The scatterplot is linear and the residual plot shows no pattern. Regression output:
+
+        | Predictor | Coef | SE Coef | T | P |
+        |---|---|---|---|---|
+        | Constant | 45.4513 | 2.4149 | 18.82 | 0.000 |
+        | Minutes | 0.4828 | 0.0453 | 10.65 | 0.000 |
+
+        S = 5.1091 · R-sq = 83.1% · R-sq(adj) = 82.4%
+      prompt: |
+        One student practised for 60 minutes and scored 80. What is her residual?
+      options:
+        - "−5.58 points"
+        - "34.55 points"
+        - "5.58 points"
+        - "74.42 points"
+      option_explanations:
+        - |
+          The size is right but this is predicted minus actual; the residual is actual minus predicted.
+        - |
+          This subtracts only the intercept (80 − 45.45) and ignores the slope term 0.4828 × 60.
+        - |
+          Correct. ŷ = 45.4513 + 0.4828(60) = 74.42, so the residual is 80 − 74.42 = 5.58 points: she scored 5.58 points higher than predicted.
+        - |
+          74.42 is her predicted score ŷ, not the residual.
+      answer: 2
+    # ---- Topic 5.5
+    - slug: apstats-u05-w32-q06
+      type: multiple_choice
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 1
+      prompt: |
+        Which property defines the least-squares regression line for a data set?
+      options:
+        - "It makes the sum of the squared residuals as small as possible."
+        - "It passes through as many data points as possible."
+        - "It makes the sum of the residuals equal to 0."
+        - "It has the same number of points above and below it."
+      option_explanations:
+        - |
+          Correct. Among all lines, the least-squares line minimises Σ(y − ŷ)².
+        - |
+          The least-squares line may pass through no data point at all; it minimises squared vertical distances.
+        - |
+          Every line through (x̄, ȳ) has residuals summing to 0, so this property does not single out one line.
+        - |
+          Equal counts above and below is not the criterion; a few large residuals on one side can balance many small ones on the other.
+      answer: 0
+    - slug: apstats-u05-w32-q07
+      type: multiple_choice
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 1
+      prompt: |
+        For a hypothetical sample of cafés, daily temperature (°F) and iced drinks sold have r = 0.6, sₓ = 5 °F and s_y = 12 drinks. What is the slope of the least-squares line for predicting iced drinks sold from temperature?
+      options:
+        - "0.25 drinks per °F"
+        - "0.6 drinks per °F"
+        - "2.4 drinks per °F"
+        - "1.44 drinks per °F"
+      option_explanations:
+        - |
+          This uses b = r · sₓ/s_y = 0.6 × 5/12, with the standard deviations upside down.
+        - |
+          r is the slope only when both variables are standardized; here the units differ.
+        - |
+          This is s_y/sₓ = 12/5 without multiplying by r.
+        - |
+          Correct. b = r · s_y/sₓ = 0.6 × 12/5 = 1.44 drinks per degree.
+      answer: 3
+    - slug: apstats-u05-w32-q08
+      type: multiple_choice
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 1
+      prompt: |
+        A least-squares line has slope 2.5. The mean of x is 10 and the mean of y is 40. What is the y-intercept?
+      options:
+        - "40"
+        - "15"
+        - "65"
+        - "4"
+      option_explanations:
+        - |
+          40 is ȳ; the intercept is ŷ at x = 0, not at x = x̄ = 10.
+        - |
+          Correct. The line passes through (x̄, ȳ), so a = ȳ − b x̄ = 40 − 2.5(10) = 15.
+        - |
+          This adds b x̄ instead of subtracting it: 40 + 25.
+        - |
+          This divides ȳ by x̄; the intercept comes from a = ȳ − b x̄.
+      answer: 1
+    - slug: apstats-u05-w32-q09
+      type: multiple_choice
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 1
+      prompt: |
+        A regression of reaction time on age uses 20 hypothetical people aged 15 to 35, plus one person aged 72 whose reaction time is much faster than the line would predict for that age. Removing the 72-year-old changes the slope from 0.4 ms per year to 2.1 ms per year. Which description of that point is best?
+      options:
+        - "An outlier but not influential, because only one point was removed"
+        - "Not unusual, because its residual could be small"
+        - "A high-leverage, influential point: its age is far from the others and removing it changes the slope a lot"
+        - "Influential only if its residual is the largest in the data set"
+      option_explanations:
+        - |
+          Influence is measured by how much the line changes, not by how many points are removed; here the slope changed from 0.4 to 2.1.
+        - |
+          An influential high-leverage point pulls the line toward itself, which can make its own residual small; the change in slope is what reveals it.
+        - |
+          Correct. An age of 72 is far from the 15 to 35 range (high leverage), and removing it changes the slope dramatically (influential).
+        - |
+          Influential points often have small residuals, because they drag the line toward themselves.
+      answer: 2
+    - slug: apstats-u05-w32-q10
+      type: multiple_choice
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 1
+      prompt: |
+        A scatterplot of 30 points has one outlier with a very large positive residual. Its x-value is close to x̄. What happens to r and s if the outlier is removed?
+      options:
+        - "Both r and s stay about the same, because the point is near x̄."
+        - "|r| decreases and s increases."
+        - "The slope changes a lot, but r and s stay the same."
+        - "|r| increases and s decreases."
+      option_explanations:
+        - |
+          A point near x̄ has little effect on the slope, but its large residual still affects r and s.
+        - |
+          The directions are reversed: removing a large residual makes the remaining points fit the line more closely.
+        - |
+          A point near x̄ has little leverage, so the slope barely changes; it is r and s that move.
+        - |
+          Correct. The outlier contributed a large squared residual; without it the points cluster more tightly around the line, so |r| rises and s falls.
+      answer: 3
+    - slug: apstats-u05-w32-q11
+      type: multiple_choice
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 1
+      prompt: |
+        Which point in a regression analysis has high leverage?
+      options:
+        - "A point whose x-value is much larger or smaller than the other x-values"
+        - "A point with the largest residual"
+        - "A point whose y-value is far above the line but whose x-value is close to x̄"
+        - "Any point that lies exactly on the regression line"
+      option_explanations:
+        - |
+          Correct. Leverage is about the x-direction: a point far from x̄ horizontally can swing the line.
+        - |
+          A large residual makes a point an outlier in the y direction; leverage is about how far its x-value is from x̄.
+        - |
+          That is an outlier with low leverage: its x-value is typical, so it cannot pivot the line much.
+        - |
+          Lying on the line says nothing about leverage; a point far out in x can lie on the line and still have high leverage.
+      answer: 0
+    # ---- Spiral review
+    - slug: apstats-u05-w32-q12
+      type: multiple_choice
+      topic_code: "5.3"
+      source: "AP Statistics CED, Topic 5.3"
+      points: 1
+      prompt: |
+        Using the line predicted quiz score = 45.4513 + 0.4828 (minutes), fitted to students who practised from 12 to 88 minutes, a student asks for the predicted score after 150 minutes of practice. What is the best response?
+      options:
+        - "117.9, which shows that 150 minutes guarantees a perfect quiz"
+        - "117.9, but 150 minutes is far outside the 12 to 88 minutes in the data, so this extrapolation is unreliable (and impossible on a 100-point quiz)."
+        - "72.4, the score predicted for 150 minutes when the slope is halved for large values"
+        - "45.5, because the intercept applies to any value outside the data"
+      option_explanations:
+        - |
+          The arithmetic is right, but a predicted score above 100 is impossible; the problem is extrapolation, not a guarantee.
+        - |
+          Correct. 45.4513 + 0.4828(150) = 117.9, which exceeds the maximum score; predictions far outside the observed x-values are not trustworthy.
+        - |
+          There is no rule that halves the slope; the line simply does not describe values outside the data.
+        - |
+          The intercept is the prediction at 0 minutes, not a default for every value outside the data.
+      answer: 1
+    - slug: apstats-u05-w32-q13
+      type: multiple_choice
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 1
+      prompt: |
+        Independent random samples of students at two hypothetical schools give a 95% confidence interval of (0.03, 0.21) for p_A − p_B, the difference in the proportions of all students at schools A and B who use an online practice set every week. Which interpretation is correct?
+      options:
+        - "There is a 95% probability that p_A − p_B is between 0.03 and 0.21."
+        - "95% of students at school A use the practice set 3% to 21% more often than students at school B."
+        - "We are 95% confident that the interval from 0.03 to 0.21 captures the true difference in sample proportions."
+        - "We are 95% confident that the interval from 0.03 to 0.21 captures the true difference in the proportions of all students at schools A and B who use the practice set every week."
+      option_explanations:
+        - |
+          Once computed, the interval either captures the parameter or it does not; 95% describes the long-run capture rate of the method.
+        - |
+          The interval is about a difference in population proportions, not about how often individual students use the set.
+        - |
+          Confidence intervals estimate parameters, not sample statistics; the sample difference is known exactly (0.12).
+        - |
+          Correct. This is the template: confidence that the interval captures the difference in population proportions, in context.
+      answer: 3
+    # ---- Mixed formats
+    - slug: apstats-u05-w32-q14
+      type: multi_select
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 1
+      partial_credit: true
+      prompt: |
+        Regression output for predicting a used car's price (thousands of dollars) from its mileage (thousands of miles) for 40 hypothetical cars shows slope −0.082, S = 1.9 and R-sq = 64%. Which statements are correct? Select all that apply.
+      options:
+        - "The correlation between mileage and price is −0.8."
+        - "About 64% of the variation in price is accounted for by the linear model relating price to mileage."
+        - "Actual prices typically vary by about $1,900 from the prices predicted by the line using mileage."
+        - "64% of the cars have prices that lie on the regression line."
+        - "The correlation is 0.8, because a square root is always positive."
+      option_explanations:
+        - |
+          Correct. r = −√0.64 = −0.8, negative because the slope is negative.
+        - |
+          Correct. This is the r² interpretation in context.
+        - |
+          Correct. S = 1.9 thousand dollars is the typical prediction error.
+        - |
+          r² is not the proportion of points on the line; very few points lie exactly on it.
+        - |
+          The sign of r must match the sign of the slope, which is negative here.
+      answer: [0, 1, 2]
+    - slug: apstats-u05-w32-q15
+      type: multi_select
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 1
+      partial_credit: true
+      prompt: |
+        At a large school, 40% of students use an online practice set weekly. Random samples of 150 students are taken, and p̂ is the proportion of each sample who use the set. Which statements about the sampling distribution of p̂ are true? Select all that apply.
+      options:
+        - "Its mean is 0.40."
+        - "Its standard deviation is √(0.40 × 0.60/150) ≈ 0.040."
+        - "It is approximately Normal, because 150(0.40) = 60 and 150(0.60) = 90 are both at least 10."
+        - "Its standard deviation is √(0.40 × 0.60) ≈ 0.490."
+        - "Every sample will have p̂ = 0.40 exactly."
+      option_explanations:
+        - |
+          Correct. p̂ is an unbiased estimator: the mean of its sampling distribution equals p = 0.40.
+        - |
+          Correct. SD(p̂) = √(p(1 − p)/n) = √(0.24/150) = 0.040 (the 10% condition holds at a large school).
+        - |
+          Correct. The Large Counts condition np ≥ 10 and n(1 − p) ≥ 10 holds, so the shape is approximately Normal.
+        - |
+          This is the standard deviation of a single student's yes/no response, not of p̂; it forgets to divide by n.
+        - |
+          Sample proportions vary from sample to sample around 0.40; that variability is what the sampling distribution describes.
+      answer: [0, 1, 2]
+    - slug: apstats-u05-w32-q16
+      type: true_false
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 1
+      prompt: |
+        True or false: Removing a high-leverage point always changes the slope of the least-squares line a lot.
+      answer: false
+      explanation: |
+        False. A high-leverage point that lies along the pattern of the other points barely changes the slope when removed (adding the typing student's 16-week point at 149 wpm moved the slope only from 7.417 to 7.822). A high-leverage point is influential when it does not follow the pattern.
+    - slug: apstats-u05-w32-q17
+      type: true_false
+      topic_code: "1.11"
+      source: "AP Statistics CED, Topic 1.11"
+      points: 1
+      prompt: |
+        True or false: To take a stratified random sample of students by grade level, you divide the students into grades and then take a simple random sample from each grade.
+      answer: true
+      explanation: |
+        True. In stratified random sampling the strata (here, grade levels) are formed first, and a separate simple random sample is taken within each stratum. That guarantees every grade is represented and can reduce variability when the response differs by grade.
+    - slug: apstats-u05-w32-q18
+      type: fill_blank
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 1
+      prompt: |
+        A least-squares regression has a positive slope and r² = 0.81. The correlation is r = ____.
+      answer: ["0.9", ".9", "0.90", "+0.9", "9/10"]
+      explanation: |
+        r = √0.81 = 0.9, positive because the slope is positive.
+    - slug: apstats-u05-w32-q19
+      type: fill_blank
+      topic_code: "1.7"
+      source: "AP Statistics CED, Topic 1.7"
+      points: 1
+      prompt: |
+        Four students practised for 4, 7, 9 and 12 hours. The mean number of hours, x̄, is ____.
+      answer: ["8", "8.0", "8.00"]
+      explanation: |
+        x̄ = (4 + 7 + 9 + 12)/4 = 32/4 = 8 hours. The least-squares line always passes through (x̄, ȳ).
+    - slug: apstats-u05-w32-q20
+      type: numeric
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 1
+      prompt: |
+        For a hypothetical sample of students, hours of weekly practice (x) and a music test score (y) have x̄ = 6, sₓ = 2.5, ȳ = 40, s_y = 8 and r = 0.75. Find the y-intercept of the least-squares line for predicting score from practice hours, to one decimal place.
+      answer: { value: 25.6, tolerance: 0.051 }
+      explanation: |
+        b = r · s_y/sₓ = 0.75 × 8/2.5 = 2.4 points per hour. a = ȳ − b x̄ = 40 − 2.4(6) = 40 − 14.4 = 25.6.
+    - slug: apstats-u05-w32-q21
+      type: numeric
+      topic_code: "3.13"
+      source: "AP Statistics CED, Topic 3.13"
+      points: 1
+      prompt: |
+        A two-sample z-test for p₁ − p₂ compares the proportions of students who use the online practice set weekly at two schools. Random samples give p̂₁ = 0.62 (n₁ = 150) and p̂₂ = 0.50 (n₂ = 160). Using the pooled proportion, find the test statistic z, to two decimal places.
+      answer: { value: 2.13, tolerance: 0.011 }
+      explanation: |
+        Pooled p̂ = (93 + 80)/310 = 0.558. SE = √(0.558 × 0.442 × (1/150 + 1/160)) = 0.0564. z = (0.62 − 0.50)/0.0564 = 2.13.
+    - slug: apstats-u05-w32-q22
+      type: short_answer
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 3
+      prompt: |
+        A student council records the daily high temperature (°F, from 55 to 91) and the number of ice-cream cones sold at a school stand on 22 hypothetical days. The scatterplot is linear and the residual plot shows no pattern.
+
+        | Predictor | Coef | SE Coef | T | P |
+        |---|---|---|---|---|
+        | Constant | −19.2621 | 13.6024 | −1.42 | 0.172 |
+        | Temperature | 1.3063 | 0.1864 | 7.01 | 0.000 |
+
+        S = 9.0485 · R-sq = 71.1% · R-sq(adj) = 69.6%
+
+        (a) Write the equation of the least-squares line, defining your variables.
+        (b) Interpret the value of S in context.
+        (c) Find the correlation r, and interpret R-sq in context.
+      answer: |
+        (a) predicted cones sold = −19.2621 + 1.3063 (temperature), where temperature is the daily high in °F.
+        (b) The actual number of cones sold on a day typically varies by about 9 cones from the number predicted by the line using that day's high temperature.
+        (c) r = +√0.711 = 0.843 (positive because the slope is positive). About 71.1% of the variation in the number of cones sold is accounted for by the linear model relating cones sold to daily high temperature.
+      explanation: |
+        Three points, one per part. (a) correct coefficients with ŷ or "predicted" and both variables named. (b) s as the typical distance between actual and predicted cones sold, with units and context. (c) r = 0.843 with the positive sign justified, and the r² interpretation in context; both needed.
+    - slug: apstats-u05-w32-q23
+      type: short_answer
+      topic_code: "4.9"
+      source: "AP Statistics CED, Topic 4.9"
+      points: 3
+      prompt: |
+        A teacher wants to know whether students who use an online practice set score higher, on average, than students who do not. She randomly assigns 30 volunteers to use the set and 30 not to use it, and records each student's quiz score.
+
+        (a) Name the appropriate inference procedure.
+        (b) State the hypotheses, defining the parameters.
+        (c) State and check the conditions, given that boxplots of both groups' scores show no strong skew or outliers.
+      answer: |
+        (a) A two-sample t-test for a difference in means, μ₁ − μ₂.
+        (b) H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ > 0, where μ₁ is the true mean quiz score for students like these who use the practice set and μ₂ is the true mean quiz score for students like these who do not.
+        (c) Random: the students were randomly assigned to the two groups. Normal/large sample: both groups have n = 30, and the boxplots show no strong skew or outliers, so the sampling distribution of x̄₁ − x̄₂ is approximately Normal. (No 10% condition is needed for random assignment.)
+      explanation: |
+        Three points, one per part. (a) two-sample t-test for μ₁ − μ₂ (a paired test earns no credit: the groups are separate). (b) one-sided hypotheses about population means with both parameters defined in context. (c) random assignment named, and the Normal/large sample condition checked with the sample sizes or the boxplots.
+    - slug: apstats-u05-w32-q24
+      type: long_answer
+      topic_code: "5.5"
+      source: "AP Statistics CED, Topic 5.5"
+      points: 6
+      prompt: |
+        A hypothetical ride service records the distance (miles) and fare (dollars) for 10 rides. Nine are ordinary rides of 3 to 15 miles; the tenth is a 30-mile ride to the airport charged a flat fare of $12.00. For all 10 rides: x̄ = 11.3 miles, sₓ = 7.631 miles, ȳ = $8.40, s_y = $2.580, r = 0.860, s = $1.40.
+
+        (A) Use the summary statistics to find the least-squares line for predicting fare from distance. Show your work.
+        (B) Interpret the slope in context.
+        (C) Interpret r² in context.
+        (D) Find the residual for the airport ride.
+        (E) Without the airport ride, the line is predicted fare = 2.73 + 0.572 (distance) and r = 0.987. Describe the airport ride as an outlier, a high-leverage point, an influential point, or a combination, and explain using the change in the line.
+      answer: |
+        (A) b = r · s_y/sₓ = 0.860 × 2.580/7.631 = 0.291 dollars per mile. a = ȳ − b x̄ = 8.40 − 0.291(11.3) = 5.11. Predicted fare = 5.11 + 0.291 (distance).
+        (B) For each additional mile of distance, the predicted fare increases by about $0.29.
+        (C) r² = 0.860² = 0.740: about 74% of the variation in fares is accounted for by the linear model relating fare to distance.
+        (D) ŷ = 5.11 + 0.291(30) = 13.84, so the residual is 12.00 − 13.84 = −1.84 dollars: the airport fare is $1.84 less than predicted.
+        (E) The airport ride is a high-leverage point (30 miles is far from the other distances of 3 to 15 miles and from x̄) and it is influential: removing it nearly doubles the slope (0.291 to 0.572 dollars per mile), changes the intercept (5.11 to 2.73) and raises r from 0.860 to 0.987. Its residual (−1.84) is not huge, because the point pulls the line toward itself, so it is not mainly an outlier; its influence comes from its leverage combined with not following the per-mile pattern (a flat fare).
+      explanation: |
+        Six points. (A) 2 points: 1 for b ≈ 0.291 from the formula with work shown, 1 for a ≈ 5.11 and the equation with ŷ or "predicted" and variables named. (B) 1 point: slope with "predicted", about $0.29 per additional mile. (C) 1 point: r² ≈ 0.74 (accept 73.9% to 74%) with the template in context. (D) 1 point: −1.84 (accept −1.8 to −1.9) with ŷ shown. (E) 1 point: high leverage and influential, justified by the large change in slope (or r) when it is removed; an answer that calls it only an outlier earns no credit.

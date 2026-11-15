@@ -1,0 +1,627 @@
+week: 25
+unit: 4
+title: "Significance Tests for a Population Mean or Mean Difference"
+topics: ["4.4", "4.5"]
+guide: guides/week-25.md
+guide_description: |
+  Setting up a one-sample t-test for μ or a paired t-test for μ_diff (choosing the procedure, defining the
+  parameter, writing one- and two-sided hypotheses, checking the conditions) and carrying it out: the test
+  statistic t = (x̄ − μ₀)/(s/√n) with n − 1 degrees of freedom, the p-value and its interpretation, the
+  decision and the conclusion in context, the link between a two-sided test and a confidence interval, and
+  Type I and Type II errors for a mean. Worked examples: a one-sided test of a portable speaker's 12-hour
+  battery claim (n = 15), a two-sided test of a 500 mL water-bottle fill with the matching 95% interval
+  (n = 40), and a paired test of resting heart rate before and after a breathing exercise for 12 students.
+flashcards_description: |
+  30 cards on one-sample and paired t-tests: hypotheses and parameters in context, one- versus two-sided
+  alternatives, conditions, the t statistic and its degrees of freedom, interpreting a p-value for a mean,
+  decisions and conclusions, the test–interval connection, and Type I and Type II errors for a mean.
+
+flashcards:
+  - front: One-sample t-test for μ → hypotheses form
+    back: |
+      H₀: μ = μ₀ against Hₐ: μ > μ₀, μ < μ₀ or μ ≠ μ₀, where μ is defined in context and μ₀ is the claimed or baseline value.
+    topic_code: "4.4"
+  - front: Paired t-test for μ_diff → hypotheses form
+    back: |
+      H₀: μ_diff = 0 against Hₐ: μ_diff > 0, < 0 or ≠ 0, with μ_diff defined in context and the order of subtraction stated.
+    topic_code: "4.4"
+  - front: Choosing Hₐ for a mean → what decides the direction
+    back: |
+      The research question, decided before seeing the data: "suspects longer" gives >, "suspects shorter" gives <, "is it different" gives ≠.
+    topic_code: "4.4"
+  - front: Lunch-line claim of 6 minutes, student suspects longer → hypotheses
+    back: |
+      H₀: μ = 6, Hₐ: μ > 6, where μ = the true mean wait time (minutes) in the lunch line on all school days.
+    topic_code: "4.4"
+  - front: Hypotheses written with x̄ → why it is wrong
+    back: |
+      Hypotheses are about the parameter μ (or μ_diff). We already know x̄; the question is what it says about μ.
+    topic_code: "4.4"
+  - front: Conditions for a one-sample t-test → list
+    back: |
+      Random (random sample or random assignment), 10% (n ≤ 10% of the population when sampling without replacement), Normal/large sample (n ≥ 30, or the data show no strong skew or outliers).
+    topic_code: "4.4"
+  - front: Conditions for a paired t-test → what the Normal check uses
+    back: |
+      The differences: n_diff ≥ 30, or a graph of the differences shows no strong skew or outliers.
+    topic_code: "4.4"
+  - front: Paired test or one-sample test of one group? → how to decide
+    back: |
+      If each value has a natural partner (same subject twice, matched pairs), analyse the differences with a paired t-test. One group compared with a fixed value is a one-sample t-test.
+    topic_code: "4.4"
+  - front: One-sample t statistic → formula
+    back: |
+      t = (x̄ − μ₀)/(s/√n), with df = n − 1. It counts standard errors between the sample mean and the hypothesised mean.
+    topic_code: "4.5"
+  - front: Paired t statistic → formula
+    back: |
+      t = (x̄_diff − 0)/(s_diff/√n_diff), with df = (number of pairs) − 1.
+    topic_code: "4.5"
+  - front: Lunch line, n = 20, x̄ = 6.9, s = 1.6, μ₀ = 6 → t and df
+    back: |
+      t = (6.9 − 6)/(1.6/√20) ≈ 2.52, df = 19.
+    topic_code: "4.5"
+  - front: "Lunch line, t ≈ 2.52, df = 19, Hₐ: μ > 6 → p-value"
+    back: |
+      P(t > 2.52) ≈ 0.0105. A two-sided alternative would double it to about 0.021.
+    topic_code: "4.5"
+  - front: p-value for a two-sided t-test → how to get it
+    back: |
+      Double the one-tail area beyond |t|: p-value = 2 · P(t ≥ |t observed|) with n − 1 df.
+    topic_code: "4.5"
+  - front: Interpreting the p-value of a t-test → template
+    back: |
+      "Assuming the true mean wait is 6 minutes, there is a 0.0105 probability of getting a sample mean of 6.9 minutes or more in a random sample of 20 days by chance alone."
+    topic_code: "4.5"
+  - front: Conclusion of a t-test with p-value < α → template
+    back: |
+      "Because p-value = 0.0105 < α = 0.05, we reject H₀. There is convincing evidence that the true mean wait time is greater than 6 minutes."
+    topic_code: "4.5"
+  - front: Conclusion of a t-test with p-value > α → template
+    back: |
+      "Because p-value = 0.08 > α = 0.05, we fail to reject H₀. There is not convincing evidence that the true mean … is greater than …." Never "accept H₀".
+    topic_code: "4.5"
+  - front: "Speaker battery claim 12 h, n = 15, x̄ = 11.4, s = 1.1, Hₐ: μ < 12 → result"
+    back: |
+      t ≈ −2.11, df = 14, p-value ≈ 0.027 < 0.05: convincing evidence that the mean battery life is less than 12 hours.
+    topic_code: "4.5"
+  - front: "Water bottles, H₀: μ = 500 mL two-sided, n = 40, x̄ = 498.7, s = 3.6 → result"
+    back: |
+      t ≈ −2.28, df = 39, p-value ≈ 0.028 < 0.05: convincing evidence that the mean fill differs from (is below) 500 mL.
+    topic_code: "4.5"
+  - front: Two-sided t-test at α = 0.05 and a 95% t-interval → connection
+    back: |
+      They agree: reject H₀: μ = μ₀ exactly when μ₀ lies outside the 95% interval. The interval also shows which values are plausible.
+    topic_code: "4.5"
+  - front: Water bottles 95% interval 497.55 to 499.85 mL → what it adds to the test
+    back: |
+      500 is outside, matching the rejection, and the interval estimates the shortfall: between about 0.15 and 2.45 mL.
+    topic_code: "4.5"
+  - front: Heart rate before and after breathing exercise, 12 students → test result
+    back: |
+      Differences (before − after) have mean 3.33 and SD 2.10 bpm; t ≈ 5.49, df = 11, p-value < 0.001: convincing evidence the mean drops.
+    topic_code: "4.5"
+  - front: Type I error in a one-sample t-test for lunch wait → in context
+    back: |
+      Concluding the mean wait is more than 6 minutes when it really is 6 minutes. Its probability is α.
+    topic_code: "4.5"
+  - front: Type II error in a one-sample t-test for lunch wait → in context
+    back: |
+      Failing to find convincing evidence that the mean wait exceeds 6 minutes when it really does.
+    topic_code: "4.5"
+  - front: Power of a t-test for a mean → three ways to increase it
+    back: |
+      Larger sample size, larger α, and a true mean farther from μ₀ (a bigger effect); less variability in the data also helps.
+    topic_code: "4.5"
+  - front: Statistically significant t-test → does it mean a big difference?
+    back: |
+      No. With a large n a tiny, unimportant difference can be significant. Report the interval to show the size of the effect.
+    topic_code: "4.5"
+  - front: Scope of a paired t-test conclusion → when you can say "causes"
+    back: |
+      Only when treatments (or treatment order) were randomly assigned. A random sample of pairs lets you generalise to the population instead.
+    topic_code: "4.5"
+  - front: Error-spot → "we fail to reject H₀, so the mean wait is 6 minutes"
+    back: |
+      Failing to reject means the data are consistent with 6, not that 6 is proven. Say "not convincing evidence that the mean differs from 6."
+    topic_code: "4.5"
+  - front: Error-spot → "p-value = 0.0105 means there is a 1% chance H₀ is true"
+    back: |
+      The p-value assumes H₀ is true; it is the probability of data at least this extreme, not the probability of H₀.
+    topic_code: "4.5"
+  - front: Error-spot → "doubling the one-sided p-value because the test was paired"
+    back: |
+      Pairing does not change the sidedness. Double the tail area only when Hₐ is two-sided (≠).
+    topic_code: "4.5"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 4.4 and 4.5: setting up and carrying out
+    one-sample and paired t-tests, p-values, conclusions, the test–interval connection and errors), with 8
+    questions (33%) reviewing earlier weeks (the sampling distribution of x̄, t-intervals and claims based on them,
+    and setting up, carrying out and judging errors in tests for proportions). Opens with a shared-context set on
+    lunch-line wait times. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. Calculator allowed throughout.
+  questions:
+    # ---- Stimulus set: lunch-line wait times (4.4, 4.5)
+    - slug: apstats-u04-w25-q01
+      type: multiple_choice
+      topic_code: "4.4"
+      source: "AP Statistics CED, Topic 4.4"
+      points: 1
+      stimulus: |
+        A high school's food-service director says the mean wait in the lunch line is 6 minutes. A student who thinks the wait is longer times the wait of one randomly chosen student on each of 20 randomly selected school days this year. The 20 waits have mean x̄ = 6.9 minutes and standard deviation s = 1.6 minutes, and a dotplot of them is roughly symmetric with no outliers. The student will use α = 0.05.
+      prompt: |
+        Which hypotheses should the student test?
+      options:
+        - "H₀: x̄ = 6, Hₐ: x̄ > 6, where x̄ is the sample mean wait"
+        - "H₀: μ = 6, Hₐ: μ ≠ 6, where μ is the true mean wait in the lunch line"
+        - "H₀: μ = 6, Hₐ: μ > 6, where μ is the true mean wait in the lunch line on school days this year"
+        - "H₀: μ = 6.9, Hₐ: μ > 6.9, where μ is the true mean wait in the lunch line"
+      option_explanations:
+        - |
+          Hypotheses are about the parameter, not the statistic; we already know x̄ = 6.9.
+        - |
+          The student suspects a longer wait, so the alternative is one-sided (>), not two-sided.
+        - |
+          Correct. The claim gives μ₀ = 6, the suspicion gives Hₐ: μ > 6, and μ is defined as the population mean wait in context.
+        - |
+          6.9 is the sample result; the null value comes from the director's claim of 6 minutes.
+      answer: 2
+    - slug: apstats-u04-w25-q02
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Statistics CED, Topic 4.5"
+      points: 1
+      stimulus: |
+        A high school's food-service director says the mean wait in the lunch line is 6 minutes. A student who thinks the wait is longer times the wait of one randomly chosen student on each of 20 randomly selected school days this year. The 20 waits have mean x̄ = 6.9 minutes and standard deviation s = 1.6 minutes, and a dotplot of them is roughly symmetric with no outliers. The student will use α = 0.05.
+      prompt: |
+        What are the test statistic and degrees of freedom?
+      options:
+        - "t ≈ 2.52 with df = 19"
+        - "t ≈ 2.52 with df = 20"
+        - "t ≈ 0.56 with df = 19"
+        - "z ≈ 2.52, using the standard normal distribution"
+      option_explanations:
+        - |
+          Correct. One-sample t-test: t = (6.9 − 6)/(1.6/√20) = 0.9/0.358 ≈ 2.52, with df = n − 1 = 19.
+        - |
+          The statistic is right, but df = n − 1 = 19, not n.
+        - |
+          0.56 = 0.9/1.6 divides by s instead of the standard error s/√20.
+        - |
+          σ is unknown and s is used, so the statistic follows a t distribution, not the standard normal.
+      answer: 0
+    - slug: apstats-u04-w25-q03
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Statistics CED, Topic 4.5"
+      points: 1
+      stimulus: |
+        A high school's food-service director says the mean wait in the lunch line is 6 minutes. A student who thinks the wait is longer times the wait of one randomly chosen student on each of 20 randomly selected school days this year. The 20 waits have mean x̄ = 6.9 minutes and standard deviation s = 1.6 minutes, and a dotplot of them is roughly symmetric with no outliers. The student will use α = 0.05.
+      prompt: |
+        What is the p-value of the test?
+      options:
+        - "About 0.021"
+        - "About 0.011"
+        - "About 0.989"
+        - "About 0.006"
+      option_explanations:
+        - |
+          0.021 doubles the tail area, as for a two-sided test; Hₐ: μ > 6 is one-sided.
+        - |
+          Correct. With df = 19, P(t > 2.52) ≈ 0.011 (tcdf gives 0.0105).
+        - |
+          0.989 is the area to the left of t = 2.52; Hₐ: μ > 6 needs the right tail.
+        - |
+          0.006 uses the standard normal curve; the t distribution with 19 df has heavier tails and a larger p-value.
+      answer: 1
+    - slug: apstats-u04-w25-q04
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Statistics CED, Topic 4.5"
+      points: 1
+      stimulus: |
+        A high school's food-service director says the mean wait in the lunch line is 6 minutes. A student who thinks the wait is longer times the wait of one randomly chosen student on each of 20 randomly selected school days this year. The 20 waits have mean x̄ = 6.9 minutes and standard deviation s = 1.6 minutes, and a dotplot of them is roughly symmetric with no outliers. The student will use α = 0.05.
+      prompt: |
+        Which is the correct conclusion at α = 0.05?
+      options:
+        - "Because the p-value is less than 0.05, we accept Hₐ and have proved that the mean wait is 6.9 minutes."
+        - "Because the p-value is less than 0.05, we fail to reject H₀; the mean wait is 6 minutes."
+        - "Because the p-value is small, there is a 1% chance that the director is right."
+        - "Because the p-value of about 0.011 is less than 0.05, we reject H₀. There is convincing evidence that the true mean wait in the lunch line is more than 6 minutes."
+      option_explanations:
+        - |
+          A test never proves a value, and 6.9 is only the sample estimate; the conclusion is that μ > 6.
+        - |
+          A p-value below α leads to rejecting H₀, not failing to reject it; and failing to reject never shows H₀ is true.
+        - |
+          The p-value is computed assuming the director is right; it is not the probability that H₀ is true.
+        - |
+          Correct. Compare the p-value with α, decide, and state the conclusion about the population mean in context with "convincing evidence".
+      answer: 3
+    # ---- Independent items
+    - slug: apstats-u04-w25-q05
+      type: multiple_choice
+      topic_code: "4.4"
+      source: "AP Statistics CED, Topic 4.4"
+      points: 1
+      prompt: |
+        A science teacher has 14 randomly chosen students do a balance test standing on the left foot and on the right foot, in random order, recording seconds balanced on each. She wants to know whether students balance longer on one foot than the other. Which parameter should her hypotheses be about?
+      options:
+        - "μ_left − μ_right estimated from two independent samples of students"
+        - "μ_diff = the true mean difference (left − right) in balance time for all students at the school"
+        - "p = the proportion of students who balance longer on the left foot"
+        - "x̄_diff = the mean of the 14 differences (left − right)"
+      option_explanations:
+        - |
+          The same students did both feet, so the measurements are paired, not independent samples.
+        - |
+          Correct. Each student gives a left − right difference; a paired t-test tests H₀: μ_diff = 0 against Hₐ: μ_diff ≠ 0.
+        - |
+          The response is time in seconds, a quantitative variable; a proportion throws away the size of each difference.
+        - |
+          x̄_diff is the sample statistic, which is known; hypotheses are about the population parameter μ_diff.
+      answer: 1
+    - slug: apstats-u04-w25-q06
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Statistics CED, Topic 4.5"
+      points: 1
+      prompt: |
+        In a paired study of 14 students, the differences (with app − without app) in quiz scores have mean 2.3 points and standard deviation 3.1 points. The teacher tests H₀: μ_diff = 0 against Hₐ: μ_diff > 0. Which gives the test statistic and p-value?
+      options:
+        - "t ≈ 0.74, p-value ≈ 0.24"
+        - "t ≈ 2.78, p-value ≈ 0.016"
+        - "t ≈ 2.78, p-value ≈ 0.008"
+        - "t ≈ 2.78, p-value ≈ 0.992"
+      option_explanations:
+        - |
+          0.74 = 2.3/3.1 divides by s_diff instead of the standard error 3.1/√14.
+        - |
+          0.016 is the two-sided p-value; Hₐ: μ_diff > 0 uses one tail.
+        - |
+          Correct. t = 2.3/(3.1/√14) ≈ 2.78 with df = 13, and P(t > 2.78) ≈ 0.008.
+        - |
+          0.992 is the area to the left of t = 2.78, the wrong tail for Hₐ: μ_diff > 0.
+      answer: 2
+    - slug: apstats-u04-w25-q07
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Statistics CED, Topic 4.5"
+      points: 1
+      prompt: |
+        A park ranger tests H₀: μ = 40 against Hₐ: μ < 40, where μ is the true mean number of visitors per hour at a trailhead on summer weekends. A random sample gives x̄ = 36.8 and a p-value of 0.03. Which is the correct interpretation of the p-value?
+      options:
+        - "Assuming the true mean is 40 visitors per hour, there is a 0.03 probability of getting a sample mean of 36.8 or less by chance alone."
+        - "There is a 0.03 probability that the true mean is 40 visitors per hour."
+        - "There is a 0.03 probability that the sample mean is 36.8."
+        - "There is a 0.97 probability that the true mean is less than 40 visitors per hour."
+      option_explanations:
+        - |
+          Correct. The p-value is computed assuming H₀ (μ = 40) and gives the probability of a result at least as extreme as the one observed, in the direction of Hₐ.
+        - |
+          The p-value assumes μ = 40; it is not the probability that H₀ is true.
+        - |
+          The sample mean is known to be 36.8; the p-value is about results at least this extreme, given μ = 40.
+        - |
+          1 − p-value is not the probability that Hₐ is true; parameters are not random under this approach.
+      answer: 0
+    - slug: apstats-u04-w25-q08
+      type: multiple_choice
+      topic_code: "4.4"
+      source: "AP Statistics CED, Topic 4.4"
+      points: 1
+      prompt: |
+        A random sample of 12 used cars on a lot shows mileages that are mostly between 40,000 and 70,000 miles, with one car at 210,000 miles. A buyer wants a one-sample t-test about the mean mileage of all cars on the lot. Which statement about the conditions is correct?
+      options:
+        - "The conditions are met, because the sample is random."
+        - "The conditions are met, because the t distribution allows for an outlier."
+        - "The Normal condition is met, because 12 ≥ 10."
+        - "The Normal condition is not met: the sample is small and has a clear outlier, so a t-test is not reliable."
+      option_explanations:
+        - |
+          Random is only one condition; with n = 12 the data must also show no strong skew or outliers.
+        - |
+          The t distribution's heavier tails account for estimating σ, not for outliers in a small sample.
+        - |
+          10 is a Large Counts threshold for proportions; for means a small sample needs no strong skew or outliers, and the large-sample rule is n ≥ 30.
+        - |
+          Correct. With n = 12 < 30, the outlier at 210,000 miles means the Normal/large sample condition fails.
+      answer: 3
+    - slug: apstats-u04-w25-q09
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "AP Statistics CED, Topic 4.3"
+      points: 1
+      prompt: |
+        A 95% t-interval for the mean length of songs on a playlist service, from a random sample, is from 3.12 to 3.58 minutes. What would a two-sided t-test of H₀: μ = 3.70 minutes at α = 0.05, using the same data, conclude?
+      options:
+        - "Fail to reject H₀, because the interval is narrow"
+        - "It cannot be determined without the p-value."
+        - "Reject H₀, because 3.70 is outside the 95% interval"
+        - "Reject H₀ only if the sample size is at least 30"
+      option_explanations:
+        - |
+          The width of the interval is not the test; whether 3.70 is a plausible value is.
+        - |
+          A two-sided test at α = 0.05 and a 95% interval from the same data always agree, so the interval settles it.
+        - |
+          Correct. 3.70 is not a plausible value of μ at 95% confidence, so the matching two-sided test at α = 0.05 rejects H₀.
+        - |
+          Sample size affects the conditions, not how the interval and the test correspond.
+      answer: 2
+    - slug: apstats-u04-w25-q10
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Statistics CED, Topic 4.5"
+      points: 1
+      prompt: |
+        Boxes of a cereal are labelled 368 grams. An inspector selects a random sample of 30 boxes from a large shipment: x̄ = 366.1 g and s = 4.8 g. She tests H₀: μ = 368 against Hₐ: μ ≠ 368. Which is the p-value?
+      options:
+        - "About 0.019"
+        - "About 0.038"
+        - "About 0.981"
+        - "About 0.69"
+      option_explanations:
+        - |
+          0.019 is the one-tail area; a two-sided alternative doubles it.
+        - |
+          Correct. t = (366.1 − 368)/(4.8/√30) ≈ −2.17 with df = 29; the two-sided p-value is 2 · P(t < −2.17) ≈ 0.038.
+        - |
+          0.981 is the area to the right of t = −2.17, which is neither tail of interest.
+        - |
+          0.69 comes from dividing by s instead of s/√30, giving t ≈ −0.40.
+      answer: 1
+    - slug: apstats-u04-w25-q11
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 1
+      prompt: |
+        A town council tests H₀: p = 0.50 against Hₐ: p > 0.50, where p is the proportion of all residents who favour a new dog park. Which change would increase the power of the test?
+      options:
+        - "Lowering α from 0.05 to 0.01"
+        - "Surveying 100 residents instead of 400"
+        - "Switching to a two-sided alternative"
+        - "Surveying 400 residents instead of 100"
+      option_explanations:
+        - |
+          A smaller α makes it harder to reject H₀, which lowers power.
+        - |
+          A smaller sample gives a more variable p̂ and lowers power.
+        - |
+          Splitting α between two tails makes it harder to detect a difference in the suspected direction, so power drops.
+        - |
+          Correct. A larger sample reduces the variability of p̂, making a true p above 0.50 easier to detect.
+      answer: 3
+    - slug: apstats-u04-w25-q12
+      type: multiple_choice
+      topic_code: "4.3"
+      source: "AP Statistics CED, Topic 4.3"
+      points: 1
+      prompt: |
+        A tutoring company claims its program raises SAT math scores. In a random sample of 25 students, a 90% paired t-interval for μ_diff (after − before) is from −0.8 to 3.5 points. Which conclusion is justified?
+      options:
+        - "Because 0 is in the interval, there is not convincing evidence that the program raises mean scores."
+        - "Because most of the interval is positive, there is convincing evidence that the program raises mean scores."
+        - "Because 0 is in the interval, the program has no effect on scores."
+        - "Because the interval includes negative values, the program lowers mean scores."
+      option_explanations:
+        - |
+          Correct. A mean change of 0 is plausible, so the interval does not give convincing evidence of an improvement.
+        - |
+          What matters is whether 0 is plausible, not how much of the interval is positive.
+        - |
+          0 being plausible is not proof of no effect; positive changes up to 3.5 points are plausible too.
+        - |
+          Negative values are plausible, but so are 0 and positive values; there is no convincing evidence in either direction.
+      answer: 0
+    - slug: apstats-u04-w25-q13
+      type: multiple_choice
+      topic_code: "3.5"
+      source: "AP Statistics CED, Topic 3.5"
+      points: 1
+      prompt: |
+        Last year 24% of a school's students bought a yearbook. The yearbook staff wonder whether the proportion is different this year and survey a random sample of students. Which hypotheses fit?
+      options:
+        - "H₀: p̂ = 0.24, Hₐ: p̂ ≠ 0.24"
+        - "H₀: p = 0.24, Hₐ: p > 0.24"
+        - "H₀: p = 0.24, Hₐ: p ≠ 0.24, where p is the proportion of all students this year who will buy a yearbook"
+        - "H₀: μ = 0.24, Hₐ: μ ≠ 0.24"
+      option_explanations:
+        - |
+          Hypotheses concern the population proportion p, not the sample proportion p̂.
+        - |
+          "Different" signals a two-sided alternative; > would be right only if they suspected an increase.
+        - |
+          Correct. The parameter is the proportion for this year's students, the null value is last year's 24%, and "different" gives ≠.
+        - |
+          Buying a yearbook is a categorical variable, so the parameter is a proportion p, not a mean μ.
+      answer: 2
+    - slug: apstats-u04-w25-q14
+      type: multi_select
+      topic_code: "4.4"
+      source: "AP Statistics CED, Topic 4.4"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which situations call for a paired t-test? Select all that apply.
+      options:
+        - "Twenty drivers' fuel economy is measured with regular tyres and again with low-resistance tyres on the same car."
+        - "Pairs of identical twins are split, one twin of each pair randomly assigned to a new study method, and both twins take the same exam."
+        - "Forty randomly chosen bags of chips are weighed and compared with the labelled weight."
+        - "Random samples of 30 apples from each of two orchards are weighed."
+        - "Each of 15 students rates the taste of two drinks in a random order."
+      option_explanations:
+        - |
+          Correct. Each driver's car is measured under both conditions, so the measurements are paired.
+        - |
+          Correct. Twins form matched pairs, and the analysis uses the within-pair differences.
+        - |
+          One group compared with a fixed value calls for a one-sample t-test, not a paired one.
+        - |
+          The two orchards give independent samples, a two-sample setting with no natural pairing.
+        - |
+          Correct. Each student rates both drinks, so each rating has a partner from the same student.
+      answer: [0, 1, 4]
+    - slug: apstats-u04-w25-q15
+      type: multi_select
+      topic_code: "4.5"
+      source: "AP Statistics CED, Topic 4.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A nutritionist tests H₀: μ = 2,000 against Hₐ: μ > 2,000, where μ is the true mean daily calorie intake of teenagers in a city, and gets a p-value of 0.08. Which statements are correct? Select all that apply.
+      options:
+        - "At α = 0.05, she fails to reject H₀."
+        - "At α = 0.10, she rejects H₀."
+        - "The test shows that the mean intake is 2,000 calories."
+        - "At α = 0.05, there is not convincing evidence that the mean intake is more than 2,000 calories."
+        - "There is an 8% chance that the mean intake is 2,000 calories."
+      option_explanations:
+        - |
+          Correct. 0.08 > 0.05, so the result is not significant at the 5% level.
+        - |
+          Correct. 0.08 < 0.10, so at the 10% level the result is significant.
+        - |
+          Failing to reject never shows H₀ is true; 2,000 is only consistent with the data.
+        - |
+          Correct. This is the right conclusion wording after failing to reject H₀ at α = 0.05.
+        - |
+          The p-value assumes μ = 2,000; it is not a probability that H₀ is true.
+      answer: [0, 1, 3]
+    - slug: apstats-u04-w25-q16
+      type: true_false
+      topic_code: "4.5"
+      source: "AP Statistics CED, Topic 4.5"
+      points: 1
+      prompt: |
+        True or false: A one-sample t-test of H₀: μ = 15 minutes for the mean time students spend on a homework app gives a p-value of 0.40. This shows that the true mean is 15 minutes.
+      answer: false
+      explanation: |
+        False. A large p-value means the data are consistent with μ = 15, so we fail to reject H₀ and there is not convincing evidence that the mean differs from 15. It does not show that μ equals 15; many nearby values are also consistent with the data.
+    - slug: apstats-u04-w25-q17
+      type: true_false
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        True or false: For random samples of 10 from a strongly right-skewed population, the sampling distribution of x̄ is approximately normal.
+      answer: false
+      explanation: |
+        False. With strong skew, n = 10 is too small for the Central Limit Theorem to make the sampling distribution of x̄ approximately normal; it stays noticeably right-skewed. This is why the Normal condition for t procedures checks the sample for strong skew when n < 30.
+    - slug: apstats-u04-w25-q18
+      type: fill_blank
+      topic_code: "4.5"
+      source: "AP Statistics CED, Topic 4.5"
+      points: 1
+      prompt: |
+        A one-sample t-test about the mean commute time of a company's employees uses a random sample of 27 employees. The test statistic has a t distribution with ____ degrees of freedom.
+      answer: ["26"]
+      explanation: |
+        For a one-sample t-test, df = n − 1 = 27 − 1 = 26.
+    - slug: apstats-u04-w25-q19
+      type: fill_blank
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 1
+      prompt: |
+        For a 99% one-sample t-interval from a sample of 10 observations, the critical value is t* = ____ (to three decimal places).
+      answer: ["3.250", "3.25"]
+      explanation: |
+        df = 10 − 1 = 9, and the value with 0.5% in each tail is t* = invT(0.995, 9) ≈ 3.250.
+    - slug: apstats-u04-w25-q20
+      type: numeric
+      topic_code: "4.5"
+      source: "AP Statistics CED, Topic 4.5"
+      points: 1
+      prompt: |
+        Sixteen randomly selected students record the hours they sleep on the night before a test and on a normal school night. The differences (night before test − normal night) have mean −1.8 hours and standard deviation 2.9 hours. Compute the paired t statistic for H₀: μ_diff = 0. Give your answer to two decimal places.
+      answer: { value: -2.48, tolerance: 0.006 }
+      explanation: |
+        t = (x̄_diff − 0)/(s_diff/√n) = −1.8/(2.9/√16) = −1.8/0.725 ≈ −2.48, with df = 15.
+    - slug: apstats-u04-w25-q21
+      type: numeric
+      topic_code: "3.7"
+      source: "AP Statistics CED, Topic 3.7"
+      points: 1
+      prompt: |
+        A student tests H₀: p = 0.50 against Hₐ: p > 0.50, where p is the proportion of all students at a large school who prefer a four-day school week. In a random sample of 250 students, p̂ = 0.556. Compute the test statistic z. Give your answer to two decimal places.
+      answer: { value: 1.77, tolerance: 0.006 }
+      explanation: |
+        z = (p̂ − p₀)/√(p₀(1 − p₀)/n) = (0.556 − 0.50)/√(0.25/250) = 0.056/0.0316 ≈ 1.77. (Use p₀, not p̂, in the standard deviation for a test.)
+    - slug: apstats-u04-w25-q22
+      type: short_answer
+      topic_code: "4.4"
+      source: "AP Statistics CED, Topic 4.4"
+      points: 3
+      prompt: |
+        A middle-school science class wants to know whether a fertiliser makes bean plants grow taller. They take 18 pairs of seedlings, the two in each pair from the same seed packet and the same tray, and flip a coin to decide which seedling in each pair gets fertiliser. After three weeks they measure each plant's height. A dotplot of the 18 differences (fertilised − unfertilised) shows no strong skew or outliers.
+
+        (a) Name the appropriate test and define the parameter.
+        (b) State the hypotheses.
+        (c) Check the conditions for the test.
+      answer: |
+        (a) A paired t-test for μ_diff, where μ_diff = the true mean difference in height (fertilised − unfertilised) after three weeks for pairs of seedlings like these.
+        (b) H₀: μ_diff = 0; Hₐ: μ_diff > 0.
+        (c) Random: within each pair, the coin flip randomly assigned the fertiliser. 10%: not needed, because this is an experiment with random assignment rather than a sample from a population. Normal: n = 18 < 30, but the dotplot of the differences shows no strong skew or outliers, so a t procedure is reasonable.
+      explanation: |
+        Three points, one per part. (a) "paired t-test" with μ_diff defined in context including the order of subtraction. (b) hypotheses about μ_diff with a one-sided > alternative (the class asks whether it makes plants taller). (c) Random (random assignment within pairs) and Normal (checked on the differences, n < 30, no strong skew or outliers), both in context. Naming a two-sample t-test in (a), or writing hypotheses with x̄, loses that point.
+    - slug: apstats-u04-w25-q23
+      type: short_answer
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 3
+      prompt: |
+        A bottling company tests H₀: μ = 500 against Hₐ: μ ≠ 500, where μ is the true mean fill of its 500 mL bottles, using a random sample each shift. If H₀ is rejected, the line is shut down and adjusted.
+
+        (a) Describe a Type I error in context, and give a consequence.
+        (b) Describe a Type II error in context, and give a consequence.
+        (c) The company lowers α from 0.05 to 0.01. Which type of error becomes more likely? Explain.
+      answer: |
+        (a) Type I: concluding the mean fill differs from 500 mL (and shutting down the line) when it really is 500 mL. Consequence: lost production time and an unneeded adjustment.
+        (b) Type II: failing to find convincing evidence that the mean fill differs from 500 mL when it really does. Consequence: the line keeps over- or under-filling, wasting product or short-changing customers.
+        (c) A Type II error. A smaller α makes it harder to reject H₀, so a real change in the mean fill is more likely to be missed (power goes down).
+      explanation: |
+        Three points, one per part. (a) the error in context (reject H₀ / shut down when μ = 500) with a reasonable consequence. (b) the error in context (fail to reject when μ ≠ 500) with a reasonable consequence. (c) "Type II" with the reason that lowering α makes rejection harder. Definitions without context earn no credit.
+    - slug: apstats-u04-w25-q24
+      type: long_answer
+      topic_code: "4.5"
+      source: "AP Statistics CED, Topic 4.5"
+      points: 8
+      prompt: |
+        A student wonders whether background music affects memory. She recruits 10 classmates. Each one studies a list of 20 words for two minutes in silence and, on another day, a different list of the same difficulty with music playing; a coin flip decides which condition each classmate does first. The number of words recalled:
+
+        | Classmate | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+        |---|---|---|---|---|---|---|---|---|---|---|
+        | Silence | 14 | 11 | 17 | 9 | 15 | 12 | 16 | 10 | 13 | 18 |
+        | Music | 12 | 11 | 14 | 10 | 12 | 9 | 15 | 8 | 13 | 15 |
+
+        (A) State the hypotheses for testing whether students recall more words in silence than with music, defining the parameter.
+
+        (B) Name the test and check its conditions. The differences (silence − music) are 2, 0, 3, −1, 3, 3, 1, 2, 0, 3.
+
+        (C) Compute the test statistic, degrees of freedom and p-value.
+
+        (D) State a conclusion at α = 0.05 in context.
+
+        (E) Interpret the p-value in context.
+
+        (F) To whom can the conclusion be applied, and can it be stated as cause and effect? Explain.
+      answer: |
+        (A) H₀: μ_diff = 0; Hₐ: μ_diff > 0, where μ_diff = the true mean difference (silence − music) in words recalled, for students like these classmates.
+        (B) Paired t-test for μ_diff. Random: the order of conditions was randomly assigned for each classmate. Normal: n = 10 < 30; the differences range from −1 to 3 with no outliers and no strong skew (a dotplot is somewhat piled up at 2 and 3 but has no extreme values), so the t procedure is reasonable. (10% does not apply: the classmates are not a random sample from a population.)
+        (C) x̄_diff = 1.6, s_diff ≈ 1.51. t = 1.6/(1.51/√10) ≈ 3.36, df = 9, p-value = P(t > 3.36) ≈ 0.004.
+        (D) Because the p-value ≈ 0.004 < α = 0.05, we reject H₀. There is convincing evidence that the true mean number of words recalled is greater in silence than with music, for students like these.
+        (E) Assuming there is no difference in mean recall between silence and music (μ_diff = 0), there is about a 0.004 probability of getting a mean difference of 1.6 words or more by chance alone.
+        (F) The classmates were not randomly selected, so the result applies only to students like these classmates, not to all students. Because the order of conditions was randomly assigned, we can conclude that the music caused the lower recall for these students (the experiment controlled for order effects).
+      explanation: |
+        Eight points.
+        (A) 1 point: hypotheses about μ_diff with Hₐ: μ_diff > 0 and μ_diff defined in context with the order of subtraction. Hypotheses about x̄ or a two-sided alternative do not earn the point.
+        (B) 2 points: 1 for naming the paired t-test; 1 for checking Random (random order) and Normal (n < 30, differences show no strong skew or outliers) in context. Checking Normal on the two lists of scores separately does not earn the second point.
+        (C) 2 points: 1 for t ≈ 3.36 (accept 3.3 to 3.4) with df = 9; 1 for p-value ≈ 0.004 (accept 0.003 to 0.005). A two-sided p-value of 0.008 earns only the first point.
+        (D) 1 point: compares p-value with α, rejects H₀ and states "convincing evidence" that mean recall is higher in silence, in context.
+        (E) 1 point: assumes μ_diff = 0, names "a mean difference of 1.6 or more", and says "by chance". Calling the p-value the probability that H₀ is true loses the point.
+        (F) 1 point: both parts: generalise only to students like these (no random sample) and cause and effect is justified (random assignment of order).

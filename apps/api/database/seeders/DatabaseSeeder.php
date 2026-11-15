@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             ApCalculusAbSeeder::class,
             // Builds on AB: reuses its rows, so it runs after it (and re-seeds it in place).
             ApCalculusBcSeeder::class,
+            ApStatisticsSeeder::class,
             ChemistrySeeder::class,
             ApChemistrySeeder::class,
             ApWorldHistorySeeder::class,

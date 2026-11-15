@@ -1,0 +1,978 @@
+unit: 5
+description: |
+  44 questions · about 90 minutes · every topic of Unit 5 (5.1 to 5.5): describing scatterplots, the
+  correlation r and its properties, correlation versus causation, the regression equation and the
+  interpretation of slope and y-intercept, extrapolation, residuals and residual plots, the least-squares
+  criterion, slope and intercept from summary statistics, r² and s, computer output, and outliers,
+  high-leverage and influential points. Because Unit 5 is the last unit, a few items reach back to study
+  design and probability. Includes two shared-context sets (a five-question set on computer output for
+  apartment rents and a four-question set on a solar panel data table), select-all, true/false,
+  fill-in-the-blank and numeric items, two short-answer questions (3 points each) and two free-response
+  questions in the 2027 AP style (10 points each: one data analysis of sprint times and vertical jumps with an
+  influential point, one combining a regression model of delivery times with Normal and binomial
+  probability). Multiple choice, select-all, true/false and numeric items are graded at once;
+  fill-in-the-blank items are matched automatically; the short answers and free-response questions are graded
+  by your teacher against the scoring notes. Calculators are allowed throughout.
+questions:
+  # ---- Stimulus set A: apartment rents computer output (5.3, 5.5, 5.4)
+  - slug: apstats-u05-exam-q01
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "AP Statistics CED, Topic 5.3"
+    points: 1
+    stimulus: |
+      A random sample of 30 apartments in a hypothetical city gives each apartment's size (x, in square feet, from 450 to 1,390) and monthly rent (y, in dollars). The scatterplot is linear and the residual plot shows no pattern. Regression output:
+
+      | Predictor | Coef | SE Coef | T | P |
+      |---|---|---|---|---|
+      | Constant | 366.4079 | 61.6743 | 5.94 | 0.000 |
+      | Size | 0.9511 | 0.0629 | 15.13 | 0.000 |
+
+      S = 93.8409 · R-sq = 89.1% · R-sq(adj) = 88.7%
+    prompt: |
+      Which is the correct interpretation of the slope?
+    options:
+      - "Each apartment's rent goes up by exactly $0.95 for every square foot."
+      - "For each additional square foot of size, the predicted monthly rent increases by about $0.95."
+      - "For each additional dollar of rent, the predicted size increases by 0.95 square feet."
+      - "An apartment with 0 square feet has a predicted rent of $0.95."
+    option_explanations:
+      - |
+        Individual rents scatter around the line (S is about $94), so the slope is a predicted change, not an exact one for each apartment.
+      - |
+        Correct. The Size coefficient 0.9511 is the slope, in dollars per square foot, interpreted with "predicted".
+      - |
+        The roles are reversed: rent is the response and size is the explanatory variable.
+      - |
+        That confuses the slope with the intercept; the predicted rent at 0 square feet is $366.41.
+    answer: 1
+  - slug: apstats-u05-exam-q02
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 1
+    stimulus: |
+      A random sample of 30 apartments in a hypothetical city gives each apartment's size (x, in square feet, from 450 to 1,390) and monthly rent (y, in dollars). The scatterplot is linear and the residual plot shows no pattern. Regression output:
+
+      | Predictor | Coef | SE Coef | T | P |
+      |---|---|---|---|---|
+      | Constant | 366.4079 | 61.6743 | 5.94 | 0.000 |
+      | Size | 0.9511 | 0.0629 | 15.13 | 0.000 |
+
+      S = 93.8409 · R-sq = 89.1% · R-sq(adj) = 88.7%
+    prompt: |
+      What is the correlation between size and rent?
+    options:
+      - "0.891"
+      - "0.9511"
+      - "0.944"
+      - "−0.944"
+    option_explanations:
+      - |
+        0.891 is r², not r; take its square root.
+      - |
+        0.9511 is the slope, which has units (dollars per square foot) and is not r.
+      - |
+        Correct. r = +√0.891 = 0.944, positive because the slope is positive.
+      - |
+        The size is right but the slope is positive, so r is positive.
+    answer: 2
+  - slug: apstats-u05-exam-q03
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 1
+    stimulus: |
+      A random sample of 30 apartments in a hypothetical city gives each apartment's size (x, in square feet, from 450 to 1,390) and monthly rent (y, in dollars). The scatterplot is linear and the residual plot shows no pattern. Regression output:
+
+      | Predictor | Coef | SE Coef | T | P |
+      |---|---|---|---|---|
+      | Constant | 366.4079 | 61.6743 | 5.94 | 0.000 |
+      | Size | 0.9511 | 0.0629 | 15.13 | 0.000 |
+
+      S = 93.8409 · R-sq = 89.1% · R-sq(adj) = 88.7%
+    prompt: |
+      Which is the best interpretation of S = 93.8409?
+    options:
+      - "Actual monthly rents typically vary by about $94 from the rents predicted by the line using apartment size."
+      - "Monthly rents typically vary by about $94 from the mean rent of the 30 apartments."
+      - "About 93.8% of the variation in rent is accounted for by size."
+      - "Every apartment's rent is within $94 of its predicted rent."
+    option_explanations:
+      - |
+        Correct. S is the standard deviation of the residuals: the typical size of the difference between actual and predicted rent.
+      - |
+        That describes s_y, the spread of rents around ȳ; S measures spread around the regression line.
+      - |
+        That is the language of r², and r² here is 89.1%, not 93.8%.
+      - |
+        S is a typical distance, not a maximum; some residuals are larger than $94.
+    answer: 0
+  - slug: apstats-u05-exam-q04
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "AP Statistics CED, Topic 5.4"
+    points: 1
+    stimulus: |
+      A random sample of 30 apartments in a hypothetical city gives each apartment's size (x, in square feet, from 450 to 1,390) and monthly rent (y, in dollars). The scatterplot is linear and the residual plot shows no pattern. Regression output:
+
+      | Predictor | Coef | SE Coef | T | P |
+      |---|---|---|---|---|
+      | Constant | 366.4079 | 61.6743 | 5.94 | 0.000 |
+      | Size | 0.9511 | 0.0629 | 15.13 | 0.000 |
+
+      S = 93.8409 · R-sq = 89.1% · R-sq(adj) = 88.7%
+    prompt: |
+      One apartment in the sample has 1,000 square feet and rents for $1,250 a month. What is its residual?
+    options:
+      - "$67.51"
+      - "$1,317.51"
+      - "$883.59"
+      - "−$67.51"
+    option_explanations:
+      - |
+        The size is right but the sign is backwards: this is predicted minus actual.
+      - |
+        $1,317.51 is the predicted rent ŷ, not the residual.
+      - |
+        This subtracts only the intercept from the rent (1,250 − 366.41) and ignores the slope term 0.9511 × 1,000.
+      - |
+        Correct. ŷ = 366.4079 + 0.9511(1,000) = 1,317.51, so the residual is 1,250 − 1,317.51 = −67.51 dollars: the rent is about $68 less than predicted.
+    answer: 3
+  - slug: apstats-u05-exam-q05
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "AP Statistics CED, Topic 5.3"
+    points: 1
+    stimulus: |
+      A random sample of 30 apartments in a hypothetical city gives each apartment's size (x, in square feet, from 450 to 1,390) and monthly rent (y, in dollars). The scatterplot is linear and the residual plot shows no pattern. Regression output:
+
+      | Predictor | Coef | SE Coef | T | P |
+      |---|---|---|---|---|
+      | Constant | 366.4079 | 61.6743 | 5.94 | 0.000 |
+      | Size | 0.9511 | 0.0629 | 15.13 | 0.000 |
+
+      S = 93.8409 · R-sq = 89.1% · R-sq(adj) = 88.7%
+    prompt: |
+      A real-estate agent uses the line to predict the rent of a 3,000-square-foot penthouse: 366.41 + 0.9511(3,000) = $3,219.71. Which comment is most appropriate?
+    options:
+      - "The prediction is reliable, because R-sq is high."
+      - "The prediction is reliable, because the residual plot shows no pattern."
+      - "3,000 square feet is far outside the 450 to 1,390 square feet in the sample, so this is an extrapolation and may be badly wrong."
+      - "The prediction should be 3,000 × 0.9511 = $2,853.30, without the intercept."
+    option_explanations:
+      - |
+        A high R-sq describes the fit within the observed sizes; it says nothing about sizes far outside them.
+      - |
+        A patternless residual plot supports the line only over the range of the data.
+      - |
+        Correct. Predicting far beyond the observed x-values is extrapolation; penthouse rents may follow a very different pattern.
+      - |
+        Dropping the intercept is an arithmetic error; the full equation must be used, and the real issue is extrapolation.
+    answer: 2
+  # ---- Stimulus set B: solar panel output (5.1, 5.2, 5.4, 5.5)
+  - slug: apstats-u05-exam-q06
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "AP Statistics CED, Topic 5.1"
+    points: 1
+    stimulus: |
+      A school's science club records the hours of direct sunlight and the energy produced (kWh) by the solar panels on its roof on 6 hypothetical days. The least-squares line is predicted energy = 0.644 + 2.148 (sunlight hours).
+
+      | Sunlight (hours) | 3.5 | 5.0 | 6.0 | 7.5 | 9.0 | 10.5 |
+      |---|---|---|---|---|---|---|
+      | Energy (kWh) | 8.2 | 11.9 | 12.8 | 17.1 | 19.4 | 23.6 |
+    prompt: |
+      Which description of the relationship is best?
+    options:
+      - "A very strong, positive, linear association between hours of sunlight and energy produced, with no outliers"
+      - "A strong negative association, because energy rises as sunlight rises"
+      - "A curved association, because the points do not lie exactly on the line"
+      - "Sunlight causes 2.148 kWh of energy, so the association is perfect"
+    option_explanations:
+      - |
+        Correct. Energy rises steadily with sunlight (positive), along a straight band (linear), very close to the line (very strong), with no point standing apart.
+      - |
+        Rising together is a positive association, not a negative one.
+      - |
+        Points need not lie exactly on a line for the form to be linear; these show no bend.
+      - |
+        The slope is a predicted change per hour, not a causal amount, and the points are not exactly on the line, so the association is not perfect.
+    answer: 0
+  - slug: apstats-u05-exam-q07
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "AP Statistics CED, Topic 5.2"
+    points: 1
+    stimulus: |
+      A school's science club records the hours of direct sunlight and the energy produced (kWh) by the solar panels on its roof on 6 hypothetical days. The least-squares line is predicted energy = 0.644 + 2.148 (sunlight hours).
+
+      | Sunlight (hours) | 3.5 | 5.0 | 6.0 | 7.5 | 9.0 | 10.5 |
+      |---|---|---|---|---|---|---|
+      | Energy (kWh) | 8.2 | 11.9 | 12.8 | 17.1 | 19.4 | 23.6 |
+    prompt: |
+      What is the correlation between sunlight hours and energy produced?
+    options:
+      - "2.148"
+      - "0.644"
+      - "−0.996"
+      - "0.996"
+    option_explanations:
+      - |
+        2.148 is the slope in kWh per hour; r can never exceed 1.
+      - |
+        0.644 is the y-intercept of the line, not the correlation.
+      - |
+        The strength is right but the association is positive, so r is positive.
+      - |
+        Correct. Technology gives r = 0.996: an extremely strong, positive, linear association.
+    answer: 3
+  - slug: apstats-u05-exam-q08
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "AP Statistics CED, Topic 5.4"
+    points: 1
+    stimulus: |
+      A school's science club records the hours of direct sunlight and the energy produced (kWh) by the solar panels on its roof on 6 hypothetical days. The least-squares line is predicted energy = 0.644 + 2.148 (sunlight hours).
+
+      | Sunlight (hours) | 3.5 | 5.0 | 6.0 | 7.5 | 9.0 | 10.5 |
+      |---|---|---|---|---|---|---|
+      | Energy (kWh) | 8.2 | 11.9 | 12.8 | 17.1 | 19.4 | 23.6 |
+    prompt: |
+      Which is the residual for the day with 6.0 hours of sunlight, with its interpretation?
+    options:
+      - "0.73 kWh: the panels produced 0.73 kWh more than predicted for 6.0 hours of sunlight."
+      - "−0.73 kWh: the panels produced 0.73 kWh less than predicted for 6.0 hours of sunlight."
+      - "13.53 kWh: the energy the line predicts for that day."
+      - "−0.73 hours: the day had 0.73 fewer hours of sunlight than predicted."
+    option_explanations:
+      - |
+        The sign is backwards: ŷ is 13.53, larger than the actual 12.8, so the residual is negative.
+      - |
+        Correct. ŷ = 0.644 + 2.148(6.0) = 13.53 kWh, so the residual is 12.8 − 13.53 = −0.73 kWh; the line overpredicted.
+      - |
+        13.53 is the predicted value, not the residual.
+      - |
+        Residuals are in the units of the response (kWh), not of the explanatory variable.
+    answer: 1
+  - slug: apstats-u05-exam-q09
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 1
+    stimulus: |
+      A school's science club records the hours of direct sunlight and the energy produced (kWh) by the solar panels on its roof on 6 hypothetical days. The least-squares line is predicted energy = 0.644 + 2.148 (sunlight hours).
+
+      | Sunlight (hours) | 3.5 | 5.0 | 6.0 | 7.5 | 9.0 | 10.5 |
+      |---|---|---|---|---|---|---|
+      | Energy (kWh) | 8.2 | 11.9 | 12.8 | 17.1 | 19.4 | 23.6 |
+    prompt: |
+      The mean sunlight is 6.92 hours and the mean energy is 15.5 kWh. Which statement about the least-squares line must be true?
+    options:
+      - "It passes through the first and last data points."
+      - "Exactly half of the points lie above it."
+      - "It passes through the point (6.92, 15.5)."
+      - "Its sum of residuals is the smallest possible."
+    option_explanations:
+      - |
+        The least-squares line need not pass through any data point; the line through the end points is a different line.
+      - |
+        The criterion is about squared distances, not counts above and below; here four of the six points lie above the line.
+      - |
+        Correct. Every least-squares line passes through (x̄, ȳ): 0.644 + 2.148(6.92) ≈ 15.5.
+      - |
+        The sum of residuals is 0 for any line through (x̄, ȳ); it is the sum of squared residuals that is minimised.
+    answer: 2
+  # ---- Topics 5.1 to 5.5
+  - slug: apstats-u05-exam-q10
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "AP Statistics CED, Topic 5.1"
+    points: 1
+    prompt: |
+      A student wants to study sleep and screen time. Which is a statistical investigative question that calls for a scatterplot and a regression analysis?
+    options:
+      - "How many hours did you sleep last night?"
+      - "Do more students at this school prefer phones or laptops?"
+      - "What is the most common bedtime at this school?"
+      - "For students at this school, is the number of minutes of screen time after 9 p.m. associated with hours of sleep that night?"
+    option_explanations:
+      - |
+        That is a survey question for one person; it names no population or relationship.
+      - |
+        This involves one categorical variable and no quantitative relationship.
+      - |
+        A single summary of one variable does not call for a scatterplot or regression.
+      - |
+        Correct. It names the population and two quantitative variables measured on the same students, and asks about their relationship.
+    answer: 3
+  - slug: apstats-u05-exam-q11
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "AP Statistics CED, Topic 5.1"
+    points: 1
+    prompt: |
+      A scatterplot of engine size (litres) against highway fuel economy (miles per gallon) for 40 hypothetical cars shows two distinct groups: small cars with engines under 2 litres and 35 to 45 mpg, and trucks with engines over 4 litres and 18 to 24 mpg, with almost nothing in between. Which feature should a description include?
+    options:
+      - "Two clusters (small cars and trucks), with a negative overall association between engine size and fuel economy"
+      - "A positive association, because both groups contain many points"
+      - "No association, because there is a gap in the middle"
+      - "A strong linear association within each cluster, which proves larger engines cause lower mpg"
+    option_explanations:
+      - |
+        Correct. Distinct groups are an unusual feature worth naming, and larger engines go with lower fuel economy overall (negative).
+      - |
+        The number of points says nothing about direction; larger engines go with lower mpg, a negative association.
+      - |
+        A gap between clusters is a feature, not evidence of no association; the clusters sit at opposite corners.
+      - |
+        The description gives no information about the pattern inside each cluster, and observational data cannot prove causation.
+    answer: 0
+  - slug: apstats-u05-exam-q12
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "AP Statistics CED, Topic 5.2"
+    points: 1
+    prompt: |
+      For 50 hypothetical runners, the correlation between race distance in kilometres and finishing time in minutes is r = 0.97. The data are re-entered with distance in miles and time in hours. What is the new correlation?
+    options:
+      - "Smaller, because both numbers shrink"
+      - "0.97"
+      - "0.97 × 0.621 × 60"
+      - "It depends on which variable is put on the x-axis."
+    option_explanations:
+      - |
+        Smaller numbers do not weaken the association; changing units leaves every z-score unchanged.
+      - |
+        Correct. r is unitless and unaffected by linear changes of units in either variable.
+      - |
+        Conversion factors change slopes, not r; this would also exceed 1, which is impossible.
+      - |
+        Swapping the axes does not change r either; the formula is symmetric in x and y.
+    answer: 1
+  - slug: apstats-u05-exam-q13
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "AP Statistics CED, Topic 5.2"
+    points: 1
+    prompt: |
+      In a hypothetical survey of 400 adults, the number of hours spent reading each week and the number of doctor visits per year have r = −0.35. A newspaper reports, "Reading keeps you healthy." What is the main problem with this claim?
+    options:
+      - "r = −0.35 is too weak to show anything at all."
+      - "A negative r means reading makes people less healthy."
+      - "The data are observational; a lurking variable such as age or free time could be related to both reading and doctor visits."
+      - "The sample size is too small for a correlation."
+    option_explanations:
+      - |
+        A correlation of −0.35 does describe a weak negative association; the problem is the causal claim, not the size of r.
+      - |
+        Fewer doctor visits with more reading is the direction the newspaper describes; the sign is not the problem.
+      - |
+        Correct. Without random assignment, other variables (age, income, retirement, free time) could produce the association, so no causal conclusion follows.
+      - |
+        400 adults is ample for computing a correlation; sample size does not turn observational data into an experiment.
+    answer: 2
+  - slug: apstats-u05-exam-q14
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "AP Statistics CED, Topic 5.2"
+    points: 1
+    prompt: |
+      A scatterplot of the age of a car's driver against the number of accidents per million miles for many hypothetical drivers shows high accident rates for teenagers and for drivers over 80, and low rates in between: a U shape. The correlation is r = 0.08. Which statement is correct?
+    options:
+      - "Age and accident rate are unrelated, because r is close to 0."
+      - "There is a weak positive linear relationship, so older drivers are slightly more dangerous."
+      - "The correlation must be wrong, because the plot shows a clear pattern."
+      - "There is little linear association, but a strong curved association between age and accident rate."
+    option_explanations:
+      - |
+        r near 0 only rules out a linear relationship; a U shape is a strong relationship.
+      - |
+        Describing a U shape as linear ignores the plot; r should only be used for linear forms.
+      - |
+        A U shape naturally gives r near 0, because positive and negative z-score products cancel.
+      - |
+        Correct. r measures only linear association; the scatterplot shows a strong curved pattern.
+    answer: 3
+  - slug: apstats-u05-exam-q15
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "AP Statistics CED, Topic 5.3"
+    points: 1
+    prompt: |
+      For 28 hypothetical adults aged 30 to 60, a regression of systolic blood pressure (mm Hg) on age (years) gives ŷ = 96.5 + 0.62x. Which statement about the intercept is best?
+    options:
+      - "It is the predicted blood pressure of a newborn (age 0), 96.5 mm Hg, but age 0 is far outside the 30 to 60 range, so it has no reliable meaning here."
+      - "It is the mean blood pressure of the 28 adults."
+      - "It shows that blood pressure rises by 96.5 mm Hg per year."
+      - "It is the lowest blood pressure in the sample."
+    option_explanations:
+      - |
+        Correct. The intercept is ŷ at x = 0; since no one in the sample was younger than 30, it is an extrapolation and should not be interpreted as a real prediction.
+      - |
+        The mean of y is predicted at x̄, not at x = 0.
+      - |
+        The rate of change per year is the slope, 0.62 mm Hg per year.
+      - |
+        The intercept is a predicted value from the line, not an observed value.
+    answer: 0
+  - slug: apstats-u05-exam-q16
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "AP Statistics CED, Topic 5.3"
+    points: 1
+    prompt: |
+      A regression line for predicted monthly electricity bill on home size predicts $96 for a 1,200-square-foot home and $132 for a 2,000-square-foot home. What is the slope?
+    options:
+      - "$36 per square foot"
+      - "$0.045 per square foot"
+      - "$22.2 per square foot"
+      - "$0.08 per square foot"
+    option_explanations:
+      - |
+        $36 is the change in predicted bill, but it occurs over 800 square feet; divide by the change in x.
+      - |
+        Correct. b = (132 − 96)/(2,000 − 1,200) = 36/800 = $0.045 per square foot.
+      - |
+        This divides the change in x by the change in y (800/36), which is upside down.
+      - |
+        This divides 96 by 1,200, treating the line as if it went through the origin.
+    answer: 1
+  - slug: apstats-u05-exam-q17
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "AP Statistics CED, Topic 5.4"
+    points: 1
+    prompt: |
+      A regression of the stopping distance of a bicycle on its speed has r = 0.97, but the residual plot shows residuals that are positive at low speeds, negative at middle speeds and positive at high speeds. What is the best conclusion?
+    options:
+      - "The linear model is appropriate, because r is above 0.9."
+      - "The linear model is appropriate, because the residuals are centred on 0."
+      - "The relationship is linear, but predictions are less precise at high speeds."
+      - "The relationship is curved, so a linear model is not appropriate despite the high r."
+    option_explanations:
+      - |
+        No value of r guarantees a linear form; curved data can have |r| near 1.
+      - |
+        Least-squares residuals are always centred on 0; the pattern is what matters.
+      - |
+        That describes a fan shape (changing spread); this plot shows a U-shaped curve.
+      - |
+        Correct. The U-shaped residual plot shows that the line underpredicts at both ends and overpredicts in the middle: the true relationship curves.
+    answer: 3
+  - slug: apstats-u05-exam-q18
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "AP Statistics CED, Topic 5.4"
+    points: 1
+    prompt: |
+      A regression of a family's monthly grocery spending on household income has a residual plot with no curve, but the residuals are small for low incomes and spread far wider for high incomes. What does this mean?
+    options:
+      - "The relationship is curved, so a line should not be used."
+      - "The line systematically overpredicts spending for high-income families."
+      - "The line describes the average trend, but predictions are much less precise for high-income families."
+      - "Income causes larger differences in spending."
+    option_explanations:
+      - |
+        A fan shape is about spread, not form; there is no curve in the residual plot.
+      - |
+        Wide spread means large residuals in both directions, not systematic overprediction.
+      - |
+        Correct. A fan-shaped residual plot means prediction errors grow with income, so predictions for high incomes are less reliable.
+      - |
+        A residual plot cannot establish causation; it only describes how well the line fits.
+    answer: 2
+  - slug: apstats-u05-exam-q19
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "AP Statistics CED, Topic 5.4"
+    points: 1
+    prompt: |
+      A regression predicts a used laptop's selling price from its age. One laptop has a residual of −$85. Which statement is correct?
+    options:
+      - "The laptop sold for $85 less than the price predicted from its age."
+      - "The laptop sold for $85 more than predicted from its age."
+      - "The laptop is 85 months older than predicted."
+      - "The laptop's predicted price is −$85."
+    option_explanations:
+      - |
+        Correct. Residual = actual − predicted = −85, so the actual price is $85 below the line.
+      - |
+        A negative residual means the actual value is below the prediction, not above it.
+      - |
+        Residuals are measured in the units of the response (dollars), not of age.
+      - |
+        The residual is a difference between actual and predicted prices, not the predicted price itself.
+    answer: 0
+  - slug: apstats-u05-exam-q20
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 1
+    prompt: |
+      Two students fit different lines to the same scatterplot. Both lines pass through (x̄, ȳ), so both have residuals that add to 0. How can they decide which line is the least-squares line?
+    options:
+      - "Choose the line that passes through more data points."
+      - "Choose the line with the smaller sum of squared residuals."
+      - "Choose the line with the steeper slope."
+      - "Either line is the least-squares line, because both residual sums are 0."
+    option_explanations:
+      - |
+        Passing through data points is not the criterion; the least-squares line may pass through none.
+      - |
+        Correct. The least-squares line is the one with the smallest possible Σ(y − ŷ)².
+      - |
+        Steepness has nothing to do with the criterion.
+      - |
+        Every line through (x̄, ȳ) has residuals summing to 0, so that property cannot identify the least-squares line.
+    answer: 1
+  - slug: apstats-u05-exam-q21
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 1
+    prompt: |
+      For 60 hypothetical students, weekly hours of video games (x) and GPA (y) have x̄ = 9, sₓ = 4, ȳ = 3.1, s_y = 0.5 and r = −0.40. What is the least-squares line?
+    options:
+      - "ŷ = 3.1 − 0.40x"
+      - "ŷ = 31.9 − 3.2x"
+      - "ŷ = 2.65 + 0.05x"
+      - "ŷ = 3.55 − 0.05x"
+    option_explanations:
+      - |
+        This uses r as the slope and ȳ as the intercept; the slope is r · s_y/sₓ and the intercept is ȳ − b x̄.
+      - |
+        This inverts the slope formula, b = r · sₓ/s_y = −0.40 × 4/0.5 = −3.2, and then gets a = 3.1 + 3.2(9) = 31.9.
+      - |
+        This drops the sign of r: b = +0.05 gives a = 3.1 − 0.05(9) = 2.65, but r is negative, so the slope must be negative.
+      - |
+        Correct. b = −0.40 × 0.5/4 = −0.05 grade points per hour, and a = 3.1 − (−0.05)(9) = 3.55.
+    answer: 3
+  - slug: apstats-u05-exam-q22
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 1
+    prompt: |
+      A scatterplot of 25 hypothetical small towns shows population (thousands) against the number of coffee shops, with towns of 2 to 20 thousand people following a clear positive line. One town has 95 thousand people and only 4 coffee shops. What is the most likely effect of removing that town from the regression?
+    options:
+      - "Almost no change, because it is only one of 25 towns"
+      - "The slope decreases, because the town has a small number of coffee shops"
+      - "The slope increases substantially and r moves closer to 1, because the town is a high-leverage point that does not follow the pattern"
+      - "Only the intercept changes, because the town's population is far from the others"
+    option_explanations:
+      - |
+        A single point with x far from the others can dominate the fit; how many points there are does not protect the line.
+      - |
+        The town pulls the right end of the line down, so the slope is too small with it and increases without it.
+      - |
+        Correct. 95 thousand is far from the other populations (high leverage), and its low count pulls the line down. Removing it steepens the slope and strengthens r: it is influential.
+      - |
+        A high-leverage point mainly affects the slope (the line pivots around (x̄, ȳ)), not only the intercept.
+    answer: 2
+  - slug: apstats-u05-exam-q23
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 1
+    prompt: |
+      In a regression of 40 points, one point has x close to x̄ and a residual far larger than any other. What happens if it is removed?
+    options:
+      - "The slope stays about the same, |r| increases and s decreases."
+      - "The slope changes a lot, because the point is an outlier."
+      - "|r| decreases and s increases."
+      - "Nothing changes, because points near x̄ have no effect at all."
+    option_explanations:
+      - |
+        Correct. A point near x̄ has little leverage, so the slope barely moves, but its large squared residual was inflating s and weakening r.
+      - |
+        Large changes in slope come from high-leverage points (x far from x̄), not from outliers near the middle.
+      - |
+        The directions are reversed; removing a large residual tightens the fit.
+      - |
+        Points near x̄ barely affect the slope, but they still affect the intercept, r and s.
+    answer: 0
+  - slug: apstats-u05-exam-q24
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 1
+    prompt: |
+      A regression of plant height on hours of light per day has r² = 0.58. Which interpretation is correct?
+    options:
+      - "58% of the plants grew taller with more light."
+      - "About 58% of the variation in plant height is accounted for by the linear model relating height to hours of light."
+      - "Hours of light cause 58% of a plant's height."
+      - "The correlation between light and height is 0.58."
+    option_explanations:
+      - |
+        r² is not a percentage of individuals; it describes variation accounted for by the model.
+      - |
+        Correct. This is the r² template, in context.
+      - |
+        r² describes a statistical fit, not a causal share of each plant's height.
+      - |
+        0.58 is r²; r would be ±√0.58 ≈ ±0.76, with the sign of the slope.
+    answer: 1
+  - slug: apstats-u05-exam-q25
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 1
+    prompt: |
+      Heights of fathers and their adult sons in a hypothetical sample have r = 0.5 and the same mean and standard deviation. A father is 2 standard deviations taller than the mean father. What does the least-squares line predict for his son?
+    options:
+      - "2 standard deviations above the mean son"
+      - "4 standard deviations above the mean son"
+      - "Exactly the mean height of the sons"
+      - "1 standard deviation above the mean son"
+    option_explanations:
+      - |
+        That would require r = 1. With r = 0.5 the prediction is pulled halfway back toward the mean.
+      - |
+        Predictions move r SDs in y per SD in x, so they can never move further than x does when |r| ≤ 1.
+      - |
+        That would require r = 0; a positive r keeps the prediction above the mean.
+      - |
+        Correct. A move of z SDs in x predicts a move of r · z = 0.5 × 2 = 1 SD in y: regression toward the mean.
+    answer: 3
+  - slug: apstats-u05-exam-q26
+    type: multiple_choice
+    topic_code: "5.2"
+    source: "AP Statistics CED, Topic 5.2"
+    points: 1
+    prompt: |
+      Twelve hypothetical students' hours of homework per week and test averages show a moderate positive linear association, r = 0.55. One more student is added who does far more homework than anyone else and also has the highest test average, right in line with the trend. What is the likely effect on r?
+    options:
+      - "r moves toward 0, because the new point is an outlier."
+      - "r stays 0.55, because r is resistant."
+      - "r moves closer to 1, because the new point is far out in both variables in the direction of the trend."
+      - "r becomes negative, because the new point is unusual."
+    option_explanations:
+      - |
+        A far-away point weakens r only when it goes against the trend; this one follows it.
+      - |
+        r is not resistant; any far-away point changes it.
+      - |
+        Correct. The new point has large positive zₓ and z_y, adding a large positive product, so r increases toward 1.
+      - |
+        A point consistent with a positive trend cannot reverse its direction.
+    answer: 2
+  - slug: apstats-u05-exam-q27
+    type: multiple_choice
+    topic_code: "1.13"
+    source: "AP Statistics CED, Topic 1.13"
+    points: 1
+    prompt: |
+      A gardener finds a strong positive association between the amount of compost added to garden plots and the tomato yield in her neighbours' gardens. Which study would let her conclude that compost increases yield?
+    options:
+      - "Randomly assign 40 similar plots to receive 0, 2, 4 or 6 kg of compost, keep water and sunlight the same, and compare mean yields."
+      - "Survey 200 randomly selected gardeners about how much compost they use and their yields."
+      - "Compare her own garden this year with last year."
+      - "Compute the correlation for more neighbours' gardens."
+    option_explanations:
+      - |
+        Correct. Random assignment of compost amounts, with other variables controlled, is the only design that supports a cause-and-effect conclusion.
+      - |
+        A random sample allows generalisation, but the gardeners chose their compost, so lurking variables such as soil quality and experience remain.
+      - |
+        Weather and other conditions change from year to year and are confounded with compost.
+      - |
+        More observational data strengthen the description of the association but cannot show causation.
+    answer: 0
+  - slug: apstats-u05-exam-q28
+    type: multiple_choice
+    topic_code: "5.3"
+    source: "AP Statistics CED, Topic 5.3"
+    points: 1
+    prompt: |
+      A regression of final exam score on midterm score is predicted final = 22 + 0.7 (midterm). A teacher wants to estimate the midterm score of a student whose midterm was lost but whose final was 85. What should she do?
+    options:
+      - "Solve 85 = 22 + 0.7 (midterm) for the midterm score."
+      - "Fit a new regression with final score as the explanatory variable and midterm score as the response, then substitute 85."
+      - "Substitute 85 for the midterm score in the given equation."
+      - "Use 85 as the estimate, because finals and midterms are similar."
+    option_explanations:
+      - |
+        Solving the line backwards does not give the best prediction of midterm from final unless r = ±1; the line was built to predict the final.
+      - |
+        Correct. To predict midterm scores, midterm must be the response; that regression minimises errors in the midterm direction.
+      - |
+        85 is a final score, not a midterm score, so substituting it for the midterm answers a different question.
+      - |
+        This ignores the relationship altogether; a regression with the correct response is needed.
+    answer: 1
+  # ---- Mixed formats
+  - slug: apstats-u05-exam-q29
+    type: multi_select
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 1
+    partial_credit: true
+    prompt: |
+      Regression output for predicting a student's 1-mile run time (minutes) from the number of push-ups completed in one minute for 35 hypothetical students shows slope −0.061, S = 0.84 and R-sq = 49%. Which statements are correct? Select all that apply.
+    options:
+      - "r = −0.7"
+      - "For each additional push-up, the predicted mile time decreases by 0.061 minutes."
+      - "Actual mile times typically vary by about 0.84 minutes from the times predicted by the line using push-ups."
+      - "49% of the students have mile times that lie on the line."
+      - "Doing more push-ups will make a student run the mile faster."
+    option_explanations:
+      - |
+        Correct. r = −√0.49 = −0.7, negative because the slope is negative.
+      - |
+        Correct. The slope is −0.061 minutes per push-up, interpreted with "predicted".
+      - |
+        Correct. S is the typical prediction error, in minutes.
+      - |
+        r² describes variation accounted for, not the share of points on the line.
+      - |
+        These are observational data, so the slope does not show that push-ups cause faster runs.
+    answer: [0, 1, 2]
+  - slug: apstats-u05-exam-q30
+    type: multi_select
+    topic_code: "5.2"
+    source: "AP Statistics CED, Topic 5.2"
+    points: 1
+    partial_credit: true
+    prompt: |
+      Which statements about the correlation r are true? Select all that apply.
+    options:
+      - "r measures the strength and direction of a linear association between two quantitative variables."
+      - "r can be used to measure the association between gender and favourite subject."
+      - "r is not changed by converting x from inches to centimetres."
+      - "r = 0.9 means a linear model is certainly appropriate."
+      - "One outlier can change r a great deal."
+    option_explanations:
+      - |
+        Correct. That is what r measures, and only for linear association.
+      - |
+        Both variables are categorical; r needs two quantitative variables.
+      - |
+        Correct. Linear changes of units leave the z-scores, and r, unchanged.
+      - |
+        Curved data can have a high r; the residual plot decides whether a line is appropriate.
+      - |
+        Correct. r is not resistant to outliers.
+    answer: [0, 2, 4]
+  - slug: apstats-u05-exam-q31
+    type: multi_select
+    topic_code: "5.4"
+    source: "AP Statistics CED, Topic 5.4"
+    points: 1
+    partial_credit: true
+    prompt: |
+      Which residual-plot patterns indicate a problem with using a linear model to make predictions? Select all that apply.
+    options:
+      - "A U-shaped pattern"
+      - "Random scatter of roughly constant width around 0"
+      - "Residuals that fan out as x increases"
+      - "An arch: negative, then positive, then negative"
+      - "Some positive and some negative residuals"
+    option_explanations:
+      - |
+        Correct. A U shape means the relationship is curved.
+      - |
+        Random scatter with constant width is exactly what an appropriate linear model produces.
+      - |
+        Correct. A fan means predictions become less precise as x grows.
+      - |
+        Correct. An arch is a curved pattern, so a line is the wrong form.
+      - |
+        Every least-squares line has positive and negative residuals; that alone is no problem.
+    answer: [0, 2, 3]
+  - slug: apstats-u05-exam-q32
+    type: true_false
+    topic_code: "5.2"
+    source: "AP Statistics CED, Topic 5.2"
+    points: 1
+    prompt: |
+      True or false: The correlation between arm span and height is the same whether arm span or height is used as the explanatory variable.
+    answer: true
+    explanation: |
+      True. r = (1/(n − 1)) Σ zₓ z_y is symmetric in x and y, so swapping the variables does not change it. (The regression line does change: the line predicting height from arm span is not the line predicting arm span from height.)
+  - slug: apstats-u05-exam-q33
+    type: true_false
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 1
+    prompt: |
+      True or false: A high-leverage point is always an influential point.
+    answer: false
+    explanation: |
+      False. A high-leverage point (x far from x̄) is influential only if removing it noticeably changes the line. If it lies along the pattern of the other points, removing it changes the slope very little.
+  - slug: apstats-u05-exam-q34
+    type: true_false
+    topic_code: "5.4"
+    source: "AP Statistics CED, Topic 5.4"
+    points: 1
+    prompt: |
+      True or false: The residuals from a least-squares regression line always add up to 0.
+    answer: true
+    explanation: |
+      True. Because the least-squares line passes through (x̄, ȳ), the positive and negative residuals balance exactly, so their sum (and mean) is 0. Small departures in hand calculations come from rounding the coefficients.
+  - slug: apstats-u05-exam-q35
+    type: fill_blank
+    topic_code: "5.4"
+    source: "AP Statistics CED, Topic 5.4"
+    points: 1
+    prompt: |
+      A regression line is ŷ = 20 + 3x. The point (4, 29) has a residual of ____.
+    answer: ["-3", "−3", "-3.0", "−3.0"]
+    explanation: |
+      ŷ = 20 + 3(4) = 32, so the residual is 29 − 32 = −3: the point is 3 units below the line.
+  - slug: apstats-u05-exam-q36
+    type: fill_blank
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 1
+    prompt: |
+      Regression output shows a negative slope and R-sq = 36%. The correlation is r = ____.
+    answer: ["-0.6", "−0.6", "-.6", "−.6", "-0.60", "−0.60"]
+    explanation: |
+      r = −√0.36 = −0.6. The sign of r matches the sign of the slope.
+  - slug: apstats-u05-exam-q37
+    type: fill_blank
+    topic_code: "5.2"
+    source: "AP Statistics CED, Topic 5.2"
+    points: 1
+    prompt: |
+      Because it is built from z-scores, the correlation r has no ____, so changing from feet to metres leaves it unchanged.
+    answer: ["units", "unit", "units of measurement"]
+    explanation: |
+      r is unitless: each z-score divides a deviation by a standard deviation in the same units, so the units cancel.
+  - slug: apstats-u05-exam-q38
+    type: numeric
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 1
+    prompt: |
+      For a hypothetical sample of days, the number of hours a school's heating runs (x) and the outdoor temperature in °F (y) have r = −0.45, sₓ = 3.2 hours and s_y = 14 °F. Find the slope of the least-squares line for predicting temperature from heating hours, to two decimal places.
+    answer: { value: -1.97, tolerance: 0.006 }
+    explanation: |
+      b = r · s_y/sₓ = −0.45 × 14/3.2 = −1.96875 ≈ −1.97 °F per hour of heating.
+  - slug: apstats-u05-exam-q39
+    type: numeric
+    topic_code: "5.3"
+    source: "AP Statistics CED, Topic 5.3"
+    points: 1
+    prompt: |
+      For a hypothetical model of phone, the regression of battery life (hours) on screen brightness level (1 to 20) is predicted battery life = 14.2 − 0.38 (brightness). Find the predicted battery life at brightness level 12.5, in hours, to two decimal places.
+    answer: { value: 9.45, tolerance: 0.006 }
+    explanation: |
+      ŷ = 14.2 − 0.38(12.5) = 14.2 − 4.75 = 9.45 hours. Level 12.5 is inside the 1 to 20 range, so this is interpolation.
+  - slug: apstats-u05-exam-q40
+    type: numeric
+    topic_code: "5.2"
+    source: "AP Statistics CED, Topic 5.2"
+    points: 1
+    prompt: |
+      Five hypothetical students record the number of practice problems they completed (x) and the number of points they earned on a 12-point quiz (y).
+
+      | Problems | 1 | 2 | 4 | 5 | 8 |
+      |---|---|---|---|---|---|
+      | Points | 3 | 6 | 6 | 9 | 12 |
+
+      Find the correlation r, to three decimal places.
+    answer: { value: 0.961, tolerance: 0.002 }
+    explanation: |
+      Technology gives r = 0.961 (x̄ = 4, sₓ = 2.739, ȳ = 7.2, s_y = 3.421; the products of z-scores sum to 3.843, and 3.843/4 = 0.961): a very strong, positive, linear association.
+  - slug: apstats-u05-exam-q41
+    type: short_answer
+    topic_code: "5.4"
+    source: "AP Statistics CED, Topic 5.4"
+    points: 3
+    prompt: |
+      For 32 hypothetical houses, a regression of monthly winter heating cost (dollars) on house size (hundreds of square feet) gives ŷ = 28 + 6.5x.
+
+      (a) A 20-hundred-square-foot house has a heating cost of $171. Calculate and interpret its residual.
+      (b) The residual plot shows residuals that are negative for small houses, positive for medium houses and negative for large houses. What does this tell you about the linear model?
+      (c) Explain why the correlation alone could not have revealed the problem in (b).
+    answer: |
+      (a) ŷ = 28 + 6.5(20) = 158, so the residual is 171 − 158 = 13 dollars. The house's actual heating cost is $13 more than the cost predicted by the line from its size.
+      (b) The residuals form an arch (curved pattern), so the relationship between size and heating cost is curved and a linear model is not appropriate.
+      (c) r measures only the strength of a linear association; curved data can still have r close to ±1, so a strong r cannot show that the form is linear.
+    explanation: |
+      Three points, one per part. (a) residual 13 with ŷ = 158 shown and the interpretation "$13 more than predicted" in context. (b) curved (arch) pattern, so a linear model is not appropriate. (c) r measures linear strength only; a curved relationship can have a strong r.
+  - slug: apstats-u05-exam-q42
+    type: short_answer
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 3
+    prompt: |
+      A hypothetical bakery records the number of loaves baked and the hours of oven time on 26 days. Regression output:
+
+      | Predictor | Coef | SE Coef | T | P |
+      |---|---|---|---|---|
+      | Constant | 1.84 | 0.41 | 4.49 | 0.000 |
+      | Loaves | 0.052 | 0.004 | 13.00 | 0.000 |
+
+      S = 0.62 · R-sq = 87.6% · R-sq(adj) = 87.1%
+
+      (a) Write the equation of the least-squares line, defining your variables.
+      (b) Interpret R-sq in context.
+      (c) A student says, "The P-value of 0.000 for Loaves shows the model is appropriate." Explain what you should use instead to judge whether the linear model is appropriate on this course.
+    answer: |
+      (a) predicted oven hours = 1.84 + 0.052 (loaves), where loaves is the number of loaves baked that day.
+      (b) About 87.6% of the variation in daily oven time is accounted for by the linear model relating oven time to the number of loaves baked.
+      (c) The SE Coef, T and P columns are for inference about the slope, which is not part of this course, and a small P-value does not show the form is linear anyway. Use a residual plot: random scatter with no curve or fan supports a linear model (together with r² and s to judge how well it fits).
+    explanation: |
+      Three points, one per part. (a) correct coefficients with ŷ or "predicted" and variables named. (b) r² template in context. (c) residual plot named as the check for appropriateness (no pattern), with a note that the P column is not used here.
+  # ---- Free-response questions (10 points each)
+  - slug: apstats-u05-exam-q43
+    type: long_answer
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 10
+    prompt: |
+      A high school football coach measures the vertical jump (cm) and 40-yard sprint time (seconds) of 10 hypothetical players.
+
+      | Player | A | B | C | D | E | F | G | H | I | J |
+      |---|---|---|---|---|---|---|---|---|---|---|
+      | Jump (cm) | 48 | 52 | 55 | 58 | 60 | 63 | 66 | 70 | 72 | 38 |
+      | Sprint (s) | 5.32 | 5.18 | 5.15 | 5.02 | 5.05 | 4.88 | 4.85 | 4.71 | 4.70 | 5.10 |
+
+      With all 10 players: predicted sprint time = 5.955 − 0.0165 (jump), r = −0.834, s = 0.120 seconds.
+      Without player J: predicted sprint time = 6.572 − 0.0263 (jump), r = −0.990, s = 0.033 seconds.
+
+      (A) Describe the relationship between vertical jump and sprint time for these 10 players.
+      (B) Using the line for all 10 players, interpret the slope in context.
+      (C) Using the line for all 10 players, calculate and interpret the residual for player E.
+      (D) Player J recently recovered from a knee injury. Classify player J as an outlier, a high-leverage point, an influential point, or a combination, and justify your answer using the two lines.
+      (E) The coach concludes, "Training players to jump higher will make them faster sprinters." Explain whether these data support that conclusion, and describe how the coach could investigate it.
+    answer: |
+      (A) There is a strong, negative, linear association between vertical jump and 40-yard sprint time: players who jump higher tend to have faster (lower) sprint times. Player J (38 cm, 5.10 s) is unusual: his jump is far lower than everyone else's, and his time is much faster than the pattern of the other nine would predict.
+      (B) For each additional centimetre of vertical jump, the predicted 40-yard sprint time decreases by 0.0165 seconds.
+      (C) ŷ = 5.955 − 0.0165(60) = 4.965 seconds, so the residual is 5.05 − 4.965 = 0.085 seconds (0.084 with unrounded coefficients). Player E's actual sprint time is about 0.085 seconds slower (greater) than the time predicted by the line from his 60 cm jump.
+      (D) Player J is a high-leverage point, because his jump (38 cm) is far from the other jumps (48 to 72 cm) and from x̄. He is also influential: removing him changes the slope from −0.0165 to −0.0263 seconds per cm (it becomes about 60% steeper), changes the intercept from 5.955 to 6.572, and strengthens r from −0.834 to −0.990. He is also an outlier relative to the other nine players' pattern (the line without him predicts 6.572 − 0.0263(38) = 5.57 seconds, but he ran 5.10), and his removal shrinks s from 0.120 to 0.033 seconds.
+      (E) No. The players were not randomly assigned to jump training; the data are observational. A lurking variable such as leg strength or overall athletic ability could make players both jump higher and sprint faster. To investigate, the coach could randomly assign volunteer players to a jump-training programme or a regular-training group for several weeks, keep other training the same, and compare the mean change in sprint times between the groups.
+    explanation: |
+      Ten points. (A) 2 points: 1 for direction, form and strength (strong, negative, linear) in context; 1 for identifying player J as unusual with his values. (B) 2 points: 1 for "predicted" sprint time decreasing by 0.0165 seconds; 1 for "each additional centimetre of jump" (both variables in context, correct units). (C) 2 points: 1 for ŷ ≈ 4.965 and residual ≈ 0.085 (accept 0.08 to 0.09); 1 for the interpretation (actual time about 0.085 s greater than predicted from a 60 cm jump). (D) 2 points: 1 for high leverage with the reason (jump far from the others); 1 for influential, justified by the change in slope (or r, or intercept) when J is removed, with the values quoted. Calling J only an outlier earns at most 1 point. (E) 2 points: 1 for "no" because the data are observational, with a plausible lurking variable; 1 for an experiment with random assignment of jump training, control of other training and a comparison of sprint times. Required language: "predicted" in (B), residual = actual − predicted in (C).
+  - slug: apstats-u05-exam-q44
+    type: long_answer
+    topic_code: "5.5"
+    source: "AP Statistics CED, Topic 5.5"
+    points: 10
+    prompt: |
+      A hypothetical pizza shop takes a random sample of 40 deliveries from last month and records the delivery distance (miles, from 0.5 to 8.0) and the delivery time (minutes, from order to door). The scatterplot is linear, and the residual plot shows random scatter of roughly constant width. A histogram of the residuals is roughly symmetric and mound-shaped.
+
+      | Predictor | Coef | SE Coef | T | P |
+      |---|---|---|---|---|
+      | Constant | 9.2737 | 1.0241 | 9.06 | 0.000 |
+      | Distance | 3.1550 | 0.2155 | 14.64 | 0.000 |
+
+      S = 3.1486 · R-sq = 84.9% · R-sq(adj) = 84.5%
+
+      (A) Interpret the slope and the y-intercept in context.
+      (B) Find the predicted delivery time for an order 5 miles away.
+      (C) The shop promises delivery within 30 minutes. Assume that delivery times for orders 5 miles away are approximately Normal, with mean equal to the predicted time in (B) and standard deviation equal to S. Find the probability that a 5-mile order takes more than 30 minutes.
+      (D) On one evening, 6 independent orders are all 5 miles away. Using your answer to (C), find the probability that at least one of the 6 takes more than 30 minutes.
+      (E) Interpret R-sq in context. The manager wants to use the line to predict the time for a 15-mile delivery to a new neighbourhood. Comment on this plan.
+    answer: |
+      (A) Slope: for each additional mile of distance, the predicted delivery time increases by about 3.16 minutes. Intercept: an order 0 miles away has a predicted delivery time of about 9.27 minutes, which can be read as the time to make and box the pizza (though 0 miles is just outside the 0.5 to 8.0 mile range of the data).
+      (B) ŷ = 9.2737 + 3.1550(5) = 25.05 minutes.
+      (C) Let T = delivery time for a 5-mile order, approximately Normal with mean 25.05 and SD 3.1486. z = (30 − 25.05)/3.1486 = 1.57. P(T > 30) = P(Z > 1.57) ≈ 0.058.
+      (D) Let X = number of the 6 orders that take more than 30 minutes; X is binomial with n = 6 and p = 0.058. P(X ≥ 1) = 1 − P(X = 0) = 1 − (1 − 0.058)⁶ = 1 − 0.942⁶ ≈ 1 − 0.699 = 0.301.
+      (E) About 84.9% of the variation in delivery time is accounted for by the linear model relating delivery time to distance. A 15-mile delivery is far outside the 0.5 to 8.0 miles in the data, so using the line there is extrapolation: traffic, highways or driver routes could change the relationship, and the prediction (about 56.6 minutes) is not reliable. The sample came from last month's deliveries, so even within range it describes the shop's deliveries under similar conditions.
+    explanation: |
+      Ten points. (A) 2 points: 1 for the slope with "predicted", about 3.16 minutes per additional mile, in context; 1 for the intercept as the predicted time at 0 miles (about 9.27 minutes) with a sensible comment (preparation time, or outside the data). (B) 1 point: 25.05 minutes (accept 25.0 to 25.1). (C) 3 points: 1 for naming the Normal distribution with mean 25.05 and SD 3.1486 (or a labelled sketch); 1 for the boundary 30 and the direction (greater than), with z ≈ 1.57 or a calculator command with labelled values; 1 for the probability ≈ 0.058 (accept 0.057 to 0.059). (D) 2 points: 1 for identifying a binomial setting (n = 6, p from (C)) or the complement 1 − P(none late); 1 for ≈ 0.30 (accept 0.29 to 0.31, or a value consistent with an incorrect (C)). (E) 2 points: 1 for the r² interpretation in context; 1 for identifying the 15-mile prediction as extrapolation beyond 8 miles, with a reason it may be unreliable.

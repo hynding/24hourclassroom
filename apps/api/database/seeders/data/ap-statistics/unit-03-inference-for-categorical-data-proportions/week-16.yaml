@@ -1,0 +1,577 @@
+week: 16
+unit: 3
+title: "Confidence Intervals for a Population Proportion"
+topics: ["3.3", "3.4"]
+guide: guides/week-16.md
+guide_description: |
+  The one-sample z-interval for a population proportion from start to finish: the parameter in context, the
+  Random, 10% and Large Counts conditions, critical values, standard error and margin of error, and the
+  interpretation sentences for an interval and for a confidence level; how the confidence level and sample size
+  change the margin of error, and the sample size for a target margin; and using an interval to judge claims
+  about p. Worked examples: a 95% interval for the proportion of a district's students who sleep less than 8
+  hours, the same data at 90%, 95% and 99%, the sample size for a 3-point margin, and three claims judged
+  against one interval.
+flashcards_description: |
+  30 cards on the one-sample z-interval for p: conditions, z* values, standard error and margin of error,
+  interpreting intervals and confidence levels, sample size, what changes the width, and using an interval to
+  justify or reject a claim.
+
+flashcards:
+  - front: One-sample z-interval for p → formula
+    back: |
+      p̂ ± z* · √(p̂(1 − p̂)/n): point estimate ± critical value · standard error.
+    topic_code: "3.3"
+  - front: Any confidence interval in AP Statistics → general form
+    back: |
+      statistic ± (critical value) · (standard error of the statistic).
+    topic_code: "3.3"
+  - front: Standard error of p̂ for an interval → why p̂ replaces p
+    back: |
+      p is the unknown we are estimating, so SD(p̂) = √(p(1 − p)/n) cannot be computed. Substituting p̂ gives SE = √(p̂(1 − p̂)/n).
+    topic_code: "3.3"
+  - front: Conditions for a one-sample z-interval for p → the three checks
+    back: |
+      Random: random sample. 10%: n ≤ 10% of the population. Large Counts: np̂ ≥ 10 and n(1 − p̂) ≥ 10 (the observed successes and failures).
+    topic_code: "3.3"
+  - front: z* for 90%, 95%, 98% and 99% confidence → values
+    back: |
+      1.645, 1.960, 2.326, 2.576.
+    topic_code: "3.3"
+  - front: z* for a non-standard level such as 92% → how to find it
+    back: |
+      invNorm(1 − (1 − C)/2) = invNorm(0.96) ≈ 1.751: leave 4% in each tail.
+    topic_code: "3.3"
+  - front: Margin of error for a proportion → formula and meaning
+    back: |
+      ME = z* · √(p̂(1 − p̂)/n): about the most the estimate is likely to miss p by because of random sampling variability.
+    topic_code: "3.3"
+  - front: Interpreting a confidence interval for p → template
+    back: |
+      "We are C% confident that the interval from ___ to ___ captures the true proportion of all [population] who [characteristic]."
+    topic_code: "3.3"
+  - front: Interpreting the confidence level of a z-interval for p → template
+    back: |
+      "If we took many random samples of size n and built a C% interval from each, about C% of the intervals would capture the true proportion of all [population] who [characteristic]."
+    topic_code: "3.3"
+  - front: Sleep survey (248 of 400 under 8 hours) → 95% interval
+    back: |
+      p̂ = 0.62, SE ≈ 0.0243, ME = 1.96 · 0.0243 ≈ 0.048: (0.572, 0.668).
+    topic_code: "3.3"
+  - front: Raising the confidence level with the same data → effect on the interval
+    back: |
+      Wider: a larger z* multiplies the same SE. The centre p̂ stays the same.
+    topic_code: "3.3"
+  - front: Quadrupling n in a z-interval for p → effect on the margin of error
+    back: |
+      Halves it (roughly, since p̂ also changes a little), because n is under a square root.
+    topic_code: "3.3"
+  - front: Sample size for a margin of error m → formula
+    back: |
+      n ≥ (z*/m)² · p*(1 − p*). Use a prior estimate for p*, or p* = 0.5 to be safe. Always round up.
+    topic_code: "3.3"
+  - front: Why p* = 0.5 in a sample-size calculation → reason
+    back: |
+      p*(1 − p*) is largest (0.25) at 0.5, so the n it gives guarantees the margin whatever the true p.
+    topic_code: "3.3"
+  - front: 95% margin of at most 0.03 with no prior estimate → n
+    back: |
+      (1.96/0.03)² · 0.25 ≈ 1,067.1, so 1,068.
+    topic_code: "3.3"
+  - front: What the margin of error does not cover → list
+    back: |
+      Bias: undercoverage, nonresponse, voluntary response, question wording, lying. It covers only random sampling variability.
+    topic_code: "3.3"
+  - front: 1-PropZInt on a calculator → what to write on the AP exam
+    back: |
+      Name the procedure and show the formula with numbers: 0.62 ± 1.96√(0.62 · 0.38 / 400). Calculator syntax alone does not earn the work.
+    topic_code: "3.3"
+  - front: The four steps of an inference answer → names
+    back: |
+      State (procedure, parameter, level), Plan (conditions), Do (calculation), Conclude (interpretation in context).
+    topic_code: "3.3"
+  - front: Large Counts for an interval vs for a test → which numbers
+    back: |
+      Interval: observed counts np̂ and n(1 − p̂) (p unknown). Test: np₀ and n(1 − p₀), the counts expected under H₀.
+    topic_code: "3.3"
+  - front: Claimed value inside a confidence interval for p → conclusion
+    back: |
+      Plausible: the data do not give convincing evidence against the claim. (Not proof that it is true.)
+    topic_code: "3.4"
+  - front: Claimed value outside a confidence interval for p → conclusion
+    back: |
+      Not plausible: convincing evidence that p differs from it, in the direction where the interval lies.
+    topic_code: "3.4"
+  - front: '"More than half" claim with interval (0.572, 0.668) → verdict'
+    back: |
+      Every plausible value is above 0.50, so there is convincing evidence that a majority have the characteristic.
+    topic_code: "3.4"
+  - front: '"More than 60%" claim with interval (0.572, 0.668) → verdict'
+    back: |
+      0.60 (and values below it) are inside the interval, so there is not convincing evidence that p > 0.60.
+    topic_code: "3.4"
+  - front: A value outside a 95% interval but inside the 99% interval → what it shows
+    back: |
+      Conclusions depend on the confidence level: at 99% the value is plausible, at 95% it is not. Always name the level.
+    topic_code: "3.4"
+  - front: Justifying a claim from an interval → three things to write
+    back: |
+      The value being checked, whether it is inside or outside the interval, and the conclusion about p in context.
+    topic_code: "3.4"
+  - front: Reading p̂ and the ME from a reported interval (0.42, 0.50) → values
+    back: |
+      p̂ is the midpoint, 0.46; the margin of error is half the width, 0.04.
+    topic_code: "3.3"
+  - front: Width of a z-interval for p, all else equal → which p̂ gives the widest
+    back: |
+      p̂ = 0.5, where p̂(1 − p̂) is largest.
+    topic_code: "3.3"
+  - front: Error-spot → "there is a 95% probability that p is between 0.572 and 0.668"
+    back: |
+      Once computed, the interval either captures p or not. The 95% describes the method's long-run capture rate; say "95% confident".
+    topic_code: "3.3"
+  - front: Error-spot → "95% of students sleep between 0.572 and 0.668"
+    back: |
+      The interval is about the population proportion p, not about individual students or individual sample proportions.
+    topic_code: "3.3"
+  - front: Error-spot → "0.55 is in the interval, so the true proportion is 0.55"
+    back: |
+      Inside means plausible, not established; every other value in the interval is plausible too.
+    topic_code: "3.4"
+
+quiz:
+  description: |
+    22 questions · about 40 minutes · mostly on this week (topics 3.3 and 3.4: constructing and interpreting a
+    one-sample z-interval for p, margin of error and sample size, and judging claims with an interval), with 7
+    questions (32%) reviewing weeks 6, 13 and 15 (sampling methods and bias, normal areas, estimators and the
+    sampling distribution of p̂). Opens with a shared-context set on a reading survey. Multiple choice,
+    select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes.
+    A calculator is allowed throughout.
+  questions:
+    # ---- Stimulus set: reading for pleasure (3.3, 3.4)
+    - slug: apstats-u03-w16-q01
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      stimulus: |
+        A hypothetical school district surveyed a simple random sample of 520 of its 9,400 high school students. Of these, 182 said they had read at least one book for pleasure in the past month.
+      prompt: |
+        Which statement correctly checks the conditions for a one-sample z-interval for the proportion of all the district's high school students who read a book for pleasure in the past month?
+      options:
+        - "The sample size, 520, is at least 30, so the sampling distribution is approximately normal."
+        - "Random sample; 520 ≤ 10% of 9,400 = 940; and 182 and 338 are both at least 10."
+        - "Random sample; 9,400 is at least 10 times 182; and 520 is at least 30."
+        - "Random sample; and the population of students' reading habits is approximately normal."
+      option_explanations:
+        - |
+          n ≥ 30 is a guideline for means; a proportion interval needs the Large Counts check on the successes and failures, plus Random and 10%.
+        - |
+          Correct. Random: SRS. 10%: 520 ≤ 940. Large Counts: np̂ = 182 and n(1 − p̂) = 338 are both at least 10.
+        - |
+          The 10% condition compares the sample size (520) with the population, not the number of successes; and n ≥ 30 is not the proportion check.
+        - |
+          Reading or not reading is a categorical variable with no normal shape; the condition is about the counts of successes and failures.
+      answer: 1
+    - slug: apstats-u03-w16-q02
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      stimulus: |
+        A hypothetical school district surveyed a simple random sample of 520 of its 9,400 high school students. Of these, 182 said they had read at least one book for pleasure in the past month.
+      prompt: |
+        Which is the 95% confidence interval for the proportion of all the district's high school students who read a book for pleasure in the past month?
+      options:
+        - "(0.316, 0.384)"
+        - "(0.329, 0.371)"
+        - "(0.296, 0.404)"
+        - "(0.309, 0.391)"
+      option_explanations:
+        - |
+          This interval uses z* = 1.645, which is the critical value for 90% confidence, not 95%.
+        - |
+          This is p̂ ± SE = 0.35 ± 0.021; the standard error was not multiplied by z* = 1.96.
+        - |
+          This interval uses z* = 2.576, the critical value for 99% confidence.
+        - |
+          Correct. p̂ = 182/520 = 0.35, SE = √(0.35 · 0.65 / 520) ≈ 0.0209, ME = 1.96 · 0.0209 ≈ 0.041, so 0.35 ± 0.041 = (0.309, 0.391).
+      answer: 3
+    - slug: apstats-u03-w16-q03
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      stimulus: |
+        A hypothetical school district surveyed a simple random sample of 520 of its 9,400 high school students. Of these, 182 said they had read at least one book for pleasure in the past month.
+      prompt: |
+        Which is a correct interpretation of the 95% confidence interval computed from these data?
+      options:
+        - "We are 95% confident that the interval captures the true proportion of all the district's high school students who read a book for pleasure in the past month."
+        - "There is a 95% probability that the proportion of the 520 sampled students who read a book for pleasure is in the interval."
+        - "95% of the district's high school students read between 0.309 and 0.391 books for pleasure in the past month."
+        - "If the survey were repeated, 95% of the new sample proportions would fall within this interval."
+      option_explanations:
+        - |
+          Correct. The interval estimates the population proportion p, and the confidence is stated in context about all of the district's high school students.
+        - |
+          The sample proportion is known exactly (0.35) and is the centre of the interval; the interval is about the population proportion.
+        - |
+          The interval is about a proportion of students, not about how many books individuals read.
+        - |
+          The interval is not a prediction range for future sample proportions; it is a set of plausible values for p.
+      answer: 0
+    - slug: apstats-u03-w16-q04
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "AP Statistics CED, Topic 3.4"
+      points: 1
+      stimulus: |
+        A hypothetical school district surveyed a simple random sample of 520 of its 9,400 high school students. Of these, 182 said they had read at least one book for pleasure in the past month.
+      prompt: |
+        Last year the district's library service reported that 40% of its high school students read a book for pleasure each month. Based on the 95% confidence interval, which conclusion is best?
+      options:
+        - "The interval contains 0.35, so the proportion has not changed from last year."
+        - "The interval proves that exactly 35% of students now read for pleasure."
+        - "0.40 is above the entire interval, so there is convincing evidence that the current proportion is less than 0.40."
+        - "No conclusion is possible, because the sample is less than 10% of the population."
+      option_explanations:
+        - |
+          The claimed value to check is 0.40, not the sample proportion 0.35, which is always the centre of the interval.
+        - |
+          An interval gives plausible values; it never proves an exact value, and 0.35 is only the point estimate.
+        - |
+          Correct. The interval (0.309, 0.391) lies entirely below 0.40, so 0.40 is not a plausible value; the data give convincing evidence that the proportion is now less than 0.40.
+        - |
+          A sample under 10% of the population is what the 10% condition requires; it makes the interval valid, not useless.
+      answer: 2
+    # ---- Independent items
+    - slug: apstats-u03-w16-q05
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      prompt: |
+        A hypothetical polling firm reports a 90% confidence interval for the proportion of a state's adults who own an electric bicycle. What does "90% confidence" mean?
+      options:
+        - "There is a 90% probability that the true proportion lies in this particular interval."
+        - "90% of the state's adults were included in the sample."
+        - "90% of all samples would give the same sample proportion as this one."
+        - "In many random samples of the same size, about 90% of the intervals built this way would capture the true proportion."
+      option_explanations:
+        - |
+          Once computed, an interval either captures p or not; the 90% describes the method's long-run success rate, not a probability for one interval.
+        - |
+          The confidence level has nothing to do with what fraction of the population was sampled.
+        - |
+          Sample proportions vary from sample to sample; the confidence level is about intervals capturing p, not about repeating the same p̂.
+        - |
+          Correct. The confidence level is the long-run capture rate of the method over repeated random samples.
+      answer: 3
+    - slug: apstats-u03-w16-q06
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      prompt: |
+        What critical value z* should be used for a 98% confidence interval for a population proportion?
+      options:
+        - "2.054"
+        - "2.326"
+        - "1.960"
+        - "2.576"
+      option_explanations:
+        - |
+          2.054 = invNorm(0.98) leaves 2% in one tail; a 98% interval leaves 1% in each tail.
+        - |
+          Correct. A 98% interval leaves 1% in each tail, so z* = invNorm(0.99) ≈ 2.326.
+        - |
+          1.960 is the critical value for 95% confidence.
+        - |
+          2.576 is the critical value for 99% confidence.
+      answer: 1
+    - slug: apstats-u03-w16-q07
+      type: multiple_choice
+      topic_code: "2.11"
+      source: "AP Statistics CED, Topic 2.11"
+      points: 1
+      prompt: |
+        What proportion of the area under the standard normal curve lies between z = −1.645 and z = 1.645?
+      options:
+        - "0.05"
+        - "0.95"
+        - "0.90"
+        - "0.10"
+      option_explanations:
+        - |
+          0.05 is the area in one tail beyond 1.645, not the area between the two values.
+        - |
+          0.95 is the area below z = 1.645; the area between −1.645 and 1.645 also excludes the lower 5%.
+        - |
+          Correct. Each tail holds 0.05, so the middle holds 1 − 0.10 = 0.90, which is why 1.645 is z* for 90% confidence.
+        - |
+          0.10 is the total area in both tails, the part outside the interval.
+      answer: 2
+    - slug: apstats-u03-w16-q08
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      prompt: |
+        A student council wants to estimate the proportion of all students at a large high school who would join an esports club, with a 95% margin of error of no more than 0.04. No earlier estimate is available. What is the smallest sample size that guarantees this?
+      options:
+        - "601"
+        - "600"
+        - "423"
+        - "25"
+      option_explanations:
+        - |
+          Correct. n ≥ (1.96/0.04)² · 0.5 · 0.5 = 600.25; a sample size must be rounded up, so n = 601.
+        - |
+          600.25 rounded down to 600 gives a margin of error slightly larger than 0.04; always round up.
+        - |
+          423 uses z* = 1.645 (90% confidence): (1.645/0.04)² · 0.25 ≈ 422.8.
+        - |
+          25 comes from 1/0.04 and ignores z* and p*(1 − p*); the formula squares z*/m and multiplies by p*(1 − p*).
+      answer: 0
+    - slug: apstats-u03-w16-q09
+      type: multiple_choice
+      topic_code: "3.4"
+      source: "AP Statistics CED, Topic 3.4"
+      points: 1
+      prompt: |
+        From a random sample of households in a hypothetical town, a 95% confidence interval for the proportion of all households in the town that own a dog is (0.36, 0.44). The town's animal-control office claims that 45% of households own a dog. Which conclusion is best?
+      options:
+        - "The claim is correct, because 0.45 is close to the interval."
+        - "The interval proves that exactly 40% of households own a dog."
+        - "There is not enough information, because the interval does not contain 0.45."
+        - "Because 0.45 is above the interval, there is convincing evidence that fewer than 45% of the town's households own a dog."
+      option_explanations:
+        - |
+          Being close does not make a value plausible; a value is plausible only if it lies inside the interval.
+        - |
+          0.40 is the point estimate; the interval gives a range of plausible values and proves no single value.
+        - |
+          A value outside the interval is exactly the information needed: it is not plausible.
+        - |
+          Correct. Every plausible value is below 0.45, so the data give convincing evidence that the true proportion is less than 0.45.
+      answer: 3
+    - slug: apstats-u03-w16-q10
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      prompt: |
+        A news site reports that 58% of a city's adults support a later school start time, "with a margin of error of 3 percentage points." The survey was carried out by phone, and only 9% of the people called agreed to answer. What does the margin of error account for?
+      options:
+        - "Both the random sampling variability and the bias from people who refused to answer"
+        - "Only the variability from taking a random sample rather than surveying every adult"
+        - "Only the bias from people who refused to answer"
+        - "The chance that some respondents gave false answers"
+      option_explanations:
+        - |
+          The margin of error covers sampling variability only; nonresponse bias is a separate problem it cannot measure.
+        - |
+          Correct. The margin of error describes how much random samples vary; it says nothing about nonresponse (91% here), which may bias the result.
+        - |
+          Nonresponse bias is exactly what a margin of error cannot account for.
+        - |
+          False answers are response bias, which the margin of error does not cover either.
+      answer: 1
+    - slug: apstats-u03-w16-q11
+      type: multiple_choice
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 1
+      prompt: |
+        At a large university, 55% of all students live off campus. For a simple random sample of 300 students, what is the approximate probability that fewer than half of the sampled students live off campus?
+      options:
+        - "0.459"
+        - "0.959"
+        - "0.041"
+        - "0.082"
+      option_explanations:
+        - |
+          0.459 comes from using √(0.55 · 0.45) ≈ 0.497 as the SD, forgetting to divide by n = 300.
+        - |
+          0.959 is the area above 0.50, the wrong tail.
+        - |
+          Correct. SD(p̂) = √(0.55 · 0.45 / 300) ≈ 0.0287; z = (0.50 − 0.55)/0.0287 ≈ −1.74; P(Z < −1.74) ≈ 0.041. Large Counts holds (165 and 135).
+        - |
+          0.082 doubles the tail area, as if the question asked about both tails.
+      answer: 2
+    - slug: apstats-u03-w16-q12
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Statistics CED, Topic 3.1"
+      points: 1
+      prompt: |
+        Two researchers estimate the same population proportion. One uses a simple random sample of 100 people and the other a simple random sample of 900 people from the same large population. Which statement is correct?
+      options:
+        - "Both sample proportions are unbiased estimators, and the one from 900 people is less variable."
+        - "The sample proportion from 900 people is less biased than the one from 100 people."
+        - "The sample proportion from 100 people is more likely to be close to the true proportion."
+        - "Both sample proportions have the same variability, because they come from the same population."
+      option_explanations:
+        - |
+          Correct. p̂ from any random sample is centred on p; the SD of p̂ is three times smaller with n = 900 (√9 = 3).
+        - |
+          Both random samples are unbiased; sample size changes variability, not bias.
+        - |
+          The smaller sample's p̂ is more variable, so it is less likely to land close to p.
+        - |
+          SD(p̂) = √(p(1 − p)/n) depends on n, so the two estimators differ in variability.
+      answer: 0
+    - slug: apstats-u03-w16-q13
+      type: multi_select
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A researcher has a 95% confidence interval for a population proportion and wants a narrower interval next time. Which changes would make the margin of error smaller, all else equal? Select all that apply.
+      options:
+        - "Increase the sample size"
+        - "Use 90% confidence instead of 95%"
+        - "Use 99% confidence instead of 95%"
+        - "Sample from a population twice as large, with the same sample size"
+        - "Quadruple the sample size"
+      option_explanations:
+        - |
+          Yes. n is in the denominator of the standard error, so a larger n gives a smaller margin of error.
+        - |
+          Yes. A lower confidence level uses a smaller z* (1.645 instead of 1.96).
+        - |
+          No. Higher confidence needs a larger z* (2.576), which widens the interval.
+        - |
+          No. Population size does not appear in the margin of error as long as the 10% condition holds.
+        - |
+          Yes. Quadrupling n roughly halves the margin of error.
+      answer: [0, 1, 4]
+    - slug: apstats-u03-w16-q14
+      type: multi_select
+      topic_code: "3.4"
+      source: "AP Statistics CED, Topic 3.4"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A 95% confidence interval for the proportion of all customers of a hypothetical bakery who order a drink with their food is (0.212, 0.288). Which of these values are plausible for the true proportion? Select all that apply.
+      options:
+        - "0.20"
+        - "0.25"
+        - "0.28"
+        - "0.30"
+        - "0.215"
+      option_explanations:
+        - |
+          Not plausible: 0.20 is below the lower end, 0.212.
+        - |
+          Plausible: 0.25 is inside the interval (it is the point estimate).
+        - |
+          Plausible: 0.28 is inside the interval, below 0.288.
+        - |
+          Not plausible: 0.30 is above the upper end, 0.288.
+        - |
+          Plausible: 0.215 is just above the lower end, 0.212, so it is inside the interval.
+      answer: [1, 2, 4]
+    - slug: apstats-u03-w16-q15
+      type: true_false
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      prompt: |
+        True or false: For the reading survey's 95% interval (0.309, 0.391), there is a 0.95 probability that the true proportion is between 0.309 and 0.391.
+      answer: false
+      explanation: |
+        False. The true proportion is a fixed number, and this interval either captures it or not. The 95% describes the method: about 95% of intervals made this way from repeated random samples capture p. Say "we are 95% confident".
+    - slug: apstats-u03-w16-q16
+      type: true_false
+      topic_code: "1.12"
+      source: "AP Statistics CED, Topic 1.12"
+      points: 1
+      prompt: |
+        True or false: A survey that samples only from a list of students with school email accounts suffers undercoverage if some students lack an account, and increasing the sample size will remove this bias.
+      answer: false
+      explanation: |
+        False. Undercoverage is a flaw in the sampling frame: students without an account can never be chosen, however many are sampled. A larger sample reduces variability but leaves the bias in place.
+    - slug: apstats-u03-w16-q17
+      type: fill_blank
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      prompt: |
+        The critical value z* for a 90% confidence interval, to three decimal places, is ____.
+      answer: ["1.645", "1.64", "1.65", "1.6449"]
+      explanation: |
+        A 90% interval leaves 5% in each tail: z* = invNorm(0.95) ≈ 1.645.
+    - slug: apstats-u03-w16-q18
+      type: fill_blank
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 1
+      prompt: |
+        Half of all customers of a large online shop pay with a phone wallet. For simple random samples of 100 customers, the standard deviation of the sampling distribution of p̂, to two decimal places, is ____.
+      answer: ["0.05", ".05", "0.050", "1/20"]
+      explanation: |
+        SD(p̂) = √(0.5 · 0.5 / 100) = √0.0025 = 0.05.
+    - slug: apstats-u03-w16-q19
+      type: numeric
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 1
+      prompt: |
+        In a large county, 65% of all registered voters voted in the last local election. For a simple random sample of 300 registered voters, find the probability that more than 70% of the sample voted in that election. Give your answer to three decimal places.
+      answer: { value: 0.035, tolerance: 0.0015 }
+      explanation: |
+        Mean 0.65, SD(p̂) = √(0.65 · 0.35 / 300) ≈ 0.0275 (300 is far below 10% of a large county). Large Counts: 195 and 105. z = (0.70 − 0.65)/0.0275 ≈ 1.82, and P(Z > 1.82) ≈ 0.035.
+    - slug: apstats-u03-w16-q20
+      type: short_answer
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 3
+      prompt: |
+        A youth charity takes a simple random sample of 360 teenagers in a large city; 117 of them volunteered in the past month. Construct and interpret a 90% confidence interval for the proportion of all teenagers in the city who volunteered in the past month. Show the conditions and the calculation.
+      answer: |
+        One-sample z-interval for p, where p = the proportion of all teenagers in the city who volunteered in the past month.
+        Conditions: random sample; 360 is less than 10% of all teenagers in a large city; 117 and 243 are both at least 10.
+        p̂ = 117/360 = 0.325. SE = √(0.325 · 0.675 / 360) ≈ 0.0247. 0.325 ± 1.645(0.0247) = 0.325 ± 0.041 = (0.284, 0.366).
+        We are 90% confident that the interval from 0.284 to 0.366 captures the true proportion of all teenagers in the city who volunteered in the past month.
+      explanation: |
+        Three points. 1 point: procedure named or formula given, with all three conditions checked in context (Random, 10%, Large Counts with 117 and 243). 1 point: correct interval (0.284, 0.366) with work shown (z* = 1.645 and the SE). 1 point: interpretation in context naming the population proportion and 90% confidence. An interpretation that says "90% probability" or refers to the sample earns no credit for that point.
+    - slug: apstats-u03-w16-q21
+      type: short_answer
+      topic_code: "1.11"
+      source: "AP Statistics CED, Topic 1.11"
+      points: 3
+      prompt: |
+        A school with 400 students in each of grades 9 to 12 wants to estimate the proportion of all its students who use the school's study app. App use is known to rise sharply with grade.
+
+        (a) Describe how to select a stratified random sample of 120 students.
+        (b) Explain why the stratified sample would give a less variable estimate of the school's proportion than a simple random sample of 120.
+      answer: |
+        (a) Use grade as the strata. From an alphabetical list of each grade, number the students 001 to 400 and use a random number generator to pick 30 different numbers in each grade (ignoring repeats), for 120 students in all. Survey those students.
+        (b) App use differs a lot between grades but is similar within a grade. A stratified sample guarantees each grade is represented in its correct share, so the estimate cannot swing because a sample happened to contain too many seniors or too many ninth-graders. That removes a source of sample-to-sample variation, so the estimates vary less than those from an SRS of the same size.
+      explanation: |
+        Three points. (a) 2 points: 1 for forming strata by grade, 1 for a random selection of 30 from each grade described clearly (labels, a random mechanism, no repeats). (b) 1 point: responses are similar within grades and different between them, so stratifying controls that variation and reduces variability. Saying the stratified sample is "less biased" does not earn (b): both methods are unbiased.
+    - slug: apstats-u03-w16-q22
+      type: long_answer
+      topic_code: "3.4"
+      source: "AP Statistics CED, Topic 3.4"
+      points: 6
+      prompt: |
+        A hypothetical state health department surveyed a simple random sample of 450 of the state's teenagers. Of these, 279 said they are woken by a phone notification at night at least once a week.
+
+        (A) Construct a 95% confidence interval for the proportion of all the state's teenagers who are woken by a phone notification at least once a week. Name the procedure, define the parameter and check the conditions.
+
+        (B) Interpret the interval in context.
+
+        (C) A newspaper claims that "most teenagers" are woken by a notification at least once a week. A phone company claims that the figure is 70%. Use the interval to evaluate each claim.
+
+        (D) Would a 99% confidence interval from the same data lead to the same verdict on the newspaper's claim? Justify with the 99% interval.
+      answer: |
+        (A) One-sample z-interval for p, where p = the proportion of all the state's teenagers who are woken by a phone notification at night at least once a week. Random: SRS. 10%: 450 is less than 10% of a state's teenagers. Large Counts: 279 and 171 are both at least 10. p̂ = 279/450 = 0.62; SE = √(0.62 · 0.38 / 450) ≈ 0.0229; 0.62 ± 1.96(0.0229) = 0.62 ± 0.045 = (0.575, 0.665).
+        (B) We are 95% confident that the interval from 0.575 to 0.665 captures the true proportion of all the state's teenagers who are woken by a phone notification at night at least once a week.
+        (C) Newspaper: every value in the interval is above 0.50, so there is convincing evidence that most (more than half) of the state's teenagers are woken at least once a week. Phone company: 0.70 is above the interval, so it is not plausible; there is convincing evidence that the proportion is less than 0.70.
+        (D) Yes. 99%: 0.62 ± 2.576(0.0229) = 0.62 ± 0.059 = (0.561, 0.679). The whole interval is still above 0.50, so the verdict on the newspaper's claim is unchanged.
+      explanation: |
+        Six points. (A) 3 points: 1 for naming the procedure and defining p in context; 1 for all three conditions checked in context (Random, 10%, Large Counts with 279 and 171); 1 for the correct interval (0.575, 0.665) with work. (B) 1 point: "95% confident" that the interval captures the proportion of all the state's teenagers; no credit for probability language or for referring to the sample. (C) 1 point: both verdicts, each tied to where the claimed value lies relative to the interval (0.50 below the interval, 0.70 above it), with "convincing evidence" language. (D) 1 point: the 99% interval (about 0.561 to 0.679) and the statement that it still lies entirely above 0.50.

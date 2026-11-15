@@ -1,0 +1,901 @@
+unit: 2
+description: |
+  44 questions · about 90 minutes · every topic of Unit 2 (2.1 to 2.12): two-way tables and their graphs,
+  marginal and conditional relative frequencies and association, simulation, probability rules, mutually
+  exclusive events, conditional probability, independence and unions, discrete random variables with their
+  means and standard deviations, the binomial distribution, the normal distribution, and sampling distributions
+  with the Central Limit Theorem. Includes three shared-context sets (a five-question set on a two-way table of
+  how students travel to school, a four-question set on returned phone repairs and a four-question set on bags
+  of trail mix), select-all, true/false, fill-in-the-blank and numeric items, two short-answer questions (3
+  points each) and two free-response questions in the 2027 AP style (10 points each: one on investigating an
+  association in survey data, one combining the normal, binomial and sampling distributions). Calculators are
+  allowed throughout, as on the AP exam. Multiple choice, select-all, true/false and numeric items are graded
+  at once; fill-in-the-blank items are matched automatically; the short answers and free-response items are
+  graded by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: how students travel to school (2.1, 2.2, 2.6, 2.7)
+  - slug: apstats-u02-exam-q01
+    type: multiple_choice
+    topic_code: "2.1"
+    source: "AP Statistics CED, Topic 2.1"
+    points: 1
+    stimulus: |
+      A hypothetical survey asked a random sample of 400 students at one high school how they usually travel to school. The results, by grade group:
+
+      | | Bus | Car | Walk or bike | Total |
+      |---|---|---|---|---|
+      | Grades 9–10 | 90 | 60 | 50 | 200 |
+      | Grades 11–12 | 50 | 110 | 40 | 200 |
+      | Total | 140 | 170 | 90 | 400 |
+    prompt: |
+      In the marginal distribution of travel method, what is the relative frequency for travelling by car?
+    options:
+      - "0.550"
+      - "0.300"
+      - "0.425"
+      - "0.647"
+    option_explanations:
+      - |
+        0.550 = 110/200 is the conditional relative frequency of car travel among grades 11–12, not the marginal one.
+      - |
+        0.300 = 60/200 is the conditional relative frequency of car travel among grades 9–10.
+      - |
+        Correct. The marginal distribution uses the column total over the grand total: 170/400 = 0.425.
+      - |
+        0.647 = 110/170 is the proportion of car travellers who are in grades 11–12, a conditional relative frequency of grade.
+    answer: 2
+  - slug: apstats-u02-exam-q02
+    type: multiple_choice
+    topic_code: "2.2"
+    source: "AP Statistics CED, Topic 2.2"
+    points: 1
+    stimulus: |
+      A hypothetical survey asked a random sample of 400 students at one high school how they usually travel to school. The results, by grade group:
+
+      | | Bus | Car | Walk or bike | Total |
+      |---|---|---|---|---|
+      | Grades 9–10 | 90 | 60 | 50 | 200 |
+      | Grades 11–12 | 50 | 110 | 40 | 200 |
+      | Total | 140 | 170 | 90 | 400 |
+    prompt: |
+      Which statement best describes the relationship between grade group and travel method for these students?
+    options:
+      - "There is an association: 55% of students in grades 11–12 travel by car, compared with 30% in grades 9–10, while bus use is 45% in grades 9–10 and 25% in grades 11–12."
+      - "There is no association, because the two grade groups have the same number of students."
+      - "There is no association, because walking or biking is the least common method in both grade groups."
+      - "Being in grades 11–12 causes students to travel by car."
+    option_explanations:
+      - |
+        Correct. The conditional distributions of travel method differ clearly between grade groups (car 0.30 versus 0.55, bus 0.45 versus 0.25), which is what association means.
+      - |
+        Equal group sizes say nothing about association; what matters is whether the conditional distributions within the groups differ.
+      - |
+        Sharing the least common category does not make the distributions the same; the car and bus proportions differ a lot.
+      - |
+        This is an observational survey; older students may drive for many reasons (licences, part-time jobs), so the data show association, not causation.
+    answer: 0
+  - slug: apstats-u02-exam-q03
+    type: multiple_choice
+    topic_code: "2.6"
+    source: "AP Statistics CED, Topic 2.6"
+    points: 1
+    stimulus: |
+      A hypothetical survey asked a random sample of 400 students at one high school how they usually travel to school. The results, by grade group:
+
+      | | Bus | Car | Walk or bike | Total |
+      |---|---|---|---|---|
+      | Grades 9–10 | 90 | 60 | 50 | 200 |
+      | Grades 11–12 | 50 | 110 | 40 | 200 |
+      | Total | 140 | 170 | 90 | 400 |
+    prompt: |
+      One of the 400 students is chosen at random. Given that the student travels by car, what is the probability that the student is in grades 11–12?
+    options:
+      - "0.550"
+      - "0.275"
+      - "0.500"
+      - "0.647"
+    option_explanations:
+      - |
+        0.550 = 110/200 is P(car | grades 11–12); the condition has been swapped.
+      - |
+        0.275 = 110/400 is P(grades 11–12 and car), a joint probability out of all 400 students.
+      - |
+        0.500 = 200/400 is P(grades 11–12) overall, ignoring the information that the student travels by car.
+      - |
+        Correct. Restrict to the 170 car travellers: P(grades 11–12 | car) = 110/170 ≈ 0.647.
+    answer: 3
+  - slug: apstats-u02-exam-q04
+    type: multiple_choice
+    topic_code: "2.7"
+    source: "AP Statistics CED, Topic 2.7"
+    points: 1
+    stimulus: |
+      A hypothetical survey asked a random sample of 400 students at one high school how they usually travel to school. The results, by grade group:
+
+      | | Bus | Car | Walk or bike | Total |
+      |---|---|---|---|---|
+      | Grades 9–10 | 90 | 60 | 50 | 200 |
+      | Grades 11–12 | 50 | 110 | 40 | 200 |
+      | Total | 140 | 170 | 90 | 400 |
+    prompt: |
+      For a student chosen at random from the 400, are the events "in grades 11–12" and "travels by car" independent?
+    options:
+      - "Yes, because half of the students are in grades 11–12."
+      - "No, because P(car | grades 11–12) = 0.55 is not equal to P(car) = 0.425."
+      - "No, because the two events can happen at the same time."
+      - "Yes, because P(grades 11–12 and car) = 0.275 is less than both P(grades 11–12) and P(car)."
+    option_explanations:
+      - |
+        P(grades 11–12) = 0.5 alone cannot show independence; we must compare a conditional probability with the matching unconditional one.
+      - |
+        Correct. Knowing the student is in grades 11–12 raises the probability of car travel from 0.425 to 0.55, so the events are not independent.
+      - |
+        Events that can happen together can still be independent; "can happen together" means not mutually exclusive, which is a different idea.
+      - |
+        A joint probability is always at most each single probability. Independence needs P(A and B) = P(A)P(B): 0.5 × 0.425 = 0.2125, not 0.275.
+    answer: 1
+  - slug: apstats-u02-exam-q05
+    type: numeric
+    topic_code: "2.7"
+    source: "AP Statistics CED, Topic 2.7"
+    points: 1
+    stimulus: |
+      A hypothetical survey asked a random sample of 400 students at one high school how they usually travel to school. The results, by grade group:
+
+      | | Bus | Car | Walk or bike | Total |
+      |---|---|---|---|---|
+      | Grades 9–10 | 90 | 60 | 50 | 200 |
+      | Grades 11–12 | 50 | 110 | 40 | 200 |
+      | Total | 140 | 170 | 90 | 400 |
+    prompt: |
+      One of the 400 students is chosen at random. Find the probability that the student rides the bus or is in grades 9–10. Give your answer to three decimal places.
+    answer: { value: 0.625, tolerance: 0.001 }
+    explanation: |
+      General addition rule: P(bus or 9–10) = P(bus) + P(9–10) − P(bus and 9–10) = 140/400 + 200/400 − 90/400 = 250/400 = 0.625.
+  # ---- Stimulus set B: phone repairs (2.10)
+  - slug: apstats-u02-exam-q06
+    type: multiple_choice
+    topic_code: "2.10"
+    source: "AP Statistics CED, Topic 2.10"
+    points: 1
+    stimulus: |
+      A hypothetical phone-repair shop states that 8% of the screens it replaces are brought back within a month because of a defect. Next week the shop will replace 15 screens for 15 unrelated customers. Assume the 8% figure is correct and that screens are brought back independently. Let X = the number of the 15 screens brought back within a month.
+    prompt: |
+      What are the mean and standard deviation of X?
+    options:
+      - "Mean 1.2 screens, standard deviation 1.10 screens"
+      - "Mean 1.2 screens, standard deviation 1.05 screens"
+      - "Mean 13.8 screens, standard deviation 1.05 screens"
+      - "Mean 1.2 screens, standard deviation 0.07 screens"
+    option_explanations:
+      - |
+        1.10 = 15(0.08)(0.92) is the variance; the standard deviation is its square root, about 1.05.
+      - |
+        Correct. X is binomial with n = 15, p = 0.08: μ = 15(0.08) = 1.2 and σ = √(15 · 0.08 · 0.92) = √1.104 ≈ 1.05 screens.
+      - |
+        13.8 = 15(0.92) is the mean number of screens that are not brought back; X counts screens that are.
+      - |
+        0.07 = √(0.08 · 0.92/15) is the standard deviation of a sample proportion, not of a count.
+    answer: 1
+  - slug: apstats-u02-exam-q07
+    type: multiple_choice
+    topic_code: "2.10"
+    source: "AP Statistics CED, Topic 2.10"
+    points: 1
+    stimulus: |
+      A hypothetical phone-repair shop states that 8% of the screens it replaces are brought back within a month because of a defect. Next week the shop will replace 15 screens for 15 unrelated customers. Assume the 8% figure is correct and that screens are brought back independently. Let X = the number of the 15 screens brought back within a month.
+    prompt: |
+      What is the probability that none of the 15 screens is brought back?
+    options:
+      - "0.286"
+      - "0.714"
+      - "0.000"
+      - "0.920"
+    option_explanations:
+      - |
+        Correct. P(X = 0) = 0.92¹⁵ ≈ 0.286: each of the 15 independent screens must avoid a defect.
+      - |
+        0.714 = 1 − 0.92¹⁵ is the probability that at least one screen is brought back, the complement.
+      - |
+        0.08¹⁵ is essentially 0, but that is the probability that all 15 are brought back, not that none are.
+      - |
+        0.920 is the probability for one screen; all 15 must avoid a defect, so multiply 0.92 by itself 15 times.
+    answer: 0
+  - slug: apstats-u02-exam-q08
+    type: numeric
+    topic_code: "2.10"
+    source: "AP Statistics CED, Topic 2.10"
+    points: 1
+    stimulus: |
+      A hypothetical phone-repair shop states that 8% of the screens it replaces are brought back within a month because of a defect. Next week the shop will replace 15 screens for 15 unrelated customers. Assume the 8% figure is correct and that screens are brought back independently. Let X = the number of the 15 screens brought back within a month.
+    prompt: |
+      Find P(X ≥ 3), the probability that at least 3 of the 15 screens are brought back. Give your answer to three decimal places.
+    answer: { value: 0.113, tolerance: 0.001 }
+    explanation: |
+      P(X ≥ 3) = 1 − P(X ≤ 2) = 1 − binomcdf(15, 0.08, 2) = 1 − 0.887 = 0.113.
+  - slug: apstats-u02-exam-q09
+    type: multiple_choice
+    topic_code: "2.10"
+    source: "AP Statistics CED, Topic 2.10"
+    points: 1
+    stimulus: |
+      A hypothetical phone-repair shop states that 8% of the screens it replaces are brought back within a month because of a defect. Next week the shop will replace 15 screens for 15 unrelated customers. Assume the 8% figure is correct and that screens are brought back independently. Let X = the number of the 15 screens brought back within a month.
+    prompt: |
+      In fact, 4 of the 15 screens are brought back. If the 8% figure is correct, P(X ≥ 4) = 0.027. Which conclusion is most appropriate?
+    options:
+      - "The 8% figure must be correct, because 4 is close to the mean of 1.2."
+      - "There is a 2.7% probability that the shop's 8% figure is correct."
+      - "Nothing can be concluded, because P(X = 4) is not exactly 0."
+      - "Four or more returns would be unusual if the 8% figure were correct, so this gives convincing evidence that the shop's true return rate is higher than 8%."
+    option_explanations:
+      - |
+        4 returns is about 2.6 standard deviations above the mean of 1.2, which is far from typical, not close.
+      - |
+        0.027 is computed assuming the 8% figure is true; it is the probability of 4 or more returns, not the probability that the figure is correct.
+      - |
+        Evidence never requires an impossible result; a small tail probability such as 0.027 is enough to doubt the claim.
+      - |
+        Correct. If p = 0.08, only about 2.7% of weeks would bring 4 or more returns out of 15. Such an unlikely result is convincing evidence that the true rate is above 8%, though it does not prove it.
+    answer: 3
+  # ---- Stimulus set C: trail-mix bags (2.11, 2.12)
+  - slug: apstats-u02-exam-q10
+    type: multiple_choice
+    topic_code: "2.11"
+    source: "AP Statistics CED, Topic 2.11"
+    points: 1
+    stimulus: |
+      A hypothetical snack company labels its bags of trail mix "250 g". The actual weights of the bags are approximately normal with mean 255 grams and standard deviation 6 grams.
+    prompt: |
+      What proportion of bags weigh less than the labelled 250 grams?
+    options:
+      - "0.798"
+      - "0.160"
+      - "0.202"
+      - "0.048"
+    option_explanations:
+      - |
+        0.798 is the area to the right of 250 grams, the proportion of bags that weigh more than the label.
+      - |
+        0.160 treats 250 grams as one standard deviation below the mean, but it is only 5/6 ≈ 0.83 SDs below.
+      - |
+        Correct. z = (250 − 255)/6 = −0.83, and the area to the left of z = −0.83 is about 0.202. About 20% of bags are under the labelled weight.
+      - |
+        0.048 is the probability for the mean of 4 bags, which uses SD 6/√4 = 3; a single bag uses SD 6.
+    answer: 2
+  - slug: apstats-u02-exam-q11
+    type: multiple_choice
+    topic_code: "2.12"
+    source: "AP Statistics CED, Topic 2.12"
+    points: 1
+    stimulus: |
+      A hypothetical snack company labels its bags of trail mix "250 g". The actual weights of the bags are approximately normal with mean 255 grams and standard deviation 6 grams.
+    prompt: |
+      An inspector weighs a random sample of 4 bags. What is the probability that their mean weight is less than 250 grams?
+    options:
+      - "0.202"
+      - "0.0004"
+      - "0.952"
+      - "0.048"
+    option_explanations:
+      - |
+        0.202 is the probability for a single bag; the mean of 4 bags varies less, with SD 6/√4 = 3 grams.
+      - |
+        0.0004 divides by n instead of √n (SD 1.5 grams, z = −3.33), which makes the sample mean look far less variable than it is.
+      - |
+        0.952 is the area to the right of 250 grams for the sample mean, the probability that the mean is at least 250 grams.
+      - |
+        Correct. The population is normal, so x̄ is normal with mean 255 and SD 6/√4 = 3. z = (250 − 255)/3 = −1.67, and P(Z < −1.67) ≈ 0.048.
+    answer: 3
+  - slug: apstats-u02-exam-q12
+    type: numeric
+    topic_code: "2.11"
+    source: "AP Statistics CED, Topic 2.11"
+    points: 1
+    stimulus: |
+      A hypothetical snack company labels its bags of trail mix "250 g". The actual weights of the bags are approximately normal with mean 255 grams and standard deviation 6 grams.
+    prompt: |
+      Find the 10th percentile of bag weight. Give your answer in grams to one decimal place.
+    answer: { value: 247.3, tolerance: 0.06 }
+    explanation: |
+      The z-score with 0.10 to its left is −1.2816, so x = 255 − 1.2816(6) = 247.3 grams. About 10% of bags weigh 247.3 grams or less.
+  - slug: apstats-u02-exam-q13
+    type: multiple_choice
+    topic_code: "2.12"
+    source: "AP Statistics CED, Topic 2.12"
+    points: 1
+    stimulus: |
+      A hypothetical snack company labels its bags of trail mix "250 g". The actual weights of the bags are approximately normal with mean 255 grams and standard deviation 6 grams.
+    prompt: |
+      Why is the probability that the mean of 4 bags is under 250 grams smaller than the probability that one bag is under 250 grams?
+    options:
+      - "Averages of several bags vary less than single bags, so a sample mean is less likely to fall far below 255 grams."
+      - "The mean of 4 bags is biased upward, so it is usually larger than 255 grams."
+      - "The Central Limit Theorem makes the mean of 4 bags normal, but single bag weights are not normal."
+      - "A sample of 4 bags is more than 10% of the population, so the probability shrinks."
+    option_explanations:
+      - |
+        Correct. SD(x̄) = 6/√4 = 3 grams, half the SD of one bag. Light and heavy bags tend to balance out in an average, so a mean as far below 255 as 250 grams is less likely.
+      - |
+        x̄ is an unbiased estimator: its sampling distribution is centred at μ = 255, not above it.
+      - |
+        Single bag weights are already approximately normal here; the difference comes from the smaller standard deviation of the mean, not from a change of shape.
+      - |
+        Four bags is a tiny fraction of all bags produced, and the 10% condition concerns whether σ/√n is valid, not why the probability is smaller.
+    answer: 0
+  # ---- Independent items
+  - slug: apstats-u02-exam-q14
+    type: multiple_choice
+    topic_code: "2.3"
+    source: "AP Statistics CED, Topic 2.3"
+    points: 1
+    prompt: |
+      At a hypothetical school, 20% of students ride a bike to school. A student simulates choosing 5 students at random by reading 5 random digits at a time (0 and 1 = bike rider, 2 to 9 = not) and records whether at least 2 of the 5 ride a bike. In 200 trials, 52 had at least 2 bike riders. What is the simulation's estimate of the probability that at least 2 of 5 randomly chosen students ride a bike?
+    options:
+      - "0.20"
+      - "0.40"
+      - "0.26"
+      - "0.52"
+    option_explanations:
+      - |
+        0.20 is the probability that one student rides a bike, not the probability of at least 2 riders among 5.
+      - |
+        0.40 = 2/5 treats "at least 2 of 5" as a proportion of students rather than as an event estimated from the trials.
+      - |
+        Correct. The estimate is the relative frequency of the event among the trials: 52/200 = 0.26. (The exact binomial value is 0.263.)
+      - |
+        0.52 divides 52 by 100 instead of by the 200 trials actually run.
+    answer: 2
+  - slug: apstats-u02-exam-q15
+    type: multiple_choice
+    topic_code: "2.3"
+    source: "AP Statistics CED, Topic 2.3"
+    points: 1
+    prompt: |
+      Two students run the bike-rider simulation above. One runs 50 trials and the other runs 2,000 trials. Which statement is true?
+    options:
+      - "Both estimates will be exactly the same, because they model the same probability."
+      - "The estimate from 2,000 trials is likely to be closer to the true probability."
+      - "The estimate from 50 trials is more accurate, because it has fewer chances for error."
+      - "After a run of trials with no bike riders, the next trial is more likely to have at least 2."
+    option_explanations:
+      - |
+        Simulated relative frequencies vary by chance; two runs will usually give different estimates.
+      - |
+        Correct. By the law of large numbers, the relative frequency settles closer to the true probability as the number of trials grows.
+      - |
+        Fewer trials means more chance variation in the estimate, not less.
+      - |
+        Trials are independent; earlier results do not change the chances on the next trial.
+    answer: 1
+  - slug: apstats-u02-exam-q16
+    type: multiple_choice
+    topic_code: "2.4"
+    source: "AP Statistics CED, Topic 2.4"
+    points: 1
+    prompt: |
+      Two fair six-sided dice are rolled. What is the probability that the sum is 7?
+    options:
+      - "6/36"
+      - "1/11"
+      - "7/36"
+      - "3/36"
+    option_explanations:
+      - |
+        Correct. There are 36 equally likely ordered outcomes, and six give a sum of 7: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1). P = 6/36 = 1/6.
+      - |
+        1/11 treats the 11 possible sums (2 to 12) as equally likely, but sums near 7 can happen in more ways.
+      - |
+        7/36 uses the sum itself as the count of outcomes; only six ordered pairs add to 7.
+      - |
+        3/36 counts unordered pairs; (1,6) and (6,1) are different outcomes of two distinct dice.
+    answer: 0
+  - slug: apstats-u02-exam-q17
+    type: multiple_choice
+    topic_code: "2.5"
+    source: "AP Statistics CED, Topic 2.5"
+    points: 1
+    prompt: |
+      In a hypothetical class, a randomly chosen student's final grade is an A with probability 0.35 and a B with probability 0.40. Each student receives exactly one grade. What is the probability that a randomly chosen student receives an A or a B?
+    options:
+      - "0.14"
+      - "0.61"
+      - "0.25"
+      - "0.75"
+    option_explanations:
+      - |
+        0.14 = 0.35 × 0.40 multiplies as if the events were independent, but a student cannot get both grades.
+      - |
+        0.61 = 0.75 − 0.14 subtracts an overlap that does not exist; for mutually exclusive events P(A and B) = 0.
+      - |
+        0.25 = 1 − 0.75 is the probability of getting neither an A nor a B.
+      - |
+        Correct. The events are mutually exclusive, so P(A or B) = 0.35 + 0.40 = 0.75.
+    answer: 3
+  - slug: apstats-u02-exam-q18
+    type: multiple_choice
+    topic_code: "2.6"
+    source: "AP Statistics CED, Topic 2.6"
+    points: 1
+    prompt: |
+      At a hypothetical school, 6% of students have a certain food allergy. A screening test is positive for 90% of students who have the allergy and for 8% of students who do not. A randomly chosen student tests positive. What is the probability that the student has the allergy?
+    options:
+      - "0.900"
+      - "0.054"
+      - "0.418"
+      - "0.129"
+    option_explanations:
+      - |
+        0.900 is P(positive | allergy); the question asks for the reverse, P(allergy | positive).
+      - |
+        0.054 = 0.06 × 0.90 is P(allergy and positive), a joint probability, not conditional on testing positive.
+      - |
+        Correct. P(positive) = 0.06(0.90) + 0.94(0.08) = 0.054 + 0.0752 = 0.1292, so P(allergy | positive) = 0.054/0.1292 ≈ 0.418.
+      - |
+        0.129 is P(positive), the overall probability of a positive test.
+    answer: 2
+  - slug: apstats-u02-exam-q19
+    type: multiple_choice
+    topic_code: "2.8"
+    source: "AP Statistics CED, Topic 2.8"
+    points: 1
+    prompt: |
+      Which of these could be the probability distribution of a discrete random variable X that takes the values 0, 1 and 2?
+    options:
+      - "P(X = 0) = 0.3, P(X = 1) = 0.5, P(X = 2) = 0.3"
+      - "P(X = 0) = 0.6, P(X = 1) = 0.5, P(X = 2) = −0.1"
+      - "P(X = 0) = 0.25, P(X = 1) = 0.25, P(X = 2) = 0.5"
+      - "P(X = 0) = 0.2, P(X = 1) = 0.3, P(X = 2) = 0.4"
+    option_explanations:
+      - |
+        These probabilities add to 1.1; a probability distribution must sum to exactly 1.
+      - |
+        These sum to 1, but a probability cannot be negative.
+      - |
+        Correct. Every probability is between 0 and 1 and they sum to 0.25 + 0.25 + 0.5 = 1.
+      - |
+        These sum to 0.9, leaving 0.1 of the probability unassigned.
+    answer: 2
+  - slug: apstats-u02-exam-q20
+    type: multiple_choice
+    topic_code: "2.9"
+    source: "AP Statistics CED, Topic 2.9"
+    points: 1
+    prompt: |
+      For a hypothetical phone-insurance plan, the payout X for a randomly chosen customer in a year has mean μ_X = $12. Which is the best interpretation?
+    options:
+      - "Each customer will receive a payout of $12 this year."
+      - "Over many customers, the company pays out an average of about $12 per customer per year."
+      - "The most common payout is $12."
+      - "Half of all customers receive more than $12 a year."
+    option_explanations:
+      - |
+        Most customers receive $0 and a few receive large payouts; the mean is an average, not what each customer gets.
+      - |
+        Correct. The mean of a random variable is its long-run average: across many customers, payouts average about $12 per customer per year.
+      - |
+        The most common value is the mode; here it is almost certainly $0, not the mean.
+      - |
+        "Half above" describes the median; with a few large payouts the distribution is skewed and the median is far below $12.
+    answer: 1
+  - slug: apstats-u02-exam-q21
+    type: multiple_choice
+    topic_code: "2.9"
+    source: "AP Statistics CED, Topic 2.9"
+    points: 1
+    prompt: |
+      X = the number of days a randomly chosen student at a hypothetical school is absent in a week has mean 0.76 days and standard deviation 1.04 days. Which is the best interpretation of the standard deviation?
+    options:
+      - "Most students are absent 1.04 days a week."
+      - "About 68% of students are absent between 0 and 1.8 days a week."
+      - "The number of absences varies by exactly 1.04 days from week to week."
+      - "The number of weekly absences for randomly chosen students typically varies by about 1.04 days from the mean of 0.76 days."
+    option_explanations:
+      - |
+        The standard deviation measures spread, not a typical value of X; most students are absent 0 days.
+      - |
+        The 68% figure comes from the empirical rule, which applies only to normal distributions; a count of absences is strongly skewed.
+      - |
+        The standard deviation is a typical distance from the mean, not an exact amount that every value differs by.
+      - |
+        Correct. The standard deviation of a random variable is the typical distance of its values from the mean, here about 1.04 days from 0.76 days.
+    answer: 3
+  - slug: apstats-u02-exam-q22
+    type: multiple_choice
+    topic_code: "2.11"
+    source: "AP Statistics CED, Topic 2.11"
+    points: 1
+    prompt: |
+      Resting heart rates of teenagers in a hypothetical study population are approximately normal with mean 72 beats per minute and standard deviation 9 beats per minute. What resting heart rate is at the 90th percentile?
+    options:
+      - "About 83.5 beats per minute"
+      - "About 60.5 beats per minute"
+      - "About 90 beats per minute"
+      - "About 75.6 beats per minute"
+    option_explanations:
+      - |
+        Correct. The z-score with 0.90 to its left is 1.2816, so x = 72 + 1.2816(9) ≈ 83.5 beats per minute.
+      - |
+        60.5 = 72 − 1.2816(9) is the 10th percentile; the 90th percentile is above the mean.
+      - |
+        90 confuses the percentile number with a heart rate; a percentile is found from the area and the distribution's parameters.
+      - |
+        75.6 multiplies the SD by 0.4 instead of the z-score 1.28 that has 90% of the area to its left.
+    answer: 0
+  - slug: apstats-u02-exam-q23
+    type: multiple_choice
+    topic_code: "2.12"
+    source: "AP Statistics CED, Topic 2.12"
+    points: 1
+    prompt: |
+      A polling club plans to estimate the proportion of students at a large hypothetical high school who support a later start time, using a random sample of 100 students. Which change would reduce the variability of the sampling distribution of p̂?
+    options:
+      - "Sample the same 100 students from a population twice as large."
+      - "Increase the random sample from 100 to 400 students."
+      - "Use the first 100 students who respond to an online invitation."
+      - "Report p̂ to four decimal places instead of two."
+    option_explanations:
+      - |
+        As long as the sample is under 10% of the population, the population size does not affect SD(p̂) = √(p(1 − p)/n).
+      - |
+        Correct. SD(p̂) = √(p(1 − p)/n), so a larger random sample reduces it; four times the sample size halves the standard deviation.
+      - |
+        A voluntary-response sample introduces bias; it does not make the random sampling distribution less variable, and it may make the estimate worse.
+      - |
+        Extra decimal places change how p̂ is reported, not how much it varies from sample to sample.
+    answer: 1
+  - slug: apstats-u02-exam-q24
+    type: multiple_choice
+    topic_code: "2.12"
+    source: "AP Statistics CED, Topic 2.12"
+    points: 1
+    prompt: |
+      In a hypothetical state, 55% of high-school seniors have a driver's licence. For a random sample of 150 seniors, what is the approximate probability that fewer than half of the sample have a licence?
+    options:
+      - "0.891"
+      - "0.460"
+      - "0.450"
+      - "0.109"
+    option_explanations:
+      - |
+        0.891 is the area above 0.50, the probability that at least half of the sample have a licence: the wrong tail.
+      - |
+        0.460 uses the SD for one senior, √(0.55 · 0.45) = 0.497, instead of SD(p̂) = √(0.55 · 0.45/150) = 0.041.
+      - |
+        0.450 is the proportion of seniors without a licence, not a probability about the sample proportion.
+      - |
+        Correct. np = 82.5 and n(1 − p) = 67.5 are both at least 10, so p̂ is approximately normal with mean 0.55 and SD 0.0406. z = (0.50 − 0.55)/0.0406 = −1.23, so P(p̂ < 0.50) ≈ 0.109.
+    answer: 3
+  - slug: apstats-u02-exam-q25
+    type: multiple_choice
+    topic_code: "2.1"
+    source: "AP Statistics CED, Topic 2.1"
+    points: 1
+    prompt: |
+      A student wants a graph that compares the distribution of preferred music streaming service (three services) between ninth graders and twelfth graders. Which display is most appropriate?
+    options:
+      - "Side-by-side histograms of the number of students"
+      - "Parallel boxplots of the streaming services"
+      - "A segmented bar chart with one bar per grade, each divided by the proportion preferring each service"
+      - "A scatterplot of grade against streaming service"
+    option_explanations:
+      - |
+        Histograms display a quantitative variable; both variables here are categorical.
+      - |
+        Boxplots summarise a quantitative variable with quartiles; a streaming service has no numerical value.
+      - |
+        Correct. Each bar shows the conditional distribution of service within one grade, so differences between bars reveal any association between grade and preference.
+      - |
+        Scatterplots relate two quantitative variables; plotting categories against categories gives a few stacked dots and hides the counts.
+    answer: 2
+  - slug: apstats-u02-exam-q26
+    type: multiple_choice
+    topic_code: "2.2"
+    source: "AP Statistics CED, Topic 2.2"
+    points: 1
+    prompt: |
+      In a hypothetical study, 45 of 150 students who play a sport and 30 of 150 students who do not play a sport say they get at least 8 hours of sleep. Which summary best describes the strength of the association in this sample?
+    options:
+      - "The difference in conditional proportions, 0.30 − 0.20 = 0.10"
+      - "The difference in counts, 45 − 30 = 15 students"
+      - "The overall proportion who sleep at least 8 hours, 75/300 = 0.25"
+      - "The correlation between playing a sport and sleep"
+    option_explanations:
+      - |
+        Correct. Association between two categorical variables is summarised by comparing conditional proportions: 45/150 = 0.30 versus 30/150 = 0.20, a difference of 0.10.
+      - |
+        Counts depend on group sizes; with unequal groups a difference in counts can mislead, so proportions are compared.
+      - |
+        The marginal proportion describes all 300 students together and says nothing about whether the groups differ.
+      - |
+        Correlation measures the linear relationship between two quantitative variables; both variables here are categorical.
+    answer: 0
+  - slug: apstats-u02-exam-q27
+    type: multiple_choice
+    topic_code: "2.10"
+    source: "AP Statistics CED, Topic 2.10"
+    points: 1
+    prompt: |
+      A hypothetical school vending machine fails to deliver a snack on 3% of purchases, independently. Over 20 purchases, what is the probability of at least one failure?
+    options:
+      - "0.600"
+      - "0.456"
+      - "0.544"
+      - "0.336"
+    option_explanations:
+      - |
+        0.600 = 20 × 0.03 adds the probabilities, which double-counts purchases with more than one failure; it is the expected number of failures, not a probability.
+      - |
+        Correct. X is binomial with n = 20, p = 0.03. P(X ≥ 1) = 1 − P(X = 0) = 1 − 0.97²⁰ ≈ 1 − 0.544 = 0.456.
+      - |
+        0.544 = 0.97²⁰ is the probability of no failures, the complement of the event asked about.
+      - |
+        0.336 is P(X = 1), exactly one failure; "at least one" also includes two or more.
+    answer: 1
+  - slug: apstats-u02-exam-q28
+    type: multi_select
+    topic_code: "2.7"
+    source: "AP Statistics CED, Topic 2.7"
+    points: 2
+    partial_credit: true
+    prompt: |
+      For two events, P(A) = 0.5, P(B) = 0.3 and P(A and B) = 0.15. Which statements are true? Select all that apply.
+    options:
+      - "A and B are mutually exclusive."
+      - "A and B are independent."
+      - "P(A or B) = 0.65"
+      - "P(A | B) = 0.5"
+      - "P(A or B) = 0.8"
+    option_explanations:
+      - |
+        P(A and B) = 0.15 is not 0, so A and B can happen together; they are not mutually exclusive.
+      - |
+        Correct. P(A)P(B) = 0.5 × 0.3 = 0.15 = P(A and B), which is the condition for independence.
+      - |
+        Correct. P(A or B) = 0.5 + 0.3 − 0.15 = 0.65 by the general addition rule.
+      - |
+        Correct. P(A | B) = 0.15/0.3 = 0.5, which equals P(A), as independence requires.
+      - |
+        0.8 = 0.5 + 0.3 forgets to subtract the overlap P(A and B) = 0.15.
+    answer: [1, 2, 3]
+  - slug: apstats-u02-exam-q29
+    type: multi_select
+    topic_code: "2.12"
+    source: "AP Statistics CED, Topic 2.12"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A large population is strongly skewed right with mean 80 and standard deviation 16. A random sample of 64 is taken. Which statements are true? Select all that apply.
+    options:
+      - "The mean of the sampling distribution of x̄ is 80."
+      - "The 64 values in the sample will be approximately normally distributed."
+      - "The standard deviation of the sampling distribution of x̄ is 2."
+      - "The sampling distribution of x̄ is approximately normal."
+      - "Doubling the sample size to 128 would make the standard deviation of x̄ equal to 1."
+    option_explanations:
+      - |
+        Correct. x̄ is an unbiased estimator of μ, so its sampling distribution is centred at 80.
+      - |
+        The sample data resemble the population, so they will be skewed right; the CLT is about x̄, not the individual values.
+      - |
+        Correct. SD(x̄) = 16/√64 = 16/8 = 2 (the population is large, so the 10% condition holds).
+      - |
+        Correct. n = 64 ≥ 30, so by the Central Limit Theorem the sampling distribution of x̄ is approximately normal.
+      - |
+        Doubling n gives 16/√128 ≈ 1.41; reaching 1 would need n = 256, four times the sample size.
+    answer: [0, 2, 3]
+  - slug: apstats-u02-exam-q30
+    type: true_false
+    topic_code: "2.4"
+    source: "AP Statistics CED, Topic 2.4"
+    points: 1
+    prompt: |
+      True or false: Because the probability of rolling a six with a fair die is 1/6, rolling a fair die 600 times will produce exactly 100 sixes.
+    answer: false
+    explanation: |
+      False. A probability describes the long-run relative frequency. In 600 rolls the number of sixes varies by chance (it is binomial with mean 100 and SD about 9.1), so exactly 100 is just one of many possible results.
+  - slug: apstats-u02-exam-q31
+    type: true_false
+    topic_code: "2.11"
+    source: "AP Statistics CED, Topic 2.11"
+    points: 1
+    prompt: |
+      True or false: A z-score of −2.5 means that the value is 2.5 units below the mean.
+    answer: false
+    explanation: |
+      False. A z-score counts standard deviations, not units: z = −2.5 means the value is 2.5 standard deviations below the mean. With SD 4, for example, that is 10 units below.
+  - slug: apstats-u02-exam-q32
+    type: true_false
+    topic_code: "2.9"
+    source: "AP Statistics CED, Topic 2.9"
+    points: 1
+    prompt: |
+      True or false: The mean of a discrete random variable must be one of the values the random variable can take.
+    answer: false
+    explanation: |
+      False. The mean is a long-run average and need not be a possible value. For example, the number of weekly absences has mean 0.76 days, but no student is absent 0.76 days.
+  - slug: apstats-u02-exam-q33
+    type: fill_blank
+    topic_code: "2.4"
+    source: "AP Statistics CED, Topic 2.4"
+    points: 1
+    prompt: |
+      At a hypothetical school, 18% of students are left-handed. The probability that a randomly chosen student is not left-handed is ____.
+    answer: ["0.82", ".82", "82%", "41/50"]
+    explanation: |
+      Complement rule: P(not left-handed) = 1 − 0.18 = 0.82.
+  - slug: apstats-u02-exam-q34
+    type: fill_blank
+    topic_code: "2.10"
+    source: "AP Statistics CED, Topic 2.10"
+    points: 1
+    prompt: |
+      At a hypothetical school, 15% of students take the late bus. For a random sample of 40 students, the mean number who take the late bus is ____.
+    answer: ["6", "6.0", "6.00"]
+    explanation: |
+      The count is binomial with n = 40 and p = 0.15, so the mean is np = 40(0.15) = 6 students.
+  - slug: apstats-u02-exam-q35
+    type: fill_blank
+    topic_code: "2.1"
+    source: "AP Statistics CED, Topic 2.1"
+    points: 1
+    prompt: |
+      A table of counts that classifies each individual by two categorical variables is called a two-way table or a ____ table.
+    answer: ["contingency"]
+    explanation: |
+      A two-way table is also called a contingency table: rows give the categories of one variable, columns the categories of the other, and each cell counts the individuals in both.
+  - slug: apstats-u02-exam-q36
+    type: numeric
+    topic_code: "2.9"
+    source: "AP Statistics CED, Topic 2.9"
+    points: 1
+    prompt: |
+      X = the number of days a randomly chosen student at a hypothetical school is absent in a week has this distribution.
+
+      | x | 0 | 1 | 2 | 3 | 4 |
+      |---|---|---|---|---|---|
+      | P(X = x) | 0.55 | 0.25 | 0.12 | 0.05 | 0.03 |
+
+      Find the mean of X. Give your answer to two decimal places.
+    answer: { value: 0.76, tolerance: 0.005 }
+    explanation: |
+      μ = Σ x·P(x) = 0(0.55) + 1(0.25) + 2(0.12) + 3(0.05) + 4(0.03) = 0.25 + 0.24 + 0.15 + 0.12 = 0.76 days.
+  - slug: apstats-u02-exam-q37
+    type: numeric
+    topic_code: "2.6"
+    source: "AP Statistics CED, Topic 2.6"
+    points: 1
+    prompt: |
+      At a hypothetical school, 70% of students have a phone plan that includes data, and 40% of the students with such a plan go over their data limit in a typical month. Find the probability that a randomly chosen student has a data plan and goes over the limit. Give your answer to two decimal places.
+    answer: { value: 0.28, tolerance: 0.005 }
+    explanation: |
+      General multiplication rule: P(data plan and over limit) = P(data plan) · P(over limit | data plan) = 0.70 × 0.40 = 0.28.
+  - slug: apstats-u02-exam-q38
+    type: numeric
+    topic_code: "2.12"
+    source: "AP Statistics CED, Topic 2.12"
+    points: 1
+    prompt: |
+      In a large hypothetical population, 30% of teenagers have a part-time job. For random samples of 120 teenagers, find the standard deviation of the sampling distribution of p̂. Give your answer to three decimal places.
+    answer: { value: 0.042, tolerance: 0.001 }
+    explanation: |
+      The population is large, so the 10% condition holds and SD(p̂) = √(0.30 · 0.70/120) = √0.00175 ≈ 0.042.
+  - slug: apstats-u02-exam-q39
+    type: numeric
+    topic_code: "2.8"
+    source: "AP Statistics CED, Topic 2.8"
+    points: 1
+    prompt: |
+      For the weekly absences distribution (P(X = 0) = 0.55, P(X = 1) = 0.25, P(X = 2) = 0.12, P(X = 3) = 0.05, P(X = 4) = 0.03), find the probability that a randomly chosen student is absent at least 2 days in a week. Give your answer to two decimal places.
+    answer: { value: 0.20, tolerance: 0.005 }
+    explanation: |
+      P(X ≥ 2) = 0.12 + 0.05 + 0.03 = 0.20 (or 1 − 0.55 − 0.25).
+  - slug: apstats-u02-exam-q40
+    type: numeric
+    topic_code: "2.11"
+    source: "AP Statistics CED, Topic 2.11"
+    points: 1
+    prompt: |
+      Resting heart rates of teenagers in a hypothetical study population are approximately normal with mean 72 and standard deviation 9 beats per minute. Find the proportion of teenagers with a resting heart rate between 60 and 80 beats per minute. Give your answer to three decimal places.
+    answer: { value: 0.722, tolerance: 0.002 }
+    explanation: |
+      z = (60 − 72)/9 = −1.33 and z = (80 − 72)/9 = 0.89. The area between is 0.8130 − 0.0912 ≈ 0.722.
+  - slug: apstats-u02-exam-q41
+    type: short_answer
+    topic_code: "2.3"
+    source: "AP Statistics CED, Topic 2.3"
+    points: 3
+    prompt: |
+      A hypothetical basketball player makes 60% of her three-point shots, and her shots are independent. A student wants to estimate, by simulation with random digits, the probability that the player makes at least 3 of her next 5 three-point attempts.
+
+      (a) Describe how to assign the random digits 0 to 9 to the outcomes of one shot.
+      (b) Describe what one trial of the simulation is and what is recorded for it.
+      (c) The student runs 50 trials, and 34 of them have at least 3 made shots. State the estimate, and explain how to make the estimate more reliable.
+    answer: |
+      (a) Let digits 0 to 5 represent a made shot and 6 to 9 a miss, so each shot is made with probability 6/10 = 0.6.
+      (b) One trial: read 5 random digits (5 shots) and record whether at least 3 of them are 0 to 5 (at least 3 made shots).
+      (c) Estimate: 34/50 = 0.68. Run many more trials (for example 1,000 or more); by the law of large numbers the relative frequency gets closer to the true probability (which is 0.683 by the binomial formula).
+    explanation: |
+      Three points, one per part. (a) a digit assignment with exactly 6 of 10 equally likely digits for a make. (b) a trial of exactly 5 digits with the "at least 3 makes" outcome recorded. (c) 0.68 and "more trials" with a reason. An assignment such as "0 to 6 = make" earns no point for (a).
+  - slug: apstats-u02-exam-q42
+    type: short_answer
+    topic_code: "2.9"
+    source: "AP Statistics CED, Topic 2.9"
+    points: 3
+    prompt: |
+      A hypothetical school club sells 500 raffle tickets at $5 each. One ticket wins $500, two tickets win $100 each and five tickets win $20 each; the other 492 tickets win nothing. Let X = the net gain (prize minus the $5 cost) for a person who buys one ticket.
+
+      (a) Write the probability distribution of X.
+      (b) Find the mean of X.
+      (c) Interpret the mean in context.
+    answer: |
+      (a) X = $495 with probability 1/500 = 0.002; X = $95 with probability 2/500 = 0.004; X = $15 with probability 5/500 = 0.010; X = −$5 with probability 492/500 = 0.984.
+      (b) μ_X = 495(0.002) + 95(0.004) + 15(0.010) + (−5)(0.984) = 0.99 + 0.38 + 0.15 − 4.92 = −$3.40.
+      (c) If a person bought tickets in many raffles like this one, their net gain would average about −$3.40 per ticket in the long run: they would lose about $3.40 per ticket on average.
+    explanation: |
+      Three points, one per part. (a) all four net values (prize minus $5) with probabilities summing to 1; listing prizes without subtracting the cost earns no point. (b) −$3.40 with the work shown. (c) a long-run-average interpretation in context; "each person loses $3.40" earns no point.
+  - slug: apstats-u02-exam-q43
+    type: long_answer
+    topic_code: "2.2"
+    source: "AP Statistics CED, Topic 2.2"
+    points: 10
+    prompt: |
+      A student journalist at a hypothetical high school of 2,100 students wants to know whether students who eat breakfast on school days are more likely to feel alert in first period than students who skip breakfast. She selects a simple random sample of 250 students and asks each one two questions. The results:
+
+      | | Alert | Not alert | Total |
+      |---|---|---|---|
+      | Eats breakfast | 96 | 54 | 150 |
+      | Skips breakfast | 38 | 62 | 100 |
+      | Total | 134 | 116 | 250 |
+
+      (A) Write a statistical investigative question that this study could answer. Identify the two variables and state whether each is categorical or quantitative.
+
+      (B) Calculate the proportion of students who feel alert in each breakfast group. Describe what a segmented bar chart of these data, with one bar for each breakfast group, would show.
+
+      (C) Based on your answers to (B), is there an association between eating breakfast and feeling alert for these students? Explain.
+
+      (D) The journalist writes, "Eating breakfast makes students more alert." Explain whether this conclusion is justified by her study, and briefly describe how a study could be designed to investigate cause and effect.
+
+      (E) One of the 250 students is selected at random. Find P(eats breakfast | alert). Are the events "eats breakfast" and "alert" independent? Justify your answer.
+    answer: |
+      (A) For example: "At this high school, is the proportion of students who feel alert in first period higher among students who eat breakfast on school days than among students who skip breakfast?" The variables are whether a student eats breakfast (categorical) and whether the student feels alert in first period (categorical).
+      (B) Eats breakfast: 96/150 = 0.64 alert. Skips breakfast: 38/100 = 0.38 alert. In the segmented bar chart, each bar has height 100%; the "alert" segment fills 64% of the eats-breakfast bar but only 38% of the skips-breakfast bar, so the "not alert" segment is larger for skippers (62% versus 36%).
+      (C) Yes. The proportion of students who feel alert is much higher for those who eat breakfast (0.64) than for those who skip it (0.38). Because the conditional distributions of alertness differ between the groups, the variables are associated in this sample.
+      (D) Not justified. This is an observational study: students chose whether to eat breakfast, so other variables (for example amount of sleep, or how early a student wakes up) could be related to both breakfast and alertness. Because the sample was random, the association can be generalised to the school's students, but not as cause and effect. To investigate causation, randomly assign volunteer students to eat or not eat a provided breakfast on school days (a randomised experiment), then compare the proportions who report feeling alert.
+      (E) P(eats breakfast | alert) = 96/134 ≈ 0.716. P(eats breakfast) = 150/250 = 0.60. Since 0.716 ≠ 0.60, the events are not independent.
+    explanation: |
+      Ten points.
+      (A) 2 points: 1 for an investigative question that names the population (students at this school) and the comparison between breakfast groups; a yes/no survey question such as "Do you eat breakfast?" earns no point. 1 for both variables identified as categorical.
+      (B) 2 points: 1 for both conditional proportions, 0.64 and 0.38; 1 for a correct description of the segmented bar chart (equal-height bars divided by conditional proportions, alert segment larger for breakfast eaters).
+      (C) 2 points: 1 for "yes, associated"; 1 for justification that compares conditional proportions (not counts) from (B).
+      (D) 2 points: 1 for "not justified" because the study is observational (no random assignment), with a plausible confounding variable or the statement that other variables may explain the difference; 1 for a design that randomly assigns students to breakfast conditions and compares alertness. Generalising to the school's students because of random sampling may be mentioned but is not required.
+      (E) 2 points: 1 for 0.716 (accept 96/134); 1 for "not independent" justified by comparing P(eats breakfast | alert) with P(eats breakfast) (or an equivalent comparison such as P(alert | eats breakfast) = 0.64 versus P(alert) = 0.536).
+  - slug: apstats-u02-exam-q44
+    type: long_answer
+    topic_code: "2.12"
+    source: "AP Statistics CED, Topic 2.12"
+    points: 10
+    prompt: |
+      A hypothetical drink machine fills cups with an amount that is approximately normally distributed with mean 250 mL and standard deviation 8 mL. A cup "overflows" if it receives more than 260 mL.
+
+      (A) Find the probability that a randomly selected cup overflows.
+
+      (B) Ten cups are filled independently. Let X = the number of the 10 cups that overflow. Explain why X has a binomial distribution, and find P(X = 2).
+
+      (C) Find the probability that at least one of the 10 cups overflows.
+
+      (D) Let x̄ be the mean amount in the 10 cups. Describe the sampling distribution of x̄ (shape, mean and standard deviation), and find P(x̄ > 255).
+
+      (E) The probability that a single cup receives more than 255 mL is 0.266. Explain why the probability in (D) is so much smaller.
+    answer: |
+      (A) Let A = amount in a cup, A is N(250, 8). z = (260 − 250)/8 = 1.25; P(A > 260) = P(Z > 1.25) ≈ 0.106.
+      (B) Each cup overflows or does not (two outcomes); there are a fixed 10 cups; cups are filled independently; and each cup overflows with the same probability 0.106. So X is binomial with n = 10 and p = 0.106. P(X = 2) = 10C2 (0.106)²(0.894)⁸ ≈ 0.206.
+      (C) P(X ≥ 1) = 1 − P(X = 0) = 1 − (0.894)¹⁰ ≈ 1 − 0.326 = 0.674 (0.673 if p is not rounded).
+      (D) The population of amounts is normal, so the sampling distribution of x̄ is normal (for any n), with mean 250 mL and standard deviation 8/√10 ≈ 2.53 mL. z = (255 − 250)/2.53 = 1.98; P(x̄ > 255) ≈ 0.024.
+      (E) An average of 10 cups varies much less than a single cup (SD 2.53 mL versus 8 mL), because high and low fills tend to balance out. So 255 mL is only 0.625 SDs above the mean for one cup but about 1.98 SDs above the mean for x̄, which puts much less area above it.
+    explanation: |
+      Ten points.
+      (A) 2 points: 1 for the distribution and the z-score (or labelled normalcdf inputs: lower 260, upper ∞, mean 250, SD 8); 1 for 0.106 (accept 0.105 to 0.106).
+      (B) 3 points: 1 for the binomial conditions in context (two outcomes, fixed n = 10, independence, same p); 1 for n = 10 and p equal to the answer to (A); 1 for P(X = 2) ≈ 0.206 (accept 0.205 to 0.206, or a value consistent with an incorrect p from (A)).
+      (C) 1 point: 0.674 (accept 0.672 to 0.675) by the complement.
+      (D) 3 points: 1 for "normal" justified by the normal population (the CLT is not needed and does not apply to n = 10); 1 for mean 250 and SD 8/√10 ≈ 2.53; 1 for P(x̄ > 255) ≈ 0.024. Using SD 8 for x̄ earns at most the first point.
+      (E) 1 point: the mean of 10 cups has a smaller standard deviation (σ/√n) than a single cup, so 255 mL is many more standard deviations above the mean for x̄ than for one cup.

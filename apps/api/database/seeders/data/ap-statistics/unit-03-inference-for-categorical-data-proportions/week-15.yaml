@@ -1,0 +1,579 @@
+week: 15
+unit: 3
+title: "Estimators and the Sampling Distribution of p̂"
+topics: ["3.1", "3.2"]
+guide: guides/week-15.md
+guide_description: |
+  Parameters, statistics and estimators; what makes an estimator unbiased and what makes it precise, and why a
+  larger random sample reduces variability but never removes bias; the mean, standard deviation and shape of
+  the sampling distribution of p̂, with the 10% and Large Counts conditions and what each one justifies.
+  Worked examples: three simulated methods of estimating the proportion of a town's households with a vegetable
+  garden, the sampling distribution of p̂ for part-time jobs among a county's teenagers with P(p̂ ≥ 0.33), the
+  sample size that halves SD(p̂), and a defective-battery sample where Large Counts fails.
+flashcards_description: |
+  30 cards on parameters, statistics and estimators, bias and variability, the mean, SD and shape of the
+  sampling distribution of p̂, the 10% and Large Counts conditions, and normal calculations with p̂.
+
+flashcards:
+  - front: Parameter vs statistic in a school-lunch survey → which is which
+    back: |
+      Parameter: p, the proportion of ALL students in the district who eat the school lunch (fixed, usually unknown). Statistic: p̂, the proportion in the sample (varies from sample to sample).
+    topic_code: "3.1"
+  - front: Estimator vs point estimate → the difference
+    back: |
+      The estimator is the rule ("take an SRS of 200 and compute the sample proportion"). The point estimate is the number that rule gives for one particular sample (p̂ = 0.31).
+    topic_code: "3.1"
+  - front: Unbiased estimator → definition in terms of its sampling distribution
+    back: |
+      The mean of its sampling distribution equals the parameter it estimates: over many samples it neither overestimates nor underestimates on average.
+    topic_code: "3.1"
+  - front: Variability of an estimator → what measures it
+    back: |
+      The standard deviation of its sampling distribution. Smaller SD = estimates cluster more tightly = more precise.
+    topic_code: "3.1"
+  - front: Target picture for estimators → bias and variability
+    back: |
+      Bias = where the shots are centred relative to the bull's-eye. Variability = how tightly the shots cluster. An estimator can be tight but off-centre (biased, precise) or centred but scattered (unbiased, imprecise).
+    topic_code: "3.1"
+  - front: Larger random sample → its effect on bias and on variability
+    back: |
+      Variability goes down (SD(p̂) shrinks like 1/√n). Bias from the method (undercoverage, voluntary response, wording) is unchanged.
+    topic_code: "3.1"
+  - front: Garden survey, 200 households nearest a garden centre → why biased
+    back: |
+      Households near a garden centre are more likely to garden, so every such sample tends to overestimate the town's proportion. A big sample from the wrong place is consistently wrong.
+    topic_code: "3.1"
+  - front: Choosing among simulated estimators → the rule
+    back: |
+      First discard any whose simulated mean is far from the parameter (biased). Among the unbiased ones, choose the smallest SD.
+    topic_code: "3.1"
+  - front: p̂ from a random sample → is it biased?
+    back: |
+      No. The mean of the sampling distribution of p̂ is exactly p, so p̂ is an unbiased estimator of p (when the sample is random).
+    topic_code: "3.1"
+  - front: Sampling distribution of p̂ → definition
+    back: |
+      The distribution of the values of p̂ from all possible random samples of the same size n from the same population.
+    topic_code: "3.2"
+  - front: Mean of the sampling distribution of p̂ → formula
+    back: |
+      p, the population proportion.
+    topic_code: "3.2"
+  - front: SD(p̂) → formula and the condition behind it
+    back: |
+      SD(p̂) = √(p(1 − p)/n). It needs independent observations: when sampling without replacement, the 10% condition n ≤ 0.10N.
+    topic_code: "3.2"
+  - front: Large Counts condition for the sampling distribution of p̂ → check and purpose
+    back: |
+      np ≥ 10 and n(1 − p) ≥ 10, using the population proportion p. It justifies an approximately normal shape.
+    topic_code: "3.2"
+  - front: 10% condition vs Large Counts → what each one justifies
+    back: |
+      10%: the SD formula (independence when sampling without replacement). Large Counts: the normal shape. Neither replaces the other.
+    topic_code: "3.2"
+  - front: Halving SD(p̂) → the sample size needed
+    back: |
+      Multiply n by 4, because n sits under a square root: √(p(1 − p)/(4n)) = ½ √(p(1 − p)/n).
+    topic_code: "3.2"
+  - front: Population size N in SD(p̂) → does it matter?
+    back: |
+      No, as long as n ≤ 10% of N. A sample of 1,000 gives the same SD(p̂) in a city as in a whole country.
+    topic_code: "3.2"
+  - front: Shape of p̂ when np < 10 with p near 0 → description
+    back: |
+      Skewed right: p̂ cannot go below 0, and most samples have only a few successes. (Near p = 1 it is skewed left.)
+    topic_code: "3.2"
+  - front: p = 0.62, n = 150 (school lunch) → mean and SD of p̂
+    back: |
+      Mean 0.62; SD = √(0.62 · 0.38 / 150) ≈ 0.0396.
+    topic_code: "3.2"
+  - front: Part-time jobs, p = 0.28, n = 250 → P(p̂ ≥ 0.33)
+    back: |
+      SD = √(0.28 · 0.72 / 250) ≈ 0.0284; z = (0.33 − 0.28)/0.0284 ≈ 1.76; probability ≈ 0.039.
+    topic_code: "3.2"
+  - front: Defective batteries, p = 0.03, n = 120 → can you use a normal model for p̂?
+    back: |
+      No: np = 3.6 < 10. The sampling distribution is skewed right; use the binomial instead (P(no defectives) = 0.97¹²⁰ ≈ 0.026).
+    topic_code: "3.2"
+  - front: Count X vs proportion p̂ → how their means and SDs relate
+    back: |
+      p̂ = X/n, so the mean of p̂ is np/n = p and SD(p̂) = √(np(1 − p))/n = √(p(1 − p)/n).
+    topic_code: "3.2"
+  - front: Normal probability for p̂ → the steps
+    back: |
+      (1) State mean p and SD √(p(1 − p)/n), checking 10%. (2) Check Large Counts. (3) z = (p̂ − p)/SD. (4) Find the area; interpret it in context.
+    topic_code: "3.2"
+  - front: Population distribution of a yes/no variable → its "shape"
+    back: |
+      It has no normal shape: it is just a proportion p of "yes" and 1 − p of "no". Only the sampling distribution of p̂ can be approximately normal.
+    topic_code: "3.2"
+  - front: Three distributions in a proportion problem → name them
+    back: |
+      Population distribution (every individual), distribution of the sample data (one sample), sampling distribution of p̂ (p̂ over all possible samples).
+    topic_code: "3.2"
+  - front: A p̂ far out in the tail of its sampling distribution → what it suggests
+    back: |
+      If the claimed p were true, such a sample result would rarely happen by chance, so the claim is in doubt. (This idea becomes the significance test in week 17.)
+    topic_code: "3.2"
+  - front: SD(p̂) for fixed n → which p makes it largest
+    back: |
+      p = 0.5, where p(1 − p) = 0.25 is largest. Proportions near 0 or 1 have smaller SD.
+    topic_code: "3.2"
+  - front: Smallest n for Large Counts when p = 0.15 → value
+    back: |
+      Need n(0.15) ≥ 10, so n ≥ 66.7: n = 67 (then n(0.85) ≈ 57 ≥ 10 too).
+    topic_code: "3.2"
+  - front: Error-spot → "SD(p̂) = √(0.62 · 0.38 / 4800), using the district's 4,800 students"
+    back: |
+      The SD uses the sample size n = 150, not the population size. 4,800 is only for the 10% check (150 ≤ 480).
+    topic_code: "3.2"
+  - front: Error-spot → "the sample size is at least 30, so p̂ is approximately normal"
+    back: |
+      n ≥ 30 is a guideline for sample means. For p̂ check Large Counts: np ≥ 10 and n(1 − p) ≥ 10.
+    topic_code: "3.2"
+  - front: Error-spot → "the online poll had 5,000 responses, so its estimate is unbiased"
+    back: |
+      Voluntary response is biased whatever the size; the large sample only makes the biased estimate less variable.
+    topic_code: "3.1"
+
+quiz:
+  description: |
+    22 questions · about 40 minutes · mostly on this week (topics 3.1 and 3.2: estimators, bias and variability,
+    and the mean, SD and shape of the sampling distribution of p̂), with 7 questions (32%) reviewing weeks 6 and
+    12 to 14 (sampling bias, the binomial distribution, normal calculations and the Central Limit Theorem). Opens
+    with a shared-context set on school lunches in one district. Multiple choice, select-all, true/false and
+    numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and
+    the long answer are graded by your teacher against the scoring notes. A calculator is allowed throughout.
+  questions:
+    # ---- Stimulus set: school lunches (3.2)
+    - slug: apstats-u03-w15-q01
+      type: multiple_choice
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 1
+      stimulus: |
+        In a hypothetical school district, 62% of all 4,800 high school students eat the school lunch on a typical day. A researcher will take a simple random sample of 150 of these students and record p̂, the proportion in the sample who eat the school lunch.
+      prompt: |
+        What is the mean of the sampling distribution of p̂?
+      options:
+        - "0.38"
+        - "93"
+        - "0.62"
+        - "It cannot be known until the sample is taken."
+      option_explanations:
+        - |
+          0.38 is the proportion who do not eat the school lunch, 1 − p; the sampling distribution of p̂ is centred at p.
+        - |
+          93 = 150(0.62) is the mean of the count X of lunch eaters in the sample, not of the proportion p̂.
+        - |
+          Correct. p̂ is an unbiased estimator of p, so the mean of its sampling distribution is p = 0.62.
+        - |
+          One sample's p̂ is unknown in advance, but the sampling distribution describes all possible samples and its mean is the known p = 0.62.
+      answer: 2
+    - slug: apstats-u03-w15-q02
+      type: multiple_choice
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 1
+      stimulus: |
+        In a hypothetical school district, 62% of all 4,800 high school students eat the school lunch on a typical day. A researcher will take a simple random sample of 150 of these students and record p̂, the proportion in the sample who eat the school lunch.
+      prompt: |
+        What is the standard deviation of the sampling distribution of p̂, to four decimal places?
+      options:
+        - "0.0396"
+        - "0.4854"
+        - "0.0016"
+        - "0.0070"
+      option_explanations:
+        - |
+          Correct. 150 ≤ 10% of 4,800 = 480, so SD(p̂) = √(0.62 · 0.38 / 150) = √0.001571 ≈ 0.0396.
+        - |
+          √(0.62 · 0.38) ≈ 0.4854 forgets to divide by the sample size n = 150.
+        - |
+          0.62 · 0.38 / 150 ≈ 0.0016 is the variance of p̂; the standard deviation is its square root.
+        - |
+          √(0.62 · 0.38 / 4800) ≈ 0.0070 divides by the population size; the formula uses the sample size.
+      answer: 0
+    - slug: apstats-u03-w15-q03
+      type: multiple_choice
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 1
+      stimulus: |
+        In a hypothetical school district, 62% of all 4,800 high school students eat the school lunch on a typical day. A researcher will take a simple random sample of 150 of these students and record p̂, the proportion in the sample who eat the school lunch.
+      prompt: |
+        Which statement correctly justifies using a normal model for the sampling distribution of p̂?
+      options:
+        - "The sample size, 150, is at least 30."
+        - "The sample, 150 students, is less than 10% of the 4,800 students."
+        - "The population of lunch choices is approximately normal."
+        - "150(0.62) = 93 and 150(0.38) = 57 are both at least 10."
+      option_explanations:
+        - |
+          n ≥ 30 is the guideline for sample means from the Central Limit Theorem; for a proportion, check the Large Counts condition.
+        - |
+          The 10% condition justifies the SD formula (independence), not the normal shape.
+        - |
+          Lunch choice is a yes/no variable; the population has no normal shape. Only the sampling distribution of p̂ can be approximately normal.
+        - |
+          Correct. The Large Counts condition, np ≥ 10 and n(1 − p) ≥ 10, holds with 93 and 57, so the sampling distribution of p̂ is approximately normal.
+      answer: 3
+    - slug: apstats-u03-w15-q04
+      type: numeric
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 1
+      stimulus: |
+        In a hypothetical school district, 62% of all 4,800 high school students eat the school lunch on a typical day. A researcher will take a simple random sample of 150 of these students and record p̂, the proportion in the sample who eat the school lunch.
+      prompt: |
+        Using a normal model, find the probability that 55% or fewer of the sampled students eat the school lunch. Give your answer to three decimal places.
+      answer: { value: 0.039, tolerance: 0.0015 }
+      explanation: |
+        Mean 0.62, SD(p̂) = √(0.62 · 0.38 / 150) ≈ 0.0396. z = (0.55 − 0.62)/0.0396 ≈ −1.77, and P(Z ≤ −1.77) ≈ 0.038 (0.0387 from normalcdf with the unrounded SD). About 4% of samples of 150 would show 55% or fewer lunch eaters.
+    # ---- Independent items
+    - slug: apstats-u03-w15-q05
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Statistics CED, Topic 3.1"
+      points: 1
+      prompt: |
+        What does it mean to say that a statistic is an unbiased estimator of a parameter?
+      options:
+        - "Every sample gives a value of the statistic equal to the parameter."
+        - "The mean of the sampling distribution of the statistic equals the parameter."
+        - "The statistic comes from a sample of at least 30 individuals."
+        - "The sampling distribution of the statistic has a small standard deviation."
+      option_explanations:
+        - |
+          Individual estimates still vary from sample to sample; being unbiased means they are right on average, not every time.
+        - |
+          Correct. Unbiased means the sampling distribution is centred on the parameter, so the estimator does not systematically over- or underestimate.
+        - |
+          Sample size affects variability, not bias; a large sample from a biased method is still biased.
+        - |
+          A small standard deviation describes low variability (precision), which is a separate property from bias.
+      answer: 1
+    - slug: apstats-u03-w15-q06
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Statistics CED, Topic 3.1"
+      points: 1
+      prompt: |
+        The proportion of all students at a large high school who play a school sport is p = 0.30. A class simulated 1,000 samples for each of four methods of estimating p and recorded the mean and SD of each method's 1,000 estimates.
+
+        | Method | Mean of estimates | SD of estimates |
+        |---|---|---|
+        | W | 0.30 | 0.06 |
+        | X | 0.30 | 0.03 |
+        | Y | 0.27 | 0.02 |
+        | Z | 0.35 | 0.03 |
+
+        Which method is best for estimating p?
+      options:
+        - "Method W, because its estimates are the most spread out and so cover the most values"
+        - "Method X, because it is unbiased and less variable than the other unbiased method"
+        - "Method Y, because it has the smallest standard deviation"
+        - "Method Z, because its mean is the largest"
+      option_explanations:
+        - |
+          Method W is unbiased, but its larger SD (0.06) means individual estimates are less precise; more spread is worse, not better.
+        - |
+          Correct. W and X are both centred at 0.30 (unbiased); X has half the SD, so its estimates land closer to p.
+        - |
+          Method Y is precise but centred at 0.27, so it systematically underestimates p: low variability does not make up for bias.
+        - |
+          Method Z is centred at 0.35, so it overestimates p; a larger mean is not a goal.
+      answer: 1
+    - slug: apstats-u03-w15-q07
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Statistics CED, Topic 3.1"
+      points: 1
+      prompt: |
+        A town council plans to estimate the proportion of its 40,000 residents who support a new skate park by taking a simple random sample of residents. Which change to the plan would reduce the variability of the estimate?
+      options:
+        - "Carrying out the same survey in a larger town of 80,000 residents"
+        - "Surveying only residents who attend the council meeting about the park"
+        - "Reporting the estimate as a percentage instead of a proportion"
+        - "Increasing the simple random sample from 300 to 1,200 residents"
+      option_explanations:
+        - |
+          Population size does not appear in SD(p̂) = √(p(1 − p)/n) when the sample is under 10% of the population; a larger town does not change the variability.
+        - |
+          Meeting attendees choose to be there, which would introduce bias; it does not make a random estimate less variable.
+        - |
+          Changing units from a proportion to a percentage rescales the numbers but does not make the estimate any more precise.
+        - |
+          Correct. SD(p̂) shrinks as n grows; quadrupling n from 300 to 1,200 halves the standard deviation.
+      answer: 3
+    - slug: apstats-u03-w15-q08
+      type: multiple_choice
+      topic_code: "1.12"
+      source: "AP Statistics CED, Topic 1.12"
+      points: 1
+      prompt: |
+        A gaming website asks visitors to click a link if they play video games for more than 3 hours on school nights. It receives 6,000 responses and reports that 71% say yes. A second website receives only 600 responses to the same question. How does the larger number of responses affect the estimate?
+      options:
+        - "It reduces sampling variability but does nothing about the bias from voluntary response."
+        - "It removes the bias, because 6,000 is a very large sample."
+        - "It makes the estimate unbiased as long as the responses are more than 10% of all gamers."
+        - "It has no effect on either variability or bias."
+      option_explanations:
+        - |
+          Correct. Visitors choose whether to respond, and heavy gamers are more likely to click, so the method is biased; more responses only make the biased estimate more consistent.
+        - |
+          Size cannot fix a biased method; 6,000 self-selected responses are still self-selected.
+        - |
+          The 10% condition concerns independence when sampling randomly without replacement; it has nothing to do with removing bias.
+        - |
+          A larger sample does reduce sampling variability; it just leaves the bias untouched.
+      answer: 0
+    - slug: apstats-u03-w15-q09
+      type: multiple_choice
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 1
+      prompt: |
+        A pollster's simple random samples of 400 voters give SD(p̂) ≈ 0.024 for a certain proportion. What is the SD of p̂ if the pollster uses samples of 1,600 voters from the same large population?
+      options:
+        - "0.096"
+        - "0.006"
+        - "0.012"
+        - "0.024, because the population has not changed"
+      option_explanations:
+        - |
+          0.096 multiplies by 4; a larger sample makes p̂ less variable, not more.
+        - |
+          0.006 divides by 4, as if SD were proportional to 1/n; it is proportional to 1/√n.
+        - |
+          Correct. Multiplying n by 4 divides SD(p̂) = √(p(1 − p)/n) by √4 = 2, giving 0.024/2 = 0.012.
+        - |
+          The SD depends on the sample size n; quadrupling n changes it even though the population is the same.
+      answer: 2
+    - slug: apstats-u03-w15-q10
+      type: multiple_choice
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 1
+      prompt: |
+        At a large electronics recycler, 5% of all donated laptops cannot be repaired. Random samples of 80 laptops are taken. Which best describes the sampling distribution of p̂, the proportion of unrepairable laptops in a sample?
+      options:
+        - "Approximately normal, because 80 is at least 30"
+        - "Approximately normal, because 80 is less than 10% of all donated laptops"
+        - "Skewed left, because most samples have a p̂ well below 0.5"
+        - "Skewed right, because 80(0.05) = 4 is less than 10"
+      option_explanations:
+        - |
+          n ≥ 30 is a guideline for sample means; for proportions, Large Counts needs np ≥ 10, and here np = 4.
+        - |
+          The 10% condition justifies the SD formula, not the normal shape.
+        - |
+          Values bunched near 0 with a long tail toward larger values is right skew, not left skew.
+        - |
+          Correct. np = 4 fails the Large Counts condition; p̂ cannot go below 0 and occasionally runs higher, so the distribution is skewed right.
+      answer: 3
+    - slug: apstats-u03-w15-q11
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      prompt: |
+        Commute times for all students at a large university are strongly skewed right with mean 22 minutes and standard deviation 9 minutes. Which describes the sampling distribution of x̄ for random samples of 36 students?
+      options:
+        - "Approximately normal with mean 22 minutes and standard deviation 1.5 minutes"
+        - "Strongly skewed right with mean 22 minutes and standard deviation 9 minutes"
+        - "Approximately normal with mean 22 minutes and standard deviation 9 minutes"
+        - "Strongly skewed right with mean 22 minutes and standard deviation 1.5 minutes"
+      option_explanations:
+        - |
+          Correct. By the Central Limit Theorem n = 36 is large enough for an approximately normal shape; the mean is 22 and the SD is 9/√36 = 1.5.
+        - |
+          This describes the population of individual commute times, not the sampling distribution of x̄.
+        - |
+          The shape and mean are right, but the SD of x̄ is σ/√n = 1.5, not σ = 9.
+        - |
+          The SD is right, but with n = 36 the Central Limit Theorem makes the shape approximately normal, not strongly skewed.
+      answer: 0
+    - slug: apstats-u03-w15-q12
+      type: multiple_choice
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      prompt: |
+        In a hypothetical district, 62% of high school students eat the school lunch. For a simple random sample of 150 students, let X be the number who eat the school lunch, treated as a binomial random variable. What is the standard deviation of X, to two decimal places?
+      options:
+        - "0.04"
+        - "5.94"
+        - "35.34"
+        - "9.64"
+      option_explanations:
+        - |
+          0.04 is SD(p̂), the standard deviation of the proportion; the count X = 150p̂ has an SD 150 times larger.
+        - |
+          Correct. SD(X) = √(np(1 − p)) = √(150 · 0.62 · 0.38) = √35.34 ≈ 5.94.
+        - |
+          35.34 is np(1 − p), the variance of X; the SD is its square root.
+        - |
+          9.64 is √93 = √(np), which leaves out the factor (1 − p).
+      answer: 1
+    - slug: apstats-u03-w15-q13
+      type: multi_select
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about the sampling distribution of p̂ for random samples of size n are true? Select all that apply.
+      options:
+        - "Its mean equals the population proportion p."
+        - "Its standard deviation gets smaller as n increases."
+        - "Its shape is approximately normal for every sample size."
+        - "Its standard deviation formula relies on the 10% condition when sampling without replacement."
+        - "It describes how the individual responses vary within one sample."
+      option_explanations:
+        - |
+          True. p̂ is an unbiased estimator of p, so its sampling distribution is centred at p.
+        - |
+          True. SD(p̂) = √(p(1 − p)/n) decreases as n increases.
+        - |
+          False. The normal shape needs the Large Counts condition; with small np or n(1 − p) the distribution is skewed.
+        - |
+          True. Sampling without replacement keeps observations close to independent only if n is at most 10% of the population.
+        - |
+          False. That is the distribution of the sample data; the sampling distribution is the distribution of p̂ across many samples.
+      answer: [0, 1, 3]
+    - slug: apstats-u03-w15-q14
+      type: multi_select
+      topic_code: "1.12"
+      source: "AP Statistics CED, Topic 1.12"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A health club wants to estimate the proportion of all adults in its city who exercise at least three times a week. Which of these methods would produce a biased estimator of that proportion? Select all that apply.
+      options:
+        - "Asking 300 people who are leaving the club's gym on a Saturday morning"
+        - "Calling a simple random sample of 300 adults from a complete list of the city's adult residents"
+        - "Posting the question on the club's social media page and counting the replies"
+        - "Taking a stratified random sample of 300 adults, with strata by neighbourhood"
+        - "Asking a random sample of adults, \"Like most healthy people, do you exercise at least three times a week?\""
+      option_explanations:
+        - |
+          Biased. People leaving a gym exercise far more than the typical adult; this convenience sample overestimates the proportion.
+        - |
+          Not biased. A simple random sample from a complete frame gives every adult the same chance, so p̂ is unbiased.
+        - |
+          Biased. Voluntary response from the club's own followers over-represents people who exercise.
+        - |
+          Not biased. A stratified random sample still uses chance within each stratum and gives an unbiased estimate.
+        - |
+          Biased. The leading wording pushes people toward "yes", a response bias that randomness cannot fix.
+      answer: [0, 2, 4]
+    - slug: apstats-u03-w15-q15
+      type: true_false
+      topic_code: "3.1"
+      source: "AP Statistics CED, Topic 3.1"
+      points: 1
+      prompt: |
+        True or false: An estimator whose sampling distribution has a large standard deviation must be biased.
+      answer: false
+      explanation: |
+        False. Bias is about the centre of the sampling distribution and variability is about its spread. A simple random sample of 10 gives an unbiased but highly variable p̂.
+    - slug: apstats-u03-w15-q16
+      type: true_false
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      prompt: |
+        True or false: If a population distribution of household water use is strongly skewed right, the sampling distribution of x̄ for random samples of 5 households is approximately normal.
+      answer: false
+      explanation: |
+        False. The Central Limit Theorem needs a large sample (n ≥ 30 is the usual guideline) when the population is not normal. With n = 5 the sampling distribution of x̄ is still noticeably skewed right.
+    - slug: apstats-u03-w15-q17
+      type: fill_blank
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 1
+      prompt: |
+        In a large city, 40% of all adults ride public transit at least once a week. For simple random samples of 600 adults, the standard deviation of the sampling distribution of p̂, to two decimal places, is ____.
+      answer: ["0.02", "0.020", ".02", ".020"]
+      explanation: |
+        SD(p̂) = √(0.40 · 0.60 / 600) = √0.0004 = 0.02. A sample of 600 is far less than 10% of a large city's adults.
+    - slug: apstats-u03-w15-q18
+      type: fill_blank
+      topic_code: "3.1"
+      source: "AP Statistics CED, Topic 3.1"
+      points: 1
+      prompt: |
+        A statistic used as a rule for estimating a parameter, such as the sample proportion used to estimate p, is called an ____.
+      answer: ["estimator", "point estimator", "unbiased estimator"]
+      explanation: |
+        An estimator is the rule; the number it gives for one sample is the point estimate. The sample proportion p̂ is the estimator of p.
+    - slug: apstats-u03-w15-q19
+      type: numeric
+      topic_code: "2.11"
+      source: "AP Statistics CED, Topic 2.11"
+      points: 1
+      prompt: |
+        Heights of adult women in a hypothetical population are approximately normal with mean 64 inches and standard deviation 2.5 inches. What proportion of these women are taller than 68 inches? Give your answer to three decimal places.
+      answer: { value: 0.055, tolerance: 0.0015 }
+      explanation: |
+        z = (68 − 64)/2.5 = 1.6, and P(Z > 1.6) ≈ 0.0548, so about 0.055 (5.5%) of these women are taller than 68 inches.
+    - slug: apstats-u03-w15-q20
+      type: short_answer
+      topic_code: "3.1"
+      source: "AP Statistics CED, Topic 3.1"
+      points: 3
+      prompt: |
+        A school newspaper wants to estimate the proportion of all 2,000 students at its school who have a library card. The true proportion is 0.45. Two methods were simulated 500 times each:
+
+        - Method 1: ask a simple random sample of 40 students. The 500 estimates had mean 0.451 and SD 0.079.
+        - Method 2: ask the first 120 students who walk into the school library. The 500 estimates had mean 0.682 and SD 0.042.
+
+        (a) Is each method biased or unbiased? Justify using the simulation results.
+        (b) Which method has less variability, and why would you expect that?
+        (c) Which method would you recommend, and what single change would make it even better?
+      answer: |
+        (a) Method 1 appears unbiased: its estimates are centred at 0.451, essentially the true 0.45. Method 2 is biased upward: centred at 0.682, far above 0.45, because students entering the library are more likely to have a library card.
+        (b) Method 2 (SD 0.042 versus 0.079), because its samples are three times larger.
+        (c) Method 1, because an unbiased method is preferred and low variability cannot make up for bias. Increasing Method 1's random sample size (for example to 120 or 200, still within 10% of 2,000) would reduce its variability.
+      explanation: |
+        Three points. (a) 1 point: both judgements, each justified by comparing the simulated mean with 0.45 (the reason for Method 2's bias in context is welcome but the comparison is required). (b) 1 point: Method 2 with the SD comparison and the larger sample size as the reason. (c) 1 point: Method 1 because it is unbiased, plus a larger random sample as the improvement. "Use Method 2 because it is less variable" earns no credit in (c).
+    - slug: apstats-u03-w15-q21
+      type: short_answer
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 3
+      prompt: |
+        A hypothetical state has 90,000 high school seniors, and 34% of them have a driver's licence. A researcher takes a simple random sample of 500 seniors; 182 of them have a licence. Describe each of the following in this context, naming its centre where you can:
+
+        (a) the population distribution
+        (b) the distribution of the sample data
+        (c) the sampling distribution of p̂
+      answer: |
+        (a) The licence status of all 90,000 seniors: 34% "has a licence" and 66% "does not". Its parameter is p = 0.34.
+        (b) The licence status of the 500 sampled seniors: 182 yes and 318 no, so p̂ = 182/500 = 0.364.
+        (c) The distribution of p̂ over all possible random samples of 500 seniors: mean 0.34, SD = √(0.34 · 0.66 / 500) ≈ 0.0212 (500 ≤ 9,000), and approximately normal because 500(0.34) = 170 and 500(0.66) = 330 are both at least 10.
+      explanation: |
+        Three points, one per part. (a) all 90,000 seniors with p = 0.34. (b) the 500 sampled seniors with p̂ = 0.364. (c) the distribution of p̂ across all samples of 500 with mean 0.34 and either the SD (≈ 0.021) or the normal shape justified by Large Counts. Describing (a) or (b) as "normal" loses that point.
+    - slug: apstats-u03-w15-q22
+      type: long_answer
+      topic_code: "3.2"
+      source: "AP Statistics CED, Topic 3.2"
+      points: 6
+      prompt: |
+        A hypothetical school district reports that 35% of its 9,000 high school students use a phone during family dinner on most nights. A researcher plans to take a simple random sample of 200 of these students.
+
+        (A) Describe the shape, centre and variability of the sampling distribution of p̂, the sample proportion who use a phone during dinner. Check any conditions you rely on.
+
+        (B) Find the probability that more than 40% of the sampled students use a phone during dinner.
+
+        (C) The researcher's sample gives p̂ = 0.42. Assuming the district's 35% figure is correct, find the probability of a sample proportion of 0.42 or more. Does this result give a reason to doubt the district's figure? Explain.
+
+        (D) How would the standard deviation of p̂ change if the researcher used samples of 800 students instead? Show the new value.
+      answer: |
+        (A) Shape: approximately normal, because np = 200(0.35) = 70 and n(1 − p) = 200(0.65) = 130 are both at least 10. Centre: mean of the sampling distribution of p̂ = 0.35. Variability: 200 ≤ 10% of 9,000 = 900, so SD(p̂) = √(0.35 · 0.65 / 200) ≈ 0.0337.
+        (B) z = (0.40 − 0.35)/0.0337 ≈ 1.48; P(p̂ > 0.40) = P(Z > 1.48) ≈ 0.069.
+        (C) z = (0.42 − 0.35)/0.0337 ≈ 2.08; P(p̂ ≥ 0.42) ≈ 0.019. Yes: if 35% were correct, only about 1.9% of random samples of 200 would give 42% or more, so a result this high is unusual and gives some reason to doubt that the district's proportion is 0.35 (it suggests the proportion is higher).
+        (D) SD(p̂) = √(0.35 · 0.65 / 800) ≈ 0.0169, half of 0.0337, because the sample size was multiplied by 4. (800 ≤ 900, so the 10% condition still holds.)
+      explanation: |
+        Six points. (A) 2 points: 1 for the mean 0.35 and SD ≈ 0.034 with the 10% check in context; 1 for "approximately normal" justified by Large Counts with both counts (70 and 130). (B) 1 point: correct z (or normalcdf with mean and SD named) and probability ≈ 0.069 (0.069 to 0.070). (C) 2 points: 1 for probability ≈ 0.019; 1 for the conclusion that the result is unusual if p = 0.35, so the figure is in doubt, with the reasoning tied to the small probability. Saying the probability "proves" the district wrong earns at most 1 point in (C). (D) 1 point: SD ≈ 0.017 and the statement that it is halved because n is four times as large.

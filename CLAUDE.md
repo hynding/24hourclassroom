@@ -308,9 +308,9 @@ course (`GET|POST /api/comments?target_type=&target_id=`, `PATCH|DELETE
   `--color-denied-surface`, `--color-deleted-surface`) in every palette, held
   to 4.5:1 for every text token by `theme-files.spec.ts`.
 
-## Seeded courses (AP Biology, AP U.S. History, Algebra 1, Geometry, Algebra 2, Precalculus, Trigonometry, AP Calculus AB, AP Calculus BC, Chemistry, AP Chemistry, AP World History)
+## Seeded courses (AP Biology, AP U.S. History, Algebra 1, Geometry, Algebra 2, Precalculus, Trigonometry, AP Calculus AB, AP Calculus BC, AP Statistics, Chemistry, AP Chemistry, AP World History)
 
-Twelve full-year courses are seeded from YAML, each by a thin subclass of
+Thirteen full-year courses are seeded from YAML, each by a thin subclass of
 `Database\Seeders\Curriculum\CurriculumSeeder` that names its data directory:
 
 | Seeder | Command | Data | Slug | Demo accounts |
@@ -324,6 +324,7 @@ Twelve full-year courses are seeded from YAML, each by a thin subclass of
 | `TrigonometrySeeder` | `course:seed-trigonometry` | `data/trigonometry/` (original, Common Core trigonometry standards) | `trig` | `trig@`, `trig-student@example.com` |
 | `ApCalculusAbSeeder` | `course:seed-ap-calculus-ab` | `data/ap-calculus-ab/` (original, AP Calculus AB and BC CED, AB topics) | `apcalcab` | `apcalcab@`, `apcalcab-student@example.com` |
 | `ApCalculusBcSeeder` | `course:seed-ap-calculus-bc` | `data/ap-calculus-bc/` (original; builds on AB, adds the BC topics) | `apcalcbc` | `apcalcab@` (AB's teacher), `apcalcbc-student@example.com` |
+| `ApStatisticsSeeder` | `course:seed-ap-statistics` | `data/ap-statistics/` (original, redesigned AP Statistics CED, fall 2026) | `apstats` | `apstats@`, `apstats-student@example.com` |
 | `ChemistrySeeder` | `course:seed-chemistry` | `data/chemistry/` (original, public-domain data) | `chem` | `chemistry@`, `chemistry-student@example.com` |
 | `ApChemistrySeeder` | `course:seed-ap-chemistry` | `data/ap-chemistry/` (original, public-domain data) | `apchem` | `apchem@`, `apchem-student@example.com` |
 | `ApWorldHistorySeeder` | `course:seed-ap-world-history` | `data/ap-world-history/` (original, public-domain quotations) | `apworld` | `apworld@`, `apworld-student@example.com` |
@@ -361,6 +362,7 @@ php artisan course:seed-precalculus --teacher=you@example.com --no-student --for
 php artisan course:seed-trigonometry --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-calculus-ab --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-calculus-bc --teacher=you@example.com --no-student --force
+php artisan course:seed-ap-statistics --teacher=you@example.com --no-student --force
 php artisan course:seed-chemistry --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-chemistry --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-world-history --teacher=you@example.com --no-student --force
@@ -454,6 +456,22 @@ check; `topicFirstWeek()` counts a reuse week's AB topics as taught that week,
 and flashcard fronts may not repeat AB's. The lint also fails a guide or
 summary table row whose cell count differs from its divider row: write an
 absolute value inside a cell as `\|x\|`. BC adds about 30 files to AB's 73.
+
+AP Statistics is **original writing** with invented data (OpenStax
+*Introductory Statistics* is NC-SA with the no-LLM clause; *OpenIntro
+Statistics* is CC BY-SA). It follows the **redesigned** CED (effective fall
+2026): five units and 55 topics (one-variable data and collecting data;
+probability, random variables and distributions, with simulation and the
+Central Limit Theorem; inference for proportions, ending with chi-square
+tests for homogeneity and independence; inference for means; regression),
+markers `AP Statistics Course and Exam Description`, `CC BY 4.0`, site slug
+`/courses/ap-statistics`. The redesign drops the geometric distribution,
+combining random variables, chi-square goodness of fit, inference for slope
+and transformations: keep them out. Multiple choice has four options, and
+unit exams and the practice final use 10-point free-response questions. Its
+practice final opens with the May 2027 shape (42 multiple choice, then four
+10-point free-response questions: Practices 1–2, Practices 3–4, inference,
+Practices 2–4) and adds 24 items in the other types.
 
 Chemistry, AP Chemistry and AP World History: Modern are **original writing**
 like AP U.S. History: no textbook is adapted. The two chemistry courses take

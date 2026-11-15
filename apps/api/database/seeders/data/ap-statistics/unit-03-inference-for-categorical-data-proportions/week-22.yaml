@@ -1,0 +1,691 @@
+week: 22
+unit: 3
+title: "Chi-Square Tests for Homogeneity and Independence"
+topics: ["3.14", "3.15"]
+guide: guides/week-22.md
+guide_description: |
+  Chi-square tests for two-way tables: telling homogeneity (separate samples or treatments, one variable) from
+  independence (one sample, two variables), hypotheses in words, expected counts, the Random, 10% and expected-
+  count conditions, the χ² statistic and its degrees of freedom, upper-tail p-values, conclusions in context and
+  follow-up from the largest contributions. Worked examples: a homogeneity test of lunch habits across three
+  grades that fails to reject (χ² ≈ 9.11, df 4, p ≈ 0.058), an independence test of age group and news source
+  that rejects (χ² ≈ 18.30, df 4, p ≈ 0.001) with its follow-up, and the bakery's 2 × 2 table showing χ² = z².
+flashcards_description: |
+  31 cards on choosing between the chi-square tests for homogeneity and independence, hypotheses, expected
+  counts, conditions, the χ² statistic, degrees of freedom, p-values, conclusions and follow-up analysis.
+
+flashcards:
+  - front: Chi-square test for homogeneity → design that calls for it
+    back: |
+      Independent random samples from two or more populations (or random assignment to treatments), with one categorical variable recorded for each individual.
+    topic_code: "3.14"
+  - front: Chi-square test for independence → design that calls for it
+    back: |
+      One random sample from one population, with two categorical variables recorded for each individual.
+    topic_code: "3.14"
+  - front: Homogeneity or independence → the quick question to ask
+    back: |
+      Were the group sizes fixed before data collection (several samples)? Homogeneity. Did both variables come out of one sample? Independence.
+    topic_code: "3.14"
+  - front: Chi-square test for homogeneity → hypotheses in words
+    back: |
+      H₀: the distribution of [variable] is the same for all [populations or treatments]. Hₐ: the distributions are not all the same.
+    topic_code: "3.14"
+  - front: Chi-square test for independence → hypotheses in words
+    back: |
+      H₀: there is no association between [variable 1] and [variable 2] among all [population]. Hₐ: there is an association.
+    topic_code: "3.14"
+  - front: "Alternative for a chi-square homogeneity test: \"all different\" or \"not all the same\"?"
+    back: |
+      "Not all the same." Rejecting H₀ says at least one distribution differs, not that every pair differs.
+    topic_code: "3.14"
+  - front: Expected count in a two-way table cell → formula
+    back: |
+      (row total)(column total)/(table total).
+    topic_code: "3.14"
+  - front: Expected counts in a chi-square test → what they represent
+    back: |
+      The counts we would expect in each cell if H₀ were true (same distribution in every group, or no association).
+    topic_code: "3.14"
+  - front: Large Counts for a chi-square test → the rule
+    back: |
+      Every expected count is at least 5. Observed counts may be smaller.
+    topic_code: "3.14"
+  - front: Random and 10% conditions for a chi-square test → what to write
+    back: |
+      Random: independent random samples, one random sample, or random assignment. 10%: each sample ≤ 10% of its population when sampling without replacement.
+    topic_code: "3.14"
+  - front: Randomized experiment with three treatments and a categorical response → which chi-square test
+    back: |
+      Homogeneity: the treatment groups play the role of separate samples, and the question is whether the response distribution is the same for every treatment.
+    topic_code: "3.14"
+  - front: Expected count, row total 140, column total 95, table total 320 → value
+    back: |
+      140 · 95/320 ≈ 41.56.
+    topic_code: "3.14"
+  - front: Hypotheses for a chi-square test → why no parameter symbol
+    back: |
+      The claim is about whole distributions or an association, not one number; write the hypotheses in words in context.
+    topic_code: "3.14"
+  - front: Chi-square statistic → formula
+    back: |
+      χ² = Σ (observed − expected)²/expected, summed over every cell of the table.
+    topic_code: "3.15"
+  - front: Degrees of freedom for a chi-square test on a two-way table → formula
+    back: |
+      (number of rows − 1)(number of columns − 1).
+    topic_code: "3.15"
+  - front: Chi-square distributions → three features
+    back: |
+      Skewed right; only non-negative values; mean equal to df (so the shape spreads and becomes less skewed as df grows).
+    topic_code: "3.15"
+  - front: Chi-square p-value → which tail and why
+    back: |
+      The upper tail, P(χ² ≥ observed). Any disagreement between observed and expected counts makes χ² larger.
+    topic_code: "3.15"
+  - front: χ² = 0 in a two-way table → what it means
+    back: |
+      Every observed count equals its expected count: the sample distributions match H₀ exactly.
+    topic_code: "3.15"
+  - front: χ² compared with df → quick sense check
+    back: |
+      A χ² near or below df is typical when H₀ is true (p-value large); a χ² several times df is unusual (p-value small).
+    topic_code: "3.15"
+  - front: Lunch habits by grade, χ² ≈ 9.11, df 4 → p-value and decision at α = 0.05
+    back: |
+      p ≈ 0.058 > 0.05: fail to reject; not convincing evidence the distributions of lunch choice differ across the grades.
+    topic_code: "3.15"
+  - front: Age group and news source, χ² ≈ 18.30, df 4 → p-value and decision at α = 0.01
+    back: |
+      p ≈ 0.001 < 0.01: reject; convincing evidence of an association between age group and news source among the town's adults.
+    topic_code: "3.15"
+  - front: Contribution of a cell to χ² → what to do with the largest ones
+    back: |
+      Compare that cell's observed and expected counts and say which way they differ, in context (e.g. more under-30s use social media than expected).
+    topic_code: "3.15"
+  - front: Chi-square test for homogeneity → conclusion template when H₀ is rejected
+    back: |
+      "Because p-value = … < α = …, we reject H₀. There is convincing evidence that the distribution of [variable] is not the same for all [populations]."
+    topic_code: "3.15"
+  - front: Chi-square test for independence → conclusion template when H₀ is rejected
+    back: |
+      "Because p-value = … < α = …, we reject H₀. There is convincing evidence of an association between [variable 1] and [variable 2] among all [population]."
+    topic_code: "3.15"
+  - front: Interpreting a chi-square p-value → the sentence template
+    back: |
+      "Assuming [H₀ in words], there is a [p-value] probability of getting a χ² statistic of [value] or larger by chance alone."
+    topic_code: "3.15"
+  - front: 2 × 2 table, chi-square test vs two-sided two-sample z-test → relationship
+    back: |
+      Same p-value, and χ² = z² (bakery: 1.641² ≈ 2.69). The z-test can also be one-sided and pairs with an interval.
+    topic_code: "3.15"
+  - front: Association found by a chi-square test for independence → causal?
+    back: |
+      Not from an observational random sample; it shows an association in the population, not that one variable causes the other.
+    topic_code: "3.15"
+  - front: Calculator command for a chi-square test on a two-way table → what to enter
+    back: |
+      The observed counts as a matrix (on a TI-84: χ²-Test with the observed matrix in [A]); the expected matrix appears in [B]. Report χ², df and the p-value.
+    topic_code: "3.15"
+  - front: Error-spot → "All observed counts are at least 5, so Large Counts is met"
+    back: |
+      The rule is about expected counts. Compute (row total)(column total)/(table total) for the smallest cell.
+    topic_code: "3.14"
+  - front: Error-spot → "I ran the chi-square test on the table of percentages"
+    back: |
+      χ² depends on the sample size, so it must be computed from counts. Percentages give a wrong statistic.
+    topic_code: "3.15"
+  - front: Error-spot → "p = 0.40, so age and news source are independent"
+    back: |
+      Fail to reject: there is not convincing evidence of an association. A test never shows independence.
+    topic_code: "3.15"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (topics 3.14 and 3.15: setting up and carrying out chi-
+    square tests for homogeneity and independence), with 8 questions (32%) reviewing weeks 8 and 15 to 21 (two-way
+    tables and conditional relative frequencies, errors and power, two-sample intervals and z-tests for
+    proportions). Opens with a shared-context set on a district survey of how students get to school. Multiple
+    choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes. A
+    calculator is allowed throughout.
+  questions:
+    # ---- Stimulus set: getting to school (3.14, 3.15)
+    - slug: apstats-u03-w22-q01
+      type: multiple_choice
+      topic_code: "3.14"
+      source: "AP Statistics CED, Topic 3.14"
+      points: 1
+      stimulus: |
+        A hypothetical school district (about 9,000 high school students) takes one random sample of 360 of its high school students and records each student's grade band and usual way of getting to school.
+
+        | Grade band | Bus | Car | Walk or bike | Total |
+        |---|---|---|---|---|
+        | 9–10 | 88 | 64 | 38 | 190 |
+        | 11–12 | 50 | 92 | 28 | 170 |
+        | Total | 138 | 156 | 66 | 360 |
+      prompt: |
+        Which procedure is appropriate for deciding whether grade band and way of getting to school are related among all of the district's high school students?
+      options:
+        - "A chi-square test for homogeneity"
+        - "A two-sample z-test for p₁ − p₂"
+        - "A chi-square test for independence"
+        - "A two-sample z-interval for p₁ − p₂"
+      option_explanations:
+        - |
+          Homogeneity needs separate samples from each group; here one sample was classified on two variables after the fact.
+        - |
+          A two-sample z-test compares one success proportion between two groups; the response here has three categories.
+        - |
+          Correct. One random sample, two categorical variables, and a question about association: a chi-square test for independence.
+        - |
+          An interval for a difference in two proportions cannot handle a response with three categories or test for an association.
+      answer: 2
+    - slug: apstats-u03-w22-q02
+      type: multiple_choice
+      topic_code: "3.14"
+      source: "AP Statistics CED, Topic 3.14"
+      points: 1
+      stimulus: |
+        A hypothetical school district (about 9,000 high school students) takes one random sample of 360 of its high school students and records each student's grade band and usual way of getting to school.
+
+        | Grade band | Bus | Car | Walk or bike | Total |
+        |---|---|---|---|---|
+        | 9–10 | 88 | 64 | 38 | 190 |
+        | 11–12 | 50 | 92 | 28 | 170 |
+        | Total | 138 | 156 | 66 | 360 |
+      prompt: |
+        What is the expected count of eleventh and twelfth graders who walk or bike, if H₀ is true?
+      options:
+        - "About 31.2"
+        - "28"
+        - "33"
+        - "About 34.8"
+      option_explanations:
+        - |
+          Correct. Expected count = (row total)(column total)/(table total) = 170 · 66/360 ≈ 31.17.
+        - |
+          28 is the observed count, not the count predicted by H₀.
+        - |
+          33 splits the 66 walkers evenly between the grade bands, ignoring that the bands have different totals.
+        - |
+          34.8 uses the 9–10 row total, 190 · 66/360, instead of the 11–12 row total.
+      answer: 0
+    - slug: apstats-u03-w22-q03
+      type: multiple_choice
+      topic_code: "3.15"
+      source: "AP Statistics CED, Topic 3.15"
+      points: 1
+      stimulus: |
+        A hypothetical school district (about 9,000 high school students) takes one random sample of 360 of its high school students and records each student's grade band and usual way of getting to school.
+
+        | Grade band | Bus | Car | Walk or bike | Total |
+        |---|---|---|---|---|
+        | 9–10 | 88 | 64 | 38 | 190 |
+        | 11–12 | 50 | 92 | 28 | 170 |
+        | Total | 138 | 156 | 66 | 360 |
+      prompt: |
+        How many degrees of freedom does the chi-square test have?
+      options:
+        - "5"
+        - "6"
+        - "359"
+        - "2"
+      option_explanations:
+        - |
+          5 is the number of cells minus 1, which is not the df for a two-way table.
+        - |
+          6 is the number of cells; df = (rows − 1)(columns − 1).
+        - |
+          359 is n − 1, a formula for one-sample t procedures, not for chi-square tests.
+        - |
+          Correct. df = (rows − 1)(columns − 1) = (2 − 1)(3 − 1) = 2.
+      answer: 3
+    - slug: apstats-u03-w22-q04
+      type: multiple_choice
+      topic_code: "3.15"
+      source: "AP Statistics CED, Topic 3.15"
+      points: 1
+      stimulus: |
+        A hypothetical school district (about 9,000 high school students) takes one random sample of 360 of its high school students and records each student's grade band and usual way of getting to school.
+
+        | Grade band | Bus | Car | Walk or bike | Total |
+        |---|---|---|---|---|
+        | 9–10 | 88 | 64 | 38 | 190 |
+        | 11–12 | 50 | 92 | 28 | 170 |
+        | Total | 138 | 156 | 66 | 360 |
+      prompt: |
+        The test gives χ² ≈ 15.94 with a p-value of about 0.0003. Which conclusion is correct at α = 0.05?
+      options:
+        - "Fail to reject H₀; there is not convincing evidence of an association."
+        - "Reject H₀; there is convincing evidence of an association between grade band and way of getting to school among the district's high school students."
+        - "Reject H₀; being in grades 11–12 causes students to travel to school by car."
+        - "Reject H₀; there is a 0.0003 probability that grade band and way of getting to school are independent."
+      option_explanations:
+        - |
+          A p-value of 0.0003 is far below 0.05, so H₀ is rejected.
+        - |
+          Correct. The p-value is below α, and the random sample allows the conclusion to describe all the district's high school students.
+        - |
+          The data come from an observational random sample, so they show an association, not causation (older students may simply have licences).
+        - |
+          The p-value is computed assuming H₀ is true; it is not the probability that H₀ is true.
+      answer: 1
+    - slug: apstats-u03-w22-q05
+      type: multiple_choice
+      topic_code: "3.15"
+      source: "AP Statistics CED, Topic 3.15"
+      points: 1
+      stimulus: |
+        A hypothetical school district (about 9,000 high school students) takes one random sample of 360 of its high school students and records each student's grade band and usual way of getting to school.
+
+        | Grade band | Bus | Car | Walk or bike | Total |
+        |---|---|---|---|---|
+        | 9–10 | 88 | 64 | 38 | 190 |
+        | 11–12 | 50 | 92 | 28 | 170 |
+        | Total | 138 | 156 | 66 | 360 |
+      prompt: |
+        Which cell makes the largest contribution to χ², and what does it show?
+      options:
+        - "9–10 and walk or bike: more younger students walk or bike than expected"
+        - "9–10 and bus: fewer younger students take the bus than expected"
+        - "11–12 and car: more older students travel by car than expected"
+        - "11–12 and walk or bike: fewer older students walk or bike than expected"
+      option_explanations:
+        - |
+          Observed 38 against expected 34.8 gives a contribution of only about 0.29, one of the smallest.
+        - |
+          The 9–10 bus cell has 88 observed against 72.8 expected: more than expected, not fewer, and its contribution (3.16) is not the largest.
+        - |
+          Correct. Observed 92 against expected 170 · 156/360 ≈ 73.7 gives (92 − 73.7)²/73.7 ≈ 4.56, the largest contribution.
+        - |
+          Observed 28 against expected 31.2 gives a contribution of about 0.32, which is small.
+      answer: 2
+    # ---- Independent items
+    - slug: apstats-u03-w22-q06
+      type: multiple_choice
+      topic_code: "3.14"
+      source: "AP Statistics CED, Topic 3.14"
+      points: 1
+      prompt: |
+        A hypothetical smoothie chain takes independent random samples of 100 customers at each of its three locations and records the cup size each customer orders (small, medium or large). Which test should be used to decide whether the distribution of cup size differs among the locations?
+      options:
+        - "A chi-square test for homogeneity"
+        - "A chi-square test for independence"
+        - "A two-sample z-test for p₁ − p₂"
+        - "A one-sample z-test for p"
+      option_explanations:
+        - |
+          Correct. Separate random samples from three populations, one categorical variable: a chi-square test for homogeneity.
+        - |
+          Independence applies to one sample classified on two variables; here the chain chose the three samples separately.
+        - |
+          A two-sample z-test compares one proportion in two groups; there are three locations and three cup sizes.
+        - |
+          A one-sample test concerns one proportion in one population.
+      answer: 0
+    - slug: apstats-u03-w22-q07
+      type: multiple_choice
+      topic_code: "3.14"
+      source: "AP Statistics CED, Topic 3.14"
+      points: 1
+      prompt: |
+        For the smoothie chain's comparison of cup sizes at its three locations (independent random samples of 100 customers each), which are the correct hypotheses?
+      options:
+        - "H₀: cup size and location are associated. Hₐ: they are not associated."
+        - "H₀: the distribution of cup size is the same at all three locations. Hₐ: the distribution is different at every location."
+        - "H₀: the sample proportions of each cup size are equal at the three locations. Hₐ: they are not all equal."
+        - "H₀: the distribution of cup size is the same at all three locations. Hₐ: the distributions are not all the same."
+      option_explanations:
+        - |
+          The null hypothesis is always the "no difference" statement, and homogeneity is phrased in terms of distributions.
+        - |
+          The alternative is too strong: rejecting H₀ shows at least one distribution differs, not that every location differs from every other.
+        - |
+          Hypotheses are about the populations of customers, not about the sample proportions.
+        - |
+          Correct. Homogeneity: same distribution in every population under H₀, not all the same under Hₐ.
+      answer: 3
+    - slug: apstats-u03-w22-q08
+      type: multiple_choice
+      topic_code: "3.14"
+      source: "AP Statistics CED, Topic 3.14"
+      points: 1
+      prompt: |
+        A student computes the expected counts for a chi-square test on a 3 × 3 table from a random sample. Eight expected counts are between 9 and 40; one is 3.2. Every observed count is at least 6. Is the Large Counts condition met?
+      options:
+        - "Yes, because every observed count is at least 5."
+        - "No, because one expected count is less than 5."
+        - "Yes, because the total sample size is more than 30."
+        - "No, because the expected counts are not all equal."
+      option_explanations:
+        - |
+          The condition is checked with expected counts, not observed counts.
+        - |
+          Correct. Every expected count must be at least 5; an expected count of 3.2 fails the condition.
+        - |
+          A total sample size rule does not apply to chi-square tests; each expected count must be at least 5.
+        - |
+          Expected counts usually differ from cell to cell; they only need to be at least 5.
+      answer: 1
+    - slug: apstats-u03-w22-q09
+      type: multiple_choice
+      topic_code: "3.15"
+      source: "AP Statistics CED, Topic 3.15"
+      points: 1
+      prompt: |
+        A chi-square test for homogeneity compares whether students at four hypothetical schools have ever used a school counselling service (yes or no). The test gives χ² = 9.2. What is the p-value?
+      options:
+        - "About 0.027"
+        - "About 0.010"
+        - "About 0.163"
+        - "About 0.973"
+      option_explanations:
+        - |
+          Correct. df = (4 − 1)(2 − 1) = 3, and P(χ² ≥ 9.2) with 3 df ≈ 0.027.
+        - |
+          0.010 uses df = 2; a 4 × 2 table has (4 − 1)(2 − 1) = 3 degrees of freedom.
+        - |
+          0.163 uses df = 6; that would be a 4 × 3 table.
+        - |
+          0.973 is the area to the left of 9.2; the chi-square p-value is the upper tail.
+      answer: 0
+    - slug: apstats-u03-w22-q10
+      type: multiple_choice
+      topic_code: "3.15"
+      source: "AP Statistics CED, Topic 3.15"
+      points: 1
+      prompt: |
+        A chi-square test for independence uses a random sample of adults in a hypothetical city to study pet ownership (dog, cat, other, none) and type of home (house or apartment). It gives χ² = 9.2 and a p-value of 0.027. Which is the correct interpretation of the p-value?
+      options:
+        - "There is a 0.027 probability that pet ownership and type of home are independent."
+        - "2.7% of the adults in the sample have a pet that does not match their type of home."
+        - "Assuming there is no association between pet ownership and type of home among the city's adults, there is a 0.027 probability of getting a χ² statistic of 9.2 or larger by chance alone."
+        - "There is a 0.973 probability that pet ownership and type of home are associated."
+      option_explanations:
+        - |
+          A p-value is computed assuming H₀; it is not the probability that H₀ is true.
+        - |
+          The p-value is a probability about the test statistic, not a percentage of the sample.
+        - |
+          Correct. It states the assumption (H₀ in context), the observed statistic, "or larger" and "by chance alone".
+        - |
+          1 − p-value is not the probability that Hₐ is true; tests give no probabilities for hypotheses.
+      answer: 2
+    - slug: apstats-u03-w22-q11
+      type: multiple_choice
+      topic_code: "3.13"
+      source: "AP Statistics CED, Topic 3.13"
+      points: 1
+      prompt: |
+        A two-sample z-test of H₀: p₁ − p₂ = 0 against Hₐ: p₁ − p₂ < 0, comparing the proportions of all customers at two hypothetical bookstores who join a loyalty club, gives z = −1.80. What is the p-value?
+      options:
+        - "About 0.072"
+        - "About 0.964"
+        - "About 0.018"
+        - "About 0.036"
+      option_explanations:
+        - |
+          0.072 doubles the tail area, as for a two-sided test; this alternative is one-sided.
+        - |
+          0.964 is the area to the right of −1.80, the wrong tail for Hₐ: p₁ − p₂ < 0.
+        - |
+          0.018 halves the correct one-sided area; there is no reason to divide by 2.
+        - |
+          Correct. For Hₐ: p₁ − p₂ < 0, p-value = P(Z ≤ −1.80) ≈ 0.036.
+      answer: 3
+    - slug: apstats-u03-w22-q12
+      type: multiple_choice
+      topic_code: "3.11"
+      source: "AP Statistics CED, Topic 3.11"
+      points: 1
+      prompt: |
+        A 95% confidence interval for p_A − p_B, the difference between the proportions of all adults in two hypothetical towns who own a bicycle, is (−0.15, −0.05). Which conclusion is justified?
+      options:
+        - "There is not convincing evidence of a difference, because the interval is negative."
+        - "There is convincing evidence that a higher proportion of adults in Town B own a bicycle."
+        - "There is convincing evidence that a higher proportion of adults in Town A own a bicycle."
+        - "Owning a bicycle is 10% more likely for a randomly chosen adult in Town A."
+      option_explanations:
+        - |
+          An interval entirely below 0 does give convincing evidence; it shows p_A − p_B is negative.
+        - |
+          Correct. Every plausible value of p_A − p_B is negative, so p_B is convincingly larger, by about 5 to 15 percentage points.
+        - |
+          The sign is read backwards: negative values of p_A − p_B mean Town A's proportion is smaller.
+        - |
+          This gets the direction wrong and treats one plausible value (the midpoint) as known.
+      answer: 1
+    - slug: apstats-u03-w22-q13
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 1
+      prompt: |
+        A city tests H₀: p = 0.60 against Hₐ: p > 0.60, where p is the proportion of all residents who support a new bike lane. Which describes the power of the test?
+      options:
+        - "The probability of rejecting H₀ when the true proportion is some specific value greater than 0.60"
+        - "The probability of rejecting H₀ when the true proportion is 0.60"
+        - "The probability that H₀ is true"
+        - "The probability of failing to reject H₀ when the true proportion is greater than 0.60"
+      option_explanations:
+        - |
+          Correct. Power is the probability of correctly rejecting a false H₀, computed for a particular alternative value.
+        - |
+          Rejecting a true H₀ is a Type I error, whose probability is α, not the power.
+        - |
+          Tests never give the probability that H₀ is true; power is about the test's behaviour when H₀ is false.
+        - |
+          That is the probability of a Type II error, which equals 1 − power.
+      answer: 0
+    - slug: apstats-u03-w22-q14
+      type: multiple_choice
+      topic_code: "2.2"
+      source: "AP Statistics CED, Topic 2.2"
+      points: 1
+      prompt: |
+        In a survey of 200 students at a hypothetical school, 80 play a school sport, and 52 of those 80 usually sleep at least 8 hours. What is the conditional relative frequency of sleeping at least 8 hours among students who play a sport?
+      options:
+        - "0.26"
+        - "0.40"
+        - "0.65"
+        - "0.52"
+      option_explanations:
+        - |
+          0.26 = 52/200 is the joint relative frequency (sport and 8 hours) out of all students.
+        - |
+          0.40 = 80/200 is the marginal relative frequency of playing a sport.
+        - |
+          Correct. Conditioning on playing a sport restricts attention to those 80 students: 52/80 = 0.65.
+        - |
+          0.52 treats the count 52 as if it were out of 100.
+      answer: 2
+    - slug: apstats-u03-w22-q15
+      type: multi_select
+      topic_code: "3.14"
+      source: "AP Statistics CED, Topic 3.14"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about chi-square tests for homogeneity and independence are true? Select all that apply.
+      options:
+        - "A test for homogeneity uses one random sample classified on two categorical variables."
+        - "Each expected count is (row total)(column total)/(table total)."
+        - "The χ² statistic is negative when most observed counts are below their expected counts."
+        - "The test must be computed from counts, not from percentages."
+        - "Chi-square distributions are skewed right, and their shape depends on the degrees of freedom."
+      option_explanations:
+        - |
+          That design calls for a test for independence; homogeneity uses separate samples (or treatment groups).
+        - |
+          Correct. That is the count each cell would have if H₀ were true.
+        - |
+          Every term (O − E)²/E is a square divided by a positive number, so χ² is never negative.
+        - |
+          Correct. χ² depends on the sample size, so it must use counts.
+        - |
+          Correct. Chi-square densities are right-skewed, with mean df, and become more symmetric as df grows.
+      answer: [1, 3, 4]
+    - slug: apstats-u03-w22-q16
+      type: multi_select
+      topic_code: "3.15"
+      source: "AP Statistics CED, Topic 3.15"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A chi-square test for homogeneity compares the distribution of favourite season among independent random samples of students from three large hypothetical schools. It gives χ² = 4.1, df = 6, p-value ≈ 0.66. Which statements are correct at α = 0.05? Select all that apply.
+      options:
+        - "Fail to reject H₀, because 0.66 > 0.05."
+        - "There is not convincing evidence that the distribution of favourite season differs among the three schools."
+        - "The test shows that the distribution of favourite season is the same at all three schools."
+        - "A χ² of 4.1 is below the mean of the chi-square distribution with 6 df, so it is typical of what chance alone produces."
+        - "There is a 0.66 probability that H₀ is true."
+      option_explanations:
+        - |
+          Correct. The p-value is larger than α, so H₀ is not rejected.
+        - |
+          Correct. This is the right wording after failing to reject H₀.
+        - |
+          Failing to reject H₀ never shows that it is true; the distributions might differ by amounts too small to detect.
+        - |
+          Correct. A chi-square distribution has mean equal to df (6), so 4.1 is an unremarkable value under H₀.
+        - |
+          The p-value assumes H₀ is true; it is not the probability that H₀ is true.
+      answer: [0, 1, 3]
+    - slug: apstats-u03-w22-q17
+      type: true_false
+      topic_code: "3.14"
+      source: "AP Statistics CED, Topic 3.14"
+      points: 1
+      prompt: |
+        True or false: A chi-square test for independence may be carried out on a two-way table of row percentages instead of counts, because the percentages show the same pattern.
+      answer: false
+      explanation: |
+        False. The χ² statistic depends on the sample size; the same percentages from 100 people and from 1,000 people give very different χ² values and p-values. The test must use counts.
+    - slug: apstats-u03-w22-q18
+      type: true_false
+      topic_code: "3.13"
+      source: "AP Statistics CED, Topic 3.13"
+      points: 1
+      prompt: |
+        True or false: For a 2 × 2 table comparing the proportions of successes in two groups, the chi-square test for homogeneity gives the same p-value as the two-sided two-sample z-test for p₁ − p₂.
+      answer: true
+      explanation: |
+        True. For a 2 × 2 table χ² = z², and the chi-square distribution with 1 df is the distribution of Z², so the upper-tail chi-square p-value equals the two-sided z p-value.
+    - slug: apstats-u03-w22-q19
+      type: fill_blank
+      topic_code: "3.15"
+      source: "AP Statistics CED, Topic 3.15"
+      points: 1
+      prompt: |
+        A chi-square test for independence uses a two-way table with 4 rows (age groups) and 3 columns (preferred streaming service). The test has ____ degrees of freedom.
+      answer: ["6", "six"]
+      explanation: |
+        df = (rows − 1)(columns − 1) = (4 − 1)(3 − 1) = 6.
+    - slug: apstats-u03-w22-q20
+      type: fill_blank
+      topic_code: "2.2"
+      source: "AP Statistics CED, Topic 2.2"
+      points: 1
+      prompt: |
+        In a hypothetical survey, 120 ninth graders were asked how they get to school, and 30 of them walk. As a decimal, the conditional relative frequency of walking among ninth graders is ____.
+      answer: ["0.25", ".25", "1/4", "25%"]
+      explanation: |
+        Condition on ninth graders: 30/120 = 0.25.
+    - slug: apstats-u03-w22-q21
+      type: numeric
+      topic_code: "3.14"
+      source: "AP Statistics CED, Topic 3.14"
+      points: 1
+      prompt: |
+        In a two-way table of 320 randomly selected shoppers classified by age group and preferred payment method, the row total for shoppers under 25 is 140 and the column total for phone payments is 95. Find the expected count of under-25 shoppers who prefer phone payments, assuming no association. Give your answer to two decimal places.
+      answer: { value: 41.56, tolerance: 0.01 }
+      explanation: |
+        Expected count = (row total)(column total)/(table total) = 140 · 95/320 = 41.5625 ≈ 41.56.
+    - slug: apstats-u03-w22-q22
+      type: short_answer
+      topic_code: "3.14"
+      source: "AP Statistics CED, Topic 3.14"
+      points: 3
+      prompt: |
+        A hypothetical high school (about 1,100 athletes and 1,500 non-athletes) takes independent random samples of 100 athletes and 100 non-athletes and asks how much they usually sleep on school nights.
+
+        | Group | Under 7 hours | 7 to 8 hours | Over 8 hours | Total |
+        |---|---|---|---|---|
+        | Athletes | 48 | 32 | 20 | 100 |
+        | Non-athletes | 30 | 40 | 30 | 100 |
+        | Total | 78 | 72 | 50 | 200 |
+
+        (a) Name the appropriate chi-square test and state its hypotheses.
+        (b) Compute the expected count for athletes who sleep over 8 hours.
+        (c) Check the conditions for the test.
+      answer: |
+        (a) A chi-square test for homogeneity. H₀: the distribution of usual school-night sleep is the same for all athletes and all non-athletes at the school. Hₐ: the distributions are not the same.
+        (b) 100 · 50/200 = 25.
+        (c) Random: independent random samples of athletes and non-athletes. 10%: 100 < 10% of about 1,100 athletes (110) and 100 < 10% of about 1,500 non-athletes (150). Expected counts: 39, 36 and 25 in each row, all at least 5.
+      explanation: |
+        Three points, one per part. (a) homogeneity (two separate samples) with hypotheses in words about the two populations' distributions. (b) 25. (c) Random, the 10% check for both groups, and all expected counts shown to be at least 5.
+    - slug: apstats-u03-w22-q23
+      type: short_answer
+      topic_code: "3.10"
+      source: "AP Statistics CED, Topic 3.10"
+      points: 3
+      prompt: |
+        A hypothetical museum surveys independent random samples of visitors on weekdays and on weekends: 72 of 180 weekday visitors and 50 of 160 weekend visitors bought something at the gift shop. Thousands of people visit on each kind of day.
+
+        (a) Check the conditions for a two-sample z-interval for p_weekday − p_weekend.
+        (b) Construct a 95% confidence interval for p_weekday − p_weekend.
+        (c) Interpret the interval in context.
+      answer: |
+        (a) Random: independent random samples of weekday and weekend visitors. 10%: 180 and 160 are each less than 10% of the thousands of visitors. Large Counts: 72, 108, 50 and 110 are all at least 10.
+        (b) p̂_weekday = 0.400, p̂_weekend = 0.3125; difference 0.0875. SE = √(0.4·0.6/180 + 0.3125·0.6875/160) ≈ 0.0517. 0.0875 ± 1.96(0.0517) = 0.0875 ± 0.101, from about −0.014 to 0.189.
+        (c) We are 95% confident that the interval from −0.014 to 0.189 captures the true difference (weekday minus weekend) in the proportions of all visitors who buy something at the gift shop.
+      explanation: |
+        Three points, one per part. (a) all three conditions in context, with four Large Counts. (b) interval about (−0.014, 0.189). (c) "95% confident" that the interval captures the difference in population proportions, with the order and context; probability language earns nothing.
+    - slug: apstats-u03-w22-q24
+      type: long_answer
+      topic_code: "3.15"
+      source: "AP Statistics CED, Topic 3.15"
+      points: 7
+      prompt: |
+        A hypothetical county parks department asks residents of three towns which improvement it should fund first. It surveys an independent random sample of 100 adults in each town (each town has more than 5,000 adults).
+
+        | Town | Playground | Walking trails | Sports courts | Total |
+        |---|---|---|---|---|
+        | Alden | 42 | 35 | 23 | 100 |
+        | Brook | 30 | 46 | 24 | 100 |
+        | Carver | 25 | 33 | 42 | 100 |
+        | Total | 97 | 114 | 89 | 300 |
+
+        (A) State the appropriate hypotheses.
+
+        (B) Name the test and check its conditions.
+
+        (C) Compute the test statistic, the degrees of freedom and the p-value.
+
+        (D) State the conclusion at α = 0.05 in context.
+
+        (E) Identify the cell that contributes most to the test statistic, and describe what it shows.
+      answer: |
+        (A) H₀: the distribution of preferred park improvement is the same for all adults in Alden, Brook and Carver. Hₐ: the distributions are not all the same.
+        (B) Chi-square test for homogeneity. Random: independent random samples from the three towns. 10%: 100 < 10% of more than 5,000 adults in each town. Expected counts: 100 · 97/300 ≈ 32.3, 100 · 114/300 = 38.0, 100 · 89/300 ≈ 29.7 in each row, all at least 5.
+        (C) χ² = Σ (O − E)²/E ≈ 15.01, df = (3 − 1)(3 − 1) = 4, p-value = P(χ² ≥ 15.01) ≈ 0.005.
+        (D) Because the p-value 0.005 < α = 0.05, we reject H₀. There is convincing evidence that the distribution of preferred park improvement is not the same for adults in the three towns.
+        (E) Carver and sports courts: observed 42 against expected 29.7, contribution (42 − 29.7)²/29.7 ≈ 5.13. Carver residents choose sports courts much more often than they would if all three towns had the same distribution.
+      explanation: |
+        Seven points.
+        (A) 1 point: hypotheses in words about the distributions in the three town populations, with "not all the same" as the alternative.
+        (B) 2 points: 1 for naming the chi-square test for homogeneity with the Random condition; 1 for the 10% condition and the expected counts (shown, with all at least 5). Checking observed counts instead of expected counts earns nothing for the second point.
+        (C) 2 points: 1 for χ² ≈ 15.0 with df = 4; 1 for p-value ≈ 0.005.
+        (D) 1 point: reject H₀ by comparing p-value with α, and "convincing evidence" that the distributions differ, in context.
+        (E) 1 point: Carver/sports courts identified with observed above expected, interpreted in context.
+    - slug: apstats-u03-w22-q25
+      type: numeric
+      topic_code: "3.13"
+      source: "AP Statistics CED, Topic 3.13"
+      points: 1
+      prompt: |
+        A hypothetical orchard randomly assigns 200 young apple trees to two pruning methods (100 each). After one season, 40 trees with the first method and 28 with the second have fruit. Find the test statistic z for a two-sample z-test of H₀: p₁ = p₂, with p̂₁ − p̂₂ in the numerator. Give your answer to two decimal places.
+      answer: { value: 1.79, tolerance: 0.01 }
+      explanation: |
+        p̂₁ = 0.40, p̂₂ = 0.28, p̂_c = 68/200 = 0.34. SD = √(0.34 · 0.66 · (1/100 + 1/100)) ≈ 0.0670. z = 0.12/0.0670 ≈ 1.79.

@@ -1,0 +1,588 @@
+week: 18
+unit: 3
+title: "Carrying Out a Test for a Proportion and Errors in Testing"
+topics: ["3.7", "3.8"]
+guide: guides/week-18.md
+guide_description: |
+  The complete one-sample z-test for a population proportion (state, plan, do, conclude), comparing the
+  p-value with α and writing the conclusion in "convincing evidence" language; how a two-sided test matches a
+  confidence interval; the scope of a conclusion; Type I and Type II errors in context and which one is possible
+  after a decision; P(Type I error) = α, β and power, and what raises power. Worked examples: a seed supplier's
+  90% germination claim (z ≈ −2.11, p-value ≈ 0.0175, reject), a two-sided test of a district's 45% college
+  plans figure (p-value ≈ 0.22, fail to reject) with its matching interval, the two errors for the seed test,
+  and the power of the seed test against a true rate of 0.85.
+flashcards_description: |
+  30 cards on carrying out a one-sample z-test for p, decisions and conclusions, tests and intervals, scope of
+  inference, Type I and Type II errors in context, α, β and power, and what changes power.
+
+flashcards:
+  - front: Four parts of a complete one-proportion z-test → names and contents
+    back: |
+      State (test, H₀, Hₐ, p defined, α); Plan (Random, 10%, Large Counts with p₀); Do (p̂, z, p-value); Conclude (compare with α, decision, context).
+    topic_code: "3.7"
+  - front: Conclusion when p-value ≤ α in a one-proportion test → template
+    back: |
+      "Because the p-value = ___ ≤ α = ___, we reject H₀. There is convincing evidence that [the proportion of all ... is greater than / less than / different from p₀]."
+    topic_code: "3.7"
+  - front: Conclusion when p-value > α in a one-proportion test → template
+    back: |
+      "Because the p-value = ___ > α = ___, we fail to reject H₀. There is not convincing evidence that [Hₐ in context]."
+    topic_code: "3.7"
+  - front: Why the conclusion is stated about Hₐ → reason
+    back: |
+      The test only looks for evidence in favour of Hₐ. Failing to find it is not evidence that H₀ is true.
+    topic_code: "3.7"
+  - front: 'Seed test (136 of 160 germinate, H₀: p = 0.90, Hₐ: p < 0.90) → z, p-value, decision at 0.05'
+    back: |
+      p̂ = 0.85; z ≈ −2.11; p-value ≈ 0.0175 < 0.05; reject H₀: convincing evidence the germination rate is below 90%.
+    topic_code: "3.7"
+  - front: 'College plans test (108 of 220, H₀: p = 0.45, Hₐ: p ≠ 0.45) → p-value and decision at 0.05'
+    back: |
+      p̂ ≈ 0.491; z ≈ 1.22; p-value ≈ 0.22 > 0.05; fail to reject H₀: not convincing evidence the proportion differs from 0.45.
+    topic_code: "3.7"
+  - front: Two-sided test at α = 0.05 and a 95% interval → how they relate
+    back: |
+      They usually agree: reject H₀: p = p₀ when p₀ is outside the interval; fail to reject when p₀ is inside. The interval also shows the other plausible values.
+    topic_code: "3.7"
+  - front: Statistically significant result → meaning
+    back: |
+      The p-value is at most α: the result is too unlikely under H₀ to be put down to chance variation alone. It does not mean the difference is large or important.
+    topic_code: "3.7"
+  - front: Scope of a significance test on a random sample → what you can conclude
+    back: |
+      The conclusion generalises to the population sampled. Without random assignment it cannot show that anything caused the change.
+    topic_code: "3.7"
+  - front: One-proportion test when Large Counts fails → what to do
+    back: |
+      Don't use the z-test; use the binomial distribution or a simulation to find the p-value, or collect a larger sample.
+    topic_code: "3.7"
+  - front: Type I error → definition
+    back: |
+      Rejecting H₀ when H₀ is actually true: a false alarm, finding convincing evidence for Hₐ that isn't so.
+    topic_code: "3.8"
+  - front: Type II error → definition
+    back: |
+      Failing to reject H₀ when Hₐ is actually true: missing a real effect.
+    topic_code: "3.8"
+  - front: Seed test → Type I error in context and its consequence
+    back: |
+      Concluding the germination rate is below 90% when it really is 90%. The class complains to or drops a supplier whose claim was accurate.
+    topic_code: "3.8"
+  - front: Seed test → Type II error in context and its consequence
+    back: |
+      Not finding convincing evidence that the rate is below 90% when it really is below 90%. The class keeps buying seeds that underperform.
+    topic_code: "3.8"
+  - front: After rejecting H₀ → which error is possible
+    back: |
+      Only a Type I error (H₀ might have been true after all).
+    topic_code: "3.8"
+  - front: After failing to reject H₀ → which error is possible
+    back: |
+      Only a Type II error (Hₐ might have been true but went undetected).
+    topic_code: "3.8"
+  - front: P(Type I error) → value
+    back: |
+      α, the significance level: if H₀ is true, the test rejects with probability α.
+    topic_code: "3.8"
+  - front: Power of a test → definition
+    back: |
+      The probability of rejecting H₀ when a particular alternative value of the parameter is true. Power = 1 − β.
+    topic_code: "3.8"
+  - front: β → definition
+    back: |
+      P(Type II error) for a particular alternative value: the probability of failing to reject H₀ when that alternative is true.
+    topic_code: "3.8"
+  - front: Three ways to raise the power of a one-proportion test → list
+    back: |
+      Increase the sample size; increase α; a true value of p farther from p₀ (not under your control). Only a larger n raises power without more Type I errors.
+    topic_code: "3.8"
+  - front: Lowering α from 0.05 to 0.01 with n fixed → effect on errors
+    back: |
+      Fewer Type I errors (probability 0.01), but more Type II errors and less power.
+    topic_code: "3.8"
+  - front: Choosing α from the consequences of errors → rule of thumb
+    back: |
+      If a false alarm (Type I) is the costlier error, use a small α. If a miss (Type II) is costlier, use a larger α or, better, a larger sample.
+    topic_code: "3.8"
+  - front: Power of the seed test (n = 160, α = 0.05) if p = 0.85 → value and steps
+    back: |
+      Reject when p̂ ≤ 0.90 − 1.645(0.0237) ≈ 0.861. If p = 0.85, P(p̂ ≤ 0.861) = P(Z ≤ 0.39) ≈ 0.65, so β ≈ 0.35.
+    topic_code: "3.8"
+  - front: Power 0.80 against a particular alternative → interpretation
+    back: |
+      If that alternative value is the truth, the test will reject H₀ (correctly) in about 80% of samples, and miss it in about 20%.
+    topic_code: "3.8"
+  - front: True p just barely different from p₀ → what happens to power
+    back: |
+      Power is low (close to α): a tiny difference is hard to tell apart from sampling variability.
+    topic_code: "3.8"
+  - front: Reject / fail to reject vs H₀ true / Hₐ true → the four outcomes
+    back: |
+      Reject and H₀ true: Type I. Reject and Hₐ true: correct (power). Fail and H₀ true: correct. Fail and Hₐ true: Type II.
+    topic_code: "3.8"
+  - front: 'Chronic-absence test (27 of 300, H₀: p = 0.12, Hₐ: p < 0.12) → decision at 0.05'
+    back: |
+      p̂ = 0.09; z ≈ −1.60; p-value ≈ 0.055 > 0.05: fail to reject H₀, so not convincing evidence the proportion is below 0.12. Possible error: Type II.
+    topic_code: "3.7"
+  - front: 'Error-spot → "p-value = 0.22, so we accept H₀: the proportion is 0.45"'
+    back: |
+      Never accept H₀. Write: we fail to reject H₀; there is not convincing evidence that the proportion differs from 0.45.
+    topic_code: "3.7"
+  - front: Error-spot → "we rejected H₀, so we might have made a Type II error"
+    back: |
+      A Type II error is failing to reject. After rejecting, only a Type I error is possible.
+    topic_code: "3.8"
+  - front: Error-spot → "power is the probability that H₀ is false"
+    back: |
+      Power is a probability about the test's decision: the chance of rejecting H₀ when a specific alternative is true.
+    topic_code: "3.8"
+
+quiz:
+  description: |
+    22 questions · about 40 minutes · mostly on this week (topics 3.7 and 3.8: carrying out a one-sample z-test
+    for p, decisions and conclusions, Type I and Type II errors, and power), with 7 questions (32%) reviewing
+    weeks 16 and 17 (confidence intervals, setting up tests and p-values). Opens with a shared-context set on
+    school bus arrivals. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. A calculator is allowed throughout.
+  questions:
+    # ---- Stimulus set: school bus arrivals (3.7, 3.8)
+    - slug: apstats-u03-w18-q01
+      type: multiple_choice
+      topic_code: "3.7"
+      source: "AP Statistics CED, Topic 3.7"
+      points: 1
+      stimulus: |
+        A hypothetical bus company says that 85% of its bus arrivals at a large high school are on time. A group of students thinks the on-time rate is lower. They randomly select 120 of the semester's more than 1,500 bus arrivals and find that 93 of them were on time. They plan to use α = 0.05.
+      prompt: |
+        Which procedure should the students use?
+      options:
+        - "A one-sample z-interval for a population proportion"
+        - "A one-sample z-test for a population proportion"
+        - "A two-sample z-test for a difference between two proportions"
+        - "A chi-square test for independence"
+      option_explanations:
+        - |
+          An interval estimates p; the students want to test a specific claim (85%) against a suspicion, which calls for a test.
+        - |
+          Correct. One sample, one categorical variable (on time or not) and a claim about one proportion: a one-sample z-test for p with H₀: p = 0.85, Hₐ: p < 0.85.
+        - |
+          There is only one group of arrivals and one proportion; a two-sample test compares two groups.
+        - |
+          A chi-square test for independence needs two categorical variables; here there is one.
+      answer: 1
+    - slug: apstats-u03-w18-q02
+      type: multiple_choice
+      topic_code: "3.7"
+      source: "AP Statistics CED, Topic 3.7"
+      points: 1
+      stimulus: |
+        A hypothetical bus company says that 85% of its bus arrivals at a large high school are on time. A group of students thinks the on-time rate is lower. They randomly select 120 of the semester's more than 1,500 bus arrivals and find that 93 of them were on time. They plan to use α = 0.05.
+      prompt: |
+        Which are the test statistic and p-value for H₀: p = 0.85 against Hₐ: p < 0.85?
+      options:
+        - "z ≈ −2.30, p-value ≈ 0.021"
+        - "z ≈ −1.97, p-value ≈ 0.024"
+        - "z ≈ −2.30, p-value ≈ 0.011"
+        - "z ≈ 2.30, p-value ≈ 0.989"
+      option_explanations:
+        - |
+          The z is right, but 0.021 doubles the tail area; the alternative is one-sided, so only the lower tail counts.
+        - |
+          These values use p̂ = 0.775 in the standard deviation; a test uses p₀ = 0.85: √(0.85 · 0.15 / 120).
+        - |
+          Correct. p̂ = 93/120 = 0.775; SD = √(0.85 · 0.15 / 120) ≈ 0.0326; z = (0.775 − 0.85)/0.0326 ≈ −2.30; p-value = P(Z ≤ −2.30) ≈ 0.011.
+        - |
+          The sign is reversed and the area is from the wrong tail; p̂ is below p₀, so z is negative and the p-value is the lower-tail area.
+      answer: 2
+    - slug: apstats-u03-w18-q03
+      type: multiple_choice
+      topic_code: "3.7"
+      source: "AP Statistics CED, Topic 3.7"
+      points: 1
+      stimulus: |
+        A hypothetical bus company says that 85% of its bus arrivals at a large high school are on time. A group of students thinks the on-time rate is lower. They randomly select 120 of the semester's more than 1,500 bus arrivals and find that 93 of them were on time. They plan to use α = 0.05.
+      prompt: |
+        Which conclusion is correct at α = 0.05?
+      options:
+        - "Because the p-value of about 0.011 is less than 0.05, we reject H₀. There is convincing evidence that fewer than 85% of all the company's arrivals at the school are on time."
+        - "Because the p-value of about 0.011 is less than 0.05, we accept H₀. The company's claim is correct."
+        - "Because the p-value of about 0.011 is less than 0.05, we reject H₀. This proves that exactly 77.5% of the arrivals are on time."
+        - "Because the p-value of about 0.011 is less than 0.05, we fail to reject H₀. There is not convincing evidence that the on-time rate is below 85%."
+      option_explanations:
+        - |
+          Correct. The comparison, the decision and the conclusion about all arrivals in context are all present, in "convincing evidence" language.
+        - |
+          A small p-value leads to rejecting H₀, and a test never "accepts" H₀.
+        - |
+          The decision is right, but a test never proves anything, and 0.775 is only the sample proportion.
+        - |
+          When the p-value is less than α, the decision is to reject H₀, not to fail to reject it.
+      answer: 0
+    - slug: apstats-u03-w18-q04
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 1
+      stimulus: |
+        A hypothetical bus company says that 85% of its bus arrivals at a large high school are on time. A group of students thinks the on-time rate is lower. They randomly select 120 of the semester's more than 1,500 bus arrivals and find that 93 of them were on time. They plan to use α = 0.05.
+      prompt: |
+        Based on the students' decision, which error could they have made?
+      options:
+        - "A Type II error: concluding that the on-time rate is below 85% when it really is 85%"
+        - "A Type II error: failing to find convincing evidence that the on-time rate is below 85% when it really is below 85%"
+        - "No error is possible, because the p-value was so small."
+        - "A Type I error: concluding that the on-time rate is below 85% when it really is 85%"
+      option_explanations:
+        - |
+          The description fits a Type I error (rejecting a true H₀), so the name is wrong.
+        - |
+          This is a correct description of a Type II error, but the students rejected H₀, so a Type II error is not possible.
+        - |
+          A small p-value makes a Type I error unlikely, not impossible; the test could still have rejected a true H₀.
+        - |
+          Correct. The students rejected H₀, so the only possible error is a Type I error: rejecting H₀ when the on-time rate really is 85%.
+      answer: 3
+    - slug: apstats-u03-w18-q05
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 1
+      stimulus: |
+        A hypothetical bus company says that 85% of its bus arrivals at a large high school are on time. A group of students thinks the on-time rate is lower. They randomly select 120 of the semester's more than 1,500 bus arrivals and find that 93 of them were on time. They plan to use α = 0.05.
+      prompt: |
+        Before collecting data, which change to the students' plan would have increased the power of their test, without increasing the probability of a Type I error?
+      options:
+        - "Using α = 0.01 instead of α = 0.05"
+        - "Using a two-sided alternative instead of a one-sided one"
+        - "Selecting 300 arrivals instead of 120"
+        - "Recording only the arrivals on rainy days"
+      option_explanations:
+        - |
+          A smaller α makes rejecting H₀ harder, which lowers power.
+        - |
+          A two-sided test splits α between two tails, so it is less powerful for detecting a rate below 85%.
+        - |
+          Correct. A larger sample shrinks the SD of p̂, making a real shortfall easier to detect while α stays 0.05.
+        - |
+          Rainy days are not a random sample of all arrivals; this introduces bias rather than increasing power.
+      answer: 2
+    # ---- Independent items
+    - slug: apstats-u03-w18-q06
+      type: multiple_choice
+      topic_code: "3.7"
+      source: "AP Statistics CED, Topic 3.7"
+      points: 1
+      prompt: |
+        A gym tests H₀: p = 0.20 against Hₐ: p > 0.20, where p is the proportion of all its members who use the pool each week, and gets a p-value of 0.064. Which conclusion is correct at α = 0.05?
+      options:
+        - "Because 0.064 > 0.05, we accept H₀: exactly 20% of members use the pool each week."
+        - "Because 0.064 > 0.05, we fail to reject H₀. There is not convincing evidence that more than 20% of all members use the pool each week."
+        - "Because 0.064 > 0.05, we reject H₀. There is convincing evidence that more than 20% of members use the pool each week."
+        - "Because 0.064 is close to 0.05, the test proves that more than 20% use the pool."
+      option_explanations:
+        - |
+          A test never accepts H₀; a large p-value only means the evidence for Hₐ is not convincing.
+        - |
+          Correct. The p-value is greater than α, so we fail to reject H₀ and state the lack of convincing evidence for Hₐ in context.
+        - |
+          We reject H₀ only when the p-value is at most α; here 0.064 is greater than 0.05.
+        - |
+          Being close to α does not change the decision, and a test never proves a claim.
+      answer: 1
+    - slug: apstats-u03-w18-q07
+      type: multiple_choice
+      topic_code: "3.5"
+      source: "AP Statistics CED, Topic 3.5"
+      points: 1
+      prompt: |
+        A phone maker claims that 90% of its batteries last at least two years. A consumer group plans to test the claim with a random sample of 40 batteries from a large production run. Which condition for a one-sample z-test fails?
+      options:
+        - "Random, because the batteries come from one production run"
+        - "10%, because 40 is too large a sample"
+        - "None; all the conditions are met because 40 is at least 30."
+        - "Large Counts, because 40(0.10) = 4 is less than 10"
+      option_explanations:
+        - |
+          A random sample from the production run satisfies the Random condition for conclusions about that run.
+        - |
+          40 batteries is far less than 10% of a large production run.
+        - |
+          n ≥ 30 is a guideline for means; for proportions the Large Counts check is what matters, and it fails here.
+        - |
+          Correct. np₀ = 40(0.90) = 36 is fine, but n(1 − p₀) = 40(0.10) = 4 is less than 10, so the normal model is not justified.
+      answer: 3
+    - slug: apstats-u03-w18-q08
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 1
+      prompt: |
+        A researcher carries out a one-sample z-test for a proportion at significance level α = 0.01. If the null hypothesis is actually true, what is the probability that the researcher makes a Type I error?
+      options:
+        - "0.01"
+        - "0.99"
+        - "It equals the power of the test."
+        - "It equals the p-value of the test."
+      option_explanations:
+        - |
+          Correct. When H₀ is true, the test rejects (a Type I error) with probability α = 0.01.
+        - |
+          0.99 is the probability of correctly failing to reject a true H₀.
+        - |
+          Power is the probability of rejecting H₀ when an alternative is true; it concerns a false H₀, not a true one.
+        - |
+          The p-value depends on the particular sample; the probability of a Type I error is fixed in advance at α.
+      answer: 0
+    - slug: apstats-u03-w18-q09
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 1
+      prompt: |
+        A food inspector tests H₀: p = 0.02 against Hₐ: p > 0.02, where p is the proportion of a restaurant chain's chicken meals served below a safe temperature. Which describes a Type II error in this context?
+      options:
+        - "The inspector finds convincing evidence that more than 2% of meals are served too cold when the true proportion is 2%."
+        - "The inspector finds convincing evidence that more than 2% of meals are served too cold when that is true."
+        - "The inspector's sample shows exactly 2% of meals served too cold."
+        - "The inspector does not find convincing evidence that more than 2% of meals are served too cold when in fact more than 2% are."
+      option_explanations:
+        - |
+          Rejecting H₀ when it is true is a Type I error, not a Type II error.
+        - |
+          Correctly rejecting a false H₀ is a correct decision, the outcome that power measures.
+        - |
+          A sample result is not an error; errors compare the test's decision with the truth about p.
+        - |
+          Correct. A Type II error is failing to reject H₀ when Hₐ is true: real temperature problems go undetected.
+      answer: 3
+    - slug: apstats-u03-w18-q10
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 1
+      prompt: |
+        With the sample size kept the same, a researcher changes the significance level of a one-proportion test from α = 0.05 to α = 0.01. What happens?
+      options:
+        - "The probabilities of both Type I and Type II errors decrease."
+        - "The probability of a Type I error decreases and the probability of a Type II error increases."
+        - "The probability of a Type I error increases and the power increases."
+        - "Nothing changes, because the data are the same."
+      option_explanations:
+        - |
+          With n fixed, making rejection harder lowers the Type I risk but raises the Type II risk; both cannot fall together.
+        - |
+          Correct. A smaller α makes false alarms rarer but makes the test less likely to detect a real effect, so β rises and power falls.
+        - |
+          These describe raising α, not lowering it.
+        - |
+          The rejection rule changes with α, so the error probabilities change even with the same sample size.
+      answer: 1
+    - slug: apstats-u03-w18-q11
+      type: multiple_choice
+      topic_code: "3.6"
+      source: "AP Statistics CED, Topic 3.6"
+      points: 1
+      prompt: |
+        A test of H₀: p = 0.35 against Hₐ: p > 0.35, where p is the proportion of a city's households with a smart speaker, gives a sample proportion of 0.39 and a p-value of 0.08. Which is a correct interpretation of the p-value?
+      options:
+        - "There is a 0.08 probability that 35% of the city's households have a smart speaker."
+        - "8% of the city's households have a smart speaker."
+        - "Assuming 35% of the city's households have a smart speaker, there is a 0.08 probability of getting a sample proportion of 0.39 or higher by chance alone."
+        - "There is a 0.92 probability that more than 35% of the city's households have a smart speaker."
+      option_explanations:
+        - |
+          The p-value is calculated assuming p = 0.35; it is not the probability that p = 0.35.
+        - |
+          The p-value is a probability about sample results, not a proportion of households.
+        - |
+          Correct. It states the assumption that H₀ is true, the probability and "0.39 or higher" in the direction of Hₐ, in context.
+        - |
+          1 − p-value is not the probability that Hₐ is true.
+      answer: 2
+    - slug: apstats-u03-w18-q12
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      prompt: |
+        In a simple random sample of 300 students at a large university, 93 ride a bicycle to campus. Which is a 95% confidence interval for the proportion of all the university's students who ride a bicycle to campus?
+      options:
+        - "(0.258, 0.362)"
+        - "(0.266, 0.354)"
+        - "(0.241, 0.379)"
+        - "(0.283, 0.337)"
+      option_explanations:
+        - |
+          Correct. p̂ = 0.31, SE = √(0.31 · 0.69 / 300) ≈ 0.0267, and 0.31 ± 1.96(0.0267) = (0.258, 0.362).
+        - |
+          This interval uses z* = 1.645, the critical value for 90% confidence.
+        - |
+          This interval uses z* = 2.576, the critical value for 99% confidence.
+        - |
+          This is p̂ ± SE, leaving out the critical value z*.
+      answer: 0
+    - slug: apstats-u03-w18-q13
+      type: multi_select
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A school nurse plans to test H₀: p = 0.15 against Hₐ: p > 0.15, where p is the proportion of the district's students who need glasses but don't have them. Which changes would increase the power of her test against the alternative p = 0.20? Select all that apply.
+      options:
+        - "Increasing the sample size from 200 to 500 students"
+        - "Using α = 0.10 instead of α = 0.05"
+        - "Using α = 0.01 instead of α = 0.05"
+        - "Switching to a two-sided alternative"
+        - "Taking a convenience sample of students already sent to the nurse's office"
+      option_explanations:
+        - |
+          Yes. A larger sample reduces the SD of p̂, so a true proportion of 0.20 is easier to detect.
+        - |
+          Yes. A larger α makes rejecting H₀ easier, raising power (at the cost of more Type I errors).
+        - |
+          No. A smaller α makes rejection harder and lowers power.
+        - |
+          No. A two-sided test puts only α/2 in the upper tail, so it is less powerful against p = 0.20.
+        - |
+          No. A convenience sample introduces bias; it does not make a valid test more powerful.
+      answer: [0, 1]
+    - slug: apstats-u03-w18-q14
+      type: multi_select
+      topic_code: "3.6"
+      source: "AP Statistics CED, Topic 3.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about p-values in a one-sample z-test for a proportion are correct? Select all that apply.
+      options:
+        - "A smaller p-value gives stronger evidence against H₀."
+        - "The p-value depends on whether the alternative hypothesis is one-sided or two-sided."
+        - "The p-value is calculated assuming the null hypothesis is true."
+        - "The p-value is the probability that the null hypothesis is true."
+        - "A p-value of 0.40 shows that the null hypothesis is true."
+      option_explanations:
+        - |
+          Correct. The less likely the observed result is under H₀, the stronger the evidence against H₀.
+        - |
+          Correct. A two-sided p-value counts both tails, so it is twice the one-sided value for the same z.
+        - |
+          Correct. Every p-value is a probability computed under the assumption that H₀ is true.
+        - |
+          Incorrect. Because it assumes H₀, it cannot also be the probability that H₀ is true.
+        - |
+          Incorrect. A large p-value means the data are consistent with H₀; it does not show H₀ is true.
+      answer: [0, 1, 2]
+    - slug: apstats-u03-w18-q15
+      type: true_false
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 1
+      prompt: |
+        True or false: The power of a test against a particular alternative value of p is the probability that the test rejects H₀ when that alternative value is the true value of p.
+      answer: true
+      explanation: |
+        True. Power = 1 − β, the probability of correctly rejecting H₀ when the specified alternative is true. It changes with the alternative value, the sample size and α.
+    - slug: apstats-u03-w18-q16
+      type: true_false
+      topic_code: "3.5"
+      source: "AP Statistics CED, Topic 3.5"
+      points: 1
+      prompt: |
+        True or false: For a test about the proportion of a factory's light bulbs that fail early, it is acceptable to write the hypotheses as H₀: p̂ = 0.04 and Hₐ: p̂ > 0.04.
+      answer: false
+      explanation: |
+        False. Hypotheses are always about the parameter: H₀: p = 0.04 and Hₐ: p > 0.04, where p = the proportion of all the factory's bulbs that fail early. The sample proportion p̂ is known once the data are collected.
+    - slug: apstats-u03-w18-q17
+      type: fill_blank
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 1
+      prompt: |
+        A test at α = 0.05 has power 0.73 against the alternative p = 0.80. The probability of a Type II error when p = 0.80 is ____.
+      answer: ["0.27", ".27", "27%", "27/100"]
+      explanation: |
+        β = 1 − power = 1 − 0.73 = 0.27. (α = 0.05 is the probability of a Type I error, a different quantity.)
+    - slug: apstats-u03-w18-q18
+      type: fill_blank
+      topic_code: "3.7"
+      source: "AP Statistics CED, Topic 3.7"
+      points: 1
+      prompt: |
+        In a one-sample z-test for a proportion, the p-value is 0.003 and α = 0.05. Because the p-value is less than α, we ____ the null hypothesis. (Answer with one word.)
+      answer: ["reject"]
+      explanation: |
+        A p-value at or below α means the result would be unusual if H₀ were true, so we reject H₀ and conclude there is convincing evidence for Hₐ.
+    - slug: apstats-u03-w18-q19
+      type: numeric
+      topic_code: "3.6"
+      source: "AP Statistics CED, Topic 3.6"
+      points: 1
+      prompt: |
+        A city says 25% of its residents use the bike-share system. A survey of a simple random sample of 300 residents finds 93 users. Compute the test statistic z for H₀: p = 0.25 against Hₐ: p > 0.25. Give your answer to two decimal places.
+      answer: { value: 2.40, tolerance: 0.006 }
+      explanation: |
+        p̂ = 93/300 = 0.31. SD = √(0.25 · 0.75 / 300) = 0.025. z = (0.31 − 0.25)/0.025 = 2.40. (Large Counts: 75 and 225 are both at least 10.)
+    - slug: apstats-u03-w18-q20
+      type: short_answer
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 3
+      prompt: |
+        A hypothetical town tests H₀: p = 0.05 against Hₐ: p > 0.05, where p is the proportion of the town's private wells with unsafe nitrate levels. If the test gives convincing evidence for Hₐ, the town will pay for free water testing and filters for every household with a well.
+
+        (a) Describe a Type I error in context and one consequence.
+        (b) Describe a Type II error in context and one consequence.
+        (c) Which error is more serious here, and should the town choose α = 0.01 or α = 0.10? Explain.
+      answer: |
+        (a) Type I: the town concludes that more than 5% of its private wells have unsafe nitrate levels when in fact only 5% do. Consequence: it spends money on testing and filters that were not needed.
+        (b) Type II: the town does not find convincing evidence that more than 5% of wells are unsafe when in fact more than 5% are. Consequence: households keep drinking unsafe water without filters.
+        (c) A Type II error is more serious, because it leaves people exposed to a health risk, while a Type I error only wastes money. The town should use α = 0.10: a larger α raises the power of the test and lowers the chance of a Type II error.
+      explanation: |
+        Three points, one per part. (a) the error described in context (conclude more than 5% unsafe when really 5%) with a plausible consequence. (b) the error in context (fail to find evidence when really more than 5%) with a consequence. (c) a choice of the more serious error with a reason and α = 0.10 linked to reducing Type II errors (choosing α = 0.01 earns the point only if it is consistently argued that a Type I error is more serious). Definitions without context earn no credit.
+    - slug: apstats-u03-w18-q21
+      type: short_answer
+      topic_code: "3.4"
+      source: "AP Statistics CED, Topic 3.4"
+      points: 3
+      prompt: |
+        A 95% confidence interval for the proportion of all students at a large high school who want a later start time is (0.53, 0.64).
+
+        (a) Is there convincing evidence that a majority of the school's students want a later start? Explain.
+        (b) Is there convincing evidence that more than 60% want a later start? Explain.
+        (c) Would a two-sided test of H₀: p = 0.50 at α = 0.05 reject H₀? Explain how you know without computing a p-value.
+      answer: |
+        (a) Yes. Every value in the interval is above 0.50, so 0.50 and every lower value are not plausible; there is convincing evidence that more than half of the school's students want a later start.
+        (b) No. 0.60 is inside the interval, and so are values below it (such as 0.55), so it is plausible that 60% or fewer want a later start.
+        (c) Yes. 0.50 is outside the 95% interval, and a two-sided test at α = 0.05 rejects H₀ when the null value is not a plausible value in the matching 95% interval.
+      explanation: |
+        Three points, one per part, each needing the reason tied to the interval: (a) yes, because 0.50 lies below the interval; (b) no, because 0.60 is inside it; (c) yes, because 0.50 is outside the 95% interval, which matches a two-sided test at α = 0.05. "Yes" or "no" with no reference to the interval earns no credit.
+    - slug: apstats-u03-w18-q22
+      type: long_answer
+      topic_code: "3.7"
+      source: "AP Statistics CED, Topic 3.7"
+      points: 8
+      prompt: |
+        Last year 64% of the students at a hypothetical high school of 2,500 students passed the state fitness test. This year the school introduced a new physical education programme. The PE department wants to know whether the pass rate has increased. It selects a simple random sample of 200 students; 141 of them pass the test this year. Use α = 0.05.
+
+        (A) State the hypotheses, defining the parameter.
+
+        (B) Name the procedure and check the conditions.
+
+        (C) Compute the test statistic and the p-value.
+
+        (D) State your conclusion in context.
+
+        (E) Which type of error could the department have made? Describe it in context.
+
+        (F) The head of PE says the test proves the new programme caused the pass rate to rise. Give one reason this claim is not justified.
+      answer: |
+        (A) H₀: p = 0.64, Hₐ: p > 0.64, where p = the proportion of all students at the school who pass the fitness test this year.
+        (B) One-sample z-test for a population proportion. Random: SRS. 10%: 200 ≤ 10% of 2,500 = 250. Large Counts: 200(0.64) = 128 and 200(0.36) = 72 are both at least 10.
+        (C) p̂ = 141/200 = 0.705. SD = √(0.64 · 0.36 / 200) ≈ 0.0339. z = (0.705 − 0.64)/0.0339 ≈ 1.92. p-value = P(Z ≥ 1.92) ≈ 0.028.
+        (D) Because the p-value of about 0.028 is less than α = 0.05, we reject H₀. There is convincing evidence that the proportion of all students at the school who pass the fitness test this year is greater than 0.64.
+        (E) Type I error: concluding that the pass rate has increased above 64% when in fact it is still 64%.
+        (F) This was not an experiment: there was no random assignment of students to the new programme and a comparison group, so other changes since last year (a different test day, a new student body, more practice) could explain the rise. A significance test also never "proves" anything.
+      explanation: |
+        Eight points. (A) 1 point: hypotheses about p with ">" and p defined in context. (B) 1 point: procedure named and all three conditions checked with numbers (Large Counts with p₀: 128 and 72). (C) 2 points: 1 for z ≈ 1.92 with the formula shown using p₀; 1 for the p-value ≈ 0.028 (0.027 to 0.028). (D) 2 points: 1 for the decision linked to the comparison of the p-value with α; 1 for the conclusion in context about all students with "convincing evidence" language. "Accept" or a conclusion about the sample loses this point. (E) 1 point: Type I, described in context. (F) 1 point: no random assignment or control group, so a causal conclusion is not supported (confounding named or described).

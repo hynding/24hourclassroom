@@ -1,0 +1,677 @@
+week: 28
+unit: 4
+title: "Significance Tests for the Difference Between Two Population Means"
+topics: ["4.9", "4.10"]
+guide: guides/week-28.md
+guide_description: |
+  Setting up a two-sample t-test for μ₁ − μ₂ (parameters defined with the order of subtraction, H₀: μ₁ − μ₂ = 0
+  and a one- or two-sided Hₐ chosen from the question, conditions for both groups) and carrying it out (the t
+  statistic, calculator or conservative df named, the p-value and its interpretation, the conclusion in context
+  with the right scope); Type I and Type II errors and power in a two-sample setting; the link to a two-sample
+  t-interval; and why paired data must not be analysed as two samples. Worked examples: hypotheses for three
+  questions, studying in silence versus with music, delivery times at two pizza shops from raw data, rural versus
+  urban reading time (a two-sided test that fails to reject), and eight students' quiz scores with two
+  calculators analysed correctly and incorrectly.
+flashcards_description: |
+  30 cards on setting up and carrying out two-sample t-tests for μ₁ − μ₂: hypotheses, conditions, the test
+  statistic, df, p-values, conclusions, errors and power, the interval link, and paired versus two-sample.
+
+flashcards:
+  - front: Two-sample t-test for μ₁ − μ₂ → when to use it
+    back: |
+      A quantitative response compared across two independent random samples or two randomly assigned treatment groups, with population SDs unknown.
+    topic_code: "4.9"
+  - front: Null hypothesis of a two-sample t-test → standard form
+    back: |
+      H₀: μ₁ − μ₂ = 0 (equivalently μ₁ = μ₂), with μ₁ and μ₂ defined in context.
+    topic_code: "4.9"
+  - front: Alternative hypothesis of a two-sample t-test → how to choose its direction
+    back: |
+      From the research question, before seeing the data: μ₁ − μ₂ > 0, μ₁ − μ₂ < 0, or μ₁ − μ₂ ≠ 0 for "different".
+    topic_code: "4.9"
+  - front: "\"Does a new bus route shorten the mean ride?\" → hypotheses"
+    back: |
+      H₀: μ_new − μ_old = 0; Hₐ: μ_new − μ_old < 0, where μ_new and μ_old are the true mean ride times on each route.
+    topic_code: "4.9"
+  - front: Parameters in a two-sample t-test for a randomized experiment → how to define them
+    back: |
+      The true mean responses under each treatment for subjects like these: "μ_S = the true mean score for students like these who study in silence ..."
+    topic_code: "4.9"
+  - front: Conditions for a two-sample t-test → the three checks
+    back: |
+      Random (two independent random samples or random assignment); 10% for each sample when sampling without replacement; Normal / large sample for each group (n ≥ 30, or a graph with no strong skew or outliers).
+    topic_code: "4.9"
+  - front: Two-sample t-test with n = 28 in each group → how to check Normal
+    back: |
+      28 < 30, so look at graphs of both groups' data: no strong skew and no outliers makes the t procedure reasonable.
+    topic_code: "4.9"
+  - front: Two-sample t statistic → formula
+    back: |
+      t = ((x̄₁ − x̄₂) − 0)/√(s₁²/n₁ + s₂²/n₂): the number of standard errors between the observed difference and the hypothesised 0.
+    topic_code: "4.10"
+  - front: df for a two-sample t-test → the two acceptable choices
+    back: |
+      The calculator's unpooled df (2-SampTTest, Pooled: No), or the conservative df = smaller n − 1. Name the one you use.
+    topic_code: "4.10"
+  - front: Conservative df in a two-sample t-test → effect on the p-value
+    back: |
+      Slightly larger p-value than with the calculator df, so the evidence never looks stronger than it is.
+    topic_code: "4.10"
+  - front: Silence vs music study (x̄ = 76.2, 71.4; s = 9.6, 10.8; n = 30 each) → t, df, p
+    back: |
+      t = 4.8/2.638 ≈ 1.82, calculator df ≈ 57.2, one-sided p ≈ 0.037 (conservative df = 29: p ≈ 0.040).
+    topic_code: "4.10"
+  - front: Pizza Shop A vs Shop B delivery times (n = 12, 14) → t and p for Hₐ μ_A − μ_B > 0
+    back: |
+      t = 6.18/1.621 ≈ 3.81, calculator df ≈ 20.2, p ≈ 0.0005: convincing evidence Shop B is faster on average.
+    topic_code: "4.10"
+  - front: Rural vs urban reading time (x̄ = 148, 126; s = 62, 71; n = 45, 50) → two-sided result
+    back: |
+      t ≈ 1.61, df ≈ 92.9, p ≈ 0.110 > 0.05: fail to reject; no convincing evidence the means differ.
+    topic_code: "4.10"
+  - front: Interpreting a p-value of 0.037 from a two-sample t-test → template
+    back: |
+      "Assuming there is no difference in true means (μ₁ − μ₂ = 0), there is a 0.037 probability of getting a difference in sample means of ___ or more [in the direction of Hₐ] by chance alone."
+    topic_code: "4.10"
+  - front: Conclusion of a two-sample t-test when p-value < α → template
+    back: |
+      "Because p-value = ___ < α = ___, we reject H₀. There is convincing evidence that the true mean ___ for ___ is [greater than / less than / different from] that for ___."
+    topic_code: "4.10"
+  - front: Conclusion of a two-sample t-test when p-value > α → template
+    back: |
+      "Because p-value = ___ > α = ___, we fail to reject H₀. There is not convincing evidence that the true mean ___ differs ..." Never "accept H₀".
+    topic_code: "4.10"
+  - front: One-sided p-value from software that reports a two-sided p-value → conversion
+    back: |
+      If the observed difference is in the direction of Hₐ, halve the two-sided p-value; if it is in the opposite direction, the one-sided p-value is 1 − (two-sided p)/2.
+    topic_code: "4.10"
+  - front: Type I error in a two-sample t-test (silence vs music) → in context
+    back: |
+      Concluding that silence raises the mean score when, in truth, study condition makes no difference to the mean.
+    topic_code: "4.10"
+  - front: Type II error in a two-sample t-test (silence vs music) → in context
+    back: |
+      Failing to find convincing evidence that silence raises the mean score when it really does.
+    topic_code: "4.10"
+  - front: Power of a two-sample t-test → four ways to increase it
+    back: |
+      Larger samples in both groups, a larger true difference, less variable responses, a larger α.
+    topic_code: "4.10"
+  - front: Two-sample t-test rejected H₀ → which error is possible
+    back: |
+      Only a Type I error (rejecting a true H₀). After failing to reject, only a Type II error is possible.
+    topic_code: "4.10"
+  - front: Two-sided two-sample t-test at α = 0.05 vs a 95% interval for μ₁ − μ₂ → agreement rule
+    back: |
+      Reject H₀: μ₁ − μ₂ = 0 exactly when 0 is outside the interval. Rural vs urban reading: p ≈ 0.110 and interval (−5.1, 49.1) contains 0.
+    topic_code: "4.10"
+  - front: Scope after a significant two-sample t-test on randomly assigned volunteers → what to claim
+    back: |
+      The treatment caused the difference in mean response, for subjects like the volunteers; no generalisation to a larger population.
+    topic_code: "4.10"
+  - front: Scope after a significant two-sample t-test on two random samples → what to claim
+    back: |
+      The population means differ (generalise to the populations sampled), but no cause-and-effect claim.
+    topic_code: "4.10"
+  - front: Eight students' quiz scores with basic and graphing calculators → paired vs two-sample result
+    back: |
+      Paired t on the differences (x̄_d = 2.875, s_d = 1.126): t ≈ 7.22, p ≈ 0.0002. Wrongly treated as two samples: t ≈ 0.74, p ≈ 0.47.
+    topic_code: "4.10"
+  - front: Unit 4 procedure choice → one-sample t vs paired t vs two-sample t
+    back: |
+      One group compared with a fixed value: one-sample t. Two linked measurements per subject or matched pairs: paired t on differences. Two independent groups: two-sample t for μ₁ − μ₂.
+    topic_code: "4.9"
+  - front: Equal sample sizes in a study comparing two means → does that make it paired?
+    back: |
+      No. Pairing comes from the design (same subjects or matched units), not from equal counts.
+    topic_code: "4.9"
+  - front: "Error-spot → \"H₀: x̄₁ = x̄₂\""
+    back: |
+      Hypotheses are about parameters: H₀: μ₁ − μ₂ = 0. The sample means are known; there is nothing to test about them.
+    topic_code: "4.9"
+  - front: Error-spot → "p = 0.21 > 0.05, so we accept that the two means are equal"
+    back: |
+      Say "we fail to reject H₀; there is not convincing evidence of a difference." A large p-value does not show the means are equal.
+    topic_code: "4.10"
+  - front: Error-spot → "p-value = 0.014, so there is a 1.4% chance the treatment has no effect"
+    back: |
+      The p-value assumes H₀ is true; it is the probability of data this extreme or more, not the probability of H₀.
+    topic_code: "4.10"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 4.9 and 4.10: setting up and carrying out
+    two-sample t-tests for μ₁ − μ₂, conditions, the test statistic and df, p-values, conclusions in context,
+    errors and power, and choosing between paired and two-sample procedures), with 8 questions (33%) reviewing
+    weeks 7, 18, 21, 25 and 27 (experimental design and scope, Type I and II errors, the two-proportion test,
+    paired designs, two-sample t-intervals). Opens with a shared-context set on a mindfulness experiment. Tests
+    use the calculator's unpooled df unless an item names the conservative df. Multiple choice, select-all,
+    true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the
+    short answers and the long answer are graded by your teacher against the scoring notes. Calculators are
+    allowed throughout.
+  questions:
+    # ---- Stimulus set: a mindfulness experiment (4.9, 4.10, 1.13)
+    - slug: apstats-u04-w28-q01
+      type: multiple_choice
+      topic_code: "4.9"
+      source: "AP Statistics CED, Topic 4.9"
+      points: 1
+      stimulus: |
+        Fifty-six student volunteers are randomly assigned, 28 to do a 10-minute mindfulness exercise (M) and 28 to have 10 minutes of free time (C), before each solves the same logic puzzle. The researchers want to know whether the exercise reduces the mean time to solve the puzzle. Dotplots of both groups' times show no strong skew and no outliers. Hypothetical results:
+
+        | Group | n | x̄ (seconds) | s (seconds) |
+        |---|---|---|---|
+        | Mindfulness (M) | 28 | 212.4 | 38.5 |
+        | Free time (C) | 28 | 236.5 | 41.2 |
+      prompt: |
+        Which hypotheses are appropriate, where μM and μC are the true mean solving times for students like these under each condition?
+      options:
+        - "H₀: μM − μC = 0; Hₐ: μM − μC > 0"
+        - "H₀: x̄M − x̄C = 0; Hₐ: x̄M − x̄C < 0"
+        - "H₀: μM − μC = 0; Hₐ: μM − μC < 0"
+        - "H₀: μM − μC = 0; Hₐ: μM − μC ≠ 0"
+      option_explanations:
+        - |
+          The question is whether the exercise reduces solving time, so μM should be smaller than μC: μM − μC < 0, not > 0.
+        - |
+          Hypotheses are about parameters (μ), not the sample means, which are already known.
+        - |
+          Correct. "Reduces the mean time" means μM < μC, so Hₐ: μM − μC < 0 against H₀: μM − μC = 0.
+        - |
+          The research question has a direction (reduces), so a one-sided alternative is appropriate.
+      answer: 2
+    - slug: apstats-u04-w28-q02
+      type: multiple_choice
+      topic_code: "4.9"
+      source: "AP Statistics CED, Topic 4.9"
+      points: 1
+      stimulus: |
+        Fifty-six student volunteers are randomly assigned, 28 to do a 10-minute mindfulness exercise (M) and 28 to have 10 minutes of free time (C), before each solves the same logic puzzle. The researchers want to know whether the exercise reduces the mean time to solve the puzzle. Dotplots of both groups' times show no strong skew and no outliers. Hypothetical results:
+
+        | Group | n | x̄ (seconds) | s (seconds) |
+        |---|---|---|---|
+        | Mindfulness (M) | 28 | 212.4 | 38.5 |
+        | Free time (C) | 28 | 236.5 | 41.2 |
+      prompt: |
+        Which statement correctly checks the conditions for a two-sample t-test?
+      options:
+        - "Random: the volunteers were randomly assigned to the two conditions. Normal: each group has fewer than 30 students, but the dotplots show no strong skew or outliers. No 10% check is needed."
+        - "Random: the volunteers are a random sample of all students. 10%: 56 is less than 10% of all students. Normal: 56 ≥ 30."
+        - "Normal: n₁ + n₂ = 56 ≥ 30, so the Central Limit Theorem applies; no other conditions are needed."
+        - "Random: random assignment was used. Normal: both groups have 28 students, which is close enough to 30."
+      option_explanations:
+        - |
+          Correct. Random assignment supplies the randomness; with 28 per group, Normal is justified by the dotplots of both groups; there was no sampling from a population, so no 10% check.
+        - |
+          The students are volunteers, not a random sample, and the large-sample check applies to each group, not to the total.
+        - |
+          The large-sample rule is checked for each group separately, and Random must also be checked.
+        - |
+          "Close to 30" is not a condition. With samples under 30, the graphs of the data must be checked.
+      answer: 0
+    - slug: apstats-u04-w28-q03
+      type: multiple_choice
+      topic_code: "4.10"
+      source: "AP Statistics CED, Topic 4.10"
+      points: 1
+      stimulus: |
+        Fifty-six student volunteers are randomly assigned, 28 to do a 10-minute mindfulness exercise (M) and 28 to have 10 minutes of free time (C), before each solves the same logic puzzle. The researchers want to know whether the exercise reduces the mean time to solve the puzzle. Dotplots of both groups' times show no strong skew and no outliers. Hypothetical results:
+
+        | Group | n | x̄ (seconds) | s (seconds) |
+        |---|---|---|---|
+        | Mindfulness (M) | 28 | 212.4 | 38.5 |
+        | Free time (C) | 28 | 236.5 | 41.2 |
+      prompt: |
+        What are the test statistic and the calculator's (unpooled) degrees of freedom?
+      options:
+        - "t ≈ −1.60, df ≈ 53.8"
+        - "t ≈ −0.21, df ≈ 53.8"
+        - "t ≈ −2.26, df = 56"
+        - "t ≈ −2.26, df ≈ 53.8"
+      option_explanations:
+        - |
+          This divides by 38.5/√28 + 41.2/√28 ≈ 15.06, adding the two standard errors instead of adding the variances under one square root.
+        - |
+          This divides by s₁²/n₁ + s₂²/n₂ without taking the square root.
+        - |
+          The statistic is right, but df is never the total sample size; the calculator's df here is about 53.8 (conservative df = 27).
+        - |
+          Correct. SE = √(38.5²/28 + 41.2²/28) ≈ 10.66 and t = (212.4 − 236.5)/10.66 ≈ −2.26, with calculator df ≈ 53.8.
+      answer: 3
+    - slug: apstats-u04-w28-q04
+      type: multiple_choice
+      topic_code: "4.10"
+      source: "AP Statistics CED, Topic 4.10"
+      points: 1
+      stimulus: |
+        Fifty-six student volunteers are randomly assigned, 28 to do a 10-minute mindfulness exercise (M) and 28 to have 10 minutes of free time (C), before each solves the same logic puzzle. The researchers want to know whether the exercise reduces the mean time to solve the puzzle. Dotplots of both groups' times show no strong skew and no outliers. Hypothetical results:
+
+        | Group | n | x̄ (seconds) | s (seconds) |
+        |---|---|---|---|
+        | Mindfulness (M) | 28 | 212.4 | 38.5 |
+        | Free time (C) | 28 | 236.5 | 41.2 |
+      prompt: |
+        Using the calculator's degrees of freedom, what is the p-value of the test?
+      options:
+        - "About 0.028"
+        - "About 0.014"
+        - "About 0.986"
+        - "About 0.012"
+      option_explanations:
+        - |
+          0.028 is the two-sided p-value. Hₐ: μM − μC < 0 is one-sided, so only the lower tail counts.
+        - |
+          Correct. P(t < −2.26) with df ≈ 53.8 is about 0.014 (with conservative df = 27 it is about 0.016).
+        - |
+          This is the upper-tail area, P(t > −2.26). The alternative points to the lower tail.
+        - |
+          0.012 comes from the standard normal distribution; with sample standard deviations, use a t distribution.
+      answer: 1
+    - slug: apstats-u04-w28-q05
+      type: multiple_choice
+      topic_code: "4.10"
+      source: "AP Statistics CED, Topic 4.10"
+      points: 1
+      stimulus: |
+        Fifty-six student volunteers are randomly assigned, 28 to do a 10-minute mindfulness exercise (M) and 28 to have 10 minutes of free time (C), before each solves the same logic puzzle. The researchers want to know whether the exercise reduces the mean time to solve the puzzle. Dotplots of both groups' times show no strong skew and no outliers. Hypothetical results:
+
+        | Group | n | x̄ (seconds) | s (seconds) |
+        |---|---|---|---|
+        | Mindfulness (M) | 28 | 212.4 | 38.5 |
+        | Free time (C) | 28 | 236.5 | 41.2 |
+      prompt: |
+        At α = 0.05, which conclusion is correct?
+      options:
+        - "Because the p-value is less than 0.05, we accept Hₐ and have proven that mindfulness reduces solving time."
+        - "Because the p-value is less than 0.05, we fail to reject H₀; there is not convincing evidence of a difference."
+        - "Because the p-value is less than 0.05, we reject H₀; there is convincing evidence that the mindfulness exercise reduces the mean solving time for students like these."
+        - "Because the p-value is less than 0.05, there is a 95% probability that mindfulness reduces solving time."
+      option_explanations:
+        - |
+          A test never proves a claim; the conclusion is stated as convincing evidence, not proof.
+        - |
+          A p-value below α leads to rejecting H₀, not failing to reject it.
+        - |
+          Correct. p ≈ 0.014 < 0.05, so reject H₀; the conclusion is about the true means, in context, with convincing-evidence language.
+        - |
+          A p-value does not give a probability that a hypothesis is true.
+      answer: 2
+    - slug: apstats-u04-w28-q06
+      type: multiple_choice
+      topic_code: "1.13"
+      source: "AP Statistics CED, Topic 1.13"
+      points: 1
+      stimulus: |
+        Fifty-six student volunteers are randomly assigned, 28 to do a 10-minute mindfulness exercise (M) and 28 to have 10 minutes of free time (C), before each solves the same logic puzzle. The researchers want to know whether the exercise reduces the mean time to solve the puzzle. Dotplots of both groups' times show no strong skew and no outliers. Hypothetical results:
+
+        | Group | n | x̄ (seconds) | s (seconds) |
+        |---|---|---|---|
+        | Mindfulness (M) | 28 | 212.4 | 38.5 |
+        | Free time (C) | 28 | 236.5 | 41.2 |
+      prompt: |
+        What is the appropriate scope of inference for this study?
+      options:
+        - "Cause and effect for students like these volunteers, but no generalisation to all students"
+        - "Generalisation to all students, but no cause and effect"
+        - "Both cause and effect and generalisation to all students"
+        - "Neither cause and effect nor generalisation, because the groups were small"
+      option_explanations:
+        - |
+          Correct. Random assignment of the exercise allows a causal conclusion; because the subjects were volunteers rather than a random sample, the result applies to students like them.
+        - |
+          This has it backwards: random assignment (present) supports causation, while random sampling (absent) would support generalisation.
+        - |
+          Generalising to all students requires a random sample of all students, which the study did not take.
+        - |
+          Small groups affect power and the Normal check, not the scope; random assignment still supports cause and effect.
+      answer: 0
+    # ---- Independent items
+    - slug: apstats-u04-w28-q07
+      type: multiple_choice
+      topic_code: "4.9"
+      source: "AP Statistics CED, Topic 4.9"
+      points: 1
+      prompt: |
+        A nutrition club asks: "Is the mean sugar content per serving different for store-brand and name-brand cereals?" They will take random samples of each type. Which pair of hypotheses fits the question, with μS and μN the true mean sugar contents?
+      options:
+        - "H₀: μS − μN = 0; Hₐ: μS − μN > 0"
+        - "H₀: μS − μN ≠ 0; Hₐ: μS − μN = 0"
+        - "H₀: μS − μN = 0; Hₐ: μS − μN < 0"
+        - "H₀: μS − μN = 0; Hₐ: μS − μN ≠ 0"
+      option_explanations:
+        - |
+          "Different" does not name a direction; a one-sided alternative would ignore half of the possible differences.
+        - |
+          The null hypothesis always contains the equality; these are reversed.
+        - |
+          A one-sided alternative in either direction does not match the word "different".
+        - |
+          Correct. "Different" calls for a two-sided alternative against H₀: μS − μN = 0.
+      answer: 3
+    - slug: apstats-u04-w28-q08
+      type: multiple_choice
+      topic_code: "4.10"
+      source: "AP Statistics CED, Topic 4.10"
+      points: 1
+      prompt: |
+        A student tests H₀: μ₁ − μ₂ = 0 against Hₐ: μ₁ − μ₂ > 0. Her samples give x̄₁ > x̄₂, but her software only reports a two-sided p-value of 0.084. What is the p-value for her one-sided test?
+      options:
+        - "0.084"
+        - "0.042"
+        - "0.168"
+        - "0.958"
+      option_explanations:
+        - |
+          0.084 counts both tails. A one-sided test in the direction of the data uses only one tail.
+        - |
+          Correct. The observed difference is in the direction of Hₐ, so the one-sided p-value is half the two-sided one: 0.084/2 = 0.042.
+        - |
+          Doubling goes the wrong way: the two-sided p-value is already twice the one-tail area.
+        - |
+          0.958 would be the one-sided p-value if the data pointed the opposite way from Hₐ (x̄₁ < x̄₂).
+      answer: 1
+    - slug: apstats-u04-w28-q09
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 1
+      prompt: |
+        A school tests whether a new lunch schedule (N) increases students' mean lunch-period activity compared with the old schedule (O), with H₀: μN − μO = 0 and Hₐ: μN − μO > 0. Which describes a Type I error in context?
+      options:
+        - "Concluding that the new schedule increases mean activity when, in fact, it does not"
+        - "Failing to conclude that the new schedule increases mean activity when, in fact, it does"
+        - "Concluding that the new schedule increases mean activity when, in fact, it does"
+        - "Getting a sample mean for the new schedule that is lower than for the old schedule"
+      option_explanations:
+        - |
+          Correct. A Type I error rejects a true H₀: finding convincing evidence of an increase that is not really there.
+        - |
+          This is a Type II error: failing to reject H₀ when Hₐ is true.
+        - |
+          This is a correct decision, not an error.
+        - |
+          A sample result is not a decision; errors describe conclusions about the population means.
+      answer: 0
+    - slug: apstats-u04-w28-q10
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 1
+      prompt: |
+        A researcher planning a two-sample t-test for a difference in mean reaction times wants more power to detect a 20-millisecond difference. Which change would increase power?
+      options:
+        - "Lower α from 0.05 to 0.01"
+        - "Use the conservative df instead of the calculator df"
+        - "Increase the sample size in both groups"
+        - "Switch from a one-sided to a two-sided alternative in the same direction as the expected difference"
+      option_explanations:
+        - |
+          A smaller α makes rejecting H₀ harder, which lowers power.
+        - |
+          The conservative df gives larger p-values, making rejection slightly harder and power slightly lower.
+        - |
+          Correct. Larger samples shrink the standard error, so a true 20 ms difference produces larger t statistics and is detected more often.
+        - |
+          A two-sided test splits α between two tails, so it has less power than a one-sided test in the correct direction.
+      answer: 2
+    - slug: apstats-u04-w28-q11
+      type: multiple_choice
+      topic_code: "4.4"
+      source: "AP Statistics CED, Topic 4.4"
+      points: 1
+      prompt: |
+        A track coach wants to know whether a new shoe lowers sprint times. Which design and test pair correctly?
+      options:
+        - "Twelve runners each sprint once in the old shoe and once in the new shoe, in random order; two-sample t-test"
+        - "Twenty-four runners are randomly split into two groups of 12, one per shoe; paired t-test"
+        - "Twenty-four runners are randomly split into two groups of 12, one per shoe; one-sample t-test on all 24 times"
+        - "Twelve runners each sprint once in each shoe, in random order; paired t-test on the 12 differences"
+      option_explanations:
+        - |
+          Each runner gives two linked times, so the data are paired; a two-sample test ignores the pairing.
+        - |
+          Different runners wear each shoe, so there are no natural pairs; this calls for a two-sample t-test.
+        - |
+          Pooling all 24 times into one sample would hide the comparison between the shoes.
+        - |
+          Correct. With each runner wearing both shoes, analyse the 12 within-runner differences with a paired t-test for the mean difference.
+      answer: 3
+    - slug: apstats-u04-w28-q12
+      type: multiple_choice
+      topic_code: "4.8"
+      source: "AP Statistics CED, Topic 4.8"
+      points: 1
+      prompt: |
+        From two independent random samples, a 95% two-sample t-interval for μ₁ − μ₂ is (−0.6, 4.2). What would a two-sided two-sample t-test of H₀: μ₁ − μ₂ = 0 at α = 0.05 conclude, using the same data and df?
+      options:
+        - "Reject H₀, because most of the interval is positive"
+        - "Fail to reject H₀, because 0 is inside the interval"
+        - "Reject H₀, because the interval does not contain 1"
+        - "The interval gives no information about the test."
+      option_explanations:
+        - |
+          The test decision depends on whether 0 is in the interval, not on how much of the interval is positive.
+        - |
+          Correct. A two-sided test at α = 0.05 rejects exactly when 0 is outside the 95% interval; 0 is inside, so the p-value is above 0.05.
+        - |
+          The null value is 0, not 1; and 1 is in fact inside the interval.
+        - |
+          A 95% interval and a two-sided α = 0.05 test with the same df always agree about the value 0.
+      answer: 1
+    - slug: apstats-u04-w28-q13
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "AP Statistics CED, Topic 4.7"
+      points: 1
+      prompt: |
+        Random samples of 40 students from School 1 (x̄ = 24.6 minutes, s = 5.2) and 45 from School 2 (x̄ = 21.3 minutes, s = 6.1) report their daily walking time to school. The calculator's df is about 82.9. Which is the 95% two-sample t-interval for μ₁ − μ₂?
+      options:
+        - "(0.86, 5.74)"
+        - "(0.90, 5.70)"
+        - "(−0.14, 6.74)"
+        - "(1.26, 5.34)"
+      option_explanations:
+        - |
+          Correct. 3.3 ± 1.989 × √(5.2²/40 + 6.1²/45) = 3.3 ± 1.989 × 1.226 = 3.3 ± 2.44.
+        - |
+          This uses z* = 1.96 instead of t* ≈ 1.989.
+        - |
+          This adds the two standard errors (0.822 + 0.909 ≈ 1.732) instead of adding the variances under one square root.
+        - |
+          This is the 90% interval (t* ≈ 1.663); a 95% interval is wider.
+      answer: 0
+    - slug: apstats-u04-w28-q14
+      type: multiple_choice
+      topic_code: "4.10"
+      source: "AP Statistics CED, Topic 4.10"
+      points: 1
+      prompt: |
+        Two students analyse the same data with a two-sample t-test. One uses the calculator's df (about 35.4); the other uses the conservative df = 17. How will their results compare?
+      options:
+        - "Same t statistic; the conservative df gives a smaller p-value."
+        - "Different t statistics, because the df changes the standard error."
+        - "Same t statistic; the conservative df gives a slightly larger p-value."
+        - "Identical p-values, because the df does not matter for a t-test."
+      option_explanations:
+        - |
+          Fewer degrees of freedom mean heavier tails, which make the p-value larger, not smaller.
+        - |
+          The standard error √(s₁²/n₁ + s₂²/n₂) does not depend on df, so the t statistic is the same.
+        - |
+          Correct. Both use the same SE and t; the conservative df has heavier tails, so its p-value is slightly larger.
+        - |
+          The df determines which t distribution gives the p-value, so the p-values differ.
+      answer: 2
+    - slug: apstats-u04-w28-q15
+      type: multi_select
+      topic_code: "4.9"
+      source: "AP Statistics CED, Topic 4.9"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A class randomly assigns 22 tomato seedlings, 11 to a new fertiliser and 11 to the standard one, and plans a two-sample t-test on fruit yield. A boxplot of the new-fertiliser yields is strongly right-skewed with a high outlier. Which statements are correct? Select all that apply.
+      options:
+        - "The Random condition is met by the random assignment."
+        - "The 10% condition must be checked against the population of all tomato plants."
+        - "The Normal condition is questionable for the new-fertiliser group, so the t procedure may not be reliable."
+        - "The hypotheses should be H₀: x̄new = x̄standard and Hₐ: x̄new > x̄standard."
+        - "If the test is significant and the conditions hold, the class can conclude the fertiliser caused the difference in mean yield."
+      option_explanations:
+        - |
+          Correct. Randomly assigning seedlings to fertilisers is the randomness the procedure needs.
+        - |
+          No sampling from a population took place, so the 10% condition does not apply to this experiment.
+        - |
+          Correct. With only 11 values, strong skew and an outlier make the Normal condition doubtful for that group.
+        - |
+          Hypotheses must be about parameters (true mean yields μ), not the sample means.
+        - |
+          Correct. Random assignment of treatments supports a cause-and-effect conclusion (for seedlings like these).
+      answer: [0, 2, 4]
+    - slug: apstats-u04-w28-q16
+      type: multi_select
+      topic_code: "4.10"
+      source: "AP Statistics CED, Topic 4.10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Using independent random samples of commuters, a two-sample t-test of H₀: μ₁ − μ₂ = 0 against Hₐ: μ₁ − μ₂ ≠ 0 gives p-value = 0.003. Which statements are correct? Select all that apply.
+      options:
+        - "There is a 0.003 probability that H₀ is true."
+        - "At α = 0.05, we reject H₀."
+        - "The study proves that the two population means differ."
+        - "A 95% two-sample t-interval for μ₁ − μ₂ from the same data would not contain 0."
+        - "At α = 0.01, we would also reject H₀."
+      option_explanations:
+        - |
+          The p-value is computed assuming H₀ is true; it is not the probability that H₀ is true.
+        - |
+          Correct. The p-value 0.003 is less than α = 0.05, so H₀ is rejected.
+        - |
+          Strong evidence is not proof; a Type I error is still possible.
+        - |
+          Correct. A two-sided test rejecting at α = 0.05 matches a 95% interval that excludes 0.
+        - |
+          Correct. The p-value 0.003 is also less than α = 0.01, so H₀ is rejected at that level too.
+      answer: [1, 3, 4]
+    - slug: apstats-u04-w28-q17
+      type: true_false
+      topic_code: "4.10"
+      source: "AP Statistics CED, Topic 4.10"
+      points: 1
+      prompt: |
+        True or false: In a two-sample t-test, failing to reject H₀ means the data show that the two population means are equal.
+      answer: false
+      explanation: |
+        False. Failing to reject H₀ means there is not convincing evidence of a difference. The means might differ by an amount too small for these sample sizes to detect (a Type II error is possible); the data cannot show exact equality.
+    - slug: apstats-u04-w28-q18
+      type: true_false
+      topic_code: "4.9"
+      source: "AP Statistics CED, Topic 4.9"
+      points: 1
+      prompt: |
+        True or false: H₀: x̄₁ − x̄₂ = 0 is a correctly written null hypothesis for a two-sample t-test.
+      answer: false
+      explanation: |
+        False. Hypotheses are statements about parameters: H₀: μ₁ − μ₂ = 0. The sample means x̄₁ and x̄₂ are computed from the data, so there is nothing uncertain about them to test.
+    - slug: apstats-u04-w28-q19
+      type: fill_blank
+      topic_code: "4.10"
+      source: "AP Statistics CED, Topic 4.10"
+      points: 1
+      prompt: |
+        A two-sample t-test gives a p-value of 0.08. At α = 0.05, we ____ to reject H₀. (One word.)
+      answer: ["fail"]
+      explanation: |
+        0.08 > 0.05, so we fail to reject H₀: there is not convincing evidence for Hₐ at the 5% level.
+    - slug: apstats-u04-w28-q20
+      type: fill_blank
+      topic_code: "3.13"
+      source: "AP Statistics CED, Topic 3.13"
+      points: 1
+      prompt: |
+        In a two-proportion z-test, 30 of 100 students in one sample and 45 of 150 in the other say yes. The combined (pooled) sample proportion used in the standard error is ____.
+      answer: ["0.3", "0.30", ".3", ".30", "3/10", "30%"]
+      explanation: |
+        p̂_c = (30 + 45)/(100 + 150) = 75/250 = 0.30. A two-proportion test uses the combined proportion because H₀ says p₁ = p₂.
+    - slug: apstats-u04-w28-q21
+      type: numeric
+      topic_code: "4.10"
+      source: "AP Statistics CED, Topic 4.10"
+      points: 1
+      prompt: |
+        Independent random samples give x̄₁ = 58.3, s₁ = 7.4, n₁ = 20 and x̄₂ = 53.9, s₂ = 8.8, n₂ = 24. Find the two-sample t statistic for H₀: μ₁ − μ₂ = 0, to two decimal places.
+      answer: { value: 1.80, tolerance: 0.01 }
+      explanation: |
+        SE = √(7.4²/20 + 8.8²/24) = √(2.738 + 3.227) = √5.965 ≈ 2.442. t = (58.3 − 53.9)/2.442 = 4.4/2.442 ≈ 1.80 (calculator df ≈ 42.0).
+    - slug: apstats-u04-w28-q22
+      type: short_answer
+      topic_code: "4.10"
+      source: "AP Statistics CED, Topic 4.10"
+      points: 3
+      prompt: |
+        A physical-education teacher takes random samples of 20 student-athletes and 25 non-athletes at a large high school and measures hand-grip strength (kg). She tests H₀: μA − μN = 0 against Hₐ: μA − μN > 0, where μA and μN are the true mean grip strengths of all athletes and all non-athletes at the school, at α = 0.01. The observed difference is x̄A − x̄N = 4.6 kg, and the 2-SampTTest output is t = 2.21, df = 37.6, p-value = 0.017.
+
+        (a) Interpret the p-value in context.
+        (b) State the conclusion of the test at α = 0.01.
+        (c) Which type of error could the teacher have made? Describe it in context.
+      answer: |
+        (a) Assuming there is no difference in true mean grip strength between athletes and non-athletes at the school (μA − μN = 0), there is a 0.017 probability of getting a difference in sample means of 4.6 kg or more (athletes higher) by chance alone.
+        (b) Because p-value = 0.017 > α = 0.01, we fail to reject H₀. There is not convincing evidence at the 1% level that the mean grip strength of all athletes at the school is greater than that of all non-athletes.
+        (c) A Type II error: athletes really do have a greater mean grip strength than non-athletes, but the test failed to find convincing evidence of it.
+      explanation: |
+        Three points, one per part. (a) assumes H₀ in context, gives 0.017, and describes "a difference of 4.6 kg or more" in the direction of Hₐ. (b) compares 0.017 with 0.01, fails to reject, and states the conclusion in context with "not convincing evidence" (no "accept H₀"). (c) Type II error, described in context (the true mean for athletes is greater but the test did not detect it).
+    - slug: apstats-u04-w28-q23
+      type: short_answer
+      topic_code: "4.8"
+      source: "AP Statistics CED, Topic 4.8"
+      points: 3
+      prompt: |
+        A clinic randomly assigns 80 patients, 40 to a new check-in system and 40 to the old one. A 95% confidence interval for μ_new − μ_old, the difference in mean waiting time (minutes), is (−8.2, −1.5).
+
+        (a) Interpret the interval in context.
+        (b) Does the interval give convincing evidence that the new system reduces mean waiting time? Explain.
+        (c) The software vendor claims the new system saves 10 minutes on average. Is that claim plausible? Explain.
+      answer: |
+        (a) We are 95% confident that the interval from −8.2 to −1.5 minutes captures the true difference (new minus old) in mean waiting time; that is, the new system's mean wait is between 1.5 and 8.2 minutes shorter, for patients like these.
+        (b) Yes. Every value in the interval is negative, so 0 is not plausible; because patients were randomly assigned, there is convincing evidence that the new system causes a shorter mean wait.
+        (c) No. Saving 10 minutes corresponds to μ_new − μ_old = −10, which lies outside (below) the interval, so it is not plausible at the 95% level.
+      explanation: |
+        Three points, one per part. (a) confidence level, parameter in context and the order of subtraction (or a correct translation into "shorter by 1.5 to 8.2 minutes"). (b) yes, because the interval lies entirely below 0, with random assignment supporting the causal wording. (c) not plausible because −10 is outside the interval; responses comparing +10 to the interval earn the point only if they explain the sign.
+    - slug: apstats-u04-w28-q24
+      type: long_answer
+      topic_code: "4.10"
+      source: "AP Statistics CED, Topic 4.10"
+      points: 8
+      prompt: |
+        A robotics club wants to know whether Brand X AA batteries run their toy robot longer than Brand Y batteries. They buy batteries from several stores and treat them as random samples of each brand's production (millions of batteries). Run times, in minutes:
+
+        | Brand | Run time (minutes) |
+        |---|---|
+        | X | 128, 141, 135, 122, 146, 138, 131, 143, 136 |
+        | Y | 124, 119, 133, 127, 115, 130, 121, 126, 118, 129 |
+
+        Summary statistics: Brand X x̄ = 135.56, s = 7.60, n = 9; Brand Y x̄ = 124.20, s = 5.83, n = 10. Dotplots of both samples are roughly symmetric with no outliers.
+
+        (A) Define the parameters and state the hypotheses.
+
+        (B) Name the procedure and check its conditions.
+
+        (C) Calculate the test statistic and the p-value. State which degrees of freedom you used.
+
+        (D) At α = 0.05, state your conclusion in context.
+
+        (E) Based on your conclusion, which type of error could the club have made? Describe it in context.
+      answer: |
+        (A) μX = the true mean run time of the robot on all Brand X batteries; μY = the true mean run time on all Brand Y batteries. H₀: μX − μY = 0; Hₐ: μX − μY > 0.
+        (B) Two-sample t-test for μX − μY. Random: treated as random samples of each brand, selected independently. 10%: 9 and 10 are far less than 10% of millions of batteries. Normal: both samples are small, but their dotplots are roughly symmetric with no outliers, so the t procedure is reasonable.
+        (C) SE = √(7.60²/9 + 5.83²/10) ≈ 3.133. t = (135.56 − 124.20)/3.133 ≈ 3.62. Calculator df ≈ 15.0, p-value ≈ 0.0013. (Conservative df = 8: p-value ≈ 0.0034.)
+        (D) Because p-value ≈ 0.0013 < α = 0.05, we reject H₀. There is convincing evidence that the true mean run time of the robot is longer with Brand X batteries than with Brand Y batteries.
+        (E) Because we rejected H₀, a Type I error is possible: concluding that Brand X runs the robot longer on average when, in fact, the two brands have the same mean run time.
+      explanation: |
+        Eight points.
+        (A) 2 points: 1 for both parameters defined in context (true mean run times of all batteries of each brand); 1 for H₀: μX − μY = 0 and the one-sided Hₐ: μX − μY > 0 (hypotheses in terms of x̄ earn 0).
+        (B) 2 points: 1 for naming the two-sample t-test (a paired test earns 0 for the whole part); 1 for Random and Normal both checked in context, with the Normal check based on the dotplots of both small samples (the 10% check is expected but its omission alone does not lose the point).
+        (C) 2 points: 1 for t ≈ 3.62 with the SE shown; 1 for the p-value ≈ 0.0013 with calculator df ≈ 15.0, or ≈ 0.0034 with conservative df = 8, and the df named.
+        (D) 1 point: compares the p-value with 0.05, rejects H₀, and concludes in context with "convincing evidence" about the true mean run times.
+        (E) 1 point: Type I error, described in context, consistent with the decision in (D).

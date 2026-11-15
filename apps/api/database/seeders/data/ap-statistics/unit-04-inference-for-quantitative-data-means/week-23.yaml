@@ -1,0 +1,611 @@
+week: 23
+unit: 4
+title: "Sampling Distributions for Sample Means"
+topics: ["4.1"]
+guide: guides/week-23.md
+guide_description: |
+  The sampling distribution of the sample mean x̄: its centre (the mean of the sampling distribution equals μ,
+  so x̄ is unbiased), its spread (SD(x̄) = σ/√n, valid when the sample is at most 10% of the population) and its
+  shape (normal when the population is normal; approximately normal for n ≥ 30 by the Central Limit Theorem);
+  the standard error s/√n when σ is unknown, and why standardising with s leads to the t distributions with
+  n − 1 degrees of freedom. Worked examples: trail-mix bag weights (one bag versus the mean of four), commute
+  times from a skewed population with n = 50, how SD(x̄) shrinks as n grows from 1 to 64, the 10% condition for
+  a sample of 60 from 400 club members, and comparing t* with z* for 4, 9 and 29 degrees of freedom.
+flashcards_description: |
+  30 cards on the centre, spread and shape of the sampling distribution of x̄, the Central Limit Theorem for
+  means, the 10% condition, standard error, probabilities about one value versus a sample mean, and the t
+  distributions and their degrees of freedom.
+
+flashcards:
+  - front: Sampling distribution of x̄ → what it describes
+    back: |
+      The distribution of the values of x̄ from all possible random samples of the same size n from the same population.
+    topic_code: "4.1"
+  - front: Sampling distribution of x̄ → its mean
+    back: |
+      The mean of the sampling distribution of x̄ equals μ, the population mean, for every sample size.
+    topic_code: "4.1"
+  - front: x̄ as an estimator of μ → biased or unbiased?
+    back: |
+      Unbiased: its sampling distribution is centred at μ. Individual samples miss, but not systematically high or low.
+    topic_code: "4.1"
+  - front: Sampling distribution of x̄ → its standard deviation
+    back: |
+      SD(x̄) = σ/√n, where σ is the population standard deviation and n the sample size.
+    topic_code: "4.1"
+  - front: SD(x̄) = σ/√n → condition it needs
+    back: |
+      Independent observations: when sampling without replacement, the 10% condition n ≤ 0.10 × (population size).
+    topic_code: "4.1"
+  - front: Quadrupling n for a sample mean → effect on SD(x̄)
+    back: |
+      SD(x̄) is cut in half, because √(4n) = 2√n. To halve the spread you need four times the data.
+    topic_code: "4.1"
+  - front: σ = 12 → SD(x̄) for n = 1, 4, 16, 64
+    back: |
+      12, 6, 3 and 1.5. Each fourfold increase in n halves the spread.
+    topic_code: "4.1"
+  - front: Shape of the sampling distribution of x̄ when the population is normal
+    back: |
+      Exactly normal, for any sample size, even n = 2.
+    topic_code: "4.1"
+  - front: Central Limit Theorem for sample means → statement
+    back: |
+      For random samples from any population with a finite σ, the sampling distribution of x̄ gets closer to normal as n grows; n ≥ 30 is the usual rule of thumb.
+    topic_code: "4.1"
+  - front: Skewed population, n = 8 → can you use a normal model for x̄?
+    back: |
+      No. The sample is too small for the Central Limit Theorem to fix strong skew, and the population is not normal.
+    topic_code: "4.1"
+  - front: Skewed population, n = 50 → shape of the sampling distribution of x̄
+    back: |
+      Approximately normal by the Central Limit Theorem (n = 50 ≥ 30), even though the population and each sample are skewed.
+    topic_code: "4.1"
+  - front: Three distributions in a sampling problem → names
+    back: |
+      The population distribution (all individuals), the distribution of one sample's data, and the sampling distribution of x̄ (all possible sample means).
+    topic_code: "4.1"
+  - front: Larger n → which of the three distributions becomes normal?
+    back: |
+      Only the sampling distribution of x̄. The sample data keep looking like the population, skew and all.
+    topic_code: "4.1"
+  - front: z-score for a sample mean → formula
+    back: |
+      z = (x̄ − μ)/(σ/√n). Divide by SD(x̄), not by σ.
+    topic_code: "4.1"
+  - front: Trail-mix bags, μ = 170 g, σ = 6 g, normal → P(one bag < 167 g)
+    back: |
+      z = (167 − 170)/6 = −0.5, so about 0.309.
+    topic_code: "4.1"
+  - front: Trail-mix bags, μ = 170 g, σ = 6 g, normal → P(mean of 4 bags < 167 g)
+    back: |
+      SD(x̄) = 6/√4 = 3, z = −1, so about 0.159. A mean is less variable than one bag.
+    topic_code: "4.1"
+  - front: Commute times, μ = 24 min, σ = 11 min, skewed → P(x̄ > 27) for n = 50
+    back: |
+      SD(x̄) = 11/√50 ≈ 1.556, z ≈ 1.93, probability ≈ 0.027 (normal by the CLT since n ≥ 30).
+    topic_code: "4.1"
+  - front: Skewed population → why P(one value > c) can't use the normal model
+    back: |
+      The population itself is not normal, and the Central Limit Theorem is about sample means, not single observations.
+    topic_code: "4.1"
+  - front: Standard error of x̄ → formula and when it is used
+    back: |
+      SE(x̄) = s/√n. Used when σ is unknown (almost always), with the sample standard deviation s in place of σ.
+    topic_code: "4.1"
+  - front: Standardising x̄ with s instead of σ → which distribution
+    back: |
+      t = (x̄ − μ)/(s/√n) follows a t distribution with n − 1 degrees of freedom (when the population is normal or n is large).
+    topic_code: "4.1"
+  - front: Degrees of freedom for a one-sample t statistic
+    back: |
+      df = n − 1, one less than the sample size.
+    topic_code: "4.1"
+  - front: t distribution versus the standard normal → shape comparison
+    back: |
+      Both are symmetric, single-peaked and centred at 0, but t has heavier tails (more spread) because s varies from sample to sample.
+    topic_code: "4.1"
+  - front: t distributions as df increases → what happens
+    back: |
+      The tails get lighter and the curve approaches the standard normal; with very large df, t* ≈ z*.
+    topic_code: "4.1"
+  - front: 95% critical values t* for df = 4, 9, 29 → compared with z*
+    back: |
+      2.776, 2.262 and 2.045, all larger than z* = 1.960, and closer to it as df grows.
+    topic_code: "4.1"
+  - front: Sample of 60 from a club of 400 → is SD(x̄) = σ/√n accurate?
+    back: |
+      No: 60 is 15% of 400, more than 10%, so the formula overstates the spread somewhat. Use a smaller sample or note the issue.
+    topic_code: "4.1"
+  - front: Sampling distribution of x̄ versus of p̂ → the spread formulas side by side
+    back: |
+      SD(x̄) = σ/√n for a quantitative variable; SD(p̂) = √(p(1 − p)/n) for a categorical one. Both shrink like 1/√n.
+    topic_code: "4.1"
+  - front: Simulated sample means centred at 52 when μ = 52 → what it shows
+    back: |
+      The centre of the simulated sampling distribution matches μ, the sign of an unbiased estimator.
+    topic_code: "4.1"
+  - front: Error-spot → "with n = 100 the sample data will be approximately normal"
+    back: |
+      The Central Limit Theorem is about the distribution of x̄, not of the data. A skewed population gives skewed samples at any size.
+    topic_code: "4.1"
+  - front: Error-spot → "z = (x̄ − μ)/σ for the mean of 25 students"
+    back: |
+      A mean has spread σ/√n. Dividing by σ treats the mean like a single student and makes the z-score far too small.
+    topic_code: "4.1"
+  - front: Error-spot → "SD(x̄) = σ/n"
+    back: |
+      The square root is missing: SD(x̄) = σ/√n. Dividing by n shrinks the spread far too much.
+    topic_code: "4.1"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topic 4.1: the centre, spread and shape of the sampling
+    distribution of x̄, the Central Limit Theorem for means, the 10% condition, standard error and the t
+    distributions), with 8 questions (33%) reviewing earlier weeks (estimators, the normal and binomial
+    distributions, the sampling distribution of p̂, the z-interval and z-test for a proportion, p-values and
+    errors in tests). Opens with a shared-context set on students' daily screen time. Multiple choice,
+    select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes.
+    Calculator allowed throughout.
+  questions:
+    # ---- Stimulus set: screen time (4.1)
+    - slug: apstats-u04-w23-q01
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      stimulus: |
+        At a large high school of 1,800 students, the daily screen time (in hours) of all students has mean μ = 4.2 hours and standard deviation σ = 1.5 hours. The distribution is skewed to the right: most students are between 3 and 5 hours, a few report 9 or more. A statistics class will take a simple random sample of 40 students from the school and compute x̄, the mean daily screen time of the sample.
+      prompt: |
+        What are the mean and standard deviation of the sampling distribution of x̄?
+      options:
+        - "Mean 4.2 hours, standard deviation 1.5 hours"
+        - "Mean 4.2 hours, standard deviation 0.0375 hours"
+        - "Mean 4.2 hours, standard deviation about 0.237 hours"
+        - "Mean 4.2 hours, standard deviation about 0.056 hours"
+      option_explanations:
+        - |
+          1.5 hours is σ, the spread of individual students. A mean of 40 students varies much less: divide by √40.
+        - |
+          0.0375 = 1.5/40 divides σ by n instead of √n, which shrinks the spread far too much.
+        - |
+          Correct. The mean of the sampling distribution is μ = 4.2, and SD(x̄) = σ/√n = 1.5/√40 ≈ 0.237 hours (the 10% condition holds: 40 ≤ 180).
+        - |
+          0.056 = 1.5²/40 is the variance of x̄, not its standard deviation; take the square root.
+      answer: 2
+    - slug: apstats-u04-w23-q02
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      stimulus: |
+        At a large high school of 1,800 students, the daily screen time (in hours) of all students has mean μ = 4.2 hours and standard deviation σ = 1.5 hours. The distribution is skewed to the right: most students are between 3 and 5 hours, a few report 9 or more. A statistics class will take a simple random sample of 40 students from the school and compute x̄, the mean daily screen time of the sample.
+      prompt: |
+        Which best describes the shape of the sampling distribution of x̄ for samples of 40 students?
+      options:
+        - "Approximately normal, by the Central Limit Theorem, because n = 40 ≥ 30"
+        - "Skewed to the right, like the population of screen times"
+        - "Exactly normal, because the sample is random"
+        - "Impossible to describe, because the population is not normal"
+      option_explanations:
+        - |
+          Correct. The population is skewed, but with a random sample of n = 40 ≥ 30 the Central Limit Theorem makes the sampling distribution of x̄ approximately normal.
+        - |
+          The population and each sample of 40 are skewed, but the means of many samples pile up in a nearly normal shape. This confuses the data with the sampling distribution.
+        - |
+          Randomness makes the sampling distribution predictable, not exactly normal. It would be exactly normal only if the population were normal.
+        - |
+          A non-normal population does not stop us: the Central Limit Theorem describes x̄ for large n whatever the population's shape.
+      answer: 0
+    - slug: apstats-u04-w23-q03
+      type: numeric
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      stimulus: |
+        At a large high school of 1,800 students, the daily screen time (in hours) of all students has mean μ = 4.2 hours and standard deviation σ = 1.5 hours. The distribution is skewed to the right: most students are between 3 and 5 hours, a few report 9 or more. A statistics class will take a simple random sample of 40 students from the school and compute x̄, the mean daily screen time of the sample.
+      prompt: |
+        Find the probability that the sample mean x̄ is greater than 4.6 hours. Give your answer to three decimal places.
+      answer: { value: 0.046, tolerance: 0.0015 }
+      explanation: |
+        SD(x̄) = 1.5/√40 ≈ 0.2372. z = (4.6 − 4.2)/0.2372 ≈ 1.69. Using the approximately normal sampling distribution (Central Limit Theorem, n = 40 ≥ 30), P(x̄ > 4.6) ≈ 0.046 (a table with z = 1.69 gives 0.0455).
+    - slug: apstats-u04-w23-q04
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      stimulus: |
+        At a large high school of 1,800 students, the daily screen time (in hours) of all students has mean μ = 4.2 hours and standard deviation σ = 1.5 hours. The distribution is skewed to the right: most students are between 3 and 5 hours, a few report 9 or more. A statistics class will take a simple random sample of 40 students from the school and compute x̄, the mean daily screen time of the sample.
+      prompt: |
+        Why does the class need to check that 40 is no more than 10% of the 1,800 students?
+      options:
+        - "To make sure the sampling distribution of x̄ is approximately normal"
+        - "To make sure the sample mean is an unbiased estimate of μ"
+        - "To make sure the sample is random"
+        - "So that the observations are close enough to independent for SD(x̄) = σ/√n to be accurate"
+      option_explanations:
+        - |
+          Normality comes from the sample size (Central Limit Theorem) or a normal population, not from the 10% condition.
+        - |
+          x̄ is unbiased for any random sample, whatever fraction of the population it includes.
+        - |
+          Randomness comes from how the sample is chosen (a simple random sample here); the 10% check cannot create or confirm it.
+        - |
+          Correct. Sampling without replacement makes the draws slightly dependent; when n ≤ 10% of the population (40 ≤ 180), the dependence is negligible and σ/√n is accurate.
+      answer: 3
+    # ---- Independent items
+    - slug: apstats-u04-w23-q05
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        A researcher plans to estimate the mean resting heart rate of adults in a large city. She first plans a random sample of 50 adults, then decides to use 200 instead. How does SD(x̄) for the larger sample compare with SD(x̄) for the smaller one?
+      options:
+        - "It is one quarter as large."
+        - "It is half as large."
+        - "It is the same, because σ does not change."
+        - "It is twice as large, because more people bring more variation."
+      option_explanations:
+        - |
+          One quarter would need SD(x̄) to shrink like 1/n. It shrinks like 1/√n, and √4 = 2.
+        - |
+          Correct. The sample size is multiplied by 4, so SD(x̄) = σ/√n is divided by √4 = 2.
+        - |
+          σ, the spread of individuals, stays the same, but SD(x̄) = σ/√n depends on n too.
+        - |
+          More data make the mean more stable, not less: SD(x̄) decreases as n increases.
+      answer: 1
+    - slug: apstats-u04-w23-q06
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        A machine fills bags of trail mix. Bag weights are approximately normal with mean 170 grams and standard deviation 6 grams. A quality inspector selects 4 bags at random from a day's production of several thousand. What is the probability that the mean weight of the 4 bags is less than 167 grams?
+      options:
+        - "About 0.309"
+        - "About 0.023"
+        - "About 0.841"
+        - "About 0.159"
+      option_explanations:
+        - |
+          0.309 comes from z = (167 − 170)/6 = −0.5, the probability for one bag. A mean of 4 bags has SD 6/√4 = 3.
+        - |
+          0.023 comes from dividing σ by n (6/4 = 1.5, z = −2) instead of by √n.
+        - |
+          0.841 is the probability of a mean above 167 grams: the correct z but the wrong tail.
+        - |
+          Correct. The population is normal, so x̄ is normal for any n, with mean 170 and SD 6/√4 = 3. z = (167 − 170)/3 = −1, and P(z < −1) ≈ 0.159.
+      answer: 3
+    - slug: apstats-u04-w23-q07
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Statistics CED, Topic 3.1"
+      points: 1
+      prompt: |
+        A class simulates 1,000 random samples of size 10 from a population of plant heights with mean 52 cm. The 1,000 sample means have mean 52.1 cm, and the 1,000 sample medians have mean 51.9 cm, with the medians more spread out than the means. Which conclusion is best supported?
+      options:
+        - "Both statistics appear unbiased, and the sample mean is the better estimator because it has less variability."
+        - "The sample median is the better estimator because its values are closer to 52 on average."
+        - "The sample mean is biased because its simulated mean is not exactly 52."
+        - "Neither statistic can estimate the population mean from samples as small as 10."
+      option_explanations:
+        - |
+          Correct. Both simulated centres are within chance variation of 52, so neither shows bias, and the estimator with the smaller spread (the mean here) usually lands closer to μ.
+        - |
+          Both centres are 0.1 from 52, so neither is closer on average; the median's larger spread makes it the worse choice.
+        - |
+          Simulated centres always differ slightly from the parameter by chance; 52.1 versus 52 is no evidence of bias.
+        - |
+          Small samples give more variable estimates, but both statistics still estimate the centre; the simulation shows how well.
+      answer: 0
+    - slug: apstats-u04-w23-q08
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        A sample of 12 delivery times has sample standard deviation s. The statistic t = (x̄ − μ)/(s/√12) is computed. Compared with the standard normal distribution, the distribution of this statistic (for a normal population) is
+      options:
+        - "the same, because the population is normal"
+        - "less spread out, because s is usually smaller than σ"
+        - "more spread out, with heavier tails, and it has 11 degrees of freedom"
+        - "skewed to the right, with 12 degrees of freedom"
+      option_explanations:
+        - |
+          The population being normal makes (x̄ − μ)/(σ/√n) standard normal. Replacing σ by the random s adds variability, giving a t distribution.
+        - |
+          Because s changes from sample to sample, the statistic varies more than z, not less.
+        - |
+          Correct. Estimating σ with s adds variability, so the statistic follows a t distribution with heavier tails than the standard normal, with df = n − 1 = 11.
+        - |
+          t distributions are symmetric about 0, and df = n − 1 = 11, not n.
+      answer: 2
+    - slug: apstats-u04-w23-q09
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        A random sample of 25 bus trips on one route has mean travel time 41 minutes and standard deviation s = 8 minutes. What is the standard error of x̄?
+      options:
+        - "8 minutes"
+        - "1.6 minutes"
+        - "0.32 minutes"
+        - "About 1.63 minutes"
+      option_explanations:
+        - |
+          8 minutes is s, the spread of individual trips; the mean of 25 trips varies less.
+        - |
+          Correct. SE(x̄) = s/√n = 8/√25 = 8/5 = 1.6 minutes.
+        - |
+          0.32 = 8/25 divides s by n instead of by √n, which shrinks the standard error too much.
+        - |
+          1.63 = 8/√24 divides by √(n − 1). The n − 1 belongs in the degrees of freedom, not in the standard error.
+      answer: 1
+    - slug: apstats-u04-w23-q10
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        Household incomes in a county are strongly skewed to the right. A reporter takes a random sample of 8 households and wants to use a normal model to find the probability that their mean income exceeds a certain amount. Which statement is correct?
+      options:
+        - "The normal model is fine, because the sample is random."
+        - "The normal model is fine, because x̄ always has a normal sampling distribution."
+        - "The normal model is fine if she divides σ by √8."
+        - "The normal model is not appropriate: the population is strongly skewed and n = 8 is too small for the Central Limit Theorem."
+      option_explanations:
+        - |
+          Randomness is needed, but it does not make the sampling distribution normal; shape depends on the population and n.
+        - |
+          x̄ is exactly normal only for a normal population, and approximately normal only for large n.
+        - |
+          σ/√8 correctly gives the spread, but the shape is still skewed for so small a sample.
+        - |
+          Correct. With a strongly skewed population, a sample of 8 leaves the sampling distribution of x̄ noticeably skewed, so normal probabilities would be unreliable.
+      answer: 3
+    - slug: apstats-u04-w23-q11
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      prompt: |
+        In a large school district, 30% of students walk or bike to school. For random samples of 100 students, what is the standard deviation of the sampling distribution of the sample proportion who walk or bike?
+      options:
+        - "About 0.046"
+        - "About 0.0021"
+        - "About 0.458"
+        - "About 0.21"
+      option_explanations:
+        - |
+          Correct. SD(p̂) = √(p(1 − p)/n) = √(0.3 · 0.7/100) = √0.0021 ≈ 0.046.
+        - |
+          0.0021 is p(1 − p)/n, the variance; take the square root.
+        - |
+          0.458 = √(0.21) forgets to divide by n before taking the root.
+        - |
+          0.21 is p(1 − p), the variance of a single 0/1 outcome, not the SD of p̂.
+      answer: 0
+    - slug: apstats-u04-w23-q12
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Statistics CED, Topic 3.3"
+      points: 1
+      prompt: |
+        In a random sample of 150 students at a large university, 62 said they had skipped breakfast that morning. Which is the 95% confidence interval for the proportion of all students at the university who skipped breakfast that morning?
+      options:
+        - "0.413 ± 0.003"
+        - "0.413 ± 0.066"
+        - "0.413 ± 0.079"
+        - "0.413 ± 0.040"
+      option_explanations:
+        - |
+          0.003 comes from 1.96 · p̂(1 − p̂)/n with no square root.
+        - |
+          0.066 uses z* = 1.645, the critical value for 90% confidence, not 95%.
+        - |
+          Correct. One-sample z-interval for p: p̂ = 62/150 ≈ 0.413, SE = √(0.413 · 0.587/150) ≈ 0.0402, and 1.96 · 0.0402 ≈ 0.079.
+        - |
+          0.040 is the standard error alone; the margin of error multiplies it by z* = 1.96.
+      answer: 2
+    - slug: apstats-u04-w23-q13
+      type: multiple_choice
+      topic_code: "3.8"
+      source: "AP Statistics CED, Topic 3.8"
+      points: 1
+      prompt: |
+        A cafeteria manager will add a new salad only if there is convincing evidence that more than 20% of students would buy it. She tests H₀: p = 0.20 against Hₐ: p > 0.20, where p is the proportion of all students at the school who would buy the salad. Which describes a Type II error?
+      options:
+        - "Concluding that more than 20% would buy the salad when in fact only 20% would"
+        - "Failing to find convincing evidence that more than 20% would buy the salad when in fact more than 20% would"
+        - "Finding that exactly 20% of the sample would buy the salad"
+        - "Rejecting H₀ when the p-value is greater than α"
+      option_explanations:
+        - |
+          Rejecting a true H₀ is a Type I error, not a Type II error.
+        - |
+          Correct. A Type II error is failing to reject H₀ when Hₐ is true: the manager does not add a salad that more than 20% of students would buy.
+        - |
+          This describes a sample result, not a wrong decision about the population proportion p.
+        - |
+          This is a misuse of the decision rule, not a Type II error; a Type II error happens when the procedure is followed correctly but H₀ is false.
+      answer: 1
+    - slug: apstats-u04-w23-q14
+      type: multi_select
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Random samples of size n are taken from a population with mean μ and standard deviation σ, and x̄ is computed for each. Which statements are true? Select all that apply.
+      options:
+        - "The mean of the sampling distribution of x̄ equals μ, whatever the sample size."
+        - "SD(x̄) = σ/√n when each sample is no more than 10% of the population."
+        - "As n increases, the sampling distribution of x̄ gets closer to normal, even for a skewed population."
+        - "As n increases, the distribution of the data in each sample gets closer to normal."
+        - "For small n, SD(x̄) is larger than σ."
+      option_explanations:
+        - |
+          Correct. x̄ is an unbiased estimator of μ for every sample size.
+        - |
+          Correct. The 10% condition makes the observations nearly independent, so the formula σ/√n is accurate.
+        - |
+          Correct. This is the Central Limit Theorem.
+        - |
+          The sample data reflect the population's shape; a skewed population gives skewed samples however large they are.
+        - |
+          SD(x̄) = σ/√n equals σ when n = 1 and is smaller for every n > 1; it is never larger than σ.
+      answer: [0, 1, 2]
+    - slug: apstats-u04-w23-q15
+      type: multi_select
+      topic_code: "3.6"
+      source: "AP Statistics CED, Topic 3.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A student council tests H₀: p = 0.40 against Hₐ: p > 0.40, where p is the proportion of all students at the school who want a later start time. In a random sample of 200 students, p̂ = 0.46, and the p-value is 0.042. Which statements are correct? Select all that apply.
+      options:
+        - "Assuming p = 0.40, there is about a 0.042 probability of getting a sample proportion of 0.46 or more by chance alone."
+        - "There is a 0.042 probability that H₀ is true."
+        - "At α = 0.05, the council should reject H₀."
+        - "At α = 0.01, there is convincing evidence that more than 40% of students want a later start."
+        - "There is a 0.958 probability that more than 40% of students want a later start."
+      option_explanations:
+        - |
+          Correct. This is the p-value interpretation: a probability computed assuming H₀ is true, for results at least as extreme as the one observed.
+        - |
+          A p-value is computed assuming H₀ is true; it is not the probability that H₀ is true.
+        - |
+          Correct. 0.042 < 0.05, so we reject H₀: there is convincing evidence that p > 0.40.
+        - |
+          0.042 > 0.01, so at α = 0.01 we fail to reject H₀; the evidence is not convincing at that level.
+        - |
+          1 − p-value is not the probability that Hₐ is true; parameters are fixed and the p-value is not a probability about them.
+      answer: [0, 2]
+    - slug: apstats-u04-w23-q16
+      type: true_false
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        True or false: Song lengths on a streaming service are skewed to the right. If a random sample of 200 songs is selected, a histogram of the 200 song lengths will be approximately normal because of the Central Limit Theorem.
+      answer: false
+      explanation: |
+        False. The Central Limit Theorem describes the sampling distribution of x̄ (the means of many samples), not the data in one sample. A large random sample from a right-skewed population will itself look right-skewed.
+    - slug: apstats-u04-w23-q17
+      type: true_false
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        True or false: When sampling without replacement, the formula SD(x̄) = σ/√n is appropriate only if the sample size is no more than 10% of the population size.
+      answer: true
+      explanation: |
+        True. Without replacement, the observations are not quite independent. When n ≤ 10% of the population, the dependence is small enough that σ/√n is accurate; for larger fractions the formula overstates the spread.
+    - slug: apstats-u04-w23-q18
+      type: fill_blank
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        Scores on a district reading test have standard deviation σ = 12 points. For random samples of 64 students, the standard deviation of the sampling distribution of x̄ is ____ points.
+      answer: ["1.5", "1.50", "3/2"]
+      explanation: |
+        SD(x̄) = σ/√n = 12/√64 = 12/8 = 1.5 points.
+    - slug: apstats-u04-w23-q19
+      type: fill_blank
+      topic_code: "2.11"
+      source: "AP Statistics CED, Topic 2.11"
+      points: 1
+      prompt: |
+        Times to run one lap of a school track are approximately normal with mean 70 seconds and standard deviation 8 seconds. A lap time of 58 seconds has a z-score of ____.
+      answer: ["-1.5", "−1.5", "-1.50", "−1.50", "-3/2", "−3/2"]
+      explanation: |
+        z = (58 − 70)/8 = −12/8 = −1.5: the time is 1.5 standard deviations below the mean.
+    - slug: apstats-u04-w23-q20
+      type: numeric
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        In a city, commute times to work are skewed to the right with mean 24 minutes and standard deviation 11 minutes. A transit planner surveys a random sample of 50 commuters. Find the probability that the sample mean commute time is greater than 27 minutes. Give your answer to three decimal places.
+      answer: { value: 0.027, tolerance: 0.0015 }
+      explanation: |
+        n = 50 ≥ 30, so by the Central Limit Theorem x̄ is approximately normal with mean 24 and SD 11/√50 ≈ 1.556 minutes. z = (27 − 24)/1.556 ≈ 1.93, and P(z > 1.93) ≈ 0.027 (table 0.0268).
+    - slug: apstats-u04-w23-q21
+      type: numeric
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      prompt: |
+        A basketball player makes 30% of her three-point attempts, and attempts are independent. In a game she takes 10 three-point shots. Find the probability that she makes at most 2 of them. Give your answer to three decimal places.
+      answer: { value: 0.383, tolerance: 0.001 }
+      explanation: |
+        X = number made is binomial with n = 10 and p = 0.30. P(X ≤ 2) = P(0) + P(1) + P(2) = 0.0282 + 0.1211 + 0.2335 ≈ 0.383 (binomcdf(10, 0.3, 2)).
+    - slug: apstats-u04-w23-q22
+      type: short_answer
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 3
+      prompt: |
+        Return to the commuters in the city where commute times are skewed to the right with mean 24 minutes and standard deviation 11 minutes.
+
+        (a) Can you use a normal model to find the probability that one randomly selected commuter's time is more than 30 minutes? Explain.
+        (b) Can you use a normal model to find the probability that the mean of a random sample of 60 commuters is more than 30 minutes? Explain.
+        (c) Without calculating, which of the two probabilities (if both were known) would be smaller? Explain.
+      answer: |
+        (a) No. A single commute time comes from the population distribution, which is skewed to the right, so normal probabilities would be wrong.
+        (b) Yes. With a random sample of n = 60 ≥ 30, the Central Limit Theorem says the sampling distribution of x̄ is approximately normal, with mean 24 and SD 11/√60 ≈ 1.42 minutes (assuming 60 is less than 10% of all commuters).
+        (c) The probability for the sample mean. Means vary much less than individual times (SD 1.42 versus 11), so a mean as high as 30, about 4.2 standard deviations above 24, is far less likely than one commute that long.
+      explanation: |
+        Three points, one per part. (a) "no" with the reason that the population (and so a single value) is skewed, not normal. (b) "yes" citing the Central Limit Theorem with n = 60 ≥ 30 (the SD 11/√60 is a bonus, not required). (c) the sample mean's probability is smaller, because SD(x̄) = σ/√n is much smaller than σ. A response that says the CLT makes individual times normal earns no credit in (a).
+    - slug: apstats-u04-w23-q23
+      type: short_answer
+      topic_code: "3.7"
+      source: "AP Statistics CED, Topic 3.7"
+      points: 3
+      prompt: |
+        A town claims that 65% of its households recycle. A student group suspects the true proportion is lower. They test H₀: p = 0.65 against Hₐ: p < 0.65, where p is the proportion of all households in the town that recycle. In a random sample of 300 households, 180 recycle (p̂ = 0.60). The test statistic is z ≈ −1.82, and the p-value is about 0.035.
+
+        (a) Interpret the p-value in context.
+        (b) State the conclusion of the test at α = 0.05 in context.
+        (c) Would the conclusion change at α = 0.01? Explain.
+      answer: |
+        (a) Assuming that 65% of all households in the town recycle, there is about a 0.035 probability of getting a sample proportion of 0.60 or lower in a random sample of 300 households by chance alone.
+        (b) Because p-value = 0.035 < α = 0.05, we reject H₀. There is convincing evidence that the proportion of all households in the town that recycle is less than 0.65.
+        (c) Yes. Because 0.035 > 0.01, at α = 0.01 we would fail to reject H₀; there would not be convincing evidence that fewer than 65% recycle.
+      explanation: |
+        Three points, one per part. (a) a conditional probability that assumes H₀ (p = 0.65), names the observed result "0.60 or lower" and says "by chance" in context. (b) compares 0.035 with 0.05, says "reject H₀" and gives a conclusion about all households with "convincing evidence" language. (c) "yes" with the comparison 0.035 > 0.01 and "fail to reject". Saying "accept H₀" in (c), or that 0.035 is the probability H₀ is true in (a), loses that point.
+    - slug: apstats-u04-w23-q24
+      type: long_answer
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 6
+      prompt: |
+        A pizza shop's delivery times are approximately normal with mean μ = 32 minutes and standard deviation σ = 7 minutes. The shop makes thousands of deliveries a month.
+
+        (A) Find the probability that one randomly selected delivery takes more than 35 minutes.
+
+        (B) A manager selects a random sample of 9 deliveries from last month. Describe the shape, centre and spread of the sampling distribution of x̄, the mean delivery time of the 9, and justify the shape.
+
+        (C) Find the probability that the mean delivery time of the 9 is more than 35 minutes.
+
+        (D) Explain why the probability in (C) is smaller than the probability in (A).
+
+        (E) Suppose instead that delivery times were strongly skewed to the right, with the same μ and σ. Which, if any, of the calculations in (A) and (C) would still be valid? What sample size would let the manager use a normal model for x̄?
+      answer: |
+        (A) z = (35 − 32)/7 ≈ 0.43; P(X > 35) ≈ 0.334.
+        (B) Normal, because the population of delivery times is normal (so x̄ is normal for any n). Mean = μ = 32 minutes. SD(x̄) = 7/√9 = 7/3 ≈ 2.33 minutes (valid because 9 is far less than 10% of thousands of deliveries).
+        (C) z = (35 − 32)/2.333 ≈ 1.29; P(x̄ > 35) ≈ 0.099.
+        (D) A mean of 9 deliveries varies less than a single delivery (SD 2.33 versus 7 minutes), because unusually long and short times tend to balance out. So 35 minutes is farther above the centre in SD units for the mean (z ≈ 1.29) than for one delivery (z ≈ 0.43).
+        (E) Neither. A single time would come from a skewed population, and a mean of only 9 from a strongly skewed population is not approximately normal. A sample of at least about 30 deliveries (n ≥ 30) would let the Central Limit Theorem justify a normal model for x̄; individual times would still not be normal.
+      explanation: |
+        Six points.
+        (A) 1 point: z ≈ 0.43 (or calculator work with mean 32 and SD 7) and probability ≈ 0.334 (0.33 to 0.335 accepted).
+        (B) 2 points: 1 for mean 32 and SD 7/√9 ≈ 2.33; 1 for "normal" justified by the normal population (not by the CLT, since n = 9). Citing the CLT for the shape loses this point.
+        (C) 1 point: z ≈ 1.29 using SD 2.33 and probability ≈ 0.099 (0.098 to 0.100 accepted). Using σ = 7 earns nothing here.
+        (D) 1 point: the mean has a smaller standard deviation than individual values, so 35 is more standard deviations above 32.
+        (E) 1 point: neither calculation is valid, and n ≥ 30 (or "a large sample") lets the CLT apply to x̄. Both parts are needed.
