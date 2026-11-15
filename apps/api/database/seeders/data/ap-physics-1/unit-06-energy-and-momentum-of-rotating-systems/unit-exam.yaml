@@ -1,0 +1,949 @@
+unit: 6
+description: |
+  45 questions · about 90 minutes · every topic of Unit 6 (6.1 to 6.6): rotational kinetic energy, work done by
+  torques, angular momentum and angular impulse, conservation of angular momentum, rolling without slipping, and
+  satellites in circular and elliptical orbits. Includes three shared-context sets (a four-question set on a
+  block falling from a massive pulley, a four-question set on a student walking inward on a merry-go-round and a
+  three-question set on a probe in an elliptical orbit), select-all, true/false, fill-in-the-blank and numeric
+  items, two short-answer questions (3 points each) and two free-response questions in the 2027 AP style: a
+  12-point translation between representations question on a ball rolling down a ramp (an 8-point long answer,
+  parts A–C, followed by its 4-point part D) and a 10-point experimental design and analysis question on
+  measuring a wheel's rotational inertia. Use g = 9.8 m/s² and G = 6.67 × 10⁻¹¹ N·m²/kg². Calculators and the
+  equation sheet are allowed throughout. Multiple choice, select-all, true/false and numeric items are graded at
+  once; fill-in-the-blank items are matched automatically; the short answers and free-response questions are
+  graded by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set 1: block falling from a massive pulley (6.1, 6.2)
+  - slug: apphys1-u06-exam-q01
+    type: multiple_choice
+    topic_code: "6.1"
+    source: "AP Physics 1 CED, Topic 6.1"
+    points: 1
+    stimulus: |
+      A lab group mounts a pulley that is a uniform solid disk of mass 1.6 kg and radius 0.080 m on a fixed, frictionless horizontal axle. A light string wound around the pulley supports a 0.40 kg block. The block is released from rest and falls 1.0 m while the string unwinds without slipping. The system is the block, the pulley and Earth.
+    prompt: |
+      What is the block's speed after it has fallen 1.0 m?
+    options:
+      - "4.4 m/s"
+      - "1.8 m/s"
+      - "2.6 m/s"
+      - "2.0 m/s"
+    option_explanations:
+      - |
+        4.4 m/s is the free-fall speed √(2gh); it leaves out the kinetic energy the spinning pulley takes.
+      - |
+        1.8 m/s comes from mgh = (m + M/2)v², dropping the ½ from the kinetic energy terms.
+      - |
+        Correct. mgh = ½mv² + ½(½MR²)(v/R)² = ½(m + M/2)v², so v = √(2(0.40)(9.8)(1.0)/(0.40 + 0.80)) ≈ 2.6 m/s.
+      - |
+        2.0 m/s uses I = MR², a hoop's inertia, giving m + M in the denominator; a solid disk has I = ½MR².
+    answer: 2
+  - slug: apphys1-u06-exam-q02
+    type: multiple_choice
+    topic_code: "6.1"
+    source: "AP Physics 1 CED, Topic 6.1"
+    points: 1
+    stimulus: |
+      A lab group mounts a pulley that is a uniform solid disk of mass 1.6 kg and radius 0.080 m on a fixed, frictionless horizontal axle. A light string wound around the pulley supports a 0.40 kg block. The block is released from rest and falls 1.0 m while the string unwinds without slipping. The system is the block, the pulley and Earth.
+    prompt: |
+      After the 1.0 m fall, what fraction of the system's kinetic energy is the pulley's rotational kinetic energy?
+    options:
+      - "2/3"
+      - "1/3"
+      - "1/2"
+      - "0, because the pulley's centre does not move"
+    option_explanations:
+      - |
+        Correct. K_pulley = ½(½MR²)(v/R)² = ¼Mv² = ½(0.80)v² and K_block = ½(0.40)v², so the pulley's share is 0.80/(0.40 + 0.80) = 2/3 (2.6 J of 3.9 J).
+      - |
+        1/3 is the block's share; the pulley, with an effective mass M/2 = 0.80 kg, takes the larger part.
+      - |
+        Equal shares would need the pulley's effective mass M/2 to equal the block's mass; here 0.80 kg is twice 0.40 kg.
+      - |
+        The pulley's centre is still, but every other part of it moves, so it has rotational kinetic energy ½Iω².
+    answer: 0
+  - slug: apphys1-u06-exam-q03
+    type: multiple_choice
+    topic_code: "6.2"
+    source: "AP Physics 1 CED, Topic 6.2"
+    points: 1
+    stimulus: |
+      A lab group mounts a pulley that is a uniform solid disk of mass 1.6 kg and radius 0.080 m on a fixed, frictionless horizontal axle. A light string wound around the pulley supports a 0.40 kg block. The block is released from rest and falls 1.0 m while the string unwinds without slipping. The system is the block, the pulley and Earth.
+    prompt: |
+      Now consider the pulley alone. How much work does the string's tension do on the pulley during the 1.0 m fall?
+    options:
+      - "3.9 J"
+      - "1.3 J"
+      - "Zero, because the tension acts at the rim, not through an angle"
+      - "2.6 J"
+    option_explanations:
+      - |
+        3.9 J is the whole loss of gravitational potential energy, mgh; part of it goes to the block's kinetic energy, not the pulley's.
+      - |
+        1.3 J is the block's kinetic energy, ½(0.40)(2.56)²; the pulley's share is twice that.
+      - |
+        The tension exerts a torque TR about the axle while the pulley turns through Δθ = h/R, so it does work τΔθ = Th.
+      - |
+        Correct. By the work–energy theorem for the pulley, the tension's work equals the pulley's gain in kinetic energy: ¼Mv² = ¼(1.6)(2.56)² ≈ 2.6 J. (Equivalently the tension is m(g − a) = 2.6 N acting through 1.0 m of string.)
+    answer: 3
+  - slug: apphys1-u06-exam-q04
+    type: multiple_choice
+    topic_code: "6.1"
+    source: "AP Physics 1 CED, Topic 6.1"
+    points: 1
+    stimulus: |
+      A lab group mounts a pulley that is a uniform solid disk of mass 1.6 kg and radius 0.080 m on a fixed, frictionless horizontal axle. A light string wound around the pulley supports a 0.40 kg block. The block is released from rest and falls 1.0 m while the string unwinds without slipping. The system is the block, the pulley and Earth.
+    prompt: |
+      The group replaces the pulley with a uniform solid disk of the same mass, 1.6 kg, but twice the radius. How does the block's speed after a 1.0 m fall compare with before?
+    options:
+      - "It is smaller, because the larger pulley has four times the rotational inertia."
+      - "It is the same, because the pulley's kinetic energy at a given block speed is still ¼Mv²."
+      - "It is larger, because a larger pulley gives a larger torque."
+      - "It is one quarter as large, because I depends on R²."
+    option_explanations:
+      - |
+        I does become four times as large, but ω = v/R is half as large at each block speed, so ½Iω² at a given v is unchanged.
+      - |
+        Correct. ½(½MR²)(v/R)² = ¼Mv² does not depend on R, so the energy equation, and the speed, are unchanged.
+      - |
+        The torque TR does double, but the larger pulley turns through half the angle, so the work and energy shares do not change.
+      - |
+        Even if I alone mattered, speed would change by a square root, not a factor of 4; and here R cancels completely.
+    answer: 1
+  # ---- Stimulus set 2: student walking inward on a merry-go-round (6.3, 6.4)
+  - slug: apphys1-u06-exam-q05
+    type: multiple_choice
+    topic_code: "6.3"
+    source: "AP Physics 1 CED, Topic 6.3"
+    points: 1
+    stimulus: |
+      A playground merry-go-round is a uniform disk of mass 180 kg and radius 1.5 m (I = ½MR²) that turns on a frictionless vertical axle. A 40 kg student stands at its rim, and the merry-go-round and student turn together at 0.80 rad/s. The student then walks along a radius to a point 0.50 m from the axle. Treat the student as a point mass.
+    prompt: |
+      What is the angular momentum of the merry-go-round–student system about the axle while the student is at the rim?
+    options:
+      - "162 kg·m²/s"
+      - "72 kg·m²/s"
+      - "234 kg·m²/s"
+      - "396 kg·m²/s"
+    option_explanations:
+      - |
+        162 kg·m²/s is the merry-go-round's angular momentum alone; the student at the rim adds (40)(1.5)²(0.80) = 72 kg·m²/s.
+      - |
+        72 kg·m²/s is the student's angular momentum alone; the disk contributes (202.5)(0.80) = 162 kg·m²/s.
+      - |
+        Correct. I = ½(180)(1.5)² + (40)(1.5)² = 202.5 + 90 = 292.5 kg·m², and L = Iω = (292.5)(0.80) = 234 kg·m²/s.
+      - |
+        396 kg·m²/s uses MR² for the disk instead of ½MR².
+    answer: 2
+  - slug: apphys1-u06-exam-q06
+    type: multiple_choice
+    topic_code: "6.4"
+    source: "AP Physics 1 CED, Topic 6.4"
+    points: 1
+    stimulus: |
+      A playground merry-go-round is a uniform disk of mass 180 kg and radius 1.5 m (I = ½MR²) that turns on a frictionless vertical axle. A 40 kg student stands at its rim, and the merry-go-round and student turn together at 0.80 rad/s. The student then walks along a radius to a point 0.50 m from the axle. Treat the student as a point mass.
+    prompt: |
+      What is the angular speed when the student reaches the point 0.50 m from the axle?
+    options:
+      - "0.80 rad/s"
+      - "0.58 rad/s"
+      - "0.94 rad/s"
+      - "1.1 rad/s"
+    option_explanations:
+      - |
+        The angular speed changes: the system's rotational inertia decreases while its angular momentum stays fixed.
+      - |
+        0.58 rad/s multiplies by I_f/I_i instead of I_i/I_f; a smaller inertia must give a larger angular speed.
+      - |
+        0.94 rad/s comes from conserving kinetic energy; the student's legs do work, so kinetic energy is not conserved.
+      - |
+        Correct. I_f = 202.5 + (40)(0.50)² = 212.5 kg·m², and L is conserved: ω_f = 234 ÷ 212.5 ≈ 1.1 rad/s.
+    answer: 3
+  - slug: apphys1-u06-exam-q07
+    type: multiple_choice
+    topic_code: "6.4"
+    source: "AP Physics 1 CED, Topic 6.4"
+    points: 1
+    stimulus: |
+      A playground merry-go-round is a uniform disk of mass 180 kg and radius 1.5 m (I = ½MR²) that turns on a frictionless vertical axle. A 40 kg student stands at its rim, and the merry-go-round and student turn together at 0.80 rad/s. The student then walks along a radius to a point 0.50 m from the axle. Treat the student as a point mass.
+    prompt: |
+      How does the system's rotational kinetic energy change as the student walks inward, and why?
+    options:
+      - "It increases, from about 94 J to about 129 J, because the student does positive work on the merry-go-round while walking inward."
+      - "It stays the same, because no external torque acts on the system."
+      - "It decreases, because the student's mass moves closer to the axle, where it moves more slowly."
+      - "It increases, because the axle exerts a torque that speeds the system up."
+    option_explanations:
+      - |
+        Correct. K_i = ½(292.5)(0.80)² ≈ 94 J and K_f = ½(212.5)(1.10)² ≈ 129 J. With L fixed, K = L²/(2I) rises as I falls; the energy comes from the work the student's muscles do (internal energy of the student).
+      - |
+        Zero external torque conserves angular momentum, not kinetic energy; the student's internal forces can do work.
+      - |
+        The student does move to a smaller radius, but the whole system spins faster, and K = L²/(2I) increases as I decreases.
+      - |
+        The axle's force acts at the axis and exerts no torque about it; the change comes from the student's work, not an external torque.
+    answer: 0
+  - slug: apphys1-u06-exam-q08
+    type: multiple_choice
+    topic_code: "6.3"
+    source: "AP Physics 1 CED, Topic 6.3"
+    points: 1
+    stimulus: |
+      A playground merry-go-round is a uniform disk of mass 180 kg and radius 1.5 m (I = ½MR²) that turns on a frictionless vertical axle. A 40 kg student stands at its rim, and the merry-go-round and student turn together at 0.80 rad/s. The student then walks along a radius to a point 0.50 m from the axle. Treat the student as a point mass.
+    prompt: |
+      Before the walk, a parent started the merry-go-round (with the student already standing at the rim) from rest by pushing tangentially on the rim for 3.0 s. What average tangential force did the parent exert to reach 0.80 rad/s?
+    options:
+      - "36 N"
+      - "52 N"
+      - "78 N"
+      - "117 N"
+    option_explanations:
+      - |
+        36 N counts only the merry-go-round's angular momentum (162 kg·m²/s); the student at the rim had to be spun up too.
+      - |
+        Correct. The angular impulse equals ΔL: F R Δt = 234 kg·m²/s, so F = 234 ÷ (1.5 m × 3.0 s) = 52 N.
+      - |
+        78 N divides ΔL by the time only; the angular impulse is a torque times time, so the radius 1.5 m must divide too.
+      - |
+        117 N multiplies by the radius instead of dividing; torque is F × R, so F = ΔL/(RΔt).
+    answer: 1
+  # ---- Stimulus set 3: a probe in an elliptical orbit (6.6)
+  - slug: apphys1-u06-exam-q09
+    type: multiple_choice
+    topic_code: "6.6"
+    source: "AP Physics 1 CED, Topic 6.6"
+    points: 1
+    stimulus: |
+      A probe orbits a planet of mass 6.4 × 10²³ kg in an elliptical orbit. At its nearest point the probe is 4.0 × 10⁶ m from the planet's centre and moves at 4.0 × 10³ m/s; at its farthest point it is 1.2 × 10⁷ m from the planet's centre. The planet has no atmosphere, and the planet's motion can be ignored.
+    prompt: |
+      How fast is the probe moving at its farthest point?
+    options:
+      - "1.2 × 10⁴ m/s"
+      - "4.0 × 10³ m/s"
+      - "4.4 × 10² m/s"
+      - "1.3 × 10³ m/s"
+    option_explanations:
+      - |
+        1.2 × 10⁴ m/s uses the distance ratio the wrong way; the probe must be slower where it is farther away.
+      - |
+        The speed is not constant in an elliptical orbit: gravity does negative work as the probe moves outward.
+      - |
+        4.4 × 10² m/s divides by the square of the distance ratio (9); angular momentum makes v inversely proportional to r.
+      - |
+        Correct. Gravity exerts no torque about the planet's centre, so mvr is the same at both points (v ⊥ r there): v = (4.0 × 10³)(4.0 × 10⁶)/(1.2 × 10⁷) ≈ 1.3 × 10³ m/s.
+    answer: 3
+  - slug: apphys1-u06-exam-q10
+    type: multiple_choice
+    topic_code: "6.6"
+    source: "AP Physics 1 CED, Topic 6.6"
+    points: 1
+    stimulus: |
+      A probe orbits a planet of mass 6.4 × 10²³ kg in an elliptical orbit. At its nearest point the probe is 4.0 × 10⁶ m from the planet's centre and moves at 4.0 × 10³ m/s; at its farthest point it is 1.2 × 10⁷ m from the planet's centre. The planet has no atmosphere, and the planet's motion can be ignored.
+    prompt: |
+      As the probe moves from its nearest point to its farthest point, which statement about the probe–planet system is correct?
+    options:
+      - "Gravity does positive work on the probe, so the system's mechanical energy increases."
+      - "The probe's angular momentum about the planet decreases because its speed decreases."
+      - "Gravity does negative work on the probe, kinetic energy becomes gravitational potential energy, and the total mechanical energy is unchanged."
+      - "The gravitational potential energy decreases, because the force of gravity gets weaker."
+    option_explanations:
+      - |
+        As the probe moves away, its velocity has a component opposite to gravity, so gravity does negative work; and gravity is internal to the system, so mechanical energy is conserved.
+      - |
+        Speed decreases but r increases in proportion, so mvr stays the same; gravity exerts no torque about the planet's centre.
+      - |
+        Correct. The probe slows (its kinetic energy decreases) as U_g = −GMm/r rises toward zero; with no external work and no friction, K + U_g stays constant.
+      - |
+        U_g = −GMm/r becomes less negative as r grows, so it increases; a weaker force does not mean lower potential energy.
+    answer: 2
+  - slug: apphys1-u06-exam-q11
+    type: multiple_choice
+    topic_code: "6.6"
+    source: "AP Physics 1 CED, Topic 6.6"
+    points: 1
+    stimulus: |
+      A probe orbits a planet of mass 6.4 × 10²³ kg in an elliptical orbit. At its nearest point the probe is 4.0 × 10⁶ m from the planet's centre and moves at 4.0 × 10³ m/s; at its farthest point it is 1.2 × 10⁷ m from the planet's centre. The planet has no atmosphere, and the planet's motion can be ignored.
+    prompt: |
+      At its farthest point, the probe fires its engine to enter a circular orbit of radius 1.2 × 10⁷ m. What is the period of the circular orbit?
+    options:
+      - "4.0 × 10⁴ s"
+      - "7.7 × 10³ s"
+      - "5.7 × 10⁴ s"
+      - "2.3 × 10⁴ s"
+    option_explanations:
+      - |
+        Correct. T = 2π√(r³/GM) = 2π√((1.2 × 10⁷)³/((6.67 × 10⁻¹¹)(6.4 × 10²³))) ≈ 4.0 × 10⁴ s (about 11 h); equivalently v = √(GM/r) ≈ 1.9 × 10³ m/s and T = 2πr/v.
+      - |
+        7.7 × 10³ s uses r = 4.0 × 10⁶ m, the nearest-point distance; the new circular orbit has r = 1.2 × 10⁷ m.
+      - |
+        5.7 × 10⁴ s divides the circumference by the probe's elliptical-orbit speed at the farthest point (1.3 × 10³ m/s); a circular orbit at that radius needs the faster speed √(GM/r) ≈ 1.9 × 10³ m/s.
+      - |
+        2.3 × 10⁴ s triples the period of a circle at the nearest distance because the radius triples; T ∝ r^(3/2), so the factor is 3^(3/2) ≈ 5.2, not 3.
+    answer: 0
+  # ---- Independent items
+  - slug: apphys1-u06-exam-q12
+    type: multiple_choice
+    topic_code: "6.1"
+    source: "AP Physics 1 CED, Topic 6.1"
+    points: 1
+    prompt: |
+      A toy spinner is two 0.50 kg weights fixed at the ends of a light rod, each 0.30 m from the central axle. It spins at 8.0 rad/s. What is its rotational kinetic energy?
+    options:
+      - "1.4 J"
+      - "2.9 J"
+      - "5.8 J"
+      - "0.72 J"
+    option_explanations:
+      - |
+        1.4 J counts only one weight; I = Σmr² includes both.
+      - |
+        Correct. I = 2(0.50)(0.30)² = 0.090 kg·m², and K = ½Iω² = ½(0.090)(8.0)² = 2.88 J ≈ 2.9 J.
+      - |
+        5.8 J is Iω², the kinetic energy without the ½.
+      - |
+        0.72 J uses half the distance (0.15 m) for each weight; each is 0.30 m from the axle.
+    answer: 1
+  - slug: apphys1-u06-exam-q13
+    type: multiple_choice
+    topic_code: "6.1"
+    source: "AP Physics 1 CED, Topic 6.1"
+    points: 1
+    prompt: |
+      A uniform solid sphere and a uniform solid disk have the same mass and radius and spin at the same angular speed, each about an axis through its centre (the disk about its symmetry axis). What is K_sphere/K_disk?
+    options:
+      - "0.8"
+      - "1.25"
+      - "1"
+      - "0.4"
+    option_explanations:
+      - |
+        Correct. K ∝ I at the same ω: (2/5)MR² ÷ (1/2)MR² = 0.4/0.5 = 0.8. The sphere has more of its mass near the axis.
+      - |
+        1.25 is the inverse ratio, K_disk/K_sphere.
+      - |
+        Equal mass, radius and ω do not give equal kinetic energy; the shapes have different rotational inertias.
+      - |
+        0.4 is the sphere's shape factor alone; it must be compared with the disk's ½.
+    answer: 0
+  - slug: apphys1-u06-exam-q14
+    type: multiple_choice
+    topic_code: "6.1"
+    source: "AP Physics 1 CED, Topic 6.1"
+    points: 1
+    prompt: |
+      A spinning top slows until its angular speed is half of what it was. Its rotational inertia does not change. What fraction of its original rotational kinetic energy remains?
+    options:
+      - "1/2"
+      - "1/√2"
+      - "3/4"
+      - "1/4"
+    option_explanations:
+      - |
+        1/2 treats K as proportional to ω; K = ½Iω² is proportional to ω².
+      - |
+        1/√2 inverts the square relationship; it is ω that would fall by √2 if K halved.
+      - |
+        3/4 is the fraction of the energy that was lost, not the fraction that remains.
+      - |
+        Correct. K ∝ ω², so halving ω leaves (½)² = 1/4 of the kinetic energy.
+    answer: 3
+  - slug: apphys1-u06-exam-q15
+    type: multiple_choice
+    topic_code: "6.2"
+    source: "AP Physics 1 CED, Topic 6.2"
+    points: 1
+    prompt: |
+      A drill motor speeds a grinding disk (I = 0.30 kg·m²) from 10 rad/s to 20 rad/s. Friction is negligible. How much work does the motor do on the disk?
+    options:
+      - "15 J"
+      - "60 J"
+      - "45 J"
+      - "3.0 J"
+    option_explanations:
+      - |
+        15 J is the kinetic energy at 10 rad/s; the work is the change in kinetic energy between the two speeds.
+      - |
+        60 J is the kinetic energy at 20 rad/s; the disk already had 15 J.
+      - |
+        Correct. W = ΔK = ½(0.30)(20² − 10²) = ½(0.30)(300) = 45 J.
+      - |
+        3.0 is IΔω, a change in angular momentum in kg·m²/s, not a work.
+    answer: 2
+  - slug: apphys1-u06-exam-q16
+    type: multiple_choice
+    topic_code: "6.2"
+    source: "AP Physics 1 CED, Topic 6.2"
+    points: 1
+    prompt: |
+      A wheel with rotational inertia 2.0 kg·m² starts from rest on a frictionless axle. A constant 12 N·m torque acts on it while it turns through 5.0 revolutions. What is its final angular speed?
+    options:
+      - "7.7 rad/s"
+      - "19 rad/s"
+      - "14 rad/s"
+      - "380 rad/s"
+    option_explanations:
+      - |
+        7.7 rad/s uses 5.0 as the angle in W = τΔθ; the angle must be in radians, 5.0 rev = 10π rad.
+      - |
+        Correct. W = τΔθ = (12)(10π) = 377 J = ½(2.0)ω², so ω = √377 ≈ 19 rad/s.
+      - |
+        14 rad/s sets the work equal to Iω², dropping the ½ from the kinetic energy.
+      - |
+        380 is ω² in rad²/s² (377); the angular speed is its square root.
+    answer: 1
+  - slug: apphys1-u06-exam-q17
+    type: multiple_choice
+    topic_code: "6.2"
+    source: "AP Physics 1 CED, Topic 6.2"
+    points: 1
+    prompt: |
+      Two students push tangentially with equal forces on a merry-go-round while it turns through the same angle. One pushes at the rim; the other pushes at half the radius. How does the work done by the rim pusher compare with the work done by the other student?
+    options:
+      - "Equal, because the forces are equal"
+      - "Half as much, because the rim moves faster"
+      - "Four times as much, because work depends on the radius squared"
+      - "Twice as much, because the torque is twice as large while the angle is the same"
+    option_explanations:
+      - |
+        Equal forces do not mean equal work: the rim pusher's hands move through twice the arc length for the same angle.
+      - |
+        Moving faster through a longer arc means more work, not less; W = τΔθ with twice the torque.
+      - |
+        Work is torque times angle, and the torque is proportional to the radius, not its square.
+      - |
+        Correct. τ = rF doubles at the rim, Δθ is the same, so W = τΔθ doubles (equivalently, the rim moves through twice the arc length).
+    answer: 3
+  - slug: apphys1-u06-exam-q18
+    type: multiple_choice
+    topic_code: "6.3"
+    source: "AP Physics 1 CED, Topic 6.3"
+    points: 1
+    prompt: |
+      A 0.25 kg ball on a string moves in a horizontal circle of radius 0.60 m at a constant 4.0 m/s. What is the magnitude of its angular momentum about the centre of the circle?
+    options:
+      - "0.60 kg·m²/s"
+      - "2.4 kg·m²/s"
+      - "1.0 kg·m²/s"
+      - "0.36 kg·m²/s"
+    option_explanations:
+      - |
+        Correct. v is perpendicular to r, so L = mvr = (0.25)(4.0)(0.60) = 0.60 kg·m²/s.
+      - |
+        2.4 multiplies mv² by r, which mixes kinetic energy into the formula; L = mvr.
+      - |
+        1.0 kg·m/s is the linear momentum mv; angular momentum also multiplies by the radius.
+      - |
+        0.36 multiplies mv by r², as if L were I times v; L = Iω = (mr²)(v/r) = mvr.
+    answer: 0
+  - slug: apphys1-u06-exam-q19
+    type: multiple_choice
+    topic_code: "6.3"
+    source: "AP Physics 1 CED, Topic 6.3"
+    points: 1
+    prompt: |
+      Two disks turn on the same frictionless axle without touching. Disk A (I = 0.20 kg·m²) turns counterclockwise at 6.0 rad/s, and disk B (I = 0.30 kg·m²) turns clockwise at 3.0 rad/s. Taking counterclockwise as positive, what is the total angular momentum of the two disks?
+    options:
+      - "2.1 kg·m²/s"
+      - "0"
+      - "0.30 kg·m²/s"
+      - "−0.30 kg·m²/s"
+    option_explanations:
+      - |
+        2.1 adds the magnitudes (1.2 + 0.90); the disks turn in opposite senses, so their angular momenta have opposite signs.
+      - |
+        The magnitudes 1.2 and 0.90 kg·m²/s are not equal, so the total is not zero.
+      - |
+        Correct. L = (0.20)(+6.0) + (0.30)(−3.0) = 1.2 − 0.90 = +0.30 kg·m²/s, counterclockwise.
+      - |
+        The sign is reversed: disk A's counterclockwise 1.2 kg·m²/s is larger than disk B's clockwise 0.90 kg·m²/s.
+    answer: 2
+  - slug: apphys1-u06-exam-q20
+    type: multiple_choice
+    topic_code: "6.3"
+    source: "AP Physics 1 CED, Topic 6.3"
+    points: 1
+    prompt: |
+      A torque sensor on a lab wheel records a net torque of +2.0 N·m for 3.0 s, followed by a net torque of −1.0 N·m for 2.0 s. What is the wheel's total change in angular momentum over the 5.0 s?
+    options:
+      - "8.0 kg·m²/s"
+      - "4.0 kg·m²/s"
+      - "6.0 kg·m²/s"
+      - "1.0 kg·m²/s"
+    option_explanations:
+      - |
+        8.0 adds the two areas as if both were positive; the area below the time axis subtracts.
+      - |
+        Correct. The angular impulse is the signed area under the τ–t graph: (2.0)(3.0) + (−1.0)(2.0) = 6.0 − 2.0 = 4.0 kg·m²/s.
+      - |
+        6.0 is only the first interval's angular impulse; the negative torque then removes 2.0 kg·m²/s.
+      - |
+        1.0 adds the two torques and ignores how long each acts; angular impulse is torque times time.
+    answer: 1
+  - slug: apphys1-u06-exam-q21
+    type: multiple_choice
+    topic_code: "6.4"
+    source: "AP Physics 1 CED, Topic 6.4"
+    points: 1
+    prompt: |
+      A figure skater spins on frictionless ice with her arms pulled in, then stretches her arms out. What happens to her angular speed and her rotational kinetic energy?
+    options:
+      - "Both stay the same, because no external torque acts."
+      - "Her angular speed decreases and her kinetic energy stays the same."
+      - "Her angular speed increases and her kinetic energy decreases."
+      - "Both decrease: L is constant while I increases, so ω falls, and K = L²/(2I) falls too."
+    option_explanations:
+      - |
+        No external torque keeps her angular momentum constant; her angular speed and kinetic energy can still change when she changes I.
+      - |
+        Her angular speed does fall, but kinetic energy is not conserved: with L fixed, K = L²/(2I) decreases as I increases.
+      - |
+        Stretching out increases I, so with L constant ω must decrease, not increase.
+      - |
+        Correct. Stretching out raises I, so ω = L/I drops; K = L²/(2I) also drops, because her muscles do negative work as they let her hands move outward, and that energy becomes internal energy.
+    answer: 3
+  - slug: apphys1-u06-exam-q22
+    type: multiple_choice
+    topic_code: "6.4"
+    source: "AP Physics 1 CED, Topic 6.4"
+    points: 1
+    prompt: |
+      A uniform rod of mass 0.40 kg and length 0.80 m hangs at rest from a frictionless pivot at its top end; its rotational inertia about that end is (1/3)ML². A 0.050 kg lump of clay moving horizontally at 6.0 m/s, perpendicular to the rod, strikes the bottom end and sticks. What is the angular speed of the rod and clay just after the collision?
+    options:
+      - "2.0 rad/s"
+      - "0.83 rad/s"
+      - "2.8 rad/s"
+      - "4.5 rad/s"
+    option_explanations:
+      - |
+        Correct. L about the pivot is conserved: (0.050)(6.0)(0.80) = 0.24 kg·m²/s. I_f = (1/3)(0.40)(0.80)² + (0.050)(0.80)² = 0.0853 + 0.032 = 0.117 kg·m², so ω = 0.24 ÷ 0.117 ≈ 2.0 rad/s.
+      - |
+        0.83 rad/s conserves linear momentum, treating rod and clay as moving together at 0.67 m/s; the pivot exerts an external force during the impact, so only angular momentum about the pivot is conserved.
+      - |
+        2.8 rad/s leaves the clay's own rotational inertia, mL² = 0.032 kg·m², out of the final inertia.
+      - |
+        4.5 rad/s uses the rod's inertia about its centre, (1/12)ML², but the rod turns about its end.
+    answer: 0
+  - slug: apphys1-u06-exam-q23
+    type: multiple_choice
+    topic_code: "6.4"
+    source: "AP Physics 1 CED, Topic 6.4"
+    points: 1
+    prompt: |
+      A lump of clay moving horizontally strikes and sticks to the bottom end of a uniform rod that hangs at rest from a frictionless pivot at its top end. Why is the linear momentum of the clay–rod system not conserved during the collision, even though its angular momentum about the pivot is?
+    options:
+      - "Because kinetic energy is lost in the collision"
+      - "Because gravity acts on the rod during the collision"
+      - "Because the pivot exerts an external horizontal force on the rod during the impact, but that force acts at the pivot and exerts no torque about it"
+      - "Because the clay sticks, and momentum is conserved only in elastic collisions"
+    option_explanations:
+      - |
+        Losing kinetic energy does not by itself break momentum conservation: perfectly inelastic collisions conserve momentum when no external force acts.
+      - |
+        Gravity and the pivot's vertical force are both vertical; they cannot change the horizontal momentum, and during the brief impact the rod hangs straight down, so gravity has no torque about the pivot either.
+      - |
+        Correct. The pivot pushes horizontally on the rod while the clay strikes, an external force that changes the system's linear momentum; acting at the axis, it has no moment arm about the pivot, so angular momentum about the pivot is conserved.
+      - |
+        Momentum is conserved in every collision in which the net external force is negligible, elastic or not; here the pivot's force is what breaks it.
+    answer: 2
+  - slug: apphys1-u06-exam-q24
+    type: multiple_choice
+    topic_code: "6.5"
+    source: "AP Physics 1 CED, Topic 6.5"
+    points: 1
+    prompt: |
+      A skateboard wheel of radius 0.035 m rolls without slipping at 7.0 m/s. What are its angular speed and the speed of the top of the wheel relative to the ground?
+    options:
+      - "20 rad/s; 7.0 m/s"
+      - "200 rad/s; 14 m/s"
+      - "200 rad/s; 7.0 m/s"
+      - "0.25 rad/s; 14 m/s"
+    option_explanations:
+      - |
+        20 rad/s uses R = 0.35 m (a slipped decimal), and the top of a rolling wheel moves at 2v, not v.
+      - |
+        Correct. ω = v/R = 7.0 ÷ 0.035 = 200 rad/s, and the top moves at v_cm + Rω = 2v_cm = 14 m/s.
+      - |
+        The angular speed is right, but the top's velocity adds the spin velocity Rω = 7.0 m/s to the centre's 7.0 m/s.
+      - |
+        0.25 multiplies v by R (7.0 × 0.035); rolling without slipping gives ω = v/R.
+    answer: 1
+  - slug: apphys1-u06-exam-q25
+    type: multiple_choice
+    topic_code: "6.5"
+    source: "AP Physics 1 CED, Topic 6.5"
+    points: 1
+    prompt: |
+      A 3.0 kg solid cylinder (I = ½MR²) rolls without slipping across a floor at 2.0 m/s. What is its total kinetic energy?
+    options:
+      - "6.0 J"
+      - "3.0 J"
+      - "12 J"
+      - "9.0 J"
+    option_explanations:
+      - |
+        6.0 J is only the translational kinetic energy ½Mv²; the spin adds ½Iω².
+      - |
+        3.0 J is only the rotational part, ½(½MR²)(v/R)² = ¼Mv².
+      - |
+        12 J uses a hoop's inertia (MR²), which would make the two parts equal; a solid cylinder's rotational part is half its translational part.
+      - |
+        Correct. K = ½Mv² + ½(½MR²)(v/R)² = ¾Mv² = ¾(3.0)(2.0)² = 9.0 J (6.0 J translational + 3.0 J rotational).
+    answer: 3
+  - slug: apphys1-u06-exam-q26
+    type: multiple_choice
+    topic_code: "6.5"
+    source: "AP Physics 1 CED, Topic 6.5"
+    points: 1
+    prompt: |
+      A solid ball (I = (2/5)MR²) rolls without slipping down a ramp inclined at 30° to the horizontal. What is the magnitude of its acceleration?
+    options:
+      - "3.5 m/s²"
+      - "4.9 m/s²"
+      - "3.3 m/s²"
+      - "2.5 m/s²"
+    option_explanations:
+      - |
+        Correct. Static friction supplies the torque that spins the ball up, which reduces the acceleration: a = g sin θ/(1 + β) = (9.8)(0.50)/1.4 = 3.5 m/s².
+      - |
+        4.9 m/s² is g sin 30°, the acceleration of a block sliding without friction; a rolling ball must also gain spin.
+      - |
+        3.3 m/s² uses β = ½, a solid cylinder's shape factor; a solid sphere has β = 2/5.
+      - |
+        2.5 m/s² uses β = 1, a hoop's shape factor.
+    answer: 0
+  - slug: apphys1-u06-exam-q27
+    type: multiple_choice
+    topic_code: "6.6"
+    source: "AP Physics 1 CED, Topic 6.6"
+    points: 1
+    prompt: |
+      Planet P has four times the mass of planet Q. A satellite orbits each planet in a circular orbit of the same radius. How does the orbital speed around P compare with that around Q?
+    options:
+      - "Four times as large"
+      - "The same, because the orbit radii are equal"
+      - "Twice as large"
+      - "Half as large"
+    option_explanations:
+      - |
+        A factor of 4 treats v as proportional to M; from GMm/r² = mv²/r, v = √(GM/r) ∝ √M.
+      - |
+        The speed depends on the central mass as well as the radius: a stronger pull needs a faster orbit at the same r.
+      - |
+        Correct. v = √(GM/r), so four times the mass at the same radius gives √4 = 2 times the speed.
+      - |
+        This inverts the dependence; a more massive planet pulls harder, so the satellite must move faster, not slower.
+    answer: 2
+  - slug: apphys1-u06-exam-q28
+    type: multiple_choice
+    topic_code: "6.6"
+    source: "AP Physics 1 CED, Topic 6.6"
+    points: 1
+    prompt: |
+      A small planet has mass 6.4 × 10²³ kg and radius 3.4 × 10⁶ m and no atmosphere. What is the minimum launch speed from its surface for a probe that never returns?
+    options:
+      - "3.5 × 10³ m/s"
+      - "5.0 × 10³ m/s"
+      - "7.1 × 10³ m/s"
+      - "2.5 × 10⁷ m/s"
+    option_explanations:
+      - |
+        3.5 × 10³ m/s is √(GM/R), the speed of a circular orbit skimming the surface; escaping needs √2 times that.
+      - |
+        Correct. Escape requires ½mv² − GMm/R = 0, so v = √(2GM/R) = √(2(6.67 × 10⁻¹¹)(6.4 × 10²³)/(3.4 × 10⁶)) ≈ 5.0 × 10³ m/s.
+      - |
+        7.1 × 10³ m/s is √(4GM/R), which comes from dropping the ½ in the kinetic energy.
+      - |
+        2.5 × 10⁷ is v² in m²/s² (2GM/R); the escape speed is its square root.
+    answer: 1
+  - slug: apphys1-u06-exam-q29
+    type: multi_select
+    topic_code: "6.2"
+    source: "AP Physics 1 CED, Topic 6.2"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A wheel starts from rest on a frictionless axle. A single constant torque τ acts on it while it turns through an angle Δθ. Which statements are true? Select all that apply.
+    options:
+      - "The work done on the wheel is τΔθ, with Δθ in radians."
+      - "The wheel's final rotational kinetic energy equals τΔθ."
+      - "Doubling τ with the same Δθ doubles the final angular speed."
+      - "Doubling Δθ with the same τ doubles the final rotational kinetic energy."
+      - "The work done depends on the wheel's rotational inertia."
+    option_explanations:
+      - |
+        Correct. A constant torque acting through an angular displacement does work W = τΔθ.
+      - |
+        Correct. By the rotational work–energy theorem, the net work equals ΔK, and the wheel started with K = 0.
+      - |
+        Doubling τ doubles the work and the kinetic energy, but ω ∝ √K, so ω rises by √2, not 2.
+      - |
+        Correct. The work τΔθ doubles, so the kinetic energy it produces doubles.
+      - |
+        W = τΔθ involves only the torque and the angle; the inertia decides how fast the wheel ends up spinning, not how much work is done.
+    answer: [0, 1, 3]
+  - slug: apphys1-u06-exam-q30
+    type: multi_select
+    topic_code: "6.4"
+    source: "AP Physics 1 CED, Topic 6.4"
+    points: 2
+    partial_credit: true
+    prompt: |
+      In which events does the system's kinetic energy decrease while its angular momentum about the rotation axis stays constant? Each system includes every object named, and every axle is frictionless. Select all that apply.
+    options:
+      - "A child runs tangentially, jumps onto a spinning carousel's rim and rides with it."
+      - "A spinning skater pulls her arms in."
+      - "A non-spinning disk is dropped onto a spinning disk on the same axle, and the two lock together."
+      - "A lump of clay is dropped onto a spinning turntable and sticks."
+      - "A motor spins up a ceiling fan from rest (system: the fan)."
+    option_explanations:
+      - |
+        Correct. Child and carousel slide before moving together, a rotational collision: L is conserved, kinetic energy decreases (unless she lands at exactly the rim speed).
+      - |
+        L is conserved, but kinetic energy increases: K = L²/(2I) rises as I falls, from the work her muscles do.
+      - |
+        Correct. The disks slip on each other before locking: L about the axle is conserved and kinetic energy becomes internal energy.
+      - |
+        Correct. The clay sticking is a perfectly inelastic rotational collision: L is conserved, kinetic energy decreases.
+      - |
+        The motor exerts an external torque on the fan, so the fan's angular momentum increases; its kinetic energy increases too.
+    answer: [0, 2, 3]
+  - slug: apphys1-u06-exam-q31
+    type: multi_select
+    topic_code: "6.6"
+    source: "AP Physics 1 CED, Topic 6.6"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about satellites in circular orbits around Earth are true? Select all that apply.
+    options:
+      - "A satellite in a higher orbit moves more slowly."
+      - "The satellite–Earth system has more total mechanical energy when the satellite is in a higher orbit."
+      - "A more massive satellite must move faster to stay in the same orbit."
+      - "Gravity does no work on a satellite in a circular orbit."
+      - "A satellite in a circular orbit at constant speed has zero acceleration."
+    option_explanations:
+      - |
+        Correct. v = √(GM/r) decreases as r increases.
+      - |
+        Correct. E = −GMm/(2r) becomes less negative, so larger, as r increases.
+      - |
+        The satellite's mass cancels from GMm/r² = mv²/r, so every satellite in that orbit has the same speed.
+      - |
+        Correct. Gravity points toward Earth's centre, perpendicular to the velocity in a circular orbit, so it does no work and the speed stays constant.
+      - |
+        Its velocity changes direction continuously; it has a centripetal acceleration v²/r toward Earth's centre.
+    answer: [0, 1, 3]
+  - slug: apphys1-u06-exam-q32
+    type: true_false
+    topic_code: "6.2"
+    source: "AP Physics 1 CED, Topic 6.2"
+    points: 1
+    prompt: |
+      True or false: A large force applied to the rim of a turning merry-go-round along a line that passes through its axle does work on the merry-go-round's rotation.
+    answer: false
+    explanation: |
+      False. A force whose line of action passes through the axle has zero moment arm, so its torque about the axle is zero and W = τΔθ = 0, no matter how large the force or how far the merry-go-round turns.
+  - slug: apphys1-u06-exam-q33
+    type: true_false
+    topic_code: "6.3"
+    source: "AP Physics 1 CED, Topic 6.3"
+    points: 1
+    prompt: |
+      True or false: Two wheels with different rotational inertias, each starting from rest, receive equal net angular impulses. They end with equal angular momenta.
+    answer: true
+    explanation: |
+      True. The net angular impulse equals the change in angular momentum, ΔL = τΔt, whatever the object's rotational inertia. The wheels end with equal L but different angular speeds (ω = L/I).
+  - slug: apphys1-u06-exam-q34
+    type: true_false
+    topic_code: "6.5"
+    source: "AP Physics 1 CED, Topic 6.5"
+    points: 1
+    prompt: |
+      True or false: When a solid ball rolls without slipping down a ramp, the static friction force on it does no work, so the ball–Earth system's mechanical energy is conserved.
+    answer: true
+    explanation: |
+      True. Static friction acts at the contact point, which is momentarily at rest when there is no slipping, so it does no work. Gravity, a conservative internal force of the ball–Earth system, is the only force doing work, so K_trans + K_rot + U_g is constant. Friction's role is to exert the torque that shares the energy between translation and rotation.
+  - slug: apphys1-u06-exam-q35
+    type: fill_blank
+    topic_code: "6.1"
+    source: "AP Physics 1 CED, Topic 6.1"
+    points: 1
+    prompt: |
+      A thin hoop and a uniform solid disk have the same mass and radius and spin at the same angular speed about their central axes. The hoop's rotational kinetic energy is ____ times the disk's.
+    answer: ["2", "2.0", "two"]
+    explanation: |
+      At the same ω, K ∝ I: MR² ÷ ½MR² = 2.
+  - slug: apphys1-u06-exam-q36
+    type: fill_blank
+    topic_code: "6.4"
+    source: "AP Physics 1 CED, Topic 6.4"
+    points: 1
+    prompt: |
+      A diver in mid-air tucks so that her rotational inertia about her centre of mass falls to half its value. Her angular speed becomes ____ times as large.
+    answer: ["2", "2.0", "two"]
+    explanation: |
+      Gravity exerts no torque about her centre of mass, so L = Iω is constant; halving I doubles ω.
+  - slug: apphys1-u06-exam-q37
+    type: fill_blank
+    topic_code: "6.6"
+    source: "AP Physics 1 CED, Topic 6.6"
+    points: 1
+    prompt: |
+      Satellite B moves in a circular orbit whose radius is 9 times that of satellite A's circular orbit around the same planet. B's period is ____ times A's period.
+    answer: ["27", "27.0", "twenty-seven", "twenty seven"]
+    explanation: |
+      T = 2π√(r³/GM), so T ∝ r^(3/2): 9^(3/2) = 27. (B moves at one third of A's speed around a path nine times as long.)
+  - slug: apphys1-u06-exam-q38
+    type: numeric
+    topic_code: "6.2"
+    source: "AP Physics 1 CED, Topic 6.2"
+    points: 1
+    prompt: |
+      A ceiling fan's blades have rotational inertia 0.15 kg·m² and spin at 12 rad/s when the fan is switched off. A constant frictional torque of 0.020 N·m from the bearing brings them to rest. How many revolutions do the blades make while stopping? Give your answer to the nearest whole revolution.
+    answer: { value: 86, tolerance: 1 }
+    explanation: |
+      K = ½(0.15)(12)² = 10.8 J. The bearing's work −τΔθ removes it all: Δθ = 10.8 J ÷ 0.020 N·m = 540 rad, and 540 ÷ 2π ≈ 86 revolutions.
+  - slug: apphys1-u06-exam-q39
+    type: numeric
+    topic_code: "6.5"
+    source: "AP Physics 1 CED, Topic 6.5"
+    points: 1
+    prompt: |
+      A solid ball (I = (2/5)MR²) starts from rest and rolls without slipping down a hill, ending 2.5 m lower than it started. What is its speed at the bottom? Give your answer in m/s, to three significant figures.
+    answer: { value: 5.92, tolerance: 0.05 }
+    explanation: |
+      Mgh = ½M(1 + 2/5)v², so v = √(2gh/1.4) = √(2(9.8)(2.5)/1.4) ≈ 5.92 m/s. (A sliding, non-rolling object would reach √(2gh) = 7.0 m/s.)
+  - slug: apphys1-u06-exam-q40
+    type: numeric
+    topic_code: "6.6"
+    source: "AP Physics 1 CED, Topic 6.6"
+    points: 1
+    prompt: |
+      A satellite moves in a circular orbit 1.00 × 10⁶ m above Earth's surface. Earth's mass is 5.97 × 10²⁴ kg and its radius is 6.37 × 10⁶ m. What is the satellite's orbital speed? Give your answer in km/s, to three significant figures.
+    answer: { value: 7.35, tolerance: 0.05 }
+    explanation: |
+      r = 6.37 × 10⁶ + 1.00 × 10⁶ = 7.37 × 10⁶ m from Earth's centre. v = √(GM/r) = √((6.67 × 10⁻¹¹)(5.97 × 10²⁴)/(7.37 × 10⁶)) ≈ 7.35 × 10³ m/s = 7.35 km/s.
+  - slug: apphys1-u06-exam-q41
+    type: short_answer
+    topic_code: "6.4"
+    source: "AP Physics 1 CED, Topic 6.4"
+    points: 3
+    prompt: |
+      A turntable (I = 0.050 kg·m²) spins freely at 6.0 rad/s. A non-spinning ring (I = 0.025 kg·m² about the same axis) is dropped onto it, centred on the axle, and after a brief slip the two turn together. A student says: "Angular momentum is conserved here, so kinetic energy must be conserved too."
+
+      (a) Calculate the final angular speed.
+      (b) Calculate the kinetic energy of the system before and after.
+      (c) Evaluate the student's claim, explaining what is conserved, why, and where any missing energy went.
+    answer: |
+      (a) No external torque acts about the axle, so (0.050)(6.0) = (0.075)ω_f, giving ω_f = 4.0 rad/s.
+      (b) K_i = ½(0.050)(6.0)² = 0.90 J; K_f = ½(0.075)(4.0)² = 0.60 J.
+      (c) The student is wrong. Angular momentum is conserved because the only torques during the landing are the friction torques the turntable and ring exert on each other, which are internal and cancel. Kinetic energy is a separate quantity and is not conserved: the ring slips on the turntable before they move together (a rotational perfectly inelastic collision), and kinetic friction converts 0.30 J into internal (thermal) energy of the surfaces.
+    explanation: |
+      Three points, one per part. (a) ω_f = 4.0 rad/s from conservation of angular momentum. (b) both values, 0.90 J and 0.60 J. (c) rejects the claim, with both reasons: L is conserved because no external torque acts (friction between ring and turntable is internal), and 0.30 J of kinetic energy becomes internal energy through the slipping. A conclusion without the energy destination earns no credit for (c).
+  - slug: apphys1-u06-exam-q42
+    type: short_answer
+    topic_code: "6.5"
+    source: "AP Physics 1 CED, Topic 6.5"
+    points: 3
+    prompt: |
+      A heavy, thin-walled steel pipe (I = MR²) and a light, solid wooden cylinder (I = ½MR²) of the same radius are released together from rest at the top of a ramp and roll without slipping. A student predicts that the steel pipe will win because it is heavier.
+
+      (a) Which object reaches the bottom first? Justify your answer with an energy argument that does not use numbers.
+      (b) Derive the speed of each at the bottom in terms of g and the height h of the ramp, and use the expressions to show that the masses do not matter.
+      (c) Explain how a single trial could still mislead the student, and what the group should do to make the comparison convincing.
+    answer: |
+      (a) The wooden cylinder. Each object turns the same gravitational energy per kilogram into kinetic energy, but the pipe, with all its mass at the radius, must put a larger share (half) into rotation, while the solid cylinder puts only a third into rotation. The cylinder has more energy per kilogram left for moving forward, so it is faster at every height and wins.
+      (b) Mgh = ½M(1 + β)v², so v = √(2gh/(1 + β)). Pipe: v = √(gh); cylinder: v = √(4gh/3). M cancels from both sides of each equation, so the mass does not appear in either result.
+      (c) Small effects such as slipping at the start, an uneven release, or bumps on the ramp could change one trial's order. The group should release both with a gate that lets go of them at the same instant, repeat several trials (and swap their lanes) and compare average times or photogate speeds.
+    explanation: |
+      Three points, one per part. (a) the solid cylinder, with reasoning that the pipe stores a larger fraction of its kinetic energy as rotation (larger I relative to MR²), leaving less for translation. "Heavier objects fall faster" earns nothing. (b) both expressions (√(gh) and √(4gh/3), or the general √(2gh/(1 + β))) with the mass cancelling explicitly. (c) a plausible source of error in a single trial and a remedy (simultaneous release, repeated trials, lane swap, averaging or photogates).
+  # ---- Free response 1: translation between representations (12 points: long answer A–C + short answer D)
+  - slug: apphys1-u06-exam-q43
+    type: long_answer
+    topic_code: "6.5"
+    source: "AP Physics 1 CED, Topic 6.5"
+    points: 8
+    stimulus: |
+      Translation between representations (12 points in all: parts A–C here, part D in the next question). A uniform solid ball of mass M and radius R (I = (2/5)MR² about its centre) is released from rest at the top of a straight ramp inclined at an angle θ above the horizontal. It rolls without slipping to the bottom of the ramp, a vertical distance h below its starting point. Air resistance is negligible.
+    prompt: |
+      (A) Describe, in words, a free-body diagram of the ball while it rolls down the ramp: name each force, its direction and the point where it acts. Explain why the friction force must point the way you drew it.
+
+      (B) Make an energy bar chart, as a table, for the ball–Earth system at the top (released from rest) and at the bottom of the ramp. Include rows for U_g, the ball's translational kinetic energy, its rotational kinetic energy and energy transferred into or out of the system. Show the relative sizes of the bars at the bottom (as fractions of the initial energy).
+
+      (C) Starting from your bar chart, derive an expression for the square of the ball's speed at the bottom, v², in terms of g and h. Then explain how the bar chart and the result would change for a block of the same mass sliding down an identical ramp with no friction.
+    answer: |
+      (A) Three forces. Gravity, Mg, vertically downward, acting at the ball's centre. The normal force, perpendicular to the ramp surface and away from it, acting at the contact point. Static friction, parallel to the ramp and pointing up the slope, acting at the contact point. Friction must point up the slope because it is the only force with a torque about the ball's centre (gravity acts at the centre and the normal force points through it): as the ball speeds up down the slope its spin must increase in the rolling direction, and only a force at the contact point directed up the slope gives a torque in that sense.
+      (B)
+      | Energy | Top | Bottom |
+      |---|---|---|
+      | U_g | 1 (all of the energy) | 0 |
+      | K_trans | 0 | 5/7 |
+      | K_rot | 0 | 2/7 |
+      | Transferred in or out | 0 | 0 |
+      Static friction does no work (the contact point does not slip), so nothing is transferred out, and the final bars add up to the initial U_g bar. The split follows from K_rot = ½(2/5)MR²(v/R)² = (2/5)(½Mv²).
+      (C) Mgh = ½Mv² + ½(2/5)MR²(v/R)² = (7/10)Mv², so v² = (10/7)gh ≈ 1.43gh. For the frictionless sliding block there is no rotation: the K_rot row is zero and the whole bar goes into K_trans, so Mgh = ½Mv² and v² = 2gh, larger than the rolling ball's.
+    explanation: |
+      Eight points.
+      (A) 3 points: 1 for gravity (downward, at the centre) and the normal force (perpendicular to the ramp, at the contact point); 1 for static friction up the slope at the contact point; 1 for the reasoning: friction is the only force with a torque about the centre, and that torque must increase the spin as the ball speeds up. Friction drawn down the slope, or an extra "rolling force", loses the second point.
+      (B) 3 points: 1 for U_g only at the top and U_g zero (or reduced) at the bottom; 1 for both K_trans and K_rot nonzero at the bottom with K_trans larger, in the ratio 5:2 (fractions 5/7 and 2/7) or with the ratio justified; 1 for zero energy transferred (friction does no work) and the bars balancing. A chart that shows friction removing energy loses the third point.
+      (C) 2 points: 1 for an energy equation consistent with the chart, using ω = v/R, leading to v² = (10/7)gh; 1 for stating that the sliding block's chart has no K_rot and all the energy in K_trans, giving v² = 2gh (larger speed).
+  - slug: apphys1-u06-exam-q44
+    type: short_answer
+    topic_code: "6.5"
+    source: "AP Physics 1 CED, Topic 6.5"
+    points: 4
+    stimulus: |
+      Translation between representations (12 points in all: parts A–C here, part D in the next question). A uniform solid ball of mass M and radius R (I = (2/5)MR² about its centre) is released from rest at the top of a straight ramp inclined at an angle θ above the horizontal. It rolls without slipping to the bottom of the ramp, a vertical distance h below its starting point. Air resistance is negligible.
+    prompt: |
+      Part D of the translation between representations question. A lab group releases the ball from several starting heights and measures its speed at the bottom with a photogate:
+
+      | h (m) | 0.10 | 0.20 | 0.30 | 0.40 | 0.50 |
+      |---|---|---|---|---|---|
+      | v² (m²/s²) | 1.38 | 2.83 | 4.18 | 5.64 | 6.95 |
+
+      (i) Describe the graph of v² against h that your expression from part (C) predicts: its shape, where it crosses the axes and its slope, as a number.
+      (ii) Use the data to find the experimental slope, and say whether the data agree with your prediction.
+      (iii) On the same axes, describe the predicted line for a thin-walled pipe (I = MR²) rolling without slipping, and explain, using the energy bar charts, why its line is less steep.
+    answer: |
+      (i) A straight line through the origin (v² = 0 when h = 0), because v² = (10/7)gh is proportional to h; slope 10g/7 = 14.0 m/s².
+      (ii) The points lie close to a straight line through the origin; using the first and last points, slope = (6.95 − 1.38)/(0.50 − 0.10) ≈ 13.9 m/s² (a best-fit line gives about 14.0 m/s²). That is within about 1% of 14.0 m/s², so the data agree with the prediction, which also supports the claim in (B) that friction removed no energy.
+      (iii) For the pipe, Mgh = ½Mv² + ½(MR²)(v/R)² = Mv², so v² = gh: another straight line through the origin, slope 9.8 m/s², less steep. The pipe's bar chart at the bottom splits the energy half and half between K_trans and K_rot (instead of 5/7 and 2/7 for the ball), so less of the same U_g becomes translational kinetic energy and v² is smaller at every height.
+    explanation: |
+      Four points. 1 point: (i) straight line through the origin with predicted slope 10g/7 ≈ 14 m/s². 1 point: (ii) an experimental slope from the data between 13.5 and 14.3 m/s², with work shown (two well-separated points or a best-fit line, not a single data point divided by its h unless justified). 1 point: (ii) a conclusion comparing the slopes (agreement within a few percent). 1 point: (iii) the pipe's line through the origin with slope g ≈ 9.8 m/s², justified by its bar chart putting half the energy into rotation (versus 2/7 for the ball). A pipe line that does not pass through the origin, or a claim that the pipe is faster, loses the last point.
+  # ---- Free response 2: experimental design and analysis (10 points)
+  - slug: apphys1-u06-exam-q45
+    type: long_answer
+    topic_code: "6.1"
+    source: "AP Physics 1 CED, Topic 6.1"
+    points: 10
+    prompt: |
+      Experimental design and analysis. A lab group wants to find the rotational inertia I of a bicycle wheel about its axle. The wheel is mounted on a low-friction horizontal axle. A light string is wound around the wheel's hub, which has radius r, and a block of mass m hangs from the string. When the block is released from rest it falls and spins the wheel; the string does not slip on the hub.
+
+      (A) Describe a procedure the group could use to collect the data needed to determine I using energy. Name each quantity they should measure, the equipment for each, and at least one way to reduce experimental uncertainty.
+
+      (B) Starting from conservation of energy for the block–wheel–Earth system, derive an equation that relates the block's speed v after it has fallen a height h to h, m, r, I and g. Identify the quantities the group should graph to get a straight line, and write the slope in terms of m, r, I and g.
+
+      (C) The group uses m = 0.50 kg and a hub of radius r = 0.050 m and records:
+
+      | Height fallen h (m) | 0.20 | 0.40 | 0.60 | 0.80 | 1.00 |
+      |---|---|---|---|---|---|
+      | Speed v (m/s) | 0.29 | 0.39 | 0.50 | 0.56 | 0.64 |
+
+      Add a row for the quantity your graph needs and determine the slope of the best straight line, showing your method.
+
+      (D) Use your slope to calculate the rotational inertia of the wheel.
+
+      (E) A student suggests the axle's friction made the measured speeds too small. If so, would the value of I calculated in (D) be larger or smaller than the true value? Explain.
+    answer: |
+      (A) Measure the block's mass m with a balance and the hub radius r with calipers (half the measured diameter). Wind the string, mark the block's starting position and release it from rest; measure the height fallen h with a metre stick, and the block's speed v at the end of that drop with a photogate (or a motion sensor) placed at h. Repeat for at least five different heights, doing three trials at each height and averaging the speeds. Ways to reduce uncertainty: release without pushing (hold and let go, or use a release clamp), repeat and average, use a wide range of heights, and check the axle spins freely (low friction).
+      (B) mgh = ½mv² + ½Iω², with ω = v/r: mgh = ½(m + I/r²)v², so v² = [2mg/(m + I/r²)] h. Graph v² (vertical) against h (horizontal): a straight line through the origin with slope 2mg/(m + I/r²).
+      (C) v² (m²/s²): 0.084, 0.152, 0.250, 0.314, 0.410. A best-fit line through these points has slope ≈ 0.41 m/s² (from the first and last points, (0.410 − 0.084)/(1.00 − 0.20) ≈ 0.41 m/s²).
+      (D) Slope = 2mg/(m + I/r²), so I/r² = 2mg/slope − m = 2(0.50)(9.8)/0.41 − 0.50 ≈ 23.4 kg, and I ≈ 23.4 × (0.050)² ≈ 0.059 kg·m² (about 0.06 kg·m²).
+      (E) Larger. Friction transfers some of the energy to internal energy, so each measured speed, and the slope, is smaller than it would be without friction. In I = r²(2mg/slope − m), a smaller slope gives a larger I: the group would attribute the energy lost to friction to the wheel's rotation, overestimating the inertia.
+    explanation: |
+      Ten points.
+      (A) 3 points: 1 for measuring m, r, h and v (all four) with appropriate equipment (balance, calipers or ruler, metre stick, photogate or motion sensor; or h and the fall time t with v = 2h/t for a constant acceleration); 1 for varying h over several values from rest with a coherent sequence of steps; 1 for a valid way to reduce uncertainty (repeated trials averaged, wide range of heights, consistent release, minimising friction).
+      (B) 3 points: 1 for an energy equation including both the block's translational and the wheel's rotational kinetic energy; 1 for using ω = v/r to get v² = 2mgh/(m + I/r²) or equivalent; 1 for choosing v² against h (or h against v², with the reciprocal slope) and giving the slope correctly.
+      (C) 2 points: 1 for the v² row computed correctly; 1 for a slope between 0.39 and 0.43 m/s² found from a line (two well-separated points on it or a best fit), not from one data point.
+      (D) 1 point: I between 0.054 and 0.064 kg·m², consistent with the slope in (C) (follow-through accepted).
+      (E) 1 point: "larger", with reasoning that friction lowers the speeds and the slope, and a smaller slope gives a larger calculated I.

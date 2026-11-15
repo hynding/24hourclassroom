@@ -1,0 +1,913 @@
+unit: 7
+description: |
+  42 questions · about 90 minutes · every topic of Unit 7 (7.1 to 7.4): the restoring-force condition for simple
+  harmonic motion, the small-angle pendulum, the periods and frequencies of mass–spring systems and pendulums with
+  functional dependence, position, velocity and acceleration graphs, tables and equations of SHM, and the energy
+  of oscillators. Includes three shared-context sets (a five-question set on a block released on a horizontal
+  spring, a four-question set on a motion-sensor table for a pendulum and a three-question set on a cart's energy
+  table), select-all, true/false, fill-in-the-blank and numeric items, two short-answer questions (3 points each)
+  and two free-response questions in the 2027 AP style (10 points each: an experimental design and analysis
+  question on measuring g with a pendulum, and a mathematical routines question on a collision that starts an
+  oscillation). Use g = 9.8 m/s². Calculator and equation sheet allowed throughout. Multiple choice, select-all,
+  true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the short
+  answers and free-response questions are graded by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: block on a horizontal spring (7.2, 7.1, 7.4, 7.3)
+  - slug: apphys1-u07-exam-q01
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "AP Physics 1 CED, Topic 7.2"
+    points: 1
+    stimulus: |
+      A 0.25 kg block rests on a frictionless table, attached to a horizontal spring with spring constant 64 N/m whose other end is fixed to a wall. A student pulls the block 0.080 m from its equilibrium position and releases it from rest at t = 0.
+    prompt: |
+      What is the period of the block's oscillation?
+    options:
+      - "2.5 s"
+      - "0.025 s"
+      - "0.39 s"
+      - "100 s"
+    option_explanations:
+      - |
+        2.5 is the frequency in hertz (1/0.39 s), not the period.
+      - |
+        0.025 s is 2π(m/k) with the square root left out.
+      - |
+        Correct. T = 2π√(m/k) = 2π√(0.25/64) = 2π/16 ≈ 0.39 s.
+      - |
+        100 s is 2π√(k/m): the ratio is inverted, which would make a heavier block oscillate faster.
+    answer: 2
+  - slug: apphys1-u07-exam-q02
+    type: multiple_choice
+    topic_code: "7.1"
+    source: "AP Physics 1 CED, Topic 7.1"
+    points: 1
+    stimulus: |
+      A 0.25 kg block rests on a frictionless table, attached to a horizontal spring with spring constant 64 N/m whose other end is fixed to a wall. A student pulls the block 0.080 m from its equilibrium position and releases it from rest at t = 0.
+    prompt: |
+      What is the size of the block's acceleration just after it is released?
+    options:
+      - "20 m/s²"
+      - "5.1 m/s²"
+      - "0 m/s², because the block starts from rest"
+      - "1.3 m/s²"
+    option_explanations:
+      - |
+        Correct. The spring force is kx = 64 × 0.080 = 5.12 N, so a = F/m = 5.12/0.25 ≈ 20 m/s², directed toward equilibrium. This is the largest acceleration in the motion.
+      - |
+        5.1 is the spring force in newtons; it must be divided by the 0.25 kg mass to give the acceleration.
+      - |
+        Starting from rest means zero velocity, not zero acceleration; the stretched spring pulls hardest at this instant.
+      - |
+        1.3 multiplies the spring force by the mass (5.12 × 0.25) instead of dividing by it.
+    answer: 0
+  - slug: apphys1-u07-exam-q03
+    type: numeric
+    topic_code: "7.4"
+    source: "AP Physics 1 CED, Topic 7.4"
+    points: 1
+    stimulus: |
+      A 0.25 kg block rests on a frictionless table, attached to a horizontal spring with spring constant 64 N/m whose other end is fixed to a wall. A student pulls the block 0.080 m from its equilibrium position and releases it from rest at t = 0.
+    prompt: |
+      What is the total mechanical energy of the block–spring system? Give your answer in joules, to two significant figures.
+    answer: { value: 0.20, tolerance: 0.006 }
+    explanation: |
+      At release the block is at rest at x = A, so E = ½kA² = ½(64)(0.080)² ≈ 0.205 J, about 0.20 J. (kA² = 0.41 J forgets the ½.)
+  - slug: apphys1-u07-exam-q04
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "AP Physics 1 CED, Topic 7.4"
+    points: 1
+    stimulus: |
+      A 0.25 kg block rests on a frictionless table, attached to a horizontal spring with spring constant 64 N/m whose other end is fixed to a wall. A student pulls the block 0.080 m from its equilibrium position and releases it from rest at t = 0.
+    prompt: |
+      How fast is the block moving when it is 0.040 m from equilibrium?
+    options:
+      - "0.64 m/s, half its maximum speed"
+      - "1.28 m/s"
+      - "0.91 m/s"
+      - "1.11 m/s"
+    option_explanations:
+      - |
+        Speed does not fall in proportion to displacement. Halfway out, only a quarter of the energy is potential, so the speed is well above half the maximum.
+      - |
+        1.28 m/s is the maximum speed, A√(k/m) = 0.080 × 16, reached only at x = 0.
+      - |
+        0.91 m/s is v_max/√2, the speed when the energy is split evenly; that happens at x ≈ 0.057 m, not at 0.040 m.
+      - |
+        Correct. ½mv² = ½k(A² − x²), so v = √((64/0.25)(0.080² − 0.040²)) = 16 × √0.0048 ≈ 1.11 m/s.
+    answer: 3
+  - slug: apphys1-u07-exam-q05
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "AP Physics 1 CED, Topic 7.3"
+    points: 1
+    stimulus: |
+      A 0.25 kg block rests on a frictionless table, attached to a horizontal spring with spring constant 64 N/m whose other end is fixed to a wall. A student pulls the block 0.080 m from its equilibrium position and releases it from rest at t = 0.
+    prompt: |
+      Where is the block, and how is it moving, half a period after it is released?
+    options:
+      - "At x = 0, moving at its maximum speed"
+      - "At 0.080 m on the other side of equilibrium, momentarily at rest"
+      - "Back at its release point, momentarily at rest"
+      - "At 0.040 m from equilibrium, on the release side"
+    option_explanations:
+      - |
+        The block reaches x = 0 after a quarter of a period, not half.
+      - |
+        Correct. Half a period after release from x = +A, x = A cos(π) = −A: the block is at the opposite turning point, 0.080 m on the other side, and momentarily at rest.
+      - |
+        The block returns to its release point after a full period, not half.
+      - |
+        Halving the time does not halve the displacement; at half a period the block is a full amplitude on the other side.
+    answer: 1
+  # ---- Stimulus set B: pendulum motion-sensor table (7.3, 7.2)
+  - slug: apphys1-u07-exam-q06
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "AP Physics 1 CED, Topic 7.3"
+    points: 1
+    stimulus: |
+      A lab group hangs a small, heavy bob from a string and sets it swinging through a small angle. A motion sensor beside it records the bob's horizontal position x, measured from its lowest point, starting at an instant when the bob passes through the lowest point:
+
+      | t (s) | 0 | 0.25 | 0.50 | 0.75 | 1.00 | 1.25 | 1.50 | 1.75 | 2.00 |
+      |---|---|---|---|---|---|---|---|---|---|
+      | x (m) | 0.000 | 0.042 | 0.060 | 0.042 | 0.000 | −0.042 | −0.060 | −0.042 | 0.000 |
+    prompt: |
+      What are the amplitude and period of the bob's motion?
+    options:
+      - "Amplitude 0.060 m, period 2.00 s"
+      - "Amplitude 0.120 m, period 2.00 s"
+      - "Amplitude 0.060 m, period 1.00 s"
+      - "Amplitude 0.042 m, period 0.50 s"
+    option_explanations:
+      - |
+        Correct. The largest distance from the lowest point is 0.060 m; the bob passes x = 0 moving the same way at t = 0 and t = 2.00 s, so T = 2.00 s.
+      - |
+        0.120 m is the full distance from −0.060 m to +0.060 m (2A), not the amplitude.
+      - |
+        At t = 1.00 s the bob is back at x = 0 but moving the opposite way; one full period ends at 2.00 s.
+      - |
+        0.042 m is just a table entry, not the maximum, and 0.50 s is the time from the lowest point to a turning point (T/4).
+    answer: 0
+  - slug: apphys1-u07-exam-q07
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "AP Physics 1 CED, Topic 7.2"
+    points: 1
+    stimulus: |
+      A lab group hangs a small, heavy bob from a string and sets it swinging through a small angle. A motion sensor beside it records the bob's horizontal position x, measured from its lowest point, starting at an instant when the bob passes through the lowest point:
+
+      | t (s) | 0 | 0.25 | 0.50 | 0.75 | 1.00 | 1.25 | 1.50 | 1.75 | 2.00 |
+      |---|---|---|---|---|---|---|---|---|---|
+      | x (m) | 0.000 | 0.042 | 0.060 | 0.042 | 0.000 | −0.042 | −0.060 | −0.042 | 0.000 |
+    prompt: |
+      About how long is the pendulum, from the pivot to the centre of the bob?
+    options:
+      - "3.1 m"
+      - "39 m"
+      - "0.99 m"
+      - "0.25 m"
+    option_explanations:
+      - |
+        3.1 m is gT/(2π): the period must be squared when solving T = 2π√(L/g) for L.
+      - |
+        39 m is gT², leaving out the 4π²; that length would swing with a period of about 12.6 s.
+      - |
+        Correct. L = g(T/2π)² = 9.8 × (2.00/2π)² ≈ 0.99 m.
+      - |
+        0.25 m is the length for a 1.0 s period, as if the time from one zero crossing to the next were the full period.
+    answer: 2
+  - slug: apphys1-u07-exam-q08
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "AP Physics 1 CED, Topic 7.3"
+    points: 1
+    stimulus: |
+      A lab group hangs a small, heavy bob from a string and sets it swinging through a small angle. A motion sensor beside it records the bob's horizontal position x, measured from its lowest point, starting at an instant when the bob passes through the lowest point:
+
+      | t (s) | 0 | 0.25 | 0.50 | 0.75 | 1.00 | 1.25 | 1.50 | 1.75 | 2.00 |
+      |---|---|---|---|---|---|---|---|---|---|
+      | x (m) | 0.000 | 0.042 | 0.060 | 0.042 | 0.000 | −0.042 | −0.060 | −0.042 | 0.000 |
+    prompt: |
+      Of the following times, at which is the bob moving fastest?
+    options:
+      - "t = 0.50 s"
+      - "t = 0.25 s"
+      - "t = 1.50 s"
+      - "t = 1.00 s"
+    option_explanations:
+      - |
+        At t = 0.50 s the bob is at x = 0.060 m, a turning point, where it is momentarily at rest.
+      - |
+        At t = 0.25 s the bob is part way out and slowing down; it is faster at the lowest point.
+      - |
+        At t = 1.50 s the bob is at x = −0.060 m, the other turning point, momentarily at rest.
+      - |
+        Correct. At t = 1.00 s the bob passes x = 0, its lowest point, where all its energy is kinetic and the x–t curve is steepest.
+    answer: 3
+  - slug: apphys1-u07-exam-q09
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "AP Physics 1 CED, Topic 7.3"
+    points: 1
+    stimulus: |
+      A lab group hangs a small, heavy bob from a string and sets it swinging through a small angle. A motion sensor beside it records the bob's horizontal position x, measured from its lowest point, starting at an instant when the bob passes through the lowest point:
+
+      | t (s) | 0 | 0.25 | 0.50 | 0.75 | 1.00 | 1.25 | 1.50 | 1.75 | 2.00 |
+      |---|---|---|---|---|---|---|---|---|---|
+      | x (m) | 0.000 | 0.042 | 0.060 | 0.042 | 0.000 | −0.042 | −0.060 | −0.042 | 0.000 |
+    prompt: |
+      Which equation best models the bob's position?
+    options:
+      - "x = (0.060 m) cos(2π(0.50 Hz)t)"
+      - "x = (0.060 m) sin(2π(0.50 Hz)t)"
+      - "x = (0.060 m) sin(2π(2.0 Hz)t)"
+      - "x = (0.120 m) sin(2π(0.50 Hz)t)"
+    option_explanations:
+      - |
+        A cosine starts at its peak, x = +A, but the table starts at x = 0, so the sine form fits.
+      - |
+        Correct. The table starts at x = 0 and increases, the sine shape; A = 0.060 m and f = 1/T = 1/2.00 s = 0.50 Hz. Check: at t = 0.50 s, x = 0.060 sin(π/2) = 0.060 m.
+      - |
+        2.0 is the period in seconds; the frequency in the equation is 1/T = 0.50 Hz.
+      - |
+        0.120 m is twice the amplitude; the coefficient must be the maximum displacement, 0.060 m.
+    answer: 1
+  # ---- Stimulus set C: energy table for a cart on a spring (7.4)
+  - slug: apphys1-u07-exam-q10
+    type: numeric
+    topic_code: "7.4"
+    source: "AP Physics 1 CED, Topic 7.4"
+    points: 1
+    stimulus: |
+      A cart oscillates on a horizontal spring on a frictionless track. Using a motion sensor and a force sensor, a student fills in an energy table for the cart–spring system at four positions on one side of equilibrium, but leaves one entry blank:
+
+      | Position x (m) | 0 | 0.05 | 0.10 | 0.15 |
+      |---|---|---|---|---|
+      | U_s (J) | 0 | 0.050 | 0.200 | 0.450 |
+      | K (J) | 0.450 | 0.400 | (blank) | 0 |
+    prompt: |
+      What is the total mechanical energy of the cart–spring system? Give your answer in joules, to two decimal places.
+    answer: { value: 0.45, tolerance: 0.005 }
+    explanation: |
+      The total is the same in every column: at x = 0 it is 0 + 0.450 J, at x = 0.15 m it is 0.450 J + 0. So E = 0.45 J, and since K = 0 at x = 0.15 m, that position is the amplitude.
+  - slug: apphys1-u07-exam-q11
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "AP Physics 1 CED, Topic 7.4"
+    points: 1
+    stimulus: |
+      A cart oscillates on a horizontal spring on a frictionless track. Using a motion sensor and a force sensor, a student fills in an energy table for the cart–spring system at four positions on one side of equilibrium, but leaves one entry blank:
+
+      | Position x (m) | 0 | 0.05 | 0.10 | 0.15 |
+      |---|---|---|---|---|
+      | U_s (J) | 0 | 0.050 | 0.200 | 0.450 |
+      | K (J) | 0.450 | 0.400 | (blank) | 0 |
+    prompt: |
+      What is the spring constant of the spring?
+    options:
+      - "20 N/m"
+      - "4.0 N/m"
+      - "40 N/m"
+      - "3.0 N/m"
+    option_explanations:
+      - |
+        20 N/m is U_s/x² without the factor of 2: U_s = ½kx² gives k = 2U_s/x².
+      - |
+        4.0 N/m is 2U_s/x with x not squared (2 × 0.200/0.10); the potential energy depends on x².
+      - |
+        Correct. U_s = ½kx², so k = 2U_s/x² = 2(0.200)/(0.10)² = 40 N/m. Every column agrees: 2(0.450)/(0.15)² = 40 N/m.
+      - |
+        3.0 N/m is U_s/x at x = 0.15 m, treating energy as if it were force times displacement without the ½ and the square.
+    answer: 2
+  - slug: apphys1-u07-exam-q12
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "AP Physics 1 CED, Topic 7.4"
+    points: 1
+    stimulus: |
+      A cart oscillates on a horizontal spring on a frictionless track. Using a motion sensor and a force sensor, a student fills in an energy table for the cart–spring system at four positions on one side of equilibrium, but leaves one entry blank:
+
+      | Position x (m) | 0 | 0.05 | 0.10 | 0.15 |
+      |---|---|---|---|---|
+      | U_s (J) | 0 | 0.050 | 0.200 | 0.450 |
+      | K (J) | 0.450 | 0.400 | (blank) | 0 |
+    prompt: |
+      What value belongs in the blank entry for K at x = 0.10 m?
+    options:
+      - "0.250 J"
+      - "0.300 J, halfway between 0.400 J and 0.200 J"
+      - "0.200 J, the same as U_s there"
+      - "0.350 J, continuing the 0.050 J drop from the previous column"
+    option_explanations:
+      - |
+        Correct. The total is 0.450 J everywhere, so K = 0.450 − 0.200 = 0.250 J.
+      - |
+        Averaging neighbouring entries does not follow from any physics; K must make the column add up to the constant total of 0.450 J.
+      - |
+        K and U_s are equal only at x = A/√2 ≈ 0.106 m; at 0.10 m they must add to 0.450 J, giving 0.250 J.
+      - |
+        The energies change with x², not in equal steps; the drop from 0.05 m to 0.10 m is larger (0.150 J) than from 0 to 0.05 m.
+    answer: 0
+  # ---- Defining SHM (7.1)
+  - slug: apphys1-u07-exam-q13
+    type: multiple_choice
+    topic_code: "7.1"
+    source: "AP Physics 1 CED, Topic 7.1"
+    points: 1
+    prompt: |
+      A student claims that any motion that repeats itself at regular intervals is simple harmonic motion. Which observation shows the claim is false?
+    options:
+      - "A mass on a spring repeats its motion with a period that does not depend on its amplitude."
+      - "A pendulum swinging through 5° repeats its motion every 1.4 s."
+      - "A cart between two springs speeds up as it approaches the centre of the track."
+      - "A ball bouncing elastically on a floor repeats its motion, but while in the air the only force on it is its constant weight."
+    option_explanations:
+      - |
+        A mass on a spring is a genuine example of SHM, so it supports rather than refutes the idea that the motion is simple harmonic.
+      - |
+        A small-angle pendulum is approximately simple harmonic, so it is not a counterexample.
+      - |
+        Speeding up toward the centre is exactly what a restoring force does in SHM; this is consistent with SHM, not a counterexample.
+      - |
+        Correct. The bouncing ball is periodic, but its force in the air is constant rather than proportional to a displacement from equilibrium, so it is a repeating motion that is not SHM.
+    answer: 3
+  - slug: apphys1-u07-exam-q14
+    type: multiple_choice
+    topic_code: "7.1"
+    source: "AP Physics 1 CED, Topic 7.1"
+    points: 1
+    prompt: |
+      A graph of the horizontal force exerted by a spring on a cart (vertical axis) against the cart's displacement from equilibrium (horizontal axis) is a straight line through the origin, passing through (0.10 m, −3.0 N). Which statement is correct?
+    options:
+      - "The spring constant is −30 N/m, so the spring pushes the cart away from equilibrium."
+      - "The spring constant is 30 N/m, and the force always points toward equilibrium."
+      - "The spring constant is 0.033 N/m, and the force always points toward equilibrium."
+      - "The spring constant is 3.0 N/m, the force at 0.10 m."
+    option_explanations:
+      - |
+        The slope is −30 N/m, but k is the positive constant in F = −kx; the minus sign means the force points toward equilibrium, not away.
+      - |
+        Correct. The slope is −3.0 N / 0.10 m = −30 N/m = −k, so k = 30 N/m, and the negative slope means the force is opposite the displacement: a restoring force.
+      - |
+        0.033 is displacement over force, the reciprocal of the slope; k is force per unit displacement.
+      - |
+        3.0 N is the size of the force at one point, not the force per metre of displacement.
+    answer: 1
+  - slug: apphys1-u07-exam-q15
+    type: multiple_choice
+    topic_code: "7.1"
+    source: "AP Physics 1 CED, Topic 7.1"
+    points: 1
+    prompt: |
+      Which of these would most closely follow simple harmonic motion when given a small push?
+    options:
+      - "A marble rolling back and forth in a V-shaped trough with flat, straight sides"
+      - "A hockey puck sliding back and forth between two rigid walls on frictionless ice"
+      - "A marble rolling back and forth near the bottom of a round bowl"
+      - "A child jumping repeatedly on a trampoline, spending most of each cycle in the air"
+    option_explanations:
+      - |
+        On a straight-sided trough the force along each side has a constant size, not one proportional to the distance from the bottom.
+      - |
+        Between the walls the puck feels no force at all, and then a sudden force at each wall; nothing pulls it back in proportion to its displacement.
+      - |
+        Correct. Near the bottom of a round bowl, the component of gravity along the surface grows in proportion to the distance from the bottom, just like a pendulum at small angles.
+      - |
+        While the child is in the air the only force is constant gravity, so most of the cycle is projectile motion, not SHM.
+    answer: 2
+  - slug: apphys1-u07-exam-q16
+    type: multiple_choice
+    topic_code: "7.1"
+    source: "AP Physics 1 CED, Topic 7.1"
+    points: 1
+    prompt: |
+      A 0.30 kg mass is hung from a vertical spring with spring constant 12 N/m and allowed to come to rest. About which position will it oscillate if it is then pulled down and released?
+    options:
+      - "A position 0.25 m below the spring's unstretched end, where the spring force balances the weight"
+      - "The spring's unstretched length, where the spring force is zero"
+      - "A position 0.025 m below the spring's unstretched end"
+      - "The lowest point it was pulled down to, where it was released"
+    option_explanations:
+      - |
+        Correct. Equilibrium is where the net force is zero: kΔy = mg, so Δy = (0.30)(9.8)/12 ≈ 0.25 m. The mass oscillates symmetrically about this point.
+      - |
+        At the unstretched length the spring force is zero but gravity is not, so the net force is not zero there; that is not the equilibrium position.
+      - |
+        0.025 m is m/k with g left out; the stretch must balance the weight mg, not the mass.
+      - |
+        The release point is a turning point of the motion (x = −A), not its centre.
+    answer: 0
+  # ---- Frequency and period (7.2)
+  - slug: apphys1-u07-exam-q17
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "AP Physics 1 CED, Topic 7.2"
+    points: 1
+    prompt: |
+      A block on a spring oscillates with period T. The spring is replaced by one with twice the spring constant, and the block and amplitude are unchanged. What is the new period?
+    options:
+      - "2T"
+      - "T/2"
+      - "√2 T"
+      - "T/√2"
+    option_explanations:
+      - |
+        A stiffer spring pulls harder at each displacement, so the block moves faster and the period gets shorter, not longer.
+      - |
+        T/2 treats the period as inversely proportional to k; it is inversely proportional to √k.
+      - |
+        √2 T has the right factor but the wrong direction: a larger k makes the period shorter.
+      - |
+        Correct. T = 2π√(m/k), so T ∝ 1/√k; doubling k divides the period by √2.
+    answer: 3
+  - slug: apphys1-u07-exam-q18
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "AP Physics 1 CED, Topic 7.2"
+    points: 1
+    prompt: |
+      A pendulum has period T on Earth. It is taken to a planet where the gravitational field is 4.9 m/s², half of Earth's. What is its period there?
+    options:
+      - "T/√2"
+      - "√2 T"
+      - "2T"
+      - "T, because the length of the pendulum has not changed"
+    option_explanations:
+      - |
+        A weaker gravitational field gives a weaker restoring force, so the pendulum swings more slowly, with a longer period.
+      - |
+        Correct. T = 2π√(L/g), so halving g multiplies T by √2 ≈ 1.41.
+      - |
+        2T treats the period as inversely proportional to g; it is inversely proportional to √g.
+      - |
+        g appears in the pendulum period, so changing the gravitational field changes the period even with the same length.
+    answer: 1
+  - slug: apphys1-u07-exam-q19
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "AP Physics 1 CED, Topic 7.2"
+    points: 1
+    prompt: |
+      A diving board vibrates after a diver leaves it. A video shows the end of the board completing 15 full oscillations in 6.0 s. What is the frequency of the vibration?
+    options:
+      - "0.40 Hz"
+      - "90 Hz"
+      - "2.5 Hz"
+      - "0.40 s"
+    option_explanations:
+      - |
+        0.40 is time per oscillation (the period, in seconds); the frequency is oscillations per second.
+      - |
+        90 multiplies the number of oscillations by the time; frequency divides them.
+      - |
+        Correct. f = 15 oscillations / 6.0 s = 2.5 Hz (period 0.40 s).
+      - |
+        0.40 s is the period, a time, not a frequency.
+    answer: 2
+  - slug: apphys1-u07-exam-q20
+    type: multiple_choice
+    topic_code: "7.2"
+    source: "AP Physics 1 CED, Topic 7.2"
+    points: 1
+    prompt: |
+      A pendulum clock runs slow: it shows less time passing than really has. How should its pendulum be adjusted?
+    options:
+      - "Shorten the pendulum, to make its period shorter"
+      - "Lengthen the pendulum, to make its period shorter"
+      - "Use a heavier bob, so gravity pulls it back faster"
+      - "Swing it through a smaller angle, to make its period shorter"
+    option_explanations:
+      - |
+        Correct. A slow clock ticks too seldom, so its period is too long. T = 2π√(L/g), so a shorter pendulum has a shorter period and the clock speeds up.
+      - |
+        A longer pendulum has a longer period (T ∝ √L), which would make the clock even slower.
+      - |
+        The bob's mass cancels out of the period: the larger gravitational force is matched by the larger inertia.
+      - |
+        For a clock pendulum's small swings, the period is independent of amplitude, so a smaller angle would not change the timing.
+    answer: 0
+  # ---- Representing SHM (7.3)
+  - slug: apphys1-u07-exam-q21
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "AP Physics 1 CED, Topic 7.3"
+    points: 1
+    prompt: |
+      The position–time graph of a cart on a spring is a cosine curve starting at x = +A. Which description matches its acceleration–time graph?
+    options:
+      - "The same as the position graph: a cosine curve starting at its maximum positive value"
+      - "A sine curve starting at zero and rising"
+      - "A horizontal line, since the spring constant does not change"
+      - "A cosine curve flipped upside down, starting at its most negative value"
+    option_explanations:
+      - |
+        The acceleration is opposite the displacement (a = −(k/m)x), so when x is at +A the acceleration is at its most negative, not its most positive.
+      - |
+        The acceleration at t = 0 is not zero: the cart is at a turning point, where the restoring force is largest.
+      - |
+        A constant k does not mean a constant acceleration; the force −kx, and so a, changes with position.
+      - |
+        Correct. a = −(k/m)x, so the acceleration graph is the position graph scaled and flipped: most negative at t = 0 when x = +A.
+    answer: 3
+  - slug: apphys1-u07-exam-q22
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "AP Physics 1 CED, Topic 7.3"
+    points: 1
+    prompt: |
+      At t = 0 a glider on an air track is momentarily at rest at x = +A, having been pulled aside and released. Its frequency is f. Which equation describes its position?
+    options:
+      - "x = A sin(2πft)"
+      - "x = A cos(2πft)"
+      - "x = −A cos(2πft)"
+      - "x = A cos(2πt/f)"
+    option_explanations:
+      - |
+        The sine form gives x = 0 at t = 0, a glider passing through equilibrium, not one at rest at +A.
+      - |
+        Correct. At t = 0, cos 0 = 1, so x = +A, and the cosine curve is flat there: at rest at the turning point.
+      - |
+        This starts the glider at x = −A, the opposite side.
+      - |
+        The angle is 2πft = 2πt/T; dividing t by the frequency puts the period where the frequency belongs.
+    answer: 1
+  - slug: apphys1-u07-exam-q23
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "AP Physics 1 CED, Topic 7.3"
+    points: 1
+    prompt: |
+      A position–time graph of an oscillating mass shows peaks at t = 0.30 s, 0.90 s and 1.50 s, with a trough between each pair of peaks. What is the period?
+    options:
+      - "0.30 s"
+      - "1.20 s"
+      - "0.60 s"
+      - "1.67 s"
+    option_explanations:
+      - |
+        0.30 s is the time of the first peak, which depends on when the clock started, not the time per cycle.
+      - |
+        1.20 s is the time from the first peak to the third, which covers two cycles.
+      - |
+        Correct. The period is the time from one peak to the next: 0.90 − 0.30 = 0.60 s.
+      - |
+        1.67 is the frequency in hertz (1/0.60 s), not the period.
+    answer: 2
+  - slug: apphys1-u07-exam-q24
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "AP Physics 1 CED, Topic 7.4"
+    points: 1
+    prompt: |
+      A block oscillates on a horizontal spring with amplitude A. It is replaced by a block of twice the mass, which is pulled to the same amplitude on the same spring and released. Compared with the first block, how do the total energy and the maximum speed compare?
+    options:
+      - "Same total energy; maximum speed smaller by a factor of √2"
+      - "Twice the total energy; same maximum speed"
+      - "Same total energy; maximum speed half as large"
+      - "Half the total energy; maximum speed smaller by a factor of √2"
+    option_explanations:
+      - |
+        Correct. E = ½kA² depends only on k and A, so it is unchanged. Then ½(2m)v_max² = ½kA² gives v_max = A√(k/(2m)), smaller by √2.
+      - |
+        The energy is set by the spring's stretch at release, ½kA², which has no mass in it; the heavier block cannot move as fast with the same energy.
+      - |
+        The energy is the same, but K = ½mv², so doubling m reduces v by √2, not by 2.
+      - |
+        The energy stored at release is ½kA², the same for both blocks; mass does not reduce it.
+    answer: 0
+  - slug: apphys1-u07-exam-q25
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "AP Physics 1 CED, Topic 7.4"
+    points: 1
+    prompt: |
+      A 0.50 kg pendulum bob reaches a maximum height of 0.080 m above its lowest point as it swings. What is its kinetic energy at the lowest point? Air resistance is negligible.
+    options:
+      - "0.040 J"
+      - "0.78 J"
+      - "0.20 J"
+      - "0.39 J"
+    option_explanations:
+      - |
+        0.040 J is mh, leaving out g; potential energy is mgh.
+      - |
+        0.78 J is 2mgh; all of the bob's mgh becomes kinetic energy, not twice it.
+      - |
+        0.20 J is ½mgh, as if half the energy were lost; with no air resistance all of it becomes kinetic energy.
+      - |
+        Correct. For the bob–Earth system, K at the bottom = mgh at the top = 0.50 × 9.8 × 0.080 ≈ 0.39 J.
+    answer: 3
+  - slug: apphys1-u07-exam-q26
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "AP Physics 1 CED, Topic 7.4"
+    points: 1
+    prompt: |
+      A cart on a spring oscillates on a track with a small amount of friction. Over many cycles the amplitude slowly decreases. Which statement about the energy of the cart–spring system is correct?
+    options:
+      - "Its mechanical energy stays constant, because the spring is ideal."
+      - "Its mechanical energy decreases, as friction transfers energy to internal (thermal) energy of the cart and track."
+      - "Its mechanical energy decreases because the period gets shorter as the amplitude shrinks."
+      - "Its kinetic energy decreases but its spring potential energy at the turning points stays the same."
+    option_explanations:
+      - |
+        An ideal spring stores and returns energy without loss, but friction acting on the cart still removes mechanical energy; a shrinking amplitude means a shrinking ½kA².
+      - |
+        Correct. The total mechanical energy is ½kA², so a falling amplitude means falling mechanical energy; friction converts it to thermal energy in the surfaces.
+      - |
+        The period of a mass–spring system does not depend on amplitude; the energy loss comes from friction doing negative work.
+      - |
+        The potential energy at a turning point is ½kA², which shrinks with the amplitude.
+    answer: 1
+  - slug: apphys1-u07-exam-q27
+    type: multiple_choice
+    topic_code: "7.3"
+    source: "AP Physics 1 CED, Topic 7.3"
+    points: 1
+    prompt: |
+      On a position–time graph of a mass oscillating in SHM, where is a tangent line to the curve steepest, and what does that tell you?
+    options:
+      - "At the peaks and troughs: the acceleration is greatest there"
+      - "At the peaks and troughs: the speed is greatest there"
+      - "Where the curve crosses x = 0: the speed is greatest there"
+      - "Where the curve crosses x = 0: the acceleration is greatest there"
+    option_explanations:
+      - |
+        The tangent at a peak or trough is horizontal (zero slope). It is true that the acceleration is greatest there, but the tangent is flattest, not steepest.
+      - |
+        The slope of x–t is the velocity, and it is zero at peaks and troughs: the mass is momentarily at rest.
+      - |
+        Correct. The slope of x–t is the velocity, and the curve is steepest as it crosses equilibrium, where the speed is greatest.
+      - |
+        At x = 0 the net force −kx is zero, so the acceleration is zero there, even though the slope is steepest.
+    answer: 2
+  - slug: apphys1-u07-exam-q28
+    type: multiple_choice
+    topic_code: "7.4"
+    source: "AP Physics 1 CED, Topic 7.4"
+    points: 1
+    prompt: |
+      A 0.50 kg block oscillates on a horizontal spring with spring constant 50 N/m and amplitude 0.10 m on a frictionless surface. How fast is it moving when it is 0.060 m from equilibrium?
+    options:
+      - "1.0 m/s"
+      - "0.40 m/s"
+      - "0.60 m/s"
+      - "0.80 m/s"
+    option_explanations:
+      - |
+        1.0 m/s is the maximum speed, A√(k/m), reached only at equilibrium.
+      - |
+        0.40 m/s scales v_max by (1 − x/A) = 0.4, as if speed fell in proportion to the distance from equilibrium.
+      - |
+        0.60 m/s scales v_max by x/A, which would make the block fastest at the turning point.
+      - |
+        Correct. ½mv² = ½k(A² − x²): v = √((50/0.50)(0.10² − 0.060²)) = 10 × √0.0064 = 0.80 m/s.
+    answer: 3
+  # ---- Select-all, true/false, fill-in and numeric
+  - slug: apphys1-u07-exam-q29
+    type: multi_select
+    topic_code: "7.2"
+    source: "AP Physics 1 CED, Topic 7.2"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which pairs of oscillators have equal periods? Assume ideal springs and small pendulum swings. Select all that apply.
+    options:
+      - "A 0.5 kg block on a 20 N/m spring and a 2.0 kg block on an 80 N/m spring"
+      - "A 1.0 m pendulum with a 50 g bob and a 1.0 m pendulum with a 500 g bob, side by side"
+      - "A 1.0 m pendulum on Earth and the same pendulum on the Moon"
+      - "A 0.3 kg block on a 30 N/m spring on Earth and the same system on the Moon"
+      - "A 0.5 kg block on a 20 N/m spring pulled 2 cm and the same system pulled 4 cm"
+    option_explanations:
+      - |
+        Correct. m/k is 0.025 kg·m/N in both, so T = 2π√(m/k) ≈ 0.99 s for both.
+      - |
+        Correct. A pendulum's period depends on L and g, not on the bob's mass.
+      - |
+        g is smaller on the Moon, so T = 2π√(L/g) is longer there (by about 2.5 times).
+      - |
+        Correct. The mass–spring period contains no g.
+      - |
+        Correct. The period of an ideal oscillator does not depend on its amplitude.
+    answer: [0, 1, 3, 4]
+  - slug: apphys1-u07-exam-q30
+    type: multi_select
+    topic_code: "7.3"
+    source: "AP Physics 1 CED, Topic 7.3"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A cart oscillating on a spring is at x = −A, its most negative position. Which statements are correct at that instant? Select all that apply.
+    options:
+      - "Its velocity is zero."
+      - "Its acceleration points in the +x direction."
+      - "The net force on it is zero."
+      - "The position–time graph has a trough (a minimum) at this instant."
+      - "Its speed is at its largest."
+    option_explanations:
+      - |
+        Correct. x = −A is a turning point, where the cart momentarily stops.
+      - |
+        Correct. a = −(k/m)x with x = −A is positive: the compressed spring pushes the cart back toward equilibrium.
+      - |
+        The net force is −k(−A) = kA, its largest value, not zero.
+      - |
+        Correct. The most negative position is a minimum of the x–t curve, where its slope (the velocity) is zero.
+      - |
+        The speed is zero at a turning point; it is largest at x = 0.
+    answer: [0, 1, 3]
+  - slug: apphys1-u07-exam-q31
+    type: multi_select
+    topic_code: "7.4"
+    source: "AP Physics 1 CED, Topic 7.4"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A block oscillates on a horizontal spring on a frictionless surface. Which statements about the energy of the block–spring system are correct? Select all that apply.
+    options:
+      - "The kinetic energy is largest when the block passes through equilibrium."
+      - "The spring potential energy at a turning point equals the system's total mechanical energy."
+      - "The kinetic energy and the spring potential energy are equal when the block is halfway between equilibrium and a turning point."
+      - "The total mechanical energy is proportional to the square of the amplitude."
+      - "The kinetic energy is constant because there is no friction."
+    option_explanations:
+      - |
+        Correct. At equilibrium U_s = 0, so all the energy is kinetic.
+      - |
+        Correct. At a turning point K = 0, so U_s = ½kA² = E.
+      - |
+        At x = A/2, U_s is only E/4 and K is 3E/4; they are equal at x = A/√2 ≈ 0.71A.
+      - |
+        Correct. E = ½kA², the spring potential energy at the turning point, so doubling A quadruples E.
+      - |
+        Without friction the total mechanical energy is constant, but kinetic energy keeps changing as it is exchanged with spring potential energy.
+    answer: [0, 1, 3]
+  - slug: apphys1-u07-exam-q32
+    type: true_false
+    topic_code: "7.1"
+    source: "AP Physics 1 CED, Topic 7.1"
+    points: 1
+    prompt: |
+      True or false: A pendulum released from 60° moves in simple harmonic motion, with period 2π√(L/g).
+    answer: false
+    explanation: |
+      False. The restoring force is mg sin θ, which is close to proportional to the displacement only for small angles (sin θ ≈ θ). At 60°, sin θ = 0.87 but θ = 1.05 rad, so the force is not proportional to the displacement; the motion is periodic but not SHM, and its period is somewhat longer than 2π√(L/g).
+  - slug: apphys1-u07-exam-q33
+    type: true_false
+    topic_code: "7.2"
+    source: "AP Physics 1 CED, Topic 7.2"
+    points: 1
+    prompt: |
+      True or false: Two pendulums of the same length, one with a wooden bob and one with a lead bob of ten times the mass, swing side by side through small angles. Ignoring air resistance, they have the same period.
+    answer: true
+    explanation: |
+      True. T = 2π√(L/g) contains no mass. The lead bob feels ten times the restoring force but also has ten times the inertia, so at every displacement both bobs have the same acceleration.
+  - slug: apphys1-u07-exam-q34
+    type: true_false
+    topic_code: "7.4"
+    source: "AP Physics 1 CED, Topic 7.4"
+    points: 1
+    prompt: |
+      True or false: When a mass–spring oscillator is moving at half its maximum speed, half of its total mechanical energy is kinetic.
+    answer: false
+    explanation: |
+      False. K = ½mv², so at half the maximum speed K = ¼ · ½mv_max² = E/4: only a quarter of the energy is kinetic, and three quarters is spring potential energy.
+  - slug: apphys1-u07-exam-q35
+    type: fill_blank
+    topic_code: "7.2"
+    source: "AP Physics 1 CED, Topic 7.2"
+    points: 1
+    prompt: |
+      A block oscillates on a spring. If the spring is replaced by one with four times the spring constant and the block is unchanged, the period of oscillation ____ (one word).
+    answer: ["halves", "halved", "is halved", "half"]
+    explanation: |
+      T = 2π√(m/k), so T ∝ 1/√k. Four times k divides T by √4 = 2: the period halves.
+  - slug: apphys1-u07-exam-q36
+    type: fill_blank
+    topic_code: "7.3"
+    source: "AP Physics 1 CED, Topic 7.3"
+    points: 1
+    prompt: |
+      In one full period, an object in simple harmonic motion with amplitude A travels a total distance of ____ times A.
+    answer: ["4", "4.0", "four"]
+    explanation: |
+      From +A to 0 (A), 0 to −A (A), −A to 0 (A), and 0 back to +A (A): 4A in all. Its displacement over a full period is zero.
+  - slug: apphys1-u07-exam-q37
+    type: fill_blank
+    topic_code: "7.4"
+    source: "AP Physics 1 CED, Topic 7.4"
+    points: 1
+    prompt: |
+      If the amplitude of a mass–spring oscillator is tripled, its total mechanical energy is multiplied by ____.
+    answer: ["9", "9.0", "nine"]
+    explanation: |
+      E = ½kA², so E ∝ A²: tripling A multiplies E by 3² = 9. (The maximum speed triples and the period is unchanged.)
+  - slug: apphys1-u07-exam-q38
+    type: numeric
+    topic_code: "7.2"
+    source: "AP Physics 1 CED, Topic 7.2"
+    points: 1
+    prompt: |
+      A student builds a pendulum 0.65 m long, from the pivot to the centre of the bob. What is its period for small swings? Give your answer in seconds, to two decimal places.
+    answer: { value: 1.62, tolerance: 0.015 }
+    explanation: |
+      T = 2π√(L/g) = 2π√(0.65/9.8) ≈ 2π × 0.2575 ≈ 1.62 s. (Using g = 10 m/s² gives 1.60 s.)
+  # ---- Short answers
+  - slug: apphys1-u07-exam-q39
+    type: short_answer
+    topic_code: "7.1"
+    source: "AP Physics 1 CED, Topic 7.1"
+    points: 3
+    prompt: |
+      A cart on a level, frictionless track is attached between two identical springs, each with spring constant 15 N/m; the other ends are fixed to posts at the two ends of the track. At equilibrium both springs are at their natural lengths. The cart is moved a distance x to the right.
+
+      (a) Describe a free-body diagram of the cart, naming each horizontal force and its direction.
+      (b) Write an expression for the net force on the cart in terms of x, and use it to explain why the cart will move in simple harmonic motion when released.
+      (c) A student says that the cart behaves as if it were on a single spring of 15 N/m. Is the student correct? Explain.
+    answer: |
+      (a) Vertically, the weight F_g down and the normal force F_N up, equal in size. Horizontally: the left spring is stretched by x and pulls the cart to the left with force 15x; the right spring is compressed by x and pushes the cart to the left with force 15x.
+      (b) F_net = −15x − 15x = −(30 N/m)x. The net force is proportional to the displacement and points back toward equilibrium (the minus sign), which is the condition for SHM. The same holds for a displacement to the left, where both forces point right.
+      (c) No. Both springs push or pull the cart back, so it behaves like a single spring of 30 N/m. Its period, 2π√(m/30), is shorter than with one 15 N/m spring by a factor of √2.
+    explanation: |
+      Three points, one per part. (a) both horizontal spring forces pointing left (toward equilibrium), with the left spring pulling and the right spring pushing; drawing the two spring forces in opposite directions loses the point. (b) F_net = −30x (or −2kx) with the reasoning that a net force proportional to displacement and directed toward equilibrium gives SHM. (c) "not correct" with the effective spring constant of 30 N/m (or "the net force is twice as large at each displacement").
+  - slug: apphys1-u07-exam-q40
+    type: short_answer
+    topic_code: "7.4"
+    source: "AP Physics 1 CED, Topic 7.4"
+    points: 3
+    prompt: |
+      A 0.20 kg mass is attached to the lower end of a vertical spring with spring constant 19.6 N/m. The mass is held at the position where the spring is unstretched and released from rest. It falls, stops 0.20 m lower, rises back, and oscillates about the point 0.10 m below the release point. Take the system to be the mass, the spring and Earth, and set U_g = 0 at the lowest point.
+
+      Complete an energy bar chart, as a table, giving K, U_g and U_s in joules (a) at the release point, (b) at the equilibrium point 0.10 m below it, and (c) at the lowest point. Show that the total is the same in all three.
+    answer: |
+      (a) Release point (0.20 m above the lowest point, spring unstretched, at rest): K = 0, U_g = mgh = 0.20 × 9.8 × 0.20 = 0.392 J, U_s = 0. Total 0.392 J.
+      (b) Equilibrium point (0.10 m above the lowest point, stretch 0.10 m): U_g = 0.20 × 9.8 × 0.10 = 0.196 J, U_s = ½ × 19.6 × (0.10)² = 0.098 J, so K = 0.392 − 0.196 − 0.098 = 0.098 J (speed about 0.99 m/s).
+      (c) Lowest point (stretch 0.20 m, at rest): K = 0, U_g = 0, U_s = ½ × 19.6 × (0.20)² = 0.392 J. Total 0.392 J.
+    explanation: |
+      Three points, one per row: (a) U_g = 0.39 J with K = 0 and U_s = 0; (b) U_g ≈ 0.20 J, U_s ≈ 0.098 J and K ≈ 0.098 J; (c) U_s = 0.39 J with K = 0 and U_g = 0. Each row must total 0.39 J. Leaving U_g out of the chart (treating the spring as horizontal) earns at most 1 point.
+  # ---- Free-response question 1: experimental design and analysis (10 points)
+  - slug: apphys1-u07-exam-q41
+    type: long_answer
+    topic_code: "7.2"
+    source: "AP Physics 1 CED, Topic 7.2"
+    points: 10
+    prompt: |
+      Experimental design and analysis. A lab group wants to determine the gravitational field strength g in their classroom using a simple pendulum. They have string, a heavy metal bob, a clamp stand, a metre stick, a protractor and a stopwatch.
+
+      (A) Describe a procedure the group could use to collect data that would let them determine g from a graph. Name the quantities to measure and the equipment used for each, and describe at least two steps that would reduce the uncertainty in their results.
+
+      The group collects the following data.
+
+      | Length L (m) | 0.30 | 0.50 | 0.70 | 0.90 | 1.10 |
+      |---|---|---|---|---|---|
+      | Time for 10 swings (s) | 11.04 | 14.16 | 16.82 | 19.01 | 21.07 |
+
+      (B) Identify quantities that, when graphed, would give a straight line whose slope can be used to find g. Calculate and record the values to be graphed in a table.
+
+      (C) The best-fit line for the quantities in (B) has a slope of 4.02 (in the units of your graph). Use the slope to calculate an experimental value for g, showing how the slope is related to g.
+
+      (D) Another group measured every length from the pivot to the top of the bob instead of to its centre, making each length 0.02 m too short. Describe how this would affect their graph and whether it would change their value of g. Justify your answer.
+    answer: |
+      (A) Tie the bob to the string and hang it from the clamp. Measure the length L from the pivot to the centre of the bob with the metre stick. Pull the bob aside to a small angle (under about 10°, checked with the protractor) and release it. Use the stopwatch to time 10 complete swings and divide by 10 to get T. Repeat for at least five different lengths. To reduce uncertainty: time many swings rather than one (reaction time is a smaller fraction of the total); repeat each timing several times and average; start timing as the bob passes the lowest point, where it moves fastest and its position is clearest; keep the angle small so the period equation applies.
+      (B) Graph T² (vertical) against L (horizontal), because T = 2π√(L/g) gives T² = (4π²/g)L, a straight line through the origin.
+      | L (m) | 0.30 | 0.50 | 0.70 | 0.90 | 1.10 |
+      |---|---|---|---|---|---|
+      | T (s) | 1.104 | 1.416 | 1.682 | 1.901 | 2.107 |
+      | T² (s²) | 1.22 | 2.01 | 2.83 | 3.61 | 4.44 |
+      (C) The slope is 4π²/g, so g = 4π²/slope = 39.5/4.02 ≈ 9.8 m/s² (the slope's unit is s²/m).
+      (D) Every L is 0.02 m too small, so each point shifts 0.02 m to the left and the line no longer passes through the origin: it has a positive T² intercept of about (4π²/g)(0.02) ≈ 0.08 s² (equivalently a horizontal intercept at L = −0.02 m). The slope is unchanged, because the error is the same constant amount at every length, so the value of g from the slope is unaffected.
+    explanation: |
+      Ten points.
+      (A) 4 points: 1 for measuring L (pivot to centre of bob) with the metre stick and changing it over several values; 1 for measuring the period with the stopwatch by timing several swings and dividing; 1 for keeping the release angle small (protractor), so the small-angle period applies; 1 for a further valid step to reduce uncertainty (repeating and averaging trials, timing from the lowest point, more lengths over a wider range). Varying the mass instead of the length earns no first point.
+      (B) 2 points: 1 for choosing T² against L (or L against T², or T against √L) with a reason from T = 2π√(L/g); 1 for correct values in a table (T² to within 0.02 s² of 1.22, 2.01, 2.83, 3.61, 4.44).
+      (C) 2 points: 1 for relating the slope to g (slope = 4π²/g, or g = 4π²/slope for T² against L; slope = g/4π² for L against T²); 1 for g ≈ 9.8 m/s² (accept 9.7 to 9.9 m/s²) with units.
+      (D) 2 points: 1 for stating that the line shifts (non-zero intercept) but the slope is unchanged; 1 for concluding that g is unaffected, because a constant offset in L does not change the slope. Saying g would be too large or too small earns 0 for the second point.
+  # ---- Free-response question 2: mathematical routines (10 points)
+  - slug: apphys1-u07-exam-q42
+    type: long_answer
+    topic_code: "7.4"
+    source: "AP Physics 1 CED, Topic 7.4"
+    points: 10
+    prompt: |
+      Mathematical routines. A cart of mass M = 0.60 kg rests at its equilibrium position on a level, frictionless track, attached to a horizontal spring with spring constant k = 30 N/m. A ball of clay of mass m = 0.20 kg slides along the track at v₀ = 3.0 m/s, hits the cart and sticks to it. The cart and clay then oscillate together.
+
+      (A) Derive an expression for the speed v of the cart and clay just after the collision, in terms of m, M and v₀. Calculate its value.
+
+      (B) Derive an expression for the amplitude A of the oscillation in terms of m, M, k and v₀. Calculate its value.
+
+      (C) Calculate the period of the oscillation.
+
+      (D) In a second trial, the clay is replaced by a rubber ball of the same mass and speed, which bounces straight back off the cart instead of sticking. Without calculating, explain whether the amplitude of the cart's oscillation is greater than, less than or equal to the amplitude in (B), and whether its period is greater than, less than or equal to the period in (C).
+    answer: |
+      (A) The collision is quick, so the spring exerts no impulse during it, and momentum of the clay–cart system is conserved: mv₀ = (m + M)v, so v = mv₀/(m + M) = (0.20)(3.0)/0.80 = 0.75 m/s.
+      (B) The collision happens at equilibrium, so after it all the system's energy is kinetic, and at the amplitude it is all spring potential energy: ½(m + M)v² = ½kA², so A = v√((m + M)/k) = (mv₀/(m + M))√((m + M)/k) = mv₀/√(k(m + M)). A = (0.20)(3.0)/√(30 × 0.80) = 0.60/4.90 ≈ 0.12 m.
+      (C) T = 2π√((m + M)/k) = 2π√(0.80/30) ≈ 1.03 s.
+      (D) The amplitude is greater. When the ball bounces back, its momentum changes by more than when it stops (it reverses direction), so it exerts a larger impulse on the cart, and the cart leaves equilibrium with a larger speed and more kinetic energy, all of which is stored at the amplitude, so the amplitude is larger. The period is less than in (C): the ball does not stay on the cart, so the oscillating mass is only M = 0.60 kg, and T = 2π√(M/k) is shorter.
+    explanation: |
+      Ten points.
+      (A) 2 points: 1 for applying conservation of momentum to a perfectly inelastic collision, mv₀ = (m + M)v; 1 for v = 0.75 m/s. Using conservation of kinetic energy earns 0 for this part.
+      (B) 3 points: 1 for setting the kinetic energy after the collision equal to ½kA² (not the clay's kinetic energy before the collision); 1 for a correct expression, A = v√((m + M)/k) or A = mv₀/√(k(m + M)); 1 for A ≈ 0.12 m (accept 0.12 to 0.13 m). Using ½mv₀² = ½kA² (0.24 m) earns at most the second point if the expression is otherwise consistent.
+      (C) 2 points: 1 for using the combined mass 0.80 kg in T = 2π√(m/k); 1 for T ≈ 1.0 s (accept 1.02 to 1.03 s).
+      (D) 3 points: 1 for "greater amplitude"; 1 for the justification that the bouncing ball undergoes a larger change in momentum, so it delivers a larger impulse and the cart gains more speed and energy; 1 for "shorter period" because the oscillating mass is now only the cart's. A correct claim without justification earns no credit for that claim.

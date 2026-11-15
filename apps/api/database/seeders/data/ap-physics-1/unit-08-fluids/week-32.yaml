@@ -1,0 +1,593 @@
+week: 32
+unit: 8
+title: "Fluids and Conservation Laws"
+topics: ["8.4"]
+guide: guides/week-32.md
+guide_description: |
+  Fluid flow treated with the two conservation laws: conservation of mass gives the continuity equation
+  A₁v₁ = A₂v₂ (volume flow rate Q = Av is the same at every cross-section of an incompressible fluid), and
+  conservation of energy gives Bernoulli's equation P + ρgy + ½ρv² = constant along a streamline, each term
+  an energy per unit volume. Applications: faster flow where a pipe narrows and lower pressure where the
+  flow is faster, Torricelli's result v = √(2gh) for water leaving a hole in an open tank, the hydrostatic
+  equation as Bernoulli's special case with no flow, and the outflow jet as a projectile. Worked examples: a
+  garden hose with a nozzle, a horizontal pipe that narrows (an energy bar chart per unit volume as a
+  table), water pressure on an upper floor, a leaking water tower with the range of its jet, and a lab that
+  graphs the square of a jet's range against h to test Torricelli's result.
+flashcards_description: |
+  30 cards on fluids and conservation laws: volume and mass flow rate, the continuity equation and its
+  functional dependence on diameter, Bernoulli's equation as energy per volume, pressure in fast and slow
+  flow, Torricelli's outflow speed, outflow jets as projectiles, and linearising outflow data.
+
+flashcards:
+  - front: Volume flow rate → definition and SI unit
+    back: |
+      Q = Av, the volume passing a cross-section per second, in m³/s. A is the cross-sectional area (m²), v the flow speed (m/s).
+    topic_code: "8.4"
+  - front: Mass flow rate → relation to volume flow rate
+    back: |
+      Mass per second = ρQ = ρAv, in kg/s. For an incompressible fluid ρ is constant, so conserving mass means conserving Q.
+    topic_code: "8.4"
+  - front: Continuity equation → statement and the law behind it
+    back: |
+      A₁v₁ = A₂v₂ for an incompressible fluid in a pipe with no leaks. It is conservation of mass: what flows in each second must flow out.
+    topic_code: "8.4"
+  - front: Pipe narrows to half its diameter → flow speed
+    back: |
+      Area goes as diameter², so the area becomes one quarter and the speed becomes four times as great.
+    topic_code: "8.4"
+  - front: Hose 2.0 cm across at 1.5 m/s, nozzle 0.50 cm across → nozzle speed
+    back: |
+      v₂ = v₁(d₁/d₂)² = 1.5 × (2.0/0.50)² = 1.5 × 16 = 24 m/s.
+    topic_code: "8.4"
+  - front: Pipe splits into several branches → continuity
+    back: |
+      The total flow rate is shared: A₁v₁ = (sum of the branches' A·v). Three identical branches each carry one third of Q.
+    topic_code: "8.4"
+  - front: Filling time from a flow rate → method
+    back: |
+      t = V/Q. A pipe of area 0.020 m² carrying water at 2.0 m/s delivers 0.040 m³/s, so it fills a 1.0 m³ tank in 25 s.
+    topic_code: "8.4"
+  - front: Bernoulli's equation → statement
+    back: |
+      Along a streamline of an ideal fluid in steady flow, P + ρgy + ½ρv² has the same value at every point.
+    topic_code: "8.4"
+  - front: Bernoulli's three terms → what each one means
+    back: |
+      P is work done by pressure per unit volume, ρgy is gravitational potential energy per unit volume, ½ρv² is kinetic energy per unit volume. All are in Pa = J/m³.
+    topic_code: "8.4"
+  - front: Bernoulli's equation → which conservation law
+    back: |
+      Conservation of energy: the work done on a parcel of fluid by the pressure difference equals its change in kinetic plus gravitational potential energy.
+    topic_code: "8.4"
+  - front: Horizontal pipe, fluid speeds up where it narrows → pressure there
+    back: |
+      Lower. With y the same, P + ½ρv² is constant, so where v is larger, P is smaller. The pressure difference is what accelerates the fluid into the narrow part.
+    topic_code: "8.4"
+  - front: Horizontal pipe, P₁ = 1.80 × 10⁵ Pa at 2.0 m/s, area ratio 3 → pressure in the narrow part
+    back: |
+      v₂ = 6.0 m/s; P₂ = P₁ − ½ρ(v₂² − v₁²) = 1.80 × 10⁵ − 500 × 32 = 1.64 × 10⁵ Pa.
+    topic_code: "8.4"
+  - front: Bernoulli with v the same everywhere → what is left
+    back: |
+      P + ρgy = constant, the hydrostatic result of week 30: P increases by ρgh for every depth h below a point.
+    topic_code: "8.4"
+  - front: Water at the same speed in a pipe 5.0 m higher → pressure drop
+    back: |
+      ΔP = ρgΔy = 1000 × 9.8 × 5.0 = 4.9 × 10⁴ Pa. Upper floors have lower water pressure than the street main.
+    topic_code: "8.4"
+  - front: Torricelli's result → speed of water leaving a hole a depth h below the open surface of a large tank
+    back: |
+      v = √(2gh), the same speed as an object falling freely through h. It comes from Bernoulli with P = P₀ at both the surface and the hole and v ≈ 0 at the surface.
+    topic_code: "8.4"
+  - front: Torricelli outflow → why the liquid's density does not matter
+    back: |
+      ρ appears in every term of Bernoulli's equation and the pressures at the top and hole are both P₀, so ρ cancels: oil and water leave at the same √(2gh).
+    topic_code: "8.4"
+  - front: Hole 1.8 m below a tank's open surface → outflow speed
+    back: |
+      v = √(2 × 9.8 × 1.8) ≈ 5.9 m/s.
+    topic_code: "8.4"
+  - front: Torricelli speed, depth above the hole quadrupled → speed
+    back: |
+      It doubles, because v ∝ √h. Halving the speed needs one quarter of the depth.
+    topic_code: "8.4"
+  - front: Outflow jet leaving a horizontal hole a height H above the floor → range
+    back: |
+      Horizontal projectile: t = √(2H/g), x = vt = √(2gh) × √(2H/g) = 2√(hH). For h = 0.45 m and H = 1.25 m, x = 1.5 m.
+    topic_code: "8.4"
+  - front: Tank draining → why the outflow slows over time
+    back: |
+      As the level falls, h decreases, so v = √(2gh) decreases and the flow rate Q = A_hole v drops.
+    topic_code: "8.4"
+  - front: Testing Torricelli in a lab → what to graph for a straight line
+    back: |
+      v² against h: a straight line through the origin with slope 2g. (Graphing v against h curves.)
+    topic_code: "8.4"
+  - front: Outflow data with a slope of v² against h below 2g → likely reasons
+    back: |
+      Real water is slightly viscous and loses energy at the hole (and the jet narrows just past it), so v is a little less than √(2gh).
+    topic_code: "8.4"
+  - front: Wind blowing fast over a flat roof → the net force on the roof
+    back: |
+      Faster air above means lower pressure above than in the still air inside, so there is a net upward force that can lift the roof.
+    topic_code: "8.4"
+  - front: Blowing between two hanging ping-pong balls → what happens and why
+    back: |
+      They swing together. The fast air between them has lower pressure than the still air on their outer sides, so the pressure difference pushes them inward.
+    topic_code: "8.4"
+  - front: Water stream from a faucet → why it narrows as it falls
+    back: |
+      Gravity speeds the water up as it falls; continuity (Av constant) then requires the cross-sectional area to shrink.
+    topic_code: "8.4"
+  - front: Energy per unit volume bar chart for a horizontal pipe that narrows → what changes
+    back: |
+      Total P + ½ρv² is the same at both points. In the narrow part the ½ρv² bar is taller and the P bar shorter by the same amount; ρgy is unchanged.
+    topic_code: "8.4"
+  - front: Conditions for Bernoulli's equation → list
+    back: |
+      Incompressible, nonviscous fluid; steady flow; points on the same streamline; no pump or turbine adding or removing energy between them.
+    topic_code: "8.4"
+  - front: Error-spot → "a narrower part of a pipe has higher pressure because the water is squeezed"
+    back: |
+      Where the pipe narrows, the water speeds up and its pressure drops (Bernoulli). An incompressible fluid is not squeezed denser.
+    topic_code: "8.4"
+  - front: Error-spot → "halving a pipe's diameter doubles the speed"
+    back: |
+      Continuity uses area, which goes as diameter². Halving the diameter makes the area one quarter, so the speed is four times as great.
+    topic_code: "8.4"
+  - front: Error-spot → "Torricelli's speed for a hole 0.80 m down is √(9.8 × 0.80) = 2.8 m/s"
+    back: |
+      The factor of 2 comes from ½ρv² = ρgh. v = √(2 × 9.8 × 0.80) ≈ 4.0 m/s.
+    topic_code: "8.4"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topic 8.4: flow rate and the continuity equation,
+    Bernoulli's equation as energy conservation, pressure in fast and slow flow, Torricelli's outflow and
+    outflow jets as projectiles), with 7 questions (30%) reviewing earlier weeks (density and incompressible
+    fluids, pressure with depth, buoyancy, rolling, and elastic potential energy). Opens with a shared-context
+    set on a lab group's outflow data from a hole in a bottle. Multiple choice, select-all, true/false and
+    numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers
+    and the long answer are graded by your teacher against the scoring notes. Calculator and equation sheet
+    allowed throughout.
+  questions:
+    # ---- Stimulus set: outflow from a hole in a bottle (8.4)
+    - slug: apphys1-u08-w32-q01
+      type: multiple_choice
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 1
+      stimulus: |
+        A lab group punches a small round hole in the side of a tall plastic bottle near its base. With a slow trickle from a tap they hold the water surface at a chosen height h above the hole, the bottle open to the air at the top. At each height they catch the jet in a measuring cup for a timed interval, divide the volume flow rate by the hole's area to get the exit speed v, and record (invented data):
+
+        | Height of surface above hole, h (m) | 0.25 | 0.20 | 0.15 | 0.10 | 0.05 |
+        |---|---|---|---|---|---|
+        | Exit speed, v (m/s) | 2.18 | 1.96 | 1.70 | 1.38 | 0.97 |
+      prompt: |
+        The group wants a straight-line graph that tests the prediction v = √(2gh). What should they plot?
+      options:
+        - "v on the vertical axis against h on the horizontal axis"
+        - "v on the vertical axis against 1/h on the horizontal axis"
+        - "h on the vertical axis against v on the horizontal axis"
+        - "v² on the vertical axis against h on the horizontal axis"
+      option_explanations:
+        - |
+          The prediction makes v proportional to √h, so a graph of v against h curves (flattening as h grows) rather than being straight.
+        - |
+          v grows as h grows, but 1/h shrinks, so this graph falls and curves; nothing in the prediction is proportional to 1/h.
+        - |
+          h = v²/(2g), so h against v is a parabola, not a straight line.
+        - |
+          Correct. Squaring both sides gives v² = 2gh: a straight line through the origin with slope 2g.
+      answer: 3
+    - slug: apphys1-u08-w32-q02
+      type: numeric
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 1
+      stimulus: |
+        A lab group punches a small round hole in the side of a tall plastic bottle near its base. With a slow trickle from a tap they hold the water surface at a chosen height h above the hole, the bottle open to the air at the top. At each height they catch the jet in a measuring cup for a timed interval, divide the volume flow rate by the hole's area to get the exit speed v, and record (invented data):
+
+        | Height of surface above hole, h (m) | 0.25 | 0.20 | 0.15 | 0.10 | 0.05 |
+        |---|---|---|---|---|---|
+        | Exit speed, v (m/s) | 2.18 | 1.96 | 1.70 | 1.38 | 0.97 |
+      prompt: |
+        Compute v² for each row and find the slope of the best-fit line of v² against h. Give the slope in m/s², to two significant figures.
+      answer: { value: 19, tolerance: 0.5 }
+      explanation: |
+        v² = 4.75, 3.84, 2.89, 1.90, 0.94 m²/s². The end points give (4.75 − 0.94)/(0.25 − 0.05) ≈ 19.1 m/s², and a least-squares fit gives 19.1 m/s², so the slope is about 19 m/s². The prediction is 2g = 19.6 m/s². Accept 18.5 to 19.5 m/s².
+    - slug: apphys1-u08-w32-q03
+      type: multiple_choice
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 1
+      stimulus: |
+        A lab group punches a small round hole in the side of a tall plastic bottle near its base. With a slow trickle from a tap they hold the water surface at a chosen height h above the hole, the bottle open to the air at the top. At each height they catch the jet in a measuring cup for a timed interval, divide the volume flow rate by the hole's area to get the exit speed v, and record (invented data):
+
+        | Height of surface above hole, h (m) | 0.25 | 0.20 | 0.15 | 0.10 | 0.05 |
+        |---|---|---|---|---|---|
+        | Exit speed, v (m/s) | 2.18 | 1.96 | 1.70 | 1.38 | 0.97 |
+      prompt: |
+        Every measured speed is slightly less than √(2gh). Which is the most plausible physical explanation?
+      options:
+        - "Water is denser than the model assumes, and a denser liquid flows out more slowly."
+        - "Real water has some viscosity, so a little mechanical energy is converted to internal energy as it squeezes through the hole."
+        - "The air pushing on the jet outside the hole is at a higher pressure than the air on the water surface."
+        - "The gravitational field strength in the lab is about 20% less than 9.8 m/s²."
+      option_explanations:
+        - |
+          Density cancels from Torricelli's result: v = √(2gh) for any liquid, so a different density would not change the speed.
+        - |
+          Correct. Bernoulli's equation assumes no energy losses. Viscous friction at and near the hole removes some energy, so the water leaves a little slower than the ideal √(2gh) and the slope of v² against h falls below 2g.
+        - |
+          Both the surface and the jet are open to the same atmosphere a few centimetres apart; the pressure difference between them is negligible.
+        - |
+          g varies by well under 1% over Earth's surface, and the shortfall here is about 2.5% in v² (19.1 against 19.6), not 20%.
+      answer: 1
+    - slug: apphys1-u08-w32-q04
+      type: multiple_choice
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 1
+      stimulus: |
+        A lab group punches a small round hole in the side of a tall plastic bottle near its base. With a slow trickle from a tap they hold the water surface at a chosen height h above the hole, the bottle open to the air at the top. At each height they catch the jet in a measuring cup for a timed interval, divide the volume flow rate by the hole's area to get the exit speed v, and record (invented data):
+
+        | Height of surface above hole, h (m) | 0.25 | 0.20 | 0.15 | 0.10 | 0.05 |
+        |---|---|---|---|---|---|
+        | Exit speed, v (m/s) | 2.18 | 1.96 | 1.70 | 1.38 | 0.97 |
+      prompt: |
+        The group repeats the run at h = 0.20 m with an ideal, nonviscous oil of density 800 kg/m³ in place of the water. According to Bernoulli's equation, how does the oil's exit speed compare with the ideal speed for water?
+      options:
+        - "The same, because the density cancels from every term"
+        - "Greater, because a less dense liquid is pushed out more easily"
+        - "Smaller, because less weight is pushing down on the oil at the hole"
+        - "Greater by a factor of 1000/800, because speed is inversely proportional to density"
+      option_explanations:
+        - |
+          Correct. With P₀ at both the surface and the hole, Bernoulli gives ρgh = ½ρv², and ρ cancels: v = √(2gh) ≈ 1.98 m/s for any ideal liquid.
+        - |
+          A less dense liquid also has less mass to accelerate per unit volume; the two effects cancel exactly.
+        - |
+          The smaller pressure from the lighter oil is exactly matched by its smaller kinetic energy per unit volume, so the speed is unchanged.
+        - |
+          Nothing in v = √(2gh) depends on density; there is no inverse proportion.
+      answer: 0
+    # ---- Continuity and Bernoulli (8.4)
+    - slug: apphys1-u08-w32-q05
+      type: multiple_choice
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 1
+      prompt: |
+        Water flows at 1.5 m/s through a garden hose of inside diameter 2.0 cm. It then leaves through a nozzle of inside diameter 0.50 cm. Treat water as incompressible. What is the speed of the water in the nozzle?
+      options:
+        - "6.0 m/s"
+        - "0.094 m/s"
+        - "24 m/s"
+        - "1.5 m/s"
+      option_explanations:
+        - |
+          This scales the speed by the diameter ratio (4). Continuity uses areas, which go as diameter squared.
+        - |
+          This inverts the area ratio; water speeds up when the pipe narrows.
+        - |
+          Correct. A₁v₁ = A₂v₂ gives v₂ = v₁(d₁/d₂)² = 1.5 × (2.0/0.50)² = 1.5 × 16 = 24 m/s.
+        - |
+          The volume flow rate, not the speed, is the same everywhere; a smaller area needs a larger speed.
+      answer: 2
+    - slug: apphys1-u08-w32-q06
+      type: multiple_choice
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 1
+      prompt: |
+        Water flows steadily to the right through a horizontal pipe that narrows from a wide section to a narrow section. How do the speed and pressure in the narrow section compare with those in the wide section?
+      options:
+        - "Speed greater, pressure greater, because the water is squeezed into a smaller space"
+        - "Speed greater, pressure smaller"
+        - "Speed smaller, pressure greater"
+        - "Speed the same, pressure the same, because an incompressible fluid cannot change"
+      option_explanations:
+        - |
+          Water is nearly incompressible, so it is not squeezed denser; to speed up, the water needs a net force toward the narrow section, which means lower pressure there.
+        - |
+          Correct. Continuity makes the speed larger where the area is smaller, and Bernoulli (with y constant) makes P + ½ρv² constant, so the pressure is lower where the speed is higher.
+        - |
+          Continuity (Av constant) requires a larger speed in the smaller cross-section, not a smaller one.
+        - |
+          Incompressible means the density is fixed, not the speed; the same volume per second through a smaller area must move faster.
+      answer: 1
+    - slug: apphys1-u08-w32-q07
+      type: multiple_choice
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 1
+      prompt: |
+        A large open rain tank has a small hole in its side 1.8 m below the water surface. How fast does water leave the hole?
+      options:
+        - "About 35 m/s"
+        - "About 4.2 m/s"
+        - "About 18 m/s"
+        - "About 5.9 m/s"
+      option_explanations:
+        - |
+          This is 2gh = 35.3 without taking the square root; its units are m²/s².
+        - |
+          This is √(gh), which leaves out the factor of 2 from ρgh = ½ρv².
+        - |
+          This is gh = 17.6, which has neither the square root nor the factor of 2.
+        - |
+          Correct. Torricelli's result: v = √(2gh) = √(2 × 9.8 × 1.8) ≈ 5.9 m/s, the speed of a stone dropped from rest through 1.8 m.
+      answer: 3
+    - slug: apphys1-u08-w32-q08
+      type: multiple_choice
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 1
+      prompt: |
+        Water (1000 kg/m³) flows through a horizontal pipe. In the wide section the pressure is 1.80 × 10⁵ Pa and the speed is 2.0 m/s. The narrow section has one third of the wide section's cross-sectional area. What is the pressure in the narrow section?
+      options:
+        - "1.64 × 10⁵ Pa"
+        - "1.62 × 10⁵ Pa"
+        - "1.96 × 10⁵ Pa"
+        - "6.0 × 10⁴ Pa"
+      option_explanations:
+        - |
+          Correct. Continuity: v₂ = 3 × 2.0 = 6.0 m/s. Bernoulli at equal height: P₂ = P₁ − ½ρ(v₂² − v₁²) = 1.80 × 10⁵ − 500 × (36 − 4) = 1.64 × 10⁵ Pa.
+        - |
+          This subtracts ½ρv₂² but forgets to add back ½ρv₁², the kinetic energy per volume the water already had in the wide section.
+        - |
+          This adds the kinetic-energy change to the pressure; where the water moves faster, the pressure is lower, not higher.
+        - |
+          This divides the pressure by 3 as if pressure scaled with area; pressure changes through Bernoulli's equation, not by the area ratio.
+      answer: 0
+    # ---- Spiral review (8.3, 8.2, 6.5, 3.3)
+    - slug: apphys1-u08-w32-q09
+      type: multiple_choice
+      topic_code: "8.3"
+      source: "AP Physics 1 CED, Topic 8.3"
+      points: 1
+      prompt: |
+        A 0.60 kg ball of volume 1.0 × 10⁻³ m³ is held completely under the surface of a tank of oil (density 900 kg/m³) by a student's hand. What force must the hand exert on the ball, and in what direction?
+      options:
+        - "8.8 N downward"
+        - "2.9 N upward"
+        - "2.9 N downward"
+        - "5.9 N downward"
+      option_explanations:
+        - |
+          This is the whole buoyant force; the ball's own weight (5.88 N) already provides part of the downward force needed.
+        - |
+          The buoyant force (8.82 N) is larger than the weight (5.88 N), so the ball would rise; the hand must push it down, not up.
+        - |
+          Correct. F_b = 900 × 1.0 × 10⁻³ × 9.8 = 8.82 N up; weight = 0.60 × 9.8 = 5.88 N down. At rest, F_hand = 8.82 − 5.88 ≈ 2.9 N downward.
+        - |
+          This is the ball's weight; the hand supplies only the difference between the buoyant force and the weight.
+      answer: 2
+    - slug: apphys1-u08-w32-q10
+      type: multiple_choice
+      topic_code: "8.2"
+      source: "AP Physics 1 CED, Topic 8.2"
+      points: 1
+      prompt: |
+        An open storage tank holds oil (density 900 kg/m³) to a depth of 3.0 m. Atmospheric pressure is 1.0 × 10⁵ Pa. What is the absolute pressure at the bottom of the tank?
+      options:
+        - "2.6 × 10⁴ Pa"
+        - "1.0 × 10⁵ Pa"
+        - "2.7 × 10³ Pa"
+        - "1.3 × 10⁵ Pa"
+      option_explanations:
+        - |
+          This is the gauge pressure ρgh only; the absolute pressure adds the atmosphere on the oil's surface.
+        - |
+          This is the atmospheric pressure alone, leaving out the weight of the oil above the bottom.
+        - |
+          This leaves g out of ρgh (900 × 3.0) and also leaves out the atmosphere.
+        - |
+          Correct. P = P₀ + ρgh = 1.0 × 10⁵ + 900 × 9.8 × 3.0 ≈ 1.0 × 10⁵ + 2.6 × 10⁴ ≈ 1.3 × 10⁵ Pa.
+      answer: 3
+    - slug: apphys1-u08-w32-q11
+      type: multiple_choice
+      topic_code: "6.5"
+      source: "AP Physics 1 CED, Topic 6.5"
+      points: 1
+      prompt: |
+        A solid ball rolls without slipping from rest down a ramp. An ice cube slides from rest without friction down an identical ramp from the same height. Which reaches the bottom first, and why?
+      options:
+        - "The ball, because rolling objects have less friction than sliding ones"
+        - "The ice cube, because the ball shares its energy between translational and rotational kinetic energy"
+        - "They tie, because both lose the same potential energy per kilogram"
+        - "The ball, because its rotation adds to its forward speed"
+      option_explanations:
+        - |
+          The ice cube has no friction at all; the rolling ball's static friction does no work but does give it angular acceleration, which slows its translational speed-up.
+        - |
+          Correct. The cube turns all of mgh into ½mv². The ball turns part of mgh into rotational energy ½Iω², so its translational speed is smaller at every height and it arrives later.
+        - |
+          They lose the same potential energy per kilogram, but the ball stores part of it as rotation, so its centre moves more slowly.
+        - |
+          Rotation does not add to the speed of the centre; it takes a share of the energy that would otherwise go into translation.
+      answer: 1
+    - slug: apphys1-u08-w32-q12
+      type: multiple_choice
+      topic_code: "3.3"
+      source: "AP Physics 1 CED, Topic 3.3"
+      points: 1
+      prompt: |
+        A toy launcher's spring has a spring constant of 400 N/m and is compressed by 0.050 m. How much elastic potential energy does it store?
+      options:
+        - "0.50 J"
+        - "1.0 J"
+        - "10 J"
+        - "20 J"
+      option_explanations:
+        - |
+          Correct. U_s = ½kx² = ½ × 400 × 0.050² = 0.50 J.
+        - |
+          This is kx², leaving out the factor of one half.
+        - |
+          This is ½kx, which uses the compression once instead of squared.
+        - |
+          This is kx, the spring force in newtons, not an energy.
+      answer: 0
+    # ---- Mixed formats
+    - slug: apphys1-u08-w32-q13
+      type: multi_select
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Water flows steadily through a horizontal pipe whose cross-section narrows from 8.0 cm² to 2.0 cm². Treat the water as an ideal fluid. Which statements are true? Select all that apply.
+      options:
+        - "The speed in the narrow section is four times the speed in the wide section."
+        - "The volume of water passing any cross-section each second is the same in both sections."
+        - "The pressure in the narrow section is greater than in the wide section."
+        - "The kinetic energy per unit volume is greater in the narrow section."
+        - "The density of the water is greater in the narrow section."
+      option_explanations:
+        - |
+          Correct. A₁v₁ = A₂v₂ with A₁/A₂ = 8.0/2.0 = 4, so v₂ = 4v₁.
+        - |
+          Correct. Conservation of mass for an incompressible fluid means the volume flow rate Q = Av is the same everywhere along the pipe.
+        - |
+          At equal height, P + ½ρv² is constant, so the faster flow in the narrow section has lower pressure, not higher.
+        - |
+          Correct. ½ρv² grows with the speed, which is greater in the narrow section (16 times as great here).
+        - |
+          An ideal fluid is incompressible: its density is the same everywhere.
+      answer: [0, 1, 3]
+    - slug: apphys1-u08-w32-q14
+      type: multi_select
+      topic_code: "8.3"
+      source: "AP Physics 1 CED, Topic 8.3"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A wooden block floats at rest in fresh water. Which changes would make a larger fraction of the block's volume sit below the surface? Select all that apply.
+      options:
+        - "Placing a small stone on top of the block, which still floats"
+        - "Moving the block to vegetable oil, less dense than water, in which it still floats"
+        - "Moving the block to salt water"
+        - "Replacing it with a larger block of the same wood"
+        - "Hollowing out the centre of the block and sealing the air pocket in with a thin, light lid"
+      option_explanations:
+        - |
+          Correct. The buoyant force must now equal a larger total weight, so more water must be displaced.
+        - |
+          Correct. With a less dense fluid, a larger submerged volume is needed for the buoyant force to equal the same weight (V_sub/V = ρ_block/ρ_fluid).
+        - |
+          Salt water is denser, so less submerged volume gives the same buoyant force: the block rides higher.
+        - |
+          The fraction submerged depends only on the ratio of densities, ρ_block/ρ_water, which is the same for a larger block of the same wood.
+        - |
+          A sealed air space lowers the block's average density, so it floats with a smaller fraction submerged.
+      answer: [0, 1]
+    - slug: apphys1-u08-w32-q15
+      type: true_false
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 1
+      prompt: |
+        True or false: When water flows from a pipe into a section with half the diameter, its speed doubles.
+      answer: false
+      explanation: |
+        False. Continuity uses cross-sectional area, which is proportional to diameter squared. Half the diameter gives one quarter of the area, so the speed becomes four times as great.
+    - slug: apphys1-u08-w32-q16
+      type: true_false
+      topic_code: "8.1"
+      source: "AP Physics 1 CED, Topic 8.1"
+      points: 1
+      prompt: |
+        True or false: In the ideal-fluid model, water squirting through the narrow tip of a hose nozzle is denser than the water in the hose, because it has been squeezed into a smaller space.
+      answer: false
+      explanation: |
+        False. The ideal-fluid model treats water as incompressible, so its density is the same in the hose and in the nozzle. The water moves faster through the narrow tip instead of being compressed; that is what the continuity equation describes.
+    - slug: apphys1-u08-w32-q17
+      type: fill_blank
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 1
+      prompt: |
+        Water leaks from a small hole 0.80 m below the surface of an open barrel of water. By Torricelli's result, the water leaves the hole at ____ m/s (to two significant figures).
+      answer: ["4.0", "4"]
+      explanation: |
+        v = √(2gh) = √(2 × 9.8 × 0.80) = √15.7 ≈ 3.96 m/s, which is 4.0 m/s to two significant figures. Leaving out the factor of 2 gives 2.8 m/s.
+    - slug: apphys1-u08-w32-q18
+      type: fill_blank
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 1
+      prompt: |
+        Water flows through a pipe that widens until its diameter is three times as large. In the wide section the speed of the water is ____ times its speed in the narrow section (give a fraction such as 1/2 or a decimal).
+      answer: ["1/9", "0.11", "0.111", "one ninth", "one-ninth", ".11", ".111"]
+      explanation: |
+        Area goes as diameter squared, so the wide section has 3² = 9 times the area. Continuity, A₁v₁ = A₂v₂, then gives one ninth of the speed.
+    - slug: apphys1-u08-w32-q19
+      type: numeric
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 1
+      prompt: |
+        A large water tank stands on a platform. A small hole in its side, 1.25 m above the level ground, points horizontally, and the water surface is 0.45 m above the hole. Ignoring air resistance and treating the tank as large enough that its level barely drops, how far from the base of the tank (measured horizontally from the hole) does the jet hit the ground? Give your answer in m, to two significant figures.
+      answer: { value: 1.5, tolerance: 0.03 }
+      explanation: |
+        Exit speed: v = √(2gh) = √(2 × 9.8 × 0.45) ≈ 2.97 m/s, horizontal. Fall time from 1.25 m: t = √(2H/g) = √(2 × 1.25/9.8) ≈ 0.505 s. Range: x = vt ≈ 2.97 × 0.505 ≈ 1.5 m. (Symbolically x = 2√(hH) = 2√(0.45 × 1.25) = 1.5 m, independent of g.)
+    - slug: apphys1-u08-w32-q20
+      type: numeric
+      topic_code: "8.2"
+      source: "AP Physics 1 CED, Topic 8.2"
+      points: 1
+      prompt: |
+        An aquarium has a rectangular glass window 0.50 m wide and 0.40 m tall in one vertical side. The top edge of the window is 0.20 m below the water surface. The room air is at atmospheric pressure. Using the average gauge pressure over the window (the gauge pressure at the window's centre, since pressure grows linearly with depth), find the net force of the water and air on the window. Give your answer in N, to two significant figures.
+      answer: { value: 780, tolerance: 10 }
+      explanation: |
+        The centre of the window is 0.20 + 0.20 = 0.40 m deep, so the average gauge pressure is ρgh = 1000 × 9.8 × 0.40 = 3920 Pa. Area = 0.50 × 0.40 = 0.20 m². F = 3920 × 0.20 ≈ 784 N ≈ 780 N. (The atmosphere pushes equally on both sides and cancels.)
+    - slug: apphys1-u08-w32-q21
+      type: short_answer
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 3
+      prompt: |
+        A slow, smooth stream of water falls from a kitchen faucet. Just below the faucet the stream is 1.2 cm wide; 10 cm lower it is noticeably narrower. (a) Explain why the water's speed increases as it falls. (b) Use a conservation law to explain why the stream narrows. (c) If the water's speed has doubled at some point below the faucet, predict the stream's diameter there.
+      answer: |
+        (a) Once it leaves the faucet the water is in free fall (the pressure around it is atmospheric everywhere), so gravity accelerates it downward and it gains kinetic energy as it loses gravitational potential energy.
+        (b) Conservation of mass (continuity): the same volume of water passes every level each second, so Av is constant. As v increases, the cross-sectional area A must decrease, so the stream narrows.
+        (c) A ∝ 1/v, so the area halves; diameter ∝ √A, so the diameter is 1.2 cm/√2 ≈ 0.85 cm.
+      explanation: |
+        Three points, one per part. (a) gravity accelerates the falling water (or energy conservation, U_g to K). (b) continuity / conservation of mass with Av constant, so a larger v needs a smaller A. (c) about 0.85 cm, with the reasoning that the area halves and the diameter scales as the square root of the area. Halving the diameter to 0.60 cm loses the point in (c).
+    - slug: apphys1-u08-w32-q22
+      type: short_answer
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 3
+      prompt: |
+        Two ping-pong balls hang side by side from threads, about 3 cm apart. A student blows a steady stream of air through a straw into the gap between them. Her partner predicts that the balls will be blown apart. (a) State what actually happens. (b) Explain it with Bernoulli's equation, naming where the pressure is higher and lower. (c) Describe the horizontal forces in the free-body diagram of the left ball while the air flows.
+      answer: |
+        (a) The balls swing toward each other.
+        (b) Along a streamline (at nearly the same height), P + ½ρv² is constant. The air blown through the gap moves fast, so its pressure is lower than that of the still room air on the outer sides of the balls. The higher pressure outside pushes each ball toward the gap.
+        (c) Horizontally: a force to the right (toward the gap) from the higher-pressure still air on its outer side, larger than the force to the left from the lower-pressure moving air in the gap, plus the horizontal component of the thread's tension pulling back toward the left once the ball has swung inward.
+      explanation: |
+        Three points, one per part. (a) the balls move together. (b) fast-moving air between the balls has lower pressure than the still air outside, with Bernoulli's equation (P + ½ρv² constant) named as the reason. (c) the outer push (toward the gap) is larger than the inner push; mentioning the thread's horizontal component when displaced is welcome but not required. "The air pulls the balls in" without a pressure difference earns no credit in (b).
+    - slug: apphys1-u08-w32-q23
+      type: long_answer
+      topic_code: "8.4"
+      source: "AP Physics 1 CED, Topic 8.4"
+      points: 6
+      prompt: |
+        Mathematical routines. A large open water tank has a horizontal pipe at its base. The pipe has a wide section of cross-sectional area A_w that then narrows to an outlet of area A_o, where the water leaves into the air. The water surface in the tank is a height h above the pipe and drops so slowly that its speed is negligible. Treat the water as an ideal fluid of density ρ, with atmospheric pressure P₀.
+
+        (A) Derive an expression for the speed v_o of the water leaving the outlet, in terms of h and g. State the conservation law you use.
+
+        (B) Derive an expression for the gauge pressure P_w − P₀ in the wide section of the pipe, in terms of ρ, g, h, A_o and A_w. Check that your expression gives a sensible result in the limiting case where A_w is much larger than A_o.
+
+        (C) For h = 2.0 m, A_o = 2.0 cm² and A_w = 6.0 cm², calculate v_o, the speed in the wide section and the absolute pressure P_w, with P₀ = 1.0 × 10⁵ Pa.
+      answer: |
+        (A) Conservation of energy (Bernoulli) from the tank surface (pressure P₀, speed ≈ 0, height h) to the outlet (pressure P₀, height 0): P₀ + ρgh = P₀ + ½ρv_o², so v_o = √(2gh).
+        (B) Continuity (conservation of mass): v_w = v_o(A_o/A_w). Bernoulli between the wide section and the outlet, same height: P_w + ½ρv_w² = P₀ + ½ρv_o², so P_w − P₀ = ½ρ(v_o² − v_w²) = ½ρv_o²(1 − (A_o/A_w)²) = ρgh(1 − (A_o/A_w)²). Limiting case: if A_w is much larger than A_o, the water in the wide section is nearly still and P_w − P₀ → ρgh, the hydrostatic gauge pressure at depth h, as week 30 predicts.
+        (C) v_o = √(2 × 9.8 × 2.0) ≈ 6.26 m/s. v_w = 6.26 × (2.0/6.0) ≈ 2.09 m/s. P_w = P₀ + ρgh(1 − 1/9) = 1.0 × 10⁵ + 1000 × 9.8 × 2.0 × (8/9) ≈ 1.0 × 10⁵ + 1.74 × 10⁴ ≈ 1.17 × 10⁵ Pa.
+      explanation: |
+        Six points.
+        (A) 1 point: v_o = √(2gh) with conservation of energy (Bernoulli, or ½mv² = mgh for a parcel of water) named.
+        (B) 3 points: 1 for using continuity to relate v_w to v_o; 1 for applying Bernoulli between the wide section and the outlet to reach P_w − P₀ = ρgh(1 − (A_o/A_w)²) or an equivalent form; 1 for the limiting case giving ρgh, explicitly connected to still water (hydrostatic pressure).
+        (C) 2 points: 1 for v_o ≈ 6.3 m/s and v_w ≈ 2.1 m/s; 1 for P_w ≈ 1.17 × 10⁵ Pa (accept 1.17 × 10⁵ to 1.18 × 10⁵ Pa). Giving the gauge pressure (1.74 × 10⁴ Pa) when the absolute pressure is asked loses the second point.
