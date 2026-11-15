@@ -1,0 +1,634 @@
+week: 12
+unit: 2
+title: "The Binomial Distribution"
+topics: ["2.10"]
+guide: guides/week-12.md
+guide_description: |
+  The binomial setting and its four conditions checked in context (binary outcomes, independent trials, a fixed
+  number of trials, the same probability of success), the 10% condition for sampling without replacement, the
+  binomial probability formula and cumulative probabilities, the mean np and standard deviation √(np(1 − p))
+  with their interpretations, the shape of a binomial distribution, and using a tail probability to judge a
+  claim. Worked examples: checking the conditions for 30 students sampled from a school of 2,000, 10 free
+  throws by a 70% shooter (P(X = 7) and P(X ≥ 8)), the mean and SD of germinating tomato seeds, and whether 12
+  correct out of 25 four-option questions could be guessing.
+flashcards_description: |
+  31 cards on the binomial conditions, the 10% condition, the probability formula and calculator commands,
+  "at least" and "at most" probabilities, the mean and standard deviation and their interpretations, shape, and
+  judging an observed count against a claim.
+
+flashcards:
+  - front: Binomial setting → the four conditions (BINS)
+    back: |
+      Binary outcomes (success or failure); Independent trials; a fixed Number of trials n; the Same probability p of success on every trial.
+    topic_code: "2.10"
+  - front: Binomial random variable X → what it counts and its possible values
+    back: |
+      X = the number of successes in n trials of a binomial setting. Possible values 0, 1, 2, ..., n.
+    topic_code: "2.10"
+  - front: Binomial "success" → what the word means
+    back: |
+      Only the outcome being counted. If X counts defective screens, a defect is a "success".
+    topic_code: "2.10"
+  - front: 10% condition for a binomial count from a sample → statement
+    back: |
+      When sampling without replacement, treat the trials as independent only if n ≤ 10% of the population size.
+    topic_code: "2.10"
+  - front: 30 students chosen at random from a school of 2,000 → does the 10% condition hold?
+    back: |
+      Yes: 30 ≤ 0.10 × 2,000 = 200, so the trials are approximately independent.
+    topic_code: "2.10"
+  - front: 10 students chosen without replacement from a class of 32 → binomial?
+    back: |
+      No: 10 is more than 10% of 32 (3.2), so the picks are too dependent for a binomial model.
+    topic_code: "2.10"
+  - front: Rolling a die until the first six and counting rolls → why not binomial
+    back: |
+      The number of trials is not fixed in advance.
+    topic_code: "2.10"
+  - front: Total points in 10 basketball games → why not binomial
+    back: |
+      Each game gives a number of points, not a success or failure, so the total is not a count of successes.
+    topic_code: "2.10"
+  - front: Binomial probability formula → P(X = k)
+    back: |
+      P(X = k) = nCk · pᵏ · (1 − p)ⁿ⁻ᵏ, for k = 0, 1, ..., n.
+    topic_code: "2.10"
+  - front: nCk in the binomial formula → what it counts
+    back: |
+      The number of different orders in which k successes and n − k failures can occur: n!/(k!(n − k)!).
+    topic_code: "2.10"
+  - front: pᵏ(1 − p)ⁿ⁻ᵏ in the binomial formula → what it is
+    back: |
+      The probability of one particular sequence with k successes and n − k failures (multiplication rule for independent trials).
+    topic_code: "2.10"
+  - front: binompdf(n, p, k) versus binomcdf(n, p, k) → what each returns
+    back: |
+      binompdf gives P(X = k); binomcdf gives P(X ≤ k), the cumulative probability.
+    topic_code: "2.10"
+  - front: Binomial P(X ≥ k) with a cumulative command → formula
+    back: |
+      P(X ≥ k) = 1 − P(X ≤ k − 1) = 1 − binomcdf(n, p, k − 1).
+    topic_code: "2.10"
+  - front: Binomial P(X < k) → rewrite before using a cumulative command
+    back: |
+      P(X < k) = P(X ≤ k − 1). For whole-number counts, "fewer than 5" means "4 or fewer".
+    topic_code: "2.10"
+  - front: Binomial P(at least one success) → the fast route
+    back: |
+      1 − P(X = 0) = 1 − (1 − p)ⁿ.
+    topic_code: "2.10"
+  - front: 70% free-throw shooter, 10 shots → P(X = 7)
+    back: |
+      10C7 · 0.7⁷ · 0.3³ = 120 · 0.08235 · 0.027 = 0.267.
+    topic_code: "2.10"
+  - front: 70% free-throw shooter, 10 shots → P(X ≥ 8)
+    back: |
+      1 − P(X ≤ 7) = 1 − 0.6172 = 0.383.
+    topic_code: "2.10"
+  - front: Mean of a binomial random variable → formula
+    back: |
+      μ_X = np.
+    topic_code: "2.10"
+  - front: Standard deviation of a binomial random variable → formula
+    back: |
+      σ_X = √(np(1 − p)). Its square, np(1 − p), is the variance.
+    topic_code: "2.10"
+  - front: Tomato seeds, n = 20, p = 0.85 → mean and SD of the number that germinate
+    back: |
+      μ = 17 seeds; σ = √(20 · 0.85 · 0.15) = √2.55 = 1.60 seeds.
+    topic_code: "2.10"
+  - front: Interpreting the mean of a binomial count (seeds, μ = 17) → template
+    back: |
+      If many batches of 20 seeds were planted, the number germinating would average about 17 seeds per batch in the long run.
+    topic_code: "2.10"
+  - front: Interpreting the SD of a binomial count (seeds, σ = 1.60) → template
+    back: |
+      The number of seeds that germinate in a batch of 20 typically varies by about 1.6 seeds from the mean of 17.
+    topic_code: "2.10"
+  - front: Shape of a binomial distribution → how p decides it
+    back: |
+      p = 0.5: symmetric. p < 0.5: skewed right. p > 0.5: skewed left. Larger n makes any shape closer to normal.
+    topic_code: "2.10"
+  - front: B(20, 0.85) → shape and why
+    back: |
+      Skewed left: p is above 0.5, so most batches cluster near 17–19 with a thin tail toward small counts.
+    topic_code: "2.10"
+  - front: 25 four-option questions all guessed → distribution, mean and SD of the number correct
+    back: |
+      Binomial with n = 25, p = 0.25; mean 6.25, SD √(25 · 0.25 · 0.75) = 2.17.
+    topic_code: "2.10"
+  - front: Guesser gets 12 or more of 25 four-option questions right → probability and meaning
+    back: |
+      P(X ≥ 12) = 0.0107. A pure guesser would rarely do this well, so it is convincing evidence the student was not purely guessing.
+    topic_code: "2.10"
+  - front: Judging an observed binomial count against a claim → which probability to compute
+    back: |
+      The tail: P(X ≥ observed) for a surprisingly high count, P(X ≤ observed) for a low one, assuming the claimed p. Small tail → evidence against the claim.
+    topic_code: "2.10"
+  - front: Writing up a binomial calculation → what to show besides calculator syntax
+    back: |
+      Define X in words, name the distribution and parameters (binomial, n = 10, p = 0.7), state the probability statement (P(X ≥ 8)), then the value.
+    topic_code: "2.10"
+  - front: Error-spot → "P(X = 7) = 0.7⁷ · 0.3³ = 0.0022 for a 70% shooter taking 10 shots"
+    back: |
+      The 120 orderings (10C7) are missing. The correct value is 120 · 0.0022 = 0.267.
+    topic_code: "2.10"
+  - front: Error-spot → "P(X ≥ 8) = 1 − binomcdf(10, 0.7, 8)"
+    back: |
+      That subtracts P(X ≤ 8) and gives P(X ≥ 9). The complement of 8 or more is 7 or fewer: 1 − binomcdf(10, 0.7, 7).
+    topic_code: "2.10"
+  - front: Error-spot → "the SD of the number of germinating seeds is 20 · 0.85 · 0.15 = 2.55"
+    back: |
+      2.55 is the variance. Take the square root: σ = √2.55 = 1.60 seeds.
+    topic_code: "2.10"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (topic 2.10: the binomial conditions and the 10%
+    condition, binomial probabilities, the mean and standard deviation, shape, and judging a count against a
+    claim), with 9 questions (36%) reviewing weeks 9 to 11 (simulation, probability rules, mutually exclusive and
+    independent events, conditional probability, and discrete random variables with their means). Opens with a
+    shared-context set on germinating seeds. Multiple choice, select-all, true/false and numeric items are graded
+    at once; fill-in-the-blank items are matched automatically; the short answers and the long answer are graded
+    by your teacher against the scoring notes. A calculator is allowed throughout, as on the AP exam.
+  questions:
+    # ---- Stimulus set: tomato seeds (2.10)
+    - slug: apstats-u02-w12-q01
+      type: multiple_choice
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      stimulus: |
+        A hypothetical garden-supply company states that 85% of its tomato seeds germinate. A biology class plants 20 seeds chosen at random from a large shipment, under identical conditions, and records X = the number of the 20 seeds that germinate. Assume the company's claim is true and that seeds germinate independently of one another.
+      prompt: |
+        Which describes the distribution of X?
+      options:
+        - "Not binomial, because the number of seeds that germinate is not fixed in advance"
+        - "Binomial with n = 20 and p = 0.85"
+        - "Binomial with n = 20 and p = 0.15"
+        - "Normal with mean 17 and standard deviation 1.60, because n is at least 10"
+      option_explanations:
+        - |
+          The number of trials (20 seeds planted) is fixed; the number of successes is supposed to vary. That is exactly what a binomial count does.
+        - |
+          Correct. Each seed germinates or not, seeds are independent, n = 20 is fixed, and each seed has the same chance p = 0.85, so X is binomial with n = 20, p = 0.85.
+        - |
+          0.15 is the probability of failure. X counts seeds that germinate, so p must be the germination probability, 0.85.
+        - |
+          X is a count from 0 to 20, so it is discrete and binomial. With p = 0.85 its shape is skewed left, not normal; n ≥ 10 is not a normality rule.
+      answer: 1
+    - slug: apstats-u02-w12-q02
+      type: multiple_choice
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      stimulus: |
+        A hypothetical garden-supply company states that 85% of its tomato seeds germinate. A biology class plants 20 seeds chosen at random from a large shipment, under identical conditions, and records X = the number of the 20 seeds that germinate. Assume the company's claim is true and that seeds germinate independently of one another.
+      prompt: |
+        What are the mean and the standard deviation of X?
+      options:
+        - "Mean 17 seeds, standard deviation 2.55 seeds"
+        - "Mean 17 seeds, standard deviation 0.08 seeds"
+        - "Mean 17 seeds, standard deviation 1.60 seeds"
+        - "Mean 3 seeds, standard deviation 1.60 seeds"
+      option_explanations:
+        - |
+          2.55 = 20 · 0.85 · 0.15 is the variance. The standard deviation is its square root, about 1.60 seeds.
+        - |
+          0.08 = √(0.85 · 0.15/20) is the standard deviation of a sample proportion, not of a count of successes.
+        - |
+          Correct. μ = np = 20(0.85) = 17 and σ = √(np(1 − p)) = √(20 · 0.85 · 0.15) = √2.55 ≈ 1.60 seeds.
+        - |
+          3 = 20(0.15) is the mean number of seeds that fail to germinate; X counts seeds that do germinate.
+      answer: 2
+    - slug: apstats-u02-w12-q03
+      type: numeric
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      stimulus: |
+        A hypothetical garden-supply company states that 85% of its tomato seeds germinate. A biology class plants 20 seeds chosen at random from a large shipment, under identical conditions, and records X = the number of the 20 seeds that germinate. Assume the company's claim is true and that seeds germinate independently of one another.
+      prompt: |
+        Find P(X ≥ 18), the probability that at least 18 of the 20 seeds germinate. Give your answer to three decimal places.
+      answer: { value: 0.405, tolerance: 0.001 }
+      explanation: |
+        P(X ≥ 18) = P(X = 18) + P(X = 19) + P(X = 20) = 0.2293 + 0.1368 + 0.0388 = 0.405. With a calculator: 1 − binomcdf(20, 0.85, 17) = 1 − 0.5951 = 0.405.
+    - slug: apstats-u02-w12-q04
+      type: multiple_choice
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      stimulus: |
+        A hypothetical garden-supply company states that 85% of its tomato seeds germinate. A biology class plants 20 seeds chosen at random from a large shipment, under identical conditions, and records X = the number of the 20 seeds that germinate. Assume the company's claim is true and that seeds germinate independently of one another.
+      prompt: |
+        Only 14 of the class's 20 seeds germinate. If the claim is true, P(X ≤ 14) = 0.067. Which conclusion is best supported?
+      options:
+        - "A result of 14 or fewer is somewhat unusual if the claim is true (about a 6.7% chance), so it casts some doubt on the 85% claim, but it is not very strong evidence against it."
+        - "The claim is false, because 14 is less than the mean of 17."
+        - "There is a 6.7% probability that the company's claim is true."
+        - "The result is impossible under the claim, because P(X = 14) is below 0.05."
+      option_explanations:
+        - |
+          Correct. Assuming p = 0.85, about 6.7% of batches of 20 would have 14 or fewer germinating seeds. That is uncommon but not rare, so it raises some doubt without being convincing evidence.
+        - |
+          Counts below the mean happen all the time by chance (more than a third of batches have 16 or fewer). Being below 17 alone says nothing about the claim.
+        - |
+          0.067 is computed assuming the claim is true; it is the probability of the data (14 or fewer), not the probability that the claim is true.
+        - |
+          P(X = 14) ≈ 0.045 is small but not zero, and a single value is the wrong probability to judge by; the tail P(X ≤ 14) = 0.067 is the right one.
+      answer: 0
+    # ---- Independent items
+    - slug: apstats-u02-w12-q05
+      type: multiple_choice
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      prompt: |
+        Which random variable is binomial, or approximately binomial?
+      options:
+        - "The number of times a student rolls a die until the first six appears"
+        - "The number of hearts in 5 cards dealt without replacement from a 20-card deck that contains 5 hearts"
+        - "The total number of points a basketball player scores in her next 10 games"
+        - "The number of students with a part-time job among 30 chosen at random from a school of 2,000 students"
+      option_explanations:
+        - |
+          The number of rolls is what is being counted, so there is no fixed number of trials; a binomial count needs n fixed in advance.
+        - |
+          5 cards is 25% of a 20-card deck, far above the 10% condition, so the probability of a heart changes noticeably from card to card.
+        - |
+          Points in a game are not a success/failure outcome, so a total of points is not a count of successes.
+        - |
+          Correct. Each student has a job or not, n = 30 is fixed, the chance is the same for each random pick, and 30 ≤ 10% of 2,000, so the trials are approximately independent.
+      answer: 3
+    - slug: apstats-u02-w12-q06
+      type: multiple_choice
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      prompt: |
+        A hypothetical basketball player makes 70% of her free throws, and her shots are independent. She takes 10 free throws in a game. What is the probability that she makes exactly 7?
+      options:
+        - "0.267"
+        - "0.082"
+        - "0.002"
+        - "0.617"
+      option_explanations:
+        - |
+          Correct. X is binomial with n = 10, p = 0.7: P(X = 7) = 10C7 · 0.7⁷ · 0.3³ = 120 · 0.08235 · 0.027 ≈ 0.267.
+        - |
+          0.082 = 0.7⁷ treats seven makes in a row as the whole event, ignoring the three misses and the different orders.
+        - |
+          0.002 = 0.7⁷ · 0.3³ is the probability of one particular order; it leaves out the 10C7 = 120 possible orders.
+        - |
+          0.617 = binomcdf(10, 0.7, 7) is P(X ≤ 7), the probability of 7 or fewer, not exactly 7.
+      answer: 0
+    - slug: apstats-u02-w12-q07
+      type: multiple_choice
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      prompt: |
+        The same 70% free-throw shooter takes 10 independent free throws. What is the probability that she makes at least 8 of them?
+      options:
+        - "0.149"
+        - "0.233"
+        - "0.617"
+        - "0.383"
+      option_explanations:
+        - |
+          0.149 = 1 − P(X ≤ 8) is P(X ≥ 9). Subtracting the cumulative probability through 8 removes the 8 itself.
+        - |
+          0.233 is P(X = 8) only; "at least 8" also includes 9 and 10 makes.
+        - |
+          0.617 is P(X ≤ 7), the complement of the event asked about.
+        - |
+          Correct. P(X ≥ 8) = 1 − P(X ≤ 7) = 1 − 0.617 = 0.383 (equivalently 0.2335 + 0.1211 + 0.0282).
+      answer: 3
+    - slug: apstats-u02-w12-q08
+      type: multiple_choice
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      prompt: |
+        A hypothetical quiz has 25 multiple-choice questions, each with four options. A student who says she guessed on every question gets 12 correct. Which calculation and conclusion are appropriate?
+      options:
+        - "P(X = 12) = 0.007, so getting exactly 12 right is unusual for a guesser."
+        - "P(X ≥ 12) = 0.011; a pure guesser would rarely do this well, so this is convincing evidence that the student was not purely guessing."
+        - "P(X ≥ 12) = 0.011, so there is about a 1% probability that the student was guessing."
+        - "P(X ≤ 12) = 0.997, so a score of 12 is typical for a guesser."
+      option_explanations:
+        - |
+          A single value can be unlikely even when nothing unusual is happening; judge by the tail probability of 12 or more, not exactly 12.
+        - |
+          Correct. If she guessed, X is binomial with n = 25, p = 0.25 (mean 6.25). P(X ≥ 12) = 1 − binomcdf(25, 0.25, 11) ≈ 0.011, so 12 or more correct would happen only about 1% of the time by guessing.
+        - |
+          0.011 is calculated assuming she guessed, so it is the probability of the result, not the probability that guessing is the explanation.
+        - |
+          P(X ≤ 12) is the wrong tail: a high score is surprising when P(X ≥ 12) is small, and here it is about 0.011.
+      answer: 1
+    - slug: apstats-u02-w12-q09
+      type: multiple_choice
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      prompt: |
+        In a hypothetical town, 90% of teenagers own a smartphone. X = the number who own one in a random sample of 15 teenagers. Which best describes the shape of the distribution of X?
+      options:
+        - "Skewed right, because most of the probability is at large values of X"
+        - "Symmetric, because n is at least 10"
+        - "Skewed left, because p = 0.9 is greater than 0.5"
+        - "Uniform, because each teenager has the same probability of owning a smartphone"
+      option_explanations:
+        - |
+          Most probability sits at large counts, so the long tail stretches toward small counts; a tail toward small values is a left skew.
+        - |
+          A binomial distribution is symmetric only when p = 0.5; n = 15 does not make p = 0.9 symmetric.
+        - |
+          Correct. With p = 0.9, the counts pile up near 13 to 15 (mean 13.5) and trail off toward small values, so the distribution is skewed left.
+        - |
+          The same p for each trial is a binomial condition; it does not make the possible counts 0 to 15 equally likely.
+      answer: 2
+    - slug: apstats-u02-w12-q10
+      type: multiple_choice
+      topic_code: "2.9"
+      source: "AP Statistics CED, Topic 2.9"
+      points: 1
+      prompt: |
+        A hypothetical school-fair game costs $2 to play. A player wins a $10 prize with probability 0.15 and otherwise wins nothing. What is the expected net gain per play for a player?
+      options:
+        - "−$0.50"
+        - "$1.50"
+        - "−$1.70"
+        - "$0.50"
+      option_explanations:
+        - |
+          Correct. Net gain is $8 with probability 0.15 and −$2 with probability 0.85: 8(0.15) + (−2)(0.85) = 1.20 − 1.70 = −$0.50 per play.
+        - |
+          $1.50 = 10(0.15) is the expected prize before subtracting the $2 cost of playing.
+        - |
+          −$1.70 is only the losing term, (−2)(0.85); the winning term 8(0.15) = $1.20 must be added.
+        - |
+          $0.50 has the right size but the wrong sign: the expected prize ($1.50) is less than the $2 cost, so players lose on average.
+      answer: 0
+    - slug: apstats-u02-w12-q11
+      type: multiple_choice
+      topic_code: "2.6"
+      source: "AP Statistics CED, Topic 2.6"
+      points: 1
+      prompt: |
+        A hypothetical survey of 200 students recorded grade and pet ownership.
+
+        | | Has a pet | No pet | Total |
+        |---|---|---|---|
+        | Grade 9 | 48 | 32 | 80 |
+        | Grade 12 | 66 | 54 | 120 |
+        | Total | 114 | 86 | 200 |
+
+        One of these students is chosen at random. Given that the student has a pet, what is the probability that the student is in grade 12?
+      options:
+        - "0.550"
+        - "0.579"
+        - "0.330"
+        - "0.600"
+      option_explanations:
+        - |
+          0.550 = 66/120 is P(has a pet | grade 12); the condition has been swapped.
+        - |
+          Correct. Restrict to the 114 pet owners: P(grade 12 | has a pet) = 66/114 ≈ 0.579.
+        - |
+          0.330 = 66/200 is P(grade 12 and has a pet), a joint probability using all 200 students as the denominator.
+        - |
+          0.600 = 120/200 is P(grade 12) overall; it ignores the information that the student has a pet.
+      answer: 1
+    - slug: apstats-u02-w12-q12
+      type: multiple_choice
+      topic_code: "2.7"
+      source: "AP Statistics CED, Topic 2.7"
+      points: 1
+      prompt: |
+        For a randomly chosen student at a hypothetical school, let A = the student plays a school sport and B = the student takes a music class. P(A) = 0.4, P(B) = 0.5 and P(A and B) = 0.2. What is P(A or B)?
+      options:
+        - "0.9"
+        - "0.2"
+        - "0.7"
+        - "0.8"
+      option_explanations:
+        - |
+          0.9 = 0.4 + 0.5 counts the students who do both twice; the general addition rule subtracts P(A and B).
+        - |
+          0.2 is P(A and B), the probability of both, not of at least one.
+        - |
+          Correct. General addition rule: P(A or B) = P(A) + P(B) − P(A and B) = 0.4 + 0.5 − 0.2 = 0.7.
+        - |
+          0.8 = 1 − 0.2 is the probability of not doing both, which is a different event from doing at least one.
+      answer: 2
+    - slug: apstats-u02-w12-q13
+      type: multiple_choice
+      topic_code: "2.8"
+      source: "AP Statistics CED, Topic 2.8"
+      points: 1
+      prompt: |
+        X = the number of devices a randomly chosen student at a hypothetical school charges overnight. One probability is missing from the table.
+
+        | x | 0 | 1 | 2 | 3 |
+        |---|---|---|---|---|
+        | P(X = x) | 0.15 | 0.40 | ? | 0.10 |
+
+        What is P(X ≥ 2)?
+      options:
+        - "0.35"
+        - "0.10"
+        - "0.85"
+        - "0.45"
+      option_explanations:
+        - |
+          0.35 is the missing value P(X = 2) only; X ≥ 2 also includes X = 3.
+        - |
+          0.10 is P(X = 3), which is P(X > 2), not P(X ≥ 2).
+        - |
+          0.85 = 1 − 0.15 is P(X ≥ 1), the probability of charging at least one device.
+        - |
+          Correct. The probabilities sum to 1, so P(X = 2) = 1 − 0.15 − 0.40 − 0.10 = 0.35, and P(X ≥ 2) = 0.35 + 0.10 = 0.45.
+      answer: 3
+    - slug: apstats-u02-w12-q14
+      type: multi_select
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 2
+      partial_credit: true
+      prompt: |
+        X is binomial with n = 40 and p = 0.2. Which statements are true? Select all that apply.
+      options:
+        - "The mean of X is 8."
+        - "The standard deviation of X is 6.4."
+        - "The distribution of X is slightly skewed right."
+        - "X can take any value from 0 to 40, including 8.5."
+        - "P(X ≤ 39) = 1 − 0.2⁴⁰"
+      option_explanations:
+        - |
+          Correct. The mean of a binomial count is μ = np = 40(0.2) = 8.
+        - |
+          6.4 = 40(0.2)(0.8) is the variance; the standard deviation is √6.4 ≈ 2.53.
+        - |
+          Correct. p = 0.2 is below 0.5, so the tail extends toward large counts; with n = 40 the skew is mild.
+        - |
+          A binomial count takes only whole-number values 0, 1, ..., 40; 8.5 is the kind of value the mean can be, not X.
+        - |
+          Correct. The only value above 39 is 40, and P(X = 40) = 0.2⁴⁰, so P(X ≤ 39) = 1 − 0.2⁴⁰ by the complement rule.
+      answer: [0, 2, 4]
+    - slug: apstats-u02-w12-q15
+      type: multi_select
+      topic_code: "2.5"
+      source: "AP Statistics CED, Topic 2.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A student is chosen at random from a hypothetical high school. Let J = the student is a junior, S = the student is a senior, and T = the student plays on a school team. P(J) = 0.30 and P(S) = 0.25. Which statements are true? Select all that apply.
+      options:
+        - "J and S are mutually exclusive."
+        - "P(J or S) = 0.55"
+        - "J and S are independent."
+        - "P(J and S) = 0.075"
+        - "J and T must be mutually exclusive."
+      option_explanations:
+        - |
+          Correct. No student is both a junior and a senior, so J and S cannot happen together.
+        - |
+          Correct. For mutually exclusive events P(J or S) = P(J) + P(S) = 0.30 + 0.25 = 0.55.
+        - |
+          Mutually exclusive events with positive probabilities are never independent: knowing the student is a junior makes P(S) drop to 0.
+        - |
+          0.075 = 0.30 × 0.25 would hold only if J and S were independent; since they cannot both happen, P(J and S) = 0.
+        - |
+          A junior can play on a team, so J and T can happen together; nothing forces them to be mutually exclusive.
+      answer: [0, 1]
+    - slug: apstats-u02-w12-q16
+      type: true_false
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      prompt: |
+        True or false: If X is binomial with n = 10 and p = 0.5, then the distribution of X is symmetric about 5, so P(X ≤ 3) = P(X ≥ 7).
+      answer: true
+      explanation: |
+        True. With p = 0.5, successes and failures are interchangeable, so P(X = k) = P(X = 10 − k). Both probabilities equal 0.172 (0.0010 + 0.0098 + 0.0439 + 0.1172).
+    - slug: apstats-u02-w12-q17
+      type: true_false
+      topic_code: "2.3"
+      source: "AP Statistics CED, Topic 2.3"
+      points: 1
+      prompt: |
+        True or false: A simulation of 20 trials, each modelling 10 free throws by a 70% shooter with random digits, gives the exact value of P(X ≥ 8) as long as the digits are assigned correctly.
+      answer: false
+      explanation: |
+        False. A simulation gives an estimate whose accuracy depends on the number of trials; 20 trials leave a lot of chance variation. More trials bring the relative frequency closer to the true probability (0.383), but never guarantee the exact value. The binomial formula gives the exact value.
+    - slug: apstats-u02-w12-q18
+      type: fill_blank
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      prompt: |
+        In a hypothetical cafeteria, 30% of students choose the vegetarian option. For a random sample of 12 students, the mean number who choose the vegetarian option is ____.
+      answer: ["3.6", "3.60"]
+      explanation: |
+        X is binomial with n = 12, p = 0.3, so μ = np = 12(0.3) = 3.6 students.
+    - slug: apstats-u02-w12-q19
+      type: fill_blank
+      topic_code: "2.9"
+      source: "AP Statistics CED, Topic 2.9"
+      points: 1
+      prompt: |
+        X = the number of after-school activities a randomly chosen student at a hypothetical school takes part in has P(X = 1) = 0.2, P(X = 2) = 0.5 and P(X = 3) = 0.3. The mean of X is ____.
+      answer: ["2.1", "2.10"]
+      explanation: |
+        μ = Σ x·P(x) = 1(0.2) + 2(0.5) + 3(0.3) = 0.2 + 1.0 + 0.9 = 2.1 activities.
+    - slug: apstats-u02-w12-q20
+      type: numeric
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      prompt: |
+        In the same cafeteria, 30% of students choose the vegetarian option. For a random sample of 8 students, find the probability that at least one of them chooses the vegetarian option. Give your answer to three decimal places.
+      answer: { value: 0.942, tolerance: 0.001 }
+      explanation: |
+        P(X ≥ 1) = 1 − P(X = 0) = 1 − 0.7⁸ = 1 − 0.0576 = 0.942.
+    - slug: apstats-u02-w12-q21
+      type: numeric
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      prompt: |
+        For a random sample of 12 students from the same cafeteria (p = 0.3), find the standard deviation of the number who choose the vegetarian option. Give your answer to three decimal places.
+      answer: { value: 1.587, tolerance: 0.001 }
+      explanation: |
+        σ = √(np(1 − p)) = √(12 · 0.3 · 0.7) = √2.52 ≈ 1.587 students.
+    - slug: apstats-u02-w12-q22
+      type: numeric
+      topic_code: "2.7"
+      source: "AP Statistics CED, Topic 2.7"
+      points: 1
+      prompt: |
+        On a student's walk to school there are two traffic lights that operate independently. The first is green when she arrives with probability 0.6 and the second with probability 0.45. Find the probability that both lights are green. Give your answer to two decimal places.
+      answer: { value: 0.27, tolerance: 0.005 }
+      explanation: |
+        For independent events, P(both green) = P(first green) × P(second green) = 0.6 × 0.45 = 0.27.
+    - slug: apstats-u02-w12-q23
+      type: short_answer
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 3
+      prompt: |
+        About 10% of people are left-handed. For each situation, state whether X is binomial (or approximately binomial) and justify your answer by naming the condition that holds or fails.
+
+        (a) A teacher chooses 10 students at random, without replacement, from her class of 32, and X = the number who are left-handed.
+        (b) A researcher chooses 10 students at random, without replacement, from a school of 1,200, and X = the number who are left-handed.
+        (c) A researcher asks randomly chosen students one at a time until she finds a left-handed student, and X = the number of students asked.
+      answer: |
+        (a) Not binomial. Sampling is without replacement and 10 is more than 10% of 32 (3.2), so the trials are not close to independent: each pick noticeably changes the chance for the next.
+        (b) Approximately binomial with n = 10 and p ≈ 0.10: each student is left-handed or not, n = 10 is fixed, the chance is the same for each random pick, and 10 ≤ 10% of 1,200 = 120, so the trials are approximately independent.
+        (c) Not binomial. The number of trials is not fixed in advance; X counts the trials themselves.
+      explanation: |
+        Three points, one per part. Each needs the correct decision with the specific reason: (a) the 10% condition fails (10 > 3.2), so independence fails; (b) all conditions met, with the 10% check 10 ≤ 120 stated; (c) no fixed number of trials. A decision without a reason earns no point.
+    - slug: apstats-u02-w12-q24
+      type: short_answer
+      topic_code: "2.6"
+      source: "AP Statistics CED, Topic 2.6"
+      points: 3
+      prompt: |
+        At a hypothetical high school, 20% of students ride the late bus. Of late-bus riders, 30% arrive late to first period; of students who do not ride the late bus, 5% arrive late. A student is chosen at random.
+
+        (a) Find the probability that the student arrives late to first period.
+        (b) Given that the student arrived late, find the probability that the student rides the late bus.
+        (c) Are the events "rides the late bus" and "arrives late" independent? Justify with probabilities.
+      answer: |
+        (a) P(late) = 0.20(0.30) + 0.80(0.05) = 0.06 + 0.04 = 0.10.
+        (b) P(late bus | late) = P(late bus and late)/P(late) = 0.06/0.10 = 0.60.
+        (c) Not independent: P(late | late bus) = 0.30 is not equal to P(late) = 0.10 (equivalently, 0.60 ≠ 0.20).
+      explanation: |
+        Three points, one per part. (a) 0.10 with both branches shown. (b) 0.60 with the conditional probability formula or tree. (c) "not independent" with a correct comparison of a conditional and an unconditional probability; the decision alone earns no point.
+    - slug: apstats-u02-w12-q25
+      type: long_answer
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 6
+      prompt: |
+        A hypothetical school bus company claims that 90% of its morning runs arrive on time. A student records her bus for 15 school days and finds it was on time on only 10 of them. Assume that the claim is true and that days are independent, and let X = the number of the 15 days the bus is on time.
+
+        (A) Explain why X can be modelled as a binomial random variable, and state n and p.
+
+        (B) Find the mean and standard deviation of X, and interpret the mean in context.
+
+        (C) Find P(X ≤ 10).
+
+        (D) Does the student's record give convincing evidence that the true on-time rate for her bus is less than 90%? Explain using your answer to (C).
+      answer: |
+        (A) Each day the bus is on time (success) or not (failure); the 15 days are a fixed number of trials; days are assumed independent; and the probability of being on time is the same, 0.90, each day. So X is binomial with n = 15 and p = 0.90.
+        (B) μ = np = 15(0.90) = 13.5 days; σ = √(15 · 0.90 · 0.10) = √1.35 ≈ 1.16 days. If the claim is true and the student recorded many 15-day stretches, the bus would be on time on about 13.5 of the 15 days per stretch, on average, in the long run.
+        (C) P(X ≤ 10) = binomcdf(15, 0.90, 10) ≈ 0.0127.
+        (D) Yes. If the bus really arrived on time 90% of the time, a record of 10 or fewer on-time days out of 15 would happen only about 1.3% of the time by chance. Because that is so unlikely, the record gives convincing evidence that the true on-time rate for her bus is less than 90%. (It does not prove the claim false.)
+      explanation: |
+        Six points.
+        (A) 2 points: 1 for naming all four conditions in context (two outcomes, fixed 15 days, independence, same p = 0.90); 1 for n = 15 and p = 0.90. Listing "BINS" without context earns at most 1 point.
+        (B) 2 points: 1 for μ = 13.5 and σ ≈ 1.16 (σ = 1.35 is the variance and earns no credit for the SD); 1 for interpreting the mean as a long-run average over many 15-day stretches. "She will be on time 13.5 days" earns no interpretation point.
+        (C) 1 point: 0.0127 (accept 0.013), with the binomial setup shown (binomcdf(15, 0.9, 10) or a sum of binomial probabilities).
+        (D) 1 point: a "yes" conclusion that compares the result with what is expected by chance, cites the small probability from (C) conditionally ("if the claim were true"), and states the conclusion about the true on-time rate in context. A response that says the probability that the claim is true is 0.013 earns no point.

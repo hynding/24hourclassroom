@@ -1,0 +1,987 @@
+unit: 4
+description: |
+  43 questions · about 90 minutes · every topic of Unit 4 (4.1 to 4.10): the sampling distribution of x̄, one-sample
+  and paired t-intervals and tests for a population mean or mean difference, using intervals to judge claims, the
+  sampling distribution of x̄₁ − x̄₂, and two-sample t-intervals and t-tests for μ₁ − μ₂, with the choice between
+  paired and two-sample procedures throughout. Includes three shared-context sets (a four-question set on a
+  one-sample test of trail-mix weights, a four-question set on paired heart-rate data and a four-question set on
+  computer output for a two-sample comparison of caffeine intake), select-all, true/false, fill-in-the-blank and
+  numeric items, two short-answer questions (3 points each) and two free-response questions in the 2027 AP style
+  (10 points each: one on experimental design and paired data analysis, one complete two-sample t-test). Intervals
+  and tests use the calculator's unpooled df unless an item names the conservative df (smaller n − 1).
+  Calculators are allowed throughout. Multiple choice, select-all, true/false and numeric items are graded at
+  once; fill-in-the-blank items are matched automatically; the short answers and free-response questions are
+  graded by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: one-sample t, trail-mix weights (4.1, 4.4, 4.5, 4.2)
+  - slug: apstats-u04-exam-q01
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "AP Statistics CED, Topic 4.1"
+    points: 1
+    stimulus: |
+      A snack company says its bags of trail mix contain 340 grams on average. A consumer group suspects the bags are underfilled. It buys a random sample of 25 bags from stores across a state (the company sells hundreds of thousands of bags there) and weighs them. Hypothetical results: x̄ = 336.8 grams, s = 6.5 grams. A dotplot of the 25 weights is roughly symmetric with no outliers.
+    prompt: |
+      What is the standard error of the sample mean?
+    options:
+      - "1.30 grams"
+      - "6.50 grams"
+      - "0.26 grams"
+      - "1.33 grams"
+    option_explanations:
+      - |
+        Correct. SE = s/√n = 6.5/√25 = 6.5/5 = 1.30 grams.
+      - |
+        6.5 grams is the standard deviation of individual bags; the sample mean varies less, by a factor of √n.
+      - |
+        This divides by n = 25 instead of √n = 5.
+      - |
+        This divides by √24, confusing the degrees of freedom with the sample size in the standard error.
+    answer: 0
+  - slug: apstats-u04-exam-q02
+    type: multiple_choice
+    topic_code: "4.4"
+    source: "AP Statistics CED, Topic 4.4"
+    points: 1
+    stimulus: |
+      A snack company says its bags of trail mix contain 340 grams on average. A consumer group suspects the bags are underfilled. It buys a random sample of 25 bags from stores across a state (the company sells hundreds of thousands of bags there) and weighs them. Hypothetical results: x̄ = 336.8 grams, s = 6.5 grams. A dotplot of the 25 weights is roughly symmetric with no outliers.
+    prompt: |
+      Which hypotheses match the consumer group's question, where μ is the true mean weight of all bags sold in the state?
+    options:
+      - "H₀: x̄ = 340; Hₐ: x̄ < 340"
+      - "H₀: μ = 336.8; Hₐ: μ < 336.8"
+      - "H₀: μ = 340; Hₐ: μ < 340"
+      - "H₀: μ = 340; Hₐ: μ ≠ 340"
+    option_explanations:
+      - |
+        Hypotheses are about the parameter μ, not the sample mean, which is already known to be 336.8.
+      - |
+        The null value is the company's claim, 340, not the sample result.
+      - |
+        Correct. The claim gives H₀: μ = 340, and the suspicion of underfilling gives the one-sided Hₐ: μ < 340.
+      - |
+        The group suspects underfilling specifically, so the alternative is one-sided.
+    answer: 2
+  - slug: apstats-u04-exam-q03
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "AP Statistics CED, Topic 4.5"
+    points: 1
+    stimulus: |
+      A snack company says its bags of trail mix contain 340 grams on average. A consumer group suspects the bags are underfilled. It buys a random sample of 25 bags from stores across a state (the company sells hundreds of thousands of bags there) and weighs them. Hypothetical results: x̄ = 336.8 grams, s = 6.5 grams. A dotplot of the 25 weights is roughly symmetric with no outliers.
+    prompt: |
+      What are the test statistic and p-value of the appropriate test?
+    options:
+      - "t ≈ −2.46, p-value ≈ 0.021"
+      - "t ≈ −2.46, p-value ≈ 0.011"
+      - "z ≈ −2.46, p-value ≈ 0.007"
+      - "t ≈ −0.49, p-value ≈ 0.31"
+    option_explanations:
+      - |
+        0.021 is the two-sided p-value. With Hₐ: μ < 340, only the lower tail counts.
+      - |
+        Correct. t = (336.8 − 340)/1.3 ≈ −2.46 with df = 24, and P(t < −2.46) ≈ 0.011.
+      - |
+        The standard normal applies only when σ is known; with s, use t with df = 24, which gives a larger p-value.
+      - |
+        This divides by s = 6.5 instead of the standard error 1.3.
+    answer: 1
+  - slug: apstats-u04-exam-q04
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "AP Statistics CED, Topic 4.2"
+    points: 1
+    stimulus: |
+      A snack company says its bags of trail mix contain 340 grams on average. A consumer group suspects the bags are underfilled. It buys a random sample of 25 bags from stores across a state (the company sells hundreds of thousands of bags there) and weighs them. Hypothetical results: x̄ = 336.8 grams, s = 6.5 grams. A dotplot of the 25 weights is roughly symmetric with no outliers.
+    prompt: |
+      Which is a 95% confidence interval for the true mean weight of all bags sold in the state?
+    options:
+      - "(334.25, 339.35) grams"
+      - "(323.38, 350.22) grams"
+      - "(334.58, 339.02) grams"
+      - "(334.12, 339.48) grams"
+    option_explanations:
+      - |
+        This uses z* = 1.96. With s in place of σ, use t* = 2.064 (df = 24).
+      - |
+        This multiplies t* by s = 6.5 rather than by the standard error 1.3: an interval for individual bags, not the mean.
+      - |
+        This is the 90% interval (t* ≈ 1.711). A 95% interval is wider.
+      - |
+        Correct. 336.8 ± 2.064 × 1.3 = 336.8 ± 2.68, with t* for df = 24.
+    answer: 3
+  # ---- Stimulus set B: paired heart-rate data (4.4, 4.2, 4.5, 4.3)
+  - slug: apstats-u04-exam-q05
+    type: multiple_choice
+    topic_code: "4.4"
+    source: "AP Statistics CED, Topic 4.4"
+    points: 1
+    stimulus: |
+      A health teacher randomly selects 10 students at a large school and measures each student's resting heart rate (beats per minute) before and after a five-minute breathing exercise. Hypothetical data:
+
+      | Student | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+      |---|---|---|---|---|---|---|---|---|---|---|
+      | Before | 78 | 84 | 72 | 90 | 81 | 76 | 88 | 69 | 83 | 79 |
+      | After | 74 | 80 | 71 | 84 | 78 | 75 | 82 | 68 | 77 | 76 |
+
+      A dotplot of the 10 differences (before − after) shows no strong skew and no outliers.
+    prompt: |
+      Which procedure should the teacher use to test whether the exercise lowers mean resting heart rate?
+    options:
+      - "A two-sample t-test for μ_before − μ_after"
+      - "A one-sample z-test for a proportion"
+      - "A paired t-test for the mean difference μ_d (before − after)"
+      - "A two-sample t-test with df = 18"
+    option_explanations:
+      - |
+        The before and after rates come from the same students, so they are not independent samples.
+      - |
+        Heart rate is quantitative; a proportion test needs a yes/no response.
+      - |
+        Correct. Each student gives two linked measurements, so the 10 differences are analysed as one sample with a paired t-test.
+      - |
+        Changing the df does not fix the problem: two-sample procedures ignore the pairing of the measurements.
+    answer: 2
+  - slug: apstats-u04-exam-q06
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "AP Statistics CED, Topic 4.2"
+    points: 1
+    stimulus: |
+      A health teacher randomly selects 10 students at a large school and measures each student's resting heart rate (beats per minute) before and after a five-minute breathing exercise. Hypothetical data:
+
+      | Student | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+      |---|---|---|---|---|---|---|---|---|---|---|
+      | Before | 78 | 84 | 72 | 90 | 81 | 76 | 88 | 69 | 83 | 79 |
+      | After | 74 | 80 | 71 | 84 | 78 | 75 | 82 | 68 | 77 | 76 |
+
+      A dotplot of the 10 differences (before − after) shows no strong skew and no outliers.
+    prompt: |
+      What are the mean and standard deviation of the differences (before − after)?
+    options:
+      - "x̄_d = 3.5, s_d ≈ 2.07"
+      - "x̄_d = 3.5, s_d ≈ 0.65"
+      - "x̄_d = 3.5, s_d ≈ 6.63"
+      - "x̄_d = −3.5, s_d ≈ 2.07"
+    option_explanations:
+      - |
+        Correct. The differences are 4, 4, 1, 6, 3, 1, 6, 1, 6, 3, with mean 3.5 and standard deviation about 2.07.
+      - |
+        0.65 is the standard error s_d/√10, not the standard deviation of the differences.
+      - |
+        6.63 is the standard deviation of the before values, not of the differences.
+      - |
+        The order is before − after, and the after values are lower, so the mean difference is positive.
+    answer: 0
+  - slug: apstats-u04-exam-q07
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "AP Statistics CED, Topic 4.5"
+    points: 1
+    stimulus: |
+      A health teacher randomly selects 10 students at a large school and measures each student's resting heart rate (beats per minute) before and after a five-minute breathing exercise. Hypothetical data:
+
+      | Student | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+      |---|---|---|---|---|---|---|---|---|---|---|
+      | Before | 78 | 84 | 72 | 90 | 81 | 76 | 88 | 69 | 83 | 79 |
+      | After | 74 | 80 | 71 | 84 | 78 | 75 | 82 | 68 | 77 | 76 |
+
+      A dotplot of the 10 differences (before − after) shows no strong skew and no outliers.
+    prompt: |
+      For H₀: μ_d = 0 versus Hₐ: μ_d > 0, what are the test statistic and p-value?
+    options:
+      - "t ≈ 1.35, p-value ≈ 0.098"
+      - "t ≈ 1.69, p-value ≈ 0.062"
+      - "t ≈ 5.35, p-value ≈ 0.0005"
+      - "t ≈ 5.35, p-value ≈ 0.0002"
+    option_explanations:
+      - |
+        This is a two-sample t-test on the before and after lists, which ignores the pairing; student-to-student variation hides the consistent drop.
+      - |
+        This divides 3.5 by s_d = 2.07 instead of the standard error 2.07/√10 ≈ 0.654.
+      - |
+        The statistic is right, but 0.0005 is the two-sided p-value; Hₐ is one-sided.
+      - |
+        Correct. t = 3.5/(2.068/√10) ≈ 5.35 with df = 9, and P(t > 5.35) ≈ 0.0002.
+    answer: 3
+  - slug: apstats-u04-exam-q08
+    type: multiple_choice
+    topic_code: "4.3"
+    source: "AP Statistics CED, Topic 4.3"
+    points: 1
+    stimulus: |
+      A health teacher randomly selects 10 students at a large school and measures each student's resting heart rate (beats per minute) before and after a five-minute breathing exercise. Hypothetical data:
+
+      | Student | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+      |---|---|---|---|---|---|---|---|---|---|---|
+      | Before | 78 | 84 | 72 | 90 | 81 | 76 | 88 | 69 | 83 | 79 |
+      | After | 74 | 80 | 71 | 84 | 78 | 75 | 82 | 68 | 77 | 76 |
+
+      A dotplot of the 10 differences (before − after) shows no strong skew and no outliers.
+    prompt: |
+      A 95% paired t-interval for μ_d (before − after) is (2.02, 4.98) beats per minute. The teacher claims the exercise lowers resting heart rate by 5 beats per minute on average. Which response is best?
+    options:
+      - "The claim is supported, because 5 is very close to the upper end of the interval."
+      - "The claim is not plausible at the 95% level, because 5 lies just outside the interval; a drop of between about 2 and 5 beats per minute is plausible."
+      - "The claim is proven, because the interval is entirely above 0."
+      - "Nothing can be said, because the sample has only 10 students."
+    option_explanations:
+      - |
+        Closeness does not count: a value is plausible only if it lies inside the interval, and 5 is just above 4.98.
+      - |
+        Correct. 5 is outside (2.02, 4.98), so it is not a plausible value of μ_d, even though the interval gives convincing evidence of some decrease.
+      - |
+        An interval above 0 is evidence of a decrease, not proof of a 5-beat decrease.
+      - |
+        The Normal condition was checked with the dotplot of differences, so the small-sample interval is valid.
+    answer: 1
+  # ---- Stimulus set C: two-sample computer output, caffeine intake (4.9, 4.10, 4.8, 4.10)
+  - slug: apstats-u04-exam-q09
+    type: multiple_choice
+    topic_code: "4.9"
+    source: "AP Statistics CED, Topic 4.9"
+    points: 1
+    stimulus: |
+      A school nurse takes independent random samples of 42 juniors and 38 seniors from a large high school and estimates each student's daily caffeine intake (mg). Hypothetical computer output:
+
+      | Group | N | Mean | StDev |
+      |---|---|---|---|
+      | Seniors | 38 | 142 | 61 |
+      | Juniors | 42 | 118 | 54 |
+
+      Difference = μ(Seniors) − μ(Juniors). Estimate for difference: 24.0. 95% CI for difference: (−1.8, 49.8). T-test of difference = 0 (vs ≠): T-Value = 1.86, P-Value = 0.068, DF = 74.3.
+    prompt: |
+      Which hypotheses did the software test?
+    options:
+      - "H₀: μS − μJ = 0; Hₐ: μS − μJ > 0"
+      - "H₀: μS − μJ = 0; Hₐ: μS − μJ ≠ 0"
+      - "H₀: x̄S − x̄J = 24; Hₐ: x̄S − x̄J ≠ 24"
+      - "H₀: μS − μJ = 24; Hₐ: μS − μJ ≠ 24"
+    option_explanations:
+      - |
+        The output says "vs ≠", so the alternative is two-sided.
+      - |
+        Correct. "Difference = 0 (vs ≠)" means H₀: μS − μJ = 0 against a two-sided alternative.
+      - |
+        Hypotheses are about parameters, and 24 is the observed estimate, not the null value.
+      - |
+        24.0 is the estimate from the samples; the null value in the output is 0.
+    answer: 1
+  - slug: apstats-u04-exam-q10
+    type: multiple_choice
+    topic_code: "4.10"
+    source: "AP Statistics CED, Topic 4.10"
+    points: 1
+    stimulus: |
+      A school nurse takes independent random samples of 42 juniors and 38 seniors from a large high school and estimates each student's daily caffeine intake (mg). Hypothetical computer output:
+
+      | Group | N | Mean | StDev |
+      |---|---|---|---|
+      | Seniors | 38 | 142 | 61 |
+      | Juniors | 42 | 118 | 54 |
+
+      Difference = μ(Seniors) − μ(Juniors). Estimate for difference: 24.0. 95% CI for difference: (−1.8, 49.8). T-test of difference = 0 (vs ≠): T-Value = 1.86, P-Value = 0.068, DF = 74.3.
+    prompt: |
+      At α = 0.05, which conclusion is correct?
+    options:
+      - "Reject H₀; there is convincing evidence that seniors have a higher mean caffeine intake."
+      - "Accept H₀; seniors and juniors have the same mean caffeine intake."
+      - "Reject H₀, because the estimate of 24 mg is large."
+      - "Fail to reject H₀; there is not convincing evidence that mean caffeine intake differs between seniors and juniors at the school."
+    option_explanations:
+      - |
+        0.068 is greater than 0.05, so H₀ is not rejected.
+      - |
+        We never accept H₀; failing to reject does not show the means are equal.
+      - |
+        The decision depends on the p-value compared with α, not on the size of the estimate alone.
+      - |
+        Correct. 0.068 > 0.05, so we fail to reject H₀ and state the lack of convincing evidence in context.
+    answer: 3
+  - slug: apstats-u04-exam-q11
+    type: multiple_choice
+    topic_code: "4.8"
+    source: "AP Statistics CED, Topic 4.8"
+    points: 1
+    stimulus: |
+      A school nurse takes independent random samples of 42 juniors and 38 seniors from a large high school and estimates each student's daily caffeine intake (mg). Hypothetical computer output:
+
+      | Group | N | Mean | StDev |
+      |---|---|---|---|
+      | Seniors | 38 | 142 | 61 |
+      | Juniors | 42 | 118 | 54 |
+
+      Difference = μ(Seniors) − μ(Juniors). Estimate for difference: 24.0. 95% CI for difference: (−1.8, 49.8). T-test of difference = 0 (vs ≠): T-Value = 1.86, P-Value = 0.068, DF = 74.3.
+    prompt: |
+      A student claims seniors at the school consume 30 mg more caffeine per day than juniors, on average. Based on the interval, which statement is correct?
+    options:
+      - "The claim is plausible, because 30 is inside the interval, but so is 0."
+      - "The claim is supported and a difference of 0 is ruled out."
+      - "The claim is not plausible, because the estimate is 24, not 30."
+      - "The claim is not plausible, because the interval contains negative values."
+    option_explanations:
+      - |
+        Correct. 30 lies in (−1.8, 49.8), so it is plausible; 0 is plausible too, so the data cannot distinguish between them.
+      - |
+        0 is inside the interval, so a difference of 0 is not ruled out.
+      - |
+        Any value inside the interval is plausible; the point estimate is only the center.
+      - |
+        Negative values in the interval make "no difference" plausible; they do not rule out 30.
+    answer: 0
+  - slug: apstats-u04-exam-q12
+    type: multiple_choice
+    topic_code: "4.10"
+    source: "AP Statistics CED, Topic 4.10"
+    points: 1
+    stimulus: |
+      A school nurse takes independent random samples of 42 juniors and 38 seniors from a large high school and estimates each student's daily caffeine intake (mg). Hypothetical computer output:
+
+      | Group | N | Mean | StDev |
+      |---|---|---|---|
+      | Seniors | 38 | 142 | 61 |
+      | Juniors | 42 | 118 | 54 |
+
+      Difference = μ(Seniors) − μ(Juniors). Estimate for difference: 24.0. 95% CI for difference: (−1.8, 49.8). T-test of difference = 0 (vs ≠): T-Value = 1.86, P-Value = 0.068, DF = 74.3.
+    prompt: |
+      Given the decision at α = 0.05, which error could the nurse have made?
+    options:
+      - "A Type I error: concluding the mean intakes differ when they do not"
+      - "No error is possible, because the samples were random."
+      - "A Type II error: failing to find convincing evidence of a difference when the mean intakes really do differ"
+      - "Both a Type I and a Type II error"
+    option_explanations:
+      - |
+        A Type I error requires rejecting H₀; the nurse failed to reject it.
+      - |
+        Random sampling does not prevent errors; any decision based on a sample can be wrong.
+      - |
+        Correct. Failing to reject H₀ leaves only a Type II error possible: a real difference in means that the test did not detect.
+      - |
+        One decision allows only one kind of error: Type I after rejecting, Type II after failing to reject.
+    answer: 2
+  # ---- Independent items
+  - slug: apstats-u04-exam-q13
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "AP Statistics CED, Topic 4.1"
+    points: 1
+    prompt: |
+      The number of text messages sent per day by students at a large high school is strongly right-skewed, with mean 46 and standard deviation 30. What best describes the sampling distribution of x̄ for random samples of 50 students?
+    options:
+      - "Strongly right-skewed with mean 46 and standard deviation 30"
+      - "Exactly normal with mean 46 and standard deviation 30"
+      - "Approximately normal with mean 46 and standard deviation about 4.24"
+      - "Approximately normal with mean 46 and standard deviation 0.6"
+    option_explanations:
+      - |
+        This describes individual students. Sample means of 50 are far less variable and, by the Central Limit Theorem, approximately normal.
+      - |
+        The sampling distribution is only approximately normal, and its SD is σ/√n, not σ.
+      - |
+        Correct. Mean μ = 46; SD = 30/√50 ≈ 4.24; n = 50 ≥ 30, so the Central Limit Theorem gives an approximately normal shape.
+      - |
+        0.6 is 30/50, dividing by n instead of √n.
+    answer: 2
+  - slug: apstats-u04-exam-q14
+    type: multiple_choice
+    topic_code: "4.1"
+    source: "AP Statistics CED, Topic 4.1"
+    points: 1
+    prompt: |
+      A researcher wants the standard deviation of the sampling distribution of x̄ to be half as large as it is with samples of 40. What sample size should she use?
+    options:
+      - "80"
+      - "20"
+      - "57"
+      - "160"
+    option_explanations:
+      - |
+        Doubling n divides σ/√n by √2 ≈ 1.41, not by 2.
+      - |
+        Smaller samples make x̄ more variable, not less.
+      - |
+        57 ≈ 40√2 divides the SD by only about 1.19.
+      - |
+        Correct. σ/√n halves when √n doubles, that is, when n is multiplied by 4: 4 × 40 = 160.
+    answer: 3
+  - slug: apstats-u04-exam-q15
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "AP Statistics CED, Topic 4.2"
+    points: 1
+    prompt: |
+      What critical value is needed for a 99% one-sample t-interval for a population mean based on a random sample of 12 observations?
+    options:
+      - "z* = 2.576"
+      - "t* = 3.106"
+      - "t* = 2.718"
+      - "t* = 3.055"
+    option_explanations:
+      - |
+        z* is used when σ is known. With s, use t* with df = n − 1 = 11.
+      - |
+        Correct. df = 11, and the t value with 0.005 in the upper tail is 3.106.
+      - |
+        2.718 puts 1% in one tail (a 98% interval) with df = 11.
+      - |
+        3.055 uses df = 12; the df for one sample is n − 1 = 11.
+    answer: 1
+  - slug: apstats-u04-exam-q16
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "AP Statistics CED, Topic 4.2"
+    points: 1
+    prompt: |
+      From a random sample of 50 students, a 90% t-interval for the mean time students at a school spend getting ready in the morning is (31.4, 36.2) minutes. Which is the correct interpretation?
+    options:
+      - "We are 90% confident that the interval from 31.4 to 36.2 minutes captures the true mean time all students at the school spend getting ready."
+      - "90% of the students at the school spend between 31.4 and 36.2 minutes getting ready."
+      - "There is a 90% probability that the sample mean is between 31.4 and 36.2 minutes."
+      - "90% of all samples of 50 students will have a mean between 31.4 and 36.2 minutes."
+    option_explanations:
+      - |
+        Correct. The interval estimates the population mean, with the confidence level and context stated.
+      - |
+        The interval is about the mean, not about individual students' times.
+      - |
+        The sample mean is known (33.8, the center); the interval concerns the population mean.
+      - |
+        Other samples give other intervals; the 90% describes how often such intervals capture μ, not where future sample means fall.
+    answer: 0
+  - slug: apstats-u04-exam-q17
+    type: multiple_choice
+    topic_code: "4.3"
+    source: "AP Statistics CED, Topic 4.3"
+    points: 1
+    prompt: |
+      A 95% t-interval for the mean nightly sleep of all students at a school, from a random sample of 60 students, is (6.62, 7.18) hours. The school newspaper claims students average 7.5 hours of sleep. Which conclusion is best?
+    options:
+      - "The claim is plausible, because 7.5 hours is close to the interval."
+      - "The claim is proven false."
+      - "The claim is plausible, because some students sleep more than 7.5 hours."
+      - "The claim is not plausible, because 7.5 hours lies above the interval of plausible values for the mean."
+    option_explanations:
+      - |
+        Being close does not make a value plausible; it must lie inside the interval.
+      - |
+        An interval gives convincing evidence against the claim but never proof.
+      - |
+        The interval is about the mean, not about individual students.
+      - |
+        Correct. 7.5 is outside (above) (6.62, 7.18), so it is not a plausible value of the mean at the 95% level.
+    answer: 3
+  - slug: apstats-u04-exam-q18
+    type: multiple_choice
+    topic_code: "4.4"
+    source: "AP Statistics CED, Topic 4.4"
+    points: 1
+    prompt: |
+      A student wants to test a claim about the mean price of used textbooks at her school using a random sample of 14 books. A stemplot of the 14 prices is strongly right-skewed with one very high outlier. Which statement is correct?
+    options:
+      - "A one-sample t-test is appropriate, because the sample was random."
+      - "A one-sample t-test is appropriate, because t procedures are designed for small samples."
+      - "The Normal condition is not met, so a one-sample t-test may give unreliable results."
+      - "A one-sample z-test should be used instead, because of the outlier."
+    option_explanations:
+      - |
+        Random selection meets the Random condition, but the Normal / large sample condition must also be met.
+      - |
+        t procedures work for small samples only when the data show no strong skew or outliers.
+      - |
+        Correct. With n = 14 < 30, strong skew and an outlier suggest the population is far from normal, so the t-test's p-value may be wrong.
+      - |
+        A z-test has the same normality requirement and also needs a known σ.
+    answer: 2
+  - slug: apstats-u04-exam-q19
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "AP Statistics CED, Topic 4.5"
+    points: 1
+    prompt: |
+      A machine is set to fill cups with 180 mL of juice. A technician tests H₀: μ = 180 against Hₐ: μ ≠ 180 with a random sample of cups and gets x̄ = 184.2 mL and p-value = 0.09. Which is the correct interpretation of the p-value?
+    options:
+      - "Assuming the true mean fill is 180 mL, there is a 0.09 probability of getting a sample mean at least 4.2 mL away from 180 mL, in either direction, by chance alone."
+      - "There is a 0.09 probability that the true mean fill is 180 mL."
+      - "Assuming the true mean fill is 180 mL, there is a 0.09 probability of getting a sample mean of 184.2 mL or more."
+      - "There is a 0.09 probability that the machine is working correctly."
+    option_explanations:
+      - |
+        Correct. For a two-sided alternative, the p-value counts results as far from 180 as 184.2 in either direction, assuming H₀.
+      - |
+        A p-value is computed assuming H₀; it is not the probability that H₀ is true.
+      - |
+        This is the one-sided tail; with Hₐ: μ ≠ 180, both tails count.
+      - |
+        This is another way of stating a probability that H₀ is true, which a p-value does not give.
+    answer: 0
+  - slug: apstats-u04-exam-q20
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "AP Statistics CED, Topic 4.6"
+    points: 1
+    prompt: |
+      Population 1 has σ₁ = 14 and population 2 has σ₂ = 11. For independent random samples of n₁ = 50 and n₂ = 40, what is the standard deviation of the sampling distribution of x̄₁ − x̄₂?
+    options:
+      - "3.72"
+      - "2.64"
+      - "0.95"
+      - "17.80"
+    option_explanations:
+      - |
+        This adds the two standard deviations, 14/√50 + 11/√40 ≈ 1.98 + 1.74. Square, add, then take one square root.
+      - |
+        Correct. √(14²/50 + 11²/40) = √(3.92 + 3.025) = √6.945 ≈ 2.64.
+      - |
+        This subtracts the variance terms: √(3.92 − 3.025) = √0.895 ≈ 0.95. For independent samples they add.
+      - |
+        This is √(14² + 11²), which forgets to divide each variance by its sample size.
+    answer: 1
+  - slug: apstats-u04-exam-q21
+    type: multiple_choice
+    topic_code: "4.6"
+    source: "AP Statistics CED, Topic 4.6"
+    points: 1
+    prompt: |
+      Independent random samples of 20 and 25 are taken from two populations that are both approximately normal. What is the shape of the sampling distribution of x̄₁ − x̄₂?
+    options:
+      - "It cannot be determined, because both samples are smaller than 30."
+      - "Approximately normal, because n₁ + n₂ = 45 ≥ 30."
+      - "Skewed, because the sample sizes differ."
+      - "Approximately normal, because both populations are approximately normal."
+    option_explanations:
+      - |
+        The n ≥ 30 rule is only needed when the populations are not normal.
+      - |
+        The right conclusion with the wrong reason: a combined total of 30 is never the check.
+      - |
+        Unequal sample sizes do not create skew in the sampling distribution.
+      - |
+        Correct. Normal populations give normal sample means for any n, so their difference is approximately normal.
+    answer: 3
+  - slug: apstats-u04-exam-q22
+    type: multiple_choice
+    topic_code: "4.7"
+    source: "AP Statistics CED, Topic 4.7"
+    points: 1
+    prompt: |
+      A 95% two-sample t-interval is computed by hand for random samples of 16 and 20, using the conservative degrees of freedom. Which critical value is used?
+    options:
+      - "t* = 2.093 (df = 19)"
+      - "t* = 2.028 (df = 34)"
+      - "t* = 2.131 (df = 15)"
+      - "t* = 1.753 (df = 15)"
+    option_explanations:
+      - |
+        df = 19 comes from the larger sample; the conservative df uses the smaller sample.
+      - |
+        df = 34 is n₁ + n₂ − 2, the pooled df, which the AP course does not use.
+      - |
+        Correct. Conservative df = smaller n − 1 = 15, and the 95% t* is 2.131.
+      - |
+        1.753 is the 90% critical value (5% in one tail) for df = 15.
+    answer: 2
+  - slug: apstats-u04-exam-q23
+    type: multiple_choice
+    topic_code: "4.7"
+    source: "AP Statistics CED, Topic 4.7"
+    points: 1
+    prompt: |
+      A report gives a 99% two-sample t-interval for the difference in mean daily water intake between students who play a sport and students who do not. What does "99% confidence" mean?
+    options:
+      - "If many pairs of random samples were taken and a 99% interval built from each, about 99% of the intervals would capture the true difference in mean water intake."
+      - "There is a 99% probability that the true difference is in this interval."
+      - "99% of students' water intakes fall inside the interval."
+      - "The interval is 99% accurate."
+    option_explanations:
+      - |
+        Correct. The confidence level is the long-run capture rate of the method.
+      - |
+        The true difference is fixed; once computed, this interval either captures it or it does not.
+      - |
+        The interval estimates a difference in means, not individual intakes.
+      - |
+        "Accurate" has no statistical meaning here; the level describes how often the method captures the parameter.
+    answer: 0
+  - slug: apstats-u04-exam-q24
+    type: multiple_choice
+    topic_code: "4.8"
+    source: "AP Statistics CED, Topic 4.8"
+    points: 1
+    prompt: |
+      Volunteers are randomly assigned to two study apps, A and B. A 95% confidence interval for μA − μB, the difference in mean quiz scores, is (−4.6, −1.2). Which conclusion is justified?
+    options:
+      - "There is no convincing evidence of a difference, because the interval is narrow."
+      - "There is convincing evidence that app B produces a higher mean quiz score than app A for volunteers like these."
+      - "There is convincing evidence that app A produces a higher mean quiz score."
+      - "App B raises every user's score by 1.2 to 4.6 points."
+    option_explanations:
+      - |
+        The width does not decide; the interval excludes 0, which is what makes the evidence convincing.
+      - |
+        Correct. The whole interval is below 0, so μA < μB is supported; random assignment allows a causal statement for volunteers like these.
+      - |
+        Negative values of μA − μB mean app A's mean is lower, not higher.
+      - |
+        The interval is about mean scores, not about every individual user.
+    answer: 1
+  - slug: apstats-u04-exam-q25
+    type: multiple_choice
+    topic_code: "4.9"
+    source: "AP Statistics CED, Topic 4.9"
+    points: 1
+    prompt: |
+      Fifteen pairs of identical twins take part in a nutrition study. In each pair, one twin is randomly assigned to a high-protein breakfast and the other to a standard breakfast, and their mid-morning attention scores are compared. Which test is appropriate?
+    options:
+      - "A two-sample t-test with conservative df = 14"
+      - "A two-sample t-test with the calculator's df"
+      - "A chi-square test for independence"
+      - "A paired t-test on the 15 within-pair differences"
+    option_explanations:
+      - |
+        The twins are matched, so the two groups are not independent; changing the df does not fix that.
+      - |
+        A two-sample test ignores the matching of twins, which is the point of the design.
+      - |
+        Attention scores are quantitative; chi-square tests compare categorical variables.
+      - |
+        Correct. Each twin pair gives one difference (high-protein − standard), and the 15 differences form one sample for a paired t-test.
+    answer: 3
+  - slug: apstats-u04-exam-q26
+    type: multiple_choice
+    topic_code: "4.10"
+    source: "AP Statistics CED, Topic 4.10"
+    points: 1
+    prompt: |
+      A two-sample t-test of H₀: μ₁ − μ₂ = 0 against Hₐ: μ₁ − μ₂ > 0 gives t = 1.95 with calculator df ≈ 40. What is the p-value?
+    options:
+      - "About 0.058"
+      - "About 0.971"
+      - "About 0.029"
+      - "About 0.026"
+    option_explanations:
+      - |
+        0.058 is the two-sided p-value; Hₐ is one-sided, so use one tail.
+      - |
+        0.971 is the area below t = 1.95; Hₐ points to the upper tail.
+      - |
+        Correct. P(t > 1.95) with df = 40 is about 0.029.
+      - |
+        0.026 is the standard normal tail area; with sample SDs, use the t distribution.
+    answer: 2
+  - slug: apstats-u04-exam-q27
+    type: multiple_choice
+    topic_code: "4.9"
+    source: "AP Statistics CED, Topic 4.9"
+    points: 1
+    prompt: |
+      A pet-food company takes a random sample of 30 dog owners and a separate random sample of 30 cat owners and records how much each spends on pet food per month. Which procedure fits a comparison of the mean spending?
+    options:
+      - "A two-sample t procedure for μ_dog − μ_cat"
+      - "A paired t procedure, because the samples are the same size"
+      - "A one-sample t procedure on the 60 combined amounts"
+      - "A paired t procedure, because both groups are pet owners"
+    option_explanations:
+      - |
+        Correct. The two samples contain different, unlinked people, so they are independent: use two-sample t procedures.
+      - |
+        Equal sample sizes do not create pairs; there is no natural link between a particular dog owner and a particular cat owner.
+      - |
+        Combining the groups would remove the comparison of interest.
+      - |
+        Sharing a characteristic does not pair individuals; pairing needs a one-to-one link.
+    answer: 0
+  - slug: apstats-u04-exam-q28
+    type: multiple_choice
+    topic_code: "4.5"
+    source: "AP Statistics CED, Topic 4.5"
+    points: 1
+    prompt: |
+      A city tests H₀: μ = 25 against Hₐ: μ > 25, where μ is the mean commute time (minutes) of all residents, to decide whether to fund a new bus line. Which describes a Type II error?
+    options:
+      - "Concluding the mean commute is more than 25 minutes when it is actually 25 minutes"
+      - "Failing to find convincing evidence that the mean commute is more than 25 minutes when it actually is"
+      - "Concluding the mean commute is more than 25 minutes when it actually is"
+      - "Getting a sample mean below 25 minutes"
+    option_explanations:
+      - |
+        This rejects a true H₀, which is a Type I error, not a Type II error.
+      - |
+        Correct. A Type II error fails to reject H₀ when Hₐ is true: the commute really is longer, but the test misses it.
+      - |
+        Rejecting H₀ when the mean commute really is longer is a correct decision, not an error.
+      - |
+        A sample result is not a decision; errors describe conclusions about μ.
+    answer: 1
+  - slug: apstats-u04-exam-q29
+    type: multi_select
+    topic_code: "4.1"
+    source: "AP Statistics CED, Topic 4.1"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Random samples of size n are taken from a population with mean μ and standard deviation σ that is not normal. Which statements about the sampling distribution of x̄ are true? Select all that apply.
+    options:
+      - "Its mean is μ for every sample size."
+      - "For large n, the values in a single sample are approximately normally distributed."
+      - "Its standard deviation is σ/√n when the 10% condition holds."
+      - "Its shape becomes closer to normal as n increases."
+      - "Its standard deviation is larger than σ."
+    option_explanations:
+      - |
+        Correct. x̄ is an unbiased estimator of μ.
+      - |
+        A single sample resembles its population; the Central Limit Theorem is about the distribution of x̄ over many samples.
+      - |
+        Correct. SD(x̄) = σ/√n for independent observations.
+      - |
+        Correct. This is the Central Limit Theorem.
+      - |
+        σ/√n is smaller than σ for every sample size n > 1, so sample means vary less than individuals.
+    answer: [0, 2, 3]
+  - slug: apstats-u04-exam-q30
+    type: multi_select
+    topic_code: "4.9"
+    source: "AP Statistics CED, Topic 4.9"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which studies should be analysed with two-sample t procedures (rather than paired procedures)? Select all that apply.
+    options:
+      - "Twenty cars are each driven with two brands of tyre, in random order, and stopping distances recorded."
+      - "Random samples of 35 apartments in City P and 40 apartments in City Q are compared on monthly rent."
+      - "Each of 25 students takes a pretest and a post-test around a unit on fractions."
+      - "The visual acuity of the left eye and right eye of 30 students is compared."
+      - "Forty seedlings are randomly assigned, 20 to each of two watering schedules, and their heights compared."
+    option_explanations:
+      - |
+        Each car is tested with both tyres, so the measurements are paired.
+      - |
+        Correct. Two separate random samples of different apartments are independent.
+      - |
+        Pretest and post-test scores from the same students are paired.
+      - |
+        Both eyes belong to the same student, so the data are paired.
+      - |
+        Correct. Different seedlings get each schedule, so the groups are independent.
+    answer: [1, 4]
+  - slug: apstats-u04-exam-q31
+    type: multi_select
+    topic_code: "4.3"
+    source: "AP Statistics CED, Topic 4.3"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A random sample of 20 students took a reading-speed test before and after a speed-reading workshop. A 95% paired t-interval for μ_d (after − before, words per minute) is (−0.4, 2.8). Which statements are supported? Select all that apply.
+    options:
+      - "There is not convincing evidence that the workshop changes mean reading speed."
+      - "A true mean improvement of 2 words per minute is plausible."
+      - "The workshop has no effect on mean reading speed."
+      - "95% of students improved by between −0.4 and 2.8 words per minute."
+      - "A 90% interval from the same data would be narrower."
+    option_explanations:
+      - |
+        Correct. 0 is inside the interval, so no change is plausible.
+      - |
+        Correct. An improvement of 2 words per minute lies inside (−0.4, 2.8), so it is plausible.
+      - |
+        Failing to find convincing evidence of an effect does not show there is no effect; positive values are plausible too.
+      - |
+        The interval is about the mean difference, not individual students' differences.
+      - |
+        Correct. Lower confidence means a smaller t*, so the interval narrows.
+    answer: [0, 1, 4]
+  - slug: apstats-u04-exam-q32
+    type: true_false
+    topic_code: "4.1"
+    source: "AP Statistics CED, Topic 4.1"
+    points: 1
+    prompt: |
+      True or false: For random samples of size 100 (with the 10% condition met), the standard deviation of the sampling distribution of x̄ is one tenth of the population standard deviation.
+    answer: true
+    explanation: |
+      True. SD(x̄) = σ/√n = σ/√100 = σ/10.
+  - slug: apstats-u04-exam-q33
+    type: true_false
+    topic_code: "4.5"
+    source: "AP Statistics CED, Topic 4.5"
+    points: 1
+    prompt: |
+      True or false: In a one-sample t-test, a p-value greater than α shows that the null hypothesis is true.
+    answer: false
+    explanation: |
+      False. A p-value greater than α means we fail to reject H₀: there is not convincing evidence for Hₐ. The data may be consistent with H₀ without proving it; a Type II error is possible.
+  - slug: apstats-u04-exam-q34
+    type: true_false
+    topic_code: "4.8"
+    source: "AP Statistics CED, Topic 4.8"
+    points: 1
+    prompt: |
+      True or false: If a 95% two-sample t-interval for μ₁ − μ₂ lies entirely below 0, then a two-sided test of H₀: μ₁ − μ₂ = 0 at α = 0.05 (same data and df) rejects H₀.
+    answer: true
+    explanation: |
+      True. A two-sided test at α = 0.05 rejects H₀ exactly when the null value 0 is outside the 95% interval. An interval entirely below 0 also gives convincing evidence that μ₁ < μ₂.
+  - slug: apstats-u04-exam-q35
+    type: fill_blank
+    topic_code: "4.2"
+    source: "AP Statistics CED, Topic 4.2"
+    points: 1
+    prompt: |
+      A one-sample t-interval for a population mean is built from a random sample of 15 observations. The degrees of freedom are ____.
+    answer: ["14"]
+    explanation: |
+      df = n − 1 = 15 − 1 = 14.
+  - slug: apstats-u04-exam-q36
+    type: fill_blank
+    topic_code: "4.7"
+    source: "AP Statistics CED, Topic 4.7"
+    points: 1
+    prompt: |
+      A two-sample t-interval uses random samples of 31 and 26. With the conservative rule, the degrees of freedom are ____.
+    answer: ["25"]
+    explanation: |
+      Conservative df = smaller n − 1 = 26 − 1 = 25.
+  - slug: apstats-u04-exam-q37
+    type: numeric
+    topic_code: "4.1"
+    source: "AP Statistics CED, Topic 4.1"
+    points: 1
+    prompt: |
+      The time students at a large school spend on a nightly reading log has mean 12.8 minutes and standard deviation 3.1 minutes. For a random sample of 45 students, find the probability that the sample mean exceeds 13.5 minutes. Give your answer to three decimal places.
+    answer: { value: 0.065, tolerance: 0.003 }
+    explanation: |
+      n = 45 ≥ 30, so x̄ is approximately normal with mean 12.8 and SD 3.1/√45 ≈ 0.462. z = (13.5 − 12.8)/0.462 ≈ 1.51, and P(z > 1.51) ≈ 0.065.
+  - slug: apstats-u04-exam-q38
+    type: numeric
+    topic_code: "4.6"
+    source: "AP Statistics CED, Topic 4.6"
+    points: 1
+    prompt: |
+      Independent random samples give s₁ = 2.6 with n₁ = 18 and s₂ = 3.3 with n₂ = 22. Find the standard error of x̄₁ − x̄₂, to three decimal places.
+    answer: { value: 0.933, tolerance: 0.001 }
+    explanation: |
+      SE = √(2.6²/18 + 3.3²/22) = √(0.3756 + 0.4950) = √0.8706 ≈ 0.933.
+  - slug: apstats-u04-exam-q39
+    type: numeric
+    topic_code: "4.2"
+    source: "AP Statistics CED, Topic 4.2"
+    points: 1
+    prompt: |
+      A random sample of 20 phone batteries has s = 4.8 hours of battery life. Find the margin of error for a 95% one-sample t-interval for the mean, to three decimal places.
+    answer: { value: 2.246, tolerance: 0.002 }
+    explanation: |
+      df = 19, t* = 2.093. Margin of error = 2.093 × 4.8/√20 = 2.093 × 1.0733 ≈ 2.246 hours.
+  - slug: apstats-u04-exam-q40
+    type: short_answer
+    topic_code: "4.3"
+    source: "AP Statistics CED, Topic 4.3"
+    points: 3
+    prompt: |
+      A school district measures the fuel economy of a random sample of 40 of its several hundred school buses. A 95% one-sample t-interval for the mean fuel economy of all the district's buses is (6.8, 7.6) miles per gallon.
+
+      (a) Interpret the interval in context.
+      (b) The bus manufacturer claims a mean of 8 miles per gallon. Does the interval support that claim? Explain.
+      (c) Explain how a 99% interval from the same data would differ, and why.
+    answer: |
+      (a) We are 95% confident that the interval from 6.8 to 7.6 miles per gallon captures the true mean fuel economy of all the district's school buses.
+      (b) No. 8 miles per gallon lies above the interval, so it is not a plausible value of the mean; the data give convincing evidence that the mean fuel economy is lower than the manufacturer claims.
+      (c) It would have the same center (7.2 mpg) but be wider, because a higher confidence level requires a larger critical value t*.
+    explanation: |
+      Three points, one per part. (a) confidence level, "captures the true mean", and the context (all district buses). (b) "not plausible" because 8 is outside (above) the interval. (c) wider with the same center, with the reason (larger t*). An interpretation that talks about 95% of buses earns 0 for (a).
+  - slug: apstats-u04-exam-q41
+    type: short_answer
+    topic_code: "4.6"
+    source: "AP Statistics CED, Topic 4.6"
+    points: 3
+    prompt: |
+      Hypothetically, loaves from Bakery 1 have mean weight 500 g with standard deviation 12 g, and loaves from Bakery 2 have mean weight 495 g with standard deviation 15 g. An inspector weighs independent random samples of 36 loaves from each bakery (each bakes thousands of loaves a week).
+
+      (a) Give the mean and standard deviation of the sampling distribution of x̄₁ − x̄₂.
+      (b) Justify that the sampling distribution is approximately normal.
+      (c) Find P(x̄₁ − x̄₂ < 0), the probability that the Bakery 2 sample has the heavier mean.
+    answer: |
+      (a) Mean = 500 − 495 = 5 g. SD = √(12²/36 + 15²/36) = √(4 + 6.25) = √10.25 ≈ 3.20 g.
+      (b) Both samples have 36 ≥ 30 loaves, so by the Central Limit Theorem each sample mean, and therefore their difference, is approximately normal.
+      (c) z = (0 − 5)/3.20 ≈ −1.56, so P(x̄₁ − x̄₂ < 0) ≈ 0.059.
+    explanation: |
+      Three points, one per part. (a) mean 5 g and SD ≈ 3.20 g with the formula shown (adding SDs or subtracting variances earns 0). (b) the Central Limit Theorem with both samples at least 30 (each named). (c) about 0.059 (accept 0.058 to 0.060) with the normal calculation shown.
+  - slug: apstats-u04-exam-q42
+    type: long_answer
+    topic_code: "4.4"
+    source: "AP Statistics CED, Topic 4.4"
+    points: 10
+    prompt: |
+      A volleyball coach wonders whether a dynamic warm-up (jumping, skipping and leg swings) leads to higher vertical jumps than a static warm-up (holding stretches). Twelve players on her team are available.
+
+      (A) Write a statistical investigative question the coach could answer with data from her players.
+
+      (B) Describe how the coach could carry out a completely randomized design to compare the two warm-ups.
+
+      (C) Describe a matched-pairs design using the same 12 players, and explain why it may be better than the design in (B) for this comparison.
+
+      The coach carries out the matched-pairs design. Each player does each warm-up on a different day, in a randomly chosen order, and then records a vertical jump (cm).
+
+      | Player | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+      |---|---|---|---|---|---|---|---|---|---|---|---|---|
+      | Static | 48 | 52 | 45 | 57 | 50 | 43 | 55 | 49 | 51 | 46 | 53 | 47 |
+      | Dynamic | 51 | 54 | 49 | 58 | 53 | 46 | 59 | 50 | 55 | 48 | 56 | 51 |
+
+      (D) Compute the differences (dynamic − static) and their mean and standard deviation. Describe the distribution of the differences.
+
+      (E) A student analyses the data with a two-sample t-test and finds no convincing evidence of a difference. Explain which inference procedure the coach should use instead, and why the two-sample test is inappropriate here.
+
+      (F) Assuming the paired procedure gives a very small p-value, to whom can the coach's conclusion be applied, and can she conclude that the warm-up type caused the difference? Explain.
+    answer: |
+      (A) For example: "For players on this team, is the mean vertical jump higher after a dynamic warm-up than after a static warm-up?" It names the group (players on this team), the variable (vertical jump height) and the comparison (dynamic versus static).
+      (B) Write the 12 names on identical slips, mix them and draw 6: those players do the dynamic warm-up, the other 6 the static one. All 12 then do the same jump test under the same conditions, and the two groups' mean jumps are compared.
+      (C) Each player does both warm-ups on different days, the order set by a coin flip per player, and her two jumps are compared. Players differ a lot in jumping ability; comparing each player with herself removes that variation, so a warm-up effect is easier to detect. Random order keeps practice or fatigue from being confounded with warm-up type.
+      (D) Differences: 3, 2, 4, 1, 3, 3, 4, 1, 4, 2, 3, 4. Mean x̄_d ≈ 2.83 cm, s_d ≈ 1.11 cm. All 12 differences are positive: every player jumped higher after the dynamic warm-up. The differences range from 1 to 4 cm with median 3 cm, are slightly skewed toward the low values, and have no outliers.
+      (E) A paired t-test for μ_d (dynamic − static). Each player's two jumps are linked, so the lists are not independent samples. A two-sample test counts the spread between players (s ≈ 4.2 and 4.0 cm) as noise and hides the consistent gain; the paired test uses the much smaller spread of the differences (s_d ≈ 1.11 cm; t ≈ 8.81, df = 11).
+      (F) Because the order of warm-ups was randomly assigned within each player, the coach can conclude that the dynamic warm-up caused higher mean jumps. But the players are her team, not a random sample, so the conclusion applies only to these players (or players like them), not to all volleyball players.
+    explanation: |
+      Ten points.
+      (A) 1 point: a statistical investigative question that names the group (this team's players), the variable (vertical jump) and the comparison of the two warm-ups, and anticipates variability (a question about the mean or typical jump, not a single player).
+      (B) 2 points: 1 for a correct random assignment method (slips, random number generator) giving two groups of 6; 1 for applying the treatments and comparing the mean responses of the groups. A method that lets players choose earns 0.
+      (C) 2 points: 1 for a matched-pairs design with each player receiving both treatments in a randomised order; 1 for the advantage (removes player-to-player variability in jumping ability, making the effect easier to detect).
+      (D) 2 points: 1 for the correct differences with mean ≈ 2.83 and SD ≈ 1.11; 1 for a description in context (all positive, center about 3 cm, range 1 to 4 cm, no outliers).
+      (E) 2 points: 1 for naming the paired t-test (for μ_d); 1 for explaining that the measurements are linked within each player, so the samples are not independent and the between-player variability masks the effect.
+      (F) 1 point: causal conclusion justified by random assignment of order, and scope limited to these players (or players like them) because they are not a random sample. Both parts are needed.
+  - slug: apstats-u04-exam-q43
+    type: long_answer
+    topic_code: "4.10"
+    source: "AP Statistics CED, Topic 4.10"
+    points: 10
+    prompt: |
+      A school district has two high schools: School A starts at 8:30 a.m. and School B starts at 7:30 a.m. A district researcher takes a random sample of 35 students from School A (1,400 students) and an independent random sample of 32 students from School B (1,250 students) and records each student's average nightly sleep on school nights. Hypothetical results:
+
+      | School | n | x̄ (hours) | s (hours) |
+      |---|---|---|---|
+      | A (8:30 start) | 35 | 7.42 | 0.96 |
+      | B (7:30 start) | 32 | 6.91 | 1.08 |
+
+      (A) Define the parameters and state hypotheses to test whether students at School A get more sleep on average than students at School B.
+
+      (B) Name the appropriate procedure and check its conditions.
+
+      (C) Calculate the test statistic and the p-value. State which degrees of freedom you used.
+
+      (D) At α = 0.05, state your conclusion in context.
+
+      (E) A school board member says, "This proves that a later start time causes students to sleep more." Explain whether the study supports this statement.
+
+      (F) Another student repeats the calculation using the conservative degrees of freedom. Would the conclusion in (D) change? Explain.
+    answer: |
+      (A) μA = the true mean nightly sleep on school nights of all School A students; μB = the true mean for all School B students. H₀: μA − μB = 0; Hₐ: μA − μB > 0.
+      (B) Two-sample t-test for μA − μB. Random: independent random samples from each school. 10%: 35 ≤ 140 (10% of 1,400) and 32 ≤ 125 (10% of 1,250). Normal / large sample: 35 ≥ 30 and 32 ≥ 30, so by the Central Limit Theorem the sampling distribution of x̄A − x̄B is approximately normal.
+      (C) SE = √(0.96²/35 + 1.08²/32) ≈ 0.2506. t = (7.42 − 6.91)/0.2506 ≈ 2.04. Calculator df ≈ 62.3, p-value ≈ 0.023.
+      (D) Because p-value ≈ 0.023 < α = 0.05, we reject H₀. There is convincing evidence that the true mean nightly sleep of School A students is greater than that of School B students.
+      (E) No. This is an observational study: students were sampled, not randomly assigned to start times. Other differences between the schools (neighbourhoods, commute distances, schedules, activities) could explain the difference in sleep, so we cannot conclude that the start time caused it, and statistical evidence never "proves" a claim. The random samples do let us generalise the difference to all students at the two schools.
+      (F) No. With conservative df = 31, the t statistic is the same (2.04) and the p-value is slightly larger, about 0.025, which is still less than 0.05, so H₀ is still rejected.
+    explanation: |
+      Ten points.
+      (A) 2 points: 1 for both parameters defined in context (true mean nightly sleep of all students at each school); 1 for H₀: μA − μB = 0 and Hₐ: μA − μB > 0. Hypotheses about x̄ earn 0 for the second point.
+      (B) 2 points: 1 for naming the two-sample t-test for μA − μB; 1 for Random, 10% (both schools, with numbers) and Normal (each n ≥ 30) checked in context. Missing any one of the three checks loses this point.
+      (C) 2 points: 1 for t ≈ 2.04 with the SE shown; 1 for p-value ≈ 0.023 with calculator df ≈ 62.3 (or p ≈ 0.025 with conservative df = 31), with the df named.
+      (D) 2 points: 1 for comparing the p-value with α and rejecting H₀; 1 for the conclusion in context with "convincing evidence" about the true means (no "proves", no "accept").
+      (E) 1 point: no causal conclusion because there was no random assignment (observational study), with a possible confounding variable or the correct scope (generalise to students at the two schools).
+      (F) 1 point: same t, p-value about 0.025 (slightly larger), still below 0.05, so the conclusion does not change.

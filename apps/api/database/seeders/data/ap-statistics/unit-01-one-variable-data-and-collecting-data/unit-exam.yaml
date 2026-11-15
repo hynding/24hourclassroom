@@ -1,0 +1,980 @@
+unit: 1
+description: |
+  44 questions · about 90 minutes · every topic of Unit 1 (1.1 to 1.13): investigative questions and variables,
+  tables and graphs for one categorical variable, dotplots, stemplots, histograms and boxplots, describing shape,
+  center, variability and unusual features, summary statistics and the 1.5 × IQR outlier rule, comparing
+  distributions, matching data collection to the investigative question, random sampling methods, sources of
+  bias, and experimental design with scope of inference. Includes three shared-context sets (four questions on a
+  sample of weekly gaming hours, four on a phone-free study hall study, three on students' favourite cafeteria
+  entrées), select-all, true/false, fill-in-the-blank and numeric items, two short-answer questions (3 points
+  each) and two free-response questions in the 2027 AP style (10 points each: one data analysis comparing two
+  phone models' battery lives, one experimental design question). Multiple choice, select-all, true/false and
+  numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and
+  free-response questions are graded by your teacher against the scoring notes. A calculator is allowed
+  throughout.
+questions:
+  # ---- Stimulus set A: weekly gaming hours (1.6, 1.7, 1.8)
+  - slug: apstats-u01-exam-q01
+    type: multiple_choice
+    topic_code: "1.6"
+    source: "AP Statistics CED, Topic 1.6"
+    points: 1
+    stimulus: |
+      A random sample of 20 juniors at a large hypothetical high school reported the number of hours they spent playing video games last week:
+
+      0, 0, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8, 9, 10, 12, 14, 25
+
+      For these data, the mean is 6.3 hours and the standard deviation is 5.83 hours.
+    prompt: |
+      Which description of the shape of the distribution is best?
+    options:
+      - "Skewed to the right: most juniors played 0 to 10 hours, with a tail of larger values out to 25 hours"
+      - "Skewed to the left, because most of the values are small"
+      - "Roughly symmetric, because the mean and median are both near 6"
+      - "Uniform, because every value from 0 to 10 appears"
+    option_explanations:
+      - |
+        Correct. Values pile up at the low end and thin out toward 12, 14 and 25, a long right tail; the mean (6.3) above the median (5) agrees.
+      - |
+        Skew is named for the side of the long tail, not where the data pile up. The tail here stretches toward large values, so it is right skew.
+      - |
+        The median is 5 and the mean 6.3; the gap and the long tail to 25 show the distribution is not symmetric.
+      - |
+        Several values repeat and the values thin out above 10; a uniform distribution would have about equal counts across its range.
+    answer: 0
+  - slug: apstats-u01-exam-q02
+    type: numeric
+    topic_code: "1.7"
+    source: "AP Statistics CED, Topic 1.7"
+    points: 1
+    stimulus: |
+      A random sample of 20 juniors at a large hypothetical high school reported the number of hours they spent playing video games last week:
+
+      0, 0, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8, 9, 10, 12, 14, 25
+
+      For these data, the mean is 6.3 hours and the standard deviation is 5.83 hours.
+    prompt: |
+      Find the median number of hours. Give an exact answer.
+    answer: { value: 5, tolerance: 0.01 }
+    explanation: |
+      With 20 ordered values, the median is the average of the 10th and 11th values: (5 + 5)/2 = 5 hours.
+  - slug: apstats-u01-exam-q03
+    type: multiple_choice
+    topic_code: "1.8"
+    source: "AP Statistics CED, Topic 1.8"
+    points: 1
+    stimulus: |
+      A random sample of 20 juniors at a large hypothetical high school reported the number of hours they spent playing video games last week:
+
+      0, 0, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8, 9, 10, 12, 14, 25
+
+      For these data, the mean is 6.3 hours and the standard deviation is 5.83 hours.
+    prompt: |
+      Q1 = 2.5 hours and Q3 = 8.5 hours. Which values are outliers by the 1.5 × IQR rule?
+    options:
+      - "None of the values"
+      - "14 and 25"
+      - "Only 25, because the fences are −6.5 and 17.5 hours"
+      - "0 and 25, the two extremes"
+    option_explanations:
+      - |
+        IQR = 8.5 − 2.5 = 6, so the upper fence is 8.5 + 9 = 17.5, and 25 is above it.
+      - |
+        14 is below the upper fence of 17.5, so it is not an outlier, even though it is large.
+      - |
+        Correct. IQR = 6; lower fence 2.5 − 9 = −6.5 and upper fence 8.5 + 9 = 17.5. Only 25 lies outside.
+      - |
+        The minimum and maximum are not automatically outliers; 0 is well above the lower fence of −6.5.
+    answer: 2
+  - slug: apstats-u01-exam-q04
+    type: multiple_choice
+    topic_code: "1.7"
+    source: "AP Statistics CED, Topic 1.7"
+    points: 1
+    stimulus: |
+      A random sample of 20 juniors at a large hypothetical high school reported the number of hours they spent playing video games last week:
+
+      0, 0, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8, 9, 10, 12, 14, 25
+
+      For these data, the mean is 6.3 hours and the standard deviation is 5.83 hours.
+    prompt: |
+      Which pair of statistics best summarises the center and variability of these data?
+    options:
+      - "Mean 6.3 hours and standard deviation 5.83 hours, because they use every value"
+      - "Median 5 hours and IQR 6 hours"
+      - "Median 5 hours and standard deviation 5.83 hours"
+      - "Mean 6.3 hours and range 25 hours"
+    option_explanations:
+      - |
+        Using every value is the problem here: the right skew and the outlier at 25 pull the mean and SD upward.
+      - |
+        Correct. The distribution is skewed right with an outlier, so the resistant pair, median and IQR, describes the typical junior and the spread of the middle half.
+      - |
+        Mixing a resistant center with a non-resistant spread is inconsistent; the SD is inflated by 25.
+      - |
+        Both are pulled by the outlier, and the range depends only on the two extremes.
+    answer: 1
+  # ---- Stimulus set B: a phone-free study hall (1.10, 1.13)
+  - slug: apstats-u01-exam-q05
+    type: multiple_choice
+    topic_code: "1.10"
+    source: "AP Statistics CED, Topic 1.10"
+    points: 1
+    stimulus: |
+      A hypothetical high school wants to know whether a phone-free study hall increases the number of homework assignments students complete. Last semester, sophomores could choose to sign up for a phone-free study hall, and the 45 who did completed more assignments, on average, than the sophomores who did not. This semester, 120 sophomores have volunteered for a new study in which each will be placed in either a phone-free study hall or a regular study hall for eight weeks.
+    prompt: |
+      What kind of study produced last semester's result, and what can it show?
+    options:
+      - "An experiment; it shows the phone-free study hall caused more homework to be completed."
+      - "A census; it describes every student at the school."
+      - "A sample survey; it estimates the proportion of students who prefer a phone-free study hall."
+      - "An observational study; it shows an association between the study hall choice and homework completion, but not a cause."
+    option_explanations:
+      - |
+        The school did not impose the study hall: students chose it. Without imposed, randomly assigned treatments it is not an experiment, and no cause is shown.
+      - |
+        Only sophomores were involved and the question was a comparison, not a description of every student.
+      - |
+        No one was asked for a preference; the school compared the homework records of two self-chosen groups.
+      - |
+        Correct. Students selected themselves into the phone-free study hall, so the groups were observed, not assigned. The data show the two variables are associated, nothing more.
+    answer: 3
+  - slug: apstats-u01-exam-q06
+    type: multiple_choice
+    topic_code: "1.13"
+    source: "AP Statistics CED, Topic 1.13"
+    points: 1
+    stimulus: |
+      A hypothetical high school wants to know whether a phone-free study hall increases the number of homework assignments students complete. Last semester, sophomores could choose to sign up for a phone-free study hall, and the 45 who did completed more assignments, on average, than the sophomores who did not. This semester, 120 sophomores have volunteered for a new study in which each will be placed in either a phone-free study hall or a regular study hall for eight weeks.
+    prompt: |
+      Which is a plausible confounding variable in last semester's comparison?
+    options:
+      - "The number of assignments completed"
+      - "Grade level"
+      - "Academic motivation: more motivated students may be more likely both to choose the phone-free study hall and to complete homework"
+      - "The size of the classroom used for the study halls"
+    option_explanations:
+      - |
+        The number of assignments completed is the response variable, not a third variable that could explain the association.
+      - |
+        Every student in the comparison was a sophomore, so grade level cannot differ between the groups and cannot confound the comparison.
+      - |
+        Correct. Motivation is likely related to choosing the phone-free option and also to completing homework, so its effect cannot be separated from the study hall's.
+      - |
+        Room size is not plausibly linked both to which students chose the phone-free hall and to their homework completion.
+    answer: 2
+  - slug: apstats-u01-exam-q07
+    type: multiple_choice
+    topic_code: "1.13"
+    source: "AP Statistics CED, Topic 1.13"
+    points: 1
+    stimulus: |
+      A hypothetical high school wants to know whether a phone-free study hall increases the number of homework assignments students complete. Last semester, sophomores could choose to sign up for a phone-free study hall, and the 45 who did completed more assignments, on average, than the sophomores who did not. This semester, 120 sophomores have volunteered for a new study in which each will be placed in either a phone-free study hall or a regular study hall for eight weeks.
+    prompt: |
+      Which procedure correctly randomly assigns the 120 volunteers so that 60 are in each study hall?
+    options:
+      - "Number the volunteers 1 to 120; use a random number generator to pick 60 different numbers from 1 to 120, ignoring repeats; those students go to the phone-free study hall and the other 60 to the regular one."
+      - "Put the 60 volunteers with the highest grades in the phone-free study hall, so the effect is easier to see."
+      - "Let each volunteer choose a study hall, then move students until the groups have 60 each."
+      - "Assign the first 60 volunteers who signed up to the phone-free study hall."
+    option_explanations:
+      - |
+        Correct. Every volunteer is labelled, a chance mechanism without repeats picks the phone-free group, and the remaining 60 form the comparison group.
+      - |
+        Choosing by grades confounds prior achievement with the treatment, the opposite of what random assignment is for.
+      - |
+        Self-selection is exactly what spoiled last semester's comparison; rebalancing the group sizes does not make the assignment random.
+      - |
+        Sign-up order is not random; early volunteers may be more eager or organised, which could be confounded with the treatment.
+    answer: 0
+  - slug: apstats-u01-exam-q08
+    type: multiple_choice
+    topic_code: "1.13"
+    source: "AP Statistics CED, Topic 1.13"
+    points: 1
+    stimulus: |
+      A hypothetical high school wants to know whether a phone-free study hall increases the number of homework assignments students complete. Last semester, sophomores could choose to sign up for a phone-free study hall, and the 45 who did completed more assignments, on average, than the sophomores who did not. This semester, 120 sophomores have volunteered for a new study in which each will be placed in either a phone-free study hall or a regular study hall for eight weeks.
+    prompt: |
+      In this semester's study, with random assignment, the phone-free group completes significantly more assignments. Which conclusion is appropriate?
+    options:
+      - "The phone-free study hall causes more homework completion for all sophomores in the state."
+      - "The phone-free study hall caused more homework completion for sophomores like these 120 volunteers."
+      - "There is an association, but no cause, because the volunteers were not a random sample."
+      - "The study proves that phones reduce homework completion for every student."
+    option_explanations:
+      - |
+        Random assignment supports a cause, but generalizing beyond the volunteers needs random selection from the larger population.
+      - |
+        Correct. Random assignment supports a cause-and-effect conclusion; because the subjects were volunteers, it applies to students like them.
+      - |
+        Random selection affects how far results generalize, not whether a cause can be concluded; random assignment is what supports cause.
+      - |
+        A statistical study never proves, and a difference in averages does not mean every student was affected.
+    answer: 1
+  # ---- Stimulus set C: favourite cafeteria entrée (1.2, 1.3, 1.4)
+  - slug: apstats-u01-exam-q09
+    type: numeric
+    topic_code: "1.3"
+    source: "AP Statistics CED, Topic 1.3"
+    points: 1
+    stimulus: |
+      A random sample of 250 students at a hypothetical high school named their favourite cafeteria entrée.
+
+      | Entrée | Pizza | Tacos | Sandwich | Pasta | Salad |
+      |---|---|---|---|---|---|
+      | Students | 85 | 55 | 45 | 40 | 25 |
+    prompt: |
+      What is the relative frequency of tacos? Give your answer as a decimal to two decimal places.
+    answer: { value: 0.22, tolerance: 0.005 }
+    explanation: |
+      Relative frequency = 55 ÷ 250 = 0.22, so 22% of the sampled students named tacos.
+  - slug: apstats-u01-exam-q10
+    type: multiple_choice
+    topic_code: "1.4"
+    source: "AP Statistics CED, Topic 1.4"
+    points: 1
+    stimulus: |
+      A random sample of 250 students at a hypothetical high school named their favourite cafeteria entrée.
+
+      | Entrée | Pizza | Tacos | Sandwich | Pasta | Salad |
+      |---|---|---|---|---|---|
+      | Students | 85 | 55 | 45 | 40 | 25 |
+    prompt: |
+      A student draws a bar chart of these counts with the vertical axis starting at 20 students instead of 0. What is the effect?
+    options:
+      - "No effect, because the bar heights still match the counts on the axis"
+      - "It makes the differences between entrées look smaller than they are"
+      - "It turns the bar chart into a histogram"
+      - "It exaggerates the differences: the pizza bar looks more than three times as tall as the pasta bar, although pizza is chosen only about twice as often"
+    option_explanations:
+      - |
+        The labels are right, but readers compare bar heights. Starting at 20 shortens every bar by the same amount, which distorts the ratios.
+      - |
+        Cutting the same amount off every bar makes the short bars shrink proportionally more, so differences look larger, not smaller.
+      - |
+        A histogram displays a quantitative variable; changing the axis does not change the variable type.
+      - |
+        Correct. Visible heights become 85 − 20 = 65 and 40 − 20 = 20, a ratio of 3.25, while the true ratio is 85/40 ≈ 2.1. A truncated axis exaggerates differences.
+    answer: 3
+  - slug: apstats-u01-exam-q11
+    type: multiple_choice
+    topic_code: "1.2"
+    source: "AP Statistics CED, Topic 1.2"
+    points: 1
+    stimulus: |
+      A random sample of 250 students at a hypothetical high school named their favourite cafeteria entrée.
+
+      | Entrée | Pizza | Tacos | Sandwich | Pasta | Salad |
+      |---|---|---|---|---|---|
+      | Students | 85 | 55 | 45 | 40 | 25 |
+    prompt: |
+      What type of variable is "favourite entrée", and which summary is appropriate for it?
+    options:
+      - "Quantitative; the mean number of students per entrée"
+      - "Categorical; the median entrée"
+      - "Categorical; the proportion of students in each category, with pizza as the mode"
+      - "Discrete quantitative; the standard deviation of the counts"
+    option_explanations:
+      - |
+        Each student's answer is a category, not an amount. The average count per entrée (50) describes the table, not the students.
+      - |
+        The categories have no natural order, so there is no middle category and a median does not exist.
+      - |
+        Correct. Favourite entrée places each student in a group; proportions (85/250 = 0.34 for pizza) and the most common category describe it.
+      - |
+        The counts are numbers, but the variable recorded for each student is an entrée name, which is categorical.
+    answer: 2
+  # ---- Variables, investigative questions, categorical data (1.1-1.4)
+  - slug: apstats-u01-exam-q12
+    type: multiple_choice
+    topic_code: "1.1"
+    source: "AP Statistics CED, Topic 1.1"
+    points: 1
+    prompt: |
+      Which is a statistical investigative question about an association between two variables?
+    options:
+      - "How many hours did you sleep last night, and what was your score on today's quiz?"
+      - "Among students at our school, do those who sleep more on school nights tend to have higher GPAs?"
+      - "What is the mean GPA of students at our school?"
+      - "Did Priya sleep more than Sam last night?"
+    option_explanations:
+      - |
+        These are survey questions asked of one person to collect data; they are not the question the investigation answers.
+      - |
+        Correct. It names the population (students at our school), two variables (sleep and GPA) and asks whether they are related, expecting variability.
+      - |
+        This is an investigative question, but it asks for a summary of one variable, not an association.
+      - |
+        This compares two individuals, so it is not a statistical question about a group.
+    answer: 1
+  - slug: apstats-u01-exam-q13
+    type: multiple_choice
+    topic_code: "1.2"
+    source: "AP Statistics CED, Topic 1.2"
+    points: 1
+    prompt: |
+      A phone app records, for each user, the number of text messages sent in a day. What kind of variable is this?
+    options:
+      - "Discrete quantitative"
+      - "Continuous quantitative"
+      - "Categorical, because it is a count"
+      - "Categorical, because each user has a different value"
+    option_explanations:
+      - |
+        Correct. The number of texts is a count (0, 1, 2, ...) whose arithmetic makes sense, so it is quantitative and discrete.
+      - |
+        A continuous variable can take any value in an interval; a count of texts cannot be 12.7.
+      - |
+        Counts are quantitative: averaging or subtracting numbers of texts is meaningful.
+      - |
+        Having different values for different users is true of any variable; it does not make it categorical.
+    answer: 0
+  - slug: apstats-u01-exam-q14
+    type: multiple_choice
+    topic_code: "1.3"
+    source: "AP Statistics CED, Topic 1.3"
+    points: 1
+    prompt: |
+      A survey of 400 students at a hypothetical school recorded how each usually gets to school: bus 0.28, car 0.41, walk 0.12, bike ?, other 0.07. How many of the surveyed students usually bike?
+    options:
+      - "12"
+      - "0.12"
+      - "28"
+      - "48"
+    option_explanations:
+      - |
+        12 is the percent who bike, not the number. Multiply the proportion by the 400 students.
+      - |
+        0.12 is the missing relative frequency (1 − 0.28 − 0.41 − 0.12 − 0.07); the question asks for a count.
+      - |
+        28 comes from a wrong missing proportion (using 0.07) or from reading the bus percentage; the bike proportion is 0.12.
+      - |
+        Correct. The bike proportion is 1 − (0.28 + 0.41 + 0.12 + 0.07) = 0.12, and 0.12 × 400 = 48 students.
+    answer: 3
+  - slug: apstats-u01-exam-q15
+    type: multiple_choice
+    topic_code: "1.4"
+    source: "AP Statistics CED, Topic 1.4"
+    points: 1
+    prompt: |
+      A club asked 120 students which after-school activities they take part in, and students could name as many as they wanted. The percents for the activities add to 146%. Which display is appropriate?
+    options:
+      - "A pie chart, because the data are categorical"
+      - "A histogram of the activities"
+      - "A bar chart of the percent of students naming each activity, but not a pie chart"
+      - "A boxplot of the percents"
+    option_explanations:
+      - |
+        A pie chart shows parts of one whole, which must add to 100%. Here students can be in several categories, so slices would overlap.
+      - |
+        Activities are categories, not a quantitative variable on a number line, so a histogram does not apply.
+      - |
+        Correct. Each bar can show the percent of the 120 students naming that activity; bars do not need to add to 100%, but pie slices do.
+      - |
+        A boxplot summarises a quantitative variable; it cannot show which activities are most common.
+    answer: 2
+  # ---- Quantitative data (1.5-1.8)
+  - slug: apstats-u01-exam-q16
+    type: multiple_choice
+    topic_code: "1.5"
+    source: "AP Statistics CED, Topic 1.5"
+    points: 1
+    prompt: |
+      The stemplot shows the resting heart rates, in beats per minute, of 12 members of a hypothetical swim team. Key: 4 | 2 means 42 bpm.
+
+      ```
+      3 | 1 5 8
+      4 | 2 4 5 7 7
+      5 | 2 6 8
+      6 | 3
+      ```
+
+      What is the median resting heart rate?
+    options:
+      - "45 bpm"
+      - "46 bpm"
+      - "47 bpm"
+      - "46.5 bpm"
+    option_explanations:
+      - |
+        45 is the 6th value; with 12 values the median is the average of the 6th and 7th values.
+      - |
+        Correct. The 6th and 7th ordered values are 45 and 47, so the median is (45 + 47)/2 = 46 bpm.
+      - |
+        47 is the 7th (and 8th) value; the median averages the 6th and 7th.
+      - |
+        46.5 is the mean of the 12 heart rates (558 ÷ 12), not the median.
+    answer: 1
+  - slug: apstats-u01-exam-q17
+    type: multiple_choice
+    topic_code: "1.5"
+    source: "AP Statistics CED, Topic 1.5"
+    points: 1
+    prompt: |
+      A city recorded the commute times of 500 workers, to the nearest minute. Which display is the most practical way to show the shape of the distribution?
+    options:
+      - "A histogram"
+      - "A stemplot with every value"
+      - "A pie chart"
+      - "A bar chart of each worker's time"
+    option_explanations:
+      - |
+        Correct. A histogram groups 500 values into intervals and shows the shape clearly; individual values are not needed for shape.
+      - |
+        A stemplot with 500 leaves would be enormous and hard to read; stemplots suit small data sets.
+      - |
+        Pie charts display categorical data as parts of a whole, not the distribution of a quantitative variable.
+      - |
+        One bar per worker is a list of values, not a picture of the distribution.
+    answer: 0
+  - slug: apstats-u01-exam-q18
+    type: multiple_choice
+    topic_code: "1.6"
+    source: "AP Statistics CED, Topic 1.6"
+    points: 1
+    prompt: |
+      At a school's family science night, the heights of everyone attending were recorded: second graders and their parents. What shape would a histogram of the heights most likely have?
+    options:
+      - "Uniform"
+      - "Skewed to the right"
+      - "Unimodal and symmetric"
+      - "Bimodal, with one peak for the children and one for the adults"
+    option_explanations:
+      - |
+        A uniform shape would need about equal numbers at every height; heights cluster around the typical child height and the typical adult height.
+      - |
+        There is no single pile with one tail; two distinct groups give two separate peaks.
+      - |
+        One peak would describe a single group; mixing two very different groups produces two.
+      - |
+        Correct. Second graders are around 120 to 130 cm and parents around 160 to 180 cm, so the heights form two clusters with two peaks.
+    answer: 3
+  - slug: apstats-u01-exam-q19
+    type: multiple_choice
+    topic_code: "1.7"
+    source: "AP Statistics CED, Topic 1.7"
+    points: 1
+    prompt: |
+      A data set of 10 quiz scores has mean 80 and standard deviation 6. An 11th student takes the quiz late and scores exactly 80. What happens to the mean and the standard deviation?
+    options:
+      - "Both stay the same."
+      - "The mean increases and the standard deviation stays the same."
+      - "The mean stays the same and the standard deviation decreases slightly."
+      - "The mean stays the same and the standard deviation increases."
+    option_explanations:
+      - |
+        The mean is unchanged, but the SD divides the same sum of squared deviations by n − 1 = 10 instead of 9, so it shrinks a little.
+      - |
+        Adding a value equal to the mean leaves the total divided by the count at 80: (800 + 80)/11 = 80.
+      - |
+        Correct. The new value has deviation 0, so the sum of squared deviations is unchanged while n − 1 grows from 9 to 10: SD = √(324/10) ≈ 5.69, slightly less than 6.
+      - |
+        A value at the mean is as close to the center as possible; it adds no spread and makes the typical distance from the mean smaller.
+    answer: 2
+  - slug: apstats-u01-exam-q20
+    type: multiple_choice
+    topic_code: "1.7"
+    source: "AP Statistics CED, Topic 1.7"
+    points: 1
+    prompt: |
+      A consumer club tested 12 phones of one model and found a mean battery life of 16.7 hours with a standard deviation of 1.4 hours. Which is the correct interpretation of the standard deviation?
+    options:
+      - "Every phone's battery lasted between 15.3 and 18.1 hours."
+      - "The battery lives of these phones typically vary by about 1.4 hours from the mean of 16.7 hours."
+      - "About 1.4% of the phones had battery lives far from the mean."
+      - "The middle half of the battery lives spans 1.4 hours."
+    option_explanations:
+      - |
+        The SD is a typical distance, not a boundary; some phones can be more than 1.4 hours from the mean.
+      - |
+        Correct. The standard deviation measures the typical distance of the values from their mean, in the units of the data.
+      - |
+        The SD is in hours, not a percent of phones.
+      - |
+        The spread of the middle half is the IQR, not the standard deviation.
+    answer: 1
+  - slug: apstats-u01-exam-q21
+    type: multiple_choice
+    topic_code: "1.8"
+    source: "AP Statistics CED, Topic 1.8"
+    points: 1
+    prompt: |
+      A boxplot of scores on a 75-point history test has five-number summary 20, 35, 42, 50, 71. About what percent of students scored above 35?
+    options:
+      - "75%"
+      - "25%"
+      - "50%"
+      - "35%"
+    option_explanations:
+      - |
+        Correct. 35 is the first quartile, so about 25% of scores are below it and about 75% above it.
+      - |
+        About 25% of scores are below Q1 = 35, not above it.
+      - |
+        50% of scores are above the median, 42, not above 35.
+      - |
+        35 is a test score (Q1), not a percent; the quartile tells you the percent below it is about 25%.
+    answer: 0
+  # ---- Comparing distributions (1.9)
+  - slug: apstats-u01-exam-q22
+    type: multiple_choice
+    topic_code: "1.9"
+    source: "AP Statistics CED, Topic 1.9"
+    points: 1
+    prompt: |
+      A hypothetical survey recorded the number of minutes juniors and seniors spent on homework last night. Juniors: roughly symmetric, median 75 minutes, IQR 30 minutes, no outliers. Seniors: skewed to the right, median 55 minutes, IQR 45 minutes, two high outliers. Which comparison is complete and correct?
+    options:
+      - "Juniors: median 75, IQR 30. Seniors: median 55, IQR 45."
+      - "Seniors spent more time on homework because their IQR is larger."
+      - "Every junior spent more time on homework than every senior."
+      - "Juniors tend to spend more time on homework (median 75 vs 55 minutes); seniors' times are more variable (IQR 45 vs 30 minutes) and skewed right with two high outliers, while juniors' are roughly symmetric."
+    option_explanations:
+      - |
+        This lists each group's numbers without comparing them and leaves out shape and outliers.
+      - |
+        The IQR measures spread, not center. Seniors' median is lower, so they tend to spend less time.
+      - |
+        Medians describe typical values; with these spreads the distributions overlap, so not every junior exceeds every senior.
+      - |
+        Correct. It compares center, variability, shape and unusual features with comparative language and numbers, in context.
+    answer: 3
+  - slug: apstats-u01-exam-q23
+    type: multiple_choice
+    topic_code: "1.9"
+    source: "AP Statistics CED, Topic 1.9"
+    points: 1
+    prompt: |
+      For two groups of hypothetical tomato plants, Group 1's heights have median 30 cm and Group 2's heights have Q1 = 31 cm. Which statement must be true?
+    options:
+      - "Group 2's mean height is greater than Group 1's mean height."
+      - "Every plant in Group 2 is taller than every plant in Group 1."
+      - "At least 75% of Group 2's plants are taller than the median height of Group 1."
+      - "Group 2 has more plants than Group 1."
+    option_explanations:
+      - |
+        The summaries give no means; skew or outliers could put the means in either order.
+      - |
+        About 25% of Group 2's plants are at or below 31 cm, and some Group 1 plants may be taller than 31 cm.
+      - |
+        Correct. About 75% of Group 2's heights are at or above its Q1 of 31 cm, which is above Group 1's median of 30 cm.
+      - |
+        Quartiles and medians say nothing about how many plants are in each group.
+    answer: 2
+  # ---- Data collection, sampling, bias (1.10-1.12)
+  - slug: apstats-u01-exam-q24
+    type: multiple_choice
+    topic_code: "1.10"
+    source: "AP Statistics CED, Topic 1.10"
+    points: 1
+    prompt: |
+      A teacher wants to know the mean score on yesterday's quiz for the 28 students in her own class, and she has every student's quiz. Which method of data collection is most appropriate?
+    options:
+      - "A simple random sample of 10 quizzes"
+      - "A census of all 28 quizzes"
+      - "An experiment comparing two versions of the quiz"
+      - "A stratified random sample by seat row"
+    option_explanations:
+      - |
+        Sampling adds sampling variability for no reason when every quiz is already in hand.
+      - |
+        Correct. The population is small and fully available, so measuring every member gives the exact mean.
+      - |
+        The question asks for a description of one class's scores, not a cause-and-effect comparison.
+      - |
+        Stratifying is useful for estimating from a large population; here the whole population is available.
+    answer: 1
+  - slug: apstats-u01-exam-q25
+    type: multiple_choice
+    topic_code: "1.11"
+    source: "AP Statistics CED, Topic 1.11"
+    points: 1
+    prompt: |
+      A district wants to estimate the mean distance its students live from school. Students in rural areas live much farther than students in town. Why would a stratified random sample with "rural" and "town" strata be better than an SRS of the same size?
+    options:
+      - "Distances are similar within each stratum and differ between strata, so the stratified estimate varies less from sample to sample."
+      - "Stratifying removes all sampling variability."
+      - "Stratifying lets the district survey fewer students in total and get the exact mean."
+      - "Stratifying is easier because the district surveys only a few whole neighbourhoods."
+    option_explanations:
+      - |
+        Correct. Each stratum is fairly homogeneous in distance, and both are guaranteed representation, so the estimate is more precise than an SRS that could, by chance, over-sample one area.
+      - |
+        Stratifying reduces sampling variability but never removes it; each stratum's sample still varies.
+      - |
+        No random sample gives the exact population mean; the gain is precision, not exactness.
+      - |
+        Surveying a few whole neighbourhoods describes cluster sampling, not stratified sampling.
+    answer: 0
+  - slug: apstats-u01-exam-q26
+    type: multiple_choice
+    topic_code: "1.11"
+    source: "AP Statistics CED, Topic 1.11"
+    points: 1
+    prompt: |
+      A school of 900 students wants a sample of 30. Which method produces a simple random sample?
+    options:
+      - "Choose one random homeroom of 30 students and survey all of them."
+      - "Choose a random number from 1 to 30 on the alphabetical list, then every 30th student after it."
+      - "Randomly choose 10 students from each of grades 10, 11 and 12."
+      - "Number the students 1 to 900 and use a random number generator to select 30 different numbers, ignoring repeats."
+    option_explanations:
+      - |
+        This is a cluster sample of one cluster; many groups of 30 students, such as one from each homeroom, can never be chosen.
+      - |
+        This is a systematic random sample; only 30 different samples are possible, so not every group of 30 has the same chance.
+      - |
+        This is a stratified random sample; a sample of 30 juniors, for example, can never occur.
+      - |
+        Correct. Every student is labelled and the labels are chosen at random without repeats, so every possible group of 30 has the same chance.
+    answer: 3
+  - slug: apstats-u01-exam-q27
+    type: multiple_choice
+    topic_code: "1.12"
+    source: "AP Statistics CED, Topic 1.12"
+    points: 1
+    prompt: |
+      To estimate how many hours a week a town's teenagers spend outdoors, a researcher selects an SRS from the membership list of the town's youth sports leagues. What is the main problem?
+    options:
+      - "Voluntary response bias, because teens chose to join leagues"
+      - "Nonresponse bias, because some selected teens may not reply"
+      - "Undercoverage: teens who are not in a league cannot be selected, and they probably spend less time outdoors, so the estimate is likely too high"
+      - "Response bias from the wording of the question"
+    option_explanations:
+      - |
+        The sample itself was randomly selected from the list; the problem is that the list does not contain the whole population.
+      - |
+        Nonresponse could happen, but nothing suggests it; the built-in problem is the sampling frame.
+      - |
+        Correct. The frame leaves out every teen not in a league, who likely spend less time outdoors than league players, so the estimate is probably an overestimate.
+      - |
+        No question wording is described; the flaw is in who could be chosen.
+    answer: 2
+  - slug: apstats-u01-exam-q28
+    type: multiple_choice
+    topic_code: "1.12"
+    source: "AP Statistics CED, Topic 1.12"
+    points: 1
+    prompt: |
+      A principal interviews an SRS of 50 students in her office and asks each one, "Have you ever copied someone else's homework?" 6% say yes. What is the most likely problem with this estimate?
+    options:
+      - "Undercoverage, because only 50 students were asked"
+      - "Response bias: students are unlikely to admit cheating to the principal in person, so 6% probably underestimates the true proportion"
+      - "Voluntary response, because students chose how to answer"
+      - "Sampling variability is the only issue, so a larger sample would fix it"
+    option_explanations:
+      - |
+        Undercoverage means part of the population cannot be selected; the SRS gave every student a chance. Sample size is a separate matter.
+      - |
+        Correct. A sensitive question asked face to face by an authority figure invites untruthful "no" answers, pushing the estimate down.
+      - |
+        Voluntary response is about who enters the sample; here students were chosen at random.
+      - |
+        The bias would persist with 500 students interviewed by the principal; size reduces chance variation only.
+    answer: 1
+  # ---- Experimental design (1.13)
+  - slug: apstats-u01-exam-q29
+    type: multiple_choice
+    topic_code: "1.13"
+    source: "AP Statistics CED, Topic 1.13"
+    points: 1
+    prompt: |
+      To compare two sunscreens, a researcher applies sunscreen X to one arm and sunscreen Y to the other arm of each of 30 volunteers, using a coin flip to decide which arm gets X. What is the main advantage of this design over giving each volunteer only one sunscreen?
+    options:
+      - "Each volunteer serves as their own comparison, so differences in skin type between people do not obscure the difference between sunscreens."
+      - "It allows the results to be generalized to all people."
+      - "It removes the need for random assignment."
+      - "It makes the experiment double-blind."
+    option_explanations:
+      - |
+        Correct. This is a matched pairs design: comparing the two arms of the same person removes the large person-to-person variation in skin, making a sunscreen difference easier to detect.
+      - |
+        Volunteers are not a random sample, and the design choice does not change that; generalization needs random selection.
+      - |
+        The coin flip for which arm gets which sunscreen is random assignment, and it is still needed.
+      - |
+        Blinding depends on who knows which sunscreen is which; a matched pairs design does not by itself blind anyone.
+    answer: 0
+  - slug: apstats-u01-exam-q30
+    type: multiple_choice
+    topic_code: "1.13"
+    source: "AP Statistics CED, Topic 1.13"
+    points: 1
+    prompt: |
+      In a trial of a new allergy tablet, one group gets the tablet and the other gets an identical-looking sugar tablet. Neither the patients nor the nurses who record symptom scores know who got which. Which description is correct?
+    options:
+      - "The study is observational, because symptoms are only recorded."
+      - "The study is single-blind, because only the patients are unaware."
+      - "The sugar tablet is a confounding variable."
+      - "The study is a double-blind, placebo-controlled experiment."
+    option_explanations:
+      - |
+        Treatments (real or sugar tablet) are imposed on patients, so it is an experiment.
+      - |
+        The nurses who record symptoms are also unaware, so both parties are blind: double-blind.
+      - |
+        The sugar tablet is a placebo given deliberately to the control group; it is a treatment, not a confounding variable.
+      - |
+        Correct. The sugar tablet is a placebo, and neither the subjects nor the evaluators know the assignments, which makes it double-blind.
+    answer: 3
+  # ---- Select-all
+  - slug: apstats-u01-exam-q31
+    type: multi_select
+    topic_code: "1.7"
+    source: "AP Statistics CED, Topic 1.7"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Scores on an easy 50-point quiz are strongly skewed to the left: most students scored 45 to 50 and a few scored much lower. Which statements are true? Select all that apply.
+    options:
+      - "The mean is likely less than the median."
+      - "The median is a better measure of the typical score than the mean."
+      - "The standard deviation is resistant to the few low scores."
+      - "The IQR is a better measure of variability than the standard deviation."
+      - "The mean is likely greater than the median."
+    option_explanations:
+      - |
+        Correct. The low tail pulls the mean down below the median.
+      - |
+        Correct. The median is resistant to the few very low scores, so it represents the typical student better.
+      - |
+        The SD uses squared distances from the mean, so a few far-off low scores inflate it; it is not resistant.
+      - |
+        Correct. The IQR depends on the quartiles, which are not affected by the long tail.
+      - |
+        Left skew pulls the mean toward the tail of small values, below the median, not above it.
+    answer: [0, 1, 3]
+  - slug: apstats-u01-exam-q32
+    type: multi_select
+    topic_code: "1.12"
+    source: "AP Statistics CED, Topic 1.12"
+    points: 2
+    partial_credit: true
+    prompt: |
+      A hypothetical gym wants to estimate how satisfied its 3,000 members are. Which plans would likely produce a biased estimate? Select all that apply.
+    options:
+      - "An SRS of 150 members from the full membership list, asked by anonymous email with two reminders"
+      - "A comment box by the front desk where members can leave ratings"
+      - "Asking members using the weight room at 6 a.m. on a Tuesday"
+      - "Asking an SRS of members, \"Given our recent price increase, how satisfied are you?\""
+      - "An SRS of 300 members instead of 150, asked by anonymous email"
+    option_explanations:
+      - |
+        Random selection from a complete list, anonymity and reminders address the main sources of bias; this is a sound plan.
+      - |
+        Correct. A comment box is a voluntary response sample: members who are very unhappy (or very happy) are the most likely to leave ratings.
+      - |
+        Correct. Early-morning weight-room users are a convenience sample of dedicated regulars who likely differ in satisfaction from typical members.
+      - |
+        Correct. Mentioning the price increase is leading wording that likely pushes satisfaction ratings down: response bias.
+      - |
+        A larger SRS reduces sampling variability without adding bias; this is an even better version of a sound plan.
+    answer: [1, 2, 3]
+  - slug: apstats-u01-exam-q33
+    type: multi_select
+    topic_code: "1.13"
+    source: "AP Statistics CED, Topic 1.13"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which statements about a randomized block design are true? Select all that apply.
+    options:
+      - "Treatments are randomly assigned separately within each block."
+      - "Blocking replaces random assignment, so randomization is not needed."
+      - "Blocks should contain units that are similar on a variable expected to affect the response."
+      - "Blocking reduces the variability in the comparison of treatments."
+      - "Blocking allows the results to be generalized to a larger population."
+    option_explanations:
+      - |
+        Correct. Within each block the units are randomly divided among the treatments.
+      - |
+        Blocking is done in addition to random assignment, which is still needed to avoid confounding within blocks.
+      - |
+        Correct. A good blocking variable is one related to the response, so units within a block respond similarly.
+      - |
+        Correct. Comparing treatments within blocks removes the block-to-block variation, so effects are easier to detect.
+      - |
+        Generalizing depends on random selection of units from a population, not on blocking.
+    answer: [0, 2, 3]
+  # ---- True/false
+  - slug: apstats-u01-exam-q34
+    type: true_false
+    topic_code: "1.2"
+    source: "AP Statistics CED, Topic 1.2"
+    points: 1
+    prompt: |
+      True or false: A variable whose values are recorded as numbers, such as a locker number, is always a quantitative variable.
+    answer: false
+    explanation: |
+      False. A locker number is a label; adding or averaging locker numbers means nothing, so it is categorical. A variable is quantitative only when its values are amounts for which arithmetic makes sense.
+  - slug: apstats-u01-exam-q35
+    type: true_false
+    topic_code: "1.11"
+    source: "AP Statistics CED, Topic 1.11"
+    points: 1
+    prompt: |
+      True or false: In cluster sampling, the ideal cluster is a small-scale version of the population, with individuals inside it as varied as the population as a whole.
+    answer: true
+    explanation: |
+      True. Every individual in the chosen clusters is measured, so each cluster should mirror the population. (Strata are the opposite: as similar as possible inside.)
+  - slug: apstats-u01-exam-q36
+    type: true_false
+    topic_code: "1.9"
+    source: "AP Statistics CED, Topic 1.9"
+    points: 1
+    prompt: |
+      True or false: If the median of Group A is greater than the median of Group B, then the maximum of Group A must be greater than the maximum of Group B.
+    answer: false
+    explanation: |
+      False. The median describes the middle of each group; Group B could have a lower middle but one or two very large values. For example, A: 5, 6, 7 and B: 1, 2, 20 have medians 6 > 2, but B's maximum is larger.
+  # ---- Fill in the blank
+  - slug: apstats-u01-exam-q37
+    type: fill_blank
+    topic_code: "1.13"
+    source: "AP Statistics CED, Topic 1.13"
+    points: 1
+    prompt: |
+      An inactive treatment that is made to look like the real treatment, so subjects cannot tell which group they are in, is called a ____.
+    answer: ["placebo", "a placebo"]
+    explanation: |
+      A placebo. Giving the control group a placebo balances the placebo effect, so a difference between groups can be credited to the real treatment.
+  - slug: apstats-u01-exam-q38
+    type: fill_blank
+    topic_code: "1.6"
+    source: "AP Statistics CED, Topic 1.6"
+    points: 1
+    prompt: |
+      A distribution of incomes with most values low and a long tail toward a few very high values is skewed to the ____.
+    answer: ["right", "the right", "positive", "positively"]
+    explanation: |
+      Right (positively skewed). Skew is named for the direction of the long tail, here toward large values.
+  - slug: apstats-u01-exam-q39
+    type: fill_blank
+    topic_code: "1.11"
+    source: "AP Statistics CED, Topic 1.11"
+    points: 1
+    prompt: |
+      A district randomly selects 4 of its 40 school buses and surveys every student who rides those 4 buses. This is a ____ sample.
+    answer: ["cluster", "a cluster"]
+    explanation: |
+      Cluster. The buses are clusters: an SRS of buses is chosen and every rider on each chosen bus is surveyed.
+  # ---- Numeric
+  - slug: apstats-u01-exam-q40
+    type: numeric
+    topic_code: "1.8"
+    source: "AP Statistics CED, Topic 1.8"
+    points: 1
+    prompt: |
+      For the number of pages read in one week by a group of students, Q1 = 12 pages and Q3 = 20 pages. Using the 1.5 × IQR rule, find the upper fence, in pages. Give an exact answer.
+    answer: { value: 32, tolerance: 0.01 }
+    explanation: |
+      IQR = 20 − 12 = 8. Upper fence = Q3 + 1.5 × IQR = 20 + 12 = 32 pages; any value above 32 is an outlier.
+  # ---- Short answer
+  - slug: apstats-u01-exam-q41
+    type: short_answer
+    topic_code: "1.4"
+    source: "AP Statistics CED, Topic 1.4"
+    points: 3
+    prompt: |
+      A random sample of 200 students at a hypothetical high school were asked where they get most of their news.
+
+      | Source | Social media | Video sites | TV | News websites | Print | Other |
+      |---|---|---|---|---|---|---|
+      | Relative frequency | 0.46 | 0.22 | 0.14 | 0.10 | 0.03 | 0.05 |
+
+      (a) How many of the sampled students named TV?
+      (b) Describe the distribution of news source.
+      (c) Would a pie chart be an appropriate display for these data? Explain.
+    answer: |
+      (a) 0.14 × 200 = 28 students.
+      (b) Social media is by far the most common main news source (46% of the sampled students), almost half. Video sites come second (22%), then TV (14%) and news websites (10%). Print is the least common (3%), with 5% naming some other source.
+      (c) Yes. Each student named one main source, so the categories do not overlap and the relative frequencies add to 1 (100%); a pie chart shows these parts of a whole. (A bar chart would also work.)
+    explanation: |
+      Three points, one per part.
+      (a) 28 students.
+      (b) Identifies the most common category (social media, 46%) and the least common (print, 3%), with percents and context; mentions the order of at least the main categories.
+      (c) Yes, with the reason that each student is in exactly one category so the proportions sum to 1.
+  - slug: apstats-u01-exam-q42
+    type: short_answer
+    topic_code: "1.12"
+    source: "AP Statistics CED, Topic 1.12"
+    points: 3
+    prompt: |
+      A hypothetical town wants to estimate the proportion of its households that would use a new recycling pickup service. It chooses an SRS of 400 households from its list of homeowners (renters are not on the list) and mails each a survey. 92 households return it.
+
+      (a) Identify two potential sources of bias in this plan.
+      (b) For one of them, explain how it could affect the estimate, including the likely direction.
+    answer: |
+      (a) Undercoverage: renters are not on the list, so they cannot be selected. Nonresponse: 308 of the 400 selected households (77%) did not return the survey.
+      (b) Nonresponse: households that care about recycling are more likely to bother returning a recycling survey, so the proportion who say they would use the service is likely an overestimate. (Or undercoverage: renters may be less likely to sign up for a service at a home they do not own; leaving them out would likely overestimate the town's proportion.)
+    explanation: |
+      Three points.
+      2 points for (a): 1 point for each correctly named source tied to the plan (undercoverage of renters; nonresponse from the 77% who did not reply).
+      1 point for (b): explains how the missing group differs on the response and states a direction (likely overestimate) in context.
+  # ---- Free response
+  - slug: apstats-u01-exam-q43
+    type: long_answer
+    topic_code: "1.9"
+    source: "AP Statistics CED, Topic 1.9"
+    points: 10
+    prompt: |
+      A consumer club randomly selected 12 phones of each of two models from a large shipment received by a hypothetical electronics store. Each phone was fully charged and ran the same video on a loop until the battery died. Battery life, in hours:
+
+      Model R: 14.2, 15.0, 15.6, 15.9, 16.3, 16.5, 16.8, 17.1, 17.4, 17.9, 18.3, 19.0
+      Model S: 11.8, 13.5, 15.9, 17.2, 18.0, 18.6, 19.1, 19.8, 20.4, 21.0, 21.5, 27.9
+
+      (A) Write a statistical investigative question that these data could help answer.
+
+      (B) Find the five-number summary of each model's battery lives.
+
+      (C) Use the 1.5 × IQR rule to determine whether either model has an outlier. Show your work.
+
+      (D) Compare the distributions of battery life for the two models.
+
+      (E) A buyer wants a phone whose battery life is as predictable as possible. Which model would you recommend? Justify your answer with a statistic.
+
+      (F) To what population can the club's results be generalized? Explain.
+    answer: |
+      (A) For example: "For the phones in this shipment, does Model S tend to have a longer battery life than Model R when running video?"
+      (B) Model R: 14.2, 15.75, 16.65, 17.65, 19.0. Model S: 11.8, 16.55, 18.85, 20.7, 27.9.
+      (C) R: IQR = 1.9; fences 15.75 − 2.85 = 12.9 and 17.65 + 2.85 = 20.5; no outliers. S: IQR = 4.15; fences 16.55 − 6.225 = 10.325 and 20.7 + 6.225 = 26.925; 27.9 > 26.925, so 27.9 is an outlier; 11.8 is not.
+      (D) Center: Model S's median battery life (18.85 h) is about 2.2 hours longer than Model R's (16.65 h). Variability: Model S is much more variable (IQR 4.15 vs 1.9 h; range 16.1 vs 4.8 h). Shape: Model R is roughly symmetric; Model S is roughly symmetric apart from a high outlier at 27.9 h, with a somewhat longer lower tail. Unusual features: S has an outlier at 27.9 h; R has none.
+      (E) Model R: its IQR (1.9 h) is less than half of Model S's (4.15 h), so its battery life varies much less from phone to phone.
+      (F) To phones of these two models in this store's shipment, because the phones were randomly selected from that shipment. Not to all phones of these models, since other shipments or production runs were not sampled.
+    explanation: |
+      Ten points.
+      (A) 1 point: a question about the phones as a group that names battery life and compares the two models.
+      (B) 2 points: 1 point per correct five-number summary (accept calculator quartiles if consistent and shown).
+      (C) 2 points: 1 point for both IQRs and correct fences; 1 point for concluding that 27.9 is an outlier for S and that R has none, with the comparison to the fence shown.
+      (D) 3 points: 1 point for comparing centers with comparative language and values; 1 point for comparing variability with a statistic; 1 point for shape and the outlier for both models. Context (battery life, hours, models) required; listing without comparing earns at most 1 of these 3 points.
+      (E) 1 point: Model R with a variability statistic (IQR, SD 1.39 vs 4.13, or range) as the justification.
+      (F) 1 point: the shipment's phones of these models (or the store's shipment), justified by random selection from it, and not beyond.
+  - slug: apstats-u01-exam-q44
+    type: long_answer
+    topic_code: "1.13"
+    source: "AP Statistics CED, Topic 1.13"
+    points: 10
+    prompt: |
+      A math department at a hypothetical high school wants to know whether a 10-minute guided breathing exercise right before a unit test raises students' test scores. Eighty students from four algebra classes volunteer: 30 are in two honors classes and 50 are in two regular classes. Honors students generally score higher on unit tests.
+
+      (A) Identify the explanatory variable, the response variable and the experimental units. Explain why the students who do not do the breathing exercise should spend the same 10 minutes sitting quietly and reading.
+
+      (B) Describe a randomized block design for this experiment, including how treatments would be assigned.
+
+      (C) Explain why blocking by class level (honors or regular) is reasonable.
+
+      (D) A teacher suggests simply letting students who want to try the breathing exercise do it, and comparing their scores with the others'. Explain why this plan could lead to a misleading conclusion, naming a specific confounding variable.
+
+      (E) Suppose the breathing group scores significantly higher. State the conclusion the department can draw and to whom it applies. Then describe one change to the study that would allow the conclusion to be applied to all algebra students at the school.
+    answer: |
+      (A) Explanatory: whether a student does the breathing exercise (exercise or quiet reading). Response: unit test score. Units: the 80 volunteers. The quiet-reading group spends the same 10 minutes before the test, so the only difference between groups is the breathing itself, not extra calm time or a delay before starting.
+      (B) Form two blocks: the 30 honors students and the 50 regular students. In the honors block, number the students 1 to 30 and use a random number generator to pick 15 different numbers; those do the breathing exercise and the other 15 read quietly. In the regular block, number 1 to 50 and pick 25 the same way. All students take the same test under the same conditions. Compare mean scores of the two treatments within each block, then combine.
+      (C) Class level is related to the response: honors students tend to score higher. Blocking removes this honors-versus-regular variation from the treatment comparison, making a breathing effect easier to detect.
+      (D) Students who choose the exercise might be more anxious about tests (or more motivated, or more open to new strategies). Test anxiety affects scores and is related to choosing the exercise, so any difference in scores could be due to anxiety or motivation rather than the breathing: the variable would be confounded with the treatment.
+      (E) Because treatments were randomly assigned, the department can conclude that the breathing exercise caused higher test scores, but only for students like these 80 volunteers. To apply the conclusion to all algebra students at the school, select the participants as a random sample (for example, a stratified random sample by class level) from all algebra students, then randomly assign treatments.
+    explanation: |
+      Ten points.
+      (A) 2 points: 1 point for the explanatory variable, response variable and units all correct in context; 1 point for explaining that the comparison activity equalises everything but the breathing (time, calm, routine).
+      (B) 3 points: 1 point for blocks by class level; 1 point for a correct random assignment within each block (labels, random mechanism without repeats, group sizes); 1 point for comparing the treatments within blocks with the same test and conditions.
+      (C) 1 point: class level affects scores, so blocking reduces variability in the comparison.
+      (D) 2 points: 1 point for identifying self-selection; 1 point for a specific confounding variable (anxiety, motivation) linked to both the choice and test scores.
+      (E) 2 points: 1 point for "caused" restricted to students like the volunteers; 1 point for random selection of participants from all algebra students at the school.

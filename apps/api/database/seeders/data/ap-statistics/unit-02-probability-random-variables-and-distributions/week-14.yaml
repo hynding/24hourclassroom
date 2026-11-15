@@ -1,0 +1,631 @@
+week: 14
+unit: 2
+title: "Sampling Distributions and the Central Limit Theorem"
+topics: ["2.12"]
+guide: guides/week-14.md
+guide_description: |
+  Parameters and statistics, sampling variability, and the difference between a population distribution, the
+  distribution of one sample's data and a sampling distribution; unbiased estimators and the effect of sample
+  size on variability; the mean, standard deviation and shape of the sampling distributions of p̂ and x̄ with
+  the 10% and Large Counts conditions; and the Central Limit Theorem. Worked examples: 1,000 simulated samples
+  of 50 students from a district where 40% bike or walk, the probability that p̂ ≥ 0.50 for that district at
+  n = 50 and n = 200, the mean battery life of 9 phones from a normal population, and the mean of 40 skewed
+  pizza-delivery times by the CLT.
+flashcards_description: |
+  30 cards on parameters and statistics, the three distributions, bias and variability, the sampling
+  distributions of p̂ and x̄, the 10% and Large Counts conditions, the Central Limit Theorem, and how sample size
+  changes the standard deviation of a statistic.
+
+flashcards:
+  - front: Parameter versus statistic → the difference and the usual symbols
+    back: |
+      A parameter describes a population (p, μ, σ) and is usually unknown; a statistic is computed from a sample (p̂, x̄, s) and varies from sample to sample.
+    topic_code: "2.12"
+  - front: District where 40% bike or walk; a sample of 50 gives 46% → which is p and which is p̂
+    back: |
+      p = 0.40, the parameter for all students in the district; p̂ = 0.46, the statistic from this sample.
+    topic_code: "2.12"
+  - front: Sampling variability → meaning
+    back: |
+      Different random samples of the same size from the same population give different values of a statistic.
+    topic_code: "2.12"
+  - front: Sampling distribution of a statistic → definition
+    back: |
+      The distribution of the statistic's values over all possible random samples of the same size from the same population.
+    topic_code: "2.12"
+  - front: Population distribution, sample data, sampling distribution → which one the CLT describes
+    back: |
+      Only the sampling distribution of x̄. The sample data still look like the population, skew and all.
+    topic_code: "2.12"
+  - front: Unbiased estimator → definition
+    back: |
+      A statistic whose sampling distribution is centred at the parameter it estimates. p̂ is unbiased for p and x̄ is unbiased for μ.
+    topic_code: "2.12"
+  - front: Bias versus variability of a statistic → what each describes
+    back: |
+      Bias: where the sampling distribution is centred compared with the parameter. Variability: how spread out it is. Larger random samples reduce variability, not bias.
+    topic_code: "2.12"
+  - front: Sampling distribution of p̂ → mean
+    back: |
+      p, the population proportion.
+    topic_code: "2.12"
+  - front: Sampling distribution of p̂ → standard deviation and its condition
+    back: |
+      SD(p̂) = √(p(1 − p)/n), when n ≤ 10% of the population (10% condition).
+    topic_code: "2.12"
+  - front: Sampling distribution of p̂ → when it is approximately normal
+    back: |
+      Large Counts: np ≥ 10 and n(1 − p) ≥ 10.
+    topic_code: "2.12"
+  - front: Where SD(p̂) = √(p(1 − p)/n) comes from → link to the binomial
+    back: |
+      The count X is binomial with SD √(np(1 − p)); p̂ = X/n, so divide by n.
+    topic_code: "2.12"
+  - front: Bike-or-walk district, p = 0.40, n = 50 → SD(p̂) and the Large Counts check
+    back: |
+      SD(p̂) = √(0.4 · 0.6/50) = 0.069; np = 20 and n(1 − p) = 30 are both at least 10, so approximately normal.
+    topic_code: "2.12"
+  - front: Bike-or-walk district, p = 0.40, n = 50 → P(p̂ ≥ 0.50)
+    back: |
+      z = (0.50 − 0.40)/0.0693 = 1.44; probability ≈ 0.074.
+    topic_code: "2.12"
+  - front: Sampling distribution of x̄ → mean
+    back: |
+      μ, the population mean.
+    topic_code: "2.12"
+  - front: Sampling distribution of x̄ → standard deviation and its condition
+    back: |
+      SD(x̄) = σ/√n, when n ≤ 10% of the population.
+    topic_code: "2.12"
+  - front: Sampling distribution of x̄ from a normal population → shape
+    back: |
+      Exactly normal for every sample size n, even n = 2.
+    topic_code: "2.12"
+  - front: Central Limit Theorem → statement
+    back: |
+      For random samples from any population with a finite SD, the sampling distribution of x̄ becomes approximately normal as n grows; n ≥ 30 is the usual guide.
+    topic_code: "2.12"
+  - front: CLT with a strongly skewed population and n = 5 → can you use a normal model for x̄?
+    back: |
+      No. The sampling distribution is still noticeably skewed; n is too small for the CLT.
+    topic_code: "2.12"
+  - front: Phone batteries N(18.5, 2.4), sample of 9 → SD of x̄ and P(x̄ < 17.5)
+    back: |
+      SD(x̄) = 2.4/3 = 0.8 hours; z = −1.25; probability ≈ 0.106 (one phone: 0.338).
+    topic_code: "2.12"
+  - front: Pizza deliveries skewed, μ = 32, σ = 9, n = 40 → P(x̄ > 35)
+    back: |
+      CLT applies (n = 40 ≥ 30). SD(x̄) = 9/√40 = 1.42; z = 2.11; probability ≈ 0.018.
+    topic_code: "2.12"
+  - front: Doubling the sample size → effect on SD(x̄) or SD(p̂)
+    back: |
+      Divides it by √2 ≈ 1.41, not by 2.
+    topic_code: "2.12"
+  - front: Quadrupling the sample size → effect on SD(x̄) or SD(p̂)
+    back: |
+      Halves it, because n sits under a square root.
+    topic_code: "2.12"
+  - front: Sample size for a target SD(x̄) → method
+    back: |
+      Solve σ/√n = target for n: n = (σ/target)². For σ = 9 and a target of 1, n = 81.
+    topic_code: "2.12"
+  - front: Population size in the SD formulas for p̂ and x̄ → does it matter?
+    back: |
+      No, as long as the sample is at most 10% of the population; only n, and p or σ, appear.
+    topic_code: "2.12"
+  - front: Normal probability about x̄ → the full write-up
+    back: |
+      Check 10% (for the SD) and shape (normal population or CLT), state the mean and SD(x̄), give z or labelled inputs, the probability, and a sentence in context.
+    topic_code: "2.12"
+  - front: Normal probability about p̂ → the full write-up
+    back: |
+      Check 10% (for the SD) and Large Counts (for normality), state the mean p and SD(p̂), give z or labelled inputs, the probability, and a sentence in context.
+    topic_code: "2.12"
+  - front: Simulated sampling distribution of p̂ centred at 0.401 when p = 0.40 → what it shows
+    back: |
+      p̂ is an unbiased estimator: its values centre at the parameter, even though single samples miss by up to about 0.2.
+    topic_code: "2.12"
+  - front: Error-spot → "by the CLT, a large sample of skewed delivery times will be normally distributed"
+    back: |
+      The sample data stay skewed like the population; only the sampling distribution of x̄ becomes approximately normal.
+    topic_code: "2.12"
+  - front: Error-spot → "SD of the mean of 36 students' minutes is σ = 20 minutes"
+    back: |
+      That is the SD of one student's minutes. For the mean of 36, SD(x̄) = 20/√36 = 3.33 minutes.
+    topic_code: "2.12"
+  - front: Error-spot → "a sample of 5,000 online volunteers removes the bias because n is so large"
+    back: |
+      Large n reduces variability only. A voluntary-response sample stays biased however large it is.
+    topic_code: "2.12"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (topic 2.12: parameters and statistics, bias and
+    variability, the sampling distributions of p̂ and x̄, the 10% and Large Counts conditions, the Central Limit
+    Theorem, and the effect of sample size), with 9 questions (36%) reviewing weeks 8 to 13 (two-way tables,
+    independent events, discrete random variables, the binomial distribution and the normal distribution).
+    Opens with a shared-context set on students' daily social-media minutes. Multiple choice, select-all,
+    true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the
+    short answers and the long answer are graded by your teacher against the scoring notes. A calculator is
+    allowed throughout, as on the AP exam.
+  questions:
+    # ---- Stimulus set: social-media minutes (2.12)
+    - slug: apstats-u02-w14-q01
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      stimulus: |
+        At a hypothetical high school of 1,800 students, the distribution of daily minutes of social-media use is strongly skewed right, with mean μ = 48 minutes and standard deviation σ = 20 minutes. A researcher selects a random sample of 36 students and computes x̄, the sample mean daily minutes.
+      prompt: |
+        Which best describes the shape of the sampling distribution of x̄?
+      options:
+        - "Strongly skewed right, like the population"
+        - "Approximately normal, by the Central Limit Theorem, because n = 36 is at least 30"
+        - "Exactly normal, because the population mean and standard deviation are known"
+        - "Uniform, because every sample of 36 students is equally likely"
+      option_explanations:
+        - |
+          The population and the individual sample data are skewed, but averaging 36 values pulls the sampling distribution of x̄ toward a normal shape.
+        - |
+          Correct. The population is skewed, but n = 36 ≥ 30, so the Central Limit Theorem says the sampling distribution of x̄ is approximately normal.
+        - |
+          Knowing μ and σ gives the centre and spread, not the shape; x̄ is exactly normal only when the population itself is normal.
+        - |
+          Equally likely samples (simple random sampling) do not make the values of x̄ equally likely; they cluster around μ = 48.
+      answer: 1
+    - slug: apstats-u02-w14-q02
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      stimulus: |
+        At a hypothetical high school of 1,800 students, the distribution of daily minutes of social-media use is strongly skewed right, with mean μ = 48 minutes and standard deviation σ = 20 minutes. A researcher selects a random sample of 36 students and computes x̄, the sample mean daily minutes.
+      prompt: |
+        What are the mean and standard deviation of the sampling distribution of x̄?
+      options:
+        - "Mean 48 minutes, standard deviation 20 minutes"
+        - "Mean 48 minutes, standard deviation 0.56 minutes"
+        - "Mean 48 minutes, standard deviation 0.75 minutes"
+        - "Mean 48 minutes, standard deviation 3.33 minutes"
+      option_explanations:
+        - |
+          20 minutes is the population standard deviation, the spread of individual students' minutes; sample means vary less.
+        - |
+          0.56 = 20/36 divides by n instead of √n.
+        - |
+          0.75 = √(20/36) takes the square root of the whole ratio; only n goes under the root: σ/√n.
+        - |
+          Correct. The mean of x̄ is μ = 48. Since 36 ≤ 10% of 1,800 = 180, SD(x̄) = σ/√n = 20/√36 = 20/6 ≈ 3.33 minutes.
+      answer: 3
+    - slug: apstats-u02-w14-q03
+      type: numeric
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      stimulus: |
+        At a hypothetical high school of 1,800 students, the distribution of daily minutes of social-media use is strongly skewed right, with mean μ = 48 minutes and standard deviation σ = 20 minutes. A researcher selects a random sample of 36 students and computes x̄, the sample mean daily minutes.
+      prompt: |
+        Find the probability that the sample mean x̄ is greater than 52 minutes. Give your answer to three decimal places.
+      answer: { value: 0.115, tolerance: 0.001 }
+      explanation: |
+        By the CLT, x̄ is approximately normal with mean 48 and SD 20/√36 = 3.33. z = (52 − 48)/3.33 = 1.20, and P(Z > 1.20) ≈ 0.115.
+    - slug: apstats-u02-w14-q04
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      stimulus: |
+        At a hypothetical high school of 1,800 students, the distribution of daily minutes of social-media use is strongly skewed right, with mean μ = 48 minutes and standard deviation σ = 20 minutes. A researcher selects a random sample of 36 students and computes x̄, the sample mean daily minutes.
+      prompt: |
+        What can be said about the probability that one randomly chosen student from this school uses social media for more than 52 minutes a day?
+      options:
+        - "It is about 0.115, the same as the probability for the sample mean."
+        - "It is about 0.421, from a normal model with mean 48 and standard deviation 20."
+        - "It cannot be found from this information, because individual minutes are strongly skewed, not normal."
+        - "It is 0.5, because 52 minutes is close to the mean."
+      option_explanations:
+        - |
+          0.115 uses SD(x̄) = 3.33, which describes means of 36 students; a single student varies far more (σ = 20).
+        - |
+          A normal model with σ = 20 would give 0.421, but the population is strongly skewed, so a normal model for individuals is not justified.
+        - |
+          Correct. The CLT applies to x̄, not to one student. The population is strongly skewed and its exact shape is not given, so this probability cannot be computed from μ and σ alone.
+        - |
+          In a right-skewed distribution the mean is pulled above the median, so the share above any value near the mean is not 0.5, and closeness to the mean is not a probability.
+      answer: 2
+    # ---- Independent items
+    - slug: apstats-u02-w14-q05
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      prompt: |
+        In a hypothetical district of 9,000 students, 40% of all students bike or walk to school. A random sample of 50 of the students finds that 46% of them bike or walk. Which statement correctly identifies the numbers?
+      options:
+        - "0.40 is a parameter (p) and 0.46 is a statistic (p̂)."
+        - "0.40 is a statistic (p̂) and 0.46 is a parameter (p)."
+        - "Both are parameters, because both describe students in the district."
+        - "Both are statistics, because both are proportions computed from counts."
+      option_explanations:
+        - |
+          Correct. 0.40 describes all 9,000 students, the population, so it is the parameter p; 0.46 comes from the sample of 50, so it is the statistic p̂.
+        - |
+          The roles are reversed: the population value is the parameter and the sample value is the statistic.
+        - |
+          The 46% describes only the 50 sampled students, so it is a statistic, not a population value.
+        - |
+          Being a proportion does not make a number a statistic; what matters is whether it describes the whole population or a sample.
+      answer: 0
+    - slug: apstats-u02-w14-q06
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      prompt: |
+        At a hypothetical school of 1,400 students, 62% of students buy lunch in the cafeteria. For random samples of 80 students, what is the standard deviation of the sampling distribution of p̂, the sample proportion who buy lunch?
+      options:
+        - "4.34"
+        - "0.0029"
+        - "0.054"
+        - "0.485"
+      option_explanations:
+        - |
+          4.34 = √(80 · 0.62 · 0.38) is the standard deviation of the count of lunch buyers, not of the proportion.
+        - |
+          0.0029 = 0.62 · 0.38/80 is the variance of p̂; the standard deviation is its square root.
+        - |
+          Correct. 80 ≤ 10% of 1,400 = 140, so SD(p̂) = √(0.62 · 0.38/80) = √0.002945 ≈ 0.054.
+        - |
+          0.485 = √(0.62 · 0.38) is the standard deviation for a single student (n = 1); it must be divided by √80.
+      answer: 2
+    - slug: apstats-u02-w14-q07
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      prompt: |
+        For the same school (p = 0.62 buy lunch, 1,400 students) and random samples of 80 students, what is the approximate probability that fewer than 55% of a sample buy lunch?
+      options:
+        - "0.901"
+        - "0.099"
+        - "0.443"
+        - "0.550"
+      option_explanations:
+        - |
+          0.901 is the area above z = −1.29, the probability that 55% or more buy lunch: the wrong tail.
+        - |
+          Correct. np = 49.6 and n(1 − p) = 30.4 are both at least 10, so p̂ is approximately normal with mean 0.62 and SD 0.054. z = (0.55 − 0.62)/0.054 = −1.29, so P(p̂ < 0.55) ≈ 0.099.
+        - |
+          0.443 uses the SD for one student, √(0.62 · 0.38) = 0.485, instead of SD(p̂) = 0.054.
+        - |
+          0.55 is the cut-off proportion itself, not a probability; the probability comes from the area below it.
+      answer: 1
+    - slug: apstats-u02-w14-q08
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      prompt: |
+        A pollster increases the size of a random sample from 100 to 400 people, drawn from a population of several million. What happens to the standard deviation of the sampling distribution of p̂?
+      options:
+        - "It doubles."
+        - "It is divided by 4."
+        - "It does not change, because it depends only on p."
+        - "It is halved."
+      option_explanations:
+        - |
+          A larger sample gives less variable proportions, so the standard deviation must go down, not up.
+        - |
+          Dividing by 4 would happen if n were in the denominator without a square root; SD(p̂) = √(p(1 − p)/n) changes by √4 = 2.
+        - |
+          n is in the formula √(p(1 − p)/n), so the standard deviation does depend on sample size.
+        - |
+          Correct. SD(p̂) = √(p(1 − p)/n). Multiplying n by 4 divides the SD by √4 = 2, halving it.
+      answer: 3
+    - slug: apstats-u02-w14-q09
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      prompt: |
+        Which statement correctly describes the Central Limit Theorem?
+      options:
+        - "As the sample size increases, the distribution of the data in the sample becomes approximately normal."
+        - "As the sample size increases, the sampling distribution of x̄ becomes approximately normal, whatever the shape of the population."
+        - "When the sample size is at least 30, the population becomes approximately normal."
+        - "As the sample size increases, the mean of the sampling distribution of x̄ gets closer to μ."
+      option_explanations:
+        - |
+          The data in a sample resemble the population: a large sample from a skewed population is itself skewed.
+        - |
+          Correct. The CLT is a statement about the shape of the sampling distribution of the sample mean: for large enough n it is approximately normal, regardless of the population's shape.
+        - |
+          Sampling does not change the population; its shape is fixed whatever n we choose.
+        - |
+          The mean of the sampling distribution of x̄ equals μ for every n (x̄ is unbiased); the CLT is about shape.
+      answer: 1
+    - slug: apstats-u02-w14-q10
+      type: multiple_choice
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      prompt: |
+        A researcher uses simulation to study two statistics for estimating a population mean of μ = 50. The simulated sampling distribution of statistic A is centred at 50 with standard deviation 4. The simulated sampling distribution of statistic B is centred at 46 with standard deviation 1. Which statement is correct?
+      options:
+        - "A is unbiased but has more variability; B is biased but has less variability."
+        - "B is unbiased, because its values are less spread out."
+        - "Both are unbiased, because both are centred close to 50."
+        - "A is biased, because some of its values are far from 50."
+      option_explanations:
+        - |
+          Correct. Bias is about the centre: A centres at the parameter 50 (unbiased) and B at 46 (biased). Variability is about spread: A's SD of 4 is larger than B's SD of 1.
+        - |
+          Small spread is low variability, not lack of bias; B consistently underestimates μ by about 4.
+        - |
+          B's centre, 46, is 4 standard deviations of B below 50, so B systematically misses the parameter.
+        - |
+          Individual values far from 50 reflect variability; A's values still average out to 50, so A is unbiased.
+      answer: 0
+    - slug: apstats-u02-w14-q11
+      type: multiple_choice
+      topic_code: "2.11"
+      source: "AP Statistics CED, Topic 2.11"
+      points: 1
+      prompt: |
+        Lengths of trout in a hypothetical stream are approximately normal with mean 32 cm and standard deviation 4 cm. What proportion of the trout are longer than 38 cm?
+      options:
+        - "0.933"
+        - "0.160"
+        - "0.433"
+        - "0.067"
+      option_explanations:
+        - |
+          0.933 is the area to the left of z = 1.5, the proportion shorter than 38 cm.
+        - |
+          0.160 is the empirical-rule share above one SD (36 cm); 38 cm is 1.5 SDs above the mean.
+        - |
+          0.433 is the area between the mean and z = 1.5, not the area beyond 38 cm.
+        - |
+          Correct. z = (38 − 32)/4 = 1.5, and the area to the right of z = 1.5 is about 0.067. About 6.7% of the trout are longer than 38 cm.
+      answer: 3
+    - slug: apstats-u02-w14-q12
+      type: multiple_choice
+      topic_code: "2.10"
+      source: "AP Statistics CED, Topic 2.10"
+      points: 1
+      prompt: |
+        At a hypothetical library, 40% of borrowed books are returned late, independently of one another. Of 15 randomly chosen loans, what is the probability that at most 4 are returned late?
+      options:
+        - "0.127"
+        - "0.783"
+        - "0.217"
+        - "0.091"
+      option_explanations:
+        - |
+          0.127 is P(X = 4) only; "at most 4" also includes 0, 1, 2 and 3 late returns.
+        - |
+          0.783 = 1 − P(X ≤ 4) is the probability of 5 or more late returns, the complement.
+        - |
+          Correct. X is binomial with n = 15 and p = 0.40, and P(X ≤ 4) = binomcdf(15, 0.4, 4) ≈ 0.217.
+        - |
+          0.091 is P(X ≤ 3), which leaves out exactly 4 late returns; "at most 4" includes 4.
+      answer: 2
+    - slug: apstats-u02-w14-q13
+      type: multiple_choice
+      topic_code: "2.1"
+      source: "AP Statistics CED, Topic 2.1"
+      points: 1
+      prompt: |
+        A hypothetical survey of 240 students recorded grade and preferred cafeteria option.
+
+        | | Pizza | Salad bar | Sandwich | Total |
+        |---|---|---|---|---|
+        | Grade 10 | 60 | 20 | 40 | 120 |
+        | Grade 11 | 45 | 35 | 40 | 120 |
+        | Total | 105 | 55 | 80 | 240 |
+
+        In the marginal distribution of preferred option, what is the relative frequency for the salad bar?
+      options:
+        - "0.229"
+        - "0.292"
+        - "0.636"
+        - "0.167"
+      option_explanations:
+        - |
+          Correct. The marginal distribution uses the column totals over the grand total: 55/240 ≈ 0.229.
+        - |
+          0.292 = 35/120 is the conditional relative frequency of the salad bar among grade 11 students, not the marginal one.
+        - |
+          0.636 = 35/55 is the proportion of salad-bar fans who are in grade 11, a conditional relative frequency of grade.
+        - |
+          0.167 = 20/120 is the conditional relative frequency of the salad bar among grade 10 students.
+      answer: 0
+    - slug: apstats-u02-w14-q14
+      type: multi_select
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 2
+      partial_credit: true
+      prompt: |
+        In a hypothetical district of 9,000 students, 40% bike or walk to school. Consider the sampling distribution of p̂ for random samples of 50 students. Which statements are true? Select all that apply.
+      options:
+        - "Its mean is 0.40."
+        - "Its standard deviation is about 0.069."
+        - "It is approximately normal, because 50(0.40) = 20 and 50(0.60) = 30 are both at least 10."
+        - "Its standard deviation is 0.40, the same as p."
+        - "Doubling the sample size to 100 would halve its standard deviation."
+      option_explanations:
+        - |
+          Correct. p̂ is an unbiased estimator, so the mean of its sampling distribution equals p = 0.40.
+        - |
+          Correct. 50 ≤ 10% of 9,000, so SD(p̂) = √(0.40 · 0.60/50) ≈ 0.069.
+        - |
+          Correct. Both Large Counts are at least 10, so the sampling distribution of p̂ is approximately normal.
+        - |
+          The mean is 0.40; the standard deviation is √(p(1 − p)/n) ≈ 0.069, a much smaller number.
+        - |
+          Doubling n divides the SD by √2 ≈ 1.41 (to about 0.049); halving it would take four times the sample size.
+      answer: [0, 1, 2]
+    - slug: apstats-u02-w14-q15
+      type: multi_select
+      topic_code: "2.11"
+      source: "AP Statistics CED, Topic 2.11"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Scores on a hypothetical reading assessment are approximately normal with mean 100 and standard deviation 15. Which statements are true? Select all that apply.
+      options:
+        - "About 2.5% of scores are above 130."
+        - "A score of 115 is at about the 84th percentile."
+        - "A score of 85 has a z-score of −1."
+        - "About 16% of scores are below 70."
+        - "The interquartile range of the scores is 30."
+      option_explanations:
+        - |
+          Correct. 130 = μ + 2σ, and about 5% lie beyond 2 SDs, half in each tail: about 2.5% above 130.
+        - |
+          Correct. 115 = μ + σ; about 50% + 34% = 84% of scores lie below it.
+        - |
+          Correct. z = (85 − 100)/15 = −1: the score is one standard deviation below the mean.
+        - |
+          70 is two SDs below the mean, so only about 2.5% of scores are below it; 16% is the share below 85.
+        - |
+          The quartiles are at z = ±0.674, about 89.9 and 110.1, so the IQR is about 20.2, not 2σ = 30.
+      answer: [0, 1, 2]
+    - slug: apstats-u02-w14-q16
+      type: true_false
+      topic_code: "2.11"
+      source: "AP Statistics CED, Topic 2.11"
+      points: 1
+      prompt: |
+        True or false: If X is normal with mean 50 and standard deviation 10, then P(X > 70) = P(X < 30).
+      answer: true
+      explanation: |
+        True. A normal curve is symmetric about its mean. 70 is 2 SDs above 50 and 30 is 2 SDs below, so both tail areas equal P(Z > 2) ≈ 0.023.
+    - slug: apstats-u02-w14-q17
+      type: true_false
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      prompt: |
+        True or false: If a population is strongly skewed right, the Central Limit Theorem guarantees that the sampling distribution of x̄ for random samples of size 5 is approximately normal.
+      answer: false
+      explanation: |
+        False. The CLT needs a large sample, usually n ≥ 30, and more when the population is strongly skewed. With n = 5 the sampling distribution of x̄ is still noticeably skewed right. (Only a normal population gives a normal x̄ at every n.)
+    - slug: apstats-u02-w14-q18
+      type: fill_blank
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      prompt: |
+        A large population has standard deviation σ = 12. For random samples of size n = 16, the standard deviation of the sampling distribution of x̄ is ____.
+      answer: ["3", "3.0", "3.00"]
+      explanation: |
+        SD(x̄) = σ/√n = 12/√16 = 12/4 = 3.
+    - slug: apstats-u02-w14-q19
+      type: fill_blank
+      topic_code: "2.11"
+      source: "AP Statistics CED, Topic 2.11"
+      points: 1
+      prompt: |
+        By the empirical rule, about ____ percent of the values in a normal distribution lie more than two standard deviations above the mean. (Type a number.)
+      answer: ["2.5", "2.5%"]
+      explanation: |
+        About 95% lie within two SDs of the mean, leaving 5% outside, split equally between the two tails: about 2.5% above μ + 2σ.
+    - slug: apstats-u02-w14-q20
+      type: numeric
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      prompt: |
+        Battery life for a hypothetical phone model is normal with mean 18.5 hours and standard deviation 2.4 hours. For a random sample of 16 phones, find the probability that the sample mean battery life is less than 17.5 hours. Give your answer to three decimal places.
+      answer: { value: 0.048, tolerance: 0.001 }
+      explanation: |
+        The population is normal, so x̄ is normal with mean 18.5 and SD 2.4/√16 = 0.6. z = (17.5 − 18.5)/0.6 = −1.67, and P(Z < −1.67) ≈ 0.048.
+    - slug: apstats-u02-w14-q21
+      type: numeric
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      prompt: |
+        At a hypothetical school of 1,400 students, 62% buy lunch in the cafeteria. For a random sample of 80 students, find the probability that more than 70% of the sample buy lunch. Give your answer to three decimal places.
+      answer: { value: 0.070, tolerance: 0.002 }
+      explanation: |
+        Large Counts hold (49.6 and 30.4) and 80 ≤ 140, so p̂ is approximately normal with mean 0.62 and SD √(0.62 · 0.38/80) = 0.0543. z = (0.70 − 0.62)/0.0543 = 1.47, and P(Z > 1.47) ≈ 0.070.
+    - slug: apstats-u02-w14-q22
+      type: numeric
+      topic_code: "2.8"
+      source: "AP Statistics CED, Topic 2.8"
+      points: 1
+      prompt: |
+        X = the number of goals a hypothetical school soccer team scores in a game has the distribution below.
+
+        | x | 0 | 1 | 2 | 3 | 4 |
+        |---|---|---|---|---|---|
+        | P(X = x) | 0.20 | 0.35 | 0.25 | 0.15 | 0.05 |
+
+        Find P(X > 1). Give your answer to two decimal places.
+      answer: { value: 0.45, tolerance: 0.005 }
+      explanation: |
+        P(X > 1) = P(X = 2) + P(X = 3) + P(X = 4) = 0.25 + 0.15 + 0.05 = 0.45 (or 1 − 0.20 − 0.35).
+    - slug: apstats-u02-w14-q23
+      type: short_answer
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 3
+      prompt: |
+        In a hypothetical city, 4% of adults ride a bicycle to work. A reporter takes a random sample of 100 adults from the city's 250,000 adults and records p̂, the proportion who bike to work.
+
+        (a) Find the mean and standard deviation of the sampling distribution of p̂, checking the condition that the standard deviation formula needs.
+        (b) Is the sampling distribution of p̂ approximately normal? Justify your answer.
+        (c) Describe the likely shape, and explain what sample size would be needed for a normal model.
+      answer: |
+        (a) Mean = p = 0.04. 100 ≤ 10% of 250,000, so SD(p̂) = √(0.04 · 0.96/100) = √0.000384 ≈ 0.0196.
+        (b) No. np = 100(0.04) = 4, which is less than 10, so the Large Counts condition fails.
+        (c) The sampling distribution of p̂ is skewed right: p̂ cannot go below 0, which is only about 2 SDs below the mean, while it can go far above. A normal model needs np ≥ 10, so n ≥ 10/0.04 = 250 (then n(1 − p) = 240 ≥ 10 as well).
+      explanation: |
+        Three points, one per part. (a) mean 0.04 and SD ≈ 0.0196 with the 10% condition checked. (b) "not approximately normal" with np = 4 < 10 shown. (c) skewed right with a reason and n ≥ 250.
+    - slug: apstats-u02-w14-q24
+      type: short_answer
+      topic_code: "2.7"
+      source: "AP Statistics CED, Topic 2.7"
+      points: 3
+      prompt: |
+        During a hypothetical online exam, a student's laptop battery fails with probability 0.10 and, independently, the school Wi-Fi fails with probability 0.05.
+
+        (a) Find the probability that both fail.
+        (b) Find the probability that at least one of them fails.
+        (c) Are the events "battery fails" and "Wi-Fi fails" mutually exclusive? Explain.
+      answer: |
+        (a) Independent events: P(both) = 0.10 × 0.05 = 0.005.
+        (b) P(battery or Wi-Fi) = 0.10 + 0.05 − 0.005 = 0.145 (or 1 − 0.90 × 0.95 = 0.145).
+        (c) No. P(both) = 0.005 is not 0, so both can happen together; independent events with positive probabilities cannot be mutually exclusive.
+      explanation: |
+        Three points, one per part. (a) 0.005 using the multiplication rule for independent events. (b) 0.145 by the general addition rule or the complement. (c) "not mutually exclusive" with the reason P(both) ≠ 0.
+    - slug: apstats-u02-w14-q25
+      type: long_answer
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 6
+      prompt: |
+        At a hypothetical high school of 1,500 students, one-way commute times are skewed right, with mean 24 minutes and standard deviation 11 minutes.
+
+        (A) Can you use a normal model to find the probability that one randomly chosen student's commute is longer than 30 minutes? Explain.
+
+        (B) A random sample of 50 students is selected. Describe the sampling distribution of x̄, the sample mean commute time: give its shape, mean and standard deviation, and check the conditions that justify each.
+
+        (C) Find the probability that the sample mean commute time for the 50 students is more than 27 minutes.
+
+        (D) How large a random sample would be needed for the standard deviation of the sampling distribution of x̄ to be 1 minute?
+      answer: |
+        (A) No. The population of commute times is skewed right, so a normal model does not describe individual students, and we do not know the population's exact shape.
+        (B) Shape: approximately normal, by the Central Limit Theorem, because n = 50 ≥ 30. Mean: 24 minutes (x̄ is unbiased for μ). SD: 50 ≤ 10% of 1,500 = 150, so SD(x̄) = 11/√50 ≈ 1.56 minutes.
+        (C) z = (27 − 24)/1.556 = 1.93; P(x̄ > 27) ≈ 0.027. About 2.7% of random samples of 50 students would have a mean commute above 27 minutes.
+        (D) 11/√n = 1 gives √n = 11, so n = 121 students (still under 10% of 1,500).
+      explanation: |
+        Six points.
+        (A) 1 point: "no" with the reason that the population is skewed, not normal (the CLT does not apply to one individual).
+        (B) 3 points: 1 for "approximately normal" justified by the CLT with n = 50 ≥ 30; 1 for mean 24; 1 for SD ≈ 1.56 with the 10% condition (50 ≤ 150) checked. Using σ = 11 as the SD earns no SD point.
+        (C) 1 point: 0.027 (accept 0.026 to 0.028) with the z-score or labelled calculator inputs using SD(x̄).
+        (D) 1 point: n = 121 with the equation shown.

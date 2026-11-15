@@ -1,0 +1,604 @@
+week: 26
+unit: 4
+title: "The Sampling Distribution of the Difference Between Two Sample Means"
+topics: ["4.6"]
+guide: guides/week-26.md
+guide_description: |
+  The sampling distribution of x̄₁ − x̄₂ for two independent samples or two randomly assigned groups: its
+  center (μ₁ − μ₂), its spread from the formula-sheet √(σ₁²/n₁ + σ₂²/n₂), and when it is approximately normal
+  (both populations normal, or both samples of at least 30); checking Random, 10% and Normal / large sample in
+  context; telling independent samples from paired data; and the standard error √(s₁²/n₁ + s₂²/n₂) that leads to
+  t with calculator or conservative df. Worked examples: juniors' sleep at two schools, two tomato varieties
+  grown from normal populations, skewed clinic wait times where the normal model fails, three app-study designs
+  sorted into paired and independent, and commute times by car and by bus.
+flashcards_description: |
+  30 cards on the center, spread and shape of the sampling distribution of x̄₁ − x̄₂, its conditions, paired
+  versus independent designs, the standard error and the two choices of degrees of freedom.
+
+flashcards:
+  - front: Sampling distribution of x̄₁ − x̄₂ → what it is
+    back: |
+      The distribution of the difference in sample means over all possible pairs of independent samples of sizes n₁ and n₂.
+    topic_code: "4.6"
+  - front: Mean of the sampling distribution of x̄₁ − x̄₂ → formula
+    back: |
+      μ₁ − μ₂. The statistic x̄₁ − x̄₂ is an unbiased estimator of the difference in population means.
+    topic_code: "4.6"
+  - front: SD(x̄₁ − x̄₂) for independent samples → formula-sheet expression
+    back: |
+      √(σ₁²/n₁ + σ₂²/n₂). Square each SD, divide by its own sample size, add, then take the square root.
+    topic_code: "4.6"
+  - front: Why the two terms in SD(x̄₁ − x̄₂) are added, not subtracted
+    back: |
+      Each sample mean varies on its own, so their difference varies more than either one. Variability never cancels out between independent samples.
+    topic_code: "4.6"
+  - front: SD(x̄₁ − x̄₂) → the condition the formula needs
+    back: |
+      The two samples (or treatment groups) must be independent of each other, and each sample must be less than 10% of its population when sampling without replacement.
+    topic_code: "4.6"
+  - front: Shape of the sampling distribution of x̄₁ − x̄₂ → when it is approximately normal
+    back: |
+      When each population is approximately normal, or when each sample is large (n₁ ≥ 30 and n₂ ≥ 30), by the Central Limit Theorem.
+    topic_code: "4.6"
+  - front: Large-sample check for two means → each sample or the total?
+    back: |
+      Each sample separately: n₁ ≥ 30 and n₂ ≥ 30. A total of 30 or more does not count.
+    topic_code: "4.6"
+  - front: Two normal populations, samples of 10 and 10 → shape of x̄₁ − x̄₂
+    back: |
+      Normal. When both populations are normal, both sample means are normal for any n, and so is their difference.
+    topic_code: "4.6"
+  - front: Two strongly skewed populations, samples of 60 and 12 → normal model for x̄₁ − x̄₂?
+    back: |
+      Not justified: the sample of 12 from a skewed population has a skewed sampling distribution, and a big other sample cannot fix that.
+    topic_code: "4.6"
+  - front: Random condition for two means → two acceptable sources of randomness
+    back: |
+      Two independent random samples from two populations, or two treatment groups formed by random assignment in an experiment.
+    topic_code: "4.6"
+  - front: 10% condition for two means → how many checks
+    back: |
+      Two: n₁ ≤ 10% of population 1 and n₂ ≤ 10% of population 2 (only when sampling without replacement; not needed for random assignment).
+    topic_code: "4.6"
+  - front: Sleep at two schools (σ = 1.1 and 1.3 h; n = 40 and 50) → SD(x̄A − x̄B)
+    back: |
+      √(1.21/40 + 1.69/50) = √0.06405 ≈ 0.253 hours.
+    topic_code: "4.6"
+  - front: Sleep at two schools (μA − μB = 0.4 h, SD 0.253) → P(x̄A − x̄B < 0)
+    back: |
+      z = (0 − 0.4)/0.253 ≈ −1.58, probability ≈ 0.057: the sample order flips about 6% of the time.
+    topic_code: "4.6"
+  - front: Tomato varieties R and Y (σ = 5 and 6 cm; n = 10 each) → SD(x̄R − x̄Y)
+    back: |
+      √(25/10 + 36/10) = √6.1 ≈ 2.47 cm.
+    topic_code: "4.6"
+  - front: Quadrupling both sample sizes → effect on SD(x̄₁ − x̄₂)
+    back: |
+      It halves, because each term σ²/n is divided by 4 and √(1/4) = 1/2.
+    topic_code: "4.6"
+  - front: Enlarging only one of the two samples → effect on SD(x̄₁ − x̄₂)
+    back: |
+      Only that term shrinks; the SD can never fall below σ/√n of the unchanged sample.
+    topic_code: "4.6"
+  - front: Interpreting SD(x̄₁ − x̄₂) = 1.3 g in context → template
+    back: |
+      "In repeated random samples of these sizes, the difference in sample mean weights typically varies by about 1.3 g from the true difference in population mean weights."
+    topic_code: "4.6"
+  - front: Independent samples vs paired data → the question to ask
+    back: |
+      Is each value in group 1 naturally linked to one particular value in group 2 (same subject, twin, matched partner)? If yes, the data are paired.
+    topic_code: "4.6"
+  - front: Before-and-after scores for the same 30 students → which analysis
+    back: |
+      Paired: compute the 30 differences and use one-sample methods on them (mean difference μ_d), not x̄₁ − x̄₂.
+    topic_code: "4.6"
+  - front: n₁ ≠ n₂ in a study comparing two means → what it suggests
+    back: |
+      Independent samples: paired data always come in equal numbers.
+    topic_code: "4.6"
+  - front: Twins split between two study methods by coin flip → independent or paired?
+    back: |
+      Paired: each twin is matched with the other, so analyse the within-pair differences.
+    topic_code: "4.6"
+  - front: Standard error of x̄₁ − x̄₂ → formula when σ₁ and σ₂ are unknown
+    back: |
+      SE = √(s₁²/n₁ + s₂²/n₂), using the sample standard deviations.
+    topic_code: "4.6"
+  - front: Why t (not z) once s₁ and s₂ replace σ₁ and σ₂
+    back: |
+      The standard error itself varies from sample to sample, adding variability; the standardized difference follows a t distribution, which has heavier tails.
+    topic_code: "4.6"
+  - front: Calculator (unpooled) df for two-sample t → what to know
+    back: |
+      2-SampTInt / 2-SampTTest with Pooled: No computes it from s₁, s₂, n₁, n₂. Usually not a whole number; it lies between the smaller n − 1 and n₁ + n₂ − 2.
+    topic_code: "4.6"
+  - front: Conservative df for two-sample t → rule and effect
+    back: |
+      df = smaller n − 1. It gives a larger t*, so intervals are a bit wider and p-values a bit larger than with the calculator df.
+    topic_code: "4.6"
+  - front: Commute by car vs bus (s = 8.2, 6.9; n = 36, 30) → SE and df choices
+    back: |
+      SE = √(8.2²/36 + 6.9²/30) ≈ 1.859 minutes; calculator df ≈ 64.0, conservative df = 29.
+    topic_code: "4.6"
+  - front: Two proportions vs two means → the shared pattern
+    back: |
+      Center = difference of parameters; spread = √(sum of the two squared standard deviations of the statistics). p̂₁ − p̂₂ uses p(1 − p)/n terms; x̄₁ − x̄₂ uses σ²/n terms.
+    topic_code: "4.6"
+  - front: Error-spot → "SD(x̄₁ − x̄₂) = √(σ₁²/n₁ − σ₂²/n₂) because we are subtracting"
+    back: |
+      Variances of independent sample means add. The correct SD is √(σ₁²/n₁ + σ₂²/n₂), which is larger than either piece.
+    topic_code: "4.6"
+  - front: Error-spot → "n₁ + n₂ = 42 ≥ 30, so x̄₁ − x̄₂ is approximately normal"
+    back: |
+      The Central Limit Theorem must apply to each sample mean: check n₁ ≥ 30 and n₂ ≥ 30, or normal populations.
+    topic_code: "4.6"
+  - front: Error-spot → "use x̄₁ − x̄₂ for the 25 students' pretest and post-test scores"
+    back: |
+      Pre and post scores from the same students are paired; analyse the 25 differences with one-sample t methods.
+    topic_code: "4.6"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topic 4.6: the center, spread and shape of the
+    sampling distribution of x̄₁ − x̄₂, its conditions, paired versus independent designs and the standard
+    error), with 9 questions (38%) reviewing weeks 7, 14, 19 and 23–25 (blocking, the Central Limit Theorem,
+    the difference of two proportions, the sampling distribution of x̄, one-sample and paired t procedures).
+    Opens with a shared-context set on homework time in two grades. Multiple choice, select-all, true/false and
+    numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and
+    the long answer are graded by your teacher against the scoring notes. Calculators are allowed throughout.
+  questions:
+    # ---- Stimulus set: homework time in two grades (4.6)
+    - slug: apstats-u04-w26-q01
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 1
+      stimulus: |
+        In a hypothetical school district, the nightly homework time of 7th graders has mean 52 minutes and standard deviation 18 minutes; for 10th graders the mean is 68 minutes and the standard deviation is 24 minutes. Both distributions are right-skewed. A counsellor selects independent random samples of 45 7th graders and 40 10th graders from the district's thousands of students and computes x̄T − x̄S, the 10th-grade sample mean minus the 7th-grade sample mean.
+      prompt: |
+        What is the mean of the sampling distribution of x̄T − x̄S?
+      options:
+        - "−16 minutes"
+        - "0 minutes, because the samples are random"
+        - "16 minutes"
+        - "60 minutes"
+      option_explanations:
+        - |
+          This reverses the order of subtraction. The statistic is 10th grade minus 7th grade, so its mean is 68 − 52 = +16.
+        - |
+          Random sampling makes the statistic unbiased for the true difference, which is 68 − 52 = 16, not 0. Zero would be the mean only if the population means were equal.
+        - |
+          Correct. The mean of the sampling distribution of x̄T − x̄S is μT − μS = 68 − 52 = 16 minutes.
+        - |
+          60 is the average of the two population means. The statistic is a difference, so its mean is the difference of the means.
+      answer: 2
+    - slug: apstats-u04-w26-q02
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 1
+      stimulus: |
+        In a hypothetical school district, the nightly homework time of 7th graders has mean 52 minutes and standard deviation 18 minutes; for 10th graders the mean is 68 minutes and the standard deviation is 24 minutes. Both distributions are right-skewed. A counsellor selects independent random samples of 45 7th graders and 40 10th graders from the district's thousands of students and computes x̄T − x̄S, the 10th-grade sample mean minus the 7th-grade sample mean.
+      prompt: |
+        What is the standard deviation of the sampling distribution of x̄T − x̄S, to two decimal places?
+      options:
+        - "4.65 minutes"
+        - "2.68 minutes"
+        - "6.48 minutes"
+        - "30.00 minutes"
+      option_explanations:
+        - |
+          Correct. √(24²/40 + 18²/45) = √(14.4 + 7.2) = √21.6 ≈ 4.65 minutes. The two variance terms add.
+        - |
+          This is √(14.4 − 7.2): the variance terms were subtracted. For independent samples they always add.
+        - |
+          This adds the two standard deviations, 24/√40 + 18/√45 ≈ 3.79 + 2.68. Standard deviations do not add; square them, add, then take the square root.
+        - |
+          This is √(24² + 18²), which forgets to divide each variance by its sample size. It describes individuals, not sample means.
+      answer: 0
+    - slug: apstats-u04-w26-q03
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 1
+      stimulus: |
+        In a hypothetical school district, the nightly homework time of 7th graders has mean 52 minutes and standard deviation 18 minutes; for 10th graders the mean is 68 minutes and the standard deviation is 24 minutes. Both distributions are right-skewed. A counsellor selects independent random samples of 45 7th graders and 40 10th graders from the district's thousands of students and computes x̄T − x̄S, the 10th-grade sample mean minus the 7th-grade sample mean.
+      prompt: |
+        Which statement best describes the shape of the sampling distribution of x̄T − x̄S?
+      options:
+        - "Right-skewed, because both populations are right-skewed"
+        - "Approximately normal, because the combined sample size of 85 is at least 30"
+        - "It cannot be described, because neither population is normal"
+        - "Approximately normal, because each sample has at least 30 students"
+      option_explanations:
+        - |
+          Skewed populations give skewed sampling distributions only for small samples. With 40 and 45 students, the Central Limit Theorem makes each sample mean approximately normal.
+        - |
+          The conclusion is right but the reason is wrong: the large-sample condition must hold for each sample separately, not for the total.
+        - |
+          Normal populations are one route to a normal sampling distribution; large samples (each n ≥ 30) are the other, and they hold here.
+        - |
+          Correct. n = 40 and n = 45 are both at least 30, so by the Central Limit Theorem each sample mean, and therefore their difference, is approximately normal.
+      answer: 3
+    - slug: apstats-u04-w26-q04
+      type: numeric
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 1
+      stimulus: |
+        In a hypothetical school district, the nightly homework time of 7th graders has mean 52 minutes and standard deviation 18 minutes; for 10th graders the mean is 68 minutes and the standard deviation is 24 minutes. Both distributions are right-skewed. A counsellor selects independent random samples of 45 7th graders and 40 10th graders from the district's thousands of students and computes x̄T − x̄S, the 10th-grade sample mean minus the 7th-grade sample mean.
+      prompt: |
+        Find the probability that the 10th-grade sample mean exceeds the 7th-grade sample mean by more than 20 minutes, P(x̄T − x̄S > 20). Give your answer to three decimal places.
+      answer: { value: 0.195, tolerance: 0.003 }
+      explanation: |
+        Mean 16, SD √21.6 ≈ 4.648, approximately normal (both samples at least 30). z = (20 − 16)/4.648 ≈ 0.86, and P(z > 0.86) ≈ 0.195. (A calculator's normalcdf(20, 1E99, 16, 4.648) gives 0.1947.)
+    # ---- Independent items on 4.6
+    - slug: apstats-u04-w26-q05
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 1
+      prompt: |
+        In the homework study, SD(x̄T − x̄S) is about 4.65 minutes with samples of 40 and 45. If the counsellor instead sampled 160 10th graders and 180 7th graders (four times as many in each grade), what would the standard deviation of x̄T − x̄S become?
+      options:
+        - "About 1.16 minutes, one quarter as large"
+        - "About 2.32 minutes, half as large"
+        - "About 4.65 minutes, because the population SDs have not changed"
+        - "About 9.30 minutes, twice as large"
+      option_explanations:
+        - |
+          Quadrupling n divides each variance term by 4, which divides the SD by √4 = 2, not by 4.
+        - |
+          Correct. √(24²/160 + 18²/180) = √(3.6 + 1.8) = √5.4 ≈ 2.32: each term is a quarter as big, so the square root is half as big.
+        - |
+          The population SDs stay the same, but larger samples make sample means less variable, so the SD of the difference shrinks.
+        - |
+          Larger samples reduce variability; they never increase it. This has the direction of the change backwards.
+      answer: 1
+    - slug: apstats-u04-w26-q06
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 1
+      prompt: |
+        For which study would the formula √(σ₁²/n₁ + σ₂²/n₂) NOT be appropriate for the standard deviation of the statistic being compared?
+      options:
+        - "A random sample of 50 sophomores and a separate random sample of 50 seniors report their weekly hours of paid work."
+        - "Forty volunteers are randomly assigned, 20 to each of two warm-up routines, and their sprint times are recorded."
+        - "A random sample of 35 bags from Factory 1 and a random sample of 42 bags from Factory 2 are weighed."
+        - "The same 30 students record their reaction times before and after drinking a cup of coffee."
+      option_explanations:
+        - |
+          Two separate random samples are independent, so the formula applies. Equal sample sizes alone do not make data paired.
+        - |
+          Random assignment into two separate groups gives independent groups, so the formula applies.
+        - |
+          Two separate random samples from two factories are independent, and different sample sizes fit the formula fine.
+        - |
+          Correct. Before and after times from the same students are paired, not independent; analyse the 30 differences with one-sample methods instead.
+      answer: 3
+    - slug: apstats-u04-w26-q07
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 1
+      prompt: |
+        Hypothetically, battery life for Brand A earbuds is approximately normal with mean 8.4 hours and SD 0.6 hours; for Brand B it is approximately normal with mean 7.9 hours and SD 0.8 hours. A reviewer tests independent random samples of 8 earbuds of each brand. What is the probability that the Brand B sample has the higher mean battery life?
+      options:
+        - "About 0.309"
+        - "About 0.004"
+        - "About 0.079"
+        - "About 0.921"
+      option_explanations:
+        - |
+          This uses SD = √(0.6² + 0.8²) = 1, the spread of individual differences, forgetting to divide each variance by n = 8.
+        - |
+          This uses √(0.8²/8 − 0.6²/8) ≈ 0.187: the variances were subtracted, which makes the spread far too small.
+        - |
+          Correct. Mean of x̄A − x̄B = 0.5, SD = √(0.36/8 + 0.64/8) = √0.125 ≈ 0.354; normal because both populations are normal. P(x̄A − x̄B < 0) = P(z < −1.41) ≈ 0.079.
+        - |
+          0.921 is P(x̄A − x̄B > 0), the probability that Brand A has the higher sample mean: the complement of what was asked.
+      answer: 2
+    - slug: apstats-u04-w26-q08
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 1
+      prompt: |
+        A food scientist compares random samples of granola bars from two production lines and reports that the standard deviation of the sampling distribution of x̄₁ − x̄₂ (difference in mean bar weight) is 1.3 grams. Which is the best interpretation of 1.3 grams?
+      options:
+        - "In repeated random samples of these sizes, the difference in sample mean weights typically varies by about 1.3 grams from the true difference in mean weights."
+        - "The bars from the two lines typically differ in weight by about 1.3 grams."
+        - "The true difference in mean weight between the two lines is about 1.3 grams."
+        - "About 95% of individual bars weigh within 1.3 grams of the line's mean."
+      option_explanations:
+        - |
+          Correct. A standard deviation of a sampling distribution measures how far the statistic x̄₁ − x̄₂ typically falls from the parameter μ₁ − μ₂ over many samples.
+        - |
+          This describes individual bars, but 1.3 grams describes the variability of a difference of sample means, which is much smaller than the variability of single bars.
+        - |
+          The mean of the sampling distribution, not its standard deviation, equals the true difference. 1.3 g is a spread, not a center.
+        - |
+          This confuses the spread of the statistic with the spread of individual bars and adds a 95% rule that does not apply here.
+      answer: 0
+    - slug: apstats-u04-w26-q09
+      type: multiple_choice
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 1
+      prompt: |
+        Wait times at two walk-in clinics are strongly right-skewed. A student takes a random sample of 12 patients at Clinic 1 and 15 patients at Clinic 2. Which statement about using a normal model for x̄₁ − x̄₂ is correct?
+      options:
+        - "It is justified, because the 10% condition is met at both clinics."
+        - "It is not justified, because both samples are small and both populations are strongly skewed."
+        - "It is justified, because the combined sample of 27 patients is close enough to 30."
+        - "It is not justified, because the two sample sizes are different."
+      option_explanations:
+        - |
+          The 10% condition supports independence, which justifies the SD formula. It says nothing about the shape of the sampling distribution.
+        - |
+          Correct. With n = 12 and n = 15 from skewed populations, the Central Limit Theorem does not yet apply to either sample mean, so the difference may be skewed too.
+        - |
+          The large-sample check applies to each sample separately, and "close to 30" in total is not a condition at all.
+        - |
+          Different sample sizes are fine for independent samples; the problem is small samples from skewed populations.
+      answer: 1
+    # ---- Spiral review
+    - slug: apstats-u04-w26-q10
+      type: multiple_choice
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        A school's morning bus rides have mean 31 minutes and standard deviation 15 minutes. For random samples of 25 rides, what is the standard deviation of the sampling distribution of x̄?
+      options:
+        - "15 minutes"
+        - "0.6 minutes"
+        - "9 minutes"
+        - "3 minutes"
+      option_explanations:
+        - |
+          15 minutes is the standard deviation of individual rides. Sample means vary less: divide by √n.
+        - |
+          This divides by n = 25 instead of √n = 5.
+        - |
+          This is σ²/n = 225/25, a variance, not a standard deviation; take the square root.
+        - |
+          Correct. σ/√n = 15/√25 = 15/5 = 3 minutes (rides are a small fraction of all rides, so the 10% condition holds).
+      answer: 3
+    - slug: apstats-u04-w26-q11
+      type: multiple_choice
+      topic_code: "4.2"
+      source: "AP Statistics CED, Topic 4.2"
+      points: 1
+      prompt: |
+        A student builds a 95% one-sample t-interval for a population mean from a random sample of 20 smartphone battery tests. Which critical value should she use?
+      options:
+        - "z* = 1.960"
+        - "t* = 1.729"
+        - "t* = 2.093"
+        - "t* = 2.086"
+      option_explanations:
+        - |
+          z* is for a known σ or for proportions. With s in place of σ, use t with df = n − 1 = 19.
+        - |
+          1.729 puts 5% in one tail (a 90% interval) with df = 19. A 95% interval needs 2.5% in each tail.
+        - |
+          Correct. df = 20 − 1 = 19, and the t value with 0.025 in the upper tail is 2.093.
+        - |
+          2.086 uses df = 20; the degrees of freedom for one sample are n − 1 = 19.
+      answer: 2
+    - slug: apstats-u04-w26-q12
+      type: multiple_choice
+      topic_code: "4.5"
+      source: "AP Statistics CED, Topic 4.5"
+      points: 1
+      prompt: |
+        A health teacher tests H₀: μ = 8 versus Hₐ: μ < 8, where μ is the mean nightly sleep (hours) of all students at her school. A random sample of 36 students has x̄ = 7.6 hours, and the one-sample t-test gives a p-value of 0.031. Which is the correct interpretation of the p-value?
+      options:
+        - "There is a 0.031 probability that the mean sleep of all students is 8 hours."
+        - "Assuming the true mean is 8 hours, there is a 0.031 probability of getting a sample mean of 7.6 hours or less by chance alone."
+        - "There is a 0.031 probability that the sample mean of 7.6 hours happened by chance."
+        - "Assuming the true mean is 8 hours, there is a 0.031 probability of getting a sample mean of exactly 7.6 hours."
+      option_explanations:
+        - |
+          A p-value is not the probability that H₀ is true; it is computed assuming H₀ is true.
+        - |
+          Correct. The p-value assumes H₀ (μ = 8) and gives the probability of a result at least as extreme as the observed x̄ = 7.6 in the direction of Hₐ (7.6 or less).
+        - |
+          This drops the assumption that H₀ is true, which is what the probability is computed under.
+        - |
+          The p-value includes all results as extreme or more extreme ("or less"), not just the exact observed value.
+      answer: 1
+    - slug: apstats-u04-w26-q13
+      type: multiple_choice
+      topic_code: "3.9"
+      source: "AP Statistics CED, Topic 3.9"
+      points: 1
+      prompt: |
+        Hypothetically, 62% of all students at North High and 55% of all students at South High eat the school lunch. Independent random samples of 200 North students and 250 South students are taken. What is the standard deviation of the sampling distribution of p̂N − p̂S, to three decimal places?
+      options:
+        - "0.047"
+        - "0.066"
+        - "0.014"
+        - "0.002"
+      option_explanations:
+        - |
+          Correct. √(0.62 · 0.38/200 + 0.55 · 0.45/250) = √(0.001178 + 0.000990) = √0.002168 ≈ 0.047.
+        - |
+          This adds the two standard deviations, 0.034 + 0.031. Add the variances first, then take one square root.
+        - |
+          This subtracts the variance terms. For independent samples they add.
+        - |
+          0.002 is the variance, 0.002168; the standard deviation is its square root.
+      answer: 0
+    - slug: apstats-u04-w26-q14
+      type: multi_select
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Two independent random samples are taken from two populations with means μ₁ and μ₂ and standard deviations σ₁ and σ₂. Which statements about the sampling distribution of x̄₁ − x̄₂ are true? Select all that apply.
+      options:
+        - "Its mean is μ₁ − μ₂."
+        - "Its standard deviation is √(σ₁²/n₁ − σ₂²/n₂)."
+        - "If both populations are approximately normal, it is approximately normal for any sample sizes."
+        - "If n₁ = 50 and n₂ = 12 and both populations are strongly skewed, it is approximately normal."
+        - "Increasing both sample sizes decreases its standard deviation."
+      option_explanations:
+        - |
+          Correct. x̄₁ − x̄₂ is an unbiased estimator of μ₁ − μ₂.
+        - |
+          The variance terms add for independent samples: √(σ₁²/n₁ + σ₂²/n₂).
+        - |
+          Correct. Normal populations give normal sample means for every n, so the difference is normal too.
+        - |
+          The sample of 12 from a strongly skewed population has a skewed sampling distribution; one large sample does not fix the other.
+        - |
+          Correct. Each term σ²/n shrinks as n grows, so the standard deviation decreases.
+      answer: [0, 2, 4]
+    - slug: apstats-u04-w26-q15
+      type: multi_select
+      topic_code: "4.4"
+      source: "AP Statistics CED, Topic 4.4"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which of these studies should be analysed with a paired t procedure for a population mean difference, rather than a two-sample procedure? Select all that apply.
+      options:
+        - "The resting heart rates of the same 25 students are measured before and after a six-week fitness unit."
+        - "A random sample of 40 9th graders and a separate random sample of 40 12th graders report their hours of sleep."
+        - "Eighteen pairs of students are matched on last year's math grade; a coin flip sends one student in each pair to online homework and the other to paper homework, and unit-test scores are compared."
+        - "Sixteen bean plants are randomly assigned, 8 to each of two fertilisers, and their heights are compared."
+        - "The left-hand and right-hand grip strengths of 30 randomly selected students are recorded."
+      option_explanations:
+        - |
+          Correct. Each student gives a before and an after value, so analyse the 25 differences.
+        - |
+          These are two separate random samples of different students: two-sample procedures apply, even though the sizes are equal.
+        - |
+          Correct. The students are matched in pairs before treatments are assigned, so each online score has a partner; analyse the 18 within-pair differences.
+        - |
+          Different plants receive each fertiliser, so the groups are independent: a two-sample procedure.
+        - |
+          Correct. Both measurements come from the same student, so the data are paired; analyse right minus left for each student.
+      answer: [0, 2, 4]
+    - slug: apstats-u04-w26-q16
+      type: true_false
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 1
+      prompt: |
+        True or false: For independent random samples, the standard deviation of x̄₁ − x̄₂ equals σ₁/√n₁ − σ₂/√n₂.
+      answer: false
+      explanation: |
+        False. Standard deviations do not subtract (or add). For independent samples the variances add: SD(x̄₁ − x̄₂) = √(σ₁²/n₁ + σ₂²/n₂), which is larger than either σ₁/√n₁ or σ₂/√n₂.
+    - slug: apstats-u04-w26-q17
+      type: true_false
+      topic_code: "2.12"
+      source: "AP Statistics CED, Topic 2.12"
+      points: 1
+      prompt: |
+        True or false: A class simulates 500 random samples of size 4 and 500 random samples of size 40 from the same strongly right-skewed population. The dotplot of the 500 sample means for n = 40 will be less spread out and closer to symmetric than the dotplot of the 500 sample means for n = 4.
+      answer: true
+      explanation: |
+        True. The spread of the sample means is σ/√n, so it is √10 ≈ 3.2 times smaller for n = 40 than for n = 4; and by the Central Limit Theorem the means of the larger samples pile up in a much more nearly normal (symmetric) shape, while the means of samples of 4 stay noticeably right-skewed.
+    - slug: apstats-u04-w26-q18
+      type: fill_blank
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 1
+      prompt: |
+        Two populations each have standard deviation 10. Independent random samples of size 50 are taken from each. The standard deviation of the sampling distribution of x̄₁ − x̄₂ is ____.
+      answer: ["2", "2.0", "2.00"]
+      explanation: |
+        √(10²/50 + 10²/50) = √(2 + 2) = √4 = 2.
+    - slug: apstats-u04-w26-q19
+      type: fill_blank
+      topic_code: "1.13"
+      source: "AP Statistics CED, Topic 1.13"
+      points: 1
+      prompt: |
+        A gardener separates 40 pepper plants into a sunny group and a shady group, then randomly assigns two fertilisers within each group. Forming groups of similar units before randomly assigning treatments is called ____.
+      answer: ["blocking", "block", "block design", "a block design", "randomized block design", "randomised block design", "a randomized block design", "a randomised block design"]
+      explanation: |
+        Blocking: grouping experimental units that are similar in a way expected to affect the response (here sunlight), then randomising within each block, removes that variation from the comparison of treatments.
+    - slug: apstats-u04-w26-q20
+      type: numeric
+      topic_code: "4.1"
+      source: "AP Statistics CED, Topic 4.1"
+      points: 1
+      prompt: |
+        Lunch-line wait times at a large high school are right-skewed with mean 6.4 minutes and standard deviation 2.8 minutes. For a random sample of 40 students, find the probability that the sample mean wait time is more than 7 minutes. Give your answer to three decimal places.
+      answer: { value: 0.088, tolerance: 0.003 }
+      explanation: |
+        n = 40 ≥ 30, so by the Central Limit Theorem x̄ is approximately normal with mean 6.4 and SD 2.8/√40 ≈ 0.443. z = (7 − 6.4)/0.443 ≈ 1.36, and P(z > 1.36) ≈ 0.088 (calculator: 0.0877).
+    - slug: apstats-u04-w26-q21
+      type: numeric
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 1
+      prompt: |
+        Population 1 has σ₁ = 4.2 and population 2 has σ₂ = 5.5. Independent random samples of n₁ = 25 and n₂ = 30 are selected. Find the standard deviation of the sampling distribution of x̄₁ − x̄₂, to three decimal places.
+      answer: { value: 1.309, tolerance: 0.001 }
+      explanation: |
+        √(4.2²/25 + 5.5²/30) = √(0.7056 + 1.0083) = √1.7139 ≈ 1.309.
+    - slug: apstats-u04-w26-q22
+      type: short_answer
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 3
+      prompt: |
+        A coffee shop owner wants to compare the serving temperature of drinks at her two locations. Over a month, North serves about 4,000 drinks and South about 2,500. She measures a random sample of 35 drinks at North and a random sample of 20 drinks at South. Past records show South's serving temperatures are approximately normal; North's are somewhat left-skewed.
+
+        Check, in context, each condition needed for the sampling distribution of x̄N − x̄S to be approximately normal with standard deviation √(σN²/35 + σS²/20).
+      answer: |
+        Random: both samples are random samples of drinks from their own location, and they are selected separately, so the samples are independent of each other.
+        10%: 35 ≤ 10% of 4,000 (400) and 20 ≤ 10% of 2,500 (250), so drinks within each sample can be treated as independent.
+        Normal: North's sample has 35 ≥ 30 drinks, so the Central Limit Theorem makes x̄N approximately normal despite the left skew; South's sample is only 20, but South's temperatures are approximately normal, so x̄S is normal. Hence x̄N − x̄S is approximately normal.
+      explanation: |
+        Three points, one per condition. Random: two random samples, independent of each other, in context. 10%: both comparisons made with numbers (35 ≤ 400 and 20 ≤ 250). Normal: North justified by n = 35 ≥ 30 (Central Limit Theorem) and South by the approximately normal population; a response that applies "n ≥ 30" to the total of 55, or that ignores South's small sample, earns no point for Normal.
+    - slug: apstats-u04-w26-q23
+      type: short_answer
+      topic_code: "4.3"
+      source: "AP Statistics CED, Topic 4.3"
+      points: 3
+      prompt: |
+        A random sample of 28 students at a large school recorded their nightly sleep for a week before and a week after a sleep-hygiene workshop. A 95% paired t-interval for μ_d, the true mean of (after − before) nightly sleep for all students at the school who would take the workshop, is (0.12 hours, 0.58 hours).
+
+        (a) Does the interval give convincing evidence that the workshop is associated with more sleep on average? Explain.
+        (b) The workshop's leader claims the average gain is 30 minutes. Is that claim plausible? Explain.
+        (c) A parent claims the average gain is a full hour. Is that claim plausible? Explain.
+      answer: |
+        (a) Yes. Every value in the interval is positive (0 is not in the interval), so 0, no change, is not a plausible value of μ_d; the data give convincing evidence that the mean after-minus-before difference is greater than 0.
+        (b) Yes. 30 minutes = 0.5 hours, which lies inside (0.12, 0.58), so it is a plausible value of μ_d.
+        (c) No. 1 hour lies above the interval, so it is not a plausible value of μ_d at the 95% level.
+      explanation: |
+        Three points, one per part. (a) yes, with the reason that 0 is not in the interval (all values positive). (b) converts 30 minutes to 0.5 hours and notes it is inside the interval, so plausible (not "proven"). (c) notes 1 hour is outside (above) the interval, so not plausible. Deduct the (b) point for saying the interval proves the leader is right.
+    - slug: apstats-u04-w26-q24
+      type: long_answer
+      topic_code: "4.6"
+      source: "AP Statistics CED, Topic 4.6"
+      points: 6
+      prompt: |
+        Hypothetically, eggs from Farm A have mean weight 58.0 grams with standard deviation 4.0 grams, and eggs from Farm B have mean weight 56.5 grams with standard deviation 5.0 grams. Each farm produces tens of thousands of eggs a week. An inspector selects independent random samples of 36 eggs from Farm A and 40 eggs from Farm B and computes x̄A − x̄B.
+
+        (A) Find the mean and the standard deviation of the sampling distribution of x̄A − x̄B.
+
+        (B) Describe the shape of the sampling distribution of x̄A − x̄B and justify your answer.
+
+        (C) Find the probability that the Farm B sample has a mean weight at least as large as the Farm A sample, P(x̄A − x̄B ≤ 0).
+
+        (D) The inspector's samples give x̄A − x̄B = −1.0 gram. Assuming the stated means and standard deviations are correct, how surprising is this result? What does it suggest?
+      answer: |
+        (A) Mean = μA − μB = 58.0 − 56.5 = 1.5 grams. SD = √(4.0²/36 + 5.0²/40) = √(0.4444 + 0.625) = √1.0694 ≈ 1.034 grams (valid because the samples are independent and each is far less than 10% of a week's eggs).
+        (B) Approximately normal: both samples are large (36 ≥ 30 and 40 ≥ 30), so by the Central Limit Theorem each sample mean is approximately normal, and so is their difference.
+        (C) z = (0 − 1.5)/1.034 ≈ −1.45, so P(x̄A − x̄B ≤ 0) ≈ 0.073.
+        (D) z = (−1.0 − 1.5)/1.034 ≈ −2.42, and P(x̄A − x̄B ≤ −1.0) ≈ 0.008. If the stated values were correct, a difference this low would happen in fewer than 1% of samples, so it is very surprising; it suggests that the true difference in mean weight is smaller than 1.5 grams (perhaps Farm B's eggs are now as heavy as or heavier than Farm A's).
+      explanation: |
+        Six points.
+        (A) 2 points: 1 for the mean 1.5 grams; 1 for the SD ≈ 1.034 grams with the formula shown. Adding SDs, subtracting variances or omitting the sample sizes earns 0 for the SD.
+        (B) 1 point: "approximately normal" with the Central Limit Theorem justified by both samples being at least 30 (each sample named).
+        (C) 1 point: probability ≈ 0.073 (accept 0.07 to 0.075) with the normal calculation shown (z or normalcdf with mean and SD labelled).
+        (D) 2 points: 1 for a probability of about 0.008 (or z ≈ −2.42); 1 for concluding the result is unusual under the stated parameters and that it is evidence the true mean difference is less than 1.5 grams. Saying the result "proves" the farms changed earns at most 1 point.

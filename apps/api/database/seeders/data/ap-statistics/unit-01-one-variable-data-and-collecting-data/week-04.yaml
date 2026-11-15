@@ -1,0 +1,684 @@
+week: 4
+unit: 1
+title: Summary Statistics and Boxplots for One Quantitative Variable
+topics: ["1.7", "1.8"]
+guide: guides/week-04.md
+guide_description: |
+  Measures of centre (mean and median) and of variability (range, interquartile range and standard deviation),
+  quartiles and percentiles, which measures are resistant to outliers and how skewness pulls the mean toward
+  the tail; then the five-number summary, the 1.5 × IQR rule (and the two-standard-deviation rule) for
+  outliers, and how to draw and read a boxplot, including what a boxplot cannot show. Worked examples: the
+  resting heart rates of 12 student athletes (mean, standard deviation, median and quartiles), a standard
+  deviation computed by hand from one basketball player's points in five games, a café server's tips over
+  nine shifts where one big night separates the mean from the median, a boxplot of 40 students' commute times
+  with an outlier, and the percentile of one heart rate.
+flashcards_description: |
+  32 cards on the mean, median, range, quartiles, IQR and standard deviation, interpreting the standard
+  deviation, percentiles, resistance, the mean and median in skewed distributions, the five-number summary,
+  the 1.5 × IQR and two-standard-deviation outlier rules, and drawing and reading boxplots.
+
+flashcards:
+  - front: "Mean of a quantitative data set (x̄) → formula and meaning"
+    back: |
+      x̄ = (sum of the values) ÷ n. The balance point of the distribution: the deviations above it cancel the deviations below it.
+    topic_code: "1.7"
+  - front: "Median of a quantitative data set → how to find it"
+    back: |
+      Order the values. With n odd, the median is the middle value, in position (n + 1)/2; with n even, it is the average of the two middle values.
+    topic_code: "1.7"
+  - front: "Range of a data set → formula and weakness"
+    back: |
+      Range = maximum − minimum. It depends only on the two most extreme values, so a single outlier can change it enormously.
+    topic_code: "1.7"
+  - front: "Quartiles Q1 and Q3 → how to find them (the method calculators use)"
+    back: |
+      Q1 is the median of the values below the overall median's position; Q3 is the median of the values above it. With n odd, leave the median itself out of both halves.
+    topic_code: "1.7"
+  - front: "Interquartile range (IQR) → formula and meaning"
+    back: |
+      IQR = Q3 − Q1: the spread of the middle half of the data.
+    topic_code: "1.7"
+  - front: "Sample standard deviation s → formula"
+    back: |
+      s = √( Σ(x − x̄)² ÷ (n − 1) ). Square each deviation from the mean, add, divide by n − 1, take the square root. Its square, s², is the variance.
+    topic_code: "1.7"
+  - front: "Standard deviation of a data set → interpretation template"
+    back: |
+      “The [variable] typically varies by about [s] [units] from the mean of [x̄] [units].” For heart rates: they typically vary by about 7.3 bpm from the mean of 64 bpm.
+    topic_code: "1.7"
+  - front: "Standard deviation of zero → what it means"
+    back: |
+      Every value equals the mean: no variability at all. Otherwise s > 0; it can never be negative.
+    topic_code: "1.7"
+  - front: "Points in five games 12, 14, 16, 18, 20 → standard deviation by hand"
+    back: |
+      Mean 16; deviations −4, −2, 0, 2, 4; squares add to 40; 40 ÷ 4 = 10; s = √10 ≈ 3.16 points.
+    topic_code: "1.7"
+  - front: "Resistant statistic → definition and which ones are"
+    back: |
+      A statistic that an extreme value barely changes. The median and IQR are resistant; the mean, standard deviation and range are not.
+    topic_code: "1.7"
+  - front: "Café tips over nine shifts, one $190 night among $38–$58 nights → mean versus median"
+    back: |
+      Mean $64.11, median $50. The one big night pulls the mean far above every ordinary shift; the median stays a typical night.
+    topic_code: "1.7"
+  - front: "Skewed right distribution → where the mean sits relative to the median"
+    back: |
+      Usually above the median: the long right tail pulls the mean toward it. Skewed left: the mean is usually below the median. Roughly symmetric: about equal.
+    topic_code: "1.7"
+  - front: "Choosing summary statistics for a quantitative variable → rule"
+    back: |
+      Roughly symmetric with no outliers: mean and standard deviation. Strongly skewed or with outliers: median and IQR, because they are resistant.
+    topic_code: "1.7"
+  - front: "pth percentile of a data set → meaning"
+    back: |
+      The value with p% of the data at or below it. A heart rate at the 75th percentile is at least as high as 75% of the group's heart rates.
+    topic_code: "1.7"
+  - front: "Heart rate of 66 bpm among 12 athletes, 8 of whom are at or below 66 → percentile"
+    back: |
+      8/12 ≈ 0.667, so about the 67th percentile.
+    topic_code: "1.7"
+  - front: "Quartiles as percentiles → which percentiles they are"
+    back: |
+      Q1 is about the 25th percentile, the median the 50th, Q3 about the 75th.
+    topic_code: "1.7"
+  - front: "Five-number summary → its five values in order"
+    back: |
+      Minimum, Q1, median, Q3, maximum.
+    topic_code: "1.8"
+  - front: "1.5 × IQR rule for outliers → the two fences"
+    back: |
+      A value is an outlier if it is below Q1 − 1.5 × IQR or above Q3 + 1.5 × IQR.
+    topic_code: "1.8"
+  - front: "Two-standard-deviation rule for outliers → statement"
+    back: |
+      A value more than 2 standard deviations from the mean (below x̄ − 2s or above x̄ + 2s) may be called an outlier. Say which rule you used.
+    topic_code: "1.8"
+  - front: "Homework minutes for 15 students (Q1 30, median 45, Q3 60, max 150) → is 150 an outlier?"
+    back: |
+      Yes. IQR = 30, so the upper fence is 60 + 1.5(30) = 105, and 150 > 105.
+    topic_code: "1.8"
+  - front: "Boxplot (box-and-whisker plot) → how to draw it"
+    back: |
+      A box from Q1 to Q3 with a line at the median; whiskers from the box to the smallest and largest values that are not outliers; each outlier drawn as its own dot or asterisk. Include a scale with units.
+    topic_code: "1.8"
+  - front: "Boxplot whisker when there is an outlier → where it ends"
+    back: |
+      At the most extreme value that is not an outlier, not at the fence. The outlier is plotted separately beyond it.
+    topic_code: "1.8"
+  - front: "Commute boxplot from 4, 12, 18, 28, 65 minutes → outlier check"
+    back: |
+      IQR = 16; fences 12 − 24 = −12 and 28 + 24 = 52. The 65-minute commute is an outlier; the right whisker ends at the longest commute that is 52 minutes or less.
+    topic_code: "1.8"
+  - front: "Each section of a boxplot → what fraction of the data it holds"
+    back: |
+      About a quarter: minimum to Q1, Q1 to median, median to Q3, Q3 to maximum. A longer section means the same quarter of the data is more spread out, not that it holds more values.
+    topic_code: "1.8"
+  - front: "Reading skewness from a boxplot → the clue"
+    back: |
+      Skewed right: the right whisker and the right part of the box (median to Q3) are longer. Skewed left: the left parts are longer.
+    topic_code: "1.8"
+  - front: "What a boxplot cannot show → three things"
+    back: |
+      The mean, the number of values, and finer shape such as two peaks or gaps inside the box. Use a dotplot, stemplot or histogram for those.
+    topic_code: "1.8"
+  - front: "Resting heart rates of 12 athletes (52 to 78 bpm) → summary statistics"
+    back: |
+      Mean 64 bpm, s ≈ 7.30 bpm, median 63.5 bpm, Q1 59, Q3 69, IQR 10 bpm. Fences 44 and 84: no outliers.
+    topic_code: "1.7"
+  - front: "Units of summary statistics → which ones share the data's units"
+    back: |
+      Mean, median, quartiles, range, IQR and standard deviation are all in the data's units (minutes, bpm). The variance is in squared units.
+    topic_code: "1.7"
+  - front: "Why divide by n − 1 in the sample standard deviation → short answer"
+    back: |
+      Deviations from the sample mean are a little smaller than deviations from the unknown population mean; dividing by n − 1 corrects for that. Your calculator's Sx does it for you.
+    topic_code: "1.7"
+  - front: "Error-spot → “The median of 3, 9, 4, 7, 1 is 4, the middle number in the list.”"
+    back: |
+      Order the values first: 1, 3, 4, 7, 9. The median happens to be 4 here, but the reasoning is wrong; for 3, 9, 1, 7, 4 the list's middle number is 1 and the median is still 4.
+    topic_code: "1.7"
+  - front: "Error-spot → “The upper fence is 105, so the whisker extends to 105.”"
+    back: |
+      The whisker ends at the largest data value that is not an outlier (85 in the homework data). The fence is a cutoff, not a data value.
+    topic_code: "1.8"
+  - front: "Error-spot → “The right whisker is longer, so more students are in that part of the data.”"
+    back: |
+      Each whisker holds about a quarter of the values. A longer whisker means those values are more spread out.
+    topic_code: "1.8"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (topics 1.7 and 1.8: mean and median, range, IQR and
+    standard deviation, percentiles, resistance, the five-number summary, outlier rules and boxplots), with 8
+    questions (32%) reviewing weeks 1 to 3 (investigative questions, variable types, relative frequencies and
+    graphs of categorical data, displays of quantitative data and describing distributions). Opens with a
+    shared-context set on one small data set. Multiple choice, select-all, true/false and numeric items are
+    graded at once; fill-in-the-blank items are matched automatically; the short answers and the long answer are
+    graded by your teacher against the scoring notes. Calculators are allowed throughout AP Statistics.
+  questions:
+    # ---- Stimulus set: homework minutes for 15 students (1.7, 1.8)
+    - slug: apstats-u01-w04-q01
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Statistics CED, Topic 1.7"
+      points: 1
+      stimulus: |
+        A teacher asked a random sample of 15 students at her school how many minutes they spent on homework the previous evening. The responses, in order, were:
+
+        20, 25, 30, 30, 35, 40, 40, 45, 50, 55, 60, 60, 70, 85, 150
+
+        For these data, the mean is 53 minutes and the standard deviation is 32.2 minutes.
+      prompt: |
+        What is the median number of homework minutes?
+      options:
+        - "53 minutes"
+        - "45 minutes"
+        - "47.5 minutes"
+        - "85 minutes"
+      option_explanations:
+        - |
+          53 minutes is the mean, which the 150-minute response pulls upward; the median is the middle value of the ordered list.
+        - |
+          Correct. With n = 15, the median is the value in position (15 + 1)/2 = 8 of the ordered list, which is 45 minutes.
+        - |
+          47.5 averages the 8th and 9th values as if n were even; with 15 values there is a single middle value, the 8th.
+        - |
+          85 is the midrange, (20 + 150)/2, which depends only on the two extremes, not the middle of the data.
+      answer: 1
+    - slug: apstats-u01-w04-q02
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Statistics CED, Topic 1.7"
+      points: 1
+      stimulus: |
+        A teacher asked a random sample of 15 students at her school how many minutes they spent on homework the previous evening. The responses, in order, were:
+
+        20, 25, 30, 30, 35, 40, 40, 45, 50, 55, 60, 60, 70, 85, 150
+
+        For these data, the mean is 53 minutes and the standard deviation is 32.2 minutes.
+      prompt: |
+        What is the interquartile range (IQR) of the homework times?
+      options:
+        - "130 minutes"
+        - "15 minutes"
+        - "32.2 minutes"
+        - "30 minutes"
+      option_explanations:
+        - |
+          130 = 150 − 20 is the range, which uses the extremes rather than the quartiles.
+        - |
+          15 = 45 − 30 is the distance from Q1 to the median, only a quarter of the data rather than the middle half.
+        - |
+          32.2 minutes is the standard deviation, a different measure of variability based on deviations from the mean.
+        - |
+          Correct. Q1 is the median of the 7 values below the median (20 to 40): 30. Q3 is the median of the 7 values above it (50 to 150): 60. IQR = 60 − 30 = 30 minutes.
+      answer: 3
+    - slug: apstats-u01-w04-q03
+      type: multiple_choice
+      topic_code: "1.8"
+      source: "AP Statistics CED, Topic 1.8"
+      points: 1
+      stimulus: |
+        A teacher asked a random sample of 15 students at her school how many minutes they spent on homework the previous evening. The responses, in order, were:
+
+        20, 25, 30, 30, 35, 40, 40, 45, 50, 55, 60, 60, 70, 85, 150
+
+        For these data, the mean is 53 minutes and the standard deviation is 32.2 minutes.
+      prompt: |
+        According to the 1.5 × IQR rule, is the 150-minute response an outlier?
+      options:
+        - "Yes, because 150 is greater than the upper fence 60 + 1.5(30) = 105."
+        - "No, because the upper fence is 45 + 1.5(130) = 240."
+        - "Yes, because 150 is more than three times the median."
+        - "No, because 150 is within 3 standard deviations of the mean."
+      option_explanations:
+        - |
+          Correct. IQR = 30, so the upper fence is Q3 + 1.5 × IQR = 60 + 45 = 105. Since 150 > 105, it is an outlier.
+        - |
+          This adds to the median instead of Q3 and uses the range instead of the IQR; the rule is Q3 + 1.5 × IQR.
+        - |
+          "Three times the median" is not an outlier rule. The conclusion is right, but the reasoning would earn no credit.
+        - |
+          The question asks for the 1.5 × IQR rule, by which 150 exceeds the fence of 105. The premise is also false: 53 + 3(32.2) = 149.6, so 150 is not within 3 standard deviations of the mean.
+      answer: 0
+    - slug: apstats-u01-w04-q04
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Statistics CED, Topic 1.7"
+      points: 1
+      stimulus: |
+        A teacher asked a random sample of 15 students at her school how many minutes they spent on homework the previous evening. The responses, in order, were:
+
+        20, 25, 30, 30, 35, 40, 40, 45, 50, 55, 60, 60, 70, 85, 150
+
+        For these data, the mean is 53 minutes and the standard deviation is 32.2 minutes.
+      prompt: |
+        The teacher learns that the 150-minute response was a typing error and removes it. What happens to the mean and the median?
+      options:
+        - "Both drop by about the same amount."
+        - "The median drops a lot; the mean barely changes."
+        - "The mean drops from 53 to about 46.1 minutes; the median drops only from 45 to 42.5 minutes."
+        - "Neither changes, because only one value was removed."
+      option_explanations:
+        - |
+          The mean falls by about 7 minutes but the median by only 2.5; the median is resistant to the extreme value.
+        - |
+          This reverses the two: the mean is the statistic sensitive to an extreme value, and the median is resistant.
+        - |
+          Correct. The remaining 14 values sum to 795 − 150 = 645, so the mean is 645/14 ≈ 46.1. The median of 14 values is the average of the 7th and 8th, (40 + 45)/2 = 42.5.
+        - |
+          Removing a value changes n and the sum, so the mean changes noticeably; the median also shifts because the middle position moves.
+      answer: 2
+    # ---- Independent items
+    - slug: apstats-u01-w04-q05
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Statistics CED, Topic 1.7"
+      points: 1
+      prompt: |
+        The prices of homes sold in a town last year are strongly skewed right. How do the mean and median prices most likely compare?
+      options:
+        - "The mean is less than the median."
+        - "The mean is greater than the median."
+        - "The mean and median are equal."
+        - "There is no way to know without the data."
+      option_explanations:
+        - |
+          A mean below the median goes with a long left tail; here the long tail of expensive homes is on the right.
+        - |
+          Correct. The few very expensive homes pull the mean toward the right tail, while the median stays with the typical home.
+        - |
+          Mean and median are about equal for roughly symmetric distributions, not strongly skewed ones.
+        - |
+          The shape is enough to predict the usual relationship: in a strongly right-skewed distribution the mean is pulled above the median.
+      answer: 1
+    - slug: apstats-u01-w04-q06
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Statistics CED, Topic 1.7"
+      points: 1
+      prompt: |
+        The resting heart rates of 12 student athletes have mean 64 beats per minute (bpm) and standard deviation 7.3 bpm. Which is the best interpretation of the standard deviation?
+      options:
+        - "The athletes' resting heart rates typically vary by about 7.3 bpm from the mean of 64 bpm."
+        - "About 7.3% of the athletes have heart rates far from the mean."
+        - "The difference between the highest and lowest heart rate is 7.3 bpm."
+        - "Every athlete's heart rate is within 7.3 bpm of 64 bpm."
+      option_explanations:
+        - |
+          Correct. The standard deviation measures the typical distance of the values from the mean, in the data's units.
+        - |
+          The standard deviation is in bpm, not a percentage of athletes.
+        - |
+          That describes the range (maximum − minimum), which uses only the two extremes; the standard deviation is a typical distance from the mean, and the range is usually several times larger.
+        - |
+          A typical distance is not a maximum; in most data sets some values lie more than one standard deviation (here 7.3 bpm) from the mean.
+      answer: 0
+    - slug: apstats-u01-w04-q07
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Statistics CED, Topic 1.7"
+      points: 1
+      prompt: |
+        A data set of the masses of 10 bags of flour has standard deviation 0 grams. What must be true?
+      options:
+        - "The mean mass is 0 grams."
+        - "The data were recorded incorrectly, because a standard deviation cannot be 0."
+        - "Half the bags are above the mean and half below."
+        - "All 10 bags have exactly the same mass."
+      option_explanations:
+        - |
+          The standard deviation says nothing about where the mean is; bags with mass 0 would make no sense anyway.
+        - |
+          A standard deviation of 0 is possible: it happens exactly when there is no variability.
+        - |
+          Being split evenly around the mean is about the median, not the standard deviation, and it does not force s = 0.
+        - |
+          Correct. s = 0 means every squared deviation from the mean is 0, so every value equals the mean.
+      answer: 3
+    - slug: apstats-u01-w04-q08
+      type: multiple_choice
+      topic_code: "1.8"
+      source: "AP Statistics CED, Topic 1.8"
+      points: 1
+      prompt: |
+        A boxplot of the commute times of 40 students has five-number summary: minimum 4, Q1 12, median 18, Q3 28 and maximum 65 minutes. About what percent of the students commute between 12 and 28 minutes?
+      options:
+        - "25%"
+        - "16%"
+        - "50%"
+        - "75%"
+      option_explanations:
+        - |
+          25% is the share between two neighbouring values of the summary, such as Q1 and the median; 12 to 28 spans two such sections.
+        - |
+          16 is the IQR in minutes (28 − 12), not a percent of students.
+        - |
+          Correct. Q1 and Q3 enclose the middle half of the data, so about 50% of the students commute between 12 and 28 minutes.
+        - |
+          75% is the share below Q3 (or above Q1), not between them.
+      answer: 2
+    - slug: apstats-u01-w04-q09
+      type: multiple_choice
+      topic_code: "1.8"
+      source: "AP Statistics CED, Topic 1.8"
+      points: 1
+      prompt: |
+        Which of these can NOT be determined from a boxplot alone?
+      options:
+        - "The mean of the data"
+        - "The median of the data"
+        - "The interquartile range"
+        - "Whether there are outliers by the 1.5 × IQR rule"
+      option_explanations:
+        - |
+          Correct. A boxplot shows only the five-number summary and outliers; the mean depends on every value and is not shown.
+        - |
+          The line inside the box marks the median.
+        - |
+          The ends of the box are Q1 and Q3, so IQR = Q3 − Q1 can be read off.
+        - |
+          A boxplot drawn with the usual convention shows outliers as separate points beyond the whiskers.
+      answer: 0
+    - slug: apstats-u01-w04-q10
+      type: multiple_choice
+      topic_code: "1.7"
+      source: "AP Statistics CED, Topic 1.7"
+      points: 1
+      prompt: |
+        A student's time in a school's 1-mile fitness run is at the 80th percentile of the times for her grade. Which statement is correct?
+      options:
+        - "She ran faster than 80% of the students in her grade."
+        - "She finished the mile in 80% of the fastest time."
+        - "Her time was 80% of the mean time."
+        - "About 80% of the times in her grade are less than or equal to her time."
+      option_explanations:
+        - |
+          A percentile counts values at or below hers. For times, lower is faster, so the 80th percentile means about 80% ran as fast or faster, the reverse of this statement.
+        - |
+          A percentile compares positions in the data, not ratios of times.
+        - |
+          A percentile is about the share of values at or below a value, not a percentage of the mean.
+        - |
+          Correct. The 80th percentile is the value with about 80% of the data at or below it, here 80% of the times are her time or less (so most students ran faster).
+      answer: 3
+    - slug: apstats-u01-w04-q11
+      type: multiple_choice
+      topic_code: "1.5"
+      source: "AP Statistics CED, Topic 1.5"
+      points: 1
+      prompt: |
+        A histogram of the weights of 80 backpacks uses bins 0–<2, 2–<4, 4–<6, ... kilograms. A backpack weighs exactly 4.0 kg. Which bar includes it?
+      options:
+        - "2–<4 kg"
+        - "4–<6 kg"
+        - "Both bars, so it is counted twice"
+        - "Neither bar, because 4.0 is a boundary"
+      option_explanations:
+        - |
+          The bin 2–<4 includes values up to but not including 4, so 4.0 kg is not in it.
+        - |
+          Correct. 4–<6 means from 4 up to but not including 6, so 4.0 kg belongs to this bin.
+        - |
+          Every value goes in exactly one bin; the bins cover the number line without overlapping.
+        - |
+          Boundary values are included in the bin that starts at them, so no value is left out.
+      answer: 1
+    - slug: apstats-u01-w04-q12
+      type: multiple_choice
+      topic_code: "1.6"
+      source: "AP Statistics CED, Topic 1.6"
+      points: 1
+      prompt: |
+        A dotplot of the number of books 30 students read over the summer shows most students reading 0 to 4 books, a peak at 2 books, and a few students reading 9, 10 and 14 books. Which description of the shape is correct?
+      options:
+        - "Skewed left, because the peak is on the left"
+        - "Roughly symmetric, centred at 2 books"
+        - "Skewed right, with a long tail toward large numbers of books"
+        - "Uniform, because every number of books from 0 to 14 appears"
+      option_explanations:
+        - |
+          Skew is named for the tail, not the peak. The tail stretches toward 9, 10 and 14 books on the right.
+        - |
+          There is a long tail on the right with no matching tail on the left (no one reads fewer than 0 books), so the shape is not symmetric.
+        - |
+          Correct. Most values pile up at 0 to 4 books and a few large values form a long right tail.
+        - |
+          A uniform distribution has roughly equal heights; here the dots pile up near 2 books.
+      answer: 2
+    - slug: apstats-u01-w04-q13
+      type: multiple_choice
+      topic_code: "1.1"
+      source: "AP Statistics CED, Topic 1.1"
+      points: 1
+      prompt: |
+        The teacher in the homework study wants to know, "How many minutes do students at our school typically spend on homework on a weeknight?" What population does her investigative question name?
+      options:
+        - "All students at her school"
+        - "The 15 students she asked"
+        - "Minutes of homework on a weeknight"
+        - "All high school students in the country"
+      option_explanations:
+        - |
+          Correct. The question is about students at our school, so that whole group is the population.
+        - |
+          The 15 students are the sample from which data were collected, not the group the question is about.
+        - |
+          Minutes of homework is the variable measured on each student, not the group of individuals.
+        - |
+          The question is limited to her school; widening it to the whole country goes beyond what is asked and beyond what her data can describe.
+      answer: 0
+    - slug: apstats-u01-w04-q14
+      type: multiple_choice
+      topic_code: "1.4"
+      source: "AP Statistics CED, Topic 1.4"
+      points: 1
+      prompt: |
+        A student survey found that 38% of students prefer morning practice, 45% prefer afternoon practice and 17% have no preference. Each student gave one answer. In a pie chart of these results, what is the angle of the afternoon slice?
+      options:
+        - "45°"
+        - "162°"
+        - "136.8°"
+        - "61.2°"
+      option_explanations:
+        - |
+          45° uses the percentage itself as the angle; the angle is the proportion times 360°.
+        - |
+          Correct. The afternoon proportion is 0.45, and 0.45 × 360° = 162°.
+        - |
+          136.8° = 0.38 × 360° is the morning slice, not the afternoon slice.
+        - |
+          61.2° = 0.17 × 360° is the no-preference slice.
+      answer: 1
+    - slug: apstats-u01-w04-q15
+      type: multi_select
+      topic_code: "1.8"
+      source: "AP Statistics CED, Topic 1.8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A boxplot of the daily attendance at a hypothetical public pool over one summer has a box from 140 to 210 people, a median line at 160, a left whisker from 140 down to 95 and a right whisker from 210 up to 320. Which statements are true? Select all that apply.
+      options:
+        - "About half of the days had attendance between 140 and 210 people."
+        - "More days had attendance between 210 and 320 than between 95 and 140."
+        - "The distribution of daily attendance appears skewed right."
+        - "The IQR is 70 people."
+        - "The mean attendance was 160 people."
+      option_explanations:
+        - |
+          Correct. The box runs from Q1 = 140 to Q3 = 210, which encloses the middle half of the days.
+        - |
+          Each whisker covers about a quarter of the days; the right one is longer because those days are more spread out, not because there are more of them.
+        - |
+          Correct. The right whisker (110 people) is much longer than the left (45), and the median is closer to Q1 than to Q3: signs of right skew.
+        - |
+          Correct. IQR = Q3 − Q1 = 210 − 140 = 70 people.
+        - |
+          160 is the median. A boxplot does not show the mean, and with right skew the mean is likely above 160.
+      answer: [0, 2, 3]
+    - slug: apstats-u01-w04-q16
+      type: multi_select
+      topic_code: "1.5"
+      source: "AP Statistics CED, Topic 1.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which displays of one quantitative variable let you read every individual data value? Select all that apply.
+      options:
+        - "A dotplot"
+        - "A histogram"
+        - "A stemplot with a key"
+        - "A boxplot"
+        - "A bar chart of the variable's categories"
+      option_explanations:
+        - |
+          Correct. Each value appears as its own dot above the number line.
+        - |
+          A histogram shows only how many values fall in each bin, not the values themselves.
+        - |
+          Correct. Each value is a stem plus a leaf, and the key tells you how to read it.
+        - |
+          A boxplot shows only the five-number summary and any outliers.
+        - |
+          A bar chart is a display for a categorical variable and does not show quantitative values.
+      answer: [0, 2]
+    - slug: apstats-u01-w04-q17
+      type: true_false
+      topic_code: "1.7"
+      source: "AP Statistics CED, Topic 1.7"
+      points: 1
+      prompt: |
+        True or false: Changing the largest value in a data set from 85 to 850 changes the median of the data set.
+      answer: false
+      explanation: |
+        False (as long as the data set has more than two values). The median depends only on the middle value or values of the ordered list. Making the largest value larger keeps it the largest, so the middle does not move; the median is resistant. The mean, standard deviation and range would all change.
+    - slug: apstats-u01-w04-q18
+      type: true_false
+      topic_code: "1.6"
+      source: "AP Statistics CED, Topic 1.6"
+      points: 1
+      prompt: |
+        True or false: A histogram with a tall peak at the left and a long, low tail stretching to the right is skewed left.
+      answer: false
+      explanation: |
+        False. Skew is named for the long tail. A tail stretching to the right means the distribution is skewed right.
+    - slug: apstats-u01-w04-q19
+      type: fill_blank
+      topic_code: "1.8"
+      source: "AP Statistics CED, Topic 1.8"
+      points: 1
+      prompt: |
+        The five-number summary of a data set is the minimum, Q1, the ____, Q3 and the maximum.
+      answer: ["median", "the median"]
+      explanation: |
+        The five-number summary is minimum, Q1, median, Q3, maximum. A boxplot is drawn from it.
+    - slug: apstats-u01-w04-q20
+      type: fill_blank
+      topic_code: "1.3"
+      source: "AP Statistics CED, Topic 1.3"
+      points: 1
+      prompt: |
+        Of 80 trees surveyed in a city park, 28 were maples. The percent of surveyed trees that were maples is ____% (give a number).
+      answer: ["35", "35.0"]
+      explanation: |
+        28/80 = 0.35, so 35% of the surveyed trees were maples.
+    - slug: apstats-u01-w04-q21
+      type: numeric
+      topic_code: "1.7"
+      source: "AP Statistics CED, Topic 1.7"
+      points: 1
+      prompt: |
+        A student recorded how many minutes four classmates took to finish a crossword puzzle: 4, 6, 9 and 13 minutes. Find the sample standard deviation of these times, to two decimal places.
+      answer: { value: 3.92, tolerance: 0.006 }
+      explanation: |
+        Mean = 32/4 = 8. Deviations: −4, −2, 1, 5. Squares: 16, 4, 1, 25, sum 46. Divide by n − 1 = 3: 15.33. s = √15.33 ≈ 3.92 minutes.
+    - slug: apstats-u01-w04-q22
+      type: numeric
+      topic_code: "1.7"
+      source: "AP Statistics CED, Topic 1.7"
+      points: 1
+      prompt: |
+        A survey of 50 households recorded the number of pets in each household.
+
+        | Number of pets | 0 | 1 | 2 | 3 | 4 | 5 |
+        |---|---|---|---|---|---|---|
+        | Households | 14 | 18 | 10 | 5 | 2 | 1 |
+
+        Find the mean number of pets per household, to two decimal places.
+      answer: { value: 1.32, tolerance: 0.005 }
+      explanation: |
+        Total pets = 0(14) + 1(18) + 2(10) + 3(5) + 4(2) + 5(1) = 0 + 18 + 20 + 15 + 8 + 5 = 66. Mean = 66/50 = 1.32 pets per household.
+    - slug: apstats-u01-w04-q23
+      type: short_answer
+      topic_code: "1.8"
+      source: "AP Statistics CED, Topic 1.8"
+      points: 3
+      prompt: |
+        A random sample of 40 students at a large high school reported their one-way commute times. The five-number summary is: minimum 4, Q1 12, median 18, Q3 28, maximum 65 minutes. The two longest commutes are 47 and 65 minutes.
+
+        (a) Use the 1.5 × IQR rule to determine whether there are any outliers. Show your work.
+        (b) Describe how the boxplot should be drawn, including where each whisker ends.
+        (c) What does the boxplot suggest about the shape of the distribution? Explain.
+      answer: |
+        (a) IQR = 28 − 12 = 16 minutes; 1.5 × 16 = 24. Lower fence 12 − 24 = −12; upper fence 28 + 24 = 52. The 65-minute commute is above 52, so it is an outlier; 47 is not. No value is below −12.
+        (b) A box from 12 to 28 minutes with a line at 18; the left whisker from 12 down to 4; the right whisker from 28 up to 47 (the longest commute that is not an outlier); the 65-minute commute as a separate point; a scale labelled in minutes.
+        (c) Skewed right: the right whisker (28 to 47) is much longer than the left (4 to 12), the median is closer to Q1 than to Q3, and there is a high outlier.
+      explanation: |
+        Three points, one per part. (a) IQR 16, the fence 52 (and −12), and the conclusion that 65 is an outlier. (b) the box and median correct and the right whisker ending at 47 (not at 52 or 65), with the outlier plotted separately. (c) "skewed right" supported by at least one feature of the boxplot.
+    - slug: apstats-u01-w04-q24
+      type: short_answer
+      topic_code: "1.6"
+      source: "AP Statistics CED, Topic 1.6"
+      points: 4
+      prompt: |
+        The stemplot shows the lengths, in centimetres, of 18 trout caught and released in a hypothetical stream survey.
+
+        ```
+        2 | 3
+        2 |
+        3 | 1 2 4
+        3 | 5 6 6 7 8 9
+        4 | 0 0 1 2 3
+        4 | 5 7
+        5 | 1
+        Key: 3 | 6 = 36 cm
+        ```
+
+        Describe the distribution of trout lengths.
+      answer: |
+        Shape: roughly symmetric and unimodal, apart from one short fish (23 cm), with a peak in the upper 30s.
+        Centre: the median is the average of the 9th and 10th lengths, (38 + 39)/2 = 38.5 cm.
+        Variability: lengths range from 23 to 51 cm (range 28 cm); all but one are between 31 and 51 cm.
+        Unusual features: a gap between 23 and 31 cm, so the 23 cm trout is a possible low outlier.
+      explanation: |
+        Four points, one per feature, each in context (trout lengths, cm). Shape: roughly symmetric or slightly skewed left (because of the 23 cm fish); either earns the point. Centre: median 38.5 cm (accept 38 to 39 cm, or the mean, about 38.3 cm). Variability: the range 28 cm or the interval 23 to 51 cm. Unusual features: the 23 cm fish as a possible outlier or the gap from 23 to 31 cm.
+    - slug: apstats-u01-w04-q25
+      type: long_answer
+      topic_code: "1.8"
+      source: "AP Statistics CED, Topic 1.8"
+      points: 6
+      prompt: |
+        A random sample of 16 students at a large high school who have part-time jobs reported how many hours they worked last week. The ordered data are:
+
+        6, 8, 9, 10, 10, 12, 12, 14, 15, 15, 16, 18, 20, 22, 25, 38
+
+        A calculator gives a mean of 15.625 hours and a standard deviation of 7.92 hours.
+
+        (A) Find the five-number summary.
+
+        (B) Use the 1.5 × IQR rule to identify any outliers. Show your work.
+
+        (C) Describe a boxplot of these data, including where each whisker ends.
+
+        (D) Compare the mean and the median, and explain what the comparison suggests about the shape.
+
+        (E) A student council report wants a single number for the typical number of hours worked. Should it use the mean or the median? Explain, and interpret your chosen value in context.
+      answer: |
+        (A) Minimum 6; Q1 = (10 + 10)/2 = 10 (median of the first 8 values); median = (14 + 15)/2 = 14.5 (average of the 8th and 9th values); Q3 = (18 + 20)/2 = 19 (median of the last 8 values); maximum 38 hours.
+        (B) IQR = 19 − 10 = 9; 1.5 × 9 = 13.5. Fences: 10 − 13.5 = −3.5 and 19 + 13.5 = 32.5. The value 38 > 32.5 is an outlier; no value is below −3.5.
+        (C) A box from 10 to 19 hours with a line at 14.5; the left whisker from 10 down to 6; the right whisker from 19 up to 25 (the largest value that is not an outlier); 38 plotted as a separate point; a scale in hours.
+        (D) The mean (15.6 hours) is greater than the median (14.5 hours). The high outlier and the longer right side pull the mean up, which suggests the distribution is skewed right.
+        (E) The median, 14.5 hours, because it is resistant to the 38-hour outlier and the right skew, which inflate the mean. Interpretation: half of the sampled working students worked 14.5 hours or less last week, and half worked 14.5 hours or more.
+      explanation: |
+        Six points. (A) 1 point: all five values correct (6, 10, 14.5, 19, 38). (B) 2 points: 1 for the IQR and a correct upper fence of 32.5 (lower fence optional unless a low value is claimed as an outlier); 1 for identifying 38 as the only outlier, with the comparison 38 > 32.5. (C) 1 point: box and median correct, right whisker ending at 25 (not 32.5 or 38), outlier plotted separately. (D) 1 point: mean > median with the conclusion "skewed right" (or "pulled up by the high outlier"). (E) 1 point: chooses the median with the resistance reason and interprets 14.5 hours in context (half at or below). Choosing the mean earns 0 for (E).
