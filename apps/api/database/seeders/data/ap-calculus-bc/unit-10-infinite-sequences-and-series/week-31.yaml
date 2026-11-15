@@ -1,0 +1,589 @@
+week: 31
+unit: 10
+title: "Lagrange Error Bound and Radius and Interval of Convergence"
+topics: ["10.12", "10.13"]
+guide: guides/week-31.md
+guide_description: |
+  The Lagrange error bound for a Taylor polynomial (what M is, where to look for it, and how to use the bound to
+  show an approximation is close enough or to rule a value in or out), and power series: the radius of convergence
+  from the Ratio Test, testing both endpoints separately to find the interval of convergence, and what
+  differentiating or integrating a series does to the radius and endpoints. Worked examples: bounding the error of
+  P₃ for eˣ at x = 0.5, bounding P₂ for ln x at x = 1.2 and checking the result, a table-based polynomial at x = 1.5
+  with a given derivative bound, the interval of convergence of ∑ (x − 2)ⁿ/(n·3ⁿ), three quick radii (∑ xⁿ/n!,
+  ∑ n! xⁿ, ∑ (x − 1)^(2n)/9ⁿ), and the series ∑ xⁿ/n and its derivative.
+flashcards_description: |
+  31 cards on the Lagrange error bound (its formula, choosing M, the factorial and power that go with Pₙ, using the
+  bound to decide whether a value is possible), radius and interval of convergence (the Ratio Test set-up, the three
+  possible outcomes, endpoint checks, series in powers of (x − a) and of x²), what term-by-term differentiation and
+  integration preserve, and the error patterns in both.
+
+flashcards:
+  - front: Lagrange error bound for Pₙ about x = a → statement
+    back: |
+      |f(x) − Pₙ(x)| ≤ M·|x − a|ⁿ⁺¹/(n + 1)!, where M is at least the maximum of |f⁽ⁿ⁺¹⁾(z)| for z between a and x.
+    topic_code: "10.12"
+  - front: Lagrange error bound → which derivative M must bound for P₃
+    back: |
+      The fourth derivative: one order past the degree. For Pₙ, bound |f⁽ⁿ⁺¹⁾| on the interval between a and x.
+    topic_code: "10.12"
+  - front: Lagrange error bound → where M is taken
+    back: |
+      Over every z between the center a and the point x, not just at a or at x. Any upper bound works; the smallest one gives the sharpest result.
+    topic_code: "10.12"
+  - front: P₃ for eˣ about 0 approximating e^0.5 → Lagrange bound
+    back: |
+      f⁽⁴⁾(z) = e^z ≤ e^0.5 < 2 on [0, 0.5], so the error is at most 2(0.5)⁴/4! = 0.125/24 ≈ 0.0052.
+    topic_code: "10.12"
+  - front: P₂ for ln x about 1 approximating ln 1.2 → Lagrange bound
+    back: |
+      f‴(z) = 2/z³ is largest at z = 1 on [1, 1.2], so M = 2 and the error is at most 2(0.2)³/3! = 0.016/6 ≈ 0.00267.
+    topic_code: "10.12"
+  - front: P₃ for sin x about 0 at x = 0.3 → Lagrange bound with M = 1
+    back: |
+      Every derivative of sin is ±sin or ±cos, so |f⁽⁴⁾| ≤ 1 and the error is at most 0.3⁴/4! = 0.0081/24 = 0.0003375.
+    topic_code: "10.12"
+  - front: f(1) = 2, f′(1) = −1, f″(1) = 3, f‴(1) = −4, |f⁽⁴⁾| ≤ 12 on [1, 1.5] → bound on |f(1.5) − P₃(1.5)|
+    back: |
+      12(0.5)⁴/4! = 12(0.0625)/24 = 0.03125.
+    topic_code: "10.12"
+  - front: Using a Lagrange bound to rule out a value → method
+    back: |
+      The true value lies in [Pₙ(x) − bound, Pₙ(x) + bound]. A proposed value outside that interval is impossible; one inside is possible.
+    topic_code: "10.12"
+  - front: Lagrange error bound versus alternating series error bound → when to use which
+    back: |
+      Alternating bound: the series at that x alternates with terms decreasing to 0 (first omitted term). Lagrange: any function with a bounded next derivative, alternating or not (eˣ at x = 0.5).
+    topic_code: "10.12"
+  - front: Lagrange error bound → effect of halving |x − a| for P₃
+    back: |
+      The bound is multiplied by (1/2)⁴ = 1/16, because it contains |x − a|ⁿ⁺¹ with n + 1 = 4.
+    topic_code: "10.12"
+  - front: Power series centered at x = a → form
+    back: |
+      ∑ (n = 0 to ∞) cₙ(x − a)ⁿ = c₀ + c₁(x − a) + c₂(x − a)² + ⋯, a function of x defined wherever the series converges.
+    topic_code: "10.13"
+  - front: Power series ∑ cₙ(x − a)ⁿ → the three possible convergence outcomes
+    back: |
+      It converges only at x = a (R = 0); for all real x (R = ∞); or for |x − a| < R and diverges for |x − a| > R, with the endpoints to be checked.
+    topic_code: "10.13"
+  - front: Radius of convergence by the Ratio Test → method
+    back: |
+      Compute L = lim |aₙ₊₁/aₙ| with the x's kept in, set L < 1, and solve for |x − a| < R.
+    topic_code: "10.13"
+  - front: Interval of convergence → why the endpoints need their own tests
+    back: |
+      At |x − a| = R the Ratio Test limit is 1, which is inconclusive. Substitute each endpoint and test the number series (p-series, AST, nth term...).
+    topic_code: "10.13"
+  - front: ∑ (n = 1 to ∞) (x − 2)ⁿ/(n·3ⁿ) → radius and interval of convergence
+    back: |
+      R = 3. At x = 5: ∑ 1/n diverges. At x = −1: ∑ (−1)ⁿ/n converges (AST). Interval [−1, 5).
+    topic_code: "10.13"
+  - front: ∑ (n = 0 to ∞) xⁿ/n! → radius of convergence
+    back: |
+      ∞: |aₙ₊₁/aₙ| = |x|/(n + 1) → 0 < 1 for every x.
+    topic_code: "10.13"
+  - front: ∑ (n = 0 to ∞) n! xⁿ → where it converges
+    back: |
+      Only at x = 0: |aₙ₊₁/aₙ| = (n + 1)|x| → ∞ for any x ≠ 0. R = 0.
+    topic_code: "10.13"
+  - front: ∑ (n = 0 to ∞) (x − 1)^(2n)/9ⁿ → radius and interval
+    back: |
+      Geometric with ratio (x − 1)²/9: need (x − 1)² < 9, so |x − 1| < 3. R = 3; both endpoints give ∑ 1, divergent: (−2, 4).
+    topic_code: "10.13"
+  - front: ∑ (n = 1 to ∞) (x + 1)ⁿ/n² → interval of convergence
+    back: |
+      R = 1, centered at −1. At x = 0: ∑ 1/n² converges; at x = −2: ∑ (−1)ⁿ/n² converges absolutely. Interval [−2, 0].
+    topic_code: "10.13"
+  - front: ∑ (n = 1 to ∞) (2x)ⁿ/√n → interval of convergence
+    back: |
+      |2x| < 1 gives R = 1/2. At x = 1/2: ∑ 1/√n diverges (p = 1/2). At x = −1/2: ∑ (−1)ⁿ/√n converges (AST). Interval [−1/2, 1/2).
+    topic_code: "10.13"
+  - front: ∑ (n = 1 to ∞) n(x − 3)ⁿ/4ⁿ → interval of convergence
+    back: |
+      R = 4. At both endpoints the terms are ±n, which do not go to 0 (nth Term Test). Interval (−1, 7).
+    topic_code: "10.13"
+  - front: Differentiating or integrating a power series term by term → effect on the radius
+    back: |
+      The radius stays the same. Only the endpoints can change, so test them again.
+    topic_code: "10.13"
+  - front: ∑ (n = 1 to ∞) xⁿ/n and its derivative ∑ x^(n−1) → intervals of convergence
+    back: |
+      ∑ xⁿ/n: [−1, 1). Derivative ∑ x^(n−1): (−1, 1), since at x = −1 the terms ±1 do not go to 0. Differentiating lost an endpoint.
+    topic_code: "10.13"
+  - front: Power series converges at x = 5 and diverges at x = −3, centered at 2 → what is known about R
+    back: |
+      Converges at distance 3 from the center and diverges at distance 5, so 3 ≤ R ≤ 5. Points closer than 3 converge; farther than 5 diverge.
+    topic_code: "10.13"
+  - front: ∑ (n = 1 to ∞) (−1)^(n+1)(x − 4)ⁿ/(n·2ⁿ) → interval of convergence
+    back: |
+      R = 2. At x = 6: ∑ (−1)^(n+1)/n converges (AST). At x = 2: −∑ 1/n diverges. Interval (2, 6].
+    topic_code: "10.13"
+  - front: Radius of convergence of ∑ xⁿ/(5ⁿ n²) → value
+    back: |
+      5: |aₙ₊₁/aₙ| = (|x|/5)·n²/(n + 1)² → |x|/5 < 1.
+    topic_code: "10.13"
+  - front: Interval of convergence → the notation for the answer
+    back: |
+      Write the interval with brackets for included endpoints and parentheses for excluded ones, e.g. [−1, 5), and give the reason for each endpoint.
+    topic_code: "10.13"
+  - front: Error-spot → "for P₃ the Lagrange bound is M|x − a|³/3!"
+    back: |
+      That is one order too low. P₃ matches through the third derivative; the bound uses f⁽⁴⁾, |x − a|⁴ and 4!.
+    topic_code: "10.12"
+  - front: Error-spot → "M = |f⁽⁴⁾(0)| for the Lagrange bound of P₃ about 0 at x = 0.5"
+    back: |
+      M must bound |f⁽⁴⁾(z)| for every z between 0 and 0.5; for eˣ that maximum is at z = 0.5, not at 0.
+    topic_code: "10.12"
+  - front: Error-spot → "the Ratio Test gives |x − 2| < 3, so the interval of convergence is (−1, 5)"
+    back: |
+      That is only the open interval. Each endpoint must be tested separately; here x = −1 gives a convergent alternating harmonic series, so the interval is [−1, 5).
+    topic_code: "10.13"
+  - front: Error-spot → "∑ (x − 1)^(2n)/9ⁿ has radius 9"
+    back: |
+      The ratio is (x − 1)²/9, so the condition is (x − 1)² < 9, |x − 1| < 3. The radius is 3, not 9.
+    topic_code: "10.13"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 10.12 and 10.13: the Lagrange error bound and the
+    radius and interval of convergence of power series), with 7 questions (about 30%) reviewing weeks 26, 28 and
+    30 (polar area, the Integral Test, comparison tests, the alternating series error bound and Taylor polynomials).
+    Opens with a shared-context set on a Taylor polynomial built from a table, with a derivative bound. Multiple choice,
+    select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically;
+    the short answers and the long answer are graded by your teacher against the scoring notes. No calculator is
+    needed; one numeric item asks for a decimal of an exact answer.
+  questions:
+    # ---- Stimulus set: table-based Taylor polynomial with a derivative bound (10.11, 10.12)
+    - slug: apcalcbc-u10-w31-q01
+      type: multiple_choice
+      topic_code: "10.11"
+      source: "AP Calculus CED, Topic 10.11"
+      points: 1
+      stimulus: |
+        A function f has derivatives of all orders. Its values at x = 1 are f(1) = 2, f′(1) = −1, f″(1) = 3 and f‴(1) = −4, and |f⁽⁴⁾(x)| ≤ 12 for all x in the interval 1 ≤ x ≤ 1.5.
+      prompt: |
+        Which is the third-degree Taylor polynomial P₃(x) for f about x = 1?
+      options:
+        - "2 − (x − 1) + 3(x − 1)² − 4(x − 1)³"
+        - "2 − (x − 1) + (3/2)(x − 1)² − (2/3)(x − 1)³"
+        - "2 − (x − 1) + (3/2)(x − 1)² − (4/3)(x − 1)³"
+        - "2 − x + (3/2)x² − (2/3)x³"
+      option_explanations:
+        - |
+          This uses the derivative values themselves as coefficients; each must be divided by k!, so 3/2! and −4/3!.
+        - |
+          Correct. The coefficients are f(1) = 2, f′(1)/1! = −1, f″(1)/2! = 3/2 and f‴(1)/3! = −4/6 = −2/3.
+        - |
+          This divides f‴(1) by 3 instead of 3! = 6; the cubic coefficient is −4/6 = −2/3.
+        - |
+          The coefficients are right but the powers are of x, centering the polynomial at 0 instead of at 1.
+      answer: 1
+    - slug: apcalcbc-u10-w31-q02
+      type: numeric
+      topic_code: "10.11"
+      source: "AP Calculus CED, Topic 10.11"
+      points: 1
+      stimulus: |
+        A function f has derivatives of all orders. Its values at x = 1 are f(1) = 2, f′(1) = −1, f″(1) = 3 and f‴(1) = −4, and |f⁽⁴⁾(x)| ≤ 12 for all x in the interval 1 ≤ x ≤ 1.5.
+      prompt: |
+        Use the third-degree Taylor polynomial for f about x = 1 to approximate f(1.5). Give your answer to three decimal places.
+      answer: { value: 1.792, tolerance: 0.001 }
+      explanation: |
+        P₃(1.5) = 2 − 0.5 + (3/2)(0.25) − (2/3)(0.125) = 2 − 0.5 + 0.375 − 0.0833… = 43/24 ≈ 1.792.
+    - slug: apcalcbc-u10-w31-q03
+      type: multiple_choice
+      topic_code: "10.12"
+      source: "AP Calculus CED, Topic 10.12"
+      points: 1
+      stimulus: |
+        A function f has derivatives of all orders. Its values at x = 1 are f(1) = 2, f′(1) = −1, f″(1) = 3 and f‴(1) = −4, and |f⁽⁴⁾(x)| ≤ 12 for all x in the interval 1 ≤ x ≤ 1.5.
+      prompt: |
+        What upper bound does the Lagrange error bound give for |f(1.5) − P₃(1.5)|?
+      options:
+        - "0.25"
+        - "0.75"
+        - "0.03125"
+        - "0.125"
+      option_explanations:
+        - |
+          0.25 uses |x − a|³/3! with M = 12: 12(0.125)/6. For P₃ the bound needs the fourth power and 4!.
+        - |
+          0.75 drops the factorial: 12(0.5)⁴ = 0.75. The bound divides by (n + 1)! = 24.
+        - |
+          Correct. M·|x − a|⁴/4! = 12(0.5)⁴/24 = 12(0.0625)/24 = 0.03125.
+        - |
+          0.125 is (0.5)³, a power of |x − a| alone; the bound also needs M and the fourth power over 4!.
+      answer: 2
+    - slug: apcalcbc-u10-w31-q04
+      type: multiple_choice
+      topic_code: "10.12"
+      source: "AP Calculus CED, Topic 10.12"
+      points: 1
+      stimulus: |
+        A function f has derivatives of all orders. Its values at x = 1 are f(1) = 2, f′(1) = −1, f″(1) = 3 and f‴(1) = −4, and |f⁽⁴⁾(x)| ≤ 12 for all x in the interval 1 ≤ x ≤ 1.5.
+      prompt: |
+        Could f(1.5) equal 1.85?
+      options:
+        - "No. f(1.5) must lie within 0.03125 of P₃(1.5) ≈ 1.792, so f(1.5) ≤ 1.823, which is less than 1.85."
+        - "Yes. P₃(1.5) is only an approximation, so any value near it is possible."
+        - "Yes. 1.85 differs from P₃(1.5) by less than 0.1, the size of the next term."
+        - "It cannot be decided without knowing f⁽⁴⁾(1)."
+      option_explanations:
+        - |
+          Correct. |f(1.5) − 1.7917| ≤ 0.03125 forces 1.7604 ≤ f(1.5) ≤ 1.8229, and 1.85 is outside that interval.
+        - |
+          The Lagrange bound says exactly how far the true value can be from the approximation; values farther than 0.03125 are ruled out.
+        - |
+          0.1 is not a bound produced by any rule here; the guaranteed distance is at most 0.03125, and 1.85 is about 0.058 away.
+        - |
+          The bound uses the given maximum of |f⁽⁴⁾| on the whole interval, not the single value f⁽⁴⁾(1); 12 is enough to decide.
+      answer: 0
+    # ---- Independent items
+    - slug: apcalcbc-u10-w31-q05
+      type: multiple_choice
+      topic_code: "10.12"
+      source: "AP Calculus CED, Topic 10.12"
+      points: 1
+      prompt: |
+        The third-degree Maclaurin polynomial for eˣ is used to approximate e^0.5. Using the fact that e^0.5 < 2, which is the best upper bound the Lagrange error bound gives for the error?
+      options:
+        - "2(0.5)⁴/3! ≈ 0.0208"
+        - "(0.5)⁴/4! ≈ 0.0026"
+        - "2(0.5)⁴ = 0.125"
+        - "2(0.5)⁴/4! ≈ 0.0052"
+      option_explanations:
+        - |
+          The denominator for P₃'s error is (n + 1)! = 4!, not 3!.
+        - |
+          This takes M = f⁽⁴⁾(0) = 1. M must bound |e^z| for every z in [0, 0.5], and the largest value, e^0.5, is more than 1.
+        - |
+          This forgets to divide by 4!; without the factorial the bound is far too large to be useful.
+        - |
+          Correct. f⁽⁴⁾(z) = e^z ≤ e^0.5 < 2 on [0, 0.5], so the error is at most 2(0.5)⁴/4! = 0.125/24 ≈ 0.0052.
+      answer: 3
+    - slug: apcalcbc-u10-w31-q06
+      type: multiple_choice
+      topic_code: "10.12"
+      source: "AP Calculus CED, Topic 10.12"
+      points: 1
+      prompt: |
+        The second-degree Taylor polynomial for f(x) = ln x about x = 1 is used to approximate ln 1.2. Which is the best Lagrange error bound?
+      options:
+        - "(2/1.2³)(0.2)³/3! ≈ 0.0015"
+        - "2(0.2)³/3! ≈ 0.0027"
+        - "2(0.2)³/2! = 0.008"
+        - "1(0.2)²/2! = 0.02"
+      option_explanations:
+        - |
+          This evaluates f‴(z) = 2/z³ at z = 1.2, where it is smallest; M must be the largest value on [1, 1.2], which occurs at z = 1.
+        - |
+          Correct. f‴(z) = 2/z³ decreases on [1, 1.2], so its maximum is f‴(1) = 2, and the bound is 2(0.2)³/3! = 0.016/6 ≈ 0.0027.
+        - |
+          This uses 2! instead of 3!; the error of P₂ uses the third derivative, the third power and 3!.
+        - |
+          This bounds with the second derivative, one order too low; that would be the error bound for P₁.
+      answer: 1
+    - slug: apcalcbc-u10-w31-q07
+      type: multiple_choice
+      topic_code: "10.13"
+      source: "AP Calculus CED, Topic 10.13"
+      points: 1
+      prompt: |
+        What is the interval of convergence of ∑ (n = 1 to ∞) (x − 2)ⁿ/(n·3ⁿ)?
+      options:
+        - "−1 ≤ x < 5"
+        - "−1 < x ≤ 5"
+        - "−1 < x < 5"
+        - "−1 ≤ x ≤ 5"
+      option_explanations:
+        - |
+          Correct. The Ratio Test gives |x − 2|/3 < 1, so −1 < x < 5. At x = 5 the series is ∑ 1/n (divergent); at x = −1 it is ∑ (−1)ⁿ/n, which converges by the Alternating Series Test.
+        - |
+          The endpoints are swapped: x = 5 gives the harmonic series, which diverges, and x = −1 gives the alternating harmonic series, which converges.
+        - |
+          This stops at the Ratio Test. At x = −1 the series is the alternating harmonic series, which converges, so −1 is included.
+        - |
+          At x = 5 the series is ∑ 1/n, the harmonic series, which diverges, so 5 is excluded.
+      answer: 0
+    - slug: apcalcbc-u10-w31-q08
+      type: multiple_choice
+      topic_code: "10.13"
+      source: "AP Calculus CED, Topic 10.13"
+      points: 1
+      prompt: |
+        For which values of x does ∑ (n = 0 to ∞) n! xⁿ converge?
+      options:
+        - "All real x"
+        - "−1 < x < 1"
+        - "x = 0 only"
+        - "−1 ≤ x < 1"
+      option_explanations:
+        - |
+          That is the behavior of ∑ xⁿ/n!, with the factorial in the denominator; here it is in the numerator and makes the terms grow.
+        - |
+          This treats the series like a geometric series; the n! factor makes the ratio (n + 1)|x| grow without bound for any x ≠ 0.
+        - |
+          Correct. |aₙ₊₁/aₙ| = (n + 1)|x| → ∞ for x ≠ 0, so the series diverges everywhere except its center, where every term after the first is 0.
+        - |
+          There is no interval of positive length here; the Ratio Test limit is infinite for every nonzero x, including −1.
+      answer: 2
+    - slug: apcalcbc-u10-w31-q09
+      type: multiple_choice
+      topic_code: "10.13"
+      source: "AP Calculus CED, Topic 10.13"
+      points: 1
+      prompt: |
+        For which values of x does the power series ∑ (n = 1 to ∞) n(x − 3)ⁿ/4ⁿ converge?
+      options:
+        - "−1 ≤ x ≤ 7"
+        - "−1 ≤ x < 7"
+        - "−4 < x < 4"
+        - "−1 < x < 7"
+      option_explanations:
+        - |
+          At x = 7 the terms are n and at x = −1 they are (−1)ⁿ n; neither goes to 0, so both endpoints diverge by the nth Term Test.
+        - |
+          At x = −1 the series is ∑ (−1)ⁿ n, which alternates but whose terms grow, so it diverges; the Alternating Series Test needs terms going to 0.
+        - |
+          This centers the interval at 0. The series is in powers of (x − 3), so the interval is centered at 3: |x − 3| < 4.
+        - |
+          Correct. The Ratio Test gives |x − 3|/4 < 1, so −1 < x < 7, and at both endpoints the terms ±n do not approach 0.
+      answer: 3
+    - slug: apcalcbc-u10-w31-q10
+      type: multiple_choice
+      topic_code: "10.13"
+      source: "AP Calculus CED, Topic 10.13"
+      points: 1
+      prompt: |
+        What is the radius of convergence of ∑ (n = 0 to ∞) (x − 1)^(2n)/9ⁿ?
+      options:
+        - "9"
+        - "3"
+        - "1/3"
+        - "1"
+      option_explanations:
+        - |
+          The condition is (x − 1)²/9 < 1, which bounds (x − 1)², not |x − 1|, by 9; taking the square root gives 3.
+        - |
+          Correct. This is geometric with ratio (x − 1)²/9. It converges when (x − 1)² < 9, that is |x − 1| < 3.
+        - |
+          1/3 inverts the radius; the series converges for |x − 1| < 3, a wider interval than |x − 1| < 1/3.
+        - |
+          1 is the radius of ∑ (x − 1)ⁿ; dividing by 9ⁿ and squaring the base change the radius to 3.
+      answer: 1
+    - slug: apcalcbc-u10-w31-q11
+      type: multiple_choice
+      topic_code: "10.12"
+      source: "AP Calculus CED, Topic 10.12"
+      points: 1
+      prompt: |
+        The third-degree Maclaurin polynomial for sin x is used to approximate sin(0.3). Using |f⁽⁴⁾(x)| ≤ 1, what bound does the Lagrange error bound give?
+      options:
+        - "0.3⁴/4! = 0.0003375"
+        - "0.3³/3! = 0.0045"
+        - "0.3⁴ = 0.0081"
+        - "0.3⁵/5! ≈ 0.00002"
+      option_explanations:
+        - |
+          Correct. With n = 3, the bound is M|x|⁴/4! = 1(0.0081)/24 = 0.0003375.
+        - |
+          This is the size of the cubic term itself, x³/3!, which is part of the approximation, not its error bound.
+        - |
+          This forgets the factorial: the bound divides by (n + 1)! = 24.
+        - |
+          This is the bound for P₄ (or the alternating series bound); the question asks for the Lagrange bound of P₃ using |f⁽⁴⁾| ≤ 1.
+      answer: 0
+    - slug: apcalcbc-u10-w31-q12
+      type: multiple_choice
+      topic_code: "10.6"
+      source: "AP Calculus CED, Topic 10.6"
+      points: 1
+      prompt: |
+        Which conclusion about ∑ (n = 1 to ∞) (n + 1)/(n³ + 2) is correct?
+      options:
+        - "It diverges by limit comparison with ∑ 1/n, because the limit of the ratio is 1."
+        - "It diverges because the numerator n + 1 grows without bound."
+        - "It converges by limit comparison with ∑ 1/n², because the limit of the ratio is 1, a positive finite number."
+        - "No conclusion: the limit comparison with ∑ 1/n² gives a limit of 0."
+      option_explanations:
+        - |
+          The terms behave like n/n³ = 1/n², not 1/n; comparing with 1/n gives a limit of 0, which does not prove divergence.
+        - |
+          The denominator grows like n³, so the terms go to 0 quickly; a growing numerator does not decide convergence.
+        - |
+          Correct. ((n + 1)/(n³ + 2)) ÷ (1/n²) = (n³ + n²)/(n³ + 2) → 1, and ∑ 1/n² converges (p = 2), so the series converges.
+        - |
+          The ratio is (n³ + n²)/(n³ + 2), whose limit is 1, not 0; the leading terms n³ match.
+      answer: 2
+    - slug: apcalcbc-u10-w31-q13
+      type: multi_select
+      topic_code: "10.13"
+      source: "AP Calculus CED, Topic 10.13"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A power series ∑ (n = 0 to ∞) cₙ(x − 2)ⁿ converges at x = 5 and diverges at x = −3. Which statements must be true? Select all that apply.
+      options:
+        - "The series converges at x = 0."
+        - "The series converges at x = −1."
+        - "The series diverges at x = 8."
+        - "The series converges at x = 4.5."
+        - "The series diverges at x = 6."
+      option_explanations:
+        - |
+          Correct. Converging at x = 5 (distance 3 from the center 2) makes R ≥ 3, and x = 0 is only 2 from the center.
+        - |
+          x = −1 is exactly 3 from the center, so it could be an endpoint; endpoint behavior is not determined by the given facts.
+        - |
+          Correct. Diverging at x = −3 (distance 5) makes R ≤ 5, and x = 8 is 6 from the center, outside the interval.
+        - |
+          Correct. x = 4.5 is 2.5 from the center, less than 3 ≤ R, so it is inside the interval of convergence.
+        - |
+          x = 6 is 4 from the center, between 3 and 5; depending on R it may converge or diverge.
+      answer: [0, 2, 3]
+    - slug: apcalcbc-u10-w31-q14
+      type: multi_select
+      topic_code: "10.12"
+      source: "AP Calculus CED, Topic 10.12"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let P₃ be the third-degree Taylor polynomial for f about x = a. Which statements about the Lagrange error bound for |f(x) − P₃(x)| are true? Select all that apply.
+      options:
+        - "It uses only the value |f⁽⁴⁾(a)|."
+        - "It uses a bound M on |f⁽⁴⁾(z)| for all z between a and x."
+        - "It gives the exact value of the error."
+        - "It can be used even when the Taylor series does not alternate at x."
+        - "For a fixed M, the bound gets smaller as x moves closer to a."
+      option_explanations:
+        - |
+          The derivative's value at the center is not enough; f⁽⁴⁾ can be larger elsewhere between a and x, and M must cover all of it.
+        - |
+          Correct. M must be at least the maximum of |f⁽⁴⁾(z)| on the interval between a and x.
+        - |
+          It is an upper bound: the actual error is at most M|x − a|⁴/4!, and is usually smaller.
+        - |
+          Correct. Unlike the alternating series error bound, Lagrange needs no sign pattern, only a bound on the next derivative.
+        - |
+          Correct. The bound contains |x − a|⁴, which shrinks as x approaches the center.
+      answer: [1, 3, 4]
+    - slug: apcalcbc-u10-w31-q15
+      type: true_false
+      topic_code: "10.13"
+      source: "AP Calculus CED, Topic 10.13"
+      points: 1
+      prompt: |
+        True or false: If the power series ∑ (n = 0 to ∞) cₙxⁿ has radius of convergence 2, then the series obtained by differentiating it term by term also has radius of convergence 2.
+      answer: true
+      explanation: |
+        True. Term-by-term differentiation and integration keep the radius of convergence. Only the behavior at the endpoints x = ±2 can change, so they must be checked again.
+    - slug: apcalcbc-u10-w31-q16
+      type: true_false
+      topic_code: "10.10"
+      source: "AP Calculus CED, Topic 10.10"
+      points: 1
+      prompt: |
+        True or false: The alternating series error bound guarantees that the 10th partial sum of ∑ (n = 1 to ∞) (−1)^(n+1)/√n is within 0.25 of the sum of the series.
+      answer: false
+      explanation: |
+        False. The bound is the first omitted term, 1/√11 ≈ 0.302, which is more than 0.25. The error bound does not guarantee 0.25 accuracy (the actual error may or may not be smaller, but it is not guaranteed).
+    - slug: apcalcbc-u10-w31-q17
+      type: fill_blank
+      topic_code: "10.13"
+      source: "AP Calculus CED, Topic 10.13"
+      points: 1
+      prompt: |
+        The radius of convergence of ∑ (n = 1 to ∞) xⁿ/(5ⁿ n²) is ____.
+      answer: ["5"]
+      explanation: |
+        |aₙ₊₁/aₙ| = (|x|/5) · n²/(n + 1)² → |x|/5. The series converges when |x|/5 < 1, that is |x| < 5, so R = 5. (Both endpoints converge, since ∑ 1/n² converges, but the question asks only for the radius.)
+    - slug: apcalcbc-u10-w31-q18
+      type: fill_blank
+      topic_code: "10.12"
+      source: "AP Calculus CED, Topic 10.12"
+      points: 1
+      prompt: |
+        A function g satisfies |g⁽⁴⁾(x)| ≤ 24 for 0 ≤ x ≤ 0.5. The Lagrange error bound for the third-degree Maclaurin polynomial of g at x = 0.5 is ____. (Give an exact fraction or a decimal.)
+      answer: ["1/16", "0.0625", ".0625", "1 / 16"]
+      explanation: |
+        M|x − 0|⁴/4! = 24(0.5)⁴/24 = 0.5⁴ = 0.0625 = 1/16.
+    - slug: apcalcbc-u10-w31-q19
+      type: fill_blank
+      topic_code: "10.11"
+      source: "AP Calculus CED, Topic 10.11"
+      points: 1
+      prompt: |
+        In the Maclaurin polynomial for f(x) = e^(3x), the coefficient of x² is ____. (Give an exact fraction or a decimal.)
+      answer: ["9/2", "4.5", "9 / 2"]
+      explanation: |
+        f″(x) = 9e^(3x), so f″(0) = 9 and the coefficient is f″(0)/2! = 9/2. (Equivalently, (3x)²/2! = 9x²/2.)
+    - slug: apcalcbc-u10-w31-q20
+      type: numeric
+      topic_code: "9.8"
+      source: "AP Calculus CED, Topic 9.8"
+      points: 1
+      prompt: |
+        Find the area of the region enclosed by the polar curve r = 2 + cos θ for 0 ≤ θ ≤ 2π. Give your answer to three decimal places.
+      answer: { value: 14.137, tolerance: 0.001 }
+      explanation: |
+        Area = (1/2) ∫ from 0 to 2π of (2 + cos θ)² dθ = (1/2) ∫ from 0 to 2π of (4 + 4cos θ + cos²θ) dθ = (1/2)(8π + 0 + π) = 9π/2 ≈ 14.137, using ∫ from 0 to 2π of cos²θ dθ = π.
+    - slug: apcalcbc-u10-w31-q21
+      type: short_answer
+      topic_code: "10.12"
+      source: "AP Calculus CED, Topic 10.12"
+      points: 3
+      prompt: |
+        Let f(x) = cos x.
+
+        (a) Write the second-degree Maclaurin polynomial P₂(x) for f and use it to approximate cos(0.4).
+        (b) Use the Lagrange error bound to find an upper bound for |cos(0.4) − P₂(0.4)|.
+        (c) Use parts (a) and (b) to explain why cos(0.4) > 0.9.
+      answer: |
+        (a) P₂(x) = 1 − x²/2, so P₂(0.4) = 1 − 0.16/2 = 0.92.
+        (b) f‴(x) = sin x, and |sin z| ≤ 1 for all z, so with M = 1 the error is at most (0.4)³/3! = 0.064/6 ≈ 0.0107.
+        (c) cos(0.4) ≥ 0.92 − 0.0107 = 0.9093 > 0.9.
+      explanation: |
+        Three points, one per part. (a) P₂(x) = 1 − x²/2 and 0.92. (b) A Lagrange bound with the derivative bound stated: M = 1 with (0.4)³/3! ≈ 0.0107, or the sharper (0.4)⁴/4! ≈ 0.0011 using P₂ = P₃ (both accepted); the point requires naming M. (c) A lower bound P₂(0.4) − bound > 0.9 stated explicitly.
+    - slug: apcalcbc-u10-w31-q22
+      type: short_answer
+      topic_code: "10.4"
+      source: "AP Calculus CED, Topic 10.4"
+      points: 3
+      prompt: |
+        Consider the series ∑ (n = 2 to ∞) 1/(n (ln n)²).
+
+        (a) Explain why the Integral Test can be applied to this series, using f(x) = 1/(x (ln x)²).
+        (b) Evaluate ∫ from 2 to ∞ of 1/(x (ln x)²) dx, showing the limit.
+        (c) Does the series converge or diverge? Justify.
+      answer: |
+        (a) For x ≥ 2, f(x) = 1/(x (ln x)²) is positive and continuous, and it is decreasing because both x and (ln x)² increase.
+        (b) With u = ln x, ∫ 1/(x (ln x)²) dx = −1/ln x + C. So the integral is lim (b→∞) [−1/ln b + 1/ln 2] = 0 + 1/ln 2 = 1/ln 2 ≈ 1.443.
+        (c) The improper integral converges, so by the Integral Test the series converges.
+      explanation: |
+        Three points, one per part. (a) Positive, continuous and decreasing for x ≥ 2 (all three named). (b) Antiderivative −1/ln x, the limit written, and 1/ln 2. (c) Converges, citing the Integral Test and the convergent integral. The series' sum is not 1/ln 2; a response claiming so loses the point in (c).
+    - slug: apcalcbc-u10-w31-q23
+      type: long_answer
+      topic_code: "10.13"
+      source: "AP Calculus CED, Topic 10.13"
+      points: 7
+      prompt: |
+        Let f be the function defined by the power series
+
+        f(x) = ∑ (n = 1 to ∞) (−1)^(n+1) (x − 4)ⁿ/(n·2ⁿ) = (x − 4)/2 − (x − 4)²/8 + (x − 4)³/24 − ⋯
+
+        for all x where the series converges.
+
+        (A) Use the Ratio Test to find the radius of convergence of the series.
+
+        (B) Find the interval of convergence. Justify your conclusion at each endpoint.
+
+        (C) Write the first three nonzero terms and the general term of the series for f′(x). Find the interval of convergence of this series, with justification at each endpoint.
+
+        (D) Use the first two nonzero terms of the series for f to approximate f(5). Show that this approximation differs from f(5) by less than 0.05.
+      answer: |
+        (A) |aₙ₊₁/aₙ| = |x − 4|/2 · n/(n + 1) → |x − 4|/2. The series converges when |x − 4|/2 < 1, so R = 2.
+        (B) At x = 6: ∑ (−1)^(n+1) 2ⁿ/(n·2ⁿ) = ∑ (−1)^(n+1)/n, which converges by the Alternating Series Test (1/n decreases to 0). At x = 2: ∑ (−1)^(n+1)(−2)ⁿ/(n·2ⁿ) = ∑ (−1)^(2n+1)/n = −∑ 1/n, the negative of the harmonic series, which diverges. Interval: 2 < x ≤ 6.
+        (C) f′(x) = 1/2 − (x − 4)/4 + (x − 4)²/8 − ⋯ = ∑ (n = 1 to ∞) (−1)^(n+1)(x − 4)^(n−1)/2ⁿ. The radius is still 2. At x = 6 the terms are (−1)^(n+1)/2, and at x = 2 they are all 1/2; neither goes to 0, so both endpoints diverge by the nth Term Test. Interval: 2 < x < 6.
+        (D) f(5) ≈ 1/2 − 1/8 = 3/8 = 0.375. At x = 5 the series is ∑ (−1)^(n+1)/(n·2ⁿ), alternating with terms 1/(n·2ⁿ) that decrease to 0, so the error is at most the first omitted term, 1/(3·2³) = 1/24 ≈ 0.0417 < 0.05.
+      explanation: |
+        Seven points. (A) 1 point: correct ratio limit |x − 4|/2 and R = 2. (B) 2 points: 1 for x = 6 included with the Alternating Series Test (or "alternating harmonic series converges"), 1 for x = 2 excluded with the harmonic series named, and the interval 2 < x ≤ 6 stated. (C) 2 points: 1 for the three terms and general term of f′, 1 for the interval 2 < x < 6 with an nth Term Test reason at each endpoint. (D) 2 points: 1 for 3/8, 1 for the alternating series error bound with its conditions and 1/24 < 0.05. A Lagrange-based argument with a correct bound also earns the final point.

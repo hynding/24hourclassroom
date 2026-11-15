@@ -1,0 +1,604 @@
+week: 25
+unit: 9
+title: "Vector-Valued Functions and Motion in the Plane"
+topics: ["9.4", "9.5", "9.6"]
+guide: guides/week-25.md
+guide_description: |
+  Vector-valued functions r(t) = ⟨x(t), y(t)⟩ as positions in the plane: differentiating them component by component
+  to get velocity and acceleration vectors, the slope of the path, and speed as the magnitude of velocity;
+  integrating them component by component, with a constant vector, to recover velocity from acceleration and position
+  from velocity plus an initial condition; and motion problems: direction of travel, being at rest, displacement
+  versus total distance traveled, and when speed increases. Worked examples: a particle at ⟨t² − 6t, t³ − 3t²⟩
+  (velocity, speed, acceleration, direction, rest), the derivative of ⟨e^(3t), ln(t² + 1)⟩, a position recovered
+  from v(t) = ⟨3t², 2/(t + 1)⟩, and the total distance traveled with v(t) = ⟨1 − t², 2t⟩.
+flashcards_description: |
+  30 cards on vector-valued functions: component-wise derivatives and integrals, velocity, acceleration and speed,
+  the slope of a path, recovering position from velocity, the direction of motion, rest, displacement versus total
+  distance, and the error patterns in each.
+
+flashcards:
+  - front: Vector-valued function r(t) = ⟨x(t), y(t)⟩ → what it describes
+    back: |
+      A point moving in the plane: at time t it is at (x(t), y(t)). It is the same curve as the parametric pair x(t), y(t), written as one vector.
+    topic_code: "9.4"
+  - front: Derivative of a vector-valued function ⟨x(t), y(t)⟩ → rule
+    back: |
+      r′(t) = ⟨x′(t), y′(t)⟩: differentiate each component separately.
+    topic_code: "9.4"
+  - front: Velocity vector of a particle at position r(t) → definition and direction
+    back: |
+      v(t) = r′(t) = ⟨x′(t), y′(t)⟩. It points along the path, tangent to it, in the direction of motion.
+    topic_code: "9.4"
+  - front: Acceleration vector of a particle at position r(t) → definition
+    back: |
+      a(t) = v′(t) = r″(t) = ⟨x″(t), y″(t)⟩.
+    topic_code: "9.4"
+  - front: Speed of a particle with velocity ⟨x′(t), y′(t)⟩ → formula
+    back: |
+      |v(t)| = √((x′(t))² + (y′(t))²), the magnitude of the velocity vector. Speed is a number, never negative.
+    topic_code: "9.4"
+  - front: Slope of the path traced by r(t) = ⟨x(t), y(t)⟩ → formula
+    back: |
+      dy/dx = y′(t)/x′(t), the ratio of the velocity components, where x′(t) ≠ 0.
+    topic_code: "9.4"
+  - front: r(t) = ⟨e^(3t), ln(t² + 1)⟩ → r′(t)
+    back: |
+      ⟨3e^(3t), 2t/(t² + 1)⟩. Each component needs its own chain rule.
+    topic_code: "9.4"
+  - front: r(t) = ⟨√t, t² − 1⟩ → slope of the path at t = 4
+    back: |
+      y′ = 2t = 8 and x′ = 1/(2√t) = 1/4 at t = 4, so dy/dx = 8 ÷ (1/4) = 32.
+    topic_code: "9.4"
+  - front: Particle at ⟨t² − 6t, t³ − 3t²⟩ → velocity and speed at t = 1
+    back: |
+      v(1) = ⟨2t − 6, 3t² − 6t⟩ at t = 1 = ⟨−4, −3⟩; speed √(16 + 9) = 5.
+    topic_code: "9.4"
+  - front: Particle at ⟨t² − 6t, t³ − 3t²⟩ → acceleration at t = 2
+    back: |
+      a(t) = ⟨2, 6t − 6⟩, so a(2) = ⟨2, 6⟩.
+    topic_code: "9.4"
+  - front: Integral of a vector-valued function ⟨f(t), g(t)⟩ → rule
+    back: |
+      ∫ ⟨f(t), g(t)⟩ dt = ⟨∫ f(t) dt, ∫ g(t) dt⟩ + C, where C is a constant vector ⟨C₁, C₂⟩. Definite integrals work component by component too.
+    topic_code: "9.5"
+  - front: ∫ from 0 to π/2 of ⟨cos t, 4 sin t⟩ dt → value
+    back: |
+      ⟨sin t, −4 cos t⟩ from 0 to π/2 = ⟨1 − 0, 0 − (−4)⟩ = ⟨1, 4⟩.
+    topic_code: "9.5"
+  - front: Position from velocity and an initial position r(0) → formula
+    back: |
+      r(t) = r(0) + ∫ from 0 to t of v(s) ds, one component at a time: x(t) = x(0) + ∫ x′, y(t) = y(0) + ∫ y′.
+    topic_code: "9.5"
+  - front: v(t) = ⟨3t², 2/(t + 1)⟩ and r(0) = ⟨1, 5⟩ → r(2)
+    back: |
+      x(2) = 1 + ∫ from 0 to 2 of 3t² dt = 1 + 8 = 9; y(2) = 5 + 2 ln(t + 1) from 0 to 2 = 5 + 2 ln 3. So r(2) = ⟨9, 5 + 2 ln 3⟩.
+    topic_code: "9.5"
+  - front: Velocity from acceleration a(t) and v(0) → formula
+    back: |
+      v(t) = v(0) + ∫ from 0 to t of a(s) ds, component by component. Each integration needs its own initial condition.
+    topic_code: "9.5"
+  - front: Displacement of a particle in the plane from t = a to t = b → vector integral
+    back: |
+      ∫ from a to b of v(t) dt = r(b) − r(a), a vector: the net change in position.
+    topic_code: "9.5"
+  - front: Total distance traveled by a particle in the plane from t = a to t = b → formula
+    back: |
+      ∫ from a to b of |v(t)| dt = ∫ from a to b of √((x′)² + (y′)²) dt: integrate the speed. It is the arc length of the path when the path is traced once.
+    topic_code: "9.6"
+  - front: Velocity ⟨1 − t², 2t⟩ → speed and distance traveled for 0 ≤ t ≤ 3
+    back: |
+      (1 − t²)² + 4t² = (1 + t²)², so the speed is 1 + t²; distance ∫ from 0 to 3 of (1 + t²) dt = 3 + 9 = 12.
+    topic_code: "9.6"
+  - front: Velocity ⟨eᵗ − e^(−t), 2⟩ → distance traveled for 0 ≤ t ≤ ln 2
+    back: |
+      (eᵗ − e^(−t))² + 4 = (eᵗ + e^(−t))², so the speed is eᵗ + e^(−t); distance (eᵗ − e^(−t)) from 0 to ln 2 = 3/2.
+    topic_code: "9.6"
+  - front: Particle in the plane moving to the left and down → sign conditions
+    back: |
+      x′(t) < 0 (left) and y′(t) < 0 (down). Each direction is read from its own velocity component.
+    topic_code: "9.6"
+  - front: Particle in the plane at rest at time t → condition
+    back: |
+      v(t) = ⟨0, 0⟩: both x′(t) = 0 and y′(t) = 0 at the same t. One zero component alone is not rest.
+    topic_code: "9.6"
+  - front: Particle at ⟨t² − 6t, t³ − 3t²⟩ → is it ever at rest?
+    back: |
+      No. x′ = 2t − 6 is zero only at t = 3, and y′ = 3t² − 6t is zero only at t = 0 and 2; they are never zero together.
+    topic_code: "9.6"
+  - front: Particle in the plane with x′(t) = 0, y′(t) ≠ 0 → what the path does there
+    back: |
+      The particle moves straight up or down for an instant: the path has a vertical tangent.
+    topic_code: "9.6"
+  - front: Speed of a planar particle increasing → test
+    back: |
+      Compute speed s(t) = |v(t)| and check s′(t) > 0. Equivalently v(t) · a(t) = x′x″ + y′y″ > 0, since s′ = (x′x″ + y′y″)/s.
+    topic_code: "9.6"
+  - front: Velocity ⟨1 − t², 2t⟩ → is the speed increasing at t = 2?
+    back: |
+      Yes: speed = 1 + t² has derivative 2t = 4 > 0 at t = 2.
+    topic_code: "9.6"
+  - front: Particle in the plane with x(0) given and x′(t) known → x-coordinate at time b
+    back: |
+      x(b) = x(0) + ∫ from 0 to b of x′(t) dt. The y-coordinate is found separately the same way.
+    topic_code: "9.6"
+  - front: Average velocity vector of a planar particle from t = a to t = b → formula
+    back: |
+      (r(b) − r(a))/(b − a) = (1/(b − a)) ∫ from a to b of v(t) dt, a vector.
+    topic_code: "9.6"
+  - front: Error-spot → "The speed of ⟨−4, −3⟩ is −4 + (−3) = −7, or 7 if I drop the signs"
+    back: |
+      Speed is the magnitude, √((−4)² + (−3)²) = 5. Adding the components (with or without signs) is not a length.
+    topic_code: "9.4"
+  - front: Error-spot → "The particle's distance traveled is the length of ∫ v(t) dt"
+    back: |
+      |∫ v dt| is the length of the displacement (start to finish in a straight line). Distance traveled is ∫ |v(t)| dt, the integral of speed.
+    topic_code: "9.6"
+  - front: Error-spot → "With v(t) = ⟨3t², 2/(t + 1)⟩, r(2) = ⟨8, 2 ln 3⟩"
+    back: |
+      That is the displacement from t = 0 to t = 2. The initial position must be added: r(2) = ⟨1, 5⟩ + ⟨8, 2 ln 3⟩ = ⟨9, 5 + 2 ln 3⟩.
+    topic_code: "9.5"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 9.4, 9.5 and 9.6: derivatives and integrals of
+    vector-valued functions, velocity, speed and acceleration, recovering position, direction and rest, and distance
+    traveled), with 7 questions (about 30%) reviewing weeks 16, 17, 20 and 24 (integration by parts, improper
+    integrals, logistic growth, parametric second derivatives and parametric arc length). Opens with a shared-context
+    set on one particle's motion. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. One numeric item needs a graphing calculator and says so; the rest are
+    no-calculator.
+  questions:
+    # ---- Stimulus set: one particle in the plane (9.4, 9.6)
+    - slug: apcalcbc-u09-w25-q01
+      type: multiple_choice
+      topic_code: "9.4"
+      source: "AP Calculus CED, Topic 9.4"
+      points: 1
+      stimulus: |
+        A particle moves in the xy-plane so that its position at time t, for 0 ≤ t ≤ 4, is
+
+        r(t) = ⟨t² − 6t, t³ − 3t²⟩.
+      prompt: |
+        What is the speed of the particle at t = 1?
+      options:
+        - "7"
+        - "5"
+        - "25"
+        - "√29"
+      option_explanations:
+        - |
+          7 adds the sizes of the components of v(1) = ⟨−4, −3⟩; speed is the magnitude √(16 + 9), not a sum.
+        - |
+          Correct. v(t) = ⟨2t − 6, 3t² − 6t⟩, so v(1) = ⟨−4, −3⟩ and the speed is √((−4)² + (−3)²) = √25 = 5.
+        - |
+          25 is (−4)² + (−3)², the square of the speed; the square root was not taken.
+        - |
+          √29 is the magnitude of the position r(1) = ⟨−5, −2⟩, the distance from the origin, not the speed.
+      answer: 1
+    - slug: apcalcbc-u09-w25-q02
+      type: multiple_choice
+      topic_code: "9.4"
+      source: "AP Calculus CED, Topic 9.4"
+      points: 1
+      stimulus: |
+        A particle moves in the xy-plane so that its position at time t, for 0 ≤ t ≤ 4, is
+
+        r(t) = ⟨t² − 6t, t³ − 3t²⟩.
+      prompt: |
+        What is the acceleration vector of the particle at t = 2?
+      options:
+        - "⟨−2, 0⟩"
+        - "⟨2, 12⟩"
+        - "⟨−8, −4⟩"
+        - "⟨2, 6⟩"
+      option_explanations:
+        - |
+          ⟨−2, 0⟩ is the velocity v(2) = ⟨2(2) − 6, 3(4) − 12⟩; acceleration needs one more derivative.
+        - |
+          This differentiates 3t² − 6t to 6t and drops the −6; the derivative is 6t − 6, which is 6 at t = 2.
+        - |
+          ⟨−8, −4⟩ is the position r(2) = ⟨4 − 12, 8 − 12⟩, not the acceleration.
+        - |
+          Correct. v(t) = ⟨2t − 6, 3t² − 6t⟩ and a(t) = ⟨2, 6t − 6⟩, so a(2) = ⟨2, 6⟩.
+      answer: 3
+    - slug: apcalcbc-u09-w25-q03
+      type: multiple_choice
+      topic_code: "9.6"
+      source: "AP Calculus CED, Topic 9.6"
+      points: 1
+      stimulus: |
+        A particle moves in the xy-plane so that its position at time t, for 0 ≤ t ≤ 4, is
+
+        r(t) = ⟨t² − 6t, t³ − 3t²⟩.
+      prompt: |
+        At what times in 0 ≤ t ≤ 4 is the particle at rest?
+      options:
+        - "The particle is never at rest."
+        - "t = 3 only"
+        - "t = 0 and t = 2"
+        - "t = 0, t = 2 and t = 3"
+      option_explanations:
+        - |
+          Correct. At rest needs v(t) = ⟨0, 0⟩. x′ = 2t − 6 = 0 only at t = 3, and y′ = 3t² − 6t = 0 only at t = 0 and t = 2. No time makes both zero.
+        - |
+          At t = 3 only the horizontal velocity is zero; y′(3) = 27 − 18 = 9, so the particle is moving straight up.
+        - |
+          At t = 0 and t = 2 only the vertical velocity is zero; x′ = −6 and −2 there, so the particle is moving left.
+        - |
+          This lists every zero of either component; rest requires both components to be zero at the same time.
+      answer: 0
+    - slug: apcalcbc-u09-w25-q04
+      type: multiple_choice
+      topic_code: "9.6"
+      source: "AP Calculus CED, Topic 9.6"
+      points: 1
+      stimulus: |
+        A particle moves in the xy-plane so that its position at time t, for 0 ≤ t ≤ 4, is
+
+        r(t) = ⟨t² − 6t, t³ − 3t²⟩.
+      prompt: |
+        On which interval is the particle moving up and to the left?
+      options:
+        - "0 < t < 2"
+        - "3 < t < 4"
+        - "2 < t < 3"
+        - "0 < t < 3"
+      option_explanations:
+        - |
+          On 0 < t < 2, y′ = 3t(t − 2) < 0, so the particle is moving down (and to the left).
+        - |
+          On 3 < t < 4, x′ = 2t − 6 > 0, so the particle is moving up and to the right.
+        - |
+          Correct. Left needs x′ = 2t − 6 < 0, so t < 3; up needs y′ = 3t(t − 2) > 0, so t > 2 on this domain. Both: 2 < t < 3.
+        - |
+          0 < t < 3 is where the particle moves left; it moves down for part of that time, since y′ < 0 on 0 < t < 2.
+      answer: 2
+    # ---- Independent items
+    - slug: apcalcbc-u09-w25-q05
+      type: multiple_choice
+      topic_code: "9.4"
+      source: "AP Calculus CED, Topic 9.4"
+      points: 1
+      prompt: |
+        If r(t) = ⟨e^(3t), ln(t² + 1)⟩, what is r′(t)?
+      options:
+        - "⟨3e^(3t), 2t/(t² + 1)⟩"
+        - "⟨e^(3t), 2t/(t² + 1)⟩"
+        - "⟨3e^(3t), 1/(t² + 1)⟩"
+        - "2t/(3e^(3t)(t² + 1))"
+      option_explanations:
+        - |
+          Correct. Differentiate each component: d/dt e^(3t) = 3e^(3t) and d/dt ln(t² + 1) = 2t/(t² + 1), each by the chain rule.
+        - |
+          This forgets the chain-rule factor 3 in the derivative of e^(3t).
+        - |
+          This forgets the chain-rule factor 2t, the derivative of the inside t² + 1.
+        - |
+          This is the slope y′(t)/x′(t), a number at each t; the derivative of a vector function is a vector.
+      answer: 0
+    - slug: apcalcbc-u09-w25-q06
+      type: multiple_choice
+      topic_code: "9.4"
+      source: "AP Calculus CED, Topic 9.4"
+      points: 1
+      prompt: |
+        A particle has position r(t) = ⟨√t, t² − 1⟩ for t > 0. What is the slope of the particle's path at t = 4?
+      options:
+        - "1/32"
+        - "8"
+        - "1/4"
+        - "32"
+      option_explanations:
+        - |
+          1/32 is x′(4)/y′(4), the reciprocal of the slope.
+        - |
+          8 is y′(4) = 2(4) alone; it must be divided by x′(4) = 1/4.
+        - |
+          1/4 is x′(4) = 1/(2√4) alone; the slope is y′ divided by x′.
+        - |
+          Correct. dy/dx = y′(t)/x′(t) = 2t ÷ (1/(2√t)) = 4t^(3/2), which is 4 · 8 = 32 at t = 4.
+      answer: 3
+    - slug: apcalcbc-u09-w25-q07
+      type: multiple_choice
+      topic_code: "9.5"
+      source: "AP Calculus CED, Topic 9.5"
+      points: 1
+      prompt: |
+        What is ∫ from 0 to π/2 of ⟨cos t, 4 sin t⟩ dt?
+      options:
+        - "⟨1, −4⟩"
+        - "⟨1, 4⟩"
+        - "⟨−1, 4⟩"
+        - "⟨1, 0⟩"
+      option_explanations:
+        - |
+          This uses 4 cos t as the antiderivative of 4 sin t; the antiderivative is −4 cos t, which gives 0 − (−4) = 4.
+        - |
+          Correct. Integrate each component: ⟨sin t, −4 cos t⟩ from 0 to π/2 = ⟨1 − 0, 0 − (−4)⟩ = ⟨1, 4⟩.
+        - |
+          This uses −sin t as the antiderivative of cos t; d/dt sin t = cos t, so the first component is sin(π/2) − sin 0 = 1.
+        - |
+          This evaluates −4 cos t at π/2 only and forgets to subtract its value at 0, which is −4.
+      answer: 1
+    - slug: apcalcbc-u09-w25-q08
+      type: multiple_choice
+      topic_code: "9.5"
+      source: "AP Calculus CED, Topic 9.5"
+      points: 1
+      prompt: |
+        A particle moves in the plane with velocity v(t) = ⟨3t², 2/(t + 1)⟩ for t ≥ 0, and r(0) = ⟨1, 5⟩. What is r(2)?
+      options:
+        - "⟨8, 2 ln 3⟩"
+        - "⟨9, 5 + ln 3⟩"
+        - "⟨9, 5 + 2 ln 3⟩"
+        - "⟨13, 5 + 2/3⟩"
+      option_explanations:
+        - |
+          ⟨8, 2 ln 3⟩ is the displacement ∫ from 0 to 2 of v(t) dt; the initial position ⟨1, 5⟩ must be added.
+        - |
+          This drops the constant 2 when integrating 2/(t + 1); its antiderivative is 2 ln(t + 1).
+        - |
+          Correct. x(2) = 1 + ∫ from 0 to 2 of 3t² dt = 1 + 8 = 9, and y(2) = 5 + [2 ln(t + 1)] from 0 to 2 = 5 + 2 ln 3.
+        - |
+          This adds the velocity v(2) = ⟨12, 2/3⟩ to r(0); position changes by the integral of velocity, not by its value at one time.
+      answer: 2
+    - slug: apcalcbc-u09-w25-q09
+      type: multiple_choice
+      topic_code: "9.6"
+      source: "AP Calculus CED, Topic 9.6"
+      points: 1
+      prompt: |
+        A particle moves in the plane with velocity v(t) = ⟨eᵗ − e^(−t), 2⟩. What is the total distance the particle travels from t = 0 to t = ln 2?
+      options:
+        - "3/2"
+        - "√(1/4 + 4(ln 2)²)"
+        - "1/2 + 2 ln 2"
+        - "5/2"
+      option_explanations:
+        - |
+          Correct. (eᵗ − e^(−t))² + 4 = e^(2t) + 2 + e^(−2t) = (eᵗ + e^(−t))², so the speed is eᵗ + e^(−t) and the distance is (eᵗ − e^(−t)) from 0 to ln 2 = (2 − 1/2) − 0 = 3/2.
+        - |
+          This is the magnitude of the displacement ⟨1/2, 2 ln 2⟩, the straight-line distance from start to finish; distance traveled integrates the speed.
+        - |
+          This integrates the sum of the components, ∫ (eᵗ − e^(−t) + 2) dt, instead of the speed √((x′)² + (y′)²).
+        - |
+          5/2 is the speed at t = ln 2, 2 + 1/2; distance needs the integral of the speed over the interval.
+      answer: 0
+    - slug: apcalcbc-u09-w25-q10
+      type: multiple_choice
+      topic_code: "9.2"
+      source: "AP Calculus CED, Topic 9.2"
+      points: 1
+      prompt: |
+        A curve is given by x = t³ and y = t². What is d²y/dx² at t = 1?
+      options:
+        - "−2/3"
+        - "1/3"
+        - "2/3"
+        - "−2/9"
+      option_explanations:
+        - |
+          −2/3 is d/dt (dy/dx) = −2/(3t²) at t = 1; it still has to be divided by dx/dt = 3.
+        - |
+          1/3 is (d²y/dt²)/(d²x/dt²) = 2/(6t) at t = 1, a ratio of second derivatives, which is not d²y/dx².
+        - |
+          2/3 is the first derivative dy/dx = 2t/(3t²) at t = 1, not the second.
+        - |
+          Correct. dy/dx = 2t/(3t²) = 2/(3t); d/dt gives −2/(3t²); dividing by dx/dt = 3t² gives −2/(9t⁴) = −2/9 at t = 1.
+      answer: 3
+    - slug: apcalcbc-u09-w25-q11
+      type: multiple_choice
+      topic_code: "9.3"
+      source: "AP Calculus CED, Topic 9.3"
+      points: 1
+      prompt: |
+        What is the length of the curve x = 3 cos(2t), y = 3 sin(2t) for 0 ≤ t ≤ π?
+      options:
+        - "3π"
+        - "36π"
+        - "6π"
+        - "12π"
+      option_explanations:
+        - |
+          3π forgets the chain-rule factor 2 in both derivatives, giving a speed of 3 instead of 6.
+        - |
+          36π integrates (dx/dt)² + (dy/dt)² = 36 without taking the square root.
+        - |
+          Correct. dx/dt = −6 sin(2t) and dy/dt = 6 cos(2t), so the integrand is √36 = 6 and L = 6π: one trip around a circle of radius 3.
+        - |
+          12π assumes the circle is traced twice; as t runs from 0 to π, 2t runs from 0 to 2π, which is exactly once.
+      answer: 2
+    - slug: apcalcbc-u09-w25-q12
+      type: multiple_choice
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 0 to π of x sin x dx?
+      options:
+        - "−π"
+        - "π"
+        - "π²/2"
+        - "2"
+      option_explanations:
+        - |
+          −π takes v = cos x as the antiderivative of sin x; it is −cos x, and the sign error carries through.
+        - |
+          Correct. With u = x and dv = sin x dx, v = −cos x: −x cos x + ∫ cos x dx = −x cos x + sin x, and from 0 to π this is π + 0 − 0 = π.
+        - |
+          π²/2 multiplies an antiderivative of x by −cos x; integration by parts is not a product of separate antiderivatives.
+        - |
+          2 is ∫ from 0 to π of sin x dx; the factor x cannot be dropped.
+      answer: 1
+    - slug: apcalcbc-u09-w25-q13
+      type: multi_select
+      topic_code: "9.6"
+      source: "AP Calculus CED, Topic 9.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A particle moves in the plane with velocity v(t) = ⟨t² − 4, 3 − t⟩ for 0 ≤ t ≤ 5. Select every true statement.
+      options:
+        - "At t = 1 the particle is moving to the left and up."
+        - "The particle is at rest at t = 2."
+        - "The speed of the particle at t = 3 is 5."
+        - "The acceleration vector at t = 3 is ⟨6, −1⟩."
+        - "The path of the particle has a vertical tangent at t = 3."
+      option_explanations:
+        - |
+          True. v(1) = ⟨−3, 2⟩: x′ < 0 (left) and y′ > 0 (up).
+        - |
+          False. x′(2) = 0 but y′(2) = 1 ≠ 0; rest needs both components zero.
+        - |
+          True. v(3) = ⟨5, 0⟩, so the speed is √(25 + 0) = 5.
+        - |
+          True. a(t) = ⟨2t, −1⟩, so a(3) = ⟨6, −1⟩.
+        - |
+          False. At t = 3, y′ = 0 while x′ = 5 ≠ 0, so the tangent is horizontal, not vertical.
+      answer: [0, 2, 3]
+    - slug: apcalcbc-u09-w25-q14
+      type: multi_select
+      topic_code: "9.5"
+      source: "AP Calculus CED, Topics 9.4–9.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let r(t) = ⟨x(t), y(t)⟩ be a differentiable vector-valued function on an interval. Select every true statement.
+      options:
+        - "r′(t) = ⟨x′(t), y′(t)⟩."
+        - "∫ r(t) dt = ⟨∫ x(t) dt, ∫ y(t) dt⟩ + C, where C is a constant vector."
+        - "The speed is |x′(t)| + |y′(t)|."
+        - "If r′(t) = ⟨0, 0⟩ for every t in the interval, then r is constant on the interval."
+        - "The slope of the path at t equals the speed |r′(t)|."
+      option_explanations:
+        - |
+          True. Vector functions are differentiated component by component.
+        - |
+          True. Each component is integrated separately, and the two constants of integration form one constant vector.
+        - |
+          False. Speed is √((x′)² + (y′)²); the sum of the absolute values is larger unless one component is zero.
+        - |
+          True. Each component has derivative 0 on the interval, so each component is constant there (a consequence of the Mean Value Theorem).
+        - |
+          False. The slope is y′/x′, a direction; the speed is a magnitude. With r′ = ⟨3, 4⟩ the slope is 4/3 but the speed is 5.
+      answer: [0, 1, 3]
+    - slug: apcalcbc-u09-w25-q15
+      type: true_false
+      topic_code: "9.6"
+      source: "AP Calculus CED, Topic 9.6"
+      points: 1
+      prompt: |
+        True or false: For a particle moving in the plane, the total distance traveled from t = a to t = b always equals the magnitude of ∫ from a to b of v(t) dt.
+      answer: false
+      explanation: |
+        False. |∫ v dt| is the magnitude of the displacement r(b) − r(a), the straight-line distance from start to finish. Total distance is ∫ from a to b of |v(t)| dt; the two agree only when the particle moves along a straight line without turning back.
+    - slug: apcalcbc-u09-w25-q16
+      type: true_false
+      topic_code: "7.9"
+      source: "AP Calculus CED, Topic 7.9"
+      points: 1
+      prompt: |
+        True or false: If dP/dt = 0.2P(1 − P/500) and P(0) = 650, then P decreases toward 500 as t increases.
+      answer: true
+      explanation: |
+        True. For P > 500, 1 − P/500 < 0, so dP/dt < 0 and P decreases. The solution approaches the carrying capacity 500 from above but never crosses it.
+    - slug: apcalcbc-u09-w25-q17
+      type: fill_blank
+      topic_code: "9.5"
+      source: "AP Calculus CED, Topic 9.5"
+      points: 1
+      prompt: |
+        A particle moves in the plane with x′(t) = 4t³ and x(0) = −1. The x-coordinate of the particle at t = 2 is ____.
+      answer: ["15"]
+      explanation: |
+        x(2) = x(0) + ∫ from 0 to 2 of 4t³ dt = −1 + [t⁴] from 0 to 2 = −1 + 16 = 15.
+    - slug: apcalcbc-u09-w25-q18
+      type: fill_blank
+      topic_code: "9.4"
+      source: "AP Calculus CED, Topic 9.4"
+      points: 1
+      prompt: |
+        A particle has position r(t) = ⟨t² − t, t²⟩. Its speed at t = 2 is ____.
+      answer: ["5"]
+      explanation: |
+        v(t) = ⟨2t − 1, 2t⟩, so v(2) = ⟨3, 4⟩ and the speed is √(9 + 16) = 5.
+    - slug: apcalcbc-u09-w25-q19
+      type: numeric
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        Evaluate the improper integral ∫ from 0 to ∞ of x e^(−x) dx.
+      answer: { value: 1, tolerance: 0 }
+      explanation: |
+        By parts, ∫ x e^(−x) dx = −x e^(−x) − e^(−x). From 0 to b this is (−b e^(−b) − e^(−b)) − (0 − 1). As b → ∞, b e^(−b) → 0 and e^(−b) → 0, so the integral converges to 1.
+    - slug: apcalcbc-u09-w25-q20
+      type: numeric
+      topic_code: "9.3"
+      source: "AP Calculus CED, Topic 9.3"
+      points: 1
+      prompt: |
+        (Calculator.) Find the length of the curve x = t², y = sin t for 0 ≤ t ≤ π. Give your answer to three decimal places.
+      answer: { value: 10.354, tolerance: 0.001 }
+      explanation: |
+        dx/dt = 2t and dy/dt = cos t, so L = ∫ from 0 to π of √(4t² + cos²t) dt ≈ 10.354 by numerical integration. The curve is traced once because x = t² is increasing on the interval.
+    - slug: apcalcbc-u09-w25-q21
+      type: short_answer
+      topic_code: "9.6"
+      source: "AP Calculus CED, Topic 9.6"
+      points: 3
+      prompt: |
+        A particle moves in the plane with velocity v(t) = ⟨6t − 6, 3t²⟩ for t ≥ 0. At t = 0 the particle is at (2, −1).
+
+        (a) Find the position of the particle at t = 2.
+        (b) For what values of t is the particle moving to the left?
+        (c) Find the slope of the particle's path at t = 2.
+      answer: |
+        (a) x(2) = 2 + ∫ from 0 to 2 of (6t − 6) dt = 2 + (12 − 12) = 2; y(2) = −1 + ∫ from 0 to 2 of 3t² dt = −1 + 8 = 7. Position (2, 7).
+        (b) Left means x′(t) = 6t − 6 < 0: 0 ≤ t < 1.
+        (c) dy/dx = y′(2)/x′(2) = 12/6 = 2.
+      explanation: |
+        Three points, one per part. (a) (2, 7), with the initial position added to each integral. (b) 0 ≤ t < 1 from x′ < 0 (0 < t < 1 also accepted). (c) 2 as the ratio y′/x′.
+    - slug: apcalcbc-u09-w25-q22
+      type: short_answer
+      topic_code: "9.2"
+      source: "AP Calculus CED, Topics 9.1–9.2"
+      points: 3
+      prompt: |
+        A curve is given by x = 2t − 1, y = t³ − 3t².
+
+        (a) Find dy/dx in terms of t.
+        (b) Find the points (x, y) where the curve has a horizontal tangent line.
+        (c) Find d²y/dx² in terms of t, and the values of t for which the curve is concave up.
+      answer: |
+        (a) dy/dx = (3t² − 6t)/2.
+        (b) 3t² − 6t = 3t(t − 2) = 0 at t = 0 and t = 2, where dx/dt = 2 ≠ 0. Points (−1, 0) and (3, −4).
+        (c) d/dt (dy/dx) = (6t − 6)/2 = 3t − 3; dividing by dx/dt = 2 gives d²y/dx² = (3t − 3)/2, positive for t > 1. Concave up for t > 1.
+      explanation: |
+        Three points, one per part. (a) (3t² − 6t)/2 or equivalent. (b) Both points (−1, 0) and (3, −4). (c) (3t − 3)/2 with the division by dx/dt, and t > 1.
+    - slug: apcalcbc-u09-w25-q23
+      type: long_answer
+      topic_code: "9.6"
+      source: "AP Calculus CED, Topics 9.4–9.6"
+      points: 6
+      prompt: |
+        A particle moves in the xy-plane with velocity v(t) = ⟨1 − t², 2t⟩ for 0 ≤ t ≤ 3. At t = 0 the particle is at the point (0, 1).
+
+        (A) Find the acceleration vector at t = 2.
+
+        (B) Show that the speed of the particle is 1 + t², and find the total distance the particle travels for 0 ≤ t ≤ 3.
+
+        (C) Find the position of the particle at t = 3.
+
+        (D) For what values of t in 0 < t ≤ 3 is the particle moving to the left? Describe the tangent to the path at t = 1.
+
+        (E) Is the speed of the particle increasing or decreasing at t = 2? Justify.
+      answer: |
+        (A) a(t) = ⟨−2t, 2⟩, so a(2) = ⟨−4, 2⟩.
+        (B) (1 − t²)² + (2t)² = 1 − 2t² + t⁴ + 4t² = (1 + t²)², so the speed is √((1 + t²)²) = 1 + t². Distance = ∫ from 0 to 3 of (1 + t²) dt = 3 + 9 = 12.
+        (C) x(3) = 0 + ∫ from 0 to 3 of (1 − t²) dt = 3 − 9 = −6; y(3) = 1 + ∫ from 0 to 3 of 2t dt = 1 + 9 = 10. Position (−6, 10).
+        (D) Left means x′ = 1 − t² < 0: 1 < t ≤ 3. At t = 1, x′ = 0 and y′ = 2 ≠ 0, so the path has a vertical tangent there.
+        (E) Increasing: the speed is s(t) = 1 + t², and s′(2) = 4 > 0. (Equivalently v(2) · a(2) = (−3)(−4) + (4)(2) = 20 > 0.)
+      explanation: |
+        Six points. (A) 1 point for ⟨−4, 2⟩. (B) 1 point for the algebra showing the speed is 1 + t²; 1 point for ∫ from 0 to 3 of (1 + t²) dt = 12. (C) 1 point for (−6, 10) with the initial position used. (D) 1 point for 1 < t ≤ 3 and the vertical tangent at t = 1 with x′ = 0, y′ ≠ 0. (E) 1 point for "increasing" justified by the derivative of the speed (or the dot product) being positive; a positive speed alone does not earn the point.

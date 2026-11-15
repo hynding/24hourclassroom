@@ -1,0 +1,597 @@
+week: 28
+unit: 10
+title: "The Integral Test, p-Series and Comparison Tests"
+topics: ["10.4", "10.5", "10.6"]
+guide: guides/week-28.md
+guide_description: |
+  The integral test and its three hypotheses (the function is positive, continuous and decreasing), and why the
+  integral's value is not the series' sum; the harmonic series and the p-series ∑ 1/nᵖ, which converge exactly when
+  p > 1; and the direct comparison and limit comparison tests, with the exact conditions AP readers look for.
+  Worked examples: the integral test on ∑ n/(n² + 1) (divergent) and on ∑ (n = 2 to ∞) 1/(n(ln n)²) (convergent),
+  why the harmonic series diverges, classifying five p-series after rewriting them, direct comparisons for
+  ∑ 1/(n² + 5) and ∑ (n = 3 to ∞) (ln n)/n, and limit comparisons for ∑ (2n + 1)/(n³ + 4) and ∑ 1/(2n − 1).
+flashcards_description: |
+  30 cards on the integral test and its hypotheses, the harmonic series, p-series, direct comparison, limit
+  comparison, choosing a comparison series by dominant terms, the justification sentences for each test, and the
+  error patterns in comparing in the wrong direction and equating an integral with a sum.
+
+flashcards:
+  - front: Integral test → hypotheses on f
+    back: |
+      f(n) = aₙ, and f is positive, continuous and decreasing for x ≥ N (some starting value). All three must be checked and stated.
+    topic_code: "10.4"
+  - front: Integral test → conclusion when its hypotheses hold
+    back: |
+      ∑ (n = N to ∞) aₙ and ∫ from N to ∞ of f(x) dx either both converge or both diverge.
+    topic_code: "10.4"
+  - front: Integral test with ∫ from 1 to ∞ of f(x) dx = 1/4 → is the series' sum 1/4?
+    back: |
+      No. The test gives convergence only. For decreasing f the sum ∑ (n = 1 to ∞) f(n) is larger than ∫ from 1 to ∞ of f(x) dx, because left-endpoint rectangles lie above the graph.
+    topic_code: "10.4"
+  - front: Integral test → how to show f is decreasing
+    back: |
+      Show f′(x) < 0 for x ≥ N, or argue that the denominator increases while the numerator stays positive and fixed.
+    topic_code: "10.4"
+  - front: ∑ (n = 1 to ∞) n/(n² + 1) by the integral test → verdict
+    back: |
+      f(x) = x/(x² + 1) is positive, continuous and decreasing for x ≥ 1; ∫ from 1 to ∞ of f = lim (1/2)ln(x² + 1) − (1/2)ln 2 = ∞. The series diverges.
+    topic_code: "10.4"
+  - front: ∑ (n = 2 to ∞) 1/(n(ln n)²) by the integral test → verdict
+    back: |
+      With u = ln x, ∫ from 2 to ∞ of dx/(x(ln x)²) = [−1/ln x] from 2 to ∞ = 1/ln 2, finite. The series converges.
+    topic_code: "10.4"
+  - front: ∑ (n = 1 to ∞) (2 + sin n)/n² → why the integral test does not apply
+    back: |
+      f(x) = (2 + sin x)/x² is positive and continuous but not eventually decreasing (sin x keeps wiggling). Use direct comparison with 3/n² instead.
+    topic_code: "10.4"
+  - front: Harmonic series ∑ (n = 1 to ∞) 1/n → behaviour and reason
+    back: |
+      Diverges, although 1/n → 0. Integral test: ∫ from 1 to ∞ of dx/x = lim ln b = ∞. Its partial sums grow like ln n.
+    topic_code: "10.5"
+  - front: p-series ∑ (n = 1 to ∞) 1/nᵖ → when it converges
+    back: |
+      Exactly when p > 1. It diverges for p ≤ 1 (p = 1 is the harmonic series).
+    topic_code: "10.5"
+  - front: ∑ (n = 1 to ∞) √n/n² → p-series form and verdict
+    back: |
+      √n/n² = 1/n^(3/2), a p-series with p = 3/2 > 1: converges.
+    topic_code: "10.5"
+  - front: ∑ (n = 1 to ∞) 1/∛n → p-series form and verdict
+    back: |
+      1/n^(1/3), a p-series with p = 1/3 ≤ 1: diverges.
+    topic_code: "10.5"
+  - front: ∑ (n = 1 to ∞) 7/n → behaviour
+    back: |
+      7 times the harmonic series: diverges. A nonzero constant multiple never changes convergence.
+    topic_code: "10.5"
+  - front: ∑ (n = 1 to ∞) n^(−π) → behaviour
+    back: |
+      1/n^π with p = π ≈ 3.14 > 1: converges.
+    topic_code: "10.5"
+  - front: p-series test → justification sentence
+    back: |
+      "∑ 1/n^(3/2) is a p-series with p = 3/2 > 1, so it converges." Name p and compare it with 1.
+    topic_code: "10.5"
+  - front: Direct comparison test → statement
+    back: |
+      Suppose 0 ≤ aₙ ≤ bₙ for all n ≥ N. If ∑ bₙ converges, then ∑ aₙ converges. If ∑ aₙ diverges, then ∑ bₙ diverges.
+    topic_code: "10.6"
+  - front: Direct comparison → the two useless directions
+    back: |
+      Smaller than a divergent series, or larger than a convergent one, proves nothing. You need "smaller than convergent" or "larger than divergent".
+    topic_code: "10.6"
+  - front: ∑ (n = 1 to ∞) 1/(n² + 5) by direct comparison → argument
+    back: |
+      0 < 1/(n² + 5) < 1/n² for all n ≥ 1, and ∑ 1/n² converges (p = 2 > 1), so ∑ 1/(n² + 5) converges.
+    topic_code: "10.6"
+  - front: ∑ (n = 3 to ∞) (ln n)/n by direct comparison → argument
+    back: |
+      For n ≥ 3, ln n > 1, so (ln n)/n > 1/n > 0. The harmonic series diverges, so ∑ (ln n)/n diverges.
+    topic_code: "10.6"
+  - front: ∑ (n = 1 to ∞) 2ⁿ/(3ⁿ + 1) by direct comparison → argument
+    back: |
+      0 < 2ⁿ/(3ⁿ + 1) < 2ⁿ/3ⁿ = (2/3)ⁿ, and the geometric series ∑ (2/3)ⁿ converges (|r| < 1), so the series converges.
+    topic_code: "10.6"
+  - front: Limit comparison test → statement
+    back: |
+      If aₙ > 0, bₙ > 0 and lim (n→∞) aₙ/bₙ = L with 0 < L < ∞, then ∑ aₙ and ∑ bₙ both converge or both diverge.
+    topic_code: "10.6"
+  - front: Limit comparison → how to choose bₙ
+    back: |
+      Keep only the dominant (highest-power) part of the numerator and of the denominator. (2n + 1)/(n³ + 4) behaves like 2n/n³, so take bₙ = 1/n².
+    topic_code: "10.6"
+  - front: ∑ (n = 1 to ∞) (2n + 1)/(n³ + 4) by limit comparison → verdict
+    back: |
+      With bₙ = 1/n², lim aₙ/bₙ = lim (2n³ + n²)/(n³ + 4) = 2, and 0 < 2 < ∞. ∑ 1/n² converges, so the series converges.
+    topic_code: "10.6"
+  - front: ∑ (n = 1 to ∞) 1/(2n − 1) by limit comparison → verdict
+    back: |
+      With bₙ = 1/n, lim n/(2n − 1) = 1/2, and 0 < 1/2 < ∞. The harmonic series diverges, so this series diverges.
+    topic_code: "10.6"
+  - front: Limit comparison giving L = 0 or L = ∞ → conclusion
+    back: |
+      Generally none from the basic test: pick a better comparison series whose dominant terms match, so the limit is a positive finite number.
+    topic_code: "10.6"
+  - front: Limit comparison justification → what AP readers want
+    back: |
+      Name bₙ and its behaviour, show the limit, and state 0 < L < ∞: "lim aₙ/(1/n²) = 2, a finite positive number, and ∑ 1/n² converges, so ∑ aₙ converges by the limit comparison test."
+    topic_code: "10.6"
+  - front: Direct comparison versus limit comparison → when to prefer the limit test
+    back: |
+      When the inequality goes the wrong way. 1/(n² − 3) is larger than 1/n², so direct comparison with 1/n² fails, but lim (1/(n² − 3))/(1/n²) = 1 settles it at once.
+    topic_code: "10.6"
+  - front: Series with positive terms, tests from this week → which to try first
+    back: |
+      Rational or root expressions: p-series or limit comparison. Something easy to integrate (with ln n or x e^(−x²) pieces): the integral test. Bounded wiggles like sin n: direct comparison.
+    topic_code: "10.6"
+  - front: Error-spot → "1/(n² + n) < 1/n and ∑ 1/n diverges, so ∑ 1/(n² + n) diverges"
+    back: |
+      Being smaller than a divergent series proves nothing. Compare with 1/n² instead: 1/(n² + n) < 1/n², and ∑ 1/n² converges, so the series converges.
+    topic_code: "10.6"
+  - front: Error-spot → "∑ 1/√n converges because it is a p-series and p = 1/2 > 0"
+    back: |
+      The condition is p > 1, not p > 0. With p = 1/2 ≤ 1 the series diverges.
+    topic_code: "10.5"
+  - front: Error-spot → "∫ from 1 to ∞ of x e^(−x²) dx = 1/(2e), so ∑ n e^(−n²) = 1/(2e)"
+    back: |
+      The integral test gives convergence, not the sum. Here the first term alone, 1/e ≈ 0.368, already exceeds 1/(2e) ≈ 0.184.
+    topic_code: "10.4"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 10.4, 10.5 and 10.6: the integral test, the harmonic
+    series and p-series, and the direct and limit comparison tests), with 8 questions (about 35%) reviewing earlier
+    weeks (the nth term test and geometric series from week 27, partial fractions and improper integrals from weeks
+    16 and 17, logistic growth from week 20, and parametric arc length from week 24). Opens with a shared-context set
+    on the integral test for ∑ n e^(−n²). Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. No calculator is needed.
+  questions:
+    # ---- Stimulus set: the integral test for ∑ n e^(−n²) (10.4, 10.3)
+    - slug: apcalcbc-u10-w28-q01
+      type: multiple_choice
+      topic_code: "10.4"
+      source: "AP Calculus CED, Topic 10.4"
+      points: 1
+      stimulus: |
+        Consider the series ∑ (n = 1 to ∞) n e^(−n²) and the function f(x) = x e^(−x²), so that f(n) is the nth term of the series. Note that f′(x) = (1 − 2x²)e^(−x²).
+      prompt: |
+        Which statement gives the conditions on f that must be verified before the integral test is applied on [1, ∞)?
+      options:
+        - "f is positive, continuous and decreasing for x ≥ 1."
+        - "f is positive and continuous for x ≥ 1; whether f decreases does not matter."
+        - "f is increasing for x ≥ 1, so the integral is an upper bound."
+        - "lim (x→∞) f(x) = 0; nothing else needs to be checked."
+      option_explanations:
+        - |
+          Correct. For x ≥ 1, x > 0 and e^(−x²) > 0, so f is positive; it is continuous; and f′(x) = (1 − 2x²)e^(−x²) < 0 because 2x² > 1, so f is decreasing.
+        - |
+          Decreasing is a required hypothesis: the comparison between the rectangles and the area only works when f is decreasing.
+        - |
+          f′(x) = (1 − 2x²)e^(−x²) is negative for x ≥ 1, so f is decreasing there, not increasing.
+        - |
+          A limit of 0 is only the nth term condition, which never proves convergence; the integral test needs positive, continuous and decreasing.
+      answer: 0
+    - slug: apcalcbc-u10-w28-q02
+      type: multiple_choice
+      topic_code: "10.4"
+      source: "AP Calculus CED, Topic 10.4"
+      points: 1
+      stimulus: |
+        Consider the series ∑ (n = 1 to ∞) n e^(−n²) and the function f(x) = x e^(−x²), so that f(n) is the nth term of the series. Note that f′(x) = (1 − 2x²)e^(−x²).
+      prompt: |
+        What is the value of ∫ from 1 to ∞ of x e^(−x²) dx?
+      options:
+        - "1/e"
+        - "−1/(2e)"
+        - "1/(2e)"
+        - "The integral diverges."
+      option_explanations:
+        - |
+          1/e forgets the factor 1/2 from the substitution u = x², du = 2x dx.
+        - |
+          −1/(2e) evaluates in the wrong order, lower limit minus upper limit.
+        - |
+          Correct. With u = x², ∫ x e^(−x²) dx = −(1/2)e^(−x²). So the integral is lim (b→∞) [−(1/2)e^(−b²) + (1/2)e^(−1)] = 1/(2e).
+        - |
+          e^(−x²) decays very fast, so the area is finite: the limit of the proper integrals is 1/(2e).
+      answer: 2
+    - slug: apcalcbc-u10-w28-q03
+      type: multiple_choice
+      topic_code: "10.4"
+      source: "AP Calculus CED, Topic 10.4"
+      points: 1
+      stimulus: |
+        Consider the series ∑ (n = 1 to ∞) n e^(−n²) and the function f(x) = x e^(−x²), so that f(n) is the nth term of the series. Note that f′(x) = (1 − 2x²)e^(−x²).
+      prompt: |
+        What does the integral test conclude about ∑ (n = 1 to ∞) n e^(−n²)?
+      options:
+        - "The series converges, and its sum is 1/(2e)."
+        - "The series converges, but its sum is not given by the value of the integral."
+        - "The series diverges, because the integral is positive."
+        - "The test is inconclusive, because f is not decreasing on all of [0, ∞)."
+      option_explanations:
+        - |
+          The integral test decides convergence only. The sum is larger than the integral: the first term alone, 1/e ≈ 0.368, exceeds 1/(2e) ≈ 0.184.
+        - |
+          Correct. The hypotheses hold on [1, ∞) and the improper integral converges, so the series converges; the integral's value is not the sum.
+        - |
+          A positive, finite integral means convergence; divergence would need the integral to be infinite.
+        - |
+          The hypotheses are needed only from the series' starting index on (here x ≥ 1), and f is decreasing there.
+      answer: 1
+    - slug: apcalcbc-u10-w28-q04
+      type: true_false
+      topic_code: "10.3"
+      source: "AP Calculus CED, Topic 10.3"
+      points: 1
+      stimulus: |
+        Consider the series ∑ (n = 1 to ∞) n e^(−n²) and the function f(x) = x e^(−x²), so that f(n) is the nth term of the series. Note that f′(x) = (1 − 2x²)e^(−x²).
+      prompt: |
+        True or false: Because lim (n→∞) n e^(−n²) = 0, the nth term test by itself shows that this series converges.
+      answer: false
+      explanation: |
+        False. The nth term test can only show divergence; a limit of 0 makes it inconclusive. The series does converge, but that conclusion comes from the integral test.
+    # ---- Independent items
+    - slug: apcalcbc-u10-w28-q05
+      type: multiple_choice
+      topic_code: "10.5"
+      source: "AP Calculus CED, Topic 10.5"
+      points: 1
+      prompt: |
+        Which of the following series converges?
+      options:
+        - "∑ (n = 1 to ∞) 1/√n"
+        - "∑ (n = 1 to ∞) n/n^(5/2)"
+        - "∑ (n = 1 to ∞) n^(−1)"
+        - "∑ (n = 1 to ∞) ∛n/n"
+      option_explanations:
+        - |
+          1/√n = 1/n^(1/2), a p-series with p = 1/2 ≤ 1, so it diverges.
+        - |
+          Correct. n/n^(5/2) = 1/n^(3/2), a p-series with p = 3/2 > 1, so it converges.
+        - |
+          n^(−1) = 1/n is the harmonic series, which diverges.
+        - |
+          ∛n/n = 1/n^(2/3), a p-series with p = 2/3 ≤ 1, so it diverges.
+      answer: 1
+    - slug: apcalcbc-u10-w28-q06
+      type: multiple_choice
+      topic_code: "10.5"
+      source: "AP Calculus CED, Topic 10.5"
+      points: 1
+      prompt: |
+        For which values of the constant p does ∑ (n = 1 to ∞) 1/n^(3p + 4) converge?
+      options:
+        - "p > −4/3"
+        - "p ≥ −1"
+        - "p > 1"
+        - "p > −1"
+      option_explanations:
+        - |
+          p > −4/3 only makes the exponent 3p + 4 positive, so that the terms approach 0; convergence needs the exponent greater than 1.
+        - |
+          p = −1 gives exponent 1, the harmonic series, which diverges; the inequality must be strict.
+        - |
+          This applies the p-series condition to the constant p itself instead of to the whole exponent 3p + 4.
+        - |
+          Correct. This is a p-series with exponent 3p + 4, which converges exactly when 3p + 4 > 1, that is p > −1.
+      answer: 3
+    - slug: apcalcbc-u10-w28-q07
+      type: multiple_choice
+      topic_code: "10.6"
+      source: "AP Calculus CED, Topic 10.6"
+      points: 1
+      prompt: |
+        Which argument correctly uses the direct comparison test to determine whether ∑ (n = 1 to ∞) 1/(n² + 4n) converges?
+      options:
+        - "0 < 1/(n² + 4n) ≤ 1/n² for all n ≥ 1, and ∑ 1/n² converges, so the series converges."
+        - "1/(n² + 4n) ≥ 1/(5n²) for all n ≥ 1, and ∑ 1/(5n²) converges, so the series converges."
+        - "1/(n² + 4n) ≤ 1/n for all n ≥ 1, and ∑ 1/n diverges, so the series diverges."
+        - "1/(n² + 4n) ≤ 1/(4n) for all n ≥ 1, and ∑ 1/(4n) diverges, so the series diverges."
+      option_explanations:
+        - |
+          Correct. n² + 4n ≥ n² makes the terms no larger than 1/n², and ∑ 1/n² is a convergent p-series (p = 2 > 1), so the smaller positive series converges.
+        - |
+          The inequality is true, but being larger than a convergent series proves nothing; the comparison runs in the useless direction.
+        - |
+          Being smaller than a divergent series proves nothing, and the series in fact converges.
+        - |
+          Again smaller than a divergent series: no conclusion is possible from this comparison.
+      answer: 0
+    - slug: apcalcbc-u10-w28-q08
+      type: multiple_choice
+      topic_code: "10.6"
+      source: "AP Calculus CED, Topic 10.6"
+      points: 1
+      prompt: |
+        The limit comparison test is applied to ∑ (n = 1 to ∞) (3n² − 1)/(n⁴ + 2n), comparing with ∑ 1/n². Which gives the correct limit and conclusion?
+      options:
+        - "The limit is 3; the series diverges because the limit is greater than 1."
+        - "The limit is 0; the series converges because the terms approach 0."
+        - "The limit is 3; the series converges because 0 < 3 < ∞ and ∑ 1/n² converges."
+        - "The limit is 3; the test is inconclusive because the limit is not 1."
+      option_explanations:
+        - |
+          This confuses the limit comparison test with the ratio test; any finite positive limit means both series behave the same way.
+        - |
+          0 is lim aₙ, not lim aₙ/(1/n²); the comparison divides by bₙ first.
+        - |
+          Correct. aₙ/(1/n²) = (3n⁴ − n²)/(n⁴ + 2n) → 3, a finite positive number, and ∑ 1/n² converges (p = 2 > 1), so the series converges.
+        - |
+          The limit need only be finite and positive; it does not have to equal 1.
+      answer: 2
+    - slug: apcalcbc-u10-w28-q09
+      type: multiple_choice
+      topic_code: "10.5"
+      source: "AP Calculus CED, Topic 10.5"
+      points: 1
+      prompt: |
+        Which statement about ∑ (n = 1 to ∞) 5/(2n) is true?
+      options:
+        - "It converges, because its terms approach 0."
+        - "It converges, because it is a p-series with p = 1 and p > 0."
+        - "It converges to (5/2) ln 2."
+        - "It diverges, because it is 5/2 times the harmonic series."
+      option_explanations:
+        - |
+          Terms approaching 0 never proves convergence; the harmonic series is the standard counterexample.
+        - |
+          A p-series converges only for p > 1; with p = 1 it is the harmonic series, which diverges.
+        - |
+          The series has no finite sum at all; its partial sums grow like (5/2) ln n.
+        - |
+          Correct. 5/(2n) = (5/2)(1/n), and a nonzero constant multiple of the divergent harmonic series diverges.
+      answer: 3
+    - slug: apcalcbc-u10-w28-q10
+      type: multiple_choice
+      topic_code: "10.4"
+      source: "AP Calculus CED, Topic 10.4"
+      points: 1
+      prompt: |
+        Why can the integral test not be applied to ∑ (n = 1 to ∞) (2 + sin n)/n² with f(x) = (2 + sin x)/x²?
+      options:
+        - "f is not positive for x ≥ 1."
+        - "f is not decreasing for large x."
+        - "f is not continuous for x ≥ 1."
+        - "The terms of the series do not approach 0."
+      option_explanations:
+        - |
+          2 + sin x ≥ 1 > 0, so f is positive for every x ≥ 1.
+        - |
+          Correct. The sin x in the numerator keeps f rising and falling slightly, so f is never eventually decreasing. (Direct comparison with 3/n² shows the series converges.)
+        - |
+          f is a quotient of continuous functions with denominator x² ≠ 0 for x ≥ 1, so it is continuous there.
+        - |
+          The terms are at most 3/n², so they do approach 0.
+      answer: 1
+    - slug: apcalcbc-u10-w28-q11
+      type: multiple_choice
+      topic_code: "10.2"
+      source: "AP Calculus CED, Topic 10.2"
+      points: 1
+      prompt: |
+        What is the sum of ∑ (n = 1 to ∞) (−2)ⁿ⁺¹/5ⁿ?
+      options:
+        - "4/3"
+        - "−10/7"
+        - "4/7"
+        - "20/7"
+      option_explanations:
+        - |
+          4/3 uses r = 2/5 and drops the negative sign of the ratio; with r = −2/5, 1 − r = 7/5.
+        - |
+          −10/7 uses −2, the n = 0 term, as the first term; the series starts at n = 1, where the term is 4/5.
+        - |
+          Correct. The first term (n = 1) is (−2)²/5 = 4/5 and r = −2/5, so the sum is (4/5)/(1 + 2/5) = (4/5)/(7/5) = 4/7.
+        - |
+          20/7 uses the numerator 4 as the first term and forgets to divide by 5¹.
+      answer: 2
+    - slug: apcalcbc-u10-w28-q12
+      type: multiple_choice
+      topic_code: "10.3"
+      source: "AP Calculus CED, Topic 10.3"
+      points: 1
+      prompt: |
+        What can be concluded about ∑ (n = 1 to ∞) (n + 1)/√(4n² + 3)?
+      options:
+        - "It diverges by the nth term test, because its terms approach 1/2."
+        - "It converges, because its terms approach 1/2, which is less than 1."
+        - "The nth term test is inconclusive, because the limit of the terms is not 0."
+        - "It diverges by the nth term test, because its terms approach 1/4."
+      option_explanations:
+        - |
+          Correct. Dividing numerator and denominator by n, (1 + 1/n)/√(4 + 3/n²) → 1/√4 = 1/2 ≠ 0, so the series diverges.
+        - |
+          Comparing a limit with 1 belongs to the ratio test applied to aₙ₊₁/aₙ; terms that approach a nonzero number force divergence.
+        - |
+          This reverses the test: a nonzero limit is exactly when the nth term test gives a conclusion (divergence).
+        - |
+          The conclusion is right but the limit is wrong: √(4n²) = 2n, not 4n, so the limit is 1/2.
+      answer: 0
+    - slug: apcalcbc-u10-w28-q13
+      type: multiple_choice
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        What is the value of ∫ from e to ∞ of 1/(x(ln x)²) dx?
+      options:
+        - "−1"
+        - "1/e"
+        - "The integral diverges."
+        - "1"
+      option_explanations:
+        - |
+          −1 drops the minus sign of the antiderivative: ∫ u⁻² du = −u⁻¹, so the antiderivative is −1/ln x.
+        - |
+          1/e evaluates −1/x instead of −1/ln x; the substitution u = ln x must be carried through to the end.
+        - |
+          (ln x)² in the denominator makes the integrand small enough: with u = ln x it becomes ∫ from 1 to ∞ of u⁻² du, which converges.
+        - |
+          Correct. With u = ln x, du = dx/x, the integral is ∫ from 1 to ∞ of u⁻² du = [−1/u] from 1 to ∞ = 0 − (−1) = 1.
+      answer: 3
+    - slug: apcalcbc-u10-w28-q14
+      type: multiple_choice
+      topic_code: "6.12"
+      source: "AP Calculus CED, Topic 6.12"
+      points: 1
+      prompt: |
+        Which is ∫ 1/(x² + 3x + 2) dx?
+      options:
+        - "ln|x + 2| − ln|x + 1| + C"
+        - "ln|x + 1| − ln|x + 2| + C"
+        - "ln|x² + 3x + 2| + C"
+        - "ln|(x + 1)(x + 2)| + C"
+      option_explanations:
+        - |
+          The signs are swapped. 1/((x + 1)(x + 2)) = 1/(x + 1) − 1/(x + 2), so the x + 1 term is the positive one.
+        - |
+          Correct. 1/((x + 1)(x + 2)) = A/(x + 1) + B/(x + 2) with A = 1 (set x = −1) and B = −1 (set x = −2), so the integral is ln|x + 1| − ln|x + 2| + C.
+        - |
+          ln|g(x)| is the antiderivative of g′(x)/g(x); here the numerator is 1, not 2x + 3.
+        - |
+          This is the same as ln|x² + 3x + 2|, which treats the integrand as if its numerator were the derivative of the denominator.
+      answer: 1
+    - slug: apcalcbc-u10-w28-q15
+      type: multi_select
+      topic_code: "10.5"
+      source: "AP Calculus CED, Topic 10.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Each of these series is a p-series, possibly after rewriting or factoring out a constant. Which of them converge? Select all that apply.
+      options:
+        - "∑ (n = 1 to ∞) 1/n^π"
+        - "∑ (n = 1 to ∞) 1/n^0.99"
+        - "∑ (n = 1 to ∞) √n/n²"
+        - "∑ (n = 1 to ∞) 1/∜n"
+        - "∑ (n = 1 to ∞) 10/n"
+      option_explanations:
+        - |
+          Correct. It is a p-series with p = π ≈ 3.14, and π > 1, so it converges.
+        - |
+          p = 0.99 is just below 1, so this p-series diverges, very slowly.
+        - |
+          Correct. √n/n² = 1/n^(3/2), with p = 3/2 > 1.
+        - |
+          1/∜n = 1/n^(1/4), with p = 1/4 ≤ 1, so it diverges.
+        - |
+          10 times the harmonic series still diverges.
+      answer: [0, 2]
+    - slug: apcalcbc-u10-w28-q16
+      type: multi_select
+      topic_code: "10.6"
+      source: "AP Calculus CED, Topic 10.6"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which of these direct comparison arguments are valid? Select all that apply.
+      options:
+        - "0 < 1/(n³ + 1) < 1/n³ and ∑ 1/n³ converges, so ∑ 1/(n³ + 1) converges."
+        - "1/(n − 1/2) > 1/n > 0 for n ≥ 1 and ∑ 1/n diverges, so ∑ 1/(n − 1/2) diverges."
+        - "0 < 1/(n² + n) < 1/n and ∑ 1/n diverges, so ∑ 1/(n² + n) diverges."
+        - "0 < 2ⁿ/(3ⁿ + 1) < (2/3)ⁿ and ∑ (2/3)ⁿ converges, so ∑ 2ⁿ/(3ⁿ + 1) converges."
+        - "(n + 1)/n³ > 1/n³ > 0 and ∑ 1/n³ converges, so ∑ (n + 1)/n³ converges."
+      option_explanations:
+        - |
+          Correct. Smaller than a convergent p-series (p = 3), with positive terms.
+        - |
+          Correct. Larger than the divergent harmonic series, with positive terms.
+        - |
+          Smaller than a divergent series proves nothing; this series actually converges (compare with 1/n²).
+        - |
+          Correct. Smaller than a convergent geometric series with r = 2/3, with positive terms.
+        - |
+          Larger than a convergent series proves nothing. The series does converge (limit comparison with 1/n²), but this argument does not show it.
+      answer: [0, 1, 3]
+    - slug: apcalcbc-u10-w28-q17
+      type: true_false
+      topic_code: "10.5"
+      source: "AP Calculus CED, Topic 10.5"
+      points: 1
+      prompt: |
+        True or false: ∑ (n = 1 to ∞) 1/n^(1/2) converges because it is a p-series with p = 1/2 > 0.
+      answer: false
+      explanation: |
+        False. A p-series converges only when p > 1. With p = 1/2 the series diverges (its terms approach 0 too slowly).
+    - slug: apcalcbc-u10-w28-q18
+      type: fill_blank
+      topic_code: "10.5"
+      source: "AP Calculus CED, Topic 10.5"
+      points: 1
+      prompt: |
+        The series ∑ (n = 1 to ∞) 1/n^(k − 3) converges exactly when k > ____.
+      answer: ["4"]
+      explanation: |
+        It is a p-series with p = k − 3, which converges exactly when k − 3 > 1, that is k > 4.
+    - slug: apcalcbc-u10-w28-q19
+      type: fill_blank
+      topic_code: "10.2"
+      source: "AP Calculus CED, Topic 10.2"
+      points: 1
+      prompt: |
+        ∑ (n = 0 to ∞) 6/(−2)ⁿ = ____.
+      answer: ["4"]
+      explanation: |
+        6/(−2)ⁿ = 6(−1/2)ⁿ: first term 6, r = −1/2, |r| < 1. Sum = 6/(1 + 1/2) = 6/(3/2) = 4.
+    - slug: apcalcbc-u10-w28-q20
+      type: numeric
+      topic_code: "9.3"
+      source: "AP Calculus CED, Topic 9.3"
+      points: 1
+      prompt: |
+        A curve is defined by x = t² and y = (2/3)t³ for 0 ≤ t ≤ 2√2. Find the length of the curve, correct to three decimal places.
+      answer: { value: 17.333, tolerance: 0.001 }
+      explanation: |
+        dx/dt = 2t and dy/dt = 2t², so the speed is √(4t² + 4t⁴) = 2t√(1 + t²) for t ≥ 0. Length = ∫ from 0 to 2√2 of 2t√(1 + t²) dt = (2/3)(1 + t²)^(3/2) from 0 to 2√2 = (2/3)(27 − 1) = 52/3 ≈ 17.333.
+    - slug: apcalcbc-u10-w28-q21
+      type: short_answer
+      topic_code: "10.6"
+      source: "AP Calculus CED, Topic 10.6"
+      points: 3
+      prompt: |
+        Consider the series ∑ (n = 1 to ∞) √n/(n² + 1).
+        (a) Name a p-series to compare it with, and state whether that p-series converges.
+        (b) Compute the limit needed for the limit comparison test.
+        (c) State your conclusion about ∑ (n = 1 to ∞) √n/(n² + 1), with the conditions that justify it.
+      answer: |
+        (a) The dominant terms give √n/n² = 1/n^(3/2), so compare with ∑ 1/n^(3/2), a p-series with p = 3/2 > 1, which converges.
+        (b) lim (n→∞) [√n/(n² + 1)] / [1/n^(3/2)] = lim n²/(n² + 1) = 1.
+        (c) Both series have positive terms and the limit 1 is finite and positive (0 < 1 < ∞), so by the limit comparison test the two series behave alike: ∑ √n/(n² + 1) converges.
+      explanation: |
+        Three points, one per part. (a) bₙ = 1/n^(3/2) (or any constant multiple) with "converges, p = 3/2 > 1". (b) The limit 1, with the quotient set up correctly. (c) "Converges" with the conditions positive terms and 0 < L < ∞ stated; a conclusion without the condition on L earns no point. A correct direct comparison (√n/(n² + 1) < 1/n^(3/2)) in place of (b) and (c) also earns both points.
+    - slug: apcalcbc-u10-w28-q22
+      type: short_answer
+      topic_code: "7.9"
+      source: "AP Calculus CED, Topic 7.9"
+      points: 3
+      prompt: |
+        A hypothetical population of birds on an island satisfies the logistic differential equation dP/dt = 0.4P(1 − P/500), where t is in years, and P(0) = 100.
+        (a) Find lim (t→∞) P(t).
+        (b) What is the population when it is growing fastest?
+        (c) Is the graph of P concave up or concave down at the moment when P = 100? Explain.
+      answer: |
+        (a) The carrying capacity is 500, and P(0) = 100 is between 0 and 500, so lim (t→∞) P(t) = 500.
+        (b) A logistic population grows fastest at half the carrying capacity, P = 250.
+        (c) Concave up. d²P/dt² = 0.4(1 − 2P/500) · dP/dt; at P = 100, dP/dt = 0.4 · 100 · 0.8 = 32 > 0 and 1 − 200/500 = 0.6 > 0, so d²P/dt² > 0. (Equivalently, P < 250, so dP/dt is still increasing.)
+      explanation: |
+        Three points, one per part. (a) 500. (b) 250. (c) Concave up with a reason: the sign of d²P/dt², or P below half the carrying capacity so the growth rate is increasing.
+    - slug: apcalcbc-u10-w28-q23
+      type: long_answer
+      topic_code: "10.4"
+      source: "AP Calculus CED, Topic 10.4"
+      points: 6
+      prompt: |
+        Let f(x) = 2x/(x² + 3)², so that f′(x) = 6(1 − x²)/(x² + 3)³.
+        (A) Use the integral test to determine whether ∑ (n = 1 to ∞) 2n/(n² + 3)² converges or diverges. Verify the hypotheses of the test.
+        (B) Use the direct comparison test, with a p-series, to confirm your answer to part (A).
+        (C) Determine whether ∑ (n = 1 to ∞) 2n/(n² + 3) converges or diverges. Justify your answer.
+        (D) Explain why ∑ (n = 1 to ∞) 2n/(n² + 3)² is greater than the value of the integral you found in part (A).
+      answer: |
+        (A) For x ≥ 1, f(x) > 0 and f is continuous (its denominator is never 0). f′(x) = 6(1 − x²)/(x² + 3)³ ≤ 0 for x ≥ 1 (negative for x > 1), so f is decreasing on [1, ∞). ∫ from 1 to ∞ of 2x/(x² + 3)² dx = lim (b→∞) [−1/(x² + 3)] from 1 to b = lim (b→∞) (−1/(b² + 3) + 1/4) = 1/4. The improper integral converges, so by the integral test the series converges.
+        (B) For n ≥ 1, 0 < 2n/(n² + 3)² < 2n/n⁴ = 2/n³, because (n² + 3)² > n⁴. ∑ 2/n³ is 2 times a p-series with p = 3 > 1, so it converges, and by the direct comparison test so does ∑ 2n/(n² + 3)².
+        (C) Compare with ∑ 1/n: lim (n→∞) [2n/(n² + 3)] / [1/n] = lim 2n²/(n² + 3) = 2, and 0 < 2 < ∞. Both series have positive terms and the harmonic series diverges, so ∑ 2n/(n² + 3) diverges by the limit comparison test.
+        (D) Since f is decreasing, on each interval [n, n + 1] the rectangle of height f(n) and width 1 lies above the graph, so f(n) > ∫ from n to n + 1 of f(x) dx. Adding over n = 1, 2, 3, … gives ∑ (n = 1 to ∞) f(n) > ∫ from 1 to ∞ of f(x) dx = 1/4. (Indeed the first two terms alone, 1/8 + 4/49 ≈ 0.207, are close to 1/4, and the sum is about 0.313.)
+      explanation: |
+        Six points. (A) 1 point for verifying positive, continuous and decreasing on [1, ∞) (using f′); 1 point for the integral value 1/4 (or a correct finite limit) and the conclusion "converges by the integral test". (B) 1 point for a correct inequality 0 < aₙ < 2/n³ (or another convergent p-series bound) with the conclusion. (C) 1 point for a correct comparison series 1/n and the limit 2; 1 point for "diverges" with 0 < L < ∞ and the harmonic series' divergence stated. (D) 1 point for the left-endpoint rectangle argument using that f is decreasing. Saying "the sum equals 1/4" anywhere loses the conclusion point in (A).

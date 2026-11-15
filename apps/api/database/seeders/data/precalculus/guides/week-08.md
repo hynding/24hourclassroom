@@ -19,8 +19,8 @@
 |---|---|
 | Vertical translation | g(x) = f(x) + k moves the graph up k units (down if k < 0). |
 | Horizontal translation | g(x) = f(x − h) moves the graph right h units (left if h < 0). |
-| Vertical dilation | g(x) = a · f(x) multiplies every output by a: a stretch if |a| > 1, a compression if 0 < |a| < 1. |
-| Horizontal dilation | g(x) = f(bx) divides every input by b: the graph is compressed horizontally by a factor of 1/|b|; stretched if 0 < |b| < 1. |
+| Vertical dilation | g(x) = a · f(x) multiplies every output by a: a stretch if \|a\| > 1, a compression if 0 < \|a\| < 1. |
+| Horizontal dilation | g(x) = f(bx) divides every input by b: the graph is compressed horizontally by a factor of 1/\|b\|; stretched if 0 < \|b\| < 1. |
 | Reflection over the x-axis | g(x) = −f(x): every output changes sign. |
 | Reflection over the y-axis | g(x) = f(−x): every input changes sign. |
 | Parent function | A basic function such as x², x³, 1/x or 1/x² whose transformations form a family. |

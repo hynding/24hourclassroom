@@ -21,7 +21,7 @@
 | Rational function | r(x) = p(x)/q(x) where p and q are polynomials and q is not the zero polynomial. |
 | Domain of r | All real x with q(x) ≠ 0. Always find it from the original, unsimplified form. |
 | Zero of r | A real input a in the domain with r(a) = 0; it comes from a numerator zero not cancelled by the denominator. |
-| Vertical asymptote | A line x = a near which |r(x)| grows without bound; at least one one-sided limit at a is ∞ or −∞. |
+| Vertical asymptote | A line x = a near which \|r(x)\| grows without bound; at least one one-sided limit at a is ∞ or −∞. |
 | One-sided limit | lim as x → a⁺ means x approaches a from values greater than a; x → a⁻ means from values less than a. |
 | Hole (removable discontinuity) | A single point (a, L) missing from the graph: r(a) is undefined, but r(x) → L as x → a. |
 | Multiplicity | How many times a linear factor (x − a) appears; it decides between hole and asymptote and how the sign behaves. |

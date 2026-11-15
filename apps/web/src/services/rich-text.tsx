@@ -144,15 +144,31 @@ function paragraph(lines: string[], blocks: boolean): VNode {
   return <p>{children}</p>;
 }
 
+/** A row's cells. `\|` is a literal bar inside a cell (|x|, as GitHub tables allow), not a divider. */
 function cells(row: string): string[] {
   let r = row.trim();
   if (r.startsWith('|')) {
     r = r.slice(1);
   }
-  if (r.endsWith('|')) {
+  if (r.endsWith('|') && !r.endsWith('\\|')) {
     r = r.slice(0, -1);
   }
-  return r.split('|').map((c) => c.trim());
+  // A scan, not a lookbehind split: Safari before 16.4 cannot parse `(?<!`.
+  const out: string[] = [];
+  let cell = '';
+  for (let i = 0; i < r.length; i++) {
+    if (r[i] === '\\' && r[i + 1] === '|') {
+      cell += '|';
+      i++;
+    } else if (r[i] === '|') {
+      out.push(cell.trim());
+      cell = '';
+    } else {
+      cell += r[i];
+    }
+  }
+  out.push(cell.trim());
+  return out;
 }
 
 // Order matters: bold before italic so `**x**` is not read as two italics.

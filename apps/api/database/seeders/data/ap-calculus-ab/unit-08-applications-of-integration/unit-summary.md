@@ -21,13 +21,13 @@
 |---|---|
 | Average value of f on [a, b] | (1/(b − a)) ∫ from a to b of f(x) dx |
 | Displacement on [a, b] | ∫ from a to b of v(t) dt |
-| Total distance on [a, b] | ∫ from a to b of |v(t)| dt |
+| Total distance on [a, b] | ∫ from a to b of \|v(t)\| dt |
 | Position at time t | x(t) = x(a) + ∫ from a to t of v(s) ds |
 | Velocity at time t | v(t) = v(a) + ∫ from a to t of a(s) ds |
 | Amount with rate in E, rate out L | A(T) = A(0) + ∫ from 0 to T of (E − L) dt |
 | Area, vertical slices | ∫ from a to b of (top − bottom) dx |
 | Area, horizontal slices | ∫ from c to d of (right − left) dy |
-| Area when curves cross | ∫ |f − g| dx, or split at each crossing |
+| Area when curves cross | ∫ \|f − g\| dx, or split at each crossing |
 | Volume with known cross sections | ∫ A(x) dx, with A built on s = top − bottom (or right − left) |
 | Square / rectangle of height k·s | s² / k·s² |
 | Semicircle on diameter s | (π/8)s² |

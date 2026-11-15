@@ -1,0 +1,612 @@
+week: 20
+unit: 7
+title: "Euler's Method and Logistic Models"
+topics: ["7.5", "7.9"]
+guide: guides/week-20.md
+guide_description: |
+  Approximating a particular solution of a differential equation with Euler's method (one tangent step at a time,
+  recomputing the slope at each stop), deciding whether the approximation is too large or too small from the sign of
+  d²y/dx², and the logistic differential equation dP/dt = kP(1 − P/M): its carrying capacity, its equilibria, the limit
+  of a solution, the fastest growth at P = M/2, concavity and the inflection point, and the explicit solution found by
+  partial fractions. Worked examples: two Euler steps for dy/dx = x + y compared with the exact solution, a
+  hypothetical cooling cup of tea with three Euler steps, a hypothetical deer population with M = 800, an overstocked
+  hypothetical fish pond starting above its carrying capacity, and the time the deer herd grows fastest.
+flashcards_description: |
+  31 cards on the Euler update, Euler tables, over- and underestimates from concavity, step size and accuracy, the
+  logistic differential equation in its different forms, carrying capacity, equilibria, limits, the fastest-growth
+  value M/2, logistic concavity and the explicit logistic solution, with three error-spot cards.
+
+flashcards:
+  - front: Euler's method for dy/dx = F(x, y) from (xₙ, yₙ) with step h → the update
+    back: |
+      yₙ₊₁ = yₙ + h · F(xₙ, yₙ) and xₙ₊₁ = xₙ + h. The slope is always the one at the point you are leaving.
+    topic_code: "7.5"
+  - front: Euler's method → which earlier idea it repeats at every step
+    back: |
+      Local linearization: y(x + h) ≈ y(x) + h · y′(x), the tangent-line approximation, with the slope recomputed from the differential equation at each new point.
+    topic_code: "7.5"
+  - front: Euler's method on a slope field → picture
+    back: |
+      Start at the initial point, follow the slope segment there for one step, then follow the segment at the new point, and so on: a polygonal path that tracks the solution curve.
+    topic_code: "7.5"
+  - front: Euler table for an approximation → the four columns to keep
+    back: |
+      x, y, slope F(x, y), and change h · slope. The next row's y is this row's y plus its change.
+    topic_code: "7.5"
+  - front: dy/dx = x + y, y(0) = 1, two Euler steps of 0.5 → estimate of y(1)
+    back: |
+      Slope 1 gives y(0.5) ≈ 1.5; slope 0.5 + 1.5 = 2 gives y(1) ≈ 2.5. (The exact value is 2e − 2 ≈ 3.437.)
+    topic_code: "7.5"
+  - front: Euler's method when the solution is concave up → over or under?
+    back: |
+      Underestimate. A concave-up curve lies above its tangent lines, so each tangent step lands below the curve.
+    topic_code: "7.5"
+  - front: Euler's method when the solution is concave down → over or under?
+    back: |
+      Overestimate. A concave-down curve lies below its tangent lines, so each step lands above it.
+    topic_code: "7.5"
+  - front: Concavity of a solution of dy/dx = F(x, y) → how to find it without solving
+    back: |
+      Differentiate the differential equation implicitly with respect to x, replace every dy/dx by F(x, y), and check the sign of d²y/dx² at the points in question.
+    topic_code: "7.5"
+  - front: dy/dx = x + y → d²y/dx² in terms of x and y
+    back: |
+      d²y/dx² = 1 + dy/dx = 1 + x + y.
+    topic_code: "7.5"
+  - front: Halving the Euler step size → usual effect on the error
+    back: |
+      The error roughly halves (it shrinks about in proportion to h), at the cost of twice as many steps.
+    topic_code: "7.5"
+  - front: Euler's method on a solution that is a straight line → error
+    back: |
+      None. Every tangent segment lies on the line, so Euler gives the exact value.
+    topic_code: "7.5"
+  - front: Hypothetical tea, dT/dt = −0.1(T − 20), T(0) = 90, three Euler steps of 2 minutes → estimate of T(6)
+    back: |
+      Slopes −7, −5.6, −4.48; temperatures 76, 64.8, 55.84. T(6) ≈ 55.84 °C, an underestimate because d²T/dt² = 0.01(T − 20) > 0.
+    topic_code: "7.5"
+  - front: Error-spot → Euler step for dy/dx = x + y from (0.5, 1.5) computed with slope 0.5 + 1
+    back: |
+      The slope must use the current y-value, 1.5, not the initial y-value 1: slope = 0.5 + 1.5 = 2.
+    topic_code: "7.5"
+  - front: Error-spot → "two Euler steps of size 0.5 from x = 0" done as y(1) ≈ y(0) + 1 · F(0, y(0))
+    back: |
+      That is one step of size 1. Two steps of 0.5 need two slope calculations: at x = 0 and again at x = 0.5.
+    topic_code: "7.5"
+  - front: Logistic differential equation → standard form and what each constant means
+    back: |
+      dP/dt = kP(1 − P/M): k > 0 sets how fast small populations grow; M > 0 is the carrying capacity.
+    topic_code: "7.9"
+  - front: Logistic differential equation dP/dt = cP(M − P) → carrying capacity
+    back: |
+      M, the number subtracted from P inside the second factor. (This is the standard form with k = cM.)
+    topic_code: "7.9"
+  - front: dP/dt = 0.6P − 0.002P² → carrying capacity by factoring
+    back: |
+      Factor out the coefficient of P²: 0.002P(300 − P), so M = 300.
+    topic_code: "7.9"
+  - front: Logistic model → its two equilibrium solutions
+    back: |
+      P = 0 and P = M, the values that make dP/dt = 0.
+    topic_code: "7.9"
+  - front: Logistic solution with P(0) > 0 → lim (t→∞) P(t)
+    back: |
+      The carrying capacity M, whether P starts below M (rising) or above M (falling).
+    topic_code: "7.9"
+  - front: Logistic model → population at which it grows fastest
+    back: |
+      P = M/2, the vertex of the parabola kP(1 − P/M), halfway between the equilibria 0 and M.
+    topic_code: "7.9"
+  - front: Logistic model dP/dt = kP(1 − P/M) → the greatest growth rate
+    back: |
+      At P = M/2: k(M/2)(1/2) = kM/4.
+    topic_code: "7.9"
+  - front: Logistic model → d²P/dt² in terms of P
+    back: |
+      d²P/dt² = k(1 − 2P/M) · dP/dt = k²P(1 − P/M)(1 − 2P/M).
+    topic_code: "7.9"
+  - front: Logistic solution with 0 < P(0) < M/2 → shape of its graph
+    back: |
+      S-shaped: increasing throughout, concave up while P < M/2, concave down while M/2 < P < M, with an inflection point where P = M/2 and a horizontal asymptote P = M.
+    topic_code: "7.9"
+  - front: Logistic solution with P(0) > M → direction and concavity
+    back: |
+      Decreasing (dP/dt < 0) and concave up, falling toward M without reaching it.
+    topic_code: "7.9"
+  - front: Logistic model compared with dP/dt = kP → what changes
+    back: |
+      The factor (1 − P/M) slows growth as P approaches M. For small P the two are nearly the same; the exponential model grows forever, the logistic levels off.
+    topic_code: "7.9"
+  - front: Explicit solution of dP/dt = kP(1 − P/M) with P(0) = P₀ → formula
+    back: |
+      P(t) = M/(1 + A e^(−kt)) with A = (M − P₀)/P₀.
+    topic_code: "7.9"
+  - front: Separating the logistic equation → the partial fraction split used
+    back: |
+      M/(P(M − P)) = 1/P + 1/(M − P), so ∫ dP/(P(1 − P/M)) = ln|P| − ln|M − P| + C.
+    topic_code: "7.9"
+  - front: Hypothetical deer, dP/dt = 0.4P(1 − P/800), P(0) = 100 → limit, fastest-growth value, fastest rate
+    back: |
+      lim P = 800 deer; fastest growth when P = 400; the rate then is 0.4 · 400 · (1/2) = 80 deer per year.
+    topic_code: "7.9"
+  - front: P(t) = 800/(1 + 7e^(−0.4t)) → time of fastest growth
+    back: |
+      When P = 400: 7e^(−0.4t) = 1, so t = (ln 7)/0.4 ≈ 4.865.
+    topic_code: "7.9"
+  - front: Error-spot → "the population is growing fastest when it reaches the carrying capacity"
+    back: |
+      At P = M the growth rate is 0. The growth rate is greatest at P = M/2.
+    topic_code: "7.9"
+  - front: Logistic solutions starting below M → why they never pass M
+    back: |
+      P = M is an equilibrium solution, and solutions of this differential equation cannot cross one another, so a solution below M stays below M.
+    topic_code: "7.9"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 7.5 and 7.9: Euler's method, over- and underestimates
+    from concavity, and logistic models with their carrying capacity, limits, fastest growth and concavity), with 8
+    questions (about 33%) reviewing weeks 9, 16, 17, 18 and 19 (local linearization, integration by parts, partial
+    fractions, improper integrals, separation of variables and exponential models). Opens with a shared-context set on
+    one differential equation. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your teacher
+    against the scoring notes. No calculator is needed.
+  questions:
+    # ---- Stimulus set: dy/dx = 2x − y, f(1) = 3 (7.5, 4.6)
+    - slug: apcalcbc-u07-w20-q01
+      type: multiple_choice
+      topic_code: "7.5"
+      source: "AP Calculus CED, Topic 7.5"
+      points: 1
+      stimulus: |
+        Let y = f(x) be the particular solution to the differential equation dy/dx = 2x − y with initial condition f(1) = 3.
+      prompt: |
+        Using Euler's method with two steps of equal size, starting at x = 1, what is the approximation of f(2)?
+      options:
+        - "2.5"
+        - "2.75"
+        - "2"
+        - "3.75"
+      option_explanations:
+        - |
+          2.5 is the approximation of f(1.5) after the first step only; a second step from (1.5, 2.5) is still needed.
+        - |
+          Correct. Steps of 0.5: slope 2(1) − 3 = −1 gives f(1.5) ≈ 3 − 0.5 = 2.5; slope 2(1.5) − 2.5 = 0.5 gives f(2) ≈ 2.5 + 0.25 = 2.75.
+        - |
+          2 is one step of size 1 using only the slope −1 at the starting point; two steps need the slope recomputed at x = 1.5.
+        - |
+          3.75 uses the slope y − 2x, the negative of the given slope: the steps go up by 0.5 and 0.25 instead of down then up.
+      answer: 1
+    - slug: apcalcbc-u07-w20-q02
+      type: multiple_choice
+      topic_code: "7.5"
+      source: "AP Calculus CED, Topic 7.5"
+      points: 1
+      stimulus: |
+        Let y = f(x) be the particular solution to the differential equation dy/dx = 2x − y with initial condition f(1) = 3.
+      prompt: |
+        Which expression gives d²y/dx² in terms of x and y?
+      options:
+        - "2"
+        - "2 − 2x − y"
+        - "x² − xy"
+        - "2 − 2x + y"
+      option_explanations:
+        - |
+          2 treats y as a constant; y depends on x, so d/dx [−y] = −dy/dx, which is not zero.
+        - |
+          This substitutes dy/dx = 2x − y but does not distribute the minus sign: 2 − (2x − y) = 2 − 2x + y.
+        - |
+          x² − xy antidifferentiates the right side instead of differentiating it, and treats y as a constant as well.
+        - |
+          Correct. d²y/dx² = d/dx [2x − y] = 2 − dy/dx = 2 − (2x − y) = 2 − 2x + y.
+      answer: 3
+    - slug: apcalcbc-u07-w20-q03
+      type: multiple_choice
+      topic_code: "7.5"
+      source: "AP Calculus CED, Topic 7.5"
+      points: 1
+      stimulus: |
+        Let y = f(x) be the particular solution to the differential equation dy/dx = 2x − y with initial condition f(1) = 3.
+      prompt: |
+        For 1 ≤ x ≤ 2 the solution satisfies d²y/dx² > 0. What does this say about the Euler approximation of f(2) found with two steps?
+      options:
+        - "It is an overestimate, because the solution is increasing."
+        - "It is an overestimate, because the tangent segments lie above a concave-up curve."
+        - "It is an underestimate, because the tangent segments lie below a concave-up curve."
+        - "It is exact, because Euler's method uses the differential equation itself."
+      option_explanations:
+        - |
+          Whether Euler's method is too high or too low depends on concavity, not on whether the solution increases; and f is actually decreasing at x = 1.
+        - |
+          A concave-up curve lies above its tangent lines, not below them, so the tangent steps land under the curve.
+        - |
+          Correct. With d²y/dx² > 0 the solution is concave up and lies above each tangent segment, so the Euler value 2.75 is too small (the true value is 2 + 3/e ≈ 3.10).
+        - |
+          Euler's method uses each slope for a whole step while the true slope keeps changing, so it is exact only when the solution is a line.
+      answer: 2
+    - slug: apcalcbc-u07-w20-q04
+      type: numeric
+      topic_code: "4.6"
+      source: "AP Calculus CED, Topic 4.6"
+      points: 1
+      stimulus: |
+        Let y = f(x) be the particular solution to the differential equation dy/dx = 2x − y with initial condition f(1) = 3.
+      prompt: |
+        Use the line tangent to the graph of f at x = 1 to approximate f(1.2).
+      answer: { value: 2.8, tolerance: 0.001 }
+      explanation: |
+        The slope at (1, 3) is 2(1) − 3 = −1, so the tangent line is y = 3 − (x − 1). At x = 1.2 it gives 3 − 0.2 = 2.8. (This is the same as one Euler step of size 0.2.)
+    # ---- Independent items
+    - slug: apcalcbc-u07-w20-q05
+      type: multiple_choice
+      topic_code: "7.5"
+      source: "AP Calculus CED, Topic 7.5"
+      points: 1
+      prompt: |
+        A quantity y satisfies dy/dt = 0.5y with y(0) = 4. Using Euler's method with two steps of size 0.1, what is the approximation of y(0.2)?
+      options:
+        - "4.41"
+        - "4.4"
+        - "4.2"
+        - "4.42"
+      option_explanations:
+        - |
+          Correct. Slope 0.5 · 4 = 2 gives y(0.1) ≈ 4.2; slope 0.5 · 4.2 = 2.1 gives y(0.2) ≈ 4.2 + 0.21 = 4.41.
+        - |
+          4.4 uses the starting slope 2 for both steps; the second slope must be recomputed from the new value 4.2.
+        - |
+          4.2 is the result of the first step only, the approximation of y(0.1).
+        - |
+          4.42 rounds the exact solution 4e^(0.1) ≈ 4.4207; the question asks for the Euler approximation, which is 4.41.
+      answer: 0
+    - slug: apcalcbc-u07-w20-q06
+      type: multiple_choice
+      topic_code: "7.9"
+      source: "AP Calculus CED, Topic 7.9"
+      points: 1
+      prompt: |
+        A hypothetical population of beetles satisfies dP/dt = 0.3P(1 − P/1200), where t is in weeks, and P(0) = 200. What is lim (t→∞) P(t)?
+      options:
+        - "600"
+        - "200"
+        - "1200"
+        - "The limit does not exist; P grows without bound."
+      option_explanations:
+        - |
+          600 is M/2, the population at which the beetles grow fastest, not the value the population approaches.
+        - |
+          200 is the starting population; since 0 < 200 < 1200, dP/dt > 0 and the population increases from there.
+        - |
+          Correct. This is logistic with carrying capacity M = 1200, and for any positive starting value the population approaches M.
+        - |
+          Unbounded growth is the exponential model dP/dt = kP; the factor (1 − P/1200) drives the growth rate to 0 as P nears 1200.
+      answer: 2
+    - slug: apcalcbc-u07-w20-q07
+      type: multiple_choice
+      topic_code: "7.9"
+      source: "AP Calculus CED, Topic 7.9"
+      points: 1
+      prompt: |
+        A hypothetical bacteria colony satisfies dP/dt = 0.01P(250 − P), with 0 < P(0) < 125. For what value of P is the colony growing fastest?
+      options:
+        - "250"
+        - "62.5"
+        - "2.5"
+        - "125"
+      option_explanations:
+        - |
+          250 is the carrying capacity, where dP/dt = 0.01 · 250 · 0 = 0: the growth has stopped there.
+        - |
+          62.5 is half of 125; the fastest growth is at half the carrying capacity, and the carrying capacity is 250, not 125.
+        - |
+          2.5 is 0.01 · 250, a rate constant, not a population value.
+        - |
+          Correct. dP/dt = 0.01(250P − P²) is a downward parabola in P with zeros at 0 and 250, greatest at its vertex P = 125 = M/2.
+      answer: 3
+    - slug: apcalcbc-u07-w20-q08
+      type: multiple_choice
+      topic_code: "7.9"
+      source: "AP Calculus CED, Topic 7.9"
+      points: 1
+      prompt: |
+        Which differential equation is a logistic model whose solutions with P(0) > 0 approach 600?
+      options:
+        - "dP/dt = 0.2(600 − P)"
+        - "dP/dt = 0.2P(600 − P)"
+        - "dP/dt = 600P(1 − 0.2P)"
+        - "dP/dt = 0.2P"
+      option_explanations:
+        - |
+          This is a Newton's-law-of-cooling type model: its solutions do approach 600, but the rate is proportional to 600 − P alone, not to P(600 − P), so it is not logistic.
+        - |
+          Correct. dP/dt = 0.2P(600 − P) = 120P(1 − P/600) is logistic with carrying capacity 600.
+        - |
+          This is logistic, but 1 − 0.2P = 0 at P = 5, so its carrying capacity is 5, not 600.
+        - |
+          dP/dt = 0.2P is exponential growth: its positive solutions grow without bound.
+      answer: 1
+    - slug: apcalcbc-u07-w20-q09
+      type: multiple_choice
+      topic_code: "7.9"
+      source: "AP Calculus CED, Topic 7.9"
+      points: 1
+      prompt: |
+        A hypothetical lake is overstocked with trout: the number of trout satisfies dN/dt = 0.0005N(600 − N), with N(0) = 900. Which describes N for t > 0?
+      options:
+        - "N decreases toward 600, and its graph is concave up."
+        - "N decreases toward 600, and its graph is concave down."
+        - "N increases toward 900, and its graph is concave down."
+        - "N decreases to 300, where it grows fastest, and then levels off."
+      option_explanations:
+        - |
+          Correct. For N > 600, dN/dt < 0, so N decreases toward the carrying capacity 600. d²N/dt² = 0.0005(600 − 2N) · dN/dt is a product of two negatives, so it is positive: concave up.
+        - |
+          The decrease is right, but with N > 600 both 600 − 2N and dN/dt are negative, so d²N/dt² > 0 and the graph is concave up.
+        - |
+          At N = 900, dN/dt = 0.0005 · 900 · (−300) < 0, so N decreases; 900 is the starting value, not the limit.
+        - |
+          N = 300 = M/2 is where solutions starting below 600 grow fastest; a solution starting above 600 stays above 600 and never reaches 300.
+      answer: 0
+    - slug: apcalcbc-u07-w20-q10
+      type: multiple_choice
+      topic_code: "7.9"
+      source: "AP Calculus CED, Topic 7.9"
+      points: 1
+      prompt: |
+        A hypothetical population is modeled by P(t) = 1000/(1 + 9e^(−0.5t)), the solution of a logistic differential equation with carrying capacity 1000. At what time t is the population growing fastest?
+      options:
+        - "(ln 9)/2"
+        - "ln 9"
+        - "2 ln 9"
+        - "−2 ln 9"
+      option_explanations:
+        - |
+          This multiplies ln 9 by 0.5 instead of dividing by 0.5 when solving −0.5t = −ln 9.
+        - |
+          ln 9 solves e^(−t) = 1/9 and ignores the rate constant 0.5 in the exponent.
+        - |
+          Correct. Fastest growth is at P = 500, so 1 + 9e^(−0.5t) = 2, e^(−0.5t) = 1/9, −0.5t = −ln 9 and t = 2 ln 9 ≈ 4.39.
+        - |
+          −2 ln 9 comes from a sign slip in ln(1/9) = −ln 9; a negative time would be before the model starts.
+      answer: 2
+    - slug: apcalcbc-u07-w20-q11
+      type: multiple_choice
+      topic_code: "7.7"
+      source: "AP Calculus CED, Topic 7.7"
+      points: 1
+      prompt: |
+        What is the particular solution of dy/dx = xy² with y(0) = 1?
+      options:
+        - "y = 2/(2 + x²)"
+        - "y = e^(x²/2)"
+        - "y = 1 − x²/2"
+        - "y = 2/(2 − x²)"
+      option_explanations:
+        - |
+          This drops the minus sign in ∫ y^(−2) dy = −1/y: writing 1/y = x²/2 + C gives C = 1 and y = 2/(2 + x²). Check: its derivative is −xy², the wrong sign.
+        - |
+          e^(x²/2) solves dy/dx = xy; with y² the integral of dy/y² is −1/y, not ln|y|.
+        - |
+          This finds −1/y = x²/2 − 1 correctly but forgets to take the reciprocal: it gives 1/y, not y.
+        - |
+          Correct. ∫ y^(−2) dy = ∫ x dx gives −1/y = x²/2 + C; y(0) = 1 gives C = −1, so 1/y = 1 − x²/2 and y = 2/(2 − x²).
+      answer: 3
+    - slug: apcalcbc-u07-w20-q12
+      type: multiple_choice
+      topic_code: "7.8"
+      source: "AP Calculus CED, Topic 7.8"
+      points: 1
+      prompt: |
+        A hypothetical culture of yeast grows according to dy/dt = ky, with k > 0. It starts with 300 cells and doubles every 5 hours. How many cells are there after 15 hours?
+      options:
+        - "900"
+        - "2400"
+        - "1800"
+        - "4500"
+      option_explanations:
+        - |
+          900 grows the culture by 300 cells each period, which is linear growth; dy/dt = ky means it doubles each period.
+        - |
+          Correct. y = 300 · 2^(t/5), and 15 hours is three doubling periods: 300 · 2³ = 2400.
+        - |
+          1800 doubles the starting amount three times additively, 300 · 2 · 3; doubling three times multiplies by 2³ = 8.
+        - |
+          4500 multiplies 300 by 15, the number of hours; the exponent is the number of doubling periods, 15/5 = 3.
+      answer: 1
+    - slug: apcalcbc-u07-w20-q13
+      type: multiple_choice
+      topic_code: "6.12"
+      source: "AP Calculus CED, Topic 6.12"
+      points: 1
+      prompt: |
+        Separating dP/dt = P(10 − P) leads to the integral ∫ 1/(P(10 − P)) dP. Which expression equals it?
+      options:
+        - "(1/10) ln|P/(10 − P)| + C"
+        - "ln|P| + ln|10 − P| + C"
+        - "ln|P(10 − P)| + C"
+        - "10 ln|P/(10 − P)| + C"
+      option_explanations:
+        - |
+          Correct. 1/(P(10 − P)) = (1/10)(1/P + 1/(10 − P)), which integrates to (1/10)(ln|P| − ln|10 − P|) + C.
+        - |
+          This drops the factor 1/10 and also integrates 1/(10 − P) as +ln|10 − P|; the chain rule gives −ln|10 − P|.
+        - |
+          This treats the integral of a reciprocal of a product as ln of the product; partial fractions are needed first.
+        - |
+          The partial fraction coefficients are 1/10, not 10: A(10 − P) + BP = 1 gives A = B = 1/10.
+      answer: 0
+    - slug: apcalcbc-u07-w20-q14
+      type: multiple_choice
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 1
+      prompt: |
+        What is ∫ x e^(2x) dx?
+      options:
+        - "(x/2)e^(2x) + (1/4)e^(2x) + C"
+        - "(x²/2)e^(2x) + C"
+        - "(x/2)e^(2x) − (1/4)e^(2x) + C"
+        - "2x e^(2x) − 4e^(2x) + C"
+      option_explanations:
+        - |
+          The sign of the second term is wrong: integration by parts subtracts ∫ v du = ∫ (1/2)e^(2x) dx.
+        - |
+          This integrates each factor separately; the integral of a product is not the product of the integrals.
+        - |
+          Correct. With u = x and dv = e^(2x) dx, v = (1/2)e^(2x), so the integral is (x/2)e^(2x) − ∫ (1/2)e^(2x) dx = (x/2)e^(2x) − (1/4)e^(2x) + C.
+        - |
+          This differentiates e^(2x) (multiplying by 2) instead of integrating it (dividing by 2).
+      answer: 2
+    - slug: apcalcbc-u07-w20-q15
+      type: multi_select
+      topic_code: "7.9"
+      source: "AP Calculus CED, Topic 7.9"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A hypothetical population satisfies dP/dt = 0.2P(1 − P/500) with P(0) = 50. Which statements are true? Select all that apply.
+      options:
+        - "The population eventually exceeds 500."
+        - "P is increasing for all t ≥ 0."
+        - "lim (t→∞) P(t) = 500"
+        - "The graph of P has a point of inflection where P = 250."
+        - "dP/dt is greatest at t = 0."
+      option_explanations:
+        - |
+          P = 500 is an equilibrium solution, and a solution starting below it cannot cross it, so P stays below 500.
+        - |
+          Correct. For 0 < P < 500 both P and 1 − P/500 are positive, so dP/dt > 0.
+        - |
+          Correct. Any positive solution of a logistic equation approaches its carrying capacity, here 500.
+        - |
+          Correct. d²P/dt² = 0.2(1 − P/250) · dP/dt changes sign at P = 250 = M/2, so the graph changes from concave up to concave down there.
+        - |
+          At t = 0 the rate is 0.2 · 50 · 0.9 = 9; the rate is greatest later, when P = 250, where it is 0.2 · 250 · 0.5 = 25.
+      answer: [1, 2, 3]
+    - slug: apcalcbc-u07-w20-q16
+      type: multi_select
+      topic_code: "7.5"
+      source: "AP Calculus CED, Topic 7.5"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about Euler's method are true? Select all that apply.
+      options:
+        - "Each step uses the slope at the point where the step begins."
+        - "Euler's method always gives an underestimate."
+        - "If the solution is concave down on the interval, Euler's method gives an overestimate."
+        - "Using a smaller step size usually gives a more accurate approximation."
+        - "Euler's method needs an antiderivative of the right side of the differential equation."
+      option_explanations:
+        - |
+          Correct. From (xₙ, yₙ) the step is h · F(xₙ, yₙ): the slope at the starting point of that step.
+        - |
+          It underestimates only when the solution is concave up; for a concave-down solution it overestimates.
+        - |
+          Correct. A concave-down curve lies below its tangent segments, so the Euler steps land above it.
+        - |
+          Correct. Shorter steps give the curve less room to bend away from each tangent segment, so the error usually shrinks.
+        - |
+          Euler's method only evaluates the slope F(x, y) at points; its whole purpose is to approximate without solving or antidifferentiating.
+      answer: [0, 2, 3]
+    - slug: apcalcbc-u07-w20-q17
+      type: true_false
+      topic_code: "7.9"
+      source: "AP Calculus CED, Topic 7.9"
+      points: 1
+      prompt: |
+        True or false: For a logistic model dP/dt = kP(1 − P/M) with 0 < P(0) < M, the population is growing fastest when P = M.
+      answer: false
+      explanation: |
+        False. At P = M the factor 1 − P/M is 0, so the growth rate is 0. The growth rate kP(1 − P/M) is a downward parabola in P with greatest value at P = M/2.
+    - slug: apcalcbc-u07-w20-q18
+      type: true_false
+      topic_code: "7.6"
+      source: "AP Calculus CED, Topic 7.6"
+      points: 1
+      prompt: |
+        True or false: y = Ce^(x²) is the general solution of the differential equation dy/dx = 2xy.
+      answer: true
+      explanation: |
+        True. Separating, dy/y = 2x dx, so ln|y| = x² + K and y = Ce^(x²) (C = ±e^K, and C = 0 gives the solution y = 0). Check: d/dx [Ce^(x²)] = 2xCe^(x²) = 2xy.
+    - slug: apcalcbc-u07-w20-q19
+      type: fill_blank
+      topic_code: "7.5"
+      source: "AP Calculus CED, Topic 7.5"
+      points: 1
+      prompt: |
+        Let y = g(x) solve dy/dx = x² + y with g(1) = 2. Euler's method with two steps of size 0.1, starting at x = 1, gives g(1.2) ≈ ____.
+      answer: ["2.651"]
+      explanation: |
+        Slope at (1, 2): 1 + 2 = 3, so g(1.1) ≈ 2 + 0.3 = 2.3. Slope at (1.1, 2.3): 1.21 + 2.3 = 3.51, so g(1.2) ≈ 2.3 + 0.351 = 2.651.
+    - slug: apcalcbc-u07-w20-q20
+      type: fill_blank
+      topic_code: "7.9"
+      source: "AP Calculus CED, Topic 7.9"
+      points: 1
+      prompt: |
+        A hypothetical population satisfies dP/dt = 3P − 0.006P². Its carrying capacity is ____.
+      answer: ["500"]
+      explanation: |
+        Factor out the coefficient of P²: 3P − 0.006P² = 0.006P(500 − P). The growth rate is zero at P = 0 and P = 500, so the carrying capacity is 500.
+    - slug: apcalcbc-u07-w20-q21
+      type: numeric
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        Evaluate the improper integral ∫ from 0 to ∞ of e^(−2x) dx. Give your answer as a decimal.
+      answer: { value: 0.5, tolerance: 0.001 }
+      explanation: |
+        ∫ from 0 to b of e^(−2x) dx = [−(1/2)e^(−2x)] from 0 to b = 1/2 − (1/2)e^(−2b). As b → ∞, e^(−2b) → 0, so the integral converges to 1/2 = 0.5.
+    - slug: apcalcbc-u07-w20-q22
+      type: short_answer
+      topic_code: "7.9"
+      source: "AP Calculus CED, Topic 7.9"
+      points: 3
+      prompt: |
+        The number of hypothetical subscribers to a new app, in thousands, satisfies dS/dt = 0.25S(1 − S/400), where t is in months and S(0) = 80.
+
+        (a) Find lim (t→∞) S(t).
+        (b) For what value of S is the number of subscribers growing fastest? What is the growth rate then, with units?
+        (c) Is the graph of S concave up or concave down at the moment when S = 100? Justify.
+      answer: |
+        (a) The model is logistic with carrying capacity 400 and S(0) = 80 > 0, so lim (t→∞) S(t) = 400 thousand subscribers.
+        (b) Fastest growth at S = 400/2 = 200 thousand. The rate then is 0.25 · 200 · (1 − 1/2) = 25 thousand subscribers per month.
+        (c) d²S/dt² = 0.25(1 − 2S/400) · dS/dt. At S = 100, 1 − 200/400 = 1/2 > 0 and dS/dt = 0.25 · 100 · (3/4) = 18.75 > 0, so d²S/dt² > 0: concave up.
+      explanation: |
+        Three points, one per part. (a) 400 (thousand). (b) S = 200 and 25 thousand subscribers per month; both values with units for the point. (c) Concave up with a reason based on d²S/dt² > 0 at S = 100 (either the expression for d²S/dt² evaluated, or "S < M/2 = 200 while S is increasing").
+    - slug: apcalcbc-u07-w20-q23
+      type: short_answer
+      topic_code: "7.7"
+      source: "AP Calculus CED, Topic 7.7"
+      points: 3
+      prompt: |
+        Find the particular solution y = h(x) of the differential equation dy/dx = 2x/y with initial condition h(0) = 3. Show the separation of variables and explain your choice of sign.
+      answer: |
+        Separate: y dy = 2x dx. Integrate: y²/2 = x² + C. With x = 0, y = 3: 9/2 = C, so y² = 2x² + 9. Since h(0) = 3 > 0, take the positive square root: h(x) = √(2x² + 9).
+      explanation: |
+        One point for separating the variables correctly (y dy = 2x dx, both differentials present). One point for antiderivatives with a constant of integration, y²/2 = x² + C. One point for using the initial condition and giving h(x) = √(2x² + 9), choosing the positive root because h(0) = 3 is positive. No point for the last step if the constant is added only after solving for y.
+    - slug: apcalcbc-u07-w20-q24
+      type: long_answer
+      topic_code: "7.9"
+      source: "AP Calculus CED, Topics 7.5 and 7.9"
+      points: 7
+      prompt: |
+        The number of fish in a hypothetical lake is modeled by a function F that satisfies the logistic differential equation dF/dt = 0.2F(1 − F/2000), where t is measured in years. At t = 0 there are 400 fish.
+
+        (A) Find lim (t→∞) F(t). For what value of F is the fish population growing fastest?
+
+        (B) Use Euler's method, starting at t = 0 with two steps of equal size, to approximate F(2). Show the work that leads to your answer.
+
+        (C) Find d²F/dt² in terms of F. Use it to determine whether the approximation in part (B) is an overestimate or an underestimate of F(2). Explain your reasoning.
+
+        (D) Is there a time t > 0 at which F(t) = 2500? Explain.
+      answer: |
+        (A) The carrying capacity is 2000 and F(0) = 400 > 0, so lim (t→∞) F(t) = 2000 fish. The population grows fastest when F = 2000/2 = 1000 fish.
+        (B) Steps of Δt = 1. At (0, 400): dF/dt = 0.2 · 400 · (1 − 0.2) = 64, so F(1) ≈ 400 + 64 = 464. At (1, 464): dF/dt = 0.2 · 464 · (1 − 0.232) = 71.2704, so F(2) ≈ 464 + 71.2704 = 535.2704 (about 535 fish).
+        (C) dF/dt = 0.2F − 0.0001F², so d²F/dt² = (0.2 − 0.0002F) · dF/dt = 0.2(1 − F/1000) · 0.2F(1 − F/2000). For 400 ≤ F < 1000, every factor is positive, so d²F/dt² > 0 and the graph of F is concave up on 0 ≤ t ≤ 2 (F stays between 400 and 1000 there: F increases from 400 at a rate never above the maximum kM/4 = 100 fish per year, so F(2) ≤ 600). A concave-up curve lies above its tangent segments, so the Euler approximation is an underestimate.
+        (D) No. F(0) = 400 < 2000, and F = 2000 is an equilibrium solution; a solution starting below 2000 stays below 2000 (it increases toward 2000 without reaching it), so F(t) is never 2500.
+      explanation: |
+        Seven points. (A) 1 point: limit 2000; 1 point: F = 1000. (B) 1 point: the first Euler step to F(1) ≈ 464 with the slope 64 shown; 1 point: the second step with the slope recomputed at F = 464, F(2) ≈ 535.27 (accept 535.270 or 535). (C) 1 point: d²F/dt² = (0.2 − 0.0002F) dF/dt or the equivalent product in F; 1 point: underestimate, justified by d²F/dt² > 0 for 400 ≤ F < 1000 (concave up, so the tangent steps lie below the curve). A conclusion without the concavity reason earns no point. (D) 1 point: no, with the reason that F increases toward the equilibrium 2000 and never exceeds it (equivalently dF/dt > 0 only while F < 2000 and F = 2000 cannot be crossed).

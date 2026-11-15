@@ -137,7 +137,7 @@ the command warns you which one is still closed.
 
 The admin UI is Inertia on the **API host** (`/admin/users`,
 `/admin/users/{user}`, `/admin/site-theme`, `/admin/site`, `/admin/tests`,
-`/admin/materials`, `/admin/courses`, `/admin/comments`, `/admin/slugs`, `/admin/generations`), not the Stencil SPA. Log in there,
+`/admin/materials`, `/admin/courses`, `/admin/comments`, `/admin/slugs`, `/admin/analytics`, `/admin/generations`), not the Stencil SPA. Log in there,
 not on the SPA host.
 
 Middleware order in `bootstrap/app.php` is load-bearing: `EnsureUserIsAdmin` is
@@ -308,9 +308,9 @@ course (`GET|POST /api/comments?target_type=&target_id=`, `PATCH|DELETE
   `--color-denied-surface`, `--color-deleted-surface`) in every palette, held
   to 4.5:1 for every text token by `theme-files.spec.ts`.
 
-## Seeded courses (AP Biology, AP U.S. History, Algebra 1, Geometry, Algebra 2, Precalculus, Trigonometry, AP Calculus AB, Chemistry, AP Chemistry, AP World History)
+## Seeded courses (AP Biology, AP U.S. History, Algebra 1, Geometry, Algebra 2, Precalculus, Trigonometry, AP Calculus AB, AP Calculus BC, Chemistry, AP Chemistry, AP World History)
 
-Eleven full-year courses are seeded from YAML, each by a thin subclass of
+Twelve full-year courses are seeded from YAML, each by a thin subclass of
 `Database\Seeders\Curriculum\CurriculumSeeder` that names its data directory:
 
 | Seeder | Command | Data | Slug | Demo accounts |
@@ -323,6 +323,7 @@ Eleven full-year courses are seeded from YAML, each by a thin subclass of
 | `PrecalculusSeeder` | `course:seed-precalculus` | `data/precalculus/` (original, AP Precalculus CED) | `precalc` | `precalc@`, `precalc-student@example.com` |
 | `TrigonometrySeeder` | `course:seed-trigonometry` | `data/trigonometry/` (original, Common Core trigonometry standards) | `trig` | `trig@`, `trig-student@example.com` |
 | `ApCalculusAbSeeder` | `course:seed-ap-calculus-ab` | `data/ap-calculus-ab/` (original, AP Calculus AB and BC CED, AB topics) | `apcalcab` | `apcalcab@`, `apcalcab-student@example.com` |
+| `ApCalculusBcSeeder` | `course:seed-ap-calculus-bc` | `data/ap-calculus-bc/` (original; builds on AB, adds the BC topics) | `apcalcbc` | `apcalcab@` (AB's teacher), `apcalcbc-student@example.com` |
 | `ChemistrySeeder` | `course:seed-chemistry` | `data/chemistry/` (original, public-domain data) | `chem` | `chemistry@`, `chemistry-student@example.com` |
 | `ApChemistrySeeder` | `course:seed-ap-chemistry` | `data/ap-chemistry/` (original, public-domain data) | `apchem` | `apchem@`, `apchem-student@example.com` |
 | `ApWorldHistorySeeder` | `course:seed-ap-world-history` | `data/ap-world-history/` (original, public-domain quotations) | `apworld` | `apworld@`, `apworld-student@example.com` |
@@ -359,6 +360,7 @@ php artisan course:seed-algebra-2 --teacher=you@example.com --no-student --force
 php artisan course:seed-precalculus --teacher=you@example.com --no-student --force
 php artisan course:seed-trigonometry --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-calculus-ab --teacher=you@example.com --no-student --force
+php artisan course:seed-ap-calculus-bc --teacher=you@example.com --no-student --force
 php artisan course:seed-chemistry --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-chemistry --teacher=you@example.com --no-student --force
 php artisan course:seed-ap-world-history --teacher=you@example.com --no-student --force
@@ -433,6 +435,26 @@ with the May 2027 AP shape (29 no-calculator and 13 calculator multiple choice,
 then two calculator and four no-calculator 9-point free-response questions)
 and adds 22 items in the other types; unit exams carry two 9-point FRQs each.
 
+AP Calculus BC **builds on AB** (`builds_on: ap-calculus-ab` in its
+`course.yaml`) instead of copying it. A week file with `reuse: [AB weeks]` puts
+those AB weeks' own guide, deck and quiz rows into the BC course at BC's
+faster pace (weeks 1–15, 18–19, 21–22), and a unit with `reuse_unit_exam:
+true` reuses AB's exam and summary (units 1–8). BC writes only its own weeks
+(16–17, 20, 23–32: 6.11–6.13, 7.5, 7.9, 8.13, Units 9–10), Unit 9 and 10
+exams and summaries, an exam-prep guide and a practice final in the May 2027
+BC shape. Because a course may hold only its owner's own tests,
+`CurriculumSeeder` seeds the base course first for the same teacher (no
+student), so seeding BC also (re)seeds AB and `--teacher` moves both; the
+BC demo teacher is AB's. It refuses, before writing, when AB belongs to
+anyone but the named teacher or BC's current owner (seed AB for that
+teacher first), and the quota check counts AB's files with BC's. A demo run
+with no admin cap raises the default for that process only, so the demo
+teacher ends above the stored cap (about 102 files). `Course::ownWeeks()` is what the content rules
+check; `topicFirstWeek()` counts a reuse week's AB topics as taught that week,
+and flashcard fronts may not repeat AB's. The lint also fails a guide or
+summary table row whose cell count differs from its divider row: write an
+absolute value inside a cell as `\|x\|`. BC adds about 30 files to AB's 73.
+
 Chemistry, AP Chemistry and AP World History: Modern are **original writing**
 like AP U.S. History: no textbook is adapted. The two chemistry courses take
 every constant and data value from public-domain U.S. government sources
@@ -502,6 +524,33 @@ knowledge`), and the lint rejects anything after
 `Database\Seeders\ApLiterature\Lint`, not the test, so it can run on one
 unit (`(new Lint($course))->run([3])`); `ApLiteratureContentTest` runs it over
 everything.
+
+## Usage analytics
+
+First-party and cookieless, for a K-12 audience: nothing is stored that
+names or follows a person. `App\Support\Metrics` keeps only daily counters
+in `daily_metrics` (day, metric, dim, count): no IP, user id, visitor id,
+cookie, query string or full referrer. The SPA (`services/analytics.ts`,
+called from `app-root` on load and every navigation) posts the settled
+path to `POST /api/analytics/view` (own `analytics` limiter, always 204)
+with credentials omitted, so a signed-in visitor is counted anonymously
+too. Only the first page of a tab carries `visit` (a sessionStorage flag
+that never leaves the browser), the referrer (kept as its site, never
+this one) and `utm_source`. Nothing is sent under Do Not Track, Global
+Privacy Control or `navigator.webdriver`; the API drops bot user agents.
+The route skips Sanctum's stateful pipeline (`withoutMiddleware`), which
+would demand a CSRF token and write a `sessions` row (IP, user agent) per
+view. `Metrics::classify` keeps only shapes the SPA routes (anything else is
+`(other)`): a page a guest can open is counted at its canonical address,
+any other id becomes `:id` (`/attempts/:id`, a private `/courses/:id`), and
+any course address also bumps `course_view` by course id. Referrers and
+campaigns go through `bumpCapped` (200 a day, then `(other)`). The limiter
+is generous (1,200/min per IP: a school shares one address). There is no
+scheduler: `php artisan analytics:prune [--days=400]` from cron or by hand.
+`CoursePracticeController::check` bumps `practice_check` and a branch
+bumps `branch`, per course. Sign-ups are read from `users`.
+`/admin/analytics` shows the last 7, 30 or 90 days. Never add a counter
+keyed on a person.
 
 ## Shuffled options
 

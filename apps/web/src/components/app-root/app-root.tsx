@@ -1,5 +1,6 @@
 import { Component, h, Listen, State } from '@stencil/core';
 import type { Layout } from '@24hc/shared';
+import { trackPageView } from '../../services/analytics';
 import { authStore } from '../../services/auth-store';
 import { adoptCanonicalPath, navigate } from '../../services/navigate';
 import { takeReturnPath } from '../../services/return-path';
@@ -26,6 +27,7 @@ export class AppRoot {
     resetPageMeta(this.path);
     this.resolveVanity(this.path);
     this.applyGuards();
+    trackPageView();
   };
 
   /**
@@ -58,6 +60,7 @@ export class AppRoot {
     this.layout = cachedTheme().layout;
     resetPageMeta(this.path);
     this.resolveVanity(this.path);
+    trackPageView();
   }
 
   async connectedCallback() {

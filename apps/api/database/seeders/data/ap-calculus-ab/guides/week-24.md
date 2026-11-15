@@ -95,7 +95,7 @@ Every basic derivative rule gives an antiderivative rule (week 25 lists them all
 | Integrand | Antiderivative |
 |---|---|
 | xⁿ (n ≠ −1) | xⁿ⁺¹/(n + 1) |
-| 1/x | ln |x| |
+| 1/x | ln \|x\| |
 | eˣ | eˣ |
 | cos x | sin x |
 | sin x | −cos x |

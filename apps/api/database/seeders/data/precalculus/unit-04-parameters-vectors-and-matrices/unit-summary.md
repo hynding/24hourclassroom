@@ -47,7 +47,7 @@
 | Rotation by θ | [[cos θ, −sin θ], [sin θ, cos θ]] |
 | Reflections | x-axis [[1, 0], [0, −1]]; y-axis [[−1, 0], [0, 1]]; y = x [[0, 1], [1, 0]] |
 | Shear, dilation | [[1, k], [0, 1]]; [[k, 0], [0, k]] |
-| Area of image | |det A| × original area; det < 0 reverses orientation |
+| Area of image | \|det A\| × original area; det < 0 reverses orientation |
 | Markov model | xₙ₊₁ = Txₙ; x₀ = T⁻¹x₁; steady state Tx = x with the right total |
 
 ## Classic question types

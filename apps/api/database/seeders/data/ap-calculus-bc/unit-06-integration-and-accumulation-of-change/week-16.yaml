@@ -1,0 +1,626 @@
+week: 16
+unit: 6
+title: "Integration by Parts and Linear Partial Fractions"
+topics: ["6.11", "6.12"]
+guide: guides/week-16.md
+guide_description: |
+  The two BC antidifferentiation techniques of Unit 6. Integration by parts, ∫ u dv = uv − ∫ v du, as the product
+  rule run backwards: choosing u so that du is simpler, the definite form with [uv] evaluated at both limits, the
+  "dv = dx" trick for ln x and arctan x, and repeated parts with a sign-alternating table. Linear partial fractions:
+  splitting a proper rational function whose denominator factors into distinct linear factors into A/(x − a) + B/(x − b),
+  finding the constants by substituting the zeros, and doing long division first when the fraction is improper.
+  Worked examples: ∫ x cos(3x) dx, ∫ from 1 to e of ln x dx, ∫ x² e^(−x) dx by a table, ∫ (5x − 4)/(x² − x − 2) dx,
+  and ∫ from 2 to 3 of x²/(x² − 1) dx with long division first.
+flashcards_description: |
+  31 cards on integration by parts (the formula, choosing u, the definite form, ln x and arctan x, repeated parts and
+  the table), linear partial fractions (when they apply, the cover-up shortcut, long division first, logarithm
+  results), and the error patterns in both techniques.
+
+flashcards:
+  - front: Integration by parts → the formula and where it comes from
+    back: |
+      ∫ u dv = uv − ∫ v du. It is the product rule d(uv) = u dv + v du integrated and rearranged.
+    topic_code: "6.11"
+  - front: Integration by parts → what makes a good choice of u
+    back: |
+      Pick u so that du is simpler than u (a polynomial, ln x, an inverse trig function) and dv so that v is easy to find (eˣ, sin x, cos x).
+    topic_code: "6.11"
+  - front: LIATE ordering for choosing u → what the letters stand for
+    back: |
+      Logarithmic, Inverse trig, Algebraic, Trigonometric, Exponential. Choose u from whichever type comes first. It is a guide, not a law.
+    topic_code: "6.11"
+  - front: ∫ x eˣ dx by parts → u, dv and result
+    back: |
+      u = x, dv = eˣ dx, so du = dx and v = eˣ. Result: x eˣ − ∫ eˣ dx = x eˣ − eˣ + C = (x − 1)eˣ + C.
+    topic_code: "6.11"
+  - front: ∫ x e^(2x) dx by parts → result
+    back: |
+      u = x, v = e^(2x)/2. Result: (x/2)e^(2x) − (1/4)e^(2x) + C = (2x − 1)e^(2x)/4 + C.
+    topic_code: "6.11"
+  - front: ∫ x sin x dx by parts → result
+    back: |
+      u = x, dv = sin x dx, v = −cos x. Result: −x cos x + ∫ cos x dx = −x cos x + sin x + C.
+    topic_code: "6.11"
+  - front: ∫ x cos x dx by parts → result
+    back: |
+      u = x, v = sin x. Result: x sin x − ∫ sin x dx = x sin x + cos x + C.
+    topic_code: "6.11"
+  - front: ∫ ln x dx → the trick and the result
+    back: |
+      Take u = ln x and dv = dx, so du = (1/x) dx and v = x. Result: x ln x − ∫ 1 dx = x ln x − x + C.
+    topic_code: "6.11"
+  - front: ∫ arctan x dx → setup and result
+    back: |
+      u = arctan x, dv = dx, so v = x. Result: x arctan x − ∫ x/(1 + x²) dx = x arctan x − (1/2) ln(1 + x²) + C (the last integral is a u-substitution).
+    topic_code: "6.11"
+  - front: ∫ x³ ln x dx → which factor is u, and the result
+    back: |
+      u = ln x (it simplifies to 1/x), dv = x³ dx, v = x⁴/4. Result: (x⁴/4) ln x − ∫ x³/4 dx = (x⁴/4) ln x − x⁴/16 + C.
+    topic_code: "6.11"
+  - front: Definite integration by parts on [a, b] → form
+    back: |
+      ∫ from a to b of u dv = [uv] from a to b − ∫ from a to b of v du. The boundary term uv is evaluated at both limits too.
+    topic_code: "6.11"
+  - front: ∫ from 0 to 1 of x e^(2x) dx → value
+    back: |
+      [(2x − 1)e^(2x)/4] from 0 to 1 = e²/4 − (−1/4) = (e² + 1)/4 ≈ 2.097.
+    topic_code: "6.11"
+  - front: ∫ from 0 to π of x sin x dx → value
+    back: |
+      [−x cos x + sin x] from 0 to π = (π + 0) − (0 + 0) = π.
+    topic_code: "6.11"
+  - front: Repeated integration by parts → when it is needed
+    back: |
+      When u is a polynomial of degree n, each round lowers the degree by one, so x² eˣ needs two rounds and x³ sin x needs three.
+    topic_code: "6.11"
+  - front: Tabular method for ∫ x² eˣ dx → how the table works
+    back: |
+      Derivatives of x²: x², 2x, 2, 0. Antiderivatives of eˣ: eˣ, eˣ, eˣ. Multiply diagonally with signs +, −, +: x²eˣ − 2xeˣ + 2eˣ + C = eˣ(x² − 2x + 2) + C.
+    topic_code: "6.11"
+  - front: ∫ x² cos x dx → result by two rounds of parts
+    back: |
+      x² sin x + 2x cos x − 2 sin x + C. Table: x², 2x, 2 against sin x, −cos x, −sin x with signs +, −, +.
+    topic_code: "6.11"
+  - front: Checking an integration-by-parts answer → how
+    back: |
+      Differentiate it with the product rule. For (x − 1)eˣ: eˣ + (x − 1)eˣ = x eˣ, the integrand, so the answer checks.
+    topic_code: "6.11"
+  - front: Linear partial fractions → when the method applies directly
+    back: |
+      The integrand is a proper rational function (numerator degree less than denominator degree) whose denominator factors into distinct linear factors.
+    topic_code: "6.12"
+  - front: (px + q)/((x − a)(x − b)) with a ≠ b → the form to write
+    back: |
+      A/(x − a) + B/(x − b). Multiply through by (x − a)(x − b): px + q = A(x − b) + B(x − a), then solve for A and B.
+    topic_code: "6.12"
+  - front: Finding A and B in partial fractions → the substitution shortcut
+    back: |
+      In px + q = A(x − b) + B(x − a), put x = a to kill the B term and x = b to kill the A term. Each substitution gives one constant directly.
+    topic_code: "6.12"
+  - front: (x + 7)/((x − 1)(x + 3)) → partial fractions
+    back: |
+      x + 7 = A(x + 3) + B(x − 1). x = 1 gives 8 = 4A, A = 2; x = −3 gives 4 = −4B, B = −1. So 2/(x − 1) − 1/(x + 3).
+    topic_code: "6.12"
+  - front: ∫ (x + 7)/((x − 1)(x + 3)) dx → result
+    back: |
+      ∫ (2/(x − 1) − 1/(x + 3)) dx = 2 ln|x − 1| − ln|x + 3| + C.
+    topic_code: "6.12"
+  - front: ∫ 1/(x² − 4) dx → decomposition and result
+    back: |
+      1/((x − 2)(x + 2)) = (1/4)/(x − 2) − (1/4)/(x + 2). Result: (1/4) ln|x − 2| − (1/4) ln|x + 2| + C = (1/4) ln|(x − 2)/(x + 2)| + C.
+    topic_code: "6.12"
+  - front: ∫ k/(ax + b) dx → result (needed after every decomposition)
+    back: |
+      (k/a) ln|ax + b| + C. The 1/a comes from the chain rule; with a = 1 it is just k ln|x + b| + C.
+    topic_code: "6.12"
+  - front: Improper rational integrand such as x²/(x² − 1) → first step before partial fractions
+    back: |
+      Long division: x²/(x² − 1) = 1 + 1/(x² − 1). Then split only the proper remainder: 1/(x² − 1) = (1/2)/(x − 1) − (1/2)/(x + 1).
+    topic_code: "6.12"
+  - front: Denominator x² + 9 or (x − 1)² → why linear partial fractions do not apply
+    back: |
+      x² + 9 has no real zeros (irreducible), and (x − 1)² is a repeated factor. The BC course only asks for distinct linear factors; x² + 9 calls for arctan instead.
+    topic_code: "6.12"
+  - front: ∫ from 0 to 1 of 3/((x + 1)(x + 2)) dx → value
+    back: |
+      3/(x + 1) − 3/(x + 2) integrates to 3 ln|x + 1| − 3 ln|x + 2|; from 0 to 1 that is 3(ln 2 − ln 3) − 3(0 − ln 2) = 3 ln(4/3).
+    topic_code: "6.12"
+  - front: Choosing between u-substitution, parts and partial fractions for a fraction → first check
+    back: |
+      Is the numerator a constant multiple of the denominator's derivative? Then substitute (∫ 2x/(x² − 4) dx = ln|x² − 4| + C). Otherwise factor and split.
+    topic_code: "6.12"
+  - front: Error-spot → "∫ x eˣ dx with u = eˣ, dv = x dx gives (x²/2)eˣ − ∫ (x²/2)eˣ dx, which is simpler"
+    back: |
+      The new integral is harder: the power of x went up. Swap the roles: u = x, dv = eˣ dx gives x eˣ − eˣ + C.
+    topic_code: "6.11"
+  - front: Error-spot → "∫ x cos x dx = (x²/2) sin x + C"
+    back: |
+      That integrates each factor separately; there is no product rule for integrals that works like that. By parts: x sin x + cos x + C.
+    topic_code: "6.11"
+  - front: Error-spot → "∫ 1/(x² − 4) dx = ln|x² − 4| + C"
+    back: |
+      That would need the numerator to be 2x, the derivative of x² − 4. With numerator 1, split: (1/4) ln|x − 2| − (1/4) ln|x + 2| + C.
+    topic_code: "6.12"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (topics 6.11 and 6.12: integration by parts, including
+    definite and repeated parts, and integrating rational functions by linear partial fractions), with 8 questions
+    (about 32%) reviewing weeks 4–15 (the product rule, the chain rule in accumulation functions, L'Hospital's Rule,
+    u-substitution, long division and completing the square, and selecting a technique). Opens with a shared-context
+    set on one integration by parts. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. No calculator is needed.
+  questions:
+    # ---- Stimulus set: one integration by parts (6.11)
+    - slug: apcalcbc-u06-w16-q01
+      type: multiple_choice
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 1
+      stimulus: |
+        A student evaluates ∫ x·e^(2x) dx using integration by parts, with u = x and dv = e^(2x) dx.
+      prompt: |
+        With this choice, what is v?
+      options:
+        - "2e^(2x)"
+        - "e^(2x)"
+        - "(1/2)e^(2x)"
+        - "x²/2"
+      option_explanations:
+        - |
+          2e^(2x) is the derivative of e^(2x), not an antiderivative; v must satisfy dv/dx = e^(2x).
+        - |
+          e^(2x) differentiates to 2e^(2x), not e^(2x); the inside factor 2 must be divided out.
+        - |
+          Correct. v is an antiderivative of e^(2x): d/dx [(1/2)e^(2x)] = (1/2) · 2e^(2x) = e^(2x).
+        - |
+          x²/2 integrates u instead of dv; in this setup x is the factor that gets differentiated.
+      answer: 2
+    - slug: apcalcbc-u06-w16-q02
+      type: multiple_choice
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 1
+      stimulus: |
+        A student evaluates ∫ x·e^(2x) dx using integration by parts, with u = x and dv = e^(2x) dx.
+      prompt: |
+        Which is the resulting antiderivative?
+      options:
+        - "(x/2)e^(2x) − (1/4)e^(2x) + C"
+        - "(x/2)e^(2x) + (1/4)e^(2x) + C"
+        - "(x/2)e^(2x) − (1/2)e^(2x) + C"
+        - "(x²/2) · (1/2)e^(2x) + C"
+      option_explanations:
+        - |
+          Correct. uv − ∫ v du = x · (1/2)e^(2x) − ∫ (1/2)e^(2x) dx = (x/2)e^(2x) − (1/4)e^(2x) + C. Its derivative is x e^(2x).
+        - |
+          This adds ∫ v du instead of subtracting it; the formula is uv minus ∫ v du.
+        - |
+          This integrates (1/2)e^(2x) as (1/2)e^(2x); a second factor of 1/2 from the chain rule is needed, giving (1/4)e^(2x).
+        - |
+          This multiplies the antiderivatives of the two factors; there is no such product rule for integrals.
+      answer: 0
+    - slug: apcalcbc-u06-w16-q03
+      type: numeric
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 1
+      stimulus: |
+        A student evaluates ∫ x·e^(2x) dx using integration by parts, with u = x and dv = e^(2x) dx.
+      prompt: |
+        Use the antiderivative to find the exact value of ∫ from 0 to 1 of x·e^(2x) dx, then enter it as a decimal rounded to three decimal places.
+      answer: { value: 2.097, tolerance: 0.001 }
+      explanation: |
+        [(x/2)e^(2x) − (1/4)e^(2x)] from 0 to 1 = (e²/2 − e²/4) − (0 − 1/4) = e²/4 + 1/4 = (e² + 1)/4 ≈ 2.097. The lower limit contributes +1/4 because e⁰ = 1, not 0.
+    # ---- Independent items
+    - slug: apcalcbc-u06-w16-q04
+      type: multiple_choice
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 1
+      prompt: |
+        Which is ∫ x cos x dx?
+      options:
+        - "x sin x − cos x + C"
+        - "(x²/2) sin x + C"
+        - "−x sin x + cos x + C"
+        - "x sin x + cos x + C"
+      option_explanations:
+        - |
+          This integrates sin x to cos x; in fact ∫ sin x dx = −cos x, so subtracting it gives + cos x.
+        - |
+          This integrates the two factors separately and multiplies; differentiating it gives x sin x + (x²/2) cos x, not x cos x.
+        - |
+          This takes v = −sin x; the antiderivative of cos x is sin x, so every sign is reversed.
+        - |
+          Correct. u = x, dv = cos x dx, v = sin x: x sin x − ∫ sin x dx = x sin x + cos x + C. Check: sin x + x cos x − sin x = x cos x.
+      answer: 3
+    - slug: apcalcbc-u06-w16-q05
+      type: multiple_choice
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 1 to e of x² ln x dx?
+      options:
+        - "(2e³ − 1)/9"
+        - "e³/3"
+        - "(2e³ + 1)/9"
+        - "(4e³ − 1)/9"
+      option_explanations:
+        - |
+          This subtracts the lower-limit value of x³/9 with the wrong sign: [−x³/9] at 1 is −1/9, and subtracting it adds 1/9.
+        - |
+          e³/3 is the boundary term [(x³/3) ln x] from 1 to e alone; the integral ∫ (x³/3)(1/x) dx must still be subtracted.
+        - |
+          Correct. u = ln x, v = x³/3: [(x³/3) ln x] from 1 to e − ∫ from 1 to e of x²/3 dx = e³/3 − (e³ − 1)/9 = (2e³ + 1)/9.
+        - |
+          This adds ∫ v du instead of subtracting it: e³/3 + (e³ − 1)/9 = (4e³ − 1)/9.
+      answer: 2
+    - slug: apcalcbc-u06-w16-q06
+      type: multiple_choice
+      topic_code: "6.12"
+      source: "AP Calculus CED, Topic 6.12"
+      points: 1
+      prompt: |
+        Which is the partial fraction decomposition of (x + 7)/((x − 1)(x + 3))?
+      options:
+        - "2/(x − 1) − 1/(x + 3)"
+        - "2/(x − 1) + 1/(x + 3)"
+        - "−1/(x − 1) + 2/(x + 3)"
+        - "7/(x − 1) + 7/(x + 3)"
+      option_explanations:
+        - |
+          Correct. x + 7 = A(x + 3) + B(x − 1). At x = 1, 8 = 4A so A = 2; at x = −3, 4 = −4B so B = −1.
+        - |
+          The sign of B is lost: at x = −3 the equation is 4 = B(−3 − 1) = −4B, so B = −1, not 1.
+        - |
+          The constants are attached to the wrong factors; A belongs over x − 1 and comes from substituting x = 1.
+        - |
+          The numerator cannot be copied over each factor; adding 7/(x − 1) + 7/(x + 3) gives (14x + 14)/((x − 1)(x + 3)).
+      answer: 0
+    - slug: apcalcbc-u06-w16-q07
+      type: multiple_choice
+      topic_code: "6.12"
+      source: "AP Calculus CED, Topic 6.12"
+      points: 1
+      prompt: |
+        Which is ∫ 1/(x² − 4) dx?
+      options:
+        - "ln|x² − 4| + C"
+        - "(1/4) ln|x + 2| − (1/4) ln|x − 2| + C"
+        - "ln|x − 2| − ln|x + 2| + C"
+        - "(1/4) ln|x − 2| − (1/4) ln|x + 2| + C"
+      option_explanations:
+        - |
+          This treats the integral as a u-substitution, which needs numerator 2x; with numerator 1 the fraction must be split.
+        - |
+          The two terms are reversed: 1 = A(x + 2) + B(x − 2) gives A = 1/4 over x − 2 and B = −1/4 over x + 2.
+        - |
+          This drops the constants 1/4 and −1/4; at x = 2 the equation 1 = A(4) gives A = 1/4, not 1.
+        - |
+          Correct. 1/((x − 2)(x + 2)) = (1/4)/(x − 2) − (1/4)/(x + 2), and each piece integrates to a logarithm.
+      answer: 3
+    - slug: apcalcbc-u06-w16-q08
+      type: multiple_choice
+      topic_code: "6.12"
+      source: "AP Calculus CED, Topic 6.12"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 0 to 1 of 3/((x + 1)(x + 2)) dx?
+      options:
+        - "3 ln 3"
+        - "3 ln(4/3)"
+        - "ln(4/3)"
+        - "3 ln(2/3)"
+      option_explanations:
+        - |
+          This adds the two logarithm terms instead of subtracting: 3 ln 2 + 3(ln 3 − ln 2) = 3 ln 3; the second fraction is −3/(x + 2).
+        - |
+          Correct. 3/((x + 1)(x + 2)) = 3/(x + 1) − 3/(x + 2), so the integral is [3 ln((x + 1)/(x + 2))] from 0 to 1 = 3 ln(2/3) − 3 ln(1/2) = 3 ln(4/3).
+        - |
+          This drops the factor 3 in the numerator; the decomposition constants are A = 3 and B = −3, not 1 and −1.
+        - |
+          3 ln(2/3) is the antiderivative at the upper limit alone; the lower-limit value 3 ln(1/2) must still be subtracted.
+      answer: 1
+    - slug: apcalcbc-u06-w16-q09
+      type: multiple_choice
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 1
+      prompt: |
+        Which is ∫ x² eˣ dx?
+      options:
+        - "eˣ(x² + 2x + 2) + C"
+        - "eˣ(x² − 2x) + C"
+        - "eˣ(x² − 2x + 2) + C"
+        - "(x³/3)eˣ + C"
+      option_explanations:
+        - |
+          The signs must alternate +, −, + in repeated parts; every term here is added, so its derivative is eˣ(x² + 4x + 4), not x²eˣ.
+        - |
+          This stops after one and a half rounds; the last integral ∫ 2eˣ dx = 2eˣ still has to be added.
+        - |
+          Correct. Two rounds (or the table x², 2x, 2 against eˣ with signs +, −, +) give x²eˣ − 2xeˣ + 2eˣ + C. Check: the derivative is x²eˣ.
+        - |
+          This integrates x² and keeps eˣ, as if eˣ were a constant; its derivative has an extra (x³/3)eˣ term.
+      answer: 2
+    - slug: apcalcbc-u06-w16-q10
+      type: multiple_choice
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        Which is ∫ x/(x² + 1) dx?
+      options:
+        - "(1/2) ln(x² + 1) + C"
+        - "ln(x² + 1) + C"
+        - "arctan x + C"
+        - "(x²/2) arctan x + C"
+      option_explanations:
+        - |
+          Correct. With u = x² + 1, du = 2x dx, so the integral is (1/2) ∫ du/u = (1/2) ln(x² + 1) + C. No partial fractions or parts needed.
+        - |
+          This forgets the 1/2 from du = 2x dx; the derivative of ln(x² + 1) is 2x/(x² + 1), twice the integrand.
+        - |
+          arctan x is the antiderivative of 1/(x² + 1); the factor x in the numerator makes this a substitution instead.
+        - |
+          This integrates the factor x and the factor 1/(x² + 1) separately and multiplies; that is not a valid rule.
+      answer: 0
+    - slug: apcalcbc-u06-w16-q11
+      type: multiple_choice
+      topic_code: "6.10"
+      source: "AP Calculus CED, Topic 6.10"
+      points: 1
+      prompt: |
+        Which is ∫ (x² + 1)/(x + 1) dx?
+      options:
+        - "x²/2 − x + C"
+        - "x²/2 + x + 2 ln|x + 1| + C"
+        - "(x³/3 + x)/(x²/2 + x) + C"
+        - "x²/2 − x + 2 ln|x + 1| + C"
+      option_explanations:
+        - |
+          This drops the remainder: (x² + 1)/(x + 1) = x − 1 + 2/(x + 1), and the 2/(x + 1) term integrates to 2 ln|x + 1|.
+        - |
+          The quotient is x − 1, not x + 1: (x + 1)(x − 1) = x² − 1, leaving remainder 2.
+        - |
+          This integrates numerator and denominator separately; a quotient cannot be integrated that way.
+        - |
+          Correct. Long division gives x − 1 + 2/(x + 1), which integrates to x²/2 − x + 2 ln|x + 1| + C.
+      answer: 3
+    - slug: apcalcbc-u06-w16-q12
+      type: multiple_choice
+      topic_code: "6.10"
+      source: "AP Calculus CED, Topic 6.10"
+      points: 1
+      prompt: |
+        Which is ∫ 1/(x² + 4x + 5) dx?
+      options:
+        - "ln|x² + 4x + 5| + C"
+        - "arctan(x + 2) + C"
+        - "(1/2) arctan((x + 2)/2) + C"
+        - "arctan(x − 2) + C"
+      option_explanations:
+        - |
+          A logarithm would need numerator 2x + 4; with numerator 1 and no real zeros, complete the square instead.
+        - |
+          Correct. x² + 4x + 5 = (x + 2)² + 1, and ∫ 1/(u² + 1) du = arctan u + C with u = x + 2.
+        - |
+          This uses a² = 4 instead of a² = 1; completing the square leaves (x + 2)² + 1, so a = 1.
+        - |
+          The sign inside the square is wrong: x² + 4x + 5 = (x + 2)² + 1, not (x − 2)² + 1.
+      answer: 1
+    - slug: apcalcbc-u06-w16-q13
+      type: multiple_choice
+      topic_code: "6.4"
+      source: "AP Calculus CED, Topic 6.4"
+      points: 1
+      prompt: |
+        Let G(x) = ∫ from 1 to x² of ln t dt for x > 0. What is G′(x)?
+      options:
+        - "ln(x²)"
+        - "x² ln(x²) − x²"
+        - "4x ln x"
+        - "1/x²"
+      option_explanations:
+        - |
+          This substitutes the upper limit but forgets the chain rule factor d/dx (x²) = 2x.
+        - |
+          This is G(x) − 1: the integral itself, found with the antiderivative t ln t − t, not its derivative.
+        - |
+          Correct. By the Fundamental Theorem and the chain rule, G′(x) = ln(x²) · 2x = 2 ln x · 2x = 4x ln x.
+        - |
+          1/x² differentiates the integrand ln t at t = x² instead of evaluating it; the theorem returns the integrand itself.
+      answer: 2
+    - slug: apcalcbc-u06-w16-q14
+      type: multiple_choice
+      topic_code: "2.8"
+      source: "AP Calculus CED, Topic 2.8"
+      points: 1
+      prompt: |
+        A student checks the antiderivative of x eˣ by differentiating (x − 1)eˣ. What is d/dx [(x − 1)eˣ]?
+      options:
+        - "eˣ"
+        - "x eˣ"
+        - "(x − 1)eˣ"
+        - "(x − 2)eˣ"
+      option_explanations:
+        - |
+          This multiplies the derivatives of the two factors, 1 · eˣ; the product rule needs both terms, f′g + fg′.
+        - |
+          Correct. By the product rule, 1 · eˣ + (x − 1)eˣ = x eˣ, confirming ∫ x eˣ dx = (x − 1)eˣ + C.
+        - |
+          This differentiates eˣ but treats x − 1 as a constant, dropping the f′g term 1 · eˣ.
+        - |
+          This subtracts the term 1 · eˣ instead of adding it; the product rule is f′g + fg′, with a plus sign.
+      answer: 1
+    - slug: apcalcbc-u06-w16-q15
+      type: multi_select
+      topic_code: "6.12"
+      source: "AP Calculus CED, Topic 6.12"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which integrands can be split immediately into a sum A/(x − a) + B/(x − b) with distinct linear factors, with no long division or other step first? Select all that apply.
+      options:
+        - "1/(x² − 9)"
+        - "(2x + 1)/(x² + x − 6)"
+        - "1/(x² + 9)"
+        - "x³/(x² − 1)"
+        - "1/(x − 1)²"
+      option_explanations:
+        - |
+          Correct. x² − 9 = (x − 3)(x + 3), two distinct linear factors, and the fraction is proper.
+        - |
+          Correct. x² + x − 6 = (x + 3)(x − 2), and the numerator has lower degree than the denominator.
+        - |
+          x² + 9 has no real zeros, so it does not factor into linear factors; this integral is (1/3) arctan(x/3) + C.
+        - |
+          The numerator's degree is higher than the denominator's; long division (x³/(x² − 1) = x + x/(x² − 1)) must come first.
+        - |
+          The factor x − 1 is repeated, not two distinct factors; this one is simply ∫ (x − 1)^(−2) dx = −1/(x − 1) + C.
+      answer: [0, 1]
+    - slug: apcalcbc-u06-w16-q16
+      type: multi_select
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 2
+      partial_credit: true
+      prompt: |
+        For which integrals is the stated choice of u a good one for integration by parts (it leads to a simpler integral)? Select all that apply.
+      options:
+        - "∫ x sin(3x) dx with u = x"
+        - "∫ x³ ln x dx with u = ln x"
+        - "∫ x eˣ dx with u = eˣ"
+        - "∫ arctan x dx with u = arctan x and dv = dx"
+        - "∫ x² cos x dx with u = cos x"
+      option_explanations:
+        - |
+          Correct. du = dx and v = −(1/3)cos(3x), so the new integral ∫ (1/3)cos(3x) dx is basic.
+        - |
+          Correct. du = (1/x) dx, v = x⁴/4, and ∫ v du = ∫ x³/4 dx is a power rule.
+        - |
+          With u = eˣ, v = x²/2 and the new integral ∫ (x²/2)eˣ dx has a higher power of x: worse, not better.
+        - |
+          Correct. du = 1/(1 + x²) dx and v = x, leaving ∫ x/(1 + x²) dx, a u-substitution.
+        - |
+          With u = cos x, v = x³/3 and the new integral ∫ (x³/3) sin x dx has a higher power; choose u = x² instead.
+      answer: [0, 1, 3]
+    - slug: apcalcbc-u06-w16-q17
+      type: true_false
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 1
+      prompt: |
+        True or false: For ∫ from a to b of u dv, integration by parts gives [uv] from a to b − ∫ from a to b of v du, so the term uv must be evaluated at both limits.
+      answer: true
+      explanation: |
+        True. Integrating the product rule from a to b gives ∫ from a to b of u dv = u(b)v(b) − u(a)v(a) − ∫ from a to b of v du. Forgetting to evaluate uv at the limits (leaving it as a function of x) is a common error.
+    - slug: apcalcbc-u06-w16-q18
+      type: true_false
+      topic_code: "6.12"
+      source: "AP Calculus CED, Topic 6.12"
+      points: 1
+      prompt: |
+        True or false: 3x/((x − 2)(x + 5)) = A/(x − 2) + B/(x + 5) with A = 15/7 and B = 6/7.
+      answer: false
+      explanation: |
+        False: the values are swapped. 3x = A(x + 5) + B(x − 2). At x = 2, 6 = 7A, so A = 6/7; at x = −5, −15 = −7B, so B = 15/7.
+    - slug: apcalcbc-u06-w16-q19
+      type: fill_blank
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 1
+      prompt: |
+        ∫ from 0 to π of x sin x dx = ____. (Exact value.)
+      answer: ["π", "pi", "1π", "1pi"]
+      explanation: |
+        u = x, v = −cos x: [−x cos x] from 0 to π + ∫ from 0 to π of cos x dx = (−π · (−1) − 0) + [sin x] from 0 to π = π + 0 = π.
+    - slug: apcalcbc-u06-w16-q20
+      type: fill_blank
+      topic_code: "6.12"
+      source: "AP Calculus CED, Topic 6.12"
+      points: 1
+      prompt: |
+        If (4x + 2)/((x + 1)(x − 1)) = A/(x + 1) + B/(x − 1), then B = ____.
+      answer: ["3", "3.0", "+3"]
+      explanation: |
+        4x + 2 = A(x − 1) + B(x + 1). Setting x = 1 gives 6 = 2B, so B = 3. (Setting x = −1 gives −2 = −2A, so A = 1.)
+    - slug: apcalcbc-u06-w16-q21
+      type: numeric
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 0 to π/2 of sin x · cos²x dx? Give a decimal rounded to three decimal places.
+      answer: { value: 0.333, tolerance: 0.001 }
+      explanation: |
+        With u = cos x, du = −sin x dx, and the limits become u = 1 (x = 0) and u = 0 (x = π/2): ∫ from 1 to 0 of −u² du = ∫ from 0 to 1 of u² du = 1/3 ≈ 0.333.
+    - slug: apcalcbc-u06-w16-q22
+      type: numeric
+      topic_code: "4.7"
+      source: "AP Calculus CED, Topic 4.7"
+      points: 1
+      prompt: |
+        What is lim (x→0) (eˣ − 1 − x)/x²? Enter a decimal.
+      answer: { value: 0.5, tolerance: 0.001 }
+      explanation: |
+        The form is 0/0. L'Hospital's Rule gives lim (x→0) (eˣ − 1)/(2x), still 0/0; applying it again gives lim (x→0) eˣ/2 = 1/2.
+    - slug: apcalcbc-u06-w16-q23
+      type: short_answer
+      topic_code: "6.12"
+      source: "AP Calculus CED, Topic 6.12"
+      points: 3
+      prompt: |
+        Let f(x) = (x + 5)/(x² + x − 2).
+
+        (a) Write f(x) as a sum of partial fractions.
+        (b) Evaluate ∫ from 2 to 4 of f(x) dx exactly.
+        (c) Explain why the Fundamental Theorem cannot be applied directly to ∫ from 0 to 2 of f(x) dx.
+      answer: |
+        (a) x² + x − 2 = (x + 2)(x − 1). x + 5 = A(x − 1) + B(x + 2): x = 1 gives 6 = 3B, B = 2; x = −2 gives 3 = −3A, A = −1. So f(x) = −1/(x + 2) + 2/(x − 1).
+        (b) [−ln|x + 2| + 2 ln|x − 1|] from 2 to 4 = (−ln 6 + 2 ln 3) − (−ln 4 + 0) = ln(9 · 4/6) = ln 6.
+        (c) f is not continuous on [0, 2]: it has a vertical asymptote at x = 1, inside the interval, so the theorem's hypothesis fails (the integral is improper, the topic of next week).
+      explanation: |
+        Three points, one per part. (a) Both constants correct (A = −1, B = 2) with the factored denominator. (b) ln 6, or an equivalent such as 2 ln 3 − ln(3/2), from correct logarithm antiderivatives. (c) Names the discontinuity (vertical asymptote) at x = 1 inside [0, 2] and that the Fundamental Theorem needs f continuous on the interval.
+    - slug: apcalcbc-u06-w16-q24
+      type: short_answer
+      topic_code: "6.14"
+      source: "AP Calculus CED, Topic 6.14"
+      points: 3
+      prompt: |
+        For each integral, name the technique you would use and find the antiderivative.
+
+        (a) ∫ x·e^(x²) dx
+        (b) ∫ x·eˣ dx
+        (c) ∫ 1/(x² + 2x + 2) dx
+      answer: |
+        (a) u-substitution with u = x², du = 2x dx: (1/2)e^(x²) + C.
+        (b) Integration by parts with u = x, dv = eˣ dx: x eˣ − eˣ + C.
+        (c) Completing the square, x² + 2x + 2 = (x + 1)² + 1: arctan(x + 1) + C.
+      explanation: |
+        Three points, one per part; each needs both a suitable technique and a correct antiderivative (the + C may be missing once without penalty). (a) Substitution, (1/2)e^(x²). (b) Parts, (x − 1)eˣ. (c) Completing the square, arctan(x + 1). A student who reaches the correct antiderivative by another valid method earns the point.
+    - slug: apcalcbc-u06-w16-q25
+      type: long_answer
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 6
+      prompt: |
+        Let f(x) = x·e^(−x) for x ≥ 0. Let R be the region bounded by the graph of f, the x-axis and the vertical line x = 2.
+
+        (A) Find f′(x). Find the absolute maximum value of f on the interval 0 ≤ x ≤ 2, and justify your answer.
+
+        (B) Use integration by parts to find the exact area of R. Show the choice of u and dv.
+
+        (C) Find the average value of f on the interval 0 ≤ x ≤ 2.
+
+        (D) Let g(x) = ∫ from 0 to x of t·e^(−t) dt for x ≥ 0. At what value of x does the graph of g have a point of inflection? Justify your answer.
+      answer: |
+        (A) f′(x) = e^(−x) − x e^(−x) = (1 − x)e^(−x). f′(x) = 0 only at x = 1. Candidates: f(0) = 0, f(1) = 1/e ≈ 0.368, f(2) = 2/e² ≈ 0.271. The absolute maximum value on [0, 2] is 1/e, at x = 1.
+        (B) u = x, dv = e^(−x) dx, so du = dx and v = −e^(−x). Area = [−x e^(−x)] from 0 to 2 + ∫ from 0 to 2 of e^(−x) dx = −2e^(−2) + [−e^(−x)] from 0 to 2 = −2e^(−2) − e^(−2) + 1 = 1 − 3e^(−2) ≈ 0.594.
+        (C) Average value = (1/(2 − 0)) ∫ from 0 to 2 of f(x) dx = (1 − 3e^(−2))/2 ≈ 0.297.
+        (D) g′(x) = x e^(−x) and g″(x) = (1 − x)e^(−x). g″ changes from positive to negative at x = 1 (e^(−x) > 0 always), so the graph of g has a point of inflection at x = 1.
+      explanation: |
+        Six points. (A) 1 point for f′(x) = (1 − x)e^(−x); 1 point for the maximum 1/e at x = 1 justified by a Candidates Test (f(0), f(1), f(2)) or by f′ changing from positive to negative at the only critical point. (B) 1 point for a correct parts setup (u = x, dv = e^(−x) dx, v = −e^(−x)); 1 point for 1 − 3e^(−2), with the boundary term evaluated at both limits. (C) 1 point for (1 − 3e^(−2))/2, read from the answer to (B). (D) 1 point for x = 1 with the justification that g″ = f′ changes sign there; "g″(1) = 0" alone does not earn the point.

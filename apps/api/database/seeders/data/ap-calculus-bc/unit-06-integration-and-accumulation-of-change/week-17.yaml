@@ -1,0 +1,637 @@
+week: 17
+unit: 6
+title: "Improper Integrals"
+topics: ["6.13"]
+guide: guides/week-17.md
+guide_description: |
+  Evaluating improper integrals as limits of definite integrals: integrals over an infinite interval
+  (∫ from a to ∞, ∫ from −∞ to b, and ∫ from −∞ to ∞ split at a point), and integrals whose integrand is unbounded at
+  an endpoint or at an interior point of the interval. Convergence and divergence, the p-integrals
+  ∫ from 1 to ∞ of 1/x^p dx and ∫ from 0 to 1 of 1/x^p dx, improper integrals that need u-substitution, integration by
+  parts with L'Hospital's Rule, or partial fractions, and a short note on comparing integrands. Worked examples:
+  ∫ from 1 to ∞ of 1/x² dx against ∫ from 1 to ∞ of 1/x dx, ∫ from 0 to ∞ of x e^(−2x) dx, ∫ from 0 to 4 of 1/√(4 − x) dx,
+  the interior asymptote in ∫ from 0 to 3 of 1/(x − 1)² dx, ∫ from −∞ to ∞ of x/(x² + 1)² dx, and
+  ∫ from 3 to ∞ of 2/(x² − 1) dx.
+flashcards_description: |
+  30 cards on the two kinds of improper integral, writing each as a limit, convergence and divergence, the
+  p-integrals on both kinds of interval, doubly infinite integrals, interior discontinuities, improper integrals that
+  need substitution, parts or partial fractions, and the error patterns in all of them.
+
+flashcards:
+  - front: Improper integral → the two ways a definite integral can be improper
+    back: |
+      An infinite limit of integration (∫ from 1 to ∞), or an integrand that is unbounded somewhere on the interval (∫ from 0 to 1 of 1/√x dx, where 1/√x → ∞ as x → 0⁺).
+    topic_code: "6.13"
+  - front: ∫ from a to ∞ of f(x) dx → definition as a limit
+    back: |
+      lim (b→∞) ∫ from a to b of f(x) dx. Integrate to a finite b first, then take the limit.
+    topic_code: "6.13"
+  - front: ∫ from −∞ to b of f(x) dx → definition as a limit
+    back: |
+      lim (a→−∞) ∫ from a to b of f(x) dx.
+    topic_code: "6.13"
+  - front: Convergent versus divergent improper integral → meaning
+    back: |
+      Convergent: the defining limit exists as a finite number, which is the integral's value. Divergent: the limit is infinite or does not exist, and the integral has no value.
+    topic_code: "6.13"
+  - front: Integrand unbounded at the lower limit, ∫ from a to b with f → ∞ as x → a⁺ → definition
+    back: |
+      lim (t→a⁺) ∫ from t to b of f(x) dx. Approach the bad point from inside the interval.
+    topic_code: "6.13"
+  - front: Integrand unbounded at the upper limit, ∫ from a to b with f → ∞ as x → b⁻ → definition
+    back: |
+      lim (t→b⁻) ∫ from a to t of f(x) dx.
+    topic_code: "6.13"
+  - front: Integrand unbounded at an interior point c of [a, b] → what to do
+    back: |
+      Split at c: ∫ from a to c + ∫ from c to b, each a one-sided limit. The integral converges only if both pieces converge.
+    topic_code: "6.13"
+  - front: ∫ from −∞ to ∞ of f(x) dx → definition
+    back: |
+      Split at any convenient point c: ∫ from −∞ to c of f + ∫ from c to ∞ of f, with two separate limits. It converges only if both halves converge.
+    topic_code: "6.13"
+  - front: ∫ from 1 to ∞ of 1/x² dx → value
+    back: |
+      lim (b→∞) [−1/x] from 1 to b = lim (b→∞) (1 − 1/b) = 1. Converges.
+    topic_code: "6.13"
+  - front: ∫ from 1 to ∞ of 1/x dx → result
+    back: |
+      lim (b→∞) ln b = ∞. Diverges, even though 1/x → 0: the area under 1/x does not settle down.
+    topic_code: "6.13"
+  - front: p-integral ∫ from 1 to ∞ of 1/x^p dx → when it converges and its value
+    back: |
+      Converges for p > 1, to 1/(p − 1). Diverges for p ≤ 1.
+    topic_code: "6.13"
+  - front: p-integral ∫ from 0 to 1 of 1/x^p dx → when it converges and its value
+    back: |
+      Converges for p < 1, to 1/(1 − p). Diverges for p ≥ 1. The condition is the reverse of the infinite-interval one.
+    topic_code: "6.13"
+  - front: ∫ from 0 to 1 of 1/√x dx → value
+    back: |
+      lim (t→0⁺) [2√x] from t to 1 = 2 − 0 = 2. Converges (p = 1/2 < 1).
+    topic_code: "6.13"
+  - front: ∫ from 0 to 8 of x^(−1/3) dx → value
+    back: |
+      lim (t→0⁺) [(3/2)x^(2/3)] from t to 8 = (3/2)(4) − 0 = 6.
+    topic_code: "6.13"
+  - front: ∫ from 0 to ∞ of e^(−kx) dx with k > 0 → value
+    back: |
+      lim (b→∞) [−e^(−kx)/k] from 0 to b = 0 + 1/k = 1/k.
+    topic_code: "6.13"
+  - front: ∫ from −∞ to 0 of e^(3x) dx → value
+    back: |
+      lim (a→−∞) [e^(3x)/3] from a to 0 = 1/3 − 0 = 1/3, because e^(3a) → 0 as a → −∞.
+    topic_code: "6.13"
+  - front: ∫ from −∞ to ∞ of 1/(1 + x²) dx → value
+    back: |
+      Split at 0. Each half is lim of arctan: π/2 − 0 and 0 − (−π/2). Total π.
+    topic_code: "6.13"
+  - front: ∫ from 0 to ∞ of x e^(−x²) dx → method and value
+    back: |
+      u = x², du = 2x dx: lim (b→∞) [−(1/2)e^(−x²)] from 0 to b = 0 + 1/2 = 1/2.
+    topic_code: "6.13"
+  - front: ∫ from 0 to ∞ of x e^(−x) dx → method and value
+    back: |
+      Parts: ∫ from 0 to b = 1 − (b + 1)e^(−b). L'Hospital gives (b + 1)/e^b → 0, so the value is 1.
+    topic_code: "6.13"
+  - front: ∫ from 0 to 1 of ln x dx → method and value
+    back: |
+      Parts on [t, 1]: [x ln x − x] from t to 1 = −1 − t ln t + t. As t → 0⁺, t ln t → 0 (L'Hospital), so the value is −1.
+    topic_code: "6.13"
+  - front: ∫ from 2 to ∞ of 1/(x(x − 1)) dx → method and value
+    back: |
+      Partial fractions: 1/(x − 1) − 1/x. lim (b→∞) [ln((x − 1)/x)] from 2 to b = ln 1 − ln(1/2) = ln 2.
+    topic_code: "6.13"
+  - front: ln((b − 1)/b) or ln((b + 1)/(b + 2)) as b → ∞ → limit
+    back: |
+      The fraction tends to 1, and ln is continuous, so the limit is ln 1 = 0. Combine the logs before taking the limit.
+    topic_code: "6.13"
+  - front: ∫ from −1 to 1 of 1/x² dx → result
+    back: |
+      Diverges. 1/x² is unbounded at x = 0, and ∫ from 0 to 1 of 1/x² dx = lim (t→0⁺) (1/t − 1) = ∞. Evaluating [−1/x] from −1 to 1 = −2 is wrong.
+    topic_code: "6.13"
+  - front: ∫ from 0 to 3 of 1/(x − 1)² dx → why it diverges
+    back: |
+      The integrand blows up at x = 1, inside [0, 3]. The left piece lim (t→1⁻) [−1/(x − 1)] from 0 to t = ∞, so the whole integral diverges.
+    topic_code: "6.13"
+  - front: Comparing integrands (0 ≤ f ≤ g on [a, ∞)) → what it tells you
+    back: |
+      If ∫ g converges, so does ∫ f; if ∫ f diverges, so does ∫ g. Useful for intuition; BC's improper integral questions ask you to evaluate, and comparison returns in Unit 10 for series.
+    topic_code: "6.13"
+  - front: Improper integrals and the area of an unbounded region → connection
+    back: |
+      A convergent improper integral of a positive function is a finite area for an infinitely long region, such as the area 1 under y = 1/x² to the right of x = 1.
+    topic_code: "6.13"
+  - front: Spotting a hidden improper integral on [a, b] → what to check
+    back: |
+      Look for zeros of a denominator, logarithms at 0, and tan x or sec x at π/2 inside or at the ends of the interval before you apply the Fundamental Theorem.
+    topic_code: "6.13"
+  - front: Error-spot → "lim (x→∞) 1/x = 0, so ∫ from 1 to ∞ of 1/x dx converges"
+    back: |
+      An integrand tending to 0 is necessary but not enough. lim (b→∞) ln b = ∞, so the integral diverges.
+    topic_code: "6.13"
+  - front: Error-spot → "∫ from −∞ to ∞ of x dx = lim (b→∞) ∫ from −b to b of x dx = 0"
+    back: |
+      The two halves must have separate limits. ∫ from 0 to ∞ of x dx diverges, so the whole integral diverges; the symmetric limit hides that.
+    topic_code: "6.13"
+  - front: Error-spot → "∫ from 0 to ∞ of 6/((x + 1)(x + 2)) dx = ∫ from 0 to ∞ of 6/(x + 1) dx − ∫ from 0 to ∞ of 6/(x + 2) dx"
+    back: |
+      Both pieces diverge, giving ∞ − ∞. Combine the logarithms on [0, b] first: 6 ln((b + 1)/(b + 2)) − 6 ln(1/2) → 6 ln 2.
+    topic_code: "6.13"
+
+quiz:
+  description: |
+    25 questions · about 40 minutes · mostly on this week (topic 6.13: improper integrals over infinite intervals and
+    with unbounded integrands, written as limits and evaluated, including integrals that need substitution, parts or
+    partial fractions), with 8 questions (about 32%) reviewing weeks 1–16 (limits at infinity, L'Hospital's Rule,
+    u-substitution, integration by parts and linear partial fractions). Opens with a shared-context set on one
+    improper integral. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. No calculator is needed.
+  questions:
+    # ---- Stimulus set: one improper integral (6.13, 6.11, 4.7)
+    - slug: apcalcbc-u06-w17-q01
+      type: multiple_choice
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      stimulus: |
+        Consider the improper integral ∫ from 0 to ∞ of x·e^(−x) dx.
+      prompt: |
+        Which expression defines the value of this integral?
+      options:
+        - "lim (x→∞) x·e^(−x)"
+        - "lim (b→∞) ∫ from 0 to b of x·e^(−x) dx"
+        - "lim (b→0⁺) ∫ from b to ∞ of x·e^(−x) dx"
+        - "∫ from 0 to 1000 of x·e^(−x) dx"
+      option_explanations:
+        - |
+          This is the limit of the integrand, not of the accumulated area; an integrand tending to 0 does not by itself give the integral's value.
+        - |
+          Correct. The upper limit is infinite, so integrate to a finite b and let b → ∞.
+        - |
+          The integrand x·e^(−x) is continuous at 0, so nothing goes wrong there; the problem is the infinite upper limit, which this still leaves in place.
+        - |
+          A large finite upper limit only approximates the value; the definition is the limit as the upper limit grows without bound.
+      answer: 1
+    - slug: apcalcbc-u06-w17-q02
+      type: multiple_choice
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 1
+      stimulus: |
+        Consider the improper integral ∫ from 0 to ∞ of x·e^(−x) dx.
+      prompt: |
+        For b > 0, which is ∫ from 0 to b of x·e^(−x) dx?
+      options:
+        - "(1 − b)e^(−b) − 1"
+        - "−(b + 1)e^(−b)"
+        - "(b + 1)e^(−b) − 1"
+        - "1 − (b + 1)e^(−b)"
+      option_explanations:
+        - |
+          This adds ∫ v du instead of subtracting it: −b e^(−b) + ∫ from 0 to b of (−e^(−x)) dx gives (1 − b)e^(−b) − 1.
+        - |
+          This is the antiderivative −(x + 1)e^(−x) at x = b only; its value at 0, which is −1, must be subtracted, adding 1.
+        - |
+          This takes v = e^(−x) instead of −e^(−x), which reverses every sign in the result.
+        - |
+          Correct. u = x, v = −e^(−x): [−x e^(−x)] from 0 to b + ∫ from 0 to b of e^(−x) dx = −b e^(−b) − e^(−b) + 1 = 1 − (b + 1)e^(−b).
+      answer: 3
+    - slug: apcalcbc-u06-w17-q03
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "AP Calculus CED, Topic 4.7"
+      points: 1
+      stimulus: |
+        Consider the improper integral ∫ from 0 to ∞ of x·e^(−x) dx.
+      prompt: |
+        Evaluating the integral requires lim (b→∞) (b + 1)/e^b. What is this limit, and why?
+      options:
+        - "0, because the form ∞/∞ allows L'Hospital's Rule, giving lim (b→∞) 1/e^b = 0."
+        - "1, because the numerator and the denominator both grow without bound."
+        - "∞, because b + 1 grows without bound."
+        - "The limit does not exist, because ∞/∞ is undefined."
+      option_explanations:
+        - |
+          Correct. Both parts → ∞, so L'Hospital's Rule applies: the derivatives give 1/e^b, which → 0. Exponentials outgrow polynomials.
+        - |
+          Two quantities that both grow without bound can have any ratio; here e^b grows far faster, so the ratio → 0.
+        - |
+          This ignores the denominator; e^b grows much faster than b + 1, so the quotient shrinks.
+        - |
+          ∞/∞ is an indeterminate form, not an undefined answer; it signals that L'Hospital's Rule or another method is needed.
+      answer: 0
+    - slug: apcalcbc-u06-w17-q04
+      type: multiple_choice
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      stimulus: |
+        Consider the improper integral ∫ from 0 to ∞ of x·e^(−x) dx.
+      prompt: |
+        What is the value of the improper integral?
+      options:
+        - "0"
+        - "−1"
+        - "1"
+        - "The integral diverges."
+      option_explanations:
+        - |
+          0 is the limit of the term (b + 1)e^(−b) alone; the constant 1 from the lower limit remains.
+        - |
+          −1 comes from a sign slip in the parts antiderivative; the integrand is positive on (0, ∞), so the value must be positive.
+        - |
+          Correct. lim (b→∞) [1 − (b + 1)e^(−b)] = 1 − 0 = 1, so the integral converges to 1.
+        - |
+          The interval is infinite, but the defining limit exists and is finite, so the integral converges.
+      answer: 2
+    # ---- Independent items
+    - slug: apcalcbc-u06-w17-q05
+      type: multiple_choice
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 2 to ∞ of 1/x³ dx?
+      options:
+        - "1/8"
+        - "−1/8"
+        - "1/4"
+        - "The integral diverges, because the interval of integration is infinite."
+      option_explanations:
+        - |
+          Correct. lim (b→∞) [−1/(2x²)] from 2 to b = lim (b→∞) (−1/(2b²) + 1/8) = 1/8.
+        - |
+          This subtracts in the wrong order, the value at 2 minus the value at b; the integrand is positive, so the integral is positive.
+        - |
+          This uses −1/x² as the antiderivative, forgetting to divide by the new exponent −2: 0 − (−1/4) = 1/4.
+        - |
+          An infinite interval does not force divergence; this p-integral has p = 3 > 1 and converges.
+      answer: 0
+    - slug: apcalcbc-u06-w17-q06
+      type: multiple_choice
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 0 to 1 of 1/√x dx?
+      options:
+        - "The integral diverges, because 1/√x is unbounded near x = 0."
+        - "1"
+        - "−2"
+        - "2"
+      option_explanations:
+        - |
+          An unbounded integrand makes the integral improper, not necessarily divergent; here the limit is finite.
+        - |
+          This uses √x as the antiderivative of x^(−1/2); the antiderivative is 2√x.
+        - |
+          This subtracts in the wrong order, 0 − 2; the integrand is positive, so the value is positive.
+        - |
+          Correct. lim (t→0⁺) [2√x] from t to 1 = 2 − lim (t→0⁺) 2√t = 2.
+      answer: 3
+    - slug: apcalcbc-u06-w17-q07
+      type: multiple_choice
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        For which values of p does ∫ from 1 to ∞ of 1/x^p dx converge?
+      options:
+        - "p ≥ 1"
+        - "p > 1"
+        - "p < 1"
+        - "p > 0"
+      option_explanations:
+        - |
+          p = 1 gives ∫ from 1 to ∞ of 1/x dx = lim (b→∞) ln b = ∞, so p = 1 must be excluded.
+        - |
+          Correct. For p ≠ 1, ∫ from 1 to b of x^(−p) dx = (b^(1−p) − 1)/(1 − p), which has a finite limit only when 1 − p < 0; p = 1 gives ln b → ∞.
+        - |
+          This is the condition for ∫ from 0 to 1 of 1/x^p dx; on an infinite interval the condition is reversed.
+        - |
+          Every p > 0 makes 1/x^p → 0, but that is not enough: for 0 < p ≤ 1 the area still grows without bound.
+      answer: 1
+    - slug: apcalcbc-u06-w17-q08
+      type: multiple_choice
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        What is ∫ from −1 to 1 of 1/x² dx?
+      options:
+        - "−2"
+        - "2"
+        - "The integral diverges."
+        - "0"
+      option_explanations:
+        - |
+          −2 is [−1/x] from −1 to 1, which ignores the vertical asymptote at x = 0; a positive integrand cannot have a negative integral.
+        - |
+          2 comes from [1/x] from −1 to 1, a sign slip in the antiderivative on top of ignoring the asymptote; 1/x² is not continuous on [−1, 1], so the Fundamental Theorem does not apply.
+        - |
+          Correct. Split at 0: ∫ from 0 to 1 of 1/x² dx = lim (t→0⁺) (1/t − 1) = ∞, so the whole integral diverges.
+        - |
+          0 assumes the two sides cancel, but 1/x² is positive on both sides and each side diverges.
+      answer: 2
+    - slug: apcalcbc-u06-w17-q09
+      type: multiple_choice
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 0 to ∞ of x·e^(−x²) dx?
+      options:
+        - "1/2"
+        - "1"
+        - "−1/2"
+        - "The integral diverges."
+      option_explanations:
+        - |
+          Correct. With u = x², du = 2x dx: lim (b→∞) [−(1/2)e^(−x²)] from 0 to b = 0 − (−1/2) = 1/2.
+        - |
+          This forgets the factor 1/2 from du = 2x dx.
+        - |
+          This subtracts the lower-limit value with the wrong sign; the integrand is positive for x > 0.
+        - |
+          e^(−b²) → 0 as b → ∞, so the defining limit is finite and the integral converges.
+      answer: 0
+    - slug: apcalcbc-u06-w17-q10
+      type: multiple_choice
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        What is the value of ∫ from −∞ to 0 of e^(3x) dx?
+      options:
+        - "3"
+        - "−1/3"
+        - "The integral diverges, because e^(3x) is defined for all x."
+        - "1/3"
+      option_explanations:
+        - |
+          This multiplies by 3 instead of dividing; the antiderivative of e^(3x) is e^(3x)/3.
+        - |
+          This subtracts in the wrong order; e^(3a) → 0 as a → −∞, so the value is 1/3 − 0.
+        - |
+          Being defined everywhere says nothing about convergence; the limit lim (a→−∞) (1/3 − e^(3a)/3) is finite.
+        - |
+          Correct. lim (a→−∞) [e^(3x)/3] from a to 0 = 1/3 − lim (a→−∞) e^(3a)/3 = 1/3.
+      answer: 3
+    - slug: apcalcbc-u06-w17-q11
+      type: multiple_choice
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        What is the value of ∫ from −∞ to ∞ of 1/(1 + x²) dx?
+      options:
+        - "π/2"
+        - "π"
+        - "0"
+        - "The integral diverges."
+      option_explanations:
+        - |
+          π/2 is only one half, ∫ from 0 to ∞; the half from −∞ to 0 adds another π/2.
+        - |
+          Correct. Split at 0: lim (b→∞) arctan b − arctan 0 = π/2, and arctan 0 − lim (a→−∞) arctan a = π/2. Total π.
+        - |
+          The integrand is positive everywhere, so the two halves add; they do not cancel.
+        - |
+          Both halves converge to π/2, so the integral converges.
+      answer: 1
+    - slug: apcalcbc-u06-w17-q12
+      type: multiple_choice
+      topic_code: "6.12"
+      source: "AP Calculus CED, Topic 6.12"
+      points: 1
+      prompt: |
+        Which is ∫ 2/(x² − 1) dx?
+      options:
+        - "ln|x² − 1| + C"
+        - "2 ln|x − 1| − 2 ln|x + 1| + C"
+        - "ln|x − 1| − ln|x + 1| + C"
+        - "ln|x + 1| − ln|x − 1| + C"
+      option_explanations:
+        - |
+          A logarithm of the denominator needs numerator 2x; with numerator 2, use partial fractions.
+        - |
+          The constants are 1 and −1, not 2 and −2: 2 = A(x + 1) + B(x − 1) gives A = 1 at x = 1.
+        - |
+          Correct. 2/((x − 1)(x + 1)) = 1/(x − 1) − 1/(x + 1); x = 1 gives 2 = 2A and x = −1 gives 2 = −2B.
+        - |
+          The signs are reversed; the positive term belongs over x − 1, whose zero gave A = 1.
+      answer: 2
+    - slug: apcalcbc-u06-w17-q13
+      type: multiple_choice
+      topic_code: "1.15"
+      source: "AP Calculus CED, Topic 1.15"
+      points: 1
+      prompt: |
+        What is lim (b→∞) ln((2b + 1)/(b + 3))?
+      options:
+        - "ln 2"
+        - "0"
+        - "ln(1/3)"
+        - "∞"
+      option_explanations:
+        - |
+          Correct. (2b + 1)/(b + 3) → 2 (ratio of leading coefficients), and ln is continuous, so the limit is ln 2.
+        - |
+          This assumes the fraction tends to 1; the leading coefficients are 2 and 1, so it tends to 2.
+        - |
+          ln(1/3) is the value at b = 0, not the limit as b → ∞.
+        - |
+          The numerator grows without bound, but so does the denominator; their ratio tends to 2.
+      answer: 0
+    - slug: apcalcbc-u06-w17-q14
+      type: multiple_choice
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 1
+      prompt: |
+        Which is ∫ x sin(4x) dx?
+      options:
+        - "−(x/4) cos(4x) − (1/16) sin(4x) + C"
+        - "(x/4) cos(4x) − (1/16) sin(4x) + C"
+        - "−x cos(4x) + sin(4x) + C"
+        - "−(x/4) cos(4x) + (1/16) sin(4x) + C"
+      option_explanations:
+        - |
+          This subtracts ∫ v du where the two minus signs should combine: −∫ (−(1/4)cos(4x)) dx = +(1/16) sin(4x).
+        - |
+          This takes v = (1/4)cos(4x); the antiderivative of sin(4x) is −(1/4)cos(4x), so both signs flip.
+        - |
+          This drops the chain-rule factors 1/4 and 1/16 that come from the inside 4x.
+        - |
+          Correct. u = x, v = −(1/4)cos(4x): −(x/4) cos(4x) + ∫ (1/4)cos(4x) dx = −(x/4) cos(4x) + (1/16) sin(4x) + C.
+      answer: 3
+    - slug: apcalcbc-u06-w17-q15
+      type: multi_select
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which of these improper integrals converge? Select all that apply.
+      options:
+        - "∫ from 1 to ∞ of 1/x^(3/2) dx"
+        - "∫ from 1 to ∞ of 1/√x dx"
+        - "∫ from 0 to 1 of 1/x² dx"
+        - "∫ from 0 to 1 of 1/x^(1/3) dx"
+        - "∫ from 0 to ∞ of e^(−x) dx"
+      option_explanations:
+        - |
+          Correct. p = 3/2 > 1 on an infinite interval: the value is 1/(3/2 − 1) = 2.
+        - |
+          p = 1/2 ≤ 1 on an infinite interval: lim (b→∞) (2√b − 2) = ∞, so it diverges.
+        - |
+          p = 2 ≥ 1 on (0, 1]: lim (t→0⁺) (1/t − 1) = ∞, so it diverges.
+        - |
+          Correct. p = 1/3 < 1 near 0: lim (t→0⁺) [(3/2)x^(2/3)] from t to 1 = 3/2.
+        - |
+          Correct. lim (b→∞) ∫ from 0 to b of e^(−x) dx = lim (b→∞) (1 − e^(−b)) = 1.
+      answer: [0, 3, 4]
+    - slug: apcalcbc-u06-w17-q16
+      type: multi_select
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which of these integrals are improper (so that the Fundamental Theorem cannot be applied to them directly)? Select all that apply.
+      options:
+        - "∫ from 0 to 2 of 1/(x − 1) dx"
+        - "∫ from 1 to 3 of 1/x dx"
+        - "∫ from 0 to π/2 of tan x dx"
+        - "∫ from 0 to 1 of ln x dx"
+        - "∫ from −1 to 1 of 1/(x² + 1) dx"
+      option_explanations:
+        - |
+          Correct. 1/(x − 1) has a vertical asymptote at x = 1, inside [0, 2].
+        - |
+          1/x is continuous on [1, 3]; its only problem point, x = 0, is outside the interval. The value is ln 3.
+        - |
+          Correct. tan x → ∞ as x → (π/2)⁻, at the upper limit.
+        - |
+          Correct. ln x → −∞ as x → 0⁺, at the lower limit.
+        - |
+          x² + 1 is never 0, so the integrand is continuous on [−1, 1]; the value is arctan 1 − arctan(−1) = π/2.
+      answer: [0, 2, 3]
+    - slug: apcalcbc-u06-w17-q17
+      type: true_false
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        True or false: If f is continuous and positive on [1, ∞) and lim (x→∞) f(x) = 0, then ∫ from 1 to ∞ of f(x) dx converges.
+      answer: false
+      explanation: |
+        False. f(x) = 1/x is continuous, positive and tends to 0, yet ∫ from 1 to ∞ of 1/x dx = lim (b→∞) ln b = ∞. The integrand must go to 0 fast enough, as 1/x² does.
+    - slug: apcalcbc-u06-w17-q18
+      type: true_false
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        True or false: For every constant k > 0, ∫ from 0 to ∞ of e^(−kx) dx = 1/k.
+      answer: true
+      explanation: |
+        True. ∫ from 0 to b of e^(−kx) dx = (1 − e^(−kb))/k, and e^(−kb) → 0 as b → ∞ because k > 0, so the limit is 1/k.
+    - slug: apcalcbc-u06-w17-q19
+      type: fill_blank
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        ∫ from 1 to ∞ of 4/x² dx = ____.
+      answer: ["4", "4.0", "+4"]
+      explanation: |
+        lim (b→∞) [−4/x] from 1 to b = lim (b→∞) (−4/b + 4) = 4.
+    - slug: apcalcbc-u06-w17-q20
+      type: fill_blank
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        ∫ from 0 to 8 of x^(−1/3) dx = ____.
+      answer: ["6", "6.0", "+6"]
+      explanation: |
+        The integrand is unbounded at 0. lim (t→0⁺) [(3/2)x^(2/3)] from t to 8 = (3/2)(8^(2/3)) − 0 = (3/2)(4) = 6.
+    - slug: apcalcbc-u06-w17-q21
+      type: numeric
+      topic_code: "6.9"
+      source: "AP Calculus CED, Topic 6.9"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 0 to 2 of x/(x² + 1) dx? Give a decimal rounded to three decimal places.
+      answer: { value: 0.805, tolerance: 0.001 }
+      explanation: |
+        With u = x² + 1, du = 2x dx and the limits become 1 and 5: (1/2) ∫ from 1 to 5 of du/u = (1/2) ln 5 ≈ 0.805.
+    - slug: apcalcbc-u06-w17-q22
+      type: numeric
+      topic_code: "4.7"
+      source: "AP Calculus CED, Topic 4.7"
+      points: 1
+      prompt: |
+        What is lim (x→0) (1 − cos(2x))/x²?
+      answer: { value: 2, tolerance: 0.001 }
+      explanation: |
+        The form is 0/0. L'Hospital's Rule gives lim (x→0) 2 sin(2x)/(2x) = lim (x→0) sin(2x)/x, still 0/0; once more gives lim (x→0) 2 cos(2x)/1 = 2.
+    - slug: apcalcbc-u06-w17-q23
+      type: short_answer
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 3
+      prompt: |
+        Consider ∫ from 0 to 1 of ln x dx.
+
+        (a) Explain why this integral is improper, and write it as a limit of definite integrals.
+        (b) Use integration by parts to find ∫ from t to 1 of ln x dx for 0 < t < 1.
+        (c) Evaluate the limit, showing how you handle t ln t, and state whether the integral converges.
+      answer: |
+        (a) ln x → −∞ as x → 0⁺, so the integrand is unbounded at the lower limit. ∫ from 0 to 1 of ln x dx = lim (t→0⁺) ∫ from t to 1 of ln x dx.
+        (b) u = ln x, dv = dx, v = x: [x ln x − x] from t to 1 = (0 − 1) − (t ln t − t) = −1 − t ln t + t.
+        (c) t ln t = (ln t)/(1/t), of the form −∞/∞; L'Hospital's Rule gives (1/t)/(−1/t²) = −t → 0. So the limit is −1 − 0 + 0 = −1. The integral converges to −1.
+      explanation: |
+        Three points, one per part. (a) Names the unbounded integrand at x = 0 and writes the one-sided limit (t → 0⁺). (b) −1 − t ln t + t, or an equivalent, from a correct parts antiderivative. (c) Shows t ln t → 0 (by L'Hospital's Rule on (ln t)/(1/t) or equivalent reasoning) and concludes convergence to −1.
+    - slug: apcalcbc-u06-w17-q24
+      type: short_answer
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 3
+      prompt: |
+        Evaluate ∫ from 0 to 1 of arctan x dx exactly.
+
+        (a) State your choice of u and dv for integration by parts.
+        (b) Find an antiderivative of arctan x.
+        (c) Give the exact value of the definite integral.
+      answer: |
+        (a) u = arctan x, dv = dx, so du = 1/(1 + x²) dx and v = x.
+        (b) x arctan x − ∫ x/(1 + x²) dx = x arctan x − (1/2) ln(1 + x²) + C (the last integral by u = 1 + x²).
+        (c) [x arctan x − (1/2) ln(1 + x²)] from 0 to 1 = π/4 − (1/2) ln 2 − 0 ≈ 0.439.
+      explanation: |
+        Three points, one per part. (a) u = arctan x with dv = dx (and du, v stated or used correctly). (b) x arctan x − (1/2) ln(1 + x²), with the leftover integral done by substitution. (c) π/4 − (1/2) ln 2, or the equivalent π/4 − ln √2.
+    - slug: apcalcbc-u06-w17-q25
+      type: long_answer
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 6
+      prompt: |
+        Let f(x) = 6/((x + 1)(x + 2)) for x ≥ 0.
+
+        (A) Write f(x) as a sum of partial fractions.
+
+        (B) Write ∫ from 0 to ∞ of f(x) dx as a limit and evaluate it, or show that it diverges.
+
+        (C) A student writes ∫ from 0 to ∞ of f(x) dx = ∫ from 0 to ∞ of 6/(x + 1) dx − ∫ from 0 to ∞ of 6/(x + 2) dx. Show that ∫ from 0 to ∞ of 6/(x + 1) dx diverges, and explain why the student's step is not valid.
+
+        (D) Let F(t) = ∫ from 0 to t of f(x) dx for t ≥ 0. Explain why F is increasing, and find lim (t→∞) F(t).
+      answer: |
+        (A) 6 = A(x + 2) + B(x + 1). x = −1 gives A = 6; x = −2 gives 6 = −B, B = −6. f(x) = 6/(x + 1) − 6/(x + 2).
+        (B) ∫ from 0 to ∞ of f(x) dx = lim (b→∞) ∫ from 0 to b of f(x) dx = lim (b→∞) [6 ln((x + 1)/(x + 2))] from 0 to b = lim (b→∞) 6 ln((b + 1)/(b + 2)) − 6 ln(1/2) = 6 ln 1 + 6 ln 2 = 6 ln 2 ≈ 4.159. It converges.
+        (C) ∫ from 0 to ∞ of 6/(x + 1) dx = lim (b→∞) 6 ln(b + 1) = ∞, so it diverges (and so does the other piece). The split gives ∞ − ∞, which has no value; an improper integral may be split into a difference only when both pieces converge. The logarithms must be combined on [0, b] before taking the limit.
+        (D) By the Fundamental Theorem, F′(t) = f(t) = 6/((t + 1)(t + 2)) > 0 for t ≥ 0, so F is increasing. lim (t→∞) F(t) = ∫ from 0 to ∞ of f(x) dx = 6 ln 2.
+      explanation: |
+        Six points. (A) 1 point for A = 6 and B = −6. (B) 1 point for the limit notation lim (b→∞) ∫ from 0 to b with the combined logarithm antiderivative; 1 point for 6 ln 2 with the limit of ln((b + 1)/(b + 2)) shown to be 0. (C) 1 point for showing lim (b→∞) 6 ln(b + 1) = ∞; 1 point for explaining that the split produces ∞ − ∞ (both pieces diverge), so the step is invalid. (D) 1 point for F′(t) = f(t) > 0 and the limit 6 ln 2 (the answer from (B) may be imported).

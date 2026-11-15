@@ -29,6 +29,14 @@ describe('rich-text', () => {
     expect(el.querySelectorAll('p').length).toBe(2);
   });
 
+  it('keeps an escaped bar inside its cell', async () => {
+    const el = await mount('| Bound | Value |\n|---|---|\n| \\|f⁽⁴⁾(x)\\| ≤ 12 | 0.5 |');
+    const tds = el.querySelectorAll('tbody td');
+    expect(tds.length).toBe(2);
+    expect(tds[0].textContent).toBe('|f⁽⁴⁾(x)| ≤ 12');
+    expect(tds[1].textContent).toBe('0.5');
+  });
+
   it('never turns author text into markup', async () => {
     const el = await mount('<script>alert(1)</script> <b>x</b> &amp;');
     expect(el.querySelector('script')).toBeNull();

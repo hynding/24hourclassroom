@@ -17,12 +17,12 @@
 | Term | Meaning |
 |---|---|
 | cot⁻¹ x (arccot x) | The angle in (0, π) whose cotangent is x; defined for every real x. |
-| sec⁻¹ x (arcsec x) | The angle in [0, π], excluding π/2, whose secant is x; defined for |x| ≥ 1. |
-| csc⁻¹ x (arccsc x) | The angle in [−π/2, π/2], excluding 0, whose cosecant is x; defined for |x| ≥ 1. |
+| sec⁻¹ x (arcsec x) | The angle in [0, π], excluding π/2, whose secant is x; defined for \|x\| ≥ 1. |
+| csc⁻¹ x (arccsc x) | The angle in [−π/2, π/2], excluding 0, whose cosecant is x; defined for \|x\| ≥ 1. |
 | Addition of ordinates | Graphing f + g by adding the y-values of f and g at each x. |
 | Damped oscillation | An oscillation whose amplitude decreases over time, such as y = a e^(−ct) cos ωt with c > 0. |
 | Envelope | The curves y = ±a e^(−ct) that a damped oscillation touches at its peaks and troughs and never crosses. |
-| Beats | The slow rise and fall in loudness when two tones of nearly equal frequency sound together; beat frequency |f₁ − f₂|. |
+| Beats | The slow rise and fall in loudness when two tones of nearly equal frequency sound together; beat frequency \|f₁ − f₂\|. |
 
 ## Inverse cotangent, secant and cosecant (2.12)
 

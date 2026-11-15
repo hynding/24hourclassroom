@@ -21,7 +21,7 @@
 | Image | The output of a transformation; the image of a shape is the set of images of its points. |
 | Rotation matrix | [[cos θ, −sin θ], [sin θ, cos θ]], rotation counterclockwise by θ about the origin. |
 | Shear | A transformation that slides points parallel to an axis by an amount proportional to the other coordinate, such as (x, y) → (x + ky, y). |
-| Area scale factor | |det A|: every region's area is multiplied by this. |
+| Area scale factor | \|det A\|: every region's area is multiplied by this. |
 | State vector | A column listing how many (or what fraction) are in each state at one time. |
 | Transition matrix | A matrix T whose column j gives the fractions moving from state j to each state in one step; each column sums to 1. |
 | Steady state | A state vector x with Tx = x: once reached, it does not change. |

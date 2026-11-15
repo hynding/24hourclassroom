@@ -27,7 +27,7 @@
 | Significant figures | The digits in a measurement that are known with certainty plus one estimated digit. |
 | Accuracy | How close a measurement is to the true or accepted value. |
 | Precision | How close repeated measurements are to each other. |
-| Percent error | |measured − accepted| ÷ accepted × 100. |
+| Percent error | \|measured − accepted\| ÷ accepted × 100. |
 
 ## Properties and changes (1.3)
 

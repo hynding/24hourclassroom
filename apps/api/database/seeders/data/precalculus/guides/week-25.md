@@ -23,9 +23,9 @@
 | Polar coordinates (r, θ) | The point reached by turning through angle θ from the polar axis and moving a directed distance r along that ray (backwards if r < 0). |
 | Polar function | A function r = f(θ) giving the directed distance as a function of the angle. |
 | Complex plane | A plane with real part on the horizontal axis and imaginary part on the vertical axis; a + bi sits at (a, b). |
-| Modulus and argument | For z = a + bi, the modulus is r = |z| = √(a² + b²) and an argument is an angle θ with a = r cos θ and b = r sin θ. |
+| Modulus and argument | For z = a + bi, the modulus is r = \|z\| = √(a² + b²) and an argument is an angle θ with a = r cos θ and b = r sin θ. |
 | Rose curve | r = a cos(nθ) or r = a sin(nθ), with n a positive integer of at least 2. |
-| Limaçon | r = a + b cos θ or r = a + b sin θ; a cardioid when |a| = |b|. |
+| Limaçon | r = a + b cos θ or r = a + b sin θ; a cardioid when \|a\| = \|b\|. |
 
 ## Polar coordinates (3.13)
 
@@ -115,12 +115,12 @@ Starting at (4, 0) on the positive x-axis, the curve sweeps up through (0, 2) at
 
 | Equation | Shape | What the numbers tell you |
 |---|---|---|
-| r = a | Circle centred at the pole | radius |a| |
+| r = a | Circle centred at the pole | radius \|a\| |
 | θ = α | Line through the pole | direction α |
-| r = a cos θ | Circle through the pole, centre on the x-axis | diameter |a|, centre (a/2, 0) |
-| r = a sin θ | Circle through the pole, centre on the y-axis | diameter |a|, centre (0, a/2) |
-| r = a cos(nθ), r = a sin(nθ) | Rose | petal length |a|; n petals if n is odd, 2n petals if n is even |
-| r = a + b cos θ, r = a + b sin θ | Limaçon | |a| < |b|: inner loop; |a| = |b|: cardioid; |a| > |b|: no loop (dimpled or convex) |
+| r = a cos θ | Circle through the pole, centre on the x-axis | diameter \|a\|, centre (a/2, 0) |
+| r = a sin θ | Circle through the pole, centre on the y-axis | diameter \|a\|, centre (0, a/2) |
+| r = a cos(nθ), r = a sin(nθ) | Rose | petal length \|a\|; n petals if n is odd, 2n petals if n is even |
+| r = a + b cos θ, r = a + b sin θ | Limaçon | \|a\| < \|b\|: inner loop; \|a\| = \|b\|: cardioid; \|a\| > \|b\|: no loop (dimpled or convex) |
 
 **Roses.** For r = 3 sin(2θ), n = 2 is even, so there are 4 petals of length 3. For r = 4 cos(3θ), n = 3 is odd, so there are 3 petals of length 4. Why the difference? With odd n, the curve retraces itself between θ = π and θ = 2π (the negative r values land on petals already drawn); with even n, the negative values draw new petals.
 

@@ -17,9 +17,9 @@
 
 | Term | Meaning |
 |---|---|
-| Vertical dilation | Multiplying the output by a: heights from the midline are scaled by |a|. |
+| Vertical dilation | Multiplying the output by a: heights from the midline are scaled by \|a\|. |
 | Vertical translation | Adding d to the output: the whole graph, including the midline, moves up d. |
-| Horizontal dilation | Replacing θ with bθ: the graph is scaled horizontally by 1/|b|, so the period becomes 2π/|b|. |
+| Horizontal dilation | Replacing θ with bθ: the graph is scaled horizontally by 1/\|b\|, so the period becomes 2π/\|b\|. |
 | Horizontal translation (phase shift) | Replacing θ with θ + c: the graph moves c units left (right if c < 0). |
 | Sinusoidal regression | A calculator procedure that finds a, b, c and d for the sinusoid that best fits a set of data points. |
 | Piecewise sinusoidal model | A model built from different sinusoidal pieces on different intervals, for example when a quantity rises and falls over unequal times. |

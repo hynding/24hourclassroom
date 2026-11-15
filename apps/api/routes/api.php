@@ -37,6 +37,7 @@ use App\Http\Controllers\Api\MyAttemptsController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PageHeadController;
 use App\Http\Controllers\Api\PageImageController;
+use App\Http\Controllers\Api\PageViewController;
 use App\Http\Controllers\Api\ProfileAvatarController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicProfileController;
@@ -53,6 +54,7 @@ use App\Http\Controllers\Api\TestCopyController;
 use App\Http\Controllers\Api\TestPublishController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 Route::middleware(['auth:sanctum', 'session-only', 'active'])->get('/user', UserController::class);
 
@@ -222,6 +224,12 @@ Route::middleware('throttle:page-head')->get('page-head', PageHeadController::cl
 // The share card a link preview shows (og:image). Fetched by preview bots
 // from many IPs, so it has its own per-IP limiter; guest view only.
 Route::middleware('throttle:page-image')->get('page-image', PageImageController::class);
+
+// Usage analytics: one cookieless page-view count from the SPA (App\Support\Metrics).
+// Not stateful: the SPA sends it without cookies, and Sanctum's SPA pipeline
+// would demand a CSRF token and write a session row (IP, user agent) per view.
+Route::middleware('throttle:analytics')->post('analytics/view', PageViewController::class)
+    ->withoutMiddleware(EnsureFrontendRequestsAreStateful::class);
 
 // The file stream: `signed:relative` and its own limiter, deliberately with
 // NO `auth` and NO `active`. The signature covers path and query only, so a

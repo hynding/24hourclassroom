@@ -1,19 +1,20 @@
 <?php
 
 use Database\Seeders\Algebra1Seeder;
-use Database\Seeders\ApCalculusAbSeeder;
 use Database\Seeders\Algebra2Seeder;
 use Database\Seeders\ApBiologySeeder;
+use Database\Seeders\ApCalculusAbSeeder;
+use Database\Seeders\ApCalculusBcSeeder;
 use Database\Seeders\ApChemistrySeeder;
 use Database\Seeders\ApLiteratureSeeder;
 use Database\Seeders\ApUsHistorySeeder;
 use Database\Seeders\ApWorldHistorySeeder;
 use Database\Seeders\ChemistrySeeder;
+use Database\Seeders\Curriculum\ContentLint;
+use Database\Seeders\Curriculum\Course;
 use Database\Seeders\GeometrySeeder;
 use Database\Seeders\PrecalculusSeeder;
 use Database\Seeders\TrigonometrySeeder;
-use Database\Seeders\Curriculum\ContentLint;
-use Database\Seeders\Curriculum\Course;
 
 /**
  * The content lint for every seeded course under database/seeders/data.
@@ -34,6 +35,8 @@ dataset('seeded courses', [
     'Precalculus' => [PrecalculusSeeder::class, ['units' => 4, 'topics' => ['1.14', '2.15', '3.15', '4.14'], 'email' => 'precalc@example.com', 'student' => 'precalc-student@example.com']],
     // AB topics only: the CED's BC-only numbers (6.11-6.13, 7.5, 7.9) are skipped.
     'AP Calculus AB' => [ApCalculusAbSeeder::class, ['units' => 8, 'topics' => ['1.16', '2.10', '3.6', '4.7', '5.12', '6.14', '7.8', '8.12'], 'email' => 'apcalcab@example.com', 'student' => 'apcalcab-student@example.com']],
+    // Builds on AB: reuse weeks put AB's rows in it; every CED topic, AB and BC.
+    'AP Calculus BC' => [ApCalculusBcSeeder::class, ['units' => 10, 'topics' => ['1.16', '6.13', '7.9', '8.13', '9.9', '10.15'], 'email' => 'apcalcab@example.com', 'student' => 'apcalcbc-student@example.com']],
     'Trigonometry' => [TrigonometrySeeder::class, ['units' => 5, 'topics' => ['1.12', '2.12', '3.12', '4.10', '5.12'], 'email' => 'trig@example.com', 'student' => 'trig-student@example.com']],
 ]);
 
@@ -53,11 +56,11 @@ test('the content lint passes', function (string $seeder, array $expect, string 
 
 test('the course fits the default per-teacher file cap', function (string $seeder) {
     $course = new Course($seeder::defaultDir());
-    $files = 2 * count($course->weeks()) + count($course->unitSummaries()) + ($course->examPrepGuide() ? 1 : 0);
+    $files = 2 * count($course->ownWeeks()) + count($course->unitSummaries()) + ($course->examPrepGuide() ? 1 : 0);
     expect($files)->toBeLessThanOrEqual(100, "{$files} materials");
 })->with('seeded courses');
 
 test('no two seeded courses share a slug', function () {
-    $slugs = array_map(fn ($seeder) => (new Course($seeder::defaultDir()))->slug, [ApBiologySeeder::class, ApUsHistorySeeder::class, Algebra1Seeder::class, GeometrySeeder::class, Algebra2Seeder::class, ChemistrySeeder::class, ApChemistrySeeder::class, ApWorldHistorySeeder::class, PrecalculusSeeder::class, TrigonometrySeeder::class, ApCalculusAbSeeder::class, ApLiteratureSeeder::class]);
+    $slugs = array_map(fn ($seeder) => (new Course($seeder::defaultDir()))->slug, [ApBiologySeeder::class, ApUsHistorySeeder::class, Algebra1Seeder::class, GeometrySeeder::class, Algebra2Seeder::class, ChemistrySeeder::class, ApChemistrySeeder::class, ApWorldHistorySeeder::class, PrecalculusSeeder::class, TrigonometrySeeder::class, ApCalculusAbSeeder::class, ApCalculusBcSeeder::class, ApLiteratureSeeder::class]);
     expect(array_unique($slugs))->toHaveCount(count($slugs));
 });
