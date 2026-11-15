@@ -27,9 +27,9 @@
 | Same point | (r, θ) = (r, θ + 2πk) = (−r, θ + π) |
 | Circle through the pole | r = 2a cos θ ↔ (x − a)² + y² = a²; r = 2a sin θ ↔ x² + (y − a)² = a² |
 | Vertical / horizontal line | x = a ↔ r = a sec θ; y = b ↔ r = b csc θ |
-| Rose a cos nθ or a sin nθ | petal length |a|; n petals (n odd), 2n petals (n even) |
-| Limaçon a + b cos θ | |a| < |b| inner loop; = cardioid; |a| ≥ 2|b| convex; otherwise dimpled |
-| Modulus and argument | |a + bi| = √(a² + b²); argument from tan θ = b/a with a quadrant check |
+| Rose a cos nθ or a sin nθ | petal length \|a\|; n petals (n odd), 2n petals (n even) |
+| Limaçon a + b cos θ | \|a\| < \|b\| inner loop; = cardioid; \|a\| ≥ 2\|b\| convex; otherwise dimpled |
+| Modulus and argument | \|a + bi\| = √(a² + b²); argument from tan θ = b/a with a quadrant check |
 | Product, quotient | r₁r₂ cis(θ₁ + θ₂); (r₁/r₂) cis(θ₁ − θ₂) |
 | De Moivre | (r cis θ)ⁿ = rⁿ cis(nθ) |
 | nth roots | ⁿ√r cis((θ + 2πk)/n), k = 0, 1, …, n − 1 |

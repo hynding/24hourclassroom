@@ -1,0 +1,598 @@
+week: 27
+unit: 10
+title: "Infinite Series, Geometric Series and the nth Term Test"
+topics: ["10.1", "10.2", "10.3"]
+guide: guides/week-27.md
+guide_description: |
+  What an infinite series is and what it means for one to converge: the sequence of partial sums Sₙ, the sum as
+  lim (n→∞) Sₙ, recovering terms from partial sums with aₙ = Sₙ − Sₙ₋₁, and telescoping sums; geometric series
+  ∑ a·rⁿ, which converge exactly when |r| < 1, to (first term)/(1 − r); and the nth term test for divergence, with
+  why it can never prove convergence. Worked examples: the telescoping series ∑ (n = 1 to ∞) 2/(n(n + 1)), a series
+  given by its partial sums Sₙ = 3n/(n + 2), three geometric sums including one that starts at n = 2, the repeating
+  decimal 0.272727…, a hypothetical bouncing ball, the values of x that make ∑ ((x − 1)/3)ⁿ converge, and the nth
+  term test on ∑ n/(2n + 1) and ∑ (1 + 1/n)ⁿ.
+flashcards_description: |
+  30 cards on partial sums and the definition of convergence, finding terms from partial sums, telescoping series,
+  geometric series (ratio, first term, sum, convergence condition, repeating decimals, bouncing balls), the nth term
+  test and its one-way logic, and the error patterns in summing geometric series and misusing the nth term test.
+
+flashcards:
+  - front: Infinite series ∑ (n = 1 to ∞) aₙ → what its nth partial sum Sₙ is
+    back: |
+      Sₙ = a₁ + a₂ + … + aₙ, the sum of the first n terms. The partial sums S₁, S₂, S₃, … form a sequence of their own.
+    topic_code: "10.1"
+  - front: Series ∑ (n = 1 to ∞) aₙ → definition of "converges to S"
+    back: |
+      The sequence of partial sums has a finite limit: lim (n→∞) Sₙ = S. Then S is the sum of the series. If the limit is infinite or does not exist, the series diverges.
+    topic_code: "10.1"
+  - front: Sequence aₙ versus series ∑ aₙ → the difference
+    back: |
+      A sequence is a list of numbers a₁, a₂, a₃, …; a series is what you get by adding them. "aₙ → 0" is a statement about the sequence; "∑ aₙ converges" is a statement about the partial sums.
+    topic_code: "10.1"
+  - front: Partial sums Sₙ given as a formula → how to find the term a₅
+    back: |
+      a₅ = S₅ − S₄. In general aₙ = Sₙ − Sₙ₋₁ for n ≥ 2, and a₁ = S₁.
+    topic_code: "10.1"
+  - front: Sₙ = 3n/(n + 2) → the sum of the series and a₅
+    back: |
+      The sum is lim (n→∞) 3n/(n + 2) = 3. a₅ = S₅ − S₄ = 15/7 − 2 = 1/7.
+    topic_code: "10.1"
+  - front: Telescoping series → what makes the partial sums easy
+    back: |
+      Each term splits as a difference bₙ − bₙ₊₁ (often by partial fractions), so in Sₙ the middle pieces cancel and only the first and last survive: Sₙ = b₁ − bₙ₊₁.
+    topic_code: "10.1"
+  - front: ∑ (n = 1 to ∞) 2/(n(n + 1)) → partial sum Sₙ and the sum
+    back: |
+      2/(n(n + 1)) = 2/n − 2/(n + 1), so Sₙ = 2 − 2/(n + 1). As n → ∞, Sₙ → 2: the series converges to 2.
+    topic_code: "10.1"
+  - front: ∑ (n = 1 to ∞) ln(n/(n + 1)) → why it diverges although its terms go to 0
+    back: |
+      The terms telescope: Sₙ = ln 1 − ln(n + 1) = −ln(n + 1), which goes to −∞. Terms going to 0 is not enough for convergence.
+    topic_code: "10.1"
+  - front: Adding or deleting finitely many terms of a series → effect on convergence
+    back: |
+      None on whether it converges: only the tail decides that. The sum, of course, changes by the terms added or removed.
+    topic_code: "10.1"
+  - front: Geometric series → what makes a series geometric
+    back: |
+      Each term is a fixed multiple r of the one before: a + ar + ar² + … = ∑ (n = 0 to ∞) a·rⁿ. The constant ratio r = (next term)/(term) is the common ratio.
+    topic_code: "10.2"
+  - front: Geometric series ∑ (n = 0 to ∞) a·rⁿ with a ≠ 0 → when it converges
+    back: |
+      Exactly when |r| < 1. For |r| ≥ 1 the terms do not approach 0, so the series diverges.
+    topic_code: "10.2"
+  - front: Convergent geometric series → formula for its sum
+    back: |
+      Sum = (first term)/(1 − r). Using "first term" rather than "a" keeps the formula right for a series that starts at n = 1 or n = 2.
+    topic_code: "10.2"
+  - front: Geometric partial sum a + ar + … + ar^(n−1) → closed form
+    back: |
+      Sₙ = a(1 − rⁿ)/(1 − r) for r ≠ 1. If |r| < 1, rⁿ → 0 and Sₙ → a/(1 − r), which is where the sum formula comes from.
+    topic_code: "10.2"
+  - front: ∑ (n = 0 to ∞) 5(−2/3)ⁿ → sum
+    back: |
+      First term 5, r = −2/3, |r| < 1: sum = 5/(1 + 2/3) = 5/(5/3) = 3.
+    topic_code: "10.2"
+  - front: ∑ (n = 2 to ∞) 3/4ⁿ → first term, ratio and sum
+    back: |
+      First term (n = 2) is 3/16, r = 1/4: sum = (3/16)/(3/4) = 1/4.
+    topic_code: "10.2"
+  - front: Repeating decimal 0.272727… → as a geometric series and a fraction
+    back: |
+      0.27 + 0.0027 + 0.000027 + …: first term 27/100, r = 1/100. Sum = (27/100)/(99/100) = 27/99 = 3/11.
+    topic_code: "10.2"
+  - front: Ball dropped from 6 m, each bounce rising 2/3 as high → total vertical distance
+    back: |
+      6 down, then each rebound height is travelled twice: 6 + 2(4 + 8/3 + …) = 6 + 2 · 4/(1 − 2/3) = 6 + 24 = 30 m.
+    topic_code: "10.2"
+  - front: ∑ (n = 0 to ∞) ((x − 1)/3)ⁿ → values of x for convergence and the sum
+    back: |
+      Geometric with r = (x − 1)/3. Converges when |x − 1| < 3, that is −2 < x < 4, to 1/(1 − (x − 1)/3) = 3/(4 − x).
+    topic_code: "10.2"
+  - front: Geometric series with r = 1 or r = −1 → convergence
+    back: |
+      Both diverge. With r = 1 the partial sums are na, which grow without bound; with r = −1 they alternate a, 0, a, 0, … and have no limit.
+    topic_code: "10.2"
+  - front: nth term test for divergence → statement
+    back: |
+      If lim (n→∞) aₙ ≠ 0, or the limit does not exist, then ∑ aₙ diverges.
+    topic_code: "10.3"
+  - front: nth term test when lim (n→∞) aₙ = 0 → conclusion
+    back: |
+      None. The test is inconclusive: ∑ 1/n² converges and ∑ 1/n diverges, and both have terms approaching 0. Use another test.
+    topic_code: "10.3"
+  - front: Convergent series ∑ aₙ → what must be true of its terms
+    back: |
+      lim (n→∞) aₙ = 0, because aₙ = Sₙ − Sₙ₋₁ → S − S = 0. This is the contrapositive of the nth term test.
+    topic_code: "10.3"
+  - front: ∑ (n = 1 to ∞) n/(2n + 1) → nth term test verdict
+    back: |
+      lim (n→∞) n/(2n + 1) = 1/2 ≠ 0, so the series diverges by the nth term test.
+    topic_code: "10.3"
+  - front: ∑ (n = 1 to ∞) (1 + 1/n)ⁿ → nth term test verdict
+    back: |
+      The terms approach e ≠ 0, so the series diverges by the nth term test.
+    topic_code: "10.3"
+  - front: ∑ (n = 1 to ∞) cos(1/n) → nth term test verdict
+    back: |
+      cos(1/n) → cos 0 = 1 ≠ 0, so the series diverges by the nth term test.
+    topic_code: "10.3"
+  - front: ∑ (n = 1 to ∞) (−1)ⁿ → why it diverges
+    back: |
+      lim (n→∞) (−1)ⁿ does not exist (the terms alternate between −1 and 1), so the series diverges by the nth term test. Its partial sums are −1, 0, −1, 0, …
+    topic_code: "10.3"
+  - front: nth term test justification sentence → what AP readers want
+    back: |
+      Name the limit and the test: "Because lim (n→∞) aₙ = 1/2 ≠ 0, the series diverges by the nth term test." Never write that a series converges by the nth term test.
+    topic_code: "10.3"
+  - front: Error-spot → "∑ (n = 1 to ∞) (2/3)ⁿ = 1/(1 − 2/3) = 3"
+    back: |
+      The series starts at n = 1, so its first term is 2/3, not 1. Sum = (2/3)/(1 − 2/3) = 2.
+    topic_code: "10.2"
+  - front: Error-spot → "lim (n→∞) 1/√n = 0, so ∑ 1/√n converges by the nth term test"
+    back: |
+      The nth term test only ever proves divergence. A limit of 0 makes it inconclusive; ∑ 1/√n in fact diverges (a p-series with p = 1/2, week 28).
+    topic_code: "10.3"
+  - front: Error-spot → "∑ (n = 0 to ∞) (−1.1)ⁿ converges because the terms alternate"
+    back: |
+      It is geometric with |r| = 1.1 ≥ 1, so the terms grow in size and do not approach 0: it diverges. Alternating signs do not rescue a series whose terms do not shrink to 0.
+    topic_code: "10.2"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 10.1, 10.2 and 10.3: partial sums and the meaning
+    of convergence, telescoping sums, geometric series and their sums, and the nth term test for divergence), with 8
+    questions (about 33%) reviewing earlier weeks (L'Hospital's Rule, integration by parts, partial fractions,
+    improper integrals, Euler's method, arc length and parametric derivatives from weeks 9, 16, 17, 20, 23 and 24).
+    Opens with a shared-context set on a series given by its partial sums. Multiple choice, select-all, true/false
+    and numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and
+    the long answer are graded by your teacher against the scoring notes. No calculator is needed.
+  questions:
+    # ---- Stimulus set: a series given by its partial sums (10.1, 10.3)
+    - slug: apcalcbc-u10-w27-q01
+      type: multiple_choice
+      topic_code: "10.1"
+      source: "AP Calculus CED, Topic 10.1"
+      points: 1
+      stimulus: |
+        The nth partial sum of the series ∑ (n = 1 to ∞) aₙ is Sₙ = 6n/(2n + 1) for every n ≥ 1.
+      prompt: |
+        What is the value of the third term, a₃?
+      options:
+        - "18/7"
+        - "12/5"
+        - "6/35"
+        - "−6/35"
+      option_explanations:
+        - |
+          18/7 is S₃, the sum of the first three terms; the third term alone is S₃ − S₂.
+        - |
+          12/5 is S₂, the sum of the first two terms, not the third term.
+        - |
+          Correct. a₃ = S₃ − S₂ = 18/7 − 12/5 = (90 − 84)/35 = 6/35.
+        - |
+          −6/35 subtracts in the wrong order, S₂ − S₃; the third term is what S₃ adds to S₂.
+      answer: 2
+    - slug: apcalcbc-u10-w27-q02
+      type: multiple_choice
+      topic_code: "10.1"
+      source: "AP Calculus CED, Topic 10.1"
+      points: 1
+      stimulus: |
+        The nth partial sum of the series ∑ (n = 1 to ∞) aₙ is Sₙ = 6n/(2n + 1) for every n ≥ 1.
+      prompt: |
+        Which statement about the series ∑ (n = 1 to ∞) aₙ is true?
+      options:
+        - "It converges to 3, because lim (n→∞) Sₙ = 3."
+        - "It converges to 6, because the numerator of Sₙ is 6n."
+        - "It diverges, because Sₙ increases for every n."
+        - "It converges to 0, because the terms aₙ approach 0."
+      option_explanations:
+        - |
+          Correct. A series converges to the limit of its partial sums, and 6n/(2n + 1) → 6/2 = 3 as n → ∞.
+        - |
+          The limit of a ratio of polynomials of the same degree is the ratio of leading coefficients, 6/2 = 3, not the numerator's coefficient alone.
+        - |
+          Increasing partial sums can still have a finite limit; here they increase toward 3, so the series converges.
+        - |
+          This confuses the limit of the terms with the sum. aₙ → 0, but the sum is the limit of the partial sums, which is 3.
+      answer: 0
+    - slug: apcalcbc-u10-w27-q03
+      type: numeric
+      topic_code: "10.1"
+      source: "AP Calculus CED, Topic 10.1"
+      points: 1
+      stimulus: |
+        The nth partial sum of the series ∑ (n = 1 to ∞) aₙ is Sₙ = 6n/(2n + 1) for every n ≥ 1.
+      prompt: |
+        What is the value of ∑ (n = 4 to ∞) aₙ? Give your answer as a decimal correct to three decimal places.
+      answer: { value: 0.429, tolerance: 0.001 }
+      explanation: |
+        The whole series sums to 3, and the first three terms sum to S₃ = 18/7. So the tail from n = 4 is 3 − 18/7 = 3/7 ≈ 0.429.
+    - slug: apcalcbc-u10-w27-q04
+      type: multiple_choice
+      topic_code: "10.3"
+      source: "AP Calculus CED, Topic 10.3"
+      points: 1
+      stimulus: |
+        The nth partial sum of the series ∑ (n = 1 to ∞) aₙ is Sₙ = 6n/(2n + 1) for every n ≥ 1.
+      prompt: |
+        What can be concluded about lim (n→∞) aₙ?
+      options:
+        - "lim (n→∞) aₙ = 3, because the terms approach the same value as the partial sums."
+        - "lim (n→∞) aₙ = 0, because the terms of a convergent series must approach 0."
+        - "Nothing, because the nth term test is inconclusive when a series converges."
+        - "lim (n→∞) aₙ = 0, and that fact by itself is what proves the series converges."
+      option_explanations:
+        - |
+          The partial sums approach 3, but aₙ = Sₙ − Sₙ₋₁ approaches 3 − 3 = 0. Terms and partial sums are different sequences.
+        - |
+          Correct. The series converges, so aₙ = Sₙ − Sₙ₋₁ → 3 − 3 = 0. Every convergent series has terms that approach 0.
+        - |
+          This reverses the logic. Convergence does force aₙ → 0; the test is inconclusive in the other direction, when you know only that aₙ → 0.
+        - |
+          The limit is 0, but terms approaching 0 never proves convergence (∑ 1/n is the counterexample). Here convergence comes from the partial sums.
+      answer: 1
+    # ---- Independent items
+    - slug: apcalcbc-u10-w27-q05
+      type: multiple_choice
+      topic_code: "10.2"
+      source: "AP Calculus CED, Topic 10.2"
+      points: 1
+      prompt: |
+        What is the sum of the series ∑ (n = 0 to ∞) 4(−1/3)ⁿ?
+      options:
+        - "6"
+        - "−1"
+        - "16/3"
+        - "3"
+      option_explanations:
+        - |
+          6 is 4/(1 − 1/3), which drops the negative sign of the ratio; with r = −1/3, 1 − r = 4/3.
+        - |
+          −1 uses −4/3 as the first term, which is the n = 1 term; this series starts at n = 0, where the term is 4.
+        - |
+          16/3 multiplies the first term by 1 − r instead of dividing by it: 4 · (4/3).
+        - |
+          Correct. First term 4, ratio −1/3 with |r| < 1, so the sum is 4/(1 − (−1/3)) = 4/(4/3) = 3.
+      answer: 3
+    - slug: apcalcbc-u10-w27-q06
+      type: multiple_choice
+      topic_code: "10.2"
+      source: "AP Calculus CED, Topic 10.2"
+      points: 1
+      prompt: |
+        What is the sum of the series ∑ (n = 1 to ∞) 2 · 3ⁿ/5ⁿ⁺¹?
+      options:
+        - "1"
+        - "3/5"
+        - "5"
+        - "The series diverges, because its ratio is 5/3 > 1."
+      option_explanations:
+        - |
+          1 uses 2/5, the n = 0 term, as the first term; the series starts at n = 1, where the term is 6/25.
+        - |
+          Correct. The first term (n = 1) is 2 · 3/25 = 6/25 and the ratio is 3/5, so the sum is (6/25)/(1 − 3/5) = (6/25)/(2/5) = 3/5.
+        - |
+          5 takes the first term to be the coefficient 2 and ignores the factor 3ⁿ/5ⁿ⁺¹ at n = 1: 2/(2/5) = 5.
+        - |
+          The ratio of consecutive terms is 3/5, not 5/3; each term is 3/5 of the one before, so the series converges.
+      answer: 1
+    - slug: apcalcbc-u10-w27-q07
+      type: multiple_choice
+      topic_code: "10.2"
+      source: "AP Calculus CED, Topic 10.2"
+      points: 1
+      prompt: |
+        For which values of x does the geometric series ∑ (n = 0 to ∞) ((2x − 1)/5)ⁿ converge?
+      options:
+        - "−2 ≤ x ≤ 3"
+        - "−3 < x < 2"
+        - "−2 < x < 3"
+        - "−5/2 < x < 5/2"
+      option_explanations:
+        - |
+          At x = −2 and x = 3 the ratio is −1 or 1, and a geometric series with |r| = 1 diverges; the endpoints must be excluded.
+        - |
+          This subtracts 1 instead of adding it: from −5 < 2x − 1 < 5, add 1 to get −4 < 2x < 6.
+        - |
+          Correct. Convergence needs |(2x − 1)/5| < 1, so −5 < 2x − 1 < 5, −4 < 2x < 6 and −2 < x < 3.
+        - |
+          This ignores the −1 in the numerator and solves |2x| < 5 instead of |2x − 1| < 5.
+      answer: 2
+    - slug: apcalcbc-u10-w27-q08
+      type: multiple_choice
+      topic_code: "10.3"
+      source: "AP Calculus CED, Topic 10.3"
+      points: 1
+      prompt: |
+        For which series does the nth term test show that the series diverges?
+      options:
+        - "∑ (n = 1 to ∞) 1/√n"
+        - "∑ (n = 1 to ∞) n/eⁿ"
+        - "∑ (n = 1 to ∞) (−1)ⁿ/n"
+        - "∑ (n = 1 to ∞) n²/(3n² + 1)"
+      option_explanations:
+        - |
+          1/√n → 0, so the nth term test is inconclusive here; the series does diverge, but a different test (p-series) shows it.
+        - |
+          n/eⁿ → 0 (eⁿ grows much faster than n), so the nth term test says nothing about this series.
+        - |
+          (−1)ⁿ/n → 0, so the nth term test is inconclusive; this series in fact converges.
+        - |
+          Correct. lim (n→∞) n²/(3n² + 1) = 1/3 ≠ 0, so the series diverges by the nth term test.
+      answer: 3
+    - slug: apcalcbc-u10-w27-q09
+      type: multiple_choice
+      topic_code: "10.1"
+      source: "AP Calculus CED, Topic 10.1"
+      points: 1
+      prompt: |
+        For the series ∑ (n = 1 to ∞) ln(n/(n + 1)), the terms satisfy lim (n→∞) ln(n/(n + 1)) = 0, and the partial sums are Sₙ = −ln(n + 1). Which statement is true?
+      options:
+        - "The series diverges, because Sₙ = −ln(n + 1) → −∞."
+        - "The series converges, because its terms approach 0."
+        - "The series converges to 0, because ln(n/(n + 1)) → ln 1 = 0."
+        - "The series diverges by the nth term test."
+      option_explanations:
+        - |
+          Correct. A series converges only if its partial sums have a finite limit, and −ln(n + 1) decreases without bound.
+        - |
+          Terms approaching 0 is necessary for convergence but never sufficient; the partial sums decide, and here they go to −∞.
+        - |
+          This confuses the limit of the terms with the sum of the series; the sum would be lim Sₙ, which is not finite.
+        - |
+          The terms approach 0, so the nth term test is inconclusive; divergence comes from the partial sums instead.
+      answer: 0
+    - slug: apcalcbc-u10-w27-q10
+      type: multiple_choice
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 1 to ∞ of 1/x³ dx?
+      options:
+        - "1/4"
+        - "−1/2"
+        - "1/2"
+        - "The integral diverges."
+      option_explanations:
+        - |
+          1/4 comes from raising the exponent the wrong way, using −x⁻⁴/4 as the antiderivative; the power rule gives x⁻²/(−2).
+        - |
+          −1/2 subtracts in the wrong order, F(1) − lim F(b); the upper limit's value comes first.
+        - |
+          Correct. ∫ from 1 to b of x⁻³ dx = [−1/(2x²)] from 1 to b = −1/(2b²) + 1/2, which approaches 1/2 as b → ∞.
+        - |
+          The integrand decreases like 1/x³, fast enough for the area to be finite: the limit of the proper integrals is 1/2.
+      answer: 2
+    - slug: apcalcbc-u10-w27-q11
+      type: multiple_choice
+      topic_code: "4.7"
+      source: "AP Calculus CED, Topic 4.7"
+      points: 1
+      prompt: |
+        What is lim (n→∞) (ln n)/√n? (This is the limit you need for the nth term test on ∑ (ln n)/√n.)
+      options:
+        - "1"
+        - "0"
+        - "∞"
+        - "2"
+      option_explanations:
+        - |
+          ∞/∞ is an indeterminate form, not 1; the two parts grow at different rates.
+        - |
+          Correct. By L'Hospital's Rule, the limit equals lim (1/n)/(1/(2√n)) = lim 2/√n = 0. (So the nth term test is inconclusive for that series.)
+        - |
+          ln n does grow without bound, but √n grows faster, so the quotient approaches 0.
+        - |
+          2 simplifies the L'Hospital quotient (1/n)/(1/(2√n)) = 2√n/n to 2, dropping the √n left in the denominator; it is 2/√n, which approaches 0.
+      answer: 1
+    - slug: apcalcbc-u10-w27-q12
+      type: multiple_choice
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 1
+      prompt: |
+        Which is ∫ x e^(−x) dx?
+      options:
+        - "−x e^(−x) + e^(−x) + C"
+        - "x e^(−x) − e^(−x) + C"
+        - "−(x²/2)e^(−x) + C"
+        - "−x e^(−x) − e^(−x) + C"
+      option_explanations:
+        - |
+          The second term has the wrong sign: uv − ∫ v du = −x e^(−x) − ∫ (−e^(−x)) dx = −x e^(−x) + ∫ e^(−x) dx, and ∫ e^(−x) dx = −e^(−x).
+        - |
+          This takes v = e^(−x) instead of v = −e^(−x); an antiderivative of e^(−x) needs the factor −1 from the chain rule.
+        - |
+          This multiplies an antiderivative of x by an antiderivative of e^(−x); there is no product rule for integrals.
+        - |
+          Correct. With u = x and dv = e^(−x) dx, du = dx and v = −e^(−x), so the integral is −x e^(−x) + ∫ e^(−x) dx = −x e^(−x) − e^(−x) + C. Its derivative is −e^(−x) + x e^(−x) + e^(−x) = x e^(−x).
+      answer: 3
+    - slug: apcalcbc-u10-w27-q13
+      type: multiple_choice
+      topic_code: "9.1"
+      source: "AP Calculus CED, Topic 9.1"
+      points: 1
+      prompt: |
+        A curve is defined by x = t² + 1 and y = t³ − 2t. What is dy/dx at t = 2?
+      options:
+        - "5/2"
+        - "2/5"
+        - "10"
+        - "3"
+      option_explanations:
+        - |
+          Correct. dy/dx = (dy/dt)/(dx/dt) = (3t² − 2)/(2t), which at t = 2 is 10/4 = 5/2.
+        - |
+          2/5 inverts the quotient, (dx/dt)/(dy/dt); the slope is dy/dt divided by dx/dt.
+        - |
+          10 is dy/dt at t = 2; it must be divided by dx/dt = 4.
+        - |
+          3 drops the −2 when differentiating y, giving 12/4; dy/dt = 3t² − 2 = 10 at t = 2.
+      answer: 0
+    - slug: apcalcbc-u10-w27-q14
+      type: multi_select
+      topic_code: "10.2"
+      source: "AP Calculus CED, Topic 10.2"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which of these geometric series converge? Select all that apply.
+      options:
+        - "∑ (n = 0 to ∞) (0.9)ⁿ"
+        - "∑ (n = 0 to ∞) (−1.1)ⁿ"
+        - "∑ (n = 1 to ∞) 3/2ⁿ"
+        - "∑ (n = 0 to ∞) (π/3)ⁿ"
+        - "∑ (n = 0 to ∞) (−1/e)ⁿ"
+      option_explanations:
+        - |
+          Correct. r = 0.9 and |r| < 1, so it converges (to 1/(1 − 0.9) = 10).
+        - |
+          |r| = 1.1 ≥ 1, so the terms grow in size and the series diverges, even though the signs alternate.
+        - |
+          Correct. r = 1/2, so it converges, to (3/2)/(1 − 1/2) = 3.
+        - |
+          π/3 ≈ 1.047 is greater than 1, so the series diverges.
+        - |
+          Correct. |r| = 1/e ≈ 0.368 < 1, so it converges, to 1/(1 + 1/e) = e/(e + 1).
+      answer: [0, 2, 4]
+    - slug: apcalcbc-u10-w27-q15
+      type: multi_select
+      topic_code: "10.3"
+      source: "AP Calculus CED, Topic 10.3"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which statements about a series ∑ aₙ are always true? Select all that apply.
+      options:
+        - "If lim (n→∞) aₙ ≠ 0, then ∑ aₙ diverges."
+        - "If lim (n→∞) aₙ = 0, then ∑ aₙ converges."
+        - "If ∑ aₙ converges, then lim (n→∞) aₙ = 0."
+        - "If lim (n→∞) aₙ does not exist, then ∑ aₙ diverges."
+        - "If ∑ aₙ diverges, then lim (n→∞) aₙ ≠ 0."
+      option_explanations:
+        - |
+          Correct. This is the nth term test for divergence.
+        - |
+          The converse of the test is false: ∑ 1/n has terms approaching 0 and diverges.
+        - |
+          Correct. This is the contrapositive of the nth term test: aₙ = Sₙ − Sₙ₋₁ → S − S = 0.
+        - |
+          Correct. If the terms have no limit they certainly do not approach 0, so the nth term test applies.
+        - |
+          ∑ 1/n diverges and yet its terms approach 0; divergence says nothing about the limit of the terms.
+      answer: [0, 2, 3]
+    - slug: apcalcbc-u10-w27-q16
+      type: true_false
+      topic_code: "10.2"
+      source: "AP Calculus CED, Topic 10.2"
+      points: 1
+      prompt: |
+        True or false: ∑ (n = 1 to ∞) (2/3)ⁿ = 3.
+      answer: false
+      explanation: |
+        False. The series starts at n = 1, so its first term is 2/3. The sum is (2/3)/(1 − 2/3) = 2. The value 3 belongs to the series that starts at n = 0.
+    - slug: apcalcbc-u10-w27-q17
+      type: true_false
+      topic_code: "6.12"
+      source: "AP Calculus CED, Topic 6.12"
+      points: 1
+      prompt: |
+        True or false: 1/(x² − 1) = (1/2)/(x − 1) − (1/2)/(x + 1) for every x other than 1 and −1.
+      answer: true
+      explanation: |
+        True. Over a common denominator, (1/2)(x + 1) − (1/2)(x − 1) = 1, so the right side is 1/((x − 1)(x + 1)) = 1/(x² − 1). This partial-fraction split is also what makes ∑ 1/(n² − 1) telescope.
+    - slug: apcalcbc-u10-w27-q18
+      type: fill_blank
+      topic_code: "10.2"
+      source: "AP Calculus CED, Topic 10.2"
+      points: 1
+      prompt: |
+        Written as a geometric series, the repeating decimal 0.363636… equals the fraction ____ in lowest terms.
+      answer: ["4/11"]
+      explanation: |
+        0.363636… = 36/100 + 36/100² + …, a geometric series with first term 36/100 and r = 1/100. The sum is (36/100)/(99/100) = 36/99 = 4/11.
+    - slug: apcalcbc-u10-w27-q19
+      type: fill_blank
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        ∫ from 0 to ∞ of e^(−3x) dx = ____. (Give an exact fraction or a decimal to three places.)
+      answer: ["1/3", "0.333", ".333"]
+      explanation: |
+        ∫ from 0 to b of e^(−3x) dx = [−(1/3)e^(−3x)] from 0 to b = 1/3 − (1/3)e^(−3b), which approaches 1/3 as b → ∞.
+    - slug: apcalcbc-u10-w27-q20
+      type: numeric
+      topic_code: "10.2"
+      source: "AP Calculus CED, Topic 10.2"
+      points: 1
+      prompt: |
+        A ball is dropped from a height of 10 feet. Each time it hits the ground, it rebounds to 3/5 of the height from which it last fell, and it keeps bouncing forever in this idealized model. What is the total vertical distance, in feet, that the ball travels?
+      answer: { value: 40, tolerance: 0.001 }
+      explanation: |
+        The ball falls 10 feet, then rises and falls 6 feet, then 3.6 feet, and so on. Total = 10 + 2(6 + 3.6 + …) = 10 + 2 · 6/(1 − 3/5) = 10 + 2 · 15 = 40 feet.
+    - slug: apcalcbc-u10-w27-q21
+      type: numeric
+      topic_code: "7.5"
+      source: "AP Calculus CED, Topic 7.5"
+      points: 1
+      prompt: |
+        Let y = f(x) be the solution to dy/dx = 2x + y with f(0) = 1. Use Euler's method with two steps of equal size, starting at x = 0, to approximate f(1).
+      answer: { value: 2.75, tolerance: 0.001 }
+      explanation: |
+        Step size 0.5. At (0, 1) the slope is 1, so f(0.5) ≈ 1 + 0.5 · 1 = 1.5. At (0.5, 1.5) the slope is 2(0.5) + 1.5 = 2.5, so f(1) ≈ 1.5 + 0.5 · 2.5 = 2.75.
+    - slug: apcalcbc-u10-w27-q22
+      type: short_answer
+      topic_code: "10.1"
+      source: "AP Calculus CED, Topic 10.1"
+      points: 3
+      prompt: |
+        Consider the series ∑ (n = 1 to ∞) (1/n − 1/(n + 2)).
+        (a) Write out the partial sum S₄ term by term and find its value, showing which pieces cancel.
+        (b) Find a formula for the nth partial sum Sₙ.
+        (c) Determine whether the series converges. If it converges, find its sum.
+      answer: |
+        (a) S₄ = (1 − 1/3) + (1/2 − 1/4) + (1/3 − 1/5) + (1/4 − 1/6). The −1/3 and +1/3 cancel, and so do −1/4 and +1/4, leaving S₄ = 1 + 1/2 − 1/5 − 1/6 = 17/15.
+        (b) Every negative piece −1/(k + 2) cancels with the positive piece two terms later, except the last two. So Sₙ = 1 + 1/2 − 1/(n + 1) − 1/(n + 2) = 3/2 − 1/(n + 1) − 1/(n + 2).
+        (c) As n → ∞, 1/(n + 1) and 1/(n + 2) approach 0, so lim (n→∞) Sₙ = 3/2. The series converges to 3/2.
+      explanation: |
+        Three points, one per part. (a) S₄ = 17/15 (about 1.133) with the cancellation shown. (b) A correct formula for Sₙ, in any equivalent form. (c) The sum 3/2, justified as the limit of the partial sums; an answer that says "converges because the terms go to 0" earns no point for (c).
+    - slug: apcalcbc-u10-w27-q23
+      type: short_answer
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 3
+      prompt: |
+        Let f(x) = (2/3)x^(3/2) for 0 ≤ x ≤ 3.
+        (a) Write an integral expression for the length of the graph of f from x = 0 to x = 3.
+        (b) Evaluate the integral in part (a).
+        (c) The straight segment from (0, 0) to (3, f(3)) has length √21 ≈ 4.583. Explain why your answer to (b) must be at least this large.
+      answer: |
+        (a) f′(x) = x^(1/2), so the length is ∫ from 0 to 3 of √(1 + (f′(x))²) dx = ∫ from 0 to 3 of √(1 + x) dx.
+        (b) ∫ from 0 to 3 of √(1 + x) dx = (2/3)(1 + x)^(3/2) from 0 to 3 = (2/3)(8 − 1) = 14/3 ≈ 4.667.
+        (c) The straight segment is the shortest path between its endpoints, so any curve joining (0, 0) and (3, 2√3) is at least √21 long; 14/3 ≈ 4.667 > 4.583 agrees.
+      explanation: |
+        Three points, one per part. (a) The integrand √(1 + x) (or √(1 + (√x)²)) with limits 0 and 3. (b) 14/3 (about 4.667). (c) The shortest-path (chord versus arc) reason; comparing the two numbers alone, with no reason, earns no point.
+    - slug: apcalcbc-u10-w27-q24
+      type: long_answer
+      topic_code: "10.2"
+      source: "AP Calculus CED, Topic 10.2"
+      points: 6
+      prompt: |
+        A hypothetical patient takes a 100 mg dose of a medicine once a day. By the time of the next dose, the body has removed 40% of the medicine that was present, so 60% of it remains. Let Aₙ be the amount of medicine, in mg, in the body just after the nth dose, so A₁ = 100.
+        (A) Find A₂ and A₃.
+        (B) Write Aₙ as a sum of n terms, and use the formula for a geometric partial sum to write Aₙ in closed form.
+        (C) Find lim (n→∞) Aₙ. Explain why the limit exists.
+        (D) The doctor wants the long-run amount just after a dose to be at most 300 mg. What is the largest daily dose D, in mg, that achieves this?
+        (E) A student says, "250 − Aₙ approaches 0, so the series ∑ (n = 1 to ∞) (250 − Aₙ) converges." Is the student's reasoning valid? Does the series converge? If it converges, find its sum.
+      answer: |
+        (A) A₂ = 100 + 0.6(100) = 160 mg. A₃ = 100 + 0.6(160) = 196 mg.
+        (B) Aₙ = 100 + 100(0.6) + 100(0.6)² + … + 100(0.6)^(n−1), a geometric partial sum with first term 100 and ratio 0.6. So Aₙ = 100(1 − 0.6ⁿ)/(1 − 0.6) = 250(1 − 0.6ⁿ).
+        (C) Because |0.6| < 1, 0.6ⁿ → 0, so lim (n→∞) Aₙ = 250 mg. (Equivalently, the geometric series ∑ (n = 0 to ∞) 100(0.6)ⁿ converges to 100/(1 − 0.6) = 250.)
+        (D) With dose D the long-run amount is D/(1 − 0.6) = 2.5D. 2.5D ≤ 300 gives D ≤ 120 mg.
+        (E) The reasoning is not valid: terms approaching 0 never proves that a series converges (∑ 1/n has terms approaching 0 and diverges). But the series does converge: 250 − Aₙ = 250(0.6)ⁿ, a geometric series with ratio 0.6 and |0.6| < 1. Its sum is (first term)/(1 − r) = 250(0.6)/(0.4) = 150/0.4 = 375.
+      explanation: |
+        Six points. (A) 1 point for A₂ = 160 and A₃ = 196. (B) 1 point for the geometric sum with first term 100 and ratio 0.6 and the closed form 250(1 − 0.6ⁿ) or 100(1 − 0.6ⁿ)/0.4. (C) 1 point for 250 with the reason |r| = 0.6 < 1 (0.6ⁿ → 0). (D) 1 point for D = 120 mg. (E) 1 point for saying the reasoning is invalid because the nth term test cannot prove convergence; 1 point for recognizing the geometric series 250(0.6)ⁿ with |r| < 1 and the sum 375.

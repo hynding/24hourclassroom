@@ -27,21 +27,21 @@
 | Coordinates on a circle of radius r | (r cos θ, r sin θ); tan θ = y/x |
 | Exact values | reference angle π/6, π/4, π/3 → 1/2, √2/2, √3/2; sign from quadrant (sine + in I, II; cosine + in I, IV; tangent + in I, III) |
 | Pythagorean identities | sin²θ + cos²θ = 1; 1 + tan²θ = sec²θ; 1 + cot²θ = csc²θ |
-| Sinusoid features of a sin(b(θ + c)) + d | amplitude |a|; period 2π/|b|; phase shift −c; midline y = d; range [d − |a|, d + |a|] |
-| Build a sinusoidal model | d = (max + min)/2; |a| = (max − min)/2; b = 2π/period; shift to a known max (cosine) or rising midline crossing (sine) |
-| Tangent a tan(b(θ + c)) + d | period π/|b|; asymptotes where b(θ + c) = π/2 + πn |
+| Sinusoid features of a sin(b(θ + c)) + d | amplitude \|a\|; period 2π/\|b\|; phase shift −c; midline y = d; range [d − \|a\|, d + \|a\|] |
+| Build a sinusoidal model | d = (max + min)/2; \|a\| = (max − min)/2; b = 2π/period; shift to a known max (cosine) or rising midline crossing (sine) |
+| Tangent a tan(b(θ + c)) + d | period π/\|b\|; asymptotes where b(θ + c) = π/2 + πn |
 | Inverse trig ranges | sin⁻¹: [−π/2, π/2]; cos⁻¹: [0, π]; tan⁻¹: (−π/2, π/2) |
 | Solve sin x = k | x = sin⁻¹ k or π − sin⁻¹ k, + 2πn |
 | Solve cos x = k | x = ± cos⁻¹ k, + 2πn |
 | Solve tan x = k | x = tan⁻¹ k + πn |
-| Solve sin(bx) = k on [0, 2π) | solve u = bx on [0, 2π|b|), then divide by b |
+| Solve sin(bx) = k on [0, 2π) | solve u = bx on [0, 2π\|b\|), then divide by b |
 | Reciprocal functions | sec = 1/cos, csc = 1/sin, cot = cos/sin |
 | Sum and difference | sin(α ± β) = sin α cos β ± cos α sin β; cos(α ± β) = cos α cos β ∓ sin α sin β |
 | Double angle | sin 2θ = 2 sin θ cos θ; cos 2θ = cos²θ − sin²θ = 2cos²θ − 1 = 1 − 2sin²θ |
 | Polar ↔ rectangular | x = r cos θ, y = r sin θ; r² = x² + y², tan θ = y/x with a quadrant check |
 | Complex polar form | a + bi = r(cos θ + i sin θ), r = √(a² + b²) |
-| Rose a cos(nθ) | petal length |a|; n petals (n odd) or 2n (n even) |
-| Limaçon a + b cos θ | |a| < |b| inner loop; |a| = |b| cardioid; |a| > |b| no loop |
+| Rose a cos(nθ) | petal length \|a\|; n petals (n odd) or 2n (n even) |
+| Limaçon a + b cos θ | \|a\| < \|b\| inner loop; \|a\| = \|b\| cardioid; \|a\| > \|b\| no loop |
 | Average rate of change of r | (f(θ₂) − f(θ₁))/(θ₂ − θ₁), units of r per radian |
 
 ## Classic question types and how to attack them

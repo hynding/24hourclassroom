@@ -21,7 +21,7 @@
 | Horizontal translation | y = f(x − h): right h if h > 0; so f(x + 3) is left 3. |
 | Reflection across the x-axis | y = −f(x): every output changes sign; (a, b) → (a, −b). |
 | Reflection across the y-axis | y = f(−x): every input changes sign; (a, b) → (−a, b). |
-| Parent function | The basic function being transformed: x², |x|, √x, 2ˣ, log₂(x), x³. |
+| Parent function | The basic function being transformed: x², \|x\|, √x, 2ˣ, log₂(x), x³. |
 
 ## Why we move functions: matching data (5.1)
 

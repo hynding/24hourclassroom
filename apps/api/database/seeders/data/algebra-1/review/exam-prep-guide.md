@@ -70,7 +70,7 @@ Each day is 45 to 60 minutes. Start with the unit summary, then redo the drills 
 | Two-way tables | row, column and total relative frequencies; an association shows as different conditional percentages |
 | Lines of fit | residual = actual − predicted; r between −1 and 1, sign gives direction, size gives strength |
 | Functions | f(a) = b means input a gives output b; average rate of change (f(b) − f(a))/(b − a); domain and range from the situation; f⁻¹ swaps input and output |
-| Absolute value | |x − a| is the distance from a; graph a V with vertex at (a, 0) |
+| Absolute value | \|x − a\| is the distance from a; graph a V with vertex at (a, 0) |
 | Exponential | f(x) = a · bˣ, a the value at 0, b the factor; b = 1 + r for growth, 1 − r for decay; b⁻ⁿ = 1/bⁿ; factor over width w is bʷ |
 | Interest | P(1 + r)ⁿ per period; P(1 + R/k)^(kt) for k periods a year; simple interest is linear |
 | Quadratic forms | standard ax² + bx + c (y-intercept c); factored a(x − p)(x − q) (zeros p, q); vertex a(x − h)² + k (vertex (h, k)) |

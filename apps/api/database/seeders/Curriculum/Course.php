@@ -29,6 +29,15 @@ final class Course
     /** @var array<string, mixed> */
     public readonly array $config;
 
+    /**
+     * The course this one builds on (`builds_on` in course.yaml, a sibling
+     * data directory), or null. AP Calculus BC builds on AB: a week file with
+     * `reuse: [AB weeks]` puts those AB weeks' guides, decks and quizzes in
+     * the BC course as they are, and a unit with `reuse_unit_exam: true`
+     * reuses AB's exam and summary for that unit. Nothing is copied.
+     */
+    public readonly ?Course $base;
+
     public function __construct(public readonly string $dir)
     {
         $this->config = self::yaml("{$dir}/course.yaml");
@@ -42,6 +51,80 @@ final class Course
         }
         $this->prefix = (string) $this->config['prefix'];
         $this->slug = (string) $this->config['slug'];
+
+        $builds = $this->config['builds_on'] ?? null;
+        if ($builds !== null && ! preg_match('/^[a-z0-9]+(-[a-z0-9]+)*$/', (string) $builds)) {
+            throw new RuntimeException('course.yaml: `builds_on` must name a sibling data directory');
+        }
+        $this->base = $builds === null ? null : new Course(dirname($dir).'/'.$builds);
+        if ($this->base?->base !== null) {
+            // One level only: also what stops a course naming itself.
+            throw new RuntimeException('course.yaml: `builds_on` must name a course that builds on nothing itself');
+        }
+    }
+
+    /** Whether a week file reuses the base course's weeks rather than carrying its own content. @param array<string, mixed> $data */
+    public static function isReuse(array $data): bool
+    {
+        return array_key_exists('reuse', $data);
+    }
+
+    /**
+     * The base course's week numbers a reuse week puts in this course.
+     *
+     * @param  array<string, mixed>  $data
+     * @return list<int>
+     */
+    public function reusedWeeks(array $data): array
+    {
+        if ($this->base === null) {
+            throw new RuntimeException('course.yaml: a week file reuses weeks but the course has no `builds_on`');
+        }
+
+        return array_map('intval', (array) $data['reuse']);
+    }
+
+    /** Whether a unit reuses the base course's exam and summary for the same unit number. @param array<string, mixed> $unit */
+    public function reusesUnitExam(array $unit): bool
+    {
+        return $this->base !== null && ! empty($unit['reuse_unit_exam']);
+    }
+
+    /**
+     * A week's topic codes: its own `topics`, or for a reuse week the
+     * reused base weeks' topics in order.
+     *
+     * @param  array<string, mixed>  $data
+     * @return list<string>
+     */
+    public function weekTopics(array $data): array
+    {
+        if (! self::isReuse($data)) {
+            return array_map('strval', (array) ($data['topics'] ?? []));
+        }
+        if ($this->base === null) {
+            return []; // the lint reports the reuse week
+        }
+        $baseWeeks = $this->base?->weeks() ?? [];
+        $out = [];
+        foreach ($this->reusedWeeks($data) as $w) {
+            foreach ((array) ($baseWeeks[$w]['data']['topics'] ?? []) as $code) {
+                $out[] = (string) $code;
+            }
+        }
+
+        return array_values(array_unique($out));
+    }
+
+    /**
+     * The week files with content of their own (every week but the reuse
+     * weeks), keyed by week number: what the content rules check.
+     *
+     * @return array<int, array{file: string, data: array<string, mixed>}>
+     */
+    public function ownWeeks(): array
+    {
+        return array_filter($this->weeks(), fn ($w) => ! self::isReuse($w['data']));
     }
 
     /** @return array<string, mixed> */
@@ -198,8 +281,8 @@ final class Course
     {
         $out = [];
         foreach ($this->weeks() as $week => ['data' => $data]) {
-            foreach ((array) ($data['topics'] ?? []) as $code) {
-                $out[(string) $code] ??= $week;
+            foreach ($this->weekTopics($data) as $code) {
+                $out[$code] ??= $week;
             }
         }
 

@@ -1,0 +1,618 @@
+week: 29
+unit: 10
+title: "Alternating Series, the Ratio Test and Absolute Convergence"
+topics: ["10.7", "10.8", "10.9"]
+guide: guides/week-29.md
+guide_description: |
+  The alternating series test and its three conditions (the terms alternate in sign, decrease in absolute value and
+  approach 0); the ratio test, lim |aₙ₊₁/aₙ| = L, with its three outcomes (L < 1 absolute convergence, L > 1
+  divergence, L = 1 inconclusive) and why factorials and exponentials call for it; and absolute versus conditional
+  convergence, including why absolute convergence implies convergence. Worked examples: the alternating series test
+  on ∑ (−1)ⁿ⁺¹/√n, the ratio test on ∑ n²/3ⁿ, ∑ n!/10ⁿ and ∑ 2ⁿ/n!, the ratio test failing on a p-series, and
+  classifying ∑ (−1)ⁿ/n², ∑ (−1)ⁿ/(n + 4) and ∑ (−1)ⁿ n/(n + 1) as absolutely convergent, conditionally convergent
+  and divergent, with a decision chart for choosing a test.
+flashcards_description: |
+  30 cards on the alternating series test and its conditions, the ratio test and its outcomes, factorial
+  simplifications, absolute and conditional convergence, the alternating harmonic series, the full classification
+  procedure, the justification sentences AP readers look for, and the error patterns in skipping a condition or
+  misreading L = 1.
+
+flashcards:
+  - front: Alternating series test → the three conditions on ∑ (−1)ⁿ bₙ with bₙ > 0
+    back: |
+      The terms alternate in sign, bₙ decreases (bₙ₊₁ ≤ bₙ, at least eventually), and lim (n→∞) bₙ = 0. Then the series converges.
+    topic_code: "10.7"
+  - front: Alternating series test → what it does not tell you
+    back: |
+      Whether the convergence is absolute. It proves only that ∑ (−1)ⁿ bₙ converges; ∑ bₙ must be tested separately.
+    topic_code: "10.7"
+  - front: Alternating harmonic series ∑ (n = 1 to ∞) (−1)ⁿ⁺¹/n → verdict
+    back: |
+      Converges by the alternating series test (alternates, 1/n decreases, 1/n → 0), but only conditionally, since ∑ 1/n diverges. Its sum is ln 2.
+    topic_code: "10.7"
+  - front: ∑ (n = 1 to ∞) (−1)ⁿ⁺¹/√n → alternating series test check
+    back: |
+      Alternates; 1/√n decreases because √n increases; lim 1/√n = 0. All three hold, so the series converges.
+    topic_code: "10.7"
+  - front: Alternating series test, showing bₙ decreases → two standard ways
+    back: |
+      Show bₙ₊₁ ≤ bₙ directly (for example a denominator that increases), or show f′(x) < 0 for the matching function f(x) with f(n) = bₙ.
+    topic_code: "10.7"
+  - front: ∑ (n = 1 to ∞) (−1)ⁿ n/(3n − 1) → why the alternating series test fails and the verdict
+    back: |
+      The terms do not approach 0: n/(3n − 1) → 1/3. The series diverges by the nth term test; alternating signs cannot rescue it.
+    topic_code: "10.7"
+  - front: Ratio test → statement for ∑ aₙ with aₙ ≠ 0
+    back: |
+      Let L = lim (n→∞) |aₙ₊₁/aₙ|. If L < 1 the series converges absolutely; if L > 1 (or L = ∞) it diverges; if L = 1 the test is inconclusive.
+    topic_code: "10.8"
+  - front: Ratio test → which series it suits
+    back: |
+      Terms with factorials or nth powers, such as n!, 3ⁿ or nⁿ. It is useless on rational and root expressions in n, where L is always 1.
+    topic_code: "10.8"
+  - front: (n + 1)!/n! → simplified
+    back: |
+      n + 1, because (n + 1)! = (n + 1) · n!. Similarly (2n + 2)!/(2n)! = (2n + 2)(2n + 1).
+    topic_code: "10.8"
+  - front: ∑ (n = 1 to ∞) n²/3ⁿ → ratio test
+    back: |
+      |aₙ₊₁/aₙ| = ((n + 1)/n)² · 1/3 → 1/3 < 1, so the series converges absolutely.
+    topic_code: "10.8"
+  - front: ∑ (n = 1 to ∞) n!/10ⁿ → ratio test
+    back: |
+      |aₙ₊₁/aₙ| = (n + 1)/10 → ∞, so the series diverges. (Factorials outgrow every exponential.)
+    topic_code: "10.8"
+  - front: ∑ (n = 0 to ∞) 2ⁿ/n! → ratio test
+    back: |
+      |aₙ₊₁/aₙ| = 2/(n + 1) → 0 < 1, so the series converges absolutely. (Its sum is e², week 32.)
+    topic_code: "10.8"
+  - front: Ratio test on any p-series ∑ 1/nᵖ → result
+    back: |
+      L = lim (n/(n + 1))ᵖ = 1 for every p, convergent or not. That is why L = 1 is inconclusive.
+    topic_code: "10.8"
+  - front: Ratio test L = 1 → what to do next
+    back: |
+      Use another test: the alternating series test, a p-series or comparison test, the integral test, or the nth term test.
+    topic_code: "10.8"
+  - front: ∑ (n = 1 to ∞) n(2/7)ⁿ → ratio test limit
+    back: |
+      |aₙ₊₁/aₙ| = ((n + 1)/n)(2/7) → 2/7 < 1: converges absolutely.
+    topic_code: "10.8"
+  - front: Absolutely convergent series → definition
+    back: |
+      ∑ aₙ converges absolutely when ∑ |aₙ| converges.
+    topic_code: "10.9"
+  - front: Conditionally convergent series → definition
+    back: |
+      ∑ aₙ converges but ∑ |aₙ| diverges.
+    topic_code: "10.9"
+  - front: Absolute convergence → what it implies about ∑ aₙ
+    back: |
+      ∑ aₙ converges. Since 0 ≤ aₙ + |aₙ| ≤ 2|aₙ|, direct comparison makes ∑ (aₙ + |aₙ|) converge, and ∑ aₙ is the difference of two convergent series.
+    topic_code: "10.9"
+  - front: Classifying a series with mixed signs → the three possible answers
+    back: |
+      Absolutely convergent (∑ |aₙ| converges), conditionally convergent (∑ aₙ converges, ∑ |aₙ| diverges), or divergent.
+    topic_code: "10.9"
+  - front: Classifying ∑ aₙ → the order of checks
+    back: |
+      1. nth term test (terms not → 0 means divergent). 2. Test ∑ |aₙ| with a positive-term test; convergent means absolutely convergent. 3. If ∑ |aₙ| diverges, try the alternating series test on ∑ aₙ; convergent means conditionally convergent.
+    topic_code: "10.9"
+  - front: ∑ (n = 1 to ∞) (−1)ⁿ/n² → classification
+    back: |
+      ∑ 1/n² converges (p = 2 > 1), so the series converges absolutely.
+    topic_code: "10.9"
+  - front: ∑ (n = 1 to ∞) (−1)ⁿ/(n + 4) → classification
+    back: |
+      Alternating series test: alternates, 1/(n + 4) decreases, → 0, so it converges. ∑ 1/(n + 4) diverges (limit comparison with 1/n, L = 1). So it converges conditionally.
+    topic_code: "10.9"
+  - front: ∑ (n = 1 to ∞) sin(n)/n² → convergence
+    back: |
+      |sin n/n²| ≤ 1/n², and ∑ 1/n² converges, so the series converges absolutely by direct comparison, although its signs follow no pattern.
+    topic_code: "10.9"
+  - front: Ratio test with L < 1 → which kind of convergence it gives
+    back: |
+      Absolute convergence, because the test looks at |aₙ₊₁/aₙ|, the ratio of the absolute values.
+    topic_code: "10.9"
+  - front: Conditionally convergent series → rearranging its terms
+    back: |
+      A rearrangement can change the sum, or make the series diverge (Riemann). Absolutely convergent series can be rearranged freely without changing the sum.
+    topic_code: "10.9"
+  - front: Alternating series test justification → AP sentence
+    back: |
+      "The series alternates in sign, the terms 1/√n decrease in absolute value, and lim (n→∞) 1/√n = 0, so the series converges by the alternating series test."
+    topic_code: "10.7"
+  - front: Ratio test justification → AP sentence
+    back: |
+      Show the simplified ratio and its limit: "lim |aₙ₊₁/aₙ| = lim (n + 1)²/(3n²) = 1/3 < 1, so the series converges absolutely by the ratio test."
+    topic_code: "10.8"
+  - front: Error-spot → "∑ (−1)ⁿ n/(n + 1) converges by the alternating series test because the signs alternate"
+    back: |
+      The terms approach 1 in absolute value, not 0, so one condition fails. The series diverges by the nth term test.
+    topic_code: "10.7"
+  - front: Error-spot → "for ∑ 1/(n² + 1) the ratio test gives L = 1, so the series diverges"
+    back: |
+      L = 1 is inconclusive, not divergence. Comparison with 1/n² shows the series converges.
+    topic_code: "10.8"
+  - front: Error-spot → "∑ |aₙ| diverges, so ∑ aₙ diverges"
+    back: |
+      Not so: ∑ (−1)ⁿ⁺¹/n converges although ∑ 1/n diverges. Divergence of ∑ |aₙ| rules out only absolute convergence.
+    topic_code: "10.9"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topics 10.7, 10.8 and 10.9: the alternating series test,
+    the ratio test, and absolute versus conditional convergence), with 8 questions (about 33%) reviewing earlier weeks
+    (geometric series from week 27, the integral test and comparison tests from week 28, and motion along a curve
+    from week 25). Opens with a shared-context set on ∑ (−1)ⁿ⁺¹ · 3/(2n + 1). Multiple choice, select-all, true/false
+    and numeric items are graded at once; fill-in-the-blank items are matched automatically; the short answers and
+    the long answer are graded by your teacher against the scoring notes. No calculator is needed.
+  questions:
+    # ---- Stimulus set: one alternating series, three tests (10.7, 10.9, 10.8)
+    - slug: apcalcbc-u10-w29-q01
+      type: multiple_choice
+      topic_code: "10.7"
+      source: "AP Calculus CED, Topic 10.7"
+      points: 1
+      stimulus: |
+        Consider the series ∑ (n = 1 to ∞) (−1)ⁿ⁺¹ · 3/(2n + 1) = 1 − 3/5 + 3/7 − 3/9 + …
+      prompt: |
+        Which statement correctly verifies the conditions of the alternating series test for this series?
+      options:
+        - "The terms alternate in sign and lim (n→∞) 3/(2n + 1) = 0; whether the terms decrease does not matter."
+        - "The terms alternate in sign, 3/(2n + 1) decreases because 2n + 1 increases, and lim (n→∞) 3/(2n + 1) = 0."
+        - "The terms alternate in sign and 3/(2n + 1) < 1 for every n ≥ 2."
+        - "lim (n→∞) |aₙ₊₁/aₙ| = 1, so the terms shrink and alternate."
+      option_explanations:
+        - |
+          Decreasing absolute values is one of the three required conditions; leaving it out loses the justification on the AP exam.
+        - |
+          Correct. All three conditions are stated with reasons: alternating signs, decreasing absolute values (the denominator increases) and a limit of 0.
+        - |
+          Terms smaller than 1 do not have to approach 0 or decrease; the test needs both of those facts, not a bound.
+        - |
+          That is the ratio test, and a limit of 1 makes it inconclusive; it does not verify the alternating series test's conditions.
+      answer: 1
+    - slug: apcalcbc-u10-w29-q02
+      type: multiple_choice
+      topic_code: "10.9"
+      source: "AP Calculus CED, Topic 10.9"
+      points: 1
+      stimulus: |
+        Consider the series ∑ (n = 1 to ∞) (−1)ⁿ⁺¹ · 3/(2n + 1) = 1 − 3/5 + 3/7 − 3/9 + …
+      prompt: |
+        What is true of the series of absolute values, ∑ (n = 1 to ∞) 3/(2n + 1)?
+      options:
+        - "It diverges, by limit comparison with ∑ 1/n, since the limit is 3/2."
+        - "It converges, by the alternating series test."
+        - "It converges, because it is a p-series with p = 1."
+        - "It converges, because its terms approach 0."
+      option_explanations:
+        - |
+          Correct. lim (3/(2n + 1))/(1/n) = lim 3n/(2n + 1) = 3/2, and 0 < 3/2 < ∞; the harmonic series diverges, so this series diverges.
+        - |
+          The series of absolute values has only positive terms, so it does not alternate; the alternating series test cannot apply to it.
+        - |
+          It behaves like a p-series with p = 1, the harmonic series, which diverges rather than converges.
+        - |
+          Terms approaching 0 never proves convergence; like the harmonic series, this one diverges.
+      answer: 0
+    - slug: apcalcbc-u10-w29-q03
+      type: multiple_choice
+      topic_code: "10.9"
+      source: "AP Calculus CED, Topic 10.9"
+      points: 1
+      stimulus: |
+        Consider the series ∑ (n = 1 to ∞) (−1)ⁿ⁺¹ · 3/(2n + 1) = 1 − 3/5 + 3/7 − 3/9 + …
+      prompt: |
+        How is the series ∑ (n = 1 to ∞) (−1)ⁿ⁺¹ · 3/(2n + 1) best classified?
+      options:
+        - "Absolutely convergent"
+        - "Divergent, because the series of absolute values diverges"
+        - "Conditionally convergent"
+        - "Divergent, because the terms alternate in sign"
+      option_explanations:
+        - |
+          Absolute convergence would need ∑ 3/(2n + 1) to converge, but that series diverges.
+        - |
+          A divergent series of absolute values rules out only absolute convergence; the series itself converges by the alternating series test.
+        - |
+          Correct. The series converges by the alternating series test, but the series of its absolute values diverges, so the convergence is conditional.
+        - |
+          Alternating signs do not cause divergence; they are what lets this series converge although its absolute values do not.
+      answer: 2
+    - slug: apcalcbc-u10-w29-q04
+      type: multiple_choice
+      topic_code: "10.8"
+      source: "AP Calculus CED, Topic 10.8"
+      points: 1
+      stimulus: |
+        Consider the series ∑ (n = 1 to ∞) (−1)ⁿ⁺¹ · 3/(2n + 1) = 1 − 3/5 + 3/7 − 3/9 + …
+      prompt: |
+        A student applies the ratio test to this series and finds lim (n→∞) |aₙ₊₁/aₙ| = lim (2n + 1)/(2n + 3) = 1. What does the ratio test conclude?
+      options:
+        - "The series diverges, because L ≥ 1."
+        - "The series converges, because L ≤ 1."
+        - "The series converges conditionally, because L = 1."
+        - "Nothing, because the ratio test is inconclusive when L = 1."
+      option_explanations:
+        - |
+          Divergence needs L > 1 strictly; L = 1 occurs for convergent and divergent series alike.
+        - |
+          Convergence needs L < 1 strictly; with L = 1 the test gives no information.
+        - |
+          The ratio test never concludes conditional convergence; with L = 1 it concludes nothing, and conditional convergence comes from other tests.
+        - |
+          Correct. L = 1 is the inconclusive case: every p-series, convergent or divergent, gives L = 1.
+      answer: 3
+    # ---- Independent items
+    - slug: apcalcbc-u10-w29-q05
+      type: multiple_choice
+      topic_code: "10.8"
+      source: "AP Calculus CED, Topic 10.8"
+      points: 1
+      prompt: |
+        For the series ∑ (n = 1 to ∞) n³/4ⁿ, what is lim (n→∞) |aₙ₊₁/aₙ|?
+      options:
+        - "4"
+        - "1"
+        - "1/4"
+        - "0"
+      option_explanations:
+        - |
+          4 is the limit of aₙ/aₙ₊₁, the ratio upside down; the test divides the later term by the earlier one.
+        - |
+          1 is the limit of (n + 1)³/n³ alone; the factor 4ⁿ/4ⁿ⁺¹ = 1/4 must be included.
+        - |
+          Correct. aₙ₊₁/aₙ = ((n + 1)/n)³ · 4ⁿ/4ⁿ⁺¹ = ((n + 1)/n)³ · 1/4 → 1/4, so the series converges absolutely.
+        - |
+          The cubic factor does not vanish: ((n + 1)/n)³ → 1, so the limit is 1 · 1/4, not 0.
+      answer: 2
+    - slug: apcalcbc-u10-w29-q06
+      type: multiple_choice
+      topic_code: "10.8"
+      source: "AP Calculus CED, Topic 10.8"
+      points: 1
+      prompt: |
+        What does the ratio test conclude about ∑ (n = 1 to ∞) n!/5ⁿ?
+      options:
+        - "The series diverges, because lim (n→∞) |aₙ₊₁/aₙ| = lim (n + 1)/5 = ∞."
+        - "The series converges, because 5ⁿ is in the denominator."
+        - "Nothing, because the limit is infinite rather than a number."
+        - "The series converges, because (n + 1)/5 < 1 for n < 4."
+      option_explanations:
+        - |
+          Correct. aₙ₊₁/aₙ = (n + 1)!/n! · 5ⁿ/5ⁿ⁺¹ = (n + 1)/5, which grows without bound, so L = ∞ > 1 and the series diverges.
+        - |
+          An exponential denominator does not guarantee convergence; n! grows faster than 5ⁿ, so the terms grow without bound.
+        - |
+          L = ∞ counts as L > 1: the terms grow, and the ratio test concludes divergence.
+        - |
+          The ratio test uses the limit as n → ∞, not the first few ratios; for large n the ratio (n + 1)/5 is far above 1.
+      answer: 0
+    - slug: apcalcbc-u10-w29-q07
+      type: multiple_choice
+      topic_code: "10.8"
+      source: "AP Calculus CED, Topic 10.8"
+      points: 1
+      prompt: |
+        For which series is the ratio test inconclusive?
+      options:
+        - "∑ (n = 1 to ∞) 3ⁿ/n!"
+        - "∑ (n = 1 to ∞) n/2ⁿ"
+        - "∑ (n = 1 to ∞) 5ⁿ/n⁴"
+        - "∑ (n = 1 to ∞) 1/(n² + 1)"
+      option_explanations:
+        - |
+          The ratio is 3/(n + 1) → 0 < 1, so the test concludes absolute convergence.
+        - |
+          The ratio is ((n + 1)/n)(1/2) → 1/2 < 1, so the test concludes absolute convergence.
+        - |
+          The ratio is 5(n/(n + 1))⁴ → 5 > 1, so the test concludes divergence.
+        - |
+          Correct. The ratio is (n² + 1)/((n + 1)² + 1) → 1, the inconclusive case. (Comparison with 1/n² shows the series converges.)
+      answer: 3
+    - slug: apcalcbc-u10-w29-q08
+      type: multiple_choice
+      topic_code: "10.7"
+      source: "AP Calculus CED, Topic 10.7"
+      points: 1
+      prompt: |
+        Which series diverges even though its terms alternate in sign?
+      options:
+        - "∑ (n = 1 to ∞) (−1)ⁿ/ln(n + 1)"
+        - "∑ (n = 1 to ∞) (−1)ⁿ n/(3n − 1)"
+        - "∑ (n = 1 to ∞) (−1)ⁿ/n³"
+        - "∑ (n = 0 to ∞) (−1/2)ⁿ"
+      option_explanations:
+        - |
+          1/ln(n + 1) decreases and approaches 0, so this series converges by the alternating series test (conditionally).
+        - |
+          Correct. |aₙ| = n/(3n − 1) → 1/3 ≠ 0, so the terms do not approach 0 and the series diverges by the nth term test.
+        - |
+          ∑ 1/n³ converges (p = 3), so this series converges absolutely.
+        - |
+          A geometric series with r = −1/2, |r| < 1, converges (to 2/3).
+      answer: 1
+    - slug: apcalcbc-u10-w29-q09
+      type: multiple_choice
+      topic_code: "10.9"
+      source: "AP Calculus CED, Topic 10.9"
+      points: 1
+      prompt: |
+        Which series is conditionally convergent?
+      options:
+        - "∑ (n = 1 to ∞) (−1)ⁿ/n²"
+        - "∑ (n = 1 to ∞) (−1)ⁿ n/(n + 4)"
+        - "∑ (n = 1 to ∞) (−1)ⁿ/√(n + 1)"
+        - "∑ (n = 0 to ∞) (−2/3)ⁿ"
+      option_explanations:
+        - |
+          ∑ 1/n² converges (p = 2 > 1), so this series is absolutely, not conditionally, convergent.
+        - |
+          The terms approach 1 in absolute value, not 0, so this series diverges by the nth term test.
+        - |
+          Correct. It converges by the alternating series test (1/√(n + 1) decreases to 0), but ∑ 1/√(n + 1) diverges by limit comparison with the p-series 1/√n (p = 1/2), so the convergence is conditional.
+        - |
+          The absolute values form a geometric series with r = 2/3 < 1, which converges, so this series converges absolutely.
+      answer: 2
+    - slug: apcalcbc-u10-w29-q10
+      type: multiple_choice
+      topic_code: "10.9"
+      source: "AP Calculus CED, Topic 10.9"
+      points: 1
+      prompt: |
+        Suppose ∑ (n = 1 to ∞) |aₙ| converges. Which statement must be true?
+      options:
+        - "∑ aₙ converges, and |∑ aₙ| ≤ ∑ |aₙ|."
+        - "∑ aₙ may converge or diverge; more information is needed."
+        - "∑ aₙ converges conditionally."
+        - "∑ aₙ = ∑ |aₙ|."
+      option_explanations:
+        - |
+          Correct. Absolute convergence implies convergence, and by the triangle inequality on every partial sum, |∑ aₙ| ≤ ∑ |aₙ|.
+        - |
+          Absolute convergence always implies convergence; no extra information is needed.
+        - |
+          Conditional convergence means ∑ |aₙ| diverges, the opposite of what is given; this series converges absolutely.
+        - |
+          The sums are equal only if no aₙ is negative; negative terms make ∑ aₙ smaller.
+      answer: 0
+    - slug: apcalcbc-u10-w29-q11
+      type: multiple_choice
+      topic_code: "10.6"
+      source: "AP Calculus CED, Topic 10.6"
+      points: 1
+      prompt: |
+        Which is a correct justification for the behavior of ∑ (n = 2 to ∞) (n + 5)/(n³ − 2)?
+      options:
+        - "It diverges, by limit comparison with ∑ 1/n, because the limit is 0."
+        - "It converges, by direct comparison, because (n + 5)/(n³ − 2) ≤ 1/n² for all n ≥ 2."
+        - "It diverges, by the nth term test."
+        - "It converges, by limit comparison with ∑ 1/n², because the limit is 1 and 0 < 1 < ∞."
+      option_explanations:
+        - |
+          A limit of 0 against a divergent series gives no conclusion; the comparison series 1/n does not match the dominant terms n/n³.
+        - |
+          The inequality is false: (n + 5)/(n³ − 2) > n/n³ = 1/n² for every n ≥ 2, so this direct comparison runs the wrong way.
+        - |
+          The terms approach 0, so the nth term test is inconclusive and cannot show divergence.
+        - |
+          Correct. lim [(n + 5)/(n³ − 2)]/(1/n²) = lim (n³ + 5n²)/(n³ − 2) = 1, finite and positive, and ∑ 1/n² converges (p = 2 > 1).
+      answer: 3
+    - slug: apcalcbc-u10-w29-q12
+      type: multiple_choice
+      topic_code: "10.4"
+      source: "AP Calculus CED, Topic 10.4"
+      points: 1
+      prompt: |
+        By the integral test, for which values of p does ∑ (n = 2 to ∞) 1/(n(ln n)ᵖ) converge?
+      options:
+        - "p ≥ 1"
+        - "p > 1"
+        - "p > 0"
+        - "Every p, because ln n grows without bound."
+      option_explanations:
+        - |
+          p = 1 gives ∫ dx/(x ln x) = ln(ln x), which grows without bound, so p = 1 must be excluded.
+        - |
+          Correct. With u = ln x, the integral becomes ∫ from ln 2 to ∞ of du/uᵖ, which converges exactly when p > 1.
+        - |
+          For 0 < p ≤ 1 the substituted integral ∫ du/uᵖ diverges, so the series diverges too.
+        - |
+          ln n does grow without bound, but so slowly that for p ≤ 1 the series still diverges.
+      answer: 1
+    - slug: apcalcbc-u10-w29-q13
+      type: multiple_choice
+      topic_code: "10.2"
+      source: "AP Calculus CED, Topic 10.2"
+      points: 1
+      prompt: |
+        What is the sum of ∑ (n = 0 to ∞) (−3/4)ⁿ?
+      options:
+        - "4/7"
+        - "4"
+        - "−3/7"
+        - "7/4"
+      option_explanations:
+        - |
+          Correct. The first term is 1 and r = −3/4, |r| < 1, so the sum is 1/(1 + 3/4) = 4/7.
+        - |
+          4 uses r = 3/4 and loses the negative sign: 1/(1 − 3/4) = 4.
+        - |
+          −3/7 starts the sum at n = 1, with first term −3/4; this series starts at n = 0, where the term is 1.
+        - |
+          7/4 is 1 − r, the denominator of the formula, not the sum; the sum is the first term divided by 1 − r.
+      answer: 0
+    - slug: apcalcbc-u10-w29-q14
+      type: multiple_choice
+      topic_code: "9.6"
+      source: "AP Calculus CED, Topic 9.6"
+      points: 1
+      prompt: |
+        A particle moves in the plane with position ⟨t², ln t⟩ for t > 0. What is the speed of the particle at t = 1?
+      options:
+        - "3"
+        - "5"
+        - "√5"
+        - "1"
+      option_explanations:
+        - |
+          3 adds the velocity components 2 + 1; speed is the magnitude √(2² + 1²).
+        - |
+          5 is the square of the speed; the square root of 2² + 1² is still needed.
+        - |
+          Correct. Velocity is ⟨2t, 1/t⟩ = ⟨2, 1⟩ at t = 1, and speed = √(2² + 1²) = √5.
+        - |
+          1 is the distance of the position ⟨1, 0⟩ from the origin; speed uses the velocity vector, not the position.
+      answer: 2
+    - slug: apcalcbc-u10-w29-q15
+      type: multi_select
+      topic_code: "10.9"
+      source: "AP Calculus CED, Topic 10.9"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Some of these five series have alternating signs and one has signs with no pattern. Which of them converge absolutely? Select all that apply.
+      options:
+        - "∑ (n = 1 to ∞) (−1)ⁿ/n^(3/2)"
+        - "∑ (n = 1 to ∞) (−1)ⁿ/n"
+        - "∑ (n = 1 to ∞) sin(n)/n²"
+        - "∑ (n = 0 to ∞) (−1)ⁿ 2ⁿ/n!"
+        - "∑ (n = 2 to ∞) (−1)ⁿ/ln n"
+      option_explanations:
+        - |
+          Correct. ∑ 1/n^(3/2) is a p-series with p = 3/2 > 1, which converges.
+        - |
+          ∑ 1/n diverges, so this alternating harmonic series converges only conditionally.
+        - |
+          Correct. |sin n/n²| ≤ 1/n², and ∑ 1/n² converges, so ∑ |sin n/n²| converges by direct comparison.
+        - |
+          Correct. The ratio of absolute values is 2/(n + 1) → 0 < 1, so the ratio test gives absolute convergence.
+        - |
+          1/ln n > 1/n for n ≥ 2, and ∑ 1/n diverges, so ∑ 1/ln n diverges; this series converges only conditionally.
+      answer: [0, 2, 3]
+    - slug: apcalcbc-u10-w29-q16
+      type: multi_select
+      topic_code: "10.8"
+      source: "AP Calculus CED, Topic 10.8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        For a series ∑ aₙ with nonzero terms, let L = lim (n→∞) |aₙ₊₁/aₙ|. Which statements are true? Select all that apply.
+      options:
+        - "If L < 1, the series converges absolutely."
+        - "If L > 1, the series diverges."
+        - "If L = 1, the series diverges."
+        - "If L = 1, the series converges conditionally."
+        - "If the ratios |aₙ₊₁/aₙ| grow without bound, the series diverges."
+      option_explanations:
+        - |
+          Correct. The tail behaves like a convergent geometric series of absolute values.
+        - |
+          Correct. Eventually |aₙ₊₁| > |aₙ|, so the terms cannot approach 0.
+        - |
+          L = 1 is inconclusive: ∑ 1/n² gives L = 1 and converges.
+        - |
+          L = 1 is inconclusive: ∑ 1/n gives L = 1 and diverges, and ∑ 1/n² gives L = 1 and converges absolutely.
+        - |
+          Correct. L = ∞ behaves like L > 1: the terms grow, so the series diverges.
+      answer: [0, 1, 4]
+    - slug: apcalcbc-u10-w29-q17
+      type: true_false
+      topic_code: "10.4"
+      source: "AP Calculus CED, Topic 10.4"
+      points: 1
+      prompt: |
+        True or false: The integral test shows that ∑ (n = 1 to ∞) n/(n² + 4) converges.
+      answer: false
+      explanation: |
+        False. f(x) = x/(x² + 4) is positive, continuous and decreasing for x ≥ 2, but ∫ x/(x² + 4) dx = (1/2)ln(x² + 4), which grows without bound. The integral diverges, so by the integral test the series diverges.
+    - slug: apcalcbc-u10-w29-q18
+      type: true_false
+      topic_code: "10.7"
+      source: "AP Calculus CED, Topic 10.7"
+      points: 1
+      prompt: |
+        True or false: When its conditions hold, the alternating series test shows that ∑ (−1)ⁿ bₙ converges, but it does not show whether ∑ bₙ converges.
+      answer: true
+      explanation: |
+        True. The test proves convergence of the alternating series only. Whether the convergence is absolute depends on ∑ bₙ, which must be tested separately (for example ∑ (−1)ⁿ/n converges but ∑ 1/n diverges).
+    - slug: apcalcbc-u10-w29-q19
+      type: fill_blank
+      topic_code: "10.8"
+      source: "AP Calculus CED, Topic 10.8"
+      points: 1
+      prompt: |
+        For the series ∑ (n = 1 to ∞) n(2/7)ⁿ, the ratio test limit lim (n→∞) |aₙ₊₁/aₙ| equals ____.
+      answer: ["2/7", "0.286", ".286"]
+      explanation: |
+        aₙ₊₁/aₙ = ((n + 1)/n) · (2/7) → 2/7. Since 2/7 < 1, the series converges absolutely.
+    - slug: apcalcbc-u10-w29-q20
+      type: fill_blank
+      topic_code: "10.6"
+      source: "AP Calculus CED, Topic 10.6"
+      points: 1
+      prompt: |
+        To use the limit comparison test on ∑ (n = 1 to ∞) (n² + 1)/(n⁵ + n), the natural choice is to compare with the p-series ∑ 1/nᵖ with p = ____.
+      answer: ["3"]
+      explanation: |
+        The dominant terms give n²/n⁵ = 1/n³, so p = 3. Indeed lim [(n² + 1)/(n⁵ + n)]/(1/n³) = lim (n⁵ + n³)/(n⁵ + n) = 1, and ∑ 1/n³ converges, so the series converges.
+    - slug: apcalcbc-u10-w29-q21
+      type: numeric
+      topic_code: "10.2"
+      source: "AP Calculus CED, Topic 10.2"
+      points: 1
+      prompt: |
+        Find the sum of ∑ (n = 2 to ∞) 5/3ⁿ, correct to three decimal places.
+      answer: { value: 0.833, tolerance: 0.001 }
+      explanation: |
+        The first term (n = 2) is 5/9 and r = 1/3, so the sum is (5/9)/(1 − 1/3) = (5/9)/(2/3) = 5/6 ≈ 0.833.
+    - slug: apcalcbc-u10-w29-q22
+      type: short_answer
+      topic_code: "10.9"
+      source: "AP Calculus CED, Topic 10.9"
+      points: 3
+      prompt: |
+        Consider the series ∑ (n = 1 to ∞) (−1)ⁿ⁺¹ n/(n² + 1).
+        (a) Show that the series converges, verifying each condition of the test you use. (You may use that f(x) = x/(x² + 1) has f′(x) = (1 − x²)/(x² + 1)².)
+        (b) Determine whether ∑ (n = 1 to ∞) n/(n² + 1) converges.
+        (c) Is the series ∑ (n = 1 to ∞) (−1)ⁿ⁺¹ n/(n² + 1) absolutely convergent, conditionally convergent or divergent? Explain.
+      answer: |
+        (a) Alternating series test: the terms alternate in sign; bₙ = n/(n² + 1) decreases because f′(x) = (1 − x²)/(x² + 1)² ≤ 0 for x ≥ 1 (negative for x > 1); and lim (n→∞) n/(n² + 1) = 0. So the series converges.
+        (b) lim (n→∞) [n/(n² + 1)]/(1/n) = lim n²/(n² + 1) = 1, and 0 < 1 < ∞. Both series have positive terms and ∑ 1/n diverges, so ∑ n/(n² + 1) diverges by the limit comparison test.
+        (c) Conditionally convergent: the series converges by (a), but the series of absolute values diverges by (b).
+      explanation: |
+        Three points, one per part. (a) All three alternating series test conditions stated, with a reason for decreasing. (b) "Diverges" with a valid test (limit comparison with 1/n with 0 < L < ∞, or the integral test with ∫ x/(x² + 1) dx = (1/2)ln(x² + 1) → ∞). (c) "Conditionally convergent" with reference to both (a) and (b).
+    - slug: apcalcbc-u10-w29-q23
+      type: short_answer
+      topic_code: "10.4"
+      source: "AP Calculus CED, Topic 10.4"
+      points: 3
+      prompt: |
+        Consider the series ∑ (n = 1 to ∞) 1/(n² + 1).
+        (a) Verify that f(x) = 1/(x² + 1) satisfies the hypotheses of the integral test on [1, ∞).
+        (b) Evaluate ∫ from 1 to ∞ of 1/(x² + 1) dx.
+        (c) State what the integral test tells you about the series, and whether the series' sum equals your answer to (b).
+      answer: |
+        (a) For x ≥ 1, f(x) > 0, f is continuous (x² + 1 is never 0), and f is decreasing because x² + 1 increases (f′(x) = −2x/(x² + 1)² < 0).
+        (b) ∫ from 1 to b of dx/(x² + 1) = arctan b − arctan 1 → π/2 − π/4 = π/4 as b → ∞.
+        (c) The improper integral converges, so the series converges by the integral test. Its sum is not π/4: the test gives convergence only (the sum is greater than π/4, since the first term alone is 1/2 and the sum exceeds the integral).
+      explanation: |
+        Three points, one per part. (a) Positive, continuous and decreasing, each with a reason. (b) π/4 (about 0.785) as a limit. (c) "Converges by the integral test" and a statement that the sum is not π/4.
+    - slug: apcalcbc-u10-w29-q24
+      type: long_answer
+      topic_code: "10.9"
+      source: "AP Calculus CED, Topic 10.9"
+      points: 6
+      prompt: |
+        For each series, determine whether it is absolutely convergent, conditionally convergent or divergent. Justify each answer, naming the tests you use and verifying their conditions.
+        (A) ∑ (n = 1 to ∞) (−1)ⁿ (n + 1)/2ⁿ
+        (B) ∑ (n = 1 to ∞) (−1)ⁿ⁺¹/(√n + 1)
+        (C) ∑ (n = 1 to ∞) (−1)ⁿ 2n/(n + 3)
+      answer: |
+        (A) Ratio test on the absolute values: |aₙ₊₁/aₙ| = [(n + 2)/2ⁿ⁺¹] · [2ⁿ/(n + 1)] = (n + 2)/(2(n + 1)) → 1/2. Since 1/2 < 1, the series converges absolutely.
+        (B) Alternating series test: the terms alternate in sign; bₙ = 1/(√n + 1) decreases because √n + 1 increases; and lim (n→∞) 1/(√n + 1) = 0. So the series converges. For the absolute values, lim [1/(√n + 1)]/[1/√n] = lim √n/(√n + 1) = 1, with 0 < 1 < ∞, and ∑ 1/√n is a p-series with p = 1/2 ≤ 1, which diverges. So ∑ 1/(√n + 1) diverges by limit comparison, and the series is conditionally convergent.
+        (C) |aₙ| = 2n/(n + 3) → 2 ≠ 0, so the terms do not approach 0 (they swing between values near 2 and near −2). The series diverges by the nth term test.
+      explanation: |
+        Six points. (A) 1 point for the ratio of absolute values set up and simplified to (n + 2)/(2(n + 1)); 1 point for the limit 1/2 < 1 and the conclusion "absolutely convergent". (B) 1 point for all three alternating series test conditions; 1 point for showing ∑ 1/(√n + 1) diverges (limit comparison with 1/√n, L = 1, p = 1/2 ≤ 1, or direct comparison 1/(√n + 1) ≥ 1/(2√n)); 1 point for "conditionally convergent". (C) 1 point for "divergent" with the nth term test (limit of |aₙ| is 2, not 0). An answer for (B) of "conditionally convergent" with no test of the absolute values earns only the first point of (B).

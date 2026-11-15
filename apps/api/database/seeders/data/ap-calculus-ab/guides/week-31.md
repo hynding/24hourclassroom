@@ -21,7 +21,7 @@
 | Horizontal slice | A thin rectangle of thickness dy and length (right − left) at a fixed y. |
 | Intersection points | Solutions of f(x) = g(x) (or f(y) = g(y)); they supply the limits and the places to split. |
 | Net integral | ∫ (f − g) dx without regard to which is on top; pieces where g is on top count negatively. |
-| Area | Always positive: ∫ |f − g| dx, computed by hand by splitting at crossings. |
+| Area | Always positive: ∫ \|f − g\| dx, computed by hand by splitting at crossings. |
 
 ## Area with vertical slices (8.4)
 
@@ -106,7 +106,7 @@ Area = ∫ from 0 to 3 of |2 sin x − x| dx ≈ 2.203.
 | has one top curve and one bottom curve across its whole width | dx, one integral |
 | has one right curve and one left curve across its whole height | dy, one integral |
 | has a top or bottom that changes partway | dy, or split the dx integral where it changes |
-| has curves that cross inside the interval | split at every crossing, or ∫ |f − g| on a calculator |
+| has curves that cross inside the interval | split at every crossing, or ∫ \|f − g\| on a calculator |
 | is given by curves of the form x = g(y) | dy |
 
 ## Common mistakes

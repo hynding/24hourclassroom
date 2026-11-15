@@ -1,0 +1,1406 @@
+week: 34
+description: |
+  A full practice final: 70 questions · about 4 hours · all ten units. Questions 1–48 are a mock AP
+  Calculus BC exam in the May 2027 format. The real exam is a hybrid digital exam on Monday, May 10, 2027
+  (2027-05-10), session 1: multiple-choice and free-response prompts appear in the Bluebook app,
+  multiple-choice answers are entered there, and free-response answers are handwritten in a paper booklet.
+  Section I is 42 multiple-choice questions in 1 hour 40 minutes, 50% of the score: Part A, questions 1–29,
+  no calculator (62 minutes); Part B, questions 30–42, graphing calculator required (38 minutes; marked
+  "(Calculator.)"). Section II is six free-response questions in 1 hour 30 minutes, 50% of the score: Part A,
+  questions 43–44, graphing calculator required (30 minutes: grain loaded into and removed from a silo, and
+  the region between a limaçon and a circle in polar form); Part B, questions 45–48, no calculator (60
+  minutes: an accumulation function from a graph with an improper integral, a differential equation with a
+  tangent line, Euler's method and separation of variables, an area, volume and perimeter question, and a
+  power series with its interval of convergence, a Taylor polynomial and an alternating series error bound).
+  The units appear roughly in proportion to the BC weightings, so about two fifths of questions 1–48 are
+  BC-only content: series, parametric, polar and vector-valued functions, integration by parts, partial
+  fractions, improper integrals, Euler's method, logistic growth and arc length. Questions 49–70 (about 45
+  minutes) are not AP format: select-all, true/false, fill-in-the-blank, numeric and short-answer practice
+  across all ten units, opening with a shared-context set on a particle moving in the plane. Multiple choice,
+  select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+  automatically; the short answers (3 points each) and the six free-response questions (9 points each,
+  scored like the AP exam) are graded by your teacher against the scoring notes. Keep the calculator in
+  radian mode and give decimal answers to three decimal places.
+questions:
+  # ---- Section I, Part A: no calculator (q01-q29).
+  - slug: apcalcbc-final-q01
+    type: multiple_choice
+    topic_code: "1.6"
+    source: "AP Calculus CED, Topic 1.6"
+    points: 1
+    prompt: |
+      What is lim (x→5) (√(x + 4) − 3)/(x − 5)?
+    options:
+      - "1/3"
+      - "6"
+      - "1/6"
+      - "The limit does not exist."
+    option_explanations:
+      - |
+        This multiplies by the conjugate but then keeps only √(x + 4) in the denominator, giving 1/√9 = 1/3; the conjugate sum √9 + 3 = 6 belongs there.
+      - |
+        6 is the value of the conjugate √(x + 4) + 3 at x = 5; after cancelling, that sum sits in the denominator, so the limit is its reciprocal.
+      - |
+        Correct. Multiply by the conjugate: (x + 4 − 9)/((x − 5)(√(x + 4) + 3)) = 1/(√(x + 4) + 3) for x ≠ 5, which tends to 1/(3 + 3) = 1/6.
+      - |
+        Substitution gives 0/0, an indeterminate form, not proof that the limit fails to exist; rationalising the numerator removes the factor x − 5.
+    answer: 2
+  - slug: apcalcbc-final-q02
+    type: multiple_choice
+    topic_code: "1.15"
+    source: "AP Calculus CED, Topic 1.15"
+    points: 1
+    prompt: |
+      What is lim (x→−∞) √(4x² + 1)/(x + 3)?
+    options:
+      - "−2"
+      - "2"
+      - "−1/2"
+      - "−∞"
+    option_explanations:
+      - |
+        Correct. For x < 0, √(x²) = |x| = −x, so √(4x² + 1)/(x + 3) = −√(4 + 1/x²)/(1 + 3/x), which tends to −√4/1 = −2.
+      - |
+        This divides the root by √(x²) as if it were x; for negative x, √(x²) = −x, which supplies the negative sign.
+      - |
+        This flips the ratio of the leading coefficients, dividing 1 by 2 instead of 2 by 1, and keeps the correct negative sign.
+      - |
+        This compares 4x² with x and forgets the square root; √(4x² + 1) grows like 2|x|, the same rate as the denominator, so the limit is finite.
+    answer: 0
+  - slug: apcalcbc-final-q03
+    type: multiple_choice
+    topic_code: "2.2"
+    source: "AP Calculus CED, Topic 2.2"
+    points: 1
+    prompt: |
+      What is lim (h→0) (ln(e + h) − 1)/h?
+    options:
+      - "1"
+      - "1/e"
+      - "0"
+      - "e"
+    option_explanations:
+      - |
+        This reads the limit as the derivative of ln x at x = 1, but the base point is e, since ln e = 1 is what is subtracted.
+      - |
+        Correct. Because ln e = 1, this is the limit definition of the derivative of ln x at x = e, which is 1/e.
+      - |
+        Setting h = 0 gives 0/0, which is indeterminate; the expression is a difference quotient whose limit is a derivative.
+      - |
+        This inverts the derivative of ln x: d/dx ln x = 1/x, so at x = e the value is 1/e, not e.
+    answer: 1
+  - slug: apcalcbc-final-q04
+    type: multiple_choice
+    topic_code: "2.6"
+    source: "AP Calculus CED, Topic 2.6"
+    points: 1
+    prompt: |
+      If f(x) = 4√x − 3/x + e², what is f′(4)?
+    options:
+      - "19/16 + e²"
+      - "13/16"
+      - "67/16"
+      - "19/16"
+    option_explanations:
+      - |
+        e² is a constant, so its derivative is 0; it should not survive into f′(4).
+      - |
+        This differentiates −3/x as −3/x²; the power rule gives −3 · (−1)x⁻² = +3/x², so the second term is added.
+      - |
+        This takes the derivative of 4√x as 4 · √x instead of 4 · (1/2)x^(−1/2) = 2/√x, giving 4 + 3/16 = 67/16.
+      - |
+        Correct. f′(x) = 2/√x + 3/x² + 0, so f′(4) = 2/2 + 3/16 = 19/16.
+    answer: 3
+  - slug: apcalcbc-final-q05
+    type: multiple_choice
+    topic_code: "3.2"
+    source: "AP Calculus CED, Topic 3.2"
+    points: 1
+    prompt: |
+      The point (1, 1) lies on the curve x² + 3xy + y³ = 5. What is the slope of the line tangent to the curve at (1, 1)?
+    options:
+      - "5/6"
+      - "−5/6"
+      - "−1/3"
+      - "−8/3"
+    option_explanations:
+      - |
+        This drops the negative sign when solving: dy/dx = −(2x + 3y)/(3x + 3y²), and at (1, 1) that is −5/6.
+      - |
+        Correct. Differentiating gives 2x + 3y + 3x(dy/dx) + 3y²(dy/dx) = 0, so dy/dx = −(2x + 3y)/(3x + 3y²) = −5/(3 + 3) = −5/6.
+      - |
+        This differentiates 3xy as 3(dy/dx) without the product rule, losing the 3y term: 2 + 6(dy/dx) = 0.
+      - |
+        This forgets the dy/dx on the derivative of y³, treating it as 3y² alone: 2 + 3 + 3 + 3(dy/dx) = 0.
+    answer: 1
+  - slug: apcalcbc-final-q06
+    type: multiple_choice
+    topic_code: "3.3"
+    source: "AP Calculus CED, Topic 3.3"
+    points: 1
+    prompt: |
+      Let f(x) = x³ + 4x − 1, and let h be the inverse function of f. What is h′(4)?
+    options:
+      - "1/52"
+      - "7"
+      - "1/7"
+      - "1/3"
+    option_explanations:
+      - |
+        This evaluates f′ at 4, the input of h, instead of at h(4) = 1: 1/f′(4) = 1/(48 + 4) = 1/52.
+      - |
+        7 is f′(1), the slope of f at (1, 4); the inverse has the reciprocal slope at (4, 1).
+      - |
+        Correct. f(1) = 1 + 4 − 1 = 4, so h(4) = 1 and h′(4) = 1/f′(1) = 1/(3 + 4) = 1/7.
+      - |
+        This differentiates x³ + 4x − 1 as 3x², dropping the 4 from 4x, so f′(1) comes out as 3.
+    answer: 2
+  - slug: apcalcbc-final-q07
+    type: multiple_choice
+    topic_code: "4.7"
+    source: "AP Calculus CED, Topic 4.7"
+    points: 1
+    prompt: |
+      What is lim (x→0) (x − sin x)/x³?
+    options:
+      - "1/6"
+      - "1/2"
+      - "0"
+      - "1"
+    option_explanations:
+      - |
+        Correct. The form is 0/0. L'Hospital's Rule gives (1 − cos x)/(3x²), still 0/0; then sin x/(6x), still 0/0; then cos x/6, which tends to 1/6.
+      - |
+        This differentiates x³ as x² in the first step, getting (1 − cos x)/x², whose limit is 1/2; the derivative of x³ is 3x².
+      - |
+        After one application, (1 − cos x)/(3x²) is still the indeterminate form 0/0, not 0; it needs two more applications.
+      - |
+        This treats the expression like sin x/x and reports 1; subtracting sin x from x leaves a difference that is far smaller than x near 0.
+    answer: 0
+  - slug: apcalcbc-final-q08
+    type: multiple_choice
+    topic_code: "4.2"
+    source: "AP Calculus CED, Topic 4.2"
+    points: 1
+    prompt: |
+      A particle moves along the x-axis with position x(t) = t³ − 9t² + 24t for t > 0. For which values of t is the particle speeding up?
+    options:
+      - "t > 3 only"
+      - "0 < t < 2 and t > 4"
+      - "2 < t < 4"
+      - "2 < t < 3 and t > 4"
+    option_explanations:
+      - |
+        This uses only the acceleration, a(t) = 6t − 18 > 0; speeding up needs velocity and acceleration to have the same sign.
+      - |
+        These are the times when the velocity v(t) = 3(t − 2)(t − 4) is positive, which says the particle moves right, not that it speeds up.
+      - |
+        These are the times when the velocity is negative (moving left); on 3 < t < 4 the acceleration is positive, so the particle slows down there.
+      - |
+        Correct. v(t) = 3(t − 2)(t − 4) and a(t) = 6(t − 3). Both are negative on 2 < t < 3 and both positive for t > 4, so the speed increases on those intervals.
+    answer: 3
+  - slug: apcalcbc-final-q09
+    type: multiple_choice
+    topic_code: "5.1"
+    source: "AP Calculus CED, Topic 5.1"
+    points: 1
+    prompt: |
+      Let f(x) = x³ − x. What value of c in the open interval (0, 2) satisfies the conclusion of the Mean Value Theorem for f on [0, 2]?
+    options:
+      - "1"
+      - "√3/3"
+      - "2√3/3"
+      - "√(7/3)"
+    option_explanations:
+      - |
+        1 is the midpoint of the interval; the Mean Value Theorem point is where f′ equals the average rate of change, which need not be the midpoint.
+      - |
+        At c = √3/3, f′(c) = 0; that is the Rolle's Theorem condition, which applies only when f(0) = f(2), and here f(2) = 6.
+      - |
+        Correct. The average rate of change is (f(2) − f(0))/2 = (6 − 0)/2 = 3. Solving f′(c) = 3c² − 1 = 3 gives c² = 4/3, and c = 2/√3 = 2√3/3 is in (0, 2).
+      - |
+        This sets f′(c) equal to the change f(2) − f(0) = 6 without dividing by the width 2, solving 3c² − 1 = 6.
+    answer: 2
+  - slug: apcalcbc-final-q10
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "AP Calculus CED, Topic 5.4"
+    points: 1
+    prompt: |
+      The derivative of a function f is f′(x) = (x − 3)(x + 1)²e^(−x). Which describes the relative extrema of f?
+    options:
+      - "a relative maximum at x = −1 and a relative minimum at x = 3"
+      - "a relative minimum at x = 3 only"
+      - "a relative maximum at x = 3 only"
+      - "relative minima at x = −1 and x = 3"
+    option_explanations:
+      - |
+        f′(−1) = 0, but (x + 1)² and e^(−x) are never negative, so f′ is negative on both sides of x = −1 and does not change sign there.
+      - |
+        Correct. The sign of f′ is the sign of x − 3, since (x + 1)²e^(−x) ≥ 0. f′ changes from negative to positive at x = 3 (a relative minimum) and does not change sign at x = −1.
+      - |
+        This reverses the first derivative test: f′ goes from negative to positive at x = 3, which gives a relative minimum, not a maximum.
+      - |
+        This counts every zero of f′ as an extremum; at x = −1 the squared factor keeps f′ negative on both sides, so there is no extremum.
+    answer: 1
+  - slug: apcalcbc-final-q11
+    type: multiple_choice
+    topic_code: "5.6"
+    source: "AP Calculus CED, Topic 5.6"
+    points: 1
+    prompt: |
+      At what value of x does the graph of f(x) = x·e^(−2x) have a point of inflection?
+    options:
+      - "1"
+      - "1/2"
+      - "2"
+      - "0"
+    option_explanations:
+      - |
+        Correct. f′(x) = e^(−2x)(1 − 2x) and f″(x) = e^(−2x)(4x − 4). f″ changes from negative to positive at x = 1, so the graph has a point of inflection there.
+      - |
+        x = 1/2 is where f′ = 0, the relative maximum of f, not where the concavity changes.
+      - |
+        2 is the inflection point of x·e^(−x); with e^(−2x) the chain rule doubles the factors and moves it to x = 1.
+      - |
+        f(0) = 0, but f″(0) = −4 ≠ 0, so the graph is concave down at x = 0, not changing concavity.
+    answer: 0
+  - slug: apcalcbc-final-q12
+    type: multiple_choice
+    topic_code: "6.4"
+    source: "AP Calculus CED, Topic 6.4"
+    points: 1
+    prompt: |
+      Let F(x) = ∫ from 2 to 3x of √(t² + 7) dt. What is F′(1)?
+    options:
+      - "4"
+      - "12 − √11"
+      - "6√2"
+      - "12"
+    option_explanations:
+      - |
+        This is √((3x)² + 7) at x = 1 without the chain-rule factor 3 from the upper limit 3x.
+      - |
+        This also subtracts the integrand at the lower limit, √(2² + 7) = √11, but the lower limit is a constant, so it contributes nothing.
+      - |
+        This substitutes t = x instead of t = 3x, giving 3√(1 + 7) = 6√2; the integrand is evaluated at the upper limit 3x = 3.
+      - |
+        Correct. By the Fundamental Theorem with the chain rule, F′(x) = √((3x)² + 7) · 3, so F′(1) = 3√16 = 12.
+    answer: 3
+  - slug: apcalcbc-final-q13
+    type: multiple_choice
+    topic_code: "6.9"
+    source: "AP Calculus CED, Topic 6.9"
+    points: 1
+    prompt: |
+      What is ∫ from 1 to e of (ln x)²/x dx?
+    options:
+      - "1/3"
+      - "(e³ − 1)/3"
+      - "1/2"
+      - "1"
+    option_explanations:
+      - |
+        Correct. With u = ln x, du = dx/x and the limits become u = 0 to u = 1: ∫₀¹ u² du = 1/3.
+      - |
+        This substitutes u = ln x but keeps the x-limits 1 and e, evaluating u³/3 from 1 to e.
+      - |
+        This integrates as if the integrand were (ln x)/x, using u²/2 instead of u³/3.
+      - |
+        This uses the antiderivative u³ without dividing by 3.
+    answer: 0
+  - slug: apcalcbc-final-q14
+    type: multiple_choice
+    topic_code: "6.11"
+    source: "AP Calculus CED, Topic 6.11"
+    points: 1
+    prompt: |
+      Which is ∫ x sec² x dx?
+    options:
+      - "x tan x − ln|cos x| + C"
+      - "(x²/2) tan x + C"
+      - "x tan x + ln|cos x| + C"
+      - "x tan x − sec² x + C"
+    option_explanations:
+      - |
+        This is a sign slip in ∫ tan x dx, which equals −ln|cos x|; subtracting it gives +ln|cos x|.
+      - |
+        This integrates each factor separately and multiplies the results; there is no product rule for integrals of that kind.
+      - |
+        Correct. By parts with u = x, dv = sec² x dx: v = tan x, so the integral is x tan x − ∫ tan x dx = x tan x + ln|cos x| + C. Check: the derivative is tan x + x sec² x − tan x = x sec² x.
+      - |
+        This differentiates tan x instead of integrating it in the last step: ∫ tan x dx is −ln|cos x|, not sec² x.
+    answer: 2
+  - slug: apcalcbc-final-q15
+    type: multiple_choice
+    topic_code: "6.12"
+    source: "AP Calculus CED, Topic 6.12"
+    points: 1
+    prompt: |
+      What is ∫ from 2 to 4 of 2/(x² − 1) dx?
+    options:
+      - "ln(5/9)"
+      - "(1/2) ln(9/5)"
+      - "ln 5"
+      - "ln(9/5)"
+    option_explanations:
+      - |
+        This reverses the partial fractions to 1/(x + 1) − 1/(x − 1), which changes the sign of the answer.
+      - |
+        This decomposes 1/(x² − 1) and forgets the factor 2 in the numerator, so each coefficient is half its true size.
+      - |
+        This uses ln(x² − 1) as the antiderivative, which would need 2x, not 2, in the numerator.
+      - |
+        Correct. 2/((x − 1)(x + 1)) = 1/(x − 1) − 1/(x + 1), so the integral is [ln|x − 1| − ln|x + 1|] from 2 to 4 = (ln 3 − ln 5) − (0 − ln 3) = ln(9/5).
+    answer: 3
+  - slug: apcalcbc-final-q16
+    type: multiple_choice
+    topic_code: "6.13"
+    source: "AP Calculus CED, Topic 6.13"
+    points: 1
+    prompt: |
+      What is ∫ from 3 to ∞ of 4/(x − 1)³ dx?
+    options:
+      - "1"
+      - "1/2"
+      - "−1/2"
+      - "The integral diverges."
+    option_explanations:
+      - |
+        This uses −1/(x − 1)² as the antiderivative of 1/(x − 1)³, forgetting to divide by the new exponent's 2.
+      - |
+        Correct. lim (b→∞) [−2/(x − 1)²] from 3 to b = lim (b→∞) (−2/(b − 1)² + 2/4) = 0 + 1/2 = 1/2.
+      - |
+        This subtracts in the wrong order, F(3) − F(b), which flips the sign; a positive integrand cannot have a negative integral.
+      - |
+        The integrand behaves like 4/x³, a p-integral with p = 3 > 1, so it converges; divergence would need p ≤ 1.
+    answer: 1
+  - slug: apcalcbc-final-q17
+    type: multiple_choice
+    topic_code: "7.5"
+    source: "AP Calculus CED, Topic 7.5"
+    points: 1
+    prompt: |
+      Let y = f(x) be the solution of dy/dx = 3x − y + 1 with f(0) = 1. What is the approximation of f(1) from Euler's method with two steps of equal size, starting at x = 0?
+    options:
+      - "1"
+      - "1.75"
+      - "2.5"
+      - "0.75"
+    option_explanations:
+      - |
+        This takes one step of size 1 with the slope 0 at (0, 1): 1 + 1 · 0 = 1. The question asks for two steps of size 0.5.
+      - |
+        Correct. Step size 0.5. At (0, 1) the slope is 0 − 1 + 1 = 0, so f(0.5) ≈ 1 + 0.5(0) = 1. At (0.5, 1) the slope is 1.5 − 1 + 1 = 1.5, so f(1) ≈ 1 + 0.5(1.5) = 1.75.
+      - |
+        This adds each slope to y without multiplying by the step size 0.5: 1 + 0 = 1, then 1 + 1.5 = 2.5.
+      - |
+        0.75 is only the change in the second step, 0.5 · 1.5; it must be added to the value 1 from the first step.
+    answer: 1
+  - slug: apcalcbc-final-q18
+    type: multiple_choice
+    topic_code: "7.9"
+    source: "AP Calculus CED, Topic 7.9"
+    points: 1
+    prompt: |
+      A hypothetical fish population P(t) in a lake satisfies dP/dt = 0.4P(1 − P/600), with P(0) = 100. What is the population at the moment it is growing fastest?
+    options:
+      - "600"
+      - "240"
+      - "300"
+      - "350"
+    option_explanations:
+      - |
+        600 is the carrying capacity, the limit of P(t) as t → ∞; there dP/dt = 0, so the population is barely growing.
+      - |
+        240 multiplies the rate constant 0.4 by the carrying capacity 600, which is not a population value from the model.
+      - |
+        Correct. dP/dt = 0.4P − (0.4/600)P² is a downward parabola in P with its vertex at half the carrying capacity, P = 300, where the growth rate is greatest.
+      - |
+        This averages the initial population and the carrying capacity, (100 + 600)/2; the fastest growth is at half the carrying capacity whatever P(0) is.
+    answer: 2
+  - slug: apcalcbc-final-q19
+    type: multiple_choice
+    topic_code: "8.5"
+    source: "AP Calculus CED, Topic 8.5"
+    points: 1
+    prompt: |
+      What is the area of the region enclosed by the curve x = y² and the line x = 6 − y?
+    options:
+      - "−125/6"
+      - "27/2"
+      - "22/3"
+      - "125/6"
+    option_explanations:
+      - |
+        This subtracts right minus left the wrong way round, ∫ (y² − (6 − y)) dy; an area must be positive.
+      - |
+        This integrates only from y = −3 to y = 0, the part of the region below the x-axis.
+      - |
+        This integrates only from y = 0 to y = 2, the part of the region above the x-axis.
+      - |
+        Correct. The curves meet where y² = 6 − y, at y = −3 and y = 2, and x = 6 − y is on the right. Area = ∫ from −3 to 2 of (6 − y − y²) dy = 22/3 − (−27/2) = 125/6.
+    answer: 3
+  - slug: apcalcbc-final-q20
+    type: multiple_choice
+    topic_code: "8.13"
+    source: "AP Calculus CED, Topic 8.13"
+    points: 1
+    prompt: |
+      Which integral gives the length of the curve y = ln(cos x) from x = 0 to x = π/4?
+    options:
+      - "∫ from 0 to π/4 of sec x dx"
+      - "∫ from 0 to π/4 of √(1 + (ln(cos x))²) dx"
+      - "∫ from 0 to π/4 of (1 + tan² x) dx"
+      - "∫ from 0 to π/4 of √(1 − tan² x) dx"
+    option_explanations:
+      - |
+        Correct. dy/dx = −sin x/cos x = −tan x, so √(1 + (dy/dx)²) = √(1 + tan² x) = √(sec² x) = sec x, which is positive on [0, π/4].
+      - |
+        This puts the function y itself under the square root; the arc length formula uses the derivative dy/dx.
+      - |
+        This forgets the square root in √(1 + (dy/dx)²); 1 + tan² x = sec² x, and the length element is its square root.
+      - |
+        This squares −tan x as −tan² x; (−tan x)² = tan² x, so the term under the root is 1 + tan² x.
+    answer: 0
+  - slug: apcalcbc-final-q21
+    type: multiple_choice
+    topic_code: "9.1"
+    source: "AP Calculus CED, Topic 9.1"
+    points: 1
+    prompt: |
+      A curve is defined by x = t² − 4t and y = t³ + t. What is the slope of the line tangent to the curve at the point where t = 3?
+    options:
+      - "1/14"
+      - "28"
+      - "13"
+      - "14"
+    option_explanations:
+      - |
+        This divides dx/dt by dy/dt; the slope is dy/dx = (dy/dt)/(dx/dt).
+      - |
+        28 is dy/dt = 3t² + 1 at t = 3; it still has to be divided by dx/dt = 2.
+      - |
+        This differentiates t³ + t as 3t² − 1, a sign slip, giving 26/2 = 13.
+      - |
+        Correct. dy/dx = (dy/dt)/(dx/dt) = (3t² + 1)/(2t − 4); at t = 3 this is 28/2 = 14.
+    answer: 3
+  - slug: apcalcbc-final-q22
+    type: multiple_choice
+    topic_code: "9.2"
+    source: "AP Calculus CED, Topic 9.2"
+    points: 1
+    prompt: |
+      A curve is given by x = t² and y = t³ for t > 0. What is the value of d²y/dx² at t = 2?
+    options:
+      - "3/2"
+      - "3/8"
+      - "6"
+      - "3"
+    option_explanations:
+      - |
+        This differentiates dy/dx = 3t/2 with respect to t and stops; d²y/dx² = (d/dt(dy/dx))/(dx/dt), so 3/2 must be divided by 2t = 4.
+      - |
+        Correct. dy/dx = 3t²/(2t) = 3t/2. Then d²y/dx² = (d/dt (3t/2))/(dx/dt) = (3/2)/(2t), which is 3/8 at t = 2.
+      - |
+        This divides the second derivatives, (d²y/dt²)/(d²x/dt²) = 6t/2 = 6 at t = 2, which is not how second derivatives of parametric curves work.
+      - |
+        3 is the first derivative dy/dx = 3t/2 at t = 2, not the second derivative.
+    answer: 1
+  - slug: apcalcbc-final-q23
+    type: multiple_choice
+    topic_code: "9.4"
+    source: "AP Calculus CED, Topic 9.4"
+    points: 1
+    prompt: |
+      A particle moves in the plane with position vector r(t) = ⟨t³ − 2t, 4√t⟩ for t > 0. What is the speed of the particle at t = 1?
+    options:
+      - "5"
+      - "3"
+      - "√5"
+      - "√17"
+    option_explanations:
+      - |
+        This adds the squares of the velocity components, 1 + 4 = 5, and forgets to take the square root.
+      - |
+        This adds the velocity components 1 + 2; speed is the magnitude √(x′² + y′²), not their sum.
+      - |
+        Correct. r′(t) = ⟨3t² − 2, 2/√t⟩, so r′(1) = ⟨1, 2⟩ and the speed is √(1² + 2²) = √5.
+      - |
+        This is the magnitude of the position r(1) = ⟨−1, 4⟩, the distance from the origin, not the speed.
+    answer: 2
+  - slug: apcalcbc-final-q24
+    type: multiple_choice
+    topic_code: "9.8"
+    source: "AP Calculus CED, Topic 9.8"
+    points: 1
+    prompt: |
+      The polar curve r = 4 cos(3θ) is a three-petalled rose. What is the area of the petal traced for −π/6 ≤ θ ≤ π/6?
+    options:
+      - "4π/3"
+      - "8π/3"
+      - "4/3"
+      - "4π"
+    option_explanations:
+      - |
+        Correct. Area = (1/2) ∫ from −π/6 to π/6 of 16 cos²(3θ) dθ = 8 · (π/6) = 4π/3, since cos²(3θ) averages 1/2 over the interval of length π/3.
+      - |
+        This leaves out the factor 1/2 in the polar area formula A = (1/2) ∫ r² dθ.
+      - |
+        This integrates r instead of r²: (1/2) ∫ from −π/6 to π/6 of 4 cos(3θ) dθ = 4/3.
+      - |
+        This is the area of all three petals, 3 · (4π/3); the question asks for the one petal traced on [−π/6, π/6].
+    answer: 0
+  - slug: apcalcbc-final-q25
+    type: multiple_choice
+    topic_code: "10.2"
+    source: "AP Calculus CED, Topic 10.2"
+    points: 1
+    prompt: |
+      What is the sum of the series ∑ (n = 2 to ∞) 5(−1/4)ⁿ?
+    options:
+      - "4"
+      - "1/4"
+      - "5/12"
+      - "−1"
+    option_explanations:
+      - |
+        This uses 5 as the first term, as if the sum started at n = 0; at n = 2 the first term is 5(1/16) = 5/16.
+      - |
+        Correct. Geometric with ratio r = −1/4 (|r| < 1) and first term 5(−1/4)² = 5/16: sum = (5/16)/(1 − (−1/4)) = (5/16)/(5/4) = 1/4.
+      - |
+        This divides by 1 − 1/4 instead of 1 − (−1/4), ignoring the negative sign in the ratio.
+      - |
+        This starts the sum at n = 1, using the first term 5(−1/4) = −5/4; the series starts at n = 2.
+    answer: 1
+  - slug: apcalcbc-final-q26
+    type: multiple_choice
+    topic_code: "10.6"
+    source: "AP Calculus CED, Topic 10.6"
+    points: 1
+    prompt: |
+      Which of these series converges?
+    options:
+      - "∑ (n = 1 to ∞) 2n/(n² + 5)"
+      - "∑ (n = 1 to ∞) 1/√n"
+      - "∑ (n = 1 to ∞) (n + 1)/(2n)"
+      - "∑ (n = 1 to ∞) 5/(n√n)"
+    option_explanations:
+      - |
+        Limit comparison with 1/n: (2n/(n² + 5))/(1/n) → 2, a positive finite limit, and the harmonic series diverges, so this series diverges too.
+      - |
+        This is a p-series with p = 1/2 ≤ 1, so it diverges even though its terms tend to 0.
+      - |
+        The terms tend to 1/2, not 0, so the series diverges by the nth term test.
+      - |
+        Correct. 5/(n√n) = 5/n^(3/2), a constant multiple of a p-series with p = 3/2 > 1, which converges.
+    answer: 3
+  - slug: apcalcbc-final-q27
+    type: multiple_choice
+    topic_code: "10.13"
+    source: "AP Calculus CED, Topic 10.13"
+    points: 1
+    prompt: |
+      What is the interval of convergence of the power series ∑ (n = 1 to ∞) (x − 1)ⁿ/(n · 4ⁿ)?
+    options:
+      - "[−3, 5)"
+      - "(−3, 5)"
+      - "(−3, 5]"
+      - "[−3, 5]"
+    option_explanations:
+      - |
+        Correct. The ratio test gives |x − 1|/4 < 1, so −3 < x < 5. At x = 5 the series is ∑ 1/n, which diverges; at x = −3 it is ∑ (−1)ⁿ/n, which converges by the alternating series test.
+      - |
+        This finds the radius 4 but never tests the endpoints; at x = −3 the alternating harmonic series converges, so −3 belongs.
+      - |
+        This swaps the endpoints: at x = 5 the terms are 1/n (the harmonic series, divergent) and at x = −3 they alternate in sign.
+      - |
+        At x = 5 the series is the harmonic series ∑ 1/n, which diverges, so 5 cannot be included.
+    answer: 0
+  - slug: apcalcbc-final-q28
+    type: multiple_choice
+    topic_code: "10.11"
+    source: "AP Calculus CED, Topic 10.11"
+    points: 1
+    prompt: |
+      A function g has g(1) = −2, g′(1) = 5, g″(1) = −6 and g‴(1) = 18. In the third-degree Taylor polynomial for g about x = 1, what is the coefficient of (x − 1)³?
+    options:
+      - "18"
+      - "6"
+      - "3"
+      - "1/3"
+    option_explanations:
+      - |
+        This uses g‴(1) as the coefficient without dividing by 3!; the Taylor coefficient is g⁽ⁿ⁾(a)/n!.
+      - |
+        This divides g‴(1) by 3 instead of by 3! = 6.
+      - |
+        Correct. The coefficient of (x − 1)³ is g‴(1)/3! = 18/6 = 3.
+      - |
+        This inverts the coefficient, computing 3!/g‴(1) = 6/18.
+    answer: 2
+  - slug: apcalcbc-final-q29
+    type: multiple_choice
+    topic_code: "10.15"
+    source: "AP Calculus CED, Topic 10.15"
+    points: 1
+    prompt: |
+      Which is the Maclaurin series for f(x) = x/(1 + x²)?
+    options:
+      - "x + x³ + x⁵ + x⁷ + ⋯"
+      - "1 − x² + x⁴ − x⁶ + ⋯"
+      - "x − x² + x³ − x⁴ + ⋯"
+      - "x − x³ + x⁵ − x⁷ + ⋯"
+    option_explanations:
+      - |
+        This is x/(1 − x²); replacing u by −x² in 1/(1 − u) makes the signs alternate.
+      - |
+        This is the series for 1/(1 + x²) alone, before multiplying every term by x.
+      - |
+        This substitutes −x for u in 1/(1 − u) instead of −x², which gives x/(1 + x).
+      - |
+        Correct. 1/(1 + x²) = 1 − x² + x⁴ − x⁶ + ⋯ (the geometric series with ratio −x²), and multiplying by x gives x − x³ + x⁵ − x⁷ + ⋯ for |x| < 1.
+    answer: 3
+  # ---- Section I, Part B: graphing calculator required (q30-q42).
+  - slug: apcalcbc-final-q30
+    type: multiple_choice
+    topic_code: "1.16"
+    source: "AP Calculus CED, Topic 1.16"
+    points: 1
+    prompt: |
+      (Calculator.) Let f(x) = x³ − 2x + cos x. On which interval does the Intermediate Value Theorem guarantee a solution of f(x) = 2?
+    options:
+      - "[−2, −1]"
+      - "[1, 2]"
+      - "[0, 1]"
+      - "[−1, 0]"
+    option_explanations:
+      - |
+        f(−2) ≈ −4.416 and f(−1) ≈ 1.540; both are below 2, so 2 is not between the endpoint values.
+      - |
+        Correct. f is continuous, f(1) = −1 + cos 1 ≈ −0.460 and f(2) = 4 + cos 2 ≈ 3.584, and 2 lies between them, so some c in (1, 2) has f(c) = 2.
+      - |
+        f(0) = 1 and f(1) ≈ −0.460; both are below 2, so the theorem gives no solution of f(x) = 2 here.
+      - |
+        f(−1) ≈ 1.540 and f(0) = 1; both are below 2. A calculator in degree mode gives values near 2 here, which is the usual trap.
+    answer: 1
+  - slug: apcalcbc-final-q31
+    type: multiple_choice
+    topic_code: "2.8"
+    source: "AP Calculus CED, Topic 2.8"
+    points: 1
+    prompt: |
+      (Calculator.) Let f(x) = x²·e^(−x/3). What is f′(4)?
+    options:
+      - "0.703"
+      - "−2.109"
+      - "2.109"
+      - "3.515"
+    option_explanations:
+      - |
+        Correct. f′(x) = 2x·e^(−x/3) − (x²/3)e^(−x/3), so f′(4) = (8 − 16/3)e^(−4/3) ≈ 0.703 (or a numerical derivative on the calculator).
+      - |
+        This uses −1 instead of −1/3 as the derivative of the exponent, giving (8 − 16)e^(−4/3).
+      - |
+        This keeps only the first product-rule term, 2x·e^(−x/3), treating the exponential as a constant.
+      - |
+        This adds the second product-rule term instead of subtracting it, dropping the negative sign from the derivative of −x/3.
+    answer: 0
+  - slug: apcalcbc-final-q32
+    type: multiple_choice
+    topic_code: "3.1"
+    source: "AP Calculus CED, Topic 3.1"
+    points: 1
+    prompt: |
+      (Calculator.) Let f(x) = √(1 + x³). For what positive value of x is f′(x) = 1.5?
+    options:
+      - "0.779"
+      - "1.077"
+      - "1.380"
+      - "1"
+    option_explanations:
+      - |
+        This drops the factor 1/2 from the derivative of the square root, solving 3x²/√(1 + x³) = 1.5.
+      - |
+        This solves f(x) = 1.5, that is √(1 + x³) = 1.5, instead of f′(x) = 1.5.
+      - |
+        Correct. f′(x) = 3x²/(2√(1 + x³)). Graphing y = f′(x) and y = 1.5 (or solving numerically) gives one positive intersection, x ≈ 1.380.
+      - |
+        This differentiates only the inside, 3x², and divides by 2, losing the √(1 + x³) in the denominator: 3x²/2 = 1.5.
+    answer: 2
+  - slug: apcalcbc-final-q33
+    type: multiple_choice
+    topic_code: "4.3"
+    source: "AP Calculus CED, Topic 4.3"
+    points: 1
+    prompt: |
+      (Calculator.) The temperature of a mug of tea (hypothetical) is T(t) = 22 + 68e^(−0.06t) degrees Celsius, t minutes after it is poured. At what time is the temperature decreasing at 2 degrees Celsius per minute?
+    options:
+      - "58.773"
+      - "29.863"
+      - "27.451"
+      - "11.882"
+    option_explanations:
+      - |
+        This solves 68e^(−0.06t) = 2, setting the excess temperature (not its rate of change) equal to 2 or forgetting the factor −0.06 from the chain rule.
+      - |
+        This applies dT/dt = −0.06T to the whole temperature, including the room temperature 22, solving 0.06(22 + 68e^(−0.06t)) = 2.
+      - |
+        This sets the average rate of change over [0, t] equal to −2, solving (T(t) − T(0))/t = −2; the question asks for the instantaneous rate.
+      - |
+        Correct. T′(t) = −4.08e^(−0.06t). Solving −4.08e^(−0.06t) = −2 gives t = ln(2.04)/0.06 ≈ 11.882 minutes.
+    answer: 3
+  - slug: apcalcbc-final-q34
+    type: multiple_choice
+    topic_code: "5.5"
+    source: "AP Calculus CED, Topic 5.5"
+    points: 1
+    prompt: |
+      (Calculator.) What is the absolute maximum value of f(x) = x cos x + 1 on the closed interval [0, 3]?
+    options:
+      - "0.860"
+      - "1.561"
+      - "1"
+      - "−1.970"
+    option_explanations:
+      - |
+        0.860 is where the maximum occurs, the solution of f′(x) = cos x − x sin x = 0; the question asks for the value f(0.860).
+      - |
+        Correct. f′(x) = cos x − x sin x = 0 at x ≈ 0.860 in [0, 3]. Candidates: f(0) = 1, f(0.860) ≈ 1.561, f(3) ≈ −1.970. The largest is 1.561.
+      - |
+        1 is f(0), an endpoint candidate; the critical point x ≈ 0.860 gives a larger value.
+      - |
+        −1.970 is f(3), the absolute minimum on [0, 3], not the maximum.
+    answer: 1
+  - slug: apcalcbc-final-q35
+    type: multiple_choice
+    topic_code: "5.4"
+    source: "AP Calculus CED, Topic 5.4"
+    points: 1
+    prompt: |
+      (Calculator.) The derivative of a function f is f′(x) = sin(x²) − 0.3x. How many relative maxima does f have on the open interval (0, 3)?
+    options:
+      - "4"
+      - "1"
+      - "2"
+      - "3"
+    option_explanations:
+      - |
+        f′ has four zeros in (0, 3), near 0.301, 1.623, 2.687 and 2.894, but only those where f′ changes from positive to negative are relative maxima.
+      - |
+        This finds the change from positive to negative near x = 1.623 but uses a viewing window that stops before x ≈ 2.894.
+      - |
+        Correct. Graphing f′ shows sign changes at x ≈ 0.301 (− to +), 1.623 (+ to −), 2.687 (− to +) and 2.894 (+ to −). f′ changes from positive to negative twice, so f has two relative maxima.
+      - |
+        This adds the left end of the interval as a maximum because f starts by decreasing, but an open interval has no endpoints and a relative extremum must be interior.
+    answer: 2
+  - slug: apcalcbc-final-q36
+    type: multiple_choice
+    topic_code: "6.7"
+    source: "AP Calculus CED, Topic 6.7"
+    points: 1
+    prompt: |
+      (Calculator.) A function g has g(1) = 5 and g′(x) = √(x⁴ + 3). What is g(3)?
+    options:
+      - "14.531"
+      - "9.531"
+      - "9.165"
+      - "−4.531"
+    option_explanations:
+      - |
+        Correct. g(3) = g(1) + ∫ from 1 to 3 of √(x⁴ + 3) dx ≈ 5 + 9.531 = 14.531.
+      - |
+        9.531 is the change ∫ from 1 to 3 of g′(x) dx; it must be added to the initial value g(1) = 5.
+      - |
+        9.165 is g′(3) = √84, the slope at x = 3, not the value of g there.
+      - |
+        This subtracts the accumulated change from 5, as if the limits ran from 3 to 1.
+    answer: 0
+  - slug: apcalcbc-final-q37
+    type: multiple_choice
+    topic_code: "6.2"
+    source: "AP Calculus CED, Topic 6.2"
+    points: 1
+    prompt: |
+      (Calculator.) Water flows into a tank (hypothetical data) at a rate r(t) litres per minute, with selected values shown below. Using a trapezoidal sum with the four subintervals in the table, what is the approximation of ∫ from 0 to 10 of r(t) dt?
+
+      | t (minutes) | 0 | 2 | 5 | 9 | 10 |
+      |---|---|---|---|---|---|
+      | r(t) (litres per minute) | 12 | 15 | 11 | 8 | 10 |
+    options:
+      - "121"
+      - "105"
+      - "112"
+      - "113"
+    option_explanations:
+      - |
+        121 is the left Riemann sum 2(12) + 3(15) + 4(11) + 1(8); a trapezoidal sum averages the left and right heights.
+      - |
+        105 is the right Riemann sum 2(15) + 3(11) + 4(8) + 1(10).
+      - |
+        This averages the five table values and multiplies by 10, which treats the subintervals as equal; their widths are 2, 3, 4 and 1.
+      - |
+        Correct. 2(12 + 15)/2 + 3(15 + 11)/2 + 4(11 + 8)/2 + 1(8 + 10)/2 = 27 + 39 + 38 + 9 = 113 litres.
+    answer: 3
+  - slug: apcalcbc-final-q38
+    type: multiple_choice
+    topic_code: "7.8"
+    source: "AP Calculus CED, Topic 7.8"
+    points: 1
+    prompt: |
+      (Calculator.) The mass M of a hypothetical radioactive sample satisfies dM/dt = −0.035M, where t is in days, and M(0) = 80 grams. After how many days will 30 grams remain?
+    options:
+      - "−28.024"
+      - "28.024"
+      - "19.804"
+      - "0.034"
+    option_explanations:
+      - |
+        This writes ln(30/80) = 0.035t, losing the negative sign of the decay constant; a time after t = 0 must be positive.
+      - |
+        Correct. M(t) = 80e^(−0.035t). Solving 80e^(−0.035t) = 30 gives t = ln(80/30)/0.035 ≈ 28.024 days.
+      - |
+        19.804 = ln 2/0.035 is the half-life, the time to reach 40 grams, not 30 grams.
+      - |
+        This multiplies ln(80/30) by 0.035 instead of dividing by it.
+    answer: 1
+  - slug: apcalcbc-final-q39
+    type: multiple_choice
+    topic_code: "8.12"
+    source: "AP Calculus CED, Topic 8.12"
+    points: 1
+    prompt: |
+      (Calculator.) The region R lies between the curves y = sin x and y = x² from x = 0 to their positive intersection, near x = 0.877, where sin x lies above x². R is revolved about the horizontal line y = −1. What is the volume of the solid?
+    options:
+      - "0.279"
+      - "0.079"
+      - "1.132"
+      - "0.573"
+    option_explanations:
+      - |
+        This revolves R about the x-axis, π ∫ (sin² x − x⁴) dx, instead of about y = −1.
+      - |
+        This squares the difference of the radii, π ∫ (sin x − x²)² dx, instead of subtracting their squares.
+      - |
+        Correct. Washers with outer radius sin x + 1 and inner radius x² + 1: V = π ∫ from 0 to 0.8767 of ((sin x + 1)² − (x² + 1)²) dx ≈ 1.132, using the stored intersection value.
+      - |
+        This measures the radii to the line y = 1 (radii 1 − x² and 1 − sin x) instead of to y = −1.
+    answer: 2
+  - slug: apcalcbc-final-q40
+    type: multiple_choice
+    topic_code: "9.6"
+    source: "AP Calculus CED, Topic 9.6"
+    points: 1
+    prompt: |
+      (Calculator.) A particle moves in the xy-plane so that x′(t) = cos(t²) and y′(t) = e^(0.5t). What is the total distance the particle travels from t = 0 to t = 2?
+    options:
+      - "3.828"
+      - "3.467"
+      - "7.672"
+      - "3.898"
+    option_explanations:
+      - |
+        Correct. Distance = ∫ from 0 to 2 of √(cos²(t²) + e^t) dt ≈ 3.828, the integral of the speed.
+      - |
+        3.467 is the straight-line distance between the starting and ending positions (the magnitude of the displacement), which is shorter than the path.
+      - |
+        This integrates the square of the speed, cos²(t²) + e^t, and forgets the square root.
+      - |
+        This adds the integrals of the two velocity components; distance integrates the magnitude √(x′² + y′²).
+    answer: 0
+  - slug: apcalcbc-final-q41
+    type: multiple_choice
+    topic_code: "10.12"
+    source: "AP Calculus CED, Topic 10.12"
+    points: 1
+    prompt: |
+      (Calculator.) Let P₃(x) be the third-degree Maclaurin polynomial for f(x) = eˣ. Which value is the Lagrange error bound for |f(0.5) − P₃(0.5)|, using the largest value of the needed derivative on [0, 0.5]?
+    options:
+      - "0.0258"
+      - "0.0343"
+      - "0.0026"
+      - "0.0043"
+    option_explanations:
+      - |
+        This divides by 4 instead of 4! = 24: e^0.5 · 0.5⁴/4 ≈ 0.0258.
+      - |
+        This uses the third derivative and 3! as if the bound for P₃ came from the term it already contains: e^0.5 · 0.5³/6 ≈ 0.0343.
+      - |
+        This bounds f⁽⁴⁾(z) = e^z by its value 1 at z = 0, but on [0, 0.5] its largest value is e^0.5.
+      - |
+        Correct. The bound is max|f⁽⁴⁾(z)| · 0.5⁴/4! with max e^z = e^0.5 on [0, 0.5]: 1.6487 · 0.0625/24 ≈ 0.0043.
+    answer: 3
+  - slug: apcalcbc-final-q42
+    type: multiple_choice
+    topic_code: "10.10"
+    source: "AP Calculus CED, Topic 10.10"
+    points: 1
+    prompt: |
+      (Calculator.) The series ∑ (n = 1 to ∞) (−1)^(n+1)/(2n + 1)² converges to S. Using the alternating series error bound, what is the least number of terms n for which the partial sum Sₙ is guaranteed to differ from S by less than 0.001?
+    options:
+      - "16"
+      - "15"
+      - "31"
+      - "499"
+    option_explanations:
+      - |
+        This bounds the error by the last term used, 1/(2n + 1)², instead of the first term left out, 1/(2n + 3)².
+      - |
+        Correct. The error is at most the first omitted term, 1/(2(n + 1) + 1)² = 1/(2n + 3)². For n = 14 it is 1/31² ≈ 0.00104, too big; for n = 15 it is 1/33² ≈ 0.000918 < 0.001.
+      - |
+        This replaces the terms by 1/(n + 1)² and solves (n + 1)² > 1000, ignoring the 2n + 1 inside the square.
+      - |
+        This solves (2n + 3)² > 1000 as 2n + 3 > 1000, forgetting the square root.
+    answer: 1
+  - slug: apcalcbc-final-q43
+    type: long_answer
+    topic_code: "8.3"
+    source: "AP Calculus CED, Topic 8.3"
+    points: 9
+    stimulus: |
+      Grain is loaded into a storage silo (hypothetical) at the rate G(t) = 90t·e^(−0.25t) tonnes per hour, and grain is removed from the silo at a constant rate of 90 tonnes per hour, for 0 ≤ t ≤ 12, where t is measured in hours. At time t = 0 the silo holds 400 tonnes of grain.
+    prompt: |
+      (Calculator.) Free-response question 1.
+
+      (A) How many tonnes of grain are loaded into the silo during the 12 hours, 0 ≤ t ≤ 12? Give your answer to three decimal places.
+
+      (B) Find G′(5). Using correct units, explain the meaning of G′(5) in the context of the problem.
+
+      (C) Is the amount of grain in the silo increasing or decreasing at time t = 1? Give a reason for your answer.
+
+      (D) At what time t, for 0 ≤ t ≤ 12, is the amount of grain in the silo least? Find the least amount, to three decimal places. Justify your answer.
+    answer: |
+      (A) ∫ from 0 to 12 of G(t) dt ≈ 1153.226 tonnes (calculator numerical integral).
+      (B) G′(5) ≈ −6.446 (calculator numerical derivative; by hand G′(t) = 90e^(−0.25t)(1 − 0.25t)). At time t = 5 hours, the rate at which grain is loaded into the silo is decreasing at about 6.446 tonnes per hour per hour.
+      (C) Let A(t) be the amount of grain at time t, so A′(t) = G(t) − 90. G(1) = 90e^(−0.25) ≈ 70.092 < 90, so A′(1) < 0. The amount is decreasing at t = 1 because grain is removed faster than it is loaded.
+      (D) A′(t) = G(t) − 90 = 0 at t ≈ 1.430 and t ≈ 8.613 in [0, 12] (graph G and the line y = 90). A(t) = 400 + ∫ from 0 to t of (G(s) − 90) ds. Candidates: A(0) = 400; A(1.430) ≈ 344.069; A(8.613) ≈ 537.629; A(12) = 400 + 1153.226 − 1080 = 473.226. The amount is least at t ≈ 1.430 hours, when the silo holds about 344.069 tonnes.
+    explanation: |
+      Nine points.
+      (A) 2 points: 1 for the integral ∫ from 0 to 12 of G(t) dt (limits and integrand); 1 for 1153.226 (accept 1153.22 or 1153.23).
+      (B) 2 points: 1 for G′(5) ≈ −6.446 (accept −6.45); 1 for the meaning: at t = 5 the loading rate is decreasing at 6.446 tonnes per hour per hour. The units and the word "rate" are both needed; saying that the amount of grain is decreasing earns no point.
+      (C) 1 point: decreasing, with the reason G(1) < 90 (or A′(1) = G(1) − 90 < 0), showing the value or the sign.
+      (D) 4 points: 1 for setting A′(t) = G(t) − 90 = 0; 1 for identifying t ≈ 1.430 as the time of the minimum; 1 for the least amount 344.069 (accept 344.06 or 344.07); 1 for the justification, a candidates test showing A(0) = 400, A(8.613) ≈ 537.629 and A(12) ≈ 473.226 are all larger. A first derivative argument alone at t ≈ 1.430 shows only a relative minimum, so it earns the justification point only if it also rules out the endpoint t = 12. Omitting the initial 400 loses the amount point. Decimal answers must be correct to three places.
+  - slug: apcalcbc-final-q44
+    type: long_answer
+    topic_code: "9.9"
+    source: "AP Calculus CED, Topic 9.9"
+    points: 9
+    stimulus: |
+      The polar curve L is the limaçon r = 3 + 2 sin θ for 0 ≤ θ ≤ 2π, and C is the circle r = 4. The two curves intersect at two points in the upper half-plane.
+    prompt: |
+      (Calculator.) Free-response question 2.
+
+      (A) Let S be the region that is inside L and outside C. Find the area of S. Give your answer to three decimal places.
+
+      (B) Find dr/dθ at θ = 2.5. Explain what your answer says about the point on L as θ increases through 2.5.
+
+      (C) Find the slope of the line tangent to L at the point where θ = π/4. Give your answer to three decimal places.
+
+      (D) Write, but do not evaluate, an integral expression for the area of the region that is inside C and outside L.
+    answer: |
+      (A) The curves meet where 3 + 2 sin θ = 4, so sin θ = 1/2 and θ = π/6 or θ = 5π/6. Area of S = (1/2) ∫ from π/6 to 5π/6 of ((3 + 2 sin θ)² − 16) dθ ≈ 6.022. (Exactly 13√3/2 − 5π/3.)
+      (B) dr/dθ = 2 cos θ, so at θ = 2.5, dr/dθ = 2 cos 2.5 ≈ −1.602. Since r > 0 and dr/dθ < 0, the point on L is moving closer to the origin as θ increases through 2.5: its distance from the origin is decreasing at about 1.602 units per radian.
+      (C) x = r cos θ = (3 + 2 sin θ) cos θ and y = r sin θ = (3 + 2 sin θ) sin θ. dy/dx = (dy/dθ)/(dx/dθ); at θ = π/4 this is ≈ −1.943 (calculator numerical derivatives; exactly −1 − 2√2/3).
+      (D) (1/2) ∫ from 5π/6 to 13π/6 of (16 − (3 + 2 sin θ)²) dθ. Equivalent forms: 16π − (1/2) ∫ from 0 to 2π of (3 + 2 sin θ)² dθ + (area of S); or (1/2) ∫ from −7π/6 to π/6 of (16 − (3 + 2 sin θ)²) dθ.
+    explanation: |
+      Nine points.
+      (A) 3 points: 1 for the limits π/6 and 5π/6 (from 3 + 2 sin θ = 4); 1 for the integrand (1/2)((3 + 2 sin θ)² − 16), with the 1/2 and both radii squared; 1 for 6.022 (accept 6.02). Squaring the difference, (3 + 2 sin θ − 4)², earns no integrand point.
+      (B) 2 points: 1 for dr/dθ ≈ −1.602 (accept −1.60); 1 for the interpretation that the point is moving toward the origin (its distance from the origin is decreasing), which needs r > 0 to be noticed or stated. "The curve is decreasing" earns no point.
+      (C) 2 points: 1 for dy/dx = (dy/dθ)/(dx/dθ) with x = r cos θ and y = r sin θ; 1 for −1.943 (accept −1.94). Reporting dr/dθ at π/4 as the slope earns nothing.
+      (D) 2 points: 1 for limits that sweep the part of C outside L, from 5π/6 to 13π/6 (or an equivalent interval of length 4π/3 through 3π/2); 1 for the integrand (1/2)(16 − (3 + 2 sin θ)²). A correct equivalent built from the circle's area 16π earns both points.
+  # ---- Section II, Part B: no calculator (q45-q48).
+  - slug: apcalcbc-final-q45
+    type: long_answer
+    topic_code: "6.5"
+    source: "AP Calculus CED, Topic 6.5"
+    points: 9
+    stimulus: |
+      The continuous function f is defined for x ≥ −2. On the interval −2 ≤ x ≤ 6, the graph of f consists of four line segments joining, in order, the points (−2, 0), (0, 2), (2, 2), (4, −2) and (6, −1). For x > 6, f(x) = −8/(x − 4)³. Let g(x) = ∫ from 0 to x of f(t) dt.
+    prompt: |
+      (No calculator.) Free-response question 3.
+
+      (A) Find g(4) and g(−2).
+
+      (B) Find the x-coordinate of each point at which g has a relative minimum or a relative maximum on the open interval (−2, 6). Classify each one and justify your answer.
+
+      (C) On what open intervals contained in (−2, 6) is the graph of g concave down? Give a reason for your answer.
+
+      (D) Evaluate the improper integral ∫ from 6 to ∞ of f(x) dx, showing the limit, and use it to find lim (x→∞) g(x).
+    answer: |
+      (A) g(4) = ∫ from 0 to 4 of f(t) dt. On [0, 2] the rectangle has area 4. On [2, 4], f(t) = −2t + 6 crosses zero at t = 3, giving a triangle of area 1 above the axis and one of area 1 below, so that part contributes 0. g(4) = 4. g(−2) = −∫ from −2 to 0 of f(t) dt = −(1/2)(2)(2) = −2.
+      (B) g′(x) = f(x). On (−2, 6), f = 0 only at x = 3. g has a relative maximum at x = 3 because g′ = f changes from positive to negative there. There is no relative minimum on (−2, 6): f is positive on (−2, 3) and negative on (3, 6).
+      (C) g″(x) = f′(x). The graph of g is concave down on (2, 4), because g′ = f is decreasing there. (On (0, 2), f is constant, so g is linear there; on (−2, 0) and (4, 6), f is increasing, so g is concave up.)
+      (D) ∫ from 6 to ∞ of −8/(x − 4)³ dx = lim (b→∞) [4/(x − 4)²] from 6 to b = lim (b→∞) (4/(b − 4)² − 4/4) = 0 − 1 = −1. g(6) = g(4) + ∫ from 4 to 6 of f(t) dt = 4 + (1/2)(2)(−2 + −1) = 4 − 3 = 1. Therefore lim (x→∞) g(x) = g(6) + ∫ from 6 to ∞ of f(t) dt = 1 + (−1) = 0.
+    explanation: |
+      Nine points.
+      (A) 2 points: 1 for g(4) = 4; 1 for g(−2) = −2. Reversed limits giving +2 for g(−2) is the usual error and earns no point.
+      (B) 2 points: 1 for the relative maximum at x = 3; 1 for the reason "g′ = f changes from positive to negative at x = 3". Naming a relative minimum anywhere in (−2, 6) loses the first point.
+      (C) 2 points: 1 for the interval (2, 4) only; 1 for the reason "g′ = f is decreasing" (or g″ = f′ < 0). Including (0, 2) loses the interval point.
+      (D) 3 points: 1 for writing the improper integral as a limit, lim (b→∞) ∫ from 6 to b; 1 for the antiderivative 4/(x − 4)² and the value −1; 1 for g(6) = 1 and lim (x→∞) g(x) = 0. Writing "4/∞²" or evaluating "at ∞" without a limit loses the first point.
+  - slug: apcalcbc-final-q46
+    type: long_answer
+    topic_code: "7.7"
+    source: "AP Calculus CED, Topic 7.7"
+    points: 9
+    stimulus: |
+      Let y = f(x) be the particular solution of the differential equation dy/dx = (y − 1)(2x + 1) with initial condition f(0) = 3.
+    prompt: |
+      (No calculator.) Free-response question 4.
+
+      (A) Write an equation for the line tangent to the graph of f at x = 0, and use it to approximate f(0.2).
+
+      (B) Find d²y/dx² at the point (0, 3). Is the approximation in part (A) an overestimate or an underestimate of f(0.2)? Give a reason for your answer.
+
+      (C) Use Euler's method, starting at x = 0 with two steps of equal size, to approximate f(0.2). Show the work that leads to your answer.
+
+      (D) Find y = f(x), the particular solution of the differential equation with the initial condition f(0) = 3.
+    answer: |
+      (A) At (0, 3), dy/dx = (3 − 1)(0 + 1) = 2. Tangent line: y = 3 + 2x. f(0.2) ≈ 3 + 2(0.2) = 3.4.
+      (B) d²y/dx² = (dy/dx)(2x + 1) + 2(y − 1). At (0, 3): 2 · 1 + 2 · 2 = 6. Since d²y/dx² > 0 at (0, 3), the graph of f is concave up near x = 0, so the tangent line lies below the graph and 3.4 is an underestimate of f(0.2).
+      (C) Step size 0.1. At (0, 3) the slope is 2, so f(0.1) ≈ 3 + 0.1(2) = 3.2. At (0.1, 3.2) the slope is (2.2)(1.2) = 2.64, so f(0.2) ≈ 3.2 + 0.1(2.64) = 3.464.
+      (D) Separate: dy/(y − 1) = (2x + 1) dx. Integrate: ln|y − 1| = x² + x + C. At (0, 3): ln 2 = C. So |y − 1| = 2e^(x² + x), and since y − 1 = 2 > 0 at the initial point, y = 1 + 2e^(x² + x).
+    explanation: |
+      Nine points.
+      (A) 2 points: 1 for the tangent line y = 3 + 2x (any equivalent form); 1 for the approximation 3.4.
+      (B) 2 points: 1 for d²y/dx² = (dy/dx)(2x + 1) + 2(y − 1) and the value 6 at (0, 3); 1 for "underestimate" with the reason that the graph is concave up (d²y/dx² > 0) near x = 0. Forgetting the product rule (missing the 2(y − 1) term) loses the first point.
+      (C) 1 point: Euler's method with steps of 0.1, showing the intermediate value 3.2 and the slope 2.64, ending at 3.464.
+      (D) 4 points: 1 for separating the variables; 1 for the antiderivatives ln|y − 1| and x² + x; 1 for the constant of integration and using the initial condition to find C = ln 2; 1 for solving for y = 1 + 2e^(x² + x). A student who does not separate the variables earns none of these 4 points; a student who adds the constant only after solving for y earns at most 2.
+  - slug: apcalcbc-final-q47
+    type: long_answer
+    topic_code: "8.12"
+    source: "AP Calculus CED, Topic 8.12"
+    points: 9
+    stimulus: |
+      Let R be the region in the first quadrant enclosed by the graphs of y = 2√x and y = x, which intersect at the origin and at the point (4, 4).
+    prompt: |
+      (No calculator.) Free-response question 5.
+
+      (A) Find the area of R.
+
+      (B) Find the volume of the solid generated when R is revolved about the horizontal line y = 5.
+
+      (C) R is the base of a solid whose cross sections perpendicular to the x-axis are squares. Find the volume of the solid.
+
+      (D) Write, but do not evaluate, an expression involving one or more integrals that gives the perimeter of R.
+    answer: |
+      (A) On [0, 4], 2√x ≥ x. Area = ∫ from 0 to 4 of (2√x − x) dx = [(4/3)x^(3/2) − x²/2] from 0 to 4 = 32/3 − 8 = 8/3.
+      (B) The line y = 5 lies above R, so the outer radius is 5 − x (to the lower curve) and the inner radius is 5 − 2√x. V = π ∫ from 0 to 4 of ((5 − x)² − (5 − 2√x)²) dx = π ∫ from 0 to 4 of (x² − 14x + 20√x) dx = π(64/3 − 112 + 320/3) = π(128 − 112) = 16π.
+      (C) The side of the square at x is 2√x − x. V = ∫ from 0 to 4 of (2√x − x)² dx = ∫ from 0 to 4 of (4x − 4x^(3/2) + x²) dx = 32 − 256/5 + 64/3 = 32/15.
+      (D) The boundary is the segment of y = x from (0, 0) to (4, 4), of length 4√2, and the arc of y = 2√x. Writing that arc as x = y²/4 for 0 ≤ y ≤ 4, dx/dy = y/2, so its length is ∫ from 0 to 4 of √(1 + y²/4) dy. Perimeter = 4√2 + ∫ from 0 to 4 of √(1 + y²/4) dy. (Equivalently 4√2 + ∫ from 0 to 4 of √(1 + 1/x) dx, an improper but convergent integral.)
+    explanation: |
+      Nine points.
+      (A) 2 points: 1 for the integral ∫ from 0 to 4 of (2√x − x) dx; 1 for 8/3.
+      (B) 3 points: 1 for the constant π and the limits 0 and 4; 1 for the integrand (5 − x)² − (5 − 2√x)², with both radii measured from y = 5 and the larger one first; 1 for 16π. Using radii x and 2√x (revolving about the x-axis) earns at most the first point.
+      (C) 2 points: 1 for the integral of (2√x − x)²; 1 for 32/15.
+      (D) 2 points: 1 for a correct arc length integral for y = 2√x (in y as shown, or in x); 1 for adding the segment length 4√2. Forgetting the square root in the arc length integrand loses the first point.
+  - slug: apcalcbc-final-q48
+    type: long_answer
+    topic_code: "10.13"
+    source: "AP Calculus CED, Topic 10.13"
+    points: 9
+    stimulus: |
+      The function f is defined by the power series f(x) = ∑ (n = 1 to ∞) (−1)^(n+1)(x + 1)ⁿ/(n · 4ⁿ) = (x + 1)/4 − (x + 1)²/32 + (x + 1)³/192 − ⋯ for all x at which the series converges.
+    prompt: |
+      (No calculator.) Free-response question 6.
+
+      (A) Find the interval of convergence of the series. Show the work that leads to your answer, including the analysis of the endpoints.
+
+      (B) Find the first three nonzero terms and the general term of the power series for f′(x) about x = −1.
+
+      (C) Show that f′(x) = 1/(x + 5) for x in the open interval of convergence.
+
+      (D) Use the second-degree Taylor polynomial for f about x = −1 to approximate f(1). Use the alternating series error bound to show that this approximation differs from f(1) by less than 1/20.
+    answer: |
+      (A) Ratio test: |aₙ₊₁/aₙ| = (n/(n + 1)) · |x + 1|/4 → |x + 1|/4 as n → ∞. The series converges when |x + 1|/4 < 1, that is −5 < x < 3, and diverges when |x + 1| > 4. At x = 3 the series is ∑ (−1)^(n+1)/n, the alternating harmonic series, which converges by the alternating series test (terms 1/n decrease to 0). At x = −5 the series is ∑ (−1)^(n+1)(−1)ⁿ/n = −∑ 1/n, a multiple of the harmonic series, which diverges. Interval of convergence: −5 < x ≤ 3.
+      (B) Differentiating term by term: f′(x) = 1/4 − (x + 1)/16 + (x + 1)²/64 − ⋯ + (−1)^(n+1)(x + 1)^(n−1)/4ⁿ + ⋯.
+      (C) The series in (B) is geometric with first term 1/4 and ratio −(x + 1)/4, which has absolute value less than 1 on −5 < x < 3. Its sum is (1/4)/(1 + (x + 1)/4) = 1/(4 + x + 1) = 1/(x + 5).
+      (D) P₂(x) = (x + 1)/4 − (x + 1)²/32, so f(1) ≈ P₂(1) = 2/4 − 4/32 = 1/2 − 1/8 = 3/8. At x = 1 the series is 2/4 − 4/32 + 8/192 − ⋯ = 1/2 − 1/8 + 1/24 − ⋯, which alternates, with terms 2ⁿ/(n · 4ⁿ) = 1/(n · 2ⁿ) decreasing in absolute value to 0. By the alternating series error bound, |f(1) − 3/8| is at most the first omitted term, 1/24, and 1/24 < 1/20.
+    explanation: |
+      Nine points.
+      (A) 3 points: 1 for setting up the ratio test and the limit |x + 1|/4; 1 for the open interval −5 < x < 3 (radius 4); 1 for both endpoint conclusions with reasons: converges at x = 3 (alternating series test) and diverges at x = −5 (harmonic series). The endpoint point needs a reason for each endpoint.
+      (B) 2 points: 1 for the first three nonzero terms 1/4 − (x + 1)/16 + (x + 1)²/64; 1 for the general term (−1)^(n+1)(x + 1)^(n−1)/4ⁿ (or an equivalent with a shifted index).
+      (C) 2 points: 1 for identifying the series as geometric with ratio −(x + 1)/4; 1 for the sum (1/4)/(1 + (x + 1)/4) simplified to 1/(x + 5).
+      (D) 2 points: 1 for the approximation 3/8; 1 for the error bound 1/24 with the comparison 1/24 < 1/20, citing the alternating series error bound (alternating terms decreasing in absolute value to 0). Using a Lagrange bound is acceptable only with a correct bound on the third derivative.
+  - slug: apcalcbc-final-q49
+    type: numeric
+    topic_code: "9.1"
+    source: "AP Calculus CED, Topic 9.1"
+    points: 1
+    stimulus: |
+      A particle moves in the xy-plane for 0 ≤ t ≤ 5. Its velocity components are x′(t) = 2t − 4 and y′(t) = 3t² − 12, and at time t = 0 the particle is at the point (1, −2).
+    prompt: |
+      What is the slope of the particle's path, dy/dx, at time t = 1? Give your answer as a decimal.
+    answer: { value: 4.5, tolerance: 0.001 }
+    explanation: |
+      dy/dx = y′(t)/x′(t). At t = 1, y′(1) = 3 − 12 = −9 and x′(1) = 2 − 4 = −2, so dy/dx = −9/−2 = 4.5. Dividing x′ by y′ gives 2/9, the usual slip.
+  - slug: apcalcbc-final-q50
+    type: fill_blank
+    topic_code: "9.6"
+    source: "AP Calculus CED, Topic 9.6"
+    points: 1
+    stimulus: |
+      A particle moves in the xy-plane for 0 ≤ t ≤ 5. Its velocity components are x′(t) = 2t − 4 and y′(t) = 3t² − 12, and at time t = 0 the particle is at the point (1, −2).
+    prompt: |
+      The particle is at rest (both velocity components zero) at time t = ____.
+    answer: ["2", "t = 2", "t=2", "2.0"]
+    explanation: |
+      x′(t) = 0 only at t = 2, and y′(t) = 3(t² − 4) = 0 at t = 2 (t = −2 is outside the domain). Both components vanish at t = 2, so the particle is at rest then.
+  - slug: apcalcbc-final-q51
+    type: true_false
+    topic_code: "9.5"
+    source: "AP Calculus CED, Topic 9.5"
+    points: 1
+    stimulus: |
+      A particle moves in the xy-plane for 0 ≤ t ≤ 5. Its velocity components are x′(t) = 2t − 4 and y′(t) = 3t² − 12, and at time t = 0 the particle is at the point (1, −2).
+    prompt: |
+      True or false: At time t = 3 the particle is at the point (−2, −9).
+    answer: false
+    explanation: |
+      False. x(3) = 1 + ∫ from 0 to 3 of (2t − 4) dt = 1 + (9 − 12) = −2, and y(3) = −2 + ∫ from 0 to 3 of (3t² − 12) dt = −2 + (27 − 36) = −11. The particle is at (−2, −11); −9 is the change in y alone, without the initial value y(0) = −2.
+  - slug: apcalcbc-final-q52
+    type: numeric
+    topic_code: "9.6"
+    source: "AP Calculus CED, Topic 9.6"
+    points: 1
+    stimulus: |
+      A particle moves in the xy-plane for 0 ≤ t ≤ 5. Its velocity components are x′(t) = 2t − 4 and y′(t) = 3t² − 12, and at time t = 0 the particle is at the point (1, −2).
+    prompt: |
+      What is the speed of the particle at time t = 3? Give your answer to three decimal places.
+    answer: { value: 15.133, tolerance: 0.001 }
+    explanation: |
+      At t = 3, x′(3) = 2 and y′(3) = 27 − 12 = 15. Speed = √(2² + 15²) = √229 ≈ 15.133.
+  - slug: apcalcbc-final-q53
+    type: multi_select
+    topic_code: "10.9"
+    source: "AP Calculus CED, Topic 10.9"
+    points: 1
+    partial_credit: true
+    prompt: |
+      Which of these series converge conditionally (converge, but not absolutely)? Select all that apply.
+    options:
+      - "∑ (n = 1 to ∞) (−1)ⁿ/√n"
+      - "∑ (n = 1 to ∞) (−1)ⁿ/n²"
+      - "∑ (n = 1 to ∞) (−1)ⁿ n/(n + 1)"
+      - "∑ (n = 2 to ∞) (−1)ⁿ/(n ln n)"
+      - "∑ (n = 1 to ∞) (−1)ⁿ/(2n + 1)"
+    option_explanations:
+      - |
+        Correct. The alternating series test applies (1/√n decreases to 0), but ∑ 1/√n is a p-series with p = 1/2 and diverges, so the convergence is conditional.
+      - |
+        ∑ 1/n² is a p-series with p = 2 > 1, so this series converges absolutely, not conditionally.
+      - |
+        The terms n/(n + 1) tend to 1, so the terms do not tend to 0 and the series diverges by the nth term test.
+      - |
+        Correct. 1/(n ln n) decreases to 0, so the alternating series converges; ∑ 1/(n ln n) diverges by the integral test (∫ dx/(x ln x) = ln(ln x) → ∞).
+      - |
+        Correct. 1/(2n + 1) decreases to 0, so the series converges; ∑ 1/(2n + 1) diverges by limit comparison with ∑ 1/n.
+    answer: [0, 3, 4]
+  - slug: apcalcbc-final-q54
+    type: true_false
+    topic_code: "10.4"
+    source: "AP Calculus CED, Topic 10.4"
+    points: 1
+    prompt: |
+      True or false: The series ∑ (n = 2 to ∞) 1/(n√(ln n)) converges.
+    answer: false
+    explanation: |
+      False. f(x) = 1/(x√(ln x)) is positive, continuous and decreasing for x ≥ 2. With u = ln x, ∫ from 2 to ∞ of dx/(x√(ln x)) = lim (b→∞) [2√(ln x)] from 2 to b = ∞, so the series diverges by the integral test. The terms tend to 0, which is not enough; only a power of ln n greater than 1 in the denominator, as in 1/(n(ln n)²), gives convergence.
+  - slug: apcalcbc-final-q55
+    type: fill_blank
+    topic_code: "10.14"
+    source: "AP Calculus CED, Topic 10.14"
+    points: 1
+    prompt: |
+      In the Maclaurin series for sin(2x), the coefficient of x³ is ____.
+    answer: ["-4/3", "−4/3", "-4 / 3", "−4 / 3", "-1.333", "−1.333", "-1.33", "−1.33"]
+    explanation: |
+      sin u = u − u³/3! + ⋯ with u = 2x gives 2x − (2x)³/6 + ⋯ = 2x − (8/6)x³ + ⋯, so the coefficient is −8/6 = −4/3. Forgetting to cube the 2 gives −1/3; forgetting the factorial gives −8.
+  - slug: apcalcbc-final-q56
+    type: numeric
+    topic_code: "6.13"
+    source: "AP Calculus CED, Topic 6.13"
+    points: 1
+    prompt: |
+      Evaluate the improper integral ∫ from 2 to ∞ of 6/x⁴ dx. Give your answer as a decimal.
+    answer: { value: 0.25, tolerance: 0.001 }
+    explanation: |
+      ∫ from 2 to ∞ of 6x⁻⁴ dx = lim (b→∞) [−2/x³] from 2 to b = lim (b→∞) (−2/b³ + 2/8) = 1/4 = 0.25.
+  - slug: apcalcbc-final-q57
+    type: short_answer
+    topic_code: "6.11"
+    source: "AP Calculus CED, Topic 6.11"
+    points: 3
+    prompt: |
+      Use integration by parts to evaluate ∫ from 1 to e of x ln x dx exactly. State your choices of u and dv.
+    answer: |
+      Let u = ln x and dv = x dx, so du = dx/x and v = x²/2. Then ∫ x ln x dx = (x²/2) ln x − ∫ (x²/2)(1/x) dx = (x²/2) ln x − x²/4 + C. From 1 to e: (e²/2 − e²/4) − (0 − 1/4) = e²/4 + 1/4 = (e² + 1)/4.
+    explanation: |
+      Three points. 1 point: u = ln x, dv = x dx with du = dx/x and v = x²/2. 1 point: the antiderivative (x²/2) ln x − x²/4. 1 point: the value (e² + 1)/4 (≈ 2.097), including the lower limit's +1/4 (ln 1 = 0). Choosing u = x and dv = ln x dx needs the antiderivative of ln x first and earns the first point only if carried through correctly.
+  - slug: apcalcbc-final-q58
+    type: fill_blank
+    topic_code: "6.12"
+    source: "AP Calculus CED, Topic 6.12"
+    points: 1
+    prompt: |
+      The partial fraction decomposition is 5/((x − 2)(x + 3)) = A/(x − 2) + B/(x + 3), where B = ____.
+    answer: ["-1", "−1", "-1.0", "−1.0"]
+    explanation: |
+      Multiply through: 5 = A(x + 3) + B(x − 2). At x = −3: 5 = −5B, so B = −1. (At x = 2: 5 = 5A, so A = 1.) The integral of the left side is therefore ln|x − 2| − ln|x + 3| + C.
+  - slug: apcalcbc-final-q59
+    type: multi_select
+    topic_code: "7.9"
+    source: "AP Calculus CED, Topic 7.9"
+    points: 1
+    partial_credit: true
+    prompt: |
+      A hypothetical population P(t) of hares on an island satisfies dP/dt = (P/4)(1 − P/1500), with P(0) = 300. Which statements are true? Select all that apply.
+    options:
+      - "lim (t→∞) P(t) = 1500."
+      - "The population grows fastest when P = 1500."
+      - "The graph of P is concave up while P < 750."
+      - "If instead P(0) = 2000, then P(t) increases for all t ≥ 0."
+      - "P(t) is increasing for all t ≥ 0."
+    option_explanations:
+      - |
+        Correct. 1500 is the carrying capacity; a solution starting between 0 and 1500 approaches it as t → ∞.
+      - |
+        At P = 1500, dP/dt = 0. The growth rate (P/4)(1 − P/1500) is greatest at half the carrying capacity, P = 750.
+      - |
+        Correct. dP/dt increases as P rises from 300 toward 750 (the rate is a downward parabola in P with vertex at 750), so d²P/dt² > 0 while P < 750.
+      - |
+        If P(0) = 2000 > 1500, then 1 − P/1500 < 0, so dP/dt < 0 and the population decreases toward 1500.
+      - |
+        Correct. For 0 < P < 1500 both factors are positive, so dP/dt > 0, and the solution never reaches 1500 in finite time.
+    answer: [0, 2, 4]
+  - slug: apcalcbc-final-q60
+    type: true_false
+    topic_code: "7.5"
+    source: "AP Calculus CED, Topic 7.5"
+    points: 1
+    prompt: |
+      True or false: For dy/dx = y with y(0) = 1, Euler's method with two steps of size 0.5 gives an approximation of y(1) that is greater than the exact value e.
+    answer: false
+    explanation: |
+      False. Step 1: y(0.5) ≈ 1 + 0.5(1) = 1.5. Step 2: y(1) ≈ 1.5 + 0.5(1.5) = 2.25. The exact value is e ≈ 2.718, so the Euler approximation is smaller. The solution y = eˣ is concave up, so each Euler step, which follows a tangent line, falls below the curve.
+  - slug: apcalcbc-final-q61
+    type: short_answer
+    topic_code: "9.3"
+    source: "AP Calculus CED, Topic 9.3"
+    points: 3
+    prompt: |
+      A curve is given parametrically by x = t² and y = (2/3)t³ for 0 ≤ t ≤ √3. Set up an integral for the length of the curve and evaluate it exactly.
+    answer: |
+      dx/dt = 2t and dy/dt = 2t². Length = ∫ from 0 to √3 of √((2t)² + (2t²)²) dt = ∫ from 0 to √3 of 2t√(1 + t²) dt (since t ≥ 0). With u = 1 + t², du = 2t dt, u from 1 to 4: ∫ from 1 to 4 of √u du = (2/3)(4^(3/2) − 1) = (2/3)(7) = 14/3.
+    explanation: |
+      Three points. 1 point: the integral ∫ from 0 to √3 of √((dx/dt)² + (dy/dt)²) dt with 2t and 2t². 1 point: simplifying to 2t√(1 + t²) and the substitution u = 1 + t² (with new limits or back-substitution). 1 point: 14/3 (≈ 4.667).
+  - slug: apcalcbc-final-q62
+    type: numeric
+    topic_code: "8.13"
+    source: "AP Calculus CED, Topic 8.13"
+    points: 1
+    prompt: |
+      (Calculator.) What is the length of the curve y = x⁴/4 from x = 0 to x = 1.5? Give your answer to three decimal places.
+    answer: { value: 2.207, tolerance: 0.001 }
+    explanation: |
+      dy/dx = x³, so the length is ∫ from 0 to 1.5 of √(1 + x⁶) dx ≈ 2.207 (calculator numerical integral). Forgetting to square the derivative, ∫ √(1 + x³) dx, gives about 1.976.
+  - slug: apcalcbc-final-q63
+    type: fill_blank
+    topic_code: "10.13"
+    source: "AP Calculus CED, Topic 10.13"
+    points: 1
+    prompt: |
+      The radius of convergence of the power series ∑ (n = 0 to ∞) (3x)ⁿ/(n + 1) is ____.
+    answer: ["1/3", "1 / 3", "0.333", ".333", "0.3333", "r = 1/3", "r=1/3"]
+    explanation: |
+      Ratio test: |aₙ₊₁/aₙ| = |3x| · (n + 1)/(n + 2) → 3|x|. The series converges when 3|x| < 1, so the radius is 1/3. Answering 3 inverts the condition.
+  - slug: apcalcbc-final-q64
+    type: true_false
+    topic_code: "9.8"
+    source: "AP Calculus CED, Topic 9.8"
+    points: 1
+    prompt: |
+      True or false: The area of the disc bounded by the polar curve r = 4 sin θ equals (1/2) ∫ from 0 to 2π of 16 sin² θ dθ.
+    answer: false
+    explanation: |
+      False. The circle r = 4 sin θ (centre (0, 2), radius 2) is traced once for 0 ≤ θ ≤ π, so the interval 0 to 2π goes round it twice: the integral equals 8π, double the true area 4π. Always find the θ-interval that traces the region exactly once.
+  - slug: apcalcbc-final-q65
+    type: multi_select
+    topic_code: "5.5"
+    source: "AP Calculus CED, Topic 5.5"
+    points: 1
+    partial_credit: true
+    prompt: |
+      Let f(x) = x³ + 3x² − 24x + 1. Which statements are true? Select all that apply.
+    options:
+      - "f has a relative maximum at x = −4."
+      - "f has a relative minimum at x = 2."
+      - "The graph of f has a point of inflection at x = −1."
+      - "f is increasing on the interval (−4, 2)."
+      - "On the closed interval [−5, 3], the absolute minimum of f occurs at x = 3."
+    option_explanations:
+      - |
+        Correct. f′(x) = 3x² + 6x − 24 = 3(x + 4)(x − 2) changes from positive to negative at x = −4.
+      - |
+        Correct. f′ = 3(x + 4)(x − 2) changes from negative to positive at x = 2.
+      - |
+        Correct. f″(x) = 6x + 6 changes sign from negative to positive at x = −1.
+      - |
+        On (−4, 2) the factors x + 4 and x − 2 have opposite signs, so f′ < 0 and f is decreasing there.
+      - |
+        f(3) = −17, but f(2) = −27 is smaller; with f(−5) = 71 and f(−4) = 81, the candidates test puts the absolute minimum at x = 2.
+    answer: [0, 1, 2]
+  - slug: apcalcbc-final-q66
+    type: numeric
+    topic_code: "4.6"
+    source: "AP Calculus CED, Topic 4.6"
+    points: 1
+    prompt: |
+      Use the line tangent to the graph of y = 1/x at x = 4 to approximate 1/4.2. Give your answer to four decimal places.
+    answer: { value: 0.2375, tolerance: 0.0005 }
+    explanation: |
+      dy/dx = −1/x², which is −1/16 at x = 4. L(x) = 1/4 − (1/16)(x − 4), so L(4.2) = 0.25 − 0.2/16 = 0.25 − 0.0125 = 0.2375. The graph is concave up for x > 0, so this underestimates 1/4.2 ≈ 0.2381.
+  - slug: apcalcbc-final-q67
+    type: short_answer
+    topic_code: "4.5"
+    source: "AP Calculus CED, Topic 4.5"
+    points: 3
+    prompt: |
+      A spherical soap bubble shrinks so that its surface area decreases at a constant 8 square centimetres per minute.
+      (a) How fast is the radius changing at the instant the radius is 4 centimetres?
+      (b) How fast is the volume changing at that instant? Include units.
+    answer: |
+      (a) S = 4πr², so dS/dt = 8πr(dr/dt). With dS/dt = −8 and r = 4: −8 = 32π(dr/dt), so dr/dt = −1/(4π) ≈ −0.080 cm per minute; the radius decreases at 1/(4π) cm per minute.
+      (b) V = (4/3)πr³, so dV/dt = 4πr²(dr/dt) = 4π(16)(−1/(4π)) = −16. The volume decreases at 16 cubic centimetres per minute.
+    explanation: |
+      Three points. 1 point: differentiating S = 4πr² with respect to t, with dS/dt = −8 (the negative sign for a decrease). 1 point: dr/dt = −1/(4π) cm/min. 1 point: dV/dt = −16 cm³/min with units, from dV/dt = 4πr²(dr/dt). Substituting r = 4 before differentiating earns no credit for the last two points.
+  - slug: apcalcbc-final-q68
+    type: fill_blank
+    topic_code: "3.6"
+    source: "AP Calculus CED, Topic 3.6"
+    points: 1
+    prompt: |
+      If f(x) = cos(3x), then the fourth derivative f⁽⁴⁾(π/3) = ____.
+    answer: ["-81", "−81", "-81.0", "−81.0"]
+    explanation: |
+      Each derivative brings out a factor 3 and the cycle cos → −sin → −cos → sin → cos: f⁽⁴⁾(x) = 81 cos(3x), so f⁽⁴⁾(π/3) = 81 cos π = −81. Forgetting the chain-rule factors gives cos π = −1.
+  - slug: apcalcbc-final-q69
+    type: true_false
+    topic_code: "1.11"
+    source: "AP Calculus CED, Topic 1.11"
+    points: 1
+    prompt: |
+      True or false: The function defined by f(x) = (x² − 9)/(x + 3) for x ≠ −3 and f(−3) = −6 is continuous at x = −3.
+    answer: true
+    explanation: |
+      True. f(−3) = −6 is defined; for x ≠ −3, f(x) = x − 3, so lim (x→−3) f(x) = −6; and the limit equals f(−3). All three conditions for continuity hold.
+  - slug: apcalcbc-final-q70
+    type: short_answer
+    topic_code: "2.4"
+    source: "AP Calculus CED, Topic 2.4"
+    points: 3
+    prompt: |
+      Let f(x) = ax² + 1 for x ≤ 1 and f(x) = bx + 3 for x > 1, where a and b are constants. Find the values of a and b for which f is differentiable at x = 1. Show the two conditions you use.
+    answer: |
+      Continuity at x = 1: a(1)² + 1 = b(1) + 3, so a + 1 = b + 3. Equal one-sided derivatives at x = 1: 2a(1) = b, so b = 2a. Substituting: a + 1 = 2a + 3, so a = −2 and b = −4.
+    explanation: |
+      Three points. 1 point: the continuity condition a + 1 = b + 3 (differentiability requires continuity). 1 point: the derivative condition 2a = b. 1 point: a = −2 and b = −4. Using only the derivative condition cannot determine both constants.

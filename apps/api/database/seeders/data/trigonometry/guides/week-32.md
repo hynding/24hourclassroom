@@ -17,7 +17,7 @@
 |---|---|
 | cis θ | Shorthand for cos θ + i sin θ, the point on the unit circle at angle θ. |
 | Euler's formula | e^(iθ) = cos θ + i sin θ, with θ in radians. |
-| Exponential form | z = re^(iθ), where r = |z| and θ is an argument of z. |
+| Exponential form | z = re^(iθ), where r = \|z\| and θ is an argument of z. |
 | Euler's identity | e^(iπ) + 1 = 0, Euler's formula at θ = π. |
 | Rotation about the origin | The map sending each point to the point at the same distance from the origin, turned through angle θ (counterclockwise for θ > 0). |
 | Conjugate on the unit circle | e^(−iθ) = cos θ − i sin θ, the reflection of e^(iθ) across the real axis. |

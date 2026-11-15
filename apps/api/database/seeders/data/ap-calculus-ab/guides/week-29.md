@@ -21,7 +21,7 @@
 | Growth (decay) constant k | The constant of proportionality; k > 0 growth, k < 0 decay. |
 | Relative growth rate | (1/y)(dy/dt), the rate as a fraction of the current amount; equals k. |
 | Doubling time | Time for y to double: ln 2 / k (k > 0). |
-| Half-life | Time for y to halve: ln 2 / |k|. |
+| Half-life | Time for y to halve: ln 2 / \|k\|. |
 | Newton's law of cooling | dT/dt = −k(T − M), k > 0, where M is the surrounding temperature. |
 | Equilibrium value | The value M that a shifted exponential approaches (or leaves) as t grows. |
 

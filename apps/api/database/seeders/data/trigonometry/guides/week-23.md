@@ -22,7 +22,7 @@
 | Initial and terminal point | The tail and the head of the arrow. The vector from P to Q is written PQ. |
 | Equivalent vectors | Two directed segments with the same length and the same direction, wherever they sit. They are the same vector. |
 | Component form | ⟨a, b⟩: the horizontal and vertical change from tail to head. Position vector: the arrow from the origin to (a, b). |
-| Magnitude | The length of the vector, |v| = √(a² + b²). |
+| Magnitude | The length of the vector, \|v\| = √(a² + b²). |
 | Direction angle | The angle θ, 0° ≤ θ < 360°, from the positive x-axis to the vector, measured counterclockwise. |
 | Unit vector | A vector of magnitude 1. The standard unit vectors are i = ⟨1, 0⟩ and j = ⟨0, 1⟩. |
 | Resultant | The sum of two or more vectors: the single vector with the same overall effect. |

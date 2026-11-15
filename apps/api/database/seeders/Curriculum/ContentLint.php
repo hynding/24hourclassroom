@@ -36,7 +36,7 @@ final class ContentLint
     public function tests(): array
     {
         $out = [];
-        foreach ($this->course->weeks() as $week => ['file' => $file, 'data' => $data]) {
+        foreach ($this->course->ownWeeks() as $week => ['file' => $file, 'data' => $data]) {
             if (isset($data['quiz'])) {
                 $out[] = ['file' => $file, 'label' => "week {$week} quiz", 'questions' => array_values((array) ($data['quiz']['questions'] ?? []))];
             }
@@ -66,6 +66,11 @@ final class ContentLint
 
         foreach ($weeks as $week => ['file' => $file, 'data' => $data]) {
             $where = $this->where($file);
+            if (Course::isReuse($data)) {
+                $errors = [...$errors, ...$this->reuseWeek($week, $where, $data)];
+
+                continue;
+            }
             foreach (['title', 'topics', 'guide', 'flashcards', 'quiz'] as $key) {
                 if (! array_key_exists($key, $data)) {
                     $errors[] = "{$where}: missing `{$key}`";
@@ -92,6 +97,91 @@ final class ContentLint
             }
         }
 
+        return [...$errors, ...$this->reuseCoverage()];
+    }
+
+    /**
+     * A course built on another reuses each of the base's weeks exactly
+     * once, and a unit reuses the base's exam only where it has none of its
+     * own and the base has one.
+     *
+     * @return list<string>
+     */
+    private function reuseCoverage(): array
+    {
+        $c = $this->course;
+        $errors = [];
+        $exams = $c->unitExams();
+        foreach ($c->config['units'] as $unit) {
+            if (empty($unit['reuse_unit_exam'])) {
+                continue;
+            }
+            if ($c->base === null) {
+                $errors[] = "unit {$unit['number']}: `reuse_unit_exam` but course.yaml has no `builds_on`";
+            } elseif (isset($exams[(int) $unit['number']])) {
+                $errors[] = "unit {$unit['number']}: reuses the base exam and has its own unit-exam.yaml";
+            } elseif (! isset($c->base->unitExams()[(int) $unit['number']])) {
+                $errors[] = "unit {$unit['number']}: {$c->base->prefix} has no unit {$unit['number']} exam to reuse";
+            }
+        }
+        if ($c->base === null) {
+            return $errors;
+        }
+
+        $usedBy = [];
+        foreach ($c->weeks() as $week => ['data' => $data]) {
+            if (! Course::isReuse($data)) {
+                continue;
+            }
+            foreach ($c->reusedWeeks($data) as $w) {
+                if (isset($usedBy[$w])) {
+                    $errors[] = "week {$week} reuses {$c->base->prefix} week {$w}, already reused by week {$usedBy[$w]}";
+                }
+                $usedBy[$w] ??= $week;
+            }
+        }
+        foreach (array_keys($c->base->ownWeeks()) as $w) {
+            if (! isset($usedBy[$w])) {
+                $errors[] = "{$c->base->prefix} week {$w} is reused by no week";
+            }
+        }
+
+        return $errors;
+    }
+
+    /**
+     * A reuse week names base-course weeks that exist and belong to the same
+     * unit number, and carries no content of its own.
+     *
+     * @param  array<string, mixed>  $data
+     * @return list<string>
+     */
+    private function reuseWeek(int $week, string $where, array $data): array
+    {
+        $c = $this->course;
+        if ($c->base === null) {
+            return ["{$where}: reuses weeks but course.yaml has no `builds_on`"];
+        }
+        $errors = [];
+        foreach (['topics', 'guide', 'flashcards', 'quiz'] as $key) {
+            if (array_key_exists($key, $data)) {
+                $errors[] = "{$where}: a reuse week carries no `{$key}` of its own";
+            }
+        }
+        $reused = $c->reusedWeeks($data);
+        if ($reused === []) {
+            $errors[] = "{$where}: `reuse` lists no weeks";
+        }
+        $baseWeeks = $c->base->weeks();
+        $unit = $c->unitForWeek($week);
+        foreach ($reused as $w) {
+            if (! isset($baseWeeks[$w])) {
+                $errors[] = "{$where}: {$c->base->prefix} has no week {$w}";
+            } elseif ((int) ($c->base->unitForWeek($w)['number'] ?? 0) !== (int) ($unit['number'] ?? -1)) {
+                $errors[] = "{$where}: {$c->base->prefix} week {$w} is not in unit ".($unit['number'] ?? '?');
+            }
+        }
+
         return $errors;
     }
 
@@ -102,6 +192,16 @@ final class ContentLint
         $slugs = [];
         $prompts = [];
         $errors = [];
+
+        // A course built on another may not repeat its prompts either.
+        if ($this->course->base !== null) {
+            foreach ((new self($this->course->base))->tests() as ['label' => $label, 'questions' => $questions]) {
+                foreach ($questions as $i => $q) {
+                    $key = mb_strtolower(preg_replace('/\s+/', ' ', trim(rtrim((string) ($q['stimulus'] ?? ''))."\n".rtrim((string) ($q['prompt'] ?? '')))));
+                    $prompts[$key] = $this->course->base->prefix." {$label} #".($i + 1);
+                }
+            }
+        }
 
         foreach ($this->tests() as ['file' => $file, 'label' => $label, 'questions' => $questions]) {
             if (count($questions) > 100) {
@@ -208,7 +308,7 @@ final class ContentLint
     {
         $firstWeek = $this->course->topicFirstWeek();
         $errors = [];
-        foreach ($this->course->weeks() as $week => ['file' => $file, 'data' => $data]) {
+        foreach ($this->course->ownWeeks() as $week => ['file' => $file, 'data' => $data]) {
             if ($week < 2) {
                 continue;
             }
@@ -233,7 +333,7 @@ final class ContentLint
     {
         $want = ['multiple_choice' => 10, 'multi_select' => 2, 'true_false' => 2, 'fill_blank' => 2, 'short_answer' => 2, 'long_answer' => 1];
         $errors = [];
-        foreach ($this->course->weeks() as ['file' => $file, 'data' => $data]) {
+        foreach ($this->course->ownWeeks() as ['file' => $file, 'data' => $data]) {
             $types = array_count_values(array_map(fn ($q) => (string) ($q['type'] ?? ''), array_values((array) ($data['quiz']['questions'] ?? []))));
             foreach ($want as $type => $min) {
                 if (($types[$type] ?? 0) < $min) {
@@ -249,7 +349,7 @@ final class ContentLint
     public function stimulusSets(): array
     {
         $errors = [];
-        foreach ($this->course->weeks() as $week => ['file' => $file, 'data' => $data]) {
+        foreach ($this->course->ownWeeks() as $week => ['file' => $file, 'data' => $data]) {
             if ($week < 4) {
                 continue;
             }
@@ -305,7 +405,7 @@ final class ContentLint
     {
         $c = $this->course;
         $files = [];
-        foreach ($c->weeks() as ['data' => $data]) {
+        foreach ($c->ownWeeks() as ['data' => $data]) {
             if (isset($data['guide'])) {
                 $files[] = "{$c->dir}/{$data['guide']}";
             }
@@ -324,6 +424,7 @@ final class ContentLint
             if (! $c->endsWithAttribution($body)) {
                 $errors[] = basename($file).' lacks the attribution block ('.implode(' + ', $c->attributionMarkers()).' in its last 1,200 characters)';
             }
+            $errors = [...$errors, ...self::tableRows(basename($file), $body)];
             $words = str_word_count(strip_tags($body));
             if ($words < 600) {
                 $errors[] = basename($file)." is only {$words} words (want 600+)";
@@ -333,6 +434,42 @@ final class ContentLint
             $errors[] = 'ATTRIBUTION.md is missing';
         } else {
             $errors = [...$errors, ...self::licence($c->dir, (string) ($c->config['description'] ?? ''))];
+        }
+
+        return $errors;
+    }
+
+    /**
+     * Every table row has as many cells as its divider row. rich-text splits
+     * cells on a bare `|`, so an absolute value inside a cell must be written
+     * `\\|x\\|`, or the row grows a column.
+     *
+     * @return list<string>
+     */
+    public static function tableRows(string $name, string $body): array
+    {
+        $cells = function (string $row): int {
+            $r = trim($row);
+            $r = str_starts_with($r, '|') ? substr($r, 1) : $r;
+            $r = (str_ends_with($r, '|') && ! str_ends_with($r, '\\|')) ? substr($r, 0, -1) : $r;
+
+            return count(preg_split('/(?<!\\\\)\\|/', $r));
+        };
+        $errors = [];
+        $lines = explode("\n", $body);
+        $want = null;
+        foreach ($lines as $i => $line) {
+            if (! str_starts_with($line, '|')) {
+                $want = null;
+
+                continue;
+            }
+            if ($want === null && isset($lines[$i + 1]) && preg_match('/^\\|[\\s:|-]+$/', rtrim($lines[$i + 1]))) {
+                $want = $cells($lines[$i + 1]);
+            }
+            if ($want !== null && $cells($line) !== $want) {
+                $errors[] = sprintf('%s line %d: a table row with %d cells, not %d (escape a bar inside a cell as \\|)', $name, $i + 1, $cells($line), $want);
+            }
         }
 
         return $errors;
@@ -362,9 +499,15 @@ final class ContentLint
     /** No card repeats an earlier front; every card has a back. @return list<string> */
     public function flashcards(): array
     {
+        // A course built on another may not repeat its cards either.
         $seen = [];
+        foreach ($this->course->base?->ownWeeks() ?? [] as $week => ['data' => $data]) {
+            foreach ((array) ($data['flashcards'] ?? []) as $card) {
+                $seen[mb_strtolower(trim((string) ($card['front'] ?? '')))] = $this->course->base->prefix." week {$week}";
+            }
+        }
         $errors = [];
-        foreach ($this->course->weeks() as $week => ['file' => $file, 'data' => $data]) {
+        foreach ($this->course->ownWeeks() as $week => ['file' => $file, 'data' => $data]) {
             foreach ((array) ($data['flashcards'] ?? []) as $i => $card) {
                 $front = mb_strtolower(trim((string) ($card['front'] ?? '')));
                 $where = $this->where($file).' card #'.($i + 1);

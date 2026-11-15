@@ -1,0 +1,625 @@
+week: 23
+unit: 8
+title: "Arc Length and Distance Along a Curve"
+topics: ["8.13"]
+guide: guides/week-23.md
+guide_description: |
+  The arc length of a smooth curve y = f(x), L = ∫ from a to b of √(1 + (f′(x))²) dx, built from chord lengths and the
+  Mean Value Theorem; the same formula for x = g(y) with limits in y; exact lengths when 1 + (f′)² is linear or a
+  perfect square; rewriting a curve with a vertical tangent as x = g(y); calculator evaluation when there is no
+  elementary antiderivative; arc length as distance traveled along a curve; and sums of chords as underestimates.
+  Worked examples: the line y = 2x + 1 checked against the distance formula, y = (2/3)x^(3/2), y = x³/6 + 1/(2x),
+  x = y²/4 − (1/2) ln y, y = x^(2/3) rewritten in y, one arch of y = sin x with a calculator, and a hypothetical ski run.
+flashcards_description: |
+  30 cards on the arc length formula and where it comes from, arc length for x = g(y), the perfect-square and linear
+  patterns that give exact lengths, smoothness and vertical tangents, calculator setups, distance traveled along a
+  curve, chord sums, and how shifts, reflections and stretches change length, with three error-spot cards.
+
+flashcards:
+  - front: Arc length of y = f(x) from x = a to x = b → formula and hypothesis
+    back: |
+      L = ∫ from a to b of √(1 + (f′(x))²) dx, for f with a continuous derivative on [a, b] (a smooth curve).
+    topic_code: "8.13"
+  - front: Arc length of x = g(y) from y = c to y = d → formula
+    back: |
+      L = ∫ from c to d of √(1 + (g′(y))²) dy, with c and d the y-values at the ends of the curve.
+    topic_code: "8.13"
+  - front: Arc length formula → where the square root comes from
+    back: |
+      A small chord has length √(Δx² + Δy²) = √(1 + (Δy/Δx)²) Δx by the Pythagorean theorem; Δy/Δx becomes f′(x) in the limit.
+    topic_code: "8.13"
+  - front: Arc length derivation → role of the Mean Value Theorem
+    back: |
+      On each small piece, Δy/Δx = f′(cₖ) for some cₖ in the piece, so the sum of chord lengths is exactly a Riemann sum for √(1 + (f′)²).
+    topic_code: "8.13"
+  - front: Arc length element ds for y = f(x) → expression
+    back: |
+      ds = √(1 + (dy/dx)²) dx, the length of a tiny piece of the curve; L = ∫ ds.
+    topic_code: "8.13"
+  - front: Arc length of y = f(x) on [a, b] compared with b − a → inequality and reason
+    back: |
+      L ≥ b − a, because the integrand √(1 + (f′)²) is at least 1. Equality only for a horizontal segment.
+    topic_code: "8.13"
+  - front: Arc length compared with the straight-line distance between the endpoints → which is larger
+    back: |
+      The arc length is at least the straight-line distance; they are equal only when the curve is a segment.
+    topic_code: "8.13"
+  - front: Line y = 2x + 1 from x = 0 to x = 3 → arc length, two ways
+    back: |
+      ∫₀³ √(1 + 4) dx = 3√5; the distance from (0, 1) to (3, 7) is √(9 + 36) = 3√5.
+    topic_code: "8.13"
+  - front: y = (2/3)x^(3/2) → simplified arc length integrand
+    back: |
+      f′(x) = √x, so √(1 + (f′)²) = √(1 + x), which integrates to (2/3)(1 + x)^(3/2).
+    topic_code: "8.13"
+  - front: y = (2/3)x^(3/2) from x = 0 to x = 3 → length
+    back: |
+      ∫₀³ √(1 + x) dx = (2/3)(8 − 1) = 14/3.
+    topic_code: "8.13"
+  - front: Perfect-square pattern for exact arc lengths → when it works
+    back: |
+      If f′ = A − B with AB = 1/4, then 1 + (f′)² = (A + B)², so the square root is |A + B|.
+    topic_code: "8.13"
+  - front: y = x³/6 + 1/(2x) → 1 + (y′)² as a perfect square
+    back: |
+      y′ = x²/2 − 1/(2x²), and 1 + (y′)² = (x²/2 + 1/(2x²))².
+    topic_code: "8.13"
+  - front: y = x³/6 + 1/(2x) from x = 1 to x = 2 → length
+    back: |
+      ∫₁² (x²/2 + 1/(2x²)) dx = [x³/6 − 1/(2x)] from 1 to 2 = 17/12.
+    topic_code: "8.13"
+  - front: x = y²/4 − (1/2) ln y from y = 1 to y = e → length
+    back: |
+      dx/dy = y/2 − 1/(2y), so the integrand is y/2 + 1/(2y); L = [y²/4 + (1/2) ln y] from 1 to e = (e² + 1)/4.
+    topic_code: "8.13"
+  - front: y = x^(2/3) from x = 0 to x = 8 → why rewrite it as x = y^(3/2)
+    back: |
+      f′(x) = (2/3)x^(−1/3) is undefined at x = 0 (vertical tangent), so the x-integral is improper; in y, g′(y) = (3/2)√y is continuous on [0, 4].
+    topic_code: "8.13"
+  - front: x = y^(3/2) from y = 0 to y = 4 → length
+    back: |
+      ∫₀⁴ √(1 + (9/4)y) dy = (8/27)(10√10 − 1) ≈ 9.073.
+    topic_code: "8.13"
+  - front: Smooth curve, for arc length purposes → meaning
+    back: |
+      The defining function has a continuous derivative on the interval: no corners, cusps or vertical tangents there.
+    topic_code: "8.13"
+  - front: Curve with a corner at x = c, such as y = |x − c| → how to find its length
+    back: |
+      Split the integral at x = c and add the lengths of the two smooth pieces.
+    topic_code: "8.13"
+  - front: (Calculator.) Length of y = x³ from x = 0 to x = 1 → setup and value
+    back: |
+      ∫₀¹ √(1 + 9x⁴) dx ≈ 1.548. No elementary antiderivative, so use the calculator.
+    topic_code: "8.13"
+  - front: (Calculator.) Length of one arch of y = sin x → setup and value
+    back: |
+      ∫ from 0 to π of √(1 + cos²x) dx ≈ 3.820 (the area under the arch is 2; do not confuse them).
+    topic_code: "8.13"
+  - front: Arc length questions on the AP exam → what earns the setup point
+    back: |
+      The correct integrand √(1 + (f′)²) with the correct limits in the correct variable; the value then comes from the calculator to three decimal places.
+    topic_code: "8.13"
+  - front: Object moving along a curve from one end to the other without doubling back → distance traveled
+    back: |
+      The arc length of the curve between the two points. The speed changes only how long the trip takes.
+    topic_code: "8.13"
+  - front: Hypothetical ski run y = 40 − 0.1x², 0 ≤ x ≤ 20 meters → distance skied
+    back: |
+      ∫₀²⁰ √(1 + 0.04x²) dx ≈ 46.468 meters, a little more than the straight-line distance √(20² + 40²) ≈ 44.721 meters.
+    topic_code: "8.13"
+  - front: Sum of chord lengths through points on a curve → over or under the arc length?
+    back: |
+      An underestimate: each chord is shorter than the arc it spans. More points give a closer estimate.
+    topic_code: "8.13"
+  - front: Shifting a graph up by 5 or reflecting it in the x-axis → effect on its arc length
+    back: |
+      None. Both leave (f′)² unchanged, so the integrand and the length are the same.
+    topic_code: "8.13"
+  - front: Stretching a graph vertically, y = 2f(x) → effect on its arc length
+    back: |
+      The length changes, but it is not doubled in general: the integrand becomes √(1 + 4(f′)²). (A horizontal segment keeps its length.)
+    topic_code: "8.13"
+  - front: y = eˣ on [0, 1] and y = ln x on [1, e] → their lengths
+    back: |
+      Equal. The curves are reflections of each other across y = x, and reflection preserves length; both integrals are about 2.003.
+    topic_code: "8.13"
+  - front: Error-spot → arc length of y = x³ written as ∫₀¹ √(1 + 3x²) dx
+    back: |
+      The derivative 3x² was not squared. The integrand is √(1 + (3x²)²) = √(1 + 9x⁴).
+    topic_code: "8.13"
+  - front: Error-spot → length of x = y³ for 0 ≤ y ≤ 2 written as ∫₀⁸ √(1 + 9y⁴) dy
+    back: |
+      The limits are x-values. With dy the limits must be y-values: ∫₀² √(1 + 9y⁴) dy.
+    topic_code: "8.13"
+  - front: Error-spot → length of y = sin x on [0, π] given as 2
+    back: |
+      2 is the area under the arch, ∫ sin x dx. The length is ∫ √(1 + cos²x) dx ≈ 3.820.
+    topic_code: "8.13"
+
+quiz:
+  description: |
+    24 questions · about 40 minutes · mostly on this week (topic 8.13: arc length of y = f(x) and x = g(y), exact
+    lengths from perfect squares, calculator lengths, and distance traveled along a curve), with 8 questions (33%)
+    reviewing weeks 6, 17, 20, 21 and 22 (the chain rule, improper integrals, Euler's method, logistic models, average
+    value and volumes by discs and washers). Opens with a shared-context set on one function whose arc length simplifies.
+    Multiple choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes. Items
+    marked "(Calculator.)" need a graphing calculator; the rest do not.
+  questions:
+    # ---- Stimulus set: f(x) = (1/3)(x² + 2)^(3/2) (3.1, 8.13, 8.1)
+    - slug: apcalcbc-u08-w23-q01
+      type: multiple_choice
+      topic_code: "3.1"
+      source: "AP Calculus CED, Topic 3.1"
+      points: 1
+      stimulus: |
+        Let f(x) = (1/3)(x² + 2)^(3/2) for 0 ≤ x ≤ 3.
+      prompt: |
+        What is f′(x)?
+      options:
+        - "(1/2)√(x² + 2)"
+        - "3x√(x² + 2)"
+        - "x√(x² + 2)"
+        - "(2/3)x√(x² + 2)"
+      option_explanations:
+        - |
+          This applies the power rule to the outside but forgets the chain rule factor 2x, the derivative of x² + 2.
+        - |
+          This drops the constant 1/3 in front: (3/2) · 2x · (x² + 2)^(1/2) still has to be multiplied by 1/3.
+        - |
+          Correct. f′(x) = (1/3) · (3/2)(x² + 2)^(1/2) · 2x = x√(x² + 2) by the chain rule.
+        - |
+          This lowers the exponent to 1/2 and multiplies by 2x and 1/3 but never brings down the exponent 3/2 as a factor.
+      answer: 2
+    - slug: apcalcbc-u08-w23-q02
+      type: multiple_choice
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 1
+      stimulus: |
+        Let f(x) = (1/3)(x² + 2)^(3/2) for 0 ≤ x ≤ 3.
+      prompt: |
+        Which integral gives the length of the graph of f from x = 0 to x = 3?
+      options:
+        - "∫₀³ √(1 + x²(x² + 2)) dx"
+        - "∫₀³ √(1 + (1/9)(x² + 2)³) dx"
+        - "∫₀³ √(1 + x√(x² + 2)) dx"
+        - "∫₀³ (1 + x²(x² + 2)) dx"
+      option_explanations:
+        - |
+          Correct. (f′(x))² = (x√(x² + 2))² = x²(x² + 2), and the arc length is ∫₀³ √(1 + (f′(x))²) dx.
+        - |
+          This squares f itself instead of its derivative; arc length depends on the slope f′.
+        - |
+          This adds f′ without squaring it; the formula comes from the Pythagorean theorem, so the slope is squared.
+        - |
+          This leaves out the square root, so it does not measure length (it is larger than the true length here).
+      answer: 0
+    - slug: apcalcbc-u08-w23-q03
+      type: numeric
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 1
+      stimulus: |
+        Let f(x) = (1/3)(x² + 2)^(3/2) for 0 ≤ x ≤ 3.
+      prompt: |
+        Find the exact length of the graph of f from x = 0 to x = 3.
+      answer: { value: 12, tolerance: 0.001 }
+      explanation: |
+        1 + (f′)² = 1 + x⁴ + 2x² = (x² + 1)², so √(1 + (f′)²) = x² + 1 (positive). L = ∫₀³ (x² + 1) dx = [x³/3 + x] from 0 to 3 = 9 + 3 = 12.
+    - slug: apcalcbc-u08-w23-q04
+      type: multiple_choice
+      topic_code: "8.1"
+      source: "AP Calculus CED, Topic 8.1"
+      points: 1
+      stimulus: |
+        Let f(x) = (1/3)(x² + 2)^(3/2) for 0 ≤ x ≤ 3.
+      prompt: |
+        The arc length integrand for f simplifies to x² + 1. What is the average value of x² + 1 on the interval [0, 3]?
+      options:
+        - "12"
+        - "5.5"
+        - "6"
+        - "4"
+      option_explanations:
+        - |
+          12 is ∫₀³ (x² + 1) dx, the total; the average value divides it by the length of the interval, 3.
+        - |
+          5.5 averages the endpoint values (1 + 10)/2; that is the average of two values, not the average value of the function.
+        - |
+          6 divides the integral 12 by 2 instead of by the interval length 3 − 0 = 3.
+        - |
+          Correct. Average value = (1/(3 − 0)) ∫₀³ (x² + 1) dx = 12/3 = 4.
+      answer: 3
+    # ---- Independent items
+    - slug: apcalcbc-u08-w23-q05
+      type: multiple_choice
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 1
+      prompt: |
+        Which integral gives the length of the curve y = ln x from x = 1 to x = e?
+      options:
+        - "∫ from 1 to e of √(1 + (ln x)²) dx"
+        - "∫ from 1 to e of √(1 + 1/x²) dx"
+        - "∫ from 1 to e of √(1 + 1/x) dx"
+        - "∫ from 0 to 1 of √(1 + 1/x²) dx"
+      option_explanations:
+        - |
+          This squares the function ln x instead of its derivative 1/x.
+        - |
+          Correct. dy/dx = 1/x, so (dy/dx)² = 1/x² and L = ∫ from 1 to e of √(1 + 1/x²) dx.
+        - |
+          This uses the derivative 1/x without squaring it.
+        - |
+          0 and 1 are the y-values at the ends of the curve; an integral in x needs the x-values 1 and e.
+      answer: 1
+    - slug: apcalcbc-u08-w23-q06
+      type: multiple_choice
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 1
+      prompt: |
+        A curve is given by x = y³ for 0 ≤ y ≤ 2. Which integral gives its length?
+      options:
+        - "∫₀⁸ √(1 + 9y⁴) dy"
+        - "∫₀² √(1 + 3y²) dy"
+        - "∫₀² √(1 + 9y⁴) dy"
+        - "∫₀² (1 + 9y⁴) dy"
+      option_explanations:
+        - |
+          0 and 8 are the x-values at the ends; with dy the limits must be the y-values 0 and 2.
+        - |
+          This uses dx/dy = 3y² without squaring it; the integrand is √(1 + (3y²)²).
+        - |
+          Correct. dx/dy = 3y², so (dx/dy)² = 9y⁴, and L = ∫ from y = 0 to y = 2 of √(1 + 9y⁴) dy.
+        - |
+          The square root is missing, so this does not give a length.
+      answer: 2
+    - slug: apcalcbc-u08-w23-q07
+      type: multiple_choice
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 1
+      prompt: |
+        What is the length of the graph of y = (4/3)x from x = 0 to x = 6?
+      options:
+        - "10"
+        - "8"
+        - "14"
+        - "6"
+      option_explanations:
+        - |
+          Correct. L = ∫₀⁶ √(1 + 16/9) dx = (5/3)(6) = 10, which matches the distance from (0, 0) to (6, 8).
+        - |
+          8 is only the vertical change from y = 0 to y = 8; the segment also moves 6 units horizontally.
+        - |
+          14 adds the horizontal and vertical changes; lengths combine by the Pythagorean theorem, √(6² + 8²).
+        - |
+          6 is only the horizontal extent b − a; the arc length integrand √(1 + (4/3)²) is larger than 1.
+      answer: 0
+    - slug: apcalcbc-u08-w23-q08
+      type: multiple_choice
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 1
+      prompt: |
+        (Calculator.) What is the length of the curve y = x³ from x = 0 to x = 1?
+      options:
+        - "1.064"
+        - "1.380"
+        - "2.800"
+        - "1.548"
+      option_explanations:
+        - |
+          1.064 is ∫₀¹ √(1 + x⁶) dx, which squares the function x³ instead of its derivative 3x².
+        - |
+          1.380 is ∫₀¹ √(1 + 3x²) dx: the derivative 3x² was not squared.
+        - |
+          2.800 is ∫₀¹ (1 + 9x⁴) dx = 1 + 9/5, which leaves out the square root.
+        - |
+          Correct. y′ = 3x², so L = ∫₀¹ √(1 + 9x⁴) dx ≈ 1.548 by calculator (no elementary antiderivative exists).
+      answer: 3
+    - slug: apcalcbc-u08-w23-q09
+      type: multiple_choice
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 1
+      prompt: |
+        (Calculator.) What is the length of the curve y = cos x from x = 0 to x = π/2?
+      options:
+        - "1.000"
+        - "1.910"
+        - "2.000"
+        - "2.356"
+      option_explanations:
+        - |
+          1.000 is the area under the curve, ∫ from 0 to π/2 of cos x dx, not its length.
+        - |
+          Correct. y′ = −sin x, so L = ∫ from 0 to π/2 of √(1 + sin²x) dx ≈ 1.910 by calculator.
+        - |
+          2.000 is ∫ from 0 to π/2 of √(1 + sin x) dx: the derivative was not squared (and its sign was dropped).
+        - |
+          2.356 is ∫ from 0 to π/2 of (1 + sin²x) dx = 3π/4, which leaves out the square root.
+      answer: 1
+    - slug: apcalcbc-u08-w23-q10
+      type: multiple_choice
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 1
+      prompt: |
+        A bead slides along a wire shaped like the curve y = √x, from the point (1, 1) to the point (9, 3), without turning back. Which expression gives the distance the bead travels?
+      options:
+        - "∫₁⁹ √(1 + x) dx"
+        - "∫₁³ √(1 + 1/(4x)) dx"
+        - "∫₁⁹ √(1 + 1/(4x)) dx"
+        - "√(8² + 2²)"
+      option_explanations:
+        - |
+          This squares the function √x instead of its derivative 1/(2√x).
+        - |
+          1 and 3 are the y-values at the ends; an integral in x needs the x-values 1 and 9.
+        - |
+          Correct. The distance along the wire is the arc length: y′ = 1/(2√x), (y′)² = 1/(4x), so it is ∫₁⁹ √(1 + 1/(4x)) dx ≈ 8.268.
+        - |
+          √68 ≈ 8.246 is the straight-line distance between the endpoints; the bead follows the curve, which is longer.
+      answer: 2
+    - slug: apcalcbc-u08-w23-q11
+      type: multiple_choice
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 1
+      prompt: |
+        The piece of the curve y = x³ with 1 ≤ x ≤ 2 is rewritten as x = y^(1/3). Which integral in y gives its length?
+      options:
+        - "∫₁⁸ √(1 + (1/9)y^(−4/3)) dy"
+        - "∫₁² √(1 + (1/9)y^(−4/3)) dy"
+        - "∫₁⁸ √(1 + (1/3)y^(−2/3)) dy"
+        - "∫₁⁸ √(1 + 9y⁴) dy"
+      option_explanations:
+        - |
+          Correct. dx/dy = (1/3)y^(−2/3), so (dx/dy)² = (1/9)y^(−4/3); y runs from 1³ = 1 to 2³ = 8. (It equals ∫₁² √(1 + 9x⁴) dx ≈ 7.082.)
+        - |
+          1 and 2 are the x-values at the ends; with dy the limits are the y-values 1 and 8.
+        - |
+          This uses dx/dy = (1/3)y^(−2/3) without squaring it.
+        - |
+          √(1 + 9y⁴) comes from the derivative of y = x³ with x replaced by y; with x = y^(1/3) the derivative to square is dx/dy = (1/3)y^(−2/3).
+      answer: 0
+    - slug: apcalcbc-u08-w23-q12
+      type: multiple_choice
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 1
+      prompt: |
+        To find the length of y = x^(2/3) from x = 0 to x = 8, a student rewrites the curve as x = y^(3/2) for 0 ≤ y ≤ 4. What is the best reason for doing so?
+      options:
+        - "Arc length integrals in x always need a calculator, but integrals in y never do."
+        - "The graph of y = x^(2/3) fails the vertical line test, so it is not a function of x."
+        - "Integrating in y gives a shorter length, which is the correct one."
+        - "dy/dx = (2/3)x^(−1/3) is undefined at x = 0, while dx/dy = (3/2)y^(1/2) is continuous on [0, 4]."
+      option_explanations:
+        - |
+          Whether a calculator is needed depends on the integrand, not the variable; many integrals in either variable have exact values.
+        - |
+          y = x^(2/3) passes the vertical line test: each x gives one y. The trouble is the vertical tangent at x = 0.
+        - |
+          The curve is the same, so its length is the same in either variable; only the integral is easier to handle in y.
+        - |
+          Correct. The vertical tangent at x = 0 makes the x-integrand unbounded there (an improper integral), while in y the integrand √(1 + (9/4)y) is continuous, giving (8/27)(10√10 − 1) ≈ 9.073.
+      answer: 3
+    - slug: apcalcbc-u08-w23-q13
+      type: multiple_choice
+      topic_code: "7.5"
+      source: "AP Calculus CED, Topic 7.5"
+      points: 1
+      prompt: |
+        Let y = f(x) be the solution of dy/dx = y − x with f(0) = 2. Using Euler's method with two steps of size 0.5, what is the approximation of f(1)?
+      options:
+        - "3"
+        - "4.25"
+        - "4"
+        - "3.75"
+      option_explanations:
+        - |
+          3 is the approximation of f(0.5) after only the first step.
+        - |
+          Correct. Slope 2 − 0 = 2 gives f(0.5) ≈ 3; slope 3 − 0.5 = 2.5 gives f(1) ≈ 3 + 1.25 = 4.25.
+        - |
+          4 is a single step of size 1 with the starting slope 2; two steps need a new slope at x = 0.5.
+        - |
+          3.75 computes the second slope with the old y-value, 2 − 0.5 = 1.5, instead of the updated value 3.
+      answer: 1
+    - slug: apcalcbc-u08-w23-q14
+      type: multiple_choice
+      topic_code: "7.9"
+      source: "AP Calculus CED, Topic 7.9"
+      points: 1
+      prompt: |
+        A hypothetical population satisfies dP/dt = 0.5P − 0.001P², with 0 < P(0) < 250. For what value of P is the population growing fastest?
+      options:
+        - "500"
+        - "125"
+        - "250"
+        - "0.5"
+      option_explanations:
+        - |
+          500 is the carrying capacity, where the growth rate 0.001P(500 − P) is zero.
+        - |
+          125 halves the carrying capacity twice; the fastest growth is at half of 500, which is 250.
+        - |
+          Correct. 0.5P − 0.001P² = 0.001P(500 − P), a downward parabola in P with zeros 0 and 500 and its vertex at P = 250 = M/2.
+        - |
+          0.5 is the coefficient of P (the relative growth rate for small P), not a population value.
+      answer: 2
+    - slug: apcalcbc-u08-w23-q15
+      type: multiple_choice
+      topic_code: "8.9"
+      source: "AP Calculus CED, Topic 8.9"
+      points: 1
+      prompt: |
+        The region bounded by y = √x, the x-axis and the line x = 9 is revolved about the x-axis. What is the volume of the solid?
+      options:
+        - "18π"
+        - "81π/2"
+        - "18"
+        - "81π"
+      option_explanations:
+        - |
+          18π is π ∫₀⁹ √x dx = π · (2/3) · 27: the radius √x was not squared.
+        - |
+          Correct. Discs of radius √x: V = π ∫₀⁹ (√x)² dx = π ∫₀⁹ x dx = π · 81/2 = 81π/2.
+        - |
+          18 is the area of the region, ∫₀⁹ √x dx = (2/3) · 27, not the volume of the solid.
+        - |
+          81π uses x² as the antiderivative of x; the antiderivative is x²/2, giving 81π/2.
+      answer: 1
+    - slug: apcalcbc-u08-w23-q16
+      type: multi_select
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Which integrals equal the length of the parabola y = x² from (0, 0) to (2, 4)? Select all that apply.
+      options:
+        - "∫₀² √(1 + 4x²) dx"
+        - "∫₀² (1 + 4x²) dx"
+        - "∫₀⁴ √(1 + 1/(4y)) dy"
+        - "∫₀⁴ √(1 + 4y²) dy"
+        - "∫₀² √(1 + x⁴) dx"
+      option_explanations:
+        - |
+          Correct. y′ = 2x, so (y′)² = 4x² and L = ∫₀² √(1 + 4x²) dx ≈ 4.647.
+        - |
+          The square root is missing; this integral is 2 + 32/3, far more than the length.
+        - |
+          Correct. As x = √y, dx/dy = 1/(2√y) and (dx/dy)² = 1/(4y), with y from 0 to 4. The integrand is unbounded at y = 0, but the improper integral converges to the same length, about 4.647.
+        - |
+          This puts y in place of x in the x-integrand; with dy the derivative to square is dx/dy = 1/(2√y), not 2y.
+        - |
+          This squares the function x² instead of its derivative 2x.
+      answer: [0, 2]
+    - slug: apcalcbc-u08-w23-q17
+      type: multi_select
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Let f have a continuous derivative on [a, b], and let L be the length of the graph of y = f(x) from x = a to x = b. Which statements are always true? Select all that apply.
+      options:
+        - "L ≥ b − a"
+        - "The graph of y = f(x) + 5 on [a, b] also has length L."
+        - "The graph of y = 2f(x) on [a, b] has length 2L."
+        - "L is at least the distance between the points (a, f(a)) and (b, f(b))."
+        - "L = ∫ from a to b of √(1 + (f(x))²) dx"
+      option_explanations:
+        - |
+          Correct. The integrand √(1 + (f′)²) is at least 1, so the integral is at least ∫ from a to b of 1 dx = b − a.
+        - |
+          Correct. Adding 5 does not change the derivative, so the integrand and the length are unchanged.
+        - |
+          Not in general. If f is constant, both graphs are horizontal segments of length b − a, not 2(b − a); the integrand becomes √(1 + 4(f′)²), not 2√(1 + (f′)²).
+        - |
+          Correct. A straight segment is the shortest path between two points, and every sum of chords is at most L.
+        - |
+          The formula uses the derivative f′, not f itself.
+      answer: [0, 1, 3]
+    - slug: apcalcbc-u08-w23-q18
+      type: true_false
+      topic_code: "7.5"
+      source: "AP Calculus CED, Topic 7.5"
+      points: 1
+      prompt: |
+        True or false: If the solution of a differential equation is concave up on an interval, then Euler's method on that interval gives an overestimate.
+      answer: false
+      explanation: |
+        False. A concave-up curve lies above its tangent lines, so each Euler step lands below the curve and the approximation is an underestimate. Euler overestimates when the solution is concave down.
+    - slug: apcalcbc-u08-w23-q19
+      type: true_false
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 1
+      prompt: |
+        True or false: The length of the curve y = eˣ from x = 0 to x = 1 is equal to the length of the curve y = ln x from x = 1 to x = e.
+      answer: true
+      explanation: |
+        True. The two pieces are reflections of each other across the line y = x (they are inverse functions, and (0, 1)–(1, e) reflects to (1, 0)–(e, 1)), and reflection preserves length. Both integrals, ∫₀¹ √(1 + e^(2x)) dx and ∫ from 1 to e of √(1 + 1/x²) dx, are about 2.003.
+    - slug: apcalcbc-u08-w23-q20
+      type: fill_blank
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        The improper integral ∫ from 1 to ∞ of 1/x³ dx = ____.
+      answer: ["1/2", "0.5", ".5"]
+      explanation: |
+        ∫ from 1 to b of x^(−3) dx = [−1/(2x²)] from 1 to b = 1/2 − 1/(2b²). As b → ∞ this approaches 1/2, so the integral converges to 1/2.
+    - slug: apcalcbc-u08-w23-q21
+      type: fill_blank
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 1
+      prompt: |
+        The length of the curve y = (2/3)x^(3/2) from x = 0 to x = 15 is ____.
+      answer: ["42", "42.0", "+42"]
+      explanation: |
+        y′ = √x, so L = ∫ from 0 to 15 of √(1 + x) dx = (2/3)(1 + x)^(3/2) from 0 to 15 = (2/3)(64 − 1) = 42.
+    - slug: apcalcbc-u08-w23-q22
+      type: short_answer
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 3
+      prompt: |
+        Let y = x⁴/8 + 1/(4x²) for 1 ≤ x ≤ 2.
+
+        (a) Find dy/dx.
+        (b) Show that 1 + (dy/dx)² is a perfect square.
+        (c) Find the exact length of the curve from x = 1 to x = 2.
+      answer: |
+        (a) dy/dx = x³/2 − 1/(2x³).
+        (b) (dy/dx)² = x⁶/4 − 1/2 + 1/(4x⁶), so 1 + (dy/dx)² = x⁶/4 + 1/2 + 1/(4x⁶) = (x³/2 + 1/(2x³))².
+        (c) For 1 ≤ x ≤ 2, x³/2 + 1/(2x³) > 0, so L = ∫₁² (x³/2 + 1/(2x³)) dx = [x⁴/8 − 1/(4x²)] from 1 to 2 = (2 − 1/16) − (1/8 − 1/4) = 33/16.
+      explanation: |
+        Three points, one per part. (a) dy/dx = x³/2 − 1/(2x³). (b) The expansion with the middle term −1/2 becoming +1/2, written as (x³/2 + 1/(2x³))². (c) 33/16 (2.0625) from the antiderivative x⁴/8 − 1/(4x²) evaluated at both limits; the square root must be taken as the positive expression.
+    - slug: apcalcbc-u08-w23-q23
+      type: short_answer
+      topic_code: "8.11"
+      source: "AP Calculus CED, Topics 8.4, 8.11 and 8.13"
+      points: 3
+      prompt: |
+        Let R be the region in the first quadrant bounded by the graphs of y = x and y = x².
+
+        (a) Find the area of R.
+        (b) Find the volume of the solid generated when R is revolved about the x-axis.
+        (c) Write, but do not evaluate, an integral for the length of the curved part of the boundary of R.
+      answer: |
+        (a) The curves meet at x = 0 and x = 1, and x ≥ x² there. Area = ∫₀¹ (x − x²) dx = 1/2 − 1/3 = 1/6.
+        (b) Washers with outer radius x and inner radius x²: V = π ∫₀¹ (x² − x⁴) dx = π(1/3 − 1/5) = 2π/15.
+        (c) The curved part is y = x² for 0 ≤ x ≤ 1: L = ∫₀¹ √(1 + 4x²) dx (about 1.479).
+      explanation: |
+        Three points, one per part. (a) 1/6 with the correct integrand (top minus bottom) and limits 0 to 1. (b) 2π/15 with the washer integrand π(x² − x⁴); π((x − x²)²) earns no point. (c) ∫₀¹ √(1 + 4x²) dx, or the equivalent ∫₀¹ √(1 + 1/(4y)) dy; the value is not required.
+    - slug: apcalcbc-u08-w23-q24
+      type: long_answer
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topics 8.4 and 8.13"
+      points: 7
+      prompt: |
+        (Calculator.) The profile of a hypothetical grassy hill is modeled by y = 8 − x²/8 for −8 ≤ x ≤ 8, where x and y are measured in meters and y = 0 is ground level.
+
+        (A) Write an integral that gives the length of the hill's profile from x = −8 to x = 8, and use your calculator to evaluate it.
+
+        (B) A hiker walks over the hill along the profile, from x = −8 to x = 8, at a constant speed of 0.8 meters per second. How long does the walk take?
+
+        (C) A student approximates the length of the profile using the two straight segments from (−8, 0) to (0, 8) and from (0, 8) to (8, 0). Find this approximation, and explain why it must be less than your answer to part (A).
+
+        (D) Find the area of the hill's cross section, the region between the profile and the x-axis.
+      answer: |
+        (A) y′ = −x/4, so L = ∫ from −8 to 8 of √(1 + x²/16) dx ≈ 23.663 meters.
+        (B) The distance walked is the arc length, so the time is 23.663/0.8 ≈ 29.579 seconds.
+        (C) Each segment has length √(8² + 8²) = 8√2, so the approximation is 16√2 ≈ 22.627 meters. Each segment is the straight line between two points of the curve, the shortest path between them, so it is shorter than the arc it replaces; the sum of the two chords is less than the arc length.
+        (D) Area = ∫ from −8 to 8 of (8 − x²/8) dx = [8x − x³/24] from −8 to 8 = (64 − 64/3) − (−64 + 64/3) = 256/3 ≈ 85.333 square meters.
+      explanation: |
+        Seven points. (A) 1 point for the integrand √(1 + (−x/4)²) or √(1 + x²/16) with limits −8 and 8; 1 point for 23.663 (correct to three decimal places; 23.663 whether rounded or truncated). (B) 1 point for 29.579 seconds (or the answer to (A) divided by 0.8), with units. (C) 1 point for 16√2 ≈ 22.627; 1 point for the reason that a chord is the shortest path between its endpoints, so each segment is shorter than the arc it spans. (D) 1 point for the integral of 8 − x²/8 from −8 to 8; 1 point for 256/3 ≈ 85.333 square meters.

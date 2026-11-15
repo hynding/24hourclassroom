@@ -1,8 +1,8 @@
 <?php
 
+use Database\Seeders\ApLiterature\Lint;
 use Database\Seeders\ApLiteratureSeeder;
 use Database\Seeders\Curriculum\Course;
-use Database\Seeders\ApLiterature\Lint;
 
 /**
  * The content lint for database/seeders/data/ap-literature. The rules live

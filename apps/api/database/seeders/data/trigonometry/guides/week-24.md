@@ -20,8 +20,8 @@
 | Angle between vectors | The angle θ, 0° ≤ θ ≤ 180°, between u and v when their tails are placed together. |
 | Orthogonal | Perpendicular: u · v = 0. The zero vector counts as orthogonal to every vector. |
 | Parallel | One vector is a scalar multiple of the other; the angle between them is 0° or 180°. |
-| Scalar component (compᵥ u) | The signed length of the shadow of u on the line of v: (u · v)/|v|. |
-| Projection (projᵥ u) | The vector shadow of u on the line of v: ((u · v)/|v|²) v. |
+| Scalar component (compᵥ u) | The signed length of the shadow of u on the line of v: (u · v)/\|v\|. |
+| Projection (projᵥ u) | The vector shadow of u on the line of v: ((u · v)/\|v\|²) v. |
 | Work | The energy transferred by a constant force F moving an object through displacement d: W = F · d. Units: joules (newton-metres) or foot-pounds. |
 
 ## The dot product and its properties (4.8)

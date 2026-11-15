@@ -1,0 +1,604 @@
+week: 24
+unit: 9
+title: "Parametric Equations: Slopes, Concavity and Arc Length"
+topics: ["9.1", "9.2", "9.3"]
+guide: guides/week-24.md
+guide_description: |
+  Curves defined by a pair of functions x(t) and y(t) of a parameter t: plotting and orienting them, the slope
+  dy/dx = (dy/dt)/(dx/dt), tangent lines, horizontal and vertical tangents and the case where both derivatives are
+  zero; the second derivative d²y/dx² = (d/dt of dy/dx)/(dx/dt) and concavity; and the length of a parametric curve,
+  ∫ from a to b of √((dx/dt)² + (dy/dt)²) dt. Worked examples: the curve x = t² − 2t, y = t³ − 12t (slope, tangent
+  line, horizontal and vertical tangents), the second derivative of the ellipse x = 4 cos t, y = 3 sin t, the
+  concavity of x = eᵗ, y = t², and the lengths of x = 3t², y = 2t³ and x = t²/2, y = (1/3)(2t + 1)^(3/2).
+flashcards_description: |
+  31 cards on parametric curves: orientation and eliminating the parameter, the slope formula, tangent lines,
+  horizontal and vertical tangents, the second derivative and concavity, the arc length integral and its links to
+  week 23's arc length of y = f(x), and the error patterns in each.
+
+flashcards:
+  - front: Parametric curve x = x(t), y = y(t) → what the parameter t does
+    back: |
+      Each value of t gives one point (x(t), y(t)). As t increases the point traces the curve in a direction called the orientation.
+    topic_code: "9.1"
+  - front: Curve x = t + 1, y = t² for all t → eliminate the parameter
+    back: |
+      t = x − 1, so y = (x − 1)²: a parabola with vertex (1, 0), traced from left to right as t increases.
+    topic_code: "9.1"
+  - front: Curve x = 4 cos t, y = 3 sin t for 0 ≤ t ≤ 2π → shape and direction
+    back: |
+      (x/4)² + (y/3)² = cos²t + sin²t = 1: an ellipse centred at the origin, traced once counterclockwise starting at (4, 0).
+    topic_code: "9.1"
+  - front: Slope of a parametric curve → formula for dy/dx
+    back: |
+      dy/dx = (dy/dt)/(dx/dt), wherever dx/dt ≠ 0. It comes from the chain rule: dy/dt = (dy/dx)(dx/dt).
+    topic_code: "9.1"
+  - front: Curve x = t² − 2t, y = t³ − 12t → slope at t = 3
+    back: |
+      dx/dt = 2t − 2 = 4 and dy/dt = 3t² − 12 = 15 at t = 3, so dy/dx = 15/4.
+    topic_code: "9.1"
+  - front: Tangent line to a parametric curve at t = a → recipe
+    back: |
+      Point (x(a), y(a)); slope m = y′(a)/x′(a); line y − y(a) = m(x − x(a)).
+    topic_code: "9.1"
+  - front: Horizontal tangent on a parametric curve → condition
+    back: |
+      dy/dt = 0 while dx/dt ≠ 0. The point is not moving vertically but is still moving sideways.
+    topic_code: "9.1"
+  - front: Vertical tangent on a parametric curve → condition
+    back: |
+      dx/dt = 0 while dy/dt ≠ 0. The slope (dy/dt)/(dx/dt) is undefined because the denominator alone is zero.
+    topic_code: "9.1"
+  - front: Parametric curve with dx/dt = 0 and dy/dt = 0 at the same t → what to conclude
+    back: |
+      Nothing yet: the formula gives 0/0. Simplify dy/dx as a function of t and take the limit, or look at the curve; there may be a cusp or a tangent of any slope.
+    topic_code: "9.1"
+  - front: Curve x = t³ − 3t, y = t² − 2t at t = 1 → is the tangent horizontal?
+    back: |
+      No. Both derivatives are zero at t = 1, and dy/dx = 2(t − 1)/(3(t − 1)(t + 1)) = 2/(3(t + 1)) → 1/3 as t → 1.
+    topic_code: "9.1"
+  - front: Sign of dx/dt on a parametric curve → what it says about direction
+    back: |
+      dx/dt > 0: the point moves to the right as t increases; dx/dt < 0: to the left. dy/dt does the same for up and down.
+    topic_code: "9.1"
+  - front: Table gives x(2) = 4, y(2) = 1, x′(2) = −3, y′(2) = 5 → tangent line at t = 2
+    back: |
+      Slope 5/(−3) = −5/3, so y − 1 = −(5/3)(x − 4). At x = 3.7 it predicts y ≈ 1 + 0.5 = 1.5.
+    topic_code: "9.1"
+  - front: Curve x = e^(2t), y = e^(−t) → dy/dx
+    back: |
+      (−e^(−t))/(2e^(2t)) = −(1/2)e^(−3t); at t = 0 the slope is −1/2.
+    topic_code: "9.1"
+  - front: Second derivative of a parametric curve → formula for d²y/dx²
+    back: |
+      d²y/dx² = [d/dt (dy/dx)] / (dx/dt). Differentiate the slope with respect to t, then divide by dx/dt once more.
+    topic_code: "9.2"
+  - front: Why d²y/dx² for a parametric curve divides by dx/dt again → reason
+    back: |
+      The slope dy/dx is a function of t, not of x. By the chain rule d/dx = (d/dt)·(dt/dx) = (d/dt) ÷ (dx/dt).
+    topic_code: "9.2"
+  - front: Curve x = t² − 2t, y = t³ − 12t → d²y/dx² at t = 3
+    back: |
+      d/dt [(3t² − 12)/(2t − 2)] = (6t² − 12t + 24)/(2t − 2)² = 42/16 at t = 3; divide by dx/dt = 4 to get 21/32.
+    topic_code: "9.2"
+  - front: Ellipse x = 4 cos t, y = 3 sin t → d²y/dx²
+    back: |
+      dy/dx = −(3/4)cot t; d/dt gives (3/4)csc²t; divide by −4 sin t: d²y/dx² = −(3/16)csc³t. Negative for 0 < t < π (upper half, concave down).
+    topic_code: "9.2"
+  - front: Curve x = eᵗ, y = t² → where concave up
+    back: |
+      dy/dx = 2t e^(−t); d/dt = 2e^(−t)(1 − t); divide by eᵗ: d²y/dx² = 2e^(−2t)(1 − t) > 0 for t < 1.
+    topic_code: "9.2"
+  - front: Curve x = t², y = t³ for t > 0 → d²y/dx² at t = 1
+    back: |
+      dy/dx = 3t/2; d/dt = 3/2; divide by 2t: 3/(4t) = 3/4 at t = 1. Concave up.
+    topic_code: "9.2"
+  - front: Sign of d²y/dx² on a parametric curve → meaning
+    back: |
+      Positive: the curve is concave up there (its slope dy/dx increases as x increases). Negative: concave down.
+    topic_code: "9.2"
+  - front: Error-spot → "For x = t² − 2t, y = t³ − 12t, d²y/dx² = (d²y/dt²)/(d²x/dt²) = 6t/2 = 9 at t = 3"
+    back: |
+      The second derivative is not a ratio of second derivatives. Differentiate dy/dx with respect to t and divide by dx/dt: 21/32.
+    topic_code: "9.2"
+  - front: Error-spot → "d/dt of dy/dx is 21/8 at t = 3, so d²y/dx² = 21/8"
+    back: |
+      That stops one step early. d/dt (dy/dx) must still be divided by dx/dt = 4, giving 21/32.
+    topic_code: "9.2"
+  - front: Arc length of a parametric curve for a ≤ t ≤ b → formula
+    back: |
+      L = ∫ from a to b of √((dx/dt)² + (dy/dt)²) dt, for a smooth curve traced exactly once as t runs from a to b.
+    topic_code: "9.3"
+  - front: Where the parametric arc length formula comes from → one line
+    back: |
+      A small change dt moves the point dx = x′dt across and dy = y′dt up; by Pythagoras the piece of curve has length √(x′² + y′²) dt.
+    topic_code: "9.3"
+  - front: Curve x = 3t², y = 2t³ for 0 ≤ t ≤ 1 → length
+    back: |
+      √(36t² + 36t⁴) = 6t√(1 + t²); ∫ from 0 to 1 = 2(1 + t²)^(3/2) from 0 to 1 = 4√2 − 2 ≈ 3.657.
+    topic_code: "9.3"
+  - front: Curve x = t²/2, y = (1/3)(2t + 1)^(3/2), t ≥ 0 → integrand for its length
+    back: |
+      (dx/dt)² + (dy/dt)² = t² + (2t + 1) = (t + 1)², so the integrand is t + 1; from 0 to 4 the length is 12.
+    topic_code: "9.3"
+  - front: Curve x = cos(2t), y = t² for 0 ≤ t ≤ π → length integral
+    back: |
+      ∫ from 0 to π of √(4 sin²(2t) + 4t²) dt. The chain rule puts a 2 in dx/dt = −2 sin(2t), and squaring removes the minus sign.
+    topic_code: "9.3"
+  - front: Parametric arc length versus week 23's arc length of y = f(x) → link
+    back: |
+      Taking x = t, y = f(t) gives √(1 + f′(t)²) dt, the week 23 formula. Parametric length is the general case.
+    topic_code: "9.3"
+  - front: Curve traced twice for 0 ≤ t ≤ 2π (such as x = cos 2t, y = sin 2t) → arc length caution
+    back: |
+      The integral over [0, 2π] gives 4π, twice the circle's circumference 2π. Use an interval on which the curve is traced exactly once.
+    topic_code: "9.3"
+  - front: Error-spot → "Length of x = 3t², y = 2t³ from 0 to 1 is ∫ (6t + 6t²) dt = 5"
+    back: |
+      Adding the derivatives is not Pythagoras. The integrand is √((6t)² + (6t²)²) = 6t√(1 + t²), and the length is 4√2 − 2.
+    topic_code: "9.3"
+  - front: Arc length of a parametric curve versus the straight-line distance between its endpoints → which is larger
+    back: |
+      The arc length is at least the straight-line distance, with equality only for a segment traced once. For x = 3t², y = 2t³ on [0, 1]: 3.657 versus √13 ≈ 3.606.
+    topic_code: "9.3"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 9.1, 9.2 and 9.3: slopes and tangent lines of
+    parametric curves, horizontal and vertical tangents, second derivatives and concavity, and arc length), with
+    7 questions (about 30%) reviewing weeks 16, 17, 20 and 23 (integration by parts, partial fractions, improper
+    integrals, Euler's method, logistic growth and the arc length of y = f(x)). Opens with a shared-context set on
+    one parametric curve. Multiple choice, select-all, true/false and numeric items are graded at once;
+    fill-in-the-blank items are matched automatically; the short answers and the long answer are graded by your
+    teacher against the scoring notes. One numeric item needs a graphing calculator and says so; the rest are
+    no-calculator.
+  questions:
+    # ---- Stimulus set: the curve x = t² − 2t, y = t³ − 12t (9.1, 9.2)
+    - slug: apcalcbc-u09-w24-q01
+      type: multiple_choice
+      topic_code: "9.1"
+      source: "AP Calculus CED, Topic 9.1"
+      points: 1
+      stimulus: |
+        A curve C is defined for all real t by the parametric equations
+
+        x(t) = t² − 2t,  y(t) = t³ − 12t.
+      prompt: |
+        What is the slope of the line tangent to C at the point where t = 3?
+      options:
+        - "4/15"
+        - "15"
+        - "15/4"
+        - "−9/3"
+      option_explanations:
+        - |
+          4/15 is (dx/dt)/(dy/dt), the reciprocal; the slope is the change in y over the change in x, (dy/dt)/(dx/dt).
+        - |
+          15 is dy/dt at t = 3 alone; it must be divided by dx/dt = 2(3) − 2 = 4.
+        - |
+          Correct. dx/dt = 2t − 2 = 4 and dy/dt = 3t² − 12 = 15 at t = 3, so dy/dx = (dy/dt)/(dx/dt) = 15/4.
+        - |
+          −9/3 divides the coordinates of the point (3, −9) as y/x; a slope comes from derivatives, not from the point itself.
+      answer: 2
+    - slug: apcalcbc-u09-w24-q02
+      type: multiple_choice
+      topic_code: "9.1"
+      source: "AP Calculus CED, Topic 9.1"
+      points: 1
+      stimulus: |
+        A curve C is defined for all real t by the parametric equations
+
+        x(t) = t² − 2t,  y(t) = t³ − 12t.
+      prompt: |
+        Which is an equation of the line tangent to C at the point where t = 3?
+      options:
+        - "y + 9 = (15/4)(x − 3)"
+        - "y − 9 = (15/4)(x + 3)"
+        - "y + 9 = (15/4)(t − 3)"
+        - "y + 9 = (4/15)(x − 3)"
+      option_explanations:
+        - |
+          Correct. At t = 3 the point is (x, y) = (9 − 6, 27 − 36) = (3, −9) and the slope is 15/4, so y − (−9) = (15/4)(x − 3).
+        - |
+          This flips the signs of both coordinates of the point (3, −9) when substituting into y − y₁ = m(x − x₁).
+        - |
+          The tangent line relates x and y; writing (t − 3) mixes the parameter into a line in the xy-plane.
+        - |
+          This uses the reciprocal slope (dx/dt)/(dy/dt) = 4/15 instead of (dy/dt)/(dx/dt) = 15/4.
+      answer: 0
+    - slug: apcalcbc-u09-w24-q03
+      type: multiple_choice
+      topic_code: "9.1"
+      source: "AP Calculus CED, Topic 9.1"
+      points: 1
+      stimulus: |
+        A curve C is defined for all real t by the parametric equations
+
+        x(t) = t² − 2t,  y(t) = t³ − 12t.
+      prompt: |
+        At which points (x, y) does C have a horizontal tangent line?
+      options:
+        - "(−1, −11) only"
+        - "(0, −16) only"
+        - "(0, 16) and (8, −16)"
+        - "(0, −16) and (8, 16)"
+      option_explanations:
+        - |
+          (−1, −11) is where dx/dt = 0 (t = 1), which gives a vertical tangent, not a horizontal one.
+        - |
+          This keeps only t = 2 from 3t² − 12 = 0; t = −2 is also a root, and dx/dt = −6 ≠ 0 there.
+        - |
+          The t-values are right but y was evaluated with a sign slip: y(2) = 8 − 24 = −16 and y(−2) = −8 + 24 = 16.
+        - |
+          Correct. dy/dt = 3t² − 12 = 0 at t = ±2, where dx/dt = 2 and −6 are not zero. t = 2 gives (0, −16) and t = −2 gives (8, 16).
+      answer: 3
+    - slug: apcalcbc-u09-w24-q04
+      type: multiple_choice
+      topic_code: "9.2"
+      source: "AP Calculus CED, Topic 9.2"
+      points: 1
+      stimulus: |
+        A curve C is defined for all real t by the parametric equations
+
+        x(t) = t² − 2t,  y(t) = t³ − 12t.
+      prompt: |
+        What is the value of d²y/dx² at the point where t = 3?
+      options:
+        - "21/8"
+        - "21/32"
+        - "9"
+        - "21/2"
+      option_explanations:
+        - |
+          21/8 is d/dt (dy/dx) at t = 3; it must still be divided by dx/dt = 4.
+        - |
+          Correct. dy/dx = (3t² − 12)/(2t − 2), and d/dt of it is (6t² − 12t + 24)/(2t − 2)² = 42/16 = 21/8 at t = 3. Divide by dx/dt = 4: 21/32.
+        - |
+          9 is (d²y/dt²)/(d²x/dt²) = 6t/2 at t = 3; the second derivative is not a ratio of second derivatives.
+        - |
+          21/2 multiplies d/dt (dy/dx) = 21/8 by dx/dt = 4 instead of dividing by it.
+      answer: 1
+    # ---- Independent items
+    - slug: apcalcbc-u09-w24-q05
+      type: multiple_choice
+      topic_code: "9.1"
+      source: "AP Calculus CED, Topic 9.1"
+      points: 1
+      prompt: |
+        A curve is given by x = e^(2t) and y = e^(−t). What is dy/dx at t = 0?
+      options:
+        - "−2"
+        - "−1"
+        - "−1/2"
+        - "1/2"
+      option_explanations:
+        - |
+          −2 is (dx/dt)/(dy/dt) = 2/(−1), the reciprocal of the slope.
+        - |
+          −1 forgets the chain-rule factor 2 in dx/dt = 2e^(2t), using dx/dt = 1 at t = 0.
+        - |
+          Correct. dy/dt = −e^(−t) = −1 and dx/dt = 2e^(2t) = 2 at t = 0, so dy/dx = −1/2.
+        - |
+          1/2 drops the minus sign from the derivative of e^(−t), which is −e^(−t).
+      answer: 2
+    - slug: apcalcbc-u09-w24-q06
+      type: multiple_choice
+      topic_code: "9.3"
+      source: "AP Calculus CED, Topic 9.3"
+      points: 1
+      prompt: |
+        What is the length of the curve x = 3t², y = 2t³ for 0 ≤ t ≤ 1?
+      options:
+        - "4√2 − 2"
+        - "8√2 − 4"
+        - "5"
+        - "√13"
+      option_explanations:
+        - |
+          Correct. (6t)² + (6t²)² = 36t²(1 + t²), so the integrand is 6t√(1 + t²). With u = 1 + t², du = 2t dt, ∫ from 0 to 1 = 2(1 + t²)^(3/2) from 0 to 1 = 4√2 − 2.
+        - |
+          8√2 − 4 is twice the answer: the substitution u = 1 + t² has du = 2t dt, so 6t dt = 3 du, not 6 du.
+        - |
+          5 is ∫ from 0 to 1 of (6t + 6t²) dt, which adds the derivatives instead of combining them with Pythagoras.
+        - |
+          √13 is the straight-line distance from (0, 0) to (3, 2), the endpoints; the curve is longer than the chord.
+      answer: 0
+    - slug: apcalcbc-u09-w24-q07
+      type: multiple_choice
+      topic_code: "9.3"
+      source: "AP Calculus CED, Topic 9.3"
+      points: 1
+      prompt: |
+        Which integral gives the length of the curve x = cos(2t), y = t² for 0 ≤ t ≤ π?
+      options:
+        - "∫ from 0 to π of √(sin²(2t) + 4t²) dt"
+        - "∫ from 0 to π of √(cos²(2t) + t⁴) dt"
+        - "∫ from 0 to π of √(1 + (t/sin(2t))²) dt"
+        - "∫ from 0 to π of √(4 sin²(2t) + 4t²) dt"
+      option_explanations:
+        - |
+          This forgets the chain rule in dx/dt: the derivative of cos(2t) is −2 sin(2t), whose square is 4 sin²(2t).
+        - |
+          This squares x(t) and y(t) themselves; the arc length integrand uses their derivatives.
+        - |
+          This tries the y = f(x) formula with dy/dx but integrates with respect to t; the parametric form needs no dy/dx.
+        - |
+          Correct. dx/dt = −2 sin(2t) and dy/dt = 2t, so (dx/dt)² + (dy/dt)² = 4 sin²(2t) + 4t².
+      answer: 3
+    - slug: apcalcbc-u09-w24-q08
+      type: multiple_choice
+      topic_code: "9.2"
+      source: "AP Calculus CED, Topic 9.2"
+      points: 1
+      prompt: |
+        A curve is given by x = eᵗ and y = t². For which values of t is the curve concave up?
+      options:
+        - "t > 1"
+        - "t < 1"
+        - "t < 0"
+        - "All real t"
+      option_explanations:
+        - |
+          This reverses the sign of 1 − t: d²y/dx² = 2e^(−2t)(1 − t) is negative for t > 1.
+        - |
+          Correct. dy/dx = 2t/eᵗ = 2te^(−t); d/dt gives 2e^(−t)(1 − t); dividing by dx/dt = eᵗ gives d²y/dx² = 2e^(−2t)(1 − t), positive exactly when t < 1.
+        - |
+          t < 0 is where the slope 2te^(−t) is negative, which describes where the curve falls, not its concavity.
+        - |
+          This divides second derivatives, 2/eᵗ > 0; the correct second derivative changes sign at t = 1.
+      answer: 1
+    - slug: apcalcbc-u09-w24-q09
+      type: multiple_choice
+      topic_code: "9.1"
+      source: "AP Calculus CED, Topic 9.1"
+      points: 1
+      prompt: |
+        A smooth curve is given by x = f(t) and y = g(t), with f(2) = 4, g(2) = 1, f′(2) = −3 and g′(2) = 5. The line tangent to the curve at t = 2 is used to approximate the y-coordinate of the curve where x = 3.7. What is the approximation?
+      options:
+        - "0.5"
+        - "1.18"
+        - "−0.5"
+        - "1.5"
+      option_explanations:
+        - |
+          0.5 uses slope +5/3, losing the minus sign from f′(2) = −3; the slope is 5/(−3) = −5/3.
+        - |
+          1.18 uses the reciprocal slope −3/5: 1 + (−3/5)(−0.3); the slope is g′/f′, not f′/g′.
+        - |
+          −0.5 uses dy/dt = 5 as the slope: 1 + 5(−0.3); the slope in the xy-plane is (dy/dt)/(dx/dt).
+        - |
+          Correct. The slope is g′(2)/f′(2) = −5/3, so y ≈ 1 + (−5/3)(3.7 − 4) = 1 + 0.5 = 1.5.
+      answer: 3
+    - slug: apcalcbc-u09-w24-q10
+      type: multiple_choice
+      topic_code: "8.13"
+      source: "AP Calculus CED, Topic 8.13"
+      points: 1
+      prompt: |
+        What is the arc length of the graph of y = (2/3)x^(3/2) from x = 0 to x = 3?
+      options:
+        - "16/3"
+        - "15/2"
+        - "14/3"
+        - "2√3"
+      option_explanations:
+        - |
+          16/3 is (2/3)(1 + x)^(3/2) at x = 3 alone; the value at x = 0, which is 2/3, must be subtracted.
+        - |
+          15/2 is ∫ from 0 to 3 of (1 + x) dx; the square root of 1 + (y′)² was dropped.
+        - |
+          Correct. y′ = x^(1/2), so 1 + (y′)² = 1 + x and L = ∫ from 0 to 3 of √(1 + x) dx = (2/3)(1 + x)^(3/2) from 0 to 3 = (2/3)(8 − 1) = 14/3.
+        - |
+          2√3 is y(3) − y(0), the rise of the graph; arc length measures the distance along the graph.
+      answer: 2
+    - slug: apcalcbc-u09-w24-q11
+      type: multiple_choice
+      topic_code: "6.11"
+      source: "AP Calculus CED, Topic 6.11"
+      points: 1
+      prompt: |
+        Which is an antiderivative of x e^(2x)?
+      options:
+        - "(x/2)e^(2x) − (1/4)e^(2x)"
+        - "(x/2)e^(2x) + (1/4)e^(2x)"
+        - "x e^(2x) − (1/2)e^(2x)"
+        - "(x²/4)e^(2x)"
+      option_explanations:
+        - |
+          Correct. Parts with u = x and dv = e^(2x) dx gives v = (1/2)e^(2x): (x/2)e^(2x) − ∫ (1/2)e^(2x) dx = (x/2)e^(2x) − (1/4)e^(2x).
+        - |
+          The parts formula subtracts ∫ v du; adding it gives a function whose derivative is x e^(2x) + e^(2x).
+        - |
+          This takes v = e^(2x) instead of (1/2)e^(2x), forgetting to divide by the chain-rule factor 2.
+        - |
+          This multiplies an antiderivative of x by an antiderivative of e^(2x); there is no product rule for integrals.
+      answer: 0
+    - slug: apcalcbc-u09-w24-q12
+      type: multiple_choice
+      topic_code: "6.12"
+      source: "AP Calculus CED, Topic 6.12"
+      points: 1
+      prompt: |
+        What is the value of ∫ from 2 to 4 of 2/(x² − 1) dx?
+      options:
+        - "ln(5/9)"
+        - "ln(9/5)"
+        - "ln(3/5)"
+        - "2 ln(9/5)"
+      option_explanations:
+        - |
+          ln(5/9) comes from the decomposition with its signs swapped, −1/(x − 1) + 1/(x + 1).
+        - |
+          Correct. 2/(x² − 1) = 1/(x − 1) − 1/(x + 1), so the integral is [ln|x − 1| − ln|x + 1|] from 2 to 4 = (ln 3 − ln 5) − (0 − ln 3) = ln(9/5).
+        - |
+          ln(3/5) is the antiderivative at x = 4 alone; its value at x = 2, which is −ln 3, must be subtracted.
+        - |
+          This decomposes as 2/(x − 1) − 2/(x + 1), which recombines to 4/(x² − 1), twice the integrand.
+      answer: 1
+    - slug: apcalcbc-u09-w24-q13
+      type: multi_select
+      topic_code: "9.1"
+      source: "AP Calculus CED, Topic 9.1"
+      points: 2
+      partial_credit: true
+      prompt: |
+        A curve is given by x = t³ − 3t and y = t² − 2t for all real t. Select every true statement.
+      options:
+        - "The curve has a vertical tangent line at the point (2, 3), where t = −1."
+        - "The curve has a horizontal tangent line at the point where t = 1."
+        - "For t ≠ 1 and t ≠ −1, dy/dx = 2/(3(t + 1))."
+        - "The slope of the curve at t = 0 is −2/3."
+        - "At t = 2, the point tracing the curve is moving to the right."
+      option_explanations:
+        - |
+          True. At t = −1, dx/dt = 3t² − 3 = 0 while dy/dt = 2t − 2 = −4 ≠ 0, and the point is (−1 + 3, 1 + 2) = (2, 3).
+        - |
+          False. At t = 1 both dx/dt and dy/dt are 0, so the slope formula gives 0/0; the simplified slope tends to 2/(3 · 2) = 1/3, not 0.
+        - |
+          True. dy/dx = (2t − 2)/(3t² − 3) = 2(t − 1)/(3(t − 1)(t + 1)) = 2/(3(t + 1)) after cancelling t − 1.
+        - |
+          False. At t = 0, dy/dt = −2 and dx/dt = −3, so the slope is (−2)/(−3) = 2/3; the two negatives cancel.
+        - |
+          True. dx/dt = 3(4) − 3 = 9 > 0 at t = 2, so x is increasing.
+      answer: [0, 2, 4]
+    - slug: apcalcbc-u09-w24-q14
+      type: multi_select
+      topic_code: "9.3"
+      source: "AP Calculus CED, Topic 9.3"
+      points: 2
+      partial_credit: true
+      prompt: |
+        The curve x = t², y = t³ for 0 ≤ t ≤ 2 is also the graph of y = x^(3/2) for 0 ≤ x ≤ 4. Select every expression equal to the length of this curve.
+      options:
+        - "∫ from 0 to 2 of √(4t² + 9t⁴) dt"
+        - "∫ from 0 to 2 of t√(4 + 9t²) dt"
+        - "∫ from 0 to 4 of √(1 + (9/4)x) dx"
+        - "∫ from 0 to 4 of √(4t² + 9t⁴) dt"
+        - "∫ from 0 to 2 of (2t + 3t²) dt"
+      option_explanations:
+        - |
+          Equal. dx/dt = 2t and dy/dt = 3t², so the parametric integrand is √(4t² + 9t⁴) on 0 ≤ t ≤ 2.
+        - |
+          Equal. √(4t² + 9t⁴) = √(t²(4 + 9t²)) = |t|√(4 + 9t²), and |t| = t on 0 ≤ t ≤ 2.
+        - |
+          Equal. As y = x^(3/2), y′ = (3/2)x^(1/2), so 1 + (y′)² = 1 + (9/4)x on 0 ≤ x ≤ 4. All three equal (80√10 − 8)/27.
+        - |
+          Not equal. The integrand is in t but the limits are the x-values 0 and 4; t only runs from 0 to 2.
+        - |
+          Not equal. This adds dx/dt and dy/dt instead of taking √((dx/dt)² + (dy/dt)²).
+      answer: [0, 1, 2]
+    - slug: apcalcbc-u09-w24-q15
+      type: true_false
+      topic_code: "9.2"
+      source: "AP Calculus CED, Topic 9.2"
+      points: 1
+      prompt: |
+        True or false: For a parametric curve x = x(t), y = y(t), the second derivative d²y/dx² equals (d²y/dt²)/(d²x/dt²).
+      answer: false
+      explanation: |
+        False. d²y/dx² = [d/dt (dy/dx)]/(dx/dt). For x = t² − 2t, y = t³ − 12t at t = 3, the ratio of second derivatives is 18/2 = 9, while the true value is 21/32.
+    - slug: apcalcbc-u09-w24-q16
+      type: true_false
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        True or false: The improper integral ∫ from 0 to 1 of 1/√x dx diverges, because 1/√x is unbounded as x → 0⁺.
+      answer: false
+      explanation: |
+        False. An unbounded integrand does not force divergence. ∫ from b to 1 of x^(−1/2) dx = 2 − 2√b → 2 as b → 0⁺, so the integral converges to 2.
+    - slug: apcalcbc-u09-w24-q17
+      type: fill_blank
+      topic_code: "9.1"
+      source: "AP Calculus CED, Topic 9.1"
+      points: 1
+      prompt: |
+        The curve x = 3t + 1, y = t² − 4t has a horizontal tangent line at t = ____.
+      answer: ["2", "t = 2", "t=2"]
+      explanation: |
+        dy/dt = 2t − 4 = 0 at t = 2, and dx/dt = 3 is never zero, so the tangent there is horizontal. The point is (7, −4).
+    - slug: apcalcbc-u09-w24-q18
+      type: fill_blank
+      topic_code: "6.13"
+      source: "AP Calculus CED, Topic 6.13"
+      points: 1
+      prompt: |
+        The improper integral ∫ from 1 to ∞ of 3/x⁴ dx converges to ____.
+      answer: ["1", "1.0", "1.000"]
+      explanation: |
+        ∫ from 1 to b of 3x^(−4) dx = [−x^(−3)] from 1 to b = 1 − 1/b³, and 1/b³ → 0 as b → ∞, so the integral converges to 1.
+    - slug: apcalcbc-u09-w24-q19
+      type: numeric
+      topic_code: "7.5"
+      source: "AP Calculus CED, Topic 7.5"
+      points: 1
+      prompt: |
+        Let y = f(x) be the solution to dy/dx = x + y with f(0) = 1. Use Euler's method with two steps of equal size, starting at x = 0, to approximate f(1).
+      answer: { value: 2.5, tolerance: 0 }
+      explanation: |
+        Step size 0.5. At (0, 1) the slope is 1, so f(0.5) ≈ 1 + 0.5(1) = 1.5. At (0.5, 1.5) the slope is 2, so f(1) ≈ 1.5 + 0.5(2) = 2.5.
+    - slug: apcalcbc-u09-w24-q20
+      type: numeric
+      topic_code: "9.3"
+      source: "AP Calculus CED, Topic 9.3"
+      points: 1
+      prompt: |
+        (Calculator.) Find the length of the curve x = ln(t + 1), y = t² for 0 ≤ t ≤ 2. Give your answer to three decimal places.
+      answer: { value: 4.335, tolerance: 0.001 }
+      explanation: |
+        dx/dt = 1/(t + 1) and dy/dt = 2t, so L = ∫ from 0 to 2 of √(1/(t + 1)² + 4t²) dt ≈ 4.335 by the calculator's numerical integration.
+    - slug: apcalcbc-u09-w24-q21
+      type: short_answer
+      topic_code: "9.2"
+      source: "AP Calculus CED, Topic 9.2"
+      points: 3
+      prompt: |
+        An ellipse is traced by x = 4 cos t, y = 3 sin t for 0 ≤ t ≤ 2π.
+
+        (a) Find dy/dx in terms of t.
+        (b) Write an equation of the line tangent to the ellipse at t = π/4.
+        (c) Find d²y/dx² in terms of t, and state whether the ellipse is concave up or concave down at t = π/4.
+      answer: |
+        (a) dy/dx = (3 cos t)/(−4 sin t) = −(3/4)cot t.
+        (b) At t = π/4 the point is (2√2, 3√2/2) and the slope is −3/4: y − 3√2/2 = −(3/4)(x − 2√2).
+        (c) d/dt (−(3/4)cot t) = (3/4)csc²t; dividing by dx/dt = −4 sin t gives d²y/dx² = −(3/16)csc³t. At t = π/4 this is −3√2/8 < 0, so the ellipse is concave down there.
+      explanation: |
+        Three points, one per part. (a) −(3/4)cot t or an equivalent quotient. (b) The correct point and slope −3/4 in a line equation. (c) −(3/16)csc³t (or −3/(16 sin³t)) with the conclusion concave down because the value is negative at t = π/4; a ratio of second derivatives earns no credit.
+    - slug: apcalcbc-u09-w24-q22
+      type: short_answer
+      topic_code: "7.9"
+      source: "AP Calculus CED, Topic 7.9"
+      points: 3
+      prompt: |
+        A hypothetical population of beetles satisfies dP/dt = 0.4P(1 − P/800), where t is in months, with P(0) = 100.
+
+        (a) Find lim (t→∞) P(t).
+        (b) What is the population when it is growing fastest?
+        (c) Is the graph of P concave up or concave down at t = 0? Explain.
+      answer: |
+        (a) 800, the carrying capacity: a logistic solution starting between 0 and 800 increases toward 800.
+        (b) 400, half the carrying capacity, where dP/dt (a downward parabola in P) is largest.
+        (c) Concave up. P is increasing, and the population is below 400, so dP/dt = 0.4P(1 − P/800) increases as P increases; P″ = (0.4 − 0.001P)(dP/dt) = 0.3 · 35 > 0 at P = 100.
+      explanation: |
+        Three points, one per part. (a) 800. (b) 400 (P = M/2). (c) Concave up with a reason: P below half the carrying capacity while increasing, or a computed positive P″ (the product 0.3 · 35 = 10.5 is not required).
+    - slug: apcalcbc-u09-w24-q23
+      type: long_answer
+      topic_code: "9.3"
+      source: "AP Calculus CED, Topics 9.1–9.3"
+      points: 6
+      prompt: |
+        A curve C is defined by x(t) = t²/2 and y(t) = (1/3)(2t + 1)^(3/2) for 0 ≤ t ≤ 4.
+
+        (A) Find dy/dx in terms of t, and write an equation of the line tangent to C at t = 4.
+
+        (B) Find d²y/dx² in terms of t. Is C concave up or concave down at t = 4? Justify.
+
+        (C) Show that (dx/dt)² + (dy/dt)² = (t + 1)², and find the length of C.
+
+        (D) Does C have a horizontal tangent line at any point with 0 < t ≤ 4? Justify.
+      answer: |
+        (A) dx/dt = t and dy/dt = (1/3)(3/2)(2t + 1)^(1/2)(2) = √(2t + 1), so dy/dx = √(2t + 1)/t. At t = 4 the point is (8, 9) and the slope is 3/4: y − 9 = (3/4)(x − 8).
+        (B) d/dt [√(2t + 1)/t] = [t/√(2t + 1) − √(2t + 1)]/t² = −(t + 1)/(t²√(2t + 1)). Divide by dx/dt = t: d²y/dx² = −(t + 1)/(t³√(2t + 1)). At t = 4 this is −5/192 < 0, so C is concave down at t = 4.
+        (C) t² + (√(2t + 1))² = t² + 2t + 1 = (t + 1)². So L = ∫ from 0 to 4 of √((t + 1)²) dt = ∫ from 0 to 4 of (t + 1) dt = 8 + 4 = 12.
+        (D) No. A horizontal tangent needs dy/dt = 0, but dy/dt = √(2t + 1) ≥ 1 > 0 for all t in the interval.
+      explanation: |
+        Six points. (A) 1 point for dy/dx = √(2t + 1)/t; 1 point for the tangent line through (8, 9) with slope 3/4. (B) 1 point for d²y/dx² (any equivalent form, including the division by dx/dt) and the conclusion concave down from its negative value at t = 4. (C) 1 point for the algebra showing the sum of squares is (t + 1)²; 1 point for the integral ∫ from 0 to 4 of (t + 1) dt and the value 12 (√((t + 1)²) = t + 1 because t + 1 > 0). (D) 1 point for "no" with dy/dt = √(2t + 1) never zero.

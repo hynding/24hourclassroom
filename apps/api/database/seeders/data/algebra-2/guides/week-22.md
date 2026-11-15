@@ -19,7 +19,7 @@
 | Even function | f(−x) = f(x) for every x; the graph is symmetric about the y-axis. |
 | Odd function | f(−x) = −f(x) for every x; the graph is symmetric about the origin (a half-turn leaves it unchanged). |
 | Vertical scaling | y = k · f(x): every output multiplied by k; (a, b) → (a, kb). |
-| Stretch / compress | |k| > 1 stretches the graph away from the x-axis; 0 < |k| < 1 compresses it toward the x-axis. |
+| Stretch / compress | \|k\| > 1 stretches the graph away from the x-axis; 0 < \|k\| < 1 compresses it toward the x-axis. |
 | Parent function | The basic function the transformation starts from. |
 
 ## Symmetry in graphs (5.5)

@@ -1,0 +1,595 @@
+week: 26
+unit: 9
+title: "Polar Curves: Slopes and Areas"
+topics: ["9.7", "9.8", "9.9"]
+guide: guides/week-26.md
+guide_description: |
+  Polar coordinates (r, θ) and their link to rectangular coordinates (x = r cos θ, y = r sin θ), polar curves
+  r = f(θ), and their calculus: dr/dθ as the rate the point moves away from or toward the pole, and the slope dy/dx
+  of a polar curve through the parametric form x = f(θ)cos θ, y = f(θ)sin θ; the area of a region bounded by one
+  polar curve, (1/2)∫ from α to β of r² dθ, including a single petal or inner loop; and the area between two polar
+  curves, with intersection angles found by setting the curves equal and checking the pole. Worked examples: the
+  limaçon r = 3 − 2 cos θ (points, slope, area), the spiral r = 2θ, one petal of r = 4 sin(3θ), the inner loop of
+  r = 1 + 2 cos θ, and the region inside r = 3 sin θ and outside r = 1 + sin θ.
+flashcards_description: |
+  30 cards on polar coordinates: converting points, reading r and dr/dθ, the slope of a polar curve, the area
+  formula and why it has the factor 1/2, petals and loops, the area between two curves and finding where polar
+  curves intersect, and the error patterns in each.
+
+flashcards:
+  - front: Polar point (r, θ) → rectangular coordinates
+    back: |
+      x = r cos θ, y = r sin θ. Going back: r² = x² + y² and tan θ = y/x, choosing θ in the right quadrant.
+    topic_code: "9.7"
+  - front: Polar point (−2, π/3) → rectangular coordinates
+    back: |
+      x = −2 cos(π/3) = −1, y = −2 sin(π/3) = −√3. A negative r points the opposite way from the angle θ.
+    topic_code: "9.7"
+  - front: Polar point (2, π/6) → three other polar names for the same point
+    back: |
+      (2, 13π/6), (2, −11π/6) and (−2, 7π/6). Adding 2π to θ, or negating r and adding π, gives the same point; rectangular (√3, 1).
+    topic_code: "9.7"
+  - front: Polar curve r = f(θ) → parametric form in θ
+    back: |
+      x = f(θ)cos θ, y = f(θ)sin θ. Then every week 24 tool (slope, length) works with θ as the parameter.
+    topic_code: "9.7"
+  - front: Slope dy/dx of a polar curve r = f(θ) → formula
+    back: |
+      dy/dx = (dy/dθ)/(dx/dθ) = (r′ sin θ + r cos θ)/(r′ cos θ − r sin θ), with r′ = dr/dθ (product rule on r sin θ and r cos θ).
+    topic_code: "9.7"
+  - front: Limaçon r = 3 − 2 cos θ → slope at θ = π/2
+    back: |
+      r = 3, r′ = 2 sin θ = 2. dy/dθ = 2 · 1 + 3 · 0 = 2 and dx/dθ = 2 · 0 − 3 · 1 = −3, so dy/dx = −2/3.
+    topic_code: "9.7"
+  - front: Spiral r = 2θ → slope at θ = π/2
+    back: |
+      r = π, r′ = 2: dy/dθ = 2 sin θ + π cos θ = 2, dx/dθ = 2 cos θ − π sin θ = −π, so dy/dx = −2/π.
+    topic_code: "9.7"
+  - front: Meaning of dr/dθ > 0 on a polar curve (with r > 0) → motion
+    back: |
+      r increases with θ: the point moves away from the pole. dr/dθ < 0 (with r > 0) means it moves toward the pole.
+    topic_code: "9.7"
+  - front: dr/dθ versus dy/dx for a polar curve → which is the slope?
+    back: |
+      dy/dx is the slope of the tangent line in the xy-plane. dr/dθ only says how the distance from the pole changes; it is not a slope.
+    topic_code: "9.7"
+  - front: Polar horizontal and vertical tangents → conditions
+    back: |
+      Horizontal: dy/dθ = 0 with dx/dθ ≠ 0. Vertical: dx/dθ = 0 with dy/dθ ≠ 0. Both zero: investigate further.
+    topic_code: "9.7"
+  - front: Circle r = 2 cos θ → centre, radius and θ-interval for one trace
+    back: |
+      r² = 2r cos θ gives x² + y² = 2x, a circle with centre (1, 0) and radius 1; traced once for 0 ≤ θ ≤ π (or −π/2 ≤ θ ≤ π/2).
+    topic_code: "9.7"
+  - front: Curve r = 6 sin θ → dr/dθ at θ = π/3 and its meaning
+    back: |
+      6 cos(π/3) = 3 > 0, with r = 3√3 > 0: the point is moving away from the pole there.
+    topic_code: "9.7"
+  - front: Area of a polar region bounded by r = f(θ) for α ≤ θ ≤ β → formula
+    back: |
+      A = (1/2)∫ from α to β of r² dθ = (1/2)∫ from α to β of (f(θ))² dθ, for a region swept out once.
+    topic_code: "9.8"
+  - front: Why the polar area formula has 1/2 and r² → reason
+    back: |
+      The region is cut into thin sectors, not rectangles. A sector of radius r and angle Δθ has area (1/2)r²Δθ.
+    topic_code: "9.8"
+  - front: Limaçon r = 3 − 2 cos θ → area it encloses
+    back: |
+      (1/2)∫ from 0 to 2π of (9 − 12 cos θ + 4 cos²θ) dθ = (1/2)(18π + 0 + 4π) = 11π.
+    topic_code: "9.8"
+  - front: cos²θ and sin²θ in a polar area integral → how to integrate
+    back: |
+      Use cos²θ = (1 + cos 2θ)/2 and sin²θ = (1 − cos 2θ)/2. Over a full period each averages 1/2, so ∫ from 0 to 2π of cos²θ dθ = π.
+    topic_code: "9.8"
+  - front: Rose r = 4 sin(3θ) → area of one petal
+    back: |
+      One petal runs from θ = 0 to π/3 (where r returns to 0): (1/2)∫ from 0 to π/3 of 16 sin²(3θ) dθ = 8 · (π/6) = 4π/3.
+    topic_code: "9.8"
+  - front: Bounds for one petal or loop of a polar curve → how to find them
+    back: |
+      Solve r = 0: consecutive zeros of r are where the petal or loop starts and ends at the pole.
+    topic_code: "9.8"
+  - front: Limaçon r = 1 + 2 cos θ → bounds for its inner loop
+    back: |
+      r = 0 when cos θ = −1/2, at θ = 2π/3 and 4π/3; r < 0 between them traces the inner loop: area (1/2)∫ from 2π/3 to 4π/3 of (1 + 2 cos θ)² dθ.
+    topic_code: "9.8"
+  - front: Rose r = 3 sin(2θ) on 0 ≤ θ ≤ π/2 → farthest point and petal area
+    back: |
+      r is largest (3) at θ = π/4. Area (1/2)∫ from 0 to π/2 of 9 sin²(2θ) dθ = 9π/8.
+    topic_code: "9.8"
+  - front: Area between two polar curves (outer R, inner r) for α ≤ θ ≤ β → formula
+    back: |
+      A = (1/2)∫ from α to β of (R² − r²) dθ, where R is the curve farther from the pole on that interval.
+    topic_code: "9.9"
+  - front: Intersections of two polar curves → how to find all of them
+    back: |
+      Solve f(θ) = g(θ), then check the pole separately (each curve may reach r = 0 at a different θ), and sketch to catch points reached with different θ values.
+    topic_code: "9.9"
+  - front: Curves r = 3 sin θ and r = 1 + sin θ → where they meet (other than the pole)
+    back: |
+      3 sin θ = 1 + sin θ gives sin θ = 1/2: θ = π/6 and 5π/6, at r = 3/2.
+    topic_code: "9.9"
+  - front: Region inside r = 3 sin θ and outside r = 1 + sin θ → area
+    back: |
+      (1/2)∫ from π/6 to 5π/6 of (9 sin²θ − (1 + sin θ)²) dθ = π.
+    topic_code: "9.9"
+  - front: Region inside the cardioid r = 2 + 2 cos θ and outside the circle r = 3 → area
+    back: |
+      Intersections at θ = ±π/3. (1/2)∫ from −π/3 to π/3 of ((2 + 2 cos θ)² − 9) dθ = 9√3/2 − π ≈ 4.653.
+    topic_code: "9.9"
+  - front: Area inside both of two polar curves → strategy
+    back: |
+      Split at the intersection angles and use, on each piece, the curve that is closer to the pole; or subtract the "inside one, outside the other" region from one curve's whole area.
+    topic_code: "9.9"
+  - front: Symmetry in a polar area problem → how it helps
+    back: |
+      If the region is symmetric about the x-axis (a curve in cos θ), integrate over the upper half and double. Check the halves really match before doubling.
+    topic_code: "9.9"
+  - front: Error-spot → "Area enclosed by r = 3 − 2 cos θ is ∫ from 0 to 2π of (3 − 2 cos θ)² dθ = 22π"
+    back: |
+      The polar area formula has a factor 1/2: (1/2)∫ r² dθ = 11π. The integral without it double-counts every sector.
+    topic_code: "9.8"
+  - front: Error-spot → "Area between r = 3 sin θ and r = 1 + sin θ is (1/2)∫ (3 sin θ − 1 − sin θ)² dθ"
+    back: |
+      Square each radius first, then subtract: (1/2)∫ (R² − r²) dθ. The square of the difference is not the difference of the squares.
+    topic_code: "9.9"
+  - front: Error-spot → "r = 2 cos θ encloses (1/2)∫ from 0 to 2π of 4 cos²θ dθ = 2π"
+    back: |
+      The circle is traced twice as θ runs from 0 to 2π, so that integral counts it twice. Over 0 ≤ θ ≤ π the area is π, matching radius 1.
+    topic_code: "9.8"
+
+quiz:
+  description: |
+    23 questions · about 40 minutes · mostly on this week (topics 9.7, 9.8 and 9.9: polar coordinates, dr/dθ and the
+    slope of a polar curve, the area of a polar region and the area between two polar curves), with 7 questions
+    (about 30%) reviewing weeks 17, 24 and 25 (partial fractions, parametric second derivatives and arc length,
+    vector-valued functions and motion in the plane). Opens with a shared-context set on one limaçon. Multiple
+    choice, select-all, true/false and numeric items are graded at once; fill-in-the-blank items are matched
+    automatically; the short answers and the long answer are graded by your teacher against the scoring notes. No
+    calculator is needed.
+  questions:
+    # ---- Stimulus set: the limaçon r = 3 − 2 cos θ (9.7, 9.8)
+    - slug: apcalcbc-u09-w26-q01
+      type: multiple_choice
+      topic_code: "9.7"
+      source: "AP Calculus CED, Topic 9.7"
+      points: 1
+      stimulus: |
+        The polar curve r = 3 − 2 cos θ, for 0 ≤ θ ≤ 2π, is a closed curve that encloses the pole.
+      prompt: |
+        What are the rectangular coordinates (x, y) of the point on the curve where θ = π?
+      options:
+        - "(5, 0)"
+        - "(1, 0)"
+        - "(0, 5)"
+        - "(−5, 0)"
+      option_explanations:
+        - |
+          (5, 0) drops the sign of cos π = −1 in x = r cos θ; at θ = π the point is on the negative x-axis.
+        - |
+          (1, 0) uses cos π = 1, giving r = 3 − 2 = 1; in fact cos π = −1, so r = 5, and the point is on the negative x-axis.
+        - |
+          (0, 5) swaps the formulas: x = r cos θ and y = r sin θ, not the other way round.
+        - |
+          Correct. r = 3 − 2 cos π = 3 + 2 = 5, so x = 5 cos π = −5 and y = 5 sin π = 0.
+      answer: 3
+    - slug: apcalcbc-u09-w26-q02
+      type: multiple_choice
+      topic_code: "9.7"
+      source: "AP Calculus CED, Topic 9.7"
+      points: 1
+      stimulus: |
+        The polar curve r = 3 − 2 cos θ, for 0 ≤ θ ≤ 2π, is a closed curve that encloses the pole.
+      prompt: |
+        What is the slope dy/dx of the curve at θ = π/2?
+      options:
+        - "2"
+        - "−2/3"
+        - "2/3"
+        - "−3/2"
+      option_explanations:
+        - |
+          2 is dr/dθ = 2 sin(π/2), the rate r changes, not the slope of the tangent line in the xy-plane.
+        - |
+          Correct. r = 3 and r′ = 2 sin θ = 2 at π/2. dy/dθ = r′ sin θ + r cos θ = 2 and dx/dθ = r′ cos θ − r sin θ = −3, so dy/dx = −2/3.
+        - |
+          This writes dx/dθ = r′ cos θ + r sin θ; the derivative of r cos θ has a minus sign, giving −3 rather than 3.
+        - |
+          −3/2 is (dx/dθ)/(dy/dθ), the reciprocal of the slope.
+      answer: 1
+    - slug: apcalcbc-u09-w26-q03
+      type: multiple_choice
+      topic_code: "9.8"
+      source: "AP Calculus CED, Topic 9.8"
+      points: 1
+      stimulus: |
+        The polar curve r = 3 − 2 cos θ, for 0 ≤ θ ≤ 2π, is a closed curve that encloses the pole.
+      prompt: |
+        What is the area of the region enclosed by the curve?
+      options:
+        - "11π"
+        - "22π"
+        - "9π"
+        - "6π"
+      option_explanations:
+        - |
+          Correct. (1/2)∫ from 0 to 2π of (9 − 12 cos θ + 4 cos²θ) dθ. The cos θ term integrates to 0 and ∫ from 0 to 2π of cos²θ dθ = π, so the area is (1/2)(18π + 4π) = 11π.
+        - |
+          22π leaves out the factor 1/2 in the polar area formula (1/2)∫ r² dθ.
+        - |
+          9π treats 4 cos²θ like 12 cos θ, as if it integrated to 0 over a full period; cos²θ is never negative, and its integral is π.
+        - |
+          6π integrates r instead of r² (and leaves out the 1/2): ∫ from 0 to 2π of (3 − 2 cos θ) dθ.
+      answer: 0
+    - slug: apcalcbc-u09-w26-q04
+      type: multiple_choice
+      topic_code: "9.7"
+      source: "AP Calculus CED, Topic 9.7"
+      points: 1
+      stimulus: |
+        The polar curve r = 3 − 2 cos θ, for 0 ≤ θ ≤ 2π, is a closed curve that encloses the pole.
+      prompt: |
+        As θ increases through π/3, is the point on the curve moving toward or away from the pole?
+      options:
+        - "Toward the pole, because dr/dθ = −2 sin(π/3) < 0."
+        - "Away from the pole, because r(π/3) = 2 > 0."
+        - "Away from the pole, because dr/dθ = 2 sin(π/3) = √3 > 0."
+        - "Toward the pole, because the slope dy/dx is negative there."
+      option_explanations:
+        - |
+          This differentiates −2 cos θ to −2 sin θ; the derivative of cos θ is −sin θ, so dr/dθ = +2 sin θ.
+        - |
+          r > 0 says where the point is, not how r is changing; the direction of motion relative to the pole comes from the sign of dr/dθ.
+        - |
+          Correct. dr/dθ = 2 sin θ = √3 > 0 at θ = π/3, and r = 2 > 0, so the distance from the pole is increasing.
+        - |
+          The slope dy/dx describes the tangent line's tilt; distance from the pole is governed by dr/dθ.
+      answer: 2
+    # ---- Independent items
+    - slug: apcalcbc-u09-w26-q05
+      type: multiple_choice
+      topic_code: "9.7"
+      source: "AP Calculus CED, Topic 9.7"
+      points: 1
+      prompt: |
+        What are the rectangular coordinates of the point with polar coordinates (r, θ) = (−2, π/3)?
+      options:
+        - "(1, √3)"
+        - "(−1, −√3)"
+        - "(−√3, −1)"
+        - "(−1, √3)"
+      option_explanations:
+        - |
+          (1, √3) ignores the negative r; it is the point (2, π/3), on the opposite side of the pole.
+        - |
+          Correct. x = −2 cos(π/3) = −1 and y = −2 sin(π/3) = −√3. A negative r points opposite to the direction θ.
+        - |
+          This uses sin for x and cos for y; x = r cos θ and y = r sin θ.
+        - |
+          This applies the negative r to x but not to y; both coordinates are multiplied by r = −2.
+      answer: 1
+    - slug: apcalcbc-u09-w26-q06
+      type: multiple_choice
+      topic_code: "9.7"
+      source: "AP Calculus CED, Topic 9.7"
+      points: 1
+      prompt: |
+        What is the slope of the tangent line to the spiral r = 2θ at θ = π/2?
+      options:
+        - "2"
+        - "2/π"
+        - "−π/2"
+        - "−2/π"
+      option_explanations:
+        - |
+          2 is dr/dθ, the rate at which r grows, not the slope dy/dx.
+        - |
+          2/π loses the minus sign in dx/dθ = r′ cos θ − r sin θ = 0 − π.
+        - |
+          −π/2 is (dx/dθ)/(dy/dθ), the reciprocal of the slope.
+        - |
+          Correct. r = π and r′ = 2 at θ = π/2. dy/dθ = 2 sin θ + π cos θ = 2 and dx/dθ = 2 cos θ − π sin θ = −π, so dy/dx = −2/π.
+      answer: 3
+    - slug: apcalcbc-u09-w26-q07
+      type: multiple_choice
+      topic_code: "9.8"
+      source: "AP Calculus CED, Topic 9.8"
+      points: 1
+      prompt: |
+        What is the area of one petal of the rose r = 4 sin(3θ)?
+      options:
+        - "4π/3"
+        - "8π/3"
+        - "4π"
+        - "2π/3"
+      option_explanations:
+        - |
+          Correct. One petal runs from θ = 0 to θ = π/3, where r returns to 0. (1/2)∫ from 0 to π/3 of 16 sin²(3θ) dθ = 8 · (π/6) = 4π/3.
+        - |
+          8π/3 leaves out the factor 1/2 in the polar area formula.
+        - |
+          4π is the area of all three petals; the question asks for one.
+        - |
+          2π/3 integrates from 0 to π/6 only, which is half a petal (r is largest at π/6, not zero).
+      answer: 0
+    - slug: apcalcbc-u09-w26-q08
+      type: multiple_choice
+      topic_code: "9.8"
+      source: "AP Calculus CED, Topic 9.8"
+      points: 1
+      prompt: |
+        The limaçon r = 1 + 2 cos θ has an inner loop. Which expression gives the area enclosed by the inner loop?
+      options:
+        - "(1/2)∫ from −2π/3 to 2π/3 of (1 + 2 cos θ)² dθ"
+        - "(1/2)∫ from 2π/3 to 4π/3 of (1 + 2 cos θ) dθ"
+        - "(1/2)∫ from 2π/3 to 4π/3 of (1 + 2 cos θ)² dθ"
+        - "(1/2)∫ from π/3 to 5π/3 of (1 + 2 cos θ)² dθ"
+      option_explanations:
+        - |
+          On −2π/3 < θ < 2π/3, r > 0, so this is the area of the outer loop (which contains the inner loop), not the inner loop.
+        - |
+          The integrand must be r², not r; the sector area is (1/2)r² dθ.
+        - |
+          Correct. r = 0 when cos θ = −1/2, at θ = 2π/3 and 4π/3. Between them r < 0 and the curve traces the inner loop, so its area is (1/2)∫ of r² over that interval.
+        - |
+          π/3 and 5π/3 solve cos θ = 1/2, a sign slip; r = 1 + 2 cos θ is zero where cos θ = −1/2.
+      answer: 2
+    - slug: apcalcbc-u09-w26-q09
+      type: multiple_choice
+      topic_code: "9.9"
+      source: "AP Calculus CED, Topic 9.9"
+      points: 1
+      prompt: |
+        Which expression gives the area of the region inside the circle r = 3 sin θ and outside the cardioid r = 1 + sin θ?
+      options:
+        - "(1/2)∫ from π/6 to 5π/6 of (3 sin θ − 1 − sin θ)² dθ"
+        - "(1/2)∫ from 0 to π of (9 sin²θ − (1 + sin θ)²) dθ"
+        - "∫ from π/6 to 5π/6 of (9 sin²θ − (1 + sin θ)²) dθ"
+        - "(1/2)∫ from π/6 to 5π/6 of (9 sin²θ − (1 + sin θ)²) dθ"
+      option_explanations:
+        - |
+          This squares the difference of the radii; the area between curves is (1/2)∫ (R² − r²) dθ, a difference of squares.
+        - |
+          The curves cross where 3 sin θ = 1 + sin θ, at θ = π/6 and 5π/6; outside that interval the circle is inside the cardioid, so 0 to π adds negative pieces.
+        - |
+          This leaves out the factor 1/2 of the polar area formula.
+        - |
+          Correct. sin θ = 1/2 at θ = π/6 and 5π/6, and between them 3 sin θ ≥ 1 + sin θ, so A = (1/2)∫ (R² − r²) dθ with R = 3 sin θ, r = 1 + sin θ.
+      answer: 3
+    - slug: apcalcbc-u09-w26-q10
+      type: multiple_choice
+      topic_code: "9.6"
+      source: "AP Calculus CED, Topic 9.6"
+      points: 1
+      prompt: |
+        A particle has position r(t) = ⟨cos(πt), t²⟩. What is its velocity vector at t = 1/2?
+      options:
+        - "⟨−π, 1⟩"
+        - "⟨−1, 1⟩"
+        - "⟨π, 1⟩"
+        - "⟨0, 1/4⟩"
+      option_explanations:
+        - |
+          Correct. v(t) = ⟨−π sin(πt), 2t⟩, so v(1/2) = ⟨−π sin(π/2), 1⟩ = ⟨−π, 1⟩.
+        - |
+          This forgets the chain-rule factor π in the derivative of cos(πt).
+        - |
+          This drops the minus sign: the derivative of cos u is −sin u · u′.
+        - |
+          ⟨0, 1/4⟩ is the position r(1/2) = ⟨cos(π/2), 1/4⟩, not the velocity.
+      answer: 0
+    - slug: apcalcbc-u09-w26-q11
+      type: multiple_choice
+      topic_code: "9.3"
+      source: "AP Calculus CED, Topic 9.3"
+      points: 1
+      prompt: |
+        What is the length of the curve x = eᵗ cos t, y = eᵗ sin t for 0 ≤ t ≤ 1?
+      options:
+        - "e − 1"
+        - "√2(e − 1)"
+        - "2(e − 1)"
+        - "√2 e"
+      option_explanations:
+        - |
+          e − 1 drops the factor √2: (dx/dt)² + (dy/dt)² = 2e^(2t), not e^(2t).
+        - |
+          Correct. dx/dt = eᵗ(cos t − sin t) and dy/dt = eᵗ(sin t + cos t); their squares add to e^(2t) · 2, so the integrand is √2 eᵗ and L = √2(e − 1).
+        - |
+          2(e − 1) integrates 2eᵗ, forgetting to take the square root of the factor 2.
+        - |
+          √2 e evaluates √2 eᵗ at t = 1 only; the value at t = 0, which is √2, must be subtracted.
+      answer: 1
+    - slug: apcalcbc-u09-w26-q12
+      type: multiple_choice
+      topic_code: "9.2"
+      source: "AP Calculus CED, Topic 9.2"
+      points: 1
+      prompt: |
+        A curve is given by x = 2t, y = t³. What is d²y/dx² at t = 2?
+      options:
+        - "6"
+        - "undefined"
+        - "3"
+        - "12"
+      option_explanations:
+        - |
+          6 is d/dt (dy/dx) = 3t at t = 2; it must still be divided by dx/dt = 2.
+        - |
+          This divides second derivatives, d²y/dt² ÷ d²x/dt² = 6t/0; that ratio is not d²y/dx², which exists here.
+        - |
+          Correct. dy/dx = 3t²/2; d/dt gives 3t; dividing by dx/dt = 2 gives d²y/dx² = 3t/2 = 3 at t = 2.
+        - |
+          12 is d²y/dt² = 6t at t = 2, the second derivative with respect to t rather than x.
+      answer: 2
+    - slug: apcalcbc-u09-w26-q13
+      type: multi_select
+      topic_code: "9.7"
+      source: "AP Calculus CED, Topic 9.7"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Select every pair of coordinates that names the same point as the polar point (r, θ) = (2, π/6).
+      options:
+        - "Polar (2, 13π/6)"
+        - "Polar (−2, 7π/6)"
+        - "Polar (−2, π/6)"
+        - "Polar (2, −π/6)"
+        - "Rectangular (√3, 1)"
+      option_explanations:
+        - |
+          Same point. Adding 2π to θ returns to the same direction.
+        - |
+          Same point. Negating r and adding π to θ points in the opposite direction twice: x = −2 cos(7π/6) = √3, y = −2 sin(7π/6) = 1.
+        - |
+          Not the same. Negating r without changing θ reflects the point through the pole, to (−√3, −1).
+        - |
+          Not the same. Negating θ reflects the point across the x-axis, to (√3, −1).
+        - |
+          Same point. x = 2 cos(π/6) = √3 and y = 2 sin(π/6) = 1.
+      answer: [0, 1, 4]
+    - slug: apcalcbc-u09-w26-q14
+      type: multi_select
+      topic_code: "9.8"
+      source: "AP Calculus CED, Topics 9.7–9.8"
+      points: 2
+      partial_credit: true
+      prompt: |
+        Consider the polar curve r = 2 cos θ. Select every true statement.
+      options:
+        - "The curve is a circle with centre (1, 0) and radius 1."
+        - "The curve is traced exactly once as θ runs from 0 to π."
+        - "The area it encloses is (1/2)∫ from 0 to 2π of 4 cos²θ dθ."
+        - "The area it encloses is (1/2)∫ from −π/2 to π/2 of 4 cos²θ dθ."
+        - "The curve has a vertical tangent line at θ = π/4."
+      option_explanations:
+        - |
+          True. Multiplying by r gives x² + y² = 2x, that is (x − 1)² + y² = 1.
+        - |
+          True. From 0 to π the point goes once round the circle; from π to 2π it retraces it.
+        - |
+          False. Over 0 to 2π the circle is traced twice, so this integral is 2π, twice the true area π.
+        - |
+          True. From −π/2 to π/2 the circle is traced once, and the integral is (1/2)(2π) = π, the area of a circle of radius 1.
+        - |
+          False. At θ = π/4, x = 1 + cos 2θ and y = sin 2θ give dx/dθ = −2 and dy/dθ = 0: a horizontal tangent at the top point (1, 1).
+      answer: [0, 1, 3]
+    - slug: apcalcbc-u09-w26-q15
+      type: true_false
+      topic_code: "9.8"
+      source: "AP Calculus CED, Topic 9.8"
+      points: 1
+      prompt: |
+        True or false: The area of the region bounded by the polar curve r = f(θ) for α ≤ θ ≤ β is ∫ from α to β of f(θ) dθ.
+      answer: false
+      explanation: |
+        False. Polar regions are built from sectors, each of area (1/2)r² dθ, so the area is (1/2)∫ from α to β of (f(θ))² dθ. The integral of f itself has no area meaning in polar form.
+    - slug: apcalcbc-u09-w26-q16
+      type: true_false
+      topic_code: "9.9"
+      source: "AP Calculus CED, Topic 9.9"
+      points: 1
+      prompt: |
+        True or false: Solving f(θ) = g(θ) always finds every point where the polar curves r = f(θ) and r = g(θ) intersect.
+      answer: false
+      explanation: |
+        False. Two curves can meet at a point reached with different θ values. The pole is the usual case: r = 3 sin θ passes through it at θ = 0 and r = 1 − sin θ at θ = π/2, yet 3 sin θ = 1 − sin θ only gives sin θ = 1/4. Always check the pole and sketch.
+    - slug: apcalcbc-u09-w26-q17
+      type: fill_blank
+      topic_code: "9.5"
+      source: "AP Calculus CED, Topic 9.5"
+      points: 1
+      prompt: |
+        A particle has velocity v(t) = ⟨2t, eᵗ⟩ and position r(0) = ⟨1, 0⟩. The x-coordinate of the particle at t = 3 is ____.
+      answer: ["10"]
+      explanation: |
+        x(3) = 1 + ∫ from 0 to 3 of 2t dt = 1 + 9 = 10.
+    - slug: apcalcbc-u09-w26-q18
+      type: fill_blank
+      topic_code: "9.9"
+      source: "AP Calculus CED, Topic 9.9"
+      points: 1
+      prompt: |
+        The exact area of the region inside r = 3 sin θ and outside r = 1 + sin θ is ____.
+      answer: ["π", "pi", "1π", "1 π"]
+      explanation: |
+        (1/2)∫ from π/6 to 5π/6 of (9 sin²θ − 1 − 2 sin θ − sin²θ) dθ = (1/2)∫ (8 sin²θ − 2 sin θ − 1) dθ. With 8 sin²θ = 4 − 4 cos 2θ this is (1/2)[3θ − 2 sin 2θ + 2 cos θ] from π/6 to 5π/6 = (1/2)[(5π/2 + √3 − √3) − (π/2 − √3 + √3)] = (1/2)(2π) = π.
+    - slug: apcalcbc-u09-w26-q19
+      type: numeric
+      topic_code: "9.6"
+      source: "AP Calculus CED, Topic 9.6"
+      points: 1
+      prompt: |
+        A particle moves in the plane with velocity v(t) = ⟨2t, t² − 1⟩. Find the total distance it travels from t = 0 to t = 3.
+      answer: { value: 12, tolerance: 0 }
+      explanation: |
+        (2t)² + (t² − 1)² = t⁴ + 2t² + 1 = (t² + 1)², so the speed is t² + 1 and the distance is ∫ from 0 to 3 of (t² + 1) dt = 9 + 3 = 12.
+    - slug: apcalcbc-u09-w26-q20
+      type: numeric
+      topic_code: "6.12"
+      source: "AP Calculus CED, Topic 6.12"
+      points: 1
+      prompt: |
+        Evaluate ∫ from 0 to 1 of 3/((x + 1)(x + 2)) dx. Give your answer to three decimal places.
+      answer: { value: 0.863, tolerance: 0.001 }
+      explanation: |
+        3/((x + 1)(x + 2)) = 3/(x + 1) − 3/(x + 2). The integral is 3[ln(x + 1) − ln(x + 2)] from 0 to 1 = 3[(ln 2 − ln 3) − (0 − ln 2)] = 3 ln(4/3) ≈ 0.863.
+    - slug: apcalcbc-u09-w26-q21
+      type: short_answer
+      topic_code: "9.7"
+      source: "AP Calculus CED, Topics 9.7–9.8"
+      points: 3
+      prompt: |
+        Consider one petal of the rose r = 3 sin(2θ), traced for 0 ≤ θ ≤ π/2.
+
+        (a) At what value of θ in this interval is the point on the curve farthest from the pole? Give that distance.
+        (b) Find dr/dθ at θ = π/3, and say whether the point is moving toward or away from the pole there.
+        (c) Find the area of the petal.
+      answer: |
+        (a) r = 3 sin(2θ) is largest when sin(2θ) = 1, at θ = π/4, where r = 3.
+        (b) dr/dθ = 6 cos(2θ) = 6 cos(2π/3) = −3. Since r(π/3) = 3√3/2 > 0 and dr/dθ < 0, the point is moving toward the pole.
+        (c) (1/2)∫ from 0 to π/2 of 9 sin²(2θ) dθ = (9/2)(π/4) = 9π/8.
+      explanation: |
+        Three points, one per part. (a) θ = π/4 with distance 3. (b) dr/dθ = −3 and "toward the pole" with r > 0 noted or used. (c) 9π/8 from the polar area formula with bounds 0 and π/2.
+    - slug: apcalcbc-u09-w26-q22
+      type: short_answer
+      topic_code: "9.6"
+      source: "AP Calculus CED, Topic 9.6"
+      points: 3
+      prompt: |
+        A particle moves in the plane with velocity v(t) = ⟨2t − 4, 6⟩ for t ≥ 0. At t = 0 it is at (1, 2).
+
+        (a) Find the position of the particle at t = 3.
+        (b) Find the speed of the particle at t = 3.
+        (c) At what time is the speed of the particle least, and what is that least speed?
+      answer: |
+        (a) x(3) = 1 + ∫ from 0 to 3 of (2t − 4) dt = 1 + (9 − 12) = −2; y(3) = 2 + 6 · 3 = 20. Position (−2, 20).
+        (b) v(3) = ⟨2, 6⟩, speed √(4 + 36) = √40 = 2√10.
+        (c) Speed = √((2t − 4)² + 36) is least when 2t − 4 = 0, at t = 2, where it is √36 = 6.
+      explanation: |
+        Three points, one per part. (a) (−2, 20). (b) 2√10 (about 6.325). (c) t = 2 and least speed 6, with a reason (the square (2t − 4)² is smallest when it is zero, or a derivative argument).
+    - slug: apcalcbc-u09-w26-q23
+      type: long_answer
+      topic_code: "9.9"
+      source: "AP Calculus CED, Topics 9.7–9.9"
+      points: 6
+      prompt: |
+        Let R be the cardioid r = 2 + 2 cos θ and C the circle r = 3, both for 0 ≤ θ ≤ 2π.
+
+        (A) Find the values of θ in 0 ≤ θ < 2π at which R and C intersect.
+
+        (B) Find the area of the region inside R and outside C.
+
+        (C) The cardioid R encloses an area of 6π. Use this to find the area of the region inside both R and C.
+
+        (D) Find the slope of the line tangent to R at θ = π/2.
+
+        (E) For 0 < θ < π/3, is a point moving along R (as θ increases) getting closer to or farther from the pole? Justify.
+      answer: |
+        (A) 2 + 2 cos θ = 3 gives cos θ = 1/2: θ = π/3 and θ = 5π/3. (R never reaches the pole on the circle, since r = 3 is never 0.)
+        (B) Between θ = −π/3 and π/3 the cardioid is outside the circle. A = (1/2)∫ from −π/3 to π/3 of ((2 + 2 cos θ)² − 9) dθ = (1/2)∫ from −π/3 to π/3 of (−3 + 8 cos θ + 2 cos 2θ) dθ = (1/2)[−3θ + 8 sin θ + sin 2θ] from −π/3 to π/3 = −π + 4√3 + √3/2 = 9√3/2 − π ≈ 4.653.
+        (C) The region inside R is the region inside both plus the region from (B), so inside both = 6π − (9√3/2 − π) = 7π − 9√3/2 ≈ 14.197.
+        (D) r = 2 and dr/dθ = −2 sin θ = −2 at θ = π/2. dy/dθ = r′ sin θ + r cos θ = −2 and dx/dθ = r′ cos θ − r sin θ = −2, so dy/dx = 1.
+        (E) Closer. dr/dθ = −2 sin θ < 0 for 0 < θ < π/3, and r = 2 + 2 cos θ > 0, so the distance from the pole is decreasing.
+      explanation: |
+        Six points. (A) 1 point for θ = π/3 and 5π/3 (−π/3 accepted for 5π/3). (B) 1 point for the integral (1/2)∫ (R² − r²) dθ with correct bounds; 1 point for 9√3/2 − π. (C) 1 point for 7π − 9√3/2 (or a correct equivalent setup such as a sum of circle and cardioid pieces with its value). (D) 1 point for slope 1 with both dy/dθ and dx/dθ shown. (E) 1 point for "closer" with dr/dθ < 0 while r > 0.

@@ -23,7 +23,7 @@
 | Magnitude | The length of the vector, ‖⟨a, b⟩‖ = √(a² + b²). |
 | Direction angle | The angle θ from the positive x-axis to the vector, measured counterclockwise. |
 | Unit vector | A vector of magnitude 1; v/‖v‖ points in the direction of v. |
-| Scalar | An ordinary number; multiplying a vector by k stretches it by |k| and reverses it if k < 0. |
+| Scalar | An ordinary number; multiplying a vector by k stretches it by \|k\| and reverses it if k < 0. |
 | Dot product | ⟨a₁, b₁⟩ · ⟨a₂, b₂⟩ = a₁a₂ + b₁b₂, a number. |
 | Vector-valued function | A function whose output is a vector, such as the position p(t) = ⟨x(t), y(t)⟩. |
 | Displacement | The change in position p(b) − p(a): where you ended up relative to where you started. |

@@ -20,7 +20,7 @@
 | Period | The smallest such positive P: the horizontal length of one complete cycle. |
 | Cycle | One copy of the repeating pattern, for example from one maximum to the next. |
 | Midline | The horizontal line halfway between the maximum and minimum values; y = 0 this week. |
-| Amplitude | The vertical distance from the midline to a maximum: |a| for y = a sin(bx). Always positive. |
+| Amplitude | The vertical distance from the midline to a maximum: \|a\| for y = a sin(bx). Always positive. |
 | Key points | The five points that start, quarter, halve, three-quarter and finish one cycle: zeros, maximum and minimum. |
 
 ## From the circle to the graph (2.1)

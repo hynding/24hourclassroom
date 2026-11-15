@@ -17,7 +17,7 @@
 | Term | Meaning |
 |---|---|
 | Midline | The horizontal line halfway between a wave's maximum and minimum: y = k in y = a sin θ + k; k = (max + min)/2. |
-| Amplitude | The distance from the midline to the maximum: |a|; equivalently (max − min)/2. |
+| Amplitude | The distance from the midline to the maximum: \|a\|; equivalently (max − min)/2. |
 | Horizontal shift (phase shift) | How far the wave has moved sideways: y = sin(θ − h) is sin θ moved h to the right. |
 | Period | The horizontal length of one full cycle: 2π/b for y = sin(bθ) with b > 0. |
 | Frequency (cycles in 2π) | How many full waves fit in an interval of length 2π: b for y = sin(bθ). |
@@ -111,7 +111,7 @@ The general form is
 | Feature | From the equation | From the graph |
 |---|---|---|
 | Midline | y = k | (max + min)/2 |
-| Amplitude | |a| | (max − min)/2 |
+| Amplitude | \|a\| | (max − min)/2 |
 | Period | 2π/b | distance between consecutive peaks |
 | Horizontal shift | h (right if positive) | where a sine-shaped cycle starts going up from the midline, or where a cosine-shaped cycle peaks |
 

@@ -1,0 +1,862 @@
+unit: 10
+description: |
+  46 questions · about 90 minutes · every topic of Unit 10 (10.1 to 10.15): partial sums and the meaning of convergence,
+  geometric series, the nth term test, the integral test, harmonic and p-series, direct and limit comparison, the
+  alternating series test, the ratio test, absolute and conditional convergence, the alternating series error bound,
+  Taylor polynomials, the Lagrange error bound, radius and interval of convergence, Taylor and Maclaurin series, and
+  building new power series from known ones. Includes two shared-context sets of four questions (a series given by its
+  partial sums and a function given by a table of derivatives at x = 1), select-all, true/false, fill-in-the-blank and
+  numeric items, two short-answer questions (3 points each) and two free-response questions in the AP style (9 points
+  each: one calculator-allowed Taylor polynomial with a Lagrange error bound in a context, one no-calculator power
+  series question on the interval of convergence and the series for a derivative and an integral). Items marked
+  (Calculator.) may use a graphing calculator; the rest are meant to be done by hand. Multiple choice, select-all,
+  true/false and numeric items are graded at once; fill-in-the-blank items are matched automatically; the short
+  answers and free-response items are graded by your teacher against the scoring notes.
+questions:
+  # ---- Stimulus set A: a series given by its partial sums (10.1, 10.3)
+  - slug: apcalcbc-u10-exam-q01
+    type: multiple_choice
+    topic_code: "10.1"
+    source: "AP Calculus CED, Topic 10.1"
+    points: 1
+    stimulus: |
+      A series ∑ (n = 1 to ∞) aₙ has nth partial sum Sₙ = a₁ + a₂ + … + aₙ = 4n/(n + 1) for every positive integer n.
+    prompt: |
+      What is the sum of the series ∑ (n = 1 to ∞) aₙ?
+    options:
+      - "2"
+      - "0"
+      - "4"
+      - "The series diverges."
+    option_explanations:
+      - |
+        2 is S₁ = 4/2, the first partial sum only. The sum of the series is the limit of Sₙ as n → ∞, not one partial sum.
+      - |
+        0 is the limit of the terms aₙ, not of the partial sums. The terms going to 0 says nothing about the value of the sum.
+      - |
+        Correct. The sum of a series is the limit of its partial sums: lim (n→∞) 4n/(n + 1) = 4, so the series converges to 4.
+      - |
+        The partial sums have a finite limit, 4, so by definition the series converges; a series diverges only when Sₙ has no finite limit.
+    answer: 2
+  - slug: apcalcbc-u10-exam-q02
+    type: fill_blank
+    topic_code: "10.1"
+    source: "AP Calculus CED, Topic 10.1"
+    points: 1
+    stimulus: |
+      A series ∑ (n = 1 to ∞) aₙ has nth partial sum Sₙ = a₁ + a₂ + … + aₙ = 4n/(n + 1) for every positive integer n.
+    prompt: |
+      The third term of the series is a₃ = ____. (Give an exact fraction or a decimal to three places.)
+    answer: ["1/3", "1 / 3", "0.333", ".333"]
+    explanation: |
+      Each term is the difference of consecutive partial sums: a₃ = S₃ − S₂ = 12/4 − 8/3 = 3 − 8/3 = 1/3. (In general aₙ = 4/(n(n + 1)).)
+  - slug: apcalcbc-u10-exam-q03
+    type: true_false
+    topic_code: "10.3"
+    source: "AP Calculus CED, Topic 10.3"
+    points: 1
+    stimulus: |
+      A series ∑ (n = 1 to ∞) aₙ has nth partial sum Sₙ = a₁ + a₂ + … + aₙ = 4n/(n + 1) for every positive integer n.
+    prompt: |
+      True or false: lim (n→∞) aₙ = 0, so the nth term test shows that this series converges.
+    answer: false
+    explanation: |
+      False. The terms do go to 0 (aₙ = 4/(n(n + 1))), and the series does converge, but the reason is that the partial sums have the limit 4. The nth term test can only show divergence: when lim aₙ = 0 it is inconclusive (the harmonic series has terms going to 0 and diverges).
+  - slug: apcalcbc-u10-exam-q04
+    type: multiple_choice
+    topic_code: "10.1"
+    source: "AP Calculus CED, Topic 10.1"
+    points: 1
+    stimulus: |
+      A series ∑ (n = 1 to ∞) aₙ has nth partial sum Sₙ = a₁ + a₂ + … + aₙ = 4n/(n + 1) for every positive integer n.
+    prompt: |
+      What is the value of ∑ (n = 3 to ∞) aₙ, the series with its first two terms removed?
+    options:
+      - "4"
+      - "4/3"
+      - "8/3"
+      - "1/3"
+    option_explanations:
+      - |
+        4 is the sum of the whole series. Removing a₁ and a₂ changes the sum by S₂, even though it does not change whether the series converges.
+      - |
+        Correct. The tail is the full sum minus the first two terms: 4 − S₂ = 4 − 8/3 = 4/3.
+      - |
+        8/3 is S₂ = a₁ + a₂, the part that was removed, not the part that remains.
+      - |
+        1/3 is the single term a₃, the first term of the tail, not the sum of every term from n = 3 on.
+    answer: 1
+  # ---- Stimulus set B: a function given by a table of derivatives (10.11, 10.12, 10.14)
+  - slug: apcalcbc-u10-exam-q05
+    type: multiple_choice
+    topic_code: "10.11"
+    source: "AP Calculus CED, Topic 10.11"
+    points: 1
+    stimulus: |
+      A function g has derivatives of all orders on an interval containing 1 ≤ x ≤ 1.5. Its values and derivatives at x = 1 are shown, and |g⁽⁴⁾(x)| ≤ 30 for all x in 1 ≤ x ≤ 1.5.
+
+      | g(1) | g′(1) | g″(1) | g‴(1) |
+      |---|---|---|---|
+      | 2 | −3 | 4 | −12 |
+    prompt: |
+      Which is the third-degree Taylor polynomial for g about x = 1?
+    options:
+      - "2 − 3(x − 1) + 4(x − 1)² − 12(x − 1)³"
+      - "2 − 3(x − 1) + 2(x − 1)² − 4(x − 1)³"
+      - "2 − 3(x + 1) + 2(x + 1)² − 2(x + 1)³"
+      - "2 − 3(x − 1) + 2(x − 1)² − 2(x − 1)³"
+    option_explanations:
+      - |
+        This uses the derivatives as coefficients without dividing by k!. The coefficient of (x − 1)ᵏ is g⁽ᵏ⁾(1)/k!, so 4 becomes 2 and −12 becomes −2.
+      - |
+        This divides g‴(1) by 3 instead of 3! = 6. The cubic coefficient is −12/6 = −2.
+      - |
+        The coefficients are right but the powers are of (x + 1), which centers the polynomial at x = −1. About x = 1 the powers are of (x − 1).
+      - |
+        Correct. P₃(x) = g(1) + g′(1)(x − 1) + g″(1)/2! (x − 1)² + g‴(1)/3! (x − 1)³ = 2 − 3(x − 1) + (4/2)(x − 1)² + (−12/6)(x − 1)³.
+    answer: 3
+  - slug: apcalcbc-u10-exam-q06
+    type: numeric
+    topic_code: "10.11"
+    source: "AP Calculus CED, Topic 10.11"
+    points: 1
+    stimulus: |
+      A function g has derivatives of all orders on an interval containing 1 ≤ x ≤ 1.5. Its values and derivatives at x = 1 are shown, and |g⁽⁴⁾(x)| ≤ 30 for all x in 1 ≤ x ≤ 1.5.
+
+      | g(1) | g′(1) | g″(1) | g‴(1) |
+      |---|---|---|---|
+      | 2 | −3 | 4 | −12 |
+    prompt: |
+      Use the third-degree Taylor polynomial for g about x = 1 to approximate g(1.2). Give your answer to three decimal places.
+    answer: { value: 1.464, tolerance: 0.001 }
+    explanation: |
+      P₃(1.2) = 2 − 3(0.2) + 2(0.2)² − 2(0.2)³ = 2 − 0.6 + 0.08 − 0.016 = 1.464.
+  - slug: apcalcbc-u10-exam-q07
+    type: multiple_choice
+    topic_code: "10.12"
+    source: "AP Calculus CED, Topic 10.12"
+    points: 1
+    stimulus: |
+      A function g has derivatives of all orders on an interval containing 1 ≤ x ≤ 1.5. Its values and derivatives at x = 1 are shown, and |g⁽⁴⁾(x)| ≤ 30 for all x in 1 ≤ x ≤ 1.5.
+
+      | g(1) | g′(1) | g″(1) | g‴(1) |
+      |---|---|---|---|
+      | 2 | −3 | 4 | −12 |
+    prompt: |
+      Which is the Lagrange error bound for |g(1.2) − P₃(1.2)|, where P₃ is the third-degree Taylor polynomial for g about x = 1?
+    options:
+      - "0.002"
+      - "0.048"
+      - "0.008"
+      - "0.01"
+    option_explanations:
+      - |
+        Correct. |g(1.2) − P₃(1.2)| ≤ max |g⁽⁴⁾| · |1.2 − 1|⁴/4! = 30 · (0.2)⁴/24 = 30 · 0.0016/24 = 0.002.
+      - |
+        0.048 is 30 · (0.2)⁴, which leaves out the division by 4! = 24.
+      - |
+        0.008 divides by 3! = 6 instead of 4! = 24. The bound for P₃ uses the fourth derivative and 4!.
+      - |
+        0.01 is 30 · (0.2)³/24, which uses the third power of the distance. The power matches the derivative used, so it is (0.2)⁴.
+    answer: 0
+  - slug: apcalcbc-u10-exam-q08
+    type: fill_blank
+    topic_code: "10.14"
+    source: "AP Calculus CED, Topic 10.14"
+    points: 1
+    stimulus: |
+      A function g has derivatives of all orders on an interval containing 1 ≤ x ≤ 1.5. Its values and derivatives at x = 1 are shown, and |g⁽⁴⁾(x)| ≤ 30 for all x in 1 ≤ x ≤ 1.5.
+
+      | g(1) | g′(1) | g″(1) | g‴(1) |
+      |---|---|---|---|
+      | 2 | −3 | 4 | −12 |
+    prompt: |
+      In the Taylor series for g′(x) about x = 1, the coefficient of (x − 1)² is ____.
+    answer: ["-6", "−6", "- 6", "− 6"]
+    explanation: |
+      The Taylor series of g′ about 1 has coefficient (g′)″(1)/2! = g‴(1)/2 = −12/2 = −6 on (x − 1)². Equivalently, differentiate the series of g term by term: the term −2(x − 1)³ becomes −6(x − 1)².
+  # ---- Geometric series and the nth term test (10.2, 10.3)
+  - slug: apcalcbc-u10-exam-q09
+    type: multiple_choice
+    topic_code: "10.2"
+    source: "AP Calculus CED, Topic 10.2"
+    points: 1
+    prompt: |
+      What is the sum of ∑ (n = 0 to ∞) 3(−2/5)ⁿ?
+    options:
+      - "5"
+      - "−6/7"
+      - "The series diverges because its terms alternate in sign."
+      - "15/7"
+    option_explanations:
+      - |
+        5 is 3/(1 − 2/5), which drops the negative sign of the ratio. With r = −2/5 the denominator is 1 − (−2/5) = 7/5.
+      - |
+        −6/7 is the sum starting at n = 1, whose first term is 3(−2/5) = −6/5. Here the first term (n = 0) is 3.
+      - |
+        A geometric series converges whenever |r| < 1, whatever the sign of r. Here |r| = 2/5 < 1.
+      - |
+        Correct. Geometric with first term a = 3 and ratio r = −2/5, |r| < 1, so the sum is a/(1 − r) = 3/(7/5) = 15/7.
+    answer: 3
+  - slug: apcalcbc-u10-exam-q10
+    type: numeric
+    topic_code: "10.2"
+    source: "AP Calculus CED, Topic 10.2"
+    points: 1
+    prompt: |
+      Find the sum of the geometric series ∑ (n = 2 to ∞) 5(1/3)ⁿ. Give your answer as a decimal to three places.
+    answer: { value: 0.8333, tolerance: 0.001 }
+    explanation: |
+      The first term (n = 2) is 5/9 and the ratio is 1/3, so the sum is (5/9)/(1 − 1/3) = (5/9)(3/2) = 5/6 ≈ 0.833.
+  - slug: apcalcbc-u10-exam-q11
+    type: multiple_choice
+    topic_code: "10.2"
+    source: "AP Calculus CED, Topic 10.2"
+    points: 1
+    prompt: |
+      For which values of x does the series ∑ (n = 0 to ∞) ((2x − 1)/3)ⁿ converge?
+    options:
+      - "−1 < x < 2"
+      - "0 < x < 1"
+      - "−1 ≤ x ≤ 2"
+      - "−2 < x < 1"
+    option_explanations:
+      - |
+        Correct. A geometric series converges exactly when |r| < 1: |2x − 1|/3 < 1 gives −3 < 2x − 1 < 3, so −2 < 2x < 4 and −1 < x < 2.
+      - |
+        0 < x < 1 solves |2x − 1| < 1, which forgets the division by 3 in the ratio.
+      - |
+        At x = −1 the ratio is −1 and at x = 2 it is 1; in both cases the terms do not go to 0, so a geometric series never converges at |r| = 1.
+      - |
+        −2 < x < 1 comes from solving −3 < 2x + 1 < 3, a sign slip on the −1 in the ratio.
+    answer: 0
+  - slug: apcalcbc-u10-exam-q12
+    type: multiple_choice
+    topic_code: "10.3"
+    source: "AP Calculus CED, Topic 10.3"
+    points: 1
+    prompt: |
+      Which series can be shown to diverge by the nth term test?
+    options:
+      - "∑ (n = 1 to ∞) 1/n"
+      - "∑ (n = 1 to ∞) n/(2n + 1)"
+      - "∑ (n = 1 to ∞) (−1)ⁿ/n"
+      - "∑ (n = 1 to ∞) 1/n²"
+    option_explanations:
+      - |
+        The harmonic series does diverge, but its terms 1/n go to 0, so the nth term test is inconclusive; divergence comes from the integral test or the p-series rule.
+      - |
+        Correct. lim (n→∞) n/(2n + 1) = 1/2 ≠ 0, and a series whose terms do not go to 0 must diverge.
+      - |
+        The terms (−1)ⁿ/n go to 0, so the nth term test says nothing; this series in fact converges by the alternating series test.
+      - |
+        The terms 1/n² go to 0, so the nth term test is inconclusive; this is a convergent p-series with p = 2.
+    answer: 1
+  - slug: apcalcbc-u10-exam-q13
+    type: true_false
+    topic_code: "10.3"
+    source: "AP Calculus CED, Topic 10.3"
+    points: 1
+    prompt: |
+      True or false: if the series ∑ (n = 1 to ∞) bₙ converges, then lim (n→∞) bₙ = 0.
+    answer: true
+    explanation: |
+      True. bₙ = Sₙ − Sₙ₋₁, and if Sₙ → S then Sₙ₋₁ → S too, so bₙ → S − S = 0. This is the statement behind the nth term test (its contrapositive: terms not going to 0 means divergence). The converse is false.
+  # ---- Integral test, p-series and comparisons (10.4, 10.5, 10.6)
+  - slug: apcalcbc-u10-exam-q14
+    type: multiple_choice
+    topic_code: "10.4"
+    source: "AP Calculus CED, Topic 10.4"
+    points: 1
+    prompt: |
+      What does the integral test show about ∑ (n = 2 to ∞) 1/(n (ln n)²)?
+    options:
+      - "The series converges, and its sum is 1/ln 2."
+      - "The series diverges, because ∫ from 2 to ∞ of 1/(x (ln x)²) dx grows like ln(ln x)."
+      - "The test does not apply, because 1/(x (ln x)²) is not decreasing for x ≥ 2."
+      - "The series converges, because ∫ from 2 to ∞ of 1/(x (ln x)²) dx = 1/ln 2 is finite."
+    option_explanations:
+      - |
+        The integral test shows only that the series converges; the value of the improper integral is not the sum of the series (the series begins with 1/(2 (ln 2)²) ≈ 1.04 alone).
+      - |
+        ln(ln x) is the antiderivative of 1/(x ln x), with the logarithm to the first power. With u = ln x this integrand is 1/u², whose antiderivative is −1/u.
+      - |
+        For x ≥ 2 the function is positive and continuous, and both x and (ln x)² increase, so their reciprocal product decreases: the hypotheses hold.
+      - |
+        Correct. With u = ln x, ∫ from 2 to ∞ of dx/(x (ln x)²) = lim (b→∞) [−1/ln x] from 2 to b = 1/ln 2. The function is positive, continuous and decreasing, so the series converges.
+    answer: 3
+  - slug: apcalcbc-u10-exam-q15
+    type: true_false
+    topic_code: "10.4"
+    source: "AP Calculus CED, Topic 10.4"
+    points: 1
+    prompt: |
+      True or false: if f is positive, continuous and decreasing for x ≥ 1 and ∫ from 1 to ∞ of f(x) dx = 2, then ∑ (n = 1 to ∞) f(n) = 2.
+    answer: false
+    explanation: |
+      False. The integral test says only that the series converges. The sum and the integral differ: each term f(n) is the area of a rectangle of width 1, which is more than the area under the decreasing graph on [n, n + 1], so the sum is larger than 2 (it lies between 2 and f(1) + 2).
+  - slug: apcalcbc-u10-exam-q16
+    type: fill_blank
+    topic_code: "10.4"
+    source: "AP Calculus CED, Topic 10.4"
+    points: 1
+    prompt: |
+      To apply the integral test to ∑ (n = 1 to ∞) n e^(−n²), you evaluate ∫ from 1 to ∞ of x e^(−x²) dx = ____. (Give the exact value or a decimal to three places.)
+    answer: ["1/(2e)", "1/2e", "1/(2 e)", "e^(-1)/2", "(1/2)e^(-1)", "1/(2*e)", "0.184", ".184"]
+    explanation: |
+      With u = x², du = 2x dx: ∫ from 1 to ∞ of x e^(−x²) dx = lim (b→∞) [−½ e^(−x²)] from 1 to b = 0 + ½ e^(−1) = 1/(2e) ≈ 0.184. The integral is finite, so the series converges.
+  - slug: apcalcbc-u10-exam-q17
+    type: multi_select
+    topic_code: "10.5"
+    source: "AP Calculus CED, Topic 10.5"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of these series converge? Select all that apply.
+    options:
+      - "∑ (n = 1 to ∞) 1/n^1.01"
+      - "∑ (n = 1 to ∞) 1/√n"
+      - "∑ (n = 1 to ∞) n^(−3/2)"
+      - "∑ (n = 1 to ∞) n/n³"
+      - "∑ (n = 1 to ∞) 5/n"
+    option_explanations:
+      - |
+        Correct. A p-series with p = 1.01 > 1 converges, however close p is to 1.
+      - |
+        1/√n = 1/n^(1/2) is a p-series with p = 1/2 ≤ 1, so it diverges.
+      - |
+        Correct. n^(−3/2) = 1/n^(3/2), a p-series with p = 3/2 > 1.
+      - |
+        Correct. n/n³ simplifies to 1/n², a p-series with p = 2 > 1.
+      - |
+        5/n is 5 times the harmonic series; a nonzero constant multiple of a divergent series diverges.
+    answer: [0, 2, 3]
+  - slug: apcalcbc-u10-exam-q18
+    type: multiple_choice
+    topic_code: "10.5"
+    source: "AP Calculus CED, Topic 10.5"
+    points: 1
+    prompt: |
+      For which values of the constant p does ∑ (n = 1 to ∞) 1/n^(2p − 1) converge?
+    options:
+      - "p > 1/2"
+      - "p ≥ 1"
+      - "p > 1"
+      - "p > 0"
+    option_explanations:
+      - |
+        p > 1/2 makes the exponent 2p − 1 positive, which only makes the terms go to 0. Convergence needs the exponent greater than 1.
+      - |
+        At p = 1 the exponent is 1 and the series is the harmonic series, which diverges, so p = 1 must be excluded.
+      - |
+        Correct. This is a p-series with exponent 2p − 1, which converges exactly when 2p − 1 > 1, that is p > 1.
+      - |
+        p > 0 does not even guarantee positive exponents (p = 0.25 gives 1/n^(−0.5) = √n); the condition is 2p − 1 > 1.
+    answer: 2
+  - slug: apcalcbc-u10-exam-q19
+    type: multiple_choice
+    topic_code: "10.6"
+    source: "AP Calculus CED, Topic 10.6"
+    points: 1
+    prompt: |
+      Which statement correctly determines the behavior of ∑ (n = 2 to ∞) (3n + 1)/(n³ − 2)?
+    options:
+      - "It diverges by limit comparison with ∑ 1/n, because the degrees differ by 1."
+      - "It converges by limit comparison with ∑ 1/n²: the limit of the ratio of terms is 3, a positive finite number."
+      - "It converges by direct comparison, because (3n + 1)/(n³ − 2) ≤ 3/n² for all n ≥ 2."
+      - "It diverges by the nth term test."
+    option_explanations:
+      - |
+        The terms behave like 3n/n³ = 3/n²: the denominator's degree is 2 more than the numerator's. Compared with 1/n the ratio of terms goes to 0, which with a divergent series proves nothing.
+      - |
+        Correct. lim (n→∞) [(3n + 1)/(n³ − 2)] / (1/n²) = lim (3n³ + n²)/(n³ − 2) = 3, positive and finite, and ∑ 1/n² converges (p = 2), so the series converges.
+      - |
+        The inequality is false: 3n + 1 > 3n and n³ − 2 < n³, so each term is larger than 3/n². The conclusion is right but this argument does not prove it.
+      - |
+        The terms go to 0 (degree 1 over degree 3), so the nth term test is inconclusive.
+    answer: 1
+  - slug: apcalcbc-u10-exam-q20
+    type: multiple_choice
+    topic_code: "10.6"
+    source: "AP Calculus CED, Topic 10.6"
+    points: 1
+    prompt: |
+      Which argument correctly determines whether ∑ (n = 1 to ∞) 1/(√n + 3) converges?
+    options:
+      - "1/(√n + 3) < 1/√n and ∑ 1/√n diverges, so the series diverges by direct comparison."
+      - "1/(√n + 3) < 1/n² for every n and ∑ 1/n² converges, so the series converges by direct comparison."
+      - "The terms go to 0, so the series converges."
+      - "lim (n→∞) [1/(√n + 3)] / (1/√n) = 1 and ∑ 1/√n diverges, so the series diverges by limit comparison."
+    option_explanations:
+      - |
+        Being smaller than a divergent series proves nothing; direct comparison shows divergence only when the terms are larger than those of a divergent series.
+      - |
+        The inequality is false: at n = 4, 1/(2 + 3) = 0.2 but 1/16 = 0.0625. Terms like 1/√n are much larger than 1/n² for large n.
+      - |
+        Terms going to 0 is necessary but not sufficient for convergence; the harmonic series is the standard counterexample.
+      - |
+        Correct. The ratio √n/(√n + 3) → 1, a positive finite limit, and ∑ 1/√n is a divergent p-series (p = 1/2), so the series diverges.
+    answer: 3
+  - slug: apcalcbc-u10-exam-q21
+    type: fill_blank
+    topic_code: "10.6"
+    source: "AP Calculus CED, Topic 10.6"
+    points: 1
+    prompt: |
+      To test ∑ (n = 1 to ∞) (2n² + 1)/(n⁴ + 3n) by limit comparison with ∑ (n = 1 to ∞) 1/n², you compute lim (n→∞) [(2n² + 1)/(n⁴ + 3n)] / (1/n²) = ____.
+    answer: ["2"]
+    explanation: |
+      [(2n² + 1)/(n⁴ + 3n)] · n² = (2n⁴ + n²)/(n⁴ + 3n) → 2. The limit is positive and finite and ∑ 1/n² converges, so the series converges.
+  # ---- Alternating series, ratio test, absolute and conditional convergence (10.7, 10.8, 10.9)
+  - slug: apcalcbc-u10-exam-q22
+    type: multiple_choice
+    topic_code: "10.7"
+    source: "AP Calculus CED, Topic 10.7"
+    points: 1
+    prompt: |
+      Which series converges by the alternating series test?
+    options:
+      - "∑ (n = 1 to ∞) (−1)ⁿ (1 + 1/n)"
+      - "∑ (n = 1 to ∞) (−1)ⁿ 2ⁿ/n"
+      - "∑ (n = 2 to ∞) (−1)ⁿ/ln n"
+      - "∑ (n = 1 to ∞) (−1)ⁿ n/(n + 1)"
+    option_explanations:
+      - |
+        The magnitudes 1 + 1/n decrease but go to 1, not 0, so the alternating series test fails and the series diverges by the nth term test.
+      - |
+        The magnitudes 2ⁿ/n grow without bound, so they neither decrease nor go to 0; the series diverges by the nth term test.
+      - |
+        Correct. bₙ = 1/ln n is positive, decreasing (ln n increases) and goes to 0, so the alternating series converges.
+      - |
+        The magnitudes n/(n + 1) increase toward 1, not 0, so the alternating series test does not apply and the series diverges.
+    answer: 2
+  - slug: apcalcbc-u10-exam-q23
+    type: multiple_choice
+    topic_code: "10.7"
+    source: "AP Calculus CED, Topic 10.7"
+    points: 1
+    prompt: |
+      A series has the form ∑ (n = 1 to ∞) (−1)ⁿ⁺¹ bₙ. Which set of conditions is enough for the alternating series test to conclude that the series converges?
+    options:
+      - "bₙ → 0 as n → ∞"
+      - "bₙ > 0, bₙ₊₁ ≤ bₙ for every n, and bₙ → 0 as n → ∞"
+      - "∑ (n = 1 to ∞) bₙ converges"
+      - "bₙ > 0 and bₙ₊₁ ≤ bₙ for every n"
+    option_explanations:
+      - |
+        Terms going to 0 alone is not enough: the test also needs the magnitudes to be positive and decreasing (eventually).
+      - |
+        Correct. The alternating series test needs positive magnitudes that decrease (at least eventually) and have limit 0.
+      - |
+        If ∑ bₙ converges the series converges absolutely, but that is the absolute convergence argument, not the alternating series test, and it is far stronger than needed.
+      - |
+        Decreasing positive magnitudes can level off at a positive value (bₙ = 1 + 1/n); the limit 0 is also required.
+    answer: 1
+  - slug: apcalcbc-u10-exam-q24
+    type: multiple_choice
+    topic_code: "10.8"
+    source: "AP Calculus CED, Topic 10.8"
+    points: 1
+    prompt: |
+      The ratio test is applied to ∑ (n = 1 to ∞) n²/3ⁿ. What is L = lim (n→∞) |aₙ₊₁/aₙ|, and what does it show?
+    options:
+      - "L = 3, so the series diverges."
+      - "L = 1, so the test is inconclusive."
+      - "L = 0, so the series converges."
+      - "L = 1/3, so the series converges."
+    option_explanations:
+      - |
+        L = 3 comes from dividing aₙ by aₙ₊₁ instead of aₙ₊₁ by aₙ. The ratio is (n + 1)²/n² · 3ⁿ/3ⁿ⁺¹.
+      - |
+        L = 1 keeps only (n + 1)²/n² → 1 and forgets the factor 3ⁿ/3ⁿ⁺¹ = 1/3 from the exponential.
+      - |
+        L = 0 would need the ratio of terms to shrink to 0, as with a factorial in the denominator; here the ratio approaches a positive constant.
+      - |
+        Correct. aₙ₊₁/aₙ = [(n + 1)²/3ⁿ⁺¹] · [3ⁿ/n²] = (1/3)((n + 1)/n)² → 1/3 < 1, so the series converges.
+    answer: 3
+  - slug: apcalcbc-u10-exam-q25
+    type: fill_blank
+    topic_code: "10.8"
+    source: "AP Calculus CED, Topic 10.8"
+    points: 1
+    prompt: |
+      For the series ∑ (n = 0 to ∞) 5ⁿ/n!, the ratio test limit lim (n→∞) |aₙ₊₁/aₙ| equals ____.
+    answer: ["0"]
+    explanation: |
+      aₙ₊₁/aₙ = [5ⁿ⁺¹/(n + 1)!] · [n!/5ⁿ] = 5/(n + 1) → 0 < 1, so the series converges (its sum is e⁵).
+  - slug: apcalcbc-u10-exam-q26
+    type: true_false
+    topic_code: "10.8"
+    source: "AP Calculus CED, Topic 10.8"
+    points: 1
+    prompt: |
+      True or false: the ratio test applied to ∑ (n = 1 to ∞) 1/n² gives L = 1, which shows that this series diverges.
+    answer: false
+    explanation: |
+      False. The ratio n²/(n + 1)² does tend to 1, but L = 1 makes the ratio test inconclusive. The series is a p-series with p = 2 > 1 and converges; the harmonic series also gives L = 1 and diverges.
+  - slug: apcalcbc-u10-exam-q27
+    type: multiple_choice
+    topic_code: "10.9"
+    source: "AP Calculus CED, Topic 10.9"
+    points: 1
+    prompt: |
+      Which best describes the series ∑ (n = 1 to ∞) (−1)ⁿ/√n?
+    options:
+      - "It converges conditionally."
+      - "It converges absolutely."
+      - "It diverges, because it is a p-series with p = 1/2."
+      - "It diverges by the nth term test."
+    option_explanations:
+      - |
+        Correct. 1/√n is positive, decreasing and goes to 0, so the series converges by the alternating series test, but ∑ |(−1)ⁿ/√n| = ∑ 1/√n is a divergent p-series (p = 1/2), so the convergence is conditional.
+      - |
+        Absolute convergence needs ∑ 1/√n to converge, and that p-series diverges because p = 1/2 ≤ 1.
+      - |
+        The p-series rule applies to the series of absolute values, which diverges; the alternating signs make the original series converge.
+      - |
+        The terms (−1)ⁿ/√n go to 0, so the nth term test is inconclusive.
+    answer: 0
+  - slug: apcalcbc-u10-exam-q28
+    type: multi_select
+    topic_code: "10.9"
+    source: "AP Calculus CED, Topic 10.9"
+    points: 2
+    partial_credit: true
+    prompt: |
+      Which of these series converge absolutely? Select all that apply.
+    options:
+      - "∑ (n = 1 to ∞) (−1)ⁿ/n²"
+      - "∑ (n = 1 to ∞) (−1)ⁿ/n"
+      - "∑ (n = 0 to ∞) (−0.9)ⁿ"
+      - "∑ (n = 1 to ∞) sin(n)/n²"
+      - "∑ (n = 1 to ∞) (−1)ⁿ n/(n + 1)"
+    option_explanations:
+      - |
+        Correct. The absolute values form ∑ 1/n², a convergent p-series.
+      - |
+        This converges only conditionally: the alternating series test applies, but ∑ 1/n is the divergent harmonic series.
+      - |
+        Correct. ∑ 0.9ⁿ is geometric with ratio 0.9 < 1, so the series of absolute values converges.
+      - |
+        Correct. |sin(n)/n²| ≤ 1/n² and ∑ 1/n² converges, so by direct comparison the absolute values form a convergent series.
+      - |
+        The terms do not go to 0 (their magnitudes tend to 1), so this series diverges and cannot converge in any sense.
+    answer: [0, 2, 3]
+  - slug: apcalcbc-u10-exam-q29
+    type: true_false
+    topic_code: "10.9"
+    source: "AP Calculus CED, Topic 10.9"
+    points: 1
+    prompt: |
+      True or false: if ∑ (n = 1 to ∞) |cₙ| converges, then ∑ (n = 1 to ∞) cₙ converges.
+    answer: true
+    explanation: |
+      True. Absolute convergence implies convergence. (The converse fails: ∑ (−1)ⁿ/n converges but ∑ 1/n diverges.)
+  # ---- Alternating series error bound (10.10)
+  - slug: apcalcbc-u10-exam-q30
+    type: multiple_choice
+    topic_code: "10.10"
+    source: "AP Calculus CED, Topic 10.10"
+    points: 1
+    prompt: |
+      The sum S of ∑ (n = 1 to ∞) (−1)ⁿ⁺¹/n³ is approximated by the partial sum S₄ = 1 − 1/8 + 1/27 − 1/64. Which is the smallest bound on |S − S₄| that the alternating series error bound guarantees?
+    options:
+      - "1/64"
+      - "1/216"
+      - "1/125"
+      - "1/5"
+    option_explanations:
+      - |
+        1/64 is the magnitude of the last term used, a₄. The bound is the magnitude of the first term left out.
+      - |
+        1/216 is the magnitude of the sixth term, two terms past the partial sum.
+      - |
+        Correct. The series satisfies the alternating series test (1/n³ is positive, decreasing, → 0), so |S − S₄| ≤ the first omitted magnitude, 1/5³ = 1/125.
+      - |
+        1/5 forgets the cube; the terms are 1/n³, so the fifth magnitude is 1/125.
+    answer: 2
+  - slug: apcalcbc-u10-exam-q31
+    type: numeric
+    topic_code: "10.10"
+    source: "AP Calculus CED, Topic 10.10"
+    points: 1
+    prompt: |
+      The alternating series error bound is used to approximate S = ∑ (k = 1 to ∞) (−1)ᵏ⁺¹/k² by the partial sum Sₙ. What is the smallest n for which the bound guarantees |S − Sₙ| < 0.001?
+    answer: { value: 31, tolerance: 0 }
+    explanation: |
+      The bound is the first omitted magnitude, 1/(n + 1)². We need 1/(n + 1)² < 0.001, so (n + 1)² > 1000 and n + 1 > 31.62, so n + 1 = 32 and n = 31. Check: 1/31² ≈ 0.00104 is too big (n = 30 fails), 1/32² ≈ 0.000977 works.
+  # ---- Taylor polynomials and the Lagrange error bound (10.11, 10.12)
+  - slug: apcalcbc-u10-exam-q32
+    type: multiple_choice
+    topic_code: "10.11"
+    source: "AP Calculus CED, Topic 10.11"
+    points: 1
+    prompt: |
+      Which is the second-degree Taylor polynomial for f(x) = √x about x = 4?
+    options:
+      - "2 + (x − 4)/4 + (x − 4)²/64"
+      - "2 + (x − 4)/4 − (x − 4)²/32"
+      - "2 + (x − 4)/4 − (x − 4)²/64"
+      - "2 + (x − 4)/4 − x²/64"
+    option_explanations:
+      - |
+        The sign is wrong: f″(x) = −(1/4)x^(−3/2) is negative, so the quadratic coefficient is negative.
+      - |
+        −1/32 is f″(4) itself. The coefficient is f″(4)/2! = −1/64.
+      - |
+        Correct. f(4) = 2, f′(x) = 1/(2√x) gives f′(4) = 1/4, f″(x) = −1/(4x^(3/2)) gives f″(4) = −1/32, so P₂(x) = 2 + (1/4)(x − 4) − (1/64)(x − 4)².
+      - |
+        The quadratic term must be a power of (x − 4), the distance from the center, not of x.
+    answer: 2
+  - slug: apcalcbc-u10-exam-q33
+    type: fill_blank
+    topic_code: "10.11"
+    source: "AP Calculus CED, Topic 10.11"
+    points: 1
+    prompt: |
+      The second-degree Taylor polynomial for f(x) = e^(3x) about x = 0 is 1 + 3x + cx². The value of c is ____.
+    answer: ["9/2", "9 / 2", "4.5"]
+    explanation: |
+      f″(x) = 9e^(3x), so f″(0) = 9 and c = f″(0)/2! = 9/2. (Equivalently, substitute 3x into 1 + u + u²/2.)
+  - slug: apcalcbc-u10-exam-q34
+    type: multiple_choice
+    topic_code: "10.12"
+    source: "AP Calculus CED, Topic 10.12"
+    points: 1
+    prompt: |
+      The second-degree Maclaurin polynomial P₂(x) = 1 + x + x²/2 is used to approximate e^0.2. Which expression is the Lagrange error bound for |e^0.2 − P₂(0.2)|?
+    options:
+      - "e^0.2 · (0.2)³/3!"
+      - "(0.2)³/3!"
+      - "e^0.2 · (0.2)²/2!"
+      - "e^0.2 · (0.2)⁴/4!"
+    option_explanations:
+      - |
+        Correct. The third derivative of eˣ is eˣ, whose maximum on [0, 0.2] is e^0.2, so the bound is max |f‴| · |0.2 − 0|³/3! = e^0.2 (0.2)³/3!.
+      - |
+        This uses 1 = e⁰ for the derivative, its minimum on [0, 0.2]. The bound needs the maximum of |f‴| on the interval, e^0.2.
+      - |
+        This uses the second derivative and the second power, which is the size of the last term kept, not the error after it.
+      - |
+        This is the bound for a third-degree polynomial. For P₂ the bound uses the third derivative and (0.2)³/3!.
+    answer: 0
+  # ---- Radius and interval of convergence (10.13)
+  - slug: apcalcbc-u10-exam-q35
+    type: multiple_choice
+    topic_code: "10.13"
+    source: "AP Calculus CED, Topic 10.13"
+    points: 1
+    prompt: |
+      What is the interval of convergence of ∑ (n = 1 to ∞) n(x − 3)ⁿ/4ⁿ?
+    options:
+      - "−1 ≤ x ≤ 7"
+      - "−1 < x < 7"
+      - "11/4 < x < 13/4"
+      - "−1 < x ≤ 7"
+    option_explanations:
+      - |
+        At x = 7 the series is ∑ n and at x = −1 it is ∑ (−1)ⁿ n; neither has terms going to 0, so both endpoints diverge.
+      - |
+        Correct. Ratio test: |aₙ₊₁/aₙ| = ((n + 1)/n) · |x − 3|/4 → |x − 3|/4 < 1, so R = 4 and −1 < x < 7. At x = 7 the series is ∑ n and at x = −1 it is ∑ (−1)ⁿ n, both divergent by the nth term test.
+      - |
+        This uses a radius of 1/4, inverting the ratio. The limit |x − 3|/4 < 1 gives |x − 3| < 4.
+      - |
+        At x = 7 the series is ∑ n, whose terms grow; only an endpoint with terms going to 0 can be included, and neither endpoint qualifies.
+    answer: 1
+  - slug: apcalcbc-u10-exam-q36
+    type: multiple_choice
+    topic_code: "10.13"
+    source: "AP Calculus CED, Topic 10.13"
+    points: 1
+    prompt: |
+      What is the interval of convergence of ∑ (n = 1 to ∞) (x + 1)ⁿ/(n² · 2ⁿ)?
+    options:
+      - "−3 ≤ x ≤ 1"
+      - "−3 < x < 1"
+      - "−1 ≤ x ≤ 3"
+      - "−3 ≤ x < 1"
+    option_explanations:
+      - |
+        Correct. The ratio test gives |x + 1|/2 < 1, so −3 < x < 1. At x = 1: ∑ 1/n² converges (p = 2); at x = −3: ∑ (−1)ⁿ/n² converges absolutely. Both endpoints are included.
+      - |
+        The radius is right, but both endpoints converge: at x = 1 the series is ∑ 1/n² and at x = −3 it is ∑ (−1)ⁿ/n², both absolutely convergent.
+      - |
+        This centers the interval at x = 1. The series is in powers of (x + 1), so its center is x = −1.
+      - |
+        At x = 1 the series is ∑ 1/n², a convergent p-series, so the right endpoint is included too.
+    answer: 0
+  - slug: apcalcbc-u10-exam-q37
+    type: true_false
+    topic_code: "10.13"
+    source: "AP Calculus CED, Topic 10.13"
+    points: 1
+    prompt: |
+      True or false: a power series ∑ (n = 0 to ∞) cₙ(x − 2)ⁿ is known to converge at x = 6. Then it must converge at x = −1.
+    answer: true
+    explanation: |
+      True. Convergence at x = 6, a distance 4 from the center 2, means the radius R ≥ 4. The point x = −1 is a distance 3 < 4 from the center, so it lies strictly inside the interval of convergence, where the series converges (absolutely).
+  # ---- Taylor and Maclaurin series, representing functions (10.14, 10.15)
+  - slug: apcalcbc-u10-exam-q38
+    type: multiple_choice
+    topic_code: "10.14"
+    source: "AP Calculus CED, Topic 10.14"
+    points: 1
+    prompt: |
+      Which gives the first three nonzero terms of the Maclaurin series for cos(2x)?
+    options:
+      - "1 − 2x² + (2/3)x⁴"
+      - "1 − 4x² + 16x⁴"
+      - "2 − x² + x⁴/12"
+      - "1 + 2x² + (2/3)x⁴"
+    option_explanations:
+      - |
+        Correct. Substitute u = 2x into cos u = 1 − u²/2! + u⁴/4! − …: 1 − 4x²/2 + 16x⁴/24 = 1 − 2x² + (2/3)x⁴.
+      - |
+        This raises 2x to each power but forgets to divide by (2n)!: the terms are (2x)²/2! = 2x² and (2x)⁴/4! = (2/3)x⁴.
+      - |
+        This is 2 cos x, multiplying the series by 2 instead of replacing x by 2x inside it.
+      - |
+        The cosine series alternates in sign: 1 − u²/2! + u⁴/4! − …; the x² term must be negative.
+    answer: 0
+  - slug: apcalcbc-u10-exam-q39
+    type: fill_blank
+    topic_code: "10.14"
+    source: "AP Calculus CED, Topic 10.14"
+    points: 1
+    prompt: |
+      In the Maclaurin series for x² cos x, the coefficient of x⁶ is ____. (Give an exact fraction or a decimal to three places.)
+    answer: ["1/24", "1 / 24", "0.042", ".042"]
+    explanation: |
+      x² cos x = x²(1 − x²/2! + x⁴/4! − …) = x² − x⁴/2 + x⁶/24 − …, so the coefficient is 1/24 ≈ 0.042.
+  - slug: apcalcbc-u10-exam-q40
+    type: multiple_choice
+    topic_code: "10.15"
+    source: "AP Calculus CED, Topic 10.15"
+    points: 1
+    prompt: |
+      Which is a power series for f(x) = x/(1 + 4x²), valid for |x| < 1/2?
+    options:
+      - "∑ (n = 0 to ∞) (−1)ⁿ 4ⁿ x^(2n)"
+      - "∑ (n = 0 to ∞) (−1)ⁿ 4ⁿ x^(2n + 1)"
+      - "∑ (n = 0 to ∞) 4ⁿ x^(2n + 1)"
+      - "∑ (n = 0 to ∞) (−1)ⁿ 4ⁿ x^(n + 1)"
+    option_explanations:
+      - |
+        This is the series for 1/(1 + 4x²) alone; it still has to be multiplied by x, which raises every power by one.
+      - |
+        Correct. 1/(1 − r) = ∑ rⁿ with r = −4x² gives 1/(1 + 4x²) = ∑ (−1)ⁿ 4ⁿ x^(2n), valid for 4x² < 1. Multiplying by x gives ∑ (−1)ⁿ 4ⁿ x^(2n + 1).
+      - |
+        This uses r = 4x², which is the series for x/(1 − 4x²). Dividing by 1 + 4x² means the ratio is −4x², so the signs alternate.
+      - |
+        This uses r = −4x instead of −4x², forgetting that x is squared in the denominator.
+    answer: 1
+  - slug: apcalcbc-u10-exam-q41
+    type: multi_select
+    topic_code: "10.15"
+    source: "AP Calculus CED, Topic 10.15"
+    points: 2
+    partial_credit: true
+    prompt: |
+      For −1 < x < 1, ln(1 + x) = ∑ (n = 1 to ∞) (−1)ⁿ⁺¹ xⁿ/n = x − x²/2 + x³/3 − …. Which statements are true? Select all that apply.
+    options:
+      - "The series ∑ (n = 1 to ∞) (−1)ⁿ⁺¹ xⁿ/n converges at x = 1."
+      - "The series ∑ (n = 1 to ∞) (−1)ⁿ⁺¹ xⁿ/n converges at x = −1."
+      - "The radius of convergence of the series is 1."
+      - "For −1 < x < 1, differentiating term by term gives 1/(1 + x) = ∑ (n = 0 to ∞) (−1)ⁿ xⁿ."
+      - "The differentiated series ∑ (n = 0 to ∞) (−1)ⁿ xⁿ converges at x = 1."
+    option_explanations:
+      - |
+        Correct. At x = 1 the series is the alternating harmonic series 1 − 1/2 + 1/3 − …, which converges by the alternating series test.
+      - |
+        At x = −1 every term is −1/n, so the series is the negative of the harmonic series, which diverges.
+      - |
+        Correct. The ratio test gives |x| · n/(n + 1) → |x| < 1, so R = 1.
+      - |
+        Correct. The derivative of (−1)ⁿ⁺¹ xⁿ/n is (−1)ⁿ⁺¹ xⁿ⁻¹, giving 1 − x + x² − … = 1/(1 + x), the geometric series with ratio −x.
+      - |
+        At x = 1 the differentiated series is 1 − 1 + 1 − …, whose terms do not go to 0; differentiating can lose an endpoint the original series had.
+    answer: [0, 2, 3]
+  - slug: apcalcbc-u10-exam-q42
+    type: numeric
+    topic_code: "10.15"
+    source: "AP Calculus CED, Topic 10.15"
+    points: 1
+    prompt: |
+      Differentiating 1/(1 − x) = ∑ (n = 0 to ∞) xⁿ term by term gives 1/(1 − x)² = ∑ (n = 1 to ∞) n xⁿ⁻¹ for |x| < 1. Use this to find the exact value of ∑ (n = 1 to ∞) n/3ⁿ, and give it as a decimal to three places.
+    answer: { value: 0.75, tolerance: 0.001 }
+    explanation: |
+      ∑ n/3ⁿ = (1/3) ∑ n (1/3)ⁿ⁻¹ = (1/3) · 1/(1 − 1/3)² = (1/3)(9/4) = 3/4 = 0.750. (x = 1/3 is inside |x| < 1.)
+  # ---- Short answers
+  - slug: apcalcbc-u10-exam-q43
+    type: short_answer
+    topic_code: "10.9"
+    source: "AP Calculus CED, Topic 10.9"
+    points: 3
+    prompt: |
+      Determine whether ∑ (n = 1 to ∞) (−1)ⁿ⁺¹ n/(n² + 1) converges absolutely, converges conditionally, or diverges. Justify your answer, naming each test you use and checking its conditions.
+    answer: |
+      Converges conditionally. Absolute values: n/(n² + 1) compared with 1/n gives lim [n/(n² + 1)] / (1/n) = lim n²/(n² + 1) = 1, positive and finite, and ∑ 1/n diverges, so ∑ n/(n² + 1) diverges by limit comparison. The series itself: bₙ = n/(n² + 1) > 0, bₙ → 0, and bₙ is decreasing for n ≥ 1 because the derivative of x/(x² + 1) is (1 − x²)/(x² + 1)² ≤ 0 for x ≥ 1. By the alternating series test the series converges. It converges but not absolutely, so the convergence is conditional.
+    explanation: |
+      Three points. 1 point: shows ∑ n/(n² + 1) diverges, by limit comparison with the harmonic series (limit 1) or by the integral test (∫ from 1 to ∞ of x/(x² + 1) dx = lim ½ ln(x² + 1) diverges). A direct comparison n/(n² + 1) ≤ 1/n does not earn this point (it points the wrong way). 1 point: applies the alternating series test with all three conditions checked: positive, decreasing (a derivative or n/(n² + 1) ≥ (n + 1)/((n + 1)² + 1) argument) and limit 0. 1 point: the conclusion "converges conditionally", supported by both earlier parts.
+  - slug: apcalcbc-u10-exam-q44
+    type: short_answer
+    topic_code: "10.4"
+    source: "AP Calculus CED, Topic 10.4"
+    points: 3
+    prompt: |
+      Use the integral test to determine whether ∑ (n = 1 to ∞) n/(n² + 1)² converges or diverges. Verify the hypotheses of the test.
+    answer: |
+      Let f(x) = x/(x² + 1)². For x ≥ 1, f is positive and continuous, and f′(x) = (1 − 3x²)/(x² + 1)³ < 0, so f is decreasing. With u = x² + 1: ∫ from 1 to ∞ of x/(x² + 1)² dx = lim (b→∞) [−1/(2(x² + 1))] from 1 to b = 0 + 1/4 = 1/4. The improper integral converges, so by the integral test the series converges.
+    explanation: |
+      Three points. 1 point: states that f(x) = x/(x² + 1)² is positive, continuous and decreasing for x ≥ 1, with a reason for decreasing (f′(x) = (1 − 3x²)/(x² + 1)³ < 0 for x ≥ 1). 1 point: evaluates the improper integral as a limit, getting 1/4. 1 point: concludes the series converges because the integral converges. Saying the series converges to 1/4 loses the last point: the integral's value is not the sum.
+  # ---- Free response
+  - slug: apcalcbc-u10-exam-q45
+    type: long_answer
+    topic_code: "10.12"
+    source: "AP Calculus CED, Topic 10.12"
+    points: 9
+    prompt: |
+      (Calculator.) A hypothetical batch of soup is taken off a stove and left to cool. Its temperature, in degrees Celsius, t minutes later is H(t), where H has derivatives of all orders. The table gives H and its first three derivatives at t = 0.
+
+      | H(0) | H′(0) | H″(0) | H‴(0) |
+      |---|---|---|---|
+      | 82.4 | −5.6 | 0.84 | −0.096 |
+
+      For 0 ≤ t ≤ 3, the fourth derivative satisfies |H⁽⁴⁾(t)| ≤ 0.018.
+
+      (A) Write the third-degree Taylor polynomial P₃(t) for H about t = 0.
+
+      (B) Use P₃ to approximate the temperature of the soup at t = 3 minutes.
+
+      (C) Use the Lagrange error bound to find an upper bound on |H(3) − P₃(3)|. Could the temperature of the soup at t = 3 be 69.05 degrees Celsius? Explain why or why not.
+
+      (D) Let A(x) = ∫ from 0 to x of H(t) dt. Use P₃ to write the fourth-degree Taylor polynomial for A about x = 0, and use it to approximate the average temperature of the soup over the first 3 minutes.
+    answer: |
+      (A) P₃(t) = 82.4 − 5.6t + (0.84/2)t² + (−0.096/6)t³ = 82.4 − 5.6t + 0.42t² − 0.016t³.
+      (B) P₃(3) = 82.4 − 16.8 + 3.78 − 0.432 = 68.948 degrees Celsius.
+      (C) |H(3) − P₃(3)| ≤ max |H⁽⁴⁾(t)| · 3⁴/4! ≤ 0.018 · 81/24 = 0.06075. So 68.948 − 0.06075 ≤ H(3) ≤ 68.948 + 0.06075, that is 68.887 ≤ H(3) ≤ 69.009. Since 69.05 > 69.009, the temperature at t = 3 cannot be 69.05 degrees Celsius.
+      (D) A(0) = 0 and A′ = H, so integrate P₃ term by term: A₄(x) = 82.4x − 2.8x² + 0.14x³ − 0.004x⁴. A₄(3) = 247.2 − 25.2 + 3.78 − 0.324 = 225.456. Average temperature ≈ A(3)/3 ≈ 225.456/3 = 75.152 degrees Celsius.
+    explanation: |
+      Nine points. (A) 2 points: 1 point for the constant and linear terms 82.4 − 5.6t; 1 point for the quadratic and cubic terms 0.42t² − 0.016t³ (dividing by 2! and 3!). Leaving the derivatives undivided earns at most 1 point. (B) 1 point for 68.948 (accept 68.95), consistent with the student's P₃. (C) 3 points: 1 point for the form max |H⁽⁴⁾| · |3 − 0|⁴/4!, 1 point for the value 0.06075 (accept 0.061), and 1 point for the conclusion "no" with the reason that 69.05 exceeds P₃(3) + bound ≈ 69.009 (or that |69.05 − 68.948| = 0.102 is larger than the bound). (D) 3 points: 1 point for using A(0) = 0 and A′ = H to integrate term by term, 1 point for A₄(x) = 82.4x − 2.8x² + 0.14x³ − 0.004x⁴, and 1 point for the average value 75.152 (accept 75.15), with A(3)/3 shown. Using the alternating series error bound in (C) earns no point there: the signs of the higher terms of H's series are not known.
+  - slug: apcalcbc-u10-exam-q46
+    type: long_answer
+    topic_code: "10.13"
+    source: "AP Calculus CED, Topic 10.13"
+    points: 9
+    prompt: |
+      No calculator. The function f is defined by the power series f(x) = ∑ (n = 1 to ∞) (x − 2)ⁿ/(n · 3ⁿ) = (x − 2)/3 + (x − 2)²/18 + (x − 2)³/81 + … for all x for which the series converges.
+
+      (A) Use the ratio test to find the radius of convergence of the series.
+
+      (B) Find the interval of convergence of the series. Justify your conclusion at each endpoint.
+
+      (C) Write the first three nonzero terms and the general term of the power series for f′(x) about x = 2. Then find the sum of this series as an expression in x, for x in its open interval of convergence.
+
+      (D) Let g(x) = ∫ from 2 to x of f(t) dt. Write the first three nonzero terms and the general term of the power series for g(x) about x = 2.
+    answer: |
+      (A) |aₙ₊₁/aₙ| = |x − 2|ⁿ⁺¹/((n + 1)3ⁿ⁺¹) · (n · 3ⁿ)/|x − 2|ⁿ = (n/(n + 1)) · |x − 2|/3 → |x − 2|/3. The series converges when |x − 2|/3 < 1, so the radius of convergence is 3.
+      (B) The open interval is −1 < x < 5. At x = 5 the series is ∑ 3ⁿ/(n · 3ⁿ) = ∑ 1/n, the harmonic series, which diverges. At x = −1 the series is ∑ (−3)ⁿ/(n · 3ⁿ) = ∑ (−1)ⁿ/n; the magnitudes 1/n are positive, decreasing and go to 0, so it converges by the alternating series test. The interval of convergence is −1 ≤ x < 5.
+      (C) f′(x) = ∑ (n = 1 to ∞) (x − 2)ⁿ⁻¹/3ⁿ = 1/3 + (x − 2)/9 + (x − 2)²/27 + …. This is geometric with first term 1/3 and ratio (x − 2)/3, so for −1 < x < 5 its sum is (1/3)/(1 − (x − 2)/3) = 1/(5 − x).
+      (D) g(x) = ∑ (n = 1 to ∞) (x − 2)ⁿ⁺¹/(n(n + 1)3ⁿ) = (x − 2)²/6 + (x − 2)³/54 + (x − 2)⁴/324 + ….
+    explanation: |
+      Nine points. (A) 2 points: 1 point for setting up the ratio |aₙ₊₁/aₙ| and its limit |x − 2|/3; 1 point for radius 3. (B) 3 points: 1 point for the endpoint x = 5 with the conclusion "diverges" because it is the harmonic series (or a p-series with p = 1); 1 point for the endpoint x = −1 with the conclusion "converges" by the alternating series test with its conditions named; 1 point for the interval −1 ≤ x < 5, consistent with the endpoint analysis. (C) 2 points: 1 point for 1/3 + (x − 2)/9 + (x − 2)²/27 and the general term (x − 2)ⁿ⁻¹/3ⁿ (or (x − 2)ⁿ/3ⁿ⁺¹ starting at n = 0); 1 point for the sum 1/(5 − x) from the geometric series formula. (D) 2 points: 1 point for the three terms (x − 2)²/6 + (x − 2)³/54 + (x − 2)⁴/324; 1 point for the general term (x − 2)ⁿ⁺¹/(n(n + 1)3ⁿ). A constant of integration other than 0 loses a point in (D): g(2) = 0.

@@ -18,8 +18,8 @@
 |---|---|
 | Sinusoidal model | A function y = a cos(b(t − h)) + k (or the sine version) chosen to match a repeating quantity. |
 | Midline | y = k = (max + min)/2, the average level of the quantity. |
-| Amplitude | |a| = (max − min)/2, the greatest distance from the midline. Always positive. |
-| Period | The time for one full cycle, P = 2π/|b|, so b = 2π/P. |
+| Amplitude | \|a\| = (max − min)/2, the greatest distance from the midline. Always positive. |
+| Period | The time for one full cycle, P = 2π/\|b\|, so b = 2π/P. |
 | Simple harmonic motion | Motion whose displacement from rest is d = a sin ωt or d = a cos ωt. |
 | Angular frequency ω | The coefficient of t, in radians per unit of time (the same ω as week 4's angular speed). |
 | Frequency f | Cycles per unit of time: f = ω/(2π) = 1/P. One cycle per second is 1 hertz (Hz). |

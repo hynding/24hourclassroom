@@ -28,12 +28,12 @@
 | Concavity of a solution | d²y/dx² by implicit differentiation, then replace dy/dx |
 | Relative extremum of a solution | dy/dx = 0 and a sign change (or second derivative test) |
 | Separate variables | dy/h(y) = g(x) dx; integrate both sides; + C at once |
-| Exponentiating ln|y| = F(x) + C | y = Ae^(F(x)), A any real number (A = ±e^C; A = 0 restores y = 0) |
+| Exponentiating ln\|y\| = F(x) + C | y = Ae^(F(x)), A any real number (A = ±e^C; A = 0 restores y = 0) |
 | Square-root branch | match the sign of the initial y-value |
 | Domain of a particular solution | largest open interval containing the initial x where y and y′ are defined |
 | Exponential solution | dy/dt = ky, y(0) = y₀ → y = y₀e^(kt) |
 | k from data | k = ln(y₁/y₀)/t₁ |
-| Doubling time / half-life | ln 2 / |k| |
+| Doubling time / half-life | ln 2 / \|k\| |
 | Newton's law of cooling | T = M + (T₀ − M)e^(−kt); T → M |
 
 ## The sentences that earn AP points
