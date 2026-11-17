@@ -43,6 +43,8 @@ final class MaterialPayload
             'is_author' => MaterialAccess::canAuthor($viewer, $material),
             'shared_with_me' => MaterialAccess::hasLiveShare($viewer, $material),
             'download_url' => self::downloadUrl($material, $viewer),
+            // Marked done by this viewer; null when nothing is kept for them.
+            'progress' => StudyProgress::forMaterial($viewer, $material),
         ];
     }
 

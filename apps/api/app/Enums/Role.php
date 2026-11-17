@@ -114,6 +114,16 @@ enum Role: string
         return in_array($this, [self::Teacher, self::Student, self::Tutor, self::Assistant, self::Guardian], true);
     }
 
+    /**
+     * Keeps their own study progress on courses: a practice run's best
+     * score, and materials they mark done. Admin is not here -- it does not
+     * study. The progress is the learner's alone (StudyProgress).
+     */
+    public function tracksStudyProgress(): bool
+    {
+        return in_array($this, [self::Teacher, self::Student, self::Tutor, self::Assistant, self::Guardian], true);
+    }
+
     /** May delete anyone's comment on anything they can see. */
     public function moderatesComments(): bool
     {

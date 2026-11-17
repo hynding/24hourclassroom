@@ -49,7 +49,7 @@ test('the view payload carries exactly the MaterialView keys', function () {
         'id', 'title', 'subject', 'grade_level', 'visibility', 'published_at',
         'original_name', 'mime_type', 'size_bytes', 'author',
         'description', 'created_at', 'updated_at',
-        'is_author', 'shared_with_me', 'download_url',
+        'is_author', 'shared_with_me', 'download_url', 'progress',
     ]);
 
     expect($body['title'])->toBe('Fractions handout')

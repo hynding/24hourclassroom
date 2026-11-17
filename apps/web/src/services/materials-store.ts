@@ -25,6 +25,8 @@ export class MaterialsStore {
   shareMaterial(id: number, userIds: number[]) { return this.client.shareMaterial(id, userIds); }
   /** Takes the SHARE id. */
   unshareMaterial(id: number, shareId: number) { return this.client.unshareMaterial(id, shareId); }
+  /** The viewer's own "done" mark (study progress). */
+  markMaterialDone(id: number, done: boolean) { return this.client.markMaterialDone(id, done); }
 }
 
 export const materialsStore = new MaterialsStore(apiClient);

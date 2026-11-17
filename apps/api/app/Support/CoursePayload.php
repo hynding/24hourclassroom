@@ -70,6 +70,9 @@ final class CoursePayload
             // Where this course lives: its site slug, its slug under the
             // author's handle, or its id. The SPA rewrites the address to it.
             'path' => Slugs::coursePath($course),
+            // The viewer's own progress on the shown items; null for a
+            // guest, an admin or the author (StudyProgress).
+            'progress' => StudyProgress::forCourse($viewer, $course, $items),
         ], CourseAccess::canAuthor($viewer, $course) ? self::slugs($course) : []);
     }
 

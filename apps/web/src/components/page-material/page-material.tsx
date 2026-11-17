@@ -187,6 +187,12 @@ export class PageMaterial {
     });
   };
 
+  /** The viewer's own "done" mark (study progress); only they see it. */
+  private toggleDone = () => this.run(async () => {
+    const progress = await materialsStore.markMaterialDone(this.material.id, !this.material.progress?.done_at);
+    this.material = { ...this.material, progress };
+  });
+
   private link(path: string, text: string) {
     return <a href={path} onClick={(e) => { e.preventDefault(); navigate(path); }}>{text}</a>;
   }
@@ -235,6 +241,15 @@ export class PageMaterial {
         </div>
 
         {this.renderReader(m)}
+
+        {m.progress && (
+          <div class="actions">
+            <button type="button" class="btn" aria-pressed={m.progress.done_at ? 'true' : 'false'} disabled={this.busy} onClick={this.toggleDone}>
+              {m.progress.done_at ? '✓ Done' : 'Mark as done'}
+            </button>
+            <span class="meta">{m.progress.done_at ? 'Counted in your course progress. Press again to undo.' : 'Counts toward your progress in every course that holds it.'}</span>
+          </div>
+        )}
 
         {this.link('/materials', 'Back to materials')}
         <comment-thread targetType="material" targetId={m.id}></comment-thread>

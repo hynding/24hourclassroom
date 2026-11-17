@@ -32,6 +32,7 @@ import type {
   ResolvedPath,
   PendingConnections,
   PracticeResult,
+  MaterialProgress,
   PracticeTest,
   Profile,
   PublicProfile,
@@ -540,9 +541,16 @@ export class ApiClient {
     return this.get<PracticeTest>(`/api/courses/${courseId}/tests/${testId}`);
   }
 
-  /** Stateless: grades the run and stores nothing. */
+  /** Grades the run; stores nothing but a signed-in learner's own progress. */
   async checkPractice(courseId: number, testId: number, responses: Record<number, unknown>): Promise<PracticeResult> {
     return this.post<PracticeResult>(`/api/courses/${courseId}/tests/${testId}/check`, { responses });
+  }
+
+  /** The viewer's own "done" mark on a material they can see. */
+  async markMaterialDone(id: number, done: boolean): Promise<MaterialProgress> {
+    return done
+      ? this.put<MaterialProgress>(`/api/materials/${id}/done`)
+      : this.delete<MaterialProgress>(`/api/materials/${id}/done`);
   }
 
   /** The whole discussion on one target, oldest first, replies nested. */
