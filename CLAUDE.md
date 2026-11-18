@@ -31,6 +31,9 @@ npm test                           # api-client + web
 
 # Build everything (shared -> api-client -> web, in order)
 npm run build
+
+# Accessibility audit of the built SPA (axe-core, API mocked; ~4 min)
+npm run a11y -w @24hc/web
 ```
 
 `packages/*/dist/` is gitignored but **required** by `apps/web` — run
@@ -114,6 +117,14 @@ Enforced by specs in `src/global/`. These fail CI, not review:
   from the files.
 - `theme-store` has no module-scope side effects; `applyTheme` always writes
   both attributes.
+- **Accessibility** (`apps/web/a11y/`, CI job `a11y`): axe-core, WCAG 2.1 A/AA
+  plus best practice, over 29 pages as guest, student and teacher, light and
+  dark palette, both layouts, desktop and phone width, through every shadow
+  root; the API is mocked by `a11y/fixtures.cjs` (extend it when a page needs
+  a new endpoint). Any violation fails, bar the skip link's `region`. Every
+  input needs a label (`aria-label` when the prompt is the visible label).
+  `app-layout` owns the skip link and `focusMain()`, which `app-root` calls
+  after each in-app navigation so focus lands on the new page.
 - Page layout lives in each component's CSS. Keep `app.css` to base styles and
   shared variants — every rule in it is evaluated inside every shadow root.
 

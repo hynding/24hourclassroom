@@ -53,15 +53,37 @@ describe('app-layout', () => {
 });
 
 describe('app-layout slots', () => {
-  it('has a banner slot first in the shell, and assigns a slot="banner" child to it', async () => {
+  it('has the banner slot first among the shell\'s slots (after the skip link), and assigns a slot="banner" child to it', async () => {
     const page = await newSpecPage({
       components: [AppLayout],
       html: '<app-layout><div slot="banner" id="b"></div><div slot="header" id="h"></div><p id="p"></p></app-layout>',
     });
     const shell = page.root.shadowRoot.querySelector('.shell')!;
-    const first = shell.firstElementChild as HTMLSlotElement;
-    expect(first.tagName.toLowerCase()).toBe('slot');
+    const first = shell.querySelector('slot') as HTMLSlotElement;
+    expect(first.previousElementSibling.classList.contains('skip')).toBe(true);
     expect(first.getAttribute('name')).toBe('banner');
     expect(first.assignedElements().map((el) => el.id)).toEqual(['b']);
+  });
+
+  it('opens with a skip link that hands focus to the page content', async () => {
+    const spec = await mount('layout="rail"');
+    const root = spec.root.shadowRoot;
+    const skip = root.querySelector('a.skip') as HTMLAnchorElement;
+    const main = root.querySelector('main') as HTMLElement;
+
+    expect(root.querySelector('.shell').firstElementChild).toBe(skip);
+    expect(skip.textContent).toBe('Skip to content');
+    expect(main.getAttribute('tabindex')).toBe('-1');
+    main.focus = jest.fn();
+    skip.click();
+    expect(main.focus).toHaveBeenCalled();
+  });
+
+  it('focuses the page content on request, without scrolling', async () => {
+    const spec = await mount();
+    const main = spec.root.shadowRoot.querySelector('main') as HTMLElement;
+    main.focus = jest.fn();
+    await spec.root.focusMain();
+    expect(main.focus).toHaveBeenCalledWith({ preventScroll: true });
   });
 });

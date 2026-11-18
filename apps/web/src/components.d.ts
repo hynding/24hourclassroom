@@ -50,6 +50,10 @@ export namespace Components {
          */
         "bare": boolean;
         /**
+          * Moves keyboard and screen-reader focus to the page content. app-root calls it after each in-app navigation: the SPA swaps <main>'s content without a page load, so focus would otherwise stay on the link just pressed, possibly in a menu that is now closed. No scroll: where the page sits is the router's business, not this.
+         */
+        "focusMain": () => Promise<void>;
+        /**
           * reflect: true is load-bearing -- app-layout.css keys on :host([layout]).
           * @default 'stacked'
          */
