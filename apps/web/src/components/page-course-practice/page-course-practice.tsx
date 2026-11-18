@@ -14,10 +14,11 @@ import { formatAnswer, formatResponse, isTextResponse, optionChosen, showsStimul
 /**
  * Practice mode for a course's test, open to anyone who can see the course.
  * Two ways through, and the visitor can mix them: reveal any one answer as
- * they go, or finish and see every answer with a score. Nothing is stored --
- * responses live in this component and vanish with it -- so there is no
- * autosave and no attempt; "finish" is one stateless check the server
- * grades with the same scorer a real attempt uses.
+ * they go, or finish and see every answer with a score. Responses live in
+ * this component and vanish with it -- there is no autosave and no
+ * attempt; "finish" is one check the server grades with the same scorer a
+ * real attempt uses. For a signed-in learner that check also keeps their
+ * best and latest score (`progress`), which only they ever see.
  *
  * The test's discussion and each question's sit here too: the same
  * threads as on the test's own page (target `test` / `question`), so a
@@ -72,6 +73,9 @@ export class PageCoursePractice {
     this.error = '';
     try {
       this.result = await coursesStore.checkPractice(this.test.course.id, this.test.id, this.responses);
+      if (this.result.progress) {
+        this.test = { ...this.test, progress: this.result.progress };
+      }
     } catch (e) {
       if (e instanceof ApiError && e.status === 404) {
         // Unpublished (or the test taken out of the course) since the load.
@@ -208,13 +212,19 @@ export class PageCoursePractice {
       <section>
         <p class="crumb">{this.link(`/courses/${t.course.id}`, t.course.title)}</p>
         <h1>{courseItemTitle(t.course.title, t.title)}</h1>
-        <p class="meta">{t.question_count} question{t.question_count === 1 ? '' : 's'} · practice mode, nothing is saved</p>
+        <p class="meta">
+          {t.question_count} question{t.question_count === 1 ? '' : 's'} · practice mode, {t.progress ? 'your best score is saved for you' : 'nothing is saved'}
+          {t.progress?.runs > 0 && t.progress.best_max > 0 && ` · your best so far: ${t.progress.best_score} / ${t.progress.best_max}`}
+        </p>
         {t.description && <rich-text blocks text={t.description}></rich-text>}
 
         {r
           ? (
             <div class="result" role="status">
               <p class="score">You scored {r.score} / {r.max_score}</p>
+              {r.progress && r.progress.best_max > 0 && (
+                <p class="meta">Saved. Your best on this test: {r.progress.best_score} / {r.progress.best_max} marked point{r.progress.best_max === 1 ? '' : 's'}.</p>
+              )}
               {r.ungraded_count > 0 && (
                 <p class="meta">{r.ungraded_count} answer{r.ungraded_count === 1 ? ' is' : 's are'} not marked automatically and not counted: compare {r.ungraded_count === 1 ? 'it' : 'them'} with the answer shown below.</p>
               )}

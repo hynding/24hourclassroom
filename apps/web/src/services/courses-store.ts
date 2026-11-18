@@ -22,6 +22,7 @@ export class CoursesStore {
   setCourseSlug(id: number, slug: string | null) { return this.client.setCourseSlug(id, slug); }
   /** Resolves to the new BRANCH, not the original. */
   branchCourse(id: number) { return this.client.branchCourse(id); }
+  courseGradebook(id: number) { return this.client.courseGradebook(id); }
   getPracticeTest(courseId: number, testId: number) { return this.client.getPracticeTest(courseId, testId); }
   checkPractice(courseId: number, testId: number, responses: Record<number, unknown>) { return this.client.checkPractice(courseId, testId, responses); }
 }

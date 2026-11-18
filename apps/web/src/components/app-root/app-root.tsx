@@ -22,7 +22,19 @@ export class AppRoot {
    */
   @State() resolved: Record<string, string | null> = {};
 
+  private layoutEl?: HTMLAppLayoutElement;
+  /** Set by a navigation; the next render hands focus to the new page. */
+  private focusPending = false;
+
+  componentDidRender() {
+    if (this.focusPending && this.layoutEl) {
+      this.focusPending = false;
+      this.layoutEl.focusMain();
+    }
+  }
+
   private onPopState = () => {
+    this.focusPending = window.location.pathname !== this.path;
     this.path = window.location.pathname;
     resetPageMeta(this.path);
     this.resolveVanity(this.path);
@@ -119,7 +131,7 @@ export class AppRoot {
     const route = routed === null ? null : resolveRoute(routed);
     if (route === null) {
       return (
-        <app-layout layout={this.layout}>
+        <app-layout layout={this.layout} ref={(el) => (this.layoutEl = el)}>
           <app-banner slot="banner"></app-banner>
           <app-header slot="header" orientation={this.layout === 'rail' ? 'vertical' : 'horizontal'}></app-header>
           <app-footer slot="footer"></app-footer>
@@ -127,7 +139,7 @@ export class AppRoot {
       );
     }
     return (
-      <app-layout layout={this.layout} bare={route.tag === 'page-test-print'}>
+      <app-layout layout={this.layout} bare={route.tag === 'page-test-print'} ref={(el) => (this.layoutEl = el)}>
         <app-banner slot="banner"></app-banner>
         <app-header slot="header" orientation={this.layout === 'rail' ? 'vertical' : 'horizontal'}></app-header>
         {this.renderPage(route)}

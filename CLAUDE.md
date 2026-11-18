@@ -31,6 +31,9 @@ npm test                           # api-client + web
 
 # Build everything (shared -> api-client -> web, in order)
 npm run build
+
+# Accessibility audit of the built SPA (axe-core, API mocked; ~4 min)
+npm run a11y -w @24hc/web
 ```
 
 `packages/*/dist/` is gitignored but **required** by `apps/web` — run
@@ -114,6 +117,14 @@ Enforced by specs in `src/global/`. These fail CI, not review:
   from the files.
 - `theme-store` has no module-scope side effects; `applyTheme` always writes
   both attributes.
+- **Accessibility** (`apps/web/a11y/`, CI job `a11y`): axe-core, WCAG 2.1 A/AA
+  plus best practice, over 31 pages as guest, student and teacher, light and
+  dark palette, both layouts, desktop and phone width, through every shadow
+  root; the API is mocked by `a11y/fixtures.cjs` (extend it when a page needs
+  a new endpoint). Any violation fails, bar the skip link's `region`. Every
+  input needs a label (`aria-label` when the prompt is the visible label).
+  `app-layout` owns the skip link and `focusMain()`, which `app-root` calls
+  after each in-app navigation so focus lands on the new page.
 - Page layout lives in each component's CSS. Keep `app.css` to base styles and
   shared variants — every rule in it is evaluated inside every shadow root.
 
@@ -204,7 +215,7 @@ A public course's answers are public by design: there is no hide-answers switch.
   `/courses/:id/tests/:testId`) returns the test *with answers* — the reveal
   button needs no round trip — to anyone who can see the course, but only for a
   public test (the author can preview anything). `POST …/check` grades a run
-  with `AttemptGrader::score` and writes nothing, so guests can use it. Nothing
+  with `AttemptGrader::score` and writes no attempt, so guests can use it (a signed-in learner's run updates only their own study progress). Nothing
   else ever returns answers to a non-author; an assigned student cannot reach a
   private test's answers through a course.
 
@@ -223,6 +234,35 @@ teacher's: shown only while it is public with an active author, keepable,
 movable and removable in the editor, never newly addable. Later changes to the
 original do not reach a branch. `page-course` watches `courseId`: a branch and
 its original are the same tag, so Stencil reuses the element.
+
+## Study progress
+
+A signed-in learner's own record of a course (`study_progress`,
+`App\Support\StudyProgress`): a finished practice run keeps their best and
+latest score per test (over the points the scorer could mark), and a
+material can be marked done (`PUT|DELETE /api/materials/{m}/done`, on
+`page-material` and the course page), and a flashcard deck keeps the cards
+marked known (`PUT /api/materials/{m}/cards`, `known_cards`: 8-hex keys from
+`services/flashcards.ts` `cardKey`, never card text; the deck shows unknown
+cards first, and knowing every card marks the deck done). Kept only for a verified
+`Role::tracksStudyProgress()` viewer (everyone but admin) and never on their
+own content. Rows are keyed on the test or material, not the course, so
+done once is done in every course holding it. `CourseView.progress`
+(keyed by course item id), `PracticeTest.progress`, `PracticeResult.progress`
+and `MaterialView.progress` are null whenever nothing is kept. **Only the
+learner ever sees it**: no teacher, guardian or admin view, and never a
+`Metrics` counter. Assigned work keeps its own record (attempts).
+
+## Gradebook export
+
+`GET /api/tests/{test}/gradebook` (author only: "Download scores (CSV)" on
+the results page) and `GET /api/courses/{course}/gradebook` (author only:
+"Download gradebook (CSV)" on the course page) return `{title, columns,
+rows}` from `App\Support\Gradebook`; the SPA writes the CSV
+(`services/csv.ts`: RFC 4180 quoting, a BOM for Excel, and a leading `'` on
+any text a spreadsheet would run as a formula, since students type their
+names). The audience is the results page's: the author's assignments to
+connected, active students. Never self-practice or study progress.
 
 ## Page addresses (slugs)
 

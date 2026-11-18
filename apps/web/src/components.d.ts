@@ -50,6 +50,10 @@ export namespace Components {
          */
         "bare": boolean;
         /**
+          * Moves keyboard and screen-reader focus to the page content. app-root calls it after each in-app navigation: the SPA swaps <main>'s content without a page load, so focus would otherwise stay on the link just pressed, possibly in a menu that is now closed. No scroll: where the page sits is the router's business, not this.
+         */
+        "focusMain": () => Promise<void>;
+        /**
           * reflect: true is load-bearing -- app-layout.css keys on :host([layout]).
           * @default 'stacked'
          */
@@ -87,8 +91,11 @@ export namespace Components {
     }
     /**
      * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
-     * flip to the back, step or shuffle. All state is local -- nothing is
-     * persisted, so reloading starts the deck over.
+     * flip to the back, step or shuffle.
+     * With `known` set (a signed-in learner whose progress is kept), each card
+     * can be marked "I know it" or "Still learning"; the deck opens with the
+     * cards still to learn first, and every change is emitted as `knownChange`
+     * for the page to save. Without it nothing is remembered.
      */
     interface FlashcardDeck {
         /**
@@ -101,6 +108,11 @@ export namespace Components {
           * @default false
          */
         "flipped": boolean;
+        /**
+          * Card keys the learner knows; null when nothing is remembered for them.
+          * @default null
+         */
+        "known": string[] | null;
     }
     interface PageAttempt {
         "attemptId"?: number;
@@ -119,10 +131,11 @@ export namespace Components {
     /**
      * Practice mode for a course's test, open to anyone who can see the course.
      * Two ways through, and the visitor can mix them: reveal any one answer as
-     * they go, or finish and see every answer with a score. Nothing is stored --
-     * responses live in this component and vanish with it -- so there is no
-     * autosave and no attempt; "finish" is one stateless check the server
-     * grades with the same scorer a real attempt uses.
+     * they go, or finish and see every answer with a score. Responses live in
+     * this component and vanish with it -- there is no autosave and no
+     * attempt; "finish" is one check the server grades with the same scorer a
+     * real attempt uses. For a signed-in learner that check also keeps their
+     * best and latest score (`progress`), which only they ever see.
      * The test's discussion and each question's sit here too: the same
      * threads as on the test's own page (target `test` / `question`), so a
      * practice page widens nobody's access. The author's comments-off switch
@@ -266,6 +279,10 @@ export namespace Components {
         "question": QuestionInput;
     }
 }
+export interface FlashcardDeckCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFlashcardDeckElement;
+}
 export interface TestQuestionEditorCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLTestQuestionEditorElement;
@@ -331,12 +348,26 @@ declare global {
         prototype: HTMLCommentThreadElement;
         new (): HTMLCommentThreadElement;
     };
+    interface HTMLFlashcardDeckElementEventMap {
+        "knownChange": string[];
+    }
     /**
      * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
-     * flip to the back, step or shuffle. All state is local -- nothing is
-     * persisted, so reloading starts the deck over.
+     * flip to the back, step or shuffle.
+     * With `known` set (a signed-in learner whose progress is kept), each card
+     * can be marked "I know it" or "Still learning"; the deck opens with the
+     * cards still to learn first, and every change is emitted as `knownChange`
+     * for the page to save. Without it nothing is remembered.
      */
     interface HTMLFlashcardDeckElement extends Components.FlashcardDeck, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLFlashcardDeckElementEventMap>(type: K, listener: (this: HTMLFlashcardDeckElement, ev: FlashcardDeckCustomEvent<HTMLFlashcardDeckElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLFlashcardDeckElementEventMap>(type: K, listener: (this: HTMLFlashcardDeckElement, ev: FlashcardDeckCustomEvent<HTMLFlashcardDeckElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLFlashcardDeckElement: {
         prototype: HTMLFlashcardDeckElement;
@@ -369,10 +400,11 @@ declare global {
     /**
      * Practice mode for a course's test, open to anyone who can see the course.
      * Two ways through, and the visitor can mix them: reveal any one answer as
-     * they go, or finish and see every answer with a score. Nothing is stored --
-     * responses live in this component and vanish with it -- so there is no
-     * autosave and no attempt; "finish" is one stateless check the server
-     * grades with the same scorer a real attempt uses.
+     * they go, or finish and see every answer with a score. Responses live in
+     * this component and vanish with it -- there is no autosave and no
+     * attempt; "finish" is one check the server grades with the same scorer a
+     * real attempt uses. For a signed-in learner that check also keeps their
+     * best and latest score (`progress`), which only they ever see.
      * The test's discussion and each question's sit here too: the same
      * threads as on the test's own page (target `test` / `question`), so a
      * practice page widens nobody's access. The author's comments-off switch
@@ -744,8 +776,11 @@ declare namespace LocalJSX {
     }
     /**
      * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
-     * flip to the back, step or shuffle. All state is local -- nothing is
-     * persisted, so reloading starts the deck over.
+     * flip to the back, step or shuffle.
+     * With `known` set (a signed-in learner whose progress is kept), each card
+     * can be marked "I know it" or "Still learning"; the deck opens with the
+     * cards still to learn first, and every change is emitted as `knownChange`
+     * for the page to save. Without it nothing is remembered.
      */
     interface FlashcardDeck {
         /**
@@ -758,6 +793,15 @@ declare namespace LocalJSX {
           * @default false
          */
         "flipped"?: boolean;
+        /**
+          * Card keys the learner knows; null when nothing is remembered for them.
+          * @default null
+         */
+        "known"?: string[] | null;
+        /**
+          * The whole new set of known card keys, after a mark.
+         */
+        "onKnownChange"?: (event: FlashcardDeckCustomEvent<string[]>) => void;
     }
     interface PageAttempt {
         "attemptId"?: number;
@@ -776,10 +820,11 @@ declare namespace LocalJSX {
     /**
      * Practice mode for a course's test, open to anyone who can see the course.
      * Two ways through, and the visitor can mix them: reveal any one answer as
-     * they go, or finish and see every answer with a score. Nothing is stored --
-     * responses live in this component and vanish with it -- so there is no
-     * autosave and no attempt; "finish" is one stateless check the server
-     * grades with the same scorer a real attempt uses.
+     * they go, or finish and see every answer with a score. Responses live in
+     * this component and vanish with it -- there is no autosave and no
+     * attempt; "finish" is one check the server grades with the same scorer a
+     * real attempt uses. For a signed-in learner that check also keeps their
+     * best and latest score (`progress`), which only they ever see.
      * The test's discussion and each question's sit here too: the same
      * threads as on the test's own page (target `test` / `question`), so a
      * practice page widens nobody's access. The author's comments-off switch
@@ -1087,8 +1132,11 @@ declare module "@stencil/core" {
             "comment-thread": LocalJSX.IntrinsicElements["comment-thread"] & JSXBase.HTMLAttributes<HTMLCommentThreadElement>;
             /**
              * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
-             * flip to the back, step or shuffle. All state is local -- nothing is
-             * persisted, so reloading starts the deck over.
+             * flip to the back, step or shuffle.
+             * With `known` set (a signed-in learner whose progress is kept), each card
+             * can be marked "I know it" or "Still learning"; the deck opens with the
+             * cards still to learn first, and every change is emitted as `knownChange`
+             * for the page to save. Without it nothing is remembered.
              */
             "flashcard-deck": LocalJSX.IntrinsicElements["flashcard-deck"] & JSXBase.HTMLAttributes<HTMLFlashcardDeckElement>;
             "page-attempt": LocalJSX.IntrinsicElements["page-attempt"] & JSXBase.HTMLAttributes<HTMLPageAttemptElement>;
@@ -1098,10 +1146,11 @@ declare module "@stencil/core" {
             /**
              * Practice mode for a course's test, open to anyone who can see the course.
              * Two ways through, and the visitor can mix them: reveal any one answer as
-             * they go, or finish and see every answer with a score. Nothing is stored --
-             * responses live in this component and vanish with it -- so there is no
-             * autosave and no attempt; "finish" is one stateless check the server
-             * grades with the same scorer a real attempt uses.
+             * they go, or finish and see every answer with a score. Responses live in
+             * this component and vanish with it -- there is no autosave and no
+             * attempt; "finish" is one check the server grades with the same scorer a
+             * real attempt uses. For a signed-in learner that check also keeps their
+             * best and latest score (`progress`), which only they ever see.
              * The test's discussion and each question's sit here too: the same
              * threads as on the test's own page (target `test` / `question`), so a
              * practice page widens nobody's access. The author's comments-off switch

@@ -22,10 +22,12 @@ use App\Http\Controllers\Api\CoursePublishController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\GenerationCancelController;
 use App\Http\Controllers\Api\GenerationController;
+use App\Http\Controllers\Api\GradebookController;
 use App\Http\Controllers\Api\GradingQueueController;
 use App\Http\Controllers\Api\IntegrationsController;
 use App\Http\Controllers\Api\LibraryController;
 use App\Http\Controllers\Api\MaterialController;
+use App\Http\Controllers\Api\MaterialDoneController;
 use App\Http\Controllers\Api\MaterialFileController;
 use App\Http\Controllers\Api\MaterialPublishController;
 use App\Http\Controllers\Api\MaterialShareController;
@@ -123,6 +125,9 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::post('attempts/{attempt}/submit', [AttemptController::class, 'submit']);
     Route::put('attempts/{attempt}/answers/{answer}', AnswerGradeController::class);
     Route::get('tests/{test}/attempts', TestAttemptsController::class);
+    // The author's scores as a table, saved by the SPA as CSV (Gradebook).
+    Route::get('tests/{test}/gradebook', [GradebookController::class, 'test']);
+    Route::get('courses/{course}/gradebook', [GradebookController::class, 'course']);
     Route::get('grading', GradingQueueController::class);
 
     Route::get('materials', [MaterialController::class, 'index']);
@@ -137,6 +142,10 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::get('materials/{material}/shares', [MaterialShareController::class, 'index']);
     Route::post('materials/{material}/shares', [MaterialShareController::class, 'store']);
     Route::delete('materials/{material}/shares/{share}', [MaterialShareController::class, 'destroy']);
+    // The viewer's own "done" mark (StudyProgress): never seen by anyone else.
+    Route::put('materials/{material}/done', [MaterialDoneController::class, 'store']);
+    Route::delete('materials/{material}/done', [MaterialDoneController::class, 'destroy']);
+    Route::put('materials/{material}/cards', [MaterialDoneController::class, 'cards']);
 
     Route::get('courses', [CourseController::class, 'index']);
     Route::post('courses', [CourseController::class, 'store']);
@@ -196,9 +205,9 @@ Route::middleware(['throttle:60,1', 'active'])->group(function () {
     // A vanity path (/courses/<slug>, /teachers/<handle>[/<slug>]) to the id
     // path it names, for this viewer. See Slugs.
     Route::get('resolve', [SlugController::class, 'resolve']);
-    // Practice mode: guests included, nothing recorded. `check` is a POST
-    // only because a run's responses do not fit a query string; it writes
-    // nothing.
+    // Practice mode: guests included. `check` is a POST only because a
+    // run's responses do not fit a query string; it writes nothing but a
+    // signed-in learner's own progress (StudyProgress).
     Route::get('courses/{course}/tests/{test}', [CoursePracticeController::class, 'show']);
     Route::post('courses/{course}/tests/{test}/check', [CoursePracticeController::class, 'check']);
 });

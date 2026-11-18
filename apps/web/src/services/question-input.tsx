@@ -51,9 +51,9 @@ export const QuestionInput: FunctionalComponent<QuestionInputProps> = ({ questio
         </div>
       );
     case 'short_answer':
-      return <input type="text" value={(value as string) ?? ''} onInput={(e) => onChange((e.target as HTMLInputElement).value)} />;
+      return <input type="text" aria-label="Your answer" value={(value as string) ?? ''} onInput={(e) => onChange((e.target as HTMLInputElement).value)} />;
     case 'numeric':
-      return <input type="number" step="any" value={value === undefined || value === null ? '' : String(value)} onInput={(e) => {
+      return <input type="number" step="any" aria-label="Your answer" value={value === undefined || value === null ? '' : String(value)} onInput={(e) => {
         const raw = (e.target as HTMLInputElement).value;
         onChange(raw === '' ? null : Number(raw));
       }} />;

@@ -1,14 +1,25 @@
 import { Component, h, Listen, State } from '@stencil/core';
 import { AUTHOR_ROLES, SHARE_RECIPIENT_ROLES, SUPPORTER_ROLES, hasRole } from '@24hc/shared';
-import type { SiteConfig, User } from '@24hc/shared';
+import type { MyAssignment, SiteConfig, User } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
 import { siteStore } from '../../services/site-store';
+import { testsStore } from '../../services/tests-store';
+import { formatDueDate } from '../../services/format';
+import { UpNext, upNext } from '../../services/up-next';
+
+/** Rows per list on the home page; the rest wait on /tests. */
+const LIST_LIMIT = 5;
 
 @Component({ tag: 'page-home', styleUrl: 'page-home.css', shadow: true })
 export class PageHome {
   @State() site: SiteConfig = siteStore.config;
   @State() user: User | null = null;
+  /** A student's to-do list; null until loaded (or for anyone else). */
+  @State() upNext: UpNext | null = null;
+  @State() upNextError = false;
+  /** Whose list is loaded, so a re-emitted session does not refetch it. */
+  private upNextFor: number | null = null;
 
   private unsubscribe: () => void = () => undefined;
 
@@ -20,12 +31,109 @@ export class PageHome {
   connectedCallback() {
     this.unsubscribe = authStore.subscribe((user) => {
       this.user = user;
+      this.loadUpNext();
     });
     this.user = authStore.currentUser;
+    this.loadUpNext();
+  }
+
+  /** The server serves assignments to students only (MyAssignmentsController). */
+  private takesTests(): boolean {
+    return this.user?.role === 'student';
+  }
+
+  private async loadUpNext() {
+    if (!this.takesTests()) {
+      this.upNext = null;
+      this.upNextFor = null;
+      return;
+    }
+    const id = this.user.id;
+    if (this.upNextFor === id) {
+      return;
+    }
+    this.upNextFor = id;
+    this.upNextError = false;
+    try {
+      const { data } = await testsStore.myAssignments();
+      if (this.user?.id === id) {
+        this.upNext = upNext(data);
+      }
+    } catch {
+      this.upNextFor = null;
+      this.upNextError = true;
+    }
   }
 
   disconnectedCallback() {
     this.unsubscribe();
+  }
+
+  private link(path: string, text: string) {
+    return <a href={path} onClick={(e) => { e.preventDefault(); navigate(path); }}>{text}</a>;
+  }
+
+  /** One list of open assignments, at most LIST_LIMIT long. */
+  private renderOpen(title: string, cls: string, list: MyAssignment[]) {
+    if (list.length === 0) {
+      return null;
+    }
+    return [
+      <h3>{title}</h3>,
+      <ul class={`rows ${cls}`}>
+        {list.slice(0, LIST_LIMIT).map((a) => (
+          <li>
+            {this.link(`/tests/${a.test.id}`, a.test.title)}
+            <span class="meta">due {formatDueDate(a.due_at)}{a.latest ? ' · started' : ''}</span>
+          </li>
+        ))}
+      </ul>,
+      list.length > LIST_LIMIT && <p class="meta">and {list.length - LIST_LIMIT} more on {this.link('/tests', 'My tests')}</p>,
+    ];
+  }
+
+  /**
+   * A student's first screen: what is overdue, what is due this week and
+   * how they did lately, so they need not dig through a year of
+   * assignments on /tests.
+   */
+  private renderUpNext() {
+    if (this.upNextError) {
+      return <section class="up-next"><h2>Up next</h2><p>We could not load your assignments. {this.link('/tests', 'Open My tests')}</p></section>;
+    }
+    const u = this.upNext;
+    if (!u) {
+      return null;
+    }
+    const clear = u.overdue.length === 0 && u.thisWeek.length === 0;
+    return (
+      <section class="up-next" aria-labelledby="up-next-heading">
+        <h2 id="up-next-heading">Up next</h2>
+        {clear && (
+          <p>
+            Nothing is due this week.{' '}
+            {u.laterCount > 0 ? this.link('/tests', `See all ${u.laterCount} open assignment${u.laterCount === 1 ? '' : 's'}`) : this.link('/library', 'Practise from the library')}
+          </p>
+        )}
+        {this.renderOpen('Overdue', 'overdue', u.overdue)}
+        {this.renderOpen('Due this week', 'this-week', u.thisWeek)}
+        {!clear && u.laterCount > 0 && <p class="meta">{u.laterCount} more due later on {this.link('/tests', 'My tests')}</p>}
+        {u.recent.length > 0 && [
+          <h3>Recent scores</h3>,
+          <ul class="rows recent">
+            {u.recent.slice(0, LIST_LIMIT).map((a) => (
+              <li>
+                {this.link(`/attempts/${a.latest.id}`, a.test.title)}
+                <span class="score">
+                  {a.latest.score === null ? 'Awaiting grade' : `${a.latest.score} / ${a.latest.max_score}`}
+                  {a.latest.score !== null && a.latest.ungraded_count > 0 ? ` (${a.latest.ungraded_count} to grade)` : ''}
+                </span>
+              </li>
+            ))}
+          </ul>,
+        ]}
+      </section>
+    );
   }
 
   /** Allowlist, like app-header: authors write, students take. An admin has no tests shelf. */
@@ -101,6 +209,7 @@ export class PageHome {
       <section>
         <h1>{name}</h1>
         {tagline && <p class="tagline">{tagline}</p>}
+        {this.user && this.renderUpNext()}
         {this.user ? this.renderMember() : this.renderGuest()}
       </section>
     );

@@ -4,7 +4,7 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import { FlashcardDeck } from './flashcard-deck';
 import { RichText } from '../rich-text/rich-text';
-import { Flashcard } from '../../services/flashcards';
+import { Flashcard, cardKey } from '../../services/flashcards';
 
 const cards: Flashcard[] = [
   { front: 'Capital of France?', back: 'Paris, on the **Seine**.', hint: 'Starts with P', topic: 'Geography' },
@@ -157,5 +157,43 @@ describe('flashcard-deck', () => {
   it('keys the back styling off the reflected attribute', () => {
     const css = readFileSync(join(__dirname, 'flashcard-deck.css'), 'utf8');
     expect(css).toContain(':host([flipped]) .card');
+  });
+
+  describe('remembering known cards', () => {
+    async function mountKnown(known: string[] | null) {
+      const changes: string[][] = [];
+      const page = await newSpecPage({
+        components: [FlashcardDeck, RichText],
+        template: () => <flashcard-deck cards={cards} known={known} onKnownChange={(e: CustomEvent<string[]>) => changes.push(e.detail)}></flashcard-deck>,
+      });
+      await page.waitForChanges();
+      return { page, changes };
+    }
+
+    it('offers no marks when nothing is remembered', async () => {
+      const { page } = await mountKnown(null);
+      expect(button(page, 'I know it')).toBeUndefined();
+      expect(root(page).querySelector('.known-count')).toBeNull();
+    });
+
+    it('opens with the cards still to learn, then the known ones', async () => {
+      const { page } = await mountKnown([cardKey(cards[0])]);
+      expect(frontText(page)).toBe('Two plus two?');
+      expect(root(page).querySelector('.known-count').textContent).toBe('1 of 3 known');
+      await click(page, 'Next');
+      await click(page, 'Next');
+      expect(frontText(page)).toBe('Capital of France?');
+      expect(button(page, 'I know it').getAttribute('aria-pressed')).toBe('true');
+    });
+
+    it('emits the new set on each mark and moves on', async () => {
+      const { page, changes } = await mountKnown([cardKey(cards[0]), 'gone1234']);
+      await click(page, 'I know it');
+      expect(changes[0]).toEqual([cardKey(cards[0]), cardKey(cards[1])]);
+      expect(frontText(page)).toBe('Largest planet?');
+
+      await click(page, 'Still learning');
+      expect(changes[1]).toEqual([cardKey(cards[0])]);
+    });
   });
 });

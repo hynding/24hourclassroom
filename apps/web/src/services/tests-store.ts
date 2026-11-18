@@ -23,6 +23,7 @@ export class TestsStore {
   assignTest(testId: number, studentIds: number[], dueAt?: string | null) { return this.client.assignTest(testId, studentIds, dueAt); }
   unassign(testId: number, assignmentId: number) { return this.client.unassign(testId, assignmentId); }
   listTestAttempts(testId: number, page?: number) { return this.client.listTestAttempts(testId, page); }
+  testGradebook(testId: number) { return this.client.testGradebook(testId); }
   myAssignments() { return this.client.myAssignments(); }
   studentAssignments(studentId: number) { return this.client.studentAssignments(studentId); }
   myAttempts() { return this.client.myAttempts(); }

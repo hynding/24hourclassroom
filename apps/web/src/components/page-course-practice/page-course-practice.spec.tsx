@@ -181,4 +181,34 @@ describe('page-course-practice', () => {
       me.value = null;
     }
   });
+
+  describe('saved progress', () => {
+    it('says the best score is saved for a learner and shows it after a run', async () => {
+      const page = await mount({ ...practice, progress: { best_score: 1, best_max: 3, runs: 1, done_at: '2026-11-16' } });
+      expect(deepText(page.root.shadowRoot)).toContain('your best score is saved for you');
+      expect(deepText(page.root.shadowRoot)).toContain('your best so far: 1 / 3');
+
+      const progress = { best_score: 3, best_max: 3, runs: 2, done_at: '2026-11-17' };
+      checkPractice.mockResolvedValue({ score: 3, max_score: 6, ungraded_count: 1, results: [], progress });
+      button(page, 'Finish and see results')[0].click();
+      await page.waitForChanges();
+      await page.waitForChanges();
+
+      const text = deepText(page.root.shadowRoot);
+      expect(text).toContain('Saved. Your best on this test: 3 / 3 marked points.');
+      expect(text).toContain('your best so far: 3 / 3');
+    });
+
+    it('says nothing is saved when no progress is kept', async () => {
+      const page = await mount({ ...practice, progress: null });
+      checkPractice.mockResolvedValue({ score: 3, max_score: 6, ungraded_count: 1, results: [], progress: null });
+      button(page, 'Finish and see results')[0].click();
+      await page.waitForChanges();
+      await page.waitForChanges();
+
+      const text = deepText(page.root.shadowRoot);
+      expect(text).toContain('nothing is saved');
+      expect(text).not.toContain('Saved.');
+    });
+  });
 });
