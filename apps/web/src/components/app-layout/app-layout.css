@@ -11,6 +11,33 @@
   flex-direction: column;
 }
 
+/* Hidden until a keyboard user tabs to it; absolutely placed, so it takes
+ * no cell in the rail grid. */
+.skip {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 10;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-link);
+  transform: translateY(-200%);
+}
+.skip:focus {
+  transform: none;
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+:host([bare]) .skip {
+  display: none;
+}
+
+/* Focused by script (the skip link, a navigation), never a control. */
+main:focus {
+  outline: none;
+}
+
 main {
   flex: 1;
   width: 100%;
