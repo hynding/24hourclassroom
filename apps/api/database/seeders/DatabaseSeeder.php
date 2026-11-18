@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
             ApCalculusBcSeeder::class,
             ApStatisticsSeeder::class,
             ApPhysics1Seeder::class,
+            ApPsychologySeeder::class,
             ChemistrySeeder::class,
             ApChemistrySeeder::class,
             ApWorldHistorySeeder::class,
