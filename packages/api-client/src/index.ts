@@ -564,6 +564,11 @@ export class ApiClient {
       : this.delete<MaterialProgress>(`/api/materials/${id}/done`);
   }
 
+  /** Replaces the deck's known cards (card keys) for the viewer. */
+  async setKnownCards(id: number, known: string[]): Promise<MaterialProgress> {
+    return this.put<MaterialProgress>(`/api/materials/${id}/cards`, { known });
+  }
+
   /** The whole discussion on one target, oldest first, replies nested. */
   async getComments(targetType: CommentTargetType, targetId: number): Promise<CommentThread> {
     return this.get<CommentThread>(`/api/comments?target_type=${targetType}&target_id=${targetId}`);

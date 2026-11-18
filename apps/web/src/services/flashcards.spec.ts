@@ -1,4 +1,4 @@
-import { isDeckName, isReadableText, MAX_READABLE_BYTES, parseDeck } from './flashcards';
+import { cardKey, isDeckName, isReadableText, MAX_READABLE_BYTES, parseDeck } from './flashcards';
 
 describe('isDeckName', () => {
   it('matches only names ending in .flashcards.md, case-insensitively', () => {
@@ -82,5 +82,14 @@ describe('parseDeck', () => {
     const deck = parseDeck('# One\n# Two\n## Q\n# Not a title\nback');
     expect(deck.title).toBe('One');
     expect(deck.cards[0].back).toBe('# Not a title\nback');
+  });
+});
+
+describe('cardKey', () => {
+  it('is 8 hex digits, stable, and blind to case and spacing', () => {
+    const key = cardKey({ front: 'What is ATP?' });
+    expect(key).toMatch(/^[0-9a-f]{8}$/);
+    expect(cardKey({ front: '  what   is atp? ' })).toBe(key);
+    expect(cardKey({ front: 'What is ADP?' })).not.toBe(key);
   });
 });

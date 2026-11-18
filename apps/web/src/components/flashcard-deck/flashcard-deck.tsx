@@ -1,10 +1,14 @@
-import { Component, h, Listen, Prop, State, Watch } from '@stencil/core';
-import { Flashcard } from '../../services/flashcards';
+import { Component, Event, EventEmitter, h, Listen, Prop, State, Watch } from '@stencil/core';
+import { Flashcard, cardKey } from '../../services/flashcards';
 
 /**
  * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
- * flip to the back, step or shuffle. All state is local -- nothing is
- * persisted, so reloading starts the deck over.
+ * flip to the back, step or shuffle.
+ *
+ * With `known` set (a signed-in learner whose progress is kept), each card
+ * can be marked "I know it" or "Still learning"; the deck opens with the
+ * cards still to learn first, and every change is emitted as `knownChange`
+ * for the page to save. Without it nothing is remembered.
  */
 @Component({ tag: 'flashcard-deck', styleUrl: 'flashcard-deck.css', shadow: true })
 export class FlashcardDeck {
@@ -15,6 +19,12 @@ export class FlashcardDeck {
    * flashcard-deck.css keys on :host([flipped]) for the back's styling.
    */
   @Prop({ reflect: true, mutable: true }) flipped = false;
+
+  /** Card keys the learner knows; null when nothing is remembered for them. */
+  @Prop() known: string[] | null = null;
+
+  /** The whole new set of known card keys, after a mark. */
+  @Event() knownChange: EventEmitter<string[]>;
 
   /** Positions into `cards`; identity order until shuffled. */
   @State() order: number[] = [];
@@ -64,8 +74,14 @@ export class FlashcardDeck {
     }
   }
 
+  private isKnown(position: number): boolean {
+    return !!this.known && this.known.includes(cardKey(this.cards[position]));
+  }
+
+  /** Cards still to learn first, each group in deck order. */
   private reset() {
-    this.order = this.cards.map((_, i) => i);
+    const all = this.cards.map((_, i) => i);
+    this.order = [...all.filter((i) => !this.isKnown(i)), ...all.filter((i) => this.isKnown(i))];
     this.index = 0;
     this.flipped = false;
     this.showHint = false;
@@ -90,6 +106,23 @@ export class FlashcardDeck {
     this.showHint = !this.showHint;
   };
 
+  /**
+   * Marks the card up and moves to the next one. Only keys of cards in
+   * this deck are sent, so a card edited away since drops out.
+   */
+  private mark(known: boolean) {
+    const card = this.current;
+    if (!card || !this.known) return;
+    const key = cardKey(card);
+    const keys = new Set(this.cards.map(cardKey));
+    const next = this.known.filter((k) => k !== key && keys.has(k));
+    this.knownChange.emit(known ? [...next, key] : next);
+    this.next();
+  }
+
+  private knowIt = () => this.mark(true);
+  private stillLearning = () => this.mark(false);
+
   /** Fisher-Yates over a copy, then back to the first card. */
   private shuffle = () => {
     const order = [...this.order];
@@ -104,6 +137,20 @@ export class FlashcardDeck {
   private get current(): Flashcard | null {
     const position = this.order[this.index];
     return position === undefined ? null : this.cards[position] ?? null;
+  }
+
+  /** "I know it" / "Still learning", and how many of the deck are known. */
+  private renderMarks(card: Flashcard) {
+    const keys = new Set(this.cards.map(cardKey));
+    const knownCount = this.known.filter((k) => keys.has(k)).length;
+    const knowsThis = this.known.includes(cardKey(card));
+    return (
+      <div class="marks">
+        <button type="button" class={knowsThis ? 'btn-primary' : 'btn'} aria-pressed={knowsThis ? 'true' : 'false'} onClick={this.knowIt}>I know it</button>
+        <button type="button" class="btn" onClick={this.stillLearning}>Still learning</button>
+        <span class="known-count" aria-live="polite">{knownCount} of {this.cards.length} known</span>
+      </div>
+    );
   }
 
   render() {
@@ -128,6 +175,8 @@ export class FlashcardDeck {
             ? <rich-text class="back" text={card.back}></rich-text>
             : <p class="front">{card.front}</p>}
         </div>
+
+        {this.known && this.renderMarks(card)}
 
         {this.showHint && card.hint && <p class="hint" data-testid="hint">Hint: {card.hint}</p>}
         {card.topic && <p class="topic">{card.topic}</p>}

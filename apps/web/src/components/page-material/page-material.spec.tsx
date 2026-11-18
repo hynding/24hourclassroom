@@ -6,6 +6,7 @@ const publishMaterial = jest.fn();
 const unpublishMaterial = jest.fn();
 const deleteMaterial = jest.fn();
 const markMaterialDone = jest.fn();
+const setKnownCards = jest.fn();
 const navigate = jest.fn();
 jest.mock('../../services/materials-store', () => ({
   materialsStore: {
@@ -14,6 +15,7 @@ jest.mock('../../services/materials-store', () => ({
     unpublishMaterial: (...a: unknown[]) => unpublishMaterial(...a),
     deleteMaterial: (...a: unknown[]) => deleteMaterial(...a),
     markMaterialDone: (...a: unknown[]) => markMaterialDone(...a),
+    setKnownCards: (...a: unknown[]) => setKnownCards(...a),
   },
 }));
 jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a) }));
@@ -78,6 +80,7 @@ describe('page-material', () => {
     unpublishMaterial.mockReset();
     deleteMaterial.mockReset();
     markMaterialDone.mockReset();
+    setKnownCards.mockReset();
     navigate.mockReset();
     // The component calls the bare global, which jest shares across the
     // mock-window reset newSpecPage performs. Default: never called.
@@ -283,6 +286,35 @@ describe('page-material', () => {
       await page.waitForChanges();
       expect(page.root.shadowRoot.querySelector('flashcard-deck')).toBe(deck);
       expect(deck.shadowRoot.querySelector('.counter').textContent).toBe('2 / 3');
+    });
+
+    it('saves a learner\'s known cards, and marks the deck done once all are known', async () => {
+      fetchMock.mockResolvedValue(textResponse('# Deck\n## Q1\nA1\n## Q2\nA2'));
+      const page = await mount(view({ original_name: 'unit.flashcards.md', mime_type: 'text/markdown', size_bytes: 400, progress: { done_at: null, known_cards: [] } }));
+      await settle(page);
+      const deck = () => page.root.shadowRoot.querySelector('flashcard-deck');
+      const press = async (label: string) => {
+        Array.from(deck().shadowRoot.querySelectorAll('button')).find((b) => b.textContent === label).click();
+        await settle(page);
+      };
+
+      setKnownCards.mockImplementation(async (_id: number, known: string[]) => ({ done_at: null, known_cards: known }));
+      await press('I know it');
+      expect(setKnownCards).toHaveBeenCalledWith(7, [expect.stringMatching(/^[0-9a-f]{8}$/)]);
+      expect(markMaterialDone).not.toHaveBeenCalled();
+      expect(deck().shadowRoot.querySelector('.known-count').textContent).toBe('1 of 2 known');
+
+      markMaterialDone.mockResolvedValue({ done_at: '2026-11-18', known_cards: [] });
+      await press('I know it');
+      expect(setKnownCards.mock.calls[1][1]).toHaveLength(2);
+      expect(markMaterialDone).toHaveBeenCalledWith(7, true);
+    });
+
+    it('gives a deck no marks when nothing is remembered', async () => {
+      fetchMock.mockResolvedValue(textResponse('# Deck\n## Q1\nA1'));
+      const page = await mount(view({ original_name: 'unit.flashcards.md', mime_type: 'text/markdown', size_bytes: 400, progress: null }));
+      await settle(page);
+      expect(page.root.shadowRoot.querySelector('flashcard-deck').shadowRoot.querySelector('.marks')).toBeNull();
     });
 
     it('skips the fetch for text over the size cap', async () => {

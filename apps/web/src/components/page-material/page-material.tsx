@@ -6,7 +6,7 @@ import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { fileTypeLabel, formatBytes } from '../../services/format';
 import { materialMeta, setPageMeta } from '../../services/page-meta';
-import { Flashcard, isDeckName, isReadableText, parseDeck } from '../../services/flashcards';
+import { Flashcard, cardKey, isDeckName, isReadableText, parseDeck } from '../../services/flashcards';
 
 /**
  * download_url is signed for 15 minutes from the moment the payload was
@@ -106,7 +106,7 @@ export class PageMaterial {
     if (this.cards !== null) {
       return (
         <section class="reader" aria-label="Flashcards">
-          <flashcard-deck cards={this.cards}></flashcard-deck>
+          <flashcard-deck cards={this.cards} known={this.material.progress ? this.material.progress.known_cards : null} onKnownChange={(e) => this.saveKnown(e.detail)}></flashcard-deck>
         </section>
       );
     }
@@ -186,6 +186,28 @@ export class PageMaterial {
       navigate('/materials');
     });
   };
+
+  /**
+   * Saves the deck's known cards. The page's copy updates first, so the
+   * deck counts the mark at once; a failed save puts the server's back.
+   * Knowing every card marks the deck done, once.
+   */
+  private async saveKnown(known: string[]) {
+    const before = this.material.progress;
+    this.material = { ...this.material, progress: { ...before, known_cards: known } };
+    try {
+      let progress = await materialsStore.setKnownCards(this.material.id, known);
+      if (!progress.done_at && this.cards && this.cards.length > 0 && known.length >= new Set(this.cards.map(cardKey)).size) {
+        progress = await materialsStore.markMaterialDone(this.material.id, true);
+      }
+      this.material = { ...this.material, progress };
+    } catch (e) {
+      this.material = { ...this.material, progress: before };
+      if (!recoverFromExpiredSession(e)) {
+        this.actionError = 'We could not save that card. Please try again.';
+      }
+    }
+  }
 
   /** The viewer's own "done" mark (study progress); only they see it. */
   private toggleDone = () => this.run(async () => {

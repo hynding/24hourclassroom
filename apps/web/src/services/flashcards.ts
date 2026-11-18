@@ -34,6 +34,21 @@ export function isReadableText(m: { original_name: string; size_bytes: number })
   return /\.(md|txt)$/i.test(m.original_name) && m.size_bytes <= MAX_READABLE_BYTES;
 }
 
+/**
+ * A card's key for remembering it as known (StudyProgress): FNV-1a over its
+ * front, whitespace collapsed and lowercased, as 8 hex digits. The server
+ * stores only keys, never card text; an edited front is a new card.
+ */
+export function cardKey(card: Pick<Flashcard, 'front'>): string {
+  const text = card.front.trim().replace(/\s+/g, ' ').toLowerCase();
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < text.length; i += 1) {
+    hash ^= text.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  return hash.toString(16).padStart(8, '0');
+}
+
 const TITLE = /^#\s+(.*)$/;
 const CARD = /^##\s+(.*)$/;
 const META = /^(hint|topic):\s*(.*)$/i;

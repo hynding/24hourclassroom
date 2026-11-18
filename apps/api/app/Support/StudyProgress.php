@@ -24,6 +24,9 @@ use Illuminate\Support\Collection;
  *   work keeps its own record (attempts), which teachers do see.
  * - Keyed on the test or material, not the course: done once, done in
  *   every course that holds it, a branch's shared readings included.
+ * - A flashcard deck also keeps the cards marked known (`known_cards`):
+ *   short keys the SPA derives from each card's front (services/flashcards.ts),
+ *   so an edited card simply counts as new.
  */
 final class StudyProgress
 {
@@ -65,16 +68,43 @@ final class StudyProgress
         if (! self::tracks($viewer) || $material->user_id === $viewer->id) {
             return null;
         }
+        $row = Row::firstOrNew(['user_id' => $viewer->id, 'material_id' => $material->id]);
         if (! $done) {
-            Row::where('user_id', $viewer->id)->where('material_id', $material->id)->delete();
+            // Unmarking keeps a deck's known cards; with none, nothing is left to keep.
+            if ($row->exists && empty($row->known_cards)) {
+                $row->delete();
+            } elseif ($row->exists) {
+                $row->update(['done_at' => null]);
+            }
 
             return null;
         }
+        $row->done_at = now();
+        $row->save();
 
-        return Row::updateOrCreate(
-            ['user_id' => $viewer->id, 'material_id' => $material->id],
-            ['done_at' => now()],
-        );
+        return $row;
+    }
+
+    /**
+     * Replaces a deck's known cards. An empty list clears them (and drops
+     * the row when it holds nothing else). The caller has checked the
+     * viewer may see the material and that progress is kept for them.
+     *
+     * @param  list<string>  $keys
+     */
+    public static function setKnownCards(User $viewer, Material $material, array $keys): void
+    {
+        $row = Row::firstOrNew(['user_id' => $viewer->id, 'material_id' => $material->id]);
+        $keys = array_values(array_unique($keys));
+        if ($keys === [] && $row->done_at === null) {
+            if ($row->exists) {
+                $row->delete();
+            }
+
+            return;
+        }
+        $row->known_cards = $keys === [] ? null : $keys;
+        $row->save();
     }
 
     /** A test's practice progress, as PracticeTest/PracticeResult carry it; null when none is kept. */
@@ -105,7 +135,9 @@ final class StudyProgress
             return null;
         }
 
-        return ['done_at' => Row::where('user_id', $viewer->id)->where('material_id', $material->id)->value('done_at')];
+        $row = Row::where('user_id', $viewer->id)->where('material_id', $material->id)->first();
+
+        return ['done_at' => $row?->done_at, 'known_cards' => $row?->known_cards ?? []];
     }
 
     /**

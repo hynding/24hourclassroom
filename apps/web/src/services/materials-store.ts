@@ -27,6 +27,8 @@ export class MaterialsStore {
   unshareMaterial(id: number, shareId: number) { return this.client.unshareMaterial(id, shareId); }
   /** The viewer's own "done" mark (study progress). */
   markMaterialDone(id: number, done: boolean) { return this.client.markMaterialDone(id, done); }
+  /** The deck's cards the viewer knows (card keys). */
+  setKnownCards(id: number, known: string[]) { return this.client.setKnownCards(id, known); }
 }
 
 export const materialsStore = new MaterialsStore(apiClient);
