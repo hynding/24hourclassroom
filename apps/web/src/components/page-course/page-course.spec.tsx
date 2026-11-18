@@ -6,6 +6,9 @@ const publishCourse = jest.fn();
 const unpublishCourse = jest.fn();
 const deleteCourse = jest.fn();
 const branchCourse = jest.fn();
+const courseGradebook = jest.fn();
+const saveCsv = jest.fn();
+jest.mock('../../services/csv', () => ({ saveCsv: (...a: unknown[]) => saveCsv(...a) }));
 const navigate = jest.fn();
 jest.mock('../../services/courses-store', () => ({
   coursesStore: {
@@ -14,6 +17,7 @@ jest.mock('../../services/courses-store', () => ({
     unpublishCourse: (...a: unknown[]) => unpublishCourse(...a),
     deleteCourse: (...a: unknown[]) => deleteCourse(...a),
     branchCourse: (...a: unknown[]) => branchCourse(...a),
+    courseGradebook: (...a: unknown[]) => courseGradebook(...a),
   },
 }));
 const markMaterialDone = jest.fn();
@@ -133,7 +137,7 @@ describe('page-course', () => {
     const page = await mount(course({ is_author: true, visibility: 'private', items: [quiz(1, null, 'private')] }));
     expect(deepText(page.root.shadowRoot)).toContain('Only you can see this course');
     expect(deepText(page.root.shadowRoot)).toContain('Private');
-    expect(buttons(page)).toEqual(['Publish course', 'Delete']);
+    expect(buttons(page)).toEqual(['Publish course', 'Download gradebook (CSV)', 'Delete']);
 
     publishCourse.mockResolvedValue(course({ is_author: true, items: [quiz(1, null)] }));
     window.confirm = jest.fn(() => true);
@@ -143,7 +147,7 @@ describe('page-course', () => {
 
     expect(window.confirm).toHaveBeenCalledWith(expect.stringContaining('answers'));
     expect(publishCourse).toHaveBeenCalledWith(3);
-    expect(buttons(page)).toEqual(['Unpublish', 'Delete']);
+    expect(buttons(page)).toEqual(['Unpublish', 'Download gradebook (CSV)', 'Delete']);
   });
 
   it('does not publish when the author cancels the warning', async () => {
@@ -156,11 +160,11 @@ describe('page-course', () => {
 
   it('offers to publish hidden items only while a public course has some', async () => {
     const page = await mount(course({ is_author: true, items: [quiz(1, null), quiz(2, null, 'private')] }));
-    expect(buttons(page)).toEqual(['Publish hidden items', 'Unpublish', 'Delete']);
+    expect(buttons(page)).toEqual(['Publish hidden items', 'Unpublish', 'Download gradebook (CSV)', 'Delete']);
     expect(deepText(page.root.shadowRoot)).toContain('hidden from visitors');
 
     const clean = await mount(course({ is_author: true }));
-    expect(buttons(clean)).toEqual(['Unpublish', 'Delete']);
+    expect(buttons(clean)).toEqual(['Unpublish', 'Download gradebook (CSV)', 'Delete']);
   });
 
   it('deletes after confirming and returns to the shelf', async () => {
@@ -303,5 +307,21 @@ describe('page-course', () => {
       login.click();
       expect(rememberReturnPath).toHaveBeenCalledWith('/courses/3');
     });
+  });
+
+  it('lets the author download the course gradebook, and only when it has tests', async () => {
+    const book = { title: 'AP Biology', columns: ['Student'], rows: [] };
+    courseGradebook.mockResolvedValue(book);
+    const page = await mount(course({ is_author: true }));
+    const download = () => Array.from(page.root.shadowRoot.querySelectorAll('button')).find((b) => b.textContent === 'Download gradebook (CSV)');
+    download().click();
+    await page.waitForChanges();
+    await page.waitForChanges();
+    expect(courseGradebook).toHaveBeenCalledWith(3);
+    expect(saveCsv).toHaveBeenCalledWith(book);
+
+    const empty = await mount(course({ is_author: true, test_count: 0, items: [guide(1, null)] }));
+    expect(Array.from(empty.root.shadowRoot.querySelectorAll('button')).map((b) => b.textContent)).not.toContain('Download gradebook (CSV)');
+    expect(buttons(await mount(course()))).not.toContain('Download gradebook (CSV)');
   });
 });

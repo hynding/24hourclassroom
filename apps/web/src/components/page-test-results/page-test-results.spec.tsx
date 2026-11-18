@@ -4,12 +4,16 @@ const getTest = jest.fn();
 const listTestAttempts = jest.fn();
 const getAttempt = jest.fn();
 const gradeAnswer = jest.fn();
+const testGradebook = jest.fn();
+const saveCsv = jest.fn();
+jest.mock('../../services/csv', () => ({ saveCsv: (...a: unknown[]) => saveCsv(...a) }));
 jest.mock('../../services/tests-store', () => ({
   testsStore: {
     getTest: (...a: unknown[]) => getTest(...a),
     listTestAttempts: (...a: unknown[]) => listTestAttempts(...a),
     getAttempt: (...a: unknown[]) => getAttempt(...a),
     gradeAnswer: (...a: unknown[]) => gradeAnswer(...a),
+    testGradebook: (...a: unknown[]) => testGradebook(...a),
   },
 }));
 jest.mock('../../services/navigate', () => ({ navigate: jest.fn() }));
@@ -133,5 +137,22 @@ describe('page-test-results', () => {
     expect(responses[1].textContent).toBe('Glucose in,\nATP out.');
     expect(root.textContent).toContain('Expected: mitochondria / mitochondrion');
     expect(root.textContent).toContain('Response: Mitochondria');
+  });
+
+  it('downloads every student\'s scores as CSV', async () => {
+    getTest.mockResolvedValue({ id: 5, title: 'Cells', is_author: true, questions: [] });
+    listTestAttempts.mockResolvedValue({ data: [{ assignment_id: 9, student: { id: 20, name: 'Sam' }, due_at: null, attempts: [], latest: null, best: null }], meta: { current_page: 1, last_page: 1, per_page: 15, total: 1 } });
+    const book = { title: 'Cells', columns: ['Student'], rows: [['Sam']] };
+    testGradebook.mockResolvedValue(book);
+
+    const page = await newSpecPage({ components: [PageTestResults, RichText], html: '<page-test-results test-id="5"></page-test-results>' });
+    await page.waitForChanges();
+    const button = Array.from(page.root.shadowRoot.querySelectorAll('button')).find((b) => b.textContent === 'Download scores (CSV)');
+    button.click();
+    await page.waitForChanges();
+    await page.waitForChanges();
+
+    expect(testGradebook).toHaveBeenCalledWith(5);
+    expect(saveCsv).toHaveBeenCalledWith(book);
   });
 });

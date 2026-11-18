@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\CoursePublishController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\GenerationCancelController;
 use App\Http\Controllers\Api\GenerationController;
+use App\Http\Controllers\Api\GradebookController;
 use App\Http\Controllers\Api\GradingQueueController;
 use App\Http\Controllers\Api\IntegrationsController;
 use App\Http\Controllers\Api\LibraryController;
@@ -124,6 +125,9 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::post('attempts/{attempt}/submit', [AttemptController::class, 'submit']);
     Route::put('attempts/{attempt}/answers/{answer}', AnswerGradeController::class);
     Route::get('tests/{test}/attempts', TestAttemptsController::class);
+    // The author's scores as a table, saved by the SPA as CSV (Gradebook).
+    Route::get('tests/{test}/gradebook', [GradebookController::class, 'test']);
+    Route::get('courses/{course}/gradebook', [GradebookController::class, 'course']);
     Route::get('grading', GradingQueueController::class);
 
     Route::get('materials', [MaterialController::class, 'index']);

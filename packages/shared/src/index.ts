@@ -273,6 +273,17 @@ export interface MyAssignment {
   best: AttemptSummary | null;
 }
 
+/**
+ * GET /api/tests/{id}/gradebook and /api/courses/{id}/gradebook: the
+ * author's scores as a table, which the SPA saves as CSV. Cells are numbers
+ * (null: nothing submitted) or text (names, dates).
+ */
+export interface Gradebook {
+  title: string;
+  columns: string[];
+  rows: (string | number | null)[][];
+}
+
 /** `GET /api/students/{id}/assignments`, for a connected supporter. */
 /** One row of `GET /api/grading`: a submitted attempt with answers still to grade. */
 export interface GradingQueueItem extends AttemptSummary {

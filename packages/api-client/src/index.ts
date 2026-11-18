@@ -32,6 +32,7 @@ import type {
   ResolvedPath,
   PendingConnections,
   PracticeResult,
+  Gradebook,
   MaterialProgress,
   PracticeTest,
   Profile,
@@ -545,6 +546,16 @@ export class ApiClient {
   async checkPractice(courseId: number, testId: number, responses: Record<number, unknown>): Promise<PracticeResult> {
     return this.post<PracticeResult>(`/api/courses/${courseId}/tests/${testId}/check`, { responses });
   }
+  /** The author's scores for one test, as a table. */
+  async testGradebook(testId: number): Promise<Gradebook> {
+    return this.get<Gradebook>(`/api/tests/${testId}/gradebook`);
+  }
+
+  /** The author's scores for a course: students against its tests. */
+  async courseGradebook(courseId: number): Promise<Gradebook> {
+    return this.get<Gradebook>(`/api/courses/${courseId}/gradebook`);
+  }
+
 
   /** The viewer's own "done" mark on a material they can see. */
   async markMaterialDone(id: number, done: boolean): Promise<MaterialProgress> {
