@@ -22,7 +22,7 @@ const PAGES = [
   ['guest', '/courses/3'], ['guest', '/courses/3/tests/9'], ['guest', '/materials/1'], ['guest', '/teachers'],
   ['guest', '/teachers/1'], ['guest', '/login'], ['guest', '/register'], ['guest', '/forgot-password'],
   ['student', '/'], ['student', '/courses/3'], ['student', '/courses/3/tests/9'], ['student', '/tests'],
-  ['student', '/materials/1'], ['student', '/profile'], ['student', '/connections'], ['student', '/notifications'],
+  ['student', '/materials/1'], ['student', '/materials/2'], ['guest', '/materials/2'], ['student', '/profile'], ['student', '/connections'], ['student', '/notifications'],
   ['teacher', '/tests'], ['teacher', '/tests/9'], ['teacher', '/tests/new'], ['teacher', '/materials'],
   ['teacher', '/materials/new'], ['teacher', '/courses'], ['teacher', '/courses/new'], ['teacher', '/integrations'],
   ['teacher', '/grading'],

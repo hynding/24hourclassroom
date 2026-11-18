@@ -145,6 +145,7 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     // The viewer's own "done" mark (StudyProgress): never seen by anyone else.
     Route::put('materials/{material}/done', [MaterialDoneController::class, 'store']);
     Route::delete('materials/{material}/done', [MaterialDoneController::class, 'destroy']);
+    Route::put('materials/{material}/cards', [MaterialDoneController::class, 'cards']);
 
     Route::get('courses', [CourseController::class, 'index']);
     Route::post('courses', [CourseController::class, 'store']);

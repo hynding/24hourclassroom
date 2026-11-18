@@ -379,6 +379,8 @@ export interface MaterialView extends Material {
 /** PUT|DELETE /api/materials/{id}/done, and MaterialView.progress. */
 export interface MaterialProgress {
   done_at: string | null;
+  /** A flashcard deck's cards the learner knows, as card keys (flashcards.ts cardKey). */
+  known_cards: string[];
 }
 
 /**

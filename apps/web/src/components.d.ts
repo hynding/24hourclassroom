@@ -91,8 +91,11 @@ export namespace Components {
     }
     /**
      * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
-     * flip to the back, step or shuffle. All state is local -- nothing is
-     * persisted, so reloading starts the deck over.
+     * flip to the back, step or shuffle.
+     * With `known` set (a signed-in learner whose progress is kept), each card
+     * can be marked "I know it" or "Still learning"; the deck opens with the
+     * cards still to learn first, and every change is emitted as `knownChange`
+     * for the page to save. Without it nothing is remembered.
      */
     interface FlashcardDeck {
         /**
@@ -105,6 +108,11 @@ export namespace Components {
           * @default false
          */
         "flipped": boolean;
+        /**
+          * Card keys the learner knows; null when nothing is remembered for them.
+          * @default null
+         */
+        "known": string[] | null;
     }
     interface PageAttempt {
         "attemptId"?: number;
@@ -271,6 +279,10 @@ export namespace Components {
         "question": QuestionInput;
     }
 }
+export interface FlashcardDeckCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFlashcardDeckElement;
+}
 export interface TestQuestionEditorCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLTestQuestionEditorElement;
@@ -336,12 +348,26 @@ declare global {
         prototype: HTMLCommentThreadElement;
         new (): HTMLCommentThreadElement;
     };
+    interface HTMLFlashcardDeckElementEventMap {
+        "knownChange": string[];
+    }
     /**
      * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
-     * flip to the back, step or shuffle. All state is local -- nothing is
-     * persisted, so reloading starts the deck over.
+     * flip to the back, step or shuffle.
+     * With `known` set (a signed-in learner whose progress is kept), each card
+     * can be marked "I know it" or "Still learning"; the deck opens with the
+     * cards still to learn first, and every change is emitted as `knownChange`
+     * for the page to save. Without it nothing is remembered.
      */
     interface HTMLFlashcardDeckElement extends Components.FlashcardDeck, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLFlashcardDeckElementEventMap>(type: K, listener: (this: HTMLFlashcardDeckElement, ev: FlashcardDeckCustomEvent<HTMLFlashcardDeckElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLFlashcardDeckElementEventMap>(type: K, listener: (this: HTMLFlashcardDeckElement, ev: FlashcardDeckCustomEvent<HTMLFlashcardDeckElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLFlashcardDeckElement: {
         prototype: HTMLFlashcardDeckElement;
@@ -750,8 +776,11 @@ declare namespace LocalJSX {
     }
     /**
      * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
-     * flip to the back, step or shuffle. All state is local -- nothing is
-     * persisted, so reloading starts the deck over.
+     * flip to the back, step or shuffle.
+     * With `known` set (a signed-in learner whose progress is kept), each card
+     * can be marked "I know it" or "Still learning"; the deck opens with the
+     * cards still to learn first, and every change is emitted as `knownChange`
+     * for the page to save. Without it nothing is remembered.
      */
     interface FlashcardDeck {
         /**
@@ -764,6 +793,15 @@ declare namespace LocalJSX {
           * @default false
          */
         "flipped"?: boolean;
+        /**
+          * Card keys the learner knows; null when nothing is remembered for them.
+          * @default null
+         */
+        "known"?: string[] | null;
+        /**
+          * The whole new set of known card keys, after a mark.
+         */
+        "onKnownChange"?: (event: FlashcardDeckCustomEvent<string[]>) => void;
     }
     interface PageAttempt {
         "attemptId"?: number;
@@ -1094,8 +1132,11 @@ declare module "@stencil/core" {
             "comment-thread": LocalJSX.IntrinsicElements["comment-thread"] & JSXBase.HTMLAttributes<HTMLCommentThreadElement>;
             /**
              * Plays a parsed `.flashcards.md` deck: one card at a time, front first,
-             * flip to the back, step or shuffle. All state is local -- nothing is
-             * persisted, so reloading starts the deck over.
+             * flip to the back, step or shuffle.
+             * With `known` set (a signed-in learner whose progress is kept), each card
+             * can be marked "I know it" or "Still learning"; the deck opens with the
+             * cards still to learn first, and every change is emitted as `knownChange`
+             * for the page to save. Without it nothing is remembered.
              */
             "flashcard-deck": LocalJSX.IntrinsicElements["flashcard-deck"] & JSXBase.HTMLAttributes<HTMLFlashcardDeckElement>;
             "page-attempt": LocalJSX.IntrinsicElements["page-attempt"] & JSXBase.HTMLAttributes<HTMLPageAttemptElement>;

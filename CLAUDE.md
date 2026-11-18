@@ -118,7 +118,7 @@ Enforced by specs in `src/global/`. These fail CI, not review:
 - `theme-store` has no module-scope side effects; `applyTheme` always writes
   both attributes.
 - **Accessibility** (`apps/web/a11y/`, CI job `a11y`): axe-core, WCAG 2.1 A/AA
-  plus best practice, over 29 pages as guest, student and teacher, light and
+  plus best practice, over 31 pages as guest, student and teacher, light and
   dark palette, both layouts, desktop and phone width, through every shadow
   root; the API is mocked by `a11y/fixtures.cjs` (extend it when a page needs
   a new endpoint). Any violation fails, bar the skip link's `region`. Every
@@ -241,7 +241,10 @@ A signed-in learner's own record of a course (`study_progress`,
 `App\Support\StudyProgress`): a finished practice run keeps their best and
 latest score per test (over the points the scorer could mark), and a
 material can be marked done (`PUT|DELETE /api/materials/{m}/done`, on
-`page-material` and the course page). Kept only for a verified
+`page-material` and the course page), and a flashcard deck keeps the cards
+marked known (`PUT /api/materials/{m}/cards`, `known_cards`: 8-hex keys from
+`services/flashcards.ts` `cardKey`, never card text; the deck shows unknown
+cards first, and knowing every card marks the deck done). Kept only for a verified
 `Role::tracksStudyProgress()` viewer (everyone but admin) and never on their
 own content. Rows are keyed on the test or material, not the course, so
 done once is done in every course holding it. `CourseView.progress`

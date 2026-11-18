@@ -10,7 +10,7 @@ class StudyProgress extends Model
 {
     protected $table = 'study_progress';
 
-    protected $fillable = ['user_id', 'test_id', 'material_id', 'best_score', 'best_max', 'last_score', 'last_max', 'runs', 'done_at'];
+    protected $fillable = ['user_id', 'test_id', 'material_id', 'best_score', 'best_max', 'last_score', 'last_max', 'runs', 'known_cards', 'done_at'];
 
     protected function casts(): array
     {
@@ -20,6 +20,7 @@ class StudyProgress extends Model
             'last_score' => 'float',
             'last_max' => 'integer',
             'runs' => 'integer',
+            'known_cards' => 'array',
             'done_at' => 'datetime',
         ];
     }

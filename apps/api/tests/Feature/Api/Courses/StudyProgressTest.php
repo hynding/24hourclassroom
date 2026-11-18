@@ -144,3 +144,34 @@ test('progress goes with the learner and with the item', function () {
     $student->delete();
     expect(StudyProgress::count())->toBe(0);
 });
+
+test('a learner keeps a deck\'s known cards, apart from its done mark', function () {
+    [$course, $test, $mc, $material] = progressCourse();
+    $student = aStudent();
+    $this->actingAs($student);
+
+    $this->putJson("/api/materials/{$material->id}/cards", ['known' => ['a1b2', 'c3d4', 'a1b2']])->assertOk()
+        ->assertJsonPath('known_cards', ['a1b2', 'c3d4'])
+        ->assertJsonPath('done_at', null);
+    $this->getJson("/api/materials/{$material->id}")->assertJsonPath('progress.known_cards', ['a1b2', 'c3d4']);
+
+    // Marking and unmarking done leaves the known cards alone.
+    $this->putJson("/api/materials/{$material->id}/done")->assertOk();
+    $this->deleteJson("/api/materials/{$material->id}/done")->assertOk()->assertJsonPath('known_cards', ['a1b2', 'c3d4']);
+
+    // Clearing them drops the row, since nothing else is left in it.
+    $this->putJson("/api/materials/{$material->id}/cards", ['known' => []])->assertOk()->assertJsonPath('known_cards', []);
+    expect(StudyProgress::count())->toBe(0);
+
+    // Keys only: no card text.
+    $this->putJson("/api/materials/{$material->id}/cards", ['known' => ['What is ATP?']])->assertUnprocessable();
+    // Nobody else sees them.
+    $this->actingAs(aStudent())->getJson("/api/materials/{$material->id}")->assertJsonPath('progress.known_cards', []);
+});
+
+test('known cards are kept only where progress is', function () {
+    [$course, $test, $mc, $material, $author] = progressCourse();
+
+    $this->actingAs($author)->putJson("/api/materials/{$material->id}/cards", ['known' => ['a1']])->assertForbidden();
+    $this->actingAs(aStudent())->putJson('/api/materials/'.aMaterial($author, ['visibility' => 'private'])->id.'/cards', ['known' => ['a1']])->assertNotFound();
+});
