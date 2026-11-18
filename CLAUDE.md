@@ -250,6 +250,17 @@ and `MaterialView.progress` are null whenever nothing is kept. **Only the
 learner ever sees it**: no teacher, guardian or admin view, and never a
 `Metrics` counter. Assigned work keeps its own record (attempts).
 
+## Gradebook export
+
+`GET /api/tests/{test}/gradebook` (author only: "Download scores (CSV)" on
+the results page) and `GET /api/courses/{course}/gradebook` (author only:
+"Download gradebook (CSV)" on the course page) return `{title, columns,
+rows}` from `App\Support\Gradebook`; the SPA writes the CSV
+(`services/csv.ts`: RFC 4180 quoting, a BOM for Excel, and a leading `'` on
+any text a spreadsheet would run as a formula, since students type their
+names). The audience is the results page's: the author's assignments to
+connected, active students. Never self-practice or study progress.
+
 ## Page addresses (slugs)
 
 Ids keep working everywhere; a slug only adds a readable address.

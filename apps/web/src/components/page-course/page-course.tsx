@@ -10,6 +10,7 @@ import { courseItemKind, courseItemTitle, courseSections } from '../../services/
 import { courseMeta, setPageMeta } from '../../services/page-meta';
 import { rememberReturnPath } from '../../services/return-path';
 import { siteStore } from '../../services/site-store';
+import { saveCsv } from '../../services/csv';
 
 @Component({ tag: 'page-course', styleUrl: 'page-course.css', shadow: true })
 export class PageCourse {
@@ -102,6 +103,11 @@ export class PageCourse {
       this.course = await coursesStore.publishCourse(this.course.id);
     });
   };
+
+  /** Students against the course's tests, best scores, as a spreadsheet. */
+  private downloadGradebook = () => this.run(async () => {
+    saveCsv(await coursesStore.courseGradebook(this.course.id));
+  });
 
   private unpublish = () => this.run(async () => {
     this.course = await coursesStore.unpublishCourse(this.course.id);
@@ -314,6 +320,7 @@ export class PageCourse {
                   <button type="button" class="btn" disabled={this.busy} onClick={this.unpublish}>Unpublish</button>,
                 ]
               : <button type="button" class="btn-primary" disabled={this.busy} onClick={this.publish}>Publish course</button>}
+            {c.test_count > 0 && <button type="button" class="btn" disabled={this.busy} onClick={this.downloadGradebook}>Download gradebook (CSV)</button>}
             <button type="button" class="btn" disabled={this.busy} onClick={this.remove}>Delete</button>
           </div>
         )}

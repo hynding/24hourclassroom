@@ -5,6 +5,7 @@ import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { GradedAnswers } from '../../services/attempt-grading';
+import { saveCsv } from '../../services/csv';
 
 @Component({ tag: 'page-test-results', styleUrl: 'page-test-results.css', shadow: true })
 export class PageTestResults {
@@ -97,6 +98,18 @@ export class PageTestResults {
     return a && a.score !== null ? <span class="meta">{prefix} {a.score} / {a.max_score}{a.ungraded_count ? ` (${a.ungraded_count} to grade)` : ''}</span> : null;
   }
 
+  /** Every assigned student's latest and best, as a spreadsheet (all pages, not just this one). */
+  private downloadScores = async () => {
+    this.error = '';
+    try {
+      saveCsv(await testsStore.testGradebook(this.testId));
+    } catch (e) {
+      if (!recoverFromExpiredSession(e)) {
+        this.error = 'We could not download the scores. Please try again.';
+      }
+    }
+  };
+
   render() {
     if (this.notFound) {
       return <section><h1>Test not found</h1></section>;
@@ -107,6 +120,9 @@ export class PageTestResults {
     return (
       <section>
         <h1>Results for "{this.test.title}"</h1>
+        {this.rows.length > 0 && (
+          <p class="actions"><button type="button" class="btn" onClick={this.downloadScores}>Download scores (CSV)</button></p>
+        )}
         {this.error && <p class="error">{this.error}</p>}
         {this.rows.length === 0 && <p>No assigned students have attempted this test yet.</p>}
         <ul class="students">
