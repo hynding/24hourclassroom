@@ -46,6 +46,9 @@ export const COMMENTER_ROLES: Role[] = ['teacher', 'student', 'tutor', 'assistan
 /** `Role::moderatesComments()`: may delete anyone's comment. */
 export const COMMENT_MODERATOR_ROLES: Role[] = ['admin'];
 
+/** Mirrors `Role::tracksStudyProgress()`: keeps their own course progress. */
+export const STUDY_PROGRESS_ROLES: Role[] = ['teacher', 'student', 'tutor', 'assistant', 'guardian'];
+
 /** Absent or unknown roles answer false. */
 export function hasRole(list: readonly Role[], role: Role | null | undefined): boolean {
   return role !== null && role !== undefined && list.includes(role);
@@ -358,6 +361,33 @@ export interface MaterialView extends Material {
   is_author: boolean;
   shared_with_me: boolean;
   download_url: string;
+  /** The viewer's own "done" mark; null when no progress is kept for them (guest, admin, author). */
+  progress: MaterialProgress | null;
+}
+
+/** PUT|DELETE /api/materials/{id}/done, and MaterialView.progress. */
+export interface MaterialProgress {
+  done_at: string | null;
+}
+
+/**
+ * The viewer's own progress on a test's practice runs. `best_max` is the
+ * points the scorer could mark (short and long answers are left out), so
+ * a best of 8 / 8 means every marked point; 0 when nothing could be.
+ */
+export interface PracticeProgress {
+  best_score: number | null;
+  best_max: number | null;
+  runs: number;
+  /** The latest finished run; null before the first. */
+  done_at: string | null;
+}
+
+/** One item's entry in CourseView.progress: a finished practice run, or a material marked done. */
+export interface CourseItemProgress {
+  done_at: string | null;
+  best_score: number | null;
+  best_max: number | null;
 }
 
 /** An item of GET /api/materials/shared: a summary plus when it was shared. */
@@ -468,6 +498,11 @@ export interface CourseView extends CourseSummary {
   items: CourseItem[];
   /** Where the course lives: `/courses/<slug>`, `/teachers/<handle>/<slug>` or `/courses/<id>`. */
   path: string;
+  /**
+   * The viewer's own progress, keyed by CourseItem id (only items with
+   * any); null for a guest, an admin, an unverified account or the author.
+   */
+  progress: { items: Record<string, CourseItemProgress> } | null;
   /** Author only: the course's name under their handle, and its review state. */
   slug?: SlugState | null;
   /** Author only: the site-wide `/courses/<slug>` an admin gave it. */
@@ -536,11 +571,13 @@ export interface CourseCandidates {
 export interface PracticeTest extends Test {
   /** `path`: the course's canonical address (see CourseView.path). */
   course: { id: number; title: string; path: string; author: TestAuthor };
+  /** The viewer's own runs; null when nothing is kept for them. */
+  progress: PracticeProgress | null;
 }
 
 /**
  * POST /api/courses/{id}/tests/{testId}/check. Plain numbers, not the
- * decimal strings an Attempt carries: nothing here is stored. `awarded` is
+ * decimal strings an Attempt carries: no attempt is stored. `awarded` is
  * null for an item no scorer can mark (short and long answers, hand-graded
  * blanks); `ungraded_count` counts those, and `score` leaves them out.
  */
@@ -549,6 +586,8 @@ export interface PracticeResult {
   max_score: number;
   ungraded_count: number;
   results: { question_id: number; awarded: number | null; points: number }[];
+  /** The viewer's runs after saving this one; null when nothing is kept (a guest). */
+  progress: PracticeProgress | null;
 }
 
 /**

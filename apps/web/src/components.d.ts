@@ -119,10 +119,11 @@ export namespace Components {
     /**
      * Practice mode for a course's test, open to anyone who can see the course.
      * Two ways through, and the visitor can mix them: reveal any one answer as
-     * they go, or finish and see every answer with a score. Nothing is stored --
-     * responses live in this component and vanish with it -- so there is no
-     * autosave and no attempt; "finish" is one stateless check the server
-     * grades with the same scorer a real attempt uses.
+     * they go, or finish and see every answer with a score. Responses live in
+     * this component and vanish with it -- there is no autosave and no
+     * attempt; "finish" is one check the server grades with the same scorer a
+     * real attempt uses. For a signed-in learner that check also keeps their
+     * best and latest score (`progress`), which only they ever see.
      * The test's discussion and each question's sit here too: the same
      * threads as on the test's own page (target `test` / `question`), so a
      * practice page widens nobody's access. The author's comments-off switch
@@ -369,10 +370,11 @@ declare global {
     /**
      * Practice mode for a course's test, open to anyone who can see the course.
      * Two ways through, and the visitor can mix them: reveal any one answer as
-     * they go, or finish and see every answer with a score. Nothing is stored --
-     * responses live in this component and vanish with it -- so there is no
-     * autosave and no attempt; "finish" is one stateless check the server
-     * grades with the same scorer a real attempt uses.
+     * they go, or finish and see every answer with a score. Responses live in
+     * this component and vanish with it -- there is no autosave and no
+     * attempt; "finish" is one check the server grades with the same scorer a
+     * real attempt uses. For a signed-in learner that check also keeps their
+     * best and latest score (`progress`), which only they ever see.
      * The test's discussion and each question's sit here too: the same
      * threads as on the test's own page (target `test` / `question`), so a
      * practice page widens nobody's access. The author's comments-off switch
@@ -776,10 +778,11 @@ declare namespace LocalJSX {
     /**
      * Practice mode for a course's test, open to anyone who can see the course.
      * Two ways through, and the visitor can mix them: reveal any one answer as
-     * they go, or finish and see every answer with a score. Nothing is stored --
-     * responses live in this component and vanish with it -- so there is no
-     * autosave and no attempt; "finish" is one stateless check the server
-     * grades with the same scorer a real attempt uses.
+     * they go, or finish and see every answer with a score. Responses live in
+     * this component and vanish with it -- there is no autosave and no
+     * attempt; "finish" is one check the server grades with the same scorer a
+     * real attempt uses. For a signed-in learner that check also keeps their
+     * best and latest score (`progress`), which only they ever see.
      * The test's discussion and each question's sit here too: the same
      * threads as on the test's own page (target `test` / `question`), so a
      * practice page widens nobody's access. The author's comments-off switch
@@ -1098,10 +1101,11 @@ declare module "@stencil/core" {
             /**
              * Practice mode for a course's test, open to anyone who can see the course.
              * Two ways through, and the visitor can mix them: reveal any one answer as
-             * they go, or finish and see every answer with a score. Nothing is stored --
-             * responses live in this component and vanish with it -- so there is no
-             * autosave and no attempt; "finish" is one stateless check the server
-             * grades with the same scorer a real attempt uses.
+             * they go, or finish and see every answer with a score. Responses live in
+             * this component and vanish with it -- there is no autosave and no
+             * attempt; "finish" is one check the server grades with the same scorer a
+             * real attempt uses. For a signed-in learner that check also keeps their
+             * best and latest score (`progress`), which only they ever see.
              * The test's discussion and each question's sit here too: the same
              * threads as on the test's own page (target `test` / `question`), so a
              * practice page widens nobody's access. The author's comments-off switch

@@ -1,8 +1,9 @@
 import { Component, h, Prop, State, Watch } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
-import { CourseItem, CourseView, GRADE_LEVELS, SUBJECTS } from '@24hc/shared';
+import { CourseItem, CourseItemProgress, CourseView, GRADE_LEVELS, SUBJECTS } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { coursesStore } from '../../services/courses-store';
+import { materialsStore } from '../../services/materials-store';
 import { adoptCanonicalPath, navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { courseItemKind, courseItemTitle, courseSections } from '../../services/course-format';
@@ -130,6 +131,83 @@ export class PageCourse {
     });
   };
 
+  /**
+   * The viewer's own "done" mark on a reading or deck. Kept on the item,
+   * so it shows in every course that holds it; the page patches its copy
+   * of the course instead of reloading it.
+   */
+  private async toggleDone(item: CourseItem, done: boolean) {
+    this.actionError = '';
+    try {
+      const progress = await materialsStore.markMaterialDone(item.material.id, done);
+      const items = { ...this.course.progress.items };
+      if (progress.done_at) {
+        items[item.id] = { done_at: progress.done_at, best_score: null, best_max: null };
+      } else {
+        delete items[item.id];
+      }
+      this.course = { ...this.course, progress: { items } };
+    } catch (e) {
+      if (!recoverFromExpiredSession(e)) {
+        this.actionError = 'We could not save that. Please try again.';
+      }
+    }
+  }
+
+  private itemPath(c: CourseView, item: CourseItem): string {
+    return item.kind === 'test' ? `/courses/${c.id}/tests/${item.test.id}` : `/materials/${item.material.id}`;
+  }
+
+  /** The item's progress for this viewer, if they have any. */
+  private progressOf(c: CourseView, item: CourseItem): CourseItemProgress | undefined {
+    return c.progress?.items[item.id];
+  }
+
+  /**
+   * "N of M done" and the first item not yet done, in course order. Only
+   * for a viewer whose progress is kept (`progress` present).
+   */
+  private renderProgress(c: CourseView) {
+    const items = c.items.filter((item) => item.test ?? item.material);
+    if (!c.progress || items.length === 0) {
+      return null;
+    }
+    const done = items.filter((item) => this.progressOf(c, item)?.done_at).length;
+    const next = items.find((item) => !this.progressOf(c, item)?.done_at);
+    return (
+      <aside class="progress" aria-label="Your progress">
+        <p>
+          <strong>Your progress:</strong> {done} of {items.length} done
+        </p>
+        <progress max={items.length} value={done} aria-label={`${done} of ${items.length} done`}></progress>
+        {next
+          ? <p>{done === 0 ? 'Start with' : 'Up next'}: {this.link(this.itemPath(c, next), courseItemTitle(c.title, (next.test ?? next.material).title))}</p>
+          : <p>You have done everything in this course.</p>}
+        <p class="meta">Only you can see your progress.</p>
+      </aside>
+    );
+  }
+
+  /** A practice run's best, or the done mark and its toggle. */
+  private renderItemProgress(c: CourseView, item: CourseItem) {
+    if (!c.progress) {
+      return null;
+    }
+    const p = this.progressOf(c, item);
+    if (item.kind === 'test') {
+      if (!p?.done_at) {
+        return null;
+      }
+      return <span class="done">✓ {p.best_max ? `Best ${p.best_score} / ${p.best_max}` : 'Practised'}</span>;
+    }
+    const done = !!p?.done_at;
+    return (
+      <button type="button" class={{ btn: true, mark: true, on: done }} aria-pressed={done ? 'true' : 'false'} onClick={() => this.toggleDone(item, !done)}>
+        {done ? '✓ Done' : 'Mark done'}
+      </button>
+    );
+  }
+
   private link(path: string, text: string) {
     return <a href={path} onClick={(e) => { e.preventDefault(); navigate(path); }}>{text}</a>;
   }
@@ -182,16 +260,17 @@ export class PageCourse {
     if (!target) {
       return null;
     }
-    const path = item.kind === 'test' ? `/courses/${c.id}/tests/${target.id}` : `/materials/${target.id}`;
+    const path = this.itemPath(c, item);
     const shared = item.kind === 'material' && item.material.author.id !== c.author.id;
     return (
-      <li class={`item ${item.kind}`}>
+      <li class={{ item: true, [item.kind]: true, finished: !!this.progressOf(c, item)?.done_at }}>
         <span class="kind">{courseItemKind(item)}</span>
         {this.link(path, courseItemTitle(c.title, target.title))}
         {item.kind === 'test' && <span class="meta">{this.count(item.test.question_count, 'question', 'questions')}</span>}
         {shared && <span class="meta">from {item.material.author.name}</span>}
         {c.is_author && target.visibility === 'private' && <span class="meta">Private</span>}
         {c.is_author && item.kind === 'test' && this.link(`/tests/${target.id}/edit`, 'Edit questions')}
+        {this.renderItemProgress(c, item)}
       </li>
     );
   }
@@ -262,8 +341,15 @@ export class PageCourse {
         {this.renderTeacherPitch(c)}
 
         {!c.is_author && c.test_count > 0 && (
-          <p class="notice">Open any test to practise it: check each answer as you go, or finish and see your results. Nothing is recorded.</p>
+          <p class="notice">
+            Open any test to practise it: check each answer as you go, or finish and see your results.
+            {c.progress
+              ? ' Your best score on each is saved for you.'
+              : this.guest ? [' Nothing is saved while you are signed out: ', this.signIn('/login', 'log in', ''), ' to keep your progress.'] : ' Nothing is recorded.'}
+          </p>
         )}
+
+        {this.renderProgress(c)}
 
         {c.items.length === 0 && <p>{c.is_author ? 'This course is empty. Edit it to add tests and materials.' : 'Nothing has been published in this course yet.'}</p>}
 

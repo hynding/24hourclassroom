@@ -204,7 +204,7 @@ A public course's answers are public by design: there is no hide-answers switch.
   `/courses/:id/tests/:testId`) returns the test *with answers* — the reveal
   button needs no round trip — to anyone who can see the course, but only for a
   public test (the author can preview anything). `POST …/check` grades a run
-  with `AttemptGrader::score` and writes nothing, so guests can use it. Nothing
+  with `AttemptGrader::score` and writes no attempt, so guests can use it (a signed-in learner's run updates only their own study progress). Nothing
   else ever returns answers to a non-author; an assigned student cannot reach a
   private test's answers through a course.
 
@@ -223,6 +223,21 @@ teacher's: shown only while it is public with an active author, keepable,
 movable and removable in the editor, never newly addable. Later changes to the
 original do not reach a branch. `page-course` watches `courseId`: a branch and
 its original are the same tag, so Stencil reuses the element.
+
+## Study progress
+
+A signed-in learner's own record of a course (`study_progress`,
+`App\Support\StudyProgress`): a finished practice run keeps their best and
+latest score per test (over the points the scorer could mark), and a
+material can be marked done (`PUT|DELETE /api/materials/{m}/done`, on
+`page-material` and the course page). Kept only for a verified
+`Role::tracksStudyProgress()` viewer (everyone but admin) and never on their
+own content. Rows are keyed on the test or material, not the course, so
+done once is done in every course holding it. `CourseView.progress`
+(keyed by course item id), `PracticeTest.progress`, `PracticeResult.progress`
+and `MaterialView.progress` are null whenever nothing is kept. **Only the
+learner ever sees it**: no teacher, guardian or admin view, and never a
+`Metrics` counter. Assigned work keeps its own record (attempts).
 
 ## Page addresses (slugs)
 

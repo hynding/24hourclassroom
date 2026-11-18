@@ -16,6 +16,8 @@ jest.mock('../../services/courses-store', () => ({
     branchCourse: (...a: unknown[]) => branchCourse(...a),
   },
 }));
+const markMaterialDone = jest.fn();
+jest.mock('../../services/materials-store', () => ({ materialsStore: { markMaterialDone: (...a: unknown[]) => markMaterialDone(...a) } }));
 jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a), adoptCanonicalPath: jest.fn() }));
 jest.mock('../../services/session-recovery', () => ({ recoverFromExpiredSession: () => false }));
 // Signed in by default, so the guest pitch stays out of every other test.
@@ -235,5 +237,71 @@ describe('page-course', () => {
 
     const empty = await mount(course({ items: [], test_count: 0, material_count: 0, description: null }));
     expect(empty.root.shadowRoot.textContent).toContain('Nothing has been published in this course yet.');
+  });
+
+  describe('the learner\'s own progress', () => {
+    // Item ids are 10 (guide 1), 10 (quiz 1) and 20 (quiz 2): give the guide its own.
+    const tracked = (items: Record<string, unknown>) => course({
+      items: [{ ...guide(1, 'Unit 1 · Chemistry of Life'), id: 5 }, quiz(1, 'Unit 1 · Chemistry of Life'), quiz(2, 'Unit 2 · Cells')],
+      progress: { items },
+    });
+
+    it('counts what is done, names the next item and shows each best score', async () => {
+      const page = await mount(tracked({ 5: { done_at: '2026-11-17', best_score: null, best_max: null }, 10: { done_at: '2026-11-17', best_score: 7, best_max: 8 } }));
+      const root = page.root.shadowRoot;
+      const box = root.querySelector('.progress');
+
+      expect(box.textContent).toContain('2 of 3 done');
+      expect(root.querySelector('progress').getAttribute('value')).toBe('2');
+      expect(box.querySelector('a').getAttribute('href')).toBe('/courses/3/tests/2');
+      expect(box.textContent).toContain('Up next');
+      expect(box.textContent).toContain('Only you can see your progress.');
+      expect(root.querySelector('.done').textContent).toBe('✓ Best 7 / 8');
+      expect(root.querySelector('button.mark').textContent).toBe('✓ Done');
+      expect(deepText(root)).toContain('Your best score on each is saved for you.');
+    });
+
+    it('says when everything is done, and starts a new learner at the first item', async () => {
+      const done = { done_at: '2026-11-17', best_score: 1, best_max: 1 };
+      expect((await mount(tracked({ 5: done, 10: done, 20: done }))).root.shadowRoot.querySelector('.progress').textContent).toContain('You have done everything');
+
+      const fresh = (await mount(tracked({}))).root.shadowRoot.querySelector('.progress');
+      expect(fresh.textContent).toContain('0 of 3 done');
+      expect(fresh.textContent).toContain('Start with');
+      expect(fresh.querySelector('a').getAttribute('href')).toBe('/materials/1');
+    });
+
+    it('marks a reading done and undoes it without reloading the course', async () => {
+      const page = await mount(tracked({}));
+      markMaterialDone.mockResolvedValueOnce({ done_at: '2026-11-17' });
+      (page.root.shadowRoot.querySelector('button.mark') as HTMLButtonElement).click();
+      await page.waitForChanges();
+      await page.waitForChanges();
+
+      expect(markMaterialDone).toHaveBeenCalledWith(1, true);
+      expect(page.root.shadowRoot.querySelector('button.mark').textContent).toBe('✓ Done');
+      expect(page.root.shadowRoot.querySelector('.progress').textContent).toContain('1 of 3 done');
+
+      markMaterialDone.mockResolvedValueOnce({ done_at: null });
+      (page.root.shadowRoot.querySelector('button.mark') as HTMLButtonElement).click();
+      await page.waitForChanges();
+      await page.waitForChanges();
+      expect(markMaterialDone).toHaveBeenLastCalledWith(1, false);
+      expect(page.root.shadowRoot.querySelector('button.mark').textContent).toBe('Mark done');
+      expect(getCourse).toHaveBeenCalledTimes(1);
+    });
+
+    it('shows no progress when none is kept, and tells a guest to log in to keep it', async () => {
+      const signedIn = await mount(course({ progress: null }));
+      expect(signedIn.root.shadowRoot.querySelector('.progress')).toBeNull();
+      expect(signedIn.root.shadowRoot.querySelector('button.mark')).toBeNull();
+
+      authLoad.mockResolvedValue(null);
+      const guest = await mount(course({ progress: null }));
+      expect(deepText(guest.root.shadowRoot)).toContain('Nothing is saved while you are signed out');
+      const login = Array.from(guest.root.shadowRoot.querySelectorAll('.notice a')).find((a) => a.textContent === 'log in') as HTMLAnchorElement;
+      login.click();
+      expect(rememberReturnPath).toHaveBeenCalledWith('/courses/3');
+    });
   });
 });

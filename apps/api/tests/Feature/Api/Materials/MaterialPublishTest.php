@@ -49,7 +49,7 @@ test('both responses are the full MaterialView with a working download_url', fun
             'id', 'title', 'subject', 'grade_level', 'visibility', 'published_at',
             'original_name', 'mime_type', 'size_bytes', 'author',
             'description', 'created_at', 'updated_at',
-            'is_author', 'shared_with_me', 'download_url',
+            'is_author', 'shared_with_me', 'download_url', 'progress',
         ]);
 
         $this->get(\Illuminate\Support\Str::after($body['download_url'], rtrim(config('app.url'), '/')))->assertOk();

@@ -5,6 +5,7 @@ const getMaterial = jest.fn();
 const publishMaterial = jest.fn();
 const unpublishMaterial = jest.fn();
 const deleteMaterial = jest.fn();
+const markMaterialDone = jest.fn();
 const navigate = jest.fn();
 jest.mock('../../services/materials-store', () => ({
   materialsStore: {
@@ -12,6 +13,7 @@ jest.mock('../../services/materials-store', () => ({
     publishMaterial: (...a: unknown[]) => publishMaterial(...a),
     unpublishMaterial: (...a: unknown[]) => unpublishMaterial(...a),
     deleteMaterial: (...a: unknown[]) => deleteMaterial(...a),
+    markMaterialDone: (...a: unknown[]) => markMaterialDone(...a),
   },
 }));
 jest.mock('../../services/navigate', () => ({ navigate: (...a: unknown[]) => navigate(...a) }));
@@ -75,6 +77,7 @@ describe('page-material', () => {
     publishMaterial.mockReset();
     unpublishMaterial.mockReset();
     deleteMaterial.mockReset();
+    markMaterialDone.mockReset();
     navigate.mockReset();
     // The component calls the bare global, which jest shares across the
     // mock-window reset newSpecPage performs. Default: never called.
@@ -302,6 +305,32 @@ describe('page-material', () => {
       await settle(refused);
       expect(refused.root.shadowRoot.querySelector('.reader')).toBeNull();
       expect(refused.root.shadowRoot.querySelector('a[data-testid="download"]')).not.toBeNull();
+    });
+  });
+
+  describe('the done mark', () => {
+    it('lets a learner mark the material done and undo it', async () => {
+      const page = await mount(view({ progress: { done_at: null } }));
+      const doneButton = () => Array.from(page.root.shadowRoot.querySelectorAll('button')).find((b) => b.getAttribute('aria-pressed') !== null);
+
+      expect(doneButton().textContent).toBe('Mark as done');
+      markMaterialDone.mockResolvedValueOnce({ done_at: '2026-11-17' });
+      doneButton().click();
+      await settle(page);
+      expect(markMaterialDone).toHaveBeenCalledWith(7, true);
+      expect(doneButton().textContent).toBe('✓ Done');
+      expect(doneButton().getAttribute('aria-pressed')).toBe('true');
+
+      markMaterialDone.mockResolvedValueOnce({ done_at: null });
+      doneButton().click();
+      await settle(page);
+      expect(markMaterialDone).toHaveBeenLastCalledWith(7, false);
+      expect(doneButton().textContent).toBe('Mark as done');
+    });
+
+    it('is not offered when no progress is kept', async () => {
+      const page = await mount(view({ progress: null }));
+      expect(Array.from(page.root.shadowRoot.querySelectorAll('button')).some((b) => b.getAttribute('aria-pressed') !== null)).toBe(false);
     });
   });
 });
