@@ -703,7 +703,10 @@ distinguishable 422 let a caller walk the id space.
 ## Deploys
 
 Push to `dev` -> staging, push to `master` -> production. Both gated on CI
-(`needs: [api, web]` in the single `.github/workflows/ci.yml`). There is no
+(`needs: [api, web]` in the single `.github/workflows/ci.yml`). The deploy job
+first checks that its commit is still the branch's head and skips itself if
+not, so back-to-back merges deploy only the newest commit (runs can finish
+their tests out of order; `concurrency` only serializes them). There is no
 manual trigger — a push is the only way to deploy, and merging a PR into either
 branch is a push.
 
