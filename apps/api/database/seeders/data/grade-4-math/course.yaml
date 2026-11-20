@@ -1,0 +1,149 @@
+# The Grade 4 Math course map. Week files live under unit-NN-<slug>/week-NN.yaml.
+# Titles and slugs are composed by Database\Seeders\Curriculum\Course from the
+# numbers here, so nothing in a week file repeats the naming convention.
+title: Grade 4 Math
+prefix: Grade 4 Math
+slug: g4math
+# The course's site-wide address, /courses/grade-4-math (App\Support\Slugs).
+site_slug: grade-4-math
+description: >
+  A full school year of fourth-grade math, one week at a time: a short study
+  guide written for students and the grown-ups who help them, a flashcard deck
+  and a quiz with pictures every week, a summary and a unit check at the end of
+  each of the nine units (factors and multiples; fraction equivalence and
+  comparison; operations with fractions; decimals and place value to a million;
+  multiplicative comparison and measurement; multi-digit multiplication and
+  division; angles; two-dimensional shapes; and putting it all together), and a
+  year review guide with an end-of-year check. Every test and material is
+  tagged with the Common Core State Standards for Grade 4 it teaches. Adapted
+  from IM K–5 Math by Illustrative Mathematics (CC BY 4.0), rewritten in our
+  own words with original examples, pictures, questions and cards. Free to
+  copy, adapt and share under CC BY 4.0, crediting 24 Hour Classroom.
+teacher: { name: "Grade 4 Math Teacher", email: g4math@example.com }
+student: { name: "Grade 4 Math Student", email: g4math-student@example.com }
+# Monday of week 1. Null means no due dates: the whole course is open at once.
+start_date: 2026-08-31
+subject: math
+grade_level: grade-4
+# Topic codes are Common Core State Standards for Grade 4, so the seeder tags
+# every test and material with the codes it teaches (App\Support\Standards).
+topics_are_standards: true
+labels:
+  topics: Standards
+  unit_exam: Check
+  practice_exam: End-of-Year Check
+  prep_guide: Year Review Guide
+  review_section: Year review
+# Elementary sizes: shorter guides, decks and quizzes, pictures in every test,
+# no long essays (see Curriculum\ContentLint).
+lint:
+  cards: [15, 25]
+  quiz_items: [12, 16]
+  type_mix: { multiple_choice: 5, numeric: 2, fill_blank: 1, true_false: 1, multi_select: 1, short_answer: 1 }
+  spiral_share: 0.2
+  stimulus_set: 2
+  unit_exam_items: [18, 25]
+  unit_exam_needs: [short_answer]
+  unit_exam_stimulus_sets: 1
+  unit_exam_set_size: 2
+  guide_min_words: 450
+  figures_per_test: 2
+review:
+  prep_guide_week: 32
+  practice_exam_week: 33
+  prep_guide_description: A look back at the whole year, one unit at a time, with the facts and strategies to know, how the end-of-year check is laid out, and a two-week practice plan for students and families.
+# Every guide and summary must end with all of these (the content lint).
+attribution_markers: ["Illustrative Mathematics", "CC BY 4.0"]
+attribution: |
+  Adapted from IM K–5 Math by Illustrative Mathematics (© 2021, licensed under
+  CC BY 4.0, https://creativecommons.org/licenses/by/4.0/), following its Grade
+  4 units and order, rewritten in our own words with original examples,
+  pictures, questions and flashcards. The Illustrative Mathematics name and
+  logo are not covered by that licence and are not used here as branding.
+  Standards codes are the Common Core State Standards for Mathematics
+  (© 2010 National Governors Association Center for Best Practices and Council
+  of Chief State School Officers); their wording here is paraphrased.
+  © 2026 24 Hour Classroom, licensed under CC BY 4.0.
+# Nine units in IM K–5 Math Grade 4's order. Topic codes are CCSS Grade 4
+# standards with paraphrased titles; a standard may recur in later units.
+units:
+  - number: 1
+    slug: unit-01-factors-and-multiples
+    title: Factors and Multiples
+    weeks: [1, 2]
+    topics:
+      "4.OA.B.4": Find factor pairs and multiples, and tell prime from composite numbers
+      "4.MD.A.3": Use the area and perimeter formulas for rectangles
+  - number: 2
+    slug: unit-02-fraction-equivalence-and-comparison
+    title: Fraction Equivalence and Comparison
+    weeks: [3, 4, 5]
+    topics:
+      "4.NF.A.2": Compare fractions with different numerators and denominators
+      "4.NF.A.1": Explain why fractions are equivalent and make equivalent fractions
+  - number: 3
+    slug: unit-03-extending-operations-to-fractions
+    title: Extending Operations to Fractions
+    weeks: [6, 7, 8, 9]
+    topics:
+      "4.NF.B.4": Multiply a fraction by a whole number
+      "4.NF.B.3": Add and subtract fractions and mixed numbers with like denominators
+      "4.MD.B.4": Make and use line plots with fractions
+      "4.NF.C.5": Add tenths and hundredths written as fractions
+  - number: 4
+    slug: unit-04-from-hundredths-to-hundred-thousands
+    title: From Hundredths to Hundred-thousands
+    weeks: [10, 11, 12, 13]
+    topics:
+      "4.NF.C.6": Write tenths and hundredths as decimals
+      "4.NF.C.7": Compare decimals to hundredths
+      "4.NBT.A.1": Know that a digit is worth ten times what it is worth one place to its right
+      "4.NBT.A.2": Read, write and compare multi-digit whole numbers
+      "4.NBT.A.3": Round multi-digit whole numbers to any place
+      "4.NBT.B.4": Add and subtract multi-digit whole numbers with the standard algorithm
+  - number: 5
+    slug: unit-05-multiplicative-comparison-and-measurement
+    title: Multiplicative Comparison and Measurement
+    weeks: [14, 15, 16]
+    topics:
+      "4.OA.A.1": Understand multiplication as a comparison ("times as many")
+      "4.OA.A.2": Solve word problems that compare by multiplying or dividing
+      "4.MD.A.1": Know the relative sizes of measurement units and convert to a smaller unit
+      "4.MD.A.2": Solve word problems about distance, time, volume, mass and money
+  - number: 6
+    slug: unit-06-multiplying-and-dividing-multi-digit-numbers
+    title: Multiplying and Dividing Multi-digit Numbers
+    weeks: [17, 18, 19, 20, 21]
+    topics:
+      "4.OA.C.5": Make and describe number and shape patterns that follow a rule
+      "4.NBT.B.5": Multiply up to four digits by one digit, and two digits by two digits
+      "4.NBT.B.6": Divide up to four digits by one digit, with remainders
+      "4.OA.A.3": Solve multistep word problems with whole numbers, including remainders
+  - number: 7
+    slug: unit-07-angles-and-angle-measurement
+    title: Angles and Angle Measurement
+    weeks: [22, 23, 24, 25]
+    topics:
+      "4.G.A.1": Draw and name points, lines, segments, rays, angles, and perpendicular and parallel lines
+      "4.MD.C.5": Understand angles and how they are measured in degrees
+      "4.MD.C.6": Measure and draw angles with a protractor
+      "4.MD.C.7": Add angle measures and find unknown angles
+  - number: 8
+    slug: unit-08-properties-of-two-dimensional-shapes
+    title: Properties of Two-dimensional Shapes
+    weeks: [26, 27, 28]
+    topics:
+      "4.G.A.2": Sort shapes by their sides and angles, including right triangles
+      "4.G.A.3": Find lines of symmetry
+      "4.MD.A.3": Use the area and perimeter formulas for rectangles
+  - number: 9
+    slug: unit-09-putting-it-all-together
+    title: Putting It All Together
+    weeks: [29, 30, 31]
+    topics:
+      "4.NF.B.3": Add and subtract fractions and mixed numbers with like denominators
+      "4.NF.A.2": Compare fractions with different numerators and denominators
+      "4.NBT.B.5": Multiply up to four digits by one digit, and two digits by two digits
+      "4.NBT.B.6": Divide up to four digits by one digit, with remainders
+      "4.OA.A.3": Solve multistep word problems with whole numbers, including remainders
+      "4.MD.A.2": Solve word problems about distance, time, volume, mass and money
