@@ -21,7 +21,7 @@
 | Count spaces from the start | The object does not start at 0 | From 3 to 6 1/2 is 3 1/2 inches. |
 | Count X's on a line plot | How many, most often, longer than | 1 X, 4 X's and 2 X's make 7 things measured. |
 | Compare with a known object | Estimating mass or volume | A melon feels like 2 water bottles: about 2 kg. |
-| Find what each mark is worth | Reading a scale or container | Labels 0, 2, 4 with a mark between: the mark between 4 and 6 is 5. |
+| Find what each mark is worth | Reading a scale or container | Labels 0, 2, 4, 6 with a mark between each pair: the mark between 4 and 6 is 5. |
 | Count by 5s, then 1s | Reading the minute hand | 3 small marks past the 7 is 35, 36, 37, 38: 38 minutes. |
 | Jump to the o'clock | Elapsed time across the hour | 10:50 to 11:25 is 10 + 25 = 35 minutes. |
 | Tape diagram | Equal parts of a total | 18 L shared into 3 jugs: 18 ÷ 3 = 6 L each. |

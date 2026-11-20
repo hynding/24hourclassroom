@@ -39,7 +39,7 @@ Cut two same-size strips: one into 4 parts and one into 8. Each fourth is bigger
 
 The unit fractions, from greatest to least, are 1/2, 1/3, 1/4, 1/6, 1/8. The bigger the denominator, the smaller the parts.
 
-**Try it.** Zara runs 2/3 of a mile and Eli runs 2/4 of a mile on the same track. Who runs farther? Both run 2 parts, but thirds are bigger than fourths, so Zara runs farther.
+**Try it.** Kai walks 5/6 of a mile and Lin walks 5/8 of a mile on the same trail. Who walks farther? Both walk 5 parts, but sixths are bigger than eighths, so Kai walks farther.
 
 ## The same whole
 

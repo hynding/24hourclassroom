@@ -141,6 +141,6 @@ All pictures are SVG files written for this course in `figures/` (`w25-*` to `w2
 
 Unit 8 (Putting It All Together) and the review files follow IM K–5 Math (first edition), Grade 3, © 2021 Illustrative Mathematics, CC BY 4.0. They follow its structure and approaches only (fact strategies, base-ten blocks, open number lines, tape diagrams, area diagrams). Every explanation, example, number, context, picture, flashcard and question was written for this course. No IM problems, cool-downs or practice problems were copied, and no IM v.360 (2024, CC BY-NC) material was used.
 
-IM's Unit 8 has four sections: A Fraction Fun, B Measurement and Data, C Multiplication and Division Games, and D Create and Design. This course spreads them over three weeks. Week 30 extends Section C's fluency games to adding and subtracting within 1,000, which IM practises across the year. Week 31's problem solving draws on Sections A, B and D.
+IM's Unit 8 has four sections: A Fraction Fun, B Measurement and Data, C Multiplication and Division Games, and D Create and Design. This course spreads them over three weeks. Week 30 extends Section C's fluency games to adding and subtracting within 1,000, which IM practices across the year. Week 31's problem solving draws on Sections A, B and D.
 
 All pictures are hand-made SVG files in `figures/` (`w29-*`, `w30-*`, `w31-*`, `u08-*`, `review-*`), drawn for this course. Standards are cited by Common Core code only.
