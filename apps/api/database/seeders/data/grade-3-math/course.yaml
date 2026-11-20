@@ -1,0 +1,145 @@
+# The Grade 3 Math course map. Week files live under unit-NN-<slug>/week-NN.yaml.
+# Titles and slugs are composed by Database\Seeders\Curriculum\Course from the
+# numbers here, so nothing in a week file repeats the naming convention.
+title: Grade 3 Math
+prefix: Grade 3 Math
+slug: g3math
+# The course's site-wide address, /courses/grade-3-math (App\Support\Slugs).
+site_slug: grade-3-math
+description: >
+  A full school year of third-grade math, one week at a time: a short study
+  guide written for students and the grown-ups who help them, a flashcard deck
+  and a quiz with pictures every week, a summary and a unit check at the end of
+  each of the eight units (multiplication; area; adding and subtracting within
+  1,000; division; fractions; measuring length, time, liquid volume and weight;
+  shapes and perimeter; and putting it all together), and a year review guide
+  with an end-of-year check. Every test and material is tagged with the Common
+  Core State Standards for Grade 3 it teaches. Adapted from IM K–5 Math by
+  Illustrative Mathematics (CC BY 4.0), rewritten in our own words with
+  original examples, pictures, questions and cards. Free to copy, adapt and
+  share under CC BY 4.0, crediting 24 Hour Classroom.
+teacher: { name: "Grade 3 Math Teacher", email: g3math@example.com }
+student: { name: "Grade 3 Math Student", email: g3math-student@example.com }
+# Monday of week 1. Null means no due dates: the whole course is open at once.
+start_date: 2026-08-31
+subject: math
+grade_level: grade-3
+# Topic codes are Common Core State Standards for Grade 3, so the seeder tags
+# every test and material with the codes it teaches (App\Support\Standards).
+topics_are_standards: true
+labels:
+  topics: Standards
+  unit_exam: Unit Check
+  practice_exam: End-of-Year Check
+  prep_guide: Year Review Guide
+  review_section: Year review
+# Elementary sizes: shorter guides, decks and quizzes, pictures in every test,
+# no long essays (see Curriculum\ContentLint).
+lint:
+  cards: [15, 25]
+  quiz_items: [10, 15]
+  type_mix: { multiple_choice: 4, numeric: 2, fill_blank: 1, true_false: 1, multi_select: 1, short_answer: 1 }
+  spiral_share: 0.2
+  stimulus_set: 2
+  unit_exam_items: [15, 25]
+  unit_exam_needs: [short_answer]
+  unit_exam_stimulus_sets: 1
+  unit_exam_set_size: 2
+  guide_min_words: 400
+  figures_per_test: 2
+review:
+  prep_guide_week: 32
+  practice_exam_week: 33
+  prep_guide_description: A look back at the whole year, one unit at a time, with the facts and strategies to know, how the end-of-year check is laid out, and a two-week practice plan for students and families.
+# Every guide and summary must end with all of these (the content lint).
+attribution_markers: ["Illustrative Mathematics", "CC BY 4.0"]
+attribution: |
+  Adapted from IM K–5 Math by Illustrative Mathematics (© 2021, licensed under
+  CC BY 4.0, https://creativecommons.org/licenses/by/4.0/), following its Grade
+  3 units and order, rewritten in our own words with original examples,
+  pictures, questions and flashcards. The Illustrative Mathematics name and
+  logo are not covered by that licence and are not used here as branding.
+  Standards codes are the Common Core State Standards for Mathematics
+  (© 2010 National Governors Association Center for Best Practices and Council
+  of Chief State School Officers); their wording here is paraphrased.
+  © 2026 24 Hour Classroom, licensed under CC BY 4.0.
+# Eight units in IM K–5 Math Grade 3's order. Topic codes are CCSS Grade 3
+# standards with paraphrased titles; a standard may recur in later units.
+units:
+  - number: 1
+    slug: unit-01-introducing-multiplication
+    title: Introducing Multiplication
+    weeks: [1, 2, 3, 4]
+    topics:
+      "3.MD.B.3": Draw and read scaled picture graphs and bar graphs
+      "3.OA.A.1": Understand multiplication as equal groups
+      "3.OA.A.3": Solve multiplication and division word problems within 100
+      "3.OA.A.4": Find the unknown number in a multiplication or division equation
+      "3.OA.B.5": Use properties of operations to multiply and divide
+      "3.OA.D.9": Find and explain patterns in numbers
+  - number: 2
+    slug: unit-02-area-and-multiplication
+    title: Area and Multiplication
+    weeks: [5, 6, 7]
+    topics:
+      "3.MD.C.5": Understand area and unit squares
+      "3.MD.C.6": Measure area by counting unit squares
+      "3.MD.C.7": Connect area to multiplication and addition
+      "3.OA.B.5": Use properties of operations to multiply and divide
+  - number: 3
+    slug: unit-03-adding-and-subtracting-within-1000
+    title: Wrapping Up Addition and Subtraction Within 1,000
+    weeks: [8, 9, 10, 11]
+    topics:
+      "3.NBT.A.2": Add and subtract fluently within 1,000
+      "3.NBT.A.1": Round whole numbers to the nearest 10 or 100
+      "3.OA.D.8": Solve two-step word problems with the four operations
+      "3.OA.D.9": Find and explain patterns in numbers
+  - number: 4
+    slug: unit-04-relating-multiplication-to-division
+    title: Relating Multiplication to Division
+    weeks: [12, 13, 14, 15, 16]
+    topics:
+      "3.OA.A.2": Understand division as sharing or making groups
+      "3.OA.B.6": Understand division as finding an unknown factor
+      "3.OA.A.4": Find the unknown number in a multiplication or division equation
+      "3.NBT.A.3": Multiply one-digit numbers by multiples of 10
+      "3.OA.B.5": Use properties of operations to multiply and divide
+      "3.OA.C.7": Multiply and divide fluently within 100
+      "3.OA.A.3": Solve multiplication and division word problems within 100
+  - number: 5
+    slug: unit-05-fractions-as-numbers
+    title: Fractions as Numbers
+    weeks: [17, 18, 19, 20]
+    topics:
+      "3.NF.A.1": Understand unit fractions and fractions made of unit fractions
+      "3.G.A.2": Split shapes into parts with equal areas
+      "3.NF.A.2": Show fractions on a number line
+      "3.NF.A.3": Find equivalent fractions and compare fractions
+  - number: 6
+    slug: unit-06-measuring-length-time-volume-weight
+    title: Measuring Length, Time, Liquid Volume, and Weight
+    weeks: [21, 22, 23, 24]
+    topics:
+      "3.MD.B.4": Measure lengths to the nearest half and fourth inch and show them on line plots
+      "3.MD.A.2": Measure and estimate liquid volumes and masses
+      "3.MD.A.1": Tell time to the minute and find elapsed time
+      "3.OA.D.8": Solve two-step word problems with the four operations
+  - number: 7
+    slug: unit-07-shapes-and-perimeter
+    title: Two-dimensional Shapes and Perimeter
+    weeks: [25, 26, 27, 28]
+    topics:
+      "3.G.A.1": Sort shapes by their attributes, including quadrilaterals
+      "3.MD.D.8": Solve problems about perimeter
+      "3.MD.C.7": Connect area to multiplication and addition
+  - number: 8
+    slug: unit-08-putting-it-all-together
+    title: Putting It All Together
+    weeks: [29, 30, 31]
+    topics:
+      "3.OA.C.7": Multiply and divide fluently within 100
+      "3.NBT.A.2": Add and subtract fluently within 1,000
+      "3.NBT.A.3": Multiply one-digit numbers by multiples of 10
+      "3.OA.D.8": Solve two-step word problems with the four operations
+      "3.OA.D.9": Find and explain patterns in numbers
