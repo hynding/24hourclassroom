@@ -5,6 +5,7 @@ import type { RegistrationRole, SiteConfig } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
 import { siteStore } from '../../services/site-store';
+import { BirthAnswer, birthFields, isAgeBlocked, isUnderAgeRefusal, markAgeBlocked, renderBirthFields, screensAge, UNDER_AGE_NOTICE } from '../../services/age-screen';
 
 @Component({ tag: 'page-register', styleUrl: 'page-register.css', shadow: true })
 export class PageRegister {
@@ -17,6 +18,8 @@ export class PageRegister {
   @State() busy = false;
   @State() site: SiteConfig = siteStore.config;
   @State() closed: string | null = null;
+  @State() birth: BirthAnswer = { month: null, year: null };
+  @State() ageBlocked = isAgeBlocked();
 
   @Listen('site:changed', { target: 'window' })
   onSiteChanged() {
@@ -34,12 +37,18 @@ export class PageRegister {
         password: this.password,
         password_confirmation: this.passwordConfirmation,
         role: this.role,
+        ...birthFields(this.role, this.birth),
       });
       navigate('/verify-email');
     } catch (e) {
       if (e instanceof ApiError && e.status === 403) {
         // Registration closed between the page load and the submit.
         this.closed = e.message;
+        return;
+      }
+      if (e instanceof ApiError && isUnderAgeRefusal(e.errors)) {
+        markAgeBlocked();
+        this.ageBlocked = true;
         return;
       }
       this.errors = e instanceof ApiError ? (e.errors ?? { email: [e.message] }) : { email: ['Something went wrong.'] };
@@ -61,6 +70,14 @@ export class PageRegister {
         </section>
       );
     }
+    if (this.ageBlocked) {
+      return (
+        <section>
+          <h1>Create an account</h1>
+          <p class="notice">{UNDER_AGE_NOTICE}</p>
+        </section>
+      );
+    }
     return (
       <section>
         <h1>Create an account</h1>
@@ -75,6 +92,8 @@ export class PageRegister {
             ))}
           </fieldset>
           {this.fieldError('role')}
+          {screensAge(this.role) && renderBirthFields(this.birth, (next) => (this.birth = next))}
+          {screensAge(this.role) && this.fieldError('birth_year')}
           <label>
             Name
             <input type="text" required value={this.name} onInput={(e) => (this.name = (e.target as HTMLInputElement).value)} />

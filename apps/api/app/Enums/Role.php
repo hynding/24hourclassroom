@@ -124,6 +124,17 @@ enum Role: string
         return in_array($this, [self::Teacher, self::Student, self::Tutor, self::Assistant, self::Guardian], true);
     }
 
+    /**
+     * Roles a child might pick when signing up alone, so registration asks
+     * their birth month and year and refuses anyone under 13 (COPPA). The
+     * answer is checked and never stored. Teacher, tutor and guardian are
+     * adults' roles; admin is never self-assigned.
+     */
+    public function screensAge(): bool
+    {
+        return in_array($this, [self::Student, self::Assistant], true);
+    }
+
     /** May delete anyone's comment on anything they can see. */
     public function moderatesComments(): bool
     {

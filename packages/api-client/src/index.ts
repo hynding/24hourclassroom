@@ -74,6 +74,14 @@ export interface RegisterData {
   password: string;
   password_confirmation: string;
   role: RegistrationRole;
+  /** Asked only for AGE_SCREEN_ROLES; checked by the server, never stored. */
+  birth_month?: number;
+  birth_year?: number;
+}
+
+export interface BirthMonthYear {
+  birth_month: number;
+  birth_year: number;
 }
 
 export interface ResetPasswordData {
@@ -171,8 +179,8 @@ export class ApiClient {
     await this.post('/api/auth/verification-notification');
   }
 
-  async completeOauth(role: RegistrationRole): Promise<void> {
-    await this.post('/api/auth/oauth/complete', { role });
+  async completeOauth(role: RegistrationRole, birth?: Partial<BirthMonthYear>): Promise<void> {
+    await this.post('/api/auth/oauth/complete', { role, ...(birth ?? {}) });
   }
 
   async getTeachers(filters: TeacherFilters = {}): Promise<Paginated<TeacherSummary>> {

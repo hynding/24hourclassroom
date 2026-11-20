@@ -188,6 +188,12 @@ never on a role literal. `packages/shared` mirrors each list (`AUTHOR_ROLES`,
   (SPA `/grading`, "To grade") is the queue of attempts still awaiting a hand
   grade, for authors (their own) and assistants (every connected teacher's).
 - `receivesShares()` — teacher, student, tutor, assistant.
+- `screensAge()` — student, assistant: self-registration (SPA, web register
+  page, OAuth completion) asks birth month and year and refuses anyone who
+  may be under 13 (`App\Support\AgeScreen`, COPPA; a month counts as its
+  last day). The answer is checked and never stored; an under-13 Google
+  sign-up also forgets the Google details held in the session. The SPA
+  remembers a refusal for the tab (`24hc.age-screen.v1`, sessionStorage).
 - `comments()` — everyone but admin; `moderatesComments()` — admin (see Comments).
 - `Role::canConnect($a, $b)` — the symmetric pair matrix (no admin, no
   student↔student, guardian/assistant only with teacher, tutor, student).

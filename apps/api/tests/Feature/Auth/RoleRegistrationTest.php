@@ -9,6 +9,8 @@ test('inertia registration stores the chosen role', function () {
         'password' => 'password',
         'password_confirmation' => 'password',
         'role' => 'student',
+        'birth_month' => 5,
+        'birth_year' => 1990,
     ]);
 
     $response->assertRedirect(route('dashboard', absolute: false));

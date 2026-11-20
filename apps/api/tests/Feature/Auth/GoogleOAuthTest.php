@@ -61,7 +61,7 @@ test('new user is parked and completes with a role', function () {
     $this->get('/auth/google/callback')->assertRedirect('https://24hourclassroom.com/register/role');
     $this->assertGuest();
 
-    $this->postJson('/api/auth/oauth/complete', ['role' => 'student'])->assertNoContent();
+    $this->postJson('/api/auth/oauth/complete', ['role' => 'student', 'birth_month' => 5, 'birth_year' => 1990])->assertNoContent();
 
     $user = User::where('email', 'new@example.com')->firstOrFail();
     expect($user->role->value)->toBe('student')
