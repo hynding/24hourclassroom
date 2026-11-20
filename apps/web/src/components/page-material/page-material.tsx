@@ -1,6 +1,7 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
 import { GRADE_LEVELS, MaterialView, SUBJECTS } from '@24hc/shared';
+import { standardsSuffix } from '../../services/standards';
 import { materialsStore } from '../../services/materials-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
@@ -239,7 +240,7 @@ export class PageMaterial {
         <header>
           <h1>{m.title}</h1>
           <p class="meta">
-            {this.label(SUBJECTS, m.subject)} · {this.label(GRADE_LEVELS, m.grade_level)} · {fileTypeLabel(m.original_name)} · {formatBytes(m.size_bytes)} · by {this.link(`/teachers/${m.author.id}`, m.author.name)}
+            {this.label(SUBJECTS, m.subject)} · {this.label(GRADE_LEVELS, m.grade_level)}{standardsSuffix(m.standards)} · {fileTypeLabel(m.original_name)} · {formatBytes(m.size_bytes)} · by {this.link(`/teachers/${m.author.id}`, m.author.name)}
             {m.visibility === 'public' ? ' · Public' : ' · Private'}
           </p>
           {m.description && <p>{m.description}</p>}

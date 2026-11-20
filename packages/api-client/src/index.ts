@@ -395,6 +395,7 @@ export class ApiClient {
     if (filters.subject) params.set('subject', filters.subject);
     if (filters.grade) params.set('grade', filters.grade);
     if (filters.q) params.set('q', filters.q);
+    if (filters.standard) params.set('standard', filters.standard);
     // `recent` is the server default; only the other order travels.
     if (filters.sort && filters.sort !== 'recent') params.set('sort', filters.sort);
     if (filters.author) params.set('author', String(filters.author));
@@ -419,6 +420,7 @@ export class ApiClient {
     if (filters.subject) params.set('subject', filters.subject);
     if (filters.grade) params.set('grade', filters.grade);
     if (filters.q) params.set('q', filters.q);
+    if (filters.standard) params.set('standard', filters.standard);
     if (filters.sort && filters.sort !== 'recent') params.set('sort', filters.sort);
     if (filters.author) params.set('author', String(filters.author));
     if (filters.page != null && filters.page > 1) params.set('page', String(filters.page));
@@ -442,6 +444,10 @@ export class ApiClient {
     }
     if (input.description) {
       form.append('description', input.description);
+    }
+    // standards[] is how PHP reads an array out of multipart form data.
+    for (const code of input.standards ?? []) {
+      form.append('standards[]', code);
     }
 
     return this.postForm<MaterialView>('/api/materials', form);

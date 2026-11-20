@@ -20,6 +20,7 @@ final class TestCopier
             'description' => $source->description,
             'subject' => $source->subject,
             'grade_level' => $source->grade_level,
+            'standards' => $source->standards,
             'visibility' => Visibility::Private,
             'comments_enabled' => (bool) $source->comments_enabled,
             'copied_from_id' => $source->id,

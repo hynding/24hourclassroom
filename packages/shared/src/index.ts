@@ -79,7 +79,21 @@ export type Subject =
   | 'special-education'
   | 'other';
 
-export type GradeLevel = 'k-2' | '3-5' | '6-8' | '9-12' | 'higher-ed';
+export type GradeLevel =
+  | 'kindergarten'
+  | 'grade-1'
+  | 'grade-2'
+  | 'k-2'
+  | 'grade-3'
+  | 'grade-4'
+  | 'grade-5'
+  | '3-5'
+  | 'grade-6'
+  | 'grade-7'
+  | 'grade-8'
+  | '6-8'
+  | '9-12'
+  | 'higher-ed';
 
 export interface TaxonomyOption<T> {
   value: T;
@@ -101,8 +115,17 @@ export const SUBJECTS: TaxonomyOption<Subject>[] = [
 ];
 
 export const GRADE_LEVELS: TaxonomyOption<GradeLevel>[] = [
+  { value: 'kindergarten', label: 'Kindergarten' },
+  { value: 'grade-1', label: 'Grade 1' },
+  { value: 'grade-2', label: 'Grade 2' },
   { value: 'k-2', label: 'K-2' },
+  { value: 'grade-3', label: 'Grade 3' },
+  { value: 'grade-4', label: 'Grade 4' },
+  { value: 'grade-5', label: 'Grade 5' },
   { value: '3-5', label: '3-5' },
+  { value: 'grade-6', label: 'Grade 6' },
+  { value: 'grade-7', label: 'Grade 7' },
+  { value: 'grade-8', label: 'Grade 8' },
   { value: '6-8', label: '6-8' },
   { value: '9-12', label: '9-12' },
   { value: 'higher-ed', label: 'Higher Ed' },
@@ -193,6 +216,8 @@ export interface TestSummary {
   title: string;
   subject: Subject;
   grade_level: GradeLevel;
+  /** Curriculum standard codes ("3.NF.A.1"); empty when untagged. */
+  standards: string[];
   visibility: Visibility;
   published_at: string | null;
   question_count: number;
@@ -224,6 +249,8 @@ export interface TestInput {
   description?: string | null;
   subject: Subject;
   grade_level: GradeLevel;
+  /** Omit to leave a test's codes unchanged; [] clears them. */
+  standards?: string[];
   questions: QuestionInput[];
 }
 
@@ -323,6 +350,8 @@ export interface AssignResult {
 export type LibrarySort = 'recent' | 'title';
 
 export interface LibraryFilters {
+  /** A standard code or its start ("3.NF"); tests and materials only. */
+  standard?: string;
   subject?: Subject;
   grade?: GradeLevel;
   q?: string;
@@ -347,6 +376,7 @@ export interface MaterialSummary {
   title: string;
   subject: Subject;
   grade_level: GradeLevel;
+  standards: string[];
   visibility: Visibility;
   published_at: string | null;
   /** The client filename, basenamed and truncated to 255 by the server. */
@@ -429,6 +459,7 @@ export interface MaterialUpload {
   description?: string | null;
   subject: Subject;
   grade_level: GradeLevel;
+  standards?: string[];
 }
 
 /** Metadata-only update. The file itself is never replaceable. */
@@ -437,6 +468,7 @@ export interface MaterialUpdate {
   description?: string | null;
   subject: Subject;
   grade_level: GradeLevel;
+  standards?: string[];
 }
 
 /**

@@ -149,6 +149,24 @@ describe('page-library', () => {
     expect(page.root.shadowRoot.textContent).toContain('Worksheet');
   });
 
+  it('sends a standard filter for tests and materials but never for courses, and shows codes on rows', async () => {
+    library.mockResolvedValue(paginated([{ ...test(1, 'Fractions'), standards: ['3.NF.A.1', '3.NF.A.2'] }]));
+    const page = await mount('kind="tests"');
+    await page.waitForChanges();
+    expect(page.root.shadowRoot.textContent).toContain('3.NF.A.1, 3.NF.A.2');
+
+    const cmp = page.rootInstance as PageLibrary;
+    cmp.standard = ' 3.NF ';
+    await cmp.submitSearch();
+    expect(library).toHaveBeenLastCalledWith({ standard: '3.NF' });
+
+    page.root.kind = 'courses';
+    await page.waitForChanges();
+    await page.waitForChanges();
+    expect(coursesLibrary).toHaveBeenLastCalledWith({});
+    expect(page.root.shadowRoot.querySelector('input[placeholder^="e.g. 3.NF"]')).toBeNull();
+  });
+
   it('fetches nothing and renders the empty state for an unknown kind', async () => {
     // kind is a reflected string attribute, so its runtime value is not
     // type-constrained -- an unrecognised segment must not silently fall

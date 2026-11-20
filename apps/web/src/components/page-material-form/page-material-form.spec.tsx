@@ -84,7 +84,7 @@ describe('page-material-form', () => {
     cmp.grade = '6-8';
     await cmp.save();
 
-    expect(uploadMaterial).toHaveBeenCalledWith({ file, title: 'Cell diagram', subject: 'science', grade_level: '6-8' });
+    expect(uploadMaterial).toHaveBeenCalledWith({ file, title: 'Cell diagram', subject: 'science', grade_level: '6-8', standards: [] });
     expect(navigate).toHaveBeenCalledWith('/materials/12');
   });
 
@@ -99,7 +99,7 @@ describe('page-material-form', () => {
     cmp.grade = '6-8';
     await cmp.save();
 
-    expect(uploadMaterial).toHaveBeenCalledWith({ file, subject: 'science', grade_level: '6-8' });
+    expect(uploadMaterial).toHaveBeenCalledWith({ file, subject: 'science', grade_level: '6-8', standards: [] });
   });
 
   it('rejects an oversized file before making any request', async () => {
@@ -234,9 +234,23 @@ describe('page-material-form', () => {
 
     await cmp.save();
 
-    expect(updateMaterial).toHaveBeenCalledWith(7, { title: 'Renamed', description: 'Week 1', subject: 'science', grade_level: '6-8' });
+    expect(updateMaterial).toHaveBeenCalledWith(7, { title: 'Renamed', description: 'Week 1', subject: 'science', grade_level: '6-8', standards: [] });
     expect(uploadMaterial).not.toHaveBeenCalled();
     expect(navigate).toHaveBeenCalledWith('/materials/7');
+  });
+
+  it('sends typed standard codes as a list and shows a server error on one of them', async () => {
+    const page = await mountEdit();
+    await page.waitForChanges();
+    const cmp = page.rootInstance as PageMaterialForm;
+    cmp.standards = '3.nf.a.1, K-ESS2-1';
+
+    await cmp.save();
+
+    expect(updateMaterial).toHaveBeenCalledWith(7, expect.objectContaining({ standards: ['3.NF.A.1', 'K-ESS2-1'] }));
+    cmp.errors = { 'standards.1': ['Use a standard code such as 3.NF.A.1 or K-ESS2-1.'] };
+    await page.waitForChanges();
+    expect(page.root.shadowRoot.textContent).toContain('Use a standard code');
   });
 
   it('sends an emptied description as null rather than an empty string', async () => {
@@ -247,7 +261,7 @@ describe('page-material-form', () => {
 
     await cmp.save();
 
-    expect(updateMaterial).toHaveBeenCalledWith(7, { title: 'Cell diagram', description: null, subject: 'science', grade_level: '6-8' });
+    expect(updateMaterial).toHaveBeenCalledWith(7, { title: 'Cell diagram', description: null, subject: 'science', grade_level: '6-8', standards: [] });
   });
 
   it('bounces a non-author without ever painting the form', async () => {

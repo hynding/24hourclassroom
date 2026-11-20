@@ -31,7 +31,7 @@ describe('page-test-editor', () => {
     cmp.questions = [{ type: 'true_false', prompt: 'Is it?', answer: true, points: 1 }];
     await cmp.save();
 
-    expect(createTest).toHaveBeenCalledWith({ title: 'New one', description: null, subject: 'math', grade_level: 'k-2', questions: [{ type: 'true_false', prompt: 'Is it?', answer: true, points: 1 }] });
+    expect(createTest).toHaveBeenCalledWith({ title: 'New one', description: null, subject: 'math', grade_level: 'k-2', standards: [], questions: [{ type: 'true_false', prompt: 'Is it?', answer: true, points: 1 }] });
     expect(navigate).toHaveBeenCalledWith('/tests/42');
   });
 

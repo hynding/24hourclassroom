@@ -1,6 +1,7 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
 import { AttemptSummary, GRADE_LEVELS, Question, SUBJECTS, TestView } from '@24hc/shared';
+import { standardsSuffix } from '../../services/standards';
 import { authStore } from '../../services/auth-store';
 import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
@@ -170,7 +171,7 @@ export class PageTest {
         <header>
           <h1>{t.title}</h1>
           <p class="meta">
-            {this.label(SUBJECTS, t.subject)} · {this.label(GRADE_LEVELS, t.grade_level)} · {t.question_count} questions · by {t.author.name}
+            {this.label(SUBJECTS, t.subject)} · {this.label(GRADE_LEVELS, t.grade_level)}{standardsSuffix(t.standards)} · {t.question_count} questions · by {t.author.name}
             {t.visibility === 'public' ? ' · Public' : ' · Private'}
           </p>
           {t.description && <p>{t.description}</p>}

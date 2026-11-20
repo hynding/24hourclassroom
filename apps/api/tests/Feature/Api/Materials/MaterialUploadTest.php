@@ -134,7 +134,7 @@ test('the index lists only the callers materials, newest first, 15 to a page', f
         ->assertJsonPath('data.0.title', 'Mine 16');
 
     expect(array_keys($page->json('data.0')))->toBe([
-        'id', 'title', 'subject', 'grade_level', 'visibility', 'published_at',
+        'id', 'title', 'subject', 'grade_level', 'standards', 'visibility', 'published_at',
         'original_name', 'mime_type', 'size_bytes', 'author',
     ]);
 

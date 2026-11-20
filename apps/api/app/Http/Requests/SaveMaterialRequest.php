@@ -7,6 +7,7 @@ use App\Enums\Role;
 use App\Enums\Subject;
 use App\Support\MaterialAccess;
 use App\Support\MaterialQuota;
+use App\Support\Standards;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\Rule;
@@ -37,6 +38,7 @@ class SaveMaterialRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:5000'],
             'subject' => ['required', Rule::enum(Subject::class)],
             'grade_level' => ['required', Rule::enum(GradeLevel::class)],
+            ...Standards::rules(),
         ];
 
         if ($this->route('material')) {

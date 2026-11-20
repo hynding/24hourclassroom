@@ -62,6 +62,7 @@ final class MaterialWriter
                     'description' => $attrs['description'] ?? null,
                     'subject' => $attrs['subject'],
                     'grade_level' => $attrs['grade_level'],
+                    'standards' => $attrs['standards'] ?? null,
                     'visibility' => $attrs['visibility'] ?? 'private',
                     'published_at' => $attrs['published_at'] ?? null,
                     'slug' => $attrs['slug'] ?? null,

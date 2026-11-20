@@ -11,6 +11,7 @@ use App\Services\MaterialDeleter;
 use App\Services\MaterialWriter;
 use App\Support\MaterialAccess;
 use App\Support\MaterialPayload;
+use App\Support\Standards;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -49,7 +50,8 @@ class MaterialController extends Controller
             $request->user(),
             $file,
             $file->getClientOriginalName(),
-            Arr::only($data, ['title', 'description', 'subject', 'grade_level']),
+            Arr::only($data, ['title', 'description', 'subject', 'grade_level'])
+                + ['standards' => Standards::normalize($data['standards'] ?? null)],
         );
 
         return response()->json(MaterialPayload::view($material->fresh(), $request->user()), 201);
@@ -61,7 +63,9 @@ class MaterialController extends Controller
 
         // Arr::only, and `file` is not a rule on the update branch: a posted
         // file part is ignored and the stored bytes are never touched.
-        $material->update(Arr::only($request->validated(), ['title', 'description', 'subject', 'grade_level']));
+        $data = $request->validated();
+        $material->update(Arr::only($data, ['title', 'description', 'subject', 'grade_level'])
+            + (array_key_exists('standards', $data) ? ['standards' => Standards::normalize($data['standards'])] : []));
 
         return response()->json(MaterialPayload::view($material->fresh(), $request->user()));
     }

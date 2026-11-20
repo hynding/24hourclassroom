@@ -15,6 +15,7 @@ class TestSummaryResource extends JsonResource
             'title' => $this->title,
             'subject' => $this->subject,
             'grade_level' => $this->grade_level,
+            'standards' => $this->standards ?? [],
             'visibility' => $this->visibility,
             'published_at' => $this->published_at,
             'question_count' => $this->questions_count,

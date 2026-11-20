@@ -46,7 +46,7 @@ test('both responses are the full MaterialView with a working download_url', fun
         $body = $this->postJson("/api/materials/{$material->id}/{$action}")->assertOk()->json();
 
         expect(array_keys($body))->toBe([
-            'id', 'title', 'subject', 'grade_level', 'visibility', 'published_at',
+            'id', 'title', 'subject', 'grade_level', 'standards', 'visibility', 'published_at',
             'original_name', 'mime_type', 'size_bytes', 'author',
             'description', 'created_at', 'updated_at',
             'is_author', 'shared_with_me', 'download_url', 'progress',
