@@ -21,6 +21,7 @@ use App\Services\MaterialWriter;
 use App\Support\CourseWriter;
 use App\Support\MaterialQuota;
 use App\Support\Slugs;
+use App\Support\Standards;
 use App\Support\TestDraftValidator;
 use App\Support\TestWriter;
 use Carbon\CarbonImmutable;
@@ -188,6 +189,7 @@ abstract class CurriculumSeeder extends Seeder
                     'title' => $c->guideTitle($week, $title),
                     'description' => $c->describe($topics, $data['guide_description'] ?? null, $unit['number'] ?? null),
                     'name' => sprintf('week-%02d-study-guide.md', $week),
+                    'standards' => $this->standards(array_map('strval', $topics)),
                     'body' => $this->read("{$c->dir}/{$data['guide']}"),
                 ];
             }
@@ -200,6 +202,7 @@ abstract class CurriculumSeeder extends Seeder
                     'title' => $deckTitle,
                     'description' => $c->describe($topics, $data['flashcards_description'] ?? null, $unit['number'] ?? null),
                     'name' => sprintf('week-%02d.flashcards.md', $week),
+                    'standards' => $this->standards(array_map('strval', $topics)),
                     'body' => Course::deckMarkdown($deckTitle, (array) $data['flashcards']),
                     'cards' => count((array) $data['flashcards']),
                 ];
@@ -234,6 +237,7 @@ abstract class CurriculumSeeder extends Seeder
                 'title' => $c->unitSummaryTitle($number),
                 'description' => $c->describe($c->unitTopics($number), null, $number),
                 'name' => sprintf('unit-%02d-summary.md', $number),
+                'standards' => $this->standards($c->unitTopics($number)),
                 'body' => $this->read($file),
             ];
         }
@@ -274,9 +278,11 @@ abstract class CurriculumSeeder extends Seeder
         $slugs = [];
         $bodies = [];
         $figures = [];
+        $codes = [];
         foreach (array_values($questions) as $i => $q) {
             $shaped = Course::shapeQuestion((array) $q, $file, $i + 1);
             $slugs[] = $shaped['slug'];
+            $codes[] = $shaped['topic_code'];
             // A picture is a file path relative to the course directory; it
             // becomes a figure id when the test is written. Validate the alt
             // text now with a placeholder id, so a missing one names the item.
@@ -307,7 +313,7 @@ abstract class CurriculumSeeder extends Seeder
             throw new RuntimeException("{$file}{$index}: ".implode(' ', $e->errors()[$key]), previous: $e);
         }
 
-        return ['slug' => $slug, 'week' => $week, 'slugs' => $slugs, 'figures' => $figures] + $validated;
+        return ['slug' => $slug, 'week' => $week, 'slugs' => $slugs, 'figures' => $figures, 'standards' => $this->standards($codes)] + $validated;
     }
 
     /** @param  list<array<string, mixed>>  $materials */
@@ -442,6 +448,9 @@ abstract class CurriculumSeeder extends Seeder
             $test->description = $spec['description'];
             $test->subject = $spec['subject'];
             $test->grade_level = $spec['grade_level'];
+            if ($this->course->topicsAreStandards()) {
+                $test->standards = $spec['standards'];
+            }
             $test->visibility = Visibility::Public;
             $test->published_at ??= now();
             $test->save();
@@ -502,6 +511,22 @@ abstract class CurriculumSeeder extends Seeder
         );
     }
 
+    /**
+     * The standard codes a seeded item carries when the course's topic codes
+     * are standards: unique, in order of first use, capped like a teacher's.
+     *
+     * @param  list<string>  $codes
+     * @return list<string>|null
+     */
+    private function standards(array $codes): ?array
+    {
+        if (! $this->course->topicsAreStandards()) {
+            return null;
+        }
+
+        return Standards::normalize(array_slice(array_values(array_unique($codes)), 0, Standards::MAX));
+    }
+
     /** @var array<string, Figure> */
     private array $figureCache = [];
 
@@ -513,7 +538,7 @@ abstract class CurriculumSeeder extends Seeder
             'description' => $spec['description'],
             'subject' => $this->course->config['subject'],
             'grade_level' => $this->course->config['grade_level'],
-        ];
+        ] + ($this->course->topicsAreStandards() ? ['standards' => $spec['standards'] ?? null] : []);
 
         $material = Material::where('slug', $spec['slug'])->first();
         if ($material) {
