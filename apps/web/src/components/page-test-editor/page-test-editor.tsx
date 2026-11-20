@@ -17,6 +17,8 @@ export class PageTestEditor {
   @State() subject: Subject | '' = '';
   @State() grade: GradeLevel | '' = '';
   @State() standards = '';
+  /** Preview links for the pictures the loaded test already shows, by figure id. */
+  @State() figureUrls: Record<number, string> = {};
   @State() questions: QuestionInput[] = [blankQuestion('multiple_choice')];
   @State() errors: Record<string, string[]> = {};
   @State() message = '';
@@ -53,11 +55,13 @@ export class PageTestEditor {
     this.subject = test.subject;
     this.grade = test.grade_level;
     this.standards = formatStandards(test.standards);
+    this.figureUrls = Object.fromEntries(test.questions.filter((q) => q.figure).map((q) => [q.figure.id, q.figure.url]));
     this.questions = test.questions.map((q) => ({
       id: q.id,
       type: q.type,
       prompt: q.prompt,
       ...(q.stimulus ? { stimulus: q.stimulus } : {}),
+      ...(q.figure ? { figure_id: q.figure.id, figure_alt: q.figure.alt } : {}),
       ...(q.options ? { options: q.options } : {}),
       ...(this.rationales(q)),
       answer: q.answer,
@@ -193,7 +197,9 @@ export class PageTestEditor {
                 question={q}
                 index={i}
                 previousStimulus={this.questions[i - 1]?.stimulus}
-                error={this.errors[`questions.${i}`]?.[0]}
+                error={this.errors[`questions.${i}`]?.[0] ?? this.errors[`questions.${i}.figure_alt`]?.[0] ?? this.errors[`questions.${i}.figure_id`]?.[0]}
+                figureUrl={q.figure_id ? this.figureUrls[q.figure_id] : undefined}
+                onFigureUploaded={(e: CustomEvent<{ id: number; url: string }>) => (this.figureUrls = { ...this.figureUrls, [e.detail.id]: e.detail.url })}
                 onQuestionChange={(e: CustomEvent<QuestionInput>) => this.update(i, e.detail)}
                 onQuestionRemove={() => this.remove(i)}
                 onQuestionMove={(e: CustomEvent<-1 | 1>) => this.move(i, e.detail)}

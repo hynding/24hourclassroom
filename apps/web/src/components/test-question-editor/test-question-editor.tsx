@@ -1,6 +1,8 @@
-import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Prop, State } from '@stencil/core';
 import { BLANK_MARKER, QUESTION_TYPES, QuestionInput, QuestionType } from '@24hc/shared';
 import { blankQuestion } from '../../services/question-shapes';
+import { testsStore } from '../../services/tests-store';
+import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { assertNever } from '../../services/assert-never';
 
 const MAX_ACCEPTED_ANSWERS = 10;
@@ -12,10 +14,69 @@ export class TestQuestionEditor {
   @Prop() error?: string;
   /** The previous question's stimulus, offered as a one-click copy so a set shares it verbatim. */
   @Prop() previousStimulus?: string | null;
+  /** Preview link for the question's current picture, when the page has one. */
+  @Prop() figureUrl?: string;
+
+  @State() uploading = false;
+  @State() figureError = '';
 
   @Event() questionChange: EventEmitter<QuestionInput>;
   @Event() questionRemove: EventEmitter<void>;
   @Event() questionMove: EventEmitter<-1 | 1>;
+  /** A new picture's id and preview link, so the page can show it again after re-render. */
+  @Event() figureUploaded: EventEmitter<{ id: number; url: string }>;
+
+  async uploadFigure(file: File | undefined) {
+    if (!file) {
+      return;
+    }
+    this.uploading = true;
+    this.figureError = '';
+    try {
+      const figure = await testsStore.uploadFigure(file);
+      this.figureUploaded.emit(figure);
+      this.emit({ ...this.question, figure_id: figure.id, figure_alt: this.question.figure_alt ?? '' });
+    } catch (e) {
+      if (recoverFromExpiredSession(e)) {
+        return;
+      }
+      const errors = (e as { errors?: Record<string, string[]> }).errors;
+      this.figureError = errors?.file?.[0] ?? 'That picture could not be uploaded.';
+    } finally {
+      this.uploading = false;
+    }
+  }
+
+  removeFigure() {
+    const { figure_id, figure_alt, ...rest } = this.question;
+    this.emit(rest);
+  }
+
+  private renderFigureField() {
+    const q = this.question;
+    return (
+      <fieldset class="figure">
+        <legend>Picture (optional)</legend>
+        {q.figure_id ? (
+          [
+            this.figureUrl && <img class="figure-preview" src={this.figureUrl} alt="" />,
+            <label>
+              Describe the picture for screen readers
+              <input type="text" required maxLength={500} value={q.figure_alt ?? ''} onInput={(e) => this.set('figure_alt', (e.target as HTMLInputElement).value)} />
+            </label>,
+            <button type="button" class="btn" onClick={() => this.removeFigure()}>Remove picture</button>,
+          ]
+        ) : (
+          <label>
+            Add a PNG or JPEG
+            <input type="file" accept="image/png,image/jpeg" disabled={this.uploading} onChange={(e) => this.uploadFigure((e.target as HTMLInputElement).files?.[0])} />
+          </label>
+        )}
+        {this.uploading && <p class="muted">Uploading…</p>}
+        {this.figureError && <p class="error">{this.figureError}</p>}
+      </fieldset>
+    );
+  }
 
   /**
    * Keeps a local copy in sync in addition to emitting: the parent is the
@@ -263,6 +324,7 @@ export class TestQuestionEditor {
           Prompt
           <textarea value={q.prompt} onInput={(e) => this.set('prompt', (e.target as HTMLTextAreaElement).value)}></textarea>
         </label>
+        {this.renderFigureField()}
         {this.renderAnswer()}
         <label>
           Points

@@ -13,7 +13,7 @@ class Question extends Model
     /** @use HasFactory<\Database\Factories\QuestionFactory> */
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['position', 'type', 'prompt', 'stimulus', 'options', 'option_explanations', 'answer', 'points', 'partial_credit', 'auto_grade', 'explanation', 'slug'];
+    protected $fillable = ['position', 'type', 'prompt', 'stimulus', 'figure_id', 'figure_alt', 'options', 'option_explanations', 'answer', 'points', 'partial_credit', 'auto_grade', 'explanation', 'slug'];
 
     protected function casts(): array
     {
@@ -32,5 +32,10 @@ class Question extends Model
     public function test(): BelongsTo
     {
         return $this->belongsTo(Test::class);
+    }
+
+    public function figure(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Figure::class);
     }
 }

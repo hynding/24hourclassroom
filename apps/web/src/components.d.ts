@@ -269,6 +269,10 @@ export namespace Components {
     interface TestQuestionEditor {
         "error"?: string;
         /**
+          * Preview link for the question's current picture, when the page has one.
+         */
+        "figureUrl"?: string;
+        /**
           * @default 0
          */
         "index": number;
@@ -634,6 +638,7 @@ declare global {
         "questionChange": QuestionInput;
         "questionRemove": void;
         "questionMove": -1 | 1;
+        "figureUploaded": { id: number; url: string };
     }
     interface HTMLTestQuestionEditorElement extends Components.TestQuestionEditor, HTMLStencilElement {
         addEventListener<K extends keyof HTMLTestQuestionEditorElementEventMap>(type: K, listener: (this: HTMLTestQuestionEditorElement, ev: TestQuestionEditorCustomEvent<HTMLTestQuestionEditorElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -958,9 +963,17 @@ declare namespace LocalJSX {
     interface TestQuestionEditor {
         "error"?: string;
         /**
+          * Preview link for the question's current picture, when the page has one.
+         */
+        "figureUrl"?: string;
+        /**
           * @default 0
          */
         "index"?: number;
+        /**
+          * A new picture's id and preview link, so the page can show it again after re-render.
+         */
+        "onFigureUploaded"?: (event: TestQuestionEditorCustomEvent<{ id: number; url: string }>) => void;
         "onQuestionChange"?: (event: TestQuestionEditorCustomEvent<QuestionInput>) => void;
         "onQuestionMove"?: (event: TestQuestionEditorCustomEvent<-1 | 1>) => void;
         "onQuestionRemove"?: (event: TestQuestionEditorCustomEvent<void>) => void;
@@ -1047,6 +1060,7 @@ declare namespace LocalJSX {
         "index": number;
         "error": string;
         "previousStimulus": string | null;
+        "figureUrl": string;
     }
 
     interface IntrinsicElements {

@@ -19,6 +19,8 @@ use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\CourseLibraryController;
 use App\Http\Controllers\Api\CoursePracticeController;
 use App\Http\Controllers\Api\CoursePublishController;
+use App\Http\Controllers\Api\FigureController;
+use App\Http\Controllers\Api\FigureImageController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\GenerationCancelController;
 use App\Http\Controllers\Api\GenerationController;
@@ -143,6 +145,8 @@ Route::middleware(['auth:sanctum', 'session-only', 'verified', 'active', 'thrott
     Route::post('materials/{material}/shares', [MaterialShareController::class, 'store']);
     Route::delete('materials/{material}/shares/{share}', [MaterialShareController::class, 'destroy']);
     // The viewer's own "done" mark (StudyProgress): never seen by anyone else.
+    Route::post('figures', [FigureController::class, 'store']);
+
     Route::put('materials/{material}/done', [MaterialDoneController::class, 'store']);
     Route::delete('materials/{material}/done', [MaterialDoneController::class, 'destroy']);
     Route::put('materials/{material}/cards', [MaterialDoneController::class, 'cards']);
@@ -247,3 +251,10 @@ Route::middleware('throttle:analytics')->post('analytics/view', PageViewControll
 Route::middleware(['signed:relative', 'throttle:downloads'])
     ->get('materials/{material}/file', MaterialFileController::class)
     ->name('materials.file');
+
+// Question pictures: signed like downloads, but on their own generous
+// limiter, because a class behind one school address loads a quiz's
+// pictures at the same moment.
+Route::middleware(['signed:relative', 'throttle:figures'])
+    ->get('figures/{figure}/image', FigureImageController::class)
+    ->name('figures.image');

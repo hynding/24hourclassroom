@@ -29,7 +29,7 @@ final class TestCopier
             // Not `slug`: a copy is a different test, and the seeder's
             // re-run must find its own rows, never a teacher's copy.
             $copy->questions()->create($q->only([
-                'position', 'type', 'prompt', 'stimulus', 'options', 'option_explanations',
+                'position', 'type', 'prompt', 'stimulus', 'figure_id', 'figure_alt', 'options', 'option_explanations',
                 'answer', 'points', 'partial_credit', 'auto_grade', 'explanation',
             ]));
         }

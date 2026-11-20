@@ -453,6 +453,13 @@ export class ApiClient {
     return this.postForm<MaterialView>('/api/materials', form);
   }
 
+  /** A PNG or JPEG for a question; attach it by `id` in the test body. */
+  async uploadFigure(file: File): Promise<{ id: number; url: string }> {
+    const form = new FormData();
+    form.append('file', file);
+    return this.postForm<{ id: number; url: string }>('/api/figures', form);
+  }
+
   async getMaterial(id: number): Promise<MaterialView> {
     return this.get<MaterialView>(`/api/materials/${id}`);
   }

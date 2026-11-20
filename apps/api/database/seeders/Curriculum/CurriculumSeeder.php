@@ -10,11 +10,13 @@ use App\Enums\Visibility;
 use App\Models\Assignment;
 use App\Models\Connection;
 use App\Models\Course as CourseRow;
+use App\Models\Figure;
 use App\Models\Material;
 use App\Models\SiteSetting;
 use App\Models\Test;
 use App\Models\UrlSlug;
 use App\Models\User;
+use App\Services\FigureWriter;
 use App\Services\MaterialWriter;
 use App\Support\CourseWriter;
 use App\Support\MaterialQuota;
@@ -271,9 +273,18 @@ abstract class CurriculumSeeder extends Seeder
     {
         $slugs = [];
         $bodies = [];
+        $figures = [];
         foreach (array_values($questions) as $i => $q) {
             $shaped = Course::shapeQuestion((array) $q, $file, $i + 1);
             $slugs[] = $shaped['slug'];
+            // A picture is a file path relative to the course directory; it
+            // becomes a figure id when the test is written. Validate the alt
+            // text now with a placeholder id, so a missing one names the item.
+            $figures[] = isset($shaped['question']['figure']) ? (string) $shaped['question']['figure'] : null;
+            unset($shaped['question']['figure']);
+            if ($figures[$i] !== null) {
+                $shaped['question']['figure_id'] = 0;
+            }
             $bodies[] = $shaped['question'];
             if (strcasecmp($shaped['source'], 'general knowledge') === 0) {
                 $this->counts['general_knowledge']++;
@@ -296,7 +307,7 @@ abstract class CurriculumSeeder extends Seeder
             throw new RuntimeException("{$file}{$index}: ".implode(' ', $e->errors()[$key]), previous: $e);
         }
 
-        return ['slug' => $slug, 'week' => $week, 'slugs' => $slugs] + $validated;
+        return ['slug' => $slug, 'week' => $week, 'slugs' => $slugs, 'figures' => $figures] + $validated;
     }
 
     /** @param  list<array<string, mixed>>  $materials */
@@ -448,6 +459,10 @@ abstract class CurriculumSeeder extends Seeder
             $existing = $test->questions()->whereNotNull('slug')->pluck('id', 'slug');
             $questions = [];
             foreach ($spec['questions'] as $i => $q) {
+                unset($q['figure_id']);
+                if (($path = $spec['figures'][$i] ?? null) !== null) {
+                    $q['figure_id'] = $this->figure($path)->id;
+                }
                 $id = $existing[$spec['slugs'][$i]] ?? null;
                 $questions[] = $id ? ['id' => $id] + $q : $q;
             }
@@ -471,6 +486,24 @@ abstract class CurriculumSeeder extends Seeder
             $this->counts['questions'] += count($spec['questions']);
         });
     }
+
+    /**
+     * The figure for a picture file in the course directory, written once
+     * per file per course and updated in place on a re-run (slug
+     * `<course slug>-fig-<path>`), owned by the course's teacher.
+     */
+    private function figure(string $path): Figure
+    {
+        $file = Course::figureFile($this->course->dir, $path);
+        $slug = Str::limit($this->course->slug.'-fig-'.Str::slug(str_replace('/', '-', $path)), 160, '');
+
+        return $this->figureCache[$slug] ??= FigureWriter::seed(
+            $this->teacher, $slug, (string) file_get_contents($file), Course::figureMime($path),
+        );
+    }
+
+    /** @var array<string, Figure> */
+    private array $figureCache = [];
 
     /** @param  array<string, mixed>  $spec */
     private function material(array $spec): void

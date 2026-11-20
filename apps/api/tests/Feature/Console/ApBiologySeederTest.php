@@ -118,6 +118,20 @@ test('re-running updates in place: same ids, same paths, no duplicates, answers 
     $this->getJson("/api/attempts/{$attemptId}")->assertOk()->assertJsonPath('score', '1.00');
 });
 
+test('a seeded question picture becomes one figure, owned by the teacher and kept in place on a re-run', function () {
+    seedFixtureCourse();
+    $q = Test::where('slug', 'apbio-w01-quiz')->sole()->questions()->first();
+    $figure = \App\Models\Figure::findOrFail($q->figure_id);
+    expect($figure->user_id)->toBe(User::where('email', 'apbio@example.com')->sole()->id)
+        ->and($figure->mime_type)->toBe('image/svg+xml')
+        ->and($q->figure_alt)->toStartWith('Two bars comparing');
+
+    seedFixtureCourse();
+
+    expect(\App\Models\Figure::count())->toBe(1)
+        ->and(Test::where('slug', 'apbio-w01-quiz')->sole()->questions()->first()->figure_id)->toBe($figure->id);
+});
+
 test('a bad item fails loudly with its file and index before anything is written', function () {
     $dir = sys_get_temp_dir().'/apbio-bad-'.uniqid();
     mkdir("{$dir}/unit-01-x", 0777, true);

@@ -4,6 +4,7 @@ namespace Database\Seeders\Curriculum;
 
 use App\Enums\QuestionType;
 use App\Support\QuestionRules;
+use App\Support\SafeSvg;
 use App\Support\TestDraftValidator;
 use Illuminate\Validation\ValidationException;
 use RuntimeException;
@@ -242,6 +243,14 @@ final class ContentLint
                 }
                 $prompts[$key] = $at;
 
+                if (array_key_exists('figure', $q)) {
+                    $errors = [...$errors, ...$this->figure($where, (string) $q['figure'], (string) ($q['figure_alt'] ?? ''))];
+                    unset($q['figure'], $q['figure_alt']);
+                } elseif (array_key_exists('figure_alt', $q)) {
+                    $errors[] = "{$where}: figure_alt without a figure";
+                    unset($q['figure_alt']);
+                }
+
                 if ($shape = QuestionRules::shapeError($q)) {
                     $errors[] = "{$where}: {$shape}";
 
@@ -298,6 +307,36 @@ final class ContentLint
                     $errors[] = $this->where($file).": {$field}: ".implode(' ', $messages);
                 }
             }
+        }
+
+        return $errors;
+    }
+
+    /**
+     * A question picture: a safe file inside the course and alt text a
+     * screen reader can use instead (15+ characters, and not "image of").
+     *
+     * @return list<string>
+     */
+    private function figure(string $where, string $path, string $alt): array
+    {
+        $errors = [];
+        try {
+            $file = Course::figureFile($this->course->dir, $path);
+            $mime = Course::figureMime($path);
+            if ($mime === 'image/svg+xml' && ($why = SafeSvg::problem((string) file_get_contents($file))) !== null) {
+                $errors[] = "{$where}: figure {$path} {$why}";
+            }
+        } catch (RuntimeException $e) {
+            $errors[] = "{$where}: ".$e->getMessage();
+        }
+        $alt = trim($alt);
+        if (mb_strlen($alt) < 15) {
+            $errors[] = "{$where}: figure_alt must describe the picture (15+ characters)";
+        } elseif (preg_match('/^(an? )?(image|picture|figure|diagram) of\b/i', $alt)) {
+            $errors[] = "{$where}: figure_alt should describe the picture, not start with \"image of\"";
+        } elseif (mb_strlen($alt) > QuestionRules::FIGURE_ALT_MAX) {
+            $errors[] = "{$where}: figure_alt is over ".QuestionRules::FIGURE_ALT_MAX.' characters';
         }
 
         return $errors;

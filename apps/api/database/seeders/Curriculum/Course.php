@@ -393,6 +393,33 @@ final class Course
         return $meta + ['question' => $q];
     }
 
+    /**
+     * A question picture's file, which must sit under the course directory
+     * (no `..`, no absolute path).
+     */
+    public static function figureFile(string $dir, string $path): string
+    {
+        if ($path === '' || str_starts_with($path, '/') || str_contains($path, '..') || ! preg_match('/^[a-z0-9\/._-]+$/', $path)) {
+            throw new RuntimeException("figure path {$path} must be a lowercase relative path inside the course");
+        }
+        $file = "{$dir}/{$path}";
+        if (! is_file($file)) {
+            throw new RuntimeException("figure {$path} is missing");
+        }
+
+        return $file;
+    }
+
+    public static function figureMime(string $path): string
+    {
+        return match (strtolower(pathinfo($path, PATHINFO_EXTENSION))) {
+            'svg' => 'image/svg+xml',
+            'png' => 'image/png',
+            'jpg', 'jpeg' => 'image/jpeg',
+            default => throw new RuntimeException("figure {$path} must be .svg, .png or .jpg"),
+        };
+    }
+
     /** The deck as the SPA's flashcard reader expects it. @param array<int, array<string, mixed>> $cards */
     public static function deckMarkdown(string $title, array $cards): string
     {
