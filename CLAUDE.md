@@ -619,6 +619,34 @@ any small `.md`/`.txt` in-app through `rich-text`, a vnode-only markdown subset
 with no HTML and no `innerHTML`. `MaterialWriter` is the one path that puts a
 file on the materials disk, for uploads and the seeder alike.
 
+## Seeded elementary courses (Grade 3 Math)
+
+`Grade3MathSeeder` (`course:seed-grade-3-math`, slug `g3math`, site slug
+`/courses/grade-3-math`, demo accounts `g3math@example.com` /
+`g3math-student@example.com`, grade level `grade-3`) runs on the same
+Curriculum classes, switched to elementary sizes by three `course.yaml`
+keys that every course may use:
+
+- `labels:` its own words for generated titles and descriptions (`topics`
+  "Standards", `unit_exam` "Check" (so "Unit 4 Check"), `practice_exam` "End-of-Year
+  Check", `prep_guide` "Year Review Guide", `review_section`), read by
+  `Course::label()`.
+- `lint:` the content sizes `ContentLint` asks for (`cards`, `quiz_items`,
+  `type_mix`, `spiral_share`, `stimulus_set`, `unit_exam_items`,
+  `unit_exam_needs`, `unit_exam_stimulus_sets`, `unit_exam_set_size`,
+  `guide_min_words`, `figures_per_test`); each defaults to the AP value, and
+  `figures_per_test` (pictures per quiz and unit check) defaults to off.
+- `topics_are_standards: true`: topic codes are curriculum standard codes
+  (here CCSS Grade 3, titles paraphrased, never the standards' text), so the
+  seeder tags every test (codes of its items) and material with them.
+
+The course is **adapted** from IM K–5 Math (first edition, © 2021, CC BY 4.0),
+following its eight Grade 3 units, rewritten with original examples, items and
+SVG pictures (markers `Illustrative Mathematics`, `CC BY 4.0`). Never use IM
+v.360 (2024), which is CC BY-NC. Guides are written for 8-year-olds and the
+grown-ups helping them. Quizzes are 10–15 items with at least two pictures
+and no long answers; unit checks are 15–25 items.
+
 ## Seeded AP Literature and AP English Language courses
 
 `php artisan db:seed --class=ApLiteratureSeeder` (also called from
