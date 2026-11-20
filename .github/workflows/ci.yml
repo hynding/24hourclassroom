@@ -77,16 +77,35 @@ jobs:
     env:
       PHP_BIN: ${{ vars.PHP_BIN || 'php' }}
     steps:
+      # Runs for several pushes can finish their tests out of order, and
+      # `concurrency` only serializes the deploys. Deploy only the commit that
+      # is still the branch's head, so an older run never overwrites a newer one.
+      - name: Skip unless this is still the branch head
+        id: latest
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          head=$(gh api "repos/${{ github.repository }}/commits/${{ github.ref_name }}" --jq .sha)
+          if [ "$head" = "${{ github.sha }}" ]; then
+            echo "current=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "current=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Skipping deploy: ${{ github.ref_name }} is now at $head, newer than ${{ github.sha }}; that run deploys it."
+          fi
       - uses: actions/checkout@v4
+        if: steps.latest.outputs.current == 'true'
       - uses: shivammathur/setup-php@v2
+        if: steps.latest.outputs.current == 'true'
         with:
           php-version: '8.3'
           extensions: pdo_mysql, mbstring, bcmath
       - uses: actions/setup-node@v4
+        if: steps.latest.outputs.current == 'true'
         with:
           node-version: 22
 
       - name: Build Laravel (vendor + Vite assets)
+        if: steps.latest.outputs.current == 'true'
         working-directory: apps/api
         run: |
           composer install --no-dev --optimize-autoloader --no-interaction
@@ -94,6 +113,7 @@ jobs:
           npm run build
 
       - name: Build Stencil app
+        if: steps.latest.outputs.current == 'true'
         env:
           API_BASE_URL: ${{ vars.API_BASE_URL }}
         run: |
@@ -101,6 +121,7 @@ jobs:
           npm run build
 
       - name: Set up SSH
+        if: steps.latest.outputs.current == 'true'
         env:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
@@ -112,6 +133,7 @@ jobs:
           echo "SSH_TARGET=$DEPLOY_USER@$DEPLOY_HOST" >> "$GITHUB_ENV"
 
       - name: Deploy Laravel
+        if: steps.latest.outputs.current == 'true'
         env:
           API_PATH: ${{ secrets.API_PATH }}
         run: |
@@ -124,6 +146,7 @@ jobs:
             apps/api/ "$SSH_TARGET:$API_PATH/"
 
       - name: Write .env and run artisan
+        if: steps.latest.outputs.current == 'true'
         env:
           API_PATH: ${{ secrets.API_PATH }}
           ENV_FILE: ${{ secrets.ENV_FILE }}
@@ -148,6 +171,7 @@ jobs:
           "
 
       - name: Deploy Stencil app
+        if: steps.latest.outputs.current == 'true'
         env:
           WEB_PATH: ${{ secrets.WEB_PATH }}
         run: |
