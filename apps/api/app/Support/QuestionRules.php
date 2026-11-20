@@ -18,6 +18,9 @@ final class QuestionRules
 
     public const OPTION_MAX = 500;
 
+    /** A question picture's alt text: what a screen reader says instead. */
+    public const FIGURE_ALT_MAX = 500;
+
     public const OPTION_EXPLANATION_MAX = 600;
 
     public const EXPLANATION_MAX = 5000;
@@ -47,6 +50,8 @@ final class QuestionRules
             'questions.*.type' => ['required', Rule::enum(QuestionType::class)],
             'questions.*.prompt' => ['required', 'string', 'max:'.self::PROMPT_MAX],
             'questions.*.stimulus' => ['nullable', 'string', 'max:'.self::STIMULUS_MAX],
+            'questions.*.figure_id' => ['nullable', 'integer'],
+            'questions.*.figure_alt' => ['nullable', 'required_with:questions.*.figure_id', 'string', 'max:'.self::FIGURE_ALT_MAX],
             'questions.*.options' => ['nullable', 'array', 'min:2', 'max:8'],
             'questions.*.options.*' => ['string', 'max:'.self::OPTION_MAX],
             'questions.*.option_explanations' => ['nullable', 'array', 'max:8'],

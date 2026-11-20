@@ -1,6 +1,7 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
 import { PracticeResult, PracticeTest, Question } from '@24hc/shared';
+import { renderFigure } from '../../services/question-figure';
 import { coursesStore } from '../../services/courses-store';
 import { authStore } from '../../services/auth-store';
 import { adoptCanonicalPath, navigate } from '../../services/navigate';
@@ -178,6 +179,7 @@ export class PageCoursePractice {
       <li class={this.status(q)}>
         {showsStimulus(questions, index) && <div class="stimulus"><rich-text text={q.stimulus}></rich-text></div>}
         <div class="prompt"><span class="num">{index + 1}.</span> <rich-text text={q.prompt}></rich-text> <span class="meta">({q.points} pt{q.points === 1 ? '' : 's'})</span></div>
+        {renderFigure(q.figure)}
         {!finished && <QuestionInput question={q} value={this.responses[q.id]} order={optionOrder(q, this.seed)} onChange={(value) => this.setResponse(q.id, value)} />}
         {!finished && (
           <button type="button" class="btn reveal" aria-expanded={shown ? 'true' : 'false'} aria-controls={`key-${q.id}`} onClick={() => this.toggleReveal(q.id)}>

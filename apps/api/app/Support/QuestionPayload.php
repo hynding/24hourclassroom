@@ -15,6 +15,7 @@ final class QuestionPayload
             'type' => $q->type,
             'prompt' => $q->prompt,
             'stimulus' => $q->stimulus,
+            'figure' => FigurePayload::for($q),
             'options' => $q->options,
             'points' => $q->points,
             'partial_credit' => $q->partial_credit,

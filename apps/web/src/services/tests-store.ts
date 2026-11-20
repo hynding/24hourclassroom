@@ -34,6 +34,7 @@ export class TestsStore {
   gradingQueue(page?: number) { return this.client.gradingQueue(page); }
   gradeAnswer(attemptId: number, answerId: number, awarded: number) { return this.client.gradeAnswer(attemptId, answerId, awarded); }
   library(filters: LibraryFilters = {}) { return this.client.library(filters); }
+  uploadFigure(file: File) { return this.client.uploadFigure(file); }
 }
 
 export const testsStore = new TestsStore(apiClient);

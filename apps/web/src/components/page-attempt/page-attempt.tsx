@@ -1,6 +1,7 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
 import { Attempt, AttemptQuestion, hasRole, SUPPORTER_ROLES } from '@24hc/shared';
+import { renderFigure } from '../../services/question-figure';
 import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
 import { authStore } from '../../services/auth-store';
@@ -237,6 +238,7 @@ export class PageAttempt {
       <li class={status}>
         {this.stimulus(questions, index)}
         <div class="prompt"><span class="num">{index + 1}.</span> <rich-text text={q.prompt}></rich-text></div>
+        {renderFigure(q.figure)}
         {explained ? this.renderExplainedOptions(q, answer) : this.renderAnswerLines(q, answer)}
         <p class="meta">{q.awarded === null || q.awarded === undefined ? 'Awaiting grading' : `${q.awarded} / ${points}`}</p>
         {q.explanation && <div class="explanation"><rich-text text={q.explanation}></rich-text></div>}
@@ -278,6 +280,7 @@ export class PageAttempt {
             <li>
               {this.stimulus(a.questions, i)}
               <div class="prompt"><span class="num">{i + 1}.</span> <rich-text text={q.prompt}></rich-text> <span class="meta">({q.points} pt{q.points === 1 ? '' : 's'})</span></div>
+              {renderFigure(q.figure)}
               {this.renderInput(q)}
             </li>
           ))}

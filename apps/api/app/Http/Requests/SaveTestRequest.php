@@ -59,8 +59,24 @@ class SaveTestRequest extends FormRequest
                     if ($error = QuestionRules::shapeError($q)) {
                         $validator->errors()->add("questions.{$i}", $error);
                     }
+                    if (filled($q['figure_id'] ?? null) && ! in_array((int) $q['figure_id'], $this->allowedFigures(), true)) {
+                        $validator->errors()->add("questions.{$i}.figure_id", 'That picture is not one of yours.');
+                    }
                 }
             },
         ];
+    }
+
+    /** @var list<int>|null */
+    private ?array $figures = null;
+
+    /** @return list<int> */
+    private function allowedFigures(): array
+    {
+        $test = $this->route('test');
+
+        return $this->figures ??= $test instanceof \App\Models\Test
+            ? \App\Support\TestWriter::allowedFigures($test)
+            : \App\Models\Figure::where('user_id', $this->user()->id)->pluck('id')->map(fn ($id) => (int) $id)->all();
     }
 }

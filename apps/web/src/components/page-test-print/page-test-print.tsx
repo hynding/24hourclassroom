@@ -1,6 +1,7 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
 import { GRADE_LEVELS, Question, SUBJECTS, TestView } from '@24hc/shared';
+import { renderFigure } from '../../services/question-figure';
 import { testsStore } from '../../services/tests-store';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
 import { assertNever } from '../../services/assert-never';
@@ -85,6 +86,7 @@ export class PageTestPrint {
             <li>
               {showsStimulus(t.questions, i) && <div class="stimulus"><rich-text text={q.stimulus}></rich-text></div>}
               <div class="prompt"><rich-text text={q.prompt}></rich-text> <span class="meta">({q.points} pt{q.points === 1 ? '' : 's'})</span></div>
+              {renderFigure(q.figure)}
               {q.options && (
                 <ol class="options">{q.options.map((opt) => <li>{opt}</li>)}</ol>
               )}

@@ -207,6 +207,23 @@ Tests and materials carry optional curriculum standard codes (`standards`,
 the standards' text); `standard=` on `/api/library` and
 `/api/library/materials` matches a code or its start at a dot or dash.
 
+## Question pictures
+
+A question may show one picture (`questions.figure_id` → `figures`, plus its
+own required `figure_alt`). Teachers upload PNG/JPEG (`POST /api/figures`,
+`App\Services\FigureWriter`, `config/figures.php`); seeded courses add SVG,
+PNG or JPEG files from their data directory through `figure:` and
+`figure_alt:` on an item, linted by `App\Support\SafeSvg` (no script,
+event handler, external link or `url()`). A question may point only at its
+author's own figures or one the test already shows (a copy keeps its
+source's); `TestWriter` drops anything else. `QuestionPayload` sends
+`figure: {id, url, alt}`, where `url` is a relative-signed
+`figures/{figure}/image` link that lasts to the end of the next 6-hour
+window, so payloads in one window share a URL and browsers cache it. The
+stream has its own generous `figures` limiter (a class shares an IP) and a
+sandboxing CSP. Pictures sit on `--color-figure-surface`, light in every
+palette, because they are drawn dark on light.
+
 ## Courses
 
 A course (`courses` + `course_items`) is a teacher's ordered list of their

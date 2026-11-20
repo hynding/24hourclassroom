@@ -61,6 +61,8 @@ class AppServiceProvider extends ServiceProvider
         // resolves the user and a throttle:60,1 download would draw on the
         // caller's single 60/min budget -- the CLAUDE.md gotcha. Downloads get
         // their own bucket. At 30/min per person, a 429 is a scripted client.
+        RateLimiter::for('figures', fn (Request $request) => Limit::perMinute(3000)->by($request->ip()));
+
         RateLimiter::for('downloads', fn (Request $request) => Limit::perMinute(30)
             ->by($request->user()?->id ?: $request->ip()));
 

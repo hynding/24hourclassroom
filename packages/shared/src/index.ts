@@ -187,6 +187,8 @@ export interface Question {
   type: QuestionType;
   prompt: string;
   stimulus: string | null;
+  /** A picture the question shows; `url` is a signed link, valid for hours. */
+  figure?: QuestionFigure | null;
   options: string[] | null;
   points: number;
   partial_credit: boolean;
@@ -197,11 +199,21 @@ export interface Question {
   option_explanations?: (string | null)[] | null;
 }
 
+export interface QuestionFigure {
+  id: number;
+  url: string;
+  /** What a screen reader says in the picture's place. */
+  alt: string;
+}
+
 export interface QuestionInput {
   id?: number;
   type: QuestionType;
   prompt: string;
   stimulus?: string | null;
+  /** One of the author's uploaded pictures, or one the test already shows. */
+  figure_id?: number | null;
+  figure_alt?: string | null;
   options?: string[];
   option_explanations?: (string | null)[] | null;
   answer: unknown;
