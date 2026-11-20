@@ -1,0 +1,147 @@
+# The Grade 5 Math course map. Week files live under unit-NN-<slug>/week-NN.yaml.
+# Titles and slugs are composed by Database\Seeders\Curriculum\Course from the
+# numbers here, so nothing in a week file repeats the naming convention.
+title: Grade 5 Math
+prefix: Grade 5 Math
+slug: g5math
+# The course's site-wide address, /courses/grade-5-math (App\Support\Slugs).
+site_slug: grade-5-math
+description: >
+  A full school year of fifth-grade math, one week at a time: a short study
+  guide written for students and the grown-ups who help them, a flashcard deck
+  and a quiz with pictures every week, a summary and a unit check at the end of
+  each of the eight units (volume; fractions as quotients and fraction
+  multiplication; multiplying and dividing fractions; multi-digit multiplication
+  and division; decimals to thousandths and decimal operations; more fraction and
+  decimal operations; the coordinate plane and the hierarchy of shapes; and
+  putting it all together), and a
+  year review guide with an end-of-year check. Every test and material is
+  tagged with the Common Core State Standards for Grade 5 it teaches. Adapted
+  from IM K–5 Math by Illustrative Mathematics (CC BY 4.0), rewritten in our
+  own words with original examples, pictures, questions and cards. Free to
+  copy, adapt and share under CC BY 4.0, crediting 24 Hour Classroom.
+teacher: { name: "Grade 5 Math Teacher", email: g5math@example.com }
+student: { name: "Grade 5 Math Student", email: g5math-student@example.com }
+# Monday of week 1. Null means no due dates: the whole course is open at once.
+start_date: 2026-08-31
+subject: math
+grade_level: grade-5
+# Topic codes are Common Core State Standards for Grade 5, so the seeder tags
+# every test and material with the codes it teaches (App\Support\Standards).
+topics_are_standards: true
+labels:
+  topics: Standards
+  unit_exam: Check
+  practice_exam: End-of-Year Check
+  prep_guide: Year Review Guide
+  review_section: Year review
+# Elementary sizes: shorter guides, decks and quizzes, pictures in every test,
+# no long essays (see Curriculum\ContentLint).
+lint:
+  cards: [15, 25]
+  quiz_items: [12, 16]
+  type_mix: { multiple_choice: 5, numeric: 2, fill_blank: 1, true_false: 1, multi_select: 1, short_answer: 1 }
+  spiral_share: 0.2
+  stimulus_set: 2
+  unit_exam_items: [18, 25]
+  unit_exam_needs: [short_answer]
+  unit_exam_stimulus_sets: 1
+  unit_exam_set_size: 2
+  guide_min_words: 450
+  figures_per_test: 2
+review:
+  prep_guide_week: 32
+  practice_exam_week: 33
+  prep_guide_description: A look back at the whole year, one unit at a time, with the facts and strategies to know, how the end-of-year check is laid out, and a two-week practice plan for students and families.
+# Every guide and summary must end with all of these (the content lint).
+attribution_markers: ["Illustrative Mathematics", "CC BY 4.0"]
+attribution: |
+  Adapted from IM K–5 Math by Illustrative Mathematics (© 2021, licensed under
+  CC BY 4.0, https://creativecommons.org/licenses/by/4.0/), following its Grade
+  5 units and order, rewritten in our own words with original examples,
+  pictures, questions and flashcards. The Illustrative Mathematics name and
+  logo are not covered by that licence and are not used here as branding.
+  Standards codes are the Common Core State Standards for Mathematics
+  (© 2010 National Governors Association Center for Best Practices and Council
+  of Chief State School Officers); their wording here is paraphrased.
+  © 2026 24 Hour Classroom, licensed under CC BY 4.0.
+# Eight units in IM K–5 Math Grade 5's order. Topic codes are CCSS Grade 5
+# standards with paraphrased titles; a standard may recur in later units.
+units:
+  - number: 1
+    slug: unit-01-finding-volume
+    title: Finding Volume
+    weeks: [1, 2, 3]
+    topics:
+      "5.MD.C.3": Understand volume and unit cubes
+      "5.MD.C.4": Measure volume by counting unit cubes
+      "5.MD.C.5": Find volume with the formulas and by adding volumes
+      "5.OA.A.2": Write and read simple expressions without evaluating them
+  - number: 2
+    slug: unit-02-fractions-as-quotients-and-fraction-multiplication
+    title: Fractions as Quotients and Fraction Multiplication
+    weeks: [4, 5, 6, 7]
+    topics:
+      "5.NF.B.3": Understand a fraction as division of the numerator by the denominator
+      "5.NF.B.4": Multiply a fraction or whole number by a fraction, including area with fractional sides
+      "5.NF.B.6": Solve real-world problems by multiplying fractions and mixed numbers
+  - number: 3
+    slug: unit-03-multiplying-and-dividing-fractions
+    title: Multiplying and Dividing Fractions
+    weeks: [8, 9, 10, 11]
+    topics:
+      "5.NF.B.5": Understand multiplication as scaling
+      "5.NF.B.4": Multiply a fraction or whole number by a fraction, including area with fractional sides
+      "5.NF.B.7": Divide unit fractions by whole numbers and whole numbers by unit fractions
+      "5.NF.B.6": Solve real-world problems by multiplying fractions and mixed numbers
+      "5.MD.B.2": Make line plots with fractions and solve problems with them
+  - number: 4
+    slug: unit-04-multi-digit-multiplication-and-division
+    title: Wrapping Up Multiplication and Division with Multi-digit Numbers
+    weeks: [12, 13, 14]
+    topics:
+      "5.NBT.B.5": Multiply multi-digit whole numbers with the standard algorithm
+      "5.NBT.B.6": Divide up to four-digit numbers by two-digit numbers
+      "5.OA.A.1": Use parentheses and brackets in expressions and evaluate them
+  - number: 5
+    slug: unit-05-place-value-patterns-and-decimal-operations
+    title: Place Value Patterns and Decimal Operations
+    weeks: [15, 16, 17, 18, 19]
+    topics:
+      "5.NBT.A.3": Read, write and compare decimals to thousandths
+      "5.NBT.A.1": Know a digit is worth 10 times the place to its right and 1/10 of the place to its left
+      "5.NBT.A.4": Round decimals to any place
+      "5.NBT.B.7": Add, subtract, multiply and divide decimals to hundredths
+      "5.NBT.A.2": Explain patterns when multiplying or dividing by powers of 10
+  - number: 6
+    slug: unit-06-more-decimal-and-fraction-operations
+    title: More Decimal and Fraction Operations
+    weeks: [20, 21, 22, 23]
+    topics:
+      "5.MD.A.1": Convert measurements within one system
+      "5.NBT.A.2": Explain patterns when multiplying or dividing by powers of 10
+      "5.NF.A.1": Add and subtract fractions with unlike denominators
+      "5.NF.A.2": Solve word problems by adding and subtracting fractions
+      "5.NF.B.5": Understand multiplication as scaling
+  - number: 7
+    slug: unit-07-shapes-on-the-coordinate-plane
+    title: Shapes on the Coordinate Plane
+    weeks: [24, 25, 26, 27]
+    topics:
+      "5.G.A.1": Understand the coordinate plane and ordered pairs
+      "5.G.A.2": Graph points in the first quadrant to solve problems
+      "5.G.B.3": Know that a shape has every attribute of the categories it belongs to
+      "5.G.B.4": Sort two-dimensional figures in a hierarchy
+      "5.OA.B.3": Make two numerical patterns from rules and graph their ordered pairs
+  - number: 8
+    slug: unit-08-putting-it-all-together
+    title: Putting It All Together
+    weeks: [28, 29, 30, 31]
+    topics:
+      "5.NBT.B.5": Multiply multi-digit whole numbers with the standard algorithm
+      "5.NBT.B.6": Divide up to four-digit numbers by two-digit numbers
+      "5.MD.C.5": Find volume with the formulas and by adding volumes
+      "5.NF.A.1": Add and subtract fractions with unlike denominators
+      "5.NBT.B.7": Add, subtract, multiply and divide decimals to hundredths
+      "5.OA.A.2": Write and read simple expressions without evaluating them
+      "5.G.A.2": Graph points in the first quadrant to solve problems

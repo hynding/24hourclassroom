@@ -19,6 +19,7 @@ use Database\Seeders\Curriculum\Course;
 use Database\Seeders\GeometrySeeder;
 use Database\Seeders\Grade3MathSeeder;
 use Database\Seeders\Grade4MathSeeder;
+use Database\Seeders\Grade5MathSeeder;
 use Database\Seeders\PrecalculusSeeder;
 use Database\Seeders\TrigonometrySeeder;
 
@@ -50,6 +51,7 @@ dataset('seeded courses', [
     'AP Psychology' => [ApPsychologySeeder::class, ['units' => 5, 'topics' => ['1.6', '2.8', '3.9', '4.7', '5.5'], 'email' => 'appsych@example.com', 'student' => 'appsych-student@example.com']],
     // Elementary: topic codes are CCSS Grade 3 standards (labels, lint sizes and standards tags in course.yaml).
     'Grade 3 Math' => [Grade3MathSeeder::class, ['units' => 8, 'topics' => ['3.MD.B.3', '3.MD.C.7', '3.NBT.A.2', '3.OA.C.7', '3.NF.A.3', '3.MD.A.1', '3.MD.D.8', '3.G.A.1'], 'email' => 'g3math@example.com', 'student' => 'g3math-student@example.com']],
+    'Grade 5 Math' => [Grade5MathSeeder::class, ['units' => 8, 'topics' => ['5.MD.C.3', '5.NF.B.3', '5.NF.B.7', '5.NBT.B.6', '5.NBT.A.3', '5.NF.A.1', '5.G.A.1', '5.OA.B.3'], 'email' => 'g5math@example.com', 'student' => 'g5math-student@example.com']],
     'Grade 4 Math' => [Grade4MathSeeder::class, ['units' => 9, 'topics' => ['4.OA.B.4', '4.NF.A.1', '4.NF.B.3', '4.NBT.B.4', '4.MD.A.1', '4.NBT.B.6', '4.MD.C.6', '4.G.A.3'], 'email' => 'g4math@example.com', 'student' => 'g4math-student@example.com']],
     'Trigonometry' => [TrigonometrySeeder::class, ['units' => 5, 'topics' => ['1.12', '2.12', '3.12', '4.10', '5.12'], 'email' => 'trig@example.com', 'student' => 'trig-student@example.com']],
 ]);
@@ -75,6 +77,6 @@ test('the course fits the default per-teacher file cap', function (string $seede
 })->with('seeded courses');
 
 test('no two seeded courses share a slug', function () {
-    $slugs = array_map(fn ($seeder) => (new Course($seeder::defaultDir()))->slug, [ApBiologySeeder::class, ApUsHistorySeeder::class, Algebra1Seeder::class, GeometrySeeder::class, Algebra2Seeder::class, ChemistrySeeder::class, ApChemistrySeeder::class, ApWorldHistorySeeder::class, PrecalculusSeeder::class, TrigonometrySeeder::class, ApCalculusAbSeeder::class, ApCalculusBcSeeder::class, ApStatisticsSeeder::class, ApPhysics1Seeder::class, ApPsychologySeeder::class, ApLiteratureSeeder::class, ApEnglishLanguageSeeder::class, Grade3MathSeeder::class, Grade4MathSeeder::class]);
+    $slugs = array_map(fn ($seeder) => (new Course($seeder::defaultDir()))->slug, [ApBiologySeeder::class, ApUsHistorySeeder::class, Algebra1Seeder::class, GeometrySeeder::class, Algebra2Seeder::class, ChemistrySeeder::class, ApChemistrySeeder::class, ApWorldHistorySeeder::class, PrecalculusSeeder::class, TrigonometrySeeder::class, ApCalculusAbSeeder::class, ApCalculusBcSeeder::class, ApStatisticsSeeder::class, ApPhysics1Seeder::class, ApPsychologySeeder::class, ApLiteratureSeeder::class, ApEnglishLanguageSeeder::class, Grade3MathSeeder::class, Grade4MathSeeder::class, Grade5MathSeeder::class]);
     expect(array_unique($slugs))->toHaveCount(count($slugs));
 });
