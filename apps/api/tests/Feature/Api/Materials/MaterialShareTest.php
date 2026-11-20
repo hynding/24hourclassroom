@@ -214,7 +214,7 @@ test('the shared list is filtered by accepted connection IN SQL, so meta.total c
         ->assertJsonPath('data.0.title', 'Shared 16');
 
     expect(array_keys($page->json('data.0')))->toBe([
-        'id', 'title', 'subject', 'grade_level', 'visibility', 'published_at',
+        'id', 'title', 'subject', 'grade_level', 'standards', 'visibility', 'published_at',
         'original_name', 'mime_type', 'size_bytes', 'author', 'shared_at',
     ]);
     expect($page->json('data.0.shared_at'))->toMatch('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z$/');

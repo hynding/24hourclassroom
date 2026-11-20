@@ -196,6 +196,17 @@ Non-public roles are reached through **connect codes** (`users.connect_code`,
 hidden, minted on first `GET /api/connections/code`, rotated by `PUT`):
 `POST /api/connections/code/{code}` sends a request; every miss is one 404.
 
+## Grade levels and standards
+
+`GradeLevel` holds single grades (`kindergarten`, `grade-1` … `grade-8`)
+beside the original bands (`k-2`, `3-5`, `6-8`, `9-12`, `higher-ed`), each
+band after its own grades. A library or directory filter goes through
+`GradeLevel::matching()`: a grade also finds its band, a band its grades.
+Tests and materials carry optional curriculum standard codes (`standards`,
+`App\Support\Standards`: at most 12, stored uppercase, codes only, never
+the standards' text); `standard=` on `/api/library` and
+`/api/library/materials` matches a code or its start at a dot or dash.
+
 ## Courses
 
 A course (`courses` + `course_items`) is a teacher's ordered list of their

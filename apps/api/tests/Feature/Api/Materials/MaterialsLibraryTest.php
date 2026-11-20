@@ -42,7 +42,7 @@ test('the library lists public materials by active authors, newest published fir
 
     // Exactly the MaterialSummary shape -- no description, no download_url.
     expect(array_keys($page->json('data.0')))->toBe([
-        'id', 'title', 'subject', 'grade_level', 'visibility', 'published_at',
+        'id', 'title', 'subject', 'grade_level', 'standards', 'visibility', 'published_at',
         'original_name', 'mime_type', 'size_bytes', 'author',
     ]);
 
