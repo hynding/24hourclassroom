@@ -24,7 +24,7 @@ The check has 39 questions and takes about 80 minutes. The questions go in cours
 
 **Points.** Most questions are worth 1 point. The select-all question is worth 2 points, and you get part of the points for part of the right answers. Each short answer is worth 3 points, one for each part. The check is out of 44 points. Your teacher checks the short answers, so show your work in words, numbers or a drawing.
 
-**Typing answers.** For a number answer, type only the number, such as 856. For money in dollars, type a decimal, such as 2.75.
+**Typing answers.** For a number answer, type only the number, such as 856. Type big numbers without a comma: 8442, not 8,442. For money in dollars, type a decimal, such as 2.75.
 
 ## What each unit asks you to do
 
@@ -62,7 +62,7 @@ Each day takes about 25 to 30 minutes. Read that unit's summary first, then do i
 | 8 | Unit 6, multiplying | Do 4 multiplications with area models, 2 of them two-digit × two-digit. Estimate each first. |
 | 9 | Unit 6, dividing | Do 4 divisions with partial quotients. Check each by multiplying and adding the remainder. |
 | 10 | Unit 7 | Draw 4 angles and measure them. Find 2 unknown angles that make a straight line. |
-| 11 | Unit 8 | Draw a right triangle, a rhombus and a trapezoid. Find the lines of symmetry in 4 letters of the alphabet. |
+| 11 | Unit 8 | Draw a right triangle, a rhombus and a parallelogram that is not a rectangle. Find the lines of symmetry in 4 letters of the alphabet. |
 | 12 | Unit 9 | Solve 3 two-step word problems with an equation and an estimate. Decide what each remainder means. |
 | 13 | Mixed review | Take turns with a grown-up making up one question from each unit. |
 | 14 | End-of-Year Check | Take the check in one sitting or in two halves. Then go over every question you missed. |

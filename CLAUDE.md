@@ -619,7 +619,7 @@ any small `.md`/`.txt` in-app through `rich-text`, a vnode-only markdown subset
 with no HTML and no `innerHTML`. `MaterialWriter` is the one path that puts a
 file on the materials disk, for uploads and the seeder alike.
 
-## Seeded elementary courses (Grade 3 Math)
+## Seeded elementary courses (Grade 3 and Grade 4 Math)
 
 `Grade3MathSeeder` (`course:seed-grade-3-math`, slug `g3math`, site slug
 `/courses/grade-3-math`, demo accounts `g3math@example.com` /
@@ -646,6 +646,13 @@ SVG pictures (markers `Illustrative Mathematics`, `CC BY 4.0`). Never use IM
 v.360 (2024), which is CC BY-NC. Guides are written for 8-year-olds and the
 grown-ups helping them. Quizzes are 10–15 items with at least two pictures
 and no long answers; unit checks are 15–25 items.
+
+`Grade4MathSeeder` (`course:seed-grade-4-math`, slug `g4math`, site slug
+`/courses/grade-4-math`, demo accounts `g4math@example.com` /
+`g4math-student@example.com`, grade level `grade-4`) is the same kind of
+course over IM Grade 4's nine units (CCSS Grade 4 codes; quizzes 12–16
+items, unit checks 18–25). A numeric answer of 1,000 or more says to type the
+digits without a comma, because the answer box is a number input.
 
 ## Seeded AP Literature and AP English Language courses
 
