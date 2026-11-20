@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Support\AgeScreen;
 use App\Support\FrontendRedirect;
 use App\Support\Registration;
 use Illuminate\Auth\Events\Registered;
@@ -54,7 +55,9 @@ class RegisteredUserController extends Controller
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', Rule::in(Role::selfAssignableValues())],
+            ...AgeScreen::rules(),
         ]);
+        AgeScreen::assertAllowed($request, Role::from($request->role));
 
         $user = User::create([
             'name' => $request->name,

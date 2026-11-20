@@ -50,7 +50,7 @@ test('teacher and student remain accepted on every registration path', function 
     $this->postJson('/api/auth/register', [
         'name' => 'S', 'email' => 's@example.com',
         'password' => 'password', 'password_confirmation' => 'password',
-        'role' => 'student',
+        'role' => 'student', 'birth_month' => 5, 'birth_year' => 1990,
     ])->assertNoContent();
 
     expect(User::whereIn('email', ['t@example.com', 's@example.com'])->count())->toBe(2);
@@ -65,7 +65,7 @@ test('tutor, assistant and guardian are accepted on every registration path', fu
         $this->postJson('/api/auth/register', [
             'name' => ucfirst($role), 'email' => "api-{$role}@example.com",
             'password' => 'password', 'password_confirmation' => 'password',
-            'role' => $role,
+            'role' => $role, 'birth_month' => 5, 'birth_year' => 1990,
         ])->assertNoContent();
         $this->post('/logout');
 

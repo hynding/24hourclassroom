@@ -13,6 +13,7 @@ describe('page-register', () => {
   beforeEach(() => {
     config = { registration: { open: true, message: null } };
     register.mockReset();
+    sessionStorage.clear();
   });
 
   it('renders name, email, password fields and both role options', async () => {
@@ -39,5 +40,36 @@ describe('page-register', () => {
     await page.waitForChanges();
     expect(page.root.shadowRoot.querySelector('form')).toBeNull();
     expect(page.root.shadowRoot.querySelector('.notice')!.textContent).toBe('Closed now.');
+  });
+
+  it('asks a student, and only a student or assistant, for a birth month and year, and sends it', async () => {
+    register.mockResolvedValue(undefined);
+    const page = await newSpecPage({ components: [PageRegister], html: '<page-register></page-register>' });
+    const cmp = page.rootInstance as any;
+    expect(page.root.shadowRoot.querySelector('select[aria-label="Birth year"]')).toBeNull();
+
+    cmp.role = 'student';
+    await page.waitForChanges();
+    expect(page.root.shadowRoot.querySelector('select[aria-label="Birth year"]')).not.toBeNull();
+    expect(page.root.shadowRoot.textContent).not.toContain('13 or older');
+
+    cmp.birth = { month: 4, year: 2005 };
+    await cmp.onSubmit(new Event('submit'));
+    expect(register).toHaveBeenCalledWith(expect.objectContaining({ role: 'student', birth_month: 4, birth_year: 2005 }));
+  });
+
+  it('replaces the form with the notice after an under-13 refusal, for the rest of the tab session', async () => {
+    register.mockRejectedValue(new ApiError(422, 'Invalid', { birth_year: ['You need to be 13 or older to make your own account.'] }));
+    const page = await newSpecPage({ components: [PageRegister], html: '<page-register></page-register>' });
+    const cmp = page.rootInstance as any;
+    cmp.role = 'student';
+    cmp.birth = { month: 1, year: 2018 };
+    await cmp.onSubmit(new Event('submit'));
+    await page.waitForChanges();
+    expect(page.root.shadowRoot.querySelector('form')).toBeNull();
+    expect(page.root.shadowRoot.querySelector('.notice')!.textContent).toContain('13 or older');
+
+    // The tab remembers the refusal, so a reload shows the notice again.
+    expect(page.win.sessionStorage.getItem('24hc.age-screen.v1')).toBe('blocked');
   });
 });

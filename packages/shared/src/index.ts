@@ -49,6 +49,9 @@ export const COMMENT_MODERATOR_ROLES: Role[] = ['admin'];
 /** Mirrors `Role::tracksStudyProgress()`: keeps their own course progress. */
 export const STUDY_PROGRESS_ROLES: Role[] = ['teacher', 'student', 'tutor', 'assistant', 'guardian'];
 
+/** Mirrors `Role::screensAge()`: sign-up asks birth month and year, never stored. */
+export const AGE_SCREEN_ROLES: Role[] = ['student', 'assistant'];
+
 /** Absent or unknown roles answer false. */
 export function hasRole(list: readonly Role[], role: Role | null | undefined): boolean {
   return role !== null && role !== undefined && list.includes(role);

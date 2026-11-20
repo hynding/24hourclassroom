@@ -5,6 +5,7 @@ import type { RegistrationRole, SiteConfig } from '@24hc/shared';
 import { authStore } from '../../services/auth-store';
 import { navigate } from '../../services/navigate';
 import { siteStore } from '../../services/site-store';
+import { BirthAnswer, birthFields, isAgeBlocked, isUnderAgeRefusal, markAgeBlocked, renderBirthFields, screensAge, UNDER_AGE_NOTICE } from '../../services/age-screen';
 
 @Component({ tag: 'page-register-role', styleUrl: 'page-register-role.css', shadow: true })
 export class PageRegisterRole {
@@ -13,6 +14,8 @@ export class PageRegisterRole {
   @State() busy = false;
   @State() site: SiteConfig = siteStore.config;
   @State() closed: string | null = null;
+  @State() birth: BirthAnswer = { month: null, year: null };
+  @State() ageBlocked = isAgeBlocked();
 
   @Listen('site:changed', { target: 'window' })
   onSiteChanged() {
@@ -24,7 +27,7 @@ export class PageRegisterRole {
     this.busy = true;
     this.error = '';
     try {
-      await authStore.completeOauth(this.role);
+      await authStore.completeOauth(this.role, birthFields(this.role, this.birth));
       navigate('/');
     } catch (e) {
       if (e instanceof ApiError && e.status === 403) {
@@ -32,7 +35,12 @@ export class PageRegisterRole {
         this.closed = e.message;
         return;
       }
-      this.error = e instanceof ApiError ? e.message : 'Something went wrong.';
+      if (e instanceof ApiError && isUnderAgeRefusal(e.errors)) {
+        markAgeBlocked();
+        this.ageBlocked = true;
+        return;
+      }
+      this.error = e instanceof ApiError ? (e.errors?.birth_year?.[0] ?? e.message) : 'Something went wrong.';
     } finally {
       this.busy = false;
     }
@@ -44,6 +52,14 @@ export class PageRegisterRole {
         <section>
           <h1>One last step</h1>
           <p class="notice">{this.closed ?? this.site.registration.message ?? 'Registration is closed.'}</p>
+        </section>
+      );
+    }
+    if (this.ageBlocked) {
+      return (
+        <section>
+          <h1>One last step</h1>
+          <p class="notice">{UNDER_AGE_NOTICE}</p>
         </section>
       );
     }
@@ -59,6 +75,7 @@ export class PageRegisterRole {
               {roleLabel(role)}
             </label>
           ))}
+          {screensAge(this.role) && renderBirthFields(this.birth, (next) => (this.birth = next))}
           <button type="submit" class="btn-primary" disabled={this.busy}>Finish</button>
         </form>
       </section>

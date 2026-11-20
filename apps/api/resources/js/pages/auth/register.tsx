@@ -15,7 +15,13 @@ type RegisterForm = {
     password: string;
     password_confirmation: string;
     role: string;
+    birth_month: string;
+    birth_year: string;
 };
+
+// Mirrors Role::screensAge(): sign-up asks birth month and year (checked, never stored).
+const AGE_SCREEN_ROLES = ['student', 'assistant'];
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 export default function Register({ registration }: { registration: { open: boolean; message: string | null } }) {
     const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
@@ -24,7 +30,11 @@ export default function Register({ registration }: { registration: { open: boole
         password: '',
         password_confirmation: '',
         role: 'teacher',
+        birth_month: '',
+        birth_year: '',
     });
+    const screensAge = AGE_SCREEN_ROLES.includes(data.role);
+    const thisYear = new Date().getFullYear();
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -77,6 +87,46 @@ export default function Register({ registration }: { registration: { open: boole
                             </select>
                             <InputError message={errors.role} />
                         </div>
+
+                        {screensAge && (
+                            <fieldset className="grid gap-2">
+                                <legend className="text-sm font-medium">When were you born?</legend>
+                                <p className="text-muted-foreground text-sm">We check this once to set up your account and do not keep it.</p>
+                                <div className="flex gap-2">
+                                    <select
+                                        aria-label="Birth month"
+                                        required
+                                        value={data.birth_month}
+                                        onChange={(e) => setData('birth_month', e.target.value)}
+                                        disabled={processing}
+                                        className="border-input h-9 rounded-md border bg-transparent px-3 py-1 text-sm shadow-xs"
+                                    >
+                                        <option value="">Month</option>
+                                        {MONTHS.map((m, i) => (
+                                            <option key={m} value={String(i + 1)}>
+                                                {m}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <select
+                                        aria-label="Birth year"
+                                        required
+                                        value={data.birth_year}
+                                        onChange={(e) => setData('birth_year', e.target.value)}
+                                        disabled={processing}
+                                        className="border-input h-9 rounded-md border bg-transparent px-3 py-1 text-sm shadow-xs"
+                                    >
+                                        <option value="">Year</option>
+                                        {Array.from({ length: 100 }, (_, i) => thisYear - i).map((y) => (
+                                            <option key={y} value={String(y)}>
+                                                {y}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <InputError message={errors.birth_year} />
+                            </fieldset>
+                        )}
 
                         <div className="grid gap-2">
                             <Label htmlFor="email">Email address</Label>

@@ -13,6 +13,7 @@ describe('page-register-role', () => {
   beforeEach(() => {
     config = { registration: { open: true, message: null } };
     completeOauth.mockReset();
+    sessionStorage.clear();
   });
 
   it('renders the role form while open', async () => {
@@ -35,5 +36,18 @@ describe('page-register-role', () => {
     await page.waitForChanges();
     expect(page.root.shadowRoot.querySelector('form')).toBeNull();
     expect(page.root.shadowRoot.querySelector('.notice')!.textContent).toBe('Closed now.');
+  });
+
+  it('sends the birth month and year for a student and none for a teacher', async () => {
+    completeOauth.mockResolvedValue(undefined);
+    const page = await newSpecPage({ components: [PageRegisterRole], html: '<page-register-role></page-register-role>' });
+    const cmp = page.rootInstance as any;
+    await cmp.onSubmit(new Event('submit'));
+    expect(completeOauth).toHaveBeenLastCalledWith('teacher', {});
+
+    cmp.role = 'student';
+    cmp.birth = { month: 9, year: 2006 };
+    await cmp.onSubmit(new Event('submit'));
+    expect(completeOauth).toHaveBeenLastCalledWith('student', { birth_month: 9, birth_year: 2006 });
   });
 });

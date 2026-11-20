@@ -49,7 +49,8 @@ test('the capability lists mirror the enum allowlists', function () {
         ->and(tsStringArray($shared, 'SHARE_RECIPIENT_ROLES'))->toBe($filter(fn (Role $r) => $r->receivesShares()))
         ->and(tsStringArray($shared, 'CONNECTED_GRADER_ROLES'))->toBe($filter(fn (Role $r) => $r->gradesForConnectedTeachers()))
         ->and(tsStringArray($shared, 'STUDENT_ANSWER_VIEWER_ROLES'))->toBe($filter(fn (Role $r) => $r->seesConnectedStudentAnswers()))
-        ->and(tsStringArray($shared, 'STUDY_PROGRESS_ROLES'))->toBe($filter(fn (Role $r) => $r->tracksStudyProgress()));
+        ->and(tsStringArray($shared, 'STUDY_PROGRESS_ROLES'))->toBe($filter(fn (Role $r) => $r->tracksStudyProgress()))
+        ->and(tsStringArray($shared, 'AGE_SCREEN_ROLES'))->toBe($filter(fn (Role $r) => $r->screensAge()));
 });
 
 test('the comment role lists mirror the enum allowlists', function () {
