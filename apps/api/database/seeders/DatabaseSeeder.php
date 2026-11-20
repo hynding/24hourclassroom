@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             ApPsychologySeeder::class,
             Grade3MathSeeder::class,
             Grade4MathSeeder::class,
+            Grade5MathSeeder::class,
             ChemistrySeeder::class,
             ApChemistrySeeder::class,
             ApWorldHistorySeeder::class,

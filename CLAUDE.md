@@ -619,7 +619,7 @@ any small `.md`/`.txt` in-app through `rich-text`, a vnode-only markdown subset
 with no HTML and no `innerHTML`. `MaterialWriter` is the one path that puts a
 file on the materials disk, for uploads and the seeder alike.
 
-## Seeded elementary courses (Grade 3 and Grade 4 Math)
+## Seeded elementary courses (Grade 3, Grade 4 and Grade 5 Math)
 
 `Grade3MathSeeder` (`course:seed-grade-3-math`, slug `g3math`, site slug
 `/courses/grade-3-math`, demo accounts `g3math@example.com` /
@@ -653,6 +653,13 @@ and no long answers; unit checks are 15–25 items.
 course over IM Grade 4's nine units (CCSS Grade 4 codes; quizzes 12–16
 items, unit checks 18–25). A numeric answer of 1,000 or more says to type the
 digits without a comma, because the answer box is a number input.
+
+`Grade5MathSeeder` (`course:seed-grade-5-math`, slug `g5math`, site slug
+`/courses/grade-5-math`, demo accounts `g5math@example.com` /
+`g5math-student@example.com`, grade level `grade-5`) follows IM Grade 5's
+eight units at Grade 4's sizes. Fraction answers that are not whole numbers
+are multiple choice; thousandths are never numeric answers, because
+`tolerance: 0.001` would accept the neighbouring thousandth.
 
 ## Seeded AP Literature and AP English Language courses
 
