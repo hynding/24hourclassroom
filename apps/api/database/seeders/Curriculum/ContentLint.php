@@ -31,7 +31,33 @@ final class ContentLint
         return $out;
     }
 
-    public const RULES = ['weeks', 'items', 'spiralReview', 'typeMix', 'stimulusSets', 'unitExams', 'attribution', 'flashcards'];
+    public const RULES = ['weeks', 'items', 'spiralReview', 'typeMix', 'stimulusSets', 'unitExams', 'attribution', 'flashcards', 'figures'];
+
+    /** A `[min, max]` setting from course.yaml's `lint:` block. @param array{int, int} $default @return array{int, int} */
+    private function range(string $key, array $default): array
+    {
+        $value = $this->course->lintSetting($key, $default);
+
+        return is_array($value) && count($value) === 2 ? [(int) $value[0], (int) $value[1]] : $default;
+    }
+
+    /** Each quiz and unit exam shows at least `figures_per_test` pictures (0, the default, turns this off). @return list<string> */
+    public function figures(): array
+    {
+        $min = (int) $this->course->lintSetting('figures_per_test', 0);
+        if ($min < 1) {
+            return [];
+        }
+        $errors = [];
+        foreach ($this->tests() as ['file' => $file, 'label' => $label, 'questions' => $questions]) {
+            $n = count(array_filter($questions, fn ($q) => is_array($q) && filled($q['figure'] ?? null)));
+            if ($n < $min) {
+                $errors[] = $this->where($file).": {$label} has {$n} pictures (want {$min}+)";
+            }
+        }
+
+        return $errors;
+    }
 
     /** Every test in the course: quizzes, unit exams, the practice exam. @return list<array{file: string, label: string, questions: list<array<string, mixed>>}> */
     public function tests(): array
@@ -80,13 +106,15 @@ final class ContentLint
             if (isset($data['guide']) && ! is_file("{$c->dir}/{$data['guide']}")) {
                 $errors[] = "{$where}: guide {$data['guide']} is missing";
             }
+            [$cardMin, $cardMax] = $this->range('cards', [25, 40]);
             $cards = count((array) ($data['flashcards'] ?? []));
-            if ($cards < 25 || $cards > 40) {
-                $errors[] = "{$where}: {$cards} cards (want 25-40)";
+            if ($cards < $cardMin || $cards > $cardMax) {
+                $errors[] = "{$where}: {$cards} cards (want {$cardMin}-{$cardMax})";
             }
+            [$quizMin, $quizMax] = $this->range('quiz_items', [20, 25]);
             $n = count((array) ($data['quiz']['questions'] ?? []));
-            if ($n < 20 || $n > 25) {
-                $errors[] = "{$where}: {$n} quiz questions (want 20-25)";
+            if ($n < $quizMin || $n > $quizMax) {
+                $errors[] = "{$where}: {$n} quiz questions (want {$quizMin}-{$quizMax})";
             }
             if ($c->unitForWeek($week) === null) {
                 $errors[] = "{$where}: week {$week} is not in any unit";
@@ -359,8 +387,9 @@ final class ContentLint
                 }
             }
             $share = $review / max(1, count($questions));
-            if ($share < 0.25) {
-                $errors[] = sprintf('%s: %d of %d items (%.0f%%) are spiral review (want 25%%+)', $this->where($file), $review, count($questions), $share * 100);
+            $want = (float) $this->course->lintSetting('spiral_share', 0.25);
+            if ($share < $want) {
+                $errors[] = sprintf('%s: %d of %d items (%.0f%%) are spiral review (want %.0f%%+)', $this->where($file), $review, count($questions), $share * 100, $want * 100);
             }
         }
 
@@ -370,7 +399,7 @@ final class ContentLint
     /** Every quiz mixes the item types the course calls for. @return list<string> */
     public function typeMix(): array
     {
-        $want = ['multiple_choice' => 10, 'multi_select' => 2, 'true_false' => 2, 'fill_blank' => 2, 'short_answer' => 2, 'long_answer' => 1];
+        $want = (array) $this->course->lintSetting('type_mix', ['multiple_choice' => 10, 'multi_select' => 2, 'true_false' => 2, 'fill_blank' => 2, 'short_answer' => 2, 'long_answer' => 1]);
         $errors = [];
         foreach ($this->course->ownWeeks() as ['file' => $file, 'data' => $data]) {
             $types = array_count_values(array_map(fn ($q) => (string) ($q['type'] ?? ''), array_values((array) ($data['quiz']['questions'] ?? []))));
@@ -389,12 +418,13 @@ final class ContentLint
     {
         $errors = [];
         foreach ($this->course->ownWeeks() as $week => ['file' => $file, 'data' => $data]) {
-            if ($week < 4) {
+            $min = (int) $this->course->lintSetting('stimulus_set', 3);
+            if ($week < 4 || $min < 2) {
                 continue;
             }
             $best = $this->longestStimulusRun(array_values((array) ($data['quiz']['questions'] ?? [])));
-            if ($best < 3) {
-                $errors[] = $this->where($file).": longest stimulus set is {$best} (want 3+)";
+            if ($best < $min) {
+                $errors[] = $this->where($file).": longest stimulus set is {$best} (want {$min}+)";
             }
         }
 
@@ -408,13 +438,21 @@ final class ContentLint
         foreach ($this->course->unitExams() as $unit => ['file' => $file, 'data' => $data]) {
             $questions = array_values((array) ($data['questions'] ?? []));
             $n = count($questions);
-            if ($n < 40 || $n > 50) {
-                $errors[] = "unit {$unit} exam: {$n} items (want 40-50)";
+            [$min, $max] = $this->range('unit_exam_items', [40, 50]);
+            if ($n < $min || $n > $max) {
+                $errors[] = "unit {$unit} exam: {$n} items (want {$min}-{$max})";
             }
             $types = array_count_values(array_map(fn ($q) => (string) ($q['type'] ?? ''), $questions));
-            if (($types['short_answer'] ?? 0) < 1 || ($types['long_answer'] ?? 0) < 1) {
-                $errors[] = "unit {$unit} exam: needs a short_answer and a long_answer";
+            $needs = (array) $this->course->lintSetting('unit_exam_needs', ['short_answer', 'long_answer']);
+            foreach ($needs as $type) {
+                if (($types[$type] ?? 0) < 1) {
+                    $errors[] = 'unit '.$unit.' exam: needs a '.implode(' and a ', $needs);
+
+                    break;
+                }
             }
+            $wantSets = (int) $this->course->lintSetting('unit_exam_stimulus_sets', 2);
+            $setSize = (int) $this->course->lintSetting('unit_exam_set_size', 3);
 
             $sets = 0;
             $previous = null;
@@ -423,7 +461,7 @@ final class ContentLint
                 $s = trim((string) ($q['stimulus'] ?? ''));
                 if ($s !== '' && $s === $previous) {
                     $run++;
-                    if ($run === 3) {
+                    if ($run === $setSize) {
                         $sets++;
                     }
                 } else {
@@ -431,8 +469,8 @@ final class ContentLint
                 }
                 $previous = $s;
             }
-            if ($sets < 2) {
-                $errors[] = "unit {$unit} exam: {$sets} stimulus sets of three (want 2+)";
+            if ($sets < $wantSets) {
+                $errors[] = "unit {$unit} exam: {$sets} stimulus sets of {$setSize} (want {$wantSets}+)";
             }
         }
 
@@ -465,8 +503,9 @@ final class ContentLint
             }
             $errors = [...$errors, ...self::tableRows(basename($file), $body)];
             $words = str_word_count(strip_tags($body));
-            if ($words < 600) {
-                $errors[] = basename($file)." is only {$words} words (want 600+)";
+            $minWords = (int) $this->course->lintSetting('guide_min_words', 600);
+            if ($words < $minWords) {
+                $errors[] = basename($file)." is only {$words} words (want {$minWords}+)";
             }
         }
         if (! is_file("{$c->dir}/ATTRIBUTION.md")) {

@@ -294,7 +294,31 @@ final class Course
     /** The course-page heading for a unit's items; the review weeks have no unit. @param array<string, mixed>|null $unit */
     public function sectionTitle(?array $unit): string
     {
-        return $unit === null ? 'Exam review' : "Unit {$unit['number']} · {$unit['title']}";
+        return $unit === null ? $this->label('review_section', 'Exam review') : "Unit {$unit['number']} · {$unit['title']}";
+    }
+
+    /**
+     * A course's own wording for the generated labels (`labels:` in
+     * course.yaml): an elementary course says "Unit Check" and "Standards"
+     * where an AP course says "Unit Exam" and "CED topics".
+     */
+    public function label(string $key, string $default): string
+    {
+        $value = $this->config['labels'][$key] ?? null;
+
+        return is_string($value) && trim($value) !== '' ? trim($value) : $default;
+    }
+
+    /** A per-course content-lint setting (`lint:` in course.yaml), or the default. */
+    public function lintSetting(string $key, mixed $default): mixed
+    {
+        return $this->config['lint'][$key] ?? $default;
+    }
+
+    /** Topic codes are curriculum standard codes, so they tag what is seeded. */
+    public function topicsAreStandards(): bool
+    {
+        return ($this->config['topics_are_standards'] ?? false) === true;
     }
 
     public static function weekLabel(int $week): string
@@ -321,7 +345,7 @@ final class Course
     {
         $u = $this->unit($unit);
 
-        return $this->prefix.' · '.self::weekLabel(max((array) $u['weeks']))." · Unit {$unit} Exam · ".$u['title'];
+        return $this->prefix.' · '.self::weekLabel(max((array) $u['weeks']))." · Unit {$unit} ".$this->label('unit_exam', 'Exam').' · '.$u['title'];
     }
 
     public function unitSummaryTitle(int $unit): string
@@ -333,12 +357,12 @@ final class Course
 
     public function practiceExamTitle(): string
     {
-        return $this->prefix.' · '.self::weekLabel((int) ($this->config['review']['practice_exam_week'] ?? 34)).' · Practice Exam';
+        return $this->prefix.' · '.self::weekLabel((int) ($this->config['review']['practice_exam_week'] ?? 34)).' · '.$this->label('practice_exam', 'Practice Exam');
     }
 
     public function examPrepTitle(): string
     {
-        return $this->prefix.' · '.self::weekLabel((int) ($this->config['review']['prep_guide_week'] ?? 33)).' · Exam Prep Guide';
+        return $this->prefix.' · '.self::weekLabel((int) ($this->config['review']['prep_guide_week'] ?? 33)).' · '.$this->label('prep_guide', 'Exam Prep Guide');
     }
 
     /** The description a test or material carries: the CED line (topics, or skills) first, then the authored text. */
@@ -346,7 +370,7 @@ final class Course
     {
         $lines = [];
         if ($topicCodes !== []) {
-            $lines[] = ($this->bySkill() ? 'CED skills ' : 'CED topics ').implode(', ', array_map('strval', $topicCodes)).($unit ? " · Unit {$unit} ".$this->unit($unit)['title'] : '');
+            $lines[] = $this->label('topics', $this->bySkill() ? 'CED skills' : 'CED topics').' '.implode(', ', array_map('strval', $topicCodes)).($unit ? " · Unit {$unit} ".$this->unit($unit)['title'] : '');
         }
         if (filled($authored)) {
             $lines[] = trim($authored);
