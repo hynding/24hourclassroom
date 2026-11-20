@@ -59,7 +59,7 @@ Many real objects, like a set of steps or an L-shaped planter, are two boxes joi
 
 There is often more than one way to split. You could cut the solid into a left part 4 feet long and 8 feet tall (4 × 4 × 8 = 128) and a right part 6 feet long and 3 feet tall (6 × 4 × 3 = 72). The total is still 128 + 72 = 200.
 
-**A common mistake.** Do not let the two parts overlap. If you take the whole bottom block (120) and then the whole left tower 8 feet tall (128), the corner where they meet is counted twice and you get 248, which is too much. Another slip is using a whole length where only part of it belongs. If a solid is 9 m long and the tall part is 3 m long, the low part is 9 − 3 = 6 m long, not 9 m.
+**A common mistake.** Do not let the two parts overlap. If you take the whole bottom block (120) and then the whole left tower 8 feet tall (128), the corner where they meet is counted twice and you get 248, which is too much. Another slip is using a whole length where only part of it belongs. If a solid is 11 m long and the tall part is 4 m long, the low part is 11 − 4 = 7 m long, not 11 m.
 
 ## For grown-ups at home
 

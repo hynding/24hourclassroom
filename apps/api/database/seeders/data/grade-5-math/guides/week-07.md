@@ -84,7 +84,7 @@ Cooking is the perfect place for this week's math. Pick a recipe with mixed numb
 4. A recipe uses 3 1/2 cups of rice. How much is half the recipe?
 5. Is 1 1/2 × 2 1/2 more or less than 2? How do you know without working it out?
 
-*Answers:* (1) 4 × 1 = 4 and 4 × 3/4 = 3, so 7. (2) 10/3. (3) 2 × 4 = 8 and 1/2 × 4 = 2, so 10 square meters. (4) Half of 3 is 1 1/2 and half of 1/2 is 1/4, so 1 3/4 cups. (5) More, because both numbers are bigger than 1 × 2 = 2. (It is 3 3/4.)
+*Answers:* (1) 4 × 1 = 4 and 4 × 3/4 = 3, so 7. (2) 10/3. (3) 2 × 4 = 8 and 1/2 × 4 = 2, so 10 square meters. (4) Half of 3 is 1 1/2 and half of 1/2 is 1/4, so 1 3/4 cups. (5) More: 1 1/2 is more than 1 and 2 1/2 is more than 2, so the product is more than 1 × 2 = 2. (It is 3 3/4.)
 
 ---
 

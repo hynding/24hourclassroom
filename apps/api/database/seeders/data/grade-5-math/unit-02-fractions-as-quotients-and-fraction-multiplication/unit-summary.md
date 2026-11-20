@@ -64,7 +64,7 @@
 9. What is the area of a rectangle 2 1/2 feet by 2 1/2 feet?
 10. A recipe uses 1 1/4 cups of juice. How much is needed for half the recipe?
 
-*Answers:* (1) 5/9. (2) 8 ÷ 6 = 8/6 of an apple, between 1 and 2 (it is 1 2/6). (3) 5 3/4. (4) 35 ÷ 5 = 7, and 2 × 7 = 14. (5) 18/4 = 4 2/4, which is 4 1/2. (6) 1/14 square unit. (7) 5/12 square meter. (8) 6 + 6/5 = 7 1/5. (9) 25/4 = 6 1/4 square feet. (10) Half of 1 is 1/2 and half of 1/4 is 1/8, so 1/2 × 5/4 = 5/8 cup.
+*Answers:* (1) 5/9. (2) 8 ÷ 6 = 8/6 of an apple, between 1 and 2 (it is 1 2/6). (3) 5 3/4. (4) 35 ÷ 5 = 7, and 2 × 7 = 14. (5) 18/4 = 4 2/4, which is 4 1/2. (6) 1/14 square unit. (7) 5/12 square meter. (8) 6 + 6/5 = 7 1/5. (9) 25/4 = 6 1/4 square feet. (10) 1 1/4 = 5/4, and half of 5 fourths is 5 eighths: 1/2 × 5/4 = 5/8 cup.
 
 ---
 

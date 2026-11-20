@@ -62,12 +62,12 @@ Make patterns with everyday things: "You read 2 pages a minute, I read 6 pages a
 ## Check yourself
 
 1. Write the first four terms of "start at 0, add 6".
-2. Pattern A: 0, 5, 10, 15. Pattern B: 0, 15, 30, 45. How does each B term compare with the matching A term?
+2. Pattern A: 0, 7, 14, 21. Pattern B: 0, 21, 42, 63. How does each B term compare with the matching A term?
 3. Using the patterns in question 2, write the ordered pair from the 3rd terms.
 4. A graph shows (0, 0), (1, 2), (2, 4), (3, 6). What is the next point if both patterns continue?
-5. True or false: if A adds 3 and B adds 9, both from 0, each B term is 6 more than the A term.
+5. True or false: if A adds 2 and B adds 8, both from 0, each B term is 6 more than the A term.
 
-*Answers:* (1) 0, 6, 12, 18. (2) Each B term is 3 times the A term. (3) (10, 30). (4) (4, 8). (5) False: each B term is 3 times the A term, and the gap grows.
+*Answers:* (1) 0, 6, 12, 18. (2) Each B term is 3 times the A term. (3) (14, 42). (4) (4, 8). (5) False: each B term is 4 times the A term, and the gap grows.
 
 ---
 

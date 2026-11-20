@@ -20,7 +20,7 @@
 | Look down, then across | Reading a point | Above 3, across from 8: (3, 8) |
 | Subtract matching coordinates | Distance along a grid line | (2, 7) to (9, 7): 9 − 2 = 7 |
 | Add the two legs | A walk that turns a corner | (1, 1) to (5, 4): 4 + 3 = 7 |
-| Borrow from each neighbor | Missing corner of a rectangle | (1, 2), (6, 2), (6, 5): fourth is (1, 5) |
+| Borrow from each neighbor | Missing corner of a rectangle | (1, 3), (7, 3), (7, 6): fourth is (1, 6) |
 | Read the axis titles | Data graphs | (5, 10) on Week/Height: 10 cm in week 5 |
 | Go down the hierarchy | Most specific name | 4 equal sides, no right angles: rhombus |
 | Always down, sometimes up | Always, sometimes, never | Every square is a rhombus; some rhombuses are squares |

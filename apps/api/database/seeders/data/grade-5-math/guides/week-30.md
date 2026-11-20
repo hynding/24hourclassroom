@@ -16,7 +16,7 @@
 |---|---|
 | Unlike denominators | Denominators that are different, like 3 and 4. |
 | Common denominator | A denominator two fractions can share. 12 works for thirds and fourths. |
-| Equivalent fractions | Fractions that name the same amount, like 2/3 and 8/12. |
+| Equivalent fractions | Fractions that name the same amount, like 3/4 and 9/12. |
 | Mixed number | A whole number and a fraction together, like 3 1/2. |
 | Hundredths | 1 of 100 equal parts. 0.24 is 24 hundredths. |
 | Estimate | A close answer from rounded numbers, used to check. |
@@ -31,7 +31,7 @@ Subtracting works the same way. 2/3 − 1/4 = 8/12 − 3/12 = 5/12.
 
 **Mixed numbers.** For 3 1/2 − 1 2/3, use sixths: 3 3/6 − 1 4/6. You cannot take 4/6 from 3/6, so trade one whole for 6/6: 3 3/6 = 2 9/6. Now 2 9/6 − 1 4/6 = 1 5/6.
 
-**Estimate to check.** 2/5 + 3/8 must be less than 1, because each fraction is less than 1/2.
+**Estimate to check.** 1/3 + 3/7 must be less than 1, because each fraction is less than 1/2.
 
 ## Adding and subtracting decimals
 

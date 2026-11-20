@@ -72,7 +72,7 @@ You do not always need to draw. Look at the digit **one place to the right** of 
 
 **Watch out.** Look at only **one** digit. 0.849 rounds to 0.8 for the nearest tenth, because the hundredths digit is 4. Do not round the 9 first and then round again.
 
-**Watch out, too.** Sometimes rounding up carries into the next place. 9.96 to the nearest tenth: 9.9 becomes 10 tenths, which is a whole, so the answer is **10.0**, not 9.10.
+**Watch out, too.** Sometimes rounding up carries into the next place. 9.96 to the nearest tenth: the 9 tenths round up to 10 tenths, which is 1 whole, so the answer is **10.0**, not 9.10.
 
 ## For grown-ups at home
 

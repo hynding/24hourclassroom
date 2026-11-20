@@ -50,7 +50,7 @@ Order really matters. (2, 9) means 2 right and 9 up, near the top left of the gr
 
 Sometimes one of the coordinates is 0.
 
-- If the **y-coordinate is 0**, you move right but never up, so the point sits on the **x-axis**. Example: (7, 0).
+- If the **y-coordinate is 0**, you move right but never up, so the point sits on the **x-axis**. Example: (9, 0).
 - If the **x-coordinate is 0**, you never move right, only up, so the point sits on the **y-axis**. Example: (0, 3).
 - If both are 0, you are at the origin.
 

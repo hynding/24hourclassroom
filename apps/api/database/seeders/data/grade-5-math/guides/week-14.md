@@ -80,9 +80,9 @@ Parentheses and brackets are how mathematicians write down the order of their th
 1. Find the value of 48 ÷ (6 + 2) + 5.
 2. Find the value of 3 × [20 − (4 × 2)].
 3. Write an expression: add 18 and 15, then multiply by 24.
-4. Ms. Okafor has 6 packs of 24 markers. She keeps 30 and shares the rest among 3 tables. How many markers does each table get?
+4. Mr. Reyes has 5 boxes of 36 crayons. He keeps 20 and shares the rest equally among 4 tables. How many crayons does each table get?
 
-*Answers:* (1) 48 ÷ 8 + 5 = 6 + 5 = 11. (2) 4 × 2 = 8, 20 − 8 = 12, 3 × 12 = 36. (3) (18 + 15) × 24, which is 33 × 24 = 792. (4) [(6 × 24) − 30] ÷ 3 = (144 − 30) ÷ 3 = 114 ÷ 3 = 38 markers.
+*Answers:* (1) 48 ÷ 8 + 5 = 6 + 5 = 11. (2) 4 × 2 = 8, 20 − 8 = 12, 3 × 12 = 36. (3) (18 + 15) × 24, which is 33 × 24 = 792. (4) [(5 × 36) − 20] ÷ 4 = (180 − 20) ÷ 4 = 160 ÷ 4 = 40 crayons.
 
 ---
 

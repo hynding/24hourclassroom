@@ -23,7 +23,7 @@ The check has 40 questions and takes about 80 minutes. The questions go in cours
 
 **Points.** Most questions are worth 1 point. The select-all question is worth 2 points, and you get part of the points for part of the right answers. Each short answer is worth 3 points, one for each part. The check is out of 45 points. Your teacher checks the short answers, so show your work in words, numbers or a drawing.
 
-**Typing answers.** For a number answer, type only the number. Type big numbers without a comma: 13512, not 13,512. When a question asks for a decimal, type it with a decimal point, such as 2.65. Fraction answers that are not whole numbers are always multiple choice.
+**Typing answers.** For a number answer, type only the number. Type big numbers without a comma: 24816, not 24,816. When a question asks for a decimal, type it with a decimal point, such as 4.35. Fraction answers that are not whole numbers are always multiple choice.
 
 ## What each unit asks you to do
 
@@ -72,7 +72,7 @@ Each day takes about 25 to 30 minutes. Read that unit's summary first, then do i
 - **Rename before you add.** Fractions need a common denominator; decimals need lined-up places.
 - **Across, then up.** Say it every time you read or plot a point.
 - **Estimate.** If your answer is far from your estimate, look again.
-- **Label your answers** in the short answers: 2,100 sticks, 7/12 mile.
+- **Label your answers** in the short answers: 1,450 beads, 5/8 mile.
 - **Do not leave a question blank.** If you are stuck, make your best try and come back later.
 
 ## For grown-ups at home

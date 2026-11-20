@@ -27,7 +27,7 @@ A map on a coordinate grid tells you exactly where things are. Imagine a park wi
 
 To find the pond, start at the origin, go 4 units right and 8 units up. The order matters: (8, 4) would be 8 right and 4 up, a different spot.
 
-**Moving on the grid.** Going right adds to the x-coordinate. Going up adds to the y-coordinate. From the gate at (2, 3), walking 4 units right takes you to (6, 3). Walking 5 units up from there takes you to (6, 8).
+**Moving on the grid.** Going right adds to the x-coordinate. Going up adds to the y-coordinate. From the gate at (2, 3), walking 3 units right takes you to (5, 3). Walking 5 units up from there takes you to (5, 8).
 
 ## Distances along grid lines
 
@@ -53,11 +53,11 @@ Designers write down how to work something out before they do it. An **expressio
 | Multiply 4 by 6, then add 9 | 4 × 6 + 9 |
 | Half of the sum of 36 and 54 | (36 + 54) ÷ 2 |
 | Twice the sum of a length of 5 and a width of 3 | 2 × (5 + 3) |
-| Two boxes, each 3 by 4 by 5 | 2 × (3 × 4 × 5) |
+| Two boxes, each 2 by 5 by 7 | 2 × (2 × 5 × 7) |
 
 Parentheses show what happens first. Brackets [ ] work the same way around a bigger group: 2 × [15 + (9 − 4)] means find 9 − 4, then add 15, then double it, which gives 40.
 
-**Reading without calculating.** You can compare expressions without working them out. 25 × (48 + 17) is 25 times as large as 48 + 17. And 3 × (125 + 46) is three times the sum of 125 and 46.
+**Reading without calculating.** You can compare expressions without working them out. 25 × (48 + 17) is 25 times as large as 48 + 17. And 5 × (132 + 64) is five times the sum of 132 and 64.
 
 ## Putting it all together
 

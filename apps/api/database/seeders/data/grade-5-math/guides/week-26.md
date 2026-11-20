@@ -49,7 +49,7 @@ The arrows in a hierarchy work in one direction.
 - Going **up** is only **sometimes** true: some rectangles are squares, some parallelograms are rhombuses.
 - Shapes on different branches are **sometimes** each other: a rectangle is a rhombus only when it is a square.
 
-**Try it.** "A parallelogram is ____ a rectangle." Sometimes: only the ones with 4 right angles.
+**Try it.** "A quadrilateral is ____ a parallelogram." Sometimes: only the ones with 2 pairs of parallel sides.
 
 **Try it.** A quadrilateral has 2 pairs of parallel sides, 4 equal sides and no right angles. Its **most specific name** is the lowest box it fits: rhombus.
 
