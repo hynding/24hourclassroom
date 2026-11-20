@@ -1,6 +1,7 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
 import { GRADE_LEVELS, GradeLevel, MAX_MATERIAL_BYTES, SUBJECTS, Subject } from '@24hc/shared';
+import { formatStandards, parseStandards, standardsError } from '../../services/standards';
 import { materialsStore } from '../../services/materials-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
@@ -21,6 +22,7 @@ export class PageMaterialForm {
   @State() description = '';
   @State() subject: Subject | '' = '';
   @State() grade: GradeLevel | '' = '';
+  @State() standards = '';
   @State() file: File | null = null;
   @State() errors: Record<string, string[]> = {};
   @State() message = '';
@@ -49,6 +51,7 @@ export class PageMaterialForm {
       this.description = material.description ?? '';
       this.subject = material.subject;
       this.grade = material.grade_level;
+      this.standards = formatStandards(material.standards);
     } catch (e) {
       if (e instanceof ApiError && e.status === 404) {
         this.notFound = true;
@@ -96,6 +99,7 @@ export class PageMaterialForm {
             description: this.description || null,
             subject: this.subject as Subject,
             grade_level: this.grade as GradeLevel,
+            standards: parseStandards(this.standards),
           })
         : await materialsStore.uploadMaterial({
             file: this.file,
@@ -103,6 +107,7 @@ export class PageMaterialForm {
             ...(this.description ? { description: this.description } : {}),
             subject: this.subject as Subject,
             grade_level: this.grade as GradeLevel,
+            standards: parseStandards(this.standards),
           });
       navigate(`/materials/${saved.id}`);
     } catch (e) {
@@ -195,6 +200,11 @@ export class PageMaterialForm {
             </select>
           </label>
           {this.fieldError('grade_level')}
+          <label>
+            Standards <span class="muted">(optional, e.g. 3.NF.A.1, K-ESS2-1)</span>
+            <input type="text" value={this.standards} onInput={(e) => (this.standards = (e.target as HTMLInputElement).value)} />
+          </label>
+          {standardsError(this.errors) && <p class="error">{standardsError(this.errors)}</p>}
 
           <div class="actions">
             <button type="submit" class="btn-primary" disabled={this.busy}>

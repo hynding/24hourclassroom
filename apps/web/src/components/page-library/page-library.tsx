@@ -1,5 +1,6 @@
 import { Component, h, Prop, State, Watch } from '@stencil/core';
 import { CourseSummary, GRADE_LEVELS, GradeLevel, LibrarySort, MaterialSummary, SUBJECTS, Subject, TestSummary } from '@24hc/shared';
+import { standardsSuffix } from '../../services/standards';
 import { testsStore } from '../../services/tests-store';
 import { materialsStore } from '../../services/materials-store';
 import { coursesStore } from '../../services/courses-store';
@@ -23,6 +24,8 @@ export class PageLibrary {
   @State() subject: Subject | '' = '';
   @State() grade: GradeLevel | '' = '';
   @State() q = '';
+  /** Tests and materials only: courses carry no codes of their own. */
+  @State() standard = '';
   /** Omitted from the query when `recent`, the API's default. */
   @State() sort: LibrarySort = 'recent';
   @State() busy = false;
@@ -59,6 +62,7 @@ export class PageLibrary {
       ...(this.subject ? { subject: this.subject } : {}),
       ...(this.grade ? { grade: this.grade } : {}),
       ...(this.q ? { q: this.q } : {}),
+      ...(this.standard.trim() && this.kind !== 'courses' ? { standard: this.standard.trim() } : {}),
       ...(this.sort === 'title' ? { sort: 'title' as const } : {}),
       ...(this.page > 1 ? { page: this.page } : {}),
     };
@@ -142,7 +146,7 @@ export class PageLibrary {
 
   private get emptyMessage(): string {
     // An empty shelf with no filter set is not a failed search: say what it is.
-    const filtered = this.subject !== '' || this.grade !== '' || this.q !== '';
+    const filtered = this.subject !== '' || this.grade !== '' || this.q !== '' || (this.standard.trim() !== '' && this.kind !== 'courses');
     switch (this.kind) {
       case 'materials':
         return filtered ? 'No materials match those filters yet.' : 'No materials have been published yet.';
@@ -161,7 +165,7 @@ export class PageLibrary {
         <li>
           {this.link(`/materials/${m.id}`, m.title)}
           <span class="meta">
-            {this.label(SUBJECTS, m.subject)} · {this.label(GRADE_LEVELS, m.grade_level)} · {fileTypeLabel(m.original_name)} · {formatBytes(m.size_bytes)} · by {m.author.name}
+            {this.label(SUBJECTS, m.subject)} · {this.label(GRADE_LEVELS, m.grade_level)}{standardsSuffix(m.standards)} · {fileTypeLabel(m.original_name)} · {formatBytes(m.size_bytes)} · by {m.author.name}
           </span>
         </li>
       ));
@@ -180,7 +184,7 @@ export class PageLibrary {
       <li>
         {this.link(`/tests/${t.id}`, t.title)}
         <span class="meta">
-          {this.label(SUBJECTS, t.subject)} · {this.label(GRADE_LEVELS, t.grade_level)} · {t.question_count} questions · by {t.author.name}
+          {this.label(SUBJECTS, t.subject)} · {this.label(GRADE_LEVELS, t.grade_level)}{standardsSuffix(t.standards)} · {t.question_count} questions · by {t.author.name}
         </span>
       </li>
     ));
@@ -217,6 +221,12 @@ export class PageLibrary {
             Search
             <input type="search" placeholder="Title or description" value={this.q} onInput={(e) => (this.q = (e.target as HTMLInputElement).value)} />
           </label>
+          {this.kind !== 'courses' && (
+            <label>
+              Standard
+              <input type="search" placeholder="e.g. 3.NF or K-ESS2-1" value={this.standard} onInput={(e) => (this.standard = (e.target as HTMLInputElement).value)} />
+            </label>
+          )}
           <label>
             Sort
             <select data-testid="sort" onInput={this.onSortInput}>

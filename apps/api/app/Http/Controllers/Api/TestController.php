@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Support\Standards;
 use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveTestRequest;
@@ -64,7 +65,8 @@ class TestController extends Controller
         $data = $request->validated();
 
         $test = DB::transaction(function () use ($request, $data) {
-            $test = $request->user()->tests()->create(Arr::only($data, ['title', 'description', 'subject', 'grade_level']));
+            $test = $request->user()->tests()->create(Arr::only($data, ['title', 'description', 'subject', 'grade_level'])
+                + ['standards' => Standards::normalize($data['standards'] ?? null)]);
             TestWriter::syncQuestions($test, $data['questions']);
 
             return $test;
@@ -79,7 +81,8 @@ class TestController extends Controller
         $data = $request->validated();
 
         DB::transaction(function () use ($test, $data) {
-            $test->update(Arr::only($data, ['title', 'description', 'subject', 'grade_level']));
+            $test->update(Arr::only($data, ['title', 'description', 'subject', 'grade_level'])
+                + (array_key_exists('standards', $data) ? ['standards' => Standards::normalize($data['standards'])] : []));
             TestWriter::syncQuestions($test, $data['questions']);
         });
 

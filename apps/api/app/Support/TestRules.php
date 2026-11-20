@@ -26,6 +26,7 @@ final class TestRules
             'description' => ['nullable', 'string', 'max:5000'],
             'subject' => ['required', Rule::enum(Subject::class)],
             'grade_level' => ['required', Rule::enum(GradeLevel::class)],
+            ...Standards::rules(),
             ...QuestionRules::rules(),
         ];
     }

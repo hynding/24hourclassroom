@@ -16,7 +16,7 @@ class Material extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'title', 'description', 'subject', 'grade_level',
+        'user_id', 'title', 'description', 'subject', 'grade_level', 'standards',
         'visibility', 'original_name', 'path', 'mime_type', 'size_bytes', 'published_at', 'slug',
     ];
 
@@ -25,6 +25,7 @@ class Material extends Model
         return [
             'subject' => Subject::class,
             'grade_level' => GradeLevel::class,
+            'standards' => 'array',
             'visibility' => Visibility::class,
             'published_at' => 'datetime',
             'size_bytes' => 'int',

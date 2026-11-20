@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Support\Standards;
 use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveMaterialRequest;
@@ -49,7 +50,8 @@ class MaterialController extends Controller
             $request->user(),
             $file,
             $file->getClientOriginalName(),
-            Arr::only($data, ['title', 'description', 'subject', 'grade_level']),
+            Arr::only($data, ['title', 'description', 'subject', 'grade_level'])
+                + ['standards' => Standards::normalize($data['standards'] ?? null)],
         );
 
         return response()->json(MaterialPayload::view($material->fresh(), $request->user()), 201);
@@ -61,7 +63,9 @@ class MaterialController extends Controller
 
         // Arr::only, and `file` is not a rule on the update branch: a posted
         // file part is ignored and the stored bytes are never touched.
-        $material->update(Arr::only($request->validated(), ['title', 'description', 'subject', 'grade_level']));
+        $data = $request->validated();
+        $material->update(Arr::only($data, ['title', 'description', 'subject', 'grade_level'])
+            + (array_key_exists('standards', $data) ? ['standards' => Standards::normalize($data['standards'])] : []));
 
         return response()->json(MaterialPayload::view($material->fresh(), $request->user()));
     }

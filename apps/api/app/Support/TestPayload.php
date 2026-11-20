@@ -17,6 +17,7 @@ final class TestPayload
             'description' => $test->description,
             'subject' => $test->subject,
             'grade_level' => $test->grade_level,
+            'standards' => $test->standards ?? [],
             'visibility' => $test->visibility,
             // The author's switch for this test's discussion and its questions' threads.
             'comments_enabled' => (bool) $test->comments_enabled,

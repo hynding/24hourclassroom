@@ -37,7 +37,11 @@ class TeacherDirectoryController extends Controller
                 $filters['grade'] ?? null,
                 fn ($query, $grade) => $query->whereHas(
                     'profile',
-                    fn ($profile) => $profile->whereJsonContains('grade_levels', $grade),
+                    fn ($profile) => $profile->where(function ($any) use ($grade) {
+                        foreach (GradeLevel::from($grade)->matching() as $value) {
+                            $any->orWhereJsonContains('grade_levels', $value);
+                        }
+                    }),
                 ),
             )
             ->when(

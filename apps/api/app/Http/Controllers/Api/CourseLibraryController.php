@@ -45,7 +45,7 @@ class CourseLibraryController extends Controller
                 'items as materials_count' => fn (Builder $q) => $q->whereHas('material', $material),
             ])
             ->when($filters['subject'] ?? null, fn ($q, $s) => $q->where('subject', $s))
-            ->when($filters['grade'] ?? null, fn ($q, $g) => $q->where('grade_level', $g))
+            ->when($filters['grade'] ?? null, fn ($q, $g) => $q->whereIn('grade_level', GradeLevel::from($g)->matching()))
             ->when($filters['q'] ?? null, function ($q, $term) {
                 $escaped = addcslashes($term, '\\%_');
 

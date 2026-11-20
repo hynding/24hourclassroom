@@ -23,7 +23,10 @@ test('the taxonomy has the exact curated membership the spec calls for', functio
     ]);
 
     expect(array_column(GradeLevel::cases(), 'value'))->toBe([
-        'k-2', '3-5', '6-8', '9-12', 'higher-ed',
+        'kindergarten', 'grade-1', 'grade-2', 'k-2',
+        'grade-3', 'grade-4', 'grade-5', '3-5',
+        'grade-6', 'grade-7', 'grade-8', '6-8',
+        '9-12', 'higher-ed',
     ]);
 });
 

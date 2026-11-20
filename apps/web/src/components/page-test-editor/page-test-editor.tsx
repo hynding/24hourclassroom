@@ -1,6 +1,7 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { ApiError } from '@24hc/api-client';
 import { GRADE_LEVELS, GradeLevel, Question, QuestionInput, SUBJECTS, Subject, TestInput, TestView } from '@24hc/shared';
+import { formatStandards, parseStandards, standardsError } from '../../services/standards';
 import { testsStore } from '../../services/tests-store';
 import { navigate } from '../../services/navigate';
 import { recoverFromExpiredSession } from '../../services/session-recovery';
@@ -15,6 +16,7 @@ export class PageTestEditor {
   @State() description = '';
   @State() subject: Subject | '' = '';
   @State() grade: GradeLevel | '' = '';
+  @State() standards = '';
   @State() questions: QuestionInput[] = [blankQuestion('multiple_choice')];
   @State() errors: Record<string, string[]> = {};
   @State() message = '';
@@ -50,6 +52,7 @@ export class PageTestEditor {
     this.description = test.description ?? '';
     this.subject = test.subject;
     this.grade = test.grade_level;
+    this.standards = formatStandards(test.standards);
     this.questions = test.questions.map((q) => ({
       id: q.id,
       type: q.type,
@@ -77,6 +80,7 @@ export class PageTestEditor {
       description: this.description || null,
       subject: this.subject as Subject,
       grade_level: this.grade as GradeLevel,
+      standards: parseStandards(this.standards),
       questions: this.questions,
     };
   }
@@ -175,6 +179,11 @@ export class PageTestEditor {
             </select>
           </label>
           {this.fieldError('grade_level')}
+          <label>
+            Standards <span class="muted">(optional, e.g. 3.NF.A.1, K-ESS2-1)</span>
+            <input type="text" value={this.standards} onInput={(e) => (this.standards = (e.target as HTMLInputElement).value)} />
+          </label>
+          {standardsError(this.errors) && <p class="error">{standardsError(this.errors)}</p>}
 
           <h2>Questions</h2>
           {this.fieldError('questions')}

@@ -24,6 +24,7 @@ final class MaterialPayload
             'title' => $material->title,
             'subject' => $material->subject,
             'grade_level' => $material->grade_level,
+            'standards' => $material->standards ?? [],
             'visibility' => $material->visibility,
             'published_at' => $material->published_at,
             'original_name' => $material->original_name,

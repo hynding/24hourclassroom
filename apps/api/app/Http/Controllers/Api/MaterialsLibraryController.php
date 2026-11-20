@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Support\Standards;
 use App\Enums\GradeLevel;
 use App\Enums\Subject;
 use App\Enums\Visibility;
@@ -21,6 +22,7 @@ class MaterialsLibraryController extends Controller
             'subject' => ['nullable', Rule::enum(Subject::class)],
             'grade' => ['nullable', Rule::enum(GradeLevel::class)],
             'q' => ['nullable', 'string', 'max:100'],
+            ...Standards::filterRule(),
             'sort' => LibrarySort::rule(),
             // A teacher's public profile lists their own work through this.
             // No existence check: an unknown id is an empty page, not an
@@ -33,8 +35,9 @@ class MaterialsLibraryController extends Controller
             ->whereHas('author', fn ($q) => $q->whereNull('deactivated_at'))
             ->with('author')
             ->when($filters['subject'] ?? null, fn ($q, $s) => $q->where('subject', $s))
-            ->when($filters['grade'] ?? null, fn ($q, $g) => $q->where('grade_level', $g))
+            ->when($filters['grade'] ?? null, fn ($q, $g) => $q->whereIn('grade_level', GradeLevel::from($g)->matching()))
             ->when($filters['author'] ?? null, fn ($q, $id) => $q->where('user_id', $id))
+            ->when($filters['standard'] ?? null, fn ($q, $code) => Standards::filter($q, $code))
             ->when($filters['q'] ?? null, function ($q, $term) {
                 $escaped = addcslashes($term, '\\%_');
 

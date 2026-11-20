@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Support\Standards;
 use App\Enums\GradeLevel;
 use App\Enums\Role;
 use App\Enums\Subject;
@@ -37,6 +38,7 @@ class SaveMaterialRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:5000'],
             'subject' => ['required', Rule::enum(Subject::class)],
             'grade_level' => ['required', Rule::enum(GradeLevel::class)],
+            ...Standards::rules(),
         ];
 
         if ($this->route('material')) {
