@@ -19,8 +19,10 @@ export class PageProfile {
   @State() loaded = false;
   @State() loadError = false;
 
-  async componentWillLoad() {
-    await this.load();
+  // Not awaited: the page draws its heading (the !loaded branch) at once
+  // instead of rendering nothing until the profile arrives.
+  componentWillLoad() {
+    void this.load();
   }
 
   /**
